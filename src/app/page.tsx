@@ -43,7 +43,7 @@ function Nav() {
         data-ph="nav-cta"
         onClick={trackCtaClick}
       >
-        R&eacute;server un appel
+        Planifier un entretien
       </a>
     </nav>
   );
@@ -107,7 +107,7 @@ function Hero() {
         data-ph="hero-cta"
         onClick={trackCtaClick}
       >
-        R&eacute;server un appel
+        Planifier un entretien
       </a>
 
       <p
@@ -252,7 +252,7 @@ function DarkCTA() {
         data-ph="final-cta"
         onClick={trackCtaClick}
       >
-        R&eacute;server un appel
+        Planifier un entretien
       </a>
 
       <p className="fade-in mb-24" style={{ fontSize: "14px", letterSpacing: "0.04em" }}>
