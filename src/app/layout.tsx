@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Parrit.ai — Automatisation IA pour entreprises",
+  title: "Parrit.ai \u2014 Automatisation IA pour entreprises",
   description:
-    "Votre entreprise, avec deux fois moins de taches repetitives. CRM sur mesure, assistant SAP, automatisation de documents et processus. Paul Larmaraud & Yukun Leng.",
+    "Deux fois moins de t\u00e2ches r\u00e9p\u00e9titives. On automatise vos processus avec l\u2019IA. Prototypage en 48h, d\u00e9ploiement inclus. Paul Larmaraud & Yukun Leng.",
   keywords: [
     "IA entreprise",
     "automatisation",
@@ -18,9 +18,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Paul Larmaraud" }, { name: "Yukun Leng" }],
   openGraph: {
-    title: "Parrit.ai — Automatisation IA pour entreprises",
+    title: "Parrit.ai \u2014 Automatisation IA pour entreprises",
     description:
-      "Votre entreprise, avec deux fois moins de taches repetitives. Automatisation des processus par IA.",
+      "Deux fois moins de t\u00e2ches r\u00e9p\u00e9titives. Prototypage en 48h, d\u00e9ploiement inclus.",
     url: "https://parrit.ai",
     siteName: "Parrit.ai",
     locale: "fr_FR",
@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Parrit.ai — Automatisation IA pour entreprises",
+    title: "Parrit.ai \u2014 Automatisation IA pour entreprises",
     description:
-      "Votre entreprise, avec deux fois moins de taches repetitives. Automatisation des processus par IA.",
+      "Deux fois moins de t\u00e2ches r\u00e9p\u00e9titives. Prototypage en 48h, d\u00e9ploiement inclus.",
   },
   robots: {
     index: true,
@@ -50,7 +50,7 @@ export default function RootLayout({
     legalName: "SASU PARRIT.AI",
     url: "https://parrit.ai",
     description:
-      "Automatisation IA pour entreprises. CRM sur mesure, assistant SAP, automatisation de documents et processus.",
+      "Automatisation IA pour entreprises. Prototypage en 48h, d\u00e9ploiement inclus.",
     foundingDate: "2024",
     address: {
       "@type": "PostalAddress",
@@ -69,14 +69,14 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="fr" className="h-full antialiased">
+    <html lang="fr">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-screen">{children}</body>
     </html>
   );
 }
