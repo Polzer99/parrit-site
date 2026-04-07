@@ -57,7 +57,7 @@ function Hero() {
         PARRIT.AI
       </p>
 
-      <h1 className="hero-animate hero-delay-2 shimmer-text text-center font-bold leading-[1.08] max-w-[820px] mb-8 text-[clamp(32px,5.5vw,64px)]">
+      <h1 className="hero-animate hero-delay-2 shimmer-text text-center font-bold leading-[1.08] max-w-[820px] mb-8 text-[clamp(32px,5.5vw,64px)]" style={{ color: "#f5f0eb" }}>
         Vos process r&eacute;p&eacute;titifs vous
         <br />
         co&ucirc;tent plus cher que vous
