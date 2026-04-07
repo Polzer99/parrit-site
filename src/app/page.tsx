@@ -217,8 +217,7 @@ function SocialProof() {
           fontFamily: "var(--font-body)",
         }}
       >
-        Cl&eacute;vry Avocat &middot; Chamas Tacos &middot; Carte Noire &middot;
-        Clients confidentiels
+        Clevery Avocats &middot; SLC Production &middot; Arkel &middot; Lime &middot; Chamas Tacos &middot; Carte Noire &middot; Agence Laparra
       </p>
     </section>
   );
