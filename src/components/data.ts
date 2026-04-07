@@ -1,104 +1,101 @@
 export const WA_LINK = "https://wa.me/33759665687?text=Bonjour%20Paul%20!";
 
-export const projects = [
+export const painPoints = [
   {
-    name: "Contestation SNCF",
-    badge: "Micro-SaaS",
-    badgeColor: "bg-purple-500/20 text-purple-400",
-    description:
-      "Outil IA qui g\u00e9n\u00e8re et envoie automatiquement des lettres de contestation d\u2019amendes SNCF en recommand\u00e9 AR. Photo du PV \u2192 IA extrait les donn\u00e9es \u2192 paiement \u2192 recommand\u00e9 envoy\u00e9.",
-    link: "https://contester-amende-sncf.vercel.app",
-    status: "En production",
+    title: "Saisie manuelle des documents",
+    desc: "Factures, rapports, contrats saisis un a un a la main \u2014 erreurs et reprises inevitables",
   },
   {
-    name: "CRM Laparra",
-    badge: "CRM sur mesure",
-    badgeColor: "bg-green-500/20 text-green-400",
-    description:
-      "CRM fruits & l\u00e9gumes pour un grossiste de Rungis. Dashboard analytics, pipeline Kanban, saisonnalit\u00e9, import ERP. Con\u00e7u pour 20 commerciaux terrain.",
+    title: "Suivi de projet via messagerie",
+    desc: "Un message manque peut bloquer tout un projet",
+  },
+  {
+    title: "Consolidation de donnees par copier-coller",
+    desc: "Agregation manuelle entre systemes \u2014 une demi-journee pour produire un seul rapport",
+  },
+  {
+    title: "Validations repetitives epuisantes",
+    desc: "Memes processus recommences a chaque fois, sans visibilite sur l\u2019avancement",
+  },
+] as const;
+
+export const services = [
+  {
+    title: "CRM sur mesure + Assistant IA commercial",
+    desc: "Gestion unifiee des clients et opportunites. Consultation directe via WhatsApp.",
+    icon: "users" as const,
+  },
+  {
+    title: "Assistant intelligent SAP",
+    desc: "Operez SAP en langage naturel. Reduisez la dependance aux consultants.",
+    icon: "terminal" as const,
+  },
+  {
+    title: "Automatisation intelligente des documents",
+    desc: "Reconnaissance et saisie automatiques des factures et contrats. 30 secondes \u2014 10x plus rapide.",
+    icon: "file" as const,
+  },
+  {
+    title: "Solution d\u2019automatisation des processus sur mesure",
+    desc: "Validation et suivi 100% automatises. Alertes automatiques, zero oubli.",
+    icon: "cog" as const,
+  },
+] as const;
+
+export const caseStudies = [
+  {
+    badge: "CAS REEL \u00b7 CRM",
+    name: "Agence Laparra \u2014 CRM",
+    subtitle: "Grossiste en produits agricoles francais",
+    details: "Fondee en 1946 \u00b7 10 commerciaux \u00b7 160+ clients \u00b7 CA 28,4M\u20ac",
+    problem: "Informations eparpillees entre Outlook, WhatsApp et la memoire des commerciaux",
+    solution: "CRM unifie, assistant IA WhatsApp, calendrier saisonnier avec alertes automatiques",
     link: "https://laparra-crm.vercel.app",
     status: "En production",
   },
   {
-    name: "MAGEC Connect",
-    badge: "Plateforme collaborative",
-    badgeColor: "bg-blue-500/20 text-blue-400",
-    description:
-      "Plateforme pour un groupement d\u2019achat de 100+ membres. Comparateur de prix fournisseurs, import de factures par IA, assistant int\u00e9gr\u00e9.",
-    link: "https://groupachat-proto.vercel.app",
-    status: "Prototype",
+    badge: "CAS REEL \u00b7 MICRO-SAAS",
+    name: "Contestation SNCF \u2014 Micro-SaaS",
+    subtitle: "Outil IA de contestation d\u2019amendes SNCF",
+    details: "Photo du PV \u2192 IA extrait les donnees \u2192 lettre generee \u2192 recommande AR envoye automatiquement",
+    problem: "",
+    solution: "14,90\u20ac par contestation \u00b7 Pipeline 100% automatise",
+    link: "https://contester-amende-sncf.vercel.app",
+    status: "En production",
   },
   {
-    name: "Prospection automatis\u00e9e",
-    badge: "Agents IA",
-    badgeColor: "bg-indigo-500/20 text-indigo-400",
-    description:
-      "Syst\u00e8me de d\u00e9tection de signaux d\u2019achat LinkedIn + s\u00e9quences cold email personnalis\u00e9es. Pipeline PhantomBuster \u2192 scoring IA \u2192 Instantly.",
+    badge: "CAS REEL \u00b7 SAP",
+    name: "Assistant SAP \u2014 PaY",
+    subtitle: "SAP aussi simple qu\u2019envoyer un message",
+    details: "Modules MM/SD/FI \u00b7 Chinois/Francais/Anglais",
+    problem: "",
+    solution: "90% des problemes quotidiens resolus en autonomie par les utilisateurs",
+    link: "",
+    status: "En production",
+  },
+  {
+    badge: "CAS REEL \u00b7 AGENTS IA",
+    name: "Automatisation prospection",
+    subtitle: "Systeme de detection de signaux d\u2019achat",
+    details: "Pipeline automatise : signaux LinkedIn \u2192 scoring IA \u2192 sequences personnalisees \u2192 RDV qualifies",
+    problem: "",
+    solution: "",
+    link: "",
     status: "En production (confidentiel)",
   },
-  {
-    name: "Agent Comptabilit\u00e9",
-    badge: "Automatisation",
-    badgeColor: "bg-amber-500/20 text-amber-400",
-    description:
-      "Agent IA qui scanne les emails, d\u00e9tecte les factures, et les attache automatiquement aux transactions Qonto. Z\u00e9ro saisie manuelle.",
-    status: "En production",
-  },
-  {
-    name: "PaY \u2014 Chatbot SAP",
-    badge: "RAG & IA",
-    badgeColor: "bg-rose-500/20 text-rose-400",
-    description:
-      "Chatbot IA pour accompagner les utilisateurs SAP. RAG sur documentation, analyse de screenshots, r\u00e9ponses contextuelles.",
-    status: "En production",
-  },
 ] as const;
 
-export const steps = [
-  {
-    num: "01",
-    title: "On discute",
-    desc: "Appelez-nous ou envoyez un message WhatsApp. On comprend votre besoin en 15 minutes.",
-  },
-  {
-    num: "02",
-    title: "On construit",
-    desc: "Prototype fonctionnel en 48h. Vous testez, vous donnez vos retours, on it\u00e8re.",
-  },
-  {
-    num: "03",
-    title: "On d\u00e9ploie",
-    desc: "Mise en production, maintenance, et am\u00e9lioration continue. Vous n\u2019y touchez pas.",
-  },
-] as const;
-
-export const team = [
-  {
-    name: "Paul Larmaraud",
-    role: "Go-to-Market, Product & Op\u00e9rations",
-    linkedin: "https://www.linkedin.com/in/paul-larmaraud/",
-  },
+export const teamMembers = [
   {
     name: "Yukun Leng",
-    role: "Tech Lead, SAP & Supply Chain",
+    role: "Co-fondateur",
+    desc: "Consultant SAP \u00b7 10 ans MM/SD/FI \u00b7 Ex-LVMH, Jabil \u00b7 Specialite : supply chain \u00b7 Responsable marche Chine",
     linkedin: "https://www.linkedin.com/in/yukun-leng/",
   },
-] as const;
-
-export const pillars = [
   {
-    title: "Prototypage IA",
-    desc: "De l\u2019id\u00e9e au prototype fonctionnel en 48h. Next.js, n8n, agents IA.",
-    icon: "zap" as const,
-  },
-  {
-    title: "Automatisation",
-    desc: "On automatise vos processus : prospection, admin, CRM, facturation.",
-    icon: "bot" as const,
-  },
-  {
-    title: "D\u00e9ploiement & Op\u00e9rations",
-    desc: "On met en production et on maintient. Vous n\u2019y pensez plus.",
-    icon: "rocket" as const,
+    name: "Paul Larmaraud",
+    role: "Co-fondateur",
+    desc: "Ingenieur IA \u00b7 3+ ans de deploiement IA \u00b7 Ex-Lime operations mondiales \u00b7 \u00ab From idea \u2192 agent \u2192 adoption. Fast. \u00bb",
+    linkedin: "https://www.linkedin.com/in/paul-larmaraud/",
   },
 ] as const;

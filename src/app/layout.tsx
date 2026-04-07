@@ -2,25 +2,25 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Parrit.ai — IA, Automatisation & Agents pour entreprises",
+  title: "Parrit.ai — Automatisation IA pour entreprises",
   description:
-    "On construit, on déploie, on opère vos solutions IA. Prototypage en 48h, automatisation de processus, agents intelligents. Fondé par Paul Larmaraud & Yukun Leng.",
+    "Votre entreprise, avec deux fois moins de taches repetitives. CRM sur mesure, assistant SAP, automatisation de documents et processus. Paul Larmaraud & Yukun Leng.",
   keywords: [
     "IA entreprise",
     "automatisation",
     "agents IA",
-    "n8n",
-    "Next.js",
     "SAP",
     "CRM",
     "consulting IA",
     "Parrit.ai",
+    "automatisation processus",
+    "assistant IA",
   ],
   authors: [{ name: "Paul Larmaraud" }, { name: "Yukun Leng" }],
   openGraph: {
-    title: "Parrit.ai — IA, Automatisation & Agents pour entreprises",
+    title: "Parrit.ai — Automatisation IA pour entreprises",
     description:
-      "On construit, on déploie, on opère vos solutions IA. Prototypage en 48h, automatisation de processus, agents intelligents.",
+      "Votre entreprise, avec deux fois moins de taches repetitives. Automatisation des processus par IA.",
     url: "https://parrit.ai",
     siteName: "Parrit.ai",
     locale: "fr_FR",
@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Parrit.ai — IA, Automatisation & Agents pour entreprises",
+    title: "Parrit.ai — Automatisation IA pour entreprises",
     description:
-      "On construit, on déploie, on opère vos solutions IA. Prototypage en 48h.",
+      "Votre entreprise, avec deux fois moins de taches repetitives. Automatisation des processus par IA.",
   },
   robots: {
     index: true,
@@ -50,7 +50,7 @@ export default function RootLayout({
     legalName: "SASU PARRIT.AI",
     url: "https://parrit.ai",
     description:
-      "IA, Automatisation & Agents pour entreprises. Prototypage en 48h, déploiement et opérations.",
+      "Automatisation IA pour entreprises. CRM sur mesure, assistant SAP, automatisation de documents et processus.",
     foundingDate: "2024",
     address: {
       "@type": "PostalAddress",

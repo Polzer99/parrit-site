@@ -1,7 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { Nav, Hero, Pillars, Projects, Steps, Team, CTA, Footer, FloatingWhatsApp } from "@/components/sections";
+import {
+  Nav,
+  Hero,
+  PainPoints,
+  Services,
+  CaseStudies,
+  Team,
+  CTAFinal,
+  Footer,
+  FloatingWhatsApp,
+} from "@/components/sections";
 
 export default function Home() {
   const [navScrolled, setNavScrolled] = useState(false);
@@ -26,7 +36,9 @@ export default function Home() {
       { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
     );
 
-    document.querySelectorAll(".fade-in").forEach((el) => observerRef.current?.observe(el));
+    document
+      .querySelectorAll(".fade-in")
+      .forEach((el) => observerRef.current?.observe(el));
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -38,11 +50,11 @@ export default function Home() {
     <>
       <Nav scrolled={navScrolled} />
       <Hero fadeRef={fadeRef} />
-      <Pillars fadeRef={fadeRef} />
-      <Projects fadeRef={fadeRef} />
-      <Steps fadeRef={fadeRef} />
+      <PainPoints fadeRef={fadeRef} />
+      <Services fadeRef={fadeRef} />
+      <CaseStudies fadeRef={fadeRef} />
       <Team fadeRef={fadeRef} />
-      <CTA fadeRef={fadeRef} />
+      <CTAFinal fadeRef={fadeRef} />
       <Footer />
       <FloatingWhatsApp />
     </>
