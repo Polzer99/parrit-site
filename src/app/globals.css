@@ -92,17 +92,14 @@ body > * {
 
 /* Shimmer text effect */
 .shimmer-text {
-  background: linear-gradient(
-    110deg,
-    var(--text) 40%,
-    var(--accent) 50%,
-    var(--text) 60%
-  );
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmer 3s ease-in-out infinite;
+  color: var(--text);
+  text-shadow: 0 0 80px rgba(200, 149, 108, 0.2);
+  animation: text-glow 4s ease-in-out infinite;
+}
+
+@keyframes text-glow {
+  0%, 100% { text-shadow: 0 0 80px rgba(200, 149, 108, 0.15); }
+  50% { text-shadow: 0 0 120px rgba(200, 149, 108, 0.35), 0 0 40px rgba(200, 149, 108, 0.1); }
 }
 
 @keyframes shimmer {
