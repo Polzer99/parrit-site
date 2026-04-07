@@ -93,38 +93,22 @@ function Hero() {
       </div>
 
       <p
-        className="hero-animate hero-delay-4 mt-8 text-xs tracking-wide"
+        className="hero-animate hero-delay-4 mt-8 text-xs tracking-[0.15em] uppercase"
         style={{ color: "var(--text-dim)" }}
       >
-        2,5 ans de terrain &middot; 2 syst&egrave;mes en production &middot; 0 PowerPoint
+        Paris &middot; Duba&iuml; &middot; Shanghai
       </p>
     </section>
   );
 }
 
-/* ─── PROBLEM ─── */
-function Problem() {
-  const lines = [
-    "Vos \u00e9quipes passent des heures \u00e0 saisir les m\u00eames donn\u00e9es dans trois outils diff\u00e9rents.",
-    "Les relances tombent dans l\u2019oubli parce que tout repose sur la m\u00e9moire de quelqu\u2019un.",
-    "Vous savez que l\u2019IA peut aider. Vous ne savez pas par o\u00f9 commencer.",
-    "Et chaque mois qui passe, le co\u00fbt de l\u2019inaction augmente.",
-  ];
-
+/* ─── PHILOSOPHY ─── */
+function Philosophy() {
   return (
-    <section
-      id="section-problem"
-      className="px-6 py-32 md:py-40 max-w-[700px] mx-auto"
-    >
-      {lines.map((line, i) => (
-        <p
-          key={i}
-          className={`fade-in stagger-${i + 1} text-[clamp(20px,2.8vw,28px)] leading-relaxed mb-10 last:mb-0`}
-          style={{ color: "var(--text)" }}
-        >
-          {line}
-        </p>
-      ))}
+    <section id="section-philosophy" className="px-6 py-32 md:py-40 max-w-[640px] mx-auto text-center">
+      <p className="fade-in text-[clamp(18px,2.2vw,22px)] leading-[1.9]" style={{ color: "var(--text-muted)", fontFamily: "var(--font-heading), Georgia, serif", fontStyle: "italic" }}>
+        {"\u00ab\u00a0"}Comprendre avant de proposer. D\u00e9ployer avant de promettre. Mesurer avant de facturer.{"\u00a0\u00bb"}
+      </p>
     </section>
   );
 }
@@ -134,99 +118,22 @@ function SectionDivider() {
   return <div className="section-divider" />;
 }
 
-/* ─── PROOF ─── */
-function Proof() {
-  const stats = [
-    { number: "48h", label: "Premier prototype" },
-    { number: "110", label: "Restaurants automatis\u00e9s" },
-    { number: "2", label: "Syst\u00e8mes en prod" },
-    { number: "0", label: "PowerPoints produits" },
-  ];
-
-  const cases = [
-    {
-      badge: "MAISON DE VENTE AUX ENCH\u00c8RES",
-      description:
-        "Catalogue g\u00e9n\u00e9r\u00e9 automatiquement \u2014 descriptions + estimations de prix \u00e0 partir de photos d\u2019objets",
-      before: "45 min par objet, manuellement",
-      after: "30 secondes par objet, automatis\u00e9",
-    },
-    {
-      badge: "110 RESTAURANTS \u00b7 DUBA\u00cf",
-      description:
-        "Ouverture de franchises standardis\u00e9e \u2014 chaque \u00e9tape automatis\u00e9e et trac\u00e9e",
-      before: "Retards constants, documents oubli\u00e9s, 0 visibilit\u00e9",
-      after: "75% de r\u00e9duction des d\u00e9lais, z\u00e9ro document manquant",
-    },
+/* ─── DOMAINS ─── */
+function Domains() {
+  const domains = [
+    "Automatisation documentaire",
+    "CRM sur mesure",
+    "Agents conversationnels",
+    "Optimisation des processus",
+    "Int\u00e9gration SAP",
   ];
 
   return (
-    <section id="section-proof" className="px-6 py-32 md:py-40">
-      {/* Stats */}
-      <div className="max-w-[900px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 mb-24">
-        {stats.map((s, i) => (
-          <div key={i} className="fade-in text-center">
-            <p
-              className="stat-number text-[clamp(40px,6vw,64px)] font-bold leading-none mb-2"
-              style={{ color: "var(--accent)" }}
-            >
-              {s.number}
-            </p>
-            <p
-              className="text-sm"
-              style={{ color: "var(--text-muted)" }}
-            >
-              {s.label}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      {/* Cases */}
-      <div className="max-w-[800px] mx-auto flex flex-col gap-8">
-        {cases.map((c, i) => (
-          <div
-            key={i}
-            className="fade-in case-card rounded-lg p-8 md:p-10"
-            style={{ background: "var(--bg-elevated)" }}
-          >
-            <span
-              className="inline-block uppercase text-xs font-semibold tracking-wider rounded px-3 py-1 mb-5"
-              style={{
-                color: "var(--accent)",
-                background: "var(--accent-glow)",
-              }}
-            >
-              {c.badge}
-            </span>
-            <p className="text-base md:text-lg mb-6" style={{ color: "var(--text)" }}>
-              {c.description}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <p
-                  className="text-xs uppercase tracking-wider mb-1 font-medium"
-                  style={{ color: "var(--text-dim)" }}
-                >
-                  Avant
-                </p>
-                <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-                  {c.before}
-                </p>
-              </div>
-              <div>
-                <p
-                  className="text-xs uppercase tracking-wider mb-1 font-medium"
-                  style={{ color: "var(--accent)" }}
-                >
-                  Apr&egrave;s
-                </p>
-                <p className="text-sm" style={{ color: "var(--text)" }}>
-                  {c.after}
-                </p>
-              </div>
-            </div>
-          </div>
+    <section id="section-domains" className="px-6 py-32 md:py-40 max-w-[700px] mx-auto text-center">
+      <p className="fade-in text-xs uppercase tracking-[0.2em] mb-12" style={{ color: "var(--accent)" }}>Domaines d&rsquo;intervention</p>
+      <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
+        {domains.map((d, i) => (
+          <span key={i} className={`fade-in stagger-${i + 1} text-lg`} style={{ color: "var(--text-muted)", letterSpacing: "0.02em" }}>{d}</span>
         ))}
       </div>
     </section>
@@ -401,9 +308,9 @@ export default function Home() {
       <ScrollProgress />
       <Hero />
       <SectionDivider />
-      <Problem />
+      <Philosophy />
       <SectionDivider />
-      <Proof />
+      <Domains />
       <SectionDivider />
       <Method />
       <SectionDivider />
