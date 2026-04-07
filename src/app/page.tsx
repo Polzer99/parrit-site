@@ -259,10 +259,8 @@ function FinalCTA() {
       id="section-cta"
       className="px-6 py-32 md:py-40 flex flex-col items-center text-center"
     >
-      <h2 className="fade-in text-[clamp(28px,4.5vw,48px)] font-bold leading-tight max-w-[640px] mb-12">
-        Si vous lisez encore, vous avez
-        <br />
-        probablement d&eacute;j&agrave; votre r&eacute;ponse.
+      <h2 className="fade-in text-[clamp(28px,4vw,42px)] leading-tight max-w-[500px] mb-12" style={{ fontFamily: "var(--font-heading), Georgia, serif", fontWeight: 400, letterSpacing: "0.01em", color: "var(--text)" }}>
+        &Eacute;changeons.
       </h2>
       <a
         href={CALENDAR_URL}
@@ -311,10 +309,6 @@ export default function Home() {
       <Philosophy />
       <SectionDivider />
       <Domains />
-      <SectionDivider />
-      <Method />
-      <SectionDivider />
-      <Tools />
       <SectionDivider />
       <FinalCTA />
       <Footer />
