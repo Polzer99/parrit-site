@@ -44,14 +44,14 @@ function Hero() {
   return (
     <section
       id="section-hero"
-      className="min-h-screen flex flex-col items-center justify-center px-6 relative"
+      className="min-h-[85vh] flex flex-col items-center justify-center px-6 py-20 relative"
       style={{ background: "var(--bg)" }}
     >
       {/* Radial copper glow behind hero */}
       <div className="hero-glow" />
 
       <p
-        className="hero-animate hero-delay-1 uppercase tracking-[0.25em] text-sm font-semibold mb-10"
+        className="hero-animate hero-delay-1 uppercase tracking-[0.25em] text-sm font-semibold mb-6"
         style={{ color: "var(--accent)" }}
       >
         PARRIT.AI
@@ -66,7 +66,7 @@ function Hero() {
       </h1>
 
       <p
-        className="hero-animate hero-delay-3 text-center max-w-[560px] text-lg leading-relaxed mb-12"
+        className="hero-animate hero-delay-3 text-center max-w-[560px] text-lg leading-relaxed mb-8"
         style={{ color: "var(--text-muted)" }}
       >
         Je cartographie vos blocages, je d&eacute;ploie de l&rsquo;IA
@@ -96,7 +96,7 @@ function Hero() {
       </div>
 
       <p
-        className="hero-animate hero-delay-4 mt-16 text-xs tracking-wide"
+        className="hero-animate hero-delay-4 mt-8 text-xs tracking-wide"
         style={{ color: "var(--text-dim)" }}
       >
         2,5 ans de terrain &middot; 2 syst&egrave;mes en production &middot; 0 PowerPoint
