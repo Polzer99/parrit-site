@@ -1,26 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #09090b;
-  --bg-subtle: #0f0f12;
-  --surface: #18181b;
-  --border: #27272a;
-  --text: #fafafa;
-  --text-muted: #a1a1aa;
-  --accent: #c8956c;
-  --accent-hover: #d4a578;
+  --bg: #1A1A1A;
+  --bg-elevated: #222222;
+  --text: #FFFFFF;
+  --text-muted: #9CA3AF;
+  --text-dim: #4B5563;
+  --accent: #E8400A;
+  --accent-hover: #FF5A1F;
 }
 
 @theme inline {
   --color-bg: var(--bg);
-  --color-bg-subtle: var(--bg-subtle);
-  --color-surface: var(--surface);
-  --color-border: var(--border);
+  --color-bg-elevated: var(--bg-elevated);
   --color-text: var(--text);
   --color-text-muted: var(--text-muted);
+  --color-text-dim: var(--text-dim);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 * {
@@ -34,16 +32,18 @@ html {
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
 }
 
-/* Hero animations */
+/* Hero entry animation */
 @keyframes hero-fade-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -56,22 +56,15 @@ body {
   animation: hero-fade-up 0.8s ease-out forwards;
 }
 
-.hero-animate-delay-1 {
-  animation-delay: 0.2s;
-}
+.hero-delay-1 { animation-delay: 0.15s; }
+.hero-delay-2 { animation-delay: 0.3s; }
+.hero-delay-3 { animation-delay: 0.5s; }
+.hero-delay-4 { animation-delay: 0.7s; }
 
-.hero-animate-delay-2 {
-  animation-delay: 0.4s;
-}
-
-.hero-animate-delay-3 {
-  animation-delay: 0.6s;
-}
-
-/* Scroll fade-in */
+/* Scroll-triggered fade in */
 .fade-in {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(28px);
   transition: opacity 0.7s ease-out, transform 0.7s ease-out;
 }
 
@@ -80,20 +73,41 @@ body {
   transform: translateY(0);
 }
 
-/* Shipped rows */
-.shipped-row {
+/* Staggered children */
+.stagger-1 { transition-delay: 0s; }
+.stagger-2 { transition-delay: 0.15s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.45s; }
+
+/* Tool rows */
+.tool-row {
   transition: background-color 0.2s ease;
 }
 
-.shipped-row:hover {
-  background-color: var(--surface);
+.tool-row:hover {
+  background-color: var(--bg-elevated);
 }
 
-/* Hero radial glow */
-.hero-glow {
-  background: radial-gradient(
-    ellipse 600px 400px at center 60%,
-    rgba(200, 149, 108, 0.04) 0%,
-    transparent 70%
-  );
+/* CTA button */
+.cta-button {
+  background: var(--accent);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 18px 40px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.cta-button:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.cta-button:active {
+  transform: translateY(0);
 }

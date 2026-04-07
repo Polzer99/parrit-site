@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef } from "react";
 
 export function useScrollFade() {
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -9,10 +9,12 @@ export function useScrollFade() {
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -60px 0px" }
     );
 
     document
@@ -21,15 +23,4 @@ export function useScrollFade() {
 
     return () => observerRef.current?.disconnect();
   }, []);
-
-  const fadeRef = useCallback(
-    (node: HTMLElement | null) => {
-      if (node && observerRef.current) {
-        observerRef.current.observe(node);
-      }
-    },
-    []
-  );
-
-  return fadeRef;
 }
