@@ -1,8 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useScrollFade } from "@/components/hooks";
 
-const CALENDLY_URL = "https://calendly.com/paul-larmaraud";
+const CALENDAR_URL = "https://calendar.app.google/nWa2QQe8DUwtuwbz8";
 const WHATSAPP_URL =
   "https://wa.me/33759665687?text=Bonjour%20Paul%20!";
 const WEBHOOK_URL =
@@ -21,14 +22,34 @@ function trackCtaClick() {
   }).catch(() => {});
 }
 
+/* ─── SCROLL PROGRESS BAR ─── */
+function ScrollProgress() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    function handleScroll() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return <div className="scroll-progress" style={{ width: `${progress}%` }} />;
+}
+
 /* ─── HERO ─── */
 function Hero() {
   return (
     <section
       id="section-hero"
-      className="min-h-screen flex flex-col items-center justify-center px-6"
+      className="min-h-screen flex flex-col items-center justify-center px-6 relative"
       style={{ background: "var(--bg)" }}
     >
+      {/* Radial copper glow behind hero */}
+      <div className="hero-glow" />
+
       <p
         className="hero-animate hero-delay-1 uppercase tracking-[0.25em] text-sm font-semibold mb-10"
         style={{ color: "var(--accent)" }}
@@ -36,7 +57,7 @@ function Hero() {
         PARRIT.AI
       </p>
 
-      <h1 className="hero-animate hero-delay-2 text-center font-bold leading-[1.08] max-w-[820px] mb-8 text-[clamp(32px,5.5vw,64px)]">
+      <h1 className="hero-animate hero-delay-2 shimmer-text text-center font-bold leading-[1.08] max-w-[820px] mb-8 text-[clamp(32px,5.5vw,64px)]">
         Vos process r&eacute;p&eacute;titifs vous
         <br />
         co&ucirc;tent plus cher que vous
@@ -54,7 +75,7 @@ function Hero() {
 
       <div className="hero-animate hero-delay-4 flex flex-col items-center gap-4">
         <a
-          href={CALENDLY_URL}
+          href={CALENDAR_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="cta-button"
@@ -111,6 +132,11 @@ function Problem() {
   );
 }
 
+/* ─── SECTION DIVIDER ─── */
+function SectionDivider() {
+  return <div className="section-divider" />;
+}
+
 /* ─── PROOF ─── */
 function Proof() {
   const stats = [
@@ -144,7 +170,7 @@ function Proof() {
         {stats.map((s, i) => (
           <div key={i} className="fade-in text-center">
             <p
-              className="text-[clamp(40px,6vw,64px)] font-bold leading-none mb-2"
+              className="stat-number text-[clamp(40px,6vw,64px)] font-bold leading-none mb-2"
               style={{ color: "var(--accent)" }}
             >
               {s.number}
@@ -164,14 +190,14 @@ function Proof() {
         {cases.map((c, i) => (
           <div
             key={i}
-            className="fade-in rounded-lg p-8 md:p-10"
+            className="fade-in case-card rounded-lg p-8 md:p-10"
             style={{ background: "var(--bg-elevated)" }}
           >
             <span
               className="inline-block uppercase text-xs font-semibold tracking-wider rounded px-3 py-1 mb-5"
               style={{
                 color: "var(--accent)",
-                background: "rgba(232, 64, 10, 0.1)",
+                background: "var(--accent-glow)",
               }}
             >
               {c.badge}
@@ -335,7 +361,7 @@ function FinalCTA() {
         probablement d&eacute;j&agrave; votre r&eacute;ponse.
       </h2>
       <a
-        href={CALENDLY_URL}
+        href={CALENDAR_URL}
         target="_blank"
         rel="noopener noreferrer"
         className="fade-in cta-button mb-6"
@@ -375,11 +401,17 @@ export default function Home() {
 
   return (
     <>
+      <ScrollProgress />
       <Hero />
+      <SectionDivider />
       <Problem />
+      <SectionDivider />
       <Proof />
+      <SectionDivider />
       <Method />
+      <SectionDivider />
       <Tools />
+      <SectionDivider />
       <FinalCTA />
       <Footer />
     </>
