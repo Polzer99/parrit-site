@@ -64,12 +64,10 @@ function Hero() {
       </h1>
 
       <p
-        className="hero-animate hero-delay-3 text-center max-w-[520px] leading-[1.8] mb-8"
-        style={{ color: "var(--text-muted)", fontSize: "1.05rem", letterSpacing: "0.02em" }}
+        className="hero-animate hero-delay-3 text-center mb-8"
+        style={{ color: "var(--text-muted)", fontSize: "1rem", letterSpacing: "0.04em" }}
       >
-        Diagnostic pr&eacute;cis de vos points de friction op&eacute;rationnels.
-        D&eacute;ploiement d&rsquo;intelligence artificielle cibl&eacute;e.
-        R&eacute;sultats mesurables sous quatre semaines.
+        Intelligence artificielle &middot; D&eacute;ploy&eacute;e en quatre semaines
       </p>
 
       <div className="hero-animate hero-delay-4 flex flex-col items-center gap-4">
