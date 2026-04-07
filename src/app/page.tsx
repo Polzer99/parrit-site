@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { useScrollFade } from "@/components/hooks";
 
 const CALENDAR_URL = "https://calendar.app.google/nWa2QQe8DUwtuwbz8";
-const WHATSAPP_URL =
-  "https://wa.me/33759665687?text=Bonjour%20Paul%20!";
 const WEBHOOK_URL =
   "https://n8n.srv1115145.hstgr.cloud/webhook/lead-inbound";
 
@@ -22,21 +20,33 @@ function trackCtaClick() {
   }).catch(() => {});
 }
 
-/* ─── SCROLL PROGRESS BAR ─── */
-function ScrollProgress() {
-  const [progress, setProgress] = useState(0);
+/* ─── NAV ─── */
+function Nav() {
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     function handleScroll() {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
+      setScrolled(window.scrollY > 20);
     }
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  return <div className="scroll-progress" style={{ width: `${progress}%` }} />;
+  return (
+    <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
+      <span className="nav-logo">PARRIT.AI</span>
+      <a
+        href={CALENDAR_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="nav-cta"
+        data-ph="nav-cta"
+        onClick={trackCtaClick}
+      >
+        R&eacute;server un appel
+      </a>
+    </nav>
+  );
 }
 
 /* ─── HERO ─── */
@@ -44,57 +54,69 @@ function Hero() {
   return (
     <section
       id="section-hero"
-      className="min-h-[85vh] flex flex-col items-center justify-center px-6 py-20 relative"
+      className="min-h-screen flex flex-col items-center justify-center px-6 pt-[72px]"
       style={{ background: "var(--bg)" }}
     >
-      {/* Radial copper glow behind hero */}
-      <div className="hero-glow" />
-
       <p
-        className="hero-animate hero-delay-1 uppercase tracking-[0.25em] text-sm font-semibold mb-6"
-        style={{ color: "var(--accent)" }}
+        className="hero-animate hero-delay-1 uppercase text-xs font-medium mb-8"
+        style={{
+          color: "var(--accent)",
+          letterSpacing: "0.15em",
+          fontFamily: "var(--font-body)",
+        }}
       >
-        PARRIT.AI
+        INTELLIGENCE ARTIFICIELLE APPLIQU&Eacute;E
       </p>
 
-      <h1 className="hero-animate hero-delay-2 text-center leading-[1.12] max-w-[860px] mb-8 text-[clamp(32px,5.5vw,60px)] tracking-[-0.02em]" style={{ color: "#f5f0eb", fontFamily: "var(--font-heading), Georgia, serif", fontWeight: 500, letterSpacing: "0.01em" }}>
+      <h1
+        className="hero-animate hero-delay-2 text-center leading-[1.1] max-w-[780px] mb-6"
+        style={{
+          fontFamily: "var(--font-heading)",
+          fontWeight: 500,
+          fontSize: "clamp(36px, 5.5vw, 62px)",
+          color: "var(--text)",
+          letterSpacing: "-0.01em",
+        }}
+      >
         Exposez-moi vos contraintes.
         <br />
-        <span style={{ color: "var(--accent)" }}>Je con&ccedil;ois la solution.</span>
+        <span style={{ color: "var(--accent)" }}>
+          Je con&ccedil;ois la solution.
+        </span>
       </h1>
 
       <p
-        className="hero-animate hero-delay-3 text-center mb-8"
-        style={{ color: "var(--text-muted)", fontSize: "1rem", letterSpacing: "0.04em" }}
+        className="hero-animate hero-delay-3 text-center mb-10"
+        style={{
+          color: "var(--text-muted)",
+          fontSize: "18px",
+          fontWeight: 300,
+          maxWidth: "480px",
+          lineHeight: 1.7,
+          fontFamily: "var(--font-body)",
+        }}
       >
-        Intelligence artificielle &middot; D&eacute;ploy&eacute;e en quatre semaines
+        D&eacute;ploy&eacute;e en quatre semaines.
       </p>
 
-      <div className="hero-animate hero-delay-4 flex flex-col items-center gap-4">
-        <a
-          href={CALENDAR_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="cta-button"
-          data-ph="hero-cta"
-          onClick={trackCtaClick}
-        >
-          R&eacute;server un appel avec Paul
-        </a>
-        <a
-          href={WHATSAPP_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm underline underline-offset-4"
-          style={{ color: "var(--text-dim)" }}
-        >
-          Ou m&rsquo;&eacute;crivez sur WhatsApp
-        </a>
-      </div>
+      <a
+        href={CALENDAR_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hero-animate hero-delay-4 cta-button"
+        data-ph="hero-cta"
+        onClick={trackCtaClick}
+      >
+        R&eacute;server un appel
+      </a>
 
       <p
-        className="hero-animate hero-delay-4 mt-8 text-xs tracking-[0.15em] uppercase"
-        style={{ color: "var(--text-dim)" }}
+        className="hero-animate hero-delay-5 mt-10 text-xs uppercase"
+        style={{
+          color: "var(--text-dim)",
+          letterSpacing: "0.15em",
+          fontWeight: 300,
+        }}
       >
         Paris &middot; Duba&iuml; &middot; Shanghai
       </p>
@@ -102,20 +124,38 @@ function Hero() {
   );
 }
 
-/* ─── PHILOSOPHY ─── */
-function Philosophy() {
+/* ─── DIVIDER ─── */
+function Divider() {
   return (
-    <section id="section-philosophy" className="px-6 py-32 md:py-40 max-w-[640px] mx-auto text-center">
-      <p className="fade-in text-[clamp(18px,2.2vw,22px)] leading-[1.9]" style={{ color: "var(--text-muted)", fontFamily: "var(--font-heading), Georgia, serif", fontStyle: "italic" }}>
-        &laquo;&nbsp;Comprendre avant de proposer. D&eacute;ployer avant de promettre. Mesurer avant de facturer.&nbsp;&raquo;
-      </p>
-    </section>
+    <div className="py-12">
+      <div className="divider" />
+    </div>
   );
 }
 
-/* ─── SECTION DIVIDER ─── */
-function SectionDivider() {
-  return <div className="section-divider" />;
+/* ─── PHILOSOPHY ─── */
+function Philosophy() {
+  return (
+    <section
+      id="section-philosophy"
+      className="px-6 py-16 md:py-24 max-w-[640px] mx-auto text-center"
+    >
+      <p
+        className="fade-in"
+        style={{
+          fontFamily: "var(--font-heading)",
+          fontStyle: "italic",
+          fontWeight: 400,
+          fontSize: "clamp(18px, 2.2vw, 24px)",
+          lineHeight: 1.8,
+          color: "var(--text-muted)",
+        }}
+      >
+        &laquo;&nbsp;Comprendre avant de proposer. D&eacute;ployer avant de
+        promettre. Mesurer avant de facturer.&nbsp;&raquo;
+      </p>
+    </section>
+  );
 }
 
 /* ─── DOMAINS ─── */
@@ -129,171 +169,111 @@ function Domains() {
   ];
 
   return (
-    <section id="section-domains" className="px-6 py-32 md:py-40 max-w-[700px] mx-auto text-center">
-      <p className="fade-in text-xs uppercase tracking-[0.2em] mb-12" style={{ color: "var(--accent)" }}>Domaines d&rsquo;intervention</p>
-      <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
+    <section
+      id="section-domains"
+      className="px-6 py-16 md:py-24 max-w-[800px] mx-auto text-center"
+    >
+      <p
+        className="fade-in uppercase text-xs font-medium mb-10"
+        style={{
+          color: "var(--accent)",
+          letterSpacing: "0.15em",
+          fontFamily: "var(--font-body)",
+        }}
+      >
+        DOMAINES D&rsquo;INTERVENTION
+      </p>
+      <div className="fade-in flex flex-wrap items-center justify-center gap-x-3 gap-y-3">
         {domains.map((d, i) => (
-          <span key={i} className={`fade-in stagger-${i + 1} text-lg`} style={{ color: "var(--text-muted)", letterSpacing: "0.02em" }}>{d}</span>
+          <span key={i} className="flex items-center gap-3">
+            {i > 0 && <span className="copper-dot" />}
+            <span
+              style={{
+                color: "var(--text-muted)",
+                fontSize: "16px",
+                fontWeight: 300,
+                fontFamily: "var(--font-body)",
+              }}
+            >
+              {d}
+            </span>
+          </span>
         ))}
       </div>
     </section>
   );
 }
 
-/* ─── METHOD ─── */
-function Method() {
-  const lines = [
-    "J\u2019entre dans vos process avant de proposer quoi que ce soit.",
-    "Je d\u00e9ploie sur un cas r\u00e9el, pas sur un slide deck.",
-    "Je forme vos \u00e9quipes pour qu\u2019elles n\u2019aient plus besoin de moi.",
-    "Je dis non quand le timing ou le cas ne s\u2019y pr\u00eate pas.",
-  ];
-
+/* ─── SOCIAL PROOF ─── */
+function SocialProof() {
   return (
-    <section
-      id="section-method"
-      className="px-6 py-32 md:py-40 max-w-[700px] mx-auto"
-    >
-      {lines.map((line, i) => (
-        <p
-          key={i}
-          className={`fade-in stagger-${i + 1} text-xl leading-relaxed mb-8 last:mb-0 flex items-start gap-4`}
-        >
-          <span
-            className="inline-block mt-[6px] w-2 h-2 rounded-full shrink-0"
-            style={{ background: "var(--accent)" }}
-          />
-          <span>{line}</span>
-        </p>
-      ))}
+    <section className="px-6 py-12 text-center">
+      <p
+        className="fade-in text-xs uppercase"
+        style={{
+          color: "var(--text-dim)",
+          letterSpacing: "0.15em",
+          fontWeight: 300,
+          fontFamily: "var(--font-body)",
+        }}
+      >
+        Cl&eacute;vry Avocat &middot; Chamas Tacos &middot; Carte Noire &middot;
+        Clients confidentiels
+      </p>
     </section>
   );
 }
 
-/* ─── TOOLS ─── */
-function Tools() {
-  const tools = [
-    {
-      name: "PaY",
-      description:
-        "Agent SAP proactif \u2014 MM/SD/FI en langage naturel",
-      link: "",
-    },
-    {
-      name: "Contestation SNCF",
-      description:
-        "Photo \u2192 IA \u2192 recommand\u00e9 AR envoy\u00e9 automatiquement",
-      link: "https://contester-amende-sncf.vercel.app",
-    },
-    {
-      name: "CRM M\u00e9tier",
-      description:
-        "Dashboard, pipeline, saisonnalit\u00e9 pour le terrain",
-      link: "",
-    },
-  ];
-
-  return (
-    <section id="section-tools" className="px-6 py-32 md:py-40">
-      <div className="max-w-[800px] mx-auto">
-        <h2 className="fade-in text-[clamp(28px,4vw,40px)] font-bold mb-12">
-          En production
-        </h2>
-        <div className="flex flex-col">
-          {tools.map((t, i) => {
-            const isLinked = t.link !== "";
-            const Tag = isLinked ? "a" : "div";
-            const linkProps = isLinked
-              ? {
-                  href: t.link,
-                  target: "_blank" as const,
-                  rel: "noopener noreferrer",
-                }
-              : {};
-
-            return (
-              <Tag
-                key={i}
-                {...linkProps}
-                className="fade-in tool-row flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-8 py-6 px-4 -mx-4 rounded-lg cursor-default"
-                style={{
-                  borderBottom: "1px solid rgba(255,255,255,0.06)",
-                  cursor: isLinked ? "pointer" : "default",
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
-                data-ph="tool-click"
-              >
-                <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-6 flex-1">
-                  <span className="font-semibold text-base whitespace-nowrap min-w-[160px]">
-                    {t.name}
-                  </span>
-                  <span
-                    className="text-sm"
-                    style={{ color: "var(--text-muted)" }}
-                  >
-                    {t.description}
-                  </span>
-                </div>
-                {isLinked && (
-                  <span
-                    className="text-sm font-medium shrink-0"
-                    style={{ color: "var(--accent)" }}
-                  >
-                    Acc&eacute;der &rarr;
-                  </span>
-                )}
-              </Tag>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── FINAL CTA ─── */
-function FinalCTA() {
+/* ─── DARK CTA + FOOTER ─── */
+function DarkCTA() {
   return (
     <section
       id="section-cta"
-      className="px-6 py-32 md:py-40 flex flex-col items-center text-center"
+      className="px-6 pt-24 pb-12 md:pt-32 md:pb-16 flex flex-col items-center text-center"
+      style={{ background: "var(--bg-dark)" }}
     >
-      <h2 className="fade-in text-[clamp(28px,4vw,42px)] leading-tight max-w-[500px] mb-12" style={{ fontFamily: "var(--font-heading), Georgia, serif", fontWeight: 400, letterSpacing: "0.01em", color: "var(--text)" }}>
+      <h2
+        className="fade-in mb-10"
+        style={{
+          fontFamily: "var(--font-heading)",
+          fontWeight: 400,
+          fontSize: "clamp(32px, 4vw, 44px)",
+          color: "#F5F0EB",
+          letterSpacing: "-0.01em",
+        }}
+      >
         &Eacute;changeons.
       </h2>
+
       <a
         href={CALENDAR_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="fade-in cta-button mb-6"
+        className="fade-in cta-button-dark mb-6"
         data-ph="final-cta"
         onClick={trackCtaClick}
       >
-        R&eacute;server un appel avec Paul
+        R&eacute;server un appel
       </a>
-      <p className="fade-in text-sm" style={{ color: "var(--text-dim)" }}>
-        Ou &eacute;crivez-moi :{" "}
+
+      <p className="fade-in mb-20" style={{ color: "#6B7280", fontSize: "14px" }}>
         <a
           href="mailto:paul@parrit.ai"
-          className="underline underline-offset-4"
-          style={{ color: "var(--text-muted)" }}
+          style={{ color: "#9CA3AF", textDecoration: "none" }}
         >
           paul@parrit.ai
         </a>
       </p>
-    </section>
-  );
-}
 
-/* ─── FOOTER ─── */
-function Footer() {
-  return (
-    <footer className="px-6 py-10 text-center">
-      <p className="text-xs" style={{ color: "var(--text-dim)" }}>
-        &copy; 2026 Paul Larmaraud &middot; SASU PARRIT.AI &middot; Rueil-Malmaison
+      {/* Footer */}
+      <p
+        className="text-xs"
+        style={{ color: "#4B5563", letterSpacing: "0.04em" }}
+      >
+        &copy; 2026 Paul Larmaraud &middot; SASU PARRIT.AI &middot;
+        Rueil-Malmaison
       </p>
-    </footer>
+    </section>
   );
 }
 
@@ -303,15 +283,15 @@ export default function Home() {
 
   return (
     <>
-      <ScrollProgress />
+      <Nav />
       <Hero />
-      <SectionDivider />
+      <Divider />
       <Philosophy />
-      <SectionDivider />
+      <Divider />
       <Domains />
-      <SectionDivider />
-      <FinalCTA />
-      <Footer />
+      <Divider />
+      <SocialProof />
+      <DarkCTA />
     </>
   );
 }

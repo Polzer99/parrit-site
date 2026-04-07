@@ -17,26 +17,26 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Parrit.ai — Je cartographie vos blocages, je deploie de l'IA",
+  title: "Parrit.ai \u2014 Intelligence artificielle appliqu\u00e9e",
   description:
-    "Vos process repetitifs vous coutent plus cher que vous ne pensez. Je deploie de l'IA qui change la vitesse d'execution. En semaines, pas en mois. Paul Larmaraud.",
+    "Exposez-moi vos contraintes, je con\u00e7ois la solution. Intelligence artificielle d\u00e9ploy\u00e9e en quatre semaines. Paul Larmaraud \u2014 Paris, Duba\u00ef, Shanghai.",
   keywords: [
     "IA entreprise",
     "automatisation processus",
     "agents IA",
     "SAP IA",
-    "CRM automatise",
+    "CRM automatis\u00e9",
     "consulting IA",
     "Parrit.ai",
     "Paul Larmaraud",
-    "deploiement IA",
+    "d\u00e9ploiement IA",
     "transformation digitale",
   ],
   authors: [{ name: "Paul Larmaraud" }],
   openGraph: {
-    title: "Parrit.ai — Je cartographie vos blocages, je deploie de l'IA",
+    title: "Parrit.ai \u2014 Intelligence artificielle appliqu\u00e9e",
     description:
-      "Vos process repetitifs vous coutent plus cher que vous ne pensez. Prototypage en 48h, deploiement inclus.",
+      "Exposez-moi vos contraintes, je con\u00e7ois la solution. D\u00e9ploy\u00e9e en quatre semaines.",
     url: "https://parrit.ai",
     siteName: "Parrit.ai",
     locale: "fr_FR",
@@ -44,9 +44,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Parrit.ai — Je cartographie vos blocages, je deploie de l'IA",
+    title: "Parrit.ai \u2014 Intelligence artificielle appliqu\u00e9e",
     description:
-      "Vos process repetitifs vous coutent plus cher que vous ne pensez. Prototypage en 48h, deploiement inclus.",
+      "Exposez-moi vos contraintes, je con\u00e7ois la solution. D\u00e9ploy\u00e9e en quatre semaines.",
   },
   robots: {
     index: true,
@@ -66,7 +66,7 @@ export default function RootLayout({
     legalName: "SASU PARRIT.AI",
     url: "https://parrit.ai",
     description:
-      "Je cartographie vos blocages, je deploie de l'IA qui change la vitesse d'execution. En semaines, pas en mois.",
+      "Exposez-moi vos contraintes, je con\u00e7ois la solution. Intelligence artificielle d\u00e9ploy\u00e9e en quatre semaines.",
     foundingDate: "2024",
     address: {
       "@type": "PostalAddress",
@@ -98,7 +98,12 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} min-h-screen`} style={{ fontFamily: "var(--font-body), system-ui, sans-serif" }}>{children}</body>
+      <body
+        className={`${inter.variable} ${playfair.variable} min-h-screen`}
+        style={{ fontFamily: "var(--font-body)" }}
+      >
+        {children}
+      </body>
     </html>
   );
 }
