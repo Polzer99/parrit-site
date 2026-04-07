@@ -237,7 +237,7 @@ function DarkCTA() {
           fontFamily: "var(--font-heading)",
           fontWeight: 400,
           fontSize: "clamp(32px, 4vw, 44px)",
-          color: "#F5F0EB",
+          color: "var(--text-light)",
           letterSpacing: "-0.01em",
         }}
       >
@@ -248,26 +248,24 @@ function DarkCTA() {
         href={CALENDAR_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="fade-in cta-button-dark mb-6"
+        className="fade-in cta-button-dark mb-8"
         data-ph="final-cta"
         onClick={trackCtaClick}
       >
         R&eacute;server un appel
       </a>
 
-      <p className="fade-in mb-20" style={{ color: "#6B7280", fontSize: "14px" }}>
+      <p className="fade-in mb-24" style={{ fontSize: "14px", letterSpacing: "0.04em" }}>
         <a
           href="mailto:paul@parrit.ai"
-          style={{ color: "#9CA3AF", textDecoration: "none" }}
+          style={{ color: "var(--text-light-muted)", textDecoration: "none" }}
         >
           paul@parrit.ai
         </a>
       </p>
 
-      {/* Footer */}
       <p
-        className="text-xs"
-        style={{ color: "#4B5563", letterSpacing: "0.04em" }}
+        style={{ color: "var(--text-light-dim)", fontSize: "12px", letterSpacing: "0.08em" }}
       >
         &copy; 2026 Paul Larmaraud &middot; SASU PARRIT.AI &middot;
         Rueil-Malmaison

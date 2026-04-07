@@ -4,6 +4,9 @@
   --bg: #FAFAF8;
   --bg-card: #FFFFFF;
   --bg-dark: #1A1A1A;
+  --text-light: #F5F0EB;
+  --text-light-muted: #9CA3AF;
+  --text-light-dim: #4B5563;
   --text: #1A1A1A;
   --text-muted: #6B7280;
   --text-dim: #9CA3AF;
@@ -138,8 +141,9 @@ body {
   padding: 0 40px;
   height: 56px;
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
+  letter-spacing: 0.03em;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   text-decoration: none;
@@ -155,6 +159,7 @@ body {
   transform: translateY(0);
 }
 
+/* cta-button-dark inherits same style — unified */
 .cta-button-dark {
   display: inline-flex;
   align-items: center;
@@ -166,8 +171,9 @@ body {
   padding: 0 40px;
   height: 56px;
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
+  letter-spacing: 0.03em;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   text-decoration: none;
