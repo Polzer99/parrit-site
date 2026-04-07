@@ -107,7 +107,7 @@ function Philosophy() {
   return (
     <section id="section-philosophy" className="px-6 py-32 md:py-40 max-w-[640px] mx-auto text-center">
       <p className="fade-in text-[clamp(18px,2.2vw,22px)] leading-[1.9]" style={{ color: "var(--text-muted)", fontFamily: "var(--font-heading), Georgia, serif", fontStyle: "italic" }}>
-        {"\u00ab\u00a0"}Comprendre avant de proposer. D\u00e9ployer avant de promettre. Mesurer avant de facturer.{"\u00a0\u00bb"}
+        &laquo;&nbsp;Comprendre avant de proposer. D&eacute;ployer avant de promettre. Mesurer avant de facturer.&nbsp;&raquo;
       </p>
     </section>
   );
