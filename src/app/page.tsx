@@ -57,20 +57,19 @@ function Hero() {
         PARRIT.AI
       </p>
 
-      <h1 className="hero-animate hero-delay-2 text-center font-bold leading-[1.08] max-w-[820px] mb-8 text-[clamp(32px,5.5vw,64px)]" style={{ color: "#f5f0eb" }}>
-        Vos process r&eacute;p&eacute;titifs vous
+      <h1 className="hero-animate hero-delay-2 text-center leading-[1.12] max-w-[860px] mb-8 text-[clamp(32px,5.5vw,60px)] tracking-[-0.02em]" style={{ color: "#f5f0eb", fontFamily: "var(--font-heading), Georgia, serif", fontWeight: 500, letterSpacing: "0.01em" }}>
+        Exposez-moi vos contraintes.
         <br />
-        co&ucirc;tent plus cher que vous
-        <br />
-        ne pensez.
+        <span style={{ color: "var(--accent)" }}>Je con&ccedil;ois la solution.</span>
       </h1>
 
       <p
-        className="hero-animate hero-delay-3 text-center max-w-[560px] text-lg leading-relaxed mb-8"
-        style={{ color: "var(--text-muted)" }}
+        className="hero-animate hero-delay-3 text-center max-w-[520px] leading-[1.8] mb-8"
+        style={{ color: "var(--text-muted)", fontSize: "1.05rem", letterSpacing: "0.02em" }}
       >
-        Je cartographie vos blocages, je d&eacute;ploie de l&rsquo;IA
-        qui change la vitesse d&rsquo;ex&eacute;cution. En semaines, pas en mois.
+        Diagnostic pr&eacute;cis de vos points de friction op&eacute;rationnels.
+        D&eacute;ploiement d&rsquo;intelligence artificielle cibl&eacute;e.
+        R&eacute;sultats mesurables sous quatre semaines.
       </p>
 
       <div className="hero-animate hero-delay-4 flex flex-col items-center gap-4">
