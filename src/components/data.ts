@@ -42,6 +42,6 @@ export const stats = [
 
 export const team = {
   line: "Paul Larmaraud & Yukun Leng \u2014 10+ ans en entreprise \u2014 LVMH, Lime, SAP, nucl\u00e9aire, grande distribution",
-  paul: "https://www.linkedin.com/in/paul-larmaraud/",
-  yukun: "https://www.linkedin.com/in/yukun-leng/",
+  paul: "https://www.linkedin.com/in/paul-larmaraud-365538179/?locale=en",
+  yukun: "https://www.linkedin.com/in/yukun-leng-a860046a/",
 } as const;
