@@ -1,35 +1,34 @@
 export const WA_LINK = "https://wa.me/33759665687?text=Bonjour%20Paul%20!";
 
 export const clients = [
-  "Laparra",
-  "Deroche",
-  "Codialis",
-  "SNCF",
-  "SAP",
+  "Clévry Avocat",
+  "Chamas Tacos",
+  "Carte Noire",
+  "Clients confidentiels",
 ] as const;
 
 export const shipped = [
   {
     badge: "MICRO-SAAS",
-    description: "Contestation SNCF \u2014 Photo du PV \u2192 IA \u2192 recommand\u00e9 AR envoy\u00e9",
+    description: "Contestation automatis\u00e9e \u2014 Photo \u2192 IA extrait les donn\u00e9es \u2192 recommand\u00e9 AR envoy\u00e9",
     status: "En production",
     link: "https://contester-amende-sncf.vercel.app",
   },
   {
-    badge: "CRM",
-    description: "Laparra \u2014 CRM fruits & l\u00e9gumes pour 20 commerciaux terrain",
+    badge: "CRM SUR MESURE",
+    description: "CRM m\u00e9tier pour un grossiste \u2014 20 commerciaux, dashboard, saisonnalit\u00e9",
     status: "En production",
-    link: "https://laparra-crm.vercel.app",
-  },
-  {
-    badge: "PLATEFORME",
-    description: "MAGEC Connect \u2014 Groupement d\u2019achat, 100+ membres",
-    status: "Prototype",
     link: "",
   },
   {
     badge: "AGENTS IA",
-    description: "Prospection automatis\u00e9e \u2014 Signaux LinkedIn \u2192 RDV qualifi\u00e9s",
+    description: "Prospection automatis\u00e9e \u2014 Signaux LinkedIn \u2192 s\u00e9quences personnalis\u00e9es \u2192 RDV",
+    status: "En production",
+    link: "",
+  },
+  {
+    badge: "ASSISTANT SAP",
+    description: "Chatbot IA pour utilisateurs SAP \u2014 MM/SD/FI en langage naturel",
     status: "En production",
     link: "",
   },
