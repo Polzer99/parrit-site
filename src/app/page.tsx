@@ -54,62 +54,102 @@ function EditorialDivider() {
   return <hr className="editorial-divider" />;
 }
 
-/* ─── SECTION 1: HERO (min-h-screen, centered, nothing else) ─── */
+/* ─── SECTION 1: HERO (houseofouss style — centered, massive, breathing) ─── */
 function Hero() {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-6 pt-[72px]">
-      <h1
-        className="hero-animate hero-delay-2 text-center leading-[1.15] mb-6"
-        style={{
-          fontFamily: "var(--font-heading)",
-          fontWeight: 500,
-          fontSize: "clamp(42px, 5vw, 58px)",
-          color: "var(--text)",
-          letterSpacing: "-0.01em",
-        }}
-      >
-        La preuve par l&rsquo;exemple.
+      {/* Italic intro phrase */}
+      <p className="hero-animate hero-delay-1 hero-intro" style={{ maxWidth: "480px", marginBottom: "40px" }}>
+        Si vous cherchez quelqu&rsquo;un qui parle d&rsquo;IA
+        <br />
+        &mdash; vous n&rsquo;&ecirc;tes pas au bon endroit.
+      </p>
+
+      {/* MEGA title */}
+      <h1 className="hero-animate hero-delay-2 hero-title" style={{ marginBottom: "8px" }}>
+        La preuve
+      </h1>
+      <h1 className="hero-animate hero-delay-3 hero-title" style={{ marginBottom: "12px" }}>
+        par l&rsquo;exemple.
       </h1>
 
+      {/* Accent italic subtitle */}
       <p
-        className="hero-animate hero-delay-3 text-center mb-10"
+        className="hero-animate hero-delay-4"
+        style={{
+          fontFamily: "var(--font-heading)",
+          fontStyle: "italic",
+          fontWeight: 400,
+          fontSize: "clamp(28px, 4vw, 42px)",
+          lineHeight: 1.15,
+          color: "var(--accent)",
+          textAlign: "center",
+          marginBottom: "48px",
+        }}
+      >
+        Intelligence artificielle<br />d&eacute;ploy&eacute;e.
+      </p>
+
+      {/* Body prose */}
+      <p
+        className="hero-animate hero-delay-5"
         style={{
           color: "var(--text-muted)",
           fontSize: "17px",
           fontWeight: 300,
-          maxWidth: "440px",
-          lineHeight: 1.75,
+          maxWidth: "680px",
+          lineHeight: 1.85,
           fontFamily: "var(--font-body)",
           textAlign: "justify",
           textAlignLast: "center",
+          marginBottom: "40px",
         }}
       >
-        Je ne vends pas de l&rsquo;IA. J&rsquo;en d&eacute;ploie. Tous les jours. Dans de vraies entreprises.
+        Je ne produis pas de slides. Je ne vends pas de formations.
+        J&rsquo;entre dans une entreprise, je comprends ses m&eacute;canismes,
+        et je d&eacute;ploie de l&rsquo;intelligence artificielle qui change
+        concr&egrave;tement la vitesse d&rsquo;ex&eacute;cution. En semaines, pas en mois.
       </p>
 
+      {/* Italic copper quote */}
+      <p className="hero-animate hero-delay-6 hero-quote" style={{ maxWidth: "600px", marginBottom: "48px" }}>
+        Comprendre avant de proposer. D&eacute;ployer avant de promettre.
+      </p>
+
+      {/* Features row */}
+      <div className="hero-animate hero-delay-6 features-row" style={{ marginBottom: "48px" }}>
+        <span>Automatisation</span>
+        <span className="copper-dot" />
+        <span>CRM</span>
+        <span className="copper-dot" />
+        <span>Agents IA</span>
+        <span className="copper-dot" />
+        <span>SAP</span>
+        <span className="copper-dot" />
+        <span>Processus</span>
+      </div>
+
+      {/* CTA */}
       <a
         href={CALENDAR_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="hero-animate hero-delay-4 cta-button"
+        className="hero-animate hero-delay-7 cta-button"
         data-ph="hero-cta"
         onClick={trackCtaClick}
       >
         Planifier un entretien
       </a>
 
-      <p
-        className="hero-animate hero-delay-5 mt-10"
-        style={{
-          color: "var(--text-dim)",
-          fontSize: "11px",
-          letterSpacing: "0.15em",
-          fontWeight: 500,
-          textTransform: "uppercase" as const,
-        }}
-      >
-        Paris &middot; Duba&iuml; &middot; Shanghai
-      </p>
+      {/* Social proof */}
+      <div className="hero-animate hero-delay-8" style={{ marginTop: "80px", marginBottom: "32px" }}>
+        <p className="trust-label" style={{ marginBottom: "16px" }}>
+          Ils nous font confiance
+        </p>
+        <p className="trust-names">
+          Clevery Avocats &middot; SLC Production &middot; Arkel &middot; Lime &middot; Chamas Tacos &middot; Carte Noire &middot; Agence Laparra
+        </p>
+      </div>
     </section>
   );
 }
@@ -198,71 +238,11 @@ function Proof() {
   );
 }
 
-/* ─── SECTION 5: DOMAINES (centered, copper dots) ─── */
-function Domains() {
-  const domains = [
-    "Automatisation documentaire",
-    "CRM sur mesure",
-    "Agents conversationnels",
-    "Optimisation des processus",
-    "Int\u00e9gration SAP",
-  ];
-
-  return (
-    <section className="section-space px-6 text-center">
-      <p className="fade-in section-label" style={{ textAlign: "center" }}>
-        Domaines d&rsquo;intervention
-      </p>
-      <div
-        className="fade-in flex flex-wrap items-center justify-center gap-x-3 gap-y-3"
-        style={{ maxWidth: "680px", margin: "0 auto" }}
-      >
-        {domains.map((d, i) => (
-          <span key={i} className="flex items-center gap-3">
-            {i > 0 && <span className="copper-dot" />}
-            <span
-              style={{
-                color: "var(--text-muted)",
-                fontSize: "15px",
-                fontWeight: 300,
-                fontFamily: "var(--font-body)",
-              }}
-            >
-              {d}
-            </span>
-          </span>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ─── SECTION 6: REFERENCES (centered, ultra small) ─── */
-function References() {
-  return (
-    <section className="px-6 py-12 text-center">
-      <p
-        className="fade-in"
-        style={{
-          color: "var(--text-dim)",
-          fontSize: "11px",
-          letterSpacing: "0.15em",
-          fontWeight: 500,
-          textTransform: "uppercase" as const,
-          fontFamily: "var(--font-body)",
-        }}
-      >
-        Clevery Avocats &middot; SLC Production &middot; Arkel &middot; Lime &middot; Chamas Tacos &middot; Carte Noire &middot; Agence Laparra
-      </p>
-    </section>
-  );
-}
-
 /* ─── DARK CTA + FOOTER ─── */
 function DarkCTA() {
   return (
     <section
-      className="px-6 pt-24 pb-12 md:pt-32 md:pb-16 flex flex-col items-center text-center"
+      className="px-6 pt-28 pb-12 md:pt-36 md:pb-16 flex flex-col items-center text-center"
       style={{ background: "var(--bg-dark)" }}
     >
       <h2
@@ -289,7 +269,7 @@ function DarkCTA() {
         Planifier un entretien
       </a>
 
-      <p className="fade-in mb-24" style={{ fontSize: "14px", letterSpacing: "0.04em" }}>
+      <p className="fade-in mb-28" style={{ fontSize: "14px", letterSpacing: "0.04em" }}>
         <a
           href="mailto:paul@parrit.ai"
           style={{ color: "var(--text-light-muted)", textDecoration: "none" }}
@@ -323,9 +303,6 @@ export default function Home() {
       <EditorialDivider />
       <Proof />
       <EditorialDivider />
-      <Domains />
-      <EditorialDivider />
-      <References />
       <DarkCTA />
     </>
   );

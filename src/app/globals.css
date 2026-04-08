@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #F7F5F0;
-  --text: #1A1816;
-  --text-muted: #70665C;
-  --text-dim: #A09688;
+  --bg: #F5F1EA;
+  --text: #2A2520;
+  --text-muted: #6B6058;
+  --text-dim: #A09488;
   --accent: #c8956c;
   --accent-hover: #b8855c;
-  --bg-dark: #1A1816;
+  --bg-dark: #2A2520;
   --text-light: #F5F0EB;
   --text-light-muted: #A09688;
   --text-light-dim: #5A5047;
-  --border: rgba(26, 24, 22, 0.06);
+  --border: rgba(42, 37, 32, 0.08);
 }
 
 @theme inline {
@@ -57,7 +57,7 @@ body {
 
 .prose-section p {
   font-size: 17px;
-  line-height: 1.75;
+  line-height: 1.85;
   color: var(--text-muted);
   margin-bottom: 28px;
   text-align: justify;
@@ -82,8 +82,8 @@ body {
 
 /* ─── SECTION SPACING ─── */
 .section-space {
-  padding-top: 96px;
-  padding-bottom: 96px;
+  padding-top: 112px;
+  padding-bottom: 112px;
 }
 
 /* ─── DIVIDER — ultra thin like houseofouss ─── */
@@ -112,7 +112,7 @@ body {
 }
 
 .nav.scrolled {
-  background: rgba(247, 245, 240, 0.95);
+  background: rgba(245, 241, 234, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
@@ -125,7 +125,7 @@ body {
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--text);
+  color: var(--accent);
   text-decoration: none;
 }
 
@@ -173,6 +173,9 @@ body {
 .hero-delay-3 { animation-delay: 0.4s; }
 .hero-delay-4 { animation-delay: 0.55s; }
 .hero-delay-5 { animation-delay: 0.7s; }
+.hero-delay-6 { animation-delay: 0.85s; }
+.hero-delay-7 { animation-delay: 1.0s; }
+.hero-delay-8 { animation-delay: 1.15s; }
 
 /* ─── CTA BUTTON ─── */
 .cta-button {
@@ -229,6 +232,44 @@ body {
   box-shadow: 0 8px 24px rgba(200, 149, 108, 0.35);
 }
 
+/* ─── HERO TITLE — houseofouss mega sizing ─── */
+.hero-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(48px, 8vw, 80px);
+  line-height: 1.05;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.hero-title-accent {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.hero-intro {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.hero-quote {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+  text-align: center;
+  font-size: clamp(17px, 2vw, 20px);
+  line-height: 1.7;
+}
+
 /* ─── COPPER DOT SEPARATOR ─── */
 .copper-dot {
   display: inline-block;
@@ -237,6 +278,40 @@ body {
   border-radius: 50%;
   background: var(--accent);
   vertical-align: middle;
+}
+
+/* ─── FEATURES ROW ─── */
+.features-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 16px;
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 300;
+  font-family: var(--font-body);
+}
+
+/* ─── TRUST LABEL ─── */
+.trust-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-family: var(--font-body);
+  text-align: center;
+}
+
+.trust-names {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  font-family: var(--font-body);
+  text-align: center;
+  line-height: 1.8;
 }
 
 /* ─── SCROLL FADE ─── */
