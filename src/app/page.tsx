@@ -142,7 +142,7 @@ function Origin() {
         <p className="fade-in section-label">L&rsquo;Origine</p>
 
         <p className="fade-in">
-          Notre parcours nous a conduits de <strong>Palo Alto</strong> &agrave; <strong>Lime</strong>, puis <strong>Arkel</strong>&nbsp;&mdash; r&eacute;f&eacute;rence fran&ccedil;aise en automatisation intelligente. Groupe Seb, Nestl&eacute;, Carte Noire, SNCF&nbsp;: des d&eacute;ploiements r&eacute;els, en production.
+          Notre parcours nous a conduits de <strong>Palo Alto</strong> &agrave; <strong>Lime</strong>, puis <strong>Arkel</strong>&nbsp;&mdash; r&eacute;f&eacute;rence fran&ccedil;aise en automatisation intelligente. Nous sommes intervenus aupr&egrave;s de grands groupes tels que Bollor&eacute; Energy, Groupe Seb, Nestl&eacute; ou encore Carte Noire.
         </p>
 
         <p className="fade-in">
