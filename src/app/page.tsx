@@ -49,8 +49,16 @@ function EditorialDivider() {
 function Hero() {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-6 pt-[72px]">
+      {/* Emblem */}
+      <img
+        src="/emblem.png"
+        alt="Parrit.ai"
+        className="hero-animate hero-delay-1"
+        style={{ width: "180px", height: "180px", marginBottom: "32px", filter: "drop-shadow(0 8px 24px rgba(200,149,108,0.15))" }}
+      />
+
       {/* Italic intro phrase */}
-      <p className="hero-animate hero-delay-1 hero-intro" style={{ maxWidth: "480px", marginBottom: "40px" }}>
+      <p className="hero-animate hero-delay-2 hero-intro" style={{ maxWidth: "480px", marginBottom: "40px" }}>
         Si vous cherchez quelqu&rsquo;un qui parle d&rsquo;IA
         <br />
         &mdash; vous n&rsquo;&ecirc;tes pas au bon endroit.
@@ -111,15 +119,13 @@ function Hero() {
         <ButtonColorful label="Planifier un entretien" className="h-14 px-8 text-base" />
       </a>
 
-      {/* Social proof */}
-      <div className="hero-animate hero-delay-8" style={{ marginTop: "80px", marginBottom: "32px" }}>
-        <p className="trust-label" style={{ marginBottom: "16px" }}>
-          Ils nous font confiance
-        </p>
-        <p className="trust-names">
-          Clevery Avocats &middot; SLC Production &middot; Arkel &middot; Lime &middot; Chamas Tacos &middot; Carte Noire &middot; Agence Laparra
-        </p>
-      </div>
+      {/* Paris · Dubaï · Shanghai */}
+      <p
+        className="hero-animate hero-delay-8"
+        style={{ marginTop: "64px", color: "var(--text-dim)", fontSize: "11px", letterSpacing: "0.15em", fontWeight: 500, textTransform: "uppercase" as const }}
+      >
+        Paris &middot; Duba&iuml; &middot; Shanghai
+      </p>
     </section>
   );
 }
