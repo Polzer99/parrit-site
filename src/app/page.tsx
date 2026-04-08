@@ -122,23 +122,23 @@ function Origin() {
         <p className="fade-in section-label">L&rsquo;Origine</p>
 
         <p className="fade-in">
-          Tout a commenc&eacute; par un d&eacute;jeuner &agrave; <strong>Palo Alto</strong>. Un ancien de Mint, devenu Venture Capitalist, m&rsquo;a dit une phrase qui a tout chang&eacute; : &laquo;&nbsp;Investis ton temps dans le produit et l&rsquo;intelligence artificielle.&nbsp;&raquo;
+          Un d&eacute;jeuner &agrave; <strong>Palo Alto</strong> a pos&eacute; la premi&egrave;re pierre. Face &agrave; moi, un ancien cadre de Mint devenu investisseur. Une seule recommandation, formul&eacute;e avec la clart&eacute; de ceux qui voient loin&nbsp;: &laquo;&nbsp;Consacre-toi au produit et &agrave; l&rsquo;intelligence artificielle.&nbsp;&raquo;
         </p>
 
         <p className="fade-in">
-          J&rsquo;ai appliqu&eacute; &agrave; la lettre. Chez <strong>Lime</strong>, j&rsquo;ai int&eacute;gr&eacute; l&rsquo;IA dans les op&eacute;rations, la prospection, les partenariats. J&rsquo;ai scal&eacute; les swap stations, gagn&eacute; des appels d&rsquo;offres &agrave; Bruxelles et Lille, form&eacute; les &eacute;quipes de Londres &mdash; le march&eacute; num&eacute;ro un de Lime.
+          Les ann&eacute;es qui ont suivi ont &eacute;t&eacute; une immersion totale. Chez <strong>Lime</strong>, j&rsquo;ai d&eacute;ploy&eacute; l&rsquo;IA au c&oelig;ur des op&eacute;rations&nbsp;: prospection par apprentissage automatique, partenariats strat&eacute;giques, appels d&rsquo;offres remport&eacute;s &agrave; Bruxelles et Lille, formation des &eacute;quipes londoniennes sur le plus grand march&eacute; de l&rsquo;entreprise.
         </p>
 
         <p className="fade-in">
-          Puis <strong>Arkel</strong> &mdash; parmi les meilleurs en automatisation IA en France. Je leur ai ramen&eacute; le <strong>Groupe Seb</strong>, <strong>Nestl&eacute;</strong>, <strong>Carte Noire</strong>, <strong>Altaria</strong>, la <strong>SNCF</strong>. De l&rsquo;acquisition au closing, jusqu&rsquo;&agrave; la gestion de projet.
+          Puis est venu <strong>Arkel</strong>&nbsp;&mdash; r&eacute;f&eacute;rence fran&ccedil;aise en automatisation intelligente. J&rsquo;y ai conduit l&rsquo;acquisition de comptes d&rsquo;envergure&nbsp;: <strong>Groupe Seb</strong>, <strong>Nestl&eacute;</strong>, <strong>Carte Noire</strong>, <strong>Altaria</strong>, la <strong>SNCF</strong>. De la premi&egrave;re prise de contact jusqu&rsquo;&agrave; la livraison en production.
         </p>
 
         <p className="fade-in">
-          C&rsquo;est l&agrave; que j&rsquo;ai rencontr&eacute; <strong>Yukun</strong>. Dix ans d&rsquo;exp&eacute;rience SAP chez les grands groupes de luxe, consultante en gestion des flux, une expertise supply chain forg&eacute;e entre la France et la Chine. Un profil radicalement diff&eacute;rent du mien &mdash; et c&rsquo;est exactement ce qu&rsquo;il fallait.
+          C&rsquo;est dans ce parcours que <strong>Yukun</strong> est entr&eacute;e dans l&rsquo;&eacute;quation. Consultante SAP depuis dix ans au sein des maisons de luxe europ&eacute;ennes, sp&eacute;cialiste de la gestion des flux et de la supply chain entre la France et la Chine. Sa rigueur op&eacute;rationnelle compl&egrave;te exactement l&rsquo;approche terrain qui d&eacute;finit Parrit.ai.
         </p>
 
         <p className="fade-in">
-          Au bout de deux ans, nous avions tous les &eacute;l&eacute;ments. Le r&eacute;seau, la m&eacute;thode, les partenaires experts. <strong>Nous avons lanc&eacute; Parrit.ai.</strong>
+          Deux ann&eacute;es de pratique, un r&eacute;seau de partenaires experts, une m&eacute;thode &eacute;prouv&eacute;e. <strong>Parrit.ai est n&eacute; de cette convergence.</strong>
         </p>
       </div>
     </section>
@@ -174,33 +174,24 @@ function Proof() {
       <div className="prose-section">
         <p className="fade-in section-label">La Preuve</p>
 
-        {/* Story 1 */}
         <p className="fade-in">
-          <strong>Cent dix restaurants. Quarante ouvertures pr&eacute;vues cette ann&eacute;e.</strong> Une fondatrice qui passait des semaines sur chaque ouverture &mdash; juridique, op&eacute;rations, demandes de mairie, le tout suivi sur des tableurs et des messages.
+          Une enseigne de restauration en pleine expansion&nbsp;: <strong>cent dix &eacute;tablissements, quarante ouvertures programm&eacute;es</strong> sur l&rsquo;ann&eacute;e. Chaque nouvelle franchise mobilisait des semaines enti&egrave;res&nbsp;&mdash; suivi juridique, coordination op&eacute;rationnelle, &eacute;changes avec les municipalit&eacute;s, le tout dispers&eacute; entre tableurs et messageries.
         </p>
 
         <p className="fade-in">
-          Nous avons d&eacute;ploy&eacute; un syst&egrave;me de suivi dynamique avec notifications automatiques par r&ocirc;le. Chaque &eacute;tape trac&eacute;e, chaque retard d&eacute;tect&eacute;, chaque document v&eacute;rifi&eacute;. Le temps d&rsquo;ouverture a &eacute;t&eacute; r&eacute;duit de soixante-quinze pour cent.
+          Un syst&egrave;me de pilotage a &eacute;t&eacute; con&ccedil;u sur mesure&nbsp;: chaque &eacute;tape trac&eacute;e, chaque &eacute;ch&eacute;ance surveill&eacute;e, chaque document contr&ocirc;l&eacute; automatiquement. Le d&eacute;lai d&rsquo;ouverture a &eacute;t&eacute; divis&eacute; par quatre.
         </p>
 
-        {/* Thin copper divider between stories */}
         <div className="fade-in flex justify-center" style={{ padding: "40px 0" }}>
-          <div
-            style={{
-              width: "40px",
-              height: "1px",
-              background: "var(--accent)",
-            }}
-          />
+          <div style={{ width: "40px", height: "1px", background: "var(--accent)" }} />
         </div>
 
-        {/* Story 2 */}
         <p className="fade-in">
-          <strong>Une fondatrice dans l&rsquo;import-export.</strong> Trois heures par jour &agrave; trier ses emails &mdash; demandes de prix, catalogues, fournisseurs, r&eacute;ponses de toutes parts.
+          Une dirigeante dans le n&eacute;goce international consacrait <strong>trois heures chaque jour</strong> au traitement de sa correspondance&nbsp;: demandes tarifaires, catalogues, relances fournisseurs, confirmations de commandes.
         </p>
 
         <p className="fade-in">
-          Connexion aux outils existants, tri automatique, g&eacute;n&eacute;ration de brouillons, to-do list intelligente. Quatre-vingts pour cent du temps r&eacute;cup&eacute;r&eacute;. Deux heures trente lib&eacute;r&eacute;es chaque jour pour ce qui compte vraiment.
+          Ses outils ont &eacute;t&eacute; interconnect&eacute;s, le tri automatis&eacute;, les r&eacute;ponses pr&eacute;-r&eacute;dig&eacute;es. Il ne reste qu&rsquo;une validation finale. R&eacute;sultat&nbsp;: deux heures trente restitu&eacute;es quotidiennement &agrave; la direction strat&eacute;gique de son entreprise.
         </p>
       </div>
     </section>
