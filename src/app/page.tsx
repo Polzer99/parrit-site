@@ -252,18 +252,14 @@ export default function Home() {
     <>
       <Nav />
       <Hero />
-      <EditorialDivider />
       <Origin />
-      <section className="section-space flex justify-center gap-6 md:gap-10 px-6">
-        <img src="/stamp-paris.png" alt="Paris" className="fade-in w-[180px] md:w-[240px] rounded shadow-lg" style={{ border: '1px solid var(--border)' }} />
-        <img src="/stamp-china.png" alt="Shanghai" className="fade-in w-[180px] md:w-[240px] rounded shadow-lg" style={{ border: '1px solid var(--border)' }} />
-        <img src="/stamp-cameroun.png" alt="Cameroun" className="fade-in w-[180px] md:w-[240px] rounded shadow-lg" style={{ border: '1px solid var(--border)' }} />
+      <section className="py-16 flex justify-center gap-8 md:gap-12 px-6">
+        <img src="/stamp-paris.png" alt="Paris" className="fade-in w-[160px] md:w-[200px]" style={{ opacity: 0.85 }} />
+        <img src="/stamp-china.png" alt="Shanghai" className="fade-in w-[160px] md:w-[200px]" style={{ opacity: 0.85 }} />
+        <img src="/stamp-cameroun.png" alt="Cameroun" className="fade-in w-[160px] md:w-[200px]" style={{ opacity: 0.85 }} />
       </section>
-      <EditorialDivider />
       <Insight />
-      <EditorialDivider />
       <Proof />
-      <EditorialDivider />
       <DarkCTA />
     </>
   );
