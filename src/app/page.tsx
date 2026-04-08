@@ -83,19 +83,31 @@ function Hero() {
           lineHeight: 1.15,
           color: "var(--accent)",
           textAlign: "center",
-          marginBottom: "48px",
+          marginBottom: "32px",
         }}
       >
         Intelligence artificielle<br />d&eacute;ploy&eacute;e.
       </p>
 
+      {/* CTA — visible sans scroller */}
+      <a
+        href={CALENDAR_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hero-animate hero-delay-5"
+        data-ph="hero-cta"
+        onClick={trackCtaClick}
+      >
+        <ButtonColorful label="Planifier un entretien" className="h-14 px-8 text-base" />
+      </a>
+
       {/* Italic copper quote */}
-      <p className="hero-animate hero-delay-6 hero-quote" style={{ maxWidth: "600px", marginBottom: "48px" }}>
+      <p className="hero-animate hero-delay-6 hero-quote" style={{ maxWidth: "600px", marginTop: "48px", marginBottom: "32px" }}>
         Comprendre avant de proposer. D&eacute;ployer avant de promettre.
       </p>
 
       {/* Features row */}
-      <div className="hero-animate hero-delay-6 features-row" style={{ marginBottom: "48px" }}>
+      <div className="hero-animate hero-delay-6 features-row" style={{ marginBottom: "0" }}>
         <span>Automatisation</span>
         <span className="copper-dot" />
         <span>CRM</span>
@@ -106,18 +118,6 @@ function Hero() {
         <span className="copper-dot" />
         <span>Processus</span>
       </div>
-
-      {/* CTA */}
-      <a
-        href={CALENDAR_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="hero-animate hero-delay-7"
-        data-ph="hero-cta"
-        onClick={trackCtaClick}
-      >
-        <ButtonColorful label="Planifier un entretien" className="h-14 px-8 text-base" />
-      </a>
 
       {/* Paris · Dubaï · Shanghai */}
       <p
