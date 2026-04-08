@@ -162,23 +162,11 @@ function Origin() {
         <p className="fade-in section-label">L&rsquo;Origine</p>
 
         <p className="fade-in">
-          Un d&eacute;jeuner &agrave; <strong>Palo Alto</strong> a pos&eacute; la premi&egrave;re pierre. Face &agrave; moi, un ancien cadre de Mint devenu investisseur. Une seule recommandation, formul&eacute;e avec la clart&eacute; de ceux qui voient loin&nbsp;: &laquo;&nbsp;Consacre-toi au produit et &agrave; l&rsquo;intelligence artificielle.&nbsp;&raquo;
+          <strong>Lime</strong>, <strong>Arkel</strong>, <strong>Palo Alto</strong>. Op&eacute;rations, partenariats, grands comptes&nbsp;&mdash; Groupe Seb, Nestl&eacute;, Carte Noire, SNCF. Deux ann&eacute;es &agrave; d&eacute;ployer de l&rsquo;intelligence artificielle l&agrave; o&ugrave; elle change concr&egrave;tement la donne.
         </p>
 
         <p className="fade-in">
-          Les ann&eacute;es qui ont suivi ont &eacute;t&eacute; une immersion totale. Chez <strong>Lime</strong>, j&rsquo;ai d&eacute;ploy&eacute; l&rsquo;IA au c&oelig;ur des op&eacute;rations&nbsp;: prospection par apprentissage automatique, partenariats strat&eacute;giques, appels d&rsquo;offres remport&eacute;s &agrave; Bruxelles et Lille, formation des &eacute;quipes londoniennes sur le plus grand march&eacute; de l&rsquo;entreprise.
-        </p>
-
-        <p className="fade-in">
-          Puis est venu <strong>Arkel</strong>&nbsp;&mdash; r&eacute;f&eacute;rence fran&ccedil;aise en automatisation intelligente. J&rsquo;y ai conduit l&rsquo;acquisition de comptes d&rsquo;envergure&nbsp;: <strong>Groupe Seb</strong>, <strong>Nestl&eacute;</strong>, <strong>Carte Noire</strong>, <strong>Altaria</strong>, la <strong>SNCF</strong>. De la premi&egrave;re prise de contact jusqu&rsquo;&agrave; la livraison en production.
-        </p>
-
-        <p className="fade-in">
-          C&rsquo;est dans ce parcours que <strong>Yukun</strong> est entr&eacute;e dans l&rsquo;&eacute;quation. Consultante SAP depuis dix ans au sein des maisons de luxe europ&eacute;ennes, sp&eacute;cialiste de la gestion des flux et de la supply chain entre la France et la Chine. Sa rigueur op&eacute;rationnelle compl&egrave;te exactement l&rsquo;approche terrain qui d&eacute;finit Parrit.ai.
-        </p>
-
-        <p className="fade-in">
-          Deux ann&eacute;es de pratique, un r&eacute;seau de partenaires experts, une m&eacute;thode &eacute;prouv&eacute;e. <strong>Parrit.ai est n&eacute; de cette convergence.</strong>
+          Puis la rencontre avec <strong>Yukun</strong>&nbsp;&mdash; dix ans de SAP au sein des maisons de luxe, experte supply chain entre la France et la Chine. Deux profils, une m&eacute;thode, un r&eacute;seau de partenaires. <strong>Parrit.ai est n&eacute; de cette convergence.</strong>
         </p>
       </div>
     </section>
@@ -215,23 +203,15 @@ function Proof() {
         <p className="fade-in section-label">La Preuve</p>
 
         <p className="fade-in">
-          Une enseigne de restauration en pleine expansion&nbsp;: <strong>cent dix &eacute;tablissements, quarante ouvertures programm&eacute;es</strong> sur l&rsquo;ann&eacute;e. Chaque nouvelle franchise mobilisait des semaines enti&egrave;res&nbsp;&mdash; suivi juridique, coordination op&eacute;rationnelle, &eacute;changes avec les municipalit&eacute;s, le tout dispers&eacute; entre tableurs et messageries.
+          <strong>Cent dix restaurants, quarante ouvertures par an.</strong> Le d&eacute;lai d&rsquo;ouverture a &eacute;t&eacute; divis&eacute; par quatre gr&acirc;ce &agrave; un syst&egrave;me de pilotage automatis&eacute;.
         </p>
 
-        <p className="fade-in">
-          Un syst&egrave;me de pilotage a &eacute;t&eacute; con&ccedil;u sur mesure&nbsp;: chaque &eacute;tape trac&eacute;e, chaque &eacute;ch&eacute;ance surveill&eacute;e, chaque document contr&ocirc;l&eacute; automatiquement. Le d&eacute;lai d&rsquo;ouverture a &eacute;t&eacute; divis&eacute; par quatre.
-        </p>
-
-        <div className="fade-in flex justify-center" style={{ padding: "40px 0" }}>
+        <div className="fade-in flex justify-center" style={{ padding: "32px 0" }}>
           <div style={{ width: "40px", height: "1px", background: "var(--accent)" }} />
         </div>
 
         <p className="fade-in">
-          Une dirigeante dans le n&eacute;goce international consacrait <strong>trois heures chaque jour</strong> au traitement de sa correspondance&nbsp;: demandes tarifaires, catalogues, relances fournisseurs, confirmations de commandes.
-        </p>
-
-        <p className="fade-in">
-          Ses outils ont &eacute;t&eacute; interconnect&eacute;s, le tri automatis&eacute;, les r&eacute;ponses pr&eacute;-r&eacute;dig&eacute;es. Il ne reste qu&rsquo;une validation finale. R&eacute;sultat&nbsp;: deux heures trente restitu&eacute;es quotidiennement &agrave; la direction strat&eacute;gique de son entreprise.
+          <strong>Trois heures par jour de gestion d&rsquo;emails.</strong> Tri automatis&eacute;, r&eacute;ponses pr&eacute;-r&eacute;dig&eacute;es, validation en un clic. Deux heures trente restitu&eacute;es quotidiennement.
         </p>
       </div>
     </section>
