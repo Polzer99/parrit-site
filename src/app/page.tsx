@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useScrollFade } from "@/components/hooks";
+import { ButtonColorful } from "@/components/ui/button-colorful";
 
 const CALENDAR_URL = "https://calendar.app.google/nWa2QQe8DUwtuwbz8";
 const WEBHOOK_URL =
@@ -90,27 +91,6 @@ function Hero() {
         Intelligence artificielle<br />d&eacute;ploy&eacute;e.
       </p>
 
-      {/* Body prose */}
-      <p
-        className="hero-animate hero-delay-5"
-        style={{
-          color: "var(--text-muted)",
-          fontSize: "17px",
-          fontWeight: 300,
-          maxWidth: "680px",
-          lineHeight: 1.85,
-          fontFamily: "var(--font-body)",
-          textAlign: "justify",
-          textAlignLast: "center",
-          marginBottom: "40px",
-        }}
-      >
-        Je ne produis pas de slides. Je ne vends pas de formations.
-        J&rsquo;entre dans une entreprise, je comprends ses m&eacute;canismes,
-        et je d&eacute;ploie de l&rsquo;intelligence artificielle qui change
-        concr&egrave;tement la vitesse d&rsquo;ex&eacute;cution. En semaines, pas en mois.
-      </p>
-
       {/* Italic copper quote */}
       <p className="hero-animate hero-delay-6 hero-quote" style={{ maxWidth: "600px", marginBottom: "48px" }}>
         Comprendre avant de proposer. D&eacute;ployer avant de promettre.
@@ -134,11 +114,11 @@ function Hero() {
         href={CALENDAR_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="hero-animate hero-delay-7 cta-button"
+        className="hero-animate hero-delay-7"
         data-ph="hero-cta"
         onClick={trackCtaClick}
       >
-        Planifier un entretien
+        <ButtonColorful label="Planifier un entretien" className="h-14 px-8 text-base" />
       </a>
 
       {/* Social proof */}
@@ -162,11 +142,11 @@ function Origin() {
         <p className="fade-in section-label">L&rsquo;Origine</p>
 
         <p className="fade-in">
-          <strong>Lime</strong>, <strong>Arkel</strong>, <strong>Palo Alto</strong>. Op&eacute;rations, partenariats, grands comptes&nbsp;&mdash; Groupe Seb, Nestl&eacute;, Carte Noire, SNCF. Deux ann&eacute;es &agrave; d&eacute;ployer de l&rsquo;intelligence artificielle l&agrave; o&ugrave; elle change concr&egrave;tement la donne.
+          Notre parcours nous a conduits de <strong>Palo Alto</strong> &agrave; <strong>Lime</strong>, puis <strong>Arkel</strong>&nbsp;&mdash; r&eacute;f&eacute;rence fran&ccedil;aise en automatisation intelligente. Groupe Seb, Nestl&eacute;, Carte Noire, SNCF&nbsp;: des d&eacute;ploiements r&eacute;els, en production.
         </p>
 
         <p className="fade-in">
-          Puis la rencontre avec <strong>Yukun</strong>&nbsp;&mdash; dix ans de SAP au sein des maisons de luxe, experte supply chain entre la France et la Chine. Deux profils, une m&eacute;thode, un r&eacute;seau de partenaires. <strong>Parrit.ai est n&eacute; de cette convergence.</strong>
+          <strong>Paul</strong> apporte la vision produit et l&rsquo;approche terrain. <strong>Yukun</strong>, dix ans de SAP au sein des maisons de luxe europ&eacute;ennes, compl&egrave;te par sa ma&icirc;trise de la supply chain entre la France et la Chine.
         </p>
       </div>
     </section>
@@ -242,11 +222,11 @@ function DarkCTA() {
         href={CALENDAR_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="fade-in cta-button-dark mb-8"
+        className="fade-in mb-8"
         data-ph="final-cta"
         onClick={trackCtaClick}
       >
-        Planifier un entretien
+        <ButtonColorful label="Planifier un entretien" className="h-14 px-8 text-base" />
       </a>
 
       <p className="fade-in mb-28" style={{ fontSize: "14px", letterSpacing: "0.04em" }}>
@@ -278,6 +258,11 @@ export default function Home() {
       <Hero />
       <EditorialDivider />
       <Origin />
+      <section className="section-space flex justify-center gap-6 md:gap-10 px-6">
+        <img src="/stamp-paris.png" alt="Paris" className="fade-in w-[180px] md:w-[240px] rounded shadow-lg" style={{ border: '1px solid var(--border)' }} />
+        <img src="/stamp-china.png" alt="Shanghai" className="fade-in w-[180px] md:w-[240px] rounded shadow-lg" style={{ border: '1px solid var(--border)' }} />
+        <img src="/stamp-cameroun.png" alt="Cameroun" className="fade-in w-[180px] md:w-[240px] rounded shadow-lg" style={{ border: '1px solid var(--border)' }} />
+      </section>
       <EditorialDivider />
       <Insight />
       <EditorialDivider />
