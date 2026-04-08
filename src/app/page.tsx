@@ -36,16 +36,6 @@ function Nav() {
   return (
     <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
       <span className="nav-logo">PARRIT.AI</span>
-      <a
-        href={CALENDAR_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="nav-cta"
-        data-ph="nav-cta"
-        onClick={trackCtaClick}
-      >
-        Planifier un entretien
-      </a>
     </nav>
   );
 }
