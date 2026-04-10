@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { useScrollFade } from "@/components/hooks";
 import { ButtonColorful } from "@/components/ui/button-colorful";
@@ -9,19 +9,75 @@ const CALENDAR_URL = "https://calendar.app.google/nWa2QQe8DUwtuwbz8";
 const WEBHOOK_URL =
   "https://n8n.srv1115145.hstgr.cloud/webhook/lead-inbound";
 
-function trackCtaClick() {
+/* ─── UTM parameter extraction ─── */
+function getUtmParams(): Record<string, string> {
+  if (typeof window === "undefined") return {};
+  const params = new URLSearchParams(window.location.search);
+  const utms: Record<string, string> = {};
+  ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((key) => {
+    const val = params.get(key);
+    if (val) utms[key] = val;
+  });
+  return utms;
+}
+
+function trackCtaClick(label?: string) {
   fetch(WEBHOOK_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       source: "parrit.ai",
       action: "cta_click",
+      cta_label: label || "unknown",
       referrer: typeof document !== "undefined" ? document.referrer : "",
       url: typeof window !== "undefined" ? window.location.href : "",
       timestamp: new Date().toISOString(),
       page: "landing",
+      ...getUtmParams(),
     }),
   }).catch(() => {});
+}
+
+/* ─── Scroll depth + time-on-page tracking ─── */
+function useEngagementTracking() {
+  const firedRef = useRef<Set<number>>(new Set());
+  const startTime = useRef<number>(Date.now());
+
+  useEffect(() => {
+    const thresholds = [25, 50, 75, 100];
+
+    function handleScroll() {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollHeight <= 0) return;
+      const pct = Math.round((window.scrollY / scrollHeight) * 100);
+
+      thresholds.forEach((t) => {
+        if (pct >= t && !firedRef.current.has(t)) {
+          firedRef.current.add(t);
+          if (typeof window !== "undefined" && (window as any).posthog) {
+            (window as any).posthog.capture("scroll_depth", { depth: t });
+          }
+        }
+      });
+    }
+
+    function handleBeforeUnload() {
+      const seconds = Math.round((Date.now() - startTime.current) / 1000);
+      if (typeof window !== "undefined" && (window as any).posthog) {
+        (window as any).posthog.capture("time_on_page", {
+          seconds,
+          max_scroll: Math.max(...Array.from(firedRef.current), 0),
+        });
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 }
 
 /* ─── Shared animation variants ─── */
@@ -67,7 +123,7 @@ function Nav() {
         rel="noopener noreferrer"
         className="nav-cta"
         data-ph="nav-cta"
-        onClick={trackCtaClick}
+        onClick={() => trackCtaClick("nav")}
       >
         Diagnostic gratuit
       </a>
@@ -100,9 +156,9 @@ function Hero() {
         animate="visible"
         custom={1}
       >
-        Solutions d&rsquo;automatisation
+        Vos &eacute;quipes perdent des heures
         <br />
-        intelligente pour les entreprises
+        sur des t&acirc;ches que l&rsquo;IA fait en secondes
       </motion.h1>
 
       <motion.p
@@ -112,33 +168,40 @@ function Hero() {
         animate="visible"
         custom={2}
       >
-        Votre entreprise, avec deux fois moins de t&acirc;ches r&eacute;p&eacute;titives
-        d&egrave;s aujourd&rsquo;hui.
+        Nous d&eacute;ployons des agents IA sur mesure qui lib&egrave;rent
+        vos &eacute;quipes pour ce qui compte vraiment.
       </motion.p>
 
-      <motion.p
-        className="hero-tagline"
+      <motion.div
+        className="hero-cta-block"
         variants={fadeUp}
         initial="hidden"
         animate="visible"
         custom={3}
       >
-        Automatisation des processus par IA &middot; Laissez votre &eacute;quipe se concentrer sur ce qui compte vraiment.
-      </motion.p>
+        <motion.a
+          href={CALENDAR_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-ph="hero-cta"
+          onClick={() => trackCtaClick("hero")}
+          className="hero-cta-link"
+        >
+          <ButtonColorful label="R&eacute;servez votre diagnostic" className="h-14 px-8 text-base" />
+        </motion.a>
+        <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Confidentiel</p>
+      </motion.div>
 
-      <motion.a
-        href={CALENDAR_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        data-ph="hero-cta"
-        onClick={trackCtaClick}
+      <motion.p
+        className="hero-loss-aversion"
         variants={fadeUp}
         initial="hidden"
         animate="visible"
         custom={4}
       >
-        <ButtonColorful label="R&eacute;servez votre diagnostic" className="h-14 px-8 text-base" />
-      </motion.a>
+        Chaque semaine sans automatisation co&ucirc;te des dizaines d&rsquo;heures
+        &agrave; votre &eacute;quipe.
+      </motion.p>
 
       <motion.div
         className="features-row"
@@ -159,13 +222,13 @@ function Hero() {
       </motion.div>
 
       <motion.p
-        className="hero-geo"
+        className="hero-authority"
         variants={fadeUp}
         initial="hidden"
         animate="visible"
         custom={6}
       >
-        Entreprise fran&ccedil;aise &middot; Au service des march&eacute;s chinois et international
+        D&eacute;j&agrave; d&eacute;ploy&eacute; chez des entreprises de 50 &agrave; 5&nbsp;000 collaborateurs
       </motion.p>
 
       <motion.div
@@ -248,9 +311,9 @@ function PainPoints() {
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.7, delay: 0.4 }}
         >
-          Ces t&acirc;ches, l&rsquo;IA peut les faire &agrave; votre place.
+          Chacune de ces t&acirc;ches peut &ecirc;tre automatis&eacute;e en quelques jours.
           <br />
-          Votre &eacute;quipe m&eacute;rite de se concentrer sur l&rsquo;essentiel.
+          La question n&rsquo;est plus &laquo;&nbsp;si&nbsp;&raquo;, mais &laquo;&nbsp;quand&nbsp;&raquo;.
         </motion.p>
       </div>
     </section>
@@ -436,6 +499,30 @@ function CaseStudies() {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   SHAREABLE QUOTE (screenshottable / forwardable)
+   ═══════════════════════════════════════════════════════════ */
+function ShareableQuote() {
+  return (
+    <section className="quote-section" data-ph="shareable-quote">
+      <motion.blockquote
+        className="shareable-quote"
+        initial={{ opacity: 0, scale: 0.97 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <p className="quote-text">
+          &laquo;&nbsp;L&rsquo;IA ne remplace pas vos &eacute;quipes.
+          <br />
+          Elle leur rend les heures que la bureaucratie leur vole.&nbsp;&raquo;
+        </p>
+        <cite className="quote-cite">&mdash; Paul Larmaraud, Parrit.ai</cite>
+      </motion.blockquote>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
    SECTION 5 — TEAM (light background)
    ═══════════════════════════════════════════════════════════ */
 function Team() {
@@ -467,9 +554,8 @@ function Team() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, delay: 0.15 }}
         >
-          Experts en automatisation IA qui comprennent votre m&eacute;tier.
-          <br />
-          Entreprise fran&ccedil;aise, plus de dix ans d&rsquo;exp&eacute;rience dans les grandes entreprises.
+          Entreprise fran&ccedil;aise. Plus de dix ans d&rsquo;exp&eacute;rience cumul&eacute;e
+          dans les grandes entreprises.
         </motion.p>
 
         <motion.div
@@ -481,23 +567,19 @@ function Team() {
         >
           <motion.div className="team-card" variants={cardReveal}>
             <h3 className="team-name">Yukun Leng</h3>
-            <p className="team-role">Co-fondateur</p>
+            <p className="team-role">Co-fondateur &middot; SAP &amp; Supply Chain</p>
             <p className="team-bio">
-              Consultant SAP &middot; 10 ans MM/SD/FI &middot; Ex-consultant international chez LVMH, Jabil.
-              Ma&icirc;trise des pratiques professionnelles franco-chinoises.
-              Sp&eacute;cialit&eacute;&nbsp;: supply chain / optimisation des processus.
-              Responsable march&eacute; Chine.
+              10 ans d&rsquo;expertise SAP (MM/SD/FI). Ancien consultant LVMH et Jabil.
+              Sp&eacute;cialiste de l&rsquo;optimisation des processus industriels.
             </p>
           </motion.div>
 
           <motion.div className="team-card" variants={cardReveal}>
             <h3 className="team-name">Paul Larmaraud</h3>
-            <p className="team-role">Co-fondateur</p>
+            <p className="team-role">Co-fondateur &middot; IA &amp; Automatisation</p>
             <p className="team-bio">
-              Ing&eacute;nieur IA &middot; 3+ ans de d&eacute;ploiement IA en entreprise.
-              Exp&eacute;rience dans le nucl&eacute;aire, la grande distribution et les RH.
-              Ex-&eacute;quipe op&eacute;rations mondiales Lime.
-              &laquo;&nbsp;From idea &rarr; agent &rarr; adoption. Fast.&nbsp;&raquo;
+              Ing&eacute;nieur IA, 3+ ans de d&eacute;ploiement en entreprise.
+              Nucl&eacute;aire, grande distribution, RH. Ex-Lime (op&eacute;rations mondiales).
             </p>
           </motion.div>
         </motion.div>
@@ -529,36 +611,72 @@ function CtaFooter() {
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: 0.1 }}
       >
-        Un appel de 30 minutes pour identifier vos gains imm&eacute;diats.
+        Vous repartez avec une cartographie claire de vos gains d&rsquo;automatisation
+        — m&ecirc;me si vous ne travaillez pas avec nous.
       </motion.p>
 
-      <motion.a
-        href={CALENDAR_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        data-ph="final-cta"
-        onClick={trackCtaClick}
+      <motion.div
+        className="cta-button-block"
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
       >
-        <ButtonColorful label="R&eacute;servez votre diagnostic" className="h-14 px-8 text-base" />
-      </motion.a>
+        <a
+          href={CALENDAR_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-ph="final-cta"
+          onClick={() => trackCtaClick("footer")}
+        >
+          <ButtonColorful label="R&eacute;servez votre diagnostic" className="h-14 px-8 text-base" />
+        </a>
+        <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Confidentiel</p>
+      </motion.div>
 
-      <motion.p
-        className="cta-email"
+      {/* Secondary CTA — warm but not ready */}
+      <motion.div
+        className="secondary-cta"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: 0.3 }}
       >
-        <a href="mailto:paul@parrit.ai">paul@parrit.ai</a>
-      </motion.p>
+        <p className="secondary-cta-label">Pas encore pr&ecirc;t&nbsp;? &Eacute;changeons directement.</p>
+        <a
+          href="https://wa.me/33759665687?text=Bonjour%20Paul%2C%20je%20souhaiterais%20en%20savoir%20plus%20sur%20Parrit.ai"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="secondary-cta-link"
+          data-ph="whatsapp-cta"
+          onClick={() => trackCtaClick("whatsapp")}
+        >
+          &Eacute;crire sur WhatsApp
+        </a>
+        <span className="secondary-cta-sep">&middot;</span>
+        <a
+          href="mailto:paul@parrit.ai"
+          className="secondary-cta-link"
+          data-ph="email-cta"
+          onClick={() => trackCtaClick("email")}
+        >
+          paul@parrit.ai
+        </a>
+      </motion.div>
 
-      <p className="footer-legal">
-        &copy; 2026 SASU PARRIT.AI &middot; Rueil-Malmaison &middot; France
-      </p>
+      {/* RGPD + Legal footer */}
+      <footer className="footer-block">
+        <p className="footer-legal">
+          &copy; 2026 SASU PARRIT.AI &middot; Rueil-Malmaison &middot; France
+        </p>
+        <p className="footer-rgpd">
+          Ce site ne d&eacute;pose aucun cookie publicitaire.
+          Les donn&eacute;es analytiques sont collect&eacute;es de mani&egrave;re anonyme
+          conform&eacute;ment au RGPD. En r&eacute;servant un appel, vous acceptez
+          que vos coordonn&eacute;es soient utilis&eacute;es uniquement pour organiser
+          cet &eacute;change. Contact&nbsp;: <a href="mailto:paul@parrit.ai">paul@parrit.ai</a>
+        </p>
+      </footer>
     </section>
   );
 }
@@ -568,6 +686,7 @@ function CtaFooter() {
    ═══════════════════════════════════════════════════════════ */
 export default function Home() {
   useScrollFade();
+  useEngagementTracking();
 
   return (
     <>
@@ -576,6 +695,7 @@ export default function Home() {
       <PainPoints />
       <Services />
       <CaseStudies />
+      <ShareableQuote />
       <Team />
       <CtaFooter />
     </>

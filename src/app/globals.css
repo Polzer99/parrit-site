@@ -107,7 +107,8 @@ body > * {
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 500;
-  padding: 8px 20px;
+  padding: 12px 20px;
+  min-height: 44px;
   border-radius: 999px;
   text-decoration: none;
   border: none;
@@ -168,20 +169,45 @@ body > * {
   margin-bottom: 16px;
 }
 
-.hero-tagline {
-  font-family: var(--font-heading);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(15px, 1.8vw, 18px);
-  line-height: 1.6;
-  color: var(--accent);
-  text-align: center;
-  max-width: 600px;
-  margin-bottom: 40px;
+/* hero-tagline removed — replaced by cta-micro + loss-aversion */
+
+/* CTA micro-copy (friction reducer) */
+.hero-cta-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
-.hero-geo {
-  margin-top: 40px;
+.hero-cta-link {
+  display: inline-block;
+}
+
+.cta-micro {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+/* Loss aversion line */
+.hero-loss-aversion {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 480px;
+  margin-top: 24px;
+  opacity: 0.75;
+  font-style: italic;
+}
+
+/* Authority signal */
+.hero-authority {
+  margin-top: 32px;
   color: var(--text-dim);
   font-size: 12px;
   letter-spacing: 0.12em;
@@ -591,6 +617,50 @@ body > * {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   SHAREABLE QUOTE
+   ═══════════════════════════════════════════════════════════ */
+.quote-section {
+  background: var(--bg-dark);
+  padding: 80px 24px;
+}
+
+@media (min-width: 768px) {
+  .quote-section {
+    padding: 96px 48px;
+  }
+}
+
+.shareable-quote {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  border-left: none;
+  padding: 40px 32px;
+  background: var(--card-dark);
+  border-radius: 12px;
+  border: 1px solid rgba(200, 149, 108, 0.15);
+}
+
+.quote-text {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(22px, 3.5vw, 32px);
+  line-height: 1.4;
+  color: var(--text-light);
+  margin: 0 0 20px;
+  font-style: italic;
+}
+
+.quote-cite {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--accent);
+  font-style: normal;
+  letter-spacing: 0.04em;
+}
+
+/* ═══════════════════════════════════════════════════════════
    CTA + FOOTER
    ═══════════════════════════════════════════════════════════ */
 .cta-section {
@@ -634,12 +704,98 @@ body > * {
   color: var(--accent);
 }
 
+/* CTA button block with micro-copy */
+.cta-button-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Secondary CTA (warm-but-not-ready) */
+.secondary-cta {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (min-width: 640px) {
+  .secondary-cta {
+    flex-direction: row;
+    gap: 12px;
+  }
+}
+
+.secondary-cta-label {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+.secondary-cta-link {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.secondary-cta-link:hover {
+  border-bottom-color: var(--accent);
+  color: var(--accent-hover);
+}
+
+.secondary-cta-sep {
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+@media (max-width: 639px) {
+  .secondary-cta-sep {
+    display: none;
+  }
+}
+
+/* Footer block */
+.footer-block {
+  margin-top: 80px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  max-width: 600px;
+  text-align: center;
+}
+
 .footer-legal {
-  margin-top: 64px;
   color: var(--text-dim);
   font-size: 11px;
   letter-spacing: 0.1em;
   opacity: 0.6;
+  margin-bottom: 12px;
+}
+
+.footer-rgpd {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-dim);
+  opacity: 0.5;
+  margin: 0;
+}
+
+.footer-rgpd a {
+  color: var(--text-dim);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* ═══════════════════════════════════════════════════════════

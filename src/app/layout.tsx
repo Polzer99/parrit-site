@@ -34,19 +34,28 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Paul Larmaraud" }],
   openGraph: {
-    title: "Parrit.ai \u2014 Automatisation intelligente pour les entreprises",
+    title: "Parrit.ai \u2014 Vos \u00e9quipes m\u00e9ritent mieux que le copier-coller",
     description:
-      "Deux fois moins de t\u00e2ches r\u00e9p\u00e9titives d\u00e8s aujourd\u2019hui. Automatisation des processus par IA.",
+      "Agents IA sur mesure pour automatiser vos processus r\u00e9p\u00e9titifs. Diagnostic gratuit en 15 minutes.",
     url: "https://parrit.ai",
     siteName: "Parrit.ai",
     locale: "fr_FR",
     type: "website",
+    images: [
+      {
+        url: "https://parrit.ai/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Parrit.ai \u2014 Automatisation intelligente pour les entreprises",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Parrit.ai \u2014 Automatisation intelligente pour les entreprises",
+    title: "Parrit.ai \u2014 Vos \u00e9quipes m\u00e9ritent mieux que le copier-coller",
     description:
-      "Deux fois moins de t\u00e2ches r\u00e9p\u00e9titives d\u00e8s aujourd\u2019hui. Automatisation des processus par IA.",
+      "Agents IA sur mesure pour automatiser vos processus r\u00e9p\u00e9titifs. Diagnostic gratuit en 15 minutes.",
+    images: ["https://parrit.ai/og-image.png"],
   },
   robots: {
     index: true,
