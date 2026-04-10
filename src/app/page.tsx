@@ -15,7 +15,7 @@ function trackCtaClick() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       source: "parrit.ai",
-      action: "cta_click",
+      action: "cta_click", referrer: typeof document !== "undefined" ? document.referrer : "", url: typeof window !== "undefined" ? window.location.href : "",
       timestamp: new Date().toISOString(),
       page: "landing",
     }),
@@ -151,7 +151,7 @@ function Hero() {
         animate="visible"
         custom={5}
       >
-        <ButtonColorful label="Planifier un entretien" className="h-14 px-8 text-base" />
+        <ButtonColorful label="R&eacute;servez votre diagnostic" className="h-14 px-8 text-base" />
       </motion.a>
 
       {/* Italic copper quote */}
@@ -341,7 +341,7 @@ function DarkCTA() {
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
       >
-        <ButtonColorful label="Planifier un entretien" className="h-14 px-8 text-base" />
+        <ButtonColorful label="R&eacute;servez votre diagnostic" className="h-14 px-8 text-base" />
       </motion.a>
 
       <motion.p
