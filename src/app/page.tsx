@@ -40,11 +40,6 @@ function Nav() {
   );
 }
 
-/* ─── EDITORIAL DIVIDER ─── */
-function EditorialDivider() {
-  return <hr className="editorial-divider" />;
-}
-
 /* ─── SECTION 1: HERO (houseofouss style — centered, massive, breathing) ─── */
 function Hero() {
   return (
@@ -66,10 +61,10 @@ function Hero() {
 
       {/* MEGA title */}
       <h1 className="hero-animate hero-delay-2 hero-title" style={{ marginBottom: "8px" }}>
-        La preuve
+        L&rsquo;excellence
       </h1>
       <h1 className="hero-animate hero-delay-3 hero-title" style={{ marginBottom: "12px" }}>
-        par l&rsquo;exemple.
+        par l&rsquo;usage.
       </h1>
 
       {/* Accent italic subtitle */}
@@ -112,7 +107,7 @@ function Hero() {
         <span className="copper-dot" />
         <span>CRM</span>
         <span className="copper-dot" />
-        <span>Agents IA</span>
+        <span>Agents</span>
         <span className="copper-dot" />
         <span>SAP</span>
         <span className="copper-dot" />
@@ -130,19 +125,24 @@ function Hero() {
   );
 }
 
-/* ─── SECTION 2: L'ORIGINE (prose-section, justified) ─── */
+/* ─── SECTION 2: L'ORIGINE (elegant, centered, invitation tone) ─── */
 function Origin() {
   return (
-    <section className="section-space">
-      <div className="prose-section">
-        <p className="fade-in section-label">L&rsquo;Origine</p>
+    <section className="py-28 md:py-32 px-6">
+      <div className="origin-section">
+        <p className="fade-in section-label text-center">L&rsquo;Origine</p>
 
-        <p className="fade-in">
-          Notre parcours nous a conduits de <strong>Palo Alto</strong> &agrave; <strong>Lime</strong>, puis <strong>Arkel</strong>&nbsp;&mdash; r&eacute;f&eacute;rence fran&ccedil;aise en automatisation intelligente. Nous sommes intervenus aupr&egrave;s de grands groupes tels que Bollor&eacute; Energy, Groupe Seb, Nestl&eacute; ou encore Carte Noire.
+        <p className="fade-in origin-text">
+          De Palo Alto &agrave; Lime, puis Arkel&nbsp;&mdash; nous avons accompagn&eacute; des maisons telles que Bollor&eacute; Energy, Groupe Seb, Nestl&eacute;, Carte Noire.
         </p>
 
-        <p className="fade-in">
-          <strong>Paul</strong> apporte la vision produit et l&rsquo;approche terrain. <strong>Yukun</strong>, dix ans de SAP au sein des maisons de luxe europ&eacute;ennes, compl&egrave;te par sa ma&icirc;trise de la supply chain entre la France et la Chine.
+        {/* Copper ornament */}
+        <div className="fade-in flex justify-center py-6">
+          <div className="copper-ornament" />
+        </div>
+
+        <p className="fade-in origin-text">
+          <strong>Paul</strong> porte la vision produit et le terrain. <strong>Yukun</strong> apporte dix ann&eacute;es au c&oelig;ur des maisons europ&eacute;ennes et la ma&icirc;trise des op&eacute;rations entre la France et la Chine.
         </p>
       </div>
     </section>
@@ -165,30 +165,24 @@ function Insight() {
           maxWidth: "640px",
         }}
       >
-        &laquo;&nbsp;Le plus important, ce n&rsquo;est pas la technologie. C&rsquo;est la compr&eacute;hension de l&rsquo;humain.&nbsp;&raquo;
+        &laquo;&nbsp;Ce qui compte n&rsquo;est pas la technologie. C&rsquo;est la compr&eacute;hension de l&rsquo;humain.&nbsp;&raquo;
       </p>
     </section>
   );
 }
 
-/* ─── SECTION 4: LA PREUVE (prose-section, two stories) ─── */
-function Proof() {
+/* ─── SECTION 4: SAVOIR-FAIRE (3 words, copper, elegant) ─── */
+function SavoirFaire() {
   return (
-    <section className="section-space">
-      <div className="prose-section">
-        <p className="fade-in section-label">La Preuve</p>
+    <section className="py-28 md:py-32 px-6 flex flex-col items-center">
+      <p className="fade-in section-label text-center" style={{ marginBottom: "48px" }}>Savoir-faire</p>
 
-        <p className="fade-in">
-          <strong>Cent dix restaurants, quarante ouvertures par an.</strong> Le d&eacute;lai d&rsquo;ouverture a &eacute;t&eacute; divis&eacute; par quatre gr&acirc;ce &agrave; un syst&egrave;me de pilotage automatis&eacute;.
-        </p>
-
-        <div className="fade-in flex justify-center" style={{ padding: "32px 0" }}>
-          <div style={{ width: "40px", height: "1px", background: "var(--accent)" }} />
-        </div>
-
-        <p className="fade-in">
-          <strong>Trois heures par jour de gestion d&rsquo;emails.</strong> Tri automatis&eacute;, r&eacute;ponses pr&eacute;-r&eacute;dig&eacute;es, validation en un clic. Deux heures trente restitu&eacute;es quotidiennement.
-        </p>
+      <div className="fade-in savoir-faire-list">
+        <span className="savoir-faire-word">Diagnostic</span>
+        <div className="savoir-faire-line" />
+        <span className="savoir-faire-word">Conception</span>
+        <div className="savoir-faire-line" />
+        <span className="savoir-faire-word">D&eacute;ploiement</span>
       </div>
     </section>
   );
@@ -198,15 +192,15 @@ function Proof() {
 function DarkCTA() {
   return (
     <section
-      className="px-6 pt-28 pb-12 md:pt-36 md:pb-16 flex flex-col items-center text-center"
+      className="px-6 py-40 flex flex-col items-center text-center"
       style={{ background: "var(--bg-dark)" }}
     >
       <h2
-        className="fade-in mb-10"
+        className="fade-in mb-12"
         style={{
           fontFamily: "var(--font-heading)",
           fontWeight: 400,
-          fontSize: "clamp(32px, 4vw, 44px)",
+          fontSize: "clamp(36px, 5vw, 52px)",
           color: "var(--text-light)",
           letterSpacing: "-0.01em",
         }}
@@ -218,14 +212,14 @@ function DarkCTA() {
         href={CALENDAR_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="fade-in mb-8"
+        className="fade-in mb-10"
         data-ph="final-cta"
         onClick={trackCtaClick}
       >
         <ButtonColorful label="Planifier un entretien" className="h-14 px-8 text-base" />
       </a>
 
-      <p className="fade-in mb-28" style={{ fontSize: "14px", letterSpacing: "0.04em" }}>
+      <p className="fade-in" style={{ fontSize: "14px", letterSpacing: "0.04em", marginBottom: "80px" }}>
         <a
           href="mailto:paul@parrit.ai"
           style={{ color: "var(--text-light-muted)", textDecoration: "none" }}
@@ -235,7 +229,7 @@ function DarkCTA() {
       </p>
 
       <p
-        style={{ color: "var(--text-light-dim)", fontSize: "12px", letterSpacing: "0.08em" }}
+        style={{ color: "rgba(90, 80, 71, 0.5)", fontSize: "11px", letterSpacing: "0.1em" }}
       >
         &copy; 2026 Paul Larmaraud &middot; SASU PARRIT.AI &middot;
         Rueil-Malmaison
@@ -253,13 +247,17 @@ export default function Home() {
       <Nav />
       <Hero />
       <Origin />
-      <section className="py-16 flex justify-center gap-8 md:gap-12 px-6">
-        <img src="/stamp-paris.png" alt="Paris" className="fade-in w-[160px] md:w-[200px]" style={{ opacity: 0.85 }} />
-        <img src="/stamp-china.png" alt="Shanghai" className="fade-in w-[160px] md:w-[200px]" style={{ opacity: 0.85 }} />
-        <img src="/stamp-cameroun.png" alt="Cameroun" className="fade-in w-[160px] md:w-[200px]" style={{ opacity: 0.85 }} />
+      {/* Stamps — vintage, slightly rotated, overlapping */}
+      <section className="py-24 md:py-28 flex flex-col items-center px-6">
+        <div className="fade-in stamps-row">
+          <img src="/stamp-paris.png" alt="Paris" className="stamp stamp-left" />
+          <img src="/stamp-china.png" alt="Shanghai" className="stamp stamp-center" />
+          <img src="/stamp-cameroun.png" alt="Cameroun" className="stamp stamp-right" />
+        </div>
+        <p className="fade-in stamps-caption">Paris &middot; Shanghai &middot; Douala</p>
       </section>
       <Insight />
-      <Proof />
+      <SavoirFaire />
       <DarkCTA />
     </>
   );

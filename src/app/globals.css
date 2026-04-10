@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #F5F1EA;
+  --bg: #f3e8d3;
   --text: #2A2520;
   --text-muted: #6B6058;
   --text-dim: #A09488;
@@ -57,10 +57,10 @@ body {
 
 .prose-section p {
   font-size: 17px;
-  line-height: 1.85;
+  line-height: 1.65;
   color: var(--text-muted);
   margin-bottom: 28px;
-  text-align: justify;
+  text-align: center;
   font-weight: 300;
 }
 
@@ -82,16 +82,102 @@ body {
 
 /* ─── SECTION SPACING ─── */
 .section-space {
-  padding-top: 112px;
-  padding-bottom: 112px;
+  padding-top: 96px;
+  padding-bottom: 96px;
 }
 
-/* ─── DIVIDER — ultra thin like houseofouss ─── */
-.editorial-divider {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 0;
-  width: 100%;
+/* ─── ORIGIN SECTION ─── */
+.origin-section {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.origin-text {
+  font-size: 17px;
+  line-height: 1.9;
+  color: var(--text-muted);
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.origin-text strong {
+  color: var(--text);
+  font-weight: 600;
+  font-family: var(--font-heading);
+}
+
+/* ─── COPPER ORNAMENT ─── */
+.copper-ornament {
+  width: 48px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.6;
+}
+
+/* ─── STAMPS ─── */
+.stamps-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stamp {
+  width: 140px;
+  opacity: 0.75;
+  transition: opacity 0.4s ease;
+}
+@media (min-width: 768px) {
+  .stamp { width: 180px; }
+}
+
+.stamp-left {
+  transform: rotate(-2deg);
+  margin-right: -12px;
+  z-index: 1;
+}
+.stamp-center {
+  transform: rotate(0deg);
+  z-index: 2;
+  position: relative;
+}
+.stamp-right {
+  transform: rotate(2deg);
+  margin-left: -12px;
+  z-index: 1;
+}
+
+.stamps-caption {
+  margin-top: 20px;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  font-weight: 400;
+  text-transform: none;
+}
+
+/* ─── SAVOIR-FAIRE ─── */
+.savoir-faire-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.savoir-faire-word {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(26px, 3vw, 32px);
+  color: var(--accent);
+  letter-spacing: 0.01em;
+}
+
+.savoir-faire-line {
+  width: 32px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.4;
+  margin: 20px 0;
 }
 
 /* ─── NAV ─── */
@@ -112,7 +198,7 @@ body {
 }
 
 .nav.scrolled {
-  background: rgba(245, 241, 234, 0.95);
+  background: rgba(243, 232, 211, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
