@@ -17,9 +17,9 @@ const body = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Parrit.ai \u2014 Intelligence artificielle appliqu\u00e9e",
+  title: "Parrit.ai \u2014 Solutions d\u2019automatisation intelligente pour les entreprises",
   description:
-    "Exposez-moi vos contraintes, je con\u00e7ois la solution. Intelligence artificielle d\u00e9ploy\u00e9e en quatre semaines. Paul Larmaraud \u2014 Paris, Duba\u00ef, Shanghai.",
+    "Votre entreprise, avec deux fois moins de t\u00e2ches r\u00e9p\u00e9titives d\u00e8s aujourd\u2019hui. Automatisation des processus par IA. Entreprise fran\u00e7aise.",
   keywords: [
     "IA entreprise",
     "automatisation processus",
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Paul Larmaraud" }],
   openGraph: {
-    title: "Parrit.ai \u2014 Intelligence artificielle appliqu\u00e9e",
+    title: "Parrit.ai \u2014 Automatisation intelligente pour les entreprises",
     description:
-      "Exposez-moi vos contraintes, je con\u00e7ois la solution. D\u00e9ploy\u00e9e en quatre semaines.",
+      "Deux fois moins de t\u00e2ches r\u00e9p\u00e9titives d\u00e8s aujourd\u2019hui. Automatisation des processus par IA.",
     url: "https://parrit.ai",
     siteName: "Parrit.ai",
     locale: "fr_FR",
@@ -44,9 +44,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Parrit.ai \u2014 Intelligence artificielle appliqu\u00e9e",
+    title: "Parrit.ai \u2014 Automatisation intelligente pour les entreprises",
     description:
-      "Exposez-moi vos contraintes, je con\u00e7ois la solution. D\u00e9ploy\u00e9e en quatre semaines.",
+      "Deux fois moins de t\u00e2ches r\u00e9p\u00e9titives d\u00e8s aujourd\u2019hui. Automatisation des processus par IA.",
   },
   robots: {
     index: true,
@@ -66,14 +66,17 @@ export default function RootLayout({
     legalName: "SASU PARRIT.AI",
     url: "https://parrit.ai",
     description:
-      "Exposez-moi vos contraintes, je con\u00e7ois la solution. Intelligence artificielle d\u00e9ploy\u00e9e en quatre semaines.",
+      "Solutions d\u2019automatisation intelligente pour les entreprises. Deux fois moins de t\u00e2ches r\u00e9p\u00e9titives d\u00e8s aujourd\u2019hui.",
     foundingDate: "2024",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Rueil-Malmaison",
       addressCountry: "FR",
     },
-    founder: [{ "@type": "Person", name: "Paul Larmaraud" }],
+    founder: [
+      { "@type": "Person", name: "Paul Larmaraud" },
+      { "@type": "Person", name: "Yukun Leng" },
+    ],
     contactPoint: {
       "@type": "ContactPoint",
       email: "paul@parrit.ai",
