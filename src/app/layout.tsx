@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 
-const playfair = Playfair_Display({
+const heading = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600"],
   variable: "--font-heading",
   display: "swap",
 });
 
-const inter = Inter({
+const body = DM_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "500"],
   variable: "--font-body",
@@ -99,7 +99,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${playfair.variable} min-h-screen`}
+        className={`${body.variable} ${heading.variable} min-h-screen`}
         style={{ fontFamily: "var(--font-body)" }}
       >
         {children}

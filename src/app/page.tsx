@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useScrollFade } from "@/components/hooks";
 import { ButtonColorful } from "@/components/ui/button-colorful";
 
@@ -20,6 +21,16 @@ function trackCtaClick() {
     }),
   }).catch(() => {});
 }
+
+/* ─── Shared animation variants ─── */
+const heroReveal: Record<string, any> = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: "easeOut", delay: i * 0.15 },
+  }),
+};
 
 /* ─── NAV ─── */
 function Nav() {
@@ -43,33 +54,77 @@ function Nav() {
 /* ─── SECTION 1: HERO (houseofouss style — centered, massive, breathing) ─── */
 function Hero() {
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center px-6 pt-[72px]">
-      {/* Emblem */}
-      <img
-        src="/emblem.png"
-        alt="Parrit.ai"
-        className="hero-animate hero-delay-1"
-        style={{ width: "180px", height: "180px", marginBottom: "32px", filter: "drop-shadow(0 8px 24px rgba(200,149,108,0.15))" }}
-      />
+    <section className="min-h-[90vh] flex flex-col items-center justify-center px-6 pt-[72px] relative">
+      {/* Styled text logo — subtle floating animation */}
+      <motion.span
+        initial={{ opacity: 0, y: 20 }}
+        animate={{
+          opacity: 1,
+          y: [0, -5, 0],
+        }}
+        transition={{
+          opacity: { duration: 0.7, ease: "easeOut", delay: 0.15 },
+          y: {
+            duration: 4,
+            ease: "easeInOut",
+            repeat: Infinity,
+            delay: 0.9,
+          },
+        }}
+        style={{
+          fontFamily: "var(--font-heading)",
+          fontSize: "clamp(36px, 5vw, 42px)",
+          fontWeight: 400,
+          letterSpacing: "0.15em",
+          color: "var(--accent)",
+          marginBottom: "32px",
+        }}
+      >
+        PARRIT.AI
+      </motion.span>
 
       {/* Italic intro phrase */}
-      <p className="hero-animate hero-delay-2 hero-intro" style={{ maxWidth: "480px", marginBottom: "40px" }}>
+      <motion.p
+        className="hero-intro"
+        style={{ maxWidth: "480px", marginBottom: "40px" }}
+        variants={heroReveal}
+        initial="hidden"
+        animate="visible"
+        custom={1}
+      >
         Si vous cherchez quelqu&rsquo;un qui parle d&rsquo;IA
         <br />
         &mdash; vous n&rsquo;&ecirc;tes pas au bon endroit.
-      </p>
+      </motion.p>
 
       {/* MEGA title */}
-      <h1 className="hero-animate hero-delay-2 hero-title" style={{ marginBottom: "8px" }}>
+      <motion.h1
+        className="hero-title"
+        style={{ marginBottom: "8px" }}
+        variants={heroReveal}
+        initial="hidden"
+        animate="visible"
+        custom={2}
+      >
         L&rsquo;excellence
-      </h1>
-      <h1 className="hero-animate hero-delay-3 hero-title" style={{ marginBottom: "12px" }}>
+      </motion.h1>
+      <motion.h1
+        className="hero-title"
+        style={{ marginBottom: "12px" }}
+        variants={heroReveal}
+        initial="hidden"
+        animate="visible"
+        custom={3}
+      >
         par l&rsquo;usage.
-      </h1>
+      </motion.h1>
 
       {/* Accent italic subtitle */}
-      <p
-        className="hero-animate hero-delay-4"
+      <motion.p
+        variants={heroReveal}
+        initial="hidden"
+        animate="visible"
+        custom={4}
         style={{
           fontFamily: "var(--font-heading)",
           fontStyle: "italic",
@@ -82,27 +137,44 @@ function Hero() {
         }}
       >
         Intelligence artificielle<br />d&eacute;ploy&eacute;e.
-      </p>
+      </motion.p>
 
       {/* CTA — visible sans scroller */}
-      <a
+      <motion.a
         href={CALENDAR_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="hero-animate hero-delay-5"
         data-ph="hero-cta"
         onClick={trackCtaClick}
+        variants={heroReveal}
+        initial="hidden"
+        animate="visible"
+        custom={5}
       >
         <ButtonColorful label="Planifier un entretien" className="h-14 px-8 text-base" />
-      </a>
+      </motion.a>
 
       {/* Italic copper quote */}
-      <p className="hero-animate hero-delay-6 hero-quote" style={{ maxWidth: "600px", marginTop: "48px", marginBottom: "32px" }}>
+      <motion.p
+        className="hero-quote"
+        style={{ maxWidth: "600px", marginTop: "48px", marginBottom: "32px" }}
+        variants={heroReveal}
+        initial="hidden"
+        animate="visible"
+        custom={6}
+      >
         Comprendre avant de proposer. D&eacute;ployer avant de promettre.
-      </p>
+      </motion.p>
 
       {/* Features row */}
-      <div className="hero-animate hero-delay-6 features-row" style={{ marginBottom: "0" }}>
+      <motion.div
+        className="features-row"
+        style={{ marginBottom: "0" }}
+        variants={heroReveal}
+        initial="hidden"
+        animate="visible"
+        custom={6}
+      >
         <span>Automatisation</span>
         <span className="copper-dot" />
         <span>CRM</span>
@@ -112,15 +184,29 @@ function Hero() {
         <span>SAP</span>
         <span className="copper-dot" />
         <span>Processus</span>
-      </div>
+      </motion.div>
 
       {/* Paris · Dubaï · Shanghai */}
-      <p
-        className="hero-animate hero-delay-8"
+      <motion.p
+        variants={heroReveal}
+        initial="hidden"
+        animate="visible"
+        custom={8}
         style={{ marginTop: "64px", color: "var(--text-dim)", fontSize: "11px", letterSpacing: "0.15em", fontWeight: 500, textTransform: "uppercase" as const }}
       >
         Paris &middot; Duba&iuml; &middot; Shanghai
-      </p>
+      </motion.p>
+
+      {/* Scroll indicator */}
+      <motion.div
+        className="scroll-hint"
+        variants={heroReveal}
+        initial="hidden"
+        animate="visible"
+        custom={8}
+      >
+        <div className="scroll-chevron" />
+      </motion.div>
     </section>
   );
 }
@@ -149,6 +235,27 @@ function Origin() {
   );
 }
 
+/* ─── STAMPS WITH PARALLAX ─── */
+function Stamps() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
+
+  return (
+    <section ref={ref} className="py-24 md:py-28 flex flex-col items-center px-6">
+      <motion.div className="fade-in stamps-row" style={{ y }}>
+        <img src="/stamp-paris.png" alt="Paris" className="stamp stamp-left" />
+        <img src="/stamp-china.png" alt="Shanghai" className="stamp stamp-center" />
+        <img src="/stamp-cameroun.png" alt="Cameroun" className="stamp stamp-right" />
+      </motion.div>
+      <p className="fade-in stamps-caption">Paris &middot; Shanghai &middot; Douala</p>
+    </section>
+  );
+}
+
 /* ─── SECTION 3: L'INSIGHT (centered, italic, copper) ─── */
 function Insight() {
   return (
@@ -172,17 +279,27 @@ function Insight() {
 }
 
 /* ─── SECTION 4: SAVOIR-FAIRE (3 words, copper, elegant) ─── */
+const savoirFaireWords = ["Diagnostic", "Conception", "D\u00e9ploiement"];
+
 function SavoirFaire() {
   return (
     <section className="py-28 md:py-32 px-6 flex flex-col items-center">
       <p className="fade-in section-label text-center" style={{ marginBottom: "48px" }}>Savoir-faire</p>
 
-      <div className="fade-in savoir-faire-list">
-        <span className="savoir-faire-word">Diagnostic</span>
-        <div className="savoir-faire-line" />
-        <span className="savoir-faire-word">Conception</span>
-        <div className="savoir-faire-line" />
-        <span className="savoir-faire-word">D&eacute;ploiement</span>
+      <div className="savoir-faire-list">
+        {savoirFaireWords.map((word, i) => (
+          <motion.div
+            key={word}
+            className="flex flex-col items-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: i * 0.12 }}
+          >
+            <span className="savoir-faire-word">{word}</span>
+            {i < savoirFaireWords.length - 1 && <div className="savoir-faire-line" />}
+          </motion.div>
+        ))}
       </div>
     </section>
   );
@@ -195,8 +312,8 @@ function DarkCTA() {
       className="px-6 py-40 flex flex-col items-center text-center"
       style={{ background: "var(--bg-dark)" }}
     >
-      <h2
-        className="fade-in mb-12"
+      <motion.h2
+        className="mb-12"
         style={{
           fontFamily: "var(--font-heading)",
           fontWeight: 400,
@@ -204,29 +321,43 @@ function DarkCTA() {
           color: "var(--text-light)",
           letterSpacing: "-0.01em",
         }}
+        initial={{ opacity: 0, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
       >
         &Eacute;changeons.
-      </h2>
+      </motion.h2>
 
-      <a
+      <motion.a
         href={CALENDAR_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="fade-in mb-10"
+        className="mb-10"
         data-ph="final-cta"
         onClick={trackCtaClick}
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
       >
         <ButtonColorful label="Planifier un entretien" className="h-14 px-8 text-base" />
-      </a>
+      </motion.a>
 
-      <p className="fade-in" style={{ fontSize: "14px", letterSpacing: "0.04em", marginBottom: "80px" }}>
+      <motion.p
+        style={{ fontSize: "14px", letterSpacing: "0.04em", marginBottom: "80px" }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, delay: 0.3 }}
+      >
         <a
           href="mailto:paul@parrit.ai"
           style={{ color: "var(--text-light-muted)", textDecoration: "none" }}
         >
           paul@parrit.ai
         </a>
-      </p>
+      </motion.p>
 
       <p
         style={{ color: "rgba(90, 80, 71, 0.5)", fontSize: "11px", letterSpacing: "0.1em" }}
@@ -248,14 +379,7 @@ export default function Home() {
       <Hero />
       <Origin />
       {/* Stamps — vintage, slightly rotated, overlapping */}
-      <section className="py-24 md:py-28 flex flex-col items-center px-6">
-        <div className="fade-in stamps-row">
-          <img src="/stamp-paris.png" alt="Paris" className="stamp stamp-left" />
-          <img src="/stamp-china.png" alt="Shanghai" className="stamp stamp-center" />
-          <img src="/stamp-cameroun.png" alt="Cameroun" className="stamp stamp-right" />
-        </div>
-        <p className="fade-in stamps-caption">Paris &middot; Shanghai &middot; Douala</p>
-      </section>
+      <Stamps />
       <Insight />
       <SavoirFaire />
       <DarkCTA />
