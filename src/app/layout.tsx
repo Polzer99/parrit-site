@@ -88,7 +88,7 @@ export default function RootLayout({
     ],
     contactPoint: {
       "@type": "ContactPoint",
-      email: "paul@parrit.ai",
+      email: "paul.larmaraud@parrit.ai",
       contactType: "sales",
     },
   };

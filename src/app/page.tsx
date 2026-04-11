@@ -117,16 +117,6 @@ function Nav() {
   return (
     <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
       <span className="nav-logo">PARRIT.AI</span>
-      <a
-        href={CALENDAR_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="nav-cta"
-        data-ph="nav-cta"
-        onClick={() => trackCtaClick("nav")}
-      >
-        Diagnostic gratuit
-      </a>
     </nav>
   );
 }
@@ -168,7 +158,7 @@ function Hero() {
         animate="visible"
         custom={2}
       >
-        Nous d&eacute;ployons des agents IA sur mesure qui lib&egrave;rent
+        Nous concevons des outils sur mesure qui lib&egrave;rent
         vos &eacute;quipes pour ce qui compte vraiment.
       </motion.p>
 
@@ -325,24 +315,24 @@ function PainPoints() {
    ═══════════════════════════════════════════════════════════ */
 const services = [
   {
-    icon: "\uD83D\uDCCA",
-    title: "CRM sur mesure + Assistant IA commercial",
-    desc: "Gestion unifi\u00e9e des clients et opportunit\u00e9s. Consultation directe via WhatsApp.",
+    icon: "",
+    title: "Saisie automatique des documents",
+    desc: "Factures, contrats, rapports \u2014 reconnus et saisis automatiquement. Vous validez, nous faisons le reste.",
   },
   {
-    icon: "\u2699\uFE0F",
-    title: "Assistant intelligent SAP",
-    desc: "Op\u00e9rez SAP en langage naturel. R\u00e9duisez la d\u00e9pendance aux consultants.",
+    icon: "",
+    title: "Suivi de projet centralis\u00e9",
+    desc: "Chaque \u00e9tape visible, chaque \u00e9ch\u00e9ance surveill\u00e9e. Plus rien ne tombe entre les mailles.",
   },
   {
-    icon: "\uD83D\uDCC4",
-    title: "Automatisation intelligente des documents",
-    desc: "Reconnaissance et saisie automatiques des factures et contrats. 30 secondes \u2014 10\u00D7 plus rapide.",
+    icon: "",
+    title: "Consolidation automatique des donn\u00e9es",
+    desc: "Vos sources agr\u00e9g\u00e9es, v\u00e9rifi\u00e9es, r\u00e9concili\u00e9es. En secondes, pas en journ\u00e9es.",
   },
   {
-    icon: "\uD83D\uDD04",
-    title: "Solution d\u2019automatisation des processus sur mesure",
-    desc: "Validation et suivi 100% automatis\u00e9s. Alertes automatiques, z\u00e9ro oubli.",
+    icon: "",
+    title: "Validation et workflow sur mesure",
+    desc: "Chaque processus trac\u00e9 de bout en bout. Alertes automatiques, z\u00e9ro oubli.",
   },
 ];
 
@@ -366,7 +356,7 @@ function Services() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          Nos quatre services cl&eacute;s
+          Ce que nous d&eacute;ployons
         </motion.h2>
 
         <motion.div
@@ -378,7 +368,6 @@ function Services() {
         >
           {services.map((s) => (
             <motion.div key={s.title} className="service-card" variants={cardReveal}>
-              <div className="service-icon">{s.icon}</div>
               <h3 className="service-card-title">{s.title}</h3>
               <p className="service-card-desc">{s.desc}</p>
             </motion.div>
@@ -622,13 +611,7 @@ function CtaFooter() {
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
       >
-        <a
-          href={CALENDAR_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-ph="final-cta"
-          onClick={() => trackCtaClick("footer")}
-        >
+        <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" data-ph="final-cta" onClick={() => trackCtaClick("footer")}>
           <ButtonColorful label="R&eacute;servez votre diagnostic" className="h-14 px-8 text-base" />
         </a>
         <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Confidentiel</p>
@@ -655,12 +638,12 @@ function CtaFooter() {
         </a>
         <span className="secondary-cta-sep">&middot;</span>
         <a
-          href="mailto:paul@parrit.ai"
+          href="mailto:paul.larmaraud@parrit.ai"
           className="secondary-cta-link"
           data-ph="email-cta"
           onClick={() => trackCtaClick("email")}
         >
-          paul@parrit.ai
+          paul.larmaraud@parrit.ai
         </a>
       </motion.div>
 
@@ -674,7 +657,7 @@ function CtaFooter() {
           Les donn&eacute;es analytiques sont collect&eacute;es de mani&egrave;re anonyme
           conform&eacute;ment au RGPD. En r&eacute;servant un appel, vous acceptez
           que vos coordonn&eacute;es soient utilis&eacute;es uniquement pour organiser
-          cet &eacute;change. Contact&nbsp;: <a href="mailto:paul@parrit.ai">paul@parrit.ai</a>
+          cet &eacute;change. Contact&nbsp;: <a href="mailto:paul.larmaraud@parrit.ai">paul.larmaraud@parrit.ai</a>
         </p>
       </footer>
     </section>
