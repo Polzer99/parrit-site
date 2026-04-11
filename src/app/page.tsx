@@ -675,22 +675,10 @@ export default function Home() {
     <>
       <Nav />
       <Hero />
-      {/* Full-width image break */}
-      <div className="fade-in" style={{ width: "100%", maxHeight: "400px", overflow: "hidden" }}>
-        <img src="/office.png" alt="" style={{ width: "100%", height: "400px", objectFit: "cover", opacity: 0.85 }} />
-      </div>
       <PainPoints />
       <Services />
-      {/* Dashboard image break */}
-      <div className="fade-in" style={{ width: "100%", maxHeight: "350px", overflow: "hidden" }}>
-        <img src="/dashboard.png" alt="" style={{ width: "100%", height: "350px", objectFit: "cover", opacity: 0.8 }} />
-      </div>
       <CaseStudies />
       <ShareableQuote />
-      {/* Team image break */}
-      <div className="fade-in" style={{ width: "100%", maxHeight: "350px", overflow: "hidden" }}>
-        <img src="/team.png" alt="" style={{ width: "100%", height: "350px", objectFit: "cover", opacity: 0.85 }} />
-      </div>
       <Team />
       <CtaFooter />
     </>
