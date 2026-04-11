@@ -298,16 +298,15 @@ body > * {
 }
 
 .pain-card {
-  background: var(--card-dark);
-  border-left: 3px solid var(--accent);
-  border-radius: 8px;
-  padding: 28px 24px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: transparent;
+  border-left: 2px solid rgba(200, 149, 108, 0.3);
+  border-radius: 0;
+  padding: 20px 24px;
+  transition: border-color 0.3s ease;
 }
 
 .pain-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border-left-color: var(--accent);
 }
 
 .pain-card-title {
@@ -356,30 +355,19 @@ body > * {
 }
 
 .service-card {
-  background: var(--card-dark);
-  border-radius: 12px;
-  padding: 32px 28px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: transparent;
+  border-left: 2px solid rgba(200, 149, 108, 0.3);
+  border-radius: 0;
+  padding: 20px 24px;
+  text-align: left;
+  transition: border-color 0.3s ease;
 }
 
 .service-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  border-left-color: var(--accent);
 }
 
-.service-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: rgba(200, 149, 108, 0.15);
-  border: 1px solid rgba(200, 149, 108, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  margin: 0 auto 20px;
-}
+/* icon circles removed — text only */
 
 .service-card-title {
   font-family: var(--font-heading);
@@ -634,11 +622,10 @@ body > * {
   max-width: 700px;
   margin: 0 auto;
   text-align: center;
-  border-left: none;
-  padding: 40px 32px;
-  background: var(--card-dark);
-  border-radius: 12px;
-  border: 1px solid rgba(200, 149, 108, 0.15);
+  padding: 40px 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
 }
 
 .quote-text {
