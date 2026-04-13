@@ -507,18 +507,51 @@ function Hero() {
         <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Confidentiel</p>
       </motion.div>
 
-      {/* Tools we use */}
+      {/* Mini animated demo right in the hero — shows the "wow" immediately */}
       <motion.div
         variants={fadeUp}
         initial="hidden"
         animate="visible"
         custom={4}
-        style={{ display: "flex", alignItems: "center", gap: "28px", marginTop: "48px", opacity: 0.5 }}
+        style={{ marginTop: "48px", width: "100%", maxWidth: "500px" }}
       >
-        {["Claude Code", "n8n", "OpenClaw", "Herm\u00e8s", "Vercel"].map((tool) => (
-          <span key={tool} style={{ fontSize: "11px", fontFamily: "var(--font-body)", letterSpacing: "0.1em", textTransform: "uppercase" as const, color: "var(--text-dim)" }}>{tool}</span>
-        ))}
+        <div className="demo-container" style={{ padding: "0" }}>
+          <div className="demo-dashboard" style={{ padding: "16px" }}>
+            <div className="demo-dash-header">
+              <div className="demo-dash-dot" />
+              <div className="demo-dash-dot" />
+              <div className="demo-dash-dot" />
+            </div>
+            <div style={{ display: "flex", gap: "16px", alignItems: "flex-end", height: "80px", padding: "12px 16px 0" }}>
+              {[40, 65, 50, 80, 55, 70, 90].map((h, i) => (
+                <motion.div
+                  key={i}
+                  style={{ flex: 1, background: "var(--accent)", borderRadius: "4px 4px 0 0", opacity: 0.7 }}
+                  initial={{ height: 0 }}
+                  animate={{ height: `${h}%` }}
+                  transition={{ duration: 0.8, delay: 0.8 + i * 0.1, ease: "easeOut" }}
+                />
+              ))}
+            </div>
+            <motion.div
+              style={{ height: "2px", background: "var(--accent)", margin: "8px 16px", borderRadius: "1px", transformOrigin: "left" }}
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1.5, delay: 1.5, ease: "easeOut" }}
+            />
+          </div>
+        </div>
       </motion.div>
+
+      <motion.p
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={5}
+        style={{ marginTop: "32px", fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "var(--text-dim)", fontWeight: 300 }}
+      >
+        De l&rsquo;id&eacute;e &agrave; la production. Rapidement.
+      </motion.p>
 
       <motion.div
         className="scroll-hint"
