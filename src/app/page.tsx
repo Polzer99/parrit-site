@@ -236,79 +236,7 @@ function Hero() {
         <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Confidentiel</p>
       </motion.div>
 
-      {/* Exponential curve animation — LOOPING */}
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        custom={4}
-        style={{ marginTop: "48px", width: "100%", maxWidth: "480px" }}
-      >
-        <svg viewBox="0 0 480 160" fill="none" style={{ width: "100%", overflow: "visible" }}>
-          {/* Grid lines subtle */}
-          {[40, 80, 120].map((y) => (
-            <line key={y} x1="0" y1={y} x2="480" y2={y} stroke="rgba(200,149,108,0.08)" strokeWidth="1" />
-          ))}
-          {/* Exponential curve — infinite loop */}
-          <motion.path
-            d="M0 150 Q60 148 120 140 T200 120 T280 95 T340 60 T400 20 T440 -10 T480 -60"
-            stroke="#c8956c"
-            strokeWidth="3"
-            strokeLinecap="round"
-            fill="none"
-            animate={{
-              pathLength: [0, 1, 1, 0],
-              opacity: [0, 1, 1, 0],
-            }}
-            transition={{
-              duration: 5,
-              times: [0, 0.5, 0.7, 1],
-              repeat: Infinity,
-              repeatDelay: 1,
-              ease: "easeInOut",
-            }}
-          />
-          {/* Glow under curve — infinite loop */}
-          <motion.path
-            d="M0 150 Q60 148 120 140 T200 120 T280 95 T340 60 T400 20 T440 -10 T480 -60 V160 H0 Z"
-            fill="url(#curveGlow)"
-            animate={{
-              opacity: [0, 0.15, 0.15, 0],
-            }}
-            transition={{
-              duration: 5,
-              times: [0, 0.5, 0.7, 1],
-              repeat: Infinity,
-              repeatDelay: 1,
-              ease: "easeInOut",
-            }}
-          />
-          <defs>
-            <linearGradient id="curveGlow" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#c8956c" />
-              <stop offset="100%" stopColor="transparent" />
-            </linearGradient>
-          </defs>
-          {/* Dot at the tip — infinite loop */}
-          <motion.circle
-            cx="480"
-            cy="-60"
-            r="5"
-            fill="#c8956c"
-            animate={{
-              opacity: [0, 1, 1, 0],
-              scale: [0, 1, 1, 0],
-            }}
-            transition={{
-              duration: 5,
-              times: [0, 0.5, 0.7, 1],
-              repeat: Infinity,
-              repeatDelay: 1,
-              ease: "easeInOut",
-            }}
-          />
-        </svg>
-      </motion.div>
+      {/* Curve is now global — behind all content */}
 
       <motion.p
         variants={fadeUp}
@@ -639,14 +567,57 @@ export default function Home() {
   useEngagementTracking();
 
   return (
-    <>
-      <Nav />
-      <Hero />
-      <VisualShowcase />
-      <CaseStudies />
-      <ShareableQuote />
-      <Team />
-      <CtaFooter />
-    </>
+    <div style={{ position: "relative", overflow: "hidden" }}>
+      {/* Global exponential curve — spans the ENTIRE page */}
+      <svg
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+        preserveAspectRatio="none"
+        viewBox="0 0 100 100"
+        fill="none"
+      >
+        <motion.path
+          d="M-5 98 Q10 97 20 95 T35 90 T45 82 T55 70 T65 52 T75 28 T85 0 T95 -40 T105 -100"
+          stroke="#c8956c"
+          strokeWidth="0.15"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: [0, 1, 1, 0], opacity: [0, 0.4, 0.4, 0] }}
+          transition={{ duration: 8, times: [0, 0.5, 0.75, 1], repeat: Infinity, repeatDelay: 2, ease: "easeOut" }}
+        />
+        <motion.path
+          d="M-5 98 Q10 97 20 95 T35 90 T45 82 T55 70 T65 52 T75 28 T85 0 T95 -40 T105 -100 V100 H-5 Z"
+          fill="url(#globalCurveGlow)"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0.06, 0.06, 0] }}
+          transition={{ duration: 8, times: [0, 0.5, 0.75, 1], repeat: Infinity, repeatDelay: 2 }}
+        />
+        <defs>
+          <linearGradient id="globalCurveGlow" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#c8956c" />
+            <stop offset="100%" stopColor="transparent" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      {/* Content on top */}
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <Nav />
+        <Hero />
+        <VisualShowcase />
+        <CaseStudies />
+        <ShareableQuote />
+        <Team />
+        <CtaFooter />
+      </div>
+    </div>
   );
 }
