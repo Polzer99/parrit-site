@@ -482,20 +482,10 @@ function Hero() {
         animate="visible"
         custom={1}
       >
-        Vos &eacute;quipes perdent des heures
+        Automatisation intelligente
         <br />
-        sur des t&acirc;ches que l&rsquo;IA fait en secondes
+        <span style={{ color: "var(--accent)" }}>sur mesure.</span>
       </motion.h1>
-
-      <motion.p
-        className="hero-subtitle"
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        custom={2}
-      >
-        Outils sur mesure qui lib&egrave;rent vos &eacute;quipes.
-      </motion.p>
 
       <motion.div
         className="hero-cta-block"
@@ -517,33 +507,18 @@ function Hero() {
         <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Confidentiel</p>
       </motion.div>
 
+      {/* Tools we use */}
       <motion.div
-        className="features-row"
         variants={fadeUp}
         initial="hidden"
         animate="visible"
         custom={4}
+        style={{ display: "flex", alignItems: "center", gap: "28px", marginTop: "48px", opacity: 0.5 }}
       >
-        <span>Automatisation</span>
-        <span className="copper-dot" />
-        <span>CRM</span>
-        <span className="copper-dot" />
-        <span>Agents IA</span>
-        <span className="copper-dot" />
-        <span>SAP</span>
-        <span className="copper-dot" />
-        <span>Processus</span>
+        {["Claude Code", "n8n", "OpenClaw", "Herm\u00e8s", "Vercel"].map((tool) => (
+          <span key={tool} style={{ fontSize: "11px", fontFamily: "var(--font-body)", letterSpacing: "0.1em", textTransform: "uppercase" as const, color: "var(--text-dim)" }}>{tool}</span>
+        ))}
       </motion.div>
-
-      <motion.p
-        className="hero-authority"
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        custom={5}
-      >
-        D&eacute;j&agrave; d&eacute;ploy&eacute; chez des entreprises de 50 &agrave; 5&nbsp;000 collaborateurs
-      </motion.p>
 
       <motion.div
         className="scroll-hint"
