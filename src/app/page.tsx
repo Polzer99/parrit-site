@@ -461,122 +461,175 @@ function BeforeAfterCounter({
    SECTION 1 — HERO (light background)
    ═══════════════════════════════════════════════════════════ */
 function Hero() {
+  /* Path for the exponential curve — starts flat bottom-left, accelerates to top-right, breaks out of viewport */
+  const curvePath = "M-20 95 C80 94 160 92 280 85 C400 75 520 55 650 30 C780 0 900 -50 1050 -120 C1150 -170 1250 -240 1400 -340";
+  const fillPath = curvePath + " L1400 100 L-20 100 Z";
+
   return (
     <section className="hero-section">
-      <motion.span
-        className="hero-logo-text"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: [0, -5, 0] }}
-        transition={{
-          opacity: { duration: 0.7, ease: "easeOut", delay: 0.15 },
-          y: { duration: 4, ease: "easeInOut", repeat: Infinity, delay: 0.9 },
-        }}
+      {/* ── Full-viewport exponential curve ── */}
+      <svg
+        className="hero-curve-svg"
+        viewBox="0 0 1400 100"
+        preserveAspectRatio="none"
+        fill="none"
       >
-        PARRIT.AI
-      </motion.span>
+        <defs>
+          <linearGradient id="curveGlow" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#c8956c" />
+            <stop offset="100%" stopColor="transparent" />
+          </linearGradient>
+          <filter id="curveBlur">
+            <feGaussianBlur stdDeviation="3" />
+          </filter>
+          <radialGradient id="tipGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#c8956c" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#c8956c" stopOpacity="0" />
+          </radialGradient>
+        </defs>
 
-      <motion.h1
-        className="hero-title"
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        custom={1}
-      >
-        Votre partenaire
-        <br />
-        <span style={{ color: "var(--accent)" }}>exponentiel.</span>
-      </motion.h1>
+        {/* Area under curve — very subtle fill */}
+        <motion.path
+          d={fillPath}
+          fill="url(#curveGlow)"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.05 }}
+          transition={{ duration: 2.5, delay: 1.5 }}
+        />
 
-      <motion.div
-        className="hero-cta-block"
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        custom={3}
-      >
+        {/* Glow trail behind curve */}
+        <motion.path
+          d={curvePath}
+          stroke="#c8956c"
+          strokeWidth="8"
+          strokeLinecap="round"
+          fill="none"
+          filter="url(#curveBlur)"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: [0, 0.3, 0.3] }}
+          transition={{ duration: 3, delay: 0.4, ease: "easeOut" }}
+        />
+
+        {/* Main curve stroke */}
+        <motion.path
+          d={curvePath}
+          stroke="#c8956c"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 3, delay: 0.4, ease: "easeOut" }}
+        />
+
+        {/* Pulse on the curve after draw */}
+        <motion.path
+          d={curvePath}
+          stroke="#c8956c"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0, 0.7, 1, 0.7] }}
+          transition={{ duration: 3, delay: 3.4, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" }}
+        />
+
+        {/* Dots along the path */}
+        {[
+          { cx: 280, cy: 85 },
+          { cx: 520, cy: 55 },
+          { cx: 780, cy: 0 },
+          { cx: 1050, cy: -120 },
+        ].map((dot, i) => (
+          <motion.circle
+            key={i}
+            cx={dot.cx}
+            cy={dot.cy}
+            r="2"
+            fill="#c8956c"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 0.5, scale: 1 }}
+            transition={{ delay: 1 + i * 0.6, duration: 0.4 }}
+          />
+        ))}
+
+        {/* Glowing tip circle */}
+        <motion.circle
+          cx="1400"
+          cy="-340"
+          r="30"
+          fill="url(#tipGlow)"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0, 1] }}
+          transition={{ duration: 3.5, delay: 0.4, ease: "easeOut" }}
+        />
+        <motion.circle
+          cx="1400"
+          cy="-340"
+          r="4"
+          fill="#c8956c"
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: [0, 1.4, 1] }}
+          transition={{ delay: 3.2, duration: 0.5 }}
+        />
+      </svg>
+
+      {/* ── Text layer ── */}
+      <div className="hero-content">
+        <motion.span
+          className="hero-logo-text"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+        >
+          PARRIT.AI
+        </motion.span>
+
+        <motion.h1
+          className="hero-title"
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          custom={1}
+        >
+          Votre partenaire
+        </motion.h1>
+
+        <motion.span
+          className="hero-accent-word"
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          custom={2}
+        >
+          exponentiel.
+        </motion.span>
+
         <motion.a
           href={CALENDAR_URL}
           target="_blank"
           rel="noopener noreferrer"
           data-ph="hero-cta"
           onClick={() => trackCtaClick("hero")}
-          className="hero-cta-link"
+          className="hero-cta-inline"
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          custom={3}
         >
-          <ButtonColorful label="R&eacute;servez votre diagnostic" className="h-14 px-8 text-base" />
+          R&eacute;servez votre diagnostic &rarr;
         </motion.a>
-        <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Confidentiel</p>
-      </motion.div>
 
-      {/* Exponential curve animation */}
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        custom={4}
-        style={{ marginTop: "48px", width: "100%", maxWidth: "480px" }}
-      >
-        <svg viewBox="0 0 480 160" fill="none" style={{ width: "100%", overflow: "visible" }}>
-          {/* Grid lines subtle */}
-          {[40, 80, 120].map((y) => (
-            <line key={y} x1="0" y1={y} x2="480" y2={y} stroke="rgba(200,149,108,0.08)" strokeWidth="1" />
-          ))}
-          {/* Exponential curve */}
-          <motion.path
-            d="M0 150 Q60 148 120 140 T200 120 T280 95 T340 60 T400 20 T440 -10 T480 -60"
-            stroke="#c8956c"
-            strokeWidth="3"
-            strokeLinecap="round"
-            fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 2.5, delay: 0.8, ease: "easeOut" }}
-          />
-          {/* Glow under curve */}
-          <motion.path
-            d="M0 150 Q60 148 120 140 T200 120 T280 95 T340 60 T400 20 T440 -10 T480 -60 V160 H0 Z"
-            fill="url(#curveGlow)"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.15 }}
-            transition={{ duration: 2, delay: 1.5 }}
-          />
-          <defs>
-            <linearGradient id="curveGlow" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#c8956c" />
-              <stop offset="100%" stopColor="transparent" />
-            </linearGradient>
-          </defs>
-          {/* Dot at the tip */}
-          <motion.circle
-            cx="480"
-            cy="-60"
-            r="5"
-            fill="#c8956c"
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: [0, 1.3, 1] }}
-            transition={{ delay: 3, duration: 0.5 }}
-          />
-        </svg>
-      </motion.div>
-
-      <motion.p
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        custom={5}
-        style={{ marginTop: "24px", fontSize: "13px", letterSpacing: "0.06em", color: "var(--text-muted)", fontWeight: 300, textAlign: "center" as const }}
-      >
-        Co-construction &middot; Long terme &middot; R&eacute;sultats mesurables
-      </motion.p>
-
-      <motion.div
-        className="scroll-hint"
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        custom={6}
-      >
-        <div className="scroll-chevron" />
-      </motion.div>
+        <motion.p
+          className="hero-pillars"
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          custom={4}
+        >
+          Co-construction &middot; Long terme &middot; R&eacute;sultats mesurables
+        </motion.p>
+      </div>
     </section>
   );
 }

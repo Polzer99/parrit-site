@@ -127,108 +127,128 @@ body > * {
    ═══════════════════════════════════════════════════════════ */
 .hero-section {
   min-height: 100vh;
+  position: relative;
+  overflow: visible;
+  background: linear-gradient(180deg, var(--bg) 0%, #ecddc5 100%);
+}
+
+/* Full-viewport SVG curve — breaks out of all containers */
+.hero-curve-svg {
+  position: absolute;
+  bottom: 0;
+  left: -5%;
+  width: 110%;
+  height: 70%;
+  overflow: visible;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Text layer floats on top */
+.hero-content {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 72px 24px 48px;
-  position: relative;
-  text-align: center;
+  min-height: 100vh;
+  padding: 120px clamp(32px, 8vw, 120px) 80px;
+  max-width: 900px;
 }
 
 .hero-logo-text {
-  font-family: var(--font-heading);
-  font-size: clamp(36px, 5vw, 42px);
-  font-weight: 400;
-  letter-spacing: 0.15em;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 32px;
+  margin-bottom: 40px;
   display: block;
 }
 
 .hero-title {
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: clamp(36px, 6vw, 64px);
-  line-height: 1.1;
+  font-size: clamp(40px, 7vw, 72px);
+  line-height: 1.05;
   color: var(--text);
   letter-spacing: -0.02em;
-  text-align: center;
-  margin-bottom: 24px;
-  max-width: 800px;
+  margin: 0 0 8px;
 }
 
-.hero-subtitle {
+.hero-accent-word {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(48px, 9vw, 96px);
+  line-height: 1.0;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+  display: block;
+  margin-bottom: 48px;
+}
+
+.hero-cta-inline {
   font-family: var(--font-body);
-  font-size: clamp(18px, 2.5vw, 22px);
-  line-height: 1.6;
-  color: var(--text-muted);
-  font-weight: 300;
-  text-align: center;
-  max-width: 600px;
-  margin-bottom: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 2px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+  margin-bottom: 32px;
+  letter-spacing: 0.01em;
 }
 
-/* hero-tagline removed — replaced by cta-micro + loss-aversion */
-
-/* CTA micro-copy (friction reducer) */
-.hero-cta-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+.hero-cta-inline:hover {
+  color: var(--accent-hover);
+  border-bottom-color: var(--accent-hover);
 }
 
-.hero-cta-link {
-  display: inline-block;
-}
-
-.cta-micro {
+.hero-pillars {
   font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 300;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
   color: var(--text-dim);
-  letter-spacing: 0.04em;
   margin: 0;
 }
 
-/* Loss aversion line */
-.hero-loss-aversion {
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--text-muted);
-  text-align: center;
-  max-width: 480px;
-  margin-top: 24px;
-  opacity: 0.75;
-  font-style: italic;
+/* ── Mobile adjustments ── */
+@media (max-width: 767px) {
+  .hero-content {
+    padding: 100px 24px 60px;
+    align-items: flex-start;
+  }
+
+  .hero-curve-svg {
+    height: 50%;
+    left: -10%;
+    width: 120%;
+  }
+
+  .hero-cta-inline {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    padding: 14px 0;
+    border: 1.5px solid var(--accent);
+    border-radius: 8px;
+    margin-bottom: 24px;
+  }
+
+  .hero-accent-word {
+    margin-bottom: 36px;
+  }
 }
 
-/* Authority signal */
-.hero-authority {
-  margin-top: 32px;
-  color: var(--text-dim);
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  font-weight: 400;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   FEATURES ROW
-   ═══════════════════════════════════════════════════════════ */
+/* Features row — kept for potential use elsewhere but hidden in hero */
 .features-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 8px 24px;
-  font-size: 14px;
-  color: var(--text-muted);
-  font-weight: 300;
-  font-family: var(--font-body);
-  letter-spacing: 0.02em;
-  margin-top: 32px;
+  display: none;
 }
 
 .copper-dot {
@@ -785,36 +805,7 @@ body > * {
   text-underline-offset: 2px;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   SCROLL INDICATOR
-   ═══════════════════════════════════════════════════════════ */
-.scroll-hint {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.scroll-chevron {
-  width: 12px;
-  height: 12px;
-  border-right: 1.5px solid var(--accent);
-  border-bottom: 1.5px solid var(--accent);
-  transform: rotate(45deg);
-  opacity: 0.4;
-  animation: scroll-pulse 2.4s ease-in-out infinite;
-}
-
-@keyframes scroll-pulse {
-  0%, 100% {
-    opacity: 0.2;
-    transform: rotate(45deg) translateY(0);
-  }
-  50% {
-    opacity: 0.5;
-    transform: rotate(45deg) translateY(4px);
-  }
-}
+/* scroll-hint removed */
 
 /* ═══════════════════════════════════════════════════════════
    SCROLL FADE (IntersectionObserver)
