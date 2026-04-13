@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 import { useScrollFade } from "@/components/hooks";
 import { ButtonColorful } from "@/components/ui/button-colorful";
 
@@ -238,25 +239,6 @@ function Hero() {
 
       {/* Curve is now global — behind all content */}
 
-      <motion.p
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        custom={5}
-        style={{ marginTop: "24px", fontSize: "13px", letterSpacing: "0.06em", color: "var(--text-muted)", fontWeight: 300, textAlign: "center" as const }}
-      >
-        Co-construction &middot; Long terme &middot; R&eacute;sultats mesurables
-      </motion.p>
-
-      <motion.div
-        className="scroll-hint"
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        custom={6}
-      >
-        <div className="scroll-chevron" />
-      </motion.div>
     </section>
   );
 }
@@ -265,10 +247,10 @@ function Hero() {
    SECTION 2 — VISUAL SHOWCASE (replaces pain points + services)
    ═══════════════════════════════════════════════════════════ */
 const showcaseItems = [
-  { src: "/demo-agents.png", label: "Agents intelligents" },
-  { src: "/demo-crm.png", label: "CRM sur mesure" },
-  { src: "/demo-automation.png", label: "Automatisation documentaire" },
-  { src: "/demo-whatsapp.png", label: "Interfaces conversationnelles" },
+  { src: "/demo-agents.jpg", label: "Agents intelligents" },
+  { src: "/demo-crm.jpg", label: "CRM sur mesure" },
+  { src: "/demo-automation.jpg", label: "Automatisation documentaire" },
+  { src: "/demo-whatsapp.jpg", label: "Interfaces conversationnelles" },
 ];
 
 function VisualShowcase() {
@@ -296,17 +278,33 @@ function VisualShowcase() {
               transition={{ duration: 0.7, ease: "easeOut", delay: i * 0.12 }}
             >
               <div className="showcase-img-wrapper">
-                <img
+                <Image
                   src={item.src}
                   alt={item.label}
+                  width={600}
+                  height={400}
                   className="showcase-img"
                   loading="lazy"
+                  quality={80}
                 />
               </div>
               <span className="showcase-label">{item.label}</span>
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          className="mid-cta-block"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+        >
+          <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" data-ph="mid-cta" onClick={() => trackCtaClick("mid-showcase")}>
+            <ButtonColorful label="Discutons de votre cas" className="h-14 px-8 text-base" />
+          </a>
+          <p className="cta-micro" style={{ color: "var(--text-light-muted)" }}>15 minutes &middot; Sans engagement &middot; Confidentiel</p>
+        </motion.div>
       </div>
     </section>
   );
@@ -590,14 +588,14 @@ export default function Home() {
           strokeLinecap="round"
           fill="none"
           initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: [0, 1, 1, 0], opacity: [0, 0.4, 0.4, 0] }}
+          animate={{ pathLength: [0, 1, 1, 0], opacity: [0, 0.2, 0.2, 0] }}
           transition={{ duration: 8, times: [0, 0.5, 0.75, 1], repeat: Infinity, repeatDelay: 2, ease: "easeOut" }}
         />
         <motion.path
           d="M-5 98 Q10 97 20 95 T35 90 T45 82 T55 70 T65 52 T75 28 T85 0 T95 -40 T105 -100 V100 H-5 Z"
           fill="url(#globalCurveGlow)"
           initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.06, 0.06, 0] }}
+          animate={{ opacity: [0, 0.03, 0.03, 0] }}
           transition={{ duration: 8, times: [0, 0.5, 0.75, 1], repeat: Infinity, repeatDelay: 2 }}
         />
         <defs>

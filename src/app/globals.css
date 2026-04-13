@@ -785,36 +785,7 @@ body > * {
   text-underline-offset: 2px;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   SCROLL INDICATOR
-   ═══════════════════════════════════════════════════════════ */
-.scroll-hint {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.scroll-chevron {
-  width: 12px;
-  height: 12px;
-  border-right: 1.5px solid var(--accent);
-  border-bottom: 1.5px solid var(--accent);
-  transform: rotate(45deg);
-  opacity: 0.4;
-  animation: scroll-pulse 2.4s ease-in-out infinite;
-}
-
-@keyframes scroll-pulse {
-  0%, 100% {
-    opacity: 0.2;
-    transform: rotate(45deg) translateY(0);
-  }
-  50% {
-    opacity: 0.5;
-    transform: rotate(45deg) translateY(4px);
-  }
-}
+/* scroll-hint removed — unnecessary clutter */
 
 /* ═══════════════════════════════════════════════════════════
    SCROLL FADE (IntersectionObserver)
@@ -882,11 +853,23 @@ a {
 
 .showcase-label {
   font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: var(--accent);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-light);
   text-align: center;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MID-PAGE CTA (after showcase)
+   ═══════════════════════════════════════════════════════════ */
+.mid-cta-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 64px;
 }
 
 /* ═══════════════════════════════════════════════════════════
