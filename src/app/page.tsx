@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useScrollFade } from "@/components/hooks";
 import { ButtonColorful } from "@/components/ui/button-colorful";
 
@@ -122,6 +122,342 @@ function Nav() {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   ANIMATED DEMO: Email Sorting
+   ═══════════════════════════════════════════════════════════ */
+function EmailSortingDemo() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const docs = [
+    { icon: "\u2709", label: "Email" },
+    { icon: "\uD83D\uDCC4", label: "Facture" },
+    { icon: "\uD83D\uDCCB", label: "Contrat" },
+    { icon: "\uD83E\uDDFE", label: "Re\u00e7u" },
+  ];
+
+  return (
+    <div ref={ref} className="demo-container">
+      <div className="demo-email-stage">
+        {/* Incoming documents */}
+        <div className="demo-email-incoming">
+          {docs.map((d, i) => (
+            <motion.div
+              key={i}
+              className="demo-doc"
+              initial={{ x: -120, opacity: 0 }}
+              animate={
+                inView
+                  ? {
+                      x: [null, 0, 0, 80],
+                      opacity: [null, 1, 1, 0],
+                    }
+                  : {}
+              }
+              transition={{
+                duration: 3.5,
+                delay: i * 0.6,
+                times: [0, 0.25, 0.65, 1],
+                ease: "easeOut",
+                repeat: Infinity,
+                repeatDelay: 2,
+              }}
+            >
+              <span className="demo-doc-icon">{d.icon}</span>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Scan line */}
+        <motion.div
+          className="demo-scan-line"
+          initial={{ scaleY: 0 }}
+          animate={
+            inView
+              ? {
+                  scaleY: [0, 1, 1, 0],
+                  opacity: [0, 0.8, 0.8, 0],
+                }
+              : {}
+          }
+          transition={{
+            duration: 3.5,
+            ease: "easeInOut",
+            repeat: Infinity,
+            repeatDelay: 2,
+          }}
+        />
+
+        {/* Sorted folders */}
+        <div className="demo-email-sorted">
+          {["Factures", "Contrats", "Divers"].map((label, i) => (
+            <motion.div
+              key={label}
+              className="demo-folder"
+              initial={{ opacity: 0.3, scale: 0.9 }}
+              animate={
+                inView
+                  ? {
+                      opacity: [0.3, 0.3, 1],
+                      scale: [0.9, 0.9, 1],
+                    }
+                  : {}
+              }
+              transition={{
+                duration: 3.5,
+                delay: i * 0.3,
+                times: [0, 0.5, 1],
+                ease: "easeOut",
+                repeat: Infinity,
+                repeatDelay: 2,
+              }}
+            >
+              <div className="demo-folder-icon">\uD83D\uDCC1</div>
+              <span className="demo-folder-label">{label}</span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATED DEMO: Dashboard Filling
+   ═══════════════════════════════════════════════════════════ */
+function DashboardDemo() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const bars = [65, 85, 45];
+
+  return (
+    <div ref={ref} className="demo-container">
+      <div className="demo-dashboard">
+        {/* Mini header */}
+        <div className="demo-dash-header">
+          <div className="demo-dash-dot" />
+          <div className="demo-dash-dot" />
+          <div className="demo-dash-dot" />
+        </div>
+
+        <div className="demo-dash-body">
+          {/* Bar chart */}
+          <div className="demo-bars">
+            {bars.map((h, i) => (
+              <motion.div
+                key={i}
+                className="demo-bar"
+                initial={{ height: 0 }}
+                animate={inView ? { height: `${h}%` } : {}}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.3 + i * 0.15,
+                  ease: "easeOut",
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Line chart SVG */}
+          <svg className="demo-line-svg" viewBox="0 0 200 80" fill="none">
+            <motion.path
+              d="M0 60 Q30 55 50 40 T100 30 T150 15 T200 10"
+              stroke="#c8956c"
+              strokeWidth="2"
+              strokeLinecap="round"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={inView ? { pathLength: 1, opacity: 1 } : {}}
+              transition={{ duration: 1.5, delay: 0.6, ease: "easeOut" }}
+            />
+          </svg>
+
+          {/* Counters */}
+          <div className="demo-counters">
+            <AnimatedCounter value={2847} inView={inView} delay={0.4} suffix="" />
+            <AnimatedCounter value={94} inView={inView} delay={0.6} suffix="%" />
+            <AnimatedCounter value={12} inView={inView} delay={0.8} suffix="s" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AnimatedCounter({
+  value,
+  inView,
+  delay,
+  suffix,
+}: {
+  value: number;
+  inView: boolean;
+  delay: number;
+  suffix: string;
+}) {
+  const [count, setCount] = useState(0);
+  const started = useRef(false);
+
+  useEffect(() => {
+    if (!inView || started.current) return;
+    started.current = true;
+    const duration = 1200;
+    const start = Date.now();
+    const timer = setInterval(() => {
+      const elapsed = Date.now() - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * value));
+      if (progress >= 1) clearInterval(timer);
+    }, 30);
+    const delayTimer = setTimeout(() => {}, delay * 1000);
+    return () => {
+      clearInterval(timer);
+      clearTimeout(delayTimer);
+    };
+  }, [inView, value, delay]);
+
+  return (
+    <motion.span
+      className="demo-counter-value"
+      initial={{ opacity: 0 }}
+      animate={inView ? { opacity: 1 } : {}}
+      transition={{ delay, duration: 0.4 }}
+    >
+      {count}
+      {suffix}
+    </motion.span>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATED DEMO: WhatsApp Agent Chat
+   ═══════════════════════════════════════════════════════════ */
+function WhatsAppDemo() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <div ref={ref} className="demo-container">
+      <div className="demo-phone">
+        {/* Phone header */}
+        <div className="demo-phone-header">
+          <div className="demo-phone-notch" />
+          <span className="demo-phone-title">Agent Parrit</span>
+        </div>
+
+        {/* Chat area */}
+        <div className="demo-chat-area">
+          {/* User message */}
+          <motion.div
+            className="demo-chat-bubble demo-chat-user"
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+            transition={{ delay: 0.5, duration: 0.5, ease: "easeOut" }}
+          >
+            Brief moi sur Pomona
+          </motion.div>
+
+          {/* Typing indicator */}
+          <motion.div
+            className="demo-chat-bubble demo-chat-agent demo-typing"
+            initial={{ opacity: 0 }}
+            animate={
+              inView
+                ? { opacity: [0, 1, 1, 0], display: ["flex", "flex", "flex", "none"] }
+                : {}
+            }
+            transition={{ delay: 1.2, duration: 1.5, times: [0, 0.1, 0.8, 1] }}
+          >
+            <span className="typing-dot" />
+            <span className="typing-dot" />
+            <span className="typing-dot" />
+          </motion.div>
+
+          {/* Agent response */}
+          <motion.div
+            className="demo-chat-bubble demo-chat-agent"
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+            transition={{ delay: 2.8, duration: 0.6, ease: "easeOut" }}
+          >
+            <strong>Pomona</strong> &mdash; 3 commandes ce mois.
+            <br />
+            Dernier contact il y a 2 jours.
+            <br />
+            <span style={{ color: "#c8956c" }}>Relance sugg&eacute;r&eacute;e demain.</span>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATED DEMO: Before/After Counter
+   ═══════════════════════════════════════════════════════════ */
+function BeforeAfterCounter({
+  before,
+  after,
+  label,
+  inView,
+  delay = 0,
+}: {
+  before: string;
+  after: string;
+  label: string;
+  inView: boolean;
+  delay?: number;
+}) {
+  return (
+    <div className="demo-ba-item">
+      <div className="demo-ba-values">
+        <motion.span
+          className="demo-ba-before"
+          initial={{ opacity: 1, scale: 1 }}
+          animate={
+            inView
+              ? {
+                  opacity: [1, 1, 0],
+                  scale: [1, 1, 0.7],
+                  filter: ["blur(0px)", "blur(0px)", "blur(4px)"],
+                }
+              : {}
+          }
+          transition={{
+            delay: delay + 0.3,
+            duration: 1.5,
+            times: [0, 0.4, 1],
+            ease: "easeOut",
+          }}
+        >
+          {before}
+        </motion.span>
+        <motion.span
+          className="demo-ba-after"
+          initial={{ opacity: 0, scale: 0.7, filter: "blur(4px)" }}
+          animate={
+            inView
+              ? { opacity: 1, scale: 1, filter: "blur(0px)" }
+              : {}
+          }
+          transition={{ delay: delay + 1.6, duration: 0.7, ease: "easeOut" }}
+        >
+          {after}
+        </motion.span>
+      </div>
+      <motion.span
+        className="demo-ba-label"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ delay: delay + 2, duration: 0.5 }}
+      >
+        {label}
+      </motion.span>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
    SECTION 1 — HERO (light background)
    ═══════════════════════════════════════════════════════════ */
 function Hero() {
@@ -158,8 +494,7 @@ function Hero() {
         animate="visible"
         custom={2}
       >
-        Nous concevons des outils sur mesure qui lib&egrave;rent
-        vos &eacute;quipes pour ce qui compte vraiment.
+        Outils sur mesure qui lib&egrave;rent vos &eacute;quipes.
       </motion.p>
 
       <motion.div
@@ -182,23 +517,12 @@ function Hero() {
         <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Confidentiel</p>
       </motion.div>
 
-      <motion.p
-        className="hero-loss-aversion"
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        custom={4}
-      >
-        Chaque semaine sans automatisation co&ucirc;te des dizaines d&rsquo;heures
-        &agrave; votre &eacute;quipe.
-      </motion.p>
-
       <motion.div
         className="features-row"
         variants={fadeUp}
         initial="hidden"
         animate="visible"
-        custom={5}
+        custom={4}
       >
         <span>Automatisation</span>
         <span className="copper-dot" />
@@ -216,7 +540,7 @@ function Hero() {
         variants={fadeUp}
         initial="hidden"
         animate="visible"
-        custom={6}
+        custom={5}
       >
         D&eacute;j&agrave; d&eacute;ploy&eacute; chez des entreprises de 50 &agrave; 5&nbsp;000 collaborateurs
       </motion.p>
@@ -226,7 +550,7 @@ function Hero() {
         variants={fadeUp}
         initial="hidden"
         animate="visible"
-        custom={7}
+        custom={6}
       >
         <div className="scroll-chevron" />
       </motion.div>
@@ -235,28 +559,19 @@ function Hero() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   SECTION 2 — PAIN POINTS (dark background)
+   SECTION 2 — PAIN POINTS (visual 2x2 grid)
    ═══════════════════════════════════════════════════════════ */
-const painPoints = [
-  {
-    title: "Saisie manuelle des documents",
-    desc: "Factures, rapports, contrats saisis un \u00e0 un \u00e0 la main \u2014 erreurs et reprises in\u00e9vitables.",
-  },
-  {
-    title: "Suivi de projet via messagerie",
-    desc: "Un message manqu\u00e9 peut bloquer tout un projet.",
-  },
-  {
-    title: "Consolidation de donn\u00e9es par copier-coller",
-    desc: "Agr\u00e9gation manuelle entre syst\u00e8mes \u2014 une demi-journ\u00e9e pour produire un seul rapport.",
-  },
-  {
-    title: "Validations r\u00e9p\u00e9titives \u00e9puisantes",
-    desc: "M\u00eames processus recommenc\u00e9s \u00e0 chaque fois, sans visibilit\u00e9 sur l\u2019avancement.",
-  },
-];
-
 function PainPoints() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  const pains = [
+    { icon: "\u2709", label: "Saisie manuelle" },
+    { icon: "\uD83D\uDCCA", label: "Suivi inexistant" },
+    { icon: "\uD83D\uDD04", label: "Copier-coller" },
+    { icon: "\u23F3", label: "Validations sans fin" },
+  ];
+
   return (
     <section className="dark-section">
       <div className="section-inner">
@@ -276,23 +591,42 @@ function PainPoints() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          Avez-vous ces probl&egrave;mes&nbsp;?
+          Ce qui ralentit vos &eacute;quipes
         </motion.h2>
 
-        <motion.div
-          className="pain-grid"
-          variants={stagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-        >
-          {painPoints.map((p) => (
-            <motion.div key={p.title} className="pain-card" variants={cardReveal}>
-              <h3 className="pain-card-title">{p.title}</h3>
-              <p className="pain-card-desc">{p.desc}</p>
+        <div ref={ref} className="pain-visual-grid">
+          {pains.map((p, i) => (
+            <motion.div
+              key={p.label}
+              className="pain-visual-card"
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: i * 0.12, duration: 0.6, ease: "easeOut" }}
+            >
+              {/* Animated icon with pulse */}
+              <motion.div
+                className="pain-visual-icon"
+                animate={
+                  inView
+                    ? {
+                        scale: [1, 1.15, 1],
+                        opacity: [0.7, 1, 0.7],
+                      }
+                    : {}
+                }
+                transition={{
+                  duration: 2.5,
+                  delay: i * 0.3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                {p.icon}
+              </motion.div>
+              <span className="pain-visual-label">{p.label}</span>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         <motion.p
           className="pain-bottom-line"
@@ -301,9 +635,7 @@ function PainPoints() {
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.7, delay: 0.4 }}
         >
-          Chacune de ces t&acirc;ches peut &ecirc;tre automatis&eacute;e en quelques jours.
-          <br />
-          La question n&rsquo;est plus &laquo;&nbsp;si&nbsp;&raquo;, mais &laquo;&nbsp;quand&nbsp;&raquo;.
+          Tout cela s&rsquo;automatise en quelques jours.
         </motion.p>
       </div>
     </section>
@@ -311,31 +643,8 @@ function PainPoints() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   SECTION 3 — SERVICES (dark background)
+   SECTION 3 — SERVICES (animated demos)
    ═══════════════════════════════════════════════════════════ */
-const services = [
-  {
-    icon: "",
-    title: "Saisie automatique des documents",
-    desc: "Factures, contrats, rapports \u2014 reconnus et saisis automatiquement. Vous validez, nous faisons le reste.",
-  },
-  {
-    icon: "",
-    title: "Suivi de projet centralis\u00e9",
-    desc: "Chaque \u00e9tape visible, chaque \u00e9ch\u00e9ance surveill\u00e9e. Plus rien ne tombe entre les mailles.",
-  },
-  {
-    icon: "",
-    title: "Consolidation automatique des donn\u00e9es",
-    desc: "Vos sources agr\u00e9g\u00e9es, v\u00e9rifi\u00e9es, r\u00e9concili\u00e9es. En secondes, pas en journ\u00e9es.",
-  },
-  {
-    icon: "",
-    title: "Validation et workflow sur mesure",
-    desc: "Chaque processus trac\u00e9 de bout en bout. Alertes automatiques, z\u00e9ro oubli.",
-  },
-];
-
 function Services() {
   return (
     <section className="dark-section">
@@ -359,66 +668,71 @@ function Services() {
           Ce que nous d&eacute;ployons
         </motion.h2>
 
-        <motion.div
-          className="services-grid"
-          variants={stagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-        >
-          {services.map((s) => (
-            <motion.div key={s.title} className="service-card" variants={cardReveal}>
-              <h3 className="service-card-title">{s.title}</h3>
-              <p className="service-card-desc">{s.desc}</p>
-            </motion.div>
-          ))}
-        </motion.div>
+        <div className="services-demo-grid">
+          <motion.div
+            className="service-demo-card"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            <EmailSortingDemo />
+            <h3 className="service-demo-title">Saisie automatique</h3>
+          </motion.div>
+
+          <motion.div
+            className="service-demo-card"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+          >
+            <DashboardDemo />
+            <h3 className="service-demo-title">Suivi centralis&eacute;</h3>
+          </motion.div>
+
+          <motion.div
+            className="service-demo-card"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+          >
+            <WhatsAppDemo />
+            <h3 className="service-demo-title">Agent WhatsApp</h3>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════
-   SECTION 4 — CASE STUDIES (dark background)
+   SECTION 4 — CASE STUDIES (animated counters)
    ═══════════════════════════════════════════════════════════ */
 const cases = [
   {
-    badge: "CAS R\u00c9EL \u00B7 RESTAURATION \u00B7 DUBA\u00CF",
-    title: "10+ \u00e9tapes d\u2019ouverture enti\u00e8rement g\u00e9r\u00e9es automatiquement",
-    subtitle: "Enseigne de restauration en forte croissance \u00b7 Duba\u00ef",
-    before:
-      "Gestion par e-mails et m\u00e9moire individuelle, \u00e9tapes r\u00e9guli\u00e8rement oubli\u00e9es. Documents manquants, processus bloqu\u00e9s.",
-    after:
-      "Rappels de t\u00e2ches automatiques par r\u00f4le, syst\u00e8me d\u2019alerte \u00e0 trois niveaux. Avancement visible en temps r\u00e9el, z\u00e9ro oubli.",
-    stats: [
-      { value: "75%", label: "R\u00e9duction du d\u00e9lai" },
-      { value: "0", label: "Documents oubli\u00e9s" },
+    badge: "RESTAURATION \u00B7 DUBA\u00CF",
+    title: "Ouvertures de franchises",
+    counters: [
+      { before: "75%", after: "\u22121 semaine", label: "D\u00e9lai d\u2019ouverture" },
+      { before: "5+ oublis", after: "0 oubli", label: "Documents manquants" },
     ],
   },
   {
-    badge: "CAS R\u00c9EL \u00B7 FORMATION PROFESSIONNELLE",
-    title: "16 antennes r\u00e9gionales \u00b7 Consolidation de donn\u00e9es",
-    subtitle: "Organisme de formation \u00b7 16 agences en France",
-    before:
-      "16 agences envoyaient chacune leurs Excel + PDF, consolidation 100% manuelle, 2 \u00e0 4 jours par cycle.",
-    after:
-      "Le syst\u00e8me agr\u00e8ge automatiquement les 16 sources, v\u00e9rifie et g\u00e9n\u00e8re le tableau r\u00e9capitulatif, anomalies alert\u00e9es automatiquement.",
-    stats: [
-      { value: "2\u20134j", label: "R\u00e9duit \u00e0 quelques minutes" },
-      { value: "16", label: "Sources automatis\u00e9es" },
+    badge: "FORMATION \u00B7 16 AGENCES",
+    title: "Consolidation de donn\u00e9es",
+    counters: [
+      { before: "4 jours", after: "5 min", label: "Temps de consolidation" },
+      { before: "1 source", after: "16 sources", label: "Automatis\u00e9es" },
     ],
   },
   {
-    badge: "CAS R\u00c9EL \u00B7 INDUSTRIE TEXTILE",
-    title: "30 factures fournisseurs par jour, trait\u00e9es en 30 secondes",
-    subtitle: "Entreprise textile \u00b7 Traitement de factures",
-    before:
-      "30 factures fournisseurs par jour, 30 minutes de traitement manuel chacune.",
-    after:
-      "Extraction automatique depuis e-mail \u2192 saisie automatique \u2192 validation humaine finale. 30 min \u2192 30 sec.",
-    stats: [
-      { value: "60\u00D7", label: "Plus rapide" },
-      { value: "30s", label: "Par facture" },
+    badge: "TEXTILE \u00B7 INDUSTRIE",
+    title: "Traitement de factures",
+    counters: [
+      { before: "45 min", after: "30 sec", label: "Par facture" },
+      { before: "\u00D71", after: "\u00D760", label: "Rapidit\u00e9" },
     ],
   },
 ];
@@ -443,44 +757,42 @@ function CaseStudies() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          Cas r&eacute;els, r&eacute;sultats mesurables
+          Cas r&eacute;els, chiffres r&eacute;els
         </motion.h2>
 
-        <div className="cases-list">
-          {cases.map((c, idx) => (
-            <motion.div
-              key={idx}
-              className="case-block"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.7, ease: "easeOut", delay: idx * 0.1 }}
-            >
-              <span className="case-badge">{c.badge}</span>
-              <h3 className="case-title">{c.title}</h3>
-              <p className="case-subtitle">{c.subtitle}</p>
-
-              <div className="case-columns">
-                <div className="case-col">
-                  <span className="case-col-label">Avant</span>
-                  <p className="case-col-text">{c.before}</p>
-                </div>
-                <div className="case-col">
-                  <span className="case-col-label case-col-label--after">Apr&egrave;s</span>
-                  <p className="case-col-text">{c.after}</p>
-                </div>
-              </div>
-
-              <div className="case-stats">
-                {c.stats.map((s, si) => (
-                  <div key={si} className="case-stat">
-                    <span className="case-stat-value">{s.value}</span>
-                    <span className="case-stat-label">{s.label}</span>
+        <div className="cases-visual-list">
+          {cases.map((c, idx) => {
+            const CaseBlock = () => {
+              const caseRef = useRef(null);
+              const caseInView = useInView(caseRef, { once: true, margin: "-60px" });
+              return (
+                <motion.div
+                  ref={caseRef}
+                  className="case-visual-block"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.7, ease: "easeOut", delay: idx * 0.1 }}
+                >
+                  <span className="case-badge">{c.badge}</span>
+                  <h3 className="case-visual-title">{c.title}</h3>
+                  <div className="case-counters-row">
+                    {c.counters.map((ct, ci) => (
+                      <BeforeAfterCounter
+                        key={ci}
+                        before={ct.before}
+                        after={ct.after}
+                        label={ct.label}
+                        inView={caseInView}
+                        delay={ci * 0.4}
+                      />
+                    ))}
                   </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+                </motion.div>
+              );
+            };
+            return <CaseBlock key={idx} />;
+          })}
         </div>
       </div>
     </section>
@@ -488,7 +800,7 @@ function CaseStudies() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   SHAREABLE QUOTE (screenshottable / forwardable)
+   SHAREABLE QUOTE
    ═══════════════════════════════════════════════════════════ */
 function ShareableQuote() {
   return (
@@ -503,7 +815,7 @@ function ShareableQuote() {
         <p className="quote-text">
           &laquo;&nbsp;L&rsquo;IA ne remplace pas vos &eacute;quipes.
           <br />
-          Elle leur rend les heures que la bureaucratie leur vole.&nbsp;&raquo;
+          Elle leur rend les heures vol&eacute;es.&nbsp;&raquo;
         </p>
         <cite className="quote-cite">&mdash; Paul Larmaraud, Parrit.ai</cite>
       </motion.blockquote>
@@ -512,7 +824,7 @@ function ShareableQuote() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   SECTION 5 — TEAM (light background)
+   SECTION 5 — TEAM (shorter)
    ═══════════════════════════════════════════════════════════ */
 function Team() {
   return (
@@ -534,18 +846,8 @@ function Team() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          Qui sommes-nous&nbsp;?
+          Qui sommes-nous
         </motion.h2>
-        <motion.p
-          className="team-intro"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-        >
-          Entreprise fran&ccedil;aise. Plus de dix ans d&rsquo;exp&eacute;rience cumul&eacute;e
-          dans les grandes entreprises.
-        </motion.p>
 
         <motion.div
           className="team-grid"
@@ -557,19 +859,11 @@ function Team() {
           <motion.div className="team-card" variants={cardReveal}>
             <h3 className="team-name">Yukun Leng</h3>
             <p className="team-role">Co-fondateur &middot; SAP &amp; Supply Chain</p>
-            <p className="team-bio">
-              10 ans d&rsquo;expertise SAP (MM/SD/FI). Ancien consultant LVMH et Jabil.
-              Sp&eacute;cialiste de l&rsquo;optimisation des processus industriels.
-            </p>
           </motion.div>
 
           <motion.div className="team-card" variants={cardReveal}>
             <h3 className="team-name">Paul Larmaraud</h3>
             <p className="team-role">Co-fondateur &middot; IA &amp; Automatisation</p>
-            <p className="team-bio">
-              Ing&eacute;nieur IA, 3+ ans de d&eacute;ploiement en entreprise.
-              Nucl&eacute;aire, grande distribution, RH. Ex-Lime (op&eacute;rations mondiales).
-            </p>
           </motion.div>
         </motion.div>
       </div>
@@ -578,7 +872,7 @@ function Team() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   SECTION 6 — CTA + FOOTER (light background)
+   SECTION 6 — CTA + FOOTER
    ═══════════════════════════════════════════════════════════ */
 function CtaFooter() {
   return (
@@ -600,8 +894,7 @@ function CtaFooter() {
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: 0.1 }}
       >
-        Vous repartez avec une cartographie claire de vos gains d&rsquo;automatisation
-        — m&ecirc;me si vous ne travaillez pas avec nous.
+        Repartez avec une cartographie de vos gains &mdash; m&ecirc;me sans travailler avec nous.
       </motion.p>
 
       <motion.div
@@ -617,7 +910,6 @@ function CtaFooter() {
         <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Confidentiel</p>
       </motion.div>
 
-      {/* Secondary CTA — warm but not ready */}
       <motion.div
         className="secondary-cta"
         initial={{ opacity: 0 }}
@@ -625,7 +917,6 @@ function CtaFooter() {
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: 0.3 }}
       >
-        <p className="secondary-cta-label">Pas encore pr&ecirc;t&nbsp;? &Eacute;changeons directement.</p>
         <a
           href="https://wa.me/33759665687?text=Bonjour%20Paul%2C%20je%20souhaiterais%20en%20savoir%20plus%20sur%20Parrit.ai"
           target="_blank"
@@ -647,7 +938,6 @@ function CtaFooter() {
         </a>
       </motion.div>
 
-      {/* RGPD + Legal footer */}
       <footer className="footer-block">
         <p className="footer-legal">
           &copy; 2026 SASU PARRIT.AI &middot; Rueil-Malmaison &middot; France
