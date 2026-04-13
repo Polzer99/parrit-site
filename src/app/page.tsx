@@ -482,9 +482,9 @@ function Hero() {
         animate="visible"
         custom={1}
       >
-        Automatisation intelligente
+        Votre partenaire
         <br />
-        <span style={{ color: "var(--accent)" }}>sur mesure.</span>
+        <span style={{ color: "var(--accent)" }}>exponentiel.</span>
       </motion.h1>
 
       <motion.div
@@ -507,40 +507,55 @@ function Hero() {
         <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Confidentiel</p>
       </motion.div>
 
-      {/* Mini animated demo right in the hero — shows the "wow" immediately */}
+      {/* Exponential curve animation */}
       <motion.div
         variants={fadeUp}
         initial="hidden"
         animate="visible"
         custom={4}
-        style={{ marginTop: "48px", width: "100%", maxWidth: "500px" }}
+        style={{ marginTop: "48px", width: "100%", maxWidth: "480px" }}
       >
-        <div className="demo-container" style={{ padding: "0" }}>
-          <div className="demo-dashboard" style={{ padding: "16px" }}>
-            <div className="demo-dash-header">
-              <div className="demo-dash-dot" />
-              <div className="demo-dash-dot" />
-              <div className="demo-dash-dot" />
-            </div>
-            <div style={{ display: "flex", gap: "16px", alignItems: "flex-end", height: "80px", padding: "12px 16px 0" }}>
-              {[40, 65, 50, 80, 55, 70, 90].map((h, i) => (
-                <motion.div
-                  key={i}
-                  style={{ flex: 1, background: "var(--accent)", borderRadius: "4px 4px 0 0", opacity: 0.7 }}
-                  initial={{ height: 0 }}
-                  animate={{ height: `${h}%` }}
-                  transition={{ duration: 0.8, delay: 0.8 + i * 0.1, ease: "easeOut" }}
-                />
-              ))}
-            </div>
-            <motion.div
-              style={{ height: "2px", background: "var(--accent)", margin: "8px 16px", borderRadius: "1px", transformOrigin: "left" }}
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 1.5, delay: 1.5, ease: "easeOut" }}
-            />
-          </div>
-        </div>
+        <svg viewBox="0 0 480 160" fill="none" style={{ width: "100%", overflow: "visible" }}>
+          {/* Grid lines subtle */}
+          {[40, 80, 120].map((y) => (
+            <line key={y} x1="0" y1={y} x2="480" y2={y} stroke="rgba(200,149,108,0.08)" strokeWidth="1" />
+          ))}
+          {/* Exponential curve */}
+          <motion.path
+            d="M0 150 Q60 148 120 140 T200 120 T280 95 T340 60 T400 20 T440 -10 T480 -60"
+            stroke="#c8956c"
+            strokeWidth="3"
+            strokeLinecap="round"
+            fill="none"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ duration: 2.5, delay: 0.8, ease: "easeOut" }}
+          />
+          {/* Glow under curve */}
+          <motion.path
+            d="M0 150 Q60 148 120 140 T200 120 T280 95 T340 60 T400 20 T440 -10 T480 -60 V160 H0 Z"
+            fill="url(#curveGlow)"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.15 }}
+            transition={{ duration: 2, delay: 1.5 }}
+          />
+          <defs>
+            <linearGradient id="curveGlow" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#c8956c" />
+              <stop offset="100%" stopColor="transparent" />
+            </linearGradient>
+          </defs>
+          {/* Dot at the tip */}
+          <motion.circle
+            cx="480"
+            cy="-60"
+            r="5"
+            fill="#c8956c"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: [0, 1.3, 1] }}
+            transition={{ delay: 3, duration: 0.5 }}
+          />
+        </svg>
       </motion.div>
 
       <motion.p
@@ -548,9 +563,9 @@ function Hero() {
         initial="hidden"
         animate="visible"
         custom={5}
-        style={{ marginTop: "32px", fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "var(--text-dim)", fontWeight: 300 }}
+        style={{ marginTop: "24px", fontSize: "13px", letterSpacing: "0.06em", color: "var(--text-muted)", fontWeight: 300, textAlign: "center" as const }}
       >
-        De l&rsquo;id&eacute;e &agrave; la production. Rapidement.
+        Co-construction &middot; Long terme &middot; R&eacute;sultats mesurables
       </motion.p>
 
       <motion.div
