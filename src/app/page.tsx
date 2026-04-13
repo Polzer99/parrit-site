@@ -122,277 +122,6 @@ function Nav() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   ANIMATED DEMO: Email Sorting
-   ═══════════════════════════════════════════════════════════ */
-function EmailSortingDemo() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
-  const docs = [
-    { icon: "\u2709", label: "Email" },
-    { icon: "\uD83D\uDCC4", label: "Facture" },
-    { icon: "\uD83D\uDCCB", label: "Contrat" },
-    { icon: "\uD83E\uDDFE", label: "Re\u00e7u" },
-  ];
-
-  return (
-    <div ref={ref} className="demo-container">
-      <div className="demo-email-stage">
-        {/* Incoming documents */}
-        <div className="demo-email-incoming">
-          {docs.map((d, i) => (
-            <motion.div
-              key={i}
-              className="demo-doc"
-              initial={{ x: -120, opacity: 0 }}
-              animate={
-                inView
-                  ? {
-                      x: [null, 0, 0, 80],
-                      opacity: [null, 1, 1, 0],
-                    }
-                  : {}
-              }
-              transition={{
-                duration: 3.5,
-                delay: i * 0.6,
-                times: [0, 0.25, 0.65, 1],
-                ease: "easeOut",
-                repeat: Infinity,
-                repeatDelay: 2,
-              }}
-            >
-              <span className="demo-doc-icon">{d.icon}</span>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Scan line */}
-        <motion.div
-          className="demo-scan-line"
-          initial={{ scaleY: 0 }}
-          animate={
-            inView
-              ? {
-                  scaleY: [0, 1, 1, 0],
-                  opacity: [0, 0.8, 0.8, 0],
-                }
-              : {}
-          }
-          transition={{
-            duration: 3.5,
-            ease: "easeInOut",
-            repeat: Infinity,
-            repeatDelay: 2,
-          }}
-        />
-
-        {/* Sorted folders */}
-        <div className="demo-email-sorted">
-          {["Factures", "Contrats", "Divers"].map((label, i) => (
-            <motion.div
-              key={label}
-              className="demo-folder"
-              initial={{ opacity: 0.3, scale: 0.9 }}
-              animate={
-                inView
-                  ? {
-                      opacity: [0.3, 0.3, 1],
-                      scale: [0.9, 0.9, 1],
-                    }
-                  : {}
-              }
-              transition={{
-                duration: 3.5,
-                delay: i * 0.3,
-                times: [0, 0.5, 1],
-                ease: "easeOut",
-                repeat: Infinity,
-                repeatDelay: 2,
-              }}
-            >
-              <div className="demo-folder-icon">\uD83D\uDCC1</div>
-              <span className="demo-folder-label">{label}</span>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════
-   ANIMATED DEMO: Dashboard Filling
-   ═══════════════════════════════════════════════════════════ */
-function DashboardDemo() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
-  const bars = [65, 85, 45];
-
-  return (
-    <div ref={ref} className="demo-container">
-      <div className="demo-dashboard">
-        {/* Mini header */}
-        <div className="demo-dash-header">
-          <div className="demo-dash-dot" />
-          <div className="demo-dash-dot" />
-          <div className="demo-dash-dot" />
-        </div>
-
-        <div className="demo-dash-body">
-          {/* Bar chart */}
-          <div className="demo-bars">
-            {bars.map((h, i) => (
-              <motion.div
-                key={i}
-                className="demo-bar"
-                initial={{ height: 0 }}
-                animate={inView ? { height: `${h}%` } : {}}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.3 + i * 0.15,
-                  ease: "easeOut",
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Line chart SVG */}
-          <svg className="demo-line-svg" viewBox="0 0 200 80" fill="none">
-            <motion.path
-              d="M0 60 Q30 55 50 40 T100 30 T150 15 T200 10"
-              stroke="#c8956c"
-              strokeWidth="2"
-              strokeLinecap="round"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={inView ? { pathLength: 1, opacity: 1 } : {}}
-              transition={{ duration: 1.5, delay: 0.6, ease: "easeOut" }}
-            />
-          </svg>
-
-          {/* Counters */}
-          <div className="demo-counters">
-            <AnimatedCounter value={2847} inView={inView} delay={0.4} suffix="" />
-            <AnimatedCounter value={94} inView={inView} delay={0.6} suffix="%" />
-            <AnimatedCounter value={12} inView={inView} delay={0.8} suffix="s" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function AnimatedCounter({
-  value,
-  inView,
-  delay,
-  suffix,
-}: {
-  value: number;
-  inView: boolean;
-  delay: number;
-  suffix: string;
-}) {
-  const [count, setCount] = useState(0);
-  const started = useRef(false);
-
-  useEffect(() => {
-    if (!inView || started.current) return;
-    started.current = true;
-    const duration = 1200;
-    const start = Date.now();
-    const timer = setInterval(() => {
-      const elapsed = Date.now() - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(eased * value));
-      if (progress >= 1) clearInterval(timer);
-    }, 30);
-    const delayTimer = setTimeout(() => {}, delay * 1000);
-    return () => {
-      clearInterval(timer);
-      clearTimeout(delayTimer);
-    };
-  }, [inView, value, delay]);
-
-  return (
-    <motion.span
-      className="demo-counter-value"
-      initial={{ opacity: 0 }}
-      animate={inView ? { opacity: 1 } : {}}
-      transition={{ delay, duration: 0.4 }}
-    >
-      {count}
-      {suffix}
-    </motion.span>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════
-   ANIMATED DEMO: WhatsApp Agent Chat
-   ═══════════════════════════════════════════════════════════ */
-function WhatsAppDemo() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
-  return (
-    <div ref={ref} className="demo-container">
-      <div className="demo-phone">
-        {/* Phone header */}
-        <div className="demo-phone-header">
-          <div className="demo-phone-notch" />
-          <span className="demo-phone-title">Agent Parrit</span>
-        </div>
-
-        {/* Chat area */}
-        <div className="demo-chat-area">
-          {/* User message */}
-          <motion.div
-            className="demo-chat-bubble demo-chat-user"
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-            transition={{ delay: 0.5, duration: 0.5, ease: "easeOut" }}
-          >
-            Brief moi sur Pomona
-          </motion.div>
-
-          {/* Typing indicator */}
-          <motion.div
-            className="demo-chat-bubble demo-chat-agent demo-typing"
-            initial={{ opacity: 0 }}
-            animate={
-              inView
-                ? { opacity: [0, 1, 1, 0], display: ["flex", "flex", "flex", "none"] }
-                : {}
-            }
-            transition={{ delay: 1.2, duration: 1.5, times: [0, 0.1, 0.8, 1] }}
-          >
-            <span className="typing-dot" />
-            <span className="typing-dot" />
-            <span className="typing-dot" />
-          </motion.div>
-
-          {/* Agent response */}
-          <motion.div
-            className="demo-chat-bubble demo-chat-agent"
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-            transition={{ delay: 2.8, duration: 0.6, ease: "easeOut" }}
-          >
-            <strong>Pomona</strong> &mdash; 3 commandes ce mois.
-            <br />
-            Dernier contact il y a 2 jours.
-            <br />
-            <span style={{ color: "#c8956c" }}>Relance sugg&eacute;r&eacute;e demain.</span>
-          </motion.div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════
    ANIMATED DEMO: Before/After Counter
    ═══════════════════════════════════════════════════════════ */
 function BeforeAfterCounter({
@@ -461,279 +190,163 @@ function BeforeAfterCounter({
    SECTION 1 — HERO (light background)
    ═══════════════════════════════════════════════════════════ */
 function Hero() {
-  /* Path for the exponential curve — starts flat bottom-left, accelerates to top-right, breaks out of viewport */
-  const curvePath = "M-20 95 C80 94 160 92 280 85 C400 75 520 55 650 30 C780 0 900 -50 1050 -120 C1150 -170 1250 -240 1400 -340";
-  const fillPath = curvePath + " L1400 100 L-20 100 Z";
-
   return (
     <section className="hero-section">
-      {/* ── Full-viewport exponential curve ── */}
-      <svg
-        className="hero-curve-svg"
-        viewBox="0 0 1400 100"
-        preserveAspectRatio="none"
-        fill="none"
+      <motion.span
+        className="hero-logo-text"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: [0, -5, 0] }}
+        transition={{
+          opacity: { duration: 0.7, ease: "easeOut", delay: 0.15 },
+          y: { duration: 4, ease: "easeInOut", repeat: Infinity, delay: 0.9 },
+        }}
       >
-        <defs>
-          <linearGradient id="curveGlow" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#c8956c" />
-            <stop offset="100%" stopColor="transparent" />
-          </linearGradient>
-          <filter id="curveBlur">
-            <feGaussianBlur stdDeviation="3" />
-          </filter>
-          <radialGradient id="tipGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#c8956c" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#c8956c" stopOpacity="0" />
-          </radialGradient>
-        </defs>
+        PARRIT.AI
+      </motion.span>
 
-        {/* Area under curve — very subtle fill */}
-        <motion.path
-          d={fillPath}
-          fill="url(#curveGlow)"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.05 }}
-          transition={{ duration: 2.5, delay: 1.5 }}
-        />
+      <motion.h1
+        className="hero-title"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={1}
+      >
+        Votre partenaire
+        <br />
+        <span style={{ color: "var(--accent)" }}>exponentiel.</span>
+      </motion.h1>
 
-        {/* Glow trail behind curve */}
-        <motion.path
-          d={curvePath}
-          stroke="#c8956c"
-          strokeWidth="8"
-          strokeLinecap="round"
-          fill="none"
-          filter="url(#curveBlur)"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: [0, 0.3, 0.3] }}
-          transition={{ duration: 3, delay: 0.4, ease: "easeOut" }}
-        />
-
-        {/* Main curve stroke */}
-        <motion.path
-          d={curvePath}
-          stroke="#c8956c"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          fill="none"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 3, delay: 0.4, ease: "easeOut" }}
-        />
-
-        {/* Pulse on the curve after draw */}
-        <motion.path
-          d={curvePath}
-          stroke="#c8956c"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          fill="none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0, 0.7, 1, 0.7] }}
-          transition={{ duration: 3, delay: 3.4, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" }}
-        />
-
-        {/* Dots along the path */}
-        {[
-          { cx: 280, cy: 85 },
-          { cx: 520, cy: 55 },
-          { cx: 780, cy: 0 },
-          { cx: 1050, cy: -120 },
-        ].map((dot, i) => (
-          <motion.circle
-            key={i}
-            cx={dot.cx}
-            cy={dot.cy}
-            r="2"
-            fill="#c8956c"
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 0.5, scale: 1 }}
-            transition={{ delay: 1 + i * 0.6, duration: 0.4 }}
-          />
-        ))}
-
-        {/* Glowing tip circle */}
-        <motion.circle
-          cx="1400"
-          cy="-340"
-          r="30"
-          fill="url(#tipGlow)"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0, 1] }}
-          transition={{ duration: 3.5, delay: 0.4, ease: "easeOut" }}
-        />
-        <motion.circle
-          cx="1400"
-          cy="-340"
-          r="4"
-          fill="#c8956c"
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: [0, 1.4, 1] }}
-          transition={{ delay: 3.2, duration: 0.5 }}
-        />
-      </svg>
-
-      {/* ── Text layer ── */}
-      <div className="hero-content">
-        <motion.span
-          className="hero-logo-text"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-        >
-          PARRIT.AI
-        </motion.span>
-
-        <motion.h1
-          className="hero-title"
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={1}
-        >
-          Votre partenaire
-        </motion.h1>
-
-        <motion.span
-          className="hero-accent-word"
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={2}
-        >
-          exponentiel.
-        </motion.span>
-
+      <motion.div
+        className="hero-cta-block"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={3}
+      >
         <motion.a
           href={CALENDAR_URL}
           target="_blank"
           rel="noopener noreferrer"
           data-ph="hero-cta"
           onClick={() => trackCtaClick("hero")}
-          className="hero-cta-inline"
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={3}
+          className="hero-cta-link"
         >
-          R&eacute;servez votre diagnostic &rarr;
+          <ButtonColorful label="R&eacute;servez votre diagnostic" className="h-14 px-8 text-base" />
         </motion.a>
+        <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Confidentiel</p>
+      </motion.div>
 
-        <motion.p
-          className="hero-pillars"
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={4}
-        >
-          Co-construction &middot; Long terme &middot; R&eacute;sultats mesurables
-        </motion.p>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════
-   SECTION 2 — PAIN POINTS (visual 2x2 grid)
-   ═══════════════════════════════════════════════════════════ */
-function PainPoints() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-
-  const pains = [
-    { icon: "\u2709", label: "Saisie manuelle" },
-    { icon: "\uD83D\uDCCA", label: "Suivi inexistant" },
-    { icon: "\uD83D\uDD04", label: "Copier-coller" },
-    { icon: "\u23F3", label: "Validations sans fin" },
-  ];
-
-  return (
-    <section className="dark-section">
-      <div className="section-inner">
-        <motion.p
-          className="section-label-dark"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-        >
-          Le constat
-        </motion.p>
-        <motion.h2
-          className="dark-section-title"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-        >
-          Ce qui ralentit vos &eacute;quipes
-        </motion.h2>
-
-        <div ref={ref} className="pain-visual-grid">
-          {pains.map((p, i) => (
-            <motion.div
-              key={p.label}
-              className="pain-visual-card"
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.12, duration: 0.6, ease: "easeOut" }}
-            >
-              {/* Animated icon with pulse */}
-              <motion.div
-                className="pain-visual-icon"
-                animate={
-                  inView
-                    ? {
-                        scale: [1, 1.15, 1],
-                        opacity: [0.7, 1, 0.7],
-                      }
-                    : {}
-                }
-                transition={{
-                  duration: 2.5,
-                  delay: i * 0.3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                {p.icon}
-              </motion.div>
-              <span className="pain-visual-label">{p.label}</span>
-            </motion.div>
+      {/* Exponential curve animation — LOOPING */}
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={4}
+        style={{ marginTop: "48px", width: "100%", maxWidth: "480px" }}
+      >
+        <svg viewBox="0 0 480 160" fill="none" style={{ width: "100%", overflow: "visible" }}>
+          {/* Grid lines subtle */}
+          {[40, 80, 120].map((y) => (
+            <line key={y} x1="0" y1={y} x2="480" y2={y} stroke="rgba(200,149,108,0.08)" strokeWidth="1" />
           ))}
-        </div>
+          {/* Exponential curve — infinite loop */}
+          <motion.path
+            d="M0 150 Q60 148 120 140 T200 120 T280 95 T340 60 T400 20 T440 -10 T480 -60"
+            stroke="#c8956c"
+            strokeWidth="3"
+            strokeLinecap="round"
+            fill="none"
+            animate={{
+              pathLength: [0, 1, 1, 0],
+              opacity: [0, 1, 1, 0],
+            }}
+            transition={{
+              duration: 5,
+              times: [0, 0.5, 0.7, 1],
+              repeat: Infinity,
+              repeatDelay: 1,
+              ease: "easeInOut",
+            }}
+          />
+          {/* Glow under curve — infinite loop */}
+          <motion.path
+            d="M0 150 Q60 148 120 140 T200 120 T280 95 T340 60 T400 20 T440 -10 T480 -60 V160 H0 Z"
+            fill="url(#curveGlow)"
+            animate={{
+              opacity: [0, 0.15, 0.15, 0],
+            }}
+            transition={{
+              duration: 5,
+              times: [0, 0.5, 0.7, 1],
+              repeat: Infinity,
+              repeatDelay: 1,
+              ease: "easeInOut",
+            }}
+          />
+          <defs>
+            <linearGradient id="curveGlow" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#c8956c" />
+              <stop offset="100%" stopColor="transparent" />
+            </linearGradient>
+          </defs>
+          {/* Dot at the tip — infinite loop */}
+          <motion.circle
+            cx="480"
+            cy="-60"
+            r="5"
+            fill="#c8956c"
+            animate={{
+              opacity: [0, 1, 1, 0],
+              scale: [0, 1, 1, 0],
+            }}
+            transition={{
+              duration: 5,
+              times: [0, 0.5, 0.7, 1],
+              repeat: Infinity,
+              repeatDelay: 1,
+              ease: "easeInOut",
+            }}
+          />
+        </svg>
+      </motion.div>
 
-        <motion.p
-          className="pain-bottom-line"
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-        >
-          Tout cela s&rsquo;automatise en quelques jours.
-        </motion.p>
-      </div>
+      <motion.p
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={5}
+        style={{ marginTop: "24px", fontSize: "13px", letterSpacing: "0.06em", color: "var(--text-muted)", fontWeight: 300, textAlign: "center" as const }}
+      >
+        Co-construction &middot; Long terme &middot; R&eacute;sultats mesurables
+      </motion.p>
+
+      <motion.div
+        className="scroll-hint"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={6}
+      >
+        <div className="scroll-chevron" />
+      </motion.div>
     </section>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════
-   SECTION 3 — SERVICES (animated demos)
+   SECTION 2 — VISUAL SHOWCASE (replaces pain points + services)
    ═══════════════════════════════════════════════════════════ */
-function Services() {
+const showcaseItems = [
+  { src: "/demo-agents.png", label: "Agents intelligents" },
+  { src: "/demo-crm.png", label: "CRM sur mesure" },
+  { src: "/demo-automation.png", label: "Automatisation documentaire" },
+  { src: "/demo-whatsapp.png", label: "Interfaces conversationnelles" },
+];
+
+function VisualShowcase() {
   return (
     <section className="dark-section">
       <div className="section-inner">
-        <motion.p
-          className="section-label-dark"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-        >
-          Nos solutions
-        </motion.p>
         <motion.h2
           className="dark-section-title"
           initial={{ opacity: 0, y: 20 }}
@@ -744,39 +357,27 @@ function Services() {
           Ce que nous d&eacute;ployons
         </motion.h2>
 
-        <div className="services-demo-grid">
-          <motion.div
-            className="service-demo-card"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-          >
-            <EmailSortingDemo />
-            <h3 className="service-demo-title">Saisie automatique</h3>
-          </motion.div>
-
-          <motion.div
-            className="service-demo-card"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
-          >
-            <DashboardDemo />
-            <h3 className="service-demo-title">Suivi centralis&eacute;</h3>
-          </motion.div>
-
-          <motion.div
-            className="service-demo-card"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
-          >
-            <WhatsAppDemo />
-            <h3 className="service-demo-title">Agent WhatsApp</h3>
-          </motion.div>
+        <div className="showcase-grid">
+          {showcaseItems.map((item, i) => (
+            <motion.div
+              key={item.src}
+              className="showcase-item"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: i * 0.12 }}
+            >
+              <div className="showcase-img-wrapper">
+                <img
+                  src={item.src}
+                  alt={item.label}
+                  className="showcase-img"
+                  loading="lazy"
+                />
+              </div>
+              <span className="showcase-label">{item.label}</span>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
@@ -784,7 +385,7 @@ function Services() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   SECTION 4 — CASE STUDIES (animated counters)
+   SECTION 3 — CASE STUDIES (animated counters only)
    ═══════════════════════════════════════════════════════════ */
 const cases = [
   {
@@ -900,7 +501,7 @@ function ShareableQuote() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   SECTION 5 — TEAM (shorter)
+   SECTION 5 — TEAM (short — just names)
    ═══════════════════════════════════════════════════════════ */
 function Team() {
   return (
@@ -1041,8 +642,7 @@ export default function Home() {
     <>
       <Nav />
       <Hero />
-      <PainPoints />
-      <Services />
+      <VisualShowcase />
       <CaseStudies />
       <ShareableQuote />
       <Team />
