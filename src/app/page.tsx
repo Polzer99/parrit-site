@@ -167,17 +167,7 @@ function Hero() {
       </svg>
 
       <div className="hero-content">
-        <motion.span
-          className="hero-logo-text"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: [0, -5, 0] }}
-          transition={{
-            opacity: { duration: 0.7, ease: "easeOut", delay: 0.15 },
-            y: { duration: 4, ease: "easeInOut", repeat: Infinity, delay: 0.9 },
-          }}
-        >
-          PARRIT.AI
-        </motion.span>
+        {/* Logo removed — nav handles branding */}
 
         <motion.h1
           className="hero-title"
@@ -294,22 +284,22 @@ function VisualShowcase() {
    ═══════════════════════════════════════════════════════════ */
 const cases = [
   {
-    badge: "RESTAURATION",
-    title: "Ouverture de restaurants",
+    badge: "PROCESSUS",
+    title: "Ouvertures et lancements",
     before: "Des semaines de retard",
     after: "Chaque \u00e9tape pilot\u00e9e automatiquement",
   },
   {
-    badge: "FORMATION",
-    title: "Rapports consolid\u00e9s",
-    before: "4 jours de travail manuel",
-    after: "G\u00e9n\u00e9r\u00e9 en un clic",
+    badge: "DONN\u00c9ES",
+    title: "Rapports et consolidation",
+    before: "Des jours de travail manuel",
+    after: "G\u00e9n\u00e9r\u00e9s en un clic",
   },
   {
-    badge: "IMPORT-EXPORT",
-    title: "Gestion des emails",
-    before: "3 heures par jour \u00e0 trier",
-    after: "Tri\u00e9s et class\u00e9s automatiquement",
+    badge: "QUOTIDIEN",
+    title: "Emails et documents",
+    before: "Des heures perdues chaque jour",
+    after: "Tri\u00e9s et trait\u00e9s automatiquement",
   },
 ];
 
@@ -371,6 +361,15 @@ function CaseStudies() {
             <CaseStudyCard key={idx} c={c} index={idx} />
           ))}
         </div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.5 }}
+          style={{ textAlign: "center", marginTop: "48px", fontSize: "14px", color: "var(--text-light-muted)", fontStyle: "italic", fontFamily: "var(--font-heading)" }}
+        >
+          Restauration, formation, industrie, n&eacute;goce, services&hellip; Chaque secteur a ses frictions. Nous les identifions et les supprimons.
+        </motion.p>
       </div>
     </section>
   );
