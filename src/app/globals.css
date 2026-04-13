@@ -381,12 +381,12 @@ body > * {
    ═══════════════════════════════════════════════════════════ */
 .quote-section {
   background: var(--bg-dark);
-  padding: 80px 24px;
+  padding: 40px 24px 80px;
 }
 
 @media (min-width: 768px) {
   .quote-section {
-    padding: 96px 48px;
+    padding: 48px 48px 96px;
   }
 }
 
