@@ -493,23 +493,14 @@ body > * {
   margin: 0 0 12px;
 }
 
-.team-quote {
-  font-family: var(--font-heading);
-  font-style: italic;
+.team-signature {
+  font-family: var(--font-body);
   font-weight: 400;
-  font-size: 15px;
+  font-size: 13px;
   color: var(--accent);
   margin: 0;
-  line-height: 1.5;
-}
-
-.team-specialty {
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 13px;
-  color: var(--text-dim);
-  margin: 0;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* ═══════════════════════════════════════════════════════════

@@ -435,9 +435,7 @@ function Founders() {
               Vision produit et approche terrain. Ex-&eacute;quipe op&eacute;rations mondiales Lime.
               A conduit l&rsquo;acquisition de Groupe Seb, Nestl&eacute;, Carte Noire, SNCF chez Arkel.
             </p>
-            <p className="team-quote">
-              &laquo;&nbsp;From idea &rarr; agent &rarr; adoption. Fast.&nbsp;&raquo;
-            </p>
+            <p className="team-signature">Produit &middot; Op&eacute;rations &middot; Acquisition</p>
           </motion.div>
 
           <motion.div className="team-card" variants={cardReveal}>
@@ -447,9 +445,7 @@ function Founders() {
               Consultante SAP depuis dix ans au sein des maisons de luxe europ&eacute;ennes.
               Experte supply chain et optimisation des processus entre la France et la Chine.
             </p>
-            <p className="team-specialty">
-              Sp&eacute;cialit&eacute;&nbsp;: MM / SD / FI
-            </p>
+            <p className="team-signature">Supply Chain &middot; SAP &middot; Chine</p>
           </motion.div>
         </motion.div>
       </div>
