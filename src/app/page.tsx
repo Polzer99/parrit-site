@@ -234,7 +234,7 @@ function Hero() {
         >
           <ButtonColorful label="R&eacute;servez votre diagnostic" className="h-14 px-8 text-base" />
         </motion.a>
-        <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Confidentiel</p>
+        <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Partenaire longue dur&eacute;e</p>
       </motion.div>
 
       {/* Curve is now global — behind all content */}
@@ -303,7 +303,7 @@ function VisualShowcase() {
           <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" data-ph="mid-cta" onClick={() => trackCtaClick("mid-showcase")}>
             <ButtonColorful label="Discutons de votre cas" className="h-14 px-8 text-base" />
           </a>
-          <p className="cta-micro" style={{ color: "var(--text-light-muted)" }}>15 minutes &middot; Sans engagement &middot; Confidentiel</p>
+          <p className="cta-micro" style={{ color: "var(--text-light-muted)" }}>15 minutes &middot; Sans engagement &middot; Partenaire longue dur&eacute;e</p>
         </motion.div>
       </div>
     </section>
@@ -510,7 +510,7 @@ function CtaFooter() {
         <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" data-ph="final-cta" onClick={() => trackCtaClick("footer")}>
           <ButtonColorful label="R&eacute;servez votre diagnostic" className="h-14 px-8 text-base" />
         </a>
-        <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Confidentiel</p>
+        <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Partenaire longue dur&eacute;e</p>
       </motion.div>
 
       <motion.div
