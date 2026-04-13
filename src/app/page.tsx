@@ -294,22 +294,22 @@ function VisualShowcase() {
    ═══════════════════════════════════════════════════════════ */
 const cases = [
   {
-    badge: "RESTAURATION \u00B7 DUBA\u00CF",
-    title: "Ouvertures de franchises",
-    before: "\u00F74 d\u00E9lai",
-    after: "0 oubli",
+    badge: "RESTAURATION",
+    title: "Ouverture de restaurants",
+    before: "Des semaines de retard",
+    after: "Chaque \u00e9tape pilot\u00e9e automatiquement",
   },
   {
-    badge: "FORMATION \u00B7 16 AGENCES",
-    title: "Consolidation de donn\u00E9es",
-    before: "5 min",
-    after: "16 sources",
+    badge: "FORMATION",
+    title: "Rapports consolid\u00e9s",
+    before: "4 jours de travail manuel",
+    after: "G\u00e9n\u00e9r\u00e9 en un clic",
   },
   {
-    badge: "INDUSTRIE \u00B7 FACTURES",
-    title: "Traitement documentaire",
-    before: "30 sec",
-    after: "0 erreur",
+    badge: "IMPORT-EXPORT",
+    title: "Gestion des emails",
+    before: "3 heures par jour \u00e0 trier",
+    after: "Tri\u00e9s et class\u00e9s automatiquement",
   },
 ];
 
