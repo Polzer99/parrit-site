@@ -123,7 +123,7 @@ function Nav() {
 
   return (
     <nav ref={navRef} className="nav">
-      <span className="nav-logo">PARRIT.AI</span>
+      {/* nav logo removed */}
     </nav>
   );
 }
@@ -167,7 +167,14 @@ function Hero() {
       </svg>
 
       <div className="hero-content">
-        {/* Logo removed — nav handles branding */}
+        <motion.span
+          className="hero-logo-text"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
+        >
+          PARRIT.AI
+        </motion.span>
 
         <motion.h1
           className="hero-title"
