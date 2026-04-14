@@ -428,7 +428,8 @@ function Founders() {
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
         >
-          <motion.div className="team-card" variants={cardReveal}>
+          <motion.div className="team-card team-card-premium" variants={cardReveal}>
+            <img src="/stamp-paul.png" alt="" className="team-stamp" />
             <h3 className="team-name">Paul Larmaraud</h3>
             <p className="team-role">Co-fondateur</p>
             <p className="team-bio">
@@ -438,7 +439,8 @@ function Founders() {
             <p className="team-signature">Produit &middot; Op&eacute;rations &middot; Acquisition</p>
           </motion.div>
 
-          <motion.div className="team-card" variants={cardReveal}>
+          <motion.div className="team-card team-card-premium" variants={cardReveal}>
+            <img src="/stamp-yukun.png" alt="" className="team-stamp" />
             <h3 className="team-name">Yukun Leng</h3>
             <p className="team-role">Co-fondatrice</p>
             <p className="team-bio">

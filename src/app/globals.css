@@ -466,6 +466,23 @@ body > * {
   border: 1px solid var(--border);
 }
 
+.team-card-premium {
+  background: linear-gradient(145deg, #fffcf7, #f7f0e4);
+  border: 1px solid rgba(200, 149, 108, 0.2);
+  box-shadow: 0 4px 24px rgba(200, 149, 108, 0.08), 0 1px 8px rgba(42, 37, 32, 0.04);
+  text-align: center;
+}
+
+.team-stamp {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  opacity: 0.85;
+  filter: drop-shadow(0 4px 12px rgba(200, 149, 108, 0.2));
+}
+
 .team-name {
   font-family: var(--font-heading);
   font-weight: 500;
