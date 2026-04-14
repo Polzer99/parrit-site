@@ -442,10 +442,10 @@ function Founders() {
             <h3 className="team-name">Yukun Leng</h3>
             <p className="team-role">Co-fondatrice</p>
             <p className="team-bio">
-              Consultante SAP depuis dix ans au sein des maisons de luxe europ&eacute;ennes.
+              Dix ans au c&oelig;ur des maisons de luxe europ&eacute;ennes, dont LVMH.
               Experte supply chain et optimisation des processus entre la France et la Chine.
             </p>
-            <p className="team-signature">Supply Chain &middot; SAP &middot; Chine</p>
+            <p className="team-signature">Luxe &middot; LVMH &middot; Supply Chain &middot; Chine</p>
           </motion.div>
         </motion.div>
       </div>
