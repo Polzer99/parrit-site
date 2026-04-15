@@ -8,7 +8,7 @@ import { ButtonColorful } from "@/components/ui/button-colorful";
 
 const CALENDAR_URL = "https://calendar.app.google/nWa2QQe8DUwtuwbz8";
 const WEBHOOK_URL =
-  "https://n8n.srv1115145.hstgr.cloud/webhook/lead-inbound";
+  "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 
 /* ─── UTM parameter extraction ─── */
 function getUtmParams(): Record<string, string> {
