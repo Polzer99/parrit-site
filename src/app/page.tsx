@@ -224,10 +224,10 @@ function Hero() {
    VISUAL SHOWCASE (dark bg)
    ═══════════════════════════════════════════════════════════ */
 const showcaseItems = [
-  { src: "/demo-agents.jpg", label: "Agents intelligents" },
-  { src: "/demo-crm.jpg", label: "CRM sur mesure" },
-  { src: "/demo-automation.jpg", label: "Automatisation documentaire" },
-  { src: "/demo-whatsapp.jpg", label: "Interfaces conversationnelles" },
+  { src: "/demo-agents.jpg", label: "Prototypage sur mesure" },
+  { src: "/demo-crm.jpg", label: "Outils m\u00e9tier d\u00e9di\u00e9s" },
+  { src: "/demo-automation.jpg", label: "Automatisation des processus" },
+  { src: "/demo-whatsapp.jpg", label: "Coaching & formation IA" },
 ];
 
 function VisualShowcase() {
@@ -241,7 +241,7 @@ function VisualShowcase() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          Ce que nous d&eacute;ployons
+          Notre savoir-faire
         </motion.h2>
 
         <div className="showcase-grid">
@@ -281,6 +281,59 @@ function VisualShowcase() {
             <ButtonColorful label="Discutons de votre cas" className="h-12 px-6 text-sm" />
           </a>
         </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NOTRE APPROCHE (light bg) — expert network + prototypage
+   ═══════════════════════════════════════════════════════════ */
+function Approach() {
+  return (
+    <section style={{ background: "var(--bg)", padding: "80px 24px" }}>
+      <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center" as const }}>
+        <motion.h2
+          style={{ fontFamily: "var(--font-heading)", fontWeight: 400, fontSize: "clamp(28px, 4vw, 38px)", color: "var(--text)", marginBottom: "24px" }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
+          Notre approche
+        </motion.h2>
+        <motion.p
+          style={{ fontFamily: "var(--font-body)", fontSize: "16px", lineHeight: 1.8, color: "var(--text-muted)", marginBottom: "48px", fontWeight: 300 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          Nous ne vendons pas de formations g&eacute;n&eacute;riques. Nous construisons avec vous.
+          Prototype fonctionnel en quelques jours, it&eacute;rations en temps r&eacute;el, mise en production rapide.
+          Un r&eacute;seau de plus de vingt experts &mdash; techniques et m&eacute;tier &mdash; mobilisables selon vos besoins.
+        </motion.p>
+
+        <div style={{ display: "flex", flexWrap: "wrap" as const, justifyContent: "center", gap: "32px" }}>
+          {[
+            { title: "Prototypage rapide", desc: "De l\u2019id\u00e9e au prototype test\u00e9 en quelques jours" },
+            { title: "R\u00e9seau d\u2019experts", desc: "20+ sp\u00e9cialistes techniques et m\u00e9tier \u00e0 disposition" },
+            { title: "Coaching IA", desc: "Masterclasses et ateliers pratiques pour vos \u00e9quipes" },
+            { title: "Mise en production", desc: "D\u00e9ploiement, maintenance et am\u00e9lioration continue" },
+          ].map((item, i) => (
+            <motion.div
+              key={item.title}
+              style={{ flex: "1 1 160px", maxWidth: "200px", textAlign: "center" as const }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+            >
+              <p style={{ fontFamily: "var(--font-heading)", fontSize: "18px", fontWeight: 500, color: "var(--text)", marginBottom: "8px" }}>{item.title}</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "13px", color: "var(--text-muted)", fontWeight: 300, lineHeight: 1.6 }}>{item.desc}</p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -540,6 +593,7 @@ export default function Home() {
       <Nav />
       <Hero />
       <VisualShowcase />
+      <Approach />
       <CaseStudies />
       <ShareableQuote />
       <Founders />
