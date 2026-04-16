@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useScrollFade } from "@/components/hooks";
 import { ButtonColorful } from "@/components/ui/button-colorful";
 
-const CALENDAR_URL = "https://calendar.app.google/nWa2QQe8DUwtuwbz8";
 const WEBHOOK_URL =
   "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 
@@ -204,16 +203,14 @@ function Hero() {
           custom={3}
         >
           <a
-            href={CALENDAR_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#callback-form"
             data-ph="hero-cta"
             onClick={() => trackCtaClick("hero")}
             className="hero-cta-link"
           >
-            <ButtonColorful label="R&eacute;servez votre diagnostic" className="h-14 px-8 text-base" />
+            <ButtonColorful label="&Ecirc;tre rappel&eacute; en 5 minutes" className="h-14 px-8 text-base" />
           </a>
-          <p className="cta-micro">15 minutes &middot; Sans engagement &middot; Partenaire longue dur&eacute;e</p>
+          <p className="cta-micro">Appel de 5 minutes &middot; Sans engagement &middot; On vous rappelle</p>
         </motion.div>
       </div>
     </section>
@@ -277,7 +274,7 @@ function VisualShowcase() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
         >
-          <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" data-ph="mid-cta" onClick={() => trackCtaClick("mid-showcase")}>
+          <a href="#callback-form" data-ph="mid-cta" onClick={() => trackCtaClick("mid-showcase")}>
             <ButtonColorful label="Discutons de votre cas" className="h-12 px-6 text-sm" />
           </a>
         </motion.div>
@@ -509,11 +506,47 @@ function Founders() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CTA FOOTER (dark bg)
+   CALLBACK FORM + CTA FOOTER (dark bg)
    ═══════════════════════════════════════════════════════════ */
 function CtaFooter() {
+  const [formState, setFormState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [prenom, setPrenom] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [email, setEmail] = useState("");
+  const [creneau, setCreneau] = useState("");
+  const [besoin, setBesoin] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setFormState("sending");
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "parrit.ai",
+          action: "callback_request",
+          prenom,
+          telephone,
+          email,
+          creneau,
+          besoin,
+          referrer: typeof document !== "undefined" ? document.referrer : "",
+          url: typeof window !== "undefined" ? window.location.href : "",
+          timestamp: new Date().toISOString(),
+          page: "landing",
+          ...getUtmParams(),
+        }),
+      });
+      trackCtaClick("footer-form");
+      setFormState("sent");
+    } catch {
+      setFormState("error");
+    }
+  }
+
   return (
-    <section className="cta-section">
+    <section className="cta-section" id="callback-form">
       <motion.h2
         className="cta-title"
         initial={{ opacity: 0, y: 20 }}
@@ -521,21 +554,101 @@ function CtaFooter() {
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        &Eacute;changeons.
+        On vous rappelle.
       </motion.h2>
 
-      <motion.div
-        className="cta-button-block"
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
+      <motion.p
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, delay: 0.1 }}
+        style={{ textAlign: "center", color: "var(--text-light-muted)", fontFamily: "var(--font-body)", fontSize: "16px", marginBottom: "32px", fontWeight: 300 }}
       >
-        <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" data-ph="final-cta" onClick={() => trackCtaClick("footer")}>
-          <ButtonColorful label="R&eacute;servez votre diagnostic" className="h-14 px-8 text-base" />
-        </a>
-        <p className="cta-micro cta-micro--dark">15 minutes &middot; Sans engagement &middot; Partenaire longue dur&eacute;e</p>
-      </motion.div>
+        Laissez vos coordonn&eacute;es, nous vous rappelons pour un premier &eacute;change de 5 minutes.
+      </motion.p>
+
+      {formState === "sent" ? (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          style={{ textAlign: "center", padding: "40px 24px" }}
+        >
+          <p style={{ fontSize: "24px", marginBottom: "12px" }}>&#10003;</p>
+          <p style={{ color: "#FFFFFF", fontFamily: "var(--font-heading)", fontSize: "20px", marginBottom: "8px" }}>
+            Merci {prenom}&nbsp;!
+          </p>
+          <p style={{ color: "var(--text-light-muted)", fontFamily: "var(--font-body)", fontSize: "15px" }}>
+            Vous allez &ecirc;tre rappel&eacute; au {telephone} ({creneau === "asap" ? "d\u00E8s que possible" : creneau === "matin" ? "entre 9h et 12h" : creneau === "midi" ? "entre 12h et 14h" : "entre 14h et 18h"}) pour un premier &eacute;change de 5 minutes.
+          </p>
+        </motion.div>
+      ) : (
+        <motion.form
+          onSubmit={handleSubmit}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
+          style={{ maxWidth: "420px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "16px", padding: "0 24px" }}
+        >
+          <input
+            type="text"
+            required
+            placeholder="Pr&#233;nom"
+            value={prenom}
+            onChange={(e) => setPrenom(e.target.value)}
+            className="callback-input"
+          />
+          <input
+            type="tel"
+            required
+            placeholder="T&#233;l&#233;phone"
+            value={telephone}
+            onChange={(e) => setTelephone(e.target.value)}
+            className="callback-input"
+          />
+          <input
+            type="email"
+            required
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="callback-input"
+          />
+          <select
+            required
+            value={creneau}
+            onChange={(e) => setCreneau(e.target.value)}
+            className="callback-input"
+          >
+            <option value="" disabled>Quand souhaitez-vous &#234;tre rappel&#233; ?</option>
+            <option value="matin">Matin (9h-12h)</option>
+            <option value="midi">Midi (12h-14h)</option>
+            <option value="aprem">Apr&#232;s-midi (14h-18h)</option>
+            <option value="asap">D&#232;s que possible</option>
+          </select>
+          <textarea
+            required
+            placeholder="En quelques mots, votre besoin..."
+            value={besoin}
+            onChange={(e) => setBesoin(e.target.value)}
+            rows={3}
+            className="callback-input callback-textarea"
+          />
+          <button
+            type="submit"
+            disabled={formState === "sending"}
+            className="callback-submit"
+          >
+            {formState === "sending" ? "Envoi..." : "\u2192 \u00CAtre rappel\u00E9"}
+          </button>
+          {formState === "error" && (
+            <p style={{ color: "#ff6b6b", fontSize: "13px", textAlign: "center" }}>
+              Une erreur est survenue. Essayez &agrave; nouveau ou contactez-nous directement.
+            </p>
+          )}
+        </motion.form>
+      )}
 
       <motion.div
         className="secondary-cta"
@@ -543,6 +656,7 @@ function CtaFooter() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: 0.3 }}
+        style={{ marginTop: "40px" }}
       >
         <a
           href="mailto:paul.larmaraud@parrit.ai"
@@ -572,9 +686,9 @@ function CtaFooter() {
         <p className="footer-rgpd">
           Ce site ne d&eacute;pose aucun cookie publicitaire.
           Les donn&eacute;es analytiques sont collect&eacute;es de mani&egrave;re anonyme
-          conform&eacute;ment au RGPD. En r&eacute;servant un appel, vous acceptez
-          que vos coordonn&eacute;es soient utilis&eacute;es uniquement pour organiser
-          cet &eacute;change. Contact&nbsp;: <a href="mailto:paul.larmaraud@parrit.ai">paul.larmaraud@parrit.ai</a>
+          conform&eacute;ment au RGPD. En laissant vos coordonn&eacute;es, vous acceptez
+          d&rsquo;&ecirc;tre recontact&eacute; par t&eacute;l&eacute;phone pour un &eacute;change de 5 minutes.
+          Contact&nbsp;: <a href="mailto:paul.larmaraud@parrit.ai">paul.larmaraud@parrit.ai</a>
         </p>
       </footer>
     </section>
