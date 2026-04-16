@@ -208,9 +208,9 @@ function Hero() {
             onClick={() => trackCtaClick("hero")}
             className="hero-cta-link"
           >
-            <ButtonColorful label="&Ecirc;tre rappel&eacute; en 5 minutes" className="h-14 px-8 text-base" />
+            <ButtonColorful label="&Ecirc;tre contact&eacute; par un conseiller" className="h-14 px-8 text-base" />
           </a>
-          <p className="cta-micro">Appel de 5 minutes &middot; Sans engagement &middot; On vous rappelle</p>
+          <p className="cta-micro">Sans engagement &middot; Un de nos conseillers vous recontacte</p>
         </motion.div>
       </div>
     </section>
@@ -510,7 +510,9 @@ function Founders() {
    ═══════════════════════════════════════════════════════════ */
 function CtaFooter() {
   const [formState, setFormState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [nom, setNom] = useState("");
   const [prenom, setPrenom] = useState("");
+  const [entreprise, setEntreprise] = useState("");
   const [telephone, setTelephone] = useState("");
   const [email, setEmail] = useState("");
   const [creneau, setCreneau] = useState("");
@@ -526,7 +528,9 @@ function CtaFooter() {
         body: JSON.stringify({
           source: "parrit.ai",
           action: "callback_request",
+          nom,
           prenom,
+          entreprise,
           telephone,
           email,
           creneau,
@@ -554,7 +558,7 @@ function CtaFooter() {
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        On vous rappelle.
+        Parlons de votre projet.
       </motion.h2>
 
       <motion.p
@@ -564,7 +568,7 @@ function CtaFooter() {
         transition={{ duration: 0.7, delay: 0.1 }}
         style={{ textAlign: "center", color: "var(--text-light-muted)", fontFamily: "var(--font-body)", fontSize: "16px", marginBottom: "32px", fontWeight: 300 }}
       >
-        Laissez vos coordonn&eacute;es, nous vous rappelons pour un premier &eacute;change de 5 minutes.
+        Laissez vos coordonn&eacute;es, un de nos conseillers vous recontacte.
       </motion.p>
 
       {formState === "sent" ? (
@@ -579,7 +583,7 @@ function CtaFooter() {
             Merci {prenom}&nbsp;!
           </p>
           <p style={{ color: "var(--text-light-muted)", fontFamily: "var(--font-body)", fontSize: "15px" }}>
-            Vous allez &ecirc;tre rappel&eacute; au {telephone} ({creneau === "asap" ? "d\u00E8s que possible" : creneau === "matin" ? "entre 9h et 12h" : creneau === "midi" ? "entre 12h et 14h" : "entre 14h et 18h"}) pour un premier &eacute;change de 5 minutes.
+            Un de nos conseillers vous recontacte au {telephone} ({creneau === "asap" ? "d\u00E8s que possible" : creneau === "matin" ? "entre 9h et 12h" : creneau === "midi" ? "entre 12h et 14h" : "entre 14h et 18h"}).
           </p>
         </motion.div>
       ) : (
@@ -591,17 +595,43 @@ function CtaFooter() {
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
           style={{ maxWidth: "420px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "16px", padding: "0 24px" }}
         >
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+            <input
+              type="text"
+              required
+              name="given-name"
+              autoComplete="given-name"
+              placeholder="Pr&#233;nom"
+              value={prenom}
+              onChange={(e) => setPrenom(e.target.value)}
+              className="callback-input"
+            />
+            <input
+              type="text"
+              required
+              name="family-name"
+              autoComplete="family-name"
+              placeholder="Nom"
+              value={nom}
+              onChange={(e) => setNom(e.target.value)}
+              className="callback-input"
+            />
+          </div>
           <input
             type="text"
             required
-            placeholder="Pr&#233;nom"
-            value={prenom}
-            onChange={(e) => setPrenom(e.target.value)}
+            name="organization"
+            autoComplete="organization"
+            placeholder="Entreprise"
+            value={entreprise}
+            onChange={(e) => setEntreprise(e.target.value)}
             className="callback-input"
           />
           <input
             type="tel"
             required
+            name="tel"
+            autoComplete="tel"
             placeholder="T&#233;l&#233;phone"
             value={telephone}
             onChange={(e) => setTelephone(e.target.value)}
@@ -610,43 +640,51 @@ function CtaFooter() {
           <input
             type="email"
             required
-            placeholder="Email"
+            name="email"
+            autoComplete="email"
+            placeholder="Email professionnel"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="callback-input"
           />
           <select
-            required
             value={creneau}
             onChange={(e) => setCreneau(e.target.value)}
             className="callback-input"
           >
-            <option value="" disabled>Quand souhaitez-vous &#234;tre rappel&#233; ?</option>
+            <option value="">Cr&#233;neau pr&#233;f&#233;r&#233; (optionnel)</option>
             <option value="matin">Matin (9h-12h)</option>
             <option value="midi">Midi (12h-14h)</option>
             <option value="aprem">Apr&#232;s-midi (14h-18h)</option>
             <option value="asap">D&#232;s que possible</option>
           </select>
-          <textarea
-            required
-            placeholder="En quelques mots, votre besoin..."
-            value={besoin}
-            onChange={(e) => setBesoin(e.target.value)}
-            rows={3}
-            className="callback-input callback-textarea"
-          />
           <button
             type="submit"
             disabled={formState === "sending"}
             className="callback-submit"
           >
-            {formState === "sending" ? "Envoi..." : "\u2192 \u00CAtre rappel\u00E9"}
+            {formState === "sending" ? "Envoi..." : "\u2192 \u00CAtre contact\u00E9"}
           </button>
           {formState === "error" && (
             <p style={{ color: "#ff6b6b", fontSize: "13px", textAlign: "center" }}>
               Une erreur est survenue. Essayez &agrave; nouveau ou contactez-nous directement.
             </p>
           )}
+          <div className="callback-separator">
+            <span className="callback-separator-line" />
+            <span className="callback-separator-text">ou</span>
+            <span className="callback-separator-line" />
+          </div>
+          <a
+            href="https://wa.me/33759665687?text=Bonjour%2C%20je%20souhaiterais%20%C3%AAtre%20rappel%C3%A9%20pour%20un%20premier%20%C3%A9change."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="callback-whatsapp"
+            onClick={() => trackCtaClick("whatsapp-form")}
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style={{ flexShrink: 0 }}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span>&Eacute;crivez-nous sur WhatsApp</span>
+          </a>
         </motion.form>
       )}
 
@@ -687,7 +725,7 @@ function CtaFooter() {
           Ce site ne d&eacute;pose aucun cookie publicitaire.
           Les donn&eacute;es analytiques sont collect&eacute;es de mani&egrave;re anonyme
           conform&eacute;ment au RGPD. En laissant vos coordonn&eacute;es, vous acceptez
-          d&rsquo;&ecirc;tre recontact&eacute; par t&eacute;l&eacute;phone pour un &eacute;change de 5 minutes.
+          d&rsquo;&ecirc;tre recontact&eacute; par un de nos conseillers.
           Contact&nbsp;: <a href="mailto:paul.larmaraud@parrit.ai">paul.larmaraud@parrit.ai</a>
         </p>
       </footer>

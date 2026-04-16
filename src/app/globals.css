@@ -1007,3 +1007,46 @@ select.callback-input option {
   cursor: not-allowed;
   transform: none;
 }
+
+.callback-separator {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 8px 0;
+}
+
+.callback-separator-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(200, 149, 108, 0.15);
+}
+
+.callback-separator-text {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-light-muted);
+  font-weight: 300;
+}
+
+.callback-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: #FFFFFF;
+  background: #25D366;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 24px;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.callback-whatsapp:hover {
+  background: #1ebe57;
+  transform: translateY(-1px);
+}
