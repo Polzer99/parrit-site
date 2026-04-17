@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "title": "Parrit.ai — Intelligent automation solutions for businesses",
+    "description": "Your company, with half the repetitive tasks starting today. AI-powered process automation. Built in France.",
+    "ogTitle": "Parrit.ai — Your teams deserve better than copy-paste",
+    "ogDescription": "Custom AI agents to automate your repetitive processes. Free 15-minute diagnostic.",
+    "ogImageAlt": "Parrit.ai — Intelligent automation for businesses",
+    "ogLocale": "en_US",
+    "keywords": [
+      "enterprise AI",
+      "process automation",
+      "AI agents",
+      "SAP AI",
+      "automated CRM",
+      "AI consulting",
+      "Parrit.ai",
+      "Paul Larmaraud",
+      "AI deployment",
+      "digital transformation"
+    ],
+    "schemaDescription": "Intelligent automation solutions for businesses. Half the repetitive tasks, starting today."
+  },
+  "nav": {
+    "switcherLabel": "Language"
+  },
+  "hero": {
+    "logo": "PARRIT.AI",
+    "titleMain": "Your",
+    "titleAccent": "exponential partner.",
+    "subtitle": "We design and deploy bespoke solutions that accelerate your growth, for the long run.",
+    "cta": "Speak with an advisor",
+    "ctaMicro": "No commitment · One of our advisors will reach out"
+  },
+  "showcase": {
+    "title": "What we build",
+    "items": [
+      { "label": "Custom prototyping" },
+      { "label": "Dedicated business tools" },
+      { "label": "Process automation" },
+      { "label": "AI coaching & training" }
+    ],
+    "midCta": "Let's discuss your case"
+  },
+  "approach": {
+    "title": "Our approach",
+    "description": "We don't sell generic training. We build with you. Working prototype in a few days, real-time iteration, fast path to production. A network of more than twenty experts — technical and business — available on demand.",
+    "pillars": [
+      { "title": "Rapid prototyping", "desc": "From idea to tested prototype in days" },
+      { "title": "Expert network", "desc": "20+ technical and domain specialists on call" },
+      { "title": "AI coaching", "desc": "Masterclasses and hands-on workshops for your teams" },
+      { "title": "Production ready", "desc": "Deployment, maintenance and continuous improvement" }
+    ]
+  },
+  "cases": {
+    "title": "Results",
+    "before": "Before",
+    "after": "After",
+    "items": [
+      { "badge": "PROCESS", "title": "Launches & rollouts", "before": "Weeks of delay", "after": "Every step orchestrated automatically" },
+      { "badge": "DATA", "title": "Reporting & consolidation", "before": "Days of manual work", "after": "Generated in one click" },
+      { "badge": "DAILY", "title": "Emails & documents", "before": "Hours lost every day", "after": "Sorted and handled automatically" }
+    ],
+    "footer": "Hospitality, training, industry, trade, services… Every sector has its friction points. We identify and remove them."
+  },
+  "claudeCode": {
+    "badge": "NEW OFFER",
+    "title": "Claude Code audit & setup",
+    "subtitle": "4 days to turn your engineering team into an AI execution force. Audit, full configuration, training and follow-up.",
+    "deliverables": [
+      { "day": "Day 1", "title": "Setup audit", "desc": "Review your current Claude Code usage, find blind spots and prioritize quick wins" },
+      { "day": "Days 2-3", "title": "Full configuration", "desc": "CLAUDE.md, hooks, skills, MCP, agents — the whole stack tailored to your context" },
+      { "day": "Day 4", "title": "Hands-on training", "desc": "Practical workshop with your team, using real use cases from your day-to-day" },
+      { "day": "+1 month", "title": "Async follow-up included", "desc": "Questions, tuning and optimizations for 30 days after delivery" }
+    ],
+    "priceLabel": "From",
+    "price": "€7,500",
+    "priceNote": "Excl. VAT · 4-day package · Teams up to 10 developers",
+    "target": "For dev agencies, CTOs and engineering leaders who want to extract the most out of Claude Code.",
+    "cta": "Request the package"
+  },
+  "quote": {
+    "text": "“AI doesn't replace your teams. It gives them back the hours that bureaucracy steals.”",
+    "cite": "— Paul Larmaraud, Parrit.ai"
+  },
+  "founders": {
+    "title": "Who we are",
+    "paul": {
+      "name": "Paul Larmaraud",
+      "role": "Co-founder",
+      "bio": "Product vision and on-the-ground approach. Former global operations team at Lime. Led the acquisition of Groupe Seb, Nestlé, Carte Noire, SNCF at Arkel.",
+      "signature": "Product · Operations · Acquisition"
+    },
+    "yukun": {
+      "name": "Yukun Leng",
+      "role": "Co-founder",
+      "bio": "Ten years at the heart of European luxury houses, including LVMH. Supply chain and process optimization expert between France and China.",
+      "signature": "Luxury · LVMH · Supply Chain · China"
+    }
+  },
+  "cta": {
+    "title": "Let's talk about your project.",
+    "subtitle": "Leave your details — one of our advisors will reach out.",
+    "form": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "company": "Company",
+      "phone": "Phone",
+      "email": "Work email",
+      "slotPlaceholder": "Preferred time slot (optional)",
+      "slotMorning": "Morning (9am-12pm)",
+      "slotNoon": "Midday (12pm-2pm)",
+      "slotAfternoon": "Afternoon (2pm-6pm)",
+      "slotAsap": "As soon as possible",
+      "submit": "→ Get contacted",
+      "submitting": "Sending...",
+      "error": "Something went wrong. Please try again or contact us directly.",
+      "or": "or",
+      "whatsapp": "Message us on WhatsApp"
+    },
+    "sent": {
+      "thanks": "Thanks {firstName}!",
+      "confirmation": "One of our advisors will call you at {phone} ({slot}).",
+      "slotAsap": "as soon as possible",
+      "slotMorning": "between 9am and 12pm",
+      "slotNoon": "between 12pm and 2pm",
+      "slotAfternoon": "between 2pm and 6pm",
+      "slotDefault": "as soon as possible"
+    },
+    "secondaryWhatsapp": "Message on WhatsApp",
+    "footer": {
+      "legal": "© 2026 Paul Larmaraud · SASU PARRIT.AI · Rueil-Malmaison, France",
+      "rgpd": "This site uses no advertising cookies. Analytics are collected anonymously in compliance with GDPR. By leaving your details, you agree to be contacted by one of our advisors. Contact:"
+    }
+  },
+  "whatsappMessages": {
+    "formCta": "Hi, I'd like to be called back for an initial conversation.",
+    "secondaryCta": "Hi Paul, I'd like to learn more about Parrit.ai"
+  },
+  "blog": {
+    "meta": {
+      "title": "Blog — Parrit.ai | AI, automation and digital transformation",
+      "description": "Articles on AI applied to enterprises. Automation, AI agents, SAP, CRM — by the founders of Parrit.ai.",
+      "ogTitle": "Blog — Parrit.ai",
+      "ogDescription": "Articles on applied enterprise AI. Automation, AI agents, SAP.",
+      "schemaDescription": "Articles on artificial intelligence applied to enterprises."
+    },
+    "navTitle": "Blog",
+    "headerLabel": "The journal",
+    "headerTitleMain": "Notes on",
+    "headerTitleAccent": "applied AI",
+    "headerSubtitle": "What we learn from deploying artificial intelligence in businesses, every week.",
+    "readArticle": "Read the article →",
+    "footerText": "Want to see what AI can do for your company?",
+    "footerCta": "Book a conversation",
+    "back": "← Back to blog",
+    "by": "By",
+    "articleFooter": "This article resonates? Let's discuss your case."
+  },
+  "blogListDateLocale": "en-US"
+}

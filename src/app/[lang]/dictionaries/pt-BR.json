@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "title": "Parrit.ai — Soluções de automação inteligente para empresas",
+    "description": "Sua empresa, com metade das tarefas repetitivas a partir de hoje. Automação de processos com IA. Empresa francesa.",
+    "ogTitle": "Parrit.ai — Suas equipes merecem mais do que copiar e colar",
+    "ogDescription": "Agentes de IA sob medida para automatizar seus processos repetitivos. Diagnóstico gratuito de 15 minutos.",
+    "ogImageAlt": "Parrit.ai — Automação inteligente para empresas",
+    "ogLocale": "pt_BR",
+    "keywords": [
+      "IA empresarial",
+      "automação de processos",
+      "agentes de IA",
+      "SAP IA",
+      "CRM automatizado",
+      "consultoria em IA",
+      "Parrit.ai",
+      "Paul Larmaraud",
+      "implantação de IA",
+      "transformação digital"
+    ],
+    "schemaDescription": "Soluções de automação inteligente para empresas. Metade das tarefas repetitivas, a partir de hoje."
+  },
+  "nav": {
+    "switcherLabel": "Idioma"
+  },
+  "hero": {
+    "logo": "PARRIT.AI",
+    "titleMain": "Seu parceiro",
+    "titleAccent": "exponencial.",
+    "subtitle": "Projetamos e implantamos soluções sob medida que aceleram o crescimento da sua empresa de forma sustentável.",
+    "cta": "Falar com um consultor",
+    "ctaMicro": "Sem compromisso · Um dos nossos consultores entrará em contato"
+  },
+  "showcase": {
+    "title": "O que construímos",
+    "items": [
+      { "label": "Prototipagem sob medida" },
+      { "label": "Ferramentas de negócio dedicadas" },
+      { "label": "Automação de processos" },
+      { "label": "Coaching e formação em IA" }
+    ],
+    "midCta": "Vamos falar sobre o seu caso"
+  },
+  "approach": {
+    "title": "Nossa abordagem",
+    "description": "Não vendemos treinamentos genéricos. Construímos com você. Protótipo funcional em poucos dias, iterações em tempo real, produção rápida. Uma rede de mais de vinte especialistas — técnicos e de negócio — mobilizáveis conforme sua necessidade.",
+    "pillars": [
+      { "title": "Prototipagem rápida", "desc": "Da ideia ao protótipo testado em poucos dias" },
+      { "title": "Rede de especialistas", "desc": "Mais de 20 especialistas técnicos e de negócio à disposição" },
+      { "title": "Coaching em IA", "desc": "Masterclasses e oficinas práticas para suas equipes" },
+      { "title": "Entrada em produção", "desc": "Implantação, manutenção e melhoria contínua" }
+    ]
+  },
+  "cases": {
+    "title": "Resultados",
+    "before": "Antes",
+    "after": "Depois",
+    "items": [
+      { "badge": "PROCESSOS", "title": "Aberturas e lançamentos", "before": "Semanas de atraso", "after": "Cada etapa conduzida automaticamente" },
+      { "badge": "DADOS", "title": "Relatórios e consolidação", "before": "Dias de trabalho manual", "after": "Gerados em um clique" },
+      { "badge": "DIA A DIA", "title": "E-mails e documentos", "before": "Horas perdidas todos os dias", "after": "Triados e tratados automaticamente" }
+    ],
+    "footer": "Restauração, formação, indústria, comércio, serviços… Cada setor tem seus atritos. Nós os identificamos e eliminamos."
+  },
+  "claudeCode": {
+    "badge": "NOVA OFERTA",
+    "title": "Auditoria e instalação do Claude Code",
+    "subtitle": "4 dias para transformar seu time de engenharia em uma força de execução com IA. Auditoria, configuração completa, formação e acompanhamento.",
+    "deliverables": [
+      { "day": "Dia 1", "title": "Auditoria do setup", "desc": "Análise do seu uso atual do Claude Code, detecção de pontos cegos e priorização dos ganhos rápidos" },
+      { "day": "Dias 2-3", "title": "Configuração completa", "desc": "CLAUDE.md, hooks, skills, MCP, agentes sob medida — stack completo configurado para o seu contexto" },
+      { "day": "Dia 4", "title": "Formação prática", "desc": "Workshop prático com o seu time, com casos de uso reais do dia a dia" },
+      { "day": "+1 mês", "title": "Acompanhamento assíncrono incluso", "desc": "Dúvidas, ajustes e otimizações durante 30 dias após a entrega" }
+    ],
+    "priceLabel": "A partir de",
+    "price": "€ 7.500",
+    "priceNote": "Sem impostos · Pacote de 4 dias · Times de até 10 desenvolvedores",
+    "target": "Para agências de dev, CTOs e líderes de engenharia que querem extrair o máximo do Claude Code.",
+    "cta": "Solicitar o pacote"
+  },
+  "quote": {
+    "text": "“A IA não substitui suas equipes. Ela devolve a elas as horas que a burocracia rouba.”",
+    "cite": "— Paul Larmaraud, Parrit.ai"
+  },
+  "founders": {
+    "title": "Quem somos",
+    "paul": {
+      "name": "Paul Larmaraud",
+      "role": "Cofundador",
+      "bio": "Visão de produto e atuação em campo. Ex-equipe de operações globais da Lime. Conduziu a aquisição do Groupe Seb, Nestlé, Carte Noire e SNCF na Arkel.",
+      "signature": "Produto · Operações · Aquisição"
+    },
+    "yukun": {
+      "name": "Yukun Leng",
+      "role": "Cofundadora",
+      "bio": "Dez anos no coração das casas de luxo europeias, incluindo a LVMH. Especialista em supply chain e otimização de processos entre a França e a China.",
+      "signature": "Luxo · LVMH · Supply Chain · China"
+    }
+  },
+  "cta": {
+    "title": "Vamos falar sobre o seu projeto.",
+    "subtitle": "Deixe seus dados e um dos nossos consultores entrará em contato.",
+    "form": {
+      "firstName": "Nome",
+      "lastName": "Sobrenome",
+      "company": "Empresa",
+      "phone": "Telefone",
+      "email": "E-mail profissional",
+      "slotPlaceholder": "Horário preferido (opcional)",
+      "slotMorning": "Manhã (9h-12h)",
+      "slotNoon": "Meio-dia (12h-14h)",
+      "slotAfternoon": "Tarde (14h-18h)",
+      "slotAsap": "Assim que possível",
+      "submit": "→ Entrar em contato",
+      "submitting": "Enviando...",
+      "error": "Ocorreu um erro. Tente novamente ou fale conosco diretamente.",
+      "or": "ou",
+      "whatsapp": "Fale com a gente no WhatsApp"
+    },
+    "sent": {
+      "thanks": "Obrigado, {firstName}!",
+      "confirmation": "Um dos nossos consultores entrará em contato no {phone} ({slot}).",
+      "slotAsap": "assim que possível",
+      "slotMorning": "entre 9h e 12h",
+      "slotNoon": "entre 12h e 14h",
+      "slotAfternoon": "entre 14h e 18h",
+      "slotDefault": "assim que possível"
+    },
+    "secondaryWhatsapp": "Escrever no WhatsApp",
+    "footer": {
+      "legal": "© 2026 Paul Larmaraud · SASU PARRIT.AI · Rueil-Malmaison, França",
+      "rgpd": "Este site não usa cookies publicitários. Os dados analíticos são coletados de forma anônima, em conformidade com o GDPR (Europa) e a LGPD (Brasil). Ao deixar seus dados, você concorda em ser contatado por um dos nossos consultores. Contato:"
+    }
+  },
+  "whatsappMessages": {
+    "formCta": "Olá, gostaria de ser contatado para uma primeira conversa.",
+    "secondaryCta": "Olá Paul, gostaria de saber mais sobre a Parrit.ai"
+  },
+  "blog": {
+    "meta": {
+      "title": "Blog — Parrit.ai | IA, automação e transformação digital",
+      "description": "Artigos sobre IA aplicada às empresas. Automação, agentes de IA, SAP, CRM — pelos fundadores da Parrit.ai.",
+      "ogTitle": "Blog — Parrit.ai",
+      "ogDescription": "Artigos sobre IA aplicada às empresas. Automação, agentes de IA, SAP.",
+      "schemaDescription": "Artigos sobre inteligência artificial aplicada às empresas."
+    },
+    "navTitle": "Blog",
+    "headerLabel": "O diário",
+    "headerTitleMain": "Reflexões sobre",
+    "headerTitleAccent": "IA aplicada",
+    "headerSubtitle": "O que aprendemos implantando inteligência artificial nas empresas, toda semana.",
+    "readArticle": "Ler o artigo →",
+    "footerText": "Quer ver o que a IA pode fazer pela sua empresa?",
+    "footerCta": "Agendar uma conversa",
+    "back": "← Voltar ao blog",
+    "by": "Por",
+    "articleFooter": "Este artigo fala com você? Vamos conversar sobre o seu caso."
+  },
+  "blogListDateLocale": "pt-BR"
+}

@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
+import {
+  getDictionary,
+  hasLocale,
+  locales,
+  type Locale,
+} from "./dictionaries";
 
 const heading = Cormorant_Garamond({
   subsets: ["latin"],
@@ -16,66 +23,88 @@ const body = DM_Sans({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Parrit.ai \u2014 Solutions d\u2019automatisation intelligente pour les entreprises",
-  description:
-    "Votre entreprise, avec deux fois moins de t\u00e2ches r\u00e9p\u00e9titives d\u00e8s aujourd\u2019hui. Automatisation des processus par IA. Entreprise fran\u00e7aise.",
-  keywords: [
-    "IA entreprise",
-    "automatisation processus",
-    "agents IA",
-    "SAP IA",
-    "CRM automatis\u00e9",
-    "consulting IA",
-    "Parrit.ai",
-    "Paul Larmaraud",
-    "d\u00e9ploiement IA",
-    "transformation digitale",
-  ],
-  authors: [{ name: "Paul Larmaraud" }],
-  openGraph: {
-    title: "Parrit.ai \u2014 Vos \u00e9quipes m\u00e9ritent mieux que le copier-coller",
-    description:
-      "Agents IA sur mesure pour automatiser vos processus r\u00e9p\u00e9titifs. Diagnostic gratuit en 15 minutes.",
-    url: "https://parrit.ai",
-    siteName: "Parrit.ai",
-    locale: "fr_FR",
-    type: "website",
-    images: [
-      {
-        url: "https://parrit.ai/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Parrit.ai \u2014 Automatisation intelligente pour les entreprises",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Parrit.ai \u2014 Vos \u00e9quipes m\u00e9ritent mieux que le copier-coller",
-    description:
-      "Agents IA sur mesure pour automatiser vos processus r\u00e9p\u00e9titifs. Diagnostic gratuit en 15 minutes.",
-    images: ["https://parrit.ai/og-image.png"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+const SITE_URL = "https://parrit.ai";
 
-export default function RootLayout({
+export async function generateStaticParams() {
+  return locales.map((lang) => ({ lang }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  if (!hasLocale(lang)) return {};
+
+  const dict = await getDictionary(lang as Locale);
+  const m = dict.meta;
+
+  const languagesMap: Record<string, string> = {
+    "x-default": `${SITE_URL}/fr`,
+  };
+  locales.forEach((l) => {
+    languagesMap[l] = `${SITE_URL}/${l}`;
+  });
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: m.title,
+    description: m.description,
+    keywords: m.keywords,
+    authors: [{ name: "Paul Larmaraud" }],
+    alternates: {
+      canonical: `${SITE_URL}/${lang}`,
+      languages: languagesMap,
+    },
+    openGraph: {
+      title: m.ogTitle,
+      description: m.ogDescription,
+      url: `${SITE_URL}/${lang}`,
+      siteName: "Parrit.ai",
+      locale: m.ogLocale,
+      type: "website",
+      images: [
+        {
+          url: `${SITE_URL}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: m.ogImageAlt,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: m.ogTitle,
+      description: m.ogDescription,
+      images: [`${SITE_URL}/og-image.png`],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
+
+export default async function LocaleLayout({
   children,
-}: Readonly<{
+  params,
+}: {
   children: React.ReactNode;
-}>) {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  if (!hasLocale(lang)) notFound();
+
+  const dict = await getDictionary(lang as Locale);
+
   const schemaOrg = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Parrit.ai",
     legalName: "SASU PARRIT.AI",
-    url: "https://parrit.ai",
-    description:
-      "Solutions d\u2019automatisation intelligente pour les entreprises. Deux fois moins de t\u00e2ches r\u00e9p\u00e9titives d\u00e8s aujourd\u2019hui.",
+    url: SITE_URL,
+    description: dict.meta.schemaDescription,
     foundingDate: "2024",
     address: {
       "@type": "PostalAddress",
@@ -90,11 +119,12 @@ export default function RootLayout({
       "@type": "ContactPoint",
       email: "paul.larmaraud@parrit.ai",
       contactType: "sales",
+      availableLanguage: ["French", "English", "Portuguese"],
     },
   };
 
   return (
-    <html lang="fr">
+    <html lang={lang}>
       <head>
         <script
           type="application/ld+json"
