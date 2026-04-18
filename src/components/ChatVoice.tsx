@@ -99,6 +99,8 @@ export default function ChatVoice({ dict, lang }: ChatVoiceProps) {
   const [leadFirstName, setLeadFirstName] = useState("");
   const [leadEmail, setLeadEmail] = useState("");
   const [leadPhone, setLeadPhone] = useState("");
+  const [leadChannel, setLeadChannel] = useState<"email" | "phone" | "whatsapp" | "linkedin">("email");
+  const [leadSlot, setLeadSlot] = useState<"asap" | "morning" | "noon" | "afternoon">("asap");
   const [isNarrow, setIsNarrow] = useState(false);
 
   const streamRef = useRef<MediaStream | null>(null);
@@ -254,7 +256,7 @@ export default function ChatVoice({ dict, lang }: ChatVoiceProps) {
             if (last && last.role === "assistant" && last.content === "") {
               copy[copy.length - 1] = {
                 ...last,
-                content: "…",
+                content: t.leadError,
               };
             }
             return copy;
@@ -447,6 +449,8 @@ export default function ChatVoice({ dict, lang }: ChatVoiceProps) {
           firstName: leadFirstName,
           email: leadEmail,
           phone: leadPhone,
+          channel: leadChannel,
+          slot: leadSlot,
           lang,
           transcript: messages,
           referrer: typeof document !== "undefined" ? document.referrer : "",
@@ -459,7 +463,7 @@ export default function ChatVoice({ dict, lang }: ChatVoiceProps) {
     } catch {
       setLeadStage("error");
     }
-  }, [lang, leadEmail, leadFirstName, leadPhone, messages]);
+  }, [lang, leadEmail, leadFirstName, leadPhone, leadChannel, leadSlot, messages]);
 
   /* ──────────────────────────────────────────────
      Render
@@ -829,8 +833,38 @@ export default function ChatVoice({ dict, lang }: ChatVoiceProps) {
                           wordBreak: "break-word",
                         }}
                       >
-                        {m.content ||
-                          (isStreaming && i === messages.length - 1 ? "…" : "")}
+                        {m.content}
+                        {isStreaming && i === messages.length - 1 && !m.content && (
+                          <span
+                            style={{
+                              display: "inline-flex",
+                              gap: 4,
+                              alignItems: "center",
+                              height: 14,
+                            }}
+                            aria-label="typing"
+                          >
+                            {[0, 1, 2].map((idx) => (
+                              <motion.span
+                                key={idx}
+                                style={{
+                                  width: 5,
+                                  height: 5,
+                                  borderRadius: "50%",
+                                  background: "currentColor",
+                                  opacity: 0.4,
+                                }}
+                                animate={{ opacity: [0.3, 0.9, 0.3] }}
+                                transition={{
+                                  duration: 1.1,
+                                  repeat: Infinity,
+                                  delay: idx * 0.15,
+                                  ease: "easeInOut",
+                                }}
+                              />
+                            ))}
+                          </span>
+                        )}
                       </div>
                     </motion.div>
                   );
@@ -927,6 +961,107 @@ export default function ChatVoice({ dict, lang }: ChatVoiceProps) {
                             "rgba(42,36,32,0.12)";
                         }}
                       />
+                    </div>
+
+                    <div>
+                      <label style={FORM_LABEL_STYLE}>{t.leadChannelLabel}</label>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: 6,
+                          marginTop: 4,
+                        }}
+                      >
+                        {(
+                          [
+                            ["email", t.leadChannelEmail],
+                            ["phone", t.leadChannelPhone],
+                            ["whatsapp", t.leadChannelWhatsapp],
+                            ["linkedin", t.leadChannelLinkedIn],
+                          ] as const
+                        ).map(([key, label]) => (
+                          <button
+                            key={key}
+                            type="button"
+                            onClick={() => setLeadChannel(key)}
+                            style={{
+                              padding: "8px 14px",
+                              borderRadius: 999,
+                              border: `1px solid ${
+                                leadChannel === key
+                                  ? "rgba(200,149,108,0.65)"
+                                  : "rgba(42,36,32,0.12)"
+                              }`,
+                              background:
+                                leadChannel === key
+                                  ? "rgba(200,149,108,0.15)"
+                                  : "transparent",
+                              color:
+                                leadChannel === key
+                                  ? ACCENT_DARK
+                                  : "var(--text-muted)",
+                              fontFamily: "var(--font-body)",
+                              fontSize: 13,
+                              fontWeight: leadChannel === key ? 500 : 400,
+                              cursor: "pointer",
+                              transition: "all 0.15s ease",
+                            }}
+                          >
+                            {label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <label style={FORM_LABEL_STYLE}>{t.leadSlotLabel}</label>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: 6,
+                          marginTop: 4,
+                        }}
+                      >
+                        {(
+                          [
+                            ["asap", t.leadSlotAsap],
+                            ["morning", t.leadSlotMorning],
+                            ["noon", t.leadSlotNoon],
+                            ["afternoon", t.leadSlotAfternoon],
+                          ] as const
+                        ).map(([key, label]) => (
+                          <button
+                            key={key}
+                            type="button"
+                            onClick={() => setLeadSlot(key)}
+                            style={{
+                              padding: "8px 14px",
+                              borderRadius: 999,
+                              border: `1px solid ${
+                                leadSlot === key
+                                  ? "rgba(200,149,108,0.65)"
+                                  : "rgba(42,36,32,0.12)"
+                              }`,
+                              background:
+                                leadSlot === key
+                                  ? "rgba(200,149,108,0.15)"
+                                  : "transparent",
+                              color:
+                                leadSlot === key
+                                  ? ACCENT_DARK
+                                  : "var(--text-muted)",
+                              fontFamily: "var(--font-body)",
+                              fontSize: 13,
+                              fontWeight: leadSlot === key ? 500 : 400,
+                              cursor: "pointer",
+                              transition: "all 0.15s ease",
+                            }}
+                          >
+                            {label}
+                          </button>
+                        ))}
+                      </div>
                     </div>
 
                     <button

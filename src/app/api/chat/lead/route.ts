@@ -14,6 +14,8 @@ interface LeadBody {
   firstName: string;
   email: string;
   phone?: string;
+  channel?: "email" | "phone" | "whatsapp" | "linkedin";
+  slot?: "asap" | "morning" | "noon" | "afternoon";
   lang?: "fr" | "en" | "pt-BR";
   transcript: TranscriptMessage[];
   referrer?: string;
@@ -49,11 +51,16 @@ function buildMarkdown(lead: LeadBody): string {
   const email = lead.email?.trim() || "";
   const phone = lead.phone?.trim() || "";
 
+  const channel = lead.channel || "email";
+  const slot = lead.slot || "asap";
+
   const frontmatter = [
     "---",
     `name: ${JSON.stringify(firstName)}`,
     `email: ${JSON.stringify(email)}`,
     `phone: ${JSON.stringify(phone)}`,
+    `canal_prefere: ${JSON.stringify(channel)}`,
+    `creneau_prefere: ${JSON.stringify(slot)}`,
     `status: "Open conversation"`,
     `source: "chatbot site"`,
     `touchpoints: 1`,
@@ -66,7 +73,7 @@ function buildMarkdown(lead: LeadBody): string {
     "",
   ].join("\n");
 
-  const header = `# ${firstName}\n\n- Email : ${email}\n- Téléphone : ${phone || "—"}\n- Langue : ${lead.lang || "fr"}\n- Capté via chatbot parrit.ai le ${date}\n\n## Transcript\n\n`;
+  const header = `# ${firstName}\n\n- Email : ${email}\n- Téléphone : ${phone || "—"}\n- Canal préféré : ${channel}\n- Créneau : ${slot}\n- Langue : ${lead.lang || "fr"}\n- Capté via chatbot parrit.ai le ${date}\n\n## Transcript\n\n`;
 
   const body = (lead.transcript || [])
     .map((m) => {
@@ -99,8 +106,9 @@ async function notifyWebhook(lead: LeadBody, filepath: string): Promise<void> {
     entreprise: "",
     telephone: lead.phone || "",
     email: lead.email || "",
-    creneau: "",
-    besoin: `Conversation chatbot (${lead.lang || "fr"}) — transcript saved to ${filepath}`,
+    creneau: lead.slot || "asap",
+    canal_prefere: lead.channel || "email",
+    besoin: `Conversation chatbot (${lead.lang || "fr"}) — canal préféré: ${lead.channel || "email"}, créneau: ${lead.slot || "asap"} — transcript saved to ${filepath}`,
     transcript: lead.transcript,
     referrer: lead.referrer || "",
     url: lead.url || "",
