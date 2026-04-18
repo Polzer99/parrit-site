@@ -32,9 +32,9 @@
     "ctaMicro": "Sans engagement · Un de nos conseillers vous recontacte"
   },
   "chatVoice": {
-    "title": "Ou parlez-moi directement de votre besoin",
-    "subtitle": "Décrivez votre cas à la voix ou à l'écrit. Je cadre, et Paul reprend la main.",
-    "micLabel": "Parlez-moi de votre besoin",
+    "title": "Ou parlez-nous directement de votre besoin",
+    "subtitle": "Décrivez votre cas à la voix ou à l'écrit. On cadre avec vous, on reprend la main derrière.",
+    "micLabel": "Parlez-nous de votre besoin",
     "micHint": "Cliquez pour parler, ou tapez votre message",
     "examplesLabel": "Exemples :",
     "chips": [
@@ -50,15 +50,15 @@
     "listening": "Écoute en cours...",
     "voiceUnsupported": "La saisie vocale n'est pas dispo sur ce navigateur. Tape ton message.",
     "voiceDenied": "Accès micro refusé. Tape ton message.",
-    "leadIntro": "Pour te préparer une propo, laisse-moi ton prénom et ton email.",
+    "leadIntro": "Pour qu'on vous prépare une propo, laissez-nous votre prénom et email.",
     "leadFirstName": "Prénom",
     "leadEmail": "Email",
     "leadPhone": "Téléphone (optionnel)",
     "leadSubmit": "Envoyer",
     "leadSubmitting": "Envoi...",
-    "leadThanks": "Merci ! Paul revient vers toi sous 24h.",
+    "leadThanks": "Merci ! On revient vers vous sous 24h.",
     "leadError": "Ça a planté. Réessaie ou écris directement à paul.larmaraud@parrit.ai.",
-    "greeting": "Salut ! Raconte-moi ton contexte : quelle boîte, quelle taille, et quelle douleur tu veux supprimer ?"
+    "greeting": "Bonjour ! Racontez-nous votre contexte : quelle boîte, quelle taille, et quelle douleur vous voulez supprimer ?"
   },
   "stackLabel": "Le stack qu'on déploie",
   "pricingModels": {

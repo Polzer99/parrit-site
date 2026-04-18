@@ -32,9 +32,9 @@
     "ctaMicro": "No commitment · One of our advisors will reach out"
   },
   "chatVoice": {
-    "title": "Or tell me about your need",
-    "subtitle": "Describe your case out loud or in writing. I scope it, then Paul takes over.",
-    "micLabel": "Tell me about your need",
+    "title": "Or tell us directly about your need",
+    "subtitle": "Describe your case out loud or in writing. We scope it with you, and take it from there.",
+    "micLabel": "Tell us about your need",
     "micHint": "Click to speak, or type your message",
     "examplesLabel": "Examples:",
     "chips": [
@@ -50,15 +50,15 @@
     "listening": "Listening...",
     "voiceUnsupported": "Voice input isn't supported on this browser. Type your message.",
     "voiceDenied": "Microphone access denied. Type your message.",
-    "leadIntro": "So I can prep a proposal, drop your first name and email.",
+    "leadIntro": "So we can prep a proposal for you, drop your first name and email.",
     "leadFirstName": "First name",
     "leadEmail": "Email",
     "leadPhone": "Phone (optional)",
     "leadSubmit": "Send",
     "leadSubmitting": "Sending...",
-    "leadThanks": "Got it! Paul will be in touch within 24 hours.",
+    "leadThanks": "Got it! We'll be in touch within 24 hours.",
     "leadError": "Something broke. Try again or email paul.larmaraud@parrit.ai.",
-    "greeting": "Hey! Give me your context: what company, what size, and what pain do you want gone?"
+    "greeting": "Hi! Give us your context: what company, what size, and what pain do you want gone?"
   },
   "stackLabel": "The stack we deploy",
   "pricingModels": {

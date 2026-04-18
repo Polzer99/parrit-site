@@ -24,7 +24,7 @@ export default function PricingModels({ copy }: { copy: PricingModelsCopy }) {
     <section
       aria-label="Pricing models"
       style={{
-        padding: "72px 24px 96px",
+        padding: "48px 24px 56px",
         background: "transparent",
       }}
     >
@@ -35,13 +35,13 @@ export default function PricingModels({ copy }: { copy: PricingModelsCopy }) {
         transition={{ duration: 0.6 }}
         style={{
           fontFamily: "var(--font-heading)",
-          fontSize: "clamp(28px, 4.2vw, 42px)",
+          fontSize: "clamp(24px, 3.4vw, 34px)",
           fontWeight: 500,
-          lineHeight: 1.15,
+          lineHeight: 1.2,
           textAlign: "center",
           color: "var(--text)",
-          maxWidth: 820,
-          margin: "0 auto 48px",
+          maxWidth: 720,
+          margin: "0 auto 32px",
           letterSpacing: "-0.015em",
         }}
       >
@@ -64,7 +64,7 @@ export default function PricingModels({ copy }: { copy: PricingModelsCopy }) {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
           style={{
-            padding: "36px 32px",
+            padding: "28px 26px",
             borderRadius: 14,
             border: "1px solid rgba(255,255,255,0.08)",
             background: "rgba(255,255,255,0.015)",
@@ -86,7 +86,7 @@ export default function PricingModels({ copy }: { copy: PricingModelsCopy }) {
           <h3
             style={{
               fontFamily: "var(--font-heading)",
-              fontSize: 24,
+              fontSize: 22,
               fontWeight: 500,
               color: "var(--text)",
               marginBottom: 24,
@@ -103,7 +103,7 @@ export default function PricingModels({ copy }: { copy: PricingModelsCopy }) {
               margin: 0,
               display: "flex",
               flexDirection: "column",
-              gap: 14,
+              gap: 10,
             }}
           >
             {project.bullets.map((b, i) => (
@@ -111,7 +111,7 @@ export default function PricingModels({ copy }: { copy: PricingModelsCopy }) {
                 key={i}
                 style={{
                   fontFamily: "var(--font-body)",
-                  fontSize: 15,
+                  fontSize: 14,
                   color: "var(--text-muted)",
                   lineHeight: 1.55,
                   fontWeight: 300,
@@ -143,7 +143,7 @@ export default function PricingModels({ copy }: { copy: PricingModelsCopy }) {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, delay: 0.1 }}
           style={{
-            padding: "36px 32px",
+            padding: "28px 26px",
             borderRadius: 14,
             border: "1px solid rgba(200, 149, 108, 0.35)",
             background: "linear-gradient(180deg, rgba(200,149,108,0.08) 0%, rgba(200,149,108,0.02) 100%)",
@@ -186,7 +186,7 @@ export default function PricingModels({ copy }: { copy: PricingModelsCopy }) {
           <h3
             style={{
               fontFamily: "var(--font-heading)",
-              fontSize: 24,
+              fontSize: 22,
               fontWeight: 500,
               color: "var(--text)",
               marginBottom: 8,
@@ -217,7 +217,7 @@ export default function PricingModels({ copy }: { copy: PricingModelsCopy }) {
               margin: 0,
               display: "flex",
               flexDirection: "column",
-              gap: 14,
+              gap: 10,
             }}
           >
             {performance.bullets.map((b, i) => (
@@ -225,7 +225,7 @@ export default function PricingModels({ copy }: { copy: PricingModelsCopy }) {
                 key={i}
                 style={{
                   fontFamily: "var(--font-body)",
-                  fontSize: 15,
+                  fontSize: 14,
                   color: "var(--text-muted)",
                   lineHeight: 1.55,
                   fontWeight: 300,

@@ -32,9 +32,9 @@
     "ctaMicro": "Sem compromisso · Um dos nossos consultores entrará em contato"
   },
   "chatVoice": {
-    "title": "Ou me conte diretamente sua necessidade",
-    "subtitle": "Descreva seu caso por voz ou por escrito. Eu organizo e o Paul assume.",
-    "micLabel": "Me conte sua necessidade",
+    "title": "Ou conte para a gente diretamente sua necessidade",
+    "subtitle": "Descreva seu caso por voz ou por escrito. A gente organiza com você e assume depois.",
+    "micLabel": "Conte para a gente sua necessidade",
     "micHint": "Clique para falar, ou digite sua mensagem",
     "examplesLabel": "Exemplos:",
     "chips": [
@@ -50,15 +50,15 @@
     "listening": "Ouvindo...",
     "voiceUnsupported": "Entrada por voz não é suportada neste navegador. Digite sua mensagem.",
     "voiceDenied": "Acesso ao microfone negado. Digite sua mensagem.",
-    "leadIntro": "Para eu preparar uma proposta, deixa seu nome e email.",
+    "leadIntro": "Para a gente preparar uma proposta, deixe seu nome e email.",
     "leadFirstName": "Nome",
     "leadEmail": "Email",
     "leadPhone": "Telefone (opcional)",
     "leadSubmit": "Enviar",
     "leadSubmitting": "Enviando...",
-    "leadThanks": "Pronto! Paul entra em contato em até 24h.",
+    "leadThanks": "Pronto! A gente entra em contato em até 24h.",
     "leadError": "Algo falhou. Tente de novo ou escreva para paul.larmaraud@parrit.ai.",
-    "greeting": "Olá! Me conte seu contexto: qual empresa, qual tamanho, e qual dor você quer eliminar?"
+    "greeting": "Olá! Conte para a gente seu contexto: qual empresa, qual tamanho, e qual dor você quer eliminar?"
   },
   "stackLabel": "O stack que entregamos",
   "pricingModels": {
