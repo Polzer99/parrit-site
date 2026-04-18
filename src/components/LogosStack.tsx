@@ -10,8 +10,13 @@ const LOGOS: Logo[] = [
   { name: "Claude", src: "/logos/claude.svg", height: 24 },
   { name: "ChatGPT", src: "/logos/openai.svg", height: 24 },
   { name: "Gemini", src: "/logos/googlegemini.svg", height: 24 },
+  { name: "Llama (Meta)", src: "/logos/meta.svg", height: 18 },
+  { name: "Mistral AI", src: "/logos/mistralai.svg", height: 22 },
+  { name: "HuggingFace", src: "/logos/huggingface.svg", height: 24 },
+  { name: "Ollama", src: "/logos/ollama.svg", height: 24 },
   { name: "n8n", src: "/logos/n8n.svg", height: 22 },
   { name: "Telegram", src: "/logos/telegram.svg", height: 24 },
+  { name: "WhatsApp", src: "/logos/whatsapp.svg", height: 24 },
   { name: "Perplexity", src: "/logos/perplexity.svg", height: 22 },
   { name: "Obsidian", src: "/logos/obsidian.svg", height: 24 },
 ];
