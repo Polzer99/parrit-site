@@ -15,8 +15,8 @@ interface ChatRequestBody {
   lang?: "fr" | "en" | "pt-BR";
 }
 
-const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
-const DEFAULT_MODEL = "anthropic/claude-sonnet-4.5";
+const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
+const DEFAULT_MODEL = "llama-3.3-70b-versatile";
 
 function buildSystemPrompt(lang: string): string {
   const languageHint =
@@ -77,14 +77,14 @@ Cite ces cas SANS nommer le client. "Un cabinet", "une ESN 50p", "un groupe", "u
 }
 
 export async function POST(req: NextRequest) {
-  const apiKey = process.env.OPENROUTER_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
     return new Response(
-      JSON.stringify({ error: "OPENROUTER_API_KEY not set" }),
+      JSON.stringify({ error: "GROQ_API_KEY not set" }),
       { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
-  const model = process.env.OPENROUTER_CHAT_MODEL || DEFAULT_MODEL;
+  const model = process.env.GROQ_CHAT_MODEL || DEFAULT_MODEL;
 
   let body: ChatRequestBody;
   try {
@@ -121,31 +121,30 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const openRouterPayload = {
+  const groqPayload = {
     model,
     stream: true,
     max_tokens: 1024,
+    temperature: 0.6,
     messages: [
       { role: "system", content: buildSystemPrompt(lang || "fr") },
       ...cleanedMessages,
     ],
   };
 
-  const upstream = await fetch(OPENROUTER_URL, {
+  const upstream = await fetch(GROQ_URL, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
-      "HTTP-Referer": "https://parrit.ai",
-      "X-Title": "Parrit.ai Chat",
     },
-    body: JSON.stringify(openRouterPayload),
+    body: JSON.stringify(groqPayload),
   });
 
   if (!upstream.ok || !upstream.body) {
     const text = await upstream.text().catch(() => "");
     return new Response(
-      JSON.stringify({ error: `OpenRouter ${upstream.status}`, detail: text.slice(0, 400) }),
+      JSON.stringify({ error: `Groq ${upstream.status}`, detail: text.slice(0, 400) }),
       { status: 502, headers: { "Content-Type": "application/json" } },
     );
   }
