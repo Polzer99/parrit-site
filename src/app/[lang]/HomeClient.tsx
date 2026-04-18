@@ -913,13 +913,13 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
       <Hero dict={dict} />
       <ChatVoice dict={dict} lang={lang} />
       <LogosStack label={dict.stackLabel} />
-      <PricingModels copy={dict.pricingModels} />
       <VisualShowcase dict={dict} />
       <Approach dict={dict} />
       <CaseStudies dict={dict} />
       <ClaudeCodeOffer dict={dict} />
       <ShareableQuote dict={dict} />
       <Founders dict={dict} />
+      <PricingModels copy={dict.pricingModels} />
       <CtaFooter dict={dict} />
     </>
   );

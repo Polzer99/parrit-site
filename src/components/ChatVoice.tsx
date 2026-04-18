@@ -18,45 +18,36 @@ interface ChatVoiceProps {
 }
 
 /* ──────────────────────────────────────────────
-   Web Speech API types (minimal, SSR-safe)
+   Groq Whisper transcription (MediaRecorder chunks)
+   Pattern copié de parrit-os/call-copilot/useTranscription
    ────────────────────────────────────────────── */
-interface SpeechRecognitionResult {
-  isFinal: boolean;
-  0: { transcript: string };
-}
-interface SpeechRecognitionEventLike {
-  resultIndex: number;
-  results: {
-    length: number;
-    [index: number]: SpeechRecognitionResult;
-  };
-}
-interface SpeechRecognitionInstance {
-  lang: string;
-  interimResults: boolean;
-  continuous: boolean;
-  onresult: ((e: SpeechRecognitionEventLike) => void) | null;
-  onerror: ((e: { error: string }) => void) | null;
-  onend: (() => void) | null;
-  start: () => void;
-  stop: () => void;
-  abort: () => void;
-}
-type SpeechRecognitionCtor = new () => SpeechRecognitionInstance;
+const CHUNK_INTERVAL_MS = 5000;
 
-function getSpeechRecognitionCtor(): SpeechRecognitionCtor | null {
-  if (typeof window === "undefined") return null;
-  const w = window as unknown as {
-    SpeechRecognition?: SpeechRecognitionCtor;
-    webkitSpeechRecognition?: SpeechRecognitionCtor;
-  };
-  return w.SpeechRecognition || w.webkitSpeechRecognition || null;
+function pickAudioMime(): string {
+  if (typeof window === "undefined" || typeof MediaRecorder === "undefined") return "";
+  const candidates = ["audio/webm;codecs=opus", "audio/webm", "audio/mp4", "audio/ogg"];
+  return candidates.find((t) => MediaRecorder.isTypeSupported(t)) || "";
 }
 
-function localeForBrowser(lang: Locale): string {
-  if (lang === "en") return "en-US";
-  if (lang === "pt-BR") return "pt-BR";
-  return "fr-FR";
+function extForMime(mime: string): string {
+  if (mime.includes("mp4")) return "mp4";
+  if (mime.includes("ogg")) return "ogg";
+  return "webm";
+}
+
+function langForWhisper(lang: Locale): string {
+  if (lang === "en") return "en";
+  if (lang === "pt-BR") return "pt";
+  return "fr";
+}
+
+function hasMediaRecorder(): boolean {
+  return (
+    typeof window !== "undefined" &&
+    typeof window.MediaRecorder !== "undefined" &&
+    !!navigator.mediaDevices?.getUserMedia &&
+    window.isSecureContext
+  );
 }
 
 /* ──────────────────────────────────────────────
@@ -110,13 +101,17 @@ export default function ChatVoice({ dict, lang }: ChatVoiceProps) {
   const [leadPhone, setLeadPhone] = useState("");
   const [isNarrow, setIsNarrow] = useState(false);
 
-  const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const recorderRef = useRef<MediaRecorder | null>(null);
+  const chunksRef = useRef<Blob[]>([]);
+  const mimeTypeRef = useRef<string>("");
+  const chunkTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const speechSupported =
-    typeof window !== "undefined" ? getSpeechRecognitionCtor() !== null : true;
+    typeof window !== "undefined" ? hasMediaRecorder() : true;
 
   /* ── Responsive breakpoint (for fullscreen mobile modal) ── */
   useEffect(() => {
@@ -144,11 +139,20 @@ export default function ChatVoice({ dict, lang }: ChatVoiceProps) {
     el.style.height = next + "px";
   }, [draft]);
 
-  /* ── Stop recognition + stream on close ── */
+  /* ── Stop recorder + stream on close ── */
   useEffect(() => {
     if (!open) {
       try {
-        recognitionRef.current?.abort();
+        if (chunkTimerRef.current) clearTimeout(chunkTimerRef.current);
+        const rec = recorderRef.current;
+        recorderRef.current = null;
+        if (rec && rec.state === "recording") {
+          try { rec.stop(); } catch {}
+        }
+        if (streamRef.current) {
+          streamRef.current.getTracks().forEach((t) => t.stop());
+          streamRef.current = null;
+        }
       } catch {}
       abortRef.current?.abort();
     }
@@ -310,67 +314,112 @@ export default function ChatVoice({ dict, lang }: ChatVoiceProps) {
     [messages.length, sendMessage, t.greeting],
   );
 
-  /* ── Voice recognition ── */
-  const startListening = useCallback(() => {
-    const Ctor = getSpeechRecognitionCtor();
-    if (!Ctor) {
+  /* ── Voice transcription (Groq Whisper via /api/transcribe) ── */
+
+  const transcribeChunk = useCallback(
+    async (audioBlob: Blob) => {
+      if (audioBlob.size < 500) return;
+      try {
+        const ext = extForMime(mimeTypeRef.current);
+        const formData = new FormData();
+        formData.append("file", audioBlob, `recording.${ext}`);
+        formData.append("language", langForWhisper(lang));
+
+        const resp = await fetch("/api/transcribe", {
+          method: "POST",
+          body: formData,
+        });
+        if (!resp.ok) return;
+        const data = (await resp.json()) as { text?: string };
+        const text = (data.text || "").trim();
+        if (text && text.length > 1) {
+          setDraft((prev) => (prev ? `${prev} ${text}` : text).trim());
+        }
+      } catch {
+        // silencieux — on ne casse pas l'UX pour un chunk raté
+      }
+    },
+    [lang],
+  );
+
+  const scheduleChunkStop = useCallback(() => {
+    if (chunkTimerRef.current) clearTimeout(chunkTimerRef.current);
+    chunkTimerRef.current = setTimeout(() => {
+      const rec = recorderRef.current;
+      if (rec && rec.state === "recording") {
+        try { rec.stop(); } catch {}
+      }
+    }, CHUNK_INTERVAL_MS);
+  }, []);
+
+  const startListening = useCallback(async () => {
+    if (!hasMediaRecorder()) {
       setVoiceError(t.voiceUnsupported);
-      // Even without voice, open the modal so user can type
       openWith();
       return;
     }
-
     openWith();
 
+    let stream: MediaStream;
     try {
-      const rec = new Ctor();
-      rec.lang = localeForBrowser(lang);
-      rec.interimResults = true;
-      rec.continuous = false;
-
-      let finalText = "";
-
-      rec.onresult = (e) => {
-        let interim = "";
-        for (let i = e.resultIndex; i < e.results.length; i++) {
-          const r = e.results[i];
-          if (r.isFinal) {
-            finalText += r[0].transcript;
-          } else {
-            interim += r[0].transcript;
-          }
-        }
-        setDraft((finalText + interim).trim());
-      };
-
-      rec.onerror = (evt) => {
-        setIsListening(false);
-        if (evt.error === "not-allowed" || evt.error === "service-not-allowed") {
-          setVoiceError(t.voiceDenied);
-        }
-      };
-
-      rec.onend = () => {
-        setIsListening(false);
-        const text = finalText.trim();
-        if (text) {
-          void sendMessage(text);
-        }
-      };
-
-      recognitionRef.current = rec;
-      rec.start();
-      setIsListening(true);
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     } catch {
-      setVoiceError(t.voiceUnsupported);
+      setVoiceError(t.voiceDenied);
       setIsListening(false);
+      return;
     }
-  }, [lang, openWith, sendMessage, t.voiceDenied, t.voiceUnsupported]);
+    streamRef.current = stream;
+
+    const mime = pickAudioMime();
+    mimeTypeRef.current = mime;
+
+    const startRecorder = () => {
+      const stillActive = streamRef.current?.active;
+      if (!stillActive) return;
+      const rec = new MediaRecorder(
+        streamRef.current!,
+        mime ? { mimeType: mime } : undefined,
+      );
+      rec.ondataavailable = (e) => {
+        if (e.data.size > 0) chunksRef.current.push(e.data);
+      };
+      rec.onstop = () => {
+        if (chunksRef.current.length > 0) {
+          const blob = new Blob(chunksRef.current, {
+            type: mimeTypeRef.current || "audio/webm",
+          });
+          chunksRef.current = [];
+          void transcribeChunk(blob);
+        }
+        // Relance un nouveau chunk si toujours en écoute
+        if (recorderRef.current && streamRef.current?.active) {
+          startRecorder();
+        }
+      };
+      recorderRef.current = rec;
+      rec.start();
+      scheduleChunkStop();
+    };
+
+    setIsListening(true);
+    setVoiceError(null);
+    startRecorder();
+  }, [openWith, scheduleChunkStop, t.voiceDenied, t.voiceUnsupported, transcribeChunk]);
 
   const stopListening = useCallback(() => {
-    try {
-      recognitionRef.current?.stop();
-    } catch {}
+    if (chunkTimerRef.current) {
+      clearTimeout(chunkTimerRef.current);
+      chunkTimerRef.current = null;
+    }
+    const rec = recorderRef.current;
+    recorderRef.current = null; // empêche le onstop de relancer un cycle
+    if (rec && rec.state === "recording") {
+      try { rec.stop(); } catch {}
+    }
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((t) => t.stop());
+      streamRef.current = null;
+    }
     setIsListening(false);
   }, []);
 
