@@ -31,6 +31,63 @@
     "cta": "Speak with an advisor",
     "ctaMicro": "No commitment · One of our advisors will reach out"
   },
+  "chatVoice": {
+    "title": "Or tell me about your need",
+    "subtitle": "Describe your case out loud or in writing. I scope it, then Paul takes over.",
+    "micLabel": "Tell me about your need",
+    "micHint": "Click to speak, or type your message",
+    "examplesLabel": "Examples:",
+    "chips": [
+      "50-person IT consultancy, automate BoondManager",
+      "Law firm, automated legal monitoring",
+      "E-commerce, too many support tickets"
+    ],
+    "modalTitle": "Parrit",
+    "modalSubtitle": "Parrit.ai assistant — online",
+    "close": "Close",
+    "inputPlaceholder": "Write or speak...",
+    "send": "Send",
+    "listening": "Listening...",
+    "voiceUnsupported": "Voice input isn't supported on this browser. Type your message.",
+    "voiceDenied": "Microphone access denied. Type your message.",
+    "leadIntro": "So I can prep a proposal, drop your first name and email.",
+    "leadFirstName": "First name",
+    "leadEmail": "Email",
+    "leadPhone": "Phone (optional)",
+    "leadSubmit": "Send",
+    "leadSubmitting": "Sending...",
+    "leadThanks": "Got it! Paul will be in touch within 24 hours.",
+    "leadError": "Something broke. Try again or email paul.larmaraud@parrit.ai.",
+    "greeting": "Hey! Give me your context: what company, what size, and what pain do you want gone?"
+  },
+  "stackLabel": "The stack we deploy",
+  "pricingModels": {
+    "title": "Two pricing models, your call",
+    "models": [
+      {
+        "kind": "Classic",
+        "title": "Per project",
+        "bullets": [
+          "Free initial diagnostic",
+          "Fixed budget, clear scope, no hidden fees",
+          "Stage-based payment — you validate results before moving on",
+          "Fully transparent contract"
+        ]
+      },
+      {
+        "kind": "Aligned on your outcomes",
+        "title": "Performance-based",
+        "recommendedBadge": "Recommended",
+        "intro": "You make money, we invoice.",
+        "bullets": [
+          "Labor savings — share of the cost actually saved",
+          "Sales uplift — share of the incremental revenue generated",
+          "Processing time cut — rate based on the efficiency gained"
+        ],
+        "footnote": "If the promised outcome isn't hit, the performance share isn't invoiced."
+      }
+    ]
+  },
   "showcase": {
     "title": "What we build",
     "items": [
@@ -65,18 +122,15 @@
   "claudeCode": {
     "badge": "NEW OFFER",
     "title": "Claude Code audit & setup",
-    "subtitle": "4 days to turn your engineering team into an AI execution force. Audit, full configuration, training and follow-up.",
+    "subtitle": "One month to make Claude Code your business copilot. Audit, setup, workflows shipped, training, support.",
     "deliverables": [
-      { "day": "Day 1", "title": "Setup audit", "desc": "Review your current Claude Code usage, find blind spots and prioritize quick wins" },
-      { "day": "Days 2-3", "title": "Full configuration", "desc": "CLAUDE.md, hooks, skills, MCP, agents — the whole stack tailored to your context" },
-      { "day": "Day 4", "title": "Hands-on training", "desc": "Practical workshop with your team, using real use cases from your day-to-day" },
-      { "day": "+1 month", "title": "Async follow-up included", "desc": "Questions, tuning and optimizations for 30 days after delivery" }
+      { "day": "Week 1", "title": "Audit + first workflow", "desc": "Stack review, CLAUDE.md, memory, hooks, skills. First workflow in production by end of week." },
+      { "day": "Week 2", "title": "Two workflows shipped", "desc": "CRM, automated research, invoicing, Telegram agent, outbound — we pick what unlocks the most for you." },
+      { "day": "Week 3", "title": "Two workflows + training", "desc": "Two more workflows delivered plus a hands-on workshop with you or your team on real cases." },
+      { "day": "Week 4", "title": "Consolidation + autonomy", "desc": "Roadmap so you operate solo, Slack/Telegram async support and two 30-min calls per week throughout the month." }
     ],
-    "priceLabel": "From",
-    "price": "€7,500",
-    "priceNote": "Excl. VAT · 4-day package · Teams up to 10 developers",
-    "target": "For dev agencies, CTOs and engineering leaders who want to extract the most out of Claude Code.",
-    "cta": "Request the package"
+    "target": "For founders, agencies, IT consultancies and tech leaders who want to run their business with Claude Code rather than leaving it to the engineering team.",
+    "cta": "Book a 30-min audit"
   },
   "quote": {
     "text": "“AI doesn't replace your teams. It gives them back the hours that bureaucracy steals.”",

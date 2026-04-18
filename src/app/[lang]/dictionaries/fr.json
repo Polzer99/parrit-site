@@ -31,6 +31,63 @@
     "cta": "Être contacté par un conseiller",
     "ctaMicro": "Sans engagement · Un de nos conseillers vous recontacte"
   },
+  "chatVoice": {
+    "title": "Ou parlez-moi directement de votre besoin",
+    "subtitle": "Décrivez votre cas à la voix ou à l'écrit. Je cadre, et Paul reprend la main.",
+    "micLabel": "Parlez-moi de votre besoin",
+    "micHint": "Cliquez pour parler, ou tapez votre message",
+    "examplesLabel": "Exemples :",
+    "chips": [
+      "ESN 50 personnes, automatiser BoondManager",
+      "Cabinet d'avocats, veille juridique auto",
+      "E-commerce, trop de SAV à gérer"
+    ],
+    "modalTitle": "Parrit",
+    "modalSubtitle": "Assistant Parrit.ai — en ligne",
+    "close": "Fermer",
+    "inputPlaceholder": "Écris ou parle...",
+    "send": "Envoyer",
+    "listening": "Écoute en cours...",
+    "voiceUnsupported": "La saisie vocale n'est pas dispo sur ce navigateur. Tape ton message.",
+    "voiceDenied": "Accès micro refusé. Tape ton message.",
+    "leadIntro": "Pour te préparer une propo, laisse-moi ton prénom et ton email.",
+    "leadFirstName": "Prénom",
+    "leadEmail": "Email",
+    "leadPhone": "Téléphone (optionnel)",
+    "leadSubmit": "Envoyer",
+    "leadSubmitting": "Envoi...",
+    "leadThanks": "Merci ! Paul revient vers toi sous 24h.",
+    "leadError": "Ça a planté. Réessaie ou écris directement à paul.larmaraud@parrit.ai.",
+    "greeting": "Salut ! Raconte-moi ton contexte : quelle boîte, quelle taille, et quelle douleur tu veux supprimer ?"
+  },
+  "stackLabel": "Le stack qu'on déploie",
+  "pricingModels": {
+    "title": "Deux modèles de tarification, vous choisissez",
+    "models": [
+      {
+        "kind": "Classique",
+        "title": "Au projet",
+        "bullets": [
+          "Diagnostic initial offert",
+          "Budget fixe, périmètre clair, zéro frais caché",
+          "Paiement par étape — vous validez les résultats avant d'avancer",
+          "Contrat totalement transparent"
+        ]
+      },
+      {
+        "kind": "Aligné sur vos gains",
+        "title": "À la performance",
+        "recommendedBadge": "Recommandé",
+        "intro": "Vous gagnez de l'argent, on facture.",
+        "bullets": [
+          "Économie de main-d'œuvre — part du gain réellement économisé",
+          "Augmentation des ventes — part du CA incrémental généré",
+          "Réduction du temps de traitement — taux calculé sur l'efficacité gagnée"
+        ],
+        "footnote": "Si le résultat promis n'est pas atteint, la part performance n'est pas facturée."
+      }
+    ]
+  },
   "showcase": {
     "title": "Notre savoir-faire",
     "items": [
@@ -64,19 +121,16 @@
   },
   "claudeCode": {
     "badge": "NOUVELLE OFFRE",
-    "title": "Audit & installation Claude Code",
-    "subtitle": "4 jours pour transformer votre équipe tech en force d'exécution IA. Audit, configuration complète, formation et suivi.",
+    "title": "Audit et configuration Claude Code",
+    "subtitle": "Un mois pour faire de Claude Code votre copilote business. Audit, setup, workflows livrés, formation, support.",
     "deliverables": [
-      { "day": "Jour 1", "title": "Audit du setup", "desc": "Analyse de votre usage Claude Code actuel, détection des angles morts et priorisation des gains rapides" },
-      { "day": "Jours 2-3", "title": "Configuration complète", "desc": "CLAUDE.md, hooks, skills, MCP, agents sur-mesure — tout le stack configuré pour votre contexte" },
-      { "day": "Jour 4", "title": "Formation hands-on", "desc": "Atelier pratique avec votre équipe, cas d'usage réels de votre quotidien" },
-      { "day": "+1 mois", "title": "Suivi async inclus", "desc": "Questions, ajustements et optimisations pendant 30 jours après la livraison" }
+      { "day": "Semaine 1", "title": "Audit + 1er workflow", "desc": "Analyse de votre stack, CLAUDE.md, memory, hooks, skills. Premier workflow en production dès la fin de semaine." },
+      { "day": "Semaine 2", "title": "2 workflows livrés", "desc": "CRM, veille automatique, facturation, agent Telegram, outbound — on choisit selon ce qui débloque le plus chez vous." },
+      { "day": "Semaine 3", "title": "2 workflows + formation", "desc": "Livraison de deux workflows supplémentaires et atelier hands-on avec vous ou votre équipe sur des cas réels." },
+      { "day": "Semaine 4", "title": "Consolidation + autonomie", "desc": "Roadmap pour que vous opériez seul, support Slack/Telegram async et deux visios 30 min par semaine pendant tout le mois." }
     ],
-    "priceLabel": "À partir de",
-    "price": "7 500 €",
-    "priceNote": "HT · Forfait 4 jours · Équipe jusqu'à 10 développeurs",
-    "target": "Pour ESN, agences dev, DSI et directions techniques qui veulent extraire le maximum de Claude Code.",
-    "cta": "Demander le package"
+    "target": "Pour les entrepreneurs, ESN, agences tech et DSI qui veulent piloter leur business avec Claude Code au lieu de le laisser sur les outils des équipes tech.",
+    "cta": "Demander un audit 30 min"
   },
   "quote": {
     "text": "« L'IA ne remplace pas vos équipes. Elle leur rend les heures que la bureaucratie leur vole. »",

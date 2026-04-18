@@ -6,6 +6,9 @@ import Image from "next/image";
 import { useScrollFade } from "@/components/hooks";
 import { ButtonColorful } from "@/components/ui/button-colorful";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import ChatVoice from "@/components/ChatVoice";
+import LogosStack from "@/components/LogosStack";
+import PricingModels from "@/components/PricingModels";
 import type { Dictionary, Locale } from "./dictionaries";
 
 const WEBHOOK_URL =
@@ -568,41 +571,6 @@ function ClaudeCodeOffer({ dict }: { dict: Dictionary }) {
               fontSize: 14,
               color: "var(--text-muted)",
               fontWeight: 300,
-              marginBottom: 8,
-            }}
-          >
-            {dict.claudeCode.priceLabel}
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-heading)",
-              fontSize: "clamp(32px, 5vw, 44px)",
-              fontWeight: 500,
-              color: "var(--text)",
-              marginBottom: 8,
-              lineHeight: 1,
-            }}
-          >
-            {dict.claudeCode.price}
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 12,
-              color: "var(--text-light-muted, var(--text-muted))",
-              fontWeight: 300,
-              marginBottom: 24,
-              letterSpacing: "0.02em",
-            }}
-          >
-            {dict.claudeCode.priceNote}
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 14,
-              color: "var(--text-muted)",
-              fontWeight: 300,
               fontStyle: "italic",
               maxWidth: 560,
               margin: "0 auto 28px",
@@ -943,6 +911,9 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
     <>
       <Nav lang={lang} />
       <Hero dict={dict} />
+      <ChatVoice dict={dict} lang={lang} />
+      <LogosStack label={dict.stackLabel} />
+      <PricingModels copy={dict.pricingModels} />
       <VisualShowcase dict={dict} />
       <Approach dict={dict} />
       <CaseStudies dict={dict} />
