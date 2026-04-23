@@ -439,13 +439,14 @@ function CaseStudies({ dict }: { dict: Dictionary }) {
    CLAUDE CODE OFFER
    ═══════════════════════════════════════════════════════════ */
 function ClaudeCodeOffer({ dict }: { dict: Dictionary }) {
+  const offers = dict.claudeCode.offers;
   return (
     <section
       className="light-section"
       id="claude-code-offer"
       data-ph="claude-code-offer"
     >
-      <div className="section-inner" style={{ maxWidth: 960 }}>
+      <div className="section-inner" style={{ maxWidth: 1040 }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -499,97 +500,202 @@ function ClaudeCodeOffer({ dict }: { dict: Dictionary }) {
           viewport={{ once: true, margin: "-60px" }}
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: 20,
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gap: 24,
             marginBottom: 48,
           }}
         >
-          {dict.claudeCode.deliverables.map((d) => (
-            <motion.div
-              key={d.title}
-              variants={cardReveal}
-              style={{
-                padding: "24px 20px",
-                background: "rgba(255,255,255,0.55)",
-                border: "1px solid rgba(0,0,0,0.06)",
-                borderRadius: 12,
-                backdropFilter: "blur(4px)",
-              }}
-            >
-              <span
+          {offers.map((offer, idx) => {
+            const isRecommended = Boolean(offer.recommendedBadge);
+            return (
+              <motion.div
+                key={offer.title}
+                variants={cardReveal}
                 style={{
-                  display: "inline-block",
-                  fontFamily: "var(--font-body)",
-                  fontSize: 10,
-                  fontWeight: 600,
-                  letterSpacing: "0.12em",
-                  color: "#c8956c",
-                  textTransform: "uppercase",
-                  marginBottom: 10,
+                  padding: "28px 26px",
+                  borderRadius: 14,
+                  border: isRecommended
+                    ? "1px solid rgba(200, 149, 108, 0.45)"
+                    : "1px solid rgba(0,0,0,0.08)",
+                  background: isRecommended
+                    ? "linear-gradient(180deg, rgba(200,149,108,0.10) 0%, rgba(200,149,108,0.02) 100%)"
+                    : "rgba(255,255,255,0.55)",
+                  backdropFilter: "blur(4px)",
+                  position: "relative",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                {d.day}
-              </span>
-              <p
-                style={{
-                  fontFamily: "var(--font-heading)",
-                  fontSize: 18,
-                  fontWeight: 500,
-                  color: "var(--text)",
-                  marginBottom: 8,
-                  lineHeight: 1.3,
-                }}
-              >
-                {d.title}
-              </p>
-              <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 13,
-                  color: "var(--text-muted)",
-                  fontWeight: 300,
-                  lineHeight: 1.6,
-                  margin: 0,
-                }}
-              >
-                {d.desc}
-              </p>
-            </motion.div>
-          ))}
+                {isRecommended && offer.recommendedBadge && (
+                  <span
+                    style={{
+                      display: "inline-block",
+                      fontFamily: "var(--font-body)",
+                      fontSize: 10,
+                      letterSpacing: "0.18em",
+                      textTransform: "uppercase",
+                      color: "#1a1410",
+                      background: "#c8956c",
+                      padding: "5px 12px",
+                      borderRadius: 4,
+                      marginBottom: 16,
+                      fontWeight: 600,
+                      alignSelf: "flex-start",
+                    }}
+                  >
+                    {offer.recommendedBadge}
+                  </span>
+                )}
+                <span
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: 11,
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    color: isRecommended ? "#c8956c" : "var(--text-muted)",
+                    marginBottom: 12,
+                    fontWeight: 500,
+                    marginTop: isRecommended ? 0 : 0,
+                  }}
+                >
+                  {offer.kind}
+                </span>
+                <h3
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    fontSize: 22,
+                    fontWeight: 500,
+                    color: "var(--text)",
+                    marginBottom: 8,
+                    lineHeight: 1.2,
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {offer.title}
+                </h3>
+                {offer.intro && (
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: 14,
+                      fontWeight: 500,
+                      color: "var(--text)",
+                      marginBottom: 20,
+                      lineHeight: 1.45,
+                    }}
+                  >
+                    {offer.intro}
+                  </p>
+                )}
+                <ul
+                  style={{
+                    listStyle: "none",
+                    padding: 0,
+                    margin: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
+                    flex: 1,
+                  }}
+                >
+                  {offer.bullets.map((b, i) => (
+                    <li
+                      key={i}
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: 14,
+                        color: "var(--text-muted)",
+                        lineHeight: 1.55,
+                        fontWeight: 300,
+                        paddingLeft: 18,
+                        position: "relative",
+                      }}
+                    >
+                      <span
+                        style={{
+                          position: "absolute",
+                          left: 0,
+                          top: "0.55em",
+                          width: 4,
+                          height: 4,
+                          borderRadius: "50%",
+                          background: isRecommended ? "#c8956c" : "var(--text-muted)",
+                        }}
+                      />
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+                {offer.footnote && (
+                  <p
+                    style={{
+                      marginTop: 20,
+                      fontFamily: "var(--font-body)",
+                      fontSize: 13,
+                      fontStyle: "italic",
+                      color: "var(--text-muted)",
+                      lineHeight: 1.5,
+                      fontWeight: 300,
+                      paddingTop: 16,
+                      borderTop: isRecommended
+                        ? "1px solid rgba(200,149,108,0.18)"
+                        : "1px solid rgba(0,0,0,0.06)",
+                    }}
+                  >
+                    {offer.footnote}
+                  </p>
+                )}
+                <a
+                  href="#callback-form"
+                  data-ph={`claude-code-cta-${idx}`}
+                  onClick={() => trackCtaClick(`claude-code-${offer.title}`)}
+                  style={{
+                    display: "inline-flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: 20,
+                    padding: "12px 20px",
+                    borderRadius: 999,
+                    fontFamily: "var(--font-body)",
+                    fontSize: 13,
+                    fontWeight: 500,
+                    color: isRecommended ? "#ffffff" : "var(--text)",
+                    background: isRecommended
+                      ? "linear-gradient(135deg, #c8956c 0%, #b8814c 100%)"
+                      : "rgba(0,0,0,0.04)",
+                    border: isRecommended
+                      ? "none"
+                      : "1px solid rgba(0,0,0,0.12)",
+                    textDecoration: "none",
+                    transition: "transform 0.15s ease",
+                  }}
+                >
+                  {dict.claudeCode.cta}
+                </a>
+              </motion.div>
+            );
+          })}
         </motion.div>
 
-        <motion.div
+        <motion.p
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-          style={{ textAlign: "center" }}
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: 14,
+            color: "var(--text-muted)",
+            fontWeight: 300,
+            fontStyle: "italic",
+            maxWidth: 640,
+            margin: "0 auto",
+            lineHeight: 1.6,
+            textAlign: "center",
+          }}
         >
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 14,
-              color: "var(--text-muted)",
-              fontWeight: 300,
-              fontStyle: "italic",
-              maxWidth: 560,
-              margin: "0 auto 28px",
-              lineHeight: 1.6,
-            }}
-          >
-            {dict.claudeCode.target}
-          </p>
-          <a
-            href="#callback-form"
-            data-ph="claude-code-cta"
-            onClick={() => trackCtaClick("claude-code-offer")}
-          >
-            <ButtonColorful
-              label={dict.claudeCode.cta}
-              className="h-12 px-7 text-sm"
-            />
-          </a>
-        </motion.div>
+          {dict.claudeCode.target}
+        </motion.p>
       </div>
     </section>
   );

@@ -123,23 +123,45 @@
     "before": "Before",
     "after": "After",
     "items": [
-      { "badge": "PROCESS", "title": "Launches & rollouts", "before": "Weeks of delay", "after": "Every step orchestrated automatically" },
-      { "badge": "DATA", "title": "Reporting & consolidation", "before": "Days of manual work", "after": "Generated in one click" },
-      { "badge": "DAILY", "title": "Emails & documents", "before": "Hours lost every day", "after": "Sorted and handled automatically" }
+      { "badge": "LAW FIRM", "title": "Automated legal monitoring", "before": "2h/day scanning case law and press", "after": "Email digest every Monday 7:30am — shipped in 8 days" },
+      { "badge": "B2B ENERGY BROKER", "title": "Signal-first acquisition", "before": "Blind cold calling, marginal conversion", "after": "1 to 5 qualified meetings/day on detected signals" },
+      { "badge": "50-PERSON IT CONSULTANCY", "title": "ERP queried in plain language", "before": "PMs stuck on BoondManager", "after": "Natural language queries, prototype in 5 days" },
+      { "badge": "FRANCHISE GROUP", "title": "Smart CRM rotation", "before": "5,000 dormant contacts", "after": "100+ prospects/day auto-scored against ICP" }
     ],
-    "footer": "Hospitality, training, industry, trade, services… Every sector has its friction points. We identify and remove them."
+    "footer": "Real cases, clients anonymized. Every system is running in production today."
   },
   "claudeCode": {
-    "badge": "NEW OFFER",
-    "title": "Claude Code audit & setup",
-    "subtitle": "One month to make Claude Code your business copilot. Audit, setup, workflows shipped, training, support.",
-    "deliverables": [
-      { "day": "Week 1", "title": "Audit + first workflow", "desc": "Stack review, CLAUDE.md, memory, hooks, skills. First workflow in production by end of week." },
-      { "day": "Week 2", "title": "Two workflows shipped", "desc": "CRM, automated research, invoicing, Telegram agent, outbound — we pick what unlocks the most for you." },
-      { "day": "Week 3", "title": "Two workflows + training", "desc": "Two more workflows delivered plus a hands-on workshop with you or your team on real cases." },
-      { "day": "Week 4", "title": "Consolidation + autonomy", "desc": "Roadmap so you operate solo, Slack/Telegram async support and two 30-min calls per week throughout the month." }
+    "badge": "CLAUDE CODE OFFERS",
+    "title": "Two ways to get started with Claude Code",
+    "subtitle": "Either we come and ship. Or we make you autonomous.",
+    "offers": [
+      {
+        "kind": "Sprint OS",
+        "title": "Claude Code OS Sprint",
+        "intro": "We come in, build your operating system with you, and leave.",
+        "bullets": [
+          "1 to 4 days on-site — hyper-intense",
+          "We code alongside you, Claude Code live",
+          "You leave with a system that runs",
+          "Zero slides, zero decks — shipped code only"
+        ],
+        "footnote": "For ambitious operators who want to take back control in under a week."
+      },
+      {
+        "kind": "Autonomy",
+        "title": "Claude Code audit & setup",
+        "recommendedBadge": "Most requested",
+        "intro": "One month to run your business with Claude Code.",
+        "bullets": [
+          "Stack audit: CLAUDE.md, memory, hooks, skills",
+          "Business workflows shipped (CRM, monitoring, invoicing, outbound)",
+          "Hands-on training on your real cases",
+          "Full autonomy by end of month"
+        ],
+        "footnote": "For leaders and agencies who want to keep AI in their hands."
+      }
     ],
-    "target": "For founders, agencies, IT consultancies and tech leaders who want to run their business with Claude Code rather than leaving it to the engineering team.",
+    "target": "For founders, IT consultancies, agencies and tech leaders who want to run their business with Claude Code rather than leaving it to the engineering team.",
     "cta": "Book a 15-min audit"
   },
   "quote": {

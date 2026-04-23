@@ -123,23 +123,45 @@
     "before": "Avant",
     "after": "Après",
     "items": [
-      { "badge": "PROCESSUS", "title": "Ouvertures et lancements", "before": "Des semaines de retard", "after": "Chaque étape pilotée automatiquement" },
-      { "badge": "DONNÉES", "title": "Rapports et consolidation", "before": "Des jours de travail manuel", "after": "Générés en un clic" },
-      { "badge": "QUOTIDIEN", "title": "Emails et documents", "before": "Des heures perdues chaque jour", "after": "Triés et traités automatiquement" }
+      { "badge": "CABINET D'AVOCATS", "title": "Veille juridique automatisée", "before": "2h/jour à éplucher jurisprudence et presse", "after": "Email digest chaque lundi 7h30 — livré en 8 jours" },
+      { "badge": "COURTIER ÉNERGIE B2B", "title": "Acquisition signal-first", "before": "Cold calling à l'aveugle, taux de RDV marginal", "after": "1 à 5 RDV qualifiés par jour sur signaux détectés" },
+      { "badge": "ESN 50 PERSONNES", "title": "ERP interrogeable en langage naturel", "before": "Chefs de projet bloqués sur BoondManager", "after": "Requêtes en français, prototype en 5 jours" },
+      { "badge": "GROUPE FRANCHISÉ", "title": "Rotation CRM intelligente", "before": "Base de 5 000 contacts dormants", "after": "100+ prospects/jour scorés ICP automatiquement" }
     ],
-    "footer": "Restauration, formation, industrie, négoce, services… Chaque secteur a ses frictions. Nous les identifions et les supprimons."
+    "footer": "Cas réels, clients anonymisés. Chaque système tourne en production aujourd'hui."
   },
   "claudeCode": {
-    "badge": "NOUVELLE OFFRE",
-    "title": "Audit et configuration Claude Code",
-    "subtitle": "Un mois pour faire de Claude Code votre copilote business. Audit, setup, workflows livrés, formation, support.",
-    "deliverables": [
-      { "day": "Semaine 1", "title": "Audit + 1er workflow", "desc": "Analyse de votre stack, CLAUDE.md, memory, hooks, skills. Premier workflow en production dès la fin de semaine." },
-      { "day": "Semaine 2", "title": "2 workflows livrés", "desc": "CRM, veille automatique, facturation, agent Telegram, outbound — on choisit selon ce qui débloque le plus chez vous." },
-      { "day": "Semaine 3", "title": "2 workflows + formation", "desc": "Livraison de deux workflows supplémentaires et atelier hands-on avec vous ou votre équipe sur des cas réels." },
-      { "day": "Semaine 4", "title": "Consolidation + autonomie", "desc": "Roadmap pour que vous opériez seul, support Slack/Telegram async et deux visios 30 min par semaine pendant tout le mois." }
+    "badge": "OFFRES CLAUDE CODE",
+    "title": "Deux manières de démarrer avec Claude Code",
+    "subtitle": "Soit on vient et on livre. Soit on vous rend autonome.",
+    "offers": [
+      {
+        "kind": "Sprint OS",
+        "title": "Sprint OS Claude Code",
+        "intro": "On vient, on construit votre operating system avec vous, on repart.",
+        "bullets": [
+          "1 à 4 jours sur site — hyper-intense",
+          "On code avec vous, Claude Code en live",
+          "Vous repartez avec un système qui tourne",
+          "Zéro slide, zéro présentation — que du code en prod"
+        ],
+        "footnote": "Pour les opérateurs ambitieux qui veulent reprendre la main en moins d'une semaine."
+      },
+      {
+        "kind": "Autonomie",
+        "title": "Audit & configuration Claude Code",
+        "recommendedBadge": "Le plus demandé",
+        "intro": "Un mois pour piloter votre boîte avec Claude Code.",
+        "bullets": [
+          "Audit stack : CLAUDE.md, memory, hooks, skills",
+          "Workflows métiers livrés (CRM, veille, facturation, outbound)",
+          "Formation hands-on sur vos cas réels",
+          "Autonomie complète à la fin du mois"
+        ],
+        "footnote": "Pour les dirigeants et agences qui veulent garder la main sur leur IA."
+      }
     ],
-    "target": "Pour les entrepreneurs, ESN, agences tech et DSI qui veulent piloter leur business avec Claude Code au lieu de le laisser sur les outils des équipes tech.",
+    "target": "Pour fondateurs, ESN, agences tech et DSI qui veulent piloter leur business avec Claude Code plutôt que de le laisser aux équipes tech.",
     "cta": "Demander un audit 15 min"
   },
   "quote": {

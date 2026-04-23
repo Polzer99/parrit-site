@@ -123,24 +123,46 @@
     "before": "Antes",
     "after": "Depois",
     "items": [
-      { "badge": "PROCESSOS", "title": "Aberturas e lançamentos", "before": "Semanas de atraso", "after": "Cada etapa conduzida automaticamente" },
-      { "badge": "DADOS", "title": "Relatórios e consolidação", "before": "Dias de trabalho manual", "after": "Gerados em um clique" },
-      { "badge": "DIA A DIA", "title": "E-mails e documentos", "before": "Horas perdidas todos os dias", "after": "Triados e tratados automaticamente" }
+      { "badge": "ESCRITÓRIO DE ADVOCACIA", "title": "Monitoramento jurídico automatizado", "before": "2h/dia lendo jurisprudência e imprensa", "after": "E-mail digest toda segunda 7h30 — entregue em 8 dias" },
+      { "badge": "CORRETOR DE ENERGIA B2B", "title": "Aquisição baseada em sinais", "before": "Cold call no escuro, conversão marginal", "after": "1 a 5 reuniões qualificadas/dia sobre sinais detectados" },
+      { "badge": "CONSULTORIA DE TI — 50 PESSOAS", "title": "ERP consultado em linguagem natural", "before": "Gerentes de projeto travados no BoondManager", "after": "Consultas em linguagem natural, protótipo em 5 dias" },
+      { "badge": "GRUPO DE FRANQUIAS", "title": "Rotação inteligente de CRM", "before": "Base de 5.000 contatos parados", "after": "100+ prospects/dia pontuados contra o ICP automaticamente" }
     ],
-    "footer": "Restauração, formação, indústria, comércio, serviços… Cada setor tem seus atritos. Nós os identificamos e eliminamos."
+    "footer": "Casos reais, clientes anonimizados. Cada sistema está em produção hoje."
   },
   "claudeCode": {
-    "badge": "NOVA OFERTA",
-    "title": "Auditoria e configuração do Claude Code",
-    "subtitle": "Um mês para que o Claude Code se torne seu copiloto de negócio. Auditoria, setup, workflows entregues, treinamento, suporte.",
-    "deliverables": [
-      { "day": "Semana 1", "title": "Auditoria + 1º workflow", "desc": "Análise do seu stack, CLAUDE.md, memory, hooks, skills. Primeiro workflow em produção até o fim da semana." },
-      { "day": "Semana 2", "title": "Dois workflows entregues", "desc": "CRM, monitoramento automático, faturamento, agente Telegram, outbound — escolhemos o que destrava mais para você." },
-      { "day": "Semana 3", "title": "Dois workflows + treinamento", "desc": "Entrega de mais dois workflows e workshop prático com você ou seu time sobre casos reais." },
-      { "day": "Semana 4", "title": "Consolidação + autonomia", "desc": "Roadmap para você operar sozinho, suporte Slack/Telegram assíncrono e duas chamadas de 30 min por semana durante todo o mês." }
+    "badge": "OFERTAS CLAUDE CODE",
+    "title": "Duas formas de começar com Claude Code",
+    "subtitle": "Ou a gente vem e entrega. Ou deixamos você autônomo.",
+    "offers": [
+      {
+        "kind": "Sprint OS",
+        "title": "Sprint OS Claude Code",
+        "intro": "A gente vem, constrói seu operating system junto, e vai embora.",
+        "bullets": [
+          "1 a 4 dias presencial — hiper-intenso",
+          "A gente codifica com você, Claude Code ao vivo",
+          "Você sai com um sistema rodando",
+          "Zero slide, zero apresentação — só código em produção"
+        ],
+        "footnote": "Para operadores ambiciosos que querem retomar o controle em menos de uma semana."
+      },
+      {
+        "kind": "Autonomia",
+        "title": "Auditoria e configuração Claude Code",
+        "recommendedBadge": "Mais procurado",
+        "intro": "Um mês para operar seu negócio com Claude Code.",
+        "bullets": [
+          "Auditoria de stack: CLAUDE.md, memory, hooks, skills",
+          "Workflows de negócio entregues (CRM, monitoramento, faturamento, outbound)",
+          "Treinamento prático em casos reais seus",
+          "Autonomia completa ao fim do mês"
+        ],
+        "footnote": "Para líderes e agências que querem manter a IA nas próprias mãos."
+      }
     ],
-    "target": "Para empreendedores, ESNs, agências tech e CIOs que querem gerenciar seu negócio com o Claude Code em vez de deixá-lo só para o time de engenharia.",
-    "cta": "Agendar uma auditoria de 15 min"
+    "target": "Para fundadores, ESNs, agências tech e CIOs que querem gerenciar o negócio com Claude Code em vez de deixá-lo só para o time de engenharia.",
+    "cta": "Agendar auditoria de 15 min"
   },
   "quote": {
     "text": "“A IA não substitui suas equipes. Ela devolve a elas as horas que a burocracia rouba.”",
