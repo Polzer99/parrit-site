@@ -37,7 +37,8 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // On skip les internals Next, les assets statiques et les fichiers publics
-    "/((?!_next|api|favicon.ico|robots.txt|sitemap.xml|og-image.png|.*\\..*).*)",
+    // On skip les internals Next, les assets statiques, les fichiers publics,
+    // et l'OS interne (hors i18n)
+    "/((?!_next|api|os|favicon.ico|robots.txt|sitemap.xml|og-image.png|.*\\..*).*)",
   ],
 };

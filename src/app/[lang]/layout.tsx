@@ -100,27 +100,90 @@ export default async function LocaleLayout({
 
   const schemaOrg = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Parrit.ai",
-    legalName: "SASU PARRIT.AI",
-    url: SITE_URL,
-    description: dict.meta.schemaDescription,
-    foundingDate: "2024",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Rueil-Malmaison",
-      addressCountry: "FR",
-    },
-    founder: [
-      { "@type": "Person", name: "Paul Larmaraud" },
-      { "@type": "Person", name: "Yukun Leng" },
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: "Parrit.ai",
+        legalName: "SASU PARRIT.AI",
+        url: SITE_URL,
+        description: dict.meta.schemaDescription,
+        foundingDate: "2024",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Rueil-Malmaison",
+          addressCountry: "FR",
+        },
+        founder: [
+          {
+            "@type": "Person",
+            name: "Paul Larmaraud",
+            jobTitle: "Fondateur",
+            email: "paul.larmaraud@parrit.ai",
+          },
+          { "@type": "Person", name: "Yukun Leng", jobTitle: "Co-fondatrice" },
+        ],
+        contactPoint: {
+          "@type": "ContactPoint",
+          email: "paul.larmaraud@parrit.ai",
+          contactType: "sales",
+          availableLanguage: ["French", "English", "Portuguese"],
+        },
+        areaServed: ["France", "Europe", "Asia"],
+        knowsAbout: [
+          "Claude Code",
+          "Anthropic Claude",
+          "Automatisation IA",
+          "Agents IA",
+          "Intégration API",
+          "Prototypage rapide",
+          "n8n",
+        ],
+      },
+      {
+        "@type": "Service",
+        "@id": `${SITE_URL}/#sprint-claude-code`,
+        name: "Sprint Claude Code sur site",
+        serviceType: "Conseil et développement IA",
+        description:
+          "Sprint d'un à quatre jours en immersion sur site pour construire avec les équipes du client un outil opérationnel basé sur Claude Code. Forfait fermé, livrables écrits, pas de TJM.",
+        provider: { "@id": `${SITE_URL}/#organization` },
+        areaServed: "FR",
+        audience: {
+          "@type": "BusinessAudience",
+          audienceType: "Fondateurs et directeurs généraux",
+        },
+      },
+      {
+        "@type": "Service",
+        "@id": `${SITE_URL}/#setup-claude-code`,
+        name: "Setup Claude Code pour vos équipes",
+        serviceType: "Installation et acculturation IA",
+        description:
+          "Installation, configuration et acculturation Claude Code chez le client : CLAUDE.md, hooks, skills, MCP, workflows. Vos équipes deviennent autonomes.",
+        provider: { "@id": `${SITE_URL}/#organization` },
+        areaServed: "FR",
+      },
+      {
+        "@type": "Service",
+        "@id": `${SITE_URL}/#automatisations`,
+        name: "Automatisations qui tournent en production",
+        serviceType: "Développement de workflows automatisés",
+        description:
+          "Workflows déterministes (n8n, scripts, agents) construits sur mesure pour CRM, veille, facturation, outbound, reporting. Versionnés Git, déployés sur l'infrastructure du client ou la nôtre. Forfait au livrable.",
+        provider: { "@id": `${SITE_URL}/#organization` },
+        areaServed: "FR",
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: "Parrit.ai",
+        description: dict.meta.schemaDescription,
+        publisher: { "@id": `${SITE_URL}/#organization` },
+        inLanguage: ["fr", "en", "pt-BR"],
+      },
     ],
-    contactPoint: {
-      "@type": "ContactPoint",
-      email: "paul.larmaraud@parrit.ai",
-      contactType: "sales",
-      availableLanguage: ["French", "English", "Portuguese"],
-    },
   };
 
   return (
