@@ -242,5 +242,308 @@
     "by": "By",
     "articleFooter": "This article resonates? Let's discuss your case."
   },
-  "blogListDateLocale": "en-US"
+  "blogListDateLocale": "en-US",
+  "quickContact": {
+    "label": "Email or phone",
+    "placeholder": "your email or phone number",
+    "submit": "Get a callback",
+    "submitting": "Sending…",
+    "thanks": "Thanks. Paul gets back to you within hours.",
+    "error": "The message didn't go through. Try again or email paul.larmaraud@parrit.ai.",
+    "micro": "Reply in hours, not days."
+  },
+  "auditClaudeCode": {
+    "meta": {
+      "title": "Claude Code Audit — Parrit.ai | One day onsite, concrete action plan",
+      "description": "One-day onsite Claude Code audit. We map your workflows, identify three to five use cases with measurable ROI, and leave you with a prioritized action plan. Fixed fee, written deliverables, no day rate.",
+      "ogTitle": "Claude Code Audit — Parrit.ai",
+      "ogDescription": "One day at your office to identify what Claude Code can unlock in your operations. No slides. No day rate. Action plan in hand.",
+      "schemaDescription": "One-day Claude Code audit to identify use cases with measurable ROI in a company."
+    },
+    "nav": { "back": "← Back" },
+    "hero": {
+      "label": "CLAUDE CODE AUDIT",
+      "titleMain": "The audit",
+      "titleAccent": "opens every mission.",
+      "quickAnswer": "A Claude Code audit is how every Parrit engagement starts. We come onsite for half a day to a full day, map your workflows with the operators who do the work, quantify three to five use cases with measurable ROI, and show you Claude Code live on one of your real cases. By end of day, you know what to tackle first — onsite Sprint, team Setup, production Automations, or Remote international format. The audit is included in the mission that follows. No slides. No day rate.",
+      "cta": "Book a call with Paul"
+    },
+    "audience": {
+      "title": "Who it's for",
+      "items": [
+        { "role": "Founders and CEOs", "desc": "You want to know whether Claude Code can multiply your team's output before committing to a multi-month budget." },
+        { "role": "Heads of operations", "desc": "You have three to five processes to industrialize and you want to know which to launch first." },
+        { "role": "CTOs and heads of engineering", "desc": "You're comparing Claude Code, Cursor, Copilot. You want a benchmark on your real workflows, not a theoretical demo." },
+        { "role": "Heads of growth and marketing", "desc": "You're looking to automate GTM, prospecting, content. You want to quantify the upside before investing." }
+      ]
+    },
+    "method": {
+      "title": "How it goes",
+      "steps": [
+        { "n": "1", "title": "Map", "desc": "Two hours with the operators who do the work to map the real workflows. No generic questionnaire — we look at what actually happens." },
+        { "n": "2", "title": "Quantify", "desc": "We put numbers on the real cost and time of each workflow. A use case without numbers doesn't pass the filter." },
+        { "n": "3", "title": "Prototype live", "desc": "We start Claude Code on a shared screen and build a live mini-prototype on one of your cases. You see the tool running on your data." },
+        { "n": "4", "title": "Prioritize", "desc": "We rank use cases by ninety-day ROI and write the action plan. You decide what to tackle first." }
+      ]
+    },
+    "deliverables": {
+      "title": "What you walk away with",
+      "items": [
+        "Written map of your key workflows and bottlenecks",
+        "Top five Claude Code use cases with numbers (gain, complexity, time-to-value)",
+        "Live Claude Code demo on one of your real cases",
+        "Ninety-day prioritized action plan in make / buy / delegate format",
+        "Honest call: what's worth doing, what isn't"
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        { "q": "How much does it cost?", "a": "The audit is included in the mission that follows. The overall engagement is priced either as a fixed fee (scope, schedule, written deliverables) or as outcome-based pay (a share of the actual gain — savings, incremental revenue, time recovered). You choose. If the outcome is not reached in the latter case, the variable part is not invoiced. No day rate, no surprises." },
+        { "q": "How long does it take?", "a": "Half a day to one full day onsite. Four to six hours of effective work with your teams, plus the writing of the action plan you receive within forty-eight hours." },
+        { "q": "What do you need to start?", "a": "A slot in the calendar, two or three operators available during the day, and read access to the tools you use (CRM, ERP, file shares). We sign an NDA before coming if needed." },
+        { "q": "What if we have no AI tools in place?", "a": "Even better. No technical debt, no deployed product creating friction. We start from your workflows as they are." },
+        { "q": "What does the audit lead to exactly?", "a": "To the engagement format that matches your case: onsite Sprint (one to four days of immersion), Setup for your teams (you become autonomous), Automations running in production, or Remote international if you are outside France and onsite doesn't make sense. You decide." },
+        { "q": "Onsite or remote?", "a": "Onsite preferred in France and Europe. For clients outside this zone, the Remote international format delivers audit, configuration and three to five automations without travel." },
+        { "q": "Are we obligated to continue with you after the audit?", "a": "No. The action plan you receive is usable without us. If you have an internal team or a partner who can execute it, that's fine. We come back if you call us." },
+        { "q": "Where are you based, what languages do you operate in?", "a": "Rueil-Malmaison, France. We work in French, English and Brazilian Portuguese. Most engagements are run in France and across Europe, with a few international clients on remote." }
+      ]
+    },
+    "nextSteps": {
+      "title": "What comes after the audit?",
+      "subtitle": "The audit leads into one of these four formats. You decide based on the case.",
+      "options": [
+        { "kind": "Onsite Sprint", "title": "Claude Code Sprint", "desc": "One to four days of immersion with your teams to deliver an operational system on the urgent case. Live coding, your operators learn by watching." },
+        { "kind": "Team autonomy", "title": "Claude Code Setup", "desc": "Installation, configuration and enablement. Your teams become autonomous: CLAUDE.md, hooks, skills, MCP, business workflows, internal docs." },
+        { "kind": "Continuous production", "title": "Automations", "desc": "Deterministic workflows (n8n, scripts, agents) built to spec. CRM, monitoring, billing, outbound, reporting. Git-versioned, deployed. Fixed fee per deliverable." },
+        { "kind": "International", "title": "Remote format", "desc": "Audit, Claude Code configuration and three to five automations delivered remotely. For clients outside France where onsite doesn't make sense." }
+      ]
+    },
+    "ctaSection": {
+      "title": "Book a call with Paul",
+      "subtitle": "Reply within twenty-four hours. We qualify the right format together.",
+      "primary": "Book a call",
+      "secondary": "Email Paul directly"
+    }
+  },
+  "sprint": {
+    "meta": {
+      "title": "Claude Code Sprint Onsite — Parrit.ai | 1 to 4 days, system in production",
+      "description": "Onsite Claude Code sprint of one to four days. We code with your teams the workflow that unblocks operations. Operational system on exit. Fixed fee or outcome-based, no day rate.",
+      "ogTitle": "Claude Code Sprint Onsite — Parrit.ai",
+      "ogDescription": "One to four days of immersion. We come, we code with you, we leave when the system runs.",
+      "schemaDescription": "Claude Code sprint of one to four days onsite to deliver an operational system."
+    },
+    "hero": {
+      "label": "CLAUDE CODE SPRINT",
+      "titleMain": "One to four days.",
+      "titleAccent": "A system running on exit.",
+      "quickAnswer": "A Claude Code Sprint is one to four days of immersion at your office, during which we build with your teams the workflow that unblocks operations. We code live, your operators learn by watching, and we leave when the system runs in production. Typical topics: tender response, post-acquisition integration, sales workflow, intelligence to structure, ERP queryable in plain language. Fixed fee or outcome-based pay. No day rate. Written deliverables.",
+      "cta": "Book a call with Paul"
+    },
+    "audience": {
+      "title": "Who it's for",
+      "items": [
+        { "role": "CEOs who want a result before the end of the week", "desc": "You have a bottleneck identified and you don't want to wait three months for a SaaS vendor to ship the feature." },
+        { "role": "Heads of operations who want to unblock a specific workflow", "desc": "You know exactly which process weighs on your teams. We come build it with them." },
+        { "role": "Founders in M&A integration mode", "desc": "Heterogeneous stack, scattered data. We build the operational bridge in a few days." },
+        { "role": "Mid-market companies who want to see Claude Code run on their real business", "desc": "Not a trade show demo. A tested, deployed, documented prototype in your infrastructure." }
+      ]
+    },
+    "method": {
+      "title": "How it goes",
+      "steps": [
+        { "n": "1", "title": "Flash audit (half-day)", "desc": "We arrive, map the target workflow with the operators concerned. We validate together the sprint scope and success criteria." },
+        { "n": "2", "title": "Build live", "desc": "Claude Code in hand, shared screen, your teams watch and participate. We iterate on your real data, not a theoretical dataset." },
+        { "n": "3", "title": "Test + deploy", "desc": "We test with real users, fix on the spot, deploy in your infrastructure. Git-versioned, documented." },
+        { "n": "4", "title": "Handover and exit", "desc": "Internal documentation delivered, transferable to a new hire. You leave with the running system and the autonomy to evolve it." }
+      ]
+    },
+    "deliverables": {
+      "title": "What you walk away with",
+      "items": [
+        "Operational system deployed in your infrastructure, tested on your real data",
+        "Git-versioned code, in your repository or ours depending on preference",
+        "Internal documentation — how it works, how to evolve it, how to debug it",
+        "Your operators trained on the real case, not a theoretical example",
+        "Continuity plan — what we can industrialize next (Setup or Automations)"
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        { "q": "How much does it cost?", "a": "Fixed fee or outcome-based pay — you choose. Fixed fee: scope, schedule, written deliverables. Outcome-based: a share of the actual gain (savings, incremental revenue, time recovered). If the outcome isn't reached in the latter case, the variable part isn't invoiced. No day rate, no surprises." },
+        { "q": "How long does it take?", "a": "One to four consecutive days onsite. The format depends on the scope validated during the flash audit on the first half-day." },
+        { "q": "Do you code in our infra or yours?", "a": "At your office, in your Git repo, in your infrastructure. The code stays yours. We can host temporarily if the infrastructure isn't ready, but the goal is that everything lives at your place by the end." },
+        { "q": "What if we have no Git repo, no cloud infra?", "a": "We set one up during the sprint. It's even a useful deliverable — your teams come out with a repeatable environment." },
+        { "q": "Can we do the sprint without our operators available?", "a": "No. The presence of two to three business operators during the sprint is non-negotiable — it's what makes the system actually run at your place after we leave." },
+        { "q": "Difference from a classic consulting engagement?", "a": "We don't do slides, no audit ending in a drawer. We code live with your teams, we deliver a running system. No day rate, no disguised extension." },
+        { "q": "What comes after the sprint?", "a": "If the system needs to be industrialized or extended, we move to Setup (your team autonomy) or Automations (production workflows). If your teams are autonomous, we stop. We come back on call." },
+        { "q": "What languages do you operate in?", "a": "French, English and Brazilian Portuguese. Most sprints are run in France and across Europe." }
+      ]
+    },
+    "nextSteps": {
+      "title": "What comes after the sprint?",
+      "subtitle": "The sprint solves an urgent case. What's next depends on what you want to build with it.",
+      "options": [
+        { "kind": "Team autonomy", "title": "Claude Code Setup", "desc": "You want your teams to take Claude Code in their own hands end-to-end. We install, configure, and enable. Output: a repeatable environment that runs without us." },
+        { "kind": "Continuous production", "title": "Automations", "desc": "The sprint showed a workflow that needs to run continuously. We industrialize (n8n, scripts, agents), Git-versioned, deployed. Fixed fee per deliverable." },
+        { "kind": "International", "title": "Remote format", "desc": "If you're outside France and the sprint laid the foundation, the Remote format takes over from a distance." },
+        { "kind": "First step", "title": "Claude Code Audit", "desc": "If we haven't talked yet, the audit is the half-day entry. We look at your workflows and pick the right format together." }
+      ]
+    },
+    "ctaSection": {
+      "title": "Book a sprint at your office",
+      "subtitle": "Reply within twenty-four hours. We qualify the sprint scope together.",
+      "primary": "Book a call",
+      "secondary": "Email Paul directly"
+    }
+  },
+  "setup": {
+    "meta": {
+      "title": "Claude Code Setup for Your Teams — Parrit.ai | Configuration and autonomy",
+      "description": "Full Claude Code setup for your teams: installation, configuration (CLAUDE.md, hooks, skills, MCP, business workflows), hands-on training. Your teams become autonomous. Fixed fee or outcome-based, no day rate.",
+      "ogTitle": "Claude Code Setup for Your Teams — Parrit.ai",
+      "ogDescription": "Installation, configuration and enablement. Your teams take Claude Code in their own hands end-to-end.",
+      "schemaDescription": "Full enterprise Claude Code setup: install, configure, train teams to autonomy."
+    },
+    "hero": {
+      "label": "CLAUDE CODE SETUP",
+      "titleMain": "Your teams take Claude Code",
+      "titleAccent": "in their own hands.",
+      "quickAnswer": "The Claude Code Setup is Parrit's most-requested format. We install Claude Code in your infrastructure, configure everything (CLAUDE.md tailored to your business, security hooks, custom skills, MCP connectors to your internal tools, ready-to-use workflows), and train your teams hands-on on their real cases. By the end, your environment is repeatable, transferable to a new hire, and your teams are autonomous. Fixed fee or outcome-based pay. No day rate. No vendor lock-in.",
+      "cta": "Book a call with Paul"
+    },
+    "audience": {
+      "title": "Who it's for",
+      "items": [
+        { "role": "CEOs who want to keep AI in-house, not outsourced", "desc": "You want your teams autonomous on Claude Code, not stuck on a vendor for the long run." },
+        { "role": "CTOs and heads of engineering", "desc": "You want a clean Claude Code environment in your infra, configured to security standards, documented, maintainable." },
+        { "role": "Heads of operations industrializing AI internally", "desc": "You've spotted several use cases. You want to operationalize them once, then have your teams own them." },
+        { "role": "Founders anticipating headcount growth", "desc": "You know you'll hire. Setup lays the foundation new devs land on, already equipped." }
+      ]
+    },
+    "method": {
+      "title": "How it goes",
+      "steps": [
+        { "n": "1", "title": "Setup audit (half-day)", "desc": "We start from your stack, workflows, teams, security constraints. We co-define the target configuration: which skills, which hooks, which MCP." },
+        { "n": "2", "title": "Install and configure", "desc": "Claude Code installed on workstations or target infra. CLAUDE.md written for your business. Security hooks (audit logs, redaction, allow/deny). Custom skills. MCP connectors to your internal tools (CRM, ERP, file shares, business databases)." },
+        { "n": "3", "title": "Hands-on training on real cases", "desc": "No theoretical examples. Your teams learn by building what they'll use afterwards: a sales workflow, a monitoring loop, an ERP integration." },
+        { "n": "4", "title": "Documentation and handover", "desc": "Internal docs delivered — how to evolve the setup, how to add a skill, how to debug. Transferable. Your teams take over." }
+      ]
+    },
+    "deliverables": {
+      "title": "What you walk away with",
+      "items": [
+        "Claude Code installed and configured in your infrastructure, to your security standards",
+        "Full CLAUDE.md written for your business (vocabulary, constraints, processes, company memory)",
+        "Custom skills and MCP connectors to your internal tools (CRM, ERP, files, business databases)",
+        "Security hooks (audit, redaction, allow/deny) — clean enterprise-grade version",
+        "Complete internal documentation, transferable to a new hire",
+        "Your teams trained on their real cases — not a trade show demo"
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        { "q": "How much does it cost?", "a": "Fixed fee or outcome-based pay — you choose. The fixed fee depends on the number of teams to equip, the scope of skills/MCP, and the level of docs expected. No day rate, no surprises." },
+        { "q": "How long does it take?", "a": "One to three weeks depending on scope. The install + config phase fits in a few days. Training and docs spread out to give teams time to onboard." },
+        { "q": "Difference from a classic Claude Code training?", "a": "Training teaches the tool. Setup delivers the tool configured for YOUR business. Your teams learn by using the environment they'll keep — not a sandbox." },
+        { "q": "What about security and confidentiality?", "a": "We configure security hooks from day one: audit logs, secret redaction, per-project allow/deny lists. Everything stays on your infra. Code and data don't leave the building." },
+        { "q": "Can we equip multiple teams at once?", "a": "Yes. The config factors — a group CLAUDE.md plus team CLAUDE.md that override. The more teams, the better the ROI per seat." },
+        { "q": "What if we don't have a tech team?", "a": "Setup is even more relevant — we configure an environment where your business operators can use Claude Code without permanent technical support. It's one of our typical cases." },
+        { "q": "Onsite or remote?", "a": "Onsite preferred for the install + training phase. Docs and iterations can be remote. For clients outside France, see the Remote international format." },
+        { "q": "Are we obligated to continue with you after the Setup?", "a": "No. The Setup is built to make you autonomous. We come back if you want to add a skill, unblock a topic, or industrialize a specific workflow." }
+      ]
+    },
+    "nextSteps": {
+      "title": "What comes after the setup?",
+      "subtitle": "The Setup makes you autonomous. If a specific case needs a hand, here are the other formats.",
+      "options": [
+        { "kind": "Urgent case", "title": "Claude Code Sprint", "desc": "A particularly complex or urgent case to unblock? The Sprint solves it in one to four days of immersion onsite." },
+        { "kind": "Continuous production", "title": "Automations", "desc": "You spot a workflow that must run 24/7. We industrialize (n8n, scripts, agents), Git-versioned, deployed. Fixed fee per deliverable." },
+        { "kind": "International", "title": "Remote format", "desc": "You have entities outside France to equip too? We deliver the Setup remotely, audit + config + 3 to 5 automations included." },
+        { "kind": "First step", "title": "Claude Code Audit", "desc": "If we haven't talked yet, the audit is the half-day entry to scope the Setup." }
+      ]
+    },
+    "ctaSection": {
+      "title": "Configure Claude Code at your company",
+      "subtitle": "Reply within twenty-four hours. We qualify the Setup scope together.",
+      "primary": "Book a call",
+      "secondary": "Email Paul directly"
+    }
+  },
+  "remote": {
+    "meta": {
+      "title": "Claude Code Remote international — Parrit.ai | Audit, config, 3-5 automations remote",
+      "description": "Remote format for clients outside France. Claude Code audit, full configuration and three to five automations delivered fully remote. No travel, measurable ROI.",
+      "ogTitle": "Claude Code Remote international — Parrit.ai",
+      "ogDescription": "For clients outside France where onsite doesn't make sense. Audit + config + 3 to 5 automations, fully remote.",
+      "schemaDescription": "Remote international format: Claude Code delivered remotely with audit, configuration and automations."
+    },
+    "hero": {
+      "label": "REMOTE INTERNATIONAL FORMAT",
+      "titleMain": "Claude Code remote.",
+      "titleAccent": "For clients outside France.",
+      "quickAnswer": "The Remote format is built for companies outside France where onsite travel doesn't make sense — US, UK, DACH, Asia, Brazil, Middle East. We deliver fully remote: Claude Code audit, full configuration in your infrastructure (CLAUDE.md, hooks, skills, MCP), three to five automations running in production. Video kickoff, screen sharing for build phases, complete documentation and recorded training. Fixed fee. No day rate. No travel to bill.",
+      "cta": "Book a call with Paul"
+    },
+    "audience": {
+      "title": "Who it's for",
+      "items": [
+        { "role": "Founders and CEOs outside France", "desc": "You want to equip your team with Claude Code but the onsite sprint doesn't make geographical sense." },
+        { "role": "International divisions of a French group", "desc": "You've equipped your HQ with Claude Code (Sprint or Setup), now you want to replicate in the US, UK, Asia subsidiaries." },
+        { "role": "Distributed full-remote teams", "desc": "No central office. We adapt the format to your rhythm and timezone — we come back on video when needed." },
+        { "role": "Investors / scout funds equipping their portfolio", "desc": "You want to equip multiple portfolio startups with Claude Code at controlled cost. The remote format scales." }
+      ]
+    },
+    "method": {
+      "title": "How it goes",
+      "steps": [
+        { "n": "1", "title": "Video kickoff (1 hour)", "desc": "Quick scoping on video — your stack, workflows, constraints, the three to five target automations. We validate the scope." },
+        { "n": "2", "title": "Remote audit (1-2 days)", "desc": "We analyze the targeted workflows, quantify expected ROI, list required skills and MCP. Audit doc delivered within 3 days max." },
+        { "n": "3", "title": "Build over screen sharing (1-2 weeks)", "desc": "Short video sessions 2 to 3 times a week. We code the configuration and automations together. Your teams see everything, ask questions, validate at every step." },
+        { "n": "4", "title": "Documentation and recorded training", "desc": "Complete internal docs + Loom training video per use case. New hires onboard by watching videos. We stay reachable for 30 days post-delivery." }
+      ]
+    },
+    "deliverables": {
+      "title": "What you walk away with",
+      "items": [
+        "Claude Code installed and configured in your infrastructure (CLAUDE.md, hooks, skills, MCP)",
+        "Three to five automations running in production on your real use cases",
+        "Git-versioned code, in your repository",
+        "Complete internal documentation, in English and your team's working language",
+        "Loom training videos per automation — new hires onboard self-service",
+        "Thirty days of post-delivery support by email/video for adjustments"
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        { "q": "How much does it cost?", "a": "Fixed fee. The remote format is packaged to give a clear ratio audit + config + automations delivered. No day rate, no travel fees, no surprises. Quote within forty-eight hours after kickoff." },
+        { "q": "How long does it take?", "a": "Three to four weeks depending on complexity. One to two weeks for the build itself, the rest spread for kickoff, audit and handover." },
+        { "q": "What timezones do you work in?", "a": "Europe, US East/West, Brazil and Asia depending on the week. We sync on two to three fixed slots per week. Async work happens via Slack or equivalent." },
+        { "q": "Security — do you access our code/data?", "a": "You stay in control. We configure security hooks from day one: audit logs, redaction, allow/deny. Build sessions are screen-shared on your machine — code and data don't leave your side." },
+        { "q": "What languages do you operate in?", "a": "French, English and Brazilian Portuguese fluently. Docs and Loom videos are delivered in the working language of the user team — usually English for international remote." },
+        { "q": "We tried Claude Code in-house and it didn't stick. Why would it work with you?", "a": "Because we configure for YOUR business, not generic. CLAUDE.md adapted, MCP to your internal tools, security hooks matching your constraints, hands-on training on real cases. The difference is in the business layer we bring, not the tool itself." },
+        { "q": "What comes after Remote?", "a": "If you want to industrialize further, we can move to additional Automations (fixed fee per deliverable). If you're in France and an urgent case comes up, we can do an onsite Sprint." }
+      ]
+    },
+    "nextSteps": {
+      "title": "What comes after Remote?",
+      "subtitle": "The Remote format equips you and makes you autonomous. If you want to go further, here are the other formats.",
+      "options": [
+        { "kind": "Continuous production", "title": "Automations", "desc": "You spot more workflows that need to run 24/7. We industrialize at fixed fee per deliverable — still remote." },
+        { "kind": "France / Europe", "title": "Claude Code Sprint", "desc": "You have a French entity that needs equipping too? Onsite Sprint is the option for offices in the zone." },
+        { "kind": "Multiple local teams", "title": "Claude Code Setup", "desc": "For French subsidiaries where you want to equip multiple teams at once with a repeatable environment." },
+        { "kind": "First step", "title": "Claude Code Audit", "desc": "If we haven't talked yet, the video kickoff acts as the audit — it's included in the Remote format." }
+      ]
+    },
+    "ctaSection": {
+      "title": "Start remote",
+      "subtitle": "Reply within twenty-four hours. Video kickoff in the days that follow.",
+      "primary": "Book a call",
+      "secondary": "Email Paul directly"
+    }
+  }
 }

@@ -1,0 +1,51 @@
+# Parrit.ai
+
+> Parrit.ai est une boutique IA française fondée par Paul Larmaraud et Yukun Leng. Elle accompagne fondateurs et directeurs généraux dans le déploiement de Claude Code et d'automatisations sur mesure. Approche : on vient sur site, on code avec les équipes du client le workflow qui débloque l'opération, on part quand le système tourne en production. Pas de TJM nu, pas d'audit générique, pas de slide. Cas types adressés : réponses à appels d'offres, intégrations post-acquisition, workflows commerciaux, veilles concurrentielles, ERP interrogeables en langage naturel.
+
+## Méthode
+- Cartographier les workflows et identifier les coûts réels et les urgences à ROI mesurable.
+- Prototyper un outil fonctionnel en production, pas un audit.
+- Déployer en itératif jusqu'à ce que le système tourne sans nous.
+- Rester pour la suite, si le client le souhaite. Pas par défaut.
+
+## Offres
+- [Sprint Claude Code sur site](https://parrit.ai/fr#claude-code-offer) — un à quatre jours en immersion avec les équipes du client. Forfait fermé ou rémunération au résultat, pas de TJM.
+- [Setup Claude Code pour vos équipes](https://parrit.ai/fr#claude-code-offer) — installation, configuration et acculturation. Vos équipes deviennent autonomes.
+- [Automatisations qui tournent en production](https://parrit.ai/fr#claude-code-offer) — workflows déterministes (n8n, scripts, agents). Forfait au livrable.
+- [Format Remote international](https://parrit.ai/fr#claude-code-offer) — audit, configuration Claude Code et trois à cinq automatisations livrés à distance. Pour clients hors France.
+
+## Comment démarrer
+- [Audit Claude Code](https://parrit.ai/fr/audit-claude-code) — la demi-journée à journée qui ouvre chaque mission. On cartographie vos workflows, on chiffre trois à cinq cas d'usage, on montre Claude Code en direct sur l'un de vos cas. L'audit est inclus dans la mission qui suit. Disponible en français, anglais et portugais brésilien.
+- [Sprint Claude Code](https://parrit.ai/fr/sprint) — un à quatre jours d'immersion sur site pour livrer un système opérationnel sur le cas urgent. Code en live avec vos équipes. Forfait fermé ou rémunération au résultat. Disponible en français, anglais et portugais brésilien.
+- [Setup Claude Code pour vos équipes](https://parrit.ai/fr/setup-claude-code) — installation, configuration (CLAUDE.md, hooks, skills, MCP, workflows), formation hands-on. Vos équipes deviennent autonomes, environnement répétable et transmissible. Disponible en français, anglais et portugais brésilien.
+- [Format Remote international](https://parrit.ai/fr/remote) — pour les clients hors France. Audit, configuration Claude Code et trois à cinq automatisations livrés intégralement à distance. Pas de déplacement, ROI mesurable. Disponible en français, anglais et portugais brésilien.
+
+## Tarification
+Deux modèles, présentés côte à côte sur la home :
+- **Forfait fermé** — périmètre, calendrier et livrables écrits noir sur blanc, paiement par étape, pas de TJM.
+- **Rémunération au résultat** (recommandé) — quote-part sur le gain réellement constaté (économie de main-d'œuvre, CA incrémental, temps gagné). Si le résultat n'est pas atteint, la part variable n'est pas facturée.
+
+## Cas déployés
+- Veille juridique automatisée pour un cabinet d'avocats d'affaires — email digest livré chaque lundi 7h30, construit en huit jours.
+- Acquisition signal-first pour un courtier en énergie B2B — un à cinq rendez-vous qualifiés par jour fondés sur signaux publics (BOAMP, Sirene, Sit@del2, Enedis).
+- ERP interrogeable en français pour une ESN de cinquante personnes — connecteur BoondManager + agent Claude. Prototype livré en cinq jours sur site.
+- Rotation CRM intelligente pour un groupe franchisé — cent prospects scorés ICP par jour sortis automatiquement en top of mind commercial.
+
+## Cible
+Fondateurs et directeurs généraux d'entreprises en croissance — agences digitales, ESN, courtiers B2B, cabinets, marques e-commerce, groupes en croissance externe — qui veulent piloter leur opération avec Claude Code plutôt qu'attendre un éditeur SaaS, recruter une équipe tech ou écouter un cabinet de conseil.
+
+## Fondateurs
+- **Paul Larmaraud** — Fondateur. Ex-Lime (équipe opérations mondiales), ex-Moët Hennessy (LVMH). A conduit l'acquisition de Bolloré Énergie, Groupe SEB, Nestlé, Carte Noire. Vision produit et terrain.
+- **Yukun Leng** — Co-fondatrice. Dix années en maisons de luxe européennes dont LVMH. Maîtrise des opérations entre la France et la Chine.
+
+## Contact
+- Email : paul.larmaraud@parrit.ai
+- WhatsApp : +33 7 59 66 56 87
+- Site : https://parrit.ai
+- Localisation : Rueil-Malmaison, France
+
+## Ce que Parrit.ai ne fait pas
+- Vendre du conseil sans livrable concret.
+- Utiliser du jargon IA pour impressionner.
+- Promettre une transformation digitale totale.
+- Facturer au TJM.
