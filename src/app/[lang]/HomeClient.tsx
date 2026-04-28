@@ -6,9 +6,9 @@ import Image from "next/image";
 import { useScrollFade } from "@/components/hooks";
 import { ButtonColorful } from "@/components/ui/button-colorful";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import ChatVoice from "@/components/ChatVoice";
 import LogosStack from "@/components/LogosStack";
 import PricingModels from "@/components/PricingModels";
+import QuickContact from "@/components/QuickContact";
 import type { Dictionary, Locale } from "./dictionaries";
 
 const WEBHOOK_URL =
@@ -769,6 +769,81 @@ function Founders({ dict }: { dict: Dictionary }) {
    CALLBACK FORM + CTA FOOTER
    ═══════════════════════════════════════════════════════════ */
 function CtaFooter({ dict }: { dict: Dictionary }) {
+  const whatsappSecondaryUrl = `https://wa.me/33759665687?text=${encodeURIComponent(dict.whatsappMessages.secondaryCta)}`;
+
+  return (
+    <section className="cta-section" id="callback-form">
+      <motion.h2
+        className="cta-title"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        {dict.cta.title}
+      </motion.h2>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, delay: 0.1 }}
+        style={{ textAlign: "center", color: "var(--text-light-muted)", fontFamily: "var(--font-body)", fontSize: "16px", marginBottom: "32px", fontWeight: 300, padding: "0 24px" }}
+      >
+        {dict.cta.subtitle}
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
+        style={{ padding: "0 24px" }}
+      >
+        <QuickContact strings={dict.quickContact} page="home" variant="dark" />
+      </motion.div>
+
+      <motion.div
+        className="secondary-cta"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, delay: 0.3 }}
+        style={{ marginTop: "32px" }}
+      >
+        <a
+          href="mailto:paul.larmaraud@parrit.ai"
+          className="secondary-cta-link"
+          data-ph="email-cta"
+          onClick={() => trackCtaClick("email")}
+        >
+          paul.larmaraud@parrit.ai
+        </a>
+        <span className="secondary-cta-sep">&middot;</span>
+        <a
+          href={whatsappSecondaryUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="secondary-cta-link"
+          data-ph="whatsapp-cta"
+          onClick={() => trackCtaClick("whatsapp")}
+        >
+          {dict.cta.secondaryWhatsapp}
+        </a>
+      </motion.div>
+
+      <footer className="footer-block">
+        <p className="footer-legal">{dict.cta.footer.legal}</p>
+        <p className="footer-rgpd">
+          {dict.cta.footer.rgpd}{" "}
+          <a href="mailto:paul.larmaraud@parrit.ai">paul.larmaraud@parrit.ai</a>
+        </p>
+      </footer>
+    </section>
+  );
+}
+
+function CtaFooterLegacy({ dict }: { dict: Dictionary }) {
   const [formState, setFormState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [nom, setNom] = useState("");
   const [prenom, setPrenom] = useState("");
@@ -1017,7 +1092,6 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
     <>
       <Nav lang={lang} />
       <Hero dict={dict} />
-      <ChatVoice dict={dict} lang={lang} />
       <LogosStack label={dict.stackLabel} />
       <VisualShowcase dict={dict} />
       <Approach dict={dict} />
