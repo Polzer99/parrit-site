@@ -29,7 +29,7 @@
     "titleMain": "Déployer.",
     "titleAccent": "Pas formuler.",
     "subtitle": "Sprints Claude Code chez vous, de un à quatre jours. On cartographie vos workflows, on code avec vos équipes l'outil qui débloque l'opération, on part quand le système tourne en production. ROI mesurable au premier projet — sans jargon, sans fumée, sans slide.",
-    "cta": "Réserver 30 minutes avec Paul",
+    "cta": "Réserver 15 minutes avec Paul",
     "ctaMicro": "Sans engagement · Réponse sous 24 heures"
   },
   "chatVoice": {
@@ -195,7 +195,7 @@
       }
     ],
     "target": "Pour fondateurs et directeurs généraux qui veulent piloter leur opération avec Claude Code — pas attendre un éditeur SaaS, ni recruter une équipe tech, ni écouter un cabinet de conseil.",
-    "cta": "Réserver 30 minutes avec Paul"
+    "cta": "Réserver 15 minutes avec Paul"
   },
   "quote": {
     "text": "« Les autres formulent. Nous déployons et nous restons. »",
@@ -270,7 +270,7 @@
     "headerSubtitle": "Ce qu'on apprend en déployant Claude Code et l'IA opérationnelle dans les entreprises, semaine après semaine.",
     "readArticle": "Lire l'article →",
     "footerText": "Vous voulez voir ce que Claude Code peut faire chez vous ?",
-    "footerCta": "Réserver 30 minutes",
+    "footerCta": "Réserver 15 minutes",
     "back": "← Retour au blog",
     "by": "Par",
     "articleFooter": "Cet article vous parle ? Parlons de votre cas."
