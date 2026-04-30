@@ -99,7 +99,7 @@ export default function ChatVoice({ dict, lang }: ChatVoiceProps) {
   const [leadFirstName, setLeadFirstName] = useState("");
   const [leadEmail, setLeadEmail] = useState("");
   const [leadPhone, setLeadPhone] = useState("");
-  const [leadChannel, setLeadChannel] = useState<"email" | "phone" | "whatsapp" | "linkedin">("email");
+  const [leadChannel, setLeadChannel] = useState<"email" | "phone" | "linkedin">("email");
   const [leadSlot, setLeadSlot] = useState<"asap" | "morning" | "noon" | "afternoon">("asap");
   const [isNarrow, setIsNarrow] = useState(false);
 
@@ -977,7 +977,6 @@ export default function ChatVoice({ dict, lang }: ChatVoiceProps) {
                           [
                             ["email", t.leadChannelEmail],
                             ["phone", t.leadChannelPhone],
-                            ["whatsapp", t.leadChannelWhatsapp],
                             ["linkedin", t.leadChannelLinkedIn],
                           ] as const
                         ).map(([key, label]) => (

@@ -111,7 +111,7 @@
   },
   "approach": {
     "title": "Notre méthode tient en quatre verbes",
-    "description": "Cartographier — on commence par identifier où l'IA produit un ROI réel, pas où elle fait joli en démo. Prototyper — un outil fonctionnel en production, pas un audit qui finit dans un tiroir. Déployer — itératif, jusqu'à ce que le système tourne sans nous. Rester — pour la suite, si vous le voulez. Un réseau de plus de vingt experts, techniques et métier, mobilisable en renfort sur les chantiers qui le nécessitent. Pas pour faire du conseil. Pour livrer.",
+    "description": "Cartographier : on identifie où l'IA produit un ROI réel, pas où elle fait joli en démo. Prototyper : un outil fonctionnel en production, pas un audit qui finit dans un tiroir. Déployer : itératif, jusqu'à ce que le système tourne sans nous. Rester : pour la suite, si vous le voulez. Un réseau de plus de vingt experts, techniques et métier, mobilisable en renfort sur les chantiers qui le nécessitent. Pas pour faire du conseil. Pour livrer.",
     "pillars": [
       { "title": "Cartographier", "desc": "Identifier les workflows, les coûts réels, les urgences à ROI mesurable" },
       { "title": "Prototyper", "desc": "Livrer un outil qui tourne, pas un document qui dort" },

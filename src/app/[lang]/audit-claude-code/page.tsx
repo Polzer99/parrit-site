@@ -124,7 +124,6 @@ export default async function Page({
       <LandingPage
         data={audit}
         lang={lang as Locale}
-        whatsappMessage={dict.whatsappMessages.formCta}
         quickContact={dict.quickContact}
         pageId="audit-claude-code"
       />

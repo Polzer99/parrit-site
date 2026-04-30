@@ -30,7 +30,6 @@ export interface LandingPageData {
 interface Props {
   data: LandingPageData;
   lang: Locale;
-  whatsappMessage: string;
   quickContact: QuickContactStrings;
   pageId: string;
 }
@@ -57,14 +56,10 @@ const cardReveal = {
 export default function LandingPage({
   data,
   lang,
-  whatsappMessage,
   quickContact,
   pageId,
 }: Props) {
   const contactAnchor = "#contact";
-  const whatsappUrl = `https://wa.me/33759665687?text=${encodeURIComponent(
-    whatsappMessage
-  )}`;
 
   return (
     <>
@@ -586,20 +581,6 @@ export default function LandingPage({
             }}
           >
             paul.larmaraud@parrit.ai
-          </a>
-          <span style={{ color: "var(--text-light-muted)", opacity: 0.5 }}>·</span>
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: "var(--text-light-muted)",
-              textDecoration: "none",
-              borderBottom: "1px solid rgba(255,255,255,0.18)",
-              paddingBottom: 2,
-            }}
-          >
-            WhatsApp
           </a>
         </motion.div>
       </section>

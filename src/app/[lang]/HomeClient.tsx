@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useScrollFade } from "@/components/hooks";
@@ -769,8 +769,6 @@ function Founders({ dict }: { dict: Dictionary }) {
    CALLBACK FORM + CTA FOOTER
    ═══════════════════════════════════════════════════════════ */
 function CtaFooter({ dict }: { dict: Dictionary }) {
-  const whatsappSecondaryUrl = `https://wa.me/33759665687?text=${encodeURIComponent(dict.whatsappMessages.secondaryCta)}`;
-
   return (
     <section className="cta-section" id="callback-form">
       <motion.h2
@@ -819,17 +817,6 @@ function CtaFooter({ dict }: { dict: Dictionary }) {
         >
           paul.larmaraud@parrit.ai
         </a>
-        <span className="secondary-cta-sep">&middot;</span>
-        <a
-          href={whatsappSecondaryUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="secondary-cta-link"
-          data-ph="whatsapp-cta"
-          onClick={() => trackCtaClick("whatsapp")}
-        >
-          {dict.cta.secondaryWhatsapp}
-        </a>
       </motion.div>
 
       <footer className="footer-block">
@@ -843,243 +830,6 @@ function CtaFooter({ dict }: { dict: Dictionary }) {
   );
 }
 
-function CtaFooterLegacy({ dict }: { dict: Dictionary }) {
-  const [formState, setFormState] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [nom, setNom] = useState("");
-  const [prenom, setPrenom] = useState("");
-  const [entreprise, setEntreprise] = useState("");
-  const [telephone, setTelephone] = useState("");
-  const [email, setEmail] = useState("");
-  const [creneau, setCreneau] = useState("");
-  const [besoin] = useState("");
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setFormState("sending");
-    try {
-      await fetch(WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          source: "parrit.ai",
-          action: "callback_request",
-          nom,
-          prenom,
-          entreprise,
-          telephone,
-          email,
-          creneau,
-          besoin,
-          referrer: typeof document !== "undefined" ? document.referrer : "",
-          url: typeof window !== "undefined" ? window.location.href : "",
-          timestamp: new Date().toISOString(),
-          page: "landing",
-          ...getUtmParams(),
-        }),
-      });
-      trackCtaClick("footer-form");
-      setFormState("sent");
-    } catch {
-      setFormState("error");
-    }
-  }
-
-  function slotLabel(slot: string): string {
-    switch (slot) {
-      case "asap": return dict.cta.sent.slotAsap;
-      case "matin": return dict.cta.sent.slotMorning;
-      case "midi": return dict.cta.sent.slotNoon;
-      case "aprem": return dict.cta.sent.slotAfternoon;
-      default: return dict.cta.sent.slotDefault;
-    }
-  }
-
-  const thanksLine = dict.cta.sent.thanks.replace("{firstName}", prenom);
-  const confirmLine = dict.cta.sent.confirmation
-    .replace("{phone}", telephone)
-    .replace("{slot}", slotLabel(creneau));
-
-  const whatsappFormUrl = `https://wa.me/33759665687?text=${encodeURIComponent(dict.whatsappMessages.formCta)}`;
-  const whatsappSecondaryUrl = `https://wa.me/33759665687?text=${encodeURIComponent(dict.whatsappMessages.secondaryCta)}`;
-
-  return (
-    <section className="cta-section" id="callback-form">
-      <motion.h2
-        className="cta-title"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        {dict.cta.title}
-      </motion.h2>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, delay: 0.1 }}
-        style={{ textAlign: "center", color: "var(--text-light-muted)", fontFamily: "var(--font-body)", fontSize: "16px", marginBottom: "32px", fontWeight: 300 }}
-      >
-        {dict.cta.subtitle}
-      </motion.p>
-
-      {formState === "sent" ? (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          style={{ textAlign: "center", padding: "40px 24px" }}
-        >
-          <p style={{ fontSize: "24px", marginBottom: "12px" }}>&#10003;</p>
-          <p style={{ color: "#FFFFFF", fontFamily: "var(--font-heading)", fontSize: "20px", marginBottom: "8px" }}>
-            {thanksLine}
-          </p>
-          <p style={{ color: "var(--text-light-muted)", fontFamily: "var(--font-body)", fontSize: "15px" }}>
-            {confirmLine}
-          </p>
-        </motion.div>
-      ) : (
-        <motion.form
-          onSubmit={handleSubmit}
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
-          style={{ maxWidth: "420px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "16px", padding: "0 24px" }}
-        >
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-            <input
-              type="text"
-              required
-              name="given-name"
-              autoComplete="given-name"
-              placeholder={dict.cta.form.firstName}
-              value={prenom}
-              onChange={(e) => setPrenom(e.target.value)}
-              className="callback-input"
-            />
-            <input
-              type="text"
-              required
-              name="family-name"
-              autoComplete="family-name"
-              placeholder={dict.cta.form.lastName}
-              value={nom}
-              onChange={(e) => setNom(e.target.value)}
-              className="callback-input"
-            />
-          </div>
-          <input
-            type="text"
-            required
-            name="organization"
-            autoComplete="organization"
-            placeholder={dict.cta.form.company}
-            value={entreprise}
-            onChange={(e) => setEntreprise(e.target.value)}
-            className="callback-input"
-          />
-          <input
-            type="tel"
-            required
-            name="tel"
-            autoComplete="tel"
-            placeholder={dict.cta.form.phone}
-            value={telephone}
-            onChange={(e) => setTelephone(e.target.value)}
-            className="callback-input"
-          />
-          <input
-            type="email"
-            required
-            name="email"
-            autoComplete="email"
-            placeholder={dict.cta.form.email}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="callback-input"
-          />
-          <select
-            value={creneau}
-            onChange={(e) => setCreneau(e.target.value)}
-            className="callback-input"
-          >
-            <option value="">{dict.cta.form.slotPlaceholder}</option>
-            <option value="matin">{dict.cta.form.slotMorning}</option>
-            <option value="midi">{dict.cta.form.slotNoon}</option>
-            <option value="aprem">{dict.cta.form.slotAfternoon}</option>
-            <option value="asap">{dict.cta.form.slotAsap}</option>
-          </select>
-          <button
-            type="submit"
-            disabled={formState === "sending"}
-            className="callback-submit"
-          >
-            {formState === "sending" ? dict.cta.form.submitting : dict.cta.form.submit}
-          </button>
-          {formState === "error" && (
-            <p style={{ color: "#ff6b6b", fontSize: "13px", textAlign: "center" }}>
-              {dict.cta.form.error}
-            </p>
-          )}
-          <div className="callback-separator">
-            <span className="callback-separator-line" />
-            <span className="callback-separator-text">{dict.cta.form.or}</span>
-            <span className="callback-separator-line" />
-          </div>
-          <a
-            href={whatsappFormUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="callback-whatsapp"
-            onClick={() => trackCtaClick("whatsapp-form")}
-          >
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style={{ flexShrink: 0 }}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            <span>{dict.cta.form.whatsapp}</span>
-          </a>
-        </motion.form>
-      )}
-
-      <motion.div
-        className="secondary-cta"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, delay: 0.3 }}
-        style={{ marginTop: "40px" }}
-      >
-        <a
-          href="mailto:paul.larmaraud@parrit.ai"
-          className="secondary-cta-link"
-          data-ph="email-cta"
-          onClick={() => trackCtaClick("email")}
-        >
-          paul.larmaraud@parrit.ai
-        </a>
-        <span className="secondary-cta-sep">&middot;</span>
-        <a
-          href={whatsappSecondaryUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="secondary-cta-link"
-          data-ph="whatsapp-cta"
-          onClick={() => trackCtaClick("whatsapp")}
-        >
-          {dict.cta.secondaryWhatsapp}
-        </a>
-      </motion.div>
-
-      <footer className="footer-block">
-        <p className="footer-legal">{dict.cta.footer.legal}</p>
-        <p className="footer-rgpd">
-          {dict.cta.footer.rgpd}{" "}
-          <a href="mailto:paul.larmaraud@parrit.ai">paul.larmaraud@parrit.ai</a>
-        </p>
-      </footer>
-    </section>
-  );
-}
 
 /* ═══════════════════════════════════════════════════════════
    PAGE

@@ -14,7 +14,7 @@ interface LeadBody {
   firstName: string;
   email: string;
   phone?: string;
-  channel?: "email" | "phone" | "whatsapp" | "linkedin";
+  channel?: "email" | "phone" | "linkedin";
   slot?: "asap" | "morning" | "noon" | "afternoon";
   lang?: "fr" | "en" | "pt-BR";
   transcript: TranscriptMessage[];
