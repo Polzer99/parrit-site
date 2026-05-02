@@ -133,7 +133,7 @@ export default async function BlogIndex({
           {dict.blog.footerCta}
         </Link>
         <p className="footer-legal" style={{ marginTop: 40 }}>
-          © {new Date().getFullYear()} SASU PARRIT.AI — Rueil-Malmaison
+          © {new Date().getFullYear()} SASU PARRIT.AI · Rueil-Malmaison
         </p>
       </footer>
     </>

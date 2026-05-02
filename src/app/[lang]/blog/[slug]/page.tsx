@@ -32,7 +32,7 @@ export async function generateMetadata({
   const dict = await getDictionary(lang as Locale);
 
   return {
-    title: `${post.title} — Parrit.ai`,
+    title: `${post.title} | Parrit.ai`,
     description: post.description,
     authors: [{ name: post.author }],
     alternates: {
@@ -80,22 +80,70 @@ export default async function BlogPostPage({
 
   const dict = await getDictionary(lang as Locale);
 
+  const postUrl = `${SITE_URL}/${lang}/blog/${post.slug}`;
+  const wordCount = post.content
+    .replace(/<[^>]+>/g, " ")
+    .split(/\s+/)
+    .filter(Boolean).length;
+
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: post.title,
-    description: post.description,
-    datePublished: post.date,
-    author: {
-      "@type": "Person",
-      name: post.author,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Parrit.ai",
-      url: SITE_URL,
-    },
-    mainEntityOfPage: `${SITE_URL}/${lang}/blog/${post.slug}`,
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `${postUrl}#article`,
+        headline: post.title,
+        description: post.description,
+        datePublished: post.date,
+        dateModified: post.date,
+        wordCount,
+        articleSection: post.category,
+        inLanguage: lang,
+        url: postUrl,
+        mainEntityOfPage: postUrl,
+        image: post.ogImage ? [`${SITE_URL}${post.ogImage}`] : [`${SITE_URL}/og-image.png`],
+        author: {
+          "@type": "Person",
+          name: post.author,
+          url: `${SITE_URL}/${lang}`,
+          jobTitle: "Fondateur Parrit.ai",
+          knowsAbout: ["Claude Code", "Anthropic Claude", "Automatisation IA", "Agents IA"],
+        },
+        publisher: {
+          "@type": "Organization",
+          "@id": `${SITE_URL}/#organization`,
+          name: "Parrit.ai",
+          url: SITE_URL,
+          logo: {
+            "@type": "ImageObject",
+            url: `${SITE_URL}/og-image.png`,
+          },
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Parrit.ai",
+            item: `${SITE_URL}/${lang}`,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: dict.blog.navTitle,
+            item: `${SITE_URL}/${lang}/blog`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: post.title,
+            item: postUrl,
+          },
+        ],
+      },
+    ],
   };
 
   return (
@@ -146,7 +194,7 @@ export default async function BlogPostPage({
           {dict.blog.footerCta}
         </Link>
         <p className="footer-legal" style={{ marginTop: 40 }}>
-          © {new Date().getFullYear()} SASU PARRIT.AI — Rueil-Malmaison
+          © {new Date().getFullYear()} SASU PARRIT.AI · Rueil-Malmaison
         </p>
       </footer>
     </>

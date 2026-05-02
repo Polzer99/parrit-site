@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "Parrit.ai — Déployer Claude Code chez vous. Pas formuler.",
+    "title": "Parrit.ai : Déployer Claude Code chez vous. Pas formuler.",
     "description": "Sprints Claude Code de 1 à 4 jours sur site pour fondateurs et directeurs généraux. ROI mesurable au premier projet. Pas de jargon, pas d'audit, du code en production.",
-    "ogTitle": "Parrit.ai — Les autres formulent. Nous déployons.",
+    "ogTitle": "Parrit.ai : Les autres formulent. Nous déployons.",
     "ogDescription": "Paul Larmaraud et son équipe viennent sur site, codent avec vos équipes le workflow qui débloque l'opération, et partent quand le système tourne. ROI mesurable dès le premier projet.",
-    "ogImageAlt": "Parrit.ai — Déployer Claude Code chez vous",
+    "ogImageAlt": "Parrit.ai : Déployer Claude Code chez vous",
     "ogLocale": "fr_FR",
     "keywords": [
       "Claude Code",
@@ -28,7 +28,7 @@
     "logo": "PARRIT.AI",
     "titleMain": "Déployer.",
     "titleAccent": "Pas formuler.",
-    "subtitle": "Sprints Claude Code chez vous, de un à quatre jours. On cartographie vos workflows, on code avec vos équipes l'outil qui débloque l'opération, on part quand le système tourne en production. ROI mesurable au premier projet — sans jargon, sans fumée, sans slide.",
+    "subtitle": "Sprints Claude Code chez vous, de un à quatre jours. On cartographie vos workflows, on code avec vos équipes l'outil qui débloque l'opération, on part quand le système tourne en production. ROI mesurable au premier projet : sans jargon, sans fumée, sans slide.",
     "cta": "Réserver 15 minutes avec Paul",
     "ctaMicro": "Sans engagement · Réponse sous 24 heures"
   },
@@ -44,7 +44,7 @@
       "Groupe en croissance externe, intégrer une acquisition"
     ],
     "modalTitle": "Parrit",
-    "modalSubtitle": "Assistant Parrit.ai — en ligne",
+    "modalSubtitle": "Assistant Parrit.ai : en ligne",
     "close": "Fermer",
     "inputPlaceholder": "Écrivez ou parlez...",
     "send": "Envoyer",
@@ -81,7 +81,7 @@
         "bullets": [
           "Diagnostic initial offert",
           "Périmètre, calendrier et livrables écrits noir sur blanc",
-          "Paiement par étape — vous validez chaque livrable avant la suivante",
+          "Paiement par étape : vous validez chaque livrable avant la suivante",
           "Aucun frais caché, aucun TJM"
         ]
       },
@@ -91,9 +91,9 @@
         "recommendedBadge": "Recommandé",
         "intro": "Vous gagnez de l'argent ou du temps, on facture une part. Sinon, non.",
         "bullets": [
-          "Économie de main-d'œuvre — quote-part du gain réellement constaté",
-          "Augmentation du chiffre d'affaires — quote-part du CA incrémental",
-          "Réduction du temps de traitement — taux assis sur l'efficacité gagnée"
+          "Économie de main-d'œuvre : quote-part du gain réellement constaté",
+          "Augmentation du chiffre d'affaires : quote-part du CA incrémental",
+          "Réduction du temps de traitement : taux assis sur l'efficacité gagnée"
         ],
         "footnote": "Si le résultat n'est pas atteint, la part performance n'est pas facturée. Pas de promesses, des chiffres."
       }
@@ -159,11 +159,11 @@
       {
         "kind": "Sprint chez vous",
         "title": "Sprint Claude Code sur site",
-        "intro": "Le format principal — un à quatre jours en immersion avec vos équipes.",
+        "intro": "Le format principal : un à quatre jours en immersion avec vos équipes.",
         "bullets": [
           "Choix d'un sujet précis : appel d'offres, intégration post-acquisition, workflow commercial, veille à structurer",
-          "Code en live, Claude Code en main — vos opérateurs apprennent en regardant",
-          "Système opérationnel en sortie — testé, déployé, documenté",
+          "Code en live, Claude Code en main : vos opérateurs apprennent en regardant",
+          "Système opérationnel en sortie : testé, déployé, documenté",
           "Forfait fermé, livrables écrits, pas de TJM"
         ],
         "footnote": "Pour les dirigeants qui veulent un résultat concret avant la fin de la semaine."
@@ -172,7 +172,7 @@
         "kind": "Setup",
         "title": "Setup Claude Code pour vos équipes",
         "recommendedBadge": "Le plus demandé",
-        "intro": "Installation, configuration et acculturation — vos équipes deviennent autonomes.",
+        "intro": "Installation, configuration et acculturation : vos équipes deviennent autonomes.",
         "bullets": [
           "Configuration complète sur votre infra : CLAUDE.md, hooks, skills, MCP, workflows métier",
           "Formation hands-on sur vos cas réels, pas sur des exemples théoriques",
@@ -184,35 +184,35 @@
       {
         "kind": "Automatisations",
         "title": "Automatisations qui tournent en production",
-        "intro": "La suite logique du sprint — on industrialise ce qui doit tourner tout seul.",
+        "intro": "La suite logique du sprint : on industrialise ce qui doit tourner tout seul.",
         "bullets": [
           "Workflows déterministes (n8n, scripts, agents) construits sur mesure",
           "Périmètres récurrents : CRM, veille, facturation, outbound, reporting interne",
           "Versionnés Git, déployés sur votre infrastructure ou la nôtre",
-          "Forfait au livrable — vous payez ce qui tourne"
+          "Forfait au livrable : vous payez ce qui tourne"
         ],
         "footnote": "Pour les dirigeants qui veulent récupérer du temps de cerveau."
       }
     ],
-    "target": "Pour fondateurs et directeurs généraux qui veulent piloter leur opération avec Claude Code — pas attendre un éditeur SaaS, ni recruter une équipe tech, ni écouter un cabinet de conseil.",
+    "target": "Pour fondateurs et directeurs généraux qui veulent piloter leur opération avec Claude Code : pas attendre un éditeur SaaS, ni recruter une équipe tech, ni écouter un cabinet de conseil.",
     "cta": "Réserver 15 minutes avec Paul"
   },
   "quote": {
     "text": "« Les autres formulent. Nous déployons et nous restons. »",
-    "cite": "— Paul Larmaraud, fondateur de Parrit.ai"
+    "cite": ": Paul Larmaraud, fondateur de Parrit.ai"
   },
   "founders": {
     "title": "Qui construit",
     "paul": {
       "name": "Paul Larmaraud",
       "role": "Fondateur",
-      "bio": "Vision produit et terrain. Ex-équipe opérations mondiales Lime, ex-Moët Hennessy (groupe LVMH, formation des équipes à Londres). A conduit l'acquisition de Bolloré Énergie, Groupe SEB, Nestlé, Carte Noire. Construit ses propres outils chaque semaine — ce qu'il déploie chez ses clients tourne d'abord chez lui.",
+      "bio": "Vision produit et terrain. Ex-équipe opérations mondiales Lime, ex-Moët Hennessy (groupe LVMH, formation des équipes à Londres). A conduit l'acquisition de Bolloré Énergie, Groupe SEB, Nestlé, Carte Noire. Construit ses propres outils chaque semaine : ce qu'il déploie chez ses clients tourne d'abord chez lui.",
       "signature": "Produit · Opérations · Terrain"
     },
     "yukun": {
       "name": "Yukun Leng",
       "role": "Co-fondatrice",
-      "bio": "Dix années au cœur des maisons de luxe européennes, dont LVMH. Maîtrise des opérations entre la France et la Chine. Acharnement et écoute rare — assume la profondeur d'analyse que la vente ne se permet pas toujours.",
+      "bio": "Dix années au cœur des maisons de luxe européennes, dont LVMH. Maîtrise des opérations entre la France et la Chine. Acharnement et écoute rare : assume la profondeur d'analyse que la vente ne se permet pas toujours.",
       "signature": "Luxe · LVMH · Opérations · Chine"
     }
   },
@@ -257,9 +257,9 @@
   },
   "blog": {
     "meta": {
-      "title": "Blog — Parrit.ai | Déploiement Claude Code, automatisation, IA opérationnelle",
+      "title": "Blog : Parrit.ai | Déploiement Claude Code, automatisation, IA opérationnelle",
       "description": "Notes de terrain sur le déploiement de Claude Code et l'automatisation IA chez nos clients. Cas réels, méthodes, ROI mesurable.",
-      "ogTitle": "Blog — Parrit.ai",
+      "ogTitle": "Blog : Parrit.ai",
       "ogDescription": "Notes de terrain sur Claude Code, l'automatisation et l'IA opérationnelle.",
       "schemaDescription": "Articles sur le déploiement de Claude Code et l'IA opérationnelle dans les entreprises."
     },
@@ -287,9 +287,9 @@
   },
   "auditClaudeCode": {
     "meta": {
-      "title": "Audit Claude Code — Parrit.ai | Une journée chez vous, plan d'action concret",
+      "title": "Audit Claude Code : Parrit.ai | Une journée chez vous, plan d'action concret",
       "description": "Audit Claude Code d'une journée sur site. On cartographie vos workflows, on identifie trois à cinq cas d'usage à ROI mesurable, on vous laisse un plan d'action priorisé. Forfait fermé, livrables écrits, pas de TJM.",
-      "ogTitle": "Audit Claude Code — Parrit.ai",
+      "ogTitle": "Audit Claude Code : Parrit.ai",
       "ogDescription": "Une journée chez vous pour identifier ce que Claude Code peut débloquer dans votre opération. Pas de slide. Pas de TJM. Plan d'action en sortie.",
       "schemaDescription": "Audit Claude Code d'une journée pour identifier les cas d'usage à ROI mesurable dans une entreprise."
     },
@@ -298,7 +298,7 @@
       "label": "AUDIT CLAUDE CODE",
       "titleMain": "L'audit",
       "titleAccent": "ouvre chaque mission.",
-      "quickAnswer": "Un audit Claude Code, c'est comme ça que démarre chaque mission Parrit. On vient sur place une demi-journée à une journée, on cartographie vos workflows avec les opérateurs concernés, on chiffre trois à cinq cas d'usage à ROI mesurable, et on vous montre Claude Code en direct sur l'un de vos vrais cas. À la sortie, vous savez quoi attaquer en premier — Sprint sur site, Setup pour vos équipes, Automatisations en production, ou format Remote international. L'audit est inclus dans la mission qui suit. Pas de slide. Pas de TJM.",
+      "quickAnswer": "Un audit Claude Code, c'est comme ça que démarre chaque mission Parrit. On vient sur place une demi-journée à une journée, on cartographie vos workflows avec les opérateurs concernés, on chiffre trois à cinq cas d'usage à ROI mesurable, et on vous montre Claude Code en direct sur l'un de vos vrais cas. À la sortie, vous savez quoi attaquer en premier : Sprint sur site, Setup pour vos équipes, Automatisations en production, ou format Remote international. L'audit est inclus dans la mission qui suit. Pas de slide. Pas de TJM.",
       "cta": "Réserver un échange avec Paul"
     },
     "audience": {
@@ -332,7 +332,7 @@
     "faq": {
       "title": "Questions fréquentes",
       "items": [
-        { "q": "Combien ça coûte ?", "a": "L'audit est inclus dans la mission qui suit. Le format global se chiffre soit au forfait fermé (périmètre, calendrier, livrables écrits noir sur blanc), soit en rémunération au résultat (quote-part sur le gain réellement constaté — économie, CA, temps). Vous choisissez. Si le résultat n'est pas atteint dans le second cas, la part variable n'est pas facturée. Pas de TJM, pas de surprise." },
+        { "q": "Combien ça coûte ?", "a": "L'audit est inclus dans la mission qui suit. Le format global se chiffre soit au forfait fermé (périmètre, calendrier, livrables écrits noir sur blanc), soit en rémunération au résultat (quote-part sur le gain réellement constaté : économie, CA, temps). Vous choisissez. Si le résultat n'est pas atteint dans le second cas, la part variable n'est pas facturée. Pas de TJM, pas de surprise." },
         { "q": "Combien de temps ça prend ?", "a": "Une demi-journée à une journée sur site. Quatre à six heures de travail effectif avec vos équipes, plus la rédaction du plan d'action que vous recevez sous quarante-huit heures." },
         { "q": "Vous avez besoin de quoi pour commencer ?", "a": "Un créneau dans le calendrier, deux ou trois opérateurs disponibles dans la journée, et un accès lecture aux outils que vous utilisez (CRM, ERP, espaces de fichiers). On signe un NDA si nécessaire avant de venir." },
         { "q": "Et si on n'a aucun outil IA en place ?", "a": "C'est même mieux. Pas de dette technique, pas de produit déjà déployé qui crée de la friction. On part de vos workflows tels quels." },
@@ -361,9 +361,9 @@
   },
   "sprint": {
     "meta": {
-      "title": "Sprint Claude Code sur site — Parrit.ai | 1 à 4 jours, système en production",
+      "title": "Sprint Claude Code sur site : Parrit.ai | 1 à 4 jours, système en production",
       "description": "Sprint Claude Code de un à quatre jours en immersion sur site. On code avec vos équipes le workflow qui débloque l'opération. Système opérationnel en sortie. Forfait fermé ou au résultat, pas de TJM.",
-      "ogTitle": "Sprint Claude Code sur site — Parrit.ai",
+      "ogTitle": "Sprint Claude Code sur site : Parrit.ai",
       "ogDescription": "Un à quatre jours en immersion. On vient, on code avec vous, on part quand le système tourne.",
       "schemaDescription": "Sprint Claude Code d'un à quatre jours en immersion sur site pour livrer un système opérationnel."
     },
@@ -397,19 +397,19 @@
       "items": [
         "Système opérationnel déployé dans votre infrastructure, testé sur vos données réelles",
         "Code versionné Git, dans votre dépôt ou le nôtre selon préférence",
-        "Documentation interne — comment ça marche, comment l'évoluer, comment le débugger",
+        "Documentation interne : comment ça marche, comment l'évoluer, comment le débugger",
         "Vos opérateurs formés sur le cas réel, pas sur un exemple théorique",
-        "Plan de continuité — ce qu'on peut industrialiser ensuite (Setup ou Automatisations)"
+        "Plan de continuité : ce qu'on peut industrialiser ensuite (Setup ou Automatisations)"
       ]
     },
     "faq": {
       "title": "Questions fréquentes",
       "items": [
-        { "q": "Combien ça coûte ?", "a": "Forfait fermé ou rémunération au résultat — vous choisissez. Forfait : périmètre, calendrier, livrables écrits noir sur blanc. Au résultat : quote-part sur le gain réellement constaté (économie de main-d'œuvre, CA incrémental, temps gagné). Si le résultat n'est pas atteint dans le second cas, la part variable n'est pas facturée. Pas de TJM, pas de surprise." },
+        { "q": "Combien ça coûte ?", "a": "Forfait fermé ou rémunération au résultat : vous choisissez. Forfait : périmètre, calendrier, livrables écrits noir sur blanc. Au résultat : quote-part sur le gain réellement constaté (économie de main-d'œuvre, CA incrémental, temps gagné). Si le résultat n'est pas atteint dans le second cas, la part variable n'est pas facturée. Pas de TJM, pas de surprise." },
         { "q": "Combien de temps ça prend ?", "a": "Un à quatre jours consécutifs sur site. Le format dépend du périmètre validé pendant l'audit éclair de la première demi-journée." },
         { "q": "Vous codez chez nous ou sur votre infra ?", "a": "Chez vous, dans votre dépôt Git, dans votre infrastructure. Le code reste à vous. On peut héberger temporairement si l'infrastructure n'est pas prête, mais l'objectif est que tout vive chez vous à la sortie." },
-        { "q": "Et si on n'a pas de dépôt Git, pas d'infra cloud ?", "a": "On en met un en place pendant le sprint. C'est même un livrable utile — vos équipes ressortent avec un environnement répétable." },
-        { "q": "On peut faire le sprint sans vos opérateurs disponibles ?", "a": "Non. La présence de deux à trois opérateurs métier pendant le sprint est non négociable — c'est ce qui fait que le système tourne vraiment chez vous après notre départ." },
+        { "q": "Et si on n'a pas de dépôt Git, pas d'infra cloud ?", "a": "On en met un en place pendant le sprint. C'est même un livrable utile : vos équipes ressortent avec un environnement répétable." },
+        { "q": "On peut faire le sprint sans vos opérateurs disponibles ?", "a": "Non. La présence de deux à trois opérateurs métier pendant le sprint est non négociable : c'est ce qui fait que le système tourne vraiment chez vous après notre départ." },
         { "q": "Quelle différence avec une mission de conseil classique ?", "a": "On ne fait pas de slide, pas d'audit qui finit dans un tiroir. On code en live avec vos équipes, on livre un système qui tourne. Pas de TJM, pas de prolongation déguisée." },
         { "q": "Et après le sprint ?", "a": "Si le système doit s'industrialiser ou s'étendre, on enchaîne sur Setup (autonomie de vos équipes) ou Automatisations (workflows en production). Si vos équipes sont autonomes, on s'arrête. On revient sur appel." },
         { "q": "Vous travaillez en quelle langue ?", "a": "Français, anglais et portugais brésilien. La majorité des sprints sont menés en France et en Europe." }
@@ -434,9 +434,9 @@
   },
   "setup": {
     "meta": {
-      "title": "Setup Claude Code pour vos équipes — Parrit.ai | Configuration et autonomie",
+      "title": "Setup Claude Code pour vos équipes : Parrit.ai | Configuration et autonomie",
       "description": "Setup Claude Code complet pour vos équipes : installation, configuration (CLAUDE.md, hooks, skills, MCP, workflows), formation hands-on. Vos équipes deviennent autonomes. Forfait fermé ou au résultat, pas de TJM.",
-      "ogTitle": "Setup Claude Code pour vos équipes — Parrit.ai",
+      "ogTitle": "Setup Claude Code pour vos équipes : Parrit.ai",
       "ogDescription": "Installation, configuration et acculturation. Vos équipes prennent la main sur Claude Code de bout en bout.",
       "schemaDescription": "Setup Claude Code complet pour entreprise : installation, configuration, formation pour rendre les équipes autonomes."
     },
@@ -462,7 +462,7 @@
         { "n": "1", "title": "Audit Setup (demi-journée)", "desc": "On part de votre stack, vos workflows, vos équipes, vos contraintes sécurité. On co-définit la configuration cible : quels skills, quels hooks, quelles MCP." },
         { "n": "2", "title": "Installation et configuration", "desc": "Claude Code installé sur les postes ou l'infra cible. CLAUDE.md rédigé pour votre métier. Hooks de sécurité (audit logs, redaction, allow/deny). Skills custom. Connecteurs MCP vers vos outils internes (CRM, ERP, espaces de fichiers, bases internes)." },
         { "n": "3", "title": "Formation hands-on sur vos cas réels", "desc": "Pas d'exemples théoriques. Vos équipes apprennent en construisant ce qu'elles utiliseront ensuite : un workflow commercial, une veille, une intégration ERP." },
-        { "n": "4", "title": "Documentation et passage de relais", "desc": "Doc interne livrée — comment évoluer le setup, comment ajouter un skill, comment débugger. Transmissible. Vos équipes prennent la main." }
+        { "n": "4", "title": "Documentation et passage de relais", "desc": "Doc interne livrée : comment évoluer le setup, comment ajouter un skill, comment débugger. Transmissible. Vos équipes prennent la main." }
       ]
     },
     "deliverables": {
@@ -471,20 +471,20 @@
         "Claude Code installé et configuré dans votre infrastructure, aux standards sécurité de la maison",
         "CLAUDE.md complet rédigé pour votre métier (vocabulaire, contraintes, processus, mémoire d'entreprise)",
         "Skills custom et MCP vers vos outils internes (CRM, ERP, fichiers, bases métier)",
-        "Hooks de sécurité (audit, redaction, allow/deny) — version d'entreprise propre",
+        "Hooks de sécurité (audit, redaction, allow/deny) : version d'entreprise propre",
         "Documentation interne complète, transmissible à un nouvel arrivant",
-        "Vos équipes formées sur leurs vrais cas — pas une démo de salon"
+        "Vos équipes formées sur leurs vrais cas : pas une démo de salon"
       ]
     },
     "faq": {
       "title": "Questions fréquentes",
       "items": [
-        { "q": "Combien ça coûte ?", "a": "Forfait fermé ou rémunération au résultat — vous choisissez. Le forfait dépend du nombre d'équipes à équiper, du périmètre des skills/MCP, et du niveau de doc attendu. Pas de TJM, pas de surprise." },
+        { "q": "Combien ça coûte ?", "a": "Forfait fermé ou rémunération au résultat : vous choisissez. Le forfait dépend du nombre d'équipes à équiper, du périmètre des skills/MCP, et du niveau de doc attendu. Pas de TJM, pas de surprise." },
         { "q": "Combien de temps ça prend ?", "a": "Une à trois semaines selon le périmètre. La phase install + config tient en quelques jours. La formation et la doc s'étalent pour laisser le temps aux équipes de s'approprier." },
-        { "q": "Quelle différence avec une formation Claude Code classique ?", "a": "Une formation enseigne l'outil. Le Setup vous livre l'outil configuré pour VOTRE métier. Vos équipes apprennent en utilisant l'environnement qu'elles garderont — pas un sandbox." },
+        { "q": "Quelle différence avec une formation Claude Code classique ?", "a": "Une formation enseigne l'outil. Le Setup vous livre l'outil configuré pour VOTRE métier. Vos équipes apprennent en utilisant l'environnement qu'elles garderont : pas un sandbox." },
         { "q": "Et la sécurité, la confidentialité ?", "a": "On configure les hooks de sécurité dès le départ : audit logs, redaction des secrets, listes allow/deny par projet. Tout reste sur votre infra. Le code et les données ne quittent pas la maison." },
-        { "q": "On peut équiper plusieurs équipes en même temps ?", "a": "Oui. La config se factorise — un CLAUDE.md groupe + des CLAUDE.md équipe qui surchargent. Plus le nombre d'équipes est grand, plus le ROI au poste est intéressant." },
-        { "q": "Et si on n'a pas d'équipe technique ?", "a": "Le Setup est encore plus pertinent — on configure un environnement où vos opérationnels métier peuvent utiliser Claude Code sans assistance technique permanente. C'est même un de nos cas typiques." },
+        { "q": "On peut équiper plusieurs équipes en même temps ?", "a": "Oui. La config se factorise : un CLAUDE.md groupe + des CLAUDE.md équipe qui surchargent. Plus le nombre d'équipes est grand, plus le ROI au poste est intéressant." },
+        { "q": "Et si on n'a pas d'équipe technique ?", "a": "Le Setup est encore plus pertinent : on configure un environnement où vos opérationnels métier peuvent utiliser Claude Code sans assistance technique permanente. C'est même un de nos cas typiques." },
         { "q": "Vous travaillez sur place ou à distance ?", "a": "Sur place de préférence pour la phase install + formation. La doc et les itérations peuvent être en remote. Pour les clients hors France, voir le format Remote international." },
         { "q": "Et après le Setup, on est obligé de continuer avec vous ?", "a": "Non. Le Setup est conçu pour vous rendre autonomes. On revient si vous voulez ajouter un skill, débloquer un sujet, ou industrialiser un workflow particulier." }
       ]
@@ -508,9 +508,9 @@
   },
   "remote": {
     "meta": {
-      "title": "Claude Code Remote international — Parrit.ai | Audit, config, 3-5 automatisations à distance",
+      "title": "Claude Code Remote international : Parrit.ai | Audit, config, 3-5 automatisations à distance",
       "description": "Format Remote pour clients hors France. Audit Claude Code, configuration complète et trois à cinq automatisations livrés intégralement à distance. Pas de déplacement, ROI mesurable.",
-      "ogTitle": "Claude Code Remote international — Parrit.ai",
+      "ogTitle": "Claude Code Remote international : Parrit.ai",
       "ogDescription": "Pour les clients hors France où le déplacement n'a pas de sens. Audit + config + 3 à 5 automatisations, tout en remote.",
       "schemaDescription": "Format Remote international : Claude Code livré à distance avec audit, configuration et automatisations."
     },
@@ -518,7 +518,7 @@
       "label": "FORMAT REMOTE INTERNATIONAL",
       "titleMain": "Claude Code en remote.",
       "titleAccent": "Pour les clients hors France.",
-      "quickAnswer": "Le format Remote est conçu pour les entreprises hors France où le déplacement n'a pas de sens — US, UK, DACH, Asie, Brésil, Moyen-Orient. On livre intégralement à distance : audit Claude Code, configuration complète sur votre infrastructure (CLAUDE.md, hooks, skills, MCP), trois à cinq automatisations qui tournent en production. Visio kickoff, partage d'écran pour les phases build, doc complète et formation enregistrée. Forfait fermé. Pas de TJM. Pas de déplacement à facturer.",
+      "quickAnswer": "Le format Remote est conçu pour les entreprises hors France où le déplacement n'a pas de sens : US, UK, DACH, Asie, Brésil, Moyen-Orient. On livre intégralement à distance : audit Claude Code, configuration complète sur votre infrastructure (CLAUDE.md, hooks, skills, MCP), trois à cinq automatisations qui tournent en production. Visio kickoff, partage d'écran pour les phases build, doc complète et formation enregistrée. Forfait fermé. Pas de TJM. Pas de déplacement à facturer.",
       "cta": "Réserver un échange avec Paul"
     },
     "audience": {
@@ -526,14 +526,14 @@
       "items": [
         { "role": "Founders et CEOs hors France", "desc": "Vous voulez équiper votre équipe en Claude Code mais le sprint sur site ne fait pas sens géographiquement." },
         { "role": "Directions internationales d'un groupe FR", "desc": "Vous avez équipé votre HQ en Claude Code (Sprint ou Setup), vous voulez répliquer dans les filiales US, UK, Asie." },
-        { "role": "Équipes distribuées full remote", "desc": "Pas de bureau central. On adapte le format à votre rythme et fuseau horaire — on revient en visio quand nécessaire." },
+        { "role": "Équipes distribuées full remote", "desc": "Pas de bureau central. On adapte le format à votre rythme et fuseau horaire : on revient en visio quand nécessaire." },
         { "role": "Investors / scout funds qui équipent leurs portcos", "desc": "Vous voulez équiper plusieurs startups portfolio en Claude Code à coût maîtrisé. Le format remote scale." }
       ]
     },
     "method": {
       "title": "Comment ça se passe",
       "steps": [
-        { "n": "1", "title": "Kickoff visio (1h)", "desc": "Cadrage rapide en visio — votre stack, vos workflows, vos contraintes, les trois à cinq automatisations cibles. On valide le périmètre." },
+        { "n": "1", "title": "Kickoff visio (1h)", "desc": "Cadrage rapide en visio : votre stack, vos workflows, vos contraintes, les trois à cinq automatisations cibles. On valide le périmètre." },
         { "n": "2", "title": "Audit remote (1-2 jours)", "desc": "On analyse les workflows ciblés, on chiffre le ROI attendu, on liste les skills et MCP nécessaires. Doc d'audit livrée à J+3 max." },
         { "n": "3", "title": "Build en partage d'écran (1-2 semaines)", "desc": "Sessions visio courtes 2 à 3 fois par semaine. On code ensemble la configuration et les automatisations. Vos équipes voient tout, posent des questions, valident à chaque étape." },
         { "n": "4", "title": "Documentation et formation enregistrée", "desc": "Doc interne complète + Loom de formation par cas d'usage. Les nouvelles personnes onboardent en regardant les vidéos. On reste joignable 30 jours après livraison." }
@@ -546,7 +546,7 @@
         "Trois à cinq automatisations qui tournent en production sur vos vrais cas d'usage",
         "Code versionné Git, dans votre dépôt",
         "Documentation interne complète, en anglais et dans la langue de l'équipe",
-        "Vidéos Loom de formation par automatisation — onboarding des nouveaux self-service",
+        "Vidéos Loom de formation par automatisation : onboarding des nouveaux self-service",
         "Trente jours de support post-livraison par email/visio pour ajustements"
       ]
     },
@@ -556,8 +556,8 @@
         { "q": "Combien ça coûte ?", "a": "Forfait fermé. Le format remote est packagé pour donner un ratio clair audit + config + automatisations livrées. Pas de TJM, pas de frais de déplacement, pas de surprise. Devis chiffré sous quarante-huit heures après le kickoff." },
         { "q": "Combien de temps ça prend ?", "a": "Trois à quatre semaines selon la complexité. Une à deux pour le build proprement dit, le reste réparti pour kickoff, audit et passage de relais." },
         { "q": "Vous travaillez en quels fuseaux horaires ?", "a": "Europe, US East/West, Brésil, et Asie selon les semaines. On synchronise sur deux à trois créneaux fixes par semaine. Le travail asynchrone se fait via Slack ou équivalent." },
-        { "q": "Et la sécurité, vous accédez à notre code/données ?", "a": "Vous gardez la main. On configure les hooks de sécurité dès le départ : audit logs, redaction, allow/deny. Les sessions de build sont en partage d'écran sur votre poste — le code et les données ne quittent pas chez vous." },
-        { "q": "Vous parlez quelles langues ?", "a": "Français, anglais et portugais brésilien couramment. La doc et les Loom sont livrés dans la langue de l'équipe utilisatrice — souvent anglais en remote international." },
+        { "q": "Et la sécurité, vous accédez à notre code/données ?", "a": "Vous gardez la main. On configure les hooks de sécurité dès le départ : audit logs, redaction, allow/deny. Les sessions de build sont en partage d'écran sur votre poste : le code et les données ne quittent pas chez vous." },
+        { "q": "Vous parlez quelles langues ?", "a": "Français, anglais et portugais brésilien couramment. La doc et les Loom sont livrés dans la langue de l'équipe utilisatrice : souvent anglais en remote international." },
         { "q": "On a déjà essayé Claude Code en interne, ça n'a pas pris. Pourquoi ça marcherait avec vous ?", "a": "Parce qu'on configure pour VOTRE métier, pas en générique. CLAUDE.md adapté, MCP vers vos outils internes, hooks de sécurité qui matchent vos contraintes, formation hands-on sur les vrais cas. La différence est dans la couche métier qu'on amène, pas dans l'outil." },
         { "q": "Et après le format Remote ?", "a": "Si vous voulez industrialiser plus loin, on peut basculer sur des Automatisations supplémentaires (forfait au livrable). Si vous êtes en France et qu'un cas urgent arrive, on peut faire un Sprint sur site." }
       ]
@@ -566,10 +566,10 @@
       "title": "Et après le format Remote ?",
       "subtitle": "Le format Remote vous équipe et vous rend autonomes. Si vous voulez aller plus loin, voici les autres formats.",
       "options": [
-        { "kind": "Production continue", "title": "Automatisations", "desc": "Vous identifiez d'autres workflows qui doivent tourner H24. On industrialise au forfait par livrable — toujours en remote." },
+        { "kind": "Production continue", "title": "Automatisations", "desc": "Vous identifiez d'autres workflows qui doivent tourner H24. On industrialise au forfait par livrable : toujours en remote." },
         { "kind": "France / Europe", "title": "Sprint Claude Code", "desc": "Vous avez une entité française qui doit être équipée en plus ? Le Sprint sur site est l'option pour les bureaux de la zone." },
         { "kind": "Multi-équipes locales", "title": "Setup Claude Code", "desc": "Pour les filiales France où vous voulez équiper plusieurs équipes en même temps avec un environnement répétable." },
-        { "kind": "Premier passage", "title": "Audit Claude Code", "desc": "Si on n'a pas encore parlé, le kickoff visio fait office d'audit — c'est inclus dans le format Remote." }
+        { "kind": "Premier passage", "title": "Audit Claude Code", "desc": "Si on n'a pas encore parlé, le kickoff visio fait office d'audit : c'est inclus dans le format Remote." }
       ]
     },
     "ctaSection": {

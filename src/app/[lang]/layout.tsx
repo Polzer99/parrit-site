@@ -183,6 +183,35 @@ export default async function LocaleLayout({
         publisher: { "@id": `${SITE_URL}/#organization` },
         inLanguage: ["fr", "en", "pt-BR"],
       },
+      {
+        "@type": "HowTo",
+        "@id": `${SITE_URL}/#methode`,
+        name: dict.approach.title,
+        description: dict.approach.description,
+        inLanguage: lang,
+        step: dict.approach.pillars.map((p, i) => ({
+          "@type": "HowToStep",
+          position: i + 1,
+          name: p.title,
+          text: p.desc,
+        })),
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": `${SITE_URL}/#service`,
+        name: "Parrit.ai",
+        url: SITE_URL,
+        image: `${SITE_URL}/og-image.png`,
+        priceRange: "€€€",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Rueil-Malmaison",
+          addressRegion: "Île-de-France",
+          addressCountry: "FR",
+        },
+        areaServed: ["France", "Europe", "Asia"],
+        serviceType: "Conseil et déploiement Claude Code",
+      },
     ],
   };
 
