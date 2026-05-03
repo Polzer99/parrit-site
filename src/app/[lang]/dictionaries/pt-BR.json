@@ -1,12 +1,15 @@
 {
   "meta": {
-    "title": "Parrit.ai : Soluções de automação inteligente para empresas",
-    "description": "Sua empresa, com metade das tarefas repetitivas a partir de hoje. Automação de processos com IA. Empresa francesa.",
-    "ogTitle": "Parrit.ai : Suas equipes merecem mais do que copiar e colar",
-    "ogDescription": "Agentes de IA sob medida para automatizar seus processos repetitivos. Diagnóstico gratuito de 15 minutos.",
-    "ogImageAlt": "Parrit.ai : Automação inteligente para empresas",
+    "title": "Consultoria Claude Code · Parrit.ai",
+    "description": "Consultoria Claude Code presencial para fundadores e CEOs. Sprints de um a quatro dias, ferramenta operacional entregue, sem taxa diária. Casos reais, ROI medido.",
+    "ogTitle": "Consultoria Claude Code · Parrit.ai",
+    "ogDescription": "Consultoria Claude Code presencial. Sprints de um a quatro dias, ferramenta operacional entregue, sem taxa diária. ROI mensurável já no primeiro projeto.",
+    "ogImageAlt": "Parrit.ai · Consultoria Claude Code",
     "ogLocale": "pt_BR",
     "keywords": [
+      "consultor Claude Code",
+      "Claude Code Consulting Brasil",
+      "Consultoria Claude Code",
       "IA empresarial",
       "automação de processos",
       "agentes de IA",
@@ -18,7 +21,7 @@
       "implantação de IA",
       "transformação digital"
     ],
-    "schemaDescription": "Soluções de automação inteligente para empresas. Metade das tarefas repetitivas, a partir de hoje."
+    "schemaDescription": "Consultoria e implantação Claude Code presencial para fundadores e CEOs. ROI mensurável no primeiro projeto, entregas operacionais, sem taxa diária."
   },
   "nav": {
     "switcherLabel": "Idioma"
@@ -117,24 +120,28 @@
     "midCta": "Vamos falar sobre o seu caso"
   },
   "approach": {
-    "title": "Nossa abordagem",
-    "description": "Não vendemos treinamentos genéricos. Construímos com você. Protótipo funcional em poucos dias, iterações em tempo real, produção rápida. Uma rede de mais de vinte especialistas : técnicos e de negócio : mobilizáveis conforme sua necessidade.",
+    "title": "Nosso método cabe em quatro verbos",
+    "description": "Um método operacional, não conceitual. Uma rede de mais de vinte especialistas técnicos e de negócios, mobilizáveis como reforço nos projetos que precisam. Não para consultar. Para entregar.",
     "pillars": [
       {
-        "title": "Prototipagem rápida",
-        "desc": "Da ideia ao protótipo testado em poucos dias"
+        "n": "1",
+        "title": "Mapear",
+        "desc": "Identificamos onde a IA entrega ROI real, não onde fica bonita numa demo."
       },
       {
-        "title": "Rede de especialistas",
-        "desc": "Mais de 20 especialistas técnicos e de negócio à disposição"
+        "n": "2",
+        "title": "Prototipar",
+        "desc": "Uma ferramenta funcional em produção, não uma auditoria que dorme numa gaveta."
       },
       {
-        "title": "Coaching em IA",
-        "desc": "Masterclasses e oficinas práticas para suas equipes"
+        "n": "3",
+        "title": "Implantar",
+        "desc": "Iterativamente, até o sistema rodar sem nós."
       },
       {
-        "title": "Entrada em produção",
-        "desc": "Implantação, manutenção e melhoria contínua"
+        "n": "4",
+        "title": "Ficar",
+        "desc": "Para o que vem depois, se você quiser. Não por padrão."
       }
     ]
   },

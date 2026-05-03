@@ -1,12 +1,15 @@
 {
   "meta": {
-    "title": "Parrit.ai : Intelligent automation solutions for businesses",
-    "description": "Your company, with half the repetitive tasks starting today. AI-powered process automation. Built in France.",
-    "ogTitle": "Parrit.ai : Your teams deserve better than copy-paste",
-    "ogDescription": "Custom AI agents to automate your repetitive processes. Free 15-minute diagnostic.",
-    "ogImageAlt": "Parrit.ai : Intelligent automation for businesses",
+    "title": "Claude Code Consulting · Parrit.ai",
+    "description": "On-site Claude Code consulting for founders and CEOs. One to four day sprints, working tool delivered, no day rate. Real cases, measured ROI. Paris and EU.",
+    "ogTitle": "Claude Code Consulting · Parrit.ai",
+    "ogDescription": "On-site Claude Code consulting. One to four day sprints, working tool delivered, no day rate. Measurable ROI on the first engagement.",
+    "ogImageAlt": "Parrit.ai · Claude Code Consulting",
     "ogLocale": "en_US",
     "keywords": [
+      "Anthropic Claude consulting",
+      "Claude Code consultant",
+      "Claude Code Consulting",
       "enterprise AI",
       "process automation",
       "AI agents",
@@ -18,7 +21,7 @@
       "AI deployment",
       "digital transformation"
     ],
-    "schemaDescription": "Intelligent automation solutions for businesses. Half the repetitive tasks, starting today."
+    "schemaDescription": "On-site Claude Code consulting and deployment for founders and CEOs. Measurable ROI on the first engagement, working deliverables, no day rate."
   },
   "nav": {
     "switcherLabel": "Language"
@@ -117,24 +120,28 @@
     "midCta": "Let's discuss your case"
   },
   "approach": {
-    "title": "Our approach",
-    "description": "We don't sell generic training. We build with you. Working prototype in a few days, real-time iteration, fast path to production. A network of more than twenty experts : technical and business : available on demand.",
+    "title": "Our method fits in four verbs",
+    "description": "An operational method, not a conceptual one. A network of over twenty technical and business experts, available as reinforcement on the projects that need them. Not to consult. To deliver.",
     "pillars": [
       {
-        "title": "Rapid prototyping",
-        "desc": "From idea to tested prototype in days"
+        "n": "1",
+        "title": "Map",
+        "desc": "We identify where AI delivers real ROI, not where it looks good in a demo."
       },
       {
-        "title": "Expert network",
-        "desc": "20+ technical and domain specialists on call"
+        "n": "2",
+        "title": "Prototype",
+        "desc": "A working tool in production, not an audit that ends up in a drawer."
       },
       {
-        "title": "AI coaching",
-        "desc": "Masterclasses and hands-on workshops for your teams"
+        "n": "3",
+        "title": "Deploy",
+        "desc": "Iteratively, until the system runs without us."
       },
       {
-        "title": "Production ready",
-        "desc": "Deployment, maintenance and continuous improvement"
+        "n": "4",
+        "title": "Stay",
+        "desc": "For what comes next, if you want us to. Not by default."
       }
     ]
   },

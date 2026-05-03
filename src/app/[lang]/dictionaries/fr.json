@@ -1,12 +1,16 @@
 {
   "meta": {
-    "title": "Parrit.ai : Déployer Claude Code chez vous. Pas formuler.",
-    "description": "Sprints Claude Code de 1 à 4 jours sur site pour fondateurs et directeurs généraux. ROI mesurable au premier projet. Pas de jargon, pas d'audit, du code en production.",
-    "ogTitle": "Parrit.ai : Les autres formulent. Nous déployons.",
-    "ogDescription": "Paul Larmaraud et son équipe viennent sur site, codent avec vos équipes le workflow qui débloque l'opération, et partent quand le système tourne. ROI mesurable dès le premier projet.",
-    "ogImageAlt": "Parrit.ai : Déployer Claude Code chez vous",
+    "title": "Claude Code Consulting France · Parrit.ai",
+    "description": "Consulting Claude Code on-site pour fondateurs et directeurs généraux. Sprints d'un à quatre jours, livrable opérationnel en sortie, pas de TJM. Cas réels, ROI mesuré. Paris et Île-de-France.",
+    "ogTitle": "Claude Code Consulting France · Parrit.ai",
+    "ogDescription": "Consulting Claude Code on-site. Sprints d'un à quatre jours, livrable opérationnel, pas de TJM. ROI mesurable au premier projet.",
+    "ogImageAlt": "Parrit.ai · Claude Code Consulting France",
     "ogLocale": "fr_FR",
     "keywords": [
+      "consulting Claude Code Paris",
+      "consultant Claude Code",
+      "Claude Code Consulting France",
+      "Claude Code Consulting",
       "Claude Code",
       "sprint Claude Code",
       "Anthropic Claude",
@@ -19,7 +23,7 @@
       "Parrit.ai",
       "Paul Larmaraud"
     ],
-    "schemaDescription": "Sprints Claude Code on-site et automatisations sur mesure pour fondateurs et directeurs généraux. ROI mesurable au premier projet, pas de jargon, livraison de prototypes fonctionnels."
+    "schemaDescription": "Consulting et déploiement Claude Code on-site pour fondateurs et directeurs généraux. ROI mesurable au premier projet, livrables opérationnels, pas de TJM."
   },
   "nav": {
     "switcherLabel": "Langue"
@@ -119,23 +123,27 @@
   },
   "approach": {
     "title": "Notre méthode tient en quatre verbes",
-    "description": "Cartographier : on identifie où l'IA produit un ROI réel, pas où elle fait joli en démo. Prototyper : un outil fonctionnel en production, pas un audit qui finit dans un tiroir. Déployer : itératif, jusqu'à ce que le système tourne sans nous. Rester : pour la suite, si vous le voulez. Un réseau de plus de vingt experts, techniques et métier, mobilisable en renfort sur les chantiers qui le nécessitent. Pas pour faire du conseil. Pour livrer.",
+    "description": "Une méthode opérationnelle, pas conceptuelle. Un réseau de plus de vingt experts, techniques et métier, mobilisables en renfort sur les chantiers qui le nécessitent. Pas pour faire du conseil. Pour livrer.",
     "pillars": [
       {
+        "n": "1",
         "title": "Cartographier",
-        "desc": "Identifier les workflows, les coûts réels, les urgences à ROI mesurable"
+        "desc": "On identifie où l'IA produit un ROI réel, pas où elle fait joli en démo."
       },
       {
+        "n": "2",
         "title": "Prototyper",
-        "desc": "Livrer un outil qui tourne, pas un document qui dort"
+        "desc": "Un outil fonctionnel en production, pas un audit qui finit dans un tiroir."
       },
       {
+        "n": "3",
         "title": "Déployer",
-        "desc": "Itérer jusqu'à ce que ça fonctionne sans nous"
+        "desc": "Itératif, jusqu'à ce que le système tourne sans nous."
       },
       {
+        "n": "4",
         "title": "Rester",
-        "desc": "Pour la suite, si vous le souhaitez. Pas par défaut."
+        "desc": "Pour la suite, si vous le voulez. Pas par défaut."
       }
     ]
   },

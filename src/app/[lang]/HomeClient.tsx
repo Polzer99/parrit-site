@@ -304,9 +304,9 @@ function VisualShowcase({ dict }: { dict: Dictionary }) {
 function Approach({ dict }: { dict: Dictionary }) {
   return (
     <section style={{ background: "var(--bg)", padding: "80px 24px" }}>
-      <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center" as const }}>
+      <div style={{ maxWidth: "820px", margin: "0 auto" }}>
         <motion.h2
-          style={{ fontFamily: "var(--font-heading)", fontWeight: 400, fontSize: "clamp(28px, 4vw, 38px)", color: "var(--text)", marginBottom: "24px" }}
+          style={{ fontFamily: "var(--font-heading)", fontWeight: 400, fontSize: "clamp(28px, 4vw, 38px)", color: "var(--text)", marginBottom: "56px", textAlign: "center" as const }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -314,31 +314,37 @@ function Approach({ dict }: { dict: Dictionary }) {
         >
           {dict.approach.title}
         </motion.h2>
+
+        <ol style={{ listStyle: "none", padding: 0, margin: "0 0 48px 0", display: "flex", flexDirection: "column" as const, gap: "28px" }}>
+          {dict.approach.pillars.map((item, i) => (
+            <motion.li
+              key={item.title}
+              style={{ display: "grid", gridTemplateColumns: "56px 1fr", alignItems: "baseline", gap: "20px", borderBottom: i < dict.approach.pillars.length - 1 ? "1px solid rgba(0,0,0,0.08)" : "none", paddingBottom: i < dict.approach.pillars.length - 1 ? "28px" : "0" }}
+              initial={{ opacity: 0, x: -16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
+            >
+              <span aria-hidden="true" style={{ fontFamily: "var(--font-heading)", fontSize: "44px", fontWeight: 300, color: "var(--accent, #b8814c)", lineHeight: 1, letterSpacing: "-0.02em" }}>
+                {item.n ?? String(i + 1)}
+              </span>
+              <div>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "22px", fontWeight: 500, color: "var(--text)", margin: "0 0 6px 0", letterSpacing: "-0.01em" }}>{item.title}</h3>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-muted)", fontWeight: 300, lineHeight: 1.65, margin: 0 }}>{item.desc}</p>
+              </div>
+            </motion.li>
+          ))}
+        </ol>
+
         <motion.p
-          style={{ fontFamily: "var(--font-body)", fontSize: "16px", lineHeight: 1.8, color: "var(--text-muted)", marginBottom: "48px", fontWeight: 300 }}
+          style={{ fontFamily: "var(--font-body)", fontSize: "15px", lineHeight: 1.7, color: "var(--text-muted)", fontWeight: 300, textAlign: "center" as const, maxWidth: "640px", margin: "0 auto" }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
         >
           {dict.approach.description}
         </motion.p>
-
-        <div style={{ display: "flex", flexWrap: "wrap" as const, justifyContent: "center", gap: "32px" }}>
-          {dict.approach.pillars.map((item, i) => (
-            <motion.div
-              key={item.title}
-              style={{ flex: "1 1 160px", maxWidth: "200px", textAlign: "center" as const }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-            >
-              <p style={{ fontFamily: "var(--font-heading)", fontSize: "18px", fontWeight: 500, color: "var(--text)", marginBottom: "8px" }}>{item.title}</p>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "13px", color: "var(--text-muted)", fontWeight: 300, lineHeight: 1.6 }}>{item.desc}</p>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   );
