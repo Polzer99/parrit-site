@@ -12,6 +12,7 @@ const STATIC_ROUTES = [
   { path: "/setup-claude-code", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/remote", changeFrequency: "monthly" as const, priority: 0.85 },
   { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
+  { path: "/auteur/paul-larmaraud", changeFrequency: "monthly" as const, priority: 0.7 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

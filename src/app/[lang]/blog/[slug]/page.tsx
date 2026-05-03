@@ -178,7 +178,13 @@ export default async function BlogPostPage({
           </div>
           <h1 className="blog-article-title">{post.title}</h1>
           <p className="blog-article-author">
-            {dict.blog.by} {post.author}
+            {dict.blog.by}{" "}
+            <Link
+              href={`/${lang}/auteur/paul-larmaraud`}
+              style={{ borderBottom: "1px solid currentColor" }}
+            >
+              {post.author}
+            </Link>
           </p>
         </header>
 
