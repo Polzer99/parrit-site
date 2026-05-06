@@ -45,6 +45,12 @@ export default function QuickContact({ strings, page, variant = "dark" }: Props)
     if (!contact.trim()) return;
     setState("sending");
     const isEmail = looksLikeEmail(contact);
+    const utms = getUtmParams();
+    const ph = typeof window !== "undefined"
+      ? (window as unknown as Record<string, unknown>).posthog as
+          | { capture: (e: string, p: Record<string, unknown>) => void; identify: (id: string, p?: Record<string, unknown>) => void }
+          | undefined
+      : undefined;
     try {
       await fetch(WEBHOOK_URL, {
         method: "POST",
@@ -59,11 +65,21 @@ export default function QuickContact({ strings, page, variant = "dark" }: Props)
           referrer: typeof document !== "undefined" ? document.referrer : "",
           url: typeof window !== "undefined" ? window.location.href : "",
           timestamp: new Date().toISOString(),
-          ...getUtmParams(),
+          ...utms,
         }),
       });
+      if (ph) {
+        if (isEmail) ph.identify(contact.trim(), { email: contact.trim() });
+        ph.capture("form_submitted", {
+          form: "quick_contact",
+          page,
+          contact_kind: isEmail ? "email" : "phone",
+          ...utms,
+        });
+      }
       setState("sent");
     } catch {
+      ph?.capture("form_failed", { form: "quick_contact", page, ...utms });
       setState("error");
     }
   }

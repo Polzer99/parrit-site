@@ -27,6 +27,14 @@ function getUtmParams(): Record<string, string> {
 }
 
 function trackCtaClick(label?: string) {
+  const utms = getUtmParams();
+  if (typeof window !== "undefined" && (window as unknown as Record<string, unknown>).posthog) {
+    ((window as unknown as Record<string, unknown>).posthog as { capture: (e: string, p: Record<string, unknown>) => void }).capture("cta_clicked", {
+      label: label || "unknown",
+      page: "landing",
+      ...utms,
+    });
+  }
   fetch(WEBHOOK_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -38,7 +46,7 @@ function trackCtaClick(label?: string) {
       url: typeof window !== "undefined" ? window.location.href : "",
       timestamp: new Date().toISOString(),
       page: "landing",
-      ...getUtmParams(),
+      ...utms,
     }),
   }).catch(() => {});
 }
