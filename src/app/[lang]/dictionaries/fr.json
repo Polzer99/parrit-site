@@ -185,9 +185,9 @@
     "subtitle": "On vient. On construit. On livre. Pas de TJM, pas d'audit, pas de slide.",
     "offers": [
       {
-        "kind": "Sprint chez vous",
-        "title": "Sprint Claude Code sur site",
-        "intro": "Le format principal : un à quatre jours en immersion avec vos équipes.",
+        "kind": "Sprint chez vous ou à distance",
+        "title": "Audit, Configuration & Sprint Claude Code",
+        "intro": "Le format principal : un à quatre jours, chez vous ou à distance, avec vos équipes.",
         "bullets": [
           "Choix d'un sujet précis : appel d'offres, intégration post-acquisition, workflow commercial, veille à structurer",
           "Code en live, Claude Code en main : vos opérateurs apprennent en regardant",
@@ -429,9 +429,9 @@
       "subtitle": "L'audit débouche sur l'un de ces quatre formats. Vous choisissez selon le cas.",
       "options": [
         {
-          "kind": "Sprint sur site",
-          "title": "Sprint Claude Code",
-          "desc": "Un à quatre jours en immersion avec vos équipes pour livrer un système opérationnel sur le cas urgent. Code en live, vos opérateurs apprennent en regardant."
+          "kind": "Sprint chez vous ou à distance",
+          "title": "Audit, Configuration & Sprint Claude Code",
+          "desc": "Un à quatre jours avec vos équipes — chez vous ou à distance — pour livrer un système opérationnel sur le cas urgent. Code en live, vos opérateurs apprennent en regardant."
         },
         {
           "kind": "Autonomie équipe",
@@ -459,17 +459,17 @@
   },
   "sprint": {
     "meta": {
-      "title": "Sprint Claude Code sur site : Parrit.ai | 1 à 4 jours, système en production",
-      "description": "Sprint Claude Code de un à quatre jours en immersion sur site. On code avec vos équipes le workflow qui débloque l'opération. Système opérationnel en sortie. Forfait fermé ou au résultat, pas de TJM.",
-      "ogTitle": "Sprint Claude Code sur site : Parrit.ai",
-      "ogDescription": "Un à quatre jours en immersion. On vient, on code avec vous, on part quand le système tourne.",
-      "schemaDescription": "Sprint Claude Code d'un à quatre jours en immersion sur site pour livrer un système opérationnel."
+      "title": "Audit, Configuration & Sprint Claude Code : Parrit.ai | 1 à 4 jours, chez vous ou à distance",
+      "description": "Audit, Configuration & Sprint Claude Code de un à quatre jours, chez vous ou à distance. On code avec vos équipes le workflow qui débloque l'opération. Système opérationnel en sortie. Forfait fermé ou au résultat, pas de TJM.",
+      "ogTitle": "Audit, Configuration & Sprint Claude Code : Parrit.ai",
+      "ogDescription": "Un à quatre jours, chez vous ou à distance. On code avec vos équipes, on part quand le système tourne.",
+      "schemaDescription": "Audit, Configuration & Sprint Claude Code d'un à quatre jours, chez vous ou à distance, pour livrer un système opérationnel."
     },
     "hero": {
-      "label": "SPRINT CLAUDE CODE",
+      "label": "AUDIT, CONFIGURATION & SPRINT CLAUDE CODE",
       "titleMain": "Un à quatre jours.",
       "titleAccent": "Un système qui tourne en sortie.",
-      "quickAnswer": "Un Sprint Claude Code, c'est un à quatre jours d'immersion chez vous, pendant lesquels on construit avec vos équipes le workflow qui débloque l'opération. On code en live, vos opérateurs apprennent en regardant, et on part quand le système tourne en production. Sujets typiques : appel d'offres, intégration post-acquisition, workflow commercial, veille à structurer, ERP interrogeable en français. Forfait fermé ou rémunération au résultat. Pas de TJM. Livrables écrits.",
+      "quickAnswer": "Un Audit, Configuration & Sprint Claude Code, c'est un à quatre jours chez vous ou à distance, pendant lesquels on construit avec vos équipes le workflow qui débloque l'opération. On code en live, vos opérateurs apprennent en regardant, et on part quand le système tourne en production. Sujets typiques : appel d'offres, intégration post-acquisition, workflow commercial, veille à structurer, ERP interrogeable en français. Forfait fermé ou rémunération au résultat. Pas de TJM. Livrables écrits.",
       "cta": "Réserver un échange avec Paul"
     },
     "audience": {
@@ -713,8 +713,8 @@
       "options": [
         {
           "kind": "Cas urgent",
-          "title": "Sprint Claude Code",
-          "desc": "Un cas particulièrement complexe ou urgent à débloquer ? Le Sprint le résout en un à quatre jours d'immersion sur place."
+          "title": "Audit, Configuration & Sprint Claude Code",
+          "desc": "Un cas particulièrement complexe ou urgent à débloquer ? Le Sprint le résout en un à quatre jours, chez vous ou à distance."
         },
         {
           "kind": "Production continue",
@@ -856,8 +856,8 @@
         },
         {
           "kind": "France / Europe",
-          "title": "Sprint Claude Code",
-          "desc": "Vous avez une entité française qui doit être équipée en plus ? Le Sprint sur site est l'option pour les bureaux de la zone."
+          "title": "Audit, Configuration & Sprint Claude Code",
+          "desc": "Vous avez une entité française qui doit être équipée en plus ? Le Sprint, chez vous ou à distance, est l'option pour les bureaux de la zone."
         },
         {
           "kind": "Multi-équipes locales",

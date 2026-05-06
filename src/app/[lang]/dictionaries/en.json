@@ -183,11 +183,11 @@
     "subtitle": "Either we come and ship. Or we make you autonomous.",
     "offers": [
       {
-        "kind": "Sprint OS",
-        "title": "Claude Code OS Sprint",
-        "intro": "We come in, build your operating system with you, and leave.",
+        "kind": "Sprint onsite or remote",
+        "title": "Audit, Configuration & Claude Code Sprint",
+        "intro": "We come in or join remotely, build your operating system with you, and leave.",
         "bullets": [
-          "1 to 4 days on-site : hyper-intense",
+          "1 to 4 days, onsite or remote : hyper-intense",
           "We code alongside you, Claude Code live",
           "You leave with a system that runs",
           "Zero slides, zero decks : shipped code only"
@@ -415,9 +415,9 @@
       "subtitle": "The audit leads into one of these four formats. You decide based on the case.",
       "options": [
         {
-          "kind": "Onsite Sprint",
-          "title": "Claude Code Sprint",
-          "desc": "One to four days of immersion with your teams to deliver an operational system on the urgent case. Live coding, your operators learn by watching."
+          "kind": "Sprint onsite or remote",
+          "title": "Audit, Configuration & Claude Code Sprint",
+          "desc": "One to four days with your teams — onsite or remote — to deliver an operational system on the urgent case. Live coding, your operators learn by watching."
         },
         {
           "kind": "Team autonomy",
@@ -445,17 +445,17 @@
   },
   "sprint": {
     "meta": {
-      "title": "Claude Code Sprint Onsite : Parrit.ai | 1 to 4 days, system in production",
-      "description": "Onsite Claude Code sprint of one to four days. We code with your teams the workflow that unblocks operations. Operational system on exit. Fixed fee or outcome-based, no day rate.",
-      "ogTitle": "Claude Code Sprint Onsite : Parrit.ai",
-      "ogDescription": "One to four days of immersion. We come, we code with you, we leave when the system runs.",
-      "schemaDescription": "Claude Code sprint of one to four days onsite to deliver an operational system."
+      "title": "Audit, Configuration & Claude Code Sprint : Parrit.ai | 1 to 4 days, onsite or remote",
+      "description": "Audit, Configuration & Claude Code Sprint of one to four days, onsite or remote. We code with your teams the workflow that unblocks operations. Operational system on exit. Fixed fee or outcome-based, no day rate.",
+      "ogTitle": "Audit, Configuration & Claude Code Sprint : Parrit.ai",
+      "ogDescription": "One to four days, onsite or remote. We code with you, we leave when the system runs.",
+      "schemaDescription": "Audit, Configuration & Claude Code Sprint of one to four days, onsite or remote, to deliver an operational system."
     },
     "hero": {
-      "label": "CLAUDE CODE SPRINT",
+      "label": "AUDIT, CONFIGURATION & CLAUDE CODE SPRINT",
       "titleMain": "One to four days.",
       "titleAccent": "A system running on exit.",
-      "quickAnswer": "A Claude Code Sprint is one to four days of immersion at your office, during which we build with your teams the workflow that unblocks operations. We code live, your operators learn by watching, and we leave when the system runs in production. Typical topics: tender response, post-acquisition integration, sales workflow, intelligence to structure, ERP queryable in plain language. Fixed fee or outcome-based pay. No day rate. Written deliverables.",
+      "quickAnswer": "An Audit, Configuration & Claude Code Sprint is one to four days, onsite or remote, during which we build with your teams the workflow that unblocks operations. We code live, your operators learn by watching, and we leave when the system runs in production. Typical topics: tender response, post-acquisition integration, sales workflow, intelligence to structure, ERP queryable in plain language. Fixed fee or outcome-based pay. No day rate. Written deliverables.",
       "cta": "Book a call with Paul"
     },
     "audience": {
@@ -699,8 +699,8 @@
       "options": [
         {
           "kind": "Urgent case",
-          "title": "Claude Code Sprint",
-          "desc": "A particularly complex or urgent case to unblock? The Sprint solves it in one to four days of immersion onsite."
+          "title": "Audit, Configuration & Claude Code Sprint",
+          "desc": "A particularly complex or urgent case to unblock? The Sprint solves it in one to four days, onsite or remote."
         },
         {
           "kind": "Continuous production",
@@ -842,8 +842,8 @@
         },
         {
           "kind": "France / Europe",
-          "title": "Claude Code Sprint",
-          "desc": "You have a French entity that needs equipping too? Onsite Sprint is the option for offices in the zone."
+          "title": "Audit, Configuration & Claude Code Sprint",
+          "desc": "You have a French entity that needs equipping too? The Sprint, onsite or remote, is the option for offices in the zone."
         },
         {
           "kind": "Multiple local teams",

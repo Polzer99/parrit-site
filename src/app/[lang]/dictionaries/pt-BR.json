@@ -183,11 +183,11 @@
     "subtitle": "Ou a gente vem e entrega. Ou deixamos você autônomo.",
     "offers": [
       {
-        "kind": "Sprint OS",
-        "title": "Sprint OS Claude Code",
-        "intro": "A gente vem, constrói seu operating system junto, e vai embora.",
+        "kind": "Sprint presencial ou remoto",
+        "title": "Auditoria, Configuração & Sprint Claude Code",
+        "intro": "A gente vem ou se conecta remotamente, constrói seu operating system junto, e vai embora.",
         "bullets": [
-          "1 a 4 dias presencial : hiper-intenso",
+          "1 a 4 dias, presencial ou remoto : hiper-intenso",
           "A gente codifica com você, Claude Code ao vivo",
           "Você sai com um sistema rodando",
           "Zero slide, zero apresentação : só código em produção"
@@ -415,9 +415,9 @@
       "subtitle": "A auditoria leva a um destes quatro formatos. Vocês escolhem conforme o caso.",
       "options": [
         {
-          "kind": "Sprint presencial",
-          "title": "Claude Code Sprint",
-          "desc": "Um a quatro dias de imersão com suas equipes para entregar um sistema operacional no caso urgente. Código ao vivo, seus operadores aprendem assistindo."
+          "kind": "Sprint presencial ou remoto",
+          "title": "Auditoria, Configuração & Sprint Claude Code",
+          "desc": "Um a quatro dias com suas equipes — presencial ou remoto — para entregar um sistema operacional no caso urgente. Código ao vivo, seus operadores aprendem assistindo."
         },
         {
           "kind": "Autonomia da equipe",
@@ -445,17 +445,17 @@
   },
   "sprint": {
     "meta": {
-      "title": "Sprint Claude Code presencial : Parrit.ai | 1 a 4 dias, sistema em produção",
-      "description": "Sprint Claude Code de um a quatro dias em imersão presencial. Codamos com suas equipes o fluxo que destrava a operação. Sistema operacional na saída. Pacote fechado ou ao resultado, sem TJM.",
-      "ogTitle": "Sprint Claude Code presencial : Parrit.ai",
-      "ogDescription": "Um a quatro dias de imersão. A gente vai, coda com vocês, sai quando o sistema roda.",
-      "schemaDescription": "Sprint Claude Code de um a quatro dias presencial para entregar um sistema operacional."
+      "title": "Auditoria, Configuração & Sprint Claude Code : Parrit.ai | 1 a 4 dias, presencial ou remoto",
+      "description": "Auditoria, Configuração & Sprint Claude Code de um a quatro dias, presencial ou remoto. Codamos com suas equipes o fluxo que destrava a operação. Sistema operacional na saída. Pacote fechado ou ao resultado, sem TJM.",
+      "ogTitle": "Auditoria, Configuração & Sprint Claude Code : Parrit.ai",
+      "ogDescription": "Um a quatro dias, presencial ou remoto. A gente coda com vocês, sai quando o sistema roda.",
+      "schemaDescription": "Auditoria, Configuração & Sprint Claude Code de um a quatro dias, presencial ou remoto, para entregar um sistema operacional."
     },
     "hero": {
-      "label": "SPRINT CLAUDE CODE",
+      "label": "AUDITORIA, CONFIGURAÇÃO & SPRINT CLAUDE CODE",
       "titleMain": "Um a quatro dias.",
       "titleAccent": "Um sistema rodando na saída.",
-      "quickAnswer": "Um Sprint Claude Code é um a quatro dias de imersão na sua empresa, durante os quais construímos com suas equipes o fluxo que destrava a operação. Codamos ao vivo, seus operadores aprendem assistindo, e a gente sai quando o sistema roda em produção. Temas típicos: resposta a edital, integração pós-aquisição, fluxo comercial, monitoramento a estruturar, ERP consultável em linguagem natural. Pacote fechado ou remuneração ao resultado. Sem TJM. Entregáveis escritos.",
+      "quickAnswer": "Uma Auditoria, Configuração & Sprint Claude Code é um a quatro dias, presencial ou remoto, durante os quais construímos com suas equipes o fluxo que destrava a operação. Codamos ao vivo, seus operadores aprendem assistindo, e a gente sai quando o sistema roda em produção. Temas típicos: resposta a edital, integração pós-aquisição, fluxo comercial, monitoramento a estruturar, ERP consultável em linguagem natural. Pacote fechado ou remuneração ao resultado. Sem TJM. Entregáveis escritos.",
       "cta": "Agendar uma conversa com o Paul"
     },
     "audience": {
@@ -699,8 +699,8 @@
       "options": [
         {
           "kind": "Caso urgente",
-          "title": "Claude Code Sprint",
-          "desc": "Um caso particularmente complexo ou urgente para destravar? O Sprint resolve em um a quatro dias de imersão presencial."
+          "title": "Auditoria, Configuração & Sprint Claude Code",
+          "desc": "Um caso particularmente complexo ou urgente para destravar? O Sprint resolve em um a quatro dias, presencial ou remoto."
         },
         {
           "kind": "Produção contínua",
@@ -842,8 +842,8 @@
         },
         {
           "kind": "França / Europa",
-          "title": "Claude Code Sprint",
-          "desc": "Vocês têm uma entidade francesa para equipar também? O Sprint presencial é a opção para escritórios da zona."
+          "title": "Auditoria, Configuração & Sprint Claude Code",
+          "desc": "Vocês têm uma entidade francesa para equipar também? O Sprint, presencial ou remoto, é a opção para escritórios da zona."
         },
         {
           "kind": "Várias equipes locais",

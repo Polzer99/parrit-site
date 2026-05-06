@@ -75,7 +75,7 @@ export default async function Page({
         "@type": "Service",
         "@id": `${pageUrl}#service`,
         name: sprint.meta.ogTitle,
-        serviceType: "Sprint Claude Code on-site",
+        serviceType: "Audit, Configuration & Sprint Claude Code",
         description: sprint.meta.schemaDescription,
         provider: { "@id": `${SITE_URL}/#organization` },
         areaServed: ["FR", "EU"],

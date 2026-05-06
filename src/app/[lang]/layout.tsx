@@ -143,10 +143,10 @@ export default async function LocaleLayout({
       {
         "@type": "Service",
         "@id": `${SITE_URL}/#sprint-claude-code`,
-        name: "Sprint Claude Code sur site",
+        name: "Audit, Configuration & Sprint Claude Code",
         serviceType: "Conseil et développement IA",
         description:
-          "Sprint d'un à quatre jours en immersion sur site pour construire avec les équipes du client un outil opérationnel basé sur Claude Code. Forfait fermé, livrables écrits, pas de TJM.",
+          "Audit, Configuration & Sprint d'un à quatre jours, chez vous ou à distance, pour construire avec les équipes du client un outil opérationnel basé sur Claude Code. Forfait fermé, livrables écrits, pas de TJM.",
         provider: { "@id": `${SITE_URL}/#organization` },
         areaServed: "FR",
         audience: {
