@@ -131,6 +131,8 @@ export default async function LocaleLayout({
         },
         areaServed: ["France", "Europe", "Asia"],
         knowsAbout: [
+          "Produits IA",
+          "Conseil augmenté par Claude Code",
           "Claude Code",
           "Anthropic Claude",
           "Automatisation IA",

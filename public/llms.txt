@@ -1,6 +1,6 @@
 # Parrit.ai
 
-> Parrit.ai est une boutique IA française fondée par Paul Larmaraud et Yukun Leng. Elle accompagne fondateurs et directeurs généraux dans le déploiement de Claude Code et d'automatisations sur mesure. Approche : on vient sur site, on code avec les équipes du client le workflow qui débloque l'opération, on part quand le système tourne en production. Pas de TJM nu, pas d'audit générique, pas de slide. Cas types adressés : réponses à appels d'offres, intégrations post-acquisition, workflows commerciaux, veilles concurrentielles, ERP interrogeables en langage naturel.
+> Parrit.ai est une boutique française de produits IA et conseil augmenté par Claude Code, fondée par Paul Larmaraud et Yukun Leng. Elle accompagne fondateurs et directeurs généraux : produits IA déjà construits déployables en jours, et conseil opérationnel augmenté par Claude Code pour ce qui doit être fait sur mesure. Approche : on cartographie, on code avec les équipes du client le workflow qui débloque l'opération, on part quand le système tourne en production. Pas de TJM nu, pas d'audit générique, pas de slide. Outils déjà construits : veille juridique automatisée, acquisition signal-first, outbound personnalisé voix podcast, ERP interrogeable en langage naturel, rotation CRM intelligente, prototypage rapide de landing pages.
 
 ## Méthode
 - Cartographier les workflows et identifier les coûts réels et les urgences à ROI mesurable.

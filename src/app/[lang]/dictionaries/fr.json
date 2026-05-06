@@ -1,29 +1,29 @@
 {
   "meta": {
-    "title": "Claude Code Consulting France · Parrit.ai",
-    "description": "Consulting Claude Code on-site pour fondateurs et directeurs généraux. Sprints d'un à quatre jours, livrable opérationnel en sortie, pas de TJM. Cas réels, ROI mesuré. Paris et Île-de-France.",
-    "ogTitle": "Claude Code Consulting France · Parrit.ai",
-    "ogDescription": "Consulting Claude Code on-site. Sprints d'un à quatre jours, livrable opérationnel, pas de TJM. ROI mesurable au premier projet.",
-    "ogImageAlt": "Parrit.ai · Claude Code Consulting France",
+    "title": "Produits IA & conseil augmenté par Claude Code · Parrit.ai",
+    "description": "Produits IA et conseil opérationnel augmentés par Claude Code, pour fondateurs et directeurs généraux. Outils déjà construits, livrables en jours pas en mois, pas de TJM. ROI mesuré au premier projet.",
+    "ogTitle": "Produits IA & conseil augmenté par Claude Code · Parrit.ai",
+    "ogDescription": "Produits IA et conseil augmentés par Claude Code. Outils déjà construits, livrables en jours, pas de TJM. ROI mesurable au premier projet.",
+    "ogImageAlt": "Parrit.ai · Produits IA et conseil augmenté par Claude Code",
     "ogLocale": "fr_FR",
     "keywords": [
-      "consulting Claude Code Paris",
-      "consultant Claude Code",
+      "produits IA",
+      "conseil IA augmenté Claude Code",
       "Claude Code Consulting France",
-      "Claude Code Consulting",
       "Claude Code",
       "sprint Claude Code",
       "Anthropic Claude",
+      "outils IA sur mesure",
       "automatisation entreprise",
-      "agents IA sur mesure",
+      "agents IA",
       "intégration API",
-      "n8n alternative",
+      "n8n",
       "ROI IA dirigeants",
       "déploiement IA terrain",
       "Parrit.ai",
       "Paul Larmaraud"
     ],
-    "schemaDescription": "Consulting et déploiement Claude Code on-site pour fondateurs et directeurs généraux. ROI mesurable au premier projet, livrables opérationnels, pas de TJM."
+    "schemaDescription": "Produits IA et conseil opérationnel augmentés par Claude Code. Outils déjà construits, livrables en jours, ROI mesurable au premier projet, pas de TJM."
   },
   "nav": {
     "switcherLabel": "Langue"
@@ -32,7 +32,7 @@
     "logo": "PARRIT.AI",
     "titleMain": "Déployer.",
     "titleAccent": "Pas formuler.",
-    "subtitle": "Sprints Claude Code chez vous, de un à quatre jours. On cartographie vos workflows, on code avec vos équipes l'outil qui débloque l'opération, on part quand le système tourne en production. ROI mesurable au premier projet : sans jargon, sans fumée, sans slide.",
+    "subtitle": "Produits IA et conseil augmenté par Claude Code. On cartographie vos workflows, on code avec vos équipes l'outil qui débloque l'opération, on part quand le système tourne en production. Outils déjà construits, livrables en jours pas en mois. Sans jargon, sans fumée, sans slide.",
     "cta": "Réserver 15 minutes avec Paul",
     "ctaMicro": "Sans engagement · Réponse sous 24 heures"
   },
@@ -148,7 +148,7 @@
     ]
   },
   "cases": {
-    "title": "Ce qu'on a déjà déployé",
+    "title": "Outils déjà construits",
     "before": "Avant",
     "after": "Après",
     "items": [
@@ -165,6 +165,12 @@
         "after": "Un à cinq rendez-vous qualifiés par jour, tous fondés sur un signal détecté en temps réel sur sources publiques."
       },
       {
+        "badge": "B2B MULTI-VERTICALE",
+        "title": "Outbound personnalisé voix podcast",
+        "before": "Cold mail générique, taux d'ouverture sous 20%, taux de réponse sous 1%.",
+        "after": "Mail nourri par les transcripts publics du prospect : ouverture 60%+, taux de réponse multiplié, RDV qualifiés en sortie."
+      },
+      {
         "badge": "ESN 50 PERSONNES",
         "title": "ERP interrogeable en français",
         "before": "Chefs de projet bloqués sur BoondManager pour des requêtes simples.",
@@ -175,6 +181,12 @@
         "title": "Rotation CRM intelligente",
         "before": "Base de cinq mille contacts dormants, aucune logique de relance.",
         "after": "Cent prospects scorés ICP par jour, sortis automatiquement en top of mind commercial."
+      },
+      {
+        "badge": "MULTI-SECTEUR",
+        "title": "Prototypage rapide de landing",
+        "before": "Six semaines pour valider un message en passant par une agence.",
+        "after": "Un à trois jours : copy, design, tracking, déploiement. Vous testez votre hypothèse de marché en une semaine."
       }
     ],
     "footer": "Cas réels, clients anonymisés. Chaque système tourne en production aujourd'hui."

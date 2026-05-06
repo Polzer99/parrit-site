@@ -1,36 +1,35 @@
 {
   "meta": {
-    "title": "Claude Code Consulting · Parrit.ai",
-    "description": "On-site Claude Code consulting for founders and CEOs. One to four day sprints, working tool delivered, no day rate. Real cases, measured ROI. Paris and EU.",
-    "ogTitle": "Claude Code Consulting · Parrit.ai",
-    "ogDescription": "On-site Claude Code consulting. One to four day sprints, working tool delivered, no day rate. Measurable ROI on the first engagement.",
-    "ogImageAlt": "Parrit.ai · Claude Code Consulting",
+    "title": "AI products & consulting augmented by Claude Code · Parrit.ai",
+    "description": "AI products and operational consulting augmented by Claude Code, for founders and CEOs. Tools already built, shipped in days not months, no day rate. Measured ROI on the first engagement.",
+    "ogTitle": "AI products & consulting augmented by Claude Code · Parrit.ai",
+    "ogDescription": "AI products and consulting augmented by Claude Code. Tools already built, shipped in days, no day rate. Measurable ROI on the first engagement.",
+    "ogImageAlt": "Parrit.ai · AI products and consulting augmented by Claude Code",
     "ogLocale": "en_US",
     "keywords": [
-      "Anthropic Claude consulting",
+      "AI products",
+      "AI consulting augmented by Claude Code",
       "Claude Code consultant",
       "Claude Code Consulting",
       "enterprise AI",
       "process automation",
       "AI agents",
-      "SAP AI",
-      "automated CRM",
-      "AI consulting",
-      "Parrit.ai",
-      "Paul Larmaraud",
+      "AI tools",
       "AI deployment",
-      "digital transformation"
+      "Anthropic Claude",
+      "Parrit.ai",
+      "Paul Larmaraud"
     ],
-    "schemaDescription": "On-site Claude Code consulting and deployment for founders and CEOs. Measurable ROI on the first engagement, working deliverables, no day rate."
+    "schemaDescription": "AI products and operational consulting augmented by Claude Code. Tools already built, shipped in days, measurable ROI on the first engagement, no day rate."
   },
   "nav": {
     "switcherLabel": "Language"
   },
   "hero": {
     "logo": "PARRIT.AI",
-    "titleMain": "Your",
-    "titleAccent": "exponential partner.",
-    "subtitle": "We design and deploy bespoke solutions that accelerate your growth, for the long run.",
+    "titleMain": "Ship.",
+    "titleAccent": "Don't theorize.",
+    "subtitle": "AI products and consulting augmented by Claude Code. We map your workflows, code with your teams the tool that unblocks operations, and leave when the system runs in production. Tools already built, shipped in days not months. No jargon, no slides.",
     "cta": "Speak with an advisor",
     "ctaMicro": "No commitment · One of our advisors will reach out"
   },
@@ -146,7 +145,7 @@
     ]
   },
   "cases": {
-    "title": "Results",
+    "title": "Tools already built",
     "before": "Before",
     "after": "After",
     "items": [
@@ -163,6 +162,12 @@
         "after": "1 to 5 qualified meetings/day on detected signals"
       },
       {
+        "badge": "B2B MULTI-VERTICAL",
+        "title": "Podcast-voice personalized outbound",
+        "before": "Generic cold mail, open rate under 20%, reply rate under 1%",
+        "after": "Mail informed by prospect's public transcripts: 60%+ open rate, multiplied reply rate, qualified meetings booked."
+      },
+      {
         "badge": "50-PERSON IT CONSULTANCY",
         "title": "ERP queried in plain language",
         "before": "PMs stuck on BoondManager",
@@ -173,6 +178,12 @@
         "title": "Smart CRM rotation",
         "before": "5,000 dormant contacts",
         "after": "100+ prospects/day auto-scored against ICP"
+      },
+      {
+        "badge": "MULTI-SECTOR",
+        "title": "Rapid landing page prototyping",
+        "before": "Six weeks to validate a message through an agency",
+        "after": "1 to 3 days: copy, design, tracking, deployment. You test your market hypothesis in a week."
       }
     ],
     "footer": "Real cases, clients anonymized. Every system is running in production today."

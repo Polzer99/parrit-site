@@ -1,36 +1,35 @@
 {
   "meta": {
-    "title": "Consultoria Claude Code · Parrit.ai",
-    "description": "Consultoria Claude Code presencial para fundadores e CEOs. Sprints de um a quatro dias, ferramenta operacional entregue, sem taxa diária. Casos reais, ROI medido.",
-    "ogTitle": "Consultoria Claude Code · Parrit.ai",
-    "ogDescription": "Consultoria Claude Code presencial. Sprints de um a quatro dias, ferramenta operacional entregue, sem taxa diária. ROI mensurável já no primeiro projeto.",
-    "ogImageAlt": "Parrit.ai · Consultoria Claude Code",
+    "title": "Produtos de IA & consultoria potencializada por Claude Code · Parrit.ai",
+    "description": "Produtos de IA e consultoria operacional potencializados por Claude Code, para fundadores e CEOs. Ferramentas já construídas, entregues em dias e não meses, sem taxa diária. ROI medido no primeiro projeto.",
+    "ogTitle": "Produtos de IA & consultoria potencializada por Claude Code · Parrit.ai",
+    "ogDescription": "Produtos de IA e consultoria potencializados por Claude Code. Ferramentas já construídas, entregues em dias, sem taxa diária. ROI mensurável já no primeiro projeto.",
+    "ogImageAlt": "Parrit.ai · Produtos de IA e consultoria potencializada por Claude Code",
     "ogLocale": "pt_BR",
     "keywords": [
+      "produtos de IA",
+      "consultoria IA potencializada Claude Code",
       "consultor Claude Code",
-      "Claude Code Consulting Brasil",
       "Consultoria Claude Code",
       "IA empresarial",
       "automação de processos",
       "agentes de IA",
-      "SAP IA",
-      "CRM automatizado",
-      "consultoria em IA",
-      "Parrit.ai",
-      "Paul Larmaraud",
+      "ferramentas de IA",
       "implantação de IA",
-      "transformação digital"
+      "Anthropic Claude",
+      "Parrit.ai",
+      "Paul Larmaraud"
     ],
-    "schemaDescription": "Consultoria e implantação Claude Code presencial para fundadores e CEOs. ROI mensurável no primeiro projeto, entregas operacionais, sem taxa diária."
+    "schemaDescription": "Produtos de IA e consultoria operacional potencializados por Claude Code. Ferramentas já construídas, entregues em dias, ROI mensurável no primeiro projeto, sem taxa diária."
   },
   "nav": {
     "switcherLabel": "Idioma"
   },
   "hero": {
     "logo": "PARRIT.AI",
-    "titleMain": "Seu parceiro",
-    "titleAccent": "exponencial.",
-    "subtitle": "Projetamos e implantamos soluções sob medida que aceleram o crescimento da sua empresa de forma sustentável.",
+    "titleMain": "Entregar.",
+    "titleAccent": "Não teorizar.",
+    "subtitle": "Produtos de IA e consultoria potencializados por Claude Code. Mapeamos seus fluxos, codamos com suas equipes a ferramenta que destrava a operação, e saímos quando o sistema roda em produção. Ferramentas já construídas, entregues em dias e não meses. Sem jargão, sem fumaça, sem slide.",
     "cta": "Falar com um consultor",
     "ctaMicro": "Sem compromisso · Um dos nossos consultores entrará em contato"
   },
@@ -146,7 +145,7 @@
     ]
   },
   "cases": {
-    "title": "Resultados",
+    "title": "Ferramentas já construídas",
     "before": "Antes",
     "after": "Depois",
     "items": [
@@ -163,6 +162,12 @@
         "after": "1 a 5 reuniões qualificadas/dia sobre sinais detectados"
       },
       {
+        "badge": "B2B MULTI-VERTICAL",
+        "title": "Outbound personalizado com voz de podcast",
+        "before": "Cold mail genérico, taxa de abertura abaixo de 20%, taxa de resposta abaixo de 1%",
+        "after": "Mail nutrido pelas transcrições públicas do prospect : abertura 60%+, taxa de resposta multiplicada, reuniões qualificadas marcadas."
+      },
+      {
         "badge": "CONSULTORIA DE TI : 50 PESSOAS",
         "title": "ERP consultado em linguagem natural",
         "before": "Gerentes de projeto travados no BoondManager",
@@ -173,6 +178,12 @@
         "title": "Rotação inteligente de CRM",
         "before": "Base de 5.000 contatos parados",
         "after": "100+ prospects/dia pontuados contra o ICP automaticamente"
+      },
+      {
+        "badge": "MULTI-SETOR",
+        "title": "Prototipagem rápida de landing page",
+        "before": "Seis semanas para validar uma mensagem por meio de uma agência",
+        "after": "1 a 3 dias : copy, design, tracking, deploy. Você testa sua hipótese de mercado em uma semana."
       }
     ],
     "footer": "Casos reais, clientes anonimizados. Cada sistema está em produção hoje."
