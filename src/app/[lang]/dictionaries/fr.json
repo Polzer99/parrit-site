@@ -1,50 +1,51 @@
 {
   "meta": {
-    "title": "Produits IA & conseil augmenté par Claude Code · Parrit.ai",
-    "description": "Produits IA et conseil opérationnel augmentés par Claude Code, pour fondateurs et directeurs généraux. Outils déjà construits, livrables en jours pas en mois, pas de TJM. ROI mesuré au premier projet.",
-    "ogTitle": "Produits IA & conseil augmenté par Claude Code · Parrit.ai",
-    "ogDescription": "Produits IA et conseil augmentés par Claude Code. Outils déjà construits, livrables en jours, pas de TJM. ROI mesurable au premier projet.",
-    "ogImageAlt": "Parrit.ai · Produits IA et conseil augmenté par Claude Code",
+    "title": "Parrit · Outils sur mesure déployés dans vos opérations",
+    "description": "Partenaire opérationnel des directions générales. On code avec vos équipes l'outil qui débloque l'opération, en quelques jours. Vous repartez avec un système qui tourne en production. Pas de TJM, pas de slide.",
+    "ogTitle": "Parrit · Outils sur mesure déployés dans vos opérations",
+    "ogDescription": "On code avec vos équipes l'outil qui débloque l'opération, en quelques jours. Système en production en sortie. Pas de TJM.",
+    "ogImageAlt": "Parrit · Partenaire opérationnel des directions générales",
     "ogLocale": "fr_FR",
     "keywords": [
-      "produits IA",
-      "conseil IA augmenté Claude Code",
+      "outils sur mesure entreprise",
+      "automatisation des opérations",
+      "partenaire opérationnel direction générale",
+      "déploiement outils internes",
+      "intégration n8n entreprise",
+      "agents IA en production",
       "Claude Code Consulting France",
       "Claude Code",
       "sprint Claude Code",
+      "comment intégrer un agent IA",
+      "qu'est-ce qu'un agent IA",
       "Anthropic Claude",
-      "outils IA sur mesure",
-      "automatisation entreprise",
-      "agents IA",
-      "intégration API",
-      "n8n",
-      "ROI IA dirigeants",
-      "déploiement IA terrain",
+      "produits IA dirigeants",
+      "conseil augmenté",
       "Parrit.ai",
       "Paul Larmaraud"
     ],
-    "schemaDescription": "Produits IA et conseil opérationnel augmentés par Claude Code. Outils déjà construits, livrables en jours, ROI mesurable au premier projet, pas de TJM."
+    "schemaDescription": "Cabinet de conseil augmenté qui code et déploie des outils sur mesure dans les opérations de ses clients. Système en production en sortie. Pas de TJM."
   },
   "nav": {
     "switcherLabel": "Langue"
   },
   "hero": {
     "logo": "PARRIT.AI",
-    "titleMain": "Déployer.",
-    "titleAccent": "Pas formuler.",
-    "subtitle": "Produits IA et conseil augmenté par Claude Code. On cartographie vos workflows, on code avec vos équipes l'outil qui débloque l'opération, on part quand le système tourne en production. Outils déjà construits, livrables en jours pas en mois. Sans jargon, sans fumée, sans slide.",
+    "titleMain": "Construire.",
+    "titleAccent": "Pas conseiller.",
+    "subtitle": "Partenaire opérationnel de directions générales depuis plus de deux ans : avocats, grossistes, courtiers, start-up, franchisés, ESN, grand groupe retail. On cartographie votre opération, on code ensemble l'outil qui débloque le goulet, je pars quand le système tourne en production. Quelques jours, pas quelques mois. Sans jargon, sans slide, sans TJM.",
     "cta": "Réserver 15 minutes avec Paul",
-    "ctaMicro": "Sans engagement · Réponse sous 24 heures"
+    "ctaMicro": "Sans engagement · Réponse sous 24 heures · DMs ouverts"
   },
   "chatVoice": {
-    "title": "Ou racontez-nous votre cas en quelques mots",
-    "subtitle": "Décrivez à la voix ou à l'écrit le sujet sur lequel vous voudriez nous voir intervenir. On revient avec un cadrage, pas un devis.",
-    "micLabel": "Parlez-nous de votre besoin",
+    "title": "Ou racontez-moi votre cas en quelques mots",
+    "subtitle": "Décrivez à la voix ou à l'écrit ce que vous voudriez voir débloqué. Je reviens avec un cadrage opérationnel, pas un devis.",
+    "micLabel": "Parlez-moi de votre besoin",
     "micHint": "Cliquez pour parler, ou tapez votre message",
     "examplesLabel": "Exemples :",
     "chips": [
       "ESN de 50 personnes, automatiser BoondManager",
-      "Cabinet d'avocats, veille juridique automatique",
+      "Cabinet d'avocats, veille juridique chaque matin",
       "Groupe en croissance externe, intégrer une acquisition"
     ],
     "modalTitle": "Parrit",
@@ -55,7 +56,7 @@
     "listening": "Écoute en cours...",
     "voiceUnsupported": "La saisie vocale n'est pas disponible sur ce navigateur. Tapez votre message.",
     "voiceDenied": "Accès micro refusé. Tapez votre message.",
-    "leadIntro": "Pour qu'on vous prépare un cadrage, laissez votre prénom et votre email.",
+    "leadIntro": "Pour que je vous prépare un cadrage, laissez votre prénom et votre email.",
     "leadFirstName": "Prénom",
     "leadEmail": "Email",
     "leadPhone": "Téléphone (optionnel)",
@@ -71,11 +72,11 @@
     "leadSlotAfternoon": "Après-midi",
     "leadSubmit": "Envoyer",
     "leadSubmitting": "Envoi...",
-    "leadThanks": "Merci. On revient vers vous sous vingt-quatre heures.",
+    "leadThanks": "Merci. Je reviens vers vous sous vingt-quatre heures.",
     "leadError": "Le message n'est pas parti. Réessayez ou écrivez à paul.larmaraud@parrit.ai.",
     "greeting": "Bonjour. Racontez-moi votre contexte : quelle entreprise, quelle taille, et quelle opération vous voudriez voir tourner toute seule."
   },
-  "stackLabel": "Le stack qu'on déploie",
+  "stackLabel": "Là où on intervient",
   "pricingModels": {
     "title": "Deux façons de structurer la collaboration",
     "models": [
@@ -83,7 +84,7 @@
         "kind": "Au projet",
         "title": "Forfait fermé, périmètre clair",
         "bullets": [
-          "Diagnostic initial offert",
+          "Cadrage initial offert",
           "Périmètre, calendrier et livrables écrits noir sur blanc",
           "Paiement par étape : vous validez chaque livrable avant la suivante",
           "Aucun frais caché, aucun TJM"
@@ -104,51 +105,51 @@
     ]
   },
   "showcase": {
-    "title": "Ce qu'on déploie",
+    "title": "Ce qu'on déploie chez vous",
     "items": [
-      {
-        "label": "Prototypes fonctionnels"
-      },
       {
         "label": "Outils métier sur mesure"
       },
       {
-        "label": "Automatisations qui tournent en production"
+        "label": "Workflows qui tournent en production"
       },
       {
         "label": "Acculturation des équipes par la pratique"
+      },
+      {
+        "label": "Cadrage et stratégie ancrés terrain"
       }
     ],
     "midCta": "Parlons de votre cas"
   },
   "approach": {
-    "title": "Notre méthode tient en quatre verbes",
-    "description": "Une méthode opérationnelle, pas conceptuelle. Un réseau de plus de vingt experts, techniques et métier, mobilisables en renfort sur les chantiers qui le nécessitent. Pas pour faire du conseil. Pour livrer.",
+    "title": "Quatre verbes, pas un de plus",
+    "description": "Conseil augmenté : je traite toute la chaîne, de la stratégie au résultat. Une équipe d'experts métier et techniques, mobilisable en renfort sur les chantiers qui le demandent. Pas pour produire du conseil. Pour livrer.",
     "pillars": [
       {
         "n": "1",
         "title": "Cartographier",
-        "desc": "On identifie où l'IA produit un ROI réel, pas où elle fait joli en démo."
+        "desc": "On regarde où votre opération coince réellement, avec les opérateurs concernés. Pas de questionnaire générique."
       },
       {
         "n": "2",
         "title": "Prototyper",
-        "desc": "Un outil fonctionnel en production, pas un audit qui finit dans un tiroir."
+        "desc": "Un outil fonctionnel testé sur vos données. Pas un audit qui finit dans un tiroir."
       },
       {
         "n": "3",
         "title": "Déployer",
-        "desc": "Itératif, jusqu'à ce que le système tourne sans nous."
+        "desc": "Itératif, jusqu'à ce que le système tourne en production sans nous, dans votre infrastructure."
       },
       {
         "n": "4",
         "title": "Rester",
-        "desc": "Pour la suite, si vous le voulez. Pas par défaut."
+        "desc": "Pour la suite, si vous le souhaitez. Pas par défaut."
       }
     ]
   },
   "cases": {
-    "title": "Outils déjà construits",
+    "title": "Systèmes déjà déployés chez nos clients",
     "before": "Avant",
     "after": "Après",
     "items": [
@@ -156,35 +157,35 @@
         "badge": "CABINET D'AVOCATS D'AFFAIRES",
         "title": "Veille juridique automatisée",
         "before": "Deux heures par matin à éplucher jurisprudence et presse spécialisée.",
-        "after": "Email digest livré chaque lundi 7h30, prêt à diffuser aux clients. Construit en huit jours."
+        "after": "Email digest livré chaque lundi 7h30, prêt à diffuser aux clients. Construit en huit jours, sur site."
       },
       {
         "badge": "COURTIER ÉNERGIE B2B",
-        "title": "Acquisition signal-first",
+        "title": "Acquisition pilotée par les signaux",
         "before": "Cold calling à l'aveugle, taux de rendez-vous marginal.",
-        "after": "Un à cinq rendez-vous qualifiés par jour, tous fondés sur un signal détecté en temps réel sur sources publiques."
+        "after": "Un à cinq rendez-vous qualifiés par jour, tous déclenchés par un signal détecté en temps réel sur sources publiques."
       },
       {
-        "badge": "B2B MULTI-VERTICALE",
-        "title": "Outbound personnalisé voix podcast",
+        "badge": "GROSSISTE B2B",
+        "title": "Outbound personnalisé par signal",
         "before": "Cold mail générique, taux d'ouverture sous 20%, taux de réponse sous 1%.",
-        "after": "Mail nourri par les transcripts publics du prospect : ouverture 60%+, taux de réponse multiplié, RDV qualifiés en sortie."
+        "after": "Mail nourri par le contexte public du prospect : ouverture au-delà de 60%, taux de réponse multiplié, RDV qualifiés en sortie."
       },
       {
-        "badge": "ESN 50 PERSONNES",
+        "badge": "ESN DE 50 PERSONNES",
         "title": "ERP interrogeable en français",
-        "before": "Chefs de projet bloqués sur BoondManager pour des requêtes simples.",
+        "before": "Chefs de projet bloqués sur l'ERP pour des requêtes simples.",
         "after": "Question posée en français, réponse instantanée. Prototype livré en cinq jours sur site."
       },
       {
         "badge": "GROUPE FRANCHISÉ",
-        "title": "Rotation CRM intelligente",
+        "title": "CRM qui sort les prochains à appeler",
         "before": "Base de cinq mille contacts dormants, aucune logique de relance.",
-        "after": "Cent prospects scorés ICP par jour, sortis automatiquement en top of mind commercial."
+        "after": "Cent prospects priorisés par jour, sortis automatiquement en top of mind commercial."
       },
       {
-        "badge": "MULTI-SECTEUR",
-        "title": "Prototypage rapide de landing",
+        "badge": "GRAND GROUPE RETAIL",
+        "title": "Prototypage rapide de landing et tests marché",
         "before": "Six semaines pour valider un message en passant par une agence.",
         "after": "Un à trois jours : copy, design, tracking, déploiement. Vous testez votre hypothèse de marché en une semaine."
       }
@@ -192,17 +193,17 @@
     "footer": "Cas réels, clients anonymisés. Chaque système tourne en production aujourd'hui."
   },
   "claudeCode": {
-    "badge": "TROIS LIGNES, RIEN D'AUTRE",
-    "title": "Trois façons d'embarquer Claude Code dans votre opération",
+    "badge": "TROIS FORMATS, RIEN D'AUTRE",
+    "title": "Trois façons de m'embarquer dans votre opération",
     "subtitle": "On vient. On construit. On livre. Pas de TJM, pas d'audit, pas de slide.",
     "offers": [
       {
         "kind": "Sprint chez vous ou à distance",
-        "title": "Audit, Configuration & Sprint Claude Code",
+        "title": "Sprint d'un à quatre jours",
         "intro": "Le format principal : un à quatre jours, chez vous ou à distance, avec vos équipes.",
         "bullets": [
           "Choix d'un sujet précis : appel d'offres, intégration post-acquisition, workflow commercial, veille à structurer",
-          "Code en live, Claude Code en main : vos opérateurs apprennent en regardant",
+          "Code en live à l'écran : vos opérateurs apprennent en regardant",
           "Système opérationnel en sortie : testé, déployé, documenté",
           "Forfait fermé, livrables écrits, pas de TJM"
         ],
@@ -210,23 +211,23 @@
       },
       {
         "kind": "Setup",
-        "title": "Setup Claude Code pour vos équipes",
+        "title": "Setup outils chez vous",
         "recommendedBadge": "Le plus demandé",
         "intro": "Installation, configuration et acculturation : vos équipes deviennent autonomes.",
         "bullets": [
-          "Configuration complète sur votre infra : CLAUDE.md, hooks, skills, MCP, workflows métier",
+          "Configuration complète sur votre infrastructure : workflows métier, accès sécurisés, connecteurs internes",
           "Formation hands-on sur vos cas réels, pas sur des exemples théoriques",
           "Documentation interne livrée, transmissible à un nouvel arrivant",
           "Sortie : un environnement répétable, qui tient sans nous"
         ],
-        "footnote": "Pour les directions qui veulent garder la main sur leur IA, pas la sous-traiter."
+        "footnote": "Pour les directions qui veulent garder la main sur leurs outils, pas les sous-traiter."
       },
       {
         "kind": "Automatisations",
         "title": "Automatisations qui tournent en production",
         "intro": "La suite logique du sprint : on industrialise ce qui doit tourner tout seul.",
         "bullets": [
-          "Workflows déterministes (n8n, scripts, agents) construits sur mesure",
+          "Workflows déterministes construits sur mesure (n8n, scripts, automates métier)",
           "Périmètres récurrents : CRM, veille, facturation, outbound, reporting interne",
           "Versionnés Git, déployés sur votre infrastructure ou la nôtre",
           "Forfait au livrable : vous payez ce qui tourne"
@@ -234,31 +235,31 @@
         "footnote": "Pour les dirigeants qui veulent récupérer du temps de cerveau."
       }
     ],
-    "target": "Pour fondateurs et directeurs généraux qui veulent piloter leur opération avec Claude Code : pas attendre un éditeur SaaS, ni recruter une équipe tech, ni écouter un cabinet de conseil.",
+    "target": "Pour fondateurs et directeurs généraux qui veulent piloter leur opération à la main : pas attendre un éditeur SaaS, ni recruter une équipe tech, ni écouter un cabinet de conseil.",
     "cta": "Réserver 15 minutes avec Paul"
   },
   "quote": {
-    "text": "« Les autres formulent. Nous déployons et nous restons. »",
-    "cite": ": Paul Larmaraud, fondateur de Parrit.ai"
+    "text": "« Les autres formulent. Moi je code, je déploie, et je reste. »",
+    "cite": ": Paul Larmaraud, fondateur de Parrit"
   },
   "founders": {
     "title": "Qui construit",
     "paul": {
       "name": "Paul Larmaraud",
       "role": "Fondateur",
-      "bio": "Vision produit et terrain. Ex-équipe opérations mondiales Lime. A conduit l'acquisition de Bolloré Énergie, Groupe SEB, Nestlé, Carte Noire. Construit ses propres outils chaque semaine : ce qu'il déploie chez ses clients tourne d'abord chez lui.",
-      "signature": "Produit · Opérations · Terrain"
+      "bio": "Vision produit et terrain. Ex-équipe opérations Lime à Paris, ex-Arkel. Partenaire opérationnel de directions générales depuis plus de deux ans : avocats, grossistes, courtiers, start-up, franchisés, ESN, grand groupe retail. Code et déploie ses propres outils chaque semaine — ce qui tourne chez ses clients tourne d'abord chez lui. DMs ouverts.",
+      "signature": "Produit · Code · Opérations · Terrain"
     },
     "yukun": {
       "name": "Yukun Leng",
       "role": "Co-fondatrice",
-      "bio": "Dix années au cœur des maisons de luxe européennes, dont LVMH. Maîtrise des opérations entre la France et la Chine. Acharnement et écoute rare : assume la profondeur d'analyse que la vente ne se permet pas toujours.",
+      "bio": "Dix années au cœur des maisons de luxe européennes, dont LVMH. Maîtrise des opérations entre la France et la Chine. Acharnement et écoute rare : assume la profondeur d'analyse que la vente ne se permet pas toujours. Mobilise un réseau d'experts métier en renfort sur les chantiers qui le demandent.",
       "signature": "Luxe · LVMH · Opérations · Chine"
     }
   },
   "cta": {
     "title": "Parlons de votre cas.",
-    "subtitle": "Laissez vos coordonnées. Paul vous rappelle dans les vingt-quatre heures.",
+    "subtitle": "Laissez vos coordonnées. Paul vous rappelle dans les vingt-quatre heures. Ou écrivez-lui directement, DMs ouverts.",
     "form": {
       "firstName": "Prénom",
       "lastName": "Nom",

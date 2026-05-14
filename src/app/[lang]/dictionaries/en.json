@@ -1,37 +1,40 @@
 {
   "meta": {
-    "title": "AI products & consulting augmented by Claude Code · Parrit.ai",
-    "description": "AI products and operational consulting augmented by Claude Code, for founders and CEOs. Tools already built, shipped in days not months, no day rate. Measured ROI on the first engagement.",
-    "ogTitle": "AI products & consulting augmented by Claude Code · Parrit.ai",
-    "ogDescription": "AI products and consulting augmented by Claude Code. Tools already built, shipped in days, no day rate. Measurable ROI on the first engagement.",
-    "ogImageAlt": "Parrit.ai · AI products and consulting augmented by Claude Code",
+    "title": "Parrit · Custom tools shipped inside your operations",
+    "description": "Operational partner to executive teams. We build the tool that unblocks your operations, with your people, in days. You leave with a system running in production. No day rate, no slides.",
+    "ogTitle": "Parrit · Custom tools shipped inside your operations",
+    "ogDescription": "We build the tool that unblocks your operations, with your people, in days. System in production at the end. No day rate.",
+    "ogImageAlt": "Parrit · Operational partner to executive teams",
     "ogLocale": "en_US",
     "keywords": [
-      "AI products",
-      "AI consulting augmented by Claude Code",
-      "Claude Code consultant",
+      "custom enterprise tools",
+      "operations automation",
+      "operational partner CEO",
+      "in-house tooling deployment",
+      "n8n integration",
+      "AI agents in production",
       "Claude Code Consulting",
-      "enterprise AI",
-      "process automation",
-      "AI agents",
-      "AI tools",
-      "AI deployment",
+      "Claude Code consultant",
+      "how to integrate AI agents",
+      "what is an AI agent",
       "Anthropic Claude",
+      "AI products",
+      "augmented consulting",
       "Parrit.ai",
       "Paul Larmaraud"
     ],
-    "schemaDescription": "AI products and operational consulting augmented by Claude Code. Tools already built, shipped in days, measurable ROI on the first engagement, no day rate."
+    "schemaDescription": "Augmented consulting firm that codes and ships custom tools inside the operations of its clients. System in production at the end. No day rate."
   },
   "nav": {
     "switcherLabel": "Language"
   },
   "hero": {
     "logo": "PARRIT.AI",
-    "titleMain": "Ship.",
-    "titleAccent": "Don't theorize.",
-    "subtitle": "AI products and consulting augmented by Claude Code. We map your workflows, code with your teams the tool that unblocks operations, and leave when the system runs in production. Tools already built, shipped in days not months. No jargon, no slides.",
-    "cta": "Speak with an advisor",
-    "ctaMicro": "No commitment · One of our advisors will reach out"
+    "titleMain": "Build.",
+    "titleAccent": "Don't advise.",
+    "subtitle": "Operational partner to executive teams for over two years: law firms, wholesalers, energy brokers, startups, franchise groups, IT consultancies, large retail. We map your operation, code the tool that breaks the bottleneck, and leave when the system runs in production. Days, not months. No jargon, no slides, no day rate.",
+    "cta": "Book 15 minutes with Paul",
+    "ctaMicro": "No commitment · Reply within 24 hours · DMs open"
   },
   "chatVoice": {
     "title": "Or tell us directly about your need",
@@ -72,7 +75,7 @@
     "leadError": "Something broke. Try again or email paul.larmaraud@parrit.ai.",
     "greeting": "Hi! Give us your context: what company, what size, and what pain do you want gone?"
   },
-  "stackLabel": "The stack we deploy",
+  "stackLabel": "Where we operate",
   "pricingModels": {
     "title": "Two pricing models, your call",
     "models": [
@@ -101,41 +104,41 @@
     ]
   },
   "showcase": {
-    "title": "What we build",
+    "title": "What we ship inside your operation",
     "items": [
       {
-        "label": "Custom prototyping"
+        "label": "Custom in-house tools"
       },
       {
-        "label": "Dedicated business tools"
+        "label": "Workflows running in production"
       },
       {
-        "label": "Process automation"
+        "label": "Hands-on team upskilling"
       },
       {
-        "label": "AI coaching & training"
+        "label": "Strategy & framing rooted in the field"
       }
     ],
-    "midCta": "Let's discuss your case"
+    "midCta": "Let's talk about your case"
   },
   "approach": {
-    "title": "Our method fits in four verbs",
-    "description": "An operational method, not a conceptual one. A network of over twenty technical and business experts, available as reinforcement on the projects that need them. Not to consult. To deliver.",
+    "title": "Four verbs, no more",
+    "description": "Augmented consulting: I cover the whole chain, from strategy to result. A team of business and technical experts, available as reinforcement on the projects that need them. Not to consult. To deliver.",
     "pillars": [
       {
         "n": "1",
         "title": "Map",
-        "desc": "We identify where AI delivers real ROI, not where it looks good in a demo."
+        "desc": "We look at where your operation actually breaks, with the people who run it. No generic questionnaires."
       },
       {
         "n": "2",
         "title": "Prototype",
-        "desc": "A working tool in production, not an audit that ends up in a drawer."
+        "desc": "A working tool tested on your data. Not an audit that ends up in a drawer."
       },
       {
         "n": "3",
         "title": "Deploy",
-        "desc": "Iteratively, until the system runs without us."
+        "desc": "Iteratively, until the system runs in production without us, inside your infrastructure."
       },
       {
         "n": "4",
@@ -145,7 +148,7 @@
     ]
   },
   "cases": {
-    "title": "Tools already built",
+    "title": "Systems already shipped inside our clients",
     "before": "Before",
     "after": "After",
     "items": [
@@ -189,61 +192,73 @@
     "footer": "Real cases, clients anonymized. Every system is running in production today."
   },
   "claudeCode": {
-    "badge": "CLAUDE CODE OFFERS",
-    "title": "Two ways to get started with Claude Code",
-    "subtitle": "Either we come and ship. Or we make you autonomous.",
+    "badge": "THREE FORMATS, NOTHING ELSE",
+    "title": "Three ways to bring me into your operation",
+    "subtitle": "We come in. We build. We ship. No day rate, no audit deck, no slides.",
     "offers": [
       {
         "kind": "Sprint onsite or remote",
-        "title": "Audit, Configuration & Claude Code Sprint",
-        "intro": "We come in or join remotely, build your operating system with you, and leave.",
+        "title": "One-to-four-day sprint",
+        "intro": "The main format: 1 to 4 days, onsite or remote, with your teams.",
         "bullets": [
-          "1 to 4 days, onsite or remote : hyper-intense",
-          "We code alongside you, Claude Code live",
-          "You leave with a system that runs",
-          "Zero slides, zero decks : shipped code only"
+          "A specific subject: bid response, post-acquisition integration, sales workflow, monitoring system",
+          "Code live on screen — your operators learn by watching",
+          "Operational system at the end: tested, deployed, documented",
+          "Fixed price, written deliverables, no day rate"
         ],
-        "footnote": "For ambitious operators who want to take back control in under a week."
+        "footnote": "For executives who want a concrete result before the end of the week."
       },
       {
-        "kind": "Autonomy",
-        "title": "Claude Code audit & setup",
+        "kind": "Setup",
+        "title": "In-house tooling setup",
         "recommendedBadge": "Most requested",
-        "intro": "One month to run your business with Claude Code.",
+        "intro": "Installation, configuration and hands-on enablement: your teams become autonomous.",
         "bullets": [
-          "Stack audit: CLAUDE.md, memory, hooks, skills",
-          "Business workflows shipped (CRM, monitoring, invoicing, outbound)",
-          "Hands-on training on your real cases",
-          "Full autonomy by end of month"
+          "Full configuration on your infrastructure: business workflows, secure access, internal connectors",
+          "Hands-on training on your real cases, not theoretical examples",
+          "Internal documentation delivered, transferable to a new joiner",
+          "End state: a repeatable environment that holds without us"
         ],
-        "footnote": "For leaders and agencies who want to keep AI in their hands."
+        "footnote": "For executive teams who want to keep their tools in-house, not outsource them."
+      },
+      {
+        "kind": "Production-grade automations",
+        "title": "Automations running in production",
+        "intro": "The natural next step after the sprint: industrialize what should run by itself.",
+        "bullets": [
+          "Deterministic workflows built to spec (n8n, scripts, business automation)",
+          "Recurring scopes: CRM, monitoring, invoicing, outbound, internal reporting",
+          "Git-versioned, deployed on your infrastructure or ours",
+          "Pricing per deliverable: you pay for what runs"
+        ],
+        "footnote": "For executives who want their cognitive bandwidth back."
       }
     ],
-    "target": "For founders, IT consultancies, agencies and tech leaders who want to run their business with Claude Code rather than leaving it to the engineering team.",
-    "cta": "Book a 15-min audit"
+    "target": "For founders and CEOs who want to drive their operation with their hands on the keys: not wait for a SaaS vendor, not hire a tech team, not listen to a consulting firm.",
+    "cta": "Book 15 minutes with Paul"
   },
   "quote": {
-    "text": "“AI doesn't replace your teams. It gives them back the hours that bureaucracy steals.”",
-    "cite": ": Paul Larmaraud, Parrit.ai"
+    "text": "“Others theorize. I code, I ship, and I stay.”",
+    "cite": ": Paul Larmaraud, founder of Parrit"
   },
   "founders": {
-    "title": "Who we are",
+    "title": "Who builds",
     "paul": {
       "name": "Paul Larmaraud",
-      "role": "Co-founder",
-      "bio": "Product vision and on-the-ground approach. Former global operations team at Lime. Led the acquisition of Groupe Seb, Nestlé, Carte Noire, SNCF at Arkel.",
-      "signature": "Product · Operations · Acquisition"
+      "role": "Founder",
+      "bio": "Product vision and field. Former operations team at Lime in Paris, former Arkel. Operational partner to executive teams for over two years: law firms, wholesalers, energy brokers, startups, franchise groups, IT consultancies, large retail. Codes and ships his own tools every week — what runs in his clients runs at home first. DMs open.",
+      "signature": "Product · Code · Operations · Field"
     },
     "yukun": {
       "name": "Yukun Leng",
       "role": "Co-founder",
-      "bio": "Ten years at the heart of European luxury houses, including LVMH. Supply chain and process optimization expert between France and China.",
-      "signature": "Luxury · LVMH · Supply Chain · China"
+      "bio": "Ten years at the heart of European luxury houses, including LVMH. Mastery of operations between France and China. Quiet rigor and rare listening: takes on the depth of analysis sales doesn't always allow. Mobilizes a network of business experts as reinforcement on the projects that need them.",
+      "signature": "Luxury · LVMH · Operations · China"
     }
   },
   "cta": {
-    "title": "Let's talk about your project.",
-    "subtitle": "Leave your details : one of our advisors will reach out.",
+    "title": "Let's talk about your case.",
+    "subtitle": "Leave your details. Paul will get back to you within 24 hours. Or DM him directly — DMs are open.",
     "form": {
       "firstName": "First name",
       "lastName": "Last name",
@@ -263,7 +278,7 @@
     },
     "sent": {
       "thanks": "Thanks {firstName}!",
-      "confirmation": "One of our advisors will call you at {phone} ({slot}).",
+      "confirmation": "Paul will call you at {phone} ({slot}).",
       "slotAsap": "as soon as possible",
       "slotMorning": "between 9am and 12pm",
       "slotNoon": "between 12pm and 2pm",
@@ -273,7 +288,7 @@
     "secondaryWhatsapp": "Message on WhatsApp",
     "footer": {
       "legal": "© 2026 Paul Larmaraud · SASU PARRIT.AI · Rueil-Malmaison, France",
-      "rgpd": "This site uses no advertising cookies. Analytics are collected anonymously in compliance with GDPR. By leaving your details, you agree to be contacted by one of our advisors. Contact:"
+      "rgpd": "This site uses no advertising cookies. Analytics are collected anonymously in compliance with GDPR. By leaving your details, you agree to be contacted by Paul. Contact:"
     }
   },
   "whatsappMessages": {
