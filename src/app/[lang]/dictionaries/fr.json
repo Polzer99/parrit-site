@@ -33,7 +33,7 @@
     "logo": "PARRIT.AI",
     "titleMain": "Construire.",
     "titleAccent": "Pas conseiller.",
-    "subtitle": "Partenaire opérationnel de directions générales depuis plus de deux ans : avocats, grossistes, courtiers, start-up, franchisés, ESN, grand groupe retail. On cartographie votre opération, on code ensemble l'outil qui débloque le goulet, je pars quand le système tourne en production. Quelques jours, pas quelques mois. Sans jargon, sans slide, sans TJM.",
+    "subtitle": "Partenaire opérationnel de directions générales depuis plus de deux ans : avocats, grossistes, courtiers, start-up, franchisés, ESN, grand groupe retail. On cartographie votre opération, on code ensemble l'outil qui débloque le goulot, je pars quand le système tourne en production. Quelques jours, pas quelques mois. Sans jargon, sans slide, sans TJM.",
     "cta": "Réserver 15 minutes avec Paul",
     "ctaMicro": "Sans engagement · Réponse sous 24 heures · DMs ouverts"
   },
@@ -393,7 +393,7 @@
     "deliverables": {
       "title": "Ce que vous repartez avec",
       "items": [
-        "Cartographie écrite de vos workflows clés et de leurs goulets d'étranglement",
+        "Cartographie écrite de vos workflows clés et de leurs goulots d'étranglement",
         "Top cinq cas d'usage Claude Code chiffrés (gain, complexité, délai)",
         "Démo Claude Code en direct sur l'un de vos cas réels",
         "Plan d'action priorisé sur quatre-vingt-dix jours, en make / buy / déléguer",
@@ -490,7 +490,7 @@
       "items": [
         {
           "role": "Dirigeants qui veulent un résultat avant la fin de la semaine",
-          "desc": "Vous avez un goulet d'étranglement identifié et vous ne voulez pas attendre trois mois qu'un éditeur SaaS sorte la fonctionnalité."
+          "desc": "Vous avez un goulot d'étranglement identifié et vous ne voulez pas attendre trois mois qu'un éditeur SaaS sorte la fonctionnalité."
         },
         {
           "role": "Directions opérations qui veulent débloquer un workflow précis",
