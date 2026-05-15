@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
+import fs from "fs";
+import path from "path";
 import { getAllSlugs } from "@/lib/blog";
-import { locales } from "@/app/[lang]/dictionaries";
+import { locales, type Locale } from "@/app/[lang]/dictionaries";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://parrit.ai";
@@ -12,8 +14,22 @@ const STATIC_ROUTES = [
   { path: "/setup-claude-code", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/remote", changeFrequency: "monthly" as const, priority: 0.85 },
   { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
+  { path: "/glossaire", changeFrequency: "weekly" as const, priority: 0.85 },
   { path: "/auteur/paul-larmaraud", changeFrequency: "monthly" as const, priority: 0.7 },
 ];
+
+type GlossaryIndex = {
+  articles: { slug: string; langs: Locale[] }[];
+};
+
+function loadGlossaryIndex(): GlossaryIndex {
+  try {
+    const file = path.join(process.cwd(), "content", "glossaire", "index.json");
+    return JSON.parse(fs.readFileSync(file, "utf-8")) as GlossaryIndex;
+  } catch {
+    return { articles: [] };
+  }
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
@@ -53,5 +69,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  return [...staticEntries, ...blogEntries];
+  const glossaryIndex = loadGlossaryIndex();
+  const glossaryEntries: MetadataRoute.Sitemap = glossaryIndex.articles.flatMap((a) =>
+    a.langs.map((lang) => ({
+      url: `${SITE_URL}/${lang}/glossaire/${a.slug}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+      alternates: {
+        languages: Object.fromEntries(
+          a.langs.map((l) => [l, `${SITE_URL}/${l}/glossaire/${a.slug}`]),
+        ),
+      },
+    })),
+  );
+
+  return [...staticEntries, ...blogEntries, ...glossaryEntries];
 }

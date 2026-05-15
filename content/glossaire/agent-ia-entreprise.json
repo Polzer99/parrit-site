@@ -1,0 +1,54 @@
+{
+  "slug": "agent-ia-entreprise",
+  "category": "fondamentaux",
+  "published_at": "2026-05-15",
+  "updated_at": "2026-05-15",
+  "langs": {
+    "fr": {
+      "title": "Qu'est-ce qu'un agent IA en entreprise ?",
+      "subtitle": "Définition opérationnelle, sans jargon, vue d'un partenaire qui en déploie chaque semaine.",
+      "meta": {
+        "title": "Qu'est-ce qu'un agent IA en entreprise ? Définition concrète · Parrit",
+        "description": "Un agent IA en entreprise n'est pas un chatbot. C'est un programme qui exécute une tâche de bout en bout dans vos systèmes. Définition, exemples concrets de production, différences avec un assistant ou un RPA, par Paul Larmaraud.",
+        "ogTitle": "Qu'est-ce qu'un agent IA en entreprise ? · Parrit",
+        "ogDescription": "Définition opérationnelle d'un agent IA en entreprise. Exemples concrets, différences avec chatbot et RPA."
+      },
+      "intro": "Un agent IA en entreprise n'est pas un chatbot, ce n'est pas non plus une automatisation rigide façon RPA. C'est un programme qui prend une consigne de haut niveau, décide des étapes à exécuter, agit dans vos systèmes (CRM, ERP, mail, fichiers, API tierces), vérifie son propre travail, et s'arrête quand le résultat est obtenu — sans qu'un humain ne supervise chaque action. Pour qu'il tienne en production, il faut une couche métier précise, des accès sécurisés, des garde-fous explicites, et une boucle de feedback sur les erreurs. C'est cette couche métier qu'on construit avec nos clients, en quelques jours, à partir de cas réels.",
+      "sections": [
+        {
+          "q": "Quelle est la différence entre un chatbot, un assistant et un agent ?",
+          "a": "Un chatbot répond. Vous posez une question, il renvoie un texte. Un assistant aide à formuler. Vous lui demandez d'écrire un mail, il produit un brouillon que vous validez. Un agent fait. Vous lui demandez de relancer les 50 leads sans réponse depuis 7 jours, il lit votre CRM, sélectionne les bons profils, génère un message personnalisé pour chacun, vérifie qu'aucun n'a déjà reçu un message similaire, envoie via Gmail, log dans le CRM. Vous récupérez le résultat, pas les étapes."
+        },
+        {
+          "q": "Quels sont les composants techniques d'un agent IA en entreprise ?",
+          "a": "Quatre couches superposées. (1) Un modèle de langage (LLM) qui raisonne et décide. (2) Des outils que l'agent peut utiliser : connecteurs vers vos bases (Supabase, Postgres), API métier (Salesforce, HubSpot, SAP), exécution de code, lecture/écriture de fichiers. (3) Une mémoire : ce que l'agent sait sur votre opération (vocabulaire, contraintes, processus, historique). (4) Des garde-fous : actions interdites, validations humaines obligatoires sur les tâches sensibles, log d'audit complet."
+        },
+        {
+          "q": "Quels cas d'usage marchent vraiment en entreprise aujourd'hui ?",
+          "a": "Trois familles tiennent en production : (1) Préparation de décision : agrégation et synthèse de signaux dispersés (veille concurrentielle, jurisprudence, presse spécialisée, indicateurs internes). (2) Exécution répétitive avec jugement : qualification de leads, premier tri de tickets support, relances commerciales personnalisées, génération de rapports clients. (3) Médiation entre systèmes hétérogènes : extraction de données depuis un ERP vers un CRM, intégration post-acquisition, synchronisation de référentiels."
+        },
+        {
+          "q": "Combien de temps pour mettre un agent en production ?",
+          "a": "Si le cas est bien cadré et qu'on a accès aux bons systèmes, un premier agent fonctionnel en quelques jours, en production sous 2-3 semaines. Le délai n'est pas le code — c'est la cartographie du processus métier réel, la définition des garde-fous, et la validation par les opérateurs. Un agent qui tourne sans être lu par les équipes est un agent mort."
+        },
+        {
+          "q": "Quels sont les risques d'un agent IA en entreprise et comment on les gère ?",
+          "a": "Trois risques principaux. (1) Action erronée à grande échelle : on contre via des actions à validation humaine sur les opérations sensibles (envoi mail, paiement, suppression). (2) Hallucination factuelle : on contre en branchant l'agent sur vos sources internes plutôt qu'en lui faisant inventer. (3) Dérive de comportement dans le temps : on contre via observabilité (chaque décision loggée + revue régulière des cas tangents)."
+        },
+        {
+          "q": "Quelle est la différence entre un agent IA et une automatisation RPA classique ?",
+          "a": "Le RPA suit un script déterministe figé : si l'écran change, il casse. L'agent IA prend une consigne de haut niveau, s'adapte aux variations, et peut traiter des cas non anticipés au moment du build. Le RPA est rigide et bon marché à maintenir si rien ne bouge. L'agent est flexible mais demande de l'observabilité et des garde-fous. Sur des opérations stables et volumineuses, le RPA reste pertinent. Sur des opérations qui demandent du jugement contextuel, l'agent gagne."
+        }
+      ],
+      "related": [
+        {"slug": "comment-integrer-agent-ia", "label": "Comment intégrer un agent IA dans votre opération"},
+        {"slug": "claude-code-vs-chatgpt", "label": "Différence entre Claude Code et ChatGPT pour un dirigeant"}
+      ],
+      "cta": {
+        "title": "Vous voulez voir un agent tourner sur votre cas réel ?",
+        "subtitle": "Sprint d'un à quatre jours, chez vous ou à distance. Forfait fermé. DMs ouverts.",
+        "label": "Réserver 15 minutes avec Paul"
+      }
+    }
+  }
+}
