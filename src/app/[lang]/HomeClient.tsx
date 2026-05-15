@@ -9,25 +9,14 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import LogosStack from "@/components/LogosStack";
 import PricingModels from "@/components/PricingModels";
 import QuickContact from "@/components/QuickContact";
+import { captureTouch, getAttribution } from "@/lib/attribution";
 import type { Dictionary, Locale } from "./dictionaries";
 
 const WEBHOOK_URL =
   "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 
-/* ─── UTM parameter extraction ─── */
-function getUtmParams(): Record<string, string> {
-  if (typeof window === "undefined") return {};
-  const params = new URLSearchParams(window.location.search);
-  const utms: Record<string, string> = {};
-  ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((key) => {
-    const val = params.get(key);
-    if (val) utms[key] = val;
-  });
-  return utms;
-}
-
 function trackCtaClick(label?: string) {
-  const utms = getUtmParams();
+  const utms = getAttribution();
   if (typeof window !== "undefined" && (window as unknown as Record<string, unknown>).posthog) {
     ((window as unknown as Record<string, unknown>).posthog as { capture: (e: string, p: Record<string, unknown>) => void }).capture("cta_clicked", {
       label: label || "unknown",

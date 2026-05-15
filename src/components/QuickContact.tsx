@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { getAttribution } from "@/lib/attribution";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 
@@ -25,17 +26,6 @@ function looksLikeEmail(value: string): boolean {
   return value.includes("@");
 }
 
-function getUtmParams(): Record<string, string> {
-  if (typeof window === "undefined") return {};
-  const params = new URLSearchParams(window.location.search);
-  const utms: Record<string, string> = {};
-  ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((key) => {
-    const val = params.get(key);
-    if (val) utms[key] = val;
-  });
-  return utms;
-}
-
 export default function QuickContact({ strings, page, variant = "dark" }: Props) {
   const [contact, setContact] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -45,7 +35,7 @@ export default function QuickContact({ strings, page, variant = "dark" }: Props)
     if (!contact.trim()) return;
     setState("sending");
     const isEmail = looksLikeEmail(contact);
-    const utms = getUtmParams();
+    const utms = getAttribution();
     const ph = typeof window !== "undefined"
       ? (window as unknown as Record<string, unknown>).posthog as
           | { capture: (e: string, p: Record<string, unknown>) => void; identify: (id: string, p?: Record<string, unknown>) => void }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-27T10:10:00.319899",
+  "generated_at": "2026-05-15T14:10:00.839522",
   "workspace": {
     "id": "3cd72035-f601-4946-94be-9baae74e3388",
     "slug": "parrit",
@@ -3652,12 +3652,7 @@
     "à_contacter_linkedin": 17,
     "à_relancer": 53
   },
-  "touchpoints_7d": [
-    {
-      "channel": "?",
-      "n": 70
-    }
-  ],
+  "touchpoints_7d": [],
   "transcripts_recent": [
     {
       "id": "ccbcc61c-d8d4-4a21-a2ff-6453bca659f2",

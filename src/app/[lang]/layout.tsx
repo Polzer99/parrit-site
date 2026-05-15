@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "../globals.css";
+import AttributionInit from "@/components/AttributionInit";
 import {
   getDictionary,
   hasLocale,
@@ -243,6 +244,7 @@ export default async function LocaleLayout({
         className={`${body.variable} ${heading.variable} min-h-screen`}
         style={{ fontFamily: "var(--font-body)" }}
       >
+        <AttributionInit />
         {children}
       </body>
     </html>
