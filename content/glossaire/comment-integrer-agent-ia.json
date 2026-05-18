@@ -1,0 +1,56 @@
+{
+  "slug": "comment-integrer-agent-ia",
+  "category": "fondamentaux",
+  "published_at": "2026-05-18",
+  "updated_at": "2026-05-18",
+  "langs": {
+    "fr": {
+      "title": "Comment intégrer un agent dans votre opération ?",
+      "subtitle": "L'intégration d'un agent n'est pas un projet IT, c'est une réorganisation du travail. On part du process, pas de la technologie.",
+      "meta": {
+        "title": "Comment intégrer un agent IA dans votre opération ? | Parrit",
+        "description": "Démarrez avec un process, pas une technologie. Guide pratique pour intégrer un système d'automatisation dans vos flux de travail, sans jargon ni promesses vaines.",
+        "ogTitle": "Intégrer un agent : par où commencer ?",
+        "ogDescription": "L'intégration d'un agent n'est pas un projet tech, c'est une réorganisation du travail. On vous explique la méthode, étape par étape."
+      },
+      "intro": "Intégrer un agent, ce n'est pas brancher une API et espérer que la magie opère. C'est choisir un process métier précis, le déconstruire, et le réassembler avec une nouvelle capacité d'automatisation. L'objectif n'est pas de 'faire de l'IA', mais d'augmenter la capacité d'une équipe sur une tâche spécifique et mesurable. On ne cherche pas à remplacer, on cherche à démultiplier. Voici les questions qu'on se pose avec nos clients pour y arriver.",
+      "sections": [
+        {
+          "q": "Par quel process commencer pour une première intégration ?",
+          "a": "On commence par une tâche à fort volume, répétitive et à faible complexité. L'objectif est un gain rapide et visible, pas une révolution. Pour un courtier en assurance, ça peut être la qualification des demandes de devis entrantes. Pour une ESN, le tri et l'assignation des tickets de support de niveau 1. Pour une franchise, la consolidation des rapports de vente journaliers de chaque point de vente. On isole un goulot d'étranglement simple et on le fait sauter."
+        },
+        {
+          "q": "Faut-il former un modèle sur nos propres données tout de suite ?",
+          "a": "Non. C'est l'erreur classique qui paralyse les projets. On débute avec un modèle généraliste pour valider le workflow et l'adoption par les équipes. L'entraînement sur des données propriétaires vient dans un second temps, une fois que la valeur du système est prouvée. Un cabinet d'avocats peut tester un agent sur la synthèse de jurisprudence publique avant de le laisser analyser des contrats confidentiels. On prouve le concept, puis on affine."
+        },
+        {
+          "q": "Qui doit piloter le projet d'intégration dans l'entreprise ?",
+          "a": "Le responsable du métier concerné, pas le DSI seul. Si l'agent doit aider à répondre aux appels d'offres, c'est le directeur commercial qui pilote, avec le soutien technique de l'IT. L'outil est au service de l'opérationnel. Le succès du projet dépend de l'appropriation par celui dont le problème est résolu. L'ownership métier est non négociable."
+        },
+        {
+          "q": "Comment mesurer concrètement le succès de l'intégration ?",
+          "a": "On définit un ou deux indicateurs clés avant d'écrire la moindre ligne de code. Pas de métriques vagues comme 'l'amélioration de la productivité'. On veut du concret. Pour un grossiste, c'est la réduction du temps de traitement d'une commande de 15 à 2 minutes. Pour un service client, la baisse du temps de première réponse de 4 heures à 30 minutes. On mesure l'impact sur le business : temps gagné, erreurs évitées, capacité de traitement augmentée."
+        },
+        {
+          "q": "Quel est le risque principal et comment l'éviter ?",
+          "a": "Le risque numéro un est de construire un outil parfait que personne n'utilise. L'adoption par les équipes est plus importante que la perfection technique. Pour l'éviter, on implique les utilisateurs finaux dès le premier jour. On conçoit l'agent *avec* eux, pas *pour* eux. On déploie une première version simple en quelques semaines, on collecte le feedback terrain, et on itère. C'est un projet de change management, soutenu par une technologie."
+        }
+      ],
+      "related": [
+        {
+          "slug": "choisir-le-bon-process-a-automatiser",
+          "label": "Choisir le bon process à automatiser"
+        },
+        {
+          "slug": "cout-pilote-agent-automatise",
+          "label": "Combien coûte un pilote d'agent automatisé ?"
+        }
+      ],
+      "cta": {
+        "title": "Prêt à intégrer votre premier agent ?",
+        "subtitle": "On ne vend pas de la technologie, on résout des problèmes opérationnels. Parlons de votre cas spécifique.",
+        "label": "Discutons de votre projet"
+      }
+    }
+  }
+}
