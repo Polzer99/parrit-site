@@ -31,11 +31,11 @@
   },
   "hero": {
     "logo": "PARRIT.AI",
-    "titleMain": "Construire.",
-    "titleAccent": "Pas conseiller.",
-    "subtitle": "Partenaire opérationnel de directions générales depuis plus de deux ans : avocats, grossistes, courtiers, start-up, franchisés, ESN, grand groupe retail. On cartographie votre opération, on code ensemble l'outil qui débloque le goulot, je pars quand le système tourne en production. Quelques jours, pas quelques mois. Sans jargon, sans slide, sans TJM.",
+    "titleMain": "Le goulot,",
+    "titleAccent": "on le casse.",
+    "subtitle": "Je cartographie votre opération, je code l'outil qui débloque, je pars quand ça tourne. Avocats, grossistes, courtiers, start-up, franchisés, ESN, retail. Quelques jours. Pas de slide.",
     "cta": "Réserver 15 minutes avec Paul",
-    "ctaMicro": "Sans engagement · Réponse sous 24 heures · DMs ouverts"
+    "ctaMicro": "Sans engagement · Réponse sous 24 heures"
   },
   "chatVoice": {
     "title": "Ou racontez-moi votre cas en quelques mots",
