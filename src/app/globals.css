@@ -386,6 +386,93 @@ body > * {
   line-height: 1.3;
 }
 
+/* ─── Cas vitrines : 2 catégories × 2 exemples ─────── */
+.cas-categories-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+@media (min-width: 880px) {
+  .cas-categories-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+}
+.cas-category {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  padding: 28px 26px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.cas-category-badge {
+  align-self: flex-start;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #c8956c;
+  padding: 6px 12px;
+  background: rgba(200, 149, 108, 0.1);
+  border: 1px solid rgba(200, 149, 108, 0.3);
+  border-radius: 999px;
+}
+.cas-category-title {
+  font-family: var(--font-heading);
+  font-size: 21px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.3;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.cas-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 4px;
+}
+.cas-example-card {
+  padding: 18px 18px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.5);
+}
+.cas-example-title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+.cas-example-brief {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.55;
+  font-weight: 300;
+  margin: 0 0 10px;
+}
+.cas-example-result {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #8b5a2b;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(200, 149, 108, 0.3);
+}
+.cas-example-result span {
+  color: #c8956c;
+  font-weight: 700;
+  margin-right: 4px;
+}
+
 /* ─── Grilles strictes (anti 3+1 orphelin) ─────────── */
 .grid-3-cards {
   display: grid;

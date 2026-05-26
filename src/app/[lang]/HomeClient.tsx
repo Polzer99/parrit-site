@@ -8,6 +8,7 @@ import { ButtonColorful } from "@/components/ui/button-colorful";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import QuickContact from "@/components/QuickContact";
 import Stamps from "@/components/Stamps";
+import OfferAnimation, { offerTypeFromTitle } from "@/components/OfferAnimation";
 import { captureTouch, getAttribution } from "@/lib/attribution";
 import type { Dictionary, Locale } from "./dictionaries";
 
@@ -340,6 +341,23 @@ function ClaudeCodeOffer({ dict }: { dict: Dictionary }) {
                     {offer.recommendedBadge}
                   </span>
                 )}
+                {(() => {
+                  const animType = offerTypeFromTitle(offer.title);
+                  return animType ? (
+                    <div
+                      style={{
+                        marginBottom: 18,
+                        height: 90,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        opacity: 0.95,
+                      }}
+                    >
+                      <OfferAnimation type={animType} />
+                    </div>
+                  ) : null;
+                })()}
                 <span
                   style={{
                     fontFamily: "var(--font-body)",
@@ -561,17 +579,17 @@ function CtaFooter({ dict }: { dict: Dictionary }) {
 /* ═══════════════════════════════════════════════════════════
    CAS VITRINES PAR PROFIL (4 sous-pages dédiées)
    ═══════════════════════════════════════════════════════════ */
-function CasVitrinesProfilSection({ dict, lang }: { dict: Dictionary; lang: Locale }) {
+function CasVitrinesProfilSection({ dict }: { dict: Dictionary }) {
   const cv = dict.casVitrines.homeSection;
   return (
-    <section className="light-section" data-ph="cas-vitrines-profil">
-      <div className="section-inner" style={{ maxWidth: 1040 }}>
+    <section className="light-section" data-ph="cas-categories">
+      <div className="section-inner" style={{ maxWidth: 1200 }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          style={{ textAlign: "center", marginBottom: 40 }}
+          style={{ textAlign: "center", marginBottom: 48 }}
         >
           <span
             style={{
@@ -601,7 +619,7 @@ function CasVitrinesProfilSection({ dict, lang }: { dict: Dictionary; lang: Loca
               lineHeight: 1.7,
               color: "var(--text-muted)",
               fontWeight: 300,
-              maxWidth: 720,
+              maxWidth: 760,
               margin: "0 auto",
             }}
           >
@@ -609,86 +627,39 @@ function CasVitrinesProfilSection({ dict, lang }: { dict: Dictionary; lang: Loca
           </p>
         </motion.div>
 
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          className="grid-4-cards"
-        >
-          {cv.cards.map((card) => (
-            <motion.div key={card.slug} variants={cardReveal}>
-              <Link
-                href={`/${lang}/cas/${card.slug}`}
-                data-ph={`cas-vitrine-${card.slug}`}
-                onClick={() => trackCtaClick(`cas-vitrine-${card.slug}`)}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  height: "100%",
-                  padding: "26px 24px",
-                  borderRadius: 14,
-                  border: "1px solid rgba(0,0,0,0.08)",
-                  background: "rgba(255,255,255,0.55)",
-                  backdropFilter: "blur(4px)",
-                  textDecoration: "none",
-                  transition: "transform 0.2s ease, border-color 0.2s ease",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 11,
-                    letterSpacing: "0.18em",
-                    textTransform: "uppercase",
-                    color: "#c8956c",
-                    marginBottom: 12,
-                    fontWeight: 600,
-                  }}
-                >
-                  {card.badge}
-                </span>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-heading)",
-                    fontSize: 19,
-                    fontWeight: 500,
-                    color: "var(--text)",
-                    marginBottom: 12,
-                    lineHeight: 1.3,
-                    letterSpacing: "-0.01em",
-                  }}
-                >
-                  {card.title}
-                </h3>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 14,
-                    color: "var(--text-muted)",
-                    lineHeight: 1.55,
-                    fontWeight: 300,
-                    flex: 1,
-                    marginBottom: 18,
-                  }}
-                >
-                  {card.summary}
-                </p>
-                <span
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 13,
-                    fontWeight: 500,
-                    color: "#c8956c",
-                    alignSelf: "flex-start",
-                  }}
-                >
-                  {cv.ctaLabel} →
-                </span>
-              </Link>
+        <div className="cas-categories-grid">
+          {cv.categories.map((cat, ci) => (
+            <motion.div
+              key={cat.badge}
+              className="cas-category"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: ci * 0.15 }}
+            >
+              <span className="cas-category-badge">{cat.badge}</span>
+              <h3 className="cas-category-title">{cat.title}</h3>
+              <div className="cas-examples">
+                {cat.examples.map((ex, ei) => (
+                  <motion.div
+                    key={ex.title}
+                    className="cas-example-card"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.5, delay: ci * 0.15 + ei * 0.1 + 0.2 }}
+                  >
+                    <h4 className="cas-example-title">{ex.title}</h4>
+                    <p className="cas-example-brief">{ex.brief}</p>
+                    <p className="cas-example-result">
+                      <span aria-hidden="true">→</span> {ex.result}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -710,7 +681,7 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
         subtitle="Quatre œuvres de France et de Chine. Parce qu'avant d'opérer, on regarde."
       />
       <ClaudeCodeOffer dict={dict} />
-      <CasVitrinesProfilSection dict={dict} lang={lang} />
+      <CasVitrinesProfilSection dict={dict} />
       <CtaFooter dict={dict} />
     </>
   );

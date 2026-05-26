@@ -930,34 +930,68 @@
       "description": "Quatre profils d'entreprise, quatre transformations opérées par Parrit. TPE/artisan, PME B2C, cabinet de conseil, grand groupe."
     },
     "homeSection": {
-      "badge": "CAS VITRINES PAR PROFIL",
-      "title": "Le même OS, pour des profils d'entreprise très différents",
-      "subtitle": "Quatre profils types pour vous projeter. Cliquez sur celui qui ressemble le plus au vôtre pour voir la transformation détaillée.",
+      "badge": "DEUX FRONTS, UNE MÉTHODE",
+      "title": "Deux types de chantiers, une même façon de construire",
+      "subtitle": "On capte, on prototype, on opère, on transmet. Cette méthode s'applique aux deux fronts critiques : ce qui pèse aujourd'hui sur vos équipes, et ce qu'elles n'ont pas le temps d'aller chercher.",
+      "categories": [
+        {
+          "badge": "TÂCHES INTERNES EXISTANTES",
+          "title": "Automatiser ce qui pèse sur vos équipes",
+          "examples": [
+            {
+              "title": "Capture leads + gestion stocks",
+              "brief": "Vos canaux entrants (site, réseaux sociaux, téléphone, point de vente) débordent. L'agent capte chaque demande, la qualifie par typologie, route vers le bon canal et tient les stocks à jour.",
+              "result": "100 % des leads captés, 60 % du temps administratif libéré pour le fondateur."
+            },
+            {
+              "title": "Veille juridique automatisée",
+              "brief": "Deux heures par matin à éplucher jurisprudence et presse spécialisée. L'agent digest, classe, et prépare l'email du lundi prêt à diffuser.",
+              "result": "Digest livré chaque lundi 7 h 30, prêt à envoyer aux clients."
+            }
+          ]
+        },
+        {
+          "badge": "GÉNÉRATION DE BUSINESS",
+          "title": "Aller chercher le business que vos équipes ne touchent pas",
+          "examples": [
+            {
+              "title": "Pipeline outbound sur signaux faibles",
+              "brief": "Vos prospects parlent en podcast, lèvent des fonds, recrutent. L'agent scanne 18 podcasts par jour, extrait les dirigeants pertinents, écrit avec votre voix.",
+              "result": "4 RDV qualifiés par semaine, taux de réponse 12 % contre 2 % en cold classique."
+            },
+            {
+              "title": "Cold call piloté par alerte temps réel",
+              "brief": "L'agent détecte qui ouvre un appel d'offres, qui change de poste, qui a un signal d'achat. Vous appelez au bon moment, jamais à l'aveugle.",
+              "result": "1 à 5 RDV qualifiés par jour, tous déclenchés par un signal détecté en temps réel."
+            }
+          ]
+        }
+      ],
       "ctaLabel": "Voir le cas",
       "cards": [
         {
           "slug": "tpe-artisan-commercant",
-          "badge": "TPE / ARTISAN",
-          "title": "Automatiser le back-office et capter 100 % des leads",
-          "summary": "Pour les fondateurs qui font tout : capture multicanale, gestion stocks, relances clients dans votre voix."
+          "badge": "",
+          "title": "",
+          "summary": ""
         },
         {
           "slug": "pme-marque-b2c",
-          "badge": "PME / MARQUE B2C",
-          "title": "Reprendre la main sur votre visibilité IA Amazon",
-          "summary": "Pour les marques qui dépendent des marketplaces : monitoring Rufus, alertes concurrentielles, dashboard quotidien."
+          "badge": "",
+          "title": "",
+          "summary": ""
         },
         {
           "slug": "cabinet-conseil",
-          "badge": "CONSEIL / SERVICES",
-          "title": "4 RDV qualifiés par semaine sur signal",
-          "summary": "Pour les cabinets dont l'outbound classique est en panne : pipeline voix dirigeant branché sur signaux faibles."
+          "badge": "",
+          "title": "",
+          "summary": ""
         },
         {
           "slug": "grand-groupe",
-          "badge": "GRAND GROUPE / ETI",
-          "title": "6 dirigeants, 6 agents en production en 2 jours",
-          "summary": "Pour les directions T&D qui veulent installer une vraie autonomie IA chez leurs dirigeants."
+          "badge": "",
+          "title": "",
+          "summary": ""
         }
       ]
     },
