@@ -930,22 +930,24 @@
       "description": "Quatre profils d'entreprise, quatre transformations opérées par Parrit. TPE/artisan, PME B2C, cabinet de conseil, grand groupe."
     },
     "homeSection": {
-      "badge": "DEUX FRONTS, UNE MÉTHODE",
+      "badge": "QUATRE EXEMPLES PARMI BEAUCOUP D'AUTRES",
       "title": "Deux types de chantiers, une même façon de construire",
-      "subtitle": "On capte, on prototype, on opère, on transmet. Cette méthode s'applique aux deux fronts critiques : ce qui pèse aujourd'hui sur vos équipes, et ce qu'elles n'ont pas le temps d'aller chercher.",
+      "subtitle": "Capter, prototyper, opérer, transmettre. Cette méthode s'applique à deux fronts critiques : ce qui pèse aujourd'hui sur vos équipes, et ce qu'elles n'ont pas le temps d'aller chercher. Chaque entreprise a ses propres goulots.",
       "categories": [
         {
           "badge": "TÂCHES INTERNES EXISTANTES",
           "title": "Automatiser ce qui pèse sur vos équipes",
           "examples": [
             {
-              "title": "Capture leads + gestion stocks",
-              "brief": "Vos canaux entrants (site, réseaux sociaux, téléphone, point de vente) débordent. L'agent capte chaque demande, la qualifie par typologie, route vers le bon canal et tient les stocks à jour.",
-              "result": "100 % des leads captés, 60 % du temps administratif libéré pour le fondateur."
+              "title": "Centraliser les demandes multicanales",
+              "context": "Exemple observé chez un artisan haut de gamme",
+              "brief": "Vos canaux entrants (site, réseaux sociaux, téléphone, point de vente) débordent. L'agent capte chaque demande, la qualifie par typologie, route, et tient les stocks à jour.",
+              "result": "100 % des leads captés, 60 % du temps administratif libéré."
             },
             {
-              "title": "Veille juridique automatisée",
-              "brief": "Deux heures par matin à éplucher jurisprudence et presse spécialisée. L'agent digest, classe, et prépare l'email du lundi prêt à diffuser.",
+              "title": "Digest thématique automatisé",
+              "context": "Exemple observé dans un cabinet d'avocats",
+              "brief": "Deux heures par matin à éplucher la presse spécialisée et la jurisprudence. L'agent digest, classe, et prépare l'email du lundi prêt à diffuser.",
               "result": "Digest livré chaque lundi 7 h 30, prêt à envoyer aux clients."
             }
           ]
@@ -956,17 +958,20 @@
           "examples": [
             {
               "title": "Pipeline outbound sur signaux faibles",
+              "context": "Exemple observé dans un cabinet de conseil",
               "brief": "Vos prospects parlent en podcast, lèvent des fonds, recrutent. L'agent scanne 18 podcasts par jour, extrait les dirigeants pertinents, écrit avec votre voix.",
               "result": "4 RDV qualifiés par semaine, taux de réponse 12 % contre 2 % en cold classique."
             },
             {
-              "title": "Cold call piloté par alerte temps réel",
+              "title": "Prospection pilotée par alerte temps réel",
+              "context": "Exemple observé chez un courtier B2B",
               "brief": "L'agent détecte qui ouvre un appel d'offres, qui change de poste, qui a un signal d'achat. Vous appelez au bon moment, jamais à l'aveugle.",
               "result": "1 à 5 RDV qualifiés par jour, tous déclenchés par un signal détecté en temps réel."
             }
           ]
         }
       ],
+      "footer": "On en fait beaucoup d'autres. Le mieux pour identifier le vôtre : 15 minutes avec Paul.",
       "ctaLabel": "Voir le cas",
       "cards": [
         {

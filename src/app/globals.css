@@ -446,8 +446,16 @@ body > * {
   font-size: 16px;
   font-weight: 500;
   color: var(--text);
-  margin: 0 0 8px;
+  margin: 0 0 4px;
   line-height: 1.3;
+}
+.cas-example-context {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.45);
+  margin: 0 0 10px;
+  font-weight: 400;
 }
 .cas-example-brief {
   font-family: var(--font-body);
@@ -471,6 +479,19 @@ body > * {
   color: #c8956c;
   font-weight: 700;
   margin-right: 4px;
+}
+.cas-footer {
+  margin-top: 40px;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text-muted);
+  font-weight: 300;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
 }
 
 /* ─── Grilles strictes (anti 3+1 orphelin) ─────────── */

@@ -650,6 +650,9 @@ function CasVitrinesProfilSection({ dict }: { dict: Dictionary }) {
                     transition={{ duration: 0.5, delay: ci * 0.15 + ei * 0.1 + 0.2 }}
                   >
                     <h4 className="cas-example-title">{ex.title}</h4>
+                    {ex.context && (
+                      <p className="cas-example-context">{ex.context}</p>
+                    )}
                     <p className="cas-example-brief">{ex.brief}</p>
                     <p className="cas-example-result">
                       <span aria-hidden="true">→</span> {ex.result}
@@ -660,6 +663,18 @@ function CasVitrinesProfilSection({ dict }: { dict: Dictionary }) {
             </motion.div>
           ))}
         </div>
+
+        {cv.footer && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="cas-footer"
+          >
+            {cv.footer}
+          </motion.p>
+        )}
       </div>
     </section>
   );
