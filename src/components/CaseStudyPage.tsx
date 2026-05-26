@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import QuickContact, { type QuickContactStrings } from "@/components/QuickContact";
-import ToolLogos from "@/components/ToolLogos";
 import FlowDiagram from "@/components/FlowDiagram";
 import type { Locale } from "@/app/[lang]/dictionaries";
 
@@ -44,17 +43,8 @@ export interface CaseStudyData {
   };
 }
 
-export interface CaseStudyNavLink {
-  slug: string;
-  badge: string;
-  title: string;
-}
-
 interface Props {
   data: CaseStudyData;
-  otherProfiles: CaseStudyNavLink[];
-  otherProfilesTitle: string;
-  otherProfilesLabel: string;
   lang: Locale;
   quickContact: QuickContactStrings;
   pageId: string;
@@ -81,15 +71,10 @@ const cardReveal = {
 
 export default function CaseStudyPage({
   data,
-  otherProfiles,
-  otherProfilesTitle,
-  otherProfilesLabel,
   lang,
   quickContact,
   pageId,
 }: Props) {
-  const contactAnchor = "#contact";
-
   return (
     <>
       {/* NAV */}
@@ -171,191 +156,8 @@ export default function CaseStudyPage({
         </div>
       </section>
 
-      {/* PROFIL ENTREPRISE */}
-      <section className="light-section">
-        <div className="section-inner" style={{ maxWidth: 880 }}>
-          <motion.h2
-            className="light-section-title"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            style={{ marginBottom: 32 }}
-          >
-            {data.profile.title}
-          </motion.h2>
-
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            className="grid-4-cards"
-          >
-            {data.profile.items.map((item) => (
-              <motion.div
-                key={item.label}
-                variants={cardReveal}
-                style={{
-                  padding: "20px 22px",
-                  borderRadius: 12,
-                  border: "1px solid rgba(0,0,0,0.08)",
-                  background: "rgba(255,255,255,0.55)",
-                }}
-              >
-                <span
-                  style={{
-                    display: "block",
-                    fontFamily: "var(--font-body)",
-                    fontSize: 11,
-                    fontWeight: 500,
-                    letterSpacing: "0.16em",
-                    textTransform: "uppercase",
-                    color: "#c8956c",
-                    marginBottom: 8,
-                  }}
-                >
-                  {item.label}
-                </span>
-                <span
-                  style={{
-                    display: "block",
-                    fontFamily: "var(--font-heading)",
-                    fontSize: 16,
-                    fontWeight: 500,
-                    color: "var(--text)",
-                    lineHeight: 1.4,
-                  }}
-                >
-                  {item.value}
-                </span>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* TRANSFORMATION OPÉRÉE */}
-      <section className="dark-section">
-        <div className="section-inner" style={{ maxWidth: 820 }}>
-          <motion.h2
-            className="dark-section-title"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            style={{ marginBottom: 32 }}
-          >
-            {data.transformation.title}
-          </motion.h2>
-
-          <motion.blockquote
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            style={{
-              fontFamily: "var(--font-heading)",
-              fontSize: "clamp(22px, 3.2vw, 30px)",
-              fontWeight: 400,
-              color: "#fff",
-              lineHeight: 1.35,
-              marginBottom: 28,
-              paddingLeft: 24,
-              borderLeft: "3px solid #c8956c",
-            }}
-          >
-            {data.transformation.quote}
-          </motion.blockquote>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 16,
-              color: "var(--text-light-muted)",
-              lineHeight: 1.7,
-              fontWeight: 300,
-            }}
-          >
-            {data.transformation.body}
-          </motion.p>
-        </div>
-      </section>
-
       {/* FLOW DIAGRAM */}
       <FlowDiagram slug={data.slug} />
-
-      {/* DOMAINES IMPACTÉS */}
-      <section className="light-section">
-        <div className="section-inner" style={{ maxWidth: 880 }}>
-          <motion.h2
-            className="light-section-title"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            style={{ marginBottom: 32 }}
-          >
-            {data.domains.title}
-          </motion.h2>
-
-          <motion.ul
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6 }}
-            style={{
-              listStyle: "none",
-              padding: 0,
-              margin: 0,
-              display: "flex",
-              flexDirection: "column",
-              gap: 12,
-            }}
-          >
-            {data.domains.items.map((item, i) => (
-              <motion.li
-                key={i}
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.45, delay: i * 0.05 }}
-                style={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: 14,
-                  fontFamily: "var(--font-body)",
-                  fontSize: 16,
-                  color: "var(--text)",
-                  lineHeight: 1.55,
-                  fontWeight: 300,
-                  padding: "14px 0",
-                  borderBottom:
-                    i < data.domains.items.length - 1
-                      ? "1px solid rgba(0,0,0,0.06)"
-                      : "none",
-                }}
-              >
-                <span
-                  style={{
-                    color: "#c8956c",
-                    fontWeight: 500,
-                    flexShrink: 0,
-                    marginTop: 2,
-                  }}
-                >
-                  →
-                </span>
-                <span>{item}</span>
-              </motion.li>
-            ))}
-          </motion.ul>
-        </div>
-      </section>
 
       {/* RÉSULTATS */}
       <section className="dark-section">
@@ -444,112 +246,6 @@ export default function CaseStudyPage({
           )}
         </div>
       </section>
-
-      {/* STACK */}
-      <section className="light-section">
-        <div className="section-inner" style={{ maxWidth: 880 }}>
-          <motion.h2
-            className="light-section-title"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            style={{ marginBottom: 24 }}
-          >
-            {data.stack.title}
-          </motion.h2>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6 }}
-          >
-            <ToolLogos items={data.stack.items} />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* AUTRES PROFILS */}
-      {otherProfiles.length > 0 && (
-        <section className="light-section" style={{ paddingTop: 24 }}>
-          <div className="section-inner" style={{ maxWidth: 1040 }}>
-            <motion.h2
-              className="light-section-title"
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              style={{ marginBottom: 32 }}
-            >
-              {otherProfilesTitle}
-            </motion.h2>
-
-            <motion.div
-              variants={stagger}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-60px" }}
-              className="grid-3-cards"
-            >
-              {otherProfiles.map((profile) => (
-                <motion.div key={profile.slug} variants={cardReveal}>
-                  <Link
-                    href={`/${lang}/cas/${profile.slug}`}
-                    style={{
-                      display: "block",
-                      padding: "22px 22px",
-                      borderRadius: 12,
-                      border: "1px solid rgba(0,0,0,0.08)",
-                      background: "rgba(255,255,255,0.55)",
-                      textDecoration: "none",
-                      transition: "transform 0.2s ease, border-color 0.2s ease",
-                    }}
-                    className="case-other-card"
-                  >
-                    <span
-                      style={{
-                        display: "block",
-                        fontFamily: "var(--font-body)",
-                        fontSize: 10,
-                        fontWeight: 600,
-                        letterSpacing: "0.18em",
-                        textTransform: "uppercase",
-                        color: "#c8956c",
-                        marginBottom: 10,
-                      }}
-                    >
-                      {profile.badge}
-                    </span>
-                    <h3
-                      style={{
-                        fontFamily: "var(--font-heading)",
-                        fontSize: 17,
-                        fontWeight: 500,
-                        color: "var(--text)",
-                        marginBottom: 12,
-                        lineHeight: 1.35,
-                      }}
-                    >
-                      {profile.title}
-                    </h3>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: 13,
-                        fontWeight: 500,
-                        color: "#c8956c",
-                      }}
-                    >
-                      {otherProfilesLabel} →
-                    </span>
-                  </Link>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
-      )}
 
       {/* CTA */}
       <section className="cta-section" id="contact">

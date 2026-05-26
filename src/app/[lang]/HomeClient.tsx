@@ -1,13 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useScrollFade } from "@/components/hooks";
 import { ButtonColorful } from "@/components/ui/button-colorful";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import LogosStack from "@/components/LogosStack";
-import PricingModels from "@/components/PricingModels";
 import QuickContact from "@/components/QuickContact";
 import Stamps from "@/components/Stamps";
 import { captureTouch, getAttribution } from "@/lib/attribution";
@@ -231,145 +229,6 @@ function Hero({ dict }: { dict: Dictionary }) {
 }
 
 
-/* ═══════════════════════════════════════════════════════════
-   APPROACH
-   ═══════════════════════════════════════════════════════════ */
-function Approach({ dict }: { dict: Dictionary }) {
-  return (
-    <section style={{ background: "var(--bg)", padding: "80px 24px" }}>
-      <div style={{ maxWidth: "820px", margin: "0 auto" }}>
-        <motion.h2
-          style={{ fontFamily: "var(--font-heading)", fontWeight: 400, fontSize: "clamp(28px, 4vw, 38px)", color: "var(--text)", marginBottom: "56px", textAlign: "center" as const }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-        >
-          {dict.approach.title}
-        </motion.h2>
-
-        <ol style={{ listStyle: "none", padding: 0, margin: "0 0 48px 0", display: "flex", flexDirection: "column" as const, gap: "28px" }}>
-          {dict.approach.pillars.map((item, i) => (
-            <motion.li
-              key={item.title}
-              style={{ display: "grid", gridTemplateColumns: "56px 1fr", alignItems: "baseline", gap: "20px", borderBottom: i < dict.approach.pillars.length - 1 ? "1px solid rgba(0,0,0,0.08)" : "none", paddingBottom: i < dict.approach.pillars.length - 1 ? "28px" : "0" }}
-              initial={{ opacity: 0, x: -16 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
-            >
-              <span aria-hidden="true" style={{ fontFamily: "var(--font-heading)", fontSize: "44px", fontWeight: 300, color: "var(--accent, #b8814c)", lineHeight: 1, letterSpacing: "-0.02em" }}>
-                {item.n ?? String(i + 1)}
-              </span>
-              <div>
-                <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "22px", fontWeight: 500, color: "var(--text)", margin: "0 0 6px 0", letterSpacing: "-0.01em" }}>{item.title}</h3>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", color: "var(--text-muted)", fontWeight: 300, lineHeight: 1.65, margin: 0 }}>{item.desc}</p>
-              </div>
-            </motion.li>
-          ))}
-        </ol>
-
-        <motion.p
-          style={{ fontFamily: "var(--font-body)", fontSize: "15px", lineHeight: 1.7, color: "var(--text-muted)", fontWeight: 300, textAlign: "center" as const, maxWidth: "640px", margin: "0 auto" }}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-        >
-          {dict.approach.description}
-        </motion.p>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════
-   CASE STUDIES
-   ═══════════════════════════════════════════════════════════ */
-type CaseItem = Dictionary["cases"]["items"][number];
-
-function CaseStudyCard({ c, index, beforeLabel, afterLabel }: {
-  c: CaseItem;
-  index: number;
-  beforeLabel: string;
-  afterLabel: string;
-}) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      className="case-block"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, ease: "easeOut", delay: index * 0.1 }}
-    >
-      <span className="case-badge">{c.badge}</span>
-      <h3 className="case-title">{c.title}</h3>
-      <div className="case-ba-row">
-        <motion.div
-          className="case-ba-before"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <span className="case-ba-label">{beforeLabel}</span>
-          <span className="case-ba-value-before">{c.before}</span>
-        </motion.div>
-        <motion.div
-          className="case-ba-after"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
-        >
-          <span className="case-ba-label case-ba-label--after">{afterLabel}</span>
-          <span className="case-ba-value-after">{c.after}</span>
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-}
-
-function CaseStudies({ dict }: { dict: Dictionary }) {
-  return (
-    <section className="dark-section">
-      <div className="section-inner">
-        <motion.h2
-          className="dark-section-title"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-        >
-          {dict.cases.title}
-        </motion.h2>
-
-        <div className="cases-list">
-          {dict.cases.items.map((c, idx) => (
-            <CaseStudyCard
-              key={idx}
-              c={c}
-              index={idx}
-              beforeLabel={dict.cases.before}
-              afterLabel={dict.cases.after}
-            />
-          ))}
-        </div>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          style={{ textAlign: "center", marginTop: "48px", fontSize: "14px", color: "var(--text-light-muted)", fontStyle: "italic", fontFamily: "var(--font-heading)" }}
-        >
-          {dict.cases.footer}
-        </motion.p>
-      </div>
-    </section>
-  );
-}
 
 /* ═══════════════════════════════════════════════════════════
    SHAREABLE QUOTE
@@ -636,73 +495,6 @@ function ClaudeCodeOffer({ dict }: { dict: Dictionary }) {
   );
 }
 
-function ShareableQuote({ dict }: { dict: Dictionary }) {
-  return (
-    <section className="quote-section" data-ph="shareable-quote">
-      <motion.blockquote
-        className="shareable-quote"
-        initial={{ opacity: 0, scale: 0.97 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <p className="quote-text">{dict.quote.text}</p>
-        <cite className="quote-cite">{dict.quote.cite}</cite>
-      </motion.blockquote>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════
-   FOUNDERS
-   ═══════════════════════════════════════════════════════════ */
-function Founders({ dict }: { dict: Dictionary }) {
-  return (
-    <section className="light-section">
-      <div className="section-inner">
-        <motion.h2
-          className="light-section-title"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-        >
-          {dict.founders.title}
-        </motion.h2>
-
-        <motion.div
-          className="team-grid"
-          variants={stagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-        >
-          <motion.div className="team-card team-card-premium" variants={cardReveal}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/stamp-paul.png" alt="" className="team-stamp" />
-            <h3 className="team-name">{dict.founders.paul.name}</h3>
-            <p className="team-role">{dict.founders.paul.role}</p>
-            <p className="team-bio">{dict.founders.paul.bio}</p>
-            <p className="team-signature">{dict.founders.paul.signature}</p>
-          </motion.div>
-
-          <motion.div className="team-card team-card-premium" variants={cardReveal}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/stamp-yukun.png" alt="" className="team-stamp" />
-            <h3 className="team-name">{dict.founders.yukun.name}</h3>
-            <p className="team-role">{dict.founders.yukun.role}</p>
-            <p className="team-bio">{dict.founders.yukun.bio}</p>
-            <p className="team-signature">{dict.founders.yukun.signature}</p>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════
-   CALLBACK FORM + CTA FOOTER
-   ═══════════════════════════════════════════════════════════ */
 function CtaFooter({ dict }: { dict: Dictionary }) {
   return (
     <section className="cta-section" id="callback-form">
@@ -913,18 +705,12 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
     <>
       <Nav lang={lang} />
       <Hero dict={dict} />
-      <LogosStack label={dict.stackLabel} />
       <Stamps
         title="Deux traditions, une même exigence."
         subtitle="Quatre œuvres de France et de Chine. Parce qu'avant d'opérer, on regarde."
       />
-      <Approach dict={dict} />
-      <CaseStudies dict={dict} />
-      <CasVitrinesProfilSection dict={dict} lang={lang} />
-      <ShareableQuote dict={dict} />
-      <Founders dict={dict} />
-      <PricingModels copy={dict.pricingModels} />
       <ClaudeCodeOffer dict={dict} />
+      <CasVitrinesProfilSection dict={dict} lang={lang} />
       <CtaFooter dict={dict} />
     </>
   );

@@ -8,7 +8,6 @@ import {
 } from "../../dictionaries";
 import CaseStudyPage, {
   type CaseStudyData,
-  type CaseStudyNavLink,
 } from "@/components/CaseStudyPage";
 
 const SITE_URL = "https://parrit.ai";
@@ -112,14 +111,6 @@ export default async function Page({
 
   const data = toCaseStudyData(profile, cv.labels, cv.ctaTitle, cv.ctaSubtitle);
 
-  const otherProfiles: CaseStudyNavLink[] = cv.profiles
-    .filter((p) => p.slug !== slug)
-    .map((p) => ({
-      slug: p.slug,
-      badge: p.hero.badge,
-      title: `${p.hero.titleMain} ${p.hero.titleAccent}`,
-    }));
-
   const pageUrl = `${SITE_URL}/${lang}/cas/${slug}`;
   const schemaGraph = {
     "@context": "https://schema.org",
@@ -167,9 +158,6 @@ export default async function Page({
       />
       <CaseStudyPage
         data={data}
-        otherProfiles={otherProfiles}
-        otherProfilesTitle={cv.labels.otherProfilesTitle}
-        otherProfilesLabel={cv.labels.otherProfilesCta}
         lang={lang as Locale}
         quickContact={dict.quickContact}
         pageId={`cas-${slug}`}
