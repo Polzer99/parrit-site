@@ -2,13 +2,14 @@
 
 import { useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Image from "next/image";
+import Link from "next/link";
 import { useScrollFade } from "@/components/hooks";
 import { ButtonColorful } from "@/components/ui/button-colorful";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import LogosStack from "@/components/LogosStack";
 import PricingModels from "@/components/PricingModels";
 import QuickContact from "@/components/QuickContact";
+import Stamps from "@/components/Stamps";
 import { captureTouch, getAttribution } from "@/lib/attribution";
 import type { Dictionary, Locale } from "./dictionaries";
 
@@ -229,71 +230,6 @@ function Hero({ dict }: { dict: Dictionary }) {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════
-   VISUAL SHOWCASE
-   ═══════════════════════════════════════════════════════════ */
-const showcaseSrcs = [
-  "/demo-agents.jpg",
-  "/demo-crm.jpg",
-  "/demo-automation.jpg",
-  "/demo-whatsapp.jpg",
-];
-
-function VisualShowcase({ dict }: { dict: Dictionary }) {
-  return (
-    <section className="dark-section">
-      <div className="section-inner">
-        <motion.h2
-          className="dark-section-title"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-        >
-          {dict.showcase.title}
-        </motion.h2>
-
-        <div className="showcase-grid">
-          {dict.showcase.items.map((item, i) => (
-            <motion.div
-              key={showcaseSrcs[i]}
-              className="showcase-item"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.7, ease: "easeOut", delay: i * 0.12 }}
-            >
-              <div className="showcase-img-wrapper">
-                <Image
-                  src={showcaseSrcs[i]}
-                  alt={item.label}
-                  width={600}
-                  height={400}
-                  className="showcase-img"
-                  loading="lazy"
-                  quality={80}
-                />
-              </div>
-              <span className="showcase-label">{item.label}</span>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.div
-          className="mid-cta-block"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
-        >
-          <a href="#callback-form" data-ph="mid-cta" onClick={() => trackCtaClick("mid-showcase")}>
-            <ButtonColorful label={dict.showcase.midCta} className="h-12 px-6 text-sm" />
-          </a>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
 
 /* ═══════════════════════════════════════════════════════════
    APPROACH
@@ -501,12 +437,8 @@ function ClaudeCodeOffer({ dict }: { dict: Dictionary }) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: 24,
-            marginBottom: 48,
-          }}
+          className="grid-3-cards"
+          style={{ marginBottom: 48 }}
         >
           {offers.map((offer, idx) => {
             const isRecommended = Boolean(offer.recommendedBadge);
@@ -835,6 +767,142 @@ function CtaFooter({ dict }: { dict: Dictionary }) {
 
 
 /* ═══════════════════════════════════════════════════════════
+   CAS VITRINES PAR PROFIL (4 sous-pages dédiées)
+   ═══════════════════════════════════════════════════════════ */
+function CasVitrinesProfilSection({ dict, lang }: { dict: Dictionary; lang: Locale }) {
+  const cv = dict.casVitrines.homeSection;
+  return (
+    <section className="light-section" data-ph="cas-vitrines-profil">
+      <div className="section-inner" style={{ maxWidth: 1040 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          style={{ textAlign: "center", marginBottom: 40 }}
+        >
+          <span
+            style={{
+              display: "inline-block",
+              padding: "6px 14px",
+              fontFamily: "var(--font-body)",
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: "0.18em",
+              color: "#c8956c",
+              background: "rgba(200,149,108,0.08)",
+              border: "1px solid rgba(200,149,108,0.25)",
+              borderRadius: 999,
+              textTransform: "uppercase",
+              marginBottom: 20,
+            }}
+          >
+            {cv.badge}
+          </span>
+          <h2 className="light-section-title" style={{ marginTop: 0, marginBottom: 16 }}>
+            {cv.title}
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: 16,
+              lineHeight: 1.7,
+              color: "var(--text-muted)",
+              fontWeight: 300,
+              maxWidth: 720,
+              margin: "0 auto",
+            }}
+          >
+            {cv.subtitle}
+          </p>
+        </motion.div>
+
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid-4-cards"
+        >
+          {cv.cards.map((card) => (
+            <motion.div key={card.slug} variants={cardReveal}>
+              <Link
+                href={`/${lang}/cas/${card.slug}`}
+                data-ph={`cas-vitrine-${card.slug}`}
+                onClick={() => trackCtaClick(`cas-vitrine-${card.slug}`)}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%",
+                  padding: "26px 24px",
+                  borderRadius: 14,
+                  border: "1px solid rgba(0,0,0,0.08)",
+                  background: "rgba(255,255,255,0.55)",
+                  backdropFilter: "blur(4px)",
+                  textDecoration: "none",
+                  transition: "transform 0.2s ease, border-color 0.2s ease",
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: 11,
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    color: "#c8956c",
+                    marginBottom: 12,
+                    fontWeight: 600,
+                  }}
+                >
+                  {card.badge}
+                </span>
+                <h3
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    fontSize: 19,
+                    fontWeight: 500,
+                    color: "var(--text)",
+                    marginBottom: 12,
+                    lineHeight: 1.3,
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {card.title}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: 14,
+                    color: "var(--text-muted)",
+                    lineHeight: 1.55,
+                    fontWeight: 300,
+                    flex: 1,
+                    marginBottom: 18,
+                  }}
+                >
+                  {card.summary}
+                </p>
+                <span
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: 13,
+                    fontWeight: 500,
+                    color: "#c8956c",
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  {cv.ctaLabel} →
+                </span>
+              </Link>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
    PAGE
    ═══════════════════════════════════════════════════════════ */
 export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Locale }) {
@@ -846,13 +914,17 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
       <Nav lang={lang} />
       <Hero dict={dict} />
       <LogosStack label={dict.stackLabel} />
-      <VisualShowcase dict={dict} />
+      <Stamps
+        title="Deux traditions, une même exigence."
+        subtitle="Quatre œuvres de France et de Chine. Parce qu'avant d'opérer, on regarde."
+      />
       <Approach dict={dict} />
       <CaseStudies dict={dict} />
-      <ClaudeCodeOffer dict={dict} />
+      <CasVitrinesProfilSection dict={dict} lang={lang} />
       <ShareableQuote dict={dict} />
       <Founders dict={dict} />
       <PricingModels copy={dict.pricingModels} />
+      <ClaudeCodeOffer dict={dict} />
       <CtaFooter dict={dict} />
     </>
   );
