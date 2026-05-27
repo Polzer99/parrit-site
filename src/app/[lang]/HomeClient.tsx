@@ -203,7 +203,7 @@ const COPY = {
           "Didier Barbanneau — pack hands-on autonomie Claude Code (B2C)",
         ],
         notfor: "Qualiopi finalisée juin 2026. D'ici là, financement OPCO non garanti.",
-        accent: "#2A2420",
+        accent: "#7C5BA1",
         clusters: [
           {
             label: "Formats",
@@ -436,7 +436,7 @@ const COPY = {
           "Didier Barbanneau — Claude Code autonomy pack (B2C)",
         ],
         notfor: "Qualiopi finalized June 2026. OPCO funding not guaranteed before then.",
-        accent: "#2A2420",
+        accent: "#7C5BA1",
       },
     ],
     panel: {
@@ -543,8 +543,8 @@ const COPY = {
   "pt-BR": {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "A gente codifica a ferramenta. A gente entrega.",
-    sub: "Sem deck. Sem TJM. Um sistema em produção em dias.",
+    tagline: "Um time de agentes IA trabalhando para você.",
+    sub: "Quatro agentes sob medida, conectados à sua stack. Eles operam seu back-office, geram seus encontros, prototipam suas ferramentas, treinam suas equipes. Mesmo quando você dorme.",
     cta: "Falar com Paul",
     ctaMicro: "Resposta em 24h · sem compromisso",
     leftDock: {
@@ -554,17 +554,285 @@ const COPY = {
         { id: "methode", label: "Método.md", icon: "doc" },
         { id: "cas", label: "Casos.md", icon: "folder" },
         { id: "paul", label: "Paul.vcf", icon: "person" },
-        { id: "open", label: "Abrir parrit.ai ↗", icon: "external", href: "https://www.linkedin.com/in/paullarmaraud/" },
+        { id: "yukun", label: "Yukun.vcf", icon: "person" },
+        { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paullarmaraud/" },
       ],
     },
     rightDock: { title: "Ofertas", hint: "Clique uma oferta para abrir os detalhes" },
-    offers: [], // PT-BR uses EN fallback for offers (Paul flies today, EN/FR is the priority)
+    offers: [
+      {
+        id: "back-office",
+        chip: "Back-office",
+        title: "Tempo recuperado nas tarefas admin & repetitivas",
+        sub: "(Transformação administrativa do dia a dia)",
+        pitch: "Automatizamos o que pesa em suas equipes: papelada, compliance, RFP, relatórios consolidados. Uma ferramenta proprietária, entregue e instalada na sua empresa.",
+        bullets: [
+          "Briefing de 45 min: escolhemos um caso de uso preciso",
+          "Ferramenta entregue em 5 a 15 dias, código auditado pela agência parceira",
+          "Forma: UI web leve, agente silencioso na sua stack, ou simples automação",
+          "Deploy em produção + treinamento das equipes incluído",
+        ],
+        proof: [
+          "Compliance officer agent — verificação automática de faturas, contratos, RFPs",
+          "Relatório CEO consolidado — KPIs comerciais + operacionais (Excel, CRM, ERP)",
+          "OS para escritório de advocacia — emails, RFPs, follow-up cliente orquestrados",
+        ],
+        notfor: "Se você quer \"testar IA\" sem um caso de uso preciso, não é para você.",
+        accent: "#5FAF8E",
+        clusters: [
+          {
+            label: "Finanças & Compliance",
+            agents: [
+              { name: "Compliance officer", status: "live" },
+              { name: "Relatório CEO consolidado", status: "live" },
+              { name: "Acompanhamento RFP", status: "live" },
+              { name: "Auditoria faturas auto", status: "live" },
+            ],
+          },
+          {
+            label: "Operações & Supply",
+            agents: [
+              { name: "Gestão de estoques", status: "live" },
+              { name: "Supply chain monitor", status: "live" },
+              { name: "Pedidos e-commerce", status: "live" },
+              { name: "Inventário multi-canal", status: "soon" },
+            ],
+          },
+          {
+            label: "Documentos & Emails",
+            agents: [
+              { name: "Triagem inbox executivo", status: "live" },
+              { name: "Resposta semi-auto", status: "live" },
+              { name: "Watch jurídico diário", status: "live" },
+              { name: "Arquivamento inteligente", status: "soon" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "business",
+        chip: "Acquisition",
+        title: "Geração de negócios",
+        sub: "Encontros qualificados via sinais de intenção",
+        pitch: "Captamos sinais online (podcasts, eventos, posts LinkedIn) no momento certo e disparamos um contato hiper-personalizado. Sem blast no Sales Nav.",
+        bullets: [
+          "Identificação do alvo + timing de compra (rodada, contratação, fala pública)",
+          "Captura automática 24/7 dos sinais → enriquecimento contatos (Hunter, Enrow)",
+          "Copywriting ancorado no verbatim exato da pessoa",
+          "Alerta Telegram + briefing contextualizado antes de cada encontro",
+        ],
+        proof: [
+          "Marca de luxo — encontro com diretor de marketing após painel IA retail",
+          "Corretora de energia B2B — pipeline cooperativas, 4 TPs sequenciados",
+          "Parrit para si mesma — deals em andamento com marcas internacionais",
+        ],
+        notfor: "Ticket médio baixo ou lógica de volume? Não é para você.",
+        accent: "#c8956c",
+        clusters: [
+          {
+            label: "Growth & Acquisition",
+            agents: [
+              { name: "Time growth outbound", status: "live" },
+              { name: "Referenciamento aquisição", status: "live" },
+              { name: "Captura sinais podcasts", status: "live" },
+              { name: "Captura sinais eventos B2B", status: "live" },
+            ],
+          },
+          {
+            label: "Marketing & Copy",
+            agents: [
+              { name: "Time copywriting", status: "live" },
+              { name: "Personalização 1-a-1", status: "live" },
+              { name: "Teste A/B de copy", status: "live" },
+              { name: "Brand voice tuner", status: "soon" },
+            ],
+          },
+          {
+            label: "Sales & Encontros",
+            agents: [
+              { name: "Briefing antes do encontro", status: "live" },
+              { name: "CRM auto-atualizado", status: "live" },
+              { name: "Follow-up multi-canal", status: "live" },
+              { name: "Closing playbook agent", status: "soon" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "prototype",
+        chip: "Prototyping",
+        title: "Prototipagem rápida",
+        sub: "Ver a IA funcionando antes de investir pesado",
+        pitch: "Você identificou um tema doloroso na empresa. Transformamos em uma ferramenta que funciona, entregue em dias. Código auditado pela agência parceira antes da entrega.",
+        bullets: [
+          "Um tema, definido, mensurável — não um programa",
+          "Stack Claude Code = 10× mais rápido que os métodos clássicos",
+          "Três famílias: back-office doloroso / negócios / agente que reproduz um humano",
+          "Documentação técnica + treinamento na entrega",
+        ],
+        proof: [
+          "Marca artesanal premium — captura leads multi-canal → WhatsApp",
+          "Vendedor Amazon — reescrita automática de fichas de produto",
+          "Bot supervisão watch escritório advocacia — filtro humano antes",
+        ],
+        notfor: "Buscando um consultor que entrega um audit ou um deck? Não é para você.",
+        accent: "#C44536",
+        clusters: [
+          {
+            label: "Engineering",
+            agents: [
+              { name: "Full-stack builder", status: "live" },
+              { name: "Integrador API", status: "live" },
+              { name: "Merge conflict mediator", status: "live" },
+              { name: "Test runner auto", status: "soon" },
+            ],
+          },
+          {
+            label: "Produto & UX",
+            agents: [
+              { name: "PRD V0 auto-gerado", status: "live" },
+              { name: "Sintetizador de user research", status: "live" },
+              { name: "Wireframe para código", status: "soon" },
+              { name: "Persona simulator", status: "soon" },
+            ],
+          },
+          {
+            label: "Data & Watch",
+            agents: [
+              { name: "Scraper de mercado", status: "live" },
+              { name: "Watch concorrencial", status: "live" },
+              { name: "GEO / Amazon Rufus", status: "live" },
+              { name: "Dashboard KPI sob medida", status: "live" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "formation",
+        chip: "Training",
+        title: "Treinamento hands-on",
+        sub: "Sua equipe constrói seu agente em 2 dias",
+        pitch: "Formato Sprint Builders: cada participante prototipa seu caso real com Claude Code + Gemini. Saída: uma ferramenta rodando no dia a dia.",
+        bullets: [
+          "Discovery Hackathon 1 dia — primeiro agente entregue",
+          "Sprint Builder 2 dias (flagship) — 6 a 8 pessoas, casos reais",
+          "Cohorte Estratégica 6 semanas — equipe completa",
+          "Train-the-Trainer para internalizar o método",
+        ],
+        proof: [
+          "Decathlon — Sprint Builders em discussão (United T&D)",
+          "Catho Lille — Sprint Builders executivos",
+          "Didier Barbanneau — pacote autonomia Claude Code (B2C)",
+        ],
+        notfor: "Qualiopi finalizado junho 2026. Antes disso, financiamento OPCO não garantido.",
+        accent: "#7C5BA1",
+        clusters: [
+          {
+            label: "Formatos",
+            agents: [
+              { name: "Discovery Hackathon 1 dia", status: "live" },
+              { name: "Sprint Builder 2 dias", status: "live" },
+              { name: "Cohorte Estratégica 6 sem", status: "live" },
+              { name: "Train-the-Trainer", status: "live" },
+            ],
+          },
+          {
+            label: "Stack ensinada",
+            agents: [
+              { name: "Claude Code (Anthropic)", status: "live" },
+              { name: "Gemini Vertex AI", status: "live" },
+              { name: "n8n workflow", status: "live" },
+              { name: "MCP servers caseiros", status: "live" },
+            ],
+          },
+          {
+            label: "Casos prototipados",
+            agents: [
+              { name: "Agente busca de emprego", status: "live" },
+              { name: "Watch jurídico CEO", status: "live" },
+              { name: "Captura leads WhatsApp", status: "live" },
+              { name: "GEO e-commerce", status: "live" },
+            ],
+          },
+        ],
+      },
+    ],
     panel: {
-      manifeste: { title: "Manifesto", body: [] },
-      methode: { title: "Método", steps: [] },
-      cas: { title: "Casos", intro: "", items: [] },
-      paul: { title: "Paul", role: "", lines: [], story: [], facts: [], cta: "" },
-      yukun: { title: "Yukun", role: "", lines: [], story: [], facts: [], cta: "" },
+      manifeste: {
+        title: "Manifesto",
+        body: [
+          "A gente constrói. A gente não dá conselho.",
+          "Sem deck. Sem TJM. Sem palavra inventada para soar pro.",
+          "Um tema preciso definido em 45 minutos. Uma ferramenta entregue em dias, instalada no seu site. Código auditado por uma agência dev parceira antes da produção.",
+          "A gente fica no leme: Paul shipa o 0 → 1, Yukun coloca em produção. Sem júnior, sem subcontratado.",
+          "Se não roda em produção no final, a gente não fez o trabalho.",
+        ],
+      },
+      methode: {
+        title: "Método",
+        steps: [
+          { n: "01", t: "Briefing 45 min — grátis", d: "Uma call com Paul. Escolhemos um tema preciso, mensurável. Não um programa de transformação. Se não é para você, falamos." },
+          { n: "02", t: "Build 5–15 dias", d: "Paul codifica a ferramenta com Claude Code, conectado à sua stack (Gmail, CRM, ERP, Sheets…). Check-in semanal de 30 min." },
+          { n: "03", t: "Auditoria de código por agência parceira", d: "Antes da entrega, uma agência dev sênior (10+ anos) audita segurança, manutenção e compliance. É isso que tranquiliza seu TI." },
+          { n: "04", t: "Entrega + treinamento na sua empresa", d: "Deploy na sua infraestrutura. Documentação técnica. Meio-dia de treinamento. Você fica autônomo." },
+        ],
+      },
+      cas: {
+        title: "Casos de cliente",
+        intro: "Casos reais Parrit, anonimizados. Detalhes e números na call.",
+        items: [
+          { t: "Marca artesanal premium — cutelaria", d: "Captura leads multi-canal (TikTok + Snapchat + e-com + tel) → WhatsApp segmentado" },
+          { t: "Escritório de advocacia", d: "Operating system: triagem inbox, RFPs, watch jurídico daily" },
+          { t: "Corretora de energia B2B", d: "Pipeline outbound 4 TPs sequenciados ancorado em sinal fresco" },
+          { t: "Grupo de defesa (NDA)", d: "Compliance officer agent — RFPs e contratos auditados auto" },
+          { t: "Agência dev sênior", d: "Relatório CEO consolidado Excel + CRM + ERP em uma vista lunes manhã" },
+          { t: "Decathlon (em discussão)", d: "Sprint Builders executivos hands-on agentes IA" },
+        ],
+      },
+      paul: {
+        title: "Paul Larmaraud",
+        role: "Fundador · Canivete suíço 0 → 1",
+        lines: [
+          "Paul Larmaraud",
+          "Fundador Parrit.ai",
+          "Codifica todos os dias, assistido por agentes — entrega protótipos",
+        ],
+        story: [
+          "Paul codifica todos os dias, assistido pelos seus agentes. Ele entrega os protótipos — sem subcontratado, sem júnior.",
+          "Com você, ele define o perímetro do projeto e calcula o ROI esperado antes de tocar uma linha de código. A gente não deploya por deployar.",
+          "Ele pré-configura os agentes — modelos, prompts, integrações, garde-fous — e passa o bastão para Yukun para o rollout em produção.",
+          "Seu background — produto, operações, tech e SaaS — faz dele um canivete suíço para tomar qualquer projeto de 0 a 1.",
+        ],
+        facts: [
+          { k: "Background", v: "Produto · Operações · Tech · SaaS" },
+          { k: "Stack diária", v: "Claude Code · n8n · Supabase · Vercel" },
+          { k: "Email", v: "paul.larmaraud@parrit.ai" },
+          { k: "Telefone", v: "+33 6 83 76 22 19" },
+        ],
+        cta: "Agendar 15 min com Paul",
+      },
+      yukun: {
+        title: "Yukun Leng",
+        role: "Co-fundadora · Rollout em produção",
+        lines: [
+          "Yukun Leng — 冷宇坤",
+          "Co-fundadora Parrit.ai",
+          "10 anos orquestrando fluxos em grandes grupos",
+        ],
+        story: [
+          "Yukun pega os agentes que Paul pré-configurou e os coloca em produção. É isso que faz um protótipo aguentar contra os seus sistemas reais.",
+          "Dez anos como consultora SAP, orquestrando fluxos operacionais na LVMH e outros grandes grupos. Ela sabe o que significa \"tem que rodar todos os dias, sem falha\".",
+          "Nos projetos Parrit, ela cuida da integração nas suas ferramentas (ERP, CRM, finanças), dos testes de uso do negócio, e da qualidade de serviço uma vez que o sistema está ao vivo.",
+          "Ela também traz a metade chinesa da cultura Parrit: rigor, precisão, e uma prática real dos dois mundos — não uma firma francesa colando \"tech Asia\" por cima.",
+        ],
+        facts: [
+          { k: "Experiência", v: "10 anos · Consultora SAP · grandes grupos" },
+          { k: "Papel na Parrit", v: "Rollout produção · qualidade serviço" },
+          { k: "Línguas", v: "Francês · Mandarim · Inglês" },
+          { k: "Contato", v: "Via Paul — paul.larmaraud@parrit.ai" },
+        ],
+        cta: "Falar disso numa call com Paul",
+      },
     },
     contact: {
       title: "Falar com Paul",
@@ -579,13 +847,13 @@ const COPY = {
     waitlist: {
       eyebrow: "Bem-vindo à Parrit",
       title: "Comece seu onboarding.",
-      sub: "Deixe seu email. Paul retoma pessoalmente para iniciar.",
+      sub: "Deixe seu email pro. Paul retoma pessoalmente para escopar seu caso e iniciar.",
       placeholder: "nome@empresa.com",
       hint: "ex: nome@empresa.com",
       submit: "Continuar",
       submitting: "Inscrevendo…",
       thanks: "Obrigado. Paul retorna em 24h.",
-      error: "Falha. Tente de novo.",
+      error: "Falha. Tente de novo ou escreva para paul.larmaraud@parrit.ai.",
       navLabel: "Inscrever",
       ctaSecondary: "Ou só deixar meu email →",
     },
@@ -667,15 +935,6 @@ type FullCopy = {
 };
 
 function getCopy(lang: Lang): FullCopy {
-  if (lang === "pt-BR") {
-    // PT-BR shell uses EN content for offers/panel until translated
-    const base = COPY["pt-BR"] as unknown as FullCopy;
-    return {
-      ...base,
-      offers: COPY.en.offers as unknown as readonly OfferCopy[],
-      panel: COPY.en.panel as unknown as PanelCopy,
-    };
-  }
   return COPY[lang] as unknown as FullCopy;
 }
 
@@ -788,7 +1047,7 @@ function HeroScene({ labels }: { labels: { you: string; youSub: string; parrit: 
     { cx: 110, cy: 150, fill: "#5FAF8E", label: labels.agents[0], phase: 0 },     // back-office
     { cx: 100, cy: 310, fill: "#c8956c", label: labels.agents[1], phase: 1.2 },   // business
     { cx: 470, cy: 150, fill: "#C44536", label: labels.agents[2], phase: 0.6 },   // prototype
-    { cx: 480, cy: 310, fill: "#2A2420", label: labels.agents[3], phase: 1.8 },   // formation
+    { cx: 480, cy: 310, fill: "#7C5BA1", label: labels.agents[3], phase: 1.8 },   // formation (violet)
   ];
 
   return (
@@ -2031,7 +2290,7 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <p className="parrit-os-eyebrow">Operating Partner · IA en production</p>
+            <p className="parrit-os-eyebrow">{lang === "fr" ? "Transformation IA · de 0 à la production" : lang === "en" ? "AI transformation · from 0 to production" : "Transformação IA · do 0 à produção"}</p>
             <h1 className="parrit-os-brand">{copy.brand}</h1>
             <p className="parrit-os-tagline">{copy.tagline}</p>
             <p className="parrit-os-sub">{copy.sub}</p>
@@ -2213,13 +2472,24 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
                 <div className="parrit-os-stamp-img">
                   <Image src={s.src} alt={offer.chip} fill style={{ objectFit: "cover" }} sizes="180px" />
                   <span className="parrit-os-stamp-overlay">
-                    <span className="parrit-os-stamp-chip" style={{ background: offer.accent }}>
+                    <span
+                      className="parrit-os-stamp-chip"
+                      style={{
+                        background: offer.accent,
+                        color: offer.accent === "#2A2420" ? "#FFFCF5" : "#2A2420",
+                      }}
+                    >
                       {offer.chip}
                     </span>
                   </span>
                 </div>
                 <div className="parrit-os-stamp-meta">
-                  <span className="parrit-os-stamp-typology">{offer.chip}</span>
+                  <span
+                    className="parrit-os-stamp-typology"
+                    style={{ color: offer.accent === "#2A2420" ? "#5A5047" : offer.accent }}
+                  >
+                    {offer.chip}
+                  </span>
                   <span className="parrit-os-stamp-teaser">{s.teaser}</span>
                   <span className="parrit-os-stamp-origin">{s.artist}</span>
                 </div>

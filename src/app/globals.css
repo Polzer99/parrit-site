@@ -1860,3 +1860,25 @@ select.callback-input option {
 .parrit-os-dock .parrit-os-icon span {
   font-size: 11px;
 }
+
+/* ── Top bar stacking + LanguageSwitcher visibility fix ─────────────────── */
+.parrit-os-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 120;
+}
+.parrit-os-lang {
+  position: relative;
+  z-index: 130;
+}
+.parrit-os-lang ul {
+  z-index: 200 !important;
+}
+
+/* ── Formation stamp readability — dark accent needs explicit override ─── */
+.parrit-os-stamp-button[style*="#2A2420"] .parrit-os-stamp-typology {
+  color: #c8956c;
+}
+.parrit-os-stamp-button[style*="#2A2420"] .parrit-os-stamp-chip {
+  color: #FFFCF5;
+}
