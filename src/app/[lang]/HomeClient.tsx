@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { captureTouch, getAttribution } from "@/lib/attribution";
 import type { Dictionary, Locale } from "./dictionaries";
@@ -3243,46 +3242,6 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
         </div>
       </section>
 
-      {/* ── "D'où on vient" — paintings as small decorative heritage band ── */}
-      <section className="parrit-os-heritage" aria-label="Heritage">
-        <p className="parrit-os-heritage-title">
-          {lang === "fr"
-            ? "D'où on vient · Deux traditions, une même exigence"
-            : lang === "en"
-            ? "Where we come from · Two traditions, one rigor"
-            : lang === "zh-CN"
-            ? "我们的来处 · 两个传统,同一种严谨"
-            : "De onde viemos · Duas tradições, um rigor"}
-        </p>
-        <p className="parrit-os-heritage-sub">
-          {lang === "fr"
-            ? "Quatre œuvres de France et de Chine. Quatre rappels qu'avant d'opérer, on regarde."
-            : lang === "en"
-            ? "Four works from France and China. Four reminders that before operating, we look."
-            : lang === "zh-CN"
-            ? "来自法国和中国的四件作品。提醒我们:在动手之前,先观察。"
-            : "Quatro obras da França e da China. Quatro lembretes: antes de operar, observa-se."}
-        </p>
-        <div className="parrit-os-heritage-row">
-          {[
-            { src: "/stamps/monet-impression.jpg", artist: "Claude Monet", title: lang === "fr" ? "Impression, soleil levant" : "Impression, sunrise", origin: lang === "fr" ? "France · 1872" : "FR · 1872" },
-            { src: "/stamps/fan-kuan-travelers.jpg", artist: "范寬 Fan Kuan", title: lang === "fr" ? "Voyageurs parmi monts et torrents" : lang === "en" ? "Travelers among mountains and streams" : lang === "zh-CN" ? "溪山行旅图" : "Viajantes entre montanhas e riachos", origin: lang === "zh-CN" ? "中国 · 宋 · ≈1000" : "中国 · ≈1000" },
-            { src: "/stamps/renoir-canotiers.jpg", artist: "Pierre-Auguste Renoir", title: lang === "fr" ? "Le déjeuner des canotiers" : lang === "en" ? "Luncheon of the Boating Party" : lang === "zh-CN" ? "船上的午宴" : "Almoço dos remadores", origin: lang === "fr" ? "France · 1881" : "FR · 1881" },
-            { src: "/stamps/guo-xi-early-spring.jpg", artist: "郭熙 Guo Xi", title: lang === "fr" ? "Début du printemps" : lang === "en" ? "Early Spring" : lang === "zh-CN" ? "早春图" : "Início da primavera", origin: lang === "zh-CN" ? "中国 · 宋 · 1072" : "中国 · 1072" },
-          ].map((s) => (
-            <div key={s.src} className="parrit-os-heritage-card">
-              <div className="parrit-os-heritage-img">
-                <Image src={s.src} alt={s.title} fill style={{ objectFit: "cover" }} sizes="120px" />
-              </div>
-              <div className="parrit-os-heritage-meta">
-                <span className="parrit-os-heritage-card-title">{s.title}</span>
-                <span className="parrit-os-heritage-card-artist">{s.artist}</span>
-                <span className="parrit-os-heritage-card-origin">{s.origin}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* ── Bottom status bar ─────────────────── */}
       <footer className="parrit-os-statusbar">
