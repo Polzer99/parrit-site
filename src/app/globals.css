@@ -1295,3 +1295,556 @@ select.callback-input option {
   background: #1ebe57;
   transform: translateY(-1px);
 }
+
+/* ═══════════════════════════════════════════════════════════
+   PARRIT.OS — desktop home V4 (PostHog-style)
+   ═══════════════════════════════════════════════════════════ */
+.parrit-os-root {
+  min-height: 100vh;
+  background: var(--bg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+  color: var(--text);
+}
+
+/* Paper grain on root specifically */
+.parrit-os-root::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+.parrit-os-root > * { position: relative; z-index: 1; }
+
+/* ── Top bar window chrome ─────────────────── */
+.parrit-os-topbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 18px;
+  background: #EADFC4;
+  border-bottom: 2px solid #2A2420;
+  gap: 14px;
+}
+.parrit-os-traffic { display: flex; gap: 6px; }
+.parrit-os-traffic span {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid #2A2420;
+  display: inline-block;
+}
+.parrit-os-title {
+  flex: 1;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: #2A2420;
+  letter-spacing: 0.04em;
+}
+.parrit-os-lang { display: flex; align-items: center; }
+
+/* ── Desktop layout grid ─────────────────── */
+.parrit-os-desktop {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 130px 1fr 130px;
+  gap: 16px;
+  padding: 28px clamp(12px, 2vw, 28px) 28px;
+  min-height: calc(100vh - 100px);
+}
+
+@media (max-width: 900px) {
+  .parrit-os-desktop {
+    grid-template-columns: 1fr;
+    padding: 16px 14px 12px;
+  }
+}
+
+/* ── Icon docks (left + right) ─────────────────── */
+.parrit-os-dock {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  padding: 10px 6px;
+}
+.parrit-os-dock-right { align-items: center; }
+.parrit-os-dock-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8A7E70;
+  margin-bottom: 4px;
+}
+.parrit-os-dock-hint {
+  font-size: 10.5px;
+  color: #8A7E70;
+  text-align: center;
+  font-style: italic;
+  line-height: 1.4;
+  margin-top: 6px;
+  max-width: 100px;
+}
+
+@media (max-width: 900px) {
+  .parrit-os-dock { display: none; }
+  .parrit-os-dock-right { display: none; }
+}
+
+/* ── Desktop icon button ─────────────────── */
+.parrit-os-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px 4px;
+  border-radius: 8px;
+  transition: background 0.15s ease, transform 0.1s ease;
+  width: 100%;
+  max-width: 110px;
+}
+.parrit-os-icon:hover {
+  background: rgba(42, 36, 32, 0.06);
+  transform: translateY(-1px);
+}
+.parrit-os-icon:active { transform: translateY(0); }
+.parrit-os-icon span {
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #2A2420;
+  text-align: center;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.parrit-os-offer span {
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+/* ── Center hero ─────────────────── */
+.parrit-os-center {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 32px;
+  background: #FFFCF5;
+  border: 2px solid #2A2420;
+  border-radius: 16px;
+  padding: clamp(24px, 4vw, 56px);
+  box-shadow: 6px 6px 0 rgba(42, 36, 32, 0.16);
+  min-height: 480px;
+  position: relative;
+  overflow: hidden;
+}
+.parrit-os-center::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .parrit-os-center {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 24px 20px;
+  }
+}
+
+.parrit-os-brand-text { position: relative; z-index: 1; }
+.parrit-os-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #c8956c;
+  margin: 0 0 14px;
+}
+.parrit-os-brand {
+  font-family: var(--font-heading);
+  font-size: clamp(48px, 9vw, 88px);
+  font-weight: 500;
+  margin: 0;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: #2A2420;
+}
+.parrit-os-tagline {
+  font-family: var(--font-heading);
+  font-size: clamp(20px, 3.2vw, 28px);
+  font-weight: 400;
+  margin: 16px 0 12px;
+  line-height: 1.2;
+  color: #2A2420;
+  font-style: italic;
+}
+.parrit-os-sub {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1.8vw, 16px);
+  line-height: 1.55;
+  color: #5A5047;
+  margin: 0 0 26px;
+  max-width: 460px;
+}
+.parrit-os-cta {
+  display: inline-block;
+  padding: 14px 26px;
+  background: #c8956c;
+  border: 2px solid #2A2420;
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  color: #2A2420;
+  cursor: pointer;
+  box-shadow: 5px 5px 0 #2A2420;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.parrit-os-cta:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 #2A2420;
+}
+.parrit-os-cta:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #2A2420;
+}
+.parrit-os-cta-micro {
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: #8A7E70;
+}
+
+.parrit-os-scene {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Mobile bottom dock ─────────────────── */
+.parrit-os-mobile-offers {
+  display: none;
+}
+@media (max-width: 900px) {
+  .parrit-os-mobile-offers {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0 14px 16px;
+  }
+  .parrit-os-mobile-offer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    background: #FFFCF5;
+    border: 2px solid #2A2420;
+    border-radius: 12px;
+    box-shadow: 3px 3px 0 #2A2420;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    width: 100%;
+    font-family: var(--font-body);
+    color: #2A2420;
+  }
+  .parrit-os-mobile-offer:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #2A2420;
+  }
+  .parrit-os-mobile-offer svg { flex-shrink: 0; width: 56px; height: 56px; }
+  .parrit-os-mobile-offer strong { display: block; font-size: 12px; letter-spacing: 0.04em; color: #c8956c; text-transform: uppercase; margin-bottom: 3px; }
+  .parrit-os-mobile-offer span { font-size: 13.5px; line-height: 1.35; color: #2A2420; }
+}
+
+/* ── Status bar ─────────────────── */
+.parrit-os-statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 8px 18px;
+  background: #EADFC4;
+  border-top: 2px solid #2A2420;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  color: #5A5047;
+  flex-wrap: wrap;
+}
+.parrit-os-statusbar span:first-child { color: #5FAF8E; font-weight: 700; }
+.parrit-os-clock { font-variant-numeric: tabular-nums; }
+
+@media (max-width: 600px) {
+  .parrit-os-statusbar { justify-content: center; text-align: center; }
+  .parrit-os-statusbar span { font-size: 10px; }
+}
+
+/* Chinese red accent token */
+:root {
+  --parrit-red: #C44536;
+}
+
+/* ── Stamps strip below desktop ─────────────────── */
+.parrit-os-stamps {
+  padding: 28px clamp(12px, 2vw, 28px) 6px;
+  text-align: center;
+}
+.parrit-os-stamps-eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--parrit-red);
+  margin: 0 0 18px;
+}
+.parrit-os-stamps-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.parrit-os-stamp {
+  width: 168px;
+  background: #FFFCF5;
+  border: 2px solid #2A2420;
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: 4px 4px 0 rgba(42, 36, 32, 0.18);
+  cursor: default;
+  /* perforated edge effect */
+  background-image:
+    radial-gradient(circle at 7px 7px, transparent 3px, #FFFCF5 3.5px),
+    radial-gradient(circle at calc(100% - 7px) 7px, transparent 3px, #FFFCF5 3.5px),
+    radial-gradient(circle at 7px calc(100% - 7px), transparent 3px, #FFFCF5 3.5px),
+    radial-gradient(circle at calc(100% - 7px) calc(100% - 7px), transparent 3px, #FFFCF5 3.5px);
+}
+.parrit-os-stamp-img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background: #2A2420;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1.5px solid #2A2420;
+}
+.parrit-os-stamp-meta {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: center;
+}
+.parrit-os-stamp-title {
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #2A2420;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.parrit-os-stamp-origin {
+  font-family: var(--font-body);
+  font-size: 9.5px;
+  color: var(--parrit-red);
+  letter-spacing: 0.04em;
+}
+
+/* Chinese red touches inside the desktop window */
+.parrit-os-center::after {
+  content: "";
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  background: var(--parrit-red);
+  border: 2px solid #2A2420;
+  border-radius: 50%;
+  box-shadow: 3px 3px 0 rgba(42, 36, 32, 0.18);
+  /* Chinese-style stamp mark */
+  background-image:
+    linear-gradient(45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%);
+  background-size: 18px 18px;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.92;
+}
+.parrit-os-eyebrow { color: var(--parrit-red) !important; }
+
+@media (max-width: 600px) {
+  .parrit-os-stamp { width: 140px; }
+  .parrit-os-center::after { width: 28px; height: 28px; }
+}
+
+/* ── Topbar actions (signup button) ─────────────────── */
+.parrit-os-topbar-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.parrit-os-signup-btn {
+  padding: 6px 14px;
+  background: var(--parrit-red);
+  border: 2px solid #2A2420;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #FFFCF5;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 #2A2420;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+.parrit-os-signup-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #2A2420;
+}
+.parrit-os-signup-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 #2A2420;
+}
+
+/* ── Hero CTA row ─────────────────── */
+.parrit-os-cta-row {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.parrit-os-cta-secondary {
+  padding: 12px 18px;
+  background: transparent;
+  border: 2px solid #2A2420;
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #2A2420;
+  cursor: pointer;
+  transition: background 0.12s, transform 0.08s;
+}
+.parrit-os-cta-secondary:hover {
+  background: rgba(196, 69, 54, 0.08);
+  transform: translateY(-1px);
+}
+
+/* ── Stamps as buttons + chip overlay ─────────────────── */
+.parrit-os-stamp-button {
+  appearance: none;
+  background: #FFFCF5;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  display: block;
+  position: relative;
+  transition: box-shadow 0.15s;
+}
+.parrit-os-stamp-button:hover {
+  box-shadow: 6px 6px 0 var(--stamp-accent, var(--parrit-red));
+}
+.parrit-os-stamp-button:focus-visible {
+  outline: 3px solid var(--parrit-red);
+  outline-offset: 4px;
+}
+.parrit-os-stamp-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 6px;
+  pointer-events: none;
+}
+.parrit-os-stamp-chip {
+  display: inline-block;
+  padding: 3px 8px;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #2A2420;
+  background: var(--stamp-accent, #c8956c);
+  border: 1.5px solid #2A2420;
+  border-radius: 3px;
+  box-shadow: 1.5px 1.5px 0 #2A2420;
+}
+.parrit-os-stamp-typology {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--stamp-accent, #2A2420);
+  margin-bottom: 2px;
+}
+.parrit-os-stamp-teaser {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 500;
+  color: #2A2420;
+  line-height: 1.3;
+  margin-bottom: 3px;
+}
+.parrit-os-stamps-hint {
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  color: #8A7E70;
+  text-align: center;
+  margin: -8px 0 18px;
+  font-style: italic;
+}
+
+/* Fix CTA row overlap — let secondary CTA wrap with proper spacing */
+.parrit-os-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 22px;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.parrit-os-cta-row .parrit-os-cta {
+  flex: 0 0 auto;
+}
+.parrit-os-cta-row .parrit-os-cta-secondary {
+  flex: 0 0 auto;
+  max-width: 100%;
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  .parrit-os-cta-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .parrit-os-cta-row .parrit-os-cta-secondary {
+    white-space: normal;
+  }
+}
