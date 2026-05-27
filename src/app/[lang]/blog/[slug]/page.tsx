@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPostBySlug, getAllSlugs, type BlogLocale } from "@/lib/blog";
+import { getPostBySlug, getAllSlugs, getRelatedPosts, type BlogLocale } from "@/lib/blog";
 import {
   getDictionary,
   hasLocale,
@@ -81,6 +81,7 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   const dict = await getDictionary(lang as Locale);
+  const related = getRelatedPosts(post.slug, lang as BlogLocale, 3);
 
   const postUrl = `${SITE_URL}/${lang}/blog/${post.slug}`;
   const wordCount = post.content
@@ -194,6 +195,29 @@ export default async function BlogPostPage({
           className="blog-article-body"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
+
+        {related.length > 0 && (
+          <section className="blog-related" aria-label="Articles liés">
+            <p className="blog-related-title">
+              {lang === "fr" ? "À lire ensuite" : lang === "en" ? "Read next" : "Para ler depois"}
+            </p>
+            <div className="blog-related-grid">
+              {related.map((r) => (
+                <Link
+                  key={r.slug}
+                  href={`/${lang}/blog/${r.slug}`}
+                  className="blog-related-card"
+                >
+                  <span className="blog-related-category">{r.category}</span>
+                  <h3 className="blog-related-card-title">{r.title}</h3>
+                  <span className="blog-related-card-meta">
+                    {r.readingTime} · {formatDate(r.date, dict.blogListDateLocale)}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
       </article>
 
       <footer className="blog-footer">

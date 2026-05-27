@@ -4,12 +4,15 @@ export interface BlogPost {
   slug: string;
   title: string;
   description: string;
-  date: string; // ISO date
+  date: string; // ISO date (creation)
+  publishedAt: string; // ISO date — when visible publicly (drip schedule)
   author: string;
   category: string;
   readingTime: string;
-  content: string; // HTML content
+  content: string;
   ogImage?: string;
+  tags?: readonly string[];
+  relatedSlugs?: readonly string[];
 }
 
 interface BlogPostTranslation {
@@ -23,8 +26,11 @@ interface BlogPostTranslation {
 interface BlogPostSource {
   slug: string;
   date: string;
+  publishedAt?: string; // defaults to `date` if not set
   author: string;
   ogImage?: string;
+  tags?: readonly string[];
+  relatedSlugs?: readonly string[];
   translations: Record<BlogLocale, BlogPostTranslation>;
 }
 
@@ -437,8 +443,11 @@ function toBlogPost(src: BlogPostSource, locale: BlogLocale): BlogPost {
   return {
     slug: src.slug,
     date: src.date,
+    publishedAt: src.publishedAt ?? src.date,
     author: src.author,
     ogImage: src.ogImage,
+    tags: src.tags,
+    relatedSlugs: src.relatedSlugs,
     title: t.title,
     description: t.description,
     category: t.category,
@@ -447,10 +456,16 @@ function toBlogPost(src: BlogPostSource, locale: BlogLocale): BlogPost {
   };
 }
 
+function isPublished(src: BlogPostSource): boolean {
+  const publishDate = new Date(src.publishedAt ?? src.date);
+  return publishDate.getTime() <= Date.now();
+}
+
 export function getAllPosts(locale: BlogLocale = "fr"): BlogPost[] {
   return posts
+    .filter(isPublished)
     .map((p) => toBlogPost(p, locale))
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 }
 
 export function getPostBySlug(
@@ -459,9 +474,48 @@ export function getPostBySlug(
 ): BlogPost | undefined {
   const src = posts.find((p) => p.slug === slug);
   if (!src) return undefined;
+  // Hide if not yet published (unless we add a preview mode later)
+  if (!isPublished(src)) return undefined;
   return toBlogPost(src, locale);
 }
 
 export function getAllSlugs(): string[] {
-  return posts.map((p) => p.slug);
+  return posts.filter(isPublished).map((p) => p.slug);
+}
+
+/** Returns related posts via explicit `relatedSlugs` or by shared tag/category if none set. */
+export function getRelatedPosts(
+  slug: string,
+  locale: BlogLocale = "fr",
+  limit = 3,
+): BlogPost[] {
+  const src = posts.find((p) => p.slug === slug);
+  if (!src) return [];
+
+  // 1. Explicit relatedSlugs
+  if (src.relatedSlugs && src.relatedSlugs.length > 0) {
+    return src.relatedSlugs
+      .map((s) => posts.find((p) => p.slug === s))
+      .filter((p): p is BlogPostSource => !!p && isPublished(p) && p.slug !== slug)
+      .slice(0, limit)
+      .map((p) => toBlogPost(p, locale));
+  }
+
+  // 2. Fallback: same category, by tag overlap, then by date proximity
+  const srcCategory = src.translations[locale]?.category;
+  const srcTags = new Set(src.tags ?? []);
+  const candidates = posts
+    .filter((p) => p.slug !== slug && isPublished(p))
+    .map((p) => {
+      let score = 0;
+      if (p.translations[locale]?.category === srcCategory) score += 3;
+      const overlap = (p.tags ?? []).filter((t) => srcTags.has(t)).length;
+      score += overlap * 2;
+      return { p, score };
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(({ p }) => toBlogPost(p, locale));
+
+  return candidates;
 }
