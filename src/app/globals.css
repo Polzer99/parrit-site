@@ -1882,3 +1882,170 @@ select.callback-input option {
 .parrit-os-stamp-button[style*="#2A2420"] .parrit-os-stamp-chip {
   color: #FFFCF5;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MODERN OFFER CARDS — remplace les stamps en primary
+   ═══════════════════════════════════════════════════════════ */
+.parrit-os-offers-row {
+  padding: 36px clamp(12px, 2vw, 28px) 16px;
+  text-align: center;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.parrit-os-offers-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  max-width: 1100px;
+  margin: 22px auto 0;
+}
+.parrit-os-offer-card {
+  appearance: none;
+  background: #FFFCF5;
+  border: 2px solid #2A2420;
+  border-radius: 14px;
+  padding: 22px 20px 18px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: #2A2420;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 4px 4px 0 var(--card-accent, #2A2420);
+  transition: transform 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+.parrit-os-offer-card:hover {
+  box-shadow: 6px 6px 0 var(--card-accent, #2A2420);
+}
+.parrit-os-offer-card:active {
+  box-shadow: 2px 2px 0 var(--card-accent, #2A2420);
+}
+.parrit-os-offer-card-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.parrit-os-offer-card-chip {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 4px 10px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 1.5px solid #2A2420;
+  border-radius: 4px;
+  box-shadow: 2px 2px 0 #2A2420;
+}
+.parrit-os-offer-card-title {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: #2A2420;
+  margin: 0;
+}
+.parrit-os-offer-card-teaser {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.35;
+  color: #5A5047;
+  margin: 0;
+  flex: 1;
+}
+.parrit-os-offer-card-cta {
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1.5px dashed #2A24201A;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--card-accent, #c8956c);
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HERITAGE band — paintings as small secondary section
+   ═══════════════════════════════════════════════════════════ */
+.parrit-os-heritage {
+  padding: 28px clamp(12px, 2vw, 28px) 16px;
+  text-align: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  border-top: 1px dashed rgba(42, 36, 32, 0.15);
+}
+.parrit-os-heritage-title {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--parrit-red);
+  margin: 0 0 6px;
+}
+.parrit-os-heritage-sub {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #8A7E70;
+  margin: 0 0 22px;
+  font-style: italic;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.parrit-os-heritage-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+.parrit-os-heritage-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 140px;
+  gap: 8px;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.parrit-os-heritage-card:hover { opacity: 1; }
+.parrit-os-heritage-img {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #2A2420;
+}
+.parrit-os-heritage-meta {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 2px;
+}
+.parrit-os-heritage-card-title {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #2A2420;
+}
+.parrit-os-heritage-card-artist {
+  font-family: var(--font-body);
+  font-size: 10px;
+  color: #5A5047;
+}
+.parrit-os-heritage-card-origin {
+  font-family: var(--font-body);
+  font-size: 9.5px;
+  color: var(--parrit-red);
+  letter-spacing: 0.04em;
+}

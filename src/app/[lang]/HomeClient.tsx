@@ -3188,92 +3188,99 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
         )}
       </AnimatePresence>
 
-      {/* ── Stamps strip — franco-chinois DNA, each stamp opens an offer ─────────────────── */}
-      <section className="parrit-os-stamps" aria-label="Stamps">
+      {/* ── 4 modern offer cards (primary) — replace stamps as offer entry point ── */}
+      <section className="parrit-os-offers-row" aria-label="Offers">
         <p className="parrit-os-stamps-eyebrow">
           {lang === "fr"
-            ? "Franco-chinois · Quatre typologies d'offre, un même collectif d'agents"
+            ? "Quatre typologies d'offre, un même collectif d'agents"
             : lang === "en"
-            ? "Franco-Chinese · Four offer typologies, one agent collective"
+            ? "Four offer typologies, one agent collective"
             : lang === "zh-CN"
-            ? "中法合璧 · 四种服务类型,同一智能体集体"
-            : "Franco-Chinês · Quatro tipologias de oferta, um coletivo"}
+            ? "四种服务类型,同一智能体集体"
+            : "Quatro tipologias de oferta, um coletivo"}
         </p>
-        <p className="parrit-os-stamps-hint">
-          {lang === "fr" ? "Cliquez une œuvre pour ouvrir l'offre" : lang === "en" ? "Click an artwork to open the offer" : lang === "zh-CN" ? "点击作品查看服务" : "Clique uma obra para abrir a oferta"}
-        </p>
-        <div className="parrit-os-stamps-row">
-          {[
-            {
-              src: "/stamps/monet-impression.jpg",
-              artist: "Claude Monet · 1872",
-              rot: -2.2,
-              offerIdx: 0, // Back-office → Impression : on capte le détail qui change tout
-              teaser: lang === "fr" ? "On capte le détail qui change tout" : lang === "en" ? "We capture the detail that changes everything" : lang === "zh-CN" ? "我们捕捉改变一切的细节" : "Captamos o detalhe que muda tudo",
-            },
-            {
-              src: "/stamps/fan-kuan-travelers.jpg",
-              artist: "范寬 Fan Kuan · ≈ 1000",
-              rot: 1.6,
-              offerIdx: 2, // Prototype → Voyageurs : on trace la route en quelques jours
-              teaser: lang === "fr" ? "On trace la route en quelques jours" : lang === "en" ? "We chart the path in days" : lang === "zh-CN" ? "我们几天内开辟道路" : "Traçamos o caminho em dias",
-            },
-            {
-              src: "/stamps/renoir-canotiers.jpg",
-              artist: "Pierre-Auguste Renoir · 1881",
-              rot: 1.1,
-              offerIdx: 1, // Business → Canotiers : on amène les bons à table
-              teaser: lang === "fr" ? "On amène les bons à table" : lang === "en" ? "We bring the right people to the table" : lang === "zh-CN" ? "我们把对的人请上桌" : "Trazemos as pessoas certas",
-            },
-            {
-              src: "/stamps/guo-xi-early-spring.jpg",
-              artist: "郭熙 Guo Xi · 1072",
-              rot: -1.4,
-              offerIdx: 3, // Formation → Début du printemps : vos équipes prennent racine
-              teaser: lang === "fr" ? "Vos équipes prennent racine" : lang === "en" ? "Your teams take root" : lang === "zh-CN" ? "您的团队扎根生长" : "Suas equipes criam raízes",
-            },
-          ].map((s) => {
-            const offer = copy.offers[s.offerIdx];
+        <div className="parrit-os-offers-cards">
+          {copy.offers.map((offer, i) => {
+            const teasers = [
+              lang === "fr" ? "On capte le détail qui change tout" : lang === "en" ? "We capture the detail that changes everything" : lang === "zh-CN" ? "我们捕捉改变一切的细节" : "Captamos o detalhe que muda tudo",
+              lang === "fr" ? "On amène les bons à table" : lang === "en" ? "We bring the right people to the table" : lang === "zh-CN" ? "我们把对的人请上桌" : "Trazemos as pessoas certas",
+              lang === "fr" ? "On trace la route en quelques jours" : lang === "en" ? "We chart the path in days" : lang === "zh-CN" ? "我们几天内开辟道路" : "Traçamos o caminho em dias",
+              lang === "fr" ? "Vos équipes prennent racine" : lang === "en" ? "Your teams take root" : lang === "zh-CN" ? "您的团队扎根生长" : "Suas equipes criam raízes",
+            ];
             return (
               <motion.button
-                key={s.src}
-                className="parrit-os-stamp parrit-os-stamp-button"
-                onClick={() => openOffer(s.offerIdx)}
-                initial={{ opacity: 0, y: 16, rotate: 0 }}
-                whileInView={{ opacity: 1, y: 0, rotate: s.rot }}
+                key={offer.id}
+                className="parrit-os-offer-card"
+                onClick={() => openOffer(i)}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
-                whileHover={{ rotate: 0, y: -6, scale: 1.02 }}
-                transition={{ duration: 0.5 }}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
                 aria-label={`${offer.chip} — ${offer.title}`}
-                style={{ ["--stamp-accent" as string]: offer.accent } as React.CSSProperties}
+                style={{ ["--card-accent" as string]: offer.accent } as React.CSSProperties}
               >
-                <div className="parrit-os-stamp-img">
-                  <Image src={s.src} alt={offer.chip} fill style={{ objectFit: "cover" }} sizes="180px" />
-                  <span className="parrit-os-stamp-overlay">
-                    <span
-                      className="parrit-os-stamp-chip"
-                      style={{
-                        background: offer.accent,
-                        color: offer.accent === "#2A2420" ? "#FFFCF5" : "#2A2420",
-                      }}
-                    >
-                      {offer.chip}
-                    </span>
-                  </span>
+                <div className="parrit-os-offer-card-icon">
+                  <OfferIcon idx={i} accent={offer.accent} />
                 </div>
-                <div className="parrit-os-stamp-meta">
-                  <span
-                    className="parrit-os-stamp-typology"
-                    style={{ color: offer.accent === "#2A2420" ? "#5A5047" : offer.accent }}
-                  >
-                    {offer.chip}
-                  </span>
-                  <span className="parrit-os-stamp-teaser">{s.teaser}</span>
-                  <span className="parrit-os-stamp-origin">{s.artist}</span>
-                </div>
+                <span
+                  className="parrit-os-offer-card-chip"
+                  style={{
+                    background: offer.accent,
+                    color: offer.accent === "#2A2420" ? "#FFFCF5" : "#2A2420",
+                  }}
+                >
+                  {offer.chip}
+                </span>
+                <h3 className="parrit-os-offer-card-title">{offer.title}</h3>
+                <p className="parrit-os-offer-card-teaser">{teasers[i]}</p>
+                <span className="parrit-os-offer-card-cta">
+                  {lang === "fr" ? "Ouvrir l'offre" : lang === "en" ? "Open the offer" : lang === "zh-CN" ? "查看服务" : "Abrir a oferta"} →
+                </span>
               </motion.button>
             );
           })}
+        </div>
+      </section>
+
+      {/* ── "D'où on vient" — paintings as small decorative heritage band ── */}
+      <section className="parrit-os-heritage" aria-label="Heritage">
+        <p className="parrit-os-heritage-title">
+          {lang === "fr"
+            ? "D'où on vient · Deux traditions, une même exigence"
+            : lang === "en"
+            ? "Where we come from · Two traditions, one rigor"
+            : lang === "zh-CN"
+            ? "我们的来处 · 两个传统,同一种严谨"
+            : "De onde viemos · Duas tradições, um rigor"}
+        </p>
+        <p className="parrit-os-heritage-sub">
+          {lang === "fr"
+            ? "Quatre œuvres de France et de Chine. Quatre rappels qu'avant d'opérer, on regarde."
+            : lang === "en"
+            ? "Four works from France and China. Four reminders that before operating, we look."
+            : lang === "zh-CN"
+            ? "来自法国和中国的四件作品。提醒我们:在动手之前,先观察。"
+            : "Quatro obras da França e da China. Quatro lembretes: antes de operar, observa-se."}
+        </p>
+        <div className="parrit-os-heritage-row">
+          {[
+            { src: "/stamps/monet-impression.jpg", artist: "Claude Monet", title: lang === "fr" ? "Impression, soleil levant" : "Impression, sunrise", origin: lang === "fr" ? "France · 1872" : "FR · 1872" },
+            { src: "/stamps/fan-kuan-travelers.jpg", artist: "范寬 Fan Kuan", title: lang === "fr" ? "Voyageurs parmi monts et torrents" : lang === "en" ? "Travelers among mountains and streams" : lang === "zh-CN" ? "溪山行旅图" : "Viajantes entre montanhas e riachos", origin: lang === "zh-CN" ? "中国 · 宋 · ≈1000" : "中国 · ≈1000" },
+            { src: "/stamps/renoir-canotiers.jpg", artist: "Pierre-Auguste Renoir", title: lang === "fr" ? "Le déjeuner des canotiers" : lang === "en" ? "Luncheon of the Boating Party" : lang === "zh-CN" ? "船上的午宴" : "Almoço dos remadores", origin: lang === "fr" ? "France · 1881" : "FR · 1881" },
+            { src: "/stamps/guo-xi-early-spring.jpg", artist: "郭熙 Guo Xi", title: lang === "fr" ? "Début du printemps" : lang === "en" ? "Early Spring" : lang === "zh-CN" ? "早春图" : "Início da primavera", origin: lang === "zh-CN" ? "中国 · 宋 · 1072" : "中国 · 1072" },
+          ].map((s) => (
+            <div key={s.src} className="parrit-os-heritage-card">
+              <div className="parrit-os-heritage-img">
+                <Image src={s.src} alt={s.title} fill style={{ objectFit: "cover" }} sizes="120px" />
+              </div>
+              <div className="parrit-os-heritage-meta">
+                <span className="parrit-os-heritage-card-title">{s.title}</span>
+                <span className="parrit-os-heritage-card-artist">{s.artist}</span>
+                <span className="parrit-os-heritage-card-origin">{s.origin}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
