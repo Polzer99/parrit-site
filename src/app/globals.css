@@ -2142,3 +2142,193 @@ select.callback-input option {
   text-transform: uppercase;
   margin-top: 2px;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — Mobile / Tablet pass complet
+   ═══════════════════════════════════════════════════════════ */
+
+/* TABLET (max 900px) — dock left/right hidden, mobile dock shows */
+@media (max-width: 900px) {
+  .parrit-os-desktop {
+    padding: 16px 12px 12px;
+    min-height: auto;
+  }
+  .parrit-os-center {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 24px 20px;
+    min-height: auto;
+    box-shadow: 4px 4px 0 rgba(42, 36, 32, 0.16);
+  }
+  .parrit-os-brand {
+    font-size: clamp(40px, 12vw, 64px);
+  }
+  .parrit-os-tagline {
+    font-size: clamp(18px, 5vw, 24px);
+  }
+  .parrit-os-sub {
+    font-size: 14px;
+  }
+  .parrit-os-cta {
+    width: 100%;
+    text-align: center;
+    box-shadow: 4px 4px 0 #2A2420;
+  }
+  .parrit-os-cta-secondary {
+    width: 100%;
+    text-align: center;
+  }
+  .parrit-os-scene {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  .parrit-os-scene svg {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* PHONE (max 600px) */
+@media (max-width: 600px) {
+  .parrit-os-topbar {
+    padding: 8px 10px;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+  .parrit-os-title {
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .parrit-os-topbar-actions {
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .parrit-os-signup-btn {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+  .parrit-os-traffic span {
+    width: 10px;
+    height: 10px;
+  }
+  .parrit-os-traffic {
+    gap: 4px;
+  }
+
+  .parrit-os-center {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+  .parrit-os-brand {
+    font-size: clamp(36px, 14vw, 56px);
+    letter-spacing: -0.01em;
+  }
+  .parrit-os-tagline {
+    font-size: clamp(17px, 5.5vw, 22px);
+    margin: 10px 0 8px;
+  }
+  .parrit-os-sub {
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  .parrit-os-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+
+  /* Mobile offers dock — single col card */
+  .parrit-os-mobile-offer {
+    padding: 10px 12px;
+  }
+  .parrit-os-mobile-offer svg {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Modals — narrower padding */
+  .parrit-os-stamps-eyebrow {
+    font-size: 10px;
+    padding: 0 12px;
+    letter-spacing: 0.14em;
+  }
+  .parrit-os-offers-row,
+  .parrit-os-blog-row {
+    padding: 24px 12px 16px;
+  }
+
+  /* Blog cards */
+  .parrit-os-blog-card {
+    padding: 18px 16px 14px;
+  }
+  .parrit-os-blog-card-title {
+    font-size: 18px;
+  }
+  .parrit-os-blog-card-desc {
+    font-size: 13px;
+  }
+
+  /* Slot picker — make it readable */
+  .parrit-os-stamps-row {
+    gap: 12px;
+  }
+
+  /* Status bar */
+  .parrit-os-statusbar {
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 12px;
+    font-size: 10px;
+  }
+}
+
+/* PHONE SMALL (max 380px) — extra tight */
+@media (max-width: 380px) {
+  .parrit-os-title {
+    font-size: 10px;
+  }
+  .parrit-os-signup-btn {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+  .parrit-os-brand {
+    font-size: clamp(32px, 14vw, 48px);
+  }
+}
+
+/* SVG scenes — always shrink with container */
+.parrit-os-scene svg,
+.parrit-os-center svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Modal Win — better padding on phone */
+@media (max-width: 600px) {
+  /* Win overlay component has inline padding — override */
+  div[role="dialog"] > div {
+    border-radius: 10px;
+  }
+  div[role="dialog"] > div > div:last-child {
+    padding: 18px 16px 22px !important;
+  }
+}
+
+/* Slot picker mobile - vertical stack on tight screens */
+@media (max-width: 480px) {
+  /* Reduce slot picker grid items */
+  form[action] > div[style*="grid-template-columns: repeat"] {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+/* Modal contact slot-picker grid: only show 3 days on small phones */
+@media (max-width: 420px) {
+  /* This targets the slot picker div via attribute - safer to use inline */
+}
