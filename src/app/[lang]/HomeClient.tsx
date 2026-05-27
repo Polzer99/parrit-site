@@ -12,20 +12,21 @@ const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 /* ───────────────────────────────────────────────
    COPY — bilingue inline (anti-jargon, simple)
    ─────────────────────────────────────────────── */
-type Lang = "fr" | "en" | "pt-BR";
+type Lang = "fr" | "en" | "pt-BR" | "zh-CN";
 
 const COPY = {
   fr: {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "Une équipe d'agents IA qui bosse pour vous.",
-    sub: "Quatre agents sur mesure, branchés sur votre stack. Ils opèrent votre back-office, génèrent vos rendez-vous, prototypent vos outils, forment vos équipes. Même quand vous dormez.",
+    tagline: "Des batteries d'agents IA sur mesure, déployées chez vous.",
+    sub: "Pas 4 agents génériques, mais autant que votre opération en a besoin. Quatre typologies — back-office, business, prototypage, formation — branchées sur votre stack. Vous passez par nous, on transforme vos opérations. Même quand vous dormez.",
     cta: "Parler à Paul",
     ctaMicro: "Réponse sous 24h · sans engagement",
     leftDock: {
       title: "Bureau",
       items: [
         { id: "manifeste", label: "Manifeste.md", icon: "doc" },
+        { id: "transformation", label: "Transformation.md", icon: "doc" },
         { id: "methode", label: "Méthode.md", icon: "doc" },
         { id: "cas", label: "Cas-clients.md", icon: "folder" },
         { id: "paul", label: "Paul.vcf", icon: "person" },
@@ -246,6 +247,25 @@ const COPY = {
           "Si ça ne tourne pas en prod à la fin, on n'a pas fait notre travail.",
         ],
       },
+      transformation: {
+        title: "Notre définition de la transformation",
+        eyebrow: "Anti-jargon · Anti-cabinet",
+        blocks: [
+          {
+            tag: "Ce que ce n'est pas",
+            body: "Pour nous, transformer une entreprise, ce n'est ni un audit, ni un programme à trois ans, ni un cabinet qui passe six mois à cartographier vos process avant de produire un PowerPoint. Ça, c'est ce qui ralentit votre transformation.",
+          },
+          {
+            tag: "Ce que c'est",
+            body: "Une transformation IA réussie, c'est un outil qui n'existait pas la semaine d'avant, qui tourne en production dans vos opérations le lundi suivant, et qu'un de vos collaborateurs utilise sans qu'on ait besoin d'être à côté. On la mesure : temps gagné par semaine, business additionnel, marge libérée.",
+          },
+          {
+            tag: "Comment on s'y prend",
+            body: "On choisit un sujet précis avec vous en 45 minutes. Paul code l'outil avec ses agents, le fait auditer par une agence partenaire, puis Yukun pousse en production sur votre stack. Trois à six semaines après le premier call, vous avez gagné votre premier outil. Un. Pas trente. C'est comme ça qu'on transforme : un outil livré à la fois, sans bullshit.",
+          },
+        ],
+        closing: "Si vous voulez un cabinet qui produit un audit ou un deck, ce n'est pas nous. Si vous voulez un outil qui tourne lundi matin, on est faits l'un pour l'autre.",
+      },
       methode: {
         title: "Méthode",
         steps: [
@@ -339,14 +359,15 @@ const COPY = {
   en: {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "An AI team working for you.",
-    sub: "Four custom agents plugged into your stack. They run your back-office, generate your meetings, prototype your tools, train your teams. Even when you're asleep.",
+    tagline: "Fleets of custom AI agents, deployed at your site.",
+    sub: "Not 4 generic agents — as many as your operations need. Four typologies — back-office, business, prototyping, training — plugged into your stack. You go through us, we transform your operations. Even when you're asleep.",
     cta: "Talk to Paul",
     ctaMicro: "Reply within 24h · no commitment",
     leftDock: {
       title: "Desktop",
       items: [
         { id: "manifeste", label: "Manifesto.md", icon: "doc" },
+        { id: "transformation", label: "Transformation.md", icon: "doc" },
         { id: "methode", label: "Method.md", icon: "doc" },
         { id: "cas", label: "Case-studies.md", icon: "folder" },
         { id: "paul", label: "Paul.vcf", icon: "person" },
@@ -450,6 +471,25 @@ const COPY = {
           "If it doesn't run in production at the end, we didn't do our job.",
         ],
       },
+      transformation: {
+        title: "Our definition of transformation",
+        eyebrow: "Anti-jargon · Anti-consulting",
+        blocks: [
+          {
+            tag: "What it's NOT",
+            body: "For us, transforming a business is not an audit, not a three-year program, not a firm that spends six months mapping your processes to produce a PowerPoint. That's what slows your transformation down.",
+          },
+          {
+            tag: "What it IS",
+            body: "A successful AI transformation is a tool that didn't exist last week, that runs in production inside your operations the following Monday, and that one of your team members uses without us standing next to them. We measure it: time saved per week, additional business, margin freed.",
+          },
+          {
+            tag: "How we do it",
+            body: "We pick one precise topic with you in 45 minutes. Paul codes the tool with his agents, gets it audited by a partner agency, then Yukun rolls it out to production on your stack. Three to six weeks after the first call, you've earned your first tool. One. Not thirty. That's how we transform: one tool at a time, no bullshit.",
+          },
+        ],
+        closing: "If you want a firm that delivers an audit or a deck, that's not us. If you want a tool that runs on Monday morning, we're made for each other.",
+      },
       methode: {
         title: "Method",
         steps: [
@@ -543,14 +583,15 @@ const COPY = {
   "pt-BR": {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "Um time de agentes IA trabalhando para você.",
-    sub: "Quatro agentes sob medida, conectados à sua stack. Eles operam seu back-office, geram seus encontros, prototipam suas ferramentas, treinam suas equipes. Mesmo quando você dorme.",
+    tagline: "Frotas de agentes IA sob medida, implantadas na sua empresa.",
+    sub: "Não 4 agentes genéricos, mas quantos sua operação precisar. Quatro tipologias — back-office, negócios, protótipos, treinamento — conectadas à sua stack. Você passa por nós, a gente transforma suas operações. Mesmo quando você dorme.",
     cta: "Falar com Paul",
     ctaMicro: "Resposta em 24h · sem compromisso",
     leftDock: {
       title: "Área de trabalho",
       items: [
         { id: "manifeste", label: "Manifesto.md", icon: "doc" },
+        { id: "transformation", label: "Transformação.md", icon: "doc" },
         { id: "methode", label: "Método.md", icon: "doc" },
         { id: "cas", label: "Casos.md", icon: "folder" },
         { id: "paul", label: "Paul.vcf", icon: "person" },
@@ -768,6 +809,25 @@ const COPY = {
           "Se não roda em produção no final, a gente não fez o trabalho.",
         ],
       },
+      transformation: {
+        title: "Nossa definição de transformação",
+        eyebrow: "Anti-jargão · Anti-consultoria",
+        blocks: [
+          {
+            tag: "O que NÃO é",
+            body: "Para nós, transformar uma empresa não é um audit, nem um programa de três anos, nem uma consultoria que passa seis meses mapeando seus processos para entregar um PowerPoint. Isso é o que freia sua transformação.",
+          },
+          {
+            tag: "O que É",
+            body: "Uma transformação IA bem-sucedida é uma ferramenta que não existia semana passada, que roda em produção dentro das suas operações na segunda-feira, e que um colaborador seu usa sem precisar da gente do lado. A gente mede: tempo ganho por semana, negócio adicional, margem liberada.",
+          },
+          {
+            tag: "Como fazemos",
+            body: "Escolhemos um tema preciso com você em 45 minutos. Paul codifica a ferramenta com seus agentes, audita com uma agência parceira, depois Yukun coloca em produção na sua stack. Três a seis semanas após o primeiro call, você ganhou sua primeira ferramenta. Uma. Não trinta. É assim que a gente transforma: uma ferramenta por vez, sem bullshit.",
+          },
+        ],
+        closing: "Se você quer uma consultoria que entrega um audit ou um deck, não é a gente. Se você quer uma ferramenta que roda segunda-feira de manhã, fomos feitos um para o outro.",
+      },
       methode: {
         title: "Método",
         steps: [
@@ -858,6 +918,344 @@ const COPY = {
       ctaSecondary: "Ou só deixar meu email →",
     },
   },
+  "zh-CN": {
+    osTitle: "parrit.ai — 操作系统",
+    brand: "PARRIT",
+    tagline: "在您的公司部署成批定制 AI 智能体。",
+    sub: "不是 4 个通用智能体,而是您的运营需要多少就部署多少。四个类型 — 后台、商机、原型、培训 — 接入您的技术栈。通过我们,转型您的运营。即使您在睡觉。",
+    cta: "联系 Paul",
+    ctaMicro: "24 小时内回复 · 无承诺",
+    leftDock: {
+      title: "桌面",
+      items: [
+        { id: "manifeste", label: "宣言.md", icon: "doc" },
+        { id: "transformation", label: "转型.md", icon: "doc" },
+        { id: "methode", label: "方法.md", icon: "doc" },
+        { id: "cas", label: "客户案例.md", icon: "folder" },
+        { id: "paul", label: "Paul.vcf", icon: "person" },
+        { id: "yukun", label: "Yukun.vcf", icon: "person" },
+        { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paullarmaraud/" },
+      ],
+    },
+    rightDock: { title: "服务", hint: "点击服务查看详情" },
+    offers: [
+      {
+        id: "back-office",
+        chip: "后台运营",
+        title: "节省管理与重复任务的时间",
+        sub: "(日常行政转型)",
+        pitch: "我们将团队负担的工作自动化：文档、合规、RFP 跟进、合并报告。一个专属工具，交付并部署在您的公司。",
+        bullets: [
+          "45 分钟需求梳理：选定一个精确的用例",
+          "5 到 15 天交付工具，代码经合作伙伴代理审核",
+          "形式：轻量 Web 界面、嵌入您技术栈的静默智能体、或简单自动化",
+          "包含生产部署和团队培训",
+        ],
+        proof: [
+          "合规官智能体 — 自动审核发票、合同、RFP",
+          "CEO 合并报告 — 商业 + 运营 KPI(Excel、CRM、ERP)",
+          "律所运营系统 — 邮件、RFP、客户跟进协调",
+        ],
+        notfor: "如果您只想\"测试 AI\"而没有精确用例，不适合您。",
+        accent: "#5FAF8E",
+        clusters: [
+          {
+            label: "财务与合规",
+            agents: [
+              { name: "合规官", status: "live" },
+              { name: "CEO 合并报告", status: "live" },
+              { name: "RFP 跟进", status: "live" },
+              { name: "发票自动审计", status: "live" },
+            ],
+          },
+          {
+            label: "运营与供应链",
+            agents: [
+              { name: "库存管理", status: "live" },
+              { name: "供应链监控", status: "live" },
+              { name: "电商订单跟进", status: "live" },
+              { name: "多渠道库存", status: "soon" },
+            ],
+          },
+          {
+            label: "文档与邮件",
+            agents: [
+              { name: "领导收件箱分拣", status: "live" },
+              { name: "半自动回复", status: "live" },
+              { name: "每日法律监测", status: "live" },
+              { name: "智能归档", status: "soon" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "business",
+        chip: "商机获取",
+        title: "业务增长",
+        sub: "通过意向信号获取合格会议",
+        pitch: "我们在正确的时机捕捉在线信号(播客、活动、LinkedIn 帖子),并触发超个性化的联系。不是 Sales Nav 群发。",
+        bullets: [
+          "目标识别 + 购买时机(融资、关键招聘、公开发言)",
+          "24/7 自动捕捉信号 → 联系人富集(Hunter、Enrow)",
+          "基于对方原话锚定的文案撰写",
+          "每次会议前 Telegram 提醒 + 情境简报",
+        ],
+        proof: [
+          "奢侈品牌 — 通过零售 AI 小组会后与营销总监会面",
+          "B2B 能源经纪人 — 物业管理公司外联管道,4 个序列接触点",
+          "Parrit 自身 — 与国际品牌的合作进行中",
+        ],
+        notfor: "客单价低或追求数量逻辑?不适合您。",
+        accent: "#c8956c",
+        clusters: [
+          {
+            label: "增长获客",
+            agents: [
+              { name: "增长外联团队", status: "live" },
+              { name: "获客引荐", status: "live" },
+              { name: "播客信号捕捉", status: "live" },
+              { name: "B2B 活动信号捕捉", status: "live" },
+            ],
+          },
+          {
+            label: "营销与文案",
+            agents: [
+              { name: "营销文案团队", status: "live" },
+              { name: "一对一个性化", status: "live" },
+              { name: "A/B 文案测试", status: "live" },
+              { name: "品牌语调调校", status: "soon" },
+            ],
+          },
+          {
+            label: "销售与会议",
+            agents: [
+              { name: "会前简报", status: "live" },
+              { name: "CRM 自动更新", status: "live" },
+              { name: "多渠道跟进", status: "live" },
+              { name: "成单剧本智能体", status: "soon" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "prototype",
+        chip: "快速原型",
+        title: "快速原型",
+        sub: "重投入前先看到 AI 运行",
+        pitch: "您发现公司里有个痛点。我们在几天内把它变成一个能跑的工具。交付前由合作伙伴代理审计代码。",
+        bullets: [
+          "一个主题,定义清晰,可衡量 — 不是一个项目",
+          "Claude Code 技术栈 = 比经典方法快 10×",
+          "三大类:痛苦后台 / 业务 / 模拟人工的智能体",
+          "技术文档 + 交付时培训",
+        ],
+        proof: [
+          "高端手工艺品牌 — 多渠道线索捕捉 → WhatsApp",
+          "亚马逊零售卖家 — 自动重写产品页",
+          "律所监测机器人 — 人工前置过滤",
+        ],
+        notfor: "寻找做审计或交付 PPT 的顾问?不适合您。",
+        accent: "#C44536",
+        clusters: [
+          {
+            label: "工程",
+            agents: [
+              { name: "全栈构建者", status: "live" },
+              { name: "API 集成者", status: "live" },
+              { name: "合并冲突调解", status: "live" },
+              { name: "自动测试运行", status: "soon" },
+            ],
+          },
+          {
+            label: "产品与体验",
+            agents: [
+              { name: "PRD V0 自动生成", status: "live" },
+              { name: "用户研究合成器", status: "live" },
+              { name: "线框图转代码", status: "soon" },
+              { name: "用户画像模拟器", status: "soon" },
+            ],
+          },
+          {
+            label: "数据与监测",
+            agents: [
+              { name: "市场爬虫", status: "live" },
+              { name: "竞品监测", status: "live" },
+              { name: "GEO / Amazon Rufus", status: "live" },
+              { name: "定制 KPI 仪表板", status: "live" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "formation",
+        chip: "培训",
+        title: "实战培训",
+        sub: "您的团队 2 天构建自己的智能体",
+        pitch: "Sprint Builders 形式:每位参与者用 Claude Code + Gemini 为自己真实的业务用例做原型。产出:在日常工作中运行的工具。",
+        bullets: [
+          "探索黑客松 1 天 — 第一个智能体上线",
+          "Sprint Builder 2 天(旗舰)— 6 到 8 人,真实案例",
+          "战略队列 6 周 — 完整团队",
+          "讲师培训 — 内化方法论",
+        ],
+        proof: [
+          "迪卡侬 — Sprint Builders 讨论中(United T&D)",
+          "Catho Lille — 高管 Sprint Builders",
+          "Didier Barbanneau — Claude Code 自主性套件(B2C)",
+        ],
+        notfor: "Qualiopi 资格 2026 年 6 月生效。在此之前,OPCO 资助无法保证。",
+        accent: "#7C5BA1",
+        clusters: [
+          {
+            label: "形式",
+            agents: [
+              { name: "探索黑客松 1 天", status: "live" },
+              { name: "Sprint Builder 2 天", status: "live" },
+              { name: "战略队列 6 周", status: "live" },
+              { name: "讲师培训", status: "live" },
+            ],
+          },
+          {
+            label: "教授的技术栈",
+            agents: [
+              { name: "Claude Code (Anthropic)", status: "live" },
+              { name: "Gemini Vertex AI", status: "live" },
+              { name: "n8n 工作流", status: "live" },
+              { name: "自建 MCP 服务", status: "live" },
+            ],
+          },
+          {
+            label: "已原型化的案例",
+            agents: [
+              { name: "求职智能体", status: "live" },
+              { name: "CEO 法律监测", status: "live" },
+              { name: "WhatsApp 线索捕获", status: "live" },
+              { name: "电商 GEO", status: "live" },
+            ],
+          },
+        ],
+      },
+    ],
+    panel: {
+      manifeste: {
+        title: "宣言",
+        body: [
+          "我们构建。我们不咨询。",
+          "没有 PPT。没有日费率。没有为了显得专业而发明的词。",
+          "45 分钟定义精确的主题。几天内交付工具,部署在您的公司。生产前由合作伙伴代理审计代码。",
+          "我们亲自操刀:Paul 负责 0 → 1 的交付,Yukun 负责生产部署。没有初级,没有外包。",
+          "如果最后没在生产环境运行,我们就没完成工作。",
+        ],
+      },
+      transformation: {
+        title: "我们对转型的定义",
+        eyebrow: "反术语 · 反咨询",
+        blocks: [
+          {
+            tag: "不是什么",
+            body: "对我们来说,企业转型不是一份审计、不是一个三年计划、也不是一家公司花六个月画您的流程图最后交付一份 PowerPoint。那种东西正在拖慢您的转型。",
+          },
+          {
+            tag: "是什么",
+            body: "一次成功的 AI 转型,是上周还不存在的一个工具,下周一就在您的运营中跑起来,而您的一位同事不需要我们在旁边就能使用它。我们衡量它:每周节省的时间、额外的业务、释放的利润。",
+          },
+          {
+            tag: "我们怎么做",
+            body: "我们在 45 分钟内和您一起选一个精确的主题。Paul 用他的智能体编写工具,由合作伙伴代理审计,然后 Yukun 在您的技术栈上推到生产。第一次通话后三到六周,您赢得第一个工具。一个。不是三十个。这就是我们转型的方式:一次一个工具,不胡扯。",
+          },
+        ],
+        closing: "如果您想要一家交付审计或 PPT 的咨询公司,那不是我们。如果您想要一个周一早上就能运行的工具,我们是天造地设。",
+      },
+      methode: {
+        title: "方法",
+        steps: [
+          { n: "01", t: "45 分钟需求梳理 — 免费", d: "和 Paul 通话。我们选一个精确、可衡量的主题。不是一个转型计划。如果不适合您,我们会说。" },
+          { n: "02", t: "5–15 天构建", d: "Paul 用 Claude Code 编写工具,接入您的技术栈(Gmail、CRM、ERP、Sheets…)。每周 30 分钟同步,边走边调。" },
+          { n: "03", t: "合作伙伴代理代码审计", d: "交付前,资深开发代理(10+ 年经验)审计安全性、可维护性、合规性。这是让您 IT 部门放心的关键。" },
+          { n: "04", t: "交付 + 现场培训", d: "在您的基础设施上部署。技术文档。半天团队培训。您离开时自主。" },
+        ],
+      },
+      cas: {
+        title: "客户案例",
+        intro: "Parrit 真实案例,出于保密考虑已匿名化。详情和数字在通话中分享。",
+        items: [
+          { t: "高端手工艺品牌 — 刀具", d: "多渠道线索捕捉(TikTok + Snapchat + 电商 + 电话)→ 按买家类型分群的 WhatsApp" },
+          { t: "商业法律事务所", d: "管理层运营系统:收件箱分拣、RFP、每日法律监测" },
+          { t: "B2B 能源经纪人", d: "4 个序列接触点的外联管道,基于新鲜信号" },
+          { t: "防务集团(NDA)", d: "合规官智能体 — RFP 和合同自动审核" },
+          { t: "资深开发代理", d: "合并 CEO 报告 Excel + CRM + ERP 在周一晨视图" },
+          { t: "迪卡侬(讨论中)", d: "高管 Sprint Builders 实战 AI 智能体" },
+        ],
+      },
+      paul: {
+        title: "Paul Larmaraud",
+        role: "创始人 · 0 → 1 瑞士军刀",
+        lines: [
+          "Paul Larmaraud",
+          "Parrit.ai 创始人",
+          "每天编码,由智能体辅助 — 交付原型",
+        ],
+        story: [
+          "Paul 每天编码,由他的智能体辅助。他亲自交付原型 — 没有外包,没有初级。",
+          "他和您一起定义项目范围,在写一行代码前计算预期投资回报。我们不为了部署而部署。",
+          "然后他预配置智能体 — 模型、提示词、集成、护栏 — 并把接力棒交给 Yukun 进行生产推出。",
+          "他的背景 — 产品、运营、技术和 SaaS — 让他成为一把真正的瑞士军刀,把任何项目从 0 推到 1。",
+        ],
+        facts: [
+          { k: "背景", v: "产品 · 运营 · 技术 · SaaS" },
+          { k: "日常技术栈", v: "Claude Code · n8n · Supabase · Vercel" },
+          { k: "邮箱", v: "paul.larmaraud@parrit.ai" },
+          { k: "电话", v: "+33 6 83 76 22 19" },
+        ],
+        cta: "预约 Paul 15 分钟",
+      },
+      yukun: {
+        title: "冷宇坤 Yukun Leng",
+        role: "联合创始人 · 生产部署",
+        lines: [
+          "冷宇坤 — Yukun Leng",
+          "Parrit.ai 联合创始人",
+          "10 年大集团流程编排经验",
+        ],
+        story: [
+          "Yukun 把 Paul 预配置好的智能体推到生产。这就是为什么原型能在您的真实系统中站住脚。",
+          "10 年 SAP 顾问,在 LVMH 和其他大集团编排运营流程。她知道\"必须每天运行,无故障\"是什么意思。",
+          "在 Parrit 项目中,她负责集成到您的工具(ERP、CRM、财务)、业务侧用户测试、系统上线后的服务质量。",
+          "她也带来 Parrit 文化中的中国一面:严谨、精确,以及两个世界的真实实践 — 不是法国公司贴上\"亚洲科技\"的标签。",
+        ],
+        facts: [
+          { k: "经验", v: "10 年 · SAP 顾问 · 大集团" },
+          { k: "Parrit 角色", v: "生产部署 · 服务质量" },
+          { k: "语言", v: "法语 · 普通话 · 英语" },
+          { k: "联系", v: "通过 Paul — paul.larmaraud@parrit.ai" },
+        ],
+        cta: "通过和 Paul 通话讨论",
+      },
+    },
+    contact: {
+      title: "联系 Paul",
+      sub: "邮箱、电话、LinkedIn 或 WhatsApp — 您选。24 小时内回复。",
+      placeholder: "您的邮箱或电话",
+      submit: "发送",
+      submitting: "发送中…",
+      thanks: "谢谢。我会在 24 小时内回复。",
+      error: "发送失败。请写信至 paul.larmaraud@parrit.ai。",
+      micro: "您的信息留在 Parrit。符合 GDPR。",
+    },
+    waitlist: {
+      eyebrow: "欢迎来到 Parrit",
+      title: "开始您的入职。",
+      sub: "留下您的工作邮箱。Paul 会亲自接手,梳理您的案例并启动。",
+      placeholder: "name@company.com",
+      hint: "例如:name@company.com",
+      submit: "继续",
+      submitting: "订阅中…",
+      thanks: "谢谢。Paul 会在 24 小时内联系您。",
+      error: "失败。请重试或写信至 paul.larmaraud@parrit.ai。",
+      navLabel: "注册",
+      ctaSecondary: "或留下我的邮箱 →",
+    },
+  },
 } as const;
 
 type AgentBox = {
@@ -878,6 +1276,12 @@ type OfferCopy = {
 };
 type PanelCopy = {
   manifeste: { title: string; body: readonly string[] };
+  transformation: {
+    title: string;
+    eyebrow: string;
+    blocks: readonly { tag: string; body: string }[];
+    closing: string;
+  };
   methode: { title: string; steps: readonly { n: string; t: string; d: string }[] };
   cas: { title: string; intro: string; items: readonly { t: string; d: string }[] };
   paul: {
@@ -1338,6 +1742,262 @@ function Win({
 }
 
 /* ───────────────────────────────────────────────
+   SLOT PICKER — custom scheduler (no Calendly subscription)
+   Posts to webhook with action=meeting_request, Paul confirms via Telegram
+   ─────────────────────────────────────────────── */
+function SlotPicker({ accent }: { accent?: string }) {
+  const [email, setEmail] = useState("");
+  const [slot, setSlot] = useState<{ day: string; period: string } | null>(null);
+  const [note, setNote] = useState("");
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  // Generate next 5 weekdays
+  const days = useNextWeekdays(5);
+  const periods = [
+    { id: "morning", label: "Matin", time: "9h–12h" },
+    { id: "afternoon", label: "Après-midi", time: "14h–18h" },
+  ];
+
+  async function submitSlot(e: React.FormEvent) {
+    e.preventDefault();
+    if (!slot || !email.includes("@")) return;
+    setState("sending");
+    const utms = getAttribution();
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "parrit.ai",
+          action: "meeting_request",
+          email,
+          slot_day: slot.day,
+          slot_period: slot.period,
+          note,
+          page: "desktop-home",
+          ts: new Date().toISOString(),
+          ...utms,
+        }),
+      });
+      setState("sent");
+    } catch {
+      setState("error");
+    }
+  }
+
+  if (state === "sent") {
+    return (
+      <div
+        style={{
+          padding: "20px 22px",
+          background: "#5FAF8E22",
+          border: "2px solid #5FAF8E",
+          borderRadius: 12,
+          textAlign: "center",
+        }}
+      >
+        <p style={{ margin: 0, fontFamily: "var(--font-heading)", fontSize: 20, fontWeight: 500, color: "#2A2420" }}>
+          ✓ Créneau demandé
+        </p>
+        <p style={{ margin: "6px 0 0", fontFamily: "var(--font-body)", fontSize: 13.5, color: "#5A5047", lineHeight: 1.5 }}>
+          Paul reçoit l'alerte sur Telegram. Il confirme et vous envoie le lien visio sous 24h.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={submitSlot}>
+      <p
+        style={{
+          margin: "0 0 10px",
+          fontFamily: "var(--font-body)",
+          fontSize: 12,
+          fontWeight: 700,
+          letterSpacing: "0.16em",
+          textTransform: "uppercase",
+          color: "#8A7E70",
+        }}
+      >
+        1 · Choisissez un créneau
+      </p>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${days.length}, 1fr)`,
+          gap: 6,
+          marginBottom: 10,
+        }}
+      >
+        {days.map((d) => (
+          <div key={d.iso}>
+            <p
+              style={{
+                margin: "0 0 4px",
+                fontFamily: "var(--font-body)",
+                fontSize: 10.5,
+                fontWeight: 700,
+                color: "#5A5047",
+                textAlign: "center",
+                letterSpacing: "0.04em",
+              }}
+            >
+              {d.label}
+            </p>
+            <p
+              style={{
+                margin: "0 0 4px",
+                fontFamily: "var(--font-body)",
+                fontSize: 9,
+                color: "#8A7E70",
+                textAlign: "center",
+              }}
+            >
+              {d.short}
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              {periods.map((p) => {
+                const isSelected = slot?.day === d.iso && slot?.period === p.id;
+                return (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => setSlot({ day: d.iso, period: p.id })}
+                    style={{
+                      padding: "8px 4px",
+                      background: isSelected ? (accent || "#c8956c") : "#FFFCF5",
+                      color: isSelected ? "#2A2420" : "#5A5047",
+                      border: `1.5px solid ${isSelected ? "#2A2420" : "#2A24201A"}`,
+                      borderRadius: 6,
+                      fontFamily: "var(--font-body)",
+                      fontSize: 10,
+                      fontWeight: isSelected ? 700 : 500,
+                      cursor: "pointer",
+                      transition: "all 0.12s",
+                      lineHeight: 1.1,
+                    }}
+                  >
+                    {p.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+      <p
+        style={{
+          margin: "0 0 10px",
+          fontFamily: "var(--font-body)",
+          fontSize: 11,
+          color: "#8A7E70",
+          textAlign: "center",
+        }}
+      >
+        Heure Paris · Paul vous proposera un créneau précis dans la plage choisie.
+      </p>
+
+      <p
+        style={{
+          margin: "16px 0 8px",
+          fontFamily: "var(--font-body)",
+          fontSize: 12,
+          fontWeight: 700,
+          letterSpacing: "0.16em",
+          textTransform: "uppercase",
+          color: "#8A7E70",
+        }}
+      >
+        2 · Votre email
+      </p>
+      <input
+        type="email"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="nom@entreprise.com"
+        disabled={state === "sending"}
+        style={{
+          width: "100%",
+          padding: "12px 14px",
+          border: "2px solid #2A2420",
+          borderRadius: 8,
+          background: "#FFFCF5",
+          fontFamily: "var(--font-body)",
+          fontSize: 14,
+          color: "#2A2420",
+          outline: "none",
+          marginBottom: 10,
+        }}
+      />
+      <input
+        type="text"
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
+        placeholder="Sujet (facultatif) — ex : automatiser notre reporting"
+        disabled={state === "sending"}
+        style={{
+          width: "100%",
+          padding: "10px 14px",
+          border: "2px solid #2A2420",
+          borderRadius: 8,
+          background: "#FFFCF5",
+          fontFamily: "var(--font-body)",
+          fontSize: 13,
+          color: "#2A2420",
+          outline: "none",
+          marginBottom: 14,
+        }}
+      />
+
+      <button
+        type="submit"
+        disabled={!slot || !email.includes("@") || state === "sending"}
+        style={{
+          width: "100%",
+          padding: "14px 22px",
+          background: (slot && email.includes("@")) ? "var(--parrit-red)" : "#A09488",
+          color: "#FFFCF5",
+          border: "2px solid #2A2420",
+          borderRadius: 10,
+          fontFamily: "var(--font-body)",
+          fontSize: 14,
+          fontWeight: 700,
+          cursor: (slot && email.includes("@")) ? "pointer" : "not-allowed",
+          boxShadow: (slot && email.includes("@")) ? "4px 4px 0 #2A2420" : "none",
+          transition: "all 0.1s",
+        }}
+      >
+        {state === "sending" ? "Envoi…" : "Demander le créneau →"}
+      </button>
+      {state === "error" && (
+        <p style={{ marginTop: 8, color: "#C44536", fontSize: 12, textAlign: "center" }}>
+          Échec d'envoi. Essayez l'email plus bas ou paul.larmaraud@parrit.ai.
+        </p>
+      )}
+    </form>
+  );
+}
+
+function useNextWeekdays(count: number) {
+  const days: { iso: string; label: string; short: string }[] = [];
+  const d = new Date();
+  while (days.length < count) {
+    d.setDate(d.getDate() + 1);
+    const wd = d.getDay();
+    if (wd === 0 || wd === 6) continue; // skip weekend
+    const labels = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+    const months = ["jan", "fév", "mar", "avr", "mai", "jui", "jui", "aoû", "sep", "oct", "nov", "déc"];
+    days.push({
+      iso: d.toISOString().slice(0, 10),
+      label: labels[wd],
+      short: `${d.getDate()} ${months[d.getMonth()]}`,
+    });
+  }
+  return days;
+}
+
+/* ───────────────────────────────────────────────
    QUICK CONTACT inline (window content)
    ─────────────────────────────────────────────── */
 function ContactBlock({
@@ -1387,6 +2047,24 @@ function ContactBlock({
       >
         {copy.sub}
       </p>
+
+      <SlotPicker accent={accent} />
+
+      <p
+        style={{
+          margin: "16px 0 12px",
+          fontFamily: "var(--font-body)",
+          fontSize: 11,
+          fontWeight: 700,
+          letterSpacing: "0.18em",
+          textTransform: "uppercase",
+          color: "#8A7E70",
+          textAlign: "center",
+        }}
+      >
+        — ou juste un mot —
+      </p>
+
       <form onSubmit={submit} style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         <input
           value={value}
@@ -1949,7 +2627,7 @@ function PanelContent({
   contact,
   onOpenContact,
 }: {
-  which: "manifeste" | "methode" | "cas" | "paul" | "yukun" | "yukun";
+  which: "manifeste" | "transformation" | "methode" | "cas" | "paul" | "yukun" | "yukun";
   panel: PanelCopy;
   contact: ReturnType<typeof getCopy>["contact"];
   onOpenContact: () => void;
@@ -1972,6 +2650,99 @@ function PanelContent({
             {line}
           </p>
         ))}
+      </div>
+    );
+  }
+  if (which === "transformation") {
+    const t = panel.transformation;
+    const tagColors = ["#C44536", "#5FAF8E", "#c8956c"];
+    return (
+      <div>
+        <p
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: 11,
+            fontWeight: 700,
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            color: "var(--parrit-red)",
+            margin: "0 0 18px",
+          }}
+        >
+          {t.eyebrow}
+        </p>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          {t.blocks.map((b, i) => (
+            <div
+              key={b.tag}
+              style={{
+                padding: "16px 18px",
+                background: "#FFFCF5",
+                border: `1.5px solid ${tagColors[i]}`,
+                borderLeft: `5px solid ${tagColors[i]}`,
+                borderRadius: 10,
+              }}
+            >
+              <p
+                style={{
+                  margin: "0 0 8px",
+                  fontFamily: "var(--font-body)",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: tagColors[i],
+                }}
+              >
+                {b.tag}
+              </p>
+              <p
+                style={{
+                  margin: 0,
+                  fontFamily: "var(--font-body)",
+                  fontSize: 14.5,
+                  lineHeight: 1.6,
+                  color: "#2A2420",
+                }}
+              >
+                {b.body}
+              </p>
+            </div>
+          ))}
+        </div>
+        <p
+          style={{
+            marginTop: 20,
+            fontFamily: "var(--font-heading)",
+            fontSize: 17,
+            fontStyle: "italic",
+            lineHeight: 1.5,
+            color: "#2A2420",
+            textAlign: "center",
+            padding: "0 4px",
+          }}
+        >
+          {t.closing}
+        </p>
+        <div style={{ textAlign: "center", marginTop: 20 }}>
+          <button
+            onClick={onOpenContact}
+            style={{
+              padding: "12px 22px",
+              background: "var(--parrit-red)",
+              border: "2px solid #2A2420",
+              borderRadius: 8,
+              fontFamily: "var(--font-body)",
+              fontSize: 14,
+              fontWeight: 700,
+              color: "#FFFCF5",
+              cursor: "pointer",
+              boxShadow: "3px 3px 0 #2A2420",
+            }}
+          >
+            {contact.title} →
+          </button>
+        </div>
       </div>
     );
   }
@@ -2211,7 +2982,7 @@ function PanelContent({
    ─────────────────────────────────────────────── */
 export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Locale }) {
   const copy = getCopy(lang);
-  const [open, setOpen] = useState<null | { kind: "offer"; idx: number } | { kind: "panel"; which: "manifeste" | "methode" | "cas" | "paul" | "yukun" } | { kind: "contact"; accent?: string } | { kind: "waitlist" }>(null);
+  const [open, setOpen] = useState<null | { kind: "offer"; idx: number } | { kind: "panel"; which: "manifeste" | "transformation" | "methode" | "cas" | "paul" | "yukun" } | { kind: "contact"; accent?: string } | { kind: "waitlist" }>(null);
 
   // Capture attribution on mount
   useEffect(() => {
@@ -2230,7 +3001,7 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
   }, []);
 
   const openOffer = (idx: number) => setOpen({ kind: "offer", idx });
-  const openPanel = (which: "manifeste" | "methode" | "cas" | "paul" | "yukun") =>
+  const openPanel = (which: "manifeste" | "transformation" | "methode" | "cas" | "paul" | "yukun") =>
     setOpen({ kind: "panel", which });
   const openContact = (accent?: string) => setOpen({ kind: "contact", accent });
   const openWaitlist = () => setOpen({ kind: "waitlist" });
@@ -2269,8 +3040,8 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
                 window.open(it.href, "_blank", "noopener");
                 return;
               }
-              if (it.id === "manifeste" || it.id === "methode" || it.id === "cas" || it.id === "paul" || it.id === "yukun") {
-                openPanel(it.id as "manifeste" | "methode" | "cas" | "paul" | "yukun");
+              if (it.id === "manifeste" || it.id === "transformation" || it.id === "methode" || it.id === "cas" || it.id === "paul" || it.id === "yukun") {
+                openPanel(it.id as "manifeste" | "transformation" | "methode" | "cas" | "paul" | "yukun");
               }
             };
             return (
@@ -2290,7 +3061,12 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <p className="parrit-os-eyebrow">{lang === "fr" ? "Transformation IA · de 0 à la production" : lang === "en" ? "AI transformation · from 0 to production" : "Transformação IA · do 0 à produção"}</p>
+            <p className="parrit-os-eyebrow">{
+              lang === "fr" ? "Transformation IA · de 0 à la production"
+              : lang === "en" ? "AI transformation · from 0 to production"
+              : lang === "zh-CN" ? "AI 转型 · 从 0 到生产"
+              : "Transformação IA · do 0 à produção"
+            }</p>
             <h1 className="parrit-os-brand">{copy.brand}</h1>
             <p className="parrit-os-tagline">{copy.tagline}</p>
             <p className="parrit-os-sub">{copy.sub}</p>
@@ -2321,10 +3097,10 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
           >
             <HeroScene
               labels={{
-                you: lang === "fr" ? "Vous" : "You",
-                youSub: lang === "fr" ? "Le dirigeant" : "The founder",
+                you: lang === "fr" ? "Vous" : lang === "zh-CN" ? "您" : lang === "pt-BR" ? "Você" : "You",
+                youSub: lang === "fr" ? "Le dirigeant" : lang === "zh-CN" ? "决策者" : lang === "pt-BR" ? "O líder" : "The founder",
                 parrit: "Parrit",
-                parritSub: lang === "fr" ? "Votre copilot" : "Your copilot",
+                parritSub: lang === "fr" ? "Votre copilot" : lang === "zh-CN" ? "您的副驾" : lang === "pt-BR" ? "Seu copiloto" : "Your copilot",
                 agents: copy.offers.map((o) => o.chip),
               }}
             />
@@ -2419,10 +3195,12 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
             ? "Franco-chinois · Quatre typologies d'offre, un même collectif d'agents"
             : lang === "en"
             ? "Franco-Chinese · Four offer typologies, one agent collective"
+            : lang === "zh-CN"
+            ? "中法合璧 · 四种服务类型,同一智能体集体"
             : "Franco-Chinês · Quatro tipologias de oferta, um coletivo"}
         </p>
         <p className="parrit-os-stamps-hint">
-          {lang === "fr" ? "Cliquez une œuvre pour ouvrir l'offre" : lang === "en" ? "Click an artwork to open the offer" : "Clique uma obra para abrir a oferta"}
+          {lang === "fr" ? "Cliquez une œuvre pour ouvrir l'offre" : lang === "en" ? "Click an artwork to open the offer" : lang === "zh-CN" ? "点击作品查看服务" : "Clique uma obra para abrir a oferta"}
         </p>
         <div className="parrit-os-stamps-row">
           {[
@@ -2431,28 +3209,28 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
               artist: "Claude Monet · 1872",
               rot: -2.2,
               offerIdx: 0, // Back-office → Impression : on capte le détail qui change tout
-              teaser: lang === "fr" ? "On capte le détail qui change tout" : lang === "en" ? "We capture the detail that changes everything" : "Captamos o detalhe que muda tudo",
+              teaser: lang === "fr" ? "On capte le détail qui change tout" : lang === "en" ? "We capture the detail that changes everything" : lang === "zh-CN" ? "我们捕捉改变一切的细节" : "Captamos o detalhe que muda tudo",
             },
             {
               src: "/stamps/fan-kuan-travelers.jpg",
               artist: "范寬 Fan Kuan · ≈ 1000",
               rot: 1.6,
               offerIdx: 2, // Prototype → Voyageurs : on trace la route en quelques jours
-              teaser: lang === "fr" ? "On trace la route en quelques jours" : lang === "en" ? "We chart the path in days" : "Traçamos o caminho em dias",
+              teaser: lang === "fr" ? "On trace la route en quelques jours" : lang === "en" ? "We chart the path in days" : lang === "zh-CN" ? "我们几天内开辟道路" : "Traçamos o caminho em dias",
             },
             {
               src: "/stamps/renoir-canotiers.jpg",
               artist: "Pierre-Auguste Renoir · 1881",
               rot: 1.1,
               offerIdx: 1, // Business → Canotiers : on amène les bons à table
-              teaser: lang === "fr" ? "On amène les bons à table" : lang === "en" ? "We bring the right people to the table" : "Trazemos as pessoas certas",
+              teaser: lang === "fr" ? "On amène les bons à table" : lang === "en" ? "We bring the right people to the table" : lang === "zh-CN" ? "我们把对的人请上桌" : "Trazemos as pessoas certas",
             },
             {
               src: "/stamps/guo-xi-early-spring.jpg",
               artist: "郭熙 Guo Xi · 1072",
               rot: -1.4,
               offerIdx: 3, // Formation → Début du printemps : vos équipes prennent racine
-              teaser: lang === "fr" ? "Vos équipes prennent racine" : lang === "en" ? "Your teams take root" : "Suas equipes criam raízes",
+              teaser: lang === "fr" ? "Vos équipes prennent racine" : lang === "en" ? "Your teams take root" : lang === "zh-CN" ? "您的团队扎根生长" : "Suas equipes criam raízes",
             },
           ].map((s) => {
             const offer = copy.offers[s.offerIdx];
@@ -2503,7 +3281,7 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
       <footer className="parrit-os-statusbar">
         <span>● parrit.ai</span>
         <span>Paul Larmaraud · paul.larmaraud@parrit.ai</span>
-        <span className="parrit-os-clock">{new Date().toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US", { day: "2-digit", month: "short" })}</span>
+        <span className="parrit-os-clock">{new Date().toLocaleDateString(lang === "fr" ? "fr-FR" : lang === "zh-CN" ? "zh-CN" : lang === "pt-BR" ? "pt-BR" : "en-US", { day: "2-digit", month: "short" })}</span>
       </footer>
     </div>
   );

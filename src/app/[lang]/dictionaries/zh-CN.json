@@ -1,0 +1,1280 @@
+{
+  "meta": {
+    "title": "Parrit · Custom tools shipped inside your operations",
+    "description": "Operational partner to executive teams. We build the tool that unblocks your operations, with your people, in days. You leave with a system running in production. No day rate, no slides.",
+    "ogTitle": "Parrit · Custom tools shipped inside your operations",
+    "ogDescription": "We build the tool that unblocks your operations, with your people, in days. System in production at the end. No day rate.",
+    "ogImageAlt": "Parrit · Operational partner to executive teams",
+    "ogLocale": "en_US",
+    "keywords": [
+      "custom enterprise tools",
+      "operations automation",
+      "operational partner CEO",
+      "in-house tooling deployment",
+      "n8n integration",
+      "AI agents in production",
+      "Claude Code Consulting",
+      "Claude Code consultant",
+      "how to integrate AI agents",
+      "what is an AI agent",
+      "Anthropic Claude",
+      "AI products",
+      "augmented consulting",
+      "Parrit.ai",
+      "Paul Larmaraud"
+    ],
+    "schemaDescription": "Augmented consulting firm that codes and ships custom tools inside the operations of its clients. System in production at the end. No day rate."
+  },
+  "nav": {
+    "switcherLabel": "Language"
+  },
+  "hero": {
+    "logo": "PARRIT.AI",
+    "titleMain": "Build.",
+    "titleAccent": "Don't advise.",
+    "subtitle": "Parrit opère vos deux fronts critiques : automatiser le back-office qui pèse sur vos équipes, et générer le business que vous laissez passer.",
+    "cta": "Book 15 minutes with Paul",
+    "ctaMicro": "No commitment · Reply within 24 hours · DMs open"
+  },
+  "chatVoice": {
+    "title": "Or tell us directly about your need",
+    "subtitle": "Describe your case out loud or in writing. We scope it with you, and take it from there.",
+    "micLabel": "Tell us about your need",
+    "micHint": "Click to speak, or type your message",
+    "examplesLabel": "Examples:",
+    "chips": [
+      "50-person IT consultancy, automate BoondManager",
+      "Law firm, automated legal monitoring",
+      "E-commerce, too many support tickets"
+    ],
+    "modalTitle": "Parrit",
+    "modalSubtitle": "Parrit.ai assistant : online",
+    "close": "Close",
+    "inputPlaceholder": "Write or speak...",
+    "send": "Send",
+    "listening": "Listening...",
+    "voiceUnsupported": "Voice input isn't supported on this browser. Type your message.",
+    "voiceDenied": "Microphone access denied. Type your message.",
+    "leadIntro": "So we can prep a proposal for you, drop your first name and email.",
+    "leadFirstName": "First name",
+    "leadEmail": "Email",
+    "leadPhone": "Phone (optional)",
+    "leadChannelLabel": "How should we reach you?",
+    "leadChannelEmail": "Email",
+    "leadChannelPhone": "Phone",
+    "leadChannelWhatsapp": "WhatsApp",
+    "leadChannelLinkedIn": "LinkedIn",
+    "leadSlotLabel": "When?",
+    "leadSlotAsap": "ASAP",
+    "leadSlotMorning": "Morning",
+    "leadSlotNoon": "Midday",
+    "leadSlotAfternoon": "Afternoon",
+    "leadSubmit": "Send",
+    "leadSubmitting": "Sending...",
+    "leadThanks": "Got it! We'll be in touch within 24 hours.",
+    "leadError": "Something broke. Try again or email paul.larmaraud@parrit.ai.",
+    "greeting": "Hi! Give us your context: what company, what size, and what pain do you want gone?"
+  },
+  "stackLabel": "Where we operate",
+  "pricingModels": {
+    "title": "Two pricing models, your call",
+    "models": [
+      {
+        "kind": "Classic",
+        "title": "Per project",
+        "bullets": [
+          "Free initial diagnostic",
+          "Fixed budget, clear scope, no hidden fees",
+          "Stage-based payment : you validate results before moving on",
+          "Fully transparent contract"
+        ]
+      },
+      {
+        "kind": "Aligned on your outcomes",
+        "title": "Performance-based",
+        "recommendedBadge": "Recommended",
+        "intro": "You make money, we invoice.",
+        "bullets": [
+          "Labor savings : share of the cost actually saved",
+          "Sales uplift : share of the incremental revenue generated",
+          "Processing time cut : rate based on the efficiency gained"
+        ],
+        "footnote": "If the promised outcome isn't hit, the performance share isn't invoiced."
+      }
+    ]
+  },
+  "showcase": {
+    "title": "What we ship inside your operation",
+    "items": [
+      {
+        "label": "Custom in-house tools"
+      },
+      {
+        "label": "Workflows running in production"
+      },
+      {
+        "label": "Hands-on team upskilling"
+      },
+      {
+        "label": "Strategy & framing rooted in the field"
+      }
+    ],
+    "midCta": "Let's talk about your case"
+  },
+  "approach": {
+    "title": "Four verbs, no more",
+    "description": "On traite toute la chaîne, de la stratégie au résultat. Une équipe d'experts métier et techniques, mobilisable en renfort sur les chantiers qui le demandent. Pas pour produire du conseil. Pour livrer.",
+    "pillars": [
+      {
+        "n": "1",
+        "title": "Map",
+        "desc": "We look at where your operation actually breaks, with the people who run it. No generic questionnaires."
+      },
+      {
+        "n": "2",
+        "title": "Prototype",
+        "desc": "A working tool tested on your data. Not an audit that ends up in a drawer."
+      },
+      {
+        "n": "3",
+        "title": "Deploy",
+        "desc": "Itératif, jusqu'à ce que le système tourne en production sans aide extérieure, dans votre infrastructure."
+      },
+      {
+        "n": "4",
+        "title": "Stay",
+        "desc": "For what comes next, if you want us to. Not by default."
+      }
+    ]
+  },
+  "cases": {
+    "title": "Systems already shipped inside our clients",
+    "before": "Before",
+    "after": "After",
+    "items": [
+      {
+        "badge": "LAW FIRM",
+        "title": "Automated legal monitoring",
+        "before": "2h/day scanning case law and press",
+        "after": "Email digest every Monday 7:30am : shipped in 8 days"
+      },
+      {
+        "badge": "B2B ENERGY BROKER",
+        "title": "Signal-first acquisition",
+        "before": "Blind cold calling, marginal conversion",
+        "after": "1 to 5 qualified meetings/day on detected signals"
+      },
+      {
+        "badge": "B2B MULTI-VERTICAL",
+        "title": "Podcast-voice personalized outbound",
+        "before": "Generic cold mail, open rate under 20%, reply rate under 1%",
+        "after": "Mail informed by prospect's public transcripts: 60%+ open rate, multiplied reply rate, qualified meetings booked."
+      },
+      {
+        "badge": "50-PERSON IT CONSULTANCY",
+        "title": "ERP queried in plain language",
+        "before": "PMs stuck on BoondManager",
+        "after": "Natural language queries, prototype in 5 days"
+      },
+      {
+        "badge": "FRANCHISE GROUP",
+        "title": "Smart CRM rotation",
+        "before": "5,000 dormant contacts",
+        "after": "100+ prospects/day auto-scored against ICP"
+      },
+      {
+        "badge": "MULTI-SECTOR",
+        "title": "Rapid landing page prototyping",
+        "before": "Six weeks to validate a message through an agency",
+        "after": "1 to 3 days: copy, design, tracking, deployment. You test your market hypothesis in a week."
+      }
+    ],
+    "footer": "Real cases, clients anonymized. Every system is running in production today."
+  },
+  "claudeCode": {
+    "badge": "TROIS OFFRES, DEUX FRONTS",
+    "title": "Trois façons de mettre Parrit dans votre opération",
+    "subtitle": "Vous choisissez par où on commence.",
+    "offers": [
+      {
+        "kind": "Transformation complète",
+        "title": "Transformation IA + Formation agentique",
+        "recommendedBadge": "Le plus complet",
+        "intro": "Le cœur de Parrit. Agents installés sur tous vos fronts, équipes formées à les piloter en autonomie.",
+        "bullets": [
+          "Agents qui couvrent vos deux axes : back-office automatisé et business généré",
+          "Formation Claude Code pensée pour les non-tech, vos équipes construisent",
+          "Accompagnement opérationnel sur 4 à 12 semaines, pas un PDF",
+          "Qualiopi en cours d'instruction, financement OPCO à venir"
+        ],
+        "footnote": "Pour traiter les deux fronts en même temps."
+      },
+      {
+        "kind": "Prototype rapide",
+        "title": "Prototypage rapide",
+        "intro": "La preuve par le code en 2 à 4 semaines. Un cas métier, un agent sur mesure, en production.",
+        "bullets": [
+          "Un cas métier réel cadré et livré en 2 à 4 semaines",
+          "Stack moderne ouverte (Claude Code, Gemini, n8n), pas de boîte noire",
+          "Code livré, vous en êtes propriétaire",
+          "Souvent le premier pas avant la transformation globale"
+        ],
+        "footnote": "Pour voir avant de croire."
+      },
+      {
+        "kind": "Génération de pipe",
+        "title": "Lead Generation",
+        "intro": "On industrialise votre acquisition outbound voix dirigeant. Sourcing, copy, séquences, reporting RDV.",
+        "bullets": [
+          "Pas d'IA générique qui sent l'IA, voix Operating Partner travaillée prospect par prospect",
+          "Cible des dirigeants qui ne répondent jamais aux cold emails classiques",
+          "Pipeline branché sur signaux faibles (podcasts, levées, nominations)",
+          "Méthode et outils transmis, pas de dépendance à vie"
+        ],
+        "footnote": "Pour du RDV qualifié sans recruter."
+      }
+    ],
+    "target": "Pour dirigeants qui veulent piloter leur transformation IA. Ni SaaS, ni recrutement, ni conseil.",
+    "cta": "Réserver 15 minutes avec Paul"
+  },
+  "quote": {
+    "text": "“Others theorize. I code, I ship, and I stay.”",
+    "cite": ": Paul Larmaraud, founder of Parrit"
+  },
+  "founders": {
+    "title": "Who builds",
+    "paul": {
+      "name": "Paul Larmaraud",
+      "role": "Founder",
+      "bio": "Product vision and field. Former operations team at Lime in Paris, former Arkel. Operational partner to executive teams for over two years: law firms, wholesalers, energy brokers, startups, franchise groups, IT consultancies, large retail. Codes and ships his own tools every week — what runs in his clients runs at home first. DMs open.",
+      "signature": "Product · Code · Operations · Field"
+    },
+    "yukun": {
+      "name": "Yukun Leng",
+      "role": "Co-founder",
+      "bio": "Ten years at the heart of European luxury houses, including LVMH. Mastery of operations between France and China. Quiet rigor and rare listening: takes on the depth of analysis sales doesn't always allow. Mobilizes a network of business experts as reinforcement on the projects that need them.",
+      "signature": "Luxury · LVMH · Operations · China"
+    }
+  },
+  "cta": {
+    "title": "Let's talk about your case.",
+    "subtitle": "Leave your details. Paul will get back to you within 24 hours. Or DM him directly — DMs are open.",
+    "form": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "company": "Company",
+      "phone": "Phone",
+      "email": "Work email",
+      "slotPlaceholder": "Preferred time slot (optional)",
+      "slotMorning": "Morning (9am-12pm)",
+      "slotNoon": "Midday (12pm-2pm)",
+      "slotAfternoon": "Afternoon (2pm-6pm)",
+      "slotAsap": "As soon as possible",
+      "submit": "→ Get contacted",
+      "submitting": "Sending...",
+      "error": "Something went wrong. Please try again or contact us directly.",
+      "or": "or",
+      "whatsapp": "Message us on WhatsApp"
+    },
+    "sent": {
+      "thanks": "Thanks {firstName}!",
+      "confirmation": "Paul will call you at {phone} ({slot}).",
+      "slotAsap": "as soon as possible",
+      "slotMorning": "between 9am and 12pm",
+      "slotNoon": "between 12pm and 2pm",
+      "slotAfternoon": "between 2pm and 6pm",
+      "slotDefault": "as soon as possible"
+    },
+    "secondaryWhatsapp": "Message on WhatsApp",
+    "footer": {
+      "legal": "© 2026 Paul Larmaraud · SASU PARRIT.AI · Rueil-Malmaison, France",
+      "rgpd": "This site uses no advertising cookies. Analytics are collected anonymously in compliance with GDPR. By leaving your details, you agree to be contacted by Paul. Contact:"
+    }
+  },
+  "whatsappMessages": {
+    "formCta": "Hi, I'd like to be called back for an initial conversation.",
+    "secondaryCta": "Hi Paul, I'd like to learn more about Parrit.ai"
+  },
+  "blog": {
+    "meta": {
+      "title": "Blog : Parrit.ai | AI, automation and digital transformation",
+      "description": "Articles on AI applied to enterprises. Automation, AI agents, SAP, CRM : by the founders of Parrit.ai.",
+      "ogTitle": "Blog : Parrit.ai",
+      "ogDescription": "Articles on applied enterprise AI. Automation, AI agents, SAP.",
+      "schemaDescription": "Articles on artificial intelligence applied to enterprises."
+    },
+    "navTitle": "Blog",
+    "headerLabel": "The journal",
+    "headerTitleMain": "Notes on",
+    "headerTitleAccent": "applied AI",
+    "headerSubtitle": "What we learn from deploying artificial intelligence in businesses, every week.",
+    "readArticle": "Read the article →",
+    "footerText": "Want to see what AI can do for your company?",
+    "footerCta": "Book a conversation",
+    "back": "← Back to blog",
+    "by": "By",
+    "articleFooter": "This article resonates? Let's discuss your case."
+  },
+  "blogListDateLocale": "en-US",
+  "quickContact": {
+    "label": "Email or phone",
+    "placeholder": "your email or phone number",
+    "submit": "Get a callback",
+    "submitting": "Sending…",
+    "thanks": "Thanks. Paul gets back to you within hours.",
+    "error": "The message didn't go through. Try again or email paul.larmaraud@parrit.ai.",
+    "micro": "Reply in hours, not days."
+  },
+  "auditClaudeCode": {
+    "meta": {
+      "title": "Claude Code Audit : Parrit.ai | One day onsite, concrete action plan",
+      "description": "One-day onsite Claude Code audit. We map your workflows, identify three to five use cases with measurable ROI, and leave you with a prioritized action plan. Fixed fee, written deliverables, no day rate.",
+      "ogTitle": "Claude Code Audit : Parrit.ai",
+      "ogDescription": "One day at your office to identify what Claude Code can unlock in your operations. No slides. No day rate. Action plan in hand.",
+      "schemaDescription": "One-day Claude Code audit to identify use cases with measurable ROI in a company."
+    },
+    "nav": {
+      "back": "← Back"
+    },
+    "hero": {
+      "label": "CLAUDE CODE AUDIT",
+      "titleMain": "The audit",
+      "titleAccent": "opens every mission.",
+      "quickAnswer": "A Claude Code audit is how every Parrit engagement starts. We come onsite for half a day to a full day, map your workflows with the operators who do the work, quantify three to five use cases with measurable ROI, and show you Claude Code live on one of your real cases. By end of day, you know what to tackle first : onsite Sprint, team Setup, production Automations, or Remote international format. The audit is included in the mission that follows. No slides. No day rate.",
+      "cta": "Book a call with Paul"
+    },
+    "audience": {
+      "title": "Who it's for",
+      "items": [
+        {
+          "role": "Founders and CEOs",
+          "desc": "You want to know whether Claude Code can multiply your team's output before committing to a multi-month budget."
+        },
+        {
+          "role": "Heads of operations",
+          "desc": "You have three to five processes to industrialize and you want to know which to launch first."
+        },
+        {
+          "role": "CTOs and heads of engineering",
+          "desc": "You're comparing Claude Code, Cursor, Copilot. You want a benchmark on your real workflows, not a theoretical demo."
+        },
+        {
+          "role": "Heads of growth and marketing",
+          "desc": "You're looking to automate GTM, prospecting, content. You want to quantify the upside before investing."
+        }
+      ]
+    },
+    "method": {
+      "title": "How it goes",
+      "steps": [
+        {
+          "n": "1",
+          "title": "Map",
+          "desc": "Two hours with the operators who do the work to map the real workflows. No generic questionnaire : we look at what actually happens."
+        },
+        {
+          "n": "2",
+          "title": "Quantify",
+          "desc": "We put numbers on the real cost and time of each workflow. A use case without numbers doesn't pass the filter."
+        },
+        {
+          "n": "3",
+          "title": "Prototype live",
+          "desc": "We start Claude Code on a shared screen and build a live mini-prototype on one of your cases. You see the tool running on your data."
+        },
+        {
+          "n": "4",
+          "title": "Prioritize",
+          "desc": "We rank use cases by ninety-day ROI and write the action plan. You decide what to tackle first."
+        }
+      ]
+    },
+    "deliverables": {
+      "title": "What you walk away with",
+      "items": [
+        "Written map of your key workflows and bottlenecks",
+        "Top five Claude Code use cases with numbers (gain, complexity, time-to-value)",
+        "Live Claude Code demo on one of your real cases",
+        "Ninety-day prioritized action plan in make / buy / delegate format",
+        "Honest call: what's worth doing, what isn't"
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "q": "How much does it cost?",
+          "a": "The audit is included in the mission that follows. The overall engagement is priced either as a fixed fee (scope, schedule, written deliverables) or as outcome-based pay (a share of the actual gain : savings, incremental revenue, time recovered). You choose. If the outcome is not reached in the latter case, the variable part is not invoiced. No day rate, no surprises."
+        },
+        {
+          "q": "How long does it take?",
+          "a": "Half a day to one full day onsite. Four to six hours of effective work with your teams, plus the writing of the action plan you receive within forty-eight hours."
+        },
+        {
+          "q": "What do you need to start?",
+          "a": "A slot in the calendar, two or three operators available during the day, and read access to the tools you use (CRM, ERP, file shares). We sign an NDA before coming if needed."
+        },
+        {
+          "q": "What if we have no AI tools in place?",
+          "a": "Even better. No technical debt, no deployed product creating friction. We start from your workflows as they are."
+        },
+        {
+          "q": "What does the audit lead to exactly?",
+          "a": "To the engagement format that matches your case: onsite Sprint (one to four days of immersion), Setup for your teams (you become autonomous), Automations running in production, or Remote international if you are outside France and onsite doesn't make sense. You decide."
+        },
+        {
+          "q": "Onsite or remote?",
+          "a": "Onsite preferred in France and Europe. For clients outside this zone, the Remote international format delivers audit, configuration and three to five automations without travel."
+        },
+        {
+          "q": "Are we obligated to continue with you after the audit?",
+          "a": "No. The action plan you receive is usable without us. If you have an internal team or a partner who can execute it, that's fine. We come back if you call us."
+        },
+        {
+          "q": "Where are you based, what languages do you operate in?",
+          "a": "Rueil-Malmaison, France. We work in French, English and Brazilian Portuguese. Most engagements are run in France and across Europe, with a few international clients on remote."
+        }
+      ]
+    },
+    "nextSteps": {
+      "title": "What comes after the audit?",
+      "subtitle": "The audit leads into one of these four formats. You decide based on the case.",
+      "options": [
+        {
+          "kind": "Sprint onsite or remote",
+          "title": "Audit, Configuration & Claude Code Sprint",
+          "desc": "One to four days with your teams — onsite or remote — to deliver an operational system on the urgent case. Live coding, your operators learn by watching."
+        },
+        {
+          "kind": "Team autonomy",
+          "title": "Claude Code Setup",
+          "desc": "Installation, configuration and enablement. Your teams become autonomous: CLAUDE.md, hooks, skills, MCP, business workflows, internal docs."
+        },
+        {
+          "kind": "Continuous production",
+          "title": "Automations",
+          "desc": "Deterministic workflows (n8n, scripts, agents) built to spec. CRM, monitoring, billing, outbound, reporting. Git-versioned, deployed. Fixed fee per deliverable."
+        },
+        {
+          "kind": "International",
+          "title": "Remote format",
+          "desc": "Audit, Claude Code configuration and three to five automations delivered remotely. For clients outside France where onsite doesn't make sense."
+        }
+      ]
+    },
+    "ctaSection": {
+      "title": "Book a call with Paul",
+      "subtitle": "Reply within twenty-four hours. We qualify the right format together.",
+      "primary": "Book a call",
+      "secondary": "Email Paul directly"
+    }
+  },
+  "sprint": {
+    "meta": {
+      "title": "Audit, Configuration & Claude Code Sprint : Parrit.ai | 1 to 4 days, onsite or remote",
+      "description": "Audit, Configuration & Claude Code Sprint of one to four days, onsite or remote. We code with your teams the workflow that unblocks operations. Operational system on exit. Fixed fee or outcome-based, no day rate.",
+      "ogTitle": "Audit, Configuration & Claude Code Sprint : Parrit.ai",
+      "ogDescription": "One to four days, onsite or remote. We code with you, we leave when the system runs.",
+      "schemaDescription": "Audit, Configuration & Claude Code Sprint of one to four days, onsite or remote, to deliver an operational system."
+    },
+    "hero": {
+      "label": "AUDIT, CONFIGURATION & CLAUDE CODE SPRINT",
+      "titleMain": "One to four days.",
+      "titleAccent": "A system running on exit.",
+      "quickAnswer": "An Audit, Configuration & Claude Code Sprint is one to four days, onsite or remote, during which we build with your teams the workflow that unblocks operations. We code live, your operators learn by watching, and we leave when the system runs in production. Typical topics: tender response, post-acquisition integration, sales workflow, intelligence to structure, ERP queryable in plain language. Fixed fee or outcome-based pay. No day rate. Written deliverables.",
+      "cta": "Book a call with Paul"
+    },
+    "audience": {
+      "title": "Who it's for",
+      "items": [
+        {
+          "role": "CEOs who want a result before the end of the week",
+          "desc": "You have a bottleneck identified and you don't want to wait three months for a SaaS vendor to ship the feature."
+        },
+        {
+          "role": "Heads of operations who want to unblock a specific workflow",
+          "desc": "You know exactly which process weighs on your teams. We come build it with them."
+        },
+        {
+          "role": "Founders in M&A integration mode",
+          "desc": "Heterogeneous stack, scattered data. We build the operational bridge in a few days."
+        },
+        {
+          "role": "Mid-market companies who want to see Claude Code run on their real business",
+          "desc": "Not a trade show demo. A tested, deployed, documented prototype in your infrastructure."
+        }
+      ]
+    },
+    "method": {
+      "title": "How it goes",
+      "steps": [
+        {
+          "n": "1",
+          "title": "Flash audit (half-day)",
+          "desc": "We arrive, map the target workflow with the operators concerned. We validate together the sprint scope and success criteria."
+        },
+        {
+          "n": "2",
+          "title": "Build live",
+          "desc": "Claude Code in hand, shared screen, your teams watch and participate. We iterate on your real data, not a theoretical dataset."
+        },
+        {
+          "n": "3",
+          "title": "Test + deploy",
+          "desc": "We test with real users, fix on the spot, deploy in your infrastructure. Git-versioned, documented."
+        },
+        {
+          "n": "4",
+          "title": "Handover and exit",
+          "desc": "Internal documentation delivered, transferable to a new hire. You leave with the running system and the autonomy to evolve it."
+        }
+      ]
+    },
+    "deliverables": {
+      "title": "What you walk away with",
+      "items": [
+        "Operational system deployed in your infrastructure, tested on your real data",
+        "Git-versioned code, in your repository or ours depending on preference",
+        "Internal documentation : how it works, how to evolve it, how to debug it",
+        "Your operators trained on the real case, not a theoretical example",
+        "Continuity plan : what we can industrialize next (Setup or Automations)"
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "q": "How much does it cost?",
+          "a": "Fixed fee or outcome-based pay : you choose. Fixed fee: scope, schedule, written deliverables. Outcome-based: a share of the actual gain (savings, incremental revenue, time recovered). If the outcome isn't reached in the latter case, the variable part isn't invoiced. No day rate, no surprises."
+        },
+        {
+          "q": "How long does it take?",
+          "a": "One to four consecutive days onsite. The format depends on the scope validated during the flash audit on the first half-day."
+        },
+        {
+          "q": "Do you code in our infra or yours?",
+          "a": "At your office, in your Git repo, in your infrastructure. The code stays yours. We can host temporarily if the infrastructure isn't ready, but the goal is that everything lives at your place by the end."
+        },
+        {
+          "q": "What if we have no Git repo, no cloud infra?",
+          "a": "We set one up during the sprint. It's even a useful deliverable : your teams come out with a repeatable environment."
+        },
+        {
+          "q": "Can we do the sprint without our operators available?",
+          "a": "No. The presence of two to three business operators during the sprint is non-negotiable : it's what makes the system actually run at your place after we leave."
+        },
+        {
+          "q": "Difference from a classic consulting engagement?",
+          "a": "We don't do slides, no audit ending in a drawer. We code live with your teams, we deliver a running system. No day rate, no disguised extension."
+        },
+        {
+          "q": "What comes after the sprint?",
+          "a": "If the system needs to be industrialized or extended, we move to Setup (your team autonomy) or Automations (production workflows). If your teams are autonomous, we stop. We come back on call."
+        },
+        {
+          "q": "What languages do you operate in?",
+          "a": "French, English and Brazilian Portuguese. Most sprints are run in France and across Europe."
+        }
+      ]
+    },
+    "nextSteps": {
+      "title": "What comes after the sprint?",
+      "subtitle": "The sprint solves an urgent case. What's next depends on what you want to build with it.",
+      "options": [
+        {
+          "kind": "Team autonomy",
+          "title": "Claude Code Setup",
+          "desc": "You want your teams to take Claude Code in their own hands end-to-end. We install, configure, and enable. Output: a repeatable environment that runs without us."
+        },
+        {
+          "kind": "Continuous production",
+          "title": "Automations",
+          "desc": "The sprint showed a workflow that needs to run continuously. We industrialize (n8n, scripts, agents), Git-versioned, deployed. Fixed fee per deliverable."
+        },
+        {
+          "kind": "International",
+          "title": "Remote format",
+          "desc": "If you're outside France and the sprint laid the foundation, the Remote format takes over from a distance."
+        },
+        {
+          "kind": "First step",
+          "title": "Claude Code Audit",
+          "desc": "If we haven't talked yet, the audit is the half-day entry. We look at your workflows and pick the right format together."
+        }
+      ]
+    },
+    "ctaSection": {
+      "title": "Book a sprint at your office",
+      "subtitle": "Reply within twenty-four hours. We qualify the sprint scope together.",
+      "primary": "Book a call",
+      "secondary": "Email Paul directly"
+    }
+  },
+  "setup": {
+    "meta": {
+      "title": "Claude Code Setup for Your Teams : Parrit.ai | Configuration and autonomy",
+      "description": "Full Claude Code setup for your teams: installation, configuration (CLAUDE.md, hooks, skills, MCP, business workflows), hands-on training. Your teams become autonomous. Fixed fee or outcome-based, no day rate.",
+      "ogTitle": "Claude Code Setup for Your Teams : Parrit.ai",
+      "ogDescription": "Installation, configuration and enablement. Your teams take Claude Code in their own hands end-to-end.",
+      "schemaDescription": "Full enterprise Claude Code setup: install, configure, train teams to autonomy."
+    },
+    "hero": {
+      "label": "CLAUDE CODE SETUP",
+      "titleMain": "Your teams take Claude Code",
+      "titleAccent": "in their own hands.",
+      "quickAnswer": "The Claude Code Setup is Parrit's most-requested format. We install Claude Code in your infrastructure, configure everything (CLAUDE.md tailored to your business, security hooks, custom skills, MCP connectors to your internal tools, ready-to-use workflows), and train your teams hands-on on their real cases. By the end, your environment is repeatable, transferable to a new hire, and your teams are autonomous. Fixed fee or outcome-based pay. No day rate. No vendor lock-in.",
+      "cta": "Book a call with Paul"
+    },
+    "audience": {
+      "title": "Who it's for",
+      "items": [
+        {
+          "role": "CEOs who want to keep AI in-house, not outsourced",
+          "desc": "You want your teams autonomous on Claude Code, not stuck on a vendor for the long run."
+        },
+        {
+          "role": "CTOs and heads of engineering",
+          "desc": "You want a clean Claude Code environment in your infra, configured to security standards, documented, maintainable."
+        },
+        {
+          "role": "Heads of operations industrializing AI internally",
+          "desc": "You've spotted several use cases. You want to operationalize them once, then have your teams own them."
+        },
+        {
+          "role": "Founders anticipating headcount growth",
+          "desc": "You know you'll hire. Setup lays the foundation new devs land on, already equipped."
+        }
+      ]
+    },
+    "method": {
+      "title": "How it goes",
+      "steps": [
+        {
+          "n": "1",
+          "title": "Setup audit (half-day)",
+          "desc": "We start from your stack, workflows, teams, security constraints. We co-define the target configuration: which skills, which hooks, which MCP."
+        },
+        {
+          "n": "2",
+          "title": "Install and configure",
+          "desc": "Claude Code installed on workstations or target infra. CLAUDE.md written for your business. Security hooks (audit logs, redaction, allow/deny). Custom skills. MCP connectors to your internal tools (CRM, ERP, file shares, business databases)."
+        },
+        {
+          "n": "3",
+          "title": "Hands-on training on real cases",
+          "desc": "No theoretical examples. Your teams learn by building what they'll use afterwards: a sales workflow, a monitoring loop, an ERP integration."
+        },
+        {
+          "n": "4",
+          "title": "Documentation and handover",
+          "desc": "Internal docs delivered : how to evolve the setup, how to add a skill, how to debug. Transferable. Your teams take over."
+        }
+      ]
+    },
+    "deliverables": {
+      "title": "What you walk away with",
+      "items": [
+        "Claude Code installed and configured in your infrastructure, to your security standards",
+        "Full CLAUDE.md written for your business (vocabulary, constraints, processes, company memory)",
+        "Custom skills and MCP connectors to your internal tools (CRM, ERP, files, business databases)",
+        "Security hooks (audit, redaction, allow/deny) : clean enterprise-grade version",
+        "Complete internal documentation, transferable to a new hire",
+        "Your teams trained on their real cases : not a trade show demo"
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "q": "How much does it cost?",
+          "a": "Fixed fee or outcome-based pay : you choose. The fixed fee depends on the number of teams to equip, the scope of skills/MCP, and the level of docs expected. No day rate, no surprises."
+        },
+        {
+          "q": "How long does it take?",
+          "a": "One to three weeks depending on scope. The install + config phase fits in a few days. Training and docs spread out to give teams time to onboard."
+        },
+        {
+          "q": "Difference from a classic Claude Code training?",
+          "a": "Training teaches the tool. Setup delivers the tool configured for YOUR business. Your teams learn by using the environment they'll keep : not a sandbox."
+        },
+        {
+          "q": "What about security and confidentiality?",
+          "a": "We configure security hooks from day one: audit logs, secret redaction, per-project allow/deny lists. Everything stays on your infra. Code and data don't leave the building."
+        },
+        {
+          "q": "Can we equip multiple teams at once?",
+          "a": "Yes. The config factors : a group CLAUDE.md plus team CLAUDE.md that override. The more teams, the better the ROI per seat."
+        },
+        {
+          "q": "What if we don't have a tech team?",
+          "a": "Setup is even more relevant : we configure an environment where your business operators can use Claude Code without permanent technical support. It's one of our typical cases."
+        },
+        {
+          "q": "Onsite or remote?",
+          "a": "Onsite preferred for the install + training phase. Docs and iterations can be remote. For clients outside France, see the Remote international format."
+        },
+        {
+          "q": "Are we obligated to continue with you after the Setup?",
+          "a": "No. The Setup is built to make you autonomous. We come back if you want to add a skill, unblock a topic, or industrialize a specific workflow."
+        }
+      ]
+    },
+    "nextSteps": {
+      "title": "What comes after the setup?",
+      "subtitle": "The Setup makes you autonomous. If a specific case needs a hand, here are the other formats.",
+      "options": [
+        {
+          "kind": "Urgent case",
+          "title": "Audit, Configuration & Claude Code Sprint",
+          "desc": "A particularly complex or urgent case to unblock? The Sprint solves it in one to four days, onsite or remote."
+        },
+        {
+          "kind": "Continuous production",
+          "title": "Automations",
+          "desc": "You spot a workflow that must run 24/7. We industrialize (n8n, scripts, agents), Git-versioned, deployed. Fixed fee per deliverable."
+        },
+        {
+          "kind": "International",
+          "title": "Remote format",
+          "desc": "You have entities outside France to equip too? We deliver the Setup remotely, audit + config + 3 to 5 automations included."
+        },
+        {
+          "kind": "First step",
+          "title": "Claude Code Audit",
+          "desc": "If we haven't talked yet, the audit is the half-day entry to scope the Setup."
+        }
+      ]
+    },
+    "ctaSection": {
+      "title": "Configure Claude Code at your company",
+      "subtitle": "Reply within twenty-four hours. We qualify the Setup scope together.",
+      "primary": "Book a call",
+      "secondary": "Email Paul directly"
+    }
+  },
+  "remote": {
+    "meta": {
+      "title": "Claude Code Remote international : Parrit.ai | Audit, config, 3-5 automations remote",
+      "description": "Remote format for clients outside France. Claude Code audit, full configuration and three to five automations delivered fully remote. No travel, measurable ROI.",
+      "ogTitle": "Claude Code Remote international : Parrit.ai",
+      "ogDescription": "For clients outside France where onsite doesn't make sense. Audit + config + 3 to 5 automations, fully remote.",
+      "schemaDescription": "Remote international format: Claude Code delivered remotely with audit, configuration and automations."
+    },
+    "hero": {
+      "label": "REMOTE INTERNATIONAL FORMAT",
+      "titleMain": "Claude Code remote.",
+      "titleAccent": "For clients outside France.",
+      "quickAnswer": "The Remote format is built for companies outside France where onsite travel doesn't make sense : US, UK, DACH, Asia, Brazil, Middle East. We deliver fully remote: Claude Code audit, full configuration in your infrastructure (CLAUDE.md, hooks, skills, MCP), three to five automations running in production. Video kickoff, screen sharing for build phases, complete documentation and recorded training. Fixed fee. No day rate. No travel to bill.",
+      "cta": "Book a call with Paul"
+    },
+    "audience": {
+      "title": "Who it's for",
+      "items": [
+        {
+          "role": "Founders and CEOs outside France",
+          "desc": "You want to equip your team with Claude Code but the onsite sprint doesn't make geographical sense."
+        },
+        {
+          "role": "International divisions of a French group",
+          "desc": "You've equipped your HQ with Claude Code (Sprint or Setup), now you want to replicate in the US, UK, Asia subsidiaries."
+        },
+        {
+          "role": "Distributed full-remote teams",
+          "desc": "No central office. We adapt the format to your rhythm and timezone : we come back on video when needed."
+        },
+        {
+          "role": "Investors / scout funds equipping their portfolio",
+          "desc": "You want to equip multiple portfolio startups with Claude Code at controlled cost. The remote format scales."
+        }
+      ]
+    },
+    "method": {
+      "title": "How it goes",
+      "steps": [
+        {
+          "n": "1",
+          "title": "Video kickoff (1 hour)",
+          "desc": "Quick scoping on video : your stack, workflows, constraints, the three to five target automations. We validate the scope."
+        },
+        {
+          "n": "2",
+          "title": "Remote audit (1-2 days)",
+          "desc": "We analyze the targeted workflows, quantify expected ROI, list required skills and MCP. Audit doc delivered within 3 days max."
+        },
+        {
+          "n": "3",
+          "title": "Build over screen sharing (1-2 weeks)",
+          "desc": "Short video sessions 2 to 3 times a week. We code the configuration and automations together. Your teams see everything, ask questions, validate at every step."
+        },
+        {
+          "n": "4",
+          "title": "Documentation and recorded training",
+          "desc": "Complete internal docs + Loom training video per use case. New hires onboard by watching videos. We stay reachable for 30 days post-delivery."
+        }
+      ]
+    },
+    "deliverables": {
+      "title": "What you walk away with",
+      "items": [
+        "Claude Code installed and configured in your infrastructure (CLAUDE.md, hooks, skills, MCP)",
+        "Three to five automations running in production on your real use cases",
+        "Git-versioned code, in your repository",
+        "Complete internal documentation, in English and your team's working language",
+        "Loom training videos per automation : new hires onboard self-service",
+        "Thirty days of post-delivery support by email/video for adjustments"
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "q": "How much does it cost?",
+          "a": "Fixed fee. The remote format is packaged to give a clear ratio audit + config + automations delivered. No day rate, no travel fees, no surprises. Quote within forty-eight hours after kickoff."
+        },
+        {
+          "q": "How long does it take?",
+          "a": "Three to four weeks depending on complexity. One to two weeks for the build itself, the rest spread for kickoff, audit and handover."
+        },
+        {
+          "q": "What timezones do you work in?",
+          "a": "Europe, US East/West, Brazil and Asia depending on the week. We sync on two to three fixed slots per week. Async work happens via Slack or equivalent."
+        },
+        {
+          "q": "Security : do you access our code/data?",
+          "a": "You stay in control. We configure security hooks from day one: audit logs, redaction, allow/deny. Build sessions are screen-shared on your machine : code and data don't leave your side."
+        },
+        {
+          "q": "What languages do you operate in?",
+          "a": "French, English and Brazilian Portuguese fluently. Docs and Loom videos are delivered in the working language of the user team : usually English for international remote."
+        },
+        {
+          "q": "We tried Claude Code in-house and it didn't stick. Why would it work with you?",
+          "a": "Because we configure for YOUR business, not generic. CLAUDE.md adapted, MCP to your internal tools, security hooks matching your constraints, hands-on training on real cases. The difference is in the business layer we bring, not the tool itself."
+        },
+        {
+          "q": "What comes after Remote?",
+          "a": "If you want to industrialize further, we can move to additional Automations (fixed fee per deliverable). If you're in France and an urgent case comes up, we can do an onsite Sprint."
+        }
+      ]
+    },
+    "nextSteps": {
+      "title": "What comes after Remote?",
+      "subtitle": "The Remote format equips you and makes you autonomous. If you want to go further, here are the other formats.",
+      "options": [
+        {
+          "kind": "Continuous production",
+          "title": "Automations",
+          "desc": "You spot more workflows that need to run 24/7. We industrialize at fixed fee per deliverable : still remote."
+        },
+        {
+          "kind": "France / Europe",
+          "title": "Audit, Configuration & Claude Code Sprint",
+          "desc": "You have a French entity that needs equipping too? The Sprint, onsite or remote, is the option for offices in the zone."
+        },
+        {
+          "kind": "Multiple local teams",
+          "title": "Claude Code Setup",
+          "desc": "For French subsidiaries where you want to equip multiple teams at once with a repeatable environment."
+        },
+        {
+          "kind": "First step",
+          "title": "Claude Code Audit",
+          "desc": "If we haven't talked yet, the video kickoff acts as the audit : it's included in the Remote format."
+        }
+      ]
+    },
+    "ctaSection": {
+      "title": "Start remote",
+      "subtitle": "Reply within twenty-four hours. Video kickoff in the days that follow.",
+      "primary": "Book a call",
+      "secondary": "Email Paul directly"
+    }
+  },
+  "author": {
+    "title": "Paul Larmaraud, founder of Parrit.ai",
+    "metaTitle": "Paul Larmaraud | Founder, Parrit.ai",
+    "metaDescription": "Founder of Parrit.ai, Paul Larmaraud has been deploying Claude Code inside companies since 2024. On-site sprints, real cases, no slideware.",
+    "role": "Founder · Parrit.ai",
+    "location": "Rueil-Malmaison, France",
+    "bioP1": "Paul Larmaraud founded Parrit.ai in early 2024 after ten years of building and operating products at Lime (Paris swap stations) and Arkel (two and a half years as a product operator). The conviction: generative AI doesn't get sold in slides, it gets deployed in production alongside the client's teams.",
+    "bioP2": "Since launch, Parrit.ai has shipped four production systems: automated legal monitoring for a corporate law firm, signal-first acquisition for a B2B energy broker, French-queryable ERP for a fifty-person IT services company, intelligent CRM rotation for a franchise group. Every engagement starts from field transcripts and ends with a tool running without us.",
+    "bioP3": "Paul writes regularly about Claude Code, enterprise AI agents and field voice in B2B sales. The Parrit.ai blog is the primary public outlet. No jargon, real numbers, anonymized cases.",
+    "expertiseTitle": "Areas of expertise",
+    "expertise": [
+      "Claude Code in enterprise environments",
+      "Production-grade AI agents (orchestration, memory, supervision)",
+      "B2B sales operations automation",
+      "API integration and deterministic workflows",
+      "Fast on-site prototyping sprints"
+    ],
+    "experienceTitle": "Career path",
+    "experience": [
+      "Parrit.ai · Founder · 2024 - present",
+      "Arkel · Product operator · 2.5 years",
+      "Lime · Paris swap stations · product engineer"
+    ],
+    "ctaTitle": "Work with Paul",
+    "ctaText": "Claude Code sprints, audits, production automations. Reply within twenty-four hours.",
+    "ctaButton": "Book fifteen minutes",
+    "linksTitle": "Find him here",
+    "links": {
+      "linkedin": "LinkedIn",
+      "email": "paul.larmaraud@parrit.ai",
+      "blog": "Read the Parrit.ai blog"
+    }
+  },
+  "casVitrines": {
+    "meta": {
+      "title": "Cas vitrines — Parrit.ai",
+      "description": "Quatre profils d'entreprise, quatre transformations opérées par Parrit. TPE/artisan, PME B2C, cabinet de conseil, grand groupe."
+    },
+    "homeSection": {
+      "badge": "QUATRE EXEMPLES PARMI BEAUCOUP D'AUTRES",
+      "title": "Deux types de chantiers, une même façon de construire",
+      "subtitle": "Capter, prototyper, opérer, transmettre. Cette méthode s'applique à deux fronts critiques : ce qui pèse aujourd'hui sur vos équipes, et ce qu'elles n'ont pas le temps d'aller chercher. Chaque entreprise a ses propres goulots.",
+      "categories": [
+        {
+          "badge": "TÂCHES INTERNES EXISTANTES",
+          "title": "Automatiser ce qui pèse sur vos équipes",
+          "examples": [
+            {
+              "title": "Centraliser les demandes multicanales",
+              "context": "Exemple observé chez un artisan haut de gamme",
+              "brief": "Vos canaux entrants (site, réseaux sociaux, téléphone, point de vente) débordent. L'agent capte chaque demande, la qualifie par typologie, route, et tient les stocks à jour.",
+              "result": "100 % des leads captés, 60 % du temps administratif libéré."
+            },
+            {
+              "title": "Digest thématique automatisé",
+              "context": "Exemple observé dans un cabinet d'avocats",
+              "brief": "Deux heures par matin à éplucher la presse spécialisée et la jurisprudence. L'agent digest, classe, et prépare l'email du lundi prêt à diffuser.",
+              "result": "Digest livré chaque lundi 7 h 30, prêt à envoyer aux clients."
+            }
+          ]
+        },
+        {
+          "badge": "GÉNÉRATION DE BUSINESS",
+          "title": "Aller chercher le business que vos équipes ne touchent pas",
+          "examples": [
+            {
+              "title": "Pipeline outbound sur signaux faibles",
+              "context": "Exemple observé dans un cabinet de conseil",
+              "brief": "Vos prospects parlent en podcast, lèvent des fonds, recrutent. L'agent scanne 18 podcasts par jour, extrait les dirigeants pertinents, écrit avec votre voix.",
+              "result": "4 RDV qualifiés par semaine, taux de réponse 12 % contre 2 % en cold classique."
+            },
+            {
+              "title": "Prospection pilotée par alerte temps réel",
+              "context": "Exemple observé chez un courtier B2B",
+              "brief": "L'agent détecte qui ouvre un appel d'offres, qui change de poste, qui a un signal d'achat. Vous appelez au bon moment, jamais à l'aveugle.",
+              "result": "1 à 5 RDV qualifiés par jour, tous déclenchés par un signal détecté en temps réel."
+            }
+          ]
+        }
+      ],
+      "footer": "On en fait beaucoup d'autres. Le mieux pour identifier le vôtre : 15 minutes avec Paul.",
+      "ctaLabel": "Voir le cas",
+      "cards": [
+        {
+          "slug": "tpe-artisan-commercant",
+          "badge": "",
+          "title": "",
+          "summary": ""
+        },
+        {
+          "slug": "pme-marque-b2c",
+          "badge": "",
+          "title": "",
+          "summary": ""
+        },
+        {
+          "slug": "cabinet-conseil",
+          "badge": "",
+          "title": "",
+          "summary": ""
+        },
+        {
+          "slug": "grand-groupe",
+          "badge": "",
+          "title": "",
+          "summary": ""
+        }
+      ]
+    },
+    "labels": {
+      "profile": "Profil de l'entreprise",
+      "transformation": "La transformation opérée",
+      "domains": "Domaines d'activités impactés",
+      "result": "Résultats",
+      "stack": "Stack technique mobilisée",
+      "otherProfilesTitle": "Découvrir un autre profil",
+      "otherProfilesCta": "Voir le cas"
+    },
+    "profiles": [
+      {
+        "slug": "tpe-artisan-commercant",
+        "hero": {
+          "badge": "TPE / ARTISAN / COMMERÇANT INDÉPENDANT",
+          "titleMain": "De l'agitation",
+          "titleAccent": "à la maîtrise.",
+          "intro": "Vous êtes seul ou à quelques-uns à tout faire. Parrit installe les agents qui captent vos leads, qualifient vos demandes, gèrent vos stocks et relancent vos clients. Vous gardez la décision."
+        },
+        "profile": {
+          "items": [
+            {
+              "label": "Taille",
+              "value": "1 à 10 personnes"
+            },
+            {
+              "label": "Marchés",
+              "value": "B2C + B2B mixte"
+            },
+            {
+              "label": "Canaux",
+              "value": "E-commerce, réseaux sociaux, téléphone, point de vente"
+            },
+            {
+              "label": "Enjeu",
+              "value": "Le fondateur est sur tous les fronts, le commercial passe sous le radar"
+            }
+          ]
+        },
+        "transformation": {
+          "quote": "On bascule du fondateur-pompier au fondateur-pilote. Les leads ne tombent plus dans le vide, les stocks ne sont plus tenus sur post-it, les clients ne sont plus oubliés.",
+          "body": "Un agent unique capte chaque demande entrante, la qualifie par typologie, déclenche la bonne relance WhatsApp dans la voix du fondateur, et tient les stocks à jour. Vous regardez le dashboard 10 minutes le matin, et c'est tout."
+        },
+        "domains": [
+          "Capture leads sur tous vos canaux (e-commerce, réseaux sociaux, téléphone, point de vente)",
+          "Qualification automatique par typologie client",
+          "Gestion des stocks et des commandes en temps réel",
+          "Relances WhatsApp segmentées dans votre voix",
+          "Suivi commercial unifié sur dashboard quotidien",
+          "Production et envoi automatique de devis simples"
+        ],
+        "result": {
+          "metrics": [
+            {
+              "value": "100 %",
+              "label": "des leads captés (vs ~30 % avant)"
+            },
+            {
+              "value": "60 %",
+              "label": "du temps administratif libéré pour le fondateur"
+            },
+            {
+              "value": "14",
+              "label": "demandes Pro identifiées la première semaine, passaient sous le radar"
+            }
+          ],
+          "note": "Cas type représentatif. Chiffres observés sur un projet réel mené avec un artisan français en 2026."
+        },
+        "stack": [
+          "n8n",
+          "Brevo",
+          "WhatsApp Business",
+          "Supabase",
+          "Gemini Flash (intent)",
+          "Vercel"
+        ]
+      },
+      {
+        "slug": "pme-marque-b2c",
+        "hero": {
+          "badge": "PME / MARQUE B2C EN CROISSANCE",
+          "titleMain": "Reprendre la main",
+          "titleAccent": "sur votre visibilité IA.",
+          "intro": "Rufus, Alexa for Shopping et ChatGPT Search orientent désormais le choix produit des acheteurs. Parrit installe l'agent qui surveille votre visibilité IA chaque jour, par mot-clé et par concurrent."
+        },
+        "profile": {
+          "items": [
+            {
+              "label": "Taille",
+              "value": "10 à 200 personnes"
+            },
+            {
+              "label": "Modèle",
+              "value": "Marque B2C avec forte présence e-commerce et marketplaces"
+            },
+            {
+              "label": "Plateformes",
+              "value": "Amazon, Shopify, marketplaces sectorielles"
+            },
+            {
+              "label": "Enjeu",
+              "value": "Dépendance plateformes et opacité totale sur l'orientation IA des acheteurs"
+            }
+          ]
+        },
+        "transformation": {
+          "quote": "On vous donne enfin la visibilité que les plateformes vous cachent. Chaque matin, vous savez exactement ce que Rufus a recommandé hier, et qui a gagné du terrain.",
+          "body": "Chaque matin, un agent interroge Rufus et Alexa sur vos 50 prompts stratégiques. Il mesure votre rang, votre share-of-voice IA, et les concurrents qui montent. Vous recevez un dashboard quotidien et une alerte si quelque chose bouge."
+        },
+        "domains": [
+          "Veille concurrentielle continue sur 50 prompts stratégiques par jour",
+          "Monitoring share-of-voice IA (Rufus, Alexa, ChatGPT Search)",
+          "Intelligence prix et positionnement marketplaces",
+          "Alertes stratégiques temps réel via Telegram",
+          "Réajustement des fiches produit selon les signaux IA",
+          "Reporting hebdomadaire pour le comité marketing"
+        ],
+        "result": {
+          "metrics": [
+            {
+              "value": "50",
+              "label": "prompts stratégiques scannés chaque matin"
+            },
+            {
+              "value": "3",
+              "label": "menaces concurrentielles détectées le premier mois"
+            },
+            {
+              "value": "6 sem.",
+              "label": "ROI prouvé sur la première vague de réajustements"
+            }
+          ],
+          "note": "Cas type représentatif. Stack et résultats issus d'un projet réel mené avec un acteur premium en 2026."
+        },
+        "stack": [
+          "Bright Data",
+          "Claude Sonnet (analyse)",
+          "Google Sheets dashboard",
+          "Telegram alertes",
+          "Vercel cron",
+          "GitHub Actions"
+        ]
+      },
+      {
+        "slug": "cabinet-conseil",
+        "hero": {
+          "badge": "CABINET DE CONSEIL / AGENCE / SOCIÉTÉ DE SERVICES",
+          "titleMain": "Du cold mort",
+          "titleAccent": "au signal vivant.",
+          "intro": "Le cold classique ne marche plus. Parrit construit votre pipeline outbound voix dirigeant, branché sur les signaux faibles qui montrent qu'un prospect est mûr aujourd'hui : podcast, levée, nomination."
+        },
+        "profile": {
+          "items": [
+            {
+              "label": "Taille",
+              "value": "10 à 100 personnes"
+            },
+            {
+              "label": "Modèle",
+              "value": "Vente de services intellectuels haute valeur ajoutée"
+            },
+            {
+              "label": "Cible",
+              "value": "Dirigeants ETI ou grands comptes (CODIR, COMEX)"
+            },
+            {
+              "label": "Enjeu",
+              "value": "Outbound classique en panne (taux réponse <2%), pas de signal pour personnaliser"
+            }
+          ]
+        },
+        "transformation": {
+          "quote": "Vous arrêtez d'envoyer le même message à tout le monde. Chaque prospect reçoit une accroche qui dit précisément pourquoi vous l'écrivez aujourd'hui, à partir d'un signal qu'il a lui-même produit.",
+          "body": "Un agent scanne chaque jour 18 podcasts business et la presse spécialisée. Il extrait les dirigeants pertinents, enrichit le contact, et construit un message Operating Partner qui cite une idée précise du signal détecté. Les réponses arrivent qualifiées chaud / froid."
+        },
+        "domains": [
+          "Sourcing prospects (LinkedIn, SIRENE, presse)",
+          "Veille signaux faibles (podcasts, levées, nominations, recrutements)",
+          "Qualification automatique leads chauds vs froids",
+          "Copywriting voix dirigeant par signal",
+          "Séquences multicanales coordonnées (email, LinkedIn)",
+          "Monitoring délivrabilité et reporting RDV pris"
+        ],
+        "result": {
+          "metrics": [
+            {
+              "value": "4 RDV",
+              "label": "qualifiés en moyenne par semaine"
+            },
+            {
+              "value": "12 %",
+              "label": "taux de réponse (vs 2 % en cold classique)"
+            },
+            {
+              "value": "120 k€",
+              "label": "HT pipeline net signés en 4 mois"
+            }
+          ],
+          "note": "Cas type représentatif. Performance observée sur des campagnes B2B France en 2026."
+        },
+        "stack": [
+          "YouTube / RSS scraper",
+          "Transcripts auto",
+          "Claude Opus (analyse signal)",
+          "Enrow + Hunter (enrichissement)",
+          "Instantly",
+          "n8n"
+        ]
+      },
+      {
+        "slug": "grand-groupe",
+        "hero": {
+          "badge": "GRAND GROUPE / ETI / MULTINATIONALE",
+          "titleMain": "De la formation théorique",
+          "titleAccent": "à l'agent en production.",
+          "intro": "Vos dirigeants ont vu trop de slides. Parrit anime un sprint hands-on de 2 jours où chacun arrive avec un cas métier réel et repart avec un agent en production. Le transfert de compétence devient permanent."
+        },
+        "profile": {
+          "items": [
+            {
+              "label": "Taille",
+              "value": "1 000+ collaborateurs"
+            },
+            {
+              "label": "Couverture",
+              "value": "Présence internationale, plusieurs business units"
+            },
+            {
+              "label": "Sponsor",
+              "value": "Direction Training & Development, COMEX ou DG transformation"
+            },
+            {
+              "label": "Enjeu",
+              "value": "Sortir du POC perpétuel et installer une vraie autonomie IA chez les dirigeants"
+            }
+          ]
+        },
+        "transformation": {
+          "quote": "On arrête de leur expliquer comment ça marche. On les fait construire. Ils repartent avec leur agent, et avec la mécanique pour en construire d'autres avec leurs équipes.",
+          "body": "Sprint en 2 jours. Jour 1 matin : cadrage de chaque cas métier. Jour 1 après-midi à jour 2 : co-construction de l'agent avec Claude Code et branchement aux outils internes. Jour 2 fin : mise en production. À J+7 follow-up, et les dirigeants formés deviennent ensuite vos formateurs internes."
+        },
+        "domains": [
+          "Formation Claude Code pour dirigeants non-tech",
+          "Prototypage de cas métier réels en sprint encadré",
+          "Montée en autonomie sur la conduite d'agents IA",
+          "Train-the-trainer : vos dirigeants formés deviennent formateurs internes",
+          "Industrialisation des bonnes pratiques agentiques",
+          "Suivi post-sprint à J+7 et J+30 pour ajuster"
+        ],
+        "result": {
+          "metrics": [
+            {
+              "value": "6 dirigeants",
+              "label": "formés par cohorte"
+            },
+            {
+              "value": "6 agents",
+              "label": "en production à J+2"
+            },
+            {
+              "value": "3 cohortes",
+              "label": "renouvelées l'année suivante par l'équipe T&D"
+            }
+          ],
+          "note": "Cas type représentatif. Format issu d'un programme Sprint Builders réel mené avec un retailer européen en 2026."
+        },
+        "stack": [
+          "Claude Code",
+          "Gemini / Vertex AI",
+          "n8n",
+          "Google Workspace",
+          "Looker Studio (reporting)",
+          "GitHub Actions"
+        ]
+      }
+    ],
+    "ctaTitle": "Vous vous reconnaissez dans ce profil ?",
+    "ctaSubtitle": "15 minutes avec Paul. On regarde votre opération, on identifie le goulot, on voit si Parrit peut le débloquer."
+  }
+}

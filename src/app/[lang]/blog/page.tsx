@@ -12,7 +12,8 @@ import {
 const SITE_URL = "https://parrit.ai";
 
 export async function generateStaticParams() {
-  return locales.map((lang) => ({ lang }));
+  // Blog content not yet translated to zh-CN
+  return locales.filter((l) => l !== "zh-CN").map((lang) => ({ lang }));
 }
 
 export async function generateMetadata({

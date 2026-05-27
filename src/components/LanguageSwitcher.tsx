@@ -3,16 +3,17 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 
-type Locale = "fr" | "en" | "pt-BR";
+type Locale = "fr" | "en" | "pt-BR" | "zh-CN";
 
 const LOCALES: { code: Locale; short: string; label: string; flag: string }[] = [
   { code: "fr", short: "FR", label: "Français", flag: "🇫🇷" },
   { code: "en", short: "EN", label: "English", flag: "🇺🇸" },
   { code: "pt-BR", short: "PT", label: "Português (BR)", flag: "🇧🇷" },
+  { code: "zh-CN", short: "中文", label: "中文 (简体)", flag: "🇨🇳" },
 ];
 
 function stripLocale(pathname: string): string {
-  const match = pathname.match(/^\/(fr|en|pt-BR)(\/.*)?$/);
+  const match = pathname.match(/^\/(fr|en|pt-BR|zh-CN)(\/.*)?$/);
   if (!match) return pathname;
   return match[2] || "/";
 }

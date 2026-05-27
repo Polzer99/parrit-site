@@ -54,6 +54,12 @@ const STRINGS: Record<Locale, { title: string; subtitle: string; pageTitle: stri
     pageTitle: "Glossário de IA empresarial · Definições concretas · Parrit",
     pageDesc: "Glossário operacional para diretorias: agentes de IA, LLMs, integração em empresas. Definições, casos de uso, retornos de campo. Atualizado toda semana.",
   },
+  "zh-CN": {
+    title: "运营术语表",
+    subtitle: "针对企业领导关于 AI 代理、大语言模型与企业集成问题的具体回答。无术语堆砌，无炒作。每周更新。",
+    pageTitle: "企业 AI 术语表 · 具体定义 · Parrit",
+    pageDesc: "面向企业领导的运营术语表：AI 代理、大语言模型、企业集成。定义、应用案例、实战反馈。每周更新。",
+  },
 };
 
 export async function generateStaticParams() {

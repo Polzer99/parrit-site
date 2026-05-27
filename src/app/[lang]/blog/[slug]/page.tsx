@@ -13,7 +13,9 @@ const SITE_URL = "https://parrit.ai";
 
 export function generateStaticParams() {
   const slugs = getAllSlugs();
-  return locales.flatMap((lang) =>
+  // Blog content not yet translated to zh-CN
+  const blogLocales = locales.filter((l) => l !== "zh-CN");
+  return blogLocales.flatMap((lang) =>
     slugs.map((slug) => ({ lang, slug })),
   );
 }
