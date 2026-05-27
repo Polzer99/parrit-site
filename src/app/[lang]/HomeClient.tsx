@@ -29,7 +29,8 @@ const COPY = {
         { id: "methode", label: "Méthode.md", icon: "doc" },
         { id: "cas", label: "Cas-clients.md", icon: "folder" },
         { id: "paul", label: "Paul.vcf", icon: "person" },
-        { id: "open", label: "Ouvrir parrit.ai ↗", icon: "external", href: "https://www.linkedin.com/in/paullarmaraud/" },
+        { id: "yukun", label: "Yukun.vcf", icon: "person" },
+        { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paullarmaraud/" },
       ],
     },
     rightDock: {
@@ -239,42 +240,76 @@ const COPY = {
         title: "Manifeste",
         body: [
           "On construit. On ne conseille pas.",
-          "Pas de deck. Pas de TJM. Pas de buzzword.",
-          "Un sujet précis. Un outil livré. Posé chez vous. Audit code par une agence partenaire.",
-          "Si ça ne tourne pas en prod à la fin, on a échoué.",
+          "Pas de deck. Pas de TJM. Pas de mot inventé pour faire pro.",
+          "Un sujet précis défini en 45 minutes. Un outil livré en quelques jours, posé chez vous. Code audité par une agence dev partenaire avant la mise en prod.",
+          "On garde la main : Paul code, Yukun cale la production, et c'est nous qui passons les calls — pas un junior.",
+          "Si ça ne tourne pas en prod à la fin, on n'a pas fait notre travail.",
         ],
       },
       methode: {
         title: "Méthode",
         steps: [
-          { n: "01", t: "Cadrage 45 min", d: "Un sujet défini, mesurable. Pas un programme." },
-          { n: "02", t: "Construction 5-15 jours", d: "Claude Code + n8n + votre stack. Hebdo de suivi." },
-          { n: "03", t: "Audit code", d: "Agence dev partenaire (10+ ans d'expérience). Sécurité, maintenabilité." },
-          { n: "04", t: "Livraison + formation", d: "Mise en prod chez vous. Doc technique. Demi-journée formation." },
+          { n: "01", t: "Cadrage 45 min — gratuit", d: "Un call avec Paul. On choisit un sujet précis, mesurable. Pas un programme de transformation. Si ce n'est pas pour vous, on vous le dit." },
+          { n: "02", t: "Construction 5-15 jours", d: "Paul code l'outil avec Claude Code, branché sur votre stack (Gmail, CRM, ERP, Google Sheets…). Point hebdo de 30 min pour ajuster en marchant." },
+          { n: "03", t: "Audit code par agence partenaire", d: "Avant livraison, une agence dev sénior (10+ ans d'expérience) audite la sécurité, la maintenabilité et la conformité. C'est ce qui rassure votre DSI." },
+          { n: "04", t: "Livraison + formation chez vous", d: "Mise en prod sur votre infrastructure. Documentation technique. Demi-journée de formation à vos équipes. Vous repartez autonome." },
         ],
       },
       cas: {
         title: "Cas clients",
-        intro: "Cas réels Parrit, anonymisés. Détails en call.",
+        intro: "Cas réels Parrit, anonymisés par respect de la confidentialité. Détails et chiffres en call.",
         items: [
-          { t: "Marque artisan haut de gamme", d: "Capture leads TikTok/Snap/e-com → WhatsApp segmenté" },
-          { t: "Cabinet d'avocats", d: "OS d'exploitation : mails, RFP, suivi clients orchestrés" },
-          { t: "Courtier énergie B2B", d: "Pipeline syndic copro outbound, 4 TPs séquencés" },
-          { t: "Groupe armement (NDA)", d: "Compliance officer agent — RFP + contrats audités auto" },
-          { t: "Agence dev sénior", d: "Reporting CEO consolidé Excel + CRM + ERP" },
-          { t: "Decathlon (en discussion)", d: "Sprint Builders dirigeants hands-on agents IA" },
+          { t: "Marque artisan haut de gamme — coutellerie", d: "Capture leads multi-canaux (TikTok + Snapchat + e-commerce + tel) → WhatsApp segmenté par typologie d'acheteur (B2C / B2B Pro Restau / Collector)" },
+          { t: "Cabinet d'avocats d'affaires", d: "OS d'exploitation pour la direction : tri inbox, suivi RFP, veille juridique daily, filtres humains avant publication" },
+          { t: "Courtier énergie B2B (PME / syndic copro)", d: "Pipeline outbound 4 touchpoints séquencés ancrés sur la fraîcheur du signal — copy raffinée par persona réel" },
+          { t: "Groupe armement (sous NDA)", d: "Compliance officer agent : RFP et contrats vérifiés automatiquement, doublé d'un filtre humain pour validation" },
+          { t: "Agence dev sénior", d: "Reporting CEO consolidé — agrégation KPIs commerciaux + opérationnels (Excel, CRM, ERP) en une vue lundi matin" },
+          { t: "Décathlon (en discussion)", d: "Sprint Builders dirigeants hands-on — chaque participant prototype son cas métier en 2 jours avec Claude Code + Gemini" },
         ],
       },
       paul: {
         title: "Paul Larmaraud",
+        role: "Fondateur · Operating Partner",
         lines: [
+          "Paul Larmaraud",
           "Fondateur Parrit.ai",
-          "Ex-Lime (Silicon Valley culture PRD)",
-          "Code + opérationnel + voix terrain",
-          "paul.larmaraud@parrit.ai",
-          "+33 6 83 76 22 19",
+          "Operating Partner — pas consultant",
         ],
-        cta: "Calendar : 15 min avec Paul",
+        story: [
+          "Paul code chaque jour avec Claude Code. C'est lui qui livre les outils, pas un sous-traitant.",
+          "Avant Parrit : opérations chez Lime (Silicon Valley), où il a appris à arbitrer entre produit, terrain et chiffres en temps réel — pas dans des slides.",
+          "Sa conviction : un dirigeant n'a pas besoin d'un audit de plus. Il a besoin d'un outil qui marche lundi matin. C'est ce que Parrit livre.",
+          "Côté terrain : Paul prend les calls de qualification lui-même, écrit la copy, déploie le code et tient les hebdo client. Pas d'intermédiaire junior.",
+        ],
+        facts: [
+          { k: "Basé", v: "Rueil-Malmaison · France" },
+          { k: "Email", v: "paul.larmaraud@parrit.ai" },
+          { k: "Téléphone", v: "+33 6 83 76 22 19" },
+          { k: "Stack quotidienne", v: "Claude Code · n8n · Supabase · Vercel" },
+        ],
+        cta: "Réserver 15 min avec Paul",
+      },
+      yukun: {
+        title: "Yukun Leng",
+        role: "Co-fondatrice · Production & Chine",
+        lines: [
+          "Yukun Leng — 冷宇坤",
+          "Co-fondatrice Parrit.ai",
+          "Production, supply chain, pont Chine",
+        ],
+        story: [
+          "Yukun est la moitié chinoise de Parrit. C'est elle qui s'assure qu'un prototype tient quand il rencontre la réalité industrielle.",
+          "Background production et flux : elle a passé des années à coordonner import/export entre la Chine et la France pour des marques retail et artisans haut de gamme.",
+          "Sur les projets Parrit, elle apporte la rigueur opérationnelle : sourcing fournisseurs, optimisation logistique, traduction des process FR ↔ CN quand un client a besoin de pousser au-delà de l'Europe.",
+          "C'est aussi elle qui garde l'équilibre franco-chinois dans la culture Parrit : pas un cabinet français qui plaque de la « tech Asia ». Une vraie pratique des deux mondes.",
+        ],
+        facts: [
+          { k: "Basée", v: "France · Chine (déplacements réguliers)" },
+          { k: "Spécialités", v: "Production · Supply chain · Marketplaces CN" },
+          { k: "Langues", v: "Français · Mandarin · Anglais" },
+          { k: "Contact", v: "Via Paul — paul.larmaraud@parrit.ai" },
+        ],
+        cta: "En parler dans un call avec Paul",
       },
     },
     contact: {
@@ -409,42 +444,76 @@ const COPY = {
         title: "Manifesto",
         body: [
           "We build. We don't advise.",
-          "No deck. No day rate. No buzzword.",
-          "One precise topic. One delivered tool. Deployed at your site. Code audited by a partner agency.",
-          "If it doesn't run in production at the end, we failed.",
+          "No deck. No day rate. No made-up word to sound pro.",
+          "One precise topic scoped in 45 min. One delivered tool, deployed at your site, in days. Code audited by a partner dev agency before production.",
+          "We stay in the seat: Paul codes, Yukun handles production, we run the calls — no junior in between.",
+          "If it doesn't run in production at the end, we didn't do our job.",
         ],
       },
       methode: {
         title: "Method",
         steps: [
-          { n: "01", t: "45-min scoping", d: "One defined, measurable topic. Not a program." },
-          { n: "02", t: "5–15 day build", d: "Claude Code + n8n + your stack. Weekly check-ins." },
-          { n: "03", t: "Code audit", d: "Partner dev agency (10+ years). Security, maintainability." },
-          { n: "04", t: "Delivery + training", d: "Production deployment. Tech docs. Half-day training." },
+          { n: "01", t: "45-min scoping — free", d: "A call with Paul. We pick one precise, measurable topic. Not a transformation program. If it's not for you, we say so." },
+          { n: "02", t: "5–15 day build", d: "Paul codes the tool with Claude Code, wired into your stack (Gmail, CRM, ERP, Sheets…). 30-min weekly check-in to course-correct." },
+          { n: "03", t: "Code audit by partner agency", d: "Before delivery, a senior dev agency (10+ years) audits security, maintainability and compliance. That's what reassures your IT lead." },
+          { n: "04", t: "Delivery + training at your site", d: "Deploy on your infrastructure. Technical documentation. Half-day training for your teams. You walk away autonomous." },
         ],
       },
       cas: {
         title: "Case studies",
-        intro: "Real Parrit cases, anonymized. Details on call.",
+        intro: "Real Parrit cases, anonymized to respect confidentiality. Details and numbers on call.",
         items: [
-          { t: "Premium artisan brand", d: "Multi-channel lead capture → segmented WhatsApp" },
-          { t: "Law firm", d: "Operating system: mail, RFPs, client follow-up" },
-          { t: "B2B energy broker", d: "Co-property syndic outbound pipeline, 4 TPs" },
-          { t: "Defense group (NDA)", d: "Compliance officer agent — RFPs + contracts auto-audited" },
-          { t: "Senior dev agency", d: "Consolidated CEO reporting Excel + CRM + ERP" },
-          { t: "Decathlon (in discussion)", d: "Executive Sprint Builders hands-on AI agents" },
+          { t: "Premium artisan brand — cutlery", d: "Multi-channel lead capture (TikTok + Snapchat + e-commerce + phone) → WhatsApp segmented by buyer type (B2C / B2B Pro / Collector)" },
+          { t: "Business law firm", d: "Operating system for the management: inbox triage, RFP tracking, daily legal watch, human filter before publication" },
+          { t: "B2B energy broker", d: "4-touchpoint outbound pipeline anchored on signal freshness — copy refined per real persona" },
+          { t: "Defense group (NDA)", d: "Compliance officer agent: RFPs and contracts auto-checked, doubled with a human validation filter" },
+          { t: "Senior dev agency", d: "Consolidated CEO reporting — sales + ops KPIs aggregated (Excel, CRM, ERP) into one Monday-morning view" },
+          { t: "Decathlon (in discussion)", d: "Executive Sprint Builders hands-on — each participant prototypes their real case in 2 days with Claude Code + Gemini" },
         ],
       },
       paul: {
         title: "Paul Larmaraud",
+        role: "Founder · Operating Partner",
         lines: [
+          "Paul Larmaraud",
           "Founder Parrit.ai",
-          "Ex-Lime (Silicon Valley PRD culture)",
-          "Code + operational + field voice",
-          "paul.larmaraud@parrit.ai",
-          "+33 6 83 76 22 19",
+          "Operating Partner — not a consultant",
         ],
-        cta: "Calendar: 15 min with Paul",
+        story: [
+          "Paul codes daily with Claude Code. He delivers the tools himself — no subcontractor.",
+          "Before Parrit: operations at Lime (Silicon Valley), where he learned to arbitrate between product, field and real-time numbers — not in slides.",
+          "His conviction: an executive doesn't need another audit. They need a tool that works on Monday morning. That's what Parrit delivers.",
+          "On the ground: Paul takes the qualification calls himself, writes the copy, deploys the code and runs the weekly client check-ins. No junior in between.",
+        ],
+        facts: [
+          { k: "Based", v: "Rueil-Malmaison · France" },
+          { k: "Email", v: "paul.larmaraud@parrit.ai" },
+          { k: "Phone", v: "+33 6 83 76 22 19" },
+          { k: "Daily stack", v: "Claude Code · n8n · Supabase · Vercel" },
+        ],
+        cta: "Book 15 min with Paul",
+      },
+      yukun: {
+        title: "Yukun Leng",
+        role: "Co-founder · Production & China",
+        lines: [
+          "Yukun Leng — 冷宇坤",
+          "Co-founder Parrit.ai",
+          "Production, supply chain, China bridge",
+        ],
+        story: [
+          "Yukun is the Chinese half of Parrit. She makes sure a prototype holds up against industrial reality.",
+          "Production and flow background: she spent years coordinating import/export between China and France for retail brands and premium artisans.",
+          "On Parrit projects she brings operational rigor: supplier sourcing, logistics optimization, translation of FR ↔ CN processes when a client needs to push beyond Europe.",
+          "She also keeps Parrit's Franco-Chinese balance: not a French firm pasting on \"Asia tech\". A real practice of both worlds.",
+        ],
+        facts: [
+          { k: "Based", v: "France · China (regular travel)" },
+          { k: "Specialties", v: "Production · Supply chain · CN marketplaces" },
+          { k: "Languages", v: "French · Mandarin · English" },
+          { k: "Contact", v: "Via Paul — paul.larmaraud@parrit.ai" },
+        ],
+        cta: "Discuss on a call with Paul",
       },
     },
     contact: {
@@ -494,7 +563,8 @@ const COPY = {
       manifeste: { title: "Manifesto", body: [] },
       methode: { title: "Método", steps: [] },
       cas: { title: "Casos", intro: "", items: [] },
-      paul: { title: "Paul", lines: [], cta: "" },
+      paul: { title: "Paul", role: "", lines: [], story: [], facts: [], cta: "" },
+      yukun: { title: "Yukun", role: "", lines: [], story: [], facts: [], cta: "" },
     },
     contact: {
       title: "Falar com Paul",
@@ -542,7 +612,22 @@ type PanelCopy = {
   manifeste: { title: string; body: readonly string[] };
   methode: { title: string; steps: readonly { n: string; t: string; d: string }[] };
   cas: { title: string; intro: string; items: readonly { t: string; d: string }[] };
-  paul: { title: string; lines: readonly string[]; cta: string };
+  paul: {
+    title: string;
+    role: string;
+    lines: readonly string[];
+    story: readonly string[];
+    facts: readonly { k: string; v: string }[];
+    cta: string;
+  };
+  yukun: {
+    title: string;
+    role: string;
+    lines: readonly string[];
+    story: readonly string[];
+    facts: readonly { k: string; v: string }[];
+    cta: string;
+  };
 };
 
 type FullCopy = {
@@ -1605,7 +1690,7 @@ function PanelContent({
   contact,
   onOpenContact,
 }: {
-  which: "manifeste" | "methode" | "cas" | "paul";
+  which: "manifeste" | "methode" | "cas" | "paul" | "yukun" | "yukun";
   panel: PanelCopy;
   contact: ReturnType<typeof getCopy>["contact"];
   onOpenContact: () => void;
@@ -1725,47 +1810,139 @@ function PanelContent({
       </div>
     );
   }
-  // paul
+  // paul or yukun — bio panel
+  const person = which === "paul" ? panel.paul : panel.yukun;
+  const accent = which === "paul" ? "#c8956c" : "#C44536";
   return (
-    <div style={{ display: "flex", gap: 22, alignItems: "flex-start", flexWrap: "wrap" }}>
-      <div style={{ flexShrink: 0 }}>
-        <IconPerson size={120} />
+    <div>
+      <div style={{ display: "flex", gap: 22, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 20 }}>
+        <div style={{ flexShrink: 0 }}>
+          <IconPerson size={108} />
+        </div>
+        <div style={{ flex: 1, minWidth: 200 }}>
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: accent,
+              margin: "0 0 6px",
+            }}
+          >
+            {person.role}
+          </p>
+          {person.lines.map((l, i) => (
+            <p
+              key={i}
+              style={{
+                margin: "0 0 4px",
+                fontFamily: i === 0 ? "var(--font-heading)" : "var(--font-body)",
+                fontSize: i === 0 ? 26 : 14,
+                fontWeight: i === 0 ? 500 : 400,
+                color: i === 0 ? "#2A2420" : "#5A5047",
+                lineHeight: 1.35,
+                letterSpacing: i === 0 ? "-0.01em" : "0",
+              }}
+            >
+              {l}
+            </p>
+          ))}
+        </div>
       </div>
-      <div style={{ flex: 1, minWidth: 220 }}>
-        {panel.paul.lines.map((l, i) => (
+
+      {/* Story paragraphs */}
+      <div
+        style={{
+          background: "#FFFCF5",
+          border: "1.5px solid #2A2420",
+          borderRadius: 12,
+          padding: "18px 20px",
+          marginBottom: 18,
+        }}
+      >
+        {person.story.map((p, i) => (
           <p
             key={i}
             style={{
-              margin: "0 0 8px",
-              fontFamily: i === 0 ? "var(--font-heading)" : "var(--font-body)",
-              fontSize: i === 0 ? 22 : 14.5,
-              fontWeight: i === 0 ? 500 : 400,
+              margin: i === 0 ? "0 0 12px" : "0 0 12px",
+              fontFamily: "var(--font-body)",
+              fontSize: 14.5,
+              lineHeight: 1.6,
               color: "#2A2420",
-              lineHeight: 1.45,
             }}
           >
-            {l}
+            {p}
           </p>
         ))}
-        <button
-          onClick={onOpenContact}
-          style={{
-            marginTop: 14,
-            padding: "11px 20px",
-            background: "#c8956c",
-            border: "2px solid #2A2420",
-            borderRadius: 8,
-            fontFamily: "var(--font-body)",
-            fontSize: 14,
-            fontWeight: 600,
-            color: "#2A2420",
-            cursor: "pointer",
-            boxShadow: "3px 3px 0 #2A2420",
-          }}
-        >
-          {panel.paul.cta} →
-        </button>
       </div>
+
+      {/* Facts grid */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: 10,
+          marginBottom: 20,
+        }}
+      >
+        {person.facts.map((f) => (
+          <div
+            key={f.k}
+            style={{
+              padding: "10px 14px",
+              background: `${accent}14`,
+              border: `1.5px solid ${accent}66`,
+              borderRadius: 8,
+            }}
+          >
+            <p
+              style={{
+                margin: "0 0 3px",
+                fontFamily: "var(--font-body)",
+                fontSize: 10.5,
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "#8A7E70",
+              }}
+            >
+              {f.k}
+            </p>
+            <p
+              style={{
+                margin: 0,
+                fontFamily: "var(--font-body)",
+                fontSize: 13.5,
+                fontWeight: 500,
+                color: "#2A2420",
+                lineHeight: 1.4,
+              }}
+            >
+              {f.v}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <button
+        onClick={onOpenContact}
+        style={{
+          padding: "12px 22px",
+          background: accent,
+          border: "2px solid #2A2420",
+          borderRadius: 8,
+          fontFamily: "var(--font-body)",
+          fontSize: 14,
+          fontWeight: 600,
+          color: which === "yukun" ? "#FFFCF5" : "#2A2420",
+          cursor: "pointer",
+          boxShadow: "3px 3px 0 #2A2420",
+        }}
+      >
+        {person.cta} →
+      </button>
     </div>
   );
 }
@@ -1775,7 +1952,7 @@ function PanelContent({
    ─────────────────────────────────────────────── */
 export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Locale }) {
   const copy = getCopy(lang);
-  const [open, setOpen] = useState<null | { kind: "offer"; idx: number } | { kind: "panel"; which: "manifeste" | "methode" | "cas" | "paul" } | { kind: "contact"; accent?: string } | { kind: "waitlist" }>(null);
+  const [open, setOpen] = useState<null | { kind: "offer"; idx: number } | { kind: "panel"; which: "manifeste" | "methode" | "cas" | "paul" | "yukun" } | { kind: "contact"; accent?: string } | { kind: "waitlist" }>(null);
 
   // Capture attribution on mount
   useEffect(() => {
@@ -1794,7 +1971,7 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
   }, []);
 
   const openOffer = (idx: number) => setOpen({ kind: "offer", idx });
-  const openPanel = (which: "manifeste" | "methode" | "cas" | "paul") =>
+  const openPanel = (which: "manifeste" | "methode" | "cas" | "paul" | "yukun") =>
     setOpen({ kind: "panel", which });
   const openContact = (accent?: string) => setOpen({ kind: "contact", accent });
   const openWaitlist = () => setOpen({ kind: "waitlist" });
@@ -1833,8 +2010,8 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
                 window.open(it.href, "_blank", "noopener");
                 return;
               }
-              if (it.id === "manifeste" || it.id === "methode" || it.id === "cas" || it.id === "paul") {
-                openPanel(it.id as "manifeste" | "methode" | "cas" | "paul");
+              if (it.id === "manifeste" || it.id === "methode" || it.id === "cas" || it.id === "paul" || it.id === "yukun") {
+                openPanel(it.id as "manifeste" | "methode" | "cas" | "paul" | "yukun");
               }
             };
             return (

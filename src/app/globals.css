@@ -1848,3 +1848,15 @@ select.callback-input option {
     white-space: normal;
   }
 }
+
+/* Tighten left dock when many icons (Yukun was added) */
+.parrit-os-dock-left,
+.parrit-os-dock-right {
+  gap: 10px;
+}
+.parrit-os-dock .parrit-os-icon {
+  padding: 6px 4px;
+}
+.parrit-os-dock .parrit-os-icon span {
+  font-size: 11px;
+}
