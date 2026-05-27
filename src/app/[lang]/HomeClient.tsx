@@ -2,9 +2,19 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { captureTouch, getAttribution } from "@/lib/attribution";
 import type { Dictionary, Locale } from "./dictionaries";
+
+export type FeaturedPost = {
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  readingTime: string;
+  date: string;
+};
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 
@@ -18,7 +28,7 @@ const COPY = {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
     tagline: "Des batteries d'agents IA sur mesure, déployées chez vous.",
-    sub: "Pas 4 agents génériques, mais autant que votre opération en a besoin. Quatre typologies — back-office, business, prototypage, formation — branchées sur votre stack. Vous passez par nous, on transforme vos opérations. Même quand vous dormez.",
+    sub: "Trois voies où on déploie pour vous — back-office, business, prototype. Une quatrième où on entraîne vos équipes à déployer leurs propres agents. Autant d'agents que votre opération en a besoin, branchés sur votre stack. Même quand vous dormez.",
     cta: "Parler à Paul",
     ctaMicro: "Réponse sous 24h · sans engagement",
     leftDock: {
@@ -359,7 +369,7 @@ const COPY = {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
     tagline: "Fleets of custom AI agents, deployed at your site.",
-    sub: "Not 4 generic agents — as many as your operations need. Four typologies — back-office, business, prototyping, training — plugged into your stack. You go through us, we transform your operations. Even when you're asleep.",
+    sub: "Three lanes where we deploy for you — back-office, business, prototype. A fourth where we train your teams to deploy their own. As many agents as your operations need, plugged into your stack. Even when you're asleep.",
     cta: "Talk to Paul",
     ctaMicro: "Reply within 24h · no commitment",
     leftDock: {
@@ -583,7 +593,7 @@ const COPY = {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
     tagline: "Frotas de agentes IA sob medida, implantadas na sua empresa.",
-    sub: "Não 4 agentes genéricos, mas quantos sua operação precisar. Quatro tipologias — back-office, negócios, protótipos, treinamento — conectadas à sua stack. Você passa por nós, a gente transforma suas operações. Mesmo quando você dorme.",
+    sub: "Três caminhos onde a gente implanta para você — back-office, negócios, protótipo. Um quarto onde a gente treina sua equipe a implantar os seus próprios. Quantos agentes sua operação precisar, conectados à sua stack. Mesmo quando você dorme.",
     cta: "Falar com Paul",
     ctaMicro: "Resposta em 24h · sem compromisso",
     leftDock: {
@@ -921,7 +931,7 @@ const COPY = {
     osTitle: "parrit.ai — 操作系统",
     brand: "PARRIT",
     tagline: "在您的公司部署成批定制 AI 智能体。",
-    sub: "不是 4 个通用智能体,而是您的运营需要多少就部署多少。四个类型 — 后台、商机、原型、培训 — 接入您的技术栈。通过我们,转型您的运营。即使您在睡觉。",
+    sub: "三条路径,我们为您部署 — 后台、商机、原型。第四条路径,我们培训您的团队自己部署。您的运营需要多少智能体,我们就接入多少,直接接入您的技术栈。即使您在睡觉。",
     cta: "联系 Paul",
     ctaMicro: "24 小时内回复 · 无承诺",
     leftDock: {
@@ -2979,7 +2989,15 @@ function PanelContent({
 /* ───────────────────────────────────────────────
    MAIN
    ─────────────────────────────────────────────── */
-export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Locale }) {
+export default function HomeClient({
+  dict,
+  lang,
+  featuredPosts = [],
+}: {
+  dict: Dictionary;
+  lang: Locale;
+  featuredPosts?: FeaturedPost[];
+}) {
   const copy = getCopy(lang);
   const [open, setOpen] = useState<null | { kind: "offer"; idx: number } | { kind: "panel"; which: "manifeste" | "transformation" | "methode" | "cas" | "paul" | "yukun" } | { kind: "contact"; accent?: string } | { kind: "waitlist" }>(null);
 
@@ -3187,60 +3205,77 @@ export default function HomeClient({ dict, lang }: { dict: Dictionary; lang: Loc
         )}
       </AnimatePresence>
 
-      {/* ── 4 modern offer cards (primary) — replace stamps as offer entry point ── */}
-      <section className="parrit-os-offers-row" aria-label="Offers">
-        <p className="parrit-os-stamps-eyebrow">
-          {lang === "fr"
-            ? "Quatre typologies d'offre, un même collectif d'agents"
-            : lang === "en"
-            ? "Four offer typologies, one agent collective"
-            : lang === "zh-CN"
-            ? "四种服务类型,同一智能体集体"
-            : "Quatro tipologias de oferta, um coletivo"}
-        </p>
-        <div className="parrit-os-offers-cards">
-          {copy.offers.map((offer, i) => {
-            const teasers = [
-              lang === "fr" ? "On capte le détail qui change tout" : lang === "en" ? "We capture the detail that changes everything" : lang === "zh-CN" ? "我们捕捉改变一切的细节" : "Captamos o detalhe que muda tudo",
-              lang === "fr" ? "On amène les bons à table" : lang === "en" ? "We bring the right people to the table" : lang === "zh-CN" ? "我们把对的人请上桌" : "Trazemos as pessoas certas",
-              lang === "fr" ? "On trace la route en quelques jours" : lang === "en" ? "We chart the path in days" : lang === "zh-CN" ? "我们几天内开辟道路" : "Traçamos o caminho em dias",
-              lang === "fr" ? "Vos équipes prennent racine" : lang === "en" ? "Your teams take root" : lang === "zh-CN" ? "您的团队扎根生长" : "Suas equipes criam raízes",
-            ];
-            return (
-              <motion.button
-                key={offer.id}
-                className="parrit-os-offer-card"
-                onClick={() => openOffer(i)}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
-                aria-label={`${offer.chip} — ${offer.title}`}
-                style={{ ["--card-accent" as string]: offer.accent } as React.CSSProperties}
-              >
-                <div className="parrit-os-offer-card-icon">
-                  <OfferIcon idx={i} accent={offer.accent} />
-                </div>
-                <span
-                  className="parrit-os-offer-card-chip"
-                  style={{
-                    background: offer.accent,
-                    color: offer.accent === "#2A2420" ? "#FFFCF5" : "#2A2420",
-                  }}
+      {/* ── Blog grid — what we write about ── */}
+      {featuredPosts.length > 0 && (
+        <section className="parrit-os-blog-row" aria-label="Articles">
+          <p className="parrit-os-stamps-eyebrow">
+            {lang === "fr"
+              ? "On écrit · Comment on transforme concrètement"
+              : lang === "en"
+              ? "We write · How we transform, concretely"
+              : lang === "zh-CN"
+              ? "我们的文章 · 我们如何具体地推进转型"
+              : "A gente escreve · Como a gente transforma, concretamente"}
+          </p>
+          <div className="parrit-os-blog-cards">
+            {featuredPosts.slice(0, 4).map((post, i) => {
+              const accents = ["#5FAF8E", "#c8956c", "#C44536", "#7C5BA1"];
+              const accent = accents[i % accents.length];
+              const blogLang = lang === "zh-CN" ? "en" : lang;
+              return (
+                <motion.div
+                  key={post.slug}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                  style={{ display: "flex" }}
                 >
-                  {offer.chip}
-                </span>
-                <h3 className="parrit-os-offer-card-title">{offer.title}</h3>
-                <p className="parrit-os-offer-card-teaser">{teasers[i]}</p>
-                <span className="parrit-os-offer-card-cta">
-                  {lang === "fr" ? "Ouvrir l'offre" : lang === "en" ? "Open the offer" : lang === "zh-CN" ? "查看服务" : "Abrir a oferta"} →
-                </span>
-              </motion.button>
-            );
-          })}
-        </div>
-      </section>
+                  <Link
+                    href={`/${blogLang}/blog/${post.slug}`}
+                    className="parrit-os-blog-card"
+                    style={{ ["--card-accent" as string]: accent } as React.CSSProperties}
+                  >
+                    <span
+                      className="parrit-os-blog-card-chip"
+                      style={{
+                        background: accent,
+                        color: accent === "#2A2420" ? "#FFFCF5" : "#2A2420",
+                      }}
+                    >
+                      {post.category}
+                    </span>
+                    <h3 className="parrit-os-blog-card-title">{post.title}</h3>
+                    <p className="parrit-os-blog-card-desc">{post.description}</p>
+                    <div className="parrit-os-blog-card-footer">
+                      <span>{post.readingTime}</span>
+                      <span>{post.date.slice(0, 10)}</span>
+                    </div>
+                    <span className="parrit-os-blog-card-cta">
+                      {lang === "fr" ? "Lire l'article →" : lang === "en" ? "Read article →" : lang === "zh-CN" ? "阅读文章 →" : "Ler artigo →"}
+                    </span>
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </div>
+          <div style={{ textAlign: "center", marginTop: 18 }}>
+            <Link
+              href={`/${lang === "zh-CN" ? "en" : lang}/blog`}
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 13,
+                fontWeight: 600,
+                color: "var(--parrit-red)",
+                textDecoration: "underline",
+                textUnderlineOffset: 4,
+              }}
+            >
+              {lang === "fr" ? "Voir tous les articles" : lang === "en" ? "See all articles" : lang === "zh-CN" ? "查看全部文章" : "Ver todos os artigos"} →
+            </Link>
+          </div>
+        </section>
+      )}
 
 
       {/* ── Bottom status bar ─────────────────── */}
