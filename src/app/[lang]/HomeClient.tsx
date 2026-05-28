@@ -27,8 +27,8 @@ const COPY = {
   fr: {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "Des batteries d'agents IA sur mesure, déployées chez vous.",
-    sub: "Trois voies où on déploie pour vous — back-office, business, prototype. Une quatrième où on entraîne vos équipes à déployer leurs propres agents. Autant d'agents que votre opération en a besoin, branchés sur votre stack. Même quand vous dormez.",
+    tagline: "Acquisition premium. RDV ultra qualifiés livrés à vos commerciaux.",
+    sub: "On capte les signaux d'achat de vos prospects en temps réel. On déclenche une approche personnalisée, ancrée sur ce qu'ils viennent de dire en podcast, sur scène ou en post LinkedIn. Vous recevez le rendez-vous tenu, avec brief contextualisé. Et si vous voulez aller plus loin : on automatise votre back-office, on prototype vos outils, on forme vos équipes.",
     cta: "Parler à Paul",
     ctaMicro: "Réponse sous 24h · sans engagement",
     leftDock: {
@@ -368,8 +368,8 @@ const COPY = {
   en: {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "Fleets of custom AI agents, deployed at your site.",
-    sub: "Three lanes where we deploy for you — back-office, business, prototype. A fourth where we train your teams to deploy their own. As many agents as your operations need, plugged into your stack. Even when you're asleep.",
+    tagline: "Premium acquisition. Ultra-qualified meetings delivered to your sales team.",
+    sub: "We capture your prospects' buying signals in real time. We trigger a personalized approach, anchored on what they just said on a podcast, on stage or in a LinkedIn post. You get the meeting held, with a contextual brief. And if you want to go further: we automate your back-office, prototype your tools, train your teams.",
     cta: "Talk to Paul",
     ctaMicro: "Reply within 24h · no commitment",
     leftDock: {
@@ -592,8 +592,8 @@ const COPY = {
   "pt-BR": {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "Frotas de agentes IA sob medida, implantadas na sua empresa.",
-    sub: "Três caminhos onde a gente implanta para você — back-office, negócios, protótipo. Um quarto onde a gente treina sua equipe a implantar os seus próprios. Quantos agentes sua operação precisar, conectados à sua stack. Mesmo quando você dorme.",
+    tagline: "Aquisição premium. Reuniões ultra qualificadas entregues ao seu time comercial.",
+    sub: "Captamos os sinais de compra dos seus prospects em tempo real. Disparamos uma abordagem personalizada, ancorada no que eles acabaram de dizer num podcast, em palco ou num post LinkedIn. Você recebe a reunião marcada, com briefing contextualizado. E se quiser ir além: automatizamos seu back-office, prototipamos suas ferramentas, treinamos suas equipes.",
     cta: "Falar com Paul",
     ctaMicro: "Resposta em 24h · sem compromisso",
     leftDock: {
@@ -930,8 +930,8 @@ const COPY = {
   "zh-CN": {
     osTitle: "parrit.ai — 操作系统",
     brand: "PARRIT",
-    tagline: "在您的公司部署成批定制 AI 智能体。",
-    sub: "三条路径,我们为您部署 — 后台、商机、原型。第四条路径,我们培训您的团队自己部署。您的运营需要多少智能体,我们就接入多少,直接接入您的技术栈。即使您在睡觉。",
+    tagline: "高端获客。为您的销售团队送达超高质量会议。",
+    sub: "我们实时捕捉潜在客户的购买信号。我们触发个性化的接触,基于他们刚在播客、舞台或 LinkedIn 上说的话。您收到已确认的会议,附带情境化简报。如果想更进一步:我们自动化您的后台、构建您的工具、培训您的团队。",
     cta: "联系 Paul",
     ctaMicro: "24 小时内回复 · 无承诺",
     leftDock: {
@@ -3079,10 +3079,10 @@ export default function HomeClient({
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <p className="parrit-os-eyebrow">{
-              lang === "fr" ? "Transformation IA · de 0 à la production"
-              : lang === "en" ? "AI transformation · from 0 to production"
-              : lang === "zh-CN" ? "AI 转型 · 从 0 到生产"
-              : "Transformação IA · do 0 à produção"
+              lang === "fr" ? "Acquisition premium · RDV ultra qualifiés"
+              : lang === "en" ? "Premium acquisition · Ultra-qualified meetings"
+              : lang === "zh-CN" ? "高端获客 · 超高质量会议"
+              : "Aquisição premium · Reuniões ultra qualificadas"
             }</p>
             <h1 className="parrit-os-brand">{copy.brand}</h1>
             <p className="parrit-os-tagline">{copy.tagline}</p>
@@ -3127,32 +3127,52 @@ export default function HomeClient({
         {/* RIGHT dock — offers */}
         <aside className="parrit-os-dock parrit-os-dock-right">
           <div className="parrit-os-dock-title">{copy.rightDock.title}</div>
-          {copy.offers.map((o, i) => (
-            <button
-              key={o.id}
-              className="parrit-os-icon parrit-os-offer"
-              onClick={() => openOffer(i)}
-              aria-label={o.title}
-            >
-              <OfferIcon idx={i} accent={o.accent} />
-              <span>{o.chip}</span>
-            </button>
-          ))}
+          {copy.offers.map((o, i) => {
+            const isFlagship = o.id === "business";
+            return (
+              <button
+                key={o.id}
+                className={`parrit-os-icon parrit-os-offer ${isFlagship ? "parrit-os-offer-flagship" : ""}`}
+                onClick={() => openOffer(i)}
+                aria-label={o.title}
+              >
+                {isFlagship && (
+                  <span className="parrit-os-flagship-badge">
+                    {lang === "fr" ? "Phare" : lang === "en" ? "Flagship" : lang === "zh-CN" ? "旗舰" : "Carro-chefe"}
+                  </span>
+                )}
+                <OfferIcon idx={i} accent={o.accent} />
+                <span>{o.chip}</span>
+              </button>
+            );
+          })}
           <p className="parrit-os-dock-hint">{copy.rightDock.hint}</p>
         </aside>
       </div>
 
       {/* ── Mobile dock fallback ─────────────────── */}
       <div className="parrit-os-mobile-offers">
-        {copy.offers.map((o, i) => (
-          <button key={o.id} className="parrit-os-mobile-offer" onClick={() => openOffer(i)}>
-            <OfferIcon idx={i} accent={o.accent} />
-            <div>
-              <strong>{o.chip}</strong>
-              <span>{o.title}</span>
-            </div>
-          </button>
-        ))}
+        {copy.offers.map((o, i) => {
+          const isFlagship = o.id === "business";
+          return (
+            <button
+              key={o.id}
+              className={`parrit-os-mobile-offer ${isFlagship ? "parrit-os-mobile-offer-flagship" : ""}`}
+              onClick={() => openOffer(i)}
+            >
+              <OfferIcon idx={i} accent={o.accent} />
+              <div>
+                {isFlagship && (
+                  <span className="parrit-os-flagship-badge-mobile">
+                    {lang === "fr" ? "Offre phare" : lang === "en" ? "Flagship offer" : lang === "zh-CN" ? "旗舰服务" : "Carro-chefe"}
+                  </span>
+                )}
+                <strong>{o.chip}</strong>
+                <span>{o.title}</span>
+              </div>
+            </button>
+          );
+        })}
       </div>
 
       {/* ── Modal windows ─────────────────── */}
