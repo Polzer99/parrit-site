@@ -27,8 +27,8 @@ const COPY = {
   fr: {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "Acquisition premium. RDV ultra qualifiés livrés à vos commerciaux.",
-    sub: "On capte les signaux d'achat de vos prospects en temps réel. On déclenche une approche personnalisée, ancrée sur ce qu'ils viennent de dire en podcast, sur scène ou en post LinkedIn. Vous recevez le rendez-vous tenu, avec brief contextualisé. Et si vous voulez aller plus loin : on automatise votre back-office, on prototype vos outils, on forme vos équipes.",
+    tagline: "Des batteries d'agents IA sur mesure, déployées chez vous.",
+    sub: "Notre offre phare : capter les signaux d'achat de vos prospects en temps réel et vous livrer des RDV ultra qualifiés, brief en main. Et derrière : on automatise votre back-office, on prototype vos outils, on forme vos équipes. Même quand vous dormez.",
     cta: "Parler à Paul",
     ctaMicro: "Réponse sous 24h · sans engagement",
     leftDock: {
@@ -368,8 +368,8 @@ const COPY = {
   en: {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "Premium acquisition. Ultra-qualified meetings delivered to your sales team.",
-    sub: "We capture your prospects' buying signals in real time. We trigger a personalized approach, anchored on what they just said on a podcast, on stage or in a LinkedIn post. You get the meeting held, with a contextual brief. And if you want to go further: we automate your back-office, prototype your tools, train your teams.",
+    tagline: "Fleets of custom AI agents, deployed at your site.",
+    sub: "Our flagship offer: capture your prospects' buying signals in real time and deliver ultra-qualified meetings with brief in hand. And behind it: we automate your back-office, prototype your tools, train your teams. Even when you're asleep.",
     cta: "Talk to Paul",
     ctaMicro: "Reply within 24h · no commitment",
     leftDock: {
@@ -592,8 +592,8 @@ const COPY = {
   "pt-BR": {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "Aquisição premium. Reuniões ultra qualificadas entregues ao seu time comercial.",
-    sub: "Captamos os sinais de compra dos seus prospects em tempo real. Disparamos uma abordagem personalizada, ancorada no que eles acabaram de dizer num podcast, em palco ou num post LinkedIn. Você recebe a reunião marcada, com briefing contextualizado. E se quiser ir além: automatizamos seu back-office, prototipamos suas ferramentas, treinamos suas equipes.",
+    tagline: "Frotas de agentes IA sob medida, implantadas na sua empresa.",
+    sub: "Nossa oferta carro-chefe: captar os sinais de compra dos seus prospects em tempo real e entregar reuniões ultra qualificadas com briefing em mãos. E por trás: automatizamos seu back-office, prototipamos suas ferramentas, treinamos suas equipes. Mesmo quando você dorme.",
     cta: "Falar com Paul",
     ctaMicro: "Resposta em 24h · sem compromisso",
     leftDock: {
@@ -930,8 +930,8 @@ const COPY = {
   "zh-CN": {
     osTitle: "parrit.ai — 操作系统",
     brand: "PARRIT",
-    tagline: "高端获客。为您的销售团队送达超高质量会议。",
-    sub: "我们实时捕捉潜在客户的购买信号。我们触发个性化的接触,基于他们刚在播客、舞台或 LinkedIn 上说的话。您收到已确认的会议,附带情境化简报。如果想更进一步:我们自动化您的后台、构建您的工具、培训您的团队。",
+    tagline: "在您的公司部署成批定制 AI 智能体。",
+    sub: "我们的旗舰服务:实时捕捉潜在客户的购买信号,送达高质量会议及完整简报。其后:我们自动化您的后台、构建您的工具、培训您的团队。即使您在睡觉。",
     cta: "联系 Paul",
     ctaMicro: "24 小时内回复 · 无承诺",
     leftDock: {
@@ -3079,10 +3079,10 @@ export default function HomeClient({
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <p className="parrit-os-eyebrow">{
-              lang === "fr" ? "Acquisition premium · RDV ultra qualifiés"
-              : lang === "en" ? "Premium acquisition · Ultra-qualified meetings"
-              : lang === "zh-CN" ? "高端获客 · 超高质量会议"
-              : "Aquisição premium · Reuniões ultra qualificadas"
+              lang === "fr" ? "Parrit · Transformation IA en production"
+              : lang === "en" ? "Parrit · AI transformation in production"
+              : lang === "zh-CN" ? "Parrit · 投入生产的 AI 转型"
+              : "Parrit · Transformação IA em produção"
             }</p>
             <h1 className="parrit-os-brand">{copy.brand}</h1>
             <p className="parrit-os-tagline">{copy.tagline}</p>
