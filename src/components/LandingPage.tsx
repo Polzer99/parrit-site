@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ButtonColorful } from "@/components/ui/button-colorful";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import QuickContact, { type QuickContactStrings } from "@/components/QuickContact";
 import type { Locale } from "@/app/[lang]/dictionaries";
@@ -35,555 +34,184 @@ interface Props {
 }
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 18 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" as const, delay: i * 0.08 },
+    transition: { duration: 0.5, ease: "easeOut" as const, delay: i * 0.06 },
   }),
 };
 
 const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.12 } },
 };
 
 const cardReveal = {
-  hidden: { opacity: 0, y: 18 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
+  hidden: { opacity: 0, y: 14 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
 };
 
-export default function LandingPage({
-  data,
-  lang,
-  quickContact,
-  pageId,
-}: Props) {
-  const contactAnchor = "#contact";
+const ACCENTS = ["#5FAF8E", "#c8956c", "#C44536", "#7C5BA1"];
 
+export default function LandingPage({ data, lang, quickContact, pageId }: Props) {
   return (
-    <>
-      {/* NAV */}
-      <nav className="nav">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "16px 24px",
-            width: "100%",
-          }}
-        >
-          <Link
-            href={`/${lang}`}
-            style={{
-              fontFamily: "var(--font-heading)",
-              fontSize: 18,
-              color: "var(--text)",
-              textDecoration: "none",
-              letterSpacing: "0.02em",
-            }}
-          >
-            PARRIT.AI
+    <div className="parrit-os-root">
+      {/* Window chrome topbar */}
+      <div className="parrit-os-topbar">
+        <Link href={`/${lang}`} aria-label="Parrit.ai" style={{ display: "flex", gap: 6 }}>
+          <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#E57373", border: "1.5px solid #2A2420" }} />
+          <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#F5D67E", border: "1.5px solid #2A2420" }} />
+          <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#85C285", border: "1.5px solid #2A2420" }} />
+        </Link>
+        <div className="parrit-os-title">parrit.ai — {pageId}</div>
+        <div className="parrit-os-topbar-actions">
+          <Link href={`/${lang}`} className="parrit-os-signup-btn" style={{ textDecoration: "none" }}>
+            ← {lang === "fr" ? "Accueil" : lang === "pt-BR" ? "Início" : lang === "zh-CN" ? "首页" : "Home"}
           </Link>
-          <LanguageSwitcher currentLang={lang} />
+          <div className="parrit-os-lang"><LanguageSwitcher currentLang={lang} /></div>
         </div>
-      </nav>
+      </div>
 
-      {/* HERO */}
-      <section className="hero-section" style={{ minHeight: "auto", paddingTop: 120, paddingBottom: 80 }}>
-        <div className="hero-content" style={{ maxWidth: 880 }}>
-          <motion.span
-            style={{
-              display: "inline-block",
-              padding: "6px 14px",
-              fontFamily: "var(--font-body)",
-              fontSize: 11,
-              fontWeight: 600,
-              letterSpacing: "0.18em",
-              color: "#c8956c",
-              background: "rgba(200,149,108,0.08)",
-              border: "1px solid rgba(200,149,108,0.25)",
-              borderRadius: 999,
-              textTransform: "uppercase",
-              marginBottom: 24,
-            }}
-            initial={{ opacity: 0, y: 12 }}
+      <main className="landing-v4">
+        {/* HERO */}
+        <section className="landing-v4-hero">
+          <motion.p
+            className="parrit-os-eyebrow"
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+            transition={{ duration: 0.5 }}
           >
             {data.hero.label}
-          </motion.span>
-
+          </motion.p>
           <motion.h1
-            className="hero-title"
+            className="landing-v4-title"
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             custom={1}
           >
             {data.hero.titleMain}{" "}
-            <em className="hero-accent">{data.hero.titleAccent}</em>
+            <em style={{ color: "var(--parrit-red)", fontStyle: "italic", fontWeight: 500 }}>
+              {data.hero.titleAccent}
+            </em>
           </motion.h1>
-
           <motion.p
-            className="hero-subtitle"
+            className="landing-v4-sub"
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             custom={2}
-            style={{ maxWidth: 760 }}
           >
             {data.hero.quickAnswer}
           </motion.p>
-
-          <motion.div
-            className="hero-cta-block"
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={3}
-          >
-            <Link href={contactAnchor} className="hero-cta-link">
-              <ButtonColorful label={data.hero.cta} className="h-14 px-8 text-base" />
+          <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={3}>
+            <Link href="#contact" className="parrit-os-cta" style={{ display: "inline-block", textDecoration: "none" }}>
+              {data.hero.cta} →
             </Link>
           </motion.div>
-        </div>
-      </section>
+        </section>
 
-      {/* AUDIENCE */}
-      <section className="light-section">
-        <div className="section-inner" style={{ maxWidth: 1040 }}>
-          <motion.h2
-            className="light-section-title"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            style={{ marginBottom: 40 }}
-          >
-            {data.audience.title}
-          </motion.h2>
-
+        {/* AUDIENCE */}
+        <section className="landing-v4-section">
+          <h2 className="landing-v4-section-title">{data.audience.title}</h2>
           <motion.div
+            className="landing-v4-grid"
             variants={stagger}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-              gap: 20,
-            }}
           >
-            {data.audience.items.map((item) => (
+            {data.audience.items.map((it, i) => (
               <motion.div
-                key={item.role}
+                key={it.role}
                 variants={cardReveal}
-                style={{
-                  padding: "24px 22px",
-                  borderRadius: 12,
-                  border: "1px solid rgba(0,0,0,0.08)",
-                  background: "rgba(255,255,255,0.55)",
-                }}
+                className="landing-v4-card"
+                style={{ ["--card-accent" as string]: ACCENTS[i % ACCENTS.length] } as React.CSSProperties}
               >
-                <h3
-                  style={{
-                    fontFamily: "var(--font-heading)",
-                    fontSize: 18,
-                    fontWeight: 500,
-                    color: "var(--text)",
-                    marginBottom: 8,
-                    lineHeight: 1.3,
-                  }}
-                >
-                  {item.role}
-                </h3>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 14,
-                    color: "var(--text-muted)",
-                    lineHeight: 1.6,
-                    fontWeight: 300,
-                  }}
-                >
-                  {item.desc}
-                </p>
+                <h3 className="landing-v4-card-title">{it.role}</h3>
+                <p className="landing-v4-card-desc">{it.desc}</p>
               </motion.div>
             ))}
           </motion.div>
-        </div>
-      </section>
+        </section>
 
-      {/* METHOD */}
-      <section className="dark-section">
-        <div className="section-inner" style={{ maxWidth: 880 }}>
-          <motion.h2
-            className="dark-section-title"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            style={{ marginBottom: 48 }}
-          >
-            {data.method.title}
-          </motion.h2>
-
-          <motion.ol
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            style={{
-              listStyle: "none",
-              padding: 0,
-              margin: 0,
-              display: "flex",
-              flexDirection: "column",
-              gap: 20,
-            }}
-          >
-            {data.method.steps.map((step) => (
-              <motion.li
-                key={step.n}
-                variants={cardReveal}
-                style={{
-                  display: "flex",
-                  gap: 24,
-                  alignItems: "flex-start",
-                  padding: "20px 22px",
-                  borderRadius: 10,
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "var(--font-heading)",
-                    fontSize: 32,
-                    fontWeight: 300,
-                    color: "#c8956c",
-                    minWidth: 36,
-                    lineHeight: 1,
-                  }}
-                >
-                  {step.n}
-                </span>
-                <div>
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-heading)",
-                      fontSize: 20,
-                      fontWeight: 500,
-                      color: "#fff",
-                      marginBottom: 6,
-                    }}
-                  >
-                    {step.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: 14,
-                      color: "var(--text-light-muted)",
-                      lineHeight: 1.65,
-                      fontWeight: 300,
-                    }}
-                  >
-                    {step.desc}
-                  </p>
-                </div>
-              </motion.li>
-            ))}
-          </motion.ol>
-        </div>
-      </section>
-
-      {/* DELIVERABLES */}
-      <section className="light-section">
-        <div className="section-inner" style={{ maxWidth: 880 }}>
-          <motion.h2
-            className="light-section-title"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            style={{ marginBottom: 32 }}
-          >
-            {data.deliverables.title}
-          </motion.h2>
-
-          <motion.ul
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6 }}
-            style={{
-              listStyle: "none",
-              padding: 0,
-              margin: 0,
-              display: "flex",
-              flexDirection: "column",
-              gap: 14,
-            }}
-          >
-            {data.deliverables.items.map((item, i) => (
-              <li
-                key={i}
-                style={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: 12,
-                  fontFamily: "var(--font-body)",
-                  fontSize: 16,
-                  color: "var(--text)",
-                  lineHeight: 1.55,
-                  fontWeight: 300,
-                  padding: "12px 0",
-                  borderBottom: "1px solid rgba(0,0,0,0.06)",
-                }}
-              >
-                <span
-                  style={{
-                    color: "#c8956c",
-                    fontWeight: 500,
-                    flexShrink: 0,
-                    marginTop: 2,
-                  }}
-                >
-                  →
-                </span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </motion.ul>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="dark-section">
-        <div className="section-inner" style={{ maxWidth: 880 }}>
-          <motion.h2
-            className="dark-section-title"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            style={{ marginBottom: 40 }}
-          >
-            {data.faq.title}
-          </motion.h2>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            {data.faq.items.map((item, i) => (
-              <motion.details
-                key={i}
-                initial={{ opacity: 0, y: 12 }}
+        {/* METHOD */}
+        <section className="landing-v4-section">
+          <h2 className="landing-v4-section-title">{data.method.title}</h2>
+          <div className="landing-v4-steps">
+            {data.method.steps.map((s, i) => (
+              <motion.div
+                key={s.n}
+                className="landing-v4-step"
+                initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                style={{
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: 10,
-                  padding: "18px 22px",
-                }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+                style={{ ["--card-accent" as string]: ACCENTS[i % ACCENTS.length] } as React.CSSProperties}
               >
-                <summary
-                  style={{
-                    fontFamily: "var(--font-heading)",
-                    fontSize: 17,
-                    fontWeight: 500,
-                    color: "#fff",
-                    cursor: "pointer",
-                    listStyle: "none",
-                    lineHeight: 1.4,
-                  }}
-                >
-                  {item.q}
-                </summary>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 14,
-                    color: "var(--text-light-muted)",
-                    lineHeight: 1.7,
-                    fontWeight: 300,
-                    marginTop: 12,
-                  }}
-                >
-                  {item.a}
-                </p>
-              </motion.details>
+                <span className="landing-v4-step-num">{s.n}</span>
+                <div>
+                  <h3 className="landing-v4-step-title">{s.title}</h3>
+                  <p className="landing-v4-step-desc">{s.desc}</p>
+                </div>
+              </motion.div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* NEXT STEPS */}
-      <section className="light-section" id="next-steps">
-        <div className="section-inner" style={{ maxWidth: 1040 }}>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            style={{ textAlign: "center", marginBottom: 40 }}
-          >
-            <h2 className="light-section-title" style={{ marginBottom: 12 }}>
-              {data.nextSteps.title}
-            </h2>
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: 16,
-                lineHeight: 1.6,
-                color: "var(--text-muted)",
-                fontWeight: 300,
-                maxWidth: 640,
-                margin: "0 auto",
-              }}
-            >
-              {data.nextSteps.subtitle}
-            </p>
-          </motion.div>
-
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-              gap: 20,
-            }}
-          >
-            {data.nextSteps.options.map((opt) => (
-              <motion.div
-                key={opt.title}
-                variants={cardReveal}
-                style={{
-                  padding: "24px 22px",
-                  borderRadius: 12,
-                  border: "1px solid rgba(0,0,0,0.08)",
-                  background: "rgba(255,255,255,0.55)",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
+        {/* DELIVERABLES */}
+        <section className="landing-v4-section">
+          <h2 className="landing-v4-section-title">{data.deliverables.title}</h2>
+          <ul className="landing-v4-deliverables">
+            {data.deliverables.items.map((d, i) => (
+              <motion.li
+                key={d}
+                initial={{ opacity: 0, x: -8 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, delay: i * 0.04 }}
               >
-                <span
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 11,
-                    letterSpacing: "0.16em",
-                    textTransform: "uppercase",
-                    color: "#c8956c",
-                    marginBottom: 10,
-                    fontWeight: 500,
-                  }}
-                >
-                  {opt.kind}
-                </span>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-heading)",
-                    fontSize: 19,
-                    fontWeight: 500,
-                    color: "var(--text)",
-                    marginBottom: 10,
-                    lineHeight: 1.3,
-                  }}
-                >
-                  {opt.title}
-                </h3>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 13,
-                    color: "var(--text-muted)",
-                    lineHeight: 1.6,
-                    fontWeight: 300,
-                    flex: 1,
-                  }}
-                >
-                  {opt.desc}
-                </p>
-              </motion.div>
+                <span className="landing-v4-tick" /> {d}
+              </motion.li>
             ))}
-          </motion.div>
-        </div>
-      </section>
+          </ul>
+        </section>
 
-      {/* CTA — quick contact, friction max baissée */}
-      <section className="cta-section" id="contact">
-        <motion.h2
-          className="cta-title"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-        >
-          {data.ctaSection.title}
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          style={{
-            textAlign: "center",
-            color: "var(--text-light-muted)",
-            fontFamily: "var(--font-body)",
-            fontSize: 16,
-            marginBottom: 32,
-            fontWeight: 300,
-            padding: "0 24px",
-          }}
-        >
-          {data.ctaSection.subtitle}
-        </motion.p>
+        {/* FAQ */}
+        <section className="landing-v4-section">
+          <h2 className="landing-v4-section-title">{data.faq.title}</h2>
+          <div className="landing-v4-faq">
+            {data.faq.items.map((f, i) => (
+              <details
+                key={f.q}
+                className="landing-v4-faq-item"
+                style={{ ["--card-accent" as string]: ACCENTS[i % ACCENTS.length] } as React.CSSProperties}
+              >
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
-          style={{ padding: "0 24px" }}
-        >
-          <QuickContact strings={quickContact} page={pageId} variant="dark" />
-        </motion.div>
+        {/* CTA */}
+        <section className="landing-v4-cta" id="contact">
+          <h2 className="landing-v4-cta-title">{data.ctaSection.title}</h2>
+          <p className="landing-v4-cta-sub">{data.ctaSection.subtitle}</p>
+          <div style={{ maxWidth: 540, margin: "0 auto" }}>
+            <QuickContact strings={quickContact} page={pageId} variant="light" />
+          </div>
+        </section>
+      </main>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          style={{
-            marginTop: 28,
-            display: "flex",
-            justifyContent: "center",
-            gap: 24,
-            flexWrap: "wrap",
-            padding: "0 24px",
-            fontFamily: "var(--font-body)",
-            fontSize: 13,
-          }}
-        >
-          <a
-            href="mailto:paul.larmaraud@parrit.ai"
-            style={{
-              color: "var(--text-light-muted)",
-              textDecoration: "none",
-              borderBottom: "1px solid rgba(255,255,255,0.18)",
-              paddingBottom: 2,
-            }}
-          >
-            paul.larmaraud@parrit.ai
-          </a>
-        </motion.div>
-      </section>
-    </>
+      <footer className="parrit-os-statusbar">
+        <span>● parrit.ai</span>
+        <span>Paul Larmaraud · paul.larmaraud@parrit.ai</span>
+        <span className="parrit-os-clock">
+          {new Date().toLocaleDateString(lang === "fr" ? "fr-FR" : lang === "zh-CN" ? "zh-CN" : lang === "pt-BR" ? "pt-BR" : "en-US", { day: "2-digit", month: "short" })}
+        </span>
+      </footer>
+    </div>
   );
 }
