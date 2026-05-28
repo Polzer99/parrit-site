@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -27,8 +27,8 @@ const COPY = {
   fr: {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "Des batteries d'agents IA sur mesure, déployées chez vous.",
-    sub: "Notre offre phare : capter les signaux d'achat de vos prospects en temps réel et vous livrer des RDV ultra qualifiés, brief en main. Et derrière : on automatise votre back-office, on prototype vos outils, on forme vos équipes. Même quand vous dormez.",
+    tagline: "On opère toute votre chaîne. Du signal d'achat au reporting du dirigeant.",
+    sub: "Trait d'union entre votre croissance et votre transformation IA. On intervient chronologiquement, de la première intention d'achat captée en ligne jusqu'aux KPIs consolidés du lundi matin. Et au-delà : innovation produit, marketing, optimisation des ventes — des leviers qui n'étaient pas accessibles avant.",
     cta: "Parler à Paul",
     ctaMicro: "Réponse sous 24h · sans engagement",
     leftDock: {
@@ -368,8 +368,8 @@ const COPY = {
   en: {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "Fleets of custom AI agents, deployed at your site.",
-    sub: "Our flagship offer: capture your prospects' buying signals in real time and deliver ultra-qualified meetings with brief in hand. And behind it: we automate your back-office, prototype your tools, train your teams. Even when you're asleep.",
+    tagline: "We operate your entire chain. From buying signal to executive reporting.",
+    sub: "The bridge between your growth and your AI transformation. We intervene chronologically, from the first buying intent captured online to the Monday-morning consolidated KPIs. And beyond: product innovation, marketing, sales optimization — levers that weren't accessible before.",
     cta: "Talk to Paul",
     ctaMicro: "Reply within 24h · no commitment",
     leftDock: {
@@ -592,8 +592,8 @@ const COPY = {
   "pt-BR": {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "Frotas de agentes IA sob medida, implantadas na sua empresa.",
-    sub: "Nossa oferta carro-chefe: captar os sinais de compra dos seus prospects em tempo real e entregar reuniões ultra qualificadas com briefing em mãos. E por trás: automatizamos seu back-office, prototipamos suas ferramentas, treinamos suas equipes. Mesmo quando você dorme.",
+    tagline: "Operamos toda a sua cadeia. Do sinal de compra ao relatório do CEO.",
+    sub: "Elo entre seu crescimento e sua transformação IA. Intervimos cronologicamente, da primeira intenção de compra captada online até os KPIs consolidados da segunda-feira. E além: inovação de produto, marketing, otimização de vendas — alavancas que não eram acessíveis antes.",
     cta: "Falar com Paul",
     ctaMicro: "Resposta em 24h · sem compromisso",
     leftDock: {
@@ -930,8 +930,8 @@ const COPY = {
   "zh-CN": {
     osTitle: "parrit.ai — 操作系统",
     brand: "PARRIT",
-    tagline: "在您的公司部署成批定制 AI 智能体。",
-    sub: "我们的旗舰服务:实时捕捉潜在客户的购买信号,送达高质量会议及完整简报。其后:我们自动化您的后台、构建您的工具、培训您的团队。即使您在睡觉。",
+    tagline: "我们运营您的整条链路。从购买信号到 CEO 报告。",
+    sub: "您增长伙伴与 AI 转型伙伴之间的纽带。我们按时间顺序介入,从线上捕捉的首个购买意向,到周一晨的整合 KPI。更进一步:产品创新、营销、销售优化 — 那些以前无法触及的杠杆。",
     cta: "联系 Paul",
     ctaMicro: "24 小时内回复 · 无承诺",
     leftDock: {
@@ -3079,10 +3079,10 @@ export default function HomeClient({
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <p className="parrit-os-eyebrow">{
-              lang === "fr" ? "Parrit · Transformation IA en production"
-              : lang === "en" ? "Parrit · AI transformation in production"
-              : lang === "zh-CN" ? "Parrit · 投入生产的 AI 转型"
-              : "Parrit · Transformação IA em produção"
+              lang === "fr" ? "Parrit · Trait d'union croissance × transformation IA"
+              : lang === "en" ? "Parrit · The bridge between growth × AI transformation"
+              : lang === "zh-CN" ? "Parrit · 增长与 AI 转型之间的纽带"
+              : "Parrit · Elo entre crescimento × transformação IA"
             }</p>
             <h1 className="parrit-os-brand">{copy.brand}</h1>
             <p className="parrit-os-tagline">{copy.tagline}</p>
@@ -3149,6 +3149,55 @@ export default function HomeClient({
           <p className="parrit-os-dock-hint">{copy.rightDock.hint}</p>
         </aside>
       </div>
+
+      {/* ── Chronological chain — où Parrit intervient ─────────────── */}
+      <section className="parrit-os-chain" aria-label="Intervention chain">
+        <p className="parrit-os-chain-eyebrow">
+          {lang === "fr"
+            ? "On intervient sur toute la chaîne"
+            : lang === "en"
+            ? "We intervene across the whole chain"
+            : lang === "zh-CN"
+            ? "我们介入整条链路"
+            : "Intervimos em toda a cadeia"}
+        </p>
+        <div className="parrit-os-chain-row">
+          {[
+            { color: "#C44536", label: lang === "fr" ? "Signal d'achat" : lang === "en" ? "Buying signal" : lang === "zh-CN" ? "购买信号" : "Sinal de compra" },
+            { color: "#C44536", label: lang === "fr" ? "Approche perso" : lang === "en" ? "Personalized outreach" : lang === "zh-CN" ? "个性化接触" : "Abordagem personalizada" },
+            { color: "#C44536", label: lang === "fr" ? "RDV qualifié" : lang === "en" ? "Qualified meeting" : lang === "zh-CN" ? "高质量会议" : "Reunião qualificada" },
+            { color: "#c8956c", label: lang === "fr" ? "Closing assisté" : lang === "en" ? "Assisted closing" : lang === "zh-CN" ? "辅助成单" : "Fechamento assistido" },
+            { color: "#c8956c", label: lang === "fr" ? "Onboarding client" : lang === "en" ? "Customer onboarding" : lang === "zh-CN" ? "客户入职" : "Onboarding cliente" },
+            { color: "#5FAF8E", label: lang === "fr" ? "Stocks & supply" : lang === "en" ? "Stocks & supply" : lang === "zh-CN" ? "库存与供应" : "Estoque & supply" },
+            { color: "#5FAF8E", label: lang === "fr" ? "Marketing & innovation" : lang === "en" ? "Marketing & innovation" : lang === "zh-CN" ? "营销与创新" : "Marketing & inovação" },
+            { color: "#7C5BA1", label: lang === "fr" ? "Reporting CEO" : lang === "en" ? "Executive reporting" : lang === "zh-CN" ? "CEO 报告" : "Relatório CEO" },
+          ].map((step, i, arr) => (
+            <React.Fragment key={step.label}>
+              <motion.div
+                className="parrit-os-chain-step"
+                style={{ ["--step-color" as string]: step.color } as React.CSSProperties}
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.35, delay: i * 0.07 }}
+              >
+                <span className="parrit-os-chain-dot" />
+                <span className="parrit-os-chain-label">{step.label}</span>
+              </motion.div>
+              {i < arr.length - 1 && <span className="parrit-os-chain-arrow" aria-hidden>›</span>}
+            </React.Fragment>
+          ))}
+        </div>
+        <p className="parrit-os-chain-sub">
+          {lang === "fr"
+            ? "De la première intention captée à l'évolution du produit — en mode chronologique, sans rupture."
+            : lang === "en"
+            ? "From the first captured intent to product evolution — chronological, with no break."
+            : lang === "zh-CN"
+            ? "从首个捕捉意向到产品进化 —— 按时间顺序,不间断。"
+            : "Da primeira intenção captada à evolução do produto — em modo cronológico, sem ruptura."}
+        </p>
+      </section>
 
       {/* ── Mobile dock fallback ─────────────────── */}
       <div className="parrit-os-mobile-offers">

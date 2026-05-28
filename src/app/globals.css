@@ -1939,3 +1939,90 @@ img, svg, video { max-width: 100%; height: auto; }
   background: rgba(196, 69, 54, 0.06);
   border-radius: 12px;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   CHAIN — chronological intervention timeline
+   ═══════════════════════════════════════════════════════════ */
+.parrit-os-chain {
+  padding: 28px clamp(12px, 2vw, 28px) 16px;
+  max-width: 1240px;
+  margin: 0 auto;
+  text-align: center;
+}
+.parrit-os-chain-eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--parrit-red);
+  margin: 0 0 18px;
+}
+.parrit-os-chain-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px 8px;
+  margin: 0 auto 16px;
+  max-width: 1180px;
+}
+.parrit-os-chain-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  background: #FFFCF5;
+  border: 1.5px solid #2A2420;
+  border-radius: 999px;
+  box-shadow: 2px 2px 0 var(--step-color, #2A2420);
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #2A2420;
+  white-space: nowrap;
+}
+.parrit-os-chain-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--step-color, var(--parrit-red));
+  border: 1.5px solid #2A2420;
+}
+.parrit-os-chain-label {
+  letter-spacing: 0.01em;
+}
+.parrit-os-chain-arrow {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 500;
+  color: #8A7E70;
+  padding: 0 2px;
+  user-select: none;
+}
+.parrit-os-chain-sub {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-style: italic;
+  color: #5A5047;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .parrit-os-chain {
+    padding: 20px 10px 12px;
+  }
+  .parrit-os-chain-step {
+    padding: 6px 10px;
+    font-size: 11.5px;
+    gap: 5px;
+  }
+  .parrit-os-chain-arrow {
+    font-size: 15px;
+  }
+  .parrit-os-chain-sub {
+    font-size: 13.5px;
+  }
+}
