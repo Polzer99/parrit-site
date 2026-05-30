@@ -4,30 +4,96 @@
     {
       "slug": "agent-ia-entreprise",
       "category": "fondamentaux",
-      "langs": ["fr"],
+      "langs": [
+        "fr"
+      ],
       "published_at": "2026-05-15"
+    },
+    {
+      "slug": "claude-code-vs-chatgpt",
+      "category": "fondamentaux",
+      "langs": [
+        "fr"
+      ],
+      "published_at": "2026-05-30"
     }
   ],
   "queue_questions": [
-    {"slug": "comment-integrer-agent-ia", "title_fr": "Comment intégrer un agent IA dans votre opération ?"},
-    {"slug": "claude-code-vs-chatgpt", "title_fr": "Différence entre Claude Code et ChatGPT pour un dirigeant"},
-    {"slug": "agent-ia-vs-rpa", "title_fr": "Agent IA vs RPA : que choisir pour quel processus ?"},
-    {"slug": "comment-deployer-llm-entreprise", "title_fr": "Comment déployer un LLM dans une entreprise française ?"},
-    {"slug": "rgpd-llm-securite", "title_fr": "LLM en entreprise : RGPD, sécurité et confidentialité"},
-    {"slug": "claude-code-pour-non-dev", "title_fr": "Claude Code pour un dirigeant non-développeur : c'est utile ?"},
-    {"slug": "mcp-anthropic-explication", "title_fr": "MCP (Model Context Protocol) : qu'est-ce que c'est et à quoi ça sert ?"},
-    {"slug": "automatiser-veille-juridique", "title_fr": "Comment automatiser la veille juridique avec un agent IA ?"},
-    {"slug": "automatiser-veille-concurrentielle", "title_fr": "Comment automatiser la veille concurrentielle B2B ?"},
-    {"slug": "agent-ia-vs-saas", "title_fr": "Pourquoi un agent IA sur mesure plutôt qu'un SaaS IA ?"},
-    {"slug": "claude-vs-openai-vs-gemini", "title_fr": "Claude, OpenAI, Gemini : lequel choisir pour quel cas en entreprise ?"},
-    {"slug": "couts-llm-production", "title_fr": "Combien coûte un LLM en production en entreprise ?"},
-    {"slug": "outbound-personnalise-ia", "title_fr": "Comment faire de l'outbound mail personnalisé à grande échelle avec un agent IA ?"},
-    {"slug": "agent-ia-pour-pme", "title_fr": "Quels agents IA pour une PME française ?"},
-    {"slug": "agent-ia-pour-eti", "title_fr": "Quels agents IA pour une ETI industrielle ?"},
-    {"slug": "evaluer-prestataire-ia", "title_fr": "Comment évaluer un prestataire IA pour son entreprise ?"},
-    {"slug": "agent-ia-vs-consultant", "title_fr": "Quand un agent IA remplace-t-il vraiment un consultant ?"},
-    {"slug": "n8n-vs-code-pour-automation", "title_fr": "n8n vs code pour automatiser : que choisir ?"},
-    {"slug": "phantombuster-linkedin-2026", "title_fr": "PhantomBuster en 2026 : alternatives et limites pour LinkedIn"},
-    {"slug": "instantly-vs-lemlist-vs-hubspot", "title_fr": "Instantly, Lemlist, HubSpot Sequences : quel outil de cold mail B2B ?"}
+    {
+      "slug": "comment-integrer-agent-ia",
+      "title_fr": "Comment intégrer un agent IA dans votre opération ?"
+    },
+    {
+      "slug": "agent-ia-vs-rpa",
+      "title_fr": "Agent IA vs RPA : que choisir pour quel processus ?"
+    },
+    {
+      "slug": "comment-deployer-llm-entreprise",
+      "title_fr": "Comment déployer un LLM dans une entreprise française ?"
+    },
+    {
+      "slug": "rgpd-llm-securite",
+      "title_fr": "LLM en entreprise : RGPD, sécurité et confidentialité"
+    },
+    {
+      "slug": "claude-code-pour-non-dev",
+      "title_fr": "Claude Code pour un dirigeant non-développeur : c'est utile ?"
+    },
+    {
+      "slug": "mcp-anthropic-explication",
+      "title_fr": "MCP (Model Context Protocol) : qu'est-ce que c'est et à quoi ça sert ?"
+    },
+    {
+      "slug": "automatiser-veille-juridique",
+      "title_fr": "Comment automatiser la veille juridique avec un agent IA ?"
+    },
+    {
+      "slug": "automatiser-veille-concurrentielle",
+      "title_fr": "Comment automatiser la veille concurrentielle B2B ?"
+    },
+    {
+      "slug": "agent-ia-vs-saas",
+      "title_fr": "Pourquoi un agent IA sur mesure plutôt qu'un SaaS IA ?"
+    },
+    {
+      "slug": "claude-vs-openai-vs-gemini",
+      "title_fr": "Claude, OpenAI, Gemini : lequel choisir pour quel cas en entreprise ?"
+    },
+    {
+      "slug": "couts-llm-production",
+      "title_fr": "Combien coûte un LLM en production en entreprise ?"
+    },
+    {
+      "slug": "outbound-personnalise-ia",
+      "title_fr": "Comment faire de l'outbound mail personnalisé à grande échelle avec un agent IA ?"
+    },
+    {
+      "slug": "agent-ia-pour-pme",
+      "title_fr": "Quels agents IA pour une PME française ?"
+    },
+    {
+      "slug": "agent-ia-pour-eti",
+      "title_fr": "Quels agents IA pour une ETI industrielle ?"
+    },
+    {
+      "slug": "evaluer-prestataire-ia",
+      "title_fr": "Comment évaluer un prestataire IA pour son entreprise ?"
+    },
+    {
+      "slug": "agent-ia-vs-consultant",
+      "title_fr": "Quand un agent IA remplace-t-il vraiment un consultant ?"
+    },
+    {
+      "slug": "n8n-vs-code-pour-automation",
+      "title_fr": "n8n vs code pour automatiser : que choisir ?"
+    },
+    {
+      "slug": "phantombuster-linkedin-2026",
+      "title_fr": "PhantomBuster en 2026 : alternatives et limites pour LinkedIn"
+    },
+    {
+      "slug": "instantly-vs-lemlist-vs-hubspot",
+      "title_fr": "Instantly, Lemlist, HubSpot Sequences : quel outil de cold mail B2B ?"
+    }
   ]
 }
