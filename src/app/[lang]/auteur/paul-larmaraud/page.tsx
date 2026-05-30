@@ -188,13 +188,13 @@ export default async function AuthorPage({
             </Link>
           </p>
         </div>
-
-        <footer className="blog-footer">
-          <p className="footer-legal" style={{ marginTop: 40 }}>
-            © {new Date().getFullYear()} SASU PARRIT.AI · Rueil-Malmaison
-          </p>
-        </footer>
       </article>
+
+      <footer className="blog-footer">
+        <p className="footer-legal" style={{ marginTop: 0 }}>
+          © {new Date().getFullYear()} SASU PARRIT.AI · Rueil-Malmaison
+        </p>
+      </footer>
     </>
   );
 }

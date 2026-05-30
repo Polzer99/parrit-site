@@ -170,7 +170,7 @@ export default async function BlogPostPage({
           <Link href={`/${lang}/blog`} className="blog-back">
             {dict.blog.back}
           </Link>
-          <div className="blog-card-meta" style={{ justifyContent: "center" }}>
+          <div className="blog-card-meta">
             <span className="blog-card-category">{post.category}</span>
             <span className="blog-card-dot">·</span>
             <time className="blog-card-date">

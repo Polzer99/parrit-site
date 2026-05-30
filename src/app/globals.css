@@ -1108,6 +1108,10 @@ body > * {
 .blog-nav {
   position: sticky !important;
   top: 0;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px;
   background: #EADFC4 !important;
   border-bottom: 2px solid #2A2420 !important;
   backdrop-filter: none !important;
@@ -1179,6 +1183,8 @@ body > * {
 /* Blog list — now cards with neo-brutalist shadow */
 .blog-list {
   max-width: 1100px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
   padding: 0 16px 48px !important;
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
@@ -1223,6 +1229,9 @@ body > * {
   align-self: flex-start;
 }
 .blog-card-meta {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
   margin-bottom: 14px !important;
   gap: 10px !important;
 }
@@ -1265,6 +1274,8 @@ body > * {
 /* Blog article page — paper aesthetic */
 .blog-article {
   max-width: 720px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
   padding: 56px 20px 48px !important;
 }
 .blog-article-header {
@@ -1342,10 +1353,64 @@ body > * {
   color: #2A2420 !important;
 }
 
+/* Author page bio — shares the article body aesthetic, adds list styling */
+.blog-article-subtitle {
+  font-family: var(--font-body) !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.01em;
+}
+.blog-article-content {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: #2A2420;
+}
+.blog-article-content p {
+  margin: 0 0 18px;
+  color: #2A2420;
+}
+.blog-article-content h2 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(20px, 2.6vw, 26px);
+  color: #2A2420;
+  margin: 34px 0 12px;
+  line-height: 1.25;
+}
+.blog-article-content ol,
+.blog-article-content ul {
+  margin: 0 0 18px;
+  padding-left: 22px;
+}
+.blog-article-content li {
+  margin: 0 0 8px;
+  color: #2A2420;
+}
+.blog-article-content a {
+  color: var(--parrit-red);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+.blog-article-content .blog-footer-cta {
+  display: inline-block;
+  margin-top: 8px;
+  text-decoration: none;
+  color: #FFFCF5 !important;
+}
+
 /* Blog footer — match home aesthetic */
 .blog-footer {
   background: #2A2420 !important;
   padding: 56px 20px 36px !important;
+  text-align: center !important;
+}
+.blog-footer .footer-legal {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-light-muted);
+  letter-spacing: 0.02em;
 }
 .blog-footer-text {
   font-family: var(--font-heading) !important;
