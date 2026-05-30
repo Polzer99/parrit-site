@@ -127,6 +127,18 @@ export default async function Page({
 
   const pageUrl = `${SITE_URL}/${lang}/glossaire/${slug}`;
 
+  // Only surface related links that point to ACTUALLY published terms in this
+  // locale — the auto-publisher can emit forward-looking / imagined slugs, and
+  // linking to unpublished slugs produces 404s (wasted crawl budget, weak SEO).
+  const publishedSlugs = new Set(
+    loadIndex()
+      .articles.filter((a) => a.langs.includes(lang as Locale))
+      .map((a) => a.slug),
+  );
+  const relatedPublished = (data.related ?? []).filter(
+    (r) => r.slug !== slug && publishedSlugs.has(r.slug),
+  );
+
   const schemaGraph = {
     "@context": "https://schema.org",
     "@graph": [
@@ -259,7 +271,7 @@ export default async function Page({
           ))}
         </section>
 
-        {data.related && data.related.length > 0 && (
+        {relatedPublished.length > 0 && (
           <section style={{ marginTop: 64, paddingTop: 32, borderTop: "1px solid rgba(0,0,0,0.08)" }}>
             <h3
               style={{
@@ -274,7 +286,7 @@ export default async function Page({
               À lire ensuite
             </h3>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-              {data.related.map((r) => (
+              {relatedPublished.map((r) => (
                 <li key={r.slug} style={{ marginBottom: 8 }}>
                   <Link
                     href={`/${lang}/glossaire/${r.slug}`}
