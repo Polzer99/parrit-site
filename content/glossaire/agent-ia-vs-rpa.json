@@ -1,0 +1,64 @@
+{
+  "slug": "agent-ia-vs-rpa",
+  "category": "fondamentaux",
+  "published_at": "2026-06-01",
+  "updated_at": "2026-06-01",
+  "langs": {
+    "fr": {
+      "title": "Agent vs RPA : lequel choisir pour quel processus ?",
+      "subtitle": "La question n'est pas de savoir quelle technologie est la meilleure, mais quel outil est le bon pour le travail à faire.",
+      "meta": {
+        "title": "Agent vs RPA : que choisir pour quel processus ? | Parrit",
+        "description": "Comprendre la différence entre un agent d'automatisation et la RPA. On explique concrètement quand utiliser l'un ou l'autre pour optimiser vos processus internes.",
+        "ogTitle": "Agent vs RPA : le bon outil pour le bon processus.",
+        "ogDescription": "Arrêtons de comparer les technologies. La RPA exécute des tâches rigides, les agents gèrent l'imprévu. Voici comment choisir."
+      },
+      "intro": "On oppose souvent agents et RPA (Robotic Process Automation). En pratique, ce sont deux outils pour des problèmes différents. La RPA, c'est un robot logiciel qui imite les clics d'un humain sur une interface. Il suit une recette fixe : ouvrir ce logiciel, copier ce champ, le coller là. Si l'interface change d'un pixel, le robot casse. Un agent, lui, n'imite pas les clics. Il comprend un objectif et utilise des outils (API, bases de données) pour l'atteindre. Il peut gérer des données non structurées, comme le texte d'un email, et s'adapter à des variations. Pour choisir, il faut donc regarder la nature de la tâche, pas la technologie. Voici les questions à se poser.",
+      "sections": [
+        {
+          "q": "Concrètement, c'est quoi la différence pour une tâche simple comme traiter une facture ?",
+          "a": "Une RPA va chercher le montant total à un endroit précis du document, par exemple en haut à droite. Elle a besoin d'un modèle fixe. Si une facture arrive dans un format différent, la RPA échoue. Un agent, lui, lit le document entier. Il comprend le contexte et identifie la ligne 'Total TTC' ou 'Montant à payer', peu importe où elle se trouve. L'agent extrait le sens, la RPA extrait une donnée à une coordonnée précise."
+        },
+        {
+          "q": "Dans quel cas la RPA reste-t-elle la meilleure solution ?",
+          "a": "Quand le processus est 100% répétitif et s'appuie sur des logiciels sans API, comme un vieil ERP ou une application métier fermée. Un exemple : un grossiste qui doit copier-coller 500 lignes de commande d'un fichier Excel vers son système de gestion chaque matin. La RPA est imbattable pour ça. C'est une tâche de pure exécution, sans aucune interprétation. Le chemin est toujours le même, les clics sont toujours les mêmes."
+        },
+        {
+          "q": "Et un agent, c'est pour quel type de travail ?",
+          "a": "L'agent excelle là où il y a du langage, de la variabilité et un besoin de jugement. Par exemple, qualifier les leads entrants par email pour une ESN. L'agent lit l'email, comprend la demande ('besoin d'un développeur pour 6 mois'), vérifie dans le CRM si le contact existe, et pré-qualifie l'opportunité en assignant un niveau de priorité. Aucune RPA ne peut faire ça, car chaque email est formulé différemment. L'agent gère l'imprévu."
+        },
+        {
+          "q": "Est-ce que les deux peuvent fonctionner ensemble ?",
+          "a": "Oui, et c'est souvent la configuration la plus efficace. Imaginez un courtier en assurance. Un agent peut lire un email de demande de devis, extraire les informations pertinentes (âge, véhicule, bonus-malus). Ensuite, il peut déclencher un bot RPA qui va se connecter à l'extranet d'un assureur (qui n'a pas d'API) pour remplir les champs et récupérer le tarif. L'agent gère l'intelligence en amont, la RPA gère la saisie brute en aval."
+        },
+        {
+          "q": "En termes de coût et de maintenance, qu'est-ce qui change ?",
+          "a": "La RPA a un coût initial en licence (UiPath, Automation Anywhere) et en développement. Son principal point faible est sa fragilité : une mise à jour de l'interface d'un logiciel et le bot est cassé. Il faut le maintenir. Un agent a un coût à l'usage (via les appels API des modèles) et en développement. Il est plus robuste aux changements d'interface mais demande une surveillance de la qualité de ses 'décisions'. La maintenance ne porte pas sur les clics, mais sur la pertinence des résultats."
+        },
+        {
+          "q": "Par où commencer : automatiser une tâche simple ou un processus complexe ?",
+          "a": "Commencez par le goulot d'étranglement qui vous fait le plus mal. Ne choisissez pas la technologie d'abord. Identifiez une tâche manuelle, à faible valeur ajoutée, mais qui bloque vos équipes. Est-ce une tâche rigide et répétitive ? C'est un cas pour la RPA. Est-ce une tâche qui demande de lire, comprendre et trier de l'information ? C'est un cas pour un agent. Le retour sur investissement doit guider le premier projet, pas l'attrait pour un outil."
+        }
+      ],
+      "related": [
+        {
+          "slug": "automatiser-qualification-leads",
+          "label": "Automatiser la qualification des leads entrants"
+        },
+        {
+          "slug": "cout-agent-automatisation",
+          "label": "Combien coûte un agent d'automatisation ?"
+        },
+        {
+          "slug": "rpa-vs-api-integration",
+          "label": "RPA ou intégration API : le dilemme des systèmes legacy"
+        }
+      ],
+      "cta": {
+        "title": "Parlons de vos processus, pas des acronymes.",
+        "subtitle": "On peut analyser un de vos flux de travail et vous dire honnêtement si c'est un cas pour un agent, pour de la RPA, ou pour rien du tout.",
+        "label": "DMs ouverts pour un audit"
+      }
+    }
+  }
+}

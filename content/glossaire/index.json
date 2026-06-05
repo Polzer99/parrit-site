@@ -24,13 +24,17 @@
         "fr"
       ],
       "published_at": "2026-05-30"
+    },
+    {
+      "slug": "agent-ia-vs-rpa",
+      "category": "fondamentaux",
+      "langs": [
+        "fr"
+      ],
+      "published_at": "2026-06-01"
     }
   ],
   "queue_questions": [
-    {
-      "slug": "agent-ia-vs-rpa",
-      "title_fr": "Agent IA vs RPA : que choisir pour quel processus ?"
-    },
     {
       "slug": "comment-deployer-llm-entreprise",
       "title_fr": "Comment déployer un LLM dans une entreprise française ?"
