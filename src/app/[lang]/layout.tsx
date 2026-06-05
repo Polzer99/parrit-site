@@ -75,7 +75,7 @@ export async function generateMetadata({
     },
     icons: {
       icon: "/icon.svg",
-      apple: "/apple-icon.svg",
+      apple: "/apple-icon.png",
     },
     robots: {
       index: true,

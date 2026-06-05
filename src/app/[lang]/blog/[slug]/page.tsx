@@ -13,11 +13,14 @@ const SITE_URL = "https://parrit.ai";
 
 export function generateStaticParams() {
   const slugs = getAllSlugs();
-  // Blog content not yet translated to zh-CN
-  const blogLocales = locales.filter((l) => l !== "zh-CN");
-  return blogLocales.flatMap((lang) =>
+  return locales.flatMap((lang) =>
     slugs.map((slug) => ({ lang, slug })),
   );
+}
+
+// Blog content not yet translated to zh-CN — fallback to EN content (UI strings stay zh)
+function toContentLocale(lang: string): BlogLocale {
+  return (lang === "zh-CN" ? "en" : lang) as BlogLocale;
 }
 
 export async function generateMetadata({
@@ -28,7 +31,7 @@ export async function generateMetadata({
   const { lang, slug } = await params;
   if (!hasLocale(lang)) return {};
 
-  const post = getPostBySlug(slug, lang as BlogLocale);
+  const post = getPostBySlug(slug, toContentLocale(lang));
   if (!post) return {};
 
   const dict = await getDictionary(lang as Locale);
@@ -77,11 +80,11 @@ export default async function BlogPostPage({
   const { lang, slug } = await params;
   if (!hasLocale(lang)) notFound();
 
-  const post = getPostBySlug(slug, lang as BlogLocale);
+  const post = getPostBySlug(slug, toContentLocale(lang));
   if (!post) notFound();
 
   const dict = await getDictionary(lang as Locale);
-  const related = getRelatedPosts(post.slug, lang as BlogLocale, 3);
+  const related = getRelatedPosts(post.slug, toContentLocale(lang), 3);
 
   const postUrl = `${SITE_URL}/${lang}/blog/${post.slug}`;
   const wordCount = post.content

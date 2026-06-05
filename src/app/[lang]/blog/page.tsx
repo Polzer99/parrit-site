@@ -12,8 +12,12 @@ import {
 const SITE_URL = "https://parrit.ai";
 
 export async function generateStaticParams() {
-  // Blog content not yet translated to zh-CN
-  return locales.filter((l) => l !== "zh-CN").map((lang) => ({ lang }));
+  return locales.map((lang) => ({ lang }));
+}
+
+// Blog content not yet translated to zh-CN — fallback to EN content (UI strings stay zh)
+function toContentLocale(lang: string): BlogLocale {
+  return (lang === "zh-CN" ? "en" : lang) as BlogLocale;
 }
 
 export async function generateMetadata({
@@ -64,7 +68,7 @@ export default async function BlogIndex({
   if (!hasLocale(lang)) notFound();
 
   const dict = await getDictionary(lang as Locale);
-  const posts = getAllPosts(lang as BlogLocale);
+  const posts = getAllPosts(toContentLocale(lang));
 
   const jsonLd = {
     "@context": "https://schema.org",

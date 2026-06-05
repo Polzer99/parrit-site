@@ -425,7 +425,7 @@ const COPY = {
         { id: "methode", label: "Method.md", icon: "doc" },
         { id: "cas", label: "Case-studies.md", icon: "folder" },
         { id: "paul", label: "Paul.vcf", icon: "person" },
-        { id: "open", label: "Open parrit.ai ↗", icon: "external", href: "https://www.linkedin.com/in/paullarmaraud/" },
+        { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paullarmaraud/" },
       ],
     },
     rightDock: {
@@ -3214,11 +3214,17 @@ export default function HomeClient({
         {/* LEFT dock */}
         <aside className="parrit-os-dock parrit-os-dock-left">
           {copy.leftDock.items.map((it) => {
+            // Lien réel pour les items externes (LinkedIn) : window.open était bloqué
+            // comme popup par Safari et invisible sans JS / pour les crawlers.
+            if ("href" in it && it.href) {
+              return (
+                <a key={it.id} className="parrit-os-icon" href={it.href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                  <LeftIcon name={it.icon} />
+                  <span>{it.label}</span>
+                </a>
+              );
+            }
             const onClick = () => {
-              if ("href" in it && it.href) {
-                window.open(it.href, "_blank", "noopener");
-                return;
-              }
               if (it.id === "manifeste" || it.id === "transformation" || it.id === "methode" || it.id === "cas" || it.id === "paul" || it.id === "yukun") {
                 openPanel(it.id as "manifeste" | "transformation" | "methode" | "cas" | "paul" | "yukun");
               }
