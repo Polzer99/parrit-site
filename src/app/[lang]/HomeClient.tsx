@@ -244,6 +244,51 @@ const COPY = {
           },
         ],
       },
+      {
+        id: "claude-code",
+        chip: "Claude Code",
+        title: "Audit & Configuration Claude Code",
+        sub: "Sprint Claude Code : vos équipes équipées et autonomes",
+        pitch: "On installe Claude Code proprement dans votre environnement : audit de l'existant, configuration aux standards de production, modules de contexte prêts à l'emploi, et maîtrise de la consommation de tokens dès le premier jour.",
+        bullets: [
+          "Audit de votre environnement de dev et de vos cas d'usage : 1 journée, plan d'action concret",
+          "Configuration complète : mémoire projet, skills, garde-fous de dépense, optimisation tokens",
+          "Sprint Claude Code 1 à 4 jours : on construit avec vos équipes, chez vous ou à distance",
+          "Modules prêts à l'emploi ingérés par votre instance + support asynchrone entre les sessions",
+        ],
+        proof: [
+          "Grande école de management internationale — audit & configuration pour 2 profils basés à Singapour (cadrage en cours)",
+          "Dirigeant pharma en transition — autonomie complète Claude Code en 8 heures",
+          "Parrit pour son propre compte — tout notre OS interne tourne sur Claude Code",
+        ],
+        notfor: "Vous cherchez une licence ou un outil sur étagère sans accompagnement ? Ce n'est pas pour vous.",
+        accent: "#2A2420",
+        clusters: [
+          {
+            label: "Formats",
+            agents: [
+              { name: "Audit 1 jour — plan d'action", status: "live" },
+              { name: "Audit & Configuration", status: "live" },
+              { name: "Sprint Claude Code 1-4j", status: "live" },
+              { name: "Setup équipes + suivi", status: "live" },
+            ],
+          },
+          {
+            label: "Ce qu'on configure",
+            agents: [
+              { name: "Mémoire projet & skills", status: "live" },
+              { name: "Optimisation tokens & caching", status: "live" },
+              { name: "Garde-fous de dépense", status: "live" },
+              { name: "Pipelines agentiques (CI/CD)", status: "live" },
+            ],
+          },
+        ],
+        pages: [
+          { label: "Audit Claude Code", href: "/fr/audit-claude-code" },
+          { label: "Sprint Claude Code", href: "/fr/sprint" },
+          { label: "Setup équipes", href: "/fr/setup-claude-code" },
+        ],
+      },
     ],
     panel: {
       manifeste: {
@@ -467,6 +512,31 @@ const COPY = {
         ],
         notfor: "Qualiopi finalized June 2026. OPCO funding not guaranteed before then.",
         accent: "#7C5BA1",
+      },
+      {
+        id: "claude-code",
+        chip: "Claude Code",
+        title: "Claude Code Audit & Setup",
+        sub: "Claude Code Sprint: your team equipped and autonomous",
+        pitch: "We install Claude Code properly in your environment: audit of your stack, production-grade configuration, ready-to-use context modules, and token-spend control from day one.",
+        bullets: [
+          "Audit of your dev environment and use cases: 1 day, concrete action plan",
+          "Full configuration: project memory, skills, spend guardrails, token optimization",
+          "Claude Code Sprint, 1 to 4 days: we build with your team, on-site or remote",
+          "Ready-made modules ingested by your instance + async support between sessions",
+        ],
+        proof: [
+          "International management school — audit & setup for 2 profiles based in Singapore (scoping underway)",
+          "Pharma executive in transition — full Claude Code autonomy in 8 hours",
+          "Parrit itself — our entire internal OS runs on Claude Code",
+        ],
+        notfor: "Looking for a license or an off-the-shelf tool with no enablement? Not for you.",
+        accent: "#2A2420",
+        pages: [
+          { label: "Claude Code Audit", href: "/en/audit-claude-code" },
+          { label: "Claude Code Sprint", href: "/en/sprint" },
+          { label: "Team Setup", href: "/en/setup-claude-code" },
+        ],
       },
     ],
     panel: {
@@ -804,6 +874,31 @@ const COPY = {
               { name: "GEO e-commerce", status: "live" },
             ],
           },
+        ],
+      },
+      {
+        id: "claude-code",
+        chip: "Claude Code",
+        title: "Auditoria & Configuração Claude Code",
+        sub: "Sprint Claude Code: sua equipe equipada e autônoma",
+        pitch: "Instalamos o Claude Code do jeito certo no seu ambiente: auditoria do existente, configuração padrão de produção, módulos de contexto prontos para uso e controle do consumo de tokens desde o primeiro dia.",
+        bullets: [
+          "Auditoria do seu ambiente de dev e dos seus casos de uso: 1 dia, plano de ação concreto",
+          "Configuração completa: memória de projeto, skills, limites de gasto, otimização de tokens",
+          "Sprint Claude Code de 1 a 4 dias: construímos com sua equipe, presencial ou remoto",
+          "Módulos prontos ingeridos pela sua instância + suporte assíncrono entre as sessões",
+        ],
+        proof: [
+          "Escola de gestão internacional — auditoria & configuração para 2 perfis em Singapura (cadragem em andamento)",
+          "Executivo farma em transição — autonomia completa Claude Code em 8 horas",
+          "A própria Parrit — todo nosso OS interno roda em Claude Code",
+        ],
+        notfor: "Procura uma licença ou ferramenta de prateleira sem acompanhamento? Não é para você.",
+        accent: "#2A2420",
+        pages: [
+          { label: "Auditoria Claude Code", href: "/pt-BR/audit-claude-code" },
+          { label: "Sprint Claude Code", href: "/pt-BR/sprint" },
+          { label: "Setup de equipes", href: "/pt-BR/setup-claude-code" },
         ],
       },
     ],
@@ -1144,6 +1239,31 @@ const COPY = {
           },
         ],
       },
+      {
+        id: "claude-code",
+        chip: "Claude Code",
+        title: "Claude Code 审计与配置",
+        sub: "Claude Code Sprint:让您的团队装备齐全、自主上手",
+        pitch: "我们在您的环境中正确部署 Claude Code:审计现状、生产级配置、开箱即用的上下文模块,并从第一天起控制 token 消耗。",
+        bullets: [
+          "审计您的开发环境与用例:1 天,输出具体行动计划",
+          "完整配置:项目记忆、skills、支出护栏、token 优化",
+          "Claude Code Sprint 1 到 4 天:与您的团队一起构建,现场或远程",
+          "现成模块直接导入您的实例 + 课间异步支持",
+        ],
+        proof: [
+          "国际管理学院 — 为常驻新加坡的 2 位成员做审计与配置(框架洽谈中)",
+          "制药公司转型高管 — 8 小时实现 Claude Code 完全自主",
+          "Parrit 自身 — 我们整个内部 OS 都运行在 Claude Code 上",
+        ],
+        notfor: "只想要一个许可证或现成工具、不需要陪跑?那不适合您。",
+        accent: "#2A2420",
+        pages: [
+          { label: "Claude Code 审计", href: "/zh-CN/audit-claude-code" },
+          { label: "Claude Code Sprint", href: "/zh-CN/sprint" },
+          { label: "团队配置", href: "/zh-CN/setup-claude-code" },
+        ],
+      },
     ],
     panel: {
       manifeste: {
@@ -1282,6 +1402,7 @@ type OfferCopy = {
   notfor: string;
   accent: string;
   clusters?: readonly AgentBox[];
+  pages?: readonly { label: string; href: string }[];
 };
 type PanelCopy = {
   manifeste: { title: string; body: readonly string[] };
@@ -1439,12 +1560,22 @@ function OfferIcon({ idx, accent }: { idx: number; accent: string }) {
       </svg>
     );
   }
+  if (idx === 3) {
+    return (
+      <svg {...common}>
+        <rect x="6" y="6" width="52" height="52" rx="10" fill={accent === "#2A2420" ? "#c8956c" : accent} stroke="#2A2420" strokeWidth="2.5" />
+        <path d="M14 28 L32 18 L50 28 L32 38 Z" fill="#F5EBD8" stroke="#2A2420" strokeWidth="2" strokeLinejoin="round" />
+        <line x1="32" y1="38" x2="32" y2="48" stroke="#2A2420" strokeWidth="2.5" />
+        <path d="M22 33 V42 Q22 46 32 46 Q42 46 42 42 V33" stroke="#2A2420" strokeWidth="2" fill="none" />
+      </svg>
+    );
+  }
+  // idx 4+ — terminal prompt (Claude Code)
   return (
     <svg {...common}>
-      <rect x="6" y="6" width="52" height="52" rx="10" fill={accent === "#2A2420" ? "#c8956c" : accent} stroke="#2A2420" strokeWidth="2.5" />
-      <path d="M14 28 L32 18 L50 28 L32 38 Z" fill="#F5EBD8" stroke="#2A2420" strokeWidth="2" strokeLinejoin="round" />
-      <line x1="32" y1="38" x2="32" y2="48" stroke="#2A2420" strokeWidth="2.5" />
-      <path d="M22 33 V42 Q22 46 32 46 Q42 46 42 42 V33" stroke="#2A2420" strokeWidth="2" fill="none" />
+      <rect x="6" y="6" width="52" height="52" rx="10" fill={accent} stroke="#2A2420" strokeWidth="2.5" />
+      <path d="M17 23 L28 32 L17 41" stroke="#F5EBD8" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <line x1="32" y1="44" x2="47" y2="44" stroke="#F5EBD8" strokeWidth="3.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -2604,6 +2735,32 @@ function OfferWindow({
       >
         {offer.notfor}
       </p>
+
+      {offer.pages && offer.pages.length > 0 && (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10, margin: "0 0 22px" }}>
+          {offer.pages.map((p) => (
+            <a
+              key={p.href}
+              href={p.href}
+              style={{
+                padding: "8px 16px",
+                background: "#FFFDF8",
+                border: "1.5px solid #2A2420",
+                borderRadius: 8,
+                fontFamily: "var(--font-body)",
+                fontSize: 13,
+                fontWeight: 600,
+                color: "#2A2420",
+                textDecoration: "none",
+                boxShadow: "3px 3px 0 #2A2420",
+                transition: "transform 0.08s",
+              }}
+            >
+              {p.label} →
+            </a>
+          ))}
+        </div>
+      )}
 
       <button
         onClick={onOpenContact}
