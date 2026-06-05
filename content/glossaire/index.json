@@ -32,13 +32,17 @@
         "fr"
       ],
       "published_at": "2026-06-01"
+    },
+    {
+      "slug": "comment-deployer-llm-entreprise",
+      "category": "fondamentaux",
+      "langs": [
+        "fr"
+      ],
+      "published_at": "2026-06-05"
     }
   ],
   "queue_questions": [
-    {
-      "slug": "comment-deployer-llm-entreprise",
-      "title_fr": "Comment déployer un LLM dans une entreprise française ?"
-    },
     {
       "slug": "rgpd-llm-securite",
       "title_fr": "LLM en entreprise : RGPD, sécurité et confidentialité"
