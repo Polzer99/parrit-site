@@ -1592,10 +1592,11 @@ function HeroScene({ labels }: { labels: { you: string; youSub: string; parrit: 
     { cx: 100, cy: 310, fill: "#c8956c", label: labels.agents[1], phase: 1.2 },   // business
     { cx: 470, cy: 150, fill: "#C44536", label: labels.agents[2], phase: 0.6 },   // prototype
     { cx: 480, cy: 310, fill: "#7C5BA1", label: labels.agents[3], phase: 1.8 },   // formation (violet)
-  ];
+    { cx: 290, cy: 385, fill: "#2A2420", label: labels.agents[4], phase: 2.4 },   // claude code (dark)
+  ].filter((a) => a.label);
 
   return (
-    <svg viewBox="0 0 580 460" width="100%" height="100%" style={{ maxWidth: 600 }} aria-label="Parrit AI agents constellation">
+    <svg viewBox="0 0 580 460" width="100%" style={{ maxWidth: 600, height: "auto", display: "block" }} aria-label="Parrit AI agents constellation">
       <defs>
         <pattern id="dots-bg" width="14" height="14" patternUnits="userSpaceOnUse">
           <circle cx="2" cy="2" r="1" fill="#2A2420" opacity="0.06" />
@@ -1731,16 +1732,16 @@ function HeroScene({ labels }: { labels: { you: string; youSub: string; parrit: 
               <ellipse cx={a.cx} cy={a.cy + 32} rx="22" ry="3.5" fill="#2A2420" opacity="0.1" />
               {/* body */}
               <circle cx={a.cx} cy={a.cy} r="28" fill={a.fill} stroke="#2A2420" strokeWidth="2.5" />
-              {/* eyes (blink) */}
+              {/* eyes (blink) — ellipses : seul rx/ry est animable, circle+ry était sans effet */}
               <g>
                 <circle cx={a.cx - 8} cy={a.cy - 3} r="2.5" fill="#F5EBD8" />
                 <circle cx={a.cx + 8} cy={a.cy - 3} r="2.5" fill="#F5EBD8" />
-                <circle cx={a.cx - 8} cy={a.cy - 3} r="1.1" fill="#2A2420">
+                <ellipse cx={a.cx - 8} cy={a.cy - 3} rx="1.1" ry="1.1" fill="#2A2420">
                   <animate attributeName="ry" values="1.1;0.15;1.1" dur="6s" repeatCount="indefinite" begin={`${i * 1.4}s`} />
-                </circle>
-                <circle cx={a.cx + 8} cy={a.cy - 3} r="1.1" fill="#2A2420">
+                </ellipse>
+                <ellipse cx={a.cx + 8} cy={a.cy - 3} rx="1.1" ry="1.1" fill="#2A2420">
                   <animate attributeName="ry" values="1.1;0.15;1.1" dur="6s" repeatCount="indefinite" begin={`${i * 1.4}s`} />
-                </circle>
+                </ellipse>
               </g>
               {/* small smile */}
               <path d={`M ${a.cx - 6} ${a.cy + 6} Q ${a.cx} ${a.cy + 10} ${a.cx + 6} ${a.cy + 6}`} stroke={a.fill === "#2A2420" ? "#F5EBD8" : "#2A2420"} strokeWidth="1.5" fill="none" strokeLinecap="round" />
@@ -1768,7 +1769,7 @@ function HeroScene({ labels }: { labels: { you: string; youSub: string; parrit: 
         </polygon>
       </g>
       <g fill="#c8956c">
-        <polygon points="290,420 294,416 298,420 294,424">
+        <polygon points="64,408 68,404 72,408 68,412">
           <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite" />
         </polygon>
       </g>
@@ -2478,6 +2479,10 @@ function OfferWindow({
   contact: ReturnType<typeof getCopy>["contact"];
   onOpenContact: () => void;
 }) {
+  // Accent sombre (#2A2420, offre Claude Code) : texte crème sur l'accent, marqueurs caramel
+  const darkAccent = offer.accent === "#2A2420";
+  const onAccent = darkAccent ? "#F5EBD8" : "#2A2420";
+  const markerAccent = darkAccent ? "#c8956c" : offer.accent;
   return (
     <div>
       <div
@@ -2489,7 +2494,7 @@ function OfferWindow({
           fontWeight: 700,
           letterSpacing: "0.18em",
           textTransform: "uppercase",
-          color: "#2A2420",
+          color: onAccent,
           background: offer.accent,
           borderRadius: 4,
           border: "1.5px solid #2A2420",
@@ -2568,7 +2573,7 @@ function OfferWindow({
                   top: 6,
                   width: 12,
                   height: 12,
-                  background: offer.accent,
+                  background: markerAccent,
                   border: "1.5px solid #2A2420",
                   borderRadius: 2,
                 }}
@@ -2772,7 +2777,7 @@ function OfferWindow({
           fontFamily: "var(--font-body)",
           fontSize: 14,
           fontWeight: 600,
-          color: "#2A2420",
+          color: onAccent,
           cursor: "pointer",
           boxShadow: "4px 4px 0 #2A2420",
           transition: "transform 0.08s",
