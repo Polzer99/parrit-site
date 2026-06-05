@@ -160,12 +160,6 @@
         "after": "Email digest livré chaque lundi 7h30, prêt à diffuser aux clients. Construit en huit jours, sur site."
       },
       {
-        "badge": "COURTIER ÉNERGIE B2B",
-        "title": "Acquisition pilotée par les signaux",
-        "before": "Cold calling à l'aveugle, taux de rendez-vous marginal.",
-        "after": "Un à cinq rendez-vous qualifiés par jour, tous déclenchés par un signal détecté en temps réel sur sources publiques."
-      },
-      {
         "badge": "GROSSISTE B2B",
         "title": "Outbound personnalisé par signal",
         "before": "Cold mail générique, taux d'ouverture sous 20%, taux de réponse sous 1%.",
@@ -182,12 +176,6 @@
         "title": "CRM qui sort les prochains à appeler",
         "before": "Base de cinq mille contacts dormants, aucune logique de relance.",
         "after": "Cent prospects priorisés par jour, sortis automatiquement en top of mind commercial."
-      },
-      {
-        "badge": "GRAND GROUPE RETAIL",
-        "title": "Prototypage rapide de landing et tests marché",
-        "before": "Six semaines pour valider un message en passant par une agence.",
-        "after": "Un à trois jours : copy, design, tracking, déploiement. Vous testez votre hypothèse de marché en une semaine."
       }
     ],
     "footer": "Cas réels, clients anonymisés. Chaque système tourne en production aujourd'hui."
@@ -247,7 +235,7 @@
     "paul": {
       "name": "Paul Larmaraud",
       "role": "Fondateur",
-      "bio": "Vision produit et terrain. Ex-équipe opérations Lime à Paris, ex-Arkel. Partenaire opérationnel de directions générales depuis plus de deux ans : avocats, grossistes, courtiers, start-up, franchisés, ESN, grand groupe retail. Code et déploie ses propres outils chaque semaine — ce qui tourne chez ses clients tourne d'abord chez lui. DMs ouverts.",
+      "bio": "Vision produit et terrain. Ex-équipe opérations Lime à Paris, ex-Arkel. Partenaire opérationnel de directions générales depuis plus de deux ans : avocats, artisans haut de gamme, franchises, start-up, dirigeants en transition. Code et déploie ses propres outils chaque semaine — ce qui tourne chez ses clients tourne d'abord chez lui. DMs ouverts.",
       "signature": "Produit · Code · Opérations · Terrain"
     },
     "yukun": {
@@ -898,7 +886,7 @@
     "role": "Fondateur · Parrit.ai",
     "location": "Rueil-Malmaison, France",
     "bioP1": "Paul Larmaraud a fondé Parrit.ai début 2024 après dix ans à construire et opérer des produits chez Lime (swap stations Paris) et Arkel (deux ans et demi en tant qu'opérateur produit). La conviction : l'IA générative ne se vend pas en slides, elle se déploie en production avec les équipes du client.",
-    "bioP2": "Depuis le lancement, Parrit.ai a livré quatre systèmes en production : veille juridique automatisée pour un cabinet d'avocats d'affaires, acquisition signal-first pour un courtier énergie B2B, ERP interrogeable en français pour une ESN de cinquante personnes, rotation CRM intelligente pour un groupe franchisé. Chaque mission part d'un transcript terrain et finit en outil qui tourne sans nous.",
+    "bioP2": "Depuis le lancement, Parrit.ai a livré des systèmes qui tournent en production : veille juridique automatisée pour un cabinet d'avocats d'affaires, outil d'optimisation pour les assistants d'achat IA (GEO e-commerce) pour un vendeur retail Amazon, agent de veille du marché caché pour un dirigeant en transition, et son propre moteur d'acquisition signal-first (podcasts, événements B2B). Chaque mission part du terrain et finit en outil qui tourne sans nous.",
     "bioP3": "Paul écrit régulièrement sur Claude Code, les agents IA en entreprise et la voix terrain dans la vente B2B. Le blog Parrit.ai est sa principale tribune publique. Pas de jargon, des chiffres, des cas anonymisés.",
     "expertiseTitle": "Domaines d'expertise",
     "expertise": [
@@ -964,7 +952,7 @@
             },
             {
               "title": "Prospection pilotée par alerte temps réel",
-              "context": "Exemple observé chez un courtier B2B",
+              "context": "Exemple observé chez un client B2B",
               "brief": "L'agent détecte qui ouvre un appel d'offres, qui change de poste, qui a un signal d'achat. Vous appelez au bon moment, jamais à l'aveugle.",
               "result": "1 à 5 RDV qualifiés par jour, tous déclenchés par un signal détecté en temps réel."
             }

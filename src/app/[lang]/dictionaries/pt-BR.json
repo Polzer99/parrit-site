@@ -159,12 +159,6 @@
         "after": "E-mail digest toda segunda 7h30 : entregue em 8 dias"
       },
       {
-        "badge": "CORRETOR DE ENERGIA B2B",
-        "title": "Aquisição baseada em sinais",
-        "before": "Cold call no escuro, conversão marginal",
-        "after": "1 a 5 reuniões qualificadas/dia sobre sinais detectados"
-      },
-      {
         "badge": "B2B MULTI-VERTICAL",
         "title": "Outbound personalizado com voz de podcast",
         "before": "Cold mail genérico, taxa de abertura abaixo de 20%, taxa de resposta abaixo de 1%",
@@ -246,7 +240,7 @@
     "paul": {
       "name": "Paul Larmaraud",
       "role": "Fundador",
-      "bio": "Visão de produto e campo. Ex-equipe de operações da Lime em Paris, ex-Arkel. Parceiro operacional de diretorias gerais há mais de dois anos: escritórios de advocacia, distribuidores, corretores, startups, redes de franquias, ESNs, grande grupo varejista. Codifica e implanta as próprias ferramentas toda semana — o que roda nos clientes roda primeiro na casa dele. DMs abertas.",
+      "bio": "Visão de produto e campo. Ex-equipe de operações da Lime em Paris, ex-Arkel. Parceiro operacional de diretorias gerais há mais de dois anos: escritórios de advocacia, artesãos premium, redes de franquias, startups, executivos em transição. Codifica e implanta as próprias ferramentas toda semana — o que roda nos clientes roda primeiro na casa dele. DMs abertas.",
       "signature": "Produto · Código · Operações · Campo"
     },
     "yukun": {
@@ -897,7 +891,7 @@
     "role": "Fundador · Parrit.ai",
     "location": "Rueil-Malmaison, França",
     "bioP1": "Paul Larmaraud fundou a Parrit.ai no início de 2024, após dez anos construindo e operando produtos na Lime (estações de swap em Paris) e na Arkel (dois anos e meio como operador de produto). A convicção: IA generativa não se vende em slides, se entrega em produção com as equipes do cliente.",
-    "bioP2": "Desde o lançamento, a Parrit.ai já entregou quatro sistemas em produção: monitoramento jurídico automatizado para um escritório de advocacia empresarial, aquisição signal-first para um corretor de energia B2B, ERP consultável em francês para uma empresa de TI de cinquenta pessoas, rotação inteligente de CRM para um grupo franqueado. Cada missão parte de um transcript de campo e termina em uma ferramenta que roda sem nós.",
+    "bioP2": "Desde o lançamento, a Parrit.ai entregou sistemas rodando em produção: monitoramento jurídico automatizado para um escritório de advocacia empresarial, ferramenta de otimização para assistentes de compra IA (GEO e-commerce) para um vendedor Amazon, agente de watch do mercado oculto para um executivo em transição, e seu próprio motor de aquisição signal-first (podcasts, eventos B2B). Cada missão parte do campo e termina em uma ferramenta que roda sem nós.",
     "bioP3": "Paul escreve regularmente sobre Claude Code, agentes de IA em empresas e a voz de campo nas vendas B2B. O blog Parrit.ai é a principal tribuna pública. Sem jargão, com números, com casos anonimizados.",
     "expertiseTitle": "Áreas de especialização",
     "expertise": [
@@ -963,7 +957,7 @@
             },
             {
               "title": "Prospection pilotée par alerte temps réel",
-              "context": "Exemple observé chez un courtier B2B",
+              "context": "Exemple observé chez un client B2B",
               "brief": "L'agent détecte qui ouvre un appel d'offres, qui change de poste, qui a un signal d'achat. Vous appelez au bon moment, jamais à l'aveugle.",
               "result": "1 à 5 RDV qualifiés par jour, tous déclenchés par un signal détecté en temps réel."
             }
