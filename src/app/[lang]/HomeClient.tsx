@@ -111,7 +111,7 @@ const COPY = {
         ],
         proof: [
           "Marque luxe — RDV direction marketing suite à un panel IA retail",
-          "Courtier énergie B2B — pipeline syndic copro, 4 TPs séquencés",
+          "Pipeline signaux podcasts & events en production — dirigeants contactés sur leur prise de parole récente",
           "Parrit pour son propre compte — deals en cours avec marques internationales",
         ],
         notfor: "Ticket moyen faible ou logique volume ? Pas pour vous.",
@@ -249,11 +249,11 @@ const COPY = {
         chip: "Claude Code",
         title: "Claude Code as a service",
         sub: "Audit, configuration & sprint : vos équipes équipées et autonomes",
-        pitch: "On installe Claude Code proprement dans votre environnement : audit de l'existant, configuration aux standards de production, modules de contexte prêts à l'emploi, et maîtrise de la consommation de tokens dès le premier jour.",
+        pitch: "Claude Code, c'est la plateforme d'agents d'Anthropic : celle qui fait tourner tout le système interne de Parrit. On l'installe proprement dans vos outils existants : audit de l'existant, configuration aux standards de production, modules de contexte prêts à l'emploi, et maîtrise des coûts d'utilisation (les tokens) dès le premier jour. Pour PME, ETI et grandes écoles, en France et en Europe.",
         bullets: [
           "Audit de votre environnement de dev et de vos cas d'usage : 1 journée, plan d'action concret",
-          "Configuration complète : mémoire projet, skills, garde-fous de dépense, optimisation tokens",
-          "Sprint Claude Code 1 à 4 jours : on construit avec vos équipes, chez vous ou à distance",
+          "Configuration complète : connaissance de vos projets, compétences métier sur mesure, garde-fous de dépense, optimisation des coûts",
+          "Sprint Claude Code : accompagnement intensif de 1 à 4 jours, on construit avec vos équipes, chez vous ou à distance",
           "Modules prêts à l'emploi ingérés par votre instance + support asynchrone entre les sessions",
         ],
         proof: [
@@ -331,14 +331,16 @@ const COPY = {
       },
       cas: {
         title: "Cas clients",
-        intro: "Cas réels Parrit, anonymisés par respect de la confidentialité. Détails et chiffres en call.",
+        intro: "Cas réels Parrit, anonymisés par respect de la confidentialité. Le statut de chaque mission est affiché tel quel : on ne survend rien. Détails et chiffres en call.",
         items: [
-          { t: "Marque artisan haut de gamme — coutellerie", d: "Capture leads multi-canaux (TikTok + Snapchat + e-commerce + tel) → WhatsApp segmenté par typologie d'acheteur (B2C / B2B Pro Restau / Collector)" },
-          { t: "Cabinet d'avocats d'affaires", d: "OS d'exploitation pour la direction : tri inbox, suivi RFP, veille juridique daily, filtres humains avant publication" },
-          { t: "Courtier énergie B2B (PME / syndic copro)", d: "Pipeline outbound 4 touchpoints séquencés ancrés sur la fraîcheur du signal — copy raffinée par persona réel" },
-          { t: "Groupe armement (sous NDA)", d: "Compliance officer agent : RFP et contrats vérifiés automatiquement, doublé d'un filtre humain pour validation" },
-          { t: "Agence dev sénior", d: "Reporting CEO consolidé — agrégation KPIs commerciaux + opérationnels (Excel, CRM, ERP) en une vue lundi matin" },
-          { t: "Grande enseigne sport (en discussion)", d: "Sprint Builders dirigeants hands-on — chaque participant prototype son cas métier en 2 jours avec Claude Code + Gemini" },
+          { t: "Cabinet d'avocats d'affaires", s: "en production", d: "Bot de supervision de veille juridique : sources dépouillées chaque nuit, synthèse filtrée par un humain avant diffusion aux clients du cabinet. Tourne au quotidien. Extension en cours : OS d'exploitation pour la direction (tri inbox, suivi RFP)." },
+          { t: "Marque artisan haut de gamme — coutellerie", s: "démo livrée · cadrage final", d: "Capture de leads multi-canaux (TikTok, Snapchat, e-commerce, téléphone) → relances WhatsApp segmentées par typologie d'acheteur (B2C, B2B restauration, collectionneur). Démo fonctionnelle présentée au client." },
+          { t: "Vendeur retail Amazon", s: "outil en production", d: "Outil d'optimisation pour les assistants d'achat IA (GEO e-commerce) : mesure la visibilité des produits dans les réponses d'assistants type Amazon Rufus, identifie les questions où la marque est absente, corrige les fiches produits. Tourne en continu pour un premier client." },
+          { t: "Dirigeant pharma en transition", s: "livré", d: "Pack hands-on : le client a construit lui-même, en 8 heures accompagnées, son agent de veille du marché caché pour sa recherche de poste de direction. Autonome sur son poste depuis." },
+          { t: "Grande école de management internationale", s: "cadrage en cours", d: "Audit & configuration Claude Code pour deux profils basés à Singapour : environnement, mémoire projet, skills, normes de sécurité, et limites de consommation mesurées agent par agent après les premiers déploiements." },
+          { t: "Grande enseigne sport", s: "en discussion", d: "Programme dirigeant Sprint Builders hands-on : chaque participant prototype son cas métier réel en 2 jours avec Claude Code + Gemini. Échanges en cours avec l'équipe Training & Development AI." },
+          { t: "Groupe armement (sous NDA)", d: "Compliance officer agent : RFP et contrats vérifiés automatiquement, doublé d'un filtre humain pour validation." },
+          { t: "Agence dev sénior", d: "Reporting CEO consolidé : agrégation des KPIs commerciaux + opérationnels (Excel, CRM, ERP) en une vue lundi matin." },
         ],
       },
       paul: {
@@ -452,6 +454,35 @@ const COPY = {
         ],
         notfor: "If you want to \"test AI\" without a precise use case, this isn't for you.",
         accent: "#5FAF8E",
+        clusters: [
+          {
+            label: "Finance & Compliance",
+            agents: [
+              { name: "Compliance officer", status: "live" },
+              { name: "Consolidated CEO reporting", status: "live" },
+              { name: "RFP & quotes tracking", status: "live" },
+              { name: "Auto invoice audit", status: "live" },
+            ],
+          },
+          {
+            label: "Operations & Supply",
+            agents: [
+              { name: "Inventory management", status: "live" },
+              { name: "Supply chain monitor", status: "live" },
+              { name: "E-commerce order tracking", status: "live" },
+              { name: "Multi-channel inventory", status: "soon" },
+            ],
+          },
+          {
+            label: "Documents & Mail",
+            agents: [
+              { name: "Executive inbox triage", status: "live" },
+              { name: "Semi-auto replies", status: "live" },
+              { name: "Daily legal watch", status: "live" },
+              { name: "Smart archiving", status: "soon" },
+            ],
+          },
+        ],
       },
       {
         id: "business",
@@ -467,11 +498,40 @@ const COPY = {
         ],
         proof: [
           "Luxury brand — marketing director meeting after a retail AI panel",
-          "B2B energy broker — co-property syndic pipeline, 4 sequenced TPs",
+          "Podcast & B2B event signal pipeline in production — executives contacted about their recent talks",
           "Parrit for itself — deals in progress with international brands",
         ],
         notfor: "Low avg ticket or volume play? Not for you.",
         accent: "#c8956c",
+        clusters: [
+          {
+            label: "Growth & Acquisition",
+            agents: [
+              { name: "Outbound growth squad", status: "live" },
+              { name: "Acquisition SEO/GEO", status: "live" },
+              { name: "Podcast signal capture", status: "live" },
+              { name: "B2B event signal capture", status: "live" },
+            ],
+          },
+          {
+            label: "Marketing & Copy",
+            agents: [
+              { name: "Copywriting squad", status: "live" },
+              { name: "1-to-1 personalization", status: "live" },
+              { name: "Copy A/B testing", status: "live" },
+              { name: "Brand voice tuner", status: "soon" },
+            ],
+          },
+          {
+            label: "Sales & Meetings",
+            agents: [
+              { name: "Pre-meeting prospect brief", status: "live" },
+              { name: "CRM auto-update pipeline", status: "live" },
+              { name: "Multi-channel follow-ups", status: "live" },
+              { name: "Closing playbook agent", status: "soon" },
+            ],
+          },
+        ],
       },
       {
         id: "prototype",
@@ -491,7 +551,36 @@ const COPY = {
           "Law firm watch supervision bot — human filter upfront",
         ],
         notfor: "Looking for a consultant who delivers an audit or deck? Not for you.",
-        accent: "#8B6F47",
+        accent: "#C44536",
+        clusters: [
+          {
+            label: "Engineering",
+            agents: [
+              { name: "Full-stack builder", status: "live" },
+              { name: "API integrator", status: "live" },
+              { name: "Merge conflict mediator", status: "live" },
+              { name: "Auto test runner", status: "soon" },
+            ],
+          },
+          {
+            label: "Product & UX",
+            agents: [
+              { name: "Auto-generated PRD V0", status: "live" },
+              { name: "User research synthesizer", status: "live" },
+              { name: "Wireframe to code", status: "soon" },
+              { name: "Persona simulator", status: "soon" },
+            ],
+          },
+          {
+            label: "Data & Watch",
+            agents: [
+              { name: "Targeted market scraper", status: "live" },
+              { name: "Competitive watch", status: "live" },
+              { name: "GEO / Amazon Rufus", status: "live" },
+              { name: "Custom KPI dashboard", status: "live" },
+            ],
+          },
+        ],
       },
       {
         id: "formation",
@@ -512,17 +601,46 @@ const COPY = {
         ],
         notfor: "Qualiopi finalized June 2026. OPCO funding not guaranteed before then.",
         accent: "#7C5BA1",
+        clusters: [
+          {
+            label: "Formats",
+            agents: [
+              { name: "Discovery Hackathon 1-day", status: "live" },
+              { name: "Sprint Builder 2-day", status: "live" },
+              { name: "Strategic Cohort 6 weeks", status: "live" },
+              { name: "Train-the-Trainer", status: "live" },
+            ],
+          },
+          {
+            label: "Stack taught",
+            agents: [
+              { name: "Claude Code (Anthropic)", status: "live" },
+              { name: "Gemini Vertex AI", status: "live" },
+              { name: "n8n workflow orchestration", status: "live" },
+              { name: "In-house MCP servers", status: "live" },
+            ],
+          },
+          {
+            label: "Prototyped cases",
+            agents: [
+              { name: "Job search agent", status: "live" },
+              { name: "CEO legal watch", status: "live" },
+              { name: "WhatsApp lead capture", status: "live" },
+              { name: "E-commerce GEO", status: "live" },
+            ],
+          },
+        ],
       },
       {
         id: "claude-code",
         chip: "Claude Code",
         title: "Claude Code as a Service",
         sub: "Audit, setup & sprint: your team equipped and autonomous",
-        pitch: "We install Claude Code properly in your environment: audit of your stack, production-grade configuration, ready-to-use context modules, and token-spend control from day one.",
+        pitch: "Claude Code is Anthropic's agent platform: the one running Parrit's own internal system. We install it properly in your existing tools: audit of your stack, production-grade configuration, ready-to-use context modules, and usage-cost control (tokens) from day one. For SMEs, mid-caps and schools, in France and across Europe.",
         bullets: [
           "Audit of your dev environment and use cases: 1 day, concrete action plan",
-          "Full configuration: project memory, skills, spend guardrails, token optimization",
-          "Claude Code Sprint, 1 to 4 days: we build with your team, on-site or remote",
+          "Full configuration: knowledge of your projects, custom business skills, spend guardrails, cost optimization",
+          "Claude Code Sprint: an intensive 1-to-4-day build with your team, on-site or remote",
           "Ready-made modules ingested by your instance + async support between sessions",
         ],
         proof: [
@@ -532,6 +650,26 @@ const COPY = {
         ],
         notfor: "Looking for a license or an off-the-shelf tool with no enablement? Not for you.",
         accent: "#2A2420",
+        clusters: [
+          {
+            label: "Formats",
+            agents: [
+              { name: "1-day audit — action plan", status: "live" },
+              { name: "Audit & Setup", status: "live" },
+              { name: "Claude Code Sprint 1-4 days", status: "live" },
+              { name: "Team setup + follow-up", status: "live" },
+            ],
+          },
+          {
+            label: "What we configure",
+            agents: [
+              { name: "Project memory & skills", status: "live" },
+              { name: "Token optimization & caching", status: "live" },
+              { name: "Spend guardrails", status: "live" },
+              { name: "Agentic pipelines (CI/CD)", status: "live" },
+            ],
+          },
+        ],
         pages: [
           { label: "Claude Code Audit", href: "/en/audit-claude-code" },
           { label: "Claude Code Sprint", href: "/en/sprint" },
@@ -580,14 +718,16 @@ const COPY = {
       },
       cas: {
         title: "Case studies",
-        intro: "Real Parrit cases, anonymized to respect confidentiality. Details and numbers on call.",
+        intro: "Real Parrit cases, anonymized for confidentiality. Each engagement status is shown as is: we oversell nothing. Details and numbers on call.",
         items: [
-          { t: "Premium artisan brand — cutlery", d: "Multi-channel lead capture (TikTok + Snapchat + e-commerce + phone) → WhatsApp segmented by buyer type (B2C / B2B Pro / Collector)" },
-          { t: "Business law firm", d: "Operating system for the management: inbox triage, RFP tracking, daily legal watch, human filter before publication" },
-          { t: "B2B energy broker", d: "4-touchpoint outbound pipeline anchored on signal freshness — copy refined per real persona" },
-          { t: "Defense group (NDA)", d: "Compliance officer agent: RFPs and contracts auto-checked, doubled with a human validation filter" },
-          { t: "Senior dev agency", d: "Consolidated CEO reporting — sales + ops KPIs aggregated (Excel, CRM, ERP) into one Monday-morning view" },
-          { t: "Major sports retailer (in discussion)", d: "Executive Sprint Builders hands-on — each participant prototypes their real case in 2 days with Claude Code + Gemini" },
+          { t: "Business law firm", s: "in production", d: "Legal watch supervision bot: sources combed every night, digest filtered by a human before reaching the firm's clients. Runs daily. In progress: an operating system for the management (inbox triage, RFP tracking)." },
+          { t: "Premium artisan brand — cutlery", s: "demo delivered · final scoping", d: "Multi-channel lead capture (TikTok, Snapchat, e-commerce, phone) → WhatsApp follow-ups segmented by buyer type (B2C, B2B restaurants, collectors). Working demo presented to the client." },
+          { t: "Amazon retail seller", s: "tool in production", d: "Optimization tool for AI shopping assistants (e-commerce GEO): measures product visibility inside answers from assistants like Amazon Rufus, spots the questions where the brand is absent, fixes the listings. Running continuously for a first client." },
+          { t: "Pharma executive in transition", s: "delivered", d: "Hands-on pack: the client built his own hidden-job-market watch agent in 8 guided hours, for his executive job search. Autonomous on his machine since." },
+          { t: "International management school", s: "scoping underway", d: "Claude Code audit & setup for two profiles based in Singapore: environment, project memory, skills, security standards, and consumption limits measured agent by agent after the first deployments." },
+          { t: "Major sports retailer", s: "in discussion", d: "Hands-on Sprint Builders executive program: each participant prototypes their real business case in 2 days with Claude Code + Gemini. Ongoing discussions with the Training & Development AI team." },
+          { t: "Defense group (NDA)", d: "Compliance officer agent: RFPs and contracts auto-checked, doubled with a human validation filter." },
+          { t: "Senior dev agency", d: "Consolidated CEO reporting: sales + ops KPIs aggregated (Excel, CRM, ERP) into one Monday-morning view." },
         ],
       },
       paul: {
@@ -743,7 +883,7 @@ const COPY = {
         ],
         proof: [
           "Marca de luxo — encontro com diretor de marketing após painel IA retail",
-          "Corretora de energia B2B — pipeline cooperativas, 4 TPs sequenciados",
+          "Pipeline de sinais podcasts & eventos em produção — executivos contactados sobre suas falas recentes",
           "Parrit para si mesma — deals em andamento com marcas internacionais",
         ],
         notfor: "Ticket médio baixo ou lógica de volume? Não é para você.",
@@ -881,11 +1021,11 @@ const COPY = {
         chip: "Claude Code",
         title: "Claude Code as a Service",
         sub: "Auditoria, configuração & sprint: sua equipe equipada e autônoma",
-        pitch: "Instalamos o Claude Code do jeito certo no seu ambiente: auditoria do existente, configuração padrão de produção, módulos de contexto prontos para uso e controle do consumo de tokens desde o primeiro dia.",
+        pitch: "Claude Code é a plataforma de agentes da Anthropic: a mesma que roda todo o sistema interno da Parrit. Instalamos do jeito certo nas suas ferramentas existentes: auditoria, configuração padrão de produção, módulos prontos para uso e controle dos custos de uso (tokens) desde o primeiro dia.",
         bullets: [
           "Auditoria do seu ambiente de dev e dos seus casos de uso: 1 dia, plano de ação concreto",
-          "Configuração completa: memória de projeto, skills, limites de gasto, otimização de tokens",
-          "Sprint Claude Code de 1 a 4 dias: construímos com sua equipe, presencial ou remoto",
+          "Configuração completa: conhecimento dos seus projetos, competências de negócio sob medida, limites de gasto, otimização de custos",
+          "Sprint Claude Code: acompanhamento intensivo de 1 a 4 dias, construímos com sua equipe, presencial ou remoto",
           "Módulos prontos ingeridos pela sua instância + suporte assíncrono entre as sessões",
         ],
         proof: [
@@ -943,14 +1083,16 @@ const COPY = {
       },
       cas: {
         title: "Casos de cliente",
-        intro: "Casos reais Parrit, anonimizados. Detalhes e números na call.",
+        intro: "Casos reais Parrit, anonimizados por confidencialidade. O status de cada missão é mostrado como é: não vendemos além do real. Detalhes e números na call.",
         items: [
-          { t: "Marca artesanal premium — cutelaria", d: "Captura leads multi-canal (TikTok + Snapchat + e-com + tel) → WhatsApp segmentado" },
-          { t: "Escritório de advocacia", d: "Operating system: triagem inbox, RFPs, watch jurídico daily" },
-          { t: "Corretora de energia B2B", d: "Pipeline outbound 4 TPs sequenciados ancorado em sinal fresco" },
-          { t: "Grupo de defesa (NDA)", d: "Compliance officer agent — RFPs e contratos auditados auto" },
-          { t: "Agência dev sênior", d: "Relatório CEO consolidado Excel + CRM + ERP em uma vista lunes manhã" },
-          { t: "Grande varejista esportiva (em discussão)", d: "Sprint Builders executivos hands-on agentes IA" },
+          { t: "Escritório de advocacia", s: "em produção", d: "Bot de supervisão de watch jurídico: fontes analisadas toda noite, síntese filtrada por um humano antes de chegar aos clientes. Roda diariamente. Em andamento: operating system para a direção (triagem inbox, RFPs)." },
+          { t: "Marca artesanal premium — cutelaria", s: "demo entregue · escopo final", d: "Captura de leads multi-canal (TikTok, Snapchat, e-commerce, telefone) → follow-ups WhatsApp segmentados por tipo de comprador. Demo funcional apresentada ao cliente." },
+          { t: "Vendedor Amazon", s: "ferramenta em produção", d: "Ferramenta de otimização para assistentes de compra IA (GEO e-commerce): mede a visibilidade dos produtos nas respostas de assistentes como o Amazon Rufus, identifica as perguntas onde a marca está ausente, corrige as fichas. Rodando em contínuo para um primeiro cliente." },
+          { t: "Executivo farma em transição", s: "entregue", d: "Pacote hands-on: o cliente construiu sozinho, em 8 horas acompanhadas, seu agente de watch do mercado oculto para sua busca de cargo executivo. Autônomo desde então." },
+          { t: "Escola de gestão internacional", s: "escopo em andamento", d: "Auditoria & configuração Claude Code para dois perfis em Singapura: ambiente, memória de projeto, skills, normas de segurança, e limites de consumo medidos agente por agente após os primeiros deploys." },
+          { t: "Grande varejista esportiva", s: "em discussão", d: "Programa executivo Sprint Builders hands-on: cada participante prototipa seu caso real em 2 dias com Claude Code + Gemini. Conversas em andamento com o time Training & Development AI." },
+          { t: "Grupo de defesa (NDA)", d: "Compliance officer agent: RFPs e contratos auditados automaticamente, com filtro humano de validação." },
+          { t: "Agência dev sênior", d: "Relatório CEO consolidado: KPIs comerciais + operacionais (Excel, CRM, ERP) em uma vista de segunda de manhã." },
         ],
       },
       paul: {
@@ -1106,7 +1248,7 @@ const COPY = {
         ],
         proof: [
           "奢侈品牌 — 通过零售 AI 小组会后与营销总监会面",
-          "B2B 能源经纪人 — 物业管理公司外联管道,4 个序列接触点",
+          "播客与 B2B 活动信号管道(生产中)— 基于高管最新公开发言进行触达",
           "Parrit 自身 — 与国际品牌的合作进行中",
         ],
         notfor: "客单价低或追求数量逻辑?不适合您。",
@@ -1244,11 +1386,11 @@ const COPY = {
         chip: "Claude Code",
         title: "Claude Code as a Service",
         sub: "审计、配置与 Sprint:让您的团队装备齐全、自主上手",
-        pitch: "我们在您的环境中正确部署 Claude Code:审计现状、生产级配置、开箱即用的上下文模块,并从第一天起控制 token 消耗。",
+        pitch: "Claude Code 是 Anthropic 的智能体平台:Parrit 自己的整套内部系统就运行在它之上。我们将它正确部署进您现有的工具:审计现状、生产级配置、开箱即用的上下文模块,并从第一天起掌控使用成本(token)。",
         bullets: [
           "审计您的开发环境与用例:1 天,输出具体行动计划",
-          "完整配置:项目记忆、skills、支出护栏、token 优化",
-          "Claude Code Sprint 1 到 4 天:与您的团队一起构建,现场或远程",
+          "完整配置:您项目的知识、定制业务技能、支出护栏、成本优化",
+          "Claude Code Sprint:1 到 4 天强化陪跑,与您的团队一起构建,现场或远程",
           "现成模块直接导入您的实例 + 课间异步支持",
         ],
         proof: [
@@ -1306,14 +1448,16 @@ const COPY = {
       },
       cas: {
         title: "客户案例",
-        intro: "Parrit 真实案例,出于保密考虑已匿名化。详情和数字在通话中分享。",
+        intro: "Parrit 真实案例,出于保密考虑已匿名化。每个项目的状态如实展示:我们不夸大。详情和数字在通话中分享。",
         items: [
-          { t: "高端手工艺品牌 — 刀具", d: "多渠道线索捕捉(TikTok + Snapchat + 电商 + 电话)→ 按买家类型分群的 WhatsApp" },
-          { t: "商业法律事务所", d: "管理层运营系统:收件箱分拣、RFP、每日法律监测" },
-          { t: "B2B 能源经纪人", d: "4 个序列接触点的外联管道,基于新鲜信号" },
-          { t: "防务集团(NDA)", d: "合规官智能体 — RFP 和合同自动审核" },
-          { t: "资深开发代理", d: "合并 CEO 报告 Excel + CRM + ERP 在周一晨视图" },
-          { t: "大型运动零售商 (讨论中)", d: "高管 Sprint Builders 实战 AI 智能体" },
+          { t: "商业法律事务所", s: "生产运行中", d: "法律监测机器人:每晚梳理信源,人工过滤后再分发给律所客户。每日运行。进行中:管理层运营系统(收件箱分拣、RFP 跟进)。" },
+          { t: "高端手工艺品牌 — 刀具", s: "演示已交付 · 最终范围确认中", d: "多渠道线索捕捉(TikTok、Snapchat、电商、电话)→ 按买家类型分群的 WhatsApp 跟进。功能演示已向客户展示。" },
+          { t: "亚马逊零售卖家", s: "工具生产运行中", d: "面向 AI 购物助手的优化工具(电商 GEO):衡量产品在 Amazon Rufus 等助手回答中的可见度,找出品牌缺席的问题并修正产品页。已为首个客户持续运行。" },
+          { t: "制药公司转型高管", s: "已交付", d: "实战套件:客户在 8 小时陪跑中亲手构建了自己的隐性市场监测智能体,用于高管求职。此后在其电脑上自主运行。" },
+          { t: "国际管理学院", s: "框架洽谈中", d: "为常驻新加坡的两位成员做 Claude Code 审计与配置:环境、项目记忆、skills、安全规范,并在首批部署后逐个智能体测算消耗上限。" },
+          { t: "大型运动零售商", s: "洽谈中", d: "高管 Sprint Builders 实战项目:每位参与者用 Claude Code + Gemini 在 2 天内为自己的真实业务做原型。正与 Training & Development AI 团队洽谈。" },
+          { t: "防务集团(NDA)", d: "合规官智能体:RFP 和合同自动审核,加人工验证过滤。" },
+          { t: "资深开发代理", d: "合并 CEO 报告:商业 + 运营 KPI(Excel、CRM、ERP)汇总为周一早晨视图。" },
         ],
       },
       paul: {
@@ -1413,7 +1557,7 @@ type PanelCopy = {
     closing: string;
   };
   methode: { title: string; steps: readonly { n: string; t: string; d: string }[] };
-  cas: { title: string; intro: string; items: readonly { t: string; d: string }[] };
+  cas: { title: string; intro: string; items: readonly { t: string; d: string; s?: string }[] };
   paul: {
     title: string;
     role: string;
@@ -2474,11 +2618,22 @@ function OfferWindow({
   offer,
   contact,
   onOpenContact,
+  lang,
 }: {
   offer: OfferCopy;
   contact: ReturnType<typeof getCopy>["contact"];
   onOpenContact: () => void;
+  lang: string;
 }) {
+  // Labels de sections localisés (étaient hardcodés en français)
+  const L =
+    lang === "en"
+      ? { how: "How it works", agents: "Agents ready to deploy", cases: "Real cases (anonymized)", live: "In production", soon: "In progress" }
+      : lang === "pt-BR"
+      ? { how: "Como funciona", agents: "Agentes prontos para implantar", cases: "Casos reais (anonimizados)", live: "Em produção", soon: "Em andamento" }
+      : lang === "zh-CN"
+      ? { how: "如何运作", agents: "可部署的智能体", cases: "真实案例(匿名)", live: "生产中", soon: "进行中" }
+      : { how: "Comment ça marche", agents: "Agents prêts à déployer", cases: "Cas réels (anonymisés)", live: "En production", soon: "En cours" };
   // Accent sombre (#2A2420, offre Claude Code) : texte crème sur l'accent, marqueurs caramel
   const darkAccent = offer.accent === "#2A2420";
   const onAccent = darkAccent ? "#F5EBD8" : "#2A2420";
@@ -2551,7 +2706,7 @@ function OfferWindow({
             margin: "0 0 10px",
           }}
         >
-          Comment ça marche
+          {L.how}
         </p>
         <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
           {offer.bullets.map((b, i) => (
@@ -2597,7 +2752,7 @@ function OfferWindow({
               margin: "0 0 10px",
             }}
           >
-            Agents prêts à déployer
+            {L.agents}
           </p>
           <div
             style={{
@@ -2683,9 +2838,9 @@ function OfferWindow({
             }}
           >
             <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", background: "#5FAF8E", marginRight: 6, verticalAlign: "middle" }} />
-            En production
+            {L.live}
             <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", background: "#C44536", marginRight: 6, marginLeft: 12, verticalAlign: "middle" }} />
-            En cours
+            {L.soon}
           </p>
         </div>
       )}
@@ -2710,7 +2865,7 @@ function OfferWindow({
             margin: "0 0 8px",
           }}
         >
-          Cas réels (anonymisés)
+          {L.cases}
         </p>
         <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 6 }}>
           {offer.proof.map((p, i) => (
@@ -2979,8 +3134,29 @@ function PanelContent({
                 background: "#FFFCF5",
                 border: "1.5px solid #2A2420",
                 borderRadius: 8,
+                boxShadow: "3px 3px 0 #2A2420",
               }}
             >
+              {c.s && (
+                <span
+                  style={{
+                    display: "inline-block",
+                    padding: "2px 8px",
+                    marginBottom: 8,
+                    fontFamily: "var(--font-body)",
+                    fontSize: 10,
+                    fontWeight: 700,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "#FFFCF5",
+                    background: /livr|production|deliver|entregue|produç|运行|交付/.test(c.s) ? "#5FAF8E" : "#c8956c",
+                    border: "1px solid #2A2420",
+                    borderRadius: 4,
+                  }}
+                >
+                  {c.s}
+                </span>
+              )}
               <p style={{ margin: 0, fontFamily: "var(--font-body)", fontSize: 14, fontWeight: 600, color: "#2A2420" }}>
                 {c.t}
               </p>
@@ -3401,6 +3577,7 @@ export default function HomeClient({
             accent={copy.offers[open.idx].accent}
           >
             <OfferWindow
+              lang={lang}
               offer={copy.offers[open.idx]}
               contact={copy.contact}
               onOpenContact={() => openContact(copy.offers[open.idx].accent)}
