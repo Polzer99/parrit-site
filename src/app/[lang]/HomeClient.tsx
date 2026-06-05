@@ -247,8 +247,8 @@ const COPY = {
       {
         id: "claude-code",
         chip: "Claude Code",
-        title: "Audit & Configuration Claude Code",
-        sub: "Sprint Claude Code : vos équipes équipées et autonomes",
+        title: "Claude Code as a service",
+        sub: "Audit, configuration & sprint : vos équipes équipées et autonomes",
         pitch: "On installe Claude Code proprement dans votre environnement : audit de l'existant, configuration aux standards de production, modules de contexte prêts à l'emploi, et maîtrise de la consommation de tokens dès le premier jour.",
         bullets: [
           "Audit de votre environnement de dev et de vos cas d'usage : 1 journée, plan d'action concret",
@@ -516,8 +516,8 @@ const COPY = {
       {
         id: "claude-code",
         chip: "Claude Code",
-        title: "Claude Code Audit & Setup",
-        sub: "Claude Code Sprint: your team equipped and autonomous",
+        title: "Claude Code as a Service",
+        sub: "Audit, setup & sprint: your team equipped and autonomous",
         pitch: "We install Claude Code properly in your environment: audit of your stack, production-grade configuration, ready-to-use context modules, and token-spend control from day one.",
         bullets: [
           "Audit of your dev environment and use cases: 1 day, concrete action plan",
@@ -879,8 +879,8 @@ const COPY = {
       {
         id: "claude-code",
         chip: "Claude Code",
-        title: "Auditoria & Configuração Claude Code",
-        sub: "Sprint Claude Code: sua equipe equipada e autônoma",
+        title: "Claude Code as a Service",
+        sub: "Auditoria, configuração & sprint: sua equipe equipada e autônoma",
         pitch: "Instalamos o Claude Code do jeito certo no seu ambiente: auditoria do existente, configuração padrão de produção, módulos de contexto prontos para uso e controle do consumo de tokens desde o primeiro dia.",
         bullets: [
           "Auditoria do seu ambiente de dev e dos seus casos de uso: 1 dia, plano de ação concreto",
@@ -1242,8 +1242,8 @@ const COPY = {
       {
         id: "claude-code",
         chip: "Claude Code",
-        title: "Claude Code 审计与配置",
-        sub: "Claude Code Sprint:让您的团队装备齐全、自主上手",
+        title: "Claude Code as a Service",
+        sub: "审计、配置与 Sprint:让您的团队装备齐全、自主上手",
         pitch: "我们在您的环境中正确部署 Claude Code:审计现状、生产级配置、开箱即用的上下文模块,并从第一天起控制 token 消耗。",
         bullets: [
           "审计您的开发环境与用例:1 天,输出具体行动计划",
