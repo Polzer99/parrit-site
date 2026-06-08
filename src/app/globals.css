@@ -2091,3 +2091,142 @@ img, svg, video { max-width: 100%; height: auto; }
     font-size: 13.5px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   FONDATEURS — premium founders page (/fondateurs)
+   ═══════════════════════════════════════════════════════════ */
+.founders { max-width: 980px; margin: 0 auto; padding: 44px 20px 72px; }
+
+.founders-hero {
+  background: #FFFCF5;
+  border: 2px solid #2A2420;
+  border-radius: 16px;
+  padding: clamp(28px, 4vw, 48px) clamp(22px, 3vw, 40px);
+  box-shadow: 6px 6px 0 rgba(42, 36, 32, 0.16);
+  position: relative;
+  overflow: hidden;
+}
+.founders-hero::after {
+  content: "";
+  position: absolute;
+  top: 18px; right: 18px;
+  width: 38px; height: 38px;
+  background: var(--parrit-red);
+  border: 2px solid #2A2420;
+  border-radius: 50%;
+  background-image:
+    linear-gradient(45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%);
+  background-size: 16px 16px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.founders-eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--parrit-red);
+  margin: 0 0 14px;
+}
+.founders-title {
+  font-family: var(--font-heading);
+  font-size: clamp(38px, 7vw, 64px);
+  font-weight: 500; line-height: 1.02; letter-spacing: -0.02em;
+  color: #2A2420; margin: 0 0 18px;
+}
+.founders-title .it { font-style: italic; color: var(--accent); display: block; }
+.founders-lede {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 2vw, 17px); line-height: 1.65;
+  color: #5A5047; max-width: 680px; margin: 0;
+}
+
+.founders-person {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 40px; align-items: center;
+  margin: 52px 0;
+}
+.founders-person.reverse { grid-template-columns: 1fr 260px; }
+.founders-portrait { position: relative; justify-self: center; }
+.founders-person.reverse .founders-portrait { order: 2; }
+@media (max-width: 760px) {
+  .founders-person, .founders-person.reverse { grid-template-columns: 1fr; gap: 26px; }
+  .founders-person.reverse .founders-portrait { order: 0; }
+}
+
+.founders-stamp {
+  width: 230px;
+  background: #FFFCF5;
+  border: 2px solid #2A2420;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 6px 6px 0 rgba(42, 36, 32, 0.2);
+  background-image:
+    radial-gradient(circle at 8px 8px, transparent 3.5px, #FFFCF5 4px),
+    radial-gradient(circle at calc(100% - 8px) 8px, transparent 3.5px, #FFFCF5 4px),
+    radial-gradient(circle at 8px calc(100% - 8px), transparent 3.5px, #FFFCF5 4px),
+    radial-gradient(circle at calc(100% - 8px) calc(100% - 8px), transparent 3.5px, #FFFCF5 4px);
+}
+.founders-stamp img {
+  width: 100%; aspect-ratio: 1; object-fit: cover;
+  border: 1.5px solid #2A2420; border-radius: 5px; display: block;
+}
+.founders-stamp-cap {
+  margin-top: 10px; text-align: center;
+  font-family: var(--font-body); font-size: 10px;
+  font-weight: 700; letter-spacing: 0.06em;
+}
+.founders-mark {
+  position: absolute; top: -12px; right: -12px;
+  width: 40px; height: 40px;
+  background: var(--parrit-red);
+  border: 2px solid #2A2420; border-radius: 50%;
+  box-shadow: 3px 3px 0 rgba(42, 36, 32, 0.18);
+  background-image:
+    linear-gradient(45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%);
+  background-size: 18px 18px; background-position: center; background-repeat: no-repeat;
+}
+
+.founders-role {
+  font-family: var(--font-body); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; margin: 0 0 10px;
+}
+.founders-name {
+  font-family: var(--font-heading); font-style: italic;
+  font-size: clamp(21px, 3vw, 27px); font-weight: 500;
+  color: #2A2420; line-height: 1.3; margin: 0 0 16px;
+}
+.founders-p {
+  font-family: var(--font-body); font-size: 15px; line-height: 1.72;
+  color: #2A2420; margin: 0 0 14px;
+}
+.founders-pull {
+  font-family: var(--font-heading); font-style: italic;
+  font-size: clamp(18px, 2.4vw, 22px); line-height: 1.4;
+  color: #2A2420; margin: 18px 0 0; padding: 4px 0 4px 16px;
+  border-left: 3px solid var(--accent);
+}
+.founders-person.reverse .founders-pull { border-left-color: var(--parrit-red); }
+
+.founders-close {
+  margin: 60px 0 0; padding: clamp(28px, 4vw, 44px) clamp(22px, 3vw, 36px);
+  background: #2A2420; border-radius: 16px; text-align: center;
+}
+.founders-close-title {
+  font-family: var(--font-heading); font-size: clamp(26px, 4vw, 38px);
+  font-weight: 500; color: #FFFCF5; margin: 0 0 14px; line-height: 1.15;
+}
+.founders-close-text {
+  font-family: var(--font-body); font-size: 15px; line-height: 1.7;
+  color: #C9BFB2; max-width: 700px; margin: 0 auto 26px;
+}
+.founders-close-cta {
+  display: inline-block; background: var(--parrit-red); color: #FFFCF5;
+  border: 2px solid #FFFCF5; border-radius: 10px; padding: 13px 28px;
+  font-family: var(--font-body); font-size: 15px; font-weight: 700;
+  letter-spacing: 0.02em; text-decoration: none; box-shadow: 4px 4px 0 #FFFCF5;
+  transition: background 0.12s, transform 0.08s;
+}
+.founders-close-cta:hover { background: #b03e30; transform: translate(-1px, -1px); }

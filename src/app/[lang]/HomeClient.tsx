@@ -3193,8 +3193,49 @@ function PanelContent({
   return (
     <div>
       <div style={{ display: "flex", gap: 22, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 20 }}>
-        <div style={{ flexShrink: 0 }}>
-          <IconPerson size={108} />
+        <div
+          style={{
+            position: "relative",
+            flexShrink: 0,
+            transform: which === "yukun" ? "rotate(1.6deg)" : "rotate(-2deg)",
+            marginTop: 4,
+          }}
+        >
+          <div className="parrit-os-stamp" style={{ width: 152, padding: 8, margin: 0, cursor: "default" }}>
+            <div className="parrit-os-stamp-img" style={{ aspectRatio: "1 / 1" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={which === "paul" ? "/team/paul-portrait.jpg" : "/team/yukun-portrait.jpg"}
+                alt={person.lines[0]}
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
+              />
+            </div>
+            <div className="parrit-os-stamp-meta">
+              <span className="parrit-os-stamp-origin" style={{ color: accent }}>
+                {which === "yukun" ? "巴黎 · Paris" : "Paris · 巴黎"}
+              </span>
+            </div>
+          </div>
+          {/* Chinese-red stamp mark — DA signature */}
+          <span
+            aria-hidden
+            style={{
+              position: "absolute",
+              top: -10,
+              right: -10,
+              width: 34,
+              height: 34,
+              background: "var(--parrit-red)",
+              border: "2px solid #2A2420",
+              borderRadius: "50%",
+              boxShadow: "3px 3px 0 rgba(42,36,32,0.18)",
+              backgroundImage:
+                "linear-gradient(45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%), linear-gradient(-45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%)",
+              backgroundSize: "16px 16px",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
+          />
         </div>
         <div style={{ flex: 1, minWidth: 200 }}>
           <p
@@ -3320,6 +3361,21 @@ function PanelContent({
       >
         {person.cta} →
       </button>
+      <a
+        href="/fondateurs"
+        style={{
+          display: "inline-block",
+          marginLeft: 14,
+          fontFamily: "var(--font-body)",
+          fontSize: 13.5,
+          fontWeight: 600,
+          color: accent,
+          textDecoration: "underline",
+          textUnderlineOffset: 3,
+        }}
+      >
+        Notre histoire →
+      </a>
     </div>
   );
 }
