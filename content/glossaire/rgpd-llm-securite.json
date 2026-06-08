@@ -1,0 +1,60 @@
+{
+  "slug": "rgpd-llm-securite",
+  "category": "fondamentaux",
+  "published_at": "2026-06-08",
+  "updated_at": "2026-06-08",
+  "langs": {
+    "fr": {
+      "title": "Comment sécuriser un LLM en entreprise face au RGPD ?",
+      "subtitle": "Intégrer un modèle de langage demande de la rigueur sur les données. On fait le point sur ce qui marche sur le terrain.",
+      "meta": {
+        "title": "Comment sécuriser un LLM en entreprise (RGPD) | Parrit",
+        "description": "Sécurité, confidentialité et RGPD pour les modèles de langage en entreprise. Les vraies solutions pour protéger vos données sans bloquer vos projets.",
+        "ogTitle": "Sécuriser un LLM en entreprise : le guide RGPD",
+        "ogDescription": "Protégez vos données d'entreprise lors de l'intégration d'un modèle de langage."
+      },
+      "intro": "Beaucoup d'entreprises bloquent le déploiement de modèles de langage par peur de fuites de données. C'est une réaction logique quand on voit les conditions d'utilisation des outils grand public. En réalité, un système bien architecturé isole totalement vos informations sensibles. On déploie des agents pour des cabinets d'avocats ou des directions financières sans jamais exposer un seul document client. Voici comment on gère la confidentialité sur le terrain.",
+      "sections": [
+        {
+          "q": "Est-ce que les fournisseurs de modèles de langage récupèrent et s'entraînent sur nos données d'entreprise ?",
+          "a": "Tout dépend de la porte d'entrée que vous utilisez. Si vos collaborateurs copient-collent des contrats dans une interface web gratuite, oui, ces textes finissent souvent dans les bases d'entraînement. C'est le cauchemar des services juridiques. En passant par des accès API professionnels ou des serveurs dédiés, la règle change. Les contrats interdisent explicitement la réutilisation de vos requêtes pour améliorer les modèles. C'est le premier verrou qu'on active quand on installe un outil chez un client."
+        },
+        {
+          "q": "Comment garantir la conformité RGPD quand on manipule des données personnelles de clients au quotidien ?",
+          "a": "Le RGPD impose de savoir où partent les données et de pouvoir les supprimer. On choisit donc des hébergeurs localisés en Europe. Un fournisseur américain avec des serveurs à Paris ou Francfort fait l'affaire si le contrat type européen est signé. Ensuite, on anonymise au maximum avant d'envoyer le texte au modèle. Un agent qui traite des réclamations e-commerce n'a pas besoin du nom de famille ou de la carte bancaire du client. On remplace ces éléments par des identifiants uniques en amont du traitement."
+        },
+        {
+          "q": "Faut-il obligatoirement héberger le modèle sur ses propres serveurs internes pour être vraiment en sécurité ?",
+          "a": "L'hébergement local rassure beaucoup les comités de direction. C'est la solution ultime pour un contrôle total. Mais cela coûte très cher en puissance de calcul et en maintenance opérationnelle. Pour 95% des entreprises, une architecture cloud cloisonnée suffit largement. On réserve l'hébergement local aux secteurs ultra-réglementés ou à la défense. Pour un réseau de franchises ou un artisan haut de gamme, un cloud européen bien configuré offre le bon compromis entre sécurité et budget."
+        },
+        {
+          "q": "Que se passe-t-il concrètement si un collaborateur demande à l'agent d'accéder à des informations confidentielles ?",
+          "a": "Le modèle lui-même n'a pas de notion de secret. Si on lui donne accès à tous les salaires de l'entreprise, il répondra à n'importe qui posant la question. La sécurité se gère avant le modèle, dans le système de recherche d'informations. On connecte l'outil aux annuaires d'entreprise existants. L'agent vérifie les droits de l'utilisateur avant d'aller lire un document. Si un stagiaire demande le bilan financier non publié, le système bloque la requête à la source."
+        },
+        {
+          "q": "Comment empêcher les fuites de données sensibles vers l'extérieur lors de l'utilisation de ces outils ?",
+          "a": "C'est le risque classique de l'exfiltration. Un système mal configuré pourrait envoyer des résumés de réunions stratégiques vers une adresse externe. On limite strictement les actions que l'agent peut exécuter. Il a le droit de lire une base de données interne et de générer un brouillon, mais pas d'envoyer un email de son propre chef. On garde toujours un humain dans la boucle pour valider les actions critiques. Les flux sortants sont surveillés par les pare-feux classiques de votre infrastructure."
+        },
+        {
+          "q": "Au-delà du RGPD, quels sont les vrais risques de sécurité qu'on oublie souvent de tester en production ?",
+          "a": "Les entreprises se focalisent sur le RGPD et oublient les attaques par injection. Un utilisateur malveillant peut cacher des instructions invisibles dans un document. Quand le modèle lit ce document, il exécute l'instruction à votre insu. Imaginez un CV qui ordonne au système de rejeter tous les autres candidats. On pare cela en séparant strictement les données lues des instructions de base. On teste aussi les limites des agents en essayant délibérément de les tromper avant chaque mise en ligne."
+        }
+      ],
+      "related": [
+        {
+          "slug": "architecture-donnees-agents",
+          "label": "Comment structurer vos données avant d'intégrer un agent"
+        },
+        {
+          "slug": "hebergement-local-vs-cloud",
+          "label": "Faut-il héberger ses modèles en local ou dans le cloud ?"
+        }
+      ],
+      "cta": {
+        "title": "Envie de sécuriser vos processus automatisés ?",
+        "subtitle": "Parlons de votre infrastructure actuelle et des verrous à mettre en place. DMs ouverts.",
+        "label": "Discuter de vos données"
+      }
+    }
+  }
+}

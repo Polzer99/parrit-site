@@ -40,13 +40,17 @@
         "fr"
       ],
       "published_at": "2026-06-05"
+    },
+    {
+      "slug": "rgpd-llm-securite",
+      "category": "fondamentaux",
+      "langs": [
+        "fr"
+      ],
+      "published_at": "2026-06-08"
     }
   ],
   "queue_questions": [
-    {
-      "slug": "rgpd-llm-securite",
-      "title_fr": "LLM en entreprise : RGPD, sécurité et confidentialité"
-    },
     {
       "slug": "claude-code-pour-non-dev",
       "title_fr": "Claude Code pour un dirigeant non-développeur : c'est utile ?"
