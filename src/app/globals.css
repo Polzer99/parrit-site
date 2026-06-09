@@ -2230,3 +2230,43 @@ img, svg, video { max-width: 100%; height: auto; }
   transition: background 0.12s, transform 0.08s;
 }
 .founders-close-cta:hover { background: #b03e30; transform: translate(-1px, -1px); }
+
+/* ═══════════════════════════════════════════════════════════
+   CLAUDE CODE ACADEMY — landing (/academy)
+   ═══════════════════════════════════════════════════════════ */
+.aca { max-width: 940px; margin: 0 auto; padding: 44px 20px 72px; }
+.aca-hero-form { margin-top: 28px; }
+.aca-mods { display: flex; flex-direction: column; gap: 10px; }
+.aca-mod {
+  display: flex; gap: 16px; align-items: center;
+  padding: 15px 18px; background: #FFFCF5; border: 2px solid #2A2420;
+  border-radius: 12px; box-shadow: 4px 4px 0 rgba(42,36,32,0.14);
+}
+.aca-mod-n {
+  font-family: var(--font-heading); font-size: 28px; font-weight: 500;
+  font-style: italic; color: var(--parrit-red); line-height: 1; flex-shrink: 0; width: 2.4ch; text-align: center;
+}
+.aca-mod-body { flex: 1; min-width: 0; }
+.aca-mod-title { font-family: var(--font-body); font-weight: 700; font-size: 15px; color: #2A2420; line-height: 1.25; }
+.aca-mod-hook { font-family: var(--font-heading); font-style: italic; font-size: 15px; color: #5A5047; margin-top: 3px; line-height: 1.3; }
+.aca-badge {
+  flex-shrink: 0; align-self: flex-start; font-family: var(--font-body); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 10px; border: 1.5px solid #2A2420;
+  border-radius: 4px; box-shadow: 2px 2px 0 #2A2420; white-space: nowrap;
+}
+.aca-badge.free { background: var(--sage); color: #2A2420; }
+.aca-badge.paid { background: var(--parrit-red); color: #FFFCF5; }
+.aca-divider {
+  display: flex; align-items: center; gap: 14px; margin: 8px 2px; font-family: var(--font-body);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--parrit-red);
+}
+.aca-divider::before, .aca-divider::after { content: ""; flex: 1; height: 0; border-top: 1.5px dashed rgba(42,36,32,0.25); }
+.aca-ask {
+  margin-top: 14px; background: #2A2420; border-radius: 14px; padding: 24px 24px 22px; text-align: center;
+}
+.aca-ask-title { font-family: var(--font-heading); font-style: italic; font-size: clamp(20px,3vw,26px); color: #FFFCF5; margin: 0 0 8px; }
+.aca-ask-sub { font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: #C9BFB2; margin: 0 auto; max-width: 540px; }
+@media (max-width: 560px) {
+  .aca-mod { gap: 12px; padding: 13px 14px; }
+  .aca-mod-n { font-size: 23px; width: 2ch; }
+}
