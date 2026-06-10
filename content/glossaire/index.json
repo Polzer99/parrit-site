@@ -48,13 +48,17 @@
         "fr"
       ],
       "published_at": "2026-06-08"
+    },
+    {
+      "slug": "claude-code-pour-non-dev",
+      "category": "fondamentaux",
+      "langs": [
+        "fr"
+      ],
+      "published_at": "2026-06-10"
     }
   ],
   "queue_questions": [
-    {
-      "slug": "claude-code-pour-non-dev",
-      "title_fr": "Claude Code pour un dirigeant non-développeur : c'est utile ?"
-    },
     {
       "slug": "mcp-anthropic-explication",
       "title_fr": "MCP (Model Context Protocol) : qu'est-ce que c'est et à quoi ça sert ?"

@@ -1,0 +1,64 @@
+{
+  "slug": "claude-code-pour-non-dev",
+  "category": "fondamentaux",
+  "published_at": "2026-06-10",
+  "updated_at": "2026-06-10",
+  "langs": {
+    "fr": {
+      "title": "Claude Code pour un dirigeant non-développeur : c'est utile ?",
+      "subtitle": "Je vois des patrons perdre du temps à copier-coller des bouts de code. Ça doit s'arrêter.",
+      "meta": {
+        "title": "Claude Code pour un dirigeant non-dev : utile ? | Parrit",
+        "description": "Un dirigeant sans bagage technique peut-il utiliser Claude Code ? Analyse opérationnelle pour automations, scripts et prise de décision.",
+        "ogTitle": "Claude Code pour un dirigeant non-développeur",
+        "ogDescription": "L'outil est-il utile pour un patron sans expérience en code ? Réponse concrète et sans jargon."
+      },
+      "intro": "Claude Code est un modèle conçu pour écrire, expliquer et déboguer du code. Pour un dirigeant sans formation technique, l'utilité ne se mesure pas en lignes de code écrites, mais en problèmes résolus. On parle d'automatiser des tâches répétitives, de générer des scripts pour analyser des données, ou de comprendre un projet technique sans dépendre d'un développeur. Je vais détailler les cas où c'est rentable, et ceux où ça ne l'est pas.",
+      "sections": [
+        {
+          "q": "Quelle est la première chose à automatiser ?",
+          "a": "Le traitement manuel de données. Un patron d'e-commerce passe des heures chaque semaine à compiler des commandes, calculer des marges, ou nettoyer une liste de clients exportée de Shopify. Avec une simple instruction en français, Claude Code peut écrire un script Python ou JavaScript qui fait ça en quelques secondes. C'est un gain immédiat et mesurable. L'objectif n'est pas de devenir programmeur, mais de déléguer cette tâche à un outil."
+        },
+        {
+          "q": "Comment ça aide à comprendre un projet technique ?",
+          "a": "Quand un développeur externe ou une équipe présente un plan, le code peut sembler opaque. Claude Code permet de coller un extrait et de demander : 'Explique-moi ce que fait cette fonction, en termes métier.' Il décortique la logique, identifie les risques, et montre les dépendances. Un avocat gérant une plateforme peut ainsi vérifier la clause de confidentialité dans un script sans tout lire. C'est un outil de traduction et de vérification, pas de création."
+        },
+        {
+          "q": "Quels sont les risques pour un non-développeur ?",
+          "a": "Le principal risque est de sous-estimer la complexité. Un modèle peut écrire un script qui marche dans 90% des cas, mais il ne gère pas les cas limites. Si vous automatisez un processus critique de facturation sans supervision technique, une erreur peut coûter cher. Je conseille toujours de commencer par des automations internes, non critiques : nettoyage de données, rapports simples, extraction d'informations. Ne lui confiez pas la logique de paiement de votre site dès le premier jour."
+        },
+        {
+          "q": "Est-ce que ça remplace un développeur freelance ?",
+          "a": "Non. Ça change la nature de la collaboration. Au lieu de payer un dev 1500€ pour un script d'analyse de données mensuel, vous pouvez le faire vous-même avec Claude Code en une heure. Vous gardez le développeur pour les projets structurants : architecture d'une application, intégrations complexes, maintenance à long terme. L'outil vous rend autonome sur les petites tâches, et vous permet de mieux piloter les grosses missions."
+        },
+        {
+          "q": "Quel langage apprendre en parallèle ?",
+          "a": "Aucun. Le but n'est pas d'apprendre Python ou SQL, mais de maîtriser l'art de la prompt. Savoir décrire un problème étape par étape, avec les inputs et outputs attendus, est la compétence clé. Si vous devez apprendre quelque chose, ce sont les bases de la logique informatique : variables, boucles, conditions. Claude Code vous expliquera ces concepts sur des exemples concrets liés à votre métier. C'est une formation sur le tas, orientée résultat."
+        },
+        {
+          "q": "Quand est-ce que ça ne sert à rien ?",
+          "a": "Si votre problème est organisationnel, pas technique. Un modèle ne résoudra pas un manque de process, une équipe dysfonctionnelle ou une stratégie floue. Et si vous n'avez aucune tâche répétitive ou analytique, l'outil sera sous-utilisé. Je vois des dirigeants l'essayer par curiosité, puis l'abandonner car ils n'ont pas identifié de cas d'usage précis. Il faut une intention opérationnelle : 'Je veux arrêter de faire cette tâche manuellement chaque jeudi.'"
+        }
+      ],
+      "related": [
+        {
+          "slug": "automatisation-sans-code-pour-artisan",
+          "label": "Automatiser sans écrire une ligne de code"
+        },
+        {
+          "slug": "deleguer-a-un-agent-ia-premiers-pas",
+          "label": "Déléguer à un agent : par où commencer ?"
+        },
+        {
+          "slug": "freelance-dev-vs-outils-ia-comparaison",
+          "label": "Quand garder un freelance dev ?"
+        }
+      ],
+      "cta": {
+        "title": "Vous avez un process manuel à automatiser ?",
+        "subtitle": "Décrivez-le en deux phrases. Je vous dirai si Claude Code est adapté, ou s'il faut une autre approche. DMs ouverts.",
+        "label": "Parler de mon cas"
+      }
+    }
+  }
+}
