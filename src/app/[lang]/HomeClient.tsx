@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { captureTouch, getAttribution } from "@/lib/attribution";
 import type { Dictionary, Locale } from "./dictionaries";
+import { WORLD_DOTS, WORLD_H, WORLD_PINS, WORLD_W } from "./worldMapData";
 
 export type FeaturedPost = {
   slug: string;
@@ -64,6 +65,9 @@ const COPY = {
           "Compliance officer agent — vérification automatique de factures, contrats, RFP",
           "Reporting CEO consolidé — KPIs commerciaux + opérationnels (Excel, CRM, ERP)",
           "OS d'exploitation cabinet d'avocats — mails, RFP, suivi clients orchestrés",
+          "Réunions → CRM sans saisie — comptes-rendus ingérés automatiquement, fiches à jour, relances datées posées au calendrier",
+          "Visibilité dans l'IA d'achat d'Amazon — mesure continue de ce que Rufus recommande, pour une marque de café internationale",
+          "Agent WhatsApp de pilotage — le dirigeant interroge son CRM et pose ses rappels à la voix",
         ],
         notfor: "Si vous voulez « tester l'IA » sans use case précis, ce n'est pas pour vous.",
         accent: "#5FAF8E",
@@ -451,6 +455,9 @@ const COPY = {
           "Compliance officer agent — auto-check of invoices, contracts, RFPs",
           "Consolidated CEO reporting — sales + ops KPIs (Excel, CRM, ERP)",
           "Law firm operating system — mail, RFPs, client follow-up orchestrated",
+          "Meetings → CRM with zero typing — call notes ingested automatically, records updated, dated follow-ups pushed to the calendar",
+          "Visibility inside Amazon's shopping AI — continuous measurement of what Rufus recommends, for an international coffee brand",
+          "WhatsApp command agent — the CEO queries the CRM and sets reminders by voice",
         ],
         notfor: "If you want to \"test AI\" without a precise use case, this isn't for you.",
         accent: "#5FAF8E",
@@ -836,6 +843,9 @@ const COPY = {
           "Compliance officer agent — verificação automática de faturas, contratos, RFPs",
           "Relatório CEO consolidado — KPIs comerciais + operacionais (Excel, CRM, ERP)",
           "OS para escritório de advocacia — emails, RFPs, follow-up cliente orquestrados",
+          "Reuniões → CRM sem digitação — atas ingeridas automaticamente, fichas atualizadas, follow-ups datados no calendário",
+          "Visibilidade na IA de compras da Amazon — medição contínua do que o Rufus recomenda, para uma marca de café internacional",
+          "Agente WhatsApp de comando — o dirigente consulta o CRM e cria lembretes por voz",
         ],
         notfor: "Se você quer \"testar IA\" sem um caso de uso preciso, não é para você.",
         accent: "#5FAF8E",
@@ -1201,6 +1211,9 @@ const COPY = {
           "合规官智能体 — 自动审核发票、合同、RFP",
           "CEO 合并报告 — 商业 + 运营 KPI(Excel、CRM、ERP)",
           "律所运营系统 — 邮件、RFP、客户跟进协调",
+          "会议 → CRM 零录入 — 会议纪要自动接入，档案实时更新，带日期的跟进自动排入日历",
+          "亚马逊购物 AI 可见度 — 持续测量 Rufus 推荐内容，服务一家国际咖啡品牌",
+          "WhatsApp 指挥智能体 — 管理者语音查询 CRM、设置提醒",
         ],
         notfor: "如果您只想\"测试 AI\"而没有精确用例，不适合您。",
         accent: "#5FAF8E",
@@ -3383,6 +3396,54 @@ function PanelContent({
 /* ───────────────────────────────────────────────
    MAIN
    ─────────────────────────────────────────────── */
+
+/* ── Carte du monde — présence internationale (Paris·Lille + partenaires Belo Horizonte / Douala / Guangzhou) ── */
+function WorldMap({ lang }: { lang: Locale }) {
+  const dotsPath = useMemo(
+    () => WORLD_DOTS.split(";").map((pt) => { const [x, y] = pt.split(","); return `M${x} ${y}h.01`; }).join(""),
+    []
+  );
+  const P = WORLD_PINS;
+  const partners = [
+    { key: "belo", pin: P.belo, label: lang === "fr" ? "Brésil — Belo Horizonte" : lang === "en" ? "Brazil — Belo Horizonte" : lang === "zh-CN" ? "巴西 — 贝洛奥里藏特" : "Brasil — Belo Horizonte", lx: P.belo.x, ly: P.belo.y + 3.1, anchor: "middle", dur: "3.8s" },
+    { key: "douala", pin: P.douala, label: lang === "fr" ? "Cameroun — Douala" : lang === "en" ? "Cameroon — Douala" : lang === "zh-CN" ? "喀麦隆 — 杜阿拉" : "Camarões — Douala", lx: P.douala.x + 2.2, ly: P.douala.y + 2.6, anchor: "start", dur: "3.2s" },
+    { key: "guangzhou", pin: P.guangzhou, label: lang === "fr" ? "Chine — Guangzhou" : lang === "en" ? "China — Guangzhou" : lang === "zh-CN" ? "中国 — 广州" : "China — Guangzhou", lx: P.guangzhou.x, ly: P.guangzhou.y - 2.4, anchor: "middle", dur: "4.4s" },
+  ];
+  const curve = (t: { x: number; y: number }) => {
+    const a = P.paris, mx = (a.x + t.x) / 2, my = Math.min(a.y, t.y) - Math.hypot(t.x - a.x, t.y - a.y) * 0.18;
+    return `M${a.x} ${a.y} Q ${mx} ${my} ${t.x} ${t.y}`;
+  };
+  return (
+    <svg viewBox={`0 0 ${WORLD_W} ${WORLD_H + 2}`} width="100%" style={{ display: "block", height: "auto" }} role="img"
+      aria-label={lang === "fr" ? "Carte : Parrit à Paris et Lille, partenaires à Belo Horizonte, Douala et Guangzhou" : "Map: Parrit in Paris and Lille, partners in Belo Horizonte, Douala and Guangzhou"}>
+      <path d={dotsPath} stroke="#2A2420" strokeOpacity={0.16} strokeWidth={0.55} strokeLinecap="round" fill="none" />
+      {partners.map((pt) => (
+        <g key={pt.key}>
+          <path d={curve(pt.pin)} fill="none" stroke="var(--parrit-red)" strokeOpacity={0.4} strokeWidth={0.22} strokeDasharray=".7 .9" />
+          <circle r={0.36} fill="var(--parrit-red)" opacity={0.85}>
+            <animateMotion dur={pt.dur} repeatCount="indefinite" path={curve(pt.pin)} />
+          </circle>
+          <circle cx={pt.pin.x} cy={pt.pin.y} r={0.62} fill="#c8956c" stroke="#2A2420" strokeWidth={0.14} />
+          <circle cx={pt.pin.x} cy={pt.pin.y} r={0.62} fill="none" stroke="#c8956c" strokeWidth={0.18}>
+            <animate attributeName="r" values=".8;1.9;.8" dur="2.6s" repeatCount="indefinite" />
+            <animate attributeName="stroke-opacity" values=".8;0;.8" dur="2.6s" repeatCount="indefinite" />
+          </circle>
+          <text x={pt.lx} y={pt.ly} textAnchor={pt.anchor as "middle" | "start"} fontFamily="var(--font-body)" fontWeight={700} fontSize={1.75} fill="#2A2420">{pt.label}</text>
+        </g>
+      ))}
+      <circle cx={P.lille.x} cy={P.lille.y} r={0.5} fill="var(--parrit-red)" stroke="#2A2420" strokeWidth={0.14} />
+      <circle cx={P.paris.x} cy={P.paris.y} r={0.66} fill="var(--parrit-red)" stroke="#2A2420" strokeWidth={0.14} />
+      <circle cx={P.paris.x} cy={P.paris.y} r={0.66} fill="none" stroke="var(--parrit-red)" strokeWidth={0.2}>
+        <animate attributeName="r" values=".9;2.1;.9" dur="2.2s" repeatCount="indefinite" />
+        <animate attributeName="stroke-opacity" values=".9;0;.9" dur="2.2s" repeatCount="indefinite" />
+      </circle>
+      <text x={P.paris.x} y={P.lille.y - 1.9} textAnchor="middle" fontFamily="var(--font-body)" fontWeight={800} fontSize={1.85} fill="var(--parrit-red)">
+        {lang === "fr" ? "France — Paris · Lille" : lang === "en" ? "France — Paris · Lille" : lang === "zh-CN" ? "法国 — 巴黎 · 里尔" : "França — Paris · Lille"}
+      </text>
+    </svg>
+  );
+}
+
 export default function HomeClient({
   dict,
   lang,
@@ -3590,13 +3651,44 @@ export default function HomeClient({
         </div>
         <p className="parrit-os-chain-sub">
           {lang === "fr"
-            ? "De la première intention captée à l'évolution du produit — en mode chronologique, sans rupture."
+            ? "AI Operating Partner : on déploie et on opère des agents à chaque maillon — de la première intention captée au reporting dirigeant, sans rupture."
             : lang === "en"
-            ? "From the first captured intent to product evolution — chronological, with no break."
+            ? "AI Operating Partner: we deploy and run agents at every link — from the first captured intent to executive reporting, with no break."
             : lang === "zh-CN"
-            ? "从首个捕捉意向到产品进化 —— 按时间顺序,不间断。"
-            : "Da primeira intenção captada à evolução do produto — em modo cronológico, sem ruptura."}
+            ? "AI Operating Partner：我们在每个环节部署并运营智能体——从首个捕捉意向到管理层报告，不间断。"
+            : "AI Operating Partner: implantamos e operamos agentes em cada elo — da primeira intenção captada ao relatório executivo, sem ruptura."}
         </p>
+      </section>
+
+      {/* ── Carte du monde — présence internationale ── */}
+      <section className="parrit-os-world" aria-label="International presence">
+        <p className="parrit-os-chain-eyebrow">
+          {lang === "fr" ? "Présence internationale" : lang === "en" ? "International presence" : lang === "zh-CN" ? "国际布局" : "Presença internacional"}
+        </p>
+        <h2 className="parrit-os-world-title">
+          {lang === "fr"
+            ? "Paris & Lille — et des partenaires sur quatre continents"
+            : lang === "en"
+            ? "Paris & Lille — with partners across four continents"
+            : lang === "zh-CN"
+            ? "立足巴黎与里尔，伙伴遍布四大洲"
+            : "Paris & Lille — com parceiros em quatro continentes"}
+        </h2>
+        <motion.div
+          className="parrit-os-world-card"
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.45 }}
+        >
+          <WorldMap lang={lang} />
+        </motion.div>
+        <div className="parrit-os-world-legend">
+          <span className="parrit-os-world-chip"><span className="dot" style={{ background: "var(--parrit-red)" }} />{lang === "fr" ? "Parrit — Paris & Lille" : lang === "en" ? "Parrit — Paris & Lille" : lang === "zh-CN" ? "Parrit — 巴黎 & 里尔" : "Parrit — Paris & Lille"}</span>
+          <span className="parrit-os-world-chip"><span className="dot" style={{ background: "#c8956c" }} />{lang === "fr" ? "Partenaire — Belo Horizonte" : lang === "en" ? "Partner — Belo Horizonte" : lang === "zh-CN" ? "合作伙伴 — 贝洛奥里藏特" : "Parceiro — Belo Horizonte"}</span>
+          <span className="parrit-os-world-chip"><span className="dot" style={{ background: "#c8956c" }} />{lang === "fr" ? "Partenaire — Douala" : lang === "en" ? "Partner — Douala" : lang === "zh-CN" ? "合作伙伴 — 杜阿拉" : "Parceiro — Douala"}</span>
+          <span className="parrit-os-world-chip"><span className="dot" style={{ background: "#c8956c" }} />{lang === "fr" ? "Partenaire — Guangzhou" : lang === "en" ? "Partner — Guangzhou" : lang === "zh-CN" ? "合作伙伴 — 广州" : "Parceiro — Guangzhou"}</span>
+        </div>
       </section>
 
       {/* ── Mobile dock fallback ─────────────────── */}

@@ -2270,3 +2270,61 @@ img, svg, video { max-width: 100%; height: auto; }
   .aca-mod { gap: 12px; padding: 13px 14px; }
   .aca-mod-n { font-size: 23px; width: 2ch; }
 }
+
+/* ── Carte du monde — présence internationale (11/06/2026) ── */
+.parrit-os-world {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 72px 24px 36px;
+  text-align: center;
+}
+.parrit-os-world-title {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(26px, 4vw, 40px);
+  color: #2a2420;
+  margin: 0 0 26px;
+}
+.parrit-os-world-card {
+  background: #fffcf5;
+  border: 2px solid #2a2420;
+  border-radius: 16px;
+  box-shadow: 6px 6px 0 rgba(200, 149, 108, 0.55);
+  padding: 22px 18px 10px;
+}
+.parrit-os-world-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 18px;
+}
+.parrit-os-world-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #2a2420;
+  background: #fffcf5;
+  border: 1.5px solid #2a2420;
+  border-radius: 999px;
+  padding: 6px 12px;
+}
+.parrit-os-world-chip .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid #2a2420;
+}
+@media (max-width: 720px) {
+  .parrit-os-world {
+    padding: 46px 14px 24px;
+  }
+  .parrit-os-world-card {
+    padding: 12px 8px 4px;
+    box-shadow: 4px 4px 0 rgba(200, 149, 108, 0.55);
+  }
+}
