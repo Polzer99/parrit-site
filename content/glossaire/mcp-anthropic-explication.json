@@ -1,0 +1,64 @@
+{
+  "slug": "mcp-anthropic-explication",
+  "category": "fondamentaux",
+  "published_at": "2026-06-12",
+  "updated_at": "2026-06-12",
+  "langs": {
+    "fr": {
+      "title": "MCP (Model Context Protocol) : qu'est-ce que c'est et à quoi ça sert ?",
+      "subtitle": "Un protocole qui change la façon de connecter les outils aux agents.",
+      "meta": {
+        "title": "MCP (Model Context Protocol) : explication simple | Parrit",
+        "description": "Le MCP est un protocole pour connecter les données et outils aux agents. Explication opérationnelle par Paul Larmaraud.",
+        "ogTitle": "MCP : explication opérationnelle",
+        "ogDescription": "Un protocole qui change la façon de connecter les outils aux agents."
+      },
+      "intro": "Le Model Context Protocol est un standard ouvert développé par Anthropic. Il permet aux agents de se connecter à des sources de données et à des outils externes de manière uniforme. C'est une réponse au problème de fragmentation : chaque outil avait son propre plugin ou API, rendant les intégrations complexes et instables. Le MCP propose un seul connecteur pour toutes les ressources. On va voir comment ça fonctionne et pourquoi ça change la donne.",
+      "sections": [
+        {
+          "q": "Concrètement, comment fonctionne le MCP ?",
+          "a": "Le MCP fonctionne via un serveur. Ce serveur expose des ressources : fichiers, bases de données, APIs internes : via un protocole standardisé. L'agent se connecte à ce serveur, pas directement à chaque outil. C'est comme un adaptateur universel. Un artisan peut mettre son CRM, son calendrier et ses devis dans un seul serveur MCP. L'agent accède à tout sans connaître les APIs spécifiques. Le serveur traduit les requêtes."
+        },
+        {
+          "q": "Qu'est-ce que ça change pour un avocat ou un artisan ?",
+          "a": "Avant, pour automatiser la recherche dans un dossier juridique, il fallait développer un plugin spécifique pour le logiciel de gestion. Avec le MCP, l'avocat peut créer un serveur qui expose ses dossiers comme une ressource. L'agent peut alors lire, filtrer, extraire des informations sans code supplémentaire. Pour un artisan, son système de réservation devient accessible via le même protocole que son catalogue de produits. L'intégration est déplacée vers le serveur, ce qui simplifie la maintenance."
+        },
+        {
+          "q": "Est-ce différent d'une API traditionnelle ?",
+          "a": "C'est radicalement différent. Une API traditionnelle est spécifique à un service. Le MCP est un méta-protocole. Il ne définit pas ce que l'outil fait, mais comment l'agent communique avec lui. Cela permet de créer des serveurs pour des systèmes obsolètes ou privés. Un franchisé peut connecter son ERP maison sans réécrire son interface. L'agent voit toujours la même structure de données. C'est une abstraction puissante qui réduit la dépendance aux développeurs de chaque plateforme."
+        },
+        {
+          "q": "Quels sont les cas d'usage immédiats ?",
+          "a": "Le cas d'usage principal est l'automatisation interne. Un dirigeant en transition peut connecter ses outils historiques : un CRM Salesforce, une base Access, des fichiers Excel : dans un serveur MCP. L'agent peut alors générer des rapports consolidés sans migration de données. Pour un e-commerce, cela permet de connecter le système de stock, le backoffice et la logistique pour des alertes intelligentes. C'est aussi utile pour les consultants qui travaillent avec des données client dispersées."
+        },
+        {
+          "q": "Qui doit mettre en place un serveur MCP ?",
+          "a": "C'est un travail technique, mais moins complexe que développer plusieurs plugins. En pratique, c'est le rôle d'un développeur ou d'un intégrateur interne. La personne doit connaître les systèmes à connecter et écrire le serveur qui expose leurs fonctionnalités via le protocole. Pour une petite structure, un prestataire peut le faire une fois, puis les agents peuvent évoluer indépendamment. L'effort est concentré sur la création du serveur, pas sur chaque nouvelle fonctionnalité de l'agent."
+        },
+        {
+          "q": "Est-ce que le MCP va remplacer les plugins ?",
+          "a": "Je pense que c'est la direction. Les plugins étaient une solution temporaire, trop dépendante des fournisseurs. Le MCP déplace le pouvoir vers l'utilisateur final. On peut connecter ce qu'on veut, pas seulement ce qui a un plugin officiel. Pour les entreprises avec des systèmes propriétaires, c'est une libération. Cela va probablement réduire l'importance des marketplaces de plugins pour les grands agents. L'avenir est dans des serveurs MCP personnalisés, pas dans des catalogues standardisés."
+        }
+      ],
+      "related": [
+        {
+          "slug": "agents-automatisation-interne",
+          "label": "Automatisation interne avec des agents"
+        },
+        {
+          "slug": "claude-vs-chatgpt-difference",
+          "label": "Claude vs ChatGPT : différence opérationnelle"
+        },
+        {
+          "slug": "serveur-local-agent",
+          "label": "Serveur local pour un agent"
+        }
+      ],
+      "cta": {
+        "title": "Vous avez un système à connecter ?",
+        "subtitle": "On peut parler de votre cas concret et voir si un serveur MCP est la solution.",
+        "label": "Parlez-moi de votre cas"
+      }
+    }
+  }
+}

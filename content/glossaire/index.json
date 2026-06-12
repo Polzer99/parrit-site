@@ -56,13 +56,17 @@
         "fr"
       ],
       "published_at": "2026-06-10"
+    },
+    {
+      "slug": "mcp-anthropic-explication",
+      "category": "fondamentaux",
+      "langs": [
+        "fr"
+      ],
+      "published_at": "2026-06-12"
     }
   ],
   "queue_questions": [
-    {
-      "slug": "mcp-anthropic-explication",
-      "title_fr": "MCP (Model Context Protocol) : qu'est-ce que c'est et à quoi ça sert ?"
-    },
     {
       "slug": "automatiser-veille-juridique",
       "title_fr": "Comment automatiser la veille juridique avec un agent IA ?"
