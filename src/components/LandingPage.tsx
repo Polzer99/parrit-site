@@ -52,7 +52,7 @@ const cardReveal = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
 };
 
-const ACCENTS = ["#5FAF8E", "#c8956c", "#C44536", "#7C5BA1"];
+const ACCENTS = ["#D1132F", "#0C0C0D", "#D1132F", "#0C0C0D"];
 
 export default function LandingPage({ data, lang, quickContact, pageId }: Props) {
   return (
@@ -60,9 +60,9 @@ export default function LandingPage({ data, lang, quickContact, pageId }: Props)
       {/* Window chrome topbar */}
       <div className="parrit-os-topbar">
         <Link href={`/${lang}`} aria-label="Parrit.ai" style={{ display: "flex", gap: 6 }}>
-          <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#E57373", border: "1.5px solid #2A2420" }} />
-          <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#F5D67E", border: "1.5px solid #2A2420" }} />
-          <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#85C285", border: "1.5px solid #2A2420" }} />
+          <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#E57373", border: "1.5px solid #0C0C0D" }} />
+          <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#F5D67E", border: "1.5px solid #0C0C0D" }} />
+          <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#85C285", border: "1.5px solid #0C0C0D" }} />
         </Link>
         <div className="parrit-os-title">parrit.ai — {pageId}</div>
         <div className="parrit-os-topbar-actions">
@@ -200,7 +200,7 @@ export default function LandingPage({ data, lang, quickContact, pageId }: Props)
           <h2 className="landing-v4-cta-title">{data.ctaSection.title}</h2>
           <p className="landing-v4-cta-sub">{data.ctaSection.subtitle}</p>
           <div style={{ maxWidth: 540, margin: "0 auto" }}>
-            <QuickContact strings={quickContact} page={pageId} variant="light" />
+            <QuickContact strings={quickContact} page={pageId} variant="dark" />
           </div>
         </section>
       </main>

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Parrit · Une équipe d'agents IA qui bosse pour vous";
+export const alt = "Parrit · On déploie l'IA dans votre entreprise et on l'opère avec vous";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -12,37 +12,33 @@ export default async function Image() {
         style={{
           width: "100%",
           height: "100%",
-          background: "#f3e8d3",
+          background: "#FEFDF9",
           display: "flex",
           flexDirection: "column",
           padding: "70px 90px",
           fontFamily: "Georgia, serif",
-          color: "#2A2420",
+          color: "#0C0C0D",
           position: "relative",
         }}
       >
-        {/* Chinese red stamp accent top-right */}
+        {/* Chinese red seal accent top-right */}
         <div
           style={{
             position: "absolute",
             top: 50,
             right: 60,
-            width: 90,
-            height: 90,
+            width: 92,
+            height: 92,
             borderRadius: "50%",
-            background: "#C44536",
+            background: "#D1132F",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            border: "4px solid #2A2420",
+            border: "4px solid #0C0C0D",
             transform: "rotate(-8deg)",
-            color: "#FFFCF5",
-            fontSize: 40,
-            fontWeight: 700,
+            boxShadow: "5px 5px 0 #0C0C0D",
           }}
-        >
-          P
-        </div>
+        />
 
         {/* Eyebrow */}
         <div
@@ -52,11 +48,11 @@ export default async function Image() {
             fontWeight: 700,
             letterSpacing: 4,
             textTransform: "uppercase",
-            color: "#C44536",
+            color: "#D1132F",
             marginBottom: 30,
           }}
         >
-          PARRIT.AI · TRANSFORMATION IA
+          PARRIT·AI · OPERATING PARTNER
         </div>
 
         {/* Brand */}
@@ -66,8 +62,8 @@ export default async function Image() {
             fontWeight: 500,
             lineHeight: 0.95,
             letterSpacing: -2,
-            color: "#2A2420",
-            marginBottom: 20,
+            color: "#0C0C0D",
+            marginBottom: 22,
           }}
         >
           PARRIT
@@ -76,16 +72,16 @@ export default async function Image() {
         {/* Tagline */}
         <div
           style={{
-            fontSize: 48,
+            fontSize: 46,
             fontStyle: "italic",
             fontWeight: 400,
             lineHeight: 1.15,
-            color: "#2A2420",
+            color: "#0C0C0D",
             marginBottom: 22,
-            maxWidth: 950,
+            maxWidth: 980,
           }}
         >
-          Une équipe d'agents IA qui bosse pour vous.
+          On déploie l'IA dans votre entreprise. Et on l'opère avec vous.
         </div>
 
         {/* Sub */}
@@ -94,11 +90,11 @@ export default async function Image() {
             fontFamily: "DM Sans, sans-serif",
             fontSize: 24,
             lineHeight: 1.4,
-            color: "#5A5047",
-            maxWidth: 880,
+            color: "#4A4A4E",
+            maxWidth: 900,
           }}
         >
-          Quatre agents sur mesure, branchés sur votre stack. Back-office, business, prototype, formation. Même quand vous dormez.
+          Sur le front qui fait tourner votre boîte comme sur celui qui la fait grandir. Des outils en production, qu'on porte avec vous.
         </div>
 
         {/* Bottom strip */}
@@ -113,16 +109,16 @@ export default async function Image() {
             alignItems: "center",
             fontFamily: "DM Sans, sans-serif",
             fontSize: 20,
-            color: "#5A5047",
-            borderTop: "2px solid #2A2420",
+            color: "#4A4A4E",
+            borderTop: "2px solid #0C0C0D",
             paddingTop: 18,
           }}
         >
           <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#5FAF8E" }} />
+            <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#D1132F" }} />
             parrit.ai
           </div>
-          <div style={{ color: "#2A2420", fontWeight: 600 }}>Paul Larmaraud · Yukun Leng</div>
+          <div style={{ color: "#0C0C0D", fontWeight: 600 }}>Paul Larmaraud · Yukun Leng</div>
         </div>
       </div>
     ),

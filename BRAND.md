@@ -100,6 +100,15 @@ En clair, sur ce site :
 
 ## 8. Dette / queue de nettoyage
 
-La 1re passe a migré les **tokens** (propagation globale) + le **hero**. Restent des hex en dur
-hérités (`#c8956c` caramel, `#2A2420` brun) dans `globals.css` hors hero → à tokeniser
-section par section lors du déroulé complet. Favicon = sceau simplifié, à passer en sceau brossé complet.
+**Palette dette = RÉSORBÉE (13/06).** Tout le retired (`#5FAF8E` sage, `#c8956c`/`#b8814c` caramel,
+`#7C5BA1` violet, `#C44536` ancien rouge, `#2A2420` brun, `#1a1410`) a été purgé sur **toutes** les
+surfaces publiques (home + modals + sprint/audit/setup/remote + glossaire + academy + fondateurs + OG image).
+Résultat : 0 hex retired hors `--token`, et **0 texte noir-sur-noir** (CTA panels Cas/Paul, bouton
+QuickContact, statuts) — vérifié par l'audit de contraste DOM (49 → 0). Status pills = plein encre
+(livré/prod) vs contour (en cours). OG image refondue (crème/encre/rouge + voix Operating Partner).
+
+**Garde-fou réutilisable :** `scripts/contrast-audit.py` (Playwright) marche le DOM, calcule fg/bg
+effectifs et le ratio WCAG, sort tout texte < 3:1 (noir-sur-noir ≈ 1.0). À lancer avant tout push site :
+`PARRIT_BASE=http://localhost:3000 python3 scripts/contrast-audit.py /fr /fr/sprint /academy …`
+
+Reste : favicon = sceau simplifié → à passer en sceau brossé complet ; mur de logos clients = sourcer SVG officiels.

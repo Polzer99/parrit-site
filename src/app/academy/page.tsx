@@ -144,15 +144,15 @@ export default function AcademyPage() {
         <section className="landing-v4-section">
           <h2 className="landing-v4-section-title">Le modèle</h2>
           <div className="landing-v4-grid">
-            <div className="landing-v4-card" style={{ boxShadow: "4px 4px 0 #5FAF8E" }}>
+            <div className="landing-v4-card" style={{ boxShadow: "4px 4px 0 #D1132F" }}>
               <p className="landing-v4-card-title">Gratuit</p>
               <p className="landing-v4-card-desc">Les 10 premiers modules. Sans compte, sans carte. De quoi te lancer pour de vrai.</p>
             </div>
-            <div className="landing-v4-card" style={{ boxShadow: "4px 4px 0 #c8956c" }}>
+            <div className="landing-v4-card" style={{ boxShadow: "4px 4px 0 #0C0C0D" }}>
               <p className="landing-v4-card-title">Abonné</p>
               <p className="landing-v4-card-desc">Tous les modules suivants, et les nouveaux qui sortent chaque semaine.</p>
             </div>
-            <div className="landing-v4-card" style={{ boxShadow: "4px 4px 0 #C44536" }}>
+            <div className="landing-v4-card" style={{ boxShadow: "4px 4px 0 #D1132F" }}>
               <p className="landing-v4-card-title">Sur-mesure</p>
               <p className="landing-v4-card-desc">Paul craque TON sujet et te tourne la vidéo tuto. À partir de 200 €.</p>
             </div>
@@ -165,7 +165,7 @@ export default function AcademyPage() {
           <p className="founders-close-text">
             Laisse ton email : tu es prévenu à chaque nouveau module, et tu accèdes aux 10 premiers gratuitement.
             Construit par Paul Larmaraud &amp; Yukun Leng.{" "}
-            <Link href="/fondateurs" style={{ color: "#c8956c", textDecoration: "underline" }}>Leur histoire</Link>.
+            <Link href="/fondateurs" style={{ color: "var(--parrit-red)", textDecoration: "underline" }}>Leur histoire</Link>.
           </p>
           <div style={{ maxWidth: 480, margin: "0 auto" }}>
             <QuickContact strings={waitlistStrings} page="academy-footer" variant="dark" />

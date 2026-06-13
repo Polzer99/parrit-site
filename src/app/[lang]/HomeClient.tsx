@@ -298,11 +298,11 @@ const COPY = {
       manifeste: {
         title: "Manifeste",
         body: [
-          "On construit. On ne conseille pas.",
-          "Pas de deck. Pas de TJM. Pas de mot inventé pour faire pro.",
-          "Un sujet précis défini en 45 minutes. Un outil livré en quelques jours, posé chez vous. Code audité par une agence dev partenaire avant la mise en prod.",
-          "On garde la main : Paul shippe le 0 → 1, Yukun pousse en production. Pas de junior, pas de sous-traitant.",
-          "Si ça ne tourne pas en prod à la fin, on n'a pas fait notre travail.",
+          "Parrit, c'est deux personnes et une conviction simple : on transforme une entreprise en y posant un outil qui tourne, pas en lui remettant un rapport qui finit dans un tiroir.",
+          "Paul code. Tous les jours, assisté par ses agents, il fabrique de ses mains le prototype qui n'existait pas la semaine d'avant. Yukun, dix ans passés à orchestrer les flux de grands groupes entre la France et la Chine, le reprend et le pousse en production là où tout se joue : dans vos vrais systèmes, le lundi matin. 速 veut dire vitesse. C'est notre nom, et c'est notre rythme : un premier prototype dès le premier appel.",
+          "On ne vend ni slides, ni jours-homme, ni mot inventé pour faire sérieux. On choisit ensemble un sujet précis en 45 minutes, on construit l'outil en quelques jours, on le fait auditer par une agence de développeurs seniors, et on vous le livre posé chez vous : documenté, et déjà entre les mains de vos équipes, sans qu'on ait besoin d'être à côté.",
+          "Un outil à la fois. Pas trente. Celui qui vous fait gagner du temps chaque semaine, ou celui qui vous ramène du business. Et on le mesure vraiment : le temps gagné, le chiffre en plus, la marge libérée.",
+          "Si, au bout du compte, il ne tourne pas en production, c'est qu'on n'a pas fait notre travail.",
         ],
       },
       transformation: {
@@ -343,7 +343,6 @@ const COPY = {
           { t: "Dirigeant pharma en transition", s: "livré", d: "Pack hands-on : le client a construit lui-même, en 8 heures accompagnées, son agent de veille du marché caché pour sa recherche de poste de direction. Autonome sur son poste depuis." },
           { t: "Grande école de management internationale", s: "cadrage en cours", d: "Audit & configuration Claude Code pour deux profils basés à Singapour : environnement, mémoire projet, skills, normes de sécurité, et limites de consommation mesurées agent par agent après les premiers déploiements." },
           { t: "Grande enseigne sport", s: "en discussion", d: "Programme dirigeant Sprint Builders hands-on : chaque participant prototype son cas métier réel en 2 jours avec Claude Code + Gemini. Échanges en cours avec l'équipe Training & Development AI." },
-          { t: "Groupe armement (sous NDA)", d: "Compliance officer agent : RFP et contrats vérifiés automatiquement, doublé d'un filtre humain pour validation." },
           { t: "Agence dev sénior", d: "Reporting CEO consolidé : agrégation des KPIs commerciaux + opérationnels (Excel, CRM, ERP) en une vue lundi matin." },
         ],
       },
@@ -688,11 +687,11 @@ const COPY = {
       manifeste: {
         title: "Manifesto",
         body: [
-          "We build. We don't advise.",
-          "No deck. No day rate. No made-up word to sound pro.",
-          "One precise topic scoped in 45 min. One delivered tool, deployed at your site, in days. Code audited by a partner dev agency before production.",
-          "We stay in the seat: Paul ships the 0 → 1, Yukun pushes it to production. No junior, no subcontractor.",
-          "If it doesn't run in production at the end, we didn't do our job.",
+          "Parrit is two people and one simple conviction: you transform a company by putting a tool that runs inside it, not by handing over a report that ends up in a drawer.",
+          "Paul codes. Every day, with his agents at his side, he builds with his own hands the prototype that didn't exist the week before. Yukun, ten years spent orchestrating the operations of large groups between France and China, takes it and pushes it into production where it truly matters: inside your real systems, on Monday morning. 速 means speed. It's our name, and it's our pace: a first prototype from the very first call.",
+          "We don't sell slides, day rates, or words invented to sound serious. Together we pick one precise subject in 45 minutes, we build the tool in a few days, we have it audited by a senior development agency, and we deliver it installed at your site: documented, and already in your teams' hands, without us needing to stand beside them.",
+          "One tool at a time. Not thirty. The one that saves you time every week, or the one that brings you business. And we measure it for real: the time saved, the extra revenue, the margin freed up.",
+          "If, in the end, it doesn't run in production, then we haven't done our job.",
         ],
       },
       transformation: {
@@ -733,7 +732,6 @@ const COPY = {
           { t: "Pharma executive in transition", s: "delivered", d: "Hands-on pack: the client built his own hidden-job-market watch agent in 8 guided hours, for his executive job search. Autonomous on his machine since." },
           { t: "International management school", s: "scoping underway", d: "Claude Code audit & setup for two profiles based in Singapore: environment, project memory, skills, security standards, and consumption limits measured agent by agent after the first deployments." },
           { t: "Major sports retailer", s: "in discussion", d: "Hands-on Sprint Builders executive program: each participant prototypes their real business case in 2 days with Claude Code + Gemini. Ongoing discussions with the Training & Development AI team." },
-          { t: "Defense group (NDA)", d: "Compliance officer agent: RFPs and contracts auto-checked, doubled with a human validation filter." },
           { t: "Senior dev agency", d: "Consolidated CEO reporting: sales + ops KPIs aggregated (Excel, CRM, ERP) into one Monday-morning view." },
         ],
       },
@@ -1056,11 +1054,11 @@ const COPY = {
       manifeste: {
         title: "Manifesto",
         body: [
-          "A gente constrói. A gente não dá conselho.",
-          "Sem deck. Sem TJM. Sem palavra inventada para soar pro.",
-          "Um tema preciso definido em 45 minutos. Uma ferramenta entregue em dias, instalada no seu site. Código auditado por uma agência dev parceira antes da produção.",
-          "A gente fica no leme: Paul shipa o 0 → 1, Yukun coloca em produção. Sem júnior, sem subcontratado.",
-          "Se não roda em produção no final, a gente não fez o trabalho.",
+          "A Parrit são duas pessoas e uma convicção simples: a gente transforma uma empresa instalando nela uma ferramenta que roda, não entregando um relatório que acaba numa gaveta.",
+          "Paul programa. Todos os dias, com seus agentes ao lado, ele constrói com as próprias mãos o protótipo que não existia na semana anterior. Yukun, dez anos orquestrando os fluxos de grandes grupos entre a França e a China, o retoma e o coloca em produção onde tudo se decide: dentro dos seus sistemas reais, na segunda de manhã. 速 quer dizer velocidade. É o nosso nome, e é o nosso ritmo: um primeiro protótipo já na primeira chamada.",
+          "A gente não vende slides, nem horas-homem, nem palavra inventada para soar sério. Escolhemos juntos um assunto preciso em 45 minutos, construímos a ferramenta em alguns dias, mandamos auditar por uma agência de desenvolvedores seniores, e entregamos instalada na sua empresa: documentada, e já nas mãos das suas equipes, sem que a gente precise estar do lado.",
+          "Uma ferramenta de cada vez. Não trinta. A que te faz ganhar tempo toda semana, ou a que te traz negócio. E a gente mede de verdade: o tempo ganho, a receita a mais, a margem liberada.",
+          "Se, no fim das contas, ela não rodar em produção, é porque a gente não fez o nosso trabalho.",
         ],
       },
       transformation: {
@@ -1101,7 +1099,6 @@ const COPY = {
           { t: "Executivo farma em transição", s: "entregue", d: "Pacote hands-on: o cliente construiu sozinho, em 8 horas acompanhadas, seu agente de watch do mercado oculto para sua busca de cargo executivo. Autônomo desde então." },
           { t: "Escola de gestão internacional", s: "escopo em andamento", d: "Auditoria & configuração Claude Code para dois perfis em Singapura: ambiente, memória de projeto, skills, normas de segurança, e limites de consumo medidos agente por agente após os primeiros deploys." },
           { t: "Grande varejista esportiva", s: "em discussão", d: "Programa executivo Sprint Builders hands-on: cada participante prototipa seu caso real em 2 dias com Claude Code + Gemini. Conversas em andamento com o time Training & Development AI." },
-          { t: "Grupo de defesa (NDA)", d: "Compliance officer agent: RFPs e contratos auditados automaticamente, com filtro humano de validação." },
           { t: "Agência dev sênior", d: "Relatório CEO consolidado: KPIs comerciais + operacionais (Excel, CRM, ERP) em uma vista de segunda de manhã." },
         ],
       },
@@ -1424,11 +1421,11 @@ const COPY = {
       manifeste: {
         title: "宣言",
         body: [
-          "我们构建。我们不咨询。",
-          "没有 PPT。没有日费率。没有为了显得专业而发明的词。",
-          "45 分钟定义精确的主题。几天内交付工具,部署在您的公司。生产前由合作伙伴代理审计代码。",
-          "我们亲自操刀:Paul 负责 0 → 1 的交付,Yukun 负责生产部署。没有初级,没有外包。",
-          "如果最后没在生产环境运行,我们就没完成工作。",
+          "Parrit 是两个人，和一个朴素的信念:转型一家企业，靠的是在它内部装上一个真正能跑起来的工具，而不是交给它一份最终躺进抽屉的报告。",
+          "Paul 写代码。每一天，在智能体的协助下，他亲手做出上周还不存在的原型。Yukun，十年间在法国与中国之间为大型集团编排业务流，把原型接过来，推上生产，落在真正要紧的地方:你们真实的系统里，周一早晨。速,意为速度。这是我们的名字，也是我们的节奏:首次通话即出原型。",
+          "我们不卖幻灯片，不卖人天，也不用为了显得专业而生造的词。我们一起在 45 分钟内选定一个具体的课题，用几天把工具做出来，交给一支资深开发团队做代码审计，再把它装好、交付到你们这边:有文档，并且已经在你们团队手里，无需我们守在一旁。",
+          "一次一个工具。不是三十个。要么帮你每周省下时间，要么帮你带来生意。而且我们实打实地衡量它:省下的时间、多出的营收、释放的利润。",
+          "如果到头来它跑不进生产环境，那就是我们没把活儿做好。",
         ],
       },
       transformation: {
@@ -1469,7 +1466,6 @@ const COPY = {
           { t: "制药公司转型高管", s: "已交付", d: "实战套件:客户在 8 小时陪跑中亲手构建了自己的隐性市场监测智能体,用于高管求职。此后在其电脑上自主运行。" },
           { t: "国际管理学院", s: "框架洽谈中", d: "为常驻新加坡的两位成员做 Claude Code 审计与配置:环境、项目记忆、skills、安全规范,并在首批部署后逐个智能体测算消耗上限。" },
           { t: "大型运动零售商", s: "洽谈中", d: "高管 Sprint Builders 实战项目:每位参与者用 Claude Code + Gemini 在 2 天内为自己的真实业务做原型。正与 Training & Development AI 团队洽谈。" },
-          { t: "防务集团(NDA)", d: "合规官智能体:RFP 和合同自动审核,加人工验证过滤。" },
           { t: "资深开发代理", d: "合并 CEO 报告:商业 + 运营 KPI(Excel、CRM、ERP)汇总为周一早晨视图。" },
         ],
       },
@@ -2088,8 +2084,8 @@ function SlotPicker({ accent }: { accent?: string }) {
       <div
         style={{
           padding: "20px 22px",
-          background: "#5FAF8E22",
-          border: "2px solid #5FAF8E",
+          background: "rgba(12,12,13,0.04)",
+          border: "2px solid #0C0C0D",
           borderRadius: 12,
           textAlign: "center",
         }}
@@ -2587,7 +2583,7 @@ function WaitlistWindow({
           style={{
             width: "100%",
             padding: "16px 24px",
-            background: state === "sent" ? "#5FAF8E" : "var(--parrit-red)",
+            background: state === "sent" ? "#0C0C0D" : "var(--parrit-red)",
             color: "#FFFFFF",
             border: "2px solid #0C0C0D",
             borderRadius: 12,
@@ -2830,7 +2826,7 @@ function OfferWindow({
                           width: 8,
                           height: 8,
                           borderRadius: "50%",
-                          background: ag.status === "live" ? "#5FAF8E" : "#D1132F",
+                          background: ag.status === "live" ? "#0C0C0D" : "#D1132F",
                         }}
                       />
                       {ag.name}
@@ -2850,7 +2846,7 @@ function OfferWindow({
               fontStyle: "italic",
             }}
           >
-            <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", background: "#5FAF8E", marginRight: 6, verticalAlign: "middle" }} />
+            <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", background: "#0C0C0D", marginRight: 6, verticalAlign: "middle" }} />
             {L.live}
             <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", background: "#D1132F", marginRight: 6, marginLeft: 12, verticalAlign: "middle" }} />
             {L.soon}
@@ -2973,22 +2969,34 @@ function PanelContent({
 }) {
   if (which === "manifeste") {
     return (
-      <div>
-        {panel.manifeste.body.map((line, i) => (
-          <p
-            key={i}
-            style={{
-              fontFamily: "var(--font-heading)",
-              fontSize: "clamp(20px, 3vw, 24px)",
-              fontWeight: 400,
-              lineHeight: 1.45,
-              color: "#0C0C0D",
-              margin: "0 0 18px",
-            }}
-          >
-            {line}
-          </p>
-        ))}
+      <div style={{ maxWidth: 640 }}>
+        {panel.manifeste.body.map((line, i, arr) => {
+          const isFirst = i === 0;
+          const isLast = i === arr.length - 1;
+          return (
+            <p
+              key={i}
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: isFirst
+                  ? "clamp(23px, 3.6vw, 29px)"
+                  : isLast
+                  ? "clamp(20px, 2.9vw, 23px)"
+                  : "clamp(18px, 2.6vw, 21px)",
+                fontWeight: isFirst ? 500 : isLast ? 500 : 400,
+                fontStyle: isLast ? "italic" : "normal",
+                lineHeight: isFirst ? 1.4 : isLast ? 1.5 : 1.62,
+                color: "#0C0C0D",
+                margin: isFirst ? "0 0 22px" : isLast ? "26px 0 0" : "0 0 18px",
+                paddingLeft: isLast ? 22 : 0,
+                borderLeft: isLast ? "3px solid var(--parrit-red)" : "none",
+                letterSpacing: isFirst ? "-0.01em" : "0",
+              }}
+            >
+              {line}
+            </p>
+          );
+        })}
       </div>
     );
   }
@@ -3161,8 +3169,8 @@ function PanelContent({
                     fontWeight: 700,
                     letterSpacing: "0.08em",
                     textTransform: "uppercase",
-                    color: "#FFFFFF",
-                    background: /livr|production|deliver|entregue|produç|运行|交付/.test(c.s) ? "#5FAF8E" : "#0C0C0D",
+                    color: /livr|production|deliver|entregue|produç|运行|交付/.test(c.s) ? "#FEFDF9" : "#0C0C0D",
+                    background: /livr|production|deliver|entregue|produç|运行|交付/.test(c.s) ? "#0C0C0D" : "transparent",
                     border: "1px solid #0C0C0D",
                     borderRadius: 4,
                   }}
@@ -3190,9 +3198,9 @@ function PanelContent({
             fontFamily: "var(--font-body)",
             fontSize: 14,
             fontWeight: 600,
-            color: "#0C0C0D",
+            color: "#FEFDF9",
             cursor: "pointer",
-            boxShadow: "3px 3px 0 #0C0C0D",
+            boxShadow: "4px 4px 0 var(--parrit-red)",
           }}
         >
           {contact.title} →
@@ -3336,7 +3344,7 @@ function PanelContent({
                 fontWeight: 700,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: "#8A8A8F",
+                color: "#4A4A4E",
               }}
             >
               {f.k}
@@ -3367,9 +3375,9 @@ function PanelContent({
           fontFamily: "var(--font-body)",
           fontSize: 14,
           fontWeight: 600,
-          color: which === "yukun" ? "#FFFFFF" : "#0C0C0D",
+          color: "#FEFDF9",
           cursor: "pointer",
-          boxShadow: "3px 3px 0 #0C0C0D",
+          boxShadow: which === "yukun" ? "4px 4px 0 #0C0C0D" : "4px 4px 0 var(--parrit-red)",
         }}
       >
         {person.cta} →

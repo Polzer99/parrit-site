@@ -191,8 +191,8 @@ export default async function Page({
               fontSize: 11,
               letterSpacing: "0.18em",
               textTransform: "uppercase",
-              color: "#c8956c",
-              border: "1px solid rgba(200,149,108,0.3)",
+              color: "var(--parrit-red)",
+              border: "1px solid rgba(209,19,47,0.30)",
               borderRadius: 999,
               marginBottom: 20,
               fontFamily: "var(--font-body)",
@@ -234,7 +234,7 @@ export default async function Page({
             color: "var(--text)",
             fontWeight: 300,
             marginBottom: 56,
-            borderLeft: "3px solid #c8956c",
+            borderLeft: "3px solid var(--parrit-red)",
             paddingLeft: 24,
           }}
         >
@@ -290,7 +290,7 @@ export default async function Page({
                 <li key={r.slug} style={{ marginBottom: 8 }}>
                   <Link
                     href={`/${lang}/glossaire/${r.slug}`}
-                    style={{ color: "var(--text)", textDecoration: "underline", textDecorationColor: "rgba(200,149,108,0.4)" }}
+                    style={{ color: "var(--text)", textDecoration: "underline", textDecorationColor: "rgba(209,19,47,0.40)" }}
                   >
                     {r.label}
                   </Link>
@@ -304,8 +304,8 @@ export default async function Page({
           style={{
             marginTop: 64,
             padding: "32px 28px",
-            background: "linear-gradient(180deg, rgba(200,149,108,0.08) 0%, rgba(200,149,108,0.02) 100%)",
-            border: "1px solid rgba(200,149,108,0.2)",
+            background: "linear-gradient(180deg, rgba(209,19,47,0.06) 0%, rgba(209,19,47,0.02) 100%)",
+            border: "1px solid rgba(209,19,47,0.18)",
             borderRadius: 14,
             textAlign: "center",
           }}
@@ -338,9 +338,9 @@ export default async function Page({
               padding: "12px 24px",
               borderRadius: 999,
               fontSize: 14,
-              fontWeight: 500,
-              color: "#fff",
-              background: "linear-gradient(135deg, #c8956c 0%, #b8814c 100%)",
+              fontWeight: 600,
+              color: "#FEFDF9",
+              background: "var(--parrit-red)",
               textDecoration: "none",
             }}
           >

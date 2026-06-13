@@ -153,7 +153,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
                   fontSize: 11,
                   letterSpacing: "0.16em",
                   textTransform: "uppercase",
-                  color: "#c8956c",
+                  color: "var(--parrit-red)",
                   marginBottom: 8,
                   fontWeight: 500,
                   fontFamily: "var(--font-body)",

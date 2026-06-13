@@ -390,7 +390,7 @@ body > * {
   color: #4A4A4E;
   flex-wrap: wrap;
 }
-.parrit-os-statusbar span:first-child { color: #5FAF8E; font-weight: 700; }
+.parrit-os-statusbar span:first-child { color: var(--parrit-red); font-weight: 700; }
 .parrit-os-clock { font-variant-numeric: tabular-nums; }
 
 @media (max-width: 600px) {
@@ -1276,7 +1276,7 @@ body > * {
   gap: 10px !important;
 }
 .blog-card-dot {
-  color: #0C0C0D1A !important;
+  color: #8A8A8F !important;
 }
 .blog-card-date,
 .blog-card-reading {
@@ -1808,7 +1808,7 @@ body > * {
 .landing-v4-cta-sub {
   font-family: var(--font-body);
   font-size: 15px;
-  color: #A09688;
+  color: var(--text-light-muted);
   margin: 0 0 24px;
 }
 
@@ -2359,14 +2359,14 @@ img, svg, video { max-width: 100%; height: auto; }
   font-style: normal;
   font-weight: 600;
   font-size: clamp(26px, 4vw, 40px);
-  color: #2a2420;
+  color: var(--text);
   margin: 0 0 26px;
 }
 .parrit-os-world-card {
-  background: #fffcf5;
-  border: 2px solid #2a2420;
+  background: var(--bg);
+  border: 2px solid var(--text);
   border-radius: 16px;
-  box-shadow: 6px 6px 0 rgba(200, 149, 108, 0.55);
+  box-shadow: 6px 6px 0 rgba(12, 12, 13, 0.12);
   padding: 22px 18px 10px;
 }
 .parrit-os-world-legend {
@@ -2383,9 +2383,9 @@ img, svg, video { max-width: 100%; height: auto; }
   font-family: var(--font-body);
   font-size: 12.5px;
   font-weight: 600;
-  color: #2a2420;
-  background: #fffcf5;
-  border: 1.5px solid #2a2420;
+  color: var(--text);
+  background: var(--bg);
+  border: 1.5px solid var(--text);
   border-radius: 999px;
   padding: 6px 12px;
 }
@@ -2393,7 +2393,7 @@ img, svg, video { max-width: 100%; height: auto; }
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  border: 1px solid #2a2420;
+  border: 1px solid var(--text);
 }
 @media (max-width: 720px) {
   .parrit-os-world {
@@ -2401,6 +2401,6 @@ img, svg, video { max-width: 100%; height: auto; }
   }
   .parrit-os-world-card {
     padding: 12px 8px 4px;
-    box-shadow: 4px 4px 0 rgba(200, 149, 108, 0.55);
+    box-shadow: 4px 4px 0 rgba(12, 12, 13, 0.12);
   }
 }
