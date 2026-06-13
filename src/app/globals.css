@@ -1,18 +1,23 @@
 @import "tailwindcss";
 
+/* ───────────────────────────────────────────────────────────────
+   PARRIT.AI — Direction Artistique (source de vérité : agence, 06/2026)
+   Palette resserrée : papier crème · encre · rouge chinois (sceau 速).
+   Voir /BRAND.md pour la spec complète + index des assets.
+   ─────────────────────────────────────────────────────────────── */
 :root {
-  --bg: #f3e8d3;
-  --text: #2A2520;
-  --text-muted: #5A5047;
-  --text-dim: #A09488;
-  --accent: #c8956c;
-  --accent-hover: #b8855c;
-  --bg-dark: #2A2420;
-  --card-dark: #332D28;
-  --text-light: #F5F0EB;
-  --text-light-muted: #A09688;
-  --text-light-dim: #5A5047;
-  --border: rgba(42, 37, 32, 0.08);
+  --bg: #FEFDF9;          /* papier crème agence */
+  --text: #0C0C0D;        /* encre */
+  --text-muted: #4A4A4E;  /* gris neutre (plus de brun) */
+  --text-dim: #8A8A8F;
+  --accent: #D1132F;      /* rouge chinois — accent ET sceau */
+  --accent-hover: #B10F27;
+  --bg-dark: #0C0C0D;     /* sections sombres = encre */
+  --card-dark: #161618;
+  --text-light: #FEFDF9;  /* crème sur fond sombre */
+  --text-light-muted: #B5B5B9;
+  --text-light-dim: #6A6A6F;
+  --border: rgba(12, 12, 13, 0.10);
 }
 
 @theme inline {
@@ -24,8 +29,11 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-border: var(--border);
-  --font-heading: "Cormorant Garamond", Georgia, serif;
+  /* Titres = sans (new-DA agence). Serif Cormorant réservé aux moments de marque via --font-serif. */
+  --font-heading: var(--font-body);
   --font-body: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 * {
@@ -91,8 +99,8 @@ body > * {
   display: flex;
   align-items: center;
   padding: 10px 18px;
-  background: #EADFC4;
-  border-bottom: 2px solid #2A2420;
+  background: #F2F0EA;
+  border-bottom: 2px solid #0C0C0D;
   gap: 14px;
 }
 .parrit-os-traffic { display: flex; gap: 6px; }
@@ -100,7 +108,7 @@ body > * {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 1.5px solid #2A2420;
+  border: 1.5px solid #0C0C0D;
   display: inline-block;
 }
 .parrit-os-title {
@@ -109,7 +117,7 @@ body > * {
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 600;
-  color: #2A2420;
+  color: #0C0C0D;
   letter-spacing: 0.04em;
 }
 .parrit-os-lang { display: flex; align-items: center; }
@@ -145,14 +153,14 @@ body > * {
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #8A7E70;
+  color: #8A8A8F;
   margin-bottom: 4px;
 }
 .parrit-os-dock-hint {
   font-size: 10.5px;
-  color: #8A7E70;
+  color: #8A8A8F;
   text-align: center;
-  font-style: italic;
+  font-style: normal;
   line-height: 1.4;
   margin-top: 6px;
   max-width: 100px;
@@ -187,7 +195,7 @@ body > * {
   font-family: var(--font-body);
   font-size: 11.5px;
   font-weight: 500;
-  color: #2A2420;
+  color: #0C0C0D;
   text-align: center;
   line-height: 1.2;
   word-break: break-word;
@@ -205,11 +213,11 @@ body > * {
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 32px;
-  background: #FFFCF5;
-  border: 2px solid #2A2420;
+  background: #FFFFFF;
+  border: 2px solid #0C0C0D;
   border-radius: 16px;
   padding: clamp(24px, 4vw, 56px);
-  box-shadow: 6px 6px 0 rgba(42, 36, 32, 0.16);
+  box-shadow: 6px 6px 0 rgba(12, 12, 13, 0.12);
   min-height: 480px;
   position: relative;
   overflow: hidden;
@@ -231,13 +239,23 @@ body > * {
 }
 
 .parrit-os-brand-text { position: relative; z-index: 1; }
+/* Kicker — monospace rouge (système typo agence : labels = mono) */
 .parrit-os-eyebrow {
+  font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #c8956c;
-  margin: 0 0 14px;
+  color: var(--parrit-red);
+  margin: 0 0 18px;
+}
+/* Wordmark agence (SVG) — remplace le texte « PARRIT » */
+.parrit-os-wordmark-h1 { margin: 0; line-height: 0; }
+.parrit-os-wordmark {
+  display: block;
+  width: clamp(240px, 38vw, 440px);
+  height: auto;
+  margin: 0 0 16px;
 }
 .parrit-os-brand {
   font-family: var(--font-heading);
@@ -246,51 +264,71 @@ body > * {
   margin: 0;
   line-height: 0.9;
   letter-spacing: -0.02em;
-  color: #2A2420;
+  color: var(--text);
 }
+/* Chips — monospace rouge sur pastille rouge-teintée (composant agence) */
+.parrit-os-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 18px;
+}
+.parrit-os-chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.01em;
+  color: var(--parrit-red);
+  background: rgba(209, 19, 47, 0.07);
+  border: 1px solid rgba(209, 19, 47, 0.20);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+/* Headline marketing — sans bold (système typo agence) */
 .parrit-os-tagline {
-  font-family: var(--font-heading);
-  font-size: clamp(20px, 3.2vw, 28px);
-  font-weight: 400;
-  margin: 16px 0 12px;
-  line-height: 1.2;
-  color: #2A2420;
-  font-style: italic;
+  font-family: var(--font-body);
+  font-size: clamp(22px, 3.4vw, 32px);
+  font-weight: 700;
+  margin: 4px 0 14px;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  font-style: normal;
 }
 .parrit-os-sub {
   font-family: var(--font-body);
   font-size: clamp(14px, 1.8vw, 16px);
   line-height: 1.55;
-  color: #5A5047;
+  color: var(--text-muted);
   margin: 0 0 26px;
   max-width: 460px;
 }
+/* CTA — encre + ombre rouge (neo-brutalist franco-chinois) */
 .parrit-os-cta {
   display: inline-block;
   padding: 14px 26px;
-  background: #c8956c;
-  border: 2px solid #2A2420;
+  background: #0C0C0D;
+  border: 2px solid #0C0C0D;
   border-radius: 10px;
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 700;
-  color: #2A2420;
+  color: #FEFDF9;
   cursor: pointer;
-  box-shadow: 5px 5px 0 #2A2420;
+  box-shadow: 5px 5px 0 var(--parrit-red);
   transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 .parrit-os-cta:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0 #2A2420;
+  box-shadow: 7px 7px 0 var(--parrit-red);
 }
 .parrit-os-cta:active {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 #2A2420;
+  box-shadow: 2px 2px 0 var(--parrit-red);
 }
 .parrit-os-cta-micro {
   margin: 12px 0 0;
   font-size: 12px;
-  color: #8A7E70;
+  color: #8A8A8F;
 }
 
 .parrit-os-scene {
@@ -317,24 +355,24 @@ body > * {
     align-items: center;
     gap: 14px;
     padding: 12px 14px;
-    background: #FFFCF5;
-    border: 2px solid #2A2420;
+    background: #FFFFFF;
+    border: 2px solid #0C0C0D;
     border-radius: 12px;
-    box-shadow: 3px 3px 0 #2A2420;
+    box-shadow: 3px 3px 0 #0C0C0D;
     text-align: left;
     cursor: pointer;
     transition: transform 0.1s, box-shadow 0.1s;
     width: 100%;
     font-family: var(--font-body);
-    color: #2A2420;
+    color: #0C0C0D;
   }
   .parrit-os-mobile-offer:active {
     transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0 #2A2420;
+    box-shadow: 1px 1px 0 #0C0C0D;
   }
   .parrit-os-mobile-offer svg { flex-shrink: 0; width: 56px; height: 56px; }
-  .parrit-os-mobile-offer strong { display: block; font-size: 12px; letter-spacing: 0.04em; color: #c8956c; text-transform: uppercase; margin-bottom: 3px; }
-  .parrit-os-mobile-offer span { font-size: 13.5px; line-height: 1.35; color: #2A2420; }
+  .parrit-os-mobile-offer strong { display: block; font-size: 12px; letter-spacing: 0.04em; color: #0C0C0D; text-transform: uppercase; margin-bottom: 3px; }
+  .parrit-os-mobile-offer span { font-size: 13.5px; line-height: 1.35; color: #0C0C0D; }
 }
 
 /* ── Status bar ─────────────────── */
@@ -344,12 +382,12 @@ body > * {
   justify-content: space-between;
   gap: 14px;
   padding: 8px 18px;
-  background: #EADFC4;
-  border-top: 2px solid #2A2420;
+  background: #F2F0EA;
+  border-top: 2px solid #0C0C0D;
   font-family: var(--font-body);
   font-size: 11px;
   font-weight: 500;
-  color: #5A5047;
+  color: #4A4A4E;
   flex-wrap: wrap;
 }
 .parrit-os-statusbar span:first-child { color: #5FAF8E; font-weight: 700; }
@@ -362,7 +400,7 @@ body > * {
 
 /* Chinese red accent token */
 :root {
-  --parrit-red: #C44536;
+  --parrit-red: #D1132F;
 }
 
 /* ── Stamps strip below desktop ─────────────────── */
@@ -389,27 +427,27 @@ body > * {
 }
 .parrit-os-stamp {
   width: 168px;
-  background: #FFFCF5;
-  border: 2px solid #2A2420;
+  background: #FFFFFF;
+  border: 2px solid #0C0C0D;
   border-radius: 6px;
   padding: 8px;
   box-shadow: 4px 4px 0 rgba(42, 36, 32, 0.18);
   cursor: default;
   /* perforated edge effect */
   background-image:
-    radial-gradient(circle at 7px 7px, transparent 3px, #FFFCF5 3.5px),
-    radial-gradient(circle at calc(100% - 7px) 7px, transparent 3px, #FFFCF5 3.5px),
-    radial-gradient(circle at 7px calc(100% - 7px), transparent 3px, #FFFCF5 3.5px),
-    radial-gradient(circle at calc(100% - 7px) calc(100% - 7px), transparent 3px, #FFFCF5 3.5px);
+    radial-gradient(circle at 7px 7px, transparent 3px, #FFFFFF 3.5px),
+    radial-gradient(circle at calc(100% - 7px) 7px, transparent 3px, #FFFFFF 3.5px),
+    radial-gradient(circle at 7px calc(100% - 7px), transparent 3px, #FFFFFF 3.5px),
+    radial-gradient(circle at calc(100% - 7px) calc(100% - 7px), transparent 3px, #FFFFFF 3.5px);
 }
 .parrit-os-stamp-img {
   position: relative;
   width: 100%;
   aspect-ratio: 1;
-  background: #2A2420;
+  background: #0C0C0D;
   border-radius: 4px;
   overflow: hidden;
-  border: 1.5px solid #2A2420;
+  border: 1.5px solid #0C0C0D;
 }
 .parrit-os-stamp-meta {
   margin-top: 8px;
@@ -422,7 +460,7 @@ body > * {
   font-family: var(--font-body);
   font-size: 10.5px;
   font-weight: 700;
-  color: #2A2420;
+  color: #0C0C0D;
   line-height: 1.25;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -445,13 +483,13 @@ body > * {
   width: 38px;
   height: 38px;
   background: var(--parrit-red);
-  border: 2px solid #2A2420;
+  border: 2px solid #0C0C0D;
   border-radius: 50%;
   box-shadow: 3px 3px 0 rgba(42, 36, 32, 0.18);
   /* Chinese-style stamp mark */
   background-image:
-    linear-gradient(45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%),
-    linear-gradient(-45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%);
+    linear-gradient(45deg, transparent 45%, #0C0C0D 45%, #0C0C0D 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, #0C0C0D 45%, #0C0C0D 55%, transparent 55%);
   background-size: 18px 18px;
   background-position: center;
   background-repeat: no-repeat;
@@ -475,24 +513,24 @@ body > * {
 .parrit-os-signup-btn {
   padding: 6px 14px;
   background: var(--parrit-red);
-  border: 2px solid #2A2420;
+  border: 2px solid #0C0C0D;
   border-radius: 6px;
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: #FFFCF5;
+  color: #FFFFFF;
   cursor: pointer;
-  box-shadow: 2px 2px 0 #2A2420;
+  box-shadow: 2px 2px 0 #0C0C0D;
   transition: transform 0.08s, box-shadow 0.08s;
 }
 .parrit-os-signup-btn:hover {
   transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0 #2A2420;
+  box-shadow: 3px 3px 0 #0C0C0D;
 }
 .parrit-os-signup-btn:active {
   transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0 #2A2420;
+  box-shadow: 1px 1px 0 #0C0C0D;
 }
 
 /* ── Hero CTA row ─────────────────── */
@@ -505,12 +543,12 @@ body > * {
 .parrit-os-cta-secondary {
   padding: 12px 18px;
   background: transparent;
-  border: 2px solid #2A2420;
+  border: 2px solid #0C0C0D;
   border-radius: 10px;
   font-family: var(--font-body);
   font-size: 13.5px;
   font-weight: 600;
-  color: #2A2420;
+  color: #0C0C0D;
   cursor: pointer;
   transition: background 0.12s, transform 0.08s;
 }
@@ -522,7 +560,7 @@ body > * {
 /* ── Stamps as buttons + chip overlay ─────────────────── */
 .parrit-os-stamp-button {
   appearance: none;
-  background: #FFFCF5;
+  background: #FFFFFF;
   cursor: pointer;
   font: inherit;
   color: inherit;
@@ -555,11 +593,11 @@ body > * {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #2A2420;
-  background: var(--stamp-accent, #c8956c);
-  border: 1.5px solid #2A2420;
+  color: #0C0C0D;
+  background: var(--stamp-accent, #0C0C0D);
+  border: 1.5px solid #0C0C0D;
   border-radius: 3px;
-  box-shadow: 1.5px 1.5px 0 #2A2420;
+  box-shadow: 1.5px 1.5px 0 #0C0C0D;
 }
 .parrit-os-stamp-typology {
   font-family: var(--font-body);
@@ -567,25 +605,25 @@ body > * {
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--stamp-accent, #2A2420);
+  color: var(--stamp-accent, #0C0C0D);
   margin-bottom: 2px;
 }
 .parrit-os-stamp-teaser {
   font-family: var(--font-heading);
   font-size: 13px;
-  font-style: italic;
+  font-style: normal;
   font-weight: 500;
-  color: #2A2420;
+  color: #0C0C0D;
   line-height: 1.3;
   margin-bottom: 3px;
 }
 .parrit-os-stamps-hint {
   font-family: var(--font-body);
   font-size: 11.5px;
-  color: #8A7E70;
+  color: #8A8A8F;
   text-align: center;
   margin: -8px 0 18px;
-  font-style: italic;
+  font-style: normal;
 }
 
 /* Fix CTA row overlap — let secondary CTA wrap with proper spacing */
@@ -642,11 +680,11 @@ body > * {
 }
 
 /* ── Formation stamp readability — dark accent needs explicit override ─── */
-.parrit-os-stamp-button[style*="#2A2420"] .parrit-os-stamp-typology {
-  color: #c8956c;
+.parrit-os-stamp-button[style*="#0C0C0D"] .parrit-os-stamp-typology {
+  color: #0C0C0D;
 }
-.parrit-os-stamp-button[style*="#2A2420"] .parrit-os-stamp-chip {
-  color: #FFFCF5;
+.parrit-os-stamp-button[style*="#0C0C0D"] .parrit-os-stamp-chip {
+  color: #FFFFFF;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -667,26 +705,26 @@ body > * {
 }
 .parrit-os-offer-card {
   appearance: none;
-  background: #FFFCF5;
-  border: 2px solid #2A2420;
+  background: #FFFFFF;
+  border: 2px solid #0C0C0D;
   border-radius: 14px;
   padding: 22px 20px 18px;
   text-align: left;
   cursor: pointer;
   font: inherit;
-  color: #2A2420;
+  color: #0C0C0D;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  box-shadow: 4px 4px 0 var(--card-accent, #2A2420);
+  box-shadow: 4px 4px 0 var(--card-accent, #0C0C0D);
   transition: transform 0.15s, box-shadow 0.15s;
   position: relative;
 }
 .parrit-os-offer-card:hover {
-  box-shadow: 6px 6px 0 var(--card-accent, #2A2420);
+  box-shadow: 6px 6px 0 var(--card-accent, #0C0C0D);
 }
 .parrit-os-offer-card:active {
-  box-shadow: 2px 2px 0 var(--card-accent, #2A2420);
+  box-shadow: 2px 2px 0 var(--card-accent, #0C0C0D);
 }
 .parrit-os-offer-card-icon {
   width: 64px;
@@ -704,9 +742,9 @@ body > * {
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  border: 1.5px solid #2A2420;
+  border: 1.5px solid #0C0C0D;
   border-radius: 4px;
-  box-shadow: 2px 2px 0 #2A2420;
+  box-shadow: 2px 2px 0 #0C0C0D;
 }
 .parrit-os-offer-card-title {
   font-family: var(--font-heading);
@@ -714,27 +752,27 @@ body > * {
   font-weight: 500;
   line-height: 1.15;
   letter-spacing: -0.01em;
-  color: #2A2420;
+  color: #0C0C0D;
   margin: 0;
 }
 .parrit-os-offer-card-teaser {
   font-family: var(--font-heading);
   font-size: 16px;
-  font-style: italic;
+  font-style: normal;
   line-height: 1.35;
-  color: #5A5047;
+  color: #4A4A4E;
   margin: 0;
   flex: 1;
 }
 .parrit-os-offer-card-cta {
   margin-top: 4px;
   padding-top: 12px;
-  border-top: 1.5px dashed #2A24201A;
+  border-top: 1.5px dashed #0C0C0D1A;
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.06em;
-  color: var(--card-accent, #c8956c);
+  color: var(--card-accent, #0C0C0D);
   text-transform: uppercase;
 }
 
@@ -760,9 +798,9 @@ body > * {
 .parrit-os-heritage-sub {
   font-family: var(--font-body);
   font-size: 13px;
-  color: #8A7E70;
+  color: #8A8A8F;
   margin: 0 0 22px;
-  font-style: italic;
+  font-style: normal;
   max-width: 580px;
   margin-left: auto;
   margin-right: auto;
@@ -789,7 +827,7 @@ body > * {
   height: 84px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid #2A2420;
+  border: 2px solid #0C0C0D;
 }
 .parrit-os-heritage-meta {
   display: flex;
@@ -802,12 +840,12 @@ body > * {
   font-size: 11px;
   font-weight: 600;
   line-height: 1.25;
-  color: #2A2420;
+  color: #0C0C0D;
 }
 .parrit-os-heritage-card-artist {
   font-family: var(--font-body);
   font-size: 10px;
-  color: #5A5047;
+  color: #4A4A4E;
 }
 .parrit-os-heritage-card-origin {
   font-family: var(--font-body);
@@ -837,23 +875,23 @@ body > * {
   flex-direction: column;
   gap: 10px;
   padding: 22px 20px 18px;
-  background: #FFFCF5;
-  border: 2px solid #2A2420;
+  background: #FFFFFF;
+  border: 2px solid #0C0C0D;
   border-radius: 14px;
-  box-shadow: 4px 4px 0 var(--card-accent, #2A2420);
+  box-shadow: 4px 4px 0 var(--card-accent, #0C0C0D);
   text-decoration: none;
-  color: #2A2420;
+  color: #0C0C0D;
   text-align: left;
   transition: transform 0.15s, box-shadow 0.15s;
   width: 100%;
 }
 .parrit-os-blog-card:hover {
   transform: translate(-1px, -1px);
-  box-shadow: 6px 6px 0 var(--card-accent, #2A2420);
+  box-shadow: 6px 6px 0 var(--card-accent, #0C0C0D);
 }
 .parrit-os-blog-card:active {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--card-accent, #2A2420);
+  box-shadow: 2px 2px 0 var(--card-accent, #0C0C0D);
 }
 .parrit-os-blog-card-chip {
   display: inline-block;
@@ -864,9 +902,9 @@ body > * {
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  border: 1.5px solid #2A2420;
+  border: 1.5px solid #0C0C0D;
   border-radius: 4px;
-  box-shadow: 2px 2px 0 #2A2420;
+  box-shadow: 2px 2px 0 #0C0C0D;
 }
 .parrit-os-blog-card-title {
   font-family: var(--font-heading);
@@ -874,14 +912,14 @@ body > * {
   font-weight: 500;
   line-height: 1.18;
   letter-spacing: -0.01em;
-  color: #2A2420;
+  color: #0C0C0D;
   margin: 0;
 }
 .parrit-os-blog-card-desc {
   font-family: var(--font-body);
   font-size: 13.5px;
   line-height: 1.5;
-  color: #5A5047;
+  color: #4A4A4E;
   margin: 0;
   flex: 1;
   display: -webkit-box;
@@ -894,10 +932,10 @@ body > * {
   justify-content: space-between;
   font-family: var(--font-body);
   font-size: 11px;
-  color: #8A7E70;
+  color: #8A8A8F;
   letter-spacing: 0.04em;
   padding-top: 8px;
-  border-top: 1px dashed #2A24201A;
+  border-top: 1px dashed #0C0C0D1A;
 }
 .parrit-os-blog-card-cta {
   font-family: var(--font-body);
@@ -938,7 +976,7 @@ body > * {
   .parrit-os-cta {
     width: 100%;
     text-align: center;
-    box-shadow: 4px 4px 0 #2A2420;
+    box-shadow: 4px 4px 0 #0C0C0D;
   }
   .parrit-os-cta-secondary {
     width: 100%;
@@ -1112,8 +1150,8 @@ body > * {
   align-items: center !important;
   justify-content: space-between !important;
   gap: 12px;
-  background: #EADFC4 !important;
-  border-bottom: 2px solid #2A2420 !important;
+  background: #F2F0EA !important;
+  border-bottom: 2px solid #0C0C0D !important;
   backdrop-filter: none !important;
   height: 56px !important;
   padding: 0 18px !important;
@@ -1123,7 +1161,7 @@ body > * {
   font-family: var(--font-heading);
   font-size: 18px;
   font-weight: 500;
-  color: #2A2420;
+  color: #0C0C0D;
   letter-spacing: -0.01em;
 }
 .blog-nav .blog-nav-link {
@@ -1131,20 +1169,20 @@ body > * {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.14em;
-  color: #2A2420;
+  color: #0C0C0D;
   padding: 6px 14px;
-  border: 2px solid #2A2420;
+  border: 2px solid #0C0C0D;
   border-radius: 6px;
   background: var(--parrit-red);
-  color: #FFFCF5;
+  color: #FFFFFF;
   text-decoration: none;
-  box-shadow: 2px 2px 0 #2A2420;
+  box-shadow: 2px 2px 0 #0C0C0D;
   text-transform: uppercase;
 }
 .blog-nav .blog-nav-link:hover {
-  color: #FFFCF5;
+  color: #FFFFFF;
   transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0 #2A2420;
+  box-shadow: 3px 3px 0 #0C0C0D;
 }
 
 /* Blog header — new look */
@@ -1168,14 +1206,14 @@ body > * {
   font-size: clamp(32px, 6vw, 52px) !important;
   letter-spacing: -0.02em !important;
   margin-bottom: 16px !important;
-  color: #2A2420 !important;
+  color: #0C0C0D !important;
 }
 .blog-header-subtitle {
   font-family: var(--font-body) !important;
   font-size: 15px !important;
   font-weight: 400 !important;
   line-height: 1.6 !important;
-  color: #5A5047 !important;
+  color: #4A4A4E !important;
   max-width: 560px;
   margin: 0 auto;
 }
@@ -1194,35 +1232,35 @@ body > * {
   display: flex !important;
   flex-direction: column;
   text-decoration: none !important;
-  background: #FFFCF5 !important;
-  border: 2px solid #2A2420 !important;
+  background: #FFFFFF !important;
+  border: 2px solid #0C0C0D !important;
   border-radius: 14px !important;
   padding: 22px 22px 18px !important;
   box-shadow: 4px 4px 0 var(--parrit-red) !important;
   transition: transform 0.15s, box-shadow 0.15s;
   animation: none !important;
-  border-top: 2px solid #2A2420 !important;
-  border-bottom: 2px solid #2A2420 !important;
+  border-top: 2px solid #0C0C0D !important;
+  border-bottom: 2px solid #0C0C0D !important;
   height: 100%;
 }
 .blog-card:first-child {
-  border-top: 2px solid #2A2420 !important;
+  border-top: 2px solid #0C0C0D !important;
 }
 .blog-card:hover {
   transform: translate(-1px, -1px);
   box-shadow: 6px 6px 0 var(--parrit-red) !important;
 }
 .blog-card:hover .blog-card-title {
-  color: #2A2420 !important;
+  color: #0C0C0D !important;
 }
 .blog-card-category {
   display: inline-block;
   padding: 4px 10px;
   background: var(--parrit-red);
-  color: #FFFCF5;
-  border: 1.5px solid #2A2420;
+  color: #FFFFFF;
+  border: 1.5px solid #0C0C0D;
   border-radius: 4px;
-  box-shadow: 2px 2px 0 #2A2420;
+  box-shadow: 2px 2px 0 #0C0C0D;
   font-size: 10px !important;
   letter-spacing: 0.16em !important;
   font-weight: 700 !important;
@@ -1236,19 +1274,19 @@ body > * {
   gap: 10px !important;
 }
 .blog-card-dot {
-  color: #2A24201A !important;
+  color: #0C0C0D1A !important;
 }
 .blog-card-date,
 .blog-card-reading {
   font-size: 11.5px !important;
   font-weight: 600 !important;
-  color: #8A7E70 !important;
+  color: #8A8A8F !important;
   letter-spacing: 0.04em !important;
 }
 .blog-card-title {
   font-size: clamp(19px, 2.5vw, 24px) !important;
   font-weight: 500 !important;
-  color: #2A2420 !important;
+  color: #0C0C0D !important;
   line-height: 1.2 !important;
   margin-bottom: 10px !important;
 }
@@ -1256,13 +1294,13 @@ body > * {
   font-size: 13.5px !important;
   font-weight: 400 !important;
   line-height: 1.55 !important;
-  color: #5A5047 !important;
+  color: #4A4A4E !important;
   flex: 1;
 }
 .blog-card-read {
   margin-top: 12px !important;
   padding-top: 10px;
-  border-top: 1px dashed #2A24201A;
+  border-top: 1px dashed #0C0C0D1A;
   font-size: 12px !important;
   font-weight: 700 !important;
   color: var(--parrit-red) !important;
@@ -1296,7 +1334,7 @@ body > * {
 }
 .blog-back:hover {
   background: var(--parrit-red);
-  color: #FFFCF5 !important;
+  color: #FFFFFF !important;
 }
 .blog-article-title {
   font-family: var(--font-heading) !important;
@@ -1304,35 +1342,35 @@ body > * {
   font-size: clamp(28px, 5vw, 44px) !important;
   letter-spacing: -0.02em !important;
   line-height: 1.15 !important;
-  color: #2A2420 !important;
+  color: #0C0C0D !important;
 }
 .blog-article-author {
   font-family: var(--font-body) !important;
   font-size: 13px !important;
   font-weight: 600 !important;
-  color: #2A2420 !important;
+  color: #0C0C0D !important;
 }
 .blog-article-body {
   font-size: 16px !important;
   font-weight: 400 !important;
   line-height: 1.75 !important;
-  color: #2A2420 !important;
+  color: #0C0C0D !important;
 }
 .blog-article-body h2 {
   font-family: var(--font-heading) !important;
   font-weight: 500 !important;
   font-size: clamp(22px, 3vw, 28px) !important;
-  color: #2A2420 !important;
+  color: #0C0C0D !important;
   margin: 36px 0 14px !important;
   line-height: 1.25 !important;
 }
 .blog-article-body p {
   margin: 0 0 18px !important;
-  color: #2A2420 !important;
+  color: #0C0C0D !important;
 }
 .blog-article-body p:first-child {
   font-size: 17.5px !important;
-  color: #2A2420 !important;
+  color: #0C0C0D !important;
   font-weight: 500;
 }
 .blog-article-body a {
@@ -1343,14 +1381,14 @@ body > * {
 }
 .blog-article-body blockquote {
   border-left: 4px solid var(--parrit-red) !important;
-  background: #FFFCF5;
+  background: #FFFFFF;
   border-radius: 0 8px 8px 0;
   margin: 28px 0 !important;
   padding: 14px 22px !important;
   font-family: var(--font-heading);
-  font-style: italic;
+  font-style: normal;
   font-size: 17px;
-  color: #2A2420 !important;
+  color: #0C0C0D !important;
 }
 
 /* Author page bio — shares the article body aesthetic, adds list styling */
@@ -1364,17 +1402,17 @@ body > * {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.75;
-  color: #2A2420;
+  color: #0C0C0D;
 }
 .blog-article-content p {
   margin: 0 0 18px;
-  color: #2A2420;
+  color: #0C0C0D;
 }
 .blog-article-content h2 {
   font-family: var(--font-heading);
   font-weight: 500;
   font-size: clamp(20px, 2.6vw, 26px);
-  color: #2A2420;
+  color: #0C0C0D;
   margin: 34px 0 12px;
   line-height: 1.25;
 }
@@ -1385,7 +1423,7 @@ body > * {
 }
 .blog-article-content li {
   margin: 0 0 8px;
-  color: #2A2420;
+  color: #0C0C0D;
 }
 .blog-article-content a {
   color: var(--parrit-red);
@@ -1397,12 +1435,12 @@ body > * {
   display: inline-block;
   margin-top: 8px;
   text-decoration: none;
-  color: #FFFCF5 !important;
+  color: #FFFFFF !important;
 }
 
 /* Blog footer — match home aesthetic */
 .blog-footer {
-  background: #2A2420 !important;
+  background: #0C0C0D !important;
   padding: 56px 20px 36px !important;
   text-align: center !important;
 }
@@ -1416,18 +1454,18 @@ body > * {
   font-family: var(--font-heading) !important;
   font-weight: 500 !important;
   font-size: clamp(22px, 4vw, 32px) !important;
-  color: #FFFCF5 !important;
+  color: #FFFFFF !important;
   max-width: 560px;
   margin: 0 auto 24px !important;
   line-height: 1.25 !important;
 }
 .blog-footer-cta {
   background: var(--parrit-red) !important;
-  color: #FFFCF5 !important;
-  border: 2px solid #FFFCF5;
+  color: #FFFFFF !important;
+  border: 2px solid #FFFFFF;
   border-radius: 10px !important;
   padding: 12px 28px !important;
-  box-shadow: 4px 4px 0 #FFFCF5;
+  box-shadow: 4px 4px 0 #FFFFFF;
   font-weight: 700 !important;
   letter-spacing: 0.04em !important;
 }
@@ -1488,7 +1526,7 @@ body > * {
 .blog-related {
   margin-top: 56px;
   padding-top: 36px;
-  border-top: 2px dashed #2A2420;
+  border-top: 2px dashed #0C0C0D;
 }
 .blog-related-title {
   font-family: var(--font-body);
@@ -1509,17 +1547,17 @@ body > * {
   flex-direction: column;
   gap: 8px;
   padding: 16px 18px;
-  background: #FFFCF5;
-  border: 2px solid #2A2420;
+  background: #FFFFFF;
+  border: 2px solid #0C0C0D;
   border-radius: 10px;
-  box-shadow: 3px 3px 0 #c8956c;
+  box-shadow: 3px 3px 0 #0C0C0D;
   text-decoration: none;
-  color: #2A2420;
+  color: #0C0C0D;
   transition: transform 0.12s, box-shadow 0.12s;
 }
 .blog-related-card:hover {
   transform: translate(-1px, -1px);
-  box-shadow: 5px 5px 0 #c8956c;
+  box-shadow: 5px 5px 0 #0C0C0D;
 }
 .blog-related-category {
   font-family: var(--font-body);
@@ -1534,14 +1572,14 @@ body > * {
   font-size: 17px;
   font-weight: 500;
   line-height: 1.25;
-  color: #2A2420;
+  color: #0C0C0D;
   margin: 0;
   letter-spacing: -0.01em;
 }
 .blog-related-card-meta {
   font-family: var(--font-body);
   font-size: 11px;
-  color: #8A7E70;
+  color: #8A8A8F;
   margin-top: auto;
 }
 @media (max-width: 600px) {
@@ -1557,8 +1595,8 @@ body > * {
   padding: 36px 20px 60px;
 }
 .landing-v4-hero {
-  background: #FFFCF5;
-  border: 2px solid #2A2420;
+  background: #FFFFFF;
+  border: 2px solid #0C0C0D;
   border-radius: 16px;
   padding: 40px 32px;
   margin-bottom: 32px;
@@ -1575,11 +1613,11 @@ body > * {
   width: 36px;
   height: 36px;
   background: var(--parrit-red);
-  border: 2px solid #2A2420;
+  border: 2px solid #0C0C0D;
   border-radius: 50%;
   background-image:
-    linear-gradient(45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%),
-    linear-gradient(-45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%);
+    linear-gradient(45deg, transparent 45%, #0C0C0D 45%, #0C0C0D 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, #0C0C0D 45%, #0C0C0D 55%, transparent 55%);
   background-size: 16px 16px;
   background-position: center;
   background-repeat: no-repeat;
@@ -1591,13 +1629,13 @@ body > * {
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 14px 0 16px;
-  color: #2A2420;
+  color: #0C0C0D;
 }
 .landing-v4-sub {
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
-  color: #5A5047;
+  color: #4A4A4E;
   margin: 0 0 26px;
   max-width: 620px;
 }
@@ -1611,7 +1649,7 @@ body > * {
   font-size: clamp(26px, 4vw, 36px);
   font-weight: 500;
   letter-spacing: -0.01em;
-  color: #2A2420;
+  color: #0C0C0D;
   margin: 0 0 22px;
 }
 .landing-v4-grid {
@@ -1621,23 +1659,23 @@ body > * {
 }
 .landing-v4-card {
   padding: 18px 20px;
-  background: #FFFCF5;
-  border: 2px solid #2A2420;
+  background: #FFFFFF;
+  border: 2px solid #0C0C0D;
   border-radius: 12px;
-  box-shadow: 4px 4px 0 var(--card-accent, #2A2420);
+  box-shadow: 4px 4px 0 var(--card-accent, #0C0C0D);
 }
 .landing-v4-card-title {
   font-family: var(--font-heading);
   font-size: 19px;
   font-weight: 500;
-  color: #2A2420;
+  color: #0C0C0D;
   margin: 0 0 8px;
 }
 .landing-v4-card-desc {
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.55;
-  color: #5A5047;
+  color: #4A4A4E;
   margin: 0;
 }
 
@@ -1650,10 +1688,10 @@ body > * {
   display: flex;
   gap: 18px;
   padding: 16px 20px;
-  background: #FFFCF5;
-  border: 2px solid #2A2420;
+  background: #FFFFFF;
+  border: 2px solid #0C0C0D;
   border-radius: 12px;
-  box-shadow: 4px 4px 0 var(--card-accent, #2A2420);
+  box-shadow: 4px 4px 0 var(--card-accent, #0C0C0D);
   align-items: flex-start;
 }
 .landing-v4-step-num {
@@ -1669,13 +1707,13 @@ body > * {
   font-size: 20px;
   font-weight: 500;
   margin: 0 0 4px;
-  color: #2A2420;
+  color: #0C0C0D;
 }
 .landing-v4-step-desc {
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.55;
-  color: #5A5047;
+  color: #4A4A4E;
   margin: 0;
 }
 
@@ -1688,14 +1726,14 @@ body > * {
   gap: 10px;
 }
 .landing-v4-deliverables li {
-  background: #FFFCF5;
-  border: 1.5px solid #2A2420;
+  background: #FFFFFF;
+  border: 1.5px solid #0C0C0D;
   border-radius: 10px;
   padding: 12px 16px;
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.5;
-  color: #2A2420;
+  color: #0C0C0D;
   display: flex;
   align-items: flex-start;
   gap: 10px;
@@ -1704,7 +1742,7 @@ body > * {
   width: 12px;
   height: 12px;
   background: var(--parrit-red);
-  border: 1.5px solid #2A2420;
+  border: 1.5px solid #0C0C0D;
   border-radius: 2px;
   flex-shrink: 0;
   margin-top: 4px;
@@ -1716,8 +1754,8 @@ body > * {
   gap: 8px;
 }
 .landing-v4-faq-item {
-  background: #FFFCF5;
-  border: 1.5px solid #2A2420;
+  background: #FFFFFF;
+  border: 1.5px solid #0C0C0D;
   border-left: 4px solid var(--card-accent, var(--parrit-red));
   border-radius: 10px;
   padding: 0;
@@ -1728,7 +1766,7 @@ body > * {
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 600;
-  color: #2A2420;
+  color: #0C0C0D;
   cursor: pointer;
   list-style: none;
 }
@@ -1746,23 +1784,23 @@ body > * {
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.6;
-  color: #5A5047;
+  color: #4A4A4E;
   margin: 0;
 }
 
 .landing-v4-cta {
   margin: 48px 0 12px;
   padding: 36px 28px;
-  background: #2A2420;
+  background: #0C0C0D;
   border-radius: 16px;
   text-align: center;
-  color: #FFFCF5;
+  color: #FFFFFF;
 }
 .landing-v4-cta-title {
   font-family: var(--font-heading);
   font-size: clamp(26px, 4vw, 36px);
   font-weight: 500;
-  color: #FFFCF5;
+  color: #FFFFFF;
   margin: 0 0 12px;
 }
 .landing-v4-cta-sub {
@@ -1791,15 +1829,15 @@ body > * {
   right: -2px;
   padding: 2px 8px;
   background: var(--parrit-red);
-  color: #FFFCF5;
-  border: 1.5px solid #2A2420;
+  color: #FFFFFF;
+  border: 1.5px solid #0C0C0D;
   border-radius: 4px;
   font-family: var(--font-body);
   font-size: 8.5px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  box-shadow: 1.5px 1.5px 0 #2A2420;
+  box-shadow: 1.5px 1.5px 0 #0C0C0D;
   z-index: 2;
   white-space: nowrap;
 }
@@ -1811,7 +1849,7 @@ body > * {
   display: inline-block;
   padding: 2px 8px;
   background: var(--parrit-red);
-  color: #FFFCF5;
+  color: #FFFFFF;
   border-radius: 4px;
   font-family: var(--font-body);
   font-size: 9px;
@@ -2032,19 +2070,55 @@ img, svg, video { max-width: 100%; height: auto; }
   margin: 0 auto 16px;
   max-width: 1180px;
 }
+/* Deux fronts (back-office / business) — étiquettes mono */
+.parrit-os-chain-front {
+  max-width: 1180px;
+  margin: 0 auto 20px;
+}
+.parrit-os-chain-front .parrit-os-chain-row { margin-bottom: 0; }
+.parrit-os-chain-front-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--font-mono);
+  margin: 0 0 12px;
+}
+.parrit-os-front-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 6px;
+}
+.parrit-os-front-backoffice .parrit-os-front-tag {
+  color: #0C0C0D;
+  background: rgba(12, 12, 13, 0.06);
+  border: 1px solid rgba(12, 12, 13, 0.18);
+}
+.parrit-os-front-business .parrit-os-front-tag {
+  color: var(--parrit-red);
+  background: rgba(209, 19, 47, 0.07);
+  border: 1px solid rgba(209, 19, 47, 0.20);
+}
+.parrit-os-front-desc {
+  font-size: 11.5px;
+  color: #8A8A8F;
+  letter-spacing: 0.02em;
+}
 .parrit-os-chain-step {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 7px 13px;
-  background: #FFFCF5;
-  border: 1.5px solid #2A2420;
+  background: #FFFFFF;
+  border: 1.5px solid #0C0C0D;
   border-radius: 999px;
-  box-shadow: 2px 2px 0 var(--step-color, #2A2420);
+  box-shadow: 2px 2px 0 var(--step-color, #0C0C0D);
   font-family: var(--font-body);
   font-size: 12.5px;
   font-weight: 600;
-  color: #2A2420;
+  color: #0C0C0D;
   white-space: nowrap;
 }
 .parrit-os-chain-dot {
@@ -2052,7 +2126,7 @@ img, svg, video { max-width: 100%; height: auto; }
   height: 8px;
   border-radius: 50%;
   background: var(--step-color, var(--parrit-red));
-  border: 1.5px solid #2A2420;
+  border: 1.5px solid #0C0C0D;
 }
 .parrit-os-chain-label {
   letter-spacing: 0.01em;
@@ -2061,15 +2135,15 @@ img, svg, video { max-width: 100%; height: auto; }
   font-family: var(--font-heading);
   font-size: 18px;
   font-weight: 500;
-  color: #8A7E70;
+  color: #8A8A8F;
   padding: 0 2px;
   user-select: none;
 }
 .parrit-os-chain-sub {
   font-family: var(--font-heading);
   font-size: 15px;
-  font-style: italic;
-  color: #5A5047;
+  font-style: normal;
+  color: #4A4A4E;
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.5;
@@ -2098,8 +2172,8 @@ img, svg, video { max-width: 100%; height: auto; }
 .founders { max-width: 980px; margin: 0 auto; padding: 44px 20px 72px; }
 
 .founders-hero {
-  background: #FFFCF5;
-  border: 2px solid #2A2420;
+  background: #FFFFFF;
+  border: 2px solid #0C0C0D;
   border-radius: 16px;
   padding: clamp(28px, 4vw, 48px) clamp(22px, 3vw, 40px);
   box-shadow: 6px 6px 0 rgba(42, 36, 32, 0.16);
@@ -2112,11 +2186,11 @@ img, svg, video { max-width: 100%; height: auto; }
   top: 18px; right: 18px;
   width: 38px; height: 38px;
   background: var(--parrit-red);
-  border: 2px solid #2A2420;
+  border: 2px solid #0C0C0D;
   border-radius: 50%;
   background-image:
-    linear-gradient(45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%),
-    linear-gradient(-45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%);
+    linear-gradient(45deg, transparent 45%, #0C0C0D 45%, #0C0C0D 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, #0C0C0D 45%, #0C0C0D 55%, transparent 55%);
   background-size: 16px 16px;
   background-position: center;
   background-repeat: no-repeat;
@@ -2132,13 +2206,13 @@ img, svg, video { max-width: 100%; height: auto; }
   font-family: var(--font-heading);
   font-size: clamp(38px, 7vw, 64px);
   font-weight: 500; line-height: 1.02; letter-spacing: -0.02em;
-  color: #2A2420; margin: 0 0 18px;
+  color: #0C0C0D; margin: 0 0 18px;
 }
-.founders-title .it { font-style: italic; color: var(--accent); display: block; }
+.founders-title .it { font-style: normal; color: var(--accent); display: block; }
 .founders-lede {
   font-family: var(--font-body);
   font-size: clamp(15px, 2vw, 17px); line-height: 1.65;
-  color: #5A5047; max-width: 680px; margin: 0;
+  color: #4A4A4E; max-width: 680px; margin: 0;
 }
 
 .founders-person {
@@ -2157,20 +2231,20 @@ img, svg, video { max-width: 100%; height: auto; }
 
 .founders-stamp {
   width: 230px;
-  background: #FFFCF5;
-  border: 2px solid #2A2420;
+  background: #FFFFFF;
+  border: 2px solid #0C0C0D;
   border-radius: 8px;
   padding: 10px;
   box-shadow: 6px 6px 0 rgba(42, 36, 32, 0.2);
   background-image:
-    radial-gradient(circle at 8px 8px, transparent 3.5px, #FFFCF5 4px),
-    radial-gradient(circle at calc(100% - 8px) 8px, transparent 3.5px, #FFFCF5 4px),
-    radial-gradient(circle at 8px calc(100% - 8px), transparent 3.5px, #FFFCF5 4px),
-    radial-gradient(circle at calc(100% - 8px) calc(100% - 8px), transparent 3.5px, #FFFCF5 4px);
+    radial-gradient(circle at 8px 8px, transparent 3.5px, #FFFFFF 4px),
+    radial-gradient(circle at calc(100% - 8px) 8px, transparent 3.5px, #FFFFFF 4px),
+    radial-gradient(circle at 8px calc(100% - 8px), transparent 3.5px, #FFFFFF 4px),
+    radial-gradient(circle at calc(100% - 8px) calc(100% - 8px), transparent 3.5px, #FFFFFF 4px);
 }
 .founders-stamp img {
   width: 100%; aspect-ratio: 1; object-fit: cover;
-  border: 1.5px solid #2A2420; border-radius: 5px; display: block;
+  border: 1.5px solid #0C0C0D; border-radius: 5px; display: block;
 }
 .founders-stamp-cap {
   margin-top: 10px; text-align: center;
@@ -2181,11 +2255,11 @@ img, svg, video { max-width: 100%; height: auto; }
   position: absolute; top: -12px; right: -12px;
   width: 40px; height: 40px;
   background: var(--parrit-red);
-  border: 2px solid #2A2420; border-radius: 50%;
+  border: 2px solid #0C0C0D; border-radius: 50%;
   box-shadow: 3px 3px 0 rgba(42, 36, 32, 0.18);
   background-image:
-    linear-gradient(45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%),
-    linear-gradient(-45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%);
+    linear-gradient(45deg, transparent 45%, #0C0C0D 45%, #0C0C0D 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, #0C0C0D 45%, #0C0C0D 55%, transparent 55%);
   background-size: 18px 18px; background-position: center; background-repeat: no-repeat;
 }
 
@@ -2194,39 +2268,39 @@ img, svg, video { max-width: 100%; height: auto; }
   letter-spacing: 0.16em; text-transform: uppercase; margin: 0 0 10px;
 }
 .founders-name {
-  font-family: var(--font-heading); font-style: italic;
+  font-family: var(--font-heading); font-style: normal;
   font-size: clamp(21px, 3vw, 27px); font-weight: 500;
-  color: #2A2420; line-height: 1.3; margin: 0 0 16px;
+  color: #0C0C0D; line-height: 1.3; margin: 0 0 16px;
 }
 .founders-p {
   font-family: var(--font-body); font-size: 15px; line-height: 1.72;
-  color: #2A2420; margin: 0 0 14px;
+  color: #0C0C0D; margin: 0 0 14px;
 }
 .founders-pull {
-  font-family: var(--font-heading); font-style: italic;
+  font-family: var(--font-heading); font-style: normal;
   font-size: clamp(18px, 2.4vw, 22px); line-height: 1.4;
-  color: #2A2420; margin: 18px 0 0; padding: 4px 0 4px 16px;
+  color: #0C0C0D; margin: 18px 0 0; padding: 4px 0 4px 16px;
   border-left: 3px solid var(--accent);
 }
 .founders-person.reverse .founders-pull { border-left-color: var(--parrit-red); }
 
 .founders-close {
   margin: 60px 0 0; padding: clamp(28px, 4vw, 44px) clamp(22px, 3vw, 36px);
-  background: #2A2420; border-radius: 16px; text-align: center;
+  background: #0C0C0D; border-radius: 16px; text-align: center;
 }
 .founders-close-title {
   font-family: var(--font-heading); font-size: clamp(26px, 4vw, 38px);
-  font-weight: 500; color: #FFFCF5; margin: 0 0 14px; line-height: 1.15;
+  font-weight: 500; color: #FFFFFF; margin: 0 0 14px; line-height: 1.15;
 }
 .founders-close-text {
   font-family: var(--font-body); font-size: 15px; line-height: 1.7;
   color: #C9BFB2; max-width: 700px; margin: 0 auto 26px;
 }
 .founders-close-cta {
-  display: inline-block; background: var(--parrit-red); color: #FFFCF5;
-  border: 2px solid #FFFCF5; border-radius: 10px; padding: 13px 28px;
+  display: inline-block; background: var(--parrit-red); color: #FFFFFF;
+  border: 2px solid #FFFFFF; border-radius: 10px; padding: 13px 28px;
   font-family: var(--font-body); font-size: 15px; font-weight: 700;
-  letter-spacing: 0.02em; text-decoration: none; box-shadow: 4px 4px 0 #FFFCF5;
+  letter-spacing: 0.02em; text-decoration: none; box-shadow: 4px 4px 0 #FFFFFF;
   transition: background 0.12s, transform 0.08s;
 }
 .founders-close-cta:hover { background: #b03e30; transform: translate(-1px, -1px); }
@@ -2239,32 +2313,32 @@ img, svg, video { max-width: 100%; height: auto; }
 .aca-mods { display: flex; flex-direction: column; gap: 10px; }
 .aca-mod {
   display: flex; gap: 16px; align-items: center;
-  padding: 15px 18px; background: #FFFCF5; border: 2px solid #2A2420;
+  padding: 15px 18px; background: #FFFFFF; border: 2px solid #0C0C0D;
   border-radius: 12px; box-shadow: 4px 4px 0 rgba(42,36,32,0.14);
 }
 .aca-mod-n {
   font-family: var(--font-heading); font-size: 28px; font-weight: 500;
-  font-style: italic; color: var(--parrit-red); line-height: 1; flex-shrink: 0; width: 2.4ch; text-align: center;
+  font-style: normal; color: var(--parrit-red); line-height: 1; flex-shrink: 0; width: 2.4ch; text-align: center;
 }
 .aca-mod-body { flex: 1; min-width: 0; }
-.aca-mod-title { font-family: var(--font-body); font-weight: 700; font-size: 15px; color: #2A2420; line-height: 1.25; }
-.aca-mod-hook { font-family: var(--font-heading); font-style: italic; font-size: 15px; color: #5A5047; margin-top: 3px; line-height: 1.3; }
+.aca-mod-title { font-family: var(--font-body); font-weight: 700; font-size: 15px; color: #0C0C0D; line-height: 1.25; }
+.aca-mod-hook { font-family: var(--font-heading); font-style: normal; font-size: 15px; color: #4A4A4E; margin-top: 3px; line-height: 1.3; }
 .aca-badge {
   flex-shrink: 0; align-self: flex-start; font-family: var(--font-body); font-size: 10px; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 10px; border: 1.5px solid #2A2420;
-  border-radius: 4px; box-shadow: 2px 2px 0 #2A2420; white-space: nowrap;
+  letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 10px; border: 1.5px solid #0C0C0D;
+  border-radius: 4px; box-shadow: 2px 2px 0 #0C0C0D; white-space: nowrap;
 }
-.aca-badge.free { background: var(--sage); color: #2A2420; }
-.aca-badge.paid { background: var(--parrit-red); color: #FFFCF5; }
+.aca-badge.free { background: var(--sage); color: #0C0C0D; }
+.aca-badge.paid { background: var(--parrit-red); color: #FFFFFF; }
 .aca-divider {
   display: flex; align-items: center; gap: 14px; margin: 8px 2px; font-family: var(--font-body);
   font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--parrit-red);
 }
 .aca-divider::before, .aca-divider::after { content: ""; flex: 1; height: 0; border-top: 1.5px dashed rgba(42,36,32,0.25); }
 .aca-ask {
-  margin-top: 14px; background: #2A2420; border-radius: 14px; padding: 24px 24px 22px; text-align: center;
+  margin-top: 14px; background: #0C0C0D; border-radius: 14px; padding: 24px 24px 22px; text-align: center;
 }
-.aca-ask-title { font-family: var(--font-heading); font-style: italic; font-size: clamp(20px,3vw,26px); color: #FFFCF5; margin: 0 0 8px; }
+.aca-ask-title { font-family: var(--font-heading); font-style: normal; font-size: clamp(20px,3vw,26px); color: #FFFFFF; margin: 0 0 8px; }
 .aca-ask-sub { font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: #C9BFB2; margin: 0 auto; max-width: 540px; }
 @media (max-width: 560px) {
   .aca-mod { gap: 12px; padding: 13px 14px; }
@@ -2280,7 +2354,7 @@ img, svg, video { max-width: 100%; height: auto; }
 }
 .parrit-os-world-title {
   font-family: var(--font-heading);
-  font-style: italic;
+  font-style: normal;
   font-weight: 600;
   font-size: clamp(26px, 4vw, 40px);
   color: #2a2420;

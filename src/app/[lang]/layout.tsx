@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "../globals.css";
 import AttributionInit from "@/components/AttributionInit";
 import {
@@ -10,17 +10,27 @@ import {
   type Locale,
 } from "./dictionaries";
 
-const heading = Cormorant_Garamond({
+// Serif Cormorant — relégué aux moments de marque (--font-serif).
+// Les titres marketing passent en sans (new-DA agence). Cf BRAND.md.
+const serif = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-heading",
+  weight: ["400", "500", "600"],
+  variable: "--font-serif",
   display: "swap",
 });
 
 const body = DM_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["300", "400", "500", "700"],
   variable: "--font-body",
+  display: "swap",
+});
+
+// Monospace — labels, chips, coordonnées (système typo agence, 06/2026)
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -238,7 +248,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body
-        className={`${body.variable} ${heading.variable} min-h-screen`}
+        className={`${body.variable} ${serif.variable} ${mono.variable} min-h-screen`}
         style={{ fontFamily: "var(--font-body)" }}
       >
         <AttributionInit />

@@ -28,8 +28,8 @@ const COPY = {
   fr: {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "On opère toute votre chaîne. Du signal d'achat au reporting du dirigeant.",
-    sub: "Trait d'union entre votre croissance et votre transformation IA. On intervient chronologiquement, de la première intention d'achat captée en ligne jusqu'aux KPIs consolidés du lundi matin. Et au-delà : innovation produit, marketing, optimisation des ventes — des leviers qui n'étaient pas accessibles avant.",
+    tagline: "On déploie l'IA dans votre entreprise. Et on l'opère avec vous.",
+    sub: "Sur le front qui fait tourner votre boîte comme sur celui qui la fait grandir. Des outils qui tournent en production, qu'on porte avec vous. Tout ce qu'on montre ici, on l'a déjà déployé.",
     cta: "Parler à Paul",
     ctaMicro: "Réponse sous 24h · sans engagement",
     leftDock: {
@@ -56,7 +56,7 @@ const COPY = {
         sub: "(Transformation administrative du quotidien)",
         pitch: "On automatise ce qui pèse sur vos équipes : paperasse, conformité, suivi RFP, reporting consolidé. Un outil propriétaire, livré et posé chez vous.",
         bullets: [
-          "Cadrage 45 min : on choisit un seul use case précis",
+          "Cadrage 45 min : on choisit un seul sujet précis",
           "Outil livré en 5 à 15 jours, code audité par notre agence partenaire",
           "Forme : interface web légère, agent silencieux dans votre stack, ou simple automation",
           "Mise en prod + formation de vos équipes inclus",
@@ -69,8 +69,8 @@ const COPY = {
           "Visibilité dans l'IA d'achat d'Amazon — mesure continue de ce que Rufus recommande, pour une marque de café internationale",
           "Agent WhatsApp de pilotage — le dirigeant interroge son CRM et pose ses rappels à la voix",
         ],
-        notfor: "Si vous voulez « tester l'IA » sans use case précis, ce n'est pas pour vous.",
-        accent: "#5FAF8E",
+        notfor: "Si vous voulez « tester l'IA » sans sujet précis, ce n'est pas pour vous.",
+        accent: "#0C0C0D",
         clusters: [
           {
             label: "Finance & Compliance",
@@ -106,7 +106,7 @@ const COPY = {
         chip: "Acquisition",
         title: "Génération de business",
         sub: "RDV qualifiés via signaux d'intention",
-        pitch: "On capte les signaux en ligne (podcasts, events, posts LinkedIn) au bon moment, et on déclenche une prise de contact ultra-personnalisée. Pas de blast Sales Nav.",
+        pitch: "On capte les signaux en ligne (podcasts, events, posts LinkedIn) au bon moment, et on déclenche une prise de contact personnalisée, ancrée sur ce que la personne vient de dire en public.",
         bullets: [
           "Identification cible + timing d'achat (levée, recrutement, prise de parole)",
           "Capture auto 7j/7 des signaux → enrichissement contacts (Hunter, Enrow)",
@@ -119,7 +119,7 @@ const COPY = {
           "Parrit pour son propre compte — deals en cours avec marques internationales",
         ],
         notfor: "Ticket moyen faible ou logique volume ? Pas pour vous.",
-        accent: "#c8956c",
+        accent: "#0C0C0D",
         clusters: [
           {
             label: "Growth & Acquisition",
@@ -158,7 +158,7 @@ const COPY = {
         pitch: "Vous avez identifié un sujet pénible dans la boîte. On le transforme en outil qui marche, livré en quelques jours. Audit code par agence partenaire avant livraison.",
         bullets: [
           "Un sujet, défini, mesurable — pas un programme",
-          "Stack Claude Code = 10× plus vite que les méthodes classiques",
+          "Claude Code : on livre en jours ce qui prenait des semaines",
           "Trois familles : back-office pénible / business / agent qui reproduit un humain",
           "Documentation technique + formation à la livraison",
         ],
@@ -168,7 +168,7 @@ const COPY = {
           "Bot supervision veille cabinet d'avocats — filtre humain en amont",
         ],
         notfor: "Vous cherchez un consultant qui produit un audit ou un deck ? Pas pour vous.",
-        accent: "#C44536",
+        accent: "#D1132F",
         clusters: [
           {
             label: "Engineering",
@@ -217,7 +217,7 @@ const COPY = {
           "Dirigeant pharma en transition — pack hands-on autonomie Claude Code (B2C)",
         ],
         notfor: "Qualiopi finalisée juin 2026. D'ici là, financement OPCO non garanti.",
-        accent: "#7C5BA1",
+        accent: "#0C0C0D",
         clusters: [
           {
             label: "Formats",
@@ -266,7 +266,7 @@ const COPY = {
           "Parrit pour son propre compte — tout notre OS interne tourne sur Claude Code",
         ],
         notfor: "Vous cherchez une licence ou un outil sur étagère sans accompagnement ? Ce n'est pas pour vous.",
-        accent: "#2A2420",
+        accent: "#0C0C0D",
         clusters: [
           {
             label: "Formats",
@@ -349,7 +349,7 @@ const COPY = {
       },
       paul: {
         title: "Paul Larmaraud",
-        role: "Fondateur · Couteau suisse 0 → 1",
+        role: "AI Manager · Fondateur",
         lines: [
           "Paul Larmaraud",
           "Fondateur Parrit.ai",
@@ -371,7 +371,7 @@ const COPY = {
       },
       yukun: {
         title: "Yukun Leng",
-        role: "Co-fondatrice · Mise en production",
+        role: "AI Manager · Co-fondatrice",
         lines: [
           "Yukun Leng — 冷宇坤",
           "Co-fondatrice Parrit.ai",
@@ -419,8 +419,8 @@ const COPY = {
   en: {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "We operate your entire chain. From buying signal to executive reporting.",
-    sub: "The bridge between your growth and your AI transformation. We intervene chronologically, from the first buying intent captured online to the Monday-morning consolidated KPIs. And beyond: product innovation, marketing, sales optimization — levers that weren't accessible before.",
+    tagline: "We deploy AI inside your company. And we run it with you.",
+    sub: "On the front that keeps your company running and the one that makes it grow. Tools that run in production, that we carry with you. Everything we show here, we've already deployed.",
     cta: "Talk to Paul",
     ctaMicro: "Reply within 24h · no commitment",
     leftDock: {
@@ -446,7 +446,7 @@ const COPY = {
         sub: "(Day-to-day admin transformation)",
         pitch: "We automate what weighs on your teams: paperwork, compliance, RFP tracking, consolidated reporting. A proprietary tool, delivered and deployed at your site.",
         bullets: [
-          "45-min scoping call: we pick one precise use case",
+          "45-min scoping call: we pick one precise topic",
           "Tool delivered in 5–15 days, code audited by our partner agency",
           "Form: light web UI, silent agent in your stack, or simple automation",
           "Production deployment + team training included",
@@ -459,8 +459,8 @@ const COPY = {
           "Visibility inside Amazon's shopping AI — continuous measurement of what Rufus recommends, for an international coffee brand",
           "WhatsApp command agent — the CEO queries the CRM and sets reminders by voice",
         ],
-        notfor: "If you want to \"test AI\" without a precise use case, this isn't for you.",
-        accent: "#5FAF8E",
+        notfor: "If you want to \"test AI\" without a precise topic, this isn't for you.",
+        accent: "#0C0C0D",
         clusters: [
           {
             label: "Finance & Compliance",
@@ -496,7 +496,7 @@ const COPY = {
         chip: "Acquisition",
         title: "Business generation",
         sub: "Qualified meetings via intent signals",
-        pitch: "We capture online signals (podcasts, events, LinkedIn posts) at the right moment and trigger a hyper-personalized outreach. No Sales Nav blast.",
+        pitch: "We capture online signals (podcasts, events, LinkedIn posts) at the right moment and trigger a personalized outreach, anchored on what the person just said in public.",
         bullets: [
           "Target + buying timing identification (fundraise, key hire, public speaking)",
           "24/7 auto capture of signals → contact enrichment (Hunter, Enrow)",
@@ -509,7 +509,7 @@ const COPY = {
           "Parrit for itself — deals in progress with international brands",
         ],
         notfor: "Low avg ticket or volume play? Not for you.",
-        accent: "#c8956c",
+        accent: "#0C0C0D",
         clusters: [
           {
             label: "Growth & Acquisition",
@@ -548,7 +548,7 @@ const COPY = {
         pitch: "You've spotted a painful topic in the business. We turn it into a working tool, delivered in days. Code audited by partner agency before delivery.",
         bullets: [
           "One topic, defined, measurable — not a program",
-          "Claude Code stack = 10× faster than classic methods",
+          "Claude Code: we ship in days what used to take weeks",
           "Three families: painful back-office / business / human-mimicking agent",
           "Technical documentation + training at delivery",
         ],
@@ -558,7 +558,7 @@ const COPY = {
           "Law firm watch supervision bot — human filter upfront",
         ],
         notfor: "Looking for a consultant who delivers an audit or deck? Not for you.",
-        accent: "#C44536",
+        accent: "#D1132F",
         clusters: [
           {
             label: "Engineering",
@@ -607,7 +607,7 @@ const COPY = {
           "Pharma executive in transition — Claude Code autonomy pack (B2C)",
         ],
         notfor: "Qualiopi finalized June 2026. OPCO funding not guaranteed before then.",
-        accent: "#7C5BA1",
+        accent: "#0C0C0D",
         clusters: [
           {
             label: "Formats",
@@ -656,7 +656,7 @@ const COPY = {
           "Parrit itself — our entire internal OS runs on Claude Code",
         ],
         notfor: "Looking for a license or an off-the-shelf tool with no enablement? Not for you.",
-        accent: "#2A2420",
+        accent: "#0C0C0D",
         clusters: [
           {
             label: "Formats",
@@ -739,7 +739,7 @@ const COPY = {
       },
       paul: {
         title: "Paul Larmaraud",
-        role: "Founder · 0 → 1 Swiss army knife",
+        role: "AI Manager · Founder",
         lines: [
           "Paul Larmaraud",
           "Founder Parrit.ai",
@@ -761,7 +761,7 @@ const COPY = {
       },
       yukun: {
         title: "Yukun Leng",
-        role: "Co-founder · Production rollout",
+        role: "AI Manager · Co-founder",
         lines: [
           "Yukun Leng — 冷宇坤",
           "Co-founder Parrit.ai",
@@ -809,8 +809,8 @@ const COPY = {
   "pt-BR": {
     osTitle: "parrit.ai — Operating System",
     brand: "PARRIT",
-    tagline: "Operamos toda a sua cadeia. Do sinal de compra ao relatório do CEO.",
-    sub: "Elo entre seu crescimento e sua transformação IA. Intervimos cronologicamente, da primeira intenção de compra captada online até os KPIs consolidados da segunda-feira. E além: inovação de produto, marketing, otimização de vendas — alavancas que não eram acessíveis antes.",
+    tagline: "Implantamos a IA na sua empresa. E a operamos com você.",
+    sub: "Na frente que faz a empresa girar e na que a faz crescer. Ferramentas que rodam em produção, que carregamos com você. Tudo o que mostramos aqui, já implantamos.",
     cta: "Falar com Paul",
     ctaMicro: "Resposta em 24h · sem compromisso",
     leftDock: {
@@ -834,7 +834,7 @@ const COPY = {
         sub: "(Transformação administrativa do dia a dia)",
         pitch: "Automatizamos o que pesa em suas equipes: papelada, compliance, RFP, relatórios consolidados. Uma ferramenta proprietária, entregue e instalada na sua empresa.",
         bullets: [
-          "Briefing de 45 min: escolhemos um caso de uso preciso",
+          "Briefing de 45 min: escolhemos um assunto preciso",
           "Ferramenta entregue em 5 a 15 dias, código auditado pela agência parceira",
           "Forma: UI web leve, agente silencioso na sua stack, ou simples automação",
           "Deploy em produção + treinamento das equipes incluído",
@@ -847,8 +847,8 @@ const COPY = {
           "Visibilidade na IA de compras da Amazon — medição contínua do que o Rufus recomenda, para uma marca de café internacional",
           "Agente WhatsApp de comando — o dirigente consulta o CRM e cria lembretes por voz",
         ],
-        notfor: "Se você quer \"testar IA\" sem um caso de uso preciso, não é para você.",
-        accent: "#5FAF8E",
+        notfor: "Se você quer \"testar IA\" sem um assunto preciso, não é para você.",
+        accent: "#0C0C0D",
         clusters: [
           {
             label: "Finanças & Compliance",
@@ -884,7 +884,7 @@ const COPY = {
         chip: "Acquisition",
         title: "Geração de negócios",
         sub: "Encontros qualificados via sinais de intenção",
-        pitch: "Captamos sinais online (podcasts, eventos, posts LinkedIn) no momento certo e disparamos um contato hiper-personalizado. Sem blast no Sales Nav.",
+        pitch: "Captamos sinais online (podcasts, eventos, posts LinkedIn) no momento certo e disparamos um contato personalizado, ancorado no que a pessoa acabou de dizer em público.",
         bullets: [
           "Identificação do alvo + timing de compra (rodada, contratação, fala pública)",
           "Captura automática 24/7 dos sinais → enriquecimento contatos (Hunter, Enrow)",
@@ -897,7 +897,7 @@ const COPY = {
           "Parrit para si mesma — deals em andamento com marcas internacionais",
         ],
         notfor: "Ticket médio baixo ou lógica de volume? Não é para você.",
-        accent: "#c8956c",
+        accent: "#0C0C0D",
         clusters: [
           {
             label: "Growth & Acquisition",
@@ -936,7 +936,7 @@ const COPY = {
         pitch: "Você identificou um tema doloroso na empresa. Transformamos em uma ferramenta que funciona, entregue em dias. Código auditado pela agência parceira antes da entrega.",
         bullets: [
           "Um tema, definido, mensurável — não um programa",
-          "Stack Claude Code = 10× mais rápido que os métodos clássicos",
+          "Claude Code: entregamos em dias o que levava semanas",
           "Três famílias: back-office doloroso / negócios / agente que reproduz um humano",
           "Documentação técnica + treinamento na entrega",
         ],
@@ -946,7 +946,7 @@ const COPY = {
           "Bot supervisão watch escritório advocacia — filtro humano antes",
         ],
         notfor: "Buscando um consultor que entrega um audit ou um deck? Não é para você.",
-        accent: "#C44536",
+        accent: "#D1132F",
         clusters: [
           {
             label: "Engineering",
@@ -995,7 +995,7 @@ const COPY = {
           "Executivo farma em transição — pacote autonomia Claude Code (B2C)",
         ],
         notfor: "Qualiopi finalizado junho 2026. Antes disso, financiamento OPCO não garantido.",
-        accent: "#7C5BA1",
+        accent: "#0C0C0D",
         clusters: [
           {
             label: "Formatos",
@@ -1044,7 +1044,7 @@ const COPY = {
           "A própria Parrit — todo nosso OS interno roda em Claude Code",
         ],
         notfor: "Procura uma licença ou ferramenta de prateleira sem acompanhamento? Não é para você.",
-        accent: "#2A2420",
+        accent: "#0C0C0D",
         pages: [
           { label: "Auditoria Claude Code", href: "/pt-BR/audit-claude-code" },
           { label: "Sprint Claude Code", href: "/pt-BR/sprint" },
@@ -1107,7 +1107,7 @@ const COPY = {
       },
       paul: {
         title: "Paul Larmaraud",
-        role: "Fundador · Canivete suíço 0 → 1",
+        role: "AI Manager · Fundador",
         lines: [
           "Paul Larmaraud",
           "Fundador Parrit.ai",
@@ -1129,7 +1129,7 @@ const COPY = {
       },
       yukun: {
         title: "Yukun Leng",
-        role: "Co-fundadora · Rollout em produção",
+        role: "AI Manager · Co-fundadora",
         lines: [
           "Yukun Leng — 冷宇坤",
           "Co-fundadora Parrit.ai",
@@ -1177,8 +1177,8 @@ const COPY = {
   "zh-CN": {
     osTitle: "parrit.ai — 操作系统",
     brand: "PARRIT",
-    tagline: "我们运营您的整条链路。从购买信号到 CEO 报告。",
-    sub: "您增长伙伴与 AI 转型伙伴之间的纽带。我们按时间顺序介入,从线上捕捉的首个购买意向,到周一晨的整合 KPI。更进一步:产品创新、营销、销售优化 — 那些以前无法触及的杠杆。",
+    tagline: "我们把 AI 部署到您的企业，并与您一起运营它。",
+    sub: "在让公司运转的战线，也在让公司成长的战线。在生产环境中运行的工具，由我们与您共同承担。这里展示的一切，我们都已落地。",
     cta: "联系 Paul",
     ctaMicro: "24 小时内回复 · 无承诺",
     leftDock: {
@@ -1202,7 +1202,7 @@ const COPY = {
         sub: "(日常行政转型)",
         pitch: "我们将团队负担的工作自动化：文档、合规、RFP 跟进、合并报告。一个专属工具，交付并部署在您的公司。",
         bullets: [
-          "45 分钟需求梳理：选定一个精确的用例",
+          "45 分钟需求梳理：选定一个精确的课题",
           "5 到 15 天交付工具，代码经合作伙伴代理审核",
           "形式：轻量 Web 界面、嵌入您技术栈的静默智能体、或简单自动化",
           "包含生产部署和团队培训",
@@ -1215,8 +1215,8 @@ const COPY = {
           "亚马逊购物 AI 可见度 — 持续测量 Rufus 推荐内容，服务一家国际咖啡品牌",
           "WhatsApp 指挥智能体 — 管理者语音查询 CRM、设置提醒",
         ],
-        notfor: "如果您只想\"测试 AI\"而没有精确用例，不适合您。",
-        accent: "#5FAF8E",
+        notfor: "如果您只想\"测试 AI\"而没有精确课题，不适合您。",
+        accent: "#0C0C0D",
         clusters: [
           {
             label: "财务与合规",
@@ -1265,7 +1265,7 @@ const COPY = {
           "Parrit 自身 — 与国际品牌的合作进行中",
         ],
         notfor: "客单价低或追求数量逻辑?不适合您。",
-        accent: "#c8956c",
+        accent: "#0C0C0D",
         clusters: [
           {
             label: "增长获客",
@@ -1304,7 +1304,7 @@ const COPY = {
         pitch: "您发现公司里有个痛点。我们在几天内把它变成一个能跑的工具。交付前由合作伙伴代理审计代码。",
         bullets: [
           "一个主题,定义清晰,可衡量 — 不是一个项目",
-          "Claude Code 技术栈 = 比经典方法快 10×",
+          "Claude Code：几天交付过去需要数周的成果",
           "三大类:痛苦后台 / 业务 / 模拟人工的智能体",
           "技术文档 + 交付时培训",
         ],
@@ -1314,7 +1314,7 @@ const COPY = {
           "律所监测机器人 — 人工前置过滤",
         ],
         notfor: "寻找做审计或交付 PPT 的顾问?不适合您。",
-        accent: "#C44536",
+        accent: "#D1132F",
         clusters: [
           {
             label: "工程",
@@ -1363,7 +1363,7 @@ const COPY = {
           "制药公司转型高管 — Claude Code 自主性套件 (B2C)",
         ],
         notfor: "Qualiopi 资格 2026 年 6 月生效。在此之前,OPCO 资助无法保证。",
-        accent: "#7C5BA1",
+        accent: "#0C0C0D",
         clusters: [
           {
             label: "形式",
@@ -1412,7 +1412,7 @@ const COPY = {
           "Parrit 自身 — 我们整个内部 OS 都运行在 Claude Code 上",
         ],
         notfor: "只想要一个许可证或现成工具、不需要陪跑?那不适合您。",
-        accent: "#2A2420",
+        accent: "#0C0C0D",
         pages: [
           { label: "Claude Code 审计", href: "/zh-CN/audit-claude-code" },
           { label: "Claude Code Sprint", href: "/zh-CN/sprint" },
@@ -1475,7 +1475,7 @@ const COPY = {
       },
       paul: {
         title: "Paul Larmaraud",
-        role: "创始人 · 0 → 1 瑞士军刀",
+        role: "AI Manager · 创始人",
         lines: [
           "Paul Larmaraud",
           "Parrit.ai 创始人",
@@ -1497,7 +1497,7 @@ const COPY = {
       },
       yukun: {
         title: "冷宇坤 Yukun Leng",
-        role: "联合创始人 · 生产部署",
+        role: "AI Manager · 联合创始人",
         lines: [
           "冷宇坤 — Yukun Leng",
           "Parrit.ai 联合创始人",
@@ -1635,39 +1635,39 @@ function getCopy(lang: Lang): FullCopy {
 function IconDoc({ size = 56 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none">
-      <path d="M14 8 H42 L52 18 V56 H14 Z" fill="#F5EBD8" stroke="#2A2420" strokeWidth="2.5" strokeLinejoin="round" />
-      <path d="M42 8 V18 H52" fill="none" stroke="#2A2420" strokeWidth="2.5" strokeLinejoin="round" />
-      <line x1="22" y1="28" x2="44" y2="28" stroke="#2A2420" strokeWidth="2" />
-      <line x1="22" y1="36" x2="44" y2="36" stroke="#2A2420" strokeWidth="2" />
-      <line x1="22" y1="44" x2="38" y2="44" stroke="#2A2420" strokeWidth="2" />
+      <path d="M14 8 H42 L52 18 V56 H14 Z" fill="#FEFDF9" stroke="#0C0C0D" strokeWidth="2.5" strokeLinejoin="round" />
+      <path d="M42 8 V18 H52" fill="none" stroke="#0C0C0D" strokeWidth="2.5" strokeLinejoin="round" />
+      <line x1="22" y1="28" x2="44" y2="28" stroke="#0C0C0D" strokeWidth="2" />
+      <line x1="22" y1="36" x2="44" y2="36" stroke="#0C0C0D" strokeWidth="2" />
+      <line x1="22" y1="44" x2="38" y2="44" stroke="#0C0C0D" strokeWidth="2" />
     </svg>
   );
 }
 function IconFolder({ size = 56 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none">
-      <path d="M8 16 H26 L30 22 H56 V52 H8 Z" fill="#c8956c" stroke="#2A2420" strokeWidth="2.5" strokeLinejoin="round" />
-      <line x1="12" y1="32" x2="52" y2="32" stroke="#2A2420" strokeWidth="1.5" opacity="0.4" />
+      <path d="M8 16 H26 L30 22 H56 V52 H8 Z" fill="#0C0C0D" stroke="#0C0C0D" strokeWidth="2.5" strokeLinejoin="round" />
+      <line x1="12" y1="32" x2="52" y2="32" stroke="#0C0C0D" strokeWidth="1.5" opacity="0.4" />
     </svg>
   );
 }
 function IconPerson({ size = 56 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none">
-      <circle cx="32" cy="22" r="10" fill="#F5EBD8" stroke="#2A2420" strokeWidth="2.5" />
-      <path d="M14 56 C14 42 21 36 32 36 C43 36 50 42 50 56 Z" fill="#F5EBD8" stroke="#2A2420" strokeWidth="2.5" strokeLinejoin="round" />
-      <path d="M24 22 Q24 14 32 14 Q40 14 40 22" stroke="#2A2420" strokeWidth="2" fill="none" />
-      <circle cx="28" cy="22" r="1.5" fill="#2A2420" />
-      <circle cx="36" cy="22" r="1.5" fill="#2A2420" />
+      <circle cx="32" cy="22" r="10" fill="#FEFDF9" stroke="#0C0C0D" strokeWidth="2.5" />
+      <path d="M14 56 C14 42 21 36 32 36 C43 36 50 42 50 56 Z" fill="#FEFDF9" stroke="#0C0C0D" strokeWidth="2.5" strokeLinejoin="round" />
+      <path d="M24 22 Q24 14 32 14 Q40 14 40 22" stroke="#0C0C0D" strokeWidth="2" fill="none" />
+      <circle cx="28" cy="22" r="1.5" fill="#0C0C0D" />
+      <circle cx="36" cy="22" r="1.5" fill="#0C0C0D" />
     </svg>
   );
 }
 function IconExternal({ size = 56 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none">
-      <rect x="10" y="10" width="36" height="36" rx="4" fill="#F5EBD8" stroke="#2A2420" strokeWidth="2.5" />
-      <path d="M30 18 H46 V34" stroke="#2A2420" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-      <line x1="46" y1="18" x2="28" y2="36" stroke="#2A2420" strokeWidth="2.5" strokeLinecap="round" />
+      <rect x="10" y="10" width="36" height="36" rx="4" fill="#FEFDF9" stroke="#0C0C0D" strokeWidth="2.5" />
+      <path d="M30 18 H46 V34" stroke="#0C0C0D" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+      <line x1="46" y1="18" x2="28" y2="36" stroke="#0C0C0D" strokeWidth="2.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -1690,49 +1690,49 @@ function OfferIcon({ idx, accent }: { idx: number; accent: string }) {
   if (idx === 0) {
     return (
       <svg {...common}>
-        <rect x="6" y="6" width="52" height="52" rx="10" fill={accent} stroke="#2A2420" strokeWidth="2.5" />
-        <path d="M32 18 L34 24 L40 24 L35 28 L37 34 L32 30 L27 34 L29 28 L24 24 L30 24 Z" fill="#F5EBD8" stroke="#2A2420" strokeWidth="2" strokeLinejoin="round" />
-        <circle cx="32" cy="44" r="4" fill="#F5EBD8" stroke="#2A2420" strokeWidth="2" />
-        <line x1="32" y1="48" x2="32" y2="52" stroke="#2A2420" strokeWidth="2" />
+        <rect x="6" y="6" width="52" height="52" rx="10" fill={accent} stroke="#0C0C0D" strokeWidth="2.5" />
+        <path d="M32 18 L34 24 L40 24 L35 28 L37 34 L32 30 L27 34 L29 28 L24 24 L30 24 Z" fill="#FEFDF9" stroke="#0C0C0D" strokeWidth="2" strokeLinejoin="round" />
+        <circle cx="32" cy="44" r="4" fill="#FEFDF9" stroke="#0C0C0D" strokeWidth="2" />
+        <line x1="32" y1="48" x2="32" y2="52" stroke="#0C0C0D" strokeWidth="2" />
       </svg>
     );
   }
   if (idx === 1) {
     return (
       <svg {...common}>
-        <rect x="6" y="6" width="52" height="52" rx="10" fill={accent} stroke="#2A2420" strokeWidth="2.5" />
-        <path d="M18 42 L26 30 L32 36 L46 18" stroke="#F5EBD8" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-        <circle cx="46" cy="18" r="3" fill="#F5EBD8" stroke="#2A2420" strokeWidth="1.5" />
-        <circle cx="18" cy="42" r="3" fill="#F5EBD8" stroke="#2A2420" strokeWidth="1.5" />
+        <rect x="6" y="6" width="52" height="52" rx="10" fill={accent} stroke="#0C0C0D" strokeWidth="2.5" />
+        <path d="M18 42 L26 30 L32 36 L46 18" stroke="#FEFDF9" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        <circle cx="46" cy="18" r="3" fill="#FEFDF9" stroke="#0C0C0D" strokeWidth="1.5" />
+        <circle cx="18" cy="42" r="3" fill="#FEFDF9" stroke="#0C0C0D" strokeWidth="1.5" />
       </svg>
     );
   }
   if (idx === 2) {
     return (
       <svg {...common}>
-        <rect x="6" y="6" width="52" height="52" rx="10" fill={accent} stroke="#2A2420" strokeWidth="2.5" />
-        <path d="M22 14 L42 14 L42 22 L32 22 L32 50 L22 50 Z" fill="#F5EBD8" stroke="#2A2420" strokeWidth="2.5" strokeLinejoin="round" />
-        <circle cx="42" cy="40" r="6" fill="#F5EBD8" stroke="#2A2420" strokeWidth="2" />
-        <line x1="46" y1="44" x2="50" y2="48" stroke="#2A2420" strokeWidth="2.5" strokeLinecap="round" />
+        <rect x="6" y="6" width="52" height="52" rx="10" fill={accent} stroke="#0C0C0D" strokeWidth="2.5" />
+        <path d="M22 14 L42 14 L42 22 L32 22 L32 50 L22 50 Z" fill="#FEFDF9" stroke="#0C0C0D" strokeWidth="2.5" strokeLinejoin="round" />
+        <circle cx="42" cy="40" r="6" fill="#FEFDF9" stroke="#0C0C0D" strokeWidth="2" />
+        <line x1="46" y1="44" x2="50" y2="48" stroke="#0C0C0D" strokeWidth="2.5" strokeLinecap="round" />
       </svg>
     );
   }
   if (idx === 3) {
     return (
       <svg {...common}>
-        <rect x="6" y="6" width="52" height="52" rx="10" fill={accent === "#2A2420" ? "#c8956c" : accent} stroke="#2A2420" strokeWidth="2.5" />
-        <path d="M14 28 L32 18 L50 28 L32 38 Z" fill="#F5EBD8" stroke="#2A2420" strokeWidth="2" strokeLinejoin="round" />
-        <line x1="32" y1="38" x2="32" y2="48" stroke="#2A2420" strokeWidth="2.5" />
-        <path d="M22 33 V42 Q22 46 32 46 Q42 46 42 42 V33" stroke="#2A2420" strokeWidth="2" fill="none" />
+        <rect x="6" y="6" width="52" height="52" rx="10" fill={accent === "#0C0C0D" ? "#0C0C0D" : accent} stroke="#0C0C0D" strokeWidth="2.5" />
+        <path d="M14 28 L32 18 L50 28 L32 38 Z" fill="#FEFDF9" stroke="#0C0C0D" strokeWidth="2" strokeLinejoin="round" />
+        <line x1="32" y1="38" x2="32" y2="48" stroke="#0C0C0D" strokeWidth="2.5" />
+        <path d="M22 33 V42 Q22 46 32 46 Q42 46 42 42 V33" stroke="#0C0C0D" strokeWidth="2" fill="none" />
       </svg>
     );
   }
   // idx 4+ — terminal prompt (Claude Code)
   return (
     <svg {...common}>
-      <rect x="6" y="6" width="52" height="52" rx="10" fill={accent} stroke="#2A2420" strokeWidth="2.5" />
-      <path d="M17 23 L28 32 L17 41" stroke="#F5EBD8" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-      <line x1="32" y1="44" x2="47" y2="44" stroke="#F5EBD8" strokeWidth="3.5" strokeLinecap="round" />
+      <rect x="6" y="6" width="52" height="52" rx="10" fill={accent} stroke="#0C0C0D" strokeWidth="2.5" />
+      <path d="M17 23 L28 32 L17 41" stroke="#FEFDF9" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <line x1="32" y1="44" x2="47" y2="44" stroke="#FEFDF9" strokeWidth="3.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -1745,22 +1745,22 @@ function HeroScene({ labels }: { labels: { you: string; youSub: string; parrit: 
   const centerX = 290;
   const centerY = 230;
   const agents = [
-    { cx: 110, cy: 150, fill: "#5FAF8E", label: labels.agents[0], phase: 0 },     // back-office
-    { cx: 100, cy: 310, fill: "#c8956c", label: labels.agents[1], phase: 1.2 },   // business
-    { cx: 470, cy: 150, fill: "#C44536", label: labels.agents[2], phase: 0.6 },   // prototype
-    { cx: 480, cy: 310, fill: "#7C5BA1", label: labels.agents[3], phase: 1.8 },   // formation (violet)
-    { cx: 290, cy: 385, fill: "#2A2420", label: labels.agents[4], phase: 2.4 },   // claude code (dark)
+    { cx: 110, cy: 150, fill: "#0C0C0D", label: labels.agents[0], phase: 0 },     // back-office
+    { cx: 100, cy: 310, fill: "#D1132F", label: labels.agents[1], phase: 1.2 },   // business (flagship → rouge)
+    { cx: 470, cy: 150, fill: "#D1132F", label: labels.agents[2], phase: 0.6 },   // prototype
+    { cx: 480, cy: 310, fill: "#0C0C0D", label: labels.agents[3], phase: 1.8 },   // formation (violet)
+    { cx: 290, cy: 385, fill: "#0C0C0D", label: labels.agents[4], phase: 2.4 },   // claude code (dark)
   ].filter((a) => a.label);
 
   return (
     <svg viewBox="0 0 580 460" width="100%" style={{ maxWidth: 600, height: "auto", display: "block" }} aria-label="Parrit AI agents constellation">
       <defs>
         <pattern id="dots-bg" width="14" height="14" patternUnits="userSpaceOnUse">
-          <circle cx="2" cy="2" r="1" fill="#2A2420" opacity="0.06" />
+          <circle cx="2" cy="2" r="1" fill="#0C0C0D" opacity="0.06" />
         </pattern>
         <radialGradient id="parrit-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#C44536" stopOpacity="0.18" />
-          <stop offset="100%" stopColor="#C44536" stopOpacity="0" />
+          <stop offset="0%" stopColor="#D1132F" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="#D1132F" stopOpacity="0" />
         </radialGradient>
       </defs>
       <rect width="580" height="460" fill="url(#dots-bg)" />
@@ -1781,14 +1781,14 @@ function HeroScene({ labels }: { labels: { you: string; youSub: string; parrit: 
           <g key={`path-${i}`}>
             <path
               d={pathD}
-              stroke="#2A2420"
+              stroke="#0C0C0D"
               strokeWidth="1.8"
               strokeDasharray="3 6"
               fill="none"
               opacity="0.4"
             />
             {/* flowing data dot */}
-            <circle r="3.2" fill={a.fill} stroke="#2A2420" strokeWidth="1">
+            <circle r="3.2" fill={a.fill} stroke="#0C0C0D" strokeWidth="1">
               <animateMotion
                 dur={`${3 + i * 0.4}s`}
                 repeatCount="indefinite"
@@ -1803,11 +1803,11 @@ function HeroScene({ labels }: { labels: { you: string; youSub: string; parrit: 
 
       {/* "You — the founder" badge top-left */}
       <g>
-        <rect x="22" y="36" width="106" height="44" rx="8" fill="#2A2420" />
-        <text x="75" y="55" fontSize="13" fontWeight="700" textAnchor="middle" fill="#F5EBD8" fontFamily="DM Sans, sans-serif">{labels.you}</text>
-        <text x="75" y="70" fontSize="10" textAnchor="middle" fill="#A09688" fontFamily="DM Sans, sans-serif">{labels.youSub}</text>
-        <path d="M 128 62 Q 152 70 175 80" stroke="#2A2420" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-        <polygon points="175,80 169,76 170,84" fill="#2A2420" />
+        <rect x="22" y="36" width="106" height="44" rx="8" fill="#0C0C0D" />
+        <text x="75" y="55" fontSize="13" fontWeight="700" textAnchor="middle" fill="#FEFDF9" fontFamily="DM Sans, sans-serif">{labels.you}</text>
+        <text x="75" y="70" fontSize="10" textAnchor="middle" fill="#8A8A8F" fontFamily="DM Sans, sans-serif">{labels.youSub}</text>
+        <path d="M 128 62 Q 152 70 175 80" stroke="#0C0C0D" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+        <polygon points="175,80 169,76 170,84" fill="#0C0C0D" />
       </g>
 
       {/* Founder ↔ Parrit primary connection — bold solid line + flowing pulse */}
@@ -1815,31 +1815,31 @@ function HeroScene({ labels }: { labels: { you: string; youSub: string; parrit: 
         <path
           id="founder-link"
           d={`M 220 116 C 240 150 ${centerX - 50} 180 ${centerX - 36} ${centerY - 32}`}
-          stroke="#2A2420"
+          stroke="#0C0C0D"
           strokeWidth="3"
           fill="none"
           strokeLinecap="round"
         />
         {/* pulsing flow particles */}
-        <circle r="4" fill="#C44536" stroke="#2A2420" strokeWidth="1.2">
+        <circle r="4" fill="#D1132F" stroke="#0C0C0D" strokeWidth="1.2">
           <animateMotion dur="2.6s" repeatCount="indefinite" path={`M 220 116 C 240 150 ${centerX - 50} 180 ${centerX - 36} ${centerY - 32}`} />
         </circle>
-        <circle r="4" fill="#C44536" stroke="#2A2420" strokeWidth="1.2">
+        <circle r="4" fill="#D1132F" stroke="#0C0C0D" strokeWidth="1.2">
           <animateMotion dur="2.6s" repeatCount="indefinite" begin="1.3s" path={`M 220 116 C 240 150 ${centerX - 50} 180 ${centerX - 36} ${centerY - 32}`} />
         </circle>
         {/* arrow head near Parrit */}
-        <polygon points={`${centerX - 36},${centerY - 32} ${centerX - 46},${centerY - 38} ${centerX - 44},${centerY - 28}`} fill="#2A2420" />
+        <polygon points={`${centerX - 36},${centerY - 32} ${centerX - 46},${centerY - 38} ${centerX - 44},${centerY - 28}`} fill="#0C0C0D" />
       </g>
 
       {/* "You" — small purple bubble (gently floating) */}
       <g>
         <g>
           <animateTransform attributeName="transform" type="translate" values="0 0; 0 -4; 0 0" dur="3.5s" repeatCount="indefinite" />
-          <circle cx="200" cy="100" r="32" fill="#E8D9F2" stroke="#2A2420" strokeWidth="2.5" />
-          <circle cx="192" cy="98" r="2.5" fill="#2A2420" />
-          <circle cx="208" cy="98" r="2.5" fill="#2A2420" />
-          <path d="M 192 108 Q 200 113 208 108" stroke="#2A2420" strokeWidth="2" fill="none" strokeLinecap="round" />
-          <path d="M 178 126 Q 200 118 222 126 L 220 130 L 180 130 Z" fill="#9F7BC2" stroke="#2A2420" strokeWidth="2" strokeLinejoin="round" />
+          <circle cx="200" cy="100" r="32" fill="#FEFDF9" stroke="#0C0C0D" strokeWidth="2.5" />
+          <circle cx="192" cy="98" r="2.5" fill="#0C0C0D" />
+          <circle cx="208" cy="98" r="2.5" fill="#0C0C0D" />
+          <path d="M 192 108 Q 200 113 208 108" stroke="#0C0C0D" strokeWidth="2" fill="none" strokeLinecap="round" />
+          <path d="M 178 126 Q 200 118 222 126 L 220 130 L 180 130 Z" fill="#0C0C0D" stroke="#0C0C0D" strokeWidth="2" strokeLinejoin="round" />
         </g>
       </g>
 
@@ -1848,26 +1848,26 @@ function HeroScene({ labels }: { labels: { you: string; youSub: string; parrit: 
         <g>
           <animateTransform attributeName="transform" type="translate" values="0 0; 0 -3; 0 0" dur="4s" repeatCount="indefinite" />
           {/* perforated stamp border */}
-          <circle cx={centerX} cy={centerY} r="60" fill="#F5EBD8" stroke="#2A2420" strokeWidth="3" />
-          <circle cx={centerX} cy={centerY} r="60" fill="none" stroke="#C44536" strokeWidth="1.5" strokeDasharray="3 4" opacity="0.7">
+          <circle cx={centerX} cy={centerY} r="60" fill="#FEFDF9" stroke="#0C0C0D" strokeWidth="3" />
+          <circle cx={centerX} cy={centerY} r="60" fill="none" stroke="#D1132F" strokeWidth="1.5" strokeDasharray="3 4" opacity="0.7">
             <animateTransform attributeName="transform" type="rotate" from={`0 ${centerX} ${centerY}`} to={`360 ${centerX} ${centerY}`} dur="30s" repeatCount="indefinite" />
           </circle>
           {/* face */}
-          <circle cx={centerX - 14} cy={centerY - 4} r="3.5" fill="#2A2420" />
-          <circle cx={centerX + 14} cy={centerY - 4} r="3.5" fill="#2A2420" />
-          <path d={`M ${centerX - 14} ${centerY + 12} Q ${centerX} ${centerY + 20} ${centerX + 14} ${centerY + 12}`} stroke="#2A2420" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+          <circle cx={centerX - 14} cy={centerY - 4} r="3.5" fill="#0C0C0D" />
+          <circle cx={centerX + 14} cy={centerY - 4} r="3.5" fill="#0C0C0D" />
+          <path d={`M ${centerX - 14} ${centerY + 12} Q ${centerX} ${centerY + 20} ${centerX + 14} ${centerY + 12}`} stroke="#0C0C0D" strokeWidth="2.5" fill="none" strokeLinecap="round" />
           {/* layered pancake stack base */}
-          <ellipse cx={centerX} cy={centerY + 40} rx="42" ry="6" fill="#C44536" stroke="#2A2420" strokeWidth="2" />
-          <ellipse cx={centerX} cy={centerY + 32} rx="46" ry="7" fill="#9F7BC2" stroke="#2A2420" strokeWidth="2" />
-          <ellipse cx={centerX} cy={centerY + 24} rx="50" ry="8" fill="#c8956c" stroke="#2A2420" strokeWidth="2" />
+          <ellipse cx={centerX} cy={centerY + 40} rx="42" ry="6" fill="#D1132F" stroke="#0C0C0D" strokeWidth="2" />
+          <ellipse cx={centerX} cy={centerY + 32} rx="46" ry="7" fill="#0C0C0D" stroke="#0C0C0D" strokeWidth="2" />
+          <ellipse cx={centerX} cy={centerY + 24} rx="50" ry="8" fill="#0C0C0D" stroke="#0C0C0D" strokeWidth="2" />
         </g>
       </g>
 
       {/* Parrit label — below the bubble to avoid satellite overlap */}
       <g>
-        <rect x={centerX - 60} y={centerY + 70} width="120" height="40" rx="8" fill="#2A2420" />
-        <text x={centerX} y={centerY + 87} fontSize="13" fontWeight="700" textAnchor="middle" fill="#F5EBD8" fontFamily="DM Sans, sans-serif">{labels.parrit}</text>
-        <text x={centerX} y={centerY + 101} fontSize="10" textAnchor="middle" fill="#A09688" fontFamily="DM Sans, sans-serif">{labels.parritSub}</text>
+        <rect x={centerX - 60} y={centerY + 70} width="120" height="40" rx="8" fill="#0C0C0D" />
+        <text x={centerX} y={centerY + 87} fontSize="13" fontWeight="700" textAnchor="middle" fill="#FEFDF9" fontFamily="DM Sans, sans-serif">{labels.parrit}</text>
+        <text x={centerX} y={centerY + 101} fontSize="10" textAnchor="middle" fill="#8A8A8F" fontFamily="DM Sans, sans-serif">{labels.parritSub}</text>
       </g>
 
       {/* 4 agent satellites (each floats with its own phase) */}
@@ -1886,38 +1886,38 @@ function HeroScene({ labels }: { labels: { you: string; youSub: string; parrit: 
                 begin={`${a.phase}s`}
               />
               {/* shadow */}
-              <ellipse cx={a.cx} cy={a.cy + 32} rx="22" ry="3.5" fill="#2A2420" opacity="0.1" />
+              <ellipse cx={a.cx} cy={a.cy + 32} rx="22" ry="3.5" fill="#0C0C0D" opacity="0.1" />
               {/* body */}
-              <circle cx={a.cx} cy={a.cy} r="28" fill={a.fill} stroke="#2A2420" strokeWidth="2.5" />
+              <circle cx={a.cx} cy={a.cy} r="28" fill={a.fill} stroke="#0C0C0D" strokeWidth="2.5" />
               {/* eyes (blink) — ellipses : seul rx/ry est animable, circle+ry était sans effet */}
               <g>
-                <circle cx={a.cx - 8} cy={a.cy - 3} r="2.5" fill="#F5EBD8" />
-                <circle cx={a.cx + 8} cy={a.cy - 3} r="2.5" fill="#F5EBD8" />
-                <ellipse cx={a.cx - 8} cy={a.cy - 3} rx="1.1" ry="1.1" fill="#2A2420">
+                <circle cx={a.cx - 8} cy={a.cy - 3} r="2.5" fill="#FEFDF9" />
+                <circle cx={a.cx + 8} cy={a.cy - 3} r="2.5" fill="#FEFDF9" />
+                <ellipse cx={a.cx - 8} cy={a.cy - 3} rx="1.1" ry="1.1" fill="#0C0C0D">
                   <animate attributeName="ry" values="1.1;0.15;1.1" dur="6s" repeatCount="indefinite" begin={`${i * 1.4}s`} />
                 </ellipse>
-                <ellipse cx={a.cx + 8} cy={a.cy - 3} rx="1.1" ry="1.1" fill="#2A2420">
+                <ellipse cx={a.cx + 8} cy={a.cy - 3} rx="1.1" ry="1.1" fill="#0C0C0D">
                   <animate attributeName="ry" values="1.1;0.15;1.1" dur="6s" repeatCount="indefinite" begin={`${i * 1.4}s`} />
                 </ellipse>
               </g>
               {/* small smile */}
-              <path d={`M ${a.cx - 6} ${a.cy + 6} Q ${a.cx} ${a.cy + 10} ${a.cx + 6} ${a.cy + 6}`} stroke={a.fill === "#2A2420" ? "#F5EBD8" : "#2A2420"} strokeWidth="1.5" fill="none" strokeLinecap="round" />
+              <path d={`M ${a.cx - 6} ${a.cy + 6} Q ${a.cx} ${a.cy + 10} ${a.cx + 6} ${a.cy + 6}`} stroke={a.fill === "#0C0C0D" ? "#FEFDF9" : "#0C0C0D"} strokeWidth="1.5" fill="none" strokeLinecap="round" />
               {/* chinese red stamp dot top-right */}
-              <circle cx={a.cx + 19} cy={a.cy - 19} r="4" fill="#C44536" stroke="#2A2420" strokeWidth="1">
+              <circle cx={a.cx + 19} cy={a.cy - 19} r="4" fill="#D1132F" stroke="#0C0C0D" strokeWidth="1">
                 <animate attributeName="r" values="4;5;4" dur="2.4s" repeatCount="indefinite" begin={`${a.phase}s`} />
               </circle>
             </g>
             {/* label (static, doesn't float with bubble) */}
             <g>
-              <rect x={a.cx - 42} y={a.cy + 38} width="84" height="20" rx="4" fill="#FFFCF5" stroke="#2A2420" strokeWidth="1.5" />
-              <text x={a.cx} y={a.cy + 51} fontSize="10" fontWeight="700" textAnchor="middle" fill="#2A2420" fontFamily="DM Sans, sans-serif">{a.label}</text>
+              <rect x={a.cx - 42} y={a.cy + 38} width="84" height="20" rx="4" fill="#FFFFFF" stroke="#0C0C0D" strokeWidth="1.5" />
+              <text x={a.cx} y={a.cy + 51} fontSize="10" fontWeight="700" textAnchor="middle" fill="#0C0C0D" fontFamily="DM Sans, sans-serif">{a.label}</text>
             </g>
           </g>
         );
       })}
 
       {/* sparkles */}
-      <g fill="#C44536">
+      <g fill="#D1132F">
         <polygon points="40,230 44,226 48,230 44,234">
           <animate attributeName="opacity" values="0.3;1;0.3" dur="2.5s" repeatCount="indefinite" />
         </polygon>
@@ -1925,7 +1925,7 @@ function HeroScene({ labels }: { labels: { you: string; youSub: string; parrit: 
           <animate attributeName="opacity" values="1;0.3;1" dur="2.5s" repeatCount="indefinite" />
         </polygon>
       </g>
-      <g fill="#c8956c">
+      <g fill="#0C0C0D">
         <polygon points="64,408 68,404 72,408 68,412">
           <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite" />
         </polygon>
@@ -1982,8 +1982,8 @@ function Win({
         style={{
           width: "100%",
           maxWidth,
-          background: "#F5EBD8",
-          border: "2px solid #2A2420",
+          background: "#FEFDF9",
+          border: "2px solid #0C0C0D",
           borderRadius: 12,
           boxShadow: "8px 8px 0 rgba(42,36,32,0.18)",
           overflow: "hidden",
@@ -1996,8 +1996,8 @@ function Win({
             alignItems: "center",
             gap: 10,
             padding: "10px 14px",
-            background: accent ? `linear-gradient(180deg, ${accent}33, ${accent}11)` : "#EADFC4",
-            borderBottom: "2px solid #2A2420",
+            background: accent ? `linear-gradient(180deg, ${accent}33, ${accent}11)` : "#F2F0EA",
+            borderBottom: "2px solid #0C0C0D",
           }}
         >
           <div style={{ display: "flex", gap: 6 }}>
@@ -2009,13 +2009,13 @@ function Win({
                 height: 14,
                 borderRadius: "50%",
                 background: "#E57373",
-                border: "1.5px solid #2A2420",
+                border: "1.5px solid #0C0C0D",
                 cursor: "pointer",
                 padding: 0,
               }}
             />
-            <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#F5D67E", border: "1.5px solid #2A2420" }} />
-            <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#85C285", border: "1.5px solid #2A2420" }} />
+            <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#F5D67E", border: "1.5px solid #0C0C0D" }} />
+            <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#85C285", border: "1.5px solid #0C0C0D" }} />
           </div>
           <div
             style={{
@@ -2025,7 +2025,7 @@ function Win({
               fontSize: 13,
               fontWeight: 600,
               letterSpacing: "0.02em",
-              color: "#2A2420",
+              color: "#0C0C0D",
             }}
           >
             {title}
@@ -2094,10 +2094,10 @@ function SlotPicker({ accent }: { accent?: string }) {
           textAlign: "center",
         }}
       >
-        <p style={{ margin: 0, fontFamily: "var(--font-heading)", fontSize: 20, fontWeight: 500, color: "#2A2420" }}>
+        <p style={{ margin: 0, fontFamily: "var(--font-heading)", fontSize: 20, fontWeight: 500, color: "#0C0C0D" }}>
           ✓ Créneau demandé
         </p>
-        <p style={{ margin: "6px 0 0", fontFamily: "var(--font-body)", fontSize: 13.5, color: "#5A5047", lineHeight: 1.5 }}>
+        <p style={{ margin: "6px 0 0", fontFamily: "var(--font-body)", fontSize: 13.5, color: "#4A4A4E", lineHeight: 1.5 }}>
           Paul reçoit l'alerte sur Telegram. Il confirme et vous envoie le lien visio sous 24h.
         </p>
       </div>
@@ -2114,7 +2114,7 @@ function SlotPicker({ accent }: { accent?: string }) {
           fontWeight: 700,
           letterSpacing: "0.16em",
           textTransform: "uppercase",
-          color: "#8A7E70",
+          color: "#8A8A8F",
         }}
       >
         1 · Choisissez un créneau
@@ -2135,7 +2135,7 @@ function SlotPicker({ accent }: { accent?: string }) {
                 fontFamily: "var(--font-body)",
                 fontSize: 10.5,
                 fontWeight: 700,
-                color: "#5A5047",
+                color: "#4A4A4E",
                 textAlign: "center",
                 letterSpacing: "0.04em",
               }}
@@ -2147,7 +2147,7 @@ function SlotPicker({ accent }: { accent?: string }) {
                 margin: "0 0 4px",
                 fontFamily: "var(--font-body)",
                 fontSize: 9,
-                color: "#8A7E70",
+                color: "#8A8A8F",
                 textAlign: "center",
               }}
             >
@@ -2163,9 +2163,9 @@ function SlotPicker({ accent }: { accent?: string }) {
                     onClick={() => setSlot({ day: d.iso, period: p.id })}
                     style={{
                       padding: "8px 4px",
-                      background: isSelected ? (accent || "#c8956c") : "#FFFCF5",
-                      color: isSelected ? "#2A2420" : "#5A5047",
-                      border: `1.5px solid ${isSelected ? "#2A2420" : "#2A24201A"}`,
+                      background: isSelected ? (accent || "#0C0C0D") : "#FFFFFF",
+                      color: isSelected ? "#0C0C0D" : "#4A4A4E",
+                      border: `1.5px solid ${isSelected ? "#0C0C0D" : "#0C0C0D1A"}`,
                       borderRadius: 6,
                       fontFamily: "var(--font-body)",
                       fontSize: 10,
@@ -2188,7 +2188,7 @@ function SlotPicker({ accent }: { accent?: string }) {
           margin: "0 0 10px",
           fontFamily: "var(--font-body)",
           fontSize: 11,
-          color: "#8A7E70",
+          color: "#8A8A8F",
           textAlign: "center",
         }}
       >
@@ -2203,7 +2203,7 @@ function SlotPicker({ accent }: { accent?: string }) {
           fontWeight: 700,
           letterSpacing: "0.16em",
           textTransform: "uppercase",
-          color: "#8A7E70",
+          color: "#8A8A8F",
         }}
       >
         2 · Votre email
@@ -2218,12 +2218,12 @@ function SlotPicker({ accent }: { accent?: string }) {
         style={{
           width: "100%",
           padding: "12px 14px",
-          border: "2px solid #2A2420",
+          border: "2px solid #0C0C0D",
           borderRadius: 8,
-          background: "#FFFCF5",
+          background: "#FFFFFF",
           fontFamily: "var(--font-body)",
           fontSize: 14,
-          color: "#2A2420",
+          color: "#0C0C0D",
           outline: "none",
           marginBottom: 10,
         }}
@@ -2237,12 +2237,12 @@ function SlotPicker({ accent }: { accent?: string }) {
         style={{
           width: "100%",
           padding: "10px 14px",
-          border: "2px solid #2A2420",
+          border: "2px solid #0C0C0D",
           borderRadius: 8,
-          background: "#FFFCF5",
+          background: "#FFFFFF",
           fontFamily: "var(--font-body)",
           fontSize: 13,
-          color: "#2A2420",
+          color: "#0C0C0D",
           outline: "none",
           marginBottom: 14,
         }}
@@ -2254,22 +2254,22 @@ function SlotPicker({ accent }: { accent?: string }) {
         style={{
           width: "100%",
           padding: "14px 22px",
-          background: (slot && email.includes("@")) ? "var(--parrit-red)" : "#A09488",
-          color: "#FFFCF5",
-          border: "2px solid #2A2420",
+          background: (slot && email.includes("@")) ? "var(--parrit-red)" : "#8A8A8F",
+          color: "#FFFFFF",
+          border: "2px solid #0C0C0D",
           borderRadius: 10,
           fontFamily: "var(--font-body)",
           fontSize: 14,
           fontWeight: 700,
           cursor: (slot && email.includes("@")) ? "pointer" : "not-allowed",
-          boxShadow: (slot && email.includes("@")) ? "4px 4px 0 #2A2420" : "none",
+          boxShadow: (slot && email.includes("@")) ? "4px 4px 0 #0C0C0D" : "none",
           transition: "all 0.1s",
         }}
       >
         {state === "sending" ? "Envoi…" : "Demander le créneau →"}
       </button>
       {state === "error" && (
-        <p style={{ marginTop: 8, color: "#C44536", fontSize: 12, textAlign: "center" }}>
+        <p style={{ marginTop: 8, color: "#D1132F", fontSize: 12, textAlign: "center" }}>
           Échec d'envoi. Essayez l'email plus bas ou paul.larmaraud@parrit.ai.
         </p>
       )}
@@ -2340,7 +2340,7 @@ function ContactBlock({
           fontFamily: "var(--font-body)",
           fontSize: 15,
           lineHeight: 1.6,
-          color: "#5A5047",
+          color: "#4A4A4E",
         }}
       >
         {copy.sub}
@@ -2356,7 +2356,7 @@ function ContactBlock({
           fontWeight: 700,
           letterSpacing: "0.18em",
           textTransform: "uppercase",
-          color: "#8A7E70",
+          color: "#8A8A8F",
           textAlign: "center",
         }}
       >
@@ -2372,12 +2372,12 @@ function ContactBlock({
           style={{
             flex: "1 1 240px",
             padding: "12px 14px",
-            border: "2px solid #2A2420",
+            border: "2px solid #0C0C0D",
             borderRadius: 8,
-            background: "#FFFCF5",
+            background: "#FFFFFF",
             fontFamily: "var(--font-body)",
             fontSize: 14,
-            color: "#2A2420",
+            color: "#0C0C0D",
             outline: "none",
           }}
         />
@@ -2386,48 +2386,48 @@ function ContactBlock({
           disabled={state === "sending" || state === "sent" || !value.trim()}
           style={{
             padding: "12px 22px",
-            border: "2px solid #2A2420",
+            border: "2px solid #0C0C0D",
             borderRadius: 8,
-            background: accent || "#c8956c",
-            color: "#2A2420",
+            background: accent || "#0C0C0D",
+            color: "#0C0C0D",
             fontFamily: "var(--font-body)",
             fontSize: 14,
             fontWeight: 600,
             cursor: state === "sending" || state === "sent" ? "default" : "pointer",
-            boxShadow: "3px 3px 0 #2A2420",
+            boxShadow: "3px 3px 0 #0C0C0D",
             transition: "transform 0.08s",
           }}
         >
           {state === "sending" ? copy.submitting : state === "sent" ? "✓" : copy.submit}
         </button>
       </form>
-      <p style={{ marginTop: 10, fontSize: 12, color: "#8A7E70", fontFamily: "var(--font-body)" }}>
+      <p style={{ marginTop: 10, fontSize: 12, color: "#8A8A8F", fontFamily: "var(--font-body)" }}>
         {state === "sent" ? copy.thanks : state === "error" ? copy.error : copy.micro}
       </p>
       <div
         style={{
           marginTop: 18,
           paddingTop: 16,
-          borderTop: "1px dashed #2A2420",
+          borderTop: "1px dashed #0C0C0D",
           fontFamily: "var(--font-body)",
           fontSize: 13,
-          color: "#5A5047",
+          color: "#4A4A4E",
           display: "flex",
           gap: 18,
           flexWrap: "wrap",
         }}
       >
-        <a href="mailto:paul.larmaraud@parrit.ai" style={{ color: "#2A2420", textDecoration: "underline" }}>
+        <a href="mailto:paul.larmaraud@parrit.ai" style={{ color: "#0C0C0D", textDecoration: "underline" }}>
           paul.larmaraud@parrit.ai
         </a>
-        <a href="tel:+33683762219" style={{ color: "#2A2420", textDecoration: "underline" }}>
+        <a href="tel:+33683762219" style={{ color: "#0C0C0D", textDecoration: "underline" }}>
           +33 6 83 76 22 19
         </a>
         <a
           href="https://www.linkedin.com/in/paullarmaraud/"
           target="_blank"
           rel="noreferrer"
-          style={{ color: "#2A2420", textDecoration: "underline" }}
+          style={{ color: "#0C0C0D", textDecoration: "underline" }}
         >
           LinkedIn
         </a>
@@ -2478,14 +2478,14 @@ function WaitlistWindow({
       {/* Parrit copilot face (small) */}
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 18 }}>
         <svg width="88" height="88" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="42" fill="#F5EBD8" stroke="#2A2420" strokeWidth="2.5" />
-          <circle cx="50" cy="50" r="42" fill="none" stroke="#C44536" strokeWidth="1.5" strokeDasharray="3 4" opacity="0.7" />
-          <circle cx="40" cy="46" r="3" fill="#2A2420" />
-          <circle cx="60" cy="46" r="3" fill="#2A2420" />
-          <path d="M 40 58 Q 50 65 60 58" stroke="#2A2420" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-          <ellipse cx="50" cy="80" rx="28" ry="4" fill="#C44536" stroke="#2A2420" strokeWidth="1.5" />
-          <ellipse cx="50" cy="76" rx="30" ry="4.5" fill="#9F7BC2" stroke="#2A2420" strokeWidth="1.5" />
-          <ellipse cx="50" cy="72" rx="33" ry="5" fill="#c8956c" stroke="#2A2420" strokeWidth="1.5" />
+          <circle cx="50" cy="50" r="42" fill="#FEFDF9" stroke="#0C0C0D" strokeWidth="2.5" />
+          <circle cx="50" cy="50" r="42" fill="none" stroke="#D1132F" strokeWidth="1.5" strokeDasharray="3 4" opacity="0.7" />
+          <circle cx="40" cy="46" r="3" fill="#0C0C0D" />
+          <circle cx="60" cy="46" r="3" fill="#0C0C0D" />
+          <path d="M 40 58 Q 50 65 60 58" stroke="#0C0C0D" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+          <ellipse cx="50" cy="80" rx="28" ry="4" fill="#D1132F" stroke="#0C0C0D" strokeWidth="1.5" />
+          <ellipse cx="50" cy="76" rx="30" ry="4.5" fill="#0C0C0D" stroke="#0C0C0D" strokeWidth="1.5" />
+          <ellipse cx="50" cy="72" rx="33" ry="5" fill="#0C0C0D" stroke="#0C0C0D" strokeWidth="1.5" />
         </svg>
       </div>
 
@@ -2508,7 +2508,7 @@ function WaitlistWindow({
           fontFamily: "var(--font-heading)",
           fontSize: "clamp(26px, 4vw, 36px)",
           fontWeight: 500,
-          color: "#2A2420",
+          color: "#0C0C0D",
           lineHeight: 1.15,
           letterSpacing: "-0.01em",
         }}
@@ -2521,7 +2521,7 @@ function WaitlistWindow({
           fontFamily: "var(--font-body)",
           fontSize: 15,
           lineHeight: 1.55,
-          color: "#5A5047",
+          color: "#4A4A4E",
           maxWidth: 440,
         }}
       >
@@ -2542,12 +2542,12 @@ function WaitlistWindow({
           style={{
             width: "100%",
             padding: "16px 18px",
-            border: "2px solid #2A2420",
+            border: "2px solid #0C0C0D",
             borderRadius: 12,
-            background: "#FFFCF5",
+            background: "#FFFFFF",
             fontFamily: "var(--font-body)",
             fontSize: 15,
-            color: "#2A2420",
+            color: "#0C0C0D",
             outline: "none",
             marginBottom: 6,
           }}
@@ -2555,7 +2555,7 @@ function WaitlistWindow({
         <p
           style={{
             fontSize: 12,
-            color: "#8A7E70",
+            color: "#8A8A8F",
             margin: "0 0 14px 4px",
             fontFamily: "var(--font-body)",
           }}
@@ -2571,12 +2571,12 @@ function WaitlistWindow({
           style={{
             width: "100%",
             padding: "14px 18px",
-            border: "2px solid #2A2420",
+            border: "2px solid #0C0C0D",
             borderRadius: 12,
-            background: "#FFFCF5",
+            background: "#FFFFFF",
             fontFamily: "var(--font-body)",
             fontSize: 14,
-            color: "#2A2420",
+            color: "#0C0C0D",
             outline: "none",
             marginBottom: 18,
           }}
@@ -2588,14 +2588,14 @@ function WaitlistWindow({
             width: "100%",
             padding: "16px 24px",
             background: state === "sent" ? "#5FAF8E" : "var(--parrit-red)",
-            color: "#FFFCF5",
-            border: "2px solid #2A2420",
+            color: "#FFFFFF",
+            border: "2px solid #0C0C0D",
             borderRadius: 12,
             fontFamily: "var(--font-body)",
             fontSize: 15,
             fontWeight: 700,
             cursor: state === "sending" || state === "sent" ? "default" : "pointer",
-            boxShadow: "5px 5px 0 #2A2420",
+            boxShadow: "5px 5px 0 #0C0C0D",
             transition: "transform 0.1s, box-shadow 0.1s, background 0.2s",
             letterSpacing: "0.02em",
           }}
@@ -2605,7 +2605,7 @@ function WaitlistWindow({
       </form>
 
       {state === "error" && (
-        <p style={{ marginTop: 12, color: "#C44536", fontSize: 13, fontFamily: "var(--font-body)" }}>
+        <p style={{ marginTop: 12, color: "#D1132F", fontSize: 13, fontFamily: "var(--font-body)" }}>
           {copy.error}
         </p>
       )}
@@ -2615,7 +2615,7 @@ function WaitlistWindow({
           marginTop: 20,
           fontFamily: "var(--font-body)",
           fontSize: 12,
-          color: "#8A7E70",
+          color: "#8A8A8F",
         }}
       >
         Paul Larmaraud · paul.larmaraud@parrit.ai
@@ -2647,10 +2647,10 @@ function OfferWindow({
       : lang === "zh-CN"
       ? { how: "如何运作", agents: "可部署的智能体", cases: "真实案例(匿名)", live: "生产中", soon: "进行中" }
       : { how: "Comment ça marche", agents: "Agents prêts à déployer", cases: "Cas réels (anonymisés)", live: "En production", soon: "En cours" };
-  // Accent sombre (#2A2420, offre Claude Code) : texte crème sur l'accent, marqueurs caramel
-  const darkAccent = offer.accent === "#2A2420";
-  const onAccent = darkAccent ? "#F5EBD8" : "#2A2420";
-  const markerAccent = darkAccent ? "#c8956c" : offer.accent;
+  // Accent sombre (#0C0C0D, offre Claude Code) : texte crème sur l'accent, marqueurs caramel
+  const darkAccent = offer.accent === "#0C0C0D";
+  const onAccent = darkAccent ? "#FEFDF9" : "#0C0C0D";
+  const markerAccent = darkAccent ? "#0C0C0D" : offer.accent;
   return (
     <div>
       <div
@@ -2665,7 +2665,7 @@ function OfferWindow({
           color: onAccent,
           background: offer.accent,
           borderRadius: 4,
-          border: "1.5px solid #2A2420",
+          border: "1.5px solid #0C0C0D",
           marginBottom: 14,
         }}
       >
@@ -2677,7 +2677,7 @@ function OfferWindow({
           fontFamily: "var(--font-heading)",
           fontSize: "clamp(26px, 4vw, 34px)",
           fontWeight: 500,
-          color: "#2A2420",
+          color: "#0C0C0D",
           lineHeight: 1.15,
           letterSpacing: "-0.01em",
         }}
@@ -2689,7 +2689,7 @@ function OfferWindow({
           margin: "6px 0 16px",
           fontFamily: "var(--font-body)",
           fontSize: 14,
-          color: "#8A7E70",
+          color: "#8A8A8F",
           fontStyle: "italic",
         }}
       >
@@ -2700,7 +2700,7 @@ function OfferWindow({
           fontFamily: "var(--font-body)",
           fontSize: 15,
           lineHeight: 1.65,
-          color: "#2A2420",
+          color: "#0C0C0D",
           margin: "0 0 22px",
         }}
       >
@@ -2715,7 +2715,7 @@ function OfferWindow({
             fontWeight: 700,
             letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "#8A7E70",
+            color: "#8A8A8F",
             margin: "0 0 10px",
           }}
         >
@@ -2729,7 +2729,7 @@ function OfferWindow({
                 fontFamily: "var(--font-body)",
                 fontSize: 14,
                 lineHeight: 1.55,
-                color: "#2A2420",
+                color: "#0C0C0D",
                 paddingLeft: 22,
                 position: "relative",
               }}
@@ -2742,7 +2742,7 @@ function OfferWindow({
                   width: 12,
                   height: 12,
                   background: markerAccent,
-                  border: "1.5px solid #2A2420",
+                  border: "1.5px solid #0C0C0D",
                   borderRadius: 2,
                 }}
               />
@@ -2761,7 +2761,7 @@ function OfferWindow({
               fontWeight: 700,
               letterSpacing: "0.18em",
               textTransform: "uppercase",
-              color: "#8A7E70",
+              color: "#8A8A8F",
               margin: "0 0 10px",
             }}
           >
@@ -2789,7 +2789,7 @@ function OfferWindow({
                     fontFamily: "var(--font-body)",
                     fontSize: 12,
                     fontWeight: 700,
-                    color: "#2A2420",
+                    color: "#0C0C0D",
                     margin: "0 0 8px",
                     textAlign: "center",
                   }}
@@ -2810,13 +2810,13 @@ function OfferWindow({
                     <li
                       key={ag.name}
                       style={{
-                        background: "#FFFCF5",
-                        border: "1px solid #2A2420",
+                        background: "#FFFFFF",
+                        border: "1px solid #0C0C0D",
                         borderRadius: 6,
                         padding: "5px 8px 5px 22px",
                         fontFamily: "var(--font-body)",
                         fontSize: 12,
-                        color: "#2A2420",
+                        color: "#0C0C0D",
                         position: "relative",
                         lineHeight: 1.3,
                       }}
@@ -2830,7 +2830,7 @@ function OfferWindow({
                           width: 8,
                           height: 8,
                           borderRadius: "50%",
-                          background: ag.status === "live" ? "#5FAF8E" : "#C44536",
+                          background: ag.status === "live" ? "#5FAF8E" : "#D1132F",
                         }}
                       />
                       {ag.name}
@@ -2844,7 +2844,7 @@ function OfferWindow({
             style={{
               fontFamily: "var(--font-body)",
               fontSize: 11,
-              color: "#8A7E70",
+              color: "#8A8A8F",
               margin: "10px 0 0",
               textAlign: "center",
               fontStyle: "italic",
@@ -2852,7 +2852,7 @@ function OfferWindow({
           >
             <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", background: "#5FAF8E", marginRight: 6, verticalAlign: "middle" }} />
             {L.live}
-            <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", background: "#C44536", marginRight: 6, marginLeft: 12, verticalAlign: "middle" }} />
+            <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", background: "#D1132F", marginRight: 6, marginLeft: 12, verticalAlign: "middle" }} />
             {L.soon}
           </p>
         </div>
@@ -2862,8 +2862,8 @@ function OfferWindow({
         style={{
           marginBottom: 22,
           padding: "14px 16px",
-          background: "#FFFCF5",
-          border: "1.5px dashed #2A2420",
+          background: "#FFFFFF",
+          border: "1.5px dashed #0C0C0D",
           borderRadius: 8,
         }}
       >
@@ -2874,7 +2874,7 @@ function OfferWindow({
             fontWeight: 700,
             letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "#8A7E70",
+            color: "#8A8A8F",
             margin: "0 0 8px",
           }}
         >
@@ -2888,7 +2888,7 @@ function OfferWindow({
                 fontFamily: "var(--font-body)",
                 fontSize: 13.5,
                 lineHeight: 1.55,
-                color: "#2A2420",
+                color: "#0C0C0D",
               }}
             >
               → {p}
@@ -2902,7 +2902,7 @@ function OfferWindow({
           fontFamily: "var(--font-body)",
           fontSize: 13,
           fontStyle: "italic",
-          color: "#8A7E70",
+          color: "#8A8A8F",
           margin: "0 0 22px",
         }}
       >
@@ -2918,14 +2918,14 @@ function OfferWindow({
               style={{
                 padding: "8px 16px",
                 background: "#FFFDF8",
-                border: "1.5px solid #2A2420",
+                border: "1.5px solid #0C0C0D",
                 borderRadius: 8,
                 fontFamily: "var(--font-body)",
                 fontSize: 13,
                 fontWeight: 600,
-                color: "#2A2420",
+                color: "#0C0C0D",
                 textDecoration: "none",
-                boxShadow: "3px 3px 0 #2A2420",
+                boxShadow: "3px 3px 0 #0C0C0D",
                 transition: "transform 0.08s",
               }}
             >
@@ -2940,14 +2940,14 @@ function OfferWindow({
         style={{
           padding: "12px 24px",
           background: offer.accent,
-          border: "2px solid #2A2420",
+          border: "2px solid #0C0C0D",
           borderRadius: 8,
           fontFamily: "var(--font-body)",
           fontSize: 14,
           fontWeight: 600,
           color: onAccent,
           cursor: "pointer",
-          boxShadow: "4px 4px 0 #2A2420",
+          boxShadow: "4px 4px 0 #0C0C0D",
           transition: "transform 0.08s",
         }}
       >
@@ -2982,7 +2982,7 @@ function PanelContent({
               fontSize: "clamp(20px, 3vw, 24px)",
               fontWeight: 400,
               lineHeight: 1.45,
-              color: "#2A2420",
+              color: "#0C0C0D",
               margin: "0 0 18px",
             }}
           >
@@ -2994,7 +2994,7 @@ function PanelContent({
   }
   if (which === "transformation") {
     const t = panel.transformation;
-    const tagColors = ["#C44536", "#5FAF8E", "#c8956c"];
+    const tagColors = ["#D1132F", "#0C0C0D", "#8A8A8F"];
     return (
       <div>
         <p
@@ -3016,7 +3016,7 @@ function PanelContent({
               key={b.tag}
               style={{
                 padding: "16px 18px",
-                background: "#FFFCF5",
+                background: "#FFFFFF",
                 border: `1.5px solid ${tagColors[i]}`,
                 borderLeft: `5px solid ${tagColors[i]}`,
                 borderRadius: 10,
@@ -3041,7 +3041,7 @@ function PanelContent({
                   fontFamily: "var(--font-body)",
                   fontSize: 14.5,
                   lineHeight: 1.6,
-                  color: "#2A2420",
+                  color: "#0C0C0D",
                 }}
               >
                 {b.body}
@@ -3056,7 +3056,7 @@ function PanelContent({
             fontSize: 17,
             fontStyle: "italic",
             lineHeight: 1.5,
-            color: "#2A2420",
+            color: "#0C0C0D",
             textAlign: "center",
             padding: "0 4px",
           }}
@@ -3069,14 +3069,14 @@ function PanelContent({
             style={{
               padding: "12px 22px",
               background: "var(--parrit-red)",
-              border: "2px solid #2A2420",
+              border: "2px solid #0C0C0D",
               borderRadius: 8,
               fontFamily: "var(--font-body)",
               fontSize: 14,
               fontWeight: 700,
-              color: "#FFFCF5",
+              color: "#FFFFFF",
               cursor: "pointer",
-              boxShadow: "3px 3px 0 #2A2420",
+              boxShadow: "3px 3px 0 #0C0C0D",
             }}
           >
             {contact.title} →
@@ -3095,8 +3095,8 @@ function PanelContent({
               display: "flex",
               gap: 16,
               padding: "16px 18px",
-              background: "#FFFCF5",
-              border: "1.5px solid #2A2420",
+              background: "#FFFFFF",
+              border: "1.5px solid #0C0C0D",
               borderRadius: 8,
             }}
           >
@@ -3105,17 +3105,17 @@ function PanelContent({
                 fontFamily: "var(--font-heading)",
                 fontSize: 30,
                 fontWeight: 500,
-                color: "#c8956c",
+                color: "#0C0C0D",
                 lineHeight: 1,
               }}
             >
               {s.n}
             </span>
             <div>
-              <p style={{ margin: 0, fontFamily: "var(--font-body)", fontSize: 15, fontWeight: 600, color: "#2A2420" }}>
+              <p style={{ margin: 0, fontFamily: "var(--font-body)", fontSize: 15, fontWeight: 600, color: "#0C0C0D" }}>
                 {s.t}
               </p>
-              <p style={{ margin: "4px 0 0", fontFamily: "var(--font-body)", fontSize: 13.5, color: "#5A5047", lineHeight: 1.5 }}>
+              <p style={{ margin: "4px 0 0", fontFamily: "var(--font-body)", fontSize: 13.5, color: "#4A4A4E", lineHeight: 1.5 }}>
                 {s.d}
               </p>
             </div>
@@ -3133,7 +3133,7 @@ function PanelContent({
             fontFamily: "var(--font-body)",
             fontSize: 13,
             fontStyle: "italic",
-            color: "#8A7E70",
+            color: "#8A8A8F",
           }}
         >
           {panel.cas.intro}
@@ -3144,10 +3144,10 @@ function PanelContent({
               key={c.t}
               style={{
                 padding: "14px 16px",
-                background: "#FFFCF5",
-                border: "1.5px solid #2A2420",
+                background: "#FFFFFF",
+                border: "1.5px solid #0C0C0D",
                 borderRadius: 8,
-                boxShadow: "3px 3px 0 #2A2420",
+                boxShadow: "3px 3px 0 #0C0C0D",
               }}
             >
               {c.s && (
@@ -3161,19 +3161,19 @@ function PanelContent({
                     fontWeight: 700,
                     letterSpacing: "0.08em",
                     textTransform: "uppercase",
-                    color: "#FFFCF5",
-                    background: /livr|production|deliver|entregue|produç|运行|交付/.test(c.s) ? "#5FAF8E" : "#c8956c",
-                    border: "1px solid #2A2420",
+                    color: "#FFFFFF",
+                    background: /livr|production|deliver|entregue|produç|运行|交付/.test(c.s) ? "#5FAF8E" : "#0C0C0D",
+                    border: "1px solid #0C0C0D",
                     borderRadius: 4,
                   }}
                 >
                   {c.s}
                 </span>
               )}
-              <p style={{ margin: 0, fontFamily: "var(--font-body)", fontSize: 14, fontWeight: 600, color: "#2A2420" }}>
+              <p style={{ margin: 0, fontFamily: "var(--font-body)", fontSize: 14, fontWeight: 600, color: "#0C0C0D" }}>
                 {c.t}
               </p>
-              <p style={{ margin: "4px 0 0", fontFamily: "var(--font-body)", fontSize: 13, color: "#5A5047", lineHeight: 1.5 }}>
+              <p style={{ margin: "4px 0 0", fontFamily: "var(--font-body)", fontSize: 13, color: "#4A4A4E", lineHeight: 1.5 }}>
                 {c.d}
               </p>
             </div>
@@ -3184,15 +3184,15 @@ function PanelContent({
           style={{
             marginTop: 22,
             padding: "12px 22px",
-            background: "#c8956c",
-            border: "2px solid #2A2420",
+            background: "#0C0C0D",
+            border: "2px solid #0C0C0D",
             borderRadius: 8,
             fontFamily: "var(--font-body)",
             fontSize: 14,
             fontWeight: 600,
-            color: "#2A2420",
+            color: "#0C0C0D",
             cursor: "pointer",
-            boxShadow: "3px 3px 0 #2A2420",
+            boxShadow: "3px 3px 0 #0C0C0D",
           }}
         >
           {contact.title} →
@@ -3202,7 +3202,7 @@ function PanelContent({
   }
   // paul or yukun — bio panel
   const person = which === "paul" ? panel.paul : panel.yukun;
-  const accent = which === "paul" ? "#c8956c" : "#C44536";
+  const accent = which === "paul" ? "#0C0C0D" : "#D1132F";
   return (
     <div>
       <div style={{ display: "flex", gap: 22, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 20 }}>
@@ -3239,11 +3239,11 @@ function PanelContent({
               width: 34,
               height: 34,
               background: "var(--parrit-red)",
-              border: "2px solid #2A2420",
+              border: "2px solid #0C0C0D",
               borderRadius: "50%",
               boxShadow: "3px 3px 0 rgba(42,36,32,0.18)",
               backgroundImage:
-                "linear-gradient(45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%), linear-gradient(-45deg, transparent 45%, #2A2420 45%, #2A2420 55%, transparent 55%)",
+                "linear-gradient(45deg, transparent 45%, #0C0C0D 45%, #0C0C0D 55%, transparent 55%), linear-gradient(-45deg, transparent 45%, #0C0C0D 45%, #0C0C0D 55%, transparent 55%)",
               backgroundSize: "16px 16px",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
@@ -3272,7 +3272,7 @@ function PanelContent({
                 fontFamily: i === 0 ? "var(--font-heading)" : "var(--font-body)",
                 fontSize: i === 0 ? 26 : 14,
                 fontWeight: i === 0 ? 500 : 400,
-                color: i === 0 ? "#2A2420" : "#5A5047",
+                color: i === 0 ? "#0C0C0D" : "#4A4A4E",
                 lineHeight: 1.35,
                 letterSpacing: i === 0 ? "-0.01em" : "0",
               }}
@@ -3286,8 +3286,8 @@ function PanelContent({
       {/* Story paragraphs */}
       <div
         style={{
-          background: "#FFFCF5",
-          border: "1.5px solid #2A2420",
+          background: "#FFFFFF",
+          border: "1.5px solid #0C0C0D",
           borderRadius: 12,
           padding: "18px 20px",
           marginBottom: 18,
@@ -3301,7 +3301,7 @@ function PanelContent({
               fontFamily: "var(--font-body)",
               fontSize: 14.5,
               lineHeight: 1.6,
-              color: "#2A2420",
+              color: "#0C0C0D",
             }}
           >
             {p}
@@ -3336,7 +3336,7 @@ function PanelContent({
                 fontWeight: 700,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: "#8A7E70",
+                color: "#8A8A8F",
               }}
             >
               {f.k}
@@ -3347,7 +3347,7 @@ function PanelContent({
                 fontFamily: "var(--font-body)",
                 fontSize: 13.5,
                 fontWeight: 500,
-                color: "#2A2420",
+                color: "#0C0C0D",
                 lineHeight: 1.4,
               }}
             >
@@ -3362,14 +3362,14 @@ function PanelContent({
         style={{
           padding: "12px 22px",
           background: accent,
-          border: "2px solid #2A2420",
+          border: "2px solid #0C0C0D",
           borderRadius: 8,
           fontFamily: "var(--font-body)",
           fontSize: 14,
           fontWeight: 600,
-          color: which === "yukun" ? "#FFFCF5" : "#2A2420",
+          color: which === "yukun" ? "#FFFFFF" : "#0C0C0D",
           cursor: "pointer",
-          boxShadow: "3px 3px 0 #2A2420",
+          boxShadow: "3px 3px 0 #0C0C0D",
         }}
       >
         {person.cta} →
@@ -3405,9 +3405,9 @@ function WorldMap({ lang }: { lang: Locale }) {
   );
   const P = WORLD_PINS;
   const partners = [
-    { key: "belo", pin: P.belo, label: lang === "fr" ? "Brésil — Belo Horizonte" : lang === "en" ? "Brazil — Belo Horizonte" : lang === "zh-CN" ? "巴西 — 贝洛奥里藏特" : "Brasil — Belo Horizonte", lx: P.belo.x, ly: P.belo.y + 3.1, anchor: "middle", dur: "3.8s" },
-    { key: "douala", pin: P.douala, label: lang === "fr" ? "Cameroun — Douala" : lang === "en" ? "Cameroon — Douala" : lang === "zh-CN" ? "喀麦隆 — 杜阿拉" : "Camarões — Douala", lx: P.douala.x + 2.2, ly: P.douala.y + 2.6, anchor: "start", dur: "3.2s" },
-    { key: "guangzhou", pin: P.guangzhou, label: lang === "fr" ? "Chine — Guangzhou" : lang === "en" ? "China — Guangzhou" : lang === "zh-CN" ? "中国 — 广州" : "China — Guangzhou", lx: P.guangzhou.x, ly: P.guangzhou.y - 2.4, anchor: "middle", dur: "4.4s" },
+    { key: "belo", pin: P.belo, label: lang === "fr" ? "Brésil · Belo Horizonte" : lang === "en" ? "Brazil · Belo Horizonte" : lang === "zh-CN" ? "巴西 · 贝洛奥里藏特" : "Brasil · Belo Horizonte", lx: P.belo.x, ly: P.belo.y + 3.1, anchor: "middle", dur: "3.8s" },
+    { key: "douala", pin: P.douala, label: lang === "fr" ? "Cameroun · Douala" : lang === "en" ? "Cameroon · Douala" : lang === "zh-CN" ? "喀麦隆 · 杜阿拉" : "Camarões · Douala", lx: P.douala.x + 2.2, ly: P.douala.y + 2.6, anchor: "start", dur: "3.2s" },
+    { key: "guangzhou", pin: P.guangzhou, label: lang === "fr" ? "Chine · Guangzhou" : lang === "en" ? "China · Guangzhou" : lang === "zh-CN" ? "中国 · 广州" : "China · Guangzhou", lx: P.guangzhou.x, ly: P.guangzhou.y - 2.4, anchor: "middle", dur: "4.4s" },
   ];
   const curve = (t: { x: number; y: number }) => {
     const a = P.paris, mx = (a.x + t.x) / 2, my = Math.min(a.y, t.y) - Math.hypot(t.x - a.x, t.y - a.y) * 0.18;
@@ -3416,29 +3416,29 @@ function WorldMap({ lang }: { lang: Locale }) {
   return (
     <svg viewBox={`0 0 ${WORLD_W} ${WORLD_H + 2}`} width="100%" style={{ display: "block", height: "auto" }} role="img"
       aria-label={lang === "fr" ? "Carte : Parrit à Paris et Lille, partenaires à Belo Horizonte, Douala et Guangzhou" : "Map: Parrit in Paris and Lille, partners in Belo Horizonte, Douala and Guangzhou"}>
-      <path d={dotsPath} stroke="#2A2420" strokeOpacity={0.16} strokeWidth={0.55} strokeLinecap="round" fill="none" />
+      <path d={dotsPath} stroke="#0C0C0D" strokeOpacity={0.16} strokeWidth={0.55} strokeLinecap="round" fill="none" />
       {partners.map((pt) => (
         <g key={pt.key}>
           <path d={curve(pt.pin)} fill="none" stroke="var(--parrit-red)" strokeOpacity={0.4} strokeWidth={0.22} strokeDasharray=".7 .9" />
           <circle r={0.36} fill="var(--parrit-red)" opacity={0.85}>
             <animateMotion dur={pt.dur} repeatCount="indefinite" path={curve(pt.pin)} />
           </circle>
-          <circle cx={pt.pin.x} cy={pt.pin.y} r={0.62} fill="#c8956c" stroke="#2A2420" strokeWidth={0.14} />
-          <circle cx={pt.pin.x} cy={pt.pin.y} r={0.62} fill="none" stroke="#c8956c" strokeWidth={0.18}>
+          <circle cx={pt.pin.x} cy={pt.pin.y} r={0.62} fill="#0C0C0D" stroke="#0C0C0D" strokeWidth={0.14} />
+          <circle cx={pt.pin.x} cy={pt.pin.y} r={0.62} fill="none" stroke="#0C0C0D" strokeWidth={0.18}>
             <animate attributeName="r" values=".8;1.9;.8" dur="2.6s" repeatCount="indefinite" />
             <animate attributeName="stroke-opacity" values=".8;0;.8" dur="2.6s" repeatCount="indefinite" />
           </circle>
-          <text x={pt.lx} y={pt.ly} textAnchor={pt.anchor as "middle" | "start"} fontFamily="var(--font-body)" fontWeight={700} fontSize={1.75} fill="#2A2420">{pt.label}</text>
+          <text x={pt.lx} y={pt.ly} textAnchor={pt.anchor as "middle" | "start"} fontFamily="var(--font-body)" fontWeight={700} fontSize={1.75} fill="#0C0C0D">{pt.label}</text>
         </g>
       ))}
-      <circle cx={P.lille.x} cy={P.lille.y} r={0.5} fill="var(--parrit-red)" stroke="#2A2420" strokeWidth={0.14} />
-      <circle cx={P.paris.x} cy={P.paris.y} r={0.66} fill="var(--parrit-red)" stroke="#2A2420" strokeWidth={0.14} />
+      <circle cx={P.lille.x} cy={P.lille.y} r={0.5} fill="var(--parrit-red)" stroke="#0C0C0D" strokeWidth={0.14} />
+      <circle cx={P.paris.x} cy={P.paris.y} r={0.66} fill="var(--parrit-red)" stroke="#0C0C0D" strokeWidth={0.14} />
       <circle cx={P.paris.x} cy={P.paris.y} r={0.66} fill="none" stroke="var(--parrit-red)" strokeWidth={0.2}>
         <animate attributeName="r" values=".9;2.1;.9" dur="2.2s" repeatCount="indefinite" />
         <animate attributeName="stroke-opacity" values=".9;0;.9" dur="2.2s" repeatCount="indefinite" />
       </circle>
       <text x={P.paris.x} y={P.lille.y - 1.9} textAnchor="middle" fontFamily="var(--font-body)" fontWeight={800} fontSize={1.85} fill="var(--parrit-red)">
-        {lang === "fr" ? "France — Paris · Lille" : lang === "en" ? "France — Paris · Lille" : lang === "zh-CN" ? "法国 — 巴黎 · 里尔" : "França — Paris · Lille"}
+        {lang === "fr" ? "France · Paris · Lille" : lang === "en" ? "France · Paris · Lille" : lang === "zh-CN" ? "法国 · 巴黎 · 里尔" : "França · Paris · Lille"}
       </text>
     </svg>
   );
@@ -3540,12 +3540,33 @@ export default function HomeClient({
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <p className="parrit-os-eyebrow">{
-              lang === "fr" ? "Parrit · Trait d'union croissance × transformation IA"
-              : lang === "en" ? "Parrit · The bridge between growth × AI transformation"
-              : lang === "zh-CN" ? "Parrit · 增长与 AI 转型之间的纽带"
-              : "Parrit · Elo entre crescimento × transformação IA"
+              lang === "fr" ? "Operating Partner · 速 vitesse d'exécution"
+              : lang === "en" ? "Operating Partner · 速 speed of execution"
+              : lang === "zh-CN" ? "Operating Partner · 速 执行速度"
+              : "Operating Partner · 速 velocidade de execução"
             }</p>
-            <h1 className="parrit-os-brand">{copy.brand}</h1>
+            <h1 className="parrit-os-wordmark-h1">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/brand/parrit-lockup.svg"
+                alt="PARRIT·AI"
+                className="parrit-os-wordmark"
+                width={440}
+                height={67}
+              />
+            </h1>
+            <div className="parrit-os-chips">
+              {(lang === "fr"
+                ? ["Transformation IA", "Management d'agents IA", "Formation au management d'agents IA"]
+                : lang === "en"
+                  ? ["AI Transformation", "AI agent management", "Training in AI agent management"]
+                  : lang === "zh-CN"
+                    ? ["AI 转型", "AI 智能体管理", "AI 智能体管理培训"]
+                    : ["Transformação IA", "Gestão de agentes IA", "Formação em gestão de agentes IA"]
+              ).map((c) => (
+                <span key={c} className="parrit-os-chip">{c}</span>
+              ))}
+            </div>
             <p className="parrit-os-tagline">{copy.tagline}</p>
             <p className="parrit-os-sub">{copy.sub}</p>
             <div className="parrit-os-cta-row">
@@ -3611,52 +3632,73 @@ export default function HomeClient({
         </aside>
       </div>
 
-      {/* ── Chronological chain — où Parrit intervient ─────────────── */}
-      <section className="parrit-os-chain" aria-label="Intervention chain">
+      {/* ── Deux fronts — back-office / business (tout dirigeant s'y reconnaît) ── */}
+      <section className="parrit-os-chain" aria-label="Intervention — deux fronts">
         <p className="parrit-os-chain-eyebrow">
           {lang === "fr"
-            ? "On intervient sur toute la chaîne"
+            ? "On opère vos deux fronts critiques"
             : lang === "en"
-            ? "We intervene across the whole chain"
+            ? "We run both of your critical fronts"
             : lang === "zh-CN"
-            ? "我们介入整条链路"
-            : "Intervimos em toda a cadeia"}
+            ? "我们运营您的两大关键战线"
+            : "Operamos suas duas frentes críticas"}
         </p>
-        <div className="parrit-os-chain-row">
-          {[
-            { color: "#C44536", label: lang === "fr" ? "Signal d'achat" : lang === "en" ? "Buying signal" : lang === "zh-CN" ? "购买信号" : "Sinal de compra" },
-            { color: "#C44536", label: lang === "fr" ? "Approche perso" : lang === "en" ? "Personalized outreach" : lang === "zh-CN" ? "个性化接触" : "Abordagem personalizada" },
-            { color: "#C44536", label: lang === "fr" ? "RDV qualifié" : lang === "en" ? "Qualified meeting" : lang === "zh-CN" ? "高质量会议" : "Reunião qualificada" },
-            { color: "#c8956c", label: lang === "fr" ? "Closing assisté" : lang === "en" ? "Assisted closing" : lang === "zh-CN" ? "辅助成单" : "Fechamento assistido" },
-            { color: "#c8956c", label: lang === "fr" ? "Onboarding client" : lang === "en" ? "Customer onboarding" : lang === "zh-CN" ? "客户入职" : "Onboarding cliente" },
-            { color: "#5FAF8E", label: lang === "fr" ? "Stocks & supply" : lang === "en" ? "Stocks & supply" : lang === "zh-CN" ? "库存与供应" : "Estoque & supply" },
-            { color: "#5FAF8E", label: lang === "fr" ? "Marketing & innovation" : lang === "en" ? "Marketing & innovation" : lang === "zh-CN" ? "营销与创新" : "Marketing & inovação" },
-            { color: "#7C5BA1", label: lang === "fr" ? "Reporting CEO" : lang === "en" ? "Executive reporting" : lang === "zh-CN" ? "CEO 报告" : "Relatório CEO" },
-          ].map((step, i, arr) => (
-            <React.Fragment key={step.label}>
-              <motion.div
-                className="parrit-os-chain-step"
-                style={{ ["--step-color" as string]: step.color } as React.CSSProperties}
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.35, delay: i * 0.07 }}
-              >
-                <span className="parrit-os-chain-dot" />
-                <span className="parrit-os-chain-label">{step.label}</span>
-              </motion.div>
-              {i < arr.length - 1 && <span className="parrit-os-chain-arrow" aria-hidden>›</span>}
-            </React.Fragment>
-          ))}
-        </div>
+        {(() => {
+          const fronts =
+            lang === "fr"
+              ? [
+                  { tag: "Back-office", desc: "ce qui fait tourner la boîte", kind: "backoffice", steps: ["Administratif & conformité", "Opérations & supply", "Finance & reporting", "Connaissance client"] },
+                  { tag: "Business", desc: "ce qui la fait grandir", kind: "business", steps: ["Acquisition", "Relation client", "Marketing & contenu", "Innovation & produit"] },
+                ]
+              : lang === "en"
+              ? [
+                  { tag: "Back-office", desc: "what keeps the company running", kind: "backoffice", steps: ["Admin & compliance", "Operations & supply", "Finance & reporting", "Customer knowledge"] },
+                  { tag: "Business", desc: "what makes it grow", kind: "business", steps: ["Acquisition", "Customer relationship", "Marketing & content", "Innovation & product"] },
+                ]
+              : lang === "zh-CN"
+              ? [
+                  { tag: "后台运营", desc: "支撑公司运转", kind: "backoffice", steps: ["行政与合规", "运营与供应", "财务与报告", "客户洞察"] },
+                  { tag: "业务增长", desc: "助公司成长", kind: "business", steps: ["获客", "客户关系", "营销与内容", "创新与产品"] },
+                ]
+              : [
+                  { tag: "Back-office", desc: "o que faz a empresa girar", kind: "backoffice", steps: ["Administrativo & conformidade", "Operações & supply", "Finanças & relatórios", "Conhecimento do cliente"] },
+                  { tag: "Business", desc: "o que a faz crescer", kind: "business", steps: ["Aquisição", "Relação com cliente", "Marketing & conteúdo", "Inovação & produto"] },
+                ];
+          return fronts.map((front) => (
+            <div className="parrit-os-chain-front" key={front.tag}>
+              <p className={`parrit-os-chain-front-label parrit-os-front-${front.kind}`}>
+                <span className="parrit-os-front-tag">{front.tag}</span>
+                <span className="parrit-os-front-desc">{front.desc}</span>
+              </p>
+              <div className="parrit-os-chain-row">
+                {front.steps.map((label, i, arr) => (
+                  <React.Fragment key={label}>
+                    <motion.div
+                      className="parrit-os-chain-step"
+                      style={{ ["--step-color" as string]: front.kind === "business" ? "#D1132F" : "#0C0C0D" } as React.CSSProperties}
+                      initial={{ opacity: 0, y: 8 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-40px" }}
+                      transition={{ duration: 0.35, delay: i * 0.07 }}
+                    >
+                      <span className="parrit-os-chain-dot" />
+                      <span className="parrit-os-chain-label">{label}</span>
+                    </motion.div>
+                    {i < arr.length - 1 && <span className="parrit-os-chain-arrow" aria-hidden>›</span>}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+          ));
+        })()}
         <p className="parrit-os-chain-sub">
           {lang === "fr"
-            ? "AI Operating Partner : on déploie et on opère des agents à chaque maillon — de la première intention captée au reporting dirigeant, sans rupture."
+            ? "Operating Partner : on déploie et on opère des agents sur le front qui compte pour vous, celui qui fait tourner votre boîte comme celui qui la fait grandir. Tout ça, on l'a déjà déployé."
             : lang === "en"
-            ? "AI Operating Partner: we deploy and run agents at every link — from the first captured intent to executive reporting, with no break."
+            ? "Operating Partner: we deploy and run agents on the front that matters to you, the one that runs your company and the one that makes it grow. All of it, already deployed."
             : lang === "zh-CN"
-            ? "AI Operating Partner：我们在每个环节部署并运营智能体——从首个捕捉意向到管理层报告，不间断。"
-            : "AI Operating Partner: implantamos e operamos agentes em cada elo — da primeira intenção captada ao relatório executivo, sem ruptura."}
+            ? "Operating Partner：我们在对您重要的战线上部署并运营智能体，无论是支撑公司运转，还是助其成长。这一切，我们都已落地。"
+            : "Operating Partner: implantamos e operamos agentes na frente que importa para você, a que faz a empresa girar e a que a faz crescer. Tudo isso, já implantado."}
         </p>
       </section>
 
@@ -3667,13 +3709,23 @@ export default function HomeClient({
         </p>
         <h2 className="parrit-os-world-title">
           {lang === "fr"
-            ? "Paris & Lille — et des partenaires sur quatre continents"
+            ? "Paris & Lille, et des partenaires sur quatre continents"
             : lang === "en"
-            ? "Paris & Lille — with partners across four continents"
+            ? "Paris & Lille, with partners across four continents"
             : lang === "zh-CN"
             ? "立足巴黎与里尔，伙伴遍布四大洲"
-            : "Paris & Lille — com parceiros em quatro continentes"}
+            : "Paris & Lille, com parceiros em quatro continentes"}
         </h2>
+        <p className="parrit-os-chain-sub" style={{ marginTop: 10 }}>
+          <span style={{ color: "var(--parrit-red)", fontWeight: 700 }}>速</span>{" "}
+          {lang === "fr"
+            ? "veut dire « vitesse ». C'est notre nom, et notre délai : un prototype dès le premier appel. De Paris et Lille à Canton, avec Yukun (冷宇坤)."
+            : lang === "en"
+            ? "means “speed”. It's our name and our turnaround: a prototype from the very first call. From Paris and Lille to Canton, with Yukun (冷宇坤)."
+            : lang === "zh-CN"
+            ? "意为「速度」。这是我们的名字，也是我们的交付节奏：首次通话即出原型。从巴黎、里尔到广州，与 Yukun（冷宇坤）。"
+            : "significa “velocidade”. É o nosso nome e o nosso prazo: um protótipo já na primeira chamada. De Paris e Lille a Cantão, com Yukun (冷宇坤)."}
+        </p>
         <motion.div
           className="parrit-os-world-card"
           initial={{ opacity: 0, y: 14 }}
@@ -3684,10 +3736,10 @@ export default function HomeClient({
           <WorldMap lang={lang} />
         </motion.div>
         <div className="parrit-os-world-legend">
-          <span className="parrit-os-world-chip"><span className="dot" style={{ background: "var(--parrit-red)" }} />{lang === "fr" ? "Parrit — Paris & Lille" : lang === "en" ? "Parrit — Paris & Lille" : lang === "zh-CN" ? "Parrit — 巴黎 & 里尔" : "Parrit — Paris & Lille"}</span>
-          <span className="parrit-os-world-chip"><span className="dot" style={{ background: "#c8956c" }} />{lang === "fr" ? "Partenaire — Belo Horizonte" : lang === "en" ? "Partner — Belo Horizonte" : lang === "zh-CN" ? "合作伙伴 — 贝洛奥里藏特" : "Parceiro — Belo Horizonte"}</span>
-          <span className="parrit-os-world-chip"><span className="dot" style={{ background: "#c8956c" }} />{lang === "fr" ? "Partenaire — Douala" : lang === "en" ? "Partner — Douala" : lang === "zh-CN" ? "合作伙伴 — 杜阿拉" : "Parceiro — Douala"}</span>
-          <span className="parrit-os-world-chip"><span className="dot" style={{ background: "#c8956c" }} />{lang === "fr" ? "Partenaire — Guangzhou" : lang === "en" ? "Partner — Guangzhou" : lang === "zh-CN" ? "合作伙伴 — 广州" : "Parceiro — Guangzhou"}</span>
+          <span className="parrit-os-world-chip"><span className="dot" style={{ background: "var(--parrit-red)" }} />{lang === "fr" ? "Parrit · Paris & Lille" : lang === "en" ? "Parrit · Paris & Lille" : lang === "zh-CN" ? "Parrit · 巴黎 & 里尔" : "Parrit · Paris & Lille"}</span>
+          <span className="parrit-os-world-chip"><span className="dot" style={{ background: "#0C0C0D" }} />{lang === "fr" ? "Partenaire · Belo Horizonte" : lang === "en" ? "Partner · Belo Horizonte" : lang === "zh-CN" ? "合作伙伴 · 贝洛奥里藏特" : "Parceiro · Belo Horizonte"}</span>
+          <span className="parrit-os-world-chip"><span className="dot" style={{ background: "#0C0C0D" }} />{lang === "fr" ? "Partenaire · Douala" : lang === "en" ? "Partner · Douala" : lang === "zh-CN" ? "合作伙伴 · 杜阿拉" : "Parceiro · Douala"}</span>
+          <span className="parrit-os-world-chip"><span className="dot" style={{ background: "#0C0C0D" }} />{lang === "fr" ? "Partenaire · Guangzhou" : lang === "en" ? "Partner · Guangzhou" : lang === "zh-CN" ? "合作伙伴 · 广州" : "Parceiro · Guangzhou"}</span>
         </div>
       </section>
 
@@ -3759,7 +3811,7 @@ export default function HomeClient({
           <Win
             title={`${copy.waitlist.eyebrow} — Parrit.ai`}
             onClose={() => setOpen(null)}
-            accent="#C44536"
+            accent="#D1132F"
             maxWidth={520}
           >
             <WaitlistWindow copy={copy.waitlist} />
@@ -3781,7 +3833,7 @@ export default function HomeClient({
           </p>
           <div className="parrit-os-blog-cards">
             {featuredPosts.slice(0, 4).map((post, i) => {
-              const accents = ["#5FAF8E", "#c8956c", "#C44536", "#7C5BA1"];
+              const accents = ["#D1132F", "#0C0C0D", "#D1132F", "#0C0C0D"];
               const accent = accents[i % accents.length];
               const blogLang = lang === "zh-CN" ? "en" : lang;
               return (
@@ -3802,7 +3854,7 @@ export default function HomeClient({
                       className="parrit-os-blog-card-chip"
                       style={{
                         background: accent,
-                        color: accent === "#2A2420" ? "#FFFCF5" : "#2A2420",
+                        color: accent === "#0C0C0D" ? "#FFFFFF" : "#0C0C0D",
                       }}
                     >
                       {post.category}
