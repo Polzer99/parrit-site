@@ -862,6 +862,8 @@ body > * {
   max-width: 1240px;
   margin: 0 auto;
   text-align: center;
+  width: 100%;
+  min-width: 0; /* flex item de .parrit-os-root (flex-col) : largeur définie + rétrécissement → la grille auto-fit reflue à 3 colonnes, pas de 4e colonne fantôme clippée sur tablette */
 }
 .parrit-os-blog-cards {
   display: grid;
