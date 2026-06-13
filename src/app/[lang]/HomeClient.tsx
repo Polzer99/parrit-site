@@ -1,5 +1,21 @@
 "use client";
 
+/* ════════════════════════════════════════════════════════════════════════
+   parrit.ai — home « desktop-OS ». Carte du fichier (voir /AGENTS.md) :
+   1. const COPY (DICT) ≈ ll.27-1620 — CONTENU, un bloc par langue :
+      fr ≈28 · en ≈418 · "pt-BR" ≈807 · "zh-CN" ≈1174.
+      Même forme partout : offers[], panel.{manifeste,transformation,methode,
+      cas,paul,yukun}, contact, waitlist, docks. Éditer 1 langue = répliquer ×4.
+   2. Types (AgentBox/OfferCopy/PanelCopy/FullCopy) + getCopy() ≈1543-1624.
+   3. Composants (STYLE, inline) ≈1631-3450 : Icon*, HeroScene, Win (modale),
+      SlotPicker, ContactBlock, WaitlistWindow, OfferWindow, PanelContent
+      (rend les panels), WorldMap.
+   4. export default HomeClient ≈3455 : topbar → grid (docks+hero) → deux fronts
+      → carte monde → modales → blog → statusbar.
+   Palette : crème #FEFDF9 / encre #0C0C0D / rouge #D1132F UNIQUEMENT (BRAND.md).
+   Avant push : scripts/contrast-audit.py (cible TOTAL=0) + npm run build.
+   ════════════════════════════════════════════════════════════════════════ */
+
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
