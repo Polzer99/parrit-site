@@ -1,0 +1,64 @@
+{
+  "slug": "automatiser-veille-juridique",
+  "category": "fondamentaux",
+  "published_at": "2026-06-15",
+  "updated_at": "2026-06-15",
+  "langs": {
+    "fr": {
+      "title": "Comment automatiser la veille juridique avec un agent ?",
+      "subtitle": "Je vous montre comment déléguer la surveillance des textes à un outil, sans perdre le contrôle.",
+      "meta": {
+        "title": "Automatiser la veille juridique avec un agent - Parrit",
+        "description": "Guide opérationnel pour configurer un agent de veille juridique automatisé. Méthodes concrètes pour avocats et entreprises.",
+        "ogTitle": "Automatiser la veille juridique",
+        "ogDescription": "Comment déléguer la surveillance des textes à un outil, sans perdre le contrôle. Guide opérationnel."
+      },
+      "intro": "La veille juridique, c'est surveiller l'évolution des textes qui vous concernent. Lois, décrets, jurisprudence, doctrine. L'automatiser, c'est configurer un système pour qu'il fasse ce travail de surveillance à votre place, et qu'il vous alerte quand quelque chose change. Le gain est simple : vous ne ratez plus une évolution importante parce que vous étiez occupé sur un dossier. Vous pouvez vous concentrer sur l'interprétation et la stratégie, pas sur le monitoring brut. Voici comment on procède, étape par étape.",
+      "sections": [
+        {
+          "q": "Quelles sources un agent peut-il surveiller ?",
+          "a": "Tout ce qui est publié en ligne de manière structurée. Les Journaux Officiels, les sites des cours d'appel et de la Cour de cassation, les blogs spécialisés reconnus, les bases de données juridiques payantes avec une API. L'agent ne lit pas le papier journal sur votre bureau. Il scrute les flux RSS, les pages web qui se mettent à jour, les newsletters qu'on peut forwarder à une adresse dédiée. Pour un cabinet d'avocats fiscalistes, on va cibler Légifrance, le site des impôts, et deux ou trois revues doctrinales en ligne. La clé est de lister exhaustivement vos sources critiques."
+        },
+        {
+          "q": "Comment lui dire exactement quoi chercher ?",
+          "a": "Par des requêtes précises et des filtres. Vous ne lui demandez pas 'surveille le droit des sociétés'. Vous lui donnez une liste de mots-clés, d'expressions et de combinaisons booléennes. 'Loi Pacte 2', 'obligation de vigilance', 'décret + registre unique'. Pour un artisan qui veut suivre les normes, on ajoutera les références exactes des articles et les numéros de normes AFNOR. Vous pouvez aussi exclure des termes pour éviter le bruit. L'agent applique ces filtres à chaque nouvelle publication qu'il détecte. C'est une machine à trier."
+        },
+        {
+          "q": "Que fait-il quand il trouve une correspondance ?",
+          "a": "Il extrait l'information et la présente selon un template que vous définissez. Il ne vous envoie pas un lien brut. Il rédige un résumé en deux phrases, cite l'article pertinent, note la date de publication et l'autorité émettrice. Pour une décision de justice, il sortira le numéro de pourvoi, les parties, et le dispositif clé. Ensuite, il envoie cette fiche par l'outil que vous utilisez : email, message Slack, ticket dans votre logiciel de gestion. L'idée est que l'information arrive prête à être utilisée, sans travail supplémentaire."
+        },
+        {
+          "q": "Comment éviter les alertes inutiles ou les faux positifs ?",
+          "a": "En affinant les règles semaine après semaine. Les premiers jours, vous allez recevoir trop d'alertes ou de mauvaises alertes. Vous notez chaque faux positif et vous ajustez les mots-clés. Un texte qui parle 'd'engagement' dans un sens moral n'a rien à voir avec l''engagement de responsabilité' que vous suivez. Vous ajoutez des contextes obligatoires. Par exemple, le mot 'contrat' doit toujours être accompagné de 'rupture' ou 'résiliation' dans la même phrase pour déclencher l'alerte. C'est un processus itératif. Après deux semaines, le système devient précis."
+        },
+        {
+          "q": "Faut-il tout automatiser ou garder une part manuelle ?",
+          "a": "Tout automatiser sur les sources principales, garder une revue manuelle périodique sur les sources secondaires. Votre agent surveille en continu les 5-10 sources vitales. Pour les 20 autres sources moins critiques, vous pouvez configurer un rapport hebdomadaire ou mensuel qui liste les nouveautés, sans alerte immédiate. Vous parcourez ce rapport vous-même en 10 minutes. Ça permet de capter des signaux faibles ou des tendances émergentes que vos règles strictes auraient manquées. L'automatisation n'est pas une religion. C'est un outil pour augmenter votre capacité de surveillance, pas pour la remplacer entièrement."
+        },
+        {
+          "q": "Quel est le premier pas concret pour démarrer ?",
+          "a": "Prenez la dernière évolution légale ou jurisprudentielle qui vous a concerné. Identifiez sa source exacte. Notez les mots-clés qui, dans le titre ou le résumé, vous auraient permis de la repérer immédiatement. C'est votre première règle. Ensuite, choisissez une seule source à surveiller en priorité. Configurez un outil simple comme un scraping RSS avec des filtres pour cette source et cette règle. Testez-le une semaine. Si ça marche, étendez à une deuxième source. Ne construisez pas un système monolithique d'un coup. Partez d'un noyau fonctionnel et étendez-le."
+        }
+      ],
+      "related": [
+        {
+          "slug": "automatiser-reponse-appels-juridiques",
+          "label": "Automatiser les premiers appels pour un cabinet"
+        },
+        {
+          "slug": "agent-gestion-contrats-recurrents",
+          "label": "Déléguer la gestion des contrats récurrents"
+        },
+        {
+          "slug": "veille-concurrentielle-automatisee",
+          "label": "Mettre en place une veille concurrentielle automatisée"
+        }
+      ],
+      "cta": {
+        "title": "Vous avez un cas de veille spécifique ?",
+        "subtitle": "On discute de vos sources et de vos alertes critiques. Pas de vente, juste une revue technique. DMs ouverts.",
+        "label": "Parler de mon cas"
+      }
+    }
+  }
+}

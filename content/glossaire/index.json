@@ -64,13 +64,17 @@
         "fr"
       ],
       "published_at": "2026-06-12"
+    },
+    {
+      "slug": "automatiser-veille-juridique",
+      "category": "fondamentaux",
+      "langs": [
+        "fr"
+      ],
+      "published_at": "2026-06-15"
     }
   ],
   "queue_questions": [
-    {
-      "slug": "automatiser-veille-juridique",
-      "title_fr": "Comment automatiser la veille juridique avec un agent IA ?"
-    },
     {
       "slug": "automatiser-veille-concurrentielle",
       "title_fr": "Comment automatiser la veille concurrentielle B2B ?"
