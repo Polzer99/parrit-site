@@ -58,6 +58,7 @@ const COPY = {
         { id: "paul", label: "Paul.vcf", icon: "person" },
         { id: "yukun", label: "Yukun.vcf", icon: "person" },
         { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paullarmaraud/" },
+        { id: "outils", label: "Détecteur.app ↗", icon: "external", href: "/outils/detecteur-bullshit" },
       ],
     },
     rightDock: {
@@ -447,6 +448,7 @@ const COPY = {
         { id: "cas", label: "Case-studies.md", icon: "folder" },
         { id: "paul", label: "Paul.vcf", icon: "person" },
         { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paullarmaraud/" },
+        { id: "outils", label: "Détecteur.app ↗", icon: "external", href: "/outils/detecteur-bullshit" },
       ],
     },
     rightDock: {
@@ -837,6 +839,7 @@ const COPY = {
         { id: "paul", label: "Paul.vcf", icon: "person" },
         { id: "yukun", label: "Yukun.vcf", icon: "person" },
         { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paullarmaraud/" },
+        { id: "outils", label: "Détecteur.app ↗", icon: "external", href: "/outils/detecteur-bullshit" },
       ],
     },
     rightDock: { title: "Ofertas", hint: "Clique uma oferta para abrir os detalhes" },
@@ -1204,6 +1207,7 @@ const COPY = {
         { id: "paul", label: "Paul.vcf", icon: "person" },
         { id: "yukun", label: "Yukun.vcf", icon: "person" },
         { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paullarmaraud/" },
+        { id: "outils", label: "Détecteur.app ↗", icon: "external", href: "/outils/detecteur-bullshit" },
       ],
     },
     rightDock: { title: "服务", hint: "点击服务查看详情" },
