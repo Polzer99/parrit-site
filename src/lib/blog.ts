@@ -1,3 +1,5 @@
+import { generatedBlogPosts } from "./blog-generated";
+
 export type BlogLocale = "fr" | "en" | "pt-BR";
 
 export interface BlogPost {
@@ -23,7 +25,7 @@ interface BlogPostTranslation {
   content: string;
 }
 
-interface BlogPostSource {
+export interface BlogPostSource {
   slug: string;
   date: string;
   publishedAt?: string; // defaults to `date` if not set
@@ -34,7 +36,7 @@ interface BlogPostSource {
   translations: Record<BlogLocale, BlogPostTranslation>;
 }
 
-const posts: BlogPostSource[] = [
+const canonicalPosts: BlogPostSource[] = [
   {
     slug: "evaluation-adoption-sap-intelligence-artificielle",
     date: "2026-04-12",
@@ -437,6 +439,8 @@ const posts: BlogPostSource[] = [
     },
   },
 ];
+
+const posts: BlogPostSource[] = [...generatedBlogPosts, ...canonicalPosts];
 
 function toBlogPost(src: BlogPostSource, locale: BlogLocale): BlogPost {
   const t = src.translations[locale];
