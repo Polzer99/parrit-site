@@ -3517,6 +3517,9 @@ export default function HomeClient({
         </div>
         <div className="parrit-os-title">{copy.osTitle}</div>
         <div className="parrit-os-topbar-actions">
+          <Link className="parrit-os-topbar-link" href={`/${lang}/actualite`}>
+            {dict.actualite.navTitle}
+          </Link>
           <button
             className="parrit-os-signup-btn"
             onClick={openWaitlist}

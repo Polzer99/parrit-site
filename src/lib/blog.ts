@@ -12,6 +12,7 @@ export interface BlogPost {
   category: string;
   readingTime: string;
   content: string;
+  videoUrl?: string;
   ogImage?: string;
   tags?: readonly string[];
   relatedSlugs?: readonly string[];
@@ -30,6 +31,7 @@ export interface BlogPostSource {
   date: string;
   publishedAt?: string; // defaults to `date` if not set
   author: string;
+  videoUrl?: string;
   ogImage?: string;
   tags?: readonly string[];
   relatedSlugs?: readonly string[];
@@ -449,6 +451,7 @@ function toBlogPost(src: BlogPostSource, locale: BlogLocale): BlogPost {
     date: src.date,
     publishedAt: src.publishedAt ?? src.date,
     author: src.author,
+    videoUrl: src.videoUrl,
     ogImage: src.ogImage,
     tags: src.tags,
     relatedSlugs: src.relatedSlugs,

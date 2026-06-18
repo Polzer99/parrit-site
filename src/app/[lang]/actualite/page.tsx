@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllPosts, type BlogLocale } from "@/lib/blog";
+import {
+  getAllActualitePosts,
+  type BlogLocale,
+} from "@/lib/actualite";
 import {
   getDictionary,
   hasLocale,
@@ -15,7 +18,6 @@ export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
 
-// Blog content not yet translated to zh-CN — fallback to EN content (UI strings stay zh)
 function toContentLocale(lang: string): BlogLocale {
   return (lang === "zh-CN" ? "en" : lang) as BlogLocale;
 }
@@ -29,21 +31,21 @@ export async function generateMetadata({
   if (!hasLocale(lang)) return {};
 
   const dict = await getDictionary(lang as Locale);
-  const m = dict.blog.meta;
+  const m = dict.actualite.meta;
 
   return {
     title: m.title,
     description: m.description,
     alternates: {
-      canonical: `${SITE_URL}/${lang}/blog`,
+      canonical: `${SITE_URL}/${lang}/actualite`,
       languages: Object.fromEntries(
-        locales.map((l) => [l, `${SITE_URL}/${l}/blog`]),
+        locales.map((l) => [l, `${SITE_URL}/${l}/actualite`]),
       ),
     },
     openGraph: {
       title: m.ogTitle,
       description: m.ogDescription,
-      url: `${SITE_URL}/${lang}/blog`,
+      url: `${SITE_URL}/${lang}/actualite`,
       siteName: "Parrit.ai",
       locale: dict.meta.ogLocale,
       type: "website",
@@ -59,7 +61,7 @@ function formatDate(iso: string, dateLocale: string): string {
   });
 }
 
-export default async function BlogIndex({
+export default async function ActualiteIndex({
   params,
 }: {
   params: Promise<{ lang: string }>;
@@ -68,14 +70,14 @@ export default async function BlogIndex({
   if (!hasLocale(lang)) notFound();
 
   const dict = await getDictionary(lang as Locale);
-  const posts = getAllPosts(toContentLocale(lang));
+  const posts = getAllActualitePosts(toContentLocale(lang));
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: "Blog Parrit.ai",
-    url: `${SITE_URL}/${lang}/blog`,
-    description: dict.blog.meta.schemaDescription,
+    name: "Actualité IA Parrit.ai",
+    url: `${SITE_URL}/${lang}/actualite`,
+    description: dict.actualite.meta.schemaDescription,
     publisher: {
       "@type": "Organization",
       name: "Parrit.ai",
@@ -105,19 +107,21 @@ export default async function BlogIndex({
       </nav>
 
       <header className="blog-header">
-        <p className="blog-header-label">{dict.blog.headerLabel}</p>
+        <p className="blog-header-label">{dict.actualite.headerLabel}</p>
         <h1 className="blog-header-title">
-          {dict.blog.headerTitleMain}{" "}
-          <em className="hero-accent">{dict.blog.headerTitleAccent}</em>
+          {dict.actualite.headerTitleMain}{" "}
+          <em className="hero-accent">{dict.actualite.headerTitleAccent}</em>
         </h1>
-        <p className="blog-header-subtitle">{dict.blog.headerSubtitle}</p>
+        <p className="blog-header-subtitle">
+          {dict.actualite.headerSubtitle}
+        </p>
       </header>
 
       <main className="blog-list">
         {posts.map((post, i) => (
           <Link
             key={post.slug}
-            href={`/${lang}/blog/${post.slug}`}
+            href={`/${lang}/actualite/${post.slug}`}
             className="blog-card"
             style={{ animationDelay: `${i * 80}ms` }}
           >
@@ -132,15 +136,17 @@ export default async function BlogIndex({
             </div>
             <h2 className="blog-card-title">{post.title}</h2>
             <p className="blog-card-desc">{post.description}</p>
-            <span className="blog-card-read">{dict.blog.readArticle}</span>
+            <span className="blog-card-read">
+              {dict.actualite.readArticle}
+            </span>
           </Link>
         ))}
       </main>
 
       <footer className="blog-footer">
-        <p className="blog-footer-text">{dict.blog.footerText}</p>
+        <p className="blog-footer-text">{dict.actualite.footerText}</p>
         <Link href={`/${lang}#callback-form`} className="blog-footer-cta">
-          {dict.blog.footerCta}
+          {dict.actualite.footerCta}
         </Link>
         <p className="footer-legal" style={{ marginTop: 40 }}>
           © {new Date().getFullYear()} SASU PARRIT.AI · Rueil-Malmaison

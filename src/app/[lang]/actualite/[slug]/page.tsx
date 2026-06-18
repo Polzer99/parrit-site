@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPostBySlug, getAllSlugs, getRelatedPosts, type BlogLocale } from "@/lib/blog";
+import {
+  getActualitePostBySlug,
+  getAllActualiteSlugs,
+  type BlogLocale,
+} from "@/lib/actualite";
 import {
   getDictionary,
   hasLocale,
@@ -10,17 +14,32 @@ import {
 } from "../../dictionaries";
 
 const SITE_URL = "https://parrit.ai";
+const FORBIDDEN_VIDEO_HOST = ["vercel", "app"].join(".");
 
 export function generateStaticParams() {
-  const slugs = getAllSlugs();
-  return locales.flatMap((lang) =>
-    slugs.map((slug) => ({ lang, slug })),
-  );
+  const slugs = getAllActualiteSlugs();
+  return locales.flatMap((lang) => slugs.map((slug) => ({ lang, slug })));
 }
 
-// Blog content not yet translated to zh-CN — fallback to EN content (UI strings stay zh)
 function toContentLocale(lang: string): BlogLocale {
   return (lang === "zh-CN" ? "en" : lang) as BlogLocale;
+}
+
+function getSafeVideoUrl(videoUrl?: string): string | undefined {
+  if (!videoUrl) return undefined;
+
+  try {
+    const parsed = new URL(videoUrl, SITE_URL);
+    if (
+      parsed.hostname === FORBIDDEN_VIDEO_HOST ||
+      parsed.hostname.endsWith(`.${FORBIDDEN_VIDEO_HOST}`)
+    ) {
+      return undefined;
+    }
+    return videoUrl;
+  } catch {
+    return undefined;
+  }
 }
 
 export async function generateMetadata({
@@ -31,7 +50,7 @@ export async function generateMetadata({
   const { lang, slug } = await params;
   if (!hasLocale(lang)) return {};
 
-  const post = getPostBySlug(slug, toContentLocale(lang));
+  const post = getActualitePostBySlug(slug, toContentLocale(lang));
   if (!post) return {};
 
   const dict = await getDictionary(lang as Locale);
@@ -41,15 +60,15 @@ export async function generateMetadata({
     description: post.description,
     authors: [{ name: post.author }],
     alternates: {
-      canonical: `${SITE_URL}/${lang}/blog/${post.slug}`,
+      canonical: `${SITE_URL}/${lang}/actualite/${post.slug}`,
       languages: Object.fromEntries(
-        locales.map((l) => [l, `${SITE_URL}/${l}/blog/${post.slug}`]),
+        locales.map((l) => [l, `${SITE_URL}/${l}/actualite/${post.slug}`]),
       ),
     },
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `${SITE_URL}/${lang}/blog/${post.slug}`,
+      url: `${SITE_URL}/${lang}/actualite/${post.slug}`,
       siteName: "Parrit.ai",
       locale: dict.meta.ogLocale,
       type: "article",
@@ -72,7 +91,7 @@ function formatDate(iso: string, dateLocale: string): string {
   });
 }
 
-export default async function BlogPostPage({
+export default async function ActualitePostPage({
   params,
 }: {
   params: Promise<{ lang: string; slug: string }>;
@@ -80,13 +99,12 @@ export default async function BlogPostPage({
   const { lang, slug } = await params;
   if (!hasLocale(lang)) notFound();
 
-  const post = getPostBySlug(slug, toContentLocale(lang));
+  const post = getActualitePostBySlug(slug, toContentLocale(lang));
   if (!post) notFound();
 
   const dict = await getDictionary(lang as Locale);
-  const related = getRelatedPosts(post.slug, toContentLocale(lang), 3);
-
-  const postUrl = `${SITE_URL}/${lang}/blog/${post.slug}`;
+  const postUrl = `${SITE_URL}/${lang}/actualite/${post.slug}`;
+  const safeVideoUrl = getSafeVideoUrl(post.videoUrl);
   const wordCount = post.content
     .replace(/<[^>]+>/g, " ")
     .split(/\s+/)
@@ -107,13 +125,20 @@ export default async function BlogPostPage({
         inLanguage: lang,
         url: postUrl,
         mainEntityOfPage: postUrl,
-        image: post.ogImage ? [`${SITE_URL}${post.ogImage}`] : [`${SITE_URL}/og-image.png`],
+        image: post.ogImage
+          ? [`${SITE_URL}${post.ogImage}`]
+          : [`${SITE_URL}/og-image.png`],
         author: {
           "@type": "Person",
           name: post.author,
           url: `${SITE_URL}/${lang}`,
           jobTitle: "Fondateur Parrit.ai",
-          knowsAbout: ["Claude Code", "Anthropic Claude", "Automatisation IA", "Agents IA"],
+          knowsAbout: [
+            "Claude Code",
+            "Anthropic Claude",
+            "Automatisation IA",
+            "Agents IA",
+          ],
         },
         publisher: {
           "@type": "Organization",
@@ -138,8 +163,8 @@ export default async function BlogPostPage({
           {
             "@type": "ListItem",
             position: 2,
-            name: dict.blog.navTitle,
-            item: `${SITE_URL}/${lang}/blog`,
+            name: dict.actualite.navTitle,
+            item: `${SITE_URL}/${lang}/actualite`,
           },
           {
             "@type": "ListItem",
@@ -173,10 +198,10 @@ export default async function BlogPostPage({
         </div>
       </nav>
 
-      <article className="blog-article">
+      <article className="blog-article actualite-article">
         <header className="blog-article-header">
-          <Link href={`/${lang}/blog`} className="blog-back">
-            {dict.blog.back}
+          <Link href={`/${lang}/actualite`} className="blog-back">
+            {dict.actualite.back}
           </Link>
           <div className="blog-card-meta">
             <span className="blog-card-category">{post.category}</span>
@@ -189,7 +214,7 @@ export default async function BlogPostPage({
           </div>
           <h1 className="blog-article-title">{post.title}</h1>
           <p className="blog-article-author">
-            {dict.blog.by}{" "}
+            {dict.actualite.by}{" "}
             <Link
               href={`/${lang}/auteur/paul-larmaraud`}
               style={{ borderBottom: "1px solid currentColor" }}
@@ -199,39 +224,25 @@ export default async function BlogPostPage({
           </p>
         </header>
 
+        {safeVideoUrl && (
+          <video
+            className="actualite-video"
+            controls
+            preload="metadata"
+            src={safeVideoUrl}
+          />
+        )}
+
         <div
           className="blog-article-body"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
-
-        {related.length > 0 && (
-          <section className="blog-related" aria-label="Articles liés">
-            <p className="blog-related-title">
-              {lang === "fr" ? "À lire ensuite" : lang === "en" ? "Read next" : "Para ler depois"}
-            </p>
-            <div className="blog-related-grid">
-              {related.map((r) => (
-                <Link
-                  key={r.slug}
-                  href={`/${lang}/blog/${r.slug}`}
-                  className="blog-related-card"
-                >
-                  <span className="blog-related-category">{r.category}</span>
-                  <h3 className="blog-related-card-title">{r.title}</h3>
-                  <span className="blog-related-card-meta">
-                    {r.readingTime} · {formatDate(r.date, dict.blogListDateLocale)}
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
       </article>
 
       <footer className="blog-footer">
-        <p className="blog-footer-text">{dict.blog.articleFooter}</p>
+        <p className="blog-footer-text">{dict.actualite.articleFooter}</p>
         <Link href={`/${lang}#callback-form`} className="blog-footer-cta">
-          {dict.blog.footerCta}
+          {dict.actualite.footerCta}
         </Link>
         <p className="footer-legal" style={{ marginTop: 40 }}>
           © {new Date().getFullYear()} SASU PARRIT.AI · Rueil-Malmaison

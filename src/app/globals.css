@@ -510,6 +510,24 @@ body > * {
   gap: 10px;
   align-items: center;
 }
+.parrit-os-topbar-link {
+  padding: 6px 12px;
+  background: #FEFDF9;
+  border: 2px solid #0C0C0D;
+  border-radius: 6px;
+  box-shadow: 2px 2px 0 #0C0C0D;
+  color: #0C0C0D;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+.parrit-os-topbar-link:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #0C0C0D;
+}
 .parrit-os-signup-btn {
   padding: 6px 14px;
   background: var(--parrit-red);
@@ -1017,6 +1035,9 @@ body > * {
     padding: 5px 10px;
     font-size: 11px;
   }
+  .parrit-os-topbar-link {
+    display: none;
+  }
   .parrit-os-traffic span {
     width: 10px;
     height: 10px;
@@ -1165,6 +1186,11 @@ body > * {
   font-weight: 500;
   color: #0C0C0D;
   letter-spacing: -0.01em;
+}
+.blog-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .blog-nav .blog-nav-link {
   font-family: var(--font-body);
@@ -1392,6 +1418,17 @@ body > * {
   font-size: 17px;
   color: #0C0C0D !important;
 }
+.actualite-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #0C0C0D;
+  border: 2px solid #0C0C0D;
+  border-radius: 14px;
+  box-shadow: 4px 4px 0 var(--parrit-red);
+  margin: -10px 0 34px;
+}
 
 /* Author page bio — shares the article body aesthetic, adds list styling */
 .blog-article-subtitle {
@@ -1488,6 +1525,9 @@ body > * {
     padding: 5px 10px;
     font-size: 10.5px;
   }
+  .blog-nav-links {
+    gap: 6px;
+  }
   .blog-header {
     padding: 36px 16px 24px !important;
   }
@@ -1521,6 +1561,10 @@ body > * {
   .blog-article-body h2 {
     font-size: 22px !important;
     margin: 28px 0 12px !important;
+  }
+  .actualite-video {
+    border-radius: 10px;
+    margin: -6px 0 26px;
   }
 }
 

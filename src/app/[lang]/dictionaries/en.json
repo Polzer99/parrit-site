@@ -309,6 +309,26 @@
     "by": "By",
     "articleFooter": "This article resonates? Let's discuss your case."
   },
+  "actualite": {
+    "meta": {
+      "title": "AI News : Parrit.ai | Field analysis of AI models and tools",
+      "description": "AI news analysis by Parrit.ai: open models, sovereignty, costs, concrete deployment and verifiable sources.",
+      "ogTitle": "AI News : Parrit.ai",
+      "ogDescription": "Field analysis of new AI models, their costs, limits and concrete use.",
+      "schemaDescription": "News analysis on artificial intelligence models, tools and infrastructure."
+    },
+    "navTitle": "News",
+    "headerLabel": "AI news",
+    "headerTitleMain": "What just shipped",
+    "headerTitleAccent": "and what it changes",
+    "headerSubtitle": "Parrit's reading of the AI announcements that matter: facts, sources, costs, deployment implications.",
+    "readArticle": "Read the analysis →",
+    "footerText": "Want to turn an AI announcement into a system that runs?",
+    "footerCta": "Book a conversation",
+    "back": "← Back to news",
+    "by": "By",
+    "articleFooter": "An announcement deserves a field test. Let's discuss your case."
+  },
   "blogListDateLocale": "en-US",
   "quickContact": {
     "label": "Email or phone",

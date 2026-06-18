@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import fs from "fs";
 import path from "path";
 import { getAllSlugs } from "@/lib/blog";
+import { getAllActualiteSlugs } from "@/lib/actualite";
 import { locales, type Locale } from "@/app/[lang]/dictionaries";
 
 const SITE_URL =
@@ -14,6 +15,7 @@ const STATIC_ROUTES = [
   { path: "/setup-claude-code", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/remote", changeFrequency: "monthly" as const, priority: 0.85 },
   { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
+  { path: "/actualite", changeFrequency: "weekly" as const, priority: 0.8 },
   { path: "/glossaire", changeFrequency: "weekly" as const, priority: 0.85 },
   { path: "/auteur/paul-larmaraud", changeFrequency: "monthly" as const, priority: 0.7 },
 ];
@@ -69,6 +71,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
+  const actualiteSlugs = getAllActualiteSlugs();
+  const actualiteEntries: MetadataRoute.Sitemap = actualiteSlugs.flatMap((slug) =>
+    locales.map((lang) => ({
+      url: `${SITE_URL}/${lang}/actualite/${slug}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+      alternates: {
+        languages: buildLanguagesMap(`/actualite/${slug}`),
+      },
+    })),
+  );
+
   const glossaryIndex = loadGlossaryIndex();
   const glossaryEntries: MetadataRoute.Sitemap = glossaryIndex.articles.flatMap((a) =>
     a.langs.map((lang) => ({
@@ -84,5 +99,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  return [...staticEntries, ...blogEntries, ...glossaryEntries];
+  return [...staticEntries, ...blogEntries, ...actualiteEntries, ...glossaryEntries];
 }
