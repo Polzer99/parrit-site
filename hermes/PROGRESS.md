@@ -21,3 +21,8 @@ Format d'une entrée : date · cycle/hypothèse · ce qui a été mergé · effe
 - statut : propose, en attente merge HITL → `proposals/2026-06-18.md`
 
 - issue Codex ouverte (proposition #2, mobile CTA) : https://github.com/Polzer99/parrit-site/issues/7
+
+### 2026-06-18 — cycle Hermes
+- inputs : 5 surfaces live, memoire OK, analytics PostHog quantitatif
+- 5 propositions (top : "Clarifier l'offre dès le hero" ICE 504)
+- statut : propose, en attente merge HITL → `proposals/2026-06-18.md`

@@ -17,17 +17,17 @@
 | Automation (trigger) | 🟡 partiel | human-triggered voulu (§30) ; cron gated = backlog |
 | Worktrees | ⚪ n/a | implémentation déléguée à Codex (PR isolée) |
 | Skills | 🟢 | `designing` + `loop-doctor` appliquées ; `qa-playwright`/contrast en gate |
-| Connectors | 🟡 | OpenRouter ✓ · GitHub (`gh`) ✓ · **PostHog Query API ✗** (clé perso absente) · leads Supabase ✗ |
+| Connectors | 🟢 | OpenRouter ✓ · GitHub (`gh`) ✓ · **PostHog Query API ✓** (clé perso câblée, project 148153, host eu) · leads Supabase ✗ |
 | Sub-agents | 🟢 | Codex = writer ; Claude = checker |
 | Mémoire | 🟢 | `PROGRESS.md` versionné + lu à chaque cycle |
-| Evaluator-optimizer | 🟡 | writer(Codex)≠checker(Claude+build/contrast) ✓ ; gate de CONVERSION objectif (PostHog) = à câbler |
+| Evaluator-optimizer | 🟢 | writer(Codex)≠checker(Claude+build/contrast) ✓ ; gate de CONVERSION objectif (PostHog) **câblé** : observe pageviews 14j + `form_submitted` 30j |
 | Stop condition | 🟢 | `SCORE_THRESHOLD` (aucune proposition ICE≥seuil → stop) + `MAX_PROPOSALS` backstop |
 | Autonomy ladder | 🟢 | **L2 déclarée** ici + dans chaque sortie ; jamais d'auto-merge prod |
 | Token guard | 🟢 | `HERMES_MAX_TOKENS` (kill par run) |
 | Liveness connecteur (+1 Parrit) | 🟡 | la livraison réelle = PR mergée **+ vérif live** (`curl` page après CD, comme le détecteur) ; à formaliser en check |
 
 ## Backlog Codex (gaps → Issues §25)
-1. **Observabilité conversion** : câbler la **PostHog Query API** (clé perso `POSTHOG_PERSONAL_API_KEY` + `POSTHOG_PROJECT_ID`) → funnel réel (pageviews, `form_submitted`, `bullshit_detector_lead`, drop-offs). Sans ça l'evaluator est qualitatif. _(Paul : créer la clé perso PostHog.)_
+1. ✅ **Observabilité conversion — FAIT (18/06)** : PostHog Query API câblée (`POSTHOG_PERSONAL_API_KEY` + `POSTHOG_PROJECT_ID=148153` + `POSTHOG_HOST=https://eu.posthog.com` dans `.env.local`, gitignored). Hermes observe pageviews 14j + `form_submitted` 30j. Reste à enrichir : drop-offs / funnel par étape, et tagger `bullshit_detector_lead` distinctement.
 2. **Boucle de mesure** : après merge, comparer la métrique avant→après (fenêtre 14j) et l'écrire dans `PROGRESS.md` (fermer la boucle d'apprentissage).
 3. **Leads** : lire les issues du pipeline `parrit-lead` (Supabase) pour la qualité réelle des RDV générés.
 4. **loop_lint** : adapter `tests/test_loop_invariants.py` (état/stop/token/liveness/PROGRESS/autonomie déclarée) à `hermes/`.
@@ -36,4 +36,4 @@
 ## Stop condition (vérifiable)
 Un cycle s'arrête si aucune proposition n'atteint `SCORE_THRESHOLD` (ICE), ou au `MAX_PROPOSALS`. Le « done » d'une amélioration est détenu par **autre chose que Hermes** : `npm run build` + `contrast-audit.py` + (à venir) le mouvement de la métrique PostHog.
 
-\* PostHog/leads = câblage backlog (#1/#3). Aujourd'hui l'observation est l'audit qualitatif du contenu live + la doctrine + la mémoire.
+\* PostHog **câblé** (#1 fait) : observation = contenu live + pageviews/conversions PostHog + doctrine + mémoire. Reste leads Supabase (#3).

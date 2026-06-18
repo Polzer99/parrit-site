@@ -84,26 +84,42 @@ async function observe() {
 
   // PostHog quantitatif : seulement si une cle PERSONNELLE (Query API) est cablee.
   let analytics = "(PostHog non cable : pas de cle Query API. Observation = audit qualitatif du contenu live. Gap declare LOOP.md.)";
+  let analyticsMode = "qualitatif";
   const phKey = ENV.POSTHOG_PERSONAL_API_KEY;
   const phProj = ENV.POSTHOG_PROJECT_ID;
   if (phKey && phProj) {
-    try {
-      const host = ENV.POSTHOG_HOST || "https://eu.posthog.com";
-      const q = encodeURIComponent(
-        "SELECT properties.$current_url AS url, count() AS views FROM events WHERE event = '$pageview' AND timestamp > now() - INTERVAL 14 DAY GROUP BY url ORDER BY views DESC LIMIT 15",
-      );
+    const host = ENV.POSTHOG_HOST || "https://eu.posthog.com";
+    const phQuery = async (sql) => {
       const r = await fetch(`${host}/api/projects/${phProj}/query/`, {
         method: "POST",
         headers: { Authorization: `Bearer ${phKey}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ query: { kind: "HogQLQuery", query: decodeURIComponent(q) } }),
+        body: JSON.stringify({ query: { kind: "HogQLQuery", query: sql } }),
       });
-      if (r.ok) analytics = "PostHog (14j) : " + JSON.stringify((await r.json()).results || []).slice(0, 1500);
+      if (!r.ok) throw new Error(`PostHog ${r.status} ${(await r.text()).slice(0, 120)}`);
+      return (await r.json()).results || [];
+    };
+    try {
+      const views = await phQuery(
+        "SELECT properties.$current_url AS url, count() AS n FROM events WHERE event = '$pageview' AND timestamp > now() - INTERVAL 14 DAY GROUP BY url ORDER BY n DESC LIMIT 20",
+      );
+      const conv = await phQuery(
+        "SELECT properties.form AS form, count() AS n FROM events WHERE event = 'form_submitted' AND timestamp > now() - INTERVAL 30 DAY GROUP BY form ORDER BY n DESC",
+      );
+      const total = views.reduce((a, r) => a + (Number(r[1]) || 0), 0);
+      analytics =
+        `PostHog REEL. Pageviews 14j (total ${total}) :\n` +
+        views.map((r) => `  ${r[1]}  ${r[0]}`).join("\n") +
+        `\nConversions form_submitted 30j (signal lead/RDV) :\n` +
+        (conv.length
+          ? conv.map((r) => `  ${r[1]}  ${r[0] || "(form non tague)"}`).join("\n")
+          : "  aucune conversion captee");
+      analyticsMode = "PostHog quantitatif";
     } catch (e) {
-      analytics = "(PostHog erreur : " + String(e).slice(0, 80) + ")";
+      analytics = "(PostHog erreur : " + String(e).slice(0, 120) + ")";
     }
   }
 
-  return { truth, progress, pages, analytics };
+  return { truth, progress, pages, analytics, analyticsMode };
 }
 
 // ---------- PROPOSE ----------
@@ -225,7 +241,7 @@ ${proposals
   writeFileSync(outPath, md, "utf8");
 
   const top = proposals[0];
-  const tick = `\n### ${today} — cycle Hermes\n- inputs : ${SURFACES.length} surfaces live, memoire OK, analytics ${cycle.analytics ? "" : "qualitatif"}\n- ${proposals.length} propositions (top : "${top?.title}" ICE ${top?.score})\n- statut : propose, en attente merge HITL → \`proposals/${today}.md\`\n`;
+  const tick = `\n### ${today} — cycle Hermes\n- inputs : ${SURFACES.length} surfaces live, memoire OK, analytics ${cycle.analyticsMode || "qualitatif"}\n- ${proposals.length} propositions (top : "${top?.title}" ICE ${top?.score})\n- statut : propose, en attente merge HITL → \`proposals/${today}.md\`\n`;
   appendFileSync(join(HERE, "PROGRESS.md"), tick, "utf8");
 
   return { outPath, top };
@@ -236,8 +252,9 @@ ${proposals
   console.log(`\nHermes — cycle ${today} (modele ${MODEL}, autonomie L2)\n`);
   const obs = await observe();
   console.log(`observe : ${obs.pages.map((p) => p.path + "=" + p.status).join(", ")}`);
+  console.log(`analytics : ${obs.analyticsMode}`);
   const cycle = await propose(obs);
-  cycle.analytics = obs.analytics.startsWith("(PostHog non") ? "" : obs.analytics;
+  cycle.analyticsMode = obs.analyticsMode;
 
   if (!cycle.proposals.length || cycle.proposals[0].score < SCORE_THRESHOLD) {
     console.log(`\nSTOP : aucune proposition >= seuil ${SCORE_THRESHOLD} (top = ${cycle.proposals[0]?.score || 0}). Rien a pousser ce cycle.`);
