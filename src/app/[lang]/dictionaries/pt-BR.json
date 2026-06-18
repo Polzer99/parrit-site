@@ -309,6 +309,26 @@
     "by": "Por",
     "articleFooter": "Este artigo fala com você? Vamos conversar sobre o seu caso."
   },
+  "actualite": {
+    "meta": {
+      "title": "Atualidade IA : Parrit.ai | Análises de campo de modelos e ferramentas de IA",
+      "description": "Análises de atualidade IA pela Parrit.ai: modelos abertos, soberania, custos, implantação concreta e fontes verificáveis.",
+      "ogTitle": "Atualidade IA : Parrit.ai",
+      "ogDescription": "Análises de campo sobre novos modelos de IA, seus custos, limites e uso concreto.",
+      "schemaDescription": "Análises de atualidade sobre modelos, ferramentas e infraestruturas de inteligência artificial."
+    },
+    "navTitle": "Atualidade",
+    "headerLabel": "Atualidade IA",
+    "headerTitleMain": "O que acabou de sair",
+    "headerTitleAccent": "e o que isso muda",
+    "headerSubtitle": "A leitura da Parrit sobre os anúncios de IA que importam: fatos, fontes, custos, implicações de implantação.",
+    "readArticle": "Ler a análise →",
+    "footerText": "Quer transformar um anúncio de IA em um sistema que roda?",
+    "footerCta": "Agendar uma conversa",
+    "back": "← Voltar à atualidade",
+    "by": "Por",
+    "articleFooter": "Um anúncio merece um teste de campo. Vamos conversar sobre o seu caso."
+  },
   "blogListDateLocale": "pt-BR",
   "quickContact": {
     "label": "E-mail ou telefone",
