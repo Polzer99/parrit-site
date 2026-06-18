@@ -57,7 +57,7 @@ const COPY = {
         { id: "cas", label: "Cas-clients.md", icon: "folder" },
         { id: "paul", label: "Paul.vcf", icon: "person" },
         { id: "yukun", label: "Yukun.vcf", icon: "person" },
-        { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paullarmaraud/" },
+        { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paul-larmaraud-365538179/" },
         { id: "outils", label: "Détecteur.app ↗", icon: "external", href: "/outils/detecteur-bullshit" },
       ],
     },
@@ -447,7 +447,7 @@ const COPY = {
         { id: "methode", label: "Method.md", icon: "doc" },
         { id: "cas", label: "Case-studies.md", icon: "folder" },
         { id: "paul", label: "Paul.vcf", icon: "person" },
-        { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paullarmaraud/" },
+        { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paul-larmaraud-365538179/" },
         { id: "outils", label: "Détecteur.app ↗", icon: "external", href: "/outils/detecteur-bullshit" },
       ],
     },
@@ -838,7 +838,7 @@ const COPY = {
         { id: "cas", label: "Casos.md", icon: "folder" },
         { id: "paul", label: "Paul.vcf", icon: "person" },
         { id: "yukun", label: "Yukun.vcf", icon: "person" },
-        { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paullarmaraud/" },
+        { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paul-larmaraud-365538179/" },
         { id: "outils", label: "Détecteur.app ↗", icon: "external", href: "/outils/detecteur-bullshit" },
       ],
     },
@@ -1206,7 +1206,7 @@ const COPY = {
         { id: "cas", label: "客户案例.md", icon: "folder" },
         { id: "paul", label: "Paul.vcf", icon: "person" },
         { id: "yukun", label: "Yukun.vcf", icon: "person" },
-        { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paullarmaraud/" },
+        { id: "open", label: "LinkedIn Paul ↗", icon: "external", href: "https://www.linkedin.com/in/paul-larmaraud-365538179/" },
         { id: "outils", label: "Détecteur.app ↗", icon: "external", href: "/outils/detecteur-bullshit" },
       ],
     },
@@ -2440,7 +2440,7 @@ function ContactBlock({
           +33 6 83 76 22 19
         </a>
         <a
-          href="https://www.linkedin.com/in/paullarmaraud/"
+          href="https://www.linkedin.com/in/paul-larmaraud-365538179/"
           target="_blank"
           rel="noreferrer"
           style={{ color: "#0C0C0D", textDecoration: "underline" }}

@@ -81,7 +81,7 @@ export default async function AuthorPage({
         email: "paul.larmaraud@parrit.ai",
         worksFor: { "@id": `${SITE_URL}/#organization` },
         sameAs: [
-          "https://www.linkedin.com/in/paul-larmaraud/",
+          "https://www.linkedin.com/in/paul-larmaraud-365538179/",
           "https://github.com/Polzer99",
         ],
         knowsAbout: [
@@ -165,7 +165,7 @@ export default async function AuthorPage({
           <ol>
             <li>
               <a
-                href="https://www.linkedin.com/in/paul-larmaraud/"
+                href="https://www.linkedin.com/in/paul-larmaraud-365538179/"
                 target="_blank"
                 rel="noopener noreferrer"
               >

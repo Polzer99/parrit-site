@@ -60,7 +60,7 @@ const jsonLd = {
       email: "paul.larmaraud@parrit.ai",
       worksFor: { "@id": `${SITE_URL}/#organization` },
       url: `${SITE_URL}/fondateurs`,
-      sameAs: ["https://www.linkedin.com/in/paul-larmaraud/"],
+      sameAs: ["https://www.linkedin.com/in/paul-larmaraud-365538179/"],
       knowsAbout: ["Claude Code", "AI agents", "Rapid prototyping", "Operations automation"],
     },
     {
