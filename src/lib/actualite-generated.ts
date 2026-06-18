@@ -7,7 +7,8 @@ export const actualitePosts: BlogPostSource[] = [
     slug: "glm-5-2-souverainete",
     date: "2026-06-18",
     author: "Paul Larmaraud",
-    videoUrl: undefined,
+    videoUrl:
+      "https://dgjgscstyzcmtwgjrrda.supabase.co/storage/v1/object/public/artefacts/content/glm-5-2-souverainete-fr.mp4",
     translations: {
       fr: {
         title:
