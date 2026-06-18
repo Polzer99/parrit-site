@@ -9,7 +9,10 @@ This version has breaking changes — APIs, conventions, and file structure may 
 > Entrée des agents. `CLAUDE.md` importe ce fichier : même source pour les deux.
 > Site marketing public **parrit.ai** (Next.js 16 / React 19 / Tailwind v4, déployé sur Vercel via push `main`). 4 langues : `fr` · `en` · `pt-BR` · `zh-CN`.
 
-## Source de vérité = `BRAND.md`
+## Source de vérité COMMUNE = `TRUTH.md`
+**Avant de toucher au contenu/positionnement/conversion, lire [`TRUTH.md`](./TRUTH.md)** : ce qu'est Parrit, les north stars (RDV qualifiés → cash), l'ICP, les offres, la voix (LE TAMIS), les 7 règles dures, et la définition d'une « amélioration ». C'est le **cerveau partagé** entre le site et l'agent d'amélioration continue **Hermes** (`hermes/`, voir `hermes/LOOP.md`). `BRAND.md` reste la source de vérité **visuelle** (DA). En cas de conflit : `REGLES-DOR.md` puis `VISION.md` (hors-repo) priment.
+
+## Source de vérité visuelle = `BRAND.md`
 Toute UI part de `BRAND.md` (DA agence). Tokens dans `src/app/globals.css` (`:root`) + polices dans `src/app/[lang]/layout.tsx`.
 - **Palette stricte** : crème `--bg #FEFDF9` · encre `--text #0C0C0D` · rouge `--parrit-red`/`--accent #D1132F`. Sombre = `--bg-dark #0C0C0D`, texte clair `--text-light #FEFDF9`, mutés `--text-muted #4A4A4E` / `--text-light-muted #B5B5B9`.
 - **INTERDIT (retired, purgé du site)** : sage `#5FAF8E`, caramel `#c8956c`/`#b8814c`, violet `#7C5BA1`, ancien rouge `#C44536`, brun `#2A2420`/`#1a1410`. Ne pas réintroduire.
