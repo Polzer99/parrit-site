@@ -32,7 +32,7 @@ const MAX_PROPOSALS = Number(args[args.indexOf("--max") + 1]) || 5;
 const SCORE_THRESHOLD = 120; // stop condition : aucune proposition >= seuil => rien a faire
 const MAX_TOKENS = Number(process.env.HERMES_MAX_TOKENS) || 4000; // garde-fou tokens
 const BASE = process.env.HERMES_SITE_BASE || "https://parrit.ai";
-const SURFACES = ["/fr", "/fr/sprint", "/academy", "/outils/detecteur-bullshit", "/fondateurs"];
+const SURFACES = ["/fr", "/fr/sprint", "/academy", "/outils/detecteur-bullshit", "/diagnostic", "/fondateurs"];
 const REPO = "Polzer99/parrit-site";
 
 function loadEnv() {
@@ -105,6 +105,9 @@ async function observe() {
       const conv = await phQuery(
         "SELECT properties.form AS form, count() AS n FROM events WHERE event = 'form_submitted' AND timestamp > now() - INTERVAL 30 DAY GROUP BY form ORDER BY n DESC",
       );
+      const diagFunnel = await phQuery(
+        "SELECT event, count() AS n FROM events WHERE event IN ('diagnostic_started','diagnostic_completed','diagnostic_lead') AND timestamp > now() - INTERVAL 30 DAY GROUP BY event ORDER BY n DESC",
+      );
       const total = views.reduce((a, r) => a + (Number(r[1]) || 0), 0);
       analytics =
         `PostHog REEL. Pageviews 14j (total ${total}) :\n` +
@@ -112,7 +115,11 @@ async function observe() {
         `\nConversions form_submitted 30j (signal lead/RDV) :\n` +
         (conv.length
           ? conv.map((r) => `  ${r[1]}  ${r[0] || "(form non tague)"}`).join("\n")
-          : "  aucune conversion captee");
+          : "  aucune conversion captee") +
+        `\nEntonnoir diagnostic conversationnel 30j (started -> completed -> lead) :\n` +
+        (diagFunnel.length
+          ? diagFunnel.map((r) => `  ${r[1]}  ${r[0]}`).join("\n")
+          : "  aucun evenement (outil neuf ou pas encore utilise)");
       analyticsMode = "PostHog quantitatif";
     } catch (e) {
       analytics = "(PostHog erreur : " + String(e).slice(0, 120) + ")";

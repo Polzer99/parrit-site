@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { SEGMENTS, detectSegment, type SegmentId } from "@/lib/diagnostic/personas";
+import { SEGMENTS, OPENER, UI, detectSegment, detectLang, type SegmentId, type Lang } from "@/lib/diagnostic/personas";
 import { getAttribution } from "@/lib/attribution";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
@@ -10,17 +10,18 @@ type Msg = { role: "user" | "assistant"; content: string };
 type Front = { label: string; nodes: string[] };
 type Diag = { framing: string; front1: Front; front2: Front; pills: string[]; offer: string; cta: string };
 
+type PostHog = { capture: (e: string, p?: Record<string, unknown>) => void; identify: (id: string, p?: Record<string, unknown>) => void };
+function ph(): PostHog | undefined {
+  if (typeof window === "undefined") return undefined;
+  return (window as unknown as Record<string, unknown>).posthog as PostHog | undefined;
+}
 function looksLikeEmail(v: string) {
   return /\S+@\S+\.\S+/.test(v.trim());
-}
-function opener(voix: string): string {
-  if (voix === "executive") return "Où l'adoption de l'IA cale-t-elle dans votre organisation ?";
-  if (voix === "coup-de-poing") return "Qu'est-ce qui vous prend le plus de temps cette semaine ?";
-  return "Quelle tâche pèse le plus sur vos équipes en ce moment ?";
 }
 
 export default function DiagnosticClient() {
   const [seg, setSeg] = useState<SegmentId>("neutre");
+  const [lang, setLang] = useState<Lang>("fr");
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
@@ -30,14 +31,18 @@ export default function DiagnosticClient() {
   const [email, setEmail] = useState("");
   const [leadSent, setLeadSent] = useState(false);
   const threadRef = useRef<HTMLDivElement>(null);
+  const startedRef = useRef(false);
 
   const pack = SEGMENTS[seg] || SEGMENTS.neutre;
+  const ui = UI[lang];
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const s = detectSegment(params, typeof document !== "undefined" ? document.referrer : "");
+    const l = detectLang(params, typeof navigator !== "undefined" ? navigator.language : "fr");
     setSeg(s);
-    setMessages([{ role: "assistant", content: opener((SEGMENTS[s] || SEGMENTS.neutre).voix) }]);
+    setLang(l);
+    setMessages([{ role: "assistant", content: OPENER[(SEGMENTS[s] || SEGMENTS.neutre).voix][l] }]);
   }, []);
 
   useEffect(() => {
@@ -48,6 +53,10 @@ export default function DiagnosticClient() {
     const t = text.trim();
     if (!t || status === "sending") return;
     setError("");
+    if (!startedRef.current) {
+      startedRef.current = true;
+      ph()?.capture("diagnostic_started", { segment: seg, lang });
+    }
     const next: Msg[] = [...messages, { role: "user", content: t }];
     setMessages(next);
     setInput("");
@@ -56,7 +65,7 @@ export default function DiagnosticClient() {
       const r = await fetch("/api/diagnostic", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: next, segment: seg }),
+        body: JSON.stringify({ messages: next, segment: seg, lang }),
       });
       const d = await r.json();
       if (!r.ok || d.error) throw new Error(d.error || "Erreur");
@@ -65,11 +74,12 @@ export default function DiagnosticClient() {
       if (d.done && d.diagnostic) {
         setDiag(d.diagnostic as Diag);
         setStatus("done");
+        ph()?.capture("diagnostic_completed", { segment: seg, persona: d.persona || "", lang });
       } else {
         setStatus("idle");
       }
     } catch (e) {
-      setError("⚠️ " + (e as Error).message);
+      setError(ui.errPrefix + (e as Error).message);
       setStatus("idle");
     }
   }
@@ -78,6 +88,12 @@ export default function DiagnosticClient() {
     if (!looksLikeEmail(email) || leadSent) return;
     setLeadSent(true);
     const utms = getAttribution();
+    const p = ph();
+    if (p) {
+      p.identify(email.trim(), { email: email.trim() });
+      p.capture("form_submitted", { form: "diagnostic", segment: seg, persona, lang, ...utms });
+      p.capture("diagnostic_lead", { segment: seg, persona, lang });
+    }
     try {
       await fetch(WEBHOOK_URL, {
         method: "POST",
@@ -90,6 +106,7 @@ export default function DiagnosticClient() {
           contact_raw: email.trim(),
           segment: seg,
           persona,
+          lang,
           besoin: diag ? `${diag.framing} ${diag.front1?.label} / ${diag.front2?.label}` : "",
           transcript: messages,
           referrer: typeof document !== "undefined" ? document.referrer : "",
@@ -125,46 +142,41 @@ export default function DiagnosticClient() {
                   <div className="dg-txt">{m.content}</div>
                 </div>
               ))}
-              {status === "sending" && (
-                <div className="dg-work">› lecture du cas<br />› cadrage des deux fronts <span className="dg-cur" /></div>
-              )}
+              {status === "sending" && <div className="dg-work">{ui.working} <span className="dg-cur" /></div>}
               {error && <div className="dg-err">{error}</div>}
             </div>
 
             {!started && (
               <div className="dg-chips">
-                {pack.chips.map((c) => (
+                {pack.chips[lang].map((c) => (
                   <button key={c} className="dg-chip" onClick={() => send(c)}>{c}</button>
                 ))}
               </div>
             )}
 
-            <form
-              className="dg-composer"
-              onSubmit={(e) => { e.preventDefault(); send(input); }}
-            >
+            <form className="dg-composer" onSubmit={(e) => { e.preventDefault(); send(input); }}>
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Décrivez une tâche qui pèse…"
-                aria-label="Votre message"
+                placeholder={ui.placeholder}
+                aria-label="message"
                 disabled={status === "sending"}
               />
-              <button className="dg-send" type="submit" disabled={status === "sending"} aria-label="Envoyer">↑</button>
+              <button className="dg-send" type="submit" disabled={status === "sending"} aria-label="envoyer">↑</button>
             </form>
           </div>
 
           {/* CANVAS */}
           <div className="dg-canvas">
             <div className="dg-ctop">
-              <span className="dg-ctag">Diagnostic · {pack.label}</span>
-              {diag && <span className="dg-clive"><span className="d" />construit en direct</span>}
+              <span className="dg-ctag">{ui.diag} · {pack.label[lang]}</span>
+              {diag && <span className="dg-clive"><span className="d" />{ui.live}</span>}
             </div>
 
             {!diag ? (
               <div className="dg-empty">
                 <div className="dg-stamp">速</div>
-                <p>{status === "sending" ? "Parrit analyse votre cas…" : "Votre diagnostic se construit ici, au fil de la conversation."}</p>
+                <p>{status === "sending" ? ui.working : ui.idle}</p>
               </div>
             ) : (
               <>
@@ -172,11 +184,11 @@ export default function DiagnosticClient() {
                 <div className="dg-fronts">
                   {[diag.front1, diag.front2].map((f, i) => (
                     <div className="dg-fcard" key={i}>
-                      <div className="dg-fhead"><span className="dg-fn">{i === 0 ? "Front 1" : "Front 2"}</span><b>{f?.label}</b></div>
+                      <div className="dg-fhead"><span className="dg-fn">{i === 0 ? ui.front1 : ui.front2}</span><b>{f?.label}</b></div>
                       <div className="dg-nodes">
                         {(f?.nodes || []).map((n, j) => (
                           <span key={j} style={{ display: "contents" }}>
-                            <div className={`dg-node ${/agent/i.test(n) ? "ag" : ""}`}>{n}</div>
+                            <div className={`dg-node ${/agent|代理|代理人/i.test(n) ? "ag" : ""}`}>{n}</div>
                             {j < (f?.nodes || []).length - 1 && <span className="dg-arr">→</span>}
                           </span>
                         ))}
@@ -191,13 +203,13 @@ export default function DiagnosticClient() {
 
                 <div className="dg-gate">
                   {leadSent ? (
-                    <div className="dg-thanks">C'est noté. Paul vous envoie votre page sur-mesure et revient vers vous.</div>
+                    <div className="dg-thanks">{ui.thanks}</div>
                   ) : (
                     <>
                       <div className="dg-gh">{diag.cta}</div>
                       <form className="dg-grow" onSubmit={(e) => { e.preventDefault(); sendLead(); }}>
-                        <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="votre@email.pro" inputMode="email" aria-label="Email professionnel" />
-                        <button className="dg-go" type="submit">Me l'envoyer →</button>
+                        <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="votre@email.pro" inputMode="email" aria-label="email" />
+                        <button className="dg-go" type="submit">→</button>
                       </form>
                     </>
                   )}
@@ -276,7 +288,7 @@ const CSS = `
 .dg-gh{font-family:var(--mono); font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); margin-bottom:8px}
 .dg-grow{display:flex; gap:9px}
 .dg-grow input{flex:1; border:2px solid var(--encre); border-radius:7px; padding:11px 13px; font-family:var(--mono); font-size:12.5px; background:var(--creme); outline:none}
-.dg-go{flex:0 0 auto; border:2px solid var(--encre); background:var(--rouge); color:#fff; font-weight:700; font-size:13px; border-radius:7px; padding:11px 16px; box-shadow:3px 3px 0 var(--encre); cursor:pointer; white-space:nowrap}
+.dg-go{flex:0 0 auto; border:2px solid var(--encre); background:var(--rouge); color:#fff; font-weight:700; font-size:16px; border-radius:7px; padding:9px 18px; box-shadow:3px 3px 0 var(--encre); cursor:pointer}
 .dg-thanks{font-family:var(--serif); font-size:18px; line-height:1.4}
 .dg-statusbar{border-top:2px solid var(--encre); background:var(--creme); padding:9px 14px; font-family:var(--mono); font-size:10.5px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px}
 @media(max-width:820px){ .dg-grid{grid-template-columns:1fr} .dg-thread{border-right:none;border-bottom:2px solid var(--encre)} .dg-flow{max-height:300px} }

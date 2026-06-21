@@ -1,5 +1,5 @@
 import type { NextRequest } from "next/server";
-import { SEGMENTS, type SegmentId } from "@/lib/diagnostic/personas";
+import { SEGMENTS, LANG_NAME, normalizeLang, type SegmentId, type Lang } from "@/lib/diagnostic/personas";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -21,6 +21,8 @@ function tamis(input: unknown): string {
   s = s.replace(/[—–]/g, ", ");                                  // tirets cadratin/demi-cadratin
   s = s.replace(/€\s?\d[\d .,]*/gi, "[à cadrer ensemble]");                // €1000
   s = s.replace(/\d[\d .,]*\s?(?:k€|m€|k\s?euros?|keur|€|eur|euros?)/gi, "[à cadrer ensemble]"); // 1000€, 5 k€
+  s = s.replace(/(?:\$|£|R\$)\s?\d[\d .,]*/gi, "[à cadrer ensemble]");      // $1000, £500, R$1000
+  s = s.replace(/\d[\d .,]*\s?(?:\$|£|usd|gbp|dollars?|pounds?|reais)/gi, "[à cadrer ensemble]");
   for (const c of BANNED_CLIENTS) s = s.replace(new RegExp(c, "gi"), "un client");
   return s.replace(/\s{2,}/g, " ").trim();
 }
@@ -28,7 +30,7 @@ function tamisArr(a: unknown): string[] {
   return Array.isArray(a) ? a.map(tamis).filter(Boolean).slice(0, 6) : [];
 }
 
-function systemPrompt(segId: SegmentId): string {
+function systemPrompt(segId: SegmentId, lang: Lang): string {
   const p = SEGMENTS[segId] || SEGMENTS.neutre;
   const voix =
     p.voix === "executive"
@@ -48,9 +50,11 @@ Cas reel a evoquer (ANONYMISE, jamais de nom) : ${p.exampleHint}.
 
 DOCTRINE (LE TAMIS, imperatif) : sobre, Enargeia (faits, le COMMENT), ZERO pathos, zero hook, zero emoji, pas de tiret cadratin, phrases courtes. INTERDIT ABSOLU : citer un PRIX/montant, citer un NOM de client. Tu demontres, tu ne decretes pas.
 
-DEROULE : pose AU PLUS 2 questions courtes et nettes pour saisir le cas reel (la friction, les volumes, le canal). Des que tu as de quoi, tu LIVRES le diagnostic (done=true) : deux fronts/leviers concrets en mini-schemas de flux (3 etapes chacun : entree -> agent -> action), la forme indicative, et le prochain pas. Ne traine pas, n'en fais pas trop.
+DEROULE : pose AU PLUS UNE question courte si c'est vraiment necessaire, puis AU 2e MESSAGE UTILISATEUR AU PLUS TARD tu LIVRES le diagnostic (done=true), MEME avec une information partielle (un diagnostic indicatif suffit, tu le precises). N'attends jamais d'avoir tout, ne pose jamais une 3e question. Le diagnostic : deux fronts/leviers concrets en mini-schemas de flux (3 etapes chacun : entree -> agent -> action), la forme indicative, et le prochain pas. Ne traine pas, n'en fais pas trop.
 
 CADRE IMPERATIF : c'est un DIAGNOSTIC indicatif et visuel, RIEN n'est construit ici et tu ne presumes JAMAIS que l'agent existe deja ou est en train d'etre construit. N'ecris PAS 'on construit votre agent', 'votre agent est pret', ni au present comme si c'etait fait. Reste a l'indicatif/conditionnel : 'ce qu'on poserait', 'ce qu'un agent pourrait faire', 'le diagnostic montre que'. La construction reelle se cadre ENSUITE avec Paul (15-20 min) ; ici on lit le cas, on ne livre pas l'outil.
+
+LANGUE DE SORTIE : tu reponds INTEGRALEMENT en ${LANG_NAME[lang]}. TOUS les champs du JSON (reply, framing, label, nodes, pills, offer, cta) doivent etre dans cette langue (les consignes ci-dessus sont en francais juste pour te guider). Pas de tiret cadratin, quelle que soit la langue.
 
 Reponds UNIQUEMENT en JSON valide :
 {"reply":"<le prochain message, voix Parrit, 1-3 phrases courtes>","done":<true si tu livres le diagnostic, sinon false>,"persona":"<le profil deduit, court>","diagnostic": <null tant que done=false, sinon {"framing":"<titre court ex: Deux fronts.>","front1":{"label":"<court>","nodes":["<entree, 2-3 mots>","速 Agent","<action, 2-3 mots>"]},"front2":{"label":"<court>","nodes":["<entree>","速 Agent","<action>"]},"pills":["<forme indicative, ex: agent silencieux>","<...>"],"offer":"<ce qu'on POSERAIT (au conditionnel) + le cas reel anonymise, 1 phrase, SANS pretendre que c'est deja construit>","cta":"${p.cta}"}>}`;
@@ -60,13 +64,14 @@ export async function POST(req: NextRequest) {
   const key = process.env.OPENROUTER_API_KEY;
   if (!key) return Response.json({ error: "Config serveur manquante" }, { status: 500 });
 
-  let body: { messages?: Array<{ role: string; content: string }>; segment?: string };
+  let body: { messages?: Array<{ role: string; content: string }>; segment?: string; lang?: string };
   try {
     body = await req.json();
   } catch {
     return Response.json({ error: "JSON invalide" }, { status: 400 });
   }
   const segId = (body.segment && body.segment in SEGMENTS ? body.segment : "neutre") as SegmentId;
+  const lang = normalizeLang(body.lang || "fr");
   const msgs = Array.isArray(body.messages) ? body.messages.slice(-MAX_TURNS) : [];
   const clean = msgs
     .filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
@@ -86,7 +91,7 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         model: MODEL,
-        messages: [{ role: "system", content: systemPrompt(segId) }, ...clean],
+        messages: [{ role: "system", content: systemPrompt(segId, lang) }, ...clean],
         temperature: 0.35,
         max_tokens: 900,
         response_format: { type: "json_object" },
