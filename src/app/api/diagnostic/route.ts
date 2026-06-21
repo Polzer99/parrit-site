@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { SEGMENTS, LANG_NAME, normalizeLang, type SegmentId, type Lang } from "@/lib/diagnostic/personas";
+import { guardModelEndpoint } from "@/lib/server/api-guard";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -10,6 +11,20 @@ export const dynamic = "force-dynamic";
 const MODEL = process.env.DIAGNOSTIC_MODEL || "deepseek/deepseek-v3.2";
 const MAX_TURNS = 14;
 const MAX_CHARS = 1600;
+const GUARD = {
+  endpoint: "diagnostic",
+  rateLimit: {
+    env: "DIAGNOSTIC_RATE_LIMIT",
+    defaultRequests: 60,
+    windowEnv: "DIAGNOSTIC_RATE_LIMIT_WINDOW_SECONDS",
+    defaultWindowSeconds: 60,
+  },
+  dailyCost: {
+    capEnv: "DIAGNOSTIC_DAILY_CAP",
+    estimatedCostEnv: "DIAGNOSTIC_REQUEST_COST_USD",
+    defaultEstimatedCostUsd: 0.01,
+  },
+} as const;
 
 // --- garde-fous deterministes (post-LLM) ---
 const BANNED_CLIENTS = [
@@ -61,8 +76,11 @@ Reponds UNIQUEMENT en JSON valide :
 }
 
 export async function POST(req: NextRequest) {
+  const guarded = await guardModelEndpoint(req, GUARD);
+  if (guarded) return guarded;
+
   const key = process.env.OPENROUTER_API_KEY;
-  if (!key) return Response.json({ error: "Config serveur manquante" }, { status: 500 });
+  if (!key) return Response.json({ error: "Config serveur manquante" }, { status: 503 });
 
   let body: { messages?: Array<{ role: string; content: string }>; segment?: string; lang?: string };
   try {
