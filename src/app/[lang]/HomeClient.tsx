@@ -3406,7 +3406,7 @@ function PanelContent({
       >
         {person.cta} →
       </button>
-      <a
+      <Link
         href="/fondateurs"
         style={{
           display: "inline-block",
@@ -3420,7 +3420,7 @@ function PanelContent({
         }}
       >
         Notre histoire →
-      </a>
+      </Link>
     </div>
   );
 }
