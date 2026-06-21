@@ -1,4 +1,5 @@
 import type { NextRequest } from "next/server";
+import { guardModelEndpoint } from "@/lib/server/api-guard";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -8,6 +9,20 @@ export const dynamic = "force-dynamic";
 // sont calcules EN CODE (deterministe) a partir des 4 axes notes par le modele : la faiblesse
 // arithmetique d'un modele cheap ne decide jamais du verdict.
 const MODEL = process.env.BULLSHIT_MODEL || "deepseek/deepseek-v3.2";
+const GUARD = {
+  endpoint: "bullshit",
+  rateLimit: {
+    env: "BULLSHIT_RATE_LIMIT",
+    defaultRequests: 30,
+    windowEnv: "BULLSHIT_RATE_LIMIT_WINDOW_SECONDS",
+    defaultWindowSeconds: 60,
+  },
+  dailyCost: {
+    capEnv: "BULLSHIT_DAILY_CAP",
+    estimatedCostEnv: "BULLSHIT_REQUEST_COST_USD",
+    defaultEstimatedCostUsd: 0.01,
+  },
+} as const;
 
 const AXIS_KEYS = [
   "preuve_execution",
@@ -100,9 +115,12 @@ function computeScore(ax: Record<AxisKey, number>): {
 }
 
 export async function POST(req: NextRequest) {
+  const guarded = await guardModelEndpoint(req, GUARD);
+  if (guarded) return guarded;
+
   const key = process.env.OPENROUTER_API_KEY;
   if (!key) {
-    return Response.json({ error: "Config serveur manquante" }, { status: 500 });
+    return Response.json({ error: "Config serveur manquante" }, { status: 503 });
   }
 
   let text = "";
