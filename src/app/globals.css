@@ -325,6 +325,24 @@ body > * {
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0 var(--parrit-red);
 }
+/* CTA dominant "Parler à Parrit" : rouge plein, plus grand, attire l'oeil */
+.parrit-os-cta-parrit {
+  background: var(--parrit-red);
+  border-color: #0C0C0D;
+  color: #FEFDF9;
+  box-shadow: 5px 5px 0 #0C0C0D;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 16px 30px;
+}
+.parrit-os-cta-parrit:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 #0C0C0D;
+}
+.parrit-os-cta-parrit:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #0C0C0D;
+}
 .parrit-os-cta-micro {
   margin: 12px 0 0;
   font-size: 12px;

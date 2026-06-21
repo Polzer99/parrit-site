@@ -3605,19 +3605,19 @@ export default function HomeClient({
             <p className="parrit-os-tagline">{copy.tagline}</p>
             <p className="parrit-os-sub">{copy.sub}</p>
             <div className="parrit-os-cta-row">
+              <a
+                className="parrit-os-cta parrit-os-cta-parrit"
+                href={`/diagnostic?lang=${lang}`}
+                aria-label={lang === "fr" ? "Parler à Parrit" : lang === "en" ? "Talk to Parrit" : lang === "zh-CN" ? "和 Parrit 对话" : "Falar com Parrit"}
+              >
+                {lang === "fr" ? "Parler à Parrit" : lang === "en" ? "Talk to Parrit" : lang === "zh-CN" ? "和 Parrit 对话" : "Falar com Parrit"} →
+              </a>
               <button
-                className="parrit-os-cta"
+                className="parrit-os-cta-secondary"
                 onClick={() => openContact()}
                 aria-label={copy.cta}
               >
-                {copy.cta} →
-              </button>
-              <button
-                className="parrit-os-cta-secondary"
-                onClick={openWaitlist}
-                aria-label={copy.waitlist.navLabel}
-              >
-                {copy.waitlist.ctaSecondary}
+                {copy.cta}
               </button>
             </div>
             <p className="parrit-os-cta-micro">{copy.ctaMicro}</p>
