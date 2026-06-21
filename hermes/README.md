@@ -14,7 +14,13 @@ node hermes/hermes.mjs                 # observe + propose -> hermes/proposals/<
 node hermes/hermes.mjs --open-issue    # + ouvre l'issue Codex de la proposition #1 (gh)
 node hermes/hermes.mjs --max 6         # nb max de propositions
 ```
-Requiert `OPENROUTER_API_KEY` (lu depuis `.env.local`). Optionnel : `POSTHOG_PERSONAL_API_KEY` + `POSTHOG_PROJECT_ID` (active l'observation quantitative du funnel), `HERMES_MODEL`.
+Requiert `OPENROUTER_API_KEY` (lu depuis `.env.local`). Optionnel : `POSTHOG_PERSONAL_API_KEY` + `POSTHOG_PROJECT_ID` (active l'observation quantitative du funnel), `HERMES_MODEL`, `HERMES_ASSIGNEE`, `HERMES_MAX_OPEN_ISSUES`.
+
+## Cadence automatique (gatée, armée le 21/06)
+Un cron hebdo (`.github/workflows/hermes-weekly.yml`, lundi 07:00 UTC) lance le cycle tout seul : il observe, propose et **ouvre une issue Codex assignée à Paul**. Il **ne merge jamais** (les 3 feux restent humains, §22/§25). Garde-fou anti-pileup : aucune nouvelle issue si ≥ 3 issues `hermes` sont déjà ouvertes.
+- Déclencher à la demande : `gh workflow run "Hermes — amelioration continue (gated)" --repo Polzer99/parrit-site`
+- Désarmer : `gh workflow disable "Hermes — amelioration continue (gated)" --repo Polzer99/parrit-site`
+- Secrets GitHub Actions requis : `OPENROUTER_API_KEY`, `POSTHOG_PERSONAL_API_KEY` (project-id/host en clair dans le workflow).
 
 ## Le cycle
 1. **Observe** le contenu live des surfaces clés + (si câblé) le funnel PostHog + la mémoire.

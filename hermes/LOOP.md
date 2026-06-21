@@ -1,12 +1,12 @@
 # LOOP.md — Hermes (amélioration continue site + conversion)
 
 > Gabarit loop-doctor (RÈGLES-DOR §28). Pipeline = `hermes/`. Source de vérité commune = `../TRUTH.md`.
-> **Autonomie DÉCLARÉE : L2** — Hermes observe + propose + draft (issue Codex / PR). Il **n'applique rien en prod seul**. Le merge vers `main` (= prod) exige les **3 feux** (review APPROVE + CD/batterie vert + Paul a COMPRIS), §22/§25. **Human-triggered (§30)** : pas de cron autonome tant que Paul ne l'arme pas explicitement.
+> **Autonomie DÉCLARÉE : L2 + cadence autonome GATÉE** (armée par Paul le 2026-06-21, §30). Hermes observe + propose + **ouvre une issue Codex tout seul, chaque semaine** (cron `hermes-weekly.yml`, lundi 07:00 UTC, assignée à Paul). Il **n'applique rien en prod seul** : le merge vers `main` (= prod) exige les **3 feux** (review APPROVE + CD/batterie vert + Paul a COMPRIS), §22/§25. Garde-fou anti-pileup : pas de nouvelle issue si ≥3 issues `hermes` déjà ouvertes. Désarmer : `gh workflow disable "Hermes — amelioration continue (gated)"`.
 
 ## Les 2 loops
 
 ### Loop runtime (le cycle d'amélioration)
-`trigger humain` → **observe** (site live + PostHog* + leads*) → **propose** (OpenRouter, grounded `TRUTH.md` + doctrine + `PROGRESS.md`) → **émet** (`proposals/<date>.md` + tick `PROGRESS.md` + brouillon issue Codex) → **[humain : merge 3 feux]** → **mesure** l'effet au cycle suivant → **apprend** (`PROGRESS.md`).
+`trigger` (cron hebdo gaté `hermes-weekly.yml` OU `node hermes/hermes.mjs` manuel) → **observe** (site live + PostHog* + leads*) → **propose** (OpenRouter, grounded `TRUTH.md` + doctrine + `PROGRESS.md`) → **émet** (`proposals/<date>.md` + tick `PROGRESS.md` + brouillon issue Codex) → **[humain : merge 3 feux]** → **mesure** l'effet au cycle suivant → **apprend** (`PROGRESS.md`).
 
 ### Loop dev (le « Codex dedans », ping-pong §25)
 **writer = Codex** (implémente le changement, ouvre la PR) → **checker = Claude + batterie** (`npm run build` + `contrast-audit.py` + revue sécu/voix/règles dures) → **mémoire = thread Issue/PR + PROGRESS** → **stop = 3 feux**. Codex ne touche jamais la voix, les prix, ni le 3ᵉ feu.
@@ -14,7 +14,7 @@
 ## Scorecard (10 briques)
 | Brique | État | Preuve |
 |---|---|---|
-| Automation (trigger) | 🟡 partiel | human-triggered voulu (§30) ; cron gated = backlog |
+| Automation (trigger) | 🟢 | cron hebdo GATÉ `hermes-weekly.yml` (armé 21/06, §30) + `workflow_dispatch` + run manuel ; n'ouvre qu'une issue, ne merge jamais |
 | Worktrees | ⚪ n/a | implémentation déléguée à Codex (PR isolée) |
 | Skills | 🟢 | `designing` + `loop-doctor` appliquées ; `qa-playwright`/contrast en gate |
 | Connectors | 🟢 | OpenRouter ✓ · GitHub (`gh`) ✓ · **PostHog Query API ✓** (clé perso câblée, project 148153, host eu) · leads Supabase ✗ |

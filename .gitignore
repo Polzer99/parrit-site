@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Hermes : fichier temporaire de corps d issue
+hermes/proposals/.issue-*.md

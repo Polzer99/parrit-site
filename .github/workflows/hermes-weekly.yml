@@ -1,0 +1,48 @@
+name: Hermes — amelioration continue (gated)
+
+# Cadence AUTONOME GATEE, armee explicitement par Paul le 2026-06-21 (REGLES-DOR §30).
+# Le cycle OBSERVE le site + le funnel PostHog, PROPOSE des ameliorations (grounded TRUTH.md),
+# et OUVRE une issue Codex assignee a Paul. Il ne merge JAMAIS en prod (les 3 feux restent humains, §22/§25).
+# Desarmer a tout moment : `gh workflow disable "Hermes — amelioration continue (gated)" --repo Polzer99/parrit-site`
+
+on:
+  schedule:
+    - cron: "0 7 * * 1" # tous les lundis a 07:00 UTC
+  workflow_dispatch: {} # declenchement manuel possible
+
+permissions:
+  contents: write # persister la memoire (PROGRESS.md / proposals)
+  issues: write # ouvrir l'issue Codex
+
+concurrency:
+  group: hermes-cron
+  cancel-in-progress: false
+
+jobs:
+  cycle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Cycle Hermes (observe + propose + issue Codex)
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}
+          POSTHOG_PROJECT_ID: "148153"
+          POSTHOG_HOST: "https://eu.posthog.com"
+          HERMES_ASSIGNEE: Polzer99
+          GH_TOKEN: ${{ github.token }}
+        run: node hermes/hermes.mjs --open-issue
+
+      - name: Persister la memoire (PROGRESS + proposals)
+        continue-on-error: true
+        run: |
+          git config user.name "hermes-bot"
+          git config user.email "hermes@users.noreply.github.com"
+          git add hermes/PROGRESS.md hermes/proposals/*.md || true
+          git commit -m "chore(hermes): memoire du cycle [skip ci]" || exit 0
+          git pull --rebase origin main || true
+          git push origin HEAD:main || true

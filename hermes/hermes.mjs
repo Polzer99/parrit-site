@@ -270,12 +270,27 @@ ${proposals
   console.log("--- BROUILLON ISSUE CODEX (top) ---\n" + codexIssueBody(top) + "\n--- fin ---");
 
   if (OPEN_ISSUE) {
+    // Garde-fou anti-pileup (autonomie) : ne pas empiler les issues si Paul n'a pas encore traite les precedentes.
+    const maxOpen = Number(process.env.HERMES_MAX_OPEN_ISSUES) || 3;
+    try {
+      const openList = JSON.parse(
+        execSync(`gh issue list --repo ${REPO} --label hermes --state open --json number`, { encoding: "utf8" }) || "[]",
+      );
+      if (openList.length >= maxOpen) {
+        console.log(`\n${openList.length} issues hermes deja ouvertes (>= ${maxOpen}) : pas de nouvelle issue ce cycle. Traite-les d'abord.`);
+        appendFileSync(join(HERE, "PROGRESS.md"), `- ${today}: ${openList.length} issues hermes ouvertes -> pas de nouvelle issue (anti-pileup)\n`, "utf8");
+        return;
+      }
+    } catch (e) {
+      console.log(`(check issues ouvertes impossible : ${String(e).slice(0, 80)} — on continue)`);
+    }
     const title = `[Hermes] ${top.title}`;
     const bodyFile = join(HERE, "proposals", `.issue-${today}.md`);
     writeFileSync(bodyFile, codexIssueBody(top), "utf8");
+    const assignee = process.env.HERMES_ASSIGNEE ? ` --assignee ${process.env.HERMES_ASSIGNEE}` : "";
     try {
       const url = execSync(
-        `gh issue create --repo ${REPO} --title ${JSON.stringify(title)} --body-file ${JSON.stringify(bodyFile)} --label hermes`,
+        `gh issue create --repo ${REPO} --title ${JSON.stringify(title)} --body-file ${JSON.stringify(bodyFile)} --label hermes${assignee}`,
         { encoding: "utf8" },
       ).trim();
       console.log(`\nIssue Codex ouverte : ${url}`);
