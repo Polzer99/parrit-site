@@ -25,6 +25,7 @@ export default function DiagnosticPage() {
         <Link href="/fr" className="nav-logo">Parrit.ai</Link>
         <Link href="/fr/blog" className="blog-nav-link">Nos articles →</Link>
       </nav>
+      <h1 className="sr-only">Parler à Parrit, votre diagnostic IA sur-mesure</h1>
       <DiagnosticClient />
     </>
   );
