@@ -208,7 +208,7 @@ export default function DiagnosticClient() {
         </div>
 
         <div className="dg-statusbar">
-          <span>Parrit s'adapte à votre métier. Le site fait tourner un agent, il ne vous montre pas une démo.</span>
+          <span>Un diagnostic sur-mesure, adapté à votre métier. La construction, on la cadre ensemble.</span>
           <span>l'autorité se démontre, jamais ne se décrète</span>
         </div>
       </div>

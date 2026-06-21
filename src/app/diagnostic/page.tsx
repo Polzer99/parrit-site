@@ -23,7 +23,7 @@ export default function DiagnosticPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <nav className="blog-nav">
         <Link href="/fr" className="nav-logo">Parrit.ai</Link>
-        <Link href="/outils/detecteur-bullshit" className="blog-nav-link">Détecteur de bullshit</Link>
+        <Link href="/fr/blog" className="blog-nav-link">Nos articles →</Link>
       </nav>
       <DiagnosticClient />
     </>
