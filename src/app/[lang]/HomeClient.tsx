@@ -18,6 +18,7 @@ type HomeCopy = {
   navCta: string;
   hero: {
     eyebrow: string;
+    chips: string[];
     before: string;
     redOne: string;
     middle: string;
@@ -78,6 +79,7 @@ const COPY: Record<Locale, HomeCopy> = {
     navCta: "Écrire à Paul",
     hero: {
       eyebrow: "Fractional AI Operator · Ingénierie agentique",
+      chips: ["Claude Code", "Codex", "Serveurs MCP"],
       before: "Au-delà de l'IA qui discute. ",
       redOne: "L'IA qui agit pour vous",
       middle: ", en ",
@@ -212,6 +214,7 @@ const COPY: Record<Locale, HomeCopy> = {
     navCta: "Email Paul",
     hero: {
       eyebrow: "Fractional AI Operator · Agentic engineering",
+      chips: ["Claude Code", "Codex", "MCP servers"],
       before: "Beyond AI that talks. ",
       redOne: "AI that acts for you",
       middle: ", in ",
@@ -346,6 +349,7 @@ const COPY: Record<Locale, HomeCopy> = {
     navCta: "Escrever para Paul",
     hero: {
       eyebrow: "Fractional AI Operator · Engenharia agentica",
+      chips: ["Claude Code", "Codex", "Servidores MCP"],
       before: "Além da IA que conversa. ",
       redOne: "A IA que age por você",
       middle: ", em ",
@@ -480,6 +484,7 @@ const COPY: Record<Locale, HomeCopy> = {
     navCta: "写信给 Paul",
     hero: {
       eyebrow: "Fractional AI Operator · 智能体工程",
+      chips: ["Claude Code", "Codex", "MCP 服务器"],
       before: "不只是会聊天的 AI。 ",
       redOne: "而是为你行动的 AI",
       middle: "，在 ",
@@ -613,9 +618,9 @@ const COPY: Record<Locale, HomeCopy> = {
 };
 
 const TOOL_CHIPS = [
-  { label: "Claude Code", src: "/brand/tool-logos/claude.svg" },
-  { label: "Codex", src: "/brand/tool-logos/openai.svg" },
-  { label: "Serveurs MCP", src: "/brand/tool-logos/mcp.svg" },
+  { src: "/brand/tool-logos/claude.svg" },
+  { src: "/brand/tool-logos/openai.svg" },
+  { src: "/brand/tool-logos/mcp.svg" },
 ];
 
 const CLIENT_LOGOS = [
@@ -740,10 +745,10 @@ export default function HomeClient({ lang }: { lang: Locale }) {
         </h1>
         <p className="sub">{copy.hero.sub}</p>
         <div className="chips" aria-label="Outils">
-          {TOOL_CHIPS.map((chip) => (
-            <span className="chip" key={chip.label}>
+          {TOOL_CHIPS.map((chip, index) => (
+            <span className="chip" key={copy.hero.chips[index]}>
               <img className="ci" src={chip.src} alt="" aria-hidden="true" />
-              {chip.label}
+              {copy.hero.chips[index]}
             </span>
           ))}
         </div>

@@ -38,6 +38,7 @@
   --shadow-lg: 0 2px 6px rgba(20, 24, 48, 0.06), 0 24px 60px rgba(20, 24, 48, 0.09);
   --sage: #D0D8D7;
   --col: 1212px;
+  --font-heading: var(--font-body);
 }
 
 @theme inline {
