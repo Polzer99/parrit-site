@@ -29,14 +29,14 @@ function looksLikeEmail(v: string): boolean {
   return /\S+@\S+\.\S+/.test(v.trim());
 }
 function colorFor(s: number): string {
-  if (s >= 56) return "#D1132F";
-  if (s >= 31) return "#4A4A4E";
-  return "#0C0C0D";
+  if (s >= 56) return "#AA0003";
+  if (s >= 31) return "#6E7079";
+  return "#161616";
 }
 function arcColorFor(s: number): string {
-  if (s >= 56) return "#D1132F";
+  if (s >= 56) return "#AA0003";
   if (s >= 31) return "#7a7a7d";
-  return "#0C0C0D";
+  return "#161616";
 }
 
 type PostHog = {
@@ -98,7 +98,7 @@ function Verdict({ result }: { result: Result }) {
             <path
               d="M20 100 A80 80 0 0 1 180 100"
               fill="none"
-              stroke="rgba(12,12,13,.10)"
+              stroke="rgba(20,20,26,.10)"
               strokeWidth="13"
               strokeLinecap="round"
             />
@@ -121,11 +121,11 @@ function Verdict({ result }: { result: Result }) {
                 y1="100"
                 x2="100"
                 y2="34"
-                stroke="#0C0C0D"
+                stroke="#161616"
                 strokeWidth="3.5"
                 strokeLinecap="round"
               />
-              <circle cx="100" cy="100" r="7" fill="#0C0C0D" />
+              <circle cx="100" cy="100" r="7" fill="#161616" />
             </g>
           </svg>
           <div className="bsd-gnum" style={{ color: colorFor(result.score) }}>
@@ -394,9 +394,9 @@ export default function DetecteurClient() {
 
 const CSS = `
 .bsd-root{
-  --creme:#FEFDF9; --encre:#0C0C0D; --rouge:#D1132F; --rouge-h:#B10F27;
-  --rouge-soft:rgba(209,19,47,.07); --muted:#4A4A4E; --border:rgba(12,12,13,.12);
-  --serif:var(--bsd-serif),Georgia,serif; --body:var(--bsd-body),system-ui,sans-serif; --mono:var(--bsd-mono),monospace;
+  --creme:#F5F8FF; --encre:#161616; --rouge:#AA0003; --rouge-h:#8A0203;
+  --rouge-soft:rgba(170,0,3,.07); --muted:#6E7079; --border:rgba(20,20,26,.12);
+  --serif:var(--font-body),system-ui,sans-serif; --body:var(--font-body),system-ui,sans-serif; --mono:var(--font-mono),monospace;
   display:block; max-width:1080px; margin:0 auto; padding:24px 18px 56px;
   font-family:var(--body); color:var(--encre); line-height:1.5;
 }
@@ -446,7 +446,7 @@ const CSS = `
 .bsd-gnum small{font-size:18px; color:var(--muted); font-weight:500}
 .bsd-gmeta{flex:1}
 .bsd-band{display:inline-block; font-family:var(--mono); font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:6px 11px; border:1.5px solid var(--encre); border-radius:5px; background:var(--rouge-soft); color:var(--rouge)}
-.bsd-band.bsd-lo{color:var(--encre); background:rgba(12,12,13,.05)}
+.bsd-band.bsd-lo{color:var(--encre); background:rgba(20,20,26,.05)}
 .bsd-gscale{font-family:var(--mono); font-size:10.5px; color:var(--muted); margin-top:9px}
 
 .bsd-verdict{margin:20px 0 2px; border-left:3px solid var(--rouge); padding:4px 0 4px 16px; position:relative; z-index:1}

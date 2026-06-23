@@ -192,7 +192,7 @@ export default async function Page({
               letterSpacing: "0.18em",
               textTransform: "uppercase",
               color: "var(--parrit-red)",
-              border: "1px solid rgba(209,19,47,0.30)",
+              border: "1px solid rgba(170,0,3,0.30)",
               borderRadius: 999,
               marginBottom: 20,
               fontFamily: "var(--font-body)",
@@ -290,7 +290,7 @@ export default async function Page({
                 <li key={r.slug} style={{ marginBottom: 8 }}>
                   <Link
                     href={`/${lang}/glossaire/${r.slug}`}
-                    style={{ color: "var(--text)", textDecoration: "underline", textDecorationColor: "rgba(209,19,47,0.40)" }}
+                    style={{ color: "var(--text)", textDecoration: "underline", textDecorationColor: "rgba(170,0,3,0.40)" }}
                   >
                     {r.label}
                   </Link>
@@ -304,8 +304,8 @@ export default async function Page({
           style={{
             marginTop: 64,
             padding: "32px 28px",
-            background: "linear-gradient(180deg, rgba(209,19,47,0.06) 0%, rgba(209,19,47,0.02) 100%)",
-            border: "1px solid rgba(209,19,47,0.18)",
+            background: "linear-gradient(180deg, rgba(170,0,3,0.06) 0%, rgba(170,0,3,0.02) 100%)",
+            border: "1px solid rgba(170,0,3,0.18)",
             borderRadius: 14,
             textAlign: "center",
           }}
@@ -339,7 +339,7 @@ export default async function Page({
               borderRadius: 999,
               fontSize: 14,
               fontWeight: 600,
-              color: "#FEFDF9",
+              color: "#F5F8FF",
               background: "var(--parrit-red)",
               textDecoration: "none",
             }}

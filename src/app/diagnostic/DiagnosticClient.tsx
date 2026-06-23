@@ -230,9 +230,9 @@ export default function DiagnosticClient() {
 
 const CSS = `
 .dg-root{
-  --creme:#FEFDF9; --encre:#0C0C0D; --rouge:#D1132F; --rouge-soft:rgba(209,19,47,.07);
-  --muted:#6c6c70; --border:rgba(12,12,13,.14);
-  --serif:var(--dg-serif),Georgia,serif; --body:var(--dg-body),system-ui,sans-serif; --mono:var(--dg-mono),monospace;
+  --creme:#F5F8FF; --encre:#161616; --rouge:#AA0003; --rouge-soft:rgba(170,0,3,.07);
+  --muted:#6c6c70; --border:rgba(20,20,26,.14);
+  --serif:var(--font-body),system-ui,sans-serif; --body:var(--font-body),system-ui,sans-serif; --mono:var(--font-mono),monospace;
   display:block; max-width:1080px; margin:0 auto; padding:22px 18px 48px; font-family:var(--body); color:var(--encre);
 }
 .dg-win{background:#fff; border:2px solid var(--encre); border-radius:11px; box-shadow:8px 8px 0 var(--encre); overflow:hidden}
@@ -263,7 +263,7 @@ const CSS = `
 .dg-composer input::placeholder{color:#9a9a9d}
 .dg-send{flex:0 0 auto;width:42px;height:42px;border:2px solid var(--encre);background:var(--encre);color:var(--creme);border-radius:8px;box-shadow:3px 3px 0 var(--rouge);cursor:pointer;font-size:17px}
 .dg-send:disabled{opacity:.5;cursor:wait}
-.dg-canvas{padding:20px 22px; background:repeating-linear-gradient(0deg,#fff,#fff 27px,rgba(12,12,13,.025) 28px); display:flex; flex-direction:column}
+.dg-canvas{padding:20px 22px; background:repeating-linear-gradient(0deg,#fff,#fff 27px,rgba(20,20,26,.025) 28px); display:flex; flex-direction:column}
 .dg-ctop{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px}
 .dg-ctag{font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--rouge); background:var(--rouge-soft); border:1.5px solid var(--rouge); border-radius:5px; padding:4px 9px}
 .dg-clive{font-family:var(--mono); font-size:10px; color:var(--muted)}

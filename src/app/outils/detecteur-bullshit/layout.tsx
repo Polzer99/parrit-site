@@ -1,26 +1,21 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import "../../globals.css";
 
-const serif = Cormorant_Garamond({
+const body = Hanken_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--bsd-serif",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-body",
   display: "swap",
-});
-
-const body = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--bsd-body",
-  display: "swap",
+  adjustFontFallback: true,
 });
 
 const mono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
-  variable: "--bsd-mono",
+  variable: "--font-mono",
   display: "swap",
+  adjustFontFallback: true,
 });
 
 const SITE_URL = "https://parrit.ai";
@@ -48,9 +43,9 @@ export default function DetecteurLayout({
   return (
     <html
       lang="fr"
-      className={`${serif.variable} ${body.variable} ${mono.variable}`}
+      className={`${body.variable} ${mono.variable}`}
     >
-      <body className="bg-bg text-text antialiased min-h-screen">
+      <body className="font-body bg-bg text-text antialiased min-h-screen">
         {children}
       </body>
     </html>

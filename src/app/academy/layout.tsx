@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import "../globals.css";
 
-const heading = Cormorant_Garamond({
+const body = Hanken_Grotesk({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-heading",
-  display: "swap",
-});
-
-const body = DM_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   variable: "--font-body",
   display: "swap",
+  adjustFontFallback: true,
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-mono",
+  display: "swap",
+  adjustFontFallback: true,
 });
 
 const SITE_URL = "https://parrit.ai";
@@ -39,7 +41,7 @@ export default function AcademyLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className={`${heading.variable} ${body.variable}`}>
+    <html lang="fr" className={`${body.variable} ${mono.variable}`}>
       <body className="font-body bg-bg text-text antialiased min-h-screen">
         {children}
       </body>

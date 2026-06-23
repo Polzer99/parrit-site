@@ -127,7 +127,7 @@ export default function LanguageSwitcher({
                     gap: 8,
                     padding: "8px 12px",
                     border: "none",
-                    background: isCurrent ? "rgba(209,19,47,0.10)" : "transparent",
+                    background: isCurrent ? "rgba(170,0,3,0.10)" : "transparent",
                     fontFamily: "var(--font-body)",
                     fontSize: 13,
                     textAlign: "left",
