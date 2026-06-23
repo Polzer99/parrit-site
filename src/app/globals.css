@@ -90,1089 +90,6 @@ body > * {
   z-index: 1;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   PARRIT.OS — desktop home V4 (PostHog-style)
-   ═══════════════════════════════════════════════════════════ */
-.parrit-os-root {
-  min-height: 100vh;
-  background: var(--bg);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  font-family: var(--font-body);
-  color: var(--text);
-}
-
-/* Paper grain on root specifically */
-.parrit-os-root::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-}
-.parrit-os-root > * { position: relative; z-index: 1; }
-
-/* ── Top bar window chrome ─────────────────── */
-.parrit-os-topbar {
-  display: flex;
-  align-items: center;
-  padding: 10px 18px;
-  background: #F2F0EA;
-  border-bottom: 2px solid #161616;
-  gap: 14px;
-}
-.parrit-os-traffic { display: flex; gap: 6px; }
-.parrit-os-traffic span {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 1.5px solid #161616;
-  display: inline-block;
-}
-.parrit-os-title {
-  flex: 1;
-  text-align: center;
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 600;
-  color: #161616;
-  letter-spacing: 0.04em;
-}
-.parrit-os-lang { display: flex; align-items: center; }
-
-/* ── Desktop layout grid ─────────────────── */
-.parrit-os-desktop {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 130px 1fr 130px;
-  gap: 16px;
-  padding: 28px clamp(12px, 2vw, 28px) 28px;
-  min-height: calc(100vh - 100px);
-}
-
-@media (max-width: 900px) {
-  .parrit-os-desktop {
-    grid-template-columns: 1fr;
-    padding: 16px 14px 12px;
-  }
-}
-
-/* ── Icon docks (left + right) ─────────────────── */
-.parrit-os-dock {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  align-items: center;
-  padding: 10px 6px;
-}
-.parrit-os-dock-right { align-items: center; }
-.parrit-os-dock-title {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #8987A1;
-  margin-bottom: 4px;
-}
-.parrit-os-dock-hint {
-  font-size: 10.5px;
-  color: #8987A1;
-  text-align: center;
-  font-style: normal;
-  line-height: 1.4;
-  margin-top: 6px;
-  max-width: 100px;
-}
-
-@media (max-width: 900px) {
-  .parrit-os-dock { display: none; }
-  .parrit-os-dock-right { display: none; }
-}
-
-/* ── Desktop icon button ─────────────────── */
-.parrit-os-icon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 8px 4px;
-  border-radius: 8px;
-  transition: background 0.15s ease, transform 0.1s ease;
-  width: 100%;
-  max-width: 110px;
-}
-.parrit-os-icon:hover {
-  background: rgba(42, 36, 32, 0.06);
-  transform: translateY(-1px);
-}
-.parrit-os-icon:active { transform: translateY(0); }
-.parrit-os-icon span {
-  font-family: var(--font-body);
-  font-size: 11.5px;
-  font-weight: 500;
-  color: #161616;
-  text-align: center;
-  line-height: 1.2;
-  word-break: break-word;
-}
-
-.parrit-os-offer span {
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.04em;
-}
-
-/* ── Center hero ─────────────────── */
-.parrit-os-center {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 32px;
-  background: #FFFFFF;
-  border: 2px solid #161616;
-  border-radius: 16px;
-  padding: clamp(24px, 4vw, 56px);
-  box-shadow: 6px 6px 0 rgba(12, 12, 13, 0.12);
-  min-height: 480px;
-  position: relative;
-  overflow: hidden;
-}
-.parrit-os-center::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-}
-
-@media (max-width: 900px) {
-  .parrit-os-center {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    padding: 24px 20px;
-  }
-}
-
-.parrit-os-brand-text { position: relative; z-index: 1; }
-/* Kicker — monospace rouge (système typo agence : labels = mono) */
-.parrit-os-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--parrit-red);
-  margin: 0 0 18px;
-}
-/* Wordmark agence (SVG) — remplace le texte « PARRIT » */
-.parrit-os-wordmark-h1 { margin: 0; line-height: 0; }
-.parrit-os-wordmark {
-  display: block;
-  width: clamp(240px, 38vw, 440px);
-  height: auto;
-  margin: 0 0 16px;
-}
-.parrit-os-brand {
-  font-family: var(--font-heading);
-  font-size: clamp(48px, 9vw, 88px);
-  font-weight: 500;
-  margin: 0;
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-  color: var(--text);
-}
-/* Chips — monospace rouge sur pastille rouge-teintée (composant agence) */
-.parrit-os-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0 0 18px;
-}
-.parrit-os-chip {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.01em;
-  color: var(--parrit-red);
-  background: rgba(209, 19, 47, 0.07);
-  border: 1px solid rgba(209, 19, 47, 0.20);
-  border-radius: 6px;
-  padding: 4px 10px;
-}
-/* Headline marketing — sans bold (système typo agence) */
-.parrit-os-tagline {
-  font-family: var(--font-body);
-  font-size: clamp(22px, 3.4vw, 32px);
-  font-weight: 700;
-  margin: 4px 0 14px;
-  line-height: 1.12;
-  letter-spacing: -0.015em;
-  color: var(--text);
-  font-style: normal;
-}
-.parrit-os-sub {
-  font-family: var(--font-body);
-  font-size: clamp(14px, 1.8vw, 16px);
-  line-height: 1.55;
-  color: var(--text-muted);
-  margin: 0 0 26px;
-  max-width: 460px;
-}
-/* CTA — encre + ombre rouge (neo-brutalist franco-chinois) */
-.parrit-os-cta {
-  display: inline-block;
-  padding: 14px 26px;
-  background: #161616;
-  border: 2px solid #161616;
-  border-radius: 10px;
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 700;
-  color: #F5F8FF;
-  cursor: pointer;
-  box-shadow: 5px 5px 0 var(--parrit-red);
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
-}
-.parrit-os-cta:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0 var(--parrit-red);
-}
-.parrit-os-cta:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--parrit-red);
-}
-/* CTA dominant "Parler à Parrit" : rouge plein, plus grand, attire l'oeil */
-.parrit-os-cta-parrit {
-  background: var(--parrit-red);
-  border-color: #161616;
-  color: #F5F8FF;
-  box-shadow: 5px 5px 0 #161616;
-  text-decoration: none;
-  font-size: 16px;
-  padding: 16px 30px;
-}
-.parrit-os-cta-parrit:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0 #161616;
-}
-.parrit-os-cta-parrit:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 #161616;
-}
-.parrit-os-cta-micro {
-  margin: 12px 0 0;
-  font-size: 12px;
-  color: #8987A1;
-}
-
-.parrit-os-scene {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ── Mobile bottom dock ─────────────────── */
-.parrit-os-mobile-offers {
-  display: none;
-}
-@media (max-width: 900px) {
-  .parrit-os-mobile-offers {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-    padding: 0 14px 16px;
-  }
-  .parrit-os-mobile-offer {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 12px 14px;
-    background: #FFFFFF;
-    border: 2px solid #161616;
-    border-radius: 12px;
-    box-shadow: 3px 3px 0 #161616;
-    text-align: left;
-    cursor: pointer;
-    transition: transform 0.1s, box-shadow 0.1s;
-    width: 100%;
-    font-family: var(--font-body);
-    color: #161616;
-  }
-  .parrit-os-mobile-offer:active {
-    transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0 #161616;
-  }
-  .parrit-os-mobile-offer svg { flex-shrink: 0; width: 56px; height: 56px; }
-  .parrit-os-mobile-offer strong { display: block; font-size: 12px; letter-spacing: 0.04em; color: #161616; text-transform: uppercase; margin-bottom: 3px; }
-  .parrit-os-mobile-offer span { font-size: 13.5px; line-height: 1.35; color: #161616; }
-}
-
-/* ── Status bar ─────────────────── */
-.parrit-os-statusbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 8px 18px;
-  background: #F2F0EA;
-  border-top: 2px solid #161616;
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 500;
-  color: #6E7079;
-  flex-wrap: wrap;
-}
-.parrit-os-statusbar span:first-child { color: var(--parrit-red); font-weight: 700; }
-.parrit-os-clock { font-variant-numeric: tabular-nums; }
-
-@media (max-width: 600px) {
-  .parrit-os-statusbar { justify-content: center; text-align: center; }
-  .parrit-os-statusbar span { font-size: 10px; }
-}
-
-/* Chinese red accent token */
-:root {
-  --parrit-red: #AA0003;
-}
-
-/* ── Stamps strip below desktop ─────────────────── */
-.parrit-os-stamps {
-  padding: 28px clamp(12px, 2vw, 28px) 6px;
-  text-align: center;
-}
-.parrit-os-stamps-eyebrow {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--parrit-red);
-  margin: 0 0 18px;
-}
-.parrit-os-stamps-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 18px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-.parrit-os-stamp {
-  width: 168px;
-  background: #FFFFFF;
-  border: 2px solid #161616;
-  border-radius: 6px;
-  padding: 8px;
-  box-shadow: 4px 4px 0 rgba(42, 36, 32, 0.18);
-  cursor: default;
-  /* perforated edge effect */
-  background-image:
-    radial-gradient(circle at 7px 7px, transparent 3px, #FFFFFF 3.5px),
-    radial-gradient(circle at calc(100% - 7px) 7px, transparent 3px, #FFFFFF 3.5px),
-    radial-gradient(circle at 7px calc(100% - 7px), transparent 3px, #FFFFFF 3.5px),
-    radial-gradient(circle at calc(100% - 7px) calc(100% - 7px), transparent 3px, #FFFFFF 3.5px);
-}
-.parrit-os-stamp-img {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1;
-  background: #161616;
-  border-radius: 4px;
-  overflow: hidden;
-  border: 1.5px solid #161616;
-}
-.parrit-os-stamp-meta {
-  margin-top: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  text-align: center;
-}
-.parrit-os-stamp-title {
-  font-family: var(--font-body);
-  font-size: 10.5px;
-  font-weight: 700;
-  color: #161616;
-  line-height: 1.25;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.parrit-os-stamp-origin {
-  font-family: var(--font-body);
-  font-size: 9.5px;
-  color: var(--parrit-red);
-  letter-spacing: 0.04em;
-}
-
-/* Chinese red touches inside the desktop window */
-.parrit-os-center::after {
-  content: "";
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 38px;
-  height: 38px;
-  background: var(--parrit-red);
-  border: 2px solid #161616;
-  border-radius: 50%;
-  box-shadow: 3px 3px 0 rgba(42, 36, 32, 0.18);
-  /* Chinese-style stamp mark */
-  background-image:
-    linear-gradient(45deg, transparent 45%, #161616 45%, #161616 55%, transparent 55%),
-    linear-gradient(-45deg, transparent 45%, #161616 45%, #161616 55%, transparent 55%);
-  background-size: 18px 18px;
-  background-position: center;
-  background-repeat: no-repeat;
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0.92;
-}
-.parrit-os-eyebrow { color: var(--parrit-red) !important; }
-
-@media (max-width: 600px) {
-  .parrit-os-stamp { width: 140px; }
-  .parrit-os-center::after { width: 28px; height: 28px; }
-}
-
-/* ── Topbar actions (signup button) ─────────────────── */
-.parrit-os-topbar-actions {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-.parrit-os-topbar-link {
-  padding: 6px 12px;
-  background: #F5F8FF;
-  border: 2px solid #161616;
-  border-radius: 6px;
-  box-shadow: 2px 2px 0 #161616;
-  color: #161616;
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  transition: transform 0.08s, box-shadow 0.08s;
-}
-.parrit-os-topbar-link:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0 #161616;
-}
-.parrit-os-signup-btn {
-  padding: 6px 14px;
-  background: var(--parrit-red);
-  border: 2px solid #161616;
-  border-radius: 6px;
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #FFFFFF;
-  cursor: pointer;
-  box-shadow: 2px 2px 0 #161616;
-  transition: transform 0.08s, box-shadow 0.08s;
-}
-.parrit-os-signup-btn:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0 #161616;
-}
-.parrit-os-signup-btn:active {
-  transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0 #161616;
-}
-
-/* ── Hero CTA row ─────────────────── */
-.parrit-os-cta-row {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.parrit-os-cta-secondary {
-  padding: 12px 18px;
-  background: transparent;
-  border: 2px solid #161616;
-  border-radius: 10px;
-  font-family: var(--font-body);
-  font-size: 13.5px;
-  font-weight: 600;
-  color: #161616;
-  cursor: pointer;
-  transition: background 0.12s, transform 0.08s;
-}
-.parrit-os-cta-secondary:hover {
-  background: rgba(196, 69, 54, 0.08);
-  transform: translateY(-1px);
-}
-
-/* ── Stamps as buttons + chip overlay ─────────────────── */
-.parrit-os-stamp-button {
-  appearance: none;
-  background: #FFFFFF;
-  cursor: pointer;
-  font: inherit;
-  color: inherit;
-  text-align: left;
-  display: block;
-  position: relative;
-  transition: box-shadow 0.15s;
-}
-.parrit-os-stamp-button:hover {
-  box-shadow: 6px 6px 0 var(--stamp-accent, var(--parrit-red));
-}
-.parrit-os-stamp-button:focus-visible {
-  outline: 3px solid var(--parrit-red);
-  outline-offset: 4px;
-}
-.parrit-os-stamp-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 6px;
-  pointer-events: none;
-}
-.parrit-os-stamp-chip {
-  display: inline-block;
-  padding: 3px 8px;
-  font-family: var(--font-body);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #161616;
-  background: var(--stamp-accent, #161616);
-  border: 1.5px solid #161616;
-  border-radius: 3px;
-  box-shadow: 1.5px 1.5px 0 #161616;
-}
-.parrit-os-stamp-typology {
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--stamp-accent, #161616);
-  margin-bottom: 2px;
-}
-.parrit-os-stamp-teaser {
-  font-family: var(--font-heading);
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 500;
-  color: #161616;
-  line-height: 1.3;
-  margin-bottom: 3px;
-}
-.parrit-os-stamps-hint {
-  font-family: var(--font-body);
-  font-size: 11.5px;
-  color: #8987A1;
-  text-align: center;
-  margin: -8px 0 18px;
-  font-style: normal;
-}
-
-/* Fix CTA row overlap — let secondary CTA wrap with proper spacing */
-.parrit-os-cta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px 22px;
-  align-items: center;
-  margin-bottom: 4px;
-}
-.parrit-os-cta-row .parrit-os-cta {
-  flex: 0 0 auto;
-}
-.parrit-os-cta-row .parrit-os-cta-secondary {
-  flex: 0 0 auto;
-  max-width: 100%;
-  white-space: nowrap;
-}
-@media (max-width: 700px) {
-  .parrit-os-cta-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .parrit-os-cta-row .parrit-os-cta-secondary {
-    white-space: normal;
-  }
-}
-
-/* Tighten left dock when many icons (Yukun was added) */
-.parrit-os-dock-left,
-.parrit-os-dock-right {
-  gap: 10px;
-}
-.parrit-os-dock .parrit-os-icon {
-  padding: 6px 4px;
-}
-.parrit-os-dock .parrit-os-icon span {
-  font-size: 11px;
-}
-
-/* ── Top bar stacking + LanguageSwitcher visibility fix ─────────────────── */
-.parrit-os-topbar {
-  position: sticky;
-  top: 0;
-  z-index: 120;
-}
-.parrit-os-lang {
-  position: relative;
-  z-index: 130;
-}
-.parrit-os-lang ul {
-  z-index: 200 !important;
-}
-
-/* ── Formation stamp readability — dark accent needs explicit override ─── */
-.parrit-os-stamp-button[style*="#161616"] .parrit-os-stamp-typology {
-  color: #161616;
-}
-.parrit-os-stamp-button[style*="#161616"] .parrit-os-stamp-chip {
-  color: #FFFFFF;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   MODERN OFFER CARDS — remplace les stamps en primary
-   ═══════════════════════════════════════════════════════════ */
-.parrit-os-offers-row {
-  padding: 36px clamp(12px, 2vw, 28px) 16px;
-  text-align: center;
-  max-width: 1240px;
-  margin: 0 auto;
-}
-.parrit-os-offers-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 18px;
-  max-width: 1100px;
-  margin: 22px auto 0;
-}
-.parrit-os-offer-card {
-  appearance: none;
-  background: #FFFFFF;
-  border: 2px solid #161616;
-  border-radius: 14px;
-  padding: 22px 20px 18px;
-  text-align: left;
-  cursor: pointer;
-  font: inherit;
-  color: #161616;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-shadow: 4px 4px 0 var(--card-accent, #161616);
-  transition: transform 0.15s, box-shadow 0.15s;
-  position: relative;
-}
-.parrit-os-offer-card:hover {
-  box-shadow: 6px 6px 0 var(--card-accent, #161616);
-}
-.parrit-os-offer-card:active {
-  box-shadow: 2px 2px 0 var(--card-accent, #161616);
-}
-.parrit-os-offer-card-icon {
-  width: 64px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.parrit-os-offer-card-chip {
-  display: inline-block;
-  align-self: flex-start;
-  padding: 4px 10px;
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  border: 1.5px solid #161616;
-  border-radius: 4px;
-  box-shadow: 2px 2px 0 #161616;
-}
-.parrit-os-offer-card-title {
-  font-family: var(--font-heading);
-  font-size: 22px;
-  font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  color: #161616;
-  margin: 0;
-}
-.parrit-os-offer-card-teaser {
-  font-family: var(--font-heading);
-  font-size: 16px;
-  font-style: normal;
-  line-height: 1.35;
-  color: #6E7079;
-  margin: 0;
-  flex: 1;
-}
-.parrit-os-offer-card-cta {
-  margin-top: 4px;
-  padding-top: 12px;
-  border-top: 1.5px dashed #1616161A;
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--card-accent, #161616);
-  text-transform: uppercase;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   HERITAGE band — paintings as small secondary section
-   ═══════════════════════════════════════════════════════════ */
-.parrit-os-heritage {
-  padding: 28px clamp(12px, 2vw, 28px) 16px;
-  text-align: center;
-  max-width: 1100px;
-  margin: 0 auto;
-  border-top: 1px dashed rgba(42, 36, 32, 0.15);
-}
-.parrit-os-heritage-title {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--parrit-red);
-  margin: 0 0 6px;
-}
-.parrit-os-heritage-sub {
-  font-family: var(--font-body);
-  font-size: 13px;
-  color: #8987A1;
-  margin: 0 0 22px;
-  font-style: normal;
-  max-width: 580px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.parrit-os-heritage-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-}
-.parrit-os-heritage-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 140px;
-  gap: 8px;
-  opacity: 0.85;
-  transition: opacity 0.2s;
-}
-.parrit-os-heritage-card:hover { opacity: 1; }
-.parrit-os-heritage-img {
-  position: relative;
-  width: 84px;
-  height: 84px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid #161616;
-}
-.parrit-os-heritage-meta {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  gap: 2px;
-}
-.parrit-os-heritage-card-title {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.25;
-  color: #161616;
-}
-.parrit-os-heritage-card-artist {
-  font-family: var(--font-body);
-  font-size: 10px;
-  color: #6E7079;
-}
-.parrit-os-heritage-card-origin {
-  font-family: var(--font-body);
-  font-size: 9.5px;
-  color: var(--parrit-red);
-  letter-spacing: 0.04em;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   BLOG CARDS — featured posts under the hero
-   ═══════════════════════════════════════════════════════════ */
-.parrit-os-blog-row {
-  padding: 36px clamp(12px, 2vw, 28px) 28px;
-  max-width: 1240px;
-  margin: 0 auto;
-  text-align: center;
-  width: 100%;
-  min-width: 0; /* flex item de .parrit-os-root (flex-col) : largeur définie + rétrécissement → la grille auto-fit reflue à 3 colonnes, pas de 4e colonne fantôme clippée sur tablette */
-}
-.parrit-os-blog-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 18px;
-  max-width: 1100px;
-  margin: 22px auto 0;
-}
-.parrit-os-blog-card {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 22px 20px 18px;
-  background: #FFFFFF;
-  border: 2px solid #161616;
-  border-radius: 14px;
-  box-shadow: 4px 4px 0 var(--card-accent, #161616);
-  text-decoration: none;
-  color: #161616;
-  text-align: left;
-  transition: transform 0.15s, box-shadow 0.15s;
-  width: 100%;
-}
-.parrit-os-blog-card:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 6px 6px 0 var(--card-accent, #161616);
-}
-.parrit-os-blog-card:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--card-accent, #161616);
-}
-.parrit-os-blog-card-chip {
-  display: inline-block;
-  align-self: flex-start;
-  padding: 4px 10px;
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  border: 1.5px solid #161616;
-  border-radius: 4px;
-  box-shadow: 2px 2px 0 #161616;
-}
-.parrit-os-blog-card-title {
-  font-family: var(--font-heading);
-  font-size: 21px;
-  font-weight: 500;
-  line-height: 1.18;
-  letter-spacing: -0.01em;
-  color: #161616;
-  margin: 0;
-}
-.parrit-os-blog-card-desc {
-  font-family: var(--font-body);
-  font-size: 13.5px;
-  line-height: 1.5;
-  color: #6E7079;
-  margin: 0;
-  flex: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.parrit-os-blog-card-footer {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--font-body);
-  font-size: 11px;
-  color: #8987A1;
-  letter-spacing: 0.04em;
-  padding-top: 8px;
-  border-top: 1px dashed #1616161A;
-}
-.parrit-os-blog-card-cta {
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--card-accent, var(--parrit-red));
-  text-transform: uppercase;
-  margin-top: 2px;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   RESPONSIVE — Mobile / Tablet pass complet
-   ═══════════════════════════════════════════════════════════ */
-
-/* TABLET (max 900px) — dock left/right hidden, mobile dock shows */
-@media (max-width: 900px) {
-  .parrit-os-desktop {
-    padding: 16px 12px 12px;
-    min-height: auto;
-  }
-  .parrit-os-center {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    padding: 24px 20px;
-    min-height: auto;
-    box-shadow: 4px 4px 0 rgba(42, 36, 32, 0.16);
-  }
-  .parrit-os-brand {
-    font-size: clamp(40px, 12vw, 64px);
-  }
-  .parrit-os-tagline {
-    font-size: clamp(18px, 5vw, 24px);
-  }
-  .parrit-os-sub {
-    font-size: 14px;
-  }
-  .parrit-os-cta {
-    width: 100%;
-    text-align: center;
-    box-shadow: 4px 4px 0 #161616;
-  }
-  .parrit-os-cta-secondary {
-    width: 100%;
-    text-align: center;
-  }
-  .parrit-os-scene {
-    max-width: 100%;
-    overflow: hidden;
-  }
-  .parrit-os-scene svg {
-    max-width: 100%;
-    height: auto;
-  }
-}
-
-/* PHONE (max 600px) */
-@media (max-width: 600px) {
-  .parrit-os-topbar {
-    padding: 8px 10px;
-    gap: 8px;
-    flex-wrap: nowrap;
-  }
-  .parrit-os-title {
-    font-size: 11px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    flex: 1 1 auto;
-    min-width: 0;
-  }
-  .parrit-os-topbar-actions {
-    gap: 6px;
-    flex-shrink: 0;
-  }
-  .parrit-os-signup-btn {
-    padding: 5px 10px;
-    font-size: 11px;
-  }
-  .parrit-os-topbar-link {
-    display: none;
-  }
-  .parrit-os-traffic span {
-    width: 10px;
-    height: 10px;
-  }
-  .parrit-os-traffic {
-    gap: 4px;
-  }
-
-  .parrit-os-center {
-    padding: 20px 16px;
-    border-radius: 12px;
-  }
-  .parrit-os-brand {
-    font-size: clamp(36px, 14vw, 56px);
-    letter-spacing: -0.01em;
-  }
-  .parrit-os-tagline {
-    font-size: clamp(17px, 5.5vw, 22px);
-    margin: 10px 0 8px;
-  }
-  .parrit-os-sub {
-    font-size: 13.5px;
-    line-height: 1.5;
-  }
-
-  .parrit-os-eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.12em;
-  }
-
-  /* Mobile offers dock — single col card */
-  .parrit-os-mobile-offer {
-    padding: 10px 12px;
-  }
-  .parrit-os-mobile-offer svg {
-    width: 44px;
-    height: 44px;
-  }
-
-  /* Modals — narrower padding */
-  .parrit-os-stamps-eyebrow {
-    font-size: 10px;
-    padding: 0 12px;
-    letter-spacing: 0.14em;
-  }
-  .parrit-os-offers-row,
-  .parrit-os-blog-row {
-    padding: 24px 12px 16px;
-  }
-
-  /* Blog cards */
-  .parrit-os-blog-card {
-    padding: 18px 16px 14px;
-  }
-  .parrit-os-blog-card-title {
-    font-size: 18px;
-  }
-  .parrit-os-blog-card-desc {
-    font-size: 13px;
-  }
-
-  /* Slot picker — make it readable */
-  .parrit-os-stamps-row {
-    gap: 12px;
-  }
-
-  /* Status bar */
-  .parrit-os-statusbar {
-    flex-direction: column;
-    gap: 4px;
-    padding: 8px 12px;
-    font-size: 10px;
-  }
-}
-
-/* PHONE SMALL (max 380px) — extra tight */
-@media (max-width: 380px) {
-  .parrit-os-title {
-    font-size: 10px;
-  }
-  .parrit-os-signup-btn {
-    padding: 4px 8px;
-    font-size: 10px;
-  }
-  .parrit-os-brand {
-    font-size: clamp(32px, 14vw, 48px);
-  }
-}
-
-/* SVG scenes — always shrink with container */
-.parrit-os-scene svg,
-.parrit-os-center svg {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-}
 
 /* Modal Win — better padding on phone */
 @media (max-width: 600px) {
@@ -1673,6 +590,72 @@ body > * {
 /* ═══════════════════════════════════════════════════════════
    LANDING V4 — static landing pages (audit / setup / sprint / remote / auteur)
    ═══════════════════════════════════════════════════════════ */
+.landing-v4-shell {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.landing-v4-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 58px;
+  padding: 10px 18px;
+  background: rgba(245, 248, 255, 0.92);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+}
+
+.landing-v4-traffic {
+  display: flex;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.landing-v4-traffic span {
+  width: 13px;
+  height: 13px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+}
+
+.landing-v4-topbar-title {
+  flex: 1;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.landing-v4-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.landing-v4-home-link {
+  color: #FFFFFF;
+  background: var(--red);
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 9px 14px;
+  text-decoration: none;
+}
+
+.landing-v4-lang {
+  display: flex;
+  align-items: center;
+}
+
 .landing-v4 {
   max-width: 880px;
   margin: 0 auto;
@@ -1706,6 +689,17 @@ body > * {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.landing-v4-eyebrow {
+  color: var(--red);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+
 .landing-v4-title {
   font-family: var(--font-heading);
   font-size: clamp(34px, 6vw, 56px);
@@ -1894,361 +888,76 @@ body > * {
   margin: 0 0 24px;
 }
 
-@media (max-width: 600px) {
-  .landing-v4 { padding: 20px 14px 36px; }
-  .landing-v4-hero { padding: 24px 18px; border-radius: 12px; }
-  .landing-v4-step { padding: 14px 16px; gap: 12px; }
-  .landing-v4-step-num { font-size: 28px; }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   FLAGSHIP BADGE (Acquisition = offre phare)
-   ═══════════════════════════════════════════════════════════ */
-.parrit-os-offer-flagship {
-  position: relative;
-}
-.parrit-os-flagship-badge {
-  position: absolute;
-  top: -8px;
-  right: -2px;
-  padding: 2px 8px;
-  background: var(--parrit-red);
-  color: #FFFFFF;
-  border: 1.5px solid #161616;
-  border-radius: 4px;
-  font-family: var(--font-body);
-  font-size: 8.5px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  box-shadow: 1.5px 1.5px 0 #161616;
-  z-index: 2;
-  white-space: nowrap;
-}
-.parrit-os-mobile-offer-flagship {
-  border-color: var(--parrit-red) !important;
-  box-shadow: 3px 3px 0 var(--parrit-red) !important;
-}
-.parrit-os-flagship-badge-mobile {
+.landing-v4-cta-button {
   display: inline-block;
-  padding: 2px 8px;
-  background: var(--parrit-red);
+  background: var(--red);
+  border-radius: 9px;
   color: #FFFFFF;
-  border-radius: 4px;
-  font-family: var(--font-body);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 14px 24px;
+  text-decoration: none;
+  transition: background 0.12s ease, transform 0.12s ease;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   RESPONSIVE V2 — Mobile-first hardening (Paul flag still not responsive)
-   ═══════════════════════════════════════════════════════════ */
+.landing-v4-cta-button:hover {
+  background: var(--red-hover);
+  transform: translateY(-1px);
+}
 
-/* Universal safety net : forbid horizontal overflow */
-html, body { overflow-x: hidden; max-width: 100vw; }
-img, svg, video { max-width: 100%; height: auto; }
+.landing-v4-statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  border-top: 1px solid var(--line);
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
 
-/* PHONE (max 600px) — Force comfortable sizing */
+.landing-v4-statusbar span:first-child {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.landing-v4-date {
+  font-variant-numeric: tabular-nums;
+}
+
 @media (max-width: 600px) {
-  /* Desktop area : keep window chrome but tighten everything */
-  .parrit-os-desktop {
-    padding: 12px 10px 8px !important;
-    gap: 12px !important;
-    grid-template-columns: 1fr !important;
-  }
-  .parrit-os-center {
-    padding: 22px 18px !important;
-    min-height: auto !important;
-    grid-template-columns: 1fr !important;
-    gap: 14px !important;
-    border-radius: 12px !important;
-    box-shadow: 3px 3px 0 rgba(42, 36, 32, 0.16) !important;
-  }
-  .parrit-os-center::after {
-    width: 26px !important;
-    height: 26px !important;
-    top: 10px !important;
-    right: 10px !important;
+  .landing-v4-topbar {
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 10px;
   }
 
-  /* Hero text */
-  .parrit-os-eyebrow {
-    font-size: 9.5px !important;
-    letter-spacing: 0.12em !important;
-    margin-bottom: 10px !important;
-  }
-  .parrit-os-brand {
-    font-size: clamp(34px, 12vw, 48px) !important;
-    line-height: 0.95 !important;
-  }
-  .parrit-os-tagline {
-    font-size: clamp(15px, 4.5vw, 19px) !important;
-    line-height: 1.25 !important;
-    margin: 8px 0 8px !important;
-  }
-  .parrit-os-sub {
-    font-size: 13px !important;
-    line-height: 1.55 !important;
-    margin: 0 0 18px !important;
-  }
-  .parrit-os-cta {
-    width: 100% !important;
-    padding: 13px 18px !important;
-    font-size: 14px !important;
-    text-align: center;
-  }
-  .parrit-os-cta-secondary {
-    width: 100% !important;
-    text-align: center;
-    font-size: 13px !important;
-    white-space: normal !important;
-  }
-  .parrit-os-cta-micro {
-    font-size: 11px !important;
-    text-align: center;
-  }
-
-  /* Constellation SVG — clamp width */
-  .parrit-os-scene { padding: 0 !important; max-width: 100% !important; }
-  .parrit-os-scene svg {
-    width: 100% !important;
-    max-width: 360px !important;
-    height: auto !important;
-    margin: 0 auto;
-    display: block;
-  }
-
-  /* Mobile dock — make Acquisition flagship prominent */
-  .parrit-os-mobile-offers {
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-    padding: 0 10px 12px !important;
-  }
-  .parrit-os-mobile-offer {
-    padding: 12px 14px !important;
-    gap: 12px !important;
-  }
-  .parrit-os-mobile-offer svg {
-    width: 44px !important;
-    height: 44px !important;
-    flex-shrink: 0;
-  }
-  .parrit-os-mobile-offer strong {
-    font-size: 11px !important;
-  }
-  .parrit-os-mobile-offer span {
-    font-size: 13px !important;
-    line-height: 1.3 !important;
-  }
-
-  /* Top bar tight */
-  .parrit-os-topbar {
-    padding: 8px 10px !important;
-    gap: 8px !important;
-  }
-  .parrit-os-title {
-    font-size: 10.5px !important;
+  .landing-v4-topbar-title {
+    font-size: 10px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .parrit-os-signup-btn {
-    padding: 5px 9px !important;
-    font-size: 10.5px !important;
-  }
-  .parrit-os-traffic span {
-    width: 11px !important;
-    height: 11px !important;
-  }
-  .parrit-os-traffic { gap: 4px !important; }
 
-  /* Blog cards row */
-  .parrit-os-blog-row {
-    padding: 22px 10px 14px !important;
+  .landing-v4-home-link {
+    font-size: 10.5px;
+    padding: 7px 9px;
   }
-  .parrit-os-blog-cards {
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-  }
-  .parrit-os-blog-card { padding: 18px 16px 14px !important; }
-  .parrit-os-blog-card-title { font-size: 18px !important; }
 
-  /* Status bar */
-  .parrit-os-statusbar {
+  .landing-v4 { padding: 20px 14px 36px; }
+  .landing-v4-hero { padding: 24px 18px; border-radius: 12px; }
+  .landing-v4-step { padding: 14px 16px; gap: 12px; }
+  .landing-v4-step-num { font-size: 28px; }
+
+  .landing-v4-statusbar {
     flex-direction: column;
-    gap: 3px !important;
-    padding: 8px 12px !important;
-    font-size: 10px !important;
-  }
-
-  /* Modals — full width with comfortable padding */
-  div[role="dialog"] {
-    padding: 40px 10px 16px !important;
-    align-items: flex-start !important;
-  }
-  div[role="dialog"] > div {
-    max-width: 100% !important;
-    border-radius: 10px !important;
-  }
-  div[role="dialog"] > div > div:last-child {
-    padding: 18px 14px 22px !important;
-  }
-  /* Modal title bar */
-  div[role="dialog"] > div > div:first-child {
-    padding: 8px 10px !important;
-  }
-  div[role="dialog"] > div > div:first-child > div:nth-child(2) {
-    font-size: 11px !important;
+    gap: 4px;
+    text-align: center;
   }
 }
 
-/* TIGHT PHONE (max 380px) */
-@media (max-width: 380px) {
-  .parrit-os-brand { font-size: clamp(28px, 11vw, 38px) !important; }
-  .parrit-os-tagline { font-size: 14.5px !important; }
-  .parrit-os-sub { font-size: 12.5px !important; }
-  .parrit-os-mobile-offer { padding: 10px 12px !important; }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   PIVOT acquisition phare — flagship offer card emphasis
-   On les retrouve aussi dans les modals + blog cards
-   ═══════════════════════════════════════════════════════════ */
-
-/* Increase visual weight on the Acquisition offer button in dock */
-.parrit-os-offer-flagship svg rect:first-of-type {
-  /* highlight by adding subtle outer ring via box-shadow on the wrapper */
-}
-.parrit-os-icon.parrit-os-offer-flagship {
-  background: rgba(196, 69, 54, 0.06);
-  border-radius: 12px;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   CHAIN — chronological intervention timeline
-   ═══════════════════════════════════════════════════════════ */
-.parrit-os-chain {
-  padding: 28px clamp(12px, 2vw, 28px) 16px;
-  max-width: 1240px;
-  margin: 0 auto;
-  text-align: center;
-}
-.parrit-os-chain-eyebrow {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--parrit-red);
-  margin: 0 0 18px;
-}
-.parrit-os-chain-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 4px 8px;
-  margin: 0 auto 16px;
-  max-width: 1180px;
-}
-/* Deux fronts (back-office / business) — étiquettes mono */
-.parrit-os-chain-front {
-  max-width: 1180px;
-  margin: 0 auto 20px;
-}
-.parrit-os-chain-front .parrit-os-chain-row { margin-bottom: 0; }
-.parrit-os-chain-front-label {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 10px;
-  font-family: var(--font-mono);
-  margin: 0 0 12px;
-}
-.parrit-os-front-tag {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  padding: 3px 9px;
-  border-radius: 6px;
-}
-.parrit-os-front-backoffice .parrit-os-front-tag {
-  color: #161616;
-  background: rgba(12, 12, 13, 0.06);
-  border: 1px solid rgba(12, 12, 13, 0.18);
-}
-.parrit-os-front-business .parrit-os-front-tag {
-  color: var(--parrit-red);
-  background: rgba(209, 19, 47, 0.07);
-  border: 1px solid rgba(209, 19, 47, 0.20);
-}
-.parrit-os-front-desc {
-  font-size: 11.5px;
-  color: #8987A1;
-  letter-spacing: 0.02em;
-}
-.parrit-os-chain-step {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 13px;
-  background: #FFFFFF;
-  border: 1.5px solid #161616;
-  border-radius: 999px;
-  box-shadow: 2px 2px 0 var(--step-color, #161616);
-  font-family: var(--font-body);
-  font-size: 12.5px;
-  font-weight: 600;
-  color: #161616;
-  white-space: nowrap;
-}
-.parrit-os-chain-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--step-color, var(--parrit-red));
-  border: 1.5px solid #161616;
-}
-.parrit-os-chain-label {
-  letter-spacing: 0.01em;
-}
-.parrit-os-chain-arrow {
-  font-family: var(--font-heading);
-  font-size: 18px;
-  font-weight: 500;
-  color: #8987A1;
-  padding: 0 2px;
-  user-select: none;
-}
-.parrit-os-chain-sub {
-  font-family: var(--font-heading);
-  font-size: 15px;
-  font-style: normal;
-  color: #6E7079;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.5;
-}
-
-@media (max-width: 600px) {
-  .parrit-os-chain {
-    padding: 20px 10px 12px;
-  }
-  .parrit-os-chain-step {
-    padding: 6px 10px;
-    font-size: 11.5px;
-    gap: 5px;
-  }
-  .parrit-os-chain-arrow {
-    font-size: 15px;
-  }
-  .parrit-os-chain-sub {
-    font-size: 13.5px;
-  }
-}
 
 /* ═══════════════════════════════════════════════════════════
    FONDATEURS — premium founders page (/fondateurs)
@@ -2429,64 +1138,6 @@ img, svg, video { max-width: 100%; height: auto; }
   .aca-mod-n { font-size: 23px; width: 2ch; }
 }
 
-/* ── Carte du monde — présence internationale (11/06/2026) ── */
-.parrit-os-world {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 72px 24px 36px;
-  text-align: center;
-}
-.parrit-os-world-title {
-  font-family: var(--font-heading);
-  font-style: normal;
-  font-weight: 600;
-  font-size: clamp(26px, 4vw, 40px);
-  color: var(--text);
-  margin: 0 0 26px;
-}
-.parrit-os-world-card {
-  background: var(--bg);
-  border: 2px solid var(--text);
-  border-radius: 16px;
-  box-shadow: 6px 6px 0 rgba(12, 12, 13, 0.12);
-  padding: 22px 18px 10px;
-}
-.parrit-os-world-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 18px;
-}
-.parrit-os-world-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-body);
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--text);
-  background: var(--bg);
-  border: 1.5px solid var(--text);
-  border-radius: 999px;
-  padding: 6px 12px;
-}
-.parrit-os-world-chip .dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  border: 1px solid var(--text);
-}
-@media (max-width: 720px) {
-  .parrit-os-world {
-    padding: 46px 14px 24px;
-  }
-  .parrit-os-world-card {
-    padding: 12px 8px 4px;
-    box-shadow: 4px 4px 0 rgba(12, 12, 13, 0.12);
-  }
-}
-
 /* ==========================================================================
    Home "Parrit Template" — port scoped from design-source/parrit-da.css
    ========================================================================== */
@@ -2541,7 +1192,30 @@ img, svg, video { max-width: 100%; height: auto; }
   align-items: center;
   display: flex;
   justify-content: space-between;
+  gap: 18px;
   padding: 24px 0;
+}
+
+.home-template .nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.home-template .nav-links a,
+.home-template .footer-links a {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.home-template .nav-links a:hover,
+.home-template .footer-links a:hover {
+  color: var(--red);
 }
 
 .home-template .logo {
@@ -2627,6 +1301,10 @@ img, svg, video { max-width: 100%; height: auto; }
   text-align: center;
 }
 
+.home-template .hero.left {
+  text-align: left;
+}
+
 .home-template .hero > * {
   position: relative;
   z-index: 1;
@@ -2653,6 +1331,11 @@ img, svg, video { max-width: 100%; height: auto; }
   max-width: 920px;
 }
 
+.home-template .hero.left h1 {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .home-template .hero .sub {
   color: var(--muted);
   font-family: var(--font-mono);
@@ -2660,6 +1343,11 @@ img, svg, video { max-width: 100%; height: auto; }
   line-height: 1.75;
   margin: 24px auto 0;
   max-width: 640px;
+}
+
+.home-template .hero.left .sub {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .home-template .chips {
@@ -2692,9 +1380,22 @@ img, svg, video { max-width: 100%; height: auto; }
   width: 16px;
 }
 
+.home-template .chip .dot {
+  background: var(--red);
+  border-radius: 999px;
+  flex: 0 0 auto;
+  height: 7px;
+  width: 7px;
+}
+
 .home-template .hero .cta-row {
   justify-content: center;
   margin-top: 36px;
+}
+
+.home-template .hero.left .chips,
+.home-template .hero.left .cta-row {
+  justify-content: flex-start;
 }
 
 .home-template .section {
@@ -2823,6 +1524,40 @@ img, svg, video { max-width: 100%; height: auto; }
   text-transform: uppercase;
 }
 
+.home-template .checks {
+  display: grid;
+  gap: 14px;
+  list-style: none;
+  margin-top: 26px;
+  max-width: 820px;
+  padding: 0;
+}
+
+.home-template .checks li {
+  align-items: flex-start;
+  color: var(--muted);
+  display: flex;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  gap: 13px;
+  line-height: 1.6;
+}
+
+.home-template .ck {
+  border: 1.5px solid var(--red);
+  border-radius: 50%;
+  color: var(--red);
+  display: inline-grid;
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  height: 24px;
+  line-height: 1;
+  place-items: center;
+  width: 24px;
+}
+
 .home-template .ladder {
   border-top: 1px solid var(--line);
   margin-top: 40px;
@@ -2878,6 +1613,86 @@ img, svg, video { max-width: 100%; height: auto; }
   letter-spacing: 0.1em;
   padding: 4px 9px;
   text-transform: uppercase;
+}
+
+.home-template .spec {
+  border-top: 1px solid var(--line);
+  display: grid;
+  margin-top: 32px;
+}
+
+.home-template .spec-row {
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 220px 1fr;
+}
+
+.home-template .spec dt {
+  color: var(--red);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  padding: 18px 0;
+  text-transform: uppercase;
+}
+
+.home-template .spec dd {
+  color: var(--ink);
+  font-size: 15px;
+  margin: 0;
+  padding: 18px 0;
+}
+
+.home-template .spec .m,
+.home-template .m {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.home-template .proof {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 40px;
+}
+
+.home-template .bc {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  padding: 26px;
+}
+
+.home-template .bc .sec {
+  color: var(--red);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.home-template .bc .pain {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.6;
+  margin-top: 14px;
+}
+
+.home-template .bc .res {
+  color: var(--ink);
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-top: 18px;
+}
+
+.home-template .bc .res b {
+  color: var(--red);
 }
 
 .home-template .logowall-sec {
@@ -3153,6 +1968,12 @@ img, svg, video { max-width: 100%; height: auto; }
   padding: 30px 0;
 }
 
+.home-template .footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
 .home-template footer .mono {
   color: var(--faint);
   font-size: 12px;
@@ -3173,7 +1994,8 @@ img, svg, video { max-width: 100%; height: auto; }
   .home-template .two,
   .home-template .grid2,
   .home-template .grid3,
-  .home-template .cases {
+  .home-template .cases,
+  .home-template .proof {
     grid-template-columns: 1fr;
   }
 
@@ -3198,12 +2020,30 @@ img, svg, video { max-width: 100%; height: auto; }
   .home-template .leadform input {
     flex: 1 1 100%;
   }
+
+  .home-template .spec-row {
+    grid-template-columns: 1fr;
+  }
+
+  .home-template .spec dt {
+    border-bottom: 0;
+    padding-bottom: 4px;
+  }
+
+  .home-template .spec dd {
+    padding-top: 4px;
+  }
 }
 
 @media (max-width: 640px) {
   .home-template .nav {
     align-items: flex-start;
+    flex-direction: column;
     gap: 16px;
+  }
+
+  .home-template .nav-links {
+    justify-content: flex-start;
   }
 
   .home-template .nav .btn {

@@ -1,4 +1,6 @@
-# PARRIT·AI — Direction Artistique (source de vérité)
+> ⚠️ SUPERSÉDÉ le 23/06 par la DA Parrit Template — BACKUP. Tokens canon = `#F5F8FF` / `#161616` / `#2E2D2B` / `#AA0003` / `#C67C60`, Hanken Grotesk + JetBrains Mono. Source = `design-source/DA-TOKENS-EXTRACTED.md` + `src/app/globals.css`. Le logotype PARRIT·AI + sceau 速 reste valable.
+
+# PARRIT·AI — Direction Artistique (source de vérité historique)
 
 > DA livrée par l'agence de branding (juin 2026, inputs humains). **Ce fichier fait foi.**
 > Toute UI Parrit (site, propale, deck, OG, signature, dashboard) part d'ici.

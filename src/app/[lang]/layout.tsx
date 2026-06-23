@@ -143,11 +143,11 @@ export default async function LocaleLayout({
       },
       {
         "@type": "Service",
-        "@id": `${SITE_URL}/#sprint-claude-code`,
-        name: "Audit, Configuration & Sprint Claude Code",
-        serviceType: "Conseil et développement IA",
+        "@id": `${SITE_URL}/#audit-transformation-ia`,
+        name: "Audit de transformation IA",
+        serviceType: "Diagnostic de transformation IA",
         description:
-          "Audit, Configuration & Sprint d'un à quatre jours, chez vous ou à distance, pour construire avec les équipes du client un outil opérationnel basé sur Claude Code. Forfait fermé, livrables écrits, pas de TJM.",
+          "Point d'entrée Parrit pour cartographier les processus, identifier les workflows à fort impact et prioriser les agents IA à déployer.",
         provider: { "@id": `${SITE_URL}/#organization` },
         areaServed: "FR",
         audience: {
@@ -157,21 +157,74 @@ export default async function LocaleLayout({
       },
       {
         "@type": "Service",
-        "@id": `${SITE_URL}/#setup-claude-code`,
-        name: "Setup Claude Code pour vos équipes",
-        serviceType: "Installation et acculturation IA",
+        "@id": `${SITE_URL}/#sprint-impact`,
+        name: "Sprint à impact",
+        serviceType: "Sprint agentique",
         description:
-          "Installation, configuration et acculturation Claude Code chez le client : CLAUDE.md, hooks, skills, MCP, workflows. Vos équipes deviennent autonomes.",
+          "Format phare à partir de 1 197 € pour transformer un workflow critique en système agentique utilisable.",
+        offers: {
+          "@type": "Offer",
+          priceSpecification: {
+            "@type": "PriceSpecification",
+            priceCurrency: "EUR",
+            minPrice: 1197,
+          },
+        },
         provider: { "@id": `${SITE_URL}/#organization` },
         areaServed: "FR",
       },
       {
         "@type": "Service",
-        "@id": `${SITE_URL}/#automatisations`,
-        name: "Automatisations qui tournent en production",
-        serviceType: "Développement de workflows automatisés",
+        "@id": `${SITE_URL}/#deploiement-agents-ia`,
+        name: "Déploiement d'agents IA",
+        serviceType: "Déploiement de systèmes agentiques",
         description:
-          "Workflows déterministes (n8n, scripts, agents) construits sur mesure pour CRM, veille, facturation, outbound, reporting. Versionnés Git, déployés sur l'infrastructure du client ou la nôtre. Forfait au livrable.",
+          "Déploiement d'agents IA en production à partir de 2 994 €, connectés aux outils métier et opérés avec garde-fous.",
+        offers: {
+          "@type": "Offer",
+          priceSpecification: {
+            "@type": "PriceSpecification",
+            priceCurrency: "EUR",
+            minPrice: 2994,
+          },
+        },
+        provider: { "@id": `${SITE_URL}/#organization` },
+        areaServed: "FR",
+      },
+      {
+        "@type": "Service",
+        "@id": `${SITE_URL}/#formation-agentique`,
+        name: "Formation à l'utilisation agentique (non-tech)",
+        serviceType: "Formation IA non-tech",
+        description:
+          "Formation non-tech à partir de 3 497 €, finançable OPCO, pour rendre les équipes autonomes sur Claude Code, Codex et les outils agentiques.",
+        offers: {
+          "@type": "Offer",
+          priceSpecification: {
+            "@type": "PriceSpecification",
+            priceCurrency: "EUR",
+            minPrice: 3497,
+          },
+        },
+        provider: { "@id": `${SITE_URL}/#organization` },
+        areaServed: "FR",
+      },
+      {
+        "@type": "Service",
+        "@id": `${SITE_URL}/#operating-partner`,
+        name: "Accompagnement · Operating Partner",
+        serviceType: "Accompagnement Operating Partner IA",
+        description:
+          "Accompagnement Operating Partner à partir de 247 €/h pour gouverner, maintenir et faire évoluer les agents IA dans la durée.",
+        offers: {
+          "@type": "Offer",
+          priceSpecification: {
+            "@type": "PriceSpecification",
+            priceCurrency: "EUR",
+            minPrice: 247,
+            unitText: "HUR",
+          },
+        },
         provider: { "@id": `${SITE_URL}/#organization` },
         areaServed: "FR",
       },
@@ -211,7 +264,7 @@ export default async function LocaleLayout({
           addressCountry: "FR",
         },
         areaServed: ["France", "Europe", "Asia"],
-        serviceType: "Conseil et déploiement Claude Code",
+        serviceType: "Audit, déploiement et formation agentique",
       },
     ],
   };

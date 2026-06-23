@@ -52,24 +52,23 @@ const cardReveal = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
 };
 
-const ACCENTS = ["#D1132F", "#0C0C0D", "#D1132F", "#0C0C0D"];
+const ACCENTS = ["#AA0003", "#161616", "#AA0003", "#161616"];
 
 export default function LandingPage({ data, lang, quickContact, pageId }: Props) {
   return (
-    <div className="parrit-os-root">
-      {/* Window chrome topbar */}
-      <div className="parrit-os-topbar">
-        <Link href={`/${lang}`} aria-label="Parrit.ai" style={{ display: "flex", gap: 6 }}>
-          <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#E57373", border: "1.5px solid #0C0C0D" }} />
-          <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#F5D67E", border: "1.5px solid #0C0C0D" }} />
-          <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#85C285", border: "1.5px solid #0C0C0D" }} />
+    <div className="landing-v4-shell">
+      <div className="landing-v4-topbar">
+        <Link href={`/${lang}`} aria-label="Parrit.ai" className="landing-v4-traffic">
+          <span style={{ background: "#AA0003" }} />
+          <span style={{ background: "#C67C60" }} />
+          <span style={{ background: "#D0D8D7" }} />
         </Link>
-        <div className="parrit-os-title">parrit.ai — {pageId}</div>
-        <div className="parrit-os-topbar-actions">
-          <Link href={`/${lang}`} className="parrit-os-signup-btn" style={{ textDecoration: "none" }}>
+        <div className="landing-v4-topbar-title">parrit.ai · {pageId}</div>
+        <div className="landing-v4-topbar-actions">
+          <Link href={`/${lang}`} className="landing-v4-home-link">
             ← {lang === "fr" ? "Accueil" : lang === "pt-BR" ? "Início" : lang === "zh-CN" ? "首页" : "Home"}
           </Link>
-          <div className="parrit-os-lang"><LanguageSwitcher currentLang={lang} /></div>
+          <div className="landing-v4-lang"><LanguageSwitcher currentLang={lang} /></div>
         </div>
       </div>
 
@@ -77,7 +76,7 @@ export default function LandingPage({ data, lang, quickContact, pageId }: Props)
         {/* HERO */}
         <section className="landing-v4-hero">
           <motion.p
-            className="parrit-os-eyebrow"
+            className="landing-v4-eyebrow"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -106,7 +105,7 @@ export default function LandingPage({ data, lang, quickContact, pageId }: Props)
             {data.hero.quickAnswer}
           </motion.p>
           <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={3}>
-            <Link href="#contact" className="parrit-os-cta" style={{ display: "inline-block", textDecoration: "none" }}>
+            <Link href="#contact" className="landing-v4-cta-button">
               {data.hero.cta} →
             </Link>
           </motion.div>
@@ -205,10 +204,10 @@ export default function LandingPage({ data, lang, quickContact, pageId }: Props)
         </section>
       </main>
 
-      <footer className="parrit-os-statusbar">
+      <footer className="landing-v4-statusbar">
         <span>● parrit.ai</span>
         <span>Paul Larmaraud · paul.larmaraud@parrit.ai</span>
-        <span className="parrit-os-clock">
+        <span className="landing-v4-date">
           {new Date().toLocaleDateString(lang === "fr" ? "fr-FR" : lang === "zh-CN" ? "zh-CN" : lang === "pt-BR" ? "pt-BR" : "en-US", { day: "2-digit", month: "short" })}
         </span>
       </footer>

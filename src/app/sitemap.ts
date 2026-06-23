@@ -10,6 +10,9 @@ const SITE_URL =
 
 const STATIC_ROUTES = [
   { path: "", changeFrequency: "weekly" as const, priority: 1.0 },
+  { path: "/deployer", changeFrequency: "monthly" as const, priority: 0.9 },
+  { path: "/croissance", changeFrequency: "monthly" as const, priority: 0.9 },
+  { path: "/transmettre", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/sprint", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/audit-claude-code", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/setup-claude-code", changeFrequency: "monthly" as const, priority: 0.9 },

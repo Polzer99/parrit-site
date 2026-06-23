@@ -21,12 +21,12 @@ Applies to any code delivered from this repo. "The CI blocks" beats "remember to
 ## Source de vérité COMMUNE = `TRUTH.md`
 **Avant de toucher au contenu/positionnement/conversion, lire [`TRUTH.md`](./TRUTH.md)** : ce qu'est Parrit, les north stars (RDV qualifiés → cash), l'ICP, les offres, la voix (LE TAMIS), les 7 règles dures, et la définition d'une « amélioration ». C'est le **cerveau partagé** entre le site et l'agent d'amélioration continue **Hermes** (`hermes/`, voir `hermes/LOOP.md`). `BRAND.md` reste la source de vérité **visuelle** (DA). En cas de conflit : `REGLES-DOR.md` puis `VISION.md` (hors-repo) priment.
 
-## Source de vérité visuelle = `BRAND.md`
-Toute UI part de `BRAND.md` (DA agence). Tokens dans `src/app/globals.css` (`:root`) + polices dans `src/app/[lang]/layout.tsx`.
-- **Palette stricte** : crème `--bg #FEFDF9` · encre `--text #0C0C0D` · rouge `--parrit-red`/`--accent #D1132F`. Sombre = `--bg-dark #0C0C0D`, texte clair `--text-light #FEFDF9`, mutés `--text-muted #4A4A4E` / `--text-light-muted #B5B5B9`.
-- **INTERDIT (retired, purgé du site)** : sage `#5FAF8E`, caramel `#c8956c`/`#b8814c`, violet `#7C5BA1`, ancien rouge `#C44536`, brun `#2A2420`/`#1a1410`. Ne pas réintroduire.
-- **Polices** : titres marketing = DM Sans bold (`--font-body`) · éditorial/manifeste = Cormorant serif (`--font-serif`) · labels/chips/coords = JetBrains Mono (`--font-mono`).
-- **Composants signature** : chips mono rouge · CTA neo-brutalist (fond encre, texte crème, ombre dure rouge) · cartes bord 2px encre + ombre offset · window-chrome PostHog.
+## Source de vérité visuelle = `src/app/globals.css` + `design-source/DA-TOKENS-EXTRACTED.md`
+Depuis le 23/06, toute UI publique part de `src/app/globals.css` (`:root`) et de `design-source/DA-TOKENS-EXTRACTED.md`. `BRAND.md` est un backup historique : ne pas l'utiliser pour ressusciter l'ancienne home desktop-OS.
+- **Palette stricte** : fond `#F5F8FF` · encre `#161616` · sombre `#2E2D2B` · rouge `#AA0003` · terracotta rare `#C67C60` · muted `#6E7079` · faint `#8987A1` · border `rgba(20,20,26,.10)`.
+- **INTERDIT (retired)** : crème `#FEFDF9`, ancien rouge `#D1132F`, ancienne encre `#0C0C0D`, DM Sans, Cormorant comme typo de page, CTA/cartes neo-brutalist, namespace `.parrit-os-*` sur la home.
+- **Polices** : Hanken Grotesk pour body/heading (`--font-body`, `--font-heading`) · JetBrains Mono pour labels/chips/coords (`--font-mono`).
+- **Composants signature** : cartes plates, chips pilules, ladder, logowall clients séparé, CTA leadform + WhatsApp, Qualiopi.
 - **Voix** (`BRAND.md §6bis`, doctrine LE TAMIS) : Operating Partner, autorité démontrée, faits (Enargeia), sobriété, **pas de tiret cadratin `—`**, pas de jargon IA.
 
 ## Routes

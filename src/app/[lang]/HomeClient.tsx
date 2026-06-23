@@ -14,8 +14,19 @@ type OfferRow = {
   tag?: string;
 };
 
+type OfferNavItem = {
+  href: "deployer" | "croissance" | "transmettre";
+  label: string;
+};
+
 type HomeCopy = {
   navCta: string;
+  navLinks: OfferNavItem[];
+  a11y: {
+    nav: string;
+    tools: string;
+    footerOffers: string;
+  };
   hero: {
     eyebrow: string;
     chips: string[];
@@ -70,6 +81,7 @@ type HomeCopy = {
     mail: string;
     qualiopi: string;
     qualiopiStrong: string;
+    qualiopiAlt: string;
   };
   footer: string;
 };
@@ -77,6 +89,16 @@ type HomeCopy = {
 const COPY: Record<Locale, HomeCopy> = {
   fr: {
     navCta: "Écrire à Paul",
+    navLinks: [
+      { href: "deployer", label: "Déployer" },
+      { href: "croissance", label: "Croissance" },
+      { href: "transmettre", label: "Transmettre" },
+    ],
+    a11y: {
+      nav: "Navigation principale",
+      tools: "Outils",
+      footerOffers: "Offres Parrit",
+    },
     hero: {
       eyebrow: "Fractional AI Operator · Ingénierie agentique",
       chips: ["Claude Code", "Codex", "Serveurs MCP"],
@@ -207,11 +229,22 @@ const COPY: Record<Locale, HomeCopy> = {
       mail: "ou écrire directement à Paul",
       qualiopi: "Nos formations sont ",
       qualiopiStrong: "finançables par votre OPCO",
+      qualiopiAlt: "Qualiopi — processus certifié — République Française",
     },
     footer: "Paul Larmaraud & Yukun Leng · un réseau d'experts · paul.larmaraud@parrit.ai",
   },
   en: {
     navCta: "Email Paul",
+    navLinks: [
+      { href: "deployer", label: "Deploy" },
+      { href: "croissance", label: "Growth" },
+      { href: "transmettre", label: "Transmit" },
+    ],
+    a11y: {
+      nav: "Primary navigation",
+      tools: "Tools",
+      footerOffers: "Parrit offers",
+    },
     hero: {
       eyebrow: "Fractional AI Operator · Agentic engineering",
       chips: ["Claude Code", "Codex", "MCP servers"],
@@ -342,11 +375,22 @@ const COPY: Record<Locale, HomeCopy> = {
       mail: "or email Paul directly",
       qualiopi: "Our training programs are ",
       qualiopiStrong: "financeable by your OPCO",
+      qualiopiAlt: "Qualiopi — certified process — French Republic",
     },
     footer: "Paul Larmaraud & Yukun Leng · a network of experts · paul.larmaraud@parrit.ai",
   },
   "pt-BR": {
     navCta: "Escrever para Paul",
+    navLinks: [
+      { href: "deployer", label: "Implantar" },
+      { href: "croissance", label: "Crescimento" },
+      { href: "transmettre", label: "Transmitir" },
+    ],
+    a11y: {
+      nav: "Navegação principal",
+      tools: "Ferramentas",
+      footerOffers: "Ofertas Parrit",
+    },
     hero: {
       eyebrow: "Fractional AI Operator · Engenharia agentica",
       chips: ["Claude Code", "Codex", "Servidores MCP"],
@@ -477,11 +521,22 @@ const COPY: Record<Locale, HomeCopy> = {
       mail: "ou escrever diretamente para Paul",
       qualiopi: "Nossas formações são ",
       qualiopiStrong: "financiáveis pelo seu OPCO",
+      qualiopiAlt: "Qualiopi — processo certificado — República Francesa",
     },
     footer: "Paul Larmaraud & Yukun Leng · uma rede de especialistas · paul.larmaraud@parrit.ai",
   },
   "zh-CN": {
     navCta: "写信给 Paul",
+    navLinks: [
+      { href: "deployer", label: "部署" },
+      { href: "croissance", label: "增长" },
+      { href: "transmettre", label: "传递" },
+    ],
+    a11y: {
+      nav: "主导航",
+      tools: "工具",
+      footerOffers: "Parrit 服务",
+    },
     hero: {
       eyebrow: "Fractional AI Operator · 智能体工程",
       chips: ["Claude Code", "Codex", "MCP 服务器"],
@@ -612,6 +667,7 @@ const COPY: Record<Locale, HomeCopy> = {
       mail: "或直接写信给 Paul",
       qualiopi: "我们的培训",
       qualiopiStrong: "可由你的 OPCO 资助",
+      qualiopiAlt: "Qualiopi — 认证流程 — 法兰西共和国",
     },
     footer: "Paul Larmaraud & Yukun Leng · 专家网络 · paul.larmaraud@parrit.ai",
   },
@@ -725,8 +781,15 @@ export default function HomeClient({ lang }: { lang: Locale }) {
       <div className="frame" />
 
       <div className="wrap">
-        <nav className="nav" aria-label="Navigation principale">
+        <nav className="nav" aria-label={copy.a11y.nav}>
           <Logo />
+          <div className="nav-links">
+            {copy.navLinks.map((item) => (
+              <a href={`/${lang}/${item.href}`} key={item.href}>
+                {item.label}
+              </a>
+            ))}
+          </div>
           <a className="btn btn-red" href="mailto:paul.larmaraud@parrit.ai">
             {copy.navCta}
           </a>
@@ -744,7 +807,7 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           {copy.hero.after}
         </h1>
         <p className="sub">{copy.hero.sub}</p>
-        <div className="chips" aria-label="Outils">
+        <div className="chips" aria-label={copy.a11y.tools}>
           {TOOL_CHIPS.map((chip, index) => (
             <span className="chip" key={copy.hero.chips[index]}>
               <img className="ci" src={chip.src} alt="" aria-hidden="true" />
@@ -895,7 +958,7 @@ export default function HomeClient({ lang }: { lang: Locale }) {
             <img
               className="qualiopi-logo"
               src="/brand/qualiopi/qualiopi-marianne.png"
-              alt="Qualiopi — processus certifié — République Française"
+              alt={copy.cta.qualiopiAlt}
             />
             <span className="qualiopi-note">
               {copy.cta.qualiopi}
@@ -908,6 +971,13 @@ export default function HomeClient({ lang }: { lang: Locale }) {
       <div className="wrap">
         <footer className="dim">
           <Logo />
+          <nav className="footer-links" aria-label={copy.a11y.footerOffers}>
+            {copy.navLinks.map((item) => (
+              <a href={`/${lang}/${item.href}`} key={item.href}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
           <span className="mono">{copy.footer}</span>
         </footer>
       </div>

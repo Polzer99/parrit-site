@@ -149,7 +149,7 @@ export default function QuickContact({ strings, page, variant = "dark" }: Props)
             fontFamily: "var(--font-body)",
             fontSize: 14,
             fontWeight: 600,
-            color: "#FEFDF9",
+            color: "#F5F8FF",
             background: "var(--parrit-red)",
             border: "none",
             cursor: state === "sending" ? "wait" : "pointer",
