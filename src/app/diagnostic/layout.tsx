@@ -1,10 +1,22 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import "../globals.css";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600"], variable: "--dg-serif", display: "swap" });
-const body = DM_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--dg-body", display: "swap" });
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--dg-mono", display: "swap" });
+const body = Hanken_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-body",
+  display: "swap",
+  adjustFontFallback: true,
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-mono",
+  display: "swap",
+  adjustFontFallback: true,
+});
 
 const SITE_URL = "https://parrit.ai";
 
@@ -25,7 +37,7 @@ export const metadata: Metadata = {
 
 export default function DiagnosticLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${serif.variable} ${body.variable} ${mono.variable}`}>
+    <html lang="fr" className={`${body.variable} ${mono.variable}`}>
       <head>
         {/* PostHog : meme init que le reste du site, pour que le diagnostic soit auditable (events) par Hermes */}
         <script
@@ -42,7 +54,7 @@ export default function DiagnosticLayout({ children }: { children: React.ReactNo
           }}
         />
       </head>
-      <body className="bg-bg text-text antialiased min-h-screen">{children}</body>
+      <body className="font-body bg-bg text-text antialiased min-h-screen">{children}</body>
     </html>
   );
 }

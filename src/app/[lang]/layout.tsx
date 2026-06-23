@@ -15,6 +15,7 @@ const body = Hanken_Grotesk({
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-body",
   display: "swap",
+  adjustFontFallback: true,
 });
 
 // Monospace — labels, chips, coordonnées (système typo agence, 06/2026)
@@ -23,6 +24,7 @@ const mono = JetBrains_Mono({
   weight: ["400", "500", "700"],
   variable: "--font-mono",
   display: "swap",
+  adjustFontFallback: true,
 });
 
 const SITE_URL = "https://parrit.ai";

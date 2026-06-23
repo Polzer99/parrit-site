@@ -396,7 +396,7 @@ const CSS = `
 .bsd-root{
   --creme:#F5F8FF; --encre:#161616; --rouge:#AA0003; --rouge-h:#8A0203;
   --rouge-soft:rgba(170,0,3,.07); --muted:#6E7079; --border:rgba(20,20,26,.12);
-  --serif:var(--bsd-serif),Georgia,serif; --body:var(--bsd-body),system-ui,sans-serif; --mono:var(--bsd-mono),monospace;
+  --serif:var(--font-body),system-ui,sans-serif; --body:var(--font-body),system-ui,sans-serif; --mono:var(--font-mono),monospace;
   display:block; max-width:1080px; margin:0 auto; padding:24px 18px 56px;
   font-family:var(--body); color:var(--encre); line-height:1.5;
 }
