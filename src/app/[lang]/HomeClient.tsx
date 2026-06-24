@@ -80,6 +80,7 @@ type HomeCopy = {
     title: string;
     lead: string;
     diagnostic: {
+      level: string;
       title: string;
       body: string;
       cta: string;
@@ -112,6 +113,11 @@ type HomeCopy = {
     submitting: string;
     thanks: string;
     error: string;
+    diagnosticChoice: {
+      legend: string;
+      yes: string;
+      no: string;
+    };
     whatsapp: string;
     mail: string;
     qualiopi: string;
@@ -189,7 +195,7 @@ const COPY: Record<Locale, HomeCopy> = {
         },
       ],
       ladder: [
-        { label: "Diagnostic de maturité IA", price: "préparé avant rendez-vous" },
+        { label: "Diagnostic IA + cartographie process", price: "préparé avant rendez-vous" },
         { label: "Audit de transformation", tag: "Point d'entrée", price: "à partir de 3 500 €" },
         { label: "Déploiement d'agents IA", price: "à partir de 2 994 €" },
         { label: "Formation à l'utilisation agentique (non-tech)", price: "à partir de 3 497 € · finançable OPCO" },
@@ -201,8 +207,9 @@ const COPY: Record<Locale, HomeCopy> = {
       title: "Où en êtes-vous avec l'IA ?",
       lead: "La montée commence par un diagnostic. Vous repartez avec votre niveau, le premier flux à traiter et la ressource qui vous correspond.",
       diagnostic: {
-        title: "Étape 1 · Recevoir votre diagnostic",
-        body: "Avant le rendez-vous, on prépare une première lecture de votre maturité : où vous êtes, ce qui bloque, le flux à regarder en premier.",
+        level: "D0",
+        title: "Point de départ · Diagnostic & cartographie des process",
+        body: "Avant le rendez-vous, on cartographie vos process et on pose votre niveau de maturité. Objectif : savoir ce qu'il est possible de faire avec l'IA chez vous, sans partir d'une idée vague.",
         cta: "Recevoir mon diagnostic",
         href: "#contact",
       },
@@ -213,7 +220,7 @@ const COPY: Record<Locale, HomeCopy> = {
         { id: "N1", label: "L'Éveil", phrase: "Je découvre l'IA générative", href: "/masterclass-ia" },
         { id: "N2", label: "L'Usage", phrase: "Je veux l'appliquer à mon secteur", href: "/masterclass-metier" },
         { id: "N3", label: "L'Action", phrase: "Je veux connecter mes logiciels à l'IA", href: "/sessions-mcp" },
-        { id: "N4", label: "Audit & diagnostic", phrase: "Je veux cartographier mes process", href: "/audit" },
+        { id: "N4", label: "Cartographie des process", phrase: "Je veux passer du diagnostic à la décision", href: "/audit" },
         { id: "N5", label: "Le Déploiement", phrase: "Je veux un agent en production", href: "/deploiement-agents" },
         { id: "N6", label: "L'Autonomie", phrase: "Je veux maîtriser Claude Code et Codex", href: "/outils-agentiques" },
         { id: "N7", label: "La Gouvernance", phrase: "J'ai une flotte, je veux l'optimiser", href: "/optimisation-flotte" },
@@ -308,13 +315,18 @@ const COPY: Record<Locale, HomeCopy> = {
       titleBefore: "Recevez votre ",
       titleRed: "diagnostic",
       titleAfter: " avant l'échange.",
-      fine: "Laissez votre email et votre numéro : on prépare une première lecture de votre maturité, du flux prioritaire et de la ressource à vous envoyer.",
+      fine: "Laissez votre email et votre numéro : on prépare une première lecture de votre maturité, une cartographie de vos process et la ressource à vous envoyer.",
       email: "Votre email professionnel",
       phone: "Votre téléphone",
       submit: "Recevoir mon diagnostic",
       submitting: "Envoi…",
       thanks: "Merci. On prépare votre diagnostic avant l'échange.",
       error: "Échec d'envoi. Écrivez à paul.larmaraud@parrit.ai.",
+      diagnosticChoice: {
+        legend: "Je veux recevoir",
+        yes: "Oui, je souhaite un diagnostic pour savoir ce qui est possible avec l'IA.",
+        no: "Non, je veux seulement être recontacté.",
+      },
       whatsapp: "WhatsApp",
       mail: "ou écrire directement à Paul",
       qualiopi: "Nos formations sont ",
@@ -390,7 +402,7 @@ const COPY: Record<Locale, HomeCopy> = {
         },
       ],
       ladder: [
-        { label: "AI maturity diagnostic", price: "prepared before the meeting" },
+        { label: "AI diagnostic + process mapping", price: "prepared before the meeting" },
         { label: "Transformation audit", tag: "Entry point", price: "from €3,500" },
         { label: "AI agent deployment", price: "from €2,994" },
         { label: "Agentic usage training (non-tech)", price: "from €3,497 · OPCO-financeable" },
@@ -402,8 +414,9 @@ const COPY: Record<Locale, HomeCopy> = {
       title: "Where are you with AI?",
       lead: "The climb starts with a diagnostic. You leave with your level, the first workflow to inspect and the resource that fits you.",
       diagnostic: {
-        title: "Step 1 · Get your diagnostic",
-        body: "Before the meeting, we prepare a first read of your maturity: where you stand, what blocks you and which workflow to inspect first.",
+        level: "D0",
+        title: "Starting point · Diagnostic & process mapping",
+        body: "Before the meeting, we map your processes and define your maturity level. The goal: know what AI can realistically do for you, before choosing a solution.",
         cta: "Get my diagnostic",
         href: "#contact",
       },
@@ -414,7 +427,7 @@ const COPY: Record<Locale, HomeCopy> = {
         { id: "N1", label: "Awakening", phrase: "I'm discovering generative AI", href: "/masterclass-ia" },
         { id: "N2", label: "Usage", phrase: "I want to apply it to my sector", href: "/masterclass-metier" },
         { id: "N3", label: "Action", phrase: "I want to connect my software to AI", href: "/sessions-mcp" },
-        { id: "N4", label: "Audit & diagnosis", phrase: "I want to map my processes", href: "/audit" },
+        { id: "N4", label: "Process mapping", phrase: "I want to move from diagnostic to decision", href: "/audit" },
         { id: "N5", label: "Deployment", phrase: "I want an agent in production", href: "/deploiement-agents" },
         { id: "N6", label: "Autonomy", phrase: "I want to master Claude Code and Codex", href: "/outils-agentiques" },
         { id: "N7", label: "Governance", phrase: "I have a fleet and want to optimize it", href: "/optimisation-flotte" },
@@ -516,6 +529,11 @@ const COPY: Record<Locale, HomeCopy> = {
       submitting: "Sending…",
       thanks: "Thanks. We will prepare your diagnostic before the meeting.",
       error: "Sending failed. Email paul.larmaraud@parrit.ai.",
+      diagnosticChoice: {
+        legend: "I want to receive",
+        yes: "Yes, I want a diagnostic to know what AI can do for me.",
+        no: "No, I only want to be contacted.",
+      },
       whatsapp: "WhatsApp",
       mail: "or email Paul directly",
       qualiopi: "Our training programs are ",
@@ -591,7 +609,7 @@ const COPY: Record<Locale, HomeCopy> = {
         },
       ],
       ladder: [
-        { label: "Diagnóstico de maturidade IA", price: "preparado antes da reunião" },
+        { label: "Diagnóstico IA + mapeamento de processos", price: "preparado antes da reunião" },
         { label: "Auditoria de transformação", tag: "Ponto de entrada", price: "a partir de 3 500 €" },
         { label: "Deploy de agentes IA", price: "a partir de 2 994 €" },
         { label: "Formação em uso agentico (não técnico)", price: "a partir de 3 497 € · financiável OPCO" },
@@ -603,8 +621,9 @@ const COPY: Record<Locale, HomeCopy> = {
       title: "Onde você está com a IA?",
       lead: "A subida começa por um diagnóstico. Você sai com seu nível, o primeiro fluxo a observar e o recurso que combina com você.",
       diagnostic: {
-        title: "Etapa 1 · Receber seu diagnóstico",
-        body: "Antes da reunião, preparamos uma primeira leitura da sua maturidade: onde você está, o que bloqueia e qual fluxo observar primeiro.",
+        level: "D0",
+        title: "Ponto de partida · Diagnóstico & mapeamento de processos",
+        body: "Antes da reunião, mapeamos seus processos e definimos seu nível de maturidade. Objetivo: saber o que a IA pode fazer por você antes de escolher uma solução.",
         cta: "Receber meu diagnóstico",
         href: "#contact",
       },
@@ -615,7 +634,7 @@ const COPY: Record<Locale, HomeCopy> = {
         { id: "N1", label: "Despertar", phrase: "Estou descobrindo a IA generativa", href: "/masterclass-ia" },
         { id: "N2", label: "Uso", phrase: "Quero aplicar ao meu setor", href: "/masterclass-metier" },
         { id: "N3", label: "Ação", phrase: "Quero conectar meus softwares à IA", href: "/sessions-mcp" },
-        { id: "N4", label: "Auditoria & diagnóstico", phrase: "Quero mapear meus processos", href: "/audit" },
+        { id: "N4", label: "Mapeamento de processos", phrase: "Quero passar do diagnóstico à decisão", href: "/audit" },
         { id: "N5", label: "Deploy", phrase: "Quero um agente em produção", href: "/deploiement-agents" },
         { id: "N6", label: "Autonomia", phrase: "Quero dominar Claude Code e Codex", href: "/outils-agentiques" },
         { id: "N7", label: "Governança", phrase: "Tenho uma frota, quero otimizá-la", href: "/optimisation-flotte" },
@@ -717,6 +736,11 @@ const COPY: Record<Locale, HomeCopy> = {
       submitting: "Enviando…",
       thanks: "Obrigado. Vamos preparar seu diagnóstico antes da conversa.",
       error: "Falha no envio. Escreva para paul.larmaraud@parrit.ai.",
+      diagnosticChoice: {
+        legend: "Quero receber",
+        yes: "Sim, quero um diagnóstico para saber o que posso fazer com IA.",
+        no: "Não, quero apenas ser contactado.",
+      },
       whatsapp: "WhatsApp",
       mail: "ou escrever diretamente para Paul",
       qualiopi: "Nossas formações são ",
@@ -792,7 +816,7 @@ const COPY: Record<Locale, HomeCopy> = {
         },
       ],
       ladder: [
-        { label: "AI 成熟度诊断", price: "会前准备" },
+        { label: "AI 诊断 + 流程梳理", price: "会前准备" },
         { label: "转型审计", tag: "入口项目", price: "起价 3 500 €" },
         { label: "AI 智能体部署", price: "起价 2 994 €" },
         { label: "智能体使用培训（非技术）", price: "起价 3 497 € · 可由 OPCO 资助" },
@@ -804,8 +828,9 @@ const COPY: Record<Locale, HomeCopy> = {
       title: "您现在处在 AI 的哪个阶段？",
       lead: "上山从诊断开始。你会得到自己的阶段、第一条要看的流程，以及最适合你的资源。",
       diagnostic: {
-        title: "第 1 步 · 获取你的诊断",
-        body: "会前，我们先准备一版成熟度判断：你在哪里、卡点是什么、第一条应该查看的流程是什么。",
+        level: "D0",
+        title: "起点 · 诊断与流程梳理",
+        body: "会前，我们先梳理你的流程并判断成熟度。目标是在选择方案前，先知道 AI 能为你具体做什么。",
         cta: "获取我的诊断",
         href: "#contact",
       },
@@ -816,7 +841,7 @@ const COPY: Record<Locale, HomeCopy> = {
         { id: "N1", label: "觉醒", phrase: "我正在了解生成式 AI", href: "/masterclass-ia" },
         { id: "N2", label: "使用", phrase: "我想将其应用到我的行业", href: "/masterclass-metier" },
         { id: "N3", label: "行动", phrase: "我想把软件连接到 AI", href: "/sessions-mcp" },
-        { id: "N4", label: "审计与诊断", phrase: "我想梳理自己的流程", href: "/audit" },
+        { id: "N4", label: "流程梳理", phrase: "我想从诊断进入决策", href: "/audit" },
         { id: "N5", label: "部署", phrase: "我想要一个投入生产的智能体", href: "/deploiement-agents" },
         { id: "N6", label: "自主", phrase: "我想掌握 Claude Code 和 Codex", href: "/outils-agentiques" },
         { id: "N7", label: "治理", phrase: "我有一组智能体，想要优化", href: "/optimisation-flotte" },
@@ -918,6 +943,11 @@ const COPY: Record<Locale, HomeCopy> = {
       submitting: "发送中…",
       thanks: "谢谢。我们会在交流前准备你的诊断。",
       error: "发送失败。请写信给 paul.larmaraud@parrit.ai。",
+      diagnosticChoice: {
+        legend: "我想收到",
+        yes: "是的，我想获得诊断，了解 AI 能为我做什么。",
+        no: "不用，我只想被联系。",
+      },
       whatsapp: "WhatsApp",
       mail: "或直接写信给 Paul",
       qualiopi: "我们的培训",
@@ -955,6 +985,7 @@ function Logo() {
 function LeadForm({ copy, lang }: { copy: HomeCopy["cta"]; lang: Locale }) {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [wantsDiagnostic, setWantsDiagnostic] = useState(true);
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -979,6 +1010,8 @@ function LeadForm({ copy, lang }: { copy: HomeCopy["cta"]; lang: Locale }) {
           email: email.trim(),
           telephone: phone.trim(),
           contact_raw: `${email.trim()} · ${phone.trim()}`,
+          wants_diagnostic: wantsDiagnostic,
+          diagnostic_intent: wantsDiagnostic ? copy.diagnosticChoice.yes : copy.diagnosticChoice.no,
           referrer: typeof document !== "undefined" ? document.referrer : "",
           url: typeof window !== "undefined" ? window.location.href : "",
           timestamp: new Date().toISOString(),
@@ -1019,6 +1052,29 @@ function LeadForm({ copy, lang }: { copy: HomeCopy["cta"]; lang: Locale }) {
         onChange={(e) => setPhone(e.target.value)}
         required
       />
+      <fieldset className="leadform-choice">
+        <legend>{copy.diagnosticChoice.legend}</legend>
+        <label>
+          <input
+            type="radio"
+            name="wants_diagnostic"
+            value="yes"
+            checked={wantsDiagnostic}
+            onChange={() => setWantsDiagnostic(true)}
+          />
+          <span>{copy.diagnosticChoice.yes}</span>
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="wants_diagnostic"
+            value="no"
+            checked={!wantsDiagnostic}
+            onChange={() => setWantsDiagnostic(false)}
+          />
+          <span>{copy.diagnosticChoice.no}</span>
+        </label>
+      </fieldset>
       <button className="btn btn-red btn-lg" type="submit" disabled={state === "sending"}>
         {state === "sending" ? copy.submitting : copy.submit}
       </button>
@@ -1183,7 +1239,7 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           <h2>{copy.maturite.title}</h2>
           <p className="lead">{copy.maturite.lead}</p>
           <a className="maturite-diagnostic-card" href={copy.maturite.diagnostic.href}>
-            <span className="maturite-num">01</span>
+            <span className="maturite-num">{copy.maturite.diagnostic.level}</span>
             <strong>{copy.maturite.diagnostic.title}</strong>
             <span>{copy.maturite.diagnostic.body}</span>
             <em>
@@ -1212,10 +1268,16 @@ export default function HomeClient({ lang }: { lang: Locale }) {
                 d="M58 430 C112 430 96 392 130 390 C202 386 194 342 260 342 C326 342 330 286 390 286 C462 286 452 226 520 226 C592 226 580 160 650 160 C718 160 700 96 770 96 C838 96 820 38 890 36"
               />
               <a className="mountain-start" href={`/${lang}/audit`} aria-label={copy.maturite.diagnostic.cta}>
-                <circle cx="58" cy="430" r="16" />
+                <circle cx="58" cy="430" r="20" />
                 <text x="58" y="434" textAnchor="middle">
-                  1
+                  D0
                 </text>
+                <foreignObject className="mountain-start-label" x="34" y="362" width="260" height="58">
+                  <div>
+                    <strong>{copy.maturite.diagnostic.level}</strong>
+                    <span>{copy.maturite.diagnostic.title}</span>
+                  </div>
+                </foreignObject>
               </a>
               {copy.maturite.levels.map((level) => {
                 const point = MATURITE_POINTS[level.id];
@@ -1252,6 +1314,15 @@ export default function HomeClient({ lang }: { lang: Locale }) {
             </svg>
           </nav>
           <div className="maturite-grid">
+            <a href={copy.maturite.diagnostic.href} className="maturite-tile maturite-tile-diagnostic">
+              <span className="maturite-num">{copy.maturite.diagnostic.level}</span>
+              <strong className="maturite-label">{copy.maturite.diagnostic.title}</strong>
+              <em className="maturite-phrase">{copy.maturite.diagnostic.body}</em>
+              <span className="maturite-action">
+                {copy.maturite.diagnostic.cta}
+                <span aria-hidden="true">→</span>
+              </span>
+            </a>
             {copy.maturite.levels.map((level) => (
               <a href={`/${lang}${level.href}`} className="maturite-tile" key={level.id}>
                 <span className="maturite-num">{level.id}</span>

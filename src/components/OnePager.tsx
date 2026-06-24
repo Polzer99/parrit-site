@@ -187,19 +187,19 @@ const contentByLocale: Partial<Record<Locale, Partial<Record<MaturiteLevel, OneP
       ],
     },
     N4: {
-      eyebrow: "N4 · Audit and diagnosis",
-      h1: "Before deploying, establish the diagnostic.",
-      sub: "You already have ideas, tools or isolated uses. We map the workflows to know what can move to production, what must stay human and what to inspect first.",
-      phrase: "I want to receive my diagnostic",
+      eyebrow: "N4 · Process mapping",
+      h1: "From diagnostic to decision: map your processes.",
+      sub: "The starting point is still the audit: we establish your maturity level, then turn that read into a concrete map of your workflows. You know what AI can realistically do, what must stay human and which process to handle first.",
+      phrase: "I want to move from diagnostic to decision",
       stories: [
         {
           title: "The team that wanted to scale",
           person: "Transformation leadership, mid-market company",
           before:
-            "Several AI uses already existed. Nothing was clear enough to decide which workflow should reach production.",
+            "Several AI uses already existed, but no map showed the processes, data, exceptions and validations to keep.",
           after:
-            "The diagnostic isolates one priority workflow, its inputs, data, exceptions and the human validations to keep.",
-          result: "The discussion moves away from tools and toward the first workflow to make controllable.",
+            "The diagnostic becomes a map: one priority workflow, its inputs, data, risks and the human decisions to keep.",
+          result: "The discussion moves away from tools and toward the first process to make controllable.",
         },
         {
           title: "The committee that needed a decision without theatre",
