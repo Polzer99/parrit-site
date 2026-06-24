@@ -134,9 +134,9 @@ CTA : `On prend un exemple reel de {use_case_prioritaire} et on cartographie le 
 | Fiche 7 niveaux "IA generative -> IA agentique" | DG, DRH, prospects N1/N2 | Source creee : `resources/fiche-7-niveaux-ia-generative-agentique.md` | Montagne maturite, 7 niveaux, 1 exemple par niveau, CTA diagnostic. | PDF 1 page + image LinkedIn. |
 | Fiche avant / apres par persona | DG, CCO, owner e-commerce, transfo, e-commerce retail | Source creee : `resources/fiches-avant-apres-personas-prioritaires.md` | Avant, apres, 3 use cases, ressource suivante. | PDF court par persona. |
 | Mini-audit post-meeting | DAF, COO, DSI, transfo | Base presente dans ce kit | Trois use cases, risques, premier flux, prochaines etapes. | Markdown + page protegee si deal chaud. |
-| Exemple boucle signal -> rendez-vous | Directeur commercial / CCO | A produire | Signal, qualification, message, validation humaine, pilotage. | PDF + extrait mail. |
-| Exemple back-office multi-canal | Owner e-commerce, DG, COO | A produire | Canaux, base unique, tri, relances, exceptions. | Schema partageable. |
-| Note gouvernance agentique | DSI, CDO, transfo, juridique | A produire | Donnee, acces, journaux, validation, coeur SI intact. | PDF 1 page. |
+| Exemple boucle signal -> rendez-vous | Directeur commercial / CCO | Source creee : `resources/exemple-boucle-signal-rendez-vous.md` | Signal, qualification, message, validation humaine, pilotage. | PDF + extrait mail. |
+| Exemple back-office multi-canal | Owner e-commerce, DG, COO | Source creee : `resources/exemple-back-office-multi-canal.md` | Canaux, base unique, tri, relances, exceptions. | Schema partageable. |
+| Note gouvernance agentique | DSI, CDO, transfo, juridique | Source creee : `resources/note-gouvernance-agentique.md` | Donnee, acces, journaux, validation, coeur SI intact. | PDF 1 page. |
 | Template propale protegee | Deals chauds | Commence via templates existants | Resume meeting, use cases, prix, destinataires, tracking. | Page web protegee. |
 
 ## Controle qualite avant envoi
