@@ -136,31 +136,31 @@
 **Slug :** `audit`
 **Focus :** Optimisation des processus existants
 **Phrase de niveau :** "Je veux savoir ce qui peut changer dans mon organisation."
-**Prix :** à partir de 3 567 €
+**Prix :** à partir de 3 500 €
 
 ### Hero
-- Eyebrow : `N4 · Audit & Cartographie`
-- H1 : Ne financez pas au hasard. Ciblez vos goulots d'étranglement financiers.
-- Sous-titre : Vous voulez passer à l'échelle. On audite vos processus pour chiffrer les gains avant de développer.
-- CTA : "Demander l'audit"
+- Eyebrow : `N4 · Audit & Diagnostic`
+- H1 : Avant de déployer, posez le diagnostic.
+- Sous-titre : Vous avez déjà des idées, des outils ou des usages isolés. On met à plat vos flux pour savoir ce qui peut passer en production, ce qui doit rester humain et ce qu'il faut regarder en premier.
+- CTA : "Recevoir mon diagnostic"
 
 ### Votre réalité
-1. Vous manquez de chiffres concrets pour valider un investissement technique.
-2. Vous ignorez par quelle tâche chronophage commencer.
-3. Vous craignez de financer une usine à gaz inutile.
+1. Vous avez des usages IA dispersés, mais pas encore de trajectoire de transformation.
+2. Vous voulez savoir quel flux peut vraiment passer en production.
+3. Vous devez protéger la donnée, la validation humaine ou la gouvernance avant de construire.
 
 ### Ce qu'on propose
-- **Diagnostic Opérationnel :** Cartographie complète de vos processus back-office avec plan de rentabilité.
-- **Audit Flash :** Analyse rapide d'un département précis pour identifier les urgences.
-- **Cadrage Sur-Mesure :** Définition de votre feuille de route technique sur six mois.
+- **Diagnostic de maturité :** Votre niveau, les blocages visibles et la première ressource à partager.
+- **Carte de flux :** Entrées, données, exceptions, validations humaines et indicateurs à suivre.
+- **Priorisation :** Ce qui peut passer en production, ce qui doit rester en cadrage, ce qui doit être refusé pour l'instant.
 
 ### Comment ça se passe
-- J0 : formulaire de cadrage + accès outils (30 min)
-- J+2 à J+4 : analyse par Parrit
-- J+5 : restitution + recommandations
+- Lecture initiale : on part de votre contexte, de vos outils et d'un flux réel, pas d'un catalogue de cas d'usage.
+- Cartographie : on décrit ce qui entre, ce qui sort, qui valide, quelles données circulent et où le risque apparaît.
+- Diagnostic partageable : vous repartez avec une synthèse claire : niveau de maturité, premier flux, risques et prochaine décision.
 
 ### Cas de preuve (anonymisé)
-> Un courtier en énergie B2B voulait automatiser sa prospection. L'audit a révélé que le vrai levier était la qualification des leads entrants. Le déploiement qui a suivi a réduit le temps de qualification de 80 %.
+> Dans une organisation multi-sites, le diagnostic a remplacé une liste d'idées IA par une carte simple : un flux prioritaire, deux risques à traiter, une validation humaine à conserver. Le rendez-vous suivant a porté sur une décision, pas sur une démonstration.
 
 ---
 
@@ -169,12 +169,12 @@
 **Slug :** `deploiement-agents`
 **Focus :** Mise en œuvre opérationnelle
 **Phrase de niveau :** "Je veux un ou plusieurs agents en production."
-**Prix :** à partir de 2 998 € · Finançable OPCO
+**Prix :** à partir de 3 000 € · Finançable OPCO
 
 ### Hero
 - Eyebrow : `N5 · Déploiement d'Agents`
-- H1 : Vos processus fuient. Confiez-les à un agent autonome.
-- Sous-titre : Une tâche vous prend dix heures par semaine. Parrit déploie un système qui l'exécute en continu.
+- H1 : C'est le moment où un agent intervient semaine après semaine.
+- Sous-titre : Un flux revient tout le temps. On le met sous contrôle : l'agent prépare, trace et escalade, l'humain garde la décision.
 - CTA : "En parler 15 min"
 
 ### Votre réalité
@@ -184,16 +184,16 @@
 
 ### Ce qu'on propose
 - **Forfait de Déploiement Continu :** Création et itération de plusieurs agents suite au diagnostic de vos opérations.
-- **Sprint Borné (One-shot) :** Un agent spécifique mis en production en 14 jours, pour régler un problème précis sans engagement à long terme.
+- **Déploiement borné :** Un agent spécifique mis en production sur un périmètre clair, pour régler un problème précis sans engagement à long terme.
 - **Déploiement Sur-Mesure :** Architecture connectée de plusieurs agents pour traiter une chaîne de valeur de bout en bout.
 
 ### Comment ça se passe
-- J1 : diagnostic (2h) — on choisit le process à attaquer
-- J2–J12 : construction + itérations avec votre équipe
-- J13–J14 : déploiement en production + passation
+- Flux cible : on choisit un flux qui revient souvent et qui peut être contrôlé sans toucher à tout le système.
+- Mise sous contrôle : on définit les entrées, les actions autorisées, les exceptions, la validation humaine et la trace.
+- Production supervisée : l'agent intervient sur le répétitif. L'équipe relit les cas sensibles et décide quoi étendre ensuite.
 
 ### Cas de preuve (anonymisé)
-> Un cabinet d'avocats qualifiait ses leads entrants à la main — 3h/semaine perdues. L'agent traite la qualification en temps réel. Résultat : 0 lead manqué, 3h/semaine récupérées dès J15.
+> Sur un flux de demandes entrantes, l'agent prépare les réponses, classe les exceptions et laisse une trace. L'équipe ne découvre plus le travail en vrac : elle valide ce qui mérite vraiment son attention.
 
 ---
 

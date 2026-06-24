@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Parrit.ai · L'IA qui agit pour vous, en 14 jours";
+export const alt = "Parrit.ai · Diagnostic IA avant transformation";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -117,7 +117,7 @@ export default async function Image() {
         >
           Au-delà de l&apos;IA qui discute.
           <br />
-          <span style={{ color: "#AA0003" }}>L&apos;IA qui agit pour vous, en 14 jours.</span>
+          <span style={{ color: "#AA0003" }}>Diagnostic IA avant transformation.</span>
         </div>
 
         <div

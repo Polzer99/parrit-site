@@ -1625,15 +1625,67 @@ body > * {
 }
 
 .home-template .maturite-mountain {
-  margin-top: 38px;
-  max-width: 980px;
+  margin-top: 34px;
+  max-width: 1080px;
 }
 
 .home-template .maturite-mountain svg {
   display: block;
   height: auto;
+  min-height: 420px;
   overflow: visible;
   width: 100%;
+}
+
+.home-template .maturite-diagnostic-card {
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid rgba(170, 0, 3, 0.18);
+  border-radius: 8px;
+  box-shadow: 0 14px 34px rgba(20, 20, 26, 0.06);
+  color: var(--ink);
+  display: grid;
+  gap: 9px;
+  margin-top: 28px;
+  max-width: 760px;
+  padding: 22px 24px;
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.home-template .maturite-diagnostic-card:hover,
+.home-template .maturite-diagnostic-card:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 18px 42px rgba(20, 20, 26, 0.10);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.home-template .maturite-diagnostic-card strong {
+  font-family: var(--font-body);
+  font-size: 19px;
+  line-height: 1.2;
+}
+
+.home-template .maturite-diagnostic-card span:not(.maturite-num) {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 620px;
+}
+
+.home-template .maturite-diagnostic-card em {
+  align-items: center;
+  color: var(--accent);
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  gap: 7px;
+  letter-spacing: 0.08em;
+  margin-top: 3px;
+  text-transform: uppercase;
 }
 
 .home-template .mountain-back {
@@ -1663,19 +1715,22 @@ body > * {
   stroke-width: 2.5;
 }
 
-.home-template .mountain-point {
+.home-template .mountain-point,
+.home-template .mountain-start {
   cursor: pointer;
   outline: none;
 }
 
-.home-template .mountain-point circle {
+.home-template .mountain-point circle,
+.home-template .mountain-start circle {
   fill: #AA0003;
   stroke: #FFFFFF;
   stroke-width: 4;
   transition: r 0.16s, filter 0.16s, stroke-width 0.16s;
 }
 
-.home-template .mountain-point text {
+.home-template .mountain-point text,
+.home-template .mountain-start text {
   fill: #FFFFFF;
   font-family: var(--font-mono);
   font-size: 11px;
@@ -1684,7 +1739,9 @@ body > * {
 }
 
 .home-template .mountain-point:hover circle,
-.home-template .mountain-point:focus-visible circle {
+.home-template .mountain-point:focus-visible circle,
+.home-template .mountain-start:hover circle,
+.home-template .mountain-start:focus-visible circle {
   filter: drop-shadow(0 6px 14px rgba(20, 20, 26, 0.18));
   r: 24px;
   stroke-width: 5;
@@ -1701,9 +1758,10 @@ body > * {
 .home-template .mountain-tooltip div {
   background: #FFFFFF;
   border: 1px solid rgba(20, 20, 26, 0.10);
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0 2px 12px rgba(20, 20, 26, 0.08);
   color: var(--ink);
+  min-height: 86px;
   padding: 12px 14px;
 }
 
@@ -1774,6 +1832,7 @@ body > * {
   line-height: 1;
   padding: 5px 9px;
   text-transform: uppercase;
+  width: fit-content;
 }
 
 .home-template .maturite-label {
