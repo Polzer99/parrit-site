@@ -32,34 +32,28 @@
 
 ---
 
-## Niveau 1 — Masterclass Généraliste
+## Niveau 1 — Masterclass Généraliste *(La Banane très verte — L'Éveil)*
 
 **Slug :** `masterclass-ia`
 **Focus :** Acculturation et initiation
 **Phrase de niveau :** "Je découvre l'IA générative. Je ne sais pas encore où commence l'IA agentique."
 **Prix :** à partir de 1 598 € · Finançable OPCO
 
-### Définition
-Session de 3 heures en visioconférence pour cartographier les besoins,
-établir un glossaire opérationnel et définir des scénarios d'application.
-
 ### Hero
 - Eyebrow : `N1 · Masterclass Généraliste`
-- H1 : Comprendre ce que fait vraiment l'IA — en 3 heures.
-- Sous-titre : Pour les dirigeants et managers qui veulent piloter sans coder. Aucun prérequis technique.
+- H1 : Arrêtez de subir le bruit médiatique. Comprenez enfin la mécanique.
+- Sous-titre : Vous entendez parler d'intelligence artificielle partout. On pose les bases pour distinguer le vrai du faux.
 - CTA : "Réserver la masterclass"
 
-### Pour qui
-1. Vous entendez parler d'agents IA partout mais vous ne savez pas ce que ça couvre dans votre secteur.
-2. Vos équipes ont accès à des outils IA mais personne ne sait comment les intégrer dans un vrai process.
-3. Vous êtes décideur et vous ne voulez pas déléguer une décision stratégique à quelqu'un que vous ne pouvez pas challenger.
+### Votre réalité
+1. Vous êtes noyé sous les concepts théoriques.
+2. Vous craignez pour la sécurité de vos données internes.
+3. Vous refusez de valider des budgets sans comprendre la technologie.
 
-### Ce qu'on livre
-- Session de 3h en visioconférence
-- Cartographie des besoins et cas d'usage réels dans votre métier
-- Glossaire opérationnel — sans jargon technique
-- Scénarios d'application définis ensemble
-- Deck de présentation complet livré sous 48h
+### Ce qu'on propose
+- **Masterclass Généraliste :** Trois heures pour cartographier les outils du marché et démystifier la technique.
+- **Atelier de Sensibilisation :** Une session interactive pour éveiller vos dirigeants aux véritables enjeux de demain.
+- **Format Sur-Mesure :** On adapte le discours à votre secteur d'activité.
 
 ### Comment ça se passe
 - J0 : questionnaire de cadrage (15 min)
@@ -71,33 +65,28 @@ Session de 3 heures en visioconférence pour cartographier les besoins,
 
 ---
 
-## Niveau 2 — Masterclass Métier
+## Niveau 2 — Masterclass Métier *(La Banane verte — L'Usage)*
 
 **Slug :** `masterclass-metier`
 **Focus :** Application concrète au secteur d'activité
 **Phrase de niveau :** "Je comprends l'IA mais pas comment l'appliquer à mon métier."
 **Prix :** à partir de 2 345 € · Finançable OPCO
 
-### Définition
-Approfondissement métier avec des exercices pratiques.
-Livrable : instructions personnalisées adaptées au métier du client.
-
 ### Hero
 - Eyebrow : `N2 · Masterclass Métier`
-- H1 : L'IA appliquée à votre métier — pas aux autres.
-- Sous-titre : Une demi-journée pour produire des configurations opérationnelles directement utilisables dans votre secteur.
+- H1 : L'outil génère du texte. Faites-le travailler sur votre métier.
+- Sous-titre : Vos collaborateurs utilisent des requêtes basiques. On adapte la machine à vos vrais processus quotidiens.
 - CTA : "Réserver la session"
 
-### Pour qui
-1. Vous avez fait une première exploration IA mais aucun cas d'usage ne s'est concrétisé dans votre quotidien.
-2. Vous revenez d'une démonstration qui vous a convaincu mais vous ne savez pas comment l'adapter à votre contexte.
-3. Vous voulez pouvoir piloter et briefer vos équipes sur l'IA sans dépendre d'un prestataire.
+### Votre réalité
+1. Vos licences dorment ou sous-performent.
+2. Les gains de temps réels sont invisibles sur la rentabilité.
+3. Les usages se limitent à corriger des fautes dans des emails.
 
-### Ce qu'on livre
-- Demi-journée (4h) centrée sur votre secteur et vos outils
-- Exercices pratiques sur vos cas d'usage réels
-- Instructions personnalisées opérationnelles, utilisables immédiatement
-- Méthodologie pour en créer d'autres en autonomie
+### Ce qu'on propose
+- **Masterclass Métier :** On cible un département (RH, Ventes) pour créer des requêtes ultra-spécifiques.
+- **Atelier Cas d'Usage :** On identifie ensemble les tâches chronophages de vos équipes pour les automatiser.
+- **Accompagnement Sur-Mesure :** Création d'instructions standards pour homogénéiser le travail de vos collaborateurs.
 
 ### Comment ça se passe
 - J0 : audit rapide outils + cas d'usage (formulaire, 20 min)
@@ -109,33 +98,28 @@ Livrable : instructions personnalisées adaptées au métier du client.
 
 ---
 
-## Niveau 3 — Sessions Création & MCP
+## Niveau 3 — Sessions Création & MCP *(La Banane jaune-verte — L'Action)*
 
 **Slug :** `sessions-mcp`
 **Focus :** Connexion technique et intégration logicielle
 **Phrase de niveau :** "Je veux connecter mes logiciels à l'IA."
 **Prix :** à partir de 250 € / session
 
-### Définition
-Création de MCPs (Model Context Protocol) pour connecter les logiciels du client
-à des outils comme Claude ou ChatGPT. Sessions techniques ciblées.
-
 ### Hero
 - Eyebrow : `N3 · Sessions Création & MCP`
-- H1 : Vos logiciels, connectés à l'IA — sans reconstruire votre stack.
-- Sous-titre : On crée les ponts entre vos outils métier et les modèles IA. Votre CRM, votre ERP, votre base documentaire parlent enfin à Claude.
+- H1 : L'intelligence artificielle est aveugle. Branchez-la sur vos outils.
+- Sous-titre : Vous maîtrisez les concepts de base. On connecte la machine à vos logiciels pour qu'elle déclenche des actions réelles.
 - CTA : "Réserver les sessions"
 
-### Pour qui
-1. Vous avez des logiciels métier (CRM, ERP, outils internes) qui ne parlent pas encore à l'IA.
-2. Vous voulez que vos agents accèdent à vos données réelles — pas à des données simulées.
-3. Vous avez un cas d'usage précis qui nécessite une intégration technique propre.
+### Votre réalité
+1. Vous copiez-collez des informations manuellement toute la journée.
+2. L'outil reste enfermé dans une page web isolée.
+3. Vos logiciels internes (CRM, ERP) ne communiquent pas avec les nouveaux modèles.
 
-### Ce qu'on livre
-- MCPs fonctionnels connectant vos logiciels à Claude ou ChatGPT
-- Cas d'usage précis documentés et testés
-- Méthodologie pour créer de nouveaux MCPs en autonomie
-- Documentation technique de passation
+### Ce qu'on propose
+- **Sessions MCP :** Création de connecteurs pour lier vos bases de données aux modèles.
+- **Atelier d'Intégration :** Configuration des accès sécurisés pour faire agir la machine.
+- **Intervention Sur-Mesure :** On construit les ponts techniques spécifiques à votre architecture.
 
 ### Comment ça se passe
 - Session 1 : cartographie des intégrations à créer + priorisation
@@ -147,33 +131,28 @@ Création de MCPs (Model Context Protocol) pour connecter les logiciels du clien
 
 ---
 
-## Niveau 4 — Audit de Transformation
+## Niveau 4 — Audit de Transformation *(La Banane parfaitement jaune — Le Diagnostic)*
 
 **Slug :** `audit`
 **Focus :** Optimisation des processus existants
 **Phrase de niveau :** "Je veux savoir ce qui peut changer dans mon organisation."
 **Prix :** à partir de 3 567 €
 
-### Définition
-Analyse et cartographie exhaustive des processus métier pour identifier
-des leviers d'amélioration immédiats.
-
 ### Hero
-- Eyebrow : `N4 · Audit de Transformation`
-- H1 : On cartographie ce qui vous coûte — et ce qui peut changer vite.
-- Sous-titre : L'audit qui précède tout déploiement sérieux. Résultat : vos process critiques cartographiés et vos quick wins identifiés.
+- Eyebrow : `N4 · Audit & Cartographie`
+- H1 : Ne financez pas au hasard. Ciblez vos goulots d'étranglement financiers.
+- Sous-titre : Vous voulez passer à l'échelle. On audite vos processus pour chiffrer les gains avant de développer.
 - CTA : "Demander l'audit"
 
-### Pour qui
-1. Vous voulez un regard externe avant d'investir dans quoi que ce soit.
-2. Vous avez essayé des outils IA sans résultat durable et vous voulez comprendre pourquoi.
-3. Vous êtes en train de cadrer un budget IA et vous avez besoin de chiffres réels.
+### Votre réalité
+1. Vous manquez de chiffres concrets pour valider un investissement technique.
+2. Vous ignorez par quelle tâche chronophage commencer.
+3. Vous craignez de financer une usine à gaz inutile.
 
-### Ce qu'on livre
-- Cartographie complète de vos processus métier
-- Identification des quick wins (actions à fort impact, effort minimal)
-- Recommandations de déploiement priorisées
-- Session de restitution (45 min)
+### Ce qu'on propose
+- **Diagnostic Opérationnel :** Cartographie complète de vos processus back-office avec plan de rentabilité.
+- **Audit Flash :** Analyse rapide d'un département précis pour identifier les urgences.
+- **Cadrage Sur-Mesure :** Définition de votre feuille de route technique sur six mois.
 
 ### Comment ça se passe
 - J0 : formulaire de cadrage + accès outils (30 min)
@@ -185,34 +164,28 @@ des leviers d'amélioration immédiats.
 
 ---
 
-## Niveau 5 — Déploiement d'Agents
+## Niveau 5 — Déploiement d'Agents *(La Banane tigrée — Le Déploiement)*
 
 **Slug :** `deploiement-agents`
 **Focus :** Mise en œuvre opérationnelle
 **Phrase de niveau :** "Je veux un ou plusieurs agents en production."
 **Prix :** à partir de 2 998 € · Finançable OPCO
 
-### Définition
-Installation et configuration d'un ou plusieurs agents pour automatiser des tâches.
-Livrable : agents opérationnels avec démonstration du ROI.
-
 ### Hero
 - Eyebrow : `N5 · Déploiement d'Agents`
-- H1 : Un agent opérationnel dans votre stack — en 14 jours.
-- Sous-titre : On prend un process qui vous coûte du temps ou du business. On construit l'agent. Il tourne chez vous avant la fin du mois, avec un ROI démontré.
+- H1 : Vos processus fuient. Confiez-les à un agent autonome.
+- Sous-titre : Une tâche vous prend dix heures par semaine. Parrit déploie un système qui l'exécute en continu.
 - CTA : "En parler 15 min"
 
-### Pour qui
-1. Vous perdez plusieurs heures par semaine sur une tâche répétitive (relances, rapports, qualification, saisie).
-2. Votre pipeline commercial fuit entre les étapes et personne n'a le temps de le surveiller.
-3. Votre équipe fait manuellement quelque chose qui devrait être automatique.
+### Votre réalité
+1. La saisie manuelle étouffe la productivité de vos équipes.
+2. Des erreurs humaines bloquent des dossiers critiques.
+3. Le recrutement pour des tâches répétitives devient impossible.
 
-### Ce qu'on livre
-- 1 à N agents IA déployés dans vos outils (CRM, Gmail, Notion, votre stack)
-- Démonstration du ROI dès la mise en production
-- Documentation de passation complète
-- Session de formation (2h) — utilisation et évolution
-- 30 jours de support post-livraison
+### Ce qu'on propose
+- **Forfait de Déploiement Continu :** Création et itération de plusieurs agents suite au diagnostic de vos opérations.
+- **Sprint Borné (One-shot) :** Un agent spécifique mis en production en 14 jours, pour régler un problème précis sans engagement à long terme.
+- **Déploiement Sur-Mesure :** Architecture connectée de plusieurs agents pour traiter une chaîne de valeur de bout en bout.
 
 ### Comment ça se passe
 - J1 : diagnostic (2h) — on choisit le process à attaquer
@@ -224,33 +197,28 @@ Livrable : agents opérationnels avec démonstration du ROI.
 
 ---
 
-## Niveau 6 — Outil propriétaire agentique
+## Niveau 6 — Outil propriétaire agentique *(Le Banana Bread — L'Autonomie)*
 
 **Slug :** `outils-agentiques`
 **Focus :** Montée en compétence sur le déploiement technique
 **Phrase de niveau :** "Je veux utiliser Claude Code et Codex pour construire mes propres workflows."
 **Prix :** Sur devis
 
-### Définition
-Accompagnement à l'utilisation d'outils de développement avancés (Claude Code, Codex)
-pour construire des workflows récurrents. Livrable : audit de configuration + formation à l'autonomie.
-
 ### Hero
 - Eyebrow : `N6 · Outil propriétaire agentique`
-- H1 : Construire vos propres agents — avec les outils des meilleurs développeurs IA.
-- Sous-titre : Pour les équipes techniques qui veulent maîtriser Claude Code et Codex. On vous forme et on audite votre configuration pour que vous soyez autonomes sur le déploiement.
+- H1 : L'indépendance s'achète. Construisez vos machines en interne, même sans coder.
+- Sous-titre : Vos équipes tech et métier veulent créer des flux complexes. On transfère la compétence ou on débloque vos impasses techniques.
 - CTA : "En parler 15 min"
 
-### Pour qui
-1. Vous avez des développeurs en interne qui veulent monter en compétence sur les outils agentiques avancés.
-2. Vous voulez construire et maintenir vos propres workflows sans dépendre d'un prestataire.
-3. Vous utilisez déjà Claude ou ChatGPT mais vous ne savez pas comment structurer des workflows récurrents fiables.
+### Votre réalité
+1. Vous dépendez de prestataires externes pour la moindre ligne de code.
+2. Vos collaborateurs non-tech ont la vision métier mais bloquent sur l'exécution.
+3. Vos équipes autonomes butent sur un mur technique et perdent du temps.
 
-### Ce qu'on livre
-- Audit de votre configuration actuelle (outils, stack, pratiques)
-- Formation à l'utilisation de Claude Code et Codex
-- Construction ensemble de vos premiers workflows récurrents
-- Méthodologie et bonnes pratiques pour continuer en autonomie
+### Ce qu'on propose
+- **Transfert de Compétences :** Formation de vos équipes (techniques ou métiers) pour devenir autonomes sur la création de workflows.
+- **Intervention One-Shot :** Un déblocage technique express avec Claude Code pour craquer une impasse sur une architecture existante.
+- **Co-construction :** Création de votre premier outil propriétaire en binôme avec Parrit pour asseoir les bonnes pratiques.
 
 ### Comment ça se passe
 - Session 1 : audit configuration + identification des workflows cibles
@@ -262,7 +230,7 @@ pour construire des workflows récurrents. Livrable : audit de configuration + f
 
 ---
 
-## Niveau 7 — Optimisation de Flotte & Dette Technique
+## Niveau 7 — Optimisation de Flotte & Dette Technique *(La Pâtisserie Industrielle — La Gouvernance)*
 
 **Slug :** `optimisation-flotte`
 **Focus :** Architecture scalable et auto-amélioration
@@ -270,28 +238,21 @@ pour construire des workflows récurrents. Livrable : audit de configuration + f
 **Prix :** Sur devis (selon taille de la flotte)
 **Cible :** Profils ultra-avancés
 
-### Définition
-Traitement de la dette technique, mise en place d'architectures de données scalables (SQL/NoSQL)
-et création de boucles auto-améliorantes (systèmes de triggers/cron) pour gérer
-une flotte d'agents centralisée.
-
 ### Hero
 - Eyebrow : `N7 · Optimisation de Flotte`
-- H1 : Vos agents tournent. On leur donne une architecture pour évoluer seuls.
-- Sous-titre : Pour les équipes qui opèrent déjà une flotte d'agents et veulent éliminer la dette technique, centraliser sur une base de données unique et créer des boucles d'auto-amélioration.
+- H1 : Vos agents plantent et coûtent cher. Reprenez le contrôle.
+- Sous-titre : Votre flotte grossit. On traite votre dette technique et on refond l'architecture pour garantir la fiabilité.
 - CTA : "Demander le diagnostic flotte"
 
-### Pour qui
-1. Vous gérez plusieurs agents sans base de données centralisée — les données sont éparpillées et incohérentes.
-2. Votre dette technique s'accumule : agents dupliqués, triggers non fiables, coût incontrôlé.
-3. Vous voulez des agents qui s'améliorent d'eux-mêmes via des boucles de feedback automatisées.
+### Votre réalité
+1. Vos factures d'API explosent sans justification liée aux revenus.
+2. Les codes écrits à la va-vite ont créé une dette technique paralysante.
+3. Des erreurs silencieuses bloquent vos processus en production.
 
-### Ce qu'on livre
-- Architecture de données scalable (SQL/NoSQL selon les besoins)
-- Centralisation de la flotte sur une base unique
-- Systèmes de triggers/cron pour l'automatisation des déclenchements
-- Boucles auto-améliorantes (feedback automatique sur les résultats)
-- Documentation technique exhaustive et passation équipe
+### Ce qu'on propose
+- **Diagnostic de Flotte :** Analyse de la latence, des coûts et du taux d'erreur de vos systèmes actuels.
+- **Refonte d'Architecture :** Nettoyage de la dette technique et centralisation pour une infrastructure robuste.
+- **Fractional AI Operator :** On prend la responsabilité de vos opérations en continu pour assurer la conformité et la disponibilité.
 
 ### Comment ça se passe
 - Semaine 1 : audit flotte + architecture actuelle + identification de la dette
