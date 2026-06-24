@@ -202,7 +202,7 @@
 **Slug :** `outils-agentiques`
 **Focus :** Montée en compétence sur le déploiement technique
 **Phrase de niveau :** "Je veux utiliser Claude Code et Codex pour construire mes propres workflows."
-**Prix :** Sur devis
+**Prix :** à partir de 3 497 € · Selon périmètre
 
 ### Hero
 - Eyebrow : `N6 · Outil propriétaire agentique`
@@ -235,7 +235,7 @@
 **Slug :** `optimisation-flotte`
 **Focus :** Architecture scalable et auto-amélioration
 **Phrase de niveau :** "J'ai une flotte d'agents. Je veux la centraliser et la faire évoluer seule."
-**Prix :** Sur devis (selon taille de la flotte)
+**Prix :** à partir de 8 000 € · Selon taille de la flotte
 **Cible :** Profils ultra-avancés
 
 ### Hero

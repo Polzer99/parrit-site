@@ -56,6 +56,15 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
           "En 3 heures, le comité repart avec un vocabulaire commun, 4 cas d'usage réalistes et une première feuille de route compréhensible par les métiers.",
         result: "La discussion passe de « faut-il y aller ? » à « quel process traite-t-on d'abord ? ».",
       },
+      {
+        title: "La dirigeante qui voulait cadrer sans jargon",
+        person: "DG, PME de services",
+        before:
+          "Le COMEX entendait parler d'IA générative, mais les décisions restaient bloquées entre enthousiasme, peur de la donnée et vocabulaire flou.",
+        after:
+          "La session met tout le monde au même niveau : ce qui sert à écrire, ce qui peut agir, ce qui doit rester supervisé et ce qui ne doit pas sortir.",
+        result: "Le sujet devient gouvernable : la direction sait quoi tester, quoi refuser et qui doit porter la suite.",
+      },
     ],
     forWho: [
       "Vous êtes noyé sous les concepts théoriques.",
@@ -97,6 +106,15 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
         after:
           "La session transforme leurs cas réels en configurations métier partageables : analyse de marché, préparation d'entretien, synthèse client.",
         result: "Deux usages deviennent des routines d'équipe, sans ajouter d'outil à la stack.",
+      },
+      {
+        title: "L'équipe RH qui voulait former sans braquer",
+        person: "DRH, groupe multi-sites",
+        before:
+          "Les collaborateurs associaient l'IA à une menace ou à des exemples trop génériques. Les usages restaient loin du recrutement, de l'onboarding et des questions paie.",
+        after:
+          "On part de leurs vrais cas : tri de candidatures, réponses candidats, préparation d'entretien, synthèse de politiques internes.",
+        result: "Les référents RH repartent avec des configurations communes et une manière simple d'expliquer l'outil aux équipes.",
       },
     ],
     forWho: [
@@ -140,6 +158,15 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
           "Les sessions créent les ponts techniques nécessaires. Claude accède aux données utiles, avec une méthode de test et de passation documentée.",
         result: "Les équipes interrogent leurs données en langage naturel, sans reconstruire le CRM.",
       },
+      {
+        title: "Le back-office qui arrêtait de copier-coller",
+        person: "Operations manager, e-commerce B2B",
+        before:
+          "Les commandes, tickets et relances passaient par trois outils. Chaque mise à jour demandait une ressaisie et créait un risque d'erreur.",
+        after:
+          "Les connecteurs relient les sources utiles. L'agent lit, prépare l'action et laisse une trace de ce qui a été fait.",
+        result: "Le temps perdu en transfert manuel baisse, sans imposer un nouvel outil aux équipes.",
+      },
     ],
     forWho: [
       "Vous copiez-collez des informations manuellement toute la journée.",
@@ -180,6 +207,15 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
         after:
           "L'audit révèle que le vrai levier est la qualification des leads entrants, puis chiffre le gain et les risques de déploiement.",
         result: "La priorité change : moins de dispersion, un premier déploiement avec impact mesurable.",
+      },
+      {
+        title: "La DAF qui avait besoin d'un gain défendable",
+        person: "DAF, PME industrielle",
+        before:
+          "Les idées d'automatisation existaient, mais aucune n'était assez chiffrée pour passer en comité budgétaire.",
+        after:
+          "L'audit classe les flux par volume, risque, temps récupérable et complexité de mise en production.",
+        result: "La décision ne repose plus sur une intuition : le premier chantier est choisi parce qu'il se défend process par process.",
       },
     ],
     forWho: [
@@ -222,6 +258,15 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
           "Un agent qualifie en temps réel, prépare la réponse et signale les dossiers prioritaires. L'équipe garde la main sur la validation.",
         result: "Zéro lead oublié, 3 heures récupérées chaque semaine, et un délai de réponse plus fiable.",
       },
+      {
+        title: "Le service client qui gardait seulement les exceptions",
+        person: "COO, service à volume",
+        before:
+          "La même boîte mail recevait réclamations, demandes simples et cas sensibles. Tout remontait aux mêmes personnes, sans priorité claire.",
+        after:
+          "L'agent classe, prépare les réponses et escalade uniquement les cas qui demandent un arbitrage humain.",
+        result: "L'équipe retrouve un flux lisible : le répétitif tourne, les exceptions restent humaines.",
+      },
     ],
     forWho: [
       "La saisie manuelle étouffe la productivité de vos équipes.",
@@ -234,12 +279,12 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
       "Déploiement Sur-Mesure : Architecture connectée de plusieurs agents pour traiter une chaîne de valeur de bout en bout.",
     ],
     steps: [
-      { title: "J1", body: "diagnostic (2h) — on choisit le process à attaquer" },
+      { title: "J1", body: "diagnostic (2h), on choisit le process à attaquer" },
       { title: "J2–J12", body: "construction + itérations avec votre équipe" },
       { title: "J13–J14", body: "déploiement en production + passation" },
     ],
     proof:
-      "Un cabinet d'avocats qualifiait ses leads entrants à la main — 3h/semaine perdues. L'agent traite la qualification en temps réel. Résultat : 0 lead manqué, 3h/semaine récupérées dès J15.",
+      "Un cabinet d'avocats qualifiait ses leads entrants à la main, 3h/semaine perdues. L'agent traite la qualification en temps réel. Résultat : 0 lead manqué, 3h/semaine récupérées dès J15.",
     price: "à partir de 2 998 €",
     priceNote: "Finançable OPCO",
     metaDescription:
@@ -264,6 +309,15 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
           "L'équipe structure Claude Code, Codex et ses workflows récurrents. Les référents savent cadrer, tester et maintenir leurs propres agents.",
         result: "Trois workflows internes sont construits pendant la formation, puis repris par l'équipe.",
       },
+      {
+        title: "Le métier qui avait la vision mais pas l'exécution",
+        person: "Responsable transformation, ETI",
+        before:
+          "Les équipes métier savaient exactement quel outil leur manquait, mais chaque demande repartait dans une file technique saturée.",
+        after:
+          "On leur transmet une méthode pour cadrer, construire et tester un premier outil agentique avec les garde-fous de l'entreprise.",
+        result: "Le métier gagne en autonomie sans contourner l'IT : les bons réflexes de documentation et validation sont posés dès le départ.",
+      },
     ],
     forWho: [
       "Vous dépendez de prestataires externes pour la moindre ligne de code.",
@@ -282,7 +336,8 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     ],
     proof:
       "Une équipe produit de 5 développeurs utilisait l'IA de façon disparate. En 4 sessions, ils ont unifié leurs pratiques sur Claude Code, construit 3 workflows récurrents et sont maintenant autonomes sur le déploiement.",
-    price: "Sur devis",
+    price: "à partir de 3 497 €",
+    priceNote: "Selon périmètre et niveau d'accompagnement",
     metaDescription:
       "Accompagnement aux outils agentiques avancés pour auditer votre configuration et former vos équipes à l'autonomie.",
   },
@@ -305,6 +360,15 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
           "La flotte est centralisée, les déclenchements sont clarifiés et les boucles de feedback remontent les erreurs pour amélioration continue.",
         result: "Le taux d'erreur baisse, les coûts deviennent lisibles et l'équipe sait où agir.",
       },
+      {
+        title: "La DSI qui voulait reprendre le contrôle",
+        person: "DSI, groupe multi-entités",
+        before:
+          "Plusieurs équipes avaient lancé leurs propres agents. Les accès, journaux et responsabilités n'étaient pas homogènes.",
+        after:
+          "Le diagnostic remet la flotte à plat : inventaire, dépendances, coûts, risques, règles de validation et trajectoire d'architecture.",
+        result: "La gouvernance redevient lisible : chaque agent a un propriétaire, une trace et une raison d'exister.",
+      },
     ],
     forWho: [
       "Vos factures d'API explosent sans justification liée aux revenus.",
@@ -323,7 +387,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     ],
     proof:
       "Une scale-up SaaS avait 6 agents construits en 8 mois. Taux d'erreur de 18 %, coût incontrôlé, aucune centralisation. Après audit et remédiation : taux d'erreur à 2 %, coût divisé par 3, architecture centralisée avec boucles auto-améliorantes opérationnelles.",
-    price: "Sur devis",
+    price: "à partir de 8 000 €",
     priceNote: "Selon taille de la flotte",
     metaDescription:
       "Optimisation de flotte d'agents IA, réduction de dette technique et architecture auto-améliorante.",
