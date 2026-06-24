@@ -248,7 +248,7 @@ body > * {
   display: inline-block;
   padding: 3px 9px;
   background: rgba(170, 0, 3, 0.07);
-  color: var(--accent);
+  color: #AA0003;
   border-radius: 20px;
   font-family: var(--font-mono);
   font-size: 10px;
@@ -351,7 +351,7 @@ body > * {
   color: #161616 !important;
 }
 .blog-article-body h2 {
-  font-family: var(--font-heading) !important;
+  font-family: var(--font-body) !important;
   font-weight: 700 !important;
   font-size: clamp(22px, 3vw, 28px) !important;
   color: #161616 !important;
@@ -464,7 +464,7 @@ body > * {
   line-height: 1.25 !important;
 }
 .blog-footer-cta {
-  background: var(--parrit-red) !important;
+  background: #AA0003 !important;
   color: #FFFFFF !important;
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 10px !important;
@@ -1620,8 +1620,116 @@ body > * {
   margin-top: 0;
 }
 
+.home-template .maturite-mountain {
+  margin-top: 38px;
+  max-width: 980px;
+}
+
+.home-template .maturite-mountain svg {
+  display: block;
+  height: auto;
+  overflow: visible;
+  width: 100%;
+}
+
+.home-template .mountain-back {
+  fill: rgba(20, 20, 26, 0.035);
+  stroke: rgba(20, 20, 26, 0.18);
+  stroke-width: 2;
+}
+
+.home-template .mountain-mid {
+  fill: rgba(20, 20, 26, 0.055);
+  stroke: rgba(20, 20, 26, 0.32);
+  stroke-width: 2.4;
+}
+
+.home-template .mountain-front {
+  fill: rgba(245, 248, 255, 0.82);
+  stroke: #161616;
+  stroke-linejoin: round;
+  stroke-width: 3;
+}
+
+.home-template .mountain-path {
+  fill: none;
+  stroke: rgba(170, 0, 3, 0.34);
+  stroke-dasharray: 8 10;
+  stroke-linecap: round;
+  stroke-width: 2.5;
+}
+
+.home-template .mountain-point {
+  cursor: pointer;
+  outline: none;
+}
+
+.home-template .mountain-point circle {
+  fill: #AA0003;
+  stroke: #FFFFFF;
+  stroke-width: 4;
+  transition: r 0.16s, filter 0.16s, stroke-width 0.16s;
+}
+
+.home-template .mountain-point text {
+  fill: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.home-template .mountain-point:hover circle,
+.home-template .mountain-point:focus-visible circle {
+  filter: drop-shadow(0 6px 14px rgba(20, 20, 26, 0.18));
+  r: 24px;
+  stroke-width: 5;
+}
+
+.home-template .mountain-tooltip {
+  opacity: 0;
+  overflow: visible;
+  pointer-events: none;
+  transform: translateY(6px);
+  transition: opacity 0.14s, transform 0.14s;
+}
+
+.home-template .mountain-tooltip div {
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 20, 26, 0.10);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(20, 20, 26, 0.08);
+  color: var(--ink);
+  padding: 12px 14px;
+}
+
+.home-template .mountain-tooltip strong {
+  color: var(--accent);
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.home-template .mountain-tooltip span {
+  color: var(--muted);
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.home-template .mountain-point:hover .mountain-tooltip,
+.home-template .mountain-point:focus-visible .mountain-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .home-template .maturite-grid {
-  display: grid;
+  display: none;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 14px;
   margin-top: 36px;
@@ -2311,6 +2419,17 @@ body > * {
   }
 }
 
+@media (max-width: 768px) {
+  .home-template .maturite-mountain {
+    display: none;
+  }
+
+  .home-template .maturite-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 640px) {
   .home-template .nav {
     align-items: flex-start;
@@ -2339,10 +2458,6 @@ body > * {
 
   .home-template .row .price {
     max-width: 42%;
-  }
-
-  .home-template .maturite-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .home-template .maturite-tile {
