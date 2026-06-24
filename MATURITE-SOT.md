@@ -134,33 +134,33 @@
 ## Niveau 4 — Audit de Transformation *(La Banane parfaitement jaune — Le Diagnostic)*
 
 **Slug :** `audit`
-**Focus :** Optimisation des processus existants
-**Phrase de niveau :** "Je veux savoir ce qui peut changer dans mon organisation."
+**Focus :** Diagnostic de départ et cartographie des processus existants
+**Phrase de niveau :** "Je veux passer du diagnostic à la décision."
 **Prix :** à partir de 3 500 €
 
 ### Hero
-- Eyebrow : `N4 · Audit & Diagnostic`
-- H1 : Avant de déployer, posez le diagnostic.
-- Sous-titre : Vous avez déjà des idées, des outils ou des usages isolés. On met à plat vos flux pour savoir ce qui peut passer en production, ce qui doit rester humain et ce qu'il faut regarder en premier.
+- Eyebrow : `N4 · Cartographie des Process`
+- H1 : Du diagnostic à la décision : cartographiez vos process.
+- Sous-titre : Le point de départ reste l'audit : on pose votre niveau de maturité, puis on transforme cette lecture en carte concrète de vos flux. Vous savez ce qui est possible avec l'IA, ce qui doit rester humain et quel process traiter en premier.
 - CTA : "Recevoir mon diagnostic"
 
 ### Votre réalité
 1. Vous avez des usages IA dispersés, mais pas encore de trajectoire de transformation.
-2. Vous voulez savoir quel flux peut vraiment passer en production.
+2. Vous souhaitez un diagnostic pour savoir ce qu'il est possible de faire avec l'IA dans votre contexte.
 3. Vous devez protéger la donnée, la validation humaine ou la gouvernance avant de construire.
 
 ### Ce qu'on propose
 - **Diagnostic de maturité :** Votre niveau, les blocages visibles et la première ressource à partager.
-- **Carte de flux :** Entrées, données, exceptions, validations humaines et indicateurs à suivre.
+- **Cartographie des process :** Entrées, données, exceptions, validations humaines et indicateurs à suivre.
 - **Priorisation :** Ce qui peut passer en production, ce qui doit rester en cadrage, ce qui doit être refusé pour l'instant.
 
 ### Comment ça se passe
-- Lecture initiale : on part de votre contexte, de vos outils et d'un flux réel, pas d'un catalogue de cas d'usage.
-- Cartographie : on décrit ce qui entre, ce qui sort, qui valide, quelles données circulent et où le risque apparaît.
-- Diagnostic partageable : vous repartez avec une synthèse claire : niveau de maturité, premier flux, risques et prochaine décision.
+- Diagnostic de départ : on part de votre contexte, de vos outils et d'un flux réel, pas d'un catalogue de cas d'usage.
+- Cartographie des process : on décrit ce qui entre, ce qui sort, qui valide, quelles données circulent et où le risque apparaît.
+- Décision partageable : vous repartez avec une synthèse claire : niveau de maturité, premier process, risques et prochaine décision.
 
 ### Cas de preuve (anonymisé)
-> Dans une organisation multi-sites, le diagnostic a remplacé une liste d'idées IA par une carte simple : un flux prioritaire, deux risques à traiter, une validation humaine à conserver. Le rendez-vous suivant a porté sur une décision, pas sur une démonstration.
+> Dans une organisation multi-sites, le diagnostic a remplacé une liste d'idées IA par une carte simple : un process prioritaire, deux risques à traiter, une validation humaine à conserver. Le rendez-vous suivant a porté sur une décision, pas sur une démonstration.
 
 ---
 
@@ -280,7 +280,7 @@
 | N1 | Découverte | "Je découvre l'IA générative" | `/masterclass-ia` |
 | N2 | Application métier | "Je veux l'appliquer à mon secteur" | `/masterclass-metier` |
 | N3 | Connexion logicielle | "Je veux connecter mes logiciels à l'IA" | `/sessions-mcp` |
-| N4 | Diagnostic | "Je veux cartographier mes process" | `/audit` |
+| N4 | Cartographie des process | "Je veux passer du diagnostic à la décision" | `/audit` |
 | N5 | Premier déploiement | "Je veux un agent en production" | `/deploiement-agents` |
 | N6 | Outil propriétaire agentique | "Je veux maîtriser Claude Code et Codex" | `/outils-agentiques` |
 | N7 | Flotte & architecture | "J'ai une flotte, je veux l'optimiser" | `/optimisation-flotte` |

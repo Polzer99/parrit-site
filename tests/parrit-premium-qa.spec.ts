@@ -120,12 +120,15 @@ const localizedHomeHero = [
   },
 ];
 
-test("home maturity section exposes all N1-N7 entry points", async ({ page }) => {
+test("home maturity section exposes diagnostic plus all N1-N7 entry points", async ({ page }) => {
   await page.goto(new URL("/fr", BASE_URL).toString(), { waitUntil: "networkidle" });
 
   await expect(page.locator("#maturite .mountain-point")).toHaveCount(7);
-  await expect(page.locator("#maturite .maturite-tile")).toHaveCount(7);
+  await expect(page.locator("#maturite .mountain-start")).toHaveCount(1);
+  await expect(page.locator("#maturite .maturite-tile")).toHaveCount(8);
   await expect(page.locator("#maturite .maturite-example")).toHaveCount(3);
+  await expect(page.locator("#maturite")).toContainText("Point de départ");
+  await expect(page.locator("#maturite")).toContainText("Diagnostic & cartographie des process");
   await expect(page.locator("#maturite")).toContainText("Un COMEX qui découvre");
   await expect(page.locator("#maturite")).toContainText("Avant");
   await expect(page.locator("#maturite")).toContainText("Après");
@@ -134,6 +137,16 @@ test("home maturity section exposes all N1-N7 entry points", async ({ page }) =>
     await expect(page.locator(`#maturite .mountain-point[href="/fr${path}"]`)).toHaveCount(1);
     await expect(page.locator(`#maturite .maturite-tile[href="/fr${path}"]`)).toHaveCount(1);
   }
+});
+
+test("home diagnostic form captures diagnostic intent", async ({ page }) => {
+  await page.goto(new URL("/fr", BASE_URL).toString(), { waitUntil: "networkidle" });
+
+  await expect(page.locator(".leadform-choice")).toContainText("Je veux recevoir");
+  await expect(page.locator('input[name="wants_diagnostic"][value="yes"]')).toBeChecked();
+  await expect(page.locator("#contact")).toContainText(
+    "Oui, je souhaite un diagnostic pour savoir ce qui est possible avec l'IA.",
+  );
 });
 
 for (const heroCase of localizedHomeHero) {

@@ -192,10 +192,10 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
   audit: {
     level: "N4",
     slug: "audit",
-    eyebrow: "N4 · Audit & Diagnostic",
-    h1: "Avant de déployer, posez le diagnostic.",
-    sub: "Vous avez déjà des idées, des outils ou des usages isolés. On met à plat vos flux pour savoir ce qui peut passer en production, ce qui doit rester humain et ce qu'il faut regarder en premier.",
-    phrase: "Je veux recevoir mon diagnostic",
+    eyebrow: "N4 · Cartographie des Process",
+    h1: "Du diagnostic à la décision : cartographiez vos process.",
+    sub: "Le point de départ reste l'audit : on pose votre niveau de maturité, puis on transforme cette lecture en carte concrète de vos flux. Vous savez ce qui est possible avec l'IA, ce qui doit rester humain et quel process traiter en premier.",
+    phrase: "Je veux passer du diagnostic à la décision",
     ctaLabel: "Recevoir mon diagnostic",
     ctaHref: CONTACT_MAIL,
     stories: [
@@ -203,10 +203,10 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
         title: "L'équipe qui voulait passer à l'échelle",
         person: "Direction transformation, ETI",
         before:
-          "Plusieurs usages IA existaient déjà. Rien n'était assez clair pour décider quel flux devait arriver en production.",
+          "Plusieurs usages IA existaient déjà, mais aucune carte ne montrait les process, les données, les exceptions et les validations à garder.",
         after:
-          "Le diagnostic isole un flux prioritaire, ses entrées, ses données, ses exceptions et les validations humaines à garder.",
-        result: "La discussion change : on ne parle plus d'outils, on parle du premier flux à rendre pilotable.",
+          "Le diagnostic devient une cartographie : un flux prioritaire, ses entrées, ses données, ses risques et les décisions humaines à conserver.",
+        result: "La discussion change : on ne parle plus d'outils, on parle du premier process à rendre pilotable.",
       },
       {
         title: "Le comité qui voulait décider sans folklore",
@@ -220,24 +220,24 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     ],
     forWho: [
       "Vous avez des usages IA dispersés, mais pas encore de trajectoire de transformation.",
-      "Vous voulez savoir quel flux peut vraiment passer en production.",
+      "Vous souhaitez un diagnostic pour savoir ce qu'il est possible de faire avec l'IA dans votre contexte.",
       "Vous devez protéger la donnée, la validation humaine ou la gouvernance avant de construire.",
     ],
     deliverables: [
       "Diagnostic de maturité : votre niveau, les blocages visibles et la première ressource à partager.",
-      "Carte de flux : entrées, données, exceptions, validations humaines et indicateurs à suivre.",
+      "Cartographie des process : entrées, données, exceptions, validations humaines et indicateurs à suivre.",
       "Priorisation : ce qui peut passer en production, ce qui doit rester en cadrage, ce qui doit être refusé pour l'instant.",
     ],
     steps: [
-      { title: "Lecture initiale", body: "On part de votre contexte, de vos outils et d'un flux réel, pas d'un catalogue de cas d'usage." },
-      { title: "Cartographie", body: "On décrit ce qui entre, ce qui sort, qui valide, quelles données circulent et où le risque apparaît." },
-      { title: "Diagnostic partageable", body: "Vous repartez avec une synthèse claire : niveau de maturité, premier flux, risques et prochaine décision." },
+      { title: "Diagnostic de départ", body: "On part de votre contexte, de vos outils et d'un flux réel, pas d'un catalogue de cas d'usage." },
+      { title: "Cartographie des process", body: "On décrit ce qui entre, ce qui sort, qui valide, quelles données circulent et où le risque apparaît." },
+      { title: "Décision partageable", body: "Vous repartez avec une synthèse claire : niveau de maturité, premier process, risques et prochaine décision." },
     ],
     proof:
-      "Dans une organisation multi-sites, le diagnostic a remplacé une liste d'idées IA par une carte simple : un flux prioritaire, deux risques à traiter, une validation humaine à conserver. Le rendez-vous suivant a porté sur une décision, pas sur une démonstration.",
+      "Dans une organisation multi-sites, le diagnostic a remplacé une liste d'idées IA par une carte simple : un process prioritaire, deux risques à traiter, une validation humaine à conserver. Le rendez-vous suivant a porté sur une décision, pas sur une démonstration.",
     price: "à partir de 3 500 €",
     metaDescription:
-      "Audit et diagnostic IA pour cartographier vos processus, identifier le premier flux à traiter et préparer une ressource avant rendez-vous.",
+      "Diagnostic IA et cartographie des processus pour identifier votre maturité, le premier flux à traiter et la ressource à préparer avant rendez-vous.",
   },
   "deploiement-agents": {
     level: "N5",
