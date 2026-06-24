@@ -56,7 +56,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     ],
     proof:
       "Un directeur commercial dans la distribution (120 personnes) n'avait jamais ouvert un outil IA. Après 3h, il a identifié 4 process à automatiser et rédigé lui-même le brief pour son équipe technique.",
-    price: "à partir de 497 €",
+    price: "à partir de 1 598 €",
     priceNote: "Finançable OPCO",
     metaDescription:
       "Masterclass généraliste de 3 heures pour cartographier les besoins, établir un glossaire opérationnel et définir des scénarios d'application.",
@@ -87,7 +87,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     ],
     proof:
       "Un cabinet de conseil en stratégie (12 consultants) ne savait pas par où commencer. La session a produit des configurations opérationnelles pour 5 cas d'usage. Deux sont en production 3 mois plus tard, sans prestataire.",
-    price: "à partir de 897 €",
+    price: "à partir de 2 345 €",
     priceNote: "Finançable OPCO",
     metaDescription:
       "Masterclass métier avec exercices pratiques et instructions personnalisées adaptées au métier du client.",
@@ -118,8 +118,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     ],
     proof:
       "Un courtier en assurance avait un CRM propriétaire déconnecté de tout. Deux MCPs créés en 3 sessions : son CRM parle maintenant à Claude. Les agents accèdent aux fiches clients en temps réel.",
-    price: "à partir de 1 197 €",
-    priceNote: "Sur devis selon périmètre",
+    price: "à partir de 250 € / session",
     metaDescription:
       "Sessions techniques pour créer des MCPs et connecter vos logiciels métier aux modèles IA.",
   },
@@ -149,8 +148,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     ],
     proof:
       "Un courtier en énergie B2B voulait automatiser sa prospection. L'audit a révélé que le vrai levier était la qualification des leads entrants. Le déploiement qui a suivi a réduit le temps de qualification de 80 %.",
-    price: "à partir de 490 €",
-    priceNote: "Inclus dans tout Sprint N5",
+    price: "à partir de 3 567 €",
     metaDescription:
       "Audit de transformation IA pour cartographier vos processus métier et identifier les quick wins.",
   },
@@ -181,15 +179,15 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     ],
     proof:
       "Un cabinet d'avocats qualifiait ses leads entrants à la main — 3h/semaine perdues. L'agent traite la qualification en temps réel. Résultat : 0 lead manqué, 3h/semaine récupérées dès J15.",
-    price: "à partir de 1 197 €",
-    priceNote: "PME · grand compte à partir de 9 500 € · Finançable OPCO",
+    price: "à partir de 2 998 €",
+    priceNote: "Finançable OPCO",
     metaDescription:
       "Déploiement d'un ou plusieurs agents IA opérationnels avec démonstration du ROI.",
   },
   "outils-agentiques": {
     level: "N6",
     slug: "outils-agentiques",
-    eyebrow: "N6 · Outils Agentiques & Configuration",
+    eyebrow: "N6 · Outil propriétaire agentique",
     h1: "Construire vos propres agents — avec les outils des meilleurs développeurs IA.",
     sub: "Pour les équipes techniques qui veulent maîtriser Claude Code et Codex. On vous forme et on audite votre configuration pour que vous soyez autonomes sur le déploiement.",
     ctaLabel: "En parler 15 min",
@@ -212,8 +210,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     ],
     proof:
       "Une équipe produit de 5 développeurs utilisait l'IA de façon disparate. En 4 sessions, ils ont unifié leurs pratiques sur Claude Code, construit 3 workflows récurrents et sont maintenant autonomes sur le déploiement.",
-    price: "à partir de 247 €/h",
-    priceNote: "Finançable OPCO",
+    price: "Sur devis",
     metaDescription:
       "Accompagnement aux outils agentiques avancés pour auditer votre configuration et former vos équipes à l'autonomie.",
   },
@@ -244,7 +241,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     ],
     proof:
       "Une scale-up SaaS avait 6 agents construits en 8 mois. Taux d'erreur de 18 %, coût incontrôlé, aucune centralisation. Après audit et remédiation : taux d'erreur à 2 %, coût divisé par 3, architecture centralisée avec boucles auto-améliorantes opérationnelles.",
-    price: "à partir de 4 990 €",
+    price: "Sur devis",
     priceNote: "Selon taille de la flotte",
     metaDescription:
       "Optimisation de flotte d'agents IA, réduction de dette technique et architecture auto-améliorante.",
