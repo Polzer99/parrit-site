@@ -101,22 +101,22 @@ const localizedHomeHero = [
   {
     path: "/fr",
     h1: "Parrit opère vos deux fronts critiques : back-office automatisé et business généré.",
-    cta: "Parler à Paul",
+    cta: "Recevoir mon diagnostic",
   },
   {
     path: "/en",
     h1: "Parrit operates your two critical fronts: automated back office and generated business.",
-    cta: "Talk to Paul",
+    cta: "Get my diagnostic",
   },
   {
     path: "/pt-BR",
     h1: "A Parrit opera suas duas frentes críticas: back-office automatizado e business gerado.",
-    cta: "Falar com Paul",
+    cta: "Receber meu diagnóstico",
   },
   {
     path: "/zh-CN",
     h1: "Parrit 为你运营两个关键战线：自动化后台和业务增长。",
-    cta: "联系 Paul",
+    cta: "获取我的诊断",
   },
 ];
 
@@ -153,7 +153,7 @@ test("mobile home hero surfaces the primary CTA before tools", async ({ page }) 
 
   const cta = page.locator(".hero-mobile-cta .btn-red");
   await expect(cta).toBeVisible();
-  await expect(cta).toContainText("Parler à Paul");
+  await expect(cta).toContainText("Recevoir mon diagnostic");
 
   const layout = await page.evaluate(() => {
     const sub = document.querySelector(".hero .sub")?.getBoundingClientRect();

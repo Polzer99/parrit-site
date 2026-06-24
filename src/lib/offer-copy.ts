@@ -185,15 +185,15 @@ export const OFFER_COPY: Record<Locale, Record<OfferKind, OfferCopy>> = {
     deployer: withCommon("fr", {
       meta: {
         title: "Déployer · Sprint agentique · Parrit.ai",
-        description: "Un workflow critique transformé en agent IA en production, avec périmètre, durée et prix fermés.",
+        description: "Un workflow critique transformé en agent IA en production, avec périmètre clair, validation humaine et trace.",
       },
       hero: {
         eyebrow: "Offre · Déployer",
         title: "Un agent en ",
-        accent: "production en 14 jours",
-        after: ", périmètre et prix fermés.",
+        accent: "production contrôlée",
+        after: ", avec périmètre et trace.",
         sub: "Vous choisissez un workflow critique. On le déploie en sprint borné. Vous repartez avec un système qui tourne, pas une démo.",
-        chips: ["14 jours", "Prix fixe", "En production", "Serveurs MCP"],
+        chips: ["Diagnostic", "Périmètre clair", "En production", "Serveurs MCP"],
         primary: "Réserver le sprint",
         secondary: "Voir le cadre",
       },
@@ -213,7 +213,7 @@ export const OFFER_COPY: Record<Locale, Record<OfferKind, OfferCopy>> = {
         after: ", dans votre SI.",
         items: [
           "1 workflow critique scellé, choisi avec vous.",
-          "Sprint de 14 à 21 jours, calendrier fixe.",
+          "Périmètre borné, calendrier validé après diagnostic.",
           "Système en production dans votre SI.",
           "Démo de fin de sprint sur cas réels.",
           "Recommandation de mise à l'échelle chiffrée.",
@@ -226,7 +226,7 @@ export const OFFER_COPY: Record<Locale, Record<OfferKind, OfferCopy>> = {
         accent: "fermés à la signature",
         after: ".",
         rows: [
-          { label: "Durée", value: "14 à 21 jours", note: "calendrier fixe" },
+          { label: "Durée", value: "selon périmètre", note: "validée après diagnostic" },
           { label: "Front", value: "OS Opérations ou OS Croissance" },
           { label: "Sprint à impact", value: "à partir de 1 197 €", note: "format phare" },
           { label: "Déploiement d'agents IA", value: "à partir de 2 994 €" },
@@ -239,7 +239,7 @@ export const OFFER_COPY: Record<Locale, Record<OfferKind, OfferCopy>> = {
         accent: "en production",
         after: ".",
         items: [
-          { sector: "ETI logistique", pain: "Saisie et tri manuels d'un flux entrant.", result: "de temps de traitement, livré en 14 jours.", resultAccent: "-40 %" },
+          { sector: "ETI logistique", pain: "Saisie et tri manuels d'un flux entrant.", result: "de temps de traitement sur le flux cadré.", resultAccent: "-40 %" },
           { sector: "Scale-up", pain: "Qualification de contacts trop lente pour suivre la cadence commerciale.", result: "enrichis et priorisés par l'agent.", resultAccent: "3 000 contacts" },
           { sector: "PME", pain: "Demandes entrantes perdues entre les canaux et les boîtes mail.", result: "capture et routage automatiques.", resultAccent: "Zéro lead perdu" },
         ],
@@ -402,12 +402,12 @@ export const OFFER_COPY: Record<Locale, Record<OfferKind, OfferCopy>> = {
   },
   en: {
     deployer: withCommon("en", {
-      meta: { title: "Deploy · Agentic sprint · Parrit.ai", description: "A critical workflow turned into a production AI agent with fixed scope, timing and price." },
-      hero: { eyebrow: "Offer · Deploy", title: "An agent in ", accent: "production in 14 days", after: ", with fixed scope and price.", sub: "You choose one critical workflow. We deploy it in a bounded sprint. You leave with a running system, not a demo.", chips: ["14 days", "Fixed price", "In production", "MCP servers"], primary: "Book the sprint", secondary: "See the frame" },
+      meta: { title: "Deploy · Agentic sprint · Parrit.ai", description: "A critical workflow turned into a production AI agent with clear scope, human validation and traceability." },
+      hero: { eyebrow: "Offer · Deploy", title: "An agent in ", accent: "controlled production", after: ", with scope and trace.", sub: "You choose one critical workflow. We deploy it in a bounded sprint. You leave with a running system, not a demo.", chips: ["Diagnostic", "Clear scope", "In production", "MCP servers"], primary: "Book the sprint", secondary: "See the frame" },
       intro: { kicker: "Who it is for", title: "For teams that need ", accent: "proof, fast", after: ".", lead: "You have a process that costs too much human time and want to see it run agentically before launching a heavier program. We take a real workflow, put it in production, and measure the gain on your own data.", cardTitle: "Why bounded", cardBody: "A fixed scope and fixed price make the decision easy. You decide fast, we ship fast, and the output is a system your teams can actually use." },
-      deliverables: { kicker: "What we deliver", title: "A ", accent: "running system", after: " inside your stack.", items: ["One sealed critical workflow, chosen with you.", "14 to 21 day sprint with a fixed calendar.", "Production system inside your IT environment.", "End-of-sprint demo on real cases.", "Quantified scaling recommendation.", "Human-in-the-loop and end-to-end traceability."] },
-      spec: { kicker: "Frame", title: "Scope, timing, price: ", accent: "fixed at signature", after: ".", rows: [{ label: "Duration", value: "14 to 21 days", note: "fixed calendar" }, { label: "Front", value: "Operations OS or Growth OS" }, { label: "Impact sprint", value: "from €1,197", note: "flagship format" }, { label: "AI agent deployment", value: "from €2,994" }, { label: "Compliance", value: "GDPR, EU AI Act, your data stays with you" }] },
-      proofs: { kicker: "Proof", title: "Already ", accent: "in production", after: ".", items: [{ sector: "Logistics company", pain: "Manual intake sorting and data entry.", result: "processing time, shipped in 14 days.", resultAccent: "-40%" }, { sector: "Scale-up", pain: "Contact qualification too slow for the sales pace.", result: "enriched and prioritized by the agent.", resultAccent: "3,000 contacts" }, { sector: "SMB", pain: "Inbound requests lost between channels and inboxes.", result: "automatic capture and routing.", resultAccent: "Zero lost leads" }] },
+      deliverables: { kicker: "What we deliver", title: "A ", accent: "running system", after: " inside your stack.", items: ["One sealed critical workflow, chosen with you.", "Bounded scope, calendar validated after diagnosis.", "Production system inside your IT environment.", "End-of-sprint demo on real cases.", "Quantified scaling recommendation.", "Human-in-the-loop and end-to-end traceability."] },
+      spec: { kicker: "Frame", title: "Scope, timing, price: ", accent: "defined before build", after: ".", rows: [{ label: "Duration", value: "based on scope", note: "validated after diagnosis" }, { label: "Front", value: "Operations OS or Growth OS" }, { label: "Impact sprint", value: "from €1,197", note: "flagship format" }, { label: "AI agent deployment", value: "from €2,994" }, { label: "Compliance", value: "GDPR, EU AI Act, your data stays with you" }] },
+      proofs: { kicker: "Proof", title: "Already ", accent: "in production", after: ".", items: [{ sector: "Logistics company", pain: "Manual intake sorting and data entry.", result: "processing time on the scoped workflow.", resultAccent: "-40%" }, { sector: "Scale-up", pain: "Contact qualification too slow for the sales pace.", result: "enriched and prioritized by the agent.", resultAccent: "3,000 contacts" }, { sector: "SMB", pain: "Inbound requests lost between channels and inboxes.", result: "automatic capture and routing.", resultAccent: "Zero lost leads" }] },
       cta: { title: "We seal the scope, ", accent: "then deploy", after: ".", fine: "A 30-minute call is enough to choose the workflow, set the price and lock sprint dates." },
       footer: "AI Operating Partner. We deploy the system, not the demo.",
     }),

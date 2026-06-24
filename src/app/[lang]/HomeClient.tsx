@@ -27,13 +27,13 @@ type MaturiteTile = {
 };
 
 const MATURITE_POINTS: Record<string, { x: number; y: number; tipX: number; tipY: number }> = {
-  N1: { x: 94, y: 326, tipX: 28, tipY: 208 },
-  N2: { x: 230, y: 288, tipX: 152, tipY: 164 },
-  N3: { x: 360, y: 246, tipX: 278, tipY: 118 },
-  N4: { x: 494, y: 202, tipX: 406, tipY: 78 },
-  N5: { x: 626, y: 160, tipX: 528, tipY: 36 },
-  N6: { x: 748, y: 116, tipX: 636, tipY: 156 },
-  N7: { x: 872, y: 74, tipX: 706, tipY: 190 },
+  N1: { x: 130, y: 390, tipX: 58, tipY: 250 },
+  N2: { x: 260, y: 342, tipX: 184, tipY: 204 },
+  N3: { x: 390, y: 286, tipX: 308, tipY: 146 },
+  N4: { x: 520, y: 226, tipX: 430, tipY: 88 },
+  N5: { x: 650, y: 160, tipX: 548, tipY: 22 },
+  N6: { x: 770, y: 96, tipX: 636, tipY: 158 },
+  N7: { x: 890, y: 36, tipX: 710, tipY: 206 },
 };
 
 type HomeCopy = {
@@ -79,6 +79,12 @@ type HomeCopy = {
     kicker: string;
     title: string;
     lead: string;
+    diagnostic: {
+      title: string;
+      body: string;
+      cta: string;
+      href: string;
+    };
     action: string;
     levels: MaturiteTile[];
     beforeLabel: string;
@@ -117,7 +123,7 @@ type HomeCopy = {
 
 const COPY: Record<Locale, HomeCopy> = {
   fr: {
-    navCta: "Nous écrire",
+    navCta: "Recevoir mon diagnostic",
     navLinks: [
       { href: "/blog", label: "Articles" },
     ],
@@ -135,8 +141,8 @@ const COPY: Record<Locale, HomeCopy> = {
       redTwo: "back-office automatisé",
       after: " et business généré.",
       sub: "Des outils sur-mesure, déployés et opérés avec vous.",
-      primary: "Parler à Paul",
-      secondary: "Voir nos réalisations",
+      primary: "Recevoir mon diagnostic",
+      secondary: "Voir la transformation",
     },
     logosLabel: "Ils nous ont déjà fait confiance",
     what: {
@@ -161,30 +167,30 @@ const COPY: Record<Locale, HomeCopy> = {
       ],
     },
     how: {
-      kicker: "Comment ça se passe",
-      titleBefore: "On regarde, on construit, on vous rend ",
-      titleRed: "autonome",
-      titleAfter: ".",
+      kicker: "La démarche",
+      titleBefore: "On commence par un ",
+      titleRed: "diagnostic",
+      titleAfter: ", puis on transforme.",
       steps: [
         {
-          title: "01 · On regarde",
-          note: "le diagnostic",
-          body: "On cartographie vos process et on repère les tâches qui vous coûtent le plus cher, et celles qui génèrent du revenu.",
+          title: "01 · Diagnostic avant rendez-vous",
+          note: "la ressource",
+          body: "Vous arrivez avec une première lecture : niveau de maturité, flux prioritaire, risque à protéger et ressource utile.",
         },
         {
-          title: "02 · On construit",
-          note: "14 jours, en production",
-          body: "On installe l'outil directement dans vos outils. Il tourne et génère un résultat dès 14 jours après le diagnostic.",
+          title: "02 · Cadrage du flux",
+          note: "la décision",
+          body: "On choisit un seul flux à transformer : entrées, données, exceptions, validation humaine et mesure.",
         },
         {
-          title: "03 · On vous rend autonome",
-          note: "la passation",
-          body: "On forme vos équipes. Elles repartent en sachant piloter et faire évoluer leurs agents seules, et surtout elles savent exprimer leurs besoins.",
+          title: "03 · Transformation contrôlée",
+          note: "la suite",
+          body: "On construit, on transmet ou on optimise selon votre niveau. Chaque étape garde un propriétaire, une trace et un prochain seuil clair.",
         },
       ],
       ladder: [
-        { label: "Audit de transformation IA", price: "point d'entrée" },
-        { label: "Sprint à impact", tag: "Format phare", price: "à partir de 1 197 €" },
+        { label: "Diagnostic de maturité IA", price: "préparé avant rendez-vous" },
+        { label: "Audit de transformation", tag: "Point d'entrée", price: "à partir de 3 500 €" },
         { label: "Déploiement d'agents IA", price: "à partir de 2 994 €" },
         { label: "Formation à l'utilisation agentique (non-tech)", price: "à partir de 3 497 € · finançable OPCO" },
         { label: "Accompagnement · Operating Partner", price: "à partir de 247 €/h" },
@@ -193,15 +199,21 @@ const COPY: Record<Locale, HomeCopy> = {
     maturite: {
       kicker: "De l'IA générative à l'IA agentique",
       title: "Où en êtes-vous avec l'IA ?",
-      lead: "On vous accompagne depuis la première découverte jusqu'au sommet. Cliquez sur votre niveau.",
-      action: "Voir ce parcours",
+      lead: "La montée commence par un diagnostic. Vous repartez avec votre niveau, le premier flux à traiter et la ressource qui vous correspond.",
+      diagnostic: {
+        title: "Étape 1 · Recevoir votre diagnostic",
+        body: "Avant le rendez-vous, on prépare une première lecture de votre maturité : où vous êtes, ce qui bloque, le flux à regarder en premier.",
+        cta: "Recevoir mon diagnostic",
+        href: "#contact",
+      },
+      action: "Découvrir ce niveau",
       beforeLabel: "Avant",
       afterLabel: "Après",
       levels: [
         { id: "N1", label: "L'Éveil", phrase: "Je découvre l'IA générative", href: "/masterclass-ia" },
         { id: "N2", label: "L'Usage", phrase: "Je veux l'appliquer à mon secteur", href: "/masterclass-metier" },
         { id: "N3", label: "L'Action", phrase: "Je veux connecter mes logiciels à l'IA", href: "/sessions-mcp" },
-        { id: "N4", label: "Le Diagnostic", phrase: "Je veux cartographier mes process", href: "/audit" },
+        { id: "N4", label: "Audit & diagnostic", phrase: "Je veux cartographier mes process", href: "/audit" },
         { id: "N5", label: "Le Déploiement", phrase: "Je veux un agent en production", href: "/deploiement-agents" },
         { id: "N6", label: "L'Autonomie", phrase: "Je veux maîtriser Claude Code et Codex", href: "/outils-agentiques" },
         { id: "N7", label: "La Gouvernance", phrase: "J'ai une flotte, je veux l'optimiser", href: "/optimisation-flotte" },
@@ -215,15 +227,15 @@ const COPY: Record<Locale, HomeCopy> = {
         },
         {
           level: "N4",
-          title: "Une PME qui veut chiffrer",
-          before: "Les idées d'automatisation existent, mais aucun gain n'est défendable.",
-          after: "Les flux sont classés par volume, risque, temps rendu et complexité.",
+          title: "Avant de produire",
+          before: "Des idées, des outils, mais pas de carte claire.",
+          after: "Le flux prioritaire, les données et les validations sont posés.",
         },
         {
-          level: "N7",
-          title: "Une flotte à reprendre",
-          before: "Les agents tournent, mais les coûts et les erreurs sont opaques.",
-          after: "Chaque agent a un propriétaire, une trace et une boucle d'amélioration.",
+          level: "N5",
+          title: "Le passage en production",
+          before: "Une équipe traite à la main le même flux semaine après semaine.",
+          after: "Un agent prépare, trace et escalade. L'humain garde la décision.",
         },
       ],
     },
@@ -293,15 +305,15 @@ const COPY: Record<Locale, HomeCopy> = {
       ],
     },
     cta: {
-      titleBefore: "On en parle ",
-      titleRed: "15 minutes",
-      titleAfter: " ?",
-      fine: "Laissez votre email et votre numéro : on vous rappelle pour repérer les deux ou trois agents qui se rembourseraient dès le premier mois.",
+      titleBefore: "Recevez votre ",
+      titleRed: "diagnostic",
+      titleAfter: " avant l'échange.",
+      fine: "Laissez votre email et votre numéro : on prépare une première lecture de votre maturité, du flux prioritaire et de la ressource à vous envoyer.",
       email: "Votre email professionnel",
       phone: "Votre téléphone",
-      submit: "Être rappelé",
+      submit: "Recevoir mon diagnostic",
       submitting: "Envoi…",
-      thanks: "Merci. On vous rappelle rapidement.",
+      thanks: "Merci. On prépare votre diagnostic avant l'échange.",
       error: "Échec d'envoi. Écrivez à paul.larmaraud@parrit.ai.",
       whatsapp: "WhatsApp",
       mail: "ou écrire directement à Paul",
@@ -312,7 +324,7 @@ const COPY: Record<Locale, HomeCopy> = {
     footer: "Paul Larmaraud & Yukun Leng · un réseau d'experts · paul.larmaraud@parrit.ai",
   },
   en: {
-    navCta: "Contact us",
+    navCta: "Get my diagnostic",
     navLinks: [
       { href: "/blog", label: "Articles" },
     ],
@@ -330,8 +342,8 @@ const COPY: Record<Locale, HomeCopy> = {
       redTwo: "automated back office",
       after: " and generated business.",
       sub: "Custom tools, deployed and operated with you.",
-      primary: "Talk to Paul",
-      secondary: "See our work",
+      primary: "Get my diagnostic",
+      secondary: "See the transformation",
     },
     logosLabel: "They already trusted us",
     what: {
@@ -356,30 +368,30 @@ const COPY: Record<Locale, HomeCopy> = {
       ],
     },
     how: {
-      kicker: "How it works",
-      titleBefore: "We look, we build, we make you ",
-      titleRed: "autonomous",
-      titleAfter: ".",
+      kicker: "The method",
+      titleBefore: "We start with a ",
+      titleRed: "diagnostic",
+      titleAfter: ", then transform.",
       steps: [
         {
-          title: "01 · We look",
-          note: "the diagnostic",
-          body: "We map your processes and spot the tasks that cost you the most, and those that generate revenue.",
+          title: "01 · Diagnostic before the meeting",
+          note: "the resource",
+          body: "You arrive with a first read: maturity level, priority workflow, risk to protect and useful resource.",
         },
         {
-          title: "02 · We build",
-          note: "14 days, in production",
-          body: "We install the tool directly inside your tools. It runs and creates a result as soon as 14 days after the diagnostic.",
+          title: "02 · Workflow framing",
+          note: "the decision",
+          body: "We choose one workflow to transform: inputs, data, exceptions, human validation and measurement.",
         },
         {
-          title: "03 · We make you autonomous",
-          note: "the handover",
-          body: "We train your teams. They leave knowing how to operate and evolve their agents on their own, and above all how to express their needs.",
+          title: "03 · Controlled transformation",
+          note: "the next step",
+          body: "We build, transfer or optimize depending on your level. Every step keeps an owner, a trace and a clear next threshold.",
         },
       ],
       ladder: [
-        { label: "AI transformation audit", price: "entry point" },
-        { label: "Impact sprint", tag: "Flagship format", price: "from €1,197" },
+        { label: "AI maturity diagnostic", price: "prepared before the meeting" },
+        { label: "Transformation audit", tag: "Entry point", price: "from €3,500" },
         { label: "AI agent deployment", price: "from €2,994" },
         { label: "Agentic usage training (non-tech)", price: "from €3,497 · OPCO-financeable" },
         { label: "Support · Operating Partner", price: "from €247/h" },
@@ -388,15 +400,21 @@ const COPY: Record<Locale, HomeCopy> = {
     maturite: {
       kicker: "From generative AI to agentic AI",
       title: "Where are you with AI?",
-      lead: "We guide you from first discovery to the summit. Click your level.",
-      action: "View this path",
+      lead: "The climb starts with a diagnostic. You leave with your level, the first workflow to inspect and the resource that fits you.",
+      diagnostic: {
+        title: "Step 1 · Get your diagnostic",
+        body: "Before the meeting, we prepare a first read of your maturity: where you stand, what blocks you and which workflow to inspect first.",
+        cta: "Get my diagnostic",
+        href: "#contact",
+      },
+      action: "Explore this level",
       beforeLabel: "Before",
       afterLabel: "After",
       levels: [
         { id: "N1", label: "Awakening", phrase: "I'm discovering generative AI", href: "/masterclass-ia" },
         { id: "N2", label: "Usage", phrase: "I want to apply it to my sector", href: "/masterclass-metier" },
         { id: "N3", label: "Action", phrase: "I want to connect my software to AI", href: "/sessions-mcp" },
-        { id: "N4", label: "Diagnosis", phrase: "I want to map my processes", href: "/audit" },
+        { id: "N4", label: "Audit & diagnosis", phrase: "I want to map my processes", href: "/audit" },
         { id: "N5", label: "Deployment", phrase: "I want an agent in production", href: "/deploiement-agents" },
         { id: "N6", label: "Autonomy", phrase: "I want to master Claude Code and Codex", href: "/outils-agentiques" },
         { id: "N7", label: "Governance", phrase: "I have a fleet and want to optimize it", href: "/optimisation-flotte" },
@@ -410,15 +428,15 @@ const COPY: Record<Locale, HomeCopy> = {
         },
         {
           level: "N4",
-          title: "A company that needs numbers",
-          before: "Automation ideas exist, but no gain is solid enough to defend.",
-          after: "Workflows are ranked by volume, risk, recovered time and complexity.",
+          title: "Before production",
+          before: "Ideas and tools exist, but there is no clear map.",
+          after: "The priority workflow, data and validations are defined.",
         },
         {
-          level: "N7",
-          title: "A fleet that needs control",
-          before: "Agents are running, but costs and errors are opaque.",
-          after: "Every agent has an owner, a trace and an improvement loop.",
+          level: "N5",
+          title: "The move to production",
+          before: "A team handles the same workflow by hand week after week.",
+          after: "An agent prepares, traces and escalates. The human keeps the decision.",
         },
       ],
     },
@@ -488,15 +506,15 @@ const COPY: Record<Locale, HomeCopy> = {
       ],
     },
     cta: {
-      titleBefore: "Shall we talk for ",
-      titleRed: "15 minutes",
-      titleAfter: "?",
-      fine: "Leave your email and phone number: we will call you back to identify the two or three agents that could pay for themselves in the first month.",
+      titleBefore: "Get your ",
+      titleRed: "diagnostic",
+      titleAfter: " before we talk.",
+      fine: "Leave your email and phone number: we prepare a first read of your maturity, priority workflow and the resource to send you.",
       email: "Your work email",
       phone: "Your phone number",
-      submit: "Call me back",
+      submit: "Get my diagnostic",
       submitting: "Sending…",
-      thanks: "Thanks. We will call you back shortly.",
+      thanks: "Thanks. We will prepare your diagnostic before the meeting.",
       error: "Sending failed. Email paul.larmaraud@parrit.ai.",
       whatsapp: "WhatsApp",
       mail: "or email Paul directly",
@@ -507,7 +525,7 @@ const COPY: Record<Locale, HomeCopy> = {
     footer: "Paul Larmaraud & Yukun Leng · a network of experts · paul.larmaraud@parrit.ai",
   },
   "pt-BR": {
-    navCta: "Fale conosco",
+    navCta: "Receber diagnóstico",
     navLinks: [
       { href: "/blog", label: "Artigos" },
     ],
@@ -525,8 +543,8 @@ const COPY: Record<Locale, HomeCopy> = {
       redTwo: "back-office automatizado",
       after: " e business gerado.",
       sub: "Ferramentas sob medida, implantadas e operadas com você.",
-      primary: "Falar com Paul",
-      secondary: "Ver realizações",
+      primary: "Receber meu diagnóstico",
+      secondary: "Ver a transformação",
     },
     logosLabel: "Eles já confiaram em nós",
     what: {
@@ -551,30 +569,30 @@ const COPY: Record<Locale, HomeCopy> = {
       ],
     },
     how: {
-      kicker: "Como funciona",
-      titleBefore: "Observamos, construímos e tornamos você ",
-      titleRed: "autônomo",
-      titleAfter: ".",
+      kicker: "O método",
+      titleBefore: "Começamos por um ",
+      titleRed: "diagnóstico",
+      titleAfter: ", depois transformamos.",
       steps: [
         {
-          title: "01 · Observamos",
-          note: "o diagnóstico",
-          body: "Mapeamos seus processos e identificamos as tarefas que custam mais caro, e aquelas que geram receita.",
+          title: "01 · Diagnóstico antes da reunião",
+          note: "o recurso",
+          body: "Você chega com uma primeira leitura: maturidade, fluxo prioritário, risco a proteger e recurso útil.",
         },
         {
-          title: "02 · Construímos",
-          note: "14 dias, em produção",
-          body: "Instalamos a ferramenta diretamente nos seus sistemas. Ela roda e gera resultado a partir de 14 dias após o diagnóstico.",
+          title: "02 · Enquadramento do fluxo",
+          note: "a decisão",
+          body: "Escolhemos um único fluxo para transformar: entradas, dados, exceções, validação humana e medida.",
         },
         {
-          title: "03 · Tornamos você autônomo",
-          note: "a passagem",
-          body: "Formamos suas equipes. Elas saem sabendo pilotar e evoluir seus agentes sozinhas, e sobretudo sabendo expressar suas necessidades.",
+          title: "03 · Transformação controlada",
+          note: "a sequência",
+          body: "Construímos, transferimos ou otimizamos conforme seu nível. Cada etapa mantém um dono, um rastro e um próximo limite claro.",
         },
       ],
       ladder: [
-        { label: "Auditoria de transformação IA", price: "ponto de entrada" },
-        { label: "Sprint de impacto", tag: "Formato principal", price: "a partir de 1 197 €" },
+        { label: "Diagnóstico de maturidade IA", price: "preparado antes da reunião" },
+        { label: "Auditoria de transformação", tag: "Ponto de entrada", price: "a partir de 3 500 €" },
         { label: "Deploy de agentes IA", price: "a partir de 2 994 €" },
         { label: "Formação em uso agentico (não técnico)", price: "a partir de 3 497 € · financiável OPCO" },
         { label: "Acompanhamento · Operating Partner", price: "a partir de 247 €/h" },
@@ -583,15 +601,21 @@ const COPY: Record<Locale, HomeCopy> = {
     maturite: {
       kicker: "Da IA generativa à IA agentica",
       title: "Onde você está com a IA?",
-      lead: "Acompanhamos você da primeira descoberta até o topo. Clique no seu nível.",
-      action: "Ver este percurso",
+      lead: "A subida começa por um diagnóstico. Você sai com seu nível, o primeiro fluxo a observar e o recurso que combina com você.",
+      diagnostic: {
+        title: "Etapa 1 · Receber seu diagnóstico",
+        body: "Antes da reunião, preparamos uma primeira leitura da sua maturidade: onde você está, o que bloqueia e qual fluxo observar primeiro.",
+        cta: "Receber meu diagnóstico",
+        href: "#contact",
+      },
+      action: "Explorar este nível",
       beforeLabel: "Antes",
       afterLabel: "Depois",
       levels: [
         { id: "N1", label: "Despertar", phrase: "Estou descobrindo a IA generativa", href: "/masterclass-ia" },
         { id: "N2", label: "Uso", phrase: "Quero aplicar ao meu setor", href: "/masterclass-metier" },
         { id: "N3", label: "Ação", phrase: "Quero conectar meus softwares à IA", href: "/sessions-mcp" },
-        { id: "N4", label: "Diagnóstico", phrase: "Quero mapear meus processos", href: "/audit" },
+        { id: "N4", label: "Auditoria & diagnóstico", phrase: "Quero mapear meus processos", href: "/audit" },
         { id: "N5", label: "Deploy", phrase: "Quero um agente em produção", href: "/deploiement-agents" },
         { id: "N6", label: "Autonomia", phrase: "Quero dominar Claude Code e Codex", href: "/outils-agentiques" },
         { id: "N7", label: "Governança", phrase: "Tenho uma frota, quero otimizá-la", href: "/optimisation-flotte" },
@@ -605,15 +629,15 @@ const COPY: Record<Locale, HomeCopy> = {
         },
         {
           level: "N4",
-          title: "Uma empresa que precisa medir",
-          before: "Há ideias de automação, mas nenhum ganho defensável.",
-          after: "Os fluxos são classificados por volume, risco, tempo recuperado e complexidade.",
+          title: "Antes de produzir",
+          before: "Há ideias e ferramentas, mas nenhum mapa claro.",
+          after: "O fluxo prioritário, os dados e as validações são definidos.",
         },
         {
-          level: "N7",
-          title: "Uma frota para retomar",
-          before: "Os agentes rodam, mas custos e erros são opacos.",
-          after: "Cada agente tem dono, rastro e ciclo de melhoria.",
+          level: "N5",
+          title: "A passagem para produção",
+          before: "Uma equipe trata à mão o mesmo fluxo semana após semana.",
+          after: "Um agente prepara, registra e escala. O humano mantém a decisão.",
         },
       ],
     },
@@ -683,15 +707,15 @@ const COPY: Record<Locale, HomeCopy> = {
       ],
     },
     cta: {
-      titleBefore: "Conversamos ",
-      titleRed: "15 minutos",
-      titleAfter: "?",
-      fine: "Deixe seu email e telefone: ligamos para identificar os dois ou três agentes que se pagariam já no primeiro mês.",
+      titleBefore: "Receba seu ",
+      titleRed: "diagnóstico",
+      titleAfter: " antes da conversa.",
+      fine: "Deixe seu email e telefone: preparamos uma primeira leitura da sua maturidade, do fluxo prioritário e do recurso a enviar.",
       email: "Seu email profissional",
       phone: "Seu telefone",
-      submit: "Quero ser chamado",
+      submit: "Receber meu diagnóstico",
       submitting: "Enviando…",
-      thanks: "Obrigado. Vamos ligar em breve.",
+      thanks: "Obrigado. Vamos preparar seu diagnóstico antes da conversa.",
       error: "Falha no envio. Escreva para paul.larmaraud@parrit.ai.",
       whatsapp: "WhatsApp",
       mail: "ou escrever diretamente para Paul",
@@ -702,7 +726,7 @@ const COPY: Record<Locale, HomeCopy> = {
     footer: "Paul Larmaraud & Yukun Leng · uma rede de especialistas · paul.larmaraud@parrit.ai",
   },
   "zh-CN": {
-    navCta: "联系我们",
+    navCta: "获取诊断",
     navLinks: [
       { href: "/blog", label: "文章" },
     ],
@@ -720,8 +744,8 @@ const COPY: Record<Locale, HomeCopy> = {
       redTwo: "自动化后台",
       after: "和业务增长。",
       sub: "为你定制、部署，并与你一起运营的工具。",
-      primary: "联系 Paul",
-      secondary: "查看案例",
+      primary: "获取我的诊断",
+      secondary: "查看转型路径",
     },
     logosLabel: "他们已经信任我们",
     what: {
@@ -746,30 +770,30 @@ const COPY: Record<Locale, HomeCopy> = {
       ],
     },
     how: {
-      kicker: "流程如何进行",
-      titleBefore: "我们观察、构建，并让你变得",
-      titleRed: "自主",
-      titleAfter: "。",
+      kicker: "方法",
+      titleBefore: "我们先做",
+      titleRed: "诊断",
+      titleAfter: "，再推进转型。",
       steps: [
         {
-          title: "01 · 我们观察",
-          note: "诊断",
-          body: "我们梳理你的流程，找出成本最高的任务，以及真正创造收入的任务。",
+          title: "01 · 会前诊断",
+          note: "资源",
+          body: "你会带着第一版判断进入交流：成熟度、优先流程、需要保护的风险，以及适合你的资源。",
         },
         {
-          title: "02 · 我们构建",
-          note: "14 天，进入生产",
-          body: "我们把工具直接装进你的现有工具中。诊断后最快 14 天，它就能运行并产生结果。",
+          title: "02 · 流程界定",
+          note: "决策",
+          body: "我们只选择一个流程先处理：入口、数据、例外、人工验证和衡量方式。",
         },
         {
-          title: "03 · 我们让你自主",
-          note: "交接",
-          body: "我们培训你的团队。团队离开时会知道如何独立操作和演进智能体，更重要的是知道如何表达自己的需求。",
+          title: "03 · 可控转型",
+          note: "下一步",
+          body: "根据你的阶段，我们构建、转移能力或优化。每一步都有负责人、记录和清晰的下一道门槛。",
         },
       ],
       ladder: [
-        { label: "AI 转型审计", price: "入口项目" },
-        { label: "Impact sprint", tag: "旗舰格式", price: "起价 1 197 €" },
+        { label: "AI 成熟度诊断", price: "会前准备" },
+        { label: "转型审计", tag: "入口项目", price: "起价 3 500 €" },
         { label: "AI 智能体部署", price: "起价 2 994 €" },
         { label: "智能体使用培训（非技术）", price: "起价 3 497 € · 可由 OPCO 资助" },
         { label: "陪跑 · Operating Partner", price: "起价 247 €/h" },
@@ -778,15 +802,21 @@ const COPY: Record<Locale, HomeCopy> = {
     maturite: {
       kicker: "从生成式 AI 到智能体 AI",
       title: "您现在处在 AI 的哪个阶段？",
-      lead: "我们陪您从第一次了解走到山顶。点击您的阶段。",
-      action: "查看这个路径",
+      lead: "上山从诊断开始。你会得到自己的阶段、第一条要看的流程，以及最适合你的资源。",
+      diagnostic: {
+        title: "第 1 步 · 获取你的诊断",
+        body: "会前，我们先准备一版成熟度判断：你在哪里、卡点是什么、第一条应该查看的流程是什么。",
+        cta: "获取我的诊断",
+        href: "#contact",
+      },
+      action: "查看这个阶段",
       beforeLabel: "之前",
       afterLabel: "之后",
       levels: [
         { id: "N1", label: "觉醒", phrase: "我正在了解生成式 AI", href: "/masterclass-ia" },
         { id: "N2", label: "使用", phrase: "我想将其应用到我的行业", href: "/masterclass-metier" },
         { id: "N3", label: "行动", phrase: "我想把软件连接到 AI", href: "/sessions-mcp" },
-        { id: "N4", label: "诊断", phrase: "我想梳理自己的流程", href: "/audit" },
+        { id: "N4", label: "审计与诊断", phrase: "我想梳理自己的流程", href: "/audit" },
         { id: "N5", label: "部署", phrase: "我想要一个投入生产的智能体", href: "/deploiement-agents" },
         { id: "N6", label: "自主", phrase: "我想掌握 Claude Code 和 Codex", href: "/outils-agentiques" },
         { id: "N7", label: "治理", phrase: "我有一组智能体，想要优化", href: "/optimisation-flotte" },
@@ -800,15 +830,15 @@ const COPY: Record<Locale, HomeCopy> = {
         },
         {
           level: "N4",
-          title: "需要量化收益的企业",
-          before: "自动化想法很多，但没有一个收益足够可辩护。",
-          after: "流程按体量、风险、节省时间和复杂度排序。",
+          title: "进入生产前",
+          before: "有想法、有工具，但没有清晰地图。",
+          after: "优先流程、数据和验证规则被明确。",
         },
         {
-          level: "N7",
-          title: "需要重新掌控的智能体舰队",
-          before: "智能体在运行，但成本和错误都不透明。",
-          after: "每个智能体都有负责人、日志和持续改进循环。",
+          level: "N5",
+          title: "进入生产",
+          before: "团队每周都在手工处理同一条流程。",
+          after: "智能体准备、记录并升级例外。人保留决策。",
         },
       ],
     },
@@ -878,15 +908,15 @@ const COPY: Record<Locale, HomeCopy> = {
       ],
     },
     cta: {
-      titleBefore: "我们聊 ",
-      titleRed: "15 分钟",
-      titleAfter: "？",
-      fine: "留下你的邮箱和电话：我们会回电，找出两三个从第一个月起就能回本的智能体。",
+      titleBefore: "交流前先获取你的",
+      titleRed: "诊断",
+      titleAfter: "。",
+      fine: "留下邮箱和电话：我们会准备一版成熟度、优先流程和应发送资源的初步判断。",
       email: "你的工作邮箱",
       phone: "你的电话",
-      submit: "请回电",
+      submit: "获取我的诊断",
       submitting: "发送中…",
-      thanks: "谢谢。我们会尽快回电。",
+      thanks: "谢谢。我们会在交流前准备你的诊断。",
       error: "发送失败。请写信给 paul.larmaraud@parrit.ai。",
       whatsapp: "WhatsApp",
       mail: "或直接写信给 Paul",
@@ -1022,14 +1052,7 @@ export default function HomeClient({ lang }: { lang: Locale }) {
       <div className="wrap">
         <nav className="nav" aria-label={copy.a11y.nav}>
           <Logo />
-          <div className="nav-links">
-            {copy.navLinks.map((item) => (
-              <a href={item.href.startsWith('/') ? `/${lang}${item.href}` : item.href} key={item.href}>
-                {item.label}
-              </a>
-            ))}
-          </div>
-          <a className="btn btn-red" href="mailto:paul.larmaraud@parrit.ai">
+          <a className="btn btn-red" href="#contact">
             {copy.navCta}
           </a>
         </nav>
@@ -1071,7 +1094,7 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           >
             {copy.hero.primary}
           </a>
-          <a className="btn btn-ghost btn-lg" href="#transmettre">
+          <a className="btn btn-ghost btn-lg" href="#maturite">
             {copy.hero.secondary}
           </a>
         </div>
@@ -1159,26 +1182,41 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           <p className="kicker">{copy.maturite.kicker}</p>
           <h2>{copy.maturite.title}</h2>
           <p className="lead">{copy.maturite.lead}</p>
+          <a className="maturite-diagnostic-card" href={copy.maturite.diagnostic.href}>
+            <span className="maturite-num">01</span>
+            <strong>{copy.maturite.diagnostic.title}</strong>
+            <span>{copy.maturite.diagnostic.body}</span>
+            <em>
+              {copy.maturite.diagnostic.cta}
+              <span aria-hidden="true">→</span>
+            </em>
+          </a>
           <nav className="maturite-mountain" aria-label={copy.maturite.title}>
-            <svg viewBox="0 0 960 390" aria-labelledby="maturite-mountain-title maturite-mountain-desc">
+            <svg viewBox="0 0 960 470" aria-labelledby="maturite-mountain-title maturite-mountain-desc">
               <title id="maturite-mountain-title">{copy.maturite.title}</title>
               <desc id="maturite-mountain-desc">{copy.maturite.lead}</desc>
               <path
                 className="mountain-back"
-                d="M20 332 L170 196 L250 246 L392 102 L520 236 L618 138 L804 332 Z"
+                d="M20 424 L168 242 L246 314 L392 120 L520 300 L646 154 L918 424 Z"
               />
               <path
                 className="mountain-mid"
-                d="M86 334 L258 168 L338 238 L468 78 L594 230 L718 110 L908 334 Z"
+                d="M58 430 L252 224 L338 312 L484 84 L612 268 L754 88 L936 430 Z"
               />
               <path
                 className="mountain-front"
-                d="M38 336 L190 252 L304 292 L430 184 L544 278 L676 198 L922 336 Z"
+                d="M34 432 L174 332 L306 380 L438 234 L548 348 L686 220 L932 432 Z"
               />
               <path
                 className="mountain-path"
-                d="M94 326 C190 318 180 282 230 288 C298 296 306 246 360 246 C430 246 430 204 494 202 C566 198 560 160 626 160 C694 160 688 116 748 116 C804 116 820 78 872 74"
+                d="M58 430 C112 430 96 392 130 390 C202 386 194 342 260 342 C326 342 330 286 390 286 C462 286 452 226 520 226 C592 226 580 160 650 160 C718 160 700 96 770 96 C838 96 820 38 890 36"
               />
+              <a className="mountain-start" href={`/${lang}/audit`} aria-label={copy.maturite.diagnostic.cta}>
+                <circle cx="58" cy="430" r="16" />
+                <text x="58" y="434" textAnchor="middle">
+                  1
+                </text>
+              </a>
               {copy.maturite.levels.map((level) => {
                 const point = MATURITE_POINTS[level.id];
                 if (!point) return null;

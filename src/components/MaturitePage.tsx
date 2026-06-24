@@ -49,7 +49,7 @@ export async function generateMaturiteMetadata({
           url: OG_IMAGE,
           width: 1200,
           height: 630,
-          alt: "Parrit.ai : l'IA qui agit pour vous, en 14 jours",
+          alt: "Parrit.ai : diagnostic IA avant transformation",
         },
       ],
     },

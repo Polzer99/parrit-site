@@ -192,75 +192,75 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
   audit: {
     level: "N4",
     slug: "audit",
-    eyebrow: "N4 · Audit & Cartographie",
-    h1: "Ne financez pas au hasard. Ciblez vos goulots d'étranglement financiers.",
-    sub: "Vous voulez passer à l'échelle. On audite vos processus pour chiffrer les gains avant de développer.",
-    phrase: "Je veux cartographier mes process",
-    ctaLabel: "Demander l'audit",
+    eyebrow: "N4 · Audit & Diagnostic",
+    h1: "Avant de déployer, posez le diagnostic.",
+    sub: "Vous avez déjà des idées, des outils ou des usages isolés. On met à plat vos flux pour savoir ce qui peut passer en production, ce qui doit rester humain et ce qu'il faut regarder en premier.",
+    phrase: "Je veux recevoir mon diagnostic",
+    ctaLabel: "Recevoir mon diagnostic",
     ctaHref: CONTACT_MAIL,
     stories: [
       {
-        title: "Le budget IA recadré avant de dépenser trop vite",
-        person: "Dirigeant, courtage énergie B2B",
+        title: "L'équipe qui voulait passer à l'échelle",
+        person: "Direction transformation, ETI",
         before:
-          "L'équipe pensait automatiser la prospection sortante. Le problème visible était bruyant, mais pas forcément le plus rentable.",
+          "Plusieurs usages IA existaient déjà. Rien n'était assez clair pour décider quel flux devait arriver en production.",
         after:
-          "L'audit révèle que le vrai levier est la qualification des leads entrants, puis chiffre le gain et les risques de déploiement.",
-        result: "La priorité change : moins de dispersion, un premier déploiement avec impact mesurable.",
+          "Le diagnostic isole un flux prioritaire, ses entrées, ses données, ses exceptions et les validations humaines à garder.",
+        result: "La discussion change : on ne parle plus d'outils, on parle du premier flux à rendre pilotable.",
       },
       {
-        title: "La DAF qui avait besoin d'un gain défendable",
-        person: "DAF, PME industrielle",
+        title: "Le comité qui voulait décider sans folklore",
+        person: "COMEX, groupe multi-sites",
         before:
-          "Les idées d'automatisation existaient, mais aucune n'était assez chiffrée pour passer en comité budgétaire.",
+          "Les idées étaient nombreuses, mais personne ne savait distinguer ce qui était simple, risqué, utile ou trop tôt.",
         after:
-          "L'audit classe les flux par volume, risque, temps récupérable et complexité de mise en production.",
-        result: "La décision ne repose plus sur une intuition : le premier chantier est choisi parce qu'il se défend process par process.",
+          "Chaque option est replacée sur une carte lisible : volume, risque, données, validation, effort de mise sous contrôle.",
+        result: "Le comité repart avec une première marche, une ressource partageable et les questions à traiter avant construction.",
       },
     ],
     forWho: [
-      "Vous manquez de chiffres concrets pour valider un investissement technique.",
-      "Vous ignorez par quelle tâche chronophage commencer.",
-      "Vous craignez de financer une usine à gaz inutile.",
+      "Vous avez des usages IA dispersés, mais pas encore de trajectoire de transformation.",
+      "Vous voulez savoir quel flux peut vraiment passer en production.",
+      "Vous devez protéger la donnée, la validation humaine ou la gouvernance avant de construire.",
     ],
     deliverables: [
-      "Diagnostic Opérationnel : Cartographie complète de vos processus back-office avec plan de rentabilité.",
-      "Audit Flash : Analyse rapide d'un département précis pour identifier les urgences.",
-      "Cadrage Sur-Mesure : Définition de votre feuille de route technique sur six mois.",
+      "Diagnostic de maturité : votre niveau, les blocages visibles et la première ressource à partager.",
+      "Carte de flux : entrées, données, exceptions, validations humaines et indicateurs à suivre.",
+      "Priorisation : ce qui peut passer en production, ce qui doit rester en cadrage, ce qui doit être refusé pour l'instant.",
     ],
     steps: [
-      { title: "J0", body: "formulaire de cadrage + accès outils (30 min)" },
-      { title: "J+2 à J+4", body: "analyse par Parrit" },
-      { title: "J+5", body: "restitution + recommandations" },
+      { title: "Lecture initiale", body: "On part de votre contexte, de vos outils et d'un flux réel, pas d'un catalogue de cas d'usage." },
+      { title: "Cartographie", body: "On décrit ce qui entre, ce qui sort, qui valide, quelles données circulent et où le risque apparaît." },
+      { title: "Diagnostic partageable", body: "Vous repartez avec une synthèse claire : niveau de maturité, premier flux, risques et prochaine décision." },
     ],
     proof:
-      "Un courtier en énergie B2B voulait automatiser sa prospection. L'audit a révélé que le vrai levier était la qualification des leads entrants. Le déploiement qui a suivi a réduit le temps de qualification de 80 %.",
-    price: "à partir de 3 567 €",
+      "Dans une organisation multi-sites, le diagnostic a remplacé une liste d'idées IA par une carte simple : un flux prioritaire, deux risques à traiter, une validation humaine à conserver. Le rendez-vous suivant a porté sur une décision, pas sur une démonstration.",
+    price: "à partir de 3 500 €",
     metaDescription:
-      "Audit de transformation IA pour cartographier vos processus métier et identifier les quick wins.",
+      "Audit et diagnostic IA pour cartographier vos processus, identifier le premier flux à traiter et préparer une ressource avant rendez-vous.",
   },
   "deploiement-agents": {
     level: "N5",
     slug: "deploiement-agents",
     eyebrow: "N5 · Déploiement d'Agents",
-    h1: "Vos processus fuient. Confiez-les à un agent autonome.",
-    sub: "Une tâche vous prend dix heures par semaine. Parrit déploie un système qui l'exécute en continu.",
+    h1: "C'est le moment où un agent intervient semaine après semaine.",
+    sub: "Un flux revient tout le temps. On le met sous contrôle : l'agent prépare, trace et escalade, l'humain garde la décision.",
     phrase: "Je veux un agent en production",
     ctaLabel: "En parler 15 min",
     ctaHref: CONTACT_MAIL,
     stories: [
       {
-        title: "Les leads entrants traités au bon moment",
-        person: "Cabinet d'avocats, équipe relation client",
+        title: "Le flux qui revenait chaque semaine",
+        person: "Équipe opérations, service B2B",
         before:
-          "Les demandes arrivaient par email, puis attendaient qu'une personne disponible les lise, les qualifie et prépare la réponse.",
+          "La même demande revenait sans cesse. L'équipe relisait, triait, préparait et relançait à la main.",
         after:
-          "Un agent qualifie en temps réel, prépare la réponse et signale les dossiers prioritaires. L'équipe garde la main sur la validation.",
-        result: "Zéro lead oublié, 3 heures récupérées chaque semaine, et un délai de réponse plus fiable.",
+          "L'agent lit le flux, prépare l'action, laisse une trace et remonte les cas qui demandent un arbitrage.",
+        result: "Le quotidien devient plus lisible : l'agent prend le répétitif, l'équipe garde les exceptions.",
       },
       {
-        title: "Le service client qui gardait seulement les exceptions",
-        person: "COO, service à volume",
+        title: "Le service qui voulait garder la main",
+        person: "COO, équipe client",
         before:
           "La même boîte mail recevait réclamations, demandes simples et cas sensibles. Tout remontait aux mêmes personnes, sans priorité claire.",
         after:
@@ -275,17 +275,17 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     ],
     deliverables: [
       "Forfait de Déploiement Continu : Création et itération de plusieurs agents suite au diagnostic de vos opérations.",
-      "Sprint Borné (One-shot) : Un agent spécifique mis en production en 14 jours, pour régler un problème précis sans engagement à long terme.",
+      "Déploiement borné : Un agent spécifique mis en production sur un périmètre clair, pour régler un problème précis sans engagement à long terme.",
       "Déploiement Sur-Mesure : Architecture connectée de plusieurs agents pour traiter une chaîne de valeur de bout en bout.",
     ],
     steps: [
-      { title: "J1", body: "diagnostic (2h), on choisit le process à attaquer" },
-      { title: "J2–J12", body: "construction + itérations avec votre équipe" },
-      { title: "J13–J14", body: "déploiement en production + passation" },
+      { title: "Flux cible", body: "On choisit un flux qui revient souvent et qui peut être contrôlé sans toucher à tout le système." },
+      { title: "Mise sous contrôle", body: "On définit les entrées, les actions autorisées, les exceptions, la validation humaine et la trace." },
+      { title: "Production supervisée", body: "L'agent intervient sur le répétitif. L'équipe relit les cas sensibles et décide quoi étendre ensuite." },
     ],
     proof:
-      "Un cabinet d'avocats qualifiait ses leads entrants à la main, 3h/semaine perdues. L'agent traite la qualification en temps réel. Résultat : 0 lead manqué, 3h/semaine récupérées dès J15.",
-    price: "à partir de 2 998 €",
+      "Sur un flux de demandes entrantes, l'agent prépare les réponses, classe les exceptions et laisse une trace. L'équipe ne découvre plus le travail en vrac : elle valide ce qui mérite vraiment son attention.",
+    price: "à partir de 3 000 €",
     priceNote: "Finançable OPCO",
     metaDescription:
       "Déploiement d'un ou plusieurs agents IA opérationnels avec démonstration du ROI.",

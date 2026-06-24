@@ -51,7 +51,7 @@ export async function generateMetadata({
           url: `${SITE_URL}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: "Parrit.ai : l'IA qui agit pour vous, en 14 jours",
+          alt: "Parrit.ai : diagnostic IA avant transformation",
         },
       ],
     },
