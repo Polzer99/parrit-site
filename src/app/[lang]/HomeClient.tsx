@@ -69,6 +69,7 @@ type HomeCopy = {
     kicker: string;
     title: string;
     lead: string;
+    action: string;
     levels: MaturiteTile[];
   };
   cases: {
@@ -181,6 +182,7 @@ const COPY: Record<Locale, HomeCopy> = {
       kicker: "De l'IA générative à l'IA agentique",
       title: "Où en êtes-vous avec l'IA ?",
       lead: "On intervient à tous les stades — de la première découverte jusqu'à la flotte d'agents en production. Trouvez votre point d'entrée.",
+      action: "Voir ce parcours",
       levels: [
         { id: "N1", label: "Découverte", phrase: "Je découvre l'IA générative", href: "/masterclass-ia" },
         { id: "N2", label: "Application métier", phrase: "Je veux l'appliquer à mon secteur", href: "/masterclass-metier" },
@@ -342,6 +344,7 @@ const COPY: Record<Locale, HomeCopy> = {
       kicker: "From generative AI to agentic AI",
       title: "Where are you with AI?",
       lead: "We work at every stage — from first discovery to an agent fleet in production. Find your entry point.",
+      action: "View this path",
       levels: [
         { id: "N1", label: "Discovery", phrase: "I'm discovering generative AI", href: "/masterclass-ia" },
         { id: "N2", label: "Business application", phrase: "I want to apply it to my sector", href: "/masterclass-metier" },
@@ -503,6 +506,7 @@ const COPY: Record<Locale, HomeCopy> = {
       kicker: "Da IA generativa à IA agentica",
       title: "Onde você está com a IA?",
       lead: "Atuamos em todos os estágios — da primeira descoberta até a frota de agentes em produção. Encontre seu ponto de entrada.",
+      action: "Ver este percurso",
       levels: [
         { id: "N1", label: "Descoberta", phrase: "Estou descobrindo a IA generativa", href: "/masterclass-ia" },
         { id: "N2", label: "Aplicação ao negócio", phrase: "Quero aplicar ao meu setor", href: "/masterclass-metier" },
@@ -664,6 +668,7 @@ const COPY: Record<Locale, HomeCopy> = {
       kicker: "从生成式 AI 到智能体 AI",
       title: "您现在处在 AI 的哪个阶段？",
       lead: "我们覆盖所有阶段：从第一次了解，到已投入生产的智能体集群。找到您的切入点。",
+      action: "查看这个路径",
       levels: [
         { id: "N1", label: "发现", phrase: "我正在了解生成式 AI", href: "/masterclass-ia" },
         { id: "N2", label: "业务应用", phrase: "我想将其应用到我的行业", href: "/masterclass-metier" },
@@ -986,6 +991,10 @@ export default function HomeClient({ lang }: { lang: Locale }) {
                 <span className="maturite-num">{level.id}</span>
                 <strong className="maturite-label">{level.label}</strong>
                 <em className="maturite-phrase">{level.phrase}</em>
+                <span className="maturite-action">
+                  {copy.maturite.action}
+                  <span aria-hidden="true">→</span>
+                </span>
               </a>
             ))}
           </div>

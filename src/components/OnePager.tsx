@@ -3,13 +3,14 @@ import Link from "next/link";
 /* eslint-disable @next/next/no-img-element */
 
 import type { Locale } from "@/app/[lang]/dictionaries";
-import type { MaturiteLevel } from "@/lib/maturite";
+import type { MaturiteLevel, MaturiteSlug } from "@/lib/maturite";
 
 export interface OnePagerProps {
   level: MaturiteLevel;
   eyebrow: string;
   h1: string;
   sub: string;
+  phrase: string;
   ctaLabel: string;
   ctaHref: string;
   forWho: string[];
@@ -27,6 +28,16 @@ const navLinks = [
   { href: "#prix", label: "Prix" },
 ];
 
+const maturityNav: { level: MaturiteLevel; slug: MaturiteSlug; label: string }[] = [
+  { level: "N1", slug: "masterclass-ia", label: "Découverte" },
+  { level: "N2", slug: "masterclass-metier", label: "Métier" },
+  { level: "N3", slug: "sessions-mcp", label: "Connexion" },
+  { level: "N4", slug: "audit", label: "Diagnostic" },
+  { level: "N5", slug: "deploiement-agents", label: "Production" },
+  { level: "N6", slug: "outils-agentiques", label: "Autonomie" },
+  { level: "N7", slug: "optimisation-flotte", label: "Flotte" },
+];
+
 function Logo() {
   return (
     <div className="logo">
@@ -40,6 +51,7 @@ export default function OnePager({
   eyebrow,
   h1,
   sub,
+  phrase,
   ctaLabel,
   ctaHref,
   forWho,
@@ -78,6 +90,7 @@ export default function OnePager({
           <span className="dot" aria-hidden="true" />
           {eyebrow}
         </div>
+        <p className="onepager-phrase">{phrase}</p>
         <h1>{h1}</h1>
         <p className="sub">{sub}</p>
         <div className="cta-row">
@@ -88,6 +101,19 @@ export default function OnePager({
             Voir le prix
           </a>
         </div>
+        <nav className="maturity-rail" aria-label="Parcours de maturité IA">
+          {maturityNav.map((item) => (
+            <Link
+              aria-current={item.level === level ? "page" : undefined}
+              className="maturity-rail-item"
+              href={`/${lang}/${item.slug}`}
+              key={item.level}
+            >
+              <span>{item.level}</span>
+              <strong>{item.label}</strong>
+            </Link>
+          ))}
+        </nav>
       </section>
 
       <section className="section band" id="pour-qui">
