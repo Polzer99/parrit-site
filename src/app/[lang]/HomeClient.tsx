@@ -81,6 +81,9 @@ type HomeCopy = {
     lead: string;
     action: string;
     levels: MaturiteTile[];
+    beforeLabel: string;
+    afterLabel: string;
+    examples: { level: string; title: string; before: string; after: string }[];
   };
   cases: {
     kicker: string;
@@ -192,6 +195,8 @@ const COPY: Record<Locale, HomeCopy> = {
       title: "Où en êtes-vous avec l'IA ?",
       lead: "On vous accompagne depuis la première découverte jusqu'au sommet. Cliquez sur votre niveau.",
       action: "Voir ce parcours",
+      beforeLabel: "Avant",
+      afterLabel: "Après",
       levels: [
         { id: "N1", label: "L'Éveil", phrase: "Je découvre l'IA générative", href: "/masterclass-ia" },
         { id: "N2", label: "L'Usage", phrase: "Je veux l'appliquer à mon secteur", href: "/masterclass-metier" },
@@ -200,6 +205,26 @@ const COPY: Record<Locale, HomeCopy> = {
         { id: "N5", label: "Le Déploiement", phrase: "Je veux un agent en production", href: "/deploiement-agents" },
         { id: "N6", label: "L'Autonomie", phrase: "Je veux maîtriser Claude Code et Codex", href: "/outils-agentiques" },
         { id: "N7", label: "La Gouvernance", phrase: "J'ai une flotte, je veux l'optimiser", href: "/optimisation-flotte" },
+      ],
+      examples: [
+        {
+          level: "N1",
+          title: "Un COMEX qui découvre",
+          before: "Chacun a testé un outil, personne ne sait quoi décider.",
+          after: "Le comité repart avec un vocabulaire commun et 4 cas réalistes.",
+        },
+        {
+          level: "N4",
+          title: "Une PME qui veut chiffrer",
+          before: "Les idées d'automatisation existent, mais aucun gain n'est défendable.",
+          after: "Les flux sont classés par volume, risque, temps rendu et complexité.",
+        },
+        {
+          level: "N7",
+          title: "Une flotte à reprendre",
+          before: "Les agents tournent, mais les coûts et les erreurs sont opaques.",
+          after: "Chaque agent a un propriétaire, une trace et une boucle d'amélioration.",
+        },
       ],
     },
     cases: {
@@ -365,6 +390,8 @@ const COPY: Record<Locale, HomeCopy> = {
       title: "Where are you with AI?",
       lead: "We guide you from first discovery to the summit. Click your level.",
       action: "View this path",
+      beforeLabel: "Before",
+      afterLabel: "After",
       levels: [
         { id: "N1", label: "Awakening", phrase: "I'm discovering generative AI", href: "/masterclass-ia" },
         { id: "N2", label: "Usage", phrase: "I want to apply it to my sector", href: "/masterclass-metier" },
@@ -373,6 +400,26 @@ const COPY: Record<Locale, HomeCopy> = {
         { id: "N5", label: "Deployment", phrase: "I want an agent in production", href: "/deploiement-agents" },
         { id: "N6", label: "Autonomy", phrase: "I want to master Claude Code and Codex", href: "/outils-agentiques" },
         { id: "N7", label: "Governance", phrase: "I have a fleet and want to optimize it", href: "/optimisation-flotte" },
+      ],
+      examples: [
+        {
+          level: "N1",
+          title: "An executive team discovering AI",
+          before: "Everyone has tried a tool, but no one knows what to decide.",
+          after: "The team leaves with shared language and four realistic use cases.",
+        },
+        {
+          level: "N4",
+          title: "A company that needs numbers",
+          before: "Automation ideas exist, but no gain is solid enough to defend.",
+          after: "Workflows are ranked by volume, risk, recovered time and complexity.",
+        },
+        {
+          level: "N7",
+          title: "A fleet that needs control",
+          before: "Agents are running, but costs and errors are opaque.",
+          after: "Every agent has an owner, a trace and an improvement loop.",
+        },
       ],
     },
     cases: {
@@ -538,6 +585,8 @@ const COPY: Record<Locale, HomeCopy> = {
       title: "Onde você está com a IA?",
       lead: "Acompanhamos você da primeira descoberta até o topo. Clique no seu nível.",
       action: "Ver este percurso",
+      beforeLabel: "Antes",
+      afterLabel: "Depois",
       levels: [
         { id: "N1", label: "Despertar", phrase: "Estou descobrindo a IA generativa", href: "/masterclass-ia" },
         { id: "N2", label: "Uso", phrase: "Quero aplicar ao meu setor", href: "/masterclass-metier" },
@@ -546,6 +595,26 @@ const COPY: Record<Locale, HomeCopy> = {
         { id: "N5", label: "Deploy", phrase: "Quero um agente em produção", href: "/deploiement-agents" },
         { id: "N6", label: "Autonomia", phrase: "Quero dominar Claude Code e Codex", href: "/outils-agentiques" },
         { id: "N7", label: "Governança", phrase: "Tenho uma frota, quero otimizá-la", href: "/optimisation-flotte" },
+      ],
+      examples: [
+        {
+          level: "N1",
+          title: "Uma direção descobrindo IA",
+          before: "Cada pessoa testou uma ferramenta, mas ninguém sabe o que decidir.",
+          after: "O comitê sai com vocabulário comum e quatro casos realistas.",
+        },
+        {
+          level: "N4",
+          title: "Uma empresa que precisa medir",
+          before: "Há ideias de automação, mas nenhum ganho defensável.",
+          after: "Os fluxos são classificados por volume, risco, tempo recuperado e complexidade.",
+        },
+        {
+          level: "N7",
+          title: "Uma frota para retomar",
+          before: "Os agentes rodam, mas custos e erros são opacos.",
+          after: "Cada agente tem dono, rastro e ciclo de melhoria.",
+        },
       ],
     },
     cases: {
@@ -711,6 +780,8 @@ const COPY: Record<Locale, HomeCopy> = {
       title: "您现在处在 AI 的哪个阶段？",
       lead: "我们陪您从第一次了解走到山顶。点击您的阶段。",
       action: "查看这个路径",
+      beforeLabel: "之前",
+      afterLabel: "之后",
       levels: [
         { id: "N1", label: "觉醒", phrase: "我正在了解生成式 AI", href: "/masterclass-ia" },
         { id: "N2", label: "使用", phrase: "我想将其应用到我的行业", href: "/masterclass-metier" },
@@ -719,6 +790,26 @@ const COPY: Record<Locale, HomeCopy> = {
         { id: "N5", label: "部署", phrase: "我想要一个投入生产的智能体", href: "/deploiement-agents" },
         { id: "N6", label: "自主", phrase: "我想掌握 Claude Code 和 Codex", href: "/outils-agentiques" },
         { id: "N7", label: "治理", phrase: "我有一组智能体，想要优化", href: "/optimisation-flotte" },
+      ],
+      examples: [
+        {
+          level: "N1",
+          title: "刚开始了解 AI 的管理团队",
+          before: "大家都试过工具，但没人知道该做什么决定。",
+          after: "团队带着共同语言和四个真实可做的用例离开。",
+        },
+        {
+          level: "N4",
+          title: "需要量化收益的企业",
+          before: "自动化想法很多，但没有一个收益足够可辩护。",
+          after: "流程按体量、风险、节省时间和复杂度排序。",
+        },
+        {
+          level: "N7",
+          title: "需要重新掌控的智能体舰队",
+          before: "智能体在运行，但成本和错误都不透明。",
+          after: "每个智能体都有负责人、日志和持续改进循环。",
+        },
       ],
     },
     cases: {
@@ -1133,6 +1224,24 @@ export default function HomeClient({ lang }: { lang: Locale }) {
                   <span aria-hidden="true">→</span>
                 </span>
               </a>
+            ))}
+          </div>
+          <div className="maturite-examples">
+            {copy.maturite.examples.map((example) => (
+              <article className="maturite-example" key={`${example.level}-${example.title}`}>
+                <span className="maturite-num">{example.level}</span>
+                <h3>{example.title}</h3>
+                <div className="maturite-example-flow">
+                  <p>
+                    <span>{copy.maturite.beforeLabel}</span>
+                    {example.before}
+                  </p>
+                  <p>
+                    <span>{copy.maturite.afterLabel}</span>
+                    {example.after}
+                  </p>
+                </div>
+              </article>
             ))}
           </div>
         </div>

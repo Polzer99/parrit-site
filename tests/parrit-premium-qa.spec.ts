@@ -109,6 +109,10 @@ test("home maturity section exposes all N1-N7 entry points", async ({ page }) =>
 
   await expect(page.locator("#maturite .mountain-point")).toHaveCount(7);
   await expect(page.locator("#maturite .maturite-tile")).toHaveCount(7);
+  await expect(page.locator("#maturite .maturite-example")).toHaveCount(3);
+  await expect(page.locator("#maturite")).toContainText("Un COMEX qui découvre");
+  await expect(page.locator("#maturite")).toContainText("Avant");
+  await expect(page.locator("#maturite")).toContainText("Après");
 
   for (const path of maturityPaths) {
     await expect(page.locator(`#maturite .mountain-point[href="/fr${path}"]`)).toHaveCount(1);
