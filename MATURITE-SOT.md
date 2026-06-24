@@ -8,7 +8,7 @@
 ## Règles de copy transversales
 
 - Prix : toujours "à partir de X €" — jamais de prix exact affiché
-- **Plancher absolu : 998 €** — aucune offre en dessous de 990 €
+- **Plancher absolu : 1 598 €** — sauf N3 (tarif à la session, à partir de 250 €)
 - Positionnement : au-dessus du marché — la copy justifie le ROI, pas le prix
 - Voix : Enargeia (faits), sobriété (−20 % mots), autorité démontrée
 - Mots bannis sur le site : POC · expérimentation · jours-homme · prompt · chatbot
@@ -27,7 +27,7 @@
 | N3 | Sessions Création & MCP | Connexion technique & intégration | MCPs fonctionnels + méthodologie | `/sessions-mcp` |
 | N4 | Audit de Transformation | Optimisation des process existants | Cartographie + recommandations quick wins | `/audit` |
 | N5 | Déploiement d'Agents | Mise en œuvre opérationnelle | Agents opérationnels avec ROI démontré | `/deploiement-agents` |
-| N6 | Outils Agentiques & Configuration | Montée en compétence technique | Audit config + formation autonomie | `/outils-agentiques` |
+| N6 | Outil propriétaire agentique | Montée en compétence technique | Audit config + formation autonomie | `/outils-agentiques` |
 | N7 | Optimisation de Flotte & Dette Technique | Architecture scalable & auto-amélioration | Architecture robuste évolutive autonome | `/optimisation-flotte` |
 
 ---
@@ -37,7 +37,7 @@
 **Slug :** `masterclass-ia`
 **Focus :** Acculturation et initiation
 **Phrase de niveau :** "Je ne sais pas encore ce que fait vraiment l'IA agentique."
-**Prix :** à partir de 998 € · Finançable OPCO
+**Prix :** à partir de 1 598 € · Finançable OPCO
 
 ### Définition
 Session de 3 heures en visioconférence pour cartographier les besoins,
@@ -76,7 +76,7 @@ Session de 3 heures en visioconférence pour cartographier les besoins,
 **Slug :** `masterclass-metier`
 **Focus :** Application concrète au secteur d'activité
 **Phrase de niveau :** "Je comprends l'IA mais pas comment l'appliquer à mon métier."
-**Prix :** à partir de 998 € · Finançable OPCO
+**Prix :** à partir de 2 345 € · Finançable OPCO
 
 ### Définition
 Approfondissement métier avec des exercices pratiques.
@@ -114,7 +114,7 @@ Livrable : instructions personnalisées adaptées au métier du client.
 **Slug :** `sessions-mcp`
 **Focus :** Connexion technique et intégration logicielle
 **Phrase de niveau :** "Je veux connecter mes logiciels à l'IA."
-**Prix :** à partir de 998 € · Sur devis selon périmètre
+**Prix :** à partir de 250 € / session
 
 ### Définition
 Création de MCPs (Model Context Protocol) pour connecter les logiciels du client
@@ -152,7 +152,7 @@ Création de MCPs (Model Context Protocol) pour connecter les logiciels du clien
 **Slug :** `audit`
 **Focus :** Optimisation des processus existants
 **Phrase de niveau :** "Je veux savoir ce qui peut changer dans mon organisation."
-**Prix :** Inclus dans tout déploiement N5 · ou à partir de 998 € standalone
+**Prix :** à partir de 3 567 €
 
 ### Définition
 Analyse et cartographie exhaustive des processus métier pour identifier
@@ -190,7 +190,7 @@ des leviers d'amélioration immédiats.
 **Slug :** `deploiement-agents`
 **Focus :** Mise en œuvre opérationnelle
 **Phrase de niveau :** "Je veux un ou plusieurs agents en production."
-**Prix :** à partir de 1 197 € (PME) · à partir de 9 500 € (grand compte) · Finançable OPCO
+**Prix :** à partir de 2 998 € · Finançable OPCO
 
 ### Définition
 Installation et configuration d'un ou plusieurs agents pour automatiser des tâches.
@@ -224,19 +224,19 @@ Livrable : agents opérationnels avec démonstration du ROI.
 
 ---
 
-## Niveau 6 — Outils Agentiques & Configuration
+## Niveau 6 — Outil propriétaire agentique
 
 **Slug :** `outils-agentiques`
 **Focus :** Montée en compétence sur le déploiement technique
 **Phrase de niveau :** "Je veux utiliser Claude Code et Codex pour construire mes propres workflows."
-**Prix :** à partir de 247 €/h · Finançable OPCO
+**Prix :** Sur devis
 
 ### Définition
 Accompagnement à l'utilisation d'outils de développement avancés (Claude Code, Codex)
 pour construire des workflows récurrents. Livrable : audit de configuration + formation à l'autonomie.
 
 ### Hero
-- Eyebrow : `N6 · Outils Agentiques & Configuration`
+- Eyebrow : `N6 · Outil propriétaire agentique`
 - H1 : Construire vos propres agents — avec les outils des meilleurs développeurs IA.
 - Sous-titre : Pour les équipes techniques qui veulent maîtriser Claude Code et Codex. On vous forme et on audite votre configuration pour que vous soyez autonomes sur le déploiement.
 - CTA : "En parler 15 min"
@@ -321,7 +321,7 @@ une flotte d'agents centralisée.
 | N3 | Connexion logicielle | "Je veux connecter mes logiciels à l'IA" | `/sessions-mcp` |
 | N4 | Diagnostic | "Je veux cartographier mes process" | `/audit` |
 | N5 | Premier déploiement | "Je veux un agent en production" | `/deploiement-agents` |
-| N6 | Outils avancés | "Je veux maîtriser Claude Code et Codex" | `/outils-agentiques` |
+| N6 | Outil propriétaire agentique | "Je veux maîtriser Claude Code et Codex" | `/outils-agentiques` |
 | N7 | Flotte & architecture | "J'ai une flotte, je veux l'optimiser" | `/optimisation-flotte` |
 
 ---
