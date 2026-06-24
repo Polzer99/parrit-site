@@ -235,7 +235,7 @@
     "paul": {
       "name": "Paul Larmaraud",
       "role": "Fondateur",
-      "bio": "Vision produit et terrain. Ex-équipe opérations Lime à Paris, ex-Arkel. Partenaire opérationnel de directions générales depuis plus de deux ans : avocats, artisans haut de gamme, franchises, start-up, dirigeants en transition. Code et déploie ses propres outils chaque semaine — ce qui tourne chez ses clients tourne d'abord chez lui. DMs ouverts.",
+      "bio": "Vision produit et terrain. Ex-équipe opérations Lime à Paris, ex-Arkel. Partenaire opérationnel de directions générales depuis plus de deux ans : avocats, artisans haut de gamme, franchises, start-up, dirigeants en transition. Code et déploie ses propres outils chaque semaine : ce qui tourne chez ses clients tourne d'abord chez lui. DMs ouverts.",
       "signature": "Produit · Code · Opérations · Terrain"
     },
     "yukun": {
@@ -452,7 +452,7 @@
         {
           "kind": "Sprint chez vous ou à distance",
           "title": "Audit, Configuration & Sprint Claude Code",
-          "desc": "Un à quatre jours avec vos équipes — chez vous ou à distance — pour livrer un système opérationnel sur le cas urgent. Code en live, vos opérateurs apprennent en regardant."
+          "desc": "Un à quatre jours avec vos équipes, chez vous ou à distance, pour livrer un système opérationnel sur le cas urgent. Code en live, vos opérateurs apprennent en regardant."
         },
         {
           "kind": "Autonomie équipe",
@@ -934,7 +934,7 @@
   },
   "casVitrines": {
     "meta": {
-      "title": "Cas vitrines — Parrit.ai",
+      "title": "Cas vitrines : Parrit.ai",
       "description": "Quatre profils d'entreprise, quatre transformations opérées par Parrit. TPE/artisan, PME B2C, cabinet de conseil, grand groupe."
     },
     "homeSection": {

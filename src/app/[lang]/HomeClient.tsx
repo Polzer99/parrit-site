@@ -164,17 +164,17 @@ const COPY: Record<Locale, HomeCopy> = {
       titleAfter: ".",
       steps: [
         {
-          title: "01 — On regarde",
+          title: "01 · On regarde",
           note: "le diagnostic",
           body: "On cartographie vos process et on repère les tâches qui vous coûtent le plus cher, et celles qui génèrent du revenu.",
         },
         {
-          title: "02 — On construit",
+          title: "02 · On construit",
           note: "14 jours, en production",
           body: "On installe l'outil directement dans vos outils. Il tourne et génère un résultat dès 14 jours après le diagnostic.",
         },
         {
-          title: "03 — On vous rend autonome",
+          title: "03 · On vous rend autonome",
           note: "la passation",
           body: "On forme vos équipes. Elles repartent en sachant piloter et faire évoluer leurs agents seules, et surtout elles savent exprimer leurs besoins.",
         },
@@ -282,7 +282,7 @@ const COPY: Record<Locale, HomeCopy> = {
       mail: "ou écrire directement à Paul",
       qualiopi: "Nos formations sont ",
       qualiopiStrong: "finançables par votre OPCO",
-      qualiopiAlt: "Qualiopi — processus certifié — République Française",
+      qualiopiAlt: "Qualiopi : processus certifié, République Française",
     },
     footer: "Paul Larmaraud & Yukun Leng · un réseau d'experts · paul.larmaraud@parrit.ai",
   },
@@ -337,17 +337,17 @@ const COPY: Record<Locale, HomeCopy> = {
       titleAfter: ".",
       steps: [
         {
-          title: "01 — We look",
+          title: "01 · We look",
           note: "the diagnostic",
           body: "We map your processes and spot the tasks that cost you the most, and those that generate revenue.",
         },
         {
-          title: "02 — We build",
+          title: "02 · We build",
           note: "14 days, in production",
           body: "We install the tool directly inside your tools. It runs and creates a result as soon as 14 days after the diagnostic.",
         },
         {
-          title: "03 — We make you autonomous",
+          title: "03 · We make you autonomous",
           note: "the handover",
           body: "We train your teams. They leave knowing how to operate and evolve their agents on their own, and above all how to express their needs.",
         },
@@ -455,7 +455,7 @@ const COPY: Record<Locale, HomeCopy> = {
       mail: "or email Paul directly",
       qualiopi: "Our training programs are ",
       qualiopiStrong: "financeable by your OPCO",
-      qualiopiAlt: "Qualiopi — certified process — French Republic",
+      qualiopiAlt: "Qualiopi : certified process, French Republic",
     },
     footer: "Paul Larmaraud & Yukun Leng · a network of experts · paul.larmaraud@parrit.ai",
   },
@@ -510,17 +510,17 @@ const COPY: Record<Locale, HomeCopy> = {
       titleAfter: ".",
       steps: [
         {
-          title: "01 — Observamos",
+          title: "01 · Observamos",
           note: "o diagnóstico",
           body: "Mapeamos seus processos e identificamos as tarefas que custam mais caro, e aquelas que geram receita.",
         },
         {
-          title: "02 — Construímos",
+          title: "02 · Construímos",
           note: "14 dias, em produção",
           body: "Instalamos a ferramenta diretamente nos seus sistemas. Ela roda e gera resultado a partir de 14 dias após o diagnóstico.",
         },
         {
-          title: "03 — Tornamos você autônomo",
+          title: "03 · Tornamos você autônomo",
           note: "a passagem",
           body: "Formamos suas equipes. Elas saem sabendo pilotar e evoluir seus agentes sozinhas, e sobretudo sabendo expressar suas necessidades.",
         },
@@ -628,7 +628,7 @@ const COPY: Record<Locale, HomeCopy> = {
       mail: "ou escrever diretamente para Paul",
       qualiopi: "Nossas formações são ",
       qualiopiStrong: "financiáveis pelo seu OPCO",
-      qualiopiAlt: "Qualiopi — processo certificado — República Francesa",
+      qualiopiAlt: "Qualiopi : processo certificado, República Francesa",
     },
     footer: "Paul Larmaraud & Yukun Leng · uma rede de especialistas · paul.larmaraud@parrit.ai",
   },
@@ -683,17 +683,17 @@ const COPY: Record<Locale, HomeCopy> = {
       titleAfter: "。",
       steps: [
         {
-          title: "01 — 我们观察",
+          title: "01 · 我们观察",
           note: "诊断",
           body: "我们梳理你的流程，找出成本最高的任务，以及真正创造收入的任务。",
         },
         {
-          title: "02 — 我们构建",
+          title: "02 · 我们构建",
           note: "14 天，进入生产",
           body: "我们把工具直接装进你的现有工具中。诊断后最快 14 天，它就能运行并产生结果。",
         },
         {
-          title: "03 — 我们让你自主",
+          title: "03 · 我们让你自主",
           note: "交接",
           body: "我们培训你的团队。团队离开时会知道如何独立操作和演进智能体，更重要的是知道如何表达自己的需求。",
         },
@@ -801,7 +801,7 @@ const COPY: Record<Locale, HomeCopy> = {
       mail: "或直接写信给 Paul",
       qualiopi: "我们的培训",
       qualiopiStrong: "可由你的 OPCO 资助",
-      qualiopiAlt: "Qualiopi — 认证流程 — 法兰西共和国",
+      qualiopiAlt: "Qualiopi：认证流程，法兰西共和国",
     },
     footer: "Paul Larmaraud & Yukun Leng · 专家网络 · paul.larmaraud@parrit.ai",
   },

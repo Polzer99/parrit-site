@@ -11,7 +11,7 @@ const deck = {
     lede: "Paul Larmaraud. Le zéro vers un, c'est lui qui le tient, ligne par ligne.",
     paras: [
       "Paul code tous les jours, ses agents Claude Code à côté de lui. Quand un client a besoin d'un outil, c'est lui qui shippe le premier prototype : pas un sous-traitant qui découvre votre sujet à distance, pas un junior à qui l'on confie ce qu'on ne veut pas faire. Il met les mains dedans, parce qu'on ne comprend une opération qu'en la construisant. La pièce sort de l'établi déjà fonctionnelle.",
-      "Une fois le prototype debout, il préconfigure les agents qui le feront tourner : les modèles, les prompts, les intégrations, les garde-fous. Il règle l'outil au millimètre, comme on affûte une lame avant de la confier. Rien n'est laissé au hasard, rien n'est laissé à la magie. Puis il passe le relais à Yukun, proprement, avec tout en main.",
+      "Une fois le prototype debout, il préconfigure les agents qui le feront tourner : les modèles, les consignes, les intégrations, les garde-fous. Il règle l'outil au millimètre, comme on affûte une lame avant de la confier. Rien n'est laissé au hasard, rien n'est laissé à la magie. Puis il passe le relais à Yukun, proprement, avec tout en main.",
       "Sa règle tient en une phrase : ce qui tourne chez un client tourne d'abord chez lui. Un outil livré à la fois, sans esbroufe, sans slides qui promettent ce que le code ne fait pas.",
     ],
     pull: "Les autres formulent. Moi je construis, et je passe le relais sans rien lâcher.",
@@ -104,12 +104,12 @@ export default function FondateursPage() {
         <section className="founders-hero">
           <p className="founders-eyebrow">{deck.heroEyebrow}</p>
           <h1 className="founders-title">
-            Deux mains.<span className="it">Un même ouvrage.</span>
+            Deux mains. <span className="it">Un même ouvrage.</span>
           </h1>
           <p className="founders-lede">{deck.heroLede}</p>
         </section>
 
-        {/* Paul — portrait à gauche */}
+        {/* Paul : portrait à gauche */}
         <section className="founders-person">
           <div className="founders-portrait">
             <div className="founders-stamp" style={{ transform: "rotate(-2deg)" }}>
@@ -135,7 +135,7 @@ export default function FondateursPage() {
           </div>
         </section>
 
-        {/* Yukun — portrait à droite */}
+        {/* Yukun : portrait à droite */}
         <section className="founders-person reverse">
           <div className="founders-portrait">
             <div className="founders-stamp" style={{ transform: "rotate(1.6deg)" }}>

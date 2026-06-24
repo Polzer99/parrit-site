@@ -275,7 +275,7 @@ export default async function LocaleLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
         />
-        {/* PostHog Analytics — autocapture + heatmaps + session replay + web vitals (defaults 2026-01-30) */}
+        {/* PostHog Analytics: autocapture + heatmaps + session replay + web vitals (defaults 2026-01-30) */}
         <script
           dangerouslySetInnerHTML={{
             __html: `

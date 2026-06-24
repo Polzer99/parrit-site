@@ -240,7 +240,7 @@
     "paul": {
       "name": "Paul Larmaraud",
       "role": "Founder",
-      "bio": "Product vision and field. Former operations team at Lime in Paris, former Arkel. Operational partner to executive teams for over two years: law firms, premium artisans, franchise groups, startups, executives in transition. Codes and ships his own tools every week — what runs in his clients runs at home first. DMs open.",
+      "bio": "Product vision and field. Former operations team at Lime in Paris, former Arkel. Operational partner to executive teams for over two years: law firms, premium artisans, franchise groups, startups, executives in transition. Codes and ships his own tools every week: what runs in his clients runs at home first. DMs open.",
       "signature": "Product · Code · Operations · Field"
     },
     "yukun": {
@@ -252,7 +252,7 @@
   },
   "cta": {
     "title": "Let's talk about your case.",
-    "subtitle": "Leave your details. Paul will get back to you within 24 hours. Or DM him directly — DMs are open.",
+    "subtitle": "Leave your details. Paul will get back to you within 24 hours. Or DM him directly: DMs are open.",
     "form": {
       "firstName": "First name",
       "lastName": "Last name",
@@ -457,7 +457,7 @@
         {
           "kind": "Sprint onsite or remote",
           "title": "Audit, Configuration & Claude Code Sprint",
-          "desc": "One to four days with your teams — onsite or remote — to deliver an operational system on the urgent case. Live coding, your operators learn by watching."
+          "desc": "One to four days with your teams, onsite or remote, to deliver an operational system on the urgent case. Live coding, your operators learn by watching."
         },
         {
           "kind": "Team autonomy",
@@ -939,7 +939,7 @@
   },
   "casVitrines": {
     "meta": {
-      "title": "Cas vitrines — Parrit.ai",
+      "title": "Showcase cases : Parrit.ai",
       "description": "Quatre profils d'entreprise, quatre transformations opérées par Parrit. TPE/artisan, PME B2C, cabinet de conseil, grand groupe."
     },
     "homeSection": {

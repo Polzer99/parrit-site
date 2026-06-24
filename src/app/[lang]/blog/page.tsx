@@ -15,7 +15,7 @@ export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
 
-// Blog content not yet translated to zh-CN — fallback to EN content (UI strings stay zh)
+// Blog content not yet translated to zh-CN: fallback to EN content (UI strings stay zh)
 function toContentLocale(lang: string): BlogLocale {
   return (lang === "zh-CN" ? "en" : lang) as BlogLocale;
 }

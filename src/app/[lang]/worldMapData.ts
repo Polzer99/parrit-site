@@ -1,4 +1,4 @@
-// Carte du monde en points (générée via dotted-map, height 42, grid diagonal) — NE PAS éditer à la main.
+// Carte du monde en points (générée via dotted-map, height 42, grid diagonal) : NE PAS éditer à la main.
 // Source villes : Paris/Lille (nous) · Belo Horizonte · Douala · Guangzhou (partenaires).
 export const WORLD_W = 83.5;
 export const WORLD_H = 42.6;

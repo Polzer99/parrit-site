@@ -240,7 +240,7 @@
     "paul": {
       "name": "Paul Larmaraud",
       "role": "Fundador",
-      "bio": "Visão de produto e campo. Ex-equipe de operações da Lime em Paris, ex-Arkel. Parceiro operacional de diretorias gerais há mais de dois anos: escritórios de advocacia, artesãos premium, redes de franquias, startups, executivos em transição. Codifica e implanta as próprias ferramentas toda semana — o que roda nos clientes roda primeiro na casa dele. DMs abertas.",
+      "bio": "Visão de produto e campo. Ex-equipe de operações da Lime em Paris, ex-Arkel. Parceiro operacional de diretorias gerais há mais de dois anos: escritórios de advocacia, artesãos premium, redes de franquias, startups, executivos em transição. Codifica e implanta as próprias ferramentas toda semana: o que roda nos clientes roda primeiro na casa dele. DMs abertas.",
       "signature": "Produto · Código · Operações · Campo"
     },
     "yukun": {
@@ -252,7 +252,7 @@
   },
   "cta": {
     "title": "Vamos falar sobre o seu caso.",
-    "subtitle": "Deixe seus dados. Paul retorna em até 24 horas. Ou mande DM direto — DMs abertas.",
+    "subtitle": "Deixe seus dados. Paul retorna em até 24 horas. Ou mande DM direto: DMs abertas.",
     "form": {
       "firstName": "Nome",
       "lastName": "Sobrenome",
@@ -457,7 +457,7 @@
         {
           "kind": "Sprint presencial ou remoto",
           "title": "Auditoria, Configuração & Sprint Claude Code",
-          "desc": "Um a quatro dias com suas equipes — presencial ou remoto — para entregar um sistema operacional no caso urgente. Código ao vivo, seus operadores aprendem assistindo."
+          "desc": "Um a quatro dias com suas equipes, presencial ou remoto, para entregar um sistema operacional no caso urgente. Código ao vivo, seus operadores aprendem assistindo."
         },
         {
           "kind": "Autonomia da equipe",
@@ -939,7 +939,7 @@
   },
   "casVitrines": {
     "meta": {
-      "title": "Cas vitrines — Parrit.ai",
+      "title": "Casos vitrine : Parrit.ai",
       "description": "Quatre profils d'entreprise, quatre transformations opérées par Parrit. TPE/artisan, PME B2C, cabinet de conseil, grand groupe."
     },
     "homeSection": {

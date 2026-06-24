@@ -128,7 +128,7 @@ export default async function Page({
   const pageUrl = `${SITE_URL}/${lang}/glossaire/${slug}`;
 
   // Only surface related links that point to ACTUALLY published terms in this
-  // locale — the auto-publisher can emit forward-looking / imagined slugs, and
+  // locale: the auto-publisher can emit forward-looking / imagined slugs, and
   // linking to unpublished slugs produces 404s (wasted crawl budget, weak SEO).
   const publishedSlugs = new Set(
     loadIndex()

@@ -7,7 +7,7 @@ export interface BlogPost {
   title: string;
   description: string;
   date: string; // ISO date (creation)
-  publishedAt: string; // ISO date — when visible publicly (drip schedule)
+  publishedAt: string; // ISO date, when visible publicly (drip schedule)
   author: string;
   category: string;
   readingTime: string;

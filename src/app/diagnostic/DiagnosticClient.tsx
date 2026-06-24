@@ -128,7 +128,7 @@ export default function DiagnosticClient() {
       <div className="dg-win">
         <div className="dg-chrome">
           <div className="dg-lights"><span className="r" /><span className="y" /><span className="g" /></div>
-          <div className="dg-title">parrit.sh — diagnostic</div>
+          <div className="dg-title">parrit.sh : diagnostic</div>
         </div>
 
         <div className="dg-grid">

@@ -21,12 +21,12 @@ const mono = JetBrains_Mono({
 const SITE_URL = "https://parrit.ai";
 
 export const metadata: Metadata = {
-  title: "Parler à Parrit — votre diagnostic sur-mesure | Parrit.ai",
+  title: "Parler à Parrit : votre diagnostic sur-mesure | Parrit.ai",
   description:
     "Dites ce qui vous fait perdre du temps. Parrit vous rend un diagnostic sur vos deux fronts (back-office et business), adapté à votre métier, et vous l'envoie. Une conversation, pas un formulaire.",
   alternates: { canonical: `${SITE_URL}/diagnostic` },
   openGraph: {
-    title: "Parler à Parrit — votre diagnostic sur-mesure",
+    title: "Parler à Parrit : votre diagnostic sur-mesure",
     description:
       "Parlez à Parrit, obtenez un diagnostic concret sur vos deux fronts critiques. Le site fait tourner un agent, il ne vous montre pas une démo.",
     url: `${SITE_URL}/diagnostic`,

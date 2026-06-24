@@ -21,12 +21,12 @@ const mono = JetBrains_Mono({
 const SITE_URL = "https://parrit.ai";
 
 export const metadata: Metadata = {
-  title: "Détecteur de Bullshit IA — l'œil de Paul Larmaraud | Parrit.ai",
+  title: "Détecteur de Bullshit IA : l'œil de Paul Larmaraud | Parrit.ai",
   description:
     "Collez un post, un mail ou un pitch sur l'IA. On regarde s'il y a quelqu'un derrière : score de bullshit 0-100, décomposition en 4 axes et verdict sans complaisance. ~90 % du marché parle à 30 000 pieds.",
   alternates: { canonical: `${SITE_URL}/outils/detecteur-bullshit` },
   openGraph: {
-    title: "Détecteur de Bullshit IA — par Parrit.ai",
+    title: "Détecteur de Bullshit IA : par Parrit.ai",
     description:
       "~90 % du contenu IA est du bullshit. Le détecteur le passe au crible : preuve d'usage réel, delta d'information, le comment vs la promesse, tromperie vs honnêteté.",
     url: `${SITE_URL}/outils/detecteur-bullshit`,
