@@ -74,7 +74,7 @@ export default function OnePager({
 
       <section className="hero left">
         <img className="seal-wm" src="/brand/parrit-seal.svg" alt="" aria-hidden="true" />
-        <div className="eyebrow chip">
+        <div className="eyebrow chip onepager-eyebrow">
           <span className="dot" aria-hidden="true" />
           {eyebrow}
         </div>

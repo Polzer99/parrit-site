@@ -6,7 +6,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 // Diagnostic conversationnel. Meme patron que le detecteur de bullshit : modele cheap (deepseek/OpenRouter),
-// l'intelligence est dans le prompt (ancre TRUTH + le pack du segment), les GARDE-FOUS sont en CODE
+// l'intelligence est dans le instruction (ancre TRUTH + le pack du segment), les GARDE-FOUS sont en CODE
 // (LE TAMIS deterministe : jamais de prix, jamais de nom client, pas de tiret cadratin).
 const MODEL = process.env.DIAGNOSTIC_MODEL || "deepseek/deepseek-v3.2";
 const MAX_TURNS = 14;

@@ -62,10 +62,10 @@ function buildMarkdown(lead: LeadBody): string {
     `canal_prefere: ${JSON.stringify(channel)}`,
     `creneau_prefere: ${JSON.stringify(slot)}`,
     `status: "Open conversation"`,
-    `source: "chatbot site"`,
+    `source: "assistant site"`,
     `touchpoints: 1`,
     `dernier_tp_date: ${date}`,
-    `dernier_tp_nature: "chatbot conversation"`,
+    `dernier_tp_nature: "conversation assistant site"`,
     `lang: ${JSON.stringify(lead.lang || "fr")}`,
     `referrer: ${JSON.stringify(lead.referrer || "")}`,
     `url: ${JSON.stringify(lead.url || "")}`,
@@ -73,7 +73,7 @@ function buildMarkdown(lead: LeadBody): string {
     "",
   ].join("\n");
 
-  const header = `# ${firstName}\n\n- Email : ${email}\n- Téléphone : ${phone || "—"}\n- Canal préféré : ${channel}\n- Créneau : ${slot}\n- Langue : ${lead.lang || "fr"}\n- Capté via chatbot parrit.ai le ${date}\n\n## Transcript\n\n`;
+  const header = `# ${firstName}\n\n- Email : ${email}\n- Téléphone : ${phone || "—"}\n- Canal préféré : ${channel}\n- Créneau : ${slot}\n- Langue : ${lead.lang || "fr"}\n- Capté via assistant site parrit.ai le ${date}\n\n## Transcript\n\n`;
 
   const body = (lead.transcript || [])
     .map((m) => {
@@ -89,7 +89,7 @@ async function writeProspectFile(lead: LeadBody): Promise<string> {
   const slug = slugify(
     `${lead.firstName || "lead"}-${(lead.email || "").split("@")[0] || "x"}`,
   );
-  const filename = `chatbot-${slug}-${Date.now()}.md`;
+  const filename = `assistant-${slug}-${Date.now()}.md`;
   const filepath = path.join(PROSPECTS_DIR, filename);
 
   await fs.mkdir(PROSPECTS_DIR, { recursive: true });
@@ -100,7 +100,7 @@ async function writeProspectFile(lead: LeadBody): Promise<string> {
 async function notifyWebhook(lead: LeadBody, filepath: string): Promise<void> {
   const payload = {
     source: "parrit.ai",
-    action: "chatbot_lead",
+    action: "assistant_lead",
     nom: "",
     prenom: lead.firstName || "",
     entreprise: "",
@@ -108,12 +108,12 @@ async function notifyWebhook(lead: LeadBody, filepath: string): Promise<void> {
     email: lead.email || "",
     creneau: lead.slot || "asap",
     canal_prefere: lead.channel || "email",
-    besoin: `Conversation chatbot (${lead.lang || "fr"}) — canal préféré: ${lead.channel || "email"}, créneau: ${lead.slot || "asap"} — transcript saved to ${filepath}`,
+    besoin: `Conversation assistant site (${lead.lang || "fr"}) — canal préféré: ${lead.channel || "email"}, créneau: ${lead.slot || "asap"} — transcript saved to ${filepath}`,
     transcript: lead.transcript,
     referrer: lead.referrer || "",
     url: lead.url || "",
     timestamp: new Date().toISOString(),
-    page: "landing-chatbot",
+    page: "landing-assistant",
     ...(lead.utm || {}),
   };
 

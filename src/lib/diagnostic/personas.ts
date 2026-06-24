@@ -26,7 +26,7 @@ export interface SegmentPack {
   voix: Voix;
   label: Record<Lang, string>;
   chips: Record<Lang, string[]>;
-  // graine SEMANTIQUE (FR) pour le prompt systeme ; le LLM repond dans la langue cible.
+  // graine SEMANTIQUE (FR) pour l'instruction systeme ; le LLM repond dans la langue cible.
   framing: string;
   front1: string;
   front2: string;
@@ -104,10 +104,10 @@ export const SEGMENTS: Record<SegmentId, SegmentPack> = {
     voix: "executive",
     label: { fr: "Direction · Grand groupe", en: "Executive · Large group", "pt-BR": "Direção · Grande grupo", "zh-CN": "大型集团 · 高管" },
     chips: {
-      fr: ["Passer nos POCs en production", "La donnée reste-t-elle chez nous", "Diffuser l'adoption"],
-      en: ["Move our POCs to production", "Does our data stay with us", "Scale adoption"],
-      "pt-BR": ["Levar nossos POCs à produção", "Os dados ficam conosco", "Escalar a adoção"],
-      "zh-CN": ["把 POC 推上生产", "数据是否留在我们这边", "规模化推广"],
+      fr: ["Passer nos pilotes en production", "La donnée reste-t-elle chez nous", "Diffuser l'adoption"],
+      en: ["Move our pilots to production", "Does our data stay with us", "Scale adoption"],
+      "pt-BR": ["Levar nossos pilotos à produção", "Os dados ficam conosco", "Escalar a adoção"],
+      "zh-CN": ["把试点推上生产", "数据是否留在我们这边", "规模化推广"],
     },
     framing: "Deux leviers : automatiser un cas propriétaire en production, et diffuser l'adoption à l'échelle.",
     front1: "Vos couches internes : un pilote sur un cas propriétaire, gouverné, agnostique, la donnée reste chez vous.",
