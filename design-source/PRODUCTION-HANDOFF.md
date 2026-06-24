@@ -10,12 +10,12 @@ Le **design + le contenu sont figés et validés** dans `docs/refonte-offre-2026
 - `interne-personas.html` · `interne-catalogue.html` — **INTERNES équipe, NE PAS publier** sur le site public.
 - `carousel-template.html` (+ `carousel-png/`) — gabarit carousel LinkedIn (hors site).
 - `brand-kit/` — tous les assets : `parrit-lockup-red.svg` (logotype), `parrit-seal.svg`, `fonts/` (woff2 locaux), `tool-logos/` (claude/openai/mcp/whatsapp), `client-logos/` (7), `qualiopi/` (marianne + atalya).
-- `fonts/` — **Hanken Grotesk + JetBrains Mono en woff2 LOCAL** (woff2 + `fonts.css`).
+- `fonts/` — archive Smoooth initiale (**Hanken Grotesk + JetBrains Mono** en woff2 local). Le site actif utilise désormais Geist + Geist Mono via `next/font/google` (#58).
 - `DA-TOKENS-EXTRACTED.md` — les tokens exacts (mesurés sur le SVG vectoriel Smoooth).
 
 ## 1. DA / TOKENS (exacts, vecteur SVG — ne pas dévier)
 - Fond `#F5F8FF` · encre `#161616` · sombre `#2E2D2B` · **rouge `#AA0003`** · terracotta `#C67C60` (rare : tag « format phare » uniquement) · muted `#6E7079` · faint/labels `#8987A1`.
-- **Polices = LOCALES (woff2)** : **Hanken Grotesk** (display 700/800) + **JetBrains Mono** (labels/coords/corps mono). ⚠️ PAS DM Sans. PAS de Google Fonts CDN (ça ne charge pas de façon fiable → fallback « IA »). Les woff2 sont dans `resources/fonts/`.
+- **Polices actives site** : **Geist** (body/heading) + **Geist Mono** (labels/coords/eyebrows), chargées via `next/font/google` et self-hostées au build par Next. ⚠️ PAS DM Sans, PAS Cormorant comme typo de page, PAS Hanken/JetBrains dans le code public.
 - **Logo = asset** `parrit-lockup-red.svg` (PARRIT·AI + sceau 速 rouge). JAMAIS retaper « Parrit.ai » en texte.
 - Look : **plat/soft** (cartes bord 1px + ombre douce), chips pilules blanches, grilles à séparateurs pointillés, sceau 速 watermark pâle. PAS de néo-brutalisme, PAS d'orange/noir hors tag.
 - Type : H1 `clamp(28px,6.6vw,62px)` · H2 `clamp(26px,4.6vw,42px)` · corps mono ~13-14px.
@@ -34,8 +34,8 @@ Structure home : Nav (logotype + « Écrire à Paul ») → Hero centré (« Au-
 ## 4. INTÉGRATION dans `parrit-site` (Next.js) — CARTO REPO
 - **Repo** : `https://github.com/Polzer99/parrit-site.git` · deploy **Vercel** auto sur push `main` · Node 24 · `npm run build` (SSG 4 locales).
 - **Home** : `src/app/[lang]/HomeClient.tsx` (~3900 lignes, ancien « desktop-OS ») + `src/app/[lang]/page.tsx`. **À remplacer** par le nouveau design.
-- **Tokens** : `src/app/globals.css` `:root` (actuellement ANCIENNE DA `#FEFDF9/#0C0C0D/#D1132F`) → **mettre à jour vers la nouvelle** (`#F5F8FF/#161616/#AA0003/#2E2D2B/#C67C60/#8987A1`).
-- **Polices** : chargées via **`next/font/google`** dans `src/app/[lang]/layout.tsx` (Next les **self-host au build** → fiable, RÉSOUT le souci de chargement). → remplacer DM Sans par **Hanken Grotesk** ; garder JetBrains Mono ; (Cormorant retirable).
+- **Tokens** : `src/app/globals.css` `:root` porte désormais la DA active (`#F5F8FF/#161616/#AA0003/#2E2D2B/#C67C60/#8987A1`). Ne pas réintroduire l'ancienne DA `#FEFDF9/#0C0C0D/#D1132F`.
+- **Polices** : chargées via **`next/font/google`** dans `src/app/[lang]/layout.tsx` (Next les **self-host au build** → fiable). Standard actif #58 : **Geist** + **Geist Mono**, variables `--font-body` et `--font-mono`.
 - **i18n** : 4 locales `fr/en/pt-BR/zh-CN`. ⚠️ le contenu home est **embarqué dans un objet `COPY` quadruple-répliqué** dans HomeClient.tsx (éditer = répliquer × 4). Contenu validé = **FR** → décision Paul : porter FR d'abord puis traduire, ou tout de suite ×4.
 - **LEAD FORM = DÉJÀ EXISTANT** : `src/components/QuickContact.tsx` POST → `PARRIT_LEAD_WEBHOOK` (n8n `https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead`, ingère le lead côté serveur + UTM/PostHog). **→ réutiliser** ce composant pour notre form (email+tel) au lieu de recréer un backend. Le « on vous rappelle » est déjà branché via n8n.
 - **Assets** : `public/brand/` contient déjà lockup/seal/logo-system. **Ajouter** : `parrit-lockup-red.svg`, tool-logos (claude/openai/mcp/whatsapp), client-logos (7), qualiopi (marianne + atalya) depuis `brand-kit/`.

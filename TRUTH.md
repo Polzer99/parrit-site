@@ -48,10 +48,10 @@ Surfaces produit sur le site : `/[lang]` (home, 3 offres : Back-office · Acquis
 
 ## 6. Règles dures (non négociables — un changement qui les viole est REJETÉ)
 
-1. **Pas de prix** dans le texte du site (les prix vivent en interne `VISION.md`).
+1. **Prix publics uniquement sous forme d'ancrage** : les pages offre peuvent afficher `à partir de X €` quand la SOT le demande. Pas de devis détaillé, pas de promesse de ROI garanti, pas de prix personnalisé hors propale privée.
 2. **Pas de noms de clients** en texte (anonymisé ; mur de logos visuel autorisé, override Paul `BRAND.md §6`).
-3. **Palette stricte** : crème `#FEFDF9` · encre `#0C0C0D` · rouge `#D1132F`. Interdits : sage/caramel/violet/ancien rouge/brun.
-4. **Polices** : DM Sans (titres/corps) · Cormorant serif (éditorial) · JetBrains Mono (labels/chips).
+3. **Palette stricte** : fond `#F5F8FF` · encre `#161616` · sombre `#2E2D2B` · rouge `#AA0003` · terracotta rare `#C67C60` · muted `#6E7079`. Interdits : crème `#FEFDF9`, ancien rouge `#D1132F`, ancienne encre `#0C0C0D`, violet, brun, néo-brutalisme.
+4. **Polices** : Geist pour body/heading (`--font-body`, `--font-heading`) · Geist Mono pour labels/chips/coords (`--font-mono`). Interdits : DM Sans, Cormorant comme typo de page, Hanken Grotesk, JetBrains Mono.
 5. **Jamais d'appel runtime à `*.vercel.app`** dans une livraison (le site EST sur Vercel — ça vise les ressources chargées au runtime).
 6. **Pas de tiret cadratin**, pas de superlatifs creux.
 7. **i18n** : 4 langues `fr · en · pt-BR · zh-CN`. Éditer une langue = répliquer dans les 4 (home `HomeClient.tsx` DICT). Pages hors `[lang]` (academy/fondateurs/outils) = FR.

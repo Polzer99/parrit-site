@@ -6,8 +6,8 @@ Valeurs **mesurées au pixel** (PIL : histogramme global + échantillons ciblés
 **Ces tokens sont désormais la DA active.** Implémentés dans `resources/parrit-da.css`.
 L'ancienne DA (`parrit-site/BRAND.md`, desktop-OS) reste en **backup, jamais supprimée**.
 
-## ⚙️ AFFINÉ depuis le SVG VECTORIEL (23/06 — source de vérité finale)
-Paul a fourni les exports **SVG** Smoooth (`brand-kit/Parrit Template LO-Y-WA.svg` + `Bannière LinkedIn LO-Y-WA.svg`) + le **kit complet** (`brand-kit/kit-assets/` : logos, cartes de visite, signature mail, bannières, template CTA-RDV, photos de profil). Le texte du SVG est **vectorisé (outlines)** donc pas de nom de police dedans → la police reste **identifiée par bake-off = Hanken Grotesk** (display) + JetBrains Mono (mono) + le **logotype PARRIT·AI** (asset SVG `parrit-lockup.svg`, à utiliser tel quel, jamais retypé).
+## ⚙️ AFFINÉ depuis le SVG VECTORIEL (23/06 — source visuelle, typographie ajustée le 24/06)
+Paul a fourni les exports **SVG** Smoooth (`brand-kit/Parrit Template LO-Y-WA.svg` + `Bannière LinkedIn LO-Y-WA.svg`) + le **kit complet** (`brand-kit/kit-assets/` : logos, cartes de visite, signature mail, bannières, template CTA-RDV, photos de profil). Le texte du SVG est **vectorisé (outlines)** donc pas de nom de police exploitable directement. La police d'abord identifiée par bake-off était Hanken Grotesk + JetBrains Mono, puis #58 a acté le standard site actif : **Geist** (display/body) + **Geist Mono** (labels/coords/eyebrows), via `next/font/google` et variables `--font-body` / `--font-mono`. Le **logotype PARRIT·AI** reste un asset SVG (`parrit-lockup.svg`), à utiliser tel quel, jamais retypé.
 **Couleurs FINALES (fills vectoriels, priment sur l'histogramme) :** fond **`#F5F8FF`** · encre **`#161616`** · rouge **`#AA0003`** · terracotta **`#C67C60`** · sombre **`#2E2D2B`** · muted/labels **`#8987A1`** · halftone gris `#D0D8D7`. ⚠️ La **bannière** LinkedIn, elle, utilise l'ancien `#D1132F`/crème `#FFFDFA` (incohérence Smoooth) — pour le SITE on garde la palette du **Template** (`#AA0003`/`#F5F8FF`). **7 logos clients** extraits → `brand-kit/client-logos/logo-1..7.png` (Lavazza, Laparra, SNCF, Joone, Clevery, efi, Carte Noire) = preuve sociale prête.
 
 ## Couleurs (mesurées — histogramme PNG, affinées ci-dessus par le SVG)
@@ -29,8 +29,9 @@ Paul a fourni les exports **SVG** Smoooth (`brand-kit/Parrit Template LO-Y-WA.sv
 > terracotta **réintroduite**, look **plat/soft** (≠ néo-brutaliste). C'est la DA réellement dessinée par Smoooth.
 
 ## Typo
-- **Display** = **Hanken Grotesk**, poids **700/800/900** — IDENTIFIÉE par bake-off rendu vs la frame (single-story `g` à queue ouverte, `a` à queue courbe, `t` coupé en biais). **DM Sans REJETÉ** (queue de `g` trop fermée/géométrique). *(Corrige le défaut initial « DM Sans » — Paul 23/06 « reprendre les polices ».)*
-- **Labels / mono / coords / eyebrow** = JetBrains Mono.
+- **Display / body actif site** = **Geist**, poids **400/500/600/700/800/900**, chargé par `next/font/google` et exposé via `--font-body` / `--font-heading`.
+- **Labels / mono / coords / eyebrow actif site** = **Geist Mono**, poids **400/500/700**, exposé via `--font-mono`.
+- **Retirés côté site** : DM Sans, Cormorant comme typo de page, Hanken Grotesk, JetBrains Mono. Les fichiers historiques Hanken/JetBrains restent dans `design-source/fonts/` uniquement comme archive de la livraison Smoooth.
 - Échelle mesurée (espace 1440, colonne contenu **1212 px**, marges ~114) :
   - H1 hero ≈ **58–63 px** / 800 / interligne 1.06 / `-0.02em`
   - H2 section ≈ **42–46 px** / 800
