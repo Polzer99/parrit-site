@@ -65,7 +65,13 @@ html {
 }
 
 body {
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(to bottom, rgba(245,248,255,0) 0%, rgba(245,248,255,1) 100%),
+    url('/brand/paysage-lo-y-wa.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -85,19 +91,6 @@ body::before {
   opacity: 0.035;
 }
 
-/* Paysage LO-Y-WA — fond atmosphérique extrait de la réf Smoooth */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url('/brand/paysage-lo-y-wa.jpg');
-  background-size: cover;
-  background-position: center;
-  pointer-events: none;
-  z-index: 0;
-  mix-blend-mode: multiply;
-  opacity: 1;
-}
 
 body > * {
   position: relative;
@@ -1156,7 +1149,7 @@ body > * {
    Home "Parrit Template" — port scoped from design-source/parrit-da.css
    ========================================================================== */
 .home-template {
-  background: var(--bg);
+  background: transparent;
   color: var(--ink);
   font-family: var(--font-body);
   line-height: 1.5;
