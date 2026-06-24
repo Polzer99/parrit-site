@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import AttributionInit from "@/components/AttributionInit";
 import {
@@ -10,21 +10,18 @@ import {
   type Locale,
 } from "./dictionaries";
 
-const body = Hanken_Grotesk({
+const body = Geist({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
   variable: "--font-body",
   display: "swap",
-  adjustFontFallback: true,
 });
 
-// Monospace — labels, chips, coordonnées (système typo agence, 06/2026)
-const mono = JetBrains_Mono({
+const mono = Geist_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-mono",
   display: "swap",
-  adjustFontFallback: true,
 });
 
 const SITE_URL = "https://parrit.ai";

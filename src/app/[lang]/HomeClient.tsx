@@ -106,9 +106,6 @@ const COPY: Record<Locale, HomeCopy> = {
   fr: {
     navCta: "Nous écrire",
     navLinks: [
-      { href: "#deployer", label: "Déployer" },
-      { href: "#croissance", label: "Croissance" },
-      { href: "#transmettre", label: "Transmettre" },
       { href: "/blog", label: "Articles" },
     ],
     a11y: {
@@ -282,9 +279,6 @@ const COPY: Record<Locale, HomeCopy> = {
   en: {
     navCta: "Contact us",
     navLinks: [
-      { href: "#deployer", label: "Deploy" },
-      { href: "#croissance", label: "Growth" },
-      { href: "#transmettre", label: "Transmit" },
       { href: "/blog", label: "Articles" },
     ],
     a11y: {
@@ -458,9 +452,6 @@ const COPY: Record<Locale, HomeCopy> = {
   "pt-BR": {
     navCta: "Fale conosco",
     navLinks: [
-      { href: "#deployer", label: "Implantar" },
-      { href: "#croissance", label: "Crescimento" },
-      { href: "#transmettre", label: "Transmitir" },
       { href: "/blog", label: "Artigos" },
     ],
     a11y: {
@@ -634,9 +625,6 @@ const COPY: Record<Locale, HomeCopy> = {
   "zh-CN": {
     navCta: "联系我们",
     navLinks: [
-      { href: "#deployer", label: "部署" },
-      { href: "#croissance", label: "增长" },
-      { href: "#transmettre", label: "传递" },
       { href: "/blog", label: "文章" },
     ],
     a11y: {
