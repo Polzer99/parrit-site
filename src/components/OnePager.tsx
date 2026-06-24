@@ -29,6 +29,16 @@ export interface OnePagerProps {
   lang: Locale;
 }
 
+type OnePagerStory = OnePagerProps["stories"][number];
+
+type OnePagerLocalizedContent = {
+  eyebrow: string;
+  h1: string;
+  sub: string;
+  phrase: string;
+  stories: OnePagerStory[];
+};
+
 type OnePagerChrome = {
   navAria: string;
   contact: string;
@@ -95,6 +105,193 @@ function buildMailtoHref(address: string, subject: string, body: string) {
 function buildWhatsappHref(text: string) {
   return `https://wa.me/33683762219?text=${encodeURIComponent(text)}`;
 }
+
+const contentByLocale: Partial<Record<Locale, Partial<Record<MaturiteLevel, OnePagerLocalizedContent>>>> = {
+  en: {
+    N1: {
+      eyebrow: "N1 · General masterclass",
+      h1: "Stop absorbing AI noise. Understand the mechanics.",
+      sub: "You hear about artificial intelligence everywhere. We give your team the foundations to separate signal from theatre.",
+      phrase: "I am discovering generative AI",
+      stories: [
+        {
+          title: "The committee that did not know where to start",
+          person: "Commercial leadership, B2B distribution",
+          before:
+            "AI was a watch topic. Teams had tested tools, but nobody could separate gadget, real gain and business risk.",
+          after:
+            "In three hours, the committee leaves with shared language, four realistic use cases and a first roadmap the business can understand.",
+          result: "The discussion moves from 'should we do this?' to 'which process do we handle first?'.",
+        },
+        {
+          title: "The CEO who wanted clarity without jargon",
+          person: "CEO, services SME",
+          before:
+            "The executive team heard about generative AI, but decisions stayed stuck between enthusiasm, data fear and blurry vocabulary.",
+          after:
+            "The session levels everyone up: what can write, what can act, what must stay supervised and what must not leave the company.",
+          result: "The topic becomes governable: leadership knows what to test, what to refuse and who should carry the next step.",
+        },
+      ],
+    },
+    N2: {
+      eyebrow: "N2 · Business masterclass",
+      h1: "The tool can generate text. Make it work on your business.",
+      sub: "Your teams use basic requests. We adapt the machine to the real workflows they run every day.",
+      phrase: "I want to apply AI to my sector",
+      stories: [
+        {
+          title: "The firm that needed truly business-specific use cases",
+          person: "Partner, consulting firm",
+          before:
+            "Consultants used AI individually. Output quality depended on personal habits, with no method and no reuse.",
+          after:
+            "The session turns their real cases into shared business configurations: market analysis, interview prep, client synthesis.",
+          result: "Two use cases become team routines without adding another tool to the stack.",
+        },
+        {
+          title: "The HR team that wanted adoption without resistance",
+          person: "HR director, multi-site group",
+          before:
+            "Employees saw AI as a threat or as examples too generic to matter. Use cases stayed far from hiring, onboarding and payroll questions.",
+          after:
+            "We start from their real cases: CV triage, candidate replies, interview prep and internal policy synthesis.",
+          result: "HR referents leave with shared configurations and a simple way to explain the tool to teams.",
+        },
+      ],
+    },
+    N3: {
+      eyebrow: "N3 · Creation and MCP sessions",
+      h1: "Artificial intelligence is blind. Connect it to your tools.",
+      sub: "You understand the basics. We connect the model to your software so it can trigger real actions.",
+      phrase: "I want to connect my software to AI",
+      stories: [
+        {
+          title: "The proprietary CRM finally connected to AI models",
+          person: "Insurance broker, sales team",
+          before:
+            "Customer data lived in an isolated CRM. Agents answered well, but never saw real records, contracts or follow-ups.",
+          after:
+            "The sessions create the technical bridges. The assistant accesses useful data, with documented testing and handover.",
+          result: "Teams query their data in natural language without rebuilding the CRM.",
+        },
+        {
+          title: "The back office that stopped copy-pasting",
+          person: "Operations manager, B2B e-commerce",
+          before:
+            "Orders, tickets and follow-ups moved across three tools. Each update required re-entry and created error risk.",
+          after:
+            "Connectors link the useful sources. The agent reads, prepares the action and leaves a trace of what happened.",
+          result: "Manual transfer time drops without forcing a new tool on the team.",
+        },
+      ],
+    },
+    N4: {
+      eyebrow: "N4 · Audit and mapping",
+      h1: "Do not fund AI at random. Target the bottlenecks that matter.",
+      sub: "You want to scale. We audit your workflows to quantify the gains before anyone builds.",
+      phrase: "I want to map my processes",
+      stories: [
+        {
+          title: "The AI budget redirected before money was wasted",
+          person: "Founder, B2B energy brokerage",
+          before:
+            "The team thought outbound prospecting was the automation priority. The visible problem was loud, but not necessarily the most profitable.",
+          after:
+            "The audit shows that inbound lead qualification is the real lever, then quantifies the gain and deployment risks.",
+          result: "The priority changes: less dispersion, one first deployment with measurable impact.",
+        },
+        {
+          title: "The CFO who needed a defensible gain",
+          person: "CFO, industrial SME",
+          before:
+            "Automation ideas existed, but none was quantified enough to pass a budget committee.",
+          after:
+            "The audit ranks workflows by volume, risk, recoverable time and production complexity.",
+          result: "The decision no longer rests on intuition: the first project is chosen because it is defensible process by process.",
+        },
+      ],
+    },
+    N5: {
+      eyebrow: "N5 · Agent deployment",
+      h1: "Your processes are leaking. Give them to a supervised agent.",
+      sub: "One task costs you ten hours a week. Parrit deploys a system that runs it continuously.",
+      phrase: "I want an agent in production",
+      stories: [
+        {
+          title: "Inbound leads handled at the right moment",
+          person: "Law firm, client relationship team",
+          before:
+            "Requests arrived by email, then waited for someone available to read, qualify and prepare the reply.",
+          after:
+            "An agent qualifies in real time, drafts the response and flags priority matters. The team keeps validation.",
+          result: "No lead is missed, three hours a week are recovered, and response time becomes more reliable.",
+        },
+        {
+          title: "The support team that kept only exceptions",
+          person: "COO, high-volume service",
+          before:
+            "The same inbox received complaints, simple requests and sensitive cases. Everything went to the same people with no clear priority.",
+          after:
+            "The agent classifies, prepares replies and escalates only the cases that require human arbitration.",
+          result: "The team gets a readable flow again: repetitive work runs, exceptions stay human.",
+        },
+      ],
+    },
+    N6: {
+      eyebrow: "N6 · Proprietary agentic tooling",
+      h1: "Independence can be built. Create your machines internally, even without coding.",
+      sub: "Your technical and business teams want to create complex workflows. We transfer the capability or unblock the technical wall.",
+      phrase: "I want to master Claude Code and Codex",
+      stories: [
+        {
+          title: "The product team that wanted to build without dependency",
+          person: "Product team, B2B SaaS",
+          before:
+            "Every developer used AI differently. Gains existed, but practices were fragile and hard to transmit.",
+          after:
+            "The team structures Claude Code, Codex and recurring workflows. Referents know how to scope, test and maintain their own agents.",
+          result: "Three internal workflows are built during the training, then owned by the team.",
+        },
+        {
+          title: "The business team that had vision but no execution path",
+          person: "Transformation lead, mid-market company",
+          before:
+            "Business teams knew exactly which tool they lacked, but every request went back into a saturated technical queue.",
+          after:
+            "We transfer a method to scope, build and test a first agentic tool with the company's guardrails.",
+          result: "The business gains autonomy without bypassing IT: documentation and validation reflexes are set from the start.",
+        },
+      ],
+    },
+    N7: {
+      eyebrow: "N7 · Fleet optimization",
+      h1: "Your agents fail and cost too much. Take control back.",
+      sub: "Your fleet is growing. We treat technical debt and redesign the architecture for reliability.",
+      phrase: "I have a fleet and want to optimize it",
+      stories: [
+        {
+          title: "The fleet that had to become manageable",
+          person: "SaaS scale-up, operations and data",
+          before:
+            "Six agents had been built quickly. Costs were rising, errors were hard to trace and data stayed scattered.",
+          after:
+            "The fleet is centralized, triggers are clarified and feedback loops surface errors for continuous improvement.",
+          result: "The error rate drops, costs become readable and the team knows where to act.",
+        },
+        {
+          title: "The CIO who wanted control back",
+          person: "CIO, multi-entity group",
+          before:
+            "Several teams had launched their own agents. Access, logs and responsibilities were not consistent.",
+          after:
+            "The diagnosis resets the fleet: inventory, dependencies, costs, risks, validation rules and architecture path.",
+          result: "Governance becomes readable again: every agent has an owner, a trace and a reason to exist.",
+        },
+      ],
+    },
+  },
+};
 
 const chromeByLocale: Record<Locale, OnePagerChrome> = {
   fr: {
@@ -321,6 +518,12 @@ export default function OnePager({
   lang,
 }: OnePagerProps) {
   const chrome = chromeByLocale[lang];
+  const localizedContent = contentByLocale[lang]?.[level];
+  const renderedEyebrow = localizedContent?.eyebrow ?? eyebrow;
+  const renderedH1 = localizedContent?.h1 ?? h1;
+  const renderedSub = localizedContent?.sub ?? sub;
+  const renderedPhrase = localizedContent?.phrase ?? phrase;
+  const renderedStories = localizedContent?.stories ?? stories;
   const primaryCtaLabel = chrome.ctaLabels[level] ?? ctaLabel;
   const currentMaturityLabel = chrome.maturityNav.find((item) => item.level === level)?.label ?? level;
   const ctaContext = `${currentMaturityLabel} · ${primaryCtaLabel}`;
@@ -357,11 +560,11 @@ export default function OnePager({
         <img className="seal-wm" src="/brand/parrit-seal.svg" alt="" aria-hidden="true" />
         <div className="eyebrow chip onepager-eyebrow">
           <span className="dot" aria-hidden="true" />
-          {eyebrow}
+          {renderedEyebrow}
         </div>
-        <p className="onepager-phrase">{phrase}</p>
-        <h1>{h1}</h1>
-        <p className="sub">{sub}</p>
+        <p className="onepager-phrase">{renderedPhrase}</p>
+        <h1>{renderedH1}</h1>
+        <p className="sub">{renderedSub}</p>
         <div className="cta-row">
           <a className="btn btn-red btn-lg" href={actionHref}>
             {primaryCtaLabel}
@@ -393,7 +596,7 @@ export default function OnePager({
             <p className="lead">{chrome.storyLead}</p>
           </div>
           <div className="story-grid">
-            {stories.map((story) => (
+            {renderedStories.map((story) => (
               <article className="story-card" key={story.title}>
                 <div className="story-person">{story.person}</div>
                 <h3>{story.title}</h3>
