@@ -1746,7 +1746,8 @@ body > * {
 }
 
 .home-template .logowall .logo-cn {
-  height: 56px;
+  height: 42px;
+  max-width: 200px;
 }
 
 .home-template .cases {
