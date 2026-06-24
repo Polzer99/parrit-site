@@ -53,6 +53,18 @@ const legacyRedirects = [
   { from: "/sprint", to: "/deploiement-agents" },
 ];
 
+test("home maturity section exposes all N1-N7 entry points", async ({ page }) => {
+  await page.goto(new URL("/fr", BASE_URL).toString(), { waitUntil: "networkidle" });
+
+  await expect(page.locator("#maturite .mountain-point")).toHaveCount(7);
+  await expect(page.locator("#maturite .maturite-tile")).toHaveCount(7);
+
+  for (const path of maturityPaths) {
+    await expect(page.locator(`#maturite .mountain-point[href="/fr${path}"]`)).toHaveCount(1);
+    await expect(page.locator(`#maturite .maturite-tile[href="/fr${path}"]`)).toHaveCount(1);
+  }
+});
+
 const viewports = [
   { slug: "desktop", width: 1440, height: 1100 },
   { slug: "tablet", width: 820, height: 1180 },
