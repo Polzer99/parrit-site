@@ -15,7 +15,7 @@ type OfferRow = {
 };
 
 type OfferNavItem = {
-  href: "deployer" | "croissance" | "transmettre";
+  href: string;
   label: string;
 };
 
@@ -90,9 +90,9 @@ const COPY: Record<Locale, HomeCopy> = {
   fr: {
     navCta: "Nous écrire",
     navLinks: [
-      { href: "deployer", label: "Déployer" },
-      { href: "croissance", label: "Croissance" },
-      { href: "transmettre", label: "Transmettre" },
+      { href: "#deployer", label: "Déployer" },
+      { href: "#croissance", label: "Croissance" },
+      { href: "#transmettre", label: "Transmettre" },
     ],
     a11y: {
       nav: "Navigation principale",
@@ -236,9 +236,9 @@ const COPY: Record<Locale, HomeCopy> = {
   en: {
     navCta: "Contact us",
     navLinks: [
-      { href: "deployer", label: "Deploy" },
-      { href: "croissance", label: "Growth" },
-      { href: "transmettre", label: "Transmit" },
+      { href: "#deployer", label: "Deploy" },
+      { href: "#croissance", label: "Growth" },
+      { href: "#transmettre", label: "Transmit" },
     ],
     a11y: {
       nav: "Primary navigation",
@@ -382,9 +382,9 @@ const COPY: Record<Locale, HomeCopy> = {
   "pt-BR": {
     navCta: "Fale conosco",
     navLinks: [
-      { href: "deployer", label: "Implantar" },
-      { href: "croissance", label: "Crescimento" },
-      { href: "transmettre", label: "Transmitir" },
+      { href: "#deployer", label: "Implantar" },
+      { href: "#croissance", label: "Crescimento" },
+      { href: "#transmettre", label: "Transmitir" },
     ],
     a11y: {
       nav: "Navegação principal",
@@ -528,9 +528,9 @@ const COPY: Record<Locale, HomeCopy> = {
   "zh-CN": {
     navCta: "联系我们",
     navLinks: [
-      { href: "deployer", label: "部署" },
-      { href: "croissance", label: "增长" },
-      { href: "transmettre", label: "传递" },
+      { href: "#deployer", label: "部署" },
+      { href: "#croissance", label: "增长" },
+      { href: "#transmettre", label: "传递" },
     ],
     a11y: {
       nav: "主导航",
@@ -785,7 +785,7 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           <Logo />
           <div className="nav-links">
             {copy.navLinks.map((item) => (
-              <a href={`/${lang}/${item.href}`} key={item.href}>
+              <a href={item.href} key={item.href}>
                 {item.label}
               </a>
             ))}
@@ -819,7 +819,7 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           <a className="btn btn-red btn-lg" href="#contact">
             {copy.hero.primary}
           </a>
-          <a className="btn btn-ghost btn-lg" href="#cas">
+          <a className="btn btn-ghost btn-lg" href="#transmettre">
             {copy.hero.secondary}
           </a>
         </div>
@@ -838,7 +838,7 @@ export default function HomeClient({ lang }: { lang: Locale }) {
         </div>
       </section>
 
-      <section className="section band">
+      <section className="section band" id="deployer">
         <div className="wrap">
           <div className="two">
             <div>
@@ -867,7 +867,7 @@ export default function HomeClient({ lang }: { lang: Locale }) {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" id="croissance">
         <div className="wrap">
           <div className="section-head">
             <div className="kicker">{copy.how.kicker}</div>
@@ -903,7 +903,7 @@ export default function HomeClient({ lang }: { lang: Locale }) {
         </div>
       </section>
 
-      <section className="section band" id="cas">
+      <section className="section band" id="transmettre">
         <div className="wrap">
           <div className="section-head">
             <div className="kicker">{copy.cases.kicker}</div>
@@ -973,7 +973,7 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           <Logo />
           <nav className="footer-links" aria-label={copy.a11y.footerOffers}>
             {copy.navLinks.map((item) => (
-              <a href={`/${lang}/${item.href}`} key={item.href}>
+              <a href={item.href} key={item.href}>
                 {item.label}
               </a>
             ))}
