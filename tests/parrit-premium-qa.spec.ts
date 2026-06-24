@@ -5,6 +5,9 @@ const BASE_URL = process.env.QA_BASE_URL ?? "http://localhost:3000";
 const pages = [
   { slug: "home", path: "/fr", reviewArtifact: true },
   { slug: "masterclass-ia", path: "/fr/masterclass-ia", reviewArtifact: true },
+  { slug: "masterclass-metier", path: "/fr/masterclass-metier" },
+  { slug: "sessions-mcp", path: "/fr/sessions-mcp" },
+  { slug: "audit", path: "/fr/audit" },
   { slug: "optimisation-flotte", path: "/fr/optimisation-flotte", reviewArtifact: true },
   { slug: "deploiement-agents", path: "/fr/deploiement-agents" },
   { slug: "outils-agentiques", path: "/fr/outils-agentiques" },
@@ -35,12 +38,64 @@ const pages = [
 
 const expectedOrigin = "https://parrit.ai";
 const expectedSocialImage = `${expectedOrigin}/opengraph-image`;
+const locales = ["fr", "en", "pt-BR", "zh-CN"];
+const maturityPaths = [
+  "/masterclass-ia",
+  "/masterclass-metier",
+  "/sessions-mcp",
+  "/audit",
+  "/deploiement-agents",
+  "/outils-agentiques",
+  "/optimisation-flotte",
+];
+const legacyRedirects = [
+  { from: "/audit-claude-code", to: "/audit" },
+  { from: "/sprint", to: "/deploiement-agents" },
+];
 
 const viewports = [
   { slug: "desktop", width: 1440, height: 1100 },
   { slug: "tablet", width: 820, height: 1180 },
   { slug: "mobile", width: 390, height: 844 },
 ];
+
+test("sitemap lists maturity canonicals and omits legacy redirects", async ({ request }) => {
+  const sitemap = await request.get(new URL("/sitemap.xml", BASE_URL).toString());
+  expect(sitemap.ok(), "sitemap response").toBeTruthy();
+
+  const xml = await sitemap.text();
+  for (const locale of locales) {
+    for (const path of maturityPaths) {
+      expect(xml, `sitemap contains /${locale}${path}`).toContain(
+        `${expectedOrigin}/${locale}${path}`,
+      );
+    }
+
+    for (const redirect of legacyRedirects) {
+      expect(xml, `sitemap omits /${locale}${redirect.from}`).not.toContain(
+        `${expectedOrigin}/${locale}${redirect.from}`,
+      );
+    }
+  }
+});
+
+for (const locale of locales) {
+  for (const redirect of legacyRedirects) {
+    test(`${locale}${redirect.from} permanently redirects to ${locale}${redirect.to}`, async ({
+      request,
+    }) => {
+      const response = await request.get(
+        new URL(`/${locale}${redirect.from}`, BASE_URL).toString(),
+        { maxRedirects: 0 },
+      );
+
+      expect(response.status(), "legacy redirect status").toBe(301);
+      expect(response.headers().location, "legacy redirect target").toBe(
+        `/${locale}${redirect.to}`,
+      );
+    });
+  }
+}
 
 for (const viewport of viewports) {
   test.describe(`${viewport.slug} ${viewport.width}x${viewport.height}`, () => {
