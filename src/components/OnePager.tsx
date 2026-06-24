@@ -34,6 +34,9 @@ type OnePagerChrome = {
   contact: string;
   priceCta: string;
   ctaLabels: Record<MaturiteLevel, string>;
+  emailSubject: (level: MaturiteLevel, label: string) => string;
+  emailBody: (level: MaturiteLevel, label: string) => string;
+  whatsappText: (level: MaturiteLevel, label: string) => string;
   maturityRailAria: string;
   navLinks: { href: string; label: string }[];
   maturityNav: { level: MaturiteLevel; slug: MaturiteSlug; label: string }[];
@@ -80,6 +83,19 @@ function buildMaturityNav(labels: Record<MaturiteLevel, string>) {
   return maturityItems.map((item) => ({ ...item, label: labels[item.level] }));
 }
 
+function getMailtoAddress(href: string) {
+  return href.startsWith("mailto:") ? href.slice("mailto:".length).split("?")[0] : "paul.larmaraud@parrit.ai";
+}
+
+function buildMailtoHref(address: string, subject: string, body: string) {
+  const params = new URLSearchParams({ subject, body });
+  return `mailto:${address}?${params.toString()}`;
+}
+
+function buildWhatsappHref(text: string) {
+  return `https://wa.me/33683762219?text=${encodeURIComponent(text)}`;
+}
+
 const chromeByLocale: Record<Locale, OnePagerChrome> = {
   fr: {
     navAria: "Navigation principale",
@@ -94,6 +110,10 @@ const chromeByLocale: Record<Locale, OnePagerChrome> = {
       N6: "En parler 15 min",
       N7: "Demander le diagnostic flotte",
     },
+    emailSubject: (level, label) => `Parrit ${level} · ${label}`,
+    emailBody: (level, label) =>
+      `Bonjour Paul,\n\nJe viens de la page ${level} (${label}).\n\nEntreprise :\nContexte :\nObjectif :\nCréneau possible :\n\nMerci,\n`,
+    whatsappText: (level, label) => `Bonjour Paul, je viens de la page ${level} (${label}). J'aimerais en parler.`,
     maturityRailAria: "Parcours de maturité IA",
     navLinks: buildNavLinks({
       stories: "Histoires",
@@ -139,6 +159,10 @@ const chromeByLocale: Record<Locale, OnePagerChrome> = {
       N6: "Talk for 15 minutes",
       N7: "Request a fleet diagnosis",
     },
+    emailSubject: (level, label) => `Parrit ${level} · ${label}`,
+    emailBody: (level, label) =>
+      `Hi Paul,\n\nI am coming from the ${level} page (${label}).\n\nCompany:\nContext:\nGoal:\nPossible time slot:\n\nThanks,\n`,
+    whatsappText: (level, label) => `Hi Paul, I am coming from the ${level} page (${label}) and would like to discuss it.`,
     maturityRailAria: "AI maturity journey",
     navLinks: buildNavLinks({
       stories: "Stories",
@@ -184,6 +208,10 @@ const chromeByLocale: Record<Locale, OnePagerChrome> = {
       N6: "Conversar por 15 minutos",
       N7: "Solicitar diagnóstico da frota",
     },
+    emailSubject: (level, label) => `Parrit ${level} · ${label}`,
+    emailBody: (level, label) =>
+      `Olá Paul,\n\nVim da página ${level} (${label}).\n\nEmpresa:\nContexto:\nObjetivo:\nHorário possível:\n\nObrigado,\n`,
+    whatsappText: (level, label) => `Olá Paul, vim da página ${level} (${label}) e gostaria de conversar.`,
     maturityRailAria: "Jornada de maturidade em IA",
     navLinks: buildNavLinks({
       stories: "Histórias",
@@ -229,6 +257,10 @@ const chromeByLocale: Record<Locale, OnePagerChrome> = {
       N6: "聊 15 分钟",
       N7: "申请智能体舰队诊断",
     },
+    emailSubject: (level, label) => `Parrit ${level} · ${label}`,
+    emailBody: (level, label) =>
+      `Paul 你好，\n\n我来自 ${level} 页面（${label}）。\n\n公司：\n背景：\n目标：\n可沟通时间：\n\n谢谢，\n`,
+    whatsappText: (level, label) => `Paul 你好，我来自 ${level} 页面（${label}），想和你聊聊。`,
     maturityRailAria: "AI 成熟度路径",
     navLinks: buildNavLinks({
       stories: "案例",
@@ -290,6 +322,14 @@ export default function OnePager({
 }: OnePagerProps) {
   const chrome = chromeByLocale[lang];
   const primaryCtaLabel = chrome.ctaLabels[level] ?? ctaLabel;
+  const currentMaturityLabel = chrome.maturityNav.find((item) => item.level === level)?.label ?? level;
+  const ctaContext = `${currentMaturityLabel} · ${primaryCtaLabel}`;
+  const actionHref = buildMailtoHref(
+    getMailtoAddress(ctaHref),
+    chrome.emailSubject(level, ctaContext),
+    chrome.emailBody(level, ctaContext),
+  );
+  const whatsappHref = buildWhatsappHref(chrome.whatsappText(level, ctaContext));
 
   return (
     <main className="home-template">
@@ -323,7 +363,7 @@ export default function OnePager({
         <h1>{h1}</h1>
         <p className="sub">{sub}</p>
         <div className="cta-row">
-          <a className="btn btn-red btn-lg" href={ctaHref}>
+          <a className="btn btn-red btn-lg" href={actionHref}>
             {primaryCtaLabel}
           </a>
           <a className="btn btn-ghost btn-lg" href="#prix">
@@ -372,7 +412,7 @@ export default function OnePager({
             ))}
           </div>
           <div className="story-cta">
-            <a className="btn btn-red btn-lg" href={ctaHref}>
+            <a className="btn btn-red btn-lg" href={actionHref}>
               {primaryCtaLabel}
             </a>
           </div>
@@ -459,10 +499,10 @@ export default function OnePager({
               <h2>{price}</h2>
               {priceNote && <p className="fine">{priceNote}</p>}
               <div className="cta-row">
-                <a className="btn btn-red btn-lg" href={ctaHref}>
+                <a className="btn btn-red btn-lg" href={actionHref}>
                   {primaryCtaLabel}
                 </a>
-                <a className="btn btn-wa btn-lg" href="https://wa.me/33683762219">
+                <a className="btn btn-wa btn-lg" href={whatsappHref}>
                   <img className="ci" src="/brand/tool-logos/whatsapp.svg" alt="" aria-hidden="true" />
                   WhatsApp
                 </a>

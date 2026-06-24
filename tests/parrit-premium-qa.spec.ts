@@ -200,10 +200,21 @@ for (const chromeCase of localizedOnePagerChrome) {
     await expect(page.locator(".nav")).toContainText(chromeCase.contact);
     await expect(page.locator(".hero .cta-row")).toContainText(chromeCase.priceCta);
     await expect(page.locator(".hero .cta-row .btn-red")).toContainText(chromeCase.primaryCta);
+    const heroCtaHref = await page.locator(".hero .cta-row .btn-red").getAttribute("href");
+    expect(heroCtaHref, "one-pager CTA keeps lead context").toContain("mailto:paul.larmaraud@parrit.ai?");
+    const heroCtaParams = new URL(heroCtaHref?.replace(/^mailto:[^?]*/, "https://parrit.ai/lead") ?? "").searchParams;
+    expect(heroCtaParams.get("subject")).toContain("Parrit N1");
+    expect(heroCtaParams.get("subject")).toContain(chromeCase.primaryCta);
+    expect(heroCtaParams.get("body")).toContain("N1");
     await expect(page.locator("#histoires .section-head")).toContainText(
       chromeCase.storyTitle,
     );
     await expect(page.locator(".maturity-rail")).toContainText(chromeCase.railLabel);
+    const whatsappHref = await page.locator("#prix .btn-wa").getAttribute("href");
+    expect(decodeURIComponent(whatsappHref ?? ""), "WhatsApp CTA keeps lead context").toContain("N1");
+    expect(decodeURIComponent(whatsappHref ?? ""), "WhatsApp CTA keeps localized CTA").toContain(
+      chromeCase.primaryCta,
+    );
 
     const chromeText = await page
       .locator(".nav, .hero .cta-row, #histoires .section-head, .maturity-rail")
