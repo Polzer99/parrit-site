@@ -81,6 +81,28 @@ const localizedOnePagerChrome = [
     forbiddenChrome: ["Nous écrire", "Voir le prix", "À quoi ressemble"],
   },
 ];
+const localizedHomeHero = [
+  {
+    path: "/fr",
+    h1: "Parrit opère vos deux fronts critiques : back-office automatisé et business généré.",
+    cta: "Parler à Paul",
+  },
+  {
+    path: "/en",
+    h1: "Parrit operates your two critical fronts: automated back office and generated business.",
+    cta: "Talk to Paul",
+  },
+  {
+    path: "/pt-BR",
+    h1: "A Parrit opera suas duas frentes críticas: back-office automatizado e business gerado.",
+    cta: "Falar com Paul",
+  },
+  {
+    path: "/zh-CN",
+    h1: "Parrit 为你运营两个关键战线：自动化后台和业务增长。",
+    cta: "联系 Paul",
+  },
+];
 
 test("home maturity section exposes all N1-N7 entry points", async ({ page }) => {
   await page.goto(new URL("/fr", BASE_URL).toString(), { waitUntil: "networkidle" });
@@ -92,6 +114,73 @@ test("home maturity section exposes all N1-N7 entry points", async ({ page }) =>
     await expect(page.locator(`#maturite .mountain-point[href="/fr${path}"]`)).toHaveCount(1);
     await expect(page.locator(`#maturite .maturite-tile[href="/fr${path}"]`)).toHaveCount(1);
   }
+});
+
+for (const heroCase of localizedHomeHero) {
+  test(`${heroCase.path} clarifies the two-front home hero`, async ({ page }) => {
+    await page.goto(new URL(heroCase.path, BASE_URL).toString(), {
+      waitUntil: "networkidle",
+    });
+
+    await expect(page.locator(".hero h1")).toContainText(heroCase.h1);
+    await expect(page.locator(".hero-desktop-cta .btn-red")).toContainText(heroCase.cta);
+  });
+}
+
+test("mobile home hero surfaces the primary CTA before tools", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(new URL("/fr", BASE_URL).toString(), { waitUntil: "networkidle" });
+
+  const cta = page.locator(".hero-mobile-cta .btn-red");
+  await expect(cta).toBeVisible();
+  await expect(cta).toContainText("Parler à Paul");
+
+  const layout = await page.evaluate(() => {
+    const sub = document.querySelector(".hero .sub")?.getBoundingClientRect();
+    const ctaBox = document
+      .querySelector(".hero-mobile-cta .btn-red")
+      ?.getBoundingClientRect();
+    const chips = document.querySelector(".hero .chips")?.getBoundingClientRect();
+
+    return sub && ctaBox && chips
+      ? { subBottom: sub.bottom, ctaTop: ctaBox.top, ctaBottom: ctaBox.bottom, chipsTop: chips.top }
+      : null;
+  });
+
+  expect(layout, "mobile hero layout boxes").not.toBeNull();
+  expect(layout?.ctaTop, "CTA is after the subtitle").toBeGreaterThan(layout?.subBottom ?? 0);
+  expect(layout?.ctaBottom, "CTA is visible above the fold").toBeLessThan(844);
+  expect(layout?.chipsTop, "tools stay after the primary CTA on mobile").toBeGreaterThan(
+    layout?.ctaBottom ?? 0,
+  );
+});
+
+test("home hero CTA emits the conversion metric", async ({ page }) => {
+  await page.goto(new URL("/fr", BASE_URL).toString(), { waitUntil: "networkidle" });
+
+  await page.evaluate(() => {
+    const win = window as unknown as {
+      __heroEvents: { event: string; props: Record<string, unknown> }[];
+      posthog: { capture: (event: string, props: Record<string, unknown>) => void };
+    };
+
+    win.__heroEvents = [];
+    win.posthog = {
+      capture: (event, props) => win.__heroEvents.push({ event, props }),
+    };
+  });
+
+  await page.locator(".hero-desktop-cta .btn-red").click();
+
+  const event = await page.evaluate(() => {
+    const win = window as unknown as {
+      __heroEvents?: { event: string; props: Record<string, unknown> }[];
+    };
+
+    return win.__heroEvents?.find((item) => item.event === "hero_cta_click");
+  });
+
+  expect(event?.props).toMatchObject({ page: "/fr", placement: "desktop" });
 });
 
 for (const chromeCase of localizedOnePagerChrome) {
