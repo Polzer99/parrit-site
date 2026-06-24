@@ -19,6 +19,13 @@ type OfferNavItem = {
   label: string;
 };
 
+type MaturiteTile = {
+  id: string;
+  label: string;
+  phrase: string;
+  href: string;
+};
+
 type HomeCopy = {
   navCta: string;
   navLinks: OfferNavItem[];
@@ -57,6 +64,12 @@ type HomeCopy = {
     titleAfter: string;
     steps: { title: string; note: string; body: string }[];
     ladder: OfferRow[];
+  };
+  maturite: {
+    kicker: string;
+    title: string;
+    lead: string;
+    levels: MaturiteTile[];
   };
   cases: {
     kicker: string;
@@ -162,6 +175,20 @@ const COPY: Record<Locale, HomeCopy> = {
         { label: "Déploiement d'agents IA", price: "à partir de 2 994 €" },
         { label: "Formation à l'utilisation agentique (non-tech)", price: "à partir de 3 497 € · finançable OPCO" },
         { label: "Accompagnement · Operating Partner", price: "à partir de 247 €/h" },
+      ],
+    },
+    maturite: {
+      kicker: "Votre niveau de maturité",
+      title: "Trouvez le bon point d'entrée.",
+      lead: "Chaque niveau a son offre. Cliquez sur celui qui vous ressemble.",
+      levels: [
+        { id: "N1", label: "Découverte", phrase: "Je découvre l'IA agentique", href: "/masterclass-ia" },
+        { id: "N2", label: "Application métier", phrase: "Je veux l'appliquer à mon secteur", href: "/masterclass-metier" },
+        { id: "N3", label: "Connexion logicielle", phrase: "Je veux connecter mes logiciels à l'IA", href: "/sessions-mcp" },
+        { id: "N4", label: "Diagnostic", phrase: "Je veux cartographier mes process", href: "/audit" },
+        { id: "N5", label: "Premier déploiement", phrase: "Je veux un agent en production", href: "/deploiement-agents" },
+        { id: "N6", label: "Outils avancés", phrase: "Je veux maîtriser Claude Code et Codex", href: "/outils-agentiques" },
+        { id: "N7", label: "Flotte & architecture", phrase: "J'ai une flotte, je veux l'optimiser", href: "/optimisation-flotte" },
       ],
     },
     cases: {
@@ -311,6 +338,20 @@ const COPY: Record<Locale, HomeCopy> = {
         { label: "Support · Operating Partner", price: "from €247/h" },
       ],
     },
+    maturite: {
+      kicker: "Your maturity level",
+      title: "Find your entry point.",
+      lead: "Each level has its offer. Click the one that fits.",
+      levels: [
+        { id: "N1", label: "Discovery", phrase: "I'm discovering agentic AI", href: "/masterclass-ia" },
+        { id: "N2", label: "Business application", phrase: "I want to apply it to my sector", href: "/masterclass-metier" },
+        { id: "N3", label: "Software connection", phrase: "I want to connect my software to AI", href: "/sessions-mcp" },
+        { id: "N4", label: "Diagnosis", phrase: "I want to map my processes", href: "/audit" },
+        { id: "N5", label: "First deployment", phrase: "I want an agent in production", href: "/deploiement-agents" },
+        { id: "N6", label: "Advanced tools", phrase: "I want to master Claude Code and Codex", href: "/outils-agentiques" },
+        { id: "N7", label: "Fleet & architecture", phrase: "I have a fleet and want to optimize it", href: "/optimisation-flotte" },
+      ],
+    },
     cases: {
       kicker: "Already in production",
       titleBefore: "Examples of cases deployed with our ",
@@ -458,6 +499,20 @@ const COPY: Record<Locale, HomeCopy> = {
         { label: "Acompanhamento · Operating Partner", price: "a partir de 247 €/h" },
       ],
     },
+    maturite: {
+      kicker: "Seu nível de maturidade",
+      title: "Encontre o ponto de entrada certo.",
+      lead: "Cada nível tem sua oferta. Clique no que se parece com você.",
+      levels: [
+        { id: "N1", label: "Descoberta", phrase: "Estou descobrindo a IA agentica", href: "/masterclass-ia" },
+        { id: "N2", label: "Aplicação ao negócio", phrase: "Quero aplicar ao meu setor", href: "/masterclass-metier" },
+        { id: "N3", label: "Conexão de software", phrase: "Quero conectar meus softwares à IA", href: "/sessions-mcp" },
+        { id: "N4", label: "Diagnóstico", phrase: "Quero mapear meus processos", href: "/audit" },
+        { id: "N5", label: "Primeiro deploy", phrase: "Quero um agente em produção", href: "/deploiement-agents" },
+        { id: "N6", label: "Ferramentas avançadas", phrase: "Quero dominar Claude Code e Codex", href: "/outils-agentiques" },
+        { id: "N7", label: "Frota & arquitetura", phrase: "Tenho uma frota, quero otimizá-la", href: "/optimisation-flotte" },
+      ],
+    },
     cases: {
       kicker: "Já em produção",
       titleBefore: "Exemplos de casos implantados nos nossos ",
@@ -603,6 +658,20 @@ const COPY: Record<Locale, HomeCopy> = {
         { label: "AI 智能体部署", price: "起价 2 994 €" },
         { label: "智能体使用培训（非技术）", price: "起价 3 497 € · 可由 OPCO 资助" },
         { label: "陪跑 · Operating Partner", price: "起价 247 €/h" },
+      ],
+    },
+    maturite: {
+      kicker: "您的成熟度级别",
+      title: "找到正确的切入点。",
+      lead: "每个级别都有对应的服务。点击最适合您的。",
+      levels: [
+        { id: "N1", label: "发现", phrase: "我正在了解智能体 AI", href: "/masterclass-ia" },
+        { id: "N2", label: "业务应用", phrase: "我想将其应用到我的行业", href: "/masterclass-metier" },
+        { id: "N3", label: "软件连接", phrase: "我想把软件连接到 AI", href: "/sessions-mcp" },
+        { id: "N4", label: "诊断", phrase: "我想梳理自己的流程", href: "/audit" },
+        { id: "N5", label: "首次部署", phrase: "我想要一个投入生产的智能体", href: "/deploiement-agents" },
+        { id: "N6", label: "高级工具", phrase: "我想掌握 Claude Code 和 Codex", href: "/outils-agentiques" },
+        { id: "N7", label: "集群与架构", phrase: "我有一组智能体，想要优化", href: "/optimisation-flotte" },
       ],
     },
     cases: {
@@ -860,9 +929,8 @@ export default function HomeClient({ lang }: { lang: Locale }) {
               {copy.what.cards.map((card) => (
                 <div className="card" key={card.title}>
                   <div className="ic">速</div>
-                  <h3>
-                    {card.title} <span className="note">{card.note}</span>
-                  </h3>
+                  <span className="note note-eyebrow">{card.note}</span>
+                  <h3>{card.title}</h3>
                   <p>{card.body}</p>
                 </div>
               ))}
@@ -902,6 +970,23 @@ export default function HomeClient({ lang }: { lang: Locale }) {
                 <span className="arr">→</span>
                 <span className="price">{row.price}</span>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section" id="maturite">
+        <div className="wrap">
+          <p className="kicker">{copy.maturite.kicker}</p>
+          <h2>{copy.maturite.title}</h2>
+          <p className="lead">{copy.maturite.lead}</p>
+          <div className="maturite-grid">
+            {copy.maturite.levels.map((level) => (
+              <a href={`/${lang}${level.href}`} className="maturite-tile" key={level.id}>
+                <span className="maturite-num">{level.id}</span>
+                <strong className="maturite-label">{level.label}</strong>
+                <span className="maturite-phrase">{level.phrase}</span>
+              </a>
             ))}
           </div>
         </div>

@@ -1,7 +1,20 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async redirects() {
+    return [
+      {
+        source: "/:lang/audit-claude-code",
+        destination: "/:lang/audit",
+        statusCode: 301,
+      },
+      {
+        source: "/:lang/sprint",
+        destination: "/:lang/deploiement-agents",
+        statusCode: 301,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
