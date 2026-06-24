@@ -6,6 +6,7 @@ Usage : suite de rendez-vous, personnalisation par personne rencontree
 
 Ce document sert a produire une suite de meeting claire : mail, mini-presentation, note partageable ou base de propale privee. Il transforme les informations du rendez-vous en proposition de valeur personnalisee, sans prix et sans nom client tant que le support n'est pas protege.
 
+Pour choisir la proposition de valeur par personne, utiliser `docs/sales/post-meeting-value-prop-kit.md`.
 Pour une version presentee slide par slide, utiliser `docs/sales/post-meeting-presentation-template.md`.
 
 ## Donnees a renseigner
