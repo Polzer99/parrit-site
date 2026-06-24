@@ -1114,10 +1114,10 @@
         },
         "transformation": {
           "quote": "On vous donne enfin la visibilité que les plateformes vous cachent. Chaque matin, vous savez exactement ce que Rufus a recommandé hier, et qui a gagné du terrain.",
-          "body": "Chaque matin, un agent interroge Rufus et Alexa sur vos 50 prompts stratégiques. Il mesure votre rang, votre share-of-voice IA, et les concurrents qui montent. Vous recevez un dashboard quotidien et une alerte si quelque chose bouge."
+          "body": "Chaque matin, un agent interroge Rufus et Alexa sur vos 50 instructions stratégiques. Il mesure votre rang, votre share-of-voice IA, et les concurrents qui montent. Vous recevez un dashboard quotidien et une alerte si quelque chose bouge."
         },
         "domains": [
-          "Veille concurrentielle continue sur 50 prompts stratégiques par jour",
+          "Veille concurrentielle continue sur 50 instructions stratégiques par jour",
           "Monitoring share-of-voice IA (Rufus, Alexa, ChatGPT Search)",
           "Intelligence prix et positionnement marketplaces",
           "Alertes stratégiques temps réel via Telegram",
@@ -1128,7 +1128,7 @@
           "metrics": [
             {
               "value": "50",
-              "label": "prompts stratégiques scannés chaque matin"
+              "label": "instructions stratégiques scannées chaque matin"
             },
             {
               "value": "3",
@@ -1240,7 +1240,7 @@
             },
             {
               "label": "Enjeu",
-              "value": "Sortir du POC perpétuel et installer une vraie autonomie IA chez les dirigeants"
+              "value": "Sortir du pilote perpétuel et installer une vraie autonomie IA chez les dirigeants"
             }
           ]
         },

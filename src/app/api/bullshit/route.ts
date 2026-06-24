@@ -5,7 +5,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 // Detecteur de Bullshit IA. Modele pas cher (deepseek/OpenRouter, REGLES-DOR §7) :
-// l'intelligence est dans le prompt (grille 4 axes voix Paul). Le SCORE et les 3 garde-fous
+// l'intelligence est dans le instruction (grille 4 axes voix Paul). Le SCORE et les 3 garde-fous
 // sont calcules EN CODE (deterministe) a partir des 4 axes notes par le modele : la faiblesse
 // arithmetique d'un modele cheap ne decide jamais du verdict.
 const MODEL = process.env.BULLSHIT_MODEL || "deepseek/deepseek-v3.2";

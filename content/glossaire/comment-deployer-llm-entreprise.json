@@ -37,7 +37,7 @@
         },
         {
           "q": "Quel budget prévoir pour un premier déploiement ?",
-          "a": "Les coûts d'utilisation des API sont devenus marginaux, souvent quelques centimes par tâche complexe. Le vrai budget se situe dans l'intégration logicielle et l'accompagnement des équipes. Un projet pilote bien ciblé prend généralement entre trois et six semaines de développement. Méfiez-vous des agences qui vous facturent des centaines de milliers d'euros pour un simple chatbot interne. Payez pour la résolution d'un problème métier spécifique, pas pour un vernis technologique."
+          "a": "Les coûts d'utilisation des API sont devenus marginaux, souvent quelques centimes par tâche complexe. Le vrai budget se situe dans l'intégration logicielle et l'accompagnement des équipes. Un projet pilote bien ciblé prend généralement entre trois et six semaines de développement. Méfiez-vous des agences qui vous facturent des centaines de milliers d'euros pour un simple assistant conversationnel interne. Payez pour la résolution d'un problème métier spécifique, pas pour un vernis technologique."
         }
       ],
       "related": [

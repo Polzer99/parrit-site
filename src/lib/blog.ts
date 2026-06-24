@@ -195,8 +195,8 @@ const canonicalPosts: BlogPostSource[] = [
         readingTime: "4 min",
         content: `
       <p>En France, 78% des professionnels utilisent WhatsApp pour communiquer avec leurs clients. Pourtant, la plupart gèrent ces conversations manuellement : entre deux rendez-vous, le soir, le week-end. C'est épuisant et ça laisse des messages sans réponse.</p>
-      <h2>Pourquoi WhatsApp et pas un chatbot sur votre site</h2>
-      <p>Vos clients sont déjà sur WhatsApp. Ils y sont à l'aise, ils y répondent vite, ils y font confiance. Un chatbot sur votre site web, personne ne l'utilise. Un agent WhatsApp, tout le monde l'adopte : parce qu'il est là où les gens vivent.</p>
+      <h2>Pourquoi WhatsApp et pas un assistant conversationnel sur votre site</h2>
+      <p>Vos clients sont déjà sur WhatsApp. Ils y sont à l'aise, ils y répondent vite, ils y font confiance. Un assistant conversationnel sur votre site web, personne ne l'utilise. Un agent WhatsApp, tout le monde l'adopte : parce qu'il est là où les gens vivent.</p>
       <h2>Ce que fait un agent WhatsApp IA</h2>
       <p>L'agent répond aux messages entrants en reprenant votre ton et votre manière de parler. Il qualifie les demandes : devis, information, urgence. Il programme des relances automatiques. Il met à jour votre CRM en temps réel.</p>
       <p>Et quand la conversation nécessite un humain : une négociation, un cas complexe : il passe la main proprement avec tout le contexte.</p>
@@ -215,8 +215,8 @@ const canonicalPosts: BlogPostSource[] = [
         readingTime: "4 min",
         content: `
       <p>In France, 78% of professionals use WhatsApp to communicate with their customers. Yet most handle these conversations manually : between meetings, in the evening, on weekends. It's exhausting and leaves messages unanswered.</p>
-      <h2>Why WhatsApp and not a chatbot on your website</h2>
-      <p>Your customers are already on WhatsApp. They're comfortable there, they respond quickly, they trust it. A chatbot on your website : nobody uses it. A WhatsApp agent : everyone adopts it, because it lives where people already live.</p>
+      <h2>Why WhatsApp and not a website assistant</h2>
+      <p>Your customers are already on WhatsApp. They're comfortable there, they respond quickly, they trust it. A website assistant : nobody uses it. A WhatsApp agent : everyone adopts it, because it lives where people already live.</p>
       <h2>What an AI WhatsApp agent does</h2>
       <p>The agent replies to incoming messages while matching your tone and your way of speaking. It qualifies requests: quote, information, urgent. It schedules automatic follow-ups. It updates your CRM in real time.</p>
       <p>And when a conversation needs a human : a negotiation, a complex case : it hands over cleanly with full context.</p>
@@ -235,8 +235,8 @@ const canonicalPosts: BlogPostSource[] = [
         readingTime: "4 min",
         content: `
       <p>No Brasil, o WhatsApp é o canal principal de contato com os clientes para a imensa maioria das empresas. Ainda assim, a maior parte trata essas conversas manualmente : entre reuniões, à noite, no fim de semana. É exaustivo e deixa mensagens sem resposta.</p>
-      <h2>Por que WhatsApp, e não um chatbot no seu site</h2>
-      <p>Seus clientes já estão no WhatsApp. Eles se sentem à vontade, respondem rápido, confiam no canal. Um chatbot no site, ninguém usa. Um agente no WhatsApp, todo mundo adota : porque está onde as pessoas já estão.</p>
+      <h2>Por que WhatsApp, e não um assistente de site</h2>
+      <p>Seus clientes já estão no WhatsApp. Eles se sentem à vontade, respondem rápido, confiam no canal. Um assistente de site, ninguém usa. Um agente no WhatsApp, todo mundo adota : porque está onde as pessoas já estão.</p>
       <h2>O que um agente de IA no WhatsApp faz</h2>
       <p>O agente responde às mensagens recebidas adotando o seu tom e o seu jeito de falar. Qualifica as demandas: orçamento, informação, urgência. Agenda follow-ups automáticos. Atualiza o seu CRM em tempo real.</p>
       <p>E quando a conversa exige um humano : uma negociação, um caso complexo : ele passa o bastão de forma limpa, com todo o contexto.</p>

@@ -9,15 +9,15 @@
       "subtitle": "Définition opérationnelle, sans jargon, vue d'un partenaire qui en déploie chaque semaine.",
       "meta": {
         "title": "Qu'est-ce qu'un agent IA en entreprise ? Définition concrète · Parrit",
-        "description": "Un agent IA en entreprise n'est pas un chatbot. C'est un programme qui exécute une tâche de bout en bout dans vos systèmes. Définition, exemples concrets de production, différences avec un assistant ou un RPA, par Paul Larmaraud.",
+        "description": "Un agent IA en entreprise n'est pas un assistant conversationnel. C'est un programme qui exécute une tâche de bout en bout dans vos systèmes. Définition, exemples concrets de production, différences avec un assistant ou un RPA, par Paul Larmaraud.",
         "ogTitle": "Qu'est-ce qu'un agent IA en entreprise ? · Parrit",
-        "ogDescription": "Définition opérationnelle d'un agent IA en entreprise. Exemples concrets, différences avec chatbot et RPA."
+        "ogDescription": "Définition opérationnelle d'un agent IA en entreprise. Exemples concrets, différences avec assistant conversationnel et RPA."
       },
-      "intro": "Un agent IA en entreprise n'est pas un chatbot, ce n'est pas non plus une automatisation rigide façon RPA. C'est un programme qui prend une consigne de haut niveau, décide des étapes à exécuter, agit dans vos systèmes (CRM, ERP, mail, fichiers, API tierces), vérifie son propre travail, et s'arrête quand le résultat est obtenu — sans qu'un humain ne supervise chaque action. Pour qu'il tienne en production, il faut une couche métier précise, des accès sécurisés, des garde-fous explicites, et une boucle de feedback sur les erreurs. C'est cette couche métier qu'on construit avec nos clients, en quelques jours, à partir de cas réels.",
+      "intro": "Un agent IA en entreprise n'est pas un assistant conversationnel, ce n'est pas non plus une automatisation rigide façon RPA. C'est un programme qui prend une consigne de haut niveau, décide des étapes à exécuter, agit dans vos systèmes (CRM, ERP, mail, fichiers, API tierces), vérifie son propre travail, et s'arrête quand le résultat est obtenu — sans qu'un humain ne supervise chaque action. Pour qu'il tienne en production, il faut une couche métier précise, des accès sécurisés, des garde-fous explicites, et une boucle de feedback sur les erreurs. C'est cette couche métier qu'on construit avec nos clients, en quelques jours, à partir de cas réels.",
       "sections": [
         {
-          "q": "Quelle est la différence entre un chatbot, un assistant et un agent ?",
-          "a": "Un chatbot répond. Vous posez une question, il renvoie un texte. Un assistant aide à formuler. Vous lui demandez d'écrire un mail, il produit un brouillon que vous validez. Un agent fait. Vous lui demandez de relancer les 50 leads sans réponse depuis 7 jours, il lit votre CRM, sélectionne les bons profils, génère un message personnalisé pour chacun, vérifie qu'aucun n'a déjà reçu un message similaire, envoie via Gmail, log dans le CRM. Vous récupérez le résultat, pas les étapes."
+          "q": "Quelle est la différence entre un assistant conversationnel, un assistant et un agent ?",
+          "a": "Un assistant conversationnel répond. Vous posez une question, il renvoie un texte. Un assistant aide à formuler. Vous lui demandez d'écrire un mail, il produit un brouillon que vous validez. Un agent fait. Vous lui demandez de relancer les 50 leads sans réponse depuis 7 jours, il lit votre CRM, sélectionne les bons profils, génère un message personnalisé pour chacun, vérifie qu'aucun n'a déjà reçu un message similaire, envoie via Gmail, log dans le CRM. Vous récupérez le résultat, pas les étapes."
         },
         {
           "q": "Quels sont les composants techniques d'un agent IA en entreprise ?",

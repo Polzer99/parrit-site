@@ -192,7 +192,7 @@ export const OFFER_COPY: Record<Locale, Record<OfferKind, OfferCopy>> = {
         title: "Un agent en ",
         accent: "production en 14 jours",
         after: ", périmètre et prix fermés.",
-        sub: "Vous choisissez un workflow critique. On le déploie en sprint borné. Vous repartez avec un système qui tourne, pas un POC.",
+        sub: "Vous choisissez un workflow critique. On le déploie en sprint borné. Vous repartez avec un système qui tourne, pas une démo.",
         chips: ["14 jours", "Prix fixe", "En production", "Serveurs MCP"],
         primary: "Réserver le sprint",
         secondary: "Voir le cadre",
@@ -250,7 +250,7 @@ export const OFFER_COPY: Record<Locale, Record<OfferKind, OfferCopy>> = {
         after: ".",
         fine: "Un appel de 30 minutes suffit à choisir le workflow, fixer le prix et bloquer les dates du sprint.",
       },
-      footer: "Operating Partner IA. On déploie le système, pas le POC.",
+      footer: "Operating Partner IA. On déploie le système, pas la démo.",
     }),
     croissance: withCommon("fr", {
       meta: {
@@ -403,13 +403,13 @@ export const OFFER_COPY: Record<Locale, Record<OfferKind, OfferCopy>> = {
   en: {
     deployer: withCommon("en", {
       meta: { title: "Deploy · Agentic sprint · Parrit.ai", description: "A critical workflow turned into a production AI agent with fixed scope, timing and price." },
-      hero: { eyebrow: "Offer · Deploy", title: "An agent in ", accent: "production in 14 days", after: ", with fixed scope and price.", sub: "You choose one critical workflow. We deploy it in a bounded sprint. You leave with a running system, not a POC.", chips: ["14 days", "Fixed price", "In production", "MCP servers"], primary: "Book the sprint", secondary: "See the frame" },
+      hero: { eyebrow: "Offer · Deploy", title: "An agent in ", accent: "production in 14 days", after: ", with fixed scope and price.", sub: "You choose one critical workflow. We deploy it in a bounded sprint. You leave with a running system, not a demo.", chips: ["14 days", "Fixed price", "In production", "MCP servers"], primary: "Book the sprint", secondary: "See the frame" },
       intro: { kicker: "Who it is for", title: "For teams that need ", accent: "proof, fast", after: ".", lead: "You have a process that costs too much human time and want to see it run agentically before launching a heavier program. We take a real workflow, put it in production, and measure the gain on your own data.", cardTitle: "Why bounded", cardBody: "A fixed scope and fixed price make the decision easy. You decide fast, we ship fast, and the output is a system your teams can actually use." },
       deliverables: { kicker: "What we deliver", title: "A ", accent: "running system", after: " inside your stack.", items: ["One sealed critical workflow, chosen with you.", "14 to 21 day sprint with a fixed calendar.", "Production system inside your IT environment.", "End-of-sprint demo on real cases.", "Quantified scaling recommendation.", "Human-in-the-loop and end-to-end traceability."] },
       spec: { kicker: "Frame", title: "Scope, timing, price: ", accent: "fixed at signature", after: ".", rows: [{ label: "Duration", value: "14 to 21 days", note: "fixed calendar" }, { label: "Front", value: "Operations OS or Growth OS" }, { label: "Impact sprint", value: "from €1,197", note: "flagship format" }, { label: "AI agent deployment", value: "from €2,994" }, { label: "Compliance", value: "GDPR, EU AI Act, your data stays with you" }] },
       proofs: { kicker: "Proof", title: "Already ", accent: "in production", after: ".", items: [{ sector: "Logistics company", pain: "Manual intake sorting and data entry.", result: "processing time, shipped in 14 days.", resultAccent: "-40%" }, { sector: "Scale-up", pain: "Contact qualification too slow for the sales pace.", result: "enriched and prioritized by the agent.", resultAccent: "3,000 contacts" }, { sector: "SMB", pain: "Inbound requests lost between channels and inboxes.", result: "automatic capture and routing.", resultAccent: "Zero lost leads" }] },
       cta: { title: "We seal the scope, ", accent: "then deploy", after: ".", fine: "A 30-minute call is enough to choose the workflow, set the price and lock sprint dates." },
-      footer: "AI Operating Partner. We deploy the system, not the POC.",
+      footer: "AI Operating Partner. We deploy the system, not the demo.",
     }),
     croissance: withCommon("en", {
       meta: { title: "Growth · Growth OS · Parrit.ai", description: "A signal-led acquisition machine to generate qualified meetings." },
@@ -436,13 +436,13 @@ export const OFFER_COPY: Record<Locale, Record<OfferKind, OfferCopy>> = {
   "pt-BR": {
     deployer: withCommon("pt-BR", {
       meta: { title: "Implantar · Sprint agentico · Parrit.ai", description: "Um workflow crítico transformado em agente IA em produção, com escopo, prazo e preço fechados." },
-      hero: { eyebrow: "Oferta · Implantar", title: "Um agente em ", accent: "produção em 14 dias", after: ", com escopo e preço fechados.", sub: "Você escolhe um workflow crítico. Nós implantamos em um sprint delimitado. Você sai com um sistema rodando, não um POC.", chips: ["14 dias", "Preço fixo", "Em produção", "Servidores MCP"], primary: "Reservar o sprint", secondary: "Ver o quadro" },
+      hero: { eyebrow: "Oferta · Implantar", title: "Um agente em ", accent: "produção em 14 dias", after: ", com escopo e preço fechados.", sub: "Você escolhe um workflow crítico. Nós implantamos em um sprint delimitado. Você sai com um sistema rodando, não uma demonstração.", chips: ["14 dias", "Preço fixo", "Em produção", "Servidores MCP"], primary: "Reservar o sprint", secondary: "Ver o quadro" },
       intro: { kicker: "Para quem", title: "Para equipes que querem uma ", accent: "prova, rápido", after: ".", lead: "Você tem um processo caro em tempo humano e quer vê-lo rodar com agentes antes de abrir um projeto pesado. Pegamos um workflow real, colocamos em produção e medimos o ganho nos seus próprios dados.", cardTitle: "Por que delimitado", cardBody: "Escopo e preço fechados tornam a decisão simples. Você decide rápido, nós entregamos rápido, e a saída é um sistema utilizável pela equipe." },
       deliverables: { kicker: "O que entregamos", title: "Um ", accent: "sistema que roda", after: " dentro do seu ambiente.", items: ["Um workflow crítico selado, escolhido com você.", "Sprint de 14 a 21 dias, calendário fixo.", "Sistema em produção no seu ambiente.", "Demonstração final em casos reais.", "Recomendação de escala quantificada.", "Human-in-the-loop e rastreabilidade ponta a ponta."] },
       spec: { kicker: "Quadro", title: "Escopo, duração, preço: ", accent: "fechados na assinatura", after: ".", rows: [{ label: "Duração", value: "14 a 21 dias", note: "calendário fixo" }, { label: "Frente", value: "OS Operações ou OS Crescimento" }, { label: "Sprint de impacto", value: "a partir de 1 197 €", note: "formato principal" }, { label: "Deploy de agentes IA", value: "a partir de 2 994 €" }, { label: "Conformidade", value: "GDPR, EU AI Act, dados com você" }] },
       proofs: { kicker: "Provas", title: "Já ", accent: "em produção", after: ".", items: [{ sector: "ETI logística", pain: "Triagem e entrada manual de um fluxo recebido.", result: "de tempo de tratamento, entregue em 14 dias.", resultAccent: "-40%" }, { sector: "Scale-up", pain: "Qualificação de contatos lenta demais para o ritmo comercial.", result: "enriquecidos e priorizados pelo agente.", resultAccent: "3 000 contatos" }, { sector: "PME", pain: "Demandas perdidas entre canais e caixas de email.", result: "captura e roteamento automáticos.", resultAccent: "Zero lead perdido" }] },
       cta: { title: "Fechamos o escopo, ", accent: "implantamos", after: ".", fine: "Uma chamada de 30 minutos basta para escolher o workflow, fixar o preço e reservar as datas do sprint." },
-      footer: "Operating Partner IA. Implantamos o sistema, não o POC.",
+      footer: "Operating Partner IA. Implantamos o sistema, não a demonstração.",
     }),
     croissance: withCommon("pt-BR", {
       meta: { title: "Crescimento · OS Crescimento · Parrit.ai", description: "Uma máquina de aquisição por sinais para gerar reuniões qualificadas." },
@@ -469,13 +469,13 @@ export const OFFER_COPY: Record<Locale, Record<OfferKind, OfferCopy>> = {
   "zh-CN": {
     deployer: withCommon("zh-CN", {
       meta: { title: "部署 · 智能体冲刺 · Parrit.ai", description: "把一个关键工作流变成生产中的 AI 智能体，范围、周期和价格都先确定。" },
-      hero: { eyebrow: "服务 · 部署", title: "一个智能体在 ", accent: "14 天内进入生产", after: "，范围和价格固定。", sub: "你选择一个关键工作流。我们用有边界的冲刺部署它。最后你得到的是运行中的系统，不是 POC。", chips: ["14 天", "固定价格", "生产中", "MCP 服务器"], primary: "预约冲刺", secondary: "查看框架" },
+      hero: { eyebrow: "服务 · 部署", title: "一个智能体在 ", accent: "14 天内进入生产", after: "，范围和价格固定。", sub: "你选择一个关键工作流。我们用有边界的冲刺部署它。最后你得到的是运行中的系统，不是演示。", chips: ["14 天", "固定价格", "生产中", "MCP 服务器"], primary: "预约冲刺", secondary: "查看框架" },
       intro: { kicker: "适合谁", title: "适合需要快速获得", accent: "真实证明", after: "的团队。", lead: "你有一个消耗大量人工时间的流程，想在启动大项目之前看到它以智能体方式运行。我们拿一个真实工作流上线，并在你的数据上衡量收益。", cardTitle: "为什么有边界", cardBody: "固定范围和固定价格让决策更容易。你快速决定，我们快速交付，最终产物是团队能用的系统。" },
       deliverables: { kicker: "交付内容", title: "一个", accent: "真正运行的系统", after: "，在你的环境中。", items: ["一个与你一起选定的关键工作流。", "14 到 21 天冲刺，日程固定。", "在你的 IT 环境中进入生产。", "基于真实案例的冲刺结束演示。", "量化的规模化建议。", "Human-in-the-loop 和端到端可追踪。"] },
       spec: { kicker: "框架", title: "范围、周期、价格：", accent: "签约时确定", after: "。", rows: [{ label: "周期", value: "14 到 21 天", note: "固定日程" }, { label: "战线", value: "运营 OS 或增长 OS" }, { label: "Impact sprint", value: "起价 1 197 €", note: "旗舰格式" }, { label: "AI 智能体部署", value: "起价 2 994 €" }, { label: "合规", value: "GDPR、EU AI Act，数据留在你方" }] },
       proofs: { kicker: "证明", title: "已经", accent: "在生产中", after: "。", items: [{ sector: "物流 ETI", pain: "入站流程的人工分类和录入。", result: "处理时间，14 天交付。", resultAccent: "-40%" }, { sector: "Scale-up", pain: "联系人资格判断跟不上销售节奏。", result: "由智能体丰富并排序。", resultAccent: "3 000 个联系人" }, { sector: "中小企业", pain: "进线需求散落在渠道和邮箱之间。", result: "自动捕获和路由。", resultAccent: "零线索丢失" }] },
       cta: { title: "我们确定范围，", accent: "然后部署", after: "。", fine: "30 分钟通话足以选择工作流、确定价格并锁定冲刺日期。" },
-      footer: "AI Operating Partner。我们部署系统，不交付 POC。",
+      footer: "AI Operating Partner。我们部署系统，不交付演示。",
     }),
     croissance: withCommon("zh-CN", {
       meta: { title: "增长 · 增长 OS · Parrit.ai", description: "基于信号的获客机器，用来产生合格会议。" },

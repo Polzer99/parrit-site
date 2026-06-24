@@ -3,15 +3,23 @@ import Link from "next/link";
 /* eslint-disable @next/next/no-img-element */
 
 import type { Locale } from "@/app/[lang]/dictionaries";
-import type { MaturiteLevel } from "@/lib/maturite";
+import type { MaturiteLevel, MaturiteSlug } from "@/lib/maturite";
 
 export interface OnePagerProps {
   level: MaturiteLevel;
   eyebrow: string;
   h1: string;
   sub: string;
+  phrase: string;
   ctaLabel: string;
   ctaHref: string;
+  stories: {
+    title: string;
+    person: string;
+    before: string;
+    after: string;
+    result: string;
+  }[];
   forWho: string[];
   deliverables: string[];
   steps: { title: string; body: string }[];
@@ -22,9 +30,20 @@ export interface OnePagerProps {
 }
 
 const navLinks = [
+  { href: "#histoires", label: "Histoires" },
   { href: "#pour-qui", label: "Pour qui" },
   { href: "#livrables", label: "Livrables" },
   { href: "#prix", label: "Prix" },
+];
+
+const maturityNav: { level: MaturiteLevel; slug: MaturiteSlug; label: string }[] = [
+  { level: "N1", slug: "masterclass-ia", label: "Découverte" },
+  { level: "N2", slug: "masterclass-metier", label: "Métier" },
+  { level: "N3", slug: "sessions-mcp", label: "Connexion" },
+  { level: "N4", slug: "audit", label: "Diagnostic" },
+  { level: "N5", slug: "deploiement-agents", label: "Production" },
+  { level: "N6", slug: "outils-agentiques", label: "Autonomie" },
+  { level: "N7", slug: "optimisation-flotte", label: "Flotte" },
 ];
 
 function Logo() {
@@ -40,8 +59,10 @@ export default function OnePager({
   eyebrow,
   h1,
   sub,
+  phrase,
   ctaLabel,
   ctaHref,
+  stories,
   forWho,
   deliverables,
   steps,
@@ -74,10 +95,11 @@ export default function OnePager({
 
       <section className="hero left">
         <img className="seal-wm" src="/brand/parrit-seal.svg" alt="" aria-hidden="true" />
-        <div className="eyebrow chip">
+        <div className="eyebrow chip onepager-eyebrow">
           <span className="dot" aria-hidden="true" />
           {eyebrow}
         </div>
+        <p className="onepager-phrase">{phrase}</p>
         <h1>{h1}</h1>
         <p className="sub">{sub}</p>
         <div className="cta-row">
@@ -87,6 +109,55 @@ export default function OnePager({
           <a className="btn btn-ghost btn-lg" href="#prix">
             Voir le prix
           </a>
+        </div>
+        <nav className="maturity-rail" aria-label="Parcours de maturité IA">
+          {maturityNav.map((item) => (
+            <Link
+              aria-current={item.level === level ? "page" : undefined}
+              className="maturity-rail-item"
+              href={`/${lang}/${item.slug}`}
+              key={item.level}
+            >
+              <span>{item.level}</span>
+              <strong>{item.label}</strong>
+            </Link>
+          ))}
+        </nav>
+      </section>
+
+      <section className="section story-section" id="histoires">
+        <div className="wrap">
+          <div className="section-head">
+            <div className="kicker">Avant / après</div>
+            <h2>À quoi ressemble une transformation à ce niveau ?</h2>
+            <p className="lead">
+              On part toujours d'une situation concrète : une équipe, un métier, un blocage. Puis on rend le prochain pas visible.
+            </p>
+          </div>
+          <div className="story-grid">
+            {stories.map((story) => (
+              <article className="story-card" key={story.title}>
+                <div className="story-person">{story.person}</div>
+                <h3>{story.title}</h3>
+                <div className="story-compare">
+                  <div>
+                    <span>Avant</span>
+                    <p>{story.before}</p>
+                  </div>
+                  <div>
+                    <span>Après</span>
+                    <p>{story.after}</p>
+                  </div>
+                </div>
+                <p className="story-result">{story.result}</p>
+              </article>
+            ))}
+          </div>
+          <div className="story-cta">
+            <a className="btn btn-red btn-lg" href={ctaHref}>
+              {ctaLabel}
+            </a>
+          </div>
         </div>
       </section>
 

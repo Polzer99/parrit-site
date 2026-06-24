@@ -33,7 +33,7 @@
         },
         {
           "q": "Quel langage apprendre en parallèle ?",
-          "a": "Aucun. Le but n'est pas d'apprendre Python ou SQL, mais de maîtriser l'art de la prompt. Savoir décrire un problème étape par étape, avec les inputs et outputs attendus, est la compétence clé. Si vous devez apprendre quelque chose, ce sont les bases de la logique informatique : variables, boucles, conditions. Claude Code vous expliquera ces concepts sur des exemples concrets liés à votre métier. C'est une formation sur le tas, orientée résultat."
+          "a": "Aucun. Le but n'est pas d'apprendre Python ou SQL, mais de maîtriser l'art de l'instruction. Savoir décrire un problème étape par étape, avec les inputs et outputs attendus, est la compétence clé. Si vous devez apprendre quelque chose, ce sont les bases de la logique informatique : variables, boucles, conditions. Claude Code vous expliquera ces concepts sur des exemples concrets liés à votre métier. C'est une formation sur le tas, orientée résultat."
         },
         {
           "q": "Quand est-ce que ça ne sert à rien ?",
