@@ -1457,6 +1457,67 @@ body > * {
   margin-top: 14px;
 }
 
+.home-template .note-eyebrow {
+  color: var(--accent);
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+
+.home-template .maturite-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  margin-top: 36px;
+}
+
+.home-template .maturite-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 22px;
+  background: #ffffff;
+  border: 1px solid rgba(20, 20, 26, 0.10);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+}
+
+.home-template .maturite-tile:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(170, 0, 3, 0.08);
+}
+
+.home-template .maturite-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.home-template .maturite-label {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.home-template .maturite-phrase {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .home-template .two {
   align-items: start;
   display: grid;
@@ -1511,17 +1572,6 @@ body > * {
   font-size: 19px;
   font-weight: 700;
   letter-spacing: -0.01em;
-}
-
-.home-template .card h3 .note {
-  color: var(--faint);
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  margin-top: 3px;
-  text-transform: none;
 }
 
 .home-template .card p {
