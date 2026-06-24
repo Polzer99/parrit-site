@@ -34,6 +34,7 @@ export async function generateMetadata({
   const m = dict.actualite.meta;
 
   return {
+    metadataBase: new URL(SITE_URL),
     title: m.title,
     description: m.description,
     alternates: {
@@ -49,6 +50,20 @@ export async function generateMetadata({
       siteName: "Parrit.ai",
       locale: dict.meta.ogLocale,
       type: "website",
+      images: [
+        {
+          url: `${SITE_URL}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: "Parrit.ai : l'IA qui agit pour vous, en 14 jours",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: m.ogTitle,
+      description: m.ogDescription,
+      images: [`${SITE_URL}/opengraph-image`],
     },
   };
 }

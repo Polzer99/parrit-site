@@ -25,6 +25,7 @@ export async function generateMetadata({
   const a = dict.author;
 
   return {
+    metadataBase: new URL(SITE_URL),
     title: a.metaTitle,
     description: a.metaDescription,
     authors: [{ name: "Paul Larmaraud" }],
@@ -41,7 +42,20 @@ export async function generateMetadata({
       siteName: "Parrit.ai",
       locale: dict.meta.ogLocale,
       type: "profile",
-      images: [`${SITE_URL}/og-image.png`],
+      images: [
+        {
+          url: `${SITE_URL}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: "Parrit.ai : l'IA qui agit pour vous, en 14 jours",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: a.metaTitle,
+      description: a.metaDescription,
+      images: [`${SITE_URL}/opengraph-image`],
     },
   };
 }

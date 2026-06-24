@@ -37,6 +37,7 @@ export async function generateMetadata({
   const dict = await getDictionary(lang as Locale);
 
   return {
+    metadataBase: new URL(SITE_URL),
     title: `${post.title} | Parrit.ai`,
     description: post.description,
     authors: [{ name: post.author }],
@@ -55,11 +56,20 @@ export async function generateMetadata({
       type: "article",
       publishedTime: post.date,
       authors: [post.author],
+      images: [
+        {
+          url: `${SITE_URL}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: "Parrit.ai : l'IA qui agit pour vous, en 14 jours",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
+      images: [`${SITE_URL}/opengraph-image`],
     },
   };
 }

@@ -5,6 +5,7 @@ import { hasLocale, locales, type Locale } from "@/app/[lang]/dictionaries";
 import { maturiteOffers, type MaturiteSlug } from "@/lib/maturite";
 
 const SITE_URL = "https://parrit.ai";
+const OG_IMAGE = `${SITE_URL}/opengraph-image`;
 
 export function generateMaturiteStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -30,6 +31,7 @@ export async function generateMaturiteMetadata({
   });
 
   return {
+    metadataBase: new URL(SITE_URL),
     title: `${offer.eyebrow} | Parrit.ai`,
     description: offer.metaDescription,
     alternates: {
@@ -42,11 +44,20 @@ export async function generateMaturiteMetadata({
       url: `${SITE_URL}/${lang}/${slug}`,
       siteName: "Parrit.ai",
       type: "article",
+      images: [
+        {
+          url: OG_IMAGE,
+          width: 1200,
+          height: 630,
+          alt: "Parrit.ai : l'IA qui agit pour vous, en 14 jours",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: offer.h1,
       description: offer.metaDescription,
+      images: [OG_IMAGE],
     },
     robots: { index: true, follow: true },
   };

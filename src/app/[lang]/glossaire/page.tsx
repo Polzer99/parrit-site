@@ -77,6 +77,7 @@ export async function generateMetadata({
   const languagesMap: Record<string, string> = { "x-default": `${SITE_URL}/fr/glossaire` };
   for (const l of locales) languagesMap[l] = `${SITE_URL}/${l}/glossaire`;
   return {
+    metadataBase: new URL(SITE_URL),
     title: s.pageTitle,
     description: s.pageDesc,
     alternates: { canonical: `${SITE_URL}/${lang}/glossaire`, languages: languagesMap },
@@ -86,6 +87,20 @@ export async function generateMetadata({
       url: `${SITE_URL}/${lang}/glossaire`,
       siteName: "Parrit.ai",
       type: "website",
+      images: [
+        {
+          url: `${SITE_URL}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: "Parrit.ai : l'IA qui agit pour vous, en 14 jours",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: s.pageTitle,
+      description: s.pageDesc,
+      images: [`${SITE_URL}/opengraph-image`],
     },
     robots: { index: true, follow: true },
   };
