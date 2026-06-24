@@ -93,6 +93,7 @@ const COPY: Record<Locale, HomeCopy> = {
       { href: "#deployer", label: "Déployer" },
       { href: "#croissance", label: "Croissance" },
       { href: "#transmettre", label: "Transmettre" },
+      { href: "/blog", label: "Articles" },
     ],
     a11y: {
       nav: "Navigation principale",
@@ -239,6 +240,7 @@ const COPY: Record<Locale, HomeCopy> = {
       { href: "#deployer", label: "Deploy" },
       { href: "#croissance", label: "Growth" },
       { href: "#transmettre", label: "Transmit" },
+      { href: "/blog", label: "Articles" },
     ],
     a11y: {
       nav: "Primary navigation",
@@ -385,6 +387,7 @@ const COPY: Record<Locale, HomeCopy> = {
       { href: "#deployer", label: "Implantar" },
       { href: "#croissance", label: "Crescimento" },
       { href: "#transmettre", label: "Transmitir" },
+      { href: "/blog", label: "Artigos" },
     ],
     a11y: {
       nav: "Navegação principal",
@@ -531,6 +534,7 @@ const COPY: Record<Locale, HomeCopy> = {
       { href: "#deployer", label: "部署" },
       { href: "#croissance", label: "增长" },
       { href: "#transmettre", label: "传递" },
+      { href: "/blog", label: "文章" },
     ],
     a11y: {
       nav: "主导航",
@@ -785,7 +789,7 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           <Logo />
           <div className="nav-links">
             {copy.navLinks.map((item) => (
-              <a href={item.href} key={item.href}>
+              <a href={item.href.startsWith('/') ? `/${lang}${item.href}` : item.href} key={item.href}>
                 {item.label}
               </a>
             ))}
@@ -973,7 +977,7 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           <Logo />
           <nav className="footer-links" aria-label={copy.a11y.footerOffers}>
             {copy.navLinks.map((item) => (
-              <a href={item.href} key={item.href}>
+              <a href={item.href.startsWith('/') ? `/${lang}${item.href}` : item.href} key={item.href}>
                 {item.label}
               </a>
             ))}
