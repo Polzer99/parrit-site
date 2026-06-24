@@ -6,6 +6,7 @@ Source : `docs/conversational-site/USER-STORIES.md`
 
 Objectif : disposer d'une base unique pour personnaliser les suites de rendez-vous. Chaque ligne sert a construire une proposition sur mesure : ce qu'on a compris, l'avant/apres, les cas d'usage possibles, la premiere marche et la ressource a envoyer.
 
+Kit post-meeting associe : `docs/sales/post-meeting-value-prop-kit.md`
 Template de presentation associe : `docs/sales/post-meeting-presentation-template.md`
 
 ## Regles de personnalisation

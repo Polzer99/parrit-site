@@ -7,6 +7,8 @@ Sources : `docs/sales/persona-value-prop-matrix.md`, `docs/sales/post-meeting-te
 
 Objectif : produire vite une suite de rendez-vous qui parle a la personne rencontree. Le support doit raconter son quotidien, montrer un avant / apres concret, proposer deux ou trois cas d'usage et terminer par un prochain pas simple.
 
+Kit de personnalisation associe : `docs/sales/post-meeting-value-prop-kit.md`
+
 Ce template n'est pas une propale finale. Il devient une page protegee ou une presentation partageable une fois personnalise avec le nom, les cas, les exemples et les ressources utiles.
 
 ## Regle de construction
