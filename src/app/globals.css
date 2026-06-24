@@ -85,6 +85,20 @@ body::before {
   opacity: 0.035;
 }
 
+/* Paysage LO-Y-WA — fond atmosphérique extrait de la réf Smoooth */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('/brand/paysage-lo-y-wa.jpg');
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: multiply;
+  opacity: 1;
+}
+
 body > * {
   position: relative;
   z-index: 1;
