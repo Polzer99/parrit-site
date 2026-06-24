@@ -21,7 +21,7 @@ const mono = JetBrains_Mono({
 const SITE_URL = "https://parrit.ai";
 
 export const metadata: Metadata = {
-  title: "Les fondateurs — Paul Larmaraud & Yukun Leng | Parrit.ai",
+  title: "Les fondateurs : Paul Larmaraud & Yukun Leng | Parrit.ai",
   description:
     "Parrit.ai est une maison franco-chinoise qui construit des outils sur-mesure avec Claude Code. Paul Larmaraud façonne les prototypes, Yukun Leng les porte en production.",
   alternates: { canonical: `${SITE_URL}/fondateurs` },

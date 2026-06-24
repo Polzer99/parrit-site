@@ -6,7 +6,7 @@ const SITE_URL = "https://parrit.ai";
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Parler à Parrit — diagnostic sur-mesure",
+  name: "Parler à Parrit : diagnostic sur-mesure",
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description:

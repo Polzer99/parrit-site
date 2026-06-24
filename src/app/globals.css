@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* PARRIT.AI — DA "Parrit Template" (source: design-source/, 06/2026). */
+/* PARRIT.AI : DA "Parrit Template" (source: design-source/, 06/2026). */
 :root {
   --bg: #F5F8FF;
   --band: #ECF1FB;
@@ -85,7 +85,7 @@ body:not(:has(.home-template)) {
   background-image: none;
 }
 
-/* Paper grain texture — opacity calibrée sur la réf Smoooth (0.035) */
+/* Paper grain texture : opacity calibrée sur la réf Smoooth (0.035) */
 body::before {
   content: '';
   position: fixed;
@@ -103,9 +103,9 @@ body > * {
 }
 
 
-/* Modal Win — better padding on phone */
+/* Modal Win : better padding on phone */
 @media (max-width: 600px) {
-  /* Win overlay component has inline padding — override */
+  /* Win overlay component has inline padding : override */
   div[role="dialog"] > div {
     border-radius: 10px;
   }
@@ -128,7 +128,7 @@ body > * {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   BLOG REFRESH — Desktop OS V4 aesthetic + responsive
+   BLOG REFRESH : Desktop OS V4 aesthetic + responsive
    Overrides for /blog and /blog/[slug] pages
    ═══════════════════════════════════════════════════════════ */
 
@@ -179,7 +179,7 @@ body > * {
   background: rgba(22, 22, 26, 0.05);
 }
 
-/* Blog header — new look */
+/* Blog header : new look */
 .blog-header {
   padding: 56px 24px 36px !important;
   max-width: 760px !important;
@@ -212,7 +212,7 @@ body > * {
   margin: 0 auto;
 }
 
-/* Blog list — flat Parrit Template cards */
+/* Blog list : flat Parrit Template cards */
 .blog-list {
   max-width: 1100px !important;
   margin-left: auto !important;
@@ -302,7 +302,7 @@ body > * {
   border-bottom: none !important;
 }
 
-/* Blog article page — paper aesthetic */
+/* Blog article page : paper aesthetic */
 .blog-article {
   max-width: 720px !important;
   margin-left: auto !important;
@@ -395,7 +395,7 @@ body > * {
   margin: -10px 0 34px;
 }
 
-/* Author page bio — shares the article body aesthetic, adds list styling */
+/* Author page bio : shares the article body aesthetic, adds list styling */
 .blog-article-subtitle {
   font-family: var(--font-body) !important;
   font-size: 15px !important;
@@ -442,7 +442,7 @@ body > * {
   color: #FFFFFF !important;
 }
 
-/* Blog footer — match home aesthetic */
+/* Blog footer : match home aesthetic */
 .blog-footer {
   background: #161616 !important;
   padding: 56px 20px 36px !important;
@@ -477,7 +477,7 @@ body > * {
   background: var(--red-hover) !important;
 }
 
-/* Responsive — phones */
+/* Responsive : phones */
 @media (max-width: 600px) {
   .blog-nav {
     height: 48px !important;
@@ -597,7 +597,7 @@ body > * {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   LANDING V4 — static landing pages (audit / setup / sprint / remote / auteur)
+   LANDING V4 : static landing pages (audit / setup / sprint / remote / auteur)
    ═══════════════════════════════════════════════════════════ */
 .landing-v4-shell {
   min-height: 100vh;
@@ -969,7 +969,7 @@ body > * {
 
 
 /* ═══════════════════════════════════════════════════════════
-   FONDATEURS — premium founders page (/fondateurs)
+   FONDATEURS : premium founders page (/fondateurs)
    ═══════════════════════════════════════════════════════════ */
 .founders { max-width: 980px; margin: 0 auto; padding: 44px 20px 72px; }
 
@@ -1108,7 +1108,7 @@ body > * {
 .founders-close-cta:hover { background: var(--red-hover); transform: translate(-1px, -1px); }
 
 /* ═══════════════════════════════════════════════════════════
-   CLAUDE CODE ACADEMY — landing (/academy)
+   CLAUDE CODE ACADEMY : landing (/academy)
    ═══════════════════════════════════════════════════════════ */
 .aca { max-width: 940px; margin: 0 auto; padding: 44px 20px 72px; }
 .aca-hero-form { margin-top: 28px; }
@@ -1148,7 +1148,7 @@ body > * {
 }
 
 /* ==========================================================================
-   Home "Parrit Template" — port scoped from design-source/parrit-da.css
+   Home "Parrit Template" : port scoped from design-source/parrit-da.css
    ========================================================================== */
 .home-template {
   background: transparent;

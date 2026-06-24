@@ -21,12 +21,12 @@ const mono = JetBrains_Mono({
 const SITE_URL = "https://parrit.ai";
 
 export const metadata: Metadata = {
-  title: "Claude Code Academy — Fais agir ton ordinateur | Parrit.ai",
+  title: "Claude Code Academy : Fais agir ton ordinateur | Parrit.ai",
   description:
     "Des modules courts pour apprendre à faire AGIR ton ordinateur avec Claude Code : ranger tes mails, sortir un site en une soirée, trouver des clients pendant que tu dors. Les 10 premiers sont gratuits.",
   alternates: { canonical: `${SITE_URL}/academy` },
   openGraph: {
-    title: "Claude Code Academy — par Parrit.ai",
+    title: "Claude Code Academy : par Parrit.ai",
     description:
       "Apprends à faire agir ton ordinateur, pas juste discuter avec une IA. Modules courts, concrets, prouvés sur le quotidien de Paul. Les 10 premiers gratuits.",
     url: `${SITE_URL}/academy`,

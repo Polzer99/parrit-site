@@ -13,7 +13,7 @@
         "ogTitle": "Qu'est-ce qu'un agent IA en entreprise ? · Parrit",
         "ogDescription": "Définition opérationnelle d'un agent IA en entreprise. Exemples concrets, différences avec assistant conversationnel et RPA."
       },
-      "intro": "Un agent IA en entreprise n'est pas un assistant conversationnel, ce n'est pas non plus une automatisation rigide façon RPA. C'est un programme qui prend une consigne de haut niveau, décide des étapes à exécuter, agit dans vos systèmes (CRM, ERP, mail, fichiers, API tierces), vérifie son propre travail, et s'arrête quand le résultat est obtenu — sans qu'un humain ne supervise chaque action. Pour qu'il tienne en production, il faut une couche métier précise, des accès sécurisés, des garde-fous explicites, et une boucle de feedback sur les erreurs. C'est cette couche métier qu'on construit avec nos clients, en quelques jours, à partir de cas réels.",
+      "intro": "Un agent IA en entreprise n'est pas un assistant conversationnel, ce n'est pas non plus une automatisation rigide façon RPA. C'est un programme qui prend une consigne de haut niveau, décide des étapes à exécuter, agit dans vos systèmes (CRM, ERP, mail, fichiers, API tierces), vérifie son propre travail, et s'arrête quand le résultat est obtenu, sans qu'un humain ne supervise chaque action. Pour qu'il tienne en production, il faut une couche métier précise, des accès sécurisés, des garde-fous explicites, et une boucle de feedback sur les erreurs. C'est cette couche métier qu'on construit avec nos clients, en quelques jours, à partir de cas réels.",
       "sections": [
         {
           "q": "Quelle est la différence entre un assistant conversationnel, un assistant et un agent ?",
@@ -29,7 +29,7 @@
         },
         {
           "q": "Combien de temps pour mettre un agent en production ?",
-          "a": "Si le cas est bien cadré et qu'on a accès aux bons systèmes, un premier agent fonctionnel en quelques jours, en production sous 2-3 semaines. Le délai n'est pas le code — c'est la cartographie du processus métier réel, la définition des garde-fous, et la validation par les opérateurs. Un agent qui tourne sans être lu par les équipes est un agent mort."
+          "a": "Si le cas est bien cadré et qu'on a accès aux bons systèmes, un premier agent fonctionnel en quelques jours, en production sous 2-3 semaines. Le délai n'est pas le code : c'est la cartographie du processus métier réel, la définition des garde-fous, et la validation par les opérateurs. Un agent qui tourne sans être lu par les équipes est un agent mort."
         },
         {
           "q": "Quels sont les risques d'un agent IA en entreprise et comment on les gère ?",
