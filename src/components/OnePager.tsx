@@ -29,22 +29,202 @@ export interface OnePagerProps {
   lang: Locale;
 }
 
-const navLinks = [
-  { href: "#histoires", label: "Histoires" },
-  { href: "#pour-qui", label: "Pour qui" },
-  { href: "#livrables", label: "Livrables" },
-  { href: "#prix", label: "Prix" },
+type OnePagerChrome = {
+  navAria: string;
+  contact: string;
+  priceCta: string;
+  maturityRailAria: string;
+  navLinks: { href: string; label: string }[];
+  maturityNav: { level: MaturiteLevel; slug: MaturiteSlug; label: string }[];
+  storyKicker: string;
+  storyTitle: string;
+  storyLead: string;
+  before: string;
+  after: string;
+  forWhoKicker: (level: MaturiteLevel) => string;
+  forWhoTitle: string;
+  deliverablesKicker: string;
+  deliverablesTitle: string;
+  stepsKicker: string;
+  stepsTitle: string;
+  proofKicker: string;
+  proofTitle: string;
+  priceKicker: string;
+};
+
+const baseNavLinks = [
+  { href: "#histoires", key: "stories" },
+  { href: "#pour-qui", key: "fit" },
+  { href: "#livrables", key: "deliverables" },
+  { href: "#prix", key: "pricing" },
+] as const;
+
+type NavLinkKey = (typeof baseNavLinks)[number]["key"];
+
+const maturityItems: { level: MaturiteLevel; slug: MaturiteSlug }[] = [
+  { level: "N1", slug: "masterclass-ia" },
+  { level: "N2", slug: "masterclass-metier" },
+  { level: "N3", slug: "sessions-mcp" },
+  { level: "N4", slug: "audit" },
+  { level: "N5", slug: "deploiement-agents" },
+  { level: "N6", slug: "outils-agentiques" },
+  { level: "N7", slug: "optimisation-flotte" },
 ];
 
-const maturityNav: { level: MaturiteLevel; slug: MaturiteSlug; label: string }[] = [
-  { level: "N1", slug: "masterclass-ia", label: "Découverte" },
-  { level: "N2", slug: "masterclass-metier", label: "Métier" },
-  { level: "N3", slug: "sessions-mcp", label: "Connexion" },
-  { level: "N4", slug: "audit", label: "Diagnostic" },
-  { level: "N5", slug: "deploiement-agents", label: "Production" },
-  { level: "N6", slug: "outils-agentiques", label: "Autonomie" },
-  { level: "N7", slug: "optimisation-flotte", label: "Flotte" },
-];
+function buildNavLinks(labels: Record<NavLinkKey, string>) {
+  return baseNavLinks.map((item) => ({ href: item.href, label: labels[item.key] }));
+}
+
+function buildMaturityNav(labels: Record<MaturiteLevel, string>) {
+  return maturityItems.map((item) => ({ ...item, label: labels[item.level] }));
+}
+
+const chromeByLocale: Record<Locale, OnePagerChrome> = {
+  fr: {
+    navAria: "Navigation principale",
+    contact: "Nous écrire",
+    priceCta: "Voir le prix",
+    maturityRailAria: "Parcours de maturité IA",
+    navLinks: buildNavLinks({
+      stories: "Histoires",
+      fit: "Pour qui",
+      deliverables: "Livrables",
+      pricing: "Prix",
+    }),
+    maturityNav: buildMaturityNav({
+      N1: "Découverte",
+      N2: "Métier",
+      N3: "Connexion",
+      N4: "Diagnostic",
+      N5: "Production",
+      N6: "Autonomie",
+      N7: "Flotte",
+    }),
+    storyKicker: "Avant / après",
+    storyTitle: "À quoi ressemble une transformation à ce niveau ?",
+    storyLead:
+      "On part toujours d'une situation concrète : une équipe, un métier, un blocage. Puis on rend le prochain pas visible.",
+    before: "Avant",
+    after: "Après",
+    forWhoKicker: (level) => `${level} · Pour qui`,
+    forWhoTitle: "Ce niveau est fait pour vous si...",
+    deliverablesKicker: "Ce qu'on livre",
+    deliverablesTitle: "Un livrable clair, actionnable, utilisable par vos équipes.",
+    stepsKicker: "Comment ça se passe",
+    stepsTitle: "Un rythme court, des étapes visibles, pas de flou.",
+    proofKicker: "Preuve",
+    proofTitle: "Cas anonymisé.",
+    priceKicker: "Prix",
+  },
+  en: {
+    navAria: "Primary navigation",
+    contact: "Write to us",
+    priceCta: "See pricing",
+    maturityRailAria: "AI maturity journey",
+    navLinks: buildNavLinks({
+      stories: "Stories",
+      fit: "Who it fits",
+      deliverables: "Deliverables",
+      pricing: "Pricing",
+    }),
+    maturityNav: buildMaturityNav({
+      N1: "Discovery",
+      N2: "Business use",
+      N3: "Connection",
+      N4: "Diagnosis",
+      N5: "Production",
+      N6: "Autonomy",
+      N7: "Fleet",
+    }),
+    storyKicker: "Before / after",
+    storyTitle: "What does transformation look like at this level?",
+    storyLead:
+      "We always start from a concrete situation: a team, a role, a blocker. Then we make the next step visible.",
+    before: "Before",
+    after: "After",
+    forWhoKicker: (level) => `${level} · Who it fits`,
+    forWhoTitle: "This level fits you if...",
+    deliverablesKicker: "What we deliver",
+    deliverablesTitle: "A clear, actionable deliverable your teams can use.",
+    stepsKicker: "How it works",
+    stepsTitle: "A short rhythm, visible steps, no fog.",
+    proofKicker: "Proof",
+    proofTitle: "Anonymized case.",
+    priceKicker: "Pricing",
+  },
+  "pt-BR": {
+    navAria: "Navegação principal",
+    contact: "Escrever para nós",
+    priceCta: "Ver o preço",
+    maturityRailAria: "Jornada de maturidade em IA",
+    navLinks: buildNavLinks({
+      stories: "Histórias",
+      fit: "Para quem",
+      deliverables: "Entregáveis",
+      pricing: "Preço",
+    }),
+    maturityNav: buildMaturityNav({
+      N1: "Descoberta",
+      N2: "Uso de negócio",
+      N3: "Conexão",
+      N4: "Diagnóstico",
+      N5: "Produção",
+      N6: "Autonomia",
+      N7: "Frota",
+    }),
+    storyKicker: "Antes / depois",
+    storyTitle: "Como é uma transformação neste nível?",
+    storyLead:
+      "Partimos sempre de uma situação concreta: uma equipe, uma função, um bloqueio. Depois tornamos o próximo passo visível.",
+    before: "Antes",
+    after: "Depois",
+    forWhoKicker: (level) => `${level} · Para quem`,
+    forWhoTitle: "Este nível é para você se...",
+    deliverablesKicker: "O que entregamos",
+    deliverablesTitle: "Um entregável claro, acionável e utilizável pelas suas equipes.",
+    stepsKicker: "Como funciona",
+    stepsTitle: "Um ritmo curto, etapas visíveis, sem zona cinzenta.",
+    proofKicker: "Prova",
+    proofTitle: "Caso anonimizado.",
+    priceKicker: "Preço",
+  },
+  "zh-CN": {
+    navAria: "主导航",
+    contact: "联系我们",
+    priceCta: "查看价格",
+    maturityRailAria: "AI 成熟度路径",
+    navLinks: buildNavLinks({
+      stories: "案例",
+      fit: "适合谁",
+      deliverables: "交付物",
+      pricing: "价格",
+    }),
+    maturityNav: buildMaturityNav({
+      N1: "认知",
+      N2: "业务应用",
+      N3: "连接",
+      N4: "诊断",
+      N5: "生产",
+      N6: "自主",
+      N7: "舰队",
+    }),
+    storyKicker: "之前 / 之后",
+    storyTitle: "这个阶段的转型是什么样？",
+    storyLead:
+      "我们总是从一个具体场景开始：一支团队、一个岗位、一个卡点。然后把下一步变得清晰可见。",
+    before: "之前",
+    after: "之后",
+    forWhoKicker: (level) => `${level} · 适合谁`,
+    forWhoTitle: "如果你有这些情况，这个阶段适合你...",
+    deliverablesKicker: "我们交付什么",
+    deliverablesTitle: "一个清晰、可执行、团队能真正使用的交付物。",
+    stepsKicker: "如何推进",
+    stepsTitle: "节奏短、步骤清楚、不留模糊地带。",
+    proofKicker: "证明",
+    proofTitle: "匿名案例。",
+    priceKicker: "价格",
+  },
+};
 
 function Logo() {
   return (
@@ -71,24 +251,26 @@ export default function OnePager({
   priceNote,
   lang,
 }: OnePagerProps) {
+  const chrome = chromeByLocale[lang];
+
   return (
     <main className="home-template">
       <div className="frame" />
 
       <div className="wrap">
-        <nav className="nav" aria-label="Navigation principale">
+        <nav className="nav" aria-label={chrome.navAria}>
           <Link href={`/${lang}`} aria-label="Parrit.ai">
             <Logo />
           </Link>
           <div className="nav-links">
-            {navLinks.map((item) => (
+            {chrome.navLinks.map((item) => (
               <a href={item.href} key={item.href}>
                 {item.label}
               </a>
             ))}
           </div>
           <a className="btn btn-red" href="mailto:paul.larmaraud@parrit.ai">
-            Nous écrire
+            {chrome.contact}
           </a>
         </nav>
       </div>
@@ -107,11 +289,11 @@ export default function OnePager({
             {ctaLabel}
           </a>
           <a className="btn btn-ghost btn-lg" href="#prix">
-            Voir le prix
+            {chrome.priceCta}
           </a>
         </div>
-        <nav className="maturity-rail" aria-label="Parcours de maturité IA">
-          {maturityNav.map((item) => (
+        <nav className="maturity-rail" aria-label={chrome.maturityRailAria}>
+          {chrome.maturityNav.map((item) => (
             <Link
               aria-current={item.level === level ? "page" : undefined}
               className="maturity-rail-item"
@@ -128,11 +310,9 @@ export default function OnePager({
       <section className="section story-section" id="histoires">
         <div className="wrap">
           <div className="section-head">
-            <div className="kicker">Avant / après</div>
-            <h2>À quoi ressemble une transformation à ce niveau ?</h2>
-            <p className="lead">
-              On part toujours d'une situation concrète : une équipe, un métier, un blocage. Puis on rend le prochain pas visible.
-            </p>
+            <div className="kicker">{chrome.storyKicker}</div>
+            <h2>{chrome.storyTitle}</h2>
+            <p className="lead">{chrome.storyLead}</p>
           </div>
           <div className="story-grid">
             {stories.map((story) => (
@@ -141,11 +321,11 @@ export default function OnePager({
                 <h3>{story.title}</h3>
                 <div className="story-compare">
                   <div>
-                    <span>Avant</span>
+                    <span>{chrome.before}</span>
                     <p>{story.before}</p>
                   </div>
                   <div>
-                    <span>Après</span>
+                    <span>{chrome.after}</span>
                     <p>{story.after}</p>
                   </div>
                 </div>
@@ -164,8 +344,8 @@ export default function OnePager({
       <section className="section band" id="pour-qui">
         <div className="wrap">
           <div className="section-head">
-            <div className="kicker">{level} · Pour qui</div>
-            <h2>Ce niveau est fait pour vous si...</h2>
+            <div className="kicker">{chrome.forWhoKicker(level)}</div>
+            <h2>{chrome.forWhoTitle}</h2>
           </div>
           <div className="grid3">
             {forWho.map((item) => (
@@ -183,8 +363,8 @@ export default function OnePager({
       <section className="section" id="livrables">
         <div className="wrap">
           <div className="section-head">
-            <div className="kicker">Ce qu'on livre</div>
-            <h2>Un livrable clair, actionnable, utilisable par vos équipes.</h2>
+            <div className="kicker">{chrome.deliverablesKicker}</div>
+            <h2>{chrome.deliverablesTitle}</h2>
           </div>
           <ul className="checks">
             {deliverables.map((item) => (
@@ -202,8 +382,8 @@ export default function OnePager({
       <section className="section band">
         <div className="wrap">
           <div className="section-head">
-            <div className="kicker">Comment ça se passe</div>
-            <h2>Un rythme court, des étapes visibles, pas de flou.</h2>
+            <div className="kicker">{chrome.stepsKicker}</div>
+            <h2>{chrome.stepsTitle}</h2>
           </div>
           <div className="grid3">
             {steps.map((step, index) => (
@@ -221,8 +401,8 @@ export default function OnePager({
       <section className="section">
         <div className="wrap">
           <div className="section-head">
-            <div className="kicker">Preuve</div>
-            <h2>Cas anonymisé.</h2>
+            <div className="kicker">{chrome.proofKicker}</div>
+            <h2>{chrome.proofTitle}</h2>
           </div>
           <blockquote className="bc">
             <p>
@@ -237,7 +417,7 @@ export default function OnePager({
           <div className="ctacard">
             <div>
               <Logo />
-              <div className="kicker">Prix</div>
+              <div className="kicker">{chrome.priceKicker}</div>
               <h2>{price}</h2>
               {priceNote && <p className="fine">{priceNote}</p>}
               <div className="cta-row">

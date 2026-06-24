@@ -6,6 +6,8 @@ Source : `docs/conversational-site/USER-STORIES.md`
 
 Objectif : disposer d'une base unique pour personnaliser les suites de rendez-vous. Chaque ligne sert a construire une proposition sur mesure : ce qu'on a compris, l'avant/apres, les cas d'usage possibles, la premiere marche et la ressource a envoyer.
 
+Template de presentation associe : `docs/sales/post-meeting-presentation-template.md`
+
 ## Regles de personnalisation
 
 - Partir de la personne, pas de l'offre. On nomme son quotidien, son vocabulaire, son risque.
@@ -70,5 +72,6 @@ Apres : un cas metier tourne dans l'environnement du client, avec garde-fous, re
 - Une fiche PDF "De l'IA generative a l'IA agentique" avec les 7 niveaux de maturite et un cas par niveau.
 - Une fiche "Avant / apres" par persona prioritaire : DG, CCO, owner e-commerce, directeur transformation, directeur e-commerce.
 - Un mini-audit envoyable apres meeting : 1 page, trois use cases, premiere marche, risques, prochaines etapes.
+- Une prez post-meeting personnalisable par persona : histoire, avant/apres, trois cas possibles, premier flux cible, CTA.
 - Une version courte LinkedIn pour chaque persona : probleme visible, mecanique Parrit, preuve anonymisee, invitation a cadrer le premier chantier.
 - Une trame de page propale protegee qui reprend cette matrice, puis ajoute le prix, les destinataires et le tracking uniquement pour les deals chauds.

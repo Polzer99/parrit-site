@@ -52,6 +52,35 @@ const legacyRedirects = [
   { from: "/audit-claude-code", to: "/audit" },
   { from: "/sprint", to: "/deploiement-agents" },
 ];
+const localizedOnePagerChrome = [
+  {
+    path: "/en/masterclass-ia",
+    nav: "Stories",
+    contact: "Write to us",
+    priceCta: "See pricing",
+    storyTitle: "What does transformation look like at this level?",
+    railLabel: "Discovery",
+    forbiddenChrome: ["Nous écrire", "Voir le prix", "À quoi ressemble"],
+  },
+  {
+    path: "/pt-BR/masterclass-ia",
+    nav: "Histórias",
+    contact: "Escrever para nós",
+    priceCta: "Ver o preço",
+    storyTitle: "Como é uma transformação neste nível?",
+    railLabel: "Descoberta",
+    forbiddenChrome: ["Nous écrire", "Voir le prix", "À quoi ressemble"],
+  },
+  {
+    path: "/zh-CN/masterclass-ia",
+    nav: "案例",
+    contact: "联系我们",
+    priceCta: "查看价格",
+    storyTitle: "这个阶段的转型是什么样？",
+    railLabel: "认知",
+    forbiddenChrome: ["Nous écrire", "Voir le prix", "À quoi ressemble"],
+  },
+];
 
 test("home maturity section exposes all N1-N7 entry points", async ({ page }) => {
   await page.goto(new URL("/fr", BASE_URL).toString(), { waitUntil: "networkidle" });
@@ -64,6 +93,32 @@ test("home maturity section exposes all N1-N7 entry points", async ({ page }) =>
     await expect(page.locator(`#maturite .maturite-tile[href="/fr${path}"]`)).toHaveCount(1);
   }
 });
+
+for (const chromeCase of localizedOnePagerChrome) {
+  test(`${chromeCase.path} localizes maturity one-pager chrome`, async ({ page }) => {
+    await page.goto(new URL(chromeCase.path, BASE_URL).toString(), {
+      waitUntil: "networkidle",
+    });
+
+    await expect(page.locator(".nav")).toContainText(chromeCase.nav);
+    await expect(page.locator(".nav")).toContainText(chromeCase.contact);
+    await expect(page.locator(".hero .cta-row")).toContainText(chromeCase.priceCta);
+    await expect(page.locator("#histoires .section-head")).toContainText(
+      chromeCase.storyTitle,
+    );
+    await expect(page.locator(".maturity-rail")).toContainText(chromeCase.railLabel);
+
+    const chromeText = await page
+      .locator(".nav, .hero .cta-row, #histoires .section-head, .maturity-rail")
+      .allInnerTexts();
+
+    for (const forbidden of chromeCase.forbiddenChrome) {
+      expect(chromeText.join("\n"), `no hardcoded French chrome: ${forbidden}`).not.toContain(
+        forbidden,
+      );
+    }
+  });
+}
 
 const viewports = [
   { slug: "desktop", width: 1440, height: 1100 },
