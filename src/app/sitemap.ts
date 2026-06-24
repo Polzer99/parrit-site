@@ -10,11 +10,16 @@ const SITE_URL =
 
 const STATIC_ROUTES = [
   { path: "", changeFrequency: "weekly" as const, priority: 1.0 },
+  { path: "/masterclass-ia", changeFrequency: "monthly" as const, priority: 0.9 },
+  { path: "/masterclass-metier", changeFrequency: "monthly" as const, priority: 0.9 },
+  { path: "/sessions-mcp", changeFrequency: "monthly" as const, priority: 0.9 },
+  { path: "/audit", changeFrequency: "monthly" as const, priority: 0.9 },
+  { path: "/deploiement-agents", changeFrequency: "monthly" as const, priority: 0.9 },
+  { path: "/outils-agentiques", changeFrequency: "monthly" as const, priority: 0.9 },
+  { path: "/optimisation-flotte", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/deployer", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/croissance", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/transmettre", changeFrequency: "monthly" as const, priority: 0.9 },
-  { path: "/sprint", changeFrequency: "monthly" as const, priority: 0.9 },
-  { path: "/audit-claude-code", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/setup-claude-code", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/remote", changeFrequency: "monthly" as const, priority: 0.85 },
   { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
