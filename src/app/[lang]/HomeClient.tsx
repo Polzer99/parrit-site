@@ -126,13 +126,13 @@ const COPY: Record<Locale, HomeCopy> = {
     hero: {
       eyebrow: "Fractional AI Operator · Ingénierie agentique",
       chips: ["Claude Code", "Codex", "Serveurs MCP"],
-      before: "Au-delà de l'IA qui discute. ",
-      redOne: "L'IA qui agit pour vous",
-      middle: ", en ",
-      redTwo: "14 jours",
-      after: ".",
-      sub: "Le point de départ est votre réalité opérationnelle. Que vous ayez besoin d'augmenter votre chiffre d'affaires ou de gagner du temps sur l'administratif, nous adaptons la création de nos agents IA pour générer le résultat qui vous correspond.",
-      primary: "On en parle 15 min ?",
+      before: "Parrit opère vos ",
+      redOne: "deux fronts critiques",
+      middle: " : ",
+      redTwo: "back-office automatisé",
+      after: " et business généré.",
+      sub: "Des outils sur-mesure, déployés et opérés avec vous.",
+      primary: "Parler à Paul",
       secondary: "Voir nos réalisations",
     },
     logosLabel: "Ils nous ont déjà fait confiance",
@@ -299,13 +299,13 @@ const COPY: Record<Locale, HomeCopy> = {
     hero: {
       eyebrow: "Fractional AI Operator · Agentic engineering",
       chips: ["Claude Code", "Codex", "MCP servers"],
-      before: "Beyond AI that talks. ",
-      redOne: "AI that acts for you",
-      middle: ", in ",
-      redTwo: "14 days",
-      after: ".",
-      sub: "The starting point is your operational reality. Whether you need to grow revenue or save time on admin work, we adapt the way we build AI agents to generate the result that fits you.",
-      primary: "Talk for 15 min?",
+      before: "Parrit operates your ",
+      redOne: "two critical fronts",
+      middle: ": ",
+      redTwo: "automated back office",
+      after: " and generated business.",
+      sub: "Custom tools, deployed and operated with you.",
+      primary: "Talk to Paul",
       secondary: "See our work",
     },
     logosLabel: "They already trusted us",
@@ -472,13 +472,13 @@ const COPY: Record<Locale, HomeCopy> = {
     hero: {
       eyebrow: "Fractional AI Operator · Engenharia agentica",
       chips: ["Claude Code", "Codex", "Servidores MCP"],
-      before: "Além da IA que conversa. ",
-      redOne: "A IA que age por você",
-      middle: ", em ",
-      redTwo: "14 dias",
-      after: ".",
-      sub: "O ponto de partida é a sua realidade operacional. Seja para aumentar seu faturamento ou ganhar tempo no administrativo, adaptamos a criação dos nossos agentes de IA para gerar o resultado que corresponde ao seu contexto.",
-      primary: "Conversamos 15 min?",
+      before: "A Parrit opera suas ",
+      redOne: "duas frentes críticas",
+      middle: ": ",
+      redTwo: "back-office automatizado",
+      after: " e business gerado.",
+      sub: "Ferramentas sob medida, implantadas e operadas com você.",
+      primary: "Falar com Paul",
       secondary: "Ver realizações",
     },
     logosLabel: "Eles já confiaram em nós",
@@ -645,13 +645,13 @@ const COPY: Record<Locale, HomeCopy> = {
     hero: {
       eyebrow: "Fractional AI Operator · 智能体工程",
       chips: ["Claude Code", "Codex", "MCP 服务器"],
-      before: "不只是会聊天的 AI。 ",
-      redOne: "而是为你行动的 AI",
-      middle: "，在 ",
-      redTwo: "14 天",
-      after: "内。",
-      sub: "起点是你的真实运营现场。无论你需要提升营业额，还是节省行政工作的时间，我们都会调整 AI 智能体的构建方式，产出与你匹配的结果。",
-      primary: "聊 15 分钟？",
+      before: "Parrit 为你运营",
+      redOne: "两个关键战线",
+      middle: "：",
+      redTwo: "自动化后台",
+      after: "和业务增长。",
+      sub: "为你定制、部署，并与你一起运营的工具。",
+      primary: "联系 Paul",
       secondary: "查看案例",
     },
     logosLabel: "他们已经信任我们",
@@ -907,6 +907,20 @@ function LeadForm({ copy, lang }: { copy: HomeCopy["cta"]; lang: Locale }) {
   );
 }
 
+function captureHeroCtaClick(lang: Locale, placement: "desktop" | "mobile") {
+  if (typeof window === "undefined") return;
+
+  const posthog = (window as unknown as {
+    posthog?: { capture: (event: string, props: Record<string, unknown>) => void };
+  }).posthog;
+
+  posthog?.capture("hero_cta_click", {
+    page: `/${lang}`,
+    placement,
+    ...getAttribution(),
+  });
+}
+
 export default function HomeClient({ lang }: { lang: Locale }) {
   const copy = COPY[lang] ?? COPY.fr;
 
@@ -941,6 +955,15 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           {copy.hero.after}
         </h1>
         <p className="sub">{copy.hero.sub}</p>
+        <div className="cta-row hero-mobile-cta">
+          <a
+            className="btn btn-red btn-lg"
+            href="#contact"
+            onClick={() => captureHeroCtaClick(lang, "mobile")}
+          >
+            {copy.hero.primary}
+          </a>
+        </div>
         <div className="chips" aria-label={copy.a11y.tools}>
           {TOOL_CHIPS.map((chip, index) => (
             <span className="chip" key={copy.hero.chips[index]}>
@@ -949,8 +972,12 @@ export default function HomeClient({ lang }: { lang: Locale }) {
             </span>
           ))}
         </div>
-        <div className="cta-row">
-          <a className="btn btn-red btn-lg" href="#contact">
+        <div className="cta-row hero-desktop-cta">
+          <a
+            className="btn btn-red btn-lg"
+            href="#contact"
+            onClick={() => captureHeroCtaClick(lang, "desktop")}
+          >
             {copy.hero.primary}
           </a>
           <a className="btn btn-ghost btn-lg" href="#transmettre">

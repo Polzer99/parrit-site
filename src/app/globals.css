@@ -1561,6 +1561,10 @@ body > * {
   margin-top: 36px;
 }
 
+.home-template .hero-mobile-cta {
+  display: none;
+}
+
 .home-template .hero.left .chips,
 .home-template .hero.left .cta-row {
   justify-content: flex-start;
@@ -2480,6 +2484,15 @@ body > * {
   .home-template .hero {
     padding-left: 20px;
     padding-right: 20px;
+  }
+
+  .home-template .hero-mobile-cta {
+    display: flex;
+    margin-top: 22px;
+  }
+
+  .home-template .hero-desktop-cta {
+    display: none;
   }
 
   .home-template .hero h1 {
