@@ -26,6 +26,16 @@ type MaturiteTile = {
   href: string;
 };
 
+const MATURITE_POINTS: Record<string, { x: number; y: number; tipX: number; tipY: number }> = {
+  N1: { x: 94, y: 326, tipX: 28, tipY: 208 },
+  N2: { x: 230, y: 288, tipX: 152, tipY: 164 },
+  N3: { x: 360, y: 246, tipX: 278, tipY: 118 },
+  N4: { x: 494, y: 202, tipX: 406, tipY: 78 },
+  N5: { x: 626, y: 160, tipX: 528, tipY: 36 },
+  N6: { x: 748, y: 116, tipX: 636, tipY: 156 },
+  N7: { x: 872, y: 74, tipX: 706, tipY: 190 },
+};
+
 type HomeCopy = {
   navCta: string;
   navLinks: OfferNavItem[];
@@ -180,16 +190,16 @@ const COPY: Record<Locale, HomeCopy> = {
     maturite: {
       kicker: "De l'IA générative à l'IA agentique",
       title: "Où en êtes-vous avec l'IA ?",
-      lead: "On intervient à tous les stades — de la première découverte jusqu'à la flotte d'agents en production. Trouvez votre point d'entrée.",
+      lead: "On vous accompagne depuis la première découverte jusqu'au sommet. Cliquez sur votre niveau.",
       action: "Voir ce parcours",
       levels: [
-        { id: "N1", label: "Découverte", phrase: "Je découvre l'IA générative", href: "/masterclass-ia" },
-        { id: "N2", label: "Application métier", phrase: "Je veux l'appliquer à mon secteur", href: "/masterclass-metier" },
-        { id: "N3", label: "Connexion logicielle", phrase: "Je veux connecter mes logiciels à l'IA", href: "/sessions-mcp" },
-        { id: "N4", label: "Diagnostic", phrase: "Je veux cartographier mes process", href: "/audit" },
-        { id: "N5", label: "Premier déploiement", phrase: "Je veux un agent en production", href: "/deploiement-agents" },
-        { id: "N6", label: "Outil propriétaire agentique", phrase: "Je veux maîtriser Claude Code et Codex", href: "/outils-agentiques" },
-        { id: "N7", label: "Flotte & architecture", phrase: "J'ai une flotte, je veux l'optimiser", href: "/optimisation-flotte" },
+        { id: "N1", label: "L'Éveil", phrase: "Je découvre l'IA générative", href: "/masterclass-ia" },
+        { id: "N2", label: "L'Usage", phrase: "Je veux l'appliquer à mon secteur", href: "/masterclass-metier" },
+        { id: "N3", label: "L'Action", phrase: "Je veux connecter mes logiciels à l'IA", href: "/sessions-mcp" },
+        { id: "N4", label: "Le Diagnostic", phrase: "Je veux cartographier mes process", href: "/audit" },
+        { id: "N5", label: "Le Déploiement", phrase: "Je veux un agent en production", href: "/deploiement-agents" },
+        { id: "N6", label: "L'Autonomie", phrase: "Je veux maîtriser Claude Code et Codex", href: "/outils-agentiques" },
+        { id: "N7", label: "La Gouvernance", phrase: "J'ai une flotte, je veux l'optimiser", href: "/optimisation-flotte" },
       ],
     },
     cases: {
@@ -353,16 +363,16 @@ const COPY: Record<Locale, HomeCopy> = {
     maturite: {
       kicker: "From generative AI to agentic AI",
       title: "Where are you with AI?",
-      lead: "We work at every stage — from first discovery to an agent fleet in production. Find your entry point.",
+      lead: "We guide you from first discovery to the summit. Click your level.",
       action: "View this path",
       levels: [
-        { id: "N1", label: "Discovery", phrase: "I'm discovering generative AI", href: "/masterclass-ia" },
-        { id: "N2", label: "Business application", phrase: "I want to apply it to my sector", href: "/masterclass-metier" },
-        { id: "N3", label: "Software connection", phrase: "I want to connect my software to AI", href: "/sessions-mcp" },
+        { id: "N1", label: "Awakening", phrase: "I'm discovering generative AI", href: "/masterclass-ia" },
+        { id: "N2", label: "Usage", phrase: "I want to apply it to my sector", href: "/masterclass-metier" },
+        { id: "N3", label: "Action", phrase: "I want to connect my software to AI", href: "/sessions-mcp" },
         { id: "N4", label: "Diagnosis", phrase: "I want to map my processes", href: "/audit" },
-        { id: "N5", label: "First deployment", phrase: "I want an agent in production", href: "/deploiement-agents" },
-        { id: "N6", label: "Agentic proprietary tool", phrase: "I want to master Claude Code and Codex", href: "/outils-agentiques" },
-        { id: "N7", label: "Fleet & architecture", phrase: "I have a fleet and want to optimize it", href: "/optimisation-flotte" },
+        { id: "N5", label: "Deployment", phrase: "I want an agent in production", href: "/deploiement-agents" },
+        { id: "N6", label: "Autonomy", phrase: "I want to master Claude Code and Codex", href: "/outils-agentiques" },
+        { id: "N7", label: "Governance", phrase: "I have a fleet and want to optimize it", href: "/optimisation-flotte" },
       ],
     },
     cases: {
@@ -526,16 +536,16 @@ const COPY: Record<Locale, HomeCopy> = {
     maturite: {
       kicker: "Da IA generativa à IA agentica",
       title: "Onde você está com a IA?",
-      lead: "Atuamos em todos os estágios — da primeira descoberta até a frota de agentes em produção. Encontre seu ponto de entrada.",
+      lead: "Acompanhamos você da primeira descoberta até o topo. Clique no seu nível.",
       action: "Ver este percurso",
       levels: [
-        { id: "N1", label: "Descoberta", phrase: "Estou descobrindo a IA generativa", href: "/masterclass-ia" },
-        { id: "N2", label: "Aplicação ao negócio", phrase: "Quero aplicar ao meu setor", href: "/masterclass-metier" },
-        { id: "N3", label: "Conexão de software", phrase: "Quero conectar meus softwares à IA", href: "/sessions-mcp" },
+        { id: "N1", label: "Despertar", phrase: "Estou descobrindo a IA generativa", href: "/masterclass-ia" },
+        { id: "N2", label: "Uso", phrase: "Quero aplicar ao meu setor", href: "/masterclass-metier" },
+        { id: "N3", label: "Ação", phrase: "Quero conectar meus softwares à IA", href: "/sessions-mcp" },
         { id: "N4", label: "Diagnóstico", phrase: "Quero mapear meus processos", href: "/audit" },
-        { id: "N5", label: "Primeiro deploy", phrase: "Quero um agente em produção", href: "/deploiement-agents" },
-        { id: "N6", label: "Ferramenta proprietária agentica", phrase: "Quero dominar Claude Code e Codex", href: "/outils-agentiques" },
-        { id: "N7", label: "Frota & arquitetura", phrase: "Tenho uma frota, quero otimizá-la", href: "/optimisation-flotte" },
+        { id: "N5", label: "Deploy", phrase: "Quero um agente em produção", href: "/deploiement-agents" },
+        { id: "N6", label: "Autonomia", phrase: "Quero dominar Claude Code e Codex", href: "/outils-agentiques" },
+        { id: "N7", label: "Governança", phrase: "Tenho uma frota, quero otimizá-la", href: "/optimisation-flotte" },
       ],
     },
     cases: {
@@ -699,16 +709,16 @@ const COPY: Record<Locale, HomeCopy> = {
     maturite: {
       kicker: "从生成式 AI 到智能体 AI",
       title: "您现在处在 AI 的哪个阶段？",
-      lead: "我们覆盖所有阶段：从第一次了解，到已投入生产的智能体集群。找到您的切入点。",
+      lead: "我们陪您从第一次了解走到山顶。点击您的阶段。",
       action: "查看这个路径",
       levels: [
-        { id: "N1", label: "发现", phrase: "我正在了解生成式 AI", href: "/masterclass-ia" },
-        { id: "N2", label: "业务应用", phrase: "我想将其应用到我的行业", href: "/masterclass-metier" },
-        { id: "N3", label: "软件连接", phrase: "我想把软件连接到 AI", href: "/sessions-mcp" },
+        { id: "N1", label: "觉醒", phrase: "我正在了解生成式 AI", href: "/masterclass-ia" },
+        { id: "N2", label: "使用", phrase: "我想将其应用到我的行业", href: "/masterclass-metier" },
+        { id: "N3", label: "行动", phrase: "我想把软件连接到 AI", href: "/sessions-mcp" },
         { id: "N4", label: "诊断", phrase: "我想梳理自己的流程", href: "/audit" },
-        { id: "N5", label: "首次部署", phrase: "我想要一个投入生产的智能体", href: "/deploiement-agents" },
-        { id: "N6", label: "智能体专属工具", phrase: "我想掌握 Claude Code 和 Codex", href: "/outils-agentiques" },
-        { id: "N7", label: "集群与架构", phrase: "我有一组智能体，想要优化", href: "/optimisation-flotte" },
+        { id: "N5", label: "部署", phrase: "我想要一个投入生产的智能体", href: "/deploiement-agents" },
+        { id: "N6", label: "自主", phrase: "我想掌握 Claude Code 和 Codex", href: "/outils-agentiques" },
+        { id: "N7", label: "治理", phrase: "我有一组智能体，想要优化", href: "/optimisation-flotte" },
       ],
     },
     cases: {
@@ -1031,6 +1041,59 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           <p className="kicker">{copy.maturite.kicker}</p>
           <h2>{copy.maturite.title}</h2>
           <p className="lead">{copy.maturite.lead}</p>
+          <div className="maturite-mountain" aria-label={copy.maturite.title}>
+            <svg viewBox="0 0 960 390" role="img" aria-labelledby="maturite-mountain-title">
+              <title id="maturite-mountain-title">{copy.maturite.title}</title>
+              <path
+                className="mountain-back"
+                d="M20 332 L170 196 L250 246 L392 102 L520 236 L618 138 L804 332 Z"
+              />
+              <path
+                className="mountain-mid"
+                d="M86 334 L258 168 L338 238 L468 78 L594 230 L718 110 L908 334 Z"
+              />
+              <path
+                className="mountain-front"
+                d="M38 336 L190 252 L304 292 L430 184 L544 278 L676 198 L922 336 Z"
+              />
+              <path
+                className="mountain-path"
+                d="M94 326 C190 318 180 282 230 288 C298 296 306 246 360 246 C430 246 430 204 494 202 C566 198 560 160 626 160 C694 160 688 116 748 116 C804 116 820 78 872 74"
+              />
+              {copy.maturite.levels.map((level) => {
+                const point = MATURITE_POINTS[level.id];
+                if (!point) return null;
+
+                return (
+                  <a
+                    className="mountain-point"
+                    href={`/${lang}${level.href}`}
+                    key={level.id}
+                    aria-label={`${level.id} · ${level.label} · ${level.phrase}`}
+                  >
+                    <circle cx={point.x} cy={point.y} r="20" />
+                    <text x={point.x} y={point.y + 4} textAnchor="middle">
+                      {level.id}
+                    </text>
+                    <foreignObject
+                      className="mountain-tooltip"
+                      x={point.tipX}
+                      y={point.tipY}
+                      width="226"
+                      height="98"
+                    >
+                      <div>
+                        <strong>
+                          {level.id} · {level.label}
+                        </strong>
+                        <span>{level.phrase}</span>
+                      </div>
+                    </foreignObject>
+                  </a>
+                );
+              })}
+            </svg>
+          </div>
           <div className="maturite-grid">
             {copy.maturite.levels.map((level) => (
               <a href={`/${lang}${level.href}`} className="maturite-tile" key={level.id}>
