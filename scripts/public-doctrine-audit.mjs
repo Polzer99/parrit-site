@@ -17,6 +17,30 @@ const bannedPatterns = [
 ];
 
 const findings = [];
+const zhCriticalDictionaryPaths = [
+  "meta.title",
+  "meta.description",
+  "approach.title",
+  "approach.description",
+  "blog.headerLabel",
+  "blog.headerSubtitle",
+  "actualite.headerLabel",
+  "actualite.headerSubtitle",
+  "quickContact.submit",
+  "setup.hero.titleMain",
+  "setup.hero.quickAnswer",
+  "setup.audience.title",
+  "setup.deliverables.title",
+  "remote.hero.titleMain",
+  "remote.hero.quickAnswer",
+  "remote.audience.title",
+  "author.title",
+  "author.bioP1",
+];
+
+function getByPath(value, keyPath) {
+  return keyPath.split(".").reduce((current, key) => current?.[key], value);
+}
 
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -70,6 +94,38 @@ for (const target of targets) {
   } catch (error) {
     if (error?.code !== "ENOENT") throw error;
   }
+}
+
+const zhDictionaryPath = path.join(root, "src/app/[lang]/dictionaries/zh-CN.json");
+try {
+  const zhDictionary = JSON.parse(await readFile(zhDictionaryPath, "utf8"));
+  if (zhDictionary.meta?.ogLocale !== "zh_CN") {
+    findings.push({
+      file: "src/app/[lang]/dictionaries/zh-CN.json",
+      line: 1,
+      label: "zh-CN ogLocale",
+      snippet: `Expected meta.ogLocale to be zh_CN, got ${zhDictionary.meta?.ogLocale}`,
+    });
+  }
+
+  for (const keyPath of zhCriticalDictionaryPaths) {
+    const value = getByPath(zhDictionary, keyPath);
+    if (typeof value !== "string" || !/[\u3400-\u9fff]/u.test(value)) {
+      findings.push({
+        file: "src/app/[lang]/dictionaries/zh-CN.json",
+        line: 1,
+        label: "zh-CN critical copy",
+        snippet: `${keyPath} must contain Simplified Chinese copy`,
+      });
+    }
+  }
+} catch (error) {
+  findings.push({
+    file: "src/app/[lang]/dictionaries/zh-CN.json",
+    line: 1,
+    label: "zh-CN dictionary",
+    snippet: error instanceof Error ? error.message : String(error),
+  });
 }
 
 if (findings.length > 0) {

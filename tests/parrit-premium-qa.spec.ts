@@ -17,6 +17,16 @@ const pages = [
   { slug: "glossaire", path: "/fr/glossaire" },
   { slug: "glossaire-agent-ia", path: "/fr/glossaire/agent-ia-entreprise" },
   { slug: "auteur-paul-larmaraud", path: "/fr/auteur/paul-larmaraud" },
+  { slug: "zh-home", path: "/zh-CN", expectedText: /[\u3400-\u9fff]/u },
+  { slug: "zh-blog", path: "/zh-CN/blog", expectedText: /[\u3400-\u9fff]/u },
+  { slug: "zh-actualite", path: "/zh-CN/actualite", expectedText: /[\u3400-\u9fff]/u },
+  { slug: "zh-setup", path: "/zh-CN/setup-claude-code", expectedText: /[\u3400-\u9fff]/u },
+  { slug: "zh-remote", path: "/zh-CN/remote", expectedText: /[\u3400-\u9fff]/u },
+  {
+    slug: "zh-auteur-paul-larmaraud",
+    path: "/zh-CN/auteur/paul-larmaraud",
+    expectedText: /[\u3400-\u9fff]/u,
+  },
   { slug: "academy", path: "/academy" },
   { slug: "fondateurs", path: "/fondateurs" },
   { slug: "diagnostic", path: "/diagnostic" },
@@ -129,6 +139,11 @@ for (const viewport of viewports) {
         expect(audit.horizontalOverflow, "no horizontal overflow").toBeLessThanOrEqual(1);
         expect(audit.vercelUrls, "no runtime *.vercel.app URL").toEqual([]);
         expect(jsErrors, "no JavaScript errors").toEqual([]);
+        if (route.expectedText) {
+          await expect(page.locator("body"), "expected localized body copy").toContainText(
+            route.expectedText,
+          );
+        }
 
         await page.screenshot({
           path: `artifacts/qa/${browserName}-${route.slug}-${viewport.slug}.png`,

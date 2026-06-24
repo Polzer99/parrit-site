@@ -1,32 +1,32 @@
 {
   "meta": {
-    "title": "Parrit · Custom tools shipped inside your operations",
-    "description": "Operational partner to executive teams. We build the tool that unblocks your operations, with your people, in days. You leave with a system running in production. No day rate, no slides.",
-    "ogTitle": "Parrit · Custom tools shipped inside your operations",
-    "ogDescription": "We build the tool that unblocks your operations, with your people, in days. System in production at the end. No day rate.",
-    "ogImageAlt": "Parrit · Operational partner to executive teams",
-    "ogLocale": "en_US",
+    "title": "Parrit · 把定制工具部署进你的业务现场",
+    "description": "面向管理团队的 AI 运营伙伴。我们和你的团队一起，把卡住业务的工具做出来，并在几天内跑进生产环境。没有日费，没有空洞幻灯片。",
+    "ogTitle": "Parrit · 把定制工具部署进你的业务现场",
+    "ogDescription": "我们和你的团队一起，交付能解锁业务的工具。结束时，系统已经在生产环境运行。没有日费。",
+    "ogImageAlt": "Parrit · 管理团队的 AI 运营伙伴",
+    "ogLocale": "zh_CN",
     "keywords": [
-      "custom enterprise tools",
-      "operations automation",
-      "operational partner CEO",
-      "in-house tooling deployment",
-      "n8n integration",
-      "AI agents in production",
-      "Claude Code Consulting",
-      "Claude Code consultant",
-      "how to integrate AI agents",
-      "what is an AI agent",
+      "企业定制工具",
+      "运营自动化",
+      "CEO AI 运营伙伴",
+      "内部工具部署",
+      "n8n 集成",
+      "生产级 AI Agent",
+      "Claude Code 咨询",
+      "Claude Code 顾问",
+      "如何集成 AI Agent",
+      "什么是 AI Agent",
       "Anthropic Claude",
-      "AI products",
-      "augmented consulting",
+      "AI 产品",
+      "增强型咨询",
       "Parrit.ai",
       "Paul Larmaraud"
     ],
-    "schemaDescription": "Augmented consulting firm that codes and ships custom tools inside the operations of its clients. System in production at the end. No day rate."
+    "schemaDescription": "增强型咨询团队：为客户编码并交付业务现场可用的定制工具。结束时系统已经在生产环境运行。没有日费。"
   },
   "nav": {
-    "switcherLabel": "Language"
+    "switcherLabel": "语言"
   },
   "hero": {
     "logo": "PARRIT.AI",
@@ -122,28 +122,28 @@
     "midCta": "Let's talk about your case"
   },
   "approach": {
-    "title": "Four verbs, no more",
-    "description": "On traite toute la chaîne, de la stratégie au résultat. Une équipe d'experts métier et techniques, mobilisable en renfort sur les chantiers qui le demandent. Pas pour produire du conseil. Pour livrer.",
+    "title": "四个动作，仅此而已",
+    "description": "我们处理从战略到结果的整条链路。业务专家和技术专家一起进入现场，只在真正需要的地方补位。不是为了产出咨询文件，而是为了交付。",
     "pillars": [
       {
         "n": "1",
-        "title": "Map",
-        "desc": "We look at where your operation actually breaks, with the people who run it. No generic questionnaires."
+        "title": "梳理",
+        "desc": "和真正执行的人一起，看清业务到底卡在哪里。没有通用问卷。"
       },
       {
         "n": "2",
-        "title": "Prototype",
-        "desc": "A working tool tested on your data. Not an audit that ends up in a drawer."
+        "title": "原型",
+        "desc": "用你的数据测试一个能工作的工具。不是一份被放进抽屉的审计报告。"
       },
       {
         "n": "3",
-        "title": "Deploy",
-        "desc": "Itératif, jusqu'à ce que le système tourne en production sans aide extérieure, dans votre infrastructure."
+        "title": "部署",
+        "desc": "持续迭代，直到系统在你的基础设施里运行，且不再依赖外部协助。"
       },
       {
         "n": "4",
-        "title": "Stay",
-        "desc": "For what comes next, if you want us to. Not by default."
+        "title": "陪跑",
+        "desc": "如果你需要，我们继续处理下一阶段。不是默认绑定。"
       }
     ]
   },
@@ -291,53 +291,53 @@
   },
   "blog": {
     "meta": {
-      "title": "Blog : Parrit.ai | AI, automation and digital transformation",
-      "description": "Articles on AI applied to enterprises. Automation, AI agents, SAP, CRM : by the founders of Parrit.ai.",
-      "ogTitle": "Blog : Parrit.ai",
-      "ogDescription": "Articles on applied enterprise AI. Automation, AI agents, SAP.",
-      "schemaDescription": "Articles on artificial intelligence applied to enterprises."
+      "title": "博客 : Parrit.ai | AI、自动化与企业转型",
+      "description": "关于企业 AI 应用的文章。自动化、AI Agent、SAP、CRM：来自 Parrit.ai 创始团队的现场笔记。",
+      "ogTitle": "博客 : Parrit.ai",
+      "ogDescription": "关于企业 AI 落地的文章：自动化、AI Agent、SAP。",
+      "schemaDescription": "关于人工智能在企业中应用的文章。"
     },
     "navTitle": "Blog",
-    "headerLabel": "The journal",
-    "headerTitleMain": "Notes on",
-    "headerTitleAccent": "applied AI",
-    "headerSubtitle": "What we learn from deploying artificial intelligence in businesses, every week.",
-    "readArticle": "Read the article →",
-    "footerText": "Want to see what AI can do for your company?",
-    "footerCta": "Book a conversation",
-    "back": "← Back to blog",
-    "by": "By",
-    "articleFooter": "This article resonates? Let's discuss your case."
+    "headerLabel": "现场笔记",
+    "headerTitleMain": "关于",
+    "headerTitleAccent": "AI 落地",
+    "headerSubtitle": "我们每周记录在企业里部署人工智能时真正学到的东西。",
+    "readArticle": "阅读文章 →",
+    "footerText": "想看看 AI 能为你的公司做什么？",
+    "footerCta": "预约交流",
+    "back": "← 返回博客",
+    "by": "作者",
+    "articleFooter": "这篇文章与你的情况有关？我们聊聊你的案例。"
   },
   "actualite": {
     "meta": {
-      "title": "AI News : Parrit.ai | Field analysis of AI models and tools",
-      "description": "AI news analysis by Parrit.ai: open models, sovereignty, costs, concrete deployment and verifiable sources.",
-      "ogTitle": "AI News : Parrit.ai",
-      "ogDescription": "Field analysis of new AI models, their costs, limits and concrete use.",
-      "schemaDescription": "News analysis on artificial intelligence models, tools and infrastructure."
+      "title": "AI 动态 : Parrit.ai | 模型与工具的现场分析",
+      "description": "Parrit.ai 对 AI 动态的分析：开放模型、主权、成本、实际部署和可核验来源。",
+      "ogTitle": "AI 动态 : Parrit.ai",
+      "ogDescription": "从现场角度分析新模型的成本、限制和实际用途。",
+      "schemaDescription": "关于人工智能模型、工具和基础设施的新闻分析。"
     },
-    "navTitle": "News",
-    "headerLabel": "AI news",
-    "headerTitleMain": "What just shipped",
-    "headerTitleAccent": "and what it changes",
-    "headerSubtitle": "Parrit's reading of the AI announcements that matter: facts, sources, costs, deployment implications.",
-    "readArticle": "Read the analysis →",
-    "footerText": "Want to turn an AI announcement into a system that runs?",
-    "footerCta": "Book a conversation",
-    "back": "← Back to news",
-    "by": "By",
-    "articleFooter": "An announcement deserves a field test. Let's discuss your case."
+    "navTitle": "动态",
+    "headerLabel": "AI 动态",
+    "headerTitleMain": "刚刚发布了什么",
+    "headerTitleAccent": "以及它改变什么",
+    "headerSubtitle": "Parrit 对重要 AI 发布的现场解读：事实、来源、成本，以及部署影响。",
+    "readArticle": "阅读分析 →",
+    "footerText": "想把一次 AI 发布变成真正运行的系统？",
+    "footerCta": "预约交流",
+    "back": "← 返回动态",
+    "by": "作者",
+    "articleFooter": "一次发布值得被现场测试。我们聊聊你的案例。"
   },
-  "blogListDateLocale": "en-US",
+  "blogListDateLocale": "zh-CN",
   "quickContact": {
-    "label": "Email or phone",
-    "placeholder": "your email or phone number",
-    "submit": "Get a callback",
-    "submitting": "Sending…",
-    "thanks": "Thanks. Paul gets back to you within hours.",
-    "error": "The message didn't go through. Try again or email paul.larmaraud@parrit.ai.",
-    "micro": "Reply in hours, not days."
+    "label": "邮箱或电话",
+    "placeholder": "你的邮箱或电话号码",
+    "submit": "请求回电",
+    "submitting": "发送中…",
+    "thanks": "谢谢。Paul 会在数小时内回复你。",
+    "error": "消息没有发送成功。请重试，或邮件联系 paul.larmaraud@parrit.ai。",
+    "micro": "数小时内回复，不是几天后。"
   },
   "auditClaudeCode": {
     "meta": {
@@ -626,315 +626,315 @@
   },
   "setup": {
     "meta": {
-      "title": "Claude Code Setup for Your Teams : Parrit.ai | Configuration and autonomy",
-      "description": "Full Claude Code setup for your teams: installation, configuration (CLAUDE.md, hooks, skills, MCP, business workflows), hands-on training. Your teams become autonomous. Fixed fee or outcome-based, no day rate.",
-      "ogTitle": "Claude Code Setup for Your Teams : Parrit.ai",
-      "ogDescription": "Installation, configuration and enablement. Your teams take Claude Code in their own hands end-to-end.",
-      "schemaDescription": "Full enterprise Claude Code setup: install, configure, train teams to autonomy."
+      "title": "为你的团队配置 Claude Code : Parrit.ai | 配置与自主能力",
+      "description": "为团队完整配置 Claude Code：安装、配置 CLAUDE.md、hooks、skills、MCP 和业务工作流，并用真实案例训练团队。固定费用或结果计费，没有日费。",
+      "ogTitle": "为你的团队配置 Claude Code : Parrit.ai",
+      "ogDescription": "安装、配置和能力转移。你的团队端到端掌握 Claude Code。",
+      "schemaDescription": "企业级 Claude Code 配置：安装、配置，并把团队训练到可以自主使用。"
     },
     "hero": {
       "label": "CLAUDE CODE SETUP",
-      "titleMain": "Your teams take Claude Code",
-      "titleAccent": "in their own hands.",
-      "quickAnswer": "The Claude Code Setup is Parrit's most-requested format. We install Claude Code in your infrastructure, configure everything (CLAUDE.md tailored to your business, security hooks, custom skills, MCP connectors to your internal tools, ready-to-use workflows), and train your teams hands-on on their real cases. By the end, your environment is repeatable, transferable to a new hire, and your teams are autonomous. Fixed fee or outcome-based pay. No day rate. No vendor lock-in.",
-      "cta": "Book a call with Paul"
+      "titleMain": "让你的团队真正掌握",
+      "titleAccent": "Claude Code。",
+      "quickAnswer": "Claude Code Setup 是 Parrit 最常被请求的格式。我们在你的基础设施中安装 Claude Code，配置完整环境：贴合业务的 CLAUDE.md、安全 hooks、自定义 skills、连接内部工具的 MCP、可直接使用的工作流。然后用你们的真实案例训练团队。结束时，环境可复用、可交接给新人，团队具备自主能力。固定费用或结果计费，没有日费，没有供应商锁定。",
+      "cta": "预约和 Paul 交流"
     },
     "audience": {
-      "title": "Who it's for",
+      "title": "适合谁",
       "items": [
         {
-          "role": "CEOs who want to keep AI in-house, not outsourced",
-          "desc": "You want your teams autonomous on Claude Code, not stuck on a vendor for the long run."
+          "role": "希望把 AI 能力留在内部的 CEO",
+          "desc": "你希望团队能自主使用 Claude Code，而不是长期卡在外部供应商手里。"
         },
         {
-          "role": "CTOs and heads of engineering",
-          "desc": "You want a clean Claude Code environment in your infra, configured to security standards, documented, maintainable."
+          "role": "CTO 与工程负责人",
+          "desc": "你需要一个在自己基础设施内运行、符合安全标准、文档清晰、可维护的 Claude Code 环境。"
         },
         {
-          "role": "Heads of operations industrializing AI internally",
-          "desc": "You've spotted several use cases. You want to operationalize them once, then have your teams own them."
+          "role": "正在把 AI 内部工业化的运营负责人",
+          "desc": "你已经看到几个用例，想先把它们做成可运行的流程，再交给团队拥有。"
         },
         {
-          "role": "Founders anticipating headcount growth",
-          "desc": "You know you'll hire. Setup lays the foundation new devs land on, already equipped."
+          "role": "即将扩招的创始人",
+          "desc": "你知道团队会增长。Setup 先把新人入职后要落地的基础环境建好。"
         }
       ]
     },
     "method": {
-      "title": "How it goes",
+      "title": "如何推进",
       "steps": [
         {
           "n": "1",
-          "title": "Setup audit (half-day)",
-          "desc": "We start from your stack, workflows, teams, security constraints. We co-define the target configuration: which skills, which hooks, which MCP."
+          "title": "配置审计（半天）",
+          "desc": "从你的技术栈、工作流、团队和安全约束出发。我们一起定义目标配置：需要哪些 skills、hooks 和 MCP。"
         },
         {
           "n": "2",
-          "title": "Install and configure",
-          "desc": "Claude Code installed on workstations or target infra. CLAUDE.md written for your business. Security hooks (audit logs, redaction, allow/deny). Custom skills. MCP connectors to your internal tools (CRM, ERP, file shares, business databases)."
+          "title": "安装与配置",
+          "desc": "在工作站或目标基础设施中安装 Claude Code。为你的业务编写 CLAUDE.md。配置安全 hooks（审计日志、脱敏、允许/拒绝规则）、自定义 skills，以及连接 CRM、ERP、文件空间和业务数据库的 MCP。"
         },
         {
           "n": "3",
-          "title": "Hands-on training on real cases",
-          "desc": "No theoretical examples. Your teams learn by building what they'll use afterwards: a sales workflow, a monitoring loop, an ERP integration."
+          "title": "用真实案例训练",
+          "desc": "没有理论示例。团队通过构建之后真正会使用的东西来学习：销售工作流、监控循环、ERP 集成。"
         },
         {
           "n": "4",
-          "title": "Documentation and handover",
-          "desc": "Internal docs delivered : how to evolve the setup, how to add a skill, how to debug. Transferable. Your teams take over."
+          "title": "文档与交接",
+          "desc": "交付内部文档：如何演进配置、如何添加 skill、如何调试。可转交。你的团队接手。"
         }
       ]
     },
     "deliverables": {
-      "title": "What you walk away with",
+      "title": "你会带走什么",
       "items": [
-        "Claude Code installed and configured in your infrastructure, to your security standards",
-        "Full CLAUDE.md written for your business (vocabulary, constraints, processes, company memory)",
-        "Custom skills and MCP connectors to your internal tools (CRM, ERP, files, business databases)",
-        "Security hooks (audit, redaction, allow/deny) : clean enterprise-grade version",
-        "Complete internal documentation, transferable to a new hire",
-        "Your teams trained on their real cases : not a trade show demo"
+        "Claude Code 已在你的基础设施中安装并配置，符合你的安全标准",
+        "完整的 CLAUDE.md，写入你的业务词汇、约束、流程和公司记忆",
+        "连接内部工具的自定义 skills 与 MCP（CRM、ERP、文件、业务数据库）",
+        "企业级安全 hooks：审计、脱敏、允许/拒绝规则",
+        "完整内部文档，可交接给新人",
+        "团队用自己的真实案例完成训练，而不是看演示"
       ]
     },
     "faq": {
-      "title": "Frequently asked questions",
+      "title": "常见问题",
       "items": [
         {
-          "q": "How much does it cost?",
-          "a": "Fixed fee or outcome-based pay : you choose. The fixed fee depends on the number of teams to equip, the scope of skills/MCP, and the level of docs expected. No day rate, no surprises."
+          "q": "费用是多少？",
+          "a": "固定费用或结果计费，由你选择。固定费用取决于要装备的团队数量、skills/MCP 范围和文档要求。没有日费，没有意外费用。"
         },
         {
-          "q": "How long does it take?",
-          "a": "One to three weeks depending on scope. The install + config phase fits in a few days. Training and docs spread out to give teams time to onboard."
+          "q": "需要多久？",
+          "a": "根据范围通常一到三周。安装与配置可在几天内完成，训练和文档会分阶段推进，让团队有时间上手。"
         },
         {
-          "q": "Difference from a classic Claude Code training?",
-          "a": "Training teaches the tool. Setup delivers the tool configured for YOUR business. Your teams learn by using the environment they'll keep : not a sandbox."
+          "q": "和普通 Claude Code 培训有什么不同？",
+          "a": "培训只是教工具。Setup 交付的是为你的业务配置好的工具。团队在将长期保留的环境里学习，而不是在沙盒里练习。"
         },
         {
-          "q": "What about security and confidentiality?",
-          "a": "We configure security hooks from day one: audit logs, secret redaction, per-project allow/deny lists. Everything stays on your infra. Code and data don't leave the building."
+          "q": "安全和保密如何处理？",
+          "a": "我们从第一天就配置安全 hooks：审计日志、密钥脱敏、按项目的允许/拒绝列表。一切留在你的基础设施里，代码和数据不外流。"
         },
         {
-          "q": "Can we equip multiple teams at once?",
-          "a": "Yes. The config factors : a group CLAUDE.md plus team CLAUDE.md that override. The more teams, the better the ROI per seat."
+          "q": "可以一次装备多个团队吗？",
+          "a": "可以。配置会拆成集团级 CLAUDE.md 和各团队覆盖规则。团队越多，每个席位的回报越好。"
         },
         {
-          "q": "What if we don't have a tech team?",
-          "a": "Setup is even more relevant : we configure an environment where your business operators can use Claude Code without permanent technical support. It's one of our typical cases."
+          "q": "如果我们没有技术团队怎么办？",
+          "a": "Setup 反而更适合：我们会配置一个让业务人员也能使用 Claude Code 的环境，不需要长期技术支持。这是我们的典型场景之一。"
         },
         {
-          "q": "Onsite or remote?",
-          "a": "Onsite preferred for the install + training phase. Docs and iterations can be remote. For clients outside France, see the Remote international format."
+          "q": "现场还是远程？",
+          "a": "安装和训练阶段优先现场。文档和迭代可以远程。法国以外客户可选择 Remote international 格式。"
         },
         {
-          "q": "Are we obligated to continue with you after the Setup?",
-          "a": "No. The Setup is built to make you autonomous. We come back if you want to add a skill, unblock a topic, or industrialize a specific workflow."
+          "q": "Setup 之后必须继续和你们合作吗？",
+          "a": "不需要。Setup 的目标就是让你自主。如果之后要新增 skill、解锁某个问题或工业化某个工作流，我们再回来。"
         }
       ]
     },
     "nextSteps": {
-      "title": "What comes after the setup?",
-      "subtitle": "The Setup makes you autonomous. If a specific case needs a hand, here are the other formats.",
+      "title": "Setup 之后是什么？",
+      "subtitle": "Setup 让你自主。如果某个具体案例需要支持，可以进入其他格式。",
       "options": [
         {
-          "kind": "Urgent case",
+          "kind": "紧急案例",
           "title": "Audit, Configuration & Claude Code Sprint",
-          "desc": "A particularly complex or urgent case to unblock? The Sprint solves it in one to four days, onsite or remote."
+          "desc": "有特别复杂或紧急的案例要解锁？Sprint 可在一到四天内处理，现场或远程均可。"
         },
         {
-          "kind": "Continuous production",
-          "title": "Automations",
-          "desc": "You spot a workflow that must run 24/7. We industrialize (n8n, scripts, agents), Git-versioned, deployed. Fixed fee per deliverable."
+          "kind": "持续生产",
+          "title": "自动化",
+          "desc": "你发现某个工作流必须 24/7 运行。我们将其工业化：n8n、脚本、agents，Git 版本管理并完成部署。按交付件固定费用。"
         },
         {
-          "kind": "International",
-          "title": "Remote format",
-          "desc": "You have entities outside France to equip too? We deliver the Setup remotely, audit + config + 3 to 5 automations included."
+          "kind": "国际团队",
+          "title": "远程格式",
+          "desc": "你还要装备法国以外的实体？我们可远程交付 Setup，包含审计、配置和 3 到 5 个自动化。"
         },
         {
-          "kind": "First step",
+          "kind": "第一步",
           "title": "Claude Code Audit",
-          "desc": "If we haven't talked yet, the audit is the half-day entry to scope the Setup."
+          "desc": "如果我们还没有聊过，审计就是半天入口，用来界定 Setup 的范围。"
         }
       ]
     },
     "ctaSection": {
-      "title": "Configure Claude Code at your company",
-      "subtitle": "Reply within twenty-four hours. We qualify the Setup scope together.",
-      "primary": "Book a call",
-      "secondary": "Email Paul directly"
+      "title": "在你的公司配置 Claude Code",
+      "subtitle": "二十四小时内回复。我们一起确认 Setup 范围。",
+      "primary": "预约通话",
+      "secondary": "直接邮件联系 Paul"
     }
   },
   "remote": {
     "meta": {
-      "title": "Claude Code Remote international : Parrit.ai | Audit, config, 3-5 automations remote",
-      "description": "Remote format for clients outside France. Claude Code audit, full configuration and three to five automations delivered fully remote. No travel, measurable ROI.",
-      "ogTitle": "Claude Code Remote international : Parrit.ai",
-      "ogDescription": "For clients outside France where onsite doesn't make sense. Audit + config + 3 to 5 automations, fully remote.",
-      "schemaDescription": "Remote international format: Claude Code delivered remotely with audit, configuration and automations."
+      "title": "Claude Code 国际远程交付 : Parrit.ai | 审计、配置、3-5 个自动化",
+      "description": "面向法国以外客户的远程格式。Claude Code 审计、完整配置和三到五个自动化全程远程交付。无需差旅，ROI 可衡量。",
+      "ogTitle": "Claude Code 国际远程交付 : Parrit.ai",
+      "ogDescription": "适合法国以外、不适合现场交付的客户。审计 + 配置 + 3 到 5 个自动化，全程远程。",
+      "schemaDescription": "国际远程格式：通过远程方式交付 Claude Code 审计、配置和自动化。"
     },
     "hero": {
-      "label": "REMOTE INTERNATIONAL FORMAT",
-      "titleMain": "Claude Code remote.",
-      "titleAccent": "For clients outside France.",
-      "quickAnswer": "The Remote format is built for companies outside France where onsite travel doesn't make sense : US, UK, DACH, Asia, Brazil, Middle East. We deliver fully remote: Claude Code audit, full configuration in your infrastructure (CLAUDE.md, hooks, skills, MCP), three to five automations running in production. Video kickoff, screen sharing for build phases, complete documentation and recorded training. Fixed fee. No day rate. No travel to bill.",
-      "cta": "Book a call with Paul"
+      "label": "国际远程格式",
+      "titleMain": "远程交付 Claude Code。",
+      "titleAccent": "适合法国以外客户。",
+      "quickAnswer": "Remote 格式专为法国以外、不适合现场差旅的公司设计：美国、英国、DACH、亚洲、巴西、中东。我们全程远程交付：Claude Code 审计、在你的基础设施中完成完整配置（CLAUDE.md、hooks、skills、MCP），并让三到五个自动化跑进生产环境。视频启动、屏幕共享构建、完整文档和录制培训。固定费用，没有日费，没有差旅费。",
+      "cta": "预约和 Paul 交流"
     },
     "audience": {
-      "title": "Who it's for",
+      "title": "适合谁",
       "items": [
         {
-          "role": "Founders and CEOs outside France",
-          "desc": "You want to equip your team with Claude Code but the onsite sprint doesn't make geographical sense."
+          "role": "法国以外的创始人和 CEO",
+          "desc": "你想让团队用上 Claude Code，但现场 sprint 在地理上不合适。"
         },
         {
-          "role": "International divisions of a French group",
-          "desc": "You've equipped your HQ with Claude Code (Sprint or Setup), now you want to replicate in the US, UK, Asia subsidiaries."
+          "role": "法国集团的国际分支",
+          "desc": "总部已经通过 Sprint 或 Setup 装备 Claude Code，现在想复制到美国、英国或亚洲子公司。"
         },
         {
-          "role": "Distributed full-remote teams",
-          "desc": "No central office. We adapt the format to your rhythm and timezone : we come back on video when needed."
+          "role": "全远程分布式团队",
+          "desc": "没有中心办公室。我们按你的节奏和时区调整格式，需要时通过视频回来。"
         },
         {
-          "role": "Investors / scout funds equipping their portfolio",
-          "desc": "You want to equip multiple portfolio startups with Claude Code at controlled cost. The remote format scales."
+          "role": "想装备投资组合的投资人或 scout funds",
+          "desc": "你想以可控成本让多个 portfolio startup 使用 Claude Code。远程格式可以放大。"
         }
       ]
     },
     "method": {
-      "title": "How it goes",
+      "title": "如何推进",
       "steps": [
         {
           "n": "1",
-          "title": "Video kickoff (1 hour)",
-          "desc": "Quick scoping on video : your stack, workflows, constraints, the three to five target automations. We validate the scope."
+          "title": "视频启动（1 小时）",
+          "desc": "通过视频快速界定范围：你的技术栈、工作流、约束，以及 3 到 5 个目标自动化。我们确认交付范围。"
         },
         {
           "n": "2",
-          "title": "Remote audit (1-2 days)",
-          "desc": "We analyze the targeted workflows, quantify expected ROI, list required skills and MCP. Audit doc delivered within 3 days max."
+          "title": "远程审计（1-2 天）",
+          "desc": "我们分析目标工作流，量化预期 ROI，列出所需 skills 和 MCP。审计文档最多 3 天内交付。"
         },
         {
           "n": "3",
-          "title": "Build over screen sharing (1-2 weeks)",
-          "desc": "Short video sessions 2 to 3 times a week. We code the configuration and automations together. Your teams see everything, ask questions, validate at every step."
+          "title": "屏幕共享构建（1-2 周）",
+          "desc": "每周 2 到 3 次短视频会。我们一起编码配置和自动化。你的团队看见所有步骤、随时提问，并在每一步验证。"
         },
         {
           "n": "4",
-          "title": "Documentation and recorded training",
-          "desc": "Complete internal docs + Loom training video per use case. New hires onboard by watching videos. We stay reachable for 30 days post-delivery."
+          "title": "文档与录制培训",
+          "desc": "完整内部文档，并为每个用例录制 Loom 培训视频。新人可通过视频自助上手。交付后 30 天内我们保持可联系。"
         }
       ]
     },
     "deliverables": {
-      "title": "What you walk away with",
+      "title": "你会带走什么",
       "items": [
-        "Claude Code installed and configured in your infrastructure (CLAUDE.md, hooks, skills, MCP)",
-        "Three to five automations running in production on your real use cases",
-        "Git-versioned code, in your repository",
-        "Complete internal documentation, in English and your team's working language",
-        "Loom training videos per automation : new hires onboard self-service",
-        "Thirty days of post-delivery support by email/video for adjustments"
+        "Claude Code 已在你的基础设施中安装并配置（CLAUDE.md、hooks、skills、MCP）",
+        "三到五个自动化在你的真实用例上进入生产运行",
+        "代码进入你的仓库，并用 Git 管理版本",
+        "完整内部文档，使用英语或你团队的工作语言",
+        "每个自动化都有 Loom 培训视频，新人可自助上手",
+        "交付后三十天邮件或视频支持，用于调整"
       ]
     },
     "faq": {
-      "title": "Frequently asked questions",
+      "title": "常见问题",
       "items": [
         {
-          "q": "How much does it cost?",
-          "a": "Fixed fee. The remote format is packaged to give a clear ratio audit + config + automations delivered. No day rate, no travel fees, no surprises. Quote within forty-eight hours after kickoff."
+          "q": "费用是多少？",
+          "a": "固定费用。远程格式被打包为清晰的审计 + 配置 + 自动化交付。没有日费，没有差旅费，没有意外费用。启动后四十八小时内给出报价。"
         },
         {
-          "q": "How long does it take?",
-          "a": "Three to four weeks depending on complexity. One to two weeks for the build itself, the rest spread for kickoff, audit and handover."
+          "q": "需要多久？",
+          "a": "根据复杂度通常三到四周。构建本身一到两周，其余时间用于启动、审计和交接。"
         },
         {
-          "q": "What timezones do you work in?",
-          "a": "Europe, US East/West, Brazil and Asia depending on the week. We sync on two to three fixed slots per week. Async work happens via Slack or equivalent."
+          "q": "你们覆盖哪些时区？",
+          "a": "根据周程覆盖欧洲、美国东西岸、巴西和亚洲。我们每周固定两到三个同步时段。异步工作通过 Slack 或同类工具完成。"
         },
         {
-          "q": "Security : do you access our code/data?",
-          "a": "You stay in control. We configure security hooks from day one: audit logs, redaction, allow/deny. Build sessions are screen-shared on your machine : code and data don't leave your side."
+          "q": "安全：你们会访问我们的代码或数据吗？",
+          "a": "控制权在你手里。我们从第一天配置安全 hooks：审计日志、脱敏、允许/拒绝规则。构建会在你的机器上通过屏幕共享完成，代码和数据不离开你的环境。"
         },
         {
-          "q": "What languages do you operate in?",
-          "a": "French, English and Brazilian Portuguese fluently. Docs and Loom videos are delivered in the working language of the user team : usually English for international remote."
+          "q": "你们用哪些语言工作？",
+          "a": "我们可流利用法语、英语和巴西葡萄牙语工作。文档和 Loom 视频会用使用团队的工作语言交付，国际远程项目通常使用英语。"
         },
         {
-          "q": "We tried Claude Code in-house and it didn't stick. Why would it work with you?",
-          "a": "Because we configure for YOUR business, not generic. CLAUDE.md adapted, MCP to your internal tools, security hooks matching your constraints, hands-on training on real cases. The difference is in the business layer we bring, not the tool itself."
+          "q": "我们内部试过 Claude Code，但没坚持下来。为什么和你们做会不同？",
+          "a": "因为我们按你的业务配置，而不是做通用演示：定制 CLAUDE.md、连接内部工具的 MCP、匹配约束的安全 hooks、基于真实案例的训练。差别在我们带来的业务层，而不是工具本身。"
         },
         {
-          "q": "What comes after Remote?",
-          "a": "If you want to industrialize further, we can move to additional Automations (fixed fee per deliverable). If you're in France and an urgent case comes up, we can do an onsite Sprint."
+          "q": "Remote 之后是什么？",
+          "a": "如果要进一步工业化，我们可以进入更多自动化交付，按交付件固定费用。如果你在法国且有紧急案例，也可以安排现场 Sprint。"
         }
       ]
     },
     "nextSteps": {
-      "title": "What comes after Remote?",
-      "subtitle": "The Remote format equips you and makes you autonomous. If you want to go further, here are the other formats.",
+      "title": "Remote 之后是什么？",
+      "subtitle": "Remote 格式会装备你的团队并让你自主。如果要继续深入，可以进入其他格式。",
       "options": [
         {
-          "kind": "Continuous production",
-          "title": "Automations",
-          "desc": "You spot more workflows that need to run 24/7. We industrialize at fixed fee per deliverable : still remote."
+          "kind": "持续生产",
+          "title": "自动化",
+          "desc": "你发现更多需要 24/7 运行的工作流。我们继续远程工业化，按交付件固定费用。"
         },
         {
-          "kind": "France / Europe",
+          "kind": "法国 / 欧洲",
           "title": "Audit, Configuration & Claude Code Sprint",
-          "desc": "You have a French entity that needs equipping too? The Sprint, onsite or remote, is the option for offices in the zone."
+          "desc": "你还有法国实体需要装备？Sprint 可现场或远程进行，适合这个区域的办公室。"
         },
         {
-          "kind": "Multiple local teams",
+          "kind": "多个本地团队",
           "title": "Claude Code Setup",
-          "desc": "For French subsidiaries where you want to equip multiple teams at once with a repeatable environment."
+          "desc": "适合法国子公司：一次装备多个团队，并建立可复制环境。"
         },
         {
-          "kind": "First step",
+          "kind": "第一步",
           "title": "Claude Code Audit",
-          "desc": "If we haven't talked yet, the video kickoff acts as the audit : it's included in the Remote format."
+          "desc": "如果我们还没聊过，视频启动就承担审计作用：它包含在 Remote 格式中。"
         }
       ]
     },
     "ctaSection": {
-      "title": "Start remote",
-      "subtitle": "Reply within twenty-four hours. Video kickoff in the days that follow.",
-      "primary": "Book a call",
-      "secondary": "Email Paul directly"
+      "title": "启动远程交付",
+      "subtitle": "二十四小时内回复。随后几天安排视频启动。",
+      "primary": "预约通话",
+      "secondary": "直接邮件联系 Paul"
     }
   },
   "author": {
-    "title": "Paul Larmaraud, founder of Parrit.ai",
-    "metaTitle": "Paul Larmaraud | Founder, Parrit.ai",
-    "metaDescription": "Founder of Parrit.ai, Paul Larmaraud has been deploying Claude Code inside companies since 2024. On-site sprints, real cases, no slideware.",
-    "role": "Founder · Parrit.ai",
+    "title": "Paul Larmaraud，Parrit.ai 创始人",
+    "metaTitle": "Paul Larmaraud | Parrit.ai 创始人",
+    "metaDescription": "Parrit.ai 创始人 Paul Larmaraud 自 2024 年起在企业内部部署 Claude Code。现场 sprint，真实案例，没有空洞幻灯片。",
+    "role": "创始人 · Parrit.ai",
     "location": "Rueil-Malmaison, France",
-    "bioP1": "Paul Larmaraud founded Parrit.ai in early 2024 after ten years of building and operating products at Lime (Paris swap stations) and Arkel (two and a half years as a product operator). The conviction: generative AI doesn't get sold in slides, it gets deployed in production alongside the client's teams.",
-    "bioP2": "Since launch, Parrit.ai has shipped systems running in production: automated legal monitoring for a corporate law firm, an optimization tool for AI shopping assistants (e-commerce GEO) for an Amazon retail seller, a hidden-job-market watch agent for an executive in transition, and its own signal-first acquisition engine (podcasts, B2B events). Every engagement starts in the field and ends with a tool running without us.",
-    "bioP3": "Paul writes regularly about Claude Code, enterprise AI agents and field voice in B2B sales. The Parrit.ai blog is the primary public outlet. No jargon, real numbers, anonymized cases.",
-    "expertiseTitle": "Areas of expertise",
+    "bioP1": "Paul Larmaraud 在 2024 年初创立 Parrit.ai。此前十年，他在 Lime（巴黎换电站）和 Arkel（两年半产品运营）构建并运营产品。核心信念很简单：生成式 AI 不是靠幻灯片卖出去的，而是和客户团队一起部署进生产环境。",
+    "bioP2": "自成立以来，Parrit.ai 已交付多个在生产环境运行的系统：律所自动法律监测、面向 Amazon 零售商的 AI shopping assistant 优化工具（e-commerce GEO）、为转型高管构建的隐性职位市场监测 Agent，以及 Parrit 自己的 signal-first 获客引擎（podcasts、B2B events）。每个项目从现场开始，以一个不依赖我们的运行工具结束。",
+    "bioP3": "Paul 定期撰写关于 Claude Code、企业 AI Agent 和 B2B 销售现场声音的文章。Parrit.ai 博客是主要公开出口。没有行话，有真实数字和匿名案例。",
+    "expertiseTitle": "专业领域",
     "expertise": [
-      "Claude Code in enterprise environments",
-      "Production-grade AI agents (orchestration, memory, supervision)",
-      "B2B sales operations automation",
-      "API integration and deterministic workflows",
-      "Fast on-site prototyping sprints"
+      "企业环境中的 Claude Code",
+      "生产级 AI Agent（编排、记忆、监督）",
+      "B2B 销售运营自动化",
+      "API 集成和确定性工作流",
+      "快速现场原型 sprint"
     ],
-    "experienceTitle": "Career path",
+    "experienceTitle": "经历",
     "experience": [
-      "Parrit.ai · Founder · 2024 - present",
-      "Arkel · Product operator · 2.5 years",
-      "Lime · Paris swap stations · product engineer"
+      "Parrit.ai · 创始人 · 2024 至今",
+      "Arkel · 产品运营 · 2.5 年",
+      "Lime · 巴黎换电站 · 产品工程师"
     ],
-    "ctaTitle": "Work with Paul",
-    "ctaText": "Claude Code sprints, audits, production automations. Reply within twenty-four hours.",
-    "ctaButton": "Book fifteen minutes",
-    "linksTitle": "Find him here",
+    "ctaTitle": "和 Paul 一起工作",
+    "ctaText": "Claude Code sprint、审计、生产自动化。二十四小时内回复。",
+    "ctaButton": "预约 15 分钟",
+    "linksTitle": "联系方式",
     "links": {
       "linkedin": "LinkedIn",
       "email": "paul.larmaraud@parrit.ai",
-      "blog": "Read the Parrit.ai blog"
+      "blog": "阅读 Parrit.ai 博客"
     }
   },
   "casVitrines": {
