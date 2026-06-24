@@ -36,7 +36,7 @@
 
 **Slug :** `masterclass-ia`
 **Focus :** Acculturation et initiation
-**Phrase de niveau :** "Je ne sais pas encore ce que fait vraiment l'IA agentique."
+**Phrase de niveau :** "Je découvre l'IA générative. Je ne sais pas encore où commence l'IA agentique."
 **Prix :** à partir de 1 598 € · Finançable OPCO
 
 ### Définition
@@ -308,15 +308,15 @@ une flotte d'agents centralisée.
 À insérer entre `#croissance` et `#transmettre` dans `HomeClient.tsx`.
 
 ### Titre
-- Kicker : "Votre niveau de maturité"
-- H2 : Trouvez le bon point d'entrée.
-- Sous-titre : Chaque niveau a son offre. Cliquez sur celui qui vous ressemble.
+- Kicker : "De l'IA générative à l'IA agentique"
+- H2 : Où en êtes-vous avec l'IA ?
+- Sous-titre : On intervient à tous les stades — de la première découverte jusqu'à la flotte d'agents en production. Trouvez votre point d'entrée.
 
 ### 7 tiles (fr)
 
 | ID | Label | Phrase | Route |
 |----|-------|--------|-------|
-| N1 | Découverte | "Je découvre l'IA agentique" | `/masterclass-ia` |
+| N1 | Découverte | "Je découvre l'IA générative" | `/masterclass-ia` |
 | N2 | Application métier | "Je veux l'appliquer à mon secteur" | `/masterclass-metier` |
 | N3 | Connexion logicielle | "Je veux connecter mes logiciels à l'IA" | `/sessions-mcp` |
 | N4 | Diagnostic | "Je veux cartographier mes process" | `/audit` |
