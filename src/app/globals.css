@@ -1327,10 +1327,10 @@ body > * {
 
 .home-template .hero h1 {
   color: var(--ink);
-  font-size: clamp(28px, 6.6vw, 62px);
-  font-weight: 800;
-  letter-spacing: -0.024em;
-  line-height: 1.06;
+  font-size: clamp(28px, 6.6vw, 72px);
+  font-weight: 900;
+  letter-spacing: -0.028em;
+  line-height: 1.04;
   margin: 18px auto 0;
   max-width: 920px;
 }
