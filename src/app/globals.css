@@ -1417,6 +1417,39 @@ body > * {
   max-width: 980px;
 }
 
+.home-template .onepager-qualification {
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 20, 26, 0.10);
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(20, 20, 26, 0.06);
+  display: inline-flex;
+  gap: 14px;
+  margin-top: 24px;
+  max-width: 620px;
+  padding: 12px 16px;
+}
+
+.home-template .onepager-qualification img {
+  display: block;
+  height: 58px;
+  width: auto;
+}
+
+.home-template .onepager-qualification span {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.home-template .price-qualification {
+  margin: 8px 0 22px;
+}
+
 .home-template .maturity-rail-item {
   background: rgba(255, 255, 255, 0.66);
   border: 1px solid var(--line);
@@ -1471,6 +1504,16 @@ body > * {
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 28px;
+}
+
+.home-template .story-logo {
+  display: block;
+  height: 38px;
+  margin-bottom: 18px;
+  max-width: 140px;
+  object-fit: contain;
+  object-position: left center;
+  width: auto;
 }
 
 .home-template .story-person {
@@ -1653,6 +1696,86 @@ body > * {
   transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
 }
 
+.home-template .maturite-fast-track {
+  align-items: stretch;
+  background: #151515;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  color: #FFFFFF;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 30px;
+  max-width: 980px;
+  padding: 28px;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.home-template .maturite-fast-track:hover,
+.home-template .maturite-fast-track:focus-visible {
+  box-shadow: 0 18px 42px rgba(20, 20, 26, 0.16);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.home-template .maturite-fast-track-kicker {
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.home-template .maturite-fast-track h3 {
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 800;
+  line-height: 1.08;
+  margin: 14px 0 0;
+  max-width: 560px;
+}
+
+.home-template .maturite-fast-track p,
+.home-template .maturite-fast-track-offer span {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 14px;
+  line-height: 1.65;
+  margin: 16px 0 0;
+}
+
+.home-template .maturite-fast-track-offer {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+}
+
+.home-template .maturite-fast-track-offer strong {
+  color: #FFFFFF;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.home-template .maturite-fast-track-offer em {
+  align-items: center;
+  color: #FFFFFF;
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  gap: 7px;
+  letter-spacing: 0.08em;
+  margin-top: auto;
+  padding-top: 22px;
+  text-transform: uppercase;
+}
+
 .home-template .maturite-diagnostic-card:hover,
 .home-template .maturite-diagnostic-card:focus-visible {
   border-color: var(--accent);
@@ -1782,39 +1905,6 @@ body > * {
   font-family: var(--font-body);
   font-size: 12px;
   line-height: 1.45;
-}
-
-.home-template .mountain-start-label {
-  overflow: visible;
-  pointer-events: none;
-}
-
-.home-template .mountain-start-label div {
-  background: #FFFFFF;
-  border: 1px solid rgba(170, 0, 3, 0.18);
-  border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(20, 20, 26, 0.08);
-  color: var(--ink);
-  padding: 10px 12px;
-}
-
-.home-template .mountain-start-label strong {
-  color: var(--accent);
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  margin-bottom: 4px;
-  text-transform: uppercase;
-}
-
-.home-template .mountain-start-label span {
-  color: var(--muted);
-  display: block;
-  font-family: var(--font-body);
-  font-size: 11.5px;
-  line-height: 1.35;
 }
 
 .home-template .mountain-point:hover .mountain-tooltip,
@@ -2577,6 +2667,10 @@ body > * {
   .home-template .ctacard {
     grid-template-columns: 1fr;
     padding: 36px;
+  }
+
+  .home-template .maturite-fast-track {
+    grid-template-columns: 1fr;
   }
 
   .home-template .ctacard .seal-wm {

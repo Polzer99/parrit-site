@@ -79,6 +79,14 @@ type HomeCopy = {
     kicker: string;
     title: string;
     lead: string;
+    fastTrack: {
+      h3: string;
+      body: string;
+      offer: string;
+      promise: string;
+      cta: string;
+      href: string;
+    };
     diagnostic: {
       level: string;
       title: string;
@@ -206,6 +214,16 @@ const COPY: Record<Locale, HomeCopy> = {
       kicker: "De l'IA générative à l'IA agentique",
       title: "Où en êtes-vous avec l'IA ?",
       lead: "La montée commence par un diagnostic. Vous repartez avec votre niveau, le premier flux à traiter et la ressource qui vous correspond.",
+      fastTrack: {
+        h3: "Dirigeants & Grands Comptes : Par où commencer ?",
+        body:
+          "Vos équipes sont probablement réparties sur plusieurs de ces 7 niveaux. Pour lancer une transformation à l'échelle sans financer des projets inutiles, ne cherchez pas à deviner leur stade de maturité.",
+        offer: "L'Audit de Transformation Stratégique.",
+        promise:
+          "En 5 jours, nous cartographions vos processus, nous évaluons le niveau réel de vos départements, et nous vous livrons un plan de match chiffré pour déployer les bonnes solutions de notre catalogue aux bonnes personnes.",
+        cta: "Demander l'Audit de Transformation",
+        href: "/audit",
+      },
       diagnostic: {
         level: "D0",
         title: "Point de départ · Diagnostic & cartographie des process",
@@ -413,6 +431,16 @@ const COPY: Record<Locale, HomeCopy> = {
       kicker: "From generative AI to agentic AI",
       title: "Where are you with AI?",
       lead: "The climb starts with a diagnostic. You leave with your level, the first workflow to inspect and the resource that fits you.",
+      fastTrack: {
+        h3: "Executives & Enterprise: where should you start?",
+        body:
+          "Your teams are probably spread across several of these seven levels. To launch transformation at scale without funding useless projects, do not guess their maturity stage.",
+        offer: "Strategic Transformation Audit.",
+        promise:
+          "In five days, we map your processes, assess the real level of your departments and deliver a costed game plan to deploy the right solutions from our catalogue to the right people.",
+        cta: "Request the Transformation Audit",
+        href: "/audit",
+      },
       diagnostic: {
         level: "D0",
         title: "Starting point · Diagnostic & process mapping",
@@ -620,6 +648,16 @@ const COPY: Record<Locale, HomeCopy> = {
       kicker: "Da IA generativa à IA agentica",
       title: "Onde você está com a IA?",
       lead: "A subida começa por um diagnóstico. Você sai com seu nível, o primeiro fluxo a observar e o recurso que combina com você.",
+      fastTrack: {
+        h3: "Dirigentes & grandes contas: por onde começar?",
+        body:
+          "Suas equipes provavelmente estão distribuídas entre vários destes sete níveis. Para lançar uma transformação em escala sem financiar projetos inúteis, não tente adivinhar o nível de maturidade.",
+        offer: "Auditoria Estratégica de Transformação.",
+        promise:
+          "Em cinco dias, mapeamos seus processos, avaliamos o nível real dos departamentos e entregamos um plano quantificado para implantar as soluções certas do nosso catálogo nas equipes certas.",
+        cta: "Solicitar a Auditoria de Transformação",
+        href: "/audit",
+      },
       diagnostic: {
         level: "D0",
         title: "Ponto de partida · Diagnóstico & mapeamento de processos",
@@ -827,6 +865,16 @@ const COPY: Record<Locale, HomeCopy> = {
       kicker: "从生成式 AI 到智能体 AI",
       title: "您现在处在 AI 的哪个阶段？",
       lead: "上山从诊断开始。你会得到自己的阶段、第一条要看的流程，以及最适合你的资源。",
+      fastTrack: {
+        h3: "管理层与大型企业：从哪里开始？",
+        body:
+          "你的团队很可能分布在这七个阶段中的多个层级。要启动规模化转型，又不为无效项目买单，就不要靠猜来判断成熟度。",
+        offer: "战略转型审计。",
+        promise:
+          "五天内，我们梳理你的流程，评估各部门真实成熟度，并交付一份量化行动计划，把目录中的正确方案部署给正确的人。",
+        cta: "申请转型审计",
+        href: "/audit",
+      },
       diagnostic: {
         level: "D0",
         title: "起点 · 诊断与流程梳理",
@@ -1238,6 +1286,21 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           <p className="kicker">{copy.maturite.kicker}</p>
           <h2>{copy.maturite.title}</h2>
           <p className="lead">{copy.maturite.lead}</p>
+          <a className="maturite-fast-track" href={`/${lang}${copy.maturite.fastTrack.href}`}>
+            <div>
+              <span className="maturite-fast-track-kicker">Fast-track</span>
+              <h3>{copy.maturite.fastTrack.h3}</h3>
+              <p>{copy.maturite.fastTrack.body}</p>
+            </div>
+            <div className="maturite-fast-track-offer">
+              <strong>{copy.maturite.fastTrack.offer}</strong>
+              <span>{copy.maturite.fastTrack.promise}</span>
+              <em>
+                {copy.maturite.fastTrack.cta}
+                <span aria-hidden="true">→</span>
+              </em>
+            </div>
+          </a>
           <a className="maturite-diagnostic-card" href={copy.maturite.diagnostic.href}>
             <span className="maturite-num">{copy.maturite.diagnostic.level}</span>
             <strong>{copy.maturite.diagnostic.title}</strong>
@@ -1272,12 +1335,6 @@ export default function HomeClient({ lang }: { lang: Locale }) {
                 <text x="58" y="434" textAnchor="middle">
                   D0
                 </text>
-                <foreignObject className="mountain-start-label" x="34" y="362" width="260" height="58">
-                  <div>
-                    <strong>{copy.maturite.diagnostic.level}</strong>
-                    <span>{copy.maturite.diagnostic.title}</span>
-                  </div>
-                </foreignObject>
               </a>
               {copy.maturite.levels.map((level) => {
                 const point = MATURITE_POINTS[level.id];
