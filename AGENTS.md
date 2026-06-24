@@ -25,7 +25,7 @@ Applies to any code delivered from this repo. "The CI blocks" beats "remember to
 Depuis le 23/06, toute UI publique part de `src/app/globals.css` (`:root`) et de `design-source/DA-TOKENS-EXTRACTED.md`. `BRAND.md` est un backup historique : ne pas l'utiliser pour ressusciter l'ancienne home desktop-OS.
 - **Palette stricte** : fond `#F5F8FF` · encre `#161616` · sombre `#2E2D2B` · rouge `#AA0003` · terracotta rare `#C67C60` · muted `#6E7079` · faint `#8987A1` · border `rgba(20,20,26,.10)`.
 - **INTERDIT (retired)** : crème `#FEFDF9`, ancien rouge `#D1132F`, ancienne encre `#0C0C0D`, DM Sans, Cormorant comme typo de page, CTA/cartes neo-brutalist, namespace `.parrit-os-*` sur la home.
-- **Polices** : Hanken Grotesk pour body/heading (`--font-body`, `--font-heading`) · JetBrains Mono pour labels/chips/coords (`--font-mono`).
+- **Polices** : Geist pour body/heading (`--font-body`, `--font-heading`) · Geist Mono pour labels/chips/coords (`--font-mono`).
 - **Composants signature** : cartes plates, chips pilules, ladder, logowall clients séparé, CTA leadform + WhatsApp, Qualiopi.
 - **Voix** (`BRAND.md §6bis`, doctrine LE TAMIS) : Operating Partner, autorité démontrée, faits (Enargeia), sobriété, **pas de tiret cadratin `—`**, pas de jargon IA.
 
@@ -56,5 +56,5 @@ Voir aussi la skill `qa-playwright` (batterie responsive + multi-navigateur). To
 
 ## Règles de sortie (non négociables)
 - **Jamais d'appel runtime à `*.vercel.app`** dans une livraison (REGLES-DOR §13). Le site EST hébergé sur Vercel — ça vise les ressources chargées au runtime (images/redirects/signatures), pas l'hébergement.
-- Pas de prix ni de noms clients **dans le TEXTE** (anonymisé). Le mur de logos clients **visuel** est autorisé (override Paul, `BRAND.md §6`).
+- Prix publics autorisés uniquement sous forme d'ancrage `à partir de X €` quand la SOT le demande. Pas de devis détaillé ni de prix personnalisé hors propale privée. Pas de noms clients **dans le TEXTE** (anonymisé). Le mur de logos clients **visuel** est autorisé (override Paul, `BRAND.md §6`).
 - Collab Codex↔Claude = via **GitHub Issues/PR**, jamais d'auto-merge, **Paul merge**. Codex = codeur, Claude = relecteur (sécu/archi/bugs/dette).

@@ -14,6 +14,10 @@ const bannedPatterns = [
   { label: "experimentation", regex: /\bexp[ée]rimentations?\b/iu },
   { label: "Sur devis", regex: /\bSur devis\b/iu },
   { label: "em dash", regex: /—/u },
+  { label: "retired font Hanken Grotesk", regex: /\bHanken Grotesk\b/iu },
+  { label: "retired font JetBrains Mono", regex: /\bJetBrains Mono\b/iu },
+  { label: "retired font DM Sans", regex: /\bDM Sans\b/iu },
+  { label: "retired font Cormorant", regex: /\bCormorant\b/iu },
 ];
 
 const findings = [];
