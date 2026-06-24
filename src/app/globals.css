@@ -1724,12 +1724,12 @@ body > * {
 }
 
 .home-template .logowall img {
-  filter: grayscale(1);
+  filter: none;
   height: 32px;
   max-width: 150px;
   object-fit: contain;
-  opacity: 0.6;
-  transition: opacity 0.2s, filter 0.2s;
+  opacity: 0.75;
+  transition: opacity 0.2s;
   width: auto;
 }
 
