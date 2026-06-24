@@ -8,6 +8,7 @@
 ## Règles de copy transversales
 
 - Prix : toujours "à partir de X €" — jamais de prix exact affiché
+- **Plancher absolu : 998 €** — aucune offre en dessous de 990 €
 - Positionnement : au-dessus du marché — la copy justifie le ROI, pas le prix
 - Voix : Enargeia (faits), sobriété (−20 % mots), autorité démontrée
 - Mots bannis sur le site : POC · expérimentation · jours-homme · prompt · chatbot
@@ -36,7 +37,7 @@
 **Slug :** `masterclass-ia`
 **Focus :** Acculturation et initiation
 **Phrase de niveau :** "Je ne sais pas encore ce que fait vraiment l'IA agentique."
-**Prix :** à partir de 497 € · Finançable OPCO
+**Prix :** à partir de 998 € · Finançable OPCO
 
 ### Définition
 Session de 3 heures en visioconférence pour cartographier les besoins,
@@ -75,7 +76,7 @@ Session de 3 heures en visioconférence pour cartographier les besoins,
 **Slug :** `masterclass-metier`
 **Focus :** Application concrète au secteur d'activité
 **Phrase de niveau :** "Je comprends l'IA mais pas comment l'appliquer à mon métier."
-**Prix :** à partir de 897 € · Finançable OPCO
+**Prix :** à partir de 998 € · Finançable OPCO
 
 ### Définition
 Approfondissement métier avec des exercices pratiques.
@@ -113,7 +114,7 @@ Livrable : instructions personnalisées adaptées au métier du client.
 **Slug :** `sessions-mcp`
 **Focus :** Connexion technique et intégration logicielle
 **Phrase de niveau :** "Je veux connecter mes logiciels à l'IA."
-**Prix :** à partir de 1 197 € · Sur devis selon périmètre
+**Prix :** à partir de 998 € · Sur devis selon périmètre
 
 ### Définition
 Création de MCPs (Model Context Protocol) pour connecter les logiciels du client
@@ -151,7 +152,7 @@ Création de MCPs (Model Context Protocol) pour connecter les logiciels du clien
 **Slug :** `audit`
 **Focus :** Optimisation des processus existants
 **Phrase de niveau :** "Je veux savoir ce qui peut changer dans mon organisation."
-**Prix :** Inclus dans tout Sprint N5 · ou à partir de 490 € standalone
+**Prix :** Inclus dans tout déploiement N5 · ou à partir de 998 € standalone
 
 ### Définition
 Analyse et cartographie exhaustive des processus métier pour identifier
