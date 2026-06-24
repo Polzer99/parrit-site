@@ -78,7 +78,9 @@ type HomeCopy = {
     titleRed: string;
     titleAfter: string;
     note: string;
-    items: { name: string; sector: string; did: string; desc: string; more: string }[];
+    beforeLabel: string;
+    afterLabel: string;
+    items: { name: string; sector: string; did: string; before: string; after: string; desc: string; more: string }[];
   };
   cta: {
     titleBefore: string;
@@ -199,11 +201,15 @@ const COPY: Record<Locale, HomeCopy> = {
       titleRed: "clients",
       titleAfter: ".",
       note: "Cliquez pour voir le détail de chaque réalisation.",
+      beforeLabel: "Avant",
+      afterLabel: "Après",
       items: [
         {
           name: "Agent mail",
           sector: "ex. Clevery",
           did: "Vos emails triés, rédigés, prêts à envoyer.",
+          before: "Une boîte saturée, des priorités cachées, des réponses qui partent trop tard.",
+          after: "Les messages sont classés, les réponses prêtes, l'humain ne garde que la validation.",
           desc: "L'agent lit, classe et prépare les réponses. Vous relisez, vous envoyez. Pensé pour les boîtes qui croulent sous le mail.",
           more: "Voir le cas →",
         },
@@ -211,6 +217,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "Agent de veille",
           sector: "clients & prospects",
           did: "Vos comptes sous surveillance, en continu.",
+          before: "Les signaux clients arrivent trop tard ou restent dispersés entre plusieurs sources.",
+          after: "Les levées, recrutements, appels d'offres et risques remontent au bon moment.",
           desc: "Il suit l'actualité de vos clients et prospects et repère les signaux : levée, recrutement, appel d'offres. Vous êtes alerté au bon moment.",
           more: "Voir le cas →",
         },
@@ -218,6 +226,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "CRM piloté par agents",
           sector: "ex. Laparra",
           did: "Votre CRM se tient à jour tout seul.",
+          before: "Les fiches clients vieillissent, les relances se perdent et l'équipe évite le CRM.",
+          after: "Les mises à jour et relances se font en langage naturel, dans le flux de travail.",
           desc: "Vous parlez à votre CRM en langage naturel, depuis un chat. Un ou plusieurs agents tiennent les fiches et les relances à jour.",
           more: "Voir le cas →",
         },
@@ -225,6 +235,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "Outil propriétaire sur-mesure",
           sector: "sur votre process",
           did: "L'outil métier qui n'existe pas encore.",
+          before: "Le process critique vit dans des tableurs, des emails et des arbitrages manuels.",
+          after: "Une interface métier unique orchestre les données, les actions et les validations.",
           desc: "On construit l'application qui vous manque, autour de votre métier. Par exemple : un agent qui dialogue directement avec votre CRM.",
           more: "Voir le cas →",
         },
@@ -232,6 +244,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "Alertes intelligentes",
           sector: "au bon moment",
           did: "La bonne alerte, au bon moment.",
+          before: "Les échéances, ruptures ou pics d'activité sont repérés quand il est déjà tard.",
+          after: "Les alertes utiles sortent automatiquement, contextualisées pour la bonne équipe.",
           desc: "Des alertes générées automatiquement : produits de saison, ruptures de stock, échéances, pics d'activité. Vos équipes ne ratent plus rien.",
           more: "Voir le cas →",
         },
@@ -239,6 +253,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "Formation agentique",
           sector: "ex. Joone",
           did: "Vos équipes deviennent autonomes.",
+          before: "Quelques personnes testent des outils IA, sans cadre partagé ni passation durable.",
+          after: "Les référents savent cadrer, construire et piloter leurs agents avec méthode.",
           desc: "On forme vos référents IA et on configure Claude Code, Codex et vos outils agentiques. Ils repartent en sachant construire et piloter leurs agents.",
           more: "Voir le cas →",
         },
@@ -361,11 +377,15 @@ const COPY: Record<Locale, HomeCopy> = {
       titleRed: "clients",
       titleAfter: ".",
       note: "Click to see each project in detail.",
+      beforeLabel: "Before",
+      afterLabel: "After",
       items: [
         {
           name: "Mail agent",
           sector: "ex. Clevery",
           did: "Your emails sorted, drafted, ready to send.",
+          before: "An overloaded inbox, hidden priorities, replies sent too late.",
+          after: "Messages are classified, replies are drafted, humans only validate.",
           desc: "The agent reads, classifies and prepares replies. You review, you send. Designed for teams drowning in email.",
           more: "See the case →",
         },
@@ -373,6 +393,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "Monitoring agent",
           sector: "clients & prospects",
           did: "Your accounts monitored continuously.",
+          before: "Client signals arrive late or stay scattered across sources.",
+          after: "Fundraising, hiring, tenders and risks surface at the right time.",
           desc: "It follows the news around clients and prospects and detects signals: fundraising, hiring, tenders. You are alerted at the right time.",
           more: "See the case →",
         },
@@ -380,6 +402,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "Agent-driven CRM",
           sector: "ex. Laparra",
           did: "Your CRM stays updated by itself.",
+          before: "Client records age, follow-ups disappear, the team avoids the CRM.",
+          after: "Updates and follow-ups happen in natural language, inside the workflow.",
           desc: "You talk to your CRM in natural language, from a chat. One or several agents keep records and follow-ups up to date.",
           more: "See the case →",
         },
@@ -387,6 +411,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "Custom proprietary tool",
           sector: "for your process",
           did: "The business tool that does not exist yet.",
+          before: "A critical process lives across spreadsheets, emails and manual decisions.",
+          after: "One business interface orchestrates data, actions and validations.",
           desc: "We build the application you are missing, around your business. For example: an agent that talks directly with your CRM.",
           more: "See the case →",
         },
@@ -394,6 +420,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "Smart alerts",
           sector: "at the right time",
           did: "The right alert, at the right time.",
+          before: "Deadlines, stockouts or activity spikes are noticed when it is already late.",
+          after: "Useful alerts are generated automatically and routed to the right team.",
           desc: "Automatically generated alerts: seasonal products, stockouts, deadlines, activity spikes. Your teams stop missing what matters.",
           more: "See the case →",
         },
@@ -401,6 +429,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "Agentic training",
           sector: "ex. Joone",
           did: "Your teams become autonomous.",
+          before: "A few people test AI tools, without a shared frame or durable handover.",
+          after: "AI leads know how to scope, build and operate their agents methodically.",
           desc: "We train your AI leads and configure Claude Code, Codex and your agentic tools. They leave knowing how to build and operate their agents.",
           more: "See the case →",
         },
@@ -523,11 +553,15 @@ const COPY: Record<Locale, HomeCopy> = {
       titleRed: "clientes",
       titleAfter: ".",
       note: "Clique para ver o detalhe de cada realização.",
+      beforeLabel: "Antes",
+      afterLabel: "Depois",
       items: [
         {
           name: "Agente de email",
           sector: "ex. Clevery",
           did: "Seus emails triados, redigidos, prontos para enviar.",
+          before: "Uma caixa lotada, prioridades escondidas, respostas enviadas tarde demais.",
+          after: "Mensagens classificadas, respostas preparadas, humanos só validam.",
           desc: "O agente lê, classifica e prepara respostas. Você revisa e envia. Pensado para empresas soterradas por emails.",
           more: "Ver o caso →",
         },
@@ -535,6 +569,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "Agente de monitoramento",
           sector: "clientes & prospects",
           did: "Suas contas sob vigilância contínua.",
+          before: "Sinais de clientes chegam tarde ou ficam espalhados entre fontes.",
+          after: "Captações, recrutamentos, chamadas públicas e riscos aparecem na hora certa.",
           desc: "Ele acompanha notícias de clientes e prospects e detecta sinais: captação, recrutamento, chamada pública. Você é alertado no momento certo.",
           more: "Ver o caso →",
         },
@@ -542,6 +578,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "CRM pilotado por agentes",
           sector: "ex. Laparra",
           did: "Seu CRM se mantém atualizado sozinho.",
+          before: "Fichas envelhecem, follow-ups somem e a equipe evita o CRM.",
+          after: "Atualizações e follow-ups acontecem em linguagem natural, no fluxo de trabalho.",
           desc: "Você fala com seu CRM em linguagem natural, por chat. Um ou vários agentes mantêm fichas e follow-ups atualizados.",
           more: "Ver o caso →",
         },
@@ -549,6 +587,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "Ferramenta proprietária sob medida",
           sector: "no seu processo",
           did: "A ferramenta de negócio que ainda não existe.",
+          before: "Um processo crítico vive em planilhas, emails e decisões manuais.",
+          after: "Uma interface de negócio orquestra dados, ações e validações.",
           desc: "Construímos a aplicação que falta, em torno do seu negócio. Por exemplo: um agente que dialoga diretamente com seu CRM.",
           more: "Ver o caso →",
         },
@@ -556,6 +596,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "Alertas inteligentes",
           sector: "no momento certo",
           did: "O alerta certo, no momento certo.",
+          before: "Prazos, rupturas ou picos de atividade são percebidos tarde demais.",
+          after: "Alertas úteis saem automaticamente e chegam à equipe certa.",
           desc: "Alertas gerados automaticamente: produtos sazonais, rupturas de estoque, prazos, picos de atividade. Suas equipes não perdem mais nada.",
           more: "Ver o caso →",
         },
@@ -563,6 +605,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "Formação agentica",
           sector: "ex. Joone",
           did: "Suas equipes se tornam autônomas.",
+          before: "Algumas pessoas testam ferramentas de IA sem quadro comum nem passagem durável.",
+          after: "Referentes IA sabem enquadrar, construir e pilotar agentes com método.",
           desc: "Formamos seus referentes IA e configuramos Claude Code, Codex e suas ferramentas agenticas. Eles saem sabendo construir e pilotar seus agentes.",
           more: "Ver o caso →",
         },
@@ -685,11 +729,15 @@ const COPY: Record<Locale, HomeCopy> = {
       titleRed: "客户",
       titleAfter: "部署的案例示例。",
       note: "点击查看每个项目的细节。",
+      beforeLabel: "之前",
+      afterLabel: "之后",
       items: [
         {
           name: "邮件智能体",
           sector: "ex. Clevery",
           did: "你的邮件被分类、起草，并准备发送。",
+          before: "邮箱过载，优先级被淹没，回复总是太晚。",
+          after: "邮件被分类，回复被起草，人工只保留审核。",
           desc: "智能体读取、分类并准备回复。你审核，然后发送。适合被邮件淹没的团队。",
           more: "查看案例 →",
         },
@@ -697,6 +745,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "监测智能体",
           sector: "客户 & 潜在客户",
           did: "持续监控你的账户。",
+          before: "客户信号来得太晚，或散落在不同来源里。",
+          after: "融资、招聘、招标和风险在正确时间浮现。",
           desc: "它跟踪客户和潜在客户的动态，并识别融资、招聘、招标等信号。你会在正确时间收到提醒。",
           more: "查看案例 →",
         },
@@ -704,6 +754,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "智能体驱动的 CRM",
           sector: "ex. Laparra",
           did: "你的 CRM 自动保持更新。",
+          before: "客户资料老化，跟进丢失，团队不愿打开 CRM。",
+          after: "更新和跟进用自然语言完成，直接进入工作流。",
           desc: "你通过聊天用自然语言和 CRM 对话。一个或多个智能体保持资料和跟进记录更新。",
           more: "查看案例 →",
         },
@@ -711,6 +763,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "定制专有工具",
           sector: "围绕你的流程",
           did: "还不存在的业务工具。",
+          before: "关键流程散落在表格、邮件和人工判断中。",
+          after: "一个业务界面统一编排数据、动作和验证。",
           desc: "我们围绕你的业务构建你缺少的应用。例如：一个能直接和你的 CRM 对话的智能体。",
           more: "查看案例 →",
         },
@@ -718,6 +772,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "智能提醒",
           sector: "在正确时间",
           did: "正确的提醒，在正确的时间。",
+          before: "截止日期、缺货或业务高峰总是在太晚时才被发现。",
+          after: "有用提醒自动生成，并送达正确团队。",
           desc: "自动生成提醒：季节性产品、缺货、截止日期、业务高峰。你的团队不再错过关键事项。",
           more: "查看案例 →",
         },
@@ -725,6 +781,8 @@ const COPY: Record<Locale, HomeCopy> = {
           name: "智能体培训",
           sector: "ex. Joone",
           did: "你的团队变得自主。",
+          before: "少数人在测试 AI 工具，但没有共同框架或可传递方法。",
+          after: "AI 负责人知道如何界定、构建并运营智能体。",
           desc: "我们培训你的 AI 负责人，并配置 Claude Code、Codex 和你的智能体工具。团队离开时会知道如何构建和操作智能体。",
           more: "查看案例 →",
         },
@@ -1020,6 +1078,16 @@ export default function HomeClient({ lang }: { lang: Locale }) {
                   <span className="sct">{item.sector}</span>
                 </div>
                 <div className="did">{item.did}</div>
+                <div className="case-compare">
+                  <p>
+                    <span>{copy.cases.beforeLabel}</span>
+                    {item.before}
+                  </p>
+                  <p>
+                    <span>{copy.cases.afterLabel}</span>
+                    {item.after}
+                  </p>
+                </div>
                 <div className="desc">{item.desc}</div>
                 <div className="more">{item.more}</div>
               </a>

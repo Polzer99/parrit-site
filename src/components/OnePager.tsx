@@ -13,6 +13,13 @@ export interface OnePagerProps {
   phrase: string;
   ctaLabel: string;
   ctaHref: string;
+  stories: {
+    title: string;
+    person: string;
+    before: string;
+    after: string;
+    result: string;
+  }[];
   forWho: string[];
   deliverables: string[];
   steps: { title: string; body: string }[];
@@ -23,6 +30,7 @@ export interface OnePagerProps {
 }
 
 const navLinks = [
+  { href: "#histoires", label: "Histoires" },
   { href: "#pour-qui", label: "Pour qui" },
   { href: "#livrables", label: "Livrables" },
   { href: "#prix", label: "Prix" },
@@ -54,6 +62,7 @@ export default function OnePager({
   phrase,
   ctaLabel,
   ctaHref,
+  stories,
   forWho,
   deliverables,
   steps,
@@ -114,6 +123,42 @@ export default function OnePager({
             </Link>
           ))}
         </nav>
+      </section>
+
+      <section className="section story-section" id="histoires">
+        <div className="wrap">
+          <div className="section-head">
+            <div className="kicker">Avant / après</div>
+            <h2>À quoi ressemble une transformation à ce niveau ?</h2>
+            <p className="lead">
+              On part toujours d'une situation concrète : une équipe, un métier, un blocage. Puis on rend le prochain pas visible.
+            </p>
+          </div>
+          <div className="story-grid">
+            {stories.map((story) => (
+              <article className="story-card" key={story.title}>
+                <div className="story-person">{story.person}</div>
+                <h3>{story.title}</h3>
+                <div className="story-compare">
+                  <div>
+                    <span>Avant</span>
+                    <p>{story.before}</p>
+                  </div>
+                  <div>
+                    <span>Après</span>
+                    <p>{story.after}</p>
+                  </div>
+                </div>
+                <p className="story-result">{story.result}</p>
+              </article>
+            ))}
+          </div>
+          <div className="story-cta">
+            <a className="btn btn-red btn-lg" href={ctaHref}>
+              {ctaLabel}
+            </a>
+          </div>
+        </div>
       </section>
 
       <section className="section band" id="pour-qui">

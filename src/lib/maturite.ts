@@ -18,6 +18,13 @@ export type MaturiteOffer = {
   phrase: string;
   ctaLabel: string;
   ctaHref: string;
+  stories: {
+    title: string;
+    person: string;
+    before: string;
+    after: string;
+    result: string;
+  }[];
   forWho: string[];
   deliverables: string[];
   steps: { title: string; body: string }[];
@@ -39,6 +46,17 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     phrase: "Je découvre l'IA générative",
     ctaLabel: "Réserver la masterclass",
     ctaHref: CONTACT_MAIL,
+    stories: [
+      {
+        title: "Le comité qui ne savait pas par où commencer",
+        person: "Direction commerciale, distribution B2B",
+        before:
+          "L'IA était un sujet de veille. Les équipes avaient testé des outils, mais personne ne savait distinguer gadget, gain réel et risque métier.",
+        after:
+          "En 3 heures, le comité repart avec un vocabulaire commun, 4 cas d'usage réalistes et une première feuille de route compréhensible par les métiers.",
+        result: "La discussion passe de « faut-il y aller ? » à « quel process traite-t-on d'abord ? ».",
+      },
+    ],
     forWho: [
       "Vous entendez parler d'agents IA partout mais vous ne savez pas ce que ça couvre dans votre secteur.",
       "Vos équipes ont accès à des outils IA mais personne ne sait comment les intégrer dans un vrai process.",
@@ -72,6 +90,17 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     phrase: "Je veux l'appliquer à mon secteur",
     ctaLabel: "Réserver la session",
     ctaHref: CONTACT_MAIL,
+    stories: [
+      {
+        title: "Le cabinet qui voulait des usages vraiment métier",
+        person: "Associé, cabinet de conseil",
+        before:
+          "Les consultants utilisaient l'IA chacun dans leur coin. Les résultats dépendaient des habitudes individuelles, sans méthode ni réutilisation.",
+        after:
+          "La session transforme leurs cas réels en configurations métier partageables : analyse de marché, préparation d'entretien, synthèse client.",
+        result: "Deux usages deviennent des routines d'équipe, sans ajouter d'outil à la stack.",
+      },
+    ],
     forWho: [
       "Vous avez fait une première exploration IA mais aucun cas d'usage ne s'est concrétisé dans votre quotidien.",
       "Vous revenez d'une démonstration qui vous a convaincu mais vous ne savez pas comment l'adapter à votre contexte.",
@@ -104,6 +133,17 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     phrase: "Je veux connecter mes logiciels à l'IA",
     ctaLabel: "Réserver les sessions",
     ctaHref: CONTACT_MAIL,
+    stories: [
+      {
+        title: "Le CRM propriétaire enfin relié aux modèles IA",
+        person: "Courtier assurance, équipe commerciale",
+        before:
+          "Les données clients étaient dans un CRM isolé. Les agents répondaient bien, mais ne voyaient jamais les vraies fiches, contrats ou relances.",
+        after:
+          "Les sessions créent les ponts techniques nécessaires. Claude accède aux données utiles, avec une méthode de test et de passation documentée.",
+        result: "Les équipes interrogent leurs données en langage naturel, sans reconstruire le CRM.",
+      },
+    ],
     forWho: [
       "Vous avez des logiciels métier (CRM, ERP, outils internes) qui ne parlent pas encore à l'IA.",
       "Vous voulez que vos agents accèdent à vos données réelles — pas à des données simulées.",
@@ -135,6 +175,17 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     phrase: "Je veux cartographier mes process",
     ctaLabel: "Demander l'audit",
     ctaHref: CONTACT_MAIL,
+    stories: [
+      {
+        title: "Le budget IA recadré avant de dépenser trop vite",
+        person: "Dirigeant, courtage énergie B2B",
+        before:
+          "L'équipe pensait automatiser la prospection sortante. Le problème visible était bruyant, mais pas forcément le plus rentable.",
+        after:
+          "L'audit révèle que le vrai levier est la qualification des leads entrants, puis chiffre le gain et les risques de déploiement.",
+        result: "La priorité change : moins de dispersion, un premier déploiement avec impact mesurable.",
+      },
+    ],
     forWho: [
       "Vous voulez un regard externe avant d'investir dans quoi que ce soit.",
       "Vous avez essayé des outils IA sans résultat durable et vous voulez comprendre pourquoi.",
@@ -166,6 +217,17 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     phrase: "Je veux un agent en production",
     ctaLabel: "En parler 15 min",
     ctaHref: CONTACT_MAIL,
+    stories: [
+      {
+        title: "Les leads entrants traités au bon moment",
+        person: "Cabinet d'avocats, équipe relation client",
+        before:
+          "Les demandes arrivaient par email, puis attendaient qu'une personne disponible les lise, les qualifie et prépare la réponse.",
+        after:
+          "Un agent qualifie en temps réel, prépare la réponse et signale les dossiers prioritaires. L'équipe garde la main sur la validation.",
+        result: "Zéro lead oublié, 3 heures récupérées chaque semaine, et un délai de réponse plus fiable.",
+      },
+    ],
     forWho: [
       "Vous perdez plusieurs heures par semaine sur une tâche répétitive (relances, rapports, qualification, saisie).",
       "Votre pipeline commercial fuit entre les étapes et personne n'a le temps de le surveiller.",
@@ -199,6 +261,17 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     phrase: "Je veux maîtriser Claude Code et Codex",
     ctaLabel: "En parler 15 min",
     ctaHref: CONTACT_MAIL,
+    stories: [
+      {
+        title: "L'équipe produit qui voulait construire sans dépendre",
+        person: "Équipe produit, SaaS B2B",
+        before:
+          "Chaque développeur avait sa manière d'utiliser l'IA. Les gains existaient, mais les pratiques restaient fragiles et difficiles à transmettre.",
+        after:
+          "L'équipe structure Claude Code, Codex et ses workflows récurrents. Les référents savent cadrer, tester et maintenir leurs propres agents.",
+        result: "Trois workflows internes sont construits pendant la formation, puis repris par l'équipe.",
+      },
+    ],
     forWho: [
       "Vous avez des développeurs en interne qui veulent monter en compétence sur les outils agentiques avancés.",
       "Vous voulez construire et maintenir vos propres workflows sans dépendre d'un prestataire.",
@@ -230,6 +303,17 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     phrase: "J'ai une flotte, je veux l'optimiser",
     ctaLabel: "Demander le diagnostic flotte",
     ctaHref: CONTACT_MAIL,
+    stories: [
+      {
+        title: "La flotte qui devait devenir pilotable",
+        person: "Scale-up SaaS, opérations et data",
+        before:
+          "Six agents avaient été construits vite. Les coûts montaient, les erreurs étaient difficiles à tracer et les données restaient éparpillées.",
+        after:
+          "La flotte est centralisée, les déclenchements sont clarifiés et les boucles de feedback remontent les erreurs pour amélioration continue.",
+        result: "Le taux d'erreur baisse, les coûts deviennent lisibles et l'équipe sait où agir.",
+      },
+    ],
     forWho: [
       "Vous gérez plusieurs agents sans base de données centralisée — les données sont éparpillées et incohérentes.",
       "Votre dette technique s'accumule : agents dupliqués, triggers non fiables, coût incontrôlé.",

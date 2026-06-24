@@ -1455,6 +1455,91 @@ body > * {
   overflow-wrap: break-word;
 }
 
+.home-template .story-section {
+  padding-top: 62px;
+}
+
+.home-template .story-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: 34px;
+}
+
+.home-template .story-card {
+  background: #FFFFFF;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 28px;
+}
+
+.home-template .story-person {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.home-template .story-card h3 {
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin: 0;
+  max-width: 720px;
+}
+
+.home-template .story-compare {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 24px;
+}
+
+.home-template .story-compare div {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.home-template .story-compare span {
+  color: var(--accent);
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.home-template .story-compare p,
+.home-template .story-result {
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.home-template .story-result {
+  border-top: 1px dashed var(--line-2);
+  color: var(--ink);
+  font-weight: 700;
+  margin-top: 18px;
+  padding-top: 18px;
+}
+
+.home-template .story-cta {
+  margin-top: 24px;
+}
+
 .home-template .chip .ci,
 .home-template .btn-wa .ci {
   flex: 0 0 auto;
@@ -1956,6 +2041,35 @@ body > * {
   margin-top: 14px;
 }
 
+.home-template .case-compare {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.home-template .case-compare p {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 11px 12px;
+}
+
+.home-template .case-compare span {
+  color: var(--accent);
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
 .home-template .case .desc {
   color: var(--muted);
   font-family: var(--font-body);
@@ -2262,6 +2376,10 @@ body > * {
 
   .home-template .maturity-rail-item {
     padding: 11px 10px;
+  }
+
+  .home-template .story-compare {
+    grid-template-columns: 1fr;
   }
 
   .home-template .maturite-action {
