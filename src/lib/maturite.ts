@@ -15,6 +15,7 @@ export type MaturiteOffer = {
   eyebrow: string;
   h1: string;
   sub: string;
+  phrase: string;
   ctaLabel: string;
   ctaHref: string;
   forWho: string[];
@@ -35,6 +36,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     eyebrow: "N1 · Masterclass Généraliste",
     h1: "Comprendre ce que fait vraiment l'IA — en 3 heures.",
     sub: "Pour les dirigeants et managers qui veulent piloter sans coder. Aucun prérequis technique.",
+    phrase: "Je découvre l'IA générative",
     ctaLabel: "Réserver la masterclass",
     ctaHref: CONTACT_MAIL,
     forWho: [
@@ -67,6 +69,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     eyebrow: "N2 · Masterclass Métier",
     h1: "L'IA appliquée à votre métier — pas aux autres.",
     sub: "Une demi-journée pour produire des configurations opérationnelles directement utilisables dans votre secteur.",
+    phrase: "Je veux l'appliquer à mon secteur",
     ctaLabel: "Réserver la session",
     ctaHref: CONTACT_MAIL,
     forWho: [
@@ -98,6 +101,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     eyebrow: "N3 · Sessions Création & MCP",
     h1: "Vos logiciels, connectés à l'IA — sans reconstruire votre stack.",
     sub: "On crée les ponts entre vos outils métier et les modèles IA. Votre CRM, votre ERP, votre base documentaire parlent enfin à Claude.",
+    phrase: "Je veux connecter mes logiciels à l'IA",
     ctaLabel: "Réserver les sessions",
     ctaHref: CONTACT_MAIL,
     forWho: [
@@ -128,6 +132,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     eyebrow: "N4 · Audit de Transformation",
     h1: "On cartographie ce qui vous coûte — et ce qui peut changer vite.",
     sub: "L'audit qui précède tout déploiement sérieux. Résultat : vos process critiques cartographiés et vos quick wins identifiés.",
+    phrase: "Je veux cartographier mes process",
     ctaLabel: "Demander l'audit",
     ctaHref: CONTACT_MAIL,
     forWho: [
@@ -158,6 +163,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     eyebrow: "N5 · Déploiement d'Agents",
     h1: "Un agent opérationnel dans votre stack — en 14 jours.",
     sub: "On prend un process qui vous coûte du temps ou du business. On construit l'agent. Il tourne chez vous avant la fin du mois, avec un ROI démontré.",
+    phrase: "Je veux un agent en production",
     ctaLabel: "En parler 15 min",
     ctaHref: CONTACT_MAIL,
     forWho: [
@@ -190,6 +196,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     eyebrow: "N6 · Outil propriétaire agentique",
     h1: "Construire vos propres agents — avec les outils des meilleurs développeurs IA.",
     sub: "Pour les équipes techniques qui veulent maîtriser Claude Code et Codex. On vous forme et on audite votre configuration pour que vous soyez autonomes sur le déploiement.",
+    phrase: "Je veux maîtriser Claude Code et Codex",
     ctaLabel: "En parler 15 min",
     ctaHref: CONTACT_MAIL,
     forWho: [
@@ -220,6 +227,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     eyebrow: "N7 · Optimisation de Flotte",
     h1: "Vos agents tournent. On leur donne une architecture pour évoluer seuls.",
     sub: "Pour les équipes qui opèrent déjà une flotte d'agents et veulent éliminer la dette technique, centraliser sur une base de données unique et créer des boucles d'auto-amélioration.",
+    phrase: "J'ai une flotte, je veux l'optimiser",
     ctaLabel: "Demander le diagnostic flotte",
     ctaHref: CONTACT_MAIL,
     forWho: [

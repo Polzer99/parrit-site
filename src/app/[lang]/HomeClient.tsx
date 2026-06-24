@@ -180,7 +180,7 @@ const COPY: Record<Locale, HomeCopy> = {
     maturite: {
       kicker: "De l'IA générative à l'IA agentique",
       title: "Où en êtes-vous avec l'IA ?",
-      lead: "Du premier repère à la flotte d'agents, choisissez le niveau qui vous ressemble.",
+      lead: "On intervient à tous les stades — de la première découverte jusqu'à la flotte d'agents en production. Trouvez votre point d'entrée.",
       levels: [
         { id: "N1", label: "Découverte", phrase: "Je découvre l'IA générative", href: "/masterclass-ia" },
         { id: "N2", label: "Application métier", phrase: "Je veux l'appliquer à mon secteur", href: "/masterclass-metier" },
@@ -341,7 +341,7 @@ const COPY: Record<Locale, HomeCopy> = {
     maturite: {
       kicker: "From generative AI to agentic AI",
       title: "Where are you with AI?",
-      lead: "From first bearings to an agent fleet, choose the level that fits.",
+      lead: "We work at every stage — from first discovery to an agent fleet in production. Find your entry point.",
       levels: [
         { id: "N1", label: "Discovery", phrase: "I'm discovering generative AI", href: "/masterclass-ia" },
         { id: "N2", label: "Business application", phrase: "I want to apply it to my sector", href: "/masterclass-metier" },
@@ -502,7 +502,7 @@ const COPY: Record<Locale, HomeCopy> = {
     maturite: {
       kicker: "Da IA generativa à IA agentica",
       title: "Onde você está com a IA?",
-      lead: "Do primeiro entendimento à frota de agentes, escolha o nível que combina com você.",
+      lead: "Atuamos em todos os estágios — da primeira descoberta até a frota de agentes em produção. Encontre seu ponto de entrada.",
       levels: [
         { id: "N1", label: "Descoberta", phrase: "Estou descobrindo a IA generativa", href: "/masterclass-ia" },
         { id: "N2", label: "Aplicação ao negócio", phrase: "Quero aplicar ao meu setor", href: "/masterclass-metier" },
@@ -663,7 +663,7 @@ const COPY: Record<Locale, HomeCopy> = {
     maturite: {
       kicker: "从生成式 AI 到智能体 AI",
       title: "您现在处在 AI 的哪个阶段？",
-      lead: "从初步理解到智能体集群，选择最符合您现状的级别。",
+      lead: "我们覆盖所有阶段：从第一次了解，到已投入生产的智能体集群。找到您的切入点。",
       levels: [
         { id: "N1", label: "发现", phrase: "我正在了解生成式 AI", href: "/masterclass-ia" },
         { id: "N2", label: "业务应用", phrase: "我想将其应用到我的行业", href: "/masterclass-metier" },
