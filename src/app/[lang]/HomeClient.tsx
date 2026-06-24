@@ -88,7 +88,7 @@ type HomeCopy = {
 
 const COPY: Record<Locale, HomeCopy> = {
   fr: {
-    navCta: "Écrire à Paul",
+    navCta: "Nous écrire",
     navLinks: [
       { href: "deployer", label: "Déployer" },
       { href: "croissance", label: "Croissance" },
@@ -234,7 +234,7 @@ const COPY: Record<Locale, HomeCopy> = {
     footer: "Paul Larmaraud & Yukun Leng · un réseau d'experts · paul.larmaraud@parrit.ai",
   },
   en: {
-    navCta: "Email Paul",
+    navCta: "Contact us",
     navLinks: [
       { href: "deployer", label: "Deploy" },
       { href: "croissance", label: "Growth" },
@@ -380,7 +380,7 @@ const COPY: Record<Locale, HomeCopy> = {
     footer: "Paul Larmaraud & Yukun Leng · a network of experts · paul.larmaraud@parrit.ai",
   },
   "pt-BR": {
-    navCta: "Escrever para Paul",
+    navCta: "Fale conosco",
     navLinks: [
       { href: "deployer", label: "Implantar" },
       { href: "croissance", label: "Crescimento" },
@@ -526,7 +526,7 @@ const COPY: Record<Locale, HomeCopy> = {
     footer: "Paul Larmaraud & Yukun Leng · uma rede de especialistas · paul.larmaraud@parrit.ai",
   },
   "zh-CN": {
-    navCta: "写信给 Paul",
+    navCta: "联系我们",
     navLinks: [
       { href: "deployer", label: "部署" },
       { href: "croissance", label: "增长" },
