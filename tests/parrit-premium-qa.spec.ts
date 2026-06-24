@@ -59,9 +59,18 @@ const localizedOnePagerChrome = [
     contact: "Write to us",
     priceCta: "See pricing",
     primaryCta: "Book the masterclass",
+    hero: "Stop absorbing AI noise. Understand the mechanics.",
+    story: "The committee that did not know where to start",
     storyTitle: "What does transformation look like at this level?",
     railLabel: "Discovery",
-    forbiddenChrome: ["Nous écrire", "Voir le prix", "À quoi ressemble", "Réserver la masterclass"],
+    forbiddenChrome: [
+      "Nous écrire",
+      "Voir le prix",
+      "À quoi ressemble",
+      "Réserver la masterclass",
+      "Arrêtez de subir",
+      "Le comité qui ne savait pas",
+    ],
   },
   {
     path: "/pt-BR/masterclass-ia",
@@ -69,6 +78,8 @@ const localizedOnePagerChrome = [
     contact: "Escrever para nós",
     priceCta: "Ver o preço",
     primaryCta: "Reservar a masterclass",
+    hero: null,
+    story: null,
     storyTitle: "Como é uma transformação neste nível?",
     railLabel: "Descoberta",
     forbiddenChrome: ["Nous écrire", "Voir le prix", "À quoi ressemble", "Réserver la masterclass"],
@@ -79,6 +90,8 @@ const localizedOnePagerChrome = [
     contact: "联系我们",
     priceCta: "查看价格",
     primaryCta: "预约大师课",
+    hero: null,
+    story: null,
     storyTitle: "这个阶段的转型是什么样？",
     railLabel: "认知",
     forbiddenChrome: ["Nous écrire", "Voir le prix", "À quoi ressemble", "Réserver la masterclass"],
@@ -200,6 +213,8 @@ for (const chromeCase of localizedOnePagerChrome) {
     await expect(page.locator(".nav")).toContainText(chromeCase.contact);
     await expect(page.locator(".hero .cta-row")).toContainText(chromeCase.priceCta);
     await expect(page.locator(".hero .cta-row .btn-red")).toContainText(chromeCase.primaryCta);
+    if (chromeCase.hero) await expect(page.locator(".hero h1")).toContainText(chromeCase.hero);
+    if (chromeCase.story) await expect(page.locator("#histoires .story-card").first()).toContainText(chromeCase.story);
     const heroCtaHref = await page.locator(".hero .cta-row .btn-red").getAttribute("href");
     expect(heroCtaHref, "one-pager CTA keeps lead context").toContain("mailto:paul.larmaraud@parrit.ai?");
     const heroCtaParams = new URL(heroCtaHref?.replace(/^mailto:[^?]*/, "https://parrit.ai/lead") ?? "").searchParams;
@@ -217,7 +232,7 @@ for (const chromeCase of localizedOnePagerChrome) {
     );
 
     const chromeText = await page
-      .locator(".nav, .hero .cta-row, #histoires .section-head, .maturity-rail")
+      .locator(".nav, .hero h1, .hero .cta-row, #histoires .section-head, #histoires .story-grid, .maturity-rail")
       .allInnerTexts();
 
     for (const forbidden of chromeCase.forbiddenChrome) {
