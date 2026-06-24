@@ -58,9 +58,9 @@ const localizedOnePagerChrome = [
     nav: "Stories",
     contact: "Write to us",
     priceCta: "See pricing",
-    primaryCta: "Book the masterclass",
+    primaryCta: "Receive my program",
     hero: "Stop absorbing AI noise. Understand the mechanics.",
-    story: "The committee that did not know where to start",
+    story: "Level-zero AI training for a large team",
     storyTitle: "What does transformation look like at this level?",
     railLabel: "Discovery",
     forbiddenChrome: [
@@ -69,7 +69,7 @@ const localizedOnePagerChrome = [
       "À quoi ressemble",
       "Réserver la masterclass",
       "Arrêtez de subir",
-      "Le comité qui ne savait pas",
+      "Formation SNCF",
     ],
   },
   {
@@ -77,7 +77,7 @@ const localizedOnePagerChrome = [
     nav: "Histórias",
     contact: "Escrever para nós",
     priceCta: "Ver o preço",
-    primaryCta: "Reservar a masterclass",
+    primaryCta: "Receber meu programa",
     hero: null,
     story: null,
     storyTitle: "Como é uma transformação neste nível?",
@@ -89,7 +89,7 @@ const localizedOnePagerChrome = [
     nav: "案例",
     contact: "联系我们",
     priceCta: "查看价格",
-    primaryCta: "预约大师课",
+    primaryCta: "获取我的课程方案",
     hero: null,
     story: null,
     storyTitle: "这个阶段的转型是什么样？",
@@ -127,6 +127,12 @@ test("home maturity section exposes diagnostic plus all N1-N7 entry points", asy
   await expect(page.locator("#maturite .mountain-start")).toHaveCount(1);
   await expect(page.locator("#maturite .maturite-tile")).toHaveCount(8);
   await expect(page.locator("#maturite .maturite-example")).toHaveCount(3);
+  await expect(page.locator("#maturite .maturite-fast-track")).toContainText(
+    "Dirigeants & Grands Comptes",
+  );
+  await expect(page.locator("#maturite .maturite-fast-track")).toContainText(
+    "Demander l'Audit de Transformation",
+  );
   await expect(page.locator("#maturite")).toContainText("Point de départ");
   await expect(page.locator("#maturite")).toContainText("Diagnostic & cartographie des process");
   await expect(page.locator("#maturite")).toContainText("Un COMEX qui découvre");

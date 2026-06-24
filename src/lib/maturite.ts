@@ -24,11 +24,12 @@ export type MaturiteOffer = {
     before: string;
     after: string;
     result: string;
+    logo?: { src: string; alt: string };
   }[];
   forWho: string[];
   deliverables: string[];
   steps: { title: string; body: string }[];
-  proof: string;
+  proof?: string;
   price: string;
   priceNote?: string;
   metaDescription: string;
@@ -44,26 +45,28 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     h1: "Arrêtez de subir le bruit médiatique. Comprenez enfin la mécanique.",
     sub: "Vous entendez parler d'intelligence artificielle partout. On pose les bases pour distinguer le vrai du faux.",
     phrase: "Je découvre l'IA générative",
-    ctaLabel: "Réserver la masterclass",
+    ctaLabel: "Recevoir mon programme",
     ctaHref: CONTACT_MAIL,
     stories: [
       {
-        title: "Le comité qui ne savait pas par où commencer",
-        person: "Direction commerciale, distribution B2B",
+        title: "Formation SNCF niveau 0",
+        person: "Formation à la SNCF",
         before:
-          "L'IA était un sujet de veille. Les équipes avaient testé des outils, mais personne ne savait distinguer gadget, gain réel et risque métier.",
+          "Des équipes exposées au bruit ambiant : ChatGPT, Copilot, agents, automatisation, sans grille simple pour savoir ce qui est vrai, utile ou risqué.",
         after:
-          "En 3 heures, le comité repart avec un vocabulaire commun, 4 cas d'usage réalistes et une première feuille de route compréhensible par les métiers.",
-        result: "La discussion passe de « faut-il y aller ? » à « quel process traite-t-on d'abord ? ».",
+          "Une base commune : IA générative, agents, automatisation, limites, sécurité et premiers cas d'usage crédibles pour les métiers.",
+        result: "Le sujet devient discutable sans jargon : chacun comprend la mécanique avant de parler outils.",
+        logo: { src: "/brand/client-logos/logo-3.png", alt: "SNCF" },
       },
       {
-        title: "La dirigeante qui voulait cadrer sans jargon",
-        person: "DG, PME de services",
+        title: "Masterclass IA générative chez Joone",
+        person: "Formation chez Joone",
         before:
-          "Le COMEX entendait parler d'IA générative, mais les décisions restaient bloquées entre enthousiasme, peur de la donnée et vocabulaire flou.",
+          "Des équipes curieuses mais dispersées entre consignes, générateurs de texte, automatisations et premiers usages d'agents.",
         after:
-          "La session met tout le monde au même niveau : ce qui sert à écrire, ce qui peut agir, ce qui doit rester supervisé et ce qui ne doit pas sortir.",
-        result: "Le sujet devient gouvernable : la direction sait quoi tester, quoi refuser et qui doit porter la suite.",
+          "Une session claire sur l'IA générative, l'utilisation des agents et les automatisations simples que les équipes peuvent comprendre.",
+        result: "La formation ouvre une trajectoire : généraliste pour aligner, sur mesure pour appliquer au métier.",
+        logo: { src: "/brand/client-logos/logo-4.png", alt: "Joone" },
       },
     ],
     forWho: [
@@ -72,17 +75,12 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
       "Vous refusez de valider des budgets sans comprendre la technologie.",
     ],
     deliverables: [
-      "Masterclass Généraliste : Trois heures pour cartographier les outils du marché et démystifier la technique.",
-      "Atelier de Sensibilisation : Une session interactive pour éveiller vos dirigeants aux véritables enjeux de demain.",
-      "Format Sur-Mesure : On adapte le discours à votre secteur d'activité.",
+      "Programme généraliste : comprendre l'IA générative, les agents, l'automatisation et les limites à connaître.",
+      "Programme sur mesure : adaptation au vocabulaire, aux métiers et aux vrais cas d'usage de vos équipes.",
+      "Support partageable : un deck clair pour que les participants gardent une base commune après la session.",
     ],
-    steps: [
-      { title: "J0", body: "questionnaire de cadrage (15 min)" },
-      { title: "J+2 à J+5", body: "session masterclass (3h, visio)" },
-      { title: "J+6", body: "deck livré + scénarios d'application" },
-    ],
-    proof:
-      "Un directeur commercial dans la distribution (120 personnes) n'avait jamais ouvert un outil IA. Après 3h, il a identifié 4 process à automatiser et rédigé lui-même le brief pour son équipe technique.",
+    steps: [],
+    proof: "",
     price: "à partir de 1 598 €",
     priceNote: "Finançable OPCO",
     metaDescription:
@@ -95,26 +93,26 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     h1: "L'outil génère du texte. Faites-le travailler sur votre métier.",
     sub: "Vos collaborateurs utilisent des requêtes basiques. On adapte la machine à vos vrais processus quotidiens.",
     phrase: "Je veux l'appliquer à mon secteur",
-    ctaLabel: "Réserver la session",
+    ctaLabel: "Recevoir ma session",
     ctaHref: CONTACT_MAIL,
     stories: [
       {
-        title: "Le cabinet qui voulait des usages vraiment métier",
-        person: "Associé, cabinet de conseil",
+        title: "Atelier pratique pour une équipe métier",
+        person: "Formation métier",
         before:
-          "Les consultants utilisaient l'IA chacun dans leur coin. Les résultats dépendaient des habitudes individuelles, sans méthode ni réutilisation.",
+          "Les collaborateurs savent demander un texte, mais ne savent pas transformer leurs tâches récurrentes en méthodes fiables.",
         after:
-          "La session transforme leurs cas réels en configurations métier partageables : analyse de marché, préparation d'entretien, synthèse client.",
-        result: "Deux usages deviennent des routines d'équipe, sans ajouter d'outil à la stack.",
+          "La session part de leurs tâches : préparer une réunion, synthétiser un dossier, produire une analyse, accélérer une réponse client.",
+        result: "L'équipe repart avec des modes opératoires simples, adaptés à son métier et réutilisables.",
       },
       {
-        title: "L'équipe RH qui voulait former sans braquer",
-        person: "DRH, groupe multi-sites",
+        title: "Programme sur mesure par département",
+        person: "RH, ventes, opérations, finance",
         before:
-          "Les collaborateurs associaient l'IA à une menace ou à des exemples trop génériques. Les usages restaient loin du recrutement, de l'onboarding et des questions paie.",
+          "Les formations génériques restent trop loin du quotidien. Les équipes ne voient pas quoi changer lundi matin.",
         after:
-          "On part de leurs vrais cas : tri de candidatures, réponses candidats, préparation d'entretien, synthèse de politiques internes.",
-        result: "Les référents RH repartent avec des configurations communes et une manière simple d'expliquer l'outil aux équipes.",
+          "On construit la session autour du département : documents, vocabulaire, contraintes, données sensibles et gestes vraiment utiles.",
+        result: "La formation devient une boîte à outils métier, pas une démonstration d'outil.",
       },
     ],
     forWho: [
@@ -123,17 +121,12 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
       "Les usages se limitent à corriger des fautes dans des emails.",
     ],
     deliverables: [
-      "Masterclass Métier : On cible un département (RH, Ventes) pour créer des requêtes ultra-spécifiques.",
-      "Atelier Cas d'Usage : On identifie ensemble les tâches chronophages de vos équipes pour les automatiser.",
-      "Accompagnement Sur-Mesure : Création d'instructions standards pour homogénéiser le travail de vos collaborateurs.",
+      "Session métier : RH, ventes, opérations, finance ou direction selon vos priorités.",
+      "Bibliothèque d'exemples : cas d'usage, consignes, limites et gestes prêts à reprendre.",
+      "Adaptation sur mesure : on relie les exercices aux documents, outils et contraintes du département.",
     ],
-    steps: [
-      { title: "J0", body: "audit rapide outils + cas d'usage (formulaire, 20 min)" },
-      { title: "J+3", body: "session de travail pratique (4h, visio ou présentiel)" },
-      { title: "J+4", body: "instructions personnalisées livrées" },
-    ],
-    proof:
-      "Un cabinet de conseil en stratégie (12 consultants) ne savait pas par où commencer. La session a produit des configurations opérationnelles pour 5 cas d'usage. Deux sont en production 3 mois plus tard, sans prestataire.",
+    steps: [],
+    proof: "",
     price: "à partir de 2 345 €",
     priceNote: "Finançable OPCO",
     metaDescription:
@@ -144,28 +137,28 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     slug: "sessions-mcp",
     eyebrow: "N3 · Sessions Création & MCP",
     h1: "L'intelligence artificielle est aveugle. Branchez-la sur vos outils.",
-    sub: "Vous maîtrisez les concepts de base. On connecte la machine à vos logiciels pour qu'elle déclenche des actions réelles.",
+    sub: "Vous maîtrisez les concepts de base. On vous apprend à connecter les modèles à des sources et services utiles pour déclencher des actions réelles.",
     phrase: "Je veux connecter mes logiciels à l'IA",
-    ctaLabel: "Réserver les sessions",
+    ctaLabel: "Concevoir ma session",
     ctaHref: CONTACT_MAIL,
     stories: [
       {
-        title: "Le CRM propriétaire enfin relié aux modèles IA",
-        person: "Courtier assurance, équipe commerciale",
+        title: "Connecter Claude à Google Maps et Notion",
+        person: "Session connecteurs",
         before:
-          "Les données clients étaient dans un CRM isolé. Les agents répondaient bien, mais ne voyaient jamais les vraies fiches, contrats ou relances.",
+          "Le modèle répond bien, mais il ne voit ni les adresses, ni les comptes rendus, ni les bases documentaires qui structurent le travail.",
         after:
-          "Les sessions créent les ponts techniques nécessaires. Claude accède aux données utiles, avec une méthode de test et de passation documentée.",
-        result: "Les équipes interrogent leurs données en langage naturel, sans reconstruire le CRM.",
+          "La session montre comment relier Claude à Google Maps, Notion ou une base documentaire, avec des droits et des tests simples.",
+        result: "Les équipes comprennent la différence entre discuter avec un modèle et le brancher à un contexte utile.",
       },
       {
-        title: "Le back-office qui arrêtait de copier-coller",
-        person: "Operations manager, e-commerce B2B",
+        title: "Connecter Claude à Légifrance ou Gemini à ses connecteurs",
+        person: "Introduction à l'agentique",
         before:
-          "Les commandes, tickets et relances passaient par trois outils. Chaque mise à jour demandait une ressaisie et créait un risque d'erreur.",
+          "Les équipes entendent parler d'API, de MCP, de connecteurs Gemini et d'agents, mais ne savent pas ce qui change concrètement.",
         after:
-          "Les connecteurs relient les sources utiles. L'agent lit, prépare l'action et laisse une trace de ce qui a été fait.",
-        result: "Le temps perdu en transfert manuel baisse, sans imposer un nouvel outil aux équipes.",
+          "On part d'exemples utiles : consulter Légifrance, interroger une base interne, utiliser des connecteurs Gemini, comprendre où commence l'agentique.",
+        result: "La session donne assez de compréhension technique pour cadrer une suite sans vendre de magie.",
       },
     ],
     forWho: [
@@ -174,18 +167,14 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
       "Vos logiciels internes (CRM, ERP) ne communiquent pas avec les nouveaux modèles.",
     ],
     deliverables: [
-      "Sessions MCP : Création de connecteurs pour lier vos bases de données aux modèles.",
-      "Atelier d'Intégration : Configuration des accès sécurisés pour faire agir la machine.",
-      "Intervention Sur-Mesure : On construit les ponts techniques spécifiques à votre architecture.",
+      "Compréhension des connexions API : ce qu'un modèle peut lire, appeler, modifier ou préparer.",
+      "Introduction MCP et connecteurs : Claude, Gemini, Notion, Google Maps, Légifrance ou sources internes.",
+      "Diagnostic agentique léger : ce qui relève d'une formation, d'un connecteur, d'une automatisation ou d'un futur agent.",
     ],
-    steps: [
-      { title: "Session 1", body: "cartographie des intégrations à créer + priorisation" },
-      { title: "Sessions 2–N", body: "création des MCPs (selon périmètre)" },
-      { title: "Dernière session", body: "tests en conditions réelles + passation" },
-    ],
-    proof:
-      "Un courtier en assurance avait un CRM propriétaire déconnecté de tout. Deux MCPs créés en 3 sessions : son CRM parle maintenant à Claude. Les agents accèdent aux fiches clients en temps réel.",
+    steps: [],
+    proof: "",
     price: "à partir de 250 € / session",
+    priceNote: "Finançable OPCO",
     metaDescription:
       "Sessions techniques pour créer des MCPs et connecter vos logiciels métier aux modèles IA.",
   },
@@ -194,28 +183,28 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     slug: "audit",
     eyebrow: "N4 · Cartographie des Process",
     h1: "Du diagnostic à la décision : cartographiez vos process.",
-    sub: "Le point de départ reste l'audit : on pose votre niveau de maturité, puis on transforme cette lecture en carte concrète de vos flux. Vous savez ce qui est possible avec l'IA, ce qui doit rester humain et quel process traiter en premier.",
+    sub: "Le point de départ reste l'audit : on pose votre niveau de maturité par équipe, puis on transforme cette lecture en carte concrète de vos flux. Vous savez ce qui est possible avec l'IA, ce qui doit rester humain et quel process traiter en premier.",
     phrase: "Je veux passer du diagnostic à la décision",
-    ctaLabel: "Recevoir mon diagnostic",
+    ctaLabel: "Demander l'Audit de Transformation",
     ctaHref: CONTACT_MAIL,
     stories: [
       {
-        title: "L'équipe qui voulait passer à l'échelle",
-        person: "Direction transformation, ETI",
+        title: "Audit stratégique pour lancer une transformation IA",
+        person: "COMEX, DSI, direction transformation",
         before:
-          "Plusieurs usages IA existaient déjà, mais aucune carte ne montrait les process, les données, les exceptions et les validations à garder.",
+          "Les départements n'étaient pas au même niveau : certains découvraient l'IA, d'autres testaient déjà des outils, d'autres parlaient agents.",
         after:
-          "Le diagnostic devient une cartographie : un flux prioritaire, ses entrées, ses données, ses risques et les décisions humaines à conserver.",
-        result: "La discussion change : on ne parle plus d'outils, on parle du premier process à rendre pilotable.",
+          "L'audit cartographie les process, le niveau réel des équipes, les données, les risques et les solutions à déployer aux bonnes personnes.",
+        result: "La discussion change : on ne finance plus des idées isolées, on arbitre un plan de transformation.",
       },
       {
-        title: "Le comité qui voulait décider sans folklore",
-        person: "COMEX, groupe multi-sites",
+        title: "Bilan par équipe avant déploiement",
+        person: "Grand compte multi-départements",
         before:
-          "Les idées étaient nombreuses, mais personne ne savait distinguer ce qui était simple, risqué, utile ou trop tôt.",
+          "Chaque métier remontait des cas d'usage différents. Impossible de savoir quoi former, quoi automatiser, quoi intégrer et quoi refuser.",
         after:
-          "Chaque option est replacée sur une carte lisible : volume, risque, données, validation, effort de mise sous contrôle.",
-        result: "Le comité repart avec une première marche, une ressource partageable et les questions à traiter avant construction.",
+          "Chaque équipe reçoit un bilan lisible : maturité, process prioritaires, risques, besoins de formation et trajectoire vers le déploiement.",
+        result: "La DSI peut concilier audit stratégique, contraintes métiers et feuille de route agentique.",
       },
     ],
     forWho: [
@@ -224,17 +213,16 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
       "Vous devez protéger la donnée, la validation humaine ou la gouvernance avant de construire.",
     ],
     deliverables: [
-      "Diagnostic de maturité : votre niveau, les blocages visibles et la première ressource à partager.",
-      "Cartographie des process : entrées, données, exceptions, validations humaines et indicateurs à suivre.",
-      "Priorisation : ce qui peut passer en production, ce qui doit rester en cadrage, ce qui doit être refusé pour l'instant.",
+      "Diagnostic de maturité par équipe : niveau réel, blocages visibles, besoins de formation et premiers cas crédibles.",
+      "Cartographie des process : entrées, données, exceptions, validations humaines, risques et indicateurs à suivre.",
+      "Plan de match chiffré : quoi former, quoi automatiser, quoi connecter, quoi déployer et dans quel ordre.",
     ],
     steps: [
       { title: "Diagnostic de départ", body: "On part de votre contexte, de vos outils et d'un flux réel, pas d'un catalogue de cas d'usage." },
       { title: "Cartographie des process", body: "On décrit ce qui entre, ce qui sort, qui valide, quelles données circulent et où le risque apparaît." },
       { title: "Décision partageable", body: "Vous repartez avec une synthèse claire : niveau de maturité, premier process, risques et prochaine décision." },
     ],
-    proof:
-      "Dans une organisation multi-sites, le diagnostic a remplacé une liste d'idées IA par une carte simple : un process prioritaire, deux risques à traiter, une validation humaine à conserver. Le rendez-vous suivant a porté sur une décision, pas sur une démonstration.",
+    proof: "",
     price: "à partir de 3 500 €",
     metaDescription:
       "Diagnostic IA et cartographie des processus pour identifier votre maturité, le premier flux à traiter et la ressource à préparer avant rendez-vous.",
@@ -244,28 +232,39 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     slug: "deploiement-agents",
     eyebrow: "N5 · Déploiement d'Agents",
     h1: "C'est le moment où un agent intervient semaine après semaine.",
-    sub: "Un flux revient tout le temps. On le met sous contrôle : l'agent prépare, trace et escalade, l'humain garde la décision.",
+    sub: "Un flux revient tout le temps. On le met sous contrôle : agent, automatisation ou RPA selon le besoin. La machine prépare, trace et escalade ; l'humain garde les décisions sensibles.",
     phrase: "Je veux un agent en production",
-    ctaLabel: "En parler 15 min",
+    ctaLabel: "Définir mon flux cible",
     ctaHref: CONTACT_MAIL,
     stories: [
       {
-        title: "Le flux qui revenait chaque semaine",
-        person: "Équipe opérations, service B2B",
+        title: "Operating system Clevery",
+        person: "Cabinet d'avocats",
         before:
-          "La même demande revenait sans cesse. L'équipe relisait, triait, préparait et relançait à la main.",
+          "Boîtes mail, calendrier, demandes clients et production documentaire vivaient dans des gestes séparés et très manuels.",
         after:
-          "L'agent lit le flux, prépare l'action, laisse une trace et remonte les cas qui demandent un arbitrage.",
-        result: "Le quotidien devient plus lisible : l'agent prend le répétitif, l'équipe garde les exceptions.",
+          "Un operating system prépare la gestion des boîtes mail, du calendrier, des documents et des contrats sur mesure, avec validation humaine.",
+        result: "Le cabinet garde le contrôle juridique ; l'agent prend le back-office répétitif et laisse une trace.",
+        logo: { src: "/brand/client-logos/logo-5.png", alt: "Clevery" },
       },
       {
-        title: "Le service qui voulait garder la main",
-        person: "COO, équipe client",
+        title: "Outil en production Laparra",
+        person: "Couche logicielle propriétaire",
         before:
-          "La même boîte mail recevait réclamations, demandes simples et cas sensibles. Tout remontait aux mêmes personnes, sans priorité claire.",
+          "Le métier avait besoin d'une couche logicielle propre, pas d'un simple assistant conversationnel posé à côté des outils.",
         after:
-          "L'agent classe, prépare les réponses et escalade uniquement les cas qui demandent un arbitrage humain.",
-        result: "L'équipe retrouve un flux lisible : le répétitif tourne, les exceptions restent humaines.",
+          "Un outil propriétaire orchestre les données, les actions et les validations sur un flux maîtrisé.",
+        result: "On passe d'un agent isolé à une brique d'operating system qui tient dans le quotidien de l'équipe.",
+        logo: { src: "/brand/client-logos/logo-2.png", alt: "Laparra" },
+      },
+      {
+        title: "Back-office e-commerce Mr Couteau",
+        person: "E-commerce",
+        before:
+          "Les signaux, demandes et relances se perdaient entre boutique, messages, tableurs et décisions manuelles.",
+        after:
+          "Les automatisations traitent ce qui est prédictible ; les agents préparent les cas plus riches et remontent les exceptions.",
+        result: "Le bon niveau de complexité est choisi : parfois une automatisation suffit, parfois il faut une couche agentique.",
       },
     ],
     forWho: [
@@ -274,19 +273,19 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
       "Le recrutement pour des tâches répétitives devient impossible.",
     ],
     deliverables: [
-      "Forfait de Déploiement Continu : Création et itération de plusieurs agents suite au diagnostic de vos opérations.",
-      "Déploiement borné : Un agent spécifique mis en production sur un périmètre clair, pour régler un problème précis sans engagement à long terme.",
-      "Déploiement Sur-Mesure : Architecture connectée de plusieurs agents pour traiter une chaîne de valeur de bout en bout.",
+      "Flux cible mis sous contrôle : entrées, règles, exceptions, validations humaines et journaux d'action.",
+      "Déploiement adapté : agent IA, automatisation classique ou RPA quand cela suffit amplement.",
+      "Sécurité et conformité : données, accès, traces, supervision, garde-fous et trajectoire AI Act compliant.",
+      "Boucles de feedback : remontée des erreurs, amélioration continue, mesure de qualité et arbitrages d'extension.",
     ],
     steps: [
       { title: "Flux cible", body: "On choisit un flux qui revient souvent et qui peut être contrôlé sans toucher à tout le système." },
-      { title: "Mise sous contrôle", body: "On définit les entrées, les actions autorisées, les exceptions, la validation humaine et la trace." },
-      { title: "Production supervisée", body: "L'agent intervient sur le répétitif. L'équipe relit les cas sensibles et décide quoi étendre ensuite." },
+      { title: "Mise sous contrôle", body: "On définit les entrées, les actions autorisées, les exceptions, la validation humaine, la trace et les règles de sécurité." },
+      { title: "Production supervisée", body: "L'agent ou l'automatisation intervient sur le répétitif. L'équipe relit les cas sensibles et décide quoi étendre ensuite." },
     ],
-    proof:
-      "Sur un flux de demandes entrantes, l'agent prépare les réponses, classe les exceptions et laisse une trace. L'équipe ne découvre plus le travail en vrac : elle valide ce qui mérite vraiment son attention.",
+    proof: "",
     price: "à partir de 3 000 €",
-    priceNote: "Finançable OPCO",
+    priceNote: "Selon périmètre, connexions et niveau de supervision",
     metaDescription:
       "Déploiement d'un ou plusieurs agents IA opérationnels avec démonstration du ROI.",
   },
@@ -294,48 +293,57 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     level: "N6",
     slug: "outils-agentiques",
     eyebrow: "N6 · Outil propriétaire agentique",
-    h1: "L'indépendance s'achète. Construisez vos machines en interne, même sans coder.",
-    sub: "Vos équipes tech et métier veulent créer des flux complexes. On transfère la compétence ou on débloque vos impasses techniques.",
+    h1: "N'importe qui peut shipper. Donnez à vos équipes le pouvoir de construire.",
+    sub: "Fondateurs, product managers, équipes métier : on vous aide à construire vos outils propriétaires internes avec Claude Code, Codex et une méthode produit solide.",
     phrase: "Je veux maîtriser Claude Code et Codex",
-    ctaLabel: "En parler 15 min",
+    ctaLabel: "Construire mon outil interne",
     ctaHref: CONTACT_MAIL,
     stories: [
       {
-        title: "L'équipe produit qui voulait construire sans dépendre",
-        person: "Équipe produit, SaaS B2B",
+        title: "Rufus Amazon pour Lavazza et Carte Noire",
+        person: "GEO e-commerce",
         before:
-          "Chaque développeur avait sa manière d'utiliser l'IA. Les gains existaient, mais les pratiques restaient fragiles et difficiles à transmettre.",
+          "Les équipes avaient besoin de comprendre comment leurs marques ressortent dans les réponses type Rufus/Alexa for Shopping, sans attendre un outil marché.",
         after:
-          "L'équipe structure Claude Code, Codex et ses workflows récurrents. Les référents savent cadrer, tester et maintenir leurs propres agents.",
-        result: "Trois workflows internes sont construits pendant la formation, puis repris par l'équipe.",
+          "Un outil interne suit les signaux, structure les analyses et aide à piloter les actions GEO sur les plateformes d'achat.",
+        result: "Le sujet devient un produit interne : observable, itérable, actionnable par les équipes.",
+        logo: { src: "/brand/client-logos/logo-1.png", alt: "Lavazza" },
       },
       {
-        title: "Le métier qui avait la vision mais pas l'exécution",
-        person: "Responsable transformation, ETI",
+        title: "Estimateur d'objets d'art",
+        person: "Outil propriétaire interne",
         before:
-          "Les équipes métier savaient exactement quel outil leur manquait, mais chaque demande repartait dans une file technique saturée.",
+          "Le métier savait ce qu'il fallait estimer, comparer et documenter, mais pas comment transformer l'expertise en outil utilisable.",
         after:
-          "On leur transmet une méthode pour cadrer, construire et tester un premier outil agentique avec les garde-fous de l'entreprise.",
-        result: "Le métier gagne en autonomie sans contourner l'IT : les bons réflexes de documentation et validation sont posés dès le départ.",
+          "Un prototype interne combine saisie structurée, raisonnement assisté, sources et restitution exploitable.",
+        result: "L'équipe passe d'une intuition métier à une feature testable.",
+      },
+      {
+        title: "Veille signaux faibles et reporting avec Codex",
+        person: "Produit interne",
+        before:
+          "Les signaux étaient repérés trop tard, puis recopiés à la main dans des notes, tableaux ou reportings.",
+        after:
+          "Codex aide à construire la boucle : collecte, tri, synthèse, reporting et amélioration continue.",
+        result: "Les product managers et métiers commencent à shipper leurs propres outils, avec un cadre de validation.",
       },
     ],
     forWho: [
-      "Vous dépendez de prestataires externes pour la moindre ligne de code.",
-      "Vos collaborateurs non-tech ont la vision métier mais bloquent sur l'exécution.",
-      "Vos équipes autonomes butent sur un mur technique et perdent du temps.",
+      "Vos fondateurs ou dirigeants veulent prototyper sans attendre un cycle produit classique.",
+      "Vos product managers doivent livrer des features, pas seulement écrire des specs.",
+      "Vos équipes métier ont la vision de l'outil interne, mais pas encore la méthode pour le shipper.",
     ],
     deliverables: [
-      "Transfert de Compétences : Formation de vos équipes (techniques ou métiers) pour devenir autonomes sur la création de workflows.",
-      "Intervention One-Shot : Un déblocage technique express avec Claude Code pour craquer une impasse sur une architecture existante.",
-      "Co-construction : Création de votre premier outil propriétaire en binôme avec Parrit pour asseoir les bonnes pratiques.",
+      "Construction d'outils propriétaires internes : cadrage, prototype, tests, données, interface et trajectoire produit.",
+      "Méthode de shipping : transformer une idée métier en feature, puis en outil utilisable.",
+      "Transfert Claude Code / Codex : consignes, specs, tests, documentation, revue et passation.",
     ],
     steps: [
-      { title: "Session 1", body: "audit configuration + identification des workflows cibles" },
-      { title: "Sessions 2–N", body: "formation pratique + construction des workflows" },
-      { title: "Dernière session", body: "validation autonomie + remise de la documentation" },
+      { title: "Choix de l'outil", body: "On part d'un besoin interne concret : estimation, veille, reporting, recherche, interface métier ou automatisation produit." },
+      { title: "Build accompagné", body: "On construit avec vos équipes, en gardant les réflexes produit : données, cas limites, validation, sécurité et usage réel." },
+      { title: "Passation", body: "Vos équipes repartent avec l'outil, la méthode et les réflexes pour continuer à shipper." },
     ],
-    proof:
-      "Une équipe produit de 5 développeurs utilisait l'IA de façon disparate. En 4 sessions, ils ont unifié leurs pratiques sur Claude Code, construit 3 workflows récurrents et sont maintenant autonomes sur le déploiement.",
+    proof: "",
     price: "à partir de 3 497 €",
     priceNote: "Selon périmètre et niveau d'accompagnement",
     metaDescription:
@@ -346,28 +354,28 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     slug: "optimisation-flotte",
     eyebrow: "N7 · Optimisation de Flotte",
     h1: "Vos agents plantent et coûtent cher. Reprenez le contrôle.",
-    sub: "Votre flotte grossit. On traite votre dette technique et on refond l'architecture pour garantir la fiabilité.",
+    sub: "Votre flotte grossit. On traite la dette technique, les coûts tokens, les modèles, les boucles d'auto-amélioration et le harnais de supervision.",
     phrase: "J'ai une flotte, je veux l'optimiser",
-    ctaLabel: "Demander le diagnostic flotte",
+    ctaLabel: "Auditer ma flotte",
     ctaHref: CONTACT_MAIL,
     stories: [
       {
-        title: "La flotte qui devait devenir pilotable",
-        person: "Scale-up SaaS, opérations et data",
+        title: "Notre flotte interne d'agents",
+        person: "Hermès, n8n, Codex, Claude Code, Vertex, LangChain",
         before:
-          "Six agents avaient été construits vite. Les coûts montaient, les erreurs étaient difficiles à tracer et les données restaient éparpillées.",
+          "Des agents utiles mais nombreux : orchestration nocturne, veille, rédaction, supervision, reporting, avec coûts tokens et choix de modèles à maîtriser.",
         after:
-          "La flotte est centralisée, les déclenchements sont clarifiés et les boucles de feedback remontent les erreurs pour amélioration continue.",
-        result: "Le taux d'erreur baisse, les coûts deviennent lisibles et l'équipe sait où agir.",
+          "Des managers-agents pilotent les boucles, le harnais s'améliore, les modèles sont choisis selon coût, latence, confidentialité et qualité.",
+        result: "La flotte devient opérable : moins de dette, meilleure observabilité, meilleurs arbitrages open source/propriétaire.",
       },
       {
-        title: "La DSI qui voulait reprendre le contrôle",
-        person: "DSI, groupe multi-entités",
+        title: "Boucles d'auto-amélioration et dette technique",
+        person: "Architecture agentique",
         before:
-          "Plusieurs équipes avaient lancé leurs propres agents. Les accès, journaux et responsabilités n'étaient pas homogènes.",
+          "Les agents produisent, mais les erreurs silencieuses, les consignes dispersés et les coûts rendent l'ensemble difficile à améliorer.",
         after:
-          "Le diagnostic remet la flotte à plat : inventaire, dépendances, coûts, risques, règles de validation et trajectoire d'architecture.",
-        result: "La gouvernance redevient lisible : chaque agent a un propriétaire, une trace et une raison d'exister.",
+          "On traite la dette technique, on renforce les tests, on optimise les tokens et on met en place des feedback loops actionnables.",
+        result: "La flotte apprend mieux, coûte moins cher et devient plus simple à maintenir.",
       },
     ],
     forWho: [
@@ -376,17 +384,17 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
       "Des erreurs silencieuses bloquent vos processus en production.",
     ],
     deliverables: [
-      "Diagnostic de Flotte : Analyse de la latence, des coûts et du taux d'erreur de vos systèmes actuels.",
-      "Refonte d'Architecture : Nettoyage de la dette technique et centralisation pour une infrastructure robuste.",
-      "Fractional AI Operator : On prend la responsabilité de vos opérations en continu pour assurer la conformité et la disponibilité.",
+      "Diagnostic de flotte : agents, orchestrateurs, consignes, coûts tokens, latence, taux d'erreur, traces et dépendances.",
+      "Traitement de la dette technique : harnais de tests, logs, règles de fallback, observabilité et responsabilités.",
+      "Optimisation modèles : arbitrage open source / propriétaire, routage, coûts, sécurité, confidentialité et qualité.",
+      "Boucles d'auto-amélioration : managers-agents, feedback loops, évaluation continue et gouvernance d'architecture.",
     ],
     steps: [
-      { title: "Semaine 1", body: "audit flotte + architecture actuelle + identification de la dette" },
-      { title: "Semaine 2", body: "restitution + plan d'action technique validé" },
-      { title: "Semaines 3+", body: "remédiation et construction (forfait ou régie selon périmètre)" },
+      { title: "Inventaire", body: "On cartographie agents, workflows n8n, scripts, consignes, modèles, coûts, logs et dépendances." },
+      { title: "Harnais", body: "On renforce tests, supervision, règles de fallback, gestion des tokens et évaluation de qualité." },
+      { title: "Optimisation", body: "On améliore la flotte : dette technique, routage modèles, open source/propriétaire, boucles et managers-agents." },
     ],
-    proof:
-      "Une scale-up SaaS avait 6 agents construits en 8 mois. Taux d'erreur de 18 %, coût incontrôlé, aucune centralisation. Après audit et remédiation : taux d'erreur à 2 %, coût divisé par 3, architecture centralisée avec boucles auto-améliorantes opérationnelles.",
+    proof: "",
     price: "à partir de 8 000 €",
     priceNote: "Selon taille de la flotte",
     metaDescription:

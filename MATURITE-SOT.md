@@ -43,7 +43,7 @@
 - Eyebrow : `N1 · Masterclass Généraliste`
 - H1 : Arrêtez de subir le bruit médiatique. Comprenez enfin la mécanique.
 - Sous-titre : Vous entendez parler d'intelligence artificielle partout. On pose les bases pour distinguer le vrai du faux.
-- CTA : "Réserver la masterclass"
+- CTA : "Recevoir mon programme"
 
 ### Votre réalité
 1. Vous êtes noyé sous les concepts théoriques.
@@ -51,17 +51,14 @@
 3. Vous refusez de valider des budgets sans comprendre la technologie.
 
 ### Ce qu'on propose
-- **Masterclass Généraliste :** Trois heures pour cartographier les outils du marché et démystifier la technique.
-- **Atelier de Sensibilisation :** Une session interactive pour éveiller vos dirigeants aux véritables enjeux de demain.
-- **Format Sur-Mesure :** On adapte le discours à votre secteur d'activité.
+- **Programme généraliste :** Comprendre l'IA générative, les agents, l'automatisation et les limites à connaître.
+- **Programme sur mesure :** Adaptation au vocabulaire, aux métiers et aux vrais cas d'usage de vos équipes.
+- **Support partageable :** Un deck clair pour que les participants gardent une base commune après la session.
 
-### Comment ça se passe
-- J0 : questionnaire de cadrage (15 min)
-- J+2 à J+5 : session masterclass (3h, visio)
-- J+6 : deck livré + scénarios d'application
-
-### Cas de preuve (anonymisé)
-> Un directeur commercial dans la distribution (120 personnes) n'avait jamais ouvert un outil IA. Après 3h, il a identifié 4 process à automatiser et rédigé lui-même le brief pour son équipe technique.
+### Preuves concrètes
+- Formation SNCF niveau 0.
+- Masterclass IA générative chez Joone.
+- Formation généraliste ou sur mesure, finançable OPCO.
 
 ---
 
@@ -76,7 +73,7 @@
 - Eyebrow : `N2 · Masterclass Métier`
 - H1 : L'outil génère du texte. Faites-le travailler sur votre métier.
 - Sous-titre : Vos collaborateurs utilisent des requêtes basiques. On adapte la machine à vos vrais processus quotidiens.
-- CTA : "Réserver la session"
+- CTA : "Recevoir ma session"
 
 ### Votre réalité
 1. Vos licences dorment ou sous-performent.
@@ -84,17 +81,9 @@
 3. Les usages se limitent à corriger des fautes dans des emails.
 
 ### Ce qu'on propose
-- **Masterclass Métier :** On cible un département (RH, Ventes) pour créer des requêtes ultra-spécifiques.
-- **Atelier Cas d'Usage :** On identifie ensemble les tâches chronophages de vos équipes pour les automatiser.
-- **Accompagnement Sur-Mesure :** Création d'instructions standards pour homogénéiser le travail de vos collaborateurs.
-
-### Comment ça se passe
-- J0 : audit rapide outils + cas d'usage (formulaire, 20 min)
-- J+3 : session de travail pratique (4h, visio ou présentiel)
-- J+4 : instructions personnalisées livrées
-
-### Cas de preuve (anonymisé)
-> Un cabinet de conseil en stratégie (12 consultants) ne savait pas par où commencer. La session a produit des configurations opérationnelles pour 5 cas d'usage. Deux sont en production 3 mois plus tard, sans prestataire.
+- **Session métier :** RH, ventes, opérations, finance ou direction selon vos priorités.
+- **Bibliothèque d'exemples :** Cas d'usage, consignes, limites et gestes prêts à reprendre.
+- **Adaptation sur mesure :** On relie les exercices aux documents, outils et contraintes du département.
 
 ---
 
@@ -103,13 +92,13 @@
 **Slug :** `sessions-mcp`
 **Focus :** Connexion technique et intégration logicielle
 **Phrase de niveau :** "Je veux connecter mes logiciels à l'IA."
-**Prix :** à partir de 250 € / session
+**Prix :** à partir de 250 € / session · Finançable OPCO
 
 ### Hero
 - Eyebrow : `N3 · Sessions Création & MCP`
 - H1 : L'intelligence artificielle est aveugle. Branchez-la sur vos outils.
-- Sous-titre : Vous maîtrisez les concepts de base. On connecte la machine à vos logiciels pour qu'elle déclenche des actions réelles.
-- CTA : "Réserver les sessions"
+- Sous-titre : Vous maîtrisez les concepts de base. On vous apprend à connecter les modèles à des sources et services utiles pour déclencher des actions réelles.
+- CTA : "Concevoir ma session"
 
 ### Votre réalité
 1. Vous copiez-collez des informations manuellement toute la journée.
@@ -117,17 +106,9 @@
 3. Vos logiciels internes (CRM, ERP) ne communiquent pas avec les nouveaux modèles.
 
 ### Ce qu'on propose
-- **Sessions MCP :** Création de connecteurs pour lier vos bases de données aux modèles.
-- **Atelier d'Intégration :** Configuration des accès sécurisés pour faire agir la machine.
-- **Intervention Sur-Mesure :** On construit les ponts techniques spécifiques à votre architecture.
-
-### Comment ça se passe
-- Session 1 : cartographie des intégrations à créer + priorisation
-- Sessions 2–N : création des MCPs (selon périmètre)
-- Dernière session : tests en conditions réelles + passation
-
-### Cas de preuve (anonymisé)
-> Un courtier en assurance avait un CRM propriétaire déconnecté de tout. Deux MCPs créés en 3 sessions : son CRM parle maintenant à Claude. Les agents accèdent aux fiches clients en temps réel.
+- **Compréhension des connexions API :** Ce qu'un modèle peut lire, appeler, modifier ou préparer.
+- **Introduction MCP et connecteurs :** Claude, Gemini, Notion, Google Maps, Légifrance ou sources internes.
+- **Diagnostic agentique léger :** Ce qui relève d'une formation, d'un connecteur, d'une automatisation ou d'un futur agent.
 
 ---
 
@@ -141,8 +122,8 @@
 ### Hero
 - Eyebrow : `N4 · Cartographie des Process`
 - H1 : Du diagnostic à la décision : cartographiez vos process.
-- Sous-titre : Le point de départ reste l'audit : on pose votre niveau de maturité, puis on transforme cette lecture en carte concrète de vos flux. Vous savez ce qui est possible avec l'IA, ce qui doit rester humain et quel process traiter en premier.
-- CTA : "Recevoir mon diagnostic"
+- Sous-titre : Le point de départ reste l'audit : on pose votre niveau de maturité par équipe, puis on transforme cette lecture en carte concrète de vos flux. Vous savez ce qui est possible avec l'IA, ce qui doit rester humain et quel process traiter en premier.
+- CTA : "Demander l'Audit de Transformation"
 
 ### Votre réalité
 1. Vous avez des usages IA dispersés, mais pas encore de trajectoire de transformation.
@@ -150,17 +131,17 @@
 3. Vous devez protéger la donnée, la validation humaine ou la gouvernance avant de construire.
 
 ### Ce qu'on propose
-- **Diagnostic de maturité :** Votre niveau, les blocages visibles et la première ressource à partager.
-- **Cartographie des process :** Entrées, données, exceptions, validations humaines et indicateurs à suivre.
-- **Priorisation :** Ce qui peut passer en production, ce qui doit rester en cadrage, ce qui doit être refusé pour l'instant.
+- **Diagnostic de maturité par équipe :** Niveau réel, blocages visibles, besoins de formation et premiers cas crédibles.
+- **Cartographie des process :** Entrées, données, exceptions, validations humaines, risques et indicateurs à suivre.
+- **Plan de match chiffré :** Quoi former, quoi automatiser, quoi connecter, quoi déployer et dans quel ordre.
 
 ### Comment ça se passe
 - Diagnostic de départ : on part de votre contexte, de vos outils et d'un flux réel, pas d'un catalogue de cas d'usage.
 - Cartographie des process : on décrit ce qui entre, ce qui sort, qui valide, quelles données circulent et où le risque apparaît.
 - Décision partageable : vous repartez avec une synthèse claire : niveau de maturité, premier process, risques et prochaine décision.
 
-### Cas de preuve (anonymisé)
-> Dans une organisation multi-sites, le diagnostic a remplacé une liste d'idées IA par une carte simple : un process prioritaire, deux risques à traiter, une validation humaine à conserver. Le rendez-vous suivant a porté sur une décision, pas sur une démonstration.
+### Preuve
+La preuve est portée par les livrables de diagnostic, pas par un cas anonymisé : cartographie, niveau réel par équipe, arbitrages et plan de match chiffré.
 
 ---
 
@@ -169,13 +150,13 @@
 **Slug :** `deploiement-agents`
 **Focus :** Mise en œuvre opérationnelle
 **Phrase de niveau :** "Je veux un ou plusieurs agents en production."
-**Prix :** à partir de 3 000 € · Finançable OPCO
+**Prix :** à partir de 3 000 € · Selon périmètre, connexions et niveau de supervision
 
 ### Hero
 - Eyebrow : `N5 · Déploiement d'Agents`
 - H1 : C'est le moment où un agent intervient semaine après semaine.
-- Sous-titre : Un flux revient tout le temps. On le met sous contrôle : l'agent prépare, trace et escalade, l'humain garde la décision.
-- CTA : "En parler 15 min"
+- Sous-titre : Un flux revient tout le temps. On le met sous contrôle : agent, automatisation ou RPA selon le besoin. La machine prépare, trace et escalade ; l'humain garde les décisions sensibles.
+- CTA : "Définir mon flux cible"
 
 ### Votre réalité
 1. La saisie manuelle étouffe la productivité de vos équipes.
@@ -183,17 +164,20 @@
 3. Le recrutement pour des tâches répétitives devient impossible.
 
 ### Ce qu'on propose
-- **Forfait de Déploiement Continu :** Création et itération de plusieurs agents suite au diagnostic de vos opérations.
-- **Déploiement borné :** Un agent spécifique mis en production sur un périmètre clair, pour régler un problème précis sans engagement à long terme.
-- **Déploiement Sur-Mesure :** Architecture connectée de plusieurs agents pour traiter une chaîne de valeur de bout en bout.
+- **Flux cible mis sous contrôle :** Entrées, règles, exceptions, validations humaines et journaux d'action.
+- **Déploiement adapté :** Agent IA, automatisation classique ou RPA quand cela suffit amplement.
+- **Sécurité et conformité :** Données, accès, traces, supervision, garde-fous et trajectoire AI Act compliant.
+- **Boucles de feedback :** Remontée des erreurs, amélioration continue, mesure de qualité et arbitrages d'extension.
 
 ### Comment ça se passe
 - Flux cible : on choisit un flux qui revient souvent et qui peut être contrôlé sans toucher à tout le système.
 - Mise sous contrôle : on définit les entrées, les actions autorisées, les exceptions, la validation humaine et la trace.
 - Production supervisée : l'agent intervient sur le répétitif. L'équipe relit les cas sensibles et décide quoi étendre ensuite.
 
-### Cas de preuve (anonymisé)
-> Sur un flux de demandes entrantes, l'agent prépare les réponses, classe les exceptions et laisse une trace. L'équipe ne découvre plus le travail en vrac : elle valide ce qui mérite vraiment son attention.
+### Preuves concrètes
+- Operating system Clevery.
+- Outil en production Laparra.
+- Back-office e-commerce Mr Couteau.
 
 ---
 
@@ -206,9 +190,9 @@
 
 ### Hero
 - Eyebrow : `N6 · Outil propriétaire agentique`
-- H1 : L'indépendance s'achète. Construisez vos machines en interne, même sans coder.
-- Sous-titre : Vos équipes tech et métier veulent créer des flux complexes. On transfère la compétence ou on débloque vos impasses techniques.
-- CTA : "En parler 15 min"
+- H1 : N'importe qui peut shipper. Donnez à vos équipes le pouvoir de construire.
+- Sous-titre : Fondateurs, product managers, équipes métier : on vous aide à construire vos outils propriétaires internes avec Claude Code, Codex et une méthode produit solide.
+- CTA : "Construire mon outil interne"
 
 ### Votre réalité
 1. Vous dépendez de prestataires externes pour la moindre ligne de code.
@@ -216,17 +200,19 @@
 3. Vos équipes autonomes butent sur un mur technique et perdent du temps.
 
 ### Ce qu'on propose
-- **Transfert de Compétences :** Formation de vos équipes (techniques ou métiers) pour devenir autonomes sur la création de workflows.
-- **Intervention One-Shot :** Un déblocage technique express avec Claude Code pour craquer une impasse sur une architecture existante.
-- **Co-construction :** Création de votre premier outil propriétaire en binôme avec Parrit pour asseoir les bonnes pratiques.
+- **Construction d'outils propriétaires internes :** Cadrage, prototype, tests, données, interface et trajectoire produit.
+- **Méthode de shipping :** Transformer une idée métier en feature, puis en outil utilisable.
+- **Transfert Claude Code / Codex :** Consignes, specs, tests, documentation, revue et passation.
 
 ### Comment ça se passe
 - Session 1 : audit configuration + identification des workflows cibles
 - Sessions 2–N : formation pratique + construction des workflows
 - Dernière session : validation autonomie + remise de la documentation
 
-### Cas de preuve (anonymisé)
-> Une équipe produit de 5 développeurs utilisait l'IA de façon disparate. En 4 sessions, ils ont unifié leurs pratiques sur Claude Code, construit 3 workflows récurrents et sont maintenant autonomes sur le déploiement.
+### Exemples
+- Rufus Amazon pour Lavazza et Carte Noire.
+- Estimateur d'objets d'art.
+- Veille signaux faibles et reporting avec Codex.
 
 ---
 
@@ -241,8 +227,8 @@
 ### Hero
 - Eyebrow : `N7 · Optimisation de Flotte`
 - H1 : Vos agents plantent et coûtent cher. Reprenez le contrôle.
-- Sous-titre : Votre flotte grossit. On traite votre dette technique et on refond l'architecture pour garantir la fiabilité.
-- CTA : "Demander le diagnostic flotte"
+- Sous-titre : Votre flotte grossit. On traite la dette technique, les coûts tokens, les modèles, les boucles d'auto-amélioration et le harnais de supervision.
+- CTA : "Auditer ma flotte"
 
 ### Votre réalité
 1. Vos factures d'API explosent sans justification liée aux revenus.
@@ -250,17 +236,18 @@
 3. Des erreurs silencieuses bloquent vos processus en production.
 
 ### Ce qu'on propose
-- **Diagnostic de Flotte :** Analyse de la latence, des coûts et du taux d'erreur de vos systèmes actuels.
-- **Refonte d'Architecture :** Nettoyage de la dette technique et centralisation pour une infrastructure robuste.
-- **Fractional AI Operator :** On prend la responsabilité de vos opérations en continu pour assurer la conformité et la disponibilité.
+- **Diagnostic de flotte :** Agents, orchestrateurs, consignes, coûts tokens, latence, taux d'erreur, traces et dépendances.
+- **Traitement de la dette technique :** Harnais de tests, logs, règles de fallback, observabilité et responsabilités.
+- **Optimisation modèles :** Arbitrage open source / propriétaire, routage, coûts, sécurité, confidentialité et qualité.
+- **Boucles d'auto-amélioration :** Managers-agents, feedback loops, évaluation continue et gouvernance d'architecture.
 
 ### Comment ça se passe
 - Semaine 1 : audit flotte + architecture actuelle + identification de la dette
 - Semaine 2 : restitution + plan d'action technique validé
 - Semaines 3+ : remédiation et construction (forfait ou régie selon périmètre)
 
-### Cas de preuve (anonymisé)
-> Une scale-up SaaS avait 6 agents construits en 8 mois. Taux d'erreur de 18 %, coût incontrôlé, aucune centralisation. Après audit et remédiation : taux d'erreur à 2 %, coût divisé par 3, architecture centralisée avec boucles auto-améliorantes opérationnelles.
+### Preuve
+La preuve est notre propre flotte interne : Hermès, n8n, Codex, Claude Code, Vertex, LangChain, managers-agents, optimisation tokens et boucles d'auto-amélioration.
 
 ---
 
@@ -272,6 +259,13 @@
 - Kicker : "De l'IA générative à l'IA agentique"
 - H2 : Où en êtes-vous avec l'IA ?
 - Sous-titre : On intervient à tous les stades — de la première découverte jusqu'à la flotte d'agents en production. Trouvez votre point d'entrée.
+
+### Fast-track Grand Compte
+- H3 : Dirigeants & Grands Comptes : Par où commencer ?
+- Texte : Vos équipes sont probablement réparties sur plusieurs de ces 7 niveaux. Pour lancer une transformation à l'échelle sans financer des projets inutiles, ne cherchez pas à deviner leur stade de maturité.
+- Offre : L'Audit de Transformation Stratégique.
+- Promesse : En 5 jours, nous cartographions vos processus, nous évaluons le niveau réel de vos départements, et nous vous livrons un plan de match chiffré pour déployer les bonnes solutions de notre catalogue aux bonnes personnes.
+- CTA : Demander l'Audit de Transformation.
 
 ### 7 tiles (fr)
 

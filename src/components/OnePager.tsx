@@ -19,11 +19,12 @@ export interface OnePagerProps {
     before: string;
     after: string;
     result: string;
+    logo?: { src: string; alt: string };
   }[];
   forWho: string[];
   deliverables: string[];
   steps: { title: string; body: string }[];
-  proof: string;
+  proof?: string;
   price: string;
   priceNote?: string;
   lang: Locale;
@@ -64,6 +65,7 @@ type OnePagerChrome = {
   proofKicker: string;
   proofTitle: string;
   priceKicker: string;
+  trainingTrust: string;
 };
 
 const baseNavLinks = [
@@ -115,22 +117,22 @@ const contentByLocale: Partial<Record<Locale, Partial<Record<MaturiteLevel, OneP
       phrase: "I am discovering generative AI",
       stories: [
         {
-          title: "The committee that did not know where to start",
-          person: "Commercial leadership, B2B distribution",
+          title: "Level-zero AI training for a large team",
+          person: "General training",
           before:
-            "AI was a watch topic. Teams had tested tools, but nobody could separate gadget, real gain and business risk.",
+            "Teams were exposed to constant noise: generative AI, agents and automation, without a simple grid to separate true, useful and risky.",
           after:
-            "In three hours, the committee leaves with shared language, four realistic use cases and a first roadmap the business can understand.",
-          result: "The discussion moves from 'should we do this?' to 'which process do we handle first?'.",
+            "They leave with shared foundations: generative AI, agents, automation, limits, security and credible first use cases.",
+          result: "The topic becomes discussable without jargon: people understand the mechanics before talking tools.",
         },
         {
-          title: "The CEO who wanted clarity without jargon",
-          person: "CEO, services SME",
+          title: "Generative AI masterclass for business teams",
+          person: "Custom training",
           before:
-            "The executive team heard about generative AI, but decisions stayed stuck between enthusiasm, data fear and blurry vocabulary.",
+            "Teams were curious but scattered between text generation, automation and early agent use cases.",
           after:
-            "The session levels everyone up: what can write, what can act, what must stay supervised and what must not leave the company.",
-          result: "The topic becomes governable: leadership knows what to test, what to refuse and who should carry the next step.",
+            "The session clarifies generative AI, agent usage and simple automations people can actually understand.",
+          result: "Training opens a path: generalist to align, custom to apply to the business.",
         },
       ],
     },
@@ -141,152 +143,155 @@ const contentByLocale: Partial<Record<Locale, Partial<Record<MaturiteLevel, OneP
       phrase: "I want to apply AI to my sector",
       stories: [
         {
-          title: "The firm that needed truly business-specific use cases",
-          person: "Partner, consulting firm",
+          title: "Practical workshop for one business team",
+          person: "Business training",
           before:
-            "Consultants used AI individually. Output quality depended on personal habits, with no method and no reuse.",
+            "People knew how to ask for text, but not how to turn recurring tasks into reliable methods.",
           after:
-            "The session turns their real cases into shared business configurations: market analysis, interview prep, client synthesis.",
-          result: "Two use cases become team routines without adding another tool to the stack.",
+            "The session starts from their work: meeting prep, file synthesis, analysis, client reply or operational decision support.",
+          result: "The team leaves with simple operating methods adapted to its business.",
         },
         {
-          title: "The HR team that wanted adoption without resistance",
-          person: "HR director, multi-site group",
+          title: "Custom program by department",
+          person: "HR, sales, operations, finance",
           before:
-            "Employees saw AI as a threat or as examples too generic to matter. Use cases stayed far from hiring, onboarding and payroll questions.",
+            "Generic training stayed too far from daily work. Teams did not see what should change on Monday morning.",
           after:
-            "We start from their real cases: CV triage, candidate replies, interview prep and internal policy synthesis.",
-          result: "HR referents leave with shared configurations and a simple way to explain the tool to teams.",
+            "We build the session around the department: documents, vocabulary, constraints, sensitive data and useful gestures.",
+          result: "Training becomes a business toolkit, not a tool demo.",
         },
       ],
     },
     N3: {
       eyebrow: "N3 · Creation and MCP sessions",
       h1: "Artificial intelligence is blind. Connect it to your tools.",
-      sub: "You understand the basics. We connect the model to your software so it can trigger real actions.",
+      sub: "You understand the basics. We teach you how to connect models to useful sources and services so they can trigger real actions.",
       phrase: "I want to connect my software to AI",
       stories: [
         {
-          title: "The proprietary CRM finally connected to AI models",
-          person: "Insurance broker, sales team",
+          title: "Connect Claude to Google Maps and Notion",
+          person: "Connector session",
           before:
-            "Customer data lived in an isolated CRM. Agents answered well, but never saw real records, contracts or follow-ups.",
+            "The model answered well, but it could not see addresses, notes or knowledge bases that structure the work.",
           after:
-            "The sessions create the technical bridges. The assistant accesses useful data, with documented testing and handover.",
-          result: "Teams query their data in natural language without rebuilding the CRM.",
+            "The session shows how to connect Claude to Google Maps, Notion or a document source, with rights and simple tests.",
+          result: "Teams understand the difference between chatting with a model and giving it useful context.",
         },
         {
-          title: "The back office that stopped copy-pasting",
-          person: "Operations manager, B2B e-commerce",
+          title: "Connect legal or Gemini connectors",
+          person: "Introduction to agentic systems",
           before:
-            "Orders, tickets and follow-ups moved across three tools. Each update required re-entry and created error risk.",
+            "Teams hear about APIs, MCP, Gemini connectors and agents, but do not know what concretely changes.",
           after:
-            "Connectors link the useful sources. The agent reads, prepares the action and leaves a trace of what happened.",
-          result: "Manual transfer time drops without forcing a new tool on the team.",
+            "We use useful examples: query a legal source, an internal base, Gemini connectors or a governed business system.",
+          result: "The session gives enough technical understanding to scope the next step without selling magic.",
         },
       ],
     },
     N4: {
       eyebrow: "N4 · Process mapping",
       h1: "From diagnostic to decision: map your processes.",
-      sub: "The starting point is still the audit: we establish your maturity level, then turn that read into a concrete map of your workflows. You know what AI can realistically do, what must stay human and which process to handle first.",
+      sub: "The starting point is still the audit: we establish maturity by team, then turn that read into a concrete map of your workflows. You know what AI can do, what must stay human and which process to handle first.",
       phrase: "I want to move from diagnostic to decision",
       stories: [
         {
-          title: "The team that wanted to scale",
-          person: "Transformation leadership, mid-market company",
+          title: "Strategic audit to launch AI transformation",
+          person: "Executive team, CIO, transformation leadership",
           before:
-            "Several AI uses already existed, but no map showed the processes, data, exceptions and validations to keep.",
+            "Departments were not at the same level: some discovered AI, others tested tools, others were already discussing agents.",
           after:
-            "The diagnostic becomes a map: one priority workflow, its inputs, data, risks and the human decisions to keep.",
-          result: "The discussion moves away from tools and toward the first process to make controllable.",
+            "The audit maps processes, team maturity, data, risks and the right solutions to deploy to the right people.",
+          result: "Leadership stops funding isolated ideas and starts arbitrating a transformation plan.",
         },
         {
-          title: "The committee that needed a decision without theatre",
-          person: "Executive committee, multi-site group",
+          title: "Team-by-team assessment before deployment",
+          person: "Large multi-department organization",
           before:
-            "Ideas were everywhere, but no one could separate what was simple, risky, useful or too early.",
+            "Each business unit surfaced different use cases. It was unclear what to train, automate, connect or refuse.",
           after:
-            "Each option is placed on a readable map: volume, risk, data, validation and control effort.",
-          result: "The committee leaves with a first step, a shareable resource and the questions to resolve before building.",
+            "Each team receives a readable assessment: maturity, priority processes, risks, training needs and deployment path.",
+          result: "The CIO can reconcile strategic audit, business constraints and the agentic roadmap.",
         },
       ],
     },
     N5: {
       eyebrow: "N5 · Agent deployment",
       h1: "This is when an agent starts intervening week after week.",
-      sub: "One workflow keeps coming back. We put it under control: the agent prepares, traces and escalates, while the human keeps the decision.",
+      sub: "One workflow keeps coming back. We put it under control: agent, automation or RPA depending on the need. The machine prepares, traces and escalates; humans keep sensitive decisions.",
       phrase: "I want an agent in production",
       stories: [
         {
-          title: "The workflow that kept coming back",
-          person: "Operations team, B2B service",
+          title: "Clevery operating system",
+          person: "Law firm operating system",
           before:
-            "The same request kept returning. The team read, sorted, prepared and followed up by hand.",
+            "Inboxes, calendar, client requests and document production lived in separate manual gestures.",
           after:
-            "The agent reads the flow, prepares the action, leaves a trace and escalates cases that require judgment.",
-          result: "Daily work becomes readable again: the agent handles repetition, the team keeps exceptions.",
+            "An operating system prepares inbox management, calendar actions, documents and custom contracts, with human validation.",
+          result: "The firm keeps legal control; the agent takes repetitive back office work and leaves a trace.",
+          logo: { src: "/brand/client-logos/logo-5.png", alt: "Clevery" },
         },
         {
-          title: "The support team that kept only exceptions",
-          person: "COO, high-volume service",
+          title: "Laparra production tool",
+          person: "Proprietary software layer",
           before:
-            "The same inbox received complaints, simple requests and sensitive cases. Everything went to the same people with no clear priority.",
+            "The business needed its own software layer, not just a conversational assistant sitting beside the tools.",
           after:
-            "The agent classifies, prepares replies and escalates only the cases that require human arbitration.",
-          result: "The team gets a readable flow again: repetitive work runs, exceptions stay human.",
+            "A proprietary tool orchestrates data, actions and validations on a controlled workflow.",
+          result: "The project moves from an isolated agent to an operating-system layer embedded in daily work.",
+          logo: { src: "/brand/client-logos/logo-2.png", alt: "Laparra" },
         },
       ],
     },
     N6: {
       eyebrow: "N6 · Proprietary agentic tooling",
-      h1: "Independence can be built. Create your machines internally, even without coding.",
-      sub: "Your technical and business teams want to create complex workflows. We transfer the capability or unblock the technical wall.",
+      h1: "Anyone can ship. Give your teams the power to build.",
+      sub: "Founders, product managers and business teams: we help you build proprietary internal tools with Claude Code, Codex and a solid product method.",
       phrase: "I want to master Claude Code and Codex",
       stories: [
         {
-          title: "The product team that wanted to build without dependency",
-          person: "Product team, B2B SaaS",
+          title: "Amazon Rufus for Lavazza and Carte Noire",
+          person: "E-commerce GEO",
           before:
-            "Every developer used AI differently. Gains existed, but practices were fragile and hard to transmit.",
+            "Teams needed to understand how their brands appear in Rufus-like shopping answers without waiting for a market tool.",
           after:
-            "The team structures Claude Code, Codex and recurring workflows. Referents know how to scope, test and maintain their own agents.",
-          result: "Three internal workflows are built during the training, then owned by the team.",
+            "An internal tool tracks signals, structures analysis and helps steer GEO actions on shopping platforms.",
+          result: "The topic becomes an internal product: observable, iterable and actionable by teams.",
+          logo: { src: "/brand/client-logos/logo-1.png", alt: "Lavazza" },
         },
         {
-          title: "The business team that had vision but no execution path",
-          person: "Transformation lead, mid-market company",
+          title: "Art object estimator",
+          person: "Internal proprietary tool",
           before:
-            "Business teams knew exactly which tool they lacked, but every request went back into a saturated technical queue.",
+            "The business knew what to estimate, compare and document, but not how to turn expertise into a usable tool.",
           after:
-            "We transfer a method to scope, build and test a first agentic tool with the company's guardrails.",
-          result: "The business gains autonomy without bypassing IT: documentation and validation reflexes are set from the start.",
+            "An internal prototype combines structured input, assisted reasoning, sources and usable output.",
+          result: "The team moves from business intuition to a testable feature.",
         },
       ],
     },
     N7: {
       eyebrow: "N7 · Fleet optimization",
       h1: "Your agents fail and cost too much. Take control back.",
-      sub: "Your fleet is growing. We treat technical debt and redesign the architecture for reliability.",
+      sub: "Your fleet is growing. We work on technical debt, token costs, models, self-improvement loops and the supervision harness.",
       phrase: "I have a fleet and want to optimize it",
       stories: [
         {
-          title: "The fleet that had to become manageable",
-          person: "SaaS scale-up, operations and data",
+          title: "Our internal fleet of agents",
+          person: "Hermes, n8n, Codex, Claude Code, Vertex, LangChain",
           before:
-            "Six agents had been built quickly. Costs were rising, errors were hard to trace and data stayed scattered.",
+            "Useful but numerous agents: overnight orchestration, monitoring, writing, supervision and reporting, with token costs and model choices to manage.",
           after:
-            "The fleet is centralized, triggers are clarified and feedback loops surface errors for continuous improvement.",
-          result: "The error rate drops, costs become readable and the team knows where to act.",
+            "Agent managers supervise loops, the harness improves and models are chosen by cost, latency, confidentiality and quality.",
+          result: "The fleet becomes operable: less debt, better observability, better open-source/proprietary tradeoffs.",
         },
         {
-          title: "The CIO who wanted control back",
-          person: "CIO, multi-entity group",
+          title: "Self-improvement loops and technical debt",
+          person: "Agentic architecture",
           before:
-            "Several teams had launched their own agents. Access, logs and responsibilities were not consistent.",
+            "Agents produce output, but silent errors, scattered instructions and costs make the system hard to improve.",
           after:
-            "The diagnosis resets the fleet: inventory, dependencies, costs, risks, validation rules and architecture path.",
-          result: "Governance becomes readable again: every agent has an owner, a trace and a reason to exist.",
+            "We treat technical debt, strengthen tests, optimize tokens and install actionable feedback loops.",
+          result: "The fleet learns better, costs less and becomes simpler to maintain.",
         },
       ],
     },
@@ -299,13 +304,13 @@ const chromeByLocale: Record<Locale, OnePagerChrome> = {
     contact: "Nous écrire",
     priceCta: "Voir le prix",
     ctaLabels: {
-      N1: "Réserver la masterclass",
-      N2: "Réserver la session",
-      N3: "Réserver les sessions",
-      N4: "Recevoir mon diagnostic",
-      N5: "En parler 15 min",
-      N6: "En parler 15 min",
-      N7: "Demander le diagnostic flotte",
+      N1: "Recevoir mon programme",
+      N2: "Recevoir ma session",
+      N3: "Concevoir ma session",
+      N4: "Demander l'Audit de Transformation",
+      N5: "Définir mon flux cible",
+      N6: "Construire mon outil interne",
+      N7: "Auditer ma flotte",
     },
     emailSubject: (level, label) => `Parrit ${level} · ${label}`,
     emailBody: (level, label) =>
@@ -340,21 +345,22 @@ const chromeByLocale: Record<Locale, OnePagerChrome> = {
     stepsKicker: "Comment ça se passe",
     stepsTitle: "Un rythme court, des étapes visibles, pas de flou.",
     proofKicker: "Preuve",
-    proofTitle: "Cas anonymisé.",
+    proofTitle: "Preuve terrain.",
     priceKicker: "Prix",
+    trainingTrust: "Formation finançable OPCO · certification Qualiopi",
   },
   en: {
     navAria: "Primary navigation",
     contact: "Write to us",
     priceCta: "See pricing",
     ctaLabels: {
-      N1: "Book the masterclass",
-      N2: "Book the session",
-      N3: "Book the sessions",
-      N4: "Get my diagnostic",
-      N5: "Talk for 15 minutes",
-      N6: "Talk for 15 minutes",
-      N7: "Request a fleet diagnosis",
+      N1: "Receive my program",
+      N2: "Receive my session",
+      N3: "Design my session",
+      N4: "Request the Transformation Audit",
+      N5: "Define my target workflow",
+      N6: "Build my internal tool",
+      N7: "Audit my fleet",
     },
     emailSubject: (level, label) => `Parrit ${level} · ${label}`,
     emailBody: (level, label) =>
@@ -389,21 +395,22 @@ const chromeByLocale: Record<Locale, OnePagerChrome> = {
     stepsKicker: "How it works",
     stepsTitle: "A short rhythm, visible steps, no fog.",
     proofKicker: "Proof",
-    proofTitle: "Anonymized case.",
+    proofTitle: "Field proof.",
     priceKicker: "Pricing",
+    trainingTrust: "OPCO-financeable training · Qualiopi certification",
   },
   "pt-BR": {
     navAria: "Navegação principal",
     contact: "Escrever para nós",
     priceCta: "Ver o preço",
     ctaLabels: {
-      N1: "Reservar a masterclass",
-      N2: "Reservar a sessão",
-      N3: "Reservar as sessões",
-      N4: "Receber meu diagnóstico",
-      N5: "Conversar por 15 minutos",
-      N6: "Conversar por 15 minutos",
-      N7: "Solicitar diagnóstico da frota",
+      N1: "Receber meu programa",
+      N2: "Receber minha sessão",
+      N3: "Desenhar minha sessão",
+      N4: "Solicitar a Auditoria de Transformação",
+      N5: "Definir meu fluxo alvo",
+      N6: "Construir minha ferramenta interna",
+      N7: "Auditar minha frota",
     },
     emailSubject: (level, label) => `Parrit ${level} · ${label}`,
     emailBody: (level, label) =>
@@ -438,21 +445,22 @@ const chromeByLocale: Record<Locale, OnePagerChrome> = {
     stepsKicker: "Como funciona",
     stepsTitle: "Um ritmo curto, etapas visíveis, sem zona cinzenta.",
     proofKicker: "Prova",
-    proofTitle: "Caso anonimizado.",
+    proofTitle: "Prova de campo.",
     priceKicker: "Preço",
+    trainingTrust: "Formação financiável OPCO · certificação Qualiopi",
   },
   "zh-CN": {
     navAria: "主导航",
     contact: "联系我们",
     priceCta: "查看价格",
     ctaLabels: {
-      N1: "预约大师课",
-      N2: "预约工作坊",
-      N3: "预约连接会话",
-      N4: "获取我的诊断",
-      N5: "聊 15 分钟",
-      N6: "聊 15 分钟",
-      N7: "申请智能体舰队诊断",
+      N1: "获取我的课程方案",
+      N2: "获取我的工作坊",
+      N3: "设计我的连接会话",
+      N4: "申请转型审计",
+      N5: "定义我的目标流程",
+      N6: "构建我的内部工具",
+      N7: "审计我的智能体舰队",
     },
     emailSubject: (level, label) => `Parrit ${level} · ${label}`,
     emailBody: (level, label) =>
@@ -487,8 +495,9 @@ const chromeByLocale: Record<Locale, OnePagerChrome> = {
     stepsKicker: "如何推进",
     stepsTitle: "节奏短、步骤清楚、不留模糊地带。",
     proofKicker: "证明",
-    proofTitle: "匿名案例。",
+    proofTitle: "真实证明。",
     priceKicker: "价格",
+    trainingTrust: "可由 OPCO 资助的培训 · Qualiopi 认证",
   },
 };
 
@@ -533,6 +542,10 @@ export default function OnePager({
     chrome.emailBody(level, ctaContext),
   );
   const whatsappHref = buildWhatsappHref(chrome.whatsappText(level, ctaContext));
+  const isTrainingOffer = level === "N1" || level === "N2" || level === "N3";
+  const hasSteps = steps.length > 0;
+  const renderedProof = proof?.trim() ?? "";
+  const hasProof = renderedProof.length > 0;
 
   return (
     <main className="home-template">
@@ -573,6 +586,12 @@ export default function OnePager({
             {chrome.priceCta}
           </a>
         </div>
+        {isTrainingOffer && (
+          <div className="onepager-qualification">
+            <img src="/brand/qualiopi/qualiopi-marianne.png" alt="Qualiopi : processus certifié, République Française" />
+            <span>{chrome.trainingTrust}</span>
+          </div>
+        )}
         <nav className="maturity-rail" aria-label={chrome.maturityRailAria}>
           {chrome.maturityNav.map((item) => (
             <Link
@@ -598,6 +617,7 @@ export default function OnePager({
           <div className="story-grid">
             {renderedStories.map((story) => (
               <article className="story-card" key={story.title}>
+                {story.logo && <img className="story-logo" src={story.logo.src} alt={story.logo.alt} />}
                 <div className="story-person">{story.person}</div>
                 <h3>{story.title}</h3>
                 <div className="story-compare">
@@ -660,38 +680,42 @@ export default function OnePager({
         </div>
       </section>
 
-      <section className="section band">
-        <div className="wrap">
-          <div className="section-head">
-            <div className="kicker">{chrome.stepsKicker}</div>
-            <h2>{chrome.stepsTitle}</h2>
+      {hasSteps && (
+        <section className="section band">
+          <div className="wrap">
+            <div className="section-head">
+              <div className="kicker">{chrome.stepsKicker}</div>
+              <h2>{chrome.stepsTitle}</h2>
+            </div>
+            <div className="grid3">
+              {steps.map((step, index) => (
+                <div className="card step" key={`${step.title}-${step.body}`}>
+                  <h3>
+                    {String(index + 1).padStart(2, "0")} · {step.title}
+                  </h3>
+                  <p>{step.body}</p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="grid3">
-            {steps.map((step, index) => (
-              <div className="card step" key={`${step.title}-${step.body}`}>
-                <h3>
-                  {String(index + 1).padStart(2, "0")} · {step.title}
-                </h3>
-                <p>{step.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <section className="section">
-        <div className="wrap">
-          <div className="section-head">
-            <div className="kicker">{chrome.proofKicker}</div>
-            <h2>{chrome.proofTitle}</h2>
+      {hasProof && (
+        <section className="section">
+          <div className="wrap">
+            <div className="section-head">
+              <div className="kicker">{chrome.proofKicker}</div>
+              <h2>{chrome.proofTitle}</h2>
+            </div>
+            <blockquote className="bc">
+              <p>
+                <em dangerouslySetInnerHTML={{ __html: renderedProof }} />
+              </p>
+            </blockquote>
           </div>
-          <blockquote className="bc">
-            <p>
-              <em dangerouslySetInnerHTML={{ __html: proof }} />
-            </p>
-          </blockquote>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="section band" id="prix">
         <div className="wrap">
@@ -701,6 +725,12 @@ export default function OnePager({
               <div className="kicker">{chrome.priceKicker}</div>
               <h2>{price}</h2>
               {priceNote && <p className="fine">{priceNote}</p>}
+              {isTrainingOffer && (
+                <div className="onepager-qualification price-qualification">
+                  <img src="/brand/qualiopi/qualiopi-marianne.png" alt="Qualiopi : processus certifié, République Française" />
+                  <span>{chrome.trainingTrust}</span>
+                </div>
+              )}
               <div className="cta-row">
                 <a className="btn btn-red btn-lg" href={actionHref}>
                   {primaryCtaLabel}
