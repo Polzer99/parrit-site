@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "qa:doctrine": "node scripts/public-doctrine-audit.mjs",
+    "qa:premium": "playwright test tests/parrit-premium-qa.spec.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.90.0",

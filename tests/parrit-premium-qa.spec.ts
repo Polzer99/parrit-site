@@ -4,14 +4,27 @@ const BASE_URL = process.env.QA_BASE_URL ?? "http://localhost:3000";
 
 const pages = [
   { slug: "home", path: "/fr", reviewArtifact: true },
+  { slug: "masterclass-ia", path: "/fr/masterclass-ia", reviewArtifact: true },
+  { slug: "optimisation-flotte", path: "/fr/optimisation-flotte", reviewArtifact: true },
+  { slug: "deploiement-agents", path: "/fr/deploiement-agents" },
+  { slug: "outils-agentiques", path: "/fr/outils-agentiques" },
   { slug: "deployer", path: "/fr/deployer", reviewArtifact: true },
   { slug: "croissance", path: "/fr/croissance", reviewArtifact: true },
   { slug: "transmettre", path: "/fr/transmettre", reviewArtifact: true },
+  { slug: "blog", path: "/fr/blog" },
+  { slug: "blog-carte-action", path: "/fr/blog/une-carte-une-action" },
+  { slug: "actualite", path: "/fr/actualite" },
+  { slug: "glossaire", path: "/fr/glossaire" },
+  { slug: "glossaire-agent-ia", path: "/fr/glossaire/agent-ia-entreprise" },
+  { slug: "auteur-paul-larmaraud", path: "/fr/auteur/paul-larmaraud" },
   { slug: "academy", path: "/academy" },
   { slug: "fondateurs", path: "/fondateurs" },
   { slug: "diagnostic", path: "/diagnostic" },
   { slug: "detecteur-bullshit", path: "/outils/detecteur-bullshit" },
 ];
+
+const expectedOrigin = "https://parrit.ai";
+const expectedSocialImage = `${expectedOrigin}/opengraph-image`;
 
 const viewports = [
   { slug: "desktop", width: 1440, height: 1100 },
@@ -40,12 +53,45 @@ for (const viewport of viewports) {
         const audit = await page.evaluate(() => {
           const oldFontFamilies = Array.from(document.fonts)
             .map((font) => font.family)
-            .filter((family) => /DM Sans|Cormorant Garamond/i.test(family));
+            .filter((family) =>
+              /DM Sans|Cormorant Garamond|Hanken Grotesk|JetBrains Mono|Poppins/i.test(
+                family,
+              ),
+            );
 
           const documentElement = document.documentElement;
           const horizontalOverflow =
             Math.max(documentElement.scrollWidth, document.body.scrollWidth) -
             documentElement.clientWidth;
+
+          const bodyText = document.body.innerText;
+          const bannedCopyMatches = [
+            /\bPOCs?\b/iu,
+            /\bchatbots?\b/iu,
+            /\bjours-homme\b/iu,
+            /\bprompts?\b/iu,
+            /\bexp[ée]rimentations?\b/iu,
+            /\bSur devis\b/iu,
+            /—/u,
+          ]
+            .map((regex) => bodyText.match(regex)?.[0])
+            .filter((value): value is string => Boolean(value));
+
+          const metadata = {
+            bodyFontFamily: getComputedStyle(document.body).fontFamily,
+            ogUrl:
+              document
+                .querySelector('meta[property="og:url"]')
+                ?.getAttribute("content") ?? "",
+            ogImage:
+              document
+                .querySelector('meta[property="og:image"]')
+                ?.getAttribute("content") ?? "",
+            twitterImage:
+              document
+                .querySelector('meta[name="twitter:image"]')
+                ?.getAttribute("content") ?? "",
+          };
 
           const runtimeUrls = [
             location.href,
@@ -60,12 +106,25 @@ for (const viewport of viewports) {
           ];
 
           return {
+            bannedCopyMatches,
+            metadata,
             oldFontFamilies,
             horizontalOverflow,
             vercelUrls: runtimeUrls.filter((url) => /\.vercel\.app/i.test(url)),
           };
         });
 
+        expect(audit.bannedCopyMatches, "no public doctrine banned copy").toEqual([]);
+        expect(audit.metadata.bodyFontFamily, "body uses Geist").toContain("Geist");
+        expect(audit.metadata.ogUrl, "canonical social URL").toMatch(
+          /^https:\/\/parrit\.ai(\/|$)/,
+        );
+        expect(audit.metadata.ogImage, "canonical Open Graph image").toBe(
+          expectedSocialImage,
+        );
+        expect(audit.metadata.twitterImage, "canonical Twitter image").toBe(
+          expectedSocialImage,
+        );
         expect(audit.oldFontFamilies, "no old font families loaded").toEqual([]);
         expect(audit.horizontalOverflow, "no horizontal overflow").toBeLessThanOrEqual(1);
         expect(audit.vercelUrls, "no runtime *.vercel.app URL").toEqual([]);
