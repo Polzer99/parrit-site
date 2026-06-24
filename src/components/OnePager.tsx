@@ -33,6 +33,7 @@ type OnePagerChrome = {
   navAria: string;
   contact: string;
   priceCta: string;
+  ctaLabels: Record<MaturiteLevel, string>;
   maturityRailAria: string;
   navLinks: { href: string; label: string }[];
   maturityNav: { level: MaturiteLevel; slug: MaturiteSlug; label: string }[];
@@ -84,6 +85,15 @@ const chromeByLocale: Record<Locale, OnePagerChrome> = {
     navAria: "Navigation principale",
     contact: "Nous écrire",
     priceCta: "Voir le prix",
+    ctaLabels: {
+      N1: "Réserver la masterclass",
+      N2: "Réserver la session",
+      N3: "Réserver les sessions",
+      N4: "Demander l'audit",
+      N5: "En parler 15 min",
+      N6: "En parler 15 min",
+      N7: "Demander le diagnostic flotte",
+    },
     maturityRailAria: "Parcours de maturité IA",
     navLinks: buildNavLinks({
       stories: "Histoires",
@@ -120,6 +130,15 @@ const chromeByLocale: Record<Locale, OnePagerChrome> = {
     navAria: "Primary navigation",
     contact: "Write to us",
     priceCta: "See pricing",
+    ctaLabels: {
+      N1: "Book the masterclass",
+      N2: "Book the session",
+      N3: "Book the sessions",
+      N4: "Request the audit",
+      N5: "Talk for 15 minutes",
+      N6: "Talk for 15 minutes",
+      N7: "Request a fleet diagnosis",
+    },
     maturityRailAria: "AI maturity journey",
     navLinks: buildNavLinks({
       stories: "Stories",
@@ -156,6 +175,15 @@ const chromeByLocale: Record<Locale, OnePagerChrome> = {
     navAria: "Navegação principal",
     contact: "Escrever para nós",
     priceCta: "Ver o preço",
+    ctaLabels: {
+      N1: "Reservar a masterclass",
+      N2: "Reservar a sessão",
+      N3: "Reservar as sessões",
+      N4: "Solicitar a auditoria",
+      N5: "Conversar por 15 minutos",
+      N6: "Conversar por 15 minutos",
+      N7: "Solicitar diagnóstico da frota",
+    },
     maturityRailAria: "Jornada de maturidade em IA",
     navLinks: buildNavLinks({
       stories: "Histórias",
@@ -192,6 +220,15 @@ const chromeByLocale: Record<Locale, OnePagerChrome> = {
     navAria: "主导航",
     contact: "联系我们",
     priceCta: "查看价格",
+    ctaLabels: {
+      N1: "预约大师课",
+      N2: "预约工作坊",
+      N3: "预约连接会话",
+      N4: "申请审计",
+      N5: "聊 15 分钟",
+      N6: "聊 15 分钟",
+      N7: "申请智能体舰队诊断",
+    },
     maturityRailAria: "AI 成熟度路径",
     navLinks: buildNavLinks({
       stories: "案例",
@@ -252,6 +289,7 @@ export default function OnePager({
   lang,
 }: OnePagerProps) {
   const chrome = chromeByLocale[lang];
+  const primaryCtaLabel = chrome.ctaLabels[level] ?? ctaLabel;
 
   return (
     <main className="home-template">
@@ -286,7 +324,7 @@ export default function OnePager({
         <p className="sub">{sub}</p>
         <div className="cta-row">
           <a className="btn btn-red btn-lg" href={ctaHref}>
-            {ctaLabel}
+            {primaryCtaLabel}
           </a>
           <a className="btn btn-ghost btn-lg" href="#prix">
             {chrome.priceCta}
@@ -335,7 +373,7 @@ export default function OnePager({
           </div>
           <div className="story-cta">
             <a className="btn btn-red btn-lg" href={ctaHref}>
-              {ctaLabel}
+              {primaryCtaLabel}
             </a>
           </div>
         </div>
@@ -422,7 +460,7 @@ export default function OnePager({
               {priceNote && <p className="fine">{priceNote}</p>}
               <div className="cta-row">
                 <a className="btn btn-red btn-lg" href={ctaHref}>
-                  {ctaLabel}
+                  {primaryCtaLabel}
                 </a>
                 <a className="btn btn-wa btn-lg" href="https://wa.me/33683762219">
                   <img className="ci" src="/brand/tool-logos/whatsapp.svg" alt="" aria-hidden="true" />

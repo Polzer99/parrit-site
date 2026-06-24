@@ -58,27 +58,30 @@ const localizedOnePagerChrome = [
     nav: "Stories",
     contact: "Write to us",
     priceCta: "See pricing",
+    primaryCta: "Book the masterclass",
     storyTitle: "What does transformation look like at this level?",
     railLabel: "Discovery",
-    forbiddenChrome: ["Nous écrire", "Voir le prix", "À quoi ressemble"],
+    forbiddenChrome: ["Nous écrire", "Voir le prix", "À quoi ressemble", "Réserver la masterclass"],
   },
   {
     path: "/pt-BR/masterclass-ia",
     nav: "Histórias",
     contact: "Escrever para nós",
     priceCta: "Ver o preço",
+    primaryCta: "Reservar a masterclass",
     storyTitle: "Como é uma transformação neste nível?",
     railLabel: "Descoberta",
-    forbiddenChrome: ["Nous écrire", "Voir le prix", "À quoi ressemble"],
+    forbiddenChrome: ["Nous écrire", "Voir le prix", "À quoi ressemble", "Réserver la masterclass"],
   },
   {
     path: "/zh-CN/masterclass-ia",
     nav: "案例",
     contact: "联系我们",
     priceCta: "查看价格",
+    primaryCta: "预约大师课",
     storyTitle: "这个阶段的转型是什么样？",
     railLabel: "认知",
-    forbiddenChrome: ["Nous écrire", "Voir le prix", "À quoi ressemble"],
+    forbiddenChrome: ["Nous écrire", "Voir le prix", "À quoi ressemble", "Réserver la masterclass"],
   },
 ];
 const localizedHomeHero = [
@@ -196,6 +199,7 @@ for (const chromeCase of localizedOnePagerChrome) {
     await expect(page.locator(".nav")).toContainText(chromeCase.nav);
     await expect(page.locator(".nav")).toContainText(chromeCase.contact);
     await expect(page.locator(".hero .cta-row")).toContainText(chromeCase.priceCta);
+    await expect(page.locator(".hero .cta-row .btn-red")).toContainText(chromeCase.primaryCta);
     await expect(page.locator("#histoires .section-head")).toContainText(
       chromeCase.storyTitle,
     );
