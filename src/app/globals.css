@@ -1749,9 +1749,11 @@ body > * {
   cursor: pointer;
 }
 
-.home-template .maturite-tile:hover {
+.home-template .maturite-tile:hover,
+.home-template .maturite-tile:focus-visible {
   border-color: var(--accent);
   box-shadow: 0 2px 12px rgba(20, 20, 26, 0.08);
+  outline: none;
   transform: translateY(-1px);
 }
 

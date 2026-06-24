@@ -1041,9 +1041,10 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           <p className="kicker">{copy.maturite.kicker}</p>
           <h2>{copy.maturite.title}</h2>
           <p className="lead">{copy.maturite.lead}</p>
-          <div className="maturite-mountain" aria-label={copy.maturite.title}>
-            <svg viewBox="0 0 960 390" role="img" aria-labelledby="maturite-mountain-title">
+          <nav className="maturite-mountain" aria-label={copy.maturite.title}>
+            <svg viewBox="0 0 960 390" aria-labelledby="maturite-mountain-title maturite-mountain-desc">
               <title id="maturite-mountain-title">{copy.maturite.title}</title>
+              <desc id="maturite-mountain-desc">{copy.maturite.lead}</desc>
               <path
                 className="mountain-back"
                 d="M20 332 L170 196 L250 246 L392 102 L520 236 L618 138 L804 332 Z"
@@ -1093,7 +1094,7 @@ export default function HomeClient({ lang }: { lang: Locale }) {
                 );
               })}
             </svg>
-          </div>
+          </nav>
           <div className="maturite-grid">
             {copy.maturite.levels.map((level) => (
               <a href={`/${lang}${level.href}`} className="maturite-tile" key={level.id}>
