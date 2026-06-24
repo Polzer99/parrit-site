@@ -1,26 +1,26 @@
 import type { Metadata } from "next";
-import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 
-const body = Hanken_Grotesk({
+const body = Geist({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   variable: "--font-body",
   display: "swap",
-  adjustFontFallback: true,
 });
 
-const mono = JetBrains_Mono({
+const mono = Geist_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-mono",
   display: "swap",
-  adjustFontFallback: true,
 });
 
 const SITE_URL = "https://parrit.ai";
+const OG_IMAGE = `${SITE_URL}/opengraph-image`;
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Claude Code Academy : Fais agir ton ordinateur | Parrit.ai",
   description:
     "Des modules courts pour apprendre à faire AGIR ton ordinateur avec Claude Code : ranger tes mails, sortir un site en une soirée, trouver des clients pendant que tu dors. Les 10 premiers sont gratuits.",
@@ -32,6 +32,21 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/academy`,
     siteName: "Parrit.ai",
     type: "website",
+    images: [
+      {
+        url: OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: "Parrit.ai : l'IA qui agit pour vous, en 14 jours",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Claude Code Academy : par Parrit.ai",
+    description:
+      "Apprends à faire agir ton ordinateur, pas juste discuter avec une IA. Modules courts, concrets, prouvés sur le quotidien de Paul. Les 10 premiers gratuits.",
+    images: [OG_IMAGE],
   },
 };
 
