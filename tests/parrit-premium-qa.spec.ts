@@ -165,8 +165,11 @@ for (const heroCase of localizedHomeHero) {
 
     await expect(page.locator(".hero h1")).toContainText(heroCase.h1);
     await expect(page.locator(".hero-desktop-cta .btn-red")).toContainText(heroCase.cta);
-    await expect(page.locator(".presence-sec")).toContainText(heroCase.presence);
-    await expect(page.locator(".presence-item")).toHaveCount(3);
+    await expect(page.locator(".presence-sec")).toHaveCount(0);
+    await expect(page.locator(".footer-presence")).toBeVisible();
+    await expect(page.locator(".footer-presence")).toContainText(
+      heroCase.path === "/zh-CN" ? "欧洲 · 美洲 · 亚洲" : /Europe|Amériques|Americas|Américas/u,
+    );
   });
 }
 

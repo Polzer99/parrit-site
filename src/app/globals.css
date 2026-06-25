@@ -1220,7 +1220,8 @@ body > * {
 }
 
 .home-template .nav-links a,
-.home-template .footer-links a {
+.home-template .footer-links a,
+.home-template .footer-presence {
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: 12px;
@@ -1231,6 +1232,13 @@ body > * {
 .home-template .nav-links a:hover,
 .home-template .footer-links a:hover {
   color: var(--red);
+}
+
+.home-template .footer-presence {
+  color: var(--faint);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .home-template .logo {
@@ -2192,71 +2200,6 @@ body > * {
   max-width: 220px;
 }
 
-.home-template .presence-sec {
-  background: linear-gradient(180deg, rgba(245, 248, 255, 0.74) 0%, var(--band) 100%);
-  padding: 18px 0 46px;
-}
-
-.home-template .presence-card {
-  align-items: start;
-  background: rgba(255, 255, 255, 0.76);
-  border: 1px solid rgba(20, 20, 26, 0.08);
-  border-radius: 12px;
-  box-shadow: 0 16px 50px rgba(20, 20, 26, 0.05);
-  display: grid;
-  gap: 18px;
-  grid-template-columns: 1fr;
-  padding: 22px 24px;
-}
-
-.home-template .presence-card h2 {
-  font-size: clamp(24px, 2.7vw, 32px);
-  margin: 0;
-  max-width: 760px;
-}
-
-.home-template .presence-card .lead {
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 760px;
-}
-
-.home-template .presence-grid {
-  display: grid;
-  gap: 8px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  max-width: 760px;
-  width: 100%;
-}
-
-.home-template .presence-item {
-  background: rgba(245, 248, 255, 0.72);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  min-width: 0;
-  padding: 10px 12px;
-}
-
-.home-template .presence-item strong {
-  color: var(--accent);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-
-.home-template .presence-item span {
-  color: var(--muted);
-  font-family: var(--font-body);
-  font-size: 12px;
-  line-height: 1.45;
-}
-
 .home-template .cases {
   display: grid;
   gap: 18px;
@@ -2606,10 +2549,6 @@ body > * {
     padding: 36px;
   }
 
-  .home-template .presence-card {
-    grid-template-columns: 1fr;
-  }
-
   .home-template .maturite-stage {
     display: grid;
     gap: 20px;
@@ -2672,18 +2611,6 @@ body > * {
 }
 
 @media (max-width: 768px) {
-  .home-template .presence-sec {
-    padding: 26px 0 54px;
-  }
-
-  .home-template .presence-card {
-    padding: 24px;
-  }
-
-  .home-template .presence-grid {
-    grid-template-columns: 1fr;
-  }
-
   .home-template .maturite-stage {
     margin-top: 22px;
   }

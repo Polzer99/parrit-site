@@ -1263,26 +1263,6 @@ export default function HomeClient({ lang }: { lang: Locale }) {
         </div>
       </section>
 
-      <section className="presence-sec" aria-labelledby="presence-title">
-        <div className="wrap">
-          <div className="presence-card">
-            <div>
-              <p className="kicker">{copy.presence.kicker}</p>
-              <h2 id="presence-title">{copy.presence.title}</h2>
-              <p className="lead">{copy.presence.lead}</p>
-            </div>
-            <div className="presence-grid">
-              {copy.presence.items.map((item) => (
-                <article className="presence-item" key={item.region}>
-                  <strong>{item.region}</strong>
-                  <span>{item.copy}</span>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="section band" id="deployer">
         <div className="wrap">
           <div className="two">
@@ -1514,6 +1494,9 @@ export default function HomeClient({ lang }: { lang: Locale }) {
                 {item.label}
               </a>
             ))}
+            <span className="footer-presence" aria-label={copy.presence.title}>
+              {copy.presence.items.map((item) => item.region).join(" · ")}
+            </span>
           </nav>
           <span className="mono">{copy.footer}</span>
         </footer>
