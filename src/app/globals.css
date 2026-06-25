@@ -1673,6 +1673,8 @@ body > * {
 }
 
 .home-template .maturite-stage {
+  display: grid;
+  gap: 18px;
   margin-top: 30px;
   max-width: 1080px;
   position: relative;
@@ -1703,14 +1705,13 @@ body > * {
   display: grid;
   gap: 18px;
   grid-template-columns: minmax(0, 1fr) auto;
+  justify-self: end;
   margin: 0;
-  max-width: 620px;
+  max-width: 720px;
   min-width: 0;
   overflow-wrap: anywhere;
-  padding: 18px 20px;
-  position: absolute;
-  right: 42px;
-  top: 8px;
+  padding: 16px 18px;
+  position: relative;
   text-decoration: none;
   transition: box-shadow 0.15s, transform 0.15s;
   z-index: 2;
@@ -1735,12 +1736,12 @@ body > * {
 .home-template .maturite-fast-track h3 {
   color: var(--ink);
   font-family: var(--font-body);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
   letter-spacing: 0;
   line-height: 1.12;
   margin: 8px 0 0;
-  max-width: 380px;
+  max-width: 360px;
 }
 
 .home-template .maturite-fast-track-offer {
@@ -2193,41 +2194,50 @@ body > * {
 
 .home-template .presence-sec {
   background: linear-gradient(180deg, rgba(245, 248, 255, 0.74) 0%, var(--band) 100%);
-  padding: 34px 0 70px;
+  padding: 18px 0 46px;
 }
 
 .home-template .presence-card {
-  align-items: stretch;
+  align-items: start;
   background: rgba(255, 255, 255, 0.76);
   border: 1px solid rgba(20, 20, 26, 0.08);
   border-radius: 12px;
   box-shadow: 0 16px 50px rgba(20, 20, 26, 0.05);
   display: grid;
-  gap: 36px;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-  padding: 30px;
+  gap: 18px;
+  grid-template-columns: 1fr;
+  padding: 22px 24px;
 }
 
 .home-template .presence-card h2 {
-  font-size: clamp(28px, 3.8vw, 42px);
+  font-size: clamp(24px, 2.7vw, 32px);
   margin: 0;
+  max-width: 760px;
+}
+
+.home-template .presence-card .lead {
+  font-size: 15px;
+  margin-top: 12px;
+  max-width: 760px;
 }
 
 .home-template .presence-grid {
   display: grid;
-  gap: 12px;
+  gap: 8px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 760px;
+  width: 100%;
 }
 
 .home-template .presence-item {
-  background: var(--bg);
+  background: rgba(245, 248, 255, 0.72);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   min-width: 0;
-  padding: 18px;
+  padding: 10px 12px;
 }
 
 .home-template .presence-item strong {
@@ -2243,8 +2253,8 @@ body > * {
 .home-template .presence-item span {
   color: var(--muted);
   font-family: var(--font-body);
-  font-size: 13.5px;
-  line-height: 1.55;
+  font-size: 12px;
+  line-height: 1.45;
 }
 
 .home-template .cases {
