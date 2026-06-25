@@ -102,46 +102,48 @@ const localizedHomeHero = [
     path: "/fr",
     h1: "Parrit opère vos deux fronts critiques : back-office automatisé et business généré.",
     cta: "Recevoir mon diagnostic",
+    presence: "Parrit intervient sur trois continents.",
   },
   {
     path: "/en",
     h1: "Parrit operates your two critical fronts: automated back office and generated business.",
     cta: "Get my diagnostic",
+    presence: "Parrit operates across three continents.",
   },
   {
     path: "/pt-BR",
     h1: "A Parrit opera suas duas frentes críticas: back-office automatizado e business gerado.",
     cta: "Receber meu diagnóstico",
+    presence: "A Parrit atua em três continentes.",
   },
   {
     path: "/zh-CN",
     h1: "Parrit 为你运营两个关键战线：自动化后台和业务增长。",
     cta: "获取我的诊断",
+    presence: "Parrit 覆盖三大洲。",
   },
 ];
 
-test("home maturity section exposes diagnostic plus all N1-N7 entry points", async ({ page }) => {
+test("home maturity section keeps the fast-track conversion layout clean", async ({ page }) => {
   await page.goto(new URL("/fr", BASE_URL).toString(), { waitUntil: "networkidle" });
 
   await expect(page.locator("#maturite .mountain-point")).toHaveCount(7);
   await expect(page.locator("#maturite .mountain-start")).toHaveCount(1);
-  await expect(page.locator("#maturite .maturite-tile")).toHaveCount(8);
-  await expect(page.locator("#maturite .maturite-example")).toHaveCount(3);
+  await expect(page.locator("#maturite .maturite-tile")).toHaveCount(0);
+  await expect(page.locator("#maturite .maturite-example")).toHaveCount(0);
   await expect(page.locator("#maturite .maturite-fast-track")).toContainText(
     "Dirigeants & Grands Comptes",
   );
   await expect(page.locator("#maturite .maturite-fast-track")).toContainText(
     "Demander l'Audit de Transformation",
   );
-  await expect(page.locator("#maturite")).toContainText("Point de départ");
-  await expect(page.locator("#maturite")).toContainText("Diagnostic & cartographie des process");
-  await expect(page.locator("#maturite")).toContainText("Un COMEX qui découvre");
-  await expect(page.locator("#maturite")).toContainText("Avant");
-  await expect(page.locator("#maturite")).toContainText("Après");
+  await expect(page.locator("#maturite")).not.toContainText("Point de départ");
+  await expect(page.locator("#maturite")).not.toContainText("Un COMEX qui découvre");
+  await expect(page.locator("#maturite")).not.toContainText("Avant");
+  await expect(page.locator("#maturite")).not.toContainText("Après");
 
   for (const path of maturityPaths) {
     await expect(page.locator(`#maturite .mountain-point[href="/fr${path}"]`)).toHaveCount(1);
-    await expect(page.locator(`#maturite .maturite-tile[href="/fr${path}"]`)).toHaveCount(1);
   }
 });
 
@@ -163,6 +165,8 @@ for (const heroCase of localizedHomeHero) {
 
     await expect(page.locator(".hero h1")).toContainText(heroCase.h1);
     await expect(page.locator(".hero-desktop-cta .btn-red")).toContainText(heroCase.cta);
+    await expect(page.locator(".presence-sec")).toContainText(heroCase.presence);
+    await expect(page.locator(".presence-item")).toHaveCount(3);
   });
 }
 
@@ -192,6 +196,46 @@ test("mobile home hero surfaces the primary CTA before tools", async ({ page }) 
   expect(layout?.chipsTop, "tools stay after the primary CTA on mobile").toBeGreaterThan(
     layout?.ctaBottom ?? 0,
   );
+});
+
+test("pt-BR home stays visually inside a small phone viewport", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto(new URL("/pt-BR", BASE_URL).toString(), { waitUntil: "networkidle" });
+
+  const audit = await page.evaluate(() => {
+    const viewportWidth = window.innerWidth;
+    const visibleOffenders = Array.from(document.querySelectorAll("body *"))
+      .map((element) => {
+        const rect = element.getBoundingClientRect();
+
+        return {
+          className: String(element.className || ""),
+          right: Math.round(rect.right),
+          text: element.textContent?.replace(/\s+/g, " ").trim().slice(0, 80) ?? "",
+          width: Math.round(rect.width),
+          x: Math.round(rect.x),
+        };
+      })
+      .filter(
+        (item) =>
+          item.width > 0 && (item.x < -1 || item.right > viewportWidth + 1),
+      );
+
+    return {
+      documentWidth: Math.max(document.documentElement.scrollWidth, document.body.scrollWidth),
+      oldMountainText: /Point de départ|Un COMEX qui découvre|Avant|Après/u.test(
+        document.querySelector("#maturite")?.textContent ?? "",
+      ),
+      visibleOffenders,
+      viewportWidth,
+    };
+  });
+
+  expect(audit.documentWidth, "no horizontal document overflow").toBeLessThanOrEqual(
+    audit.viewportWidth + 1,
+  );
+  expect(audit.visibleOffenders, "no visual element leaks outside the phone viewport").toEqual([]);
+  expect(audit.oldMountainText, "old verbose maturity copy stays removed").toBe(false);
 });
 
 test("home hero CTA emits the conversion metric", async ({ page }) => {

@@ -32,7 +32,7 @@
     "logo": "PARRIT.AI",
     "titleMain": "Build.",
     "titleAccent": "Don't advise.",
-    "subtitle": "Parrit opère vos deux fronts critiques : automatiser le back-office qui pèse sur vos équipes, et générer le business que vous laissez passer.",
+    "subtitle": "Parrit operates your two critical fronts: automating the back office that slows your teams down, and generating the business you are leaving on the table.",
     "cta": "Book 15 minutes with Paul",
     "ctaMicro": "No commitment · Reply within 24 hours · DMs open"
   },
@@ -123,7 +123,7 @@
   },
   "approach": {
     "title": "Four verbs, no more",
-    "description": "On traite toute la chaîne, de la stratégie au résultat. Une équipe d'experts métier et techniques, mobilisable en renfort sur les chantiers qui le demandent. Pas pour produire du conseil. Pour livrer.",
+    "description": "We cover the whole chain, from strategy to outcome. A network of business and technical experts can reinforce the projects that need it. Not to produce consulting. To ship.",
     "pillars": [
       {
         "n": "1",
@@ -138,7 +138,7 @@
       {
         "n": "3",
         "title": "Deploy",
-        "desc": "Itératif, jusqu'à ce que le système tourne en production sans aide extérieure, dans votre infrastructure."
+        "desc": "Iterative until the system runs in production without external help, inside your infrastructure."
       },
       {
         "n": "4",
@@ -186,50 +186,50 @@
     "footer": "Real cases, clients anonymized. Every system is running in production today."
   },
   "claudeCode": {
-    "badge": "TROIS OFFRES, DEUX FRONTS",
-    "title": "Trois façons de mettre Parrit dans votre opération",
-    "subtitle": "Vous choisissez par où on commence.",
+    "badge": "THREE OFFERS, TWO FRONTS",
+    "title": "Three ways to bring Parrit into your operation",
+    "subtitle": "You choose where we start.",
     "offers": [
       {
-        "kind": "Transformation complète",
-        "title": "Transformation IA + Formation agentique",
-        "recommendedBadge": "Le plus complet",
-        "intro": "Le cœur de Parrit. Agents installés sur tous vos fronts, équipes formées à les piloter en autonomie.",
+        "kind": "Full transformation",
+        "title": "AI transformation + agentic training",
+        "recommendedBadge": "Most complete",
+        "intro": "The core Parrit format. Agents installed across your fronts, teams trained to operate them autonomously.",
         "bullets": [
-          "Agents qui couvrent vos deux axes : back-office automatisé et business généré",
-          "Formation Claude Code pensée pour les non-tech, vos équipes construisent",
-          "Accompagnement opérationnel sur 4 à 12 semaines, pas un PDF",
-          "Qualiopi en cours d'instruction, financement OPCO à venir"
+          "Agents covering your two axes: automated back office and generated business",
+          "Claude Code training designed for non-technical teams, with your people building",
+          "Operational support over 4 to 12 weeks, not a PDF",
+          "Qualiopi process underway, OPCO funding to follow"
         ],
-        "footnote": "Pour traiter les deux fronts en même temps."
+        "footnote": "For treating both fronts at the same time."
       },
       {
-        "kind": "Prototype rapide",
-        "title": "Prototypage rapide",
-        "intro": "La preuve par le code en 2 à 4 semaines. Un cas métier, un agent sur mesure, en production.",
+        "kind": "Rapid prototype",
+        "title": "Rapid prototyping",
+        "intro": "Proof through code in 2 to 4 weeks. One business case, one custom agent, in production.",
         "bullets": [
-          "Un cas métier réel cadré et livré en 2 à 4 semaines",
-          "Stack moderne ouverte (Claude Code, Gemini, n8n), pas de boîte noire",
-          "Code livré, vous en êtes propriétaire",
-          "Souvent le premier pas avant la transformation globale"
+          "One real business case scoped and delivered in 2 to 4 weeks",
+          "Modern open stack (Claude Code, Gemini, n8n), no black box",
+          "Code delivered, owned by you",
+          "Often the first step before a broader transformation"
         ],
-        "footnote": "Pour voir avant de croire."
+        "footnote": "For seeing before believing."
       },
       {
-        "kind": "Génération de pipe",
+        "kind": "Pipeline generation",
         "title": "Lead Generation",
-        "intro": "On industrialise votre acquisition outbound voix dirigeant. Sourcing, copy, séquences, reporting RDV.",
+        "intro": "We industrialize outbound acquisition in an executive voice: sourcing, copy, sequences and meeting reporting.",
         "bullets": [
-          "Pas d'IA générique qui sent l'IA, voix Operating Partner travaillée prospect par prospect",
-          "Cible des dirigeants qui ne répondent jamais aux cold emails classiques",
-          "Pipeline branché sur signaux faibles (podcasts, levées, nominations)",
-          "Méthode et outils transmis, pas de dépendance à vie"
+          "No generic AI copy that feels like AI: an Operating Partner voice tailored prospect by prospect",
+          "Targets executives who never reply to classic cold emails",
+          "Pipeline connected to weak signals (podcasts, funding rounds, appointments)",
+          "Method and tools transferred, no lifetime dependency"
         ],
-        "footnote": "Pour du RDV qualifié sans recruter."
+        "footnote": "For qualified meetings without hiring."
       }
     ],
-    "target": "Pour dirigeants qui veulent piloter leur transformation IA. Ni SaaS, ni recrutement, ni conseil.",
-    "cta": "Réserver 15 minutes avec Paul"
+    "target": "For executives who want to drive their AI transformation. Not SaaS, not recruitment, not consulting.",
+    "cta": "Book 15 minutes with Paul"
   },
   "quote": {
     "text": "“Others theorize. I code, I ship, and I stay.”",
@@ -940,52 +940,52 @@
   "casVitrines": {
     "meta": {
       "title": "Showcase cases : Parrit.ai",
-      "description": "Quatre profils d'entreprise, quatre transformations opérées par Parrit. TPE/artisan, PME B2C, cabinet de conseil, grand groupe."
+      "description": "Four company profiles, four transformations operated by Parrit: small business, growing B2C brand, consulting firm, enterprise."
     },
     "homeSection": {
-      "badge": "QUATRE EXEMPLES PARMI BEAUCOUP D'AUTRES",
-      "title": "Deux types de chantiers, une même façon de construire",
-      "subtitle": "Capter, prototyper, opérer, transmettre. Cette méthode s'applique à deux fronts critiques : ce qui pèse aujourd'hui sur vos équipes, et ce qu'elles n'ont pas le temps d'aller chercher. Chaque entreprise a ses propres goulots.",
+      "badge": "FOUR EXAMPLES AMONG MANY",
+      "title": "Two types of work, one way to build",
+      "subtitle": "Capture, prototype, operate, transfer. The method applies to two critical fronts: what weighs on your teams today, and what they do not have time to pursue. Every company has its own bottlenecks.",
       "categories": [
         {
-          "badge": "TÂCHES INTERNES EXISTANTES",
-          "title": "Automatiser ce qui pèse sur vos équipes",
+          "badge": "EXISTING INTERNAL TASKS",
+          "title": "Automate what weighs on your teams",
           "examples": [
             {
-              "title": "Centraliser les demandes multicanales",
-              "context": "Exemple observé chez un artisan haut de gamme",
-              "brief": "Vos canaux entrants (site, réseaux sociaux, téléphone, point de vente) débordent. L'agent capte chaque demande, la qualifie par typologie, route, et tient les stocks à jour.",
-              "result": "100 % des leads captés, 60 % du temps administratif libéré."
+              "title": "Centralize multi-channel requests",
+              "context": "Example observed with a premium artisan business",
+              "brief": "Your inbound channels (site, social, phone, store) overflow. The agent captures every request, qualifies it by type, routes it and keeps inventory up to date.",
+              "result": "100% of leads captured, 60% of administrative time freed."
             },
             {
-              "title": "Digest thématique automatisé",
-              "context": "Exemple observé dans un cabinet d'avocats",
-              "brief": "Deux heures par matin à éplucher la presse spécialisée et la jurisprudence. L'agent digest, classe, et prépare l'email du lundi prêt à diffuser.",
-              "result": "Digest livré chaque lundi 7 h 30, prêt à envoyer aux clients."
+              "title": "Automated thematic digest",
+              "context": "Example observed in a law firm",
+              "brief": "Two hours every morning scanning specialized press and case law. The agent digests, classifies and prepares Monday's client email.",
+              "result": "Digest delivered every Monday at 7:30am, ready to send to clients."
             }
           ]
         },
         {
-          "badge": "GÉNÉRATION DE BUSINESS",
-          "title": "Aller chercher le business que vos équipes ne touchent pas",
+          "badge": "BUSINESS GENERATION",
+          "title": "Go after the business your teams do not reach",
           "examples": [
             {
-              "title": "Pipeline outbound sur signaux faibles",
-              "context": "Exemple observé dans un cabinet de conseil",
-              "brief": "Vos prospects parlent en podcast, lèvent des fonds, recrutent. L'agent scanne 18 podcasts par jour, extrait les dirigeants pertinents, écrit avec votre voix.",
-              "result": "4 RDV qualifiés par semaine, taux de réponse 12 % contre 2 % en cold classique."
+              "title": "Outbound pipeline from weak signals",
+              "context": "Example observed in a consulting firm",
+              "brief": "Your prospects speak on podcasts, raise funding and hire. The agent scans 18 podcasts per day, extracts relevant executives and writes in your voice.",
+              "result": "4 qualified meetings per week, 12% reply rate versus 2% in classic cold outbound."
             },
             {
-              "title": "Prospection pilotée par alerte temps réel",
-              "context": "Exemple observé chez un client B2B",
-              "brief": "L'agent détecte qui ouvre un appel d'offres, qui change de poste, qui a un signal d'achat. Vous appelez au bon moment, jamais à l'aveugle.",
-              "result": "1 à 5 RDV qualifiés par jour, tous déclenchés par un signal détecté en temps réel."
+              "title": "Prospecting driven by real-time alerts",
+              "context": "Example observed with a B2B client",
+              "brief": "The agent detects who opens a tender, changes role or shows a buying signal. You call at the right time, never blindly.",
+              "result": "1 to 5 qualified meetings per day, all triggered by a real-time signal."
             }
           ]
         }
       ],
-      "footer": "On en fait beaucoup d'autres. Le mieux pour identifier le vôtre : 15 minutes avec Paul.",
-      "ctaLabel": "Voir le cas",
+      "footer": "We do many others. The best way to identify yours: 15 minutes with Paul.",
+      "ctaLabel": "See the case",
       "cards": [
         {
           "slug": "tpe-artisan-commercant",
@@ -1014,71 +1014,71 @@
       ]
     },
     "labels": {
-      "profile": "Profil de l'entreprise",
-      "transformation": "La transformation opérée",
-      "domains": "Domaines d'activités impactés",
-      "result": "Résultats",
-      "stack": "Stack technique mobilisée",
-      "otherProfilesTitle": "Découvrir un autre profil",
-      "otherProfilesCta": "Voir le cas"
+      "profile": "Company profile",
+      "transformation": "Transformation operated",
+      "domains": "Business areas impacted",
+      "result": "Results",
+      "stack": "Technical stack used",
+      "otherProfilesTitle": "Explore another profile",
+      "otherProfilesCta": "See the case"
     },
     "profiles": [
       {
         "slug": "tpe-artisan-commercant",
         "hero": {
-          "badge": "TPE / ARTISAN / COMMERÇANT INDÉPENDANT",
-          "titleMain": "De l'agitation",
-          "titleAccent": "à la maîtrise.",
-          "intro": "Vous êtes seul ou à quelques-uns à tout faire. Parrit installe les agents qui captent vos leads, qualifient vos demandes, gèrent vos stocks et relancent vos clients. Vous gardez la décision."
+          "badge": "SMALL BUSINESS / ARTISAN / INDEPENDENT RETAILER",
+          "titleMain": "From firefighting",
+          "titleAccent": "to control.",
+          "intro": "You are alone, or a few people doing everything. Parrit installs the agents that capture leads, qualify requests, manage inventory and follow up with clients. You keep the decision."
         },
         "profile": {
           "items": [
             {
-              "label": "Taille",
-              "value": "1 à 10 personnes"
+              "label": "Size",
+              "value": "1 to 10 people"
             },
             {
-              "label": "Marchés",
-              "value": "B2C + B2B mixte"
+              "label": "Markets",
+              "value": "Mixed B2C + B2B"
             },
             {
-              "label": "Canaux",
-              "value": "E-commerce, réseaux sociaux, téléphone, point de vente"
+              "label": "Channels",
+              "value": "E-commerce, social media, phone, point of sale"
             },
             {
-              "label": "Enjeu",
-              "value": "Le fondateur est sur tous les fronts, le commercial passe sous le radar"
+              "label": "Challenge",
+              "value": "The founder is on every front, sales activity slips under the radar"
             }
           ]
         },
         "transformation": {
-          "quote": "On bascule du fondateur-pompier au fondateur-pilote. Les leads ne tombent plus dans le vide, les stocks ne sont plus tenus sur post-it, les clients ne sont plus oubliés.",
-          "body": "Un agent unique capte chaque demande entrante, la qualifie par typologie, déclenche la bonne relance WhatsApp dans la voix du fondateur, et tient les stocks à jour. Vous regardez le dashboard 10 minutes le matin, et c'est tout."
+          "quote": "We move from founder-as-firefighter to founder-as-pilot. Leads no longer disappear, inventory is no longer managed on sticky notes, clients are no longer forgotten.",
+          "body": "One agent captures every inbound request, qualifies it by type, triggers the right WhatsApp follow-up in the founder's voice and keeps inventory updated. You check the dashboard for 10 minutes in the morning, and that is it."
         },
         "domains": [
-          "Capture leads sur tous vos canaux (e-commerce, réseaux sociaux, téléphone, point de vente)",
-          "Qualification automatique par typologie client",
-          "Gestion des stocks et des commandes en temps réel",
-          "Relances WhatsApp segmentées dans votre voix",
-          "Suivi commercial unifié sur dashboard quotidien",
-          "Production et envoi automatique de devis simples"
+          "Lead capture across all channels (e-commerce, social media, phone, point of sale)",
+          "Automatic qualification by client type",
+          "Real-time inventory and order management",
+          "Segmented WhatsApp follow-ups in your voice",
+          "Unified sales tracking on a daily dashboard",
+          "Automatic creation and sending of simple quotes"
         ],
         "result": {
           "metrics": [
             {
               "value": "100 %",
-              "label": "des leads captés (vs ~30 % avant)"
+              "label": "of leads captured (vs ~30% before)"
             },
             {
               "value": "60 %",
-              "label": "du temps administratif libéré pour le fondateur"
+              "label": "of administrative time freed for the founder"
             },
             {
               "value": "14",
-              "label": "demandes Pro identifiées la première semaine, passaient sous le radar"
+              "label": "professional requests identified in week one that previously went unseen"
             }
           ],
-          "note": "Cas type représentatif. Chiffres observés sur un projet réel mené avec un artisan français en 2026."
+          "note": "Representative case. Figures observed on a real project with a French artisan business in 2026."
         },
         "stack": [
           "n8n",
@@ -1092,59 +1092,59 @@
       {
         "slug": "pme-marque-b2c",
         "hero": {
-          "badge": "PME / MARQUE B2C EN CROISSANCE",
-          "titleMain": "Reprendre la main",
-          "titleAccent": "sur votre visibilité IA.",
-          "intro": "Rufus, Alexa for Shopping et ChatGPT Search orientent désormais le choix produit des acheteurs. Parrit installe l'agent qui surveille votre visibilité IA chaque jour, par mot-clé et par concurrent."
+          "badge": "SMB / GROWING B2C BRAND",
+          "titleMain": "Take back control",
+          "titleAccent": "of AI visibility.",
+          "intro": "Rufus, Alexa for Shopping and ChatGPT Search now influence how buyers choose products. Parrit installs the agent that monitors your AI visibility every day, by keyword and competitor."
         },
         "profile": {
           "items": [
             {
-              "label": "Taille",
-              "value": "10 à 200 personnes"
+              "label": "Size",
+              "value": "10 to 200 people"
             },
             {
-              "label": "Modèle",
-              "value": "Marque B2C avec forte présence e-commerce et marketplaces"
+              "label": "Model",
+              "value": "B2C brand with strong e-commerce and marketplace presence"
             },
             {
-              "label": "Plateformes",
-              "value": "Amazon, Shopify, marketplaces sectorielles"
+              "label": "Platforms",
+              "value": "Amazon, Shopify, sector marketplaces"
             },
             {
-              "label": "Enjeu",
-              "value": "Dépendance plateformes et opacité totale sur l'orientation IA des acheteurs"
+              "label": "Challenge",
+              "value": "Platform dependency and total opacity on how AI steers buyers"
             }
           ]
         },
         "transformation": {
-          "quote": "On vous donne enfin la visibilité que les plateformes vous cachent. Chaque matin, vous savez exactement ce que Rufus a recommandé hier, et qui a gagné du terrain.",
-          "body": "Chaque matin, un agent interroge Rufus et Alexa sur vos 50 instructions stratégiques. Il mesure votre rang, votre share-of-voice IA, et les concurrents qui montent. Vous recevez un dashboard quotidien et une alerte si quelque chose bouge."
+          "quote": "We finally give you the visibility platforms hide from you. Every morning, you know exactly what Rufus recommended yesterday, and who gained ground.",
+          "body": "Every morning, an agent queries Rufus and Alexa on your 50 strategic prompts. It measures your rank, AI share of voice and rising competitors. You receive a daily dashboard and an alert when something moves."
         },
         "domains": [
-          "Veille concurrentielle continue sur 50 instructions stratégiques par jour",
-          "Monitoring share-of-voice IA (Rufus, Alexa, ChatGPT Search)",
-          "Intelligence prix et positionnement marketplaces",
-          "Alertes stratégiques temps réel via Telegram",
-          "Réajustement des fiches produit selon les signaux IA",
-          "Reporting hebdomadaire pour le comité marketing"
+          "Continuous competitive monitoring on 50 strategic prompts per day",
+          "AI share-of-voice monitoring (Rufus, Alexa, ChatGPT Search)",
+          "Pricing intelligence and marketplace positioning",
+          "Real-time strategic alerts via Telegram",
+          "Product page adjustments based on AI signals",
+          "Weekly reporting for the marketing committee"
         ],
         "result": {
           "metrics": [
             {
               "value": "50",
-              "label": "instructions stratégiques scannées chaque matin"
+              "label": "strategic prompts scanned every morning"
             },
             {
               "value": "3",
-              "label": "menaces concurrentielles détectées le premier mois"
+              "label": "competitive threats detected in month one"
             },
             {
               "value": "6 sem.",
-              "label": "ROI prouvé sur la première vague de réajustements"
+              "label": "ROI proven on the first wave of adjustments"
             }
           ],
-          "note": "Cas type représentatif. Stack et résultats issus d'un projet réel mené avec un acteur premium en 2026."
+          "note": "Representative case. Stack and results from a real project with a premium player in 2026."
         },
         "stack": [
           "Bright Data",
@@ -1158,59 +1158,59 @@
       {
         "slug": "cabinet-conseil",
         "hero": {
-          "badge": "CABINET DE CONSEIL / AGENCE / SOCIÉTÉ DE SERVICES",
-          "titleMain": "Du cold mort",
-          "titleAccent": "au signal vivant.",
-          "intro": "Le cold classique ne marche plus. Parrit construit votre pipeline outbound voix dirigeant, branché sur les signaux faibles qui montrent qu'un prospect est mûr aujourd'hui : podcast, levée, nomination."
+          "badge": "CONSULTING FIRM / AGENCY / SERVICE COMPANY",
+          "titleMain": "From dead cold outbound",
+          "titleAccent": "to live signals.",
+          "intro": "Classic cold outbound no longer works. Parrit builds your executive-voice outbound pipeline, connected to weak signals showing that a prospect is ready today: podcast, funding round, appointment."
         },
         "profile": {
           "items": [
             {
-              "label": "Taille",
-              "value": "10 à 100 personnes"
+              "label": "Size",
+              "value": "10 to 100 people"
             },
             {
-              "label": "Modèle",
-              "value": "Vente de services intellectuels haute valeur ajoutée"
+              "label": "Model",
+              "value": "High-value professional services sales"
             },
             {
-              "label": "Cible",
-              "value": "Dirigeants ETI ou grands comptes (CODIR, COMEX)"
+              "label": "Target",
+              "value": "Mid-market and enterprise executives (leadership teams, executive committees)"
             },
             {
-              "label": "Enjeu",
-              "value": "Outbound classique en panne (taux réponse <2%), pas de signal pour personnaliser"
+              "label": "Challenge",
+              "value": "Classic outbound broken (reply rate under 2%), no signal to personalize from"
             }
           ]
         },
         "transformation": {
-          "quote": "Vous arrêtez d'envoyer le même message à tout le monde. Chaque prospect reçoit une accroche qui dit précisément pourquoi vous l'écrivez aujourd'hui, à partir d'un signal qu'il a lui-même produit.",
-          "body": "Un agent scanne chaque jour 18 podcasts business et la presse spécialisée. Il extrait les dirigeants pertinents, enrichit le contact, et construit un message Operating Partner qui cite une idée précise du signal détecté. Les réponses arrivent qualifiées chaud / froid."
+          "quote": "You stop sending the same message to everyone. Each prospect receives an opener that says exactly why you are writing today, based on a signal they created themselves.",
+          "body": "An agent scans 18 business podcasts and specialized press sources every day. It extracts relevant executives, enriches contacts and writes an Operating Partner message citing a precise idea from the detected signal. Replies arrive already qualified as hot or cold."
         },
         "domains": [
-          "Sourcing prospects (LinkedIn, SIRENE, presse)",
-          "Veille signaux faibles (podcasts, levées, nominations, recrutements)",
-          "Qualification automatique leads chauds vs froids",
-          "Copywriting voix dirigeant par signal",
-          "Séquences multicanales coordonnées (email, LinkedIn)",
-          "Monitoring délivrabilité et reporting RDV pris"
+          "Prospect sourcing (LinkedIn, company registries, press)",
+          "Weak signal monitoring (podcasts, funding rounds, appointments, hiring)",
+          "Automatic hot vs cold lead qualification",
+          "Executive-voice copywriting by signal",
+          "Coordinated multi-channel sequences (email, LinkedIn)",
+          "Deliverability monitoring and booked-meeting reporting"
         ],
         "result": {
           "metrics": [
             {
-              "value": "4 RDV",
-              "label": "qualifiés en moyenne par semaine"
+              "value": "4 meetings",
+              "label": "qualified meetings on average per week"
             },
             {
               "value": "12 %",
-              "label": "taux de réponse (vs 2 % en cold classique)"
+              "label": "reply rate (vs 2% in classic cold outbound)"
             },
             {
               "value": "120 k€",
-              "label": "HT pipeline net signés en 4 mois"
+              "label": "net pipeline signed in 4 months"
             }
           ],
-          "note": "Cas type représentatif. Performance observée sur des campagnes B2B France en 2026."
+          "note": "Representative case. Performance observed on French B2B campaigns in 2026."
         },
         "stack": [
           "YouTube / RSS scraper",
@@ -1224,59 +1224,59 @@
       {
         "slug": "grand-groupe",
         "hero": {
-          "badge": "GRAND GROUPE / ETI / MULTINATIONALE",
-          "titleMain": "De la formation théorique",
-          "titleAccent": "à l'agent en production.",
-          "intro": "Vos dirigeants ont vu trop de slides. Parrit anime un sprint hands-on de 2 jours où chacun arrive avec un cas métier réel et repart avec un agent en production. Le transfert de compétence devient permanent."
+          "badge": "ENTERPRISE / MID-MARKET GROUP / MULTINATIONAL",
+          "titleMain": "From theoretical training",
+          "titleAccent": "to an agent in production.",
+          "intro": "Your executives have seen too many slides. Parrit runs a two-day hands-on sprint where everyone arrives with a real business case and leaves with an agent in production. Skill transfer becomes permanent."
         },
         "profile": {
           "items": [
             {
-              "label": "Taille",
-              "value": "1 000+ collaborateurs"
+              "label": "Size",
+              "value": "1,000+ employees"
             },
             {
-              "label": "Couverture",
-              "value": "Présence internationale, plusieurs business units"
+              "label": "Coverage",
+              "value": "International presence, several business units"
             },
             {
               "label": "Sponsor",
-              "value": "Direction Training & Development, COMEX ou DG transformation"
+              "value": "Training & Development, executive committee or transformation leadership"
             },
             {
-              "label": "Enjeu",
-              "value": "Sortir du pilote perpétuel et installer une vraie autonomie IA chez les dirigeants"
+              "label": "Challenge",
+              "value": "Move out of perpetual pilots and install real AI autonomy among executives"
             }
           ]
         },
         "transformation": {
-          "quote": "On arrête de leur expliquer comment ça marche. On les fait construire. Ils repartent avec leur agent, et avec la mécanique pour en construire d'autres avec leurs équipes.",
-          "body": "Sprint en 2 jours. Jour 1 matin : cadrage de chaque cas métier. Jour 1 après-midi à jour 2 : co-construction de l'agent avec Claude Code et branchement aux outils internes. Jour 2 fin : mise en production. À J+7 follow-up, et les dirigeants formés deviennent ensuite vos formateurs internes."
+          "quote": "We stop explaining how it works. We make them build. They leave with their agent, and with the mechanics to build others with their teams.",
+          "body": "A two-day sprint. Day 1 morning: scope each business case. Day 1 afternoon through Day 2: co-build the agent with Claude Code and connect it to internal tools. End of Day 2: production launch. At D+7, follow-up, and trained executives become your internal trainers."
         },
         "domains": [
-          "Formation Claude Code pour dirigeants non-tech",
-          "Prototypage de cas métier réels en sprint encadré",
-          "Montée en autonomie sur la conduite d'agents IA",
-          "Train-the-trainer : vos dirigeants formés deviennent formateurs internes",
-          "Industrialisation des bonnes pratiques agentiques",
-          "Suivi post-sprint à J+7 et J+30 pour ajuster"
+          "Claude Code training for non-technical executives",
+          "Real business case prototyping in a facilitated sprint",
+          "Autonomy in operating AI agents",
+          "Train-the-trainer: trained executives become internal trainers",
+          "Industrialization of agentic best practices",
+          "Post-sprint follow-up at D+7 and D+30 to adjust"
         ],
         "result": {
           "metrics": [
             {
-              "value": "6 dirigeants",
-              "label": "formés par cohorte"
+              "value": "6 executives",
+              "label": "trained per cohort"
             },
             {
               "value": "6 agents",
-              "label": "en production à J+2"
+              "label": "in production by D+2"
             },
             {
-              "value": "3 cohortes",
-              "label": "renouvelées l'année suivante par l'équipe T&D"
+              "value": "3 cohorts",
+              "label": "renewed the following year by the T&D team"
             }
           ],
-          "note": "Cas type représentatif. Format issu d'un programme Sprint Builders réel mené avec un retailer européen en 2026."
+          "note": "Representative case. Format derived from a real Sprint Builders program run with a European retailer in 2026."
         },
         "stack": [
           "Claude Code",
@@ -1288,7 +1288,7 @@
         ]
       }
     ],
-    "ctaTitle": "Vous vous reconnaissez dans ce profil ?",
-    "ctaSubtitle": "15 minutes avec Paul. On regarde votre opération, on identifie le goulot, on voit si Parrit peut le débloquer."
+    "ctaTitle": "Do you recognize your profile here?",
+    "ctaSubtitle": "15 minutes with Paul. We look at your operation, identify the bottleneck and see whether Parrit can unblock it."
   }
 }

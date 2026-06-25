@@ -57,6 +57,12 @@ type HomeCopy = {
     secondary: string;
   };
   logosLabel: string;
+  presence: {
+    kicker: string;
+    title: string;
+    lead: string;
+    items: { region: string; copy: string }[];
+  };
   what: {
     kicker: string;
     titleBefore: string;
@@ -159,6 +165,16 @@ const COPY: Record<Locale, HomeCopy> = {
       secondary: "Voir la transformation",
     },
     logosLabel: "Ils nous ont déjà fait confiance",
+    presence: {
+      kicker: "Présence internationale",
+      title: "Parrit intervient sur trois continents.",
+      lead: "France et Europe en présentiel, Amériques et Asie en remote structuré. Même exigence : diagnostiquer vite, livrer proprement, transmettre aux équipes.",
+      items: [
+        { region: "Europe", copy: "France, DACH, Royaume-Uni et équipes européennes." },
+        { region: "Amériques", copy: "États-Unis et Brésil, avec rituels adaptés aux fuseaux." },
+        { region: "Asie", copy: "Chine et filiales asiatiques, en français, anglais ou portugais brésilien." },
+      ],
+    },
     what: {
       kicker: "Ce qu'on fait, concrètement",
       titleBefore: "On vous fait gagner du ",
@@ -376,6 +392,16 @@ const COPY: Record<Locale, HomeCopy> = {
       secondary: "See the transformation",
     },
     logosLabel: "They already trusted us",
+    presence: {
+      kicker: "International presence",
+      title: "Parrit operates across three continents.",
+      lead: "Onsite in France and Europe, structured remote delivery across the Americas and Asia. Same standard: diagnose fast, ship cleanly, transfer capability to teams.",
+      items: [
+        { region: "Europe", copy: "France, DACH, the UK and European teams." },
+        { region: "Americas", copy: "United States and Brazil, with rituals adapted to time zones." },
+        { region: "Asia", copy: "China and Asian subsidiaries, in French, English or Brazilian Portuguese." },
+      ],
+    },
     what: {
       kicker: "What we do, concretely",
       titleBefore: "We help you save ",
@@ -593,6 +619,16 @@ const COPY: Record<Locale, HomeCopy> = {
       secondary: "Ver a transformação",
     },
     logosLabel: "Eles já confiaram em nós",
+    presence: {
+      kicker: "Presença internacional",
+      title: "A Parrit atua em três continentes.",
+      lead: "Presencial na França e na Europa, entrega remota estruturada nas Américas e na Ásia. A mesma exigência: diagnosticar rápido, entregar limpo e transferir capacidade para as equipes.",
+      items: [
+        { region: "Europa", copy: "França, DACH, Reino Unido e equipes europeias." },
+        { region: "Américas", copy: "Estados Unidos e Brasil, com rituais adaptados aos fusos." },
+        { region: "Ásia", copy: "China e filiais asiáticas, em francês, inglês ou português do Brasil." },
+      ],
+    },
     what: {
       kicker: "O que fazemos, concretamente",
       titleBefore: "Fazemos você ganhar ",
@@ -810,6 +846,16 @@ const COPY: Record<Locale, HomeCopy> = {
       secondary: "查看转型路径",
     },
     logosLabel: "他们已经信任我们",
+    presence: {
+      kicker: "国际覆盖",
+      title: "Parrit 覆盖三大洲。",
+      lead: "在法国和欧洲可现场交付，在美洲与亚洲采用结构化远程交付。标准不变：快速诊断、干净交付，并把能力交给团队。",
+      items: [
+        { region: "欧洲", copy: "法国、DACH、英国及欧洲团队。" },
+        { region: "美洲", copy: "美国与巴西，按时区设计固定协作节奏。" },
+        { region: "亚洲", copy: "中国及亚洲分支，可用法语、英语或巴西葡萄牙语协作。" },
+      ],
+    },
     what: {
       kicker: "我们具体做什么",
       titleBefore: "我们帮你节省",
@@ -1217,6 +1263,26 @@ export default function HomeClient({ lang }: { lang: Locale }) {
         </div>
       </section>
 
+      <section className="presence-sec" aria-labelledby="presence-title">
+        <div className="wrap">
+          <div className="presence-card">
+            <div>
+              <p className="kicker">{copy.presence.kicker}</p>
+              <h2 id="presence-title">{copy.presence.title}</h2>
+              <p className="lead">{copy.presence.lead}</p>
+            </div>
+            <div className="presence-grid">
+              {copy.presence.items.map((item) => (
+                <article className="presence-item" key={item.region}>
+                  <strong>{item.region}</strong>
+                  <span>{item.copy}</span>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="section band" id="deployer">
         <div className="wrap">
           <div className="two">
@@ -1286,129 +1352,80 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           <p className="kicker">{copy.maturite.kicker}</p>
           <h2>{copy.maturite.title}</h2>
           <p className="lead">{copy.maturite.lead}</p>
-          <a className="maturite-fast-track" href={`/${lang}${copy.maturite.fastTrack.href}`}>
-            <div>
-              <span className="maturite-fast-track-kicker">Fast-track</span>
-              <h3>{copy.maturite.fastTrack.h3}</h3>
-              <p>{copy.maturite.fastTrack.body}</p>
-            </div>
-            <div className="maturite-fast-track-offer">
-              <strong>{copy.maturite.fastTrack.offer}</strong>
-              <span>{copy.maturite.fastTrack.promise}</span>
-              <em>
-                {copy.maturite.fastTrack.cta}
-                <span aria-hidden="true">→</span>
-              </em>
-            </div>
-          </a>
-          <a className="maturite-diagnostic-card" href={copy.maturite.diagnostic.href}>
-            <span className="maturite-num">{copy.maturite.diagnostic.level}</span>
-            <strong>{copy.maturite.diagnostic.title}</strong>
-            <span>{copy.maturite.diagnostic.body}</span>
-            <em>
-              {copy.maturite.diagnostic.cta}
-              <span aria-hidden="true">→</span>
-            </em>
-          </a>
-          <nav className="maturite-mountain" aria-label={copy.maturite.title}>
-            <svg viewBox="0 0 960 470" aria-labelledby="maturite-mountain-title maturite-mountain-desc">
-              <title id="maturite-mountain-title">{copy.maturite.title}</title>
-              <desc id="maturite-mountain-desc">{copy.maturite.lead}</desc>
-              <path
-                className="mountain-back"
-                d="M20 424 L168 242 L246 314 L392 120 L520 300 L646 154 L918 424 Z"
-              />
-              <path
-                className="mountain-mid"
-                d="M58 430 L252 224 L338 312 L484 84 L612 268 L754 88 L936 430 Z"
-              />
-              <path
-                className="mountain-front"
-                d="M34 432 L174 332 L306 380 L438 234 L548 348 L686 220 L932 432 Z"
-              />
-              <path
-                className="mountain-path"
-                d="M58 430 C112 430 96 392 130 390 C202 386 194 342 260 342 C326 342 330 286 390 286 C462 286 452 226 520 226 C592 226 580 160 650 160 C718 160 700 96 770 96 C838 96 820 38 890 36"
-              />
-              <a className="mountain-start" href={`/${lang}/audit`} aria-label={copy.maturite.diagnostic.cta}>
-                <circle cx="58" cy="430" r="20" />
-                <text x="58" y="434" textAnchor="middle">
-                  D0
-                </text>
-              </a>
-              {copy.maturite.levels.map((level) => {
-                const point = MATURITE_POINTS[level.id];
-                if (!point) return null;
-
-                return (
-                  <a
-                    className="mountain-point"
-                    href={`/${lang}${level.href}`}
-                    key={level.id}
-                    aria-label={`${level.id} · ${level.label} · ${level.phrase}`}
-                  >
-                    <circle cx={point.x} cy={point.y} r="20" />
-                    <text x={point.x} y={point.y + 4} textAnchor="middle">
-                      {level.id}
-                    </text>
-                    <foreignObject
-                      className="mountain-tooltip"
-                      x={point.tipX}
-                      y={point.tipY}
-                      width="226"
-                      height="98"
-                    >
-                      <div>
-                        <strong>
-                          {level.id} · {level.label}
-                        </strong>
-                        <span>{level.phrase}</span>
-                      </div>
-                    </foreignObject>
-                  </a>
-                );
-              })}
-            </svg>
-          </nav>
-          <div className="maturite-grid">
-            <a href={copy.maturite.diagnostic.href} className="maturite-tile maturite-tile-diagnostic">
-              <span className="maturite-num">{copy.maturite.diagnostic.level}</span>
-              <strong className="maturite-label">{copy.maturite.diagnostic.title}</strong>
-              <em className="maturite-phrase">{copy.maturite.diagnostic.body}</em>
-              <span className="maturite-action">
-                {copy.maturite.diagnostic.cta}
-                <span aria-hidden="true">→</span>
-              </span>
-            </a>
-            {copy.maturite.levels.map((level) => (
-              <a href={`/${lang}${level.href}`} className="maturite-tile" key={level.id}>
-                <span className="maturite-num">{level.id}</span>
-                <strong className="maturite-label">{level.label}</strong>
-                <em className="maturite-phrase">{level.phrase}</em>
-                <span className="maturite-action">
-                  {copy.maturite.action}
+          <div className="maturite-stage">
+            <a className="maturite-fast-track" href={`/${lang}${copy.maturite.fastTrack.href}`}>
+              <div>
+                <span className="maturite-fast-track-kicker">Fast-track</span>
+                <h3>{copy.maturite.fastTrack.h3}</h3>
+              </div>
+              <div className="maturite-fast-track-offer">
+                <strong>{copy.maturite.fastTrack.offer}</strong>
+                <em>
+                  {copy.maturite.fastTrack.cta}
                   <span aria-hidden="true">→</span>
-                </span>
-              </a>
-            ))}
-          </div>
-          <div className="maturite-examples">
-            {copy.maturite.examples.map((example) => (
-              <article className="maturite-example" key={`${example.level}-${example.title}`}>
-                <span className="maturite-num">{example.level}</span>
-                <h3>{example.title}</h3>
-                <div className="maturite-example-flow">
-                  <p>
-                    <span>{copy.maturite.beforeLabel}</span>
-                    {example.before}
-                  </p>
-                  <p>
-                    <span>{copy.maturite.afterLabel}</span>
-                    {example.after}
-                  </p>
-                </div>
-              </article>
-            ))}
+                </em>
+              </div>
+            </a>
+            <nav className="maturite-mountain" aria-label={copy.maturite.title}>
+              <svg viewBox="0 0 960 470" aria-labelledby="maturite-mountain-title maturite-mountain-desc">
+                <title id="maturite-mountain-title">{copy.maturite.title}</title>
+                <desc id="maturite-mountain-desc">{copy.maturite.lead}</desc>
+                <path
+                  className="mountain-back"
+                  d="M20 424 L168 242 L246 314 L392 120 L520 300 L646 154 L918 424 Z"
+                />
+                <path
+                  className="mountain-mid"
+                  d="M58 430 L252 224 L338 312 L484 84 L612 268 L754 88 L936 430 Z"
+                />
+                <path
+                  className="mountain-front"
+                  d="M34 432 L174 332 L306 380 L438 234 L548 348 L686 220 L932 432 Z"
+                />
+                <path
+                  className="mountain-path"
+                  d="M58 430 C112 430 96 392 130 390 C202 386 194 342 260 342 C326 342 330 286 390 286 C462 286 452 226 520 226 C592 226 580 160 650 160 C718 160 700 96 770 96 C838 96 820 38 890 36"
+                />
+                <a className="mountain-start" href={`/${lang}/audit`} aria-label={copy.maturite.diagnostic.cta}>
+                  <circle cx="58" cy="430" r="20" />
+                  <text x="58" y="434" textAnchor="middle">
+                    D0
+                  </text>
+                </a>
+                {copy.maturite.levels.map((level) => {
+                  const point = MATURITE_POINTS[level.id];
+                  if (!point) return null;
+
+                  return (
+                    <a
+                      className="mountain-point"
+                      href={`/${lang}${level.href}`}
+                      key={level.id}
+                      aria-label={`${level.id} · ${level.label} · ${level.phrase}`}
+                    >
+                      <circle cx={point.x} cy={point.y} r="20" />
+                      <text x={point.x} y={point.y + 4} textAnchor="middle">
+                        {level.id}
+                      </text>
+                      <foreignObject
+                        className="mountain-tooltip"
+                        x={point.tipX}
+                        y={point.tipY}
+                        width="226"
+                        height="98"
+                      >
+                        <div>
+                          <strong>
+                            {level.id} · {level.label}
+                          </strong>
+                          <span>{level.phrase}</span>
+                        </div>
+                      </foreignObject>
+                    </a>
+                  );
+                })}
+              </svg>
+            </nav>
           </div>
         </div>
       </section>

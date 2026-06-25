@@ -32,7 +32,7 @@
     "logo": "PARRIT.AI",
     "titleMain": "Construir.",
     "titleAccent": "Não consultar.",
-    "subtitle": "Parrit opère vos deux fronts critiques : automatiser le back-office qui pèse sur vos équipes, et générer le business que vous laissez passer.",
+    "subtitle": "A Parrit opera suas duas frentes críticas: automatizar o back-office que pesa nas suas equipes e gerar o business que vocês deixam passar.",
     "cta": "Agendar 15 minutos com Paul",
     "ctaMicro": "Sem compromisso · Resposta em 24h · DMs abertas"
   },
@@ -123,7 +123,7 @@
   },
   "approach": {
     "title": "Quatro verbos, nada além",
-    "description": "On traite toute la chaîne, de la stratégie au résultat. Une équipe d'experts métier et techniques, mobilisable en renfort sur les chantiers qui le demandent. Pas pour produire du conseil. Pour livrer.",
+    "description": "Tratamos a cadeia inteira, da estratégia ao resultado. Uma equipe de especialistas de negócio e técnicos pode entrar como reforço nos projetos que precisam. Não para produzir consultoria. Para entregar.",
     "pillars": [
       {
         "n": "1",
@@ -138,7 +138,7 @@
       {
         "n": "3",
         "title": "Implantar",
-        "desc": "Itératif, jusqu'à ce que le système tourne en production sans aide extérieure, dans votre infrastructure."
+        "desc": "Iterativo, até o sistema rodar em produção sem ajuda externa, dentro da sua infraestrutura."
       },
       {
         "n": "4",
@@ -186,50 +186,50 @@
     "footer": "Casos reais, clientes anonimizados. Cada sistema está em produção hoje."
   },
   "claudeCode": {
-    "badge": "TROIS OFFRES, DEUX FRONTS",
-    "title": "Trois façons de mettre Parrit dans votre opération",
-    "subtitle": "Vous choisissez par où on commence.",
+    "badge": "TRÊS OFERTAS, DUAS FRENTES",
+    "title": "Três formas de colocar a Parrit na sua operação",
+    "subtitle": "Você escolhe por onde começamos.",
     "offers": [
       {
-        "kind": "Transformation complète",
-        "title": "Transformation IA + Formation agentique",
-        "recommendedBadge": "Le plus complet",
-        "intro": "Le cœur de Parrit. Agents installés sur tous vos fronts, équipes formées à les piloter en autonomie.",
+        "kind": "Transformação completa",
+        "title": "Transformação IA + formação agentica",
+        "recommendedBadge": "O mais completo",
+        "intro": "O coração da Parrit. Agentes instalados em todas as suas frentes, equipes treinadas para pilotá-los com autonomia.",
         "bullets": [
-          "Agents qui couvrent vos deux axes : back-office automatisé et business généré",
-          "Formation Claude Code pensée pour les non-tech, vos équipes construisent",
-          "Accompagnement opérationnel sur 4 à 12 semaines, pas un PDF",
-          "Qualiopi en cours d'instruction, financement OPCO à venir"
+          "Agentes que cobrem seus dois eixos: back-office automatizado e business gerado",
+          "Formação Claude Code pensada para não técnicos, com suas equipes construindo",
+          "Acompanhamento operacional por 4 a 12 semanas, não um PDF",
+          "Qualiopi em análise, financiamento OPCO a caminho"
         ],
-        "footnote": "Pour traiter les deux fronts en même temps."
+        "footnote": "Para tratar as duas frentes ao mesmo tempo."
       },
       {
-        "kind": "Prototype rapide",
-        "title": "Prototypage rapide",
-        "intro": "La preuve par le code en 2 à 4 semaines. Un cas métier, un agent sur mesure, en production.",
+        "kind": "Protótipo rápido",
+        "title": "Prototipagem rápida",
+        "intro": "A prova pelo código em 2 a 4 semanas. Um caso de negócio, um agente sob medida, em produção.",
         "bullets": [
-          "Un cas métier réel cadré et livré en 2 à 4 semaines",
+          "Um caso de negócio real enquadrado e entregue em 2 a 4 semanas",
           "Stack moderne ouverte (Claude Code, Gemini, n8n), pas de boîte noire",
-          "Code livré, vous en êtes propriétaire",
-          "Souvent le premier pas avant la transformation globale"
+          "Código entregue, você é o proprietário",
+          "Muitas vezes o primeiro passo antes da transformação global"
         ],
-        "footnote": "Pour voir avant de croire."
+        "footnote": "Para ver antes de acreditar."
       },
       {
-        "kind": "Génération de pipe",
+        "kind": "Geração de pipeline",
         "title": "Lead Generation",
-        "intro": "On industrialise votre acquisition outbound voix dirigeant. Sourcing, copy, séquences, reporting RDV.",
+        "intro": "Industrializamos sua aquisição outbound com voz de dirigente. Sourcing, copy, sequências, reporting de reuniões.",
         "bullets": [
-          "Pas d'IA générique qui sent l'IA, voix Operating Partner travaillée prospect par prospect",
-          "Cible des dirigeants qui ne répondent jamais aux cold emails classiques",
-          "Pipeline branché sur signaux faibles (podcasts, levées, nominations)",
-          "Méthode et outils transmis, pas de dépendance à vie"
+          "Nada de IA genérica com cheiro de IA: voz de Operating Partner trabalhada prospect por prospect",
+          "Mira dirigentes que nunca respondem a cold emails clássicos",
+          "Pipeline conectado a sinais fracos (podcasts, captações, nomeações)",
+          "Método e ferramentas transferidos, sem dependência vitalícia"
         ],
-        "footnote": "Pour du RDV qualifié sans recruter."
+        "footnote": "Para gerar reuniões qualificadas sem contratar."
       }
     ],
-    "target": "Pour dirigeants qui veulent piloter leur transformation IA. Ni SaaS, ni recrutement, ni conseil.",
-    "cta": "Réserver 15 minutes avec Paul"
+    "target": "Para dirigentes que querem pilotar sua transformação IA. Nem SaaS, nem recrutamento, nem consultoria.",
+    "cta": "Reservar 15 minutos com Paul"
   },
   "quote": {
     "text": "“Os outros teorizam. Eu codifico, eu implanto, e eu fico.”",
@@ -910,7 +910,7 @@
     "metaDescription": "Fundador da Parrit.ai, Paul Larmaraud implanta Claude Code em empresas desde 2024. Sprints presenciais, casos reais, sem apresentações vazias.",
     "role": "Fundador · Parrit.ai",
     "location": "Rueil-Malmaison, França",
-    "bioP1": "Paul Larmaraud fundou a Parrit.ai no início de 2024, após dez anos construindo e operando produtos na Lime (estações de swap em Paris) e na Arkel (dois anos e meio como operador de produto). A convicção: IA generativa não se vende em slides, se entrega em produção com as equipes do cliente.",
+    "bioP1": "Paul Larmaraud fundou a Parrit.ai no início de 2024, após dez anos construindo e operando produtos na Lime (estações de swap em Paris) e na Arkel (dois anos e meio como operador de produto). A convicção: IA generativa não se vende em apresentações, se entrega em produção com as equipes do cliente.",
     "bioP2": "Desde o lançamento, a Parrit.ai entregou sistemas rodando em produção: monitoramento jurídico automatizado para um escritório de advocacia empresarial, ferramenta de otimização para assistentes de compra IA (GEO e-commerce) para um vendedor Amazon, agente de watch do mercado oculto para um executivo em transição, e seu próprio motor de aquisição signal-first (podcasts, eventos B2B). Cada missão parte do campo e termina em uma ferramenta que roda sem nós.",
     "bioP3": "Paul escreve regularmente sobre Claude Code, agentes de IA em empresas e a voz de campo nas vendas B2B. O blog Parrit.ai é a principal tribuna pública. Sem jargão, com números, com casos anonimizados.",
     "expertiseTitle": "Áreas de especialização",
@@ -940,52 +940,52 @@
   "casVitrines": {
     "meta": {
       "title": "Casos vitrine : Parrit.ai",
-      "description": "Quatre profils d'entreprise, quatre transformations opérées par Parrit. TPE/artisan, PME B2C, cabinet de conseil, grand groupe."
+      "description": "Quatro perfis de empresa, quatro transformações operadas pela Parrit. TPE/artesão, PME B2C, consultoria, grande grupo."
     },
     "homeSection": {
-      "badge": "QUATRE EXEMPLES PARMI BEAUCOUP D'AUTRES",
-      "title": "Deux types de chantiers, une même façon de construire",
-      "subtitle": "Capter, prototyper, opérer, transmettre. Cette méthode s'applique à deux fronts critiques : ce qui pèse aujourd'hui sur vos équipes, et ce qu'elles n'ont pas le temps d'aller chercher. Chaque entreprise a ses propres goulots.",
+      "badge": "QUATRO EXEMPLOS ENTRE MUITOS OUTROS",
+      "title": "Dois tipos de trabalho, a mesma forma de construir",
+      "subtitle": "Captar, prototipar, operar, transmitir. Este método se aplica a duas frentes críticas: o que pesa hoje nas suas equipes e o que elas não têm tempo de buscar. Cada empresa tem seus próprios gargalos.",
       "categories": [
         {
-          "badge": "TÂCHES INTERNES EXISTANTES",
-          "title": "Automatiser ce qui pèse sur vos équipes",
+          "badge": "TAREFAS INTERNAS EXISTENTES",
+          "title": "Automatizar o que pesa nas suas equipes",
           "examples": [
             {
-              "title": "Centraliser les demandes multicanales",
-              "context": "Exemple observé chez un artisan haut de gamme",
-              "brief": "Vos canaux entrants (site, réseaux sociaux, téléphone, point de vente) débordent. L'agent capte chaque demande, la qualifie par typologie, route, et tient les stocks à jour.",
-              "result": "100 % des leads captés, 60 % du temps administratif libéré."
+              "title": "Centralizar demandas multicanal",
+              "context": "Exemplo observado em um artesão premium",
+              "brief": "Seus canais de entrada (site, redes sociais, telefone, ponto de venda) estão saturados. O agente capta cada pedido, qualifica por tipologia, roteia e mantém os estoques atualizados.",
+              "result": "100 % dos leads captados, 60 % do tempo administrativo liberado."
             },
             {
-              "title": "Digest thématique automatisé",
-              "context": "Exemple observé dans un cabinet d'avocats",
-              "brief": "Deux heures par matin à éplucher la presse spécialisée et la jurisprudence. L'agent digest, classe, et prépare l'email du lundi prêt à diffuser.",
-              "result": "Digest livré chaque lundi 7 h 30, prêt à envoyer aux clients."
+              "title": "Digest temático automatizado",
+              "context": "Exemplo observado em um escritório de advocacia",
+              "brief": "Duas horas por manhã lendo imprensa especializada e jurisprudência. O agente resume, classifica e prepara o email de segunda-feira pronto para enviar.",
+              "result": "Digest entregue toda segunda às 7h30, pronto para os clientes."
             }
           ]
         },
         {
-          "badge": "GÉNÉRATION DE BUSINESS",
-          "title": "Aller chercher le business que vos équipes ne touchent pas",
+          "badge": "GERAÇÃO DE BUSINESS",
+          "title": "Buscar o business que suas equipes ainda não alcançam",
           "examples": [
             {
-              "title": "Pipeline outbound sur signaux faibles",
-              "context": "Exemple observé dans un cabinet de conseil",
-              "brief": "Vos prospects parlent en podcast, lèvent des fonds, recrutent. L'agent scanne 18 podcasts par jour, extrait les dirigeants pertinents, écrit avec votre voix.",
-              "result": "4 RDV qualifiés par semaine, taux de réponse 12 % contre 2 % en cold classique."
+              "title": "Pipeline outbound por sinais fracos",
+              "context": "Exemplo observado em uma consultoria",
+              "brief": "Seus prospects falam em podcasts, captam recursos, contratam. O agente escaneia 18 podcasts por dia, extrai os decisores relevantes e escreve na sua voz.",
+              "result": "4 reuniões qualificadas por semana, taxa de resposta de 12 % contra 2 % no cold clássico."
             },
             {
-              "title": "Prospection pilotée par alerte temps réel",
-              "context": "Exemple observé chez un client B2B",
-              "brief": "L'agent détecte qui ouvre un appel d'offres, qui change de poste, qui a un signal d'achat. Vous appelez au bon moment, jamais à l'aveugle.",
-              "result": "1 à 5 RDV qualifiés par jour, tous déclenchés par un signal détecté en temps réel."
+              "title": "Prospecção guiada por alerta em tempo real",
+              "context": "Exemplo observado em um cliente B2B",
+              "brief": "O agente detecta quem abre uma licitação, quem muda de cargo, quem mostra um sinal de compra. Você liga no momento certo, nunca no escuro.",
+              "result": "1 a 5 reuniões qualificadas por dia, todas acionadas por um sinal detectado em tempo real."
             }
           ]
         }
       ],
-      "footer": "On en fait beaucoup d'autres. Le mieux pour identifier le vôtre : 15 minutes avec Paul.",
-      "ctaLabel": "Voir le cas",
+      "footer": "Fazemos muitos outros. O melhor jeito de identificar o seu: 15 minutos com Paul.",
+      "ctaLabel": "Ver o caso",
       "cards": [
         {
           "slug": "tpe-artisan-commercant",
@@ -1014,13 +1014,13 @@
       ]
     },
     "labels": {
-      "profile": "Profil de l'entreprise",
-      "transformation": "La transformation opérée",
-      "domains": "Domaines d'activités impactés",
-      "result": "Résultats",
-      "stack": "Stack technique mobilisée",
-      "otherProfilesTitle": "Découvrir un autre profil",
-      "otherProfilesCta": "Voir le cas"
+      "profile": "Perfil da empresa",
+      "transformation": "A transformação operada",
+      "domains": "Áreas impactadas",
+      "result": "Resultados",
+      "stack": "Stack técnica mobilizada",
+      "otherProfilesTitle": "Descobrir outro perfil",
+      "otherProfilesCta": "Ver o caso"
     },
     "profiles": [
       {
@@ -1029,12 +1029,12 @@
           "badge": "TPE / ARTISAN / COMMERÇANT INDÉPENDANT",
           "titleMain": "De l'agitation",
           "titleAccent": "à la maîtrise.",
-          "intro": "Vous êtes seul ou à quelques-uns à tout faire. Parrit installe les agents qui captent vos leads, qualifient vos demandes, gèrent vos stocks et relancent vos clients. Vous gardez la décision."
+          "intro": "Você está sozinho ou com poucas pessoas fazendo tudo. A Parrit instala agentes que captam seus leads, qualificam pedidos, gerem estoques e relançam clientes. Você mantém a decisão."
         },
         "profile": {
           "items": [
             {
-              "label": "Taille",
+              "label": "Tamanho",
               "value": "1 à 10 personnes"
             },
             {
@@ -1046,21 +1046,21 @@
               "value": "E-commerce, réseaux sociaux, téléphone, point de vente"
             },
             {
-              "label": "Enjeu",
-              "value": "Le fondateur est sur tous les fronts, le commercial passe sous le radar"
+              "label": "Desafio",
+              "value": "O fundador está em todas as frentes, e o comercial passa abaixo do radar"
             }
           ]
         },
         "transformation": {
-          "quote": "On bascule du fondateur-pompier au fondateur-pilote. Les leads ne tombent plus dans le vide, les stocks ne sont plus tenus sur post-it, les clients ne sont plus oubliés.",
-          "body": "Un agent unique capte chaque demande entrante, la qualifie par typologie, déclenche la bonne relance WhatsApp dans la voix du fondateur, et tient les stocks à jour. Vous regardez le dashboard 10 minutes le matin, et c'est tout."
+          "quote": "Passamos do fundador-bombeiro ao fundador-piloto. Os leads não caem mais no vazio, os estoques não ficam mais em post-its, os clientes não são mais esquecidos.",
+          "body": "Um agente único capta cada pedido de entrada, qualifica por tipologia, dispara a relance certa no WhatsApp com a voz do fundador e mantém os estoques atualizados. Você olha o dashboard por 10 minutos de manhã, e pronto."
         },
         "domains": [
-          "Capture leads sur tous vos canaux (e-commerce, réseaux sociaux, téléphone, point de vente)",
+          "Captura de leads em todos os seus canais (e-commerce, redes sociais, telefone, ponto de venda)",
           "Qualification automatique par typologie client",
           "Gestion des stocks et des commandes en temps réel",
-          "Relances WhatsApp segmentées dans votre voix",
-          "Suivi commercial unifié sur dashboard quotidien",
+          "Relances WhatsApp segmentadas na sua voz",
+          "Acompanhamento comercial unificado em dashboard diário",
           "Production et envoi automatique de devis simples"
         ],
         "result": {
@@ -1071,14 +1071,14 @@
             },
             {
               "value": "60 %",
-              "label": "du temps administratif libéré pour le fondateur"
+              "label": "do tempo administrativo liberado para o fundador"
             },
             {
               "value": "14",
               "label": "demandes Pro identifiées la première semaine, passaient sous le radar"
             }
           ],
-          "note": "Cas type représentatif. Chiffres observés sur un projet réel mené avec un artisan français en 2026."
+          "note": "Caso tipo representativo. Números observados em um projeto real com um artesão francês em 2026."
         },
         "stack": [
           "n8n",
@@ -1094,13 +1094,13 @@
         "hero": {
           "badge": "PME / MARQUE B2C EN CROISSANCE",
           "titleMain": "Reprendre la main",
-          "titleAccent": "sur votre visibilité IA.",
-          "intro": "Rufus, Alexa for Shopping et ChatGPT Search orientent désormais le choix produit des acheteurs. Parrit installe l'agent qui surveille votre visibilité IA chaque jour, par mot-clé et par concurrent."
+          "titleAccent": "sobre sua visibilidade IA.",
+          "intro": "Rufus, Alexa for Shopping e ChatGPT Search agora orientam a escolha de produtos dos compradores. A Parrit instala o agente que monitora sua visibilidade IA todos os dias, por palavra-chave e por concorrente."
         },
         "profile": {
           "items": [
             {
-              "label": "Taille",
+              "label": "Tamanho",
               "value": "10 à 200 personnes"
             },
             {
@@ -1112,14 +1112,14 @@
               "value": "Amazon, Shopify, marketplaces sectorielles"
             },
             {
-              "label": "Enjeu",
-              "value": "Dépendance plateformes et opacité totale sur l'orientation IA des acheteurs"
+              "label": "Desafio",
+              "value": "Dependência de plataformas e opacidade total sobre a orientação IA dos compradores"
             }
           ]
         },
         "transformation": {
-          "quote": "On vous donne enfin la visibilité que les plateformes vous cachent. Chaque matin, vous savez exactement ce que Rufus a recommandé hier, et qui a gagné du terrain.",
-          "body": "Chaque matin, un agent interroge Rufus et Alexa sur vos 50 instructions stratégiques. Il mesure votre rang, votre share-of-voice IA, et les concurrents qui montent. Vous recevez un dashboard quotidien et une alerte si quelque chose bouge."
+          "quote": "Damos finalmente a visibilidade que as plataformas escondem. Toda manhã, você sabe exatamente o que Rufus recomendou ontem e quem ganhou terreno.",
+          "body": "Toda manhã, um agente consulta Rufus e Alexa sobre suas 50 instruções estratégicas. Ele mede sua posição, seu share-of-voice IA e os concorrentes que sobem. Você recebe um dashboard diário e um alerta se algo se mexer."
         },
         "domains": [
           "Veille concurrentielle continue sur 50 instructions stratégiques par jour",
@@ -1127,7 +1127,7 @@
           "Intelligence prix et positionnement marketplaces",
           "Alertes stratégiques temps réel via Telegram",
           "Réajustement des fiches produit selon les signaux IA",
-          "Reporting hebdomadaire pour le comité marketing"
+          "Reporting semanal para o comitê de marketing"
         ],
         "result": {
           "metrics": [
@@ -1144,7 +1144,7 @@
               "label": "ROI prouvé sur la première vague de réajustements"
             }
           ],
-          "note": "Cas type représentatif. Stack et résultats issus d'un projet réel mené avec un acteur premium en 2026."
+          "note": "Caso tipo representativo. Stack e resultados derivados de um projeto real com um ator premium em 2026."
         },
         "stack": [
           "Bright Data",
@@ -1161,12 +1161,12 @@
           "badge": "CABINET DE CONSEIL / AGENCE / SOCIÉTÉ DE SERVICES",
           "titleMain": "Du cold mort",
           "titleAccent": "au signal vivant.",
-          "intro": "Le cold classique ne marche plus. Parrit construit votre pipeline outbound voix dirigeant, branché sur les signaux faibles qui montrent qu'un prospect est mûr aujourd'hui : podcast, levée, nomination."
+          "intro": "O cold clássico não funciona mais. A Parrit constrói seu pipeline outbound com voz de dirigente, conectado aos sinais fracos que mostram que um prospect está maduro hoje: podcast, captação, nomeação."
         },
         "profile": {
           "items": [
             {
-              "label": "Taille",
+              "label": "Tamanho",
               "value": "10 à 100 personnes"
             },
             {
@@ -1175,17 +1175,17 @@
             },
             {
               "label": "Cible",
-              "value": "Dirigeants ETI ou grands comptes (CODIR, COMEX)"
+              "value": "Dirigentes de ETI ou grandes contas (CODIR, COMEX)"
             },
             {
-              "label": "Enjeu",
-              "value": "Outbound classique en panne (taux réponse <2%), pas de signal pour personnaliser"
+              "label": "Desafio",
+              "value": "Outbound clássico travado (taxa de resposta <2%), sem sinal para personalizar"
             }
           ]
         },
         "transformation": {
-          "quote": "Vous arrêtez d'envoyer le même message à tout le monde. Chaque prospect reçoit une accroche qui dit précisément pourquoi vous l'écrivez aujourd'hui, à partir d'un signal qu'il a lui-même produit.",
-          "body": "Un agent scanne chaque jour 18 podcasts business et la presse spécialisée. Il extrait les dirigeants pertinents, enrichit le contact, et construit un message Operating Partner qui cite une idée précise du signal détecté. Les réponses arrivent qualifiées chaud / froid."
+          "quote": "Você para de enviar a mesma mensagem para todo mundo. Cada prospect recebe uma abertura que explica precisamente por que você escreve hoje, a partir de um sinal que ele próprio produziu.",
+          "body": "Um agente escaneia diariamente 18 podcasts business e a imprensa especializada. Ele extrai os dirigentes relevantes, enriquece o contato e constrói uma mensagem Operating Partner que cita uma ideia precisa do sinal detectado. As respostas chegam qualificadas como quente / frio."
         },
         "domains": [
           "Sourcing prospects (LinkedIn, SIRENE, presse)",
@@ -1210,7 +1210,7 @@
               "label": "HT pipeline net signés en 4 mois"
             }
           ],
-          "note": "Cas type représentatif. Performance observée sur des campagnes B2B France en 2026."
+          "note": "Caso tipo representativo. Performance observada em campanhas B2B na França em 2026."
         },
         "stack": [
           "YouTube / RSS scraper",
@@ -1224,48 +1224,48 @@
       {
         "slug": "grand-groupe",
         "hero": {
-          "badge": "GRAND GROUPE / ETI / MULTINATIONALE",
-          "titleMain": "De la formation théorique",
-          "titleAccent": "à l'agent en production.",
-          "intro": "Vos dirigeants ont vu trop de slides. Parrit anime un sprint hands-on de 2 jours où chacun arrive avec un cas métier réel et repart avec un agent en production. Le transfert de compétence devient permanent."
+          "badge": "GRANDE GRUPO / ETI / MULTINACIONAL",
+          "titleMain": "Da formação teórica",
+          "titleAccent": "ao agente em produção.",
+          "intro": "Seus dirigentes já viram apresentações demais. A Parrit conduz um sprint prático de 2 dias em que cada pessoa chega com um caso de negócio real e sai com um agente em produção. A transferência de competência se torna permanente."
         },
         "profile": {
           "items": [
             {
-              "label": "Taille",
-              "value": "1 000+ collaborateurs"
+              "label": "Tamanho",
+              "value": "1 000+ colaboradores"
             },
             {
-              "label": "Couverture",
-              "value": "Présence internationale, plusieurs business units"
+              "label": "Cobertura",
+              "value": "Presença internacional, várias business units"
             },
             {
               "label": "Sponsor",
-              "value": "Direction Training & Development, COMEX ou DG transformation"
+              "value": "Direção de Training & Development, COMEX ou direção de transformação"
             },
             {
-              "label": "Enjeu",
-              "value": "Sortir du pilote perpétuel et installer une vraie autonomie IA chez les dirigeants"
+              "label": "Desafio",
+              "value": "Sair do piloto perpétuo e instalar autonomia real em IA nos dirigentes"
             }
           ]
         },
         "transformation": {
-          "quote": "On arrête de leur expliquer comment ça marche. On les fait construire. Ils repartent avec leur agent, et avec la mécanique pour en construire d'autres avec leurs équipes.",
-          "body": "Sprint en 2 jours. Jour 1 matin : cadrage de chaque cas métier. Jour 1 après-midi à jour 2 : co-construction de l'agent avec Claude Code et branchement aux outils internes. Jour 2 fin : mise en production. À J+7 follow-up, et les dirigeants formés deviennent ensuite vos formateurs internes."
+          "quote": "Paramos de explicar como funciona. Fazemos com que eles construam. Eles saem com seu agente e com a mecânica para construir outros com suas equipes.",
+          "body": "Sprint em 2 dias. Dia 1 de manhã: enquadramento de cada caso de negócio. Do Dia 1 à tarde ao Dia 2: co-construção do agente com Claude Code e conexão às ferramentas internas. Fim do Dia 2: produção. Em D+7, follow-up, e os dirigentes formados viram seus formadores internos."
         },
         "domains": [
-          "Formation Claude Code pour dirigeants non-tech",
-          "Prototypage de cas métier réels en sprint encadré",
-          "Montée en autonomie sur la conduite d'agents IA",
-          "Train-the-trainer : vos dirigeants formés deviennent formateurs internes",
-          "Industrialisation des bonnes pratiques agentiques",
-          "Suivi post-sprint à J+7 et J+30 pour ajuster"
+          "Formação Claude Code para dirigentes não técnicos",
+          "Prototipagem de casos de negócio reais em sprint guiado",
+          "Autonomia progressiva na condução de agentes de IA",
+          "Train-the-trainer: dirigentes formados viram formadores internos",
+          "Industrialização das boas práticas agenticas",
+          "Follow-up pós-sprint em D+7 e D+30 para ajustar"
         ],
         "result": {
           "metrics": [
             {
-              "value": "6 dirigeants",
-              "label": "formés par cohorte"
+              "value": "6 dirigentes",
+              "label": "formados por coorte"
             },
             {
               "value": "6 agents",
@@ -1273,10 +1273,10 @@
             },
             {
               "value": "3 cohortes",
-              "label": "renouvelées l'année suivante par l'équipe T&D"
+              "label": "renovadas no ano seguinte pela equipe T&D"
             }
           ],
-          "note": "Cas type représentatif. Format issu d'un programme Sprint Builders réel mené avec un retailer européen en 2026."
+          "note": "Caso tipo representativo. Formato derivado de um programa Sprint Builders real conduzido com um varejista europeu em 2026."
         },
         "stack": [
           "Claude Code",
@@ -1288,7 +1288,7 @@
         ]
       }
     ],
-    "ctaTitle": "Vous vous reconnaissez dans ce profil ?",
-    "ctaSubtitle": "15 minutes avec Paul. On regarde votre opération, on identifie le goulot, on voit si Parrit peut le débloquer."
+    "ctaTitle": "Você se reconhece neste perfil?",
+    "ctaSubtitle": "15 minutos com Paul. Olhamos sua operação, identificamos o gargalo e vemos se a Parrit pode desbloqueá-lo."
   }
 }

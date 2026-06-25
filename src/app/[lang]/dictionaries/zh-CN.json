@@ -30,96 +30,96 @@
   },
   "hero": {
     "logo": "PARRIT.AI",
-    "titleMain": "Build.",
-    "titleAccent": "Don't advise.",
-    "subtitle": "Parrit opère vos deux fronts critiques : automatiser le back-office qui pèse sur vos équipes, et générer le business que vous laissez passer.",
-    "cta": "Book 15 minutes with Paul",
-    "ctaMicro": "No commitment · Reply within 24 hours · DMs open"
+    "titleMain": "构建。",
+    "titleAccent": "不是咨询。",
+    "subtitle": "Parrit 运营你的两条关键战线：自动化压在团队身上的后台工作，并生成你正在错过的业务。",
+    "cta": "和 Paul 预约 15 分钟",
+    "ctaMicro": "无承诺 · 24 小时内回复 · 私信开放"
   },
   "chatVoice": {
-    "title": "Or tell us directly about your need",
-    "subtitle": "Describe your case out loud or in writing. We scope it with you, and take it from there.",
-    "micLabel": "Tell us about your need",
-    "micHint": "Click to speak, or type your message",
-    "examplesLabel": "Examples:",
+    "title": "也可以直接告诉我们你的需求",
+    "subtitle": "用语音或文字描述你的情况。我们和你一起界定，然后接手推进。",
+    "micLabel": "告诉我们你的需求",
+    "micHint": "点击说话，或输入消息",
+    "examplesLabel": "示例：",
     "chips": [
-      "50-person IT consultancy, automate BoondManager",
-      "Law firm, automated legal monitoring",
-      "E-commerce, too many support tickets"
+      "50 人 IT 咨询公司，自动化 BoondManager",
+      "律师事务所，自动化法律监测",
+      "电商，客服工单过多"
     ],
     "modalTitle": "Parrit",
-    "modalSubtitle": "Parrit.ai assistant : online",
-    "close": "Close",
-    "inputPlaceholder": "Write or speak...",
-    "send": "Send",
-    "listening": "Listening...",
-    "voiceUnsupported": "Voice input isn't supported on this browser. Type your message.",
-    "voiceDenied": "Microphone access denied. Type your message.",
-    "leadIntro": "So we can prep a proposal for you, drop your first name and email.",
-    "leadFirstName": "First name",
+    "modalSubtitle": "Parrit.ai 助手：在线",
+    "close": "关闭",
+    "inputPlaceholder": "输入或说出你的需求...",
+    "send": "发送",
+    "listening": "正在聆听...",
+    "voiceUnsupported": "此浏览器不支持语音输入。请直接输入消息。",
+    "voiceDenied": "麦克风权限被拒绝。请直接输入消息。",
+    "leadIntro": "为了准备建议，请留下你的名字和邮箱。",
+    "leadFirstName": "名字",
     "leadEmail": "Email",
-    "leadPhone": "Phone (optional)",
-    "leadChannelLabel": "How should we reach you?",
-    "leadChannelEmail": "Email",
-    "leadChannelPhone": "Phone",
+    "leadPhone": "电话（可选）",
+    "leadChannelLabel": "我们应如何联系你？",
+    "leadChannelEmail": "邮箱",
+    "leadChannelPhone": "电话",
     "leadChannelWhatsapp": "WhatsApp",
     "leadChannelLinkedIn": "LinkedIn",
-    "leadSlotLabel": "When?",
-    "leadSlotAsap": "ASAP",
-    "leadSlotMorning": "Morning",
-    "leadSlotNoon": "Midday",
-    "leadSlotAfternoon": "Afternoon",
-    "leadSubmit": "Send",
-    "leadSubmitting": "Sending...",
-    "leadThanks": "Got it! We'll be in touch within 24 hours.",
-    "leadError": "Something broke. Try again or email paul.larmaraud@parrit.ai.",
-    "greeting": "Hi! Give us your context: what company, what size, and what pain do you want gone?"
+    "leadSlotLabel": "什么时候方便？",
+    "leadSlotAsap": "越快越好",
+    "leadSlotMorning": "上午",
+    "leadSlotNoon": "中午",
+    "leadSlotAfternoon": "下午",
+    "leadSubmit": "发送",
+    "leadSubmitting": "发送中...",
+    "leadThanks": "收到！我们会在 24 小时内联系你。",
+    "leadError": "发送失败。请重试，或邮件联系 paul.larmaraud@parrit.ai。",
+    "greeting": "你好！请告诉我们你的背景：公司、规模，以及你想消除的痛点。"
   },
-  "stackLabel": "Where we operate",
+  "stackLabel": "我们介入的位置",
   "pricingModels": {
-    "title": "Two pricing models, your call",
+    "title": "两种计费模式，由你选择",
     "models": [
       {
-        "kind": "Classic",
-        "title": "Per project",
+        "kind": "经典模式",
+        "title": "按项目",
         "bullets": [
-          "Free initial diagnostic",
-          "Fixed budget, clear scope, no hidden fees",
-          "Stage-based payment : you validate results before moving on",
-          "Fully transparent contract"
+          "免费初步诊断",
+          "固定预算，清晰范围，无隐藏费用",
+          "按阶段付款：你验证结果后再进入下一步",
+          "完全透明的合同"
         ]
       },
       {
-        "kind": "Aligned on your outcomes",
-        "title": "Performance-based",
-        "recommendedBadge": "Recommended",
-        "intro": "You make money, we invoice.",
+        "kind": "与你的结果对齐",
+        "title": "按结果",
+        "recommendedBadge": "推荐",
+        "intro": "你赚到钱，我们再收费。",
         "bullets": [
-          "Labor savings : share of the cost actually saved",
-          "Sales uplift : share of the incremental revenue generated",
-          "Processing time cut : rate based on the efficiency gained"
+          "人力节省：按实际节省成本的一部分计费",
+          "销售增长：按新增收入的一部分计费",
+          "处理时间缩短：按效率提升计费"
         ],
-        "footnote": "If the promised outcome isn't hit, the performance share isn't invoiced."
+        "footnote": "如果承诺结果没有达成，绩效部分不收费。"
       }
     ]
   },
   "showcase": {
-    "title": "What we ship inside your operation",
+    "title": "我们交付到你业务现场里的东西",
     "items": [
       {
-        "label": "Custom in-house tools"
+        "label": "定制内部工具"
       },
       {
-        "label": "Workflows running in production"
+        "label": "生产环境中运行的工作流"
       },
       {
-        "label": "Hands-on team upskilling"
+        "label": "团队实战能力提升"
       },
       {
-        "label": "Strategy & framing rooted in the field"
+        "label": "扎根现场的战略与界定"
       }
     ],
-    "midCta": "Let's talk about your case"
+    "midCta": "聊聊你的具体情况"
   },
   "approach": {
     "title": "四个动作，仅此而已",
@@ -148,138 +148,138 @@
     ]
   },
   "cases": {
-    "title": "Systems already shipped inside our clients",
-    "before": "Before",
-    "after": "After",
+    "title": "已经在客户现场交付的系统",
+    "before": "之前",
+    "after": "之后",
     "items": [
       {
-        "badge": "LAW FIRM",
-        "title": "Automated legal monitoring",
-        "before": "2h/day scanning case law and press",
-        "after": "Email digest every Monday 7:30am : shipped in 8 days"
+        "badge": "律师事务所",
+        "title": "自动化法律监测",
+        "before": "每天 2 小时阅读判例和新闻",
+        "after": "每周一 7:30 自动邮件简报：8 天交付"
       },
       {
-        "badge": "B2B MULTI-VERTICAL",
-        "title": "Podcast-voice personalized outbound",
-        "before": "Generic cold mail, open rate under 20%, reply rate under 1%",
-        "after": "Mail informed by prospect's public transcripts: 60%+ open rate, multiplied reply rate, qualified meetings booked."
+        "badge": "多行业 B2B",
+        "title": "基于播客语气的个性化 outbound",
+        "before": "通用 cold mail，打开率低于 20%，回复率低于 1%",
+        "after": "邮件基于潜在客户公开访谈文本撰写：60%+ 打开率，回复率倍增，预约合格会议。"
       },
       {
-        "badge": "50-PERSON IT CONSULTANCY",
-        "title": "ERP queried in plain language",
-        "before": "PMs stuck on BoondManager",
-        "after": "Natural language queries, prototype in 5 days"
+        "badge": "50 人 IT 咨询公司",
+        "title": "用自然语言查询 ERP",
+        "before": "项目经理被 BoondManager 卡住",
+        "after": "自然语言查询，5 天做出原型"
       },
       {
-        "badge": "FRANCHISE GROUP",
-        "title": "Smart CRM rotation",
-        "before": "5,000 dormant contacts",
-        "after": "100+ prospects/day auto-scored against ICP"
+        "badge": "加盟集团",
+        "title": "智能 CRM 轮转",
+        "before": "5,000 个沉睡联系人",
+        "after": "每天 100+ prospect 自动按 ICP 评分"
       },
       {
-        "badge": "MULTI-SECTOR",
-        "title": "Rapid landing page prototyping",
-        "before": "Six weeks to validate a message through an agency",
-        "after": "1 to 3 days: copy, design, tracking, deployment. You test your market hypothesis in a week."
+        "badge": "多行业",
+        "title": "快速 landing page 原型",
+        "before": "通过代理商验证一个信息要六周",
+        "after": "1 到 3 天：文案、设计、追踪、部署。一周内测试市场假设。"
       }
     ],
-    "footer": "Real cases, clients anonymized. Every system is running in production today."
+    "footer": "真实案例，客户匿名。每个系统今天都在生产环境运行。"
   },
   "claudeCode": {
-    "badge": "TROIS OFFRES, DEUX FRONTS",
-    "title": "Trois façons de mettre Parrit dans votre opération",
-    "subtitle": "Vous choisissez par où on commence.",
+    "badge": "三种服务，两条战线",
+    "title": "三种方式把 Parrit 放进你的运营",
+    "subtitle": "你选择从哪里开始。",
     "offers": [
       {
-        "kind": "Transformation complète",
-        "title": "Transformation IA + Formation agentique",
-        "recommendedBadge": "Le plus complet",
-        "intro": "Le cœur de Parrit. Agents installés sur tous vos fronts, équipes formées à les piloter en autonomie.",
+        "kind": "完整转型",
+        "title": "AI 转型 + 智能体培训",
+        "recommendedBadge": "最完整",
+        "intro": "Parrit 的核心。把智能体安装到你的各条战线上，并训练团队自主驾驶。",
         "bullets": [
-          "Agents qui couvrent vos deux axes : back-office automatisé et business généré",
-          "Formation Claude Code pensée pour les non-tech, vos équipes construisent",
-          "Accompagnement opérationnel sur 4 à 12 semaines, pas un PDF",
-          "Qualiopi en cours d'instruction, financement OPCO à venir"
+          "覆盖两条主轴的智能体：后台自动化与业务生成",
+          "面向非技术团队的 Claude Code 培训，团队亲手构建",
+          "4 到 12 周运营陪跑，不是一份 PDF",
+          "Qualiopi 认证流程进行中，OPCO 资助即将开放"
         ],
-        "footnote": "Pour traiter les deux fronts en même temps."
+        "footnote": "同时处理两条战线。"
       },
       {
-        "kind": "Prototype rapide",
-        "title": "Prototypage rapide",
-        "intro": "La preuve par le code en 2 à 4 semaines. Un cas métier, un agent sur mesure, en production.",
+        "kind": "快速原型",
+        "title": "快速原型构建",
+        "intro": "用代码证明，2 到 4 周。一个业务案例，一个定制智能体，进入生产。",
         "bullets": [
-          "Un cas métier réel cadré et livré en 2 à 4 semaines",
-          "Stack moderne ouverte (Claude Code, Gemini, n8n), pas de boîte noire",
-          "Code livré, vous en êtes propriétaire",
-          "Souvent le premier pas avant la transformation globale"
+          "一个真实业务案例，2 到 4 周界定并交付",
+          "开放现代技术栈（Claude Code、Gemini、n8n），没有黑盒",
+          "代码交付，你拥有所有权",
+          "通常是全面转型前的第一步"
         ],
-        "footnote": "Pour voir avant de croire."
+        "footnote": "先看到，再相信。"
       },
       {
-        "kind": "Génération de pipe",
+        "kind": "Pipeline 生成",
         "title": "Lead Generation",
-        "intro": "On industrialise votre acquisition outbound voix dirigeant. Sourcing, copy, séquences, reporting RDV.",
+        "intro": "我们工业化你的 outbound 获客，用管理者语气完成 sourcing、文案、序列和会议 reporting。",
         "bullets": [
-          "Pas d'IA générique qui sent l'IA, voix Operating Partner travaillée prospect par prospect",
-          "Cible des dirigeants qui ne répondent jamais aux cold emails classiques",
-          "Pipeline branché sur signaux faibles (podcasts, levées, nominations)",
-          "Méthode et outils transmis, pas de dépendance à vie"
+          "没有那种一看就是 AI 的通用内容，而是逐个 prospect 打磨 Operating Partner 语气",
+          "触达那些从不回复传统 cold email 的决策者",
+          "Pipeline 接入弱信号（播客、融资、任命）",
+          "方法和工具会被移交，不制造长期依赖"
         ],
-        "footnote": "Pour du RDV qualifié sans recruter."
+        "footnote": "不招聘，也能获得合格会议。"
       }
     ],
-    "target": "Pour dirigeants qui veulent piloter leur transformation IA. Ni SaaS, ni recrutement, ni conseil.",
-    "cta": "Réserver 15 minutes avec Paul"
+    "target": "面向想亲自驾驶 AI 转型的管理者。不是 SaaS，不是招聘，也不是传统咨询。",
+    "cta": "和 Paul 预约 15 分钟"
   },
   "quote": {
-    "text": "“Others theorize. I code, I ship, and I stay.”",
-    "cite": ": Paul Larmaraud, founder of Parrit"
+    "text": "“别人做理论。我写代码、交付，并留下来。”",
+    "cite": "：Paul Larmaraud，Parrit 创始人"
   },
   "founders": {
-    "title": "Who builds",
+    "title": "谁在构建",
     "paul": {
       "name": "Paul Larmaraud",
-      "role": "Founder",
-      "bio": "Product vision and field. Former operations team at Lime in Paris, former Arkel. Operational partner to executive teams for over two years: law firms, premium artisans, franchise groups, startups, executives in transition. Codes and ships his own tools every week: what runs in his clients runs at home first. DMs open.",
-      "signature": "Product · Code · Operations · Field"
+      "role": "创始人",
+      "bio": "产品视野与现场执行。曾在巴黎 Lime 运营团队工作，也曾在 Arkel 任职。两年多来作为管理团队的运营伙伴，服务律师事务所、高端手工品牌、加盟集团、创业公司和转型中的高管。每周亲自编码并交付工具：客户现场运行的东西，先在自己这里跑起来。私信开放。",
+      "signature": "产品 · 代码 · 运营 · 现场"
     },
     "yukun": {
       "name": "Yukun Leng",
-      "role": "Co-founder",
-      "bio": "Ten years at the heart of European luxury houses, including LVMH. Mastery of operations between France and China. Quiet rigor and rare listening: takes on the depth of analysis sales doesn't always allow. Mobilizes a network of business experts as reinforcement on the projects that need them.",
-      "signature": "Luxury · LVMH · Operations · China"
+      "role": "联合创始人",
+      "bio": "十年深入欧洲奢侈品公司核心，包括 LVMH。熟悉法国与中国之间的运营。安静而严谨，倾听能力稀有：承担销售过程未必允许的深度分析，并在需要时调动业务专家网络支援项目。",
+      "signature": "奢侈品 · LVMH · 运营 · 中国"
     }
   },
   "cta": {
-    "title": "Let's talk about your case.",
-    "subtitle": "Leave your details. Paul will get back to you within 24 hours. Or DM him directly: DMs are open.",
+    "title": "聊聊你的具体情况。",
+    "subtitle": "留下联系方式。Paul 会在 24 小时内回复你。也可以直接私信：DM 开放。",
     "form": {
-      "firstName": "First name",
-      "lastName": "Last name",
-      "company": "Company",
-      "phone": "Phone",
-      "email": "Work email",
-      "slotPlaceholder": "Preferred time slot (optional)",
-      "slotMorning": "Morning (9am-12pm)",
-      "slotNoon": "Midday (12pm-2pm)",
-      "slotAfternoon": "Afternoon (2pm-6pm)",
-      "slotAsap": "As soon as possible",
-      "submit": "→ Get contacted",
-      "submitting": "Sending...",
-      "error": "Something went wrong. Please try again or contact us directly.",
-      "or": "or",
-      "whatsapp": "Message us on WhatsApp"
+      "firstName": "名字",
+      "lastName": "姓氏",
+      "company": "公司",
+      "phone": "电话",
+      "email": "工作邮箱",
+      "slotPlaceholder": "偏好的时间段（可选）",
+      "slotMorning": "上午（9:00-12:00）",
+      "slotNoon": "中午（12:00-14:00）",
+      "slotAfternoon": "下午（14:00-18:00）",
+      "slotAsap": "越快越好",
+      "submit": "→ 获取联系",
+      "submitting": "发送中...",
+      "error": "出现错误。请重试或直接联系我们。",
+      "or": "或",
+      "whatsapp": "通过 WhatsApp 联系"
     },
     "sent": {
-      "thanks": "Thanks {firstName}!",
-      "confirmation": "Paul will call you at {phone} ({slot}).",
-      "slotAsap": "as soon as possible",
-      "slotMorning": "between 9am and 12pm",
-      "slotNoon": "between 12pm and 2pm",
-      "slotAfternoon": "between 2pm and 6pm",
-      "slotDefault": "as soon as possible"
+      "thanks": "谢谢 {firstName}！",
+      "confirmation": "Paul 会通过 {phone} 联系你（{slot}）。",
+      "slotAsap": "越快越好",
+      "slotMorning": "上午 9 点到 12 点之间",
+      "slotNoon": "中午 12 点到 14 点之间",
+      "slotAfternoon": "下午 14 点到 18 点之间",
+      "slotDefault": "越快越好"
     },
-    "secondaryWhatsapp": "Message on WhatsApp",
+    "secondaryWhatsapp": "通过 WhatsApp 联系",
     "footer": {
       "legal": "© 2026 Paul Larmaraud · SASU PARRIT.AI · Rueil-Malmaison, France",
       "rgpd": "This site uses no advertising cookies. Analytics are collected anonymously in compliance with GDPR. By leaving your details, you agree to be contacted by Paul. Contact:"
@@ -341,287 +341,287 @@
   },
   "auditClaudeCode": {
     "meta": {
-      "title": "Claude Code Audit : Parrit.ai | One day onsite, concrete action plan",
-      "description": "One-day onsite Claude Code audit. We map your workflows, identify three to five use cases with measurable ROI, and leave you with a prioritized action plan. Fixed fee, written deliverables, no day rate.",
+      "title": "Claude Code 审计：Parrit.ai | 一天现场，具体行动计划",
+      "description": "一天现场 Claude Code 审计。我们梳理你的 workflow，识别三到五个具备可衡量 ROI 的用例，并留下优先级行动计划。固定费用，书面交付物，没有日费。",
       "ogTitle": "Claude Code Audit : Parrit.ai",
-      "ogDescription": "One day at your office to identify what Claude Code can unlock in your operations. No slides. No day rate. Action plan in hand.",
-      "schemaDescription": "One-day Claude Code audit to identify use cases with measurable ROI in a company."
+      "ogDescription": "在你的现场用一天识别 Claude Code 能为运营解锁什么。没有幻灯片，没有日费，直接带走行动计划。",
+      "schemaDescription": "一天 Claude Code 审计，用于识别企业中具备可衡量 ROI 的用例。"
     },
     "nav": {
-      "back": "← Back"
+      "back": "← 返回"
     },
     "hero": {
       "label": "CLAUDE CODE AUDIT",
-      "titleMain": "The audit",
-      "titleAccent": "opens every mission.",
-      "quickAnswer": "A Claude Code audit is how every Parrit engagement starts. We come onsite for half a day to a full day, map your workflows with the operators who do the work, quantify three to five use cases with measurable ROI, and show you Claude Code live on one of your real cases. By end of day, you know what to tackle first : onsite Sprint, team Setup, production Automations, or Remote international format. The audit is included in the mission that follows. No slides. No day rate.",
-      "cta": "Book a call with Paul"
+      "titleMain": "审计",
+      "titleAccent": "开启每一次任务。",
+      "quickAnswer": "Claude Code 审计是每次 Parrit 任务的起点。我们到现场半天到一天，和真正执行工作的人一起梳理 workflow，量化三到五个可衡量 ROI 的用例，并在你的真实案例上现场演示 Claude Code。当天结束时，你知道该先处理什么：现场 Sprint、团队 Setup、生产自动化，或 Remote international 格式。审计包含在后续任务中。没有幻灯片，没有日费。",
+      "cta": "和 Paul 预约交流"
     },
     "audience": {
-      "title": "Who it's for",
+      "title": "适合谁",
       "items": [
         {
-          "role": "Founders and CEOs",
-          "desc": "You want to know whether Claude Code can multiply your team's output before committing to a multi-month budget."
+          "role": "创始人和 CEO",
+          "desc": "在投入数月预算前，你想知道 Claude Code 是否能放大团队产出。"
         },
         {
-          "role": "Heads of operations",
-          "desc": "You have three to five processes to industrialize and you want to know which to launch first."
+          "role": "运营负责人",
+          "desc": "你有三到五个流程需要工业化，也想知道应该先启动哪一个。"
         },
         {
-          "role": "CTOs and heads of engineering",
-          "desc": "You're comparing Claude Code, Cursor, Copilot. You want a benchmark on your real workflows, not a theoretical demo."
+          "role": "CTO 和工程负责人",
+          "desc": "你正在比较 Claude Code、Cursor、Copilot。你需要基于真实 workflow 的 benchmark，而不是理论 demo。"
         },
         {
-          "role": "Heads of growth and marketing",
-          "desc": "You're looking to automate GTM, prospecting, content. You want to quantify the upside before investing."
+          "role": "增长和市场负责人",
+          "desc": "你想自动化 GTM、prospecting、内容。投资前，你想先量化上行空间。"
         }
       ]
     },
     "method": {
-      "title": "How it goes",
+      "title": "如何进行",
       "steps": [
         {
           "n": "1",
-          "title": "Map",
-          "desc": "Two hours with the operators who do the work to map the real workflows. No generic questionnaire : we look at what actually happens."
+          "title": "梳理",
+          "desc": "和真正执行工作的人一起用两小时梳理真实 workflow。没有通用问卷：我们看实际发生了什么。"
         },
         {
           "n": "2",
-          "title": "Quantify",
-          "desc": "We put numbers on the real cost and time of each workflow. A use case without numbers doesn't pass the filter."
+          "title": "量化",
+          "desc": "我们给每个 workflow 的真实成本和耗时标上数字。没有数字的用例不能通过筛选。"
         },
         {
           "n": "3",
-          "title": "Prototype live",
-          "desc": "We start Claude Code on a shared screen and build a live mini-prototype on one of your cases. You see the tool running on your data."
+          "title": "现场原型",
+          "desc": "我们在共享屏幕上启动 Claude Code，并基于你的一个案例现场构建 mini-prototype。你会看到工具在你的数据上运行。"
         },
         {
           "n": "4",
-          "title": "Prioritize",
-          "desc": "We rank use cases by ninety-day ROI and write the action plan. You decide what to tackle first."
+          "title": "排优先级",
+          "desc": "我们按 90 天 ROI 排列用例，并写出行动计划。你决定先处理什么。"
         }
       ]
     },
     "deliverables": {
-      "title": "What you walk away with",
+      "title": "你会带走什么",
       "items": [
-        "Written map of your key workflows and bottlenecks",
-        "Top five Claude Code use cases with numbers (gain, complexity, time-to-value)",
-        "Live Claude Code demo on one of your real cases",
-        "Ninety-day prioritized action plan in make / buy / delegate format",
-        "Honest call: what's worth doing, what isn't"
+        "关键 workflow 和瓶颈的书面地图",
+        "带数字的前五个 Claude Code 用例（收益、复杂度、见效时间）",
+        "在你的真实案例上现场演示 Claude Code",
+        "90 天优先级行动计划，按自建 / 购买 / 委托格式呈现",
+        "诚实判断：什么值得做，什么不值得"
       ]
     },
     "faq": {
-      "title": "Frequently asked questions",
+      "title": "常见问题",
       "items": [
         {
-          "q": "How much does it cost?",
-          "a": "The audit is included in the mission that follows. The overall engagement is priced either as a fixed fee (scope, schedule, written deliverables) or as outcome-based pay (a share of the actual gain : savings, incremental revenue, time recovered). You choose. If the outcome is not reached in the latter case, the variable part is not invoiced. No day rate, no surprises."
+          "q": "费用是多少？",
+          "a": "审计包含在后续任务中。整体任务可以按固定费用计价（范围、日程、书面交付物），也可以按结果计费（实际收益的一部分：节省、新增收入、追回时间）。你选择。如果结果计费模式下结果没有达成，变量部分不收费。没有日费，没有惊喜账单。"
         },
         {
-          "q": "How long does it take?",
-          "a": "Half a day to one full day onsite. Four to six hours of effective work with your teams, plus the writing of the action plan you receive within forty-eight hours."
+          "q": "需要多久？",
+          "a": "现场半天到一天。和团队有效工作四到六小时，再加上行动计划撰写，四十八小时内交付。"
         },
         {
-          "q": "What do you need to start?",
-          "a": "A slot in the calendar, two or three operators available during the day, and read access to the tools you use (CRM, ERP, file shares). We sign an NDA before coming if needed."
+          "q": "开始前需要什么？",
+          "a": "一个日程时段、当天可参与的两到三位操作者，以及你们使用工具的只读访问权限（CRM、ERP、文件共享）。如有需要，我们到场前签 NDA。"
         },
         {
-          "q": "What if we have no AI tools in place?",
-          "a": "Even better. No technical debt, no deployed product creating friction. We start from your workflows as they are."
+          "q": "如果我们还没有任何 AI 工具怎么办？",
+          "a": "更好。没有技术债，也没有已经部署却制造摩擦的产品。我们从你们当前的 workflow 出发。"
         },
         {
-          "q": "What does the audit lead to exactly?",
-          "a": "To the engagement format that matches your case: onsite Sprint (one to four days of immersion), Setup for your teams (you become autonomous), Automations running in production, or Remote international if you are outside France and onsite doesn't make sense. You decide."
+          "q": "审计之后具体会导向什么？",
+          "a": "导向最适合你情况的任务格式：现场 Sprint（一到四天沉浸式）、团队 Setup（让你们自主）、生产中的 Automations，或如果你在法国以外且现场不合理，则采用 Remote international。由你决定。"
         },
         {
-          "q": "Onsite or remote?",
-          "a": "Onsite preferred in France and Europe. For clients outside this zone, the Remote international format delivers audit, configuration and three to five automations without travel."
+          "q": "现场还是远程？",
+          "a": "法国和欧洲优先现场交付。对于此区域外客户，Remote international 格式可以远程交付审计、配置和三到五个自动化，无需差旅。"
         },
         {
-          "q": "Are we obligated to continue with you after the audit?",
-          "a": "No. The action plan you receive is usable without us. If you have an internal team or a partner who can execute it, that's fine. We come back if you call us."
+          "q": "审计之后必须继续和你们合作吗？",
+          "a": "不必。你收到的行动计划不依赖我们也可以使用。如果你有内部团队或合作伙伴可以执行，也完全可以。你需要时再叫我们回来。"
         },
         {
-          "q": "Where are you based, what languages do you operate in?",
-          "a": "Rueil-Malmaison, France. We work in French, English and Brazilian Portuguese. Most engagements are run in France and across Europe, with a few international clients on remote."
+          "q": "你们在哪里，用什么语言工作？",
+          "a": "我们在法国 Rueil-Malmaison。工作语言为法语、英语和巴西葡萄牙语。大部分任务在法国和欧洲执行，也有部分国际客户远程交付。"
         }
       ]
     },
     "nextSteps": {
-      "title": "What comes after the audit?",
-      "subtitle": "The audit leads into one of these four formats. You decide based on the case.",
+      "title": "审计之后是什么？",
+      "subtitle": "审计会导向以下四种格式之一。你根据具体情况选择。",
       "options": [
         {
-          "kind": "Sprint onsite or remote",
+          "kind": "现场或远程 Sprint",
           "title": "Audit, Configuration & Claude Code Sprint",
-          "desc": "One to four days with your teams, onsite or remote, to deliver an operational system on the urgent case. Live coding, your operators learn by watching."
+          "desc": "和你的团队现场或远程工作一到四天，在紧急案例上交付一个可运行系统。现场编码，操作者边看边学。"
         },
         {
-          "kind": "Team autonomy",
+          "kind": "团队自主",
           "title": "Claude Code Setup",
-          "desc": "Installation, configuration and enablement. Your teams become autonomous: CLAUDE.md, hooks, skills, MCP, business workflows, internal docs."
+          "desc": "安装、配置和赋能。你的团队获得自主能力：CLAUDE.md、hooks、skills、MCP、业务 workflow、内部文档。"
         },
         {
-          "kind": "Continuous production",
+          "kind": "持续生产",
           "title": "Automations",
-          "desc": "Deterministic workflows (n8n, scripts, agents) built to spec. CRM, monitoring, billing, outbound, reporting. Git-versioned, deployed. Fixed fee per deliverable."
+          "desc": "按规格构建确定性 workflow（n8n、脚本、智能体）。CRM、监测、计费、outbound、reporting。Git 版本管理并部署。按交付物固定费用。"
         },
         {
-          "kind": "International",
-          "title": "Remote format",
-          "desc": "Audit, Claude Code configuration and three to five automations delivered remotely. For clients outside France where onsite doesn't make sense."
+          "kind": "国际",
+          "title": "Remote 格式",
+          "desc": "远程交付审计、Claude Code 配置和三到五个自动化。适合在法国以外、不适合现场差旅的客户。"
         }
       ]
     },
     "ctaSection": {
-      "title": "Book a call with Paul",
-      "subtitle": "Reply within twenty-four hours. We qualify the right format together.",
-      "primary": "Book a call",
-      "secondary": "Email Paul directly"
+      "title": "和 Paul 预约交流",
+      "subtitle": "二十四小时内回复。我们一起确认正确格式。",
+      "primary": "预约交流",
+      "secondary": "直接邮件联系 Paul"
     }
   },
   "sprint": {
     "meta": {
-      "title": "Audit, Configuration & Claude Code Sprint : Parrit.ai | 1 to 4 days, onsite or remote",
-      "description": "Audit, Configuration & Claude Code Sprint of one to four days, onsite or remote. We code with your teams the workflow that unblocks operations. Operational system on exit. Fixed fee or outcome-based, no day rate.",
+      "title": "Audit, Configuration & Claude Code Sprint：Parrit.ai | 1 到 4 天，现场或远程",
+      "description": "一到四天的 Audit, Configuration & Claude Code Sprint，可现场或远程。我们和你的团队一起编码，交付解锁运营的 workflow。结束时系统可运行。固定费用或结果计费，没有日费。",
       "ogTitle": "Audit, Configuration & Claude Code Sprint : Parrit.ai",
-      "ogDescription": "One to four days, onsite or remote. We code with you, we leave when the system runs.",
-      "schemaDescription": "Audit, Configuration & Claude Code Sprint of one to four days, onsite or remote, to deliver an operational system."
+      "ogDescription": "一到四天，现场或远程。我们和你一起编码，系统运行后才离开。",
+      "schemaDescription": "一到四天的 Audit, Configuration & Claude Code Sprint，可现场或远程，用于交付可运行系统。"
     },
     "hero": {
       "label": "AUDIT, CONFIGURATION & CLAUDE CODE SPRINT",
-      "titleMain": "One to four days.",
-      "titleAccent": "A system running on exit.",
-      "quickAnswer": "An Audit, Configuration & Claude Code Sprint is one to four days, onsite or remote, during which we build with your teams the workflow that unblocks operations. We code live, your operators learn by watching, and we leave when the system runs in production. Typical topics: tender response, post-acquisition integration, sales workflow, intelligence to structure, ERP queryable in plain language. Fixed fee or outcome-based pay. No day rate. Written deliverables.",
-      "cta": "Book a call with Paul"
+      "titleMain": "一到四天。",
+      "titleAccent": "结束时系统已经运行。",
+      "quickAnswer": "Audit, Configuration & Claude Code Sprint 是一到四天的现场或远程 sprint。我们和你的团队一起构建解锁运营的 workflow。我们现场编码，你的操作者边看边学；系统在生产环境运行后我们才离开。典型主题：招标响应、并购后整合、销售 workflow、情报结构化、可用自然语言查询的 ERP。固定费用或结果计费，没有日费，有书面交付物。",
+      "cta": "和 Paul 预约交流"
     },
     "audience": {
-      "title": "Who it's for",
+      "title": "适合谁",
       "items": [
         {
-          "role": "CEOs who want a result before the end of the week",
-          "desc": "You have a bottleneck identified and you don't want to wait three months for a SaaS vendor to ship the feature."
+          "role": "想在本周结束前看到结果的 CEO",
+          "desc": "你已经识别出瓶颈，不想等 SaaS 供应商三个月后才发布功能。"
         },
         {
-          "role": "Heads of operations who want to unblock a specific workflow",
-          "desc": "You know exactly which process weighs on your teams. We come build it with them."
+          "role": "想解锁某个具体 workflow 的运营负责人",
+          "desc": "你很清楚哪个流程正在拖累团队。我们来和他们一起把它做出来。"
         },
         {
-          "role": "Founders in M&A integration mode",
-          "desc": "Heterogeneous stack, scattered data. We build the operational bridge in a few days."
+          "role": "正在做并购整合的创始人",
+          "desc": "技术栈异构，数据分散。我们在几天内搭出运营桥梁。"
         },
         {
-          "role": "Mid-market companies who want to see Claude Code run on their real business",
-          "desc": "Not a trade show demo. A tested, deployed, documented prototype in your infrastructure."
+          "role": "想让 Claude Code 跑在真实业务上的中型企业",
+          "desc": "不是展会 demo，而是在你的基础设施中测试、部署并文档化的原型。"
         }
       ]
     },
     "method": {
-      "title": "How it goes",
+      "title": "如何进行",
       "steps": [
         {
           "n": "1",
-          "title": "Flash audit (half-day)",
-          "desc": "We arrive, map the target workflow with the operators concerned. We validate together the sprint scope and success criteria."
+          "title": "Flash audit（半天）",
+          "desc": "我们到场，和相关操作者一起梳理目标 workflow。共同确认 sprint 范围和成功标准。"
         },
         {
           "n": "2",
-          "title": "Build live",
-          "desc": "Claude Code in hand, shared screen, your teams watch and participate. We iterate on your real data, not a theoretical dataset."
+          "title": "现场构建",
+          "desc": "Claude Code 在手，共享屏幕，你的团队观看并参与。我们在你的真实数据上迭代，而不是理论数据集。"
         },
         {
           "n": "3",
-          "title": "Test + deploy",
-          "desc": "We test with real users, fix on the spot, deploy in your infrastructure. Git-versioned, documented."
+          "title": "测试 + 部署",
+          "desc": "我们和真实用户测试，现场修复，并部署到你的基础设施中。Git 版本管理，文档齐全。"
         },
         {
           "n": "4",
-          "title": "Handover and exit",
-          "desc": "Internal documentation delivered, transferable to a new hire. You leave with the running system and the autonomy to evolve it."
+          "title": "交接并退出",
+          "desc": "交付内部文档，可传递给新成员。你带走运行中的系统，以及继续演进它的自主能力。"
         }
       ]
     },
     "deliverables": {
-      "title": "What you walk away with",
+      "title": "你会带走什么",
       "items": [
-        "Operational system deployed in your infrastructure, tested on your real data",
-        "Git-versioned code, in your repository or ours depending on preference",
-        "Internal documentation : how it works, how to evolve it, how to debug it",
-        "Your operators trained on the real case, not a theoretical example",
-        "Continuity plan : what we can industrialize next (Setup or Automations)"
+        "部署在你基础设施中的可运行系统，并用真实数据测试",
+        "Git 版本管理代码，可放在你的仓库或我们的仓库",
+        "内部文档：如何运行、如何演进、如何调试",
+        "操作者基于真实案例接受培训，而不是理论示例",
+        "连续性计划：下一步可以工业化什么（Setup 或 Automations）"
       ]
     },
     "faq": {
-      "title": "Frequently asked questions",
+      "title": "常见问题",
       "items": [
         {
-          "q": "How much does it cost?",
-          "a": "Fixed fee or outcome-based pay : you choose. Fixed fee: scope, schedule, written deliverables. Outcome-based: a share of the actual gain (savings, incremental revenue, time recovered). If the outcome isn't reached in the latter case, the variable part isn't invoiced. No day rate, no surprises."
+          "q": "费用是多少？",
+          "a": "固定费用或结果计费：你选择。固定费用包含范围、日程和书面交付物。结果计费则按实际收益（节省、新增收入、追回时间）的一部分收费。如果结果没有达成，变量部分不收费。没有日费，没有惊喜账单。"
         },
         {
-          "q": "How long does it take?",
-          "a": "One to four consecutive days onsite. The format depends on the scope validated during the flash audit on the first half-day."
+          "q": "需要多久？",
+          "a": "现场连续一到四天。具体格式取决于第一半天 flash audit 中确认的范围。"
         },
         {
-          "q": "Do you code in our infra or yours?",
-          "a": "At your office, in your Git repo, in your infrastructure. The code stays yours. We can host temporarily if the infrastructure isn't ready, but the goal is that everything lives at your place by the end."
+          "q": "代码写在你们基础设施还是我们的？",
+          "a": "在你的办公室、你的 Git 仓库、你的基础设施中。代码归你。如果基础设施还没准备好，我们可以临时托管，但目标是结束时一切都在你这边。"
         },
         {
-          "q": "What if we have no Git repo, no cloud infra?",
-          "a": "We set one up during the sprint. It's even a useful deliverable : your teams come out with a repeatable environment."
+          "q": "如果我们没有 Git 仓库或云基础设施怎么办？",
+          "a": "我们会在 sprint 中搭建一个。这甚至是一个有用交付物：你的团队会获得一个可重复使用的环境。"
         },
         {
-          "q": "Can we do the sprint without our operators available?",
-          "a": "No. The presence of two to three business operators during the sprint is non-negotiable : it's what makes the system actually run at your place after we leave."
+          "q": "没有我们的操作者参与，可以做 sprint 吗？",
+          "a": "不可以。Sprint 期间必须有两到三位业务操作者参与，这是系统在我们离开后仍能真正运行的条件。"
         },
         {
-          "q": "Difference from a classic consulting engagement?",
-          "a": "We don't do slides, no audit ending in a drawer. We code live with your teams, we deliver a running system. No day rate, no disguised extension."
+          "q": "和传统咨询有什么区别？",
+          "a": "我们不做幻灯片，也不做放进抽屉的审计。我们和你的团队现场编码，交付一个运行中的系统。没有日费，没有伪装成延期的项目。"
         },
         {
-          "q": "What comes after the sprint?",
-          "a": "If the system needs to be industrialized or extended, we move to Setup (your team autonomy) or Automations (production workflows). If your teams are autonomous, we stop. We come back on call."
+          "q": "Sprint 之后是什么？",
+          "a": "如果系统需要工业化或扩展，我们进入 Setup（团队自主能力）或 Automations（生产 workflow）。如果你的团队已经自主，我们就停下，需要时再回来。"
         },
         {
-          "q": "What languages do you operate in?",
-          "a": "French, English and Brazilian Portuguese. Most sprints are run in France and across Europe."
+          "q": "你们用什么语言工作？",
+          "a": "法语、英语和巴西葡萄牙语。大多数 sprint 在法国和欧洲执行。"
         }
       ]
     },
     "nextSteps": {
-      "title": "What comes after the sprint?",
-      "subtitle": "The sprint solves an urgent case. What's next depends on what you want to build with it.",
+      "title": "Sprint 之后是什么？",
+      "subtitle": "Sprint 解决一个紧急案例。下一步取决于你想基于它继续构建什么。",
       "options": [
         {
-          "kind": "Team autonomy",
+          "kind": "团队自主",
           "title": "Claude Code Setup",
-          "desc": "You want your teams to take Claude Code in their own hands end-to-end. We install, configure, and enable. Output: a repeatable environment that runs without us."
+          "desc": "你希望团队端到端掌握 Claude Code。我们安装、配置并赋能。结果：一个无需我们也能运行的可重复环境。"
         },
         {
-          "kind": "Continuous production",
+          "kind": "持续生产",
           "title": "Automations",
-          "desc": "The sprint showed a workflow that needs to run continuously. We industrialize (n8n, scripts, agents), Git-versioned, deployed. Fixed fee per deliverable."
+          "desc": "Sprint 显示某个 workflow 需要持续运行。我们将其工业化（n8n、脚本、智能体），Git 版本管理并部署。按交付物固定费用。"
         },
         {
-          "kind": "International",
-          "title": "Remote format",
-          "desc": "If you're outside France and the sprint laid the foundation, the Remote format takes over from a distance."
+          "kind": "国际",
+          "title": "Remote 格式",
+          "desc": "如果你在法国以外，而 sprint 已经打下基础，Remote 格式可以远程接手。"
         },
         {
-          "kind": "First step",
+          "kind": "第一步",
           "title": "Claude Code Audit",
-          "desc": "If we haven't talked yet, the audit is the half-day entry. We look at your workflows and pick the right format together."
+          "desc": "如果我们还没交流过，审计就是半天入口。我们查看你的 workflow，并一起选择正确格式。"
         }
       ]
     },
     "ctaSection": {
-      "title": "Book a sprint at your office",
-      "subtitle": "Reply within twenty-four hours. We qualify the sprint scope together.",
-      "primary": "Book a call",
-      "secondary": "Email Paul directly"
+      "title": "预约在你公司进行 sprint",
+      "subtitle": "二十四小时内回复。我们一起确认 sprint 范围。",
+      "primary": "预约交流",
+      "secondary": "直接邮件联系 Paul"
     }
   },
   "setup": {
@@ -939,53 +939,53 @@
   },
   "casVitrines": {
     "meta": {
-      "title": "Showcase cases : Parrit.ai",
-      "description": "Quatre profils d'entreprise, quatre transformations opérées par Parrit. TPE/artisan, PME B2C, cabinet de conseil, grand groupe."
+      "title": "案例展示：Parrit.ai",
+      "description": "四类企业画像，四种由 Parrit 运营的转型：小微商家、B2C 中小企业、咨询公司、大型集团。"
     },
     "homeSection": {
-      "badge": "QUATRE EXEMPLES PARMI BEAUCOUP D'AUTRES",
-      "title": "Deux types de chantiers, une même façon de construire",
-      "subtitle": "Capter, prototyper, opérer, transmettre. Cette méthode s'applique à deux fronts critiques : ce qui pèse aujourd'hui sur vos équipes, et ce qu'elles n'ont pas le temps d'aller chercher. Chaque entreprise a ses propres goulots.",
+      "badge": "四个示例，远不止这些",
+      "title": "两类工作，同一种构建方法",
+      "subtitle": "捕获、原型、运营、传递。这套方法适用于两条关键战线：今天压在团队身上的工作，以及团队没有时间主动争取的业务。每家公司都有自己的瓶颈。",
       "categories": [
         {
-          "badge": "TÂCHES INTERNES EXISTANTES",
-          "title": "Automatiser ce qui pèse sur vos équipes",
+          "badge": "现有内部任务",
+          "title": "自动化那些压在团队身上的工作",
           "examples": [
             {
-              "title": "Centraliser les demandes multicanales",
-              "context": "Exemple observé chez un artisan haut de gamme",
-              "brief": "Vos canaux entrants (site, réseaux sociaux, téléphone, point de vente) débordent. L'agent capte chaque demande, la qualifie par typologie, route, et tient les stocks à jour.",
-              "result": "100 % des leads captés, 60 % du temps administratif libéré."
+              "title": "集中多渠道请求",
+              "context": "高端手工品牌中的代表性案例",
+              "brief": "你的入口渠道（网站、社交网络、电话、门店）已经溢出。智能体捕获每个请求，按类型判断、分派，并保持库存更新。",
+              "result": "100 % 线索被捕获，释放 60 % 行政时间。"
             },
             {
-              "title": "Digest thématique automatisé",
-              "context": "Exemple observé dans un cabinet d'avocats",
-              "brief": "Deux heures par matin à éplucher la presse spécialisée et la jurisprudence. L'agent digest, classe, et prépare l'email du lundi prêt à diffuser.",
-              "result": "Digest livré chaque lundi 7 h 30, prêt à envoyer aux clients."
+              "title": "自动化专题简报",
+              "context": "律师事务所中的代表性案例",
+              "brief": "每天早上花两小时阅读专业媒体和判例。智能体摘要、分类，并准备周一可直接发送的邮件。",
+              "result": "每周一 7:30 交付简报，可直接发送给客户。"
             }
           ]
         },
         {
-          "badge": "GÉNÉRATION DE BUSINESS",
-          "title": "Aller chercher le business que vos équipes ne touchent pas",
+          "badge": "业务生成",
+          "title": "拿回团队还没有触达的业务",
           "examples": [
             {
-              "title": "Pipeline outbound sur signaux faibles",
-              "context": "Exemple observé dans un cabinet de conseil",
-              "brief": "Vos prospects parlent en podcast, lèvent des fonds, recrutent. L'agent scanne 18 podcasts par jour, extrait les dirigeants pertinents, écrit avec votre voix.",
-              "result": "4 RDV qualifiés par semaine, taux de réponse 12 % contre 2 % en cold classique."
+              "title": "基于弱信号的 outbound pipeline",
+              "context": "咨询公司中的代表性案例",
+              "brief": "你的潜在客户在播客中发声、融资、招聘。智能体每天扫描 18 个播客，提取相关决策者，并用你的语气撰写触达内容。",
+              "result": "每周 4 个合格会议，回复率 12 %，传统 cold 约 2 %。"
             },
             {
-              "title": "Prospection pilotée par alerte temps réel",
-              "context": "Exemple observé chez un client B2B",
-              "brief": "L'agent détecte qui ouvre un appel d'offres, qui change de poste, qui a un signal d'achat. Vous appelez au bon moment, jamais à l'aveugle.",
-              "result": "1 à 5 RDV qualifiés par jour, tous déclenchés par un signal détecté en temps réel."
+              "title": "实时提醒驱动的销售触达",
+              "context": "B2B 客户中的代表性案例",
+              "brief": "智能体识别谁发布招标、谁换岗、谁出现购买信号。你在正确时间联系，而不是盲打。",
+              "result": "每天 1 到 5 个合格会议，全部由实时检测到的信号触发。"
             }
           ]
         }
       ],
-      "footer": "On en fait beaucoup d'autres. Le mieux pour identifier le vôtre : 15 minutes avec Paul.",
-      "ctaLabel": "Voir le cas",
+      "footer": "我们还做很多其他场景。识别你的场景，最好方式是和 Paul 交流 15 分钟。",
+      "ctaLabel": "查看案例",
       "cards": [
         {
           "slug": "tpe-artisan-commercant",
@@ -1014,71 +1014,71 @@
       ]
     },
     "labels": {
-      "profile": "Profil de l'entreprise",
-      "transformation": "La transformation opérée",
-      "domains": "Domaines d'activités impactés",
-      "result": "Résultats",
-      "stack": "Stack technique mobilisée",
-      "otherProfilesTitle": "Découvrir un autre profil",
-      "otherProfilesCta": "Voir le cas"
+      "profile": "企业画像",
+      "transformation": "完成的转型",
+      "domains": "受影响的业务领域",
+      "result": "结果",
+      "stack": "使用的技术栈",
+      "otherProfilesTitle": "查看另一个画像",
+      "otherProfilesCta": "查看案例"
     },
     "profiles": [
       {
         "slug": "tpe-artisan-commercant",
         "hero": {
-          "badge": "TPE / ARTISAN / COMMERÇANT INDÉPENDANT",
-          "titleMain": "De l'agitation",
-          "titleAccent": "à la maîtrise.",
-          "intro": "Vous êtes seul ou à quelques-uns à tout faire. Parrit installe les agents qui captent vos leads, qualifient vos demandes, gèrent vos stocks et relancent vos clients. Vous gardez la décision."
+          "badge": "小微企业 / 手工品牌 / 独立商家",
+          "titleMain": "从忙乱",
+          "titleAccent": "到掌控。",
+          "intro": "你一个人或少数几个人承担所有事情。Parrit 安装智能体，捕获线索、资格判断请求、管理库存并跟进客户。你保留决策权。"
         },
         "profile": {
           "items": [
             {
-              "label": "Taille",
-              "value": "1 à 10 personnes"
+              "label": "规模",
+              "value": "1 到 10 人"
             },
             {
-              "label": "Marchés",
-              "value": "B2C + B2B mixte"
+              "label": "市场",
+              "value": "B2C + B2B 混合"
             },
             {
-              "label": "Canaux",
-              "value": "E-commerce, réseaux sociaux, téléphone, point de vente"
+              "label": "渠道",
+              "value": "电商、社交网络、电话、门店"
             },
             {
-              "label": "Enjeu",
-              "value": "Le fondateur est sur tous les fronts, le commercial passe sous le radar"
+              "label": "挑战",
+              "value": "创始人同时处理所有战线，商业机会从雷达下方溜走"
             }
           ]
         },
         "transformation": {
-          "quote": "On bascule du fondateur-pompier au fondateur-pilote. Les leads ne tombent plus dans le vide, les stocks ne sont plus tenus sur post-it, les clients ne sont plus oubliés.",
-          "body": "Un agent unique capte chaque demande entrante, la qualifie par typologie, déclenche la bonne relance WhatsApp dans la voix du fondateur, et tient les stocks à jour. Vous regardez le dashboard 10 minutes le matin, et c'est tout."
+          "quote": "从救火型创始人转向驾驶型创始人。线索不再掉进空洞，库存不再写在便利贴上，客户不再被遗忘。",
+          "body": "一个智能体捕获每个进站请求，按类型资格判断，用创始人的语气触发正确 WhatsApp 跟进，并保持库存更新。你每天早上看 10 分钟 dashboard，仅此而已。"
         },
         "domains": [
-          "Capture leads sur tous vos canaux (e-commerce, réseaux sociaux, téléphone, point de vente)",
-          "Qualification automatique par typologie client",
-          "Gestion des stocks et des commandes en temps réel",
-          "Relances WhatsApp segmentées dans votre voix",
-          "Suivi commercial unifié sur dashboard quotidien",
-          "Production et envoi automatique de devis simples"
+          "在所有渠道捕获线索（电商、社交网络、电话、门店）",
+          "按客户类型自动资格判断",
+          "实时管理库存和订单",
+          "用你的语气进行分段 WhatsApp 跟进",
+          "在每日 dashboard 中统一商业跟踪",
+          "自动生成并发送简单报价"
         ],
         "result": {
           "metrics": [
             {
               "value": "100 %",
-              "label": "des leads captés (vs ~30 % avant)"
+              "label": "线索被捕获（之前约 30 %）"
             },
             {
               "value": "60 %",
-              "label": "du temps administratif libéré pour le fondateur"
+              "label": "创始人的行政时间被释放"
             },
             {
               "value": "14",
-              "label": "demandes Pro identifiées la première semaine, passaient sous le radar"
+              "label": "第一周识别出的专业请求，此前一直被漏掉"
             }
           ],
-          "note": "Cas type représentatif. Chiffres observés sur un projet réel mené avec un artisan français en 2026."
+          "note": "代表性案例。数据来自 2026 年与一位法国手工品牌合作的真实项目。"
         },
         "stack": [
           "n8n",
@@ -1092,59 +1092,59 @@
       {
         "slug": "pme-marque-b2c",
         "hero": {
-          "badge": "PME / MARQUE B2C EN CROISSANCE",
-          "titleMain": "Reprendre la main",
-          "titleAccent": "sur votre visibilité IA.",
-          "intro": "Rufus, Alexa for Shopping et ChatGPT Search orientent désormais le choix produit des acheteurs. Parrit installe l'agent qui surveille votre visibilité IA chaque jour, par mot-clé et par concurrent."
+          "badge": "成长型中小企业 / B2C 品牌",
+          "titleMain": "重新掌控",
+          "titleAccent": "你的 AI 可见度。",
+          "intro": "Rufus、Alexa for Shopping 和 ChatGPT Search 正在影响买家的产品选择。Parrit 安装智能体，每天按关键词和竞争对手监测你的 AI 可见度。"
         },
         "profile": {
           "items": [
             {
-              "label": "Taille",
-              "value": "10 à 200 personnes"
+              "label": "规模",
+              "value": "10 到 200 人"
             },
             {
-              "label": "Modèle",
-              "value": "Marque B2C avec forte présence e-commerce et marketplaces"
+              "label": "模式",
+              "value": "在电商和 marketplace 上存在感强的 B2C 品牌"
             },
             {
-              "label": "Plateformes",
-              "value": "Amazon, Shopify, marketplaces sectorielles"
+              "label": "平台",
+              "value": "Amazon、Shopify、行业 marketplace"
             },
             {
-              "label": "Enjeu",
-              "value": "Dépendance plateformes et opacité totale sur l'orientation IA des acheteurs"
+              "label": "挑战",
+              "value": "依赖平台，且对买家 AI 导向完全不透明"
             }
           ]
         },
         "transformation": {
-          "quote": "On vous donne enfin la visibilité que les plateformes vous cachent. Chaque matin, vous savez exactement ce que Rufus a recommandé hier, et qui a gagné du terrain.",
-          "body": "Chaque matin, un agent interroge Rufus et Alexa sur vos 50 instructions stratégiques. Il mesure votre rang, votre share-of-voice IA, et les concurrents qui montent. Vous recevez un dashboard quotidien et une alerte si quelque chose bouge."
+          "quote": "我们终于给你平台隐藏起来的可见度。每天早上，你都知道 Rufus 昨天推荐了什么，以及谁正在获得优势。",
+          "body": "每天早上，一个智能体用你的 50 条战略指令询问 Rufus 和 Alexa。它衡量你的排名、AI share-of-voice，以及正在上升的竞争对手。你会收到每日 dashboard；如果有变化，会收到提醒。"
         },
         "domains": [
-          "Veille concurrentielle continue sur 50 instructions stratégiques par jour",
-          "Monitoring share-of-voice IA (Rufus, Alexa, ChatGPT Search)",
-          "Intelligence prix et positionnement marketplaces",
-          "Alertes stratégiques temps réel via Telegram",
-          "Réajustement des fiches produit selon les signaux IA",
-          "Reporting hebdomadaire pour le comité marketing"
+          "每天围绕 50 条战略指令持续竞争监测",
+          "AI share-of-voice 监测（Rufus、Alexa、ChatGPT Search）",
+          "价格情报和 marketplace 定位",
+          "通过 Telegram 发送实时战略提醒",
+          "根据 AI 信号调整产品页",
+          "面向市场委员会的每周 reporting"
         ],
         "result": {
           "metrics": [
             {
               "value": "50",
-              "label": "instructions stratégiques scannées chaque matin"
+              "label": "每天早上扫描的战略指令"
             },
             {
               "value": "3",
-              "label": "menaces concurrentielles détectées le premier mois"
+              "label": "第一个月检测到的竞争威胁"
             },
             {
               "value": "6 sem.",
-              "label": "ROI prouvé sur la première vague de réajustements"
+              "label": "第一轮调整证明 ROI"
             }
           ],
-          "note": "Cas type représentatif. Stack et résultats issus d'un projet réel mené avec un acteur premium en 2026."
+          "note": "代表性案例。技术栈和结果来自 2026 年与一位 premium 玩家合作的真实项目。"
         },
         "stack": [
           "Bright Data",
@@ -1158,59 +1158,59 @@
       {
         "slug": "cabinet-conseil",
         "hero": {
-          "badge": "CABINET DE CONSEIL / AGENCE / SOCIÉTÉ DE SERVICES",
-          "titleMain": "Du cold mort",
-          "titleAccent": "au signal vivant.",
-          "intro": "Le cold classique ne marche plus. Parrit construit votre pipeline outbound voix dirigeant, branché sur les signaux faibles qui montrent qu'un prospect est mûr aujourd'hui : podcast, levée, nomination."
+          "badge": "咨询公司 / 代理商 / 服务公司",
+          "titleMain": "从失效 cold",
+          "titleAccent": "到活信号。",
+          "intro": "传统 cold 已经不再有效。Parrit 构建带有管理者语气的 outbound pipeline，接入显示 prospect 今天已经成熟的弱信号：播客、融资、任命。"
         },
         "profile": {
           "items": [
             {
-              "label": "Taille",
-              "value": "10 à 100 personnes"
+              "label": "规模",
+              "value": "10 到 100 人"
             },
             {
-              "label": "Modèle",
-              "value": "Vente de services intellectuels haute valeur ajoutée"
+              "label": "模式",
+              "value": "销售高附加值知识服务"
             },
             {
-              "label": "Cible",
-              "value": "Dirigeants ETI ou grands comptes (CODIR, COMEX)"
+              "label": "目标",
+              "value": "ETI 或大型账户决策者（CODIR、COMEX）"
             },
             {
-              "label": "Enjeu",
-              "value": "Outbound classique en panne (taux réponse <2%), pas de signal pour personnaliser"
+              "label": "挑战",
+              "value": "传统 outbound 失效（回复率 <2%），缺少用于个性化的信号"
             }
           ]
         },
         "transformation": {
-          "quote": "Vous arrêtez d'envoyer le même message à tout le monde. Chaque prospect reçoit une accroche qui dit précisément pourquoi vous l'écrivez aujourd'hui, à partir d'un signal qu'il a lui-même produit.",
-          "body": "Un agent scanne chaque jour 18 podcasts business et la presse spécialisée. Il extrait les dirigeants pertinents, enrichit le contact, et construit un message Operating Partner qui cite une idée précise du signal détecté. Les réponses arrivent qualifiées chaud / froid."
+          "quote": "你不再向所有人发送同一条消息。每个 prospect 都收到一个开场，精确说明你为什么今天写给他，并基于他自己产生的信号。",
+          "body": "一个智能体每天扫描 18 个商业播客和专业媒体。它提取相关决策者、丰富联系人，并构建一条 Operating Partner 消息，引用检测信号中的一个具体观点。回复会被分为热 / 冷。"
         },
         "domains": [
-          "Sourcing prospects (LinkedIn, SIRENE, presse)",
-          "Veille signaux faibles (podcasts, levées, nominations, recrutements)",
-          "Qualification automatique leads chauds vs froids",
-          "Copywriting voix dirigeant par signal",
-          "Séquences multicanales coordonnées (email, LinkedIn)",
-          "Monitoring délivrabilité et reporting RDV pris"
+          "Prospect sourcing（LinkedIn、SIRENE、媒体）",
+          "弱信号监测（播客、融资、任命、招聘）",
+          "自动区分热 lead 和冷 lead",
+          "按信号生成管理者语气文案",
+          "多渠道协调序列（email、LinkedIn）",
+          "送达率监测和预约会议 reporting"
         ],
         "result": {
           "metrics": [
             {
               "value": "4 RDV",
-              "label": "qualifiés en moyenne par semaine"
+              "label": "平均每周合格会议"
             },
             {
               "value": "12 %",
-              "label": "taux de réponse (vs 2 % en cold classique)"
+              "label": "回复率（传统 cold 约 2 %）"
             },
             {
               "value": "120 k€",
-              "label": "HT pipeline net signés en 4 mois"
+              "label": "4 个月内签下的净 pipeline（税前）"
             }
           ],
-          "note": "Cas type représentatif. Performance observée sur des campagnes B2B France en 2026."
+          "note": "代表性案例。表现来自 2026 年法国 B2B campaigns。"
         },
         "stack": [
           "YouTube / RSS scraper",
@@ -1224,48 +1224,48 @@
       {
         "slug": "grand-groupe",
         "hero": {
-          "badge": "GRAND GROUPE / ETI / MULTINATIONALE",
-          "titleMain": "De la formation théorique",
-          "titleAccent": "à l'agent en production.",
-          "intro": "Vos dirigeants ont vu trop de slides. Parrit anime un sprint hands-on de 2 jours où chacun arrive avec un cas métier réel et repart avec un agent en production. Le transfert de compétence devient permanent."
+          "badge": "大型集团 / ETI / 跨国企业",
+          "titleMain": "从理论培训",
+          "titleAccent": "到生产中的智能体。",
+          "intro": "你的管理层已经看过太多幻灯片。Parrit 组织一个 2 天实战冲刺，每个人带着真实业务案例进入，带着已上线的智能体离开。能力转移变成长期资产。"
         },
         "profile": {
           "items": [
             {
-              "label": "Taille",
-              "value": "1 000+ collaborateurs"
+              "label": "规模",
+              "value": "1 000+ 名员工"
             },
             {
-              "label": "Couverture",
-              "value": "Présence internationale, plusieurs business units"
+              "label": "覆盖",
+              "value": "国际布局，多条业务线"
             },
             {
               "label": "Sponsor",
-              "value": "Direction Training & Development, COMEX ou DG transformation"
+              "value": "Training & Development 负责人、COMEX 或转型负责人"
             },
             {
-              "label": "Enjeu",
-              "value": "Sortir du pilote perpétuel et installer une vraie autonomie IA chez les dirigeants"
+              "label": "挑战",
+              "value": "摆脱永远试点，在管理层中建立真正的 AI 自主能力"
             }
           ]
         },
         "transformation": {
-          "quote": "On arrête de leur expliquer comment ça marche. On les fait construire. Ils repartent avec leur agent, et avec la mécanique pour en construire d'autres avec leurs équipes.",
-          "body": "Sprint en 2 jours. Jour 1 matin : cadrage de chaque cas métier. Jour 1 après-midi à jour 2 : co-construction de l'agent avec Claude Code et branchement aux outils internes. Jour 2 fin : mise en production. À J+7 follow-up, et les dirigeants formés deviennent ensuite vos formateurs internes."
+          "quote": "不再解释它如何工作，而是让他们亲手构建。他们带着自己的智能体离开，也带着继续和团队构建其他智能体的方法离开。",
+          "body": "2 天 sprint。第 1 天上午：界定每个业务案例。第 1 天下午到第 2 天：用 Claude Code 共建智能体，并连接内部工具。第 2 天结束：上线生产。D+7 跟进，受训管理者随后成为内部培训者。"
         },
         "domains": [
-          "Formation Claude Code pour dirigeants non-tech",
-          "Prototypage de cas métier réels en sprint encadré",
-          "Montée en autonomie sur la conduite d'agents IA",
-          "Train-the-trainer : vos dirigeants formés deviennent formateurs internes",
-          "Industrialisation des bonnes pratiques agentiques",
-          "Suivi post-sprint à J+7 et J+30 pour ajuster"
+          "面向非技术管理者的 Claude Code 培训",
+          "在引导式 sprint 中原型化真实业务案例",
+          "提升 AI 智能体运营自主能力",
+          "Train-the-trainer：受训管理者成为内部培训者",
+          "工业化智能体最佳实践",
+          "D+7 与 D+30 sprint 后跟进调整"
         ],
         "result": {
           "metrics": [
             {
-              "value": "6 dirigeants",
-              "label": "formés par cohorte"
+              "value": "6 位管理者",
+              "label": "每个 cohort 完成培训"
             },
             {
               "value": "6 agents",
@@ -1273,10 +1273,10 @@
             },
             {
               "value": "3 cohortes",
-              "label": "renouvelées l'année suivante par l'équipe T&D"
+              "label": "次年由 T&D 团队续开"
             }
           ],
-          "note": "Cas type représentatif. Format issu d'un programme Sprint Builders réel mené avec un retailer européen en 2026."
+          "note": "代表性案例。格式来自 2026 年与一家欧洲零售商共同运行的真实 Sprint Builders 项目。"
         },
         "stack": [
           "Claude Code",
@@ -1288,7 +1288,7 @@
         ]
       }
     ],
-    "ctaTitle": "Vous vous reconnaissez dans ce profil ?",
-    "ctaSubtitle": "15 minutes avec Paul. On regarde votre opération, on identifie le goulot, on voit si Parrit peut le débloquer."
+    "ctaTitle": "你认出自己的情况了吗？",
+    "ctaSubtitle": "和 Paul 交流 15 分钟。我们看你的运营，识别瓶颈，并判断 Parrit 是否能解开。"
   }
 }
