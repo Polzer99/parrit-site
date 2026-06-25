@@ -243,10 +243,10 @@ const contentByLocale: Partial<Record<Locale, Partial<Record<MaturiteLevel, OneP
       ],
     },
     N6: {
-      eyebrow: "N6 · Proprietary agentic tooling",
+      eyebrow: "N6 · Agentic tooling",
       h1: "Anyone can ship. Give your teams the power to build.",
-      sub: "Founders, product managers and business teams: we help you build proprietary internal tools with Claude Code, Codex and a solid product method.",
-      phrase: "I want to master Claude Code and Codex",
+      sub: "Founders, product managers and business teams: we help you build internal agentic tools with the right stack: open source, proprietary, cloud or on-premise.",
+      phrase: "I want to master agentic tools",
       stories: [
         {
           title: "Amazon Rufus for Lavazza and Carte Noire",
@@ -260,12 +260,21 @@ const contentByLocale: Partial<Record<Locale, Partial<Record<MaturiteLevel, OneP
         },
         {
           title: "Art object estimator",
-          person: "Internal proprietary tool",
+          person: "Internal agentic tool",
           before:
             "The business knew what to estimate, compare and document, but not how to turn expertise into a usable tool.",
           after:
             "An internal prototype combines structured input, assisted reasoning, sources and usable output.",
           result: "The team moves from business intuition to a testable feature.",
+        },
+        {
+          title: "Weak-signal monitoring and agentic reporting",
+          person: "Internal product",
+          before:
+            "Signals were spotted too late, then copied by hand into notes, spreadsheets or reports.",
+          after:
+            "An agentic loop collects, triages, summarizes and reports continuously, on an open or proprietary stack.",
+          result: "Product and business teams start shipping their own tools, with a validation frame.",
         },
       ],
     },
@@ -617,8 +626,10 @@ export default function OnePager({
           <div className="story-grid">
             {renderedStories.map((story) => (
               <article className="story-card" key={story.title}>
-                {story.logo && <img className="story-logo" src={story.logo.src} alt={story.logo.alt} />}
-                <div className="story-person">{story.person}</div>
+                <div className="story-head">
+                  {story.logo && <img className="story-logo" src={story.logo.src} alt={story.logo.alt} />}
+                  <div className="story-person">{story.person}</div>
+                </div>
                 <h3>{story.title}</h3>
                 <div className="story-compare">
                   <div>

@@ -292,10 +292,10 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
   "outils-agentiques": {
     level: "N6",
     slug: "outils-agentiques",
-    eyebrow: "N6 · Outil propriétaire agentique",
+    eyebrow: "N6 · Outils agentiques",
     h1: "N'importe qui peut shipper. Donnez à vos équipes le pouvoir de construire.",
-    sub: "Fondateurs, product managers, équipes métier : on vous aide à construire vos outils propriétaires internes avec Claude Code, Codex et une méthode produit solide.",
-    phrase: "Je veux maîtriser Claude Code et Codex",
+    sub: "Fondateurs, product managers, équipes métier : on vous aide à construire vos outils agentiques internes avec la bonne stack : open source, propriétaire, cloud ou on-premise.",
+    phrase: "Je veux maîtriser les outils agentiques",
     ctaLabel: "Construire mon outil interne",
     ctaHref: CONTACT_MAIL,
     stories: [
@@ -311,7 +311,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
       },
       {
         title: "Estimateur d'objets d'art",
-        person: "Outil propriétaire interne",
+        person: "Outil agentique interne",
         before:
           "Le métier savait ce qu'il fallait estimer, comparer et documenter, mais pas comment transformer l'expertise en outil utilisable.",
         after:
@@ -319,12 +319,12 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
         result: "L'équipe passe d'une intuition métier à une feature testable.",
       },
       {
-        title: "Veille signaux faibles et reporting avec Codex",
+        title: "Veille signaux faibles et reporting agentique",
         person: "Produit interne",
         before:
           "Les signaux étaient repérés trop tard, puis recopiés à la main dans des notes, tableaux ou reportings.",
         after:
-          "Codex aide à construire la boucle : collecte, tri, synthèse, reporting et amélioration continue.",
+          "Une boucle agentique collecte, trie, synthétise, reporte et s'améliore en continu, sur stack ouverte ou propriétaire.",
         result: "Les product managers et métiers commencent à shipper leurs propres outils, avec un cadre de validation.",
       },
     ],
@@ -334,9 +334,10 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
       "Vos équipes métier ont la vision de l'outil interne, mais pas encore la méthode pour le shipper.",
     ],
     deliverables: [
-      "Construction d'outils propriétaires internes : cadrage, prototype, tests, données, interface et trajectoire produit.",
+      "Construction d'outils agentiques internes : cadrage, prototype, tests, données, interface et trajectoire produit.",
       "Méthode de shipping : transformer une idée métier en feature, puis en outil utilisable.",
-      "Transfert Claude Code / Codex : consignes, specs, tests, documentation, revue et passation.",
+      "Transfert outils agentiques : stack open source ou propriétaire, consignes, specs, tests, documentation, revue et passation.",
+      "Déploiement adapté à vos contraintes : SaaS, cloud privé, VPC ou on-premise quand la donnée l'exige.",
     ],
     steps: [
       { title: "Choix de l'outil", body: "On part d'un besoin interne concret : estimation, veille, reporting, recherche, interface métier ou automatisation produit." },

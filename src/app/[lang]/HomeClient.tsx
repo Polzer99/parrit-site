@@ -154,7 +154,7 @@ const COPY: Record<Locale, HomeCopy> = {
     },
     hero: {
       eyebrow: "Fractional AI Operator · Ingénierie agentique",
-      chips: ["Claude Code", "Codex", "Serveurs MCP"],
+      chips: ["Outils agentiques", "Open source / propriétaire", "On-premise possible"],
       before: "Parrit opère vos ",
       redOne: "deux fronts critiques",
       middle: " : ",
@@ -256,7 +256,7 @@ const COPY: Record<Locale, HomeCopy> = {
         { id: "N3", label: "L'Action", phrase: "Je veux connecter mes logiciels à l'IA", href: "/sessions-mcp" },
         { id: "N4", label: "Cartographie des process", phrase: "Je veux passer du diagnostic à la décision", href: "/audit" },
         { id: "N5", label: "Le Déploiement", phrase: "Je veux un agent en production", href: "/deploiement-agents" },
-        { id: "N6", label: "L'Autonomie", phrase: "Je veux maîtriser Claude Code et Codex", href: "/outils-agentiques" },
+        { id: "N6", label: "L'Autonomie", phrase: "Je veux maîtriser les outils agentiques", href: "/outils-agentiques" },
         { id: "N7", label: "La Gouvernance", phrase: "J'ai une flotte, je veux l'optimiser", href: "/optimisation-flotte" },
       ],
       examples: [
@@ -340,7 +340,7 @@ const COPY: Record<Locale, HomeCopy> = {
           did: "Vos équipes deviennent autonomes.",
           before: "Quelques personnes testent des outils IA, sans cadre partagé ni passation durable.",
           after: "Les référents savent cadrer, construire et piloter leurs agents avec méthode.",
-          desc: "On forme vos référents IA et on configure Claude Code, Codex et vos outils agentiques. Ils repartent en sachant construire et piloter leurs agents.",
+          desc: "On forme vos référents IA et on configure vos outils agentiques : open source, propriétaires, cloud ou on-premise selon vos contraintes.",
           more: "Voir le cas →",
         },
       ],
@@ -381,7 +381,7 @@ const COPY: Record<Locale, HomeCopy> = {
     },
     hero: {
       eyebrow: "Fractional AI Operator · Agentic engineering",
-      chips: ["Claude Code", "Codex", "MCP servers"],
+      chips: ["Agentic tools", "Open source / proprietary", "On-premise possible"],
       before: "Parrit operates your ",
       redOne: "two critical fronts",
       middle: ": ",
@@ -483,7 +483,7 @@ const COPY: Record<Locale, HomeCopy> = {
         { id: "N3", label: "Action", phrase: "I want to connect my software to AI", href: "/sessions-mcp" },
         { id: "N4", label: "Process mapping", phrase: "I want to move from diagnostic to decision", href: "/audit" },
         { id: "N5", label: "Deployment", phrase: "I want an agent in production", href: "/deploiement-agents" },
-        { id: "N6", label: "Autonomy", phrase: "I want to master Claude Code and Codex", href: "/outils-agentiques" },
+        { id: "N6", label: "Autonomy", phrase: "I want to master agentic tools", href: "/outils-agentiques" },
         { id: "N7", label: "Governance", phrase: "I have a fleet and want to optimize it", href: "/optimisation-flotte" },
       ],
       examples: [
@@ -567,7 +567,7 @@ const COPY: Record<Locale, HomeCopy> = {
           did: "Your teams become autonomous.",
           before: "A few people test AI tools, without a shared frame or durable handover.",
           after: "AI leads know how to scope, build and operate their agents methodically.",
-          desc: "We train your AI leads and configure Claude Code, Codex and your agentic tools. They leave knowing how to build and operate their agents.",
+          desc: "We train your AI leads and configure your agentic tools: open source, proprietary, cloud or on-premise depending on your constraints.",
           more: "See the case →",
         },
       ],
@@ -608,7 +608,7 @@ const COPY: Record<Locale, HomeCopy> = {
     },
     hero: {
       eyebrow: "Fractional AI Operator · Engenharia agentica",
-      chips: ["Claude Code", "Codex", "Servidores MCP"],
+      chips: ["Ferramentas agenticas", "Open source / proprietárias", "On-premise possível"],
       before: "A Parrit opera suas ",
       redOne: "duas frentes críticas",
       middle: ": ",
@@ -710,7 +710,7 @@ const COPY: Record<Locale, HomeCopy> = {
         { id: "N3", label: "Ação", phrase: "Quero conectar meus softwares à IA", href: "/sessions-mcp" },
         { id: "N4", label: "Mapeamento de processos", phrase: "Quero passar do diagnóstico à decisão", href: "/audit" },
         { id: "N5", label: "Deploy", phrase: "Quero um agente em produção", href: "/deploiement-agents" },
-        { id: "N6", label: "Autonomia", phrase: "Quero dominar Claude Code e Codex", href: "/outils-agentiques" },
+        { id: "N6", label: "Autonomia", phrase: "Quero dominar ferramentas agenticas", href: "/outils-agentiques" },
         { id: "N7", label: "Governança", phrase: "Tenho uma frota, quero otimizá-la", href: "/optimisation-flotte" },
       ],
       examples: [
@@ -794,7 +794,7 @@ const COPY: Record<Locale, HomeCopy> = {
           did: "Suas equipes se tornam autônomas.",
           before: "Algumas pessoas testam ferramentas de IA sem quadro comum nem passagem durável.",
           after: "Referentes IA sabem enquadrar, construir e pilotar agentes com método.",
-          desc: "Formamos seus referentes IA e configuramos Claude Code, Codex e suas ferramentas agenticas. Eles saem sabendo construir e pilotar seus agentes.",
+          desc: "Formamos seus referentes IA e configuramos suas ferramentas agenticas: open source, proprietárias, cloud ou on-premise conforme suas restrições.",
           more: "Ver o caso →",
         },
       ],
@@ -835,7 +835,7 @@ const COPY: Record<Locale, HomeCopy> = {
     },
     hero: {
       eyebrow: "Fractional AI Operator · 智能体工程",
-      chips: ["Claude Code", "Codex", "MCP 服务器"],
+      chips: ["智能体工具", "开源 / 专有", "可本地部署"],
       before: "Parrit 为你运营",
       redOne: "两个关键战线",
       middle: "：",
@@ -937,7 +937,7 @@ const COPY: Record<Locale, HomeCopy> = {
         { id: "N3", label: "行动", phrase: "我想把软件连接到 AI", href: "/sessions-mcp" },
         { id: "N4", label: "流程梳理", phrase: "我想从诊断进入决策", href: "/audit" },
         { id: "N5", label: "部署", phrase: "我想要一个投入生产的智能体", href: "/deploiement-agents" },
-        { id: "N6", label: "自主", phrase: "我想掌握 Claude Code 和 Codex", href: "/outils-agentiques" },
+        { id: "N6", label: "自主", phrase: "我想掌握智能体工具", href: "/outils-agentiques" },
         { id: "N7", label: "治理", phrase: "我有一组智能体，想要优化", href: "/optimisation-flotte" },
       ],
       examples: [
@@ -1021,7 +1021,7 @@ const COPY: Record<Locale, HomeCopy> = {
           did: "你的团队变得自主。",
           before: "少数人在测试 AI 工具，但没有共同框架或可传递方法。",
           after: "AI 负责人知道如何界定、构建并运营智能体。",
-          desc: "我们培训你的 AI 负责人，并配置 Claude Code、Codex 和你的智能体工具。团队离开时会知道如何构建和操作智能体。",
+          desc: "我们培训你的 AI 负责人，并配置你的智能体工具：开源、专有、云端或本地部署，按你的约束选择。",
           more: "查看案例 →",
         },
       ],
@@ -1051,12 +1051,6 @@ const COPY: Record<Locale, HomeCopy> = {
     footer: "Paul Larmaraud & Yukun Leng · 专家网络 · paul.larmaraud@parrit.ai",
   },
 };
-
-const TOOL_CHIPS = [
-  { src: "/brand/tool-logos/claude.svg" },
-  { src: "/brand/tool-logos/openai.svg" },
-  { src: "/brand/tool-logos/mcp.svg" },
-];
 
 const CLIENT_LOGOS = [
   { alt: "Lavazza", src: "/brand/client-logos/logo-1.png" },
@@ -1229,10 +1223,10 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           </a>
         </div>
         <div className="chips" aria-label={copy.a11y.tools}>
-          {TOOL_CHIPS.map((chip, index) => (
-            <span className="chip" key={copy.hero.chips[index]}>
-              <img className="ci" src={chip.src} alt="" aria-hidden="true" />
-              {copy.hero.chips[index]}
+          {copy.hero.chips.map((chip) => (
+            <span className="chip" key={chip}>
+              <span className="dot" aria-hidden="true" />
+              {chip}
             </span>
           ))}
         </div>
