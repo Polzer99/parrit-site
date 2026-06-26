@@ -1,0 +1,331 @@
+/* ============================================================================
+   PARRIT.AI — Design System "Parrit Template" (passe pixel-perfect Figma)
+   Source de vérité visuelle = Smoooth Studio "Parrit Template"
+     (~/Downloads/SMOOOTH BRAND LO-Y-WA CONSULTING/Parrit Template.png, 1440x5371)
+     copie préservée : resources/FIGMA-REFERENCE-parrit-template.png
+   Valeurs (couleurs + tailles + espacements) EXTRAITES de cette frame (PIL).
+   Polices = IDENTIFIÉES sur la frame (bake-off rendu) : Hanken Grotesk (display, single-story g / a à queue / t coupé) + JetBrains Mono (labels/coords). DM Sans REJETÉ (queue de g trop fermée).
+   v1 (tokens BRAND nus) sauvegardée : parrit-da.v1-tokens.bak.css
+   ----------------------------------------------------------------------------
+   DIVERGENCES assumées vs anciens tokens BRAND.md (= ce que dit VRAIMENT la frame) :
+     - fond clair  #F3F5FA  (blanc cassé FROID)        [BRAND : #FEFDF9 crème chaud]
+     - encre       #161616                              [BRAND : #0C0C0D]
+     - bande sombre#2C2B29  (anthracite CHAUD)          [BRAND : #0C0C0D noir]
+     - rouge       #A80708  (cramoisi profond)          [BRAND : #D1132F vif]
+     - terracotta  #C67C60  (tag "format phare" + emphase sur sombre) [BRAND : "retiré"]
+     - cartes/btn  plats + ombre douce                  [ancien CSS : néo-brutaliste]
+   ========================================================================== */
+@import url('fonts/fonts.css'); /* polices HÉBERGÉES EN LOCAL (woff2) — garantit le rendu fidèle (Hanken Grotesk + JetBrains Mono), plus de fallback système */
+
+:root{
+  /* surfaces */
+  --bg:#F5F8FF;            /* page : blanc cassé froid (VECTEUR SVG source) */
+  --band:#ECF1FB;          /* bande alternée, légèrement plus dense */
+  --surface:#FFFFFF;       /* cartes */
+  --dark:#2E2D2B;          /* bande sombre anthracite chaud (vecteur SVG) */
+  --dark-2:#26241F;        /* baseball-cards (un cran plus sombre) */
+  /* texte */
+  --ink:#161616;           /* titres / texte fort */
+  --muted:#6E7079;         /* texte mono courant (assombri vs réf pour WCAG) */
+  --faint:#8987A1;         /* labels ladder, fine print, coords (vecteur SVG, fill le + fréquent) */
+  --on-dark:#ECEAE5;       /* texte sur sombre */
+  --on-dark-mut:#A9A6A0;
+  /* accents */
+  --red:#AA0003;           /* cramoisi : sceau, emphase, CTA (vecteur SVG source) */
+  --red-hover:#8A0203;
+  --terra:#C67C60;         /* terracotta : tag format phare + emphase sombre */
+  /* lignes & ombres */
+  --line:rgba(20,20,26,.10);
+  --line-2:rgba(20,20,26,.14);
+  --dash:rgba(20,20,26,.16);
+  --tint:rgba(168,7,8,.06);
+  --tint-bd:rgba(168,7,8,.16);
+  --shadow:0 1px 2px rgba(20,24,48,.05), 0 10px 30px rgba(20,24,48,.06);
+  --shadow-sm:0 1px 2px rgba(20,24,48,.05), 0 4px 14px rgba(20,24,48,.05);
+  --shadow-lg:0 2px 6px rgba(20,24,48,.06), 0 24px 60px rgba(20,24,48,.09);
+  /* familles */
+  --sans:'Hanken Grotesk',system-ui,-apple-system,Segoe UI,sans-serif;
+  --mono:'JetBrains Mono','SF Mono',ui-monospace,monospace;
+  --serif:Georgia,'Songti SC',serif; /* sceau 速 = fallback CJK système */
+  /* grille */
+  --col:1212px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--ink);font-family:var(--sans);
+  line-height:1.5;-webkit-font-smoothing:antialiased;position:relative;
+}
+/* grain papier subtil (visible dans la réf sur les aplats froids) */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.035;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* ---- frame fine encre haut/bas ---- */
+.frame{height:6px;background:var(--ink)}
+
+/* ---- layout ---- */
+.wrap{max-width:var(--col);margin:0 auto;padding:0 34px}
+.mono{font-family:var(--mono)}
+.red{color:var(--red)}
+.dim{color:var(--faint)}
+
+/* eyebrow / kicker = mono rouge majuscule espacé */
+.eyebrow,.kicker{
+  font-family:var(--mono);font-size:12.5px;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--red);display:block;
+}
+.kicker{margin-bottom:16px}
+
+/* ---- NAV ---- */
+nav{display:flex;align-items:center;justify-content:space-between;padding:24px 0}
+.logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:21px;letter-spacing:-.01em;color:var(--ink)}
+.logo-img{height:30px;width:auto;display:block}
+.ctacard .logo-img{height:38px;margin-bottom:6px}
+footer .logo-img{height:22px}
+.seal{
+  width:34px;height:34px;background:var(--red);border-radius:7px;
+  display:grid;place-items:center;color:#fff;font-weight:600;font-size:18px;
+  font-family:var(--serif);line-height:1;box-shadow:0 2px 6px rgba(168,7,8,.28);
+}
+
+/* ---- boutons (plats, pas d'ombre dure) ---- */
+.btn{
+  font-family:var(--mono);font-size:13px;font-weight:600;text-decoration:none;
+  cursor:pointer;border:0;display:inline-flex;align-items:center;gap:8px;
+  letter-spacing:.01em;transition:transform .12s ease, background .12s ease;
+}
+.btn-red{background:var(--red);color:#fff;padding:11px 18px;border-radius:8px}
+.btn-red:hover{background:var(--red-hover)}
+.btn-ghost{background:#EEF1F7;color:var(--ink);padding:11px 18px;border-radius:8px;border:1px solid var(--line)}
+.btn-ghost:hover{background:#E6EAF2}
+.btn-lg{padding:15px 26px;font-size:13.5px;border-radius:9px}
+.cta-row{display:flex;gap:13px;flex-wrap:wrap}
+
+/* ---- HERO ---- */
+.hero{position:relative;text-align:center;padding:70px 0 78px;overflow:hidden}
+.hero .wrap,.hero>*{position:relative;z-index:1}
+.hero.left{text-align:left}
+.hero{padding-left:34px;padding-right:34px;max-width:var(--col);margin:0 auto}
+.seal-wm{position:absolute;top:-70px;right:-40px;width:460px;opacity:.05;z-index:0;transform:rotate(-4deg);pointer-events:none}
+.hero h1{
+  font-size:clamp(28px,6.6vw,62px);line-height:1.06;font-weight:800;letter-spacing:-.024em;
+  max-width:920px;margin:18px 0 0;color:var(--ink);
+}
+.hero:not(.left) h1{margin-left:auto;margin-right:auto}
+.hero .sub{
+  font-family:var(--mono);font-size:14px;line-height:1.75;color:var(--muted);
+  max-width:640px;margin:24px 0 0;
+}
+.hero:not(.left) .sub{margin-left:auto;margin-right:auto}
+
+/* chips = pilules blanches, ombre douce (logos outils) */
+.chips{display:flex;flex-wrap:wrap;gap:11px;margin:32px 0 0}
+.hero:not(.left) .chips{justify-content:center}
+.chip{
+  font-family:var(--mono);font-size:12.5px;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line);border-radius:100px;padding:9px 16px;
+  display:inline-flex;align-items:center;gap:9px;box-shadow:var(--shadow-sm);
+}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex:0 0 auto}
+.hero .cta-row{margin-top:36px}
+.hero:not(.left) .cta-row{justify-content:center}
+
+/* ---- SECTIONS ---- */
+section{padding:78px 0}
+.section{padding:78px 0}
+.band{background:var(--band)}
+h2{font-size:clamp(26px,4.6vw,42px);line-height:1.12;font-weight:800;letter-spacing:-.018em;max-width:680px;color:var(--ink)}
+.section-head{max-width:720px;margin-bottom:8px}
+.section-head .kicker{margin-bottom:14px}
+.lead{font-family:var(--mono);font-size:14px;line-height:1.75;color:var(--muted);max-width:480px;margin-top:18px}
+.note{font-family:var(--mono);font-size:12.5px;color:var(--faint);margin-top:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:8px}
+.two h2{font-size:clamp(28px,5vw,46px)}
+
+/* ---- CARTES (plates, bord fin + ombre douce) ---- */
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:16px;
+  padding:28px;box-shadow:var(--shadow);
+}
+/* icône = boîte claire + glyphe rouge (pas un carré rouge plein) */
+.card .ic{
+  width:40px;height:40px;background:var(--bg);border:1px solid var(--line);
+  border-radius:10px;display:grid;place-items:center;color:var(--red);
+  font-family:var(--serif);font-weight:600;font-size:20px;line-height:1;margin-bottom:18px;
+}
+.card h3{font-size:19px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.card p{font-family:var(--mono);font-size:13px;line-height:1.7;color:var(--muted);margin-top:10px}
+.card .step,.card.step h3{font-family:var(--mono);font-weight:700;letter-spacing:.06em}
+.card.step h3{font-size:14px;color:var(--red);text-transform:uppercase}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+
+/* ---- ÉCHELLE D'OFFRE (ladder) ---- */
+.ladder{margin-top:40px;border-top:1px solid var(--line)}
+.row{display:flex;align-items:center;gap:20px;padding:18px 2px;border-bottom:1px solid var(--line)}
+.row .arr{order:-1;color:var(--faint);font-size:15px;padding-right:20px;border-right:1px solid var(--line);align-self:stretch;display:flex;align-items:center}
+.row .lab{font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;color:var(--faint);display:flex;align-items:center;gap:12px}
+.row .price{margin-left:auto;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.tag{
+  display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:#fff;background:var(--terra);border-radius:5px;
+  padding:4px 9px;font-weight:600;
+}
+
+/* ---- CHECKLIST ---- */
+.checks{list-style:none;display:grid;gap:14px;margin-top:14px}
+.checks li{display:flex;gap:13px;align-items:flex-start;font-family:var(--mono);font-size:13.5px;color:var(--muted);line-height:1.6}
+/* badge .ck = cercle bordé rouge + petit sceau rouge (motif récurrent) */
+.ck{
+  flex:0 0 auto;display:inline-grid;place-items:center;width:24px;height:24px;
+  border:1.5px solid var(--red);border-radius:50%;color:var(--red);
+  font-family:var(--serif);font-weight:600;font-size:12px;line-height:1;
+}
+
+/* ---- GRILLE CAS D'USAGE (séparateurs pointillés, pas de bord de carte) ---- */
+.uc{display:grid;grid-template-columns:repeat(3,1fr);margin-top:42px}
+.cell{padding:26px 28px 30px 0;border-right:1px dashed var(--dash);border-bottom:1px dashed var(--dash)}
+.cell:nth-child(3n){border-right:0;padding-right:0}
+.cell:nth-last-child(-n+3){border-bottom:0}
+.cell .ck{margin-bottom:14px}
+.cell h4{font-size:clamp(20px,2.6vw,25px);font-weight:700;letter-spacing:-.012em;color:var(--ink);display:flex;align-items:center;gap:12px}
+.cell h4 .ck,.cell>.ck{margin-bottom:0}
+.cell p{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.65;max-width:300px}
+
+/* ---- PREUVES (baseball cards sombres) ---- */
+.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+.bc{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:var(--shadow)}
+.bc .sec{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+.bc .pain{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:14px;line-height:1.6}
+.bc .res{font-size:27px;font-weight:800;letter-spacing:-.02em;margin-top:18px;color:var(--ink);line-height:1.15}
+.bc .res b{color:var(--red)}
+
+/* ---- SPEC LIST (offre / catalogue) ---- */
+.spec{display:grid;grid-template-columns:200px 1fr;border-top:1px solid var(--line);margin-top:32px}
+.spec dt{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--red);padding:18px 0;border-bottom:1px solid var(--line)}
+.spec dd{padding:18px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink)}
+.spec dd .m,.m{font-family:var(--mono);font-size:13px;color:var(--muted)}
+
+/* ---- PERSONA ---- */
+.persona{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:var(--shadow)}
+.persona .num{font-family:var(--mono);font-size:13px;color:var(--red);font-weight:700;letter-spacing:.08em}
+.persona h3{font-size:20px;font-weight:700;margin-top:8px;color:var(--ink);letter-spacing:-.01em}
+.persona .role{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:5px}
+.persona p{font-size:14px;margin-top:13px;line-height:1.6;color:var(--ink)}
+.persona .sign{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:15px;border-top:1px solid var(--line);padding-top:13px;line-height:1.6}
+.persona .sign b{color:var(--red);font-weight:600}
+
+/* ---- pastille prix "à partir de" ---- */
+.anchor{display:inline-block;font-family:var(--mono);font-size:13px;color:var(--ink);background:var(--tint);border:1px solid var(--tint-bd);border-radius:8px;padding:9px 14px}
+
+/* ---- CTA FINAL (carte blanche plate + watermark sceau) ---- */
+.ctacard{
+  position:relative;background:var(--surface);border:1px solid var(--line);border-radius:20px;
+  padding:52px;display:grid;grid-template-columns:1.25fr 1fr;gap:34px;align-items:center;
+  box-shadow:var(--shadow-lg);overflow:hidden;
+}
+.ctacard .logo{margin-bottom:22px}
+.ctacard h2{font-size:clamp(24px,3.6vw,30px);letter-spacing:-.018em}
+.ctacard .fine{font-family:var(--mono);font-size:13px;color:var(--muted);margin:18px 0 26px;line-height:1.7;max-width:420px}
+.ctacard .seal-wm{position:relative;justify-self:end;top:auto;right:auto;width:300px;opacity:.07;transform:rotate(-4deg)}
+
+/* ---- FOOTER ---- */
+footer{padding:30px 0;border-top:1px solid var(--line);margin-top:0}
+footer.dim{color:var(--faint)}
+footer .logo{font-size:16px;color:var(--ink)}
+footer .mono{font-family:var(--mono);font-size:12px;color:var(--faint)}
+.wrap>footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+
+/* ---- sub utilitaire ---- */
+.sub{font-family:var(--mono);color:var(--muted)}
+
+/* ============================ RESPONSIVE ============================ */
+@media (max-width:880px){
+  .two,.grid2,.grid3,.proof{grid-template-columns:1fr}
+  .uc{grid-template-columns:1fr}
+  .cell{border-right:0!important;padding-right:0;border-bottom:1px dashed var(--dash)!important}
+  .cell:last-child{border-bottom:0!important}
+  .ctacard{grid-template-columns:1fr;padding:36px}
+  .ctacard .seal-wm{display:none}
+  .hero h1{font-size:42px}
+  h2,.two h2{font-size:32px}
+  .cell h4{font-size:22px}
+  .spec{grid-template-columns:1fr}
+  .spec dt{padding-bottom:4px;border-bottom:0}
+  .spec dd{padding-top:4px}
+}
+@media (max-width:520px){
+  .wrap{padding:0 20px}
+  .hero{padding-left:20px;padding-right:20px}
+  .hero h1{font-size:34px}
+  h2,.two h2{font-size:27px}
+}
+
+/* ============ AJOUTS v2 (feedback Paul 23/06 : clarté + preuve + conversion) ============ */
+.chip .ci{width:15px;height:15px;flex:0 0 auto}
+/* OS cards : titre aligné + sous-titre clair, moins de texte */
+.card h3 .note{display:block;font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--faint);letter-spacing:.02em;text-transform:none;margin-top:3px}
+/* hero watermark : contenu, plus discret (ne plus "couper" le logo) */
+.hero .seal-wm{top:-90px;left:50%;right:auto;transform:translateX(-50%) rotate(-3deg);width:560px;opacity:.05}
+/* VSL : emplacement vidéo (conversion) */
+.vsl-sec{padding:0 0 8px}
+.vsl{position:relative;max-width:920px;margin:0 auto;aspect-ratio:16/9;border-radius:18px;background:var(--dark);
+  border:1px solid var(--line);box-shadow:var(--shadow-lg);display:grid;place-items:center;overflow:hidden;cursor:pointer}
+.vsl .play{width:84px;height:84px;border-radius:50%;background:var(--red);display:grid;place-items:center;box-shadow:0 8px 30px rgba(170,0,3,.4)}
+.vsl .play::after{content:"";border-left:26px solid #fff;border-top:16px solid transparent;border-bottom:16px solid transparent;margin-left:6px}
+.vsl .cap{position:absolute;bottom:22px;left:26px;font-family:var(--mono);font-size:13px;color:#ECEAE5;letter-spacing:.02em}
+.vsl .tagwm{position:absolute;top:24px;right:28px;font-family:var(--serif);font-size:120px;color:var(--terra);opacity:.10;line-height:1}
+/* mur de preuve sociale */
+.logowall-sec{padding:40px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.logowall-lab{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);text-align:center;margin-bottom:26px}
+.logowall{display:flex;align-items:center;justify-content:center;gap:clamp(28px,5vw,60px);flex-wrap:wrap}
+.logowall img{height:30px;width:auto;max-width:150px;object-fit:contain;filter:grayscale(1);opacity:.6;transition:opacity .2s,filter .2s}
+.logowall img:hover{opacity:1;filter:none}
+/* use cases RÉELS, cliquables */
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+.case{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:var(--shadow);text-decoration:none;color:inherit;transition:transform .14s ease,box-shadow .14s ease}
+.case:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.case .who{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.case .nm{font-size:18px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.case .sct{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);background:var(--tint);border:1px solid var(--tint-bd);border-radius:5px;padding:3px 8px}
+.case .did{font-size:14px;line-height:1.5;color:var(--ink);margin-top:14px;font-weight:500}
+.case .desc{font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--muted);margin-top:8px}
+.case .more{font-family:var(--mono);font-size:12px;color:var(--red);margin-top:16px;font-weight:600}
+/* badge Qualiopi (confiance) */
+.trust{display:flex;align-items:center;justify-content:center;gap:16px;padding:26px 0;flex-wrap:wrap}
+.qualiopi{display:inline-flex;align-items:center;gap:11px;font-family:var(--mono);font-size:12.5px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 16px;box-shadow:var(--shadow-sm)}
+.qualiopi .qlogo{height:30px;width:auto}
+.qualiopi .qk{display:inline-grid;place-items:center;width:22px;height:22px;border:1.5px solid var(--red);border-radius:50%;color:var(--red);font-size:12px}
+@media (max-width:880px){ .cases{grid-template-columns:1fr} }
+
+/* fix v2.1 : Carte Noire (logo en étiquette) trop petit → agrandi ; chip logos réels */
+.logowall img{height:32px}
+.logowall .logo-cn{height:56px}
+.chip .ci{width:16px;height:16px;object-fit:contain}
+
+/* badge Qualiopi avec vrai logo */
+.qualiopi-logo{height:56px;width:auto;display:block}
+.qualiopi-note{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.qualiopi-note b{color:var(--ink)}
+
+/* ===== CTA optimisé : lead form (email+tel→rappel) + WhatsApp ===== */
+.leadform{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;max-width:520px}
+.leadform input{font-family:var(--mono);font-size:13.5px;padding:13px 15px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--ink);flex:1 1 200px;min-width:170px}
+.leadform input::placeholder{color:var(--faint)}
+.leadform input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px var(--tint)}
+.leadform .btn{flex:0 0 auto;border:0;cursor:pointer}
+.cta-alt{display:flex;align-items:center;gap:18px;margin-top:16px;flex-wrap:wrap}
+.btn-wa{background:#25D366;color:#fff}
+.btn-wa:hover{background:#1EB158}
+.btn-wa .ci{width:17px;height:17px}
+.cta-mail{font-family:var(--mono);font-size:12.5px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:1px}
+.cta-mail:hover{color:var(--ink)}
+@media (max-width:880px){ .leadform input{flex:1 1 100%} }
+
+/* QA : garde-fou anti-débordement horizontal (mobile) */
+html,body{max-width:100%;overflow-x:hidden}
+img{max-width:100%}
+h1,h2,h3,h4{overflow-wrap:break-word}
+.wrap,.hero{box-sizing:border-box}
