@@ -50,6 +50,9 @@ const gateCss = `
 .matrix th,.matrix td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line)}
 .matrix th{color:var(--faint);text-transform:uppercase;letter-spacing:.06em;font-size:11px}
 .matrix td b{color:var(--red)}
+.lang-toggle{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;color:var(--faint)}
+.lang-toggle button{background:none;border:0;cursor:pointer;font-family:var(--mono);font-size:12px;color:var(--faint);padding:2px 3px;letter-spacing:.04em}
+.lang-toggle button.on{color:var(--red);font-weight:700}
 `;
 
 export default function HarnaisLayout({ children }: { children: React.ReactNode }) {
