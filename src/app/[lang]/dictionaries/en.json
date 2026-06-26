@@ -1119,10 +1119,10 @@
         },
         "transformation": {
           "quote": "We finally give you the visibility platforms hide from you. Every morning, you know exactly what Rufus recommended yesterday, and who gained ground.",
-          "body": "Every morning, an agent queries Rufus and Alexa on your 50 strategic prompts. It measures your rank, AI share of voice and rising competitors. You receive a daily dashboard and an alert when something moves."
+          "body": "Every morning, an agent queries Rufus and Alexa on your 50 strategic queries. It measures your rank, AI share of voice and rising competitors. You receive a daily dashboard and an alert when something moves."
         },
         "domains": [
-          "Continuous competitive monitoring on 50 strategic prompts per day",
+          "Continuous competitive monitoring on 50 strategic queries per day",
           "AI share-of-voice monitoring (Rufus, Alexa, ChatGPT Search)",
           "Pricing intelligence and marketplace positioning",
           "Real-time strategic alerts via Telegram",
@@ -1133,7 +1133,7 @@
           "metrics": [
             {
               "value": "50",
-              "label": "strategic prompts scanned every morning"
+              "label": "strategic queries scanned every morning"
             },
             {
               "value": "3",

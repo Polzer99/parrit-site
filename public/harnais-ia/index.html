@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Parrit · Diviser ses coûts IA par 20 — le harnais</title>
+  <title>Parrit · Diviser ses coûts IA par 20 : le harnais</title>
   <link rel="stylesheet" href="/da/parrit-da.css">
   <style>
     /* ── Seul ajout : le content-gate (flou + carte capture flottante).
@@ -96,13 +96,13 @@
           <div class="grid2">
             <div class="card">
               <div class="ic">速</div>
-              <h3>Le principe — pourquoi 95 % et pas 20 %</h3>
+              <h3>Le principe : pourquoi 95 % et pas 20 %</h3>
               <p>Un modèle frontier (gpt-5.5 : $5/$30 par 1M ; Opus : $5/$25) coûte 30 à 50× plus cher qu'un open-weight capable (DeepSeek V4 Flash : $0.09/$0.18). Or ~90 % du volume réel ne mérite pas un frontier. L'écart de prix structurel fait l'économie.</p>
             </div>
             <div class="card">
               <div class="ic">速</div>
               <h3>La règle d'or</h3>
-              <p>On ne choisit jamais un modèle par habitude. On classe la tâche, la classe impose le modèle — et ce routage devient le défaut, jamais un effort de mémoire. C'est ce qui fait tenir le −95 % dans le temps.</p>
+              <p>On ne choisit jamais un modèle par habitude. On classe la tâche, la classe impose le modèle, et ce routage devient le défaut, jamais un effort de mémoire. C'est ce qui fait tenir le −95 % dans le temps.</p>
             </div>
           </div>
 
@@ -120,9 +120,9 @@
           </div>
 
           <div class="grid3" style="margin-top:20px">
-            <div class="card step"><h3>Étape 1 — Mesurer</h3><p>Lire les 3 surfaces. On découvre que 1-2 concentrent 90 % du coût.</p></div>
-            <div class="card step"><h3>Étape 2 — Router</h3><p>Le volume non-critique descend vers l'open-weight, par défaut.</p></div>
-            <div class="card step"><h3>Étape 3 — Réserver</h3><p>Le frontier reste pour sécu, incident, archi seulement.</p></div>
+            <div class="card step"><h3>Étape 1 : Mesurer</h3><p>Lire les 3 surfaces. On découvre que 1-2 concentrent 90 % du coût.</p></div>
+            <div class="card step"><h3>Étape 2 : Router</h3><p>Le volume non-critique descend vers l'open-weight, par défaut.</p></div>
+            <div class="card step"><h3>Étape 3 : Réserver</h3><p>Le frontier reste pour sécu, incident, archi seulement.</p></div>
           </div>
         </div>
 
@@ -137,7 +137,7 @@
             <button type="submit" class="btn btn-red btn-lg">Recevoir le harnais + être recontacté →</button>
           </form>
           <p class="fine">Un seul email pour le harnais, puis un mot de Paul. Pas de spam, désinscription en 1 clic.</p>
-          <p class="gate-ok" id="gateOk">✓ Merci — le harnais arrive dans votre boîte. Paul vous écrit dans la foulée pour en parler.</p>
+          <p class="gate-ok" id="gateOk">✓ Merci, le harnais arrive dans votre boîte. Paul vous écrit dans la foulée pour en parler.</p>
           <img class="seal-wm" src="/brand/parrit-seal.svg" alt="">
         </div>
       </div>
@@ -147,7 +147,7 @@
   <div class="wrap">
     <footer class="dim">
       <div class="logo"><img class="logo-img" src="/brand/parrit-lockup-red.svg" alt="Parrit·AI"></div>
-      <span class="mono">Au-delà de ChatGPT — en production en 14 jours · paul.larmaraud@parrit.ai</span>
+      <span class="mono">Au-delà de ChatGPT · en production en 14 jours · paul.larmaraud@parrit.ai</span>
     </footer>
   </div>
 
@@ -160,7 +160,7 @@
       email: document.getElementById('lm-email').value,
       source: 'lead-magnet-harnais-cout-ia'
     };
-    // Webhook réel (n8n parrit-lead) — tracking source inclus pour l'email auto voix Paul.
+    // Webhook réel (n8n parrit-lead) : tracking source inclus pour l'email auto voix Paul.
     try {
       fetch(f.dataset.webhook, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
     } catch (err) { /* le déblocage UX ne doit jamais être bloqué par le réseau */ }
