@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parrit · Diviser ses coûts IA par 20 — le harnais</title>
+  <link rel="stylesheet" href="/da/parrit-da.css">
+  <style>
+    /* ── Seul ajout : le content-gate (flou + carte capture flottante).
+         Tout le reste = classes natives parrit-da.css. ── */
+    .gate{position:relative;margin-top:44px}
+    .gate-content{
+      filter:blur(6px);opacity:.5;pointer-events:none;user-select:none;
+      -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 34%,transparent 90%);
+      mask-image:linear-gradient(to bottom,#000 0%,#000 34%,transparent 90%);
+    }
+    .gate-capture{
+      position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);
+      width:min(460px,94%);z-index:5;
+      background:var(--surface);border:1px solid var(--line);border-radius:20px;
+      padding:40px 38px;box-shadow:var(--shadow-lg);overflow:hidden;
+    }
+    .gate-capture .seal{width:42px;height:42px;font-size:22px;border-radius:9px;margin-bottom:18px}
+    .gate-capture h3{font-size:24px;font-weight:800;letter-spacing:-.018em;line-height:1.18;color:var(--ink)}
+    .gate-capture .cap-sub{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:12px;line-height:1.65}
+    .gate-capture .leadform{flex-direction:column;margin-top:22px;max-width:none}
+    .gate-capture .leadform input{flex:1 1 100%}
+    .gate-capture .leadform .btn{width:100%;justify-content:center;padding:14px}
+    .gate-capture .fine{font-family:var(--mono);font-size:11px;color:var(--faint);text-align:center;margin-top:14px;line-height:1.5}
+    .gate-capture .seal-wm{position:absolute;bottom:-30px;right:-26px;width:180px;opacity:.06;transform:rotate(-4deg)}
+    .gate-ok{display:none;text-align:center;font-family:var(--mono);font-size:13px;color:var(--ink);margin-top:18px;line-height:1.6}
+    /* table matrice dans le contenu flouté */
+    .matrix{width:100%;border-collapse:collapse;margin-top:18px;font-family:var(--mono);font-size:12.5px}
+    .matrix th,.matrix td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line)}
+    .matrix th{color:var(--faint);text-transform:uppercase;letter-spacing:.06em;font-size:11px}
+    .matrix td b{color:var(--red)}
+  </style>
+</head>
+<body>
+  <div class="frame"></div>
+
+  <div class="wrap">
+    <nav>
+      <div class="logo"><img class="logo-img" src="/brand/parrit-lockup-red.svg" alt="Parrit·AI"></div>
+      <a class="btn btn-red" href="#capture">Recevoir le harnais</a>
+    </nav>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero left">
+    <img class="seal-wm" src="/brand/parrit-seal.svg" alt="">
+    <div class="wrap">
+      <span class="kicker">Étude de cas interne · Fractional AI Operator</span>
+      <h1>On a divisé nos coûts IA par <span class="red">20</span>.<br>Voici le harnais exact, mesuré.</h1>
+      <p class="sub">Pas une promesse marketing. Sur trois semaines de notre propre activité (Codex + Claude Code), on a mesuré chaque token, routé chaque tâche vers le modèle open-weight le moins cher qui fait le travail, et gardé le frontier pour les 10 % critiques. Méthode reproductible, chiffres à l'appui.</p>
+      <div class="chips">
+        <span class="chip"><img class="ci" src="/brand/tool-logos/claude.svg" alt=""> Claude Code</span>
+        <span class="chip"><img class="ci" src="/brand/tool-logos/openai.svg" alt=""> Codex</span>
+        <span class="chip"><span class="dot"></span> DeepSeek V4</span>
+        <span class="chip"><span class="dot"></span> GLM-5.2</span>
+        <span class="chip"><span class="dot"></span> Gemma local</span>
+      </div>
+
+      <div class="proof">
+        <div class="bc">
+          <div class="sec">Volume mesuré</div>
+          <div class="res">1,13&nbsp;<b>Md</b></div>
+          <div class="pain">tokens consommés en 17 jours, sur la seule surface Codex.</div>
+        </div>
+        <div class="bc">
+          <div class="sec">Coût équivalent-API</div>
+          <div class="res"><b>−95&nbsp;%</b></div>
+          <div class="pain">même travail, routé vers l'open-weight au lieu du frontier.</div>
+        </div>
+        <div class="bc">
+          <div class="sec">Limites de plan</div>
+          <div class="res"><b>0</b> blocage</div>
+          <div class="pain">plus jamais coupé en pleine session par un quota épuisé.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GATE -->
+  <section class="section band">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Le harnais complet</span>
+        <h2>Playbook + matrice tâche → modèle + calculateur</h2>
+        <p class="lead">Laissez votre email, on vous l'envoie. Lecture 8 minutes, applicable aujourd'hui.</p>
+      </div>
+
+      <div class="gate">
+        <!-- contenu réel, flouté -->
+        <div class="gate-content" aria-hidden="true">
+          <div class="grid2">
+            <div class="card">
+              <div class="ic">速</div>
+              <h3>Le principe — pourquoi 95 % et pas 20 %</h3>
+              <p>Un modèle frontier (gpt-5.5 : $5/$30 par 1M ; Opus : $5/$25) coûte 30 à 50× plus cher qu'un open-weight capable (DeepSeek V4 Flash : $0.09/$0.18). Or ~90 % du volume réel ne mérite pas un frontier. L'écart de prix structurel fait l'économie.</p>
+            </div>
+            <div class="card">
+              <div class="ic">速</div>
+              <h3>La règle d'or</h3>
+              <p>On ne choisit jamais un modèle par habitude. On classe la tâche, la classe impose le modèle — et ce routage devient le défaut, jamais un effort de mémoire. C'est ce qui fait tenir le −95 % dans le temps.</p>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:20px">
+            <h3>La matrice tâche → modèle</h3>
+            <table class="matrix">
+              <tr><th>Classe</th><th>Tâche</th><th>Modèle</th><th>Coût /1M</th></tr>
+              <tr><td>déterministe</td><td>regex, filtre, dédup</td><td>aucun LLM</td><td><b>$0</b></td></tr>
+              <tr><td>local</td><td>classif offline, prefilter</td><td>gemma3:12b</td><td><b>$0</b></td></tr>
+              <tr><td>cheap</td><td>extraction, scoring, routing</td><td>deepseek-v4-flash</td><td>$0.09</td></tr>
+              <tr><td>draft</td><td>email, post, copy</td><td>deepseek-v4-pro</td><td>$0.44</td></tr>
+              <tr><td>strong</td><td>coding, synthèse, PRD</td><td>glm-5.2</td><td>$0.95</td></tr>
+              <tr><td>frontier</td><td>sécu, incident, archi</td><td>Sonnet / GPT-5.5</td><td>$3–5</td></tr>
+            </table>
+          </div>
+
+          <div class="grid3" style="margin-top:20px">
+            <div class="card step"><h3>Étape 1 — Mesurer</h3><p>Lire les 3 surfaces. On découvre que 1-2 concentrent 90 % du coût.</p></div>
+            <div class="card step"><h3>Étape 2 — Router</h3><p>Le volume non-critique descend vers l'open-weight, par défaut.</p></div>
+            <div class="card step"><h3>Étape 3 — Réserver</h3><p>Le frontier reste pour sécu, incident, archi seulement.</p></div>
+          </div>
+        </div>
+
+        <!-- carte de capture flottante -->
+        <div class="gate-capture" id="capture">
+          <div class="seal">速</div>
+          <h3>Recevez le harnais complet</h3>
+          <p class="cap-sub">Le playbook (méthode + chiffres), la matrice tâche → modèle, et le calculateur qu'on utilise nous-mêmes. Paul vous écrit ensuite pour voir comment l'adapter à votre stack.</p>
+          <form class="leadform" id="leadForm" data-webhook="https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead" onsubmit="return gateSubmit(event)">
+            <input type="text" id="lm-name" name="name" placeholder="Prénom" required>
+            <input type="email" id="lm-email" name="email" placeholder="Email professionnel" required>
+            <button type="submit" class="btn btn-red btn-lg">Recevoir le harnais + être recontacté →</button>
+          </form>
+          <p class="fine">Un seul email pour le harnais, puis un mot de Paul. Pas de spam, désinscription en 1 clic.</p>
+          <p class="gate-ok" id="gateOk">✓ Merci — le harnais arrive dans votre boîte. Paul vous écrit dans la foulée pour en parler.</p>
+          <img class="seal-wm" src="/brand/parrit-seal.svg" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <footer class="dim">
+      <div class="logo"><img class="logo-img" src="/brand/parrit-lockup-red.svg" alt="Parrit·AI"></div>
+      <span class="mono">Au-delà de ChatGPT — en production en 14 jours · paul.larmaraud@parrit.ai</span>
+    </footer>
+  </div>
+
+<script>
+  function gateSubmit(e){
+    e.preventDefault();
+    var f = document.getElementById('leadForm');
+    var payload = {
+      name: document.getElementById('lm-name').value,
+      email: document.getElementById('lm-email').value,
+      source: 'lead-magnet-harnais-cout-ia'
+    };
+    // Webhook réel (n8n parrit-lead) — tracking source inclus pour l'email auto voix Paul.
+    try {
+      fetch(f.dataset.webhook, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+    } catch (err) { /* le déblocage UX ne doit jamais être bloqué par le réseau */ }
+    f.style.display = 'none';
+    document.getElementById('gateOk').style.display = 'block';
+    // déblocage visuel : on défloute le contenu
+    var c = document.querySelector('.gate-content');
+    c.style.filter='none'; c.style.opacity='1';
+    c.style.webkitMaskImage='none'; c.style.maskImage='none';
+    return false;
+  }
+</script>
+</body>
+</html>
