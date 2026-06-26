@@ -39,6 +39,6 @@ export const config = {
   matcher: [
     // On skip les internals Next, les assets statiques, les fichiers publics,
     // et l'OS interne (hors i18n)
-    "/((?!_next|api|os|fondateurs|academy|outils|diagnostic|favicon.ico|robots.txt|sitemap.xml|og-image.png|.*\\..*).*)",
+    "/((?!_next|api|os|fondateurs|academy|harnais-ia|outils|diagnostic|favicon.ico|robots.txt|sitemap.xml|og-image.png|.*\\..*).*)",
   ],
 };
