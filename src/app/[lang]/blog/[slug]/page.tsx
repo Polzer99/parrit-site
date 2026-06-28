@@ -240,7 +240,7 @@ export default async function BlogPostPage({
 
       <footer className="blog-footer">
         <p className="blog-footer-text">{dict.blog.articleFooter}</p>
-        <Link href={`/${lang}#callback-form`} className="blog-footer-cta">
+        <Link href={`/${lang}/rendez-vous`} className="blog-footer-cta">
           {dict.blog.footerCta}
         </Link>
         <p className="footer-legal" style={{ marginTop: 40 }}>

@@ -339,6 +339,23 @@
     "error": "The message didn't go through. Try again or email paul.larmaraud@parrit.ai.",
     "micro": "Reply in hours, not days."
   },
+  "rendezvous": {
+    "meta": {
+      "title": "Book a meeting | Parrit.ai",
+      "description": "Pick a slot straight from Paul's calendar. Three openings, one click. Or leave your email or phone and we'll reach out.",
+      "ogTitle": "Book a meeting with Paul",
+      "ogDescription": "Three openings in the calendar, one click to book."
+    },
+    "navTitle": "Meeting",
+    "headerLabel": "The meeting",
+    "headerTitleMain": "Pick your",
+    "headerTitleAccent": "slot",
+    "headerSubtitle": "Three openings in Paul's calendar. Choose one and it's booked. Fifteen minutes, video or in person.",
+    "openInTab": "Calendar not showing? Open the scheduler in a new tab",
+    "exitLabel": "Prefer another way?",
+    "exitTitle": "Get a callback by email or phone",
+    "exitSubtitle": "Leave your email or number and Paul gets back to you within hours."
+  },
   "auditClaudeCode": {
     "meta": {
       "title": "Claude Code Audit : Parrit.ai | One day onsite, concrete action plan",

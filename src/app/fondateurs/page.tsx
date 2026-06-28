@@ -95,7 +95,7 @@ export default function FondateursPage() {
         <Link href="/fr" className="nav-logo">
           Parrit.ai
         </Link>
-        <Link href="/fr#callback-form" className="blog-nav-link">
+        <Link href="/fr/rendez-vous" className="blog-nav-link">
           Parler à Paul
         </Link>
       </nav>
@@ -164,7 +164,7 @@ export default function FondateursPage() {
         <section className="founders-close">
           <h2 className="founders-close-title">{deck.closingTitle}</h2>
           <p className="founders-close-text">{deck.closingText}</p>
-          <Link href="/fr#callback-form" className="founders-close-cta">
+          <Link href="/fr/rendez-vous" className="founders-close-cta">
             {deck.ctaLabel} →
           </Link>
         </section>

@@ -334,6 +334,23 @@
     "error": "Le message n'est pas parti. Réessayez ou écrivez à paul.larmaraud@parrit.ai.",
     "micro": "Réponse en quelques heures, pas en jours."
   },
+  "rendezvous": {
+    "meta": {
+      "title": "Réserver un rendez-vous | Parrit.ai",
+      "description": "Choisissez directement un créneau dans l'agenda de Paul. Trois disponibilités, un clic. Ou laissez votre email ou téléphone, on vous recontacte.",
+      "ogTitle": "Réserver un rendez-vous avec Paul",
+      "ogDescription": "Trois créneaux dans l'agenda, un clic pour réserver."
+    },
+    "navTitle": "Rendez-vous",
+    "headerLabel": "Le rendez-vous",
+    "headerTitleMain": "Choisissez votre",
+    "headerTitleAccent": "créneau",
+    "headerSubtitle": "Trois disponibilités dans l'agenda de Paul. Vous en choisissez une, c'est réservé. Quinze minutes en visio ou en présentiel.",
+    "openInTab": "Le calendrier ne s'affiche pas ? Ouvrir le planning dans un nouvel onglet",
+    "exitLabel": "Vous préférez ?",
+    "exitTitle": "Être rappelé par mail ou par téléphone",
+    "exitSubtitle": "Laissez votre email ou votre numéro, Paul vous recontacte dans les heures qui suivent."
+  },
   "auditClaudeCode": {
     "meta": {
       "title": "Audit Claude Code : Parrit.ai | Une journée chez vous, plan d'action concret",

@@ -339,6 +339,23 @@
     "error": "A mensagem não saiu. Tente de novo ou escreva para paul.larmaraud@parrit.ai.",
     "micro": "Resposta em horas, não em dias."
   },
+  "rendezvous": {
+    "meta": {
+      "title": "Agendar uma conversa | Parrit.ai",
+      "description": "Escolha um horário direto na agenda do Paul. Três opções, um clique. Ou deixe seu e-mail ou telefone e entramos em contato.",
+      "ogTitle": "Agendar uma conversa com o Paul",
+      "ogDescription": "Três horários na agenda, um clique para agendar."
+    },
+    "navTitle": "Agendar",
+    "headerLabel": "O encontro",
+    "headerTitleMain": "Escolha seu",
+    "headerTitleAccent": "horário",
+    "headerSubtitle": "Três horários na agenda do Paul. Escolha um e está agendado. Quinze minutos, por vídeo ou presencial.",
+    "openInTab": "O calendário não aparece? Abrir a agenda em uma nova aba",
+    "exitLabel": "Prefere outro jeito?",
+    "exitTitle": "Receber retorno por e-mail ou telefone",
+    "exitSubtitle": "Deixe seu e-mail ou número e o Paul retorna em poucas horas."
+  },
   "auditClaudeCode": {
     "meta": {
       "title": "Auditoria Claude Code : Parrit.ai | Um dia na sua empresa, plano de ação concreto",

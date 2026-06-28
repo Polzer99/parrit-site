@@ -342,7 +342,7 @@ export default async function Page({
             {data.cta.subtitle}
           </p>
           <Link
-            href={`/${lang}#callback-form`}
+            href={`/${lang}/rendez-vous`}
             style={{
               display: "inline-block",
               padding: "12px 24px",
