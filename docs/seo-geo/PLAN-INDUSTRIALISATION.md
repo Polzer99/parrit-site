@@ -62,7 +62,9 @@ Chaque ligne = 1 article cluster. Intention : **I**nformationnelle / **C**ommerc
 - (C) Build vs Buy : développer son outil IA ou acheter un SaaS
 - (I) Du prototype à la production : ce qui change vraiment
 
-> Découverte de nouveaux sujets en continu : People Also Ask (AlsoAsked), autocomplete Google.fr, mining Reddit/Quora (r/ClaudeAI, r/artificial, topics "intelligence artificielle"). À brancher dans Hermes mode contenu (Lot 5).
+> Découverte de nouveaux sujets en continu : People Also Ask (AlsoAsked FR), autocomplete Google.fr (seed + a→z), mining Reddit/Quora (`site:reddit.com/r/IntelligenceArtificielle`, r/ClaudeAI). Long-tail FR confirmé à cibler : "comment créer un agent IA", "c'est quoi un agent IA", "combien coûte un agent IA", "agent IA vs automatisation", "créer un agent IA sans code", "former ses équipes à l'IA", "créer un logiciel IA en X jours", "Claude Code c'est quoi". Concurrents qui rankent (à dépasser, fortement no-code) : jedha.co, data-bird.co, impli.fr → notre angle = Claude Code hands-on + preuve first-hand. À brancher dans Hermes mode contenu (Lot 5).
+
+> **Présence tierce (off-site, hors repo mais critique GEO)** : 82,9 % des citations B2B des IA viennent de sources TIERCES, et Perplexity cite Reddit ≈47 % du temps. Optimiser le site ne suffit pas — prévoir une présence Reddit/G2/listicles/annuaires sur les mêmes thèmes. À tracer dans un chantier distribution séparé (pas dans ce repo).
 
 ---
 
@@ -135,6 +137,9 @@ Objectif : assainir les signaux SEO sans changer le design ni le contenu. 6 corr
    Dans src/lib/blog.ts : ajoute `updatedAt?: string;` à BlogPostSource et au type
    exposé ; propage-le (défaut = date). Idem src/lib/actualite.ts.
    Dans le JSON-LD des deux templates : dateModified = post.updatedAt ?? post.date.
+   NB : updatedAt ne doit changer QUE sur une vraie MAJ de fond (Google pénalise la
+   fausse fraîcheur = date bumpée sans changement réel) — c'est une convention éditoriale,
+   pas un automatisme.
 
 4. Author E-E-A-T cross-référencé.
    Dans blog/[slug]/page.tsx + actualite/[slug]/page.tsx, le JSON-LD author doit être
