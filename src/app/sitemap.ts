@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
 import fs from "fs";
 import path from "path";
-import { getAllSlugs } from "@/lib/blog";
-import { getAllActualiteSlugs } from "@/lib/actualite";
+import { getAllBlogSitemapEntries } from "@/lib/blog";
+import { getAllActualiteSitemapEntries } from "@/lib/actualite";
 import { locales, type Locale } from "@/app/[lang]/dictionaries";
 
 const SITE_URL =
@@ -66,28 +66,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       })),
   );
 
-  const blogSlugs = getAllSlugs();
-  const blogEntries: MetadataRoute.Sitemap = blogSlugs.flatMap((slug) =>
+  const blogPosts = getAllBlogSitemapEntries();
+  const blogEntries: MetadataRoute.Sitemap = blogPosts.flatMap((post) =>
     locales.map((lang) => ({
-      url: `${SITE_URL}/${lang}/blog/${slug}`,
-      lastModified,
+      url: `${SITE_URL}/${lang}/blog/${post.slug}`,
+      lastModified: new Date(post.lastModified),
       changeFrequency: "monthly" as const,
       priority: 0.7,
       alternates: {
-        languages: buildLanguagesMap(`/blog/${slug}`),
+        languages: buildLanguagesMap(`/blog/${post.slug}`),
       },
     })),
   );
 
-  const actualiteSlugs = getAllActualiteSlugs();
-  const actualiteEntries: MetadataRoute.Sitemap = actualiteSlugs.flatMap((slug) =>
+  const actualitePosts = getAllActualiteSitemapEntries();
+  const actualiteEntries: MetadataRoute.Sitemap = actualitePosts.flatMap((post) =>
     locales.map((lang) => ({
-      url: `${SITE_URL}/${lang}/actualite/${slug}`,
-      lastModified,
+      url: `${SITE_URL}/${lang}/actualite/${post.slug}`,
+      lastModified: new Date(post.lastModified),
       changeFrequency: "monthly" as const,
       priority: 0.7,
       alternates: {
-        languages: buildLanguagesMap(`/actualite/${slug}`),
+        languages: buildLanguagesMap(`/actualite/${post.slug}`),
       },
     })),
   );

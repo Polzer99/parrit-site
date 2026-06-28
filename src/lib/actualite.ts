@@ -1,5 +1,5 @@
 import { actualitePosts } from "./actualite-generated";
-import type { BlogLocale, BlogPost, BlogPostSource } from "./blog";
+import type { BlogLocale, BlogPost, BlogPostSource, BlogSitemapEntry } from "./blog";
 
 export type { BlogLocale } from "./blog";
 
@@ -9,6 +9,7 @@ function toActualitePost(src: BlogPostSource, locale: BlogLocale): BlogPost {
     slug: src.slug,
     date: src.date,
     publishedAt: src.publishedAt ?? src.date,
+    updatedAt: src.updatedAt ?? src.date,
     author: src.author,
     videoUrl: src.videoUrl,
     ogImage: src.ogImage,
@@ -45,4 +46,11 @@ export function getActualitePostBySlug(
 
 export function getAllActualiteSlugs(): string[] {
   return actualitePosts.filter(isPublished).map((p) => p.slug);
+}
+
+export function getAllActualiteSitemapEntries(): BlogSitemapEntry[] {
+  return actualitePosts.filter(isPublished).map((p) => ({
+    slug: p.slug,
+    lastModified: p.updatedAt ?? p.publishedAt ?? p.date,
+  }));
 }

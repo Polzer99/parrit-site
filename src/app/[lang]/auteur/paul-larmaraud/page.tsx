@@ -82,11 +82,11 @@ export default async function AuthorPage({
         name: a.metaTitle,
         description: a.metaDescription,
         inLanguage: lang,
-        mainEntity: { "@id": `${SITE_URL}/#paul-larmaraud` },
+        mainEntity: { "@id": `${profileUrl}#person` },
       },
       {
         "@type": "Person",
-        "@id": `${SITE_URL}/#paul-larmaraud`,
+        "@id": `${profileUrl}#person`,
         name: "Paul Larmaraud",
         givenName: "Paul",
         familyName: "Larmaraud",

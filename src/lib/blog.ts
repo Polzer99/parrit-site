@@ -8,6 +8,7 @@ export interface BlogPost {
   description: string;
   date: string; // ISO date (creation)
   publishedAt: string; // ISO date, when visible publicly (drip schedule)
+  updatedAt?: string; // ISO date, true substantive update only
   author: string;
   category: string;
   readingTime: string;
@@ -30,12 +31,18 @@ export interface BlogPostSource {
   slug: string;
   date: string;
   publishedAt?: string; // defaults to `date` if not set
+  updatedAt?: string; // defaults to `date` if not set
   author: string;
   videoUrl?: string;
   ogImage?: string;
   tags?: readonly string[];
   relatedSlugs?: readonly string[];
   translations: Record<BlogLocale, BlogPostTranslation>;
+}
+
+export interface BlogSitemapEntry {
+  slug: string;
+  lastModified: string;
 }
 
 const canonicalPosts: BlogPostSource[] = [
@@ -450,6 +457,7 @@ function toBlogPost(src: BlogPostSource, locale: BlogLocale): BlogPost {
     slug: src.slug,
     date: src.date,
     publishedAt: src.publishedAt ?? src.date,
+    updatedAt: src.updatedAt ?? src.date,
     author: src.author,
     videoUrl: src.videoUrl,
     ogImage: src.ogImage,
@@ -488,6 +496,13 @@ export function getPostBySlug(
 
 export function getAllSlugs(): string[] {
   return posts.filter(isPublished).map((p) => p.slug);
+}
+
+export function getAllBlogSitemapEntries(): BlogSitemapEntry[] {
+  return posts.filter(isPublished).map((p) => ({
+    slug: p.slug,
+    lastModified: p.updatedAt ?? p.publishedAt ?? p.date,
+  }));
 }
 
 /** Returns related posts via explicit `relatedSlugs` or by shared tag/category if none set. */

@@ -262,7 +262,7 @@ export default async function LocaleLayout({
         "@id": `${SITE_URL}/#service`,
         name: "Parrit.ai",
         url: SITE_URL,
-        image: `${SITE_URL}/og-image.png`,
+        image: `${SITE_URL}/opengraph-image`,
         priceRange: "€€€",
         address: {
           "@type": "PostalAddress",
