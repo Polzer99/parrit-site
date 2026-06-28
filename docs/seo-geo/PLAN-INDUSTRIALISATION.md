@@ -104,6 +104,8 @@ Ordre = hygiène d'abord (foundations first), structure ensuite, contenu enfin. 
 | **4 — Maillage & fichiers GEO** | Bloc "Articles liés" sur les landing offres (`deploiement-agents`, `audit`, `setup-claude-code`, `croissance`…) ; `llms-full.txt` + `llms-sitemap.txt` générés depuis les articles ; mentions de sources dans les 12 articles existants | Faible | Lots 2–3 |
 | **5 — Hermes mode contenu** | Second mode `hermes content` : observe `/blog/*` + (futur) Google Search Console, propose des sujets d'articles depuis la carte clusters + gaps, **génère un brouillon d'article au contrat §2** en PR ; ferme la boucle mesure (impressions/positions à J+30/60/90) | Élevé | Lots 2–3 + accès GSC |
 
+> **Décision Paul (28/06) : Lot 5 DIFFÉRÉ.** On finit les Lots 1–4 et on publie 1–2 articles gabarits **à la main** au contrat §2 d'abord. On n'automatise Hermès sur du contenu qu'une fois la chaîne saine (automatiser une chaîne bancale = amplifier le bancal). Accès Google Search Console à brancher au moment du Lot 5.
+
 **Garde-fous transverses (REGLES-DOR §33 / Ai-Playbook)** : plan validé avant code ; secrets serveur-only ; pas d'appel runtime `*.vercel.app` ; `ci.yml` = checkout→ci→lint→build ; pas de contenu "scaled" sans substance first-hand (Google pénalise l'intention, pas le volume).
 
 ---
