@@ -10,6 +10,7 @@ import {
 } from "../dictionaries";
 
 const SITE_URL = "https://parrit.ai";
+const contentAlternateLocales = locales.filter((locale) => locale !== "zh-CN");
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -38,7 +39,10 @@ export async function generateMetadata({
     alternates: {
       canonical: `${SITE_URL}/${lang}/blog`,
       languages: Object.fromEntries(
-        locales.map((l) => [l, `${SITE_URL}/${l}/blog`]),
+        [
+          ...contentAlternateLocales.map((l) => [l, `${SITE_URL}/${l}/blog`]),
+          ["x-default", `${SITE_URL}/fr/blog`],
+        ],
       ),
     },
     openGraph: {

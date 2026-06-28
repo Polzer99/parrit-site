@@ -10,6 +10,7 @@ import {
 } from "../../dictionaries";
 
 const SITE_URL = "https://parrit.ai";
+const contentAlternateLocales = locales.filter((locale) => locale !== "zh-CN");
 
 export function generateStaticParams() {
   const slugs = getAllSlugs();
@@ -44,7 +45,13 @@ export async function generateMetadata({
     alternates: {
       canonical: `${SITE_URL}/${lang}/blog/${post.slug}`,
       languages: Object.fromEntries(
-        locales.map((l) => [l, `${SITE_URL}/${l}/blog/${post.slug}`]),
+        [
+          ...contentAlternateLocales.map((l) => [
+            l,
+            `${SITE_URL}/${l}/blog/${post.slug}`,
+          ]),
+          ["x-default", `${SITE_URL}/fr/blog/${post.slug}`],
+        ],
       ),
     },
     openGraph: {
@@ -106,24 +113,24 @@ export default async function BlogPostPage({
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Article",
+        "@type": "BlogPosting",
         "@id": `${postUrl}#article`,
         headline: post.title,
         description: post.description,
         datePublished: post.date,
-        dateModified: post.date,
+        dateModified: post.updatedAt ?? post.date,
         wordCount,
         articleSection: post.category,
         inLanguage: lang,
         url: postUrl,
         mainEntityOfPage: postUrl,
-        image: post.ogImage ? [`${SITE_URL}${post.ogImage}`] : [`${SITE_URL}/og-image.png`],
+        image: post.ogImage
+          ? [`${SITE_URL}${post.ogImage}`]
+          : [`${SITE_URL}/opengraph-image`],
         author: {
           "@type": "Person",
+          "@id": `${SITE_URL}/${lang}/auteur/paul-larmaraud#person`,
           name: post.author,
-          url: `${SITE_URL}/${lang}`,
-          jobTitle: "Fondateur Parrit.ai",
-          knowsAbout: ["Claude Code", "Anthropic Claude", "Automatisation IA", "Agents IA"],
         },
         publisher: {
           "@type": "Organization",
@@ -132,7 +139,7 @@ export default async function BlogPostPage({
           url: SITE_URL,
           logo: {
             "@type": "ImageObject",
-            url: `${SITE_URL}/og-image.png`,
+            url: `${SITE_URL}/opengraph-image`,
           },
         },
       },

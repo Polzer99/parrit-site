@@ -14,6 +14,7 @@ import {
 } from "../../dictionaries";
 
 const SITE_URL = "https://parrit.ai";
+const contentAlternateLocales = locales.filter((locale) => locale !== "zh-CN");
 const FORBIDDEN_VIDEO_HOST = ["vercel", "app"].join(".");
 
 export function generateStaticParams() {
@@ -63,7 +64,13 @@ export async function generateMetadata({
     alternates: {
       canonical: `${SITE_URL}/${lang}/actualite/${post.slug}`,
       languages: Object.fromEntries(
-        locales.map((l) => [l, `${SITE_URL}/${l}/actualite/${post.slug}`]),
+        [
+          ...contentAlternateLocales.map((l) => [
+            l,
+            `${SITE_URL}/${l}/actualite/${post.slug}`,
+          ]),
+          ["x-default", `${SITE_URL}/fr/actualite/${post.slug}`],
+        ],
       ),
     },
     openGraph: {
@@ -124,12 +131,12 @@ export default async function ActualitePostPage({
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Article",
+        "@type": "BlogPosting",
         "@id": `${postUrl}#article`,
         headline: post.title,
         description: post.description,
         datePublished: post.date,
-        dateModified: post.date,
+        dateModified: post.updatedAt ?? post.date,
         wordCount,
         articleSection: post.category,
         inLanguage: lang,
@@ -137,18 +144,11 @@ export default async function ActualitePostPage({
         mainEntityOfPage: postUrl,
         image: post.ogImage
           ? [`${SITE_URL}${post.ogImage}`]
-          : [`${SITE_URL}/og-image.png`],
+          : [`${SITE_URL}/opengraph-image`],
         author: {
           "@type": "Person",
+          "@id": `${SITE_URL}/${lang}/auteur/paul-larmaraud#person`,
           name: post.author,
-          url: `${SITE_URL}/${lang}`,
-          jobTitle: "Fondateur Parrit.ai",
-          knowsAbout: [
-            "Claude Code",
-            "Anthropic Claude",
-            "Automatisation IA",
-            "Agents IA",
-          ],
         },
         publisher: {
           "@type": "Organization",
@@ -157,7 +157,7 @@ export default async function ActualitePostPage({
           url: SITE_URL,
           logo: {
             "@type": "ImageObject",
-            url: `${SITE_URL}/og-image.png`,
+            url: `${SITE_URL}/opengraph-image`,
           },
         },
       },
