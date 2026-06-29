@@ -49,11 +49,15 @@ export async function generateMetadata({
   if (!pillar) return {};
 
   const tl = pillar.translations[toPillarLocale(lang)];
+  // Un pilier sans article (cluster vide) = page mince : on le garde hors de l'index
+  // tant qu'il n'a pas de spoke. Il s'indexera dès le premier article rattaché.
+  const hasPosts = getPostsByPillar(pillar.slug, toContentLocale(lang)).length > 0;
 
   return {
     metadataBase: new URL(SITE_URL),
     title: `${tl.title} | Parrit.ai`,
     description: tl.description,
+    robots: hasPosts ? undefined : { index: false, follow: true },
     alternates: {
       canonical: `${SITE_URL}/${lang}/blog/sujet/${pillarSlug}`,
       languages: Object.fromEntries([
@@ -222,7 +226,7 @@ export default async function PillarPage({
 
       <footer className="blog-footer">
         <p className="blog-footer-text">{dict.blog.footerText}</p>
-        <Link href={`/${lang}#callback-form`} className="blog-footer-cta">
+        <Link href={`/${lang}/rendez-vous`} className="blog-footer-cta">
           {dict.blog.footerCta}
         </Link>
         <p className="footer-legal" style={{ marginTop: 40 }}>

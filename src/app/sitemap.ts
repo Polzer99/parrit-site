@@ -4,6 +4,7 @@ import path from "path";
 import { getAllBlogSitemapEntries } from "@/lib/blog";
 import { getAllActualiteSitemapEntries } from "@/lib/actualite";
 import { getPillars } from "@/lib/pillars";
+import { getPostsByPillar } from "@/lib/blog";
 import { locales, type Locale } from "@/app/[lang]/dictionaries";
 
 const SITE_URL =
@@ -108,7 +109,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  const pillarEntries: MetadataRoute.Sitemap = getPillars().flatMap((pillar) =>
+  // Seuls les piliers avec au moins un article (cluster non vide) entrent au sitemap.
+  const pillarEntries: MetadataRoute.Sitemap = getPillars()
+    .filter((pillar) => getPostsByPillar(pillar.slug, "fr").length > 0)
+    .flatMap((pillar) =>
     locales.map((lang) => ({
       url: `${SITE_URL}/${lang}/blog/sujet/${pillar.slug}`,
       lastModified,
