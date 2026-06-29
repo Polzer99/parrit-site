@@ -478,7 +478,7 @@ const canonicalPosts: BlogPostSource[] = [
         category: "Sécurité & IA",
         readingTime: "6 min",
         content: `<p><strong>En bref.</strong> Déployer un agent IA, c'est lui donner accès à vos données et à vos outils. La sécurité ne se joue pas sur la question « l'IA est-elle dangereuse », mais sur ce qu'on l'autorise à faire et sur ce qui reste verrouillé. Voici les huit règles appliquées à chaque déploiement, et les questions à poser à n'importe quel prestataire pour vérifier qu'il les respecte.</p>
-<p>Un agent IA n'est pas un chatbot dans un coin. Il lit vos fichiers, agit dans vos logiciels, déclenche des actions. C'est précisément ce qui le rend utile, et c'est ce qui demande un cadre clair. La plupart des incidents ne viennent pas du modèle qui « dérape », mais d'un accès trop large donné sans réfléchir, d'un secret qui traîne, ou d'une action automatique qu'on aurait dû laisser à un humain.</p>
+<p>Un agent IA ne reste pas à répondre dans un coin. Il lit vos fichiers, agit dans vos logiciels, déclenche des actions. C'est précisément ce qui le rend utile, et c'est ce qui demande un cadre clair. La plupart des incidents ne viennent pas du modèle qui « dérape », mais d'un accès trop large donné sans réfléchir, d'un secret qui traîne, ou d'une action automatique qu'on aurait dû laisser à un humain.</p>
 <h2>1. Vos données restent chez vous</h2>
 <p>L'agent tourne dans votre infrastructure, pas sur une plateforme tierce qu'on contrôlerait. Vos données ne servent jamais à entraîner un modèle. Quand un fournisseur de modèle entre dans la boucle, on passe par des accès qui interdisent la réutilisation de vos données pour l'entraînement.</p>
 <h2>2. Moindre privilège</h2>
@@ -518,7 +518,7 @@ const canonicalPosts: BlogPostSource[] = [
         category: "Security & AI",
         readingTime: "6 min",
         content: `<p><strong>In short.</strong> Deploying an AI agent means giving it access to your data and your tools. Security is not about asking whether AI is dangerous, but about what you allow it to do and what stays locked down. Here are the eight rules applied to every deployment, and the questions to ask any provider to verify they follow them.</p>
-<p>An AI agent is not a chatbot sitting in a corner. It reads your files, acts inside your software, and triggers actions. That is precisely what makes it useful, and it is what requires a clear framework. Most incidents do not come from a model going off the rails, but from access granted too broadly without thinking, a secret left lying around, or an automated action that should have stayed with a human.</p>
+<p>An AI agent does not just answer in a corner. It reads your files, acts inside your software, and triggers actions. That is precisely what makes it useful, and it is what requires a clear framework. Most incidents do not come from a model going off the rails, but from access granted too broadly without thinking, a secret left lying around, or an automated action that should have stayed with a human.</p>
 <h2>1. Your data stays with you</h2>
 <p>The agent runs inside your infrastructure, not on a third-party platform we control. Your data is never used to train a model. When a model provider enters the loop, we use access agreements that prohibit your data from being used for training.</p>
 <h2>2. Least privilege</h2>
@@ -526,7 +526,7 @@ const canonicalPosts: BlogPostSource[] = [
 <h2>3. Locked secrets</h2>
 <p>Keys and passwords live server-side, out of the agent's reach, never hard-coded in the code. Each access is limited to what it needs to touch, and can be revoked or rotated at any time without breaking anything.</p>
 <h2>4. Human in the loop on irreversible actions</h2>
-<p>Anything that leaves the company or cannot be undone — sending money, an email to a client, publishing something — requires human validation. The agent prepares and proposes; a person presses the button. We automate the tedious, not the consequential.</p>
+<p>Anything that leaves the company or cannot be undone, sending money, an email to a client, publishing something, requires human validation. The agent prepares and proposes; a person presses the button. We automate the tedious, not the consequential.</p>
 <h2>5. Guard-rails tested before production</h2>
 <p>Before an agent goes into production, it passes a test battery and has a rollback path. We verify it does what it is supposed to do, and only that. Nothing goes live on the strength of a demo that worked once.</p>
 <h2>6. Auditable and reversible</h2>
@@ -547,7 +547,7 @@ const canonicalPosts: BlogPostSource[] = [
 </ul>
 <h2>Frequently asked questions</h2>
 <p><strong>Is my data used to train the AI?</strong> No. The agents we deploy use access agreements that prohibit your data from being used for training, and the data stays in your infrastructure.</p>
-<p><strong>Can an agent act on its own without anyone knowing?</strong> Not on irreversible actions. Any action that leaves the company or cannot be undone requires human validation. Everything else — automatable without risk — is logged.</p>
+<p><strong>Can an agent act on its own without anyone knowing?</strong> Not on irreversible actions. Any action that leaves the company or cannot be undone requires human validation. Everything else, automatable without risk, is logged.</p>
 <p><strong>Is this GDPR-compliant?</strong> Yes, it is actually a starting point: minimal data, controlled hosting, per-user isolation, and the ability to route to European models.</p>
 <p><strong>What do I keep if I stop?</strong> The code and the system, running on your infrastructure. You are not a tenant of a black box.</p>`,
       },
@@ -559,7 +559,7 @@ const canonicalPosts: BlogPostSource[] = [
         category: "Segurança & IA",
         readingTime: "6 min",
         content: `<p><strong>Em resumo.</strong> Implantar um agente de IA é dar a ele acesso aos seus dados e às suas ferramentas. A segurança não se decide pela pergunta "a IA é perigosa", mas pelo que você autoriza ela a fazer e pelo que permanece bloqueado. Aqui estão as oito regras aplicadas em cada implantação, e as perguntas a fazer a qualquer fornecedor para verificar se ele as respeita.</p>
-<p>Um agente de IA não é um chatbot isolado num canto. Ele lê seus arquivos, age dentro dos seus sistemas, dispara ações. É exatamente isso que o torna útil, e é o que exige um enquadramento claro. A maioria dos incidentes não vem de um modelo que "perde o controle", mas de um acesso concedido de forma muito ampla sem reflexão, de um segredo exposto, ou de uma ação automática que deveria ter ficado com um humano.</p>
+<p>Um agente de IA não fica apenas respondendo num canto. Ele lê seus arquivos, age dentro dos seus sistemas, dispara ações. É exatamente isso que o torna útil, e é o que exige um enquadramento claro. A maioria dos incidentes não vem de um modelo que "perde o controle", mas de um acesso concedido de forma muito ampla sem reflexão, de um segredo exposto, ou de uma ação automática que deveria ter ficado com um humano.</p>
 <h2>1. Seus dados ficam com você</h2>
 <p>O agente roda na sua infraestrutura, não em uma plataforma terceira que controlaríamos. Seus dados nunca são usados para treinar um modelo. Quando um fornecedor de modelo entra no fluxo, usamos acessos que proíbem a reutilização dos seus dados para treinamento.</p>
 <h2>2. Mínimo privilégio</h2>
@@ -567,7 +567,7 @@ const canonicalPosts: BlogPostSource[] = [
 <h2>3. Segredos bloqueados</h2>
 <p>Chaves e senhas vivem no servidor, fora do alcance do agente, nunca escritas diretamente no código. Cada acesso é limitado ao que precisa tocar e pode ser revogado ou alterado a qualquer momento sem quebrar nada.</p>
 <h2>4. Humano no controle do irreversível</h2>
-<p>Tudo que sai da empresa ou que não tem volta — enviar dinheiro, um e-mail para um cliente, publicar algo — exige validação humana. O agente prepara e propõe; uma pessoa confirma. Automatizamos o tedioso, não o consequente.</p>
+<p>Tudo que sai da empresa ou que não tem volta, enviar dinheiro, um e-mail para um cliente, publicar algo, exige validação humana. O agente prepara e propõe; uma pessoa confirma. Automatizamos o tedioso, não o consequente.</p>
 <h2>5. Guarda-chuvas testados antes da produção</h2>
 <p>Antes de um agente entrar em produção, ele passa por uma bateria de testes e dispõe de um caminho de retorno. Verificamos que ele faz o que deve, e apenas isso. Nada vai para o ar apenas porque uma demonstração funcionou uma vez.</p>
 <h2>6. Auditável e reversível</h2>
