@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import { getAllBlogSitemapEntries } from "@/lib/blog";
 import { getAllActualiteSitemapEntries } from "@/lib/actualite";
+import { getPillars } from "@/lib/pillars";
 import { locales, type Locale } from "@/app/[lang]/dictionaries";
 
 const SITE_URL =
@@ -107,5 +108,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  return [...staticEntries, ...blogEntries, ...actualiteEntries, ...glossaryEntries];
+  const pillarEntries: MetadataRoute.Sitemap = getPillars().flatMap((pillar) =>
+    locales.map((lang) => ({
+      url: `${SITE_URL}/${lang}/blog/sujet/${pillar.slug}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+      alternates: {
+        languages: buildLanguagesMap(`/blog/sujet/${pillar.slug}`),
+      },
+    })),
+  );
+
+  return [...staticEntries, ...blogEntries, ...actualiteEntries, ...glossaryEntries, ...pillarEntries];
 }

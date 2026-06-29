@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getAllSlugs, getRelatedPosts, type BlogLocale } from "@/lib/blog";
+import { getPillar } from "@/lib/pillars";
 import {
   getDictionary,
   hasLocale,
@@ -102,6 +103,7 @@ export default async function BlogPostPage({
 
   const dict = await getDictionary(lang as Locale);
   const related = getRelatedPosts(post.slug, toContentLocale(lang), 3);
+  const pillar = post.pillar ? getPillar(post.pillar) : undefined;
 
   const postUrl = `${SITE_URL}/${lang}/blog/${post.slug}`;
   const wordCount = post.content
@@ -195,6 +197,15 @@ export default async function BlogPostPage({
           <Link href={`/${lang}/blog`} className="blog-back">
             {dict.blog.back}
           </Link>
+          {pillar && (
+            <Link
+              href={`/${lang}/blog/sujet/${pillar.slug}`}
+              className="blog-nav-link"
+              style={{ display: "inline-block", marginBottom: "0.5rem" }}
+            >
+              ‹ {pillar.keyword}
+            </Link>
+          )}
           <div className="blog-card-meta">
             <span className="blog-card-category">{post.category}</span>
             <span className="blog-card-dot">·</span>
