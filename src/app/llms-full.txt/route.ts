@@ -24,7 +24,7 @@ export async function GET(): Promise<NextResponse> {
 
   const lines: string[] = [
     "# Parrit.ai -- contenu complet",
-    "Index complet des articles et ressources publis sur parrit.ai, destine aux moteurs de recherche et aux IA.",
+    "Index complet des articles et ressources publiés sur parrit.ai, destiné aux moteurs de recherche et aux IA.",
     "",
   ];
 

@@ -13,7 +13,7 @@ function toContentLocale(lang: string): BlogLocale {
 }
 
 function sectionTitle(lang: string): string {
-  if (lang === "fr") return "Articles lies";
+  if (lang === "fr") return "Articles liés";
   if (lang === "pt-BR") return "Artigos relacionados";
   if (lang === "zh-CN") return "相关文章";
   return "Related articles";
