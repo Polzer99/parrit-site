@@ -197,7 +197,7 @@ export default async function AuthorPage({
           <h2>{a.ctaTitle}</h2>
           <p>{a.ctaText}</p>
           <p>
-            <Link href={`/${lang}#callback-form`} className="blog-footer-cta">
+            <Link href={`/${lang}/rendez-vous`} className="blog-footer-cta">
               {a.ctaButton}
             </Link>
           </p>

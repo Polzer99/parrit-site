@@ -339,6 +339,23 @@
     "error": "消息没有发送成功。请重试，或邮件联系 paul.larmaraud@parrit.ai。",
     "micro": "数小时内回复，不是几天后。"
   },
+  "rendezvous": {
+    "meta": {
+      "title": "预约会面 | Parrit.ai",
+      "description": "直接从 Paul 的日历中选择时段。三个可选时间，一键预约。或留下邮箱或电话，我们会联系你。",
+      "ogTitle": "预约与 Paul 的会面",
+      "ogDescription": "日历中三个可选时段，一键预约。"
+    },
+    "navTitle": "预约",
+    "headerLabel": "预约",
+    "headerTitleMain": "选择你的",
+    "headerTitleAccent": "时段",
+    "headerSubtitle": "Paul 日历中的三个可选时段。选定即预约成功。十五分钟，视频或线下。",
+    "openInTab": "日历无法显示？在新标签页中打开预约页",
+    "exitLabel": "更想用别的方式？",
+    "exitTitle": "通过邮箱或电话回访",
+    "exitSubtitle": "留下你的邮箱或电话号码，Paul 会在数小时内与你联系。"
+  },
   "auditClaudeCode": {
     "meta": {
       "title": "Claude Code 审计：Parrit.ai | 一天现场，具体行动计划",

@@ -167,7 +167,7 @@ export default async function ActualiteIndex({
 
       <footer className="blog-footer">
         <p className="blog-footer-text">{dict.actualite.footerText}</p>
-        <Link href={`/${lang}#callback-form`} className="blog-footer-cta">
+        <Link href={`/${lang}/rendez-vous`} className="blog-footer-cta">
           {dict.actualite.footerCta}
         </Link>
         <p className="footer-legal" style={{ marginTop: 40 }}>
