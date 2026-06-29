@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllPosts, type BlogLocale } from "@/lib/blog";
+import { getPillars } from "@/lib/pillars";
 import {
   getDictionary,
   hasLocale,
@@ -88,6 +89,7 @@ export default async function BlogIndex({
 
   const dict = await getDictionary(lang as Locale);
   const posts = getAllPosts(toContentLocale(lang));
+  const pillars = getPillars();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -131,6 +133,63 @@ export default async function BlogIndex({
         </h1>
         <p className="blog-header-subtitle">{dict.blog.headerSubtitle}</p>
       </header>
+
+      <section
+        aria-label={
+          lang === "fr"
+            ? "Les grands sujets"
+            : lang === "en"
+              ? "Key topics"
+              : "Grandes temáticas"
+        }
+        style={{ padding: "0 var(--blog-side-pad, 1.25rem)", maxWidth: 720, margin: "0 auto 2.5rem" }}
+      >
+        <p
+          className="blog-header-label"
+          style={{ marginBottom: "1rem" }}
+        >
+          {lang === "fr"
+            ? "Les grands sujets"
+            : lang === "en"
+              ? "Key topics"
+              : lang === "pt-BR"
+                ? "Grandes temáticas"
+                : "核心主题"}
+        </p>
+        <div className="blog-list" style={{ marginBottom: 0 }}>
+          {pillars.map((pillar, i) => {
+            const pl =
+              lang === "zh-CN"
+                ? pillar.translations["en"]
+                : pillar.translations[
+                    (lang as "fr" | "en" | "pt-BR") ?? "fr"
+                  ] ?? pillar.translations["fr"];
+            return (
+              <Link
+                key={pillar.slug}
+                href={`/${lang}/blog/sujet/${pillar.slug}`}
+                className="blog-card"
+                style={{ animationDelay: `${i * 80}ms` }}
+              >
+                <div className="blog-card-meta">
+                  <span className="blog-card-category">{pillar.keyword}</span>
+                </div>
+                <h2 className="blog-card-title">{pl.title}</h2>
+                <p className="blog-card-desc">{pl.description}</p>
+                <span className="blog-card-read">
+                  {lang === "fr"
+                    ? "Lire le sujet"
+                    : lang === "en"
+                      ? "Read topic"
+                      : lang === "pt-BR"
+                        ? "Ler o tema"
+                        : "阅读主题"}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
 
       <main className="blog-list">
         {posts.map((post, i) => (

@@ -1,6 +1,8 @@
 import { generatedBlogPosts } from "./blog-generated";
+import type { PillarSlug } from "./pillars";
 
 export type BlogLocale = "fr" | "en" | "pt-BR";
+export type { PillarSlug };
 
 export interface BlogPost {
   slug: string;
@@ -17,6 +19,7 @@ export interface BlogPost {
   ogImage?: string;
   tags?: readonly string[];
   relatedSlugs?: readonly string[];
+  pillar?: PillarSlug;
 }
 
 interface BlogPostTranslation {
@@ -37,6 +40,7 @@ export interface BlogPostSource {
   ogImage?: string;
   tags?: readonly string[];
   relatedSlugs?: readonly string[];
+  pillar?: PillarSlug;
   translations: Record<BlogLocale, BlogPostTranslation>;
 }
 
@@ -50,6 +54,7 @@ const canonicalPosts: BlogPostSource[] = [
     slug: "evaluation-adoption-sap-intelligence-artificielle",
     date: "2026-04-12",
     author: "Paul Larmaraud",
+    pillar: "agents-ia",
     translations: {
       fr: {
         title:
@@ -123,6 +128,7 @@ const canonicalPosts: BlogPostSource[] = [
     slug: "crm-automatise-pme-artisans",
     date: "2026-04-08",
     author: "Paul Larmaraud",
+    pillar: "logiciel-ia-sur-mesure",
     translations: {
       fr: {
         title: "CRM automatisé pour PME et artisans : fini les relances oubliées",
@@ -192,6 +198,7 @@ const canonicalPosts: BlogPostSource[] = [
     slug: "agent-whatsapp-business-entreprise",
     date: "2026-04-02",
     author: "Paul Larmaraud",
+    pillar: "agents-ia",
     translations: {
       fr: {
         title:
@@ -259,6 +266,7 @@ const canonicalPosts: BlogPostSource[] = [
     slug: "veille-juridique-automatisee-avocats",
     date: "2026-03-25",
     author: "Paul Larmaraud",
+    pillar: "agents-ia",
     translations: {
       fr: {
         title:
@@ -329,6 +337,7 @@ const canonicalPosts: BlogPostSource[] = [
     slug: "facturation-automatique-ia-pme",
     date: "2026-03-18",
     author: "Paul Larmaraud",
+    pillar: "logiciel-ia-sur-mesure",
     translations: {
       fr: {
         title: "Facturation automatique par IA : zéro saisie, zéro oubli",
@@ -387,6 +396,7 @@ const canonicalPosts: BlogPostSource[] = [
     slug: "prospection-ia-signaux-podcasts-linkedin",
     date: "2026-03-10",
     author: "Paul Larmaraud",
+    pillar: "agents-ia",
     translations: {
       fr: {
         title:
@@ -463,6 +473,7 @@ function toBlogPost(src: BlogPostSource, locale: BlogLocale): BlogPost {
     ogImage: src.ogImage,
     tags: src.tags,
     relatedSlugs: src.relatedSlugs,
+    pillar: src.pillar,
     title: t.title,
     description: t.description,
     category: t.category,
@@ -503,6 +514,19 @@ export function getAllBlogSitemapEntries(): BlogSitemapEntry[] {
     slug: p.slug,
     lastModified: p.updatedAt ?? p.publishedAt ?? p.date,
   }));
+}
+
+export function getPostsByPillar(
+  pillar: PillarSlug,
+  locale: BlogLocale,
+): BlogPost[] {
+  return posts
+    .filter((p) => isPublished(p) && p.pillar === pillar)
+    .map((p) => toBlogPost(p, locale))
+    .sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+    );
 }
 
 /** Returns related posts via explicit `relatedSlugs` or by shared tag/category if none set. */
