@@ -90,6 +90,62 @@ function formatDate(iso: string, dateLocale: string): string {
   });
 }
 
+function slugifyHeading(text: string): string {
+  return text
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function withHeadingAnchors(
+  html: string,
+): { html: string; toc: { id: string; text: string }[] } {
+  const toc: { id: string; text: string }[] = [];
+  const idCounts: Record<string, number> = {};
+
+  const result = html.replace(
+    /<h2([^>]*)>([\s\S]*?)<\/h2>/g,
+    (_match, attrs: string, inner: string) => {
+      const text = inner.replace(/<[^>]+>/g, "").trim();
+      let id = slugifyHeading(text);
+      if (idCounts[id] !== undefined) {
+        idCounts[id]++;
+        id = `${id}-${idCounts[id]}`;
+      } else {
+        idCounts[id] = 0;
+      }
+      toc.push({ id, text });
+      return `<h2 id="${id}"${attrs}>${inner}</h2>`;
+    },
+  );
+
+  return { html: result, toc };
+}
+
+const UI_LABELS: Record<string, Record<string, string>> = {
+  tldr: { fr: "En bref", en: "In short", "pt-BR": "Em resumo", "zh-CN": "摘要" },
+  toc: { fr: "Sommaire", en: "Contents", "pt-BR": "Sumário", "zh-CN": "目录" },
+  faq: {
+    fr: "Questions fréquentes",
+    en: "FAQ",
+    "pt-BR": "Perguntas frequentes",
+    "zh-CN": "常见问题",
+  },
+  sources: { fr: "Sources", en: "Sources", "pt-BR": "Fontes", "zh-CN": "参考资料" },
+  viewProfile: {
+    fr: "Voir le profil",
+    en: "View profile",
+    "pt-BR": "Ver perfil",
+    "zh-CN": "查看简介",
+  },
+};
+
+function uiLabel(lang: string, key: keyof typeof UI_LABELS): string {
+  return UI_LABELS[key][lang] ?? UI_LABELS[key]["en"];
+}
+
 export default async function BlogPostPage({
   params,
 }: {
@@ -111,65 +167,78 @@ export default async function BlogPostPage({
     .split(/\s+/)
     .filter(Boolean).length;
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BlogPosting",
-        "@id": `${postUrl}#article`,
-        headline: post.title,
-        description: post.description,
-        datePublished: post.date,
-        dateModified: post.updatedAt ?? post.date,
-        wordCount,
-        articleSection: post.category,
-        inLanguage: lang,
-        url: postUrl,
-        mainEntityOfPage: postUrl,
-        image: post.ogImage
-          ? [`${SITE_URL}${post.ogImage}`]
-          : [`${SITE_URL}/opengraph-image`],
-        author: {
-          "@type": "Person",
-          "@id": `${SITE_URL}/${lang}/auteur/paul-larmaraud#person`,
-          name: post.author,
+  const { html: processedContent, toc } = withHeadingAnchors(post.content);
+
+  const jsonLdGraph: object[] = [
+    {
+      "@type": "BlogPosting",
+      "@id": `${postUrl}#article`,
+      headline: post.title,
+      description: post.description,
+      datePublished: post.date,
+      dateModified: post.updatedAt ?? post.date,
+      wordCount,
+      articleSection: post.category,
+      inLanguage: lang,
+      url: postUrl,
+      mainEntityOfPage: postUrl,
+      image: post.ogImage
+        ? [`${SITE_URL}${post.ogImage}`]
+        : [`${SITE_URL}/opengraph-image`],
+      author: {
+        "@type": "Person",
+        "@id": `${SITE_URL}/${lang}/auteur/paul-larmaraud#person`,
+        name: post.author,
+      },
+      publisher: {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: "Parrit.ai",
+        url: SITE_URL,
+        logo: {
+          "@type": "ImageObject",
+          url: `${SITE_URL}/opengraph-image`,
         },
-        publisher: {
-          "@type": "Organization",
-          "@id": `${SITE_URL}/#organization`,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
           name: "Parrit.ai",
-          url: SITE_URL,
-          logo: {
-            "@type": "ImageObject",
-            url: `${SITE_URL}/opengraph-image`,
-          },
+          item: `${SITE_URL}/${lang}`,
         },
-      },
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Parrit.ai",
-            item: `${SITE_URL}/${lang}`,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: dict.blog.navTitle,
-            item: `${SITE_URL}/${lang}/blog`,
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: post.title,
-            item: postUrl,
-          },
-        ],
-      },
-    ],
-  };
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: dict.blog.navTitle,
+          item: `${SITE_URL}/${lang}/blog`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: post.title,
+          item: postUrl,
+        },
+      ],
+    },
+  ];
+
+  if (post.faq?.length) {
+    jsonLdGraph.push({
+      "@type": "FAQPage",
+      "@id": `${postUrl}#faq`,
+      mainEntity: post.faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    });
+  }
+
+  const jsonLd = { "@context": "https://schema.org", "@graph": jsonLdGraph };
 
   return (
     <>
@@ -217,20 +286,126 @@ export default async function BlogPostPage({
           </div>
           <h1 className="blog-article-title">{post.title}</h1>
           <p className="blog-article-author">
-            {dict.blog.by}{" "}
+            <span style={{ fontWeight: 600 }}>Paul Larmaraud</span>
+            {" · "}
+            <span style={{ color: "var(--muted, #6E7079)", fontSize: "0.875rem" }}>
+              Fondateur, Parrit.ai
+            </span>
+            {" · "}
             <Link
               href={`/${lang}/auteur/paul-larmaraud`}
-              style={{ borderBottom: "1px solid currentColor" }}
+              style={{ borderBottom: "1px solid currentColor", fontSize: "0.875rem" }}
             >
-              {post.author}
+              {uiLabel(lang, "viewProfile")}
             </Link>
           </p>
         </header>
 
+        {post.tldr && (
+          <div
+            style={{
+              borderLeft: "3px solid var(--parrit-red, #AA0003)",
+              background: "var(--bg-faint, #F5F8FF)",
+              padding: "0.75rem 1rem",
+              marginBottom: "1.5rem",
+              borderRadius: "0 4px 4px 0",
+            }}
+          >
+            <p
+              style={{
+                margin: 0,
+                fontSize: "0.9rem",
+                fontWeight: 600,
+                marginBottom: "0.25rem",
+                color: "var(--parrit-red, #AA0003)",
+              }}
+            >
+              {uiLabel(lang, "tldr")}
+            </p>
+            <p style={{ margin: 0, fontSize: "0.9rem" }}>{post.tldr}</p>
+          </div>
+        )}
+
+        {toc.length >= 3 && (
+          <nav
+            aria-label={uiLabel(lang, "toc")}
+            style={{
+              border: "1px solid rgba(20,20,26,.10)",
+              borderRadius: "6px",
+              padding: "0.75rem 1rem",
+              marginBottom: "1.5rem",
+              background: "var(--bg-faint, #F5F8FF)",
+            }}
+          >
+            <p
+              style={{
+                margin: "0 0 0.5rem",
+                fontSize: "0.85rem",
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.06em",
+                color: "var(--muted, #6E7079)",
+              }}
+            >
+              {uiLabel(lang, "toc")}
+            </p>
+            <ol style={{ margin: 0, paddingLeft: "1.25rem" }}>
+              {toc.map((entry) => (
+                <li key={entry.id} style={{ margin: "0.2rem 0", fontSize: "0.875rem" }}>
+                  <a
+                    href={`#${entry.id}`}
+                    style={{ color: "inherit", borderBottom: "1px solid rgba(20,20,26,.15)" }}
+                  >
+                    {entry.text}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )}
+
         <div
           className="blog-article-body"
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          dangerouslySetInnerHTML={{ __html: processedContent }}
         />
+
+        {post.faq && post.faq.length > 0 && (
+          <section style={{ marginTop: "2rem" }} aria-labelledby="faq-heading">
+            <h2 id="faq-heading" style={{ marginBottom: "1rem" }}>
+              {uiLabel(lang, "faq")}
+            </h2>
+            {post.faq.map((item, i) => (
+              <div key={i} style={{ marginBottom: "1.25rem" }}>
+                <h3 style={{ margin: "0 0 0.35rem", fontSize: "1rem" }}>
+                  <strong>{item.q}</strong>
+                </h3>
+                <p style={{ margin: 0 }}>{item.a}</p>
+              </div>
+            ))}
+          </section>
+        )}
+
+        {post.sources && post.sources.length > 0 && (
+          <section style={{ marginTop: "2rem", borderTop: "1px solid rgba(20,20,26,.10)", paddingTop: "1rem" }}>
+            <p style={{ margin: "0 0 0.5rem", fontSize: "0.85rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--muted, #6E7079)" }}>
+              {uiLabel(lang, "sources")}
+            </p>
+            <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
+              {post.sources.map((src) => (
+                <li key={src.url} style={{ margin: "0.2rem 0", fontSize: "0.875rem" }}>
+                  <a
+                    href={src.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "inherit", borderBottom: "1px solid rgba(20,20,26,.15)" }}
+                  >
+                    {src.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {related.length > 0 && (
           <section className="blog-related" aria-label="Articles liés">
