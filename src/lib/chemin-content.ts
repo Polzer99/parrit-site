@@ -1,20 +1,67 @@
 import type { Locale } from "@/app/[lang]/dictionaries";
 
 // Base partagée entre les langues : structure du parcours (ne se traduit pas).
-export type StepVisual = { kind: "shot"; src: string } | { kind: "svg" };
+export type LogoVisual = { src: string; label: string };
+export type StepVisual =
+  | { kind: "logos"; logos: LogoVisual[] }
+  | { kind: "badges" }
+  | { kind: "mcp"; src: string }
+  | { kind: "cartography" }
+  | { kind: "agent"; logo: LogoVisual; src: string }
+  | { kind: "training"; logos: LogoVisual[] }
+  | { kind: "fleet" };
 
 export const STEP_BASE: { n: string; level: string; slug: string; shift?: boolean; visual: StepVisual }[] = [
-  { n: "01", level: "N1", slug: "masterclass-ia", visual: { kind: "shot", src: "/chemin/01-chat.png" } },
-  { n: "02", level: "N2", slug: "masterclass-metier", visual: { kind: "shot", src: "/chemin/02-projets.png" } },
-  { n: "03", level: "N3", slug: "sessions-mcp", visual: { kind: "shot", src: "/chemin/03-mcp.png" } },
-  { n: "04", level: "N4", slug: "audit", visual: { kind: "svg" } },
-  { n: "05", level: "N5", slug: "deploiement-agents", shift: true, visual: { kind: "shot", src: "/chemin/05-agent-n8n.png" } },
-  { n: "06", level: "N6", slug: "outils-agentiques", visual: { kind: "shot", src: "/chemin/06-claude-code.png" } },
-  { n: "07", level: "N7", slug: "optimisation-flotte", shift: true, visual: { kind: "shot", src: "/chemin/07-flotte.png" } },
+  {
+    n: "01",
+    level: "N1",
+    slug: "masterclass-ia",
+    visual: {
+      kind: "logos",
+      logos: [
+        { src: "/logos/claude.svg", label: "Claude" },
+        { src: "/logos/openai.svg", label: "OpenAI" },
+        { src: "/logos/googlegemini.svg", label: "Google Gemini" },
+        { src: "/logos/mistralai.svg", label: "Mistral AI" },
+      ],
+    },
+  },
+  { n: "02", level: "N2", slug: "masterclass-metier", visual: { kind: "badges" } },
+  { n: "03", level: "N3", slug: "sessions-mcp", visual: { kind: "mcp", src: "/chemin/03-mcp.png" } },
+  { n: "04", level: "N4", slug: "audit", visual: { kind: "cartography" } },
+  {
+    n: "05",
+    level: "N5",
+    slug: "deploiement-agents",
+    shift: true,
+    visual: { kind: "agent", logo: { src: "/logos/n8n.svg", label: "n8n" }, src: "/chemin/05-agent-n8n.png" },
+  },
+  {
+    n: "06",
+    level: "N6",
+    slug: "outils-agentiques",
+    visual: { kind: "training", logos: [{ src: "/logos/claude.svg", label: "Claude Code" }] },
+  },
+  { n: "07", level: "N7", slug: "optimisation-flotte", shift: true, visual: { kind: "fleet" } },
 ];
 
 // Texte traduit, aligné par index sur STEP_BASE.
-export type StepText = { banane: string; title: string; mode: string; vo: string; caption: string; cta: string; alt: string };
+export type FleetPole = { title: string; items: string[] };
+export type StepVisualText =
+  | { kind: "badges"; badges: string[] }
+  | { kind: "mcp"; badge: string; connectors: string[] }
+  | { kind: "training"; badge: string }
+  | { kind: "fleet"; poles: FleetPole[] };
+export type StepText = {
+  banane: string;
+  title: string;
+  mode: string;
+  vo: string;
+  caption: string;
+  cta: string;
+  alt: string;
+  visualText?: StepVisualText;
+};
 export type Territoire = { nom: string; sous: string; chips: string[]; wide?: boolean };
 
 export type CheminContent = {
@@ -24,6 +71,9 @@ export type CheminContent = {
   h1Line2: string;
   lede: string;
   scroll: string;
+  departure: string;
+  arrivalTitle: string;
+  arrivalSubtitle: string;
   modeKicker: string;
   steps: StepText[];
   cartoHub: string;
@@ -43,6 +93,9 @@ const fr: CheminContent = {
   h1Line2: "qui agit pour vous.",
   lede: "Tout le monde parle d'« agents IA ». Voici, concrètement, le chemin pour y arriver : du premier chat à une flotte qui travaille seule. Descendez palier par palier, regardez qui fait le travail, et ouvrez chaque étape pour des exemples parlants.",
   scroll: "Descendez le chemin ↓",
+  departure: "Départ",
+  arrivalTitle: "L'IA qui agit pour vous",
+  arrivalSubtitle: "Arrivée : une flotte qui travaille seule",
   modeKicker: "Le travail",
   steps: [
     {
@@ -62,6 +115,7 @@ const fr: CheminContent = {
       caption: "Les projets. Un espace de travail par métier, avec sa mémoire.",
       cta: "Découvrir le palier 2",
       alt: "Liste de projets : Longévité, Interne automation, SAP, LinkedIn, Build AI custom project, Chatbot",
+      visualText: { kind: "badges", badges: ["Mode Projet", "Custom GPT", "Gems"] },
     },
     {
       banane: "L'action",
@@ -71,6 +125,7 @@ const fr: CheminContent = {
       caption: "Les connexions. Gmail, Calendar, Drive, le navigateur : tout devient accessible.",
       cta: "Découvrir le palier 3",
       alt: "Menu de connecteurs : Canva, Gmail, Google Calendar, Google Drive, Claude in Chrome, Control Chrome",
+      visualText: { kind: "mcp", badge: "MCP", connectors: ["Mail", "Agenda", "Fichiers", "Navigateur"] },
     },
     {
       banane: "Le diagnostic",
@@ -98,6 +153,7 @@ const fr: CheminContent = {
       caption: "Claude Code et Codex. On décrit, l'agent écrit le code, on relit, on livre.",
       cta: "Découvrir le palier 6",
       alt: "Claude Code au travail dans le terminal : récap du chantier en cours et raisonnement de l'agent",
+      visualText: { kind: "training", badge: "Formation Loop Engineering" },
     },
     {
       banane: "La gouvernance",
@@ -107,6 +163,13 @@ const fr: CheminContent = {
       caption: "La flotte. Tous les agents en production, d'un seul coup d'œil.",
       cta: "Découvrir le palier 7",
       alt: "Cartographie de la flotte Parrit : agents d'acquisition, de closing et de livraison posés sur un socle commun",
+      visualText: {
+        kind: "fleet",
+        poles: [
+          { title: "Back-office / Admin", items: ["Compta", "RH", "Support", "Juridique"] },
+          { title: "Croissance", items: ["Vente", "Marketing", "Contenu", "Acquisition"] },
+        ],
+      },
     },
   ],
   cartoHub: "L'IA, branchée directement dans vos process · PME comme grand groupe",
@@ -135,6 +198,9 @@ const en: CheminContent = {
   h1Line2: "that acts for you.",
   lede: "Everyone talks about \"AI agents.\" Here, concretely, is the path to get there: from the first chat to a fleet that works on its own. Go down stage by stage, watch who does the work, and open each step for concrete examples.",
   scroll: "Scroll down the path ↓",
+  departure: "Start",
+  arrivalTitle: "AI that acts for you",
+  arrivalSubtitle: "Finish: a fleet that works on its own",
   modeKicker: "The work",
   steps: [
     {
@@ -154,6 +220,7 @@ const en: CheminContent = {
       caption: "Projects. A workspace by function, with its own memory.",
       cta: "Explore stage 2",
       alt: "Project list: Longevity, Internal automation, SAP, LinkedIn, Build AI custom project, Chatbot",
+      visualText: { kind: "badges", badges: ["Project Mode", "Custom GPT", "Gems"] },
     },
     {
       banane: "Action",
@@ -163,6 +230,7 @@ const en: CheminContent = {
       caption: "The connections. Gmail, Calendar, Drive, the browser: everything becomes accessible.",
       cta: "Explore stage 3",
       alt: "Connector menu: Canva, Gmail, Google Calendar, Google Drive, Claude in Chrome, Control Chrome",
+      visualText: { kind: "mcp", badge: "MCP", connectors: ["Mail", "Calendar", "Files", "Browser"] },
     },
     {
       banane: "Diagnosis",
@@ -190,6 +258,7 @@ const en: CheminContent = {
       caption: "Claude Code and Codex. We describe, the agent writes the code, we review, we deliver.",
       cta: "Explore stage 6",
       alt: "Claude Code at work in the terminal: summary of the current task and agent reasoning",
+      visualText: { kind: "training", badge: "Loop Engineering Training" },
     },
     {
       banane: "Governance",
@@ -199,6 +268,13 @@ const en: CheminContent = {
       caption: "The fleet. All agents in production, at a glance.",
       cta: "Explore stage 7",
       alt: "Parrit fleet map: acquisition, closing, and delivery agents built on a shared foundation",
+      visualText: {
+        kind: "fleet",
+        poles: [
+          { title: "Back-office / Admin", items: ["Accounting", "HR", "Support", "Legal"] },
+          { title: "Growth", items: ["Sales", "Marketing", "Content", "Acquisition"] },
+        ],
+      },
     },
   ],
   cartoHub: "AI connected directly into your processes · from small businesses to large groups",
@@ -226,6 +302,9 @@ const ptBR: CheminContent = {
   h1Line2: "que age por você.",
   lede: "Todo mundo fala em \"agentes de IA\". Aqui, de forma concreta, está o caminho para chegar lá: do primeiro chat a uma frota que trabalha sozinha. Desça nível a nível, veja quem faz o trabalho e abra cada etapa para exemplos reais.",
   scroll: "Desça pelo caminho ↓",
+  departure: "Partida",
+  arrivalTitle: "A IA que age por você",
+  arrivalSubtitle: "Chegada: uma frota que trabalha sozinha",
   modeKicker: "O trabalho",
   steps: [
     {
@@ -245,6 +324,7 @@ const ptBR: CheminContent = {
       caption: "Os projetos. Um espaço de trabalho por área, com sua própria memória.",
       cta: "Ver o nível 2",
       alt: "Lista de projetos: Longevidade, Automação interna, SAP, LinkedIn, Build AI custom project, Chatbot",
+      visualText: { kind: "badges", badges: ["Modo Projeto", "Custom GPT", "Gems"] },
     },
     {
       banane: "A ação",
@@ -254,6 +334,7 @@ const ptBR: CheminContent = {
       caption: "As conexões. Gmail, Calendar, Drive, o navegador: tudo fica acessível.",
       cta: "Ver o nível 3",
       alt: "Menu de conectores: Canva, Gmail, Google Calendar, Google Drive, Claude in Chrome, Control Chrome",
+      visualText: { kind: "mcp", badge: "MCP", connectors: ["E-mail", "Agenda", "Arquivos", "Navegador"] },
     },
     {
       banane: "O diagnóstico",
@@ -281,6 +362,7 @@ const ptBR: CheminContent = {
       caption: "Claude Code e Codex. Descrevemos, o agente escreve o código, revisamos e entregamos.",
       cta: "Ver o nível 6",
       alt: "Claude Code trabalhando no terminal: resumo do projeto em andamento e raciocínio do agente",
+      visualText: { kind: "training", badge: "Formação Loop Engineering" },
     },
     {
       banane: "A governança",
@@ -290,6 +372,13 @@ const ptBR: CheminContent = {
       caption: "A frota. Todos os agentes em produção, de uma só olhada.",
       cta: "Ver o nível 7",
       alt: "Mapa da frota Parrit: agentes de aquisição, fechamento e entrega sobre uma base comum",
+      visualText: {
+        kind: "fleet",
+        poles: [
+          { title: "Back-office / Admin", items: ["Contabilidade", "RH", "Suporte", "Jurídico"] },
+          { title: "Crescimento", items: ["Vendas", "Marketing", "Conteúdo", "Aquisição"] },
+        ],
+      },
     },
   ],
   cartoHub: "A IA conectada diretamente nos seus processos · PMEs e grandes empresas",
@@ -317,6 +406,9 @@ const zhCN: CheminContent = {
   h1Line2: "为您主动行动的 AI。",
   lede: "人人都在谈论“AI 智能体”。以下是实现它的具体路径：从第一次对话到一支自主运转的智能体队列。逐级下探，观察谁在干活，展开每个阶段查看实际案例。",
   scroll: "向下探索路径 ↓",
+  departure: "起点",
+  arrivalTitle: "为您主动行动的 AI",
+  arrivalSubtitle: "终点：一支自主工作的智能体队列",
   modeKicker: "谁在干活",
   steps: [
     {
@@ -336,6 +428,7 @@ const zhCN: CheminContent = {
       caption: "项目空间。每个职能一个工作区，拥有独立记忆。",
       cta: "查看第 2 阶段",
       alt: "项目列表：长期规划、内部自动化、SAP、LinkedIn、Build AI custom project、Chatbot",
+      visualText: { kind: "badges", badges: ["项目模式", "Custom GPT", "Gems"] },
     },
     {
       banane: "行动",
@@ -345,6 +438,7 @@ const zhCN: CheminContent = {
       caption: "连接器。Gmail、Calendar、Drive、浏览器：一切触手可及。",
       cta: "查看第 3 阶段",
       alt: "连接器菜单：Canva、Gmail、Google Calendar、Google Drive、Claude in Chrome、Control Chrome",
+      visualText: { kind: "mcp", badge: "MCP", connectors: ["邮箱", "日历", "文件", "浏览器"] },
     },
     {
       banane: "诊断",
@@ -372,6 +466,7 @@ const zhCN: CheminContent = {
       caption: "Claude Code 与 Codex。我们描述，智能体写代码，我们审查，我们交付。",
       cta: "查看第 6 阶段",
       alt: "Claude Code 在终端中工作：当前任务摘要与智能体推理过程",
+      visualText: { kind: "training", badge: "Loop Engineering 培训" },
     },
     {
       banane: "治理",
@@ -381,6 +476,13 @@ const zhCN: CheminContent = {
       caption: "智能体队列。所有在产智能体，一览无余。",
       cta: "查看第 7 阶段",
       alt: "Parrit 智能体队列全图：基于共同底座的获客、成交与交付智能体",
+      visualText: {
+        kind: "fleet",
+        poles: [
+          { title: "后台 / 行政", items: ["财务", "HR", "支持", "法务"] },
+          { title: "增长", items: ["销售", "营销", "内容", "获客"] },
+        ],
+      },
     },
   ],
   cartoHub: "AI 直接接入您的流程 · 中小企业与大集团同样适用",
