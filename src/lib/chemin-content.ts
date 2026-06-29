@@ -11,7 +11,9 @@ export type StepVisual =
   | { kind: "training"; logos: LogoVisual[] }
   | { kind: "fleet" };
 
-export const STEP_BASE: { n: string; level: string; slug: string; shift?: boolean; visual: StepVisual }[] = [
+// video : chemin d'une vidéo stylée par étape (public/chemin/videos/xx.mp4). Si défini,
+// elle remplace le visuel statique dans la carte. Laisser vide tant que la vidéo n'existe pas.
+export const STEP_BASE: { n: string; level: string; slug: string; shift?: boolean; video?: string; visual: StepVisual }[] = [
   {
     n: "01",
     level: "N1",
@@ -34,13 +36,19 @@ export const STEP_BASE: { n: string; level: string; slug: string; shift?: boolea
     level: "N5",
     slug: "deploiement-agents",
     shift: true,
-    visual: { kind: "agent", logo: { src: "/logos/n8n.svg", label: "n8n" }, src: "/chemin/05-agent-n8n.png" },
+    visual: { kind: "logos", logos: [{ src: "/logos/n8n.svg", label: "n8n" }] },
   },
   {
     n: "06",
     level: "N6",
     slug: "outils-agentiques",
-    visual: { kind: "training", logos: [{ src: "/logos/claude.svg", label: "Claude Code" }] },
+    visual: {
+      kind: "training",
+      logos: [
+        { src: "/logos/claude.svg", label: "Claude Code" },
+        { src: "/logos/openai.svg", label: "Codex" },
+      ],
+    },
   },
   { n: "07", level: "N7", slug: "optimisation-flotte", shift: true, visual: { kind: "fleet" } },
 ];
@@ -60,6 +68,7 @@ export type StepText = {
   caption: string;
   cta: string;
   alt: string;
+  note?: string; // petite ligne sous le visuel (ex. « pas seulement n8n »)
   visualText?: StepVisualText;
 };
 export type Territoire = { nom: string; sous: string; chips: string[]; wide?: boolean };
@@ -109,7 +118,7 @@ const fr: CheminContent = {
     },
     {
       banane: "L'usage",
-      title: "On range l'IA par métier",
+      title: "On range l'usage par métier",
       mode: "Vous parlez · ça se souvient",
       vo: "Très vite, une conversation ne suffit plus. On crée un espace par sujet, par métier : la longévité, l'automatisation interne, un projet client. Chaque équipe retrouve son contexte au lieu de tout réexpliquer.",
       caption: "Les projets. Un espace de travail par métier, avec sa mémoire.",
@@ -144,6 +153,7 @@ const fr: CheminContent = {
       caption: "Le premier agent. Il travaille tout seul, même quand vous n'êtes pas là.",
       cta: "Découvrir le palier 5",
       alt: "Diagramme d'un agent : déclencheur, conditions, modèle, envoi de réponse, connexions multiples",
+      note: "Pas seulement n8n : Hermès et des agents sur mesure.",
     },
     {
       banane: "L'autonomie",
@@ -214,7 +224,7 @@ const en: CheminContent = {
     },
     {
       banane: "Usage",
-      title: "We organize AI by function",
+      title: "We organize usage by function",
       mode: "You talk · it remembers",
       vo: "Very quickly, one conversation is no longer enough. We create a space by topic, by function: longevity, internal automation, a client project. Each team finds its context instead of re-explaining everything.",
       caption: "Projects. A workspace by function, with its own memory.",
@@ -249,6 +259,7 @@ const en: CheminContent = {
       caption: "The first agent. It works on its own, even when you are not there.",
       cta: "Explore stage 5",
       alt: "Agent diagram: trigger, conditions, model, response dispatch, multiple connections",
+      note: "Not only n8n: Hermès and custom agents.",
     },
     {
       banane: "Autonomy",

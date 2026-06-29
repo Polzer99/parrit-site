@@ -180,8 +180,13 @@ export default function Chemin({ lang }: { lang: Locale }) {
                 </span>
                 <div className="ch-card">
                   <div className="ch-media">
-                    <StepMedia visual={s.visual} visualText={s.visualText} hub={c.cartoHub} territoires={c.territoires} />
+                    {s.video ? (
+                      <video className="ch-video" src={s.video} autoPlay muted loop playsInline preload="metadata" />
+                    ) : (
+                      <StepMedia visual={s.visual} visualText={s.visualText} hub={c.cartoHub} territoires={c.territoires} />
+                    )}
                   </div>
+                  {s.note ? <p className="ch-note">{s.note}</p> : null}
                   <p className="chemin-tag">
                     <span className="chemin-lv">{s.level}</span>
                     <span className="chemin-banane">{s.banane}</span>
@@ -247,12 +252,23 @@ const CSS = `
 .ch-flag-base { order: 3; width: 9px; height: 9px; border-radius: 50%; background: var(--surface); border: 2px solid var(--ink); margin-top: -2px; }
 .ch-step.shift .ch-flag-base { border-color: var(--accent); }
 
-.ch-card { max-width: 430px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px 18px; box-shadow: var(--shadow); margin-top: 26px; }
+.ch-card { display: flex; flex-direction: column; max-width: 430px; min-height: 380px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px 18px; box-shadow: var(--shadow); margin-top: 26px; }
 .ch-step.is-right .ch-card { margin-left: auto; }
 .ch-step.shift .ch-card { border-color: var(--tint-bd); box-shadow: 0 1px 2px rgba(170,0,3,.06), 0 14px 34px rgba(170,0,3,.06); }
+.ch-card .chemin-vo { flex: 1; }
+
+/* apparition au fur et à mesure de la descente (scroll-driven, dégrade en visible) */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .ch-seg, .ch-summit { animation: chReveal linear both; animation-timeline: view(); animation-range: entry 0% entry 32%; }
+  }
+}
+@keyframes chReveal { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ===== Médias par étape ===== */
 .ch-media { margin-bottom: 14px; }
+.ch-video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); background: var(--card-dark); display: block; }
+.ch-note { font-family: var(--font-mono); font-size: 11px; color: var(--faint); margin: -4px 0 12px; }
 .sv-logos { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .sv-logos.sm { gap: 9px; }
 .sv-logo { display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; border-radius: 11px; background: var(--bg); border: 1px solid var(--line); }
