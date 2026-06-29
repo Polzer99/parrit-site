@@ -44,6 +44,12 @@ Fondateurs et directeurs généraux d'entreprises en croissance : agences digita
 - Site : https://parrit.ai
 - Localisation : Rueil-Malmaison, France
 
+## Guides & ressources
+- [Cluster agents IA](https://parrit.ai/fr/blog/sujet/agents-ia) : articles et cas pratiques sur les agents IA en entreprise.
+- [Cluster formation agents IA](https://parrit.ai/fr/blog/sujet/formation-agents-ia) : ressources sur la formation et l'adoption des agents IA.
+- [Cluster logiciel IA sur mesure](https://parrit.ai/fr/blog/sujet/logiciel-ia-sur-mesure) : articles sur les logiciels IA construits sur mesure pour les PME et ETI.
+- [Sécurité des agents IA en entreprise : les règles qu'on applique](https://parrit.ai/fr/blog/securite-agents-ia-entreprise) : Les 8 règles de sécurité appliquées au déploiement d'agents IA en entreprise.
+
 ## Ce que Parrit.ai ne fait pas
 - Vendre du conseil sans livrable concret.
 - Utiliser du jargon IA pour impressionner.
