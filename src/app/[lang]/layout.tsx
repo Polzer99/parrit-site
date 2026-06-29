@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import AttributionInit from "@/components/AttributionInit";
+import { getCheminCopy, getCheminLanguagesMap } from "@/components/Chemin";
 import {
   getDictionary,
   hasLocale,
@@ -39,25 +40,16 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
 
-  const dict = await getDictionary(lang as Locale);
-  const m = dict.meta;
-
-  const languagesMap: Record<string, string> = {
-    "x-default": `${SITE_URL}/fr`,
-  };
-  locales.forEach((l) => {
-    languagesMap[l] = `${SITE_URL}/${l}`;
-  });
+  const m = getCheminCopy(lang as Locale).meta;
 
   return {
     metadataBase: new URL(SITE_URL),
     title: m.title,
     description: m.description,
-    keywords: m.keywords,
     authors: [{ name: "Paul Larmaraud" }],
     alternates: {
       canonical: `${SITE_URL}/${lang}`,
-      languages: languagesMap,
+      languages: getCheminLanguagesMap(),
     },
     openGraph: {
       title: m.ogTitle,
@@ -71,7 +63,7 @@ export async function generateMetadata({
           url: OG_IMAGE,
           width: 1200,
           height: 630,
-          alt: "Parrit.ai : diagnostic IA avant transformation",
+          alt: m.ogAlt,
         },
       ],
     },
@@ -242,7 +234,7 @@ export default async function LocaleLayout({
         name: "Parrit.ai",
         description: dict.meta.schemaDescription,
         publisher: { "@id": `${SITE_URL}/#organization` },
-        inLanguage: ["fr", "en", "pt-BR"],
+        inLanguage: ["fr", "en", "pt-BR", "zh-CN"],
       },
       {
         "@type": "HowTo",

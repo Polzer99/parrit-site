@@ -4,6 +4,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/chemin",
+        destination: "/fr",
+        statusCode: 301,
+      },
+      {
         source: "/:lang/audit-claude-code",
         destination: "/:lang/audit",
         statusCode: 301,

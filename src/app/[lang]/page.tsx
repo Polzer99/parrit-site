@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
+import Chemin from "@/components/Chemin";
 import { hasLocale, type Locale } from "./dictionaries";
-import HomeClient from "./HomeClient";
 
 export default async function Page({
   params,
@@ -10,5 +10,5 @@ export default async function Page({
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
 
-  return <HomeClient lang={lang as Locale} />;
+  return <Chemin lang={lang as Locale} />;
 }

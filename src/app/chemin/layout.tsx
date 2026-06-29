@@ -24,12 +24,12 @@ export const metadata: Metadata = {
   title: "Le chemin de l'IA : du premier chat à la flotte d'agents | Parrit.ai",
   description:
     "Un parcours en sept étapes, du premier chat jusqu'à une flotte d'agents qui travaillent seuls. À chaque palier, ce qu'on déploie concrètement, en images. Trouvez votre point de départ.",
-  alternates: { canonical: `${SITE_URL}/chemin` },
+  alternates: { canonical: `${SITE_URL}/fr` },
   openGraph: {
     title: "Le chemin de l'IA, étape par étape | Parrit.ai",
     description:
       "Du premier chat à la flotte d'agents autonomes : les sept paliers de maturité, en images. Trouvez où vous en êtes.",
-    url: `${SITE_URL}/chemin`,
+    url: `${SITE_URL}/fr`,
     siteName: "Parrit.ai",
     type: "website",
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Le chemin de l'IA par Parrit.ai" }],
