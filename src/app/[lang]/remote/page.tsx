@@ -7,6 +7,7 @@ import {
   type Locale,
 } from "../dictionaries";
 import LandingPage from "@/components/LandingPage";
+import RelatedArticles from "@/components/RelatedArticles";
 
 const SITE_URL = "https://parrit.ai";
 
@@ -136,6 +137,7 @@ export default async function Page({
         lang={lang as Locale}
         quickContact={dict.quickContact}
         pageId="remote"
+        relatedArticles={<RelatedArticles lang={lang} pillar="agents-ia" />}
       />
     </>
   );
