@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import OfferPage from "@/components/OfferPage";
+import RelatedArticles from "@/components/RelatedArticles";
 import { getOfferCopy } from "@/lib/offer-copy";
 import { hasLocale, locales, type Locale } from "../dictionaries";
 
@@ -61,5 +62,11 @@ export default async function Page({
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
 
-  return <OfferPage lang={lang as Locale} offer={OFFER} />;
+  return (
+    <OfferPage
+      lang={lang as Locale}
+      offer={OFFER}
+      relatedArticles={<RelatedArticles lang={lang} pillar="formation-agents-ia" />}
+    />
+  );
 }
