@@ -3,7 +3,6 @@ import type { Locale } from "@/app/[lang]/dictionaries";
 import {
   CHEMIN_CONTENT,
   STEP_BASE,
-  type Territoire,
   type StepVisual,
   type StepVisualText,
 } from "@/lib/chemin-content";
@@ -24,37 +23,12 @@ function Connector({ from, to }: { from: number; to: number }) {
   );
 }
 
-function Cartographie({ hub, territoires }: { hub: string; territoires: Territoire[] }) {
-  return (
-    <div className="cmap" role="img" aria-label={hub}>
-      <div className="cmap-hub">{hub}</div>
-      <div className="cmap-grid">
-        {territoires.map((t) => (
-          <div className={`cmap-zone ${t.wide ? "wide" : ""}`} key={t.nom}>
-            <p className="cmap-nom">{t.nom}</p>
-            <p className="cmap-sous">{t.sous}</p>
-            <div className="cmap-chips">
-              {t.chips.map((c) => (
-                <span className="cmap-chip" key={c}>{c}</span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function StepMedia({
   visual,
   visualText,
-  hub,
-  territoires,
 }: {
   visual: StepVisual;
   visualText?: StepVisualText;
-  hub: string;
-  territoires: Territoire[];
 }) {
   if (visual.kind === "logos") {
     return (
@@ -86,9 +60,6 @@ function StepMedia({
         </div>
       </div>
     );
-  }
-  if (visual.kind === "cartography") {
-    return <Cartographie hub={hub} territoires={territoires} />;
   }
   if (visual.kind === "agent") {
     return (
@@ -179,13 +150,15 @@ export default function Chemin({ lang }: { lang: Locale }) {
                   <span className="ch-flag-base" />
                 </span>
                 <div className="ch-card">
-                  <div className="ch-media">
-                    {s.video ? (
-                      <video className="ch-video" src={s.video} autoPlay muted loop playsInline preload="metadata" />
-                    ) : (
-                      <StepMedia visual={s.visual} visualText={s.visualText} hub={c.cartoHub} territoires={c.territoires} />
-                    )}
-                  </div>
+                  {(s.video || s.visual.kind !== "cartography") && (
+                    <div className="ch-media">
+                      {s.video ? (
+                        <video className="ch-video" src={s.video} autoPlay muted loop playsInline preload="metadata" />
+                      ) : (
+                        <StepMedia visual={s.visual} visualText={s.visualText} />
+                      )}
+                    </div>
+                  )}
                   {s.note ? <p className="ch-note">{s.note}</p> : null}
                   <p className="chemin-tag">
                     <span className="chemin-lv">{s.level}</span>
@@ -196,6 +169,13 @@ export default function Chemin({ lang }: { lang: Locale }) {
                     <span className="chemin-mode-k">{c.modeKicker}</span>
                     {s.mode}
                   </p>
+                  {s.visual.kind === "cartography" && !s.video && (
+                    <div className="ch-axes">
+                      {c.cartoAxes.map((a) => (
+                        <span className="ch-axis" key={a}>{a}</span>
+                      ))}
+                    </div>
+                  )}
                   <p className="chemin-vo">{s.vo}</p>
                   <Link href={href} className="chemin-link">{s.cta} →</Link>
                 </div>
@@ -269,6 +249,8 @@ const CSS = `
 .ch-media { margin-bottom: 14px; }
 .ch-video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); background: var(--card-dark); display: block; }
 .ch-note { font-family: var(--font-mono); font-size: 11px; color: var(--faint); margin: -4px 0 12px; }
+.ch-axes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0 0 16px; }
+.ch-axis { font-size: 13.5px; font-weight: 600; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 8px; padding: 9px 12px; }
 .sv-logos { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .sv-logos.sm { gap: 9px; }
 .sv-logo { display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; border-radius: 11px; background: var(--bg); border: 1px solid var(--line); }

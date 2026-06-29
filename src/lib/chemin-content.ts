@@ -86,6 +86,7 @@ export type CheminContent = {
   modeKicker: string;
   steps: StepText[];
   cartoHub: string;
+  cartoAxes: string[];
   territoires: Territoire[];
   ctaH: string;
   ctaP: string;
@@ -183,6 +184,7 @@ const fr: CheminContent = {
     },
   ],
   cartoHub: "L'IA, branchée directement dans vos process · PME comme grand groupe",
+  cartoAxes: ["Production de logiciel", "Reporting & CRM", "Création de contenu", "Veille & alerting"],
   territoires: [
     { nom: "Production de logiciel", sous: "Sites, outils internes, intégrations sur mesure", chips: ["Sites web", "Outils internes", "Intégrations"] },
     { nom: "Reporting", sous: "Vos chiffres synthétisés, chaque matin", chips: ["Tableaux de bord", "Synthèses", "KPIs"] },
@@ -289,6 +291,7 @@ const en: CheminContent = {
     },
   ],
   cartoHub: "AI connected directly into your processes · from small businesses to large groups",
+  cartoAxes: ["Software production", "Reporting & CRM", "Content creation", "Monitoring & alerting"],
   territoires: [
     { nom: "Software production", sous: "Sites, internal tools, custom integrations", chips: ["Websites", "Internal tools", "Integrations"] },
     { nom: "Reporting", sous: "Your numbers synthesized, every morning", chips: ["Dashboards", "Summaries", "KPIs"] },
@@ -393,6 +396,7 @@ const ptBR: CheminContent = {
     },
   ],
   cartoHub: "A IA conectada diretamente nos seus processos · PMEs e grandes empresas",
+  cartoAxes: ["Produção de software", "Reporting & CRM", "Criação de conteúdo", "Monitoramento & alertas"],
   territoires: [
     { nom: "Produção de software", sous: "Sites, ferramentas internas, integrações personalizadas", chips: ["Sites", "Ferramentas internas", "Integrações"] },
     { nom: "Reporting", sous: "Seus números sintetizados, toda manhã", chips: ["Dashboards", "Sínteses", "KPIs"] },
@@ -497,6 +501,7 @@ const zhCN: CheminContent = {
     },
   ],
   cartoHub: "AI 直接接入您的流程 · 中小企业与大集团同样适用",
+  cartoAxes: ["软件生产", "报表与 CRM", "内容创作", "监测与告警"],
   territoires: [
     { nom: "软件生产", sous: "网站、内部工具、定制集成", chips: ["网站", "内部工具", "集成"] },
     { nom: "Reporting", sous: "每天早上，数字自动汇总", chips: ["仪表板", "摘要", "KPIs"] },
