@@ -19,6 +19,23 @@ const WHERE: Record<Locale, { q: string; sub: string }> = {
   "zh-CN": { q: "您处于哪个阶段？", sub: "选择您的级别，我们带您直达对应的一步。" },
 };
 
+// Preuve sociale : bande de logos clients (mêmes logos autorisés que la home historique).
+const TRUST: Record<Locale, string> = {
+  fr: "Ils nous ont déjà fait confiance",
+  en: "They already trusted us",
+  "pt-BR": "Eles já confiaram em nós",
+  "zh-CN": "他们已经信任我们",
+};
+const CLIENT_LOGOS: { alt: string; src: string; cn?: boolean }[] = [
+  { alt: "Lavazza", src: "/brand/client-logos/logo-1.png" },
+  { alt: "Laparra", src: "/brand/client-logos/logo-2.png" },
+  { alt: "SNCF", src: "/brand/client-logos/logo-3.png" },
+  { alt: "Joone", src: "/brand/client-logos/logo-4.png" },
+  { alt: "Clevery", src: "/brand/client-logos/logo-5.png" },
+  { alt: "EFI", src: "/brand/client-logos/logo-6.png" },
+  { alt: "Carte Noire", src: "/brand/client-logos/logo-7.png", cn: true },
+];
+
 // Position horizontale du drapeau/sentier par étape (alternance gauche/droite).
 const flagX = (i: number) => (i % 2 === 0 ? 34 : 66);
 
@@ -117,6 +134,7 @@ export default function Chemin({ lang }: { lang: Locale }) {
   const c = CHEMIN_CONTENT[lang];
   const steps = STEP_BASE.map((base, i) => ({ ...base, ...c.steps[i] }));
   const where = WHERE[lang] ?? WHERE.fr;
+  const trustLabel = TRUST[lang] ?? TRUST.fr;
 
   const itemList = {
     "@context": "https://schema.org",
@@ -142,6 +160,16 @@ export default function Chemin({ lang }: { lang: Locale }) {
         <p className="chemin-lede">{c.lede}</p>
         <span className="chemin-scroll">{c.scroll}</span>
       </header>
+
+      <section className="ch-trust" aria-label={trustLabel}>
+        <p className="ch-trust-lab">{trustLabel}</p>
+        <div className="ch-logos">
+          {CLIENT_LOGOS.map((l) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={l.alt} className={l.cn ? "logo-cn" : ""} src={l.src} alt={l.alt} loading="lazy" />
+          ))}
+        </div>
+      </section>
 
       <nav className="ch-where" aria-label={where.q}>
         <p className="ch-where-q">{where.q}</p>
@@ -252,6 +280,12 @@ html { scroll-behavior: smooth; }
 .ch-where-lv { font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: .06em; color: #fff; background: var(--accent); padding: 3px 8px; border-radius: 6px; }
 .ch-where-nom { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
 .ch-where-chip.shift { border-color: var(--tint-bd); background: var(--tint); }
+.ch-trust { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 30px 24px; margin-top: 20px; }
+.ch-trust-lab { color: var(--faint); font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .2em; text-transform: uppercase; text-align: center; margin: 0 0 22px; }
+.ch-logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: clamp(26px, 5vw, 56px); max-width: 1000px; margin: 0 auto; }
+.ch-logos img { height: 30px; max-width: 140px; width: auto; object-fit: contain; opacity: .72; transition: opacity .2s; }
+.ch-logos img:hover { opacity: 1; }
+.ch-logos img.logo-cn { height: 52px; max-width: 200px; }
 
 /* ===== Sentier ===== */
 .ch-trail { position: relative; max-width: 1080px; margin: 16px auto 0; padding: 0 24px; }
