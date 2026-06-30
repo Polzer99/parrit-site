@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Le chemin de l'IA — sentier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#F5F8FF; --band:#ECF1FB; --surface:#FFFFFF; --ink:#161616;
+    --accent:#AA0003; --dark:#2E2D2B; --terra:#C67C60;
+    --muted:#6E7079; --faint:#8987A1;
+    --line:rgba(20,20,26,.10); --line2:rgba(20,20,26,.14);
+    --tint:rgba(170,0,3,.06); --tintbd:rgba(170,0,3,.18);
+    --shadow:0 1px 2px rgba(20,24,48,.05),0 10px 30px rgba(20,24,48,.06);
+    --font:"Geist",system-ui,sans-serif; --mono:"Geist Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased;display:flex;justify-content:center;padding:30px}
+  .stage{position:relative;width:1040px;background:radial-gradient(900px 380px at 50% 0,#fff 0,var(--bg) 60%);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;padding-bottom:30px}
+  .hd{text-align:center;padding:44px 24px 8px}
+  .kick{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+  .h1{font-size:40px;font-weight:800;letter-spacing:-.02em;margin:12px 0 6px}
+  .sub{font-size:16px;color:var(--muted)}
+  .trail-wrap{position:relative;width:1040px;height:1560px}
+  svg.trail{position:absolute;inset:0;width:1040px;height:1560px}
+  .wp{position:absolute;width:300px}
+  .wp .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:var(--shadow)}
+  .wp.key .card{border-color:var(--tintbd);box-shadow:0 1px 2px rgba(170,0,3,.06),0 10px 26px rgba(170,0,3,.06)}
+  .wp .tag{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;color:#fff;background:var(--dark);border-radius:6px;padding:2px 7px}
+  .wp.key .tag{background:var(--accent)}
+  .wp .ti{font-size:17px;font-weight:700;letter-spacing:-.01em;margin:9px 0 7px;line-height:1.18}
+  .wp .mode{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--band);border-radius:999px;padding:3px 9px}
+  .wp.key .mode{color:#fff;background:var(--accent)}
+  .pin{position:absolute;transform:translate(-50%,-100%);text-align:center}
+  .pin .pole{width:2px;height:22px;background:var(--ink);margin:0 auto}
+  .pin .flag{position:absolute;left:50%;top:0;width:34px;height:22px;background:var(--accent);clip-path:polygon(0 0,100% 0,100% 100%,0 100%,18% 50%);display:flex;align-items:center;justify-content:flex-end;padding-right:6px;color:#fff;font-family:var(--mono);font-size:12px;font-weight:700}
+  .pin .base{width:11px;height:11px;border-radius:50%;background:var(--surface);border:2px solid var(--ink);margin:-3px auto 0}
+  .pin.key .base{border-color:var(--accent)}
+  .endcap{position:absolute;left:50%;transform:translateX(-50%);text-align:center}
+  .depart{top:8px}
+  .depart .lab{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .summit{bottom:-6px;width:520px}
+  .peak{width:0;height:0;margin:0 auto;border-left:62px solid transparent;border-right:62px solid transparent;border-bottom:78px solid var(--dark);position:relative}
+  .peak::after{content:"";position:absolute;left:-62px;bottom:0;border-left:62px solid transparent;border-right:24px solid transparent;border-bottom:78px solid rgba(255,255,255,.14)}
+  .summit .sflag{position:absolute;left:50%;top:-30px;transform:translateX(-2px);width:40px;height:26px;background:var(--accent);clip-path:polygon(0 0,100% 0,100% 100%,0 100%,20% 50%)}
+  .summit .spole{position:absolute;left:50%;top:-30px;width:2px;height:48px;background:var(--ink)}
+  .summit .stitle{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-top:14px}
+  .summit .ssub{font-size:14px;color:var(--muted);margin-top:4px}
+  .foot{text-align:center;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:14px}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="hd">
+      <div class="kick">De l'IA générative à l'IA agentique</div>
+      <div class="h1">Le chemin de l'IA</div>
+      <div class="sub">Une ascension par étapes. Où en êtes-vous sur la montée ?</div>
+    </div>
+
+    <div class="trail-wrap" id="trail">
+      <svg class="trail" viewBox="0 0 1040 1560" aria-hidden="true">
+        <path id="path" fill="none" stroke="rgba(20,20,26,.28)" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 12"/>
+      </svg>
+      <div class="endcap depart"><div class="lab">▽ Départ</div></div>
+    </div>
+  </div>
+
+<script>
+  // sommets du sentier (alternance gauche/droite), coordonnées dans le viewBox 1040x1560
+  const WP = [
+    { n:"01", x:300, y:215, lv:"N1", ti:"Le chat",                 mode:"vous parlez · ça répond" },
+    { n:"02", x:740, y:380, lv:"N2", ti:"Les projets par métier",  mode:"ça se souvient" },
+    { n:"03", x:300, y:545, lv:"N3", ti:"On branche vos outils",   mode:"ça atteint vos outils" },
+    { n:"04", x:740, y:710, lv:"N4", ti:"On cartographie le terrain", mode:"vous décidez quoi confier" },
+    { n:"05", x:300, y:875, lv:"N5", ti:"Un premier agent",        mode:"il agit seul", key:true },
+    { n:"06", x:740, y:1040,lv:"N6", ti:"Vos équipes construisent", mode:"elles en fabriquent" },
+    { n:"07", x:300, y:1205,lv:"N7", ti:"Une flotte autonome",     mode:"ils tournent sans vous", key:true },
+  ];
+  const START = { x:520, y:120 };
+  const END   = { x:520, y:1410 };
+
+  // construit un sentier sinueux lissé qui passe par tous les sommets
+  const pts = [START, ...WP, END];
+  let d = `M ${pts[0].x} ${pts[0].y}`;
+  for (let i=1;i<pts.length;i++){
+    const a=pts[i-1], b=pts[i];
+    const cy1 = a.y + (b.y-a.y)*0.45;
+    const cy2 = b.y - (b.y-a.y)*0.45;
+    d += ` C ${a.x} ${cy1}, ${b.x} ${cy2}, ${b.x} ${b.y}`;
+  }
+  document.getElementById('path').setAttribute('d', d);
+
+  const trail = document.getElementById('trail');
+  const W=1040, H=1560;
+  WP.forEach(w=>{
+    // épingle + drapeau au sommet
+    const pin = document.createElement('div');
+    pin.className = 'pin'+(w.key?' key':'');
+    pin.style.left = (w.x/W*100)+'%';
+    pin.style.top  = (w.y/H*100)+'%';
+    pin.innerHTML = `<div class="flag">${w.n}</div><div class="pole"></div><div class="base"></div>`;
+    trail.appendChild(pin);
+
+    // carte d'étape, du côté ouvert
+    const onLeft = w.x < 520;
+    const card = document.createElement('div');
+    card.className = 'wp'+(w.key?' key':'');
+    const cardW = 300, gap = 46;
+    const leftPx = onLeft ? (w.x + gap) : (w.x - gap - cardW);
+    card.style.left = (leftPx/W*100)+'%';
+    card.style.top  = ((w.y-18)/H*100)+'%';
+    card.innerHTML = `<div class="card"><span class="tag">${w.lv}</span><div class="ti">${w.ti}</div><span class="mode">${w.mode}</span></div>`;
+    trail.appendChild(card);
+  });
+
+  // arrivée / sommet
+  const summit = document.createElement('div');
+  summit.className = 'endcap summit';
+  summit.style.top = ((END.y-40)/H*100)+'%';
+  summit.innerHTML = `<div class="spole"></div><div class="sflag"></div><div class="peak"></div><div class="stitle">L'IA qui agit pour vous</div><div class="ssub">Arrivée : une flotte qui travaille seule.</div>`;
+  trail.appendChild(summit);
+</script>
+</body>
+</html>

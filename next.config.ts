@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
         destination: "/:lang/deploiement-agents",
         statusCode: 301,
       },
+      {
+        source: "/chemin",
+        destination: "/fr",
+        statusCode: 301,
+      },
     ];
   },
 };
