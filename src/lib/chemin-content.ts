@@ -124,7 +124,7 @@ const fr: CheminContent = {
       vo: "Très vite, une conversation ne suffit plus. On crée un espace par sujet, par métier : la longévité, l'automatisation interne, un projet client. Chaque équipe retrouve son contexte au lieu de tout réexpliquer.",
       caption: "Les projets. Un espace de travail par métier, avec sa mémoire.",
       cta: "Découvrir le palier 2",
-      alt: "Liste de projets : Longévité, Interne automation, SAP, LinkedIn, Build AI custom project, Chatbot",
+      alt: "Liste de projets : Longévité, Interne automation, SAP, LinkedIn, Build AI custom project, Parrit.ai",
       visualText: { kind: "badges", badges: ["Mode Projet", "Custom GPT", "Gems"] },
     },
     {
@@ -231,7 +231,7 @@ const en: CheminContent = {
       vo: "Very quickly, one conversation is no longer enough. We create a space by topic, by function: longevity, internal automation, a client project. Each team finds its context instead of re-explaining everything.",
       caption: "Projects. A workspace by function, with its own memory.",
       cta: "Explore stage 2",
-      alt: "Project list: Longevity, Internal automation, SAP, LinkedIn, Build AI custom project, Chatbot",
+      alt: "Project list: Longevity, Internal automation, SAP, LinkedIn, Build AI custom project, Parrit.ai",
       visualText: { kind: "badges", badges: ["Project Mode", "Custom GPT", "Gems"] },
     },
     {
@@ -337,7 +337,7 @@ const ptBR: CheminContent = {
       vo: "Muito rapidamente, uma conversa não é mais suficiente. Criamos um espaço por tema, por área: longevidade, automação interna, um projeto de cliente. Cada equipe encontra seu contexto em vez de ter que explicar tudo de novo.",
       caption: "Os projetos. Um espaço de trabalho por área, com sua própria memória.",
       cta: "Ver o nível 2",
-      alt: "Lista de projetos: Longevidade, Automação interna, SAP, LinkedIn, Build AI custom project, Chatbot",
+      alt: "Lista de projetos: Longevidade, Automação interna, SAP, LinkedIn, Build AI custom project, Parrit.ai",
       visualText: { kind: "badges", badges: ["Modo Projeto", "Custom GPT", "Gems"] },
     },
     {
@@ -442,7 +442,7 @@ const zhCN: CheminContent = {
       vo: "很快，一次对话就不够用了。我们按主题、按职能创建独立空间：长期项目、内部自动化、客户项目。每个团队直接找到上下文，无需重新解释。",
       caption: "项目空间。每个职能一个工作区，拥有独立记忆。",
       cta: "查看第 2 阶段",
-      alt: "项目列表：长期规划、内部自动化、SAP、LinkedIn、Build AI custom project、Chatbot",
+      alt: "项目列表：长期规划、内部自动化、SAP、LinkedIn、Build AI custom project、Parrit.ai",
       visualText: { kind: "badges", badges: ["项目模式", "Custom GPT", "Gems"] },
     },
     {
