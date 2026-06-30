@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Reveal from "@/components/Reveal";
 import type { Locale } from "@/app/[lang]/dictionaries";
 import {
   CHEMIN_CONTENT,
@@ -141,7 +142,7 @@ export default function Chemin({ lang }: { lang: Locale }) {
           const prev = i === 0 ? 50 : flagX(i - 1);
           const side = i % 2 === 0 ? "left" : "right";
           return (
-            <div className="ch-seg" key={s.n}>
+            <Reveal className="ch-seg" key={s.n}>
               <Connector from={prev} to={x} />
               <div className={`ch-step is-${side} ${s.shift ? "shift" : ""}`}>
                 <span className="ch-flag" style={{ left: `${x}%` }} aria-hidden>
@@ -180,18 +181,18 @@ export default function Chemin({ lang }: { lang: Locale }) {
                   <Link href={href} className="chemin-link">{s.cta} →</Link>
                 </div>
               </div>
-            </div>
+            </Reveal>
           );
         })}
 
         <Connector from={flagX(steps.length - 1)} to={50} />
-        <div className="ch-summit">
+        <Reveal className="ch-summit">
           <span className="ch-summit-pole" aria-hidden />
           <span className="ch-summit-flag" aria-hidden />
           <span className="ch-summit-peak" aria-hidden />
           <p className="ch-summit-title">{c.arrivalTitle}</p>
           <p className="ch-summit-sub">{c.arrivalSubtitle}</p>
-        </div>
+        </Reveal>
       </div>
 
       <footer className="chemin-cta">
@@ -237,13 +238,10 @@ const CSS = `
 .ch-step.shift .ch-card { border-color: var(--tint-bd); box-shadow: 0 1px 2px rgba(170,0,3,.06), 0 14px 34px rgba(170,0,3,.06); }
 .ch-card .chemin-vo { flex: 1; }
 
-/* apparition au fur et à mesure de la descente (scroll-driven, dégrade en visible) */
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .ch-seg, .ch-summit { animation: chReveal linear both; animation-timeline: view(); animation-range: entry 0% entry 32%; }
-  }
-}
-@keyframes chReveal { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
+/* apparition à la descente (JS IntersectionObserver, visible par défaut) */
+.ch-reveal.armed { opacity: 0; transform: translateY(24px); transition: opacity .55s ease, transform .55s ease; }
+.ch-reveal.armed.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .ch-reveal.armed { opacity: 1; transform: none; transition: none; } }
 
 /* ===== Médias par étape ===== */
 .ch-media { margin-bottom: 14px; }
