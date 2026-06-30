@@ -10,6 +10,15 @@ import {
 
 const SITE_URL = "https://parrit.ai";
 
+// Sélecteur « Où en êtes-vous ? » : on demande expressément à la personne de choisir
+// son niveau, puis on l'emmène (scroll) directement au bon palier. Titre localisé.
+const WHERE: Record<Locale, { q: string; sub: string }> = {
+  fr: { q: "Où en êtes-vous ?", sub: "Choisissez votre niveau. On vous emmène directement à la bonne marche." },
+  en: { q: "Where do you stand?", sub: "Pick your level. We take you straight to the right step." },
+  "pt-BR": { q: "Onde você está?", sub: "Escolha o seu nível. Levamos você direto à etapa certa." },
+  "zh-CN": { q: "您处于哪个阶段？", sub: "选择您的级别，我们带您直达对应的一步。" },
+};
+
 // Position horizontale du drapeau/sentier par étape (alternance gauche/droite).
 const flagX = (i: number) => (i % 2 === 0 ? 34 : 66);
 
@@ -107,6 +116,7 @@ function StepMedia({
 export default function Chemin({ lang }: { lang: Locale }) {
   const c = CHEMIN_CONTENT[lang];
   const steps = STEP_BASE.map((base, i) => ({ ...base, ...c.steps[i] }));
+  const where = WHERE[lang] ?? WHERE.fr;
 
   const itemList = {
     "@context": "https://schema.org",
@@ -133,6 +143,21 @@ export default function Chemin({ lang }: { lang: Locale }) {
         <span className="chemin-scroll">{c.scroll}</span>
       </header>
 
+      <nav className="ch-where" aria-label={where.q}>
+        <p className="ch-where-q">{where.q}</p>
+        <p className="ch-where-sub">{where.sub}</p>
+        <ul className="ch-where-grid">
+          {steps.map((s) => (
+            <li key={s.n}>
+              <a className={`ch-where-chip ${s.shift ? "shift" : ""}`} href={`#palier-${s.level}`} title={s.title}>
+                <span className="ch-where-lv">{s.level}</span>
+                <span className="ch-where-nom">{s.banane}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
       <div className="ch-trail">
         <div className="ch-depart"><span className="ch-depart-pin" aria-hidden />{c.departure}</div>
 
@@ -144,7 +169,7 @@ export default function Chemin({ lang }: { lang: Locale }) {
           return (
             <Reveal className="ch-seg" key={s.n}>
               <Connector from={prev} to={x} />
-              <div className={`ch-step is-${side} ${s.shift ? "shift" : ""}`}>
+              <div id={`palier-${s.level}`} className={`ch-step is-${side} ${s.shift ? "shift" : ""}`}>
                 <span className="ch-flag" style={{ left: `${x}%` }} aria-hidden>
                   <span className="ch-flag-pennant">{s.n}</span>
                   <span className="ch-flag-pole" />
@@ -215,6 +240,18 @@ const CSS = `
 .chemin-h1 { font-size: clamp(30px, 5vw, 52px); line-height: 1.08; font-weight: 800; letter-spacing: -0.02em; margin: 0; }
 .chemin-lede { max-width: 660px; margin: 22px auto 0; font-size: 18px; line-height: 1.6; color: var(--muted); }
 .chemin-scroll { display: inline-block; margin-top: 26px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
+
+html { scroll-behavior: smooth; }
+.ch-step { scroll-margin-top: 88px; }
+.ch-where { max-width: 840px; margin: 26px auto 4px; padding: 24px 24px 8px; text-align: center; }
+.ch-where-q { font-size: clamp(22px, 3.4vw, 32px); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px; }
+.ch-where-sub { font-size: 16px; line-height: 1.5; color: var(--muted); margin: 0 auto 20px; max-width: 520px; }
+.ch-where-grid { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 0; padding: 0; }
+.ch-where-chip { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 15px 8px 8px; transition: border-color .15s ease, transform .1s ease; }
+.ch-where-chip:hover { border-color: var(--accent); transform: translateY(-1px); }
+.ch-where-lv { font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: .06em; color: #fff; background: var(--accent); padding: 3px 8px; border-radius: 6px; }
+.ch-where-nom { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
+.ch-where-chip.shift { border-color: var(--tint-bd); background: var(--tint); }
 
 /* ===== Sentier ===== */
 .ch-trail { position: relative; max-width: 1080px; margin: 16px auto 0; padding: 0 24px; }
