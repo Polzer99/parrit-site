@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 
 /* eslint-disable @next/next/no-img-element */
@@ -28,6 +29,7 @@ export interface OnePagerProps {
   price: string;
   priceNote?: string;
   lang: Locale;
+  relatedArticles?: ReactNode;
 }
 
 type OnePagerStory = OnePagerProps["stories"][number];
@@ -534,6 +536,7 @@ export default function OnePager({
   price,
   priceNote,
   lang,
+  relatedArticles,
 }: OnePagerProps) {
   const chrome = chromeByLocale[lang];
   const localizedContent = contentByLocale[lang]?.[level];
@@ -756,6 +759,8 @@ export default function OnePager({
           </div>
         </div>
       </section>
+
+      {relatedArticles ? <div className="wrap">{relatedArticles}</div> : null}
     </main>
   );
 }

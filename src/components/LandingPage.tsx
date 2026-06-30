@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -31,6 +32,7 @@ interface Props {
   lang: Locale;
   quickContact: QuickContactStrings;
   pageId: string;
+  relatedArticles?: React.ReactNode;
 }
 
 const fadeUp = {
@@ -54,7 +56,7 @@ const cardReveal = {
 
 const ACCENTS = ["#AA0003", "#161616", "#AA0003", "#161616"];
 
-export default function LandingPage({ data, lang, quickContact, pageId }: Props) {
+export default function LandingPage({ data, lang, quickContact, pageId, relatedArticles }: Props) {
   return (
     <div className="landing-v4-shell">
       <div className="landing-v4-topbar">
@@ -203,6 +205,10 @@ export default function LandingPage({ data, lang, quickContact, pageId }: Props)
           </div>
         </section>
       </main>
+
+      {relatedArticles && (
+        <div className="landing-v4-related">{relatedArticles}</div>
+      )}
 
       <footer className="landing-v4-statusbar">
         <span>● parrit.ai</span>

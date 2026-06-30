@@ -1,8 +1,20 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import OnePager from "@/components/OnePager";
+import RelatedArticles from "@/components/RelatedArticles";
 import { hasLocale, locales, type Locale } from "@/app/[lang]/dictionaries";
 import { maturiteOffers, type MaturiteSlug } from "@/lib/maturite";
+import type { PillarSlug } from "@/lib/pillars";
+
+const maturitePillar: Record<MaturiteSlug, PillarSlug> = {
+  audit: "agents-ia",
+  "deploiement-agents": "agents-ia",
+  "optimisation-flotte": "agents-ia",
+  "outils-agentiques": "logiciel-ia-sur-mesure",
+  "masterclass-ia": "formation-agents-ia",
+  "masterclass-metier": "formation-agents-ia",
+  "sessions-mcp": "formation-agents-ia",
+};
 
 const SITE_URL = "https://parrit.ai";
 const OG_IMAGE = `${SITE_URL}/opengraph-image`;
@@ -73,5 +85,11 @@ export default async function MaturitePage({
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
 
-  return <OnePager {...maturiteOffers[slug]} lang={lang as Locale} />;
+  return (
+    <OnePager
+      {...maturiteOffers[slug]}
+      lang={lang as Locale}
+      relatedArticles={<RelatedArticles lang={lang} pillar={maturitePillar[slug]} />}
+    />
+  );
 }

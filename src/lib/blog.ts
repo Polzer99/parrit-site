@@ -20,6 +20,11 @@ export interface BlogPost {
   tags?: readonly string[];
   relatedSlugs?: readonly string[];
   pillar?: PillarSlug;
+  tldr?: string;
+  faq?: { q: string; a: string }[];
+  keyword?: string;
+  searchIntent?: "informational" | "commercial" | "transactional";
+  sources?: { label: string; url: string }[];
 }
 
 interface BlogPostTranslation {
@@ -28,6 +33,8 @@ interface BlogPostTranslation {
   category: string;
   readingTime: string;
   content: string;
+  tldr?: string;
+  faq?: { q: string; a: string }[];
 }
 
 export interface BlogPostSource {
@@ -41,6 +48,9 @@ export interface BlogPostSource {
   tags?: readonly string[];
   relatedSlugs?: readonly string[];
   pillar?: PillarSlug;
+  keyword?: string;
+  searchIntent?: "informational" | "commercial" | "transactional";
+  sources?: { label: string; url: string }[];
   translations: Record<BlogLocale, BlogPostTranslation>;
 }
 
@@ -457,6 +467,202 @@ const canonicalPosts: BlogPostSource[] = [
       },
     },
   },
+  {
+    slug: "securite-agents-ia-entreprise",
+    date: "2026-06-29",
+    publishedAt: "2026-06-29",
+    updatedAt: "2026-06-29",
+    author: "Paul Larmaraud",
+    pillar: "agents-ia",
+    keyword: "sécurité des agents IA en entreprise",
+    searchIntent: "informational",
+    sources: [
+      {
+        label: "OWASP Top 10 for LLM Applications",
+        url: "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      },
+      {
+        label: "CNIL – Intelligence artificielle",
+        url: "https://www.cnil.fr/fr/intelligence-artificielle",
+      },
+      {
+        label: "CNIL – RGPD",
+        url: "https://www.cnil.fr/fr/reglement-europeen-protection-donnees",
+      },
+      {
+        label: "Anthropic – Trust Center",
+        url: "https://trust.anthropic.com/",
+      },
+    ],
+    tags: ["sécurité", "agents IA", "RGPD", "souveraineté"],
+    relatedSlugs: [
+      "agent-whatsapp-business-entreprise",
+      "veille-juridique-automatisee-avocats",
+    ],
+    translations: {
+      fr: {
+        title:
+          "Sécurité des agents IA en entreprise : les règles qu'on applique",
+        description:
+          "Déployer un agent IA, c'est lui donner accès à vos données. Les 8 règles de sécurité qu'on applique à chaque déploiement, et les questions à poser à un prestataire.",
+        category: "Sécurité & IA",
+        readingTime: "6 min",
+        tldr: "Déployer un agent IA, c'est lui donner accès à vos données et à vos outils. La sécurité ne se joue pas sur la question « l'IA est-elle dangereuse », mais sur ce qu'on l'autorise à faire et sur ce qui reste verrouillé. Voici les huit règles appliquées à chaque déploiement, et les questions à poser à n'importe quel prestataire pour vérifier qu'il les respecte.",
+        faq: [
+          {
+            q: "Mes données servent-elles à entraîner l'IA ?",
+            a: "Non. Les agents qu'on déploie passent par des accès qui interdisent la réutilisation de vos données pour l'entraînement, et les données restent dans votre infrastructure.",
+          },
+          {
+            q: "Un agent peut-il agir tout seul sans qu'on le sache ?",
+            a: "Non sur l'irréversible. Toute action qui sort de l'entreprise ou qu'on ne peut pas annuler demande une validation humaine. Le reste, automatisable sans risque, est tracé.",
+          },
+          {
+            q: "Est-ce compatible avec le RGPD ?",
+            a: "Oui, c'est même un point de départ : données minimisées, hébergement maîtrisé, cloisonnement par utilisateur, et possibilité de router vers des modèles européens.",
+          },
+          {
+            q: "Qu'est-ce qui me reste si j'arrête ?",
+            a: "Le code et le système, qui tournent sur votre infrastructure. Vous n'êtes pas locataire d'une boîte noire.",
+          },
+        ],
+        content: `<p>Un agent IA ne reste pas à répondre dans un coin. Il lit vos fichiers, agit dans vos logiciels, déclenche des actions. C'est précisément ce qui le rend utile, et c'est ce qui demande un cadre clair. La plupart des incidents ne viennent pas du modèle qui « dérape », mais d'un accès trop large donné sans réfléchir, d'un secret qui traîne, ou d'une action automatique qu'on aurait dû laisser à un humain.</p>
+<h2>1. Vos données restent chez vous</h2>
+<p>L'agent tourne dans votre infrastructure, pas sur une plateforme tierce qu'on contrôlerait. Vos données ne servent jamais à entraîner un modèle. Quand un fournisseur de modèle entre dans la boucle, on passe par des accès qui interdisent la réutilisation de vos données pour l'entraînement.</p>
+<h2>2. Moindre privilège</h2>
+<p>Un agent ne reçoit que les accès strictement nécessaires à sa tâche. Par défaut il lit, il n'écrit pas. La prod, la base client, le cœur métier restent fermés tant que vous n'avez pas ouvert l'accès vous-même, périmètre par périmètre.</p>
+<h2>3. Secrets verrouillés</h2>
+<p>Les clés et mots de passe vivent côté serveur, hors de portée de l'agent, jamais écrits en dur dans le code. Chaque accès est limité à ce qu'il doit toucher, et peut être révoqué ou changé à tout moment sans rien casser.</p>
+<h2>4. Humain à la gâchette sur l'irréversible</h2>
+<p>Tout ce qui sort de l'entreprise ou ne se rattrape pas, envoyer de l'argent, un mail à un client, publier quelque chose, demande une validation humaine. L'agent prépare et propose, une personne appuie. On automatise l'ennuyeux, pas l'engageant.</p>
+<h2>5. Garde-fous testés avant la prod</h2>
+<p>Avant qu'un agent passe en production, il franchit une batterie de tests et dispose d'un retour arrière. On vérifie qu'il fait ce qu'il doit, et seulement ça. Rien ne part en vrai sur la foi d'une démo qui a marché une fois.</p>
+<h2>6. Auditable et réversible</h2>
+<p>Le code est à vous, sur une stack ouverte, avec des traces que vos équipes peuvent lire. Vous pouvez l'auditer, le faire vérifier par un tiers, le reprendre ou le couper. Pas de boîte noire dont vous dépendriez.</p>
+<h2>7. Agnostique et souverain</h2>
+<p>Pas de verrou sur un seul fournisseur. Le système peut router vers une autre IA, y compris européenne ou open-weight, sans tout réécrire. Si un fournisseur change ses règles ou coupe l'accès, vous n'êtes pas bloqués.</p>
+<h2>8. Cloisonnement des données</h2>
+<p>Quand plusieurs personnes ou plusieurs clients partagent un même système, chacun ne voit que ses propres données. La séparation est posée dans la base elle-même, pas seulement dans l'application, pour qu'une erreur de code ne puisse pas exposer ce qui ne devrait pas l'être.</p>
+<h2>Les questions à poser à votre prestataire</h2>
+<p>Vous n'avez pas besoin d'être technique pour vérifier qu'un prestataire prend la sécurité au sérieux. Posez-lui ces questions et écoutez s'il répond précisément ou s'il botte en touche :</p>
+<ul>
+<li>Où tournent les agents, et où vivent mes données ?</li>
+<li>Mes données peuvent-elles servir à entraîner un modèle ?</li>
+<li>Quels accès l'agent a-t-il exactement, et qui les a accordés ?</li>
+<li>Qu'est-ce qui se déclenche automatiquement, et qu'est-ce qui attend une validation humaine ?</li>
+<li>Est-ce que je récupère le code, et puis-je le faire auditer ?</li>
+<li>Que se passe-t-il si je veux changer de fournisseur d'IA ?</li>
+</ul>`,
+      },
+      en: {
+        title: "AI agent security in the enterprise: the rules we apply",
+        description:
+          "Deploying an AI agent means giving it access to your data. The 8 security rules we apply to every deployment, and the questions to ask any provider.",
+        category: "Security & AI",
+        readingTime: "6 min",
+        tldr: "Deploying an AI agent means giving it access to your data and your tools. Security is not about asking whether AI is dangerous, but about what you allow it to do and what stays locked down. Here are the eight rules applied to every deployment, and the questions to ask any provider to verify they follow them.",
+        faq: [
+          {
+            q: "Is my data used to train the AI?",
+            a: "No. The agents we deploy use access agreements that prohibit your data from being used for training, and the data stays in your infrastructure.",
+          },
+          {
+            q: "Can an agent act on its own without anyone knowing?",
+            a: "Not on irreversible actions. Any action that leaves the company or cannot be undone requires human validation. Everything else, automatable without risk, is logged.",
+          },
+          {
+            q: "Is this GDPR-compliant?",
+            a: "Yes, it is actually a starting point: minimal data, controlled hosting, per-user isolation, and the ability to route to European models.",
+          },
+          {
+            q: "What do I keep if I stop?",
+            a: "The code and the system, running on your infrastructure. You are not a tenant of a black box.",
+          },
+        ],
+        content: `<p>An AI agent does not just answer in a corner. It reads your files, acts inside your software, and triggers actions. That is precisely what makes it useful, and it is what requires a clear framework. Most incidents do not come from a model going off the rails, but from access granted too broadly without thinking, a secret left lying around, or an automated action that should have stayed with a human.</p>
+<h2>1. Your data stays with you</h2>
+<p>The agent runs inside your infrastructure, not on a third-party platform we control. Your data is never used to train a model. When a model provider enters the loop, we use access agreements that prohibit your data from being used for training.</p>
+<h2>2. Least privilege</h2>
+<p>An agent receives only the access strictly necessary for its task. By default it reads; it does not write. Production, the customer database, and business-critical systems remain closed until you open access yourself, scope by scope.</p>
+<h2>3. Locked secrets</h2>
+<p>Keys and passwords live server-side, out of the agent's reach, never hard-coded in the code. Each access is limited to what it needs to touch, and can be revoked or rotated at any time without breaking anything.</p>
+<h2>4. Human in the loop on irreversible actions</h2>
+<p>Anything that leaves the company or cannot be undone, sending money, an email to a client, publishing something, requires human validation. The agent prepares and proposes; a person presses the button. We automate the tedious, not the consequential.</p>
+<h2>5. Guard-rails tested before production</h2>
+<p>Before an agent goes into production, it passes a test battery and has a rollback path. We verify it does what it is supposed to do, and only that. Nothing goes live on the strength of a demo that worked once.</p>
+<h2>6. Auditable and reversible</h2>
+<p>The code belongs to you, on an open stack, with logs your teams can read. You can audit it, have it reviewed by a third party, take it back, or switch it off. No black box you depend on.</p>
+<h2>7. Agnostic and sovereign</h2>
+<p>No lock-in to a single provider. The system can route to another AI, including a European or open-weight one, without rewriting everything. If a provider changes its terms or cuts access, you are not stuck.</p>
+<h2>8. Data isolation</h2>
+<p>When multiple people or multiple clients share the same system, each one sees only their own data. The separation is enforced at the database level, not just in the application, so a code error cannot expose what should not be exposed.</p>
+<h2>Questions to ask your provider</h2>
+<p>You do not need to be technical to verify that a provider takes security seriously. Ask them these questions and listen to whether they answer precisely or deflect:</p>
+<ul>
+<li>Where do the agents run, and where does my data live?</li>
+<li>Can my data be used to train a model?</li>
+<li>What access does the agent have exactly, and who granted it?</li>
+<li>What triggers automatically, and what waits for human validation?</li>
+<li>Do I get the code back, and can I have it audited?</li>
+<li>What happens if I want to change AI provider?</li>
+</ul>`,
+      },
+      "pt-BR": {
+        title:
+          "Segurança dos agentes de IA na empresa: as regras que aplicamos",
+        description:
+          "Implantar um agente de IA é dar a ele acesso aos seus dados. As 8 regras de segurança que aplicamos em cada implantação, e as perguntas a fazer a qualquer fornecedor.",
+        category: "Segurança & IA",
+        readingTime: "6 min",
+        tldr: "Implantar um agente de IA é dar a ele acesso aos seus dados e às suas ferramentas. A segurança não se decide pela pergunta \"a IA é perigosa\", mas pelo que você autoriza ela a fazer e pelo que permanece bloqueado. Aqui estão as oito regras aplicadas em cada implantação, e as perguntas a fazer a qualquer fornecedor para verificar se ele as respeita.",
+        faq: [
+          {
+            q: "Meus dados são usados para treinar a IA?",
+            a: "Não. Os agentes que implantamos utilizam acessos que proíbem a reutilização dos seus dados para treinamento, e os dados permanecem na sua infraestrutura.",
+          },
+          {
+            q: "Um agente pode agir sozinho sem que ninguém saiba?",
+            a: "Não no irreversível. Qualquer ação que saia da empresa ou que não possa ser desfeita exige validação humana. O restante, automatizável sem risco, é registrado.",
+          },
+          {
+            q: "É compatível com a LGPD?",
+            a: "Sim, é inclusive um ponto de partida: dados minimizados, hospedagem controlada, isolamento por usuário e possibilidade de rotear para modelos europeus.",
+          },
+          {
+            q: "O que fica comigo se eu parar?",
+            a: "O código e o sistema, rodando na sua infraestrutura. Você não é inquilino de uma caixa-preta.",
+          },
+        ],
+        content: `<p>Um agente de IA não fica apenas respondendo num canto. Ele lê seus arquivos, age dentro dos seus sistemas, dispara ações. É exatamente isso que o torna útil, e é o que exige um enquadramento claro. A maioria dos incidentes não vem de um modelo que "perde o controle", mas de um acesso concedido de forma muito ampla sem reflexão, de um segredo exposto, ou de uma ação automática que deveria ter ficado com um humano.</p>
+<h2>1. Seus dados ficam com você</h2>
+<p>O agente roda na sua infraestrutura, não em uma plataforma terceira que controlaríamos. Seus dados nunca são usados para treinar um modelo. Quando um fornecedor de modelo entra no fluxo, usamos acessos que proíbem a reutilização dos seus dados para treinamento.</p>
+<h2>2. Mínimo privilégio</h2>
+<p>Um agente recebe apenas os acessos estritamente necessários para sua tarefa. Por padrão ele lê, não escreve. A produção, a base de clientes, o núcleo do negócio permanecem fechados até que você mesmo abra o acesso, escopo por escopo.</p>
+<h2>3. Segredos bloqueados</h2>
+<p>Chaves e senhas vivem no servidor, fora do alcance do agente, nunca escritas diretamente no código. Cada acesso é limitado ao que precisa tocar e pode ser revogado ou alterado a qualquer momento sem quebrar nada.</p>
+<h2>4. Humano no controle do irreversível</h2>
+<p>Tudo que sai da empresa ou que não tem volta, enviar dinheiro, um e-mail para um cliente, publicar algo, exige validação humana. O agente prepara e propõe; uma pessoa confirma. Automatizamos o tedioso, não o consequente.</p>
+<h2>5. Guarda-chuvas testados antes da produção</h2>
+<p>Antes de um agente entrar em produção, ele passa por uma bateria de testes e dispõe de um caminho de retorno. Verificamos que ele faz o que deve, e apenas isso. Nada vai para o ar apenas porque uma demonstração funcionou uma vez.</p>
+<h2>6. Auditável e reversível</h2>
+<p>O código é seu, em uma stack aberta, com rastros que suas equipes podem ler. Você pode auditá-lo, fazer com que um terceiro o revise, retomá-lo ou desligá-lo. Nenhuma caixa-preta da qual você dependeria.</p>
+<h2>7. Agnóstico e soberano</h2>
+<p>Sem bloqueio em um único fornecedor. O sistema pode rotear para outra IA, inclusive europeia ou open-weight, sem reescrever tudo. Se um fornecedor mudar as regras ou cortar o acesso, você não fica preso.</p>
+<h2>8. Isolamento de dados</h2>
+<p>Quando várias pessoas ou vários clientes compartilham o mesmo sistema, cada um vê apenas seus próprios dados. A separação é imposta na própria base de dados, não apenas na aplicação, para que um erro de código não possa expor o que não deveria ser exposto.</p>
+<h2>Perguntas a fazer ao seu fornecedor</h2>
+<p>Você não precisa ser técnico para verificar se um fornecedor leva a segurança a sério. Faça essas perguntas e observe se ele responde com precisão ou desvia:</p>
+<ul>
+<li>Onde os agentes rodam e onde ficam meus dados?</li>
+<li>Meus dados podem ser usados para treinar um modelo?</li>
+<li>Quais acessos o agente tem exatamente, e quem os concedeu?</li>
+<li>O que dispara automaticamente e o que aguarda validação humana?</li>
+<li>Eu fico com o código e posso mandá-lo auditar?</li>
+<li>O que acontece se eu quiser trocar de fornecedor de IA?</li>
+</ul>`,
+      },
+    },
+  },
 ];
 
 const posts: BlogPostSource[] = [...generatedBlogPosts, ...canonicalPosts];
@@ -474,11 +680,16 @@ function toBlogPost(src: BlogPostSource, locale: BlogLocale): BlogPost {
     tags: src.tags,
     relatedSlugs: src.relatedSlugs,
     pillar: src.pillar,
+    keyword: src.keyword,
+    searchIntent: src.searchIntent,
+    sources: src.sources,
     title: t.title,
     description: t.description,
     category: t.category,
     readingTime: t.readingTime,
     content: t.content,
+    tldr: t.tldr,
+    faq: t.faq,
   };
 }
 

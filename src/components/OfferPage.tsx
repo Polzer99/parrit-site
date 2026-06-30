@@ -108,7 +108,15 @@ function LeadForm({
   );
 }
 
-export default function OfferPage({ lang, offer }: { lang: Locale; offer: OfferKind }) {
+export default function OfferPage({
+  lang,
+  offer,
+  relatedArticles,
+}: {
+  lang: Locale;
+  offer: OfferKind;
+  relatedArticles?: React.ReactNode;
+}) {
   const copy = getOfferCopy(lang, offer);
 
   return (
@@ -304,6 +312,8 @@ export default function OfferPage({ lang, offer }: { lang: Locale; offer: OfferK
           </div>
         </div>
       </section>
+
+      {relatedArticles ? <div className="wrap">{relatedArticles}</div> : null}
 
       <div className="wrap">
         <footer className="dim">
