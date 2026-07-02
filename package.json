@@ -9,6 +9,7 @@
     "lint": "eslint",
     "qa:doctrine": "node scripts/public-doctrine-audit.mjs",
     "qa:diagnostic:e2e": "playwright test tests/diagnostic-e2e.spec.ts",
+    "qa:diagnostic-express:e2e": "playwright test tests/diagnostic-express-e2e.spec.ts",
     "qa:premium": "playwright test tests/parrit-premium-qa.spec.ts"
   },
   "dependencies": {

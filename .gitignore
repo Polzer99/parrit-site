@@ -42,3 +42,4 @@ next-env.d.ts
 
 # Hermes : fichier temporaire de corps d issue
 hermes/proposals/.issue-*.md
+test-results/
