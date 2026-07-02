@@ -126,7 +126,7 @@ test("/diagnostic-express rejects an invalid site or email before calling the AP
   await page.getByLabel("Email").fill("pas-un-email");
   await page.getByRole("button", { name: /diagnostic/i }).click();
 
-  await expect(page.locator(".dx-err")).toBeVisible();
+  await expect(page.locator(".dx-error")).toBeVisible();
   expect(calls).toHaveLength(0);
 });
 
@@ -140,9 +140,9 @@ test("/diagnostic-express/[id] asks for the code and reveals the diagnostic on a
   await page.getByLabel("Code reçu par mail").fill("7XQK2");
   await page.getByRole("button", { name: /voir mon diagnostic/i }).click();
 
-  await expect(page.locator(".dx-ctitle")).toContainText(sampleDiagnostic.framing);
-  await expect(page.locator(".dx-canvas")).toContainText(sampleDiagnostic.front1.label);
-  await expect(page.locator(".dx-canvas")).toContainText(sampleDiagnostic.front2.label);
+  await expect(page.locator(".dx-framing")).toContainText(sampleDiagnostic.framing);
+  await expect(page.locator(".dx-result")).toContainText(sampleDiagnostic.front1.label);
+  await expect(page.locator(".dx-result")).toContainText(sampleDiagnostic.front2.label);
 
   expect(calls).toHaveLength(1);
   expect(calls[0]).toMatchObject({ id: "abc123", code: "7XQK2" });
@@ -159,7 +159,7 @@ test("/diagnostic-express/[id] shows a sober error on an invalid code", async ({
   await page.getByLabel("Code reçu par mail").fill("00000");
   await page.getByRole("button", { name: /voir mon diagnostic/i }).click();
 
-  await expect(page.locator(".dx-err")).toContainText("Code invalide");
+  await expect(page.locator(".dx-error")).toContainText("Code invalide");
 });
 
 test("/diagnostic-express/[id] shows an expiry error on a 404", async ({ page }) => {
@@ -169,5 +169,5 @@ test("/diagnostic-express/[id] shows an expiry error on a 404", async ({ page })
   await page.getByLabel("Code reçu par mail").fill("7XQK2");
   await page.getByRole("button", { name: /voir mon diagnostic/i }).click();
 
-  await expect(page.locator(".dx-err")).toContainText(/introuvable|expiré/i);
+  await expect(page.locator(".dx-error")).toContainText(/introuvable|expiré/i);
 });

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import DiagnosticExpressClient from "./DiagnosticExpressClient";
 
 const SITE_URL = "https://parrit.ai";
@@ -21,11 +20,6 @@ export default function DiagnosticExpressPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <nav className="blog-nav">
-        <Link href="/fr" className="nav-logo">Parrit.ai</Link>
-        <Link href="/fr/blog" className="blog-nav-link">Nos articles →</Link>
-      </nav>
-      <h1 className="sr-only">Diagnostic Express Parrit, votre site passé au crible</h1>
       <DiagnosticExpressClient />
     </>
   );
