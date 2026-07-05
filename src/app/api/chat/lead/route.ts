@@ -52,7 +52,7 @@ function buildMarkdown(lead: LeadBody): string {
   const phone = lead.phone?.trim() || "";
 
   const channel = lead.channel || "email";
-  const slot = lead.slot || "asap";
+  const slot = lead.slot ?? "non demandé";
 
   const frontmatter = [
     "---",
@@ -106,9 +106,9 @@ async function notifyWebhook(lead: LeadBody, filepath: string): Promise<void> {
     entreprise: "",
     telephone: lead.phone || "",
     email: lead.email || "",
-    creneau: lead.slot || "asap",
+    creneau: lead.slot ?? "non demandé",
     canal_prefere: lead.channel || "email",
-    besoin: `Conversation assistant site (${lead.lang || "fr"}) — canal préféré: ${lead.channel || "email"}, créneau: ${lead.slot || "asap"} — transcript saved to ${filepath}`,
+    besoin: `Conversation assistant site (${lead.lang || "fr"}) — canal préféré: ${lead.channel || "email"}, créneau: ${lead.slot ?? "non demandé"} — transcript saved to ${filepath}`,
     transcript: lead.transcript,
     referrer: lead.referrer || "",
     url: lead.url || "",

@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { getAttribution } from "@/lib/attribution";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
+const SURFACE = "detecteur-bullshit";
+const PENDING_LEAD_KEY = "pending_lead";
 
 type Axis = { key: string; score: number; weight: number };
 type Result = {
@@ -48,6 +50,17 @@ function getPosthog(): PostHog | undefined {
   return (window as unknown as Record<string, unknown>).posthog as
     | PostHog
     | undefined;
+}
+
+function statusFromError(error: unknown): number | undefined {
+  if (!(error instanceof Error)) return undefined;
+  const match = error.message.match(/webhook (\d+)/);
+  return match ? Number(match[1]) : undefined;
+}
+
+function savePendingLead(payload: Record<string, unknown>, status?: number) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(PENDING_LEAD_KEY, JSON.stringify({ surface: SURFACE, status, payload, savedAt: new Date().toISOString() }));
 }
 
 /* ----- la fiche verdict, animée au montage (remonte à chaque analyse via key) ----- */
@@ -225,25 +238,47 @@ export default function DetecteurClient() {
   const [error, setError] = useState("");
   const emailSentRef = useRef(false);
 
+  useEffect(() => {
+    const retryPendingLead = async () => {
+      const raw = localStorage.getItem(PENDING_LEAD_KEY);
+      if (!raw) return;
+      const pending = JSON.parse(raw) as { surface?: string; payload?: Record<string, unknown> };
+      if (pending.surface !== SURFACE || !pending.payload) return;
+      const r = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pending.payload),
+      });
+      if (!r.ok) throw new Error(`webhook ${r.status}`);
+      localStorage.removeItem(PENDING_LEAD_KEY);
+    };
+
+    retryPendingLead().catch((error) => {
+      getPosthog()?.capture("form_failed", { surface: SURFACE, status: statusFromError(error) });
+    });
+  }, []);
+
   async function captureLead(mail: string) {
     const utms = getAttribution();
     const ph = getPosthog();
+    const payload = {
+      source: "parrit.ai",
+      action: "bullshit_detector_lead",
+      page: "outils/detecteur-bullshit",
+      email: mail.trim(),
+      contact_raw: mail.trim(),
+      referrer: typeof document !== "undefined" ? document.referrer : "",
+      url: typeof window !== "undefined" ? window.location.href : "",
+      timestamp: new Date().toISOString(),
+      ...utms,
+    };
     try {
-      await fetch(WEBHOOK_URL, {
+      const r = await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          source: "parrit.ai",
-          action: "bullshit_detector_lead",
-          page: "outils/detecteur-bullshit",
-          email: mail.trim(),
-          contact_raw: mail.trim(),
-          referrer: typeof document !== "undefined" ? document.referrer : "",
-          url: typeof window !== "undefined" ? window.location.href : "",
-          timestamp: new Date().toISOString(),
-          ...utms,
-        }),
+        body: JSON.stringify(payload),
       });
+      if (!r.ok) throw new Error(`webhook ${r.status}`);
       if (ph) {
         ph.identify(mail.trim(), { email: mail.trim() });
         ph.capture("form_submitted", {
@@ -252,8 +287,12 @@ export default function DetecteurClient() {
           ...utms,
         });
       }
-    } catch {
+    } catch (error) {
       // non bloquant : l'analyse continue meme si le webhook echoue
+      const status = statusFromError(error);
+      ph?.capture("form_failed", { surface: SURFACE, status });
+      console.error(payload, error);
+      savePendingLead(payload, status);
     }
   }
 

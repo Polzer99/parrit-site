@@ -42,7 +42,7 @@ export default function QuickContact({ strings, page, variant = "dark" }: Props)
           | undefined
       : undefined;
     try {
-      await fetch(WEBHOOK_URL, {
+      const r = await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -58,6 +58,7 @@ export default function QuickContact({ strings, page, variant = "dark" }: Props)
           ...utms,
         }),
       });
+      if (!r.ok) throw new Error(`webhook ${r.status}`);
       if (ph) {
         if (isEmail) ph.identify(contact.trim(), { email: contact.trim() });
         ph.capture("form_submitted", {
