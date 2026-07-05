@@ -1,6 +1,8 @@
 import Link from "next/link";
+import LaunchCard from "@/components/LaunchCard";
 import Reveal from "@/components/Reveal";
 import type { Locale } from "@/app/[lang]/dictionaries";
+import type { Launch } from "@/lib/launches";
 import {
   CHEMIN_CONTENT,
   STEP_BASE,
@@ -130,7 +132,13 @@ function StepMedia({
   return null;
 }
 
-export default function Chemin({ lang }: { lang: Locale }) {
+export default function Chemin({
+  lang,
+  launches = [],
+}: {
+  lang: Locale;
+  launches?: Launch[];
+}) {
   const c = CHEMIN_CONTENT[lang];
   const steps = STEP_BASE.map((base, i) => ({ ...base, ...c.steps[i] }));
   const where = WHERE[lang] ?? WHERE.fr;
@@ -154,9 +162,16 @@ export default function Chemin({ lang }: { lang: Locale }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
 
       <header className="chemin-hero">
-        <Link href={`/${lang}`} className="chemin-back">{c.back}</Link>
+        <div className="chemin-topnav">
+          <Link href={`/${lang}`} className="chemin-back">{c.back}</Link>
+          <Link href={`/${lang}/launches`} className="chemin-back">Launches</Link>
+        </div>
         <p className="chemin-kicker">{c.kicker}</p>
         <h1 className="chemin-h1">{c.h1Line1}<br />{c.h1Line2}</h1>
+        <div className="chemin-launch-slot">
+          <span>Ship AI. Every week.</span>
+          <p>Une preuve de fabrication publiee chaque semaine.</p>
+        </div>
         <p className="chemin-lede">{c.lede}</p>
         <span className="chemin-scroll">{c.scroll}</span>
       </header>
@@ -248,6 +263,25 @@ export default function Chemin({ lang }: { lang: Locale }) {
         </Reveal>
       </div>
 
+      {launches.length > 0 && (
+        <section className="launch-home-section" aria-labelledby="latest-launches">
+          <div className="launch-home-head">
+            <p className="launch-kicker">Build in public</p>
+            <h2 id="latest-launches">Derniers Launches</h2>
+            <Link href={`/${lang}/launches`}>Voir tous les launches</Link>
+          </div>
+          <div className="launch-grid">
+            {launches.map((launch) => (
+              <LaunchCard
+                href={`/${lang}/launches/${launch.slug}`}
+                key={launch.slug}
+                launch={launch}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
       <footer className="chemin-cta">
         <h2 className="chemin-cta-h">{c.ctaH}</h2>
         <p className="chemin-cta-p">{c.ctaP}</p>
@@ -263,9 +297,13 @@ export default function Chemin({ lang }: { lang: Locale }) {
 const CSS = `
 .chemin { background: var(--bg); color: var(--ink); }
 .chemin-hero { max-width: 880px; margin: 0 auto; padding: 88px 24px 8px; text-align: center; }
+.chemin-topnav { display: inline-flex; align-items: center; justify-content: center; gap: 18px; }
 .chemin-back { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
 .chemin-kicker { margin: 40px 0 14px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
 .chemin-h1 { font-size: clamp(30px, 5vw, 52px); line-height: 1.08; font-weight: 800; letter-spacing: -0.02em; margin: 0; }
+.chemin-launch-slot { display: inline-block; margin: 24px auto 0; padding: 12px 18px; border: 1px solid var(--line); background: var(--surface); text-align: left; }
+.chemin-launch-slot span { display: block; font-family: var(--font-heading); font-size: clamp(20px, 3vw, 28px); font-weight: 600; letter-spacing: -0.04em; color: var(--ink); }
+.chemin-launch-slot p { margin: 3px 0 0; font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .chemin-lede { max-width: 660px; margin: 22px auto 0; font-size: 18px; line-height: 1.6; color: var(--muted); }
 .chemin-scroll { display: inline-block; margin-top: 26px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
 
