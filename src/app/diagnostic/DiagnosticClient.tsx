@@ -5,6 +5,8 @@ import { SEGMENTS, OPENER, UI, detectSegment, detectLang, type SegmentId, type L
 import { getAttribution } from "@/lib/attribution";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
+const SURFACE = "diagnostic";
+const PENDING_LEAD_KEY = "pending_lead";
 
 type Msg = { role: "user" | "assistant"; content: string };
 type Front = { label: string; nodes: string[] };
@@ -17,6 +19,15 @@ function ph(): PostHog | undefined {
 }
 function looksLikeEmail(v: string) {
   return /\S+@\S+\.\S+/.test(v.trim());
+}
+function statusFromError(error: unknown): number | undefined {
+  if (!(error instanceof Error)) return undefined;
+  const match = error.message.match(/webhook (\d+)/);
+  return match ? Number(match[1]) : undefined;
+}
+function savePendingLead(payload: Record<string, unknown>, status?: number) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(PENDING_LEAD_KEY, JSON.stringify({ surface: SURFACE, status, payload, savedAt: new Date().toISOString() }));
 }
 
 export default function DiagnosticClient() {
@@ -43,6 +54,26 @@ export default function DiagnosticClient() {
     setSeg(s);
     setLang(l);
     setMessages([{ role: "assistant", content: OPENER[(SEGMENTS[s] || SEGMENTS.neutre).voix][l] }]);
+  }, []);
+
+  useEffect(() => {
+    const retryPendingLead = async () => {
+      const raw = localStorage.getItem(PENDING_LEAD_KEY);
+      if (!raw) return;
+      const pending = JSON.parse(raw) as { surface?: string; payload?: Record<string, unknown> };
+      if (pending.surface !== SURFACE || !pending.payload) return;
+      const r = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pending.payload),
+      });
+      if (!r.ok) throw new Error(`webhook ${r.status}`);
+      localStorage.removeItem(PENDING_LEAD_KEY);
+    };
+
+    retryPendingLead().catch((error) => {
+      ph()?.capture("form_failed", { surface: SURFACE, status: statusFromError(error) });
+    });
   }, []);
 
   useEffect(() => {
@@ -86,7 +117,6 @@ export default function DiagnosticClient() {
 
   async function sendLead() {
     if (!looksLikeEmail(email) || leadSent) return;
-    setLeadSent(true);
     const utms = getAttribution();
     const p = ph();
     if (p) {
@@ -94,29 +124,37 @@ export default function DiagnosticClient() {
       p.capture("form_submitted", { form: "diagnostic", segment: seg, persona, lang, ...utms });
       p.capture("diagnostic_lead", { segment: seg, persona, lang });
     }
+    const payload = {
+      source: "parrit.ai",
+      action: "diagnostic_lead",
+      page: "diagnostic",
+      email: email.trim(),
+      contact_raw: email.trim(),
+      segment: seg,
+      persona,
+      lang,
+      besoin: diag ? `${diag.framing} ${diag.front1?.label} / ${diag.front2?.label}` : "",
+      transcript: messages,
+      referrer: typeof document !== "undefined" ? document.referrer : "",
+      url: typeof window !== "undefined" ? window.location.href : "",
+      timestamp: new Date().toISOString(),
+      ...utms,
+    };
     try {
-      await fetch(WEBHOOK_URL, {
+      const r = await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          source: "parrit.ai",
-          action: "diagnostic_lead",
-          page: "diagnostic",
-          email: email.trim(),
-          contact_raw: email.trim(),
-          segment: seg,
-          persona,
-          lang,
-          besoin: diag ? `${diag.framing} ${diag.front1?.label} / ${diag.front2?.label}` : "",
-          transcript: messages,
-          referrer: typeof document !== "undefined" ? document.referrer : "",
-          url: typeof window !== "undefined" ? window.location.href : "",
-          timestamp: new Date().toISOString(),
-          ...utms,
-        }),
+        body: JSON.stringify(payload),
       });
-    } catch {
+      if (!r.ok) throw new Error(`webhook ${r.status}`);
+      setLeadSent(true);
+    } catch (error) {
       // non bloquant
+      const status = statusFromError(error);
+      p?.capture("form_failed", { surface: SURFACE, status });
+      console.error(payload, error);
+      savePendingLead(payload, status);
+      setLeadSent(true);
     }
   }
 

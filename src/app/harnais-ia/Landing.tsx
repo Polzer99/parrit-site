@@ -5,6 +5,26 @@ import { useEffect, useState } from "react";
 import { COPY, type Lang } from "./content";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
+const SURFACE = "harnais-ia";
+const PENDING_LEAD_KEY = "pending_lead";
+
+type PostHog = { capture: (event: string, props: Record<string, unknown>) => void };
+
+function getPosthog(): PostHog | undefined {
+  if (typeof window === "undefined") return undefined;
+  return (window as unknown as { posthog?: PostHog }).posthog;
+}
+
+function statusFromError(error: unknown): number | undefined {
+  if (!(error instanceof Error)) return undefined;
+  const match = error.message.match(/webhook (\d+)/);
+  return match ? Number(match[1]) : undefined;
+}
+
+function savePendingLead(payload: Record<string, unknown>, status?: number) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(PENDING_LEAD_KEY, JSON.stringify({ surface: SURFACE, status, payload, savedAt: new Date().toISOString() }));
+}
 
 export default function Landing() {
   const [lang, setLang] = useState<Lang>("fr");
@@ -16,7 +36,6 @@ export default function Landing() {
     // SSR rend FR ; au montage, on s'aligne sur la langue du navigateur (anglophone → EN).
     // set-state-in-effect est volontaire ici (évite un hydration mismatch).
     if (typeof navigator !== "undefined" && navigator.language?.toLowerCase().startsWith("en")) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLang("en");
     }
   }, []);
@@ -25,27 +44,53 @@ export default function Landing() {
     if (typeof document !== "undefined") document.documentElement.lang = lang;
   }, [lang]);
 
+  useEffect(() => {
+    const retryPendingLead = async () => {
+      const raw = localStorage.getItem(PENDING_LEAD_KEY);
+      if (!raw) return;
+      const pending = JSON.parse(raw) as { surface?: string; payload?: Record<string, unknown> };
+      if (pending.surface !== SURFACE || !pending.payload) return;
+      const r = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pending.payload),
+      });
+      if (!r.ok) throw new Error(`webhook ${r.status}`);
+      localStorage.removeItem(PENDING_LEAD_KEY);
+    };
+
+    retryPendingLead().catch((error) => {
+      getPosthog()?.capture("form_failed", { surface: SURFACE, status: statusFromError(error) });
+    });
+  }, []);
+
   const c = COPY[lang];
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!name.trim() || !email.trim()) return;
+    const payload = {
+      name: name.trim(),
+      email: email.trim(),
+      lang,
+      page: "harnais-ia",
+      source: "lead-magnet-harnais-cout-ia",
+      url: typeof window !== "undefined" ? window.location.href : "",
+      timestamp: new Date().toISOString(),
+    };
     try {
-      await fetch(WEBHOOK_URL, {
+      const r = await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name.trim(),
-          email: email.trim(),
-          lang,
-          page: "harnais-ia",
-          source: "lead-magnet-harnais-cout-ia",
-          url: typeof window !== "undefined" ? window.location.href : "",
-          timestamp: new Date().toISOString(),
-        }),
+        body: JSON.stringify(payload),
       });
-    } catch {
+      if (!r.ok) throw new Error(`webhook ${r.status}`);
+    } catch (error) {
       // le déblocage ne doit jamais dépendre du réseau
+      const status = statusFromError(error);
+      getPosthog()?.capture("form_failed", { surface: SURFACE, status });
+      console.error(payload, error);
+      savePendingLead(payload, status);
     }
     setSent(true);
   }

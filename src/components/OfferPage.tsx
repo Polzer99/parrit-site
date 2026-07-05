@@ -42,7 +42,7 @@ function LeadForm({
         : undefined;
 
     try {
-      await fetch(WEBHOOK_URL, {
+      const r = await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -59,6 +59,7 @@ function LeadForm({
           ...utms,
         }),
       });
+      if (!r.ok) throw new Error(`webhook ${r.status}`);
 
       posthog?.identify(email.trim(), { email: email.trim(), phone: phone.trim() });
       posthog?.capture("form_submitted", {
