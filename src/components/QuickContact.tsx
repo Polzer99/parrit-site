@@ -28,13 +28,14 @@ interface Props {
   page: string;
   variant?: "light" | "dark";
   source?: string;
+  lang?: string;
 }
 
 function looksLikeEmail(value: string): boolean {
   return value.includes("@");
 }
 
-export default function QuickContact({ strings, page, variant = "dark", source }: Props) {
+export default function QuickContact({ strings, page, variant = "dark", source, lang }: Props) {
   const [contact, setContact] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
@@ -54,7 +55,7 @@ export default function QuickContact({ strings, page, variant = "dark", source }
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          source: "parrit.ai",
+          source: source ?? "parrit.ai",
           action: "quick_contact",
           page,
           email: isEmail ? contact.trim() : "",
@@ -63,7 +64,6 @@ export default function QuickContact({ strings, page, variant = "dark", source }
           referrer: typeof document !== "undefined" ? document.referrer : "",
           url: typeof window !== "undefined" ? window.location.href : "",
           timestamp: new Date().toISOString(),
-          ...(source ? { lead_source: source } : {}),
           ...utms,
         }),
       });
@@ -91,6 +91,7 @@ export default function QuickContact({ strings, page, variant = "dark", source }
   const microColor = isLight ? "var(--text-muted)" : "var(--text-light-muted)";
 
   if (state === "sent") {
+    const ctaLang = lang || page.split("/")[1] || "fr";
     return (
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
@@ -107,7 +108,7 @@ export default function QuickContact({ strings, page, variant = "dark", source }
         <div>✓ {strings.thanks}</div>
         {!page.includes("rendez-vous") && (
           <a
-            href={buildRdvHref("quick-contact", page.split("/")[1] || "fr")}
+            href={buildRdvHref("quick-contact", ctaLang)}
             style={{
               display: "inline-block",
               marginTop: 16,
@@ -120,7 +121,7 @@ export default function QuickContact({ strings, page, variant = "dark", source }
               fontWeight: 600,
             }}
           >
-            {QC_RDV_CTA[page.split("/")[1] || "fr"] ?? QC_RDV_CTA.fr}
+            {QC_RDV_CTA[ctaLang] ?? QC_RDV_CTA.fr}
           </a>
         )}
       </motion.div>

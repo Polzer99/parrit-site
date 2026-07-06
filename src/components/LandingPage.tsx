@@ -201,7 +201,7 @@ export default function LandingPage({ data, lang, quickContact, pageId, relatedA
           <h2 className="landing-v4-cta-title">{data.ctaSection.title}</h2>
           <p className="landing-v4-cta-sub">{data.ctaSection.subtitle}</p>
           <div style={{ maxWidth: 540, margin: "0 auto" }}>
-            <QuickContact strings={quickContact} page={pageId} variant="dark" />
+            <QuickContact strings={quickContact} page={pageId} variant="dark" lang={lang} />
           </div>
         </section>
       </main>

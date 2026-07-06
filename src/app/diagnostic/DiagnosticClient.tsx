@@ -6,7 +6,7 @@ import { getAttribution } from "@/lib/attribution";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 const SURFACE = "diagnostic";
-const PENDING_LEAD_KEY = "pending_lead";
+const PENDING_LEAD_KEY = `pending_lead_${SURFACE}`;
 
 type Msg = { role: "user" | "assistant"; content: string };
 type Front = { label: string; nodes: string[] };

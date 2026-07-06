@@ -131,6 +131,7 @@ export default async function RendezVous({
             page={`/${lang}/rendez-vous`}
             variant="light"
             source={source}
+            lang={lang}
           />
         </section>
       </main>

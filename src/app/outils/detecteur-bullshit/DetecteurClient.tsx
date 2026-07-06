@@ -5,7 +5,7 @@ import { getAttribution } from "@/lib/attribution";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 const SURFACE = "detecteur-bullshit";
-const PENDING_LEAD_KEY = "pending_lead";
+const PENDING_LEAD_KEY = `pending_lead_${SURFACE}`;
 
 type Axis = { key: string; score: number; weight: number };
 type Result = {
