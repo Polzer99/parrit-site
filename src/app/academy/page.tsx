@@ -154,7 +154,7 @@ export default function AcademyPage() {
             </div>
             <div className="landing-v4-card" style={{ boxShadow: "4px 4px 0 #AA0003" }}>
               <p className="landing-v4-card-title">Sur-mesure</p>
-              <p className="landing-v4-card-desc">Paul craque TON sujet et te tourne la vidéo tuto. Sur devis.</p>
+              <p className="landing-v4-card-desc">Paul craque TON sujet et te tourne la vidéo tuto. Sur mesure.</p>
             </div>
           </div>
         </section>

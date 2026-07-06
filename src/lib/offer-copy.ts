@@ -228,8 +228,8 @@ export const OFFER_COPY: Record<Locale, Record<OfferKind, OfferCopy>> = {
         rows: [
           { label: "Durée", value: "selon périmètre", note: "validée après diagnostic" },
           { label: "Front", value: "OS Opérations ou OS Croissance" },
-          { label: "Sprint à impact", value: "Sur devis", note: "format phare" },
-          { label: "Déploiement d'agents IA", value: "Sur devis" },
+          { label: "Sprint à impact", value: "Sur mesure", note: "format phare" },
+          { label: "Déploiement d'agents IA", value: "Sur mesure" },
           { label: "Conformité", value: "RGPD, EU AI Act, données chez vous" },
         ],
       },
@@ -296,8 +296,8 @@ export const OFFER_COPY: Record<Locale, Record<OfferKind, OfferCopy>> = {
         after: ", sans surprise.",
         rows: [
           { label: "Modèle", value: "Déploiement puis run fixe", note: "pas de commission" },
-          { label: "Déploiement", value: "Sur devis", note: "cadrage ICP, signaux, séquences" },
-          { label: "Run", value: "Accompagnement · Operating Partner", note: "Sur devis" },
+          { label: "Déploiement", value: "Sur mesure", note: "cadrage ICP, signaux, séquences" },
+          { label: "Run", value: "Accompagnement · Operating Partner", note: "Sur mesure" },
           { label: "Signaux", value: "podcasts, événements, LinkedIn" },
           { label: "Bonus", value: "visibilité générative (GEO)", note: "être cité par les moteurs de réponse" },
         ],
@@ -374,10 +374,10 @@ export const OFFER_COPY: Record<Locale, Record<OfferKind, OfferCopy>> = {
         accent: "simple et lisible",
         after: ".",
         rows: [
-          { label: "Formation agentique", value: "Sur devis", note: "non-tech, finançable OPCO" },
+          { label: "Formation agentique", value: "Sur mesure", note: "non-tech, finançable OPCO" },
           { label: "Format", value: "Ateliers hands-on", note: "sur vos cas réels" },
           { label: "Stack", value: "Claude Code, Codex, MCP, sécurité" },
-          { label: "Accompagnement", value: "Sur devis", note: "Operating Partner" },
+          { label: "Accompagnement", value: "Sur mesure", note: "Operating Partner" },
         ],
       },
       proofs: {

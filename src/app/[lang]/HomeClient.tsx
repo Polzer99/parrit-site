@@ -252,10 +252,10 @@ const COPY: Record<Locale, HomeCopy> = {
       ],
       ladder: [
         { label: "Diagnostic IA + cartographie process", price: "préparé avant rendez-vous" },
-        { label: "Audit de transformation", tag: "Point d'entrée", price: "Sur devis" },
-        { label: "Déploiement d'agents IA", price: "Sur devis" },
-        { label: "Formation à l'utilisation agentique (non-tech)", price: "Sur devis · finançable OPCO" },
-        { label: "Accompagnement · Operating Partner", price: "Sur devis" },
+        { label: "Audit de transformation", tag: "Point d'entrée", price: "Sur mesure" },
+        { label: "Déploiement d'agents IA", price: "Sur mesure" },
+        { label: "Formation à l'utilisation agentique (non-tech)", price: "Sur mesure · finançable OPCO" },
+        { label: "Accompagnement · Operating Partner", price: "Sur mesure" },
       ],
     },
     maturite: {
