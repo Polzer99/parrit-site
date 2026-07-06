@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import fs from "fs";
 import path from "path";
 import { getAllBlogSitemapEntries } from "@/lib/blog";
+import { getAllLaunchSitemapEntries } from "@/lib/launches";
 import { getAllActualiteSitemapEntries } from "@/lib/actualite";
 import { getPillars } from "@/lib/pillars";
 import { getPostsByPillar } from "@/lib/blog";
@@ -25,6 +26,7 @@ const STATIC_ROUTES = [
   { path: "/setup-claude-code", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/remote", changeFrequency: "monthly" as const, priority: 0.85 },
   { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
+  { path: "/launches", changeFrequency: "weekly" as const, priority: 0.85 },
   { path: "/actualite", changeFrequency: "weekly" as const, priority: 0.8 },
   { path: "/glossaire", changeFrequency: "weekly" as const, priority: 0.85 },
   { path: "/auteur/paul-larmaraud", changeFrequency: "monthly" as const, priority: 0.7 },
@@ -94,6 +96,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
+  const launchPosts = getAllLaunchSitemapEntries();
+  const launchEntries: MetadataRoute.Sitemap = launchPosts.flatMap((launch) =>
+    locales.map((lang) => ({
+      url: `${SITE_URL}/${lang}/launches/${launch.slug}`,
+      lastModified: new Date(launch.lastModified),
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+      alternates: {
+        languages: buildLanguagesMap(`/launches/${launch.slug}`),
+      },
+    })),
+  );
+
   const glossaryIndex = loadGlossaryIndex();
   const glossaryEntries: MetadataRoute.Sitemap = glossaryIndex.articles.flatMap((a) =>
     a.langs.map((lang) => ({
@@ -124,5 +139,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  return [...staticEntries, ...blogEntries, ...actualiteEntries, ...glossaryEntries, ...pillarEntries];
+  return [
+    ...staticEntries,
+    ...blogEntries,
+    ...launchEntries,
+    ...actualiteEntries,
+    ...glossaryEntries,
+    ...pillarEntries,
+  ];
 }

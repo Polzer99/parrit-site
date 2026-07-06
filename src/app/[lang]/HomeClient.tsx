@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useState } from "react";
+import LaunchCard from "@/components/LaunchCard";
 import { getAttribution } from "@/lib/attribution";
 import type { Locale } from "./dictionaries";
 
@@ -17,6 +18,18 @@ type OfferRow = {
 type OfferNavItem = {
   href: string;
   label: string;
+};
+
+type HomeLaunch = {
+  num: number;
+  slug: string;
+  title: string;
+  category: "CRM" | "Sales" | "RH" | "Support" | "Finance" | "Marketing" | "Ops";
+  sector: string;
+  stack: string[];
+  devDuration: string;
+  summary: string;
+  difficulty: 1 | 2 | 3 | 4 | 5;
 };
 
 type MaturiteTile = {
@@ -55,6 +68,15 @@ type HomeCopy = {
     sub: string;
     primary: string;
     secondary: string;
+  };
+  heroLaunch: {
+    title: string;
+    subtitle: string;
+  };
+  launches: {
+    kicker: string;
+    title: string;
+    cta: string;
   };
   logosLabel: string;
   presence: {
@@ -145,6 +167,7 @@ const COPY: Record<Locale, HomeCopy> = {
   fr: {
     navCta: "Recevoir mon diagnostic",
     navLinks: [
+      { href: "/launches", label: "Launches" },
       { href: "/blog", label: "Articles" },
     ],
     a11y: {
@@ -163,6 +186,15 @@ const COPY: Record<Locale, HomeCopy> = {
       sub: "Des outils sur-mesure, déployés et opérés avec vous.",
       primary: "Recevoir mon diagnostic",
       secondary: "Voir la transformation",
+    },
+    heroLaunch: {
+      title: "Ship AI. Every week.",
+      subtitle: "Une preuve de fabrication publiee chaque semaine.",
+    },
+    launches: {
+      kicker: "Build in public",
+      title: "Derniers Launches",
+      cta: "Voir tous les launches",
     },
     logosLabel: "Ils nous ont déjà fait confiance",
     presence: {
@@ -372,6 +404,7 @@ const COPY: Record<Locale, HomeCopy> = {
   en: {
     navCta: "Get my diagnostic",
     navLinks: [
+      { href: "/launches", label: "Launches" },
       { href: "/blog", label: "Articles" },
     ],
     a11y: {
@@ -390,6 +423,15 @@ const COPY: Record<Locale, HomeCopy> = {
       sub: "Custom tools, deployed and operated with you.",
       primary: "Get my diagnostic",
       secondary: "See the transformation",
+    },
+    heroLaunch: {
+      title: "Ship AI. Every week.",
+      subtitle: "A build proof published every week.",
+    },
+    launches: {
+      kicker: "Build in public",
+      title: "Latest Launches",
+      cta: "See all launches",
     },
     logosLabel: "They already trusted us",
     presence: {
@@ -599,6 +641,7 @@ const COPY: Record<Locale, HomeCopy> = {
   "pt-BR": {
     navCta: "Receber diagnóstico",
     navLinks: [
+      { href: "/launches", label: "Launches" },
       { href: "/blog", label: "Artigos" },
     ],
     a11y: {
@@ -617,6 +660,15 @@ const COPY: Record<Locale, HomeCopy> = {
       sub: "Ferramentas sob medida, implantadas e operadas com você.",
       primary: "Receber meu diagnóstico",
       secondary: "Ver a transformação",
+    },
+    heroLaunch: {
+      title: "Ship AI. Every week.",
+      subtitle: "Uma prova de construcao publicada toda semana.",
+    },
+    launches: {
+      kicker: "Build in public",
+      title: "Ultimos Launches",
+      cta: "Ver todos os launches",
     },
     logosLabel: "Eles já confiaram em nós",
     presence: {
@@ -826,6 +878,7 @@ const COPY: Record<Locale, HomeCopy> = {
   "zh-CN": {
     navCta: "获取诊断",
     navLinks: [
+      { href: "/launches", label: "Launches" },
       { href: "/blog", label: "文章" },
     ],
     a11y: {
@@ -844,6 +897,15 @@ const COPY: Record<Locale, HomeCopy> = {
       sub: "为你定制、部署，并与你一起运营的工具。",
       primary: "获取我的诊断",
       secondary: "查看转型路径",
+    },
+    heroLaunch: {
+      title: "Ship AI. Every week.",
+      subtitle: "每周发布一条真实构建记录。",
+    },
+    launches: {
+      kicker: "Build in public",
+      title: "最新 Launches",
+      cta: "查看全部 launches",
     },
     logosLabel: "他们已经信任我们",
     presence: {
@@ -1187,7 +1249,13 @@ function captureHeroCtaClick(lang: Locale, placement: "desktop" | "mobile") {
   });
 }
 
-export default function HomeClient({ lang }: { lang: Locale }) {
+export default function HomeClient({
+  lang,
+  launches = [],
+}: {
+  lang: Locale;
+  launches?: HomeLaunch[];
+}) {
   const copy = COPY[lang] ?? COPY.fr;
 
   return (
@@ -1197,6 +1265,13 @@ export default function HomeClient({ lang }: { lang: Locale }) {
       <div className="wrap">
         <nav className="nav" aria-label={copy.a11y.nav}>
           <Logo />
+          <div className="nav-links">
+            {copy.navLinks.map((item) => (
+              <a href={item.href.startsWith("/") ? `/${lang}${item.href}` : item.href} key={item.href}>
+                {item.label}
+              </a>
+            ))}
+          </div>
           <a className="btn btn-red" href="#contact">
             {copy.navCta}
           </a>
@@ -1230,6 +1305,10 @@ export default function HomeClient({ lang }: { lang: Locale }) {
               {chip}
             </span>
           ))}
+        </div>
+        <div className="hero-launch-slot">
+          <span>{copy.heroLaunch.title}</span>
+          <p>{copy.heroLaunch.subtitle}</p>
         </div>
         <div className="cta-row hero-desktop-cta">
           <a
@@ -1441,6 +1520,25 @@ export default function HomeClient({ lang }: { lang: Locale }) {
           </div>
         </div>
       </section>
+
+      {launches.length > 0 && (
+        <section className="launch-home-section" aria-labelledby="home-launches">
+          <div className="launch-home-head">
+            <p className="launch-kicker">{copy.launches.kicker}</p>
+            <h2 id="home-launches">{copy.launches.title}</h2>
+            <a href={`/${lang}/launches`}>{copy.launches.cta}</a>
+          </div>
+          <div className="launch-grid">
+            {launches.map((launch) => (
+              <LaunchCard
+                href={`/${lang}/launches/${launch.slug}`}
+                key={launch.slug}
+                launch={launch}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="section" id="contact">
         <div className="wrap">

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { hasLocale, locales, type Locale } from "./dictionaries";
 import Chemin from "@/components/Chemin";
 import { CHEMIN_CONTENT } from "@/lib/chemin-content";
+import { getAllLaunches } from "@/lib/launches";
 
 const SITE_URL = "https://parrit.ai";
 
@@ -44,5 +45,7 @@ export default async function Page({
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
 
-  return <Chemin lang={lang as Locale} />;
+  const latestLaunches = getAllLaunches().slice(0, 6);
+
+  return <Chemin lang={lang as Locale} launches={latestLaunches} />;
 }
