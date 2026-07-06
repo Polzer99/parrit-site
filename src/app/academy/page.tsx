@@ -135,7 +135,7 @@ export default function AcademyPage() {
             <p className="aca-ask-title">Il te manque un module ?</p>
             <p className="aca-ask-sub">
               Dis-nous le sujet qui te bloque au quotidien, on le tourne. Rejoins la liste ci-dessous et glisse
-              ta demande, les abonnés peuvent même faire craquer leur sujet par Paul en vidéo sur-mesure (à partir de 200 €).
+              ta demande, les abonnés peuvent même faire craquer leur sujet par Paul en vidéo sur-mesure.
             </p>
           </div>
         </section>
@@ -154,7 +154,7 @@ export default function AcademyPage() {
             </div>
             <div className="landing-v4-card" style={{ boxShadow: "4px 4px 0 #AA0003" }}>
               <p className="landing-v4-card-title">Sur-mesure</p>
-              <p className="landing-v4-card-desc">Paul craque TON sujet et te tourne la vidéo tuto. À partir de 200 €.</p>
+              <p className="landing-v4-card-desc">Paul craque TON sujet et te tourne la vidéo tuto. Sur mesure.</p>
             </div>
           </div>
         </section>

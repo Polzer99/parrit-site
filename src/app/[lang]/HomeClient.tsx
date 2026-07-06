@@ -252,10 +252,10 @@ const COPY: Record<Locale, HomeCopy> = {
       ],
       ladder: [
         { label: "Diagnostic IA + cartographie process", price: "préparé avant rendez-vous" },
-        { label: "Audit de transformation", tag: "Point d'entrée", price: "à partir de 3 500 €" },
-        { label: "Déploiement d'agents IA", price: "à partir de 2 994 €" },
-        { label: "Formation à l'utilisation agentique (non-tech)", price: "à partir de 3 497 € · finançable OPCO" },
-        { label: "Accompagnement · Operating Partner", price: "à partir de 247 €/h" },
+        { label: "Audit de transformation", tag: "Point d'entrée", price: "Sur mesure" },
+        { label: "Déploiement d'agents IA", price: "Sur mesure" },
+        { label: "Formation à l'utilisation agentique (non-tech)", price: "Sur mesure · finançable OPCO" },
+        { label: "Accompagnement · Operating Partner", price: "Sur mesure" },
       ],
     },
     maturite: {
@@ -489,10 +489,10 @@ const COPY: Record<Locale, HomeCopy> = {
       ],
       ladder: [
         { label: "AI diagnostic + process mapping", price: "prepared before the meeting" },
-        { label: "Transformation audit", tag: "Entry point", price: "from €3,500" },
-        { label: "AI agent deployment", price: "from €2,994" },
-        { label: "Agentic usage training (non-tech)", price: "from €3,497 · OPCO-financeable" },
-        { label: "Support · Operating Partner", price: "from €247/h" },
+        { label: "Transformation audit", tag: "Entry point", price: "Custom quote" },
+        { label: "AI agent deployment", price: "Custom quote" },
+        { label: "Agentic usage training (non-tech)", price: "Custom quote · OPCO-financeable" },
+        { label: "Support · Operating Partner", price: "Custom quote" },
       ],
     },
     maturite: {
@@ -726,10 +726,10 @@ const COPY: Record<Locale, HomeCopy> = {
       ],
       ladder: [
         { label: "Diagnóstico IA + mapeamento de processos", price: "preparado antes da reunião" },
-        { label: "Auditoria de transformação", tag: "Ponto de entrada", price: "a partir de 3 500 €" },
-        { label: "Deploy de agentes IA", price: "a partir de 2 994 €" },
-        { label: "Formação em uso agentico (não técnico)", price: "a partir de 3 497 € · financiável OPCO" },
-        { label: "Acompanhamento · Operating Partner", price: "a partir de 247 €/h" },
+        { label: "Auditoria de transformação", tag: "Ponto de entrada", price: "Sob consulta" },
+        { label: "Deploy de agentes IA", price: "Sob consulta" },
+        { label: "Formação em uso agentico (não técnico)", price: "Sob consulta · financiável OPCO" },
+        { label: "Acompanhamento · Operating Partner", price: "Sob consulta" },
       ],
     },
     maturite: {
@@ -963,10 +963,10 @@ const COPY: Record<Locale, HomeCopy> = {
       ],
       ladder: [
         { label: "AI 诊断 + 流程梳理", price: "会前准备" },
-        { label: "转型审计", tag: "入口项目", price: "起价 3 500 €" },
-        { label: "AI 智能体部署", price: "起价 2 994 €" },
-        { label: "智能体使用培训（非技术）", price: "起价 3 497 € · 可由 OPCO 资助" },
-        { label: "陪跑 · Operating Partner", price: "起价 247 €/h" },
+        { label: "转型审计", tag: "入口项目", price: "按需报价" },
+        { label: "AI 智能体部署", price: "按需报价" },
+        { label: "智能体使用培训（非技术）", price: "按需报价 · 可由 OPCO 资助" },
+        { label: "陪跑 · Operating Partner", price: "按需报价" },
       ],
     },
     maturite: {
