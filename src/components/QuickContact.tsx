@@ -2,9 +2,16 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { getAttribution } from "@/lib/attribution";
+import { getAttribution, buildRdvHref } from "@/lib/attribution";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
+
+const QC_RDV_CTA: Record<string, string> = {
+  fr: "Réserver 15 minutes avec Paul",
+  en: "Book 15 minutes with Paul",
+  "pt-BR": "Reservar 15 minutos com Paul",
+  "zh-CN": "预约与 Paul 的 15 分钟",
+};
 
 export interface QuickContactStrings {
   label: string;
@@ -20,13 +27,14 @@ interface Props {
   strings: QuickContactStrings;
   page: string;
   variant?: "light" | "dark";
+  source?: string;
 }
 
 function looksLikeEmail(value: string): boolean {
   return value.includes("@");
 }
 
-export default function QuickContact({ strings, page, variant = "dark" }: Props) {
+export default function QuickContact({ strings, page, variant = "dark", source }: Props) {
   const [contact, setContact] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
@@ -55,6 +63,7 @@ export default function QuickContact({ strings, page, variant = "dark" }: Props)
           referrer: typeof document !== "undefined" ? document.referrer : "",
           url: typeof window !== "undefined" ? window.location.href : "",
           timestamp: new Date().toISOString(),
+          ...(source ? { lead_source: source } : {}),
           ...utms,
         }),
       });
@@ -95,7 +104,25 @@ export default function QuickContact({ strings, page, variant = "dark" }: Props)
           color: isLight ? "var(--text)" : "#fff",
         }}
       >
-        ✓ {strings.thanks}
+        <div>✓ {strings.thanks}</div>
+        {!page.includes("rendez-vous") && (
+          <a
+            href={buildRdvHref("quick-contact", page.split("/")[1] || "fr")}
+            style={{
+              display: "inline-block",
+              marginTop: 16,
+              padding: "12px 22px",
+              borderRadius: 999,
+              background: "var(--parrit-red)",
+              color: "#F5F8FF",
+              textDecoration: "none",
+              fontSize: 14,
+              fontWeight: 600,
+            }}
+          >
+            {QC_RDV_CTA[page.split("/")[1] || "fr"] ?? QC_RDV_CTA.fr}
+          </a>
+        )}
       </motion.div>
     );
   }

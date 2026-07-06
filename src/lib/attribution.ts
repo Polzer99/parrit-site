@@ -123,3 +123,17 @@ export function getAttribution(): Record<string, string> {
 
   return out;
 }
+
+/**
+ * Construit un lien /rendez-vous attribué : porte la source du contenu + les
+ * derniers UTM connus, pour qu'une prise de RDV soit rattachable au contenu qui
+ * l'a générée. Client-only (getAttribution dégrade en SSR). Défaut lang = fr.
+ */
+export function buildRdvHref(source: string, lang: string = "fr"): string {
+  const utms = getAttribution();
+  const params = new URLSearchParams({ source });
+  (["utm_source", "utm_medium", "utm_campaign"] as const).forEach((k) => {
+    if (utms[k]) params.set(k, utms[k]);
+  });
+  return `/${lang}/rendez-vous?${params.toString()}`;
+}

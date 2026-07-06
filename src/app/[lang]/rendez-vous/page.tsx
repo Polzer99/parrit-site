@@ -69,11 +69,16 @@ export async function generateMetadata({
 
 export default async function RendezVous({
   params,
+  searchParams,
 }: {
   params: Promise<{ lang: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
+
+  const sp = await searchParams;
+  const source = typeof sp.source === "string" ? sp.source : undefined;
 
   const dict = await getDictionary(lang as Locale);
   const rdv = dict.rendezvous;
@@ -125,6 +130,7 @@ export default async function RendezVous({
             strings={dict.quickContact}
             page={`/${lang}/rendez-vous`}
             variant="light"
+            source={source}
           />
         </section>
       </main>
