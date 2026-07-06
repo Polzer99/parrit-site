@@ -127,6 +127,13 @@ function LaunchMeta({ launch }: { launch: Launch }) {
   );
 }
 
+const LAUNCH_CTA_COPY: Record<string, { line: string; btn: string }> = {
+  fr: { line: "Un chantier comme celui-ci chez vous ?", btn: "Réserver 15 minutes avec Paul" },
+  en: { line: "A build like this for your team?", btn: "Book 15 minutes with Paul" },
+  "pt-BR": { line: "Um projeto assim para o seu time?", btn: "Reservar 15 minutos com Paul" },
+  "zh-CN": { line: "想为你的团队做一个这样的项目？", btn: "预约与 Paul 的 15 分钟" },
+};
+
 export default async function LaunchPage({ params }: PageProps) {
   const { lang, slug } = await params;
   if (!hasLocale(lang)) notFound();
@@ -198,6 +205,33 @@ export default async function LaunchPage({ params }: PageProps) {
         <div className="launch-markdown">
           <ReactMarkdown>{launch.content}</ReactMarkdown>
         </div>
+
+        <section
+          className="launch-rdv-cta"
+          style={{
+            marginTop: 48,
+            paddingTop: 32,
+            borderTop: "1px solid var(--line, #D0D8D7)",
+            textAlign: "center",
+          }}
+        >
+          <p style={{ margin: "0 0 16px", fontWeight: 600 }}>
+            {(LAUNCH_CTA_COPY[lang] ?? LAUNCH_CTA_COPY.fr).line}
+          </p>
+          <Link
+            href={`/${lang}/rendez-vous?source=launch-${launch.slug}`}
+            style={{
+              display: "inline-block",
+              background: "#D1132F",
+              color: "#FFFDFA",
+              textDecoration: "none",
+              fontWeight: 700,
+              padding: "14px 28px",
+            }}
+          >
+            {(LAUNCH_CTA_COPY[lang] ?? LAUNCH_CTA_COPY.fr).btn}
+          </Link>
+        </section>
       </article>
     </>
   );

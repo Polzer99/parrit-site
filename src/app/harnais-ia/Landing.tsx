@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { COPY, type Lang } from "./content";
+import { getAttribution, buildRdvHref } from "@/lib/attribution";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 const SURFACE = "harnais-ia";
@@ -77,6 +78,7 @@ export default function Landing() {
       source: "lead-magnet-harnais-cout-ia",
       url: typeof window !== "undefined" ? window.location.href : "",
       timestamp: new Date().toISOString(),
+      ...getAttribution(),
     };
     try {
       const r = await fetch(WEBHOOK_URL, {
@@ -201,7 +203,16 @@ export default function Landing() {
                   <button type="submit" className="btn btn-red btn-lg">{c.submit}</button>
                 </form>
               ) : (
-                <p className="gate-ok">{c.ok}</p>
+                <>
+                  <p className="gate-ok">{c.ok}</p>
+                  <a
+                    className="btn btn-red btn-lg"
+                    style={{ marginTop: 16, display: "inline-block" }}
+                    href={buildRdvHref("lead-magnet-harnais-cout-ia", lang)}
+                  >
+                    {lang === "en" ? "Book 15 minutes with Paul" : "Réserver 15 minutes avec Paul"}
+                  </a>
+                </>
               )}
               {!sent && <p className="fine">{c.fine}</p>}
               <img className="seal-wm" src="/brand/parrit-seal.svg" alt="" />
