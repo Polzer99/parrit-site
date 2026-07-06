@@ -168,15 +168,7 @@ export default async function LocaleLayout({
         name: "Sprint à impact",
         serviceType: "Sprint agentique",
         description:
-          "Format phare à partir de 1 197 € pour transformer un workflow critique en système agentique utilisable.",
-        offers: {
-          "@type": "Offer",
-          priceSpecification: {
-            "@type": "PriceSpecification",
-            priceCurrency: "EUR",
-            minPrice: 1197,
-          },
-        },
+          "Format phare pour transformer un workflow critique en système agentique utilisable.",
         provider: { "@id": `${SITE_URL}/#organization` },
         areaServed: "FR",
       },
@@ -186,15 +178,7 @@ export default async function LocaleLayout({
         name: "Déploiement d'agents IA",
         serviceType: "Déploiement de systèmes agentiques",
         description:
-          "Déploiement d'agents IA en production à partir de 2 994 €, connectés aux outils métier et opérés avec garde-fous.",
-        offers: {
-          "@type": "Offer",
-          priceSpecification: {
-            "@type": "PriceSpecification",
-            priceCurrency: "EUR",
-            minPrice: 2994,
-          },
-        },
+          "Déploiement d'agents IA en production, connectés aux outils métier et opérés avec garde-fous.",
         provider: { "@id": `${SITE_URL}/#organization` },
         areaServed: "FR",
       },
@@ -204,15 +188,7 @@ export default async function LocaleLayout({
         name: "Formation à l'utilisation agentique (non-tech)",
         serviceType: "Formation IA non-tech",
         description:
-          "Formation non-tech à partir de 3 497 €, finançable OPCO, pour rendre les équipes autonomes sur Claude Code, Codex et les outils agentiques.",
-        offers: {
-          "@type": "Offer",
-          priceSpecification: {
-            "@type": "PriceSpecification",
-            priceCurrency: "EUR",
-            minPrice: 3497,
-          },
-        },
+          "Formation non-tech finançable OPCO pour rendre les équipes autonomes sur Claude Code, Codex et les outils agentiques.",
         provider: { "@id": `${SITE_URL}/#organization` },
         areaServed: "FR",
       },
@@ -222,16 +198,7 @@ export default async function LocaleLayout({
         name: "Accompagnement · Operating Partner",
         serviceType: "Accompagnement Operating Partner IA",
         description:
-          "Accompagnement Operating Partner à partir de 247 €/h pour gouverner, maintenir et faire évoluer les agents IA dans la durée.",
-        offers: {
-          "@type": "Offer",
-          priceSpecification: {
-            "@type": "PriceSpecification",
-            priceCurrency: "EUR",
-            minPrice: 247,
-            unitText: "HUR",
-          },
-        },
+          "Accompagnement Operating Partner pour gouverner, maintenir et faire évoluer les agents IA dans la durée.",
         provider: { "@id": `${SITE_URL}/#organization` },
         areaServed: "FR",
       },
@@ -263,7 +230,6 @@ export default async function LocaleLayout({
         name: "Parrit.ai",
         url: SITE_URL,
         image: `${SITE_URL}/opengraph-image`,
-        priceRange: "€€€",
         address: {
           "@type": "PostalAddress",
           addressLocality: "Rueil-Malmaison",

@@ -81,7 +81,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     ],
     steps: [],
     proof: "",
-    price: "à partir de 1 598 €",
+    price: "Sur devis",
     priceNote: "Finançable OPCO",
     metaDescription:
       "Masterclass généraliste de 3 heures pour cartographier les besoins, établir un glossaire opérationnel et définir des scénarios d'application.",
@@ -127,7 +127,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     ],
     steps: [],
     proof: "",
-    price: "à partir de 2 345 €",
+    price: "Sur devis",
     priceNote: "Finançable OPCO",
     metaDescription:
       "Masterclass métier avec exercices pratiques et instructions personnalisées adaptées au métier du client.",
@@ -173,7 +173,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
     ],
     steps: [],
     proof: "",
-    price: "à partir de 250 € / session",
+    price: "Sur devis",
     priceNote: "Finançable OPCO",
     metaDescription:
       "Sessions techniques pour créer des MCPs et connecter vos logiciels métier aux modèles IA.",
@@ -223,7 +223,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
       { title: "Décision partageable", body: "Vous repartez avec une synthèse claire : niveau de maturité, premier process, risques et prochaine décision." },
     ],
     proof: "",
-    price: "à partir de 3 500 €",
+    price: "Sur devis",
     metaDescription:
       "Diagnostic IA et cartographie des processus pour identifier votre maturité, le premier flux à traiter et la ressource à préparer avant rendez-vous.",
   },
@@ -284,7 +284,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
       { title: "Production supervisée", body: "L'agent ou l'automatisation intervient sur le répétitif. L'équipe relit les cas sensibles et décide quoi étendre ensuite." },
     ],
     proof: "",
-    price: "à partir de 3 000 €",
+    price: "Sur devis",
     priceNote: "Selon périmètre, connexions et niveau de supervision",
     metaDescription:
       "Déploiement d'un ou plusieurs agents IA opérationnels avec démonstration du ROI.",
@@ -345,7 +345,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
       { title: "Passation", body: "Vos équipes repartent avec l'outil, la méthode et les réflexes pour continuer à shipper." },
     ],
     proof: "",
-    price: "à partir de 3 497 €",
+    price: "Sur devis",
     priceNote: "Selon périmètre et niveau d'accompagnement",
     metaDescription:
       "Accompagnement aux outils agentiques avancés pour auditer votre configuration et former vos équipes à l'autonomie.",
@@ -396,7 +396,7 @@ export const maturiteOffers: Record<MaturiteSlug, MaturiteOffer> = {
       { title: "Optimisation", body: "On améliore la flotte : dette technique, routage modèles, open source/propriétaire, boucles et managers-agents." },
     ],
     proof: "",
-    price: "à partir de 8 000 €",
+    price: "Sur devis",
     priceNote: "Selon taille de la flotte",
     metaDescription:
       "Optimisation de flotte d'agents IA, réduction de dette technique et architecture auto-améliorante.",
