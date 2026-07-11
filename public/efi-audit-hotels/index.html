@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audit énergie gratuit pour votre hôtel — EFI Énergies</title>
+<meta name="description" content="10 à 30 % d'économie sur l'électricité et le gaz de votre hôtel. Audit gratuit, sans engagement. Un expert EFI vous rappelle.">
+<!--
+  ============================================================================
+  PAGE Parrit hébergée — Landing audit énergie HÔTELS · EFI Énergies
+  Cible : dirigeants / directeurs d'exploitation d'hôtels (liste froide).
+  Standard de qualité = mail Agryco, mais mis EN PAGE (sécurité délivrabilité).
+  À DÉPLOYER sur infra Parrit (PAS un Artifact : le POST formulaire a besoin
+  d'un vrai hébergement — CSP Artifact bloque le fetch).
+  À CÂBLER avant prod :
+    WEBHOOK_URL  → endpoint qui écrit Supabase + alerte Brieuc (Telegram/mail).
+                   Réutiliser l'infra `parrit-lead` avec source="efi-audit-hotels".
+  ============================================================================
+-->
+<style>
+  :root{
+    --ground:#eef1ef; --panel:#ffffff; --ink:#0f2e24; --body:#48544d;
+    --muted:#7c887f; --line:#e2e6e3; --efi:#17795e; --efi-deep:#0f2e24;
+    --efi-bright:#1f9a76; --soft:#eaf2ee; --sand:#f6f4ec;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--ground);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px;}
+  a{color:var(--efi);}
+
+  /* top bar */
+  .top{background:var(--panel);border-bottom:1px solid var(--line);}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;}
+  .brand{font-size:14px;letter-spacing:1.5px;font-weight:800;text-transform:uppercase;color:var(--efi-deep);}
+  .brand span{color:var(--efi);}
+  .top .tel{font-size:14px;font-weight:700;color:var(--efi-deep);text-decoration:none;}
+
+  /* hero */
+  .hero{background:var(--efi-deep);color:#fff;}
+  .hero .wrap{padding:64px 20px 72px;}
+  .kicker{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#6fb79c;font-weight:700;}
+  .hero h1{font-size:clamp(30px,5.2vw,52px);line-height:1.05;letter-spacing:-.025em;margin:16px 0 0;max-width:16ch;}
+  .hero p{font-size:clamp(16px,2.2vw,20px);color:#bcd2ca;margin:18px 0 0;max-width:52ch;}
+  .hero .btnrow{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{display:inline-block;background:var(--efi-bright);color:#fff;font-weight:700;font-size:16px;
+    padding:15px 30px;text-decoration:none;border-radius:2px;transition:background .15s;}
+  .btn:hover{background:#25b088;}
+  .btn.ghost{background:transparent;border:1px solid #3f6154;color:#cfe2da;}
+  .hero .reassure{margin-top:22px;font-size:14px;color:#8fb3a6;}
+
+  /* stat band */
+  .stats{background:var(--panel);border-bottom:1px solid var(--line);}
+  .stats .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+  .stat{padding:28px 16px;text-align:center;border-left:1px solid var(--line);}
+  .stat:first-child{border-left:0;}
+  .stat .n{font-size:30px;font-weight:800;color:var(--efi);letter-spacing:-.02em;}
+  .stat .l{font-size:13px;color:var(--muted);margin-top:4px;}
+  @media(max-width:560px){.stats .wrap{grid-template-columns:1fr;}.stat{border-left:0;border-top:1px solid var(--line);}.stat:first-child{border-top:0;}}
+
+  section{padding:56px 0;}
+  h2{font-size:clamp(22px,3.4vw,30px);letter-spacing:-.02em;margin:0 0 8px;text-align:center;}
+  .sub{text-align:center;color:var(--body);max-width:56ch;margin:0 auto 36px;font-size:16px;}
+
+  /* body pitch */
+  .pitch{max-width:62ch;margin:0 auto;font-size:17px;line-height:1.7;color:var(--body);}
+  .pitch strong{color:var(--ink);}
+  .pitch .hl{color:var(--efi);font-weight:700;}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  @media(max-width:760px){.steps{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:440px){.steps{grid-template-columns:1fr;}}
+  .step{background:var(--panel);border:1px solid var(--line);padding:22px 20px;}
+  .step .num{font-size:13px;font-weight:800;color:var(--efi);letter-spacing:1px;}
+  .step h3{font-size:17px;margin:10px 0 6px;color:var(--ink);}
+  .step p{font-size:14px;color:var(--muted);margin:0;line-height:1.5;}
+
+  /* risk band */
+  .risk{background:var(--soft);}
+  .risk .wrap{text-align:center;padding:44px 20px;}
+  .risk .big{font-size:clamp(20px,3vw,26px);font-weight:800;color:var(--efi-deep);}
+  .risk .small{font-size:16px;color:var(--body);margin-top:8px;}
+
+  /* form */
+  .formsec{background:var(--efi-deep);color:#fff;}
+  .formsec .wrap{padding:56px 20px;}
+  .formcard{background:#fff;color:var(--ink);max-width:600px;margin:0 auto;padding:34px 30px;border-radius:3px;}
+  .formcard h2{color:var(--ink);margin-bottom:4px;}
+  .formcard .sub{color:var(--body);margin-bottom:24px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;}
+  .field input,.field select{width:100%;padding:13px 14px;font-size:15px;border:1px solid #cfd6d1;
+    border-radius:2px;font-family:inherit;background:#fff;color:var(--ink);}
+  .field input:focus,.field select:focus{outline:2px solid var(--efi);border-color:var(--efi);}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:480px){.row2{grid-template-columns:1fr;}}
+  .submit{width:100%;background:var(--efi-bright);color:#fff;font-weight:800;font-size:17px;
+    padding:16px;border:0;border-radius:2px;cursor:pointer;transition:background .15s;}
+  .submit:hover{background:#25b088;}
+  .formnote{font-size:12px;color:var(--muted);text-align:center;margin-top:14px;}
+  .success{display:none;text-align:center;padding:20px 0;}
+  .success .tick{font-size:44px;}
+  .success h3{margin:8px 0 4px;color:var(--efi-deep);}
+  .success p{color:var(--body);margin:0;}
+
+  /* suppliers */
+  .sup{text-align:center;}
+  .sup .logos{color:var(--muted);font-size:15px;letter-spacing:.5px;margin-top:10px;}
+
+  /* footer */
+  footer{background:var(--panel);border-top:1px solid var(--line);}
+  footer .wrap{padding:30px 20px;text-align:center;font-size:13px;color:var(--muted);line-height:1.7;}
+  footer .brand{display:block;margin-bottom:8px;}
+</style>
+</head>
+<body>
+
+  <div class="top"><div class="wrap">
+    <div class="brand">EFI <span>Énergies</span></div>
+    <a class="tel" href="tel:0699381829">06 99 38 18 29</a>
+  </div></div>
+
+  <header class="hero"><div class="wrap">
+    <div class="kicker">Audit énergie — Hôtellerie</div>
+    <h1>Votre hôtel paie trop cher son énergie.</h1>
+    <p>Chambres, spa, cuisines, blanchisserie : votre consommation tourne 24h/24. C'est exactement là
+    qu'EFI Énergies trouve <strong style="color:#fff;">10 à 30 % d'économie</strong> — sur l'électricité et le gaz.</p>
+    <div class="btnrow">
+      <a class="btn" href="#audit">Recevoir mon audit gratuit</a>
+      <a class="btn ghost" href="#comment">Comment ça marche&nbsp;?</a>
+    </div>
+    <div class="reassure">Sans engagement · sans frais · nous sommes rémunérés uniquement par les fournisseurs.</div>
+  </div></header>
+
+  <div class="stats"><div class="wrap">
+    <div class="stat"><div class="n">10–30&nbsp;%</div><div class="l">d'économie constatée sur la facture</div></div>
+    <div class="stat"><div class="n">+20</div><div class="l">fournisseurs mis en concurrence</div></div>
+    <div class="stat"><div class="n">0&nbsp;€</div><div class="l">aucun frais, aucun engagement</div></div>
+  </div></div>
+
+  <section><div class="wrap">
+    <div class="pitch">
+      <p>La plupart des hôtels signent un contrat d'énergie une fois, puis n'y reviennent jamais. Pendant ce temps,
+      les prix de l'électricité et du gaz bougent <strong>chaque mois</strong> — et l'écart entre ce que vous payez
+      et le meilleur tarif du marché se creuse, silencieusement.</p>
+      <p>EFI Énergies est courtier en énergie pour les entreprises. Concrètement&nbsp;: on lit votre dernière facture,
+      on met plus de 20 fournisseurs en concurrence sur votre profil de consommation, et on vous présente
+      <span class="hl">les meilleures offres, décryptées</span>. Si rien n'est mieux que votre contrat actuel, on vous le dit.</p>
+    </div>
+  </div></section>
+
+  <section id="comment" style="padding-top:0;"><div class="wrap">
+    <h2>Comment ça fonctionne&nbsp;?</h2>
+    <p class="sub">Quatre étapes. Vous n'avez que la première à faire.</p>
+    <div class="steps">
+      <div class="step"><div class="num">ÉTAPE 1</div><h3>Audit gratuit</h3><p>Vous nous transmettez votre dernière facture. On analyse votre contrat et votre consommation.</p></div>
+      <div class="step"><div class="num">ÉTAPE 2</div><h3>Mise en concurrence</h3><p>On met +20 fournisseurs en compétition sur le profil précis de votre établissement.</p></div>
+      <div class="step"><div class="num">ÉTAPE 3</div><h3>Meilleures offres</h3><p>On vous présente les offres les plus avantageuses, expliquées simplement.</p></div>
+      <div class="step"><div class="num">ÉTAPE 4</div><h3>Suivi complet</h3><p>Si vous changez, on gère toute la bascule administrative. Vous ne faites rien.</p></div>
+    </div>
+  </div></section>
+
+  <div class="risk"><div class="wrap">
+    <div class="big">Aucun engagement, aucun frais.</div>
+    <div class="small">EFI Énergies est rémunéré uniquement par les fournisseurs. L'audit ne vous coûte rien — même si vous ne changez pas.</div>
+  </div></div>
+
+  <section class="formsec" id="audit"><div class="wrap">
+    <div class="formcard">
+      <div id="formview">
+        <h2>Recevez votre audit gratuit</h2>
+        <p class="sub">2 minutes. Un expert EFI vous rappelle sous 24h ouvrées.</p>
+        <form id="auditForm" novalidate>
+          <div class="row2">
+            <div class="field"><label for="prenom">Prénom *</label><input id="prenom" name="prenom" required autocomplete="given-name"></div>
+            <div class="field"><label for="nom">Nom *</label><input id="nom" name="nom" required autocomplete="family-name"></div>
+          </div>
+          <div class="field"><label for="hotel">Nom de l'hôtel *</label><input id="hotel" name="hotel" required></div>
+          <div class="row2">
+            <div class="field"><label for="role">Votre rôle</label>
+              <select id="role" name="role">
+                <option value="">—</option>
+                <option>Directeur / Directrice d'exploitation</option>
+                <option>Gérant / Propriétaire</option>
+                <option>Directeur technique</option>
+                <option>Directeur général</option>
+                <option>Autre</option>
+              </select></div>
+            <div class="field"><label for="fournisseur">Fournisseur actuel</label><input id="fournisseur" name="fournisseur" placeholder="EDF, Engie, TotalEnergies…"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="facture">Facture énergie / an (estim.)</label>
+              <select id="facture" name="facture">
+                <option value="">—</option>
+                <option>Moins de 50 000 €</option>
+                <option>50 000 – 150 000 €</option>
+                <option>150 000 – 500 000 €</option>
+                <option>Plus de 500 000 €</option>
+              </select></div>
+            <div class="field"><label for="tel">Téléphone *</label><input id="tel" name="tel" type="tel" required autocomplete="tel"></div>
+          </div>
+          <div class="field"><label for="email">Email *</label><input id="email" name="email" type="email" required autocomplete="email"></div>
+          <button class="submit" type="submit">Recevoir mon audit gratuit</button>
+          <div class="formnote">En envoyant ce formulaire, vous acceptez d'être recontacté par EFI Énergies au sujet de votre audit.</div>
+        </form>
+      </div>
+      <div class="success" id="successview">
+        <div class="tick">✓</div>
+        <h3>C'est noté, merci !</h3>
+        <p>Un expert EFI Énergies vous rappelle sous 24h ouvrées. Vous pouvez aussi nous joindre directement au <strong>06 99 38 18 29</strong>.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="sup"><div class="wrap">
+    <h2>+20 fournisseurs mis en concurrence pour vous</h2>
+    <div class="logos">EDF &nbsp;·&nbsp; Engie &nbsp;·&nbsp; TotalEnergies &nbsp;·&nbsp; Alpiq &nbsp;·&nbsp; Gazel Energie &nbsp;·&nbsp; Vattenfall &nbsp;·&nbsp; …</div>
+  </div></section>
+
+  <footer><div class="wrap">
+    <span class="brand">EFI <span style="color:var(--efi);">Énergies</span></span>
+    Courtier en énergie pour les entreprises · <a href="tel:0699381829">06 99 38 18 29</a> · <a href="https://efi-energies.fr/">efi-energies.fr</a><br>
+    © EFI Énergies 2026 — Conformément à la loi Informatique et Libertés, vous disposez d'un droit d'accès et de suppression des données vous concernant.
+  </div></footer>
+
+<script>
+  // Webhook Parrit réel (infra parrit-lead). Les leads atterrissent taggés source="efi-audit-hotels".
+  // Branche Brieuc-alert à ajouter côté n8n (cf RUNBOOK.md).
+  var WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
+  var form = document.getElementById('auditForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!form.checkValidity()){ form.reportValidity(); return; }
+    var data = Object.fromEntries(new FormData(form).entries());
+    data.source = "efi-audit-hotels";
+    data.page = "landing-audit-hotels";
+    var done = function(){
+      document.getElementById('formview').style.display='none';
+      document.getElementById('successview').style.display='block';
+      document.getElementById('audit').scrollIntoView({behavior:'smooth'});
+    };
+    if(WEBHOOK_URL.indexOf('REMPLACER')===0){ done(); return; } // preview : pas de POST
+    fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+      .then(done).catch(done);
+  });
+</script>
+</body>
+</html>
