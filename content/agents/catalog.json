@@ -1,0 +1,148 @@
+{
+  "_doc": "Catalogue public des agents Parrit — MÊME schéma que parrit-os/projects/client-decks/cases.registry.json (le deck). Source de vérité du site pour la home + llms.txt. Champ client interne retiré (règle anonymisation). Ajouter un cas ici OU via add_case.mjs côté deck puis resync.",
+  "personas": {
+    "growth": {
+      "name": "Chloé",
+      "label": "Growth",
+      "img": "chloe.png"
+    },
+    "ops": {
+      "name": "Thomas",
+      "label": "Ops & Veille",
+      "img": "thomas.png"
+    },
+    "data": {
+      "name": "Lucas",
+      "label": "Data & Systèmes",
+      "img": "lucas.png"
+    },
+    "content": {
+      "name": "Amélie",
+      "label": "Contenu & Formation",
+      "img": "amelie.png"
+    }
+  },
+  "cases": [
+    {
+      "id": "acquisition-signal-first",
+      "dept": "growth",
+      "status": "deployed",
+      "featured": true,
+      "title": "Acquisition signal-first",
+      "desc": "signaux publics d'intention → séquences perso → RDV qualifiés, 24/7.",
+      "sector": "courtage énergie B2B",
+      "date": "2026-04"
+    },
+    {
+      "id": "capture-multicanal",
+      "dept": "growth",
+      "status": "deployed",
+      "title": "Capture multicanal",
+      "desc": "WhatsApp, site, appel, formulaire regroupés → CRM + relance auto.",
+      "sector": "artisanat",
+      "date": "2026-06"
+    },
+    {
+      "id": "sourcing-evenements",
+      "dept": "growth",
+      "status": "deployed",
+      "title": "Sourcing par événements",
+      "desc": "intervenants d'un salon extraits, enrichis, approchés par secteur.",
+      "sector": "interne Parrit",
+      "date": "2026-06"
+    },
+    {
+      "id": "veille-juridique",
+      "dept": "ops",
+      "status": "deployed",
+      "featured": true,
+      "title": "Veille juridique",
+      "desc": "signaux sur 289 clients → filtre humain 1-clic → mail hebdo.",
+      "sector": "cabinet d'avocats",
+      "date": "2026-05"
+    },
+    {
+      "id": "veille-marche",
+      "dept": "ops",
+      "status": "deployed",
+      "title": "Veille de marché",
+      "desc": "digest personnalisé chaque lundi 8h, angle sur-mesure.",
+      "sector": "recherche de dirigeant",
+      "date": "2026-05"
+    },
+    {
+      "id": "infra-souveraine",
+      "dept": "ops",
+      "status": "deployed",
+      "title": "Infra souveraine FR",
+      "desc": "VPS chiffré, vos données hors Cloud Act, sauvegardes testées.",
+      "sector": "cabinet d'avocats",
+      "date": "2026-06"
+    },
+    {
+      "id": "tri-reclamations",
+      "dept": "ops",
+      "status": "deployed",
+      "title": "Tri de réclamations",
+      "desc": "emails classés, urgences isolées, brouillon prêt à valider.",
+      "sector": "SAV B2B",
+      "date": "2026-06"
+    },
+    {
+      "id": "geo-visibilite-ia",
+      "dept": "data",
+      "status": "deployed",
+      "featured": true,
+      "title": "Visibilité IA (GEO)",
+      "desc": "l'IA d'Amazon recommande-t-elle votre marque ? mesure + correctifs.",
+      "sector": "grande conso",
+      "date": "2026-06"
+    },
+    {
+      "id": "generation-visuels",
+      "dept": "data",
+      "status": "deployed",
+      "title": "Génération de visuels",
+      "desc": "un brief en une phrase → visuel au gabarit de marque.",
+      "sector": "retail",
+      "date": "2026-07"
+    },
+    {
+      "id": "interroger-donnees",
+      "dept": "data",
+      "status": "deployed",
+      "title": "Interroger vos données",
+      "desc": "poser une question en français à un système métier ou une zone géo.",
+      "sector": "outil interne réutilisable",
+      "date": "2026-06"
+    },
+    {
+      "id": "content-factory",
+      "dept": "content",
+      "status": "deployed",
+      "featured": true,
+      "title": "Content Factory",
+      "desc": "articles + vidéos avatar produits chaque semaine, dans votre voix.",
+      "sector": "interne + clients",
+      "date": "2026-06"
+    },
+    {
+      "id": "formation-agentique",
+      "dept": "content",
+      "status": "deployed",
+      "title": "Formation agentique",
+      "desc": "session animée + toolkit : vos équipes deviennent autonomes.",
+      "sector": "cosmétique",
+      "date": "2026-06"
+    },
+    {
+      "id": "newsletter-marque",
+      "dept": "content",
+      "status": "demo",
+      "title": "Newsletter de marque",
+      "desc": "banque d'images + ton de marque → édition prête à envoyer.",
+      "sector": "retail/mode",
+      "date": "2026-06"
+    }
+  ]
+}
