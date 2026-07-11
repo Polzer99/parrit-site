@@ -54,7 +54,7 @@ export default async function Page({
     : "fr";
   // Section « Cas d'usage » : uniquement les articles use-case (ceux qui ont un
   // pilier), pas les essais éditoriaux. On exclut le SAP (contenu non fondé sur un
-  // chantier réel — ne pas le présenter comme un cas).
+  // chantier réel, ne pas le présenter comme un cas).
   const posts = getAllPosts(blogLocale)
     .filter((p) => p.pillar)
     .filter((p) => p.slug !== "evaluation-adoption-sap-intelligence-artificielle")

@@ -1,5 +1,5 @@
 {
-  "_doc": "Catalogue public des agents Parrit — organisé par FONCTION MÉTIER. MÊME schéma que le registre du deck (client-decks). Source de vérité du site (home + llms.txt). Champ client interne retiré. Ordre = personas[].order. Ajouter un cas = 1 entrée cases[].",
+  "_doc": "Catalogue public des agents Parrit, organise par FONCTION METIER. Meme schema que le registre du deck (client-decks). Source de verite du site (home + llms.txt). Champ client interne retire. Ordre = personas[].order. Ajouter un cas = 1 entree cases[].",
   "personas": {
     "commercial": {
       "name": "Chloé",

@@ -376,21 +376,9 @@ const CSS = `
 .hd-pricing { max-width: 1120px; margin: 0 auto; padding: 72px 24px 54px; }
 .hd-price-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); }
 .hd-price + .hd-price { border-left: 1px solid var(--line); }
-.hd-price.featured { background: var(--ink); color: var(--bg); }
-.hd-price.featured .hd-pilier-title,
-.hd-price.featured .hd-step-label,
-.hd-price.featured .hd-form { color: var(--bg); }
-.hd-price.featured .hd-pilier-format,
-.hd-price.featured .hd-step-n { color: var(--bg); }
-.hd-price.featured .hd-pilier-desc,
-.hd-price.featured .hd-pilier-proof { color: rgba(255,253,250,.72); }
-.hd-price.featured .hd-pilier-format,
-.hd-price.featured .hd-step,
-.hd-price.featured .hd-forms,
-.hd-price.featured .hd-form,
-.hd-price.featured .hd-steps { border-color: rgba(255,253,250,.2); }
-.hd-price.featured .hd-pilier-link { color: #fff; border-color: #fff; }
-.hd-price.featured .hd-pilier-link:hover { color: var(--red); border-color: var(--red); }
+/* Sprint mis en avant : accent rouge sobre, pas de bloc noir agressif (feedback Paul 11/07). */
+.hd-price.featured { border-left: 2px solid var(--red); }
+.hd-price.featured .hd-pilier-format { color: var(--red); border-color: var(--red); }
 
 /* PRODUIT D'APPEL - bandeau Veille (sombre, distinct des offres) */
 .hd-veille { background: var(--ink); color: var(--bg); }
