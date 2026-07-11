@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { hasLocale, locales, type Locale } from "./dictionaries";
-import Chemin from "@/components/Chemin";
+import HomeDeux from "@/components/HomeDeux";
 import { CHEMIN_CONTENT } from "@/lib/chemin-content";
 import { getAllLaunches } from "@/lib/launches";
+import { getAllPosts, type BlogLocale } from "@/lib/blog";
 
 const SITE_URL = "https://parrit.ai";
 
@@ -46,6 +47,18 @@ export default async function Page({
   if (!hasLocale(lang)) notFound();
 
   const latestLaunches = getAllLaunches().slice(0, 6);
+  const blogLocale: BlogLocale = (["fr", "en", "pt-BR"] as const).includes(
+    lang as BlogLocale,
+  )
+    ? (lang as BlogLocale)
+    : "fr";
+  // Section « Cas d'usage » : uniquement les articles use-case (ceux qui ont un
+  // pilier), pas les essais éditoriaux. On exclut le SAP (contenu non fondé sur un
+  // chantier réel — ne pas le présenter comme un cas).
+  const posts = getAllPosts(blogLocale)
+    .filter((p) => p.pillar)
+    .filter((p) => p.slug !== "evaluation-adoption-sap-intelligence-artificielle")
+    .slice(0, 5);
 
-  return <Chemin lang={lang as Locale} launches={latestLaunches} />;
+  return <HomeDeux lang={lang as Locale} launches={latestLaunches} posts={posts} />;
 }
