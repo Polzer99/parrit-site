@@ -3,8 +3,9 @@ import LaunchCard from "@/components/LaunchCard";
 import type { Locale } from "@/app/[lang]/dictionaries";
 import type { Launch } from "@/lib/launches";
 import type { BlogPost } from "@/lib/blog";
+import { getCatalog, type AgentGroup } from "@/lib/agents";
 
-// Barre de preuve : logos clients (repris de la home historique — « on garde les logos »).
+// Barre de preuve : logos clients, repris de la home historique.
 const TRUST = "Déjà en production chez";
 const CLIENT_LOGOS: { alt: string; src: string; cn?: boolean }[] = [
   { alt: "Lavazza", src: "/brand/client-logos/logo-1.png" },
@@ -29,40 +30,84 @@ type Pillar = {
   href: string;
 };
 
-const PILLARS: Pillar[] = [
+const PRICING: Pillar[] = [
   {
     n: "01",
-    eyebrow: "Transformation",
-    format: "Advisory · 2-3 mois",
-    title: "On transforme votre organisation avec l'IA.",
-    desc: "On embarque avec vous, un point par semaine. De la cartographie à des agents en production — la formation des équipes est incluse.",
-    steps: [
-      "Audit",
-      "Priorisation",
-      "Déploiement",
-      "Passage à l'échelle & sécurisation",
-      "Auto-amélioration",
-    ],
-    proof: "Un vrai partenaire de transformation, pas un cabinet qui rend un rapport et s'en va.",
-    cta: "Découvrir la transformation",
-    href: "audit",
+    eyebrow: "Sprint",
+    format: "5 000 €",
+    title: "Un agent recruté en 14 jours.",
+    desc: "Forfait fermé, 50/50. On choisit un workflow utile, on le met en production, puis on passe la main à vos équipes.",
+    steps: ["Audit flash", "VPS sécurisé", "Premier agent", "Passation"],
+    proof: "Le bon format pour décider vite, voir l'agent tourner et mesurer l'usage réel.",
+    cta: "Embaucher un agent",
+    href: "rendez-vous?source=home-pricing-sprint",
   },
   {
     n: "02",
-    eyebrow: "Coup de poing",
-    format: "Ponctuel",
-    title: "Un besoin précis ? On frappe fort, et vite.",
-    desc: "Une intervention ciblée et cadrée, sans embarquer tout un chantier.",
+    eyebrow: "Abonnement",
+    format: "99 €/mois",
+    title: "L'agent reste surveillé.",
+    desc: "Supervision, petites corrections, vérification des runs et maintien du socle. Pas de boîte noire abandonnée.",
     forms: [
-      "Déployer un agent précis en production.",
-      "Une opération coup de poing sur un département ou une PME entière.",
-      "Un conseil à un moment clé.",
+      "Contrôle mensuel des exécutions.",
+      "Suivi des alertes et incidents simples.",
+      "Documentation maintenue à jour.",
     ],
-    proof: "Cadré, rapide, sans engagement dans la durée.",
-    cta: "Voir les interventions",
-    href: "deploiement-agents",
+    proof: "Pour garder un agent utile sans créer une dette invisible.",
+    cta: "Voir la démo",
+    href: "rendez-vous?source=home-pricing-subscription",
+  },
+  {
+    n: "03",
+    eyebrow: "Évolution",
+    format: "250 €/h",
+    title: "On l'améliore quand le métier change.",
+    desc: "Nouveaux connecteurs, règles métier, écrans internes ou cas d'usage voisins. On facture l'évolution, pas une nouvelle promesse.",
+    forms: [
+      "Ajouter une source ou un outil métier.",
+      "Créer une variante pour une autre équipe.",
+      "Durcir sécurité, logs et validation humaine.",
+    ],
+    proof: "Le code reste chez vous, l'agent peut grandir sans repartir de zéro.",
+    cta: "Parler de l'évolution",
+    href: "rendez-vous?source=home-pricing-evolution",
   },
 ];
+
+function AgentCard({ group }: { group: AgentGroup }) {
+  return (
+    <article className="hd-agent">
+      <div className="hd-agent-top">
+        <div>
+          <p className="hd-agent-label">{group.persona.label}</p>
+          <h3 className="hd-agent-name">{group.persona.name}</h3>
+        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="hd-agent-img"
+          src={group.persona.imageSrc}
+          alt=""
+          loading="lazy"
+          aria-hidden="true"
+        />
+      </div>
+      <ul className="hd-agent-cases">
+        {group.cases.map((agentCase) => (
+          <li className="hd-agent-case" key={agentCase.id}>
+            <span className="hd-case-title">{agentCase.title}</span>
+            <span className="hd-case-desc">{agentCase.desc}</span>
+            <span className="hd-case-meta">{agentCase.sector}</span>
+          </li>
+        ))}
+      </ul>
+      {group.extraCases.length > 0 && (
+        <p className="hd-agent-more">
+          Aussi en production : {group.extraCases.map((agentCase) => agentCase.title).join(", ")}.
+        </p>
+      )}
+    </article>
+  );
+}
 
 export default function HomeDeux({
   lang,
@@ -75,6 +120,7 @@ export default function HomeDeux({
 }) {
   const featured = posts[0];
   const rest = posts.slice(1, 5);
+  const catalog = getCatalog({ perDept: 3 });
   return (
     <main className="hd">
       <style>{CSS}</style>
@@ -85,18 +131,18 @@ export default function HomeDeux({
         <img className="hd-lockup" src="/brand/parrit-lockup.svg" alt="Parrit·ai" />
         <p className="hd-badge">Opérateur IA à temps partagé</p>
         <h1 className="hd-h1">
-          L'IA qui <span className="hd-red">travaille</span> dans votre entreprise.
+          On ne vend pas de l'IA. On <span className="hd-red">recrute des agents</span> qui travaillent chez vous.
         </h1>
         <p className="hd-lede">
-          Votre partenaire pour intégrer l'IA. On accompagne vos équipes sur l'agentique,
-          ou on déclenche la transformation : vos premiers quick wins en moins de 4 semaines.
+          Des collaborateurs virtuels avec une fiche de poste, un périmètre, des accès limités
+          et un responsable humain. Ils tournent sur vos workflows, pas dans un deck.
         </p>
         <div className="hd-hero-cta">
-          <Link className="hd-btn primary" href={`/${lang}/rendez-vous`}>
-            Prendre 15 minutes →
+          <Link className="hd-btn primary" href={`/${lang}/rendez-vous?source=home-hire-agent`}>
+            Embaucher un agent →
           </Link>
-          <Link className="hd-btn ghost" href={`/${lang}/launches`}>
-            Voir nos livraisons
+          <Link className="hd-btn ghost" href={`/${lang}/rendez-vous?source=home-demo`}>
+            Voir la démo
           </Link>
         </div>
       </header>
@@ -112,32 +158,35 @@ export default function HomeDeux({
         </div>
       </section>
 
-      {/* ===== PRODUIT D'APPEL — La Veille (visible, mais PAS une des 2 offres) ===== */}
-      <section className="hd-veille" aria-labelledby="hd-veille-h">
-        <div className="hd-veille-inner">
-          <div className="hd-veille-text">
-            <p className="hd-veille-eyebrow">Pour commencer · sans engagement</p>
-            <h2 id="hd-veille-h" className="hd-veille-h">La newsletter qui tue les newsletters.</h2>
-            <p className="hd-veille-p">
-              Toutes vos sources condensées dans un seul mail, à votre format. On nettoie votre boîte
-              de réception, vous ne ratez plus rien. La porte d'entrée la plus simple pour voir ce qu'on sait faire.
-            </p>
-          </div>
-          <div className="hd-veille-action">
-            <Link className="hd-btn onink" href={`/${lang}/rendez-vous`}>Réserver ma veille →</Link>
-          </div>
+      {/* ===== CATALOGUE ===== */}
+      <section className="hd-catalog" id="catalogue-agents" aria-labelledby="hd-catalog-h">
+        <div className="hd-catalog-head">
+          <p className="hd-eyebrow">Catalogue</p>
+          <h2 id="hd-catalog-h" className="hd-h2">Pas des slides. Des agents qui tournent en production.</h2>
+          <p className="hd-catalog-sub">
+            Des profils prêts à entrer dans vos opérations : acquisition, veille, données,
+            contenu, support et pilotage. Chaque cas vient du catalogue public, la source unique du site.
+          </p>
         </div>
+        <div className="hd-agent-grid">
+          {catalog.groups.map((group) => (
+            <AgentCard group={group} key={group.persona.key} />
+          ))}
+        </div>
+        <p className="hd-catalog-foot">
+          {catalog.deployedCount} agents déjà en production. Ajouter un cas au catalogue le fait remonter ici.
+        </p>
       </section>
 
-      {/* ===== 2 PILIERS ===== */}
-      <section className="hd-piliers" aria-label="Deux façons d'y aller">
+      {/* ===== PRIX ===== */}
+      <section className="hd-pricing" aria-labelledby="hd-pricing-h">
         <div className="hd-piliers-head">
-          <p className="hd-eyebrow">Deux offres</p>
-          <h2 className="hd-h2">On accompagne, ou on déclenche la transformation.</h2>
+          <p className="hd-eyebrow">Prix publics</p>
+          <h2 id="hd-pricing-h" className="hd-h2">Trois lignes claires pour recruter le premier agent.</h2>
         </div>
-        <div className="hd-grid">
-          {PILLARS.map((p) => (
-            <article className="hd-pilier" key={p.n}>
+        <div className="hd-price-grid">
+          {PRICING.map((p) => (
+            <article className={p.n === "01" ? "hd-pilier hd-price featured" : "hd-pilier hd-price"} key={p.n}>
               <p className="hd-pilier-tag">
                 <span className="hd-pilier-n">{p.n}</span>
                 <span className="hd-pilier-eye">{p.eyebrow}</span>
@@ -174,7 +223,24 @@ export default function HomeDeux({
         </div>
       </section>
 
-      {/* ===== TRANSFORMATIONS (blog réel — lourd, angle grands comptes) ===== */}
+      {/* ===== PRODUIT D'APPEL - La Veille (visible, mais PAS une des 2 offres) ===== */}
+      <section className="hd-veille" aria-labelledby="hd-veille-h">
+        <div className="hd-veille-inner">
+          <div className="hd-veille-text">
+            <p className="hd-veille-eyebrow">Pour commencer · sans engagement</p>
+            <h2 id="hd-veille-h" className="hd-veille-h">La newsletter qui tue les newsletters.</h2>
+            <p className="hd-veille-p">
+              Toutes vos sources condensées dans un seul mail, à votre format. On nettoie votre boîte
+              de réception, vous ne ratez plus rien. La porte d'entrée la plus simple pour voir ce qu'on sait faire.
+            </p>
+          </div>
+          <div className="hd-veille-action">
+            <Link className="hd-btn onink" href={`/${lang}/rendez-vous`}>Réserver ma veille →</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== TRANSFORMATIONS (blog réel, angle grands comptes) ===== */}
       {featured && (
         <section className="hd-transfos" aria-labelledby="hd-transfos-h">
           <div className="hd-transfos-head">
@@ -183,8 +249,8 @@ export default function HomeDeux({
               Ce que l'IA change concrètement, métier par métier.
             </h2>
             <p className="hd-transfos-sub">
-              Des situations qu'on sait prendre en charge — de la relance commerciale à la veille
-              juridique — expliquées en détail : ce qu'on branche, et ce que ça change au quotidien.
+              Des situations qu'on sait prendre en charge, de la relance commerciale à la veille
+              juridique, expliquées en détail : ce qu'on branche, et ce que ça change au quotidien.
             </p>
           </div>
 
@@ -227,7 +293,7 @@ export default function HomeDeux({
         </section>
       )}
 
-      {/* ===== LAUNCHES (build in public — garde le lien à l'ancien) ===== */}
+      {/* ===== LAUNCHES (build in public, garde le lien à l'ancien) ===== */}
       {launches.length > 0 && (
         <section className="hd-launches" aria-labelledby="hd-launches-h">
           <div className="hd-launches-head">
@@ -247,11 +313,11 @@ export default function HomeDeux({
       <footer className="hd-cta">
         <h2 className="hd-cta-h">On en parle 15 minutes ?</h2>
         <p className="hd-cta-p">
-          Vous repartez avec une cartographie de là où l'IA vous fait gagner du temps.
-          Concret, sans slide.
+          On part d'un poste à recruter, pas d'une transformation abstraite.
+          En 15 minutes, on choisit le premier agent utile.
         </p>
-        <Link className="hd-btn primary lg" href={`/${lang}/rendez-vous`}>
-          Prendre rendez-vous →
+        <Link className="hd-btn primary lg" href={`/${lang}/rendez-vous?source=home-final-hire-agent`}>
+          Embaucher un agent →
         </Link>
         <p className="hd-cta-old">
           <Link href={`/${lang}/os-classic`}>Voir le parcours complet, niveau par niveau →</Link>
@@ -287,10 +353,49 @@ const CSS = `
 .hd-logos img:hover { opacity: 1; filter: grayscale(0); }
 .hd-logos img.logo-cn { height: 48px; max-width: 190px; }
 
-/* PRODUIT D'APPEL — bandeau Veille (sombre, distinct des offres) */
+/* CATALOGUE */
+.hd-catalog { max-width: 1180px; margin: 0 auto; padding: 72px 24px 24px; }
+.hd-catalog-head { max-width: 720px; margin: 0 auto 38px; text-align: center; }
+.hd-catalog-sub { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 16px auto 0; max-width: 660px; }
+.hd-agent-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); }
+.hd-agent { min-width: 0; display: flex; flex-direction: column; background: var(--bg); }
+.hd-agent + .hd-agent { border-left: 1px solid var(--line); }
+.hd-agent-top { display: grid; grid-template-columns: 1fr 92px; gap: 14px; align-items: end; min-height: 146px; padding: 22px 20px 18px; border-bottom: 1px solid var(--line); }
+.hd-agent-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin: 0 0 8px; }
+.hd-agent-name { font-family: var(--font-body); font-size: clamp(24px, 2.4vw, 32px); line-height: 1; font-weight: 600; letter-spacing: -0.04em; margin: 0; }
+.hd-agent-img { width: 92px; height: 112px; object-fit: cover; border: 1px solid var(--line); background: var(--band); align-self: center; }
+.hd-agent-cases { list-style: none; margin: 0; padding: 0; }
+.hd-agent-case { padding: 17px 20px 18px; border-bottom: 1px solid var(--line); }
+.hd-case-title { display: block; font-family: var(--font-body); font-size: 17px; line-height: 1.15; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 7px; }
+.hd-case-desc { display: block; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; color: var(--muted); margin: 0 0 10px; }
+.hd-case-meta { display: inline-block; max-width: 100%; font-family: var(--font-mono); font-size: 10px; letter-spacing: .09em; text-transform: uppercase; color: var(--red); background: var(--tint); padding: 4px 7px; overflow-wrap: anywhere; }
+.hd-agent-more { font-family: var(--font-mono); font-size: 11.5px; line-height: 1.5; color: var(--faint); margin: auto 0 0; padding: 16px 20px 18px; }
+.hd-catalog-foot { font-family: var(--font-mono); font-size: 12px; line-height: 1.5; color: var(--muted); text-align: center; margin: 22px auto 0; }
+
+/* PRIX */
+.hd-pricing { max-width: 1120px; margin: 0 auto; padding: 72px 24px 54px; }
+.hd-price-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); }
+.hd-price + .hd-price { border-left: 1px solid var(--line); }
+.hd-price.featured { background: var(--ink); color: var(--bg); }
+.hd-price.featured .hd-pilier-title,
+.hd-price.featured .hd-step-label,
+.hd-price.featured .hd-form { color: var(--bg); }
+.hd-price.featured .hd-pilier-format,
+.hd-price.featured .hd-step-n { color: var(--bg); }
+.hd-price.featured .hd-pilier-desc,
+.hd-price.featured .hd-pilier-proof { color: rgba(255,253,250,.72); }
+.hd-price.featured .hd-pilier-format,
+.hd-price.featured .hd-step,
+.hd-price.featured .hd-forms,
+.hd-price.featured .hd-form,
+.hd-price.featured .hd-steps { border-color: rgba(255,253,250,.2); }
+.hd-price.featured .hd-pilier-link { color: #fff; border-color: #fff; }
+.hd-price.featured .hd-pilier-link:hover { color: var(--red); border-color: var(--red); }
+
+/* PRODUIT D'APPEL - bandeau Veille (sombre, distinct des offres) */
 .hd-veille { background: var(--ink); color: var(--bg); }
 .hd-veille-inner { max-width: 1120px; margin: 0 auto; padding: 44px 24px; display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; }
-.hd-veille-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--red); margin: 0 0 12px; }
+.hd-veille-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--bg); margin: 0 0 12px; }
 .hd-veille-h { font-family: var(--font-body); font-size: clamp(24px, 3.2vw, 36px); line-height: 1.05; font-weight: 600; letter-spacing: -0.04em; margin: 0 0 12px; color: var(--bg); }
 .hd-veille-p { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: rgba(255,253,250,.72); margin: 0; max-width: 620px; }
 .hd-btn.onink { background: var(--red); color: #fff; white-space: nowrap; }
@@ -311,12 +416,12 @@ const CSS = `
 .hd-pilier-desc { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 0 0 24px; }
 
 .hd-pilier-format { font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em; color: var(--red); border: 1px solid var(--line); padding: 3px 8px; margin-left: auto; }
-/* Offre 01 — parcours 5 étapes (colonne vertébrale) */
+/* Offre 01 - parcours 5 étapes (colonne vertébrale) */
 .hd-steps { list-style: none; margin: 0 0 22px; padding: 0; border-top: 1px solid var(--line); }
 .hd-step { display: flex; align-items: baseline; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
 .hd-step-n { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--red); min-width: 22px; }
 .hd-step-label { font-family: var(--font-body); font-size: 15px; font-weight: 500; letter-spacing: -0.02em; color: var(--ink); }
-/* Offre 02 — 3 formes d'intervention */
+/* Offre 02 - 3 formes d'intervention */
 .hd-forms { list-style: none; margin: 0 0 22px; padding: 0; }
 .hd-form { position: relative; font-family: var(--font-mono); font-size: 13.5px; line-height: 1.5; color: var(--ink); padding: 12px 0 12px 22px; border-bottom: 1px solid var(--line); }
 .hd-form:first-child { border-top: 1px solid var(--line); }
@@ -368,12 +473,25 @@ const CSS = `
 @media (max-width: 820px) {
   .hd-grid { grid-template-columns: 1fr; }
   .hd-pilier + .hd-pilier { border-left: 0; border-top: 1px solid var(--line); }
+  .hd-agent-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hd-agent + .hd-agent { border-left: 0; }
+  .hd-agent:nth-child(2n) { border-left: 1px solid var(--line); }
+  .hd-agent:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .hd-price-grid { grid-template-columns: 1fr; }
+  .hd-price + .hd-price { border-left: 0; border-top: 1px solid var(--line); }
   .hd-launch-grid { grid-template-columns: 1fr; }
   .hd-transfos-grid { grid-template-columns: 1fr; }
   .hd-art-list { border-left: 0; border-top: 1px solid var(--line); }
   .hd-veille-inner { grid-template-columns: 1fr; }
 }
 @media (max-width: 520px) {
+  .hd-hero { padding-top: 58px; }
+  .hd-h1 { font-size: clamp(36px, 13vw, 52px); }
+  .hd-agent-grid { grid-template-columns: 1fr; }
+  .hd-agent:nth-child(2n) { border-left: 0; }
+  .hd-agent:nth-child(n+2) { border-top: 1px solid var(--line); }
+  .hd-agent-top { grid-template-columns: 1fr 82px; padding: 20px 18px 16px; }
+  .hd-agent-img { width: 82px; height: 102px; }
   .hd-transfo { grid-template-columns: 1fr; }
   .hd-transfo-col.apres { border-left: 0; border-top: 1px solid var(--line); }
   .hd-transfo-arrow { display: none; }
