@@ -91,6 +91,41 @@ export default async function BlogIndex({
   const posts = getAllPosts(toContentLocale(lang));
   const pillars = getPillars();
 
+  const ressourceCard: Record<
+    string,
+    { cat: string; time: string; title: string; desc: string; cta: string }
+  > = {
+    fr: {
+      cat: "Ressource · Guide",
+      time: "20 min pour démarrer",
+      title: "Démarrer avec Claude Code : piloter votre boîte avec des agents",
+      desc: "Le guide pas à pas pour dirigeants, sans code. Installer Claude Code, brancher votre boîte mail, déléguer votre première vraie tâche. Toutes les commandes à copier et le fichier de pilotage à télécharger.",
+      cta: "Ouvrir le guide",
+    },
+    en: {
+      cat: "Resource · Guide",
+      time: "20 min to start",
+      title: "Getting started with Claude Code: run your business with agents",
+      desc: "The step-by-step guide for leaders, no code. Install Claude Code, connect your inbox, delegate your first real task. Every command to copy and the pilot file to download.",
+      cta: "Open the guide",
+    },
+    "pt-BR": {
+      cat: "Recurso · Guia",
+      time: "20 min para começar",
+      title: "Comece com Claude Code: gerencie sua empresa com agentes",
+      desc: "O guia passo a passo para gestores, sem código. Instale o Claude Code, conecte seu e-mail, delegue sua primeira tarefa real. Todos os comandos para copiar e o arquivo de pilotagem para baixar.",
+      cta: "Abrir o guia",
+    },
+    "zh-CN": {
+      cat: "资源 · 指南",
+      time: "20 分钟上手",
+      title: "上手 Claude Code：用智能体运营你的业务",
+      desc: "面向管理者的分步指南，无需编程。安装 Claude Code，连接邮箱，委派第一个真实任务。所有可复制的命令与可下载的驾驶舱文件。",
+      cta: "打开指南",
+    },
+  };
+  const rc = ressourceCard[lang] ?? ressourceCard.fr;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
@@ -192,6 +227,22 @@ export default async function BlogIndex({
       </section>
 
       <main className="blog-list">
+        {/* Page statique hors routing Next (fichier public + rewrite) : lien plein-page volontaire */}
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+        <a
+          href="/demarrer-claude-code"
+          className="blog-card"
+          style={{ animationDelay: "0ms" }}
+        >
+          <div className="blog-card-meta">
+            <span className="blog-card-category">{rc.cat}</span>
+            <span className="blog-card-dot">·</span>
+            <span className="blog-card-reading">{rc.time}</span>
+          </div>
+          <h2 className="blog-card-title">{rc.title}</h2>
+          <p className="blog-card-desc">{rc.desc}</p>
+          <span className="blog-card-read">{rc.cta}</span>
+        </a>
         {posts.map((post, i) => (
           <Link
             key={post.slug}

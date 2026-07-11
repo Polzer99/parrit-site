@@ -20,6 +20,14 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/demarrer-claude-code",
+        destination: "/demarrer-claude-code/index.html",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
