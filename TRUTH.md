@@ -36,7 +36,8 @@ Chaîne à deux mains : **Paul** fait naître le prototype (le zéro→un, il co
 ## 4. Offres (ce qu'on vend)
 
 Familles : **Transformation IA · Management d'agents IA · Formation au management d'agents IA.**
-Surfaces produit sur le site : `/[lang]` (home, 3 offres : Back-office · Acquisition/Business · Claude Code as a service), `sprint`, `audit-claude-code`, `setup-claude-code`, `remote`, `academy` (grand public, tutoiement), `fondateurs`, `auteur/paul-larmaraud`, `blog`, `glossaire`, **`outils/detecteur-bullshit`** (outil public = lead magnet).
+Home 2026 : funnel **recruter des collaborateurs virtuels** pour DG et Directeurs métiers PME/ETI. Le site présente deux offres produitisées et un produit d'appel : **Sprint agent 5 000 €** (forfait, 50/50), **Abonnement 99 €/mois**, **Évolution 250 €/h**, plus **La Veille** comme porte d'entrée basse friction.
+Surfaces produit sur le site : `/[lang]` (home, catalogue agents + prix publics), `sprint`, `audit-claude-code`, `setup-claude-code`, `remote`, `academy` (grand public, tutoiement), `fondateurs`, `auteur/paul-larmaraud`, `blog`, `glossaire`, **`outils/detecteur-bullshit`** (outil public = lead magnet).
 
 ## 5. Voix (DOCTRINE-COMMUNICATION — « LE TAMIS »)
 
@@ -48,7 +49,7 @@ Surfaces produit sur le site : `/[lang]` (home, 3 offres : Back-office · Acquis
 
 ## 6. Règles dures (non négociables — un changement qui les viole est REJETÉ)
 
-1. **Prix publics uniquement sous forme d'ancrage** : les pages offre peuvent afficher `à partir de X €` quand la SOT le demande. Pas de devis détaillé, pas de promesse de ROI garanti, pas de prix personnalisé hors propale privée.
+1. **Prix publics** : les trois offres produitisées de la home peuvent afficher des prix fermes en clair, validés Paul : Sprint agent **5 000 €**, Abonnement **99 €/mois**, Évolution **250 €/h**. Les autres offres restent en ancrage `à partir de X €` quand la SOT le demande. Pas de devis personnalisé hors propale privée, pas de promesse de ROI garanti.
 2. **Pas de noms de clients** en texte (anonymisé ; mur de logos visuel autorisé, override Paul `BRAND.md §6`).
 3. **Palette stricte** : fond `#F5F8FF` · encre `#161616` · sombre `#2E2D2B` · rouge `#AA0003` · terracotta rare `#C67C60` · muted `#6E7079`. Interdits : crème `#FEFDF9`, ancien rouge `#D1132F`, ancienne encre `#0C0C0D`, violet, brun, néo-brutalisme.
 4. **Polices** : Geist pour body/heading (`--font-body`, `--font-heading`) · Geist Mono pour labels/chips/coords (`--font-mono`). Interdits : DM Sans, Cormorant comme typo de page, Hanken Grotesk, JetBrains Mono.

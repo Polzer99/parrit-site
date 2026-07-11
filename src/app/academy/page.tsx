@@ -165,7 +165,7 @@ export default function AcademyPage() {
           <p className="founders-close-text">
             Laisse ton email : tu es prévenu à chaque nouveau module, et tu accèdes aux 10 premiers gratuitement.
             Construit par Paul Larmaraud &amp; Yukun Leng.{" "}
-            <Link href="/fondateurs" style={{ color: "var(--parrit-red)", textDecoration: "underline" }}>Leur histoire</Link>.
+            <Link href="/fondateurs" style={{ color: "#fff", textDecoration: "underline" }}>Leur histoire</Link>.
           </p>
           <div style={{ maxWidth: 480, margin: "0 auto" }}>
             <QuickContact strings={waitlistStrings} page="academy-footer" variant="dark" />
