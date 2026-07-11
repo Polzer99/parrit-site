@@ -1,0 +1,225 @@
+{
+  "_doc": "Catalogue public des agents Parrit, organise par FONCTION METIER. Meme schema que le registre du deck (client-decks). Source de verite du site (home + llms.txt). Champ client interne retire. Ordre = personas[].order. Ajouter un cas = 1 entree cases[].",
+  "personas": {
+    "commercial": {
+      "name": "Chloé",
+      "label": "Commercial & Ventes",
+      "img": "chloe.png",
+      "order": 1
+    },
+    "marketing": {
+      "name": "Amélie",
+      "label": "Marketing & Contenu",
+      "img": "amelie.png",
+      "order": 2
+    },
+    "relation-client": {
+      "name": "Nadia",
+      "label": "Relation client & SAV",
+      "img": "nadia.png",
+      "order": 3
+    },
+    "finance": {
+      "name": "Lucas",
+      "label": "Finance & Gestion",
+      "img": "lucas.png",
+      "order": 4
+    },
+    "rh": {
+      "name": "Karim",
+      "label": "RH & Formation",
+      "img": "karim.png",
+      "order": 5
+    },
+    "juridique": {
+      "name": "Julien",
+      "label": "Juridique & Conformité",
+      "img": "julien.png",
+      "order": 6
+    },
+    "operations": {
+      "name": "Thomas",
+      "label": "Opérations & Supply",
+      "img": "thomas.png",
+      "order": 7
+    },
+    "direction": {
+      "name": "Marc",
+      "label": "Direction & Pilotage",
+      "img": "marc.png",
+      "order": 8
+    }
+  },
+  "cases": [
+    {
+      "id": "acquisition-signal-first",
+      "dept": "commercial",
+      "status": "deployed",
+      "featured": true,
+      "title": "Acquisition signal-first",
+      "desc": "signaux publics d'intention → séquences perso → RDV qualifiés, 24/7.",
+      "sector": "courtage énergie B2B",
+      "date": "2026-04"
+    },
+    {
+      "id": "sourcing-evenements",
+      "dept": "commercial",
+      "status": "deployed",
+      "title": "Sourcing par événements",
+      "desc": "intervenants d'un salon extraits, enrichis, approchés par secteur.",
+      "sector": "interne Parrit",
+      "date": "2026-06"
+    },
+    {
+      "id": "relance-commerciale",
+      "dept": "commercial",
+      "status": "deployed",
+      "title": "Relance commerciale",
+      "desc": "devis et prospects sans réponse relancés J+3/7/14, les oui remontés.",
+      "sector": "multi-secteurs",
+      "date": "2026-07"
+    },
+    {
+      "id": "content-factory",
+      "dept": "marketing",
+      "status": "deployed",
+      "featured": true,
+      "title": "Content Factory",
+      "desc": "articles + vidéos avatar produits chaque semaine, dans votre voix.",
+      "sector": "interne + clients",
+      "date": "2026-06"
+    },
+    {
+      "id": "geo-visibilite-ia",
+      "dept": "marketing",
+      "status": "deployed",
+      "title": "Visibilité IA (GEO)",
+      "desc": "l'IA d'Amazon recommande-t-elle votre marque ? mesure + correctifs.",
+      "sector": "grande conso",
+      "date": "2026-06"
+    },
+    {
+      "id": "generation-visuels",
+      "dept": "marketing",
+      "status": "deployed",
+      "title": "Génération de visuels",
+      "desc": "un brief en une phrase → visuel au gabarit de marque.",
+      "sector": "retail",
+      "date": "2026-07"
+    },
+    {
+      "id": "capture-multicanal",
+      "dept": "relation-client",
+      "status": "deployed",
+      "featured": true,
+      "title": "Capture multicanal",
+      "desc": "WhatsApp, site, appel, formulaire regroupés → CRM + relance auto.",
+      "sector": "artisanat",
+      "date": "2026-06"
+    },
+    {
+      "id": "tri-reclamations",
+      "dept": "relation-client",
+      "status": "deployed",
+      "title": "Tri des réclamations",
+      "desc": "emails classés, urgences isolées, brouillon prêt à valider.",
+      "sector": "SAV B2B",
+      "date": "2026-06"
+    },
+    {
+      "id": "facturation-auto",
+      "dept": "finance",
+      "status": "deployed",
+      "featured": true,
+      "title": "Facturation & suivi",
+      "desc": "factures émises, heures décomptées, relance des impayés automatisée.",
+      "sector": "services",
+      "date": "2026-06"
+    },
+    {
+      "id": "interroger-donnees",
+      "dept": "finance",
+      "status": "deployed",
+      "title": "Interroger vos données",
+      "desc": "poser une question en français à un système métier ou un reporting.",
+      "sector": "ESN / outil interne",
+      "date": "2026-06"
+    },
+    {
+      "id": "formation-agentique",
+      "dept": "rh",
+      "status": "deployed",
+      "featured": true,
+      "title": "Formation agentique",
+      "desc": "session animée + toolkit : vos équipes deviennent autonomes.",
+      "sector": "cosmétique",
+      "date": "2026-06"
+    },
+    {
+      "id": "onboarding-augmente",
+      "dept": "rh",
+      "status": "demo",
+      "title": "Assistant maîtrise outil",
+      "desc": "évalue la bonne méthode sur un outil métier, propose plus rapide.",
+      "sector": "grand groupe",
+      "date": "2026-06"
+    },
+    {
+      "id": "veille-juridique",
+      "dept": "juridique",
+      "status": "deployed",
+      "featured": true,
+      "title": "Veille juridique",
+      "desc": "signaux sur vos dossiers → filtre humain 1-clic → mail hebdo.",
+      "sector": "cabinet d'avocats",
+      "date": "2026-05"
+    },
+    {
+      "id": "veille-reglementaire",
+      "dept": "juridique",
+      "status": "demo",
+      "title": "Veille réglementaire",
+      "desc": "textes et échéances de votre secteur suivis, résumés, alertés.",
+      "sector": "banque",
+      "date": "2026-07"
+    },
+    {
+      "id": "orchestration-ops",
+      "dept": "operations",
+      "status": "deployed",
+      "featured": true,
+      "title": "Orchestration des flux",
+      "desc": "commandes, stock, tâches répétitives enchaînés sans intervention.",
+      "sector": "e-commerce artisanal",
+      "date": "2026-06"
+    },
+    {
+      "id": "sites-express",
+      "dept": "operations",
+      "status": "deployed",
+      "title": "Production express",
+      "desc": "un site ou un livrable propre généré et testé en une soirée.",
+      "sector": "interne réutilisable",
+      "date": "2026-06"
+    },
+    {
+      "id": "veille-marche",
+      "dept": "direction",
+      "status": "deployed",
+      "featured": true,
+      "title": "Veille de marché",
+      "desc": "digest personnalisé chaque lundi 8h, signaux faibles, angle sur-mesure.",
+      "sector": "direction / recherche de poste",
+      "date": "2026-05"
+    },
+    {
+      "id": "tableau-de-bord",
+      "dept": "direction",
+      "status": "demo",
+      "title": "Tableau de bord vivant",
+      "desc": "vos indicateurs consolidés et commentés, sans ressaisie.",
+      "sector": "PME",
+      "date": "2026-06"
+    }
+  ]
+}

@@ -1,60 +1,52 @@
 # Parrit.ai
 
-> Parrit.ai est une boutique française de produits IA et conseil augmenté par Claude Code, fondée par Paul Larmaraud et Yukun Leng. Elle accompagne fondateurs et directeurs généraux : produits IA déjà construits déployables en jours, et conseil opérationnel augmenté par Claude Code pour ce qui doit être fait sur mesure. Approche : on cartographie, on code avec les équipes du client le workflow qui débloque l'opération, on part quand le système tourne en production. Pas de TJM nu, pas d'audit générique, pas de slide. Outils déjà construits : veille juridique automatisée, acquisition signal-first, outbound personnalisé voix podcast, ERP interrogeable en langage naturel, rotation CRM intelligente, prototypage rapide de landing pages.
+> Parrit.ai aide les DG et Directeurs métiers de PME/ETI à recruter des collaborateurs virtuels qui travaillent sur leurs vrais workflows : acquisition, veille, opérations, données, contenu et formation.
 
-## Méthode
-- Cartographier les workflows et identifier les coûts réels et les urgences à ROI mesurable.
-- Prototyper un outil fonctionnel en production, pas un audit.
-- Déployer en itératif jusqu'à ce que le système tourne sans nous.
-- Rester pour la suite, si le client le souhaite. Pas par défaut.
+## Positionnement
+- Boutique franco-chinoise qui construit et opère des agents IA sur mesure.
+- Promesse : un agent avec une fiche de poste, un périmètre, des accès limités et un responsable humain.
+- Cible : DG, dirigeants et Directeurs métiers de PME/ETI qui veulent un système en production, pas un audit.
+- Données et exécution : déploiement sur les systèmes du client, avec logs, secrets serveur et validation humaine sur les actions sensibles.
 
-## Offres
-- [Audit, Configuration & Sprint Claude Code](https://parrit.ai/fr#claude-code-offer) : un à quatre jours, chez vous ou à distance, avec les équipes du client. Forfait fermé ou rémunération au résultat, pas de TJM.
-- [Setup Claude Code pour vos équipes](https://parrit.ai/fr#claude-code-offer) : installation, configuration et acculturation. Vos équipes deviennent autonomes.
-- [Automatisations qui tournent en production](https://parrit.ai/fr#claude-code-offer) : workflows déterministes (n8n, scripts, agents). Forfait au livrable.
-- [Format Remote international](https://parrit.ai/fr#claude-code-offer) : audit, configuration Claude Code et trois à cinq automatisations livrés à distance. Pour clients hors France.
+## Offres chiffrées
+- Sprint agent : 5 000 €, forfait 50/50, pour recruter un premier agent en 14 jours.
+- Abonnement : 99 €/mois, supervision légère, suivi des runs et maintien du socle.
+- Évolution : 250 €/h, nouveaux connecteurs, règles métier, écrans internes ou variantes par équipe.
 
-## Comment démarrer
-- [Audit Claude Code](https://parrit.ai/fr/audit-claude-code) : la demi-journée à journée qui ouvre chaque mission. On cartographie vos workflows, on chiffre trois à cinq cas d'usage, on montre Claude Code en direct sur l'un de vos cas. L'audit est inclus dans la mission qui suit. Disponible en français, anglais et portugais brésilien.
-- [Audit, Configuration & Sprint Claude Code](https://parrit.ai/fr/sprint) : un à quatre jours, chez vous ou à distance, pour livrer un système opérationnel sur le cas urgent. Code en live avec vos équipes. Forfait fermé ou rémunération au résultat. Disponible en français, anglais et portugais brésilien.
-- [Setup Claude Code pour vos équipes](https://parrit.ai/fr/setup-claude-code) : installation, configuration (CLAUDE.md, hooks, skills, MCP, workflows), formation hands-on. Vos équipes deviennent autonomes, environnement répétable et transmissible. Disponible en français, anglais et portugais brésilien.
-- [Format Remote international](https://parrit.ai/fr/remote) : pour les clients hors France. Audit, configuration Claude Code et trois à cinq automatisations livrés intégralement à distance. Pas de déplacement, ROI mesurable. Disponible en français, anglais et portugais brésilien.
+## Plan 14 jours
+- Audit flash du workflow prioritaire.
+- VPS sécurisé et accès limités.
+- Premier agent en production.
+- Passation aux équipes et documentation.
 
-## Tarification
-Deux modèles, présentés côte à côte sur la home :
-- **Forfait fermé** : périmètre, calendrier et livrables écrits noir sur blanc, paiement par étape, pas de TJM.
-- **Rémunération au résultat** (recommandé) : quote-part sur le gain réellement constaté (économie de main-d'œuvre, CA incrémental, temps gagné). Si le résultat n'est pas atteint, la part variable n'est pas facturée.
+## Catalogue public des agents
+- Content Factory (Amélie, Marketing & Contenu) : articles + vidéos avatar produits chaque semaine, dans votre voix. Secteur : interne + clients.
+- Capture multicanal (Nadia, Relation client & SAV) : WhatsApp, site, appel, formulaire regroupés → CRM + relance auto. Secteur : artisanat.
+- Facturation & suivi (Lucas, Finance & Gestion) : factures émises, heures décomptées, relance des impayés automatisée. Secteur : services.
+- Formation agentique (Karim, RH & Formation) : session animée + toolkit : vos équipes deviennent autonomes. Secteur : cosmétique.
+- Orchestration des flux (Thomas, Opérations & Supply) : commandes, stock, tâches répétitives enchaînés sans intervention. Secteur : e-commerce artisanal.
+- Veille juridique (Julien, Juridique & Conformité) : signaux sur vos dossiers → filtre humain 1-clic → mail hebdo. Secteur : cabinet d'avocats.
+- Veille de marché (Marc, Direction & Pilotage) : digest personnalisé chaque lundi 8h, signaux faibles, angle sur-mesure. Secteur : direction / recherche de poste.
+- Acquisition signal-first (Chloé, Commercial & Ventes) : signaux publics d'intention → séquences perso → RDV qualifiés, 24/7. Secteur : courtage énergie B2B.
+- Relance commerciale (Chloé, Commercial & Ventes) : devis et prospects sans réponse relancés J+3/7/14, les oui remontés. Secteur : multi-secteurs.
+- Génération de visuels (Amélie, Marketing & Contenu) : un brief en une phrase → visuel au gabarit de marque. Secteur : retail.
+- Sourcing par événements (Chloé, Commercial & Ventes) : intervenants d'un salon extraits, enrichis, approchés par secteur. Secteur : interne Parrit.
+- Visibilité IA (GEO) (Amélie, Marketing & Contenu) : l'IA d'Amazon recommande-t-elle votre marque ? mesure + correctifs. Secteur : grande conso.
+- Tri des réclamations (Nadia, Relation client & SAV) : emails classés, urgences isolées, brouillon prêt à valider. Secteur : SAV B2B.
+- Interroger vos données (Lucas, Finance & Gestion) : poser une question en français à un système métier ou un reporting. Secteur : ESN / outil interne.
+- Production express (Thomas, Opérations & Supply) : un site ou un livrable propre généré et testé en une soirée. Secteur : interne réutilisable.
 
-## Cas déployés
-- Veille juridique automatisée pour un cabinet d'avocats d'affaires : email digest livré chaque lundi 7h30, construit en huit jours.
-- Acquisition signal-first pour un courtier en énergie B2B : un à cinq rendez-vous qualifiés par jour fondés sur signaux publics (BOAMP, Sirene, Sit@del2, Enedis).
-- ERP interrogeable en français pour une ESN de cinquante personnes : connecteur BoondManager + agent Claude. Prototype livré en cinq jours sur site.
-- Rotation CRM intelligente pour un groupe franchisé : cent prospects scorés ICP par jour sortis automatiquement en top of mind commercial.
+## La Veille
+La Veille est le produit d'appel : toutes les sources utiles d'un dirigeant ou d'une équipe condensées dans un mail exploitable, sans engagement lourd.
 
-## Cible
-Fondateurs et directeurs généraux d'entreprises en croissance : agences digitales, ESN, courtiers B2B, cabinets, marques e-commerce, groupes en croissance externe : qui veulent piloter leur opération avec Claude Code plutôt qu'attendre un éditeur SaaS, recruter une équipe tech ou écouter un cabinet de conseil.
-
-## Fondateurs
-- **Paul Larmaraud** : Fondateur. Ex-Lime (équipe opérations mondiales). A conduit l'acquisition de Bolloré Énergie, Groupe SEB, Nestlé, Carte Noire. Vision produit et terrain.
-- **Yukun Leng** : Co-fondatrice. Dix années en maisons de luxe européennes dont LVMH. Maîtrise des opérations entre la France et la Chine.
+## Ressources
+- Home : https://parrit.ai/fr
+- Catalogue complet et index éditorial : https://parrit.ai/llms-full.txt
+- Blog cas d'usage : https://parrit.ai/fr/blog
+- Launches : https://parrit.ai/fr/launches
 
 ## Contact
 - Email : paul.larmaraud@parrit.ai
 - WhatsApp : +33 7 59 66 56 87
-- Site : https://parrit.ai
-- Localisation : Rueil-Malmaison, France
+- Rendez-vous : https://parrit.ai/fr/rendez-vous?source=llms
 
-## Guides & ressources
-- [Cluster agents IA](https://parrit.ai/fr/blog/sujet/agents-ia) : articles et cas pratiques sur les agents IA en entreprise.
-- [Cluster formation agents IA](https://parrit.ai/fr/blog/sujet/formation-agents-ia) : ressources sur la formation et l'adoption des agents IA.
-- [Cluster logiciel IA sur mesure](https://parrit.ai/fr/blog/sujet/logiciel-ia-sur-mesure) : articles sur les logiciels IA construits sur mesure pour les PME et ETI.
-- [Sécurité des agents IA en entreprise : les règles qu'on applique](https://parrit.ai/fr/blog/securite-agents-ia-entreprise) : Les 8 règles de sécurité appliquées au déploiement d'agents IA en entreprise.
-
-## Ce que Parrit.ai ne fait pas
-- Vendre du conseil sans livrable concret.
-- Utiliser du jargon IA pour impressionner.
-- Promettre une transformation digitale totale.
-- Facturer au TJM.
-
-## Index complet
-Index complet : https://parrit.ai/llms-full.txt
