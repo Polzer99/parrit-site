@@ -157,6 +157,9 @@ export default async function BlogIndex({
           <Link href={`/${lang}/actualite`} className="blog-nav-link">
             {dict.actualite.navTitle}
           </Link>
+          <Link href={`/${lang}/ressources`} className="blog-nav-link">
+            {lang === "en" ? "Resources" : lang === "pt-BR" ? "Recursos" : lang === "zh-CN" ? "资源" : "Ressources"}
+          </Link>
         </div>
       </nav>
 
