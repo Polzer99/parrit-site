@@ -81,6 +81,39 @@ type Ressource = {
 
 const RESSOURCES: Ressource[] = [
   {
+    href: "/architecture-claude-md",
+    cat: {
+      fr: "Ressource · Architecture",
+      en: "Resource · Architecture",
+      "pt-BR": "Recurso · Arquitetura",
+      "zh-CN": "资源 · 架构",
+    },
+    time: {
+      fr: "10 min de lecture",
+      en: "10 min read",
+      "pt-BR": "10 min de leitura",
+      "zh-CN": "10 分钟阅读",
+    },
+    title: {
+      fr: "L'architecture CLAUDE.md : les 4 couches d'un agent qui pilote",
+      en: "The CLAUDE.md architecture: the 4 layers of an agent that runs your business",
+      "pt-BR": "A arquitetura CLAUDE.md: as 4 camadas de um agente que pilota",
+      "zh-CN": "CLAUDE.md 架构：驾驭业务的智能体的四层结构",
+    },
+    desc: {
+      fr: "On vous a promis 7 fichiers magiques. La vérité tient en 4 couches : le socle, la mémoire, les garde-fous, les compétences. Chaque module avec le bloc à coller dans Claude Code et son template à télécharger.",
+      en: "You were promised 7 magic files. The truth fits in 4 layers: the base, memory, guardrails, skills. Each module with the block to paste into Claude Code and its downloadable template.",
+      "pt-BR": "Prometeram 7 arquivos mágicos. A verdade cabe em 4 camadas: a base, a memória, as proteções, as competências. Cada módulo com o bloco para colar no Claude Code e seu template para baixar.",
+      "zh-CN": "别人向你承诺七个神奇文件。真相只需四层：底座、记忆、护栏、技能。每个模块都附有可粘贴到 Claude Code 的指令块及可下载的模板。",
+    },
+    cta: {
+      fr: "Ouvrir l'architecture",
+      en: "Open the architecture",
+      "pt-BR": "Abrir a arquitetura",
+      "zh-CN": "打开架构",
+    },
+  },
+  {
     href: "/demarrer-claude-code",
     cat: {
       fr: "Guide · Démarrage",
