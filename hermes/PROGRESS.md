@@ -62,3 +62,9 @@ Format d'une entrée : date · cycle/hypothèse · ce qui a été mergé · effe
 - 5 propositions (top : "Remplacer le hero 'chemin de l'IA' par une offre claire" ICE 504)
 - statut : propose, en attente merge HITL → `proposals/2026-07-06.md`
 - 2026-07-06: 3 issues hermes ouvertes -> pas de nouvelle issue (anti-pileup)
+
+### 2026-07-13 — cycle Hermes
+- inputs : 6 surfaces live, memoire OK, analytics PostHog quantitatif
+- 5 propositions (top : "Remplacer le hero 'chemin de l'IA' par une offre claire" ICE 504)
+- statut : propose, en attente merge HITL → `proposals/2026-07-13.md`
+- 2026-07-13: 3 issues hermes ouvertes -> pas de nouvelle issue (anti-pileup)
