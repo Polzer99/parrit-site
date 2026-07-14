@@ -2,49 +2,49 @@
   "_doc": "Catalogue public des agents Parrit, organise par FONCTION METIER. Meme schema que le registre du deck (client-decks). Source de verite du site (home + llms.txt). Champ client interne retire. Ordre = personas[].order. Ajouter un cas = 1 entree cases[].",
   "personas": {
     "commercial": {
-      "name": "Chloé",
+      "name": "Mei",
       "label": "Commercial & Ventes",
       "img": "chloe.png",
       "order": 1
     },
     "marketing": {
-      "name": "Amélie",
+      "name": "Lian",
       "label": "Marketing & Contenu",
       "img": "amelie.png",
       "order": 2
     },
     "relation-client": {
-      "name": "Nadia",
+      "name": "Hui",
       "label": "Relation client & SAV",
       "img": "nadia.png",
       "order": 3
     },
     "finance": {
-      "name": "Lucas",
+      "name": "Wei",
       "label": "Finance & Gestion",
       "img": "lucas.png",
       "order": 4
     },
     "rh": {
-      "name": "Karim",
+      "name": "Kai",
       "label": "RH & Formation",
       "img": "karim.png",
       "order": 5
     },
     "juridique": {
-      "name": "Julien",
+      "name": "Gengis",
       "label": "Juridique & Conformité",
       "img": "julien.png",
       "order": 6
     },
     "operations": {
-      "name": "Thomas",
+      "name": "Youku",
       "label": "Opérations & Supply",
       "img": "thomas.png",
       "order": 7
     },
     "direction": {
-      "name": "Marc",
+      "name": "Baoluo",
       "label": "Direction & Pilotage",
       "img": "marc.png",
       "order": 8

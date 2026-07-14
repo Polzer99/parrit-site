@@ -17,60 +17,47 @@ const CLIENT_LOGOS: { alt: string; src: string; cn?: boolean }[] = [
   { alt: "Carte Noire", src: "/brand/client-logos/logo-7.png", cn: true },
 ];
 
-type Pillar = {
+type Offer = {
   n: string;
   eyebrow: string;
-  format: string;
   title: string;
   desc: string;
-  steps?: string[];
-  forms?: string[];
-  proof: string;
+  points: string[];
+  audience: string;
   cta: string;
   href: string;
 };
 
-const PRICING: Pillar[] = [
+const OFFERS: Offer[] = [
   {
     n: "01",
-    eyebrow: "Sprint",
-    format: "5 000 €",
-    title: "Un agent recruté en 14 jours.",
-    desc: "Forfait fermé, 50/50. On choisit un workflow utile, on le met en production, puis on passe la main à vos équipes.",
-    steps: ["Audit flash", "VPS sécurisé", "Premier agent", "Passation"],
-    proof: "Le bon format pour décider vite, voir l'agent tourner et mesurer l'usage réel.",
-    cta: "Embaucher un agent",
-    href: "rendez-vous?source=home-pricing-sprint",
+    eyebrow: "Transformation IA",
+    title: "Faire de l'IA un levier réel, pas des POC.",
+    desc: "Audit, cartographie des cas d'usage prioritaires, déploiement. Un partenaire qui pilote la transformation de bout en bout.",
+    points: ["Audit", "Cas d'usage prioritaires", "Déploiement", "Passation"],
+    audience: "Pour les COMEX et les DSI.",
+    cta: "Découvrir la Transformation",
+    href: "croissance",
   },
   {
     n: "02",
-    eyebrow: "Abonnement",
-    format: "99 €/mois",
-    title: "L'agent reste surveillé.",
-    desc: "Supervision, petites corrections, vérification des runs et maintien du socle. Pas de boîte noire abandonnée.",
-    forms: [
-      "Contrôle mensuel des exécutions.",
-      "Suivi des alertes et incidents simples.",
-      "Documentation maintenue à jour.",
-    ],
-    proof: "Pour garder un agent utile sans créer une dette invisible.",
-    cta: "Voir la démo",
-    href: "rendez-vous?source=home-pricing-subscription",
+    eyebrow: "Agent IA",
+    title: "Un agent recruté, en production.",
+    desc: "On choisit un workflow utile, on met l'agent en production, on passe la main à vos équipes. Un agent, un périmètre.",
+    points: ["Diagnostic", "Périmètre clair", "En production", "Passation"],
+    audience: "Pour les directions métier, la DG et la DSI.",
+    cta: "Découvrir le déploiement d'agent",
+    href: "deployer",
   },
   {
     n: "03",
-    eyebrow: "Évolution",
-    format: "250 €/h",
-    title: "On l'améliore quand le métier change.",
-    desc: "Nouveaux connecteurs, règles métier, écrans internes ou cas d'usage voisins. On facture l'évolution, pas une nouvelle promesse.",
-    forms: [
-      "Ajouter une source ou un outil métier.",
-      "Créer une variante pour une autre équipe.",
-      "Durcir sécurité, logs et validation humaine.",
-    ],
-    proof: "Le code reste chez vous, l'agent peut grandir sans repartir de zéro.",
-    cta: "Parler de l'évolution",
-    href: "rendez-vous?source=home-pricing-evolution",
+    eyebrow: "Coaching",
+    title: "On rend vos équipes autonomes.",
+    desc: "On installe la stack, on déploie un premier agent avec vous, et chacun repart capable d'en construire d'autres.",
+    points: ["Claude Code + Codex", "Ateliers hands-on", "Certification Calliope"],
+    audience: "Pour la direction générale et les directions métier.",
+    cta: "Découvrir le coaching",
+    href: "transmettre",
   },
 ];
 
@@ -178,49 +165,36 @@ export default function HomeDeux({
         </p>
       </section>
 
-      {/* ===== PRIX ===== */}
-      <section className="hd-pricing" aria-labelledby="hd-pricing-h">
+      {/* ===== OFFRES (sans prix sur la home — détaillés sur chaque page offre) ===== */}
+      <section className="hd-pricing" id="offres" aria-labelledby="hd-offers-h">
         <div className="hd-piliers-head">
-          <p className="hd-eyebrow">Prix publics</p>
-          <h2 id="hd-pricing-h" className="hd-h2">Trois lignes claires pour recruter le premier agent.</h2>
+          <p className="hd-eyebrow">Nos offres</p>
+          <h2 id="hd-offers-h" className="hd-h2">Trois façons de mettre l'IA au travail chez vous.</h2>
         </div>
         <div className="hd-price-grid">
-          {PRICING.map((p) => (
+          {OFFERS.map((p) => (
             <article className={p.n === "01" ? "hd-pilier hd-price featured" : "hd-pilier hd-price"} key={p.n}>
               <p className="hd-pilier-tag">
                 <span className="hd-pilier-n">{p.n}</span>
                 <span className="hd-pilier-eye">{p.eyebrow}</span>
-                <span className="hd-pilier-format">{p.format}</span>
               </p>
               <h3 className="hd-pilier-title">{p.title}</h3>
               <p className="hd-pilier-desc">{p.desc}</p>
 
-              {p.steps && (
-                <ol className="hd-steps">
-                  {p.steps.map((s, i) => (
-                    <li className="hd-step" key={s}>
-                      <span className="hd-step-n">{String(i + 1).padStart(2, "0")}</span>
-                      <span className="hd-step-label">{s}</span>
-                    </li>
-                  ))}
-                </ol>
-              )}
+              <ul className="hd-forms">
+                {p.points.map((f) => (
+                  <li className="hd-form" key={f}>{f}</li>
+                ))}
+              </ul>
 
-              {p.forms && (
-                <ul className="hd-forms">
-                  {p.forms.map((f) => (
-                    <li className="hd-form" key={f}>{f}</li>
-                  ))}
-                </ul>
-              )}
-
-              <p className="hd-pilier-proof">{p.proof}</p>
+              <p className="hd-pilier-proof">{p.audience}</p>
               <Link className="hd-pilier-link" href={`/${lang}/${p.href}`}>
                 {p.cta} →
               </Link>
             </article>
           ))}
         </div>
+        <p className="hd-catalog-foot">Les tarifs sont détaillés sur chaque offre.</p>
       </section>
 
       {/* ===== PRODUIT D'APPEL - La Veille (visible, mais PAS une des 2 offres) ===== */}
