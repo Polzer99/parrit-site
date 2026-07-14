@@ -6,7 +6,6 @@ import type { BlogPost } from "@/lib/blog";
 import { getCatalog, type AgentGroup } from "@/lib/agents";
 
 // Barre de preuve : logos clients, repris de la home historique.
-const TRUST = "Déjà en production chez";
 const CLIENT_LOGOS: { alt: string; src: string; cn?: boolean }[] = [
   { alt: "Lavazza", src: "/brand/client-logos/logo-1.png" },
   { alt: "Laparra", src: "/brand/client-logos/logo-2.png" },
@@ -28,40 +27,197 @@ type Offer = {
   href: string;
 };
 
-const OFFERS: Offer[] = [
-  {
-    n: "01",
-    eyebrow: "Transformation IA",
-    title: "Faire de l'IA un levier réel, pas des POC.",
-    desc: "Audit, cartographie des cas d'usage prioritaires, déploiement. Un partenaire qui pilote la transformation de bout en bout.",
-    points: ["Audit", "Cas d'usage prioritaires", "Déploiement", "Passation"],
-    audience: "Pour les COMEX et les DSI.",
-    cta: "Découvrir la Transformation",
-    href: "croissance",
-  },
-  {
-    n: "02",
-    eyebrow: "Agent IA",
-    title: "Un agent recruté, en production.",
-    desc: "On choisit un workflow utile, on met l'agent en production, on passe la main à vos équipes. Un agent, un périmètre.",
-    points: ["Diagnostic", "Périmètre clair", "En production", "Passation"],
-    audience: "Pour les directions métier, la DG et la DSI.",
-    cta: "Découvrir le déploiement d'agent",
-    href: "deployer",
-  },
-  {
-    n: "03",
-    eyebrow: "Coaching",
-    title: "On rend vos équipes autonomes.",
-    desc: "On installe la stack, on déploie un premier agent avec vous, et chacun repart capable d'en construire d'autres.",
-    points: ["Claude Code + Codex", "Ateliers hands-on", "Certification Calliope"],
-    audience: "Pour la direction générale et les directions métier.",
-    cta: "Découvrir le coaching",
-    href: "transmettre",
-  },
-];
+type HomeCopy = {
+  badge: string;
+  h1a: string;
+  h1red: string;
+  h1b: string;
+  lede: string;
+  ctaHire: string;
+  ctaDemo: string;
+  trust: string;
+  catEyebrow: string;
+  catH2: string;
+  catSub: string;
+  catFoot: (count: number) => string;
+  agentMore: (list: string) => string;
+  offersEyebrow: string;
+  offersH2: string;
+  offersFoot: string;
+  offers: Offer[];
+  veilleEyebrow: string;
+  veilleH: string;
+  veilleP: string;
+  veilleCta: string;
+  transEyebrow: string;
+  transH2: string;
+  transSub: string;
+  readArticle: string;
+  allArticles: string;
+  launchEyebrow: string;
+  launchH2: string;
+  allLaunches: string;
+  ctaH: string;
+  ctaP: string;
+  ctaOld: string;
+};
 
-function AgentCard({ group }: { group: AgentGroup }) {
+const DICT: Record<Locale, HomeCopy> = {
+  fr: {
+    badge: "Opérateur IA à temps partagé",
+    h1a: "On ne vend pas de l'IA. On ",
+    h1red: "recrute des agents",
+    h1b: " qui travaillent chez vous.",
+    lede: "Des collaborateurs virtuels avec une fiche de poste, un périmètre, des accès limités et un responsable humain. Ils tournent sur vos workflows, pas dans un deck.",
+    ctaHire: "Embaucher un agent →",
+    ctaDemo: "Voir la démo",
+    trust: "Déjà en production chez",
+    catEyebrow: "Catalogue",
+    catH2: "Pas des slides. Des agents qui tournent en production.",
+    catSub: "Des profils prêts à entrer dans vos opérations : acquisition, veille, données, contenu, support et pilotage. Chaque cas vient du catalogue public, la source unique du site.",
+    catFoot: (count) => `${count} agents déjà en production. Ajouter un cas au catalogue le fait remonter ici.`,
+    agentMore: (list) => `Aussi en production : ${list}.`,
+    offersEyebrow: "Nos offres",
+    offersH2: "Trois façons de mettre l'IA au travail chez vous.",
+    offersFoot: "Les tarifs sont détaillés sur chaque offre.",
+    offers: [
+      { n: "01", eyebrow: "Transformation IA", title: "Faire de l'IA un levier réel, pas des POC.", desc: "Audit, cartographie des cas d'usage prioritaires, déploiement. Un partenaire qui pilote la transformation de bout en bout.", points: ["Audit", "Cas d'usage prioritaires", "Déploiement", "Passation"], audience: "Pour les COMEX et les DSI.", cta: "Découvrir la Transformation", href: "croissance" },
+      { n: "02", eyebrow: "Agent IA", title: "Un agent recruté, en production.", desc: "On choisit un workflow utile, on met l'agent en production, on passe la main à vos équipes. Un agent, un périmètre.", points: ["Diagnostic", "Périmètre clair", "En production", "Passation"], audience: "Pour les directions métier, la DG et la DSI.", cta: "Découvrir le déploiement d'agent", href: "deployer" },
+      { n: "03", eyebrow: "Coaching", title: "On rend vos équipes autonomes.", desc: "On installe la stack, on déploie un premier agent avec vous, et chacun repart capable d'en construire d'autres.", points: ["Claude Code + Codex", "Ateliers hands-on", "Certification Calliope"], audience: "Pour la direction générale et les directions métier.", cta: "Découvrir le coaching", href: "transmettre" },
+    ],
+    veilleEyebrow: "Pour commencer · sans engagement",
+    veilleH: "La newsletter qui tue les newsletters.",
+    veilleP: "Toutes vos sources condensées dans un seul mail, à votre format. On nettoie votre boîte de réception, vous ne ratez plus rien. La porte d'entrée la plus simple pour voir ce qu'on sait faire.",
+    veilleCta: "Réserver ma veille →",
+    transEyebrow: "Cas d'usage",
+    transH2: "Ce que l'IA change concrètement, métier par métier.",
+    transSub: "Des situations qu'on sait prendre en charge, de la relance commerciale à la veille juridique, expliquées en détail : ce qu'on branche, et ce que ça change au quotidien.",
+    readArticle: "Lire l'article →",
+    allArticles: "Tous les articles →",
+    launchEyebrow: "Build in public",
+    launchH2: "Une preuve de fabrication, chaque semaine.",
+    allLaunches: "Tous les launches →",
+    ctaH: "On en parle 15 minutes ?",
+    ctaP: "On part d'un poste à recruter, pas d'une transformation abstraite. En 15 minutes, on choisit le premier agent utile.",
+    ctaOld: "Voir le parcours complet, niveau par niveau →",
+  },
+  en: {
+    badge: "Fractional AI operator",
+    h1a: "We don't sell AI. We ",
+    h1red: "hire agents",
+    h1b: " that work inside your company.",
+    lede: "Virtual coworkers with a job description, a scope, limited access and a human manager. They run on your real workflows, not in a deck.",
+    ctaHire: "Hire an agent →",
+    ctaDemo: "See the demo",
+    trust: "Already in production at",
+    catEyebrow: "Catalog",
+    catH2: "Not slides. Agents running in production.",
+    catSub: "Profiles ready to step into your operations: acquisition, monitoring, data, content, support and steering. Every case comes from the public catalog, the site's single source of truth.",
+    catFoot: (count) => `${count} agents already in production. Add a case to the catalog and it shows up here.`,
+    agentMore: (list) => `Also in production: ${list}.`,
+    offersEyebrow: "Our offers",
+    offersH2: "Three ways to put AI to work inside your company.",
+    offersFoot: "Pricing is detailed on each offer.",
+    offers: [
+      { n: "01", eyebrow: "AI Transformation", title: "Make AI a real lever, not a pile of POCs.", desc: "Audit, mapping of priority use cases, deployment. A partner who drives the transformation end to end.", points: ["Audit", "Priority use cases", "Deployment", "Handover"], audience: "For executive committees and IT leaders.", cta: "Explore Transformation", href: "croissance" },
+      { n: "02", eyebrow: "AI Agent", title: "One agent hired, in production.", desc: "We pick a useful workflow, put the agent in production, then hand over to your teams. One agent, one scope.", points: ["Diagnosis", "Clear scope", "In production", "Handover"], audience: "For business units, executive and IT leadership.", cta: "Explore agent deployment", href: "deployer" },
+      { n: "03", eyebrow: "Coaching", title: "We make your teams autonomous.", desc: "We set up the stack, deploy a first agent with you, and everyone leaves able to build more.", points: ["Claude Code + Codex", "Hands-on workshops", "Calliope certification"], audience: "For executive and business leadership.", cta: "Explore coaching", href: "transmettre" },
+    ],
+    veilleEyebrow: "To start · no commitment",
+    veilleH: "The newsletter that kills newsletters.",
+    veilleP: "All your sources condensed into a single email, in your format. We clean up your inbox, you stop missing things. The simplest way in to see what we can do.",
+    veilleCta: "Get my briefing →",
+    transEyebrow: "Use cases",
+    transH2: "What AI actually changes, role by role.",
+    transSub: "Situations we know how to handle, from sales follow-up to legal monitoring, explained in detail: what we plug in, and what it changes day to day.",
+    readArticle: "Read the article →",
+    allArticles: "All articles →",
+    launchEyebrow: "Build in public",
+    launchH2: "Proof of work, every week.",
+    allLaunches: "All launches →",
+    ctaH: "Shall we talk for 15 minutes?",
+    ctaP: "We start from a role to fill, not an abstract transformation. In 15 minutes, we pick the first useful agent.",
+    ctaOld: "See the full path, level by level →",
+  },
+  "pt-BR": {
+    badge: "Operador de IA em tempo compartilhado",
+    h1a: "Não vendemos IA. Nós ",
+    h1red: "recrutamos agentes",
+    h1b: " que trabalham dentro da sua empresa.",
+    lede: "Colaboradores virtuais com uma descrição de cargo, um perímetro, acessos limitados e um responsável humano. Eles rodam nos seus fluxos de trabalho reais, não num slide.",
+    ctaHire: "Recrutar um agente →",
+    ctaDemo: "Ver a demo",
+    trust: "Já em produção na",
+    catEyebrow: "Catálogo",
+    catH2: "Nada de slides. Agentes rodando em produção.",
+    catSub: "Perfis prontos para entrar nas suas operações: aquisição, monitoramento, dados, conteúdo, suporte e gestão. Cada caso vem do catálogo público, a fonte única do site.",
+    catFoot: (count) => `${count} agentes já em produção. Adicionar um caso ao catálogo o traz para cá.`,
+    agentMore: (list) => `Também em produção: ${list}.`,
+    offersEyebrow: "Nossas ofertas",
+    offersH2: "Três formas de colocar a IA para trabalhar na sua empresa.",
+    offersFoot: "Os preços são detalhados em cada oferta.",
+    offers: [
+      { n: "01", eyebrow: "Transformação IA", title: "Fazer da IA uma alavanca real, não uma pilha de POCs.", desc: "Auditoria, mapeamento dos casos de uso prioritários, implantação. Um parceiro que conduz a transformação de ponta a ponta.", points: ["Auditoria", "Casos de uso prioritários", "Implantação", "Passagem"], audience: "Para comitês executivos e líderes de TI.", cta: "Conhecer a Transformação", href: "croissance" },
+      { n: "02", eyebrow: "Agente IA", title: "Um agente recrutado, em produção.", desc: "Escolhemos um fluxo útil, colocamos o agente em produção e passamos o bastão para as suas equipes. Um agente, um perímetro.", points: ["Diagnóstico", "Perímetro claro", "Em produção", "Passagem"], audience: "Para as áreas de negócio, a diretoria e a TI.", cta: "Conhecer a implantação de agente", href: "deployer" },
+      { n: "03", eyebrow: "Coaching", title: "Tornamos suas equipes autônomas.", desc: "Instalamos a stack, implantamos um primeiro agente com você, e cada um sai capaz de construir outros.", points: ["Claude Code + Codex", "Workshops hands-on", "Certificação Calliope"], audience: "Para a diretoria e as áreas de negócio.", cta: "Conhecer o coaching", href: "transmettre" },
+    ],
+    veilleEyebrow: "Para começar · sem compromisso",
+    veilleH: "A newsletter que mata as newsletters.",
+    veilleP: "Todas as suas fontes condensadas em um único e-mail, no seu formato. Limpamos a sua caixa de entrada, você não perde mais nada. A porta de entrada mais simples para ver o que sabemos fazer.",
+    veilleCta: "Reservar meu resumo →",
+    transEyebrow: "Casos de uso",
+    transH2: "O que a IA muda concretamente, função por função.",
+    transSub: "Situações que sabemos assumir, do follow-up comercial ao monitoramento jurídico, explicadas em detalhe: o que conectamos e o que muda no dia a dia.",
+    readArticle: "Ler o artigo →",
+    allArticles: "Todos os artigos →",
+    launchEyebrow: "Build in public",
+    launchH2: "Uma prova de fabricação, toda semana.",
+    allLaunches: "Todos os launches →",
+    ctaH: "Vamos conversar 15 minutos?",
+    ctaP: "Partimos de um cargo a preencher, não de uma transformação abstrata. Em 15 minutos, escolhemos o primeiro agente útil.",
+    ctaOld: "Ver o percurso completo, nível por nível →",
+  },
+  "zh-CN": {
+    badge: "分时 AI 运营伙伴",
+    h1a: "我们不卖 AI。我们",
+    h1red: "招募智能体",
+    h1b: "，让它们在你的公司里干活。",
+    lede: "拥有岗位职责、明确边界、受限权限和人类负责人的虚拟同事。它们运行在你真实的工作流上，而不是在演示文稿里。",
+    ctaHire: "招募一个智能体 →",
+    ctaDemo: "查看演示",
+    trust: "已在以下公司投入生产",
+    catEyebrow: "目录",
+    catH2: "不是幻灯片，而是真正在生产环境运行的智能体。",
+    catSub: "随时可以进入你运营的角色：获客、监测、数据、内容、支持与统筹。每个案例都来自公开目录，本站唯一的事实来源。",
+    catFoot: (count) => `${count} 个智能体已在生产环境运行。向目录添加一个案例，它就会出现在这里。`,
+    agentMore: (list) => `同样在生产中：${list}。`,
+    offersEyebrow: "我们的服务",
+    offersH2: "让 AI 在你公司里干活的三种方式。",
+    offersFoot: "各服务的定价详见对应页面。",
+    offers: [
+      { n: "01", eyebrow: "AI 转型", title: "让 AI 成为真正的杠杆，而不是一堆概念验证。", desc: "审计、优先用例梳理、部署。一个从头到尾主导转型的合作伙伴。", points: ["审计", "优先用例", "部署", "交接"], audience: "面向管理层与 IT 负责人。", cta: "了解转型服务", href: "croissance" },
+      { n: "02", eyebrow: "AI 智能体", title: "招募一个智能体，投入生产。", desc: "我们挑选一个有用的工作流，把智能体投入生产，再交接给你的团队。一个智能体，一个边界。", points: ["诊断", "清晰边界", "投入生产", "交接"], audience: "面向业务部门、管理层与 IT。", cta: "了解智能体部署", href: "deployer" },
+      { n: "03", eyebrow: "陪跑培训", title: "我们让你的团队自主上手。", desc: "我们搭好技术栈，和你一起部署第一个智能体，每个人离开时都能自己再造更多。", points: ["Claude Code + Codex", "实操工作坊", "Calliope 认证"], audience: "面向管理层与业务部门。", cta: "了解陪跑培训", href: "transmettre" },
+    ],
+    veilleEyebrow: "先从这里开始 · 无需承诺",
+    veilleH: "终结其他简报的简报。",
+    veilleP: "把你所有的信息源浓缩进一封邮件，按你的格式。我们帮你清理收件箱，你不再错过任何要紧事。这是了解我们能做什么的最简单入口。",
+    veilleCta: "预约我的简报 →",
+    transEyebrow: "应用场景",
+    transH2: "AI 究竟改变了什么，一个岗位一个岗位地看。",
+    transSub: "我们能接手的真实场景，从商务跟进到法律监测，都有详细说明：我们接入了什么，以及它如何改变日常。",
+    readArticle: "阅读文章 →",
+    allArticles: "全部文章 →",
+    launchEyebrow: "Build in public",
+    launchH2: "每周一份制造的证据。",
+    allLaunches: "全部发布 →",
+    ctaH: "聊 15 分钟？",
+    ctaP: "我们从一个要招的岗位出发，而不是抽象的转型。15 分钟内，我们一起选出第一个有用的智能体。",
+    ctaOld: "查看完整路径，逐级了解 →",
+  },
+};
+
+function AgentCard({ group, moreLabel }: { group: AgentGroup; moreLabel: (list: string) => string }) {
   return (
     <article className="hd-agent">
       <div className="hd-agent-top">
@@ -89,7 +245,7 @@ function AgentCard({ group }: { group: AgentGroup }) {
       </ul>
       {group.extraCases.length > 0 && (
         <p className="hd-agent-more">
-          Aussi en production : {group.extraCases.map((agentCase) => agentCase.title).join(", ")}.
+          {moreLabel(group.extraCases.map((agentCase) => agentCase.title).join(", "))}
         </p>
       )}
     </article>
@@ -105,6 +261,7 @@ export default function HomeDeux({
   launches?: Launch[];
   posts?: BlogPost[];
 }) {
+  const t = DICT[lang] ?? DICT.fr;
   const featured = posts[0];
   const rest = posts.slice(1, 5);
   const catalog = getCatalog({ perDept: 3 });
@@ -116,27 +273,24 @@ export default function HomeDeux({
       <header className="hd-hero">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="hd-lockup" src="/brand/parrit-lockup.svg" alt="Parrit·ai" />
-        <p className="hd-badge">Opérateur IA à temps partagé</p>
+        <p className="hd-badge">{t.badge}</p>
         <h1 className="hd-h1">
-          On ne vend pas de l'IA. On <span className="hd-red">recrute des agents</span> qui travaillent chez vous.
+          {t.h1a}<span className="hd-red">{t.h1red}</span>{t.h1b}
         </h1>
-        <p className="hd-lede">
-          Des collaborateurs virtuels avec une fiche de poste, un périmètre, des accès limités
-          et un responsable humain. Ils tournent sur vos workflows, pas dans un deck.
-        </p>
+        <p className="hd-lede">{t.lede}</p>
         <div className="hd-hero-cta">
           <Link className="hd-btn primary" href={`/${lang}/rendez-vous?source=home-hire-agent`}>
-            Embaucher un agent →
+            {t.ctaHire}
           </Link>
           <Link className="hd-btn ghost" href={`/${lang}/rendez-vous?source=home-demo`}>
-            Voir la démo
+            {t.ctaDemo}
           </Link>
         </div>
       </header>
 
       {/* ===== TRUST ===== */}
-      <section className="hd-trust" aria-label={TRUST}>
-        <p className="hd-trust-lab">{TRUST}</p>
+      <section className="hd-trust" aria-label={t.trust}>
+        <p className="hd-trust-lab">{t.trust}</p>
         <div className="hd-logos">
           {CLIENT_LOGOS.map((l) => (
             // eslint-disable-next-line @next/next/no-img-element
@@ -148,31 +302,26 @@ export default function HomeDeux({
       {/* ===== CATALOGUE ===== */}
       <section className="hd-catalog" id="catalogue-agents" aria-labelledby="hd-catalog-h">
         <div className="hd-catalog-head">
-          <p className="hd-eyebrow">Catalogue</p>
-          <h2 id="hd-catalog-h" className="hd-h2">Pas des slides. Des agents qui tournent en production.</h2>
-          <p className="hd-catalog-sub">
-            Des profils prêts à entrer dans vos opérations : acquisition, veille, données,
-            contenu, support et pilotage. Chaque cas vient du catalogue public, la source unique du site.
-          </p>
+          <p className="hd-eyebrow">{t.catEyebrow}</p>
+          <h2 id="hd-catalog-h" className="hd-h2">{t.catH2}</h2>
+          <p className="hd-catalog-sub">{t.catSub}</p>
         </div>
         <div className="hd-agent-grid">
           {catalog.groups.map((group) => (
-            <AgentCard group={group} key={group.persona.key} />
+            <AgentCard group={group} moreLabel={t.agentMore} key={group.persona.key} />
           ))}
         </div>
-        <p className="hd-catalog-foot">
-          {catalog.deployedCount} agents déjà en production. Ajouter un cas au catalogue le fait remonter ici.
-        </p>
+        <p className="hd-catalog-foot">{t.catFoot(catalog.deployedCount)}</p>
       </section>
 
-      {/* ===== OFFRES (sans prix sur la home — détaillés sur chaque page offre) ===== */}
+      {/* ===== OFFRES (sans prix sur la home, detailles sur chaque page offre) ===== */}
       <section className="hd-pricing" id="offres" aria-labelledby="hd-offers-h">
         <div className="hd-piliers-head">
-          <p className="hd-eyebrow">Nos offres</p>
-          <h2 id="hd-offers-h" className="hd-h2">Trois façons de mettre l'IA au travail chez vous.</h2>
+          <p className="hd-eyebrow">{t.offersEyebrow}</p>
+          <h2 id="hd-offers-h" className="hd-h2">{t.offersH2}</h2>
         </div>
         <div className="hd-price-grid">
-          {OFFERS.map((p) => (
+          {t.offers.map((p) => (
             <article className={p.n === "01" ? "hd-pilier hd-price featured" : "hd-pilier hd-price"} key={p.n}>
               <p className="hd-pilier-tag">
                 <span className="hd-pilier-n">{p.n}</span>
@@ -194,38 +343,30 @@ export default function HomeDeux({
             </article>
           ))}
         </div>
-        <p className="hd-catalog-foot">Les tarifs sont détaillés sur chaque offre.</p>
+        <p className="hd-catalog-foot">{t.offersFoot}</p>
       </section>
 
-      {/* ===== PRODUIT D'APPEL - La Veille (visible, mais PAS une des 2 offres) ===== */}
+      {/* ===== PRODUIT D'APPEL - La Veille ===== */}
       <section className="hd-veille" aria-labelledby="hd-veille-h">
         <div className="hd-veille-inner">
           <div className="hd-veille-text">
-            <p className="hd-veille-eyebrow">Pour commencer · sans engagement</p>
-            <h2 id="hd-veille-h" className="hd-veille-h">La newsletter qui tue les newsletters.</h2>
-            <p className="hd-veille-p">
-              Toutes vos sources condensées dans un seul mail, à votre format. On nettoie votre boîte
-              de réception, vous ne ratez plus rien. La porte d'entrée la plus simple pour voir ce qu'on sait faire.
-            </p>
+            <p className="hd-veille-eyebrow">{t.veilleEyebrow}</p>
+            <h2 id="hd-veille-h" className="hd-veille-h">{t.veilleH}</h2>
+            <p className="hd-veille-p">{t.veilleP}</p>
           </div>
           <div className="hd-veille-action">
-            <Link className="hd-btn onink" href={`/${lang}/rendez-vous`}>Réserver ma veille →</Link>
+            <Link className="hd-btn onink" href={`/${lang}/rendez-vous`}>{t.veilleCta}</Link>
           </div>
         </div>
       </section>
 
-      {/* ===== TRANSFORMATIONS (blog réel, angle grands comptes) ===== */}
+      {/* ===== TRANSFORMATIONS (blog reel) ===== */}
       {featured && (
         <section className="hd-transfos" aria-labelledby="hd-transfos-h">
           <div className="hd-transfos-head">
-            <p className="hd-eyebrow">Cas d'usage</p>
-            <h2 id="hd-transfos-h" className="hd-h2">
-              Ce que l'IA change concrètement, métier par métier.
-            </h2>
-            <p className="hd-transfos-sub">
-              Des situations qu'on sait prendre en charge, de la relance commerciale à la veille
-              juridique, expliquées en détail : ce qu'on branche, et ce que ça change au quotidien.
-            </p>
+            <p className="hd-eyebrow">{t.transEyebrow}</p>
+            <h2 id="hd-transfos-h" className="hd-h2">{t.transH2}</h2>
+            <p className="hd-transfos-sub">{t.transSub}</p>
           </div>
 
           <div className="hd-transfos-grid">
@@ -238,7 +379,7 @@ export default function HomeDeux({
                 </p>
                 <h3 className="hd-feat-title">{featured.title}</h3>
                 <p className="hd-feat-desc">{featured.description}</p>
-                <span className="hd-feat-link">Lire l'article →</span>
+                <span className="hd-feat-link">{t.readArticle}</span>
               </div>
             </Link>
 
@@ -261,19 +402,19 @@ export default function HomeDeux({
 
           <div className="hd-transfos-foot">
             <Link className="hd-btn ghost" href={`/${lang}/blog`}>
-              Tous les articles →
+              {t.allArticles}
             </Link>
           </div>
         </section>
       )}
 
-      {/* ===== LAUNCHES (build in public, garde le lien à l'ancien) ===== */}
+      {/* ===== LAUNCHES ===== */}
       {launches.length > 0 && (
         <section className="hd-launches" aria-labelledby="hd-launches-h">
           <div className="hd-launches-head">
-            <p className="hd-eyebrow">Build in public</p>
-            <h2 id="hd-launches-h" className="hd-h2">Une preuve de fabrication, chaque semaine.</h2>
-            <Link href={`/${lang}/launches`} className="hd-launches-all">Tous les launches →</Link>
+            <p className="hd-eyebrow">{t.launchEyebrow}</p>
+            <h2 id="hd-launches-h" className="hd-h2">{t.launchH2}</h2>
+            <Link href={`/${lang}/launches`} className="hd-launches-all">{t.allLaunches}</Link>
           </div>
           <div className="hd-launch-grid">
             {launches.slice(0, 3).map((launch) => (
@@ -285,16 +426,13 @@ export default function HomeDeux({
 
       {/* ===== CTA FINAL ===== */}
       <footer className="hd-cta">
-        <h2 className="hd-cta-h">On en parle 15 minutes ?</h2>
-        <p className="hd-cta-p">
-          On part d'un poste à recruter, pas d'une transformation abstraite.
-          En 15 minutes, on choisit le premier agent utile.
-        </p>
+        <h2 className="hd-cta-h">{t.ctaH}</h2>
+        <p className="hd-cta-p">{t.ctaP}</p>
         <Link className="hd-btn primary lg" href={`/${lang}/rendez-vous?source=home-final-hire-agent`}>
-          Embaucher un agent →
+          {t.ctaHire}
         </Link>
         <p className="hd-cta-old">
-          <Link href={`/${lang}/os-classic`}>Voir le parcours complet, niveau par niveau →</Link>
+          <Link href={`/${lang}/os-classic`}>{t.ctaOld}</Link>
         </p>
       </footer>
     </main>
@@ -350,11 +488,10 @@ const CSS = `
 .hd-pricing { max-width: 1120px; margin: 0 auto; padding: 72px 24px 54px; }
 .hd-price-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); }
 .hd-price + .hd-price { border-left: 1px solid var(--line); }
-/* Sprint mis en avant : accent rouge sobre, pas de bloc noir agressif (feedback Paul 11/07). */
 .hd-price.featured { border-left: 2px solid var(--red); }
 .hd-price.featured .hd-pilier-format { color: var(--red); border-color: var(--red); }
 
-/* PRODUIT D'APPEL - bandeau Veille (sombre, distinct des offres) */
+/* PRODUIT D'APPEL - bandeau Veille */
 .hd-veille { background: var(--ink); color: var(--bg); }
 .hd-veille-inner { max-width: 1120px; margin: 0 auto; padding: 44px 24px; display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; }
 .hd-veille-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--bg); margin: 0 0 12px; }
@@ -378,12 +515,10 @@ const CSS = `
 .hd-pilier-desc { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 0 0 24px; }
 
 .hd-pilier-format { font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em; color: var(--red); border: 1px solid var(--line); padding: 3px 8px; margin-left: auto; }
-/* Offre 01 - parcours 5 étapes (colonne vertébrale) */
 .hd-steps { list-style: none; margin: 0 0 22px; padding: 0; border-top: 1px solid var(--line); }
 .hd-step { display: flex; align-items: baseline; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
 .hd-step-n { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--red); min-width: 22px; }
 .hd-step-label { font-family: var(--font-body); font-size: 15px; font-weight: 500; letter-spacing: -0.02em; color: var(--ink); }
-/* Offre 02 - 3 formes d'intervention */
 .hd-forms { list-style: none; margin: 0 0 22px; padding: 0; }
 .hd-form { position: relative; font-family: var(--font-mono); font-size: 13.5px; line-height: 1.5; color: var(--ink); padding: 12px 0 12px 22px; border-bottom: 1px solid var(--line); }
 .hd-form:first-child { border-top: 1px solid var(--line); }
