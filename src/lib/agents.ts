@@ -1,6 +1,16 @@
 import catalogJson from "../../content/agents/catalog.json";
+import catalogI18nJson from "../../content/agents/catalog.i18n.json";
 
 export type AgentStatus = "deployed" | "demo";
+
+export type CatalogLocale = "fr" | "en" | "pt-BR" | "zh-CN";
+
+type CaseI18n = { title?: string; desc?: string; sector?: string };
+type LocaleOverlay = {
+  personas?: Record<string, string>;
+  cases?: Record<string, CaseI18n>;
+};
+const catalogI18n = catalogI18nJson as Record<string, LocaleOverlay>;
 
 export type AgentPersona = {
   key: string;
@@ -34,6 +44,7 @@ export type AgentCatalog = {
 
 type CatalogOptions = {
   perDept?: number;
+  lang?: CatalogLocale;
 };
 
 type RawPersona = {
@@ -166,9 +177,22 @@ function sortCases(a: AgentCase, b: AgentCase): number {
 
 export function getCatalog(options: CatalogOptions = {}): AgentCatalog {
   const perDept = options.perDept;
+  const overlay = options.lang && options.lang !== "fr" ? catalogI18n[options.lang] : undefined;
+  const localizeCase = (agentCase: AgentCase): AgentCase => {
+    const tr = overlay?.cases?.[agentCase.id];
+    if (!tr) return agentCase;
+    return {
+      ...agentCase,
+      title: tr.title ?? agentCase.title,
+      desc: tr.desc ?? agentCase.desc,
+      sector: tr.sector ?? agentCase.sector,
+    };
+  };
+
   const allCases = rawCatalog.cases
     .map(toCase)
-    .filter((agentCase) => agentCase.status === "deployed" || agentCase.featured);
+    .filter((agentCase) => agentCase.status === "deployed" || agentCase.featured)
+    .map(localizeCase);
 
   const groups = Object.entries(rawCatalog.personas)
     .sort(([, a], [, b]) => (a.order ?? Number.MAX_SAFE_INTEGER) - (b.order ?? Number.MAX_SAFE_INTEGER))
@@ -182,7 +206,7 @@ export function getCatalog(options: CatalogOptions = {}): AgentCatalog {
         persona: {
           key,
           name: persona.name,
-          label: persona.label,
+          label: overlay?.personas?.[key] ?? persona.label,
           imageSrc: `/brand/agents/${persona.img}`,
         },
         cases: visibleCases,

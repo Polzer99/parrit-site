@@ -1,0 +1,99 @@
+{
+  "_doc": "Overlay de traduction du catalogue agents. Le FR canonique reste dans catalog.json (source de verite llms/deck). Ici : labels de personas + title/desc/sector par id de cas, pour en / pt-BR / zh-CN. Applique au rendu par getCatalog({lang}). Ajouter un cas dans catalog.json = ajouter sa traduction ici (sinon fallback FR).",
+  "en": {
+    "personas": {
+      "commercial": "Sales & Business Dev",
+      "marketing": "Marketing & Content",
+      "relation-client": "Customer Care & Support",
+      "finance": "Finance & Admin",
+      "rh": "HR & Training",
+      "juridique": "Legal & Compliance",
+      "operations": "Operations & Supply",
+      "direction": "Leadership & Steering"
+    },
+    "cases": {
+      "acquisition-signal-first": { "title": "Signal-first acquisition", "desc": "public intent signals → personalized sequences → qualified meetings, 24/7.", "sector": "B2B energy brokerage" },
+      "sourcing-evenements": { "title": "Event-based sourcing", "desc": "speakers from a trade show extracted, enriched, approached by sector.", "sector": "Parrit internal" },
+      "relance-commerciale": { "title": "Sales follow-up", "desc": "quotes and prospects gone quiet followed up on D+3/7/14, the yeses surfaced.", "sector": "cross-sector" },
+      "content-factory": { "title": "Content Factory", "desc": "articles + avatar videos shipped every week, in your voice.", "sector": "internal + clients" },
+      "geo-visibilite-ia": { "title": "AI visibility (GEO)", "desc": "does Amazon's AI recommend your brand? measurement + fixes.", "sector": "consumer goods" },
+      "generation-visuels": { "title": "Visual generation", "desc": "a one-line brief → a visual on your brand template.", "sector": "retail" },
+      "capture-multicanal": { "title": "Multichannel capture", "desc": "WhatsApp, site, call, form pooled → CRM + automatic follow-up.", "sector": "craft trades" },
+      "tri-reclamations": { "title": "Complaint triage", "desc": "emails sorted, urgent ones flagged, a draft ready to approve.", "sector": "B2B support" },
+      "facturation-auto": { "title": "Billing & tracking", "desc": "invoices issued, hours counted, unpaid reminders automated.", "sector": "services" },
+      "interroger-donnees": { "title": "Query your data", "desc": "ask a business system or a report a question in plain language.", "sector": "IT services / internal tool" },
+      "formation-agentique": { "title": "Agentic training", "desc": "live session + toolkit: your teams become autonomous.", "sector": "cosmetics" },
+      "onboarding-augmente": { "title": "Tool-mastery assistant", "desc": "assesses the right method on a business tool, suggests a faster one.", "sector": "large enterprise" },
+      "veille-juridique": { "title": "Legal monitoring", "desc": "signals on your cases → 1-click human filter → weekly email.", "sector": "law firm" },
+      "veille-reglementaire": { "title": "Regulatory watch", "desc": "your sector's texts and deadlines tracked, summarized, flagged.", "sector": "banking" },
+      "orchestration-ops": { "title": "Flow orchestration", "desc": "orders, stock, repetitive tasks chained with no intervention.", "sector": "artisan e-commerce" },
+      "sites-express": { "title": "Express production", "desc": "a clean site or deliverable generated and tested in one evening.", "sector": "reusable internal" },
+      "veille-marche": { "title": "Market intelligence", "desc": "personalized digest every Monday 8am, weak signals, custom angle.", "sector": "leadership / job search" },
+      "tableau-de-bord": { "title": "Living dashboard", "desc": "your KPIs consolidated and annotated, no re-keying.", "sector": "SMB" }
+    }
+  },
+  "pt-BR": {
+    "personas": {
+      "commercial": "Comercial & Vendas",
+      "marketing": "Marketing & Conteúdo",
+      "relation-client": "Relacionamento & SAC",
+      "finance": "Finanças & Gestão",
+      "rh": "RH & Formação",
+      "juridique": "Jurídico & Conformidade",
+      "operations": "Operações & Supply",
+      "direction": "Direção & Gestão"
+    },
+    "cases": {
+      "acquisition-signal-first": { "title": "Aquisição signal-first", "desc": "sinais públicos de intenção → sequências personalizadas → reuniões qualificadas, 24/7.", "sector": "corretagem de energia B2B" },
+      "sourcing-evenements": { "title": "Sourcing por eventos", "desc": "palestrantes de uma feira extraídos, enriquecidos, abordados por setor.", "sector": "interno Parrit" },
+      "relance-commerciale": { "title": "Follow-up comercial", "desc": "orçamentos e prospects sem resposta retomados em D+3/7/14, os sins destacados.", "sector": "multissetorial" },
+      "content-factory": { "title": "Content Factory", "desc": "artigos + vídeos com avatar entregues toda semana, na sua voz.", "sector": "interno + clientes" },
+      "geo-visibilite-ia": { "title": "Visibilidade em IA (GEO)", "desc": "a IA da Amazon recomenda sua marca? medição + correções.", "sector": "grande consumo" },
+      "generation-visuels": { "title": "Geração de visuais", "desc": "um briefing em uma frase → visual no template da marca.", "sector": "varejo" },
+      "capture-multicanal": { "title": "Captura multicanal", "desc": "WhatsApp, site, ligação, formulário reunidos → CRM + follow-up automático.", "sector": "artesanato" },
+      "tri-reclamations": { "title": "Triagem de reclamações", "desc": "e-mails classificados, urgências isoladas, rascunho pronto para validar.", "sector": "SAC B2B" },
+      "facturation-auto": { "title": "Faturamento & acompanhamento", "desc": "faturas emitidas, horas contabilizadas, cobrança de inadimplência automatizada.", "sector": "serviços" },
+      "interroger-donnees": { "title": "Consultar seus dados", "desc": "fazer uma pergunta em linguagem natural a um sistema ou relatório.", "sector": "TI / ferramenta interna" },
+      "formation-agentique": { "title": "Formação agêntica", "desc": "sessão ao vivo + toolkit: suas equipes se tornam autônomas.", "sector": "cosmético" },
+      "onboarding-augmente": { "title": "Assistente de domínio de ferramenta", "desc": "avalia o método certo em uma ferramenta, sugere um mais rápido.", "sector": "grande grupo" },
+      "veille-juridique": { "title": "Monitoramento jurídico", "desc": "sinais sobre seus casos → filtro humano em 1 clique → e-mail semanal.", "sector": "escritório de advocacia" },
+      "veille-reglementaire": { "title": "Monitoramento regulatório", "desc": "textos e prazos do seu setor acompanhados, resumidos, alertados.", "sector": "banco" },
+      "orchestration-ops": { "title": "Orquestração de fluxos", "desc": "pedidos, estoque, tarefas repetitivas encadeados sem intervenção.", "sector": "e-commerce artesanal" },
+      "sites-express": { "title": "Produção express", "desc": "um site ou entregável limpo gerado e testado em uma noite.", "sector": "interno reutilizável" },
+      "veille-marche": { "title": "Monitoramento de mercado", "desc": "digest personalizado toda segunda 8h, sinais fracos, ângulo sob medida.", "sector": "direção / busca de cargo" },
+      "tableau-de-bord": { "title": "Painel vivo", "desc": "seus indicadores consolidados e comentados, sem redigitação.", "sector": "PME" }
+    }
+  },
+  "zh-CN": {
+    "personas": {
+      "commercial": "销售与商务",
+      "marketing": "营销与内容",
+      "relation-client": "客户关系与售后",
+      "finance": "财务与管理",
+      "rh": "人力资源与培训",
+      "juridique": "法务与合规",
+      "operations": "运营与供应链",
+      "direction": "管理与决策"
+    },
+    "cases": {
+      "acquisition-signal-first": { "title": "信号优先获客", "desc": "公开意向信号 → 个性化序列 → 合格约见，全天候。", "sector": "B2B 能源经纪" },
+      "sourcing-evenements": { "title": "按活动溯源", "desc": "从展会提取演讲嘉宾，富集信息，按行业触达。", "sector": "Parrit 内部" },
+      "relance-commerciale": { "title": "商务跟进", "desc": "无回应的报价与潜客在第 3/7/14 天跟进，把「同意」顶上来。", "sector": "跨行业" },
+      "content-factory": { "title": "内容工厂", "desc": "每周产出文章 + 数字人视频，用你的口吻。", "sector": "内部 + 客户" },
+      "geo-visibilite-ia": { "title": "AI 可见度（GEO）", "desc": "亚马逊的 AI 会推荐你的品牌吗？测量 + 修正。", "sector": "大众消费品" },
+      "generation-visuels": { "title": "视觉生成", "desc": "一句话简报 → 符合品牌模板的视觉。", "sector": "零售" },
+      "capture-multicanal": { "title": "多渠道汇集", "desc": "WhatsApp、网站、来电、表单汇聚 → CRM + 自动跟进。", "sector": "手工业" },
+      "tri-reclamations": { "title": "投诉分拣", "desc": "邮件归类，紧急项挑出，草稿待确认。", "sector": "B2B 售后" },
+      "facturation-auto": { "title": "开票与跟踪", "desc": "开具发票、计时、自动催收欠款。", "sector": "服务业" },
+      "interroger-donnees": { "title": "查询你的数据", "desc": "用自然语言向业务系统或报表提问。", "sector": "IT 服务 / 内部工具" },
+      "formation-agentique": { "title": "智能体培训", "desc": "现场培训 + 工具包：让团队自主运转。", "sector": "化妆品" },
+      "onboarding-augmente": { "title": "工具精通助手", "desc": "评估某业务工具的最佳方法，给出更快的方案。", "sector": "大型集团" },
+      "veille-juridique": { "title": "法律监测", "desc": "案件相关信号 → 一键人工筛选 → 每周邮件。", "sector": "律师事务所" },
+      "veille-reglementaire": { "title": "法规监测", "desc": "跟踪、摘要并预警你所在行业的法规与期限。", "sector": "银行" },
+      "orchestration-ops": { "title": "流程编排", "desc": "订单、库存、重复任务无需干预地串联。", "sector": "手工电商" },
+      "sites-express": { "title": "极速产出", "desc": "一个晚上生成并测试一个干净的网站或交付物。", "sector": "可复用内部" },
+      "veille-marche": { "title": "市场情报", "desc": "每周一早 8 点的个性化摘要，弱信号，定制视角。", "sector": "管理层 / 求职" },
+      "tableau-de-bord": { "title": "动态仪表盘", "desc": "指标自动汇总并加注解，无需重新录入。", "sector": "中小企业" }
+    }
+  }
+}

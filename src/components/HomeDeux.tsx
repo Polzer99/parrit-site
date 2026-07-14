@@ -264,7 +264,7 @@ export default function HomeDeux({
   const t = DICT[lang] ?? DICT.fr;
   const featured = posts[0];
   const rest = posts.slice(1, 5);
-  const catalog = getCatalog({ perDept: 3 });
+  const catalog = getCatalog({ perDept: 3, lang });
   return (
     <main className="hd">
       <style>{CSS}</style>
