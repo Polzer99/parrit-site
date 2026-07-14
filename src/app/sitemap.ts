@@ -31,6 +31,8 @@ const STATIC_ROUTES = [
   { path: "/actualite", changeFrequency: "weekly" as const, priority: 0.8 },
   { path: "/glossaire", changeFrequency: "weekly" as const, priority: 0.85 },
   { path: "/auteur/paul-larmaraud", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/mentions-legales", changeFrequency: "yearly" as const, priority: 0.3 },
+  { path: "/confidentialite", changeFrequency: "yearly" as const, priority: 0.3 },
 ];
 
 type GlossaryIndex = {

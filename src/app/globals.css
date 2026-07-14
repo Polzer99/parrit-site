@@ -456,6 +456,15 @@ body > * {
   color: var(--text-light-muted);
   letter-spacing: 0.02em;
 }
+.blog-footer .footer-legal a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+.blog-footer .footer-legal a:hover {
+  color: #fff;
+}
 .blog-footer-text {
   font-family: var(--font-heading) !important;
   font-weight: 500 !important;

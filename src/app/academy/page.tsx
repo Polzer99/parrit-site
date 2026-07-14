@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LegalFooterLine from "@/components/LegalFooterLine";
 import QuickContact from "@/components/QuickContact";
 
 const SITE_URL = "https://parrit.ai";
@@ -174,9 +175,7 @@ export default function AcademyPage() {
       </main>
 
       <footer className="blog-footer">
-        <p className="footer-legal" style={{ marginTop: 0 }}>
-          © {new Date().getFullYear()} SASU PARRIT.AI · Rueil-Malmaison
-        </p>
+        <LegalFooterLine lang="fr" marginTop={0} />
       </footer>
     </>
   );

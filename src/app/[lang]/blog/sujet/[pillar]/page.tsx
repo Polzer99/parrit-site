@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import LegalFooterLine from "@/components/LegalFooterLine";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPostsByPillar, type BlogLocale } from "@/lib/blog";
@@ -229,9 +230,7 @@ export default async function PillarPage({
         <Link href={`/${lang}/rendez-vous`} className="blog-footer-cta">
           {dict.blog.footerCta}
         </Link>
-        <p className="footer-legal" style={{ marginTop: 40 }}>
-          © {new Date().getFullYear()} SASU PARRIT.AI · Rueil-Malmaison
-        </p>
+        <LegalFooterLine lang={lang} />
       </footer>
     </>
   );
