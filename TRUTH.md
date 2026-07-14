@@ -36,8 +36,12 @@ Chaîne à deux mains : **Paul** fait naître le prototype (le zéro→un, il co
 ## 4. Offres (ce qu'on vend)
 
 Familles : **Transformation IA · Management d'agents IA · Formation au management d'agents IA.**
-Home 2026 : funnel **recruter des collaborateurs virtuels** pour DG et Directeurs métiers PME/ETI. Le site présente deux offres produitisées et un produit d'appel : **Sprint agent 5 000 €** (forfait, 50/50), **Abonnement 99 €/mois**, **Évolution 250 €/h**, plus **La Veille** comme porte d'entrée basse friction.
-Surfaces produit sur le site : `/[lang]` (home, catalogue agents + prix publics), `sprint`, `audit-claude-code`, `setup-claude-code`, `remote`, `academy` (grand public, tutoiement), `fondateurs`, `auteur/paul-larmaraud`, `blog`, `glossaire`, **`outils/detecteur-bullshit`** (outil public = lead magnet).
+Home 2026 (pivot) : funnel **recruter des collaborateurs virtuels** pour DG et Directeurs métiers PME/ETI. Le site présente **trois offres, toutes sur devis** (périmètre et prix cadrés après diagnostic), plus **La Veille** comme produit d'appel basse friction :
+- **Transformation IA** (`/[lang]/croissance`) — advisory COMEX/DSI, transformation de bout en bout.
+- **Agent IA / Sprint agentique** (`/[lang]/deployer`) — un agent en production contrôlée.
+- **Formation agentique** (`/[lang]/transmettre`) — rendre les équipes autonomes (finançable OPCO).
+**La home n'affiche AUCUN prix** ; les prix fermes anciens (Sprint 5 000 €, Abonnement 99 €/mois, Évolution 250 €/h) sont **retirés** au pivot 2026.
+Surfaces produit sur le site : `/[lang]` (home = `HomeDeux.tsx`, catalogue agents SANS prix), `deployer`, `croissance`, `transmettre`, `academy` (grand public, tutoiement), `fondateurs`, `auteur/paul-larmaraud`, `blog`, `glossaire`, **`outils/detecteur-bullshit`** (outil public = lead magnet). Landings héritées (`audit`, `masterclass-*`, `optimisation-flotte`, `sessions-mcp`, `remote`, `setup-claude-code`) = maturity ladder, toutes sur devis.
 
 ## 5. Voix (DOCTRINE-COMMUNICATION — « LE TAMIS »)
 
@@ -49,7 +53,7 @@ Surfaces produit sur le site : `/[lang]` (home, catalogue agents + prix publics)
 
 ## 6. Règles dures (non négociables — un changement qui les viole est REJETÉ)
 
-1. **Prix publics** : les trois offres produitisées de la home peuvent afficher des prix fermes en clair, validés Paul : Sprint agent **5 000 €**, Abonnement **99 €/mois**, Évolution **250 €/h**. Les autres offres restent en ancrage `à partir de X €` quand la SOT le demande. Pas de devis personnalisé hors propale privée, pas de promesse de ROI garanti.
+1. **Prix** : depuis le pivot 2026, les offres sont **sur devis** (périmètre et prix cadrés après diagnostic) et **la home n'affiche AUCUN prix**. Interdit : ré-afficher les anciens prix fermes (Sprint 5 000 €, Abonnement 99 €/mois, Évolution 250 €/h) — ils sont retirés. Pas de devis personnalisé hors propale privée, pas de promesse de ROI garanti. « sur devis » est la formulation validée pour le prix public.
 2. **Pas de noms de clients** en texte (anonymisé ; mur de logos visuel autorisé, override Paul `BRAND.md §6`).
 3. **Palette stricte** : fond `#F5F8FF` · encre `#161616` · sombre `#2E2D2B` · rouge `#AA0003` · terracotta rare `#C67C60` · muted `#6E7079`. Interdits : crème `#FEFDF9`, ancien rouge `#D1132F`, ancienne encre `#0C0C0D`, violet, brun, néo-brutalisme.
 4. **Polices** : Geist pour body/heading (`--font-body`, `--font-heading`) · Geist Mono pour labels/chips/coords (`--font-mono`). Interdits : DM Sans, Cormorant comme typo de page, Hanken Grotesk, JetBrains Mono.
