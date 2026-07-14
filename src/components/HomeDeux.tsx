@@ -54,7 +54,7 @@ const PRICING: Pillar[] = [
       "Documentation maintenue à jour.",
     ],
     proof: "Pour garder un agent utile sans créer une dette invisible.",
-    cta: "Voir la démo",
+    cta: "Réserver une démo (15 min)",
     href: "rendez-vous?source=home-pricing-subscription",
   },
   {
@@ -142,7 +142,7 @@ export default function HomeDeux({
             Embaucher un agent →
           </Link>
           <Link className="hd-btn ghost" href={`/${lang}/rendez-vous?source=home-demo`}>
-            Voir la démo
+            Réserver une démo (15 min)
           </Link>
         </div>
       </header>
