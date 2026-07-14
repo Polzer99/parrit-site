@@ -45,6 +45,10 @@ La Veille est le produit d'appel : toutes les sources utiles d'un dirigeant ou d
 - Blog cas d'usage : https://parrit.ai/fr/blog
 - Launches : https://parrit.ai/fr/launches
 
+## Guides et ressources
+- L'architecture CLAUDE.md — les 4 couches d'un agent qui pilote (socle, mémoire atomique, garde-fous, compétences) ; parti pris Parrit vs le mythe des « 7 fichiers » : https://parrit.ai/architecture-claude-md
+- Démarrer avec Claude Code — guide pas à pas pour dirigeants, sans code : https://parrit.ai/demarrer-claude-code
+
 ## Contact
 - Email : paul.larmaraud@parrit.ai
 - WhatsApp : +33 7 59 66 56 87
