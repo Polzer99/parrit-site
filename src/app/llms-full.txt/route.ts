@@ -98,6 +98,28 @@ export async function GET(): Promise<Response> {
     lines.push("");
   }
 
+  lines.push("## Ressources et guides");
+  lines.push("");
+  lines.push("## L'architecture CLAUDE.md : les 4 couches d'un agent qui pilote");
+  lines.push(`URL: ${SITE_URL}/architecture-claude-md`);
+  lines.push(
+    "Résumé: Le fichier CLAUDE.md est ce que Claude Code lit à chaque session pour savoir qui vous êtes et comment travailler. Contre le mythe des « 7 fichiers magiques » (Soul, Brain, Intuition...), Parrit défend une architecture en 4 couches qui tient en production : le socle (CLAUDE.md), la mémoire atomique (un fait = un fichier + un index), les garde-fous (l'humain à la gâchette, rien n'est envoyé sans validation), les compétences (playbooks chargés à la demande). Chaque couche est fournie avec un bloc à coller dans Claude Code et un template téléchargeable.",
+  );
+  lines.push("Sections:");
+  lines.push("- Le piège du tuto viral (coût de contexte, contradictions, mythe de l'autonomie)");
+  lines.push("- 01 Le socle (CLAUDE.md)");
+  lines.push("- 02 La mémoire (memoire/)");
+  lines.push("- 03 Les garde-fous");
+  lines.push("- 04 Les compétences (competences/)");
+  lines.push("- FAQ : à quoi sert CLAUDE.md, faut-il 7 fichiers, comment donner de la mémoire, est-ce risqué sur ma boîte mail, faut-il coder, CLAUDE.md vs AGENTS.md");
+  lines.push("");
+  lines.push("## Démarrer avec Claude Code : piloter votre boîte avec des agents");
+  lines.push(`URL: ${SITE_URL}/demarrer-claude-code`);
+  lines.push(
+    "Résumé: Guide pas à pas pour dirigeants, sans code. Installer Claude Code, brancher sa boîte mail et son agenda, déléguer sa première vraie tâche, ajouter un second agent. Toutes les commandes à copier et le fichier CLAUDE.md de pilotage à télécharger.",
+  );
+  lines.push("");
+
   lines.push("## Sujets principaux");
   lines.push("");
 

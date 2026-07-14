@@ -139,8 +139,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
+  // Ressources statiques servies à la racine (fichiers public/, hors routing [lang])
+  const resourceEntries: MetadataRoute.Sitemap = [
+    {
+      url: `${SITE_URL}/architecture-claude-md`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.85,
+    },
+    {
+      url: `${SITE_URL}/demarrer-claude-code`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.85,
+    },
+  ];
+
   return [
     ...staticEntries,
+    ...resourceEntries,
     ...blogEntries,
     ...launchEntries,
     ...actualiteEntries,
