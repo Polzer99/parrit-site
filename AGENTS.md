@@ -30,7 +30,7 @@ Depuis le 23/06, toute UI publique part de `src/app/globals.css` (`:root`) et de
 - **Voix** (`BRAND.md §6bis`, doctrine LE TAMIS) : Operating Partner, autorité démontrée, faits (Enargeia), sobriété, **pas de tiret cadratin `—`**, pas de jargon IA.
 
 ## Routes
-- `src/app/[lang]/page.tsx` → rend `HomeClient.tsx` (la home « desktop-OS »). C'est ~95 % du site.
+- `src/app/[lang]/page.tsx` → rend **`HomeDeux.tsx`** (home pivot 2026 : hero « recruter des agents » + catalogue + 3 offres sans prix + La Veille + blog). Contenu i18n dans le `DICT` interne de `HomeDeux` (fr/en/pt-BR/zh-CN) ; les cartes agents viennent de `catalog.json` (FR pour l'instant, i18n à faire). L'ancienne home desktop-OS `HomeClient.tsx` n'est plus servie que par `/os-classic` (noindex).
 - `src/app/[lang]/{sprint,audit-claude-code,setup-claude-code,remote}/page.tsx` → partagent `src/components/LandingPage.tsx` + contenu dans `src/app/[lang]/dictionaries/*.json`.
 - `src/app/[lang]/{blog,glossaire}/...` · `src/app/{academy,fondateurs}/...` (hors `[lang]`, FR seul ; academy = voix « grand public », tutoiement).
 - `src/app/opengraph-image.tsx` = carte OG. `src/app/os/*` = dashboard interne (PAS le site public).
