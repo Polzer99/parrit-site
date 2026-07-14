@@ -1157,7 +1157,7 @@
               "label": "competitive threats detected in month one"
             },
             {
-              "value": "6 sem.",
+              "value": "6 weeks",
               "label": "ROI proven on the first wave of adjustments"
             }
           ],
@@ -1165,9 +1165,9 @@
         },
         "stack": [
           "Bright Data",
-          "Claude Sonnet (analyse)",
+          "Claude Sonnet (analysis)",
           "Google Sheets dashboard",
-          "Telegram alertes",
+          "Telegram alerts",
           "Vercel cron",
           "GitHub Actions"
         ]
@@ -1232,8 +1232,8 @@
         "stack": [
           "YouTube / RSS scraper",
           "Transcripts auto",
-          "Claude Opus (analyse signal)",
-          "Enrow + Hunter (enrichissement)",
+          "Claude Opus (signal analysis)",
+          "Enrow + Hunter (enrichment)",
           "Instantly",
           "n8n"
         ]
