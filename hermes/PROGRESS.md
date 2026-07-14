@@ -78,16 +78,18 @@ Audit multi-agents du site (harmonie / EN / zones mortes / conversion) + décisi
 - 404 `/efi-audit-hotels` réparé (proxy) ; `/rendez-vous` ajouté au sitemap ; 44 « espace avant deux-points » purgés dans en.json ; CTA `/architecture-claude-md` → /rendez-vous (#142).
 - 3 anciennes issues Hermes « Clarifier l'offre dès le hero » (#16/#106/#109) fermées (superseded par le pivot).
 
-**Backlog à PRENDRE (issues Codex, 3 feux) — vérifié sur origin/main + live :**
-1. [conversion P0] Nav persistante partout : logo home cliquable (aujourd'hui un `<img>` nu) + liens Offres/Ressources/Blog/RDV. Les 3 offres ne sont atteignables que depuis la home.
-2. [conversion/compliance P1] Footer légal (mentions légales + politique de confidentialité RGPD) cohérent sur toutes les pages — absent, alors qu'on capture email/tel et qu'on cible COMEX/DSI.
-3. [conversion P1] CTA `/demarrer-claude-code` → `/rendez-vous?source=ressource-demarrer` (ressource gated sans sortie de funnel, comme `/architecture-claude-md` déjà fait).
-4. [zone morte P1] `/[lang]/audit-claude-code` : `next.config.ts` redirige 301 → `/audit` MAIS la page `LandingPage` existe et n'est jamais servie. Supprimer la page OU le redirect (trancher).
-5. [zone morte P1] Pages dans le sitemap jamais reliées en interne : `setup-claude-code`, `remote`, `glossaire` → les relier (nav/footer) ou les sortir du sitemap.
-6. [EN P1] `en.json` clé `casVitrines` : 5 résidus FR (« 6 sem. », « (analyse) » ×2, « alertes », « (enrichissement) ») — corriger avant que la section soit câblée (aujourd'hui 404).
-7. [EN P2] `OfferPage.tsx` : `resultAccent` + `result` collés sans séparateur → phrases bancales en EN (ex. « Production signal-led acquisition machine in production »).
-8. [EN P2] Qualiopi/OPCO sur pages ciblant l'international (`remote`, `setup`) : expliciter en incise ou conditionner à l'audience FR.
-9. [i18n P1] Catalogue d'agents (`catalog.json`) rendu en FR sur /en·pt·zh (cartes agents de la home). Prévoir un `catalog.json` multilingue ou un dictionnaire de traduction.
-10. [DA — DÉCISION PAUL] Incohérence de palette : l'app suit TRUTH.md §6.3 (`#F5F8FF`/`#161616`/`#AA0003`) mais le design-system canon (skill) + les ressources statiques (`architecture-claude-md`, `demarrer-claude-code`) suivent `#FFFDFA`/`#0C0C0D`/`#D1132F`. Deux DA coexistent sur le même domaine. Trancher laquelle est canon, puis harmoniser.
-11. [doctrine] `layout.tsx` JSON-LD « Sprint à impact / Sprint agentique » : aligner sur les 3 offres pivot. TRUTH.md §7 pointe encore `HomeClient` comme home (corrigé côté AGENTS.md, à répercuter dans TRUTH.md §7).
-12. [conversion P2] CTA home « Voir la démo » mène à `/rendez-vous` (pas une vraie démo) → renommer « Réserver une démo » ou brancher une démo passive.
+**Corrigé et EN PROD par #146 (14/07, ne pas reproposer) :**
+- [item 6] `en.json` `casVitrines` : 5 résidus FR traduits (`6 weeks`, `analysis`, `Telegram alerts`, `signal analysis`, `enrichment`).
+- [item 12] CTA home « Voir la démo » → « Réserver une démo » (4 langues) — libellé honnête, mène toujours à `/rendez-vous`.
+- [item 3] Ressource `demarrer-claude-code` : CTA final « Parler à Paul » (`#gate`) → « Réserver 15 min avec Paul » (`/rendez-vous?source=ressource-demarrer`).
+- [item 4] Route morte `src/app/[lang]/audit-claude-code` SUPPRIMÉE (301 → `/audit` conservé dans `next.config.ts`).
+- [item 11] `layout.tsx` JSON-LD réaligné sur les 3 offres canoniques (Transformation IA/`croissance` · Agent IA·Sprint agentique/`deployer` · Formation agentique/`transmettre`) + La Veille, `url` par offre ; « Sprint à impact »/« Operating Partner » supprimés. TRUTH §7 → home = `HomeDeux`.
+
+**Vérifié NON-défaut (ne rien faire) :**
+- [item 5] `setup-claude-code`/`remote`/`glossaire` = landings SEO/GEO volontaires (rendent `LandingPage`, atteignables par recherche/ads). Les garder au sitemap sert le GEO ; le seul manque = un lien humain, couvert par le footer unifié (item 2) le jour où il existe.
+- [items 7/8] EN des offres (`OfferPage`) relu = correct (`<b>-40%</b> processing time…`). « OPCO » n'apparaît que dans le JSON-LD/llms (exact) et `/os-classic` (noindex). Pas de reformulation nécessaire.
+
+**Backlog RESTANT (nécessite Paul ou un vrai lot design/i18n) :**
+1+2. [conversion P0 / compliance P1 — DESIGN + DONNÉES PAUL] **Footer unifié + légal.** Aujourd'hui chaque page a un `<footer>` bespoke (HomeDeux `hd-cta`, etc.) et AUCUN composant partagé → un footer global doublerait l'existant : c'est une refonte (unifier les footers en un `SiteFooter` avec liens 3 offres + Ressources + Blog + RDV, ce qui règle aussi la nav des offres et relie `glossaire`). Le volet **mentions légales + politique RGPD** exige les données d'immatriculation (SIREN, RCS, capital, directeur de publication, hébergeur=Vercel) → **à fournir par Paul** avant de publier une page légale (pas de placeholder en prod).
+9. [i18n P1] Catalogue d'agents (`catalog.json`) rendu en FR sur /en·pt·zh. Lot de traduction (`catalog.json` multilingue ou dictionnaire).
+10. [DA — DÉCISION PAUL] Palette : app TRUTH §6.3 (`#F5F8FF`/`#161616`/`#AA0003`) vs canon design-system + ressources statiques (`#FFFDFA`/`#0C0C0D`/`#D1132F`). Deux DA sur le même domaine. Trancher le canon, puis harmoniser.
