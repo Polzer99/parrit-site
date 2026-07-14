@@ -435,6 +435,17 @@ export default function HomeDeux({
           <Link href={`/${lang}/os-classic`}>{t.ctaOld}</Link>
         </p>
       </footer>
+
+      <div className="hd-legal">
+        © {new Date().getFullYear()} SASU PARRIT.AI · Rueil-Malmaison ·{" "}
+        <Link href={`/${lang}/mentions-legales`}>
+          {lang === "fr" ? "Mentions légales" : "Legal notice"}
+        </Link>{" "}
+        ·{" "}
+        <Link href={`/${lang}/confidentialite`}>
+          {lang === "fr" ? "Confidentialité" : "Privacy"}
+        </Link>
+      </div>
     </main>
   );
 }
@@ -593,4 +604,7 @@ const CSS = `
   .hd-transfo-col.apres { border-left: 0; border-top: 1px solid var(--line); }
   .hd-transfo-arrow { display: none; }
 }
+.hd-legal { text-align: center; font-family: var(--font-mono); font-size: 12px; color: var(--muted); letter-spacing: .02em; padding: 24px 20px 40px; border-top: 1px solid var(--line); }
+.hd-legal a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.hd-legal a:hover { color: var(--ink); }
 `;

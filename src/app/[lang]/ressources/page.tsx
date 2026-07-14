@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import LegalFooterLine from "@/components/LegalFooterLine";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { hasLocale, locales } from "../dictionaries";
@@ -243,9 +244,7 @@ export default async function RessourcesPage({
       </main>
 
       <footer className="blog-footer">
-        <p className="footer-legal" style={{ marginTop: 40 }}>
-          © {new Date().getFullYear()} SASU PARRIT.AI · Rueil-Malmaison
-        </p>
+        <LegalFooterLine lang={lang} />
       </footer>
     </>
   );

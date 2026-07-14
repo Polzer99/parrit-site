@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import LegalFooterLine from "@/components/LegalFooterLine";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import QuickContact from "@/components/QuickContact";
@@ -137,9 +138,7 @@ export default async function RendezVous({
       </main>
 
       <footer className="blog-footer">
-        <p className="footer-legal">
-          © {new Date().getFullYear()} SASU PARRIT.AI · Rueil-Malmaison
-        </p>
+        <LegalFooterLine lang={lang} />
       </footer>
     </>
   );

@@ -327,6 +327,16 @@ export default function OfferPage({
             ))}
           </nav>
           <span className="mono">{copy.footer}</span>
+          <span className="mono" style={{ opacity: 0.7, display: "block", marginTop: 12 }}>
+            © {new Date().getFullYear()} SASU PARRIT.AI · Rueil-Malmaison ·{" "}
+            <a href={`/${lang}/mentions-legales`} style={{ textDecoration: "underline" }}>
+              {lang === "fr" ? "Mentions légales" : "Legal notice"}
+            </a>{" "}
+            ·{" "}
+            <a href={`/${lang}/confidentialite`} style={{ textDecoration: "underline" }}>
+              {lang === "fr" ? "Confidentialité" : "Privacy"}
+            </a>
+          </span>
         </footer>
       </div>
 
