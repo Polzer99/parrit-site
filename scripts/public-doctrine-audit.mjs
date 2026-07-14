@@ -6,14 +6,15 @@ const targets = ["src/app", "src/components", "src/lib", "content"];
 const extensions = new Set([".css", ".json", ".ts", ".tsx"]);
 const excludedPathFragments = [`src${path.sep}app${path.sep}api${path.sep}`];
 
+// NB pivot 2026 : « sur devis » est la formulation de prix public validée (cf. TRUTH.md §6.1)
+// et « pas des POC » est du positionnement anti-POC assumé — donc ni l'un ni l'autre n'est banni.
+// L'em dash reste interdit dans la COPIE mais toléré dans les commentaires de code (voir isCommentLine).
 const bannedPatterns = [
-  { label: "POC", regex: /\bPOCs?\b/iu },
   { label: "chatbot", regex: /\bchatbots?\b/iu },
   { label: "jours-homme", regex: /\bjours-homme\b/iu },
   { label: "prompt", regex: /\bprompts?\b/iu },
   { label: "experimentation", regex: /\bexp[ée]rimentations?\b/iu },
-  { label: "Sur devis", regex: /\bSur devis\b/iu },
-  { label: "em dash", regex: /—/u },
+  { label: "em dash", regex: /—/u, skipComments: true },
   { label: "retired font Hanken Grotesk", regex: /\bHanken Grotesk\b/iu },
   { label: "retired font JetBrains Mono", regex: /\bJetBrains Mono\b/iu },
   { label: "retired font DM Sans", regex: /\bDM Sans\b/iu },
@@ -74,8 +75,22 @@ async function auditFile(absolutePath, relativePath) {
   const content = await readFile(absolutePath, "utf8");
   const lines = content.split(/\r?\n/u);
 
+  const isCommentLine = (line) => {
+    const t = line.trim();
+    return (
+      t.startsWith("//") ||
+      t.startsWith("/*") ||
+      t.startsWith("*") ||
+      t.startsWith("{/*") ||
+      t.startsWith("<!--")
+    );
+  };
+
   lines.forEach((line, index) => {
     for (const pattern of bannedPatterns) {
+      if (pattern.skipComments && isCommentLine(line)) {
+        continue;
+      }
       if (pattern.regex.test(line)) {
         findings.push({
           file: relativePath,
