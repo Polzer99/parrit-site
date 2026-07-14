@@ -48,7 +48,7 @@
       "E-commerce, too many support tickets"
     ],
     "modalTitle": "Parrit",
-    "modalSubtitle": "Parrit.ai assistant : online",
+    "modalSubtitle": "Parrit.ai assistant: online",
     "close": "Close",
     "inputPlaceholder": "Write or speak...",
     "send": "Send",
@@ -85,7 +85,7 @@
         "bullets": [
           "Free initial diagnostic",
           "Fixed budget, clear scope, no hidden fees",
-          "Stage-based payment : you validate results before moving on",
+          "Stage-based payment: you validate results before moving on",
           "Fully transparent contract"
         ]
       },
@@ -95,9 +95,9 @@
         "recommendedBadge": "Recommended",
         "intro": "You make money, we invoice.",
         "bullets": [
-          "Labor savings : share of the cost actually saved",
-          "Sales uplift : share of the incremental revenue generated",
-          "Processing time cut : rate based on the efficiency gained"
+          "Labor savings: share of the cost actually saved",
+          "Sales uplift: share of the incremental revenue generated",
+          "Processing time cut: rate based on the efficiency gained"
         ],
         "footnote": "If the promised outcome isn't hit, the performance share isn't invoiced."
       }
@@ -156,7 +156,7 @@
         "badge": "LAW FIRM",
         "title": "Automated legal monitoring",
         "before": "2h/day scanning case law and press",
-        "after": "Email digest every Monday 7:30am : shipped in 8 days"
+        "after": "Email digest every Monday 7:30am: shipped in 8 days"
       },
       {
         "badge": "B2B MULTI-VERTICAL",
@@ -291,9 +291,9 @@
   },
   "blog": {
     "meta": {
-      "title": "Blog : Parrit.ai | AI, automation and digital transformation",
-      "description": "Articles on AI applied to enterprises. Automation, AI agents, SAP, CRM : by the founders of Parrit.ai.",
-      "ogTitle": "Blog : Parrit.ai",
+      "title": "Blog: Parrit.ai | AI, automation and digital transformation",
+      "description": "Articles on AI applied to enterprises. Automation, AI agents, SAP, CRM: by the founders of Parrit.ai.",
+      "ogTitle": "Blog: Parrit.ai",
       "ogDescription": "Articles on applied enterprise AI. Automation, AI agents, SAP.",
       "schemaDescription": "Articles on artificial intelligence applied to enterprises."
     },
@@ -311,9 +311,9 @@
   },
   "actualite": {
     "meta": {
-      "title": "AI News : Parrit.ai | Field analysis of AI models and tools",
+      "title": "AI News: Parrit.ai | Field analysis of AI models and tools",
       "description": "AI news analysis by Parrit.ai: open models, sovereignty, costs, concrete deployment and verifiable sources.",
-      "ogTitle": "AI News : Parrit.ai",
+      "ogTitle": "AI News: Parrit.ai",
       "ogDescription": "Field analysis of new AI models, their costs, limits and concrete use.",
       "schemaDescription": "News analysis on artificial intelligence models, tools and infrastructure."
     },
@@ -358,9 +358,9 @@
   },
   "auditClaudeCode": {
     "meta": {
-      "title": "Claude Code Audit : Parrit.ai | One day onsite, concrete action plan",
+      "title": "Claude Code Audit: Parrit.ai | One day onsite, concrete action plan",
       "description": "One-day onsite Claude Code audit. We map your workflows, identify three to five use cases with measurable ROI, and leave you with a prioritized action plan. Fixed fee, written deliverables, no day rate.",
-      "ogTitle": "Claude Code Audit : Parrit.ai",
+      "ogTitle": "Claude Code Audit: Parrit.ai",
       "ogDescription": "One day at your office to identify what Claude Code can unlock in your operations. No slides. No day rate. Action plan in hand.",
       "schemaDescription": "One-day Claude Code audit to identify use cases with measurable ROI in a company."
     },
@@ -371,7 +371,7 @@
       "label": "CLAUDE CODE AUDIT",
       "titleMain": "The audit",
       "titleAccent": "opens every mission.",
-      "quickAnswer": "A Claude Code audit is how every Parrit engagement starts. We come onsite for half a day to a full day, map your workflows with the operators who do the work, quantify three to five use cases with measurable ROI, and show you Claude Code live on one of your real cases. By end of day, you know what to tackle first : onsite Sprint, team Setup, production Automations, or Remote international format. The audit is included in the mission that follows. No slides. No day rate.",
+      "quickAnswer": "A Claude Code audit is how every Parrit engagement starts. We come onsite for half a day to a full day, map your workflows with the operators who do the work, quantify three to five use cases with measurable ROI, and show you Claude Code live on one of your real cases. By end of day, you know what to tackle first: onsite Sprint, team Setup, production Automations, or Remote international format. The audit is included in the mission that follows. No slides. No day rate.",
       "cta": "Book a call with Paul"
     },
     "audience": {
@@ -401,7 +401,7 @@
         {
           "n": "1",
           "title": "Map",
-          "desc": "Two hours with the operators who do the work to map the real workflows. No generic questionnaire : we look at what actually happens."
+          "desc": "Two hours with the operators who do the work to map the real workflows. No generic questionnaire: we look at what actually happens."
         },
         {
           "n": "2",
@@ -435,7 +435,7 @@
       "items": [
         {
           "q": "How much does it cost?",
-          "a": "The audit is included in the mission that follows. The overall engagement is priced either as a fixed fee (scope, schedule, written deliverables) or as outcome-based pay (a share of the actual gain : savings, incremental revenue, time recovered). You choose. If the outcome is not reached in the latter case, the variable part is not invoiced. No day rate, no surprises."
+          "a": "The audit is included in the mission that follows. The overall engagement is priced either as a fixed fee (scope, schedule, written deliverables) or as outcome-based pay (a share of the actual gain: savings, incremental revenue, time recovered). You choose. If the outcome is not reached in the latter case, the variable part is not invoiced. No day rate, no surprises."
         },
         {
           "q": "How long does it take?",
@@ -502,9 +502,9 @@
   },
   "sprint": {
     "meta": {
-      "title": "Audit, Configuration & Claude Code Sprint : Parrit.ai | 1 to 4 days, onsite or remote",
+      "title": "Audit, Configuration & Claude Code Sprint: Parrit.ai | 1 to 4 days, onsite or remote",
       "description": "Audit, Configuration & Claude Code Sprint of one to four days, onsite or remote. We code with your teams the workflow that unblocks operations. Operational system on exit. Fixed fee or outcome-based, no day rate.",
-      "ogTitle": "Audit, Configuration & Claude Code Sprint : Parrit.ai",
+      "ogTitle": "Audit, Configuration & Claude Code Sprint: Parrit.ai",
       "ogDescription": "One to four days, onsite or remote. We code with you, we leave when the system runs.",
       "schemaDescription": "Audit, Configuration & Claude Code Sprint of one to four days, onsite or remote, to deliver an operational system."
     },
@@ -566,9 +566,9 @@
       "items": [
         "Operational system deployed in your infrastructure, tested on your real data",
         "Git-versioned code, in your repository or ours depending on preference",
-        "Internal documentation : how it works, how to evolve it, how to debug it",
+        "Internal documentation: how it works, how to evolve it, how to debug it",
         "Your operators trained on the real case, not a theoretical example",
-        "Continuity plan : what we can industrialize next (Setup or Automations)"
+        "Continuity plan: what we can industrialize next (Setup or Automations)"
       ]
     },
     "faq": {
@@ -576,7 +576,7 @@
       "items": [
         {
           "q": "How much does it cost?",
-          "a": "Fixed fee or outcome-based pay : you choose. Fixed fee: scope, schedule, written deliverables. Outcome-based: a share of the actual gain (savings, incremental revenue, time recovered). If the outcome isn't reached in the latter case, the variable part isn't invoiced. No day rate, no surprises."
+          "a": "Fixed fee or outcome-based pay: you choose. Fixed fee: scope, schedule, written deliverables. Outcome-based: a share of the actual gain (savings, incremental revenue, time recovered). If the outcome isn't reached in the latter case, the variable part isn't invoiced. No day rate, no surprises."
         },
         {
           "q": "How long does it take?",
@@ -588,11 +588,11 @@
         },
         {
           "q": "What if we have no Git repo, no cloud infra?",
-          "a": "We set one up during the sprint. It's even a useful deliverable : your teams come out with a repeatable environment."
+          "a": "We set one up during the sprint. It's even a useful deliverable: your teams come out with a repeatable environment."
         },
         {
           "q": "Can we do the sprint without our operators available?",
-          "a": "No. The presence of two to three business operators during the sprint is non-negotiable : it's what makes the system actually run at your place after we leave."
+          "a": "No. The presence of two to three business operators during the sprint is non-negotiable: it's what makes the system actually run at your place after we leave."
         },
         {
           "q": "Difference from a classic consulting engagement?",
@@ -643,9 +643,9 @@
   },
   "setup": {
     "meta": {
-      "title": "Claude Code Setup for Your Teams : Parrit.ai | Configuration and autonomy",
+      "title": "Claude Code Setup for Your Teams: Parrit.ai | Configuration and autonomy",
       "description": "Full Claude Code setup for your teams: installation, configuration (CLAUDE.md, hooks, skills, MCP, business workflows), hands-on training. Your teams become autonomous. Fixed fee or outcome-based, no day rate.",
-      "ogTitle": "Claude Code Setup for Your Teams : Parrit.ai",
+      "ogTitle": "Claude Code Setup for Your Teams: Parrit.ai",
       "ogDescription": "Installation, configuration and enablement. Your teams take Claude Code in their own hands end-to-end.",
       "schemaDescription": "Full enterprise Claude Code setup: install, configure, train teams to autonomy."
     },
@@ -698,7 +698,7 @@
         {
           "n": "4",
           "title": "Documentation and handover",
-          "desc": "Internal docs delivered : how to evolve the setup, how to add a skill, how to debug. Transferable. Your teams take over."
+          "desc": "Internal docs delivered: how to evolve the setup, how to add a skill, how to debug. Transferable. Your teams take over."
         }
       ]
     },
@@ -708,9 +708,9 @@
         "Claude Code installed and configured in your infrastructure, to your security standards",
         "Full CLAUDE.md written for your business (vocabulary, constraints, processes, company memory)",
         "Custom skills and MCP connectors to your internal tools (CRM, ERP, files, business databases)",
-        "Security hooks (audit, redaction, allow/deny) : clean enterprise-grade version",
+        "Security hooks (audit, redaction, allow/deny): clean enterprise-grade version",
         "Complete internal documentation, transferable to a new hire",
-        "Your teams trained on their real cases : not a trade show demo"
+        "Your teams trained on their real cases: not a trade show demo"
       ]
     },
     "faq": {
@@ -718,7 +718,7 @@
       "items": [
         {
           "q": "How much does it cost?",
-          "a": "Fixed fee or outcome-based pay : you choose. The fixed fee depends on the number of teams to equip, the scope of skills/MCP, and the level of docs expected. No day rate, no surprises."
+          "a": "Fixed fee or outcome-based pay: you choose. The fixed fee depends on the number of teams to equip, the scope of skills/MCP, and the level of docs expected. No day rate, no surprises."
         },
         {
           "q": "How long does it take?",
@@ -726,7 +726,7 @@
         },
         {
           "q": "Difference from a classic Claude Code training?",
-          "a": "Training teaches the tool. Setup delivers the tool configured for YOUR business. Your teams learn by using the environment they'll keep : not a sandbox."
+          "a": "Training teaches the tool. Setup delivers the tool configured for YOUR business. Your teams learn by using the environment they'll keep: not a sandbox."
         },
         {
           "q": "What about security and confidentiality?",
@@ -734,11 +734,11 @@
         },
         {
           "q": "Can we equip multiple teams at once?",
-          "a": "Yes. The config factors : a group CLAUDE.md plus team CLAUDE.md that override. The more teams, the better the ROI per seat."
+          "a": "Yes. The config factors: a group CLAUDE.md plus team CLAUDE.md that override. The more teams, the better the ROI per seat."
         },
         {
           "q": "What if we don't have a tech team?",
-          "a": "Setup is even more relevant : we configure an environment where your business operators can use Claude Code without permanent technical support. It's one of our typical cases."
+          "a": "Setup is even more relevant: we configure an environment where your business operators can use Claude Code without permanent technical support. It's one of our typical cases."
         },
         {
           "q": "Onsite or remote?",
@@ -785,9 +785,9 @@
   },
   "remote": {
     "meta": {
-      "title": "Claude Code Remote international : Parrit.ai | Audit, config, 3-5 automations remote",
+      "title": "Claude Code Remote international: Parrit.ai | Audit, config, 3-5 automations remote",
       "description": "Remote format for clients outside France. Claude Code audit, full configuration and three to five automations delivered fully remote. No travel, measurable ROI.",
-      "ogTitle": "Claude Code Remote international : Parrit.ai",
+      "ogTitle": "Claude Code Remote international: Parrit.ai",
       "ogDescription": "For clients outside France where onsite doesn't make sense. Audit + config + 3 to 5 automations, fully remote.",
       "schemaDescription": "Remote international format: Claude Code delivered remotely with audit, configuration and automations."
     },
@@ -795,7 +795,7 @@
       "label": "REMOTE INTERNATIONAL FORMAT",
       "titleMain": "Claude Code remote.",
       "titleAccent": "For clients outside France.",
-      "quickAnswer": "The Remote format is built for companies outside France where onsite travel doesn't make sense : US, UK, DACH, Asia, Brazil, Middle East. We deliver fully remote: Claude Code audit, full configuration in your infrastructure (CLAUDE.md, hooks, skills, MCP), three to five automations running in production. Video kickoff, screen sharing for build phases, complete documentation and recorded training. Fixed fee. No day rate. No travel to bill.",
+      "quickAnswer": "The Remote format is built for companies outside France where onsite travel doesn't make sense: US, UK, DACH, Asia, Brazil, Middle East. We deliver fully remote: Claude Code audit, full configuration in your infrastructure (CLAUDE.md, hooks, skills, MCP), three to five automations running in production. Video kickoff, screen sharing for build phases, complete documentation and recorded training. Fixed fee. No day rate. No travel to bill.",
       "cta": "Book a call with Paul"
     },
     "audience": {
@@ -811,7 +811,7 @@
         },
         {
           "role": "Distributed full-remote teams",
-          "desc": "No central office. We adapt the format to your rhythm and timezone : we come back on video when needed."
+          "desc": "No central office. We adapt the format to your rhythm and timezone: we come back on video when needed."
         },
         {
           "role": "Investors / scout funds equipping their portfolio",
@@ -825,7 +825,7 @@
         {
           "n": "1",
           "title": "Video kickoff (1 hour)",
-          "desc": "Quick scoping on video : your stack, workflows, constraints, the three to five target automations. We validate the scope."
+          "desc": "Quick scoping on video: your stack, workflows, constraints, the three to five target automations. We validate the scope."
         },
         {
           "n": "2",
@@ -851,7 +851,7 @@
         "Three to five automations running in production on your real use cases",
         "Git-versioned code, in your repository",
         "Complete internal documentation, in English and your team's working language",
-        "Loom training videos per automation : new hires onboard self-service",
+        "Loom training videos per automation: new hires onboard self-service",
         "Thirty days of post-delivery support by email/video for adjustments"
       ]
     },
@@ -871,12 +871,12 @@
           "a": "Europe, US East/West, Brazil and Asia depending on the week. We sync on two to three fixed slots per week. Async work happens via Slack or equivalent."
         },
         {
-          "q": "Security : do you access our code/data?",
-          "a": "You stay in control. We configure security hooks from day one: audit logs, redaction, allow/deny. Build sessions are screen-shared on your machine : code and data don't leave your side."
+          "q": "Security: do you access our code/data?",
+          "a": "You stay in control. We configure security hooks from day one: audit logs, redaction, allow/deny. Build sessions are screen-shared on your machine: code and data don't leave your side."
         },
         {
           "q": "What languages do you operate in?",
-          "a": "French, English and Brazilian Portuguese fluently. Docs and Loom videos are delivered in the working language of the user team : usually English for international remote."
+          "a": "French, English and Brazilian Portuguese fluently. Docs and Loom videos are delivered in the working language of the user team: usually English for international remote."
         },
         {
           "q": "We tried Claude Code in-house and it didn't stick. Why would it work with you?",
@@ -895,7 +895,7 @@
         {
           "kind": "Continuous production",
           "title": "Automations",
-          "desc": "You spot more workflows that need to run 24/7. We industrialize at fixed fee per deliverable : still remote."
+          "desc": "You spot more workflows that need to run 24/7. We industrialize at fixed fee per deliverable: still remote."
         },
         {
           "kind": "France / Europe",
@@ -910,7 +910,7 @@
         {
           "kind": "First step",
           "title": "Claude Code Audit",
-          "desc": "If we haven't talked yet, the video kickoff acts as the audit : it's included in the Remote format."
+          "desc": "If we haven't talked yet, the video kickoff acts as the audit: it's included in the Remote format."
         }
       ]
     },
@@ -956,7 +956,7 @@
   },
   "casVitrines": {
     "meta": {
-      "title": "Showcase cases : Parrit.ai",
+      "title": "Showcase cases: Parrit.ai",
       "description": "Four company profiles, four transformations operated by Parrit: small business, growing B2C brand, consulting firm, enterprise."
     },
     "homeSection": {

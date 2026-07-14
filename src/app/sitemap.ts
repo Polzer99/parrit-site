@@ -25,6 +25,7 @@ const STATIC_ROUTES = [
   { path: "/transmettre", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/setup-claude-code", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/remote", changeFrequency: "monthly" as const, priority: 0.85 },
+  { path: "/rendez-vous", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
   { path: "/launches", changeFrequency: "weekly" as const, priority: 0.85 },
   { path: "/actualite", changeFrequency: "weekly" as const, priority: 0.8 },
