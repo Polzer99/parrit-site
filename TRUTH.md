@@ -59,13 +59,13 @@ Surfaces produit sur le site : `/[lang]` (home = `HomeDeux.tsx`, catalogue agent
 4. **Polices** : Geist pour body/heading (`--font-body`, `--font-heading`) · Geist Mono pour labels/chips/coords (`--font-mono`). Interdits : DM Sans, Cormorant comme typo de page, Hanken Grotesk, JetBrains Mono.
 5. **Jamais d'appel runtime à `*.vercel.app`** dans une livraison (le site EST sur Vercel — ça vise les ressources chargées au runtime).
 6. **Pas de tiret cadratin**, pas de superlatifs creux.
-7. **i18n** : 4 langues `fr · en · pt-BR · zh-CN`. Éditer une langue = répliquer dans les 4 (home `HomeClient.tsx` DICT). Pages hors `[lang]` (academy/fondateurs/outils) = FR.
+7. **i18n** : 4 langues `fr · en · pt-BR · zh-CN`. Éditer une langue = répliquer dans les 4 (home `HomeDeux.tsx` DICT). Pages hors `[lang]` (academy/fondateurs/outils) = FR.
 8. **Déploiement** : push `main` → CD Vercel. Jamais de merge prod sans les **3 feux** (review APPROVE + CD/batterie vert + Paul a COMPRIS) — RÈGLES-DOR §22/§25.
 
 ## 7. Architecture du site (où agir)
 
 - Stack : Next.js 16 / React 19 / TS / Tailwind v4, Vercel, 4 langues. Analytics **PostHog** (`eu.i.posthog.com`, autocapture + session replay).
-- Home = `src/app/[lang]/HomeClient.tsx` (~95 % du site ; contenu inline dans `DICT`, un bloc par langue).
+- Home = `src/app/[lang]/HomeDeux.tsx` (contenu inline dans `DICT`, un bloc par langue). `HomeClient.tsx` ne sert plus que `/os-classic` (noindex).
 - Landing pages partagées : `src/components/LandingPage.tsx` + `src/app/[lang]/dictionaries/*.json`.
 - Capture lead : `src/components/QuickContact.tsx` + `/api/chat` (chatbot Groq) + `/api/chat/lead` → webhook n8n `parrit-lead`.
 - Garde-fous avant push : `scripts/contrast-audit.py` (WCAG) + skill `qa-playwright`. Toujours `npm run build` (4 langues SSG).

@@ -150,11 +150,12 @@ export default async function LocaleLayout({
       },
       {
         "@type": "Service",
-        "@id": `${SITE_URL}/#audit-transformation-ia`,
-        name: "Audit de transformation IA",
-        serviceType: "Diagnostic de transformation IA",
+        "@id": `${SITE_URL}/#transformation-ia`,
+        name: "Transformation IA",
+        serviceType: "Transformation IA · Operating Partner",
+        url: `${SITE_URL}/fr/croissance`,
         description:
-          "Point d'entrée Parrit pour cartographier les processus, identifier les workflows à fort impact et prioriser les agents IA à déployer.",
+          "Accompagnement Operating Partner pour cartographier les processus, prioriser les workflows à fort impact et transformer l'entreprise avec des agents IA dans la durée.",
         provider: { "@id": `${SITE_URL}/#organization` },
         areaServed: "FR",
         audience: {
@@ -164,29 +165,21 @@ export default async function LocaleLayout({
       },
       {
         "@type": "Service",
-        "@id": `${SITE_URL}/#sprint-impact`,
-        name: "Sprint à impact",
-        serviceType: "Sprint agentique",
-        description:
-          "Format phare pour transformer un workflow critique en système agentique utilisable.",
-        provider: { "@id": `${SITE_URL}/#organization` },
-        areaServed: "FR",
-      },
-      {
-        "@type": "Service",
-        "@id": `${SITE_URL}/#deploiement-agents-ia`,
-        name: "Déploiement d'agents IA",
+        "@id": `${SITE_URL}/#agent-ia`,
+        name: "Agent IA · Sprint agentique",
         serviceType: "Déploiement de systèmes agentiques",
+        url: `${SITE_URL}/fr/deployer`,
         description:
-          "Déploiement d'agents IA en production, connectés aux outils métier et opérés avec garde-fous.",
+          "Un agent en production, connecté aux outils métier et opéré avec garde-fous : un workflow critique transformé en système agentique utilisable.",
         provider: { "@id": `${SITE_URL}/#organization` },
         areaServed: "FR",
       },
       {
         "@type": "Service",
         "@id": `${SITE_URL}/#formation-agentique`,
-        name: "Formation à l'utilisation agentique (non-tech)",
+        name: "Formation agentique (non-tech)",
         serviceType: "Formation IA non-tech",
+        url: `${SITE_URL}/fr/transmettre`,
         description:
           "Formation non-tech finançable OPCO pour rendre les équipes autonomes sur Claude Code, Codex et les outils agentiques.",
         provider: { "@id": `${SITE_URL}/#organization` },
@@ -194,11 +187,11 @@ export default async function LocaleLayout({
       },
       {
         "@type": "Service",
-        "@id": `${SITE_URL}/#operating-partner`,
-        name: "Accompagnement · Operating Partner",
-        serviceType: "Accompagnement Operating Partner IA",
+        "@id": `${SITE_URL}/#la-veille`,
+        name: "La Veille",
+        serviceType: "Veille agentique · produit d'appel",
         description:
-          "Accompagnement Operating Partner pour gouverner, maintenir et faire évoluer les agents IA dans la durée.",
+          "Produit d'appel Parrit : un agent qui scanne chaque matin les signaux stratégiques de votre marché et vous les remonte, point d'entrée vers la transformation.",
         provider: { "@id": `${SITE_URL}/#organization` },
         areaServed: "FR",
       },
