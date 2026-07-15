@@ -16,6 +16,13 @@ const CLIENT_LOGOS: { alt: string; src: string; cn?: boolean }[] = [
   { alt: "Carte Noire", src: "/brand/client-logos/logo-7.png", cn: true },
 ];
 
+// Preuve terrain : vraies photos d'ateliers / masterclass / plénières (ordre = terrainCaps).
+const TERRAIN_PHOTOS = [
+  "/brand/terrain/atelier-cartographie.jpg",
+  "/brand/terrain/masterclass-acculturation.jpg",
+  "/brand/terrain/pleniere-prise-parole.jpg",
+];
+
 type Offer = {
   n: string;
   eyebrow: string;
@@ -35,7 +42,17 @@ type HomeCopy = {
   lede: string;
   ctaHire: string;
   ctaDemo: string;
+  changeEyebrow: string;
+  changeH: string;
+  changeSub: string;
+  changeAvant: string;
+  changeApres: string;
+  changeRows: { cas: string; avant: string; apres: string }[];
   trust: string;
+  terrainEyebrow: string;
+  terrainH: string;
+  terrainP: string;
+  terrainCaps: string[];
   catEyebrow: string;
   catH2: string;
   catSub: string;
@@ -71,7 +88,23 @@ const DICT: Record<Locale, HomeCopy> = {
     lede: "Des collaborateurs virtuels avec une fiche de poste, un périmètre, des accès limités et un responsable humain. Ils tournent sur vos workflows, pas dans un deck.",
     ctaHire: "Embaucher un agent",
     ctaDemo: "Réserver une démo",
+    changeEyebrow: "Avant / Après",
+    changeH: "Concrètement, ce que ça change.",
+    changeSub: "Des cas réels, déjà en production. Avant, après.",
+    changeAvant: "Avant",
+    changeApres: "Après",
+    changeRows: [
+      { cas: "CRM agentique · Commercial", avant: "CRM rempli à la main, puis oublié.", apres: "Mis à jour tout seul, à chaque échange." },
+      { cas: "Veille · Direction", avant: "Sources dispersées, des heures par semaine.", apres: "Un seul mail condensé, chaque matin." },
+      { cas: "Operating system · Cabinet d'avocats", avant: "Mails, agenda et documents en gestes manuels.", apres: "Un système prépare tout — validation humaine." },
+      { cas: "Pilotage · Ouverture de franchises", avant: "Chaque ouverture suivie dans des tableurs.", apres: "Un outil centralise toutes les ouvertures." },
+      { cas: "Claude Code · Marque DTC", avant: "Produit et tech au rythme d'allers-retours lents.", apres: "L'équipe livre elle-même, chaque semaine." },
+    ],
     trust: "Déjà en production chez",
+    terrainEyebrow: "Sur le terrain",
+    terrainH: "On déploie avec vos équipes, pas à distance.",
+    terrainP: "Cartographie des workflows, acculturation, prise de parole : on installe l'IA au contact de vos équipes, dans vos murs.",
+    terrainCaps: ["Cartographie de workflow · atelier", "Masterclass d'acculturation", "Prise de parole · plénière"],
     catEyebrow: "Catalogue",
     catH2: "Pas des slides. Des agents qui tournent en production.",
     catSub: "Des profils prêts à entrer dans vos opérations : acquisition, veille, données, contenu, support et pilotage. Chaque cas décrit un agent réel, déjà en production.",
@@ -109,7 +142,23 @@ const DICT: Record<Locale, HomeCopy> = {
     lede: "Virtual coworkers with a job description, a scope, limited access and a human manager. They run on your real workflows, not in a deck.",
     ctaHire: "Hire an agent",
     ctaDemo: "Book a demo",
+    changeEyebrow: "Before / After",
+    changeH: "Concretely, what changes.",
+    changeSub: "Real cases, already in production. Before, after.",
+    changeAvant: "Before",
+    changeApres: "After",
+    changeRows: [
+      { cas: "Agentic CRM · Sales", avant: "CRM filled by hand, then forgotten.", apres: "Updated on its own, after every exchange." },
+      { cas: "Monitoring · Leadership", avant: "Scattered sources, hours every week.", apres: "One condensed email, every morning." },
+      { cas: "Operating system · Law firm", avant: "Email, calendar and documents handled by hand.", apres: "A system prepares it all — human sign-off." },
+      { cas: "Steering · Franchise openings", avant: "Every opening tracked in scattered spreadsheets.", apres: "One tool centralizes every opening." },
+      { cas: "Claude Code · DTC brand", avant: "Product and tech stuck on slow back-and-forth.", apres: "The team ships on its own, every week." },
+    ],
     trust: "Already in production at",
+    terrainEyebrow: "On the ground",
+    terrainH: "We deploy with your teams, not from a distance.",
+    terrainP: "Workflow mapping, upskilling, speaking: we install AI next to your teams, on your premises.",
+    terrainCaps: ["Workflow mapping · workshop", "Upskilling masterclass", "Keynote · plenary"],
     catEyebrow: "Catalog",
     catH2: "Not slides. Agents running in production.",
     catSub: "Profiles ready to step into your operations: acquisition, monitoring, data, content, support and steering. Each case describes a real agent, already in production.",
@@ -147,7 +196,23 @@ const DICT: Record<Locale, HomeCopy> = {
     lede: "Colaboradores virtuais com uma descrição de cargo, um perímetro, acessos limitados e um responsável humano. Eles rodam nos seus fluxos de trabalho reais, não num slide.",
     ctaHire: "Recrutar um agente",
     ctaDemo: "Agendar uma demo",
+    changeEyebrow: "Antes / Depois",
+    changeH: "Concretamente, o que muda.",
+    changeSub: "Casos reais, já em produção. Antes, depois.",
+    changeAvant: "Antes",
+    changeApres: "Depois",
+    changeRows: [
+      { cas: "CRM agêntico · Comercial", avant: "CRM preenchido à mão e depois esquecido.", apres: "Atualizado sozinho, a cada interação." },
+      { cas: "Monitoramento · Direção", avant: "Fontes dispersas, horas por semana.", apres: "Um único e-mail condensado, toda manhã." },
+      { cas: "Operating system · Escritório de advocacia", avant: "E-mails, agenda e documentos em gestos manuais.", apres: "Um sistema prepara tudo — validação humana." },
+      { cas: "Pilotagem · Abertura de franquias", avant: "Cada abertura acompanhada em planilhas dispersas.", apres: "Uma ferramenta centraliza todas as aberturas." },
+      { cas: "Claude Code · Marca DTC", avant: "Produto e tech no ritmo de idas e vindas lentas.", apres: "A equipe entrega sozinha, toda semana." },
+    ],
     trust: "Já em produção na",
+    terrainEyebrow: "No terreno",
+    terrainH: "Implantamos com suas equipes, não à distância.",
+    terrainP: "Mapeamento de fluxos, capacitação, palestras: instalamos a IA junto das suas equipes, na sua empresa.",
+    terrainCaps: ["Mapeamento de fluxo · workshop", "Masterclass de capacitação", "Palestra · plenária"],
     catEyebrow: "Catálogo",
     catH2: "Nada de slides. Agentes rodando em produção.",
     catSub: "Perfis prontos para entrar nas suas operações: aquisição, monitoramento, dados, conteúdo, suporte e gestão. Cada caso descreve um agente real, já em produção.",
@@ -185,7 +250,23 @@ const DICT: Record<Locale, HomeCopy> = {
     lede: "拥有岗位职责、明确边界、受限权限和人类负责人的虚拟同事。它们运行在你真实的工作流上，而不是在演示文稿里。",
     ctaHire: "招募一个智能体",
     ctaDemo: "预约演示",
+    changeEyebrow: "之前 / 之后",
+    changeH: "具体改变了什么。",
+    changeSub: "真实案例，已在生产环境运行。之前，之后。",
+    changeAvant: "之前",
+    changeApres: "之后",
+    changeRows: [
+      { cas: "智能体 CRM · 商务", avant: "CRM 靠手动填写，然后被遗忘。", apres: "每次往来后自动更新。" },
+      { cas: "情报监测 · 管理层", avant: "信息源分散，每周耗费数小时。", apres: "每天早晨一封浓缩邮件。" },
+      { cas: "Operating system · 律师事务所", avant: "邮件、日程与文档全靠手动处理。", apres: "系统全部备好——人工把关。" },
+      { cas: "统筹 · 门店加盟开设", avant: "每家门店开设散落在各种表格里跟踪。", apres: "一个工具集中管理所有开设进度。" },
+      { cas: "Claude Code · DTC 品牌", avant: "产品与技术卡在缓慢的来回沟通上。", apres: "团队每周自己交付。" },
+    ],
     trust: "已在以下公司投入生产",
+    terrainEyebrow: "在一线",
+    terrainH: "我们和你的团队一起部署，而不是远程交付。",
+    terrainP: "梳理工作流、团队培训、现场分享：我们在你的团队身边、在你的办公室里落地 AI。",
+    terrainCaps: ["工作流梳理 · 工作坊", "团队培训 masterclass", "主题分享 · 全体会议"],
     catEyebrow: "目录",
     catH2: "不是幻灯片，而是真正在生产环境运行的智能体。",
     catSub: "随时可以进入你运营的角色：获客、监测、数据、内容、支持与统筹。每个案例都是一个真实、已在生产环境运行的智能体。",
@@ -217,26 +298,19 @@ const DICT: Record<Locale, HomeCopy> = {
   },
 };
 
-function AgentCard({ group, moreLabel }: { group: AgentGroup; moreLabel: (list: string) => string }) {
+function AgentCard({ group }: { group: AgentGroup }) {
+  const agentCase = group.cases[0];
   return (
     <article className="hd-agent">
       <div className="hd-agent-top">
-        <p className="hd-agent-label">{group.persona.label}</p>
-        <h3 className="hd-agent-name">{group.persona.name}</h3>
+        <h3 className="hd-agent-fn">{group.persona.label}</h3>
       </div>
-      <ul className="hd-agent-cases">
-        {group.cases.map((agentCase) => (
-          <li className="hd-agent-case" key={agentCase.id}>
-            <span className="hd-case-title">{agentCase.title}</span>
-            <span className="hd-case-desc">{agentCase.desc}</span>
-            <span className="hd-case-meta">{agentCase.sector}</span>
-          </li>
-        ))}
-      </ul>
-      {group.extraCases.length > 0 && (
-        <p className="hd-agent-more">
-          {moreLabel(group.extraCases.map((agentCase) => agentCase.title).join(", "))}
-        </p>
+      {agentCase && (
+        <div className="hd-agent-case">
+          <span className="hd-case-title">{agentCase.title}</span>
+          <span className="hd-case-desc">{agentCase.desc}</span>
+          <span className="hd-case-meta">{agentCase.sector}</span>
+        </div>
       )}
     </article>
   );
@@ -254,7 +328,7 @@ export default function HomeDeux({
   const t = DICT[lang] ?? DICT.fr;
   const featured = posts[0];
   const rest = posts.slice(1, 5);
-  const catalog = getCatalog({ perDept: 3, lang });
+  const catalog = getCatalog({ perDept: 1, lang });
   return (
     <main className="hd">
       <style>{CSS}</style>
@@ -278,6 +352,26 @@ export default function HomeDeux({
         </div>
       </header>
 
+      {/* ===== AVANT / APRES (preuve concrete, cas reels) ===== */}
+      <section className="hd-change" aria-labelledby="hd-change-h">
+        <div className="hd-change-head">
+          <p className="hd-eyebrow">{t.changeEyebrow}</p>
+          <h2 id="hd-change-h" className="hd-h2">{t.changeH}</h2>
+          <p className="hd-change-sub">{t.changeSub}</p>
+        </div>
+        <div className="hd-change-table">
+          {t.changeRows.map((r) => (
+            <div className="hd-change-row" key={r.cas}>
+              <p className="hd-change-cas">{r.cas}</p>
+              <div className="hd-change-pair">
+                <span className="hd-change-cell avant">{r.avant}</span>
+                <span className="hd-change-cell apres">{r.apres}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ===== TRUST ===== */}
       <section className="hd-trust" aria-label={t.trust}>
         <p className="hd-trust-lab">{t.trust}</p>
@@ -298,10 +392,28 @@ export default function HomeDeux({
         </div>
         <div className="hd-agent-grid">
           {catalog.groups.map((group) => (
-            <AgentCard group={group} moreLabel={t.agentMore} key={group.persona.key} />
+            <AgentCard group={group} key={group.persona.key} />
           ))}
         </div>
         <p className="hd-catalog-foot">{t.catFoot(catalog.deployedCount)}</p>
+      </section>
+
+      {/* ===== SUR LE TERRAIN (preuve d'execution, vraies photos) ===== */}
+      <section className="hd-terrain" aria-labelledby="hd-terrain-h">
+        <div className="hd-terrain-head">
+          <p className="hd-eyebrow">{t.terrainEyebrow}</p>
+          <h2 id="hd-terrain-h" className="hd-h2">{t.terrainH}</h2>
+          <p className="hd-terrain-sub">{t.terrainP}</p>
+        </div>
+        <div className="hd-terrain-grid">
+          {TERRAIN_PHOTOS.map((src, i) => (
+            <figure className="hd-terrain-item" key={src}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="hd-terrain-photo" src={src} alt={t.terrainCaps[i]} loading="lazy" />
+              <figcaption className="hd-terrain-cap">{t.terrainCaps[i]}</figcaption>
+            </figure>
+          ))}
+        </div>
       </section>
 
       {/* ===== OFFRES (sans prix sur la home, detailles sur chaque page offre) ===== */}
@@ -455,6 +567,30 @@ const CSS = `
 .hd-lede { max-width: 620px; margin: 26px auto 0; font-family: var(--font-mono); font-size: 15px; line-height: 1.65; color: var(--muted); }
 .hd-hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
 
+/* AVANT / APRES (preuve concrete) */
+.hd-change { max-width: 1060px; margin: 0 auto; padding: 60px 24px 58px; }
+.hd-change-head { text-align: center; max-width: 640px; margin: 0 auto 34px; }
+.hd-change-sub { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 14px auto 0; }
+.hd-change-table { border: 1px solid var(--line); }
+.hd-change-row { padding: 18px 24px 19px; }
+.hd-change-row + .hd-change-row { border-top: 1px solid var(--line); }
+.hd-change-cas { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--red); margin: 0 0 11px; }
+.hd-change-pair { display: grid; grid-template-columns: 1fr 1fr; align-items: baseline; }
+.hd-change-cell { font-family: var(--font-mono); font-size: 14px; line-height: 1.5; }
+.hd-change-cell.avant { color: var(--muted); padding-right: 24px; }
+.hd-change-cell.apres { color: var(--ink); font-weight: 500; position: relative; padding-left: 28px; }
+.hd-change-cell.apres::before { content: "→"; position: absolute; left: 0; color: var(--red); font-weight: 600; }
+
+/* SUR LE TERRAIN (vraies photos) */
+.hd-terrain { max-width: 1120px; margin: 0 auto; padding: 66px 24px 24px; border-top: 1px solid var(--line); }
+.hd-terrain-head { max-width: 720px; margin: 0 auto 34px; text-align: center; }
+.hd-terrain-sub { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 16px auto 0; max-width: 620px; }
+.hd-terrain-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); }
+.hd-terrain-item { min-width: 0; margin: 0; display: flex; flex-direction: column; }
+.hd-terrain-item + .hd-terrain-item { border-left: 1px solid var(--line); }
+.hd-terrain-photo { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center; }
+.hd-terrain-cap { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 14px 18px 16px; border-top: 1px solid var(--line); }
+
 /* TRUST */
 .hd-trust { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 32px 24px; }
 .hd-trust-lab { color: var(--faint); font-family: var(--font-mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; text-align: center; margin: 0 0 24px; }
@@ -467,18 +603,14 @@ const CSS = `
 .hd-catalog { max-width: 1180px; margin: 0 auto; padding: 72px 24px 24px; }
 .hd-catalog-head { max-width: 720px; margin: 0 auto 38px; text-align: center; }
 .hd-catalog-sub { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 16px auto 0; max-width: 660px; }
-.hd-agent-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); }
-.hd-agent { min-width: 0; display: flex; flex-direction: column; background: var(--bg); }
-.hd-agent + .hd-agent { border-left: 1px solid var(--line); }
-.hd-agent-top { display: flex; flex-direction: column; gap: 6px; justify-content: flex-end; min-height: 88px; padding: 22px 20px 18px; border-bottom: 1px solid var(--line); }
-.hd-agent-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin: 0 0 8px; }
-.hd-agent-name { font-family: var(--font-body); font-size: clamp(24px, 2.4vw, 32px); line-height: 1; font-weight: 600; letter-spacing: -0.04em; margin: 0; }
-.hd-agent-cases { list-style: none; margin: 0; padding: 0; }
-.hd-agent-case { padding: 17px 20px 18px; border-bottom: 1px solid var(--line); }
-.hd-case-title { display: block; font-family: var(--font-body); font-size: 17px; line-height: 1.15; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 7px; }
-.hd-case-desc { display: block; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; color: var(--muted); margin: 0 0 10px; }
-.hd-case-meta { display: inline-block; max-width: 100%; font-family: var(--font-mono); font-size: 10px; letter-spacing: .09em; text-transform: uppercase; color: var(--red); background: var(--tint); padding: 4px 7px; overflow-wrap: anywhere; }
-.hd-agent-more { font-family: var(--font-mono); font-size: 11.5px; line-height: 1.5; color: var(--faint); margin: auto 0 0; padding: 16px 20px 18px; }
+.hd-agent-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 1fr; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.hd-agent { min-width: 0; display: flex; flex-direction: column; background: var(--bg); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.hd-agent-top { display: flex; flex-direction: column; justify-content: flex-end; min-height: 60px; padding: 20px 20px 16px; border-bottom: 1px solid var(--line); }
+.hd-agent-fn { font-family: var(--font-body); font-size: 20px; line-height: 1.12; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.hd-agent-case { flex: 1; display: flex; flex-direction: column; padding: 18px 20px 20px; }
+.hd-case-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--font-body); font-size: 16px; line-height: 1.2; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 8px; min-height: 2.4em; }
+.hd-case-desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; color: var(--muted); margin: 0 0 14px; }
+.hd-case-meta { align-self: flex-start; margin-top: auto; max-width: 100%; font-family: var(--font-mono); font-size: 10px; letter-spacing: .09em; text-transform: uppercase; color: var(--red); background: var(--tint); padding: 4px 7px; overflow-wrap: anywhere; }
 .hd-catalog-foot { font-family: var(--font-mono); font-size: 12px; line-height: 1.5; color: var(--muted); text-align: center; margin: 22px auto 0; }
 
 /* PRIX */
@@ -568,22 +700,22 @@ const CSS = `
   .hd-grid { grid-template-columns: 1fr; }
   .hd-pilier + .hd-pilier { border-left: 0; border-top: 1px solid var(--line); }
   .hd-agent-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .hd-agent + .hd-agent { border-left: 0; }
-  .hd-agent:nth-child(2n) { border-left: 1px solid var(--line); }
-  .hd-agent:nth-child(n+3) { border-top: 1px solid var(--line); }
   .hd-price-grid { grid-template-columns: 1fr; }
   .hd-price + .hd-price { border-left: 0; border-top: 1px solid var(--line); }
   .hd-launch-grid { grid-template-columns: 1fr; }
   .hd-transfos-grid { grid-template-columns: 1fr; }
   .hd-art-list { border-left: 0; border-top: 1px solid var(--line); }
   .hd-veille-inner { grid-template-columns: 1fr; }
+  .hd-terrain-grid { grid-template-columns: 1fr; }
+  .hd-terrain-item + .hd-terrain-item { border-left: 0; border-top: 1px solid var(--line); }
+  .hd-terrain-photo { aspect-ratio: 16 / 10; }
 }
 @media (max-width: 520px) {
+  .hd-change-pair { grid-template-columns: 1fr; gap: 9px; }
+  .hd-change-cell.avant { padding-right: 0; }
   .hd-hero { padding-top: 58px; }
   .hd-h1 { font-size: clamp(36px, 13vw, 52px); }
   .hd-agent-grid { grid-template-columns: 1fr; }
-  .hd-agent:nth-child(2n) { border-left: 0; }
-  .hd-agent:nth-child(n+2) { border-top: 1px solid var(--line); }
   .hd-agent-top { padding: 20px 18px 16px; }
   .hd-transfo { grid-template-columns: 1fr; }
   .hd-transfo-col.apres { border-left: 0; border-top: 1px solid var(--line); }
