@@ -358,34 +358,14 @@ export default function HomeDeux({
         </h1>
         <p className="hd-lede">{t.lede}</p>
         <div className="hd-hero-cta">
-          <Link className="hd-btn primary hd-cta" href={`/${lang}/rendez-vous?source=home-hire-agent`}>
+          <Link className="hd-btn primary hd-act" href={`/${lang}/rendez-vous?source=home-hire-agent`}>
             {t.ctaHire} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
-          <Link className="hd-btn ghost hd-cta" href={`/${lang}/rendez-vous?source=home-demo`}>
+          <Link className="hd-btn ghost hd-act" href={`/${lang}/rendez-vous?source=home-demo`}>
             {t.ctaDemo} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
         </div>
       </header>
-
-      {/* ===== AVANT / APRES (preuve concrete, cas reels) ===== */}
-      <section className="hd-change" data-reveal aria-labelledby="hd-change-h">
-        <div className="hd-change-head">
-          <p className="hd-eyebrow"><span className="hd-eyebrow-n">01</span> · {t.changeEyebrow}</p>
-          <h2 id="hd-change-h" className="hd-h2">{t.changeH}</h2>
-          <p className="hd-change-sub">{t.changeSub}</p>
-        </div>
-        <div className="hd-change-table">
-          {t.changeRows.map((r) => (
-            <div className="hd-change-row" key={r.cas}>
-              <p className="hd-change-cas">{r.cas}</p>
-              <div className="hd-change-pair">
-                <span className="hd-change-cell avant">{r.avant}</span>
-                <span className="hd-change-cell apres">{r.apres}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* ===== TRUST ===== */}
       <section className="hd-trust" data-reveal aria-label={t.trust}>
@@ -401,7 +381,7 @@ export default function HomeDeux({
       {/* ===== CATALOGUE ===== */}
       <section className="hd-catalog" id="catalogue-agents" data-reveal aria-labelledby="hd-catalog-h">
         <div className="hd-catalog-head">
-          <p className="hd-eyebrow"><span className="hd-eyebrow-n">02</span> · {t.catEyebrow}</p>
+          <p className="hd-eyebrow"><span className="hd-eyebrow-n">01</span> · {t.catEyebrow}</p>
           <h2 id="hd-catalog-h" className="hd-h2">{t.catH2}</h2>
           <p className="hd-catalog-sub">{t.catSub}</p>
         </div>
@@ -412,7 +392,7 @@ export default function HomeDeux({
         </div>
         <p className="hd-catalog-foot">{t.catFoot(catalog.deployedCount)}</p>
         <div className="hd-catalog-cta">
-          <Link className="hd-btn primary hd-cta" href={`/${lang}/rendez-vous?source=home-catalog`}>
+          <Link className="hd-btn primary hd-act" href={`/${lang}/rendez-vous?source=home-catalog`}>
             {t.catCta} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
         </div>
@@ -421,7 +401,7 @@ export default function HomeDeux({
       {/* ===== SUR LE TERRAIN (preuve d'execution, vraies photos) ===== */}
       <section className="hd-terrain" data-reveal aria-labelledby="hd-terrain-h">
         <div className="hd-terrain-head">
-          <p className="hd-eyebrow"><span className="hd-eyebrow-n">03</span> · {t.terrainEyebrow}</p>
+          <p className="hd-eyebrow"><span className="hd-eyebrow-n">02</span> · {t.terrainEyebrow}</p>
           <h2 id="hd-terrain-h" className="hd-h2">{t.terrainH}</h2>
           <p className="hd-terrain-sub">{t.terrainP}</p>
         </div>
@@ -432,6 +412,26 @@ export default function HomeDeux({
               <img className="hd-terrain-photo" src={src} alt={t.terrainCaps[i]} loading="lazy" />
               <figcaption className="hd-terrain-cap">{t.terrainCaps[i]}</figcaption>
             </figure>
+          ))}
+        </div>
+      </section>
+
+      {/* ===== AVANT / APRES (preuve concrete, cas reels) ===== */}
+      <section className="hd-change" data-reveal aria-labelledby="hd-change-h">
+        <div className="hd-change-head">
+          <p className="hd-eyebrow"><span className="hd-eyebrow-n">03</span> · {t.changeEyebrow}</p>
+          <h2 id="hd-change-h" className="hd-h2">{t.changeH}</h2>
+          <p className="hd-change-sub">{t.changeSub}</p>
+        </div>
+        <div className="hd-change-table">
+          {t.changeRows.map((r) => (
+            <div className="hd-change-row" key={r.cas}>
+              <p className="hd-change-cas">{r.cas}</p>
+              <div className="hd-change-pair">
+                <span className="hd-change-cell avant">{r.avant}</span>
+                <span className="hd-change-cell apres">{r.apres}</span>
+              </div>
+            </div>
           ))}
         </div>
       </section>
@@ -477,7 +477,7 @@ export default function HomeDeux({
             <p className="hd-veille-p">{t.veilleP}</p>
           </div>
           <div className="hd-veille-action">
-            <Link className="hd-btn onink hd-cta" href={`/${lang}/rendez-vous`}>{t.veilleCta} <span className="hd-cta-arrow" aria-hidden="true">→</span></Link>
+            <Link className="hd-btn onink hd-act" href={`/${lang}/rendez-vous`}>{t.veilleCta} <span className="hd-cta-arrow" aria-hidden="true">→</span></Link>
           </div>
         </div>
       </section>
@@ -489,7 +489,7 @@ export default function HomeDeux({
             <p className="hd-eyebrow"><span className="hd-eyebrow-n">05</span> · {t.transEyebrow}</p>
             <h2 id="hd-transfos-h" className="hd-h2">{t.transH2}</h2>
             <p className="hd-transfos-sub">{t.transSub}</p>
-            <Link className="hd-btn primary hd-cta" href={`/${lang}/blog`}>
+            <Link className="hd-btn primary hd-act" href={`/${lang}/blog`}>
               {t.transCta} <span className="hd-cta-arrow" aria-hidden="true">→</span>
             </Link>
           </div>
@@ -516,7 +516,7 @@ export default function HomeDeux({
       <footer className="hd-cta" data-reveal>
         <h2 className="hd-cta-h">{t.ctaH}</h2>
         <p className="hd-cta-p">{t.ctaP}</p>
-        <Link className="hd-btn primary lg hd-cta" href={`/${lang}/rendez-vous?source=home-final-hire-agent`}>
+        <Link className="hd-btn primary lg hd-act" href={`/${lang}/rendez-vous?source=home-final-hire-agent`}>
           {t.ctaHire} <span className="hd-cta-arrow" aria-hidden="true">→</span>
         </Link>
       </footer>
@@ -616,12 +616,10 @@ const CSS = `
 .hd-case-meta { align-self: flex-start; margin-top: auto; max-width: 100%; font-family: var(--font-mono); font-size: 10px; letter-spacing: .09em; text-transform: uppercase; color: var(--red); background: var(--tint); padding: 4px 7px; overflow-wrap: anywhere; }
 .hd-catalog-foot { font-family: var(--font-mono); font-size: 12px; line-height: 1.5; color: var(--muted); text-align: center; margin: 22px auto 0; }
 .hd-catalog-cta { display: flex; justify-content: center; margin: 24px 0 0; }
-.hd-cta { display: inline-flex; align-items: center; gap: 9px; }
-.hd-cta::before { content: "["; opacity: .5; }
-.hd-cta::after { content: "]"; opacity: .5; }
-.hd-cta .hd-cta-arrow { transition: transform .2s ease; }
-.hd-cta:hover .hd-cta-arrow { transform: translateX(4px); }
-.hd-catalog-cta .hd-cta, .hd-transfos-cta .hd-cta { padding: 15px 28px; font-size: 14.5px; }
+.hd-act { display: inline-flex; align-items: center; gap: 9px; }
+.hd-act .hd-cta-arrow { transition: transform .2s ease; }
+.hd-act:hover .hd-cta-arrow { transform: translateX(3px); }
+.hd-catalog-cta .hd-act, .hd-transfos-cta .hd-act { padding: 15px 28px; font-size: 14.5px; }
 /* eyebrow numérotée (façon Denem) */
 .hd-eyebrow-n { color: var(--muted); }
 /* hovers plus marqués */
