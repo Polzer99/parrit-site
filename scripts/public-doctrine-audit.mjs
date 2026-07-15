@@ -19,6 +19,9 @@ const bannedPatterns = [
   { label: "retired font JetBrains Mono", regex: /\bJetBrains Mono\b/iu },
   { label: "retired font DM Sans", regex: /\bDM Sans\b/iu },
   { label: "retired font Cormorant", regex: /\bCormorant\b/iu },
+  { label: "deprecated palette cream #F5F8FF", regex: /#F5F8FF/iu },
+  { label: "deprecated palette ink #161616", regex: /#161616/iu },
+  { label: "deprecated palette red #AA0003", regex: /#AA0003/iu },
 ];
 
 const findings = [];

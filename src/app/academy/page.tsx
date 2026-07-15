@@ -145,15 +145,15 @@ export default function AcademyPage() {
         <section className="landing-v4-section">
           <h2 className="landing-v4-section-title">Le modèle</h2>
           <div className="landing-v4-grid">
-            <div className="landing-v4-card" style={{ boxShadow: "4px 4px 0 #AA0003" }}>
+            <div className="landing-v4-card" style={{ boxShadow: "4px 4px 0 #D1132F" }}>
               <p className="landing-v4-card-title">Gratuit</p>
               <p className="landing-v4-card-desc">Les 10 premiers modules. Sans compte, sans carte. De quoi te lancer pour de vrai.</p>
             </div>
-            <div className="landing-v4-card" style={{ boxShadow: "4px 4px 0 #161616" }}>
+            <div className="landing-v4-card" style={{ boxShadow: "4px 4px 0 #0C0C0D" }}>
               <p className="landing-v4-card-title">Abonné</p>
               <p className="landing-v4-card-desc">Tous les modules suivants, et les nouveaux qui sortent chaque semaine.</p>
             </div>
-            <div className="landing-v4-card" style={{ boxShadow: "4px 4px 0 #AA0003" }}>
+            <div className="landing-v4-card" style={{ boxShadow: "4px 4px 0 #D1132F" }}>
               <p className="landing-v4-card-title">Sur-mesure</p>
               <p className="landing-v4-card-desc">Paul craque TON sujet et te tourne la vidéo tuto. Sur mesure.</p>
             </div>

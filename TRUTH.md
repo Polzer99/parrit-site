@@ -55,7 +55,7 @@ Surfaces produit sur le site : `/[lang]` (home = `HomeDeux.tsx`, catalogue agent
 
 1. **Prix** : depuis le pivot 2026, les offres sont **sur devis** (périmètre et prix cadrés après diagnostic) et **la home n'affiche AUCUN prix**. Interdit : ré-afficher les anciens prix fermes (Sprint 5 000 €, Abonnement 99 €/mois, Évolution 250 €/h) — ils sont retirés. Pas de devis personnalisé hors propale privée, pas de promesse de ROI garanti. « sur devis » est la formulation validée pour le prix public.
 2. **Pas de noms de clients** en texte (anonymisé ; mur de logos visuel autorisé, override Paul `BRAND.md §6`).
-3. **Palette stricte** : fond `#F5F8FF` · encre `#161616` · sombre `#2E2D2B` · rouge `#AA0003` · terracotta rare `#C67C60` · muted `#6E7079`. Interdits : crème `#FEFDF9`, ancien rouge `#D1132F`, ancienne encre `#0C0C0D`, violet, brun, néo-brutalisme.
+3. **Palette stricte (canon design-system, validé Paul 14/07)** : crème chaud `#FFFDFA` · encre `#0C0C0D` · rouge `#D1132F` · terracotta rare `#C67C60` · muted `#6E7079`. Interdits (périmés, bloqués par `qa:doctrine`) : ancien fond froid `#F5F8FF`, ancienne encre `#161616`, ancien rouge `#AA0003`, violet, brun. Variables `:root` de `globals.css` = source unique ; ne pas coder ces hex en dur.
 4. **Polices** : Geist pour body/heading (`--font-body`, `--font-heading`) · Geist Mono pour labels/chips/coords (`--font-mono`). Interdits : DM Sans, Cormorant comme typo de page, Hanken Grotesk, JetBrains Mono.
 5. **Jamais d'appel runtime à `*.vercel.app`** dans une livraison (le site EST sur Vercel — ça vise les ressources chargées au runtime).
 6. **Pas de tiret cadratin**, pas de superlatifs creux.

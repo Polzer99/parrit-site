@@ -268,7 +268,7 @@ export default function DiagnosticClient() {
 
 const CSS = `
 .dg-root{
-  --creme:#F5F8FF; --encre:#161616; --rouge:#AA0003; --rouge-soft:rgba(170,0,3,.07);
+  --creme:#FFFDFA; --encre:#0C0C0D; --rouge:#D1132F; --rouge-soft:rgba(170,0,3,.07);
   --muted:#6c6c70; --border:rgba(20,20,26,.14);
   --serif:var(--font-body),system-ui,sans-serif; --body:var(--font-body),system-ui,sans-serif; --mono:var(--font-mono),monospace;
   display:block; max-width:1080px; margin:0 auto; padding:22px 18px 48px; font-family:var(--body); color:var(--encre);

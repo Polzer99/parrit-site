@@ -349,7 +349,7 @@ export default async function Page({
               borderRadius: 999,
               fontSize: 14,
               fontWeight: 600,
-              color: "#F5F8FF",
+              color: "#FFFDFA",
               background: "var(--parrit-red)",
               textDecoration: "none",
             }}

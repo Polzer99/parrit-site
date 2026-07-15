@@ -31,14 +31,14 @@ function looksLikeEmail(v: string): boolean {
   return /\S+@\S+\.\S+/.test(v.trim());
 }
 function colorFor(s: number): string {
-  if (s >= 56) return "#AA0003";
+  if (s >= 56) return "#D1132F";
   if (s >= 31) return "#6E7079";
-  return "#161616";
+  return "#0C0C0D";
 }
 function arcColorFor(s: number): string {
-  if (s >= 56) return "#AA0003";
+  if (s >= 56) return "#D1132F";
   if (s >= 31) return "#7a7a7d";
-  return "#161616";
+  return "#0C0C0D";
 }
 
 type PostHog = {
@@ -134,11 +134,11 @@ function Verdict({ result }: { result: Result }) {
                 y1="100"
                 x2="100"
                 y2="34"
-                stroke="#161616"
+                stroke="#0C0C0D"
                 strokeWidth="3.5"
                 strokeLinecap="round"
               />
-              <circle cx="100" cy="100" r="7" fill="#161616" />
+              <circle cx="100" cy="100" r="7" fill="#0C0C0D" />
             </g>
           </svg>
           <div className="bsd-gnum" style={{ color: colorFor(result.score) }}>
@@ -433,7 +433,7 @@ export default function DetecteurClient() {
 
 const CSS = `
 .bsd-root{
-  --creme:#F5F8FF; --encre:#161616; --rouge:#AA0003; --rouge-h:#8A0203;
+  --creme:#FFFDFA; --encre:#0C0C0D; --rouge:#D1132F; --rouge-h:#8A0203;
   --rouge-soft:rgba(170,0,3,.07); --muted:#6E7079; --border:rgba(20,20,26,.12);
   --serif:var(--font-body),system-ui,sans-serif; --body:var(--font-body),system-ui,sans-serif; --mono:var(--font-mono),monospace;
   display:block; max-width:1080px; margin:0 auto; padding:24px 18px 56px;
