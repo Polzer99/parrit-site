@@ -2,51 +2,51 @@
   "_doc": "Catalogue public des agents Parrit, organise par FONCTION METIER. Meme schema que le registre du deck (client-decks). Source de verite du site (home + llms.txt). Champ client interne retire. Ordre = personas[].order. Ajouter un cas = 1 entree cases[].",
   "personas": {
     "commercial": {
-      "name": "Mei",
+      "name": "Mateo",
       "label": "Commercial & Ventes",
-      "img": "chloe.png",
+      "img": "friendly/commercial.png",
       "order": 1
     },
     "marketing": {
-      "name": "Lian",
+      "name": "Ava",
       "label": "Marketing & Contenu",
-      "img": "amelie.png",
+      "img": "friendly/marketing.png",
       "order": 2
     },
     "relation-client": {
-      "name": "Hui",
+      "name": "Priya",
       "label": "Relation client & SAV",
-      "img": "nadia.png",
+      "img": "friendly/relation-client.png",
       "order": 3
     },
     "finance": {
-      "name": "Wei",
+      "name": "Kenji",
       "label": "Finance & Gestion",
-      "img": "lucas.png",
+      "img": "friendly/finance.png",
       "order": 4
     },
     "rh": {
-      "name": "Kai",
+      "name": "Amara",
       "label": "RH & Formation",
-      "img": "karim.png",
+      "img": "friendly/rh.png",
       "order": 5
     },
     "juridique": {
-      "name": "Gengis",
+      "name": "Noah",
       "label": "Juridique & Conformité",
-      "img": "julien.png",
+      "img": "friendly/juridique.png",
       "order": 6
     },
     "operations": {
-      "name": "Youku",
+      "name": "Yuki",
       "label": "Opérations & Supply",
-      "img": "thomas.png",
+      "img": "friendly/operations.png",
       "order": 7
     },
     "direction": {
-      "name": "Baoluo",
+      "name": "Omar",
       "label": "Direction & Pilotage",
-      "img": "marc.png",
+      "img": "friendly/direction.png",
       "order": 8
     }
   },

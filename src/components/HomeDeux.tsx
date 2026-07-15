@@ -85,7 +85,7 @@ const DICT: Record<Locale, HomeCopy> = {
     h1a: "Passez de l'IA qui discute à l'IA qui ",
     h1red: "agit",
     h1b: ".",
-    lede: "Vos partenaires d'exploitation IA, à la demande. On installe des agents qui travaillent dans vos workflows — vous gardez la main, ils font le travail.",
+    lede: "Vos partenaires d'exploitation IA, à la demande. On installe des agents qui travaillent dans vos workflows. Vous gardez la main, ils font le travail.",
     ctaHire: "Embaucher un agent",
     ctaDemo: "Réserver une démo",
     changeEyebrow: "Avant / Après",
@@ -96,7 +96,7 @@ const DICT: Record<Locale, HomeCopy> = {
     changeRows: [
       { cas: "CRM agentique · Commercial", avant: "CRM rempli à la main, puis oublié.", apres: "Mis à jour tout seul, à chaque échange." },
       { cas: "Veille · Direction", avant: "Sources dispersées, des heures par semaine.", apres: "Un seul mail condensé, chaque matin." },
-      { cas: "Operating system · Cabinet d'avocats", avant: "Mails, agenda et documents en gestes manuels.", apres: "Un système prépare tout — validation humaine." },
+      { cas: "Operating system · Cabinet d'avocats", avant: "Mails, agenda et documents en gestes manuels.", apres: "Un système prépare tout, vous validez." },
       { cas: "Pilotage · Ouverture de franchises", avant: "Chaque ouverture suivie dans des tableurs.", apres: "Un outil centralise toutes les ouvertures." },
       { cas: "Claude Code · Marque DTC", avant: "Produit et tech au rythme d'allers-retours lents.", apres: "L'équipe livre elle-même, chaque semaine." },
     ],
@@ -139,7 +139,7 @@ const DICT: Record<Locale, HomeCopy> = {
     h1a: "Go from AI that talks to AI that ",
     h1red: "acts",
     h1b: ".",
-    lede: "Your AI operating partners, on demand. We put agents to work inside your workflows — you keep control, they do the work.",
+    lede: "Your AI operating partners, on demand. We put agents to work inside your workflows. You keep control, they do the work.",
     ctaHire: "Hire an agent",
     ctaDemo: "Book a demo",
     changeEyebrow: "Before / After",
@@ -150,7 +150,7 @@ const DICT: Record<Locale, HomeCopy> = {
     changeRows: [
       { cas: "Agentic CRM · Sales", avant: "CRM filled by hand, then forgotten.", apres: "Updated on its own, after every exchange." },
       { cas: "Monitoring · Leadership", avant: "Scattered sources, hours every week.", apres: "One condensed email, every morning." },
-      { cas: "Operating system · Law firm", avant: "Email, calendar and documents handled by hand.", apres: "A system prepares it all — human sign-off." },
+      { cas: "Operating system · Law firm", avant: "Email, calendar and documents handled by hand.", apres: "A system prepares it all, you sign off." },
       { cas: "Steering · Franchise openings", avant: "Every opening tracked in scattered spreadsheets.", apres: "One tool centralizes every opening." },
       { cas: "Claude Code · DTC brand", avant: "Product and tech stuck on slow back-and-forth.", apres: "The team ships on its own, every week." },
     ],
@@ -193,7 +193,7 @@ const DICT: Record<Locale, HomeCopy> = {
     h1a: "Passe da IA que conversa para a IA que ",
     h1red: "age",
     h1b: ".",
-    lede: "Seus parceiros de operação em IA, sob demanda. Colocamos agentes para trabalhar nos seus fluxos — você mantém o controle, eles fazem o trabalho.",
+    lede: "Seus parceiros de operação em IA, sob demanda. Colocamos agentes para trabalhar nos seus fluxos. Você mantém o controle, eles fazem o trabalho.",
     ctaHire: "Recrutar um agente",
     ctaDemo: "Agendar uma demo",
     changeEyebrow: "Antes / Depois",
@@ -204,7 +204,7 @@ const DICT: Record<Locale, HomeCopy> = {
     changeRows: [
       { cas: "CRM agêntico · Comercial", avant: "CRM preenchido à mão e depois esquecido.", apres: "Atualizado sozinho, a cada interação." },
       { cas: "Monitoramento · Direção", avant: "Fontes dispersas, horas por semana.", apres: "Um único e-mail condensado, toda manhã." },
-      { cas: "Operating system · Escritório de advocacia", avant: "E-mails, agenda e documentos em gestos manuais.", apres: "Um sistema prepara tudo — validação humana." },
+      { cas: "Operating system · Escritório de advocacia", avant: "E-mails, agenda e documentos em gestos manuais.", apres: "Um sistema prepara tudo, você valida." },
       { cas: "Pilotagem · Abertura de franquias", avant: "Cada abertura acompanhada em planilhas dispersas.", apres: "Uma ferramenta centraliza todas as aberturas." },
       { cas: "Claude Code · Marca DTC", avant: "Produto e tech no ritmo de idas e vindas lentas.", apres: "A equipe entrega sozinha, toda semana." },
     ],
@@ -303,7 +303,12 @@ function AgentCard({ group }: { group: AgentGroup }) {
   return (
     <article className="hd-agent">
       <div className="hd-agent-top">
-        <h3 className="hd-agent-fn">{group.persona.label}</h3>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="hd-agent-face" src={group.persona.imageSrc} alt="" loading="lazy" />
+        <div className="hd-agent-id">
+          <h3 className="hd-agent-name">{group.persona.name}</h3>
+          <p className="hd-agent-fn">{group.persona.label}</p>
+        </div>
       </div>
       {agentCase && (
         <div className="hd-agent-case">
@@ -597,7 +602,7 @@ const CSS = `
 .hd-logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: clamp(26px, 5vw, 56px); max-width: 1000px; margin: 0 auto; }
 .hd-logos img { height: 28px; max-width: 130px; width: auto; object-fit: contain; filter: grayscale(1); opacity: .68; transition: opacity .2s, filter .2s; }
 .hd-logos img:hover { opacity: 1; filter: grayscale(0); }
-.hd-logos img.logo-cn { height: 48px; max-width: 190px; }
+.hd-logos img.logo-cn { height: 30px; max-width: 150px; }
 
 /* CATALOGUE */
 .hd-catalog { max-width: 1180px; margin: 0 auto; padding: 72px 24px 24px; }
@@ -605,8 +610,11 @@ const CSS = `
 .hd-catalog-sub { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 16px auto 0; max-width: 660px; }
 .hd-agent-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 1fr; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .hd-agent { min-width: 0; display: flex; flex-direction: column; background: var(--bg); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.hd-agent-top { display: flex; flex-direction: column; justify-content: flex-end; min-height: 60px; padding: 20px 20px 16px; border-bottom: 1px solid var(--line); }
-.hd-agent-fn { font-family: var(--font-body); font-size: 20px; line-height: 1.12; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.hd-agent-top { display: flex; align-items: center; gap: 13px; min-height: 84px; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+.hd-agent-face { flex: 0 0 46px; width: 46px; height: 46px; object-fit: cover; border: 1px solid var(--line); background: var(--bg); }
+.hd-agent-id { min-width: 0; }
+.hd-agent-name { font-family: var(--font-body); font-size: 19px; line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 5px; }
+.hd-agent-fn { font-family: var(--font-mono); font-size: 10.5px; line-height: 1.25; letter-spacing: .1em; text-transform: uppercase; color: var(--red); margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .hd-agent-case { flex: 1; display: flex; flex-direction: column; padding: 18px 20px 20px; }
 .hd-case-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--font-body); font-size: 16px; line-height: 1.2; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 8px; min-height: 2.4em; }
 .hd-case-desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; color: var(--muted); margin: 0 0 14px; }

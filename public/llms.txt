@@ -22,21 +22,21 @@ Trois offres, toutes sur devis (périmètre et prix cadrés après un diagnostic
 - Passation aux équipes et documentation.
 
 ## Catalogue public des agents
-- Content Factory (Lian, Marketing & Contenu) : articles + vidéos avatar produits chaque semaine, dans votre voix. Secteur : interne + clients.
-- Capture multicanal (Hui, Relation client & SAV) : WhatsApp, site, appel, formulaire regroupés → CRM + relance auto. Secteur : artisanat.
-- Facturation & suivi (Wei, Finance & Gestion) : factures émises, heures décomptées, relance des impayés automatisée. Secteur : services.
-- Formation agentique (Kai, RH & Formation) : session animée + toolkit : vos équipes deviennent autonomes. Secteur : cosmétique.
-- Orchestration des flux (Youku, Opérations & Supply) : commandes, stock, tâches répétitives enchaînés sans intervention. Secteur : e-commerce artisanal.
-- Veille juridique (Gengis, Juridique & Conformité) : signaux sur vos dossiers → filtre humain 1-clic → mail hebdo. Secteur : cabinet d'avocats.
-- Veille de marché (Baoluo, Direction & Pilotage) : digest personnalisé chaque lundi 8h, signaux faibles, angle sur-mesure. Secteur : direction / recherche de poste.
-- Acquisition signal-first (Mei, Commercial & Ventes) : signaux publics d'intention → séquences perso → RDV qualifiés, 24/7. Secteur : courtage énergie B2B.
-- Relance commerciale (Mei, Commercial & Ventes) : devis et prospects sans réponse relancés J+3/7/14, les oui remontés. Secteur : multi-secteurs.
-- Génération de visuels (Lian, Marketing & Contenu) : un brief en une phrase → visuel au gabarit de marque. Secteur : retail.
-- Sourcing par événements (Mei, Commercial & Ventes) : intervenants d'un salon extraits, enrichis, approchés par secteur. Secteur : interne Parrit.
-- Visibilité IA (GEO) (Lian, Marketing & Contenu) : l'IA d'Amazon recommande-t-elle votre marque ? mesure + correctifs. Secteur : grande conso.
-- Tri des réclamations (Hui, Relation client & SAV) : emails classés, urgences isolées, brouillon prêt à valider. Secteur : SAV B2B.
-- Interroger vos données (Wei, Finance & Gestion) : poser une question en français à un système métier ou un reporting. Secteur : ESN / outil interne.
-- Production express (Youku, Opérations & Supply) : un site ou un livrable propre généré et testé en une soirée. Secteur : interne réutilisable.
+- Content Factory (Ava, Marketing & Contenu) : articles + vidéos avatar produits chaque semaine, dans votre voix. Secteur : interne + clients.
+- Capture multicanal (Priya, Relation client & SAV) : WhatsApp, site, appel, formulaire regroupés → CRM + relance auto. Secteur : artisanat.
+- Facturation & suivi (Kenji, Finance & Gestion) : factures émises, heures décomptées, relance des impayés automatisée. Secteur : services.
+- Formation agentique (Amara, RH & Formation) : session animée + toolkit : vos équipes deviennent autonomes. Secteur : cosmétique.
+- Orchestration des flux (Yuki, Opérations & Supply) : commandes, stock, tâches répétitives enchaînés sans intervention. Secteur : e-commerce artisanal.
+- Veille juridique (Noah, Juridique & Conformité) : signaux sur vos dossiers → filtre humain 1-clic → mail hebdo. Secteur : cabinet d'avocats.
+- Veille de marché (Omar, Direction & Pilotage) : digest personnalisé chaque lundi 8h, signaux faibles, angle sur-mesure. Secteur : direction / recherche de poste.
+- Acquisition signal-first (Mateo, Commercial & Ventes) : signaux publics d'intention → séquences perso → RDV qualifiés, 24/7. Secteur : courtage énergie B2B.
+- Relance commerciale (Mateo, Commercial & Ventes) : devis et prospects sans réponse relancés J+3/7/14, les oui remontés. Secteur : multi-secteurs.
+- Génération de visuels (Ava, Marketing & Contenu) : un brief en une phrase → visuel au gabarit de marque. Secteur : retail.
+- Sourcing par événements (Mateo, Commercial & Ventes) : intervenants d'un salon extraits, enrichis, approchés par secteur. Secteur : interne Parrit.
+- Visibilité IA (GEO) (Ava, Marketing & Contenu) : l'IA d'Amazon recommande-t-elle votre marque ? mesure + correctifs. Secteur : grande conso.
+- Tri des réclamations (Priya, Relation client & SAV) : emails classés, urgences isolées, brouillon prêt à valider. Secteur : SAV B2B.
+- Interroger vos données (Kenji, Finance & Gestion) : poser une question en français à un système métier ou un reporting. Secteur : ESN / outil interne.
+- Production express (Yuki, Opérations & Supply) : un site ou un livrable propre généré et testé en une soirée. Secteur : interne réutilisable.
 
 ## La Veille
 La Veille est le produit d'appel : toutes les sources utiles d'un dirigeant ou d'une équipe condensées dans un mail exploitable, sans engagement lourd.
