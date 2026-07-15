@@ -358,11 +358,11 @@ export default function HomeDeux({
         </h1>
         <p className="hd-lede">{t.lede}</p>
         <div className="hd-hero-cta">
-          <Link className="hd-btn primary" href={`/${lang}/rendez-vous?source=home-hire-agent`}>
-            {t.ctaHire}
+          <Link className="hd-btn primary hd-cta" href={`/${lang}/rendez-vous?source=home-hire-agent`}>
+            {t.ctaHire} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
-          <Link className="hd-btn ghost" href={`/${lang}/rendez-vous?source=home-demo`}>
-            {t.ctaDemo}
+          <Link className="hd-btn ghost hd-cta" href={`/${lang}/rendez-vous?source=home-demo`}>
+            {t.ctaDemo} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
         </div>
       </header>
@@ -370,7 +370,7 @@ export default function HomeDeux({
       {/* ===== AVANT / APRES (preuve concrete, cas reels) ===== */}
       <section className="hd-change" data-reveal aria-labelledby="hd-change-h">
         <div className="hd-change-head">
-          <p className="hd-eyebrow">{t.changeEyebrow}</p>
+          <p className="hd-eyebrow"><span className="hd-eyebrow-n">01</span> · {t.changeEyebrow}</p>
           <h2 id="hd-change-h" className="hd-h2">{t.changeH}</h2>
           <p className="hd-change-sub">{t.changeSub}</p>
         </div>
@@ -401,7 +401,7 @@ export default function HomeDeux({
       {/* ===== CATALOGUE ===== */}
       <section className="hd-catalog" id="catalogue-agents" data-reveal aria-labelledby="hd-catalog-h">
         <div className="hd-catalog-head">
-          <p className="hd-eyebrow">{t.catEyebrow}</p>
+          <p className="hd-eyebrow"><span className="hd-eyebrow-n">02</span> · {t.catEyebrow}</p>
           <h2 id="hd-catalog-h" className="hd-h2">{t.catH2}</h2>
           <p className="hd-catalog-sub">{t.catSub}</p>
         </div>
@@ -412,7 +412,7 @@ export default function HomeDeux({
         </div>
         <p className="hd-catalog-foot">{t.catFoot(catalog.deployedCount)}</p>
         <div className="hd-catalog-cta">
-          <Link className="hd-btn primary hd-agent-cta" href={`/${lang}/rendez-vous?source=home-catalog`}>
+          <Link className="hd-btn primary hd-cta" href={`/${lang}/rendez-vous?source=home-catalog`}>
             {t.catCta} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
         </div>
@@ -421,7 +421,7 @@ export default function HomeDeux({
       {/* ===== SUR LE TERRAIN (preuve d'execution, vraies photos) ===== */}
       <section className="hd-terrain" data-reveal aria-labelledby="hd-terrain-h">
         <div className="hd-terrain-head">
-          <p className="hd-eyebrow">{t.terrainEyebrow}</p>
+          <p className="hd-eyebrow"><span className="hd-eyebrow-n">03</span> · {t.terrainEyebrow}</p>
           <h2 id="hd-terrain-h" className="hd-h2">{t.terrainH}</h2>
           <p className="hd-terrain-sub">{t.terrainP}</p>
         </div>
@@ -439,7 +439,7 @@ export default function HomeDeux({
       {/* ===== OFFRES (sans prix sur la home, detailles sur chaque page offre) ===== */}
       <section className="hd-pricing" id="offres" data-reveal aria-labelledby="hd-offers-h">
         <div className="hd-piliers-head">
-          <p className="hd-eyebrow">{t.offersEyebrow}</p>
+          <p className="hd-eyebrow"><span className="hd-eyebrow-n">04</span> · {t.offersEyebrow}</p>
           <h2 id="hd-offers-h" className="hd-h2">{t.offersH2}</h2>
         </div>
         <div className="hd-price-grid">
@@ -477,7 +477,7 @@ export default function HomeDeux({
             <p className="hd-veille-p">{t.veilleP}</p>
           </div>
           <div className="hd-veille-action">
-            <Link className="hd-btn onink" href={`/${lang}/rendez-vous`}>{t.veilleCta}</Link>
+            <Link className="hd-btn onink hd-cta" href={`/${lang}/rendez-vous`}>{t.veilleCta} <span className="hd-cta-arrow" aria-hidden="true">→</span></Link>
           </div>
         </div>
       </section>
@@ -486,10 +486,10 @@ export default function HomeDeux({
       {posts.length > 0 && (
         <section className="hd-transfos" data-reveal aria-labelledby="hd-transfos-h">
           <div className="hd-transfos-cta">
-            <p className="hd-eyebrow">{t.transEyebrow}</p>
+            <p className="hd-eyebrow"><span className="hd-eyebrow-n">05</span> · {t.transEyebrow}</p>
             <h2 id="hd-transfos-h" className="hd-h2">{t.transH2}</h2>
             <p className="hd-transfos-sub">{t.transSub}</p>
-            <Link className="hd-btn primary hd-agent-cta" href={`/${lang}/blog`}>
+            <Link className="hd-btn primary hd-cta" href={`/${lang}/blog`}>
               {t.transCta} <span className="hd-cta-arrow" aria-hidden="true">→</span>
             </Link>
           </div>
@@ -500,7 +500,7 @@ export default function HomeDeux({
       {launches.length > 0 && (
         <section className="hd-launches" data-reveal aria-labelledby="hd-launches-h">
           <div className="hd-launches-head">
-            <p className="hd-eyebrow">{t.launchEyebrow}</p>
+            <p className="hd-eyebrow"><span className="hd-eyebrow-n">06</span> · {t.launchEyebrow}</p>
             <h2 id="hd-launches-h" className="hd-h2">{t.launchH2}</h2>
             <Link href={`/${lang}/launches`} className="hd-launches-all">{t.allLaunches}</Link>
           </div>
@@ -516,8 +516,8 @@ export default function HomeDeux({
       <footer className="hd-cta" data-reveal>
         <h2 className="hd-cta-h">{t.ctaH}</h2>
         <p className="hd-cta-p">{t.ctaP}</p>
-        <Link className="hd-btn primary lg" href={`/${lang}/rendez-vous?source=home-final-hire-agent`}>
-          {t.ctaHire}
+        <Link className="hd-btn primary lg hd-cta" href={`/${lang}/rendez-vous?source=home-final-hire-agent`}>
+          {t.ctaHire} <span className="hd-cta-arrow" aria-hidden="true">→</span>
         </Link>
       </footer>
 
@@ -616,9 +616,17 @@ const CSS = `
 .hd-case-meta { align-self: flex-start; margin-top: auto; max-width: 100%; font-family: var(--font-mono); font-size: 10px; letter-spacing: .09em; text-transform: uppercase; color: var(--red); background: var(--tint); padding: 4px 7px; overflow-wrap: anywhere; }
 .hd-catalog-foot { font-family: var(--font-mono); font-size: 12px; line-height: 1.5; color: var(--muted); text-align: center; margin: 22px auto 0; }
 .hd-catalog-cta { display: flex; justify-content: center; margin: 24px 0 0; }
-.hd-agent-cta { display: inline-flex; align-items: center; gap: 10px; padding: 15px 30px; font-size: 14.5px; }
-.hd-agent-cta .hd-cta-arrow { transition: transform .2s ease; }
-.hd-agent-cta:hover .hd-cta-arrow { transform: translateX(4px); }
+.hd-cta { display: inline-flex; align-items: center; gap: 9px; }
+.hd-cta::before { content: "["; opacity: .5; }
+.hd-cta::after { content: "]"; opacity: .5; }
+.hd-cta .hd-cta-arrow { transition: transform .2s ease; }
+.hd-cta:hover .hd-cta-arrow { transform: translateX(4px); }
+.hd-catalog-cta .hd-cta, .hd-transfos-cta .hd-cta { padding: 15px 28px; font-size: 14.5px; }
+/* eyebrow numérotée (façon Denem) */
+.hd-eyebrow-n { color: var(--muted); }
+/* hovers plus marqués */
+.hd-pilier { transition: background .2s ease; }
+.hd-pilier:hover { background: var(--band); }
 
 /* PRIX */
 .hd-pricing { max-width: 1120px; margin: 0 auto; padding: 72px 24px 54px; }
