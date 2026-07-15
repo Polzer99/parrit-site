@@ -58,6 +58,7 @@ type HomeCopy = {
   catH2: string;
   catSub: string;
   catFoot: (count: number) => string;
+  catCta: string;
   agentMore: (list: string) => string;
   offersEyebrow: string;
   offersH2: string;
@@ -108,8 +109,9 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainCaps: ["Cartographie de workflow · atelier", "Masterclass d'acculturation", "Prise de parole · plénière"],
     catEyebrow: "Catalogue",
     catH2: "Pas des slides. Des agents qui tournent en production.",
-    catSub: "Des profils prêts à entrer dans vos opérations : acquisition, veille, données, contenu, support et pilotage. Chaque cas décrit un agent réel, déjà en production.",
-    catFoot: (count) => `${count} agents déjà en production. Ajouter un cas au catalogue le fait remonter ici.`,
+    catSub: "Des agents opérationnels sur vos fonctions clés, avec un périmètre défini, des accès encadrés et un responsable. Vous gardez le contrôle et la traçabilité.",
+    catFoot: (count) => `Déjà ${count} agents en production.`,
+    catCta: "Demandez votre agent",
     agentMore: (list) => `Aussi en production : ${list}.`,
     offersEyebrow: "Nos offres",
     offersH2: "Trois façons de mettre l'IA au travail chez vous.",
@@ -162,8 +164,9 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainCaps: ["Workflow mapping · workshop", "Upskilling masterclass", "Keynote · plenary"],
     catEyebrow: "Catalog",
     catH2: "Not slides. Agents running in production.",
-    catSub: "Profiles ready to step into your operations: acquisition, monitoring, data, content, support and steering. Each case describes a real agent, already in production.",
-    catFoot: (count) => `${count} agents already in production. Add a case to the catalog and it shows up here.`,
+    catSub: "Production-grade agents across your core functions, each with a defined scope, gated access and a named owner. You keep control and full auditability.",
+    catFoot: (count) => `${count} agents in production.`,
+    catCta: "Request your agent",
     agentMore: (list) => `Also in production: ${list}.`,
     offersEyebrow: "Our offers",
     offersH2: "Three ways to put AI to work inside your company.",
@@ -216,8 +219,9 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainCaps: ["Mapeamento de fluxo · workshop", "Masterclass de capacitação", "Palestra · plenária"],
     catEyebrow: "Catálogo",
     catH2: "Nada de slides. Agentes rodando em produção.",
-    catSub: "Perfis prontos para entrar nas suas operações: aquisição, monitoramento, dados, conteúdo, suporte e gestão. Cada caso descreve um agente real, já em produção.",
-    catFoot: (count) => `${count} agentes já em produção. Adicionar um caso ao catálogo o traz para cá.`,
+    catSub: "Agentes operacionais nas suas funções-chave, com perímetro definido, acessos controlados e um responsável. Você mantém o controle e a rastreabilidade.",
+    catFoot: (count) => `Já ${count} agentes em produção.`,
+    catCta: "Solicite o seu agente",
     agentMore: (list) => `Também em produção: ${list}.`,
     offersEyebrow: "Nossas ofertas",
     offersH2: "Três formas de colocar a IA para trabalhar na sua empresa.",
@@ -270,8 +274,9 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainCaps: ["工作流梳理 · 工作坊", "团队培训 masterclass", "主题分享 · 全体会议"],
     catEyebrow: "目录",
     catH2: "不是幻灯片，而是真正在生产环境运行的智能体。",
-    catSub: "随时可以进入你运营的角色：获客、监测、数据、内容、支持与统筹。每个案例都是一个真实、已在生产环境运行的智能体。",
-    catFoot: (count) => `${count} 个智能体已在生产环境运行。向目录添加一个案例，它就会出现在这里。`,
+    catSub: "覆盖你核心职能的可上岗智能体：边界清晰、权限受控、责任到人。你始终掌控全局，全程可追溯。",
+    catFoot: (count) => `已有 ${count} 个智能体在生产环境运行。`,
+    catCta: "申请你的智能体",
     agentMore: (list) => `同样在生产中：${list}。`,
     offersEyebrow: "我们的服务",
     offersH2: "让 AI 在你公司里干活的三种方式。",
@@ -403,6 +408,11 @@ export default function HomeDeux({
           ))}
         </div>
         <p className="hd-catalog-foot">{t.catFoot(catalog.deployedCount)}</p>
+        <div className="hd-catalog-cta">
+          <Link className="hd-btn primary hd-agent-cta" href={`/${lang}/rendez-vous?source=home-catalog`}>
+            {t.catCta} <span className="hd-cta-arrow" aria-hidden="true">→</span>
+          </Link>
+        </div>
       </section>
 
       {/* ===== SUR LE TERRAIN (preuve d'execution, vraies photos) ===== */}
@@ -596,7 +606,7 @@ const CSS = `
 .hd-change-row { padding: 18px 24px 19px; }
 .hd-change-row + .hd-change-row { border-top: 1px solid var(--line); }
 .hd-change-cas { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--red); margin: 0 0 11px; }
-.hd-change-pair { display: grid; grid-template-columns: 1fr 1fr; align-items: baseline; }
+.hd-change-pair { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }
 .hd-change-cell { font-family: var(--font-mono); font-size: 14px; line-height: 1.5; }
 .hd-change-cell.avant { color: var(--muted); padding-right: 24px; }
 .hd-change-cell.apres { color: var(--ink); font-weight: 500; position: relative; padding-left: 28px; }
@@ -636,6 +646,10 @@ const CSS = `
 .hd-case-desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; color: var(--muted); margin: 0 0 14px; }
 .hd-case-meta { align-self: flex-start; margin-top: auto; max-width: 100%; font-family: var(--font-mono); font-size: 10px; letter-spacing: .09em; text-transform: uppercase; color: var(--red); background: var(--tint); padding: 4px 7px; overflow-wrap: anywhere; }
 .hd-catalog-foot { font-family: var(--font-mono); font-size: 12px; line-height: 1.5; color: var(--muted); text-align: center; margin: 22px auto 0; }
+.hd-catalog-cta { display: flex; justify-content: center; margin: 24px 0 0; }
+.hd-agent-cta { display: inline-flex; align-items: center; gap: 10px; padding: 15px 30px; font-size: 14.5px; }
+.hd-agent-cta .hd-cta-arrow { transition: transform .2s ease; }
+.hd-agent-cta:hover .hd-cta-arrow { transform: translateX(4px); }
 
 /* PRIX */
 .hd-pricing { max-width: 1120px; margin: 0 auto; padding: 72px 24px 54px; }
