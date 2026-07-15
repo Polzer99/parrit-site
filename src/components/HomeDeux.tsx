@@ -1,4 +1,5 @@
 import Link from "next/link";
+import HomeMotion from "@/components/HomeMotion";
 import LaunchCard from "@/components/LaunchCard";
 import type { Locale } from "@/app/[lang]/dictionaries";
 import type { Launch } from "@/lib/launches";
@@ -337,6 +338,7 @@ export default function HomeDeux({
   return (
     <main className="hd">
       <style>{CSS}</style>
+      <HomeMotion />
 
       {/* ===== HERO ===== */}
       <header className="hd-hero">
@@ -358,7 +360,7 @@ export default function HomeDeux({
       </header>
 
       {/* ===== AVANT / APRES (preuve concrete, cas reels) ===== */}
-      <section className="hd-change" aria-labelledby="hd-change-h">
+      <section className="hd-change" data-reveal aria-labelledby="hd-change-h">
         <div className="hd-change-head">
           <p className="hd-eyebrow">{t.changeEyebrow}</p>
           <h2 id="hd-change-h" className="hd-h2">{t.changeH}</h2>
@@ -378,7 +380,7 @@ export default function HomeDeux({
       </section>
 
       {/* ===== TRUST ===== */}
-      <section className="hd-trust" aria-label={t.trust}>
+      <section className="hd-trust" data-reveal aria-label={t.trust}>
         <p className="hd-trust-lab">{t.trust}</p>
         <div className="hd-logos">
           {CLIENT_LOGOS.map((l) => (
@@ -389,7 +391,7 @@ export default function HomeDeux({
       </section>
 
       {/* ===== CATALOGUE ===== */}
-      <section className="hd-catalog" id="catalogue-agents" aria-labelledby="hd-catalog-h">
+      <section className="hd-catalog" id="catalogue-agents" data-reveal aria-labelledby="hd-catalog-h">
         <div className="hd-catalog-head">
           <p className="hd-eyebrow">{t.catEyebrow}</p>
           <h2 id="hd-catalog-h" className="hd-h2">{t.catH2}</h2>
@@ -404,7 +406,7 @@ export default function HomeDeux({
       </section>
 
       {/* ===== SUR LE TERRAIN (preuve d'execution, vraies photos) ===== */}
-      <section className="hd-terrain" aria-labelledby="hd-terrain-h">
+      <section className="hd-terrain" data-reveal aria-labelledby="hd-terrain-h">
         <div className="hd-terrain-head">
           <p className="hd-eyebrow">{t.terrainEyebrow}</p>
           <h2 id="hd-terrain-h" className="hd-h2">{t.terrainH}</h2>
@@ -422,7 +424,7 @@ export default function HomeDeux({
       </section>
 
       {/* ===== OFFRES (sans prix sur la home, detailles sur chaque page offre) ===== */}
-      <section className="hd-pricing" id="offres" aria-labelledby="hd-offers-h">
+      <section className="hd-pricing" id="offres" data-reveal aria-labelledby="hd-offers-h">
         <div className="hd-piliers-head">
           <p className="hd-eyebrow">{t.offersEyebrow}</p>
           <h2 id="hd-offers-h" className="hd-h2">{t.offersH2}</h2>
@@ -454,7 +456,7 @@ export default function HomeDeux({
       </section>
 
       {/* ===== PRODUIT D'APPEL - La Veille ===== */}
-      <section className="hd-veille" aria-labelledby="hd-veille-h">
+      <section className="hd-veille" data-reveal aria-labelledby="hd-veille-h">
         <div className="hd-veille-inner">
           <div className="hd-veille-text">
             <p className="hd-veille-eyebrow">{t.veilleEyebrow}</p>
@@ -469,7 +471,7 @@ export default function HomeDeux({
 
       {/* ===== TRANSFORMATIONS (blog reel) ===== */}
       {featured && (
-        <section className="hd-transfos" aria-labelledby="hd-transfos-h">
+        <section className="hd-transfos" data-reveal aria-labelledby="hd-transfos-h">
           <div className="hd-transfos-head">
             <p className="hd-eyebrow">{t.transEyebrow}</p>
             <h2 id="hd-transfos-h" className="hd-h2">{t.transH2}</h2>
@@ -517,7 +519,7 @@ export default function HomeDeux({
 
       {/* ===== LAUNCHES ===== */}
       {launches.length > 0 && (
-        <section className="hd-launches" aria-labelledby="hd-launches-h">
+        <section className="hd-launches" data-reveal aria-labelledby="hd-launches-h">
           <div className="hd-launches-head">
             <p className="hd-eyebrow">{t.launchEyebrow}</p>
             <h2 id="hd-launches-h" className="hd-h2">{t.launchH2}</h2>
@@ -532,7 +534,7 @@ export default function HomeDeux({
       )}
 
       {/* ===== CTA FINAL ===== */}
-      <footer className="hd-cta">
+      <footer className="hd-cta" data-reveal>
         <h2 className="hd-cta-h">{t.ctaH}</h2>
         <p className="hd-cta-p">{t.ctaP}</p>
         <Link className="hd-btn primary lg" href={`/${lang}/rendez-vous?source=home-final-hire-agent`}>
@@ -556,7 +558,21 @@ export default function HomeDeux({
 
 const CSS = `
 .hd { background: var(--bg); color: var(--ink); }
-.hd-btn { display: inline-block; font-family: var(--font-mono); font-size: 14px; font-weight: 500; letter-spacing: .02em; padding: 12px 24px; text-decoration: none; border: 1px solid transparent; }
+
+/* POLISH — reveal doux au scroll (progressive enhancement, gated .motion-ready) */
+.motion-ready [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+.motion-ready [data-reveal].is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .motion-ready [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; } }
+/* POLISH — micro-interactions léchées */
+.hd-agent { transition: background .25s ease; }
+.hd-agent:hover { background: var(--band); }
+.hd-terrain-item { overflow: hidden; }
+.hd-terrain-photo { transition: transform .6s cubic-bezier(.16,1,.3,1); }
+.hd-terrain-item:hover .hd-terrain-photo { transform: scale(1.035); }
+.hd-feat { transition: transform .25s ease; }
+
+.hd-btn { display: inline-block; font-family: var(--font-mono); font-size: 14px; font-weight: 500; letter-spacing: .02em; padding: 12px 24px; text-decoration: none; border: 1px solid transparent; transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease; }
+.hd-btn:hover { transform: translateY(-1px); }
 .hd-btn.primary { background: var(--ink); color: #fff; }
 .hd-btn.primary:hover { background: var(--red); }
 .hd-btn.ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
