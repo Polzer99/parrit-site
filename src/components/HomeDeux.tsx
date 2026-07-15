@@ -69,12 +69,12 @@ const DICT: Record<Locale, HomeCopy> = {
     h1red: "recrute des agents",
     h1b: " qui travaillent chez vous.",
     lede: "Des collaborateurs virtuels avec une fiche de poste, un périmètre, des accès limités et un responsable humain. Ils tournent sur vos workflows, pas dans un deck.",
-    ctaHire: "Embaucher un agent →",
+    ctaHire: "Embaucher un agent",
     ctaDemo: "Réserver une démo",
     trust: "Déjà en production chez",
     catEyebrow: "Catalogue",
     catH2: "Pas des slides. Des agents qui tournent en production.",
-    catSub: "Des profils prêts à entrer dans vos opérations : acquisition, veille, données, contenu, support et pilotage. Chaque cas vient du catalogue public, la source unique du site.",
+    catSub: "Des profils prêts à entrer dans vos opérations : acquisition, veille, données, contenu, support et pilotage. Chaque cas décrit un agent réel, déjà en production.",
     catFoot: (count) => `${count} agents déjà en production. Ajouter un cas au catalogue le fait remonter ici.`,
     agentMore: (list) => `Aussi en production : ${list}.`,
     offersEyebrow: "Nos offres",
@@ -86,9 +86,9 @@ const DICT: Record<Locale, HomeCopy> = {
       { n: "03", eyebrow: "Coaching", title: "On rend vos équipes autonomes.", desc: "On installe la stack, on déploie un premier agent avec vous, et chacun repart capable d'en construire d'autres.", points: ["Claude Code + Codex", "Ateliers hands-on", "Certification Qualiopi"], audience: "Pour la direction générale et les directions métier.", cta: "Découvrir le coaching", href: "transmettre" },
     ],
     veilleEyebrow: "Pour commencer · sans engagement",
-    veilleH: "La newsletter qui tue les newsletters.",
+    veilleH: "Votre veille, condensée dans un seul mail.",
     veilleP: "Toutes vos sources condensées dans un seul mail, à votre format. On nettoie votre boîte de réception, vous ne ratez plus rien. La porte d'entrée la plus simple pour voir ce qu'on sait faire.",
-    veilleCta: "Réserver ma veille →",
+    veilleCta: "Réserver ma veille",
     transEyebrow: "Cas d'usage",
     transH2: "Ce que l'IA change concrètement, métier par métier.",
     transSub: "Des situations qu'on sait prendre en charge, de la relance commerciale à la veille juridique, expliquées en détail : ce qu'on branche, et ce que ça change au quotidien.",
@@ -107,12 +107,12 @@ const DICT: Record<Locale, HomeCopy> = {
     h1red: "hire agents",
     h1b: " that work inside your company.",
     lede: "Virtual coworkers with a job description, a scope, limited access and a human manager. They run on your real workflows, not in a deck.",
-    ctaHire: "Hire an agent →",
+    ctaHire: "Hire an agent",
     ctaDemo: "Book a demo",
     trust: "Already in production at",
     catEyebrow: "Catalog",
     catH2: "Not slides. Agents running in production.",
-    catSub: "Profiles ready to step into your operations: acquisition, monitoring, data, content, support and steering. Every case comes from the public catalog, the site's single source of truth.",
+    catSub: "Profiles ready to step into your operations: acquisition, monitoring, data, content, support and steering. Each case describes a real agent, already in production.",
     catFoot: (count) => `${count} agents already in production. Add a case to the catalog and it shows up here.`,
     agentMore: (list) => `Also in production: ${list}.`,
     offersEyebrow: "Our offers",
@@ -124,9 +124,9 @@ const DICT: Record<Locale, HomeCopy> = {
       { n: "03", eyebrow: "Coaching", title: "We make your teams autonomous.", desc: "We set up the stack, deploy a first agent with you, and everyone leaves able to build more.", points: ["Claude Code + Codex", "Hands-on workshops", "Qualiopi certification"], audience: "For executive and business leadership.", cta: "Explore coaching", href: "transmettre" },
     ],
     veilleEyebrow: "To start · no commitment",
-    veilleH: "The newsletter that kills newsletters.",
+    veilleH: "Your monitoring, condensed into a single email.",
     veilleP: "All your sources condensed into a single email, in your format. We clean up your inbox, you stop missing things. The simplest way in to see what we can do.",
-    veilleCta: "Get my briefing →",
+    veilleCta: "Get my briefing",
     transEyebrow: "Use cases",
     transH2: "What AI actually changes, role by role.",
     transSub: "Situations we know how to handle, from sales follow-up to legal monitoring, explained in detail: what we plug in, and what it changes day to day.",
@@ -145,12 +145,12 @@ const DICT: Record<Locale, HomeCopy> = {
     h1red: "recrutamos agentes",
     h1b: " que trabalham dentro da sua empresa.",
     lede: "Colaboradores virtuais com uma descrição de cargo, um perímetro, acessos limitados e um responsável humano. Eles rodam nos seus fluxos de trabalho reais, não num slide.",
-    ctaHire: "Recrutar um agente →",
+    ctaHire: "Recrutar um agente",
     ctaDemo: "Agendar uma demo",
     trust: "Já em produção na",
     catEyebrow: "Catálogo",
     catH2: "Nada de slides. Agentes rodando em produção.",
-    catSub: "Perfis prontos para entrar nas suas operações: aquisição, monitoramento, dados, conteúdo, suporte e gestão. Cada caso vem do catálogo público, a fonte única do site.",
+    catSub: "Perfis prontos para entrar nas suas operações: aquisição, monitoramento, dados, conteúdo, suporte e gestão. Cada caso descreve um agente real, já em produção.",
     catFoot: (count) => `${count} agentes já em produção. Adicionar um caso ao catálogo o traz para cá.`,
     agentMore: (list) => `Também em produção: ${list}.`,
     offersEyebrow: "Nossas ofertas",
@@ -162,9 +162,9 @@ const DICT: Record<Locale, HomeCopy> = {
       { n: "03", eyebrow: "Coaching", title: "Tornamos suas equipes autônomas.", desc: "Instalamos a stack, implantamos um primeiro agente com você, e cada um sai capaz de construir outros.", points: ["Claude Code + Codex", "Workshops hands-on", "Certificação Qualiopi"], audience: "Para a diretoria e as áreas de negócio.", cta: "Conhecer o coaching", href: "transmettre" },
     ],
     veilleEyebrow: "Para começar · sem compromisso",
-    veilleH: "A newsletter que mata as newsletters.",
+    veilleH: "Sua curadoria, condensada em um único e-mail.",
     veilleP: "Todas as suas fontes condensadas em um único e-mail, no seu formato. Limpamos a sua caixa de entrada, você não perde mais nada. A porta de entrada mais simples para ver o que sabemos fazer.",
-    veilleCta: "Reservar meu resumo →",
+    veilleCta: "Reservar meu resumo",
     transEyebrow: "Casos de uso",
     transH2: "O que a IA muda concretamente, função por função.",
     transSub: "Situações que sabemos assumir, do follow-up comercial ao monitoramento jurídico, explicadas em detalhe: o que conectamos e o que muda no dia a dia.",
@@ -183,12 +183,12 @@ const DICT: Record<Locale, HomeCopy> = {
     h1red: "招募智能体",
     h1b: "，让它们在你的公司里干活。",
     lede: "拥有岗位职责、明确边界、受限权限和人类负责人的虚拟同事。它们运行在你真实的工作流上，而不是在演示文稿里。",
-    ctaHire: "招募一个智能体 →",
+    ctaHire: "招募一个智能体",
     ctaDemo: "预约演示",
     trust: "已在以下公司投入生产",
     catEyebrow: "目录",
     catH2: "不是幻灯片，而是真正在生产环境运行的智能体。",
-    catSub: "随时可以进入你运营的角色：获客、监测、数据、内容、支持与统筹。每个案例都来自公开目录，本站唯一的事实来源。",
+    catSub: "随时可以进入你运营的角色：获客、监测、数据、内容、支持与统筹。每个案例都是一个真实、已在生产环境运行的智能体。",
     catFoot: (count) => `${count} 个智能体已在生产环境运行。向目录添加一个案例，它就会出现在这里。`,
     agentMore: (list) => `同样在生产中：${list}。`,
     offersEyebrow: "我们的服务",
@@ -200,9 +200,9 @@ const DICT: Record<Locale, HomeCopy> = {
       { n: "03", eyebrow: "陪跑培训", title: "我们让你的团队自主上手。", desc: "我们搭好技术栈，和你一起部署第一个智能体，每个人离开时都能自己再造更多。", points: ["Claude Code + Codex", "实操工作坊", "Qualiopi 认证"], audience: "面向管理层与业务部门。", cta: "了解陪跑培训", href: "transmettre" },
     ],
     veilleEyebrow: "先从这里开始 · 无需承诺",
-    veilleH: "终结其他简报的简报。",
+    veilleH: "把你的情报，浓缩进一封邮件。",
     veilleP: "把你所有的信息源浓缩进一封邮件，按你的格式。我们帮你清理收件箱，你不再错过任何要紧事。这是了解我们能做什么的最简单入口。",
-    veilleCta: "预约我的简报 →",
+    veilleCta: "预约我的简报",
     transEyebrow: "应用场景",
     transH2: "AI 究竟改变了什么，一个岗位一个岗位地看。",
     transSub: "我们能接手的真实场景，从商务跟进到法律监测，都有详细说明：我们接入了什么，以及它如何改变日常。",
@@ -221,18 +221,8 @@ function AgentCard({ group, moreLabel }: { group: AgentGroup; moreLabel: (list: 
   return (
     <article className="hd-agent">
       <div className="hd-agent-top">
-        <div>
-          <p className="hd-agent-label">{group.persona.label}</p>
-          <h3 className="hd-agent-name">{group.persona.name}</h3>
-        </div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          className="hd-agent-img"
-          src={group.persona.imageSrc}
-          alt=""
-          loading="lazy"
-          aria-hidden="true"
-        />
+        <p className="hd-agent-label">{group.persona.label}</p>
+        <h3 className="hd-agent-name">{group.persona.name}</h3>
       </div>
       <ul className="hd-agent-cases">
         {group.cases.map((agentCase) => (
@@ -431,9 +421,6 @@ export default function HomeDeux({
         <Link className="hd-btn primary lg" href={`/${lang}/rendez-vous?source=home-final-hire-agent`}>
           {t.ctaHire}
         </Link>
-        <p className="hd-cta-old">
-          <Link href={`/${lang}/os-classic`}>{t.ctaOld}</Link>
-        </p>
       </footer>
 
       <div className="hd-legal">
@@ -453,8 +440,8 @@ export default function HomeDeux({
 const CSS = `
 .hd { background: var(--bg); color: var(--ink); }
 .hd-btn { display: inline-block; font-family: var(--font-mono); font-size: 14px; font-weight: 500; letter-spacing: .02em; padding: 12px 24px; text-decoration: none; border: 1px solid transparent; }
-.hd-btn.primary { background: var(--red); color: #fff; }
-.hd-btn.primary:hover { background: var(--ink); }
+.hd-btn.primary { background: var(--ink); color: #fff; }
+.hd-btn.primary:hover { background: var(--red); }
 .hd-btn.ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
 .hd-btn.ghost:hover { background: var(--ink); color: var(--bg); }
 .hd-btn.lg { padding: 16px 34px; font-size: 15px; }
@@ -462,9 +449,9 @@ const CSS = `
 /* HERO */
 .hd-hero { max-width: 860px; margin: 0 auto; padding: 84px 24px 56px; text-align: center; }
 .hd-lockup { height: 34px; width: auto; margin: 0 auto 34px; display: block; }
-.hd-badge { display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--red); background: var(--tint); padding: 6px 12px; margin: 0 0 26px; }
+.hd-badge { display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 26px; }
 .hd-h1 { font-family: var(--font-body); font-size: clamp(40px, 6vw, 72px); line-height: 1.02; font-weight: 600; letter-spacing: -0.04em; text-wrap: balance; margin: 0; }
-.hd-red { color: var(--red); }
+.hd-red { color: var(--ink); }
 .hd-lede { max-width: 620px; margin: 26px auto 0; font-family: var(--font-mono); font-size: 15px; line-height: 1.65; color: var(--muted); }
 .hd-hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
 
@@ -483,10 +470,9 @@ const CSS = `
 .hd-agent-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); }
 .hd-agent { min-width: 0; display: flex; flex-direction: column; background: var(--bg); }
 .hd-agent + .hd-agent { border-left: 1px solid var(--line); }
-.hd-agent-top { display: grid; grid-template-columns: 1fr 92px; gap: 14px; align-items: end; min-height: 146px; padding: 22px 20px 18px; border-bottom: 1px solid var(--line); }
+.hd-agent-top { display: flex; flex-direction: column; gap: 6px; justify-content: flex-end; min-height: 88px; padding: 22px 20px 18px; border-bottom: 1px solid var(--line); }
 .hd-agent-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin: 0 0 8px; }
 .hd-agent-name { font-family: var(--font-body); font-size: clamp(24px, 2.4vw, 32px); line-height: 1; font-weight: 600; letter-spacing: -0.04em; margin: 0; }
-.hd-agent-img { width: 92px; height: 112px; object-fit: cover; border: 1px solid var(--line); background: var(--band); align-self: center; }
 .hd-agent-cases { list-style: none; margin: 0; padding: 0; }
 .hd-agent-case { padding: 17px 20px 18px; border-bottom: 1px solid var(--line); }
 .hd-case-title { display: block; font-family: var(--font-body); font-size: 17px; line-height: 1.15; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 7px; }
@@ -499,7 +485,7 @@ const CSS = `
 .hd-pricing { max-width: 1120px; margin: 0 auto; padding: 72px 24px 54px; }
 .hd-price-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); }
 .hd-price + .hd-price { border-left: 1px solid var(--line); }
-.hd-price.featured { border-left: 2px solid var(--red); }
+.hd-price.featured { border-left: 1px solid var(--line); }
 .hd-price.featured .hd-pilier-format { color: var(--red); border-color: var(--red); }
 
 /* PRODUIT D'APPEL - bandeau Veille */
@@ -508,8 +494,8 @@ const CSS = `
 .hd-veille-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--bg); margin: 0 0 12px; }
 .hd-veille-h { font-family: var(--font-body); font-size: clamp(24px, 3.2vw, 36px); line-height: 1.05; font-weight: 600; letter-spacing: -0.04em; margin: 0 0 12px; color: var(--bg); }
 .hd-veille-p { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: rgba(255,253,250,.72); margin: 0; max-width: 620px; }
-.hd-btn.onink { background: var(--red); color: #fff; white-space: nowrap; }
-.hd-btn.onink:hover { background: var(--bg); color: var(--ink); }
+.hd-btn.onink { background: var(--bg); color: var(--ink); white-space: nowrap; }
+.hd-btn.onink:hover { background: var(--red); color: #fff; }
 
 /* PILIERS */
 .hd-piliers { max-width: 1120px; margin: 0 auto; padding: 72px 24px 24px; }
@@ -520,7 +506,7 @@ const CSS = `
 .hd-pilier { display: flex; flex-direction: column; padding: 36px 34px 34px; }
 .hd-pilier + .hd-pilier { border-left: 1px solid var(--line); }
 .hd-pilier-tag { display: flex; align-items: center; gap: 12px; margin: 0 0 18px; }
-.hd-pilier-n { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: #fff; background: var(--red); padding: 4px 9px; }
+.hd-pilier-n { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: #fff; background: var(--ink); padding: 4px 9px; }
 .hd-pilier-eye { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .hd-pilier-title { font-family: var(--font-body); font-size: clamp(22px, 2.6vw, 30px); line-height: 1.12; font-weight: 600; letter-spacing: -0.04em; margin: 0 0 14px; }
 .hd-pilier-desc { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 0 0 24px; }
@@ -598,8 +584,7 @@ const CSS = `
   .hd-agent-grid { grid-template-columns: 1fr; }
   .hd-agent:nth-child(2n) { border-left: 0; }
   .hd-agent:nth-child(n+2) { border-top: 1px solid var(--line); }
-  .hd-agent-top { grid-template-columns: 1fr 82px; padding: 20px 18px 16px; }
-  .hd-agent-img { width: 82px; height: 102px; }
+  .hd-agent-top { padding: 20px 18px 16px; }
   .hd-transfo { grid-template-columns: 1fr; }
   .hd-transfo-col.apres { border-left: 0; border-top: 1px solid var(--line); }
   .hd-transfo-arrow { display: none; }
