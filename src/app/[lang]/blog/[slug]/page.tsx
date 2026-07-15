@@ -305,8 +305,8 @@ export default async function BlogPostPage({
         {post.tldr && (
           <div
             style={{
-              borderLeft: "3px solid var(--parrit-red, #AA0003)",
-              background: "var(--bg-faint, #F5F8FF)",
+              borderLeft: "3px solid var(--parrit-red, #D1132F)",
+              background: "var(--bg-faint, #FFFDFA)",
               padding: "0.75rem 1rem",
               marginBottom: "1.5rem",
               borderRadius: "0 4px 4px 0",
@@ -318,7 +318,7 @@ export default async function BlogPostPage({
                 fontSize: "0.9rem",
                 fontWeight: 600,
                 marginBottom: "0.25rem",
-                color: "var(--parrit-red, #AA0003)",
+                color: "var(--parrit-red, #D1132F)",
               }}
             >
               {uiLabel(lang, "tldr")}
@@ -335,7 +335,7 @@ export default async function BlogPostPage({
               borderRadius: "6px",
               padding: "0.75rem 1rem",
               marginBottom: "1.5rem",
-              background: "var(--bg-faint, #F5F8FF)",
+              background: "var(--bg-faint, #FFFDFA)",
             }}
           >
             <p

@@ -12,12 +12,12 @@ export default async function Image() {
         style={{
           width: "100%",
           height: "100%",
-          background: "#F5F8FF",
+          background: "#FFFDFA",
           display: "flex",
           flexDirection: "column",
           padding: "70px 90px 56px",
           fontFamily: "sans-serif",
-          color: "#161616",
+          color: "#0C0C0D",
           position: "relative",
           overflow: "hidden",
         }}
@@ -30,12 +30,12 @@ export default async function Image() {
             width: 260,
             height: 260,
             borderRadius: "50%",
-            border: "18px solid #AA0003",
+            border: "18px solid #D1132F",
             opacity: 0.08,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            color: "#AA0003",
+            color: "#D1132F",
             fontSize: 170,
             fontWeight: 800,
             transform: "rotate(-6deg)",
@@ -50,7 +50,7 @@ export default async function Image() {
             fontWeight: 800,
             letterSpacing: 4,
             textTransform: "uppercase",
-            color: "#AA0003",
+            color: "#D1132F",
             marginBottom: 34,
           }}
         >
@@ -71,7 +71,7 @@ export default async function Image() {
               fontWeight: 800,
               lineHeight: 1,
               letterSpacing: -2,
-              color: "#161616",
+              color: "#0C0C0D",
             }}
           >
             PARRIT
@@ -81,8 +81,8 @@ export default async function Image() {
               width: 56,
               height: 56,
               borderRadius: "50%",
-              border: "3px solid #AA0003",
-              color: "#AA0003",
+              border: "3px solid #D1132F",
+              color: "#D1132F",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -98,7 +98,7 @@ export default async function Image() {
               fontWeight: 800,
               lineHeight: 1,
               letterSpacing: -2,
-              color: "#161616",
+              color: "#0C0C0D",
             }}
           >
             AI
@@ -111,13 +111,13 @@ export default async function Image() {
             fontWeight: 800,
             lineHeight: 1.08,
             letterSpacing: -1.2,
-            color: "#161616",
+            color: "#0C0C0D",
             maxWidth: 930,
           }}
         >
           Au-delà de l&apos;IA qui discute.
           <br />
-          <span style={{ color: "#AA0003" }}>Diagnostic IA avant transformation.</span>
+          <span style={{ color: "#D1132F" }}>Diagnostic IA avant transformation.</span>
         </div>
 
         <div
@@ -134,10 +134,10 @@ export default async function Image() {
           }}
         >
           <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#AA0003" }} />
+            <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#D1132F" }} />
             parrit.ai
           </div>
-          <div style={{ color: "#161616", fontWeight: 700 }}>Paul Larmaraud · Yukun Leng</div>
+          <div style={{ color: "#0C0C0D", fontWeight: 700 }}>Paul Larmaraud · Yukun Leng</div>
         </div>
       </div>
     ),

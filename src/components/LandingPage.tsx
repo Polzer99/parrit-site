@@ -54,14 +54,14 @@ const cardReveal = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
 };
 
-const ACCENTS = ["#AA0003", "#161616", "#AA0003", "#161616"];
+const ACCENTS = ["#D1132F", "#0C0C0D", "#D1132F", "#0C0C0D"];
 
 export default function LandingPage({ data, lang, quickContact, pageId, relatedArticles }: Props) {
   return (
     <div className="landing-v4-shell">
       <div className="landing-v4-topbar">
         <Link href={`/${lang}`} aria-label="Parrit.ai" className="landing-v4-traffic">
-          <span style={{ background: "#AA0003" }} />
+          <span style={{ background: "#D1132F" }} />
           <span style={{ background: "#C67C60" }} />
           <span style={{ background: "#D0D8D7" }} />
         </Link>
