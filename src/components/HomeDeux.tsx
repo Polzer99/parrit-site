@@ -385,7 +385,7 @@ export default function HomeDeux({
           <h2 id="hd-catalog-h" className="hd-h2">{t.catH2}</h2>
           <p className="hd-catalog-sub">{t.catSub}</p>
         </div>
-        <div className="hd-agent-grid">
+        <div className="hd-agent-grid" data-stagger>
           {catalog.groups.map((group) => (
             <AgentCard group={group} key={group.persona.key} />
           ))}
@@ -405,7 +405,7 @@ export default function HomeDeux({
           <h2 id="hd-terrain-h" className="hd-h2">{t.terrainH}</h2>
           <p className="hd-terrain-sub">{t.terrainP}</p>
         </div>
-        <div className="hd-terrain-grid">
+        <div className="hd-terrain-grid" data-stagger>
           {TERRAIN_PHOTOS.map((src, i) => (
             <figure className="hd-terrain-item" key={src}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -442,7 +442,7 @@ export default function HomeDeux({
           <p className="hd-eyebrow"><span className="hd-eyebrow-n">04</span> · {t.offersEyebrow}</p>
           <h2 id="hd-offers-h" className="hd-h2">{t.offersH2}</h2>
         </div>
-        <div className="hd-price-grid">
+        <div className="hd-price-grid" data-stagger>
           {t.offers.map((p) => (
             <article className={p.n === "01" ? "hd-pilier hd-price featured" : "hd-pilier hd-price"} key={p.n}>
               <p className="hd-pilier-tag">
@@ -504,7 +504,7 @@ export default function HomeDeux({
             <h2 id="hd-launches-h" className="hd-h2">{t.launchH2}</h2>
             <Link href={`/${lang}/launches`} className="hd-launches-all">{t.allLaunches}</Link>
           </div>
-          <div className="hd-launch-grid">
+          <div className="hd-launch-grid" data-stagger>
             {launches.slice(0, 3).map((launch) => (
               <LaunchCard href={`/${lang}/launches/${launch.slug}`} key={launch.slug} launch={launch} />
             ))}
@@ -542,6 +542,18 @@ const CSS = `
 .motion-ready [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
 .motion-ready [data-reveal].is-in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .motion-ready [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; } }
+/* POLISH — cascade (stagger) des cartes, façon Denem */
+.motion-ready [data-stagger] > * { opacity: 0; transform: translateY(14px); transition: opacity .55s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1); }
+.motion-ready [data-stagger].is-in > * { opacity: 1; transform: none; }
+.motion-ready [data-stagger].is-in > *:nth-child(1){transition-delay:.02s}
+.motion-ready [data-stagger].is-in > *:nth-child(2){transition-delay:.07s}
+.motion-ready [data-stagger].is-in > *:nth-child(3){transition-delay:.12s}
+.motion-ready [data-stagger].is-in > *:nth-child(4){transition-delay:.17s}
+.motion-ready [data-stagger].is-in > *:nth-child(5){transition-delay:.22s}
+.motion-ready [data-stagger].is-in > *:nth-child(6){transition-delay:.27s}
+.motion-ready [data-stagger].is-in > *:nth-child(7){transition-delay:.32s}
+.motion-ready [data-stagger].is-in > *:nth-child(8){transition-delay:.37s}
+@media (prefers-reduced-motion: reduce) { .motion-ready [data-stagger] > * { opacity: 1 !important; transform: none !important; transition: none !important; } }
 /* POLISH — micro-interactions léchées */
 .hd-agent { transition: background .25s ease; }
 .hd-agent:hover { background: var(--band); }

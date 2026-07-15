@@ -7,7 +7,7 @@ import { useEffect } from "react";
 export default function HomeMotion() {
   useEffect(() => {
     const root = document.documentElement;
-    const els = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const els = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal], [data-stagger]"));
     if (!els.length) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
