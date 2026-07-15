@@ -71,6 +71,7 @@ type HomeCopy = {
   transEyebrow: string;
   transH2: string;
   transSub: string;
+  transCta: string;
   readArticle: string;
   allArticles: string;
   launchEyebrow: string;
@@ -119,7 +120,7 @@ const DICT: Record<Locale, HomeCopy> = {
     offers: [
       { n: "01", eyebrow: "Transformation IA", title: "Faire de l'IA un levier réel, pas des POC.", desc: "Audit, cartographie des cas d'usage prioritaires, déploiement. Un partenaire qui pilote la transformation de bout en bout.", points: ["Audit", "Cas d'usage prioritaires", "Déploiement", "Passation"], audience: "Pour les COMEX et les DSI.", cta: "Découvrir la Transformation", href: "croissance" },
       { n: "02", eyebrow: "Agent IA", title: "Un agent recruté, en production.", desc: "On choisit un workflow utile, on met l'agent en production, on passe la main à vos équipes. Un agent, un périmètre.", points: ["Diagnostic", "Périmètre clair", "En production", "Passation"], audience: "Pour les directions métier, la DG et la DSI.", cta: "Découvrir le déploiement d'agent", href: "deployer" },
-      { n: "03", eyebrow: "Coaching", title: "On rend vos équipes autonomes.", desc: "On installe la stack, on déploie un premier agent avec vous, et chacun repart capable d'en construire d'autres.", points: ["Claude Code + Codex", "Ateliers hands-on", "Certification Qualiopi"], audience: "Pour la direction générale et les directions métier.", cta: "Découvrir le coaching", href: "transmettre" },
+      { n: "03", eyebrow: "Coaching & Formation", title: "On rend vos équipes autonomes.", desc: "On installe la stack, on déploie un premier agent avec vous, et chacun repart capable d'en construire d'autres.", points: ["Claude Code + Codex", "Ateliers hands-on", "Certification Qualiopi"], audience: "Pour la direction générale et les directions métier.", cta: "Découvrir le coaching", href: "transmettre" },
     ],
     veilleEyebrow: "Pour commencer · sans engagement",
     veilleH: "Votre veille, condensée dans un seul mail.",
@@ -127,7 +128,8 @@ const DICT: Record<Locale, HomeCopy> = {
     veilleCta: "Réserver ma veille",
     transEyebrow: "Cas d'usage",
     transH2: "Ce que l'IA change concrètement, métier par métier.",
-    transSub: "Des situations qu'on sait prendre en charge, de la relance commerciale à la veille juridique, expliquées en détail : ce qu'on branche, et ce que ça change au quotidien.",
+    transSub: "De la relance commerciale à la veille juridique : ce qu'on branche, et ce que ça change au quotidien.",
+    transCta: "Voir les cas d'usage",
     readArticle: "Lire l'article →",
     allArticles: "Tous les articles →",
     launchEyebrow: "Build in public",
@@ -174,7 +176,7 @@ const DICT: Record<Locale, HomeCopy> = {
     offers: [
       { n: "01", eyebrow: "AI Transformation", title: "Make AI a real lever, not a pile of POCs.", desc: "Audit, mapping of priority use cases, deployment. A partner who drives the transformation end to end.", points: ["Audit", "Priority use cases", "Deployment", "Handover"], audience: "For executive committees and IT leaders.", cta: "Explore Transformation", href: "croissance" },
       { n: "02", eyebrow: "AI Agent", title: "One agent hired, in production.", desc: "We pick a useful workflow, put the agent in production, then hand over to your teams. One agent, one scope.", points: ["Diagnosis", "Clear scope", "In production", "Handover"], audience: "For business units, executive and IT leadership.", cta: "Explore agent deployment", href: "deployer" },
-      { n: "03", eyebrow: "Coaching", title: "We make your teams autonomous.", desc: "We set up the stack, deploy a first agent with you, and everyone leaves able to build more.", points: ["Claude Code + Codex", "Hands-on workshops", "Qualiopi certification"], audience: "For executive and business leadership.", cta: "Explore coaching", href: "transmettre" },
+      { n: "03", eyebrow: "Coaching & Training", title: "We make your teams autonomous.", desc: "We set up the stack, deploy a first agent with you, and everyone leaves able to build more.", points: ["Claude Code + Codex", "Hands-on workshops", "Qualiopi certification"], audience: "For executive and business leadership.", cta: "Explore coaching", href: "transmettre" },
     ],
     veilleEyebrow: "To start · no commitment",
     veilleH: "Your monitoring, condensed into a single email.",
@@ -182,7 +184,8 @@ const DICT: Record<Locale, HomeCopy> = {
     veilleCta: "Get my briefing",
     transEyebrow: "Use cases",
     transH2: "What AI actually changes, role by role.",
-    transSub: "Situations we know how to handle, from sales follow-up to legal monitoring, explained in detail: what we plug in, and what it changes day to day.",
+    transSub: "From sales follow-up to legal monitoring: what we plug in, and what it changes day to day.",
+    transCta: "See the use cases",
     readArticle: "Read the article →",
     allArticles: "All articles →",
     launchEyebrow: "Build in public",
@@ -229,7 +232,7 @@ const DICT: Record<Locale, HomeCopy> = {
     offers: [
       { n: "01", eyebrow: "Transformação IA", title: "Fazer da IA uma alavanca real, não uma pilha de POCs.", desc: "Auditoria, mapeamento dos casos de uso prioritários, implantação. Um parceiro que conduz a transformação de ponta a ponta.", points: ["Auditoria", "Casos de uso prioritários", "Implantação", "Passagem"], audience: "Para comitês executivos e líderes de TI.", cta: "Conhecer a Transformação", href: "croissance" },
       { n: "02", eyebrow: "Agente IA", title: "Um agente recrutado, em produção.", desc: "Escolhemos um fluxo útil, colocamos o agente em produção e passamos o bastão para as suas equipes. Um agente, um perímetro.", points: ["Diagnóstico", "Perímetro claro", "Em produção", "Passagem"], audience: "Para as áreas de negócio, a diretoria e a TI.", cta: "Conhecer a implantação de agente", href: "deployer" },
-      { n: "03", eyebrow: "Coaching", title: "Tornamos suas equipes autônomas.", desc: "Instalamos a stack, implantamos um primeiro agente com você, e cada um sai capaz de construir outros.", points: ["Claude Code + Codex", "Workshops hands-on", "Certificação Qualiopi"], audience: "Para a diretoria e as áreas de negócio.", cta: "Conhecer o coaching", href: "transmettre" },
+      { n: "03", eyebrow: "Coaching e Formação", title: "Tornamos suas equipes autônomas.", desc: "Instalamos a stack, implantamos um primeiro agente com você, e cada um sai capaz de construir outros.", points: ["Claude Code + Codex", "Workshops hands-on", "Certificação Qualiopi"], audience: "Para a diretoria e as áreas de negócio.", cta: "Conhecer o coaching", href: "transmettre" },
     ],
     veilleEyebrow: "Para começar · sem compromisso",
     veilleH: "Sua curadoria, condensada em um único e-mail.",
@@ -237,7 +240,8 @@ const DICT: Record<Locale, HomeCopy> = {
     veilleCta: "Reservar meu resumo",
     transEyebrow: "Casos de uso",
     transH2: "O que a IA muda concretamente, função por função.",
-    transSub: "Situações que sabemos assumir, do follow-up comercial ao monitoramento jurídico, explicadas em detalhe: o que conectamos e o que muda no dia a dia.",
+    transSub: "Do follow-up comercial ao monitoramento jurídico: o que conectamos e o que muda no dia a dia.",
+    transCta: "Ver os casos de uso",
     readArticle: "Ler o artigo →",
     allArticles: "Todos os artigos →",
     launchEyebrow: "Build in public",
@@ -292,7 +296,8 @@ const DICT: Record<Locale, HomeCopy> = {
     veilleCta: "预约我的简报",
     transEyebrow: "应用场景",
     transH2: "AI 究竟改变了什么，一个岗位一个岗位地看。",
-    transSub: "我们能接手的真实场景，从商务跟进到法律监测，都有详细说明：我们接入了什么，以及它如何改变日常。",
+    transSub: "从商务跟进到法律监测：我们接入了什么，以及它如何改变日常。",
+    transCta: "查看应用场景",
     readArticle: "阅读文章 →",
     allArticles: "全部文章 →",
     launchEyebrow: "Build in public",
@@ -337,8 +342,6 @@ export default function HomeDeux({
   posts?: BlogPost[];
 }) {
   const t = DICT[lang] ?? DICT.fr;
-  const featured = posts[0];
-  const rest = posts.slice(1, 5);
   const catalog = getCatalog({ perDept: 1, lang });
   return (
     <main className="hd">
@@ -479,49 +482,15 @@ export default function HomeDeux({
         </div>
       </section>
 
-      {/* ===== TRANSFORMATIONS (blog reel) ===== */}
-      {featured && (
+      {/* ===== CAS D'USAGE (CTA vers le blog, pas de dump d'articles) ===== */}
+      {posts.length > 0 && (
         <section className="hd-transfos" data-reveal aria-labelledby="hd-transfos-h">
-          <div className="hd-transfos-head">
+          <div className="hd-transfos-cta">
             <p className="hd-eyebrow">{t.transEyebrow}</p>
             <h2 id="hd-transfos-h" className="hd-h2">{t.transH2}</h2>
             <p className="hd-transfos-sub">{t.transSub}</p>
-          </div>
-
-          <div className="hd-transfos-grid">
-            {/* Article vedette */}
-            <Link className="hd-feat" href={`/${lang}/blog/${featured.slug}`}>
-              <div className="hd-feat-body">
-                <p className="hd-art-meta">
-                  <span className="hd-art-cat">{featured.category}</span>
-                  <span className="hd-art-time">{featured.readingTime}</span>
-                </p>
-                <h3 className="hd-feat-title">{featured.title}</h3>
-                <p className="hd-feat-desc">{featured.description}</p>
-                <span className="hd-feat-link">{t.readArticle}</span>
-              </div>
-            </Link>
-
-            {/* Liste des autres */}
-            <ul className="hd-art-list">
-              {rest.map((p) => (
-                <li key={p.slug}>
-                  <Link className="hd-art" href={`/${lang}/blog/${p.slug}`}>
-                    <p className="hd-art-meta">
-                      <span className="hd-art-cat">{p.category}</span>
-                      <span className="hd-art-time">{p.readingTime}</span>
-                    </p>
-                    <h4 className="hd-art-title">{p.title}</h4>
-                    <p className="hd-art-desc">{p.description}</p>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="hd-transfos-foot">
-            <Link className="hd-btn ghost" href={`/${lang}/blog`}>
-              {t.allArticles}
+            <Link className="hd-btn primary hd-agent-cta" href={`/${lang}/blog`}>
+              {t.transCta} <span className="hd-cta-arrow" aria-hidden="true">→</span>
             </Link>
           </div>
         </section>
@@ -695,8 +664,11 @@ const CSS = `
 .hd-pilier-link { margin-top: auto; font-family: var(--font-mono); font-size: 14px; font-weight: 500; letter-spacing: .02em; color: var(--red); text-decoration: none; border-bottom: 1px solid var(--red); padding-bottom: 3px; align-self: flex-start; }
 .hd-pilier-link:hover { color: var(--ink); border-color: var(--ink); }
 
-/* TRANSFORMATIONS */
+/* CAS D'USAGE — bloc CTA vers le blog */
 .hd-transfos { max-width: 1120px; margin: 0 auto; padding: 72px 24px 24px; border-top: 1px solid var(--line); }
+.hd-transfos-cta { max-width: 640px; margin: 0 auto; text-align: center; }
+.hd-transfos-cta .hd-transfos-sub { margin: 14px auto 0; max-width: 560px; }
+.hd-transfos-cta .hd-btn { margin-top: 26px; }
 .hd-transfos-head { max-width: 720px; margin: 0 0 40px; }
 .hd-transfos-sub { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 16px 0 0; }
 .hd-transfos-grid { display: grid; grid-template-columns: 1.15fr 1fr; border: 1px solid var(--line); }
