@@ -3212,3 +3212,165 @@ body > * {
   }
 
 }
+
+/* ═══════════════════════════════════════════════════════════
+   Diagnostic Express : layout-only, plat, DA Parrit (globals.css tokens)
+   Pas de fenêtre "parrit.sh", pas de bordure dure, pas d'ombre offset.
+   ═══════════════════════════════════════════════════════════ */
+
+/* page de conversion focalisée : pas de paysage de fond */
+body:has(.dx-page) {
+  background-image: none;
+}
+
+.home-template .dx-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 30px;
+  max-width: 520px;
+}
+
+.home-template .dx-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.home-template .dx-field-label {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home-template .dx-field input {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.2;
+  padding: 13px 15px;
+}
+
+.home-template .dx-field input::placeholder {
+  color: var(--faint);
+}
+
+.home-template .dx-field input:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px var(--tint);
+  outline: none;
+}
+
+.home-template .dx-field input[aria-invalid="true"] {
+  border-color: var(--red);
+}
+
+.home-template .dx-field-err {
+  color: var(--red);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.home-template .dx-error {
+  color: var(--red);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.home-template .dx-success {
+  margin-top: 32px;
+  max-width: 520px;
+}
+
+.home-template .dx-result {
+  margin-top: 30px;
+}
+
+.home-template .dx-framing {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.12;
+  margin: 0 0 24px;
+  max-width: 720px;
+}
+
+.home-template .dx-fn {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.home-template .dx-flow {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.home-template .dx-node {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  flex: 1 1 auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.3;
+  min-width: 0;
+  padding: 9px 10px;
+  text-align: center;
+}
+
+.home-template .dx-node.ag {
+  background: var(--red);
+  border-color: var(--red);
+  color: #FFFFFF;
+}
+
+.home-template .dx-arrow {
+  color: var(--red);
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.home-template .dx-offer {
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 24px;
+  max-width: 720px;
+}
+
+.home-template .dx-cta {
+  color: var(--red);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 18px;
+}
+
+.home-template .dx-footer {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  margin-top: 56px;
+  padding: 26px 0 48px;
+}
+

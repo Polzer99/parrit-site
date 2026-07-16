@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+      NEXT_PUBLIC_DIAGNOSTIC_API: https://api.parrit.ai
     steps:
       - name: checkout
         uses: actions/checkout@v5
@@ -62,3 +63,14 @@ jobs:
         env:
           PARRIT_BASE: http://localhost:3210
         run: python3 scripts/contrast-audit.py /diagnostic
+
+      - name: diagnostic-express Playwright gate
+        env:
+          QA_BASE_URL: http://localhost:3210
+          NEXT_PUBLIC_DIAGNOSTIC_API: https://api.parrit.ai
+        run: npm run qa:diagnostic-express:e2e -- --browser=chromium
+
+      - name: diagnostic-express contrast gate
+        env:
+          PARRIT_BASE: http://localhost:3210
+        run: python3 scripts/contrast-audit.py /diagnostic-express
