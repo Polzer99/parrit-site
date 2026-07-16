@@ -19,7 +19,7 @@ const CLIENT_LOGOS: { alt: string; src: string; cn?: boolean }[] = [
 
 // Preuve terrain : vraies photos d'ateliers / masterclass / plénières (ordre = terrainCaps).
 const TERRAIN_PHOTOS = [
-  "/brand/terrain/pleniere-prise-parole.jpg",
+  "/brand/terrain/atelier-cartographie.jpg",
 ];
 
 type Offer = {
@@ -105,7 +105,7 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainEyebrow: "Sur le terrain",
     terrainH: "On déploie avec vos équipes, pas à distance.",
     terrainP: "Cartographie des workflows, acculturation, prise de parole : on installe l'IA au contact de vos équipes, dans vos murs.",
-    terrainCaps: ["Atelier · prise de parole"],
+    terrainCaps: ["Atelier · cartographie de workflow"],
     catEyebrow: "Catalogue",
     catH2: "Pas des slides. Des agents qui tournent en production.",
     catSub: "Des agents opérationnels sur vos fonctions clés, avec un périmètre défini, des accès encadrés et un responsable. Vous gardez le contrôle et la traçabilité.",
@@ -161,7 +161,7 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainEyebrow: "On the ground",
     terrainH: "We deploy with your teams, not from a distance.",
     terrainP: "Workflow mapping, upskilling, speaking: we install AI next to your teams, on your premises.",
-    terrainCaps: ["Workshop · keynote"],
+    terrainCaps: ["Workshop · workflow mapping"],
     catEyebrow: "Catalog",
     catH2: "Not slides. Agents running in production.",
     catSub: "Production-grade agents across your core functions, each with a defined scope, gated access and a named owner. You keep control and full auditability.",
@@ -217,7 +217,7 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainEyebrow: "No terreno",
     terrainH: "Implantamos com suas equipes, não à distância.",
     terrainP: "Mapeamento de fluxos, capacitação, palestras: instalamos a IA junto das suas equipes, na sua empresa.",
-    terrainCaps: ["Workshop · palestra"],
+    terrainCaps: ["Workshop · mapeamento de fluxo"],
     catEyebrow: "Catálogo",
     catH2: "Nada de slides. Agentes rodando em produção.",
     catSub: "Agentes operacionais nas suas funções-chave, com perímetro definido, acessos controlados e um responsável. Você mantém o controle e a rastreabilidade.",
@@ -273,7 +273,7 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainEyebrow: "在一线",
     terrainH: "我们和你的团队一起部署，而不是远程交付。",
     terrainP: "梳理工作流、团队培训、现场分享：我们在你的团队身边、在你的办公室里落地 AI。",
-    terrainCaps: ["工作坊 · 主题分享"],
+    terrainCaps: ["工作坊 · 工作流梳理"],
     catEyebrow: "目录",
     catH2: "不是幻灯片，而是真正在生产环境运行的智能体。",
     catSub: "覆盖你核心职能的可上岗智能体：边界清晰、权限受控、责任到人。你始终掌控全局，全程可追溯。",
