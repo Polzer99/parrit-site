@@ -19,7 +19,7 @@ const CLIENT_LOGOS: { alt: string; src: string; cn?: boolean }[] = [
 
 // Preuve terrain : vraies photos d'ateliers / masterclass / plénières (ordre = terrainCaps).
 const TERRAIN_PHOTOS = [
-  "/brand/terrain/atelier-cartographie.jpg",
+  "/brand/terrain/masterclass-acculturation.jpg",
 ];
 
 type Offer = {
@@ -62,10 +62,6 @@ type HomeCopy = {
   offersH2: string;
   offersFoot: string;
   offers: Offer[];
-  veilleEyebrow: string;
-  veilleH: string;
-  veilleP: string;
-  veilleCta: string;
   transEyebrow: string;
   transH2: string;
   transSub: string;
@@ -105,7 +101,7 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainEyebrow: "Sur le terrain",
     terrainH: "On déploie avec vos équipes, pas à distance.",
     terrainP: "Cartographie des workflows, acculturation, prise de parole : on installe l'IA au contact de vos équipes, dans vos murs.",
-    terrainCaps: ["Atelier · cartographie de workflow"],
+    terrainCaps: ["Atelier · acculturation IA"],
     catEyebrow: "Catalogue",
     catH2: "Pas des slides. Des agents qui tournent en production.",
     catSub: "Des agents opérationnels sur vos fonctions clés, avec un périmètre défini, des accès encadrés et un responsable. Vous gardez le contrôle et la traçabilité.",
@@ -120,10 +116,6 @@ const DICT: Record<Locale, HomeCopy> = {
       { n: "02", eyebrow: "Agent IA", title: "Un agent recruté, en production.", desc: "On choisit un workflow utile, on met l'agent en production, on passe la main à vos équipes. Un agent, un périmètre.", points: ["Diagnostic", "Périmètre clair", "En production", "Passation"], audience: "Pour les directions métier, la DG et la DSI.", cta: "Découvrir le déploiement d'agent", href: "deployer" },
       { n: "03", eyebrow: "Coaching & Formation", title: "On rend vos équipes autonomes.", desc: "On installe la stack, on déploie un premier agent avec vous, et chacun repart capable d'en construire d'autres.", points: ["Claude Code + Codex", "Ateliers hands-on", "Certification Qualiopi"], audience: "Pour la direction générale et les directions métier.", cta: "Découvrir le coaching", href: "transmettre" },
     ],
-    veilleEyebrow: "Pour commencer · sans engagement",
-    veilleH: "Votre veille, condensée dans un seul mail.",
-    veilleP: "Toutes vos sources condensées dans un seul mail, à votre format. On nettoie votre boîte de réception, vous ne ratez plus rien. La porte d'entrée la plus simple pour voir ce qu'on sait faire.",
-    veilleCta: "Réserver ma veille",
     transEyebrow: "Cas d'usage",
     transH2: "Ce que l'IA change concrètement, métier par métier.",
     transSub: "De la relance commerciale à la veille juridique : ce qu'on branche, et ce que ça change au quotidien.",
@@ -161,7 +153,7 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainEyebrow: "On the ground",
     terrainH: "We deploy with your teams, not from a distance.",
     terrainP: "Workflow mapping, upskilling, speaking: we install AI next to your teams, on your premises.",
-    terrainCaps: ["Workshop · workflow mapping"],
+    terrainCaps: ["Workshop · AI enablement"],
     catEyebrow: "Catalog",
     catH2: "Not slides. Agents running in production.",
     catSub: "Production-grade agents across your core functions, each with a defined scope, gated access and a named owner. You keep control and full auditability.",
@@ -176,10 +168,6 @@ const DICT: Record<Locale, HomeCopy> = {
       { n: "02", eyebrow: "AI Agent", title: "One agent hired, in production.", desc: "We pick a useful workflow, put the agent in production, then hand over to your teams. One agent, one scope.", points: ["Diagnosis", "Clear scope", "In production", "Handover"], audience: "For business units, executive and IT leadership.", cta: "Explore agent deployment", href: "deployer" },
       { n: "03", eyebrow: "Coaching & Training", title: "We make your teams autonomous.", desc: "We set up the stack, deploy a first agent with you, and everyone leaves able to build more.", points: ["Claude Code + Codex", "Hands-on workshops", "Qualiopi certification"], audience: "For executive and business leadership.", cta: "Explore coaching", href: "transmettre" },
     ],
-    veilleEyebrow: "To start · no commitment",
-    veilleH: "Your monitoring, condensed into a single email.",
-    veilleP: "All your sources condensed into a single email, in your format. We clean up your inbox, you stop missing things. The simplest way in to see what we can do.",
-    veilleCta: "Get my briefing",
     transEyebrow: "Use cases",
     transH2: "What AI actually changes, role by role.",
     transSub: "From sales follow-up to legal monitoring: what we plug in, and what it changes day to day.",
@@ -217,7 +205,7 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainEyebrow: "No terreno",
     terrainH: "Implantamos com suas equipes, não à distância.",
     terrainP: "Mapeamento de fluxos, capacitação, palestras: instalamos a IA junto das suas equipes, na sua empresa.",
-    terrainCaps: ["Workshop · mapeamento de fluxo"],
+    terrainCaps: ["Workshop · capacitação em IA"],
     catEyebrow: "Catálogo",
     catH2: "Nada de slides. Agentes rodando em produção.",
     catSub: "Agentes operacionais nas suas funções-chave, com perímetro definido, acessos controlados e um responsável. Você mantém o controle e a rastreabilidade.",
@@ -232,10 +220,6 @@ const DICT: Record<Locale, HomeCopy> = {
       { n: "02", eyebrow: "Agente IA", title: "Um agente recrutado, em produção.", desc: "Escolhemos um fluxo útil, colocamos o agente em produção e passamos o bastão para as suas equipes. Um agente, um perímetro.", points: ["Diagnóstico", "Perímetro claro", "Em produção", "Passagem"], audience: "Para as áreas de negócio, a diretoria e a TI.", cta: "Conhecer a implantação de agente", href: "deployer" },
       { n: "03", eyebrow: "Coaching e Formação", title: "Tornamos suas equipes autônomas.", desc: "Instalamos a stack, implantamos um primeiro agente com você, e cada um sai capaz de construir outros.", points: ["Claude Code + Codex", "Workshops hands-on", "Certificação Qualiopi"], audience: "Para a diretoria e as áreas de negócio.", cta: "Conhecer o coaching", href: "transmettre" },
     ],
-    veilleEyebrow: "Para começar · sem compromisso",
-    veilleH: "Sua curadoria, condensada em um único e-mail.",
-    veilleP: "Todas as suas fontes condensadas em um único e-mail, no seu formato. Limpamos a sua caixa de entrada, você não perde mais nada. A porta de entrada mais simples para ver o que sabemos fazer.",
-    veilleCta: "Reservar meu resumo",
     transEyebrow: "Casos de uso",
     transH2: "O que a IA muda concretamente, função por função.",
     transSub: "Do follow-up comercial ao monitoramento jurídico: o que conectamos e o que muda no dia a dia.",
@@ -273,7 +257,7 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainEyebrow: "在一线",
     terrainH: "我们和你的团队一起部署，而不是远程交付。",
     terrainP: "梳理工作流、团队培训、现场分享：我们在你的团队身边、在你的办公室里落地 AI。",
-    terrainCaps: ["工作坊 · 工作流梳理"],
+    terrainCaps: ["工作坊 · AI 培训"],
     catEyebrow: "目录",
     catH2: "不是幻灯片，而是真正在生产环境运行的智能体。",
     catSub: "覆盖你核心职能的可上岗智能体：边界清晰、权限受控、责任到人。你始终掌控全局，全程可追溯。",
@@ -288,10 +272,6 @@ const DICT: Record<Locale, HomeCopy> = {
       { n: "02", eyebrow: "AI 智能体", title: "招募一个智能体，投入生产。", desc: "我们挑选一个有用的工作流，把智能体投入生产，再交接给你的团队。一个智能体，一个边界。", points: ["诊断", "清晰边界", "投入生产", "交接"], audience: "面向业务部门、管理层与 IT。", cta: "了解智能体部署", href: "deployer" },
       { n: "03", eyebrow: "陪跑培训", title: "我们让你的团队自主上手。", desc: "我们搭好技术栈，和你一起部署第一个智能体，每个人离开时都能自己再造更多。", points: ["Claude Code + Codex", "实操工作坊", "Qualiopi 认证"], audience: "面向管理层与业务部门。", cta: "了解陪跑培训", href: "transmettre" },
     ],
-    veilleEyebrow: "先从这里开始 · 无需承诺",
-    veilleH: "把你的情报，浓缩进一封邮件。",
-    veilleP: "把你所有的信息源浓缩进一封邮件，按你的格式。我们帮你清理收件箱，你不再错过任何要紧事。这是了解我们能做什么的最简单入口。",
-    veilleCta: "预约我的简报",
     transEyebrow: "应用场景",
     transH2: "AI 究竟改变了什么，一个岗位一个岗位地看。",
     transSub: "从商务跟进到法律监测：我们接入了什么，以及它如何改变日常。",
@@ -468,20 +448,6 @@ export default function HomeDeux({
         <p className="hd-catalog-foot">{t.offersFoot}</p>
       </section>
 
-      {/* ===== PRODUIT D'APPEL - La Veille ===== */}
-      <section className="hd-veille" data-reveal aria-labelledby="hd-veille-h">
-        <div className="hd-veille-inner">
-          <div className="hd-veille-text">
-            <p className="hd-veille-eyebrow">{t.veilleEyebrow}</p>
-            <h2 id="hd-veille-h" className="hd-veille-h">{t.veilleH}</h2>
-            <p className="hd-veille-p">{t.veilleP}</p>
-          </div>
-          <div className="hd-veille-action">
-            <Link className="hd-btn onink hd-act" href={`/${lang}/rendez-vous`}>{t.veilleCta} <span className="hd-cta-arrow" aria-hidden="true">→</span></Link>
-          </div>
-        </div>
-      </section>
-
       {/* ===== CAS D'USAGE (CTA vers le blog, pas de dump d'articles) ===== */}
       {posts.length > 0 && (
         <section className="hd-transfos" data-reveal aria-labelledby="hd-transfos-h">
@@ -649,12 +615,6 @@ const CSS = `
 .hd-price.featured { border-left: 1px solid var(--line); }
 .hd-price.featured .hd-pilier-format { color: var(--red); border-color: var(--red); }
 
-/* PRODUIT D'APPEL - bandeau Veille */
-.hd-veille { background: var(--ink); color: var(--bg); }
-.hd-veille-inner { max-width: 1120px; margin: 0 auto; padding: 44px 24px; display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; }
-.hd-veille-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--bg); margin: 0 0 12px; }
-.hd-veille-h { font-family: var(--font-heading); font-size: clamp(24px, 3.2vw, 36px); line-height: 1.05; font-weight: 600; letter-spacing: -0.04em; margin: 0 0 12px; color: var(--bg); }
-.hd-veille-p { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: rgba(255,253,250,.72); margin: 0; max-width: 620px; }
 .hd-btn.onink { background: var(--bg); color: var(--ink); white-space: nowrap; }
 .hd-btn.onink:hover { background: var(--red); color: #fff; }
 
@@ -738,7 +698,6 @@ const CSS = `
   .hd-launch-grid { grid-template-columns: 1fr; }
   .hd-transfos-grid { grid-template-columns: 1fr; }
   .hd-art-list { border-left: 0; border-top: 1px solid var(--line); }
-  .hd-veille-inner { grid-template-columns: 1fr; }
   .hd-terrain-inner { grid-template-columns: 1fr; gap: 28px; }
   .hd-terrain-head { max-width: none; }
   .hd-terrain-photo { aspect-ratio: 16 / 11; }
