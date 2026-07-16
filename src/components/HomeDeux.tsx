@@ -350,8 +350,12 @@ export default function HomeDeux({
 
       {/* ===== HERO ===== */}
       <header className="hd-hero">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="hd-lockup" src="/brand/parrit-lockup.svg" alt="Parrit·ai" />
+        <div className="hd-mark">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="hd-mark-seal" src="/brand/parrit-seal.svg" alt="" aria-hidden="true" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="hd-mark-word" src="/brand/parrit-wordmark-clean.svg" alt="Parrit·ai" />
+        </div>
         <p className="hd-badge">{t.badge}</p>
         <h1 className="hd-h1">
           {t.h1a}<span className="hd-red">{t.h1red}</span>{t.h1b}
@@ -514,6 +518,8 @@ export default function HomeDeux({
 
       {/* ===== CTA FINAL ===== */}
       <footer className="hd-cta" data-reveal>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="hd-cta-seal" src="/brand/parrit-seal.svg" alt="" aria-hidden="true" />
         <h2 className="hd-cta-h">{t.ctaH}</h2>
         <p className="hd-cta-p">{t.ctaP}</p>
         <Link className="hd-btn primary lg hd-act" href={`/${lang}/rendez-vous?source=home-final-hire-agent`}>
@@ -571,11 +577,13 @@ const CSS = `
 .hd-btn.lg { padding: 16px 34px; font-size: 15px; }
 
 /* HERO */
-.hd-hero { max-width: 860px; margin: 0 auto; padding: 84px 24px 56px; text-align: center; }
-.hd-lockup { height: 34px; width: auto; margin: 0 auto 34px; display: block; }
-.hd-badge { display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 26px; }
+.hd-hero { max-width: 860px; margin: 0 auto; padding: 76px 24px 60px; text-align: center; }
+.hd-mark { display: flex; flex-direction: column; align-items: center; gap: 16px; margin: 0 auto 30px; }
+.hd-mark-seal { height: 82px; width: auto; display: block; }
+.hd-mark-word { height: 29px; width: auto; display: block; }
+.hd-badge { display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--red); background: var(--red-tint); padding: 6px 12px; margin: 0 0 26px; }
 .hd-h1 { font-family: var(--font-body); font-size: clamp(40px, 6vw, 72px); line-height: 1.02; font-weight: 600; letter-spacing: -0.04em; text-wrap: balance; margin: 0; }
-.hd-red { color: var(--ink); }
+.hd-red { color: var(--red); }
 .hd-lede { max-width: 620px; margin: 26px auto 0; font-family: var(--font-mono); font-size: 15px; line-height: 1.65; color: var(--muted); }
 .hd-hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
 
@@ -718,6 +726,7 @@ const CSS = `
 
 /* CTA */
 .hd-cta { max-width: 720px; margin: 0 auto; padding: 80px 24px 110px; text-align: center; }
+.hd-cta-seal { height: 52px; width: auto; display: block; margin: 0 auto 26px; }
 .hd-cta-h { font-family: var(--font-body); font-size: clamp(28px, 4vw, 44px); line-height: 1.05; font-weight: 600; letter-spacing: -0.04em; margin: 0 0 16px; }
 .hd-cta-p { font-family: var(--font-mono); font-size: 15px; line-height: 1.6; color: var(--muted); margin: 0 auto 30px; max-width: 520px; }
 .hd-cta-old { margin: 34px 0 0; }
