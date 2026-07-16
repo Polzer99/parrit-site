@@ -102,7 +102,7 @@ export default function MetiersPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
 
       <header className="met-hero">
-        <Link href="/fr" className="met-back">Parrit.ai</Link>
+        <Link href="/fr" className="nav-logo">Parrit.ai</Link>
         <p className="met-kicker">L'IA, métier par métier</p>
         <h1 className="met-h1">Voilà ce que ça change<br />pour votre métier.</h1>
         <p className="met-lede">
@@ -212,11 +212,11 @@ const CSS = `
 .met-scroll { display: inline-block; margin-top: 30px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
 
 .met-film { max-width: 420px; margin: 36px auto 0; padding: 0 24px; }
-.met-film-frame { border-radius: 18px; overflow: hidden; background: var(--card-dark); padding: 10px; border: 1px solid var(--border); box-shadow: var(--shadow-lg); }
-.met-film-frame video { display: block; width: 100%; height: auto; border-radius: 10px; aspect-ratio: 9 / 16; background: #000; }
+.met-film-frame { border-radius: 0; overflow: hidden; background: var(--card-dark); padding: 10px; border: 1px solid var(--border); box-shadow: none; }
+.met-film-frame video { display: block; width: 100%; height: auto; border-radius: 0; aspect-ratio: 9 / 16; background: #000; }
 .met-film-cap { margin: 14px 4px 0; font-size: 13.5px; line-height: 1.5; color: var(--faint); text-align: center; }
 
-.met-cta1 { max-width: 720px; margin: 34px auto 0; padding: 30px 24px 34px; text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow-sm); }
+.met-cta1 { max-width: 720px; margin: 34px auto 0; padding: 30px 24px 34px; text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: 0; box-shadow: none; }
 .met-cta1-k { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px; }
 .met-cta1-h { font-size: clamp(19px, 2.6vw, 25px); font-weight: 800; letter-spacing: -0.018em; line-height: 1.2; margin: 0 0 22px; }
 .met-flags { list-style: none; display: flex; align-items: flex-end; justify-content: space-between; gap: 6px; margin: 0 auto 24px; padding: 0; max-width: 440px; position: relative; }
@@ -231,12 +231,12 @@ const CSS = `
 .met-path { position: relative; max-width: 760px; margin: 48px auto 0; padding: 20px 24px 20px; }
 .met-spine { position: absolute; left: 28px; top: 0; bottom: 0; width: 2px; transform: translateX(-50%); background: linear-gradient(var(--dash), var(--dash)); }
 .met-step { position: relative; padding: 30px 0 30px 64px; }
-.met-node { position: absolute; left: 28px; top: 32px; transform: translate(-50%, 0); width: 44px; height: 44px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); color: var(--accent); font-family: var(--font-mono); font-size: 14px; font-weight: 700; display: grid; place-items: center; z-index: 2; box-shadow: var(--shadow-sm); }
+.met-node { position: absolute; left: 28px; top: 32px; transform: translate(-50%, 0); width: 44px; height: 44px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); color: var(--accent); font-family: var(--font-mono); font-size: 14px; font-weight: 700; display: grid; place-items: center; z-index: 2; box-shadow: none; }
 .met-tag { margin: 0 0 10px; }
 .met-ep { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .met-title { font-size: clamp(21px, 3vw, 28px); line-height: 1.15; font-weight: 800; letter-spacing: -0.015em; margin: 0 0 12px; }
-.met-who { display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 13px; color: var(--text); background: var(--surface); border: 1px solid var(--line-2); border-radius: 999px; padding: 6px 13px 6px 7px; margin: 0 0 14px; }
-.met-who-k { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); background: var(--band); border-radius: 999px; padding: 3px 8px; }
+.met-who { display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 13px; color: var(--text); background: var(--surface); border: 1px solid var(--line-2); border-radius: 0; padding: 6px 13px 6px 7px; margin: 0 0 14px; }
+.met-who-k { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); background: var(--band); border-radius: 0; padding: 3px 8px; }
 .met-who.shift { color: var(--accent); border-color: var(--tint-bd); background: var(--tint); font-weight: 600; }
 .met-who.shift .met-who-k { color: #fff; background: var(--accent); }
 .met-vo { font-size: 17px; line-height: 1.62; color: var(--text); opacity: .82; margin: 0; }
@@ -245,7 +245,7 @@ const CSS = `
 .met-next-h { font-size: clamp(22px, 3.2vw, 30px); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 12px; }
 .met-next-p { font-size: 17px; line-height: 1.6; color: var(--muted); margin: 0 auto 30px; max-width: 540px; }
 .met-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; text-align: left; }
-.met-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px 20px; }
+.met-card { background: var(--surface); border: 1px solid var(--line); border-radius: 0; padding: 18px 18px 20px; }
 .met-card-soon { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
 .met-card-nom { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; margin: 8px 0 5px; }
 .met-card-sous { font-size: 14px; line-height: 1.5; color: var(--muted); margin: 0; }
@@ -255,7 +255,7 @@ const CSS = `
 .met-cta-h { font-size: clamp(24px, 3.6vw, 34px); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 16px; }
 .met-cta-p { font-size: 17px; line-height: 1.6; color: var(--muted); margin: 0 auto 28px; max-width: 600px; }
 .met-cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-.met-btn { font-family: var(--font-mono); font-size: 13px; font-weight: 600; letter-spacing: .04em; padding: 13px 22px; border-radius: 10px; text-decoration: none; }
+.met-btn { font-family: var(--font-mono); font-size: 13px; font-weight: 600; letter-spacing: .04em; padding: 13px 22px; border-radius: 0; text-decoration: none; }
 .met-btn.primary { background: var(--accent); color: #fff; }
 .met-btn.primary:hover { background: var(--accent-hover); }
 .met-btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line-2); }

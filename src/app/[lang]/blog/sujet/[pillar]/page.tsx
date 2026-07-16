@@ -192,7 +192,7 @@ export default async function PillarPage({
       </header>
 
       <nav aria-label="Fil d'Ariane" style={{ padding: "0 var(--blog-side-pad, 1.25rem)", maxWidth: 720, margin: "0 auto 2rem" }}>
-        <Link href={`/${lang}`} className="blog-nav-link">Parrit.ai</Link>
+        <Link href={`/${lang}`} className="nav-logo">Parrit.ai</Link>
         {" › "}
         <Link href={`/${lang}/blog`} className="blog-nav-link">{dict.blog.navTitle}</Link>
         {" › "}

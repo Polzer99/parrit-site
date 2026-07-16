@@ -93,7 +93,7 @@ export default function LandingPage({ data, lang, quickContact, pageId, relatedA
             custom={1}
           >
             {data.hero.titleMain}{" "}
-            <em style={{ color: "var(--parrit-red)", fontStyle: "italic", fontWeight: 500 }}>
+            <em style={{ color: "var(--parrit-red)", fontStyle: "normal", fontWeight: 500 }}>
               {data.hero.titleAccent}
             </em>
           </motion.h1>

@@ -446,7 +446,7 @@ const CSS = `
 .bsd-lede{font-size:16px; color:var(--muted); margin:0; max-width:60ch}
 .bsd-lede b{color:var(--encre)}
 
-.bsd-win{background:#fff; border:2px solid var(--encre); border-radius:10px; box-shadow:7px 7px 0 var(--encre); overflow:hidden; margin-top:18px}
+.bsd-win{background:#fff; border:2px solid var(--encre); border-radius: 0; box-shadow: none; overflow:hidden; margin-top:18px}
 .bsd-chrome{display:flex; align-items:center; gap:10px; padding:11px 14px; border-bottom:2px solid var(--encre); background:var(--creme); position:relative}
 .bsd-lights{display:flex; gap:7px}
 .bsd-lights span{width:12px;height:12px;border-radius:50%;border:1.5px solid var(--encre);display:block}
@@ -457,17 +457,13 @@ const CSS = `
 .bsd-pane{padding:22px}
 .bsd-pane-left{border-right:2px solid var(--encre); display:flex; flex-direction:column}
 .bsd-pane-label{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:0 0 10px}
-.bsd-editor{flex:1; border:2px solid var(--encre); border-radius:6px; background:var(--creme); padding:14px; font-family:var(--mono); font-size:13.5px; line-height:1.6; color:var(--encre); min-height:210px; resize:vertical; outline:none; box-shadow:inset 0 0 0 3px #fff}
+.bsd-editor{flex:1; border:2px solid var(--encre); border-radius: 0; background:var(--creme); padding:14px; font-family:var(--mono); font-size:13.5px; line-height:1.6; color:var(--encre); min-height:210px; resize:vertical; outline:none; box-shadow:inset 0 0 0 3px #fff}
 .bsd-editor:focus{border-color:var(--rouge); box-shadow:inset 0 0 0 3px #fff, 0 0 0 3px var(--rouge-soft)}
 .bsd-editor::placeholder{color:#9a9a9d}
 .bsd-gate{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap}
-.bsd-email{flex:1 1 200px; border:2px solid var(--encre); border-radius:6px; padding:12px 14px; font-family:var(--mono); font-size:13.5px; background:#fff; color:var(--encre); outline:none}
-.bsd-email:focus{border-color:var(--rouge); box-shadow:0 0 0 3px var(--rouge-soft)}
-.bsd-cta{font-family:var(--body); font-weight:700; font-size:15px; letter-spacing:.04em; background:var(--encre); color:var(--creme); border:2px solid var(--encre); box-shadow:5px 5px 0 var(--rouge); padding:12px 24px; border-radius:6px; cursor:pointer; transition:transform .06s, box-shadow .06s; white-space:nowrap}
-.bsd-cta:hover{box-shadow:7px 7px 0 var(--rouge)}
-.bsd-cta:active{transform:translate(3px,3px); box-shadow:2px 2px 0 var(--rouge)}
-.bsd-cta:disabled{opacity:.6; cursor:wait; box-shadow:5px 5px 0 var(--rouge)}
-.bsd-microgate{font-family:var(--mono); font-size:11px; color:var(--muted); margin:10px 0 0; line-height:1.5}
+.bsd-email{flex:1 1 200px; border:2px solid var(--encre); border-radius: 0; padding:12px 14px; font-family:var(--mono); font-size:13.5px; background:#fff; color:var(--encre); outline:none}
+.bsd-email:focus{border-color:var(--rouge); box-shadow: none; font-weight:700; font-size:15px; letter-spacing:.04em; background:var(--encre); color:var(--creme); border:2px solid var(--encre); box-shadow: none; padding:12px 24px; border-radius: 0; cursor:pointer; transition:transform .06s, box-shadow .06s; white-space:nowrap}
+.bsd-cta:hover{box-shadow: none; box-shadow: none; cursor:wait; box-shadow: none; font-size:11px; color:var(--muted); margin:10px 0 0; line-height:1.5}
 .bsd-err{color:var(--rouge); font-weight:700; font-size:13.5px; margin:10px 0 0; font-family:var(--mono)}
 
 .bsd-pane-right{position:relative; background:#fff; display:flex; flex-direction:column}
@@ -484,7 +480,7 @@ const CSS = `
 .bsd-gnum{position:absolute; left:0; right:0; top:54px; text-align:center; font-family:var(--mono); font-weight:700; font-size:46px; line-height:1}
 .bsd-gnum small{font-size:18px; color:var(--muted); font-weight:500}
 .bsd-gmeta{flex:1}
-.bsd-band{display:inline-block; font-family:var(--mono); font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:6px 11px; border:1.5px solid var(--encre); border-radius:5px; background:var(--rouge-soft); color:var(--rouge)}
+.bsd-band{display:inline-block; font-family:var(--mono); font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:6px 11px; border:1.5px solid var(--encre); border-radius: 0; background:var(--rouge-soft); color:var(--rouge)}
 .bsd-band.bsd-lo{color:var(--encre); background:rgba(20,20,26,.05)}
 .bsd-gscale{font-family:var(--mono); font-size:10.5px; color:var(--muted); margin-top:9px}
 
@@ -497,7 +493,7 @@ const CSS = `
 .bsd-ax{display:grid; grid-template-columns:150px 1fr 34px; align-items:center; gap:12px; margin-bottom:11px}
 .bsd-lab{font-family:var(--mono); font-size:11.5px; line-height:1.25}
 .bsd-lab i{display:block; color:var(--muted); font-style:normal; font-size:9.5px; margin-top:2px}
-.bsd-track{height:11px; border:1.5px solid var(--encre); border-radius:3px; background:var(--creme); overflow:hidden}
+.bsd-track{height:11px; border:1.5px solid var(--encre); border-radius: 0; background:var(--creme); overflow:hidden}
 .bsd-fill{height:100%; width:0; transition:width .9s cubic-bezier(.2,.8,.2,1)}
 .bsd-val{font-family:var(--mono); font-size:12.5px; font-weight:700; text-align:right}
 

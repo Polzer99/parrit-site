@@ -1,0 +1,196 @@
+
+> parrit-site@0.1.0 prebuild
+> node scripts/generate-llms.mjs
+
+
+> parrit-site@0.1.0 build
+> next build
+
+▲ Next.js 16.2.2 (Turbopack)
+
+  Creating an optimized production build ...
+(node:59648) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✓ Compiled successfully in 1948ms
+  Running TypeScript ...
+  Finished TypeScript in 2.6s ...
+  Collecting page data using 10 workers ...
+⚠ Using edge runtime on a page currently disables static generation for that page
+  Generating static pages using 10 workers (0/182) ...
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+  Generating static pages using 10 workers (45/182) 
+  Generating static pages using 10 workers (90/182) 
+  Generating static pages using 10 workers (136/182) 
+✓ Generating static pages using 10 workers (182/182) in 510ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /_not-found
+├ ● /[lang]
+│ ├ /fr
+│ ├ /en
+│ ├ /pt-BR
+│ └ /zh-CN
+├ ● /[lang]/actualite
+│ ├ /fr/actualite
+│ ├ /en/actualite
+│ ├ /pt-BR/actualite
+│ └ /zh-CN/actualite
+├ ● /[lang]/actualite/[slug]
+│ ├ /fr/actualite/glm-5-2-souverainete
+│ ├ /en/actualite/glm-5-2-souverainete
+│ ├ /pt-BR/actualite/glm-5-2-souverainete
+│ └ /zh-CN/actualite/glm-5-2-souverainete
+├ ● /[lang]/audit
+│ ├ /fr/audit
+│ ├ /en/audit
+│ ├ /pt-BR/audit
+│ └ /zh-CN/audit
+├ ● /[lang]/auteur/paul-larmaraud
+│ ├ /fr/auteur/paul-larmaraud
+│ ├ /en/auteur/paul-larmaraud
+│ ├ /pt-BR/auteur/paul-larmaraud
+│ └ /zh-CN/auteur/paul-larmaraud
+├ ● /[lang]/blog
+│ ├ /fr/blog
+│ ├ /en/blog
+│ ├ /pt-BR/blog
+│ └ /zh-CN/blog
+├ ● /[lang]/blog/[slug]
+│ ├ /fr/blog/une-carte-une-action
+│ ├ /fr/blog/le-brouillon-qui-sait-se-taire
+│ ├ /fr/blog/le-bon-endroit-pour-ecrire
+│ └ [+37 more paths]
+├ ● /[lang]/blog/sujet/[pillar]
+│ ├ /fr/blog/sujet/agents-ia
+│ ├ /fr/blog/sujet/formation-agents-ia
+│ ├ /fr/blog/sujet/logiciel-ia-sur-mesure
+│ └ [+9 more paths]
+├ ● /[lang]/confidentialite
+│ ├ /fr/confidentialite
+│ ├ /en/confidentialite
+│ ├ /pt-BR/confidentialite
+│ └ /zh-CN/confidentialite
+├ ● /[lang]/croissance
+│ ├ /fr/croissance
+│ ├ /en/croissance
+│ ├ /pt-BR/croissance
+│ └ /zh-CN/croissance
+├ ● /[lang]/deploiement-agents
+│ ├ /fr/deploiement-agents
+│ ├ /en/deploiement-agents
+│ ├ /pt-BR/deploiement-agents
+│ └ /zh-CN/deploiement-agents
+├ ● /[lang]/deployer
+│ ├ /fr/deployer
+│ ├ /en/deployer
+│ ├ /pt-BR/deployer
+│ └ /zh-CN/deployer
+├ ● /[lang]/glossaire
+│ ├ /fr/glossaire
+│ ├ /en/glossaire
+│ ├ /pt-BR/glossaire
+│ └ /zh-CN/glossaire
+├ ● /[lang]/glossaire/[slug]
+│ ├ /fr/glossaire/agent-ia-entreprise
+│ ├ /fr/glossaire/comment-integrer-agent-ia
+│ ├ /fr/glossaire/claude-code-vs-chatgpt
+│ └ [+6 more paths]
+├ ● /[lang]/launches
+│ ├ /fr/launches
+│ ├ /en/launches
+│ ├ /pt-BR/launches
+│ └ /zh-CN/launches
+├ ● /[lang]/launches/[slug]
+│ ├ /fr/launches/capture-multicanal-artisan
+│ ├ /fr/launches/tri-reclamations-support
+│ ├ /fr/launches/sourcing-foncier-apis-publiques
+│ └ [+9 more paths]
+├ ● /[lang]/masterclass-ia
+│ ├ /fr/masterclass-ia
+│ ├ /en/masterclass-ia
+│ ├ /pt-BR/masterclass-ia
+│ └ /zh-CN/masterclass-ia
+├ ● /[lang]/masterclass-metier
+│ ├ /fr/masterclass-metier
+│ ├ /en/masterclass-metier
+│ ├ /pt-BR/masterclass-metier
+│ └ /zh-CN/masterclass-metier
+├ ● /[lang]/mentions-legales
+│ ├ /fr/mentions-legales
+│ ├ /en/mentions-legales
+│ ├ /pt-BR/mentions-legales
+│ └ /zh-CN/mentions-legales
+├ ● /[lang]/optimisation-flotte
+│ ├ /fr/optimisation-flotte
+│ ├ /en/optimisation-flotte
+│ ├ /pt-BR/optimisation-flotte
+│ └ /zh-CN/optimisation-flotte
+├ ● /[lang]/os-classic
+│ ├ /fr/os-classic
+│ ├ /en/os-classic
+│ ├ /pt-BR/os-classic
+│ └ /zh-CN/os-classic
+├ ● /[lang]/outils-agentiques
+│ ├ /fr/outils-agentiques
+│ ├ /en/outils-agentiques
+│ ├ /pt-BR/outils-agentiques
+│ └ /zh-CN/outils-agentiques
+├ ● /[lang]/remote
+│ ├ /fr/remote
+│ ├ /en/remote
+│ ├ /pt-BR/remote
+│ └ /zh-CN/remote
+├ ƒ /[lang]/rendez-vous
+├ ● /[lang]/ressources
+│ ├ /fr/ressources
+│ ├ /en/ressources
+│ ├ /pt-BR/ressources
+│ └ /zh-CN/ressources
+├ ● /[lang]/sessions-mcp
+│ ├ /fr/sessions-mcp
+│ ├ /en/sessions-mcp
+│ ├ /pt-BR/sessions-mcp
+│ └ /zh-CN/sessions-mcp
+├ ● /[lang]/setup-claude-code
+│ ├ /fr/setup-claude-code
+│ ├ /en/setup-claude-code
+│ ├ /pt-BR/setup-claude-code
+│ └ /zh-CN/setup-claude-code
+├ ● /[lang]/transmettre
+│ ├ /fr/transmettre
+│ ├ /en/transmettre
+│ ├ /pt-BR/transmettre
+│ └ /zh-CN/transmettre
+├ ○ /academy
+├ ƒ /api/bullshit
+├ ƒ /api/chat
+├ ƒ /api/chat/lead
+├ ƒ /api/diagnostic
+├ ƒ /api/transcribe
+├ ○ /apple-icon.png
+├ ○ /diagnostic
+├ ○ /fondateurs
+├ ○ /harnais-ia
+├ ○ /icon.svg
+├ ○ /llms-full.txt
+├ ○ /metiers
+├ ƒ /opengraph-image
+├ ○ /outils/detecteur-bullshit
+├ ○ /robots.txt
+└ ○ /sitemap.xml
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

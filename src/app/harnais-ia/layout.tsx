@@ -36,8 +36,8 @@ const gateCss = `
 .gate-content.unblurred{filter:none;opacity:1;-webkit-mask-image:none;mask-image:none;pointer-events:auto}
 .gate-capture{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);
   width:min(460px,94%);z-index:5;background:var(--surface);border:1px solid var(--line);
-  border-radius:20px;padding:40px 38px;box-shadow:var(--shadow-lg);overflow:hidden}
-.gate-capture .seal{width:42px;height:42px;font-size:22px;border-radius:9px;margin-bottom:18px}
+  border-radius:0;padding:40px 38px;box-shadow:none;overflow:hidden}
+.gate-capture .seal{width:42px;height:42px;font-size:22px;border-radius:0;margin-bottom:18px}
 .gate-capture h3{font-size:24px;font-weight:800;letter-spacing:-.018em;line-height:1.18;color:var(--ink)}
 .gate-capture .cap-sub{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:12px;line-height:1.65}
 .gate-capture .leadform{flex-direction:column;margin-top:22px;max-width:none}
