@@ -578,7 +578,7 @@ const CSS = `
 .hd-mark-seal { height: 82px; width: auto; display: block; }
 .hd-mark-word { height: 29px; width: auto; display: block; }
 .hd-badge { display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--red); background: var(--red-tint); padding: 6px 12px; margin: 0 0 26px; }
-.hd-h1 { font-family: var(--font-body); font-size: clamp(40px, 6vw, 72px); line-height: 1.02; font-weight: 600; letter-spacing: -0.04em; text-wrap: balance; margin: 0; }
+.hd-h1 { font-family: var(--font-heading); font-size: clamp(40px, 6vw, 72px); line-height: 1.02; font-weight: 600; letter-spacing: -0.04em; text-wrap: balance; margin: 0; }
 .hd-red { color: var(--red); }
 .hd-lede { max-width: 620px; margin: 26px auto 0; font-family: var(--font-mono); font-size: 15px; line-height: 1.65; color: var(--muted); }
 .hd-hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
@@ -624,10 +624,10 @@ const CSS = `
 .hd-agent-top { display: flex; align-items: center; gap: 13px; min-height: 84px; padding: 18px 20px; border-bottom: 1px solid var(--line); }
 .hd-agent-face { flex: 0 0 46px; width: 46px; height: 46px; object-fit: cover; border: 1px solid var(--line); background: var(--bg); }
 .hd-agent-id { min-width: 0; }
-.hd-agent-name { font-family: var(--font-body); font-size: 19px; line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 5px; }
+.hd-agent-name { font-family: var(--font-heading); font-size: 19px; line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 5px; }
 .hd-agent-fn { font-family: var(--font-mono); font-size: 10.5px; line-height: 1.25; letter-spacing: .1em; text-transform: uppercase; color: var(--red); margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .hd-agent-case { flex: 1; display: flex; flex-direction: column; padding: 18px 20px 20px; }
-.hd-case-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--font-body); font-size: 16px; line-height: 1.2; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 8px; min-height: 2.4em; }
+.hd-case-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--font-heading); font-size: 16px; line-height: 1.2; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 8px; min-height: 2.4em; }
 .hd-case-desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; color: var(--muted); margin: 0 0 14px; }
 .hd-case-meta { align-self: flex-start; margin-top: auto; max-width: 100%; font-family: var(--font-mono); font-size: 10px; letter-spacing: .09em; text-transform: uppercase; color: var(--red); background: var(--tint); padding: 4px 7px; overflow-wrap: anywhere; }
 .hd-catalog-foot { font-family: var(--font-mono); font-size: 12px; line-height: 1.5; color: var(--muted); text-align: center; margin: 22px auto 0; }
@@ -653,7 +653,7 @@ const CSS = `
 .hd-veille { background: var(--ink); color: var(--bg); }
 .hd-veille-inner { max-width: 1120px; margin: 0 auto; padding: 44px 24px; display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; }
 .hd-veille-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--bg); margin: 0 0 12px; }
-.hd-veille-h { font-family: var(--font-body); font-size: clamp(24px, 3.2vw, 36px); line-height: 1.05; font-weight: 600; letter-spacing: -0.04em; margin: 0 0 12px; color: var(--bg); }
+.hd-veille-h { font-family: var(--font-heading); font-size: clamp(24px, 3.2vw, 36px); line-height: 1.05; font-weight: 600; letter-spacing: -0.04em; margin: 0 0 12px; color: var(--bg); }
 .hd-veille-p { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: rgba(255,253,250,.72); margin: 0; max-width: 620px; }
 .hd-btn.onink { background: var(--bg); color: var(--ink); white-space: nowrap; }
 .hd-btn.onink:hover { background: var(--red); color: #fff; }
@@ -662,14 +662,14 @@ const CSS = `
 .hd-piliers { max-width: 1120px; margin: 0 auto; padding: 72px 24px 24px; }
 .hd-piliers-head { text-align: center; margin: 0 0 40px; }
 .hd-eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--red); margin: 0 0 12px; }
-.hd-h2 { font-family: var(--font-body); font-size: clamp(26px, 3.4vw, 40px); line-height: 1.1; font-weight: 600; letter-spacing: -0.04em; text-wrap: balance; margin: 0; }
+.hd-h2 { font-family: var(--font-heading); font-size: clamp(26px, 3.4vw, 40px); line-height: 1.1; font-weight: 600; letter-spacing: -0.04em; text-wrap: balance; margin: 0; }
 .hd-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); }
 .hd-pilier { display: flex; flex-direction: column; padding: 36px 34px 34px; }
 .hd-pilier + .hd-pilier { border-left: 1px solid var(--line); }
 .hd-pilier-tag { display: flex; align-items: center; gap: 12px; margin: 0 0 18px; }
 .hd-pilier-n { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: #fff; background: var(--ink); padding: 4px 9px; }
 .hd-pilier-eye { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-.hd-pilier-title { font-family: var(--font-body); font-size: clamp(22px, 2.6vw, 30px); line-height: 1.12; font-weight: 600; letter-spacing: -0.04em; margin: 0 0 14px; }
+.hd-pilier-title { font-family: var(--font-heading); font-size: clamp(22px, 2.6vw, 30px); line-height: 1.12; font-weight: 600; letter-spacing: -0.04em; margin: 0 0 14px; }
 .hd-pilier-desc { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 0 0 24px; }
 
 .hd-pilier-format { font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em; color: var(--red); border: 1px solid var(--line); padding: 3px 8px; margin-left: auto; }

@@ -1,5 +1,37 @@
 @import "tailwindcss";
 
+/* Arpona (Floodfonts) — titrage de la DA Smoooth. woff2 self-hosted,
+   livrés par Smoooth le 16/07 (OTF -> woff2). Titres uniquement ;
+   corps/labels = Geist Mono. */
+@font-face {
+  font-family: "Arpona";
+  src: url("/fonts/arpona/arpona-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Arpona";
+  src: url("/fonts/arpona/arpona-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Arpona";
+  src: url("/fonts/arpona/arpona-semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Arpona";
+  src: url("/fonts/arpona/arpona-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* PARRIT.AI : DA "Parrit Template" (source: design-source/, 06/2026). */
 :root {
   --bg: #FFFDFA;
@@ -40,7 +72,7 @@
   --shadow-lg: 0 2px 6px rgba(20, 24, 48, 0.06), 0 24px 60px rgba(20, 24, 48, 0.09);
   --sage: #D0D8D7;
   --col: 1212px;
-  --font-heading: var(--font-body);
+  --font-heading: "Arpona", var(--font-body);
 }
 
 @theme inline {
@@ -52,7 +84,7 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-border: var(--border);
-  --font-heading: var(--font-body);
+  --font-heading: "Arpona", var(--font-body);
   --font-body: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-serif: var(--font-body);
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -3048,6 +3080,7 @@ body > * {
 .home-template h2,
 .home-template h3,
 .home-template h4 {
+  font-family: var(--font-heading);
   overflow-wrap: break-word;
 }
 
