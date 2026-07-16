@@ -19,8 +19,6 @@ const CLIENT_LOGOS: { alt: string; src: string; cn?: boolean }[] = [
 
 // Preuve terrain : vraies photos d'ateliers / masterclass / plénières (ordre = terrainCaps).
 const TERRAIN_PHOTOS = [
-  "/brand/terrain/atelier-cartographie.jpg",
-  "/brand/terrain/masterclass-acculturation.jpg",
   "/brand/terrain/pleniere-prise-parole.jpg",
 ];
 
@@ -107,7 +105,7 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainEyebrow: "Sur le terrain",
     terrainH: "On déploie avec vos équipes, pas à distance.",
     terrainP: "Cartographie des workflows, acculturation, prise de parole : on installe l'IA au contact de vos équipes, dans vos murs.",
-    terrainCaps: ["Cartographie de workflow · atelier", "Masterclass d'acculturation", "Prise de parole · plénière"],
+    terrainCaps: ["Atelier · prise de parole"],
     catEyebrow: "Catalogue",
     catH2: "Pas des slides. Des agents qui tournent en production.",
     catSub: "Des agents opérationnels sur vos fonctions clés, avec un périmètre défini, des accès encadrés et un responsable. Vous gardez le contrôle et la traçabilité.",
@@ -163,7 +161,7 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainEyebrow: "On the ground",
     terrainH: "We deploy with your teams, not from a distance.",
     terrainP: "Workflow mapping, upskilling, speaking: we install AI next to your teams, on your premises.",
-    terrainCaps: ["Workflow mapping · workshop", "Upskilling masterclass", "Keynote · plenary"],
+    terrainCaps: ["Workshop · keynote"],
     catEyebrow: "Catalog",
     catH2: "Not slides. Agents running in production.",
     catSub: "Production-grade agents across your core functions, each with a defined scope, gated access and a named owner. You keep control and full auditability.",
@@ -219,7 +217,7 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainEyebrow: "No terreno",
     terrainH: "Implantamos com suas equipes, não à distância.",
     terrainP: "Mapeamento de fluxos, capacitação, palestras: instalamos a IA junto das suas equipes, na sua empresa.",
-    terrainCaps: ["Mapeamento de fluxo · workshop", "Masterclass de capacitação", "Palestra · plenária"],
+    terrainCaps: ["Workshop · palestra"],
     catEyebrow: "Catálogo",
     catH2: "Nada de slides. Agentes rodando em produção.",
     catSub: "Agentes operacionais nas suas funções-chave, com perímetro definido, acessos controlados e um responsável. Você mantém o controle e a rastreabilidade.",
@@ -275,7 +273,7 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainEyebrow: "在一线",
     terrainH: "我们和你的团队一起部署，而不是远程交付。",
     terrainP: "梳理工作流、团队培训、现场分享：我们在你的团队身边、在你的办公室里落地 AI。",
-    terrainCaps: ["工作流梳理 · 工作坊", "团队培训 masterclass", "主题分享 · 全体会议"],
+    terrainCaps: ["工作坊 · 主题分享"],
     catEyebrow: "目录",
     catH2: "不是幻灯片，而是真正在生产环境运行的智能体。",
     catSub: "覆盖你核心职能的可上岗智能体：边界清晰、权限受控、责任到人。你始终掌控全局，全程可追溯。",
@@ -404,19 +402,17 @@ export default function HomeDeux({
 
       {/* ===== SUR LE TERRAIN (preuve d'execution, vraies photos) ===== */}
       <section className="hd-terrain" data-reveal aria-labelledby="hd-terrain-h">
-        <div className="hd-terrain-head">
-          <p className="hd-eyebrow"><span className="hd-eyebrow-n">02</span> · {t.terrainEyebrow}</p>
-          <h2 id="hd-terrain-h" className="hd-h2">{t.terrainH}</h2>
-          <p className="hd-terrain-sub">{t.terrainP}</p>
-        </div>
-        <div className="hd-terrain-grid" data-stagger>
-          {TERRAIN_PHOTOS.map((src, i) => (
-            <figure className="hd-terrain-item" key={src}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="hd-terrain-photo" src={src} alt={t.terrainCaps[i]} loading="lazy" />
-              <figcaption className="hd-terrain-cap">{t.terrainCaps[i]}</figcaption>
-            </figure>
-          ))}
+        <div className="hd-terrain-inner" data-stagger>
+          <div className="hd-terrain-head">
+            <p className="hd-eyebrow"><span className="hd-eyebrow-n">02</span> · {t.terrainEyebrow}</p>
+            <h2 id="hd-terrain-h" className="hd-h2">{t.terrainH}</h2>
+            <p className="hd-terrain-sub">{t.terrainP}</p>
+          </div>
+          <figure className="hd-terrain-item">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="hd-terrain-photo" src={TERRAIN_PHOTOS[0]} alt={t.terrainCaps[0]} loading="lazy" />
+            <figcaption className="hd-terrain-cap">{t.terrainCaps[0]}</figcaption>
+          </figure>
         </div>
       </section>
 
@@ -603,12 +599,12 @@ const CSS = `
 
 /* SUR LE TERRAIN (vraies photos) */
 .hd-terrain { max-width: 1120px; margin: 0 auto; padding: 66px 24px 24px; border-top: 1px solid var(--line); }
-.hd-terrain-head { max-width: 720px; margin: 0 auto 34px; text-align: center; }
-.hd-terrain-sub { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 16px auto 0; max-width: 620px; }
-.hd-terrain-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); }
-.hd-terrain-item { min-width: 0; margin: 0; display: flex; flex-direction: column; }
-.hd-terrain-item + .hd-terrain-item { border-left: 1px solid var(--line); }
-.hd-terrain-photo { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center; }
+.hd-terrain-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.hd-terrain-head { max-width: 460px; margin: 0; text-align: left; }
+.hd-terrain-sub { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 16px 0 0; max-width: 420px; }
+.hd-terrain-item { min-width: 0; margin: 0; display: flex; flex-direction: column; border: 1px solid var(--line); overflow: hidden; }
+.hd-terrain-photo { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 22%; transition: transform .5s cubic-bezier(.16,1,.3,1); }
+.hd-terrain-item:hover .hd-terrain-photo { transform: scale(1.035); }
 .hd-terrain-cap { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 14px 18px 16px; border-top: 1px solid var(--line); }
 
 /* TRUST */
@@ -743,9 +739,9 @@ const CSS = `
   .hd-transfos-grid { grid-template-columns: 1fr; }
   .hd-art-list { border-left: 0; border-top: 1px solid var(--line); }
   .hd-veille-inner { grid-template-columns: 1fr; }
-  .hd-terrain-grid { grid-template-columns: 1fr; }
-  .hd-terrain-item + .hd-terrain-item { border-left: 0; border-top: 1px solid var(--line); }
-  .hd-terrain-photo { aspect-ratio: 16 / 10; }
+  .hd-terrain-inner { grid-template-columns: 1fr; gap: 28px; }
+  .hd-terrain-head { max-width: none; }
+  .hd-terrain-photo { aspect-ratio: 16 / 11; }
 }
 @media (max-width: 520px) {
   .hd-change-pair { grid-template-columns: 1fr; gap: 9px; }
