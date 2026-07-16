@@ -52,6 +52,7 @@ Planches avant/après :
 - `npm ci` : vert
 - `npm run lint` : 0 erreur, 1 warning historique hors scope dans `src/app/[lang]/ressources/page.tsx`
 - `npm run build` : vert, 182 pages statiques générées
+- CI `qa:doctrine` : échec baseline reproduit sur `origin/main` à cause de deux tirets cadratins déjà présents dans le copy `zh-CN` (`HomeDeux.tsx:257` et `:268`). Non corrigé ici car #150 interdit tout changement de copy.
 - Smoke HTTP : `/fr`, `/en`, `/pt-BR`, `/zh-CN` répondent toutes `200`
 - Audit contraste : 0 défaut sur `/fr`, `/en`, `/pt-BR`, `/zh-CN`
 - Home : aucun `<img>` brut ni suppression ESLint `no-img-element` restant
