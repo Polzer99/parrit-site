@@ -1645,6 +1645,11 @@ body > * {
   overflow-x: hidden;
 }
 
+/* Offres : fond crème plein (le paysage ne doit pas transpercer) — DA brutaliste */
+.home-template.offer-template {
+  background: var(--bg);
+}
+
 .home-template .frame {
   height: 6px;
   background: var(--ink);
@@ -1689,11 +1694,12 @@ body > * {
   justify-content: space-between;
   gap: 18px;
   padding: 18px 16px;
-  background: rgba(245, 248, 255, 0.80);
+  background: rgba(255, 253, 250, 0.82);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   backdrop\2d filter: blur(14px);
-  border-radius: 12px;
+  border-radius: 0;
+  border-bottom: 1px solid var(--line);
   margin-bottom: 0;
 }
 
@@ -1781,20 +1787,20 @@ body > * {
 }
 
 .home-template .btn-ghost {
-  background: #EEF1F7;
+  background: var(--band);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 0;
   color: var(--ink);
   justify-content: center;
   padding: 11px 18px;
 }
 
 .home-template .btn-ghost:hover {
-  background: #E6EAF2;
+  background: #E7E7E7;
 }
 
 .home-template .btn-lg {
-  border-radius: 9px;
+  border-radius: 0;
   font-size: 13.5px;
   min-height: 48px;
   padding: 15px 26px;
@@ -1841,9 +1847,9 @@ body > * {
 
 .home-template .hero h1 {
   color: var(--ink);
-  font-size: 72px;
-  font-weight: 900;
-  letter-spacing: 0;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
   line-height: 1.02;
   margin: 18px auto 0;
   max-width: 920px;
@@ -1880,7 +1886,7 @@ body > * {
   align-items: center;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 100px;
+  border-radius: 0;
   color: var(--ink);
   display: inline-flex;
   font-family: var(--font-mono);
@@ -2446,7 +2452,7 @@ body > * {
 .home-template .card {
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 0;
   box-shadow: none;
   display: flex;
   flex-direction: column;
@@ -2457,7 +2463,7 @@ body > * {
 .home-template .card .ic {
   background: var(--bg);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 0;
   color: var(--red);
   display: grid;
   font-family: var(--font-serif);
@@ -2575,7 +2581,7 @@ body > * {
 
 .home-template .tag {
   background: var(--terra);
-  border-radius: 5px;
+  border-radius: 0;
   color: #FFFFFF;
   display: inline-block;
   font-family: var(--font-mono);
@@ -2631,7 +2637,7 @@ body > * {
 .home-template .bc {
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 0;
   box-shadow: none;
   color: var(--ink);
   padding: 26px;
@@ -2826,8 +2832,8 @@ body > * {
   align-items: center;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 8px;
-  box-shadow: 0 2px 18px rgba(20, 20, 26, 0.07);
+  border-radius: 0;
+  box-shadow: none;
   display: grid;
   gap: 34px;
   grid-template-columns: 1.25fr 1fr;
@@ -2875,7 +2881,7 @@ body > * {
 .home-template .leadform input {
   background: var(--bg);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 0;
   color: var(--ink);
   flex: 1 1 200px;
   font-family: var(--font-body);
