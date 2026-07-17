@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import HomeMotion from "@/components/HomeMotion";
 import LaunchCard from "@/components/LaunchCard";
 import type { Locale } from "@/app/[lang]/dictionaries";
@@ -7,14 +8,14 @@ import type { BlogPost } from "@/lib/blog";
 import { getCatalog, type AgentGroup } from "@/lib/agents";
 
 // Barre de preuve : logos clients, repris de la home historique.
-const CLIENT_LOGOS: { alt: string; src: string; cn?: boolean }[] = [
-  { alt: "Lavazza", src: "/brand/client-logos/logo-1.png" },
-  { alt: "Laparra", src: "/brand/client-logos/logo-2.png" },
-  { alt: "SNCF", src: "/brand/client-logos/logo-3.png" },
-  { alt: "Joone", src: "/brand/client-logos/logo-4.png" },
-  { alt: "Clevery", src: "/brand/client-logos/logo-5.png" },
-  { alt: "EFI", src: "/brand/client-logos/logo-6.png" },
-  { alt: "Carte Noire", src: "/brand/client-logos/logo-7.png", cn: true },
+const CLIENT_LOGOS = [
+  { alt: "Lavazza", src: "/brand/client-logos/logo-1.png", width: 2400, height: 1500 },
+  { alt: "Laparra", src: "/brand/client-logos/logo-2.png", width: 1248, height: 438 },
+  { alt: "SNCF", src: "/brand/client-logos/logo-3.png", width: 300, height: 300 },
+  { alt: "Joone", src: "/brand/client-logos/logo-4.png", width: 486, height: 200 },
+  { alt: "Clevery", src: "/brand/client-logos/logo-5.png", width: 300, height: 102 },
+  { alt: "EFI", src: "/brand/client-logos/logo-6.png", width: 1407, height: 1397 },
+  { alt: "Carte Noire", src: "/brand/client-logos/logo-7.png", width: 2314, height: 1167, cn: true },
 ];
 
 // Preuve terrain : vraies photos d'ateliers / masterclass / plénières (ordre = terrainCaps).
@@ -292,8 +293,15 @@ function AgentCard({ group }: { group: AgentGroup }) {
   return (
     <article className="hd-agent">
       <div className="hd-agent-top">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="hd-agent-face" src={group.persona.imageSrc} alt="" loading="lazy" />
+        <Image
+          className="hd-agent-face"
+          src={group.persona.imageSrc}
+          alt=""
+          width={300}
+          height={300}
+          sizes="46px"
+          loading="lazy"
+        />
         <div className="hd-agent-id">
           <h3 className="hd-agent-name">{group.persona.name}</h3>
           <p className="hd-agent-fn">{group.persona.label}</p>
@@ -329,10 +337,23 @@ export default function HomeDeux({
       {/* ===== HERO ===== */}
       <header className="hd-hero">
         <div className="hd-mark">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="hd-mark-seal" src="/brand/parrit-seal.svg" alt="" aria-hidden="true" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="hd-mark-word" src="/brand/parrit-wordmark-clean.svg" alt="Parrit·ai" />
+          <Image
+            className="hd-mark-seal"
+            src="/brand/parrit-seal.svg"
+            alt=""
+            width={328}
+            height={379}
+            loading="lazy"
+            aria-hidden="true"
+          />
+          <Image
+            className="hd-mark-word"
+            src="/brand/parrit-wordmark-clean.svg"
+            alt="Parrit·ai"
+            width={705}
+            height={152}
+            loading="lazy"
+          />
         </div>
         <p className="hd-badge">{t.badge}</p>
         <h1 className="hd-h1">
@@ -354,8 +375,16 @@ export default function HomeDeux({
         <p className="hd-trust-lab">{t.trust}</p>
         <div className="hd-logos">
           {CLIENT_LOGOS.map((l) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={l.alt} className={l.cn ? "logo-cn" : ""} src={l.src} alt={l.alt} loading="lazy" />
+            <Image
+              key={l.alt}
+              className={l.cn ? "logo-cn" : ""}
+              src={l.src}
+              alt={l.alt}
+              width={l.width}
+              height={l.height}
+              sizes={l.cn ? "150px" : "130px"}
+              loading="lazy"
+            />
           ))}
         </div>
       </section>
@@ -389,8 +418,15 @@ export default function HomeDeux({
             <p className="hd-terrain-sub">{t.terrainP}</p>
           </div>
           <figure className="hd-terrain-item">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="hd-terrain-photo" src={TERRAIN_PHOTOS[0]} alt={t.terrainCaps[0]} loading="lazy" />
+            <Image
+              className="hd-terrain-photo"
+              src={TERRAIN_PHOTOS[0]}
+              alt={t.terrainCaps[0]}
+              width={824}
+              height={1100}
+              sizes="(max-width: 820px) calc(100vw - 48px), 520px"
+              loading="lazy"
+            />
             <figcaption className="hd-terrain-cap">{t.terrainCaps[0]}</figcaption>
           </figure>
         </div>
@@ -480,8 +516,15 @@ export default function HomeDeux({
 
       {/* ===== CTA FINAL ===== */}
       <footer className="hd-cta" data-reveal>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="hd-cta-seal" src="/brand/parrit-seal.svg" alt="" aria-hidden="true" />
+        <Image
+          className="hd-cta-seal"
+          src="/brand/parrit-seal.svg"
+          alt=""
+          width={328}
+          height={379}
+          loading="lazy"
+          aria-hidden="true"
+        />
         <h2 className="hd-cta-h">{t.ctaH}</h2>
         <p className="hd-cta-p">{t.ctaP}</p>
         <Link className="hd-btn primary lg hd-act" href={`/${lang}/rendez-vous?source=home-final-hire-agent`}>
