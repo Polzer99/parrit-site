@@ -1,21 +1,12 @@
 import Link from "next/link";
 import HomeMotion from "@/components/HomeMotion";
+import InputOutputFlow, { type IOCopy } from "@/components/InputOutputFlow";
 import LaunchCard from "@/components/LaunchCard";
 import type { Locale } from "@/app/[lang]/dictionaries";
 import type { Launch } from "@/lib/launches";
 import type { BlogPost } from "@/lib/blog";
 import { getCatalog, type AgentGroup } from "@/lib/agents";
 
-// Barre de preuve : logos clients, repris de la home historique.
-const CLIENT_LOGOS: { alt: string; src: string; cn?: boolean }[] = [
-  { alt: "Lavazza", src: "/brand/client-logos/logo-1.png" },
-  { alt: "Laparra", src: "/brand/client-logos/logo-2.png" },
-  { alt: "SNCF", src: "/brand/client-logos/logo-3.png" },
-  { alt: "Joone", src: "/brand/client-logos/logo-4.png" },
-  { alt: "Clevery", src: "/brand/client-logos/logo-5.png" },
-  { alt: "EFI", src: "/brand/client-logos/logo-6.png" },
-  { alt: "Carte Noire", src: "/brand/client-logos/logo-7.png", cn: true },
-];
 
 // Preuve terrain : vraies photos d'ateliers / masterclass / plénières (ordre = terrainCaps).
 const TERRAIN_PHOTOS = [
@@ -41,13 +32,7 @@ type HomeCopy = {
   lede: string;
   ctaHire: string;
   ctaDemo: string;
-  changeEyebrow: string;
-  changeH: string;
-  changeSub: string;
-  changeAvant: string;
-  changeApres: string;
-  changeRows: { cas: string; avant: string; apres: string }[];
-  trust: string;
+  io: IOCopy;
   terrainEyebrow: string;
   terrainH: string;
   terrainP: string;
@@ -85,19 +70,21 @@ const DICT: Record<Locale, HomeCopy> = {
     lede: "Vos partenaires d'exploitation IA, à la demande. On installe des agents qui travaillent dans vos workflows. Vous gardez la main, ils font le travail.",
     ctaHire: "Embaucher un agent",
     ctaDemo: "Réserver une démo",
-    changeEyebrow: "Avant / Après",
-    changeH: "Concrètement, ce que ça change.",
-    changeSub: "Des cas réels, déjà en production. Avant, après.",
-    changeAvant: "Avant",
-    changeApres: "Après",
-    changeRows: [
-      { cas: "CRM agentique · Commercial", avant: "CRM rempli à la main, puis oublié.", apres: "Mis à jour tout seul, à chaque échange." },
-      { cas: "Veille · Direction", avant: "Sources dispersées, des heures par semaine.", apres: "Un seul mail condensé, chaque matin." },
-      { cas: "Operating system · Cabinet d'avocats", avant: "Mails, agenda et documents en gestes manuels.", apres: "Un système prépare tout, vous validez." },
-      { cas: "Pilotage · Ouverture de franchises", avant: "Chaque ouverture suivie dans des tableurs.", apres: "Un outil centralise toutes les ouvertures." },
-      { cas: "Claude Code · Marque DTC", avant: "Produit et tech au rythme d'allers-retours lents.", apres: "L'équipe livre elle-même, chaque semaine." },
-    ],
-    trust: "Déjà en production chez",
+    io: {
+      eyebrow: "Input → Output",
+      title: "Vous posez le cas. On rend le résultat.",
+      sub: "On prend l'entrée, on rend la sortie. Faisabilité, cadrage, mise en œuvre : ça se passe derrière.",
+      foot: "On prend le cas, on dit si c'est faisable et en combien de temps.",
+      labIn: "Input",
+      labOut: "Output",
+      cases: [
+        { i: "Un CRM rempli à la main.", o: "Un CRM à jour tout seul." },
+        { i: "Des sources de veille éparpillées.", o: "Un mail, chaque matin." },
+        { i: "Des devis tapés un par un.", o: "Des devis prêts en un clic." },
+        { i: "Un tableur par ouverture.", o: "Un pilotage, une seule vue." },
+        { i: "Votre cas.", o: "Un agent en production." },
+      ],
+    },
     terrainEyebrow: "Sur le terrain",
     terrainH: "On déploie avec vos équipes, pas à distance.",
     terrainP: "Cartographie des workflows, acculturation, prise de parole : on installe l'IA au contact de vos équipes, dans vos murs.",
@@ -110,11 +97,11 @@ const DICT: Record<Locale, HomeCopy> = {
     agentMore: (list) => `Aussi en production : ${list}.`,
     offersEyebrow: "Nos offres",
     offersH2: "Trois façons de mettre l'IA au travail chez vous.",
-    offersFoot: "Les tarifs sont détaillés sur chaque offre.",
+    offersFoot: "La bonne porte dépend de votre cas. On vous oriente.",
     offers: [
-      { n: "01", eyebrow: "Transformation IA", title: "Faire de l'IA un levier réel, pas des POC.", desc: "Audit, cartographie des cas d'usage prioritaires, déploiement. Un partenaire qui pilote la transformation de bout en bout.", points: ["Audit", "Cas d'usage prioritaires", "Déploiement", "Passation"], audience: "Pour les COMEX et les DSI.", cta: "Découvrir la Transformation", href: "croissance" },
-      { n: "02", eyebrow: "Agent IA", title: "Un agent recruté, en production.", desc: "On choisit un workflow utile, on met l'agent en production, on passe la main à vos équipes. Un agent, un périmètre.", points: ["Diagnostic", "Périmètre clair", "En production", "Passation"], audience: "Pour les directions métier, la DG et la DSI.", cta: "Découvrir le déploiement d'agent", href: "deployer" },
-      { n: "03", eyebrow: "Coaching & Formation", title: "On rend vos équipes autonomes.", desc: "On installe la stack, on déploie un premier agent avec vous, et chacun repart capable d'en construire d'autres.", points: ["Claude Code + Codex", "Ateliers hands-on", "Certification Qualiopi"], audience: "Pour la direction générale et les directions métier.", cta: "Découvrir le coaching", href: "transmettre" },
+      { n: "01", eyebrow: "Transformation IA", title: "Faire de l'IA un levier, pas des POC.", desc: "On cartographie, on déploie les agents qui comptent, on forme vos équipes. De bout en bout, jusqu'à ce que ça tourne sans nous.", points: ["Audit", "Cas d'usage prioritaires", "Déploiement", "Passation"], audience: "Pour les directions métiers.", cta: "Découvrir la Transformation", href: "croissance" },
+      { n: "02", eyebrow: "Agent IA", title: "Un agent en production. Vite.", desc: "Votre cas, votre entrée, votre sortie. On prototype, on vous dit si c'est faisable et en combien de temps. Les premiers prototypes sont offerts.", points: ["Le cas", "L'input", "L'output", "En production"], audience: "Pour les DSI et les équipes ops.", cta: "Découvrir le déploiement d'agent", href: "deployer" },
+      { n: "03", eyebrow: "Coaching & Formation", title: "Vos équipes prennent l'agentique en main.", desc: "De la découverte au hands-on : prendre Claude Code en main, même sans profil technique. 100 % agentique. Certifié Qualiopi.", points: ["Claude Code + Codex", "Ateliers hands-on", "100 % agentique", "Qualiopi"], audience: "Pour les DRH.", cta: "Découvrir la formation", href: "transmettre" },
     ],
     transEyebrow: "Cas d'usage",
     transH2: "Ce que l'IA change concrètement, métier par métier.",
@@ -137,19 +124,21 @@ const DICT: Record<Locale, HomeCopy> = {
     lede: "Your AI operating partners, on demand. We put agents to work inside your workflows. You keep control, they do the work.",
     ctaHire: "Hire an agent",
     ctaDemo: "Book a demo",
-    changeEyebrow: "Before / After",
-    changeH: "Concretely, what changes.",
-    changeSub: "Real cases, already in production. Before, after.",
-    changeAvant: "Before",
-    changeApres: "After",
-    changeRows: [
-      { cas: "Agentic CRM · Sales", avant: "CRM filled by hand, then forgotten.", apres: "Updated on its own, after every exchange." },
-      { cas: "Monitoring · Leadership", avant: "Scattered sources, hours every week.", apres: "One condensed email, every morning." },
-      { cas: "Operating system · Law firm", avant: "Email, calendar and documents handled by hand.", apres: "A system prepares it all, you sign off." },
-      { cas: "Steering · Franchise openings", avant: "Every opening tracked in scattered spreadsheets.", apres: "One tool centralizes every opening." },
-      { cas: "Claude Code · DTC brand", avant: "Product and tech stuck on slow back-and-forth.", apres: "The team ships on its own, every week." },
-    ],
-    trust: "Already in production at",
+    io: {
+      eyebrow: "Input → Output",
+      title: "You bring the case. We ship the result.",
+      sub: "You give the input, we return the output. Feasibility, scoping, rollout: that happens behind the scenes.",
+      foot: "We take the case, we tell you if it's doable and how long it takes.",
+      labIn: "Input",
+      labOut: "Output",
+      cases: [
+        { i: "A CRM filled in by hand.", o: "A CRM that updates itself." },
+        { i: "Monitoring scattered across sources.", o: "One email, every morning." },
+        { i: "Quotes typed one by one.", o: "Quotes ready in one click." },
+        { i: "One spreadsheet per opening.", o: "One view, full oversight." },
+        { i: "Your case.", o: "An agent in production." },
+      ],
+    },
     terrainEyebrow: "On the ground",
     terrainH: "We deploy with your teams, not from a distance.",
     terrainP: "Workflow mapping, upskilling, speaking: we install AI next to your teams, on your premises.",
@@ -162,11 +151,11 @@ const DICT: Record<Locale, HomeCopy> = {
     agentMore: (list) => `Also in production: ${list}.`,
     offersEyebrow: "Our offers",
     offersH2: "Three ways to put AI to work inside your company.",
-    offersFoot: "Pricing is detailed on each offer.",
+    offersFoot: "The right door depends on your case. We point you to it.",
     offers: [
-      { n: "01", eyebrow: "AI Transformation", title: "Make AI a real lever, not a pile of POCs.", desc: "Audit, mapping of priority use cases, deployment. A partner who drives the transformation end to end.", points: ["Audit", "Priority use cases", "Deployment", "Handover"], audience: "For executive committees and IT leaders.", cta: "Explore Transformation", href: "croissance" },
-      { n: "02", eyebrow: "AI Agent", title: "One agent hired, in production.", desc: "We pick a useful workflow, put the agent in production, then hand over to your teams. One agent, one scope.", points: ["Diagnosis", "Clear scope", "In production", "Handover"], audience: "For business units, executive and IT leadership.", cta: "Explore agent deployment", href: "deployer" },
-      { n: "03", eyebrow: "Coaching & Training", title: "We make your teams autonomous.", desc: "We set up the stack, deploy a first agent with you, and everyone leaves able to build more.", points: ["Claude Code + Codex", "Hands-on workshops", "Qualiopi certification"], audience: "For executive and business leadership.", cta: "Explore coaching", href: "transmettre" },
+      { n: "01", eyebrow: "AI Transformation", title: "Make AI a real lever, not POCs.", desc: "We map, we deploy the agents that matter, we train your teams. End to end, until it runs without us.", points: ["Audit", "Priority use cases", "Deployment", "Handover"], audience: "For business-line leaders.", cta: "Explore Transformation", href: "croissance" },
+      { n: "02", eyebrow: "AI Agent", title: "An agent in production. Fast.", desc: "Your case, your input, your output. We prototype, we tell you if it's doable and how long it takes. First prototypes are on us.", points: ["The case", "The input", "The output", "In production"], audience: "For IT and ops teams.", cta: "Explore agent deployment", href: "deployer" },
+      { n: "03", eyebrow: "Coaching & Training", title: "Your teams take agentic AI into their own hands.", desc: "From discovery to hands-on: getting a grip on Claude Code, even without a technical background. 100% agentic. Qualiopi-certified.", points: ["Claude Code + Codex", "Hands-on workshops", "100% agentic", "Qualiopi"], audience: "For HR leaders.", cta: "Explore training", href: "transmettre" },
     ],
     transEyebrow: "Use cases",
     transH2: "What AI actually changes, role by role.",
@@ -189,19 +178,21 @@ const DICT: Record<Locale, HomeCopy> = {
     lede: "Seus parceiros de operação em IA, sob demanda. Colocamos agentes para trabalhar nos seus fluxos. Você mantém o controle, eles fazem o trabalho.",
     ctaHire: "Recrutar um agente",
     ctaDemo: "Agendar uma demo",
-    changeEyebrow: "Antes / Depois",
-    changeH: "Concretamente, o que muda.",
-    changeSub: "Casos reais, já em produção. Antes, depois.",
-    changeAvant: "Antes",
-    changeApres: "Depois",
-    changeRows: [
-      { cas: "CRM agêntico · Comercial", avant: "CRM preenchido à mão e depois esquecido.", apres: "Atualizado sozinho, a cada interação." },
-      { cas: "Monitoramento · Direção", avant: "Fontes dispersas, horas por semana.", apres: "Um único e-mail condensado, toda manhã." },
-      { cas: "Operating system · Escritório de advocacia", avant: "E-mails, agenda e documentos em gestos manuais.", apres: "Um sistema prepara tudo, você valida." },
-      { cas: "Pilotagem · Abertura de franquias", avant: "Cada abertura acompanhada em planilhas dispersas.", apres: "Uma ferramenta centraliza todas as aberturas." },
-      { cas: "Claude Code · Marca DTC", avant: "Produto e tech no ritmo de idas e vindas lentas.", apres: "A equipe entrega sozinha, toda semana." },
-    ],
-    trust: "Já em produção na",
+    io: {
+      eyebrow: "Input → Output",
+      title: "Você traz o caso. A gente entrega o resultado.",
+      sub: "Você dá a entrada, a gente devolve a saída. Viabilidade, enquadramento, implementação: acontece nos bastidores.",
+      foot: "A gente pega o caso e diz se dá e em quanto tempo.",
+      labIn: "Input",
+      labOut: "Output",
+      cases: [
+        { i: "Um CRM preenchido à mão.", o: "Um CRM que se atualiza sozinho." },
+        { i: "Fontes de monitoramento espalhadas.", o: "Um e-mail, toda manhã." },
+        { i: "Orçamentos digitados um a um.", o: "Orçamentos prontos num clique." },
+        { i: "Uma planilha por abertura.", o: "Uma visão, controle total." },
+        { i: "O seu caso.", o: "Um agente em produção." },
+      ],
+    },
     terrainEyebrow: "No terreno",
     terrainH: "Implantamos com suas equipes, não à distância.",
     terrainP: "Mapeamento de fluxos, capacitação, palestras: instalamos a IA junto das suas equipes, na sua empresa.",
@@ -214,11 +205,11 @@ const DICT: Record<Locale, HomeCopy> = {
     agentMore: (list) => `Também em produção: ${list}.`,
     offersEyebrow: "Nossas ofertas",
     offersH2: "Três formas de colocar a IA para trabalhar na sua empresa.",
-    offersFoot: "Os preços são detalhados em cada oferta.",
+    offersFoot: "A porta certa depende do seu caso. A gente te orienta.",
     offers: [
-      { n: "01", eyebrow: "Transformação IA", title: "Fazer da IA uma alavanca real, não uma pilha de POCs.", desc: "Auditoria, mapeamento dos casos de uso prioritários, implantação. Um parceiro que conduz a transformação de ponta a ponta.", points: ["Auditoria", "Casos de uso prioritários", "Implantação", "Passagem"], audience: "Para comitês executivos e líderes de TI.", cta: "Conhecer a Transformação", href: "croissance" },
-      { n: "02", eyebrow: "Agente IA", title: "Um agente recrutado, em produção.", desc: "Escolhemos um fluxo útil, colocamos o agente em produção e passamos o bastão para as suas equipes. Um agente, um perímetro.", points: ["Diagnóstico", "Perímetro claro", "Em produção", "Passagem"], audience: "Para as áreas de negócio, a diretoria e a TI.", cta: "Conhecer a implantação de agente", href: "deployer" },
-      { n: "03", eyebrow: "Coaching e Formação", title: "Tornamos suas equipes autônomas.", desc: "Instalamos a stack, implantamos um primeiro agente com você, e cada um sai capaz de construir outros.", points: ["Claude Code + Codex", "Workshops hands-on", "Certificação Qualiopi"], audience: "Para a diretoria e as áreas de negócio.", cta: "Conhecer o coaching", href: "transmettre" },
+      { n: "01", eyebrow: "Transformação IA", title: "Fazer da IA uma alavanca, não POCs.", desc: "A gente mapeia, implanta os agentes que importam, treina os times. De ponta a ponta, até rodar sem a gente.", points: ["Auditoria", "Casos de uso prioritários", "Implementação", "Passagem"], audience: "Para as áreas de negócio.", cta: "Conhecer a Transformação", href: "croissance" },
+      { n: "02", eyebrow: "Agente IA", title: "Um agente em produção. Rápido.", desc: "Seu caso, sua entrada, sua saída. A gente prototipa e diz se dá e em quanto tempo. Os primeiros protótipos são por nossa conta.", points: ["O caso", "O input", "O output", "Em produção"], audience: "Para TI e times de operações.", cta: "Conhecer o agente", href: "deployer" },
+      { n: "03", eyebrow: "Coaching & Formação", title: "Seus times assumem a IA agêntica.", desc: "Da descoberta ao hands-on: dominar o Claude Code, mesmo sem perfil técnico. 100% agêntico. Certificado Qualiopi.", points: ["Claude Code + Codex", "Workshops hands-on", "100% agêntico", "Qualiopi"], audience: "Para o RH.", cta: "Conhecer a formação", href: "transmettre" },
     ],
     transEyebrow: "Casos de uso",
     transH2: "O que a IA muda concretamente, função por função.",
@@ -241,19 +232,21 @@ const DICT: Record<Locale, HomeCopy> = {
     lede: "你的 AI 运营合伙人，按需接入。我们把智能体放进你的工作流里干活——你掌控全局，它们完成工作。",
     ctaHire: "招募一个智能体",
     ctaDemo: "预约演示",
-    changeEyebrow: "之前 / 之后",
-    changeH: "具体改变了什么。",
-    changeSub: "真实案例，已在生产环境运行。之前，之后。",
-    changeAvant: "之前",
-    changeApres: "之后",
-    changeRows: [
-      { cas: "智能体 CRM · 商务", avant: "CRM 靠手动填写，然后被遗忘。", apres: "每次往来后自动更新。" },
-      { cas: "情报监测 · 管理层", avant: "信息源分散，每周耗费数小时。", apres: "每天早晨一封浓缩邮件。" },
-      { cas: "Operating system · 律师事务所", avant: "邮件、日程与文档全靠手动处理。", apres: "系统全部备好——人工把关。" },
-      { cas: "统筹 · 门店加盟开设", avant: "每家门店开设散落在各种表格里跟踪。", apres: "一个工具集中管理所有开设进度。" },
-      { cas: "Claude Code · DTC 品牌", avant: "产品与技术卡在缓慢的来回沟通上。", apres: "团队每周自己交付。" },
-    ],
-    trust: "已在以下公司投入生产",
+    io: {
+      eyebrow: "Input → Output",
+      title: "你给出场景，我们交付结果。",
+      sub: "你给输入，我们给输出。可行性、梳理、落地：都在后台完成。",
+      foot: "把场景交给我们，我们告诉你能不能做、要多久。",
+      labIn: "输入",
+      labOut: "输出",
+      cases: [
+        { i: "手工填的 CRM。", o: "自动更新的 CRM。" },
+        { i: "分散的情报来源。", o: "每天早上一封邮件。" },
+        { i: "一个个手打的报价。", o: "一键生成的报价。" },
+        { i: "每次开店一张表格。", o: "一个视图，尽在掌握。" },
+        { i: "你的场景。", o: "一个上线的智能体。" },
+      ],
+    },
     terrainEyebrow: "在一线",
     terrainH: "我们和你的团队一起部署，而不是远程交付。",
     terrainP: "梳理工作流、团队培训、现场分享：我们在你的团队身边、在你的办公室里落地 AI。",
@@ -266,11 +259,11 @@ const DICT: Record<Locale, HomeCopy> = {
     agentMore: (list) => `同样在生产中：${list}。`,
     offersEyebrow: "我们的服务",
     offersH2: "让 AI 在你公司里干活的三种方式。",
-    offersFoot: "各服务的定价详见对应页面。",
+    offersFoot: "该走哪扇门，取决于你的场景。我们帮你定位。",
     offers: [
-      { n: "01", eyebrow: "AI 转型", title: "让 AI 成为真正的杠杆，而不是一堆概念验证。", desc: "审计、优先用例梳理、部署。一个从头到尾主导转型的合作伙伴。", points: ["审计", "优先用例", "部署", "交接"], audience: "面向管理层与 IT 负责人。", cta: "了解转型服务", href: "croissance" },
-      { n: "02", eyebrow: "AI 智能体", title: "招募一个智能体，投入生产。", desc: "我们挑选一个有用的工作流，把智能体投入生产，再交接给你的团队。一个智能体，一个边界。", points: ["诊断", "清晰边界", "投入生产", "交接"], audience: "面向业务部门、管理层与 IT。", cta: "了解智能体部署", href: "deployer" },
-      { n: "03", eyebrow: "陪跑培训", title: "我们让你的团队自主上手。", desc: "我们搭好技术栈，和你一起部署第一个智能体，每个人离开时都能自己再造更多。", points: ["Claude Code + Codex", "实操工作坊", "Qualiopi 认证"], audience: "面向管理层与业务部门。", cta: "了解陪跑培训", href: "transmettre" },
+      { n: "01", eyebrow: "AI 转型", title: "让 AI 成为真正的杠杆，而不是 POC。", desc: "我们梳理流程、部署真正有用的智能体、培训你的团队。端到端，直到无需我们也能运转。", points: ["审计", "优先场景", "部署", "交接"], audience: "面向业务部门。", cta: "了解转型", href: "croissance" },
+      { n: "02", eyebrow: "AI 智能体", title: "让智能体快速上线。", desc: "你的场景、你的输入、你的输出。我们做原型，告诉你能不能做、要多久。首批原型免费。", points: ["场景", "输入", "输出", "上线"], audience: "面向 IT 与运营团队。", cta: "了解智能体部署", href: "deployer" },
+      { n: "03", eyebrow: "辅导与培训", title: "让团队真正上手智能体。", desc: "从入门到实操：即使没有技术背景，也能上手 Claude Code。100% 聚焦智能体。Qualiopi 认证。", points: ["Claude Code + Codex", "实操工作坊", "100% 智能体", "Qualiopi"], audience: "面向 HR。", cta: "了解培训", href: "transmettre" },
     ],
     transEyebrow: "应用场景",
     transH2: "AI 究竟改变了什么，一个岗位一个岗位地看。",
@@ -349,16 +342,8 @@ export default function HomeDeux({
         </div>
       </header>
 
-      {/* ===== TRUST ===== */}
-      <section className="hd-trust" data-reveal aria-label={t.trust}>
-        <p className="hd-trust-lab">{t.trust}</p>
-        <div className="hd-logos">
-          {CLIENT_LOGOS.map((l) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={l.alt} className={l.cn ? "logo-cn" : ""} src={l.src} alt={l.alt} loading="lazy" />
-          ))}
-        </div>
-      </section>
+      {/* ===== SIGNATURE : input -> output (montrer pas prouver) ===== */}
+      <InputOutputFlow copy={t.io} />
 
       {/* ===== CATALOGUE ===== */}
       <section className="hd-catalog" id="catalogue-agents" data-reveal aria-labelledby="hd-catalog-h">
@@ -396,30 +381,11 @@ export default function HomeDeux({
         </div>
       </section>
 
-      {/* ===== AVANT / APRES (preuve concrete, cas reels) ===== */}
-      <section className="hd-change" data-reveal aria-labelledby="hd-change-h">
-        <div className="hd-change-head">
-          <p className="hd-eyebrow"><span className="hd-eyebrow-n">03</span> · {t.changeEyebrow}</p>
-          <h2 id="hd-change-h" className="hd-h2">{t.changeH}</h2>
-          <p className="hd-change-sub">{t.changeSub}</p>
-        </div>
-        <div className="hd-change-table">
-          {t.changeRows.map((r) => (
-            <div className="hd-change-row" key={r.cas}>
-              <p className="hd-change-cas">{r.cas}</p>
-              <div className="hd-change-pair">
-                <span className="hd-change-cell avant">{r.avant}</span>
-                <span className="hd-change-cell apres">{r.apres}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* ===== OFFRES (sans prix sur la home, detailles sur chaque page offre) ===== */}
       <section className="hd-pricing" id="offres" data-reveal aria-labelledby="hd-offers-h">
         <div className="hd-piliers-head">
-          <p className="hd-eyebrow"><span className="hd-eyebrow-n">04</span> · {t.offersEyebrow}</p>
+          <p className="hd-eyebrow"><span className="hd-eyebrow-n">03</span> · {t.offersEyebrow}</p>
           <h2 id="hd-offers-h" className="hd-h2">{t.offersH2}</h2>
         </div>
         <div className="hd-price-grid" data-stagger>
@@ -452,7 +418,7 @@ export default function HomeDeux({
       {posts.length > 0 && (
         <section className="hd-transfos" data-reveal aria-labelledby="hd-transfos-h">
           <div className="hd-transfos-cta">
-            <p className="hd-eyebrow"><span className="hd-eyebrow-n">05</span> · {t.transEyebrow}</p>
+            <p className="hd-eyebrow"><span className="hd-eyebrow-n">04</span> · {t.transEyebrow}</p>
             <h2 id="hd-transfos-h" className="hd-h2">{t.transH2}</h2>
             <p className="hd-transfos-sub">{t.transSub}</p>
             <Link className="hd-btn primary hd-act" href={`/${lang}/blog`}>
@@ -466,7 +432,7 @@ export default function HomeDeux({
       {launches.length > 0 && (
         <section className="hd-launches" data-reveal aria-labelledby="hd-launches-h">
           <div className="hd-launches-head">
-            <p className="hd-eyebrow"><span className="hd-eyebrow-n">06</span> · {t.launchEyebrow}</p>
+            <p className="hd-eyebrow"><span className="hd-eyebrow-n">05</span> · {t.launchEyebrow}</p>
             <h2 id="hd-launches-h" className="hd-h2">{t.launchH2}</h2>
             <Link href={`/${lang}/launches`} className="hd-launches-all">{t.allLaunches}</Link>
           </div>
@@ -550,18 +516,6 @@ const CSS = `
 .hd-hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
 
 /* AVANT / APRES (preuve concrete) */
-.hd-change { max-width: 1060px; margin: 0 auto; padding: 60px 24px 58px; }
-.hd-change-head { text-align: center; max-width: 640px; margin: 0 auto 34px; }
-.hd-change-sub { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 14px auto 0; }
-.hd-change-table { border: 1px solid var(--line); }
-.hd-change-row { padding: 18px 24px 19px; }
-.hd-change-row + .hd-change-row { border-top: 1px solid var(--line); }
-.hd-change-cas { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--red); margin: 0 0 11px; }
-.hd-change-pair { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }
-.hd-change-cell { font-family: var(--font-mono); font-size: 14px; line-height: 1.5; }
-.hd-change-cell.avant { color: var(--muted); padding-right: 24px; }
-.hd-change-cell.apres { color: var(--ink); font-weight: 500; position: relative; padding-left: 28px; }
-.hd-change-cell.apres::before { content: "→"; position: absolute; left: 0; color: var(--red); font-weight: 600; }
 
 /* SUR LE TERRAIN (vraies photos) */
 .hd-terrain { max-width: 1120px; margin: 0 auto; padding: 66px 24px 24px; border-top: 1px solid var(--line); }
@@ -574,12 +528,6 @@ const CSS = `
 .hd-terrain-cap { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 14px 18px 16px; border-top: 1px solid var(--line); }
 
 /* TRUST */
-.hd-trust { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 32px 24px; }
-.hd-trust-lab { color: var(--faint); font-family: var(--font-mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; text-align: center; margin: 0 0 24px; }
-.hd-logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: clamp(26px, 5vw, 56px); max-width: 1000px; margin: 0 auto; }
-.hd-logos img { height: 28px; max-width: 130px; width: auto; object-fit: contain; filter: grayscale(1); opacity: .68; transition: opacity .2s, filter .2s; }
-.hd-logos img:hover { opacity: 1; filter: grayscale(0); }
-.hd-logos img.logo-cn { height: 30px; max-width: 150px; }
 
 /* CATALOGUE */
 .hd-catalog { max-width: 1180px; margin: 0 auto; padding: 72px 24px 24px; }
@@ -703,8 +651,6 @@ const CSS = `
   .hd-terrain-photo { aspect-ratio: 16 / 11; }
 }
 @media (max-width: 520px) {
-  .hd-change-pair { grid-template-columns: 1fr; gap: 9px; }
-  .hd-change-cell.avant { padding-right: 0; }
   .hd-hero { padding-top: 58px; }
   .hd-h1 { font-size: clamp(36px, 13vw, 52px); }
   .hd-agent-grid { grid-template-columns: 1fr; }
