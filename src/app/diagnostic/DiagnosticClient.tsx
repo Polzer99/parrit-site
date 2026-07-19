@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { SEGMENTS, OPENER, UI, detectSegment, detectLang, type SegmentId, type Lang } from "@/lib/diagnostic/personas";
 import { getAttribution } from "@/lib/attribution";
+import { track } from "@/lib/analytics";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 const SURFACE = "diagnostic";
@@ -54,6 +55,7 @@ export default function DiagnosticClient() {
     setSeg(s);
     setLang(l);
     setMessages([{ role: "assistant", content: OPENER[(SEGMENTS[s] || SEGMENTS.neutre).voix][l] }]);
+    track("form_view", { form: "diagnostic" });
   }, []);
 
   useEffect(() => {
@@ -72,7 +74,11 @@ export default function DiagnosticClient() {
     };
 
     retryPendingLead().catch((error) => {
-      ph()?.capture("form_failed", { surface: SURFACE, status: statusFromError(error) });
+      const responseStatus = statusFromError(error);
+      track("form_failed", {
+        form: "diagnostic_retry",
+        ...(responseStatus === undefined ? {} : { status: responseStatus }),
+      });
     });
   }, []);
 
@@ -86,7 +92,8 @@ export default function DiagnosticClient() {
     setError("");
     if (!startedRef.current) {
       startedRef.current = true;
-      ph()?.capture("diagnostic_started", { segment: seg, lang });
+      track("form_start", { form: "diagnostic", segment: seg, content_lang: lang });
+      track("diagnostic_started", { segment: seg, content_lang: lang });
     }
     const next: Msg[] = [...messages, { role: "user", content: t }];
     setMessages(next);
@@ -105,7 +112,7 @@ export default function DiagnosticClient() {
       if (d.done && d.diagnostic) {
         setDiag(d.diagnostic as Diag);
         setStatus("done");
-        ph()?.capture("diagnostic_completed", { segment: seg, persona: d.persona || "", lang });
+        track("diagnostic_completed", { segment: seg, persona: d.persona || "", content_lang: lang });
       } else {
         setStatus("idle");
       }
@@ -121,8 +128,8 @@ export default function DiagnosticClient() {
     const p = ph();
     if (p) {
       p.identify(email.trim(), { email: email.trim() });
-      p.capture("form_submitted", { form: "diagnostic", segment: seg, persona, lang, ...utms });
-      p.capture("diagnostic_lead", { segment: seg, persona, lang });
+      track("form_submitted", { form: "diagnostic", segment: seg, persona, content_lang: lang });
+      track("diagnostic_lead", { segment: seg, persona, content_lang: lang });
     }
     const payload = {
       source: "parrit.ai",
@@ -151,7 +158,10 @@ export default function DiagnosticClient() {
     } catch (error) {
       // non bloquant
       const status = statusFromError(error);
-      p?.capture("form_failed", { surface: SURFACE, status });
+      track("form_failed", {
+        form: "diagnostic",
+        ...(status === undefined ? {} : { status }),
+      });
       console.error(payload, error);
       savePendingLead(payload, status);
       setLeadSent(true);

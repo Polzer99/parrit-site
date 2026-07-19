@@ -4,17 +4,11 @@
 import { useEffect, useState } from "react";
 import { COPY, type Lang } from "./content";
 import { getAttribution, buildRdvHref } from "@/lib/attribution";
+import { track } from "@/lib/analytics";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 const SURFACE = "harnais-ia";
 const PENDING_LEAD_KEY = `pending_lead_${SURFACE}`;
-
-type PostHog = { capture: (event: string, props: Record<string, unknown>) => void };
-
-function getPosthog(): PostHog | undefined {
-  if (typeof window === "undefined") return undefined;
-  return (window as unknown as { posthog?: PostHog }).posthog;
-}
 
 function statusFromError(error: unknown): number | undefined {
   if (!(error instanceof Error)) return undefined;
@@ -61,7 +55,8 @@ export default function Landing() {
     };
 
     retryPendingLead().catch((error) => {
-      getPosthog()?.capture("form_failed", { surface: SURFACE, status: statusFromError(error) });
+      const responseStatus = statusFromError(error);
+      track("form_failed", { form: SURFACE, ...(responseStatus === undefined ? {} : { status: responseStatus }) });
     });
   }, []);
 
@@ -90,7 +85,7 @@ export default function Landing() {
     } catch (error) {
       // le déblocage ne doit jamais dépendre du réseau
       const status = statusFromError(error);
-      getPosthog()?.capture("form_failed", { surface: SURFACE, status });
+      track("form_failed", { form: SURFACE, ...(status === undefined ? {} : { status }) });
       console.error(payload, error);
       savePendingLead(payload, status);
     }

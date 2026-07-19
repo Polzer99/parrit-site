@@ -229,7 +229,7 @@ const DICT: Record<Locale, HomeCopy> = {
     h1a: "从只会聊天的 AI，到真正会",
     h1red: "干活",
     h1b: "的 AI。",
-    lede: "你的 AI 运营合伙人，按需接入。我们把智能体放进你的工作流里干活——你掌控全局，它们完成工作。",
+    lede: "你的 AI 运营合伙人，按需接入。我们把智能体放进你的工作流里干活；你掌控全局，它们完成工作。",
     ctaHire: "招募一个智能体",
     ctaDemo: "预约演示",
     io: {
@@ -333,10 +333,10 @@ export default function HomeDeux({
         </h1>
         <p className="hd-lede">{t.lede}</p>
         <div className="hd-hero-cta">
-          <Link className="hd-btn primary hd-act" href={`/${lang}/rendez-vous?source=home-hire-agent`}>
+          <Link className="hd-btn primary hd-act" href={`/${lang}/rendez-vous?source=home-hire-agent`} data-ph="booking" data-ph-label={t.ctaHire} data-ph-dest={`/${lang}/rendez-vous?source=home-hire-agent`} data-ph-placement="hero_primary">
             {t.ctaHire} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
-          <Link className="hd-btn ghost hd-act" href={`/${lang}/rendez-vous?source=home-demo`}>
+          <Link className="hd-btn ghost hd-act" href={`/${lang}/rendez-vous?source=home-demo`} data-ph="booking" data-ph-label={t.ctaDemo} data-ph-dest={`/${lang}/rendez-vous?source=home-demo`} data-ph-placement="hero_secondary">
             {t.ctaDemo} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
         </div>
@@ -359,7 +359,7 @@ export default function HomeDeux({
         </div>
         <p className="hd-catalog-foot">{t.catFoot(catalog.deployedCount)}</p>
         <div className="hd-catalog-cta">
-          <Link className="hd-btn primary hd-act" href={`/${lang}/rendez-vous?source=home-catalog`}>
+          <Link className="hd-btn primary hd-act" href={`/${lang}/rendez-vous?source=home-catalog`} data-ph="booking" data-ph-label={t.catCta} data-ph-dest={`/${lang}/rendez-vous?source=home-catalog`} data-ph-placement="catalog">
             {t.catCta} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
         </div>
@@ -405,7 +405,7 @@ export default function HomeDeux({
               </ul>
 
               <p className="hd-pilier-proof">{p.audience}</p>
-              <Link className="hd-pilier-link" href={`/${lang}/${p.href}`}>
+              <Link className="hd-pilier-link" href={`/${lang}/${p.href}`} data-ph="cta" data-ph-label={p.cta} data-ph-dest={`/${lang}/${p.href}`} data-ph-placement="offers">
                 {p.cta} →
               </Link>
             </article>
@@ -421,7 +421,7 @@ export default function HomeDeux({
             <p className="hd-eyebrow"><span className="hd-eyebrow-n">04</span> · {t.transEyebrow}</p>
             <h2 id="hd-transfos-h" className="hd-h2">{t.transH2}</h2>
             <p className="hd-transfos-sub">{t.transSub}</p>
-            <Link className="hd-btn primary hd-act" href={`/${lang}/blog`}>
+            <Link className="hd-btn primary hd-act" href={`/${lang}/blog`} data-ph="cta" data-ph-label={t.transCta} data-ph-dest={`/${lang}/blog`} data-ph-placement="use_cases">
               {t.transCta} <span className="hd-cta-arrow" aria-hidden="true">→</span>
             </Link>
           </div>
@@ -434,7 +434,7 @@ export default function HomeDeux({
           <div className="hd-launches-head">
             <p className="hd-eyebrow"><span className="hd-eyebrow-n">05</span> · {t.launchEyebrow}</p>
             <h2 id="hd-launches-h" className="hd-h2">{t.launchH2}</h2>
-            <Link href={`/${lang}/launches`} className="hd-launches-all">{t.allLaunches}</Link>
+            <Link href={`/${lang}/launches`} className="hd-launches-all" data-ph="cta" data-ph-label={t.allLaunches} data-ph-dest={`/${lang}/launches`} data-ph-placement="launches">{t.allLaunches}</Link>
           </div>
           <div className="hd-launch-grid" data-stagger>
             {launches.slice(0, 3).map((launch) => (
@@ -450,7 +450,7 @@ export default function HomeDeux({
         <img className="hd-cta-seal" src="/brand/parrit-seal.svg" alt="" aria-hidden="true" />
         <h2 className="hd-cta-h">{t.ctaH}</h2>
         <p className="hd-cta-p">{t.ctaP}</p>
-        <Link className="hd-btn primary lg hd-act" href={`/${lang}/rendez-vous?source=home-final-hire-agent`}>
+        <Link className="hd-btn primary lg hd-act" href={`/${lang}/rendez-vous?source=home-final-hire-agent`} data-ph="booking" data-ph-label={t.ctaHire} data-ph-dest={`/${lang}/rendez-vous?source=home-final-hire-agent`} data-ph-placement="final_cta">
           {t.ctaHire} <span className="hd-cta-arrow" aria-hidden="true">→</span>
         </Link>
       </footer>

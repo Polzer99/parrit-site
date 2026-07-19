@@ -60,14 +60,14 @@ export default function LandingPage({ data, lang, quickContact, pageId, relatedA
   return (
     <div className="landing-v4-shell">
       <div className="landing-v4-topbar">
-        <Link href={`/${lang}`} aria-label="Parrit.ai" className="landing-v4-traffic">
+        <Link href={`/${lang}`} aria-label="Parrit.ai" className="landing-v4-traffic" data-ph="cta" data-ph-label="Parrit.ai" data-ph-dest={`/${lang}`} data-ph-placement="topbar_logo">
           <span style={{ background: "#D1132F" }} />
           <span style={{ background: "#C67C60" }} />
           <span style={{ background: "#D0D8D7" }} />
         </Link>
         <div className="landing-v4-topbar-title">parrit.ai · {pageId}</div>
         <div className="landing-v4-topbar-actions">
-          <Link href={`/${lang}`} className="landing-v4-home-link">
+          <Link href={`/${lang}`} className="landing-v4-home-link" data-ph="cta" data-ph-label="home" data-ph-dest={`/${lang}`} data-ph-placement="topbar_nav">
             ← {lang === "fr" ? "Accueil" : lang === "pt-BR" ? "Início" : lang === "zh-CN" ? "首页" : "Home"}
           </Link>
           <div className="landing-v4-lang"><LanguageSwitcher currentLang={lang} /></div>
@@ -107,7 +107,7 @@ export default function LandingPage({ data, lang, quickContact, pageId, relatedA
             {data.hero.quickAnswer}
           </motion.p>
           <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={3}>
-            <Link href="#contact" className="landing-v4-cta-button">
+            <Link href="#contact" className="landing-v4-cta-button" data-ph="cta" data-ph-label={data.hero.cta} data-ph-dest="#contact" data-ph-placement="hero">
               {data.hero.cta} →
             </Link>
           </motion.div>

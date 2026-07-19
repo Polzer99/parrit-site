@@ -63,6 +63,8 @@ export default function DiagnosticLayout({ children }: { children: React.ReactNo
                 api_host: 'https://eu.i.posthog.com',
                 defaults: '2026-01-30',
                 person_profiles: 'identified_only',
+                rageclick: true,
+                capture_dead_clicks: true,
                 session_recording: { maskAllInputs: true }
               });
             `,

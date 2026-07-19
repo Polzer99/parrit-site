@@ -2,9 +2,10 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import LaunchCard from "@/components/LaunchCard";
 import { getAttribution } from "@/lib/attribution";
+import { track } from "@/lib/analytics";
 import type { Locale } from "./dictionaries";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
@@ -1137,6 +1138,17 @@ function LeadForm({ copy, lang }: { copy: HomeCopy["cta"]; lang: Locale }) {
   const [phone, setPhone] = useState("");
   const [wantsDiagnostic, setWantsDiagnostic] = useState(true);
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const started = useRef(false);
+
+  useEffect(() => {
+    track("form_view", { form: "home_callback" });
+  }, []);
+
+  function markStarted(): void {
+    if (started.current) return;
+    started.current = true;
+    track("form_start", { form: "home_callback" });
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -1171,14 +1183,10 @@ function LeadForm({ copy, lang }: { copy: HomeCopy["cta"]; lang: Locale }) {
       if (!r.ok) throw new Error(`webhook ${r.status}`);
 
       posthog?.identify(email.trim(), { email: email.trim(), phone: phone.trim() });
-      posthog?.capture("form_submitted", {
-        form: "home_callback",
-        page: `/${lang}`,
-        ...utms,
-      });
+      track("form_submitted", { form: "home_callback" });
       setState("sent");
     } catch {
-      posthog?.capture("form_failed", { form: "home_callback", page: `/${lang}`, ...utms });
+      track("form_failed", { form: "home_callback" });
       setState("error");
     }
   }
@@ -1191,7 +1199,7 @@ function LeadForm({ copy, lang }: { copy: HomeCopy["cta"]; lang: Locale }) {
         autoComplete="email"
         placeholder={copy.email}
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => { setEmail(e.target.value); markStarted(); }}
         required
       />
       <input
@@ -1200,7 +1208,7 @@ function LeadForm({ copy, lang }: { copy: HomeCopy["cta"]; lang: Locale }) {
         autoComplete="tel"
         placeholder={copy.phone}
         value={phone}
-        onChange={(e) => setPhone(e.target.value)}
+        onChange={(e) => { setPhone(e.target.value); markStarted(); }}
         required
       />
       <fieldset className="leadform-choice">
@@ -1226,7 +1234,7 @@ function LeadForm({ copy, lang }: { copy: HomeCopy["cta"]; lang: Locale }) {
           <span>{copy.diagnosticChoice.no}</span>
         </label>
       </fieldset>
-      <button className="btn btn-red btn-lg" type="submit" disabled={state === "sending"}>
+      <button className="btn btn-red btn-lg" type="submit" disabled={state === "sending"} data-ph="cta" data-ph-label={copy.submit} data-ph-dest="home_callback_submit" data-ph-placement="contact">
         {state === "sending" ? copy.submitting : copy.submit}
       </button>
       {state === "sent" && <p className="lead-status">{copy.thanks}</p>}
@@ -1236,17 +1244,7 @@ function LeadForm({ copy, lang }: { copy: HomeCopy["cta"]; lang: Locale }) {
 }
 
 function captureHeroCtaClick(lang: Locale, placement: "desktop" | "mobile") {
-  if (typeof window === "undefined") return;
-
-  const posthog = (window as unknown as {
-    posthog?: { capture: (event: string, props: Record<string, unknown>) => void };
-  }).posthog;
-
-  posthog?.capture("hero_cta_click", {
-    page: `/${lang}`,
-    placement,
-    ...getAttribution(),
-  });
+  track("hero_cta_click", { placement, content_lang: lang });
 }
 
 export default function HomeClient({
@@ -1267,12 +1265,12 @@ export default function HomeClient({
           <Logo />
           <div className="nav-links">
             {copy.navLinks.map((item) => (
-              <a href={item.href.startsWith("/") ? `/${lang}${item.href}` : item.href} key={item.href}>
+              <a href={item.href.startsWith("/") ? `/${lang}${item.href}` : item.href} key={item.href} data-ph="cta" data-ph-label={item.label} data-ph-dest={item.href.startsWith("/") ? `/${lang}${item.href}` : item.href} data-ph-placement="topbar_nav">
                 {item.label}
               </a>
             ))}
           </div>
-          <a className="btn btn-red" href="#contact">
+          <a className="btn btn-red" href="#contact" data-ph="cta" data-ph-label={copy.navCta} data-ph-dest="#contact" data-ph-placement="topbar">
             {copy.navCta}
           </a>
         </nav>
@@ -1294,6 +1292,10 @@ export default function HomeClient({
             className="btn btn-red btn-lg"
             href="#contact"
             onClick={() => captureHeroCtaClick(lang, "mobile")}
+            data-ph="cta"
+            data-ph-label={copy.hero.primary}
+            data-ph-dest="#contact"
+            data-ph-placement="hero_mobile"
           >
             {copy.hero.primary}
           </a>
@@ -1315,10 +1317,14 @@ export default function HomeClient({
             className="btn btn-red btn-lg"
             href="#contact"
             onClick={() => captureHeroCtaClick(lang, "desktop")}
+            data-ph="cta"
+            data-ph-label={copy.hero.primary}
+            data-ph-dest="#contact"
+            data-ph-placement="hero_desktop"
           >
             {copy.hero.primary}
           </a>
-          <a className="btn btn-ghost btn-lg" href="#maturite">
+          <a className="btn btn-ghost btn-lg" href="#maturite" data-ph="cta" data-ph-label={copy.hero.secondary} data-ph-dest="#maturite" data-ph-placement="hero">
             {copy.hero.secondary}
           </a>
         </div>
@@ -1407,7 +1413,7 @@ export default function HomeClient({
           <h2>{copy.maturite.title}</h2>
           <p className="lead">{copy.maturite.lead}</p>
           <div className="maturite-stage">
-            <a className="maturite-fast-track" href={`/${lang}${copy.maturite.fastTrack.href}`}>
+            <a className="maturite-fast-track" href={`/${lang}${copy.maturite.fastTrack.href}`} data-ph="cta" data-ph-label={copy.maturite.fastTrack.cta} data-ph-dest={`/${lang}${copy.maturite.fastTrack.href}`} data-ph-placement="maturity">
               <div>
                 <span className="maturite-fast-track-kicker">Fast-track</span>
                 <h3>{copy.maturite.fastTrack.h3}</h3>
@@ -1440,7 +1446,7 @@ export default function HomeClient({
                   className="mountain-path"
                   d="M58 430 C112 430 96 392 130 390 C202 386 194 342 260 342 C326 342 330 286 390 286 C462 286 452 226 520 226 C592 226 580 160 650 160 C718 160 700 96 770 96 C838 96 820 38 890 36"
                 />
-                <a className="mountain-start" href={`/${lang}/audit`} aria-label={copy.maturite.diagnostic.cta}>
+                <a className="mountain-start" href={`/${lang}/audit`} aria-label={copy.maturite.diagnostic.cta} data-ph="cta" data-ph-label={copy.maturite.diagnostic.cta} data-ph-dest={`/${lang}/audit`} data-ph-placement="maturity_diagnostic">
                   <circle cx="58" cy="430" r="20" />
                   <text x="58" y="434" textAnchor="middle">
                     D0
@@ -1497,7 +1503,7 @@ export default function HomeClient({
           </div>
           <div className="cases">
             {copy.cases.items.map((item) => (
-              <a className="case" href="#contact" key={item.name}>
+              <a className="case" href="#contact" key={item.name} data-ph="cta" data-ph-label={item.name} data-ph-dest="#contact" data-ph-placement="case_study">
                 <div className="who">
                   <span className="nm">{item.name}</span>
                   <span className="sct">{item.sector}</span>
@@ -1553,11 +1559,11 @@ export default function HomeClient({
               <p className="fine">{copy.cta.fine}</p>
               <LeadForm copy={copy.cta} lang={lang} />
               <div className="cta-alt">
-                <a className="btn btn-wa btn-lg" href="https://wa.me/33683762219">
+                <a className="btn btn-wa btn-lg" href="https://wa.me/33683762219" data-ph="cta" data-ph-label={copy.cta.whatsapp} data-ph-dest="https://wa.me/33683762219" data-ph-placement="contact">
                   <img className="ci" src="/brand/tool-logos/whatsapp.svg" alt="" aria-hidden="true" />
                   {copy.cta.whatsapp}
                 </a>
-                <a className="cta-mail" href="mailto:paul.larmaraud@parrit.ai">
+                <a className="cta-mail" href="mailto:paul.larmaraud@parrit.ai" data-ph="cta" data-ph-label={copy.cta.mail} data-ph-dest="mailto:paul.larmaraud@parrit.ai" data-ph-placement="contact">
                   {copy.cta.mail}
                 </a>
               </div>
