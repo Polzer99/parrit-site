@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { getAttribution, buildRdvHref } from "@/lib/attribution";
+import { track } from "@/lib/analytics";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 
@@ -38,6 +39,19 @@ function looksLikeEmail(value: string): boolean {
 export default function QuickContact({ strings, page, variant = "dark", source, lang }: Props) {
   const [contact, setContact] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const started = useRef(false);
+
+  useEffect(() => {
+    track("form_view", { form: "quick_contact", form_page: page });
+  }, [page]);
+
+  function handleContactChange(value: string): void {
+    setContact(value);
+    if (!started.current) {
+      started.current = true;
+      track("form_start", { form: "quick_contact", form_page: page });
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -70,16 +84,15 @@ export default function QuickContact({ strings, page, variant = "dark", source, 
       if (!r.ok) throw new Error(`webhook ${r.status}`);
       if (ph) {
         if (isEmail) ph.identify(contact.trim(), { email: contact.trim() });
-        ph.capture("form_submitted", {
+        track("form_submitted", {
           form: "quick_contact",
-          page,
+          form_page: page,
           contact_kind: isEmail ? "email" : "phone",
-          ...utms,
         });
       }
       setState("sent");
     } catch {
-      ph?.capture("form_failed", { form: "quick_contact", page, ...utms });
+      track("form_failed", { form: "quick_contact", form_page: page });
       setState("error");
     }
   }
@@ -106,9 +119,13 @@ export default function QuickContact({ strings, page, variant = "dark", source, 
         }}
       >
         <div>✓ {strings.thanks}</div>
-        {!page.includes("rendez-vous") && (
+          {!page.includes("rendez-vous") && (
           <a
             href={buildRdvHref("quick-contact", ctaLang)}
+            data-ph="booking"
+            data-ph-label={QC_RDV_CTA[ctaLang] ?? QC_RDV_CTA.fr}
+            data-ph-dest={buildRdvHref("quick-contact", ctaLang)}
+            data-ph-placement="quick_contact_success"
             style={{
               display: "inline-block",
               marginTop: 16,
@@ -156,7 +173,7 @@ export default function QuickContact({ strings, page, variant = "dark", source, 
           aria-label={strings.label}
           placeholder={strings.placeholder}
           value={contact}
-          onChange={(e) => setContact(e.target.value)}
+          onChange={(e) => handleContactChange(e.target.value)}
           style={{
             flex: "1 1 220px",
             padding: "14px 18px",
@@ -172,6 +189,10 @@ export default function QuickContact({ strings, page, variant = "dark", source, 
         <button
           type="submit"
           disabled={state === "sending"}
+          data-ph="cta"
+          data-ph-label={strings.submit}
+          data-ph-dest="quick_contact_submit"
+          data-ph-placement="quick_contact"
           style={{
             padding: "14px 24px",
             borderRadius: 0,

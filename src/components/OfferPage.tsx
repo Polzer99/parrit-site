@@ -2,8 +2,9 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getAttribution } from "@/lib/attribution";
+import { track } from "@/lib/analytics";
 import { getOfferCopy, type OfferKind, type OfferCopy } from "@/lib/offer-copy";
 import type { Locale } from "@/app/[lang]/dictionaries";
 
@@ -29,6 +30,17 @@ function LeadForm({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const started = useRef(false);
+
+  useEffect(() => {
+    track("form_view", { form: "offer_callback", offer });
+  }, [offer]);
+
+  function markStarted(): void {
+    if (started.current) return;
+    started.current = true;
+    track("form_start", { form: "offer_callback", offer });
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -62,19 +74,15 @@ function LeadForm({
       if (!r.ok) throw new Error(`webhook ${r.status}`);
 
       posthog?.identify(email.trim(), { email: email.trim(), phone: phone.trim() });
-      posthog?.capture("form_submitted", {
+      track("form_submitted", {
         form: "offer_callback",
         offer,
-        page: `/${lang}/${offer}`,
-        ...utms,
       });
       setState("sent");
     } catch {
-      posthog?.capture("form_failed", {
+      track("form_failed", {
         form: "offer_callback",
         offer,
-        page: `/${lang}/${offer}`,
-        ...utms,
       });
       setState("error");
     }
@@ -88,7 +96,7 @@ function LeadForm({
         autoComplete="email"
         placeholder={copy.email}
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => { setEmail(e.target.value); markStarted(); }}
         required
       />
       <input
@@ -97,10 +105,18 @@ function LeadForm({
         autoComplete="tel"
         placeholder={copy.phone}
         value={phone}
-        onChange={(e) => setPhone(e.target.value)}
+        onChange={(e) => { setPhone(e.target.value); markStarted(); }}
         required
       />
-      <button className="btn btn-red btn-lg" type="submit" disabled={state === "sending"}>
+      <button
+        className="btn btn-red btn-lg"
+        type="submit"
+        disabled={state === "sending"}
+        data-ph="cta"
+        data-ph-label={copy.submit}
+        data-ph-dest="offer_callback_submit"
+        data-ph-placement="offer_form"
+      >
         {state === "sending" ? copy.submitting : copy.submit}
       </button>
       {state === "sent" && <p className="lead-status">{copy.thanks}</p>}
@@ -126,17 +142,17 @@ export default function OfferPage({
 
       <div className="wrap">
         <nav className="nav" aria-label={copy.a11y.nav}>
-          <a href={`/${lang}`} aria-label="Parrit.ai">
+          <a href={`/${lang}`} aria-label="Parrit.ai" data-ph="cta" data-ph-label="Parrit.ai" data-ph-dest={`/${lang}`} data-ph-placement="topbar_logo">
             <Logo />
           </a>
           <div className="nav-links" aria-label={copy.a11y.offers}>
             {copy.navLinks.map((item) => (
-              <a href={`/${lang}/${item.href}`} key={item.href} aria-current={item.href === offer ? "page" : undefined}>
+              <a href={`/${lang}/${item.href}`} key={item.href} aria-current={item.href === offer ? "page" : undefined} data-ph="cta" data-ph-label={item.label} data-ph-dest={`/${lang}/${item.href}`} data-ph-placement="topbar_nav">
                 {item.label}
               </a>
             ))}
           </div>
-          <a className="btn btn-red" href="mailto:paul.larmaraud@parrit.ai">
+          <a className="btn btn-red" href="mailto:paul.larmaraud@parrit.ai" data-ph="cta" data-ph-label={copy.navCta} data-ph-dest="mailto:paul.larmaraud@parrit.ai" data-ph-placement="topbar">
             {copy.navCta}
           </a>
         </nav>
@@ -161,10 +177,10 @@ export default function OfferPage({
             ))}
           </div>
           <div className="cta-row">
-            <a className="btn btn-red btn-lg" href="#contact">
+            <a className="btn btn-red btn-lg" href="#contact" data-ph="cta" data-ph-label={copy.hero.primary} data-ph-dest="#contact" data-ph-placement="hero">
               {copy.hero.primary}
             </a>
-            <a className="btn btn-ghost btn-lg" href="#cadre">
+            <a className="btn btn-ghost btn-lg" href="#cadre" data-ph="cta" data-ph-label={copy.hero.secondary} data-ph-dest="#cadre" data-ph-placement="hero">
               {copy.hero.secondary}
             </a>
           </div>
@@ -300,11 +316,11 @@ export default function OfferPage({
               <p className="fine">{copy.cta.fine}</p>
               <LeadForm copy={copy.cta} lang={lang} offer={offer} />
               <div className="cta-alt">
-                <a className="btn btn-wa btn-lg" href="https://wa.me/33683762219">
+                <a className="btn btn-wa btn-lg" href="https://wa.me/33683762219" data-ph="cta" data-ph-label={copy.cta.whatsapp} data-ph-dest="https://wa.me/33683762219" data-ph-placement="contact">
                   <img className="ci" src="/brand/tool-logos/whatsapp.svg" alt="" aria-hidden="true" />
                   {copy.cta.whatsapp}
                 </a>
-                <a className="cta-mail" href="mailto:paul.larmaraud@parrit.ai">
+                <a className="cta-mail" href="mailto:paul.larmaraud@parrit.ai" data-ph="cta" data-ph-label={copy.cta.mail} data-ph-dest="mailto:paul.larmaraud@parrit.ai" data-ph-placement="contact">
                   {copy.cta.mail}
                 </a>
               </div>

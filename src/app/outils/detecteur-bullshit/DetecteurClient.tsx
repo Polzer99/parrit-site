@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getAttribution } from "@/lib/attribution";
+import { track } from "@/lib/analytics";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 const SURFACE = "detecteur-bullshit";
@@ -254,7 +255,8 @@ export default function DetecteurClient() {
     };
 
     retryPendingLead().catch((error) => {
-      getPosthog()?.capture("form_failed", { surface: SURFACE, status: statusFromError(error) });
+      const responseStatus = statusFromError(error);
+      track("form_failed", { form: SURFACE, ...(responseStatus === undefined ? {} : { status: responseStatus }) });
     });
   }, []);
 
@@ -281,16 +283,14 @@ export default function DetecteurClient() {
       if (!r.ok) throw new Error(`webhook ${r.status}`);
       if (ph) {
         ph.identify(mail.trim(), { email: mail.trim() });
-        ph.capture("form_submitted", {
+        track("form_submitted", {
           form: "bullshit_detector",
-          page: "outils/detecteur-bullshit",
-          ...utms,
         });
       }
     } catch (error) {
       // non bloquant : l'analyse continue meme si le webhook echoue
       const status = statusFromError(error);
-      ph?.capture("form_failed", { surface: SURFACE, status });
+      track("form_failed", { form: SURFACE, ...(status === undefined ? {} : { status }) });
       console.error(payload, error);
       savePendingLead(payload, status);
     }

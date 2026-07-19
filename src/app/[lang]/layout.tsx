@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import AttributionInit from "@/components/AttributionInit";
+import CtaTracker from "@/components/CtaTracker";
+import EngagementTracker from "@/hooks/useEngagement";
 import {
   getDictionary,
   hasLocale,
@@ -251,6 +253,8 @@ export default async function LocaleLayout({
                 api_host: 'https://eu.i.posthog.com',
                 defaults: '2026-01-30',
                 person_profiles: 'identified_only',
+                rageclick: true,
+                capture_dead_clicks: true,
                 session_recording: { maskAllInputs: true }
               });
             `,
@@ -262,6 +266,8 @@ export default async function LocaleLayout({
         style={{ fontFamily: "var(--font-body)" }}
       >
         <AttributionInit />
+        <CtaTracker />
+        <EngagementTracker />
         {children}
       </body>
     </html>

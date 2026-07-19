@@ -124,6 +124,18 @@ export function getAttribution(): Record<string, string> {
   return out;
 }
 
+/** Propriétés first-touch immuables destinées au `$set_once` PostHog. */
+export function getFirstTouchOnly(): Record<string, string> {
+  const out: Record<string, string> = {};
+  const stored = readStored();
+
+  if (!stored) return out;
+  Object.entries(stored.first_touch).forEach(([key, value]) => {
+    if (value) out[`first_touch_${key}`] = value;
+  });
+  return out;
+}
+
 /**
  * Construit un lien /rendez-vous attribué : porte la source du contenu + les
  * derniers UTM connus, pour qu'une prise de RDV soit rattachable au contenu qui

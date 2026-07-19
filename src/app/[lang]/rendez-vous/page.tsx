@@ -3,6 +3,7 @@ import LegalFooterLine from "@/components/LegalFooterLine";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import QuickContact from "@/components/QuickContact";
+import BookingTracker from "@/components/BookingTracker";
 import {
   getDictionary,
   hasLocale,
@@ -111,14 +112,21 @@ export default async function RendezVous({
 
       <main className="rdv-main">
         <div className="rdv-embed">
-          <iframe
+          <BookingTracker
             src={SCHEDULE_EMBED_URL}
             title={rdv.meta.title}
-            loading="lazy"
           />
         </div>
         <p className="rdv-fallback">
-          <a href={SCHEDULE_PUBLIC_URL} target="_blank" rel="noopener noreferrer">
+          <a
+            href={SCHEDULE_PUBLIC_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-ph="booking"
+            data-ph-label={rdv.openInTab}
+            data-ph-dest={SCHEDULE_PUBLIC_URL}
+            data-ph-placement="booking_fallback"
+          >
             {rdv.openInTab}
           </a>
         </p>
