@@ -96,3 +96,9 @@ Audit multi-agents du site (harmonie / EN / zones mortes / conversion) + décisi
 **Backlog RESTANT :**
 - [item 1+2, volet footer unifié — LOT DESIGN, mineur] Reste 4 footers bespoke SANS lien légal : `metiers` (`met-cta`), `harnais-ia` (`dim`), `outils/detecteur-bullshit` (`bsd-footer`), `LandingPage` (`landing-v4-statusbar`, sert setup/remote). Structures distinctes → les intégrer dans une éventuelle unification `SiteFooter` (qui pourrait aussi porter une nav offres persistante). Pages secondaires/tool, faible trafic.
 - [item 10 — RÉSOLU #149] Palette tranchée par Paul (14/07) = **canon `#FFFDFA`/`#0C0C0D`/`#D1132F`**. ~105 hex périmés en dur (`#F5F8FF`/`#161616`/`#AA0003`) migrés dans tout `src/` ; `qa:doctrine` bloque désormais leur retour ; TRUTH §6.3 retourné. Une seule DA sur le domaine.
+
+### 2026-07-20 — cycle Hermes
+- inputs : 6 surfaces live, memoire OK, analytics PostHog quantitatif
+- 5 propositions (top : "Clarifier le CTA principal 'Parler à Paul' avec une promesse de sortie" ICE 504)
+- statut : propose, en attente merge HITL → `proposals/2026-07-20.md`
+- issue Codex ouverte : https://github.com/Polzer99/parrit-site/issues/155
