@@ -82,6 +82,39 @@ type Ressource = {
 
 const RESSOURCES: Ressource[] = [
   {
+    href: "/harnais-ia",
+    cat: {
+      fr: "Étude de cas · Coûts IA",
+      en: "Case study · AI costs",
+      "pt-BR": "Estudo de caso · Custos de IA",
+      "zh-CN": "案例研究 · AI 成本",
+    },
+    time: {
+      fr: "8 min de lecture",
+      en: "8 min read",
+      "pt-BR": "8 min de leitura",
+      "zh-CN": "8 分钟阅读",
+    },
+    title: {
+      fr: "Diviser ses coûts IA par 20 : le harnais exact, mesuré",
+      en: "Cut AI costs by 20×: the exact, measured harness",
+      "pt-BR": "Dividir os custos de IA por 20: o sistema exato, medido",
+      "zh-CN": "将 AI 成本降低 20 倍：经过实测的完整方案",
+    },
+    desc: {
+      fr: "Le playbook, la matrice tâche → modèle et le calculateur utilisés par Parrit pour router chaque tâche vers le modèle adapté.",
+      en: "The playbook, task → model matrix and calculator Parrit uses to route each task to the right model.",
+      "pt-BR": "O playbook, a matriz tarefa → modelo e a calculadora que a Parrit usa para direcionar cada tarefa ao modelo adequado.",
+      "zh-CN": "Parrit 用于将每项任务分配给合适模型的操作手册、任务 → 模型矩阵和计算器。",
+    },
+    cta: {
+      fr: "Recevoir le harnais",
+      en: "Get the harness",
+      "pt-BR": "Receber o sistema",
+      "zh-CN": "获取完整方案",
+    },
+  },
+  {
     href: "/architecture-claude-md",
     cat: {
       fr: "Ressource · Architecture",
@@ -223,8 +256,6 @@ export default async function RessourcesPage({
 
       <main className="blog-list">
         {RESSOURCES.map((r, i) => (
-          // Page statique gated hors routing Next (fichier public + rewrite) : lien plein-page volontaire
-          // eslint-disable-next-line @next/next/no-html-link-for-pages
           <a
             key={r.href}
             href={r.href}
