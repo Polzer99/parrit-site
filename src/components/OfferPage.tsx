@@ -33,13 +33,13 @@ function LeadForm({
   const started = useRef(false);
 
   useEffect(() => {
-    track("form_view", { form: "offer_callback", offer });
+    track("form_view", { form: `offre:${offer}` });
   }, [offer]);
 
   function markStarted(): void {
     if (started.current) return;
     started.current = true;
-    track("form_start", { form: "offer_callback", offer });
+    track("form_start", { form: `offre:${offer}` });
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -75,14 +75,16 @@ function LeadForm({
 
       posthog?.identify(email.trim(), { email: email.trim(), phone: phone.trim() });
       track("form_submitted", {
-        form: "offer_callback",
-        offer,
+        form: `offre:${offer}`,
       });
       setState("sent");
-    } catch {
+    } catch (error) {
+      const status = error instanceof Error
+        ? Number(error.message.match(/webhook (\d+)/)?.[1])
+        : Number.NaN;
       track("form_failed", {
-        form: "offer_callback",
-        offer,
+        form: `offre:${offer}`,
+        ...(Number.isNaN(status) ? {} : { status }),
       });
       setState("error");
     }

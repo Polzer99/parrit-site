@@ -1141,13 +1141,13 @@ function LeadForm({ copy, lang }: { copy: HomeCopy["cta"]; lang: Locale }) {
   const started = useRef(false);
 
   useEffect(() => {
-    track("form_view", { form: "home_callback" });
+    track("form_view", { form: "home" });
   }, []);
 
   function markStarted(): void {
     if (started.current) return;
     started.current = true;
-    track("form_start", { form: "home_callback" });
+    track("form_start", { form: "home" });
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -1183,10 +1183,16 @@ function LeadForm({ copy, lang }: { copy: HomeCopy["cta"]; lang: Locale }) {
       if (!r.ok) throw new Error(`webhook ${r.status}`);
 
       posthog?.identify(email.trim(), { email: email.trim(), phone: phone.trim() });
-      track("form_submitted", { form: "home_callback" });
+      track("form_submitted", { form: "home" });
       setState("sent");
-    } catch {
-      track("form_failed", { form: "home_callback" });
+    } catch (error) {
+      const status = error instanceof Error
+        ? Number(error.message.match(/webhook (\d+)/)?.[1])
+        : Number.NaN;
+      track("form_failed", {
+        form: "home",
+        ...(Number.isNaN(status) ? {} : { status }),
+      });
       setState("error");
     }
   }

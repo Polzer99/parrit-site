@@ -35,6 +35,10 @@ export default function Landing() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    track("form_view", { form: SURFACE });
+  }, []);
+
+  useEffect(() => {
     // SSR rend FR ; au montage, on s'aligne sur la langue du navigateur (anglophone → EN).
     // set-state-in-effect est volontaire ici (évite un hydration mismatch).
     if (typeof navigator !== "undefined" && navigator.language?.toLowerCase().startsWith("en")) {
@@ -92,6 +96,7 @@ export default function Landing() {
       });
       if (!r.ok) throw new Error(`webhook ${r.status}`);
       localStorage.removeItem(PENDING_LEAD_KEY);
+      track("form_submitted", { form: SURFACE });
       setSent(true);
     } catch (error) {
       const status = statusFromError(error);
