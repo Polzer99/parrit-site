@@ -333,10 +333,10 @@ export default function HomeDeux({
         </h1>
         <p className="hd-lede">{t.lede}</p>
         <div className="hd-hero-cta">
-          <Link className="hd-btn primary hd-act" href={`/${lang}/rendez-vous?source=home-hire-agent`} data-ph="booking" data-ph-label={t.ctaHire} data-ph-dest={`/${lang}/rendez-vous?source=home-hire-agent`} data-ph-placement="hero_primary">
+          <Link className="hd-btn primary hd-act" href={`/${lang}/rendez-vous?source=home-hire-agent`} data-ph="cta" data-ph-label={t.ctaHire} data-ph-dest={`/${lang}/rendez-vous?source=home-hire-agent`} data-ph-placement="home-hire-agent">
             {t.ctaHire} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
-          <Link className="hd-btn ghost hd-act" href={`/${lang}/rendez-vous?source=home-demo`} data-ph="booking" data-ph-label={t.ctaDemo} data-ph-dest={`/${lang}/rendez-vous?source=home-demo`} data-ph-placement="hero_secondary">
+          <Link className="hd-btn ghost hd-act" href={`/${lang}/rendez-vous?source=home-demo`} data-ph="cta" data-ph-label={t.ctaDemo} data-ph-dest={`/${lang}/rendez-vous?source=home-demo`} data-ph-placement="home-demo">
             {t.ctaDemo} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
         </div>
@@ -359,7 +359,7 @@ export default function HomeDeux({
         </div>
         <p className="hd-catalog-foot">{t.catFoot(catalog.deployedCount)}</p>
         <div className="hd-catalog-cta">
-          <Link className="hd-btn primary hd-act" href={`/${lang}/rendez-vous?source=home-catalog`} data-ph="booking" data-ph-label={t.catCta} data-ph-dest={`/${lang}/rendez-vous?source=home-catalog`} data-ph-placement="catalog">
+          <Link className="hd-btn primary hd-act" href={`/${lang}/rendez-vous?source=home-catalog`} data-ph="cta" data-ph-label={t.catCta} data-ph-dest={`/${lang}/rendez-vous?source=home-catalog`} data-ph-placement="home-catalog">
             {t.catCta} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
         </div>
@@ -450,7 +450,7 @@ export default function HomeDeux({
         <img className="hd-cta-seal" src="/brand/parrit-seal.svg" alt="" aria-hidden="true" />
         <h2 className="hd-cta-h">{t.ctaH}</h2>
         <p className="hd-cta-p">{t.ctaP}</p>
-        <Link className="hd-btn primary lg hd-act" href={`/${lang}/rendez-vous?source=home-final-hire-agent`} data-ph="booking" data-ph-label={t.ctaHire} data-ph-dest={`/${lang}/rendez-vous?source=home-final-hire-agent`} data-ph-placement="final_cta">
+        <Link className="hd-btn primary lg hd-act" href={`/${lang}/rendez-vous?source=home-final-hire-agent`} data-ph="cta" data-ph-label={t.ctaHire} data-ph-dest={`/${lang}/rendez-vous?source=home-final-hire-agent`} data-ph-placement="home-final-hire-agent">
           {t.ctaHire} <span className="hd-cta-arrow" aria-hidden="true">→</span>
         </Link>
       </footer>

@@ -32,6 +32,37 @@ async function analyticsEvents(page: Page, event: string): Promise<AnalyticsEven
   }, event);
 }
 
+test("home rendez-vous CTAs emit stable click placements without changing destinations", async ({ page }) => {
+  await installPostHogSpy(page);
+  await page.goto(new URL("/fr", BASE_URL).toString());
+  await page.evaluate(() => {
+    document.addEventListener("click", (event) => event.preventDefault());
+  });
+
+  const placements = [
+    "home-hire-agent",
+    "home-demo",
+    "home-catalog",
+    "home-final-hire-agent",
+  ];
+
+  for (const placement of placements) {
+    const destination = `/fr/rendez-vous?source=${placement}`;
+    const cta = page.locator(`[data-ph-placement="${placement}"]`);
+
+    await expect(cta).toHaveAttribute("href", destination);
+    await cta.click();
+    await expect.poll(async () => analyticsEvents(page, "cta_click")).toContainEqual({
+      event: "cta_click",
+      properties: expect.objectContaining({
+        destination,
+        page: "/fr",
+        placement,
+      }),
+    });
+  }
+});
+
 test("quick contact emits one view and one success after an accepted lead", async ({ page }) => {
   await installPostHogSpy(page);
   await page.route(LEAD_WEBHOOK, (route) => route.fulfill({ status: 200, body: "ok" }));
