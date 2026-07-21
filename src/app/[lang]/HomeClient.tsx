@@ -1166,7 +1166,7 @@ function LeadForm({ copy, lang }: { copy: HomeCopy["cta"]; lang: Locale }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          source: "parrit.ai",
+          source: "site:home",
           action: "home_callback_request",
           page: `/${lang}`,
           email: email.trim(),

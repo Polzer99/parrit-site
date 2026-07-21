@@ -99,7 +99,7 @@ async function writeProspectFile(lead: LeadBody): Promise<string> {
 
 async function notifyWebhook(lead: LeadBody, filepath: string): Promise<void> {
   const payload = {
-    source: "parrit.ai",
+    source: "site:assistant",
     action: "assistant_lead",
     nom: "",
     prenom: lead.firstName || "",
@@ -117,15 +117,12 @@ async function notifyWebhook(lead: LeadBody, filepath: string): Promise<void> {
     ...(lead.utm || {}),
   };
 
-  try {
-    await fetch(LEAD_WEBHOOK, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-  } catch {
-    // Non-fatal — MD file is the source of truth.
-  }
+  const response = await fetch(LEAD_WEBHOOK, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!response.ok) throw new Error(`webhook ${response.status}`);
 }
 
 export async function POST(req: NextRequest) {
@@ -152,7 +149,14 @@ export async function POST(req: NextRequest) {
     savedPath = `(failed: ${message})`;
   }
 
-  await notifyWebhook(lead, savedPath);
+  try {
+    await notifyWebhook(lead, savedPath);
+  } catch {
+    return Response.json(
+      { ok: false, error: "lead delivery failed" },
+      { status: 502 },
+    );
+  }
 
   return Response.json({ ok: true });
 }

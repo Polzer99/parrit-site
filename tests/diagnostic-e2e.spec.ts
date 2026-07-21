@@ -241,7 +241,7 @@ test("/diagnostic email gate sends the transcript to the lead webhook", async ({
     .poll(() => leads.length, { message: "diagnostic lead webhook called" })
     .toBe(1);
   expect(leads[0]).toMatchObject({
-    source: "parrit.ai",
+    source: "site:diagnostic",
     action: "diagnostic_lead",
     page: "diagnostic",
     email: "claire@example.com",
@@ -249,6 +249,25 @@ test("/diagnostic email gate sends the transcript to the lead webhook", async ({
     lang: "fr",
   });
   expect(errors, "no diagnostic runtime console errors").toEqual([]);
+});
+
+test("/diagnostic keeps the email gate open when the lead webhook fails", async ({ page }) => {
+  await mockDiagnostic(page);
+  await page.route(WEBHOOK_URL, async (route) => {
+    await route.fulfill({
+      status: 500,
+      contentType: "application/json",
+      body: JSON.stringify({ ok: false }),
+    });
+  });
+
+  await completeDiagnostic(page, "fr", "dirigeant-pme");
+  await page.locator(".dg-grow input").fill("claire@example.com");
+  await page.locator(".dg-go").click();
+
+  await expect(page.locator('.dg-err[role="alert"]')).toContainText("Un problème est survenu");
+  await expect(page.locator(".dg-thanks")).toHaveCount(0);
+  await expect(page.locator(".dg-grow")).toBeVisible();
 });
 
 test("/diagnostic keeps injection content out of assistant and canvas output", async ({ page }) => {

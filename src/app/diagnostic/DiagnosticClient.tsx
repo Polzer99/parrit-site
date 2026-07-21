@@ -9,6 +9,13 @@ const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 const SURFACE = "diagnostic";
 const PENDING_LEAD_KEY = `pending_lead_${SURFACE}`;
 
+const LEAD_ERROR: Record<Lang, string> = {
+  fr: "Un problème est survenu. Réessayez.",
+  en: "Something went wrong. Please try again.",
+  "pt-BR": "Ocorreu um problema. Tente novamente.",
+  "zh-CN": "出现问题，请重试。",
+};
+
 type Msg = { role: "user" | "assistant"; content: string };
 type Front = { label: string; nodes: string[] };
 type Diag = { framing: string; front1: Front; front2: Front; pills: string[]; offer: string; cta: string };
@@ -42,6 +49,7 @@ export default function DiagnosticClient() {
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [leadSent, setLeadSent] = useState(false);
+  const [leadError, setLeadError] = useState("");
   const threadRef = useRef<HTMLDivElement>(null);
   const startedRef = useRef(false);
 
@@ -124,15 +132,11 @@ export default function DiagnosticClient() {
 
   async function sendLead() {
     if (!looksLikeEmail(email) || leadSent) return;
+    setLeadError("");
     const utms = getAttribution();
     const p = ph();
-    if (p) {
-      p.identify(email.trim(), { email: email.trim() });
-      track("form_submitted", { form: "diagnostic", segment: seg, persona, content_lang: lang });
-      track("diagnostic_lead", { segment: seg, persona, content_lang: lang });
-    }
     const payload = {
-      source: "parrit.ai",
+      source: "site:diagnostic",
       action: "diagnostic_lead",
       page: "diagnostic",
       email: email.trim(),
@@ -154,9 +158,12 @@ export default function DiagnosticClient() {
         body: JSON.stringify(payload),
       });
       if (!r.ok) throw new Error(`webhook ${r.status}`);
+      localStorage.removeItem(PENDING_LEAD_KEY);
+      if (p) p.identify(email.trim(), { email: email.trim() });
+      track("form_submitted", { form: "diagnostic", segment: seg, persona, content_lang: lang });
+      track("diagnostic_lead", { segment: seg, persona, content_lang: lang });
       setLeadSent(true);
     } catch (error) {
-      // non bloquant
       const status = statusFromError(error);
       track("form_failed", {
         form: "diagnostic",
@@ -164,7 +171,7 @@ export default function DiagnosticClient() {
       });
       console.error(payload, error);
       savePendingLead(payload, status);
-      setLeadSent(true);
+      setLeadError(LEAD_ERROR[lang]);
     }
   }
 
@@ -259,6 +266,7 @@ export default function DiagnosticClient() {
                         <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="votre@email.pro" inputMode="email" aria-label="email" />
                         <button className="dg-go" type="submit">→</button>
                       </form>
+                      {leadError && <div className="dg-err" role="alert">{leadError}</div>}
                     </>
                   )}
                 </div>

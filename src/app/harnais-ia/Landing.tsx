@@ -10,6 +10,11 @@ const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 const SURFACE = "harnais-ia";
 const PENDING_LEAD_KEY = `pending_lead_${SURFACE}`;
 
+const SEND_ERROR: Record<Lang, string> = {
+  fr: "Un problème est survenu. Réessayez.",
+  en: "Something went wrong. Please try again.",
+};
+
 function statusFromError(error: unknown): number | undefined {
   if (!(error instanceof Error)) return undefined;
   const match = error.message.match(/webhook (\d+)/);
@@ -26,6 +31,8 @@ export default function Landing() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     // SSR rend FR ; au montage, on s'aligne sur la langue du navigateur (anglophone → EN).
@@ -65,6 +72,8 @@ export default function Landing() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!name.trim() || !email.trim()) return;
+    setSending(true);
+    setError("");
     const payload = {
       name: name.trim(),
       email: email.trim(),
@@ -82,14 +91,17 @@ export default function Landing() {
         body: JSON.stringify(payload),
       });
       if (!r.ok) throw new Error(`webhook ${r.status}`);
+      localStorage.removeItem(PENDING_LEAD_KEY);
+      setSent(true);
     } catch (error) {
-      // le déblocage ne doit jamais dépendre du réseau
       const status = statusFromError(error);
       track("form_failed", { form: SURFACE, ...(status === undefined ? {} : { status }) });
       console.error(payload, error);
       savePendingLead(payload, status);
+      setError(SEND_ERROR[lang]);
+    } finally {
+      setSending(false);
     }
-    setSent(true);
   }
 
   return (
@@ -195,7 +207,7 @@ export default function Landing() {
                 <form className="leadform" onSubmit={handleSubmit}>
                   <input type="text" placeholder={c.fieldName} value={name} onChange={(e) => setName(e.target.value)} required />
                   <input type="email" placeholder={c.fieldEmail} value={email} onChange={(e) => setEmail(e.target.value)} required />
-                  <button type="submit" className="btn btn-red btn-lg">{c.submit}</button>
+                  <button type="submit" className="btn btn-red btn-lg" disabled={sending}>{c.submit}</button>
                 </form>
               ) : (
                 <>
@@ -209,6 +221,7 @@ export default function Landing() {
                   </a>
                 </>
               )}
+              {error && <p className="gate-error" role="alert">{error}</p>}
               {!sent && <p className="fine">{c.fine}</p>}
               <img className="seal-wm" src="/brand/parrit-seal.svg" alt="" />
             </div>

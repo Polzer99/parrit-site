@@ -264,7 +264,7 @@ export default function DetecteurClient() {
     const utms = getAttribution();
     const ph = getPosthog();
     const payload = {
-      source: "parrit.ai",
+      source: "site:detecteur-bullshit",
       action: "bullshit_detector_lead",
       page: "outils/detecteur-bullshit",
       email: mail.trim(),
@@ -281,18 +281,16 @@ export default function DetecteurClient() {
         body: JSON.stringify(payload),
       });
       if (!r.ok) throw new Error(`webhook ${r.status}`);
-      if (ph) {
-        ph.identify(mail.trim(), { email: mail.trim() });
-        track("form_submitted", {
-          form: "bullshit_detector",
-        });
-      }
     } catch (error) {
-      // non bloquant : l'analyse continue meme si le webhook echoue
-      const status = statusFromError(error);
-      track("form_failed", { form: SURFACE, ...(status === undefined ? {} : { status }) });
-      console.error(payload, error);
-      savePendingLead(payload, status);
+      savePendingLead(payload, statusFromError(error));
+      throw error;
+    }
+    localStorage.removeItem(PENDING_LEAD_KEY);
+    if (ph) {
+      ph.identify(mail.trim(), { email: mail.trim() });
+      track("form_submitted", {
+        form: "bullshit_detector",
+      });
     }
   }
 
@@ -311,7 +309,17 @@ export default function DetecteurClient() {
     setResult(null);
     if (!emailSentRef.current) {
       emailSentRef.current = true;
-      void captureLead(email);
+      try {
+        await captureLead(email);
+      } catch (leadError) {
+        emailSentRef.current = false;
+        const responseStatus = statusFromError(leadError);
+        track("form_failed", { form: SURFACE, ...(responseStatus === undefined ? {} : { status: responseStatus }) });
+        console.error(leadError);
+        setError("Un problème est survenu. Réessayez.");
+        setStatus("idle");
+        return;
+      }
     }
     try {
       const r = await fetch("/api/bullshit", {
