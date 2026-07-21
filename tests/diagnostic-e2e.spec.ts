@@ -265,7 +265,7 @@ test("/diagnostic keeps the email gate open when the lead webhook fails", async 
   await page.locator(".dg-grow input").fill("claire@example.com");
   await page.locator(".dg-go").click();
 
-  await expect(page.getByRole("alert")).toContainText("Un problème est survenu");
+  await expect(page.locator('.dg-err[role="alert"]')).toContainText("Un problème est survenu");
   await expect(page.locator(".dg-thanks")).toHaveCount(0);
   await expect(page.locator(".dg-grow")).toBeVisible();
 });
