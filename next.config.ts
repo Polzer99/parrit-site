@@ -26,6 +26,10 @@ const nextConfig: NextConfig = {
         source: "/demarrer-claude-code",
         destination: "/demarrer-claude-code/index.html",
       },
+      {
+        source: "/hr-radar",
+        destination: "/hr-radar/index.html",
+      },
     ];
   },
 };
