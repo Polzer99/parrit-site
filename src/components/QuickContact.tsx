@@ -6,6 +6,7 @@ import { getAttribution, buildRdvHref } from "@/lib/attribution";
 import { track } from "@/lib/analytics";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
+const FORM_ID = "quickcontact";
 
 const QC_RDV_CTA: Record<string, string> = {
   fr: "Réserver 15 minutes avec Paul",
@@ -42,14 +43,14 @@ export default function QuickContact({ strings, page, variant = "dark", source, 
   const started = useRef(false);
 
   useEffect(() => {
-    track("form_view", { form: "quick_contact", form_page: page });
-  }, [page]);
+    track("form_view", { form: FORM_ID });
+  }, []);
 
   function handleContactChange(value: string): void {
     setContact(value);
     if (!started.current) {
       started.current = true;
-      track("form_start", { form: "quick_contact", form_page: page });
+      track("form_start", { form: FORM_ID });
     }
   }
 
@@ -82,17 +83,20 @@ export default function QuickContact({ strings, page, variant = "dark", source, 
         }),
       });
       if (!r.ok) throw new Error(`webhook ${r.status}`);
-      if (ph) {
-        if (isEmail) ph.identify(contact.trim(), { email: contact.trim() });
-        track("form_submitted", {
-          form: "quick_contact",
-          form_page: page,
-          contact_kind: isEmail ? "email" : "phone",
-        });
-      }
+      if (isEmail) ph?.identify(contact.trim(), { email: contact.trim() });
+      track("form_submitted", {
+        form: FORM_ID,
+        contact_kind: isEmail ? "email" : "phone",
+      });
       setState("sent");
-    } catch {
-      track("form_failed", { form: "quick_contact", form_page: page });
+    } catch (error) {
+      const status = error instanceof Error
+        ? Number(error.message.match(/webhook (\d+)/)?.[1])
+        : Number.NaN;
+      track("form_failed", {
+        form: FORM_ID,
+        ...(Number.isNaN(status) ? {} : { status }),
+      });
       setState("error");
     }
   }

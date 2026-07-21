@@ -240,6 +240,8 @@ export default function DetecteurClient() {
   const emailSentRef = useRef(false);
 
   useEffect(() => {
+    track("form_view", { form: SURFACE });
+
     const retryPendingLead = async () => {
       const raw = localStorage.getItem(PENDING_LEAD_KEY);
       if (!raw) return;
@@ -286,12 +288,8 @@ export default function DetecteurClient() {
       throw error;
     }
     localStorage.removeItem(PENDING_LEAD_KEY);
-    if (ph) {
-      ph.identify(mail.trim(), { email: mail.trim() });
-      track("form_submitted", {
-        form: "bullshit_detector",
-      });
-    }
+    ph?.identify(mail.trim(), { email: mail.trim() });
+    track("form_submitted", { form: SURFACE });
   }
 
   async function analyze() {
