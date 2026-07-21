@@ -69,7 +69,7 @@ export default function QuickContact({ strings, page, variant = "dark", source, 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          source: source ?? "parrit.ai",
+          source: source ?? "site:quickcontact",
           action: "quick_contact",
           page,
           email: isEmail ? contact.trim() : "",
