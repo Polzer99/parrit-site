@@ -2,6 +2,7 @@ import { getAllPosts } from "@/lib/blog";
 import { getAllActualitePosts } from "@/lib/actualite";
 import { getPillars } from "@/lib/pillars";
 import { getCatalog, getAllCatalogCases } from "@/lib/agents";
+import { FAQS as campFaqs } from "@/app/camp-costa-rica/content";
 
 export const dynamic = "force-static";
 
@@ -120,6 +121,17 @@ export async function GET(): Promise<Response> {
   lines.push(
     "Résumé: Guide pas à pas pour dirigeants, sans code. Installer Claude Code, brancher sa boîte mail et son agenda, déléguer sa première vraie tâche, ajouter un second agent. Toutes les commandes à copier et le fichier CLAUDE.md de pilotage à télécharger.",
   );
+  lines.push("");
+
+  lines.push("## Camp Parrita : immersion entrepreneuriale au Costa Rica");
+  lines.push(`URL: ${SITE_URL}/camp-costa-rica`);
+  lines.push(
+    "Résumé: 10 jours sans téléphone sur la côte Pacifique du Costa Rica (région de Sámara et Parrita). Chaque participant part avec un budget minuscule et doit créer une activité génératrice de revenus en négociant en direct avec les commerces locaux. Encadrement discret mais permanent (référent local, contact médical, débrief quotidien). 8 places par cohorte, jeunes adultes dès 18 ans, admission sur candidature puis entretien. Fondé sur l'histoire vraie de Paul Larmaraud, parti avec moins de 3 000 euros, qui a nommé son entreprise Parrit d'après la ville de Parrita.",
+  );
+  lines.push("Sections:");
+  for (const f of campFaqs) {
+    lines.push(`- ${f.q}`);
+  }
   lines.push("");
 
   lines.push("## Sujets principaux");
