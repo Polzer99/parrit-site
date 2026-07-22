@@ -30,6 +30,13 @@ const courseJsonLd = {
     name: "Parrit.ai",
     url: SITE_URL,
   },
+  instructor: {
+    "@type": "Person",
+    name: "Paul Larmaraud",
+    url: `${SITE_URL}/fr/auteur/paul-larmaraud`,
+    description:
+      "Fondateur de Parrit. A vécu six mois sur la côte Pacifique du Costa Rica avec moins de 3 000 euros, avant de lancer un programme chez Lime pendant deux ans puis de créer son entreprise.",
+  },
   hasCourseInstance: {
     "@type": "CourseInstance",
     courseMode: "onsite",

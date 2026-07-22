@@ -47,6 +47,14 @@ export const FAQS: Faq[] = [
     a: "Paul Larmaraud, fondateur de Parrit, qui a vécu lui-même cette expérience sur cette même côte : petits boulots dans l'hospitality, cours de surf, soirées dans la jungle, business de jus de fruits, le tout en moins de six mois avec moins de 3 000 euros en poche. Il est présent sur place pendant tout le séjour, en posture de coach de l'ombre : il observe, débriefe chaque soir, mais ne fait jamais à la place des participants.",
   },
   {
+    q: "Comment suis-je informé pendant le séjour, en tant que parent ?",
+    a: "Vous recevez un point de l'encadrement à l'arrivée, à mi-parcours et au retour. Entre ces trois jalons, pas de nouvelles quotidiennes : c'est une condition de la métamorphose. En revanche, le canal d'urgence fonctionne 24h/24 dans les deux sens : s'il se passe quoi que ce soit, vous êtes appelé immédiatement, et vous pouvez joindre l'encadrement à tout moment.",
+  },
+  {
+    q: "Et si mon enfant craque et veut abandonner ?",
+    a: "Ça arrive, en général au jour 3 ou 4, et c'est souvent le moment le plus important du séjour. L'encadrant est là pour ça : le débrief du soir transforme l'envie d'abandonner en matière de travail. Si un participant veut réellement arrêter, personne ne le retient de force : on organise son retour, avec ses parents. En pratique, passer le cap du milieu change tout.",
+  },
+  {
     q: "Comment inscrire mon enfant ou postuler ?",
     a: "Via le formulaire de candidature en bas de cette page. Nous répondons sous 48 heures pour organiser un entretien de 20 minutes avec le participant (et les parents s'ils le souhaitent). L'entretien valide la motivation, pas le CV : nous cherchons des jeunes prêts à jouer le jeu à fond.",
   },
@@ -93,5 +101,87 @@ export const PROGRAM: { phase: string; days: string; title: string; d: string }[
     days: "Jours 9 et 10",
     title: "Le retour",
     d: "Présentation des résultats devant le groupe. Restitution des téléphones. Atelier d'intégration : comment garder ce niveau d'audace une fois rentré, dans les études, un job ou un projet.",
+  },
+];
+
+export const SECURITY: { t: string; d: string }[] = [
+  {
+    t: "Un référent local permanent",
+    d: "Un fixeur qui vit sur place, connaît chaque commerce et chaque famille de la zone. Il sait où est chaque participant sans jamais se montrer.",
+  },
+  {
+    t: "Un contact médical identifié",
+    d: "Clinique repérée, protocole d'évacuation écrit, trousse de secours à la base arrière. Le standard d'une expédition, pas d'une colonie.",
+  },
+  {
+    t: "Une base arrière",
+    d: "Un toit, de l'eau, un repas assuré chaque soir. Le défi porte sur le business, jamais sur la survie.",
+  },
+  {
+    t: "Un point quotidien obligatoire",
+    d: "Chaque soir, 30 minutes de débrief avec l'encadrant. Personne ne passe une journée sans être vu, écouté, recadré si besoin.",
+  },
+  {
+    t: "Un canal famille ouvert 24h/24",
+    d: "Les participants n'ont pas de téléphone ; les parents, si. L'encadrement est joignable à tout moment du séjour, dans les deux sens.",
+  },
+  {
+    t: "Une zone éprouvée",
+    d: "La côte Pacifique autour de Sámara et Parrita : des villages touristiques habitués aux voyageurs, où le fondateur a lui-même vécu six mois.",
+  },
+];
+
+export const CREATIONS: { t: string; d: string }[] = [
+  { t: "Cours de surf", d: "Le fondateur en a donné sans savoir surfer. On vend ce que les gens cherchent, on apprend en marchant." },
+  { t: "Événementiel", d: "Une soirée dans la jungle : trouver le lieu, les partenaires, le public. Complet dès la première." },
+  { t: "Jus de fruits", d: "Repérer ce qui manque sur la plage, l'acheter au marché, le vendre le lendemain." },
+  { t: "Services aux hôtels", d: "Accueil, animation, mise en relation avec les touristes : les hôtels manquent toujours de bras fiables." },
+  { t: "Guides et excursions", d: "Cascades, spots de surf, pêche : les touristes paient pour être emmenés au bon endroit." },
+  { t: "Ce qu'on n'a pas prévu", d: "Le meilleur business de la cohorte sera celui qu'aucune liste n'avait anticipé. C'est le principe." },
+];
+
+export const FOR_WHO: { yes: string[]; no: string[] } = {
+  yes: [
+    "18 à 30 ans, prêt à jouer le jeu à fond, y compris l'inconfort",
+    "Étudiant brillant mais jamais confronté au réel, que ses parents veulent voir se révéler",
+    "Jeune entrepreneur bloqué, qui tourne en rond derrière son écran",
+    "Capable de tenir 10 jours sans réseaux sociaux (oui, ça se teste à l'entretien)",
+  ],
+  no: [
+    "Celui qu'on inscrit contre sa volonté : l'entretien l'écarte systématiquement",
+    "Celui qui cherche des vacances originales ou du tourisme d'aventure",
+    "Celui qui a besoin d'un suivi médical ou psychologique incompatible avec l'isolement",
+    "Celui dont la seule motivation est de faire plaisir à ses parents",
+  ],
+};
+
+export const PRACTICAL: { t: string; items: string[] }[] = [
+  {
+    t: "Ce qui est pris en charge",
+    items: [
+      "Vols aller-retour accompagnés depuis Paris",
+      "Base arrière : toit, eau, un repas assuré par jour",
+      "Kit de départ minimaliste + petit pécule en colones",
+      "Encadrement sur place pendant tout le séjour",
+      "Référent local, protocole médical, assurance du programme",
+    ],
+  },
+  {
+    t: "Ce qui n'est pas fourni, volontairement",
+    items: [
+      "Le confort : pas d'hôtel, pas de climatisation, pas de room service",
+      "Le téléphone, la montre connectée, la carte bancaire : au coffre",
+      "L'argent au-delà du pécule : le reste se gagne sur place",
+      "Les réponses : l'encadrant débriefe, il ne fait jamais à la place",
+    ],
+  },
+  {
+    t: "Comment ça démarre",
+    items: [
+      "Candidature en ligne, réponse sous 48 h",
+      "Entretien de 20 minutes avec le participant (parents bienvenus)",
+      "Appel de préparation : équipement, santé, attentes",
+      "Départ groupé depuis Paris, remise des téléphones à l'arrivée",
+    ],
   },
 ];

@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useState } from "react";
-import { FAQS, PROGRAM, STORY_STEPS } from "./content";
+import { CREATIONS, FAQS, FOR_WHO, PRACTICAL, PROGRAM, SECURITY, STORY_STEPS } from "./content";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 
@@ -130,6 +130,26 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* ——— Ce qu'ils créent sur place ——— */}
+      <section className="csection" id="creations">
+        <div className="cwrap">
+          <span className="ckicker">Sur le terrain</span>
+          <h2>Ce qu&apos;ils créent, concrètement.</h2>
+          <p className="clead">
+            Pas de business plan, pas de pitch deck : du cash gagné en vrai, avec les
+            moyens du bord. Tout ce qui suit vient du vécu du fondateur sur cette côte.
+          </p>
+          <div className="cgrid3">
+            {CREATIONS.map((c) => (
+              <div className="ccell" key={c.t}>
+                <h3>{c.t}</h3>
+                <p>{c.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ——— Citation ——— */}
       <section className="cquote">
         <div className="cwrap">
@@ -172,6 +192,95 @@ export default function Landing() {
               <span className="cba-label">Après</span>
               <p>Un jeune qui a généré du cash en partant de rien ne raconte plus sa vie de la même façon. Et ne la conduit plus de la même façon.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ——— La sécurité, en détail ——— */}
+      <section className="csection" id="securite">
+        <div className="cwrap">
+          <span className="ckicker">Chapitre 04 · La sécurité</span>
+          <h2>Livrés à eux-mêmes en apparence. Jamais en réalité.</h2>
+          <p className="clead">
+            La sensation de risque fait partie de l&apos;expérience. Le risque réel, lui,
+            est géré comme sur une expédition : un dispositif complet, actif en
+            permanence, invisible pour les participants.
+          </p>
+          <div className="cgrid3">
+            {SECURITY.map((c) => (
+              <div className="ccell" key={c.t}>
+                <h3>{c.t}</h3>
+                <p>{c.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ——— Qui encadre ——— */}
+      <section className="csection cband" id="fondateur">
+        <div className="cwrap">
+          <div className="cfounder">
+            <img src="/camp/paul-costarica.jpg" alt="Paul Larmaraud, fondateur du Camp Parrita" loading="lazy" />
+            <div>
+              <span className="ckicker">Chapitre 05 · Qui encadre</span>
+              <h2>Paul Larmaraud. Il ne raconte pas le camp, il l&apos;a vécu.</h2>
+              <p className="cfounder-p">
+                Parti seul sur cette côte avec moins de 3 000 €, sans parler la langue.
+                Six mois plus tard : des cours de surf donnés, des soirées organisées,
+                des hôtels qui l&apos;embauchent, un business de jus de fruits qui tourne.
+              </p>
+              <p className="cfounder-p">
+                De retour en France, une mission d&apos;intérim chez Lime devient deux ans
+                à lancer un programme. Puis il fonde Parrit, son entreprise, nommée
+                d&apos;après la ville du déclic.
+              </p>
+              <p className="cfounder-p">
+                Pendant le camp, il est présent sur place du premier au dernier jour,
+                en coach de l&apos;ombre : il observe à distance, débriefe chaque soir,
+                et ne fait jamais à la place des participants.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ——— Pour qui / pas pour qui ——— */}
+      <section className="csection" id="pour-qui">
+        <div className="cwrap">
+          <span className="ckicker">La sélection</span>
+          <h2>Ce camp n&apos;est pas fait pour tout le monde. C&apos;est voulu.</h2>
+          <div className="cyesno">
+            <div>
+              <span className="cba-label">Fait pour</span>
+              <ul>
+                {FOR_WHO.yes.map((x) => <li key={x}>{x}</li>)}
+              </ul>
+            </div>
+            <div>
+              <span className="cba-label dark">Pas fait pour</span>
+              <ul>
+                {FOR_WHO.no.map((x) => <li key={x}>{x}</li>)}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ——— Le cadre, concrètement ——— */}
+      <section className="csection" id="cadre">
+        <div className="cwrap">
+          <span className="ckicker">Le cadre, concrètement</span>
+          <h2>Ce qui est prévu, ce qui ne l&apos;est pas, et pourquoi.</h2>
+          <div className="cgrid3 cpract">
+            {PRACTICAL.map((c) => (
+              <div className="ccell" key={c.t}>
+                <h3>{c.t}</h3>
+                <ul>
+                  {c.items.map((x) => <li key={x}>{x}</li>)}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </section>
