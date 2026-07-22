@@ -43,73 +43,85 @@ export default function Landing() {
 
   return (
     <>
-      <div className="frame" />
-
-      <div className="wrap">
-        <nav>
-          <div className="logo">
-            <img className="logo-img" src="/brand/parrit-lockup-red.svg" alt="Parrit·AI" />
-          </div>
-          <a className="btn btn-red" href="#candidature">Candidater</a>
+      {/* ——— HERO plein écran, documentaire ——— */}
+      <header className="chero">
+        <img className="chero-bg" src="/camp/hero-coast.jpg" alt="Côte Pacifique du Costa Rica à l'aube, jungle et océan" />
+        <div className="chero-veil" />
+        <nav className="cnav">
+          <img className="cnav-logo" src="/brand/parrit-lockup-red.svg" alt="Parrit·AI" />
+          <a className="cnav-cta" href="#candidature">Candidater</a>
         </nav>
-      </div>
-
-      <section className="hero left">
-        <img className="seal-wm" src="/brand/parrit-seal.svg" alt="" />
-        <div className="wrap">
-          <span className="kicker">Camp Parrita · Immersion entrepreneuriale · Costa Rica</span>
+        <div className="chero-inner">
+          <span className="ckicker light">Camp Parrita · Côte Pacifique, Costa Rica</span>
           <h1>
             10 jours sans téléphone.<br />
-            Un business à créer. <span className="red">Un déclic</span> pour la vie.
+            Un business à créer.<br />
+            <span className="red">Un déclic pour la vie.</span>
           </h1>
-          <p className="sub">
-            Le Camp Parrita emmène 8 jeunes adultes sur la côte Pacifique du Costa Rica,
-            là où le fondateur de Parrit a vécu son propre déclic : sans téléphone, avec
-            un budget minuscule, l&apos;obligation de créer une activité qui rapporte, en
-            négociant en direct avec les locaux. Ce n&apos;est pas un voyage. C&apos;est une
-            métamorphose, encadrée.
+          <p className="chero-sub">
+            8 jeunes adultes. Un budget minuscule. L&apos;obligation de créer une activité
+            qui rapporte, en négociant en direct avec les locaux. Ce n&apos;est pas un
+            voyage. C&apos;est une métamorphose, encadrée.
           </p>
-          <div className="chips">
-            <span className="chip"><span className="dot" /> 8 participants max</span>
-            <span className="chip"><span className="dot" /> Zéro écran pendant 10 jours</span>
-            <span className="chip"><span className="dot" /> Sécurité invisible, permanente</span>
-            <span className="chip"><span className="dot" /> Admission sur candidature</span>
-          </div>
+          <a className="cbtn" href="#candidature">Postuler à la prochaine cohorte</a>
         </div>
-      </section>
+        <div className="chero-facts">
+          <span>10 jours</span><i />
+          <span>0 écran</span><i />
+          <span>8 places</span><i />
+          <span>1 business créé sur place</span>
+        </div>
+      </header>
 
-      <section className="section band" id="histoire">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="kicker">L&apos;histoire d&apos;origine</span>
-            <h2>Parrit porte le nom d&apos;une ville du Costa Rica : Parrita.</h2>
-            <p className="lead">
-              Avant de fonder son entreprise, Paul Larmaraud est parti seul au Costa Rica.
-              Ce qui s&apos;est passé en six mois sur cette côte a tout déclenché. Le camp
-              reproduit exactement ce mécanisme.
-            </p>
-          </div>
-          <div className="grid3">
-            {STORY_STEPS.map((s) => (
-              <div className="card step" key={s.t}>
-                <h3>{s.t}</h3>
-                <p>{s.d}</p>
-              </div>
+      {/* ——— CHAPITRE 01 · L'histoire ——— */}
+      <section className="csection" id="histoire">
+        <div className="cwrap">
+          <span className="ckicker">Chapitre 01 · L&apos;histoire d&apos;origine</span>
+          <h2>Parrit porte le nom d&apos;une ville du Costa Rica : Parrita.</h2>
+          <p className="clead">
+            Avant de fonder son entreprise, Paul Larmaraud est parti seul sur cette côte,
+            avec moins de 3 000 €. Ce qui s&apos;est passé en six mois a tout déclenché.
+            Le camp reproduit exactement ce mécanisme.
+          </p>
+        </div>
+        <figure className="cfig">
+          <img src="/camp/story-surf.jpg" alt="Planche de surf plantée dans le sable noir à Sámara, au crépuscule" loading="lazy" />
+          <figcaption>Playa Sámara. Donner des cours de surf sans savoir surfer : on apprend en marchant.</figcaption>
+        </figure>
+        <div className="cwrap">
+          <ol className="cstory">
+            {STORY_STEPS.map((s, i) => (
+              <li key={s.t}>
+                <span className="cnum">{String(i + 1).padStart(2, "0")}</span>
+                <div>
+                  <h3>{s.t}</h3>
+                  <p>{s.d}</p>
+                </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
+        <figure className="cfig">
+          <img src="/camp/story-market.jpg" alt="Étal de fruits en bord de route dans un village costaricien" loading="lazy" />
+          <figcaption>Le business de jus de fruits : repérer ce qui manque, le vendre le lendemain.</figcaption>
+        </figure>
       </section>
 
-      <section className="section" id="programme">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="kicker">Le programme</span>
-            <h2>Trois phases. Aucune échappatoire. Un cadre solide.</h2>
-          </div>
-          <div className="grid3">
+      {/* ——— CHAPITRE 02 · Le programme (section sombre) ——— */}
+      <section className="csection cdark" id="programme">
+        <div className="cwrap">
+          <span className="ckicker light">Chapitre 02 · Le programme</span>
+          <h2>Trois phases. Aucune échappatoire. Un cadre solide.</h2>
+        </div>
+        <figure className="cfig">
+          <img src="/camp/program-fire.jpg" alt="Feu de camp sur la plage la nuit, silhouettes de dos face à l'océan" loading="lazy" />
+          <figcaption>Le débrief du soir, autour du feu : 30 minutes sur les blocages réels de la journée.</figcaption>
+        </figure>
+        <div className="cwrap">
+          <div className="cphases">
             {PROGRAM.map((p) => (
-              <div className="card" key={p.phase}>
-                <span className="kicker">{p.phase} · {p.days}</span>
+              <div className="cphase" key={p.phase}>
+                <span className="cphase-days">{p.days}</span>
                 <h3>{p.title}</h3>
                 <p>{p.d}</p>
               </div>
@@ -118,45 +130,60 @@ export default function Landing() {
         </div>
       </section>
 
-      <section className="section band" id="parents">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="kicker">Pour les parents</span>
-            <h2>Vous ne payez pas un séjour. Vous financez un avant / après.</h2>
-            <p className="lead">
-              Beaucoup de jeunes brillants n&apos;ont jamais eu à se débrouiller. Le camp leur
-              donne ce que ni les études ni un stage ne donnent : la preuve vécue qu&apos;ils
-              peuvent créer de la valeur en partant de rien. Pendant ce temps, le cadre de
-              sécurité (référent local, contact médical, base arrière, point quotidien) reste
-              actif en permanence, sans qu&apos;ils le sentent.
-            </p>
-          </div>
-          <div className="grid3">
-            <div className="card step">
-              <h3>Avant</h3>
+      {/* ——— Citation ——— */}
+      <section className="cquote">
+        <div className="cwrap">
+          <blockquote>
+            « Personne ne m&apos;a appris à entreprendre. On m&apos;a juste retiré
+            le filet. Le reste est venu tout seul. »
+          </blockquote>
+          <span className="cquote-by">Paul Larmaraud · fondateur, Parrit</span>
+        </div>
+      </section>
+
+      {/* ——— CHAPITRE 03 · Pour les parents ——— */}
+      <section className="csection" id="parents">
+        <div className="cwrap">
+          <span className="ckicker">Chapitre 03 · Pour les parents</span>
+          <h2>Vous ne payez pas un séjour. Vous financez un avant / après.</h2>
+          <p className="clead">
+            Beaucoup de jeunes brillants n&apos;ont jamais eu à se débrouiller. Le camp
+            leur donne ce que ni les études ni un stage ne donnent : la preuve vécue
+            qu&apos;ils peuvent créer de la valeur en partant de rien. Pendant ce temps,
+            le cadre de sécurité (référent local, contact médical, base arrière, point
+            quotidien) reste actif en permanence, sans qu&apos;ils le sentent.
+          </p>
+        </div>
+        <figure className="cfig">
+          <img src="/camp/program-walk.jpg" alt="Pieds nus sur un sentier de jungle après la pluie" loading="lazy" />
+          <figcaption>Pieds nus, sans téléphone. L&apos;inconfort est le professeur ; la sécurité, invisible.</figcaption>
+        </figure>
+        <div className="cwrap">
+          <div className="cbeforeafter">
+            <div>
+              <span className="cba-label">Avant</span>
               <p>À l&apos;aise partout, autonome nulle part. Le téléphone comme prothèse, le confort comme plafond.</p>
             </div>
-            <div className="card step">
-              <h3>Pendant</h3>
+            <div>
+              <span className="cba-label">Pendant</span>
               <p>Obligé d&apos;aborder, de négocier, d&apos;encaisser des refus, de trouver un manque et de le combler. Débriefé chaque soir.</p>
             </div>
-            <div className="card step">
-              <h3>Après</h3>
+            <div>
+              <span className="cba-label">Après</span>
               <p>Un jeune qui a généré du cash en partant de rien ne raconte plus sa vie de la même façon. Et ne la conduit plus de la même façon.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section" id="faq">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="kicker">Questions des parents</span>
-            <h2>Tout ce que vous vous demandez, sans détour.</h2>
-          </div>
-          <div className="faq-list">
+      {/* ——— FAQ ——— */}
+      <section className="csection cband" id="faq">
+        <div className="cwrap">
+          <span className="ckicker">Questions des parents</span>
+          <h2>Tout ce que vous vous demandez, sans détour.</h2>
+          <div className="cfaq">
             {FAQS.map((f) => (
-              <details className="faq-item" key={f.q}>
+              <details key={f.q}>
                 <summary>{f.q}</summary>
                 <p>{f.a}</p>
               </details>
@@ -165,24 +192,25 @@ export default function Landing() {
         </div>
       </section>
 
-      <section className="section band" id="candidature">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="kicker">Candidature</span>
+      {/* ——— Candidature ——— */}
+      <section className="capply" id="candidature">
+        <img className="capply-bg" src="/camp/parents-return.jpg" alt="" loading="lazy" />
+        <div className="capply-veil" />
+        <div className="cwrap">
+          <div className="capply-card">
+            <span className="ckicker">Candidature</span>
             <h2>8 places par cohorte. L&apos;entretien décide.</h2>
-            <p className="lead">
+            <p className="capply-sub">
               Laissez vos coordonnées : nous revenons vers vous sous 48 h pour un
               entretien de 20 minutes. Parents bienvenus.
             </p>
-          </div>
-          <div className="apply-card">
             {state !== "sent" ? (
-              <form className="apply-form" onSubmit={handleSubmit}>
-                <div className="apply-row">
+              <form onSubmit={handleSubmit}>
+                <div className="capply-row">
                   <input type="text" placeholder="Prénom et nom" value={name} onChange={(e) => setName(e.target.value)} required />
                   <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
-                <div className="apply-row">
+                <div className="capply-row">
                   <input type="tel" placeholder="Téléphone (optionnel)" value={phone} onChange={(e) => setPhone(e.target.value)} />
                   <select value={who} onChange={(e) => setWho(e.target.value as "parent" | "participant")} aria-label="Je suis">
                     <option value="parent">Je suis un parent</option>
@@ -195,31 +223,25 @@ export default function Landing() {
                   onChange={(e) => setMessage(e.target.value)}
                   rows={3}
                 />
-                <button type="submit" className="btn btn-red btn-lg" disabled={state === "sending"}>
+                <button type="submit" className="cbtn wide" disabled={state === "sending"}>
                   {state === "sending" ? "Envoi..." : "Postuler à la prochaine cohorte"}
                 </button>
                 {state === "error" && (
-                  <p className="apply-error">Un souci d&apos;envoi. Réessayez, ou écrivez à paul.larmaraud@parrit.ai</p>
+                  <p className="capply-error">Un souci d&apos;envoi. Réessayez, ou écrivez à paul.larmaraud@parrit.ai</p>
                 )}
-                <p className="fine">Réponse sous 48 h. Aucune donnée revendue, aucun spam.</p>
+                <p className="capply-fine">Réponse sous 48 h. Aucune donnée revendue, aucun spam.</p>
               </form>
             ) : (
-              <p className="gate-ok">
-                ✓ Candidature reçue. Nous revenons vers vous sous 48 h pour planifier l&apos;entretien.
-              </p>
+              <p className="capply-ok">✓ Candidature reçue. Nous revenons vers vous sous 48 h pour planifier l&apos;entretien.</p>
             )}
           </div>
         </div>
       </section>
 
-      <div className="wrap">
-        <footer className="dim">
-          <div className="logo">
-            <img className="logo-img" src="/brand/parrit-lockup-red.svg" alt="Parrit·AI" />
-          </div>
-          <span className="mono">Camp Parrita · une expérience Parrit · parrit.ai</span>
-        </footer>
-      </div>
+      <footer className="cfooter">
+        <img className="cnav-logo" src="/brand/parrit-lockup-red.svg" alt="Parrit·AI" />
+        <span>Camp Parrita · une expérience Parrit · parrit.ai</span>
+      </footer>
     </>
   );
 }

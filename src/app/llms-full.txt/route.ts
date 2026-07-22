@@ -124,7 +124,7 @@ export async function GET(): Promise<Response> {
   lines.push("");
 
   lines.push("## Camp Parrita : immersion entrepreneuriale au Costa Rica");
-  lines.push(`URL: ${SITE_URL}/camp-costa-rica`);
+  lines.push(`URL: https://campparrita.com`);
   lines.push(
     "Résumé: 10 jours sans téléphone sur la côte Pacifique du Costa Rica (région de Sámara et Parrita). Chaque participant part avec un budget minuscule et doit créer une activité génératrice de revenus en négociant en direct avec les commerces locaux. Encadrement discret mais permanent (référent local, contact médical, débrief quotidien). 8 places par cohorte, jeunes adultes dès 18 ans, admission sur candidature puis entretien. Fondé sur l'histoire vraie de Paul Larmaraud, parti avec moins de 3 000 euros, qui a nommé son entreprise Parrit d'après la ville de Parrita.",
   );
