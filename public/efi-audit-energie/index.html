@@ -241,7 +241,7 @@
   // Webhook Parrit réel (infra parrit-lead). Leads taggés source="efi-audit-energie".
   // ?v=<variant> (arenh|hausse|budget) capturé pour la LOUPE : quel hook fait cliquer ET convertir.
   // Alerte "accélérer vers Brieuc" = branche n8n sur ce source (appel/relance immédiate).
-  var WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
+  var WEBHOOK_URL = "https://dgjgscstyzcmtwgjrrda.supabase.co/functions/v1/efi-audit-capture";
   var params = new URLSearchParams(window.location.search);
   var form = document.getElementById('auditForm');
   form.addEventListener('submit', function(e){
