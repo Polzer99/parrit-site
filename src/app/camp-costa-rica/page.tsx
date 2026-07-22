@@ -5,6 +5,8 @@ const SITE_URL = "https://parrit.ai";
 
 // JSON-LD : FAQPage (citable tel quel par les moteurs génératifs) + Course
 // (l'offre elle-même, rattachée à l'Organization Parrit.ai).
+const CAMP_URL = "https://campparrita.com";
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -21,7 +23,7 @@ const courseJsonLd = {
   name: "Camp Parrita : immersion entrepreneuriale au Costa Rica",
   description:
     "10 jours sans téléphone sur la côte Pacifique du Costa Rica. Chaque participant crée une activité génératrice de revenus en partant de rien, encadré discrètement. 8 places par cohorte, admission sur candidature.",
-  url: `${SITE_URL}/camp-costa-rica`,
+  url: CAMP_URL,
   inLanguage: "fr",
   provider: {
     "@type": "Organization",

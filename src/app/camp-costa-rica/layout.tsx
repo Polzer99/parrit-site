@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 const SITE_URL = "https://parrit.ai";
+const CAMP_URL = "https://campparrita.com";
 const OG_IMAGE = `${SITE_URL}/opengraph-image`;
 
 export const metadata: Metadata = {
@@ -8,12 +9,12 @@ export const metadata: Metadata = {
   title: "Camp Parrita : immersion entrepreneuriale au Costa Rica | Parrit",
   description:
     "10 jours au Costa Rica sans téléphone, budget minuscule, un business à créer sur place. Le camp qui provoque le déclic entrepreneurial chez les jeunes adultes. 8 places par cohorte, admission sur candidature.",
-  alternates: { canonical: `${SITE_URL}/camp-costa-rica` },
+  alternates: { canonical: CAMP_URL },
   openGraph: {
     title: "Camp Parrita : le déclic entrepreneurial, au Costa Rica",
     description:
       "10 jours sans téléphone, un business à créer en partant de rien, un encadrement invisible mais permanent. La métamorphose que ni les études ni un stage ne donnent.",
-    url: `${SITE_URL}/camp-costa-rica`,
+    url: CAMP_URL,
     siteName: "Parrit.ai",
     type: "website",
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Camp Parrita" }],

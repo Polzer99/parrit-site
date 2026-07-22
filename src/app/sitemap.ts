@@ -156,12 +156,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.85,
     },
-    {
-      url: `${SITE_URL}/camp-costa-rica`,
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.85,
-    },
   ];
 
   return [
