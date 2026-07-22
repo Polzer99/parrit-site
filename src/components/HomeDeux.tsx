@@ -37,6 +37,11 @@ type HomeCopy = {
   terrainH: string;
   terrainP: string;
   terrainCaps: string[];
+  teamEyebrow: string;
+  teamH: string;
+  teamPaulRole: string;
+  teamYukunRole: string;
+  teamCta: string;
   catEyebrow: string;
   catH2: string;
   catSub: string;
@@ -67,7 +72,7 @@ const DICT: Record<Locale, HomeCopy> = {
     h1a: "Passez de l'IA qui discute à l'IA qui ",
     h1red: "agit",
     h1b: ".",
-    lede: "Vos partenaires d'exploitation IA, à la demande. On installe des agents qui travaillent dans vos workflows. Vous gardez la main, ils font le travail.",
+    lede: "Vos partenaires d'exploitation IA, à la demande. On installe des agents qui travaillent dans vos workflows. Vous gardez la main, ils font le travail. Des humains réels, qui ont déjà déployé pour de vrai.",
     ctaHire: "Embaucher un agent",
     ctaDemo: "Réserver une démo",
     io: {
@@ -89,6 +94,11 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainH: "On déploie avec vos équipes, pas à distance.",
     terrainP: "Cartographie des workflows, acculturation, prise de parole : on installe l'IA au contact de vos équipes, dans vos murs.",
     terrainCaps: ["Atelier · acculturation IA"],
+    teamEyebrow: "Les fondateurs",
+    teamH: "Qui est derrière",
+    teamPaulRole: "Co-fondateur · Prototypage",
+    teamYukunRole: "Co-fondatrice · Mise en production",
+    teamCta: "Rencontrer les fondateurs",
     catEyebrow: "Catalogue",
     catH2: "Pas des slides. Des agents qui tournent en production.",
     catSub: "Des agents opérationnels sur vos fonctions clés, avec un périmètre défini, des accès encadrés et un responsable. Vous gardez le contrôle et la traçabilité.",
@@ -121,7 +131,7 @@ const DICT: Record<Locale, HomeCopy> = {
     h1a: "Go from AI that talks to AI that ",
     h1red: "acts",
     h1b: ".",
-    lede: "Your AI operating partners, on demand. We put agents to work inside your workflows. You keep control, they do the work.",
+    lede: "Your AI operating partners, on demand. We put agents to work inside your workflows. You keep control, they do the work. Real people who have already deployed for real.",
     ctaHire: "Hire an agent",
     ctaDemo: "Book a demo",
     io: {
@@ -143,6 +153,11 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainH: "We deploy with your teams, not from a distance.",
     terrainP: "Workflow mapping, upskilling, speaking: we install AI next to your teams, on your premises.",
     terrainCaps: ["Workshop · AI enablement"],
+    teamEyebrow: "The founders",
+    teamH: "Who is behind Parrit",
+    teamPaulRole: "Co-founder · Prototyping",
+    teamYukunRole: "Co-founder · Production deployment",
+    teamCta: "Meet the founders",
     catEyebrow: "Catalog",
     catH2: "Not slides. Agents running in production.",
     catSub: "Production-grade agents across your core functions, each with a defined scope, gated access and a named owner. You keep control and full auditability.",
@@ -175,7 +190,7 @@ const DICT: Record<Locale, HomeCopy> = {
     h1a: "Passe da IA que conversa para a IA que ",
     h1red: "age",
     h1b: ".",
-    lede: "Seus parceiros de operação em IA, sob demanda. Colocamos agentes para trabalhar nos seus fluxos. Você mantém o controle, eles fazem o trabalho.",
+    lede: "Seus parceiros de operação em IA, sob demanda. Colocamos agentes para trabalhar nos seus fluxos. Você mantém o controle, eles fazem o trabalho. Pessoas reais, que já fizeram implantações de verdade.",
     ctaHire: "Recrutar um agente",
     ctaDemo: "Agendar uma demo",
     io: {
@@ -197,6 +212,11 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainH: "Implantamos com suas equipes, não à distância.",
     terrainP: "Mapeamento de fluxos, capacitação, palestras: instalamos a IA junto das suas equipes, na sua empresa.",
     terrainCaps: ["Workshop · capacitação em IA"],
+    teamEyebrow: "Os fundadores",
+    teamH: "Quem está por trás",
+    teamPaulRole: "Cofundador · Prototipagem",
+    teamYukunRole: "Cofundadora · Implantação em produção",
+    teamCta: "Conhecer os fundadores",
     catEyebrow: "Catálogo",
     catH2: "Nada de slides. Agentes rodando em produção.",
     catSub: "Agentes operacionais nas suas funções-chave, com perímetro definido, acessos controlados e um responsável. Você mantém o controle e a rastreabilidade.",
@@ -229,7 +249,7 @@ const DICT: Record<Locale, HomeCopy> = {
     h1a: "从只会聊天的 AI，到真正会",
     h1red: "干活",
     h1b: "的 AI。",
-    lede: "你的 AI 运营合伙人，按需接入。我们把智能体放进你的工作流里干活；你掌控全局，它们完成工作。",
+    lede: "你的 AI 运营合伙人，按需接入。我们把智能体放进你的工作流里干活；你掌控全局，它们完成工作。真实的人，真正做过生产部署。",
     ctaHire: "招募一个智能体",
     ctaDemo: "预约演示",
     io: {
@@ -251,6 +271,11 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainH: "我们和你的团队一起部署，而不是远程交付。",
     terrainP: "梳理工作流、团队培训、现场分享：我们在你的团队身边、在你的办公室里落地 AI。",
     terrainCaps: ["工作坊 · AI 培训"],
+    teamEyebrow: "创始人",
+    teamH: "谁在背后",
+    teamPaulRole: "联合创始人 · 原型开发",
+    teamYukunRole: "联合创始人 · 生产部署",
+    teamCta: "认识创始人",
     catEyebrow: "目录",
     catH2: "不是幻灯片，而是真正在生产环境运行的智能体。",
     catSub: "覆盖你核心职能的可上岗智能体：边界清晰、权限受控、责任到人。你始终掌控全局，全程可追溯。",
@@ -282,11 +307,17 @@ const DICT: Record<Locale, HomeCopy> = {
 
 function AgentCard({ group }: { group: AgentGroup }) {
   const agentCase = group.cases[0];
+  const roleInitials = group.persona.label
+    .trim()
+    .split(/\s+/u)
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join("")
+    .toLocaleUpperCase();
   return (
     <article className="hd-agent">
       <div className="hd-agent-top">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="hd-agent-face" src={group.persona.imageSrc} alt="" loading="lazy" />
+        <span className="hd-agent-mark" aria-hidden="true">{roleInitials}</span>
         <div className="hd-agent-id">
           <h3 className="hd-agent-name">{group.persona.name}</h3>
           <p className="hd-agent-fn">{group.persona.label}</p>
@@ -342,13 +373,56 @@ export default function HomeDeux({
         </div>
       </header>
 
+      {/* ===== SUR LE TERRAIN (preuve d'execution, vraies photos) ===== */}
+      <section className="hd-terrain" data-reveal aria-labelledby="hd-terrain-h">
+        <div className="hd-terrain-inner" data-stagger>
+          <div className="hd-terrain-head">
+            <p className="hd-eyebrow"><span className="hd-eyebrow-n">01</span> · {t.terrainEyebrow}</p>
+            <h2 id="hd-terrain-h" className="hd-h2">{t.terrainH}</h2>
+            <p className="hd-terrain-sub">{t.terrainP}</p>
+          </div>
+          <figure className="hd-terrain-item">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="hd-terrain-photo" src={TERRAIN_PHOTOS[0]} alt={t.terrainCaps[0]} loading="lazy" />
+            <figcaption className="hd-terrain-cap">{t.terrainCaps[0]}</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      {/* ===== QUI EST DERRIERE (vraies personnes) ===== */}
+      <section className="hd-team" data-reveal aria-labelledby="hd-team-h">
+        <div className="hd-team-head">
+          <p className="hd-eyebrow">{t.teamEyebrow}</p>
+          <h2 id="hd-team-h" className="hd-h2">{t.teamH}</h2>
+        </div>
+        <div className="hd-team-grid" data-stagger>
+          <article className="hd-team-card">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="hd-team-photo" src="/team/paul-portrait.jpg" alt="Paul Larmaraud" loading="lazy" />
+            <div className="hd-team-copy">
+              <h3 className="hd-team-name">Paul Larmaraud</h3>
+              <p className="hd-team-role">{t.teamPaulRole}</p>
+            </div>
+          </article>
+          <article className="hd-team-card">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="hd-team-photo" src="/team/yukun-portrait.jpg" alt="Yukun Leng 冷宇坤" loading="lazy" />
+            <div className="hd-team-copy">
+              <h3 className="hd-team-name">Yukun Leng · 冷宇坤</h3>
+              <p className="hd-team-role">{t.teamYukunRole}</p>
+            </div>
+          </article>
+        </div>
+        <Link className="hd-team-link" href="/fondateurs">{t.teamCta} →</Link>
+      </section>
+
       {/* ===== SIGNATURE : input -> output (montrer pas prouver) ===== */}
       <InputOutputFlow copy={t.io} />
 
       {/* ===== CATALOGUE ===== */}
       <section className="hd-catalog" id="catalogue-agents" data-reveal aria-labelledby="hd-catalog-h">
         <div className="hd-catalog-head">
-          <p className="hd-eyebrow"><span className="hd-eyebrow-n">01</span> · {t.catEyebrow}</p>
+          <p className="hd-eyebrow"><span className="hd-eyebrow-n">02</span> · {t.catEyebrow}</p>
           <h2 id="hd-catalog-h" className="hd-h2">{t.catH2}</h2>
           <p className="hd-catalog-sub">{t.catSub}</p>
         </div>
@@ -364,23 +438,6 @@ export default function HomeDeux({
           </Link>
         </div>
       </section>
-
-      {/* ===== SUR LE TERRAIN (preuve d'execution, vraies photos) ===== */}
-      <section className="hd-terrain" data-reveal aria-labelledby="hd-terrain-h">
-        <div className="hd-terrain-inner" data-stagger>
-          <div className="hd-terrain-head">
-            <p className="hd-eyebrow"><span className="hd-eyebrow-n">02</span> · {t.terrainEyebrow}</p>
-            <h2 id="hd-terrain-h" className="hd-h2">{t.terrainH}</h2>
-            <p className="hd-terrain-sub">{t.terrainP}</p>
-          </div>
-          <figure className="hd-terrain-item">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="hd-terrain-photo" src={TERRAIN_PHOTOS[0]} alt={t.terrainCaps[0]} loading="lazy" />
-            <figcaption className="hd-terrain-cap">{t.terrainCaps[0]}</figcaption>
-          </figure>
-        </div>
-      </section>
-
 
       {/* ===== OFFRES (sans prix sur la home, detailles sur chaque page offre) ===== */}
       <section className="hd-pricing" id="offres" data-reveal aria-labelledby="hd-offers-h">
@@ -527,7 +584,17 @@ const CSS = `
 .hd-terrain-item:hover .hd-terrain-photo { transform: scale(1.035); }
 .hd-terrain-cap { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 14px 18px 16px; border-top: 1px solid var(--line); }
 
-/* TRUST */
+/* QUI EST DERRIERE */
+.hd-team { max-width: 1120px; margin: 0 auto; padding: 56px 24px 32px; }
+.hd-team-head { margin: 0 0 28px; }
+.hd-team-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.hd-team-card { min-width: 0; display: grid; grid-template-columns: 132px 1fr; align-items: stretch; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg); }
+.hd-team-photo { display: block; width: 132px; height: 164px; object-fit: cover; object-position: center 24%; border-right: 1px solid var(--line); }
+.hd-team-copy { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 22px; }
+.hd-team-name { font-family: var(--font-heading); font-size: 21px; line-height: 1.1; font-weight: 600; letter-spacing: -.03em; color: var(--ink); margin: 0 0 9px; }
+.hd-team-role { font-family: var(--font-mono); font-size: 11px; line-height: 1.45; letter-spacing: .08em; text-transform: uppercase; color: var(--red); margin: 0; }
+.hd-team-link { display: inline-block; margin-top: 22px; font-family: var(--font-mono); font-size: 14px; font-weight: 500; color: var(--red); text-decoration: none; border-bottom: 1px solid var(--red); padding-bottom: 3px; }
+.hd-team-link:hover { color: var(--ink); border-color: var(--ink); }
 
 /* CATALOGUE */
 .hd-catalog { max-width: 1180px; margin: 0 auto; padding: 72px 24px 24px; }
@@ -536,7 +603,7 @@ const CSS = `
 .hd-agent-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 1fr; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .hd-agent { min-width: 0; display: flex; flex-direction: column; background: var(--bg); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .hd-agent-top { display: flex; align-items: center; gap: 13px; min-height: 84px; padding: 18px 20px; border-bottom: 1px solid var(--line); }
-.hd-agent-face { flex: 0 0 46px; width: 46px; height: 46px; object-fit: cover; border: 1px solid var(--line); background: var(--bg); }
+.hd-agent-mark { flex: 0 0 46px; width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid var(--line); background: var(--tint); color: var(--red); font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: .08em; }
 .hd-agent-id { min-width: 0; }
 .hd-agent-name { font-family: var(--font-heading); font-size: 19px; line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 5px; }
 .hd-agent-fn { font-family: var(--font-mono); font-size: 10.5px; line-height: 1.25; letter-spacing: .1em; text-transform: uppercase; color: var(--red); margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -649,12 +716,16 @@ const CSS = `
   .hd-terrain-inner { grid-template-columns: 1fr; gap: 28px; }
   .hd-terrain-head { max-width: none; }
   .hd-terrain-photo { aspect-ratio: 16 / 11; }
+  .hd-team-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 520px) {
   .hd-hero { padding-top: 58px; }
   .hd-h1 { font-size: clamp(36px, 13vw, 52px); }
   .hd-agent-grid { grid-template-columns: 1fr; }
   .hd-agent-top { padding: 20px 18px 16px; }
+  .hd-team-card { grid-template-columns: 104px 1fr; }
+  .hd-team-photo { width: 104px; height: 136px; }
+  .hd-team-copy { padding: 18px; }
   .hd-transfo { grid-template-columns: 1fr; }
   .hd-transfo-col.apres { border-left: 0; border-top: 1px solid var(--line); }
   .hd-transfo-arrow { display: none; }
