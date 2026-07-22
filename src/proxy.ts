@@ -26,7 +26,7 @@ const CAMP_PATH = "/camp-costa-rica";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const host = request.headers.get("host") ?? "";
+  const host = (request.headers.get("host") ?? "").split(":")[0];
 
   // campparrita.com → la page camp, quel que soit le chemin demandé
   // (assets/_next passent déjà hors matcher).
@@ -37,9 +37,11 @@ export function proxy(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  // parrit.ai/camp-costa-rica → redirection permanente vers le domaine dédié.
+  // parrit.ai/camp-costa-rica : servi tel quel tant que le domaine dédié
+  // n'est pas actif. Une fois campparrita.com rattaché au projet Vercel,
+  // remplacer ce return par un redirect 308 vers https://campparrita.com/.
   if (pathname === CAMP_PATH || pathname.startsWith(`${CAMP_PATH}/`)) {
-    return NextResponse.redirect(`https://${CAMP_HOST}/`, 308);
+    return;
   }
 
   // Si le chemin commence déjà par une locale, on laisse passer
