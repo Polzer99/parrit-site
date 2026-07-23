@@ -42,7 +42,7 @@ test("home CTAs emit stable click placements with their intended destinations", 
   const ctas = [
     { placement: "home-diagnostic", destination: "/diagnostic?source=home-diagnostic", count: 2 },
     { placement: "home-parler-paul", destination: "/fr/rendez-vous?source=home-parler-paul", count: 1 },
-    { placement: "home-catalog", destination: "/fr/rendez-vous?source=home-catalog", count: 1 },
+    { placement: "home-catalog", destination: "/diagnostic?source=home-catalog", count: 1 },
   ];
 
   for (const { placement, destination, count } of ctas) {

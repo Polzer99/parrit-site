@@ -1,10 +1,8 @@
 import Link from "next/link";
 import HomeMotion from "@/components/HomeMotion";
 import InputOutputFlow, { type IOCopy } from "@/components/InputOutputFlow";
-import LaunchCard from "@/components/LaunchCard";
+import NewsletterVeille from "@/components/NewsletterVeille";
 import type { Locale } from "@/app/[lang]/dictionaries";
-import type { Launch } from "@/lib/launches";
-import type { BlogPost } from "@/lib/blog";
 import { getCatalog, type AgentGroup } from "@/lib/agents";
 
 
@@ -12,6 +10,13 @@ import { getCatalog, type AgentGroup } from "@/lib/agents";
 const TERRAIN_PHOTOS = [
   "/brand/terrain/masterclass-acculturation.jpg",
 ];
+
+const HOME_AGENT_CASE_IDS = [
+  "acquisition-signal-first",
+  "capture-multicanal",
+  "facturation-auto",
+  "formation-agentique",
+] as const;
 
 type Offer = {
   n: string;
@@ -40,29 +45,28 @@ type HomeCopy = {
   teamEyebrow: string;
   teamH: string;
   teamPaulRole: string;
-  teamYukunRole: string;
+  teamPaulProof: string;
+  teamNetwork: string;
+  teamGoal: string;
   teamCta: string;
   catEyebrow: string;
   catH2: string;
   catSub: string;
-  catFoot: (count: number) => string;
   catCta: string;
   agentMore: (list: string) => string;
   offersEyebrow: string;
   offersH2: string;
   offersFoot: string;
   offers: Offer[];
-  transEyebrow: string;
-  transH2: string;
-  transSub: string;
-  transCta: string;
-  readArticle: string;
-  allArticles: string;
-  launchEyebrow: string;
-  launchH2: string;
-  allLaunches: string;
   ctaH: string;
   ctaP: string;
+  nlEyebrow: string;
+  nlH: string;
+  nlP: string;
+  nlPlaceholder: string;
+  nlBtn: string;
+  nlOk: string;
+  nlErr: string;
   ctaOld: string;
 };
 
@@ -94,16 +98,17 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainH: "On déploie avec vos équipes, pas à distance.",
     terrainP: "Cartographie des workflows, acculturation, prise de parole : on installe l'IA au contact de vos équipes, dans vos murs.",
     terrainCaps: ["Atelier · acculturation IA"],
-    teamEyebrow: "Les fondateurs",
+    teamEyebrow: "Paul + le réseau",
     teamH: "Qui est derrière",
-    teamPaulRole: "Co-fondateur · Prototypage",
-    teamYukunRole: "Co-fondatrice · Mise en production",
+    teamPaulRole: "Fondateur",
+    teamPaulProof: "Un agent en production lui prend une journée.",
+    teamNetwork: "Autour de lui, une vingtaine d'experts, moitié métier, moitié technique. Ils mettent l'IA entre les mains de vos équipes, règlent le harnais, et elle se met à bosser pour elles.",
+    teamGoal: "Le jour où vous n'avez plus besoin de nous, c'est gagné.",
     teamCta: "Rencontrer les fondateurs",
     catEyebrow: "Catalogue",
     catH2: "Pas des slides. Des agents qui tournent en production.",
     catSub: "Des systèmes opérationnels sur vos fonctions clés, avec un périmètre défini, des accès encadrés et un responsable. Vous gardez le contrôle et la traçabilité.",
-    catFoot: (count) => `Déjà ${count} agents en production.`,
-    catCta: "Demandez votre agent",
+    catCta: "Posez votre cas",
     agentMore: (list) => `Aussi en production : ${list}.`,
     offersEyebrow: "Nos offres",
     offersH2: "Trois façons de mettre l'IA au travail chez vous.",
@@ -113,17 +118,15 @@ const DICT: Record<Locale, HomeCopy> = {
       { n: "02", eyebrow: "Agent IA", title: "Un agent en production. Vite.", desc: "Votre cas, votre entrée, votre sortie. On prototype, on vous dit si c'est faisable et en combien de temps. Les premiers prototypes sont offerts.", points: ["Le cas", "L'input", "L'output", "En production"], audience: "Pour les DSI et les équipes ops.", cta: "Découvrir le déploiement d'agent", href: "deployer" },
       { n: "03", eyebrow: "Coaching & Formation", title: "Vos équipes prennent l'agentique en main.", desc: "De la découverte au hands-on : prendre Claude Code en main, même sans profil technique. 100 % agentique. Certifié Qualiopi.", points: ["Claude Code + Codex", "Ateliers hands-on", "100 % agentique", "Qualiopi"], audience: "Pour les DRH.", cta: "Découvrir la formation", href: "transmettre" },
     ],
-    transEyebrow: "Cas d'usage",
-    transH2: "Ce que l'IA change concrètement, métier par métier.",
-    transSub: "De la relance commerciale à la veille juridique : ce qu'on branche, et ce que ça change au quotidien.",
-    transCta: "Voir les cas d'usage",
-    readArticle: "Lire l'article →",
-    allArticles: "Tous les articles →",
-    launchEyebrow: "Build in public",
-    launchH2: "Une preuve de fabrication, chaque semaine.",
-    allLaunches: "Tous les launches →",
     ctaH: "On en parle 15 minutes ?",
     ctaP: "On part de votre cas concret. Le diagnostic établit ce qui est faisable, dans quel périmètre et en combien de temps.",
+    nlEyebrow: "La veille",
+    nlH: "Les news IA qui comptent, chaque semaine.",
+    nlP: "Ce qui sort, ce qui marche, et ce qu'on en fait chez nos clients. Décrypté simplement, sans hype.",
+    nlPlaceholder: "votre@email.pro",
+    nlBtn: "Recevoir la veille",
+    nlOk: "C'est noté. À très vite dans votre boîte mail.",
+    nlErr: "Un problème est survenu. Réessayez.",
     ctaOld: "Voir le parcours complet, niveau par niveau →",
   },
   en: {
@@ -153,16 +156,17 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainH: "We deploy with your teams, not from a distance.",
     terrainP: "Workflow mapping, upskilling, speaking: we install AI next to your teams, on your premises.",
     terrainCaps: ["Workshop · AI enablement"],
-    teamEyebrow: "The founders",
+    teamEyebrow: "Paul + the network",
     teamH: "Who is behind Parrit",
-    teamPaulRole: "Co-founder · Prototyping",
-    teamYukunRole: "Co-founder · Production deployment",
+    teamPaulRole: "Founder",
+    teamPaulProof: "Shipping an agent to production takes him a day.",
+    teamNetwork: "Around him, some twenty experts, half business, half technical. They put AI in your teams' hands, set the harness, and it starts working for them.",
+    teamGoal: "The day you no longer need us, we've won.",
     teamCta: "Meet the founders",
     catEyebrow: "Catalog",
     catH2: "Not slides. Agents running in production.",
     catSub: "Production-grade systems across your core functions, each with a defined scope, gated access and a named owner. You keep control and full auditability.",
-    catFoot: (count) => `${count} agents in production.`,
-    catCta: "Request your agent",
+    catCta: "Bring us your case",
     agentMore: (list) => `Also in production: ${list}.`,
     offersEyebrow: "Our offers",
     offersH2: "Three ways to put AI to work inside your company.",
@@ -172,17 +176,15 @@ const DICT: Record<Locale, HomeCopy> = {
       { n: "02", eyebrow: "AI Agent", title: "An agent in production. Fast.", desc: "Your case, your input, your output. We prototype, we tell you if it's doable and how long it takes. First prototypes are on us.", points: ["The case", "The input", "The output", "In production"], audience: "For IT and ops teams.", cta: "Explore agent deployment", href: "deployer" },
       { n: "03", eyebrow: "Coaching & Training", title: "Your teams take agentic AI into their own hands.", desc: "From discovery to hands-on: getting a grip on Claude Code, even without a technical background. 100% agentic. Qualiopi-certified.", points: ["Claude Code + Codex", "Hands-on workshops", "100% agentic", "Qualiopi"], audience: "For HR leaders.", cta: "Explore training", href: "transmettre" },
     ],
-    transEyebrow: "Use cases",
-    transH2: "What AI actually changes, role by role.",
-    transSub: "From sales follow-up to legal monitoring: what we plug in, and what it changes day to day.",
-    transCta: "See the use cases",
-    readArticle: "Read the article →",
-    allArticles: "All articles →",
-    launchEyebrow: "Build in public",
-    launchH2: "Proof of work, every week.",
-    allLaunches: "All launches →",
     ctaH: "Shall we talk for 15 minutes?",
     ctaP: "We start from your concrete case. The feasibility check establishes what can be done, within what scope and how long it will take.",
+    nlEyebrow: "The brief",
+    nlH: "The AI news that matters, every week.",
+    nlP: "What ships, what works, and what we do with it for our clients. Explained simply, no hype.",
+    nlPlaceholder: "you@company.com",
+    nlBtn: "Get the brief",
+    nlOk: "Noted. See you in your inbox.",
+    nlErr: "Something went wrong. Please try again.",
     ctaOld: "See the full path, level by level →",
   },
   "pt-BR": {
@@ -212,16 +214,17 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainH: "Implantamos com suas equipes, não à distância.",
     terrainP: "Mapeamento de fluxos, capacitação, palestras: instalamos a IA junto das suas equipes, na sua empresa.",
     terrainCaps: ["Workshop · capacitação em IA"],
-    teamEyebrow: "Os fundadores",
+    teamEyebrow: "Paul + a rede",
     teamH: "Quem está por trás",
-    teamPaulRole: "Cofundador · Prototipagem",
-    teamYukunRole: "Cofundadora · Implantação em produção",
+    teamPaulRole: "Fundador",
+    teamPaulProof: "Colocar um agente em produção leva um dia para ele.",
+    teamNetwork: "Ao redor dele, uns vinte especialistas, metade negócio, metade técnica. Eles colocam a IA nas mãos das suas equipes, ajustam o arnês, e ela começa a trabalhar para elas.",
+    teamGoal: "No dia em que você não precisar mais da gente, nós ganhamos.",
     teamCta: "Conhecer os fundadores",
     catEyebrow: "Catálogo",
     catH2: "Nada de slides. Agentes rodando em produção.",
     catSub: "Sistemas operacionais nas suas funções-chave, com perímetro definido, acessos controlados e um responsável. Você mantém o controle e a rastreabilidade.",
-    catFoot: (count) => `Já ${count} agentes em produção.`,
-    catCta: "Solicite o seu agente",
+    catCta: "Traga o seu caso",
     agentMore: (list) => `Também em produção: ${list}.`,
     offersEyebrow: "Nossas ofertas",
     offersH2: "Três formas de colocar a IA para trabalhar na sua empresa.",
@@ -231,17 +234,15 @@ const DICT: Record<Locale, HomeCopy> = {
       { n: "02", eyebrow: "Agente IA", title: "Um agente em produção. Rápido.", desc: "Seu caso, sua entrada, sua saída. A gente prototipa e diz se dá e em quanto tempo. Os primeiros protótipos são por nossa conta.", points: ["O caso", "O input", "O output", "Em produção"], audience: "Para TI e times de operações.", cta: "Conhecer o agente", href: "deployer" },
       { n: "03", eyebrow: "Coaching & Formação", title: "Seus times assumem a IA agêntica.", desc: "Da descoberta ao hands-on: dominar o Claude Code, mesmo sem perfil técnico. 100% agêntico. Certificado Qualiopi.", points: ["Claude Code + Codex", "Workshops hands-on", "100% agêntico", "Qualiopi"], audience: "Para o RH.", cta: "Conhecer a formação", href: "transmettre" },
     ],
-    transEyebrow: "Casos de uso",
-    transH2: "O que a IA muda concretamente, função por função.",
-    transSub: "Do follow-up comercial ao monitoramento jurídico: o que conectamos e o que muda no dia a dia.",
-    transCta: "Ver os casos de uso",
-    readArticle: "Ler o artigo →",
-    allArticles: "Todos os artigos →",
-    launchEyebrow: "Build in public",
-    launchH2: "Uma prova de fabricação, toda semana.",
-    allLaunches: "Todos os launches →",
     ctaH: "Vamos conversar 15 minutos?",
     ctaP: "Partimos do seu caso concreto. O diagnóstico define o que é viável, em qual perímetro e em quanto tempo.",
+    nlEyebrow: "Radar IA",
+    nlH: "As notícias de IA que importam, toda semana.",
+    nlP: "O que sai, o que funciona, e o que fazemos com isso para nossos clientes. Explicado de forma simples, sem hype.",
+    nlPlaceholder: "voce@empresa.com",
+    nlBtn: "Receber o radar",
+    nlOk: "Anotado. Até breve na sua caixa de entrada.",
+    nlErr: "Ocorreu um problema. Tente novamente.",
     ctaOld: "Ver o percurso completo, nível por nível →",
   },
   "zh-CN": {
@@ -271,16 +272,17 @@ const DICT: Record<Locale, HomeCopy> = {
     terrainH: "我们和你的团队一起部署，而不是远程交付。",
     terrainP: "梳理工作流、团队培训、现场分享：我们在你的团队身边、在你的办公室里落地 AI。",
     terrainCaps: ["工作坊 · AI 培训"],
-    teamEyebrow: "创始人",
+    teamEyebrow: "Paul 与合作网络",
     teamH: "谁在背后",
-    teamPaulRole: "联合创始人 · 原型开发",
-    teamYukunRole: "联合创始人 · 生产部署",
+    teamPaulRole: "创始人",
+    teamPaulProof: "把一个智能体部署上线，他只需要一天。",
+    teamNetwork: "他身边有二十来位专家，一半懂业务，一半懂技术。他们把 AI 交到你团队手里，调好缰绳，让它真正为团队干活。",
+    teamGoal: "当你不再需要我们的那一天，就是我们赢的那一天。",
     teamCta: "认识创始人",
     catEyebrow: "目录",
     catH2: "不是幻灯片，而是真正在生产环境运行的智能体。",
     catSub: "覆盖你核心职能的生产系统：边界清晰、权限受控、责任到人。你始终掌控全局，全程可追溯。",
-    catFoot: (count) => `已有 ${count} 个智能体在生产环境运行。`,
-    catCta: "申请你的智能体",
+    catCta: "提出你的场景",
     agentMore: (list) => `同样在生产中：${list}。`,
     offersEyebrow: "我们的服务",
     offersH2: "让 AI 在你公司里干活的三种方式。",
@@ -290,17 +292,15 @@ const DICT: Record<Locale, HomeCopy> = {
       { n: "02", eyebrow: "AI 智能体", title: "让智能体快速上线。", desc: "你的场景、你的输入、你的输出。我们做原型，告诉你能不能做、要多久。首批原型免费。", points: ["场景", "输入", "输出", "上线"], audience: "面向 IT 与运营团队。", cta: "了解智能体部署", href: "deployer" },
       { n: "03", eyebrow: "辅导与培训", title: "让团队真正上手智能体。", desc: "从入门到实操：即使没有技术背景，也能上手 Claude Code。100% 聚焦智能体。Qualiopi 认证。", points: ["Claude Code + Codex", "实操工作坊", "100% 智能体", "Qualiopi"], audience: "面向 HR。", cta: "了解培训", href: "transmettre" },
     ],
-    transEyebrow: "应用场景",
-    transH2: "AI 究竟改变了什么，一个岗位一个岗位地看。",
-    transSub: "从商务跟进到法律监测：我们接入了什么，以及它如何改变日常。",
-    transCta: "查看应用场景",
-    readArticle: "阅读文章 →",
-    allArticles: "全部文章 →",
-    launchEyebrow: "Build in public",
-    launchH2: "每周一份制造的证据。",
-    allLaunches: "全部发布 →",
     ctaH: "聊 15 分钟？",
     ctaP: "我们从你的具体场景出发。可行性诊断会明确能否实现、实施范围以及所需时间。",
+    nlEyebrow: "AI 周报",
+    nlH: "每周真正重要的 AI 新闻。",
+    nlP: "最新发布、真正有效的实践，以及我们如何为客户落地。简单解读，不吹嘘。",
+    nlPlaceholder: "you@company.com",
+    nlBtn: "订阅周报",
+    nlOk: "已收到，我们邮箱见。",
+    nlErr: "出现问题，请重试。",
     ctaOld: "查看完整路径，逐级了解 →",
   },
 };
@@ -325,17 +325,19 @@ function AgentCard({ group }: { group: AgentGroup }) {
   );
 }
 
-export default function HomeDeux({
-  lang,
-  launches = [],
-  posts = [],
-}: {
+export default function HomeDeux({ lang }: {
   lang: Locale;
-  launches?: Launch[];
-  posts?: BlogPost[];
+  [key: string]: unknown;
 }) {
   const t = DICT[lang] ?? DICT.fr;
-  const catalog = getCatalog({ perDept: 1, lang });
+  const fullCatalog = getCatalog({ lang });
+  const catalogGroups = HOME_AGENT_CASE_IDS.flatMap((caseId) => {
+    const group = fullCatalog.groups.find(({ cases }) =>
+      cases.some((agentCase) => agentCase.id === caseId)
+    );
+    const agentCase = group?.cases.find(({ id }) => id === caseId);
+    return group && agentCase ? [{ ...group, cases: [agentCase] }] : [];
+  });
   return (
     <main className="hd">
       <style>{CSS}</style>
@@ -389,20 +391,17 @@ export default function HomeDeux({
         <div className="hd-team-grid" data-stagger>
           <article className="hd-team-card">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="hd-team-photo" src="/team/paul-portrait.jpg" alt="Paul Larmaraud" loading="lazy" />
+            <img className="hd-team-photo" src="/team/paul-reel.jpg" alt="Paul Larmaraud" loading="lazy" />
             <div className="hd-team-copy">
               <h3 className="hd-team-name">Paul Larmaraud</h3>
               <p className="hd-team-role">{t.teamPaulRole}</p>
+              <p className="hd-team-proof">{t.teamPaulProof}</p>
             </div>
           </article>
-          <article className="hd-team-card">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="hd-team-photo" src="/team/yukun-portrait.jpg" alt="Yukun Leng 冷宇坤" loading="lazy" />
-            <div className="hd-team-copy">
-              <h3 className="hd-team-name">Yukun Leng · 冷宇坤</h3>
-              <p className="hd-team-role">{t.teamYukunRole}</p>
-            </div>
-          </article>
+          <div className="hd-team-network">
+            <p>{t.teamNetwork}</p>
+            <p className="hd-team-goal">{t.teamGoal}</p>
+          </div>
         </div>
         <Link className="hd-team-link" href="/fondateurs">{t.teamCta} →</Link>
       </section>
@@ -418,13 +417,12 @@ export default function HomeDeux({
           <p className="hd-catalog-sub">{t.catSub}</p>
         </div>
         <div className="hd-agent-grid" data-stagger>
-          {catalog.groups.map((group) => (
+          {catalogGroups.map((group) => (
             <AgentCard group={group} key={group.persona.key} />
           ))}
         </div>
-        <p className="hd-catalog-foot">{t.catFoot(catalog.deployedCount)}</p>
         <div className="hd-catalog-cta">
-          <Link className="hd-btn primary hd-act" href={`/${lang}/rendez-vous?source=home-catalog`} data-ph="cta" data-ph-label={t.catCta} data-ph-dest={`/${lang}/rendez-vous?source=home-catalog`} data-ph-placement="home-catalog">
+          <Link className="hd-btn primary hd-act" href="/diagnostic?source=home-catalog" data-ph="cta" data-ph-label={t.catCta} data-ph-dest="/diagnostic?source=home-catalog" data-ph-placement="home-catalog">
             {t.catCta} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
         </div>
@@ -462,37 +460,14 @@ export default function HomeDeux({
         <p className="hd-catalog-foot">{t.offersFoot}</p>
       </section>
 
-      {/* ===== CAS D'USAGE (CTA vers le blog, pas de dump d'articles) ===== */}
-      {posts.length > 0 && (
-        <section className="hd-transfos" data-reveal aria-labelledby="hd-transfos-h">
-          <div className="hd-transfos-cta">
-            <p className="hd-eyebrow"><span className="hd-eyebrow-n">04</span> · {t.transEyebrow}</p>
-            <h2 id="hd-transfos-h" className="hd-h2">{t.transH2}</h2>
-            <p className="hd-transfos-sub">{t.transSub}</p>
-            <Link className="hd-btn primary hd-act" href={`/${lang}/blog`} data-ph="cta" data-ph-label={t.transCta} data-ph-dest={`/${lang}/blog`} data-ph-placement="use_cases">
-              {t.transCta} <span className="hd-cta-arrow" aria-hidden="true">→</span>
-            </Link>
-          </div>
-        </section>
-      )}
-
-      {/* ===== LAUNCHES ===== */}
-      {launches.length > 0 && (
-        <section className="hd-launches" data-reveal aria-labelledby="hd-launches-h">
-          <div className="hd-launches-head">
-            <p className="hd-eyebrow"><span className="hd-eyebrow-n">05</span> · {t.launchEyebrow}</p>
-            <h2 id="hd-launches-h" className="hd-h2">{t.launchH2}</h2>
-            <Link href={`/${lang}/launches`} className="hd-launches-all" data-ph="cta" data-ph-label={t.allLaunches} data-ph-dest={`/${lang}/launches`} data-ph-placement="launches">{t.allLaunches}</Link>
-          </div>
-          <div className="hd-launch-grid" data-stagger>
-            {launches.slice(0, 3).map((launch) => (
-              <LaunchCard href={`/${lang}/launches/${launch.slug}`} key={launch.slug} launch={launch} />
-            ))}
-          </div>
-        </section>
-      )}
-
       {/* ===== CTA FINAL ===== */}
+      <section className="hd-nl" data-reveal>
+        <p className="hd-eyebrow">{t.nlEyebrow}</p>
+        <h2 className="hd-nl-h">{t.nlH}</h2>
+        <p className="hd-nl-p">{t.nlP}</p>
+        <NewsletterVeille page={`/${lang}`} copy={{ placeholder: t.nlPlaceholder, button: t.nlBtn, ok: t.nlOk, error: t.nlErr }} />
+      </section>
+
       <footer className="hd-cta" data-reveal>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="hd-cta-seal" src="/brand/parrit-seal.svg" alt="" aria-hidden="true" />
@@ -542,8 +517,6 @@ const CSS = `
 .hd-terrain-item { overflow: hidden; }
 .hd-terrain-photo { transition: transform .6s cubic-bezier(.16,1,.3,1); }
 .hd-terrain-item:hover .hd-terrain-photo { transform: scale(1.035); }
-.hd-feat { transition: transform .25s ease; }
-
 .hd-btn { display: inline-block; font-family: var(--font-mono); font-size: 14px; font-weight: 500; letter-spacing: .02em; padding: 12px 24px; text-decoration: none; border: 1px solid transparent; transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease; }
 .hd-btn:hover { transform: translateY(-1px); }
 .hd-btn.primary { background: var(--ink); color: #fff; }
@@ -584,6 +557,10 @@ const CSS = `
 .hd-team-copy { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 22px; }
 .hd-team-name { font-family: var(--font-heading); font-size: 21px; line-height: 1.1; font-weight: 600; letter-spacing: -.03em; color: var(--ink); margin: 0 0 9px; }
 .hd-team-role { font-family: var(--font-mono); font-size: 11px; line-height: 1.45; letter-spacing: .08em; text-transform: uppercase; color: var(--red); margin: 0; }
+.hd-team-proof { font-family: var(--font-mono); font-size: 13px; line-height: 1.55; color: var(--muted); margin: 12px 0 0; }
+.hd-team-network { display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); }
+.hd-team-network p { margin: 0; }
+.hd-team-network .hd-team-goal { color: var(--ink); font-weight: 600; }
 .hd-team-link { display: inline-block; margin-top: 22px; font-family: var(--font-mono); font-size: 14px; font-weight: 500; color: var(--red); text-decoration: none; border-bottom: 1px solid var(--red); padding-bottom: 3px; }
 .hd-team-link:hover { color: var(--ink); border-color: var(--ink); }
 
@@ -605,7 +582,7 @@ const CSS = `
 .hd-act { display: inline-flex; align-items: center; gap: 9px; }
 .hd-act .hd-cta-arrow { transition: transform .2s ease; }
 .hd-act:hover .hd-cta-arrow { transform: translateX(3px); }
-.hd-catalog-cta .hd-act, .hd-transfos-cta .hd-act { padding: 15px 28px; font-size: 14.5px; }
+.hd-catalog-cta .hd-act { padding: 15px 28px; font-size: 14.5px; }
 /* eyebrow numérotée (façon Denem) */
 .hd-eyebrow-n { color: var(--muted); }
 /* hovers plus marqués */
@@ -650,43 +627,17 @@ const CSS = `
 .hd-pilier-link { margin-top: auto; font-family: var(--font-mono); font-size: 14px; font-weight: 500; letter-spacing: .02em; color: var(--red); text-decoration: none; border-bottom: 1px solid var(--red); padding-bottom: 3px; align-self: flex-start; }
 .hd-pilier-link:hover { color: var(--ink); border-color: var(--ink); }
 
-/* CAS D'USAGE — bloc CTA vers le blog */
-.hd-transfos { max-width: 1120px; margin: 0 auto; padding: 72px 24px 24px; border-top: 1px solid var(--line); }
-.hd-transfos-cta { max-width: 640px; margin: 0 auto; text-align: center; }
-.hd-transfos-cta .hd-transfos-sub { margin: 14px auto 0; max-width: 560px; }
-.hd-transfos-cta .hd-btn { margin-top: 26px; }
-.hd-transfos-head { max-width: 720px; margin: 0 0 40px; }
-.hd-transfos-sub { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 16px 0 0; }
-.hd-transfos-grid { display: grid; grid-template-columns: 1.15fr 1fr; border: 1px solid var(--line); }
-.hd-feat { display: flex; text-decoration: none; color: inherit; background: var(--ink); }
-.hd-feat-body { display: flex; flex-direction: column; padding: 34px 32px; }
-.hd-feat .hd-art-cat { color: #fff; background: var(--red); }
-.hd-feat .hd-art-time { color: rgba(255,255,255,.55); }
-.hd-feat-title { font-family: var(--font-body); font-size: clamp(24px, 2.8vw, 34px); line-height: 1.1; font-weight: 600; letter-spacing: -0.04em; color: #fff; margin: 16px 0 14px; }
-.hd-feat-desc { font-family: var(--font-mono); font-size: 14px; line-height: 1.65; color: rgba(255,255,255,.72); margin: 0 0 24px; }
-.hd-feat-link { margin-top: auto; font-family: var(--font-mono); font-size: 14px; font-weight: 500; color: #fff; }
-.hd-feat:hover .hd-feat-link { color: var(--red); }
-
-.hd-art-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; border-left: 1px solid var(--line); }
-.hd-art-list li + li { border-top: 1px solid var(--line); }
-.hd-art { display: block; text-decoration: none; color: inherit; padding: 22px 26px; transition: background .15s ease; }
-.hd-art:hover { background: var(--band); }
-.hd-art-meta { display: flex; align-items: center; gap: 12px; margin: 0 0 10px; }
-.hd-art-cat { font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--red); background: var(--tint); padding: 4px 8px; }
-.hd-art-time { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
-.hd-art-title { font-family: var(--font-body); font-size: 18px; line-height: 1.2; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 6px; }
-.hd-art-desc { font-family: var(--font-mono); font-size: 12.5px; line-height: 1.55; color: var(--muted); margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.hd-transfos-foot { display: flex; justify-content: center; margin: 34px 0 0; }
-
-/* LAUNCHES */
-.hd-launches { max-width: 1120px; margin: 0 auto; padding: 64px 24px 24px; border-top: 1px solid var(--line); }
-.hd-launches-head { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; margin: 0 0 34px; }
-.hd-launches-all { font-family: var(--font-mono); font-size: 13px; letter-spacing: .04em; color: var(--red); text-decoration: none; margin-top: 6px; }
-.hd-launch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-
 /* CTA */
 .hd-cta { max-width: 720px; margin: 0 auto; padding: 80px 24px 110px; text-align: center; }
 .hd-cta-seal { height: 52px; width: auto; display: block; margin: 0 auto 26px; }
+.hd-nl { text-align: center; padding: 72px 24px; border-top: 1px solid var(--hd-border, rgba(20,20,26,.10)); }
+.hd-nl-h { font-family: var(--font-body); font-size: clamp(24px, 3.2vw, 36px); line-height: 1.08; font-weight: 600; letter-spacing: -0.04em; margin: 10px 0 12px; }
+.hd-nl-p { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 0 auto 24px; max-width: 460px; }
+.hd-nl-form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; max-width: 480px; margin: 0 auto; }
+.hd-nl-input { font-family: var(--font-mono); font-size: 14px; padding: 12px 14px; border: 1px solid rgba(20,20,26,.18); background: transparent; min-width: 240px; flex: 1; }
+.hd-nl-input:focus { outline: 2px solid var(--ink, #161616); outline-offset: -1px; }
+.hd-nl-ok { font-family: var(--font-mono); font-size: 14px; color: var(--ink, #161616); }
+.hd-nl-err { font-family: var(--font-mono); font-size: 13px; color: #AA0003; margin-top: 10px; }
 .hd-cta-h { font-family: var(--font-body); font-size: clamp(28px, 4vw, 44px); line-height: 1.05; font-weight: 600; letter-spacing: -0.04em; margin: 0 0 16px; }
 .hd-cta-p { font-family: var(--font-mono); font-size: 15px; line-height: 1.6; color: var(--muted); margin: 0 auto 30px; max-width: 520px; }
 .hd-cta-old { margin: 34px 0 0; }
@@ -699,9 +650,6 @@ const CSS = `
   .hd-agent-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hd-price-grid { grid-template-columns: 1fr; }
   .hd-price + .hd-price { border-left: 0; border-top: 1px solid var(--line); }
-  .hd-launch-grid { grid-template-columns: 1fr; }
-  .hd-transfos-grid { grid-template-columns: 1fr; }
-  .hd-art-list { border-left: 0; border-top: 1px solid var(--line); }
   .hd-terrain-inner { grid-template-columns: 1fr; gap: 28px; }
   .hd-terrain-head { max-width: none; }
   .hd-terrain-photo { aspect-ratio: 16 / 11; }

@@ -115,7 +115,7 @@ export default function FondateursPage() {
           <div className="founders-portrait">
             <div className="founders-stamp" style={{ transform: "rotate(-2deg)" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/team/paul-portrait.jpg" alt="Paul Larmaraud, co-fondateur de Parrit.ai" />
+              <img src="/team/paul-reel.jpg" alt="Paul Larmaraud, co-fondateur de Parrit.ai" />
               <div className="founders-stamp-cap" style={{ color: "var(--accent)" }}>
                 Paris · 巴黎
               </div>
@@ -141,7 +141,7 @@ export default function FondateursPage() {
           <div className="founders-portrait">
             <div className="founders-stamp" style={{ transform: "rotate(1.6deg)" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/team/yukun-portrait.jpg" alt="Yukun Leng 冷宇坤, co-fondatrice de Parrit.ai" />
+              <img src="/team/yukun-reelle.jpg" alt="Yukun Leng 冷宇坤, co-fondatrice de Parrit.ai" />
               <div className="founders-stamp-cap" style={{ color: "var(--parrit-red)" }}>
                 巴黎 · Paris
               </div>
