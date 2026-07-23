@@ -177,7 +177,7 @@ const COPY: Record<Locale, HomeCopy> = {
       footerOffers: "Offres Parrit",
     },
     hero: {
-      eyebrow: "Fractional AI Operator · Ingénierie agentique",
+      eyebrow: "On automatise votre back-office et on génère du business avec des agents IA sur-mesure.",
       chips: ["Outils agentiques", "Open source / propriétaire", "On-premise possible"],
       before: "Parrit opère vos ",
       redOne: "deux fronts critiques",
@@ -414,7 +414,7 @@ const COPY: Record<Locale, HomeCopy> = {
       footerOffers: "Parrit offers",
     },
     hero: {
-      eyebrow: "Fractional AI Operator · Agentic engineering",
+      eyebrow: "We automate your back office and generate business with custom AI agents.",
       chips: ["Agentic tools", "Open source / proprietary", "On-premise possible"],
       before: "Parrit operates your ",
       redOne: "two critical fronts",
@@ -651,7 +651,7 @@ const COPY: Record<Locale, HomeCopy> = {
       footerOffers: "Ofertas Parrit",
     },
     hero: {
-      eyebrow: "Fractional AI Operator · Engenharia agentica",
+      eyebrow: "Automatizamos seu back-office e geramos negócios com agentes de IA sob medida.",
       chips: ["Ferramentas agenticas", "Open source / proprietárias", "On-premise possível"],
       before: "A Parrit opera suas ",
       redOne: "duas frentes críticas",
@@ -888,7 +888,7 @@ const COPY: Record<Locale, HomeCopy> = {
       footerOffers: "Parrit 服务",
     },
     hero: {
-      eyebrow: "Fractional AI Operator · 智能体工程",
+      eyebrow: "定制AI智能体：自动化后台，推动业务增长。",
       chips: ["智能体工具", "开源 / 专有", "可本地部署"],
       before: "Parrit 为你运营",
       redOne: "两个关键战线",
