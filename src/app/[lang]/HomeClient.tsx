@@ -95,6 +95,8 @@ type HomeCopy = {
     titleAfter: string;
     lead: string;
     cards: { title: string; note: string; body: string }[];
+    ctaText?: string;
+    ctaButton?: string;
   };
   how: {
     kicker: string;
@@ -228,6 +230,8 @@ const COPY: Record<Locale, HomeCopy> = {
           body: "Fluidifier votre cycle de vente et générer plus d'opportunités, en tirant pleinement parti des capacités agentiques.",
         },
       ],
+      ctaText: "Un de vos flux critiques mérite un diagnostic ?",
+      ctaButton: "Parler à Paul",
     },
     how: {
       kicker: "La démarche",
@@ -465,6 +469,8 @@ const COPY: Record<Locale, HomeCopy> = {
           body: "Smooth your sales cycle and generate more opportunities by fully using agentic capabilities.",
         },
       ],
+      ctaText: "Does one of your critical workflows deserve a diagnostic?",
+      ctaButton: "Talk to Paul",
     },
     how: {
       kicker: "The method",
@@ -702,6 +708,8 @@ const COPY: Record<Locale, HomeCopy> = {
           body: "Fluidificar seu ciclo de vendas e gerar mais oportunidades, explorando plenamente as capacidades agenticas.",
         },
       ],
+      ctaText: "Um dos seus fluxos críticos merece um diagnóstico?",
+      ctaButton: "Falar com Paul",
     },
     how: {
       kicker: "O método",
@@ -939,6 +947,8 @@ const COPY: Record<Locale, HomeCopy> = {
           body: "让销售周期更顺畅，并充分利用智能体能力创造更多机会。",
         },
       ],
+      ctaText: "您的关键流程值得一次诊断吗？",
+      ctaButton: "与 Paul 聊聊",
     },
     how: {
       kicker: "方法",
@@ -1376,6 +1386,17 @@ export default function HomeClient({
           </div>
         </div>
       </section>
+
+      {copy.what.ctaText && (
+        <section className="section cta-row">
+          <div className="wrap">
+            <p>{copy.what.ctaText}</p>
+            <a className="btn btn-red" href="#contact">
+              {copy.what.ctaButton}
+            </a>
+          </div>
+        </section>
+      )}
 
       <section className="section" id="croissance">
         <div className="wrap">
