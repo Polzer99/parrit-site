@@ -635,9 +635,9 @@ const CSS = `
 .hd-nl-p { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 0 auto 24px; max-width: 460px; }
 .hd-nl-form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; max-width: 480px; margin: 0 auto; }
 .hd-nl-input { font-family: var(--font-mono); font-size: 14px; padding: 12px 14px; border: 1px solid rgba(20,20,26,.18); background: transparent; min-width: 240px; flex: 1; }
-.hd-nl-input:focus { outline: 2px solid var(--ink, #161616); outline-offset: -1px; }
-.hd-nl-ok { font-family: var(--font-mono); font-size: 14px; color: var(--ink, #161616); }
-.hd-nl-err { font-family: var(--font-mono); font-size: 13px; color: #AA0003; margin-top: 10px; }
+.hd-nl-input:focus { outline: 2px solid var(--ink, #0C0C0D); outline-offset: -1px; }
+.hd-nl-ok { font-family: var(--font-mono); font-size: 14px; color: var(--ink, #0C0C0D); }
+.hd-nl-err { font-family: var(--font-mono); font-size: 13px; color: var(--red, #D1132F); margin-top: 10px; }
 .hd-cta-h { font-family: var(--font-body); font-size: clamp(28px, 4vw, 44px); line-height: 1.05; font-weight: 600; letter-spacing: -0.04em; margin: 0 0 16px; }
 .hd-cta-p { font-family: var(--font-mono); font-size: 15px; line-height: 1.6; color: var(--muted); margin: 0 auto 30px; max-width: 520px; }
 .hd-cta-old { margin: 34px 0 0; }
