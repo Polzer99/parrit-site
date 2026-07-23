@@ -227,6 +227,23 @@ export default function Landing({ lang }: { lang: CampLang }) {
         </div>
       </section>
 
+      {/* ——— Archives 2022 ——— */}
+      <section className="csection cdark" id="archives">
+        <div className="cwrap">
+          <span className="ckicker light">{c.archives.kicker}</span>
+          <h2>{c.archives.h2}</h2>
+          <p className="clead">{c.archives.lead}</p>
+          <div className="carchives">
+            {c.archives.items.map((a) => (
+              <figure key={a.img}>
+                <img src={a.img} alt={a.alt} loading="lazy" />
+                <figcaption>{a.cap}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ——— Pour qui / pas pour qui ——— */}
       <section className="csection" id="pour-qui">
         <div className="cwrap">

@@ -82,6 +82,12 @@ export interface CampCopy {
     h2: string;
     cols: { t: string; items: string[] }[];
   };
+  archives: {
+    kicker: string;
+    h2: string;
+    lead: string;
+    items: { img: string; alt: string; cap: string }[];
+  };
   faqSection: { kicker: string; h2: string };
   faqs: Faq[];
   apply: {
@@ -242,6 +248,16 @@ export const FR: CampCopy = {
           "Départ groupé depuis Paris, remise des téléphones à l'arrivée",
         ],
       },
+    ],
+  },
+  archives: {
+    kicker: "Archives 2022 · Les preuves",
+    h2: "Ce n'est pas un storytelling. Voici les originaux.",
+    lead: "Le flyer de la vraie soirée, la vidéo de la vraie plage, les vraies platines. Tout ce que cette page raconte s'est passé, et il en reste des traces.",
+    items: [
+      { img: "/camp/archive-flyer-jungle-rave.jpg", alt: "Flyer original de la Jungle Rave du 23 juillet 2022 à Samara Beach", cap: "Le flyer original : Jungle Rave, 23 juillet 2022, Samara Beach. Au line-up : Polzer, le nom de scène de Paul." },
+      { img: "/camp/archive-dj-symbiosis.jpg", alt: "Paul aux platines pendant une soirée Symbiosis en 2022", cap: "Image tirée des vidéos de l'époque : Paul aux platines de sa propre soirée. Il n'avait jamais mixé avant le Costa Rica." },
+      { img: "/camp/archive-samara-beach.jpg", alt: "La plage de Sámara filmée en 2022", cap: "Sámara, 2022, filmée au téléphone avant qu'il soit posé au coffre. C'est là que tout a commencé." },
     ],
   },
   faqSection: { kicker: "Questions des parents", h2: "Tout ce que vous vous demandez, sans détour." },
@@ -465,6 +481,16 @@ export const EN: CampCopy = {
           "Group departure, phones handed in on arrival",
         ],
       },
+    ],
+  },
+  archives: {
+    kicker: "2022 archives · The proof",
+    h2: "This is not storytelling. These are the originals.",
+    lead: "The flyer of the actual party, the video of the actual beach, the actual DJ decks. Everything this page tells you happened, and the traces still exist.",
+    items: [
+      { img: "/camp/archive-flyer-jungle-rave.jpg", alt: "Original flyer of the Jungle Rave, July 23, 2022, Samara Beach", cap: "The original flyer: Jungle Rave, July 23, 2022, Samara Beach. On the line-up: Polzer, Paul's stage name." },
+      { img: "/camp/archive-dj-symbiosis.jpg", alt: "Paul DJing at a Symbiosis party in 2022", cap: "A frame from the original videos: Paul behind the decks of his own party. He had never mixed before Costa Rica." },
+      { img: "/camp/archive-samara-beach.jpg", alt: "Sámara beach filmed in 2022", cap: "Sámara, 2022, filmed on a phone before phones went into the safe. This is where it all started." },
     ],
   },
   faqSection: { kicker: "Parents' questions", h2: "Everything you are wondering, straight answers." },
@@ -700,6 +726,16 @@ export const ES: CampCopy = {
           "Salida en grupo, entrega de teléfonos a la llegada",
         ],
       },
+    ],
+  },
+  archives: {
+    kicker: "Archivos 2022 · Las pruebas",
+    h2: "Esto no es storytelling. Estos son los originales.",
+    lead: "El flyer de la fiesta real, el video de la playa real, las bandejas reales. Todo lo que cuenta esta página ocurrió, y quedan las huellas.",
+    items: [
+      { img: "/camp/archive-flyer-jungle-rave.jpg", alt: "Flyer original de la Jungle Rave del 23 de julio de 2022 en Samara Beach", cap: "El flyer original: Jungle Rave, 23 de julio de 2022, Samara Beach. En el line-up: Polzer, el nombre artístico de Paul." },
+      { img: "/camp/archive-dj-symbiosis.jpg", alt: "Paul en las bandejas durante una fiesta Symbiosis en 2022", cap: "Imagen de los videos de la época: Paul en las bandejas de su propia fiesta. Nunca había mezclado antes de Costa Rica." },
+      { img: "/camp/archive-samara-beach.jpg", alt: "La playa de Sámara filmada en 2022", cap: "Sámara, 2022, filmada con el teléfono antes de que fuera a la caja fuerte. Ahí empezó todo." },
     ],
   },
   faqSection: { kicker: "Preguntas de los padres", h2: "Todo lo que se están preguntando, sin rodeos." },
