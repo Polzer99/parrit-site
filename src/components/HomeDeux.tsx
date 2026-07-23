@@ -30,8 +30,8 @@ type HomeCopy = {
   h1red: string;
   h1b: string;
   lede: string;
-  ctaHire: string;
-  ctaDemo: string;
+  ctaDiagnostic: string;
+  ctaTalk: string;
   io: IOCopy;
   terrainEyebrow: string;
   terrainH: string;
@@ -73,8 +73,8 @@ const DICT: Record<Locale, HomeCopy> = {
     h1red: "agit",
     h1b: ".",
     lede: "Vos partenaires d'exploitation IA, à la demande. On installe des agents qui travaillent dans vos workflows. Vous gardez la main, ils font le travail. Des humains réels, qui ont déjà déployé pour de vrai.",
-    ctaHire: "Embaucher un agent",
-    ctaDemo: "Réserver une démo",
+    ctaDiagnostic: "Réserver un diagnostic de faisabilité",
+    ctaTalk: "Parler à Paul",
     io: {
       eyebrow: "Input → Output",
       title: "Vous posez le cas. On rend le résultat.",
@@ -101,7 +101,7 @@ const DICT: Record<Locale, HomeCopy> = {
     teamCta: "Rencontrer les fondateurs",
     catEyebrow: "Catalogue",
     catH2: "Pas des slides. Des agents qui tournent en production.",
-    catSub: "Des agents opérationnels sur vos fonctions clés, avec un périmètre défini, des accès encadrés et un responsable. Vous gardez le contrôle et la traçabilité.",
+    catSub: "Des systèmes opérationnels sur vos fonctions clés, avec un périmètre défini, des accès encadrés et un responsable. Vous gardez le contrôle et la traçabilité.",
     catFoot: (count) => `Déjà ${count} agents en production.`,
     catCta: "Demandez votre agent",
     agentMore: (list) => `Aussi en production : ${list}.`,
@@ -123,7 +123,7 @@ const DICT: Record<Locale, HomeCopy> = {
     launchH2: "Une preuve de fabrication, chaque semaine.",
     allLaunches: "Tous les launches →",
     ctaH: "On en parle 15 minutes ?",
-    ctaP: "On part d'un poste à recruter, pas d'une transformation abstraite. En 15 minutes, on choisit le premier agent utile.",
+    ctaP: "On part de votre cas concret. Le diagnostic établit ce qui est faisable, dans quel périmètre et en combien de temps.",
     ctaOld: "Voir le parcours complet, niveau par niveau →",
   },
   en: {
@@ -132,8 +132,8 @@ const DICT: Record<Locale, HomeCopy> = {
     h1red: "acts",
     h1b: ".",
     lede: "Your AI operating partners, on demand. We put agents to work inside your workflows. You keep control, they do the work. Real people who have already deployed for real.",
-    ctaHire: "Hire an agent",
-    ctaDemo: "Book a demo",
+    ctaDiagnostic: "Book a feasibility check",
+    ctaTalk: "Talk to Paul",
     io: {
       eyebrow: "Input → Output",
       title: "You bring the case. We ship the result.",
@@ -160,7 +160,7 @@ const DICT: Record<Locale, HomeCopy> = {
     teamCta: "Meet the founders",
     catEyebrow: "Catalog",
     catH2: "Not slides. Agents running in production.",
-    catSub: "Production-grade agents across your core functions, each with a defined scope, gated access and a named owner. You keep control and full auditability.",
+    catSub: "Production-grade systems across your core functions, each with a defined scope, gated access and a named owner. You keep control and full auditability.",
     catFoot: (count) => `${count} agents in production.`,
     catCta: "Request your agent",
     agentMore: (list) => `Also in production: ${list}.`,
@@ -182,7 +182,7 @@ const DICT: Record<Locale, HomeCopy> = {
     launchH2: "Proof of work, every week.",
     allLaunches: "All launches →",
     ctaH: "Shall we talk for 15 minutes?",
-    ctaP: "We start from a role to fill, not an abstract transformation. In 15 minutes, we pick the first useful agent.",
+    ctaP: "We start from your concrete case. The feasibility check establishes what can be done, within what scope and how long it will take.",
     ctaOld: "See the full path, level by level →",
   },
   "pt-BR": {
@@ -191,8 +191,8 @@ const DICT: Record<Locale, HomeCopy> = {
     h1red: "age",
     h1b: ".",
     lede: "Seus parceiros de operação em IA, sob demanda. Colocamos agentes para trabalhar nos seus fluxos. Você mantém o controle, eles fazem o trabalho. Pessoas reais, que já fizeram implantações de verdade.",
-    ctaHire: "Recrutar um agente",
-    ctaDemo: "Agendar uma demo",
+    ctaDiagnostic: "Reservar um diagnóstico de viabilidade",
+    ctaTalk: "Falar com Paul",
     io: {
       eyebrow: "Input → Output",
       title: "Você traz o caso. A gente entrega o resultado.",
@@ -219,7 +219,7 @@ const DICT: Record<Locale, HomeCopy> = {
     teamCta: "Conhecer os fundadores",
     catEyebrow: "Catálogo",
     catH2: "Nada de slides. Agentes rodando em produção.",
-    catSub: "Agentes operacionais nas suas funções-chave, com perímetro definido, acessos controlados e um responsável. Você mantém o controle e a rastreabilidade.",
+    catSub: "Sistemas operacionais nas suas funções-chave, com perímetro definido, acessos controlados e um responsável. Você mantém o controle e a rastreabilidade.",
     catFoot: (count) => `Já ${count} agentes em produção.`,
     catCta: "Solicite o seu agente",
     agentMore: (list) => `Também em produção: ${list}.`,
@@ -241,7 +241,7 @@ const DICT: Record<Locale, HomeCopy> = {
     launchH2: "Uma prova de fabricação, toda semana.",
     allLaunches: "Todos os launches →",
     ctaH: "Vamos conversar 15 minutos?",
-    ctaP: "Partimos de um cargo a preencher, não de uma transformação abstrata. Em 15 minutos, escolhemos o primeiro agente útil.",
+    ctaP: "Partimos do seu caso concreto. O diagnóstico define o que é viável, em qual perímetro e em quanto tempo.",
     ctaOld: "Ver o percurso completo, nível por nível →",
   },
   "zh-CN": {
@@ -250,8 +250,8 @@ const DICT: Record<Locale, HomeCopy> = {
     h1red: "干活",
     h1b: "的 AI。",
     lede: "你的 AI 运营合伙人，按需接入。我们把智能体放进你的工作流里干活；你掌控全局，它们完成工作。真实的人，真正做过生产部署。",
-    ctaHire: "招募一个智能体",
-    ctaDemo: "预约演示",
+    ctaDiagnostic: "预约可行性诊断",
+    ctaTalk: "与 Paul 交流",
     io: {
       eyebrow: "Input → Output",
       title: "你给出场景，我们交付结果。",
@@ -278,7 +278,7 @@ const DICT: Record<Locale, HomeCopy> = {
     teamCta: "认识创始人",
     catEyebrow: "目录",
     catH2: "不是幻灯片，而是真正在生产环境运行的智能体。",
-    catSub: "覆盖你核心职能的可上岗智能体：边界清晰、权限受控、责任到人。你始终掌控全局，全程可追溯。",
+    catSub: "覆盖你核心职能的生产系统：边界清晰、权限受控、责任到人。你始终掌控全局，全程可追溯。",
     catFoot: (count) => `已有 ${count} 个智能体在生产环境运行。`,
     catCta: "申请你的智能体",
     agentMore: (list) => `同样在生产中：${list}。`,
@@ -300,27 +300,18 @@ const DICT: Record<Locale, HomeCopy> = {
     launchH2: "每周一份制造的证据。",
     allLaunches: "全部发布 →",
     ctaH: "聊 15 分钟？",
-    ctaP: "我们从一个要招的岗位出发，而不是抽象的转型。15 分钟内，我们一起选出第一个有用的智能体。",
+    ctaP: "我们从你的具体场景出发。可行性诊断会明确能否实现、实施范围以及所需时间。",
     ctaOld: "查看完整路径，逐级了解 →",
   },
 };
 
 function AgentCard({ group }: { group: AgentGroup }) {
   const agentCase = group.cases[0];
-  const roleInitials = group.persona.label
-    .trim()
-    .split(/\s+/u)
-    .slice(0, 2)
-    .map((word) => word[0])
-    .join("")
-    .toLocaleUpperCase();
   return (
     <article className="hd-agent">
       <div className="hd-agent-top">
-        <span className="hd-agent-mark" aria-hidden="true">{roleInitials}</span>
         <div className="hd-agent-id">
-          <h3 className="hd-agent-name">{group.persona.name}</h3>
-          <p className="hd-agent-fn">{group.persona.label}</p>
+          <h3 className="hd-agent-name">{group.persona.label}</h3>
         </div>
       </div>
       {agentCase && (
@@ -364,11 +355,11 @@ export default function HomeDeux({
         </h1>
         <p className="hd-lede">{t.lede}</p>
         <div className="hd-hero-cta">
-          <Link className="hd-btn primary hd-act" href={`/${lang}/rendez-vous?source=home-hire-agent`} data-ph="cta" data-ph-label={t.ctaHire} data-ph-dest={`/${lang}/rendez-vous?source=home-hire-agent`} data-ph-placement="home-hire-agent">
-            {t.ctaHire} <span className="hd-cta-arrow" aria-hidden="true">→</span>
+          <Link className="hd-btn primary hd-act" href="/diagnostic?source=home-diagnostic" data-ph="cta" data-ph-label={t.ctaDiagnostic} data-ph-dest="/diagnostic?source=home-diagnostic" data-ph-placement="home-diagnostic">
+            {t.ctaDiagnostic} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
-          <Link className="hd-btn ghost hd-act" href={`/${lang}/rendez-vous?source=home-demo`} data-ph="cta" data-ph-label={t.ctaDemo} data-ph-dest={`/${lang}/rendez-vous?source=home-demo`} data-ph-placement="home-demo">
-            {t.ctaDemo} <span className="hd-cta-arrow" aria-hidden="true">→</span>
+          <Link className="hd-btn ghost hd-act" href={`/${lang}/rendez-vous?source=home-parler-paul`} data-ph="cta" data-ph-label={t.ctaTalk} data-ph-dest={`/${lang}/rendez-vous?source=home-parler-paul`} data-ph-placement="home-parler-paul">
+            {t.ctaTalk} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
         </div>
       </header>
@@ -507,8 +498,8 @@ export default function HomeDeux({
         <img className="hd-cta-seal" src="/brand/parrit-seal.svg" alt="" aria-hidden="true" />
         <h2 className="hd-cta-h">{t.ctaH}</h2>
         <p className="hd-cta-p">{t.ctaP}</p>
-        <Link className="hd-btn primary lg hd-act" href={`/${lang}/rendez-vous?source=home-final-hire-agent`} data-ph="cta" data-ph-label={t.ctaHire} data-ph-dest={`/${lang}/rendez-vous?source=home-final-hire-agent`} data-ph-placement="home-final-hire-agent">
-          {t.ctaHire} <span className="hd-cta-arrow" aria-hidden="true">→</span>
+        <Link className="hd-btn primary lg hd-act" href="/diagnostic?source=home-diagnostic" data-ph="cta" data-ph-label={t.ctaDiagnostic} data-ph-dest="/diagnostic?source=home-diagnostic" data-ph-placement="home-diagnostic">
+          {t.ctaDiagnostic} <span className="hd-cta-arrow" aria-hidden="true">→</span>
         </Link>
       </footer>
 
@@ -603,10 +594,8 @@ const CSS = `
 .hd-agent-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 1fr; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .hd-agent { min-width: 0; display: flex; flex-direction: column; background: var(--bg); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .hd-agent-top { display: flex; align-items: center; gap: 13px; min-height: 84px; padding: 18px 20px; border-bottom: 1px solid var(--line); }
-.hd-agent-mark { flex: 0 0 46px; width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid var(--line); background: var(--tint); color: var(--red); font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: .08em; }
 .hd-agent-id { min-width: 0; }
-.hd-agent-name { font-family: var(--font-heading); font-size: 19px; line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 5px; }
-.hd-agent-fn { font-family: var(--font-mono); font-size: 10.5px; line-height: 1.25; letter-spacing: .1em; text-transform: uppercase; color: var(--red); margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.hd-agent-name { font-family: var(--font-heading); font-size: 19px; line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0; }
 .hd-agent-case { flex: 1; display: flex; flex-direction: column; padding: 18px 20px 20px; }
 .hd-case-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--font-heading); font-size: 16px; line-height: 1.2; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 8px; min-height: 2.4em; }
 .hd-case-desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; color: var(--muted); margin: 0 0 14px; }
