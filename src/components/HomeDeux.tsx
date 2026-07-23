@@ -1,6 +1,7 @@
 import Link from "next/link";
 import HomeMotion from "@/components/HomeMotion";
 import InputOutputFlow, { type IOCopy } from "@/components/InputOutputFlow";
+import NewsletterVeille from "@/components/NewsletterVeille";
 import type { Locale } from "@/app/[lang]/dictionaries";
 import { getCatalog, type AgentGroup } from "@/lib/agents";
 
@@ -51,7 +52,6 @@ type HomeCopy = {
   catEyebrow: string;
   catH2: string;
   catSub: string;
-  catFoot: (count: number) => string;
   catCta: string;
   agentMore: (list: string) => string;
   offersEyebrow: string;
@@ -60,6 +60,13 @@ type HomeCopy = {
   offers: Offer[];
   ctaH: string;
   ctaP: string;
+  nlEyebrow: string;
+  nlH: string;
+  nlP: string;
+  nlPlaceholder: string;
+  nlBtn: string;
+  nlOk: string;
+  nlErr: string;
   ctaOld: string;
 };
 
@@ -101,8 +108,7 @@ const DICT: Record<Locale, HomeCopy> = {
     catEyebrow: "Catalogue",
     catH2: "Pas des slides. Des agents qui tournent en production.",
     catSub: "Des systèmes opérationnels sur vos fonctions clés, avec un périmètre défini, des accès encadrés et un responsable. Vous gardez le contrôle et la traçabilité.",
-    catFoot: (count) => `Déjà ${count} agents en production.`,
-    catCta: "Demandez votre agent",
+    catCta: "Posez votre cas",
     agentMore: (list) => `Aussi en production : ${list}.`,
     offersEyebrow: "Nos offres",
     offersH2: "Trois façons de mettre l'IA au travail chez vous.",
@@ -114,6 +120,13 @@ const DICT: Record<Locale, HomeCopy> = {
     ],
     ctaH: "On en parle 15 minutes ?",
     ctaP: "On part de votre cas concret. Le diagnostic établit ce qui est faisable, dans quel périmètre et en combien de temps.",
+    nlEyebrow: "La veille",
+    nlH: "Les news IA qui comptent, chaque semaine.",
+    nlP: "Ce qui sort, ce qui marche, et ce qu'on en fait chez nos clients. Décrypté simplement, sans hype.",
+    nlPlaceholder: "votre@email.pro",
+    nlBtn: "Recevoir la veille",
+    nlOk: "C'est noté. À très vite dans votre boîte mail.",
+    nlErr: "Un problème est survenu. Réessayez.",
     ctaOld: "Voir le parcours complet, niveau par niveau →",
   },
   en: {
@@ -153,8 +166,7 @@ const DICT: Record<Locale, HomeCopy> = {
     catEyebrow: "Catalog",
     catH2: "Not slides. Agents running in production.",
     catSub: "Production-grade systems across your core functions, each with a defined scope, gated access and a named owner. You keep control and full auditability.",
-    catFoot: (count) => `${count} agents in production.`,
-    catCta: "Request your agent",
+    catCta: "Bring us your case",
     agentMore: (list) => `Also in production: ${list}.`,
     offersEyebrow: "Our offers",
     offersH2: "Three ways to put AI to work inside your company.",
@@ -166,6 +178,13 @@ const DICT: Record<Locale, HomeCopy> = {
     ],
     ctaH: "Shall we talk for 15 minutes?",
     ctaP: "We start from your concrete case. The feasibility check establishes what can be done, within what scope and how long it will take.",
+    nlEyebrow: "The brief",
+    nlH: "The AI news that matters, every week.",
+    nlP: "What ships, what works, and what we do with it for our clients. Explained simply, no hype.",
+    nlPlaceholder: "you@company.com",
+    nlBtn: "Get the brief",
+    nlOk: "Noted. See you in your inbox.",
+    nlErr: "Something went wrong. Please try again.",
     ctaOld: "See the full path, level by level →",
   },
   "pt-BR": {
@@ -205,8 +224,7 @@ const DICT: Record<Locale, HomeCopy> = {
     catEyebrow: "Catálogo",
     catH2: "Nada de slides. Agentes rodando em produção.",
     catSub: "Sistemas operacionais nas suas funções-chave, com perímetro definido, acessos controlados e um responsável. Você mantém o controle e a rastreabilidade.",
-    catFoot: (count) => `Já ${count} agentes em produção.`,
-    catCta: "Solicite o seu agente",
+    catCta: "Traga o seu caso",
     agentMore: (list) => `Também em produção: ${list}.`,
     offersEyebrow: "Nossas ofertas",
     offersH2: "Três formas de colocar a IA para trabalhar na sua empresa.",
@@ -218,6 +236,13 @@ const DICT: Record<Locale, HomeCopy> = {
     ],
     ctaH: "Vamos conversar 15 minutos?",
     ctaP: "Partimos do seu caso concreto. O diagnóstico define o que é viável, em qual perímetro e em quanto tempo.",
+    nlEyebrow: "Radar IA",
+    nlH: "As notícias de IA que importam, toda semana.",
+    nlP: "O que sai, o que funciona, e o que fazemos com isso para nossos clientes. Explicado de forma simples, sem hype.",
+    nlPlaceholder: "voce@empresa.com",
+    nlBtn: "Receber o radar",
+    nlOk: "Anotado. Até breve na sua caixa de entrada.",
+    nlErr: "Ocorreu um problema. Tente novamente.",
     ctaOld: "Ver o percurso completo, nível por nível →",
   },
   "zh-CN": {
@@ -257,8 +282,7 @@ const DICT: Record<Locale, HomeCopy> = {
     catEyebrow: "目录",
     catH2: "不是幻灯片，而是真正在生产环境运行的智能体。",
     catSub: "覆盖你核心职能的生产系统：边界清晰、权限受控、责任到人。你始终掌控全局，全程可追溯。",
-    catFoot: (count) => `已有 ${count} 个智能体在生产环境运行。`,
-    catCta: "申请你的智能体",
+    catCta: "提出你的场景",
     agentMore: (list) => `同样在生产中：${list}。`,
     offersEyebrow: "我们的服务",
     offersH2: "让 AI 在你公司里干活的三种方式。",
@@ -270,6 +294,13 @@ const DICT: Record<Locale, HomeCopy> = {
     ],
     ctaH: "聊 15 分钟？",
     ctaP: "我们从你的具体场景出发。可行性诊断会明确能否实现、实施范围以及所需时间。",
+    nlEyebrow: "AI 周报",
+    nlH: "每周真正重要的 AI 新闻。",
+    nlP: "最新发布、真正有效的实践，以及我们如何为客户落地。简单解读，不吹嘘。",
+    nlPlaceholder: "you@company.com",
+    nlBtn: "订阅周报",
+    nlOk: "已收到，我们邮箱见。",
+    nlErr: "出现问题，请重试。",
     ctaOld: "查看完整路径，逐级了解 →",
   },
 };
@@ -390,9 +421,8 @@ export default function HomeDeux({ lang }: {
             <AgentCard group={group} key={group.persona.key} />
           ))}
         </div>
-        <p className="hd-catalog-foot">{t.catFoot(fullCatalog.deployedCount)}</p>
         <div className="hd-catalog-cta">
-          <Link className="hd-btn primary hd-act" href={`/${lang}/rendez-vous?source=home-catalog`} data-ph="cta" data-ph-label={t.catCta} data-ph-dest={`/${lang}/rendez-vous?source=home-catalog`} data-ph-placement="home-catalog">
+          <Link className="hd-btn primary hd-act" href="/diagnostic?source=home-catalog" data-ph="cta" data-ph-label={t.catCta} data-ph-dest="/diagnostic?source=home-catalog" data-ph-placement="home-catalog">
             {t.catCta} <span className="hd-cta-arrow" aria-hidden="true">→</span>
           </Link>
         </div>
@@ -431,6 +461,13 @@ export default function HomeDeux({ lang }: {
       </section>
 
       {/* ===== CTA FINAL ===== */}
+      <section className="hd-nl" data-reveal>
+        <p className="hd-eyebrow">{t.nlEyebrow}</p>
+        <h2 className="hd-nl-h">{t.nlH}</h2>
+        <p className="hd-nl-p">{t.nlP}</p>
+        <NewsletterVeille page={`/${lang}`} copy={{ placeholder: t.nlPlaceholder, button: t.nlBtn, ok: t.nlOk, error: t.nlErr }} />
+      </section>
+
       <footer className="hd-cta" data-reveal>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="hd-cta-seal" src="/brand/parrit-seal.svg" alt="" aria-hidden="true" />
@@ -593,6 +630,14 @@ const CSS = `
 /* CTA */
 .hd-cta { max-width: 720px; margin: 0 auto; padding: 80px 24px 110px; text-align: center; }
 .hd-cta-seal { height: 52px; width: auto; display: block; margin: 0 auto 26px; }
+.hd-nl { text-align: center; padding: 72px 24px; border-top: 1px solid var(--hd-border, rgba(20,20,26,.10)); }
+.hd-nl-h { font-family: var(--font-body); font-size: clamp(24px, 3.2vw, 36px); line-height: 1.08; font-weight: 600; letter-spacing: -0.04em; margin: 10px 0 12px; }
+.hd-nl-p { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--muted); margin: 0 auto 24px; max-width: 460px; }
+.hd-nl-form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; max-width: 480px; margin: 0 auto; }
+.hd-nl-input { font-family: var(--font-mono); font-size: 14px; padding: 12px 14px; border: 1px solid rgba(20,20,26,.18); background: transparent; min-width: 240px; flex: 1; }
+.hd-nl-input:focus { outline: 2px solid var(--ink, #161616); outline-offset: -1px; }
+.hd-nl-ok { font-family: var(--font-mono); font-size: 14px; color: var(--ink, #161616); }
+.hd-nl-err { font-family: var(--font-mono); font-size: 13px; color: #AA0003; margin-top: 10px; }
 .hd-cta-h { font-family: var(--font-body); font-size: clamp(28px, 4vw, 44px); line-height: 1.05; font-weight: 600; letter-spacing: -0.04em; margin: 0 0 16px; }
 .hd-cta-p { font-family: var(--font-mono); font-size: 15px; line-height: 1.6; color: var(--muted); margin: 0 auto 30px; max-width: 520px; }
 .hd-cta-old { margin: 34px 0 0; }
