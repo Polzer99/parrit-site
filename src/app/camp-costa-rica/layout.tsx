@@ -1,33 +1,3 @@
-import type { Metadata } from "next";
-
-const SITE_URL = "https://parrit.ai";
-const CAMP_URL = "https://campparrita.com";
-const OG_IMAGE = `${CAMP_URL}/camp/hero-coast.jpg`;
-
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: "Camp Parrita : immersion entrepreneuriale au Costa Rica | Parrit",
-  description:
-    "10 jours au Costa Rica sans téléphone, budget minuscule, un business à créer sur place. Le camp qui provoque le déclic entrepreneurial chez les jeunes adultes. 8 places par cohorte, admission sur candidature.",
-  alternates: { canonical: CAMP_URL },
-  openGraph: {
-    title: "Camp Parrita : le déclic entrepreneurial, au Costa Rica",
-    description:
-      "10 jours sans téléphone, un business à créer en partant de rien, un encadrement invisible mais permanent. La métamorphose que ni les études ni un stage ne donnent.",
-    url: CAMP_URL,
-    siteName: "Camp Parrita",
-    type: "website",
-    images: [{ url: OG_IMAGE, width: 1800, height: 1012, alt: "Camp Parrita" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Camp Parrita : le déclic entrepreneurial, au Costa Rica",
-    description:
-      "10 jours sans téléphone, un business à créer en partant de rien. 8 places par cohorte.",
-    images: [OG_IMAGE],
-  },
-};
-
 // Page documentaire autonome : typographie DA (Geist/Geist Mono, rouge accent)
 // mais mise en page éditoriale plein écran, photos 35mm, chapitres.
 const campCss = `
@@ -38,6 +8,7 @@ const campCss = `
 :root{--c-bg:#FFFDFA;--c-ink:#0C0C0D;--c-red:#D1132F;--c-muted:#6E7079;--c-line:#D8D4CC;
   --c-dark:#111213;--c-on-dark:#EFEDE8;--c-on-dark-mut:#A9A6A0;
   --c-sans:'Geist',system-ui,-apple-system,sans-serif;--c-mono:'Geist Mono',ui-monospace,monospace}
+*,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--c-bg);color:var(--c-ink);font-family:var(--c-sans);-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%}
@@ -182,6 +153,15 @@ h2{font-size:clamp(30px,4.2vw,46px);font-weight:600;line-height:1.08;margin-top:
 #cadre .cgrid3{margin-bottom:110px}
 #securite .cgrid3{margin-bottom:110px}
 
+/* switcher de langue + nav droite */
+.cnav-right{display:flex;align-items:center;gap:20px}
+.clang{font-family:var(--c-mono);font-size:12px;letter-spacing:.06em;color:rgba(255,255,255,.75)}
+.clang i{font-style:normal;margin:0 6px;color:rgba(255,255,255,.4)}
+.clang a{color:rgba(255,255,255,.75);text-decoration:none}
+.clang a:hover{color:#fff}
+.clang b{color:#fff;font-weight:700}
+.cfact{display:inline-flex;align-items:center;gap:22px}
+
 /* grain papier (signature DA) */
 body::before{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)'/%3E%3C/svg%3E")}
@@ -198,8 +178,14 @@ body::before{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;
   .cquote{padding:90px 0}
   .capply{padding:90px 0}
   .capply-card{padding:36px 24px}
-  .cnav{padding:20px 22px}
+  .cnav{padding:20px 22px;gap:14px}
+  .cnav-logo{height:20px;flex:none}
+  .cnav-right{gap:12px}
+  .cnav-cta{padding:8px 14px;font-size:12px}
+  .clang{font-size:11px}
+  .clang i{margin:0 3px}
   .chero-inner{padding:30px 22px 110px}
+  .chero h1{font-size:clamp(32px,9vw,44px)}
   .chero-facts{gap:14px;font-size:11px}
   .cgrid3{grid-template-columns:1fr}
   .ccell{border-left:0;padding-left:4px;padding-right:4px}

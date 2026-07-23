@@ -28,12 +28,12 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const host = (request.headers.get("host") ?? "").split(":")[0];
 
-  // campparrita.com → la page camp, quel que soit le chemin demandé
-  // (assets/_next passent déjà hors matcher).
+  // campparrita.com → la page camp, en conservant le sous-chemin de langue
+  // (/ → FR, /en, /es ; assets/_next passent déjà hors matcher).
   if (host === CAMP_HOST || host === `www.${CAMP_HOST}`) {
-    if (pathname === CAMP_PATH) return; // rewrite interne déjà résolu
+    if (pathname === CAMP_PATH || pathname.startsWith(`${CAMP_PATH}/`)) return;
     const url = request.nextUrl.clone();
-    url.pathname = CAMP_PATH;
+    url.pathname = `${CAMP_PATH}${pathname === "/" ? "" : pathname}`;
     return NextResponse.rewrite(url);
   }
 

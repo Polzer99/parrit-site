@@ -1,65 +1,13 @@
 import Landing from "./Landing";
-import { FAQS } from "./content";
+import { CampJsonLd, campMetadata } from "./shared";
 
-const SITE_URL = "https://parrit.ai";
+export const metadata = campMetadata("fr");
 
-// JSON-LD : FAQPage (citable tel quel par les moteurs génératifs) + Course
-// (l'offre elle-même, rattachée à l'Organization Parrit.ai).
-const CAMP_URL = "https://campparrita.com";
-
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQS.map((f) => ({
-    "@type": "Question",
-    name: f.q,
-    acceptedAnswer: { "@type": "Answer", text: f.a },
-  })),
-};
-
-const courseJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Course",
-  name: "Camp Parrita : immersion entrepreneuriale au Costa Rica",
-  description:
-    "10 jours sans téléphone sur la côte Pacifique du Costa Rica. Chaque participant crée une activité génératrice de revenus en partant de rien, encadré discrètement. 8 places par cohorte, admission sur candidature.",
-  url: CAMP_URL,
-  inLanguage: "fr",
-  provider: {
-    "@type": "Organization",
-    name: "Parrit.ai",
-    url: SITE_URL,
-  },
-  instructor: {
-    "@type": "Person",
-    name: "Paul Larmaraud",
-    url: `${SITE_URL}/fr/auteur/paul-larmaraud`,
-    description:
-      "Fondateur de Parrit. A vécu six mois sur la côte Pacifique du Costa Rica avec moins de 3 000 euros, avant de lancer un programme chez Lime pendant deux ans puis de créer son entreprise.",
-  },
-  hasCourseInstance: {
-    "@type": "CourseInstance",
-    courseMode: "onsite",
-    location: {
-      "@type": "Place",
-      name: "Côte Pacifique, Costa Rica (région de Sámara et Parrita)",
-      address: { "@type": "PostalAddress", addressCountry: "CR" },
-    },
-  },
-};
-
-export default function CampCostaRicaPage() {
+export default function CampPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
-      />
-      <Landing />
+      <CampJsonLd lang="fr" />
+      <Landing lang="fr" />
     </>
   );
 }
