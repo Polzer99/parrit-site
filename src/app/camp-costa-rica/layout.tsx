@@ -162,6 +162,14 @@ h2{font-size:clamp(30px,4.2vw,46px);font-weight:600;line-height:1.08;margin-top:
 .clang b{color:#fff;font-weight:700}
 .cfact{display:inline-flex;align-items:center;gap:22px}
 
+/* archives 2022 */
+#archives{padding-bottom:110px}
+#archives .clead{color:var(--c-on-dark-mut)}
+.carchives{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:64px}
+.carchives figure{margin:0}
+.carchives img{width:100%;height:340px;object-fit:cover;object-position:top;border:1px solid rgba(255,255,255,.2);filter:saturate(.92)}
+.carchives figcaption{font-family:var(--c-mono);font-size:12px;line-height:1.7;color:var(--c-on-dark-mut);margin-top:14px}
+
 /* grain papier (signature DA) */
 body::before{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)'/%3E%3C/svg%3E")}
@@ -192,6 +200,7 @@ body::before{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;
   .cfounder{grid-template-columns:1fr;gap:34px}
   .cyesno{grid-template-columns:1fr}
   .cyesno > div{border-left:0;padding-left:4px;padding-right:4px}
+  .carchives{grid-template-columns:1fr}
 }
 `;
 
