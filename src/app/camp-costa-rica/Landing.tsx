@@ -1,12 +1,22 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { useState } from "react";
-import { CREATIONS, FAQS, FOR_WHO, PRACTICAL, PROGRAM, SECURITY, STORY_STEPS } from "./content";
+import { useEffect, useState } from "react";
+import { CAMP_LANGS, DICT, type CampLang } from "./dict";
 
 const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 
-export default function Landing() {
+const LANG_PATH: Record<CampLang, string> = {
+  fr: "/camp-costa-rica",
+  en: "/camp-costa-rica/en",
+  es: "/camp-costa-rica/es",
+};
+
+export default function Landing({ lang }: { lang: CampLang }) {
+  const c = DICT[lang];
+  useEffect(() => {
+    if (typeof document !== "undefined") document.documentElement.lang = lang;
+  }, [lang]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -28,6 +38,7 @@ export default function Landing() {
           telephone: phone.trim(),
           profil: who,
           message: message.trim(),
+          lang,
           page: "camp-costa-rica",
           source: "camp-parrita-candidature",
           action: "candidature",
@@ -45,52 +56,57 @@ export default function Landing() {
     <>
       {/* ——— HERO plein écran, documentaire ——— */}
       <header className="chero">
-        <img className="chero-bg" src="/camp/hero-coast.jpg" alt="Côte Pacifique du Costa Rica à l'aube, jungle et océan" />
+        <img className="chero-bg" src="/camp/hero-coast.jpg" alt="" />
         <div className="chero-veil" />
         <nav className="cnav">
           <img className="cnav-logo" src="/brand/parrit-lockup-red.svg" alt="Parrit·AI" />
-          <a className="cnav-cta" href="#candidature">Candidater</a>
+          <div className="cnav-right">
+            <div className="clang">
+              {CAMP_LANGS.map((l, i) => (
+                <span key={l}>
+                  {i > 0 && <i>/</i>}
+                  {l === lang ? (
+                    <b>{DICT[l].langLabel}</b>
+                  ) : (
+                    <a href={LANG_PATH[l]}>{DICT[l].langLabel}</a>
+                  )}
+                </span>
+              ))}
+            </div>
+            <a className="cnav-cta" href="#candidature">{c.nav.cta}</a>
+          </div>
         </nav>
         <div className="chero-inner">
-          <span className="ckicker light">Camp Parrita · Côte Pacifique, Costa Rica</span>
+          <span className="ckicker light">{c.hero.kicker}</span>
           <h1>
-            10 jours sans téléphone.<br />
-            Un business à créer.<br />
-            <span className="red">Un déclic pour la vie.</span>
+            {c.hero.h1a}<br />
+            {c.hero.h1b}<br />
+            <span className="red">{c.hero.h1red}</span>
           </h1>
-          <p className="chero-sub">
-            8 jeunes adultes. Un budget minuscule. L&apos;obligation de créer une activité
-            qui rapporte, en négociant en direct avec les locaux. Ce n&apos;est pas un
-            voyage. C&apos;est une métamorphose, encadrée.
-          </p>
-          <a className="cbtn" href="#candidature">Postuler à la prochaine cohorte</a>
+          <p className="chero-sub">{c.hero.sub}</p>
+          <a className="cbtn" href="#candidature">{c.hero.cta}</a>
         </div>
         <div className="chero-facts">
-          <span>10 jours</span><i />
-          <span>0 écran</span><i />
-          <span>8 places</span><i />
-          <span>1 business créé sur place</span>
+          {c.hero.facts.map((f, i) => (
+            <span className="cfact" key={f}>{i > 0 && <i />}<span>{f}</span></span>
+          ))}
         </div>
       </header>
 
-      {/* ——— CHAPITRE 01 · L'histoire ——— */}
+      {/* ——— Chapitre 01 · L'histoire ——— */}
       <section className="csection" id="histoire">
         <div className="cwrap">
-          <span className="ckicker">Chapitre 01 · L&apos;histoire d&apos;origine</span>
-          <h2>Parrit porte le nom d&apos;une ville du Costa Rica : Parrita.</h2>
-          <p className="clead">
-            Avant de fonder son entreprise, Paul Larmaraud est parti seul sur cette côte,
-            avec moins de 3 000 €. Ce qui s&apos;est passé en six mois a tout déclenché.
-            Le camp reproduit exactement ce mécanisme.
-          </p>
+          <span className="ckicker">{c.story.kicker}</span>
+          <h2>{c.story.h2}</h2>
+          <p className="clead">{c.story.lead}</p>
         </div>
         <figure className="cfig">
-          <img src="/camp/story-surf.jpg" alt="Planche de surf plantée dans le sable noir à Sámara, au crépuscule" loading="lazy" />
-          <figcaption>Playa Sámara. Donner des cours de surf sans savoir surfer : on apprend en marchant.</figcaption>
+          <img src="/camp/story-surf.jpg" alt={c.story.capSurf} loading="lazy" />
+          <figcaption>{c.story.capSurf}</figcaption>
         </figure>
         <div className="cwrap">
           <ol className="cstory">
-            {STORY_STEPS.map((s, i) => (
+            {c.story.steps.map((s, i) => (
               <li key={s.t}>
                 <span className="cnum">{String(i + 1).padStart(2, "0")}</span>
                 <div>
@@ -102,25 +118,25 @@ export default function Landing() {
           </ol>
         </div>
         <figure className="cfig">
-          <img src="/camp/story-market.jpg" alt="Étal de fruits en bord de route dans un village costaricien" loading="lazy" />
-          <figcaption>Le business de jus de fruits : repérer ce qui manque, le vendre le lendemain.</figcaption>
+          <img src="/camp/story-market.jpg" alt={c.story.capMarket} loading="lazy" />
+          <figcaption>{c.story.capMarket}</figcaption>
         </figure>
       </section>
 
-      {/* ——— CHAPITRE 02 · Le programme (section sombre) ——— */}
+      {/* ——— Chapitre 02 · Le programme ——— */}
       <section className="csection cdark" id="programme">
         <div className="cwrap">
-          <span className="ckicker light">Chapitre 02 · Le programme</span>
-          <h2>Trois phases. Aucune échappatoire. Un cadre solide.</h2>
+          <span className="ckicker light">{c.program.kicker}</span>
+          <h2>{c.program.h2}</h2>
         </div>
         <figure className="cfig">
-          <img src="/camp/program-fire.jpg" alt="Feu de camp sur la plage la nuit, silhouettes de dos face à l'océan" loading="lazy" />
-          <figcaption>Le débrief du soir, autour du feu : 30 minutes sur les blocages réels de la journée.</figcaption>
+          <img src="/camp/program-fire.jpg" alt={c.program.capFire} loading="lazy" />
+          <figcaption>{c.program.capFire}</figcaption>
         </figure>
         <div className="cwrap">
           <div className="cphases">
-            {PROGRAM.map((p) => (
-              <div className="cphase" key={p.phase}>
+            {c.program.phases.map((p) => (
+              <div className="cphase" key={p.title}>
                 <span className="cphase-days">{p.days}</span>
                 <h3>{p.title}</h3>
                 <p>{p.d}</p>
@@ -133,17 +149,14 @@ export default function Landing() {
       {/* ——— Ce qu'ils créent sur place ——— */}
       <section className="csection" id="creations">
         <div className="cwrap">
-          <span className="ckicker">Sur le terrain</span>
-          <h2>Ce qu&apos;ils créent, concrètement.</h2>
-          <p className="clead">
-            Pas de business plan, pas de pitch deck : du cash gagné en vrai, avec les
-            moyens du bord. Tout ce qui suit vient du vécu du fondateur sur cette côte.
-          </p>
+          <span className="ckicker">{c.creations.kicker}</span>
+          <h2>{c.creations.h2}</h2>
+          <p className="clead">{c.creations.lead}</p>
           <div className="cgrid3">
-            {CREATIONS.map((c) => (
-              <div className="ccell" key={c.t}>
-                <h3>{c.t}</h3>
-                <p>{c.d}</p>
+            {c.creations.items.map((it) => (
+              <div className="ccell" key={it.t}>
+                <h3>{it.t}</h3>
+                <p>{it.d}</p>
               </div>
             ))}
           </div>
@@ -153,45 +166,30 @@ export default function Landing() {
       {/* ——— Citation ——— */}
       <section className="cquote">
         <div className="cwrap">
-          <blockquote>
-            « Personne ne m&apos;a appris à entreprendre. On m&apos;a juste retiré
-            le filet. Le reste est venu tout seul. »
-          </blockquote>
-          <span className="cquote-by">Paul Larmaraud · fondateur, Parrit</span>
+          <blockquote>{c.quote.text}</blockquote>
+          <span className="cquote-by">{c.quote.by}</span>
         </div>
       </section>
 
-      {/* ——— CHAPITRE 03 · Pour les parents ——— */}
+      {/* ——— Chapitre 03 · Pour les parents ——— */}
       <section className="csection" id="parents">
         <div className="cwrap">
-          <span className="ckicker">Chapitre 03 · Pour les parents</span>
-          <h2>Vous ne payez pas un séjour. Vous financez un avant / après.</h2>
-          <p className="clead">
-            Beaucoup de jeunes brillants n&apos;ont jamais eu à se débrouiller. Le camp
-            leur donne ce que ni les études ni un stage ne donnent : la preuve vécue
-            qu&apos;ils peuvent créer de la valeur en partant de rien. Pendant ce temps,
-            le cadre de sécurité (référent local, contact médical, base arrière, point
-            quotidien) reste actif en permanence, sans qu&apos;ils le sentent.
-          </p>
+          <span className="ckicker">{c.parents.kicker}</span>
+          <h2>{c.parents.h2}</h2>
+          <p className="clead">{c.parents.lead}</p>
         </div>
         <figure className="cfig">
-          <img src="/camp/program-walk.jpg" alt="Pieds nus sur un sentier de jungle après la pluie" loading="lazy" />
-          <figcaption>Pieds nus, sans téléphone. L&apos;inconfort est le professeur ; la sécurité, invisible.</figcaption>
+          <img src="/camp/program-walk.jpg" alt={c.parents.capWalk} loading="lazy" />
+          <figcaption>{c.parents.capWalk}</figcaption>
         </figure>
         <div className="cwrap">
           <div className="cbeforeafter">
-            <div>
-              <span className="cba-label">Avant</span>
-              <p>À l&apos;aise partout, autonome nulle part. Le téléphone comme prothèse, le confort comme plafond.</p>
-            </div>
-            <div>
-              <span className="cba-label">Pendant</span>
-              <p>Obligé d&apos;aborder, de négocier, d&apos;encaisser des refus, de trouver un manque et de le combler. Débriefé chaque soir.</p>
-            </div>
-            <div>
-              <span className="cba-label">Après</span>
-              <p>Un jeune qui a généré du cash en partant de rien ne raconte plus sa vie de la même façon. Et ne la conduit plus de la même façon.</p>
-            </div>
+            {[c.parents.before, c.parents.during, c.parents.after].map((b) => (
+              <div key={b.label}>
+                <span className="cba-label">{b.label}</span>
+                <p>{b.d}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -199,18 +197,14 @@ export default function Landing() {
       {/* ——— La sécurité, en détail ——— */}
       <section className="csection" id="securite">
         <div className="cwrap">
-          <span className="ckicker">Chapitre 04 · La sécurité</span>
-          <h2>Livrés à eux-mêmes en apparence. Jamais en réalité.</h2>
-          <p className="clead">
-            La sensation de risque fait partie de l&apos;expérience. Le risque réel, lui,
-            est géré comme sur une expédition : un dispositif complet, actif en
-            permanence, invisible pour les participants.
-          </p>
+          <span className="ckicker">{c.security.kicker}</span>
+          <h2>{c.security.h2}</h2>
+          <p className="clead">{c.security.lead}</p>
           <div className="cgrid3">
-            {SECURITY.map((c) => (
-              <div className="ccell" key={c.t}>
-                <h3>{c.t}</h3>
-                <p>{c.d}</p>
+            {c.security.items.map((it) => (
+              <div className="ccell" key={it.t}>
+                <h3>{it.t}</h3>
+                <p>{it.d}</p>
               </div>
             ))}
           </div>
@@ -221,25 +215,13 @@ export default function Landing() {
       <section className="csection cband" id="fondateur">
         <div className="cwrap">
           <div className="cfounder">
-            <img src="/camp/paul-costarica.jpg" alt="Paul Larmaraud, fondateur du Camp Parrita" loading="lazy" />
+            <img src="/camp/paul-costarica.jpg" alt={c.founder.alt} loading="lazy" />
             <div>
-              <span className="ckicker">Chapitre 05 · Qui encadre</span>
-              <h2>Paul Larmaraud. Il ne raconte pas le camp, il l&apos;a vécu.</h2>
-              <p className="cfounder-p">
-                Parti seul sur cette côte avec moins de 3 000 €, sans parler la langue.
-                Six mois plus tard : des cours de surf donnés, des soirées organisées,
-                des hôtels qui l&apos;embauchent, un business de jus de fruits qui tourne.
-              </p>
-              <p className="cfounder-p">
-                De retour en France, une mission d&apos;intérim chez Lime devient deux ans
-                à lancer un programme. Puis il fonde Parrit, son entreprise, nommée
-                d&apos;après la ville du déclic.
-              </p>
-              <p className="cfounder-p">
-                Pendant le camp, il est présent sur place du premier au dernier jour,
-                en coach de l&apos;ombre : il observe à distance, débriefe chaque soir,
-                et ne fait jamais à la place des participants.
-              </p>
+              <span className="ckicker">{c.founder.kicker}</span>
+              <h2>{c.founder.h2}</h2>
+              <p className="cfounder-p">{c.founder.p1}</p>
+              <p className="cfounder-p">{c.founder.p2}</p>
+              <p className="cfounder-p">{c.founder.p3}</p>
             </div>
           </div>
         </div>
@@ -248,19 +230,19 @@ export default function Landing() {
       {/* ——— Pour qui / pas pour qui ——— */}
       <section className="csection" id="pour-qui">
         <div className="cwrap">
-          <span className="ckicker">La sélection</span>
-          <h2>Ce camp n&apos;est pas fait pour tout le monde. C&apos;est voulu.</h2>
+          <span className="ckicker">{c.forWho.kicker}</span>
+          <h2>{c.forWho.h2}</h2>
           <div className="cyesno">
             <div>
-              <span className="cba-label">Fait pour</span>
+              <span className="cba-label">{c.forWho.yesLabel}</span>
               <ul>
-                {FOR_WHO.yes.map((x) => <li key={x}>{x}</li>)}
+                {c.forWho.yes.map((x) => <li key={x}>{x}</li>)}
               </ul>
             </div>
             <div>
-              <span className="cba-label dark">Pas fait pour</span>
+              <span className="cba-label dark">{c.forWho.noLabel}</span>
               <ul>
-                {FOR_WHO.no.map((x) => <li key={x}>{x}</li>)}
+                {c.forWho.no.map((x) => <li key={x}>{x}</li>)}
               </ul>
             </div>
           </div>
@@ -270,14 +252,14 @@ export default function Landing() {
       {/* ——— Le cadre, concrètement ——— */}
       <section className="csection" id="cadre">
         <div className="cwrap">
-          <span className="ckicker">Le cadre, concrètement</span>
-          <h2>Ce qui est prévu, ce qui ne l&apos;est pas, et pourquoi.</h2>
+          <span className="ckicker">{c.practical.kicker}</span>
+          <h2>{c.practical.h2}</h2>
           <div className="cgrid3 cpract">
-            {PRACTICAL.map((c) => (
-              <div className="ccell" key={c.t}>
-                <h3>{c.t}</h3>
+            {c.practical.cols.map((col) => (
+              <div className="ccell" key={col.t}>
+                <h3>{col.t}</h3>
                 <ul>
-                  {c.items.map((x) => <li key={x}>{x}</li>)}
+                  {col.items.map((x) => <li key={x}>{x}</li>)}
                 </ul>
               </div>
             ))}
@@ -288,10 +270,10 @@ export default function Landing() {
       {/* ——— FAQ ——— */}
       <section className="csection cband" id="faq">
         <div className="cwrap">
-          <span className="ckicker">Questions des parents</span>
-          <h2>Tout ce que vous vous demandez, sans détour.</h2>
+          <span className="ckicker">{c.faqSection.kicker}</span>
+          <h2>{c.faqSection.h2}</h2>
           <div className="cfaq">
-            {FAQS.map((f) => (
+            {c.faqs.map((f) => (
               <details key={f.q}>
                 <summary>{f.q}</summary>
                 <p>{f.a}</p>
@@ -307,41 +289,36 @@ export default function Landing() {
         <div className="capply-veil" />
         <div className="cwrap">
           <div className="capply-card">
-            <span className="ckicker">Candidature</span>
-            <h2>8 places par cohorte. L&apos;entretien décide.</h2>
-            <p className="capply-sub">
-              Laissez vos coordonnées : nous revenons vers vous sous 48 h pour un
-              entretien de 20 minutes. Parents bienvenus.
-            </p>
+            <span className="ckicker">{c.apply.kicker}</span>
+            <h2>{c.apply.h2}</h2>
+            <p className="capply-sub">{c.apply.sub}</p>
             {state !== "sent" ? (
               <form onSubmit={handleSubmit}>
                 <div className="capply-row">
-                  <input type="text" placeholder="Prénom et nom" value={name} onChange={(e) => setName(e.target.value)} required />
-                  <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                  <input type="text" placeholder={c.apply.fieldName} value={name} onChange={(e) => setName(e.target.value)} required />
+                  <input type="email" placeholder={c.apply.fieldEmail} value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
                 <div className="capply-row">
-                  <input type="tel" placeholder="Téléphone (optionnel)" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                  <select value={who} onChange={(e) => setWho(e.target.value as "parent" | "participant")} aria-label="Je suis">
-                    <option value="parent">Je suis un parent</option>
-                    <option value="participant">Je suis le futur participant</option>
+                  <input type="tel" placeholder={c.apply.fieldPhone} value={phone} onChange={(e) => setPhone(e.target.value)} />
+                  <select value={who} onChange={(e) => setWho(e.target.value as "parent" | "participant")} aria-label={c.apply.whoParent}>
+                    <option value="parent">{c.apply.whoParent}</option>
+                    <option value="participant">{c.apply.whoParticipant}</option>
                   </select>
                 </div>
                 <textarea
-                  placeholder="Pourquoi ce camp, pourquoi maintenant ? (3 lignes suffisent)"
+                  placeholder={c.apply.fieldWhy}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={3}
                 />
                 <button type="submit" className="cbtn wide" disabled={state === "sending"}>
-                  {state === "sending" ? "Envoi..." : "Postuler à la prochaine cohorte"}
+                  {state === "sending" ? c.apply.submitting : c.apply.submit}
                 </button>
-                {state === "error" && (
-                  <p className="capply-error">Un souci d&apos;envoi. Réessayez, ou écrivez à paul.larmaraud@parrit.ai</p>
-                )}
-                <p className="capply-fine">Réponse sous 48 h. Aucune donnée revendue, aucun spam.</p>
+                {state === "error" && <p className="capply-error">{c.apply.error}</p>}
+                <p className="capply-fine">{c.apply.fine}</p>
               </form>
             ) : (
-              <p className="capply-ok">✓ Candidature reçue. Nous revenons vers vous sous 48 h pour planifier l&apos;entretien.</p>
+              <p className="capply-ok">{c.apply.ok}</p>
             )}
           </div>
         </div>
@@ -349,7 +326,7 @@ export default function Landing() {
 
       <footer className="cfooter">
         <img className="cnav-logo" src="/brand/parrit-lockup-red.svg" alt="Parrit·AI" />
-        <span>Camp Parrita · une expérience Parrit · parrit.ai</span>
+        <span>{c.footer}</span>
       </footer>
     </>
   );
