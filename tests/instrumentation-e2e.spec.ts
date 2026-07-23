@@ -32,26 +32,25 @@ async function analyticsEvents(page: Page, event: string): Promise<AnalyticsEven
   }, event);
 }
 
-test("home rendez-vous CTAs emit stable click placements without changing destinations", async ({ page }) => {
+test("home CTAs emit stable click placements with their intended destinations", async ({ page }) => {
   await installPostHogSpy(page);
   await page.goto(new URL("/fr", BASE_URL).toString());
   await page.evaluate(() => {
     document.addEventListener("click", (event) => event.preventDefault());
   });
 
-  const placements = [
-    "home-hire-agent",
-    "home-demo",
-    "home-catalog",
-    "home-final-hire-agent",
+  const ctas = [
+    { placement: "home-diagnostic", destination: "/diagnostic?source=home-diagnostic", count: 2 },
+    { placement: "home-parler-paul", destination: "/fr/rendez-vous?source=home-parler-paul", count: 1 },
+    { placement: "home-catalog", destination: "/fr/rendez-vous?source=home-catalog", count: 1 },
   ];
 
-  for (const placement of placements) {
-    const destination = `/fr/rendez-vous?source=${placement}`;
+  for (const { placement, destination, count } of ctas) {
     const cta = page.locator(`[data-ph-placement="${placement}"]`);
 
+    await expect(cta).toHaveCount(count);
     await expect(cta).toHaveAttribute("href", destination);
-    await cta.click();
+    await cta.first().click();
     await expect.poll(async () => analyticsEvents(page, "cta_click")).toContainEqual({
       event: "cta_click",
       properties: expect.objectContaining({
