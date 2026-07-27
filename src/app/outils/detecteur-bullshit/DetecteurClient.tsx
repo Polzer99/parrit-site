@@ -397,7 +397,7 @@ export default function DetecteurClient() {
             <p className="bsd-microgate">
               {unlocked
                 ? "Accès débloqué. Cmd/Ctrl + Entrée pour lancer."
-                : "Votre email pro débloque l'analyse. Zéro spam, on n'écrit que si vous le demandez."}
+                : "Votre email pro débloque l'analyse. Le verdict complet est envoyé par mail, avec les points clés. Zéro spam."}
             </p>
             {error && <p className="bsd-err">{error}</p>}
           </div>
