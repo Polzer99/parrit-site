@@ -54,7 +54,9 @@ Pas de nom de client **dans le texte** — les cas sont anonymisés. Le mur de l
 
 Un titre porte l'idée dominante de sa section. Si tu hésites entre deux titres, c'est que tu as deux sections.
 
-Le segment rouge d'un titre doit être le **sujet** de la phrase, jamais un mot choisi pour l'effet visuel.
+**Le rouge dans un titre, côté rédaction.** Un seul segment rouge par titre. Ce segment doit porter une **cause**, un **problème**, une **transformation**, un **résultat** ou le **sujet principal**. Jamais un mot choisi pour l'effet visuel ou pour casser une ligne.
+
+Test d'écriture : relis ton titre **entièrement en noir**. S'il perd son sens, le rouge portait de l'information à lui seul et le titre est mal écrit. Réécris la phrase plutôt que de déplacer la couleur. Règle complète : `03_COLOR_AND_TOKENS.md`, ADR-012.
 
 Attention aux capitales accentuées : plus un titre est long en français, plus le risque de collision d'accents augmente. Voir `02_TYPOGRAPHY_AND_GRID.md`.
 

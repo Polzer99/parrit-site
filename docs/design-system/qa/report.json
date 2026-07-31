@@ -5,8 +5,8 @@
     "375": {
       "frenchTest": {
         "found": true,
-        "lineHeight": "33.6px",
-        "lineHeightRatio": 1.05,
+        "lineHeight": "34.56px",
+        "lineHeightRatio": 1.08,
         "fontSize": "32px",
         "fontFamily": "Arpona",
         "overflowRight": 0,
@@ -15,8 +15,8 @@
         "inkAscent": 28.51,
         "accentHeadroom": 6.66,
         "requiredLineHeight": 33.22,
-        "actualLineHeight": 33.6,
-        "clearance": 0.38
+        "actualLineHeight": 34.56,
+        "clearance": 1.34
       },
       "tokens": {
         "shadows": [],
@@ -27,17 +27,17 @@
         "expressiveTotal": 1,
         "stillVisible": 0,
         "structure": {
-          "headings": 11,
-          "rules": 359,
-          "ctas": 5
+          "headings": 12,
+          "rules": 381,
+          "ctas": 7
         }
       }
     },
     "768": {
       "frenchTest": {
         "found": true,
-        "lineHeight": "33.6px",
-        "lineHeightRatio": 1.05,
+        "lineHeight": "34.56px",
+        "lineHeightRatio": 1.08,
         "fontSize": "32px",
         "fontFamily": "Arpona",
         "overflowRight": 0,
@@ -46,8 +46,8 @@
         "inkAscent": 28.51,
         "accentHeadroom": 6.66,
         "requiredLineHeight": 33.22,
-        "actualLineHeight": 33.6,
-        "clearance": 0.38
+        "actualLineHeight": 34.56,
+        "clearance": 1.34
       },
       "tokens": {
         "shadows": [],
@@ -58,17 +58,17 @@
         "expressiveTotal": 1,
         "stillVisible": 0,
         "structure": {
-          "headings": 11,
-          "rules": 359,
-          "ctas": 5
+          "headings": 12,
+          "rules": 381,
+          "ctas": 7
         }
       }
     },
     "1024": {
       "frenchTest": {
         "found": true,
-        "lineHeight": "43.008px",
-        "lineHeightRatio": 1.05,
+        "lineHeight": "44.2368px",
+        "lineHeightRatio": 1.08,
         "fontSize": "40.96px",
         "fontFamily": "Arpona",
         "overflowRight": 0,
@@ -77,8 +77,8 @@
         "inkAscent": 36.5,
         "accentHeadroom": 8.52,
         "requiredLineHeight": 42.52,
-        "actualLineHeight": 43.01,
-        "clearance": 0.49
+        "actualLineHeight": 44.24,
+        "clearance": 1.72
       },
       "tokens": {
         "shadows": [],
@@ -89,17 +89,17 @@
         "expressiveTotal": 1,
         "stillVisible": 0,
         "structure": {
-          "headings": 11,
-          "rules": 359,
-          "ctas": 5
+          "headings": 12,
+          "rules": 381,
+          "ctas": 7
         }
       }
     },
     "1440": {
       "frenchTest": {
         "found": true,
-        "lineHeight": "50.4px",
-        "lineHeightRatio": 1.05,
+        "lineHeight": "51.84px",
+        "lineHeightRatio": 1.08,
         "fontSize": "48px",
         "fontFamily": "Arpona",
         "overflowRight": 0,
@@ -108,8 +108,8 @@
         "inkAscent": 42.77,
         "accentHeadroom": 9.98,
         "requiredLineHeight": 49.82,
-        "actualLineHeight": 50.4,
-        "clearance": 0.58
+        "actualLineHeight": 51.84,
+        "clearance": 2.02
       },
       "tokens": {
         "shadows": [],
@@ -120,9 +120,9 @@
         "expressiveTotal": 1,
         "stillVisible": 0,
         "structure": {
-          "headings": 11,
-          "rules": 359,
-          "ctas": 5
+          "headings": 12,
+          "rules": 381,
+          "ctas": 7
         }
       }
     }

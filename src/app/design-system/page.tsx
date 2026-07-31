@@ -17,6 +17,7 @@ import { useState, type CSSProperties } from "react";
 import {
   Badge,
   Button,
+  CTASectionLevel0,
   Divider,
   HeroLevel0,
   HermesStatus,
@@ -245,6 +246,77 @@ export default function DesignSystemSpecimen() {
             </div>
           ))}
         </div>
+
+        {/* Démonstration de la règle ADR-012 : le rouge dans un titre. */}
+        <div style={{ marginTop: "var(--space-8)", display: "grid", gap: "var(--space-6)" }}>
+          <div>
+            <Label tone="ink">Le rouge dans un titre · règle</Label>
+            <p style={{ ...monoText, marginTop: "var(--space-3)" }}>
+              Un seul segment rouge par titre, et ce segment porte une cause, un problème, une
+              transformation, un résultat ou le sujet. Le titre doit garder tout son sens lu
+              entièrement en noir.
+            </p>
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gap: "var(--space-6)",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 20rem), 1fr))",
+            }}
+          >
+            <div
+              style={{
+                padding: "var(--space-5)",
+                border: "var(--border-hairline) solid var(--color-line-hairline)",
+              }}
+            >
+              <Label tone="ink">Conforme</Label>
+              <p
+                style={{
+                  margin: "var(--space-4) 0 0",
+                  fontFamily: "var(--type-display-primary)",
+                  fontSize: "var(--type-display-card)",
+                  fontWeight: 600,
+                  letterSpacing: "var(--type-tracking-display)",
+                  lineHeight: "var(--type-leading-display)",
+                }}
+              >
+                Trois heures par jour passaient dans{" "}
+                <span style={{ color: "var(--color-signal-critical)" }}>le tri de la boîte</span>
+              </p>
+              <p style={{ ...monoText, marginTop: "var(--space-4)", fontSize: "var(--type-size-xs)" }}>
+                Le rouge porte la cause. Le titre reste entier en noir.
+              </p>
+            </div>
+
+            <div
+              style={{
+                padding: "var(--space-5)",
+                border: "var(--border-hairline) solid var(--color-line-hairline)",
+              }}
+            >
+              <Label tone="signal">Rejeté</Label>
+              <p
+                style={{
+                  margin: "var(--space-4) 0 0",
+                  fontFamily: "var(--type-display-primary)",
+                  fontSize: "var(--type-display-card)",
+                  fontWeight: 600,
+                  letterSpacing: "var(--type-tracking-display)",
+                  lineHeight: "var(--type-leading-display)",
+                }}
+              >
+                Une approche{" "}
+                <span style={{ color: "var(--color-signal-critical)" }}>vraiment</span> différente
+                de <span style={{ color: "var(--color-signal-critical)" }}>l&apos;IA</span>
+              </p>
+              <p style={{ ...monoText, marginTop: "var(--space-4)", fontSize: "var(--type-size-xs)" }}>
+                Deux segments, dont un adverbe. Aucun ne porte de causalité. Le rouge décore.
+              </p>
+            </div>
+          </div>
+        </div>
       </Section>
 
       {/* -------------------------------------------------- TYPOGRAPHIE */}
@@ -406,6 +478,14 @@ export default function DesignSystemSpecimen() {
             { time: "08:05", action: "Accès CRM refusé par le périmètre déclaré", state: "blocked" },
             { time: "08:06", action: "Brouillons de réponse déposés, non envoyés", state: "waiting" },
           ]}
+        />
+
+        <CTASectionLevel0
+          title="Décrivez un workflow qui vous coûte du temps."
+          lede="Pas une demande de démo, pas un choix d'offre. Un cas réel, avec son input et son output attendu. On vous dit ce qui est faisable, et ce qui ne l'est pas."
+          primaryCta={{ label: "Décrire un cas", href: "#level0" }}
+          secondaryCta={{ label: "Parler à un humain", href: "#level0" }}
+          finePrint="Bloc de démonstration. Les actions de cette page specimen ne mènent nulle part."
         />
       </Section>
 

@@ -47,6 +47,27 @@ Capture du node `1:208` (`Parrit Template 1`, 1440 × 816) lue le 31/07 :
 
 Ce dernier point est une **tension ouverte** : `brand-visual-system/CLAUDE.md` interdit « le rouge utilisé comme simple surlignage de mot ». Ici, le rouge porte le sujet de la phrase. Règle provisoire retenue dans le code : le segment rouge doit être le **sujet**, jamais un mot choisi pour l'effet. Voir `STATUS.md`.
 
+## Le `fileKey` canonique
+
+```yaml
+figma:
+  file_url: https://www.figma.com/design/J8hieoaq5XwOxqtQJbiP0A/Direction-artistique
+  file_key: J8hieoaq5XwOxqtQJbiP0A
+  frames_de_reference: "Parrit Template 1 à 6 (node 1:208 et suivants)"
+  variables: 3 (Noire, Rouge, Blanc)
+  bibliotheque_publiee: aucune
+  code_connect: aucun
+```
+
+Quatre faits à retenir, et à ne pas confondre :
+
+1. **Le repository est la source canonique des tokens.** Couleurs, typographie, espacements, rayons, mouvement : la vérité est dans `src/styles/parrit-tokens.css`.
+2. **Figma reste la référence de composition** pour les frames validées. On reproduit la compo, on n'échange que le copy, et le logotype est un asset SVG jamais retapé.
+3. **Figma ne possède pas encore de bibliothèque complète** : 3 variables de couleur, zéro composant publié, zéro style, zéro variable de spacing ou de typographie.
+4. **La création des composants Figma et du Code Connect est une tranche future**, pas un prérequis. Le système fonctionne sans, aujourd'hui.
+
+> `brand/07_FIGMA_SYNC.md` déclare encore `file_key: pending`. Ce fichier n'est pas versionné (voir `STATUS.md`) et n'a donc pas pu être corrigé. Le `fileKey` ci-dessus fait foi.
+
 ## Sens de synchronisation
 
 **Le repository est la source. Figma la reflète.**

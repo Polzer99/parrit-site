@@ -40,7 +40,7 @@ Les décisions antérieures à ADR-007 vivent dans `brand/09_GOVERNANCE.md` (ADR
 - **Raison :** une valeur mesurée bat une valeur choisie. Le site est d'abord francophone.
 - **Conséquence :** `--type-leading-display: 1.05` (marge mesurée : +0,38 px à 375 px, +0,58 px à 1440 px). `--type-leading-display-tight: 0.9` reste disponible **uniquement** pour une chaîne sans capitale accentuée, et seulement si la QA passe sur cette chaîne. Le rendu des titres est légèrement plus aéré que la maquette Figma : c'est assumé et documenté.
 - **Rollback :** repasser `--type-leading-display` à `0.95` et accepter la collision.
-- **Reste ouvert :** la marge à 1.05 est fine (< 1 px). Si Paul veut du confort, `1.08`. C'est un arbitrage esthétique, pas technique.
+- **Suite :** la marge à 1.05 s'est révélée trop fine. Arbitrée par ADR-013.
 
 ---
 
@@ -65,3 +65,29 @@ Les décisions antérieures à ADR-007 vivent dans `brand/09_GOVERNANCE.md` (ADR
 - **Raison :** remplacer les alias touche 59 fichiers et change visiblement la production. Ce n'est pas un nettoyage mécanique, c'est une migration qui se valide avec des captures avant/après.
 - **Conséquence :** la dette d'aliasing reste ouverte, chiffrée dans `STATUS.md`.
 - **Rollback :** supprimer l'import dans `src/app/design-system/layout.tsx`.
+
+---
+
+## ADR-012 — Le rouge dans un titre : autorisé sur un segment porteur, interdit en surlignage
+
+- **Date :** 2026-07-31
+- **Statut :** accepté (arbitrage Paul)
+- **Contexte :** deux sources canoniques s'opposaient. Le canon Figma met un segment du H1 en rouge (« AI agents » dans la frame `Parrit Template 1`). `brand-visual-system/CLAUDE.md` liste « le rouge utilisé comme simple surlignage de mot » parmi les rejets automatiques. Sans arbitrage, chaque page rejouait le débat, et le mot rouge devenait un tic de composition.
+- **Décision :** un segment de titre peut passer en rouge **uniquement** s'il porte une **cause**, un **problème**, une **transformation**, un **résultat** ou le **sujet principal**. Quatre contraintes cumulatives : un seul segment rouge par titre · aucun mot rouge décoratif · le titre reste pleinement compréhensible lu en noir · l'usage passe le Red Causality Test.
+- **Alternatives :** (a) interdire tout rouge dans les titres, ce qui contredit le canon dessiné et payé ; (b) laisser libre, ce qui produit exactement le surlignage décoratif que le système rejette.
+- **Raison :** les deux sources disaient vrai sur des objets différents. Ce qui est interdit, c'est le **surlignage** ; ce qui est autorisé, c'est le **segment porteur**. La distinction est opérationnelle, pas rhétorique : elle se teste.
+- **Conséquence :** le troisième contrôle (« le titre garde son sens en noir ») est aussi un contrôle d'accessibilité : il interdit qu'une information repose sur la seule couleur. Inscrit dans `PARRIT-DESIGN-SYSTEM.md` §4, `03_COLOR_AND_TOKENS.md`, `07_CONTENT_AND_COPY.md`, `10_VISUAL_QA.md`.
+- **Rollback :** retirer le sous-test de `10_VISUAL_QA.md` et revenir à la règle provisoire « le segment rouge doit être le sujet ».
+
+---
+
+## ADR-013 — Interlignage display porté de 1.05 à 1.08
+
+- **Date :** 2026-07-31
+- **Statut :** accepté (arbitrage Paul), remplace la valeur retenue par ADR-009
+- **Contexte :** ADR-009 avait fixé `--type-leading-display` à `1.05` sur la base d'une mesure d'encre : la chaîne `ÉQUIPES ÀÈÊÎÔÛ` occupe **1.038 em** en Arpona SemiBold. À `1.05`, la QA passait aux quatre largeurs, mais la marge mesurée était de **0,38 px à 375 px** et **0,58 px à 1440 px**.
+- **Décision :** la valeur canonique devient **`1.08`**.
+- **Raison :** `1.05` était techniquement valide et pratiquement fragile. **Une marge inférieure au pixel n'est pas une marge.** Elle tombe au premier changement de graisse, au premier repli sur la fonte de substitution, au premier moteur de rendu qui arrondit autrement. Un test qui passe à 0,38 px près ne prouve pas que le système tient, il prouve qu'il n'a pas encore cassé.
+- **Alternatives :** (a) garder `1.05` et vivre avec un seuil non tenable ; (b) réduire la taille des titres, ce qui traite le symptôme et abîme la silhouette éditoriale.
+- **Conséquence :** marge portée à environ **1,3 px à 375 px** et **4,6 px à 1440 px**. Les titres sont légèrement plus aérés que la maquette Figma, dessinée à `0.9` **en anglais**, sans capitale accentuée. Écart assumé et documenté. Plancher absolu inchangé : **jamais sous 1.04**.
+- **Rollback :** repasser le token à `1.05`. La QA continue de passer, la fragilité revient.

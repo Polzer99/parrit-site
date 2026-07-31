@@ -64,7 +64,20 @@ Pour chaque usage notable du rouge, répondre :
 
 Sans réponse claire, le rouge saute. Une section doit fonctionner **en niveaux de gris** avant que le rouge n'y soit ajouté.
 
-Cas légitimes : le passage input → output · un état qui demande une intervention · l'action principale · une exception · le sujet d'un titre. Cas illégitimes : un aplat de fond · un mot souligné pour l'effet · une icône décorative · une bordure de carte sans signification.
+Cas légitimes : le passage input → output · un état qui demande une intervention · l'action principale · une exception · le segment porteur d'un titre. Cas illégitimes : un aplat de fond · un mot souligné pour l'effet · une icône décorative · une bordure de carte sans signification.
+
+### Sous-test obligatoire : le rouge dans un titre
+
+Pour chaque titre contenant du rouge, vérifier les quatre points. Un seul « non » invalide le titre.
+
+| Contrôle | Attendu |
+|---|---|
+| Le segment rouge porte-t-il une cause, un problème, une transformation, un résultat ou le sujet ? | oui |
+| Y a-t-il exactement un segment rouge ? | oui |
+| Le titre garde-t-il tout son sens lu **entièrement en noir** ? | oui |
+| Le rouge est-il là pour le rythme ou pour « casser » la ligne ? | **non** |
+
+Le troisième contrôle est aussi un contrôle d'accessibilité : une information portée par la seule couleur est un défaut, pas un parti pris. Voir ADR-012.
 
 ## 5. Generic AI Test — humain
 

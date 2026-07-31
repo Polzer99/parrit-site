@@ -37,6 +37,14 @@ Les noms expriment une **fonction**, jamais une valeur.
 
 Alias sémantiques d'action : `--color-action-primary` (rouge), `--color-action-secondary` (encre), et leurs encres inverses.
 
+### Le rouge dans un titre
+
+Autorisé sur **un seul segment**, et seulement si ce segment porte une **cause**, un **problème**, une **transformation**, un **résultat** ou le **sujet principal**.
+
+Interdit : deux segments rouges dans le même titre · un mot rouge décoratif ou choisi pour le rythme · un titre dont le sens change quand on retire le rouge.
+
+Contrôle : le titre doit se lire entièrement en noir sans perte d'information, et l'usage doit passer le Red Causality Test (`10_VISUAL_QA.md`). Décision du 31/07/2026, ADR-012.
+
 ### Il n'y a pas de blanc pur
 
 `#FFFFFF` est **interdit** comme fond et comme encre. Le papier est `#FFFDFA`. C'est ce qui donne la chaleur du système ; un blanc pur à côté le fait paraître sale.

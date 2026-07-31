@@ -64,6 +64,8 @@ Hors de ce repository : `REGLES-DOR.md` puis `VISION.md` priment. **Le site en l
 
 `brand/` reste la **doctrine détaillée** dont ce dossier hérite ; il n'est ni supprimé ni contredit, sauf sur `brand/01_DESIGN_TOKENS.md` (typographie de titrage, voir ADR-007).
 
+> ⚠️ **`brand/` n'est pas versionné.** Les 11 documents existent uniquement en fichiers non suivis dans le worktree de Paul. Ils ne sont ni sur `origin/main`, ni dans aucune branche. Tant que ce n'est pas corrigé, **`docs/design-system/` est le seul canon réellement sauvegardé.** Détail et action attendue : `STATUS.md`.
+
 Ne sont **plus des sources** : `BRAND.md` · `design-source/DA-TOKENS-EXTRACTED.md` · `brand-visual-system/` (v1.0 et v1.1) · la DNA PostHog/Pancake · `DESIGN-SYSTEM.md`.
 
 Ils sont conservés. On ne supprime aucun travail historique. Mais on ne s'en sert plus pour décider.

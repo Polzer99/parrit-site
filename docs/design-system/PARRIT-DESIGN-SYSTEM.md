@@ -92,7 +92,7 @@ Signature Arpona : les points des `i`/`j` et le point final sont des **losanges*
 
 Tracking display : `-0.04em`. Labels mono : UPPERCASE, `0.12em`, jamais plus d'une ligne.
 
-**Interlignage display : `0.95` par défaut, jamais sous `0.92`.** Voir §6 (test français) — c'est une contrainte de collision d'accents, pas une préférence esthétique.
+**Interlignage display : `1.08`, jamais sous `1.04`.** Voir §6 (test français). C'est une contrainte de collision d'accents mesurée, pas une préférence esthétique.
 
 ### Géométrie, ombre, matière
 
@@ -118,6 +118,21 @@ Le rouge Parrit n'est pas une couleur de remplissage. **Il indique quelque chose
 Toute section doit fonctionner **en niveaux de gris** avant que le rouge n'y soit ajouté.
 
 **Red Causality Test** — pour chaque usage notable du rouge, répondre : *« quelle relation, action, alerte ou transformation ce rouge matérialise-t-il ? »* Sans réponse claire, le rouge saute.
+
+### Le rouge dans un titre — règle tranchée le 31/07/2026
+
+Un segment de titre peut passer en rouge **uniquement** s'il porte l'un de ces cinq rôles :
+
+**une cause · un problème · une transformation · un résultat · le sujet principal.**
+
+Quatre contraintes, toutes obligatoires :
+
+1. **Un seul segment rouge par titre.** Deux segments rouges annulent la hiérarchie qu'ils prétendent créer.
+2. **Aucun mot rouge décoratif.** Le rouge ne souligne jamais un mot choisi pour le rythme ou pour « casser » une ligne.
+3. **Le titre doit rester compréhensible entièrement en noir.** Si retirer le rouge change le sens, l'information reposait sur la couleur seule : c'est un défaut d'accessibilité autant qu'un défaut de marque.
+4. **Chaque usage passe le Red Causality Test** ci-dessus, comme n'importe quel autre rouge.
+
+Cette règle clôt la tension entre le canon Figma, qui met un segment de H1 en rouge, et l'interdiction générale du rouge en surlignage de mot. Les deux tiennent : ce qui est interdit, c'est le surlignage ; ce qui est autorisé, c'est le segment porteur.
 
 ---
 
