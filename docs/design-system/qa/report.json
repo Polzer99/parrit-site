@@ -1,0 +1,131 @@
+{
+  "base": "http://localhost:3210",
+  "route": "/design-system",
+  "viewports": {
+    "375": {
+      "frenchTest": {
+        "found": true,
+        "lineHeight": "33.6px",
+        "lineHeightRatio": 1.05,
+        "fontSize": "32px",
+        "fontFamily": "Arpona",
+        "overflowRight": 0,
+        "overflowLeft": 0,
+        "lines": 4,
+        "inkAscent": 28.51,
+        "accentHeadroom": 6.66,
+        "requiredLineHeight": 33.22,
+        "actualLineHeight": 33.6,
+        "clearance": 0.38
+      },
+      "tokens": {
+        "shadows": [],
+        "radii": [],
+        "colors": []
+      },
+      "integrity": {
+        "expressiveTotal": 1,
+        "stillVisible": 0,
+        "structure": {
+          "headings": 11,
+          "rules": 359,
+          "ctas": 5
+        }
+      }
+    },
+    "768": {
+      "frenchTest": {
+        "found": true,
+        "lineHeight": "33.6px",
+        "lineHeightRatio": 1.05,
+        "fontSize": "32px",
+        "fontFamily": "Arpona",
+        "overflowRight": 0,
+        "overflowLeft": 0,
+        "lines": 2,
+        "inkAscent": 28.51,
+        "accentHeadroom": 6.66,
+        "requiredLineHeight": 33.22,
+        "actualLineHeight": 33.6,
+        "clearance": 0.38
+      },
+      "tokens": {
+        "shadows": [],
+        "radii": [],
+        "colors": []
+      },
+      "integrity": {
+        "expressiveTotal": 1,
+        "stillVisible": 0,
+        "structure": {
+          "headings": 11,
+          "rules": 359,
+          "ctas": 5
+        }
+      }
+    },
+    "1024": {
+      "frenchTest": {
+        "found": true,
+        "lineHeight": "43.008px",
+        "lineHeightRatio": 1.05,
+        "fontSize": "40.96px",
+        "fontFamily": "Arpona",
+        "overflowRight": 0,
+        "overflowLeft": 0,
+        "lines": 2,
+        "inkAscent": 36.5,
+        "accentHeadroom": 8.52,
+        "requiredLineHeight": 42.52,
+        "actualLineHeight": 43.01,
+        "clearance": 0.49
+      },
+      "tokens": {
+        "shadows": [],
+        "radii": [],
+        "colors": []
+      },
+      "integrity": {
+        "expressiveTotal": 1,
+        "stillVisible": 0,
+        "structure": {
+          "headings": 11,
+          "rules": 359,
+          "ctas": 5
+        }
+      }
+    },
+    "1440": {
+      "frenchTest": {
+        "found": true,
+        "lineHeight": "50.4px",
+        "lineHeightRatio": 1.05,
+        "fontSize": "48px",
+        "fontFamily": "Arpona",
+        "overflowRight": 0,
+        "overflowLeft": 0,
+        "lines": 2,
+        "inkAscent": 42.77,
+        "accentHeadroom": 9.98,
+        "requiredLineHeight": 49.82,
+        "actualLineHeight": 50.4,
+        "clearance": 0.58
+      },
+      "tokens": {
+        "shadows": [],
+        "radii": [],
+        "colors": []
+      },
+      "integrity": {
+        "expressiveTotal": 1,
+        "stillVisible": 0,
+        "structure": {
+          "headings": 11,
+          "rules": 359,
+          "ctas": 5
+        }
+      }
+    }
+  },
+  "failures": []
+}
