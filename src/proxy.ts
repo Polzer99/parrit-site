@@ -61,6 +61,7 @@ export const config = {
   matcher: [
     // On skip les internals Next, les assets statiques, les fichiers publics,
     // et l'OS interne (hors i18n)
-    "/((?!_next|api|os|fondateurs|academy|chemin|metiers|harnais-ia|outils|diagnostic|design-system|demarrer-claude-code|architecture-claude-md|efi-audit-hotels|hr-radar|favicon.ico|robots.txt|sitemap.xml|og-image.png|.*\\..*).*)",
+    // `art-direction-lab` : laboratoire interne hors i18n, comme design-system.
+    "/((?!_next|api|os|fondateurs|academy|chemin|metiers|harnais-ia|outils|diagnostic|design-system|art-direction-lab|demarrer-claude-code|architecture-claude-md|efi-audit-hotels|hr-radar|favicon.ico|robots.txt|sitemap.xml|og-image.png|.*\\..*).*)",
   ],
 };

@@ -102,4 +102,36 @@ Ces trois décisions ont été prises le 31/07/2026 dans la tranche `BRAND-CANON
 - **ADR-015** — le Brand OS est versionné. Il n'avait jamais été commité. Le partage d'autorité devient explicite : `brand/` possède la doctrine, `docs/design-system/` possède sa traduction visuelle et technique.
 - **ADR-016** — `fileKey` Figma `J8hieoaq5XwOxqtQJbiP0A` renseigné, autorité partagée entre repository (tokens et règles) et Figma (compositions validées).
 
+---
+
+## ADR-017 — Le site adopte le registre éditorial condensé
+
+- **Date :** 2026-07-31
+- **Statut :** accepté (arbitrage Paul), **supersède ADR-007 et ADR-008 pour le registre éditorial**. ADR-007 et ADR-008 ne sont pas supprimées : elles restent l'historique de l'erreur de source.
+- **Contexte :** les onze images de référence canoniques (`brand-visual-system/references/canonical/`) et les templates commerciaux Figma (`1:208`, `1:255`) ne partagent aucun langage visuel. Les références éditoriales sont construites sur une **grotesque condensée lourde en capitales**, de la photographie noir et blanc détourée, des champs de trame rouge et un fil rouge de causalité. Les templates commerciaux sont en Arpona et Geist Mono sur papier crème, avec des placeholders gris.
+
+  **Le design system du 31/07 a été dérivé du second.** ADR-007 a déclaré la display en Arpona, ADR-008 a rejeté Barlow Condensed comme « non sourcé ». Ces deux décisions étaient correctes **pour le registre commercial**, et fausses pour le site. C'est la cause racine de `HOMEPAGE-LEVEL0-V1` : reproduire fidèlement un template commercial ne pouvait produire qu'une version nettoyée de l'ancien site.
+
+- **Décision :**
+  1. **Deux registres coexistent légitimement**, et le document doit toujours dire lequel il habite.
+     - **Registre éditorial** : site, newsletter, articles, manifestes, pages Hermes, campagnes, contenus de prise de conscience.
+     - **Registre commercial** : propales, decks personnalisés, documents clients formels, supports de rendez-vous.
+  2. **Le site appartient désormais au registre éditorial.** Il n'est plus dérivé des templates commerciaux Figma.
+  3. **La display du registre éditorial est Barlow Condensed** (Black 900 pour les titres-manifestes, ExtraBold 800 quand Black devient trop massif), auto-hébergée, **SIL Open Font License 1.1**, licence conservée dans `public/fonts/barlow-condensed/OFL.txt`. Aucun chargement Google Fonts au runtime.
+  4. **Arpona n'est pas remplacée.** Elle reste la display du registre commercial, et garde dans l'éditorial le rôle de **stature** : citations, textes de posture, registre institutionnel. Geist tient la lecture, Geist Mono tient les index, métadonnées, traces et états Hermes.
+  5. **Aucune compression artificielle de la chasse.** Barlow Condensed est dessinée condensée : ni `transform: scaleX()`, ni `font-stretch`. Vérifié par `scripts/art-direction-lab-qa.mjs`.
+  6. La palette n'est pas touchée : `#FFFDFA` · `#0C0C0D` · `#D1132F` restent le canon.
+
+- **Réversibilité :** la décision est **réversible après comparaison des trois concepts**. Elle vit pour l'instant dans un laboratoire isolé (`src/app/art-direction-lab/`), qui n'importe ni `globals.css` ni `parrit-tokens.css`. Aucune migration du code public n'a été engagée. Supprimer le dossier et retirer `art-direction-lab` du matcher de `src/proxy.ts` annule la totalité de la tranche.
+
+- **Ce que les trois concepts doivent trancher :** le **rôle exact de chaque famille**. A donne l'impact à la condensée et la chaleur à Arpona. B donne l'impact à la condensée et toute la preuve à Geist Mono, Arpona réduite à une seule citation. C confie presque toute la page à la condensée, Arpona ne tenant que le verdict. Ces trois répartitions ne peuvent pas toutes être canoniques.
+
+- **Interlignage :** `0.94` pour la condensée en capitales, mesuré sur l'encre réelle et non sur la boîte de ligne. À `0.92`, la marge sous « EXÉCUTION » en 800/48px tombe à **1,8 px**, sous le seuil que ADR-013 a posé après l'incident du `1.05`. Le plancher de ADR-013 (`1.04`) reste valable **pour Arpona** : ce sont deux fontes, deux métriques, deux valeurs.
+
+- **Conséquence :** le design system n'est **pas** migré dans cette tranche. Les quinze documents restent tels quels et deviennent partiellement caducs sur le seul point de la display éditoriale. Ils seront réécrits à partir du concept retenu, ou d'une combinaison explicitement validée par Paul.
+
+- **Rollback :** supprimer `src/app/art-direction-lab/`, `public/fonts/barlow-condensed/`, `public/brand/editorial/`, `design-source/editorial/`, et l'exclusion `art-direction-lab` dans `src/proxy.ts`. ADR-007 et ADR-008 redeviennent la règle unique. Le site n'a jamais changé.
+
+---
+
 **Numérotation.** Les ADR de Parrit suivent un **compteur unique** réparti sur deux journaux : ADR-001 à 006 dans `brand/09_GOVERNANCE.md`, ADR-007 à 013 ici, ADR-014 et suivants dans le journal du document propriétaire de la règle. Un numéro n'est jamais réutilisé : vérifier les deux journaux avant d'en créer un.

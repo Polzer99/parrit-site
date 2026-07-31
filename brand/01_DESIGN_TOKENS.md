@@ -32,9 +32,12 @@ Deux familles, strictes. Pas de troisième.
 
 > **Correction du 31/07/2026 — ADR-007.** Ce document déclarait `Geist` en display. C'était une régression documentaire. Le titrage de la DA est **Arpona** : lu directement dans le nœud H1 `1:225` du Figma `Direction-artistique` le 16/07, livré par Smoooth, converti OTF vers woff2, auto-hébergé et **en production depuis le commit `1da446d`**. Vérifié le 31/07 sur le CSS réellement servi par `parrit.ai`.
 
+> **Correction du 31/07/2026 — ADR-017.** Ce tableau décrit le **registre commercial** : propales, decks personnalisés, documents clients formels, supports de rendez-vous. Arpona y reste la display. Il ne décrit plus le **registre éditorial** : site, newsletter, articles, manifestes, pages Hermes, campagnes. La display de l'éditorial est **Barlow Condensed** (SIL Open Font License 1.1, auto-hébergée, Black 900 et ExtraBold 800), et Arpona y garde le rôle de **stature** : citations, textes de posture, registre institutionnel. Décision réversible tant que Paul n'a pas arbitré entre les trois concepts du laboratoire.
+
 | Rôle | Famille | Usage |
 |---|---|---|
-| Display / titres | **`Arpona`** (fallback `Geist`) | titres, sous-titres, héros |
+| Display / titres | **`Arpona`** (fallback `Geist`) | titres, sous-titres, héros du registre commercial |
+| Display éditoriale | **`Barlow Condensed`** 900 / 800 | manifeste, impact, grands titres du site et de la newsletter |
 | UI / textes longs | `Geist` | navigation, contrôles, fallback d'Arpona |
 | Corps / labels / boutons | `Geist Mono` | tout le descriptif, les petits labels, le texte des boutons |
 

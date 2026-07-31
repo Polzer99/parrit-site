@@ -54,7 +54,9 @@ Depuis le 31/07/2026, les ADR de Parrit suivent **une numérotation continue uni
 |---|---|---|
 | ADR-001 à ADR-006 | **ici**, `brand/09_GOVERNANCE.md` | décisions de marque, jusqu'au 30/07 |
 | ADR-007 à ADR-013 | `docs/design-system/DECISIONS.md` | décisions de design system, 31/07 |
-| ADR-014 et suivants | **ici** ou `docs/design-system/DECISIONS.md` | selon le document propriétaire de la règle |
+| ADR-014 à ADR-016 | **ici**, `brand/09_GOVERNANCE.md` | décisions de marque, 31/07 |
+| ADR-017 | `docs/design-system/DECISIONS.md` | registre éditorial condensé, 31/07 |
+| ADR-018 et suivants | **ici** ou `docs/design-system/DECISIONS.md` | selon le document propriétaire de la règle |
 
 Un numéro n'est jamais réutilisé. Avant d'en créer un, vérifier les deux journaux.
 
@@ -65,6 +67,7 @@ Ces trois ADR sont **propriété de `docs/design-system/DECISIONS.md`**. Elles o
 - **ADR-007** — la typographie display est **Arpona**, pas Geist. Corrige `01` et le contrat `EditorialHeadline` de `02`, qui disait « display condensed font ».
 - **ADR-012** — le rouge dans un titre : **un seul segment porteur**, jamais un surlignage. Corrige `02`, qui autorisait « one red key word maximum ».
 - **ADR-013** — interlignage display à **1.08**, plancher **1.04**, French Typography Test obligatoire. Corrige `02`, dont la fourchette 0.88 à 1.02 produisait une collision des capitales accentuées françaises.
+- **ADR-017** — **le site adopte le registre éditorial condensé.** Corrige la portée de ADR-007 : Arpona reste la display du **registre commercial** (propales, decks, documents clients) et garde un rôle de stature dans l'éditorial, mais la display du **registre éditorial** (site, newsletter, manifestes, campagnes) devient **Barlow Condensed**, SIL OFL 1.1, auto-hébergée. ADR-007 et ADR-008 ne sont pas supprimées : elles restent l'historique de l'erreur de source. Décision réversible tant que Paul n'a pas comparé les trois concepts.
 
 ---
 

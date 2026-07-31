@@ -1,0 +1,870 @@
+{
+  "chromium": [
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "PRISE DE CONSCIENCE",
+      "width": 379.58392333984375,
+      "ascent": 33.98400115966797,
+      "slack": 10.175998840332035,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "EXÉCUTION",
+      "width": 194.06396484375,
+      "ascent": 42.384002685546875,
+      "slack": 1.7759973144531287,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "ÉQUIPES",
+      "width": 143.61598205566406,
+      "ascent": 42.384002685546875,
+      "slack": 1.7759973144531287,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "DÉPLOIEMENT",
+      "width": 239.42396545410156,
+      "ascent": 42.384002685546875,
+      "slack": 1.7759973144531287,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "MÉTIERS",
+      "width": 148.6079864501953,
+      "ascent": 42.384002685546875,
+      "slack": 1.7759973144531287,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "AMÉLIORATION",
+      "width": 254.9279327392578,
+      "ascent": 42.384002685546875,
+      "slack": 1.7759973144531287,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "RÉDUCTION",
+      "width": 195.45596313476562,
+      "ascent": 42.384002685546875,
+      "slack": 1.7759973144531287,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "D’UNE IA QUI PARLE À DES AGENTS QUI EXÉCUTENT",
+      "width": 870.7677001953125,
+      "ascent": 42.384002685546875,
+      "slack": 1.7759973144531287,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "PRISE DE CONSCIENCE",
+      "width": 759.16796875,
+      "ascent": 67.96800231933594,
+      "slack": 20.35199768066407,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "EXÉCUTION",
+      "width": 388.12799072265625,
+      "ascent": 84.76800537109375,
+      "slack": 3.5519946289062574,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "ÉQUIPES",
+      "width": 287.23199462890625,
+      "ascent": 84.76800537109375,
+      "slack": 3.5519946289062574,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "DÉPLOIEMENT",
+      "width": 478.84796142578125,
+      "ascent": 84.76800537109375,
+      "slack": 3.5519946289062574,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "MÉTIERS",
+      "width": 297.2159729003906,
+      "ascent": 84.76800537109375,
+      "slack": 3.5519946289062574,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "AMÉLIORATION",
+      "width": 509.85595703125,
+      "ascent": 84.76800537109375,
+      "slack": 3.5519946289062574,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "RÉDUCTION",
+      "width": 390.9119873046875,
+      "ascent": 84.76800537109375,
+      "slack": 3.5519946289062574,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "D’UNE IA QUI PARLE À DES AGENTS QUI EXÉCUTENT",
+      "width": 1741.535888671875,
+      "ascent": 84.76800537109375,
+      "slack": 3.5519946289062574,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "PRISE DE CONSCIENCE",
+      "width": 1265.2799072265625,
+      "ascent": 113.27999877929688,
+      "slack": 33.92000122070314,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "EXÉCUTION",
+      "width": 646.8799438476562,
+      "ascent": 141.27999877929688,
+      "slack": 5.920001220703142,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "ÉQUIPES",
+      "width": 478.719970703125,
+      "ascent": 141.27999877929688,
+      "slack": 5.920001220703142,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "DÉPLOIEMENT",
+      "width": 798.0799560546875,
+      "ascent": 141.27999877929688,
+      "slack": 5.920001220703142,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "MÉTIERS",
+      "width": 495.3599853515625,
+      "ascent": 141.27999877929688,
+      "slack": 5.920001220703142,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "AMÉLIORATION",
+      "width": 849.7599487304688,
+      "ascent": 141.27999877929688,
+      "slack": 5.920001220703142,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "RÉDUCTION",
+      "width": 651.5199584960938,
+      "ascent": 141.27999877929688,
+      "slack": 5.920001220703142,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "D’UNE IA QUI PARLE À DES AGENTS QUI EXÉCUTENT",
+      "width": 2902.5595703125,
+      "ascent": 141.27999877929688,
+      "slack": 5.920001220703142,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "PRISE DE CONSCIENCE",
+      "width": 384.19189453125,
+      "ascent": 33.98400115966797,
+      "slack": 10.175998840332035,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "EXÉCUTION",
+      "width": 196.751953125,
+      "ascent": 42.23999786376953,
+      "slack": 1.9200021362304724,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "ÉQUIPES",
+      "width": 145.2479705810547,
+      "ascent": 42.23999786376953,
+      "slack": 1.9200021362304724,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "DÉPLOIEMENT",
+      "width": 242.59193420410156,
+      "ascent": 42.23999786376953,
+      "slack": 1.9200021362304724,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "MÉTIERS",
+      "width": 151.00796508789062,
+      "ascent": 42.23999786376953,
+      "slack": 1.9200021362304724,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "AMÉLIORATION",
+      "width": 260.3519287109375,
+      "ascent": 42.23999786376953,
+      "slack": 1.9200021362304724,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "RÉDUCTION",
+      "width": 197.99993896484375,
+      "ascent": 42.23999786376953,
+      "slack": 1.9200021362304724,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "D’UNE IA QUI PARLE À DES AGENTS QUI EXÉCUTENT",
+      "width": 884.9276733398438,
+      "ascent": 42.23999786376953,
+      "slack": 1.9200021362304724,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "PRISE DE CONSCIENCE",
+      "width": 768.3839111328125,
+      "ascent": 67.96800231933594,
+      "slack": 20.35199768066407,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "EXÉCUTION",
+      "width": 393.5039367675781,
+      "ascent": 84.47999572753906,
+      "slack": 3.840004272460945,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "ÉQUIPES",
+      "width": 290.4959716796875,
+      "ascent": 84.47999572753906,
+      "slack": 3.840004272460945,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "DÉPLOIEMENT",
+      "width": 485.1839294433594,
+      "ascent": 84.47999572753906,
+      "slack": 3.840004272460945,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "MÉTIERS",
+      "width": 302.0159606933594,
+      "ascent": 84.47999572753906,
+      "slack": 3.840004272460945,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "AMÉLIORATION",
+      "width": 520.7039184570312,
+      "ascent": 84.47999572753906,
+      "slack": 3.840004272460945,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "RÉDUCTION",
+      "width": 395.99993896484375,
+      "ascent": 84.47999572753906,
+      "slack": 3.840004272460945,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "D’UNE IA QUI PARLE À DES AGENTS QUI EXÉCUTENT",
+      "width": 1769.8558349609375,
+      "ascent": 84.47999572753906,
+      "slack": 3.840004272460945,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "PRISE DE CONSCIENCE",
+      "width": 1280.639892578125,
+      "ascent": 113.27999877929688,
+      "slack": 33.92000122070314,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "EXÉCUTION",
+      "width": 655.8399658203125,
+      "ascent": 140.8000030517578,
+      "slack": 6.3999969482422046,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "ÉQUIPES",
+      "width": 484.15997314453125,
+      "ascent": 140.8000030517578,
+      "slack": 6.3999969482422046,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "DÉPLOIEMENT",
+      "width": 808.6399536132812,
+      "ascent": 140.8000030517578,
+      "slack": 6.3999969482422046,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "MÉTIERS",
+      "width": 503.3599853515625,
+      "ascent": 140.8000030517578,
+      "slack": 6.3999969482422046,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "AMÉLIORATION",
+      "width": 867.8399658203125,
+      "ascent": 140.8000030517578,
+      "slack": 6.3999969482422046,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "RÉDUCTION",
+      "width": 660,
+      "ascent": 140.8000030517578,
+      "slack": 6.3999969482422046,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "D’UNE IA QUI PARLE À DES AGENTS QUI EXÉCUTENT",
+      "width": 2949.759765625,
+      "ascent": 140.8000030517578,
+      "slack": 6.3999969482422046,
+      "loaded": true
+    }
+  ],
+  "webkit": [
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "PRISE DE CONSCIENCE",
+      "width": 379.583984375,
+      "ascent": 33.96875,
+      "slack": 10.191250000000004,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "EXÉCUTION",
+      "width": 194.0640106201172,
+      "ascent": 42.375,
+      "slack": 1.7850000000000037,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "ÉQUIPES",
+      "width": 143.61599731445312,
+      "ascent": 42.375,
+      "slack": 1.7850000000000037,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "DÉPLOIEMENT",
+      "width": 239.4239959716797,
+      "ascent": 42.375,
+      "slack": 1.7850000000000037,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "MÉTIERS",
+      "width": 148.60800170898438,
+      "ascent": 42.375,
+      "slack": 1.7850000000000037,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "AMÉLIORATION",
+      "width": 254.92800903320312,
+      "ascent": 42.375,
+      "slack": 1.7850000000000037,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "RÉDUCTION",
+      "width": 195.45599365234375,
+      "ascent": 42.375,
+      "slack": 1.7850000000000037,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 48,
+      "s": "D’UNE IA QUI PARLE À DES AGENTS QUI EXÉCUTENT",
+      "width": 870.76806640625,
+      "ascent": 42.375,
+      "slack": 1.7850000000000037,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "PRISE DE CONSCIENCE",
+      "width": 759.16796875,
+      "ascent": 67.953125,
+      "slack": 20.366875000000007,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "EXÉCUTION",
+      "width": 388.1280212402344,
+      "ascent": 84.765625,
+      "slack": 3.5543750000000074,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "ÉQUIPES",
+      "width": 287.23199462890625,
+      "ascent": 84.765625,
+      "slack": 3.5543750000000074,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "DÉPLOIEMENT",
+      "width": 478.8479919433594,
+      "ascent": 84.765625,
+      "slack": 3.5543750000000074,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "MÉTIERS",
+      "width": 297.21600341796875,
+      "ascent": 84.765625,
+      "slack": 3.5543750000000074,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "AMÉLIORATION",
+      "width": 509.85601806640625,
+      "ascent": 84.765625,
+      "slack": 3.5543750000000074,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "RÉDUCTION",
+      "width": 390.9119873046875,
+      "ascent": 84.765625,
+      "slack": 3.5543750000000074,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 96,
+      "s": "D’UNE IA QUI PARLE À DES AGENTS QUI EXÉCUTENT",
+      "width": 1741.5361328125,
+      "ascent": 84.765625,
+      "slack": 3.5543750000000074,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "PRISE DE CONSCIENCE",
+      "width": 1265.280029296875,
+      "ascent": 113.265625,
+      "slack": 33.93437500000002,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "EXÉCUTION",
+      "width": 646.8800048828125,
+      "ascent": 141.265625,
+      "slack": 5.934375000000017,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "ÉQUIPES",
+      "width": 478.719970703125,
+      "ascent": 141.265625,
+      "slack": 5.934375000000017,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "DÉPLOIEMENT",
+      "width": 798.0800170898438,
+      "ascent": 141.265625,
+      "slack": 5.934375000000017,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "MÉTIERS",
+      "width": 495.3599853515625,
+      "ascent": 141.265625,
+      "slack": 5.934375000000017,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "AMÉLIORATION",
+      "width": 849.7599487304688,
+      "ascent": 141.265625,
+      "slack": 5.934375000000017,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "RÉDUCTION",
+      "width": 651.52001953125,
+      "ascent": 141.265625,
+      "slack": 5.934375000000017,
+      "loaded": true
+    },
+    {
+      "weight": 800,
+      "size": 160,
+      "s": "D’UNE IA QUI PARLE À DES AGENTS QUI EXÉCUTENT",
+      "width": 2902.560302734375,
+      "ascent": 141.265625,
+      "slack": 5.934375000000017,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "PRISE DE CONSCIENCE",
+      "width": 384.1919860839844,
+      "ascent": 33.96875,
+      "slack": 10.191250000000004,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "EXÉCUTION",
+      "width": 196.7519989013672,
+      "ascent": 42.234375,
+      "slack": 1.9256250000000037,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "ÉQUIPES",
+      "width": 145.24798583984375,
+      "ascent": 42.234375,
+      "slack": 1.9256250000000037,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "DÉPLOIEMENT",
+      "width": 242.59197998046875,
+      "ascent": 42.234375,
+      "slack": 1.9256250000000037,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "MÉTIERS",
+      "width": 151.00799560546875,
+      "ascent": 42.234375,
+      "slack": 1.9256250000000037,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "AMÉLIORATION",
+      "width": 260.3520202636719,
+      "ascent": 42.234375,
+      "slack": 1.9256250000000037,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "RÉDUCTION",
+      "width": 197.99998474121094,
+      "ascent": 42.234375,
+      "slack": 1.9256250000000037,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 48,
+      "s": "D’UNE IA QUI PARLE À DES AGENTS QUI EXÉCUTENT",
+      "width": 884.9281005859375,
+      "ascent": 42.234375,
+      "slack": 1.9256250000000037,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "PRISE DE CONSCIENCE",
+      "width": 768.3839721679688,
+      "ascent": 67.953125,
+      "slack": 20.366875000000007,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "EXÉCUTION",
+      "width": 393.5039978027344,
+      "ascent": 84.46875,
+      "slack": 3.8512500000000074,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "ÉQUIPES",
+      "width": 290.4959716796875,
+      "ascent": 84.46875,
+      "slack": 3.8512500000000074,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "DÉPLOIEMENT",
+      "width": 485.1839599609375,
+      "ascent": 84.46875,
+      "slack": 3.8512500000000074,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "MÉTIERS",
+      "width": 302.0159912109375,
+      "ascent": 84.46875,
+      "slack": 3.8512500000000074,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "AMÉLIORATION",
+      "width": 520.7040405273438,
+      "ascent": 84.46875,
+      "slack": 3.8512500000000074,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "RÉDUCTION",
+      "width": 395.9999694824219,
+      "ascent": 84.46875,
+      "slack": 3.8512500000000074,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 96,
+      "s": "D’UNE IA QUI PARLE À DES AGENTS QUI EXÉCUTENT",
+      "width": 1769.856201171875,
+      "ascent": 84.46875,
+      "slack": 3.8512500000000074,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "PRISE DE CONSCIENCE",
+      "width": 1280.64013671875,
+      "ascent": 113.265625,
+      "slack": 33.93437500000002,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "EXÉCUTION",
+      "width": 655.8399658203125,
+      "ascent": 140.796875,
+      "slack": 6.403125000000017,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "ÉQUIPES",
+      "width": 484.15997314453125,
+      "ascent": 140.796875,
+      "slack": 6.403125000000017,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "DÉPLOIEMENT",
+      "width": 808.6400146484375,
+      "ascent": 140.796875,
+      "slack": 6.403125000000017,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "MÉTIERS",
+      "width": 503.3599853515625,
+      "ascent": 140.796875,
+      "slack": 6.403125000000017,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "AMÉLIORATION",
+      "width": 867.8400268554688,
+      "ascent": 140.796875,
+      "slack": 6.403125000000017,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "RÉDUCTION",
+      "width": 660,
+      "ascent": 140.796875,
+      "slack": 6.403125000000017,
+      "loaded": true
+    },
+    {
+      "weight": 900,
+      "size": 160,
+      "s": "D’UNE IA QUI PARLE À DES AGENTS QUI EXÉCUTENT",
+      "width": 2949.760009765625,
+      "ascent": 140.796875,
+      "slack": 6.403125000000017,
+      "loaded": true
+    }
+  ]
+}
