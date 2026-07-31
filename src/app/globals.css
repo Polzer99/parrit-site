@@ -114,6 +114,57 @@ body {
   padding: 0;
 }
 
+/* ═══════════════════════════════════════════════════════════════════════
+   HOMEPAGE-LEVEL0-V1 — fond structurel du variant.
+
+   Le body porte en production une photo de paysage sous un dégradé `#F5F8FF`,
+   couleur périmée. C'est la violation la plus visible du Structural Integrity
+   Test : la page dépend d'une image pour exister, et aucun média narratif ne
+   doit être attaché globalement au body.
+
+   Cette règle ne s'applique QUE si le variant est rendu. Flag éteint =
+   sélecteur sans correspondance = ancien rendu restauré, sans autre geste.
+   Aucune autre route, aucune autre langue n'est touchée.
+
+   Le papier et le grain trois couches viennent de `parrit-tokens.css`, via la
+   classe `.parrit-grain` portée par le variant.
+   ═══════════════════════════════════════════════════════════════════════ */
+body:has(.home-level0) {
+  background-image: none;
+  background-color: #fffdfa;
+  background-attachment: initial;
+}
+
+/* Le variant occupe la pleine largeur, avec les gouttières canoniques. */
+.home-level0 {
+  position: relative;
+  background: #fffdfa;
+
+  /* Surcharge de COMPOSITION, pas de token canonique.
+     Le rythme par défaut (`--space-section-lg` 8rem, `--space-section-md` 6rem)
+     est calibré pour une page de documentation. Sur un premier écran
+     commercial, il repousse le rail de preuve sous la ligne de flottaison à
+     1440x900, ce qui contredit le critère « preuve visible immédiatement
+     après le hero ».
+     La valeur canonique n'est pas modifiée : elle est redéfinie ici, pour
+     cette composition seulement, par la cascade. Le specimen et les autres
+     pages gardent le rythme d'origine. */
+  --space-section-lg: 5rem;
+  --space-section-md: 3.5rem;
+}
+
+.home-level0-inner {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+@media (min-width: 64rem) {
+  .home-level0-inner {
+    padding: 0 4rem;
+  }
+}
+
 /* Paysage uniquement sur la home (presence de .home-template) */
 body:not(:has(.home-template)) {
   background-image: none;

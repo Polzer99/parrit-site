@@ -41,3 +41,34 @@ Première version canonique. Consolidation de cinq sources contradictoires en un
 ### Non fait, volontairement
 
 Aucune page publique modifiée. Aucun merge, aucun déploiement. `AGENTS.md` non repointé vers ce dossier — c'est la tranche suivante.
+
+---
+
+## 1.1.0 — 2026-07-31
+
+Tranche `HOMEPAGE-LEVEL0-V1`. Premier écran commercial de `/fr`, derrière feature flag éteint par défaut.
+
+### Ajouté
+
+- `src/lib/flags.ts` — premier mécanisme de feature flag du repository. Variable d'environnement lue au build, garde `lang !== "fr"` dans la fonction elle-même. Le rendu statique des quatre langues est préservé.
+- `src/components/HomeLevel0.tsx` — composition du variant. Ne redéfinit aucun style, compose les composants canoniques.
+- `scripts/homepage-level0-qa.mjs` — harnais dédié : intégrité structurelle, rouge causal, hiérarchie de CTA, typographie française, responsive, accessibilité, analytics.
+- `docs/design-system/HOMEPAGE-LEVEL0-V1.md` — document de tranche.
+- 5 événements dans `src/lib/analytics.ts`, sur le système PostHog existant. Aucune nouvelle base, aucune donnée personnelle.
+- Un bloc scopé dans `globals.css` : fond structurel du variant et surcharge de composition du rythme vertical.
+
+### Modifié
+
+- `HeroLevel0` : `secondaryLink` (lien texte discret, distinct de `secondaryCta`), `primaryCtaProps`, `secondaryLinkProps`. Optionnels, comportement par défaut inchangé.
+- `ProofRailLevel0` : `index`, `label`, `title`, `lede`, `itemProps` surchargeables, avec les valeurs du specimen par défaut.
+- `HomeDeux` : prop `hideHero`, par défaut `false`.
+
+### Corrigé
+
+- `ProofRailLevel0` rendait le propriétaire et le périmètre dans un `Label`, `nowrap` par contrat. Une phrase dans un `Label` débordait horizontalement à 375 px. Le libellé reste un `Label`, la valeur devient du texte courant qui se replie.
+- **Erreur d'audit corrigée dans `STATUS.md`** : la photo de fond n'est pas servie « sur toutes les pages ». `/fr` et `/en` ont `background-image: none`. Elle est active uniquement sur les pages portant `.home-template`.
+- **Erreur de harnais** : la première version du QA remplaçait `window.posthog`, ce qui cassait le chargeur PostHog et tuait le sous-arbre React à l'hydratation. Quatre faux échecs. Le harnais bloque désormais le script distant et lit la file du stub natif.
+
+### Non fait, volontairement
+
+Aucune page publique exposée. Le reste de la homepage, la navigation, le footer et les trois autres langues sont intacts.

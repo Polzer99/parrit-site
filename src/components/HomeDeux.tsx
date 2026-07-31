@@ -325,8 +325,14 @@ function AgentCard({ group }: { group: AgentGroup }) {
   );
 }
 
-export default function HomeDeux({ lang }: {
+export default function HomeDeux({ lang, hideHero = false }: {
   lang: Locale;
+  /**
+   * HOMEPAGE-LEVEL0-V1 : quand le variant est actif, le hero historique n'est
+   * pas rendu, `HomeLevel0` le remplace au-dessus. Le reste de la page est
+   * inchangé. Rollback : le flag repasse à `false`, ce hero revient.
+   */
+  hideHero?: boolean;
   [key: string]: unknown;
 }) {
   const t = DICT[lang] ?? DICT.fr;
@@ -344,6 +350,7 @@ export default function HomeDeux({ lang }: {
       <HomeMotion />
 
       {/* ===== HERO ===== */}
+      {!hideHero && (
       <header className="hd-hero">
         <div className="hd-mark">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -365,6 +372,7 @@ export default function HomeDeux({ lang }: {
           </Link>
         </div>
       </header>
+      )}
 
       {/* ===== SUR LE TERRAIN (preuve d'execution, vraies photos) ===== */}
       <section className="hd-terrain" data-reveal aria-labelledby="hd-terrain-h">

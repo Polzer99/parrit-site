@@ -13,7 +13,14 @@ export type EventName =
   | "hero_cta_click"
   | "diagnostic_started"
   | "diagnostic_completed"
-  | "diagnostic_lead";
+  | "diagnostic_lead"
+  // HOMEPAGE-LEVEL0-V1 — instrumentation du variant de hero structurel.
+  // Contrat détaillé : docs/design-system/HOMEPAGE-LEVEL0-V1.md
+  | "homepage_level0_view"
+  | "homepage_level0_primary_cta_click"
+  | "homepage_level0_secondary_link_click"
+  | "homepage_level0_proof_interaction"
+  | "homepage_level0_scroll_to_next_section";
 
 export type EventProperties = Record<string, string | number | boolean>;
 

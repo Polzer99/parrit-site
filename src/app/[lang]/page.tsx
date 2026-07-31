@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { hasLocale, locales, type Locale } from "./dictionaries";
 import HomeDeux from "@/components/HomeDeux";
+import HomeLevel0 from "@/components/HomeLevel0";
+import { isHomepageLevel0Enabled } from "@/lib/flags";
 import { CHEMIN_CONTENT } from "@/lib/chemin-content";
 import { getAllLaunches } from "@/lib/launches";
 import { getAllPosts, type BlogLocale } from "@/lib/blog";
@@ -60,5 +62,19 @@ export default async function Page({
     .filter((p) => p.slug !== "evaluation-adoption-sap-intelligence-artificielle")
     .slice(0, 5);
 
-  return <HomeDeux lang={lang as Locale} launches={latestLaunches} posts={posts} />;
+  // HOMEPAGE-LEVEL0-V1 : `/fr` uniquement, derrière `NEXT_PUBLIC_HOMEPAGE_LEVEL0_V1`.
+  // Éteint par défaut. Les autres langues ne sont jamais affectées.
+  const level0 = isHomepageLevel0Enabled(lang);
+
+  return (
+    <>
+      {level0 && <HomeLevel0 />}
+      <HomeDeux
+        lang={lang as Locale}
+        launches={latestLaunches}
+        posts={posts}
+        hideHero={level0}
+      />
+    </>
+  );
 }

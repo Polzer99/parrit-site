@@ -12,6 +12,44 @@
 import type { CSSProperties } from "react";
 import { Badge, Divider, IndexMark, Label, Metric, SectionHeader, Button } from "./primitives";
 
+/* ---------------------------------------------- styles d'action du hero */
+
+/**
+ * L'action principale. Un seul élément de la page peut porter ce poids.
+ * Rectangle net, rouge signal, aucune ombre, aucun rayon.
+ */
+const PRIMARY_ACTION_STYLE: CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  minHeight: "var(--control-height-lg)",
+  padding: "0 var(--space-6)",
+  background: "var(--color-action-primary)",
+  color: "var(--color-ink-inverse)",
+  fontFamily: "var(--type-mono-primary)",
+  fontSize: "var(--type-size-sm)",
+  fontWeight: 600,
+  letterSpacing: "var(--type-tracking-label)",
+  textTransform: "uppercase",
+  textDecoration: "none",
+  border: "none",
+  borderRadius: "var(--radius-none)",
+  boxShadow: "var(--shadow-none)",
+};
+
+/**
+ * Le lien secondaire. Volontairement typé comme du texte, pas comme un bouton :
+ * un second bouton plein recréerait la double porte commerciale.
+ */
+const SECONDARY_LINK_STYLE: CSSProperties = {
+  fontFamily: "var(--type-mono-primary)",
+  fontSize: "var(--type-size-sm)",
+  color: "var(--color-ink-muted)",
+  textDecoration: "underline",
+  textUnderlineOffset: "0.3em",
+  textDecorationColor: "var(--color-line-hairline)",
+};
+
 /* ============================================================== HeroLevel0 */
 
 export type HeroLevel0Props = {
@@ -25,9 +63,24 @@ export type HeroLevel0Props = {
   ledeStrong?: string;
   lede: string;
   primaryCta?: { label: string; href: string };
+  /**
+   * Seconde action de même poids visuel. À n'utiliser QUE si la page assume
+   * deux portes équivalentes. Sur une page commerciale, préférer
+   * `secondaryLink` : deux boutons pleins créent la double porte que le canon
+   * de conversion demande de supprimer.
+   */
   secondaryCta?: { label: string; href: string };
+  /**
+   * Lien texte discret, sous les actions. Répond à un besoin DISTINCT du CTA
+   * principal (voir des exemples, comprendre la méthode) et ne doit jamais le
+   * concurrencer visuellement.
+   */
+  secondaryLink?: { label: string; href: string };
   /** Bandeau de conditions réelles : périmètre, format, contrainte. */
   conditions?: string[];
+  /** Attributs data-* posés sur les actions, pour l'instrumentation. */
+  primaryCtaProps?: Record<string, string>;
+  secondaryLinkProps?: Record<string, string>;
 };
 
 /**
@@ -43,7 +96,10 @@ export function HeroLevel0({
   lede,
   primaryCta,
   secondaryCta,
+  secondaryLink,
   conditions,
+  primaryCtaProps,
+  secondaryLinkProps,
 }: HeroLevel0Props) {
   return (
     <section
@@ -101,17 +157,32 @@ export function HeroLevel0({
         {lede}
       </p>
 
-      {(primaryCta || secondaryCta) && (
-        <div style={{ display: "flex", gap: "var(--space-4)", flexWrap: "wrap" }}>
+      {(primaryCta || secondaryCta || secondaryLink) && (
+        <div
+          style={{
+            display: "flex",
+            gap: "var(--space-5)",
+            flexWrap: "wrap",
+            alignItems: "center",
+          }}
+        >
           {primaryCta && (
-            <Button href={primaryCta.href} variant="primary">
+            <a href={primaryCta.href} {...primaryCtaProps} style={PRIMARY_ACTION_STYLE}>
               {primaryCta.label}
-            </Button>
+              <span aria-hidden="true" style={{ marginLeft: "var(--space-3)" }}>
+                →
+              </span>
+            </a>
           )}
           {secondaryCta && (
             <Button href={secondaryCta.href} variant="secondary">
               {secondaryCta.label}
             </Button>
+          )}
+          {secondaryLink && (
+            <a href={secondaryLink.href} {...secondaryLinkProps} style={SECONDARY_LINK_STYLE}>
+              {secondaryLink.label}
+            </a>
           )}
         </div>
       )}
@@ -137,6 +208,15 @@ export function HeroLevel0({
 
 /* ========================================================= ProofRailLevel0 */
 
+/** Valeur d'une métadonnée de preuve. Contrairement au Label, elle se replie. */
+const META_VALUE_STYLE: CSSProperties = {
+  fontFamily: "var(--type-mono-primary)",
+  fontSize: "var(--type-size-xs)",
+  lineHeight: "var(--type-leading-mono)",
+  color: "var(--color-ink-muted)",
+  minWidth: 0,
+};
+
 export type ProofItem = {
   index: string;
   input: string;
@@ -150,19 +230,33 @@ export type ProofItem = {
  * C'est le modèle de preuve Parrit rendu visible. Le rouge marque le PASSAGE
  * input → output : c'est là qu'est la causalité.
  */
-export function ProofRailLevel0({ items }: { items: ProofItem[] }) {
+export function ProofRailLevel0({
+  items,
+  index = "01",
+  label = "Ce qui tourne",
+  title = "Un input réel, un output défini, un propriétaire humain.",
+  lede,
+  itemProps,
+}: {
+  items: ProofItem[];
+  /** En-tête surchargeable. Les valeurs par défaut sont celles du specimen. */
+  index?: string;
+  label?: string;
+  title?: string;
+  lede?: string;
+  /** Attributs data-* posés sur chaque ligne, pour l'instrumentation. */
+  itemProps?: Record<string, string>;
+}) {
   return (
     <section style={{ paddingBlock: "var(--space-section-md)" }}>
-      <SectionHeader
-        index="01"
-        label="Ce qui tourne"
-        title="Un input réel, un output défini, un propriétaire humain."
-      />
+      <SectionHeader index={index} label={label} title={title} lede={lede} />
       <div style={{ marginTop: "var(--space-7)", display: "grid", gap: "var(--space-6)" }}>
         {items.map((item) => (
           <article
             key={item.index}
             className="ds-row-indexed"
+            {...itemProps}
+            data-proof-index={item.index}
             style={{
               paddingTop: "var(--space-5)",
               borderTop: "var(--border-hairline) solid var(--color-line-hairline)",
@@ -192,10 +286,24 @@ export function ProofRailLevel0({ items }: { items: ProofItem[] }) {
                 </span>
                 <span>{item.output}</span>
               </div>
-              <div style={{ display: "flex", gap: "var(--space-5)", flexWrap: "wrap" }}>
-                <Label>Propriétaire · {item.owner}</Label>
-                <Label>Périmètre · {item.scope}</Label>
-              </div>
+              {/* Le LIBELLÉ est un Label (court, une ligne, nowrap par
+                  contrat). La VALEUR est du texte courant, qui doit pouvoir
+                  passer à la ligne : mettre une phrase dans un Label produit un
+                  débordement horizontal en mobile. */}
+              <dl style={{ margin: 0, display: "grid", gap: "var(--space-2)" }}>
+                <div style={{ display: "flex", gap: "var(--space-3)", flexWrap: "wrap" }}>
+                  <dt style={{ margin: 0 }}>
+                    <Label>Propriétaire</Label>
+                  </dt>
+                  <dd style={{ margin: 0, ...META_VALUE_STYLE }}>{item.owner}</dd>
+                </div>
+                <div style={{ display: "flex", gap: "var(--space-3)", flexWrap: "wrap" }}>
+                  <dt style={{ margin: 0 }}>
+                    <Label>Périmètre</Label>
+                  </dt>
+                  <dd style={{ margin: 0, ...META_VALUE_STYLE }}>{item.scope}</dd>
+                </div>
+              </dl>
             </div>
           </article>
         ))}

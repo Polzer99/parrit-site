@@ -1,0 +1,245 @@
+{
+  "base": "http://localhost:3210",
+  "route": "/fr",
+  "viewports": {
+    "375": {
+      "media": {
+        "imgs": 0,
+        "bgImages": 0
+      },
+      "bodyBackgroundImage": "none",
+      "red": {
+        "segments": 1,
+        "texts": [
+          "exécutent."
+        ],
+        "full": "D’une IA qui parle à des agents qui exécutent."
+      },
+      "cta": {
+        "total": 2,
+        "primaries": 1,
+        "primaryLabels": [
+          "Décrire un workflow→"
+        ],
+        "labels": [
+          "Décrire un workflow→",
+          "Voir des exemples"
+        ]
+      },
+      "typo": {
+        "family": "Arpona",
+        "ratio": 1.08,
+        "ink": 45.67,
+        "lineHeight": 47.52,
+        "clearance": 1.85,
+        "overflowRight": 0
+      },
+      "responsive": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "tooSmall": 0,
+        "tooSmallSample": []
+      },
+      "a11y": {
+        "h1Count": 1,
+        "ordered": true,
+        "headings": [
+          1,
+          2
+        ],
+        "h1Text": "D’une IA qui parle à des agents qui exécutent."
+      },
+      "analytics": {
+        "total": 5,
+        "names": [
+          "homepage_level0_view",
+          "form_view",
+          "homepage_level0_proof_interaction",
+          "homepage_level0_scroll_to_next_section",
+          "scroll_depth"
+        ]
+      }
+    },
+    "768": {
+      "media": {
+        "imgs": 0,
+        "bgImages": 0
+      },
+      "bodyBackgroundImage": "none",
+      "red": {
+        "segments": 1,
+        "texts": [
+          "exécutent."
+        ],
+        "full": "D’une IA qui parle à des agents qui exécutent."
+      },
+      "cta": {
+        "total": 2,
+        "primaries": 1,
+        "primaryLabels": [
+          "Décrire un workflow→"
+        ],
+        "labels": [
+          "Décrire un workflow→",
+          "Voir des exemples"
+        ]
+      },
+      "typo": {
+        "family": "Arpona",
+        "ratio": 1.08,
+        "ink": 47.83,
+        "lineHeight": 49.77,
+        "clearance": 1.94,
+        "overflowRight": 0
+      },
+      "responsive": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "tooSmall": 0,
+        "tooSmallSample": []
+      },
+      "a11y": {
+        "h1Count": 1,
+        "ordered": true,
+        "headings": [
+          1,
+          2
+        ],
+        "h1Text": "D’une IA qui parle à des agents qui exécutent."
+      },
+      "analytics": {
+        "total": 5,
+        "names": [
+          "homepage_level0_view",
+          "form_view",
+          "homepage_level0_proof_interaction",
+          "homepage_level0_scroll_to_next_section",
+          "scroll_depth"
+        ]
+      }
+    },
+    "1024": {
+      "media": {
+        "imgs": 0,
+        "bgImages": 0
+      },
+      "bodyBackgroundImage": "none",
+      "red": {
+        "segments": 1,
+        "texts": [
+          "exécutent."
+        ],
+        "full": "D’une IA qui parle à des agents qui exécutent."
+      },
+      "cta": {
+        "total": 2,
+        "primaries": 1,
+        "primaryLabels": [
+          "Décrire un workflow→"
+        ],
+        "labels": [
+          "Décrire un workflow→",
+          "Voir des exemples"
+        ]
+      },
+      "typo": {
+        "family": "Arpona",
+        "ratio": 1.08,
+        "ink": 63.77,
+        "lineHeight": 66.36,
+        "clearance": 2.58,
+        "overflowRight": 0
+      },
+      "responsive": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "tooSmall": 0,
+        "tooSmallSample": []
+      },
+      "a11y": {
+        "h1Count": 1,
+        "ordered": true,
+        "headings": [
+          1,
+          2
+        ],
+        "h1Text": "D’une IA qui parle à des agents qui exécutent."
+      },
+      "analytics": {
+        "total": 5,
+        "names": [
+          "homepage_level0_view",
+          "form_view",
+          "homepage_level0_proof_interaction",
+          "homepage_level0_scroll_to_next_section",
+          "scroll_depth"
+        ]
+      }
+    },
+    "1440": {
+      "media": {
+        "imgs": 0,
+        "bgImages": 0
+      },
+      "bodyBackgroundImage": "none",
+      "red": {
+        "segments": 1,
+        "texts": [
+          "exécutent."
+        ],
+        "full": "D’une IA qui parle à des agents qui exécutent."
+      },
+      "cta": {
+        "total": 2,
+        "primaries": 1,
+        "primaryLabels": [
+          "Décrire un workflow→"
+        ],
+        "labels": [
+          "Décrire un workflow→",
+          "Voir des exemples"
+        ]
+      },
+      "typo": {
+        "family": "Arpona",
+        "ratio": 1.08,
+        "ink": 74.74,
+        "lineHeight": 77.76,
+        "clearance": 3.02,
+        "overflowRight": 0
+      },
+      "responsive": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "tooSmall": 0,
+        "tooSmallSample": []
+      },
+      "a11y": {
+        "h1Count": 1,
+        "ordered": true,
+        "headings": [
+          1,
+          2
+        ],
+        "h1Text": "D’une IA qui parle à des agents qui exécutent."
+      },
+      "analytics": {
+        "total": 5,
+        "names": [
+          "homepage_level0_view",
+          "form_view",
+          "homepage_level0_proof_interaction",
+          "homepage_level0_scroll_to_next_section",
+          "scroll_depth"
+        ]
+      },
+      "focus": {
+        "tag": "A",
+        "text": "Voir des exemples",
+        "outline": "auto",
+        "outlineWidth": "1px"
+      }
+    }
+  },
+  "failures": []
+}

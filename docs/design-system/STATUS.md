@@ -28,7 +28,7 @@ Mesures faites le 31/07 sur `origin/main` et sur le CSS réellement servi par `p
 
 | Écart | Volume | Règle violée | Difficulté |
 |---|---:|---|---|
-| **Fond `body` = photo `paysage-lo-y-wa.jpg` + dégradé `#F5F8FF`** | 1 | Structural Integrity + palette périmée + zéro dégradé | **visible en prod · retrait décidé, voir ci-dessous** |
+| **Fond `body` = photo `paysage-lo-y-wa.jpg` + dégradé `#F5F8FF`** | 1 | Structural Integrity + palette périmée + zéro dégradé | **actif sur les pages `.home-template` seulement, PAS sur la homepage** — voir la correction ci-dessous |
 | Tokens `--shadow` / `--shadow-sm` / `--shadow-lg` déclarés dans `:root` | 3 | aucun token d'ombre n'existe | faible |
 | `box-shadow` non nulle | 4 | `shadow.none` | faible |
 | Alias redondants dans `:root` (5 noms pour le rouge, 5 pour le filet, 4 pour l'encre sombre) | ~20 | nommage sémantique | moyenne |
@@ -42,9 +42,11 @@ Mesures faites le 31/07 sur `origin/main` et sur le CSS réellement servi par `p
 
 ## Décision irréversible : le fond photo du `body` est obsolète
 
-**Tranché par Paul le 31/07/2026. Non appliqué dans cette tranche, volontairement.**
+**Tranché par Paul le 31/07/2026.**
 
-La production sert aujourd'hui, sur toutes les pages, un `body` dont le fond est une photographie de paysage (`/brand/paysage-lo-y-wa.jpg`) en `background-attachment: fixed`, recouverte d'un dégradé `#F5F8FF`, couleur périmée.
+> ⚠️ **Correction du 31/07, mesurée.** Le paragraphe ci-dessous affirmait que la photo était servie « sur toutes les pages ». **C'est faux.** Vérifié au navigateur : `/fr` et `/en` ont `background-image: none`, parce que la règle existante `body:not(:has(.home-template))` la neutralise déjà et que la homepage pivot ne porte pas cette classe. La photo est bien active, mais **uniquement sur les pages qui portent `.home-template`**, comme `/fr/deployer`. La dette est réelle, son périmètre est plus étroit qu'annoncé.
+
+La production sert, sur les pages portant `.home-template`, un `body` dont le fond est une photographie de paysage (`/brand/paysage-lo-y-wa.jpg`) en `background-attachment: fixed`, recouverte d'un dégradé `#F5F8FF`, couleur périmée.
 
 Trois règles sont violées en même temps : un média narratif est attaché **globalement** au `body`, donc la page dépend d'une image pour exister ; la couleur du dégradé n'appartient plus à la palette ; et le système interdit tout dégradé décoratif.
 
@@ -86,9 +88,19 @@ Les **12 documents du Brand OS** n'avaient jamais été commités : `git ls-file
 - Safari : la QA tourne sur Chromium seul. Le test typographique français n'a pas été rejoué sur WebKit.
 - `scripts/contrast-audit.py` n'a pas été exécuté sur la page specimen.
 
-## Prochaine tranche — `HOMEPAGE-LEVEL0-V1`
+## ✅ Tranche `HOMEPAGE-LEVEL0-V1` — implémentée, testée, non exposée
 
-**Spécifiée, non implémentée.** Aucune page publique n'est modifiée tant que cette tranche n'est pas ouverte explicitement.
+**31/07/2026.** Hero structurel et rail de preuve sur `/fr`, derrière `NEXT_PUBLIC_HOMEPAGE_LEVEL0_V1`, **éteint par défaut**. Document complet : `HOMEPAGE-LEVEL0-V1.md`.
+
+Livré : hero sans média, double porte commerciale supprimée, CTA principal unique vers `/diagnostic`, rail de preuve sans aucun chiffre inventé, fond structurel garanti, 5 événements analytics sur le système existant, harnais QA dédié (`scripts/homepage-level0-qa.mjs`).
+
+Tout est vert aux quatre largeurs : intégrité structurelle, rouge causal, hiérarchie de CTA, typographie française, responsive, accessibilité, contraste, rollback, analytics. Le specimen `/design-system` ne régresse pas.
+
+Trois extensions rétrocompatibles ont été apportées aux composants canoniques (`secondaryLink`, attributs `data-*`, en-tête surchargeable du rail), plus une correction de fond : le propriétaire et le périmètre d'une preuve ne sont plus rendus dans un `Label`, qui est `nowrap` par contrat et débordait en mobile.
+
+**Rien n'est exposé.** L'activation demande une variable d'environnement et un build.
+
+### Spécification d'origine, pour mémoire
 
 ### Périmètre strict
 
