@@ -91,3 +91,15 @@ Les décisions antérieures à ADR-007 vivent dans `brand/09_GOVERNANCE.md` (ADR
 - **Alternatives :** (a) garder `1.05` et vivre avec un seuil non tenable ; (b) réduire la taille des titres, ce qui traite le symptôme et abîme la silhouette éditoriale.
 - **Conséquence :** marge portée à environ **1,3 px à 375 px** et **4,6 px à 1440 px**. Les titres sont légèrement plus aérés que la maquette Figma, dessinée à `0.9` **en anglais**, sans capitale accentuée. Écart assumé et documenté. Plancher absolu inchangé : **jamais sous 1.04**.
 - **Rollback :** repasser le token à `1.05`. La QA continue de passer, la fragilité revient.
+
+---
+
+## ADR-014 · ADR-015 · ADR-016 — décisions de marque, propriété de `brand/09_GOVERNANCE.md`
+
+Ces trois décisions ont été prises le 31/07/2026 dans la tranche `BRAND-CANON-V1`. Elles portent sur la **marque**, pas sur le design system : leur document propriétaire est `brand/09_GOVERNANCE.md`, et elles n'y sont pas recopiées ici.
+
+- **ADR-014** — positionnement transversal : le point commun de tous les interlocuteurs de Parrit est une **posture**, pas un secteur. Distinction obligatoire entre la **relation** (comment la confiance se crée, comment l'opportunité entre) et la **posture** (à qui Parrit parle, qui est prêt à agir).
+- **ADR-015** — le Brand OS est versionné. Il n'avait jamais été commité. Le partage d'autorité devient explicite : `brand/` possède la doctrine, `docs/design-system/` possède sa traduction visuelle et technique.
+- **ADR-016** — `fileKey` Figma `J8hieoaq5XwOxqtQJbiP0A` renseigné, autorité partagée entre repository (tokens et règles) et Figma (compositions validées).
+
+**Numérotation.** Les ADR de Parrit suivent un **compteur unique** réparti sur deux journaux : ADR-001 à 006 dans `brand/09_GOVERNANCE.md`, ADR-007 à 013 ici, ADR-014 et suivants dans le journal du document propriétaire de la règle. Un numéro n'est jamais réutilisé : vérifier les deux journaux avant d'en créer un.

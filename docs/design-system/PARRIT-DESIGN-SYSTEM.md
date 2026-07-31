@@ -7,13 +7,26 @@
 > Il porte les décisions. Les documents `01` à `12` portent le détail.
 > Si tu n'as le budget que pour un seul fichier, c'est celui-ci.
 
-Chaîne de précédence :
+## Ce document dépend du Brand OS
+
+**`brand/` possède la doctrine. Ce document en est la traduction visuelle et technique.**
+
+Le Design System **ne redéfinit pas le positionnement**. Identité, vision, positionnement, principes, voix, récit, publics, promesse, preuves et décisions de marque vivent dans `brand/`, et nulle part ailleurs.
+
+- **Avant tout changement de marque** (promesse, positionnement, publics, voix, preuves), lire `brand/README.md` puis `brand/00_SOURCE_OF_TRUTH.md`. Un changement de marque ne se décide pas ici.
+- **Pour une tâche purement UI** (un composant, un token, une grille, une correction de rendu), ce fichier suffit. Inutile de relire les dix documents historiques du Brand OS.
+
+Chaîne de précédence complète :
 
 ```
-PARRIT-DESIGN-SYSTEM.md  >  01–12 (documents détaillés)  >  Figma audité  >  code  >  site en ligne
+brand/README.md  >  brand/00_SOURCE_OF_TRUTH.md  >  brand/01_DESIGN_TOKENS.md
+  >  brand/02–06 (doctrine)  >  brand/07–09 (Figma, implémentation, ADR)
+  >  PARRIT-DESIGN-SYSTEM.md  >  01–12  >  tokens et composants du code  >  pages
 ```
 
 Hors de ce repository, `REGLES-DOR.md` puis `VISION.md` priment. Le site en ligne est une **sortie** du système, jamais la source.
+
+**Règle de résolution :** en cas de contradiction, la décision la plus récente consignée dans un ADR prévaut. Les ADR suivent une **numérotation continue unique** sur deux journaux : `brand/09_GOVERNANCE.md` (marque) et `DECISIONS.md` (design system). Une implémentation ne peut jamais modifier le canon en silence.
 
 ---
 

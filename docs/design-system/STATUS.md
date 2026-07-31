@@ -15,7 +15,7 @@
 | Niveau 0 | `src/components/ds/level0.tsx` | **canonique** |
 | Page specimen | `src/app/design-system/` | **canonique**, noindex |
 | QA outillée | `scripts/ds-specimen-qa.mjs` | **canonique**, 4 viewports, sortie non nulle si échec |
-| Doctrine détaillée | `brand/` (00 à 10) | **canonique en doctrine**, sauf `01` (voir ci-dessous) |
+| Brand OS, doctrine | `brand/` (00 à 10 + README) | **canonique, versionné le 31/07**, corrections d'import appliquées |
 | Variables Figma | `Direction-artistique`, `J8hieoaq5XwOxqtQJbiP0A` | **3 variables seulement** : `Noire`, `Rouge`, `Blanc` |
 
 ## Ce qui reste provisoire
@@ -56,19 +56,28 @@ Trois règles sont violées en même temps : un média narratif est attaché **g
 
 **Ce qui n'est pas fait ici, et pourquoi.** Le retrait se voit immédiatement en production sur toutes les pages à la fois. Il appartient donc à la tranche homepage, avec captures avant/après aux quatre largeurs et un rollback d'une ligne, pas à une tranche de fondations qui ne touche aucune page publique.
 
-## 🔴 Bloquant découvert le 31/07 : `brand/` n'est pas versionné
+## ✅ Brand OS sécurisé — tranche `BRAND-CANON-V1`, 31/07/2026
 
-Les **11 documents du Brand OS v0.2.1**, écrits le 30/07 et cités partout comme doctrine détaillée, **n'ont jamais été commités**. `git ls-files brand/` renvoie zéro. Ils existent uniquement en fichiers non suivis dans le worktree `~/parrit-site`, sur la branche `feat/pivot-collaborateurs-souverains`.
+Les **12 documents du Brand OS** n'avaient jamais été commités : `git ls-files brand/` renvoyait zéro. Ils vivaient en fichiers non suivis dans le worktree `~/parrit-site`, sans aucune sauvegarde. C'était le canon de marque de toute l'entreprise, et un `git clean` suffisait à l'effacer.
 
-Conséquences immédiates :
+**Ils sont désormais versionnés** dans `brand/`, importés octet pour octet avec leurs dates, sans aucune écriture dans le worktree source (ADR-015).
 
-- **Ils ne survivent pas à un `git clean`, à un changement de branche mal maîtrisé, ni à une panne de disque.** C'est le canon de marque de toute l'entreprise, et il tient sur des fichiers non sauvegardés.
-- Les deux corrections décidées le 31/07 (Arpona dans `brand/01_DESIGN_TOKENS.md`, `fileKey` dans `brand/07_FIGMA_SYNC.md`) **n'ont pas pu être appliquées** : les fichiers ne sont pas dans ce dépôt.
-- Toute référence à `brand/` depuis `docs/design-system/` pointe vers quelque chose qui n'existe pas pour un autre développeur, ni pour la CI.
+| Correction appliquée à l'import | Où |
+|---|---|
+| Typographie display : Geist → **Arpona**, avec interlignage `1.08`, capitales accentuées et French Typography Test obligatoire | `brand/01`, `brand/02` |
+| `fileKey` Figma **`J8hieoaq5XwOxqtQJbiP0A`** et partage d'autorité explicite | `brand/07` |
+| Référence morte `design-source/figma-template/` signalée | `brand/01` |
+| **Positionnement transversal** : la posture, pas le secteur, et la distinction relation / posture | `brand/00` |
+| Numérotation ADR continue sur deux journaux, plus ADR-014, 015, 016 | `brand/09` |
 
-Le contenu des deux corrections est intégralement consigné ici, donc rien n'est perdu : ADR-007 porte la correction Arpona avec ses preuves, `11_FIGMA_CODE_MAPPING.md` porte le `fileKey` `J8hieoaq5XwOxqtQJbiP0A` et l'état réel du Figma.
+**Deux tensions signalées, volontairement non tranchées** (on ne fusionne pas en silence) :
 
-**Action attendue de Paul :** commiter `brand/` (et les modifications associées de `AGENTS.md`, `DESIGN-SYSTEM.md`, `BRAND.md`, `design-source/DA-TOKENS-EXTRACTED.md`) depuis son worktree, puis appliquer les deux corrections. Tant que ce n'est pas fait, `docs/design-system/` est le **seul** canon réellement versionné.
+- `brand/06_HOMEPAGE_BLUEPRINT.md` décrit un hero avec portrait ; le Design System pose le hero sans image par défaut. Arbitrage renvoyé à `HOMEPAGE-LEVEL0-V1`.
+- `brand/10_SITE_AUDIT_CURRENT.md` porte des chiffres de dette mesurés sur une branche périmée. Le document est conservé tel quel, une bannière renvoie aux chiffres qui font foi, ci-dessous.
+
+**Partage d'autorité désormais explicite :** `brand/` possède la doctrine (identité, vision, positionnement, voix, récit, publics, promesse, preuves) ; `docs/design-system/` possède la traduction visuelle et technique. Le repository reste la source de vérité versionnée.
+
+**Reste à faire côté worktree de Paul :** les modifications de `AGENTS.md`, `DESIGN-SYSTEM.md`, `BRAND.md` et `design-source/DA-TOKENS-EXTRACTED.md` du 30/07 sont **toujours non commitées** chez lui. Elles n'ont pas été touchées.
 
 ## Ce qui n'a pas pu être audité
 

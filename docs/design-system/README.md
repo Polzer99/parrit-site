@@ -54,17 +54,28 @@ npm run build && npm run start
 
 ## Précédence
 
+Ce dossier **applique** le Brand OS. Il ne le remplace pas.
+
 ```
-PARRIT-DESIGN-SYSTEM.md  >  01–12  >  Figma audité  >  code  >  site en ligne
+brand/README.md  >  brand/00_SOURCE_OF_TRUTH.md  >  brand/01_DESIGN_TOKENS.md
+  >  brand/02–06  >  brand/07–09
+  >  PARRIT-DESIGN-SYSTEM.md  >  01–12  >  tokens et composants du code  >  pages
 ```
+
+| `brand/` possède | ce dossier possède |
+|---|---|
+| identité, vision, positionnement | traduction visuelle |
+| doctrine, principes, voix, récit | tokens, composants, grille, typographie |
+| publics, promesse, preuves | photographie, UI Hermès, conversion |
+| décisions de marque | QA, instructions d'implémentation |
+
+**Avant un changement de marque**, lire `brand/`. **Pour une tâche purement UI**, `PARRIT-DESIGN-SYSTEM.md` suffit.
 
 Hors de ce repository : `REGLES-DOR.md` puis `VISION.md` priment. **Le site en ligne est une sortie du système, jamais la source.**
 
 ## Artefacts historiques — à ne jamais utiliser comme source
 
-`brand/` reste la **doctrine détaillée** dont ce dossier hérite ; il n'est ni supprimé ni contredit, sauf sur `brand/01_DESIGN_TOKENS.md` (typographie de titrage, voir ADR-007).
-
-> ⚠️ **`brand/` n'est pas versionné.** Les 11 documents existent uniquement en fichiers non suivis dans le worktree de Paul. Ils ne sont ni sur `origin/main`, ni dans aucune branche. Tant que ce n'est pas corrigé, **`docs/design-system/` est le seul canon réellement sauvegardé.** Détail et action attendue : `STATUS.md`.
+`brand/` est le **Brand OS** : il possède la doctrine, ce dossier possède sa traduction. Versionné le 31/07/2026 par la tranche `BRAND-CANON-V1` (ADR-015).
 
 Ne sont **plus des sources** : `BRAND.md` · `design-source/DA-TOKENS-EXTRACTED.md` · `brand-visual-system/` (v1.0 et v1.1) · la DNA PostHog/Pancake · `DESIGN-SYSTEM.md`.
 

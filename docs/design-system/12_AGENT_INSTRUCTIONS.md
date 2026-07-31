@@ -10,14 +10,23 @@ Tu travailles sur une interface Parrit.ai. Applique la procédure suivante, dans
 
 ### 1. Avant de produire
 
-Lis, dans cet ordre :
+**Commence par identifier la nature de ta tâche.** Elle change ce que tu dois lire.
+
+| Ta tâche | Ce que tu lis |
+|---|---|
+| **Purement UI** : un composant, un token, une grille, un rendu, une correction visuelle | `PARRIT-DESIGN-SYSTEM.md` suffit. Ne relis pas les dix documents du Brand OS. |
+| **Touche à la marque** : promesse, positionnement, publics, voix, récit, preuves, nom d'une offre | `brand/README.md` puis `brand/00_SOURCE_OF_TRUTH.md` **d'abord**, et le document `brand/` propriétaire de la règle. |
+
+Puis, dans tous les cas :
 
 1. `docs/design-system/PARRIT-DESIGN-SYSTEM.md` — obligatoire, en entier.
 2. Le document détaillé correspondant à ta tâche (`02` typo, `03` tokens, `04` composants, `05` photo, `06` Hermès, `07` copy, `08` conversion, `09` responsive/a11y).
-3. `docs/design-system/DECISIONS.md` — pour ne pas rejouer un arbitrage déjà tranché.
-4. `docs/design-system/STATUS.md` — pour savoir ce qui est canonique et ce qui est encore de la dette.
+3. `docs/design-system/DECISIONS.md` **et** `brand/09_GOVERNANCE.md` — les deux journaux d'ADR, numérotation continue unique. Pour ne pas rejouer un arbitrage déjà tranché.
+4. `docs/design-system/STATUS.md` — ce qui est canonique et ce qui est encore de la dette.
 
-Si une source hors de `docs/design-system/` contredit ces fichiers, **ces fichiers gagnent**. En particulier : `BRAND.md`, `design-source/DA-TOKENS-EXTRACTED.md` et `brand-visual-system/` sont des artefacts historiques, jamais des sources.
+**`brand/` possède la doctrine, `docs/design-system/` possède sa traduction.** Le Design System ne redéfinit jamais le positionnement. Si tu t'apprêtes à changer ce que Parrit dit être, tu es dans `brand/`, pas ici.
+
+Si une source hors de ces deux dossiers les contredit, **ces dossiers gagnent**. En particulier : `BRAND.md`, `design-source/DA-TOKENS-EXTRACTED.md` et `brand-visual-system/` sont des artefacts historiques, jamais des sources.
 
 ### 2. Vérifie l'existant avant de créer
 
