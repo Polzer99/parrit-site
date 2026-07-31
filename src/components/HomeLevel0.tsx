@@ -176,11 +176,12 @@ export default function HomeLevel0() {
   }, []);
 
   return (
-    <div
-      ref={rootRef}
-      className="home-level0 parrit-grain"
-      data-variant={HOMEPAGE_LEVEL0_VARIANT}
-    >
+    // Pas de `.parrit-grain` ici : le grain appartient à la PAGE, pas à une
+    // section. Le `body` en porte déjà une couche ; en ajouter une seconde sur
+    // le seul variant créait une rupture de texture visible à la couture.
+    // La montée du grain de fond à trois couches est une dette globale, suivie
+    // dans STATUS.md, pas un sujet de cette tranche.
+    <div ref={rootRef} className="home-level0" data-variant={HOMEPAGE_LEVEL0_VARIANT}>
       <div className="home-level0-inner">
         <HeroLevel0
           eyebrow={HERO.eyebrow}
@@ -197,10 +198,10 @@ export default function HomeLevel0() {
 
         <div data-level0-proof>
           <ProofRailLevel0
-            /* Volontairement sans numéro : la section « Sur le terrain » juste
-               en dessous porte déjà « 01 » et n'est pas dans le périmètre de
-               cette tranche. Renuméroter la page entière viendra plus tard. */
-            index=""
+            /* Le rail ouvre la numérotation de la page : il est « 01 ».
+               Les sections historiques se décalent d'un cran quand le variant
+               est actif (voir `HomeDeux`, `sectionIndex`). */
+            index="01"
             label="Ce qui tourne"
             title="Vous posez le cas. On rend le résultat."
             lede="Trois workflows réels. Pour chacun, ce qui entre, ce qui sort, qui en reste propriétaire, et ce que l’agent ne fait pas."

@@ -72,3 +72,36 @@ Tranche `HOMEPAGE-LEVEL0-V1`. Premier écran commercial de `/fr`, derrière feat
 ### Non fait, volontairement
 
 Aucune page publique exposée. Le reste de la homepage, la navigation, le footer et les trois autres langues sont intacts.
+
+---
+
+## 1.2.0 — 2026-07-31
+
+Tranche `HOMEPAGE-LEVEL0-SEAM-V1`. Jonction entre le variant Level0 et la homepage historique, derrière le même flag.
+
+### Ajouté
+
+- `scripts/homepage-seam-qa.mjs` — harnais en trois temps (instantané `on`, instantané `off`, comparaison), parce que les deux états du flag demandent deux builds. Couvre la continuité de couture, la numérotation, l'intégrité du contenu historique, l'isolation du flag, la non-régression analytics et la garde de hauteur mobile.
+- `docs/design-system/HOMEPAGE-LEVEL0-SEAM-V1.md` — document de tranche.
+- `NUMBERED_SECTIONS` et `sectionIndex()` dans `HomeDeux` : source unique locale pour les index de section, décalée par `hideHero`.
+
+### Modifié
+
+- `.home-level0-inner` : grille alignée sur celle de la page (1120 px, gouttière 24 px) au lieu de 1280 px et 64 px.
+- Filets du rail de preuve tirés jusqu'au bord de l'élément, pour rejoindre la largeur du filet des sections historiques sans déplacer le texte.
+- `ProofRailLevel0` sur la homepage porte l'index `01` au lieu d'être non numéroté.
+- Respiration de sortie du variant réduite, jonction à 16 px avant le filet.
+
+### Retiré
+
+- Le fond propre du variant : il laisse voir celui de la page, une seule surface peinte.
+- La couche `.parrit-grain` du variant : le grain appartient à la page, pas à une section.
+
+### Corrigé
+
+- **Doublon de numérotation.** La première section historique reprenait à « 01 » juste après le rail, qui restait non numéroté pour l'éviter.
+- **Deux faux positifs de harnais.** Le premier comparait la classe d'animation `is-in`, dépendante de la position de scroll. Le second comparait le fond propre des éléments (`#FFFDFA` déclaré contre `transparent` hérité) au lieu du fond effectif ; il a aussi révélé le vrai défaut, le variant n'ayant pas à peindre son fond.
+
+### Non fait, volontairement
+
+Copy, offres, navigation, footer, autres langues, ordre des sections, couleur de l'eyebrow historique, layout interne de la section terrain, dette de hauteur mobile.

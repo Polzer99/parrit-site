@@ -100,6 +100,18 @@ Trois extensions rétrocompatibles ont été apportées aux composants canonique
 
 **Rien n'est exposé.** L'activation demande une variable d'environnement et un build.
 
+### Couture traitée — `HOMEPAGE-LEVEL0-SEAM-V1`, 31/07/2026
+
+La jonction entre le variant et la page historique est harmonisée, **derrière le même flag**. Document : `HOMEPAGE-LEVEL0-SEAM-V1.md`.
+
+Le doublon « 01 » a disparu : le rail de preuve porte `01`, les sections historiques reprennent à `02`, `03`, `04`. Les index étaient écrits en dur à trois endroits du JSX de `HomeDeux`, communs aux quatre langues ; ils passent par une liste unique locale, décalée par le signal `hideHero` déjà existant. Aucun second flag.
+
+Le variant emprunte désormais la grille de la page (1120 px, gouttière 24 px, filets à fleur de l'élément), ne peint plus son propre fond et ne porte plus de couche de grain propre. La couture n'ajoute **aucun** élément décoratif et **aucun nouveau rouge**.
+
+Intégrité historique vérifiée automatiquement entre les deux états du flag : texte identique au caractère près (21 936), 8 liens, 7 IDs, 6 sections, 5 CTA instrumentés. `/en`, `/pt-BR` et `/zh-CN` strictement identiques. Rail mobile à 905 px, exactement la valeur d'avant la tranche.
+
+**Dernière différence visible à la jonction** : l'eyebrow historique est rouge, les labels du rail sont en encre atténuée. Hors périmètre, consigné.
+
 ### Spécification d'origine, pour mémoire
 
 ### Périmètre strict
