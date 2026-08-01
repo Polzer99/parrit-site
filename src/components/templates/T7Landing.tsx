@@ -22,7 +22,10 @@ import {
 import { SiteHeader } from "@/components/shell/SiteHeader";
 import { SiteFooter } from "@/components/shell/SiteFooter";
 import { CtaInline, JsonLd, PageBody, ProofRail } from "./parts";
-import { assertSinglePrincipal, type CtaId } from "@/lib/registry/cta";
+import {
+  assertSinglePrincipal,
+  type CtaId,
+} from "@/lib/registry";
 import { graphe, SITE_URL } from "@/lib/seo/jsonld";
 
 export type CampagneData = {

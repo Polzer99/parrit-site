@@ -22,8 +22,10 @@ import {
   ProofBlock,
   type LienContenu,
 } from "./parts";
-import { assertSinglePrincipal } from "@/lib/registry/cta";
-import type { Ressource } from "@/lib/registry/ressources";
+import {
+  Ressource,
+  assertSinglePrincipal,
+} from "@/lib/registry";
 import { breadcrumbList, graphe, organizationRef, SITE_URL } from "@/lib/seo/jsonld";
 
 const TYPE_SCHEMA: Record<string, string> = {

@@ -150,7 +150,7 @@ export function resolveVideo(source: VideoSource): VideoAsset {
   if (source.transcript.length === 0) {
     throw new Error(
       `Vidéo « ${source.externalId} » sans transcript. Une page vidéo doit se lire ` +
-        `sans la vidéo — c'est la condition du Structural Integrity Test.`,
+        `sans la vidéo : c'est la condition du Structural Integrity Test.`,
     );
   }
 

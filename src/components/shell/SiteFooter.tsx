@@ -61,7 +61,7 @@ export function SiteFooter({
               <Logo lang={lang} variante="encre" hauteur="1.25rem" />
               <nav style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-5)" }}>
                 {liens.map((l) => (
-                  <Link key={l.href} href={l.href} style={LIEN_STYLE}>
+                  <Link key={l.href} href={l.href} prefetch={false} style={LIEN_STYLE}>
                     {l.libelle}
                   </Link>
                 ))}
@@ -79,10 +79,10 @@ export function SiteFooter({
             alignItems: "center",
           }}
         >
-          <Link href={`/${lang}/mentions-legales`} style={LIEN_STYLE}>
+          <Link href={`/${lang}/mentions-legales`} prefetch={false} style={LIEN_STYLE}>
             Mentions légales
           </Link>
-          <Link href={`/${lang}/confidentialite`} style={LIEN_STYLE}>
+          <Link href={`/${lang}/confidentialite`} prefetch={false} style={LIEN_STYLE}>
             Confidentialité
           </Link>
           <Label>© SASU PARRIT.AI · Rueil-Malmaison</Label>

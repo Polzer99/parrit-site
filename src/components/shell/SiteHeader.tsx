@@ -14,7 +14,12 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import { Label } from "@/components/ds/primitives";
 import { Logo } from "./Logo";
-import { ctaHref, ctaProps, getCta, type CtaId } from "@/lib/registry/cta";
+import {
+  ctaHref,
+  ctaProps,
+  getCta,
+  type CtaId,
+} from "@/lib/registry";
 
 export type HeaderVariante = "full" | "lean" | "app";
 
@@ -85,16 +90,19 @@ export function SiteHeader({
         {variante === "app" && contexte && <Label>{contexte}</Label>}
       </div>
 
+      {/* prefetch désactivé sur toute la navigation structurelle : sans ça, un
+          lien vers une route pas encore créée laisse une requête RSC en vol
+          indéfiniment, et la page n'atteint jamais networkidle. */}
       <nav style={{ display: "flex", alignItems: "center", gap: "var(--space-4)" }}>
         {variante !== "app" &&
           liens.map((l) => (
-            <Link key={l.href} href={l.href} style={LIEN_STYLE}>
+            <Link key={l.href} href={l.href} prefetch={false} style={LIEN_STYLE}>
               {l.libelle}
             </Link>
           ))}
 
         {variante === "app" && sortie && (
-          <Link href={sortie.href} style={LIEN_STYLE}>
+          <Link href={sortie.href} prefetch={false} style={LIEN_STYLE}>
             {sortie.libelle}
           </Link>
         )}
