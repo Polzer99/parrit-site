@@ -28,7 +28,10 @@ import {
   ProofBlock,
   type LienContenu,
 } from "./parts";
-import { assertSinglePrincipal, type CtaId } from "@/lib/registry/cta";
+import {
+  assertSinglePrincipal,
+  type CtaId,
+} from "@/lib/registry";
 import {
   breadcrumbList,
   faqPage,

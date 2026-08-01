@@ -33,15 +33,16 @@ import {
   ProofRail,
   type LienContenu,
 } from "./parts";
-import { assertSinglePrincipal, type CtaId } from "@/lib/registry/cta";
-import { breadcrumbList, graphe, organizationRef, SITE_URL } from "@/lib/seo/jsonld";
 import {
   MATURITE_LIBELLE,
+  assertSinglePrincipal,
+  type CtaId,
   type MaturiteSysteme,
   type OffreRef,
   type PersonaRef,
   type ProblemeRef,
-} from "@/lib/registry/ciblage";
+} from "@/lib/registry";
+import { breadcrumbList, graphe, organizationRef, SITE_URL } from "@/lib/seo/jsonld";
 
 export type SystemeData = {
   slug: string;

@@ -31,7 +31,7 @@ const mono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Grammaire de pages — Parrit.ai",
+  title: "Grammaire de pages · Parrit.ai",
   description: "Specimen interne des huit templates Parrit.ai.",
   robots: { index: false, follow: false, nocache: true },
 };

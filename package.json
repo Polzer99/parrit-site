@@ -12,7 +12,8 @@
     "qa:diagnostic:e2e": "playwright test tests/diagnostic-e2e.spec.ts",
     "qa:premium": "playwright test tests/parrit-premium-qa.spec.ts",
     "qa:templates": "playwright test tests/template-grammar.spec.ts",
-    "qa:specimen": "node scripts/ds-specimen-qa.mjs"
+    "qa:specimen": "node scripts/ds-specimen-qa.mjs",
+    "qa:foundation": "node scripts/foundation-audit.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",
