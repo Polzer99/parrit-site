@@ -13,16 +13,33 @@ import {
   Label,
   Metric,
   SectionHeader,
+  TextLink,
 } from "@/components/ds/primitives";
-import { ProofRailLevel0, CTASectionLevel0 } from "@/components/ds/level0";
-import type { ProofItem } from "@/components/ds/level0";
-import { ctaHref, ctaProps, getCta, type CtaId } from "@/lib/registry/cta";
 import {
+  ProofRailLevel0,
+  CTASectionLevel0,
+  HermesStatus,
+  MediaPlate,
+} from "@/components/ds/level0";
+import type { ProofItem } from "@/components/ds/level0";
+// Import par le BARIL, pas par les fichiers : c'est lui qui valide les
+// registres au chargement, donc pendant `next build`. Les huit templates
+// importent parts.tsx, donc toute page construite avec un template est couverte.
+import {
+  ctaHref,
+  ctaProps,
+  getCta,
+  getOffre,
   getPreuves,
+  libelleOrganisation,
+  logoAutorise,
   metriqueAffichable,
+  offreHref,
   preuvesPubliables,
+  type CtaId,
+  type OffreRef,
   type Preuve,
-} from "@/lib/registry/preuves";
+} from "@/lib/registry";
 
 /* ------------------------------------------------------------------ Page */
 
@@ -122,6 +139,9 @@ export function ProofBlock({
 }
 
 function PreuveLigne({ preuve, index }: { preuve: Preuve; index: string }) {
+  const organisation = libelleOrganisation(preuve);
+  const logo = logoAutorise(preuve);
+
   return (
     <article
       className="ds-row-indexed"
@@ -159,9 +179,10 @@ function PreuveLigne({ preuve, index }: { preuve: Preuve; index: string }) {
           {preuve.description}
         </p>
 
-        {metriqueAffichable(preuve) && (
+        {/* Chiffre — seulement avec sa période ET sa méthode. */}
+        {metriqueAffichable(preuve) && preuve.mesure && (
           <div style={{ display: "grid", gap: "var(--space-3)" }}>
-            <Metric value={preuve.metrique!} caption={preuve.periode!} signal />
+            <Metric value={preuve.mesure.metrique} caption={preuve.mesure.periode} signal />
             <p
               style={{
                 margin: 0,
@@ -171,8 +192,92 @@ function PreuveLigne({ preuve, index }: { preuve: Preuve; index: string }) {
                 color: "var(--color-ink-faint)",
               }}
             >
-              Méthode · {preuve.methodeMesure}
+              Méthode · {preuve.mesure.methodeMesure}
             </p>
+          </div>
+        )}
+
+        {/* Trace — les états portent un libellé ET un symbole, jamais la
+            couleur seule. */}
+        {preuve.trace && (
+          <div style={{ display: "grid", gap: "var(--space-2)" }}>
+            {preuve.trace.etapes.map((e, i) => (
+              <div
+                key={`${e.time}-${i}`}
+                className="ds-row-trace"
+                style={{
+                  paddingBlock: "var(--space-3)",
+                  borderTop: "var(--border-hairline) solid var(--color-line-hairline)",
+                }}
+              >
+                <IndexMark value={e.time} />
+                <span
+                  style={{
+                    fontFamily: "var(--type-mono-primary)",
+                    fontSize: "var(--type-size-sm)",
+                    lineHeight: "var(--type-leading-mono)",
+                    color: "var(--color-ink-default)",
+                  }}
+                >
+                  {e.action}
+                </span>
+                <HermesStatus state={e.state} />
+              </div>
+            ))}
+            <Label>Périmètre · {preuve.trace.perimetre}</Label>
+          </div>
+        )}
+
+        {/* Média — couche expressive, disparaît au Structural Integrity Test. */}
+        {preuve.media && (
+          <MediaPlate
+            src={preuve.media.src}
+            alt={preuve.media.alt}
+            caption={preuve.media.legende}
+          />
+        )}
+
+        {/* Témoignage — l'anonymat est un cas valide, pas un manque. */}
+        {preuve.temoignage && (
+          <figure style={{ margin: 0, display: "grid", gap: "var(--space-3)" }}>
+            <blockquote
+              style={{
+                margin: 0,
+                fontFamily: "var(--type-mono-primary)",
+                fontSize: "var(--type-size-md)",
+                lineHeight: "var(--type-leading-body)",
+                color: "var(--color-ink-default)",
+              }}
+            >
+              {preuve.temoignage.texte}
+            </blockquote>
+            <figcaption>
+              <Label>
+                {[preuve.temoignage.auteur, preuve.temoignage.role, preuve.temoignage.date]
+                  .filter(Boolean)
+                  .join(" · ")}
+              </Label>
+            </figcaption>
+          </figure>
+        )}
+
+        {/* Organisation — le nom réel si l'autorisation existe, le descriptif
+            anonymisé sinon, et rien du tout si ni l'un ni l'autre. Le template
+            n'exige jamais un nom pour se rendre. */}
+        {organisation && (
+          <div
+            style={{ display: "flex", gap: "var(--space-4)", alignItems: "center", flexWrap: "wrap" }}
+          >
+            {logo && (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={logo}
+                alt={organisation}
+                data-layer="expressive"
+                style={{ height: "1.5rem", width: "auto", display: "block" }}
+              />
+            )}
+            <Label>{organisation}</Label>
           </div>
         )}
       </div>
@@ -276,6 +381,38 @@ export function CtaInline({
     <a href={ctaHref(cta.id, lang, source)} {...ctaProps(cta.id, source)} style={style}>
       {cta.libelle}
     </a>
+  );
+}
+
+/* ------------------------------------------------------------ Offre liée */
+
+/**
+ * Lien vers l'offre rattachée, s'il y en a une ET si elle existe encore dans le
+ * registre de ciblage.
+ *
+ * Le template ne connaît ni le nom, ni le nombre, ni la hiérarchie des offres :
+ * il passe une référence opaque et rend ce qu'on lui répond. Une référence qui
+ * ne résout plus ne casse rien — elle ne rend rien. C'est ce qui permettra au
+ * document de positionnement de remplacer les deux taxonomies actuelles sans
+ * toucher une seule ligne de composant.
+ */
+export function OffreLink({
+  offreRef,
+  lang,
+}: {
+  offreRef?: OffreRef;
+  lang: string;
+}) {
+  if (!offreRef) return null;
+  const offre = getOffre(offreRef);
+  const href = offreHref(offreRef, lang);
+  if (!offre || !href) return null;
+
+  return (
+    <div style={{ display: "grid", gap: "var(--space-3)" }}>
+      <Label>Offre rattachée</Label>
+      <TextLink href={href}>{offre.nom}</TextLink>
+    </div>
   );
 }
 

@@ -58,13 +58,9 @@ export function faqPage(url: string, faq: { q: string; a: string }[]) {
   };
 }
 
-/** Durée ISO 8601 à partir de secondes — exigée par `VideoObject.duration`. */
-export function dureeISO(secondes: number): string {
-  const h = Math.floor(secondes / 3600);
-  const m = Math.floor((secondes % 3600) / 60);
-  const s = secondes % 60;
-  return `PT${h ? `${h}H` : ""}${m ? `${m}M` : ""}${s}S`;
-}
+// `dureeISO` vivait ici ET dans le contrat vidéo. Une seule implémentation
+// désormais : `src/lib/video/contract.ts`. Une durée est une affaire de média,
+// pas de balisage.
 
 export function graphe(noeuds: object[]): string {
   return JSON.stringify({ "@context": "https://schema.org", "@graph": noeuds });

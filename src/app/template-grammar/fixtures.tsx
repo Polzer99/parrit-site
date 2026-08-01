@@ -68,21 +68,34 @@ export const VIDEO: VideoData = {
   slug: "specimen-trace-agent",
   titre: "Un agent qui s'arrête, et la personne qui reprend la main",
   description: "Six minutes sur le point d'arrêt d'un système en production.",
-  videoUrl: "/media/specimen.mp4",
-  poster: "/brand/terrain/atelier-cartographie.jpg",
-  dureeSecondes: 372,
-  datePubliee: "2026-08-01",
+  // Le specimen fournit ses trois URL : aucun adapter n'est requis, donc aucun
+  // hébergeur n'est présélectionné. `provider` est ici une valeur de démonstration.
+  media: {
+    provider: "specimen",
+    externalId: "specimen-trace-agent",
+    canonicalUrl: "/media/specimen.mp4",
+    embedUrl: "/media/specimen.mp4",
+    thumbnail: "/brand/terrain/atelier-cartographie.jpg",
+    duration: 372,
+    publicationDate: "2026-08-01",
+    chapters: [
+      { debut: 0, titre: "Le point de départ" },
+      { debut: 72, titre: "Ce que l'agent classe" },
+      { debut: 220, titre: "Quand la source ne répond pas" },
+    ],
+    captions: [],
+    transcript: [
+      { t: "00:00", debut: 0, texte: "On part d'une boîte de réception, pas d'une démonstration." },
+      { t: "01:12", debut: 72, texte: "L'agent classe, il ne répond pas. La réponse reste une décision humaine." },
+      { t: "03:40", debut: 220, texte: "Ici la source est indisponible. L'exécution s'arrête et le dit." },
+    ],
+  },
   auteur: { nom: "Paul Larmaraud", slug: "paul-larmaraud" },
   resumeStructure: [
     "Ce que l'agent lit, et ce à quoi il n'a pas accès",
     "L'étape où il s'arrête tout seul",
     "Ce qu'un humain valide avant l'envoi",
     "Ce qui se passe quand la source ne répond pas",
-  ],
-  transcript: [
-    { t: "00:00", texte: "On part d'une boîte de réception, pas d'une démonstration." },
-    { t: "01:12", texte: "L'agent classe, il ne répond pas. La réponse reste une décision humaine." },
-    { t: "03:40", texte: "Ici la source est indisponible. L'exécution s'arrête et le dit." },
   ],
   trace: {
     scope: "lecture seule sur une boîte de réception, aucun envoi automatique",

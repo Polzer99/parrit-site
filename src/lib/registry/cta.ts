@@ -80,9 +80,12 @@ const REGISTRE: Record<CtaId, Cta> = {
     evenement: "meeting_requested",
     priorite: "principale",
   },
+  // Le libellé ne nomme JAMAIS une taxonomie d'offre : « palier » appartient à
+  // l'une des deux taxonomies concurrentes, et celle qui survivra n'est pas
+  // tranchée (TEMPLATE-GRAMMAR.md §8.3).
   "rdv.offre": {
     id: "rdv.offre",
-    libelle: "Réserver 15 minutes sur ce palier",
+    libelle: "Réserver 15 minutes sur cette offre",
     action: "prendre_rdv",
     cible: "/{lang}/rendez-vous",
     funnel: "rendez_vous",
@@ -119,6 +122,10 @@ const REGISTRE: Record<CtaId, Cta> = {
     evenement: "resource_requested",
     priorite: "principale",
   },
+  // Sur une ressource en accès libre, OUVRIR la ressource EST l'action
+  // principale — pas un lien de second rang. Corrigé après que le gate de build
+  // l'a signalé sur `architecture-claude-md` et `demarrer-claude-code` : les
+  // deux la déclaraient comme action principale, à juste titre.
   "ressource.telecharger": {
     id: "ressource.telecharger",
     libelle: "Ouvrir la ressource",
@@ -126,7 +133,7 @@ const REGISTRE: Record<CtaId, Cta> = {
     cible: "",
     funnel: "ressource",
     evenement: "resource_requested",
-    priorite: "secondaire",
+    priorite: "principale",
   },
   "veille.recevoir": {
     id: "veille.recevoir",

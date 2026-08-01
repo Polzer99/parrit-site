@@ -23,37 +23,33 @@ import {
   type LienContenu,
 } from "./parts";
 import { assertSinglePrincipal, type CtaId } from "@/lib/registry/cta";
+import { breadcrumbList, graphe, organizationRef, SITE_URL } from "@/lib/seo/jsonld";
 import {
-  breadcrumbList,
   dureeISO,
-  graphe,
-  organizationRef,
-  SITE_URL,
-} from "@/lib/seo/jsonld";
+  dureeLisible,
+  resolveVideo,
+  type VideoSource,
+} from "@/lib/video/contract";
+import type { OffreRef, ProblemeRef } from "@/lib/registry/ciblage";
 
 export type VideoData = {
   slug: string;
   titre: string;
   description: string;
-  /** URL du fichier ou de l'embed. La politique d'hébergement n'est pas tranchée. */
-  videoUrl: string;
-  poster: string;
-  dureeSecondes: number;
-  datePubliee: string;
+  /**
+   * Le média, sous contrat neutre. Le template ne connaît pas l'hébergeur et
+   * ne teste jamais `provider` : voir `src/lib/video/contract.ts`.
+   */
+  media: VideoSource;
   auteur: { nom: string; slug: string };
   /** Ce que la vidéo montre, en 3 à 5 points. Lisible SANS la vidéo. */
   resumeStructure: string[];
-  transcript: { t: string; texte: string }[];
   /** Si la vidéo montre un système en marche. */
   trace?: { steps: TraceStep[]; scope: string };
+  offreRef?: OffreRef;
+  problemeRef?: ProblemeRef;
   videosLiees: LienContenu[];
 };
-
-function formatDuree(secondes: number): string {
-  const m = Math.floor(secondes / 60);
-  const s = secondes % 60;
-  return `${m} min ${String(s).padStart(2, "0")}`;
-}
 
 export function T2Video({
   data,
@@ -67,6 +63,11 @@ export function T2Video({
   labels: { videos: string; resume: string; transcript: string; aVoir: string };
 }) {
   assertSinglePrincipal([ctaId]);
+
+  // Résolution unique, en amont du rendu. Si le provider n'a ni URL ni adapter,
+  // la page échoue ici avec un message qui nomme la décision manquante — plutôt
+  // que de servir un lecteur vide.
+  const media = resolveVideo(data.media);
 
   const url = `${SITE_URL}/${lang}/videos/${data.slug}`;
   const source = `video:${data.slug}`;
@@ -83,12 +84,24 @@ export function T2Video({
       "@id": `${url}#video`,
       name: data.titre,
       description: data.description,
-      thumbnailUrl: [`${SITE_URL}${data.poster}`],
-      uploadDate: data.datePubliee,
-      duration: dureeISO(data.dureeSecondes),
-      contentUrl: data.videoUrl,
+      thumbnailUrl: [
+        media.thumbnail.startsWith("http") ? media.thumbnail : `${SITE_URL}${media.thumbnail}`,
+      ],
+      uploadDate: media.publicationDate,
+      duration: dureeISO(media.duration),
+      contentUrl: media.canonicalUrl,
+      embedUrl: media.embedUrl,
       inLanguage: lang,
-      transcript: data.transcript.map((t) => t.texte).join(" "),
+      transcript: media.transcript.map((t) => t.texte).join(" "),
+      ...(media.chapters.length > 0 && {
+        hasPart: media.chapters.map((c, i) => ({
+          "@type": "Clip",
+          name: c.titre,
+          startOffset: c.debut,
+          endOffset: media.chapters[i + 1]?.debut ?? media.duration,
+          url: `${url}#t=${c.debut}`,
+        })),
+      }),
       publisher: organizationRef(),
     },
     breadcrumbList(miettes),
@@ -110,7 +123,7 @@ export function T2Video({
         <Breadcrumb miettes={miettes} />
 
         <header style={{ display: "grid", gap: "var(--space-5)", paddingBlock: "var(--space-7)" }}>
-          <MetaLine items={[formatDuree(data.dureeSecondes), data.datePubliee, data.auteur.nom]} />
+          <MetaLine items={[dureeLisible(media.duration), media.publicationDate, data.auteur.nom]} />
           <h1
             style={{
               margin: 0,
@@ -143,10 +156,19 @@ export function T2Video({
           <video
             controls
             preload="none"
-            poster={data.poster}
+            poster={media.thumbnail}
             style={{ display: "block", width: "100%", height: "auto", aspectRatio: "16 / 9" }}
           >
-            <source src={data.videoUrl} />
+            <source src={media.embedUrl} />
+            {media.captions.map((c) => (
+              <track
+                key={c.url}
+                kind="captions"
+                src={c.url}
+                srcLang={c.langue}
+                label={c.automatique ? `${c.langue} (auto)` : c.langue}
+              />
+            ))}
           </video>
         </figure>
 
@@ -204,7 +226,7 @@ export function T2Video({
                 maxWidth: "var(--container-text)",
               }}
             >
-              {data.transcript.map((t) => (
+              {media.transcript.map((t) => (
                 <p
                   key={t.t}
                   className="ds-row-indexed"
