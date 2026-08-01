@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import {
   DEMO_LABEL,
   DOSSIER_INITIAL,
@@ -486,8 +487,26 @@ function Rail({ s }: { s: RendererState }) {
 /* ======================================================================== */
 
 function Chapitres({ s }: { s: RendererState }) {
+  /* Le chapitre courant vient à l'écran quand la scène avance. Le ref vit
+     ICI, dans le composant qui possède le conteneur : le sortir du hook
+     évitait de le faire transiter par une valeur lue pendant le rendu.
+     On ne défile que sur un vrai changement de chapitre, sinon on lutterait
+     contre le doigt de l'utilisateur à chaque tick d'horloge. */
+  const conteneur = useRef<HTMLDivElement>(null);
+  const precedent = useRef<string | null>(null);
+  useEffect(() => {
+    if (precedent.current === s.chapitre) return;
+    precedent.current = s.chapitre;
+    const box = conteneur.current;
+    const el = box?.querySelector<HTMLElement>(`[data-chapitre-id="${s.chapitre}"]`);
+    if (!box || !el) return;
+    /* On défile le conteneur, pas la fenêtre : `scrollIntoView` alignerait le
+       chapitre sur le haut du viewport et laisserait son titre sous la barre. */
+    box.scrollTo({ top: el.offsetTop, behavior: s.reduced ? "auto" : "smooth" });
+  }, [s.chapitre, s.reduced]);
+
   return (
-    <div className="pv2-chapitres" ref={s.enregistrerConteneur}>
+    <div className="pv2-chapitres" ref={conteneur}>
       {CHAPITRES.map((c) => {
         const actif = c.id === s.chapitre;
         const surf = c.surface ? s.surfaces.find((x) => x.id === c.surface) : null;
@@ -495,7 +514,7 @@ function Chapitres({ s }: { s: RendererState }) {
           <section
             key={c.id}
             className="pv2-chapitre"
-            ref={s.enregistrerChapitre(c.id)}
+            data-chapitre-id={c.id}
             data-actif={actif ? "oui" : undefined}
             aria-label={`Chapitre ${c.num} sur ${CHAPITRES.length} : ${c.titre}`}
           >

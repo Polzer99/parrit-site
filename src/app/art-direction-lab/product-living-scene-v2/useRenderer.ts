@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   BRANCHES,
   CHAMPS,
@@ -187,28 +187,6 @@ export function useRenderer() {
   /* Le chapitre courant vient à l'écran quand la scène avance. On ne défile
      que sur un vrai changement de chapitre : sinon on lutterait contre le
      doigt de l'utilisateur à chaque tick d'horloge. */
-  const refs = useRef(new Map<ChapitreId, HTMLElement | null>());
-  const conteneur = useRef<HTMLElement | null>(null);
-  const precedent = useRef<ChapitreId | null>(null);
-  useEffect(() => {
-    if (!compact) return;
-    if (precedent.current === chapitre) return;
-    precedent.current = chapitre;
-    const el = refs.current.get(chapitre);
-    const box = conteneur.current;
-    if (!el || !box) return;
-    /* On défile le conteneur, pas la fenêtre : `scrollIntoView` alignerait le
-       chapitre sur le haut du viewport et laisserait son titre sous la barre. */
-    box.scrollTo({ top: el.offsetTop, behavior: s.reduced ? "auto" : "smooth" });
-  }, [chapitre, compact, s.reduced]);
-
-  const enregistrerChapitre = (id: ChapitreId) => (el: HTMLElement | null) => {
-    refs.current.set(id, el);
-  };
-  const enregistrerConteneur = (el: HTMLElement | null) => {
-    conteneur.current = el;
-  };
-
   return {
     ...s,
     brancheDetail: branche,
@@ -228,7 +206,5 @@ export function useRenderer() {
     compact,
     chapitre,
     indexChapitre,
-    enregistrerChapitre,
-    enregistrerConteneur,
   };
 }
