@@ -138,8 +138,10 @@ Ces trois décisions ont été prises le 31/07/2026 dans la tranche `BRAND-CANON
 
 ## ADR-018 — Concept D poli devient la source visuelle de vérité
 
+> **SUPERSEDED par ADR-019 le 01/08/2026.** Cette décision reposait sur une instruction devenue obsolète : elle a été prise avant que Paul n'inspecte le site et l'enregistrement de navigation. Elle est conservée telle quelle comme historique. **Ne pas l'appliquer.**
+
 - **Date :** 2026-08-01
-- **Statut :** accepté (validation Paul). **Clôt l'exploration de directions artistiques ouverte par ADR-017.**
+- **Statut :** **supersédée** par ADR-019. Était : accepté, clôturant l'exploration ouverte par ADR-017.
 - **Contexte :** trois directions ont été comparées (`PARRIT-VISUAL-RESET-V2`), puis alignées sur un message unique (`PARRIT-COPY-RESET-V1`), puis synthétisées en un concept D (`PARRIT-TECH-TRUST-V1`) et finies (`PARRIT-TECH-TRUST-POLISH-V2`). Continuer à explorer produirait des variantes, plus des décisions.
 - **Décision :** **Concept D poli est la source visuelle de vérité de Parrit.ai**, sous le statut `APPROVED PENDING FINAL COPY`. Il n'y aura pas de concept E. A, B et C restent dans le laboratoire comme historique de décision, pas comme options.
 - **Ce qui est figé :** la direction Editorial Operating System · Barlow Condensed pour les grands titres · Geist Mono pour les traces et métadonnées · la palette encre, papier et rouge · la grille de 12 colonnes · les filets · le HumanGate · ExecutionTrace · SystemTopology · ProofLedger et sa colonne limite · le registre de mission · la méthode montrant le transfert de responsabilité · HermesActivity · la photographie documentaire non générative · la recomposition mobile · les règles de mouvement et de reduced motion.
@@ -148,6 +150,34 @@ Ces trois décisions ont été prises le 31/07/2026 dans la tranche `BRAND-CANON
 - **Garde-fou :** `scripts/concept-d-qa.mjs` contient un test de gel du canon. Il échoue si un composant canonique disparaît, si la palette, la grille ou les fontes changent, si un rayon ou une ombre apparaît, si l'attribution Hermes disparaît, ou si un portrait brandé est câblé à la place de la photographie réelle. Il ne juge pas le texte.
 - **Conséquence :** le design system n'est **toujours pas migré**, et la homepage publique n'est **pas** touchée. Les quinze documents seront réécrits à partir de Concept D une fois la copy définitive reçue. Jusque-là, `docs/design-system/VISUAL-SOURCE-OF-TRUTH.md` fait autorité sur la question visuelle.
 - **Rollback :** rétrograder le statut dans `VISUAL-SOURCE-OF-TRUTH.md` et rouvrir la comparaison. Rien n'est en production, le coût est nul.
+
+---
+
+---
+
+## ADR-019 — Concept D est conservé comme prototype, pas comme canon final
+
+- **Date :** 2026-08-01
+- **Statut :** accepté (arbitrage Paul, après navigation réelle). **Supersède ADR-018**, qui n'est pas supprimée.
+- **Contexte :** ADR-018 a figé Concept D comme source visuelle de vérité sous le statut `APPROVED PENDING FINAL COPY`. Cette décision découlait d'une instruction **devenue obsolète** : elle a été rendue avant que Paul n'inspecte réellement le site et l'enregistrement de navigation. Après inspection, il a **rejeté Concept D comme direction finale**.
+- **Décision :** Concept D n'est plus la source visuelle de vérité. Son statut devient `REJECTED AS FINAL DIRECTION — RETAINED AS RESEARCH PROTOTYPE`. **Aucune direction visuelle finale n'est actuellement approuvée.**
+
+- **Ce que cette décision établit, au-delà du cas D :**
+  - **La validation automatique et la qualité d'exécution ne remplacent pas l'arbitrage du propriétaire.** Deux harnais verts, un contraste à zéro, une accessibilité traitée et une finition inspectée à 200 % ne valent pas approbation. Ils disent que le prototype tient, pas qu'il est le bon.
+  - **Le terrain écrase la décision précédente.** Quand une inspection réelle contredit une instruction antérieure, c'est l'inspection qui prévaut, et la correction se fait par un nouvel ADR, jamais par réécriture de l'historique.
+  - Une instruction peut devenir obsolète entre le moment où elle est écrite et celui où elle est exécutée. L'exécuter fidèlement ne la rend pas valide.
+
+- **Diagnostic conservé :** Concept D a apporté la singularité éditoriale, le langage de trace, le HumanGate, la présence explicite du contrôle humain, la rigueur typographique et une photographie authentique. Il reste trop proche d'un rapport éditorial, d'une publication imprimée devenue site, d'une interface statique de contrôle, d'une succession de tableaux et de registres. Il ne donne pas la sensation d'un produit vivant, d'agents en action, de logiciels qui communiquent, d'objets qui changent d'état. **Le problème restant n'est pas seulement le wording : c'est la direction d'expérience et la représentation du produit.**
+
+- **Conséquences :**
+  - L'exploration visuelle **reste ouverte**. La prochaine part du produit vivant, pas du registre éditorial : voir `docs/design-system/PRODUCT-LIVING-SYSTEM-BRIEF.md`.
+  - Les éléments réutilisables de D seront **sélectionnés explicitement**, jamais hérités par défaut. La liste des réemplois possibles et celle des choix à ne pas reconduire sont dans `VISUAL-SOURCE-OF-TRUTH.md`.
+  - **Aucune future direction ne doit être contrainte de reproduire la composition de D.**
+  - `Canonical Freeze Test` est renommé **`Concept D Regression Test`** et ne teste plus que le prototype, sur sa seule route.
+  - `copy.ts` reste le point d'entrée de texte **du prototype seul**, et non le contrat de la future homepage.
+  - Aucun travail n'est supprimé, aucun historique n'est réécrit, la homepage publique n'est pas touchée.
+
+- **Rollback :** aucun n'est prévu. Revenir à ADR-018 exigerait un arbitrage explicite de Paul contredisant sa propre inspection.
 
 ---
 

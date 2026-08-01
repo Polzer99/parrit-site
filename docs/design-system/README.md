@@ -1,4 +1,10 @@
-> **Source visuelle de vérité : [`VISUAL-SOURCE-OF-TRUTH.md`](./VISUAL-SOURCE-OF-TRUTH.md)** — Concept D poli, statut `APPROVED PENDING FINAL COPY`, validé le 01/08/2026 (ADR-018). Sur toute question visuelle, ce document prime sur les quinze fiches ci-dessous tant que la migration n'a pas eu lieu.
+> **Aucune direction visuelle finale n'est actuellement approuvée.** (ADR-019, 01/08/2026)
+>
+> **Concept D** est un **prototype documenté**, décrit dans [`VISUAL-SOURCE-OF-TRUTH.md`](./VISUAL-SOURCE-OF-TRUTH.md). Il contient des éléments réutilisables, listés dans ce document. Il **ne constitue pas la source visuelle de vérité finale** et ne prime sur rien. Aucune migration ne doit en être dérivée automatiquement.
+>
+> La **homepage publique** reste la référence de production jusqu'à décision et migration explicites. Cela n'en fait pas la cible visuelle future.
+>
+> Le prochain principe de recherche est fixé dans [`PRODUCT-LIVING-SYSTEM-BRIEF.md`](./PRODUCT-LIVING-SYSTEM-BRIEF.md).
 
 # Design system Parrit.ai
 

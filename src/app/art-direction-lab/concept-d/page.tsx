@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-// La copy entre par UN SEUL fichier : ./copy.ts. Voir son en-tête pour la
-// procédure de livraison du wording définitif.
+// La copy du prototype entre par ./copy.ts. Ce n'est pas le contrat de la
+// future homepage : Concept D est un prototype de recherche (ADR-019).
 import { COPY as FACTS } from "./copy";
 import { LabBar } from "../LabBar";
 import "./d.css";

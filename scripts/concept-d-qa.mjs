@@ -1,9 +1,20 @@
 /**
- * PARRIT-TECH-TRUST-V1 — contrôles propres au concept D.
+ * CONCEPT D REGRESSION TEST — contrôles propres au prototype Concept D.
  *
- * Le harnais général couvre les quatre concepts. Celui-ci ajoute ce que D
- * seul exige : détails à 200 %, états hover et focus, version reduced motion,
- * et la comparaison ancien site / B / D.
+ * ─────────────────────────────────────────────────────────────────────────
+ * PORTÉE. Ce harnais teste UNIQUEMENT le prototype Concept D, sur sa seule
+ * route. Ce n'est PAS un test de conformité du futur site.
+ *
+ * Concept D n'est pas la direction finale de Parrit.ai (ADR-019). Une
+ * direction future qui utilise une autre composition, donne plus de
+ * profondeur au produit, réduit la place de Barlow Condensed, modifie la
+ * grille, représente autrement les agents, change le rythme des sections ou
+ * abandonne certains composants de D **ne peut pas faire échouer ce test** :
+ * il ne regarde jamais ailleurs que `/art-direction-lab/concept-d`.
+ * ─────────────────────────────────────────────────────────────────────────
+ *
+ * Ce qu'il vérifie : la reproductibilité du prototype, la présence de ses
+ * composants, son accessibilité, et l'absence de régression involontaire.
  *
  * Usage : node scripts/concept-d-qa.mjs
  */
@@ -143,15 +154,17 @@ await mkdir(OUT, { recursive: true });
   await ctx.close();
 }
 
-/* --- Gel du canon. Concept D est la source visuelle de vérité : ce test
-       échoue si un élément canonique disparaît. Il ne juge pas le texte. --- */
+/* --- Non-régression du prototype. Ces contrôles décrivent l'état connu de
+       Concept D, pas une règle imposée à une direction future. Ils servent à
+       repérer une casse involontaire du prototype, rien d'autre. --- */
 {
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const page = await ctx.newPage();
   await page.goto(BASE + D, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
 
-  // Les neuf composants, par leur ancre structurelle.
+  // Les composants du prototype, par leur ancre structurelle. Leur absence
+  // signale une casse de D, pas une infraction à un canon.
   const COMPOSANTS = {
     TechHero: ".d-hero .d-panel",
     ExecutionTrace: ".d-steps .d-step",
@@ -167,10 +180,11 @@ await mkdir(OUT, { recursive: true });
     TrustRail: ".d-trust-inner p",
   };
   for (const [nom, sel] of Object.entries(COMPOSANTS)) {
-    if ((await page.locator(sel).count()) === 0) note(`canon : ${nom} absent (${sel})`);
+    if ((await page.locator(sel).count()) === 0) note(`régression D : ${nom} absent (${sel})`);
   }
 
-  // Palette et typographie canoniques.
+  // Palette, grille et fontes telles que le prototype les a figées pour
+  // LUI-MÊME. Une direction future est libre de toutes les changer.
   const canon = await page.evaluate(() => {
     const cs = getComputedStyle(document.querySelector(".cD"));
     const titre = getComputedStyle(document.querySelector(".d-title")).fontFamily;
@@ -185,14 +199,14 @@ await mkdir(OUT, { recursive: true });
       mono,
     };
   });
-  if (canon.paper !== "#fffdfa") note(`canon : papier ${canon.paper}, attendu #fffdfa`);
-  if (canon.ink !== "#0c0c0d") note(`canon : encre ${canon.ink}, attendu #0c0c0d`);
-  if (canon.red !== "#d1132f") note(`canon : rouge ${canon.red}, attendu #d1132f`);
-  if (canon.grille !== 12) note(`canon : grille à ${canon.grille} colonnes, attendu 12`);
-  if (!/Barlow Condensed/.test(canon.titre)) note("canon : les grands titres ne sont plus en Barlow Condensed");
-  if (!/Mono/.test(canon.mono)) note("canon : la couche technique n'est plus en Geist Mono");
+  if (canon.paper !== "#fffdfa") note(`régression D : papier ${canon.paper}, le prototype utilise #fffdfa`);
+  if (canon.ink !== "#0c0c0d") note(`régression D : encre ${canon.ink}, le prototype utilise #0c0c0d`);
+  if (canon.red !== "#d1132f") note(`régression D : rouge ${canon.red}, le prototype utilise #d1132f`);
+  if (canon.grille !== 12) note(`régression D : grille à ${canon.grille} colonnes, le prototype en a 12`);
+  if (!/Barlow Condensed/.test(canon.titre)) note("régression D : les grands titres du prototype ne sont plus en Barlow Condensed");
+  if (!/Mono/.test(canon.mono)) note("régression D : la couche technique du prototype n'est plus en Geist Mono");
 
-  // Aucune carte SaaS : ni rayon, ni ombre, nulle part.
+  // Le prototype ne comporte ni rayon ni ombre. C'est un parti pris de D.
   const chrome = await page.evaluate(() => {
     const out = [];
     for (const el of document.querySelectorAll(".cD *")) {
@@ -202,19 +216,43 @@ await mkdir(OUT, { recursive: true });
     }
     return out.slice(0, 5);
   });
-  chrome.forEach((c) => note(`canon : ${c}`));
+  chrome.forEach((c) => note(`régression D : ${c}`));
 
-  // L'attribution Hermes ne peut pas disparaître avec un changement de copy.
+  // L'attribution Hermes est une obligation permanente, indépendante de toute
+  // direction : elle reste vérifiée quoi qu'il arrive.
   // `innerText` renvoie le texte APRÈS text-transform : la comparaison doit
   // ignorer la casse, l'attribution est rendue en capitales.
   const txt = await page.evaluate(() => document.body.innerText);
   if (!/nous research/i.test(txt) || !/mit license/i.test(txt)) {
-    note("canon : attribution Hermes absente");
+    note("attribution Hermes absente, obligation permanente");
   }
 
-  // La photographie du fondateur doit rester une photographie réelle.
+  // La photographie du fondateur doit rester réelle : règle de fond, elle
+  // survivra à Concept D.
   const src = await page.locator(".d-founder-fig img").getAttribute("src");
-  if (/branded/.test(src ?? "")) note("canon : portrait brandé câblé, la photographie doit rester réelle");
+  if (/branded/.test(src ?? "")) note("portrait brandé câblé, la photographie doit rester réelle");
+
+  // Accessibilité du prototype.
+  const a11y = await page.evaluate(() => {
+    const out = [];
+    if (document.querySelectorAll("h1").length !== 1) out.push("il faut exactement un H1");
+    for (const img of document.querySelectorAll(".cD img")) {
+      if (!img.getAttribute("alt")) out.push(`image sans alt : ${img.getAttribute("src")}`);
+    }
+    // Les niveaux de titre ne doivent pas sauter.
+    const niveaux = [...document.querySelectorAll(".cD h1, .cD h2, .cD h3")].map((h) =>
+      Number(h.tagName[1]),
+    );
+    for (let i = 1; i < niveaux.length; i += 1) {
+      if (niveaux[i] - niveaux[i - 1] > 1) out.push(`saut de niveau h${niveaux[i - 1]} vers h${niveaux[i]}`);
+    }
+    // Toute cible interactive doit être atteignable au clavier.
+    for (const a of document.querySelectorAll(".cD a")) {
+      if (a.getAttribute("tabindex") === "-1") out.push("lien retiré de la navigation clavier");
+    }
+    return out;
+  });
+  a11y.forEach((m) => note(`accessibilité D : ${m}`));
 
   await ctx.close();
 }

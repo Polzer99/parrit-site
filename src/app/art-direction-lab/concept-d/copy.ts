@@ -1,39 +1,33 @@
 /**
- * CONCEPT D — POINT D'ENTRÉE UNIQUE DE LA COPY
+ * CONCEPT D — POINT D'ENTRÉE DE COPY DU PROTOTYPE
  *
- * Concept D est figé comme SOURCE VISUELLE DE VÉRITÉ de Parrit.ai
- * (voir docs/design-system/VISUAL-SOURCE-OF-TRUTH.md).
+ * Concept D est un **prototype de recherche**, pas la direction visuelle
+ * finale de Parrit.ai. Voir ADR-019 et
+ * docs/design-system/VISUAL-SOURCE-OF-TRUTH.md.
  *
- * Ce fichier est le SEUL endroit par lequel le texte entre dans la page.
- * Aujourd'hui il ne fait que réexporter le socle partagé du laboratoire.
- * Quand Paul livrera la copy définitive, un seul fichier change : celui-ci.
+ * Ce fichier est le seul endroit par lequel le texte entre **dans ce
+ * prototype**. Ce n'est PAS le contrat de la future homepage : une direction
+ * future est libre d'une tout autre structure de contenu.
  *
  * ─────────────────────────────────────────────────────────────────────────
- * RÈGLE. Cette tranche n'écrit AUCUNE copy et n'en réécrit aucune.
- * Aucune modification de texte ne sera faite avant réception du wording
- * validé par Paul.
+ * Aucune copy n'est écrite ni réécrite ici. Ce fichier réexporte simplement
+ * le socle partagé du laboratoire.
  * ─────────────────────────────────────────────────────────────────────────
  *
- * POUR LIVRER LA COPY DÉFINITIVE
+ * POUR CHANGER LE TEXTE DU PROTOTYPE
  *
- *   1. Déposer le fichier de wording validé, par exemple
- *      `src/app/art-direction-lab/concept-d/copy.final.ts`, exportant un
- *      objet conforme au contrat `CopyContract` ci-dessous.
- *   2. Remplacer ici l'import de `../content` par celui de `./copy.final`.
- *   3. Lancer `node scripts/concept-d-qa.mjs` : le harnais vérifie que le
- *      contrat est complet et que le canon visuel n'a pas bougé.
+ *   1. Déposer un fichier exportant un objet conforme à `CopyContract`.
+ *   2. Remplacer ici l'import de `../content`.
+ *   3. Lancer `node scripts/concept-d-qa.mjs` (Concept D Regression Test).
  *
- * Le contrat décrit une FORME, pas un contenu. Il ne contraint ni les mots,
- * ni la longueur, ni le nombre de cas d'usage. Il garantit seulement que la
- * page trouvera chaque champ dont ses composants ont besoin.
- *
- * Ce qui n'est PAS figé et bougera donc avec la copy finale : les retours à
- * la ligne, la quantité exacte de rouge dans les titres, les hauteurs qui
- * dépendent du texte, la densité des blocs éditoriaux, et l'ordre final des
- * sections commerciales.
+ * `CopyContract` décrit la forme dont les composants de D ont besoin. Il ne
+ * contraint ni les mots, ni la longueur, ni le nombre de cas d'usage, et il
+ * n'engage que ce prototype.
  */
 import { FACTS } from "../content";
 
+/** Forme attendue par les composants du prototype Concept D. Aucune portée
+ *  au-delà de ce prototype. */
 export type CopyContract = {
   readonly nom: string;
 
@@ -110,10 +104,9 @@ export type CopyContract = {
 };
 
 /**
- * Copy actuellement servie par Concept D.
+ * Copy actuellement servie par le prototype.
  *
- * Provisoire : c'est le socle partagé du laboratoire, issu de
- * PARRIT-COPY-RESET-V1. Il sera remplacé tel quel par le wording validé.
+ * C'est le socle partagé du laboratoire, issu de PARRIT-COPY-RESET-V1.
  * L'annotation de type garantit qu'un remplacement incomplet ne compilera pas.
  */
 export const COPY: CopyContract = FACTS;
