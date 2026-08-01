@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { FACTS } from "../content";
+// La copy entre par UN SEUL fichier : ./copy.ts. Voir son en-tête pour la
+// procédure de livraison du wording définitif.
+import { COPY as FACTS } from "./copy";
 import { LabBar } from "../LabBar";
 import "./d.css";
 import {

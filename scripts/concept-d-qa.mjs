@@ -143,6 +143,82 @@ await mkdir(OUT, { recursive: true });
   await ctx.close();
 }
 
+/* --- Gel du canon. Concept D est la source visuelle de vérité : ce test
+       échoue si un élément canonique disparaît. Il ne juge pas le texte. --- */
+{
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+  const page = await ctx.newPage();
+  await page.goto(BASE + D, { waitUntil: "networkidle" });
+  await page.evaluate(() => document.fonts.ready);
+
+  // Les neuf composants, par leur ancre structurelle.
+  const COMPOSANTS = {
+    TechHero: ".d-hero .d-panel",
+    ExecutionTrace: ".d-steps .d-step",
+    HumanGate: ".d-gate",
+    "Registre de mission": ".d-mission-row",
+    "Cas d'usage": ".d-case",
+    SystemTopology: ".d-node",
+    "Méthode en séquence": ".d-seq-step",
+    BeforeAfterFlow: ".d-ba-row",
+    HermesActivity: ".d-journal-row",
+    ProofLedger: ".d-ledger-row",
+    FounderValidation: ".d-founder-fig img",
+    TrustRail: ".d-trust-inner p",
+  };
+  for (const [nom, sel] of Object.entries(COMPOSANTS)) {
+    if ((await page.locator(sel).count()) === 0) note(`canon : ${nom} absent (${sel})`);
+  }
+
+  // Palette et typographie canoniques.
+  const canon = await page.evaluate(() => {
+    const cs = getComputedStyle(document.querySelector(".cD"));
+    const titre = getComputedStyle(document.querySelector(".d-title")).fontFamily;
+    const mono = getComputedStyle(document.querySelector(".d-mono")).fontFamily;
+    return {
+      paper: cs.getPropertyValue("--paper").trim(),
+      ink: cs.getPropertyValue("--ink").trim(),
+      red: cs.getPropertyValue("--red").trim(),
+      grille: getComputedStyle(document.querySelector(".d-hero-grid"))
+        .gridTemplateColumns.split(" ").length,
+      titre,
+      mono,
+    };
+  });
+  if (canon.paper !== "#fffdfa") note(`canon : papier ${canon.paper}, attendu #fffdfa`);
+  if (canon.ink !== "#0c0c0d") note(`canon : encre ${canon.ink}, attendu #0c0c0d`);
+  if (canon.red !== "#d1132f") note(`canon : rouge ${canon.red}, attendu #d1132f`);
+  if (canon.grille !== 12) note(`canon : grille à ${canon.grille} colonnes, attendu 12`);
+  if (!/Barlow Condensed/.test(canon.titre)) note("canon : les grands titres ne sont plus en Barlow Condensed");
+  if (!/Mono/.test(canon.mono)) note("canon : la couche technique n'est plus en Geist Mono");
+
+  // Aucune carte SaaS : ni rayon, ni ombre, nulle part.
+  const chrome = await page.evaluate(() => {
+    const out = [];
+    for (const el of document.querySelectorAll(".cD *")) {
+      const cs = getComputedStyle(el);
+      if (cs.borderRadius !== "0px" && cs.borderRadius !== "") out.push(`rayon ${cs.borderRadius} sur ${el.className}`);
+      if (cs.boxShadow !== "none") out.push(`ombre sur ${el.className}`);
+    }
+    return out.slice(0, 5);
+  });
+  chrome.forEach((c) => note(`canon : ${c}`));
+
+  // L'attribution Hermes ne peut pas disparaître avec un changement de copy.
+  // `innerText` renvoie le texte APRÈS text-transform : la comparaison doit
+  // ignorer la casse, l'attribution est rendue en capitales.
+  const txt = await page.evaluate(() => document.body.innerText);
+  if (!/nous research/i.test(txt) || !/mit license/i.test(txt)) {
+    note("canon : attribution Hermes absente");
+  }
+
+  // La photographie du fondateur doit rester une photographie réelle.
+  const src = await page.locator(".d-founder-fig img").getAttribute("src");
+  if (/branded/.test(src ?? "")) note("canon : portrait brandé câblé, la photographie doit rester réelle");
+
+  await ctx.close();
+}
+
 await browser.close();
 console.log(problems.length ? `PROBLÈMES (${problems.length})` : "Aucun problème.");
 problems.forEach((p) => console.log("  ✗ " + p));

@@ -134,4 +134,21 @@ Ces trois décisions ont été prises le 31/07/2026 dans la tranche `BRAND-CANON
 
 ---
 
+---
+
+## ADR-018 — Concept D poli devient la source visuelle de vérité
+
+- **Date :** 2026-08-01
+- **Statut :** accepté (validation Paul). **Clôt l'exploration de directions artistiques ouverte par ADR-017.**
+- **Contexte :** trois directions ont été comparées (`PARRIT-VISUAL-RESET-V2`), puis alignées sur un message unique (`PARRIT-COPY-RESET-V1`), puis synthétisées en un concept D (`PARRIT-TECH-TRUST-V1`) et finies (`PARRIT-TECH-TRUST-POLISH-V2`). Continuer à explorer produirait des variantes, plus des décisions.
+- **Décision :** **Concept D poli est la source visuelle de vérité de Parrit.ai**, sous le statut `APPROVED PENDING FINAL COPY`. Il n'y aura pas de concept E. A, B et C restent dans le laboratoire comme historique de décision, pas comme options.
+- **Ce qui est figé :** la direction Editorial Operating System · Barlow Condensed pour les grands titres · Geist Mono pour les traces et métadonnées · la palette encre, papier et rouge · la grille de 12 colonnes · les filets · le HumanGate · ExecutionTrace · SystemTopology · ProofLedger et sa colonne limite · le registre de mission · la méthode montrant le transfert de responsabilité · HermesActivity · la photographie documentaire non générative · la recomposition mobile · les règles de mouvement et de reduced motion.
+- **Ce qui n'est pas figé :** les retours à la ligne, la quantité exacte de rouge dans les titres, les hauteurs dépendantes du texte, la densité des blocs éditoriaux, l'ordre final des sections commerciales. Ces points bougeront avec la copy définitive et ne sont pas des écarts au canon.
+- **Point d'entrée de la copy :** `src/app/art-direction-lab/concept-d/copy.ts`, seul et unique. Il porte le contrat `CopyContract`, qui décrit une forme et non un contenu. Une livraison incomplète ne compile pas. **Aucune copy n'est écrite ni réécrite tant que Paul n'a pas livré le wording validé.**
+- **Garde-fou :** `scripts/concept-d-qa.mjs` contient un test de gel du canon. Il échoue si un composant canonique disparaît, si la palette, la grille ou les fontes changent, si un rayon ou une ombre apparaît, si l'attribution Hermes disparaît, ou si un portrait brandé est câblé à la place de la photographie réelle. Il ne juge pas le texte.
+- **Conséquence :** le design system n'est **toujours pas migré**, et la homepage publique n'est **pas** touchée. Les quinze documents seront réécrits à partir de Concept D une fois la copy définitive reçue. Jusque-là, `docs/design-system/VISUAL-SOURCE-OF-TRUTH.md` fait autorité sur la question visuelle.
+- **Rollback :** rétrograder le statut dans `VISUAL-SOURCE-OF-TRUTH.md` et rouvrir la comparaison. Rien n'est en production, le coût est nul.
+
+---
+
 **Numérotation.** Les ADR de Parrit suivent un **compteur unique** réparti sur deux journaux : ADR-001 à 006 dans `brand/09_GOVERNANCE.md`, ADR-007 à 013 ici, ADR-014 et suivants dans le journal du document propriétaire de la règle. Un numéro n'est jamais réutilisé : vérifier les deux journaux avant d'en créer un.

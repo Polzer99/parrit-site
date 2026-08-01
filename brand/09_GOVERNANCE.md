@@ -56,7 +56,8 @@ Depuis le 31/07/2026, les ADR de Parrit suivent **une numérotation continue uni
 | ADR-007 à ADR-013 | `docs/design-system/DECISIONS.md` | décisions de design system, 31/07 |
 | ADR-014 à ADR-016 | **ici**, `brand/09_GOVERNANCE.md` | décisions de marque, 31/07 |
 | ADR-017 | `docs/design-system/DECISIONS.md` | registre éditorial condensé, 31/07 |
-| ADR-018 et suivants | **ici** ou `docs/design-system/DECISIONS.md` | selon le document propriétaire de la règle |
+| ADR-018 | `docs/design-system/DECISIONS.md` | Concept D devient la source visuelle de vérité, 01/08 |
+| ADR-019 et suivants | **ici** ou `docs/design-system/DECISIONS.md` | selon le document propriétaire de la règle |
 
 Un numéro n'est jamais réutilisé. Avant d'en créer un, vérifier les deux journaux.
 

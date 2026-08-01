@@ -1,3 +1,5 @@
+> **Source visuelle de vérité : [`VISUAL-SOURCE-OF-TRUTH.md`](./VISUAL-SOURCE-OF-TRUTH.md)** — Concept D poli, statut `APPROVED PENDING FINAL COPY`, validé le 01/08/2026 (ADR-018). Sur toute question visuelle, ce document prime sur les quinze fiches ci-dessous tant que la migration n'a pas eu lieu.
+
 # Design system Parrit.ai
 
 **Source de vérité visuelle et éditoriale de l'entreprise.** Pas seulement du site : les pages commerciales, les interfaces produit, Hermès, les newsletters, les publications LinkedIn, les decks, les visuels éditoriaux et les futures applications internes en dépendent.
