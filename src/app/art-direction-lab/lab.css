@@ -292,9 +292,12 @@
 }
 
 .cA .hero h1 {
-  /* Quatre lignes imposées, pas de retour à la ligne subi : à ce corps, une
-     ligne cassée par la largeur détruit la composition. */
-  font-size: clamp(2.75rem, 7.1vw, 7rem);
+  /* Lignes imposées, pas de retour à la ligne subi : à ce corps, une ligne
+     cassée par la largeur détruit la composition.
+     PARRIT-COPY-RESET-V1 : le titre canonique compte 47 signes contre 40, il
+     tient en cinq lignes au lieu de quatre. Le corps descend de 7 à 5,2 rem
+     pour que le bloc garde la MÊME hauteur qu'avant, environ 390 px. */
+  font-size: clamp(2.5rem, 5.4vw, 5.2rem);
 }
 
 .cA .hero h1 span {
@@ -603,8 +606,11 @@
 }
 
 .cB .head h1 {
-  font-size: clamp(2.75rem, 7.4vw, 7rem);
-  max-width: 20ch;
+  /* PARRIT-COPY-RESET-V1 : le titre canonique fait plus du double de l'ancien.
+     Le corps descend de 7 à 5,4 rem pour que l'en-tête garde sa place et ne
+     repousse pas le registre sous la ligne de flottaison. */
+  font-size: clamp(2.5rem, 5.6vw, 5.4rem);
+  max-width: 22ch;
 }
 
 .cB .head .sub {
@@ -891,7 +897,10 @@
 }
 
 .cC .stage h1 {
-  font-size: clamp(3.5rem, 13.5vw, 13rem);
+  /* PARRIT-COPY-RESET-V1 : à 13,5vw le titre canonique occupait sept lignes et
+     débordait de deux écrans. À 6,4 rem il tient en quatre lignes, exactement
+     la silhouette d'affiche de la tranche visuelle. */
+  font-size: clamp(2.5rem, 7.2vw, 6.4rem);
   position: relative;
   z-index: 2;
 }
@@ -910,6 +919,12 @@
   display: block;
   color: var(--red);
   padding-left: 2%;
+}
+
+.cC .stage h1 .l4 {
+  display: block;
+  color: var(--red);
+  padding-left: 11%;
 }
 
 .cC .stage .mono {
@@ -1119,5 +1134,95 @@
   .lab * {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* =========================================================================
+   PARRIT-COPY-RESET-V1 — deux ajouts, imposés par le nouveau volume de texte.
+
+   1. `.cta-link` : le lien secondaire du hero n'existait pas dans la tranche
+      visuelle. Il n'introduit aucune couleur, aucune fonte et aucune forme
+      nouvelle : c'est le style `mono` déjà en place, souligné.
+   2. `.proof` : les quatre éléments de preuve immédiate. Même grille que les
+      autres rangées à quatre colonnes, mêmes rôles typographiques, mêmes
+      filets. Aucun cadre, aucune ombre, aucun arrondi.
+
+   Aucune composition, couleur, proportion ou grille existante n'est touchée.
+   ========================================================================= */
+
+.lab .cta-link {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+}
+
+.lab .cta-link:hover {
+  color: var(--red);
+}
+
+.lab .proof {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 3rem;
+  border-top: 2px solid currentColor;
+}
+
+.lab .proof-item {
+  padding: 1.25rem 1.5rem 1.75rem 0;
+}
+
+.lab .proof-item + .proof-item {
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--hair);
+}
+
+.lab .proof-key {
+  font-family: var(--display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(1.25rem, 2.4vw, 1.875rem);
+  line-height: 0.94;
+  margin: 0 0 0.5rem;
+}
+
+.lab .proof-line {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* Le prix est le seul élément de preuve qui porte l'accent rouge. */
+.lab .proof-item:nth-child(2) .proof-key {
+  color: var(--red);
+}
+
+@media (max-width: 64rem) {
+  .lab .proof {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .lab .proof-item:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 34rem) {
+  .lab .proof {
+    grid-template-columns: 1fr;
+  }
+  .lab .proof-item,
+  .lab .proof-item + .proof-item {
+    padding: 1rem 0 1.25rem;
+    border-left: 0;
+    border-top: 1px solid var(--hair);
+  }
+  .lab .proof-item:first-child {
+    border-top: 0;
   }
 }

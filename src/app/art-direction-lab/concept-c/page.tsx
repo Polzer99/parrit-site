@@ -10,13 +10,12 @@ export const metadata: Metadata = {
 /**
  * CONCEPT C — MANIFESTO IN PRODUCTION
  *
- * Parti pris : l'affiche. Fond encre pleine page, typographie condensée
- * presque architecturale, rythme volontairement discontinu, portrait tramé
- * à fond perdu, rouge utilisé comme une coupe.
+ * PARRIT-COPY-RESET-V1 : composition, couleurs, typographie, grille et assets
+ * inchangés. Le titre d'affiche reste sur trois lignes désalignées, mais il
+ * porte maintenant la formulation centrale au lieu d'une déclaration.
  *
- * Le risque assumé : un manifeste peut devenir une déclaration sans objet.
- * La contrainte tenue est donc qu'on comprenne l'offre en cinq secondes et
- * que le CTA reste évident, malgré la radicalité.
+ * Contrainte tenue : la radicalité ne coûte rien à la lisibilité de l'offre.
+ * Durée, prix, résultat et prochaine action sont tous sur la page.
  */
 export default function ConceptC() {
   return (
@@ -26,11 +25,12 @@ export default function ConceptC() {
       <div className="wrap">
         <section className="stage">
           <div>
-            <p className="mono">Manifeste · Parrit · 2026</p>
+            <p className="mono">{FACTS.hero.eyebrow}</p>
             <h1 className="disp">
-              <span className="l1">Une IA</span>
-              <span className="l2">qui parle</span>
-              <span className="l3">n&apos;exécute rien.</span>
+              <span className="l1">On entre</span>
+              <span className="l2">pour déployer.</span>
+              <span className="l3">On vous laisse</span>
+              <span className="l4">les clés.</span>
             </h1>
           </div>
 
@@ -46,29 +46,54 @@ export default function ConceptC() {
         </section>
 
         <section className="verdict">
-          <p>
-            Parrit construit et opère des outils sur mesure avec des agents IA.
-            Une entrée réelle, une sortie définie, un propriétaire humain. Ce
-            qui tourne chez un client tourne d&apos;abord chez nous.
-          </p>
+          <p>{FACTS.hero.texte}</p>
+          <div className="actions" style={{ marginTop: "2rem" }}>
+            <a className="cta" href={FACTS.cta.principal.href}>
+              {FACTS.cta.principal.label}
+            </a>
+            <a className="cta-link" href={FACTS.cta.secondaire.href}>
+              {FACTS.cta.secondaire.label}
+            </a>
+          </div>
         </section>
 
-        <section className="fronts" id="fronts">
-          {FACTS.fronts.map((f) => (
-            <article className="front" key={f.code}>
-              <p className="mono">Front {f.code}</p>
-              <h2>{f.titre}</h2>
-              <p>{f.corps}</p>
-              <div className="io">
-                <p>
-                  <b>Entrée</b> {f.entree}
-                </p>
-                <p>
-                  <b>Sortie</b> {f.sortie}
-                </p>
-              </div>
-            </article>
+        <section className="proof" aria-label="Ce que contient la mission">
+          {FACTS.preuve.map((p) => (
+            <div className="proof-item" key={p.cle}>
+              <p className="proof-key">{p.cle}</p>
+              <p className="proof-line">{p.ligne}</p>
+            </div>
           ))}
+        </section>
+
+        <section className="fronts">
+          <article className="front">
+            <p className="mono">Le point de départ</p>
+            <h2>
+              {FACTS.probleme.titre[0]}
+              <br />
+              {FACTS.probleme.titre[1]}
+            </h2>
+            {FACTS.probleme.paragraphes.map((t) => (
+              <p key={t}>{t}</p>
+            ))}
+          </article>
+
+          <article className="front" id="cas">
+            <p className="mono">Ce qu&apos;on déploie</p>
+            <h2>{FACTS.methode.titre}</h2>
+            <div className="io">
+              {FACTS.cas.slice(0, 2).map((c) => (
+                <p key={c.id}>
+                  <b>Entrée</b> {c.entree}
+                  <br />
+                  <b>Sortie</b> {c.sortie}
+                  <br />
+                  <b>L&apos;humain décide</b> {c.humain}
+                </p>
+              ))}
+            </div>
+          </article>
         </section>
 
         <figure className="plate">
@@ -79,32 +104,39 @@ export default function ConceptC() {
             height={788}
           />
           <figcaption>
-            Le même geste, chaque jour. Puis l&apos;endroit où la boucle se
-            referme.
+            {FACTS.hermes.titre[0]} {FACTS.hermes.titre[1]} {FACTS.hermes.trace}
           </figcaption>
         </figure>
 
         <section className="offres">
-          {FACTS.offres.map((o) => (
-            <p className="offre" key={o.n}>
-              {o.titre}
+          {FACTS.offre.mois.map((m) => (
+            <p className="offre" key={m.n}>
+              {m.titre}
               <span>
-                {o.n} · {o.prix}
+                {m.n} · {m.corps}
               </span>
             </p>
           ))}
         </section>
 
+        <p className="mono" style={{ marginTop: "1.5rem" }}>
+          {FACTS.offre.titre} {FACTS.offre.mention}
+        </p>
+
         <div className="actions">
-          <a className="cta" href={FACTS.cta.principal.href}>
-            {FACTS.cta.principal.label}
+          <a className="cta" href={FACTS.cta.final.href}>
+            {FACTS.cta.final.label}
           </a>
-          <span className="cta-note">{FACTS.cta.principal.note}</span>
+          <span className="cta-note">{FACTS.final.titre}</span>
         </div>
+
+        <p className="mono" style={{ marginTop: "1rem", maxWidth: "44rem" }}>
+          {FACTS.final.texte}
+        </p>
 
         <footer className="foot">
           <p>Concept C · Manifesto in Production · laboratoire interne</p>
-          <p>{FACTS.hermes}</p>
+          <p>{FACTS.hermes.attribution}</p>
         </footer>
       </div>
     </div>

@@ -10,16 +10,10 @@ export const metadata: Metadata = {
 /**
  * CONCEPT B — AGENT OPERATING SYSTEM
  *
- * Parti pris : la page EST le registre. Ce qui porte la direction, ce sont les
- * traces, les propriétaires et les états, pas une photographie.
- *
- * Contrainte tenue : aucun tableau de bord SaaS. Pas de carte, pas d'ombre,
- * pas de rayon, pas de graphique, pas de badge coloré, pas de faux chiffre.
- * Le système est rendu en typographie de presse, à la manière d'un registre
- * imprimé. Le rouge ne signale qu'une chose : un humain doit trancher.
- *
- * Le portrait est secondaire, en bas, en noir et blanc : l'humain est au bout
- * de la chaîne, il n'est pas la promesse.
+ * PARRIT-COPY-RESET-V1 : composition, couleurs, typographie, grille et assets
+ * inchangés. Le registre garde ses cinq colonnes ; ce sont les données qui ont
+ * changé de nature. Chaque ligne est désormais un cas d'usage déployé, avec
+ * ce qui entre, ce qui sort, et ce que l'humain continue de décider.
  */
 export default function ConceptB() {
   return (
@@ -28,54 +22,80 @@ export default function ConceptB() {
 
       <div className="wrap">
         <header className="head">
-          <p className="mono">Registre d&apos;exécution · Parrit</p>
-          <h1 className="disp">Chaque ligne a un propriétaire humain.</h1>
+          <p className="mono">{FACTS.hero.eyebrow}</p>
+          <h1 className="disp">
+            {FACTS.hero.titre[0]} {FACTS.hero.titre[1]}
+          </h1>
           <div className="sub">
-            <p>
-              Un agent qui tourne sans propriétaire est une panne qui attend.
-              Chez Parrit, une chaîne se lit toujours de la même façon : une
-              entrée réelle, une sortie définie, quelqu&apos;un qui en répond.
-              Quand la décision n&apos;est pas automatisable, la chaîne
-              s&apos;arrête et vous appelle.
-            </p>
+            <p>{FACTS.hero.texte}</p>
             <p className="mono">
-              Entrée → sortie → propriétaire → état.
+              {FACTS.probleme.titre[0]}
               <br />
-              Le rouge signale une décision humaine, rien d&apos;autre.
+              {FACTS.probleme.titre[1]}
             </p>
+          </div>
+          <div className="actions">
+            <a className="cta" href={FACTS.cta.principal.href}>
+              {FACTS.cta.principal.label}
+            </a>
+            <a className="cta-link" href={FACTS.cta.secondaire.href}>
+              {FACTS.cta.secondaire.label}
+            </a>
           </div>
         </header>
 
-        <section className="registre" aria-label="Registre d'exécution">
-          {FACTS.traces.map((t, i) => (
-            <div className="ligne" key={t.entree}>
+        <section className="proof" aria-label="Ce que contient la mission">
+          {FACTS.preuve.map((p) => (
+            <div className="proof-item" key={p.cle}>
+              <p className="proof-key">{p.cle}</p>
+              <p className="proof-line">{p.ligne}</p>
+            </div>
+          ))}
+        </section>
+
+        <section className="registre" id="cas" aria-label="Ce qu'on déploie">
+          {FACTS.cas.map((c, i) => (
+            <div className="ligne" key={c.id}>
               <span className="ligne-n">{String(i + 1).padStart(2, "0")}</span>
-              <span className="ligne-in">{t.entree}</span>
+              <span className="ligne-in">{c.entree}</span>
               <span className="ligne-arrow" aria-hidden="true">
                 →
               </span>
-              <span className="ligne-out">{t.sortie}</span>
+              <span className="ligne-out">{c.sortie}</span>
               <span className="ligne-meta">
-                {t.proprietaire}
+                {c.systeme}
                 <br />
-                <span
-                  className={t.etat === "décision humaine" ? "etat-decision" : undefined}
-                >
-                  {t.etat}
-                </span>
+                <span className="etat-decision">L&apos;humain décide : {c.humain}</span>
               </span>
             </div>
           ))}
         </section>
 
-        <section className="fronts" id="fronts">
-          {FACTS.fronts.map((f) => (
-            <article className="front" key={f.code}>
-              <p className="mono">Front {f.code}</p>
-              <h2>{f.titre}</h2>
-              <p>{f.corps}</p>
-            </article>
-          ))}
+        <section className="fronts">
+          <article className="front">
+            <p className="mono">Le point de départ</p>
+            <h2>
+              {FACTS.probleme.titre[0]}
+              <br />
+              {FACTS.probleme.titre[1]}
+            </h2>
+            {FACTS.probleme.paragraphes.map((t) => (
+              <p key={t} style={{ marginBottom: "0.75rem" }}>
+                {t}
+              </p>
+            ))}
+          </article>
+
+          <article className="front">
+            <p className="mono">La méthode</p>
+            <h2>{FACTS.methode.titre}</h2>
+            {FACTS.methode.etapes.map((e) => (
+              <p key={e.n} style={{ marginBottom: "0.75rem" }}>
+                <b>{e.titre}. </b>
+                {e.corps}
+              </p>
+            ))}
+          </article>
         </section>
 
         <section className="humain">
@@ -86,34 +106,42 @@ export default function ConceptB() {
             height={930}
           />
           <div>
-            <blockquote>« {FACTS.citation} »</blockquote>
-            <p className="mono">
-              {FACTS.mains.map((m) => `${m.qui} : ${m.role}`).join(" · ")}
-            </p>
+            <blockquote>
+              {FACTS.hermes.titre[0]} {FACTS.hermes.titre[1]}
+            </blockquote>
+            <p className="mono">{FACTS.hermes.texte}</p>
+            <p className="mono">{FACTS.hermes.trace}</p>
           </div>
         </section>
 
         <section className="offres">
-          {FACTS.offres.map((o) => (
-            <article className="offre" key={o.n}>
-              <p className="mono">{o.n}</p>
-              <h3>{o.titre}</h3>
-              <p>{o.corps}</p>
-              <span className="mono">{o.prix}</span>
+          {FACTS.offre.mois.map((m) => (
+            <article className="offre" key={m.n}>
+              <p className="mono">{m.n}</p>
+              <h3>{m.titre}</h3>
+              <p>{m.corps}</p>
             </article>
           ))}
         </section>
 
+        <p className="mono" style={{ marginTop: "1.5rem" }}>
+          {FACTS.offre.titre} {FACTS.offre.mention}
+        </p>
+
         <div className="actions">
-          <a className="cta" href={FACTS.cta.principal.href}>
-            {FACTS.cta.principal.label}
+          <a className="cta" href={FACTS.cta.final.href}>
+            {FACTS.cta.final.label}
           </a>
-          <span className="mono">{FACTS.cta.principal.note}</span>
+          <span className="mono">{FACTS.final.titre}</span>
         </div>
+
+        <p className="mono" style={{ marginTop: "1rem", maxWidth: "44rem" }}>
+          {FACTS.final.texte}
+        </p>
 
         <footer className="foot">
           <p>Concept B · Agent Operating System · laboratoire interne</p>
-          <p>{FACTS.hermes}</p>
+          <p>{FACTS.hermes.attribution}</p>
         </footer>
       </div>
     </div>

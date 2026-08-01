@@ -55,6 +55,12 @@ async function shots(browser) {
       await page.evaluate(() => document.fonts.ready);
       await page.screenshot({ path: `${OUT}/${p.id}-${s.w}x${s.h}.png`, fullPage: true });
 
+      // PARRIT-COPY-RESET-V1 : le premier écran est le test des cinq secondes.
+      // Il se juge à la hauteur du viewport, pas sur la page entière.
+      if (s.w === 1440 || s.w === 375) {
+        await page.screenshot({ path: `${OUT}/${p.id}-hero-${s.w}x${s.h}.png` });
+      }
+
       // Débordement horizontal : disqualifiant, quel que soit le concept.
       const over = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
