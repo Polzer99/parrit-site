@@ -18,9 +18,28 @@ import {
   assertSinglePrincipal,
   ctaHref,
   getCta,
-} from "../src/lib/registry/cta";
-import { getPreuve, metriqueAffichable } from "../src/lib/registry/preuves";
-import { getRessource, getRessourcesPubliees } from "../src/lib/registry/ressources";
+  getOffre,
+  getOffres,
+  getPreuve,
+  getRessource,
+  getRessourcesPubliees,
+  getTaxonomies,
+  libelleOrganisation,
+  logoAutorise,
+  metriqueAffichable,
+  nominatifAutorise,
+  offreHref,
+  preuvesPubliables,
+  validerRegistres,
+  type Preuve,
+} from "../src/lib/registry";
+import {
+  adaptersEnregistres,
+  dureeISO,
+  enregistrerAdapter,
+  resolveVideo,
+  type VideoSource,
+} from "../src/lib/video/contract";
 
 const TEMPLATES = ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"] as const;
 
@@ -29,7 +48,7 @@ const TEMPLATES = ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"] as const;
 test.describe("registre des CTA", () => {
   test("une page ne peut pas porter deux actions principales", () => {
     expect(() => assertSinglePrincipal(["rdv.paul"])).not.toThrow();
-    expect(() => assertSinglePrincipal(["rdv.paul", "ressource.telecharger"])).not.toThrow();
+    expect(() => assertSinglePrincipal(["rdv.paul", "prototype.demander"])).not.toThrow();
     expect(() => assertSinglePrincipal(["rdv.paul", "diagnostic.decrire_mon_cas"])).toThrow(
       /Deux CTA principaux/,
     );
@@ -57,14 +76,171 @@ test.describe("registre des preuves", () => {
     const p = getPreuve("preuve.derive-openrouter");
     expect(p).toBeDefined();
     expect(metriqueAffichable(p!)).toBe(true);
-    expect(metriqueAffichable({ ...p!, methodeMesure: undefined })).toBe(false);
-    expect(metriqueAffichable({ ...p!, periode: undefined })).toBe(false);
+    expect(
+      metriqueAffichable({ ...p!, mesure: { ...p!.mesure!, methodeMesure: "" } }),
+    ).toBe(false);
+    expect(metriqueAffichable({ ...p!, mesure: { ...p!.mesure!, periode: "" } })).toBe(false);
   });
 
   test("une preuve sans métrique reste affichable, sans son chiffre", () => {
     const p = getPreuve("preuve.capture-site");
     expect(p).toBeDefined();
     expect(metriqueAffichable(p!)).toBe(false);
+    expect(preuvesPubliables([p!])).toHaveLength(1);
+  });
+
+  test("les huit natures de preuve passent le même contrat de lecture", () => {
+    const natures: Preuve["type"][] = [
+      "preuve_interne",
+      "systeme_en_fonctionnement",
+      "trace",
+      "metrique_interne",
+      "cas_anonymise",
+      "temoignage",
+      "media",
+      "client_nominatif_autorise",
+    ];
+    for (const type of natures) {
+      const p: Preuve = {
+        id: `preuve.type-${type.replace(/_/g, "-")}`,
+        type,
+        titre: "t",
+        description: "d",
+        niveauPreuve: 3,
+        source: "s",
+        confidentialite: "publiable",
+      };
+      // Aucune nature n'exige de charge utile pour être lue et filtrée.
+      expect(() => preuvesPubliables([p])).not.toThrow();
+      expect(metriqueAffichable(p)).toBe(false);
+      expect(nominatifAutorise(p)).toBe(true);
+    }
+  });
+
+  test("une preuve nominative sans autorisation est filtrée, pas affichée à moitié", () => {
+    const base: Preuve = {
+      id: "preuve.nominative-test",
+      type: "client_nominatif_autorise",
+      titre: "t",
+      description: "d",
+      niveauPreuve: 5,
+      source: "s",
+      confidentialite: "publiable",
+      descriptifAnonymise: "Un groupe industriel européen",
+      nominatif: { organisation: "Organisation Test", logo: "/x.svg", publicationPermission: false },
+    };
+
+    expect(nominatifAutorise(base)).toBe(false);
+    expect(preuvesPubliables([base])).toHaveLength(0);
+    // Sans permission : ni le nom, ni le logo. Le descriptif anonymisé prend le relais.
+    expect(libelleOrganisation(base)).toBe("Un groupe industriel européen");
+    expect(logoAutorise(base)).toBeNull();
+
+    const autorisee: Preuve = {
+      ...base,
+      nominatif: { ...base.nominatif!, publicationPermission: true },
+    };
+    expect(preuvesPubliables([autorisee])).toHaveLength(1);
+    expect(libelleOrganisation(autorisee)).toBe("Organisation Test");
+    expect(logoAutorise(autorisee)).toBe("/x.svg");
+  });
+
+  test("aucune preuve du registre n'exige un nom ni un logo pour être lue", () => {
+    for (const p of preuvesPubliables(
+      ["preuve.derive-openrouter", "preuve.capture-site", "preuve.circuit-breaker",
+       "preuve.trace-coupe-circuit", "preuve.consolidation-gate", "preuve.atelier-cartographie"]
+        .map((id) => getPreuve(id)!)
+    )) {
+      expect(p.nominatif).toBeUndefined();
+    }
+  });
+});
+
+test.describe("ciblage — les offres restent configurables", () => {
+  test("les deux taxonomies cohabitent sans être fusionnées", () => {
+    const taxonomies = getTaxonomies();
+    expect(taxonomies).toContain("trois-offres");
+    expect(taxonomies).toContain("paliers");
+    // Le nombre d'offres est de la DONNÉE : aucun composant ne le code.
+    expect(getOffres("trois-offres").length).toBe(3);
+    expect(getOffres("paliers").length).toBe(7);
+  });
+
+  test("une référence d'offre inconnue ne casse rien, elle ne rend rien", () => {
+    expect(getOffre("offre.inexistante")).toBeUndefined();
+    expect(offreHref("offre.inexistante", "fr")).toBeNull();
+  });
+
+  test("aucun libellé de CTA ne nomme une taxonomie d'offre", () => {
+    const interdits = /palier|niveau\s*N[1-7]|croissance|deployer|transmettre/i;
+    for (const id of [
+      "rdv.paul", "rdv.systeme", "rdv.offre", "rdv.auteur",
+      "diagnostic.decrire_mon_cas", "ressource.demander", "ressource.telecharger",
+      "veille.recevoir", "prototype.demander", "presse.kit", "presse.contact",
+    ] as const) {
+      expect(getCta(id).libelle).not.toMatch(interdits);
+    }
+  });
+});
+
+test.describe("contrat vidéo — neutre vis-à-vis de l'hébergeur", () => {
+  const source: VideoSource = {
+    provider: "test",
+    externalId: "abc",
+    canonicalUrl: "/a.mp4",
+    embedUrl: "/a.mp4",
+    thumbnail: "/a.jpg",
+    duration: 372,
+    publicationDate: "2026-08-01",
+    transcript: [{ t: "00:00", texte: "x" }],
+    chapters: [],
+    captions: [],
+  };
+
+  test("aucun hébergeur n'est présélectionné", () => {
+    expect(adaptersEnregistres()).toEqual([]);
+  });
+
+  test("une donnée complète se résout sans adapter", () => {
+    expect(resolveVideo(source).embedUrl).toBe("/a.mp4");
+  });
+
+  test("un provider sans URL ni adapter échoue en nommant la décision manquante", () => {
+    const nue = { ...source, canonicalUrl: undefined, embedUrl: undefined, thumbnail: undefined };
+    expect(() => resolveVideo(nue)).toThrow(/adapter|tranch/i);
+  });
+
+  test("un adapter enregistré construit les URL sans toucher au template", () => {
+    enregistrerAdapter({
+      provider: "fictif",
+      canonicalUrl: (id) => `https://exemple.test/v/${id}`,
+      embedUrl: (id) => `https://exemple.test/e/${id}`,
+      thumbnail: (id) => `https://exemple.test/t/${id}.jpg`,
+    });
+    const resolu = resolveVideo({
+      ...source,
+      provider: "fictif",
+      canonicalUrl: undefined,
+      embedUrl: undefined,
+      thumbnail: undefined,
+    });
+    expect(resolu.embedUrl).toBe("https://exemple.test/e/abc");
+    expect(resolu.thumbnail).toBe("https://exemple.test/t/abc.jpg");
+  });
+
+  test("une vidéo sans transcript est refusée", () => {
+    expect(() => resolveVideo({ ...source, transcript: [] })).toThrow(/transcript/i);
+  });
+
+  test("la durée ISO 8601 est correcte", () => {
+    expect(dureeISO(372)).toBe("PT6M12S");
+    expect(dureeISO(3661)).toBe("PT1H1M1S");
+  });
+});
+
+test.describe("validation des registres", () => {
+  test("les trois registres sont cohérents", () => {
+    expect(validerRegistres()).toEqual([]);
   });
 });
 

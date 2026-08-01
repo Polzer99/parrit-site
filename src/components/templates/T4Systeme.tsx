@@ -35,19 +35,13 @@ import {
 } from "./parts";
 import { assertSinglePrincipal, type CtaId } from "@/lib/registry/cta";
 import { breadcrumbList, graphe, organizationRef, SITE_URL } from "@/lib/seo/jsonld";
-
-export type Maturite =
-  | "en_production"
-  | "utilise_en_interne"
-  | "prototype"
-  | "arrete_appris";
-
-const MATURITE_LIBELLE: Record<Maturite, string> = {
-  en_production: "En production",
-  utilise_en_interne: "Utilisé en interne",
-  prototype: "Prototype",
-  arrete_appris: "Arrêté, appris",
-};
+import {
+  MATURITE_LIBELLE,
+  type MaturiteSysteme,
+  type OffreRef,
+  type PersonaRef,
+  type ProblemeRef,
+} from "@/lib/registry/ciblage";
 
 export type SystemeData = {
   slug: string;
@@ -62,7 +56,13 @@ export type SystemeData = {
   limites: string[];
   deplacements?: ShiftItem[];
   capture?: { src: string; alt: string; legende?: string };
-  maturite: Maturite;
+  maturite: MaturiteSysteme;
+  /* Ciblage — des RÉFÉRENCES opaques. Le template n'a aucune connaissance du
+     nom, du nombre ni de la hiérarchie des offres : la taxonomie est de la
+     donnée, et le document de positionnement la remplacera sans toucher ici. */
+  offreRef?: OffreRef;
+  problemeRef?: ProblemeRef;
+  personaRef?: PersonaRef;
   statutVerifieManuellement: boolean;
   preuveRefs?: readonly string[];
   casLies: LienContenu[];
