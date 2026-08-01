@@ -14,8 +14,15 @@
 
 export { T1Article, type ArticleData } from "./T1Article";
 export { T2Video, type VideoData } from "./T2Video";
+export {
+  resolveVideo,
+  enregistrerAdapter,
+  type VideoAsset,
+  type VideoSource,
+  type VideoAdapter,
+} from "@/lib/video/contract";
 export { T3Ressource } from "./T3Ressource";
-export { T4Systeme, type SystemeData, type Maturite } from "./T4Systeme";
+export { T4Systeme, type SystemeData } from "./T4Systeme";
 export { T5Theme, type ThemeData } from "./T5Theme";
 export {
   T6Presse,
