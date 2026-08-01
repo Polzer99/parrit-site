@@ -1,0 +1,667 @@
+/* =========================================================================
+   PRODUCT-LIVING-HERO-PROOF-V1
+
+   Tout est scopé .hp. Rien ne fuit vers Concept D, vers les scènes V1, V2 et
+   Premium, vers le laboratoire, ni vers le site public.
+
+   Un seul balisage, deux traitements : `[data-traitement="paper"]` et
+   `[data-traitement="ink"]`. Le scénario, la copy et le timing sont donc
+   rigoureusement identiques d'une variante à l'autre — c'est le balisage
+   partagé qui le garantit, pas une intention.
+
+   Expérimental. N'appartient pas au design system.
+   ========================================================================= */
+
+.hp {
+  /* Palette canon du laboratoire, inchangée. */
+  --paper: #fffdfa;
+  --ink: #0c0c0d;
+  --red: #d1132f;
+
+  /* Côté éditorial : identique dans les deux traitements. */
+  --e-fond: #fffdfa;
+  --e-1: #0c0c0d;
+  --e-2: #4a4d55;
+  --e-3: #6b6e76;
+  --e-filet: rgba(12, 12, 13, 0.14);
+
+  --sans: var(--font-body), system-ui, sans-serif;
+  --mono: var(--font-mono), ui-monospace, monospace;
+  --display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+
+  /* Mouvement : départ vif, arrivée posée. Une seule courbe. */
+  --e-out: cubic-bezier(0.16, 0.84, 0.44, 1);
+  --d-1: 160ms;
+  --d-2: 380ms;
+  --d-3: 620ms;
+
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(0, 1fr);
+  background: var(--e-fond);
+  color: var(--e-1);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Les liens sont portés à (0,2,0) : la feuille parente du laboratoire déclare
+   `.lab a` en (0,1,1), qui l'emporterait sur une simple classe et peindrait le
+   libellé du bouton principal en encre sur encre. Le harnais vérifie
+   désormais le contraste, pour que ça ne repasse plus en silence. */
+.hp .hp-cta,
+.hp .hp-cta-lien,
+.hp .hp-demo,
+.hp .hp-lab a {
+  text-decoration: none;
+}
+.hp .hp-cta {
+  color: var(--paper);
+}
+.hp .hp-cta-lien,
+.hp .hp-demo {
+  color: var(--e-1);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.hp .hp-lab a {
+  color: var(--e-1);
+}
+
+/* Réinitialisation de spécificité nulle : la moindre classe reprend la main. */
+:where(.hp) :where(button) {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.hp p,
+.hp h1,
+.hp ul,
+.hp figure,
+.hp figcaption {
+  margin: 0;
+}
+.hp ul {
+  padding: 0;
+  list-style: none;
+}
+.hp img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.hp :focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+/* -------------------------------------------------------------------------
+   Barre de laboratoire. Elle n'appartient pas au hero.
+   ------------------------------------------------------------------------- */
+
+.hp-lab {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1.5rem;
+  border-bottom: 1px solid var(--e-filet);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--e-3);
+}
+.hp-lab a {
+  color: var(--e-1);
+  text-decoration: none;
+}
+.hp-lab-titre {
+  color: var(--e-1);
+}
+.hp-lab-choix {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+}
+.hp-lab-choix button {
+  padding: 2px 10px;
+  border: 1px solid var(--e-filet);
+  color: var(--e-2);
+  transition:
+    background var(--d-1) var(--e-out),
+    color var(--d-1) var(--e-out);
+}
+.hp-lab-choix button[data-actif="oui"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+.hp-lab-note {
+  color: var(--e-3);
+}
+
+/* -------------------------------------------------------------------------
+   HERO — charpente de Concept D : éditorial à gauche, preuve à droite.
+   ------------------------------------------------------------------------- */
+
+.hp-hero {
+  display: flex;
+  align-items: center;
+  min-height: 0;
+}
+.hp-grid {
+  display: grid;
+  /* 48 % éditorial, 52 % preuve : le panneau doit être compris, pas décoré. */
+  grid-template-columns: 48fr 52fr;
+  align-items: center;
+  gap: 3.5rem;
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+}
+
+.hp-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1.1rem;
+}
+.hp-titre {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(2.8rem, 4.4vw, 4.05rem);
+  line-height: 0.94;
+  letter-spacing: 0.002em;
+  display: flex;
+  flex-direction: column;
+}
+.hp-promesse {
+  margin-top: 1.4rem;
+  max-width: 34rem;
+  font-size: 1.02rem;
+  color: var(--e-2);
+}
+.hp-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin-top: 2rem;
+}
+.hp-cta {
+  padding: 0.85rem 1.35rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background var(--d-1) var(--e-out);
+}
+.hp-cta:hover {
+  background: #26262a;
+}
+.hp-cta-lien {
+  color: var(--e-1);
+  font-size: 0.94rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* -------------------------------------------------------------------------
+   BLOC DE PREUVE — balisage commun aux deux traitements.
+   ------------------------------------------------------------------------- */
+
+.hp-preuve {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-width: 0;
+}
+.hp-proof {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.1rem 1.2rem 1.2rem;
+  min-height: 30rem;
+}
+.hp-specimen {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.hp-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+  transition: opacity 900ms var(--e-out);
+}
+/* Respiration : la scène s'éteint doucement avant de repartir. Elle ne
+   recommence jamais d'un coup sec. */
+.hp[data-moment="respiration"] .hp-stage {
+  opacity: 0.22;
+}
+
+.hp-tag,
+.hp-effet-cle,
+.hp-sortie-dest,
+.hp-arret-nom,
+.hp-arret-acte {
+  font-family: var(--mono);
+  /* Rien sous 13 px dans la preuve : un hero se lit à distance. */
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+
+/* Chaque bloc entre quand son moment arrive, et reste : la preuve s'accumule
+   sous les yeux au lieu de clignoter. */
+.hp-signal,
+.hp-objet,
+.hp-arret,
+.hp-sorties {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity var(--d-2) var(--e-out),
+    transform var(--d-2) var(--e-out);
+}
+.hp-signal[data-vu="oui"],
+.hp-objet[data-vu="oui"],
+.hp-arret[data-vu="oui"],
+.hp-sorties[data-vu="oui"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Le signal vient d'ailleurs : il descend, il ne monte pas. */
+.hp-signal {
+  transform: translateY(-10px);
+}
+
+.hp-signal {
+  padding: 0.55rem 0.75rem;
+}
+.hp-signal-objet {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.hp-objet {
+  padding: 0.8rem 0.9rem 0.9rem;
+  transition-delay: 60ms;
+}
+.hp-objet-titre {
+  font-size: 1.02rem;
+  font-weight: 600;
+}
+.hp-objet-ligne {
+  font-size: 0.9rem;
+  margin-top: 1px;
+}
+
+.hp-effets {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 0.7rem;
+}
+.hp-effets li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding-top: 0.35rem;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity var(--d-2) var(--e-out),
+    transform var(--d-2) var(--e-out);
+}
+.hp-effets li[data-vu="oui"] {
+  opacity: 1;
+  transform: translateX(0);
+}
+.hp-effet-cle {
+  flex: none;
+  width: 5rem;
+}
+.hp-effet-ligne {
+  font-size: 0.9rem;
+}
+
+/* L'arrêt. C'est le seul endroit où la scène change de registre. */
+.hp-arret {
+  padding: 0.7rem 0.85rem 0.75rem;
+  transition-delay: 40ms;
+}
+.hp-arret-etat {
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.hp-arret-raison {
+  font-size: 0.92rem;
+  margin-top: 3px;
+}
+.hp-arret-qui {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+.hp-photo {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+}
+/* L'acte humain n'apparaît qu'au moment de la décision. */
+.hp-arret-acte {
+  margin-left: auto;
+  padding: 2px 9px;
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity var(--d-1) var(--e-out),
+    transform var(--d-1) var(--e-out);
+}
+.hp-arret[data-decide="oui"] .hp-arret-acte {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hp-sorties {
+  display: flex;
+  gap: 0.4rem;
+  transition-delay: 40ms;
+}
+.hp-sorties li {
+  flex: 1;
+  min-width: 0;
+  padding: 0.5rem 0.6rem;
+}
+.hp-sorties li:nth-child(2) {
+  transition-delay: 120ms;
+}
+.hp-sorties li:nth-child(3) {
+  transition-delay: 240ms;
+}
+.hp-sortie-dest {
+  display: block;
+}
+.hp-sortie-ligne {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* Repère de lecture passif : six segments, aucune commande. */
+.hp-progression {
+  display: flex;
+  gap: 3px;
+  margin-top: auto;
+}
+.hp-progression span {
+  flex: 1;
+  height: 2px;
+  transition: background var(--d-1) linear;
+}
+
+.hp-demo {
+  align-self: flex-start;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--e-2);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.hp-demo:hover {
+  color: var(--e-1);
+}
+
+/* =========================================================================
+   VARIANTE PAPER — la preuve reste claire, mais reste technologique.
+   ========================================================================= */
+
+.hp[data-traitement="paper"] .hp-proof {
+  background: #f2f3f6;
+  border-top: 2px solid var(--ink);
+  color: var(--ink);
+  box-shadow: 4px 5px 0 rgba(12, 12, 13, 0.09);
+}
+.hp[data-traitement="paper"] .hp-specimen {
+  color: #565961;
+}
+.hp[data-traitement="paper"] .hp-signal {
+  background: #e6e8ee;
+}
+.hp[data-traitement="paper"] .hp-tag,
+.hp[data-traitement="paper"] .hp-effet-cle,
+.hp[data-traitement="paper"] .hp-sortie-dest {
+  color: #545760;
+}
+.hp[data-traitement="paper"] .hp-objet {
+  background: var(--paper);
+  box-shadow: 2px 3px 0 rgba(12, 12, 13, 0.07);
+}
+.hp[data-traitement="paper"] .hp-effets li {
+  border-top: 1px solid rgba(12, 12, 13, 0.09);
+}
+.hp[data-traitement="paper"] .hp-effets li[data-manque="oui"] .hp-effet-cle {
+  color: var(--red);
+}
+.hp[data-traitement="paper"] .hp-arret {
+  background: var(--paper);
+  box-shadow:
+    inset 3px 0 0 var(--red),
+    2px 3px 0 rgba(12, 12, 13, 0.07);
+}
+.hp[data-traitement="paper"] .hp-arret-acte {
+  background: var(--ink);
+  color: var(--paper);
+}
+.hp[data-traitement="paper"] .hp-sorties li {
+  background: var(--paper);
+  box-shadow: 2px 3px 0 rgba(12, 12, 13, 0.07);
+}
+.hp[data-traitement="paper"] .hp-progression span {
+  background: rgba(12, 12, 13, 0.12);
+}
+.hp[data-traitement="paper"] .hp-progression span[data-fait="oui"] {
+  background: var(--ink);
+}
+.hp[data-traitement="paper"] .hp-progression span[data-courant="oui"] {
+  background: var(--red);
+}
+
+/* =========================================================================
+   VARIANTE INK — le panneau forme un champ sombre autonome.
+
+   Il ne flotte pas comme une carte venue d'une autre application : il est
+   tenu par la grille du hero, aligné sur la colonne éditoriale, et il partage
+   exactement la même typographie.
+   ========================================================================= */
+
+.hp[data-traitement="ink"] .hp-proof {
+  /* Une couleur de fond opaque sous le dégradé : elle sert de repli et permet
+     de calculer un contraste réel plutôt que de remonter jusqu'à la page. */
+  background-color: #0f1014;
+  background-image: linear-gradient(180deg, #131418, #0a0a0c);
+  color: #f0f1f4;
+  box-shadow: 4px 5px 0 rgba(12, 12, 13, 0.28);
+}
+.hp[data-traitement="ink"] .hp-specimen {
+  color: #9096a1;
+}
+.hp[data-traitement="ink"] .hp-signal {
+  background: rgba(255, 255, 255, 0.05);
+}
+.hp[data-traitement="ink"] .hp-tag,
+.hp[data-traitement="ink"] .hp-effet-cle,
+.hp[data-traitement="ink"] .hp-sortie-dest {
+  color: #969ba6;
+}
+.hp[data-traitement="ink"] .hp-objet {
+  background: #1b1d24;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.hp[data-traitement="ink"] .hp-effets li {
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+/* Le rouge canon sur encre plafonne a 3,08:1 pour du petit texte : il ne peut
+   pas le porter sans passer sous le seuil. Il devient donc un MARQUEUR, un
+   filet, et le texte reprend une couleur lisible. Sur papier il reste porte
+   par le texte, ou il passe a 5,9:1. */
+.hp[data-traitement="ink"] .hp-effets li[data-manque="oui"] .hp-effet-cle {
+  color: #f0f1f4;
+  box-shadow: inset 2px 0 0 var(--red);
+  padding-left: 0.5rem;
+}
+.hp[data-traitement="ink"] .hp-arret-etat {
+  color: #f0f1f4;
+  box-shadow: inset 2px 0 0 var(--red);
+  padding-left: 0.5rem;
+}
+.hp[data-traitement="ink"] .hp-arret {
+  background: #1b1d24;
+  box-shadow:
+    inset 3px 0 0 var(--red),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.hp[data-traitement="ink"] .hp-arret-acte {
+  background: var(--paper);
+  color: var(--ink);
+}
+.hp[data-traitement="ink"] .hp-sorties li {
+  background: #1b1d24;
+}
+.hp[data-traitement="ink"] .hp-progression span {
+  background: rgba(255, 255, 255, 0.12);
+}
+.hp[data-traitement="ink"] .hp-progression span[data-fait="oui"] {
+  background: #f0f1f4;
+}
+.hp[data-traitement="ink"] .hp-progression span[data-courant="oui"] {
+  background: var(--red);
+}
+
+/* -------------------------------------------------------------------------
+   MOUVEMENT RÉDUIT — les six états restent, les déplacements disparaissent.
+   ------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .hp {
+    --d-1: 100ms;
+    --d-2: 120ms;
+    --d-3: 120ms;
+  }
+  .hp *,
+  .hp *::before,
+  .hp *::after {
+    transition-duration: 120ms !important;
+    transition-delay: 0ms !important;
+    animation-duration: 120ms !important;
+  }
+  /* Aucun déplacement : la boucle avance par fondus. */
+  .hp-signal,
+  .hp-objet,
+  .hp-arret,
+  .hp-sorties,
+  .hp-effets li,
+  .hp-arret-acte {
+    transform: none !important;
+  }
+  .hp-stage {
+    transition-duration: 200ms !important;
+  }
+}
+
+/* =========================================================================
+   MOBILE — eyebrow, titre, promesse, preuve, appel à l'action.
+
+   La preuve ne passe pas sous plusieurs écrans de texte : `display: contents`
+   remet les enfants de la colonne éditoriale au niveau de la grille, ce qui
+   permet de faire descendre l'appel à l'action SOUS la scène sans toucher au
+   balisage ni à l'ordre de lecture d'un lecteur d'écran.
+   ========================================================================= */
+
+@media (max-width: 60rem) {
+  .hp-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 1.25rem 1.1rem 2rem;
+  }
+  .hp-lede {
+    display: contents;
+  }
+  .hp-eyebrow {
+    order: 1;
+    margin-bottom: 0.7rem;
+    font-size: 0.78rem;
+  }
+  .hp-titre {
+    order: 2;
+    font-size: clamp(2.3rem, 9.5vw, 3rem);
+  }
+  .hp-promesse {
+    order: 3;
+    margin-top: 0.9rem;
+    font-size: 0.98rem;
+  }
+  .hp-preuve {
+    order: 4;
+    margin-top: 1.3rem;
+  }
+  .hp-actions {
+    order: 5;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    gap: 0.9rem 1.2rem;
+  }
+  .hp-cta {
+    flex: 1 1 100%;
+    text-align: center;
+    padding: 0.95rem 1.2rem;
+  }
+
+  .hp-proof {
+    min-height: 0;
+    padding: 0.95rem 1rem 1.05rem;
+  }
+  /* Une seule transformation majeure à la fois : les trois sorties passent en
+     colonne plutôt qu'en rangée serrée. */
+  .hp-sorties {
+    flex-direction: column;
+  }
+  /* Rien sous 12 px. */
+  .hp-tag,
+  .hp-effet-cle,
+  .hp-sortie-dest,
+  .hp-arret-nom,
+  .hp-arret-acte,
+  .hp-specimen,
+  .hp-demo,
+  .hp-lab {
+    font-size: 0.8rem;
+  }
+  .hp-effet-cle {
+    width: 5.6rem;
+  }
+  .hp-lab {
+    flex-wrap: wrap;
+    gap: 0.4rem 0.8rem;
+  }
+  .hp-lab-note {
+    display: none;
+  }
+}
