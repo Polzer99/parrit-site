@@ -1,94 +1,111 @@
 "use client";
 
 import {
-  ARRET,
-  BORNES,
-  COMPREHENSION,
+  CHAPITRES,
   DECISION,
+  MANQUE,
   MENTIONS,
-  SIGNAL,
+  OBJET,
   SORTIES,
+  VERIFICATIONS,
 } from "./moments";
 import type { BoucleState } from "./useBoucle";
 
 /**
- * PRODUCT-LIVING-HERO-PROOF-V1 — le bloc de preuve du hero.
+ * PRODUCT-LIVING-HERO-CLARITY-POLISH-V1 — le bloc de preuve.
  *
- * Six moments, une boucle de dix secondes, aucune interaction requise.
+ * Cinq chapitres, un seul visible à la fois. L'objet de travail est le seul
+ * élément permanent : c'est le fil que l'œil suit d'un chapitre à l'autre.
  *
- * Ce n'est PAS la scène V2 miniaturisée : ni états, ni versions, ni agents
- * listés, ni sources, ni contrôles de lecture, ni identifiants internes. La
- * démonstration longue existe pour ça, et un lien y mène.
+ * Règle appliquée partout : UNE surface détaillée, le reste atténué ou
+ * absent. Aucune surface fantôme laissée pour faire riche.
  *
- * Le même balisage sert aux deux traitements Paper et Ink : seule la feuille
- * de style change, ce qui garantit que le scénario montré est identique.
+ * Ce que le hero ne montre pas : identifiants, règles, codes, versions,
+ * horodatages, niveaux de confiance, provenance. Un lien mène à la
+ * démonstration longue, qui les porte toutes.
  */
 export function ProofLoop({ s }: { s: BoucleState }) {
+  const c = s.definition;
+
   return (
     <figure
       className="hp-proof"
-      data-moment={s.moment}
-      data-index={s.index}
-      aria-label="Démonstration : une demande arrive, le système travaille, il s'arrête pour une décision humaine, puis l'action est préparée."
+      data-focus={s.focus}
+      data-chapitre={s.chapitre}
+      data-arrete={s.arrete ? "oui" : undefined}
+      aria-label="Démonstration : une demande arrive, les informations sont vérifiées, une information manque, un humain décide, l'action est préparée."
     >
-      <figcaption className="hp-specimen">{MENTIONS.specimen}</figcaption>
+      <header className="hp-proof-tete">
+        <span className="hp-marque" aria-hidden="true" />
+        <span className="hp-specimen">{MENTIONS.specimen}</span>
+        <span className="hp-index">
+          {String(s.index).padStart(2, "0")} / {String(CHAPITRES.length).padStart(2, "0")}
+        </span>
+      </header>
 
-      <div className="hp-stage">
-        {/* 01 — quelque chose vient de se produire. */}
-        <div className="hp-signal" data-vu={s.atteint("signal") ? "oui" : "non"} data-bloc="signal">
-          <p className="hp-tag">{SIGNAL.tag}</p>
-          <p className="hp-signal-objet">{SIGNAL.objet}</p>
+      {/* Le chapitre courant. Ils occupent tous le même emplacement : la
+          composition ne bouge jamais, donc rien ne peut déborder au passage
+          de l'un à l'autre. */}
+      <div className="hp-chapitre" key={s.chapitre === "respiration" ? "sortie" : s.chapitre}>
+        <p className="hp-chap-titre">{c.titre}</p>
+        <p className="hp-chap-info">{c.info}</p>
+
+        <div className="hp-chap-corps">
+          {s.focus === "signal" ? <span className="hp-corps-vide" aria-hidden="true" /> : null}
+
+          {s.focus === "verification" ? (
+            <ul className="hp-verifs">
+              {VERIFICATIONS.map((v, i) => (
+                <li key={v.quoi} data-vu={s.dans > 0.15 + i * 0.35 ? "oui" : "non"}>
+                  <span className="hp-verif-cle">{v.quoi}</span>
+                  <span className="hp-verif-valeur">{v.valeur}</span>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+
+          {s.focus === "missing_information" ? (
+            <p className="hp-manque">
+              <span className="hp-manque-cle">{MANQUE.quoi}</span>
+              <span className="hp-manque-valeur">{MANQUE.valeur}</span>
+            </p>
+          ) : null}
+
+          {s.focus === "human_decision" ? (
+            <div className="hp-decision">
+              <p className="hp-decision-action">{DECISION.action}</p>
+              <p className="hp-decision-acte" data-vu={s.decidee ? "oui" : "non"}>
+                {/* Photographie documentaire réelle. Elle nomme qui décide ;
+                    le bloc tient sans elle. */}
+                <img className="hp-photo" src={DECISION.photo} alt="" width={26} height={26} />
+                {DECISION.acte}
+              </p>
+            </div>
+          ) : null}
+
+          {s.focus === "output" ? (
+            <ul className="hp-sorties">
+              {SORTIES.map((o, i) => (
+                <li key={o.destination} data-vu={s.chapitre === "respiration" || s.dans > 0.1 + i * 0.22 ? "oui" : "non"}>
+                  <span className="hp-sortie-dest">{o.destination}</span>
+                  <span className="hp-sortie-ligne">{o.ligne}</span>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
-
-        {/* 02 et 03 — l'objet apparaît, puis se remplit de ce qui a été fait. */}
-        <div className="hp-objet" data-vu={s.atteint("comprehension") ? "oui" : "non"} data-bloc="comprehension">
-          <p className="hp-objet-titre">{COMPREHENSION.titre}</p>
-          <p className="hp-objet-ligne">{COMPREHENSION.entreprise}</p>
-          <p className="hp-objet-ligne">{COMPREHENSION.personne}</p>
-
-          <ul className="hp-effets" data-bloc="travail">
-            {s.effets.map((e) => (
-              <li key={e.cle} data-vu={e.vu ? "oui" : "non"} data-manque={e.manque ? "oui" : undefined}>
-                <span className="hp-effet-cle">{e.cle}</span>
-                <span className="hp-effet-ligne">{e.ligne}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* 04 et 05 — la machine s'arrête, un humain tranche. */}
-        <div
-          className="hp-arret"
-          data-vu={s.atteint("arret") ? "oui" : "non"}
-          data-decide={s.atteint("decision") ? "oui" : "non"}
-          data-bloc="arret"
-        >
-          <p className="hp-arret-etat">{ARRET.etat}</p>
-          <p className="hp-arret-raison">{ARRET.raison}</p>
-          <p className="hp-arret-qui" data-bloc="decision">
-            {/* Photographie documentaire réelle, recadrée. Elle nomme qui
-                porte la décision ; le bloc tient sans elle. */}
-            <img className="hp-photo" src={DECISION.photo} alt="" width={30} height={30} />
-            <span className="hp-arret-nom">{DECISION.proprietaire}</span>
-            <span className="hp-arret-acte">{DECISION.acte}</span>
-          </p>
-        </div>
-
-        {/* 06 — la conséquence, là où elle atterrit. */}
-        <ul className="hp-sorties" data-vu={s.atteint("action") ? "oui" : "non"} data-bloc="action">
-          {SORTIES.map((o) => (
-            <li key={o.destination}>
-              <span className="hp-sortie-dest">{o.destination}</span>
-              <span className="hp-sortie-ligne">{o.ligne}</span>
-            </li>
-          ))}
-        </ul>
       </div>
 
-      {/* Repère de lecture passif. Aucune commande : on ne pilote rien ici. */}
-      <span className="hp-progression" aria-hidden="true">
-        {BORNES.map((b, i) => (
-          <span key={b.id} data-fait={s.index > i ? "oui" : "non"} data-courant={s.index === i + 1 ? "oui" : undefined} />
+      {/* L'objet de travail. Permanent, contextuel, jamais dominant. */}
+      <div className="hp-objet">
+        <span className="hp-objet-titre">{OBJET.titre}</span>
+        <span className="hp-objet-ligne">{OBJET.personne}</span>
+      </div>
+
+      {/* Repère de lecture : cinq crans, aucune commande. */}
+      <span className="hp-crans" aria-hidden="true">
+        {CHAPITRES.map((x, i) => (
+          <span key={x.id} data-fait={s.index > i ? "oui" : "non"} data-courant={s.index === i + 1 ? "oui" : undefined} />
         ))}
       </span>
     </figure>

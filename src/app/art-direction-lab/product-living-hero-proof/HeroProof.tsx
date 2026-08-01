@@ -9,54 +9,64 @@ import { useBoucle } from "./useBoucle";
 import "./hero-proof.css";
 
 /**
- * PRODUCT-LIVING-HERO-PROOF-V1
+ * PRODUCT-LIVING-HERO-PROOF · passe de clarté
  *
- * Hypothèse testée : la CHARPENTE commerciale de Concept D — eyebrow, titre,
- * promesse, appel à l'action, panneau de preuve — combinée à la PREUVE VIVANTE
- * de la scène V2, réduite à six moments compréhensibles sans rien lire.
- *
- * De Concept D on reprend la hiérarchie et la logique de conversion. On ne
- * reprend NI ses filets, NI son registre de rapport, NI ses tableaux.
+ * Charpente commerciale de Concept D, preuve vivante de la scène, réduite à
+ * cinq chapitres qu'une personne non technique peut suivre sans lire les
+ * détails.
  *
  * La copy vient mot pour mot de `../content.ts`. Aucun mot n'est écrit ici.
+ *
+ * `presentation` masque tout le mobilier de laboratoire : c'est dans ce mode
+ * que se fait le Retell Test, pour qu'aucun repère interne ne souffle la
+ * réponse au visiteur.
  *
  * Route de laboratoire, non indexée, sans effet sur le site public.
  */
 
 type Traitement = "paper" | "ink";
 
-export function HeroProof() {
+export function HeroProof({ presentation = false }: { presentation?: boolean }) {
   const s = useBoucle();
-  /* Deux traitements du MÊME hero. Le choix appartient à Paul : rien ici ne
-     désigne de gagnant, et les deux partagent scénario, copy et timing. */
-  const [traitement, setTraitement] = useState<Traitement>("paper");
+  /* Ink devient le traitement principal. Paper reste comparable au
+     laboratoire, mais ne dicte plus la finition. */
+  const [traitement, setTraitement] = useState<Traitement>("ink");
 
   return (
-    <div className="hp" data-traitement={traitement} data-moment={s.moment} data-reduced={s.reduced ? "oui" : undefined}>
-      {/* Barre de laboratoire. Elle n'appartient pas au hero : elle sert à
-          comparer, et elle disparaîtrait dans une vraie page. */}
-      <nav className="hp-lab" aria-label="Laboratoire">
-        <Link href="/art-direction-lab">Visual reset v2</Link>
-        <span className="hp-lab-titre">Hero proof</span>
-        <span className="hp-lab-choix" role="group" aria-label="Traitement du panneau de preuve">
-          {(["paper", "ink"] as const).map((v) => (
-            <button
-              key={v}
-              type="button"
-              onClick={() => setTraitement(v)}
-              aria-pressed={traitement === v}
-              data-actif={traitement === v ? "oui" : undefined}
-            >
-              {v === "paper" ? "Paper" : "Ink"}
-            </button>
-          ))}
-        </span>
-        <span className="hp-lab-note">Interne, non publié</span>
-      </nav>
+    <div
+      className="hp"
+      data-traitement={traitement}
+      data-chapitre={s.chapitre}
+      data-focus={s.focus}
+      data-presentation={presentation ? "oui" : undefined}
+      data-reduced={s.reduced ? "oui" : undefined}
+    >
+      {!presentation ? (
+        <nav className="hp-lab" aria-label="Laboratoire">
+          <Link href="/art-direction-lab">Visual reset v2</Link>
+          <span className="hp-lab-titre">Hero proof</span>
+          <span className="hp-lab-choix" role="group" aria-label="Traitement du panneau de preuve">
+            {(["ink", "paper"] as const).map((v) => (
+              <button
+                key={v}
+                type="button"
+                onClick={() => setTraitement(v)}
+                aria-pressed={traitement === v}
+                data-actif={traitement === v ? "oui" : undefined}
+              >
+                {v === "paper" ? "Paper" : "Ink"}
+              </button>
+            ))}
+          </span>
+          <a className="hp-lab-presentation" href="?presentation=1">
+            Mode présentation
+          </a>
+        </nav>
+      ) : null}
 
       <header className="hp-hero">
         <div className="hp-grid">
-          {/* ---- Zone éditoriale : la charpente de conversion ---- */}
+          {/* ---- Une idée dominante, une action dominante ---- */}
           <div className="hp-lede">
             <p className="hp-eyebrow">{FACTS.hero.eyebrow}</p>
             <h1 className="hp-titre">
@@ -75,11 +85,9 @@ export function HeroProof() {
             </div>
           </div>
 
-          {/* ---- Zone de preuve : la boucle autonome ---- */}
+          {/* ---- Une preuve dominante ---- */}
           <div className="hp-preuve">
             <ProofLoop s={s} />
-            {/* Le lien vers la démonstration longue est secondaire : il ne
-                concurrence pas l'appel à l'action commercial. */}
             <a className="hp-demo" href={MENTIONS.demoHref}>
               {MENTIONS.demo}
             </a>

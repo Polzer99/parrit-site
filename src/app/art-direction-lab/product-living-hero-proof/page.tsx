@@ -8,16 +8,20 @@ export const metadata: Metadata = {
 };
 
 /**
- * PRODUCT-LIVING-HERO-PROOF-V1
+ * PRODUCT-LIVING-HERO-PROOF · passe de clarté
  *
  * Route isolée. Hors navigation publique, hors indexation, sans effet sur
  * `/fr`. Supprimer ce dossier suffit à supprimer l'expérimentation.
  *
- * Concept D, la scène V1, la V2 et la variante Premium restent servies à
- * leurs routes respectives et ne sont pas modifiées.
- *
- * Aucune direction visuelle n'est déclarée approuvée par cette tranche.
+ * `?presentation=1` masque le mobilier de laboratoire. Le mode est résolu
+ * côté serveur : le lire après le montage ferait apparaître la barre de
+ * laboratoire une fraction de seconde, exactement pendant le Retell Test.
  */
-export default function ProductLivingHeroProofPage() {
-  return <HeroProof />;
+export default async function ProductLivingHeroProofPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ presentation?: string }>;
+}) {
+  const { presentation } = await searchParams;
+  return <HeroProof presentation={presentation === "1"} />;
 }
