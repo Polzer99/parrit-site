@@ -4,6 +4,8 @@ import { LabBar } from "../LabBar";
 import "./d.css";
 import {
   AVANT_APRES,
+  MISSION,
+  SEQUENCE,
   ETAT,
   JOURNAL,
   PREUVES,
@@ -67,11 +69,12 @@ export default function ConceptD() {
               </p>
             </div>
 
+            <div className="d-io d-io-in">
+              <p className="d-io-tag">Entrée</p>
+              <p className="d-io-obj">{TRACE.entree}</p>
+            </div>
+
             <dl className="d-meta">
-              <div>
-                <dt>Source</dt>
-                <dd>{TRACE.source}</dd>
-              </div>
               <div>
                 <dt>Propriétaire</dt>
                 <dd>{TRACE.proprietaire}</dd>
@@ -79,6 +82,10 @@ export default function ConceptD() {
               <div>
                 <dt>Dernière vérification</dt>
                 <dd>{TRACE.verifie}</dd>
+              </div>
+              <div className="d-meta-fine">
+                <dt>Source</dt>
+                <dd>{TRACE.source}</dd>
               </div>
             </dl>
 
@@ -97,10 +104,10 @@ export default function ConceptD() {
             <div className="d-gate">
               <img
                 className="d-gate-face"
-                src="/brand/editorial/portraits/paul-founder-gate.png"
+                src="/brand/editorial/portraits/paul-gate.jpg"
                 alt="Paul Larmaraud, cofondateur de Parrit"
-                width={450}
-                height={522}
+                width={230}
+                height={230}
               />
               <div>
                 <p className="d-mono d-gate-state">{ETAT.validation}</p>
@@ -109,6 +116,11 @@ export default function ConceptD() {
                 </p>
                 <p className="d-mono">Direction commerciale · en attente depuis 4 min</p>
               </div>
+            </div>
+
+            <div className="d-io d-io-out">
+              <p className="d-io-tag">{ETAT.sortie}</p>
+              <p className="d-io-obj">{TRACE.sortie}</p>
             </div>
           </section>
         </div>
@@ -126,15 +138,19 @@ export default function ConceptD() {
       </header>
 
       {/* Preuve immédiate. Bascule en encre : première immersion. */}
-      <section className="d-band">
-        <div className="d-wrap d-proof">
-          {FACTS.preuve.map((p, i) => (
-            <div className="d-proof-item" key={p.cle}>
-              <span className="d-mono d-proof-n">{String(i + 1).padStart(2, "0")}</span>
-              <p className="d-proof-key">{p.cle}</p>
-              <p className="d-proof-line">{p.ligne}</p>
-            </div>
-          ))}
+      <section className="d-band d-band-mission">
+        <div className="d-wrap">
+          <p className="d-mono d-mission-head">Registre de mission</p>
+          <div className="d-mission">
+            {FACTS.preuve.map((p, i) => (
+              <div className="d-mission-row" key={p.cle}>
+                <span className="d-mono d-mission-n">{MISSION[i].n}</span>
+                <span className="d-mono d-mission-role">{MISSION[i].role}</span>
+                <p className="d-mission-key">{p.cle}</p>
+                <p className="d-mission-line">{p.ligne}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -194,26 +210,19 @@ export default function ConceptD() {
       {/* BeforeAfterFlow. Même matière, deux états, une bascule. */}
       <section className="d-wrap d-ba">
         <p className="d-mono d-index">04 · Avant et après</p>
-        <div className="d-ba-grid">
-          <div className="d-ba-col is-before">
-            <p className="d-mono">Avant</p>
-            {AVANT_APRES.avant.map((t) => (
-              <p className="d-ba-line" key={t}>
-                {t}
-              </p>
-            ))}
-          </div>
-          <div className="d-ba-switch" aria-hidden="true">
+        <div className="d-ba">
+          <div className="d-ba-head d-mono" aria-hidden="true">
+            <span>Avant</span>
             <span />
+            <span>Après</span>
           </div>
-          <div className="d-ba-col is-after">
-            <p className="d-mono">Après</p>
-            {AVANT_APRES.apres.map((t) => (
-              <p className="d-ba-line" key={t}>
-                {t}
-              </p>
-            ))}
-          </div>
+          {AVANT_APRES.avant.map((t, i) => (
+            <div className="d-ba-row" key={t}>
+              <p className="d-ba-before">{t}</p>
+              <span className="d-ba-link" aria-hidden="true" />
+              <p className="d-ba-after">{AVANT_APRES.apres[i]}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -221,15 +230,31 @@ export default function ConceptD() {
       <section className="d-wrap d-method">
         <p className="d-mono d-index">05 · La méthode</p>
         <h2 className="d-h2 d-h2-small">{FACTS.methode.titre}</h2>
-        <div className="d-method-grid">
-          {FACTS.methode.etapes.map((e) => (
-            <article key={e.n}>
-              <p className="d-mono">{e.n}</p>
-              <h3 className="d-method-t">{e.titre}</h3>
-              <p>{e.corps}</p>
-            </article>
+        <ol className="d-seq">
+          {FACTS.methode.etapes.map((e, i) => (
+            <li className="d-seq-step" key={e.n}>
+              <div className="d-seq-rail" aria-hidden="true">
+                <span className="d-seq-dot" />
+                {i < FACTS.methode.etapes.length - 1 ? <span className="d-seq-line" /> : null}
+              </div>
+              <div className="d-seq-body">
+                <p className="d-mono d-seq-n">
+                  {e.n} · {SEQUENCE[i].etat}
+                </p>
+                <h3 className="d-method-t">{e.titre}</h3>
+                <p className="d-seq-corps">{e.corps}</p>
+              </div>
+              <div className="d-seq-flow">
+                <p className="d-mono d-seq-obj">{SEQUENCE[i].entrant}</p>
+                <p className="d-mono d-seq-arrow" aria-hidden="true">
+                  &darr;
+                </p>
+                <p className="d-mono d-seq-obj is-out">{SEQUENCE[i].sortant}</p>
+                <p className="d-mono d-seq-qui">{SEQUENCE[i].qui}</p>
+              </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </section>
 
       {/* HermesActivity + attribution. */}
@@ -287,11 +312,14 @@ export default function ConceptD() {
         <div className="d-wrap d-founder-grid">
           <figure className="d-founder-fig">
             <img
-              src="/brand/editorial/portraits/paul-founder-cutout.png"
+              src="/brand/editorial/portraits/paul-founder-bust.jpg"
               alt="Paul Larmaraud, cofondateur de Parrit"
-              width={548}
-              height={1536}
+              width={530}
+              height={662}
             />
+            <figcaption className="d-mono">
+              Photographie réelle · noir et blanc, grain, aucun retrait de fond
+            </figcaption>
           </figure>
           <div>
             <p className="d-mono d-index">08 · Qui répond de ce qui tourne</p>

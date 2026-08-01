@@ -40,6 +40,10 @@ export const TRACE = {
   source: "Boîte partagée · WhatsApp Business",
   proprietaire: "Direction commerciale",
   verifie: "il y a 4 min",
+  /* La chaîne doit se comprendre avant d'être lue : elle commence par un
+     objet nommé et se termine par un objet nommé. */
+  entree: "Un message reçu ce matin",
+  sortie: "Fiche à jour · relance datée",
   etapes: [
     { n: "01", label: "Réception", etat: "terminée", t: "00:00" },
     { n: "02", label: "Rapprochement du dossier", etat: "terminée", t: "00:02" },
@@ -59,6 +63,29 @@ export const TOPOLOGIE = [
   { id: "agent", couche: "Agents", label: "Exécution", detail: "rapproche, complète, rédige", vers: ["gate"] },
   { id: "gate", couche: "Humain", label: "Point de décision", detail: "un propriétaire nommé tranche", vers: ["crm"] },
   { id: "crm", couche: "Logiciels", label: "Systèmes existants", detail: "CRM et facturation conservés", vers: [] },
+] as const;
+
+/**
+ * Registre de mission. Ce n'est pas une série de statistiques : c'est le
+ * périmètre d'un engagement, lu comme un contrat d'exécution. Chaque ligne
+ * porte son rang et son rôle dans la mission.
+ */
+export const MISSION = [
+  { n: "M.01", role: "Durée" },
+  { n: "M.02", role: "Engagement économique" },
+  { n: "M.03", role: "Objet livré" },
+  { n: "M.04", role: "Condition de sortie" },
+] as const;
+
+/**
+ * Séquence opératoire. Chaque étape reçoit un objet, le transforme, et le
+ * passe à la suivante. La responsabilité change en cours de route : c'est
+ * tout le sujet de la mission.
+ */
+export const SEQUENCE = [
+  { entrant: "Vos opérations", sortant: "Un processus retenu", qui: "Parrit et vous", etat: "cadrage" },
+  { entrant: "Un processus retenu", sortant: "Un système en production", qui: "Parrit", etat: "exécution" },
+  { entrant: "Un système en production", sortant: "Vos équipes autonomes", qui: "Vos équipes", etat: "transfert" },
 ] as const;
 
 /** Registre de preuves. Chaque ligne porte sa source ET sa limite. */

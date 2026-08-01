@@ -17,7 +17,11 @@
 
   /* Gris dérivés, fonctionnels. Aucune autre couleur. */
   --g-70: #6e7079; /* métadonnées lisibles sur papier, 4.6:1 */
-  --g-45: #9a9ba1; /* filets appuyés */
+  /* `--g-45` porte du TEXTE atténué, pas seulement des filets : l'avant du
+     bloc avant/après et l'étape bloquée. À #9A9BA1 il tombait à 2,73:1.
+     #76777E donne 4,39:1 sur papier, tout en restant nettement en retrait
+     de l'encre. */
+  --g-45: #76777e;
   --hair: rgba(12, 12, 13, 0.14);
   --hair-strong: rgba(12, 12, 13, 0.3);
   --hair-inv: rgba(255, 253, 250, 0.18);
@@ -51,11 +55,8 @@
 /* Grille de 12 colonnes. Elle n'est pas décorative : tous les blocs s'y
    posent, et quelques filets la rendent lisible sans la dessiner. */
 .cD .d-hero-grid,
-.cD .d-proof,
-.cD .d-topo,
 .cD .d-hermes,
-.cD .d-founder-grid,
-.cD .d-method-grid {
+.cD .d-founder-grid {
   display: grid;
   grid-template-columns: repeat(12, var(--col));
   column-gap: var(--gutter);
@@ -71,10 +72,13 @@
   color: inherit;
 }
 
+/* Plancher de lisibilité : 12 px pour toute couche technique indispensable.
+   0,6875 rem (11 px) est réservé aux métadonnées strictement secondaires,
+   via `.d-fine`. */
 .cD .d-mono {
   font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.6875rem;
-  line-height: 1.55;
+  font-size: 0.75rem;
+  line-height: 1.6;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--g-70);
@@ -252,7 +256,7 @@
 
 .cD .d-meta dt {
   font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--g-70);
@@ -261,8 +265,19 @@
 .cD .d-meta dd {
   margin: 0;
   font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.6875rem;
+  font-size: 0.8125rem;
   line-height: 1.5;
+  /* `inherit` et non `--ink` : ce bloc existe aussi sur bande encre, où
+     `--ink` donnerait du noir sur noir. */
+  color: inherit;
+}
+
+/* Métadonnée secondaire : la source reste consultable sans occuper le même
+   poids visuel que le propriétaire et la dernière vérification. */
+.cD .d-meta-fine dt,
+.cD .d-meta-fine dd {
+  font-size: 0.6875rem;
+  color: var(--g-70);
 }
 
 .cD .d-meta-wide > div {
@@ -291,15 +306,15 @@
 .cD .d-step-n,
 .cD .d-step-t {
   font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   letter-spacing: 0.1em;
   color: var(--g-70);
 }
 
 .cD .d-step-label {
   font-family: var(--font-body), system-ui, sans-serif;
-  font-size: 0.875rem;
-  line-height: 1.35;
+  font-size: 0.9375rem;
+  line-height: 1.4;
 }
 
 /* Le rail d'état : plein = terminé, creux = attente, barré = bloqué. */
@@ -395,7 +410,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
 }
 
 .cD .d-trust-inner p::before {
@@ -419,42 +434,6 @@
   margin-top: 4rem;
 }
 
-.cD .d-proof {
-  row-gap: 1.5rem;
-}
-
-.cD .d-proof-item {
-  grid-column: span 3;
-  padding-right: 1.25rem;
-  border-top: 1px solid var(--hair-inv);
-  padding-top: 0.9rem;
-}
-
-.cD .d-proof-n {
-  display: block;
-  margin-bottom: 0.6rem;
-}
-
-.cD .d-proof-key {
-  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
-  font-size: clamp(1.25rem, 2vw, 1.75rem);
-  line-height: 0.94;
-  margin: 0 0 0.5rem;
-}
-
-.cD .d-proof-item:nth-child(2) .d-proof-key {
-  color: var(--red);
-}
-
-.cD .d-proof-line {
-  margin: 0;
-  font-family: var(--font-body), system-ui, sans-serif;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: var(--g-inv);
-}
 
 /* -------------------------------------------------------------------------
    Problème : grand champ typographique
@@ -594,20 +573,22 @@
   margin-top: 4.5rem;
 }
 
+/* Cinq couches ne divisent pas douze colonnes sans laisser un moignon : à
+   deux colonnes par nœud, le filet supérieur s'arrêtait 220 px avant le bord.
+   La topologie garde donc sa propre division en cinq, alignée sur les mêmes
+   marges que le reste de la page. */
 .cD .d-topo {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  column-gap: var(--gutter);
   row-gap: 1.5rem;
   margin-top: 1.5rem;
 }
 
 .cD .d-node {
-  grid-column: span 2;
   position: relative;
   border-top: 1px solid var(--hair-inv);
   padding-top: 0.9rem;
-}
-
-.cD .d-node:first-child {
-  grid-column: 1 / span 2;
 }
 
 .cD .d-node.is-gate {
@@ -626,7 +607,7 @@
   font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
   font-weight: 800;
   text-transform: uppercase;
-  font-size: 1.25rem;
+  font-size: 1.375rem;
   line-height: 1;
   margin: 0 0 0.4rem;
 }
@@ -660,77 +641,11 @@
 /* -------------------------------------------------------------------------
    BeforeAfterFlow. Même matière, deux états.
    ------------------------------------------------------------------------- */
-.cD .d-ba-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 4rem minmax(0, 1fr);
-  align-items: start;
-  gap: 0;
-  border-top: 2px solid var(--ink);
-  padding-top: 1.25rem;
-}
 
-.cD .d-ba-col.is-before {
-  padding-right: 2rem;
-  color: var(--g-70);
-}
-
-.cD .d-ba-col.is-after {
-  padding-left: 2rem;
-  border-left: 1px solid var(--hair);
-}
-
-.cD .d-ba-line {
-  font-family: var(--font-body), system-ui, sans-serif;
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  margin: 0.75rem 0 0;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--hair);
-}
-
-.cD .d-ba-col.is-before .d-ba-line {
-  text-decoration: line-through;
-  text-decoration-color: var(--g-45);
-  text-decoration-thickness: 1px;
-}
-
-.cD .d-ba-switch {
-  position: relative;
-  align-self: stretch;
-}
-
-.cD .d-ba-switch span {
-  position: absolute;
-  top: 2.5rem;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--red);
-}
-
-.cD .d-ba-switch span::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: -3px;
-  width: 8px;
-  height: 8px;
-  background: var(--red);
-}
 
 /* -------------------------------------------------------------------------
-   Méthode : respiration éditoriale
+   Méthode : séquence opératoire
    ------------------------------------------------------------------------- */
-.cD .d-method-grid {
-  margin-top: 2.5rem;
-  row-gap: 2rem;
-}
-
-.cD .d-method-grid article {
-  grid-column: span 4;
-  border-top: 1px solid var(--hair);
-  padding-top: 0.9rem;
-}
 
 .cD .d-method-t {
   font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
@@ -741,13 +656,6 @@
   margin: 0.5rem 0 0.6rem;
 }
 
-.cD .d-method-grid p:last-child {
-  margin: 0;
-  font-family: var(--font-body), system-ui, sans-serif;
-  font-size: 0.9375rem;
-  line-height: 1.55;
-  color: var(--g-70);
-}
 
 /* -------------------------------------------------------------------------
    Hermes
@@ -796,7 +704,7 @@
   font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
   font-weight: 800;
   text-transform: uppercase;
-  font-size: 1rem;
+  font-size: 1.125rem;
   line-height: 1;
 }
 
@@ -921,7 +829,7 @@
 .cD .d-months-b {
   margin: 0;
   font-family: var(--font-body), system-ui, sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   line-height: 1.5;
   color: var(--g-inv);
 }
@@ -991,13 +899,9 @@
     margin-top: 2.5rem;
   }
 
-  .cD .d-proof-item {
-    grid-column: span 6;
-  }
-
-  .cD .d-node,
-  .cD .d-node:first-child {
-    grid-column: 1 / -1;
+  .cD .d-topo {
+    grid-template-columns: 1fr;
+    row-gap: 2rem;
   }
 
   /* La relation devient verticale : le filet descend au lieu de traverser. */
@@ -1017,10 +921,6 @@
     bottom: 0;
   }
 
-  .cD .d-method-grid article {
-    grid-column: 1 / -1;
-  }
-
   .cD .d-founder-fig {
     grid-column: 1 / span 5;
   }
@@ -1033,10 +933,6 @@
 
   .cD .d-problem-body {
     columns: 1;
-  }
-
-  .cD .d-proof-item {
-    grid-column: 1 / -1;
   }
 
   /* La chaîne d'un cas devient une séquence lisible de haut en bas. */
@@ -1060,26 +956,6 @@
   .cD .d-case-out::before {
     content: "→ ";
     color: var(--red);
-  }
-
-  .cD .d-ba-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .cD .d-ba-col.is-before,
-  .cD .d-ba-col.is-after {
-    padding: 0;
-    border-left: 0;
-  }
-
-  .cD .d-ba-col.is-after {
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 2px solid var(--red);
-  }
-
-  .cD .d-ba-switch {
-    display: none;
   }
 
   .cD .d-months {
@@ -1127,4 +1003,548 @@
    Le CTA final prolonge la zone fondateur. */
 .cD .d-founder + .d-final {
   margin-top: 0;
+}
+
+/* =========================================================================
+   PARRIT-TECH-TRUST-POLISH-V2
+   Lisibilité, densité, hiérarchie. Aucune direction nouvelle.
+   ========================================================================= */
+
+/* Échelle d'espacement commune à toute la couche technique. Plus aucune
+   valeur arbitraire dans les blocs système. */
+.cD {
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4.5rem;
+}
+
+/* Trois niveaux de section, pour casser la monotonie filet + index + titre.
+   Un moment majeur respire, une zone dense se resserre, une transition passe. */
+.cD .d-problem,
+.cD .d-ledger {
+  margin-top: var(--s-8);
+}
+
+.cD .d-cases {
+  margin-top: var(--s-7);
+}
+
+.cD .d-ba,
+.cD .d-method {
+  margin-top: var(--s-7);
+}
+
+/* -------------------------------------------------------------------------
+   HERO — entrée et sortie nommées, gate en point de tension
+   ------------------------------------------------------------------------- */
+
+/* Le panneau gagne en présence sans devenir une carte : filet supérieur plus
+   épais, filet gauche continu, et un léger retrait qui l'ancre dans la grille. */
+.cD .d-panel {
+  border-top-width: 3px;
+  padding-top: var(--s-3);
+}
+
+.cD .d-panel-head {
+  align-items: baseline;
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--hair);
+}
+
+.cD .d-panel-head .d-specimen {
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+}
+
+/* L'objet qui entre et l'objet qui sort sont nommés, et se ressemblent :
+   c'est la même chose, transformée. La sortie porte le poids. */
+.cD .d-io {
+  padding: var(--s-3) 0;
+}
+
+.cD .d-io-tag {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--g-70);
+  margin: 0 0 var(--s-1);
+}
+
+.cD .d-io-obj {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  line-height: 1.02;
+  margin: 0;
+}
+
+.cD .d-io-out {
+  margin-top: var(--s-3);
+  border-top: 3px solid var(--ink);
+  padding-top: var(--s-3);
+}
+
+.cD .d-io-out .d-io-tag {
+  color: var(--ink);
+}
+
+.cD .d-io-out .d-io-obj {
+  font-weight: 900;
+  font-size: 1.5rem;
+}
+
+.cD .d-meta {
+  padding-top: var(--s-3);
+}
+
+.cD .d-meta > div {
+  grid-template-columns: 10.5rem minmax(0, 1fr);
+  padding: var(--s-1) 0;
+}
+
+/* Le gate est le point de tension : plus de place, un visage plus grand,
+   et il est le seul bloc du panneau à porter deux filets rouges. */
+.cD .d-gate {
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: var(--s-4);
+  margin-top: var(--s-4);
+  padding: var(--s-4) 0;
+  border-top: 3px solid var(--red);
+  border-bottom: 1px solid var(--red);
+}
+
+.cD .d-gate-face {
+  width: 4.5rem;
+  filter: none;
+}
+
+.cD .d-gate-state {
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+}
+
+.cD .d-gate-line {
+  font-size: 1.0625rem;
+  line-height: 1.32;
+  margin: var(--s-2) 0 var(--s-2);
+}
+
+/* -------------------------------------------------------------------------
+   REGISTRE DE MISSION — un contrat d'exécution, pas quatre KPI
+   ------------------------------------------------------------------------- */
+.cD .d-band-mission {
+  padding: var(--s-7) 0;
+}
+
+.cD .d-mission-head {
+  padding-bottom: var(--s-3);
+  border-bottom: 2px solid var(--hair-inv);
+  margin-bottom: 0;
+}
+
+/* Une ligne continue, des largeurs volontairement inégales : le rang et le
+   rôle à gauche, l'objet au centre, sa condition à droite. */
+.cD .d-mission-row {
+  display: grid;
+  grid-template-columns:
+    3.5rem minmax(0, 3.4fr) minmax(0, 4.6fr) minmax(0, 6fr);
+  gap: var(--s-5);
+  align-items: baseline;
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--hair-inv);
+}
+
+.cD .d-mission-n {
+  color: var(--g-45);
+}
+
+.cD .d-mission-role {
+  color: var(--g-inv);
+}
+
+.cD .d-mission-key {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(1.375rem, 2.1vw, 1.875rem);
+  line-height: 0.96;
+  margin: 0;
+}
+
+/* Le rouge ne marque que l'engagement économique : c'est le seul point
+   d'attention de ce registre. */
+.cD .d-mission-row:nth-child(2) .d-mission-key {
+  color: var(--red);
+}
+
+.cD .d-mission-line {
+  margin: 0;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--g-inv);
+}
+
+/* -------------------------------------------------------------------------
+   MÉTHODE — séquence opératoire, l'objet change d'état et de main
+   ------------------------------------------------------------------------- */
+.cD .d-seq {
+  list-style: none;
+  margin: var(--s-6) 0 0;
+  padding: 0;
+}
+
+.cD .d-seq-step {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: var(--s-5);
+  padding-bottom: var(--s-6);
+}
+
+.cD .d-seq-rail {
+  position: relative;
+  justify-self: center;
+  width: 100%;
+}
+
+.cD .d-seq-dot {
+  position: absolute;
+  top: 0.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0.625rem;
+  height: 0.625rem;
+  background: var(--ink);
+}
+
+/* Le filet relie une étape à la suivante : c'est la progression, pas un décor. */
+.cD .d-seq-line {
+  position: absolute;
+  top: 1.4rem;
+  bottom: -0.6rem;
+  left: 50%;
+  width: 1px;
+  background: var(--hair-strong);
+  transform: translateX(-50%);
+}
+
+.cD .d-seq-step:last-child .d-seq-dot {
+  background: var(--red);
+}
+
+.cD .d-seq-n {
+  margin-bottom: var(--s-2);
+}
+
+.cD .d-seq-corps {
+  margin: 0;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--g-70);
+  max-width: 34rem;
+}
+
+/* La colonne de flux montre ce qui entre, ce qui sort, et qui en répond. */
+.cD .d-seq-flow {
+  border-left: 1px solid var(--hair);
+  padding-left: var(--s-5);
+}
+
+.cD .d-seq-obj {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1.0625rem;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  color: var(--g-70);
+  margin: 0;
+}
+
+.cD .d-seq-obj.is-out {
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.cD .d-seq-arrow {
+  color: var(--red);
+  font-size: 0.9375rem;
+  margin: var(--s-1) 0;
+  letter-spacing: 0;
+}
+
+.cD .d-seq-qui {
+  margin-top: var(--s-3);
+  padding-top: var(--s-2);
+  border-top: 1px solid var(--hair);
+}
+
+/* -------------------------------------------------------------------------
+   AVANT / APRÈS — une transformation ligne à ligne
+   ------------------------------------------------------------------------- */
+.cD .d-ba-head,
+.cD .d-ba-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 5rem minmax(0, 1fr);
+  gap: var(--s-4);
+  align-items: center;
+}
+
+.cD .d-ba-head {
+  padding-bottom: var(--s-2);
+  border-bottom: 2px solid var(--ink);
+}
+
+.cD .d-ba-row {
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--hair);
+}
+
+.cD .d-ba-before {
+  margin: 0;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--g-45);
+  text-decoration: line-through;
+  text-decoration-color: var(--g-45);
+  text-decoration-thickness: 1px;
+}
+
+.cD .d-ba-after {
+  margin: 0;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+/* Le lien rouge est le seul rouge de la section : il EST le changement. */
+.cD .d-ba-link {
+  position: relative;
+  height: 1px;
+  background: var(--red);
+}
+
+.cD .d-ba-link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -2.5px;
+  width: 6px;
+  height: 6px;
+  background: var(--red);
+}
+
+/* -------------------------------------------------------------------------
+   FONDATEUR — photographie documentaire, plus de silhouette découpée
+   ------------------------------------------------------------------------- */
+.cD .d-founder-grid {
+  align-items: start;
+}
+
+.cD .d-founder-fig {
+  grid-column: 1 / span 4;
+  align-self: start;
+}
+
+.cD .d-founder-fig img {
+  width: 100%;
+}
+
+.cD .d-founder-fig figcaption {
+  margin-top: var(--s-3);
+  padding-top: var(--s-2);
+  border-top: 1px solid var(--hair-inv);
+  font-size: 0.6875rem;
+}
+
+.cD .d-founder-grid > div:last-child {
+  grid-column: 6 / span 7;
+}
+
+/* -------------------------------------------------------------------------
+   MOBILE — recomposition réelle, pas un empilement
+   ------------------------------------------------------------------------- */
+@media (max-width: 68rem) {
+  .cD .d-seq-step {
+    grid-template-columns: 2rem minmax(0, 1fr);
+  }
+
+  .cD .d-seq-flow {
+    grid-column: 2;
+    border-left: 0;
+    border-top: 1px solid var(--hair);
+    padding: var(--s-3) 0 0;
+    margin-top: var(--s-3);
+  }
+
+  .cD .d-founder-fig {
+    grid-column: 1 / span 5;
+  }
+
+  .cD .d-founder-grid > div:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 48rem) {
+  /* Corps principal à 16 px, couche technique à 12 px minimum. */
+  .cD .d-lede,
+  .cD .d-problem-body p {
+    font-size: 1rem;
+  }
+
+  .cD .d-mono {
+    font-size: 0.75rem;
+  }
+
+  .cD .d-cta {
+    font-size: 1rem;
+    padding: 1rem 1.4rem;
+  }
+
+  /* ExecutionTrace : une étape se lit à la fois, la sortie est détachée. */
+  .cD .d-step {
+    grid-template-columns: 2rem 0.75rem minmax(0, 1fr);
+    row-gap: var(--s-1);
+    padding: var(--s-3) 0;
+  }
+
+  .cD .d-step-t {
+    grid-column: 3;
+    color: var(--g-45);
+  }
+
+  .cD .d-io-obj {
+    font-size: 1.375rem;
+  }
+
+  .cD .d-io-out .d-io-obj {
+    font-size: 1.625rem;
+  }
+
+  .cD .d-gate {
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    gap: var(--s-3);
+  }
+
+  .cD .d-gate-face {
+    width: 3.5rem;
+  }
+
+  /* Registre de mission : un bloc par ligne, le rôle au-dessus de l'objet. */
+  .cD .d-mission-row {
+    grid-template-columns: 4rem minmax(0, 1fr);
+    row-gap: var(--s-2);
+    padding: var(--s-5) 0;
+  }
+
+  .cD .d-mission-role,
+  .cD .d-mission-key,
+  .cD .d-mission-line {
+    grid-column: 2;
+  }
+
+  /* Avant / après : la transformation devient verticale, le lien descend. */
+  .cD .d-ba-head {
+    display: none;
+  }
+
+  .cD .d-ba-row {
+    grid-template-columns: 1fr;
+    gap: var(--s-2);
+    padding: var(--s-4) 0;
+  }
+
+  .cD .d-ba-link {
+    width: 1px;
+    height: 1.25rem;
+    margin-left: var(--s-2);
+  }
+
+  .cD .d-ba-link::after {
+    right: auto;
+    left: -2.5px;
+    top: auto;
+    bottom: 0;
+  }
+
+  /* ProofLedger : une preuve par bloc, l'élément, l'état et la limite en tête. */
+  .cD .d-ledger-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--s-2) var(--s-4);
+    padding: var(--s-5) 0;
+  }
+
+  .cD .d-ledger-el {
+    font-size: 1rem;
+  }
+
+  .cD .d-ledger-limite {
+    grid-column: 1 / -1;
+    order: 3;
+    color: var(--ink);
+  }
+
+  .cD .d-ledger-row > p:nth-child(2),
+  .cD .d-ledger-row > p:nth-child(4) {
+    grid-column: 1 / -1;
+    order: 4;
+    font-size: 0.6875rem;
+    color: var(--g-70);
+  }
+
+  /* TrustRail : une séquence empilée, pas quatre colonnes minuscules. */
+  .cD .d-trust-inner {
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+
+  /* SystemTopology : séquence verticale, liens continus, aucun microtexte. */
+  .cD .d-node-label {
+    font-size: 1.25rem;
+  }
+
+  .cD .d-node-detail {
+    font-size: 0.75rem;
+  }
+
+  .cD .d-founder-fig {
+    grid-column: 1 / -1;
+    max-width: 20rem;
+  }
+}
+
+/* Emplacement d'équipe. Les règles existent, le composant n'est pas appelé :
+   voir TeamSlot.tsx. Aucun visage n'est inventé en attendant une vraie photo. */
+.cD .d-team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 18rem));
+  gap: var(--s-6);
+}
+
+.cD .d-team-item {
+  margin: 0;
+}
+
+.cD .d-team-item img {
+  width: 100%;
+}
+
+.cD .d-team-nom {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1.375rem;
+  line-height: 1;
+  margin: var(--s-3) 0 var(--s-1);
 }

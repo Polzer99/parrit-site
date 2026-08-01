@@ -129,3 +129,77 @@ Aucune particule, aucune parallaxe, aucun glitch, aucun néon, aucun texte en mo
 ## Hors périmètre
 
 Wording canonique · concepts A, B et C · Brand OS · les quinze documents du design system · homepage publique · autres langues.
+
+---
+
+# PARRIT-TECH-TRUST-POLISH-V2
+
+**Passe de finition du 1er août 2026.** Concept D seul. **Aucun mot modifié**, aucun CTA touché, aucune direction nouvelle.
+
+## Lisibilité
+
+Planchers posés et vérifiés en conditions réelles.
+
+| | Avant | Après |
+|---|---|---|
+| Couche technique indispensable | 11 px | **12 px** |
+| Valeurs de métadonnées | 11 px | **13 px** |
+| Libellés d'étape | 14 px | **15 px** |
+| Corps mobile | 15 px | **16 px** |
+| CTA mobile | 15 px | **16 px** |
+
+`0.6875rem` (11 px) ne subsiste que sur trois métadonnées strictement secondaires : la source de la trace, la légende de la photographie, le rail de confiance. Le gain de place vient de la hiérarchie, pas de la hauteur : la source est passée en second rang au lieu d'occuper la première ligne du panneau.
+
+**Contraste.** `--g-45` portait du texte atténué (l'avant du bloc avant/après, l'étape bloquée) à **2,73:1**. Porté à `#76777E`, soit **4,39:1**. `contrast-audit.py` sur la route : **TOTAL = 0**.
+
+## Hero
+
+Le panneau gagne en présence sans devenir une carte : filet supérieur porté à 3 px, en-tête souligné, et surtout **la chaîne commence et finit par un objet nommé**. `ENTRÉE · Un message reçu ce matin` en tête, `SORTIE PRODUITE · Fiche à jour · relance datée` en pied, détachée par un filet d'encre de 3 px.
+
+Le HumanGate devient le point de tension : deux filets rouges qui l'encadrent, visage porté de 3,75 à 4,5 rem, ligne à 17 px.
+
+## Registre de mission
+
+Les quatre preuves ne sont plus quatre colonnes de largeur identique. Elles forment un registre continu à quatre colonnes **volontairement inégales** : rang (`M.01`), rôle dans la mission, objet, condition. Les rôles sont ceux d'un contrat : durée, engagement économique, objet livré, condition de sortie. Le rouge ne marque que l'engagement économique.
+
+## Méthode
+
+Trois colonnes indépendantes remplacées par une **séquence opératoire** : un rail vertical relie les étapes, chacune porte son état (`cadrage`, `exécution`, `transfert`), et une colonne de flux montre l'objet entrant, l'objet sortant et **qui en répond**. La responsabilité change de main entre l'étape 2 et l'étape 3, ce qui est tout le sujet de la mission. Le dernier point du rail est rouge : c'est la sortie.
+
+## Avant / après
+
+Deux listes côte à côte remplacées par une **transformation ligne à ligne** : chaque item barré est relié à son état d'arrivée par un filet rouge à pointe. Le rouge n'est là que sur le changement.
+
+## Photographie
+
+**Source : la photographie réelle du 01/08.** Traitements appliqués : recadrage, désaturation, courbe de contraste, grain argentique à graine fixe. **Aucune opération générative.** Le visage n'est ni régénéré, ni retouché, ni embelli. Aucun détourage : le fond réel est conservé, c'est lui qui rend la photo documentaire.
+
+`paul-authority-branded.png` et `paul-working-branded.png` restent **non câblés**.
+
+La silhouette pleine hauteur détourée est remplacée par un **buste 4:5** en noir et blanc, légendé, posé face à la responsabilité qu'il porte. La vignette du HumanGate vient du même traitement, recadrée sur le visage à partir de coordonnées relevées sur grille.
+
+## Maxime
+
+`TeamSlot.tsx` : emplacement composable, **non appelé, ne rendant rien**. Pas de silhouette générique, pas d'initiales, pas de gris de remplacement. Un emplacement vide vaut mieux qu'un faux visage. La marche à suivre pour l'activer est dans l'en-tête du fichier.
+
+## Détails corrigés
+
+- Le filet supérieur de la topologie s'arrêtait **220 px avant le bord** : cinq couches ne divisent pas douze colonnes sans laisser un moignon. La topologie garde désormais sa propre division en cinq, sur les mêmes marges.
+- Les valeurs du bloc fondateur étaient **noires sur noir** : `.d-meta dd` forçait `--ink` alors que le bloc vit aussi sur bande encre. Passé en `inherit`.
+- Échelle d'espacement unique (`--s-1` à `--s-8`) sur toute la couche technique. Plus aucune valeur arbitraire.
+- Trois niveaux de section, pour casser la répétition filet + index + titre : moment majeur à `--s-8`, zone dense et transition à `--s-7`.
+
+## Mobile
+
+Recomposition réelle, vérifiée à 390 × 844 et 375 × 812.
+
+- **ExecutionTrace** : l'horodatage passe sous le libellé, une étape se lit à la fois, entrée et sortie détachées.
+- **Registre de mission** : un bloc par ligne, rôle au-dessus de l'objet.
+- **ProofLedger** : élément, état et limite en tête ; source et date en second rang, à 11 px.
+- **SystemTopology** : séquence verticale, liens continus, aucun texte sous 12 px.
+- **TrustRail** : séquence empilée, plus de colonnes minuscules.
+- **FounderValidation** : buste cadré à 20 rem maximum, jamais pleine hauteur.
+
+## Captures
+
+`before-polish/` conserve la version précédente. `compare-polish.png` met les deux face à face au même cadrage. Figma : les quatre frames D sont mises à jour, et une rangée `D — v1 … (avant polish)` est archivée en dessous. Les six frames historiques sont vérifiées inchangées, toujours en `y = 0`.
