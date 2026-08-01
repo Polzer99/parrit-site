@@ -22,10 +22,12 @@ const PAGES = [
   { id: "concept-a", path: "/art-direction-lab/concept-a" },
   { id: "concept-b", path: "/art-direction-lab/concept-b" },
   { id: "concept-c", path: "/art-direction-lab/concept-c" },
+  { id: "concept-d", path: "/art-direction-lab/concept-d" },
 ];
 
 const SIZES = [
   { w: 375, h: 812 },
+  { w: 390, h: 844 },
   { w: 768, h: 1024 },
   { w: 1024, h: 768 },
   { w: 1440, h: 900 },
@@ -57,7 +59,7 @@ async function shots(browser) {
 
       // PARRIT-COPY-RESET-V1 : le premier écran est le test des cinq secondes.
       // Il se juge à la hauteur du viewport, pas sur la page entière.
-      if (s.w === 1440 || s.w === 375) {
+      if (s.w === 1440 || s.w === 375 || s.w === 390) {
         await page.screenshot({ path: `${OUT}/${p.id}-hero-${s.w}x${s.h}.png` });
       }
 
@@ -76,7 +78,8 @@ async function shots(browser) {
         );
         if (emdash) note(`${p.id} : ${emdash} tiret(s) cadratin dans le texte visible`);
 
-        const cta = await page.locator("a.cta").count();
+        // Le concept D a son propre préfixe de classes : les deux comptent.
+        const cta = await page.locator("a.cta, a.d-cta").count();
         if (p.id !== "index" && cta < 1) note(`${p.id} : aucun CTA`);
       }
       await ctx.close();

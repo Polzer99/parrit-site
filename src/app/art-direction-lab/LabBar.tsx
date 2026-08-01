@@ -3,7 +3,7 @@ import { CONCEPTS } from "./content";
 
 /** Barre de comparaison. Elle n'appartient à aucun concept : elle sert à
  *  passer de l'un à l'autre sans revenir à l'index. */
-export function LabBar({ current }: { current?: "a" | "b" | "c" }) {
+export function LabBar({ current }: { current?: "a" | "b" | "c" | "d" }) {
   return (
     <nav className="lab-bar" aria-label="Concepts">
       <Link href="/art-direction-lab">Visual reset v2</Link>

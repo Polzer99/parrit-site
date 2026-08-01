@@ -1,0 +1,1130 @@
+/* =========================================================================
+   CONCEPT D — EDITORIAL OPERATING SYSTEM
+   PARRIT-TECH-TRUST-V1
+
+   Tout est scopé `.cD`. Ce fichier ne touche ni A, ni B, ni C, ni le site.
+
+   Grammaire : grille de 12 colonnes, filets d'un demi-pixel, aucun rayon,
+   aucune ombre, un seul rouge fonctionnel. Le rythme alterne papier et encre :
+   ouverture papier · immersion encre · retour papier · zone technique dense ·
+   respiration humaine · CTA fortement contrasté.
+   ========================================================================= */
+
+.cD {
+  --paper: #fffdfa;
+  --ink: #0c0c0d;
+  --red: #d1132f;
+
+  /* Gris dérivés, fonctionnels. Aucune autre couleur. */
+  --g-70: #6e7079; /* métadonnées lisibles sur papier, 4.6:1 */
+  --g-45: #9a9ba1; /* filets appuyés */
+  --hair: rgba(12, 12, 13, 0.14);
+  --hair-strong: rgba(12, 12, 13, 0.3);
+  --hair-inv: rgba(255, 253, 250, 0.18);
+  --g-inv: rgba(255, 253, 250, 0.66);
+
+  --col: minmax(0, 1fr);
+  --gutter: 24px;
+  --max: 1320px;
+
+  /* Durées : UI courte, contenu moyen, démonstration système longue. */
+  --t-ui: 160ms;
+  --t-content: 380ms;
+  --t-system: 1200ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.cD ::selection {
+  background: var(--red);
+  color: #fff;
+}
+
+.cD .d-wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Grille de 12 colonnes. Elle n'est pas décorative : tous les blocs s'y
+   posent, et quelques filets la rendent lisible sans la dessiner. */
+.cD .d-hero-grid,
+.cD .d-proof,
+.cD .d-topo,
+.cD .d-hermes,
+.cD .d-founder-grid,
+.cD .d-method-grid {
+  display: grid;
+  grid-template-columns: repeat(12, var(--col));
+  column-gap: var(--gutter);
+}
+
+.cD img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.cD a {
+  color: inherit;
+}
+
+.cD .d-mono {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  line-height: 1.55;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--g-70);
+  margin: 0;
+}
+
+.cD .d-red {
+  color: var(--red);
+}
+
+.cD .d-index {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--hair);
+  margin-bottom: 2rem;
+}
+
+/* -------------------------------------------------------------------------
+   TechHero
+   ------------------------------------------------------------------------- */
+.cD .d-hero {
+  border-bottom: 1px solid var(--hair);
+}
+
+.cD .d-hero-grid {
+  align-items: start;
+  padding: 4.5rem 0 3.5rem;
+}
+
+.cD .d-hero-lede {
+  grid-column: 1 / span 7;
+}
+
+.cD .d-eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cD .d-eyebrow::before {
+  content: "";
+  width: 2rem;
+  height: 2px;
+  background: var(--red);
+  flex: none;
+}
+
+.cD .d-title {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(2.5rem, 4.6vw, 4.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+
+.cD .d-title span {
+  display: block;
+}
+
+.cD .d-title-2 {
+  color: var(--red);
+}
+
+.cD .d-lede {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  max-width: 34rem;
+  margin: 1.75rem 0 0;
+}
+
+.cD .d-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 2rem;
+}
+
+.cD .d-cta {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  padding: 0.95rem 1.4rem;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  border: 1px solid var(--ink);
+  transition: background var(--t-ui) var(--ease), color var(--t-ui) var(--ease);
+}
+
+.cD .d-cta:hover {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+.cD .d-cta:focus-visible,
+.cD .d-cta-link:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+.cD .d-cta.is-final {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+  font-size: 1.0625rem;
+  padding: 1.1rem 1.75rem;
+}
+
+.cD .d-cta.is-final:hover {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink);
+}
+
+.cD .d-cta-link {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--g-70);
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+  transition: color var(--t-ui) var(--ease);
+}
+
+.cD .d-cta-link:hover {
+  color: var(--red);
+}
+
+/* Panneau d'exécution. Tenu par des filets, pas par une carte. */
+.cD .d-panel {
+  grid-column: 9 / span 4;
+  border-top: 2px solid var(--ink);
+  border-left: 1px solid var(--hair);
+  padding: 0.75rem 0 0 1.25rem;
+}
+
+.cD .d-panel-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+}
+
+.cD .d-specimen {
+  color: var(--red);
+}
+
+.cD .d-meta {
+  margin: 0;
+  border-top: 1px solid var(--hair);
+  padding-top: 0.75rem;
+}
+
+.cD .d-meta > div {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 0.28rem 0;
+}
+
+.cD .d-meta dt {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--g-70);
+}
+
+.cD .d-meta dd {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  line-height: 1.5;
+}
+
+.cD .d-meta-wide > div {
+  grid-template-columns: 11rem minmax(0, 1fr);
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--hair);
+}
+
+/* Étapes. Le rail se construit, il ne clignote pas. */
+.cD .d-steps {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--hair);
+}
+
+.cD .d-step {
+  display: grid;
+  grid-template-columns: 1.75rem 0.75rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--hair);
+}
+
+.cD .d-step-n,
+.cD .d-step-t {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  color: var(--g-70);
+}
+
+.cD .d-step-label {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.35;
+}
+
+/* Le rail d'état : plein = terminé, creux = attente, barré = bloqué. */
+.cD .d-step-rail {
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 1px solid var(--ink);
+  justify-self: center;
+}
+
+.cD .d-step.is-terminée .d-step-rail {
+  background: var(--ink);
+}
+
+.cD .d-step.is-attente .d-step-rail {
+  border-color: var(--red);
+  background: var(--red);
+  animation: d-pulse var(--t-system) var(--ease) infinite;
+}
+
+.cD .d-step.is-attente .d-step-label {
+  color: var(--red);
+}
+
+.cD .d-step.is-bloquée {
+  color: var(--g-45);
+}
+
+.cD .d-step.is-bloquée .d-step-rail {
+  border-color: var(--g-45);
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--g-45) 0 1px,
+    transparent 1px 3px
+  );
+}
+
+@keyframes d-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* HumanGate. Le moment où le système s'arrête. */
+.cD .d-gate {
+  display: grid;
+  grid-template-columns: 3.75rem minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: start;
+  margin-top: 1.25rem;
+  padding: 0.9rem 0 0;
+  border-top: 2px solid var(--red);
+}
+
+.cD .d-gate-face {
+  width: 3.75rem;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 50% 12%;
+  filter: grayscale(1) contrast(1.06);
+}
+
+.cD .d-gate-state {
+  color: var(--red);
+}
+
+.cD .d-gate-line {
+  font-family: "Arpona", ui-serif, Georgia, serif;
+  font-size: 0.9375rem;
+  line-height: 1.35;
+  margin: 0.35rem 0 0.4rem;
+}
+
+/* TrustRail */
+.cD .d-trust {
+  border-top: 1px solid var(--hair);
+  background: var(--paper);
+}
+
+.cD .d-trust-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+
+.cD .d-trust-inner p {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.625rem;
+}
+
+.cD .d-trust-inner p::before {
+  content: "";
+  width: 0.3rem;
+  height: 0.3rem;
+  background: var(--g-45);
+  flex: none;
+}
+
+/* -------------------------------------------------------------------------
+   Bandes encre
+   ------------------------------------------------------------------------- */
+.cD .d-band {
+  background: var(--ink);
+  color: var(--paper);
+  --hair: var(--hair-inv);
+  --g-70: var(--g-inv);
+  --g-45: rgba(255, 253, 250, 0.42);
+  padding: 3.5rem 0;
+  margin-top: 4rem;
+}
+
+.cD .d-proof {
+  row-gap: 1.5rem;
+}
+
+.cD .d-proof-item {
+  grid-column: span 3;
+  padding-right: 1.25rem;
+  border-top: 1px solid var(--hair-inv);
+  padding-top: 0.9rem;
+}
+
+.cD .d-proof-n {
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.cD .d-proof-key {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: 0.94;
+  margin: 0 0 0.5rem;
+}
+
+.cD .d-proof-item:nth-child(2) .d-proof-key {
+  color: var(--red);
+}
+
+.cD .d-proof-line {
+  margin: 0;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--g-inv);
+}
+
+/* -------------------------------------------------------------------------
+   Problème : grand champ typographique
+   ------------------------------------------------------------------------- */
+.cD .d-problem,
+.cD .d-cases,
+.cD .d-ba,
+.cD .d-method,
+.cD .d-ledger {
+  margin-top: 4.5rem;
+}
+
+.cD .d-h2 {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(2.25rem, 6vw, 5.5rem);
+  line-height: 0.92;
+  margin: 0;
+}
+
+.cD .d-h2 span {
+  display: block;
+}
+
+.cD .d-h2-small {
+  font-size: clamp(1.75rem, 3.4vw, 3rem);
+}
+
+.cD .d-problem-body {
+  margin-top: 2rem;
+  columns: 2;
+  column-gap: 3rem;
+  max-width: 60rem;
+}
+
+.cD .d-problem-body p {
+  margin: 0 0 1rem;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.62;
+  break-inside: avoid;
+}
+
+/* -------------------------------------------------------------------------
+   ExecutionTrace, quatre chaînes. Zone dense.
+   ------------------------------------------------------------------------- */
+.cD .d-case-head,
+.cD .d-case {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 3fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 2.4fr);
+  gap: 1.25rem;
+  align-items: baseline;
+}
+
+.cD .d-case-head {
+  grid-template-columns: 2rem minmax(0, 3fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 2.4fr);
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.cD .d-case-head span:first-child {
+  grid-column: 2;
+}
+
+.cD .d-case {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--hair);
+  transition: background var(--t-ui) var(--ease);
+}
+
+.cD .d-case:hover {
+  background: rgba(12, 12, 13, 0.03);
+}
+
+.cD .d-case-in,
+.cD .d-case-out {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(1rem, 1.5vw, 1.3125rem);
+  line-height: 1.02;
+  margin: 0;
+}
+
+.cD .d-case-out {
+  font-weight: 900;
+}
+
+/* La relation entrée vers sortie : une flèche fonctionnelle, pas un ornement. */
+.cD .d-case-mid {
+  margin: 0;
+  position: relative;
+  padding-left: 1.5rem;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.cD .d-case-mid::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 0.85rem;
+  height: 1px;
+  background: var(--red);
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: d-draw var(--t-content) var(--ease) forwards;
+}
+
+@keyframes d-draw {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.cD .d-case-gate {
+  margin: 0;
+  color: var(--red);
+}
+
+.cD .d-case-gate::before {
+  content: "";
+  display: inline-block;
+  width: 0.35rem;
+  height: 0.35rem;
+  background: var(--red);
+  margin-right: 0.4rem;
+  vertical-align: middle;
+}
+
+/* -------------------------------------------------------------------------
+   SystemTopology. Couches et relations.
+   ------------------------------------------------------------------------- */
+.cD .d-band-topo {
+  margin-top: 4.5rem;
+}
+
+.cD .d-topo {
+  row-gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.cD .d-node {
+  grid-column: span 2;
+  position: relative;
+  border-top: 1px solid var(--hair-inv);
+  padding-top: 0.9rem;
+}
+
+.cD .d-node:first-child {
+  grid-column: 1 / span 2;
+}
+
+.cD .d-node.is-gate {
+  border-top-color: var(--red);
+}
+
+.cD .d-node-couche {
+  margin-bottom: 0.75rem;
+}
+
+.cD .d-node.is-gate .d-node-couche {
+  color: var(--red);
+}
+
+.cD .d-node-label {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  line-height: 1;
+  margin: 0 0 0.4rem;
+}
+
+.cD .d-node-detail {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+/* La relation : un filet qui traverse la gouttière, avec sa pointe. */
+.cD .d-node-link {
+  position: absolute;
+  top: -1px;
+  right: calc(-1 * var(--gutter));
+  width: var(--gutter);
+  height: 1px;
+  background: var(--red);
+}
+
+.cD .d-node-link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 5px;
+  height: 5px;
+  background: var(--red);
+}
+
+/* -------------------------------------------------------------------------
+   BeforeAfterFlow. Même matière, deux états.
+   ------------------------------------------------------------------------- */
+.cD .d-ba-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 4rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0;
+  border-top: 2px solid var(--ink);
+  padding-top: 1.25rem;
+}
+
+.cD .d-ba-col.is-before {
+  padding-right: 2rem;
+  color: var(--g-70);
+}
+
+.cD .d-ba-col.is-after {
+  padding-left: 2rem;
+  border-left: 1px solid var(--hair);
+}
+
+.cD .d-ba-line {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  margin: 0.75rem 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--hair);
+}
+
+.cD .d-ba-col.is-before .d-ba-line {
+  text-decoration: line-through;
+  text-decoration-color: var(--g-45);
+  text-decoration-thickness: 1px;
+}
+
+.cD .d-ba-switch {
+  position: relative;
+  align-self: stretch;
+}
+
+.cD .d-ba-switch span {
+  position: absolute;
+  top: 2.5rem;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--red);
+}
+
+.cD .d-ba-switch span::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  background: var(--red);
+}
+
+/* -------------------------------------------------------------------------
+   Méthode : respiration éditoriale
+   ------------------------------------------------------------------------- */
+.cD .d-method-grid {
+  margin-top: 2.5rem;
+  row-gap: 2rem;
+}
+
+.cD .d-method-grid article {
+  grid-column: span 4;
+  border-top: 1px solid var(--hair);
+  padding-top: 0.9rem;
+}
+
+.cD .d-method-t {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.75rem;
+  line-height: 1;
+  margin: 0.5rem 0 0.6rem;
+}
+
+.cD .d-method-grid p:last-child {
+  margin: 0;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--g-70);
+}
+
+/* -------------------------------------------------------------------------
+   Hermes
+   ------------------------------------------------------------------------- */
+.cD .d-hermes {
+  row-gap: 2.5rem;
+}
+
+.cD .d-hermes > div:first-child {
+  grid-column: 1 / span 6;
+}
+
+.cD .d-journal {
+  grid-column: 8 / span 5;
+  border-top: 2px solid var(--hair-inv);
+  padding-top: 0.9rem;
+}
+
+.cD .d-hermes-body {
+  font-family: "Arpona", ui-serif, Georgia, serif;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  max-width: 34rem;
+  margin: 1.25rem 0 0;
+}
+
+.cD .d-attrib {
+  margin-top: 1.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--hair-inv);
+}
+
+.cD .d-journal-row {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.5rem 0.9rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--hair-inv);
+}
+
+.cD .d-journal-t {
+  color: var(--g-45);
+}
+
+.cD .d-journal-label {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.cD .d-journal-detail {
+  grid-column: 2;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.cD .d-journal-row.is-gate .d-journal-label,
+.cD .d-journal-row.is-stop .d-journal-label {
+  color: var(--red);
+}
+
+.cD .d-journal-foot {
+  margin-top: 0.9rem;
+}
+
+/* -------------------------------------------------------------------------
+   ProofLedger. Chaque ligne porte sa limite.
+   ------------------------------------------------------------------------- */
+.cD .d-ledger-head,
+.cD .d-ledger-row {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 2.2fr) minmax(0, 2.6fr) minmax(0, 1fr)
+    minmax(0, 1.1fr) minmax(0, 3.4fr);
+  gap: 1.25rem;
+  align-items: baseline;
+}
+
+.cD .d-ledger-head {
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.cD .d-ledger-row {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--hair);
+}
+
+.cD .d-ledger-el {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  margin: 0;
+}
+
+.cD .d-ledger-row p {
+  margin: 0;
+}
+
+.cD .d-ledger-etat {
+  color: var(--ink);
+}
+
+.cD .d-ledger-row.is-specimen .d-ledger-etat,
+.cD .d-ledger-row.is-absent .d-ledger-etat {
+  color: var(--red);
+}
+
+.cD .d-ledger-limite {
+  text-transform: none;
+  letter-spacing: 0.015em;
+}
+
+/* -------------------------------------------------------------------------
+   FounderValidation
+   ------------------------------------------------------------------------- */
+.cD .d-founder {
+  margin-top: 4.5rem;
+}
+
+.cD .d-founder-grid {
+  align-items: end;
+  row-gap: 2rem;
+}
+
+.cD .d-founder-fig {
+  grid-column: 1 / span 3;
+  margin: 0;
+  align-self: end;
+}
+
+.cD .d-founder-fig img {
+  width: 100%;
+}
+
+.cD .d-founder-grid > div:last-child {
+  grid-column: 5 / span 8;
+}
+
+.cD .d-quote {
+  font-family: "Arpona", ui-serif, Georgia, serif;
+  font-size: clamp(1.375rem, 2.6vw, 2rem);
+  line-height: 1.28;
+  margin: 0 0 1.75rem;
+  max-width: 30ch;
+}
+
+.cD .d-months {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.cD .d-months > div {
+  border-top: 1px solid var(--hair-inv);
+  padding-top: 0.75rem;
+}
+
+.cD .d-months-t {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  line-height: 1;
+  margin: 0.45rem 0 0.4rem;
+}
+
+.cD .d-months-b {
+  margin: 0;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--g-inv);
+}
+
+.cD .d-mention {
+  margin-top: 1.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--hair-inv);
+  color: var(--paper);
+}
+
+/* -------------------------------------------------------------------------
+   CTA final
+   ------------------------------------------------------------------------- */
+.cD .d-final {
+  background: var(--ink);
+  color: var(--paper);
+  --hair: var(--hair-inv);
+  --g-70: var(--g-inv);
+  padding: 5rem 0;
+  margin-top: 4rem;
+}
+
+.cD .d-final-t {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(2rem, 5.2vw, 4.75rem);
+  line-height: 0.94;
+  margin: 0;
+  max-width: 20ch;
+}
+
+.cD .d-final-b {
+  font-family: "Arpona", ui-serif, Georgia, serif;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  max-width: 40rem;
+  margin: 1.75rem 0 0;
+}
+
+.cD .d-foot {
+  padding: 2.5rem var(--gutter) 4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  justify-content: space-between;
+}
+
+/* -------------------------------------------------------------------------
+   MOBILE. Recomposition, pas empilement.
+   La trace passe à la verticale, les métadonnées restent, le HumanGate
+   reste immédiatement lisible.
+   ------------------------------------------------------------------------- */
+@media (max-width: 68rem) {
+  .cD .d-hero-lede,
+  .cD .d-panel,
+  .cD .d-hermes > div:first-child,
+  .cD .d-journal,
+  .cD .d-founder-grid > div:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .cD .d-panel {
+    border-left: 0;
+    padding-left: 0;
+    margin-top: 2.5rem;
+  }
+
+  .cD .d-proof-item {
+    grid-column: span 6;
+  }
+
+  .cD .d-node,
+  .cD .d-node:first-child {
+    grid-column: 1 / -1;
+  }
+
+  /* La relation devient verticale : le filet descend au lieu de traverser. */
+  .cD .d-node-link {
+    top: auto;
+    bottom: -1.15rem;
+    right: auto;
+    left: 0;
+    width: 1px;
+    height: 1.15rem;
+  }
+
+  .cD .d-node-link::after {
+    right: auto;
+    left: -2px;
+    top: auto;
+    bottom: 0;
+  }
+
+  .cD .d-method-grid article {
+    grid-column: 1 / -1;
+  }
+
+  .cD .d-founder-fig {
+    grid-column: 1 / span 5;
+  }
+}
+
+@media (max-width: 48rem) {
+  .cD {
+    --gutter: 20px;
+  }
+
+  .cD .d-problem-body {
+    columns: 1;
+  }
+
+  .cD .d-proof-item {
+    grid-column: 1 / -1;
+  }
+
+  /* La chaîne d'un cas devient une séquence lisible de haut en bas. */
+  .cD .d-case-head {
+    display: none;
+  }
+
+  .cD .d-case {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    row-gap: 0.4rem;
+    padding: 1.25rem 0;
+  }
+
+  .cD .d-case-in,
+  .cD .d-case-mid,
+  .cD .d-case-out,
+  .cD .d-case-gate {
+    grid-column: 2;
+  }
+
+  .cD .d-case-out::before {
+    content: "→ ";
+    color: var(--red);
+  }
+
+  .cD .d-ba-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cD .d-ba-col.is-before,
+  .cD .d-ba-col.is-after {
+    padding: 0;
+    border-left: 0;
+  }
+
+  .cD .d-ba-col.is-after {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--red);
+  }
+
+  .cD .d-ba-switch {
+    display: none;
+  }
+
+  .cD .d-months {
+    grid-template-columns: 1fr;
+  }
+
+  .cD .d-meta > div,
+  .cD .d-meta-wide > div {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  /* Le registre de preuves garde ses cinq informations, en pile étiquetée. */
+  .cD .d-ledger-head {
+    display: none;
+  }
+
+  .cD .d-ledger-row {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+    padding: 1.1rem 0;
+  }
+
+  .cD .d-founder-fig {
+    grid-column: 1 / span 7;
+  }
+}
+
+/* Le mouvement sert la lecture ou n'existe pas. */
+@media (prefers-reduced-motion: reduce) {
+  .cD *,
+  .cD *::before,
+  .cD *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .cD .d-case-mid::before {
+    transform: scaleX(1);
+  }
+}
+
+/* Deux zones encre qui se suivent ne doivent pas être séparées par une bande
+   de papier de 4 rem : ça se lit comme un accident, pas comme une respiration.
+   Le CTA final prolonge la zone fondateur. */
+.cD .d-founder + .d-final {
+  margin-top: 0;
+}

@@ -176,4 +176,11 @@ export const CONCEPTS = [
     resume: "L'affiche. La typographie porte la page.",
     href: "/art-direction-lab/concept-c",
   },
+  {
+    id: "d",
+    code: "D",
+    nom: "Editorial Operating System",
+    resume: "La synthèse. Le système porte la page, l'humain la valide.",
+    href: "/art-direction-lab/concept-d",
+  },
 ] as const;
