@@ -22,7 +22,12 @@ import {
   PageBody,
   type LienContenu,
 } from "./parts";
-import { assertSinglePrincipal, type CtaId } from "@/lib/registry/cta";
+import {
+  OffreRef,
+  ProblemeRef,
+  assertSinglePrincipal,
+  type CtaId,
+} from "@/lib/registry";
 import { breadcrumbList, graphe, organizationRef, SITE_URL } from "@/lib/seo/jsonld";
 import {
   dureeISO,
@@ -30,7 +35,6 @@ import {
   resolveVideo,
   type VideoSource,
 } from "@/lib/video/contract";
-import type { OffreRef, ProblemeRef } from "@/lib/registry/ciblage";
 
 export type VideoData = {
   slug: string;

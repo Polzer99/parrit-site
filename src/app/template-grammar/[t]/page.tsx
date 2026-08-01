@@ -10,7 +10,9 @@ import { T6Presse } from "@/components/templates/T6Presse";
 import { T7Landing } from "@/components/templates/T7Landing";
 import { T8Auteur } from "@/components/templates/T8Auteur";
 import { Label } from "@/components/ds/primitives";
-import { getRessource } from "@/lib/registry/ressources";
+import {
+  getRessource,
+} from "@/lib/registry";
 import {
   ARTICLE,
   AUTEUR,
@@ -38,7 +40,7 @@ export function generateStaticParams() {
 function FormulaireSpecimen() {
   return (
     <div style={{ display: "grid", gap: "var(--space-4)" }}>
-      <Label tone="ink">Formulaire — gabarit G2, rendu par la page appelante</Label>
+      <Label tone="ink">Formulaire · gabarit G2, rendu par la page appelante</Label>
       <p
         style={{
           margin: 0,

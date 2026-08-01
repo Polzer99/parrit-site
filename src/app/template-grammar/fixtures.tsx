@@ -33,7 +33,7 @@ export const ARTICLE: ArticleData = {
     L'exécution se termine en succès. Le travail recommence au cycle suivant.</p>
     <h2 id="la-parade">La parade</h2>
     <p>Un plafond par workflow, un compteur remis à zéro chaque jour, et un coupe-circuit
-    qui mesure un débit — pas un total.</p>
+    qui mesure un débit, pas un total.</p>
   `,
   sommaire: [
     { id: "le-symptome", texte: "Le symptôme" },
@@ -52,7 +52,7 @@ export const ARTICLE: ArticleData = {
       a: "En comparant le nombre d'éléments traités entre deux exécutions. Un compte identique et non nul, deux fois de suite, c'est la boucle.",
     },
   ],
-  sources: [{ label: "OpenRouter — API des crédits", url: "https://openrouter.ai/docs" }],
+  sources: [{ label: "OpenRouter · API des crédits", url: "https://openrouter.ai/docs" }],
   plaque: {
     src: "/brand/editorial/plates/plate-repetition.jpg",
     alt: "Plaque éditoriale, motif de répétition",

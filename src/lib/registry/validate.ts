@@ -86,7 +86,7 @@ export function validerRegistres(): Anomalie[] {
   // Une ressource ne redéfinit pas le libellé de son CTA : elle le référence.
   for (const r of ressources) {
     if ((r as unknown as Record<string, unknown>).ctaLibelle !== undefined) {
-      ajouter("ressources", r.id, "libellé de CTA dupliqué — utiliser ctaPrincipal");
+      ajouter("ressources", r.id, "libellé de CTA dupliqué, utiliser ctaPrincipal");
     }
   }
 
@@ -104,7 +104,7 @@ export function validerRegistres(): Anomalie[] {
   for (const p of preuves) {
     // Un chiffre partiel est pire qu'aucun chiffre : il a l'air vérifié.
     if (p.mesure && !metriqueAffichable(p)) {
-      ajouter("preuves", p.id, "mesure incomplète — metrique, periode ET methodeMesure");
+      ajouter("preuves", p.id, "mesure incomplète : metrique, periode ET methodeMesure");
     }
     // Le champ `publicationPermission` doit être EXPLICITE dès qu'un tiers est nommé.
     if (p.nominatif && typeof p.nominatif.publicationPermission !== "boolean") {
@@ -143,7 +143,7 @@ export function validerRegistres(): Anomalie[] {
   for (const id of ctaIds) {
     const href = ctaHref(id, "fr", "validation");
     if (href.startsWith("/") && !href.includes("source=")) {
-      ajouter("cta", id, "destination interne sans ?source= — attribution impossible");
+      ajouter("cta", id, "destination interne sans ?source=, attribution impossible");
     }
   }
 
@@ -162,7 +162,7 @@ export function assertRegistresValides(): void {
   const anomalies = validerRegistres();
   if (anomalies.length > 0) {
     const detail = anomalies
-      .map((a) => `  · [${a.registre}] ${a.id} — ${a.probleme}`)
+      .map((a) => `  · [${a.registre}] ${a.id} : ${a.probleme}`)
       .join("\n");
     throw new Error(`Registres incohérents (${anomalies.length}) :\n${detail}`);
   }

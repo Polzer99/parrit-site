@@ -34,7 +34,7 @@ export function Breadcrumb({ miettes }: { miettes: Miette[] }) {
           {i === miettes.length - 1 ? (
             <Label tone="ink">{m.nom}</Label>
           ) : (
-            <Link href={m.href} style={{ textDecoration: "none" }}>
+            <Link href={m.href} prefetch={false} style={{ textDecoration: "none" }}>
               <Label>{m.nom}</Label>
             </Link>
           )}
