@@ -1,0 +1,1337 @@
+/* =========================================================================
+   PRODUCT-LIVING-SYSTEM-SCENE-V2 — feuille de style du second renderer.
+
+   Tout est scopé .pv2. Rien ne fuit vers la V1 (.pls), vers le laboratoire
+   ni vers le site public. Supprimer ce dossier suffit à supprimer la V2.
+
+   Le renversement par rapport à la V1 est délibéré : le champ est en encre,
+   les surfaces produit sont claires. Le papier n'est plus le fond de l'écran,
+   il est la matière des logiciels. La scène se lit comme un poste de travail,
+   pas comme une page.
+
+   Cette scène est expérimentale et n'appartient pas au design system.
+   ========================================================================= */
+
+.pv2 {
+  /* Palette canon, conservée. */
+  --ink: #0c0c0d;
+  --paper: #fffdfa;
+  --red: #d1132f;
+
+  /* Gris fonctionnels. La V1 n'en avait pas assez pour hiérarchiser. */
+  --s-0: #fffdfa; /* surface au premier plan */
+  --s-1: #f1f2f5; /* surface secondaire, légèrement froide */
+  --s-2: #e2e4ea; /* surface en retrait */
+  --s-3: #c8cbd4; /* bordure claire */
+  --off: #8d919b; /* désactivé */
+  --blocked: #676b75; /* bloqué */
+
+  /* Profondeur du champ. Trois niveaux, du plus lointain au plus proche. */
+  --f-0: #0c0c0d;
+  --f-1: #131418;
+  --f-2: #1b1d23;
+  --f-3: #24272e;
+
+  /* Texte sur encre. Contrastes vérifiés, rien sous 4.5:1 pour du texte. */
+  --tech: #a2a7b2;
+  --tech-dim: #7f8490;
+  --on-ink: #ecedf0;
+
+  /* Filets. */
+  --line: rgba(255, 255, 255, 0.12);
+  --line-fort: rgba(255, 255, 255, 0.26);
+  --line-ink: rgba(12, 12, 13, 0.14);
+
+  /* Ombres dures, presque imprimées. Elles portent la profondeur, elles ne
+     font pas flotter des cartes molles. */
+  --om: 3px 4px 0 rgba(0, 0, 0, 0.55);
+  --om-s: 2px 2px 0 rgba(0, 0, 0, 0.45);
+  --om-red: 3px 4px 0 rgba(209, 19, 47, 0.32);
+
+  --sans: var(--font-body), system-ui, sans-serif;
+  --mono: var(--font-mono), ui-monospace, monospace;
+  --display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+
+  /* Mouvement : trois vitesses, pas trente. */
+  --t-ui: 140ms;
+  --t-obj: 320ms;
+  --t-scene: 620ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  /* `minmax(0, 1fr)` et non `1fr` : sans cela une seule ligne qui refuse de
+     se couper étire toute la colonne et fait déborder la page en largeur. */
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--f-0);
+  color: var(--on-ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.45;
+  overflow: hidden;
+}
+
+/* Réinitialisation locale, de spécificité NULLE.
+
+   `.pv2 button` vaudrait (0,1,1) et l'emporterait sur toutes les classes
+   concrètes en (0,1,0) : les modules et les curseurs perdraient leur fond et
+   leur cadre sans qu'aucune règle ne paraisse fautive. `:where()` ne compte
+   pas dans le calcul, donc la moindre classe reprend la main. */
+:where(.pv2) :where(button) {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+:where(.pv2) :where(button:disabled) {
+  cursor: default;
+}
+.pv2 p,
+.pv2 h1,
+.pv2 h2,
+.pv2 ul,
+.pv2 ol {
+  margin: 0;
+}
+.pv2 ul,
+.pv2 ol {
+  padding: 0;
+  list-style: none;
+}
+.pv2 img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.pv2 :focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+.pv2-mono {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--tech);
+}
+.pv2-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* -------------------------------------------------------------------------
+   BARRE HAUTE — compacte. La scène commence tout de suite en dessous.
+   ------------------------------------------------------------------------- */
+
+.pv2-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.7rem 1.5rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--f-1);
+}
+.pv2-top-gauche,
+.pv2-top-droite {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  min-width: 0;
+}
+.pv2-point {
+  width: 7px;
+  height: 7px;
+  background: var(--red);
+  align-self: center;
+  flex: none;
+}
+/* Moment condensé n°1 : le nom du produit. */
+.pv2-produit {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.3rem;
+  line-height: 0.94;
+  letter-spacing: 0.01em;
+}
+.pv2-top-ref,
+.pv2-demo {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pv2-demo {
+  color: var(--tech-dim);
+}
+/* Moment condensé n°2 : l'état majeur du dossier. */
+.pv2-etat-majeur {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 1.45rem;
+  line-height: 0.94;
+  transition: color var(--t-obj) var(--ease);
+}
+.pv2[data-phase="gate"] .pv2-etat-majeur {
+  color: var(--red);
+}
+
+.pv2-cadran {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.pv2-cran {
+  padding: 4px 2px;
+  border: 0;
+  background: none;
+}
+.pv2-cran span {
+  display: block;
+  width: 14px;
+  height: 3px;
+  background: var(--f-3);
+  transition: background var(--t-ui) var(--ease), height var(--t-ui) var(--ease);
+}
+.pv2-cran[data-atteinte="oui"] span {
+  background: var(--tech);
+}
+.pv2-cran[data-courante="oui"] span {
+  background: var(--paper);
+  height: 6px;
+}
+.pv2-cran[data-comparee="oui"] span {
+  background: var(--red);
+}
+.pv2-cadran-val {
+  color: var(--on-ink);
+}
+
+/* -------------------------------------------------------------------------
+   PLATEAU — l'espace de travail. Au moins 80 % du premier viewport.
+   ------------------------------------------------------------------------- */
+
+.pv2-field {
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Profondeur d'arrière-plan : des systèmes disponibles, hors champ. */
+.pv2-fond {
+  position: absolute;
+  inset: 0;
+}
+.pv2-fond-a,
+.pv2-fond-b {
+  position: absolute;
+  border: 1px solid var(--line);
+}
+.pv2-fond-a {
+  left: 24%;
+  top: 8%;
+  width: 54%;
+  height: 84%;
+  background: var(--f-1);
+}
+.pv2-fond-b {
+  left: 28%;
+  top: 12%;
+  width: 46%;
+  height: 76%;
+  background: var(--f-2);
+}
+/* Texture ponctuelle, très discrète. Signature, pas décor. */
+.pv2-texture {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background-image: radial-gradient(var(--f-3) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Faisceaux de travail. En encre claire : un transfert normal n'est pas une
+   alerte, donc il n'est pas rouge. */
+.pv2-beams {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+.pv2-beam {
+  stroke: var(--line-fort);
+  stroke-width: 1;
+  transition: opacity var(--t-ui) var(--ease);
+}
+.pv2-beam[data-attenue="oui"] {
+  opacity: 0.18;
+}
+
+/* --------------------------- surfaces logicielles ----------------------- */
+
+.pv2-slot-surface {
+  position: absolute;
+  width: 25.5%;
+  z-index: 2;
+}
+.pv2-surface {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.6rem 0.7rem 0.7rem;
+  background: var(--s-1);
+  color: var(--ink);
+  border: 1px solid var(--s-3);
+  border-radius: 4px;
+  box-shadow: var(--om-s);
+  transform: scale(0.97) translateX(0);
+  opacity: 0.62;
+  transition:
+    transform var(--t-scene) var(--ease),
+    opacity var(--t-scene) var(--ease),
+    box-shadow var(--t-obj) var(--ease),
+    background var(--t-obj) var(--ease);
+}
+/* Une surface entre latéralement quand elle sert, puis se rétracte. */
+.pv2-slot-surface:nth-child(odd) .pv2-surface[data-etat="entrante"] {
+  transform: translateX(-8%) scale(0.99);
+}
+.pv2-surface[data-etat="entrante"],
+.pv2-surface[data-etat="active"] {
+  background: var(--s-0);
+  opacity: 1;
+  transform: scale(1.02);
+  box-shadow: var(--om);
+}
+.pv2-surface[data-etat="retractee"] {
+  opacity: 0.78;
+  transform: scale(0.98);
+}
+.pv2-surface[data-etat="bloquee"] {
+  opacity: 1;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--s-2) 0 6px,
+    var(--s-1) 6px 12px
+  );
+  border-color: var(--blocked);
+}
+.pv2-surface[data-attenuee="oui"] {
+  opacity: 0.3;
+}
+
+.pv2-surface-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--line-ink);
+  padding-bottom: 0.35rem;
+}
+.pv2-surface-btn {
+  padding: 0;
+  border: 0;
+}
+.pv2-code {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.pv2-surface-role {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  color: #5c606a;
+}
+.pv2-surface-role[data-bloquee="oui"] {
+  color: var(--red);
+}
+.pv2-surface-body {
+  font-size: 0.78rem;
+  color: #2a2c32;
+  overflow: hidden;
+}
+.pv2-meta {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  color: #5c606a;
+}
+.pv2-surface-apport {
+  font-size: 0.74rem;
+  color: var(--ink);
+  border-top: 1px solid var(--line-ink);
+  padding-top: 0.35rem;
+}
+
+/* La sortie atterrit dans la surface. C'est le logiciel qui a changé. */
+.pv2-surface-out {
+  display: flex;
+  flex-direction: column;
+  border-top: 2px solid var(--ink);
+  padding-top: 0.35rem;
+}
+.pv2-surface-out[data-engage="oui"] {
+  border-top-color: var(--red);
+}
+.pv2-out-titre {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.pv2-out-detail {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  color: #5c606a;
+}
+
+/* ---- intérieurs, tous différents ---- */
+
+.pv2-email-objet {
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--ink);
+}
+.pv2-email-extrait {
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+.pv2-frag {
+  background: none;
+  color: inherit;
+  box-shadow: inset 0 -0.55em 0 rgba(209, 19, 47, 0);
+  transition: box-shadow var(--t-obj) var(--ease);
+}
+.pv2-frag[data-vu="oui"] {
+  box-shadow: inset 0 -0.55em 0 rgba(209, 19, 47, 0.16);
+}
+.pv2-chip {
+  align-self: flex-start;
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  padding: 2px 6px;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+}
+
+.pv2-timeline li {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 0.4rem;
+  padding: 2px 0 2px 0.6rem;
+  border-left: 2px solid var(--s-3);
+  font-size: 0.72rem;
+}
+.pv2-timeline li[data-etat="ouvert"] {
+  border-left-color: var(--ink);
+  font-weight: 600;
+}
+.pv2-timeline-quand {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  color: #5c606a;
+}
+
+.pv2-web-nom {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--ink);
+}
+.pv2-checks li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  opacity: 0.4;
+  transition: opacity var(--t-obj) var(--ease);
+}
+.pv2-checks li[data-vu="oui"] {
+  opacity: 1;
+}
+.pv2-check-mark {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border: 1px solid var(--ink);
+}
+.pv2-checks li[data-ok="oui"] .pv2-check-mark {
+  background: var(--ink);
+}
+.pv2-checks li[data-ok="non"] .pv2-check-mark {
+  background: repeating-linear-gradient(45deg, var(--ink) 0 1px, transparent 1px 3px);
+}
+
+.pv2-regles li {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  gap: 0.4rem;
+  padding: 3px 0;
+  font-size: 0.72rem;
+  border-top: 1px solid var(--line-ink);
+}
+.pv2-regle-code {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  color: #5c606a;
+}
+.pv2-regles li[data-cible="oui"] {
+  background: rgba(12, 12, 13, 0.04);
+}
+.pv2-regles li[data-change="oui"] {
+  box-shadow: inset 3px 0 0 var(--red);
+}
+.pv2-regle-corps {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pv2-regle-texte[data-remplacee="oui"] {
+  text-decoration: line-through;
+  color: var(--off);
+}
+.pv2-regle-neuve {
+  color: var(--ink);
+  font-weight: 600;
+}
+.pv2-regle-sign {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--red);
+}
+
+.pv2-internal-etat {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--ink);
+}
+.pv2-internal[data-bloquee="oui"] .pv2-internal-etat {
+  color: var(--red);
+}
+.pv2-internal-perm {
+  font-size: 0.74rem;
+}
+.pv2-internal-cons {
+  font-size: 0.72rem;
+  border-top: 1px solid var(--line-ink);
+  padding-top: 0.3rem;
+  margin-top: 0.3rem;
+}
+
+.pv2-slots {
+  display: flex;
+  gap: 3px;
+}
+.pv2-slots li {
+  flex: 1;
+  padding: 4px 2px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  border: 1px solid var(--s-3);
+  color: var(--off);
+}
+.pv2-slots li[data-libre="oui"] {
+  background: var(--s-0);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.pv2-slots li[data-retenu="oui"] {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--paper);
+}
+
+/* --------------------------- curseurs d'agents -------------------------- */
+
+/* Le curseur passe DEVANT le noyau : il transporte quelque chose jusque dans
+   l'objet, il ne peut pas disparaître derrière lui au dernier tiers. */
+.pv2-agent {
+  position: absolute;
+  z-index: 8;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 3px 6px;
+  border: 1px solid var(--line-fort);
+  background: var(--f-3);
+  box-shadow: var(--om-s);
+}
+.pv2-agent[data-echoue="oui"] {
+  border-color: var(--red);
+}
+.pv2-agent-code {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--on-ink);
+}
+.pv2-agent-geste {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  color: var(--tech);
+  transition: max-width var(--t-obj) var(--ease);
+}
+.pv2-agent:hover .pv2-agent-geste,
+.pv2-agent:focus-visible .pv2-agent-geste {
+  max-width: 15rem;
+}
+
+/* -------------------------------------------------------------------------
+   NOYAU — l'objet de travail.
+   ------------------------------------------------------------------------- */
+
+.pv2-noyau {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+}
+.pv2-noyau-cadre {
+  position: absolute;
+  inset: -10px;
+  border: 1px solid var(--line-fort);
+  background: var(--f-2);
+  box-shadow: var(--om);
+}
+.pv2-liens {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+.pv2-lien {
+  stroke: var(--line);
+  stroke-width: 1;
+  transition: stroke var(--t-obj) var(--ease);
+}
+.pv2-lien[data-vif="oui"] {
+  stroke: var(--line-fort);
+}
+/* La contradiction se lit PAR-DESSUS les modules : c'est le seul trait de la
+   scène qui a le droit de traverser l'objet, parce que c'est exactement ce
+   que la machine n'arrive pas à résoudre. */
+.pv2-contradictions {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 4;
+}
+.pv2-contradiction {
+  stroke: var(--red);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+
+.pv2-grille {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 6px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Un module : un code, un rôle, une valeur, une jauge. Pas une ligne de
+   formulaire — il occupe une case d'architecture, et il se verrouille. */
+.pv2-module {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 8px 8px;
+  border: 1px solid var(--f-3);
+  border-radius: 2px;
+  background: var(--f-1);
+  overflow: hidden;
+  transition:
+    background var(--t-obj) var(--ease),
+    border-color var(--t-obj) var(--ease),
+    transform var(--t-obj) var(--ease),
+    box-shadow var(--t-obj) var(--ease),
+    opacity var(--t-ui) var(--ease);
+}
+.pv2-module-code {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: var(--tech-dim);
+}
+.pv2-module-label {
+  font-size: 0.72rem;
+  color: var(--tech);
+}
+.pv2-module-valeur {
+  font-size: 0.78rem;
+  line-height: 1.25;
+  color: var(--on-ink);
+  overflow: hidden;
+}
+.pv2-module-jauge {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--f-3);
+}
+.pv2-module-jauge span {
+  display: block;
+  height: 100%;
+  background: var(--tech);
+  transform-origin: left;
+  transition: transform var(--t-ui) linear;
+}
+
+.pv2-module[data-etat="entrant"] {
+  border-color: var(--line-fort);
+  background: var(--f-2);
+  transform: scale(1.02);
+}
+.pv2-module[data-etat="pose"] {
+  background: var(--f-2);
+  border-color: var(--line-fort);
+}
+/* Une case vide est un emplacement en attente, pas un champ de formulaire :
+   trait discontinu, valeur absente, présence minimale. */
+.pv2-module[data-etat="vide"] {
+  border-style: dashed;
+  opacity: 0.55;
+}
+
+/* Verrouillé : le module devient une pièce fixe de l'objet. Le coin coupé
+   est le signe visible de l'engagement, il ne se défait plus. */
+.pv2-module[data-etat="verrouille"] {
+  background: var(--f-3);
+  border-color: var(--tech);
+  clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%);
+}
+.pv2-module[data-etat="verrouille"]::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 9px;
+  height: 9px;
+  background: var(--tech);
+}
+.pv2-module[data-etat="verrouille"] .pv2-module-jauge span {
+  background: var(--on-ink);
+}
+.pv2-module[data-etat="bloque"] {
+  border-color: var(--blocked);
+  background: repeating-linear-gradient(-45deg, var(--f-1) 0 5px, var(--f-2) 5px 10px);
+}
+.pv2-module[data-etat="bloque"] .pv2-module-valeur {
+  color: var(--tech-dim);
+  text-decoration: line-through;
+}
+.pv2-module[data-isole="oui"] {
+  opacity: 0.42;
+}
+
+/* Au gate : le module problématique se détache, l'action proposée reste
+   lisible. Ce sont les deux termes de l'arbitrage. */
+.pv2-module[data-probleme="oui"] {
+  border-color: var(--red);
+  box-shadow: var(--om-red);
+  transform: scale(1.04);
+  z-index: 3;
+}
+.pv2-module[data-propose="oui"] {
+  border-color: var(--paper);
+  transform: scale(1.02);
+  z-index: 2;
+}
+
+.pv2-module[data-diff="ajoute"] {
+  box-shadow: inset 3px 0 0 var(--red);
+}
+.pv2-module[data-diff="modifie"] {
+  box-shadow: inset 3px 0 0 var(--tech);
+}
+.pv2-module[data-diff="inchange"] {
+  opacity: 0.5;
+}
+
+.pv2-module-detail,
+.pv2-comparaison {
+  position: absolute;
+  left: 0;
+  bottom: -1.5rem;
+  white-space: nowrap;
+}
+.pv2-comparaison {
+  bottom: -2.7rem;
+  color: var(--tech-dim);
+}
+
+/* Moment condensé n°3 : le commit. Il passe, il ne s'installe pas. */
+.pv2-commit {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 4.5rem;
+  line-height: 0.94;
+  color: var(--paper);
+  /* Ombre dure, décalée : le mot est posé sur l'objet, pas fondu dedans. */
+  text-shadow: 3px 4px 0 rgba(0, 0, 0, 0.8);
+  z-index: 6;
+  pointer-events: none;
+  animation: pv2-commit var(--t-scene) var(--ease) both;
+}
+@keyframes pv2-commit {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* -------------------------------------------------------------------------
+   HUMAN GATE — il se pose à côté de l'objet, il ne le couvre pas.
+   ------------------------------------------------------------------------- */
+
+/* Pendant l'arrêt, la périphérie passe en arrière-plan. La surface bloquée,
+   elle, reste lisible : c'est la pièce manquante du raisonnement. */
+.pv2-field[data-gate="oui"] .pv2-surface {
+  opacity: 0.26;
+  transform: scale(0.97);
+}
+.pv2-field[data-gate="oui"] .pv2-surface[data-etat="bloquee"] {
+  opacity: 1;
+  transform: scale(1.01);
+  box-shadow: var(--om-red);
+  border-color: var(--red);
+}
+
+.pv2-gate {
+  position: absolute;
+  left: 2%;
+  top: 4%;
+  width: 27%;
+  max-height: 92%;
+  overflow-y: auto;
+  z-index: 7;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.9rem 1rem 1rem;
+  background: var(--f-3);
+  border: 1px solid var(--red);
+  box-shadow: var(--om);
+  animation: pv2-gate var(--t-obj) var(--ease) both;
+}
+@keyframes pv2-gate {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.pv2-gate-tag {
+  color: var(--red);
+}
+/* Moment condensé n°4 : la question posée à l'humain. */
+.pv2-gate-question {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.pv2-gate-pourquoi {
+  font-size: 0.8rem;
+  color: var(--tech);
+}
+.pv2-gate-owner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--line);
+}
+.pv2-photo {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+  border: 1px solid var(--line-fort);
+}
+
+.pv2-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.pv2-option-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--line-fort);
+  background: var(--f-2);
+  transition:
+    background var(--t-ui) var(--ease),
+    border-color var(--t-ui) var(--ease);
+}
+.pv2-option-btn:hover {
+  background: var(--f-1);
+  border-color: var(--paper);
+}
+.pv2-option-btn[data-ton="primaire"] {
+  border-color: var(--red);
+  background: var(--red);
+  color: var(--paper);
+}
+.pv2-option-btn[data-ton="primaire"]:hover {
+  background: #b70f28;
+}
+.pv2-option-label {
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+.pv2-option-effet {
+  font-size: 0.74rem;
+  color: var(--tech);
+}
+.pv2-option-btn[data-ton="primaire"] .pv2-option-effet,
+.pv2-option-btn[data-ton="primaire"] .pv2-option-risque {
+  color: rgba(255, 253, 250, 0.86);
+}
+.pv2-option-risque {
+  font-size: 0.7rem;
+  color: var(--tech-dim);
+}
+.pv2-option-pied {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 2px;
+}
+.pv2-option-version,
+.pv2-option-surface {
+  align-self: flex-start;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  border: 1px solid currentcolor;
+  padding: 0 4px;
+  color: inherit;
+  opacity: 0.75;
+}
+/* Corriger n'est pas un bouton de plus : c'est un choix précis. */
+.pv2-option-choix {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 0.5rem 0.6rem;
+  border: 1px dashed var(--line-fort);
+}
+.pv2-choix {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 2px 0;
+}
+.pv2-choix-btn {
+  padding: 4px 6px;
+  border: 1px solid var(--line);
+  background: var(--f-1);
+  font-size: 0.74rem;
+  transition: border-color var(--t-ui) var(--ease);
+}
+.pv2-choix-btn:hover {
+  border-color: var(--red);
+}
+
+/* -------------------------------------------------------------------------
+   OCCURRENCE SUIVANTE
+   ------------------------------------------------------------------------- */
+
+.pv2-occurrence {
+  position: absolute;
+  left: 31%;
+  right: 29%;
+  bottom: 2%;
+  z-index: 6;
+  padding: 0.5rem 0.7rem;
+  background: var(--f-2);
+  border: 1px solid var(--line-fort);
+  box-shadow: var(--om-s);
+  animation: pv2-occ var(--t-obj) var(--ease) both;
+}
+@keyframes pv2-occ {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.pv2-occ-tag {
+  color: var(--red);
+}
+.pv2-occ-trace {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-size: 0.76rem;
+}
+.pv2-occ-trace li {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--tech);
+}
+.pv2-occ-trace .pv2-occ-effet {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--on-ink);
+}
+
+/* -------------------------------------------------------------------------
+   RAIL DE LECTURE
+   ------------------------------------------------------------------------- */
+
+.pv2-rail {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.55rem 1.5rem;
+  border-top: 1px solid var(--line);
+  background: var(--f-1);
+}
+.pv2-rail-phase {
+  min-width: 9.5rem;
+  color: var(--on-ink);
+}
+.pv2-piste {
+  position: relative;
+  flex: 1;
+  height: 3px;
+  background: var(--f-3);
+}
+.pv2-piste-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--tech);
+  transform-origin: left;
+  transition: transform var(--t-ui) linear;
+}
+.pv2-piste-cran {
+  position: absolute;
+  top: -3px;
+  width: 1px;
+  height: 9px;
+  background: var(--f-0);
+}
+.pv2-rail-ctrls {
+  display: flex;
+  gap: 0.35rem;
+}
+.pv2-ctrl {
+  padding: 3px 9px;
+  border: 1px solid var(--line-fort);
+  background: none;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--on-ink);
+  transition: border-color var(--t-ui) var(--ease);
+}
+.pv2-ctrl:hover:not(:disabled) {
+  border-color: var(--paper);
+}
+.pv2-ctrl:disabled {
+  opacity: 0.35;
+}
+.pv2-conclusion {
+  font-size: 0.74rem;
+  color: var(--tech-dim);
+  max-width: 26rem;
+}
+
+/* -------------------------------------------------------------------------
+   PRODUCT FIRST — la scène sans sa signature éditoriale.
+
+   Cette classe retire la condensée, les annotations, la texture et la
+   photographie. Si la scène s'effondre ici, c'est que le produit est faible.
+   ------------------------------------------------------------------------- */
+
+.pv2.is-nu .pv2-produit,
+.pv2.is-nu .pv2-etat-majeur,
+.pv2.is-nu .pv2-gate-question,
+.pv2.is-nu .pv2-commit {
+  font-family: var(--sans);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.pv2.is-nu .pv2-commit {
+  font-size: 2.4rem;
+}
+.pv2.is-nu .pv2-texture,
+.pv2.is-nu .pv2-photo,
+.pv2.is-nu .pv2-conclusion,
+.pv2.is-nu .pv2-point,
+.pv2.is-nu .pv2-demo {
+  display: none;
+}
+
+/* -------------------------------------------------------------------------
+   MOUVEMENT RÉDUIT — le scénario reste entier, les déplacements disparaissent.
+   ------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .pv2 {
+    --t-ui: 100ms;
+    --t-obj: 120ms;
+    --t-scene: 120ms;
+  }
+  .pv2 *,
+  .pv2 *::before,
+  .pv2 *::after {
+    animation-duration: 120ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 120ms !important;
+  }
+  .pv2-surface,
+  .pv2-module,
+  .pv2-gate,
+  .pv2-occurrence {
+    transform: none !important;
+  }
+  .pv2-agent-geste {
+    max-width: 12rem;
+  }
+}
+
+/* =========================================================================
+   MOBILE — sept chapitres plein écran. Ce n'est pas la scène desktop réduite.
+   ========================================================================= */
+
+.pv2-chapitres {
+  overflow-y: auto;
+  scroll-snap-type: y proximity;
+  min-height: 0;
+}
+.pv2-chapitre {
+  scroll-snap-align: start;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 1rem 1rem 1.4rem;
+  border-bottom: 1px solid var(--line);
+  opacity: 0.45;
+  transition: opacity var(--t-obj) var(--ease);
+}
+.pv2-chapitre[data-actif="oui"] {
+  opacity: 1;
+}
+.pv2-chap-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.pv2-chap-titre {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.pv2-noyau-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.6rem;
+  background: var(--f-2);
+  border: 1px solid var(--line-fort);
+  box-shadow: var(--om-s);
+}
+.pv2-bande {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+.pv2-tuile {
+  padding: 6px 4px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: var(--tech-dim);
+  background: var(--f-1);
+  border: 1px solid var(--f-3);
+  border-radius: 2px;
+}
+.pv2-tuile[data-etat="entrant"],
+.pv2-tuile[data-etat="pose"] {
+  color: var(--on-ink);
+  border-color: var(--line-fort);
+}
+.pv2-tuile[data-etat="verrouille"] {
+  color: var(--on-ink);
+  background: var(--f-3);
+  border-color: var(--tech-dim);
+}
+.pv2-tuile[data-etat="bloque"] {
+  color: var(--red);
+  border-color: var(--red);
+}
+.pv2-tuile[data-focus="oui"] {
+  outline: 1px solid var(--paper);
+  outline-offset: 1px;
+}
+.pv2-bande-valeur {
+  font-size: 0.85rem;
+  color: var(--on-ink);
+}
+.pv2-bande-valeur .pv2-mono {
+  color: var(--tech-dim);
+}
+
+.pv2-chap-surface .pv2-surface {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 52rem) {
+  .pv2 {
+    font-size: 16px;
+    overflow: visible;
+  }
+  /* L'état du dossier reste sous les yeux pendant qu'on parcourt les
+     chapitres : c'est la seule chose qui doit suivre le doigt. */
+  .pv2-top {
+    position: sticky;
+    top: 0;
+    z-index: 9;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.8rem;
+    padding: 0.6rem 1rem;
+  }
+  .pv2-top-gauche {
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+  }
+  .pv2-top-droite {
+    flex: 1 1 100%;
+    justify-content: space-between;
+  }
+  /* La mention de démonstration passe à la ligne plutôt que d'étirer l'écran. */
+  .pv2-demo {
+    flex-basis: 100%;
+    white-space: normal;
+  }
+  .pv2-top-ref,
+  .pv2-demo {
+    font-size: 0.7rem;
+  }
+  .pv2-etat-majeur {
+    font-size: 1.25rem;
+  }
+  /* Rien sous 12 px en mobile : aucun microtexte. */
+  .pv2-mono,
+  .pv2-meta,
+  .pv2-code,
+  .pv2-surface-role,
+  .pv2-timeline-quand,
+  .pv2-regle-code,
+  .pv2-regle-sign,
+  .pv2-chip,
+  .pv2-out-detail,
+  .pv2-tuile,
+  .pv2-ctrl,
+  .pv2-occ-trace li,
+  .pv2-option-version,
+  .pv2-option-surface,
+  .pv2-agent-code {
+    font-size: 0.78rem;
+  }
+  .pv2-surface-body,
+  .pv2-email-extrait,
+  .pv2-timeline li,
+  .pv2-checks li,
+  .pv2-regles li,
+  .pv2-out-titre,
+  .pv2-option-effet,
+  .pv2-option-risque,
+  .pv2-conclusion {
+    font-size: 0.88rem;
+  }
+  /* Ces trois-là tombaient sous 12 px : le blocage d'accès et les créneaux
+     sont précisément ce qu'il faut pouvoir lire sur un téléphone. */
+  .pv2-slots li,
+  .pv2-internal-perm,
+  .pv2-internal-cons {
+    font-size: 0.82rem;
+  }
+
+  /* Le gate mobile occupe l'écran, mais l'objet reste visible au-dessus. */
+  .pv2-gate-mobile {
+    position: static;
+    width: auto;
+    max-height: none;
+    animation: none;
+  }
+  .pv2-gate-mobile .pv2-gate-question {
+    font-size: 1.5rem;
+  }
+  /* Cibles tactiles pleines. */
+  .pv2-gate-mobile .pv2-option-btn {
+    padding: 0.7rem 0.8rem;
+    min-height: 3rem;
+  }
+
+  /* Le rail passe en bas, en une seule bande. Pas trois boutons carrés. */
+  .pv2-rail {
+    position: sticky;
+    bottom: 0;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.8rem;
+    padding: 0.5rem 1rem;
+    background: var(--f-1);
+  }
+  .pv2-rail-phase {
+    min-width: 0;
+  }
+  .pv2-piste {
+    order: 3;
+    flex-basis: 100%;
+  }
+  .pv2-conclusion {
+    display: none;
+  }
+  .pv2-occurrence {
+    position: static;
+    inset: auto;
+  }
+}

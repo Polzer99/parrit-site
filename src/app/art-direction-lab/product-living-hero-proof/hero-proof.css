@@ -1,0 +1,672 @@
+/* =========================================================================
+   PRODUCT LIVING HERO PROOF — passe de clarté et standards produit.
+
+   Tout est scopé .hp. Rien ne fuit vers Concept D, vers les scènes longues,
+   vers le laboratoire ni vers le site public.
+
+   Deux traitements, un seul balisage : `[data-traitement="ink"]` (principal)
+   et `[data-traitement="paper"]` (comparaison). Le scénario, la copy et le
+   timing sont donc identiques par construction.
+
+   Les standards appliqués ici :
+     Object First            l'objet de travail est permanent, jamais les agents
+     Simple First            un titre, une information, une transformation
+     Progressive Disclosure  aucun niveau 3 dans le hero
+     Human Ownership         la décision est attribuée, et porte un visage réel
+     Concrete Output         préparé n'est pas envoyé
+
+   Expérimental. N'appartient pas au design system.
+   ========================================================================= */
+
+.hp {
+  /* Palette canon du laboratoire, inchangée. */
+  --paper: #fffdfa;
+  --ink: #0c0c0d;
+  --red: #d1132f;
+
+  /* Côté éditorial : identique dans les deux traitements. */
+  --e-fond: #fffdfa;
+  --e-1: #0c0c0d;
+  --e-2: #4a4d55;
+  --e-3: #6b6e76;
+  --e-filet: rgba(12, 12, 13, 0.14);
+
+  --sans: var(--font-body), system-ui, sans-serif;
+  --mono: var(--font-mono), ui-monospace, monospace;
+  --display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+
+  /* Un mouvement calme : départ vif, arrivée posée. Une seule courbe. */
+  --e-out: cubic-bezier(0.16, 0.84, 0.44, 1);
+  --d-1: 160ms;
+  --d-2: 380ms;
+
+  /* Zones de sécurité, déclarées une seule fois. */
+  --safe-haut: env(safe-area-inset-top, 0px);
+  --safe-bas: env(safe-area-inset-bottom, 0px);
+
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(0, 1fr);
+  background: var(--e-fond);
+  color: var(--e-1);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+  /* Aucun débordement horizontal ne peut sortir de la page. */
+  overflow-x: clip;
+}
+
+/* Les liens sont portés à (0,2,0) : la feuille parente du laboratoire déclare
+   `.lab a` en (0,1,1), qui l'emporterait sur une simple classe et peindrait le
+   libellé du bouton principal en encre sur encre. Le harnais vérifie le
+   contraste pour que ça ne repasse plus en silence. */
+.hp .hp-cta,
+.hp .hp-cta-lien,
+.hp .hp-demo,
+.hp .hp-lab a {
+  text-decoration: none;
+}
+.hp .hp-cta {
+  color: var(--paper);
+}
+.hp .hp-cta-lien,
+.hp .hp-demo {
+  color: var(--e-1);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.hp .hp-lab a {
+  color: var(--e-1);
+}
+
+/* Réinitialisation de spécificité nulle : la moindre classe reprend la main. */
+:where(.hp) :where(button) {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.hp p,
+.hp h1,
+.hp ul,
+.hp figure,
+.hp header {
+  margin: 0;
+}
+.hp ul {
+  padding: 0;
+  list-style: none;
+}
+.hp img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.hp :focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+/* -------------------------------------------------------------------------
+   Barre de laboratoire. Absente en mode présentation.
+   ------------------------------------------------------------------------- */
+
+.hp-lab {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1.5rem;
+  padding-top: calc(0.5rem + var(--safe-haut));
+  border-bottom: 1px solid var(--e-filet);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--e-3);
+}
+.hp-lab-titre {
+  color: var(--e-1);
+}
+.hp-lab-choix {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+}
+.hp-lab-choix button {
+  padding: 2px 10px;
+  border: 1px solid var(--e-filet);
+  color: var(--e-2);
+  transition:
+    background var(--d-1) var(--e-out),
+    color var(--d-1) var(--e-out);
+}
+.hp-lab-choix button[data-actif="oui"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+/* -------------------------------------------------------------------------
+   HERO — une idée dominante, une preuve dominante, une action dominante.
+   ------------------------------------------------------------------------- */
+
+.hp-hero {
+  display: flex;
+  align-items: center;
+  min-height: 0;
+}
+.hp-grid {
+  display: grid;
+  grid-template-columns: 48fr 52fr;
+  align-items: center;
+  gap: 3.5rem;
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+}
+
+.hp-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1.1rem;
+}
+.hp-titre {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(2.6rem, 4.2vw, 3.9rem);
+  line-height: 0.96;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0.35rem;
+}
+.hp-promesse {
+  margin-top: 1.3rem;
+  max-width: 34rem;
+  font-size: 1.02rem;
+  color: var(--e-2);
+}
+.hp-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+.hp-cta {
+  padding: 0.85rem 1.35rem;
+  background: var(--ink);
+  font-weight: 500;
+  transition: background var(--d-1) var(--e-out);
+}
+.hp-cta:hover {
+  background: #26262a;
+}
+.hp-cta-lien {
+  font-size: 0.94rem;
+}
+
+/* -------------------------------------------------------------------------
+   PREUVE — balisage commun aux deux traitements.
+   ------------------------------------------------------------------------- */
+
+.hp-preuve {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-width: 0;
+}
+.hp-proof {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.15rem 1.25rem 1.25rem;
+  min-width: 0;
+}
+
+/* ---- Tête : la marque, la mention de démonstration, la progression ---- */
+
+.hp-proof-tete {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+/* Le carré rouge Parrit : le même signe que côté éditorial. C'est lui qui
+   rattache le panneau à la page plutôt qu'à une autre application. */
+.hp-marque {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  background: var(--red);
+}
+.hp-specimen,
+.hp-index {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.hp-index {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Le chapitre courant. Un seul à la fois, à emplacement fixe ---- */
+
+.hp-chapitre {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  /* Hauteur réservée : la composition ne bouge pas d'un chapitre à l'autre,
+     donc rien ne saute ni ne déborde au changement. */
+  min-height: 12.5rem;
+  animation: hp-entree var(--d-2) var(--e-out) both;
+}
+@keyframes hp-entree {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hp-chap-titre {
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.hp-chap-info {
+  font-size: 0.98rem;
+  max-width: 30rem;
+}
+.hp-chap-corps {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+/* ---- 02 · deux vérifications, pas une de plus ---- */
+
+.hp-verifs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.hp-verifs li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding-top: 0.4rem;
+  min-width: 0;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity var(--d-2) var(--e-out),
+    transform var(--d-2) var(--e-out);
+}
+.hp-verifs li[data-vu="oui"] {
+  opacity: 1;
+  transform: translateX(0);
+}
+.hp-verif-cle {
+  flex: none;
+  width: 5.5rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+.hp-verif-valeur {
+  font-size: 0.95rem;
+  min-width: 0;
+}
+
+/* ---- 03 · ce qui manque ---- */
+
+.hp-manque {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0.55rem 0.75rem;
+}
+.hp-manque-cle {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+.hp-manque-valeur {
+  font-size: 0.98rem;
+  font-weight: 500;
+}
+
+/* ---- 04 · l'action proposée et la main humaine ---- */
+
+.hp-decision {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.hp-decision-action {
+  padding: 0.55rem 0.75rem;
+  font-size: 0.98rem;
+  font-weight: 500;
+}
+.hp-decision-acte {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity var(--d-2) var(--e-out),
+    transform var(--d-2) var(--e-out);
+}
+.hp-decision-acte[data-vu="oui"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hp-photo {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+}
+
+/* ---- 05 · trois destinations, préparées et non envoyées ---- */
+
+.hp-sorties {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.hp-sorties li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.4rem 0.6rem;
+  min-width: 0;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity var(--d-2) var(--e-out),
+    transform var(--d-2) var(--e-out);
+}
+.hp-sorties li[data-vu="oui"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hp-sortie-dest {
+  flex: none;
+  width: 5rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+.hp-sortie-ligne {
+  font-size: 0.95rem;
+  min-width: 0;
+}
+
+/* ---- L'objet de travail. Permanent, contextuel, jamais dominant ---- */
+
+.hp-objet {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-top: auto;
+  padding-top: 0.7rem;
+  min-width: 0;
+  opacity: 0.62;
+  transition: opacity var(--d-2) var(--e-out);
+}
+/* Au premier chapitre, l'objet vient d'apparaître : c'est lui le sujet. */
+.hp[data-focus="signal"] .hp-objet {
+  opacity: 1;
+}
+.hp-objet-titre {
+  font-size: 0.95rem;
+  font-weight: 600;
+  flex: none;
+}
+.hp-objet-ligne {
+  font-size: 0.9rem;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- Cinq crans. Aucune commande : on ne pilote rien ici ---- */
+
+.hp-crans {
+  display: flex;
+  gap: 4px;
+}
+.hp-crans span {
+  flex: 1;
+  height: 2px;
+  transition: background var(--d-1) linear;
+}
+
+.hp-demo {
+  align-self: flex-start;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+}
+
+/* =========================================================================
+   VARIANTE INK — traitement principal.
+   ========================================================================= */
+
+.hp[data-traitement="ink"] .hp-proof {
+  background-color: #0f1014;
+  background-image: linear-gradient(180deg, #14161a, #0a0a0c);
+  color: #f0f1f4;
+  box-shadow: 4px 5px 0 rgba(12, 12, 13, 0.26);
+}
+.hp[data-traitement="ink"] .hp-specimen,
+.hp[data-traitement="ink"] .hp-index,
+.hp[data-traitement="ink"] .hp-verif-cle,
+.hp[data-traitement="ink"] .hp-sortie-dest,
+.hp[data-traitement="ink"] .hp-manque-cle,
+.hp[data-traitement="ink"] .hp-objet-ligne {
+  color: #9aa0ab;
+}
+.hp[data-traitement="ink"] .hp-chap-info {
+  color: #c3c7ce;
+}
+.hp[data-traitement="ink"] .hp-verifs li,
+.hp[data-traitement="ink"] .hp-objet {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.hp[data-traitement="ink"] .hp-manque,
+.hp[data-traitement="ink"] .hp-decision-action,
+.hp[data-traitement="ink"] .hp-sorties li {
+  background: rgba(255, 255, 255, 0.045);
+}
+/* Le rouge canon plafonne à 3,08:1 sur encre pour du petit texte : il ne peut
+   pas le porter. Il devient donc un MARQUEUR, et le texte reste lisible. */
+.hp[data-traitement="ink"] .hp-manque {
+  box-shadow: inset 2px 0 0 var(--red);
+}
+.hp[data-traitement="ink"] .hp-decision-acte {
+  color: #f0f1f4;
+}
+.hp[data-traitement="ink"] .hp-crans span {
+  background: rgba(255, 255, 255, 0.14);
+}
+.hp[data-traitement="ink"] .hp-crans span[data-fait="oui"] {
+  background: #f0f1f4;
+}
+.hp[data-traitement="ink"] .hp-crans span[data-courant="oui"] {
+  background: var(--red);
+}
+
+/* =========================================================================
+   VARIANTE PAPER — conservée pour comparaison.
+   ========================================================================= */
+
+.hp[data-traitement="paper"] .hp-proof {
+  background: #f2f3f6;
+  border-top: 2px solid var(--ink);
+  color: var(--ink);
+  box-shadow: 4px 5px 0 rgba(12, 12, 13, 0.09);
+}
+.hp[data-traitement="paper"] .hp-specimen,
+.hp[data-traitement="paper"] .hp-index,
+.hp[data-traitement="paper"] .hp-verif-cle,
+.hp[data-traitement="paper"] .hp-sortie-dest,
+.hp[data-traitement="paper"] .hp-manque-cle,
+.hp[data-traitement="paper"] .hp-objet-ligne {
+  color: #545760;
+}
+.hp[data-traitement="paper"] .hp-chap-info {
+  color: #3c4048;
+}
+.hp[data-traitement="paper"] .hp-verifs li,
+.hp[data-traitement="paper"] .hp-objet {
+  border-top: 1px solid rgba(12, 12, 13, 0.1);
+}
+.hp[data-traitement="paper"] .hp-manque,
+.hp[data-traitement="paper"] .hp-decision-action,
+.hp[data-traitement="paper"] .hp-sorties li {
+  background: var(--paper);
+}
+.hp[data-traitement="paper"] .hp-manque {
+  box-shadow: inset 2px 0 0 var(--red);
+}
+.hp[data-traitement="paper"] .hp-crans span {
+  background: rgba(12, 12, 13, 0.14);
+}
+.hp[data-traitement="paper"] .hp-crans span[data-fait="oui"] {
+  background: var(--ink);
+}
+.hp[data-traitement="paper"] .hp-crans span[data-courant="oui"] {
+  background: var(--red);
+}
+
+/* -------------------------------------------------------------------------
+   MOUVEMENT RÉDUIT — les cinq chapitres restent, les déplacements tombent.
+   ------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .hp {
+    --d-1: 100ms;
+    --d-2: 120ms;
+  }
+  .hp *,
+  .hp *::before,
+  .hp *::after {
+    transition-duration: 120ms !important;
+    transition-delay: 0ms !important;
+    animation-duration: 120ms !important;
+  }
+  .hp-chapitre,
+  .hp-verifs li,
+  .hp-sorties li,
+  .hp-decision-acte {
+    transform: none !important;
+  }
+}
+
+/* =========================================================================
+   MOBILE — un chapitre par écran, la preuve dans le premier parcours.
+   ========================================================================= */
+
+@media (max-width: 60rem) {
+  .hp-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 1.25rem 1.1rem calc(2rem + var(--safe-bas));
+  }
+  /* `display: contents` remet les enfants au niveau de la grille : l'appel à
+     l'action descend sous la preuve sans toucher au balisage ni à l'ordre de
+     lecture d'un lecteur d'écran. */
+  .hp-lede {
+    display: contents;
+  }
+  .hp-eyebrow {
+    order: 1;
+    margin-bottom: 0.7rem;
+  }
+  .hp-titre {
+    order: 2;
+    font-size: clamp(2rem, 8.6vw, 2.8rem);
+  }
+  .hp-promesse {
+    order: 3;
+    margin-top: 0.85rem;
+    font-size: 0.98rem;
+  }
+  .hp-preuve {
+    order: 4;
+    margin-top: 1.2rem;
+  }
+  .hp-actions {
+    order: 5;
+    margin-top: 1.4rem;
+    gap: 0.9rem 1.2rem;
+  }
+  .hp-cta {
+    flex: 1 1 100%;
+    text-align: center;
+    padding: 0.95rem 1.2rem;
+  }
+
+  .hp-proof {
+    padding: 1rem 1rem 1.1rem;
+  }
+  .hp-chapitre {
+    min-height: 11.5rem;
+  }
+  .hp-chap-titre {
+    font-size: 1.2rem;
+  }
+  /* Rien sous 12 px. */
+  .hp-specimen,
+  .hp-index,
+  .hp-verif-cle,
+  .hp-sortie-dest,
+  .hp-manque-cle,
+  .hp-decision-acte,
+  .hp-demo,
+  .hp-lab {
+    font-size: 0.82rem;
+  }
+  .hp-verif-cle,
+  .hp-sortie-dest {
+    width: 5.8rem;
+  }
+  .hp-lab {
+    flex-wrap: wrap;
+    gap: 0.4rem 0.8rem;
+  }
+}
+
+/* Très petits écrans : les paires clé / valeur passent en colonne plutôt que
+   de comprimer la valeur jusqu'au débordement. */
+@media (max-width: 22.5rem) {
+  .hp-verifs li,
+  .hp-sorties li,
+  .hp-objet {
+    flex-direction: column;
+    gap: 1px;
+  }
+  .hp-verif-cle,
+  .hp-sortie-dest {
+    width: auto;
+  }
+  .hp-objet-ligne {
+    white-space: normal;
+  }
+}

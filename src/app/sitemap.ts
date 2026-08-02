@@ -5,6 +5,10 @@ import { getAllBlogSitemapEntries } from "@/lib/blog";
 import { getAllLaunchSitemapEntries } from "@/lib/launches";
 import { getAllActualiteSitemapEntries } from "@/lib/actualite";
 import { getPillars } from "@/lib/pillars";
+import { etatCollection } from "@/lib/collections";
+import { getVideos } from "@/lib/videos";
+import { getMentions } from "@/lib/presse";
+import { getAllRessourceSlugs } from "@/lib/registry";
 import { getPostsByPillar } from "@/lib/blog";
 import { locales, type Locale } from "@/app/[lang]/dictionaries";
 
@@ -27,6 +31,7 @@ const STATIC_ROUTES = [
   { path: "/remote", changeFrequency: "monthly" as const, priority: 0.85 },
   { path: "/rendez-vous", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
+  { path: "/ressources", changeFrequency: "weekly" as const, priority: 0.8 },
   { path: "/launches", changeFrequency: "weekly" as const, priority: 0.85 },
   { path: "/actualite", changeFrequency: "weekly" as const, priority: 0.8 },
   { path: "/glossaire", changeFrequency: "weekly" as const, priority: 0.85 },
@@ -72,6 +77,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       })),
   );
+
+  /* Les fiches ressources entrent au sitemap : elles ont une promesse, une
+     preuve et un CTA, donc une valeur de destination. */
+  const ressourceEntries: MetadataRoute.Sitemap = getAllRessourceSlugs().flatMap((slug) =>
+    locales.map((lang) => ({
+      url: `${SITE_URL}/${lang}/ressources/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+      alternates: { languages: buildLanguagesMap(`/ressources/${slug}`) },
+    })),
+  );
+
+  /* Vidéo et presse n'entrent au sitemap QUE si elles contiennent au moins un
+     élément publié. Zéro élément = la collection n'existe pas encore pour le
+     public. Le passage de zéro à un suffit, sans toucher à ce fichier. */
+  const collectionsConditionnelles: MetadataRoute.Sitemap = [
+    { chemin: "/videos", etat: etatCollection(getVideos()) },
+    { chemin: "/presse", etat: etatCollection(getMentions()) },
+  ]
+    .filter((c) => c.etat.eligible)
+    .flatMap((c) =>
+      locales.map((lang) => ({
+        url: `${SITE_URL}/${lang}${c.chemin}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+        alternates: { languages: buildLanguagesMap(c.chemin) },
+      })),
+    );
 
   const blogPosts = getAllBlogSitemapEntries();
   const blogEntries: MetadataRoute.Sitemap = blogPosts.flatMap((post) =>
@@ -161,6 +196,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticEntries,
     ...resourceEntries,
+    ...ressourceEntries,
+    ...collectionsConditionnelles,
     ...blogEntries,
     ...launchEntries,
     ...actualiteEntries,

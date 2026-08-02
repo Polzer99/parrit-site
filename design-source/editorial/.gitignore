@@ -1,0 +1,11 @@
+# Les exports pleine résolution pèsent 19 Mo et sont entièrement régénérables :
+#   python3 design-source/editorial/recipes/build_portraits.py
+#   python3 design-source/editorial/recipes/build_plates.py
+#   python3 design-source/editorial/recipes/build_sheets.py
+#
+# Ce qui est versionné, parce que non régénérable ou coûteux :
+#   originals/  les photographies sources, jamais écrasées
+#   masks/      les masques alpha, sortie coûteuse de rembg
+#   recipes/    les recettes elles-mêmes, avec les TTF sous licence OFL
+exports/
+__pycache__/

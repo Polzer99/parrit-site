@@ -61,6 +61,11 @@ export const config = {
   matcher: [
     // On skip les internals Next, les assets statiques, les fichiers publics,
     // et l'OS interne (hors i18n)
-    "/((?!_next|api|os|fondateurs|academy|chemin|metiers|harnais-ia|outils|diagnostic|demarrer-claude-code|architecture-claude-md|efi-audit-hotels|hr-radar|favicon.ico|robots.txt|sitemap.xml|og-image.png|.*\\..*).*)",
+    // `art-direction-lab` : laboratoire interne hors i18n, comme design-system.
+    // `template-grammar` : specimen interne des huit templates, même régime.
+    // ⚠️ Toute route hors i18n DOIT être ajoutée ici, sinon elle est redirigée
+    // vers /fr/<route> qui n'existe pas — c'est la cause exacte du 404 de
+    // /efi-audit-energie (02-ROUTES-CTA-AND-LEAD-MAGNETS.md §D.1).
+    "/((?!_next|api|os|fondateurs|academy|chemin|metiers|harnais-ia|outils|diagnostic|design-system|template-grammar|art-direction-lab|demarrer-claude-code|architecture-claude-md|efi-audit-hotels|hr-radar|favicon.ico|robots.txt|sitemap.xml|og-image.png|.*\\..*).*)",
   ],
 };

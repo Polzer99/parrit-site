@@ -305,6 +305,25 @@ const DICT: Record<Locale, HomeCopy> = {
   },
 };
 
+/**
+ * Index des sections numérotées de la homepage, dans leur ordre d'apparition.
+ * Source unique : ces trois valeurs étaient écrites en dur dans le JSX, ce qui
+ * rendait toute renumérotation impossible sans toucher trois endroits.
+ *
+ * Le décalage sert HOMEPAGE-LEVEL0-SEAM-V1 : quand le variant Level0 est actif,
+ * son rail de preuve occupe « 01 » et les sections historiques reprennent à
+ * « 02 ». Flag éteint, l'offset vaut 0 et la numérotation d'origine est intacte.
+ *
+ * Volontairement local à ce fichier : ce n'est pas un moteur de numérotation
+ * pour tout le site, seulement la liste des sections de cette page.
+ */
+const NUMBERED_SECTIONS = ["terrain", "catalog", "offers"] as const;
+type NumberedSection = (typeof NUMBERED_SECTIONS)[number];
+
+function sectionIndex(section: NumberedSection, offset: number): string {
+  return String(NUMBERED_SECTIONS.indexOf(section) + 1 + offset).padStart(2, "0");
+}
+
 function AgentCard({ group }: { group: AgentGroup }) {
   const agentCase = group.cases[0];
   return (
@@ -325,10 +344,18 @@ function AgentCard({ group }: { group: AgentGroup }) {
   );
 }
 
-export default function HomeDeux({ lang }: {
+export default function HomeDeux({ lang, hideHero = false }: {
   lang: Locale;
+  /**
+   * HOMEPAGE-LEVEL0-V1 : quand le variant est actif, le hero historique n'est
+   * pas rendu, `HomeLevel0` le remplace au-dessus. Le reste de la page est
+   * inchangé. Rollback : le flag repasse à `false`, ce hero revient.
+   */
+  hideHero?: boolean;
   [key: string]: unknown;
 }) {
+  // Le variant Level0 occupe l'index 01 : les sections historiques décalent.
+  const indexOffset = hideHero ? 1 : 0;
   const t = DICT[lang] ?? DICT.fr;
   const fullCatalog = getCatalog({ lang });
   const catalogGroups = HOME_AGENT_CASE_IDS.flatMap((caseId) => {
@@ -344,6 +371,7 @@ export default function HomeDeux({ lang }: {
       <HomeMotion />
 
       {/* ===== HERO ===== */}
+      {!hideHero && (
       <header className="hd-hero">
         <div className="hd-mark">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -365,12 +393,13 @@ export default function HomeDeux({ lang }: {
           </Link>
         </div>
       </header>
+      )}
 
       {/* ===== SUR LE TERRAIN (preuve d'execution, vraies photos) ===== */}
       <section className="hd-terrain" data-reveal aria-labelledby="hd-terrain-h">
         <div className="hd-terrain-inner" data-stagger>
           <div className="hd-terrain-head">
-            <p className="hd-eyebrow"><span className="hd-eyebrow-n">01</span> · {t.terrainEyebrow}</p>
+            <p className="hd-eyebrow"><span className="hd-eyebrow-n">{sectionIndex("terrain", indexOffset)}</span> · {t.terrainEyebrow}</p>
             <h2 id="hd-terrain-h" className="hd-h2">{t.terrainH}</h2>
             <p className="hd-terrain-sub">{t.terrainP}</p>
           </div>
@@ -412,7 +441,7 @@ export default function HomeDeux({ lang }: {
       {/* ===== CATALOGUE ===== */}
       <section className="hd-catalog" id="catalogue-agents" data-reveal aria-labelledby="hd-catalog-h">
         <div className="hd-catalog-head">
-          <p className="hd-eyebrow"><span className="hd-eyebrow-n">02</span> · {t.catEyebrow}</p>
+          <p className="hd-eyebrow"><span className="hd-eyebrow-n">{sectionIndex("catalog", indexOffset)}</span> · {t.catEyebrow}</p>
           <h2 id="hd-catalog-h" className="hd-h2">{t.catH2}</h2>
           <p className="hd-catalog-sub">{t.catSub}</p>
         </div>
@@ -431,7 +460,7 @@ export default function HomeDeux({ lang }: {
       {/* ===== OFFRES (sans prix sur la home, detailles sur chaque page offre) ===== */}
       <section className="hd-pricing" id="offres" data-reveal aria-labelledby="hd-offers-h">
         <div className="hd-piliers-head">
-          <p className="hd-eyebrow"><span className="hd-eyebrow-n">03</span> · {t.offersEyebrow}</p>
+          <p className="hd-eyebrow"><span className="hd-eyebrow-n">{sectionIndex("offers", indexOffset)}</span> · {t.offersEyebrow}</p>
           <h2 id="hd-offers-h" className="hd-h2">{t.offersH2}</h2>
         </div>
         <div className="hd-price-grid" data-stagger>

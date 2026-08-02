@@ -1,0 +1,1228 @@
+/* =========================================================================
+   PARRIT-VISUAL-RESET-V2 — feuille de style du laboratoire.
+
+   ISOLATION TOTALE. Ce fichier n'importe ni globals.css ni parrit-tokens.css,
+   et rien de ce qu'il déclare ne fuit vers le site public : tout est préfixé
+   .lab, et les trois concepts sont scopés .cA / .cB / .cC.
+
+   La homepage publique n'est pas touchée par ce fichier. Le supprimer suffit
+   à supprimer le laboratoire.
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   Polices auto-hébergées. Aucun chargement Google Fonts au runtime.
+   Barlow Condensed : SIL Open Font License 1.1, licence conservée à côté
+   des fichiers, dans public/fonts/barlow-condensed/OFL.txt.
+   ------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("/fonts/barlow-condensed/BarlowCondensed-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("/fonts/barlow-condensed/BarlowCondensed-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Arpona";
+  src: url("/fonts/arpona/arpona-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Arpona";
+  src: url("/fonts/arpona/arpona-semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+.lab {
+  /* Couleurs : canon design system v1.0, inchangé par la remise à zéro.
+     La remise à zéro porte sur la typographie et l'imagerie, pas sur la palette. */
+  --paper: #fffdfa;
+  --ink: #0c0c0d;
+  --red: #d1132f;
+  --muted: #6e7079;
+  --hair: rgba(12, 12, 13, 0.16);
+
+  /* Registre éditorial : la condensée porte l'impact. ADR-017. */
+  --display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  /* Registre institutionnel : Arpona tient la stature, pas l'impact. */
+  --stature: "Arpona", ui-serif, Georgia, serif;
+  --body: var(--font-body), system-ui, sans-serif;
+  --mono: var(--font-mono), ui-monospace, monospace;
+
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.lab *,
+.lab *::before,
+.lab *::after {
+  box-sizing: border-box;
+}
+
+.lab img {
+  max-width: 100%;
+  /* Le laboratoire n'importe pas le reset de Tailwind : sans cette ligne, les
+     attributs width/height des balises figent la hauteur et déforment. */
+  height: auto;
+  display: block;
+}
+
+/* Titre condensé. Le tracking se calibre à l'œil : à ces corps, la valeur par
+   défaut de Barlow Condensed est trop lâche, mais la serrer davantage colle
+   les accents français au jambage du dessus. */
+.lab .disp {
+  font-family: var(--display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  /* Interlignage dense mais compatible accents. Mesuré au harnais sur l'encre
+     réelle : à 0,92 la marge tombe à 1,8 px sous « EXÉCUTION » en 800/48px,
+     trop fin pour tenir. 0,94 laisse 2,7 px, positif à tous les corps testés. */
+  line-height: 0.94;
+  margin: 0;
+  /* Aucune compression artificielle de la chasse. La condensée est dessinée
+     condensée ; on n'applique jamais transform: scaleX() ni font-stretch. */
+  font-stretch: normal;
+}
+
+.lab .disp-800 {
+  font-weight: 800;
+}
+
+.lab .mono {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+.lab .red {
+  color: var(--red);
+}
+
+.lab a {
+  color: inherit;
+}
+
+/* CTA commun aux trois concepts : même contrat, habillage propre à chacun. */
+.lab .cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: clamp(1.125rem, 2.2vw, 1.5rem);
+  line-height: 1;
+  padding: 0.85rem 1.4rem;
+  text-decoration: none;
+  border: 2px solid currentColor;
+}
+
+.lab .cta:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 3px;
+}
+
+/* =========================================================================
+   INDEX DU LABORATOIRE
+   ========================================================================= */
+.lab-index {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 7rem;
+}
+
+.lab-index h1 {
+  font-family: var(--display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(3rem, 11vw, 7rem);
+  line-height: 0.9;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.lab-index p {
+  max-width: 42rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.lab-index ol {
+  list-style: none;
+  padding: 0;
+  margin: 3rem 0 0;
+  border-top: 2px solid var(--ink);
+}
+
+.lab-index li {
+  border-bottom: 1px solid var(--hair);
+}
+
+.lab-index a {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  text-decoration: none;
+}
+
+.lab-index a:hover .lab-index-name {
+  color: var(--red);
+}
+
+.lab-index-code {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 2.5rem;
+  line-height: 0.8;
+}
+
+.lab-index-name {
+  font-family: var(--display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.lab-index-resume {
+  font-size: 0.9375rem;
+  color: var(--muted);
+  margin-top: 0.35rem;
+}
+
+/* Barre de navigation entre concepts, présente sur les trois. */
+.lab-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  /* La barre est un outil de comparaison, pas un menu : sous 375 px elle
+     défile sur elle-même plutôt que d'élargir la page. */
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  padding: 0.5rem 1.5rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.lab-bar a {
+  text-decoration: none;
+  opacity: 0.55;
+}
+
+.lab-bar a[aria-current="page"] {
+  opacity: 1;
+  color: #fff;
+}
+
+.lab-bar a:hover {
+  opacity: 1;
+}
+
+.lab-bar .lab-bar-sep {
+  margin-left: auto;
+  opacity: 0.45;
+}
+
+/* =========================================================================
+   CONCEPT A — EDITORIAL FIELD REPORT
+   Le compte rendu de terrain. Papier, marges franches, portrait chaleureux,
+   annotations au fil rouge. La page ressemble à un reportage sur quelqu'un
+   qui fait le travail.
+   ========================================================================= */
+.cA {
+  --gutter: 1.5rem;
+  background: var(--paper);
+}
+
+.cA .wrap {
+  max-width: 78rem;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.cA .masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1.25rem 0 0.75rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.cA .masthead strong {
+  font-family: var(--display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  letter-spacing: 0.01em;
+}
+
+.cA .hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 2.5rem;
+  align-items: end;
+  padding: 2.5rem 0 0;
+}
+
+.cA .hero h1 {
+  /* Lignes imposées, pas de retour à la ligne subi : à ce corps, une ligne
+     cassée par la largeur détruit la composition.
+     PARRIT-COPY-RESET-V1 : le titre canonique compte 47 signes contre 40, il
+     tient en cinq lignes au lieu de quatre. Le corps descend de 7 à 5,2 rem
+     pour que le bloc garde la MÊME hauteur qu'avant, environ 390 px. */
+  font-size: clamp(2.5rem, 5.4vw, 5.2rem);
+}
+
+.cA .hero h1 span {
+  display: block;
+}
+
+.cA .kicker {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.cA .kicker::before {
+  content: "";
+  width: 2.25rem;
+  height: 2px;
+  background: var(--red);
+  flex: none;
+}
+
+.cA .lede {
+  font-family: var(--stature);
+  font-size: clamp(1.0625rem, 1.6vw, 1.3125rem);
+  line-height: 1.5;
+  max-width: 34rem;
+  margin: 1.75rem 0 0;
+}
+
+.cA .portrait {
+  position: relative;
+  align-self: end;
+}
+
+.cA .portrait img {
+  width: 100%;
+  height: auto;
+}
+
+/* Le portrait chaleureux est clair : sans ce champ, la silhouette flotte sur
+   le papier. Le champ lui donne un sol, il ne le décore pas. */
+.cA .portrait::before {
+  content: "";
+  position: absolute;
+  left: 6%;
+  right: -8%;
+  bottom: 0;
+  height: 58%;
+  background: var(--red);
+  z-index: 0;
+}
+
+.cA .portrait img {
+  position: relative;
+  z-index: 1;
+}
+
+.cA .portrait figcaption {
+  position: absolute;
+  left: 0;
+  bottom: -1.75rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cA .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  align-items: center;
+  margin: 3.5rem 0 0;
+  padding-bottom: 3rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.cA .cta {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.cA .cta:hover {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+.cA .cta-note {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cA .fronts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 3.5rem;
+}
+
+.cA .front {
+  padding: 0 2.5rem 2.5rem 0;
+}
+
+.cA .front + .front {
+  padding: 0 0 2.5rem 2.5rem;
+  border-left: 1px solid var(--hair);
+}
+
+.cA .front h2 {
+  font-family: var(--display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(1.875rem, 3.6vw, 3rem);
+  line-height: 0.95;
+  margin: 0.75rem 0 1rem;
+}
+
+.cA .front p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+  max-width: 30rem;
+}
+
+.cA .io {
+  display: grid;
+  gap: 0.5rem;
+  border-top: 1px solid var(--hair);
+  padding-top: 1rem;
+}
+
+.cA .io div {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.cA .io dt {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+  padding-top: 0.2rem;
+}
+
+.cA .io dd {
+  margin: 0;
+}
+
+.cA .plate {
+  margin: 4rem 0 0;
+}
+
+.cA .plate img {
+  width: 100%;
+}
+
+.cA .plate figcaption {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.75rem;
+  max-width: 34rem;
+}
+
+.cA .hands {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem;
+  margin: 4rem 0 0;
+  padding-top: 2rem;
+  border-top: 2px solid var(--ink);
+}
+
+.cA .hands blockquote {
+  grid-column: 1 / -1;
+  margin: 0 0 1.5rem;
+  font-family: var(--stature);
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
+  line-height: 1.28;
+  max-width: 38rem;
+}
+
+.cA .hands p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.cA .hands strong {
+  font-family: var(--display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  display: block;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.cA .offres {
+  margin: 4rem 0 0;
+  border-top: 2px solid var(--ink);
+}
+
+.cA .offre {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, 1.1fr) auto;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--hair);
+}
+
+.cA .offre-n {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--red);
+}
+
+.cA .offre h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  line-height: 1;
+  margin: 0;
+}
+
+.cA .offre p {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.cA .foot {
+  padding: 3rem 0 5rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+@media (max-width: 60rem) {
+  .cA .hero {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .cA .portrait {
+    max-width: 22rem;
+  }
+  .cA .fronts,
+  .cA .hands {
+    grid-template-columns: 1fr;
+  }
+  .cA .front {
+    padding: 0 0 2rem;
+  }
+  .cA .front + .front {
+    padding: 2rem 0 0;
+    border-left: 0;
+    border-top: 1px solid var(--hair);
+  }
+  .cA .offre {
+    grid-template-columns: 2.5rem 1fr;
+  }
+  .cA .offre p,
+  .cA .offre .offre-prix {
+    grid-column: 2;
+  }
+}
+
+/* =========================================================================
+   CONCEPT B — AGENT OPERATING SYSTEM
+   Le registre d'exécution. Aucune chrome de tableau de bord : pas de carte,
+   pas d'ombre, pas de rayon, pas de graphique. Le système est rendu en
+   typographie de presse, pas en interface SaaS.
+   ========================================================================= */
+.cB {
+  --gutter: 1.5rem;
+  background: var(--paper);
+}
+
+.cB .wrap {
+  max-width: 82rem;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.cB .head {
+  padding: 3.5rem 0 1.5rem;
+}
+
+.cB .head h1 {
+  /* PARRIT-COPY-RESET-V1 : le titre canonique fait plus du double de l'ancien.
+     Le corps descend de 7 à 5,4 rem pour que l'en-tête garde sa place et ne
+     repousse pas le registre sous la ligne de flottaison. */
+  font-size: clamp(2.5rem, 5.6vw, 5.4rem);
+  max-width: 22ch;
+}
+
+.cB .head .sub {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
+  gap: 2.5rem;
+  align-items: start;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--ink);
+}
+
+.cB .head .sub p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 38rem;
+}
+
+/* Le registre. Une ligne = une chaîne complète, jamais un indicateur isolé. */
+.cB .registre {
+  margin-top: 3rem;
+  border-top: 2px solid var(--ink);
+}
+
+.cB .ligne {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) 1.75rem minmax(0, 1.15fr) minmax(0, 11rem);
+  gap: 1.25rem;
+  align-items: baseline;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--hair);
+}
+
+.cB .ligne-n {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.cB .ligne-in,
+.cB .ligne-out {
+  font-family: var(--display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(1.125rem, 2.1vw, 1.75rem);
+  line-height: 1;
+}
+
+.cB .ligne-out {
+  font-weight: 900;
+}
+
+.cB .ligne-arrow {
+  color: var(--red);
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.cB .ligne-meta {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Le rouge ne signale qu'une chose : un humain doit trancher. */
+.cB .etat-decision {
+  color: var(--red);
+}
+
+.cB .etat-decision::before {
+  content: "";
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--red);
+  margin-right: 0.45rem;
+  vertical-align: middle;
+}
+
+.cB .fronts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 4rem;
+  border-top: 2px solid var(--ink);
+}
+
+.cB .front {
+  padding: 1.75rem 2.5rem 2.5rem 0;
+}
+
+.cB .front + .front {
+  padding: 1.75rem 0 2.5rem 2.5rem;
+  border-left: 1px solid var(--hair);
+}
+
+.cB .front h2 {
+  font-family: var(--display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  line-height: 0.95;
+  margin: 0.6rem 0 0.9rem;
+}
+
+.cB .front p {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  max-width: 30rem;
+  color: var(--muted);
+}
+
+/* L'humain est au bout de la chaîne, pas au centre de la page. */
+.cB .humain {
+  display: grid;
+  grid-template-columns: minmax(0, 19rem) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: end;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--ink);
+}
+
+.cB .humain img {
+  width: 100%;
+  /* Recadrage serré sur le visage : la photo source est en paysage, la place
+     dans la composition est en portrait. */
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 46% 18%;
+}
+
+.cB .humain blockquote {
+  margin: 0;
+  font-family: var(--stature);
+  font-size: clamp(1.25rem, 2.4vw, 1.875rem);
+  line-height: 1.3;
+  max-width: 34rem;
+}
+
+.cB .humain .mono {
+  margin-top: 1rem;
+}
+
+.cB .offres {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 4rem;
+  border-top: 2px solid var(--ink);
+}
+
+.cB .offre {
+  padding: 1.5rem 1.75rem 2rem 0;
+  border-bottom: 1px solid var(--hair);
+}
+
+.cB .offre + .offre {
+  padding-left: 1.75rem;
+  border-left: 1px solid var(--hair);
+}
+
+.cB .offre h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1.375rem;
+  line-height: 1;
+  margin: 0.5rem 0 0.6rem;
+}
+
+.cB .offre p {
+  margin: 0 0 0.9rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.cB .actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin: 3rem 0 0;
+}
+
+.cB .cta {
+  border-color: var(--ink);
+}
+
+.cB .cta:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.cB .foot {
+  padding: 3rem 0 5rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+@media (max-width: 64rem) {
+  .cB .head .sub,
+  .cB .fronts,
+  .cB .humain {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .cB .front {
+    padding: 1.5rem 0;
+  }
+  .cB .front + .front {
+    padding: 1.5rem 0;
+    border-left: 0;
+    border-top: 1px solid var(--hair);
+  }
+  .cB .humain img {
+    max-width: 14rem;
+  }
+  .cB .offres {
+    grid-template-columns: 1fr;
+  }
+  .cB .offre,
+  .cB .offre + .offre {
+    padding: 1.25rem 0 1.5rem;
+    border-left: 0;
+  }
+  /* Le registre se recompose : la chaîne passe à la verticale, la flèche
+     devient un filet, aucune donnée ne disparaît. */
+  .cB .ligne {
+    grid-template-columns: 2.5rem 1fr;
+    row-gap: 0.4rem;
+    padding: 1.25rem 0;
+  }
+  .cB .ligne-in,
+  .cB .ligne-out,
+  .cB .ligne-meta {
+    grid-column: 2;
+  }
+  .cB .ligne-arrow {
+    grid-column: 2;
+    text-align: left;
+  }
+}
+
+/* =========================================================================
+   CONCEPT C — MANIFESTO IN PRODUCTION
+   L'affiche. Fond encre pleine page, typographie presque architecturale,
+   rythme discontinu, portrait tramé à fond perdu. Le rouge coupe.
+   ========================================================================= */
+.cC {
+  background: var(--ink);
+  color: var(--paper);
+  --hair: rgba(255, 253, 250, 0.18);
+  --muted: rgba(255, 253, 250, 0.6);
+}
+
+.cC .wrap {
+  max-width: 84rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.cC .stage {
+  position: relative;
+  min-height: 92vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  align-items: end;
+  gap: 0;
+  padding: 4rem 0 3rem;
+}
+
+.cC .stage h1 {
+  /* PARRIT-COPY-RESET-V1 : à 13,5vw le titre canonique occupait sept lignes et
+     débordait de deux écrans. À 6,4 rem il tient en quatre lignes, exactement
+     la silhouette d'affiche de la tranche visuelle. */
+  font-size: clamp(2.5rem, 7.2vw, 6.4rem);
+  position: relative;
+  z-index: 2;
+}
+
+/* Rythme discontinu : les lignes ne s'alignent pas toutes à gauche. */
+.cC .stage h1 .l1 {
+  display: block;
+}
+
+.cC .stage h1 .l2 {
+  display: block;
+  padding-left: 8%;
+}
+
+.cC .stage h1 .l3 {
+  display: block;
+  color: var(--red);
+  padding-left: 2%;
+}
+
+.cC .stage h1 .l4 {
+  display: block;
+  color: var(--red);
+  padding-left: 11%;
+}
+
+.cC .stage .mono {
+  color: var(--muted);
+  position: relative;
+  z-index: 2;
+}
+
+.cC .portrait {
+  position: relative;
+  align-self: end;
+  /* Le portrait déborde sur le titre : c'est une affiche, les plans se
+     recouvrent. La marge négative est le parti pris, pas un accident. */
+  margin: 0 0 0 -14%;
+  width: 114%;
+}
+
+.cC .portrait img {
+  width: 100%;
+  /* La trame en négatif s'additionne au fond encre au lieu de le masquer. */
+  mix-blend-mode: screen;
+}
+
+/* Bande rouge coupante, posée derrière la trame. Elle ne décore pas :
+   elle sépare la question de la réponse. */
+.cC .slash {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0.75rem;
+  background: var(--red);
+  z-index: 1;
+}
+
+.cC .verdict {
+  border-top: 2px solid var(--paper);
+  padding: 2.5rem 0 0;
+}
+
+.cC .verdict p {
+  font-family: var(--stature);
+  font-size: clamp(1.25rem, 3vw, 2.25rem);
+  line-height: 1.28;
+  max-width: 54rem;
+  margin: 0;
+}
+
+.cC .fronts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 4.5rem;
+}
+
+.cC .front {
+  padding: 2rem 2.5rem 2.5rem 0;
+  border-top: 2px solid var(--paper);
+}
+
+.cC .front + .front {
+  padding: 2rem 0 2.5rem 2.5rem;
+  border-left: 1px solid var(--hair);
+}
+
+.cC .front h2 {
+  font-family: var(--display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  line-height: 0.9;
+  margin: 0.75rem 0 1rem;
+}
+
+.cC .front p {
+  margin: 0 0 1.25rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 28rem;
+  color: var(--muted);
+}
+
+.cC .io {
+  display: grid;
+  gap: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.7;
+}
+
+.cC .io b {
+  color: var(--red);
+  font-weight: 400;
+}
+
+.cC .plate {
+  margin: 4.5rem 0 0;
+}
+
+.cC .plate img {
+  width: 100%;
+  /* Aucune inversion : elle virerait le rouge éditorial au cyan. La plaque
+     reste une impression sur papier, insérée dans une page en négatif. */
+}
+
+.cC .plate figcaption {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.75rem;
+}
+
+.cC .offres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2.5rem;
+  align-items: baseline;
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--paper);
+}
+
+.cC .offre {
+  font-family: var(--display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 3.6vw, 2.75rem);
+  line-height: 1;
+}
+
+.cC .offre span {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  display: block;
+  margin-top: 0.35rem;
+}
+
+.cC .actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin: 3.5rem 0 0;
+}
+
+.cC .cta {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  padding: 1rem 1.75rem;
+}
+
+.cC .cta:hover {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink);
+}
+
+.cC .cta-note {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cC .foot {
+  padding: 3.5rem 0 5rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+@media (max-width: 64rem) {
+  .cC .stage {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    align-items: start;
+  }
+  .cC .portrait {
+    max-width: 20rem;
+    margin-top: 2rem;
+  }
+  .cC .fronts {
+    grid-template-columns: 1fr;
+  }
+  .cC .front {
+    padding: 1.75rem 0 2rem;
+  }
+  .cC .front + .front {
+    padding: 1.75rem 0 2rem;
+    border-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lab * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* =========================================================================
+   PARRIT-COPY-RESET-V1 — deux ajouts, imposés par le nouveau volume de texte.
+
+   1. `.cta-link` : le lien secondaire du hero n'existait pas dans la tranche
+      visuelle. Il n'introduit aucune couleur, aucune fonte et aucune forme
+      nouvelle : c'est le style `mono` déjà en place, souligné.
+   2. `.proof` : les quatre éléments de preuve immédiate. Même grille que les
+      autres rangées à quatre colonnes, mêmes rôles typographiques, mêmes
+      filets. Aucun cadre, aucune ombre, aucun arrondi.
+
+   Aucune composition, couleur, proportion ou grille existante n'est touchée.
+   ========================================================================= */
+
+.lab .cta-link {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+}
+
+.lab .cta-link:hover {
+  color: var(--red);
+}
+
+.lab .proof {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 3rem;
+  border-top: 2px solid currentColor;
+}
+
+.lab .proof-item {
+  padding: 1.25rem 1.5rem 1.75rem 0;
+}
+
+.lab .proof-item + .proof-item {
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--hair);
+}
+
+.lab .proof-key {
+  font-family: var(--display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(1.25rem, 2.4vw, 1.875rem);
+  line-height: 0.94;
+  margin: 0 0 0.5rem;
+}
+
+.lab .proof-line {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* Le prix est le seul élément de preuve qui porte l'accent rouge. */
+.lab .proof-item:nth-child(2) .proof-key {
+  color: var(--red);
+}
+
+@media (max-width: 64rem) {
+  .lab .proof {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .lab .proof-item:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 34rem) {
+  .lab .proof {
+    grid-template-columns: 1fr;
+  }
+  .lab .proof-item,
+  .lab .proof-item + .proof-item {
+    padding: 1rem 0 1.25rem;
+    border-left: 0;
+    border-top: 1px solid var(--hair);
+  }
+  .lab .proof-item:first-child {
+    border-top: 0;
+  }
+}

@@ -114,6 +114,79 @@ body {
   padding: 0;
 }
 
+/* ═══════════════════════════════════════════════════════════════════════
+   HOMEPAGE-LEVEL0-V1 — fond structurel du variant.
+
+   Le body porte en production une photo de paysage sous un dégradé de la
+   couleur périmée. C'est la violation la plus visible du Structural Integrity
+   Test : la page dépend d'une image pour exister, et aucun média narratif ne
+   doit être attaché globalement au body.
+
+   Cette règle ne s'applique QUE si le variant est rendu. Flag éteint =
+   sélecteur sans correspondance = ancien rendu restauré, sans autre geste.
+   Aucune autre route, aucune autre langue n'est touchée.
+
+   Le papier et le grain trois couches viennent de `parrit-tokens.css`, via la
+   classe `.parrit-grain` portée par le variant.
+   ═══════════════════════════════════════════════════════════════════════ */
+body:has(.home-level0) {
+  background-image: none;
+  background-color: #fffdfa;
+  background-attachment: initial;
+}
+
+/* Le variant occupe la pleine largeur, avec les gouttières canoniques. */
+.home-level0 {
+  position: relative;
+  /* Pas de fond propre : le variant laisse voir celui de la PAGE.
+     Un fond déclaré ici créait une frontière de peinture à la jonction avec
+     `.hd`, qui est transparent et hérite du body. Une seule surface. */
+
+  /* Surcharge de COMPOSITION, pas de token canonique.
+     Le rythme par défaut (`--space-section-lg` 8rem, `--space-section-md` 6rem)
+     est calibré pour une page de documentation. Sur un premier écran
+     commercial, il repousse le rail de preuve sous la ligne de flottaison à
+     1440x900, ce qui contredit le critère « preuve visible immédiatement
+     après le hero ».
+     La valeur canonique n'est pas modifiée : elle est redéfinie ici, pour
+     cette composition seulement, par la cascade. Le specimen et les autres
+     pages gardent le rythme d'origine. */
+  --space-section-lg: 5rem;
+  --space-section-md: 3.5rem;
+}
+
+/* La respiration de sortie du variant, avant le filet de la première section
+   historique. `.hd-terrain` apporte déjà `border-top` + 66px : on réduit ici
+   pour que l'écart total reste dans le rythme de la page (environ 80px entre
+   deux sections historiques) au lieu de creuser un trou à la jonction. */
+.home-level0 [data-level0-proof] > section {
+  padding-block-end: 1.5rem;
+}
+
+/* Les filets du rail doivent partir du même bord que celui de `.hd-terrain`.
+   Les sections historiques dessinent leur `border-top` sur la BOÎTE de
+   l'élément (1120px), tandis que les lignes du rail sont dans la boîte de
+   CONTENU, donc en retrait de 24px de chaque côté. Deux familles de filets
+   à deux largeurs, c'est exactement ce qui trahissait la couture.
+   On sort la ligne sans déplacer le texte. */
+.home-level0 [data-level0-proof] .ds-row-indexed {
+  margin-inline: -24px;
+  padding-inline: 24px;
+}
+
+/* HOMEPAGE-LEVEL0-SEAM-V1 — le variant emprunte la grille de la page.
+   Les sections historiques sont à `max-width: 1120px` avec 24px de gouttière
+   (`.hd-terrain`, `.hd-team`, `.hd-pricing`). Le variant était à 1280px avec
+   64px : deux filets parallèles à des largeurs différentes et deux rails
+   d'index décalés, ce qui donnait l'impression de deux pages collées.
+   On aligne le nouveau sur l'ancien, jamais l'inverse : la page historique
+   n'est pas touchée. */
+.home-level0-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
 /* Paysage uniquement sur la home (presence de .home-template) */
 body:not(:has(.home-template)) {
   background-image: none;
