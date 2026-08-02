@@ -13,7 +13,8 @@
     "qa:premium": "playwright test tests/parrit-premium-qa.spec.ts",
     "qa:templates": "playwright test tests/template-grammar.spec.ts",
     "qa:specimen": "node scripts/ds-specimen-qa.mjs",
-    "qa:foundation": "node scripts/foundation-audit.mjs"
+    "qa:foundation": "node scripts/foundation-audit.mjs",
+    "qa:doctrine:diff": "node scripts/doctrine-diff.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",
