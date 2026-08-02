@@ -152,6 +152,54 @@
     </div>
   </div></section>
 
+  <!-- SIMULATEUR d'économie (estimation, benchmarks publics ADEME — pas un devis) -->
+  <section id="simulateur" style="padding-top:0;"><div class="wrap">
+    <style>
+      .sim{background:var(--efi-deep);border-radius:3px;padding:34px 30px;max-width:720px;margin:0 auto;color:#fff;}
+      .sim h2{color:#fff;text-align:left;margin:0 0 4px;}
+      .sim .sub{color:#b9cdc5;text-align:left;margin:0 0 24px;max-width:100%;}
+      .sim .ctrl{margin-bottom:20px;}
+      .sim label{display:block;font-size:13px;font-weight:700;letter-spacing:.3px;color:#8fc7b1;margin-bottom:8px;text-transform:uppercase;}
+      .sim .roomval{font-size:15px;color:#fff;font-weight:700;}
+      .sim input[type=range]{width:100%;accent-color:var(--efi-bright);height:4px;}
+      .sim .toggles{display:flex;gap:10px;flex-wrap:wrap;}
+      .sim .tog{flex:1;min-width:140px;border:1px solid #3f6154;border-radius:2px;padding:12px 14px;cursor:pointer;font-size:14px;display:flex;align-items:center;gap:9px;user-select:none;}
+      .sim .tog input{accent-color:var(--efi-bright);width:17px;height:17px;}
+      .sim .tog.on{border-color:var(--efi-bright);background:rgba(31,154,118,.14);}
+      .sim .out{background:#fff;color:var(--ink);border-radius:3px;padding:22px 24px;margin-top:8px;}
+      .sim .out .row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;}
+      .sim .out .k{font-size:14px;color:var(--body);}
+      .sim .out .v{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;}
+      .sim .out .save{border-top:1px solid var(--line);margin-top:8px;padding-top:14px;}
+      .sim .out .save .k{font-weight:700;color:var(--ink);}
+      .sim .out .save .v{font-size:26px;color:var(--efi);letter-spacing:-.01em;}
+      .sim .disc{font-size:12px;color:#8fb3a6;margin-top:14px;line-height:1.5;}
+      .sim .simcta{display:inline-block;margin-top:16px;background:var(--efi-bright);color:#fff;font-weight:700;padding:14px 28px;border-radius:2px;text-decoration:none;}
+      .sim .simcta:hover{background:#25b088;}
+    </style>
+    <div class="sim">
+      <h2>Combien votre hôtel pourrait économiser&nbsp;?</h2>
+      <p class="sub">Une estimation en 5 secondes. Ajustez selon votre établissement.</p>
+      <div class="ctrl">
+        <label>Nombre de chambres : <span class="roomval" id="simRoomsVal">40</span></label>
+        <input type="range" id="simRooms" min="8" max="300" step="1" value="40">
+      </div>
+      <div class="ctrl">
+        <label>Équipements énergivores</label>
+        <div class="toggles">
+          <label class="tog" id="togSpaWrap"><input type="checkbox" id="simSpa"> Spa / piscine</label>
+          <label class="tog" id="togResWrap"><input type="checkbox" id="simRes"> Restaurant / cuisine</label>
+        </div>
+      </div>
+      <div class="out">
+        <div class="row"><span class="k">Facture énergie estimée</span><span class="v" id="simBill">~32 000 €/an</span></div>
+        <div class="row save"><span class="k">Économie potentielle avec EFI</span><span class="v" id="simSave">3 200 – 9 600 €/an</span></div>
+      </div>
+      <a class="simcta" href="#audit">Obtenir le chiffre exact (audit gratuit) &rarr;</a>
+      <div class="disc">Estimation indicative basée sur les moyennes du parc hôtelier français (ADEME, ~800&nbsp;€/chambre/an) et la baisse de 10&nbsp;à&nbsp;30&nbsp;% constatée par nos clients. Ce n'est pas un devis — le chiffre exact vient de l'audit de votre facture.</div>
+    </div>
+  </div></section>
+
   <section id="comment" style="padding-top:0;"><div class="wrap">
     <h2>Comment ça fonctionne&nbsp;?</h2>
     <p class="sub">Quatre étapes. Vous n'avez que la première à faire.</p>
@@ -246,6 +294,27 @@
     fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
       .then(done).catch(done);
   });
+
+  // --- Simulateur d'économie (estimation ADEME ~800 €/chambre/an · baisse 10-30 %) ---
+  (function(){
+    var rooms=document.getElementById('simRooms'), spa=document.getElementById('simSpa'),
+        res=document.getElementById('simRes'), rv=document.getElementById('simRoomsVal'),
+        bill=document.getElementById('simBill'), save=document.getElementById('simSave'),
+        spaW=document.getElementById('togSpaWrap'), resW=document.getElementById('togResWrap');
+    if(!rooms) return;
+    var eur=function(n){return Math.round(n).toLocaleString('fr-FR')+' €';};
+    function calc(){
+      var n=+rooms.value, perRoom=800;
+      var mult=1*(spa.checked?1.15:1)*(res.checked?1.10:1);
+      var b=n*perRoom*mult;
+      rv.textContent=n;
+      bill.textContent='~'+eur(Math.round(b/1000)*1000)+'/an';
+      save.textContent=eur(Math.round(b*0.10/100)*100)+' – '+eur(Math.round(b*0.30/100)*100)+'/an';
+      spaW.classList.toggle('on',spa.checked); resW.classList.toggle('on',res.checked);
+    }
+    rooms.addEventListener('input',calc); spa.addEventListener('change',calc); res.addEventListener('change',calc);
+    calc();
+  })();
 </script>
 </body>
 </html>
