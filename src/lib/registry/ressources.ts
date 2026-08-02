@@ -91,7 +91,11 @@ const REGISTRE: Ressource[] = [
     formGabarit: "G2_ressource_qualifiante",
     ctaPrincipal: "ressource.telecharger",
     niveauEngagement: "moyen",
-    livraisonVerifiee: true,
+    // Vérifié le 02/08/2026 en production : le courriel de confirmation
+    // propose un créneau et ne joint AUCUNE ressource. La valeur est remise à
+    // l'écran, dans la page, et c'est très bien ainsi — mais on ne promet pas
+    // un envoi qui n'existe pas.
+    livraisonVerifiee: false,
     langue: "fr",
     publiee: true,
   },
@@ -112,7 +116,11 @@ const REGISTRE: Ressource[] = [
     formGabarit: "G2_ressource_qualifiante",
     ctaPrincipal: "ressource.telecharger",
     niveauEngagement: "moyen",
-    livraisonVerifiee: true,
+    // Vérifié le 02/08/2026 en production : le courriel de confirmation
+    // propose un créneau et ne joint AUCUNE ressource. La valeur est remise à
+    // l'écran, dans la page, et c'est très bien ainsi — mais on ne promet pas
+    // un envoi qui n'existe pas.
+    livraisonVerifiee: false,
     langue: "fr",
     publiee: true,
   },
