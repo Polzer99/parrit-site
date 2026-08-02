@@ -15,8 +15,17 @@
  *
  * Autrement dit : la dette a le droit d'exister, pas de grandir.
  *
+ * ⚠️ CE SCRIPT EST STRICTEMENT EN LECTURE SEULE.
+ * Il n'écrit JAMAIS scripts/doctrine-baseline.json. Lui laisser ce droit ferait
+ * de chaque régression une mise à jour automatique de la référence, donc un gate
+ * qui s'auto-valide.
+ *
  * Quand une session assainit un fichier, le total baisse et le script le dit.
- * Régénérer la baseline se fait alors À LA BAISSE, jamais à la hausse.
+ * La baisse se verrouille par une commande dédiée et un commit relu :
+ *
+ *   npm run qa:doctrine:baseline      (scripts/doctrine-baseline-lower.mjs)
+ *
+ * Une baseline ne monte jamais. Une baseline ne baisse jamais silencieusement.
  */
 
 import { execSync } from "node:child_process";
