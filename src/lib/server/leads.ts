@@ -8,10 +8,11 @@ import { requeteSupabase } from "./supabase";
  * AUCUN NOUVEAU SCHÉMA. La grammaire existe déjà en base et on l'utilise telle
  * quelle :
  *
- *   — `prospects`   : la personne. Dédupliquée par `(workspace_id, slug)`, la
- *                     contrainte d'unicité déjà en place. Le slug vient de
- *                     l'e-mail : deux demandes de la même personne ne créent
- *                     jamais deux fiches ;
+ *   — `prospects`   : la personne. L'identité se résout par l'E-MAIL, pas par
+ *                     le slug : les gens arrivent de LinkedIn, du cold email,
+ *                     d'un podcast, bientôt de la vidéo, et beaucoup sont déjà
+ *                     en base sous un slug qui n'a rien à voir avec le site. On
+ *                     se rattache à leur fiche au lieu d'en créer une seconde ;
  *   — `touchpoints` : l'événement « a demandé telle ressource ». Une ligne par
  *                     demande, `kind = 'ressource_demandee'`, dans le même
  *                     esprit que le `catalog_visit` déjà utilisé par le site.
@@ -66,6 +67,8 @@ export type ResultatPersistance = {
 
 type LigneProspect = {
   id: string;
+  slug?: string;
+  email?: string | null;
   metadata: Record<string, unknown> | null;
 };
 
@@ -121,14 +124,43 @@ export async function enregistrerDemandeRessource(
   const workspaceId = workspacePour(contexte.email);
   const slug = slugDepuisEmail(contexte.email);
 
-  const existants = await requeteSupabase<LigneProspect>({
-    methode: "GET",
-    chemin:
-      `prospects?select=id,metadata` +
-      `&workspace_id=eq.${workspaceId}&slug=eq.${encodeURIComponent(slug)}&limit=1`,
-  });
+  /* L'IDENTITÉ SE RÉSOUT PAR L'E-MAIL, PAS PAR LE SLUG.
+     Les gens arrivent de partout : LinkedIn, cold email, podcast, bientôt la
+     vidéo. Beaucoup sont DÉJÀ dans la base sous un slug qui n'a rien à voir
+     avec le site. Chercher d'abord par slug créerait une seconde fiche pour la
+     même personne — la base compte déjà 111 doublons d'e-mail sur 635 fiches,
+     et on ne va pas en ajouter.
 
-  const existant = existants[0];
+     On cherche donc l'e-mail en premier, insensible à la casse, et on se
+     rattache à la fiche qui existe, d'où qu'elle vienne. Le slug `site-…` n'est
+     créé que pour quelqu'un de réellement inconnu. */
+  const emailNormalise = contexte.email.trim().toLowerCase();
+  const parEmail = (
+    await requeteSupabase<LigneProspect>({
+      methode: "GET",
+      chemin:
+        `prospects?select=id,slug,email,metadata` +
+        `&workspace_id=eq.${workspaceId}&email=ilike.${encodeURIComponent(contexte.email.trim())}&limit=5`,
+    })
+  ).filter(
+    // `ilike` traite `_` et `%` comme des jokers : on revérifie l'égalité
+    // stricte, sinon `paul_x@…` se rattacherait à la fiche de `paulax@…`.
+    (p) => (p.email ?? "").trim().toLowerCase() === emailNormalise,
+  );
+
+  const parSlug = parEmail[0]
+    ? []
+    : await requeteSupabase<LigneProspect>({
+        methode: "GET",
+        chemin:
+          `prospects?select=id,slug,metadata` +
+          `&workspace_id=eq.${workspaceId}&slug=eq.${encodeURIComponent(slug)}&limit=1`,
+      });
+
+  const existant = parEmail[0] ?? parSlug[0];
+  /* On ne renomme jamais une fiche existante : son slug est peut-être référencé
+     ailleurs. On écrit sur le sien. */
+  const slugCible = existant?.slug ?? slug;
 
   /* Reprise après panne : la soumission est déjà passée, on ne la rejoue pas. */
   if (existant) {
@@ -169,28 +201,50 @@ export async function enregistrerDemandeRessource(
     demandes_ressource: [...demandesExistantes(existant?.metadata ?? null), demande],
   };
 
-  /* Upsert sur la contrainte `(workspace_id, slug)` qui existe déjà. Une
-     seconde demande met à jour la fiche, elle n'en crée pas une deuxième. */
-  const prospects = await requeteSupabase<LigneProspect>({
-    methode: "POST",
-    chemin: "prospects?on_conflict=workspace_id,slug",
-    prefer: "resolution=merge-duplicates",
-    corps: [
-      {
-        workspace_id: workspaceId,
-        slug,
-        // `nom` est NOT NULL en base : à défaut de nom saisi, l'e-mail fait foi.
-        nom: contexte.nom?.trim() || contexte.email.trim(),
-        email: contexte.email.trim(),
-        source: contexte.source,
-        channel: "site",
-        campaign: contexte.attribution["utm_campaign"] ?? null,
-        preferred_language: contexte.lang,
-        metadata,
-        updated_at: new Date().toISOString(),
-      },
-    ],
-  });
+  /* DEUX CHEMINS, ET C'EST VOULU.
+
+     Un upsert PostgREST construit toujours un INSERT : omettre une colonne
+     `NOT NULL` échoue en 23502 même quand la ligne existe. Mesuré en essayant
+     de rattacher une fiche réelle du CRM.
+
+     Donc : une fiche qui existe est MISE À JOUR sur son id, avec les seuls
+     champs qu'on a le droit de toucher. Une fiche inconnue est créée. Aucune
+     donnée du CRM n'est écrasée par une capture web. */
+  const champsCommuns = {
+    preferred_language: contexte.lang,
+    metadata,
+    updated_at: new Date().toISOString(),
+  };
+
+  const prospects = existant
+    ? await requeteSupabase<LigneProspect>({
+        methode: "PATCH",
+        chemin: `prospects?id=eq.${existant.id}`,
+        corps: {
+          ...champsCommuns,
+          /* L'e-mail n'est PAS réécrit : la fiche a déjà le sien, et une
+             différence de casse n'est pas une correction. */
+          // Un vrai nom peut enrichir une fiche ; une adresse e-mail, jamais.
+          ...(contexte.nom?.trim() ? { nom: contexte.nom.trim() } : {}),
+        },
+      })
+    : await requeteSupabase<LigneProspect>({
+        methode: "POST",
+        chemin: "prospects",
+        corps: [
+          {
+            ...champsCommuns,
+            email: contexte.email.trim(),
+            workspace_id: workspaceId,
+            slug: slugCible,
+            // `nom` est NOT NULL : à défaut de nom saisi, l'e-mail fait foi.
+            nom: contexte.nom?.trim() || contexte.email.trim(),
+            source: contexte.source,
+            channel: "site",
+            campaign: contexte.attribution["utm_campaign"] ?? null,
+          },
+        ],
+      });
 
   const prospect = prospects[0];
   if (!prospect?.id) {
