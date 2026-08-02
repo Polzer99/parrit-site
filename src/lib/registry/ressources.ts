@@ -28,6 +28,7 @@
  */
 
 import type { CtaId } from "./cta";
+import type { PillarSlug } from "../pillars";
 
 export type TypeRessource =
   | "diagnostic"
@@ -63,6 +64,15 @@ export type Ressource = {
   livrable: string;
   /** L'URL unique qui rend l'expérience complète. Voir l'en-tête du fichier. */
   experience: ExperienceRessource;
+  /**
+   * Le pilier éditorial de la ressource. C'est l'AXE D'INTÉRÊT : les articles
+   * en portent un, les ressources aussi, donc « ce qui intéresse quelqu'un » se
+   * calcule au lieu de se demander.
+   *
+   * Ce rattachement vivait en dur dans `blog/[slug]/page.tsx`. Une page n'est
+   * pas un endroit où ranger de la donnée : il est ici, et la page le lit.
+   */
+  pilier: PillarSlug;
   formGabarit: "G1_optin_leger" | "G2_ressource_qualifiante" | "G3_diagnostic" | "G4_adaptation_lab";
   ctaPrincipal: CtaId;
   niveauEngagement: NiveauEngagement;
@@ -88,6 +98,7 @@ const REGISTRE: Ressource[] = [
     ],
     livrable: "/architecture-claude-md",
     experience: { rendu: "route_dediee", url: "/architecture-claude-md" },
+    pilier: "agents-ia",
     formGabarit: "G2_ressource_qualifiante",
     ctaPrincipal: "ressource.telecharger",
     niveauEngagement: "moyen",
@@ -113,6 +124,7 @@ const REGISTRE: Ressource[] = [
     ],
     livrable: "/demarrer-claude-code",
     experience: { rendu: "route_dediee", url: "/demarrer-claude-code" },
+    pilier: "formation-agents-ia",
     formGabarit: "G2_ressource_qualifiante",
     ctaPrincipal: "ressource.telecharger",
     niveauEngagement: "moyen",
@@ -138,6 +150,7 @@ const REGISTRE: Ressource[] = [
     ],
     livrable: "/harnais-ia",
     experience: { rendu: "route_dediee", url: "/harnais-ia" },
+    pilier: "logiciel-ia-sur-mesure",
     formGabarit: "G2_ressource_qualifiante",
     ctaPrincipal: "ressource.demander",
     niveauEngagement: "moyen",
@@ -160,6 +173,7 @@ const REGISTRE: Ressource[] = [
     ],
     livrable: "/hr-radar",
     experience: { rendu: "route_dediee", url: "/hr-radar" },
+    pilier: "agents-ia",
     formGabarit: "G3_diagnostic",
     ctaPrincipal: "rdv.paul",
     niveauEngagement: "fort",
@@ -182,6 +196,7 @@ const REGISTRE: Ressource[] = [
     ],
     livrable: "/outils/detecteur-bullshit",
     experience: { rendu: "route_dediee", url: "/outils/detecteur-bullshit" },
+    pilier: "agents-ia",
     formGabarit: "G1_optin_leger",
     ctaPrincipal: "rdv.paul",
     niveauEngagement: "faible",
@@ -202,6 +217,7 @@ const REGISTRE: Ressource[] = [
     ],
     livrable: "/diagnostic",
     experience: { rendu: "route_dediee", url: "/diagnostic" },
+    pilier: "logiciel-ia-sur-mesure",
     formGabarit: "G3_diagnostic",
     ctaPrincipal: "rdv.paul",
     niveauEngagement: "fort",
