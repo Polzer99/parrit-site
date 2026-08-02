@@ -437,7 +437,7 @@ export type TraceStep = {
 
 /**
  * Trace d'exécution Hermès. Rend visibles les actions, les sources, les états
- * et le point de contrôle humain. Hermès n'est jamais un chatbot ici :
+ * et le point de contrôle humain. Hermès n'est jamais une fenêtre de conversation ici :
  * c'est un système dont on lit le journal.
  *
  * L'attribution Nous Research / MIT est OBLIGATOIRE et fait partie du composant.
@@ -506,7 +506,7 @@ export function HermesTraceLevel0({
           color: "var(--color-ink-faint)",
         }}
       >
-        Hermes Agent — open source by Nous Research, MIT License. Parrit.ai conçoit, adapte,
+        Hermes Agent · open source by Nous Research, MIT License. Parrit.ai conçoit, adapte,
         intègre et déploie le système, et organise les boucles de contrôle.
       </p>
     </section>

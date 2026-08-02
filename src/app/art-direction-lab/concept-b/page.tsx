@@ -3,7 +3,7 @@ import { FACTS } from "../content";
 import { LabBar } from "../LabBar";
 
 export const metadata: Metadata = {
-  title: "Concept B — Agent Operating System",
+  title: "Concept B · Agent Operating System",
   robots: { index: false, follow: false },
 };
 

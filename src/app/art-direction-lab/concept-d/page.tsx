@@ -18,7 +18,7 @@ import {
 } from "./system";
 
 export const metadata: Metadata = {
-  title: "Concept D — Editorial Operating System",
+  title: "Concept D · Editorial Operating System",
   robots: { index: false, follow: false },
 };
 
