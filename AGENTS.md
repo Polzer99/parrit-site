@@ -60,6 +60,20 @@ Une page n'écrit **ni couleur, ni taille de police, ni rayon, ni ombre en dur**
 
 **Les CTA, les preuves et les ressources sont des registres, pas du texte de page** : `src/lib/registry/cta.ts`, `preuves.ts`, `ressources.ts`. Un libellé de bouton écrit dans un composant est un défaut. Le contrat complet est dans `TEMPLATE-GRAMMAR.md` §5.
 
+### Règle d'index — arbitrage Paul du 02/08/2026
+
+**La structure n'ajoute pas d'étape entre le visiteur et la valeur.**
+
+Une carte d'index porte **une seule action**, et cette action mène à la **destination finale**. Pas de « voir la fiche » quand une autre action reste nécessaire derrière.
+
+Une ressource a **une seule URL canonique** : celle qui rend son expérience complète (promesse, contenu, preuve, formulaire éventuel, accès, CTA suivant). Elle est déclarée dans `experience` au registre. Le corollaire s'applique partout :
+
+- l'alias `/[lang]/ressources/[slug]` redirige en **301** vers l'expérience quand celle-ci vit ailleurs — la redirection se déclare dans `next.config.ts`, jamais dans une page, pour rester à **un seul saut** ;
+- **une seule** des deux URL entre au sitemap, et c'est l'expérience ;
+- le `source` et les `utm_*` survivent au saut : ne jamais réécrire une destination en jetant sa chaîne de requête. Un seul utilitaire pose `?source=` — `avecSource()` dans `cta.ts`.
+
+`tests/ressources-reachability.spec.ts` bloque les cinq régressions correspondantes. Ses assertions portent sur les URL et le registre, **jamais sur des classes CSS** : une refonte visuelle ne doit pas casser un test de conversion.
+
 ## Routes
 - `src/app/[lang]/page.tsx` → rend **`HomeDeux.tsx`** (home pivot 2026 : hero « recruter des agents » + catalogue + 3 offres sans prix + La Veille + blog). Contenu i18n dans le `DICT` interne de `HomeDeux` (fr/en/pt-BR/zh-CN) ; les cartes agents viennent de `catalog.json` (FR pour l'instant, i18n à faire). L'ancienne home desktop-OS `HomeClient.tsx` n'est plus servie que par `/os-classic` (noindex).
 - `src/app/[lang]/{sprint,audit-claude-code,setup-claude-code,remote}/page.tsx` → partagent `src/components/LandingPage.tsx` + contenu dans `src/app/[lang]/dictionaries/*.json`.
