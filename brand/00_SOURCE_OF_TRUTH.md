@@ -1,19 +1,75 @@
 # 00 — Source de vérité Parrit.ai
 
-**Version :** 0.2.0  
-**Statut :** base de production provisoire jusqu’à l’audit Figma complet  
-**Propriétaire :** Paul Larmaraud  
-**Dernière mise à jour :** 30 juillet 2026
+**Version :** 1.0.0
+**Statut :** index canonique
+**Propriétaire :** Paul Larmaraud
+**Dernière mise à jour :** 2 août 2026
 
 ## Rôle du document
 
-Ce document fixe les décisions de marque les plus hautes. Les autres fichiers détaillent les tokens, composants, images, contenus, conversion, Figma et implémentation.
+Ce fichier n'écrit plus le positionnement. Il **indexe les trois registres** et dit lequel prime selon la question posée.
 
-En cas de conflit :
+| Registre | Document | Statut | Rythme |
+|---|---|---|---|
+| **Interne** | [`00A_POSITIONING_INTERNAL.md`](./00A_POSITIONING_INTERNAL.md) | `living` | Évolue fréquemment. Chaque affirmation porte un statut : `validated`, `current`, `hypothesis`, `experimental`, `client-specific`, `deprecated` |
+| **Externe** | [`00B_POSITIONING_EXTERNAL.md`](./00B_POSITIONING_EXTERNAL.md) | `approved` v1.0.0 | Contrat stable avec le marché. Évolue rarement, sur décision explicite de Paul |
+| **Commercial** | [`00C_COMMERCIAL_NARRATIVE.md`](./00C_COMMERCIAL_NARRATIVE.md) | `adaptable-within-guardrails` | S'adapte au prospect sans jamais contredire `00B` |
 
-`00_SOURCE_OF_TRUTH > 01_DESIGN_TOKENS > contrats spécialisés > Figma audité > code > site en ligne`
+**Règle centrale.** Une évolution interne ne modifie pas automatiquement le positionnement externe. Une formulation commerciale adaptée à un client ne devient pas une phrase publique canonique.
 
-Le site est une sortie du système. Il n’est jamais la source.
+**Les agents doivent identifier le registre dans lequel ils travaillent avant de produire du contenu.**
+
+## Quatre hiérarchies de précédence
+
+### Sens interne
+
+1. Décision récente explicite de Paul
+2. `brand/00A_POSITIONING_INTERNAL.md`
+3. Décisions validées de `positioning-os/02B-DECISION-LOG.md`
+4. Sources internes spécialisées
+5. Implémentation et historique
+
+### Sens public
+
+1. Décision récente explicite de Paul
+2. `brand/00B_POSITIONING_EXTERNAL.md`
+3. Sources publiques spécialisées
+4. Supports existants
+
+### Phrases publiques exactes
+
+1. Décision récente explicite de Paul
+2. `positioning-os/10-LOCKED-PUBLIC-COPY.md`
+3. `brand/00B_POSITIONING_EXTERNAL.md`
+4. `positioning-os/09-PUBLIC-COPY-LIBRARY.md`
+
+### Registre commercial
+
+1. Décision récente explicite de Paul
+2. `brand/00C_COMMERCIAL_NARRATIVE.md`
+3. `brand/00B_POSITIONING_EXTERNAL.md`
+4. Connaissances internes explicitement partageables
+5. Adaptation au contexte du prospect
+
+## Exécution
+
+La chaîne d'exécution reste inchangée : `01_DESIGN_TOKENS > 02-05 contrats spécialisés > Figma audité > code > site en ligne`. Le site est une sortie du système, jamais la source.
+
+`brand/03_CONTENT_SYSTEM.md` est un **guide d'exécution subordonné** à `00B` et à `10-LOCKED-PUBLIC-COPY.md`.
+
+## Documents retirés de toute position canonique
+
+`status: historical`, conservés sans réécriture, exclus des trois bundles : `TRUTH.md` · `MATURITE-SOT.md` · `BRAND.md` · `DESIGN-SYSTEM.md` · `design-source/DA-TOKENS-EXTRACTED.md`.
+
+## Prix
+
+**PUBLIC** : aucun prix. **COMMERCIAL générique** : aucun prix. **INTERNAL** : autorisés. **Contexte commercial nominatif** : autorisés uniquement dans un devis ou une proposition dédiée, transmis volontairement.
+
+---
+
+## Historique, superseded le 02/08/2026
+
+Les blocs ci dessous fixaient le positionnement jusqu'au 30/07/2026. Ils sont conservés à l'identique et remplacés par `00A` et `00B`.
 
 ## Mission
 
@@ -51,6 +107,8 @@ Parrit ne livre pas un discours sur l’IA. Parrit part d’une tâche réelle, 
 Promesse opératoire :
 
 > À partir d’un input concret, produire un output défini, contrôlé, traçable et transférable aux équipes.
+
+---
 
 ## Modèle de preuve
 

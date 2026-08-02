@@ -1,3 +1,16 @@
+<!--
+status: historical
+superseded_by:
+  - brand/00A_POSITIONING_INTERNAL.md
+  - brand/00B_POSITIONING_EXTERNAL.md
+  - brand/00C_COMMERCIAL_NARRATIVE.md
+superseded_at: 2026-08-02
+-->
+
+> ⛔️ **`status: historical` depuis le 02/08/2026.** Ce fichier n'occupe plus aucune position canonique et est exclu des trois bundles de contexte.
+> Remplacé par [`brand/00A_POSITIONING_INTERNAL.md`](./brand/00A_POSITIONING_INTERNAL.md), [`brand/00B_POSITIONING_EXTERNAL.md`](./brand/00B_POSITIONING_EXTERNAL.md) et [`brand/00C_COMMERCIAL_NARRATIVE.md`](./brand/00C_COMMERCIAL_NARRATIVE.md). Index : [`brand/00_SOURCE_OF_TRUTH.md`](./brand/00_SOURCE_OF_TRUTH.md).
+> Contenu conservé sans réécriture, à titre d'archive.
+
 # TRUTH.md — Source de vérité commune (site parrit.ai ↔ agent Hermes)
 
 > **Ce fichier est le cerveau partagé.** Le site (`AGENTS.md` → ici) ET l'agent d'amélioration continue **Hermes** (`hermes/`) le lisent à chaque fois. Toute amélioration du site doit être *cohérente avec ce document*. Quand la réalité de Parrit change, on met à jour CE fichier d'abord (HITL) — pas le code en premier.

@@ -1,5 +1,9 @@
 # 03 — Système éditorial et rédactionnel
 
+> **Guide d'exécution subordonné.** Ce document gouverne la *mécanique de production* des contenus. Il ne gouverne ni le positionnement public, ni les promesses, ni le ton général, ni le vocabulaire autorisé : cela relève de [`00B_POSITIONING_EXTERNAL.md`](./00B_POSITIONING_EXTERNAL.md). Les phrases publiques exactes relèvent de [`positioning-os/10-LOCKED-PUBLIC-COPY.md`](../positioning-os/10-LOCKED-PUBLIC-COPY.md).
+>
+> En cas de conflit public : `10-LOCKED-PUBLIC-COPY` → `00B_POSITIONING_EXTERNAL` → `brand/03_CONTENT_SYSTEM`.
+
 ## Core message
 
 Parrit does not sell AI theatre. Parrit starts from a real workflow, deploys a controlled agent around a defined input and output, and leaves the client with an owned operating system.

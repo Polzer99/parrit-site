@@ -84,6 +84,28 @@ Ajouter sous cette forme :
 - Renforcement de la règle : aucun audit Figma sans fichier et nodes effectivement lus.
 - Maintien d’une amélioration Hermès supervisée.
 
+### ADR-007 — Trois registres de positionnement
+
+Le positionnement se lit sur trois registres, avec des rythmes d'évolution distincts. `00A_POSITIONING_INTERNAL` est `living` et évolue avec les missions, les systèmes et les apprentissages. `00B_POSITIONING_EXTERNAL` est `approved` en v1.0.0 : c'est le contrat stable avec le marché, il n'évolue que sur décision explicite de Paul, sans date de fin fixée. `00C_COMMERCIAL_NARRATIVE` est `adaptable-within-guardrails` et approfondit `00B` en rendez-vous sans jamais le contredire.
+
+`00_SOURCE_OF_TRUTH` devient l'index des trois registres et porte les quatre hiérarchies de précédence. Ses blocs de mission, positionnement, publics, ennemi et promesse du 30/07 sont conservés en annexe historique.
+
+Conséquences : une évolution interne ne modifie pas automatiquement le public · une formulation commerciale ne devient pas une phrase canonique · les agents doivent identifier leur registre avant de produire.
+
+### ADR-008 — Aucun prix public, aucun prix commercial générique
+
+PUBLIC et COMMERCIAL générique ne contiennent aucun prix. INTERNAL les autorise. Un contexte commercial nominatif les autorise uniquement dans un devis ou une proposition dédiée, transmis volontairement.
+
+L'autorisation générique « à partir de X € » qui figurait dans `AGENTS.md` est supprimée. Les bundles public et commercial échouent s'ils contiennent un symbole monétaire, un montant associé à une devise ou une règle tarifaire interne. Le prototype commercial gratuit sélectif reste `INTERNAL STRICT` et n'apparaît jamais dans un bundle commercial générique.
+
+### ADR-009 — Documents retirés de toute position canonique
+
+`TRUTH.md`, `MATURITE-SOT.md`, `BRAND.md`, `DESIGN-SYSTEM.md` et `design-source/DA-TOKENS-EXTRACTED.md` passent en `status: historical`. Leur contenu est conservé sans réécriture et exclu des trois bundles.
+
+### ADR-010 — Deux triades, jamais concurrentes
+
+Les capacités de Parrit se lisent Transformer, Construire, Déployer, et structurent `00B`. La maturité du client se lit Commencer, Transformer, Piloter, et sert au diagnostic dans `00C`. Les deux ne sont jamais présentées comme des architectures concurrentes.
+
 ### 0.2.1 — 2026-07-30
 
 - Pack éclaté en 11 documents dans `brand/`, avec un index `README.md` et une chaîne de précédence explicite.
@@ -101,3 +123,13 @@ Ajouter sous cette forme :
 - validation WCAG des états ;
 - ajout de preuves clients et métriques vérifiées ;
 - définition de la première expérience Hermès en production.
+
+### 1.0.0 — 2026-08-02
+
+- Positionnement séparé en trois registres : `00A` interne `living`, `00B` externe `approved` v1.0.0, `00C` commercial `adaptable-within-guardrails`.
+- `00_SOURCE_OF_TRUTH` transformé en index canonique, avec quatre hiérarchies de précédence.
+- `positioning-os/` importé dans le dépôt, 22 documents, aucune réécriture.
+- `brand/` versionné.
+- `TRUTH.md` et `MATURITE-SOT.md` marqués `historical`.
+- `03_CONTENT_SYSTEM` requalifié en guide d'exécution subordonné.
+- ADR-007 à ADR-010.
