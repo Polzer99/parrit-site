@@ -2,6 +2,15 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
+// Les tokens canoniques, APRÈS globals.css : ils sont additifs et n'écrasent
+// aucun alias historique.
+//
+// Sans cet import, toute page servie sous /[lang] qui utilise un template
+// canonique rend avec des variables CSS NON DÉFINIES : plus d'espacement, plus
+// de fonte de titrage, plus de couleur. La page reste lisible, donc les tests
+// de contraste et de doctrine passent — et le défaut ne se voit qu'à l'oeil.
+// C'est exactement ce qui est arrivé en production le 02/08 sur la page article.
+import "../../styles/parrit-tokens.css";
 import AttributionInit from "@/components/AttributionInit";
 import CtaTracker from "@/components/CtaTracker";
 import EngagementTracker from "@/hooks/useEngagement";
