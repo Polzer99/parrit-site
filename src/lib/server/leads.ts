@@ -261,7 +261,7 @@ async function poserCarteSuperApp(
 
   const campagne = contexte.attribution["utm_campaign"];
   const texte = [
-    `Ressource demandée — ${contexte.ressourceSlug}`,
+    `Ressource demandée · ${contexte.ressourceSlug}`,
     contexte.email,
     contexte.articleSlug
       ? `Arrivé par l'article « ${contexte.articleSlug} »`
