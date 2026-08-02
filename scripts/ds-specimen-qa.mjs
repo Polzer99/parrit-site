@@ -55,6 +55,40 @@ async function main() {
 
     const vp = {};
 
+    /* -------------------------- 0. Les tokens sont-ils DEFINIS ? */
+    //
+    // Ajoute apres l'incident du 02/08 : la page article a ete servie en
+    // production SANS AUCUN STYLE, parce que parrit-tokens.css n'etait pas
+    // importe par le layout de [lang]. Un var(--x) non defini ne produit rien :
+    // ni marge, ni taille, ni couleur.
+    //
+    // Aucune batterie ne l'a vu. Elles cherchent toutes des valeurs INTERDITES ;
+    // aucune ne verifiait la PRESENCE des valeurs canoniques. Le defaut ne se
+    // voyait qu'a l'oeil.
+    const tokensDefinis = await page.evaluate(() => {
+      const cs = getComputedStyle(document.documentElement);
+      const requis = [
+        "--color-paper-default",
+        "--color-ink-default",
+        "--color-signal-critical",
+        "--type-display-primary",
+        "--type-mono-primary",
+        "--space-section-md",
+        "--container-text",
+        "--radius-none",
+      ];
+      return requis.filter((t) => !cs.getPropertyValue(t).trim());
+    });
+
+    if (tokensDefinis.length) {
+      fail(
+        "tokens-definis",
+        `${width}px : ${tokensDefinis.length} token(s) canonique(s) NON DEFINI(S) sur cette route — ${tokensDefinis.join(", ")}. La page rend sans style.`,
+      );
+    } else {
+      console.log("  ✓ tokens : les variables du canon sont définies sur cette route");
+    }
+
     /* ---------------------------------- 1. French Typography Test */
     const frenchTest = await page.evaluate(() => {
       const words = ["ÉQUIPES", "EXÉCUTION", "RÉDUCTION", "MÉTIERS", "DÉCRIVEZ", "AMÉLIORATION", "DÉPLOIEMENT"];
