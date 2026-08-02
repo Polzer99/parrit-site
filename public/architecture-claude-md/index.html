@@ -166,7 +166,7 @@ body.locked .gated{filter:blur(9px);pointer-events:none;user-select:none}
     
     <div class="capture">
       <div class="cap-head"><span class="dot" aria-hidden="true"></span><span>Vous avez la thèse. Entrez votre email pour débloquer les 4 blocs à coller dans Claude Code et les 4 templates .md.</span></div>
-      <form class="leadform" data-webhook="https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead" onsubmit="return unlockGate(event)">
+      <form class="leadform" data-ressource="architecture-claude-md" onsubmit="return unlockGate(event)">
         <div class="lf-row">
           <input name="name" type="text" placeholder="Prénom" required autocomplete="given-name" aria-label="Prénom">
           <input name="email" type="email" placeholder="Email professionnel" required autocomplete="email" aria-label="Email professionnel">
@@ -340,12 +340,96 @@ body.locked .gated{filter:blur(9px);pointer-events:none;user-select:none}
 <script>
 function unlockGate(e){
   e.preventDefault();
-  var f=e.target, data={name:f.name.value, email:f.email.value, source:'architecture-claude-md'};
-  try{ fetch(f.dataset.webhook,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}); }catch(err){}
+  var f=e.target;
+  var slug=f.dataset.ressource;
+
+  /* L'ACCÈS D'ABORD. La valeur promise est déjà dans cette page : on ne la
+     retient jamais en otage d'un appel réseau. L'ancienne version ouvrait la
+     porte aussi, mais dans un `try{}catch(err){}` VIDE qui perdait le lead sans
+     que personne ne le sache — la base ne comptait que trois inscriptions
+     venues du site en quatre mois. */
   document.body.classList.remove('locked');
   f.style.display='none';
   document.getElementById('ok').style.display='block';
+
+  envoyerDemande({
+    email: f.email.value,
+    nom: f.name.value,
+    ressourceSlug: slug,
+    articleSlug: parametre('article') || undefined,
+    source: parametre('source') || ('ressource-' + slug),
+    pageOrigine: location.pathname,
+    lang: 'fr',
+    attribution: attribution()
+  });
   return false;
+}
+
+function parametre(nom){
+  try{ return new URLSearchParams(location.search).get(nom) || ''; }catch(err){ return ''; }
+}
+
+/* Les UTM et le référent, tels que le reste du site les collecte. */
+function attribution(){
+  var out={};
+  try{
+    var p=new URLSearchParams(location.search);
+    ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid'].forEach(function(k){
+      var v=p.get(k); if(v) out[k]=v;
+    });
+    if(document.referrer) out.referrer=document.referrer;
+    out.landing_page=location.pathname;
+    var premier=localStorage.getItem('parrit_first_touch');
+    if(premier) out.first_touch=premier;
+  }catch(err){ /* stockage refusé : l'attribution est partielle, la capture continue */ }
+  return out;
+}
+
+var CLE_REPRISE='parrit_demande_en_attente';
+
+function envoyerDemande(payload, estReprise){
+  return fetch('/api/ressource',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  }).then(function(r){
+    return r.json().catch(function(){ return {}; }).then(function(corps){
+      if(!r.ok || !corps.ok){
+        throw new Error('capture ' + r.status + ' ' + (corps.error || ''));
+      }
+      /* Enregistré et CONFIRMÉ par la base : la reprise n'a plus lieu d'être. */
+      try{ localStorage.removeItem(CLE_REPRISE); }catch(err){}
+      signaler('form_completed', {form: payload.ressourceSlug, lead_id: corps.prospectId, submission_id: corps.submissionId});
+      return corps;
+    });
+  }).catch(function(err){
+    /* Rien n'est avalé : on garde la saisie ET le submission_id pour rejouer
+       sans créer de doublon, et l'échec est signalé. */
+    try{
+      localStorage.setItem(CLE_REPRISE, JSON.stringify({payload: payload, enregistreLe: new Date().toISOString()}));
+    }catch(e2){}
+    signaler('form_failed', {form: payload.ressourceSlug, erreur: String(err && err.message || err).slice(0,120)});
+    if(!estReprise) console.error('[parrit] capture differee', err);
+  });
+}
+
+/* Reprise au chargement suivant : une panne réseau ne coûte plus le lead. */
+(function reprendre(){
+  try{
+    var brut=localStorage.getItem(CLE_REPRISE);
+    if(!brut) return;
+    var attente=JSON.parse(brut);
+    if(attente && attente.payload) envoyerDemande(attente.payload, true);
+  }catch(err){}
+})();
+
+function signaler(evenement, proprietes){
+  try{
+    if(window.posthog && typeof window.posthog.capture==='function'){
+      window.posthog.capture(evenement, proprietes);
+    }
+    (window.dataLayer=window.dataLayer||[]).push(Object.assign({event: evenement}, proprietes));
+  }catch(err){}
 }
 function cp(btn){
   var pre=btn.closest('.copyblock').querySelector('pre');
