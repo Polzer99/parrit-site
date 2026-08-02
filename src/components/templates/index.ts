@@ -39,6 +39,8 @@ export {
   CtaBlock,
   CtaInline,
   ContenusLies,
+  ListeIndex,
+  type EntreeIndex,
   JsonLd,
   LimitesBlock,
   MetaLine,
