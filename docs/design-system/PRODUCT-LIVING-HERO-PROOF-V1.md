@@ -1,5 +1,12 @@
 # PRODUCT-LIVING-HERO-PROOF-V1
 
+> **DÉPASSÉ SUR DEUX POINTS, LE 2 AOÛT 2026.**
+> La preuve du hero est passée de **six moments en 9,3 s** à **cinq chapitres en 12,5 s**,
+> et Ink est devenu le traitement principal. L'état courant fait foi dans
+> [`SILICON-VALLEY-AI-PRODUCT-STANDARDS.md`](./SILICON-VALLEY-AI-PRODUCT-STANDARDS.md).
+> Le reste de ce document — arbitrage D + V2, charpente, rôle de la preuve,
+> variantes Paper et Ink, défauts trouvés — reste valable.
+
 **Tranche du 1er août 2026.** Test d'intégration, expérimental.
 **Aucune direction n'est déclarée approuvée.** Aucun ADR n'est créé.
 

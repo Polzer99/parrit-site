@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SceneV2 } from "./SceneV2";
 
 export const metadata: Metadata = {
-  title: "Product Living System — scène v2",
+  title: "Product Living System · scène v2",
   description: "Second renderer de la scène produit. Interne, non publiée.",
   robots: { index: false, follow: false, nocache: true },
 };

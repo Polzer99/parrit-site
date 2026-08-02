@@ -1,129 +1,155 @@
 /**
- * PRODUCT-LIVING-HERO-PROOF-V1 — les six moments de la preuve du hero.
+ * PRODUCT-LIVING-HERO-CLARITY-POLISH-V1 — les cinq chapitres visibles.
  *
  * ─────────────────────────────────────────────────────────────────────────
- * CE FICHIER NE CRÉE AUCUNE COPY COMMERCIALE.
+ * AUCUNE COPY COMMERCIALE N'EST ÉCRITE ICI.
  *
- * Le texte éditorial du hero vient MOT POUR MOT de `../content.ts`, comme
- * dans Concept D. Les libellés d'état viennent de `../concept-d/system.ts`.
- * Les valeurs métier viennent du scénario de la scène V2. Rien n'est réécrit.
+ * Le texte du hero — eyebrow, titre, promesse, appels à l'action — vient
+ * MOT POUR MOT de `../content.ts`. Il n'est pas touché.
  *
- * Ce fichier ne fait qu'une chose : choisir QUELS fragments de ce matériau
- * existant tiennent dans une boucle de dix secondes, et dans quel ordre.
+ * Ce fichier ne porte que les MICROTEXTES INTERNES de la démonstration. Ils
+ * sont volontairement écrits en langage non technique : c'est la consigne de
+ * la passe de clarté, et c'est ce qui décide si un dirigeant comprend ou non.
  * ─────────────────────────────────────────────────────────────────────────
  *
- * Ce qui est délibérément ABSENT, parce que le hero n'est pas la démonstration
- * longue : les dix états, les quatre versions, les identifiants internes, les
- * références de politique, les codes de module, les contrôles de lecture, la
- * liste des agents et la liste des sources.
+ * Budget tenu, et vérifié par le harnais :
+ *   titre         2 à 5 mots
+ *   explication   12 mots maximum
+ *   métadonnées   2 maximum
+ *   surface détaillée   1 seule
+ *
+ * Ce qui reste dans la démonstration longue : identifiants, règles, codes,
+ * versions, niveaux de confiance, horodatages, politiques, provenance.
  */
 
-import { AGENTS, GATE } from "../product-living-scene/scenario";
-import {
-  CALENDAR,
-  DISTRIBUTION,
-  EMAIL,
-  INTERNAL,
-} from "../product-living-scene-v2/renderer";
-import { ETAT, SPECIMEN } from "../concept-d/system";
+import { AGENTS } from "../product-living-scene/scenario";
+import { CALENDAR, EMAIL } from "../product-living-scene-v2/renderer";
+import { SPECIMEN } from "../concept-d/system";
 
-/** Un agent du scénario V2, retrouvé par son rôle. La source reste le moteur. */
 const agent = (id: string) => AGENTS.find((a) => a.id === id)!;
 
-export type MomentId =
+/**
+ * Le focus visuel dominant. Un seul à la fois : c'est le contrat que le
+ * renderer applique pour renforcer un élément et atténuer tout le reste.
+ */
+export type Focus =
   | "signal"
-  | "comprehension"
-  | "travail"
-  | "arret"
-  | "decision"
-  | "action";
+  | "verification"
+  | "missing_information"
+  | "human_decision"
+  | "output";
+
+export type ChapitreId = "signal" | "verification" | "manque" | "decision" | "sortie";
 
 /**
- * Durées. Total 9 300 ms, plus une respiration : la boucle tient dans la
- * fenêtre de 8 à 12 secondes du cadrage.
+ * Cinq chapitres, douze secondes et demie. La boucle précédente tenait en
+ * 9,3 s : trop rapide pour quelqu'un qui découvre. Chaque chapitre laisse
+ * maintenant le temps de lire son titre PUIS son information.
  */
-export const MOMENTS: readonly { id: MomentId; duree: number }[] = [
-  { id: "signal", duree: 1300 },
-  { id: "comprehension", duree: 1400 },
-  { id: "travail", duree: 2300 },
-  { id: "arret", duree: 1600 },
-  { id: "decision", duree: 900 },
-  { id: "action", duree: 1800 },
+export const CHAPITRES: readonly {
+  id: ChapitreId;
+  focus: Focus;
+  duree: number;
+  /** 2 à 5 mots. */
+  titre: string;
+  /** 12 mots maximum. */
+  info: string;
+}[] = [
+  {
+    id: "signal",
+    focus: "signal",
+    duree: 2000,
+    titre: "Demande reçue",
+    info: EMAIL.objet,
+  },
+  {
+    id: "verification",
+    focus: "verification",
+    duree: 2500,
+    titre: "Informations vérifiées",
+    info: "Deux sources consultées, sans intervention.",
+  },
+  {
+    id: "manque",
+    focus: "missing_information",
+    duree: 2000,
+    titre: "Contexte manquant",
+    info: "Impossible de savoir si cette personne a déjà été contactée.",
+  },
+  {
+    id: "decision",
+    focus: "human_decision",
+    duree: 2300,
+    titre: "Validation humaine",
+    info: "Le système s'arrête et attend votre décision.",
+  },
+  {
+    id: "sortie",
+    focus: "output",
+    duree: 2300,
+    titre: "Action préparée",
+    info: "Rien n'a été envoyé sans vous.",
+  },
 ];
 
 /** Respiration avant la répétition. La boucle ne redémarre pas d'un coup sec. */
-export const RESPIRATION = 1100;
+export const RESPIRATION = 1400;
 
-export const TOTAL = MOMENTS.reduce((s, m) => s + m.duree, 0);
+export const TOTAL = CHAPITRES.reduce((s, c) => s + c.duree, 0);
 export const CYCLE = TOTAL + RESPIRATION;
 
-/** Bornes absolues, dans l'ordre. Sert aussi aux tests. */
-export const BORNES = MOMENTS.reduce<{ id: MomentId; debut: number; fin: number }[]>(
-  (acc, m) => {
+export const BORNES = CHAPITRES.reduce<{ id: ChapitreId; debut: number; fin: number }[]>(
+  (acc, c) => {
     const debut = acc.length ? acc[acc.length - 1].fin : 0;
-    return [...acc, { id: m.id, debut, fin: debut + m.duree }];
+    return [...acc, { id: c.id, debut, fin: debut + c.duree }];
   },
   [],
 );
 
-/* ========================================================================
-   CONTENU DES SIX MOMENTS
+/**
+ * Sixième moment technique, invisible comme chapitre : à l'intérieur de la
+ * validation, l'instant où la décision est effectivement prise. Le visiteur
+ * perçoit cinq chapitres, la machine en compte six.
+ */
+export const INSTANT_DECISION = 0.6;
 
-   Tout vient du matériau existant. Aucun vocabulaire technique : pas
-   d'agent, pas d'orchestration, pas de politique, pas de version.
+/* ========================================================================
+   CONTENU
    ======================================================================== */
 
-/** 01 — quelque chose vient de se produire. */
-export const SIGNAL = {
-  tag: "Demande entrante",
-  objet: EMAIL.objet,
-} as const;
-
-/** 02 — le système comprend de quoi il s'agit. */
-export const COMPREHENSION = {
+/** L'objet de travail, présent du chapitre 1 au chapitre 5. Deux lignes. */
+export const OBJET = {
   titre: "Dossier d'opportunité",
-  entreprise: agent("company").valeur,
   personne: agent("relation").valeur,
 } as const;
 
-/**
- * 03 — le travail coordonné, montré par ses EFFETS et non par ses auteurs.
- * Trois lignes, décalées, jamais une liste d'agents.
- */
-export const EFFETS: readonly {
-  cle: string;
-  ligne: string;
-  decalage: number;
-  /** Un effet peut être un manque : c'est lui qui provoquera l'arrêt. */
-  manque?: boolean;
-}[] = [
-  { cle: "Vérifié", ligne: agent("usecase").valeur, decalage: 0 },
-  { cle: "Manquant", ligne: agent("context").bloque!, decalage: 700, manque: true },
-  { cle: "Préparé", ligne: agent("next").valeur, decalage: 1400 },
-];
+/** Deux vérifications, pas une de plus. */
+export const VERIFICATIONS = [
+  { quoi: "Entreprise", valeur: agent("company").valeur },
+  { quoi: "Besoin", valeur: agent("usecase").valeur },
+] as const;
 
-/** 04 — l'arrêt. Le libellé d'état existe déjà dans Concept D. */
-export const ARRET = {
-  etat: ETAT.validation,
-  raison: INTERNAL.consequence,
+/** Ce qui manque, en une ligne. */
+export const MANQUE = {
+  quoi: "Historique de la relation",
+  valeur: "Aucun échange antérieur retrouvé",
 } as const;
 
-/** 05 — la décision, portée par un humain nommé. */
+/** L'action proposée, et la marque humaine qui la valide. */
 export const DECISION = {
-  proprietaire: GATE.proprietaire,
-  acte: "Validé",
+  action: agent("next").valeur,
+  acte: "Validé par un humain",
   /* Photographie documentaire réelle, recadrage seul. Aucun visage généré. */
   photo: "/brand/editorial/portraits/paul-gate.jpg",
 } as const;
 
-/** 06 — la conséquence, dans les destinations réellement concernées. */
+/** Trois destinations, pas une de plus. */
 export const SORTIES = [
-  { destination: "Message", ligne: DISTRIBUTION.valider.email!.titre },
-  { destination: "Agenda", ligne: `${DISTRIBUTION.valider.calendar!.titre} · ${CALENDAR.retenu}` },
-  { destination: "Dossier", ligne: DISTRIBUTION.valider.crm!.titre },
+  { destination: "Message", ligne: "Préparé, prêt à partir" },
+  { destination: "Dossier", ligne: "Mis à jour" },
+  { destination: "Agenda", ligne: `Créneau proposé · ${CALENDAR.retenu}` },
 ] as const;
 
-/** Mentions de laboratoire. Reprises telles quelles de Concept D. */
 export const MENTIONS = {
   specimen: SPECIMEN.interface,
   demo: "Voir la démonstration complète",

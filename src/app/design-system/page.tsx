@@ -519,7 +519,7 @@ export default function DesignSystemSpecimen() {
           ))}
         </div>
         <p style={{ ...monoText, marginTop: "var(--space-6)", fontSize: "var(--type-size-xs)" }}>
-          Hermes Agent — open source by Nous Research, MIT License. Parrit.ai conçoit les systèmes,
+          Hermes Agent · open source by Nous Research, MIT License. Parrit.ai conçoit les systèmes,
           adapte les agents, les intègre, les déploie et organise les boucles de contrôle. Hermès
           n&apos;est jamais présenté comme une technologie propriétaire de Parrit.ai.
         </p>

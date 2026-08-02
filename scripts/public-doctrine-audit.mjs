@@ -78,15 +78,51 @@ async function auditFile(absolutePath, relativePath) {
   const content = await readFile(absolutePath, "utf8");
   const lines = content.split(/\r?\n/u);
 
+  // Detection STATEFUL des commentaires.
+  //
+  // L'ancienne version testait uniquement le prefixe de la ligne. Elle ratait
+  // donc toutes les lignes INTERIEURES d'un bloc /* ... */ multi-ligne, tres
+  // frequentes dans les feuilles de style :
+  //
+  //   /* =========================
+  //      HERO - entree et sortie      <-- cette ligne n'etait PAS vue
+  //      ========================= */
+  //
+  // Consequence : 55 faux positifs « em dash » sur des commentaires de code,
+  // alors que l'en-tete du fichier declare explicitement que l'em dash est
+  // « interdit dans la COPIE mais tolere dans les commentaires ». Le gate ne
+  // faisait pas ce qu'il annoncait.
+  //
+  // On suit desormais l'etat d'ouverture du bloc d'une ligne a l'autre.
+  let dansBloc = false;
   const isCommentLine = (line) => {
     const t = line.trim();
-    return (
+    const ouvertureNonFermee = () => {
+      const dernierOuvrant = line.lastIndexOf("/*");
+      const dernierFermant = line.lastIndexOf("*/");
+      return dernierOuvrant !== -1 && dernierOuvrant > dernierFermant;
+    };
+
+    if (dansBloc) {
+      // On est a l'interieur d'un bloc : la ligne est un commentaire, et elle
+      // peut le refermer.
+      if (line.includes("*/") && !ouvertureNonFermee()) dansBloc = false;
+      return true;
+    }
+
+    const commentaireDeLigne =
       t.startsWith("//") ||
       t.startsWith("/*") ||
       t.startsWith("*") ||
       t.startsWith("{/*") ||
-      t.startsWith("<!--")
-    );
+      t.startsWith("<!--");
+
+    if (ouvertureNonFermee()) {
+      dansBloc = true;
+      return true;
+    }
+
+    return commentaireDeLigne;
   };
 
   lines.forEach((line, index) => {

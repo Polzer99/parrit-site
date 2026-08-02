@@ -1,19 +1,27 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { BORNES, CYCLE, EFFETS, TOTAL, type MomentId } from "./moments";
+import {
+  BORNES,
+  CHAPITRES,
+  CYCLE,
+  INSTANT_DECISION,
+  TOTAL,
+  type ChapitreId,
+  type Focus,
+} from "./moments";
 
 /**
- * PRODUCT-LIVING-HERO-PROOF-V1 — l'horloge de la boucle du hero.
+ * PRODUCT-LIVING-HERO-CLARITY-POLISH-V1 — l'horloge de la boucle du hero.
  *
- * Une horloge AUTONOME, distincte de celle de la scène longue. La scène
- * longue s'arrête réellement et attend une décision humaine ; le hero, lui,
- * ne peut rien exiger d'un visiteur. Il suspend visiblement, puis reprend.
+ * Horloge autonome, distincte de celle de la démonstration longue. La scène
+ * longue s'arrête réellement et attend une décision ; le hero ne peut rien
+ * exiger d'un visiteur : il suspend visiblement, puis reprend.
  *
- * C'est la seule divergence assumée avec le moteur de la scène, et elle est
- * dictée par le contexte : personne ne clique dans un hero.
+ * Elle expose un CONTRAT unique, `focus`, que le renderer applique pour
+ * n'avoir qu'un seul élément dominant à l'écran. Tout le reste s'en déduit.
  *
- * La boucle s'arrête quand l'onglet n'est plus visible, et aucun timer ne
+ * La boucle s'arrête quand l'onglet n'est plus visible et aucun timer ne
  * survit au démontage.
  */
 
@@ -35,8 +43,6 @@ export function useBoucle() {
       mq.removeEventListener("change", onChange as (e: MediaQueryListEvent) => void);
   }, []);
 
-  /* Onglet caché : la boucle se met en veille. Elle ne consomme rien et ne
-     reprend pas dix secondes plus loin, elle repart où elle en était. */
   useEffect(() => {
     const onVis = () => setVisible(!document.hidden);
     onVis();
@@ -46,43 +52,51 @@ export function useBoucle() {
 
   useEffect(() => {
     if (!visible) return;
-    /* L'incrément passe par la forme fonctionnelle : l'intervalle ne dépend
-       pas de `t`, donc il n'est ni recréé ni empilé à chaque tick. */
+    /* Forme fonctionnelle : l'intervalle ne dépend pas de `t`, il n'est donc
+       ni recréé ni empilé à chaque tick. */
     const id = window.setInterval(() => setT((p) => (p + TICK) % CYCLE), TICK);
     return () => window.clearInterval(id);
   }, [visible]);
 
-  /** Le moment courant. Après le dernier, la respiration. */
-  const moment: MomentId | "respiration" = useMemo(() => {
+  /** Le chapitre courant. Après le cinquième, la respiration. */
+  const chapitre: ChapitreId | "respiration" = useMemo(() => {
     if (t >= TOTAL) return "respiration";
     return BORNES.find((b) => t >= b.debut && t < b.fin)?.id ?? "signal";
   }, [t]);
 
-  /** Index du moment, de 1 à 6. Zéro pendant la respiration. */
+  /** Index affiché : 01 à 05. Pendant la respiration, on garde le cinquième. */
   const index = useMemo(() => {
-    const i = BORNES.findIndex((b) => b.id === moment);
-    return i < 0 ? 0 : i + 1;
-  }, [moment]);
+    if (chapitre === "respiration") return CHAPITRES.length;
+    return BORNES.findIndex((b) => b.id === chapitre) + 1;
+  }, [chapitre]);
 
-  /** Progression dans le moment courant, de 0 à 1. */
+  /** Progression dans le chapitre courant, de 0 à 1. */
   const dans = useMemo(() => {
-    const b = BORNES.find((x) => x.id === moment);
+    const b = BORNES.find((x) => x.id === chapitre);
     if (!b) return 1;
     return Math.min(1, (t - b.debut) / (b.fin - b.debut));
-  }, [t, moment]);
+  }, [t, chapitre]);
 
-  /** Un moment est atteint dès qu'il a commencé, et le reste jusqu'à la fin
-   *  du cycle : la preuve s'accumule sous les yeux, elle ne clignote pas. */
-  const atteint = (id: MomentId) => {
-    const b = BORNES.find((x) => x.id === id)!;
-    return t >= b.debut;
-  };
+  /**
+   * LE contrat de focus. Un seul élément domine à chaque instant ; pendant la
+   * respiration, on conserve le dernier focus plutôt que d'en inventer un.
+   */
+  const focus: Focus = useMemo(() => {
+    if (chapitre === "respiration") return "output";
+    return CHAPITRES.find((c) => c.id === chapitre)!.focus;
+  }, [chapitre]);
 
-  /** Les trois effets du travail coordonné, décalés dans leur moment. */
-  const effets = useMemo(() => {
-    const b = BORNES.find((x) => x.id === "travail")!;
-    return EFFETS.map((e) => ({ ...e, vu: t >= b.debut + e.decalage }));
-  }, [t]);
+  const definition = CHAPITRES[Math.max(0, index - 1)];
 
-  return { t, moment, index, dans, atteint, effets, reduced, visible };
+  /** Sixième moment technique : l'instant où la décision est prise. */
+  const decidee = chapitre === "sortie" || chapitre === "respiration" ||
+    (chapitre === "decision" && dans >= INSTANT_DECISION);
+
+  /** Le système est arrêté depuis que le contexte manque jusqu'à la décision. */
+  const arrete = chapitre === "manque" || (chapitre === "decision" && !decidee);
+
+  /** Un chapitre est atteint dès qu'il a commencé. Sert à l'accumulation. */
+  const atteint = (id: ChapitreId) => t >= BORNES.find((x) => x.id === id)!.debut;
+
+  return { t, chapitre, index, dans, focus, definition, decidee, arrete, atteint, reduced, visible };
 }

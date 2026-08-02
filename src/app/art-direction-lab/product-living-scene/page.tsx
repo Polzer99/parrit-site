@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { LivingScene } from "./LivingScene";
 
 export const metadata: Metadata = {
-  title: "Product Living System — scène",
+  title: "Product Living System · scène",
   description: "Scène produit expérimentale. Interne, non publiée.",
   robots: { index: false, follow: false, nocache: true },
 };

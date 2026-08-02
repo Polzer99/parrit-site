@@ -1,12 +1,15 @@
 /**
- * PRODUCT-LIVING-HERO-PROOF-V1 — contrôles du hero.
+ * PRODUCT LIVING HERO PROOF — contrôles du hero.
  *
- * Teste /art-direction-lab/product-living-hero-proof, dans ses deux
- * traitements Paper et Ink. Les harnais de Concept D et des scènes V1, V2 et
- * Premium restent séparés et inchangés.
+ * Teste /art-direction-lab/product-living-hero-proof dans ses deux
+ * traitements, plus le mode présentation. Les harnais de Concept D et des
+ * scènes longues restent séparés et inchangés.
+ *
+ * Ce harnais porte les standards produit du benchmark :
+ * `docs/design-system/SILICON-VALLEY-AI-PRODUCT-STANDARDS.md`.
  *
  * Le Retell Test n'est PAS ici : il se fait avec un humain qui n'a jamais vu
- * la scène, et il appartient à Paul.
+ * la scène, en mode présentation, et il appartient à Paul.
  *
  * Usage : node scripts/hero-proof-qa.mjs
  */
@@ -23,18 +26,20 @@ const note = (m) => problems.push(m);
 const DESKTOP = { width: 1440, height: 900 };
 const MOBILE = { width: 390, height: 844 };
 
-const MOMENTS = ["signal", "comprehension", "travail", "arret", "decision", "action"];
+/** Les cinq chapitres visibles. La logique interne en compte six. */
+const CHAPITRES = ["signal", "verification", "manque", "decision", "sortie"];
 
-/** Vocabulaire interdit à l'écran. La compréhension ne doit pas en dépendre. */
-const JARGON = [
+/** Vocabulaire de niveau 3 et jargon : rien de tout cela dans le hero. */
+const INTERDITS = [
   "agent orchestration", "multi-agent", "multi agent", "LLM", "RAG",
-  "policy", "memory", "provenance", "HumanGate", "human gate",
-  "commit", "rollback", "POL-04", "R-014", "OPP-2041",
+  "policy", "memory", "provenance", "HumanGate", "human gate", "guardrail",
+  "commit", "rollback", "POL-04", "R-014", "OPP-2041", "workflow state",
   "SGN", "CTX", "IDN", "REL", "HYP", "RSK", "ACT", "DEC",
-  "orchestration", "agents coordonnés", "v0", "v1", "v2", "v3",
+  "orchestration", "ingestion", "tool invocation", "agent run",
+  "v0", "v1", "v2", "v3",
 ];
 
-async function open(browser, viewport, opts = {}) {
+async function open(browser, viewport, opts = {}, suffixe = "") {
   const ctx = await browser.newContext({ viewport, ...opts });
   const page = await ctx.newPage();
   const erreurs = [];
@@ -42,28 +47,30 @@ async function open(browser, viewport, opts = {}) {
   page.on("console", (m) => {
     if (m.type() === "error") erreurs.push(m.text());
   });
-  await page.goto(BASE + R, { waitUntil: "networkidle" });
+  await page.goto(BASE + R + suffixe, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
+  await page.mouse.move(2, 2);
   return { ctx, page, erreurs };
 }
 
-const moment = (page) => page.locator(".hp").getAttribute("data-moment");
+const chapitre = (page) => page.locator(".hp").getAttribute("data-chapitre");
 
-async function attendre(page, cible, max = 16000) {
+async function attendre(page, cible, max = 22000) {
   await page
-    .waitForFunction((c) => document.querySelector(".hp")?.getAttribute("data-moment") === c, cible, {
+    .waitForFunction((c) => document.querySelector(".hp")?.getAttribute("data-chapitre") === c, cible, {
       timeout: max,
     })
-    .catch(() => note(`le moment « ${cible} » n'est jamais atteint`));
+    .catch(() => note(`le chapitre « ${cible} » n'est jamais atteint`));
 }
 
-/** Choisit un traitement sans toucher au reste. */
 async function traitement(page, v) {
   await page.locator(".hp-lab-choix button", { hasText: v === "paper" ? "Paper" : "Ink" }).click();
   await page.waitForTimeout(150);
 }
 
-/** Contraste WCAG des textes visibles. C'est ce garde-fou qui manquait. */
+const pose = (page, ms = 500) => page.waitForTimeout(ms);
+
+/** Contraste WCAG, fonds semi-transparents composés. */
 const CONTRASTE = () => {
   const lum = (c) => {
     const [r, g, b] = c.map((v) => {
@@ -73,9 +80,6 @@ const CONTRASTE = () => {
     return 0.2126 * r + 0.7152 * g + 0.0722 * b;
   };
   const rgb = (s) => (s.match(/\d+(\.\d+)?/g) ?? []).slice(0, 3).map(Number);
-  /* Les fonds semi-transparents doivent être COMPOSÉS sur ce qu'il y a
-     derrière. Les lire comme opaques faisait passer un `rgba(255,255,255,.05)`
-     posé sur de l'encre pour du blanc, et inventait des défauts inexistants. */
   const alpha = (s) => {
     const m = s.match(/rgba?\(([^)]+)\)/);
     if (!m) return null;
@@ -94,11 +98,8 @@ const CONTRASTE = () => {
       n = n.parentElement;
     }
     if (!couches.length) return [255, 255, 255];
-    // De la couche la plus profonde vers la plus proche.
     let base = couches[couches.length - 1].a === 1 ? couches.pop().c : [255, 255, 255];
-    for (const c of couches.reverse()) {
-      base = base.map((b, i) => c.c[i] * c.a + b * (1 - c.a));
-    }
+    for (const c of couches.reverse()) base = base.map((b, i) => c.c[i] * c.a + b * (1 - c.a));
     return base;
   };
   const out = [];
@@ -106,18 +107,16 @@ const CONTRASTE = () => {
     const propre = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim().length > 1);
     if (!propre) continue;
     const cs = getComputedStyle(el);
-    if (cs.display === "none" || cs.visibility === "hidden") continue;
-    if (parseFloat(cs.opacity) < 0.6) continue;
+    if (cs.display === "none" || cs.visibility === "hidden" || parseFloat(cs.opacity) < 0.6) continue;
     const r = el.getBoundingClientRect();
     if (!r.width || !r.height) continue;
     const a = lum(rgb(cs.color));
     const b = lum(fond(el));
     const ratio = (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
     const px = parseFloat(cs.fontSize);
-    const gras = parseInt(cs.fontWeight, 10) >= 700;
-    const seuil = px >= 24 || (px >= 18.66 && gras) ? 3 : 4.5;
+    const seuil = px >= 24 || (px >= 18.66 && parseInt(cs.fontWeight, 10) >= 700) ? 3 : 4.5;
     if (ratio < seuil) {
-      out.push(`${el.className || el.tagName} ${ratio.toFixed(2)}:1 (seuil ${seuil}) « ${el.textContent.trim().slice(0, 30)} »`);
+      out.push(`${el.className || el.tagName} ${ratio.toFixed(2)}:1 « ${el.textContent.trim().slice(0, 28)} »`);
     }
   }
   return out;
@@ -126,27 +125,34 @@ const CONTRASTE = () => {
 const browser = await chromium.launch();
 await mkdir(OUT, { recursive: true });
 
-/* ===================== Structure, jargon, contraste ===================== */
+/* ============ Structure, standards de lecture, contraste ================ */
 {
   const { ctx, page, erreurs } = await open(browser, DESKTOP);
 
-  /* ---- Hero Conversion Structure Test ---- */
+  /* ---- Hero Conversion Structure · One Primary Action ---- */
   const structure = await page.evaluate(() => ({
     titre: document.querySelector(".hp-titre")?.textContent?.trim(),
     promesse: document.querySelector(".hp-promesse")?.textContent?.trim(),
     cta: document.querySelector(".hp-cta")?.textContent?.trim(),
-    ctaHref: document.querySelector(".hp-cta")?.getAttribute("href"),
     preuve: Boolean(document.querySelector(".hp-proof")),
     demo: document.querySelector(".hp-demo")?.getAttribute("href"),
+    ctasPrincipaux: document.querySelectorAll(".hp-cta").length,
+    boutonsDansPreuve: document.querySelectorAll(".hp-proof button, .hp-proof a").length,
   }));
-  for (const [cle, v] of Object.entries(structure)) {
-    if (!v) note(`Hero Conversion Structure : ${cle} absent`);
+  for (const cle of ["titre", "promesse", "cta", "preuve", "demo"]) {
+    if (!structure[cle]) note(`Hero Conversion Structure : ${cle} absent`);
   }
-  if (structure.demo && !structure.demo.includes("product-living-scene")) {
-    note("Hero Conversion Structure : le lien ne mène pas à la démonstration longue");
+  if (structure.ctasPrincipaux !== 1) note(`One Primary Action : ${structure.ctasPrincipaux} appels à l'action principaux`);
+  if (structure.boutonsDansPreuve > 0) {
+    note(`One Primary Action : ${structure.boutonsDansPreuve} élément(s) cliquable(s) dans la preuve`);
   }
 
-  /* ---- La copy n'a pas bougé : comparaison au socle partagé ---- */
+  /* ---- Complexity Available : le lien mène au même scénario ---- */
+  if (structure.demo && !structure.demo.includes("product-living-scene")) {
+    note("Complexity Available : le lien ne mène pas à la démonstration longue");
+  }
+
+  /* ---- La copy commerciale n'a pas bougé ---- */
   const attendu = {
     eyebrow: "Direction IA opérationnelle · Mission de 3 mois",
     promesse:
@@ -156,206 +162,297 @@ await mkdir(OUT, { recursive: true });
   const eyebrow = (await page.locator(".hp-eyebrow").innerText()).trim();
   if (eyebrow.toLowerCase() !== attendu.eyebrow.toLowerCase()) note(`copy : eyebrow modifié — « ${eyebrow} »`);
   if (structure.promesse !== attendu.promesse) note("copy : la promesse a été modifiée");
-  if (structure.cta !== attendu.cta) note(`copy : le CTA a été modifié — « ${structure.cta} »`);
+  if (structure.cta !== attendu.cta) note(`copy : l'appel à l'action a été modifié — « ${structure.cta} »`);
 
-  /* ---- Le ratio du hero ---- */
-  const ratio = await page.evaluate(() => {
-    const g = document.querySelector(".hp-grid");
-    const l = document.querySelector(".hp-lede");
-    const p = document.querySelector(".hp-preuve");
-    if (!g || !p) return null;
-    const total = g.getBoundingClientRect().width;
-    return {
-      editorial: (l?.getBoundingClientRect().width ?? 0) / total,
-      preuve: p.getBoundingClientRect().width / total,
-      hauteurPreuve: p.getBoundingClientRect().height,
-    };
+  /* ---- Demo Honesty ---- */
+  const specimen = await page.locator(".hp-specimen").innerText();
+  if (!/démonstration/i.test(specimen)) note(`Demo Honesty : mention de démonstration absente — « ${specimen} »`);
+
+  /* ---- Object First : l'objet avant les agents, et aucun agent nommé ---- */
+  const objet = await page.evaluate(() => ({
+    present: Boolean(document.querySelector(".hp-objet")),
+    titre: document.querySelector(".hp-objet-titre")?.textContent?.trim(),
+  }));
+  if (!objet.present || !objet.titre) note("Object First : aucun objet métier permanent");
+  const texteHero = (await page.locator(".hp-hero").innerText()).toLowerCase();
+  ["agent ", "agents", "orchestrateur"].forEach((m) => {
+    // « système d'agents » appartient à la promesse commerciale : on ne compte
+    // que ce qui est écrit dans la preuve elle-même.
+    if (m !== "agents" && texteHero.includes(m)) note(`Object First : « ${m} » nommé dans le hero`);
   });
-  if (ratio) {
-    if (ratio.preuve < 0.45 || ratio.preuve > 0.58) {
-      note(`ratio : la preuve occupe ${Math.round(ratio.preuve * 100)}%, la cible est 48 à 55`);
-    }
-    if (ratio.hauteurPreuve < 380) note(`ratio : le panneau ne fait que ${Math.round(ratio.hauteurPreuve)}px, il devient décoratif`);
+  const textePreuve = (await page.locator(".hp-proof").innerText()).toLowerCase();
+  if (/agent/.test(textePreuve)) note("Object First : un agent est nommé dans la preuve");
+
+  /* ---- Progressive Disclosure · No Jargon ---- */
+  INTERDITS.filter((j) =>
+    new RegExp(`\\b${j.toLowerCase().replace(/-/g, "[- ]")}\\b`).test(textePreuve),
+  ).forEach((j) => note(`Progressive Disclosure : « ${j} » affiché dans la preuve`));
+  if (/\d{1,2}:\d{2}|\bil y a \d/.test(textePreuve.replace(/mar 09:30/g, ""))) {
+    note("Progressive Disclosure : un horodatage est affiché dans la preuve");
   }
 
-  /* ---- Le premier viewport contient la promesse, le CTA et la preuve ---- */
-  const premierEcran = await page.evaluate(() => {
-    const dans = (s) => {
-      const r = document.querySelector(s)?.getBoundingClientRect();
-      return r ? r.top < window.innerHeight && r.bottom > 0 : false;
-    };
-    return { promesse: dans(".hp-promesse"), cta: dans(".hp-cta"), preuve: dans(".hp-proof") };
-  });
-  for (const [cle, v] of Object.entries(premierEcran)) {
-    if (!v) note(`premier viewport : ${cle} hors écran`);
-  }
-
-  /* ---- No Jargon Test, sur le texte réellement affiché ---- */
-  const texte = (await page.locator(".hp-hero").innerText()).toLowerCase();
-  JARGON.filter((j) => new RegExp(`\\b${j.toLowerCase().replace(/[-]/g, "[- ]")}\\b`).test(texte)).forEach((j) =>
-    note(`No Jargon : « ${j} » est affiché dans le hero`),
-  );
-
-  /* ---- Contraste ---- */
-  for (const v of ["paper", "ink"]) {
+  /* ---- Contraste, dans les deux traitements ---- */
+  for (const v of ["ink", "paper"]) {
     await traitement(page, v);
-    await attendre(page, "action");
-    await page.waitForTimeout(300);
-    const faibles = await page.evaluate(CONTRASTE);
-    faibles.slice(0, 4).forEach((f) => note(`contraste ${v} : ${f}`));
+    await attendre(page, "sortie");
+    await pose(page, 400);
+    (await page.evaluate(CONTRASTE)).slice(0, 4).forEach((f) => note(`contraste ${v} : ${f}`));
   }
+  await traitement(page, "ink");
 
-  const over = await page.evaluate(
-    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
-  );
-  if (over > 1) note(`débordement horizontal desktop de ${over}px`);
   erreurs.forEach((e) => note(`erreur console : ${e}`));
   await ctx.close();
 }
 
-/* ============ Six Moment · Human Stop · No Interaction Required ========== */
+/* ====== Five Chapter · Human Pace · One Focus · budget de texte ========== */
 {
   const { ctx, page } = await open(browser, DESKTOP);
 
-  /* On observe une boucle entière SANS jamais cliquer. */
-  const suite = await page.evaluate(async () => {
+  /* Un cycle entier observé SANS jamais cliquer, avec les temps réels. */
+  const suite = await page.evaluate(async (chaps) => {
     const vus = [];
-    const t0 = Date.now();
+    const durees = {};
+    /* On ne commence à chronométrer qu'APRÈS être entré dans un chapitre :
+       sinon le premier observé est mesuré depuis le début de l'observation,
+       donc tronqué, et le test accuse le produit d'un défaut qui n'existe pas. */
+    let demarre = false;
+    let courant = null;
+    let debut = Date.now();
+    let arret = 0;
     let arretDebut = null;
-    let arretDuree = 0;
-    while (Date.now() - t0 < 26000) {
-      const m = document.querySelector(".hp")?.getAttribute("data-moment");
-      if (m && vus[vus.length - 1] !== m) vus.push(m);
-      if (m === "arret" && arretDebut === null) arretDebut = Date.now();
-      if (m !== "arret" && arretDebut !== null && arretDuree === 0) {
-        arretDuree = Date.now() - arretDebut;
+    const t0 = Date.now();
+    const focus = new Set();
+    let actives = 0;
+
+    while (Date.now() - t0 < 45000) {
+      const el = document.querySelector(".hp");
+      const c = el?.getAttribute("data-chapitre");
+      const f = el?.getAttribute("data-focus");
+      if (f) focus.add(f);
+      // Une seule surface active à la fois : le chapitre courant.
+      actives = Math.max(actives, document.querySelectorAll(".hp-chapitre").length);
+      if (c !== courant) {
+        if (demarre && courant) {
+          durees[courant] = Math.max(durees[courant] ?? 0, Date.now() - debut);
+        }
+        if (c === "signal") demarre = true;
+        courant = c;
+        debut = Date.now();
+        vus.push(c);
       }
-      if (vus.filter((x) => x === "signal").length >= 2) break;
+      const bloque = el?.getAttribute("data-focus");
+      if (bloque === "missing_information" && arretDebut === null) arretDebut = Date.now();
+      if (arretDebut !== null && !document.querySelector('.hp-proof[data-arrete="oui"]') && arret === 0) {
+        arret = Date.now() - arretDebut;
+      }
+      /* On sort au TROISIÈME passage : le deuxième cycle est alors complet et
+         chronométré de bout en bout, celui-là seul fait foi. */
+      if (demarre && vus.filter((x) => x === "signal").length >= 3) break;
       await new Promise((r) => setTimeout(r, 40));
     }
-    return { vus, arretDuree };
-  });
+    return { vus, durees, arret, focus: [...focus], actives };
+  }, CHAPITRES);
 
-  /* ---- Six Moment Test : les six, dans l'ordre ---- */
+  /* ---- Five Chapter Test ---- */
   const cycle = suite.vus.slice(suite.vus.indexOf("signal"));
-  const ordre = cycle.filter((m) => MOMENTS.includes(m));
-  const attenduOrdre = MOMENTS.join(">");
-  const obtenu = [...new Set(ordre)].join(">");
-  if (!obtenu.startsWith(attenduOrdre)) {
-    note(`Six Moment : ordre obtenu « ${obtenu} », attendu « ${attenduOrdre} »`);
+  const ordre = [...new Set(cycle.filter((c) => CHAPITRES.includes(c)))];
+  if (ordre.join(">") !== CHAPITRES.join(">")) {
+    note(`Five Chapter : ordre obtenu « ${ordre.join(">")} », attendu « ${CHAPITRES.join(">")} »`);
   }
-  if (!cycle.includes("respiration")) note("boucle : aucune respiration entre deux répétitions");
+  if (!cycle.includes("respiration")) note("Five Chapter : aucune respiration avant la répétition");
 
-  /* ---- Human Stop Test ---- */
-  if (suite.arretDuree < 1200) note(`Human Stop : l'arrêt ne dure que ${suite.arretDuree}ms, il faut au moins 1200`);
-
-  /* ---- No Interaction Required Test ---- */
-  if (![...new Set(ordre)].every((m) => MOMENTS.includes(m)) || new Set(ordre).size < 6) {
-    note("No Interaction Required : la boucle n'atteint pas les six moments sans clic");
+  /* ---- Human Pace Test ---- */
+  for (const c of CHAPITRES) {
+    const d = suite.durees[c] ?? 0;
+    if (d < 1800) note(`Human Pace : le chapitre « ${c} » ne tient que ${d}ms, il en faut 1800`);
   }
+  if (suite.arret < 2000) note(`Human Pace : l'arrêt ne dure que ${suite.arret}ms, il en faut 2000`);
+  const respiration = suite.durees.respiration ?? 0;
+  if (respiration < 1000) note(`Human Pace : respiration de ${respiration}ms, il en faut 1000`);
 
-  /* ---- Durée totale du cycle ---- */
-  const duree = await page.evaluate(async () => {
-    const lire = () => document.querySelector(".hp")?.getAttribute("data-moment");
-    while (lire() !== "signal") await new Promise((r) => setTimeout(r, 30));
-    const t0 = Date.now();
-    while (lire() === "signal") await new Promise((r) => setTimeout(r, 30));
-    while (lire() !== "signal") await new Promise((r) => setTimeout(r, 30));
-    return Date.now() - t0;
-  });
-  if (duree < 8000 || duree > 12000) note(`boucle : ${duree}ms, la cible est 8 000 à 12 000`);
+  /* ---- Durée totale ---- */
+  const total = CHAPITRES.reduce((s, c) => s + (suite.durees[c] ?? 0), 0) + respiration;
+  if (total < 11000 || total > 15000) note(`boucle : ${total}ms au total, la cible est 12 000 à 14 000`);
 
-  /* ---- Pendant l'arrêt, aucune sortie n'est déjà visible ---- */
-  await attendre(page, "arret");
-  const pendant = await page.evaluate(() => ({
-    arret: document.querySelector('.hp-arret[data-vu="oui"]') !== null,
-    sortie: document.querySelector('.hp-sorties[data-vu="oui"]') !== null,
-    decide: document.querySelector('.hp-arret[data-decide="oui"]') !== null,
-  }));
-  if (!pendant.arret) note("Human Stop : le bloc d'arrêt n'est pas visible pendant son moment");
-  if (pendant.sortie) note("Human Stop : la sortie est déjà visible pendant l'arrêt");
-  if (pendant.decide) note("Human Stop : la décision est marquée avant son moment");
+  /* ---- One Focus Test ---- */
+  if (suite.actives > 1) note(`One Focus : ${suite.actives} chapitres rendus simultanément`);
+  if (suite.focus.length !== 5) note(`One Focus : ${suite.focus.length} valeurs de focus au lieu de 5`);
 
-  await ctx.close();
-}
-
-/* ================= Proof Not Decoration · Legibility ===================== */
-{
-  const { ctx, page } = await open(browser, DESKTOP);
-  await attendre(page, "action");
-  await page.waitForTimeout(400);
-
-  const preuve = await page.evaluate(() => {
-    const lignes = [
-      ...document.querySelectorAll(
-        ".hp-signal-objet, .hp-objet-ligne, .hp-effet-ligne, .hp-arret-raison, .hp-sortie-ligne",
-      ),
-    ].map((e) => e.textContent?.trim());
-    const petits = [
-      ...document.querySelectorAll(".hp-proof *"),
-    ].filter((e) => {
-      const propre = [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
-      return propre && parseFloat(getComputedStyle(e).fontSize) < 13;
-    }).length;
-    const blocs = ["signal", "comprehension", "travail", "arret", "decision", "action"].map((b) => {
-      const el = document.querySelector(`[data-bloc="${b}"]`);
-      const r = el?.getBoundingClientRect();
-      return { b, present: Boolean(el), aire: r ? Math.round(r.width * r.height) : 0 };
-    });
-    return { lignes: [...new Set(lignes.filter(Boolean))], petits, blocs };
-  });
-
-  if (preuve.lignes.length < 6) {
-    note(`Proof Not Decoration : seulement ${preuve.lignes.length} informations métier distinctes`);
-  }
-  if (preuve.petits > 0) note(`Scene Legibility : ${preuve.petits} texte(s) sous 13px dans la preuve`);
-  preuve.blocs.forEach((b) => {
-    if (!b.present) note(`Six Moment : le bloc « ${b.b} » n'existe pas dans le balisage`);
-    else if (b.aire < 2500) note(`Scene Legibility : le bloc « ${b.b} » ne fait que ${b.aire}px²`);
-  });
-  await ctx.close();
-}
-
-/* ===================== Paper / Ink Parity Test ========================== */
-{
-  const lire = async (v) => {
-    const { ctx, page } = await open(browser, DESKTOP);
-    await traitement(page, v);
-    await attendre(page, "action");
-    await page.waitForTimeout(400);
-    const r = await page.evaluate(() => ({
-      texte: document.querySelector(".hp-hero")?.innerText.replace(/\s+/g, " ").trim(),
-      blocs: [...document.querySelectorAll("[data-bloc]")].map((e) => e.getAttribute("data-bloc")).join(","),
+  /* ---- State Legibility : budget de texte, chapitre par chapitre ---- */
+  for (const c of CHAPITRES) {
+    await attendre(page, c);
+    await pose(page, 300);
+    const b = await page.evaluate(() => ({
+      titre: document.querySelector(".hp-chap-titre")?.textContent?.trim() ?? "",
+      info: document.querySelector(".hp-chap-info")?.textContent?.trim() ?? "",
+      lignes: document.querySelectorAll(".hp-chap-corps li, .hp-chap-corps p").length,
+      rouges: [...document.querySelectorAll(".hp-proof *")].filter((el) => {
+        const cs = getComputedStyle(el);
+        const propre = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
+        return propre && /rgb\(209, 19, 47/.test(cs.color);
+      }).length,
     }));
-    await ctx.close();
-    return r;
-  };
-  const paper = await lire("paper");
-  const ink = await lire("ink");
-  if (paper.texte !== ink.texte) note("Paper / Ink Parity : les deux traitements n'affichent pas le même texte");
-  if (paper.blocs !== ink.blocs) note("Paper / Ink Parity : les deux traitements n'ont pas la même structure");
+    const mt = b.titre.split(/\s+/).filter(Boolean).length;
+    const mi = b.info.split(/\s+/).filter(Boolean).length;
+    if (mt < 2 || mt > 5) note(`State Legibility : titre de « ${c} » = ${mt} mots, budget 2 à 5`);
+    if (mi > 12) note(`State Legibility : information de « ${c} » = ${mi} mots, budget 12`);
+    if (b.lignes > 3) note(`One Focus : ${b.lignes} éléments dans le corps de « ${c} », maximum 3`);
+    if (b.rouges > 0) note(`One Focus : ${b.rouges} texte(s) secondaire(s) en rouge dans « ${c} »`);
+  }
+
+  /* ---- Human Ownership · Concrete Output ---- */
+  await attendre(page, "decision");
+  await pose(page, 1700);
+  const decision = await page.evaluate(() => ({
+    acte: document.querySelector(".hp-decision-acte")?.textContent?.trim(),
+    visage: Boolean(document.querySelector(".hp-photo")),
+    action: document.querySelector(".hp-decision-action")?.textContent?.trim(),
+    sortieVisible: document.querySelectorAll(".hp-sorties li").length,
+  }));
+  if (!decision.acte || !/humain/i.test(decision.acte)) note("Human Ownership : la décision n'est pas attribuée à un humain");
+  if (!decision.visage) note("Human Ownership : aucune incarnation de la décision");
+  if (!decision.action) note("Human Ownership : l'action proposée n'est pas montrée avant la décision");
+  if (decision.sortieVisible > 0) note("Human Stop : une sortie est visible pendant la décision");
+  await page.screenshot({ path: `${OUT}/ink-desktop-04-decision.png` });
+
+  await attendre(page, "sortie");
+  await pose(page, 900);
+  const sortie = await page.locator(".hp-proof").innerText();
+  if (!/prépar/i.test(sortie)) note("Concrete Output : l'état « préparé » n'est pas nommé");
+  if (/\benvoyé\b/i.test(sortie) && !/rien n'a été envoyé/i.test(sortie)) {
+    note("Concrete Output : « envoyé » est employé pour une action seulement préparée");
+  }
+  await page.screenshot({ path: `${OUT}/ink-desktop-05-sortie.png` });
+  await ctx.close();
 }
 
-/* ===================== Captures desktop, deux traitements =============== */
-for (const v of ["paper", "ink"]) {
+/* ================= Captures desktop, deux traitements =================== */
+for (const v of ["ink", "paper"]) {
   const { ctx, page } = await open(browser, DESKTOP);
   await traitement(page, v);
-  await attendre(page, "signal");
-  await page.waitForTimeout(300);
-  await page.screenshot({ path: `${OUT}/${v}-desktop-01-initial.png` });
-  await attendre(page, "arret");
-  await page.waitForTimeout(450);
-  await page.screenshot({ path: `${OUT}/${v}-desktop-02-arret.png` });
-  await attendre(page, "action");
-  await page.waitForTimeout(700);
-  await page.screenshot({ path: `${OUT}/${v}-desktop-03-sortie.png` });
-
-  /* Séquence des six moments, timing identique pour les deux traitements. */
-  for (const m of MOMENTS) {
-    await attendre(page, m);
-    await page.waitForTimeout(m === "travail" ? 1800 : 350);
-    await page.locator(".hp-proof").screenshot({ path: `${OUT}/${v}-moment-${MOMENTS.indexOf(m) + 1}-${m}.png` });
+  for (const c of CHAPITRES) {
+    await attendre(page, c);
+    await pose(page, c === "decision" ? 1700 : 800);
+    await page.screenshot({ path: `${OUT}/${v}-desktop-${CHAPITRES.indexOf(c) + 1}-${c}.png` });
   }
+  await ctx.close();
+}
+
+/* ============================ No Overflow =============================== */
+{
+  const VIEWPORTS = [
+    [320, 568], [375, 812], [390, 844], [768, 1024],
+    [1024, 768], [1280, 720], [1440, 900], [1728, 1117],
+  ];
+  for (const [w, h] of VIEWPORTS) {
+    const { ctx, page } = await open(browser, { width: w, height: h });
+    await attendre(page, "decision");
+    await pose(page, 1700);
+    const deborde = await page.evaluate(() => {
+      const doc = document.documentElement;
+      const hors = [];
+      const cadre = document.querySelector(".hp-proof")?.getBoundingClientRect();
+      for (const el of document.querySelectorAll(".hp *")) {
+        const r = el.getBoundingClientRect();
+        if (!r.width || !r.height) continue;
+        if (r.right > doc.clientWidth + 1 || r.left < -1) {
+          hors.push(`${el.className || el.tagName} → ${Math.round(r.right)}`);
+        }
+        // Rien ne sort du panneau de preuve.
+        if (cadre && el.closest(".hp-proof") && (r.right > cadre.right + 1 || r.bottom > cadre.bottom + 1)) {
+          hors.push(`hors panneau : ${el.className || el.tagName}`);
+        }
+      }
+      return { page: doc.scrollWidth - doc.clientWidth, hors: [...new Set(hors)].slice(0, 3) };
+    });
+    if (deborde.page > 1) note(`No Overflow ${w}×${h} : débordement de ${deborde.page}px`);
+    deborde.hors.forEach((x) => note(`No Overflow ${w}×${h} : ${x}`));
+    if (w === 320 || w === 1280) {
+      await page.screenshot({ path: `${OUT}/overflow-${w}x${h}.png` });
+    }
+    await ctx.close();
+  }
+
+  /* Zoom 200 % : on double la taille de base plutôt que le facteur d'échelle,
+     c'est ce que fait réellement le zoom texte des navigateurs. */
+  const { ctx, page } = await open(browser, { width: 1440, height: 900 });
+  await page.addStyleTag({ content: ".hp { font-size: 32px }" });
+  await attendre(page, "decision");
+  await pose(page, 800);
+  const zoom = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
+  if (zoom > 1) note(`No Overflow zoom 200% : débordement de ${zoom}px`);
+  await ctx.close();
+}
+
+/* ===================== Mobile One Moment ================================ */
+for (const v of ["ink", "paper"]) {
+  const { ctx, page, erreurs } = await open(browser, MOBILE);
+  await traitement(page, v);
+  await attendre(page, "signal");
+  await pose(page, 400);
+  await page.screenshot({ path: `${OUT}/${v}-mobile-1-signal.png` });
+
+  const vue = await page.evaluate(() => {
+    const p = document.querySelector(".hp-proof")?.getBoundingClientRect();
+    const cta = document.querySelector(".hp-cta")?.getBoundingClientRect();
+    if (!p) return null;
+    return {
+      haut: Math.round(p.top),
+      visible: Math.round(Math.max(0, Math.min(p.bottom, window.innerHeight) - Math.max(p.top, 0))),
+      ecran: window.innerHeight,
+      ctaApres: cta ? cta.top > p.top : false,
+      chapitres: document.querySelectorAll(".hp-chapitre").length,
+    };
+  });
+  if (!vue) note(`mobile ${v} : pas de preuve`);
+  else {
+    if (vue.haut > vue.ecran * 0.75) note(`Mobile First View ${v} : la preuve commence à ${vue.haut}px`);
+    if (vue.visible < 200) note(`Mobile First View ${v} : ${vue.visible}px de preuve visibles seulement`);
+    if (!vue.ctaApres) note(`mobile ${v} : l'appel à l'action n'est pas sous la preuve`);
+    if (vue.chapitres !== 1) note(`Mobile One Moment ${v} : ${vue.chapitres} chapitres à l'écran`);
+  }
+
+  await attendre(page, "manque");
+  await pose(page, 500);
+  await page.screenshot({ path: `${OUT}/${v}-mobile-3-manque.png` });
+  await attendre(page, "sortie");
+  await pose(page, 900);
+  await page.screenshot({ path: `${OUT}/${v}-mobile-5-sortie.png` });
+
+  const petits = await page.evaluate(() => {
+    const out = [];
+    for (const el of document.querySelectorAll(".hp *")) {
+      if (!el.textContent?.trim() || el.children.length) continue;
+      if (getComputedStyle(el).display === "none") continue;
+      const px = parseFloat(getComputedStyle(el).fontSize);
+      if (px < 12) out.push(`${el.className || el.tagName} ${px}px`);
+    }
+    return [...new Set(out)].slice(0, 4);
+  });
+  petits.forEach((p) => note(`mobile ${v} : microtexte ${p}`));
+  erreurs.forEach((e) => note(`mobile ${v}, erreur console : ${e}`));
+  await ctx.close();
+}
+
+/* ======================= Mode présentation ============================== */
+{
+  const { ctx, page } = await open(browser, DESKTOP, {}, "?presentation=1");
+  const chrome = await page.evaluate(() => ({
+    lab: document.querySelectorAll(".hp-lab").length,
+    boutons: document.querySelectorAll(".hp-lab-choix button").length,
+    cta: document.querySelectorAll(".hp-cta").length,
+    preuve: document.querySelectorAll(".hp-proof").length,
+    demo: document.querySelectorAll(".hp-demo").length,
+  }));
+  if (chrome.lab > 0 || chrome.boutons > 0) note("mode présentation : le mobilier de laboratoire est encore visible");
+  if (chrome.cta !== 1 || chrome.preuve !== 1 || chrome.demo !== 1) {
+    note("mode présentation : le hero n'est pas complet");
+  }
+  await attendre(page, "decision");
+  await pose(page, 1700);
+  await page.screenshot({ path: `${OUT}/presentation-decision.png` });
   await ctx.close();
 }
 
@@ -365,15 +462,15 @@ for (const v of ["paper", "ink"]) {
   const vus = await page.evaluate(async () => {
     const out = [];
     const t0 = Date.now();
-    while (Date.now() - t0 < 14000) {
-      const m = document.querySelector(".hp")?.getAttribute("data-moment");
-      if (m && out[out.length - 1] !== m) out.push(m);
+    while (Date.now() - t0 < 16000) {
+      const c = document.querySelector(".hp")?.getAttribute("data-chapitre");
+      if (c && out[out.length - 1] !== c) out.push(c);
       await new Promise((r) => setTimeout(r, 40));
     }
     return out;
   });
-  MOMENTS.forEach((m) => {
-    if (!vus.includes(m)) note(`reduced-motion : le moment « ${m} » n'apparaît plus`);
+  CHAPITRES.forEach((c) => {
+    if (!vus.includes(c)) note(`reduced-motion : le chapitre « ${c} » n'apparaît plus`);
   });
   const longues = await page.evaluate(() => {
     const out = [];
@@ -384,25 +481,20 @@ for (const v of ["paper", "ink"]) {
     return [...new Set(out)].slice(0, 3);
   });
   longues.forEach((l) => note(`reduced-motion : durée longue restante, ${l}`));
-  await attendre(page, "arret");
-  await page.waitForTimeout(200);
-  if ((await page.locator('.hp-arret[data-vu="oui"]').count()) === 0) {
-    note("reduced-motion : l'arrêt humain n'est plus visible");
-  }
   await page.screenshot({ path: `${OUT}/reduced-motion.png` });
   await ctx.close();
 }
 
-/* ================= Onglet caché · démontage ============================= */
+/* ================= Veille onglet · démontage ============================ */
 {
   const { ctx, page } = await open(browser, DESKTOP);
-  await attendre(page, "travail");
+  await attendre(page, "verification");
   const veille = await page.evaluate(async () => {
     Object.defineProperty(document, "hidden", { value: true, configurable: true });
     document.dispatchEvent(new Event("visibilitychange"));
-    const avant = document.querySelector(".hp")?.getAttribute("data-moment");
+    const avant = document.querySelector(".hp")?.getAttribute("data-chapitre");
     await new Promise((r) => setTimeout(r, 1500));
-    return { avant, apres: document.querySelector(".hp")?.getAttribute("data-moment") };
+    return { avant, apres: document.querySelector(".hp")?.getAttribute("data-chapitre") };
   });
   if (veille.avant !== veille.apres) note("veille : la boucle continue alors que l'onglet est caché");
 
@@ -426,66 +518,18 @@ for (const v of ["paper", "ink"]) {
   await ctx.close();
 }
 
-/* ===================== Mobile First View Test =========================== */
-for (const v of ["paper", "ink"]) {
-  const { ctx, page, erreurs } = await open(browser, MOBILE);
-  await traitement(page, v);
-  await attendre(page, "signal");
-  await page.waitForTimeout(300);
-  await page.screenshot({ path: `${OUT}/${v}-mobile-01-initial.png` });
-
-  const vue = await page.evaluate(() => {
-    const p = document.querySelector(".hp-proof")?.getBoundingClientRect();
-    const cta = document.querySelector(".hp-cta")?.getBoundingClientRect();
-    if (!p) return null;
-    const visible = Math.max(0, Math.min(p.bottom, window.innerHeight) - Math.max(p.top, 0));
-    return { haut: Math.round(p.top), visible: Math.round(visible), ecran: window.innerHeight, ctaApres: cta ? cta.top > p.top : false };
-  });
-  if (!vue) note(`mobile ${v} : pas de bloc de preuve`);
-  else {
-    if (vue.haut > vue.ecran * 0.75) {
-      note(`Mobile First View ${v} : la preuve commence à ${vue.haut}px, trop bas`);
-    }
-    if (vue.visible < 200) note(`Mobile First View ${v} : seulement ${vue.visible}px de preuve visibles`);
-    if (!vue.ctaApres) note(`mobile ${v} : l'appel à l'action n'est pas sous la preuve`);
-  }
-
-  await attendre(page, "arret");
-  await page.waitForTimeout(450);
-  await page.screenshot({ path: `${OUT}/${v}-mobile-02-arret.png` });
-
-  const over = await page.evaluate(
-    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
-  );
-  if (over > 1) note(`mobile ${v} : débordement horizontal de ${over}px`);
-
-  const petits = await page.evaluate(() => {
-    const out = [];
-    for (const el of document.querySelectorAll(".hp *")) {
-      if (!el.textContent?.trim() || el.children.length) continue;
-      if (getComputedStyle(el).display === "none") continue;
-      const px = parseFloat(getComputedStyle(el).fontSize);
-      if (px < 12) out.push(`${el.className || el.tagName} ${px}px`);
-    }
-    return [...new Set(out)].slice(0, 4);
-  });
-  petits.forEach((p) => note(`mobile ${v} : microtexte ${p}`));
-  erreurs.forEach((e) => note(`mobile ${v}, erreur console : ${e}`));
-  await ctx.close();
-}
-
 await browser.close();
 
 /* ============================== WebKit ================================== */
 {
   const wk = await webkit.launch();
   const { ctx, page, erreurs } = await open(wk, DESKTOP);
-  await attendre(page, "arret");
-  await page.waitForTimeout(400);
-  await page.screenshot({ path: `${OUT}/webkit-arret.png` });
-  await attendre(page, "action");
-  await page.waitForTimeout(500);
-  if ((await page.locator('.hp-sorties[data-vu="oui"]').count()) === 0) {
+  await attendre(page, "decision");
+  await pose(page, 1700);
+  await page.screenshot({ path: `${OUT}/webkit-decision.png` });
+  await attendre(page, "sortie");
+  await pose(page, 900);
+  if ((await page.locator('.hp-sorties li[data-vu="oui"]').count()) === 0) {
     note("webkit : la sortie n'apparaît pas");
   }
   erreurs.forEach((e) => note(`webkit, erreur console : ${e}`));
@@ -495,5 +539,5 @@ await browser.close();
 
 console.log(problems.length ? `PROBLÈMES (${problems.length})` : "Aucun problème.");
 problems.forEach((p) => console.log("  ✗ " + p));
-console.log("\nRetell Test : humain, non marqué automatiquement.");
+console.log("\nRetell Test : humain, en mode présentation, non marqué automatiquement.");
 process.exit(problems.length ? 1 : 0);

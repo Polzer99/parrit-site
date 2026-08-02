@@ -117,7 +117,7 @@ body {
 /* ═══════════════════════════════════════════════════════════════════════
    HOMEPAGE-LEVEL0-V1 — fond structurel du variant.
 
-   Le body porte en production une photo de paysage sous un dégradé `#F5F8FF`,
+   Le body porte en production une photo de paysage sous un dégradé de la
    couleur périmée. C'est la violation la plus visible du Structural Integrity
    Test : la page dépend d'une image pour exister, et aucun média narratif ne
    doit être attaché globalement au body.

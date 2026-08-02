@@ -18,7 +18,7 @@ const mono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Design system — Parrit.ai",
+  title: "Design system · Parrit.ai",
   description: "Page specimen interne du design system Parrit.ai.",
   // Page interne : jamais indexée.
   robots: { index: false, follow: false, nocache: true },

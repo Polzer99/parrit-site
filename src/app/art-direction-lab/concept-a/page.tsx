@@ -3,7 +3,7 @@ import { FACTS } from "../content";
 import { LabBar } from "../LabBar";
 
 export const metadata: Metadata = {
-  title: "Concept A — Editorial Field Report",
+  title: "Concept A · Editorial Field Report",
   robots: { index: false, follow: false },
 };
 

@@ -27,7 +27,7 @@ const mono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Laboratoire de direction artistique — Parrit",
+  title: "Laboratoire de direction artistique · Parrit",
   description: "Trois directions artistiques comparables. Page interne, non publiée.",
   robots: { index: false, follow: false, nocache: true },
 };
