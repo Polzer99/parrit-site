@@ -231,10 +231,81 @@ export async function enregistrerDemandeRessource(
     throw new Error("touchpoint non retourné par la base : persistance non confirmée");
   }
 
+  await poserCarteSuperApp(contexte, prospect.id, workspaceId);
+
   return {
     prospectId: prospect.id,
     touchpointId: touchpoint.id,
     dejaEnregistre: false,
     workspaceId,
   };
+}
+
+/**
+ * LA CARTE DANS LA SUPER APP.
+ *
+ * Le point d'entrée existait déjà : `telegram_queue` est la file de cartes, avec
+ * son `dedup_key` — donc l'idempotence est portée par la table, pas par nous.
+ * On ne construit pas un second canal, on écrit dans celui qui tourne.
+ *
+ * La carte ne peut PAS faire échouer la capture : le lead est déjà en base. Un
+ * échec ici est journalisé, il n'est jamais avalé, mais il ne coûte pas le lead.
+ * Les adresses de test ne réveillent personne.
+ */
+async function poserCarteSuperApp(
+  contexte: ContexteLead,
+  prospectId: string,
+  workspaceId: string,
+): Promise<void> {
+  if (estAdresseDeTest(contexte.email)) return;
+
+  const campagne = contexte.attribution["utm_campaign"];
+  const texte = [
+    `Ressource demandée — ${contexte.ressourceSlug}`,
+    contexte.email,
+    contexte.articleSlug
+      ? `Arrivé par l'article « ${contexte.articleSlug} »`
+      : "Arrivé directement sur la ressource",
+    campagne ? `Campagne ${campagne}` : "Sans campagne",
+    contexte.attribution["utm_source"]
+      ? `Canal ${contexte.attribution["utm_source"]}`
+      : `Source ${contexte.source}`,
+    "",
+    "La ressource lui a été remise à l'écran. Prochaine action : proposer les 15 minutes.",
+  ].join("\n");
+
+  try {
+    await requeteSupabase({
+      methode: "POST",
+      chemin: "telegram_queue",
+      prefer: "resolution=ignore-duplicates",
+      corps: [
+        {
+          workspace_id: workspaceId,
+          prospect_id: prospectId,
+          card_type: "ressource_demandee",
+          category: "prospection",
+          card_text: texte,
+          status: "pending",
+          priority: 1,
+          // Une soumission, une carte. La table porte la déduplication.
+          dedup_key: `ressource:${contexte.submissionId}`,
+          metadata: {
+            submission_id: contexte.submissionId,
+            ressource_slug: contexte.ressourceSlug,
+            ressource_url: contexte.ressourceUrl,
+            article_slug: contexte.articleSlug ?? null,
+            source: contexte.source,
+            attribution: contexte.attribution,
+          },
+        },
+      ],
+    });
+  } catch (e) {
+    // Journalisé, jamais silencieux — et sans conséquence sur le lead persisté.
+    console.error("[leads] carte super app non posée", {
+      submissionId: contexte.submissionId,
+      message: e instanceof Error ? e.message : String(e),
+    });
+  }
 }
