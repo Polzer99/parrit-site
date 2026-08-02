@@ -3,14 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild": "node scripts/generate-llms.mjs",
-    "dev": "next dev",
+    "prebuild": "npm run context:check && node scripts/generate-llms.mjs",
     "build": "next build",
-    "start": "next start",
+    "context:build": "node scripts/context-build.mjs",
+    "context:check": "node scripts/context-build.mjs --check",
+    "context:show": "node scripts/context-build.mjs --show",
+    "dev": "next dev",
     "lint": "eslint",
-    "qa:doctrine": "node scripts/public-doctrine-audit.mjs",
     "qa:diagnostic:e2e": "playwright test tests/diagnostic-e2e.spec.ts",
-    "qa:premium": "playwright test tests/parrit-premium-qa.spec.ts"
+    "qa:doctrine": "node scripts/public-doctrine-audit.mjs",
+    "qa:premium": "playwright test tests/parrit-premium-qa.spec.ts",
+    "start": "next start"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.90.0",
