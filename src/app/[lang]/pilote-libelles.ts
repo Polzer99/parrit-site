@@ -23,6 +23,19 @@ type Bloc = {
 
 export type LibellesPilote = {
   blog: string;
+  /**
+   * Les actions d'une carte d'index. UNE seule par carte, et elle mène à la
+   * valeur finale — arbitrage Paul du 02/08/2026. Pas de « voir la fiche ».
+   */
+  index: {
+    lireArticle: string;
+    lireSujet: string;
+    accederRessource: string;
+    faireDiagnostic: string;
+    sujets: string;
+    articles: string;
+    ressources: string;
+  };
   ressources: { nav: string; titreIndex: string; description: string; obtenez: string; autres: string };
   videos: Bloc;
   presse: Bloc & { mention: string; source: string };
@@ -38,6 +51,15 @@ export type LibellesPilote = {
 
 const fr: LibellesPilote = {
   blog: "Blog",
+  index: {
+    lireArticle: "Lire l'article",
+    lireSujet: "Lire le sujet",
+    accederRessource: "Accéder à la ressource",
+    faireDiagnostic: "Faire le diagnostic",
+    sujets: "Les grands sujets",
+    articles: "Les articles",
+    ressources: "Les ressources",
+  },
   ressources: {
     nav: "Ressources",
     titreIndex: "Ce qu'on met à votre disposition",
@@ -77,6 +99,15 @@ const fr: LibellesPilote = {
 
 const en: LibellesPilote = {
   blog: "Blog",
+  index: {
+    lireArticle: "Read the article",
+    lireSujet: "Read the topic",
+    accederRessource: "Open the resource",
+    faireDiagnostic: "Take the diagnostic",
+    sujets: "Key topics",
+    articles: "Articles",
+    ressources: "Resources",
+  },
   ressources: {
     nav: "Resources",
     titreIndex: "What we make available to you",
@@ -116,6 +147,15 @@ const en: LibellesPilote = {
 
 const ptBR: LibellesPilote = {
   blog: "Blog",
+  index: {
+    lireArticle: "Ler o artigo",
+    lireSujet: "Ler o tema",
+    accederRessource: "Acessar o recurso",
+    faireDiagnostic: "Fazer o diagnóstico",
+    sujets: "Grandes temáticas",
+    articles: "Artigos",
+    ressources: "Recursos",
+  },
   ressources: {
     nav: "Recursos",
     titreIndex: "O que colocamos à sua disposição",
@@ -155,6 +195,15 @@ const ptBR: LibellesPilote = {
 
 const zhCN: LibellesPilote = {
   blog: "博客",
+  index: {
+    lireArticle: "阅读文章",
+    lireSujet: "阅读主题",
+    accederRessource: "获取资源",
+    faireDiagnostic: "开始诊断",
+    sujets: "核心主题",
+    articles: "文章",
+    ressources: "资源",
+  },
   ressources: {
     nav: "资源",
     titreIndex: "我们提供给你的内容",

@@ -7,6 +7,24 @@
  * workflow n8n est générique et ne livre AUCUNE ressource, quelle que soit la
  * source. Une ressource `livraisonVerifiee: false` ne doit pas promettre un envoi
  * par mail — elle doit donner le lien directement dans l'état de succès.
+ *
+ * ARBITRAGE PAUL DU 02/08/2026 — la structure n'ajoute pas d'étape entre le
+ * visiteur et la valeur. Chaque ressource déclare donc, dans `experience`,
+ * l'URL UNIQUE qui rend son expérience complète. Une carte d'index pointe
+ * toujours vers cette URL, jamais vers une fiche qui obligerait à recliquer.
+ *
+ * Deux cas, et deux seulement :
+ *
+ *   — `rendu: "template"` : l'expérience est rendue par T3 à
+ *     `/[lang]/ressources/[slug]`. C'est le cas d'une ressource autoportante ;
+ *   — `rendu: "route_dediee"` : l'expérience existe déjà à son URL historique
+ *     (landing dédiée, outil interactif, formulaire). Cette URL EST la
+ *     canonique ; `/[lang]/ressources/[slug]` redirige vers elle en 301 et
+ *     n'est donc jamais une seconde page indexable décrivant la même chose.
+ *
+ * Les six ressources publiées sont aujourd'hui en `route_dediee` : leur
+ * expérience complète existe déjà ailleurs, et la recopier dans un template
+ * fabriquerait le doublon que cet arbitrage supprime.
  */
 
 import type { CtaId } from "./cta";
@@ -25,6 +43,14 @@ export type TypeRessource =
 
 export type NiveauEngagement = "faible" | "moyen" | "fort" | "tres_fort";
 
+/**
+ * Où vit l'expérience complète. Une ressource en a une et une seule : c'est
+ * cette URL qui est canonique, indexée, et visée par les cartes d'index.
+ */
+export type ExperienceRessource =
+  | { rendu: "template" }
+  | { rendu: "route_dediee"; url: string };
+
 export type Ressource = {
   id: string;
   slug: string;
@@ -35,6 +61,8 @@ export type Ressource = {
   contenu: string[];
   /** Chemin du livrable réel. Vide si la ressource est un outil, pas un fichier. */
   livrable: string;
+  /** L'URL unique qui rend l'expérience complète. Voir l'en-tête du fichier. */
+  experience: ExperienceRessource;
   formGabarit: "G1_optin_leger" | "G2_ressource_qualifiante" | "G3_diagnostic" | "G4_adaptation_lab";
   ctaPrincipal: CtaId;
   niveauEngagement: NiveauEngagement;
@@ -59,6 +87,7 @@ const REGISTRE: Ressource[] = [
       "Ce qui casse quand une couche manque",
     ],
     livrable: "/architecture-claude-md",
+    experience: { rendu: "route_dediee", url: "/architecture-claude-md" },
     formGabarit: "G2_ressource_qualifiante",
     ctaPrincipal: "ressource.telecharger",
     niveauEngagement: "moyen",
@@ -79,6 +108,7 @@ const REGISTRE: Ressource[] = [
       "Les trois erreurs de départ et comment les éviter",
     ],
     livrable: "/demarrer-claude-code",
+    experience: { rendu: "route_dediee", url: "/demarrer-claude-code" },
     formGabarit: "G2_ressource_qualifiante",
     ctaPrincipal: "ressource.telecharger",
     niveauEngagement: "moyen",
@@ -99,6 +129,7 @@ const REGISTRE: Ressource[] = [
       "Les deux défauts qui font exploser une facture sans alerte",
     ],
     livrable: "/harnais-ia",
+    experience: { rendu: "route_dediee", url: "/harnais-ia" },
     formGabarit: "G2_ressource_qualifiante",
     ctaPrincipal: "ressource.demander",
     niveauEngagement: "moyen",
@@ -120,6 +151,7 @@ const REGISTRE: Ressource[] = [
       "The three tasks worth automating first",
     ],
     livrable: "/hr-radar",
+    experience: { rendu: "route_dediee", url: "/hr-radar" },
     formGabarit: "G3_diagnostic",
     ctaPrincipal: "rdv.paul",
     niveauEngagement: "fort",
@@ -141,6 +173,7 @@ const REGISTRE: Ressource[] = [
       "Les questions à poser au fournisseur",
     ],
     livrable: "/outils/detecteur-bullshit",
+    experience: { rendu: "route_dediee", url: "/outils/detecteur-bullshit" },
     formGabarit: "G1_optin_leger",
     ctaPrincipal: "rdv.paul",
     niveauEngagement: "faible",
@@ -160,6 +193,7 @@ const REGISTRE: Ressource[] = [
       "Ce qui est faisable maintenant, et ce qui ne l'est pas",
     ],
     livrable: "/diagnostic",
+    experience: { rendu: "route_dediee", url: "/diagnostic" },
     formGabarit: "G3_diagnostic",
     ctaPrincipal: "rdv.paul",
     niveauEngagement: "fort",
@@ -179,4 +213,32 @@ export function getRessourcesPubliees(langue?: "fr" | "en"): Ressource[] {
 
 export function getAllRessourceSlugs(): string[] {
   return REGISTRE.filter((r) => r.publiee).map((r) => r.slug);
+}
+
+/**
+ * L'URL CANONIQUE d'une ressource — celle qui rend l'expérience complète, et la
+ * seule qui doit être indexée. C'est aussi la cible directe des cartes d'index :
+ * un clic depuis la liste amène sur la valeur, jamais sur une fiche.
+ */
+export function urlExperience(r: Ressource, lang: string): string {
+  return r.experience.rendu === "template"
+    ? `/${lang}/ressources/${r.slug}`
+    : r.experience.url;
+}
+
+/** Les ressources dont T3 rend lui-même l'expérience. */
+export function getRessourcesRenduesParTemplate(): Ressource[] {
+  return REGISTRE.filter((r) => r.publiee && r.experience.rendu === "template");
+}
+
+/**
+ * Les alias à rediriger en 301 : `/[lang]/ressources/[slug]` vers l'expérience.
+ * Consommé par `next.config.ts`, pour que la redirection soit servie par le
+ * routeur et non par une page — une seule redirection, jamais de chaîne.
+ */
+export function aliasRessourcesARediriger(): { slug: string; url: string }[] {
+  return REGISTRE.filter(
+    (r): r is Ressource & { experience: { rendu: "route_dediee"; url: string } } =>
+      r.publiee && r.experience.rendu === "route_dediee",
+  ).map((r) => ({ slug: r.slug, url: r.experience.url }));
 }

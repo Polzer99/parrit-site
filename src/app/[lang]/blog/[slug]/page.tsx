@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { T1Article } from "@/components/templates/T1Article";
 import { getPostBySlug, getAllSlugs, getRelatedPosts, type BlogLocale } from "@/lib/blog";
 import { getPillar } from "@/lib/pillars";
-import { getRessource } from "@/lib/registry";
+import { avecSource, getRessource, urlExperience } from "@/lib/registry";
 import { getVideosParArticle } from "@/lib/videos";
 import { getMentionsParArticle } from "@/lib/presse";
 import { SITE_URL } from "@/lib/seo/jsonld";
@@ -159,6 +159,12 @@ export default async function BlogPostPage({
     ? getRessource(RESSOURCE_PAR_PILIER[post.pillar] ?? "")
     : undefined;
 
+  /* L'EXPÉRIENCE, pas l'alias : un lien d'article ne consomme pas un saut de
+     redirection pour arriver à la valeur, et il porte son attribution. */
+  const ressourceHref = ressource
+    ? avecSource(urlExperience(ressource, lang), `blog:${slug}`)
+    : undefined;
+
   /* Collections rattachées. Vides aujourd'hui : rien ne s'affiche, et aucune
      carte de remplissage n'est fabriquée. */
   const videos = getVideosParArticle(post.slug);
@@ -192,7 +198,7 @@ export default async function BlogPostPage({
     <T1Article
       lang={lang}
       ctaId="rdv.paul"
-      ressourceHref={ressource ? `/${lang}/ressources/${ressource.slug}` : undefined}
+      ressourceHref={ressourceHref}
       ressourceTitre={ressource?.titre}
       data={{
         slug: post.slug,

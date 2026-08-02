@@ -184,12 +184,20 @@ export function getCta(id: CtaId): Cta {
  */
 export function ctaHref(id: CtaId, lang: string, source: string): string {
   const cta = REGISTRE[id];
-  const cible = cta.cible.replace("{lang}", lang);
+  return avecSource(cta.cible.replace("{lang}", lang), source);
+}
 
+/**
+ * Pose `?source=` sur une destination, sans écraser une chaîne de requête
+ * existante — donc sans perdre les `utm_*` déjà portés par le lien.
+ *
+ * Une seule implémentation, utilisée par les CTA comme par les cartes d'index :
+ * l'attribution ne se réécrit pas à deux endroits.
+ */
+export function avecSource(cible: string, source: string): string {
   if (cible.startsWith("mailto:") || cible.startsWith("#") || cible === "") {
     return cible;
   }
-
   const separateur = cible.includes("?") ? "&" : "?";
   return `${cible}${separateur}source=${encodeURIComponent(source)}`;
 }

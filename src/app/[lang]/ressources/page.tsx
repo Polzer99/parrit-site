@@ -1,186 +1,36 @@
 import type { Metadata } from "next";
-import LegalFooterLine from "@/components/LegalFooterLine";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+
+import { SiteHeader } from "@/components/shell/SiteHeader";
+import { SiteFooter } from "@/components/shell/SiteFooter";
+import { Breadcrumb, type Miette } from "@/components/shell/Breadcrumb";
+import { EtatVide } from "@/components/EtatVide";
+import { JsonLd, ListeIndex, PageBody, type EntreeIndex } from "@/components/templates";
+import { TextLink } from "@/components/ds/primitives";
+import { breadcrumbList, graphe, SITE_URL } from "@/lib/seo/jsonld";
+import { avecSource, getRessourcesPubliees, urlExperience, type Ressource } from "@/lib/registry";
 import { hasLocale, locales } from "../dictionaries";
+import { LIBELLES } from "../pilote-libelles";
 
-const SITE_URL = "https://parrit.ai";
+/**
+ * INDEX DES RESSOURCES.
+ *
+ * ARBITRAGE PAUL DU 02/08/2026 — chaque carte mène DIRECTEMENT à l'expérience
+ * complète. Plus de tableau recopié dans la page, plus de fiche intermédiaire :
+ * la destination vient de `urlExperience()`, c'est-à-dire de la donnée.
+ *
+ * Une carte, une action. Ajouter une ressource au registre suffit à la faire
+ * paraître ici, avec la bonne destination et la bonne attribution.
+ */
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
 
-type UI = {
-  metaTitle: string;
-  metaDesc: string;
-  label: string;
-  titleMain: string;
-  titleAccent: string;
-  subtitle: string;
-  navBlog: string;
-  navRes: string;
-};
-
-const UISTR: Record<string, UI> = {
-  fr: {
-    metaTitle: "Ressources · Parrit.ai",
-    metaDesc:
-      "Les guides et ressources gratuites de Parrit.ai pour piloter votre entreprise avec des agents IA. Actionnables, sans code, pour ceux qui dirigent.",
-    label: "Ressources gratuites",
-    titleMain: "Des guides pour",
-    titleAccent: "passer à l'action",
-    subtitle:
-      "Ce qu'on déploie chez nos clients, mis à votre portée. Actionnable, sans code, pour ceux qui dirigent.",
-    navBlog: "Blog",
-    navRes: "Ressources",
-  },
-  en: {
-    metaTitle: "Resources · Parrit.ai",
-    metaDesc:
-      "Free guides and resources from Parrit.ai to run your business with AI agents. Actionable, no code, for people who lead.",
-    label: "Free resources",
-    titleMain: "Guides to",
-    titleAccent: "take action",
-    subtitle:
-      "What we deploy for our clients, made available to you. Actionable, no code, for people who lead.",
-    navBlog: "Blog",
-    navRes: "Resources",
-  },
-  "pt-BR": {
-    metaTitle: "Recursos · Parrit.ai",
-    metaDesc:
-      "Guias e recursos gratuitos da Parrit.ai para gerenciar sua empresa com agentes de IA. Práticos, sem código, para quem lidera.",
-    label: "Recursos gratuitos",
-    titleMain: "Guias para",
-    titleAccent: "agir",
-    subtitle:
-      "O que implantamos para nossos clientes, ao seu alcance. Prático, sem código, para quem lidera.",
-    navBlog: "Blog",
-    navRes: "Recursos",
-  },
-  "zh-CN": {
-    metaTitle: "资源 · Parrit.ai",
-    metaDesc:
-      "Parrit.ai 免费指南与资源，用智能体运营你的业务。可落地、无需编程，面向管理者。",
-    label: "免费资源",
-    titleMain: "行动",
-    titleAccent: "指南",
-    subtitle: "我们为客户部署的一切，触手可及。可落地、无需编程，面向管理者。",
-    navBlog: "博客",
-    navRes: "资源",
-  },
-};
-
-type Ressource = {
-  href: string;
-  cat: Record<string, string>;
-  time: Record<string, string>;
-  title: Record<string, string>;
-  desc: Record<string, string>;
-  cta: Record<string, string>;
-};
-
-const RESSOURCES: Ressource[] = [
-  {
-    href: "/harnais-ia",
-    cat: {
-      fr: "Étude de cas · Coûts IA",
-      en: "Case study · AI costs",
-      "pt-BR": "Estudo de caso · Custos de IA",
-      "zh-CN": "案例研究 · AI 成本",
-    },
-    time: {
-      fr: "8 min de lecture",
-      en: "8 min read",
-      "pt-BR": "8 min de leitura",
-      "zh-CN": "8 分钟阅读",
-    },
-    title: {
-      fr: "Diviser ses coûts IA par 20 : le harnais exact, mesuré",
-      en: "Cut AI costs by 20×: the exact, measured harness",
-      "pt-BR": "Dividir os custos de IA por 20: o sistema exato, medido",
-      "zh-CN": "将 AI 成本降低 20 倍：经过实测的完整方案",
-    },
-    desc: {
-      fr: "Le playbook, la matrice tâche → modèle et le calculateur utilisés par Parrit pour router chaque tâche vers le modèle adapté.",
-      en: "The playbook, task → model matrix and calculator Parrit uses to route each task to the right model.",
-      "pt-BR": "O playbook, a matriz tarefa → modelo e a calculadora que a Parrit usa para direcionar cada tarefa ao modelo adequado.",
-      "zh-CN": "Parrit 用于将每项任务分配给合适模型的操作手册、任务 → 模型矩阵和计算器。",
-    },
-    cta: {
-      fr: "Recevoir le harnais",
-      en: "Get the harness",
-      "pt-BR": "Receber o sistema",
-      "zh-CN": "获取完整方案",
-    },
-  },
-  {
-    href: "/architecture-claude-md",
-    cat: {
-      fr: "Ressource · Architecture",
-      en: "Resource · Architecture",
-      "pt-BR": "Recurso · Arquitetura",
-      "zh-CN": "资源 · 架构",
-    },
-    time: {
-      fr: "10 min de lecture",
-      en: "10 min read",
-      "pt-BR": "10 min de leitura",
-      "zh-CN": "10 分钟阅读",
-    },
-    title: {
-      fr: "L'architecture CLAUDE.md : les 4 couches d'un agent qui pilote",
-      en: "The CLAUDE.md architecture: the 4 layers of an agent that runs your business",
-      "pt-BR": "A arquitetura CLAUDE.md: as 4 camadas de um agente que pilota",
-      "zh-CN": "CLAUDE.md 架构：驾驭业务的智能体的四层结构",
-    },
-    desc: {
-      fr: "On vous a promis 7 fichiers magiques. La vérité tient en 4 couches : le socle, la mémoire, les garde-fous, les compétences. Chaque module avec le bloc à coller dans Claude Code et son template à télécharger.",
-      en: "You were promised 7 magic files. The truth fits in 4 layers: the base, memory, guardrails, skills. Each module with the block to paste into Claude Code and its downloadable template.",
-      "pt-BR": "Prometeram 7 arquivos mágicos. A verdade cabe em 4 camadas: a base, a memória, as proteções, as competências. Cada módulo com o bloco para colar no Claude Code e seu template para baixar.",
-      "zh-CN": "别人向你承诺七个神奇文件。真相只需四层：底座、记忆、护栏、技能。每个模块都附有可粘贴到 Claude Code 的指令块及可下载的模板。",
-    },
-    cta: {
-      fr: "Ouvrir l'architecture",
-      en: "Open the architecture",
-      "pt-BR": "Abrir a arquitetura",
-      "zh-CN": "打开架构",
-    },
-  },
-  {
-    href: "/demarrer-claude-code",
-    cat: {
-      fr: "Guide · Démarrage",
-      en: "Guide · Getting started",
-      "pt-BR": "Guia · Início",
-      "zh-CN": "指南 · 入门",
-    },
-    time: {
-      fr: "20 min pour démarrer",
-      en: "20 min to start",
-      "pt-BR": "20 min para começar",
-      "zh-CN": "20 分钟上手",
-    },
-    title: {
-      fr: "Démarrer avec Claude Code : piloter votre boîte avec des agents",
-      en: "Getting started with Claude Code: run your business with agents",
-      "pt-BR": "Comece com Claude Code: gerencie sua empresa com agentes",
-      "zh-CN": "上手 Claude Code：用智能体运营你的业务",
-    },
-    desc: {
-      fr: "Le guide pas à pas pour dirigeants, sans code. Installer Claude Code, brancher votre boîte mail, déléguer votre première vraie tâche. Toutes les commandes à copier et le fichier de pilotage à télécharger.",
-      en: "The step-by-step guide for leaders, no code. Install Claude Code, connect your inbox, delegate your first real task. Every command to copy and the pilot file to download.",
-      "pt-BR": "O guia passo a passo para gestores, sem código. Instale o Claude Code, conecte seu e-mail, delegue sua primeira tarefa real. Todos os comandos para copiar e o arquivo de pilotagem para baixar.",
-      "zh-CN": "面向管理者的分步指南，无需编程。安装 Claude Code，连接邮箱，委派第一个真实任务。所有可复制的命令与可下载的驾驶舱文件。",
-    },
-    cta: {
-      fr: "Ouvrir le guide",
-      en: "Open the guide",
-      "pt-BR": "Abrir o guia",
-      "zh-CN": "打开指南",
-    },
-  },
-];
+/** Les ressources d'une langue de page. L'anglais a les siennes ; le reste suit le français. */
+function ressourcesPour(lang: string): Ressource[] {
+  return getRessourcesPubliees(lang === "en" ? "en" : "fr");
+}
 
 export async function generateMetadata({
   params,
@@ -189,11 +39,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
-  const ui = UISTR[lang] ?? UISTR.fr;
+  const l = LIBELLES[lang] ?? LIBELLES.fr;
+
   return {
     metadataBase: new URL(SITE_URL),
-    title: ui.metaTitle,
-    description: ui.metaDesc,
+    title: `${l.ressources.titreIndex} | Parrit.ai`,
+    description: l.ressources.description,
     alternates: {
       canonical: `${SITE_URL}/${lang}/ressources`,
       languages: {
@@ -204,79 +55,123 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: ui.metaTitle,
-      description: ui.metaDesc,
+      title: l.ressources.titreIndex,
+      description: l.ressources.description,
       url: `${SITE_URL}/${lang}/ressources`,
       siteName: "Parrit.ai",
       type: "website",
-      images: [
-        {
-          url: `${SITE_URL}/opengraph-image`,
-          width: 1200,
-          height: 630,
-          alt: "Parrit.ai",
-        },
-      ],
+      images: [{ url: `${SITE_URL}/opengraph-image`, width: 1200, height: 630, alt: "Parrit.ai" }],
     },
   };
 }
 
-export default async function RessourcesPage({
+export default async function RessourcesIndexPage({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const ui = UISTR[lang] ?? UISTR.fr;
+  const l = LIBELLES[lang] ?? LIBELLES.fr;
+
+  const ressources = ressourcesPour(lang);
+
+  const entrees: EntreeIndex[] = ressources.map((r) => {
+    return {
+      cle: r.id,
+      /* L'attribution voyage avec le clic : la destination sait d'où vient la
+         visite, sans que la carte ait besoin d'une seconde étape. */
+      href: avecSource(urlExperience(r, lang), "ressources"),
+      titre: r.titre,
+      resume: r.promesse,
+      meta: [r.type.replace(/_/g, " ")],
+      action: r.type === "diagnostic" ? l.index.faireDiagnostic : l.index.accederRessource,
+      // Les expériences vivent hors du routage `[lang]`, à la racine du site.
+      externeAuLocale: r.experience.rendu === "route_dediee",
+    };
+  });
+
+  const miettes: Miette[] = [
+    { nom: "Parrit.ai", href: `/${lang}` },
+    { nom: l.ressources.nav, href: `/${lang}/ressources` },
+  ];
+
+  const noeuds: object[] = [
+    {
+      "@type": "CollectionPage",
+      "@id": `${SITE_URL}/${lang}/ressources#collection`,
+      name: l.ressources.titreIndex,
+      description: l.ressources.description,
+      inLanguage: lang,
+      url: `${SITE_URL}/${lang}/ressources`,
+      mainEntity: {
+        "@type": "ItemList",
+        numberOfItems: ressources.length,
+        itemListElement: ressources.map((r, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: r.titre,
+          /* L'URL déclarée est la canonique : celle qui rend l'expérience. */
+          item: `${SITE_URL}${urlExperience(r, lang)}`,
+        })),
+      },
+    },
+    breadcrumbList(miettes),
+  ];
 
   return (
     <>
-      <nav className="blog-nav">
-        <Link href={`/${lang}`} className="nav-logo">
-          Parrit.ai
-        </Link>
-        <div className="blog-nav-links">
-          <Link href={`/${lang}/blog`} className="blog-nav-link">
-            {ui.navBlog}
-          </Link>
-          <Link href={`/${lang}/ressources`} className="blog-nav-link">
-            {ui.navRes}
-          </Link>
-        </div>
-      </nav>
+      <JsonLd json={graphe(noeuds)} />
+      <SiteHeader lang={lang} variante="lean" ctaId="rdv.paul" source="ressources" />
 
-      <header className="blog-header">
-        <p className="blog-header-label">{ui.label}</p>
-        <h1 className="blog-header-title">
-          {ui.titleMain} <em className="hero-accent">{ui.titleAccent}</em>
-        </h1>
-        <p className="blog-header-subtitle">{ui.subtitle}</p>
-      </header>
+      <PageBody largeur="content">
+        <Breadcrumb miettes={miettes} />
 
-      <main className="blog-list">
-        {RESSOURCES.map((r, i) => (
-          <a
-            key={r.href}
-            href={r.href}
-            className="blog-card"
-            style={{ animationDelay: `${i * 80}ms` }}
+        <header style={{ paddingBlock: "var(--space-7)" }}>
+          <h1
+            style={{
+              margin: 0,
+              maxWidth: "var(--container-text)",
+              fontFamily: "var(--type-display-primary)",
+              fontSize: "var(--type-display-hero)",
+              fontWeight: 600,
+              letterSpacing: "var(--type-tracking-display)",
+              lineHeight: "var(--type-leading-display)",
+              color: "var(--color-ink-default)",
+              textWrap: "balance",
+            }}
           >
-            <div className="blog-card-meta">
-              <span className="blog-card-category">{r.cat[lang] ?? r.cat.fr}</span>
-              <span className="blog-card-dot">·</span>
-              <span className="blog-card-reading">{r.time[lang] ?? r.time.fr}</span>
-            </div>
-            <h2 className="blog-card-title">{r.title[lang] ?? r.title.fr}</h2>
-            <p className="blog-card-desc">{r.desc[lang] ?? r.desc.fr}</p>
-            <span className="blog-card-read">{r.cta[lang] ?? r.cta.fr}</span>
-          </a>
-        ))}
-      </main>
+            {l.ressources.titreIndex}
+          </h1>
+          <p
+            style={{
+              margin: "var(--space-5) 0 0",
+              maxWidth: "var(--container-text)",
+              fontFamily: "var(--type-ui-primary)",
+              fontSize: "var(--type-size-lg)",
+              lineHeight: "var(--type-leading-body)",
+              color: "var(--color-ink-muted)",
+            }}
+          >
+            {l.ressources.description}
+          </p>
+        </header>
 
-      <footer className="blog-footer">
-        <LegalFooterLine lang={lang} />
-      </footer>
+        {entrees.length > 0 ? (
+          <section style={{ paddingBlock: "var(--space-section-sm)" }}>
+            <ListeIndex entrees={entrees} />
+          </section>
+        ) : (
+          <EtatVide
+            label={l.ressources.nav}
+            titre={l.ressources.titreIndex}
+            explication={l.ressources.description}
+            sortie={<TextLink href={`/${lang}/blog`}>{l.blog}</TextLink>}
+          />
+        )}
+      </PageBody>
+
+      <SiteFooter lang={lang} />
     </>
   );
 }

@@ -7,6 +7,7 @@
  */
 
 import type { CSSProperties, ReactNode } from "react";
+import Link from "next/link";
 import {
   Divider,
   IndexMark,
@@ -457,6 +458,102 @@ export function LimitesBlock({ limites }: { limites: string[] }) {
         ))}
       </ul>
     </section>
+  );
+}
+
+/* ------------------------------------------------------------- Liste d'index */
+
+export type EntreeIndex = {
+  cle: string;
+  /** La destination FINALE. Jamais une fiche qui obligerait à recliquer. */
+  href: string;
+  titre: string;
+  /** La promesse, en une phrase. */
+  resume: string;
+  /** Catégorie, date, durée : ce qui aide à choisir, pas à décorer. */
+  meta: string[];
+  /** L'action unique de la carte : « Lire l'article », « Accéder à la ressource ». */
+  action: string;
+  /** Vrai quand la destination sort du routage `[lang]` (page servie à la racine). */
+  externeAuLocale?: boolean;
+};
+
+/**
+ * LISTE D'INDEX — la grammaire d'un index, blog comme ressources.
+ *
+ * Arbitrage Paul du 02/08/2026 : **une seule action principale par carte**, et
+ * cette action mène à la valeur finale. La carte entière est le lien ; il n'y a
+ * pas de second bouton, pas de « voir la fiche », pas de destination qui
+ * demanderait de recliquer pour obtenir ce qui est promis.
+ *
+ * Aucune valeur visuelle n'est écrite ici : tokens et primitives uniquement.
+ */
+export function ListeIndex({ entrees }: { entrees: EntreeIndex[] }) {
+  if (entrees.length === 0) return null;
+  return (
+    <div
+      style={{
+        display: "grid",
+        gap: "var(--space-5)",
+        gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 22rem), 1fr))",
+      }}
+    >
+      {entrees.map((e) => {
+        const contenu = (
+          <>
+            {e.meta.length > 0 && <MetaLine items={e.meta} />}
+            <span
+              style={{
+                fontFamily: "var(--type-display-primary)",
+                fontSize: "var(--type-size-xl)",
+                fontWeight: 600,
+                letterSpacing: "var(--type-tracking-display)",
+                lineHeight: "var(--type-leading-headline)",
+                color: "var(--color-ink-default)",
+                textWrap: "balance",
+              }}
+            >
+              {e.titre}
+            </span>
+            <span
+              style={{
+                fontFamily: "var(--type-ui-primary)",
+                fontSize: "var(--type-size-base)",
+                lineHeight: "var(--type-leading-body)",
+                color: "var(--color-ink-muted)",
+              }}
+            >
+              {e.resume}
+            </span>
+            <Label tone="signal">{e.action}</Label>
+          </>
+        );
+
+        const style = {
+          display: "grid",
+          gap: "var(--space-4)",
+          alignContent: "start",
+          padding: "var(--space-6)",
+          border: "var(--border-hairline) solid var(--color-line-hairline)",
+          borderRadius: "var(--radius-none)",
+          boxShadow: "var(--shadow-none)",
+          background: "var(--color-paper-default)",
+          textDecoration: "none",
+        } as const;
+
+        /* Les expériences servies hors `[lang]` (fichiers statiques, outils) ne
+           passent pas par le routeur applicatif : un lien nu est le bon outil. */
+        return e.externeAuLocale ? (
+          <a key={e.cle} href={e.href} style={style}>
+            {contenu}
+          </a>
+        ) : (
+          <Link key={e.cle} href={e.href} prefetch={false} style={style}>
+            {contenu}
+          </Link>
+        );
+      })}
+    </div>
   );
 }
 

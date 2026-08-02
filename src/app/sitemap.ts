@@ -8,7 +8,7 @@ import { getPillars } from "@/lib/pillars";
 import { etatCollection } from "@/lib/collections";
 import { getVideos } from "@/lib/videos";
 import { getMentions } from "@/lib/presse";
-import { getAllRessourceSlugs } from "@/lib/registry";
+import { aliasRessourcesARediriger, getRessourcesRenduesParTemplate } from "@/lib/registry";
 import { getPostsByPillar } from "@/lib/blog";
 import { locales, type Locale } from "@/app/[lang]/dictionaries";
 
@@ -78,15 +78,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       })),
   );
 
-  /* Les fiches ressources entrent au sitemap : elles ont une promesse, une
-     preuve et un CTA, donc une valeur de destination. */
-  const ressourceEntries: MetadataRoute.Sitemap = getAllRessourceSlugs().flatMap((slug) =>
+  /* UNE seule URL par ressource au sitemap : celle qui rend l'expérience.
+     Les ressources servies par une route dédiée sont déjà présentes à leur URL
+     canonique — les réinscrire sous `/[lang]/ressources/[slug]` fabriquerait le
+     doublon indexable que l'arbitrage du 02/08/2026 supprime, et pointerait de
+     surcroît vers une 301. */
+  const ressourceEntries: MetadataRoute.Sitemap = getRessourcesRenduesParTemplate().flatMap((r) =>
     locales.map((lang) => ({
-      url: `${SITE_URL}/${lang}/ressources/${slug}`,
+      url: `${SITE_URL}/${lang}/ressources/${r.slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.75,
-      alternates: { languages: buildLanguagesMap(`/ressources/${slug}`) },
+      alternates: { languages: buildLanguagesMap(`/ressources/${r.slug}`) },
     })),
   );
 
@@ -177,21 +180,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  // Ressources statiques servies à la racine (fichiers public/, hors routing [lang])
-  const resourceEntries: MetadataRoute.Sitemap = [
-    {
-      url: `${SITE_URL}/architecture-claude-md`,
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.85,
-    },
-    {
-      url: `${SITE_URL}/demarrer-claude-code`,
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.85,
-    },
-  ];
+  /* Les expériences servies par une route dédiée, hors routing `[lang]`. Elles
+     sont DÉRIVÉES du registre, plus recopiées : publier une ressource suffit à
+     la faire entrer au sitemap à son URL canonique, et à une seule. */
+  const resourceEntries: MetadataRoute.Sitemap = aliasRessourcesARediriger().map(({ url }) => ({
+    url: `${SITE_URL}${url}`,
+    lastModified,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
 
   return [
     ...staticEntries,

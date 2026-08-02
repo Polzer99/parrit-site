@@ -99,6 +99,36 @@ export function validerRegistres(): Anomalie[] {
     else livrables.set(r.livrable, r.id);
   }
 
+  /* ------------------------------ 4bis. une seule URL canonique par ressource */
+
+  /* Arbitrage Paul du 02/08/2026 : deux ressources ne peuvent pas revendiquer la
+     même expérience, et une expérience « route_dediee » doit viser un chemin
+     interne réel. C'est ce qui empêche de refabriquer deux pages indexables
+     décrivant la même chose. */
+  const experiences = new Map<string, string>();
+  for (const r of ressources) {
+    if (r.experience.rendu !== "route_dediee") continue;
+    const url = r.experience.url;
+    if (!url.startsWith("/") || url.startsWith("//")) {
+      ajouter("ressources", r.id, `expérience « ${url} » : chemin interne attendu`);
+      continue;
+    }
+    if (url === `/ressources/${r.slug}`) {
+      ajouter("ressources", r.id, "expérience « route_dediee » qui vise sa propre fiche");
+    }
+    const deja = experiences.get(url);
+    if (deja) ajouter("ressources", r.id, `expérience « ${url} » déjà revendiquée par « ${deja} »`);
+    else experiences.set(url, r.id);
+  }
+
+  /* Une ressource publiée sans mode d'accès véridique n'est pas publiable : soit
+     T3 rend l'expérience, soit une route dédiée la sert. Pas de troisième cas. */
+  for (const r of ressources) {
+    if (r.experience.rendu === "route_dediee" && !r.experience.url) {
+      ajouter("ressources", r.id, "publiée sans URL d'expérience");
+    }
+  }
+
   /* --------------------------------------- 5. les deux règles des preuves */
 
   for (const p of preuves) {
