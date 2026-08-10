@@ -108,3 +108,9 @@ Audit multi-agents du site (harmonie / EN / zones mortes / conversion) + décisi
 - 5 propositions (top : "Clarifier le CTA principal 'Parler à Paul' avec une promesse de sortie" ICE 560)
 - statut : propose, en attente merge HITL → `proposals/2026-07-27.md`
 - issue Codex ouverte : https://github.com/Polzer99/parrit-site/issues/178
+
+### 2026-08-10 — cycle Hermes
+- inputs : 6 surfaces live, memoire OK, analytics PostHog quantitatif
+- 5 propositions (top : "Ajouter une preuve chiffrée (Enargeia) dans le hero pour les dirigeants sceptiques" ICE 392)
+- statut : propose, en attente merge HITL → `proposals/2026-08-10.md`
+- issue Codex ouverte : https://github.com/Polzer99/parrit-site/issues/203
