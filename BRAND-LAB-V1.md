@@ -24,11 +24,29 @@ construit là-bas. Le Figma ne redescend pas vers le code avant cette étape.
 
 ### Les quatre URL
 
+**En ligne**, branche `brand-lab-v1`, preview Vercel. L'URL suit la branche :
+chaque push la met à jour, et la production `parrit.ai` n'est pas touchée.
+
 ```
-http://localhost:3000/brand-lab/inspirations
-http://localhost:3000/brand-lab/paul
-http://localhost:3000/brand-lab/maxime
-http://localhost:3000/brand-lab/parrit
+https://parrit-site-git-brand-lab-v1-parritai.vercel.app/brand-lab/inspirations
+https://parrit-site-git-brand-lab-v1-parritai.vercel.app/brand-lab/paul
+https://parrit-site-git-brand-lab-v1-parritai.vercel.app/brand-lab/maxime
+https://parrit-site-git-brand-lab-v1-parritai.vercel.app/brand-lab/parrit
+```
+
+⚠️ **La protection de déploiement Vercel est active sur ce projet.** Paul ouvre
+le lien directement, puisqu'il est connecté au compte. **Maxime ne le peut
+pas** : il faut soit l'ajouter à l'équipe Vercel, soit générer un lien de
+partage depuis le tableau de bord du déploiement. Le jeton de contournement
+inscrit dans le registre des secrets ne fonctionne plus sur ce projet, il est à
+reverifier. Je n'ai pas désactivé la protection : ça exposerait une
+prévisualisation de tout le site, et c'est un réglage de compte, pas une
+décision de designer.
+
+**En local**
+
+```
+http://localhost:3000/brand-lab/{inspirations,paul,maxime,parrit}
 ```
 
 `/brand-lab` redirige vers `inspirations`. La barre du haut permet de passer
