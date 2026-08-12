@@ -12,6 +12,14 @@
  *
  * Un échec de capture n'est jamais bloquant : la page Inspirations retombe sur
  * une "plaque de référence" dessinée en CSS.
+ *
+ * ATTENTION, leçon du 12/08 : un statut "ok" dit seulement qu'une image a été
+ * reçue, jamais que c'est le bon écran. Bain était passée en vert alors que la
+ * capture était un mur de vérification Cloudflare. TOUTE nouvelle référence doit
+ * être REGARDÉE avant d'entrer dans le moodboard.
+ *
+ * Amazon est volontairement absent : arbitrage de Paul du 12/08, seule leur
+ * excellence opérationnelle est retenue, aucune influence de forme.
  */
 import { chromium } from "playwright-core";
 import { mkdir, writeFile } from "node:fs/promises";
@@ -25,16 +33,13 @@ const REFS = [
   { slug: "palantir", url: "https://www.palantir.com/" },
   { slug: "linear", url: "https://linear.app/" },
   { slug: "uber", url: "https://www.uber.com/" },
-  { slug: "mckinsey", url: "https://www.mckinsey.com/" },
-  { slug: "bain", url: "https://www.bain.com/" },
-  { slug: "amazon-about", url: "https://www.aboutamazon.com/" },
+  // La home de McKinsey rejette le protocole en headless : on capture les insights.
+  { slug: "mckinsey", url: "https://www.mckinsey.com/featured-insights" },
   { slug: "wispr", url: "https://wisprflow.ai/" },
   // · Maxime
   { slug: "matis-clouet", url: "https://www.matisclouet.com/" },
-  { slug: "iman-gadzhi", url: "https://www.imangadzhi.com/" },
-  { slug: "ramit-sethi", url: "https://www.iwillteachyoutoberich.com/" },
-  { slug: "sahil-bloom", url: "https://www.sahilbloom.com/" },
-  { slug: "ali-abdaal", url: "https://aliabdaal.com/" },
+  // imangadzhi.com ne résout plus.
+  { slug: "iman-gadzhi", url: "https://gadzhi.com/" },
   // · Parrit
   { slug: "aman", url: "https://www.aman.com/" },
   { slug: "bang-olufsen", url: "https://www.bang-olufsen.com/en/fr/" },
