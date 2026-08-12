@@ -9,7 +9,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/os", "/api", "/_next"],
+        // /brand-lab : atelier interne de direction artistique, jamais public.
+        // Les pages portent aussi noindex/nofollow dans leur layout.
+        disallow: ["/os", "/api", "/_next", "/brand-lab"],
       },
       { userAgent: "GPTBot", allow: "/" },
       { userAgent: "ClaudeBot", allow: "/" },

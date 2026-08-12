@@ -1,0 +1,241 @@
+/* Direction MAXIME : composition. La chaleur vient de .t-maxime dans lab.css.
+   Ici, la mise en page : plus d'air autour des cartes, plus de place au visage,
+   des blocs plus généreux que chez Paul. */
+
+.mx-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 4fr);
+  gap: var(--s-8);
+  align-items: center;
+  padding-block: var(--s-9) var(--s-8);
+}
+.mx-hero__text {
+  max-width: 42rem;
+}
+.mx-hero__facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-4);
+  border-top: var(--hair) solid var(--line);
+  border-bottom: var(--hair) solid var(--line);
+  padding-block: var(--s-5);
+}
+.mx-hero__fact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  font-size: var(--f-sm);
+  color: var(--ink);
+}
+.mx-hero__price {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+.mx-hero__portrait {
+  position: sticky;
+  top: 5rem;
+}
+
+.mx-said {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: var(--hair) solid var(--line);
+}
+.mx-said__line {
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 2.4vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  padding-block: var(--s-5);
+  border-bottom: var(--hair) solid var(--line);
+  max-width: 52rem;
+}
+.mx-said__after {
+  margin-top: var(--s-6);
+  font-size: var(--f-lg);
+  color: var(--ink-muted);
+  max-width: 46ch;
+}
+
+.mx-video {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: var(--s-8);
+  align-items: center;
+}
+.mx-video__frame {
+  border: var(--hair) solid var(--line);
+  background: var(--paper);
+  padding: var(--s-2);
+}
+
+.mx-proof {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--s-6);
+  align-items: stretch;
+}
+.mx-proof__real {
+  border: var(--hair) solid var(--line);
+  padding: var(--s-6);
+}
+.mx-proof__line {
+  font-size: var(--f-lg);
+  line-height: 1.5;
+  max-width: 54ch;
+}
+
+.mx-arc {
+  border-top: var(--hair) solid var(--line);
+}
+.mx-arc__row {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  gap: var(--s-5);
+  padding-block: var(--s-6);
+  border-bottom: var(--hair) solid var(--line);
+  align-items: start;
+}
+.mx-arc__row.is-last {
+  background: var(--signal-tint);
+  padding-inline: var(--s-5);
+}
+.mx-arc__idx {
+  font-family: var(--font-mono);
+  font-size: var(--f-xs);
+  letter-spacing: 0.12em;
+  color: var(--signal);
+  padding-top: 0.4rem;
+}
+.mx-arc__state {
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 2.6vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  margin-bottom: var(--s-2);
+}
+
+.mx-method {
+  margin-top: var(--s-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+.mx-method__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--hair);
+  background: var(--line);
+  border: var(--hair) solid var(--line);
+}
+.mx-method__cell {
+  background: var(--paper);
+  padding: var(--s-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.mx-post {
+  border: var(--hair) solid var(--line);
+  background: var(--paper);
+  padding: var(--s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  min-height: 15rem;
+  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.mx-post:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+.mx-post__more {
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: var(--f-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--signal);
+}
+
+.mx-offer {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: var(--s-8);
+  align-items: start;
+}
+.mx-offer__box {
+  border: var(--hair) solid var(--ink);
+  background: var(--paper);
+  padding: var(--s-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+.mx-offer__conf {
+  font-size: var(--f-xs);
+  color: var(--ink-muted);
+  line-height: var(--lh-mono);
+  border-top: var(--hair) solid var(--line);
+  padding-top: var(--s-4);
+}
+
+@media (max-width: 1080px) {
+  .mx-hero,
+  .mx-video,
+  .mx-proof,
+  .mx-offer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-6);
+  }
+  .mx-hero {
+    padding-block: var(--s-7) var(--s-6);
+  }
+  .mx-hero__portrait {
+    position: static;
+    max-width: 26rem;
+  }
+  .mx-method__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  /* Mobile : le prix et l'action passent avant les trois repères.
+     Mesuré le 12/08 sur 390 px : dans l'ordre desktop, les repères poussaient
+     le prix et le bouton sous la ligne de flottaison. Le mobile est une
+     composition, pas un desktop empilé.
+     Le prix ne remonte JAMAIS avant la promesse : l'ordre reste titre, phrase,
+     puis prix et action, puis les repères. */
+  .mx-hero__price {
+    order: 1;
+  }
+  .mx-hero__facts {
+    order: 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .mx-hero__facts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-4);
+  }
+  .mx-method__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mx-arc__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-2);
+    padding-block: var(--s-5);
+  }
+  .mx-offer__box {
+    padding: var(--s-5);
+  }
+  .mx-hero__portrait {
+    max-width: none;
+  }
+}

@@ -1,0 +1,219 @@
+/* Direction PARRIT : composition. Le silence vient de .t-parrit dans lab.css
+   (rythme 12 rem, motion 620 ms, rouge rare). Ici, la mise en page.
+   Principe tenu : peu d'éléments simultanés à l'écran. */
+
+.pr-hero {
+  padding-block: var(--s-11) var(--s-9);
+  max-width: 60rem;
+}
+.pr-hero .lab-h1 {
+  max-width: 18ch;
+}
+
+.pr-hero__stage {
+  padding-bottom: var(--s-10);
+}
+.pr-stage {
+  max-width: 44rem;
+}
+.pr-stage__cap {
+  margin-top: var(--s-4);
+  font-family: var(--font-mono);
+  font-size: var(--f-xs);
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+.pr-watch {
+  margin-top: var(--s-8);
+}
+
+.pr-domains {
+  border-top: var(--hair) solid var(--line);
+}
+.pr-domains__row {
+  display: grid;
+  grid-template-columns: 16rem minmax(0, 1fr);
+  gap: var(--s-6);
+  padding-block: var(--s-6);
+  border-bottom: var(--hair) solid var(--line);
+  align-items: baseline;
+  transition: padding-left var(--dur) var(--ease);
+}
+.pr-domains__row:hover {
+  padding-left: var(--s-4);
+}
+.pr-domains__k {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+.pr-domains__t {
+  color: var(--ink-muted);
+  font-size: var(--f-md);
+  max-width: 52ch;
+}
+
+.pr-proofs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-8);
+}
+.pr-proof {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  border-top: 2px solid var(--ink);
+  padding-top: var(--s-5);
+}
+.pr-proof__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-4);
+  align-items: baseline;
+}
+.pr-proof__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+.pr-proof__before {
+  color: var(--ink-muted);
+  font-size: var(--f-sm);
+  line-height: 1.6;
+}
+.pr-proof__status {
+  font-family: var(--font-mono);
+  font-size: var(--f-xs);
+  letter-spacing: 0.04em;
+  border-left: 2px solid var(--signal);
+  padding-left: var(--s-4);
+}
+.pr-proof__gap {
+  font-family: var(--font-mono);
+  font-size: var(--f-xs);
+  color: var(--ink-muted);
+  line-height: var(--lh-mono);
+}
+
+.pr-ladder {
+  border-top: var(--hair) solid var(--line);
+}
+.pr-ladder__row {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr);
+  gap: var(--s-6);
+  padding-block: var(--s-7);
+  border-bottom: var(--hair) solid var(--line);
+  align-items: baseline;
+}
+.pr-ladder__n {
+  font-family: var(--font-display);
+  font-size: var(--f-2xl);
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--ink-muted);
+}
+.pr-ladder__t {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  margin-bottom: var(--s-3);
+}
+.pr-ladder__d {
+  color: var(--ink-muted);
+  max-width: 56ch;
+}
+.pr-ladder__note {
+  margin-top: var(--s-6);
+  font-family: var(--font-mono);
+  font-size: var(--f-xs);
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+.pr-app {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 4fr);
+  gap: var(--s-9);
+  align-items: center;
+}
+.pr-app__device {
+  max-width: 22rem;
+  margin-inline: auto;
+  width: 100%;
+}
+
+.pr-doors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-7);
+}
+.pr-door {
+  border: var(--hair) solid var(--line);
+  background: var(--paper);
+  padding: var(--s-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  min-height: 22rem;
+  transition: border-color var(--dur) var(--ease);
+}
+.pr-door:hover {
+  border-color: var(--ink);
+}
+.pr-door__t {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+}
+.pr-door .lab-btn {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.pr-final {
+  margin-top: var(--s-8);
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 1080px) {
+  .pr-proofs,
+  .pr-doors,
+  .pr-app {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-6);
+  }
+  .pr-hero {
+    padding-block: var(--s-9) var(--s-7);
+  }
+  .pr-app__device {
+    max-width: 18rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .pr-domains__row,
+  .pr-ladder__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-3);
+    padding-block: var(--s-5);
+  }
+  .pr-door {
+    padding: var(--s-5);
+    min-height: 0;
+  }
+  .pr-door .lab-btn {
+    align-self: stretch;
+  }
+  .pr-hero .lab-h1 {
+    max-width: none;
+  }
+}

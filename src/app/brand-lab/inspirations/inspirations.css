@@ -1,0 +1,218 @@
+/* Page Inspirations : la salle de références.
+   Composition propre à cette page seulement. Rien ici ne doit fuir vers les
+   trois expressions de marque. */
+
+.insp__hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  padding-block: var(--s-8) var(--s-6);
+  max-width: 62rem;
+}
+
+.insp__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-8);
+}
+
+.insp {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--s-6);
+  align-items: start;
+  border-top: var(--hair) solid var(--line);
+  padding-top: var(--s-6);
+}
+
+.insp__shots {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 118px;
+  gap: var(--s-3);
+  align-items: start;
+}
+
+.insp__shot {
+  display: block;
+  border: var(--hair) solid var(--line);
+  background: var(--paper-alt);
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  position: relative;
+}
+.insp__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  filter: saturate(0.92);
+  transition: filter var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+a.insp__shot:hover img {
+  filter: saturate(1);
+  transform: scale(1.015);
+}
+.insp__shot--m {
+  aspect-ratio: 9 / 17;
+}
+
+/* Plaque de repli quand une capture manque : l'image casse, le cadre tient. */
+.insp__shot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 var(--hair) color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
+/* Référence doctrinale : la place de la capture reste, vide et déclarée.
+   Le cadre tient la grille, et le vide dit qu'il est volontaire. */
+.insp__plate {
+  border: var(--hair) dashed var(--line);
+  aspect-ratio: 16 / 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--s-3);
+  text-align: center;
+  padding: var(--s-5);
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 9px,
+    color-mix(in srgb, var(--ink) 4%, transparent) 9px,
+    color-mix(in srgb, var(--ink) 4%, transparent) 10px
+  );
+}
+.insp__plate__why {
+  font-family: var(--font-mono);
+  font-size: var(--f-sm);
+  color: var(--ink-muted);
+  max-width: 32ch;
+}
+
+.insp__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.insp__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+}
+.insp__url {
+  font-family: var(--font-mono);
+  font-size: var(--f-xs);
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  border-bottom: var(--hair) solid transparent;
+}
+.insp__url:hover {
+  color: var(--signal);
+  border-color: var(--signal);
+}
+
+.insp__observed,
+.insp__applied {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  color: var(--ink-muted);
+  font-size: var(--f-sm);
+}
+.insp__applied {
+  border-left: 2px solid var(--signal);
+  padding-left: var(--s-4);
+  color: var(--ink);
+}
+
+.insp__cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-5);
+  border-top: var(--hair) solid var(--line);
+  border-bottom: var(--hair) solid var(--line);
+  padding-block: var(--s-4);
+}
+.insp__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+.insp__col ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+.insp__col li {
+  font-size: var(--f-sm);
+  line-height: 1.4;
+  padding-left: var(--s-4);
+  position: relative;
+  color: var(--ink);
+}
+.insp__col li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: var(--hair);
+  background: var(--signal);
+}
+.insp__col--avoid li {
+  color: var(--ink-muted);
+}
+.insp__col--avoid li::before {
+  background: var(--ink-muted);
+  width: 8px;
+  transform: rotate(45deg);
+  transform-origin: center;
+}
+
+.insp__bans {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+.insp__ban {
+  font-family: var(--font-mono);
+  font-size: var(--f-xs);
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+  border: var(--hair) solid var(--line);
+  padding: var(--s-2) var(--s-3);
+  text-decoration: line-through;
+  text-decoration-color: var(--signal);
+  text-decoration-thickness: var(--hair);
+}
+
+@media (max-width: 1080px) {
+  .insp {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-5);
+  }
+}
+
+@media (max-width: 560px) {
+  .insp__shots {
+    grid-template-columns: minmax(0, 1fr) 84px;
+  }
+  .insp__cols {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-4);
+  }
+  .insp__hero {
+    padding-block: var(--s-6) var(--s-4);
+  }
+}

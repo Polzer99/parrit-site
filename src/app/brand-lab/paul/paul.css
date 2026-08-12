@@ -1,0 +1,263 @@
+/* Direction PAUL : composition. Les couleurs et le rythme viennent de .t-paul
+   dans lab.css. Ici, uniquement de la mise en page propre à cette page. */
+
+.paul-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: var(--s-8);
+  align-items: center;
+  padding-block: var(--s-9) var(--s-8);
+}
+.paul-hero__text {
+  max-width: 40rem;
+}
+.paul-hero__price {
+  border-top: var(--hair) solid var(--line);
+  border-bottom: var(--hair) solid var(--line);
+  padding-block: var(--s-4);
+}
+.paul-hero__note {
+  font-size: var(--f-xs);
+  color: var(--ink-muted);
+  max-width: 44ch;
+  line-height: var(--lh-mono);
+}
+.paul-hero__cap {
+  font-size: var(--f-xs);
+  color: var(--ink-muted);
+  margin-top: var(--s-3);
+  letter-spacing: 0.04em;
+}
+
+.paul-isnot {
+  margin-top: var(--s-7);
+  padding-top: var(--s-5);
+  border-top: var(--hair) solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+.paul-isnot__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+.paul-isnot__item {
+  font-family: var(--font-mono);
+  font-size: var(--f-xs);
+  color: var(--ink-muted);
+  border: var(--hair) solid var(--line);
+  padding: var(--s-2) var(--s-3);
+  text-decoration: line-through;
+  text-decoration-color: var(--signal);
+}
+
+.paul-matter {
+  border-top: var(--hair) solid var(--line);
+}
+.paul-matter__row {
+  display: grid;
+  grid-template-columns: 14rem minmax(0, 1fr);
+  gap: var(--s-5);
+  padding-block: var(--s-4);
+  border-bottom: var(--hair) solid var(--line);
+  align-items: baseline;
+  transition: padding-left var(--dur) var(--ease);
+}
+.paul-matter__row:hover {
+  padding-left: var(--s-3);
+}
+.paul-matter__k {
+  font-family: var(--font-display);
+  font-size: var(--f-lg);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.paul-matter__v {
+  color: var(--ink-muted);
+  font-size: var(--f-sm);
+}
+
+.paul-proofs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-5);
+}
+.paul-proofs__foot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin-top: auto;
+  padding-top: var(--s-4);
+  border-top: var(--hair) solid var(--line);
+}
+.paul-proofs__gap {
+  font-size: var(--f-xs);
+  color: var(--ink-muted);
+  line-height: var(--lh-mono);
+}
+.paul-proofs .lab-proof {
+  height: 100%;
+}
+
+.paul-face {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  margin-top: var(--s-5);
+  font-family: var(--font-mono);
+  font-size: var(--f-xs);
+  color: var(--ink-muted);
+  letter-spacing: 0.04em;
+}
+.paul-face img {
+  width: 68px;
+  height: 68px;
+  object-fit: cover;
+  border: var(--hair) solid var(--line);
+  filter: grayscale(1) contrast(1.05);
+}
+
+.paul-criteria {
+  border-top: var(--hair) solid var(--line);
+}
+.paul-criteria__row {
+  display: grid;
+  grid-template-columns: 2.5rem 12rem minmax(0, 1fr);
+  gap: var(--s-4);
+  padding-block: var(--s-4);
+  border-bottom: var(--hair) solid var(--line);
+  align-items: baseline;
+}
+.paul-criteria__k {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.paul-criteria__v {
+  color: var(--ink-muted);
+  font-size: var(--f-sm);
+}
+.paul-criteria__rule {
+  margin-top: var(--s-5);
+  font-size: var(--f-sm);
+  color: var(--ink);
+  border-left: 2px solid var(--signal);
+  padding-left: var(--s-4);
+  max-width: 58ch;
+}
+
+.paul-method__fr {
+  font-family: var(--font-mono);
+  font-size: var(--f-xs);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-left: var(--s-3);
+}
+
+.paul-arc {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border: var(--hair) solid var(--line);
+}
+.paul-arc__step {
+  padding: var(--s-5) var(--s-4);
+  border-right: var(--hair) solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  min-height: 200px;
+  height: 100%;
+}
+.paul-arc__step.is-last {
+  border-right: 0;
+  background: var(--signal-tint);
+}
+.paul-arc__state {
+  font-family: var(--font-display);
+  font-size: var(--f-lg);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.paul-arc__line {
+  font-size: var(--f-xs);
+  color: var(--ink-muted);
+  line-height: var(--lh-mono);
+}
+
+.paul-offer {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 4fr);
+  gap: var(--s-8);
+  align-items: start;
+}
+.paul-offer__box {
+  border: var(--hair) solid var(--ink);
+  padding: var(--s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.paul-variants {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  border: var(--hair) dashed var(--line);
+  padding: var(--s-5);
+  margin-block: var(--s-6);
+}
+.paul-variants__row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  font-size: var(--f-sm);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1080px) {
+  .paul-hero,
+  .paul-offer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-6);
+  }
+  .paul-hero {
+    padding-block: var(--s-7) var(--s-6);
+  }
+  .paul-proofs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .paul-arc {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .paul-arc__step {
+    border-bottom: var(--hair) solid var(--line);
+    min-height: 0;
+  }
+  .paul-arc__step:nth-child(2n) {
+    border-right: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .paul-matter__row,
+  .paul-criteria__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-2);
+  }
+  .paul-arc {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .paul-arc__step,
+  .paul-arc__step:nth-child(2n) {
+    border-right: 0;
+  }
+  .paul-arc__step.is-last {
+    border-bottom: 0;
+  }
+  .paul-hero__text {
+    max-width: none;
+  }
+}

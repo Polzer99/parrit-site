@@ -1,0 +1,106 @@
+[
+  {
+    "slug": "palantir",
+    "url": "https://www.palantir.com/",
+    "desktop": "ok",
+    "mobile": "ok"
+  },
+  {
+    "slug": "linear",
+    "url": "https://linear.app/",
+    "desktop": "ok",
+    "mobile": "ok"
+  },
+  {
+    "slug": "uber",
+    "url": "https://www.uber.com/",
+    "desktop": "ok",
+    "mobile": "ok"
+  },
+  {
+    "slug": "mckinsey",
+    "url": "https://www.mckinsey.com/",
+    "desktop": "fail",
+    "mobile": "fail",
+    "error": "Error: page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.mckinsey.com/\nCall log:\n\u001b[2m  - navigating to \"https://ww"
+  },
+  {
+    "slug": "bain",
+    "url": "https://www.bain.com/",
+    "desktop": "ok",
+    "mobile": "ok"
+  },
+  {
+    "slug": "amazon-about",
+    "url": "https://www.aboutamazon.com/",
+    "desktop": "ok",
+    "mobile": "ok"
+  },
+  {
+    "slug": "wispr",
+    "url": "https://wisprflow.ai/",
+    "desktop": "ok",
+    "mobile": "ok"
+  },
+  {
+    "slug": "matis-clouet",
+    "url": "https://www.matisclouet.com/",
+    "desktop": "ok",
+    "mobile": "ok"
+  },
+  {
+    "slug": "iman-gadzhi",
+    "url": "https://www.imangadzhi.com/",
+    "desktop": "fail",
+    "mobile": "fail",
+    "error": "Error: page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.imangadzhi.com/\nCall log:\n\u001b[2m  - navigating to \"https://www"
+  },
+  {
+    "slug": "ramit-sethi",
+    "url": "https://www.iwillteachyoutoberich.com/",
+    "desktop": "ok",
+    "mobile": "ok"
+  },
+  {
+    "slug": "sahil-bloom",
+    "url": "https://www.sahilbloom.com/",
+    "desktop": "ok",
+    "mobile": "ok"
+  },
+  {
+    "slug": "ali-abdaal",
+    "url": "https://aliabdaal.com/",
+    "desktop": "ok",
+    "mobile": "ok"
+  },
+  {
+    "slug": "aman",
+    "url": "https://www.aman.com/",
+    "desktop": "ok",
+    "mobile": "ok"
+  },
+  {
+    "slug": "bang-olufsen",
+    "url": "https://www.bang-olufsen.com/en/fr/",
+    "desktop": "ok",
+    "mobile": "ok"
+  },
+  {
+    "slug": "apple",
+    "url": "https://www.apple.com/",
+    "desktop": "ok",
+    "mobile": "ok"
+  },
+  {
+    "slug": "rimowa",
+    "url": "https://www.rimowa.com/fr/fr/home",
+    "desktop": "ok",
+    "mobile": "ok"
+  },
+  {
+    "slug": "aesop",
+    "url": "https://www.aesop.com/fr/",
+    "desktop": "ok",
+    "mobile": "ok"
+  }
+]

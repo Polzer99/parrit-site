@@ -39,6 +39,7 @@ export const config = {
   matcher: [
     // On skip les internals Next, les assets statiques, les fichiers publics,
     // et l'OS interne (hors i18n)
-    "/((?!_next|api|os|fondateurs|academy|chemin|metiers|harnais-ia|outils|diagnostic|demarrer-claude-code|favicon.ico|robots.txt|sitemap.xml|og-image.png|.*\\..*).*)",
+    // brand-lab : atelier interne monolingue, il ne passe pas par l'i18n.
+    "/((?!_next|api|os|brand-lab|fondateurs|academy|chemin|metiers|harnais-ia|outils|diagnostic|demarrer-claude-code|architecture-claude-md|favicon.ico|robots.txt|sitemap.xml|og-image.png|.*\\..*).*)",
   ],
 };

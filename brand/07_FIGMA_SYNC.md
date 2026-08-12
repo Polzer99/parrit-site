@@ -6,11 +6,37 @@ Attach the exact Figma design URL and the node-specific URL for the existing des
 
 ```yaml
 figma:
-  file_url: pending
-  file_key: pending
+  file_url: https://www.figma.com/design/Zs3WuVBkAT9Iq6S9c3XsYG
+  file_key: Zs3WuVBkAT9Iq6S9c3XsYG
   design_system_page_id: pending
   website_page_id: pending
+  start_here_page_id: "0:1"
 ```
+
+## État réel du fichier au 12/08/2026
+
+Renseigné par Paul le 12/08/2026. Le champ portait `pending` depuis la création
+du document : aucun agent ne pouvait ouvrir le fichier depuis le dépôt.
+
+**Le fichier est un WORKBENCH et un BRAND BRIEF, pas le Design System.** Inspecté
+en lecture seule le 12/08 : une seule page, `00 — START HERE` (`0:1`), une seule
+frame `Brand brief — start here` (`3:2`), entièrement textuelle. Six blocs :
+`Commercial engine`, `Paul — operator`, `Maxime — guide`, `Parrit.ai —
+institution`, `Design rule`, `UX benchmark`. **Aucune direction visuelle n'y est
+dessinée.**
+
+Deux éléments du brief Figma font autorité sur le Brand Lab :
+
+- **Prix du produit d'entrée : 2 500 € HT** pour 10 heures de « Build With You ».
+  C'est la valeur retenue dans `src/app/brand-lab/_lib/offer.ts`.
+- **Règle de design** : ne pas produire trois habillages d'un même site. Un core
+  partagé (grille, espacements, qualité de mouvement, composants), et seule la
+  température émotionnelle change. C'est l'architecture du lab.
+
+**Sens de circulation.** Le Brand Lab en code explore, Paul et Maxime arbitrent,
+puis les directions retenues sont réinjectées dans CE fichier pour construire le
+vrai Design System. Le fichier ne redescend pas vers le code tant que cette
+étape n'a pas eu lieu.
 
 ## Figma structure
 
