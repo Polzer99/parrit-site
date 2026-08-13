@@ -7,26 +7,38 @@ Dépôt : `~/paul-larmaraud-site`. Le site est en production.
 
 ## Le hero, dans l'ordre
 
+*Amendé le 13/08, passage conversion V3. Ce bloc remplace le hero à deux niveaux.*
+
 ```
 ACCOMPAGNEMENT INDIVIDUEL · 10 HEURES
 
-Mettez fin au chaos.
-Retrouvez la clarté.
+En 10 heures, transformez un processus qui vous coûte du temps
+en un résultat que vous savez piloter.
 
-Appliquez l'IA à un problème réel de votre entreprise, directement avec Paul.
+Pas de cours générique. Vous partez de vos vrais dossiers, de vos outils et de
+vos contraintes. Vous construisez jusqu'à obtenir un premier résultat utilisable.
 
-En 10 heures, vous choisissez le problème qui vous coûte le plus, vous voyez une
-première solution tourner sur votre travail réel, et vous repartez capable de continuer.
-
-[ Réserver mon audit offert ]   15 min avec Paul · sans engagement
+[ Réserver mon audit offert ]   15 minutes pour choisir le premier processus
+                                à traiter. Sans engagement.
 ```
 
-**Le titre porte l'émotion, la ligne descriptive porte la compréhension.** Toucher au titre pour
-le rendre explicite l'aplatit ; c'est la ligne du dessous qui doit répondre à l'objection
-« je ne comprends pas ce que tu fais ».
+**Le H1 porte seul la compréhension opérationnelle.** Le canon précédent le faisait porter
+l'émotion et confiait la compréhension à une ligne descriptive. Deux niveaux à recomposer,
+c'est un niveau de trop : le visiteur doit savoir en une lecture ce qu'il obtient.
 
-Le prix est interdit dans le hero. Deux lignes d'environ vingt caractères pour le titre : au-delà,
-il passe à trois lignes et écrase le premier écran.
+**« Mettez fin au chaos. Retrouvez la clarté. » reste au canon** comme phrase de marque de Paul.
+Elle vit dans `hero.brandLine`, volontairement non rendue, et sera reposée dans une section
+transformation qui n'existe pas encore. Ne pas la supprimer.
+
+**Interdits dans le hero** : le prix ; « directement avec Paul » ; agent, agentique, prompt,
+automatisation, workflow, LLM, orchestration, MCP, Claude Code, Codex, operating system, SuperApp.
+Le visiteur doit reconnaître **son** travail avant notre technologie. Le mot « IA » n'est pas
+obligatoire au-dessus de la ligne de flottaison — il n'y est plus.
+
+Le titre fait une phrase entière : plus de césure imposée, plus de contrainte de vingt signes.
+Il descend à 46 px sur grand écran, ce qui donne quatre lignes dans une colonne de 760 px et
+laisse le CTA dans le premier écran. Un `<br>` calé pour le bureau coupe au mauvais endroit
+dès 390 px : c'est `text-wrap: balance` et la largeur de colonne qui décident.
 
 ## L'ordre des sections
 
@@ -61,6 +73,13 @@ Le contrôle balaye la page par pas d'un demi-écran et échoue si deux CTA sont
 
 Ces règles sont **mécanisées** dans `scripts/qa-shots.mjs`, qui échoue aux sept largeurs 1440,
 1280, 1024, 768, 430, 390 et 375. Une règle sans mécanisme n'est pas une règle.
+
+Le harnais échoue aussi sur : jargon au-dessus de la ligne de flottaison ; plus d'un bouton plein
+dans le premier écran ; CTA d'en-tête visible dès le haut de page ou absent après défilement ;
+focus clavier sans anneau visible ; décalage de mise en page cumulé au-dessus de 0,1.
+
+⚠️ Les contrôles déplacent la page — le focus clavier fait défiler jusqu'au bouton atteint. Sans
+remise à zéro du défilement, la capture « premier écran » montre la section offre.
 
 ## L'indexation
 
