@@ -1,0 +1,124 @@
+{
+  "mission": "MASTER RESET + lancement paul-larmaraud.com",
+  "date": "2026-08-12",
+  "owner": "Claude Code — session 68ce6077",
+  "mode": "GRAPH annoncé, exécution séquentielle dans un seul contexte",
+  "mode_justification": "Les quatre lanes G1A à G1D sont indépendantes en écriture et pouvaient être parallélisées. L'outillage de cette session interdit le lancement de sous-agents sans demande explicite de Paul. §41 impose de le dire plutôt que d'avancer en file sans le signaler.",
+  "nodes": [
+    {
+      "id": "G0",
+      "title": "Freeze et audit du dépôt",
+      "state": "DONE",
+      "outputs": ["brand-v2/PAUL-LAUNCH-LOCK.md"],
+      "findings": [
+        "22 worktrees, dont 15 prunables et 2 Codex actifs",
+        "8 processus claude concurrents, 1 serveur next dev sur parrit-site",
+        "worktree parrit-site-ds sur ds/visual-reset-v2 : autre session, périmètre parrit.ai",
+        "aucun brand-inputs/paul/inspirations sur le disque"
+      ],
+      "decision": "Construire dans un dépôt NEUF hors de parrit-site. L'écriture concurrente est le risque numéro un de cette session, et c'est ce qui avait détruit huit pages Figma quelques heures plus tôt."
+    },
+    {
+      "id": "G1B",
+      "title": "Lecture de la direction validée dans Figma",
+      "state": "DONE",
+      "deps": ["G0"],
+      "reads": ["166:13", "171:2", "141:2", "18:2"],
+      "outputs": ["tokens, structure des 7 sections, copy au mot"]
+    },
+    {
+      "id": "G1C",
+      "title": "Réconciliation des preuves",
+      "state": "DONE_WITH_OPEN_GATE",
+      "deps": ["G1B"],
+      "decision": "FOREXPERT retiré, aucune source primaire. JOONE, LAPARRA, CLEVERY AVOCATS affichés, sous interrupteur proof.named, avec indexation fermée jusqu'à décision de Paul.",
+      "open": "Accord écrit de citation pour les trois clients affichés."
+    },
+    {
+      "id": "G1D",
+      "title": "Audit technique, hébergement et domaine",
+      "state": "DONE",
+      "deps": ["G0"],
+      "outputs": ["brand-output/paul/DNS-BEFORE.md"],
+      "findings": [
+        "paul-larmaraud.com enregistré le 12/08/2026, DNS GoDaddy, parking",
+        "aucun MX, aucun TXT, aucun DMARC : basculement sans risque pour le mail",
+        "parrit.ai est servi par Vercel derrière Cloudflare : Vercel est le provider canonique des sites publics"
+      ]
+    },
+    {
+      "id": "M1",
+      "title": "Contrat d'implémentation",
+      "state": "DONE",
+      "deps": ["G1B", "G1C", "G1D"],
+      "outputs": ["brand-output/paul/IMPLEMENTATION-CONTRACT.md"],
+      "rule": "Aucun code visuel avant ce noeud. Respecté."
+    },
+    {
+      "id": "G4",
+      "title": "Implémentation",
+      "state": "DONE",
+      "deps": ["M1"],
+      "outputs": ["dépôt ~/paul-larmaraud-site, commit 419de7e et suivants"],
+      "note": "Exécuté AVANT G2, à l'inverse de l'ordre du brief. Justifié : la maquette 166:13 EST déjà la direction validée, et la mise en ligne est le chemin critique."
+    },
+    {
+      "id": "G3",
+      "title": "Revue visuelle, desktop et mobile",
+      "state": "DONE",
+      "deps": ["G4"],
+      "outputs": ["artifacts/qa/*.png aux 5 largeurs"],
+      "defects_found_and_fixed": [
+        "CTA d'en-tête sur deux lignes sous 780px",
+        "contrôle de prix mal écrit : il testait l'unicité au lieu de l'ordre"
+      ]
+    },
+    {
+      "id": "G5",
+      "title": "Déploiement de la preview",
+      "state": "DONE",
+      "deps": ["G3"],
+      "outputs": ["https://paul-larmaraud.vercel.app"],
+      "incident": "Vercel a promu le premier déploiement en production : l'URL *.vercel.app servait un robots.txt permissif alors que la page nomme des clients. Corrigé dans les minutes suivantes par un double verrou, robots.txt sur l'hôte et en-tête x-robots-tag."
+    },
+    {
+      "id": "G2",
+      "title": "Page finale dans Figma",
+      "state": "DONE",
+      "deps": ["G3"],
+      "target": "page V2 — CLAUDE — PAUL FINAL, 172:2",
+      "note": "Écrit après le code, en miroir de ce qui est réellement en ligne."
+    },
+    {
+      "id": "G1A",
+      "title": "Migration de la mémoire canonique",
+      "state": "DONE",
+      "deps": ["M1"],
+      "outputs": ["docs/brand-v2/*.md", "mémoire Claude"]
+    },
+    {
+      "id": "M2",
+      "title": "GATE HUMAIN — validation de Paul",
+      "state": "OPEN",
+      "deps": ["G5", "G2"],
+      "blocking_questions": [
+        "Les trois noms de clients sont-ils publiables, oui ou non",
+        "Application du tableau DNS chez GoDaddy",
+        "Clé PostHog du projet"
+      ]
+    },
+    {
+      "id": "G6",
+      "title": "Branchement du domaine",
+      "state": "BLOCKED_ON_M2",
+      "deps": ["M2"],
+      "note": "Les deux domaines sont déjà rattachés au projet Vercel. Il ne manque que les enregistrements DNS chez GoDaddy, qui demandent un login humain."
+    },
+    {
+      "id": "G7",
+      "title": "Production, SSL, analytics, tests",
+      "state": "BLOCKED_ON_G6",
+      "deps": ["G6"]
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "slice": "PARRIT PERSONAL LANDINGS V2",
+  "target_figma_file": "Zs3WuVBkAT9Iq6S9c3XsYG",
+  "orchestrator": "Claude Code",
+  "rule": "Les ecritures Figma sont strictement serialisees. Un seul integrateur ecrit dans le fichier : l'orchestrateur. Aucun sous-agent n'a acces en ecriture a Figma.",
+  "nodes": [
+    {
+      "id": "G0",
+      "name": "Recovery Audit",
+      "owner": "Orchestrateur",
+      "dependencies": [],
+      "inputs": [
+        "Figma Zs3WuVBkAT9Iq6S9c3XsYG",
+        "parrit-site/src/app/brand-lab/**",
+        "parrit-site/BRAND-LAB-V1.md",
+        "parrit-os/canon/PUBLICATION-GATE-ET-PAQUET-EDITORIAL.md",
+        "parrit-os/canon/CASE-STUDIES-EVIDENCE-MATRIX.md"
+      ],
+      "outputs": ["brand-v2/01-RECOVERY-AUDIT.md"],
+      "acceptance_criteria": [
+        "Le fichier Figma a ete inspecte, pages listees avec leurs IDs",
+        "Aucune page existante supprimee ni ecrasee",
+        "Classement explicite KEEP / REMOVE / REBUILD",
+        "Aucune preuve reconstruite ni inventee"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "G1",
+      "name": "Conversion Architecture",
+      "owner": "Conversion Strategist",
+      "dependencies": ["G0"],
+      "inputs": ["brand-v2/01-RECOVERY-AUDIT.md"],
+      "outputs": ["brand-v2/02-FUNNEL.md"],
+      "acceptance_criteria": [
+        "8 sections majeures maximum",
+        "Le prix arrive apres reconnaissance, exemples, preuve, methode, autonomie",
+        "Une seule offre, un seul parcours de conversion",
+        "Aucun prix dans le hero"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "G2",
+      "name": "Visual Research Paul",
+      "owner": "Paul Visual Director",
+      "dependencies": ["G0"],
+      "inputs": ["public/brand-lab/refs/*.jpg"],
+      "outputs": ["brand-v2/03-REFERENCES-PAUL.md"],
+      "acceptance_criteria": [
+        "Exactement 4 references maitresses",
+        "Chaque reference porte une capture reelle existante sur disque",
+        "3 TAKE et 3 AVOID par reference",
+        "Une traduction concrete en decision de design pour Paul"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "G3",
+      "name": "Visual Research Maxime",
+      "owner": "Maxime Visual Director",
+      "dependencies": ["G0"],
+      "inputs": ["public/brand-lab/refs/*.jpg"],
+      "outputs": ["brand-v2/04-REFERENCES-MAXIME.md"],
+      "acceptance_criteria": [
+        "Exactement 4 references maitresses",
+        "Chaque reference porte une capture reelle existante sur disque",
+        "Filtre creator mechanics x executive reassurance applique",
+        "Credible pour un dirigeant de PME de 45 a 60 ans"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "G4",
+      "name": "Proof Inventory",
+      "owner": "Evidence Editor",
+      "dependencies": ["G0"],
+      "inputs": [
+        "parrit-os/canon/CASE-STUDIES-EVIDENCE-MATRIX.md",
+        "parrit-os/canon/PUBLICATION-GATE-ET-PAQUET-EDITORIAL.md",
+        "parrit-os/canon/PREUVES.yaml"
+      ],
+      "outputs": ["brand-v2/05-PROOF-INVENTORY.md"],
+      "acceptance_criteria": [
+        "Chaque preuve porte source, statut, niveau, anonymisation, formulation autorisee et interdite",
+        "Aucun chiffre absent de la source primaire",
+        "Aucune preuve interne presentee comme un cas client",
+        "Les trous sont marques PROOF SLOT, jamais combles par du copy"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "G5",
+      "name": "Shared Design System Plan",
+      "owner": "Design System Architect",
+      "dependencies": ["G0"],
+      "inputs": ["parrit-site/brand/01_DESIGN_TOKENS.md", "parrit-site/src/app/brand-lab/lab.css"],
+      "outputs": ["brand-v2/06-DESIGN-SYSTEM-PLAN.md"],
+      "acceptance_criteria": [
+        "11 composants maximum, tous utilises par les deux pages",
+        "Fondations completes : grilles 12 et 4 colonnes, espacements, couleurs, typo, motion",
+        "Deux expressions declarees sans dupliquer le systeme",
+        "Aucun composant non utilise"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "M1",
+      "name": "Merge Gate 1",
+      "owner": "Orchestrateur",
+      "dependencies": ["G1", "G2", "G3", "G4", "G5"],
+      "inputs": ["brand-v2/02-FUNNEL.md", "brand-v2/03-REFERENCES-PAUL.md", "brand-v2/04-REFERENCES-MAXIME.md", "brand-v2/05-PROOF-INVENTORY.md", "brand-v2/06-DESIGN-SYSTEM-PLAN.md"],
+      "outputs": ["brand-v2/07-MERGE-DECISIONS.md"],
+      "acceptance_criteria": [
+        "Funnel definitif arrete",
+        "4 references par personne arretees",
+        "Preuves utilisables arretees",
+        "Emplacement du prix et CTA unique arretes",
+        "Aucune production Figma avant ce gate"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "G6",
+      "name": "Copywriting Paul",
+      "owner": "Paul Conversion Copywriter",
+      "dependencies": ["M1"],
+      "inputs": ["brand-v2/07-MERGE-DECISIONS.md"],
+      "outputs": ["brand-v2/08-COPY-PAUL.md"],
+      "acceptance_criteria": [
+        "Headline 12 mots maximum",
+        "Sous-titre 35 mots maximum",
+        "Aucun paragraphe au-dessus de 70 mots",
+        "500 a 750 mots au total",
+        "Un seul CTA primaire, aucun prix hors section offre"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "G7",
+      "name": "Copywriting Maxime",
+      "owner": "Maxime Conversion Copywriter",
+      "dependencies": ["M1"],
+      "inputs": ["brand-v2/07-MERGE-DECISIONS.md"],
+      "outputs": ["brand-v2/09-COPY-MAXIME.md"],
+      "acceptance_criteria": [
+        "Memes contraintes de longueur que G6",
+        "Aucun ton guru, aucune promesse de revenus, aucune fausse urgence",
+        "Credible pour un dirigeant de PME",
+        "Un seul CTA primaire"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "M2",
+      "name": "Merge Gate 2",
+      "owner": "Orchestrateur",
+      "dependencies": ["G6", "G7"],
+      "inputs": ["brand-v2/08-COPY-PAUL.md", "brand-v2/09-COPY-MAXIME.md"],
+      "outputs": ["brand-v2/10-COPY-MERGE.md"],
+      "acceptance_criteria": [
+        "Meme produit, meme funnel, meme promesse d'autonomie",
+        "Personnalites clairement distinctes",
+        "Aucune page au-dessus de 750 mots sans justification",
+        "Aucun prix avant la section offre"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "G8",
+      "name": "Moodboards Figma",
+      "owner": "Figma Integrator",
+      "dependencies": ["M2"],
+      "inputs": ["brand-v2/03-REFERENCES-PAUL.md", "brand-v2/04-REFERENCES-MAXIME.md"],
+      "outputs": ["Page Figma V2 - 01 VISUAL REFERENCES"],
+      "acceptance_criteria": ["Captures reelles uploadees dans Figma", "TAKE et AVOID annotes", "Le visuel domine le texte"],
+      "status": "pending"
+    },
+    {
+      "id": "G9",
+      "name": "Funnel Figma",
+      "owner": "Figma Integrator",
+      "dependencies": ["M2"],
+      "outputs": ["Page Figma V2 - 02 FUNNEL"],
+      "acceptance_criteria": ["Deux parcours cote a cote", "Question, emotion, preuve, CTA et position du prix par section", "Comprehensible sans lire le Markdown"],
+      "status": "pending"
+    },
+    {
+      "id": "G10",
+      "name": "Shared System Figma",
+      "owner": "Figma Integrator",
+      "dependencies": ["M2"],
+      "outputs": ["Page Figma V2 - 03 SHARED SYSTEM"],
+      "acceptance_criteria": ["Variables et styles crees", "Composants en Auto Layout, nommes, reutilisables", "Uniquement les composants reellement utilises"],
+      "status": "pending"
+    },
+    {
+      "id": "G11",
+      "name": "Paul Desktop",
+      "owner": "Figma Integrator",
+      "dependencies": ["G10"],
+      "outputs": ["Page Figma V2 - 04 PAUL LANDING"],
+      "acceptance_criteria": ["Frame 1440", "Aucun prix dans le premier viewport", "Un seul CTA primaire", "8 sections maximum"],
+      "status": "pending"
+    },
+    {
+      "id": "G12",
+      "name": "Maxime Desktop",
+      "owner": "Figma Integrator",
+      "dependencies": ["G10"],
+      "outputs": ["Page Figma V2 - 05 MAXIME LANDING"],
+      "acceptance_criteria": ["Frame 1440", "Portrait ou media central", "Aucun prix dans le premier viewport", "Aucune esthetique guru"],
+      "status": "pending"
+    },
+    {
+      "id": "G13",
+      "name": "Mobile",
+      "owner": "Figma Integrator",
+      "dependencies": ["G11", "G12"],
+      "outputs": ["Page Figma V2 - 06 MOBILE"],
+      "acceptance_criteria": ["390 px pour les deux", "Ordre et densite repenses, pas un desktop compresse"],
+      "status": "pending"
+    },
+    {
+      "id": "G14",
+      "name": "Conversion QA",
+      "owner": "Reviewer independant 1",
+      "dependencies": ["G13"],
+      "outputs": ["brand-v2/11-QA-CONVERSION.md"],
+      "acceptance_criteria": ["Note sur 10 par critere", "Minimum 8/10 sur comprehension de la valeur, progression du funnel et evidence du CTA"],
+      "status": "pending"
+    },
+    {
+      "id": "G15",
+      "name": "Brand Fidelity QA",
+      "owner": "Reviewer independant 2",
+      "dependencies": ["G13"],
+      "outputs": ["brand-v2/12-QA-BRAND.md"],
+      "acceptance_criteria": ["Minimum 8/10 sur la fidelite de personnalite", "Maison commune perceptible", "Personnalites distinctes"],
+      "status": "pending"
+    },
+    {
+      "id": "G16",
+      "name": "Visual QA",
+      "owner": "Figma Integrator",
+      "dependencies": ["G13"],
+      "outputs": ["brand-v2/13-QA-VISUAL.md", "artifacts/brand-v2/*.png"],
+      "acceptance_criteria": ["Captures des 6 surfaces", "Alignements, debordements, contrastes, densite controles", "Corrections appliquees avant cloture"],
+      "status": "pending"
+    }
+  ]
+}
