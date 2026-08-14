@@ -111,25 +111,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="rev-section" aria-labelledby="operators-heading">
-          <div className="rev-section-head">
-            <h2 id="operators-heading">The operators</h2>
-            <K>Human faces / text-only</K>
-          </div>
-          <div className="faces">
-            <Link className="face" href="/paul">
-              <K>Founder · Operating partner</K>
-              <strong>Paul Larmaraud</strong>
-              <K>Profile to follow</K>
-            </Link>
-            <Link className="face" href="/maxime">
-              <K>Partner · Operating systems</K>
-              <strong>Maxime</strong>
-              <K>Profile to follow</K>
-            </Link>
-          </div>
-        </section>
-
         <footer className="rev-footer">
           <RegistryLine />
         </footer>
