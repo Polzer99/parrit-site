@@ -13,6 +13,8 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     ".vercel/**",
+    // Prototypes de reference REV 02 (docs/site-prod-rev01/*.jsx) : artefacts, pas du code applicatif.
+    "docs/**",
   ]),
   {
     rules: {
