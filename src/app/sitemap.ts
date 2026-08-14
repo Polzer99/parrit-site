@@ -41,6 +41,15 @@ const STATIC_ROUTES = [
   { path: "/confidentialite", changeFrequency: "yearly" as const, priority: 0.3 },
 ];
 
+const REV01_PUBLIC_ROUTES = [
+  { path: "", changeFrequency: "weekly" as const, priority: 1.0 },
+  { path: "/standard", changeFrequency: "monthly" as const, priority: 0.8 },
+  { path: "/commission", changeFrequency: "monthly" as const, priority: 0.9 },
+  { path: "/paul", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/maxime", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/legal", changeFrequency: "yearly" as const, priority: 0.3 },
+];
+
 type GlossaryIndex = {
   articles: { slug: string; langs: Locale[] }[];
 };
@@ -77,6 +86,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
           languages: buildLanguagesMap(path),
         },
       })),
+  );
+
+  const rev01PublicEntries: MetadataRoute.Sitemap = REV01_PUBLIC_ROUTES.map(
+    ({ path, changeFrequency, priority }) => ({
+      url: `${SITE_URL}${path}`,
+      lastModified,
+      changeFrequency,
+      priority,
+    }),
   );
 
   /* UNE seule URL par ressource au sitemap : celle qui rend l'expérience.
@@ -207,6 +225,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return [
+    ...rev01PublicEntries,
     ...staticEntries,
     ...resourceEntries,
     ...ressourceEntries,
