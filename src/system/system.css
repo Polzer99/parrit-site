@@ -1,0 +1,688 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+body {
+  font-family: var(--ui);
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+}
+
+.system-page {
+  min-height: 100vh;
+}
+
+.system-wrap {
+  width: min(100% - var(--s6), 1120px);
+  margin: 0 auto;
+  padding: var(--s6) 0 var(--s8);
+}
+
+.system-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s3);
+  padding-bottom: var(--s3);
+  border-bottom: 2px solid var(--ink);
+}
+
+.system-header h1 {
+  max-width: 14ch;
+  margin: var(--s2) 0 0;
+  font-size: clamp(36px, 7vw, 76px);
+  font-weight: 500;
+  letter-spacing: -.03em;
+  line-height: 1;
+}
+
+.system-section {
+  padding: var(--s6) 0;
+  border-bottom: 1px solid var(--rule-l);
+}
+
+.system-section h2 {
+  margin: 0 0 var(--s3);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.system-section > p {
+  max-width: 64ch;
+  color: var(--g3);
+  line-height: 1.65;
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  border: 1px solid var(--rule-l);
+  background: var(--rule-l);
+}
+
+.swatch {
+  background: var(--paper2);
+}
+
+.swatch-color {
+  height: 72px;
+  background: var(--swatch-color);
+}
+
+.swatch-meta {
+  display: grid;
+  gap: var(--s1);
+  padding: 12px;
+}
+
+.swatch-meta strong {
+  font-size: 12px;
+}
+
+.register-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s3);
+  margin-top: var(--s3);
+}
+
+.register {
+  padding: var(--s4);
+  border: 1px solid var(--rule-l);
+  background: var(--paper2);
+}
+
+.register.instrument {
+  border-color: var(--rule-d);
+  background: var(--carbon);
+  color: var(--paper);
+  box-shadow: 0 40px 80px -40px rgba(10, 11, 12, .4);
+}
+
+.component-stack {
+  display: grid;
+  gap: var(--s3);
+  margin-top: var(--s3);
+}
+
+.instrument {
+  max-width: 740px;
+  margin: 0 auto;
+  border: 1px solid var(--rule-d);
+  background: var(--carbon);
+  color: var(--paper);
+  box-shadow: 0 40px 80px -40px rgba(10, 11, 12, .4);
+}
+
+.instrument-bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 17px;
+  border-bottom: 1px solid var(--rule-d);
+}
+
+.instrument-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s2);
+  padding: var(--s2) 17px;
+  border-bottom: 1px solid var(--rule-d);
+}
+
+.instrument-row:last-child {
+  border-bottom: 0;
+}
+
+.instrument-value {
+  min-width: 128px;
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+}
+
+.instrument-row.critical .instrument-value {
+  color: var(--red);
+}
+
+.instrument-label {
+  color: var(--g2);
+  font-size: 13.5px;
+}
+
+.instrument-status {
+  margin-left: auto;
+}
+
+.frame {
+  position: relative;
+}
+
+.frame::before,
+.frame::after,
+.frame > .fx::before,
+.frame > .fx::after {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 0 solid var(--red);
+  content: "";
+  transition: opacity var(--move) var(--ease), transform var(--move) var(--ease);
+}
+
+.frame::before {
+  top: -1px;
+  left: -1px;
+  border-top-width: 2px;
+  border-left-width: 2px;
+}
+
+.frame::after {
+  top: -1px;
+  right: -1px;
+  border-top-width: 2px;
+  border-right-width: 2px;
+}
+
+.frame > .fx::before {
+  bottom: -1px;
+  left: -1px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+}
+
+.frame > .fx::after {
+  right: -1px;
+  bottom: -1px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+}
+
+.frame.closed::before {
+  opacity: 0;
+  transform: translate(6px, 6px);
+}
+
+.frame.closed::after {
+  opacity: 0;
+  transform: translate(-6px, 6px);
+}
+
+.frame.closed > .fx::before {
+  opacity: 0;
+  transform: translate(6px, -6px);
+}
+
+.frame.closed > .fx::after {
+  opacity: 0;
+  transform: translate(-6px, -6px);
+}
+
+.frame-demo {
+  padding: var(--s3);
+  border: 1px solid var(--rule-l);
+}
+
+.instrument .frame-demo {
+  border-color: var(--rule-d);
+}
+
+.k {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--g3);
+}
+
+.instrument .k {
+  color: var(--g4);
+}
+
+.registry-line {
+  display: block;
+}
+
+.status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+}
+
+.st {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.st::before {
+  display: inline-block;
+  content: "";
+}
+
+.st.ok::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 0;
+  background: var(--g2);
+  clip-path: circle(50%);
+}
+
+.st.att::before {
+  width: 0;
+  height: 0;
+  border-right: 5px solid transparent;
+  border-bottom: 8px solid currentColor;
+  border-left: 5px solid transparent;
+}
+
+.st.crit {
+  color: var(--red);
+}
+
+.st.crit::before {
+  width: 8px;
+  height: 8px;
+  background: var(--red);
+}
+
+.st.done::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 0;
+  background: currentColor;
+  clip-path: circle(50%);
+}
+
+.hold {
+  position: relative;
+  overflow: hidden;
+  appearance: none;
+  padding: 12px 18px;
+  border: 1.5px solid var(--ink);
+  background: var(--paper2);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+}
+
+.instrument .hold {
+  border-color: var(--paper);
+  background: transparent;
+  color: var(--paper);
+}
+
+.hold .fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  background: var(--red);
+}
+
+.hold .lab {
+  position: relative;
+  z-index: 1;
+}
+
+.hold[data-armed="true"] .lab {
+  color: var(--paper2);
+}
+
+.hold[data-done="true"] {
+  border-color: var(--rule-l);
+  color: var(--g3);
+  cursor: default;
+}
+
+.instrument .hold[data-done="true"] {
+  border-color: var(--rule-d);
+  color: var(--g2);
+}
+
+.hold[data-done="true"] .fill {
+  display: none;
+}
+
+.hold:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+.decision-card {
+  padding: var(--s3);
+  border: 1px solid var(--rule-l);
+  background: var(--paper2);
+}
+
+.instrument .decision-card {
+  border-color: var(--rule-d);
+  background: var(--carbon2);
+}
+
+.decision-card[data-done="true"] {
+  opacity: .55;
+}
+
+.decision-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s2);
+}
+
+.decision-head h3 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.decision-card p {
+  max-width: 60ch;
+  margin: var(--s1) 0 0;
+  color: var(--g3);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.instrument .decision-card p {
+  color: var(--g2);
+}
+
+.decision-foot {
+  margin-top: var(--s2);
+}
+
+.journal-line {
+  display: block;
+  margin-top: var(--s2);
+}
+
+.seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.seal::before {
+  width: 9px;
+  height: 9px;
+  background: var(--red);
+  content: "";
+}
+
+.dossier {
+  max-width: 840px;
+  margin: var(--s6) auto var(--s8);
+  border: 1.5px solid var(--ink);
+  background: var(--paper2);
+}
+
+.dossier-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  padding: 28px 30px;
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.dossier-header h2 {
+  max-width: 14ch;
+  margin: 12px 0 0;
+  font-size: clamp(25px, 3.8vw, 38px);
+  font-weight: 500;
+  letter-spacing: -.025em;
+  line-height: 1.05;
+}
+
+.dossier-plate {
+  display: grid;
+  align-content: start;
+  gap: 6px 20px;
+  margin: 0;
+}
+
+.dossier-plate > div {
+  display: grid;
+  grid-template-columns: minmax(110px, auto) auto;
+  gap: 20px;
+}
+
+.dossier-plate dt,
+.dossier-plate dd {
+  margin: 0;
+}
+
+.dossier-section {
+  padding: 26px 30px;
+  border-top: 1px solid var(--rule-l);
+}
+
+.dossier-section:first-of-type {
+  border-top: 0;
+}
+
+.dossier-section > p {
+  max-width: 60ch;
+  margin: 12px 0 0;
+  color: var(--g3);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.dossier-capabilities {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 14px 0 0;
+  padding: 1px;
+  background: var(--rule-l);
+  list-style: none;
+}
+
+.dossier-capabilities li {
+  padding: 14px 16px;
+  background: var(--paper2);
+  font-size: 13px;
+}
+
+.dossier-capabilities li > div {
+  margin-top: 5px;
+}
+
+.dossier-change {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 14px;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+}
+
+.dossier-change > div {
+  padding: 18px 20px;
+  background: var(--paper2);
+}
+
+.dossier-change ul {
+  display: grid;
+  gap: 9px;
+  margin: 12px 0 0;
+  padding: 0;
+  font-size: 13px;
+  list-style: none;
+}
+
+.dossier-after li {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.dossier-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 16px 30px;
+  border-top: 1.5px solid var(--ink);
+}
+
+.cal-stage {
+  padding-top: var(--s1);
+}
+
+.cal-instrument {
+  max-width: 860px;
+  margin: 0 auto;
+  border: 1px solid var(--rule-d);
+  background: var(--carbon);
+  color: var(--paper);
+  box-shadow: 0 40px 80px -40px rgba(10, 11, 12, .4);
+}
+
+.cal-bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 17px;
+  border-bottom: 1px solid var(--rule-d);
+  color: var(--g2);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.cal-bar-footer {
+  border-top: 1px solid var(--rule-d);
+  border-bottom: 0;
+}
+
+.cal-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1);
+  color: var(--paper);
+}
+
+.cal-status i {
+  width: 8px;
+  height: 8px;
+  background: var(--red);
+}
+
+.cal-embed {
+  width: 100%;
+  height: 100%;
+  min-height: 560px;
+  overflow: auto;
+}
+
+.cal-preview {
+  display: grid;
+  min-height: 180px;
+  place-items: center;
+  color: var(--g2);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .16em;
+}
+
+.cal-caption {
+  margin-top: var(--s2);
+  color: var(--g4);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.system-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  padding-top: var(--s3);
+  border-top: 2px solid var(--ink);
+}
+
+@media (max-width: 720px) {
+  .system-wrap {
+    width: min(100% - var(--s4), 1120px);
+  }
+
+  .system-header,
+  .system-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .register-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .instrument-bar,
+  .instrument-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .instrument-status {
+    margin-left: 0;
+  }
+
+  .cal-bar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dossier-capabilities,
+  .dossier-change {
+    grid-template-columns: 1fr;
+  }
+
+  .dossier-header,
+  .dossier-section,
+  .dossier-footer {
+    padding-right: var(--s2);
+    padding-left: var(--s2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}

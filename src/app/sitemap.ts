@@ -11,6 +11,7 @@ import { getMentions } from "@/lib/presse";
 import { aliasRessourcesARediriger, getRessourcesRenduesParTemplate } from "@/lib/registry";
 import { getPostsByPillar } from "@/lib/blog";
 import { locales, type Locale } from "@/app/[lang]/dictionaries";
+import { getAllJournalEntrySummaries } from "@/system/journal";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://parrit.ai";
@@ -38,6 +39,15 @@ const STATIC_ROUTES = [
   { path: "/auteur/paul-larmaraud", changeFrequency: "monthly" as const, priority: 0.7 },
   { path: "/mentions-legales", changeFrequency: "yearly" as const, priority: 0.3 },
   { path: "/confidentialite", changeFrequency: "yearly" as const, priority: 0.3 },
+];
+
+const REV01_PUBLIC_ROUTES = [
+  { path: "", changeFrequency: "weekly" as const, priority: 1.0 },
+  { path: "/standard", changeFrequency: "monthly" as const, priority: 0.8 },
+  { path: "/commission", changeFrequency: "monthly" as const, priority: 0.9 },
+  { path: "/paul", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/maxime", changeFrequency: "monthly" as const, priority: 0.7 },
+  { path: "/legal", changeFrequency: "yearly" as const, priority: 0.3 },
 ];
 
 type GlossaryIndex = {
@@ -76,6 +86,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
           languages: buildLanguagesMap(path),
         },
       })),
+  );
+
+  const rev01PublicEntries: MetadataRoute.Sitemap = REV01_PUBLIC_ROUTES.map(
+    ({ path, changeFrequency, priority }) => ({
+      url: `${SITE_URL}${path}`,
+      lastModified,
+      changeFrequency,
+      priority,
+    }),
   );
 
   /* UNE seule URL par ressource au sitemap : celle qui rend l'expérience.
@@ -190,7 +209,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
+  const journalEntries: MetadataRoute.Sitemap = [
+    {
+      url: `${SITE_URL}/journal`,
+      lastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+    ...getAllJournalEntrySummaries().map((entry) => ({
+      url: `${SITE_URL}/journal/${entry.slug}`,
+      lastModified: new Date(entry.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  ];
+
   return [
+    ...rev01PublicEntries,
     ...staticEntries,
     ...resourceEntries,
     ...ressourceEntries,
@@ -200,5 +235,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...actualiteEntries,
     ...glossaryEntries,
     ...pillarEntries,
+    ...journalEntries,
   ];
 }

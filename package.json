@@ -14,11 +14,14 @@
     "qa:templates": "playwright test tests/template-grammar.spec.ts",
     "qa:specimen": "node scripts/ds-specimen-qa.mjs",
     "qa:foundation": "node scripts/foundation-audit.mjs",
+    "qa:brand:rev01": "node scripts/brand-conformity-check.mjs",
+    "qa:network:rev01": "playwright test tests/rev01-system.spec.ts --browser=chromium",
     "qa:doctrine:diff": "node scripts/doctrine-diff.mjs",
     "qa:doctrine:baseline": "node scripts/doctrine-baseline-lower.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",
+    "@calcom/embed-react": "^1.5.3",
     "@fontsource/poppins": "^5.2.7",
     "@formatjs/intl-localematcher": "^0.8.10",
     "@radix-ui/react-slot": "^1.3.0",

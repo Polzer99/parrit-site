@@ -1,0 +1,32 @@
+---
+title: "MCP (Model Context Protocol): what is it and what is it for?"
+date: "2026-06-12"
+description: "An open protocol for connecting tools and data sources to agents in a consistent way."
+slug: "mcp-anthropic-explication"
+---
+
+Model Context Protocol is an open standard developed by Anthropic. It lets agents connect to external data sources and tools through a common interface. Instead of maintaining a different plugin for every service, an organization can expose resources through one protocol.
+
+## How does MCP work in practice?
+
+An MCP server exposes files, databases and internal APIs through a standardized protocol. The agent connects to that server rather than directly to each system. The server acts as an adapter, translating requests between the agent and the underlying tools.
+
+## What changes for a lawyer or a craft business?
+
+A law firm can expose case files as resources without building a separate plugin for every agent feature. A craft business can make its booking system and product catalogue available through the same protocol. Integration moves into the server, which simplifies maintenance.
+
+## Is it different from a traditional API?
+
+Yes. A traditional API is specific to one service. MCP defines how an agent discovers and communicates with tools. A company can place an adapter in front of a private or old system while the agent continues to see a consistent structure.
+
+## What are the immediate use cases?
+
+Internal automation is the main one. A company can expose a CRM, an Access database and spreadsheets through MCP so an agent can build consolidated reports without migrating all the data. Commerce teams can connect inventory, back-office and logistics systems for operational alerts.
+
+## Who should implement an MCP server?
+
+A developer or technical integrator who understands the systems being exposed. The concentrated effort is building and securing the server. Once it exists, agent capabilities can evolve without creating a new integration for each feature.
+
+## Will MCP replace plugins?
+
+It points toward a less vendor-dependent integration model. Organizations can connect private systems instead of waiting for official marketplace plugins. Custom MCP servers are especially useful where the underlying software is proprietary.
