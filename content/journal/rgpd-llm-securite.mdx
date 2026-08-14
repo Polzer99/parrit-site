@@ -1,0 +1,32 @@
+---
+title: "How to secure an enterprise LLM for GDPR"
+date: "2026-06-08"
+description: "A practical review of data controls for using language models in a company."
+slug: "rgpd-llm-securite"
+---
+
+Many companies delay language-model deployments because they fear data leakage. That concern is reasonable for uncontrolled consumer tools. A well-designed system can isolate sensitive information through contracts, access controls, minimization and monitored actions.
+
+## Do model providers retain and train on company data?
+
+It depends on the access channel and its terms. Copying contracts into a free public interface may expose them to consumer-product data policies. Professional APIs or dedicated services can contractually prohibit reusing requests for model training. Verify and enforce this before deployment.
+
+## How is GDPR compliance maintained with personal data?
+
+Know where data goes and how it can be deleted. Select suitable hosting locations and contractual safeguards. Minimize or anonymize content before it reaches the model. A complaint-handling agent rarely needs a customer's full name or payment-card data, so replace those fields with internal identifiers.
+
+## Must the model run on internal servers?
+
+Local hosting offers maximum control but carries substantial compute and maintenance costs. A segregated cloud architecture can be proportionate for many companies. Reserve local hosting for risk profiles and regulated sectors that require it, after a documented assessment.
+
+## What if an employee asks for confidential information?
+
+The model does not understand organizational secrecy by itself. Authorization must be enforced before retrieval. Connect the system to the company identity directory and check the user's rights before reading a document. Unauthorized requests should be blocked at the source.
+
+## How are external data leaks prevented?
+
+Limit the actions an agent may execute. It may read an internal database and prepare a draft without being allowed to send email autonomously. Keep human validation for critical outbound actions and monitor traffic with existing security controls.
+
+## Which security risk is often missed beyond GDPR?
+
+Prompt injection. A malicious document can contain hidden instructions intended to change the agent's behavior. Separate retrieved data from system instructions, constrain available actions and test the system adversarially before production.

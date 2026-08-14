@@ -11,6 +11,7 @@ import { getMentions } from "@/lib/presse";
 import { aliasRessourcesARediriger, getRessourcesRenduesParTemplate } from "@/lib/registry";
 import { getPostsByPillar } from "@/lib/blog";
 import { locales, type Locale } from "@/app/[lang]/dictionaries";
+import { getAllJournalEntrySummaries } from "@/system/journal";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://parrit.ai";
@@ -190,6 +191,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
+  const journalEntries: MetadataRoute.Sitemap = [
+    {
+      url: `${SITE_URL}/journal`,
+      lastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+    ...getAllJournalEntrySummaries().map((entry) => ({
+      url: `${SITE_URL}/journal/${entry.slug}`,
+      lastModified: new Date(entry.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  ];
+
   return [
     ...staticEntries,
     ...resourceEntries,
@@ -200,5 +216,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...actualiteEntries,
     ...glossaryEntries,
     ...pillarEntries,
+    ...journalEntries,
   ];
 }
