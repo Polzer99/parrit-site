@@ -45,7 +45,13 @@ export function proxy(request: NextRequest) {
   }
 
   // REV 01 pages are intentionally outside the legacy locale tree.
-  if (pathname === "/" || pathname === "/standard" || pathname === "/commission") {
+  if (
+    pathname === "/" ||
+    pathname === "/standard" ||
+    pathname === "/commission" ||
+    pathname === "/journal" ||
+    pathname.startsWith("/journal/")
+  ) {
     return;
   }
 

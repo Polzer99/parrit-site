@@ -21,10 +21,47 @@ const REDIRECTIONS_RESSOURCES = aliasRessourcesARediriger().map(({ slug, url }) 
   statusCode: 301 as const,
 }));
 
+const JOURNAL_LEGACY_ROUTES = {
+  blog: [
+    "evaluation-adoption-sap-intelligence-artificielle",
+    "crm-automatise-pme-artisans",
+    "agent-whatsapp-business-entreprise",
+    "veille-juridique-automatisee-avocats",
+    "facturation-automatique-ia-pme",
+    "prospection-ia-signaux-podcasts-linkedin",
+    "securite-agents-ia-entreprise",
+    "une-carte-une-action",
+    "le-brouillon-qui-sait-se-taire",
+    "le-bon-endroit-pour-ecrire",
+  ],
+  actualite: ["glm-5-2-souverainete"],
+  glossaire: [
+    "agent-ia-entreprise",
+    "agent-ia-vs-rpa",
+    "automatiser-veille-juridique",
+    "claude-code-pour-non-dev",
+    "claude-code-vs-chatgpt",
+    "comment-deployer-llm-entreprise",
+    "comment-integrer-agent-ia",
+    "mcp-anthropic-explication",
+    "rgpd-llm-securite",
+  ],
+} as const;
+
+const REDIRECTIONS_JOURNAL = Object.entries(JOURNAL_LEGACY_ROUTES).flatMap(
+  ([section, slugs]) =>
+    slugs.map((slug) => ({
+      source: `/:lang(fr|en|pt-BR|zh-CN)/${section}/${slug}`,
+      destination: `/journal/${slug}`,
+      statusCode: 301 as const,
+    })),
+);
+
 const nextConfig: NextConfig = {
   async redirects() {
     return [
       ...REDIRECTIONS_RESSOURCES,
+      ...REDIRECTIONS_JOURNAL,
       {
         source: "/:lang/audit-claude-code",
         destination: "/:lang/audit",
