@@ -239,35 +239,20 @@
   border-top: 1px solid var(--rule-l);
 }
 
-.spec-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--s3);
-  padding: var(--s8) 0 var(--s4);
-  border-bottom: 2px solid var(--ink);
+.standard-intro {
+  padding: 56px 0;
 }
 
-.spec-header h1 {
-  max-width: 14ch;
-  margin: var(--s2) 0 0;
-  font-size: clamp(38px, 6.6vw, 76px);
+.standard-intro h1 {
+  max-width: 22ch;
+  margin: 20px 0 0;
+  font-size: clamp(30px, 4vw, 52px);
   font-weight: 500;
-  letter-spacing: -.035em;
-  line-height: 1;
-}
-
-.spec-intro {
-  max-width: 62ch;
-  margin: var(--s4) 0 var(--s6);
-  color: var(--g3);
-  font-size: 15.5px;
-  line-height: 1.65;
+  letter-spacing: -.03em;
+  line-height: 1.08;
 }
 
 .doctrine {
-  margin-bottom: var(--s8);
   border: 1.5px solid var(--ink);
   background: var(--paper2);
 }
@@ -277,7 +262,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
-  padding: var(--s2) 22px;
+  padding: 16px 22px;
   border-bottom: 1.5px solid var(--ink);
 }
 
@@ -306,7 +291,7 @@
 }
 
 .doctrine-definition {
-  color: var(--g3);
+  color: #26282B;
   font-size: 13px;
   line-height: 1.55;
 }
@@ -316,6 +301,10 @@
   align-items: center;
   padding: 15px 22px;
   border-top: 1.5px solid var(--ink);
+}
+
+.standard-action {
+  padding: 32px 0 56px;
 }
 
 .personal-wrap {
@@ -623,5 +612,6 @@
   .doctrine-name {
     padding-bottom: 0;
     border-right: 0;
+    border-bottom: 1px solid var(--rule-l);
   }
 }
