@@ -1,23 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { match } from "@formatjs/intl-localematcher";
-import Negotiator from "negotiator";
-
-const locales = ["fr", "en", "pt-BR", "zh-CN"] as const;
-const defaultLocale = "fr";
-
-function getLocale(request: NextRequest): string {
-  const headers: Record<string, string> = {};
-  request.headers.forEach((value, key) => {
-    headers[key] = value;
-  });
-
-  const languages = new Negotiator({ headers }).languages();
-  try {
-    return match(languages, locales as unknown as string[], defaultLocale);
-  } catch {
-    return defaultLocale;
-  }
-}
 
 // Domaine dédié du Camp Parrita : sert la landing camp à la racine,
 // sans jamais exposer l'arborescence parrit.ai.
@@ -44,48 +25,18 @@ export function proxy(request: NextRequest) {
     return;
   }
 
-  // Metadata image routes live at the root, outside the locale tree.
-  if (pathname.startsWith("/opengraph-image") || pathname.startsWith("/twitter-image")) {
-    return;
-  }
-
-  // REV 01 pages are intentionally outside the legacy locale tree.
-  if (
-    pathname === "/" ||
-    pathname === "/standard" ||
-    pathname === "/commission" ||
-    pathname === "/paul" ||
-    pathname === "/maxime" ||
-    pathname === "/legal" ||
-    pathname === "/dossiers" ||
-    pathname === "/journal" ||
-    pathname.startsWith("/journal/")
-  ) {
-    return;
-  }
-
-  // Si le chemin commence déjà par une locale, on laisse passer
-  const pathnameHasLocale = locales.some(
-    (locale) =>
-      pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
-  );
-  if (pathnameHasLocale) return;
-
-  // Sinon on redirige vers la locale préférée
-  const locale = getLocale(request);
-  request.nextUrl.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
-  return NextResponse.redirect(request.nextUrl);
 }
 
 export const config = {
   matcher: [
-    // On skip les internals Next, les assets statiques, les fichiers publics,
-    // et l'OS interne (hors i18n)
-    // `art-direction-lab` : laboratoire interne hors i18n, comme design-system.
-    // `template-grammar` : specimen interne des huit templates, même régime.
-    // ⚠️ Toute route hors i18n DOIT être ajoutée ici, sinon elle est redirigée
-    // vers /fr/<route> qui n'existe pas — c'est la cause exacte du 404 de
-    // /efi-audit-energie (02-ROUTES-CTA-AND-LEAD-MAGNETS.md §D.1).
-    "/((?!_next|api|os|system|paul|maxime|legal|dossiers|journal|opengraph-image|twitter-image|fondateurs|academy|chemin|metiers|harnais-ia|outils|diagnostic|design-system|template-grammar|art-direction-lab|demarrer-claude-code|architecture-claude-md|efi-audit-hotels|hr-radar|favicon.ico|robots.txt|sitemap.xml|og-image.png|.*\\..*).*)",
+    "/camp-costa-rica/:path*",
+    {
+      source: "/:path*",
+      has: [{ type: "host", value: "campparrita.com" }],
+    },
+    {
+      source: "/:path*",
+      has: [{ type: "host", value: "www.campparrita.com" }],
+    },
   ],
 };

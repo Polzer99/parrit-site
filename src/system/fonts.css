@@ -1,55 +1,47 @@
-/* Font files are self-hosted under /public/fonts/geist. */
+/* Font files are self-hosted under /public/fonts/plex. */
 @font-face {
-  font-family: "Geist";
-  src: url("/fonts/geist/Geist-Regular.woff2") format("woff2");
+  font-family: "IBM Plex Sans";
+  src: url("/fonts/plex/IBMPlexSans-Regular.woff2") format("woff2");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Geist";
-  src: url("/fonts/geist/Geist-Medium.woff2") format("woff2");
+  font-family: "IBM Plex Sans";
+  src: url("/fonts/plex/IBMPlexSans-Medium.woff2") format("woff2");
   font-style: normal;
   font-weight: 500;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Geist";
-  src: url("/fonts/geist/Geist-SemiBold.woff2") format("woff2");
+  font-family: "IBM Plex Sans";
+  src: url("/fonts/plex/IBMPlexSans-SemiBold.woff2") format("woff2");
   font-style: normal;
   font-weight: 600;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Geist";
-  src: url("/fonts/geist/Geist-Bold.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Geist Mono";
-  src: url("/fonts/geist/GeistMono-Regular.woff2") format("woff2");
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/plex/IBMPlexMono-Regular.woff2") format("woff2");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Geist Mono";
-  src: url("/fonts/geist/GeistMono-Medium.woff2") format("woff2");
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/plex/IBMPlexMono-Medium.woff2") format("woff2");
   font-style: normal;
   font-weight: 500;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Geist Mono";
-  src: url("/fonts/geist/GeistMono-SemiBold.woff2") format("woff2");
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/plex/IBMPlexMono-SemiBold.woff2") format("woff2");
   font-style: normal;
   font-weight: 600;
   font-display: swap;

@@ -13,7 +13,7 @@
 
 .rev-mark {
   color: var(--ink);
-  /* REV 04 mark: live-text [P.], Geist Mono 600, red square period */
+  /* REV 04 mark: live-text [P.], IBM Plex Mono 600, red square period */
   font-family: var(--mono);
   font-size: 15px;
   font-weight: 600;
