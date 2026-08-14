@@ -1,3 +1,10 @@
+> 🪦 **DA SUPPRIMÉE — ordre de Paul, 14/08/2026.** Cette direction artistique
+> (Smoooth Studio / papier crème / desktop-OS) n'existe plus. Aucune surface ne s'en
+> réclame, aucun agent ne s'en inspire. Le canon visuel unique est le **REV 03** :
+> `docs/site-prod-rev01/parrit-command-center-rev03.html` + `src/system/tokens.css`
+> (voir `AGENTS.md`, section « Source de vérité visuelle »). Ce dossier n'est conservé
+> que comme archive du code legacy non migré.
+
 > **Aucune direction visuelle finale n'est actuellement approuvée.** (ADR-019, 01/08/2026)
 >
 > **Concept D** est un **prototype documenté**, décrit dans [`VISUAL-SOURCE-OF-TRUTH.md`](./VISUAL-SOURCE-OF-TRUTH.md). Il contient des éléments réutilisables, listés dans ce document. Il **ne constitue pas la source visuelle de vérité finale** et ne prime sur rien. Aucune migration ne doit en être dérivée automatiquement.
