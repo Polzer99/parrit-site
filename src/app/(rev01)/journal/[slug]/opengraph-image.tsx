@@ -33,11 +33,11 @@ export default async function JournalOpenGraphImage({ params }: JournalOpenGraph
     notFound();
   }
 
-  const geist = fs.readFileSync(
-    path.join(process.cwd(), "src/og-assets/Geist-Medium.ttf"),
+  const plexSans = fs.readFileSync(
+    path.join(process.cwd(), "src/og-assets/IBMPlexSans-Medium.ttf"),
   );
-  const geistMono = fs.readFileSync(
-    path.join(process.cwd(), "src/og-assets/GeistMono-Medium.ttf"),
+  const plexMono = fs.readFileSync(
+    path.join(process.cwd(), "src/og-assets/IBMPlexMono-Medium.ttf"),
   );
 
   return new ImageResponse(
@@ -52,13 +52,13 @@ export default async function JournalOpenGraphImage({ params }: JournalOpenGraph
           padding: "72px 84px",
           background: token("--ink"),
           color: token("--paper"),
-          fontFamily: "Geist",
+          fontFamily: "IBM Plex Sans",
         }}
       >
         <div
           style={{
             display: "flex",
-            fontFamily: "Geist Mono",
+            fontFamily: "IBM Plex Mono",
             fontSize: 18,
             fontWeight: 500,
             letterSpacing: "0.16em",
@@ -85,8 +85,8 @@ export default async function JournalOpenGraphImage({ params }: JournalOpenGraph
     {
       ...size,
       fonts: [
-        { name: "Geist", data: geist, weight: 500 },
-        { name: "Geist Mono", data: geistMono, weight: 500 },
+        { name: "IBM Plex Sans", data: plexSans, weight: 500 },
+        { name: "IBM Plex Mono", data: plexMono, weight: 500 },
       ],
     },
   );

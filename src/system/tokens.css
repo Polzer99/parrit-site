@@ -17,9 +17,9 @@
   --red: #E10600;
   --red-p: #B80500;
 
-  /* PC-03 · type tokens (Geist = transition, target Söhne) */
-  --ui: "Geist", "Helvetica Neue", Arial, sans-serif;
-  --mono: "Geist Mono", "IBM Plex Mono", Menlo, monospace;
+  /* PC-03 · type tokens */
+  --ui: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", Menlo, monospace;
 
   /* PC-04 · space (8pt) */
   --s1: 8px;
