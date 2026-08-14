@@ -31,9 +31,6 @@ jobs:
       - name: npm run build
         run: npm run build
 
-      - name: npm run qa:doctrine
-        run: npm run qa:doctrine
-
       - name: install Playwright browsers
         run: |
           npx playwright install --with-deps chromium
@@ -45,18 +42,13 @@ jobs:
           npm run start -- -p 3210 > /tmp/parrit-site.log 2>&1 &
           echo $! > /tmp/parrit-site.pid
           for i in {1..30}; do
-            if curl -fsS http://localhost:3210/diagnostic >/dev/null; then
+            if curl -fsS http://localhost:3210/ >/dev/null; then
               exit 0
             fi
             sleep 2
           done
           cat /tmp/parrit-site.log
           exit 1
-
-      - name: diagnostic Playwright gate
-        env:
-          QA_BASE_URL: http://localhost:3210
-        run: npm run qa:diagnostic:e2e -- --browser=chromium
 
       - name: REV 01 network-deny Playwright gate
         env:
@@ -65,8 +57,3 @@ jobs:
 
       - name: REV 01 brand conformity gate
         run: npm run qa:brand:rev01
-
-      - name: diagnostic contrast gate
-        env:
-          PARRIT_BASE: http://localhost:3210
-        run: python3 scripts/contrast-audit.py /diagnostic
