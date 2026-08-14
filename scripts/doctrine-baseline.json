@@ -1,5 +1,0 @@
-{
-  "_doc": "Baseline du public doctrine audit. Dette PREEXISTANTE. Ecrite UNIQUEMENT par scripts/doctrine-baseline-lower.mjs, qui refuse toute hausse. qa:doctrine:diff est en lecture seule. Une baseline ne monte jamais, et ne baisse jamais silencieusement.",
-  "total": 0,
-  "parFichier": {}
-}
