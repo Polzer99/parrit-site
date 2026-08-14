@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Paul Larmaraud",
   description:
     "Paul Larmaraud turns operational problems into working systems and offers focused one-to-one coaching.",
+  robots: { index: false, follow: false },
 };
 
 export default function PaulPage() {

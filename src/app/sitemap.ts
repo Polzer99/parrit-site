@@ -45,8 +45,6 @@ const REV01_PUBLIC_ROUTES = [
   { path: "", changeFrequency: "weekly" as const, priority: 1.0 },
   { path: "/standard", changeFrequency: "monthly" as const, priority: 0.8 },
   { path: "/commission", changeFrequency: "monthly" as const, priority: 0.9 },
-  { path: "/paul", changeFrequency: "monthly" as const, priority: 0.7 },
-  { path: "/maxime", changeFrequency: "monthly" as const, priority: 0.7 },
   { path: "/legal", changeFrequency: "yearly" as const, priority: 0.3 },
 ];
 

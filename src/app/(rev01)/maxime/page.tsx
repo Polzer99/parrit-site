@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Maxime",
   description:
     "Maxime works on the architecture, infrastructure and reliability of operating systems and offers focused one-to-one coaching.",
+  robots: { index: false, follow: false },
 };
 
 export default function MaximePage() {
