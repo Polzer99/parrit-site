@@ -14,6 +14,8 @@
      brand gate can enforce them): body text on light / row labels on dark */
   --body-l: #26282B;
   --label-d: #C7CBCF;
+  /* REV 02 hybride B+C : ton intermédiaire d'interface sombre */
+  --steel: #3A3F47;
   --red: #E10600;
   --red-p: #B80500;
 

@@ -26,17 +26,14 @@ export function RevHeader() {
       <Link className="wordmark" href="/" aria-label="Parrit home">
         PARRIT<i aria-hidden="true">.</i>AI
       </Link>
-      <div className="registry" aria-label="System registry">
-        <span>
-          SYSTEM <b>PARRIT.AI</b>
-        </span>
-        <span>
-          · REV <b>01</b>
-        </span>
-        <span>
-          · STATUS <b>OPERATIONAL</b>
-        </span>
-      </div>
+      <nav className="cmd-nav" aria-label="Main navigation">
+        <Link href="/">System</Link>
+        <Link href="/manufacture">Manufacture</Link>
+        <Link href="/standard">Standard</Link>
+        <Link href="/dossiers">Dossiers</Link>
+        <Link href="/journal">Journal</Link>
+        <Link href="/commission">Commission</Link>
+      </nav>
       <time className="clock" aria-label="Local time">
         {clock}
       </time>
