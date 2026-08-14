@@ -2,33 +2,172 @@
   min-height: 100vh;
 }
 
-.rev-header {
-  position: sticky;
-  z-index: 10;
-  top: 0;
-  padding: var(--s2) var(--s3);
-  border-bottom: 1px solid var(--rule-l);
-  background: var(--paper2);
+body {
+  padding-top: 52px;
 }
 
-.rev-mark {
-  color: var(--ink);
-  /* REV 04 mark: live-text [P.], IBM Plex Mono 600, red square period */
+.cmdbar {
+  position: fixed;
+  z-index: 50;
+  inset: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 52px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--rule-d);
+  background: rgba(10, 11, 12, .92);
+  backdrop-filter: blur(8px);
+}
+
+.wordmark {
+  color: var(--paper);
   font-family: var(--mono);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: -.02em;
+  letter-spacing: .22em;
   text-decoration: none;
 }
 
-.rev-mark i {
+.wordmark i {
   color: var(--red);
   font-style: normal;
 }
 
-.rev-mark:focus-visible {
+.registry {
+  display: flex;
+  gap: 18px;
+  color: var(--g4);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.registry b {
+  color: var(--g2);
+  font-weight: 500;
+}
+
+.clock {
+  margin-left: auto;
+  color: var(--g4);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+}
+
+.wordmark:focus-visible {
   outline: 2px solid var(--red);
   outline-offset: 3px;
+}
+
+.opening {
+  position: fixed;
+  z-index: 40;
+  inset: 52px 0 0;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 52px);
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+  opacity: 1;
+  transition: opacity var(--seq) var(--ease);
+}
+
+.opening-exit {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.bootlog {
+  width: 100%;
+  min-height: 130px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 34px 24px 0;
+  color: var(--g4);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+}
+
+.bootlog div {
+  opacity: 0;
+  transform: translateY(3px);
+}
+
+.bootlog div.on {
+  animation: boot-line .3s ease forwards;
+}
+
+@keyframes boot-line {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.bootlog .ok-line {
+  color: var(--g2);
+}
+
+.bootlog .red-line {
+  color: var(--red);
+}
+
+.boothero {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 90px;
+}
+
+.boothero > div {
+  max-width: 14ch;
+  opacity: 0;
+  font-size: clamp(42px, 7.2vw, 96px);
+  font-weight: 500;
+  letter-spacing: -.03em;
+  line-height: 1.02;
+}
+
+.boothero > div.on {
+  animation: boot-line .6s .1s ease forwards;
+}
+
+.boothero .op {
+  position: relative;
+  display: inline-block;
+  padding: 0 .12em;
+}
+
+.bootfoot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 34px;
+  opacity: 0;
+}
+
+.bootfoot.on {
+  animation: boot-line .5s .3s ease forwards;
+}
+
+.bootfoot p {
+  max-width: 34ch;
+  margin: 0;
+  color: var(--g2);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 .rev-wrap {
@@ -690,7 +829,17 @@
   border-top: 1px solid var(--rule-l);
 }
 
+@media (max-width: 760px) {
+  .registry {
+    display: none;
+  }
+}
+
 @media (max-width: 680px) {
+  .bootfoot {
+    gap: var(--s3);
+  }
+
   .rev-wrap {
     width: min(100% - var(--s4), 1200px);
   }

@@ -5,7 +5,10 @@ const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 test.use({ viewport: { width: 1440, height: 900 } });
 
 test("the home locks the approved display scale and surface rules", async ({ page }) => {
+  await page.addInitScript(() => window.sessionStorage.setItem("parrit-opening-seen", "true"));
   await page.goto(`${BASE_URL}/`);
+
+  await expect(page.getByTestId("opening")).toHaveCount(0);
 
   const h1FontSize = await page.getByRole("heading", { level: 1 }).evaluate((heading) =>
     Number.parseFloat(getComputedStyle(heading).fontSize),
@@ -36,4 +39,17 @@ test("the home locks the approved display scale and surface rules", async ({ pag
 
   expect(surfaceRules.shadowCount).toBe(1);
   expect(surfaceRules.radiusCount).toBe(0);
+});
+
+test("the command bar is fixed at the approved height on every core page", async ({ page }) => {
+  await page.addInitScript(() => window.sessionStorage.setItem("parrit-opening-seen", "true"));
+
+  for (const path of ["/", "/standard", "/commission", "/journal"]) {
+    await page.goto(`${BASE_URL}${path}`);
+
+    const commandBar = page.locator(".cmdbar");
+    await expect(commandBar).toBeVisible();
+    await expect(commandBar).toHaveCSS("position", "fixed");
+    await expect(commandBar).toHaveCSS("height", "52px");
+  }
 });

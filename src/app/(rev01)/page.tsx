@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { Instrument, K, RegistryLine, St } from "@/system/components";
+import { Instrument, K, Opening, RegistryLine, St } from "@/system/components";
 
 export const metadata: Metadata = {
   title: { absolute: "Parrit — Company Operating Systems" },
@@ -45,7 +45,9 @@ const COMMISSIONING = [
 
 export default function HomePage() {
   return (
-    <main className="rev-page">
+    <>
+      <Opening />
+      <main className="rev-page">
       <div className="rev-wrap rev-home-wrap">
         <header className="rev-hero">
           <K>Parrit — Company operating systems</K>
@@ -146,6 +148,7 @@ export default function HomePage() {
           <K>© 2026 Parrit.ai</K>
         </footer>
       </div>
-    </main>
+      </main>
+    </>
   );
 }
