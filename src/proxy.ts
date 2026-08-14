@@ -52,6 +52,7 @@ export function proxy(request: NextRequest) {
     pathname === "/paul" ||
     pathname === "/maxime" ||
     pathname === "/legal" ||
+    pathname === "/dossiers" ||
     pathname === "/journal" ||
     pathname.startsWith("/journal/")
   ) {
@@ -80,6 +81,6 @@ export const config = {
     // ⚠️ Toute route hors i18n DOIT être ajoutée ici, sinon elle est redirigée
     // vers /fr/<route> qui n'existe pas — c'est la cause exacte du 404 de
     // /efi-audit-energie (02-ROUTES-CTA-AND-LEAD-MAGNETS.md §D.1).
-    "/((?!_next|api|os|system|paul|maxime|legal|journal|fondateurs|academy|chemin|metiers|harnais-ia|outils|diagnostic|design-system|template-grammar|art-direction-lab|demarrer-claude-code|architecture-claude-md|efi-audit-hotels|hr-radar|favicon.ico|robots.txt|sitemap.xml|og-image.png|.*\\..*).*)",
+    "/((?!_next|api|os|system|paul|maxime|legal|dossiers|journal|fondateurs|academy|chemin|metiers|harnais-ia|outils|diagnostic|design-system|template-grammar|art-direction-lab|demarrer-claude-code|architecture-claude-md|efi-audit-hotels|hr-radar|favicon.ico|robots.txt|sitemap.xml|og-image.png|.*\\..*).*)",
   ],
 };

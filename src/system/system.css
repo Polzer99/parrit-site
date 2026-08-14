@@ -437,6 +437,125 @@ button {
   content: "";
 }
 
+.dossier {
+  max-width: 840px;
+  margin: var(--s6) auto var(--s8);
+  border: 1.5px solid var(--ink);
+  background: var(--paper2);
+}
+
+.dossier-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  padding: 28px 30px;
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.dossier-header h2 {
+  max-width: 14ch;
+  margin: 12px 0 0;
+  font-size: clamp(25px, 3.8vw, 38px);
+  font-weight: 500;
+  letter-spacing: -.025em;
+  line-height: 1.05;
+}
+
+.dossier-plate {
+  display: grid;
+  align-content: start;
+  gap: 6px 20px;
+  margin: 0;
+}
+
+.dossier-plate > div {
+  display: grid;
+  grid-template-columns: minmax(110px, auto) auto;
+  gap: 20px;
+}
+
+.dossier-plate dt,
+.dossier-plate dd {
+  margin: 0;
+}
+
+.dossier-section {
+  padding: 26px 30px;
+  border-top: 1px solid var(--rule-l);
+}
+
+.dossier-section:first-of-type {
+  border-top: 0;
+}
+
+.dossier-section > p {
+  max-width: 60ch;
+  margin: 12px 0 0;
+  color: var(--g3);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.dossier-capabilities {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 14px 0 0;
+  padding: 1px;
+  background: var(--rule-l);
+  list-style: none;
+}
+
+.dossier-capabilities li {
+  padding: 14px 16px;
+  background: var(--paper2);
+  font-size: 13px;
+}
+
+.dossier-capabilities li > div {
+  margin-top: 5px;
+}
+
+.dossier-change {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 14px;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+}
+
+.dossier-change > div {
+  padding: 18px 20px;
+  background: var(--paper2);
+}
+
+.dossier-change ul {
+  display: grid;
+  gap: 9px;
+  margin: 12px 0 0;
+  padding: 0;
+  font-size: 13px;
+  list-style: none;
+}
+
+.dossier-after li {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.dossier-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 16px 30px;
+  border-top: 1.5px solid var(--ink);
+}
+
 .cal-stage {
   padding-top: var(--s1);
 }
@@ -546,6 +665,18 @@ button {
   .cal-bar {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .dossier-capabilities,
+  .dossier-change {
+    grid-template-columns: 1fr;
+  }
+
+  .dossier-header,
+  .dossier-section,
+  .dossier-footer {
+    padding-right: var(--s2);
+    padding-left: var(--s2);
   }
 }
 

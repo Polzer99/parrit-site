@@ -1,5 +1,6 @@
 export { ParritCalInline } from "./CalInline";
 export { DecisionCard } from "./DecisionCard";
+export { Dossier } from "./Dossier";
 export { Frame } from "./Frame";
 export { Hold } from "./Hold";
 export { Instrument } from "./Instrument";
