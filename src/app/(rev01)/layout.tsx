@@ -8,8 +8,9 @@ import "./rev01.css";
 import { RevHeader } from "@/system/components";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://parrit.ai"),
   title: {
-    default: "Parrit · Company operating systems",
+    default: "Parrit — Company Operating Systems",
     template: "%s · Parrit",
   },
   description:

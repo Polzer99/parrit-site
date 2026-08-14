@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { K, RegistryLine } from "@/system/components";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/legal" },
   title: "Legal notice and privacy policy",
   description:
     "Legal notice and privacy policy for Parrit.ai, including company information, hosting, data processing and GDPR rights.",

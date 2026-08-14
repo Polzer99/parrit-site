@@ -5,6 +5,7 @@ import { K, RegistryLine } from "@/system/components";
 import { getAllJournalEntrySummaries } from "@/system/journal";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/journal" },
   title: "Journal",
   description: "Field notes on building and operating company systems.",
 };

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { K, RegistryLine } from "@/system/components";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/standard" },
   title: "The Parrit Standard",
   description:
     "The six operating principles that govern every system commissioned and built by Parrit.",
@@ -28,7 +29,7 @@ const PRINCIPLES = [
   [
     "PS-04",
     "Reversible",
-    "Every critical process has a documented path of return before it enters production.",
+    "Every critical process has a documented path of return before it is put into production.",
   ],
   [
     "PS-05",
@@ -71,7 +72,7 @@ export default function StandardPage() {
         </section>
 
         <div className="standard-action">
-          <Link className="rev-button" href="/commission">
+          <Link className="rev-button exec" href="/commission">
             Commission your Operating System
           </Link>
         </div>

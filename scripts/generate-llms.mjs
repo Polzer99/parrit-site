@@ -1,75 +1,60 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+// REV 01 (14/08/2026): llms.txt states the institutional positioning of the live
+// site — company operating systems, commissioned not subscribed. The previous
+// generator emitted the pre-REV01 positioning (virtual collaborators catalog),
+// which contradicted every page served. Content is static by design: it must
+// only change when the site's positioning changes.
+
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const catalogPath = resolve(root, "content/agents/catalog.json");
 const outputPath = resolve(root, "public/llms.txt");
-const siteUrl = "https://parrit.ai";
 
-const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
+const content = `# Parrit
 
-function deployedCases() {
-  return catalog.cases
-    .filter((agentCase) => agentCase.status === "deployed" || agentCase.featured)
-    .sort((a, b) => {
-      if (Boolean(a.featured) !== Boolean(b.featured)) return a.featured ? -1 : 1;
-      return b.date.localeCompare(a.date);
-    });
-}
+> Parrit designs and builds company operating systems: one system to understand
+> what is happening in a company, decide what matters and act — down to the
+> executive's phone. Built for one company at a time. Commissioned, not subscribed.
 
-function personaName(dept) {
-  const persona = catalog.personas[dept];
-  return persona ? `${persona.name}, ${persona.label}` : dept;
-}
+## Positioning
+- Parrit builds the operating system a company runs on, as owned infrastructure:
+  the client holds the code, the data and the documentation as company assets.
+- The engagement model is a commission, not a subscription. It starts with an
+  examination of how the company actually operates — not a workshop, a diagnostic
+  of flows, decisions and failure points documented as an engineering brief.
+- Three phases: Examination (we study how the company actually operates),
+  Construction (one critical operation rebuilt end-to-end into production),
+  Compounding (each new capability joins the operating system and increases the
+  value of every capability already in production).
 
-const lines = [
-  "# Parrit.ai",
-  "",
-  "> Parrit.ai aide les DG et Directeurs métiers de PME/ETI à recruter des collaborateurs virtuels qui travaillent sur leurs vrais workflows : acquisition, veille, opérations, données, contenu et formation.",
-  "",
-  "## Positionnement",
-  "- Boutique franco-chinoise qui construit et opère des agents IA sur mesure.",
-  "- Promesse : un agent avec une fiche de poste, un périmètre, des accès limités et un responsable humain.",
-  "- Cible : DG, dirigeants et Directeurs métiers de PME/ETI qui veulent un système en production, pas un audit.",
-  "- Données et exécution : déploiement sur les systèmes du client, avec logs, secrets serveur et validation humaine sur les actions sensibles.",
-  "",
-  "## Offres",
-  "Trois offres, toutes sur devis (périmètre et prix cadrés après un diagnostic). La home n'affiche pas de prix.",
-  "- Transformation IA : advisory COMEX/DSI, transformation de bout en bout. Sur devis.",
-  "- Agent IA (Sprint agentique) : un agent en production contrôlée sur un workflow prioritaire. Sur devis.",
-  "- Formation agentique : rendre les équipes autonomes sur les agents (ateliers hands-on, finançable OPCO). Sur devis.",
-  "- La Veille : produit d'appel basse friction, un mail exploitable des sources utiles d'un dirigeant.",
-  "",
-  "## Méthode de déploiement",
-  "- Diagnostic du workflow prioritaire.",
-  "- VPS sécurisé et accès limités.",
-  "- Premier agent en production, validation humaine sur les actions sensibles.",
-  "- Passation aux équipes et documentation.",
-  "",
-  "## Catalogue public des agents",
-  ...deployedCases().flatMap((agentCase) => [
-    `- ${agentCase.title} (${personaName(agentCase.dept)}) : ${agentCase.desc} Secteur : ${agentCase.sector}.`,
-  ]),
-  "",
-  "## La Veille",
-  "La Veille est le produit d'appel : toutes les sources utiles d'un dirigeant ou d'une équipe condensées dans un mail exploitable, sans engagement lourd.",
-  "",
-  "## Ressources",
-  `- Home : ${siteUrl}/fr`,
-  `- Catalogue complet et index éditorial : ${siteUrl}/llms-full.txt`,
-  `- Blog cas d'usage : ${siteUrl}/fr/blog`,
-  `- Launches : ${siteUrl}/fr/launches`,
-  "",
-  "## Guides et ressources",
-  `- L'architecture CLAUDE.md — les 4 couches d'un agent qui pilote (socle, mémoire atomique, garde-fous, compétences) ; parti pris Parrit vs le mythe des « 7 fichiers » : ${siteUrl}/architecture-claude-md`,
-  `- Démarrer avec Claude Code — guide pas à pas pour dirigeants, sans code : ${siteUrl}/demarrer-claude-code`,
-  "",
-  "## Contact",
-  "- Email : paul.larmaraud@parrit.ai",
-  "- WhatsApp : +33 7 59 66 56 87",
-  `- Rendez-vous : ${siteUrl}/fr/rendez-vous?source=llms`,
-  "",
-];
+## The Parrit Standard
+Every delivered system is certified to the same specification (STD-1.0):
+- PS-01 Observable — the operator can determine the state of the system at any
+  moment, without asking anyone.
+- PS-02 Actionable — every surfaced piece of information leads to a possible
+  action within the same view.
+- PS-03 Traceable — every significant decision carries its origin: data, author,
+  timestamp, rationale.
+- PS-04 Reversible — every critical process has a documented path of return
+  before it is put into production.
+- PS-05 Owned — the client holds the system, its data and its documentation as
+  company assets.
+- PS-06 Compounding — each new capability increases the value of every
+  capability already in production.
 
-writeFileSync(outputPath, `${lines.join("\n")}\n`);
+## Pages
+- https://parrit.ai/ — Parrit, company operating systems.
+- https://parrit.ai/standard — The Parrit Standard, the certification every
+  delivered system meets.
+- https://parrit.ai/commission — Commission an examination: one 30-minute
+  conversation to examine how your company operates. Not a sales call.
+- https://parrit.ai/journal — We Find The Way, the Parrit journal.
+
+## Contact
+- Booking: https://parrit.ai/commission (30 min, video).
+- The site is in English. Company based in France (Lille).
+`;
+
+writeFileSync(outputPath, content);
+console.log("llms.txt generated (REV 01 institutional positioning).");

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { K, ParritCalInline, RegistryLine } from "@/system/components";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/commission" },
   title: "Commission your Operating System",
   description:
     "One conversation to examine how your company operates. The first step — an examination, not a sales call.",

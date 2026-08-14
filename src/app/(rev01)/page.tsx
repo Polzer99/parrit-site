@@ -1,25 +1,27 @@
+import { Fragment } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 
 import { Instrument, K, RegistryLine, St } from "@/system/components";
 
 export const metadata: Metadata = {
-  title: "Company operating systems",
+  title: { absolute: "Parrit — Company Operating Systems" },
+  alternates: { canonical: "/" },
 };
 
 const LOOP = [
   {
     label: "UNDERSTAND",
-    body: "The system maintains a live model of the company: orders, cash, operations, people, clients — provenance on every number.",
+    body: "The system maintains a live model of the company: orders, cash, operations, people, clients.",
   },
   {
     label: "DECIDE",
-    body: "Only what requires the executive reaches the executive. Framed, sourced, quantified, with its path of return documented.",
+    body: "Only what requires the executive reaches the executive. Framed, sourced, quantified.",
     critical: true,
   },
   {
     label: "ACT",
-    body: "A decision executes through the same system that surfaced it — held, committed, journaled.",
+    body: "A decision executes through the same system that surfaced it. Traced, reversible, journaled.",
   },
 ] as const;
 
@@ -54,7 +56,7 @@ export default function HomePage() {
             phone.
           </p>
           <div className="rev-actions">
-            <Link className="rev-button" href="/commission">
+            <Link className="rev-button exec" href="/commission">
               Commission your Operating System
             </Link>
             <Link className="rev-button ghost" href="/standard">
@@ -99,13 +101,20 @@ export default function HomePage() {
             <K>Screen 02</K>
           </div>
           <div className="operating-loop">
-            {LOOP.map((item) => (
-              <article key={item.label}>
-                <h3 className={"critical" in item && item.critical ? "critical" : undefined}>
-                  {item.label}
-                </h3>
-                <p>{item.body}</p>
-              </article>
+            {LOOP.map((item, index) => (
+              <Fragment key={item.label}>
+                {index > 0 ? (
+                  <div className="loop-arr" aria-hidden="true">
+                    →
+                  </div>
+                ) : null}
+                <article>
+                  <h3 className={"critical" in item && item.critical ? "critical" : undefined}>
+                    {item.label}
+                  </h3>
+                  <p>{item.body}</p>
+                </article>
+              </Fragment>
             ))}
           </div>
         </section>

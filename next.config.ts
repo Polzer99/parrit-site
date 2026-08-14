@@ -50,14 +50,27 @@ const JOURNAL_LEGACY_ROUTES = {
 
 const REDIRECTIONS_JOURNAL = Object.entries(JOURNAL_LEGACY_ROUTES).flatMap(
   ([section, slugs]) =>
-    slugs.map((slug) => ({
-      source: `/:lang(fr|en|pt-BR|zh-CN)/${section}/${slug}`,
-      destination: `/journal/${slug}`,
-      statusCode: 301 as const,
-    })),
+    slugs.flatMap((slug) => [
+      {
+        source: `/:lang(fr|en|pt-BR|zh-CN)/${section}/${slug}`,
+        destination: `/journal/${slug}`,
+        statusCode: 301 as const,
+      },
+      // Bare legacy path: one 301, no locale-detection hop in between.
+      {
+        source: `/${section}/${slug}`,
+        destination: `/journal/${slug}`,
+        statusCode: 301 as const,
+      },
+    ]),
 );
 
 const nextConfig: NextConfig = {
+  // The journal OG generator reads src/system/tokens.css at runtime; without this
+  // the file is absent from the serverless bundle and the route 500s.
+  outputFileTracingIncludes: {
+    "/journal/[slug]/opengraph-image": ["./src/system/tokens.css", "./src/og-assets/*"],
+  },
   async redirects() {
     return [
       ...REDIRECTIONS_RESSOURCES,

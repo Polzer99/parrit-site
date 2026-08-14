@@ -34,10 +34,10 @@ export default async function JournalOpenGraphImage({ params }: JournalOpenGraph
   }
 
   const geist = fs.readFileSync(
-    path.join(process.cwd(), "public/fonts/geist/Geist-Medium.woff2"),
+    path.join(process.cwd(), "src/og-assets/Geist-Medium.ttf"),
   );
   const geistMono = fs.readFileSync(
-    path.join(process.cwd(), "public/fonts/geist/GeistMono-Medium.woff2"),
+    path.join(process.cwd(), "src/og-assets/GeistMono-Medium.ttf"),
   );
 
   return new ImageResponse(
