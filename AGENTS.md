@@ -19,46 +19,52 @@ Applies to any code delivered from this repo. "The CI blocks" beats "remember to
 > Site marketing public **parrit.ai** (Next.js 16 / React 19 / Tailwind v4, déployé sur Vercel via push `main`). 4 langues : `fr` · `en` · `pt-BR` · `zh-CN`.
 
 ## Source de vérité COMMUNE = `TRUTH.md`
-**Avant de toucher au contenu/positionnement/conversion, lire [`TRUTH.md`](./TRUTH.md)** : ce qu'est Parrit, les north stars (RDV qualifiés → cash), l'ICP, les offres, la voix (LE TAMIS), les 7 règles dures, et la définition d'une « amélioration ». C'est le **cerveau partagé** entre le site et l'agent d'amélioration continue **Hermes** (`hermes/`, voir `hermes/LOOP.md`). `BRAND.md` reste la source de vérité **visuelle** (DA). En cas de conflit : `REGLES-DOR.md` puis `VISION.md` (hors-repo) priment.
+**Avant de toucher au contenu/positionnement/conversion, lire [`TRUTH.md`](./TRUTH.md)** : ce qu'est Parrit, les north stars (RDV qualifiés → cash), l'ICP, les offres, la voix (LE TAMIS), les 7 règles dures, et la définition d'une « amélioration ». C'est le **cerveau partagé** entre le site et l'agent d'amélioration continue **Hermes** (`hermes/`, voir `hermes/LOOP.md`). La source de vérité **visuelle** est la section suivante (REV 03). En cas de conflit : `REGLES-DOR.md` puis `VISION.md` (hors-repo) priment.
 
-## Source de vérité visuelle = `docs/design-system/` + `src/styles/parrit-tokens.css` + `src/components/ds/`
+## Source de vérité visuelle = REV 03 (14/08/2026) — l'ancienne DA est MORTE
 
-> **Corrigé le 01/08/2026.** Cette section prescrivait la palette de juin (`#F5F8FF` / `#161616` / `#AA0003`) et **interdisait** `#D1132F` et `#0C0C0D` — c'est-à-dire exactement les couleurs canoniques. Chaque session d'agent réintroduisait donc la dette que la précédente venait de solder. Les valeurs canoniques sont vérifiées dans Figma (`Direction-artistique`, fileKey `J8hieoaq5XwOxqtQJbiP0A`, variables `Noire` · `Rouge` · `Blanc`).
+> **Ordre de Paul, 14/08/2026 : la direction artistique Smoooth Studio / « papier crème »
+> (`#FFFDFA`, `#F5F8FF`, `#D1132F`, `#AA0003`, Arpona, grain papier, desktop-OS, sceau 速)
+> est SUPPRIMÉE. Plus aucune surface ne s'en réclame. Ne jamais la reproduire, ne jamais
+> « corriger » vers elle.** `BRAND.md`, `docs/design-system/`, `src/styles/parrit-tokens.css`,
+> `src/components/ds/`, `design-source/brand-kit/` = archives historiques du code legacy
+> non migré ; les rencontrer n'autorise pas à en écrire de nouvelles occurrences.
 
-Quatre sources, dans cet ordre. Aucune valeur visuelle ne se décide ailleurs.
+La DA active est celle du site en production. Trois sources, dans cet ordre :
 
 | Source | Rôle |
 |---|---|
-| `docs/design-system/` (00→12, `PARRIT-DESIGN-SYSTEM.md`, `DECISIONS.md`, `STATUS.md`) | la doctrine et les ADR |
-| `src/styles/parrit-tokens.css` | **les valeurs**. Un hex écrit ailleurs est un bug |
-| `src/components/ds/primitives.tsx` + `ds/level0.tsx` | les composants canoniques |
-| `~/parrit-os/site-lead-engine/_parallel/TEMPLATE-GRAMMAR.md` | l'assemblage en pages : les huit templates, leurs registres, leurs contrats |
+| `docs/site-prod-rev01/parrit-command-center-rev03.html` | **la LOI** — prototype approuvé par Paul (Brand Command Center REV 03) : registres, red law, composants, cotes exactes |
+| `src/system/tokens.css` | **les valeurs**. Un hex écrit ailleurs est un bug (gate `npm run qa:brand:rev01`) |
+| `src/system/` + `src/app/(rev01)/` | les composants et pages canon |
 
-- **Palette canonique** : papier `#FFFDFA` · papier alt `#F0F0F0` · encre `#0C0C0D` · muted `#6E7079` · faint `#8987A1` · rouge signal `#D1132F` · filet `#D0D8D7` · accent chaud `#C67C60` (liseré uniquement, < 2 % d'un écran). **Il n'existe pas de blanc pur** : `#FFFFFF` est interdit comme fond et comme encre.
-- **Polices** : **Arpona** pour le titrage (`--type-display-primary`, auto-hébergée dans `public/fonts/arpona/`, 4 graisses, graisse display 600) · **Geist** pour l'UI (`--type-ui-primary`) · **Geist Mono** pour labels, corps mono et coordonnées (`--type-mono-primary`).
-- **Interlignage display = `1.08`** (ADR-013, mesuré sur capitales accentuées). `0.9` n'est autorisé que si la chaîne ne porte aucune capitale accentuée **et** que la QA passe sur cette chaîne.
-- **Périmé, à ne plus produire** : `#F5F8FF`, `#161616`, `#AA0003`, `#FEFDF9`, `#FFFFFF`, `#2E2D2B`, DM Sans, Cormorant, Hanken Grotesk, JetBrains Mono, le second design system de `public/da/`, la chrome « fenêtre d'OS » (`.landing-v4-traffic`, pastilles rondes), le fond photo attaché au `body`. Ces valeurs restent présentes dans le code non migré : les rencontrer n'autorise pas à en écrire de nouvelles.
-- **Rayons, ombres, textures** : rayon `0` partout (`--radius-none`) ; `--radius-round` est réservé au sceau, aux avatars et aux pastilles d'état. **Aucune ombre portée** — le seul token d'ombre vaut `none`, la seule exception est l'anneau de focus. Le grain papier est **trois couches** (`.parrit-grain`) et ne se cumule jamais avec le halftone.
-- **Largeurs** : trois, pas quatre — `--container-text` 46rem, `--container-content` 80rem, `--container-wide` 90rem.
-- **Composants signature** : `HeroLevel0`, `ProofRailLevel0`, `HermesTraceLevel0`, `TestimonialShiftLevel0`, `CTASectionLevel0`, `MediaPlate`, plus les primitives (`Label`, `IndexMark`, `Badge`, `Metric`, `Divider`, `SectionHeader`, `Button`, `TextLink`).
-- **Structural Integrity Test** : tout média expressif porte `data-layer="expressive"`. Une page qui devient illisible sous `[data-hide-media="true"]` est non conforme — ce n'est pas le test qui est trop dur.
-- **Voix** (`BRAND.md §6bis`, doctrine LE TAMIS) : Operating Partner, autorité démontrée, faits (Enargeia), sobriété, **pas de tiret cadratin `—`**, pas de jargon IA.
+Compléments : `docs/site-prod-rev01/REV03-DELTAS.md` (deltas appliqués),
+`CONFORMITY-REV01.md` (protocole de conformité, gate screenshot), `logo-rev04/` (le mark).
+
+- **Palette** : ink `#0A0B0C` · carbon `#131518` · carbon2 `#1A1D21` · paper `#F1F2F3` ·
+  paper2 `#FAFAFB` · rule-l `#DDE0E3` · rule-d `#24282D` · g2 `#9CA1A6` · g3 `#55595E` ·
+  g4 `#6F757B` · **Parrit Red `#E10600`** (pressé `#B80500`) · body-l `#26282B` · label-d `#C7CBCF`.
+  Deux registres seulement : documents blanc-froid (l'institution) et instruments carbone (le produit).
+- **Red law** : le rouge = décision requise, action qui s'exécute, état critique, objet
+  sélectionné, commission scellée. JAMAIS décoratif (pas de titre rouge, pas de fond, pas de logo).
+- **Typo** : Geist (400/500/600) + Geist Mono (400/500/600), auto-hébergées — **transition** ;
+  la paire licenciée définitive est un arbitrage Paul ouvert (R-04). Pas d'italique, pas d'autre famille.
+  Registre « k » : Mono 10px, letter-spacing .18em, uppercase.
+- **Formes** : radius 0 partout (sauf mockups téléphone) · zéro ombre sauf l'unique ombre
+  d'instrument `0 40px 80px -40px rgba(10,11,12,.4)` · zéro dégradé · statuts = forme + couleur.
+- **Logo REV 04** : mark live-text `[P.]` Geist Mono 600, point carré rouge ; wordmark live-text
+  `PARRIT.AI` (point rouge). Fichiers : `docs/site-prod-rev01/logo-rev04/` + `public/brand/`.
+- **Éléments propriétaires** : le Parrit Frame (crochets rouges = objet en attente de décision),
+  la registry line (`PARRIT / SITE · REV 01 · 2026`), le Standard en spécification PS-01…PS-06.
 
 ### Règle de création — non négociable
 
-**Toute nouvelle page publique doit être construite avec les primitives, les tokens et les templates canoniques.**
-
-Il est interdit de créer un design system local, une feuille de style complète propre à une page, un jeu de tokens parallèle, une seconde famille typographique ou un composant qui duplique un composant existant de `src/components/ds/`.
-
-Concrètement, avant d'écrire une page :
-
-1. chercher le template qui correspond dans `src/components/templates/` (T1 article · T2 vidéo · T3 ressource · T4 système · T5 thème · T6 presse · T7 landing · T8 auteur) ;
-2. si aucun ne correspond, composer avec les primitives et le niveau 0 — **pas avec du CSS neuf** ;
-3. si une primitive manque vraiment, elle s'ajoute à `src/components/ds/`, adossée aux tokens, et elle est documentée. Elle ne naît jamais dans une page.
-
-Une page n'écrit **ni couleur, ni taille de police, ni rayon, ni ombre en dur**. Elle consomme des variables CSS. Un hex dans `src/app/**` est un défaut, pas un choix.
-
-**Les CTA, les preuves et les ressources sont des registres, pas du texte de page** : `src/lib/registry/cta.ts`, `preuves.ts`, `ressources.ts`. Un libellé de bouton écrit dans un composant est un défaut. Le contrat complet est dans `TEMPLATE-GRAMMAR.md` §5.
+Toute nouvelle page publique se construit avec `src/system/` (tokens, composants K/St/Frame/
+Instrument/RegistryLine, boutons `.rev-button` / `.exec` / `.ghost`) et se vérifie contre le
+prototype REV 03 (gate screenshot : paires 1440/390 prototype vs candidat). Un hex dans une
+page est un défaut. Interdit de créer un design system local ou une seconde famille typo.
+La CI bloque : `qa:brand:rev01` (tokens, ombres, radius, PC-10) + `qa:network:rev01`
+(specs de conformité — H1 88px, une ombre max, zéro radius).
 
 ### Règle d'index — arbitrage Paul du 02/08/2026
 

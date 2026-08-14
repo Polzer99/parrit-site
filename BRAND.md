@@ -1,3 +1,10 @@
+> 🪦 **DA SUPPRIMÉE — ordre de Paul, 14/08/2026.** Cette direction artistique
+> (Smoooth Studio / papier crème / desktop-OS) n'existe plus. Aucune surface ne s'en
+> réclame, aucun agent ne s'en inspire. Le canon visuel unique est le **REV 03** :
+> `docs/site-prod-rev01/parrit-command-center-rev03.html` + `src/system/tokens.css`
+> (voir `AGENTS.md`, section « Source de vérité visuelle »). Ce dossier n'est conservé
+> que comme archive du code legacy non migré.
+
 > ⚠️ SUPERSÉDÉ le 23/06 par la DA Parrit Template, puis ajusté le 24/06 par #58 pour la typographie. BACKUP historique. Tokens canon = `#F5F8FF` / `#161616` / `#2E2D2B` / `#AA0003` / `#C67C60`, Geist + Geist Mono. Source active = `TRUTH.md`, `AGENTS.md`, `design-source/DA-TOKENS-EXTRACTED.md` + `src/app/globals.css`. Le logotype PARRIT·AI + sceau 速 reste valable.
 
 # PARRIT·AI — Direction Artistique (source de vérité historique)
