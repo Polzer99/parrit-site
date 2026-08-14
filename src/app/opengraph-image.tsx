@@ -7,10 +7,10 @@ export const contentType = "image/png";
 
 export default async function Image() {
   const [plexSans, plexMono] = await Promise.all([
-    fetch(new URL("../og-assets/IBMPlexSans-Medium.ttf", import.meta.url)).then((r) =>
+    fetch(new URL("../og-assets/GeneralSans-Medium.otf", import.meta.url)).then((r) =>
       r.arrayBuffer(),
     ),
-    fetch(new URL("../og-assets/IBMPlexMono-SemiBold.ttf", import.meta.url)).then((r) =>
+    fetch(new URL("../og-assets/JetBrainsMono-SemiBold.ttf", import.meta.url)).then((r) =>
       r.arrayBuffer(),
     ),
   ]);
@@ -27,14 +27,14 @@ export default async function Image() {
           padding: "56px 64px",
           background: "#131518",
           color: "#F1F2F3",
-          fontFamily: "IBM Plex Sans",
+          fontFamily: "General Sans",
         }}
       >
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
-            fontFamily: "IBM Plex Mono",
+            fontFamily: "JetBrains Mono",
             fontSize: 22,
             letterSpacing: "0.18em",
             color: "#6F757B",
@@ -61,7 +61,7 @@ export default async function Image() {
             display: "flex",
             alignItems: "center",
             gap: 16,
-            fontFamily: "IBM Plex Mono",
+            fontFamily: "JetBrains Mono",
             fontSize: 20,
             letterSpacing: "0.16em",
             color: "#9CA1A6",
@@ -75,8 +75,8 @@ export default async function Image() {
     {
       ...size,
       fonts: [
-        { name: "IBM Plex Sans", data: plexSans, weight: 500, style: "normal" },
-        { name: "IBM Plex Mono", data: plexMono, weight: 600, style: "normal" },
+        { name: "General Sans", data: plexSans, weight: 500, style: "normal" },
+        { name: "JetBrains Mono", data: plexMono, weight: 600, style: "normal" },
       ],
     },
   );

@@ -34,10 +34,10 @@ export default async function JournalOpenGraphImage({ params }: JournalOpenGraph
   }
 
   const plexSans = fs.readFileSync(
-    path.join(process.cwd(), "src/og-assets/IBMPlexSans-Medium.ttf"),
+    path.join(process.cwd(), "src/og-assets/GeneralSans-Medium.otf"),
   );
   const plexMono = fs.readFileSync(
-    path.join(process.cwd(), "src/og-assets/IBMPlexMono-Medium.ttf"),
+    path.join(process.cwd(), "src/og-assets/JetBrainsMono-Medium.ttf"),
   );
 
   return new ImageResponse(
@@ -52,13 +52,13 @@ export default async function JournalOpenGraphImage({ params }: JournalOpenGraph
           padding: "72px 84px",
           background: token("--ink"),
           color: token("--paper"),
-          fontFamily: "IBM Plex Sans",
+          fontFamily: "General Sans",
         }}
       >
         <div
           style={{
             display: "flex",
-            fontFamily: "IBM Plex Mono",
+            fontFamily: "JetBrains Mono",
             fontSize: 18,
             fontWeight: 500,
             letterSpacing: "0.16em",
@@ -85,8 +85,8 @@ export default async function JournalOpenGraphImage({ params }: JournalOpenGraph
     {
       ...size,
       fonts: [
-        { name: "IBM Plex Sans", data: plexSans, weight: 500 },
-        { name: "IBM Plex Mono", data: plexMono, weight: 500 },
+        { name: "General Sans", data: plexSans, weight: 500 },
+        { name: "JetBrains Mono", data: plexMono, weight: 500 },
       ],
     },
   );

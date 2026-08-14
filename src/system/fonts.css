@@ -1,48 +1,52 @@
-/* Font files are self-hosted under /public/fonts/plex. */
+/* Font files are self-hosted under /public/fonts/rev02 — General Sans (Fontshare licence,
+   commercial use), JetBrains Mono (OFL), Fraunces variable (OFL, editorial display only). */
 @font-face {
-  font-family: "IBM Plex Sans";
-  src: url("/fonts/plex/IBMPlexSans-Regular.woff2") format("woff2");
-  font-style: normal;
+  font-family: "General Sans";
+  src: url("/fonts/rev02/GeneralSans-Regular.woff2") format("woff2");
   font-weight: 400;
+  font-style: normal;
   font-display: swap;
 }
-
 @font-face {
-  font-family: "IBM Plex Sans";
-  src: url("/fonts/plex/IBMPlexSans-Medium.woff2") format("woff2");
-  font-style: normal;
+  font-family: "General Sans";
+  src: url("/fonts/rev02/GeneralSans-Medium.woff2") format("woff2");
   font-weight: 500;
+  font-style: normal;
   font-display: swap;
 }
-
 @font-face {
-  font-family: "IBM Plex Sans";
-  src: url("/fonts/plex/IBMPlexSans-SemiBold.woff2") format("woff2");
-  font-style: normal;
+  font-family: "General Sans";
+  src: url("/fonts/rev02/GeneralSans-Semibold.woff2") format("woff2");
   font-weight: 600;
+  font-style: normal;
   font-display: swap;
 }
-
 @font-face {
-  font-family: "IBM Plex Mono";
-  src: url("/fonts/plex/IBMPlexMono-Regular.woff2") format("woff2");
-  font-style: normal;
+  font-family: "JetBrains Mono";
+  src: url("/fonts/rev02/JetBrainsMono-Regular.woff2") format("woff2");
   font-weight: 400;
+  font-style: normal;
   font-display: swap;
 }
-
 @font-face {
-  font-family: "IBM Plex Mono";
-  src: url("/fonts/plex/IBMPlexMono-Medium.woff2") format("woff2");
-  font-style: normal;
+  font-family: "JetBrains Mono";
+  src: url("/fonts/rev02/JetBrainsMono-Medium.woff2") format("woff2");
   font-weight: 500;
+  font-style: normal;
   font-display: swap;
 }
-
 @font-face {
-  font-family: "IBM Plex Mono";
-  src: url("/fonts/plex/IBMPlexMono-SemiBold.woff2") format("woff2");
-  font-style: normal;
+  font-family: "JetBrains Mono";
+  src: url("/fonts/rev02/JetBrainsMono-SemiBold.woff2") format("woff2");
   font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+/* Fraunces: reserved for REV 02 editorial display headings — do not use for body text. */
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/rev02/Fraunces-Variable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
   font-display: swap;
 }

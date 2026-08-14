@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
   <rect width="120" height="120" fill="#131518"/>
-  <text x="60" y="76" text-anchor="middle" font-family="'IBM Plex Mono',Menlo,monospace" font-weight="600" font-size="46" fill="#F1F2F3">[P<tspan fill="#E10600">.</tspan>]</text>
+  <text x="60" y="76" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-weight="600" font-size="46" fill="#F1F2F3">[P<tspan fill="#E10600">.</tspan>]</text>
 </svg>

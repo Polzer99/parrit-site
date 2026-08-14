@@ -18,8 +18,9 @@
   --red-p: #B80500;
 
   /* PC-03 · type tokens */
-  --ui: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
-  --mono: "IBM Plex Mono", Menlo, monospace;
+  --ui: "General Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", Menlo, monospace;
+  --ed: "Fraunces", Georgia, serif;
 
   /* PC-04 · space (8pt) */
   --s1: 8px;
