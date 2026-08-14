@@ -8,7 +8,7 @@ import { getAttribution } from "@/lib/attribution";
 import { track } from "@/lib/analytics";
 import type { Locale } from "./dictionaries";
 
-const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
+const WEBHOOK_URL = "https://n8n.srv1857989.hstgr.cloud/webhook/parrit-lead";
 
 type OfferRow = {
   label: string;
