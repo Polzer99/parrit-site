@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 
 import {
   DecisionCard,
+  Dossier,
   Frame,
   Hold,
   Instrument,
@@ -106,6 +107,25 @@ export default function SystemPage() {
               <Components />
             </div>
           </div>
+        </section>
+
+        <section className="system-section" aria-labelledby="dossier-heading">
+          <h2 id="dossier-heading">System dossier · Abstract specimen</h2>
+          <p>Abstract field specimen. No client or deployment data.</p>
+          <Dossier
+            title="[system outcome]"
+            client="[client]"
+            systemId="[system id]"
+            domain="[domain]"
+            commissionedYear="[year]"
+            revision="[revision]"
+            status="[status]"
+            problem="[Operating problem]"
+            capabilities={["[Capability 01]", "[Capability 02]"]}
+            before={["[Baseline measure 01]", "[Baseline measure 02]"]}
+            after={["[Measured result 01]", "[Measured result 02]"]}
+            measurementPeriod="[period]"
+          />
         </section>
 
         <footer className="system-footer">
