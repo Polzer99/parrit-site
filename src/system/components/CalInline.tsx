@@ -20,24 +20,20 @@ export function ParritCalInline({
     if (preview || placeholder) return;
 
     async function configureCalendar() {
-      const tokens = getComputedStyle(document.documentElement);
-      const token = (name: string) => tokens.getPropertyValue(name).trim();
       const cal = await getCalApi({ namespace: "commission" });
       cal("ui", {
         theme: "dark",
         hideEventTypeDetails: false,
         layout: "month_view",
-        styles: { branding: { brandColor: token("--red") } },
+        styles: { branding: { brandColor: "#E10600" } },
         cssVarsPerTheme: {
           dark: {
-            "cal-brand": token("--red"),
-            "cal-bg": token("--carbon"),
-            "cal-bg-emphasis": token("--carbon2"),
-            "cal-border": token("--rule-d"),
-            "cal-text": token("--paper"),
-            "cal-text-muted": token("--g2"),
+            "cal-brand": "#E10600",
+            "cal-bg": "#131518",
+            "cal-bg-emphasis": "#1A1D21",
+            "cal-border": "#24282D",
           },
-          light: { "cal-brand": token("--red") },
+          light: { "cal-brand": "#E10600" },
         },
       });
     }
@@ -72,14 +68,13 @@ export function ParritCalInline({
           />
         )}
         <div className="cal-bar cal-bar-footer">
-          <span>30 MIN · VISIO</span>
+          <span>30 MIN · VIDEO</span>
           <span className="cal-status">
             <i aria-hidden="true" />
             COMMISSIONED, NOT SUBSCRIBED
           </span>
         </div>
       </div>
-      <div className="cal-caption">THE FIRST STEP · AN EXAMINATION, NOT A SALES CALL.</div>
     </div>
   );
 }
