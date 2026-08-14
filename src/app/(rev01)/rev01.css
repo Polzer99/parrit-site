@@ -13,10 +13,11 @@
 
 .rev-mark {
   color: var(--ink);
-  font-family: var(--ui);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: -.035em;
+  /* REV 04 mark: live-text [P.], Geist Mono 600, red square period */
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -.02em;
   text-decoration: none;
 }
 
