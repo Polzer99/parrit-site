@@ -148,6 +148,42 @@
   border-top: 2px solid var(--ink);
 }
 
+.dossiers-wrap {
+  max-width: 960px;
+}
+
+.dossiers-header {
+  padding: var(--s8) 0 var(--s4);
+  border-bottom: 2px solid var(--ink);
+}
+
+.dossiers-header h1 {
+  margin: var(--s2) 0 0;
+  font-size: clamp(38px, 6.6vw, 76px);
+  font-weight: 500;
+  letter-spacing: -.035em;
+  line-height: 1;
+}
+
+.dossiers-empty {
+  min-height: 360px;
+  padding: var(--s6) 0 var(--s8);
+}
+
+.dossiers-empty h2 {
+  margin: var(--s3) 0 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.dossiers-empty p {
+  max-width: 48ch;
+  margin: var(--s2) 0 0;
+  color: var(--g3);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
 .commission-header {
   max-width: 780px;
   padding: 84px 0 52px;
