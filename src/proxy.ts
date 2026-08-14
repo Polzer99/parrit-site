@@ -45,7 +45,14 @@ export function proxy(request: NextRequest) {
   }
 
   // REV 01 pages are intentionally outside the legacy locale tree.
-  if (pathname === "/" || pathname === "/standard" || pathname === "/commission") {
+  if (
+    pathname === "/" ||
+    pathname === "/standard" ||
+    pathname === "/commission" ||
+    pathname === "/paul" ||
+    pathname === "/maxime" ||
+    pathname === "/legal"
+  ) {
     return;
   }
 
@@ -71,6 +78,6 @@ export const config = {
     // ⚠️ Toute route hors i18n DOIT être ajoutée ici, sinon elle est redirigée
     // vers /fr/<route> qui n'existe pas — c'est la cause exacte du 404 de
     // /efi-audit-energie (02-ROUTES-CTA-AND-LEAD-MAGNETS.md §D.1).
-    "/((?!_next|api|os|system|fondateurs|academy|chemin|metiers|harnais-ia|outils|diagnostic|design-system|template-grammar|art-direction-lab|demarrer-claude-code|architecture-claude-md|efi-audit-hotels|hr-radar|favicon.ico|robots.txt|sitemap.xml|og-image.png|.*\\..*).*)",
+    "/((?!_next|api|os|system|paul|maxime|legal|fondateurs|academy|chemin|metiers|harnais-ia|outils|diagnostic|design-system|template-grammar|art-direction-lab|demarrer-claude-code|architecture-claude-md|efi-audit-hotels|hr-radar|favicon.ico|robots.txt|sitemap.xml|og-image.png|.*\\..*).*)",
   ],
 };

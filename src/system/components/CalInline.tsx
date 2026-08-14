@@ -3,15 +3,21 @@
 import Cal, { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
 
-import { CAL_LINK_COMMISSION } from "../../../site.config";
+import { CAL_LINK_COMMISSION, isPlaceholder } from "../../../site.config";
 
 type ParritCalInlineProps = {
+  calLink?: string;
   preview?: boolean;
 };
 
-export function ParritCalInline({ preview = false }: ParritCalInlineProps) {
+export function ParritCalInline({
+  calLink = CAL_LINK_COMMISSION,
+  preview = false,
+}: ParritCalInlineProps) {
+  const placeholder = isPlaceholder(calLink);
+
   useEffect(() => {
-    if (preview) return;
+    if (preview || placeholder) return;
 
     async function configureCalendar() {
       const tokens = getComputedStyle(document.documentElement);
@@ -37,7 +43,16 @@ export function ParritCalInline({ preview = false }: ParritCalInlineProps) {
     }
 
     void configureCalendar();
-  }, [preview]);
+  }, [placeholder, preview]);
+
+  if (placeholder) {
+    return (
+      <div className="launch-placeholder" role="status">
+        <strong>[TO FILL]</strong>
+        <span>Coaching calendar link must be configured before launch.</span>
+      </div>
+    );
+  }
 
   return (
     <div className="cal-stage">
@@ -51,7 +66,7 @@ export function ParritCalInline({ preview = false }: ParritCalInlineProps) {
         ) : (
           <Cal
             namespace="commission"
-            calLink={CAL_LINK_COMMISSION}
+            calLink={calLink}
             className="cal-embed"
             config={{ layout: "month_view", theme: "dark" }}
           />
