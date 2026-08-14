@@ -12,8 +12,8 @@ test("the system route is noindex and uses only local font assets", async ({ pag
   const fontSources = await page.evaluate(() =>
     [...document.fonts].map((font) => `${font.family}:${font.weight}`),
   );
-  expect(fontSources).toContain("IBM Plex Sans:400");
-  expect(fontSources).toContain("IBM Plex Mono:400");
+  expect(fontSources).toContain("General Sans:400");
+  expect(fontSources).toContain("JetBrains Mono:400");
 
   const holds = page.getByRole("button", { name: /hold to commit/i });
   await holds.first().hover();

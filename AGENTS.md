@@ -47,13 +47,15 @@ Compléments : `docs/site-prod-rev01/REV03-DELTAS.md` (deltas appliqués),
   Deux registres seulement : documents blanc-froid (l'institution) et instruments carbone (le produit).
 - **Red law** : le rouge = décision requise, action qui s'exécute, état critique, objet
   sélectionné, commission scellée. JAMAIS décoratif (pas de titre rouge, pas de fond, pas de logo).
-- **Typo** : **IBM Plex Sans + IBM Plex Mono** (400/500/600, auto-hébergées `public/fonts/plex/`,
-  licence OFL) — choisies le 14/08/2026 pour la voix « institution d'ingénierie » (luxe
-  institutionnel + technologique). Geist est MORTE. Pas d'italique, pas d'autre famille.
+- **Typo T3 (arbitrage Paul 15/08, banc d'essai)** : **General Sans** (corps/UI, Fontshare,
+  gratuite commerciale) + **JetBrains Mono** (registre technique, OFL) + **Fraunces variable**
+  (OFL) — Fraunces RÉSERVÉE aux grands titres éditoriaux REV 02 (`--ed`, opsz 40, SOFT 0,
+  WONK 0, poids ~480), jamais en corps. Auto-hébergées `public/fonts/rev02/`. Geist et
+  IBM Plex sont MORTES. Pas d'italique, pas d'autre famille.
   Registre « k » : Mono 10px, letter-spacing .18em, uppercase.
 - **Formes** : radius 0 partout (sauf mockups téléphone) · zéro ombre sauf l'unique ombre
   d'instrument `0 40px 80px -40px rgba(10,11,12,.4)` · zéro dégradé · statuts = forme + couleur.
-- **Logo REV 04** : mark live-text `[P.]` IBM Plex Mono 600, point rouge ; wordmark live-text
+- **Logo REV 04** : mark live-text `[P.]` JetBrains Mono 600, point rouge ; wordmark live-text
   `PARRIT.AI` (point rouge). Fichiers : `docs/site-prod-rev01/logo-rev04/` + `public/brand/`.
 - **L'enveloppe fait partie du canon** : la command bar sombre (fixe 52px — wordmark,
   registre `SYSTEM PARRIT.AI · REV 01 · STATUS OPERATIONAL`, horloge live) est sur TOUTES les
