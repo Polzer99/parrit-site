@@ -1,3 +1,4 @@
+export { ParritCalInline } from "./CalInline";
 export { DecisionCard } from "./DecisionCard";
 export { Frame } from "./Frame";
 export { Hold } from "./Hold";

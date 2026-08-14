@@ -148,6 +148,33 @@
   border-top: 2px solid var(--ink);
 }
 
+.commission-header {
+  max-width: 780px;
+  padding: 84px 0 52px;
+}
+
+.commission-header h1 {
+  max-width: 12ch;
+  margin: 20px 0 0;
+  font-size: clamp(38px, 6.6vw, 76px);
+  font-weight: 500;
+  letter-spacing: -.035em;
+  line-height: 1;
+}
+
+.commission-header p {
+  max-width: 58ch;
+  margin: 26px 0 0;
+  color: var(--g3);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+
+.commission-calendar {
+  padding: 56px 0 var(--s8);
+  border-top: 1px solid var(--rule-l);
+}
+
 .spec-header {
   display: flex;
   align-items: flex-end;

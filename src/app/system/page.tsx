@@ -6,6 +6,7 @@ import {
   Hold,
   Instrument,
   K,
+  ParritCalInline,
   RegistryLine,
   Seal,
   St,
@@ -56,6 +57,7 @@ function Components() {
         doneLabel="Approved"
         status="att"
       />
+      <ParritCalInline preview />
       <Seal />
     </div>
   );
