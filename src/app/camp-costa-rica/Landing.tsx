@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { CAMP_LANGS, DICT, type CampLang } from "./dict";
 
-const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
+const WEBHOOK_URL = "https://n8n.srv1857989.hstgr.cloud/webhook/parrit-lead";
 
 const LANG_PATH: Record<CampLang, string> = {
   fr: "/camp-costa-rica",

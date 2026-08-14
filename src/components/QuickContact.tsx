@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { getAttribution, buildRdvHref } from "@/lib/attribution";
 import { track } from "@/lib/analytics";
 
-const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
+const WEBHOOK_URL = "https://n8n.srv1857989.hstgr.cloud/webhook/parrit-lead";
 const FORM_ID = "quickcontact";
 
 const QC_RDV_CTA: Record<string, string> = {

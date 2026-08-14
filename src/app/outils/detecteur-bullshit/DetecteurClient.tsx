@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { getAttribution } from "@/lib/attribution";
 import { track } from "@/lib/analytics";
 
-const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
+const WEBHOOK_URL = "https://n8n.srv1857989.hstgr.cloud/webhook/parrit-lead";
 const SURFACE = "detecteur-bullshit";
 const PENDING_LEAD_KEY = `pending_lead_${SURFACE}`;
 

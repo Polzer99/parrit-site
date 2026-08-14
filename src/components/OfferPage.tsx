@@ -8,7 +8,7 @@ import { track } from "@/lib/analytics";
 import { getOfferCopy, type OfferKind, type OfferCopy } from "@/lib/offer-copy";
 import type { Locale } from "@/app/[lang]/dictionaries";
 
-const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
+const WEBHOOK_URL = "https://n8n.srv1857989.hstgr.cloud/webhook/parrit-lead";
 
 function Logo() {
   return (

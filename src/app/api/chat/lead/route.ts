@@ -29,7 +29,7 @@ const PROSPECTS_DIR =
 
 const LEAD_WEBHOOK =
   process.env.PARRIT_LEAD_WEBHOOK ||
-  "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
+  "https://n8n.srv1857989.hstgr.cloud/webhook/parrit-lead";
 
 function slugify(input: string): string {
   return input
