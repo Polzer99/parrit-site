@@ -47,3 +47,8 @@ browser session (sessionStorage flag), then reveals the page.
   keeps exactly one h1).
 - Booking/nav untouched. Do not commit; report with a diff table vs the artifact's
   .cmdbar/.bootlog/.boothero/.bootfoot values.
+
+## AMENDEMENT 2026-08-14 (soir, ordre Paul)
+L'Opening joue à CHAQUE arrivée sur `/` — le flag sessionStorage `parrit-opening-seen`
+est supprimé. Restent : skip au clic/touche/scroll, skip total en prefers-reduced-motion,
+SSR intact. Tests mis à jour en conséquence (`tests/conformity-home.spec.ts`).

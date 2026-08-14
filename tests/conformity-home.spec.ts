@@ -4,8 +4,19 @@ const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 
 test.use({ viewport: { width: 1440, height: 900 } });
 
+test("the opening plays on every arrival and dismisses on input", async ({ page }) => {
+  await page.goto(`${BASE_URL}/`);
+  await expect(page.getByTestId("opening")).toBeVisible();
+
+  await page.mouse.click(720, 450);
+  await expect(page.getByTestId("opening")).toHaveCount(0);
+
+  await page.reload();
+  await expect(page.getByTestId("opening")).toBeVisible();
+});
+
 test("the home locks the approved display scale and surface rules", async ({ page }) => {
-  await page.addInitScript(() => window.sessionStorage.setItem("parrit-opening-seen", "true"));
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(`${BASE_URL}/`);
 
   await expect(page.getByTestId("opening")).toHaveCount(0);
@@ -41,15 +52,20 @@ test("the home locks the approved display scale and surface rules", async ({ pag
   expect(surfaceRules.radiusCount).toBe(0);
 });
 
-test("the command bar is fixed at the approved height on every core page", async ({ page }) => {
-  await page.addInitScript(() => window.sessionStorage.setItem("parrit-opening-seen", "true"));
+test.describe("command bar", () => {
+  // The /commission stop loads the Cal embed, which the deny-all fixture blocks by design.
+  test.use({ expectBlockedRequest: true });
 
-  for (const path of ["/", "/standard", "/commission", "/journal"]) {
+  test("the command bar is fixed at the approved height on every core page", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+
+    for (const path of ["/", "/standard", "/commission", "/journal"]) {
     await page.goto(`${BASE_URL}${path}`);
 
-    const commandBar = page.locator(".cmdbar");
-    await expect(commandBar).toBeVisible();
-    await expect(commandBar).toHaveCSS("position", "fixed");
-    await expect(commandBar).toHaveCSS("height", "52px");
-  }
+      const commandBar = page.locator(".cmdbar");
+      await expect(commandBar).toBeVisible();
+      await expect(commandBar).toHaveCSS("position", "fixed");
+      await expect(commandBar).toHaveCSS("height", "52px");
+    }
+  });
 });
