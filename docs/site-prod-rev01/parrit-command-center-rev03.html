@@ -1,0 +1,889 @@
+<!-- PARRIT / OS — Brand Command Center · REV 03
+     Source : artifact claude.ai (Claude côté brainstorm), collé par Paul le 14/08/2026.
+     AUTORITÉ VISUELLE COURANTE — supersède parrit-command-system-rev02.jsx.
+     Deltas appliqués à la prod : voir REV03-DELTAS.md. -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PARRIT / OS — Brand Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════ TOKENS ═══════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:    #0A0B0C;   /* near-black */
+  --carbon: #131518;   /* dark surface */
+  --carbon2:#1A1D21;   /* dark surface raised */
+  --paper:  #F1F2F3;   /* cold off-white */
+  --paper2: #FAFAFB;   /* raised light surface */
+  --rule-d: #24282D;   /* rules on dark */
+  --rule-l: #DDE0E3;   /* rules on light */
+  --g2: #9CA1A6;       /* mid grey */
+  --g3: #55595E;       /* dark grey text on light */
+  --g4: #6F757B;       /* label grey */
+  --red: #E10600;      /* PARRIT RED — signal only */
+
+  --ui:   "Geist", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Geist Mono", "IBM Plex Mono", Menlo, monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--ui);
+  background: var(--ink);
+  color: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════ COMMAND BAR ═══════════════════════════ */
+.cmdbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 50; height: 52px;
+  display: flex; align-items: center; gap: 24px;
+  padding: 0 20px;
+  background: rgba(10,11,12,.92); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule-d);
+}
+.wordmark {
+  font-family: var(--mono); font-weight: 600; font-size: 13px;
+  letter-spacing: .22em;
+}
+.wordmark i { font-style: normal; color: var(--red); }
+.registry {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+  color: var(--g4); text-transform: uppercase;
+  display: flex; gap: 18px;
+}
+.registry b { font-weight: 500; color: var(--g2); }
+.clock { margin-left: auto; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--g4); }
+
+/* ═══════════════════════════ MODULE NAV ═══════════════════════════ */
+.modnav {
+  position: fixed; top: 52px; left: 0; right: 0; z-index: 49;
+  display: flex; overflow-x: auto; scrollbar-width: none;
+  background: var(--ink); border-bottom: 1px solid var(--rule-d);
+}
+.modnav::-webkit-scrollbar { display: none; }
+.mod {
+  appearance: none; border: 0; background: transparent; cursor: pointer;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--g4);
+  padding: 13px 18px; white-space: nowrap; position: relative;
+  transition: color .2s;
+}
+.mod:hover { color: var(--paper); }
+.mod[aria-selected="true"] { color: var(--paper); }
+.mod[aria-selected="true"]::after {
+  content: ""; position: absolute; left: 18px; right: 18px; bottom: -1px;
+  height: 2px; background: var(--red);
+}
+.mod:focus-visible { outline: 1px solid var(--red); outline-offset: -3px; }
+
+main { padding-top: 92px; }
+.view { display: none; }
+.view[data-on="true"] { display: block; animation: vin .4s ease both; }
+@keyframes vin { from { opacity: 0; } to { opacity: 1; } }
+
+.shell { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ── shared primitives ── */
+.k {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--g4);
+}
+.rule { height: 1px; background: var(--rule-d); }
+
+/* THE PARRIT FRAME — proprietary device: red corner brackets on anything requiring decision */
+.frame { position: relative; }
+.frame::before, .frame::after,
+.frame > .fx::before, .frame > .fx::after {
+  content: ""; position: absolute; width: 14px; height: 14px;
+  border: 0 solid var(--red);
+}
+.frame::before        { top: -1px; left: -1px;  border-top-width: 2px; border-left-width: 2px; }
+.frame::after         { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
+.frame > .fx::before  { bottom: -1px; left: -1px;  border-bottom-width: 2px; border-left-width: 2px; }
+.frame > .fx::after   { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
+
+/* status marks — shape + colour, never colour alone */
+.st { display: inline-flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
+.st::before { content: ""; display: inline-block; }
+.st.ok::before   { width: 7px; height: 7px; border-radius: 50%; background: var(--g2); }
+.st.att::before  { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 8px solid var(--paper); }
+.st.crit        { color: var(--red); }
+.st.crit::before { width: 8px; height: 8px; background: var(--red); }
+.light .st.att::before { border-bottom-color: var(--ink); }
+
+/* ═══════════════════════════ A — BOOT ═══════════════════════════ */
+#v-boot { min-height: calc(100vh - 92px); display: flex; flex-direction: column; }
+.bootlog {
+  padding: 34px 24px 0; max-width: 1200px; margin: 0 auto; width: 100%;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
+  color: var(--g4); min-height: 130px;
+}
+.bootlog div { opacity: 0; transform: translateY(3px); }
+.bootlog div.on { animation: bl .3s ease forwards; }
+@keyframes bl { to { opacity: 1; transform: none; } }
+.bootlog .ok-line { color: var(--g2); }
+.bootlog .red-line { color: var(--red); }
+
+.boothero {
+  flex: 1; display: flex; flex-direction: column; justify-content: center;
+  max-width: 1200px; margin: 0 auto; width: 100%; padding: 40px 24px 90px;
+}
+.boothero h1 {
+  font-weight: 500; letter-spacing: -.03em; line-height: 1.02;
+  font-size: clamp(42px, 7.2vw, 96px);
+  opacity: 0; max-width: 14ch;
+}
+.boothero h1.on { animation: bl .6s .1s ease forwards; }
+.boothero h1 .op { position: relative; display: inline-block; padding: 0 .12em; }
+.bootfoot {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 24px 34px;
+  opacity: 0;
+}
+.bootfoot.on { animation: bl .5s .3s ease forwards; }
+.bootfoot p { font-size: 14px; color: var(--g2); max-width: 34ch; line-height: 1.6; }
+
+/* ═══════════════════════════ B — SYSTEM ═══════════════════════════ */
+.light { background: var(--paper); color: var(--ink); }
+.light .k { color: var(--g3); }
+.light .rule { background: var(--rule-l); }
+
+.sec { padding: 64px 0; border-top: 1px solid var(--rule-l); }
+.sec:first-child { border-top: 0; padding-top: 72px; }
+.sec-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 34px; gap: 16px; flex-wrap: wrap; }
+.sec-head h2 { font-size: 24px; font-weight: 600; letter-spacing: -.02em; }
+
+.chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--rule-l); border: 1px solid var(--rule-l); }
+.chip { background: var(--paper2); padding: 0 0 14px; }
+.chip .c { height: 84px; }
+.chip .meta { padding: 12px 14px 0; }
+.chip b { display: block; font-size: 12px; font-weight: 600; }
+.chip span { font-family: var(--mono); font-size: 10px; color: var(--g3); letter-spacing: .08em; }
+.chip small { display: block; font-size: 11px; color: var(--g3); margin-top: 5px; line-height: 1.45; padding: 0 0; }
+
+.typo-spec { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 26px 0; border-top: 1px solid var(--rule-l); align-items: baseline; }
+.typo-spec:first-of-type { border-top: 0; }
+.spec-d { font-weight: 500; letter-spacing: -.03em; font-size: clamp(30px, 4.4vw, 56px); line-height: 1.04; }
+.spec-h { font-weight: 600; font-size: 22px; letter-spacing: -.015em; }
+.spec-b { font-size: 15px; line-height: 1.65; max-width: 60ch; color: #26282B; }
+.spec-m { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; color: var(--g3); }
+
+.redlaw { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule-l); border: 1px solid var(--rule-l); }
+.redlaw > div { background: var(--paper2); padding: 24px; }
+.redlaw h4 { font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 16px; color: var(--g3); font-weight: 500; }
+.redlaw ul { list-style: none; display: grid; gap: 9px; font-size: 13.5px; }
+.redlaw .no h4 { color: var(--g3); }
+.redlaw .yes li::before { content: "■ "; color: var(--red); font-size: 9px; vertical-align: 1px; margin-right: 6px; }
+.redlaw .no li { color: var(--g3); text-decoration: line-through; text-decoration-color: rgba(10,11,12,.35); }
+
+.comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--rule-l); border: 1px solid var(--rule-l); }
+.comp { background: var(--paper2); padding: 22px; display: grid; gap: 16px; align-content: start; }
+.btn {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+  padding: 12px 18px; border: 1px solid var(--ink); background: transparent; color: var(--ink);
+  cursor: pointer; transition: background .15s, color .15s;
+}
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn.exec { background: var(--red); border-color: var(--red); color: #fff; }
+.btn.exec:hover { background: #C00500; }
+.btn.ghost { border-color: var(--rule-l); color: var(--g3); }
+.dark-demo { background: var(--carbon); border: 1px solid var(--rule-d); padding: 20px; display: grid; gap: 14px; }
+.dark-demo .btn { border-color: #3A3F45; color: var(--paper); }
+.field { border: 1px solid var(--rule-l); background: #fff; padding: 11px 13px; font-family: var(--mono); font-size: 12px; color: var(--g3); letter-spacing: .06em; }
+
+.idplate { font-family: var(--mono); border: 1px solid var(--rule-l); background: var(--paper2); }
+.idplate .r { display: flex; justify-content: space-between; padding: 11px 16px; border-top: 1px solid var(--rule-l); font-size: 11px; letter-spacing: .12em; }
+.idplate .r:first-child { border-top: 0; }
+.idplate .r span:first-child { color: var(--g3); text-transform: uppercase; font-size: 10px; padding-top: 1px; }
+
+.standard-doc { border: 1px solid var(--ink); background: var(--paper2); }
+.std-head { display: flex; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--ink); font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; flex-wrap: wrap; gap: 8px; }
+.std-row { display: grid; grid-template-columns: 92px 170px 1fr; border-top: 1px solid var(--rule-l); }
+.std-row:first-of-type { border-top: 0; }
+.std-row > div { padding: 16px 22px; }
+.std-row .cl { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--g3); border-right: 1px solid var(--rule-l); }
+.std-row .nm { font-weight: 600; font-size: 14px; border-right: 1px solid var(--rule-l); }
+.std-row .df { font-size: 13.5px; color: #26282B; line-height: 1.55; }
+.std-foot { display: flex; align-items: center; gap: 10px; padding: 15px 22px; border-top: 1px solid var(--ink); font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; }
+.std-foot::before { content: ""; width: 9px; height: 9px; background: var(--red); }
+
+/* ═══════════════════════════ C — SITE ═══════════════════════════ */
+.site-hero { padding: 96px 0 72px; }
+.site-hero .k { margin-bottom: 26px; display: block; }
+.site-hero h1 { font-size: clamp(40px, 6.8vw, 88px); font-weight: 500; letter-spacing: -.035em; line-height: 1.0; max-width: 13ch; }
+.site-hero p { margin-top: 28px; font-size: 16px; line-height: 1.65; color: var(--g3); max-width: 44ch; }
+.site-cta { margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+.object-stage { padding: 30px 0 80px; }
+.object {
+  background: var(--carbon); border: 1px solid var(--rule-d); color: var(--paper);
+  max-width: 760px; margin: 0 auto; box-shadow: 0 40px 80px -40px rgba(10,11,12,.4);
+}
+.object-bar { display: flex; justify-content: space-between; padding: 13px 18px; border-bottom: 1px solid var(--rule-d); font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--g4); }
+.object-row { display: flex; align-items: baseline; gap: 16px; padding: 17px 18px; border-bottom: 1px solid var(--rule-d); }
+.object-row:last-child { border-bottom: 0; }
+.object-row .n { font-family: var(--mono); font-size: 26px; font-weight: 500; min-width: 88px; letter-spacing: -.02em; }
+.object-row .l { font-size: 13.5px; color: #C7CBCF; }
+.object-row .t { margin-left: auto; font-family: var(--mono); font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--g4); }
+.object-row.crit .n, .object-row.crit .t { color: var(--red); }
+.object-cap { text-align: center; margin-top: 18px; }
+
+.loop { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; gap: 0; border: 1px solid var(--rule-l); background: var(--paper2); }
+.loop .ph { padding: 30px 26px; }
+.loop .ph h3 { font-family: var(--mono); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 12px; }
+.loop .ph p { font-size: 13.5px; line-height: 1.6; color: #26282B; }
+.loop .arr { display: flex; align-items: center; padding: 0 4px; color: var(--g3); font-family: var(--mono); border-left: 1px solid var(--rule-l); border-right: 1px solid var(--rule-l); }
+.loop .ph:nth-child(5) h3 { color: var(--red); }
+
+.commission-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule-l); border: 1px solid var(--rule-l); }
+.commission-cell { background: var(--paper2); padding: 26px 24px; }
+.commission-cell .k { display: block; margin-bottom: 14px; }
+.commission-cell h4 { font-size: 17px; font-weight: 600; letter-spacing: -.01em; margin-bottom: 8px; }
+.commission-cell p { font-size: 13.5px; line-height: 1.6; color: #26282B; }
+
+/* ═══════════════════════════ D — COCKPIT ═══════════════════════════ */
+.cockpit-wrap { padding: 56px 0 80px; }
+.cockpit {
+  border: 1px solid var(--rule-d); background: var(--carbon);
+  display: grid; grid-template-columns: 210px 1fr 250px; min-height: 560px;
+}
+.cp-rail { border-right: 1px solid var(--rule-d); padding: 18px 0; }
+.cp-rail .k { padding: 0 18px; margin-bottom: 12px; display: block; }
+.cp-item { display: flex; justify-content: space-between; padding: 10px 18px; font-size: 12.5px; color: var(--g2); cursor: default; }
+.cp-item b { font-family: var(--mono); font-size: 10px; color: var(--g4); font-weight: 500; }
+.cp-item.on { color: var(--paper); background: var(--carbon2); box-shadow: inset 2px 0 0 var(--red); }
+.cp-main { padding: 22px; display: grid; gap: 14px; align-content: start; }
+.cp-main-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.cp-main-head h3 { font-size: 15px; font-weight: 600; }
+
+.dcard { border: 1px solid var(--rule-d); background: var(--carbon2); padding: 16px 18px; }
+.dcard-top { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.dcard h4 { font-size: 14px; font-weight: 600; letter-spacing: -.01em; }
+.dcard p { font-size: 12.5px; color: var(--g2); line-height: 1.55; max-width: 58ch; }
+.dcard-foot { display: flex; gap: 10px; margin-top: 14px; align-items: center; flex-wrap: wrap; }
+.dcard .btn { padding: 9px 14px; font-size: 9.5px; border-color: #3A3F45; color: var(--paper); }
+.dcard .btn.exec { border-color: var(--red); background: var(--red); color: #fff; }
+.dcard .done { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; color: var(--g2); text-transform: uppercase; }
+.dcard.executed { opacity: .55; }
+.dcard.executed .btn { display: none; }
+
+.cp-side { border-left: 1px solid var(--rule-d); padding: 18px; display: grid; gap: 18px; align-content: start; }
+.cp-metric b { display: block; font-family: var(--mono); font-size: 22px; font-weight: 500; letter-spacing: -.02em; margin-top: 4px; }
+.cp-metric.crit b { color: var(--red); }
+.cp-log { display: grid; gap: 8px; }
+.cp-log div { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; color: var(--g4); line-height: 1.5; }
+.cp-log div b { color: var(--g2); font-weight: 500; }
+
+/* ═══════════════════════════ E — MOBILE ═══════════════════════════ */
+.mobile-stage { padding: 60px 0 80px; display: flex; gap: 44px; justify-content: center; flex-wrap: wrap; align-items: flex-start; }
+.phone {
+  width: 320px; border: 1px solid var(--rule-d); background: var(--carbon);
+  border-radius: 34px; padding: 12px; box-shadow: 0 50px 90px -50px rgba(0,0,0,.7);
+}
+.screen { border-radius: 24px; overflow: hidden; background: var(--ink); border: 1px solid var(--rule-d); min-height: 600px; display: flex; flex-direction: column; }
+.m-status { display: flex; justify-content: space-between; padding: 14px 18px 10px; font-family: var(--mono); font-size: 10px; color: var(--g4); letter-spacing: .1em; }
+.m-head { padding: 8px 18px 16px; border-bottom: 1px solid var(--rule-d); }
+.m-head .k { display: block; margin-bottom: 6px; }
+.m-head h3 { font-size: 19px; font-weight: 600; letter-spacing: -.02em; }
+.m-block { padding: 15px 18px; border-bottom: 1px solid var(--rule-d); }
+.m-num { display: flex; align-items: baseline; gap: 12px; }
+.m-num b { font-family: var(--mono); font-size: 30px; font-weight: 500; letter-spacing: -.02em; }
+.m-num span { font-size: 12.5px; color: var(--g2); }
+.m-num.crit b { color: var(--red); }
+.m-tag { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--g4); margin-top: 6px; }
+.m-foot { margin-top: auto; display: flex; border-top: 1px solid var(--rule-d); }
+.m-foot span { flex: 1; text-align: center; padding: 15px 4px; font-family: var(--mono); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--g4); border-right: 1px solid var(--rule-d); }
+.m-foot span:last-child { border-right: 0; }
+.m-foot .on { color: var(--paper); box-shadow: inset 0 2px 0 var(--red); }
+
+.m-decision { padding: 18px; display: grid; gap: 12px; }
+.m-decision h4 { font-size: 16px; font-weight: 600; line-height: 1.35; }
+.m-decision p { font-size: 12.5px; color: var(--g2); line-height: 1.6; }
+.m-facts { display: grid; gap: 8px; border-top: 1px solid var(--rule-d); border-bottom: 1px solid var(--rule-d); padding: 12px 0; }
+.m-facts div { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; }
+.m-facts div span:first-child { color: var(--g4); text-transform: uppercase; font-size: 9.5px; }
+.m-approve {
+  margin-top: 4px; width: 100%; padding: 15px; border: 1px solid var(--red);
+  background: var(--red); color: #fff; font-family: var(--mono); font-size: 11px;
+  letter-spacing: .18em; text-transform: uppercase; cursor: pointer;
+}
+.m-approve.done { background: transparent; color: var(--g2); border-color: var(--rule-d); cursor: default; }
+.phone-cap { text-align: center; margin-top: 16px; }
+
+/* ═══════════════════════════ F — DOSSIER ═══════════════════════════ */
+.dossier { max-width: 860px; margin: 56px auto 90px; border: 1px solid var(--ink); background: var(--paper2); }
+.dos-head { padding: 30px 34px; border-bottom: 1px solid var(--ink); display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.dos-head .idplate { border: 0; background: transparent; min-width: 300px; }
+.dos-head .idplate .r { border-top: 1px solid var(--rule-l); padding: 8px 0; }
+.dos-head .idplate .r:first-child { border-top: 0; }
+.dos-title h2 { font-size: clamp(26px, 4vw, 40px); font-weight: 500; letter-spacing: -.025em; line-height: 1.05; max-width: 14ch; }
+.dos-sec { padding: 30px 34px; border-top: 1px solid var(--rule-l); }
+.dos-sec .k { display: block; margin-bottom: 14px; }
+.dos-sec p { font-size: 14.5px; line-height: 1.7; color: #26282B; max-width: 62ch; }
+.dos-caps { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule-l); border: 1px solid var(--rule-l); }
+.dos-caps div { background: var(--paper2); padding: 16px 18px; font-size: 13.5px; }
+.dos-caps div b { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; color: var(--g3); margin-bottom: 6px; font-weight: 500; }
+.ba { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--ink); border: 1px solid var(--ink); }
+.ba > div { background: var(--paper2); padding: 20px 22px; }
+.ba h5 { font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--g3); margin-bottom: 14px; font-weight: 500; }
+.ba ul { list-style: none; display: grid; gap: 10px; font-size: 13.5px; }
+.ba .after b { font-family: var(--mono); }
+.flow { display: flex; align-items: center; gap: 0; border: 1px solid var(--rule-l); overflow-x: auto; }
+.flow div { padding: 16px 18px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; border-right: 1px solid var(--rule-l); }
+.flow div:last-child { border-right: 0; color: var(--red); }
+.dos-foot { display: flex; justify-content: space-between; align-items: center; padding: 20px 34px; border-top: 1px solid var(--ink); font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; flex-wrap: wrap; gap: 10px; }
+.dos-foot .seal { display: flex; align-items: center; gap: 10px; }
+.dos-foot .seal::before { content: ""; width: 9px; height: 9px; background: var(--red); }
+
+/* ═══════════════════════════ G — INSTITUTION ═══════════════════════════ */
+.inst-grid { display: grid; gap: 44px; padding: 56px 0 90px; }
+.linkedin { border: 1px solid var(--rule-l); background: #fff; max-width: 860px; }
+.li-banner { background: var(--ink); color: var(--paper); aspect-ratio: 4 / 1; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+.li-banner .big { font-family: var(--mono); font-size: clamp(15px, 2.6vw, 24px); letter-spacing: .2em; font-weight: 600; }
+.li-banner .big i { font-style: normal; color: var(--red); }
+.li-banner .side { font-family: var(--mono); font-size: 10px; letter-spacing: .16em; color: var(--g4); text-transform: uppercase; text-align: right; line-height: 1.8; }
+.li-body { padding: 20px 24px 24px; color: var(--ink); }
+.li-body h4 { font-size: 17px; font-weight: 600; }
+.li-body .k { display: block; margin: 4px 0 10px; }
+.li-body p { font-size: 13.5px; color: #26282B; line-height: 1.6; max-width: 60ch; }
+
+.cover {
+  max-width: 480px; aspect-ratio: 3 / 4; background: var(--paper2); border: 1px solid var(--ink);
+  color: var(--ink); display: flex; flex-direction: column; padding: 30px;
+}
+.cover .top { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--g3); }
+.cover h3 { margin-top: auto; font-size: clamp(30px, 5vw, 46px); font-weight: 500; letter-spacing: -.03em; line-height: 1.02; }
+.cover h3 em { font-style: normal; position: relative; padding: 0 .1em; }
+.cover .bot { margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--ink); display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; }
+
+.slide {
+  max-width: 860px; aspect-ratio: 16 / 9; background: var(--ink); border: 1px solid var(--rule-d);
+  color: var(--paper); display: flex; flex-direction: column; padding: 36px 42px;
+}
+.slide .top { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--g4); }
+.slide h3 { margin-top: auto; font-size: clamp(26px, 4.4vw, 44px); font-weight: 500; letter-spacing: -.03em; line-height: 1.05; max-width: 18ch; }
+.slide .bot { margin-top: 28px; display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--g4); }
+
+/* ═══════════════════════════ RATIONALE ═══════════════════════════ */
+.rationale { max-width: 760px; margin: 0 auto; padding: 72px 24px 100px; }
+.rationale h2 { font-family: var(--mono); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; margin-bottom: 40px; }
+.rat-item { display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 22px 0; border-top: 1px solid var(--rule-d); }
+.rat-item .n { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--g4); padding-top: 3px; }
+.rat-item h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+.rat-item p { font-size: 14px; line-height: 1.7; color: var(--g2); }
+
+/* ═══════════════════════════ RESPONSIVE ═══════════════════════════ */
+@media (max-width: 980px) {
+  .cockpit { grid-template-columns: 1fr; }
+  .cp-rail { display: flex; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--rule-d); padding: 0; }
+  .cp-rail .k { display: none; }
+  .cp-item { white-space: nowrap; border-right: 1px solid var(--rule-d); }
+  .cp-item.on { box-shadow: inset 0 -2px 0 var(--red); }
+  .cp-side { border-left: 0; border-top: 1px solid var(--rule-d); }
+}
+@media (max-width: 760px) {
+  .registry { display: none; }
+  .typo-spec, .std-row, .rat-item { grid-template-columns: 1fr; gap: 8px; }
+  .std-row .cl, .std-row .nm { border-right: 0; padding-bottom: 0; }
+  .loop { grid-template-columns: 1fr; }
+  .loop .arr { border: 0; border-top: 1px solid var(--rule-l); border-bottom: 1px solid var(--rule-l); padding: 6px 26px; transform: rotate(90deg); width: 40px; }
+  .redlaw, .ba, .dos-caps, .commission-row { grid-template-columns: 1fr; }
+  .li-banner { padding: 0 20px; }
+  .object-row { flex-wrap: wrap; gap: 8px; }
+  .object-row .t { margin-left: 0; width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>
+
+<header class="cmdbar">
+  <div class="wordmark">PARRIT<i>.</i>AI</div>
+  <div class="registry">
+    <span>SYSTEM <b>OS-0042</b></span>
+    <span>REV <b>03</b></span>
+    <span>STATUS <b>OPERATIONAL</b></span>
+  </div>
+  <div class="clock" id="clock">—</div>
+</header>
+
+<nav class="modnav" role="tablist" aria-label="Modules">
+  <button class="mod" role="tab" aria-selected="true"  aria-controls="v-boot"    id="m-boot">00 / Opening</button>
+  <button class="mod" role="tab" aria-selected="false" aria-controls="v-system"  id="m-system">01 / Brand system</button>
+  <button class="mod" role="tab" aria-selected="false" aria-controls="v-site"    id="m-site">02 / Website</button>
+  <button class="mod" role="tab" aria-selected="false" aria-controls="v-cockpit" id="m-cockpit">03 / Desktop cockpit</button>
+  <button class="mod" role="tab" aria-selected="false" aria-controls="v-mobile"  id="m-mobile">04 / Super App</button>
+  <button class="mod" role="tab" aria-selected="false" aria-controls="v-dossier" id="m-dossier">05 / System dossier</button>
+  <button class="mod" role="tab" aria-selected="false" aria-controls="v-inst"    id="m-inst">06 / Institution</button>
+  <button class="mod" role="tab" aria-selected="false" aria-controls="v-rat"     id="m-rat">07 / Rationale</button>
+</nav>
+
+<main>
+
+<!-- ════════════ A — BOOT ════════════ -->
+<section class="view" id="v-boot" data-on="true" role="tabpanel" aria-labelledby="m-boot">
+  <div class="bootlog" id="bootlog" aria-hidden="true">
+    <div>PARRIT / OS-0042 · REV 03</div>
+    <div>LOADING COMPANY MODEL ................ <span class="ok-line">DONE</span></div>
+    <div>CONNECTING OPERATIONS ................ <span class="ok-line">14 SYSTEMS</span></div>
+    <div>SCANNING FOR EXCEPTIONS .............. <span class="red-line">2 FOUND</span></div>
+    <div class="ok-line">READY.</div>
+  </div>
+  <div class="boothero">
+    <h1 id="boot-h1">The system your company <span class="op frame">operates<i class="fx"></i></span> on.</h1>
+  </div>
+  <div class="bootfoot" id="bootfoot">
+    <span class="k">Parrit designs and builds<br>company operating systems.</span>
+    <p>One system to understand, decide and act across the company. Built for one company at a time. Commissioned, not subscribed.</p>
+  </div>
+</section>
+
+<!-- ════════════ B — BRAND SYSTEM ════════════ -->
+<section class="view light" id="v-system" role="tabpanel" aria-labelledby="m-system">
+  <div class="shell">
+
+    <div class="sec">
+      <div class="sec-head"><h2>Color</h2><span class="k">PARRIT / SPEC-01</span></div>
+      <div class="chips">
+        <div class="chip"><div class="c" style="background:#0A0B0C"></div><div class="meta"><b>Ink</b><span>#0A0B0C</span><small>Type, structure, the institution.</small></div></div>
+        <div class="chip"><div class="c" style="background:#131518"></div><div class="meta"><b>Carbon</b><span>#131518</span><small>Product surfaces. The instrument.</small></div></div>
+        <div class="chip"><div class="c" style="background:#F1F2F3;border-bottom:1px solid #DDE0E3"></div><div class="meta"><b>Cold white</b><span>#F1F2F3</span><small>Documents, site, dossiers.</small></div></div>
+        <div class="chip"><div class="c" style="background:#9CA1A6"></div><div class="meta"><b>Grey 2</b><span>#9CA1A6</span><small>Secondary information.</small></div></div>
+        <div class="chip"><div class="c" style="background:#55595E"></div><div class="meta"><b>Grey 3</b><span>#55595E</span><small>Labels, annotations.</small></div></div>
+        <div class="chip"><div class="c" style="background:#E10600"></div><div class="meta"><b>Parrit Red</b><span>#E10600</span><small>Signal only. Never decoration.</small></div></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>The red law</h2><span class="k">PARRIT / SPEC-02</span></div>
+      <div class="redlaw">
+        <div class="yes">
+          <h4>Red means</h4>
+          <ul>
+            <li>A decision is required</li>
+            <li>An action executes</li>
+            <li>A state is critical</li>
+            <li>An object is selected</li>
+            <li>A commission is sealed</li>
+          </ul>
+        </div>
+        <div class="no">
+          <h4>Red never means</h4>
+          <ul>
+            <li>A headline needs energy</li>
+            <li>A background needs interest</li>
+            <li>A logo needs presence</li>
+            <li>A gradient needs a stop</li>
+            <li>A page feels empty</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>Typography</h2><span class="k">PARRIT / SPEC-03</span></div>
+      <div class="typo-spec"><span class="spec-m">DISPLAY<br>Geist Medium −3.5%</span><div class="spec-d">Financial closing, rebuilt.</div></div>
+      <div class="typo-spec"><span class="spec-m">HEADING<br>Geist Semibold −1.5%</span><div class="spec-h">3 decisions require attention.</div></div>
+      <div class="typo-spec"><span class="spec-m">BODY<br>Geist Regular</span><div class="spec-b">The interface never chatters. Paul and Maxime explain; Parrit states, documents and proves. Every sentence in the system either informs a decision or records an action.</div></div>
+      <div class="typo-spec"><span class="spec-m">REGISTRY<br>Geist Mono +14%</span><div class="spec-m" style="font-size:13px;color:var(--ink)">PARRIT / OS-0042 · COMMISSIONED 2026 · STATUS / OPERATIONAL</div></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>Components</h2><span class="k">PARRIT / SPEC-04</span></div>
+      <div class="comp-grid">
+        <div class="comp">
+          <span class="k">Actions — light</span>
+          <button class="btn exec" type="button">Execute</button>
+          <button class="btn" type="button">Review</button>
+          <button class="btn ghost" type="button">Defer</button>
+        </div>
+        <div class="comp">
+          <span class="k">Actions — instrument</span>
+          <div class="dark-demo">
+            <button class="btn exec" type="button">Approve €340,000</button>
+            <button class="btn" type="button">Open dossier</button>
+          </div>
+        </div>
+        <div class="comp">
+          <span class="k">Status — shape + colour, never colour alone</span>
+          <span class="st ok">Operational</span>
+          <span class="st att">Attention</span>
+          <span class="st crit">Critical</span>
+        </div>
+        <div class="comp">
+          <span class="k">Registry plate</span>
+          <div class="idplate">
+            <div class="r"><span>System</span><span>OS-0042</span></div>
+            <div class="r"><span>Rev</span><span>03</span></div>
+            <div class="r"><span>Status</span><span>OPERATIONAL</span></div>
+          </div>
+        </div>
+        <div class="comp">
+          <span class="k">Input</span>
+          <div class="field">SEARCH THE COMPANY —</div>
+        </div>
+        <div class="comp">
+          <span class="k">The Parrit Frame — marks any object awaiting a decision</span>
+          <div class="frame" style="border:1px solid var(--rule-l); background:#fff; padding:16px; font-size:13px;"><i class="fx"></i>Supplier contract renewal — €120k / year</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>The Parrit Standard</h2><span class="k">PARRIT / STD-1.0</span></div>
+      <div class="standard-doc">
+        <div class="std-head"><span>THE PARRIT STANDARD</span><span>SPECIFICATION / STD-1.0 / 2026</span></div>
+        <div class="std-row"><div class="cl">PS-01</div><div class="nm">Observable</div><div class="df">The operator can determine the state of the system at any moment, without asking anyone.</div></div>
+        <div class="std-row"><div class="cl">PS-02</div><div class="nm">Actionable</div><div class="df">Every surfaced piece of information leads to a possible action within the same view.</div></div>
+        <div class="std-row"><div class="cl">PS-03</div><div class="nm">Traceable</div><div class="df">Every significant decision carries its origin: data, author, timestamp, rationale.</div></div>
+        <div class="std-row"><div class="cl">PS-04</div><div class="nm">Reversible</div><div class="df">Every critical process has a documented path of return before it is put into production.</div></div>
+        <div class="std-row"><div class="cl">PS-05</div><div class="nm">Owned</div><div class="df">The client holds the system, its data and its documentation as company assets.</div></div>
+        <div class="std-row"><div class="cl">PS-06</div><div class="nm">Compounding</div><div class="df">Each new capability increases the value of every capability already in production.</div></div>
+        <div class="std-foot">Certified — Built to the Parrit Standard</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════ C — WEBSITE ════════════ -->
+<section class="view light" id="v-site" role="tabpanel" aria-labelledby="m-site">
+  <div class="shell">
+
+    <div class="site-hero">
+      <span class="k">Parrit — Company Operating Systems</span>
+      <h1>Your company. One system.</h1>
+      <p>Parrit designs and builds the operating system your company runs on: one place to understand what is happening, decide what matters and act — down to your phone.</p>
+      <div class="site-cta">
+        <button class="btn exec" type="button">Commission your Operating System</button>
+        <button class="btn" type="button">Examine a system</button>
+      </div>
+    </div>
+
+    <div class="object-stage">
+      <div class="object">
+        <div class="object-bar"><span class="st crit" style="font-size:9.5px">Live</span><span>SILVANI GROUP · OS-0042</span><span>TUE 09:14</span></div>
+        <div class="object-row"><span class="n">3</span><span class="l">decisions require attention</span><span class="t">Today</span></div>
+        <div class="object-row crit"><span class="n">€1.2M</span><span class="l">at risk on blocked orders</span><span class="t">Action required</span></div>
+        <div class="object-row"><span class="n">7</span><span class="l">actions executed overnight</span><span class="t">Journal</span></div>
+      </div>
+      <div class="object-cap k">The Operating System — surfaced. Complexity absorbed underneath.</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>One operating loop</h2><span class="k">Screen 02</span></div>
+      <div class="loop">
+        <div class="ph"><h3>Understand</h3><p>The system maintains a live model of the company: orders, cash, operations, people, clients.</p></div>
+        <div class="arr">→</div>
+        <div class="ph"><h3>Decide</h3><p>Only what requires the executive reaches the executive. Framed, sourced, quantified.</p></div>
+        <div class="arr">→</div>
+        <div class="ph"><h3>Act</h3><p>A decision executes through the same system that surfaced it. Traced, reversible, journaled.</p></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>Commissioned, not subscribed</h2><span class="k">Screen 03</span></div>
+      <div class="commission-row">
+        <div class="commission-cell"><span class="k">01 — Examination</span><h4>We study how your company actually operates.</h4><p>Not a workshop. A diagnostic of flows, decisions and failure points, documented as an engineering brief.</p></div>
+        <div class="commission-cell"><span class="k">02 — Construction</span><h4>We build the first system into production.</h4><p>One critical operation, rebuilt end-to-end and certified to the Parrit Standard before anything else begins.</p></div>
+        <div class="commission-cell"><span class="k">03 — Compounding</span><h4>Each capability joins the Operating System.</h4><p>The system grows with the company. You own it — code, data, documentation — as company infrastructure.</p></div>
+      </div>
+    </div>
+    <div style="height:70px"></div>
+
+  </div>
+</section>
+
+<!-- ════════════ D — DESKTOP COCKPIT ════════════ -->
+<section class="view" id="v-cockpit" role="tabpanel" aria-labelledby="m-cockpit">
+  <div class="shell cockpit-wrap">
+    <div class="sec-head" style="margin-bottom:22px"><h2 style="font-size:24px;font-weight:600;letter-spacing:-.02em">Executive cockpit — desktop</h2><span class="k">SILVANI GROUP · OS-0042 · REV 03</span></div>
+
+    <div class="cockpit">
+      <div class="cp-rail">
+        <span class="k">Systems</span>
+        <div class="cp-item on"><span>Attention</span><b>06</b></div>
+        <div class="cp-item"><span>Financial ops</span><b>SYS-018</b></div>
+        <div class="cp-item"><span>Order flow</span><b>SYS-021</b></div>
+        <div class="cp-item"><span>Production</span><b>SYS-014</b></div>
+        <div class="cp-item"><span>People</span><b>SYS-009</b></div>
+        <div class="cp-item"><span>Journal</span><b>ALL</b></div>
+      </div>
+
+      <div class="cp-main">
+        <div class="cp-main-head"><h3>Requires your attention</h3><span class="k">Tue 09:14 · 6 items</span></div>
+
+        <div class="dcard frame" data-exec><i class="fx"></i>
+          <div class="dcard-top"><h4>Release blocked orders — Müller GmbH</h4><span class="st crit">Critical</span></div>
+          <p>€1.2M of confirmed orders held by an expired credit limit. Insurer approved the raise at 08:52. Releasing restores committed delivery dates on 14 orders.</p>
+          <div class="dcard-foot">
+            <button class="btn exec" type="button">Release 14 orders</button>
+            <button class="btn" type="button">Open dossier</button>
+            <span class="done" hidden>Executed · 09:14 · Journaled as ACT-2841</span>
+          </div>
+        </div>
+
+        <div class="dcard frame" data-exec><i class="fx"></i>
+          <div class="dcard-top"><h4>Approve supplier contract renewal</h4><span class="st att">Attention</span></div>
+          <p>Logistics contract renews Friday at +8%. Two alternates quoted within 3% at equal service levels. Decision needed before auto-renewal.</p>
+          <div class="dcard-foot">
+            <button class="btn exec" type="button">Approve renewal</button>
+            <button class="btn" type="button">Compare alternates</button>
+            <span class="done" hidden>Executed · 09:15 · Journaled as ACT-2842</span>
+          </div>
+        </div>
+
+        <div class="dcard">
+          <div class="dcard-top"><h4>Exception — invoice mismatch, plant 02</h4><span class="st att">Attention</span></div>
+          <p>3 supplier invoices diverge from goods received by more than the tolerance. Held from payment automatically. Finance has context; no executive action needed yet.</p>
+        </div>
+
+        <div class="dcard">
+          <div class="dcard-top"><h4>Signal — Q3 cash position improving</h4><span class="st ok">Informational</span></div>
+          <p>Collection time down 6 days since the receivables system entered production. Projected cash at month-end +€430k vs plan.</p>
+        </div>
+      </div>
+
+      <div class="cp-side">
+        <div class="cp-metric"><span class="k">Decisions pending</span><b>3</b></div>
+        <div class="cp-metric crit"><span class="k">At risk</span><b>€1.2M</b></div>
+        <div class="cp-metric"><span class="k">Actions executed / 24h</span><b>7</b></div>
+        <div class="rule"></div>
+        <span class="k">Journal</span>
+        <div class="cp-log">
+          <div><b>08:52</b> CREDIT LIMIT RAISED — INSURER CONF.</div>
+          <div><b>07:31</b> PAYMENT RUN EXECUTED — 41 INVOICES</div>
+          <div><b>06:15</b> DAILY CLOSE COMPLETED — SYS-018</div>
+          <div><b>02:04</b> STOCK REBALANCE — PLANT 01 → 03</div>
+          <div><b>01:12</b> BACKUP VERIFIED — ALL SYSTEMS</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:18px" class="k">Framed cards await a decision. Executing journals the action and closes the frame — try it.</p>
+  </div>
+</section>
+
+<!-- ════════════ E — MOBILE SUPER APP ════════════ -->
+<section class="view" id="v-mobile" role="tabpanel" aria-labelledby="m-mobile">
+  <div class="shell">
+    <div class="sec-head" style="padding-top:56px"><h2 style="font-size:24px;font-weight:600;letter-spacing:-.02em">Super App — your company, in your pocket</h2><span class="k">MOBILE / STATES 01–02</span></div>
+  </div>
+
+  <div class="mobile-stage">
+    <div>
+      <div class="phone"><div class="screen">
+        <div class="m-status"><span>09:14</span><span>PARRIT / OS-0042</span></div>
+        <div class="m-head"><span class="k">Silvani Group — Live</span><h3>What matters now</h3></div>
+        <div class="m-block"><div class="m-num"><b>3</b><span>decisions require you</span></div><div class="m-tag">Oldest — 2 h</div></div>
+        <div class="m-block"><div class="m-num crit"><b>€1.2M</b><span>at risk — blocked orders</span></div><div class="m-tag" style="color:var(--red)">Action required</div></div>
+        <div class="m-block"><div class="m-num"><b>7</b><span>actions executed overnight</span></div><div class="m-tag">All journaled</div></div>
+        <div class="m-block"><div class="m-num"><b>2</b><span>exceptions held safely</span></div><div class="m-tag">No action needed</div></div>
+        <div class="m-foot"><span class="on">Now</span><span>Systems</span><span>Journal</span><span>Ask</span></div>
+      </div></div>
+      <div class="phone-cap k">State 01 — Overview. Readable in five seconds.</div>
+    </div>
+
+    <div>
+      <div class="phone"><div class="screen">
+        <div class="m-status"><span>09:14</span><span>DECISION 1 / 3</span></div>
+        <div class="m-decision frame" id="m-dec"><i class="fx"></i>
+          <span class="st crit">Critical</span>
+          <h4>Release blocked orders — Müller GmbH</h4>
+          <p>€1.2M held by an expired credit limit. Insurer confirmed the raise at 08:52. Releasing restores 14 committed delivery dates.</p>
+          <div class="m-facts">
+            <div><span>Source</span><span>SYS-021 / ORDER FLOW</span></div>
+            <div><span>Exposure</span><span>€1,204,300</span></div>
+            <div><span>Reversal</span><span>DOCUMENTED / RB-14</span></div>
+            <div><span>If ignored</span><span>4 DATES SLIP — FRI</span></div>
+          </div>
+          <button class="m-approve" id="m-approve" type="button">Release 14 orders</button>
+        </div>
+        <div class="m-foot"><span>Now</span><span class="on">Systems</span><span>Journal</span><span>Ask</span></div>
+      </div></div>
+      <div class="phone-cap k">State 02 — Decision. Sourced, quantified, reversible.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ F — SYSTEM DOSSIER ════════════ -->
+<section class="view light" id="v-dossier" role="tabpanel" aria-labelledby="m-dossier">
+  <div class="shell">
+    <div class="dossier">
+      <div class="dos-head">
+        <div class="dos-title">
+          <span class="k" style="display:block;margin-bottom:14px">System dossier</span>
+          <h2>Financial closing, rebuilt.</h2>
+        </div>
+        <div class="idplate">
+          <div class="r"><span>Client</span><span>SILVANI GROUP</span></div>
+          <div class="r"><span>System</span><span>FINANCIAL OPERATIONS / SYS-018</span></div>
+          <div class="r"><span>Commissioned</span><span>2026</span></div>
+          <div class="r"><span>Rev</span><span>03</span></div>
+          <div class="r"><span>Status</span><span>OPERATIONAL</span></div>
+        </div>
+      </div>
+
+      <div class="dos-sec">
+        <span class="k">01 — Operating problem</span>
+        <p>Monthly close took 12 days across 3 entities and 5 disconnected tools. Numbers arrived too late to act on. The CFO spent the first week of every month reconstructing the past instead of steering the present.</p>
+      </div>
+
+      <div class="dos-sec">
+        <span class="k">02 — System built</span>
+        <div class="dos-caps">
+          <div><b>CAP-01</b>Continuous reconciliation across the 3 entities</div>
+          <div><b>CAP-02</b>Automated intercompany matching with held exceptions</div>
+          <div><b>CAP-03</b>Daily close position, surfaced to the cockpit</div>
+          <div><b>CAP-04</b>Payment runs executed and journaled by the system</div>
+        </div>
+      </div>
+
+      <div class="dos-sec">
+        <span class="k">03 — Measured impact</span>
+        <div class="ba">
+          <div><h5>Before</h5><ul><li>Close in 12 days</li><li>5 tools, manual reconciliation</li><li>Numbers 3 weeks old at decision time</li><li>2 FTE weeks per month on assembly</li></ul></div>
+          <div class="after"><h5>After — measured over 2 quarters</h5><ul><li>Close in <b>2 days</b></li><li><b>1 system</b>, exceptions only</li><li>Position refreshed <b>daily</b></li><li><b>−87%</b> manual assembly time</li></ul></div>
+        </div>
+      </div>
+
+      <div class="dos-sec">
+        <span class="k">04 — Operational flow</span>
+        <div class="flow">
+          <div>Entities · 3</div><div>Ingestion</div><div>Reconciliation</div><div>Exceptions held</div><div>Daily position</div><div>Decision</div>
+        </div>
+      </div>
+
+      <div class="dos-foot">
+        <span class="seal">Built to the Parrit Standard</span>
+        <span>PARRIT / OS-0042 / SYS-018</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ G — INSTITUTION ════════════ -->
+<section class="view light" id="v-inst" role="tabpanel" aria-labelledby="m-inst">
+  <div class="shell inst-grid">
+
+    <div>
+      <span class="k" style="display:block;margin-bottom:16px">LinkedIn — company page</span>
+      <div class="linkedin">
+        <div class="li-banner">
+          <span class="big">PARRIT<i>.</i>AI</span>
+          <span class="side">COMPANY OPERATING SYSTEMS<br>COMMISSIONED · NOT SUBSCRIBED</span>
+        </div>
+        <div class="li-body">
+          <h4>Parrit</h4>
+          <span class="k">Company Operating Systems · Lille · 2–10 employees</span>
+          <p>Parrit designs and builds the system your company operates on. One system to understand, decide and act — certified to the Parrit Standard.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <span class="k" style="display:block;margin-bottom:16px">Publication — We Find The Way</span>
+      <div class="cover">
+        <div class="top"><span>WE FIND THE WAY</span><span>ISSUE 04 / 2026</span></div>
+        <h3>How companies will <em class="frame">operate<i class="fx"></i></em> next.</h3>
+        <div class="bot"><span>PARRIT.AI</span><span>PAUL LARMARAUD · MAXIME BOUÉ</span></div>
+      </div>
+    </div>
+
+    <div>
+      <span class="k" style="display:block;margin-bottom:16px">Executive briefing — title slide</span>
+      <div class="slide">
+        <div class="top"><span>EXECUTIVE BRIEFING</span><span>CONFIDENTIAL / SILVANI GROUP</span></div>
+        <h3>Commissioning your Operating System.</h3>
+        <div class="bot"><span>PARRIT / OS-0042 · PROPOSAL REV 01</span><span>2026</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════ RATIONALE ════════════ -->
+<section class="view" id="v-rat" role="tabpanel" aria-labelledby="m-rat">
+  <div class="rationale">
+    <h2>Design rationale</h2>
+    <div class="rat-item"><span class="n">R-01</span><div><h4>Core visual idea</h4><p>Parrit speaks like an instrument, not like a website. Two registers only: cold-white documents (the institution) and carbon instruments (the product). Everything is set on fine rules and a registry line — the brand reads as engineering documentation for company infrastructure.</p></div></div>
+    <div class="rat-item"><span class="n">R-02</span><div><h4>Proprietary elements</h4><p>Three devices carry the identity without a logo: the Parrit Frame (red corner brackets that mark any object awaiting a decision — the frame closes when the action is journaled), the registry line (PARRIT / OS-0042 · REV 03 · STATUS) present on every artefact, and the Standard as a numbered specification (PS-01…PS-06) rather than marketing icons. Status always pairs shape with colour.</p></div></div>
+    <div class="rat-item"><span class="n">R-03</span><div><h4>Why it supports the positioning</h4><p>€40k–100k+ feels natural because nothing here resembles a tool you subscribe to. The dossier looks like commissioned infrastructure, the cockpit shows judgement (what deserves attention) rather than dashboards, and red is scarce enough that every appearance means money, risk or execution.</p></div></div>
+    <div class="rat-item"><span class="n">R-04</span><div><h4>What to retain for the full design system</h4><p>Keep: the Frame, the registry line, the two-register colour logic, the red law, shape-coded status, and the Standard-as-specification. Decide next: the definitive red (tested on both registers), a licensed type pair to replace Geist, and the motion spec for frame-close / journal confirmation — the one animation worth owning.</p></div></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+  /* clock */
+  const clockEl = document.getElementById('clock');
+  function tick() {
+    const d = new Date();
+    clockEl.textContent = d.toTimeString().slice(0,8) + ' · LOCAL';
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* tabs */
+  const mods = Array.from(document.querySelectorAll('.mod'));
+  const views = Array.from(document.querySelectorAll('.view'));
+  function show(mod) {
+    mods.forEach(m => m.setAttribute('aria-selected', m === mod ? 'true' : 'false'));
+    views.forEach(v => v.setAttribute('data-on', v.id === mod.getAttribute('aria-controls') ? 'true' : 'false'));
+    window.scrollTo(0, 0);
+    if (mod.id === 'm-boot') boot();
+  }
+  mods.forEach((m, i) => {
+    m.addEventListener('click', () => show(m));
+    m.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      const n = mods[(i + (e.key === 'ArrowRight' ? 1 : -1) + mods.length) % mods.length];
+      n.focus(); show(n);
+    });
+  });
+
+  /* boot sequence */
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function boot() {
+    const lines = document.querySelectorAll('#bootlog div');
+    const h1 = document.getElementById('boot-h1');
+    const foot = document.getElementById('bootfoot');
+    [h1, foot].forEach(el => el.classList.remove('on'));
+    lines.forEach(l => l.classList.remove('on'));
+    if (reduced) { lines.forEach(l => l.classList.add('on')); h1.classList.add('on'); foot.classList.add('on'); return; }
+    lines.forEach((l, i) => setTimeout(() => l.classList.add('on'), 180 + i * 260));
+    setTimeout(() => h1.classList.add('on'), 180 + lines.length * 260 + 100);
+    setTimeout(() => foot.classList.add('on'), 180 + lines.length * 260 + 300);
+  }
+  boot();
+
+  /* cockpit execution — frame closes, action journals */
+  document.querySelectorAll('.dcard[data-exec]').forEach(card => {
+    const btnExec = card.querySelector('.btn.exec');
+    btnExec.addEventListener('click', () => {
+      card.classList.add('executed');
+      card.classList.remove('frame');
+      card.querySelector('.done').hidden = false;
+      const st = card.querySelector('.st');
+      st.className = 'st ok'; st.textContent = 'Executed';
+    });
+  });
+
+  /* mobile approve */
+  const mBtn = document.getElementById('m-approve');
+  mBtn.addEventListener('click', () => {
+    if (mBtn.classList.contains('done')) return;
+    mBtn.classList.add('done');
+    mBtn.textContent = 'Executed · Journaled as ACT-2841';
+    const dec = document.getElementById('m-dec');
+    dec.classList.remove('frame');
+    const st = dec.querySelector('.st');
+    st.className = 'st ok'; st.textContent = 'Executed';
+  });
+</script>
