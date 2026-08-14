@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -9,37 +8,87 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const LOOP = [
+const DOSSIERS = [
   {
-    label: "UNDERSTAND",
-    body: "The system maintains a live model of the company: orders, cash, operations, people, clients.",
+    ref: "DOSSIER 26-001",
+    sector: "PARRIT ITSELF",
+    title: "The system we sell is the system we run.",
+    body: "Parrit operates on its own operating system: one place where signals, clients and campaigns become decisions — delivered to the founder's phone as cards. Built for ourselves first, compounding since.",
+    value: "200+",
+    result: "signals become decisions, every week",
+    seal: "In production · Compounding",
   },
   {
-    label: "DECIDE",
-    body: "Only what requires the executive reaches the executive. Framed, sourced, quantified.",
-    critical: true,
+    ref: "DOSSIER 26-002",
+    sector: "A LAW FIRM",
+    title: "An operating system for a law firm.",
+    body: "Client intake, follow-ups and case flow — rebuilt as one system, on the firm's own infrastructure. First capabilities certified and live; the system grows case by case.",
+    value: "+€5–10K",
+    result: "additional revenue per month, from re-engaged case flow",
+    seal: "Under construction · First capabilities live",
   },
   {
-    label: "ACT",
-    body: "A decision executes through the same system that surfaced it. Traced, reversible, journaled.",
+    ref: "DOSSIER 26-003",
+    sector: "A CONSUMER BRAND",
+    title: "Reporting nobody writes.",
+    body: "The reporting assembles itself from source systems and ships on schedule — run today by the client's own team, without us. Owned, documented, handed over.",
+    value: "2.5 months",
+    result: "recovered on a single reporting process",
+    seal: "Delivered · Operated by the client",
   },
 ] as const;
 
-const COMMISSIONING = [
+const STANDARD_EXCERPT = [
   {
-    label: "01 — EXAMINATION",
-    title: "We study how your company actually operates.",
-    body: "Not a workshop. A diagnostic of flows, decisions and failure points, documented as an engineering brief.",
+    ps: "PS-01",
+    name: "Observable",
+    example:
+      "The operator reads the state of dossier 26-001 at any moment — no meeting, no export, no asking anyone.",
   },
   {
-    label: "02 — CONSTRUCTION",
-    title: "We build the first system into production.",
-    body: "One critical operation, rebuilt end-to-end and certified to the Parrit Standard before anything else begins.",
+    ps: "PS-03",
+    name: "Traceable",
+    example:
+      "Every decision carries author, timestamp, source and rationale — the journal is the audit.",
   },
   {
-    label: "03 — COMPOUNDING",
-    title: "Each capability joins the Operating System.",
-    body: "The system grows with the company. You own it — code, data, documentation — as company infrastructure.",
+    ps: "PS-05",
+    name: "Owned",
+    example:
+      "Code, data and documentation are handed over as company assets. Parrit keeps nothing you depend on.",
+  },
+] as const;
+
+const PHASES = [
+  {
+    no: "01",
+    name: "Examination",
+    body: "A diagnostic of flows, decisions and failure points — an engineering brief, not a workshop.",
+  },
+  {
+    no: "02",
+    name: "Construction",
+    body: "One critical operation rebuilt end-to-end and certified before anything else begins.",
+  },
+  {
+    no: "03",
+    name: "Compounding",
+    body: "Each capability joins the system. The value of every previous one increases.",
+  },
+] as const;
+
+const FAQ = [
+  {
+    q: "What do we own at the end?",
+    a: "Everything. Code, data, documentation — handed over as company assets, per PS-05. If Parrit disappears tomorrow, your system does not.",
+  },
+  {
+    q: "How long before the first system runs?",
+    a: "Construction targets one critical operation, in production and certified — typically weeks, not quarters. The Examination fixes the scope before any commitment.",
+  },
+  {
+    q: "What if it doesn't hold?",
+    a: "Every critical process ships with a documented path of return (PS-04). Nothing enters production without a way back out.",
   },
 ] as const;
 
@@ -47,107 +96,215 @@ export default function HomePage() {
   return (
     <>
       <Opening />
-      <main className="rev-page">
-      <div className="rev-wrap rev-home-wrap">
-        <header className="rev-hero">
-          <K>Parrit — Company operating systems</K>
-          <h1>Your company. One system.</h1>
-          <p>
-            Parrit designs and builds the operating system your company runs on: one place
-            to understand what is happening, decide what matters and act — down to your
-            phone.
-          </p>
-          <div className="rev-actions">
-            <Link className="rev-button exec" href="/commission">
-              Commission your Operating System
-            </Link>
-            <Link className="rev-button ghost" href="/standard">
-              Examine a system
-            </Link>
-          </div>
-        </header>
+      <main className="rev-page r2-dark">
+        <div className="r2-wrap">
+          <header className="r2-hero">
+            <K>Parrit — Company operating systems</K>
+            <h1>
+              The system your company{" "}
+              <span className="frame">
+                operates
+                <i className="fx" aria-hidden="true" />
+              </span>{" "}
+              on.
+            </h1>
+            <p className="r2-sub">
+              One place to understand what is happening, decide what matters, and act —
+              designed and built for one company at a time.
+            </p>
+            <div className="rev-actions">
+              <Link className="rev-button exec" href="/commission">
+                Commission your system
+              </Link>
+              <Link className="rev-button ghost" href="/standard">
+                Examine the Standard
+              </Link>
+            </div>
+          </header>
 
-        <section className="instrument-stage" aria-label="Operating system instrument">
-          <Instrument
-            className="home-instrument"
-            left={<St kind="crit">PARRIT / OS — LIVE DEMO</St>}
-            center={<K>·</K>}
-            right={<K>Tue 09:14</K>}
-            rows={[
-              {
-                value: "3",
-                label: "decisions require attention",
-                status: <K>Today</K>,
-              },
-              {
-                value: "€1.2M",
-                label: "at risk on blocked orders",
-                status: <K style={{ color: "var(--red)" }}>Action required</K>,
-                critical: true,
-              },
-              {
-                value: "7",
-                label: "actions executed overnight",
-                status: <K>Journal</K>,
-              },
-            ]}
-          />
-          <div className="instrument-caption">
-            <K>THE OPERATING SYSTEM — SURFACED. COMPLEXITY ABSORBED UNDERNEATH.</K>
-          </div>
-        </section>
+          <section className="r2-instrument-stage" aria-label="Operating system instrument">
+            <Instrument
+              className="home-instrument"
+              left={<St kind="crit">PARRIT / OS — LIVE</St>}
+              center={<K>·</K>}
+              right={<K>Tue 09:14</K>}
+              rows={[
+                {
+                  value: "3",
+                  label: "decisions require the executive this morning",
+                  status: <K>Today</K>,
+                },
+                {
+                  value: "€1.2M",
+                  label: "at risk on blocked orders — framed, sourced, quantified",
+                  status: <K style={{ color: "var(--red)" }}>Action required</K>,
+                  critical: true,
+                },
+                {
+                  value: "7",
+                  label: "actions executed overnight, each one journaled and reversible",
+                  status: <K>Journal</K>,
+                },
+              ]}
+            />
+            <div className="r2-instrument-caption">
+              <K>THE OPERATING SYSTEM — SURFACED. COMPLEXITY ABSORBED UNDERNEATH.</K>
+            </div>
+          </section>
+        </div>
 
-        <section className="rev-section" aria-labelledby="loop-heading">
-          <div className="rev-section-head">
-            <h2 id="loop-heading">One operating loop</h2>
-            <K>Screen 02</K>
+        <div className="r2-metrics">
+          <div className="r2-metrics-in">
+            <div className="r2-metric">
+              <div className="v">3</div>
+              <div className="l">operating systems in construction or production — including our own</div>
+            </div>
+            <div className="r2-metric">
+              <div className="v">1</div>
+              <div className="l">company at a time. Every system built against how it actually operates</div>
+            </div>
+            <div className="r2-metric">
+              <div className="v">100%</div>
+              <div className="l">of delivered systems owned by the client — code, data, documentation</div>
+            </div>
           </div>
-          <div className="operating-loop">
-            {LOOP.map((item, index) => (
-              <Fragment key={item.label}>
-                {index > 0 ? (
-                  <div className="loop-arr" aria-hidden="true">
-                    →
+        </div>
+
+        <div className="r2-wrap">
+          <section className="r2-section" aria-labelledby="dossiers-heading">
+            <div className="r2-shead">
+              <h2 className="r2-ed" id="dossiers-heading">
+                Sealed dossiers.
+              </h2>
+              <K>Systems delivered · Verified in call</K>
+            </div>
+            <div className="r2-dossiers">
+              {DOSSIERS.map((dossier) => (
+                <article className="r2-dossier" key={dossier.ref}>
+                  <div className="ref">
+                    <K>{dossier.ref}</K>
+                    <K>{dossier.sector}</K>
                   </div>
-                ) : null}
-                <article>
-                  <h3 className={"critical" in item && item.critical ? "critical" : undefined}>
-                    {item.label}
-                  </h3>
-                  <p>{item.body}</p>
+                  <h3>{dossier.title}</h3>
+                  <p>{dossier.body}</p>
+                  <div className="res">
+                    <div className="v">{dossier.value}</div>
+                    <div className="l">{dossier.result}</div>
+                  </div>
+                  <div className="seal">{dossier.seal}</div>
                 </article>
-              </Fragment>
-            ))}
-          </div>
-        </section>
+              ))}
+            </div>
+            <p className="r2-registre-note">
+              Also in the registry: a CRM an agency never touches by hand, outbound
+              infrastructure end-to-end, and systems commissioned by maisons in cosmetics and
+              craft retail. The dossiers open in conversation — not on a website.
+            </p>
+          </section>
+        </div>
 
-        <section className="rev-section" aria-labelledby="commissioning-heading">
-          <div className="rev-section-head">
-            <h2 id="commissioning-heading">Commissioned, not subscribed</h2>
-            <K>Screen 03</K>
+        <div className="r2-ecrin">
+          <div className="r2-ecrin-in">
+            <div className="r2-shead">
+              <h2 className="r2-ed">Certified to the Standard.</h2>
+              <K>STD-1.0 · 2026</K>
+            </div>
+            <div className="r2-std">
+              <div className="r2-std-head">
+                <K>THE PARRIT STANDARD — EVERY SYSTEM, SAME SPECIFICATION</K>
+                <K>6 criteria</K>
+              </div>
+              {STANDARD_EXCERPT.map((row) => (
+                <div className="r2-std-row" key={row.ps}>
+                  <div className="ps">{row.ps}</div>
+                  <div className="name">{row.name}</div>
+                  <div className="ex">
+                    <b>In practice</b>
+                    {row.example}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p style={{ marginTop: "18px" }}>
+              <Link className="k" href="/standard">
+                Read the full Standard
+              </Link>
+            </p>
           </div>
-          <div className="commissioning-grid">
-            {COMMISSIONING.map((item) => (
-              <article key={item.label}>
-                <K>{item.label}</K>
-                <h4>{item.title}</h4>
-                <p>{item.body}</p>
-              </article>
-            ))}
-          </div>
-          <Link className="rev-journal-link k" href="/journal">
-            Read the journal
-          </Link>
-        </section>
+        </div>
 
-        <footer className="rev-footer home-footer">
-          <RegistryLine />
-          <Link className="k" href="/legal">
-            /Legal
-          </Link>
-          <K>© 2026 Parrit.ai</K>
-        </footer>
-      </div>
+        <div className="r2-wrap">
+          <section className="r2-section" aria-labelledby="manufacture-heading">
+            <div className="r2-shead">
+              <h2 className="r2-ed" id="manufacture-heading">
+                The Manufacture.
+              </h2>
+              <K>How a system is built</K>
+            </div>
+            <div className="r2-manu">
+              <p className="r2-manu-lede">
+                A company operating system is not installed. It is manufactured — on your
+                flows, your decisions, your exceptions.
+              </p>
+              <div className="r2-manu-cols">
+                <p>
+                  We work <b>one company at a time</b>. The system is built against how your
+                  company actually operates — not how software vendors assume it should.
+                </p>
+                <p>
+                  Everything ships against the Standard, and everything you receive is{" "}
+                  <b>yours</b>: commissioned, not subscribed.
+                </p>
+                <div className="r2-phases">
+                  {PHASES.map((phase) => (
+                    <div className="r2-phase" key={phase.no}>
+                      <div className="no">{phase.no}</div>
+                      <div className="nm">{phase.name}</div>
+                      <div className="ds">{phase.body}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="r2-section" aria-labelledby="faq-heading">
+            <div className="r2-shead">
+              <h2 className="r2-ed" id="faq-heading">
+                Before you commission.
+              </h2>
+              <K>The questions executives ask</K>
+            </div>
+            <div className="r2-faq">
+              {FAQ.map((item) => (
+                <div className="r2-qa" key={item.q}>
+                  <div className="q">{item.q}</div>
+                  <div className="a">{item.a}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="r2-close" aria-label="Commission">
+            <h2>One conversation. Your operating system, examined.</h2>
+            <p className="proof">
+              30 MIN · AN EXAMINATION, NOT A SALES CALL · FIGURES FROM THE DOSSIERS VERIFIED
+              LIVE
+            </p>
+            <Link className="rev-button exec" href="/commission">
+              Commission your system
+            </Link>
+          </section>
+
+          <footer className="r2-footer">
+            <RegistryLine />
+            <K>COMMISSIONED, NOT SUBSCRIBED</K>
+            <Link className="k" href="/legal">
+              /Legal
+            </Link>
+            <K>© 2026 Parrit.ai</K>
+          </footer>
+        </div>
       </main>
     </>
   );

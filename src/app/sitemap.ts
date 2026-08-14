@@ -6,7 +6,9 @@ const SITE_URL =
 
 const REV01_PUBLIC_ROUTES = [
   { path: "", changeFrequency: "weekly" as const, priority: 1.0 },
+  { path: "/manufacture", changeFrequency: "monthly" as const, priority: 0.8 },
   { path: "/standard", changeFrequency: "monthly" as const, priority: 0.8 },
+  { path: "/dossiers", changeFrequency: "monthly" as const, priority: 0.7 },
   { path: "/commission", changeFrequency: "monthly" as const, priority: 0.9 },
   { path: "/legal", changeFrequency: "yearly" as const, priority: 0.3 },
 ];

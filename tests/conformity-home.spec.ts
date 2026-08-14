@@ -24,8 +24,8 @@ test("the home locks the approved display scale and surface rules", async ({ pag
   const h1FontSize = await page.getByRole("heading", { level: 1 }).evaluate((heading) =>
     Number.parseFloat(getComputedStyle(heading).fontSize),
   );
-  expect(h1FontSize).toBeGreaterThanOrEqual(86);
-  expect(h1FontSize).toBeLessThanOrEqual(90);
+  expect(h1FontSize).toBeGreaterThanOrEqual(90);
+  expect(h1FontSize).toBeLessThanOrEqual(94);
 
   const surfaceRules = await page.locator("*").evaluateAll((elements) =>
     elements.reduce(

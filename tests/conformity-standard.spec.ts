@@ -30,7 +30,8 @@ test.describe("the Parrit Standard conformity", () => {
 
     for (const [code, definition] of PRINCIPLES) {
       await expect(page.getByText(code, { exact: true })).toBeVisible();
-      await expect(page.getByText(definition, { exact: true })).toBeVisible();
+      // The definition cell also carries an "In practice" example (LOT R2) — substring match.
+      await expect(page.getByText(definition)).toBeVisible();
     }
 
     const decoratedElements = await page.locator("body *").evaluateAll((elements) =>
