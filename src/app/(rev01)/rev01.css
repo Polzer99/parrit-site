@@ -2,6 +2,34 @@
   min-height: 100vh;
 }
 
+.rev-header {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  padding: var(--s2) var(--s3);
+  border-bottom: 1px solid var(--rule-l);
+  background: var(--paper2);
+}
+
+.rev-mark {
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -.035em;
+  text-decoration: none;
+}
+
+.rev-mark i {
+  color: var(--red);
+  font-style: normal;
+}
+
+.rev-mark:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
 .rev-wrap {
   width: min(100% - var(--s6), 1200px);
   margin: 0 auto;

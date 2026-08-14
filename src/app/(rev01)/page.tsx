@@ -44,6 +44,9 @@ export default function HomePage() {
             <Link className="rev-button ghost" href="/standard">
               Examine the standard
             </Link>
+            <Link className="rev-button ghost" href="/journal">
+              Read the journal
+            </Link>
           </div>
         </header>
 
