@@ -178,7 +178,7 @@
 .operating-loop p,
 .commissioning-grid p {
   margin: 0;
-  color: var(--ink);
+  color: var(--body-l);
   font-size: 13px;
   line-height: 1.6;
 }
@@ -366,7 +366,7 @@
 }
 
 .doctrine-definition {
-  color: #26282B;
+  color: var(--body-l);
   font-size: 13px;
   line-height: 1.55;
 }
