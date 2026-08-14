@@ -89,6 +89,15 @@ Les numéros bougent : re-`grep` avant d'éditer. Ordre du fichier :
 
 Le **contenu** vit dans `DICT` ; le **style** vit dans les composants (inline) + `globals.css` (classes `.parrit-os-*`, `.landing-v4-*`).
 
+## Tests : blocage réseau global obligatoire (règle repo, 14/08/2026)
+
+**Aucun test (Playwright ou autre) n'a le droit de laisser sortir une requête vers un service réel.** Incident du 14/08/2026 : le mock e2e interceptait une URL divergente de celle du code, et les POST du CI sont partis en vrai sur le webhook n8n de production (faux leads en CRM + alertes mail). Décision Paul : la règle est gravée ici, immédiatement.
+
+Concrètement, dans toute spec e2e :
+- poser un **deny-all** en tête de test — `page.route('**/*', …)` avec allowlist limitée à `localhost`/`127.0.0.1` — et **faire échouer le test** sur toute requête sortante non attendue ;
+- ne jamais intercepter un endpoint réel par son URL en dur : importer la constante depuis le code testé, ou intercepter par motif (`**/webhook/**`) ;
+- un mock qui ne matche pas = requête qui SORT. Le deny-all est le filet, pas l'exception.
+
 ## Garde-fou contraste (lancer AVANT tout push)
 `scripts/contrast-audit.py` (Playwright) marche le DOM, calcule fg/bg effectifs + ratio WCAG, sort tout texte < 3:1 (noir-sur-noir ≈ 1.0). Couvre la home + chaque modale + sous-pages.
 ```bash

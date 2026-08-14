@@ -1,0 +1,353 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PARRIT / CODES — Spécification de marque REV 02</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #0A0B0C; --carbon: #131518; --paper: #F1F2F3; --paper2: #FAFAFB;
+  --rule: #DDE0E3; --rule-d: #24282D; --g2: #9CA1A6; --g3: #55595E;
+  --red: #E10600; --red-press: #B80500;
+  --ui: "Geist", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Geist Mono", "IBM Plex Mono", Menlo, monospace;
+}
+body { font-family: var(--ui); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+.doc { max-width: 900px; margin: 0 auto; padding: 0 24px 100px; }
+.k { font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--g3); }
+.mono { font-family: var(--mono); }
+
+.dochead { border-bottom: 2px solid var(--ink); padding: 44px 0 26px; display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
+.dochead h1 { font-size: clamp(30px, 5vw, 48px); font-weight: 500; letter-spacing: -.03em; line-height: 1.02; }
+.dochead .plate { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--g3); text-align: right; line-height: 2; }
+.dochead .plate b { color: var(--ink); font-weight: 500; }
+.intro { padding: 24px 0 8px; font-size: 15px; line-height: 1.7; color: #26282B; max-width: 64ch; }
+.intro b { font-weight: 600; }
+.revnote { margin-top: 18px; border: 1px solid var(--ink); background: var(--paper2); padding: 16px 20px; font-size: 13px; line-height: 1.6; color: #26282B; max-width: 720px; }
+.revnote .k { display: block; margin-bottom: 8px; }
+
+.code { border-top: 1px solid var(--ink); margin-top: 44px; }
+.code-head { display: grid; grid-template-columns: 90px 1fr auto; gap: 18px; padding: 18px 0 22px; align-items: baseline; }
+.code-head .id { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; color: var(--red); font-weight: 500; }
+.code-head h2 { font-size: 21px; font-weight: 600; letter-spacing: -.015em; }
+.code-head .stat { font-family: var(--mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--g3); }
+.code-head .stat.lock { color: var(--ink); }
+.code-head .stat.lock::before { content: "■ "; color: var(--red); font-size: 8px; vertical-align: 1px; }
+
+.spec { display: grid; grid-template-columns: 172px 1fr; border-top: 1px solid var(--rule); }
+.spec > dt { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--g3); padding: 13px 14px 13px 0; }
+.spec > dd { font-size: 13.5px; line-height: 1.65; color: #26282B; padding: 12px 0; }
+.spec > dd .mono { font-size: 12px; letter-spacing: .04em; }
+.spec b { font-weight: 600; color: var(--ink); }
+
+.demo { border: 1px solid var(--rule); background: var(--paper2); padding: 22px; margin: 16px 0 6px; }
+.demo.dark { background: var(--carbon); border-color: var(--rule-d); color: var(--paper); }
+
+.sw { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.sw > div { background: var(--paper2); }
+.sw .c { height: 64px; }
+.sw .m { padding: 10px 12px 12px; }
+.sw b { display: block; font-size: 12px; font-weight: 600; }
+.sw span { font-family: var(--mono); font-size: 10px; color: var(--g3); letter-spacing: .06em; }
+
+.frame { position: relative; }
+.frame::before, .frame::after, .frame > .fx::before, .frame > .fx::after {
+  content: ""; position: absolute; width: 14px; height: 14px; border: 0 solid var(--red);
+}
+.frame::before { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
+.frame::after { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
+.frame > .fx::before { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
+.frame > .fx::after { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
+
+.st { display: inline-flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; margin-right: 22px; }
+.st::before { content: ""; display: inline-block; }
+.st.ok::before { width: 7px; height: 7px; border-radius: 50%; background: var(--g2); }
+.st.att::before { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 8px solid var(--ink); }
+.st.crit { color: var(--red); }
+.st.crit::before { width: 8px; height: 8px; background: var(--red); }
+
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 16px 0 6px; }
+.two > div { background: var(--paper2); padding: 18px 20px; }
+.two h5 { font-family: var(--mono); font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--g3); margin-bottom: 12px; font-weight: 500; }
+.two ul { list-style: none; display: grid; gap: 8px; font-size: 13px; line-height: 1.5; }
+.two .yes li::before { content: "■ "; color: var(--red); font-size: 8px; vertical-align: 1px; margin-right: 6px; }
+.two .no li { color: var(--g3); text-decoration: line-through; text-decoration-color: rgba(10,11,12,.3); }
+
+.seal { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; }
+.seal::before { content: ""; width: 9px; height: 9px; background: var(--red); }
+
+/* hold-to-commit demo (fonctionnel dans le doc) */
+.hold {
+  position: relative; overflow: hidden; appearance: none; cursor: pointer;
+  border: 1.5px solid var(--ink); background: var(--paper2); color: var(--ink);
+  font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; font-weight: 600;
+  padding: 13px 20px; user-select: none; -webkit-user-select: none; touch-action: none;
+}
+.hold .fill { position: absolute; inset: 0; width: 0%; background: var(--red); }
+.hold .lab { position: relative; z-index: 1; }
+.hold[data-armed="true"] .lab { color: #fff; }
+.hold[data-done="true"] { border-color: var(--rule); color: var(--g2); cursor: default; }
+.hold[data-done="true"] .fill { display: none; }
+.hold:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+.docfoot { border-top: 2px solid var(--ink); margin-top: 60px; padding-top: 18px; display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--g3); flex-wrap: wrap; gap: 10px; }
+
+@media (max-width: 700px) {
+  .spec { grid-template-columns: 1fr; }
+  .spec > dt { padding-bottom: 0; }
+  .spec > dd { padding-top: 6px; }
+  .code-head { grid-template-columns: 1fr; gap: 6px; }
+  .two { grid-template-columns: 1fr; }
+}
+@media print { body { background: #fff; } .code { break-inside: avoid; } }
+</style>
+
+<div class="doc">
+
+  <div class="dochead">
+    <div>
+      <span class="k" style="display:block;margin-bottom:12px">Spécification de marque</span>
+      <h1>Les 12 codes Parrit.</h1>
+    </div>
+    <div class="plate">
+      PARRIT / CODES-1.0<br>
+      RÉDIGÉ <b>2026</b> · REV <b>02</b><br>
+      DESTINATAIRE <b>FIGMA / SMOOOTH STUDIO / DEV</b><br>
+      STATUT <b>VERROUILLÉ — P. LARMARAUD</b>
+    </div>
+  </div>
+
+  <p class="intro">Ce document verrouille les codes de la marque Parrit pour exécution directe dans Figma et en code. Chaque code est numéroté <b>PC-01 à PC-12</b>, spécifié en valeurs exactes, et accompagné de ses interdictions. Territoire : <b>The Command System</b>. Principe directeur : l'identité émerge de la fonction — jamais de la décoration.</p>
+
+  <div class="revnote">
+    <span class="k">Note de révision — REV 02</span>
+    Décision actée après exploration comparative de deux systèmes complets : le système <b>carbone / blanc froid / rouge signal</b> est retenu. Le système alternatif (papier chaud / orange calibration / Trace Rail) est écarté, à une greffe près : l'interaction <b>Hold-to-Commit</b>, intégrée en PC-07 et PC-09. Les statuts passent de « proposé » à « verrouillé ». Ce document fait référence pour la production — implémentation prévue via agents de code (Claude Code / Codex) : les tokens de PC-01 à PC-04 sont les variables sources.
+  </div>
+
+  <!-- PC-01 -->
+  <section class="code">
+    <div class="code-head"><span class="id">PC-01</span><h2>Le rouge Parrit</h2><span class="stat lock">Verrouillé</span></div>
+    <dl class="spec">
+      <dt>Valeur</dt>
+      <dd><span class="mono"><b>#E10600</b></span> (numérique) · variante pressée / hover / print offset : <span class="mono"><b>#B80500</b></span> · jamais de troisième rouge.</dd>
+      <dt>Règles</dt>
+      <dd>Toujours à <b>100 % d'opacité</b>. Jamais teinté, jamais en dégradé, jamais en fond de section. Jamais de texte rouge sous 14 px sauf labels mono accompagnés d'une forme (PC-06). Une exception unique au fond rouge : le <b>remplissage de commit</b> (PC-07), parce qu'il est transitoire et actionné par l'utilisateur.</dd>
+      <dt>Contraste</dt>
+      <dd>Sur blanc froid : ≈ 4,5:1 — suffisant pour les composants, limite pour le texte courant → le rouge ne porte jamais de paragraphe. Sur carbone : réserver aux marques de 8 px et plus.</dd>
+      <dt>Sens</dt>
+      <dd>Décision requise · action en cours de commit · état critique · objet sélectionné · commission scellée. <b>Rien d'autre.</b></dd>
+    </dl>
+    <div class="demo" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+      <span style="width:64px;height:64px;background:#E10600;display:inline-block"></span>
+      <span style="width:64px;height:64px;background:#B80500;display:inline-block"></span>
+      <span class="k">#E10600 — signal · #B80500 — pressé</span>
+    </div>
+  </section>
+
+  <!-- PC-02 -->
+  <section class="code">
+    <div class="code-head"><span class="id">PC-02</span><h2>Palette</h2><span class="stat lock">Verrouillé</span></div>
+    <div class="sw">
+      <div><div class="c" style="background:#0A0B0C"></div><div class="m"><b>Ink</b><span>#0A0B0C</span></div></div>
+      <div><div class="c" style="background:#131518"></div><div class="m"><b>Carbon</b><span>#131518</span></div></div>
+      <div><div class="c" style="background:#1A1D21"></div><div class="m"><b>Carbon 2</b><span>#1A1D21</span></div></div>
+      <div><div class="c" style="background:#F1F2F3;border-bottom:1px solid #DDE0E3"></div><div class="m"><b>Cold white</b><span>#F1F2F3</span></div></div>
+      <div><div class="c" style="background:#FAFAFB;border-bottom:1px solid #DDE0E3"></div><div class="m"><b>Surface</b><span>#FAFAFB</span></div></div>
+      <div><div class="c" style="background:#9CA1A6"></div><div class="m"><b>Grey 2</b><span>#9CA1A6</span></div></div>
+      <div><div class="c" style="background:#55595E"></div><div class="m"><b>Grey 3</b><span>#55595E</span></div></div>
+      <div><div class="c" style="background:#E10600"></div><div class="m"><b>Parrit Red</b><span>#E10600</span></div></div>
+    </div>
+    <dl class="spec" style="margin-top:16px">
+      <dt>Deux registres</dt>
+      <dd><b>Document</b> (blanc froid) : site, dossiers, standard, print — l'institution. <b>Instrument</b> (ink/carbon) : cockpit, Super App, démos live — le produit. Un artefact ne mélange jamais les deux registres, sauf pour mettre l'instrument en scène comme objet sur fond document.</dd>
+      <dt>Interdits</dt>
+      <dd>Aucune autre couleur. Pas de vert de succès, pas d'orange d'alerte — les états passent par la forme + le gris/rouge (PC-06). Pas de dégradés, nulle part.</dd>
+    </dl>
+  </section>
+
+  <!-- PC-03 -->
+  <section class="code">
+    <div class="code-head"><span class="id">PC-03</span><h2>Typographie</h2><span class="stat">À licencier — direction verrouillée</span></div>
+    <dl class="spec">
+      <dt>Recommandation</dt>
+      <dd><b>Söhne</b> (Klim Type Foundry) pour tout le texte — Buch (400), Kräftig (500), Halbfett (600) — et <b>Söhne Mono</b> pour le registre technique. Une seule famille, deux voix : c'est le geste d'ingénierie. Alternative équivalente : ABC Diatype + Diatype Mono (Dinamo).</dd>
+      <dt>Transition</dt>
+      <dd>En attendant la licence : <b>Geist + Geist Mono</b> (gratuits, métriques proches). La bascule vers Söhne est un remplacement de variable, pas un redesign.</dd>
+      <dt>Échelle</dt>
+      <dd class="mono" style="font-size:12px;line-height:2">DISPLAY 48–96 / 500 / −3,5 % · HEADING 21–24 / 600 / −1,5 % · BODY 13,5–15 / 400 / 0 · REGISTRY 10–12 mono / +14 % / CAPITALES</dd>
+      <dt>Interdits</dt>
+      <dd>Pas de serif. Pas d'italique. Jamais plus de deux graisses par écran.</dd>
+    </dl>
+  </section>
+
+  <!-- PC-04 -->
+  <section class="code">
+    <div class="code-head"><span class="id">PC-04</span><h2>Grille & règles</h2><span class="stat lock">Verrouillé</span></div>
+    <dl class="spec">
+      <dt>Base</dt>
+      <dd>Unité <b>8 px</b>. Desktop : 12 colonnes, gouttières 24 px, marges 24–48 px, contenu max 1200 px. Mobile : 4 colonnes, marges 18 px.</dd>
+      <dt>Règles</dt>
+      <dd>Filets de <b>1 px</b> partout (#DDE0E3 sur clair, #24282D sur sombre). Jamais de cartes flottantes, jamais d'ombres portées sauf mise en scène d'un instrument comme objet (une seule ombre autorisée : <span class="mono">0 40px 80px −40px rgba(10,11,12,.4)</span>).</dd>
+      <dt>Rayons</dt>
+      <dd><b>0 px</b> sur tout, sans exception, sauf les cadres de device (mockups téléphone). L'angle droit est un code.</dd>
+    </dl>
+  </section>
+
+  <!-- PC-05 -->
+  <section class="code">
+    <div class="code-head"><span class="id">PC-05</span><h2>La ligne de registre</h2><span class="stat lock">Verrouillé — motif propriétaire 1/2</span></div>
+    <dl class="spec">
+      <dt>Définition</dt>
+      <dd>Chaque artefact Parrit — écran, slide, dossier, post, bannière — porte une ligne d'identification en mono capitales : système, révision, statut, date.</dd>
+      <dt>Syntaxe</dt>
+      <dd class="mono" style="font-size:12px">PARRIT / OS-0042 · SYS-018 · REV 03 · STATUS / OPERATIONAL · 2026</dd>
+      <dt>Rôle</dt>
+      <dd>Elle <b>remplace le logo</b> dans la plupart des contextes. C'est elle qui rend un screenshot Parrit reconnaissable — pas la répétition du wordmark.</dd>
+    </dl>
+    <div class="demo dark"><span class="mono" style="font-size:11px;letter-spacing:.14em;color:#9CA1A6">PARRIT / OS-0042 · REV 03 · STATUS / <span style="color:#F1F2F3">OPERATIONAL</span></span></div>
+  </section>
+
+  <!-- PC-06 -->
+  <section class="code">
+    <div class="code-head"><span class="id">PC-06</span><h2>États & iconographie</h2><span class="stat lock">Verrouillé</span></div>
+    <dl class="spec">
+      <dt>Principe</dt>
+      <dd>Un état = <b>forme + couleur</b>, jamais la couleur seule. Trois états, trois formes : cercle gris = opérationnel · triangle = attention · carré rouge = critique / décision. Quatrième état dérivé : <b>cercle plein = exécuté / journalisé</b>.</dd>
+      <dt>Icônes</dt>
+      <dd>Aucune bibliothèque d'icônes sur les surfaces de marque. Dans le produit : icônes fonctionnelles uniquement, trait 1,5 px, jamais remplies, jamais illustratives. Pas de pictogrammes marketing, jamais.</dd>
+    </dl>
+    <div class="demo">
+      <span class="st ok">Operational</span>
+      <span class="st att">Attention</span>
+      <span class="st crit">Critical</span>
+    </div>
+  </section>
+
+  <!-- PC-07 -->
+  <section class="code">
+    <div class="code-head"><span class="id">PC-07</span><h2>Le Parrit Frame & le Hold-to-Commit</h2><span class="stat lock">Verrouillé — motif propriétaire 2/2 · REV 02</span></div>
+    <dl class="spec">
+      <dt>Le Frame</dt>
+      <dd>Quatre équerres rouges qui encadrent <b>tout objet en attente de décision</b>. Construction : <span class="mono">ÉQUERRES 14 × 14 PX · TRAIT 2 PX · #E10600 · DÉCALAGE −1 PX</span>. Un frame = une décision réelle. Jamais décoratif, jamais sur un titre, jamais imbriqué.</dd>
+      <dt>Hold-to-Commit</dt>
+      <dd><b>Greffe REV 02.</b> Les actions conséquentes ne se cliquent pas : elles se <b>tiennent 600 ms</b> pendant que le rouge remplit le contrôle — un interrupteur à garde. Relâcher avant la fin annule sans conséquence. C'est l'interaction que Parrit possède : le geste physique de la décision.</dd>
+      <dt>Le cycle complet</dt>
+      <dd class="mono" style="font-size:12px;line-height:2">FRAME OUVERT → HOLD 600 MS (REMPLISSAGE ROUGE) → COMMIT → FERMETURE DU FRAME 240 MS → LIGNE DE JOURNAL (EXECUTED · 09:14 · ACT-2841)</dd>
+      <dt>Accessibilité</dt>
+      <dd>Le hold doit être actionnable au clavier (maintien Espace/Entrée) et respecter <span class="mono">prefers-reduced-motion</span> (remplissage instantané, confirmation en deux temps).</dd>
+    </dl>
+    <div class="demo">
+      <div class="frame" style="border:1px solid var(--rule);background:#fff;padding:16px;font-size:13.5px;max-width:460px;margin-bottom:16px"><i class="fx"></i>Renouvellement contrat logistique — €120k / an</div>
+      <button class="hold" id="demo-hold" type="button"><span class="fill"></span><span class="lab">Hold · approuver</span></button>
+      <span class="k" style="margin-left:14px">Maintenir 600 ms — relâcher annule</span>
+    </div>
+  </section>
+
+  <!-- PC-08 -->
+  <section class="code">
+    <div class="code-head"><span class="id">PC-08</span><h2>Photographie</h2><span class="stat lock">Verrouillé</span></div>
+    <div class="two">
+      <div class="yes"><h5>Toujours</h5><ul>
+        <li>Matières : métal, verre, papier, écrans éteints ou de trois-quarts</li>
+        <li>Gestes : mains qui pilotent, annotent, assemblent</li>
+        <li>Plans, prototypes, instrumentation, détails d'atelier</li>
+        <li>Étalonnage neutre froid, lumière dure, faible profondeur</li>
+      </ul></div>
+      <div class="no"><h5>Jamais</h5><ul>
+        <li>Dirigeants en stock photo, poignées de main</li>
+        <li>Robots, cerveaux, réseaux de particules, dégradés IA</li>
+        <li>Visages posés face caméra</li>
+        <li>Étalonnage chaud lifestyle</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- PC-09 -->
+  <section class="code">
+    <div class="code-head"><span class="id">PC-09</span><h2>Motion</h2><span class="stat lock">Verrouillé · REV 02</span></div>
+    <dl class="spec">
+      <dt>Courbe</dt>
+      <dd class="mono" style="font-size:12px">CUBIC-BEZIER(0.2, 0, 0, 1) — MÉCANIQUE, JAMAIS REBONDIE</dd>
+      <dt>Durées</dt>
+      <dd class="mono" style="font-size:12px">MICRO 120 MS · TRANSITION 240 MS · SÉQUENCE 400 MS · HOLD 600 MS (LINÉAIRE)</dd>
+      <dt>L'animation signature</dt>
+      <dd><b>Le cycle de commit</b> (PC-07) : remplissage rouge linéaire 600 ms → convergence et extinction des équerres 240 ms → apparition de la ligne de journal. C'est la seule animation à travailler finement — elle incarne « décision → action → trace ». Le remplissage est <b>linéaire</b> (progression d'un geste tenu), la fermeture est <b>mécanique</b> (courbe standard).</dd>
+      <dt>Autres motions</dt>
+      <dd>Boot séquentiel (lignes mono, 260 ms d'intervalle), apparitions progressives de l'information. Rien d'autre. Aucun parallax, aucun hover décoratif.</dd>
+    </dl>
+  </section>
+
+  <!-- PC-10 -->
+  <section class="code">
+    <div class="code-head"><span class="id">PC-10</span><h2>Ton & copy</h2><span class="stat lock">Verrouillé</span></div>
+    <dl class="spec">
+      <dt>Principe</dt>
+      <dd><b>Parrit constate, documente et prouve.</b> Paul et Maxime expliquent. Chaque phrase du système informe une décision ou enregistre une action.</dd>
+      <dt>Patrons</dt>
+      <dd class="mono" style="font-size:12px;line-height:2">FINANCIAL CLOSING, REBUILT. · 3 DECISIONS REQUIRE ATTENTION. · BUILT TO THE PARRIT STANDARD. · COMMISSIONED, NOT SUBSCRIBED.</dd>
+      <dt>Interdits</dt>
+      <dd>« Unlock », « revolutionize », « supercharge », « AI-powered », « cutting-edge », points d'exclamation, questions rhétoriques, emoji.</dd>
+    </dl>
+  </section>
+
+  <!-- PC-11 -->
+  <section class="code">
+    <div class="code-head"><span class="id">PC-11</span><h2>Wordmark & sceau</h2><span class="stat">À dessiner — direction verrouillée</span></div>
+    <dl class="spec">
+      <dt>Wordmark</dt>
+      <dd><span class="mono" style="font-size:13px;letter-spacing:.22em;font-weight:600">PARRIT<span style="color:var(--red)">.</span>AI</span> — mono 600, +22 %, point rouge. Le point est la seule concession du rouge au logo. Présence minimale : une fois par artefact maximum, souvent zéro (la ligne de registre suffit).</dd>
+      <dt>Sceau</dt>
+      <dd>Carré rouge 9 px + <span class="mono" style="font-size:11px">BUILT TO THE PARRIT STANDARD</span> en mono capitales. Uniquement sur un système livré et certifié — jamais en argument marketing sur une page de vente.</dd>
+    </dl>
+    <div class="demo" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center">
+      <span class="mono" style="font-size:15px;letter-spacing:.22em;font-weight:600">PARRIT<span style="color:var(--red)">.</span>AI</span>
+      <span class="seal">Built to the Parrit Standard</span>
+    </div>
+  </section>
+
+  <!-- PC-12 -->
+  <section class="code">
+    <div class="code-head"><span class="id">PC-12</span><h2>Premier écran Super App</h2><span class="stat lock">Verrouillé · REV 02</span></div>
+    <dl class="spec">
+      <dt>État</dt>
+      <dd><b>« What matters now »</b> — lisible en 5 secondes. Quatre blocs maximum, chacun : chiffre mono 30 px / 500 + libellé 12,5 px gris + tag mono 9 px. Un seul bloc peut être rouge par écran.</dd>
+      <dt>Structure</dt>
+      <dd class="mono" style="font-size:11.5px;line-height:2">STATUS BAR (HEURE · REGISTRE) → EN-TÊTE (CLIENT · LIVE) → 4 BLOCS D'ATTENTION → NAV : NOW / SYSTEMS / JOURNAL / ASK</dd>
+      <dt>Hiérarchie</dt>
+      <dd>L'ordre des blocs est l'ordre d'importance décidé par le système. Le bloc critique porte le frame s'il attend une décision, et sa vue de détail se termine par un <b>Hold-to-Commit</b> (PC-07), jamais par un bouton simple.</dd>
+      <dt>Nav « Ask »</dt>
+      <dd>Quatrième onglet réservé : l'entrée conversationnelle vers l'OS. À spécifier en v2 produit — hors scope marque.</dd>
+    </dl>
+  </section>
+
+  <div class="docfoot">
+    <span class="seal" style="color:var(--ink)">Parrit / Codes-1.0</span>
+    <span>REV 02 · VERROUILLÉ — P. LARMARAUD · POUR EXÉCUTION</span>
+  </div>
+
+</div>
+
+<script>
+  /* démo hold-to-commit dans le doc */
+  const h = document.getElementById('demo-hold');
+  const fill = h.querySelector('.fill');
+  const lab = h.querySelector('.lab');
+  let raf = null, t0 = 0, done = false;
+  function stop() { if (done) return; cancelAnimationFrame(raf); fill.style.width = '0%'; h.dataset.armed = 'false'; }
+  function start() {
+    if (done) return;
+    t0 = performance.now(); h.dataset.armed = 'true';
+    (function step(now) {
+      const p = Math.min(100, ((now - t0) / 600) * 100);
+      fill.style.width = p + '%';
+      if (p >= 100) { done = true; h.dataset.done = 'true'; fill.style.width = '0%'; lab.textContent = 'Committed · journalisé'; return; }
+      raf = requestAnimationFrame(step);
+    })(t0);
+  }
+  h.addEventListener('pointerdown', start);
+  ['pointerup','pointerleave','pointercancel'].forEach(e => h.addEventListener(e, stop));
+  h.addEventListener('keydown', e => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) { e.preventDefault(); start(); } });
+  h.addEventListener('keyup', e => { if (e.key === ' ' || e.key === 'Enter') stop(); });
+</script>
