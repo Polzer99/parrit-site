@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-const SESSION_KEY = "parrit-opening-seen";
 const LINE_DELAYS = [180, 440, 700, 960, 1_220] as const;
 
 export function Opening() {
@@ -17,14 +16,9 @@ export function Opening() {
   }, []);
 
   useEffect(() => {
-    if (
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-      window.sessionStorage.getItem(SESSION_KEY) === "true"
-    ) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
-
-    window.sessionStorage.setItem(SESSION_KEY, "true");
 
     const timers = [window.setTimeout(() => setVisible(true), 0)];
     timers.push(
