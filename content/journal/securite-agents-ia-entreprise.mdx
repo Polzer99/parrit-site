@@ -1,0 +1,54 @@
+---
+title: "AI agent security in the enterprise: the rules we apply"
+date: "2026-06-29"
+description: "Deploying an AI agent means giving it access to your data. The 8 security rules we apply to every deployment, and the questions to ask any provider."
+slug: "securite-agents-ia-entreprise"
+---
+
+An AI agent does not just answer in a corner. It reads your files, acts inside your software, and triggers actions. That is precisely what makes it useful, and it is what requires a clear framework. Most incidents do not come from a model going off the rails, but from access granted too broadly without thinking, a secret left lying around, or an automated action that should have stayed with a human.
+
+## 1. Your data stays with you
+
+The agent runs inside your infrastructure, not on a third-party platform we control. Your data is never used to train a model. When a model provider enters the loop, we use access agreements that prohibit your data from being used for training.
+
+## 2. Least privilege
+
+An agent receives only the access strictly necessary for its task. By default it reads; it does not write. Production, the customer database, and business-critical systems remain closed until you open access yourself, scope by scope.
+
+## 3. Locked secrets
+
+Keys and passwords live server-side, out of the agent's reach, never hard-coded in the code. Each access is limited to what it needs to touch, and can be revoked or rotated at any time without breaking anything.
+
+## 4. Human in the loop on irreversible actions
+
+Anything that leaves the company or cannot be undone, sending money, an email to a client, publishing something, requires human validation. The agent prepares and proposes; a person presses the button. We automate the tedious, not the consequential.
+
+## 5. Guard-rails tested before production
+
+Before an agent goes into production, it passes a test battery and has a rollback path. We verify it does what it is supposed to do, and only that. Nothing goes live on the strength of a demo that worked once.
+
+## 6. Auditable and reversible
+
+The code belongs to you, on an open stack, with logs your teams can read. You can audit it, have it reviewed by a third party, take it back, or switch it off. No black box you depend on.
+
+## 7. Agnostic and sovereign
+
+No lock-in to a single provider. The system can route to another AI, including a European or open-weight one, without rewriting everything. If a provider changes its terms or cuts access, you are not stuck.
+
+## 8. Data isolation
+
+When multiple people or multiple clients share the same system, each one sees only their own data. The separation is enforced at the database level, not just in the application, so a code error cannot expose what should not be exposed.
+
+## Questions to ask your provider
+
+You do not need to be technical to verify that a provider takes security seriously. Ask them these questions and listen to whether they answer precisely or deflect:
+
+<ul>
+<li>Where do the agents run, and where does my data live?</li>
+<li>Can my data be used to train a model?</li>
+<li>What access does the agent have exactly, and who granted it?</li>
+<li>What triggers automatically, and what waits for human validation?</li>
+<li>Do I get the code back, and can I have it audited?</li>
+<li>What happens if I want to change AI provider?</li>
+</ul>
+
