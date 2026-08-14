@@ -14,6 +14,7 @@ export type JournalEntry = {
   date: string;
   description: string;
   slug: string;
+  noindex: boolean;
   content: string;
 };
 
@@ -36,11 +37,16 @@ function requireString(
 }
 
 function parseFrontmatter(filename: string, data: Record<string, unknown>): JournalFrontmatter {
+  if (data.noindex !== undefined && typeof data.noindex !== "boolean") {
+    throw new Error(`Journal entry ${filename} has an invalid noindex flag.`);
+  }
+
   const frontmatter = {
     title: requireString(data, "title", filename),
     date: requireString(data, "date", filename),
     description: requireString(data, "description", filename),
     slug: requireString(data, "slug", filename),
+    noindex: data.noindex === true,
   };
 
   if (!ISO_DATE.test(frontmatter.date)) {
@@ -95,11 +101,12 @@ export function getAllJournalEntries(): JournalEntry[] {
 }
 
 export function getAllJournalEntrySummaries(): JournalEntrySummary[] {
-  return getAllJournalEntries().map(({ title, date, description, slug }) => ({
+  return getAllJournalEntries().map(({ title, date, description, slug, noindex }) => ({
     title,
     date,
     description,
     slug,
+    noindex,
   }));
 }
 

@@ -13,6 +13,7 @@ function escapeXml(value: string): string {
 
 export function GET() {
   const items = getAllJournalEntries()
+    .filter((entry) => !entry.noindex)
     .map(
       (entry) => `    <item>
       <title>${escapeXml(entry.title)}</title>
