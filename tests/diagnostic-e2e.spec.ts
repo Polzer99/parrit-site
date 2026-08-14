@@ -1,7 +1,7 @@
 import { expect, type Page, test } from "@playwright/test";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://localhost:3000";
-const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
+const WEBHOOK_URL = "https://n8n.srv1857989.hstgr.cloud/webhook/parrit-lead";
 
 const langs = ["fr", "en", "pt-BR", "zh-CN"] as const;
 const segments = [
