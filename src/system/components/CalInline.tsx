@@ -72,7 +72,7 @@ export function ParritCalInline({
           />
         )}
         <div className="cal-bar cal-bar-footer">
-          <span>45 MIN · VISIO</span>
+          <span>30 MIN · VISIO</span>
           <span className="cal-status">
             <i aria-hidden="true" />
             COMMISSIONED, NOT SUBSCRIBED

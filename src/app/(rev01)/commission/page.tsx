@@ -42,7 +42,7 @@ export default function CommissionPage() {
         <section className="commission-calendar" aria-labelledby="calendar-heading">
           <div className="rev-section-head">
             <h2 id="calendar-heading">Select a time</h2>
-            <K>45 min · Visio</K>
+            <K>30 min · Visio</K>
           </div>
           <ParritCalInline />
         </section>

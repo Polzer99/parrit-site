@@ -1,4 +1,4 @@
-export const CAL_LINK_COMMISSION = "paul-larmaraud/executive-operating-session";
+export const CAL_LINK_COMMISSION = "paul-larmaraud/30min";
 
 export const siteConfig = {
   CAL_LINK_COMMISSION,
