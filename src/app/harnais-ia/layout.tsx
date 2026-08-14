@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import AttributionInit from "@/components/AttributionInit";
+
 const SITE_URL = "https://parrit.ai";
 const OG_IMAGE = `${SITE_URL}/opengraph-image`;
 
@@ -63,7 +65,10 @@ export default function HarnaisLayout({ children }: { children: React.ReactNode 
         <link rel="stylesheet" href="/da/parrit-da.css" />
         <style dangerouslySetInnerHTML={{ __html: gateCss }} />
       </head>
-      <body>{children}</body>
+      <body>
+        <AttributionInit />
+        {children}
+      </body>
     </html>
   );
 }

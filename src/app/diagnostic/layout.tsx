@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 
+import AttributionInit from "@/components/AttributionInit";
+
 const body = Geist({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -71,7 +73,10 @@ export default function DiagnosticLayout({ children }: { children: React.ReactNo
           }}
         />
       </head>
-      <body className="font-body bg-bg text-text antialiased min-h-screen">{children}</body>
+      <body className="font-body bg-bg text-text antialiased min-h-screen">
+        <AttributionInit />
+        {children}
+      </body>
     </html>
   );
 }

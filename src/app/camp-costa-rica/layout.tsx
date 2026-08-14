@@ -1,3 +1,5 @@
+import AttributionInit from "@/components/AttributionInit";
+
 // Page documentaire autonome : typographie DA (Geist/Geist Mono, rouge accent)
 // mais mise en page éditoriale plein écran, photos 35mm, chapitres.
 const campCss = `
@@ -210,7 +212,10 @@ export default function CampLayout({ children }: { children: React.ReactNode }) 
       <head>
         <style dangerouslySetInnerHTML={{ __html: campCss }} />
       </head>
-      <body>{children}</body>
+      <body>
+        <AttributionInit />
+        {children}
+      </body>
     </html>
   );
 }
