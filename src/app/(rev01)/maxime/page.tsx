@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import { PersonalPage } from "@/system/components/PersonalPage";
-import { CAL_LINK_COACHING_MAXIME } from "../../../../site.config";
 
 export const metadata: Metadata = {
   title: "Maxime",
@@ -12,7 +11,6 @@ export const metadata: Metadata = {
 export default function MaximePage() {
   return (
     <PersonalPage
-      calLink={CAL_LINK_COACHING_MAXIME}
       person="Maxime"
       role="Partner · Operating systems"
       statement="I make operating systems reliable enough for the real world."

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import { PersonalPage } from "@/system/components/PersonalPage";
-import { CAL_LINK_COACHING_PAUL } from "../../../../site.config";
 
 export const metadata: Metadata = {
   title: "Paul Larmaraud",
@@ -12,7 +11,6 @@ export const metadata: Metadata = {
 export default function PaulPage() {
   return (
     <PersonalPage
-      calLink={CAL_LINK_COACHING_PAUL}
       person="Paul Larmaraud"
       role="Founder · Operating partner"
       statement="I turn operational problems into systems that work."

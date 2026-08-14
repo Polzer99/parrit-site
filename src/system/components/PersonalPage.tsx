@@ -1,12 +1,10 @@
 import Link from "next/link";
 
-import { COACHING_OFFER_NAME, COACHING_PRICE_DISPLAY, isPlaceholder } from "../../../site.config";
 import { K } from "./K";
 import { ParritCalInline } from "./CalInline";
 import { RegistryLine } from "./RegistryLine";
 
 type PersonalPageProps = {
-  calLink: string;
   person: string;
   role: string;
   statement: string;
@@ -15,21 +13,7 @@ type PersonalPageProps = {
   practiceBody: string;
 };
 
-function ConfigValue({ label, value }: { label: string; value: string }) {
-  if (isPlaceholder(value)) {
-    return (
-      <div className="launch-placeholder" role="status">
-        <strong>[TO FILL]</strong>
-        <span>{label} must be configured before launch.</span>
-      </div>
-    );
-  }
-
-  return <p className="personal-config-value">{value}</p>;
-}
-
 export function PersonalPage({
-  calLink,
   person,
   role,
   statement,
@@ -61,24 +45,14 @@ export function PersonalPage({
             A bounded engagement to examine one operational problem, make the decisions it
             requires and work through the system that should follow.
           </p>
-          <div className="personal-config-grid">
-            <div>
-              <K>Offer name</K>
-              <ConfigValue label="Coaching offer name" value={COACHING_OFFER_NAME} />
-            </div>
-            <div>
-              <K>Price</K>
-              <ConfigValue label="Coaching price" value={COACHING_PRICE_DISPLAY} />
-            </div>
-          </div>
         </section>
 
         <section className="personal-calendar" aria-labelledby="coaching-calendar-heading">
           <div className="rev-section-head">
-            <h2 id="coaching-calendar-heading">Book a coaching session</h2>
-            <K>{person} / Cal.com</K>
+            <h2 id="coaching-calendar-heading">Book a working session</h2>
+            <K>Booking / Cal.com</K>
           </div>
-          <ParritCalInline calLink={calLink} />
+          <ParritCalInline />
         </section>
 
         <section className="personal-bridge" aria-labelledby="bridge-heading">
