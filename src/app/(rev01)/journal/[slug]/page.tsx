@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: JournalArticlePageProps): Pro
   return {
     title: entry.title,
     description: entry.description,
+    robots: entry.noindex ? { index: false, follow: true } : undefined,
   };
 }
 
@@ -49,10 +50,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
         </div>
 
         <footer className="journal-article-footer">
-          <RegistryLine />
-          <time className="journal-date" dateTime={entry.date}>
-            Published {entry.date}
-          </time>
+          <RegistryLine value={`WE FIND THE WAY · ${entry.date} · PARRIT / JOURNAL`} />
         </footer>
       </article>
     </main>

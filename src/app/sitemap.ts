@@ -214,7 +214,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: 0.8,
     },
-    ...getAllJournalEntrySummaries().map((entry) => ({
+    ...getAllJournalEntrySummaries().filter((entry) => !entry.noindex).map((entry) => ({
       url: `${SITE_URL}/journal/${entry.slug}`,
       lastModified: new Date(entry.date),
       changeFrequency: "monthly" as const,
