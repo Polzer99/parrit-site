@@ -49,7 +49,7 @@
 }
 
 .rev-hero p {
-  max-width: 48ch;
+  max-width: 44ch;
   margin: 26px 0 0;
   color: var(--g3);
   font-size: 15.5px;
@@ -69,9 +69,9 @@
   justify-content: center;
   appearance: none;
   padding: 12px 18px;
-  border: 1.5px solid var(--red);
-  background: var(--red);
-  color: var(--paper2);
+  border: 1.5px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
   font-family: var(--mono);
   font-size: 9.5px;
   font-weight: 600;
@@ -82,9 +82,24 @@
 }
 
 .rev-button.ghost {
+  border-width: 1px;
   border-color: var(--rule-l);
   background: transparent;
   color: var(--g3);
+}
+
+.instrument .rev-button {
+  border-color: var(--paper);
+  color: var(--paper);
+}
+
+.instrument .rev-button.ghost {
+  border-color: var(--rule-d);
+  color: var(--g2);
+}
+
+.rev-button:hover {
+  background: var(--paper2);
 }
 
 .rev-button:focus-visible {
@@ -99,6 +114,16 @@
 .instrument-caption {
   margin-top: var(--s2);
   text-align: center;
+}
+
+.home-instrument .instrument-value {
+  min-width: 92px;
+  font-size: 25px;
+  text-transform: none;
+}
+
+.home-instrument .instrument-label {
+  color: var(--g2);
 }
 
 .rev-section {
@@ -122,7 +147,43 @@
   letter-spacing: -.015em;
 }
 
-.three-column {
+.operating-loop {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--rule-l);
+  background: var(--paper2);
+}
+
+.operating-loop > article {
+  padding: 26px var(--s3);
+  border-left: 1px solid var(--rule-l);
+}
+
+.operating-loop > article:first-child {
+  border-left: 0;
+}
+
+.operating-loop h3 {
+  margin: 0 0 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .2em;
+}
+
+.operating-loop h3.critical {
+  color: var(--red);
+}
+
+.operating-loop p,
+.commissioning-grid p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.commissioning-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
@@ -130,23 +191,22 @@
   background: var(--rule-l);
 }
 
-.three-column > article {
+.commissioning-grid > article {
   padding: 26px var(--s3);
   background: var(--paper2);
 }
 
-.three-column h3 {
+.commissioning-grid h4 {
   margin: 12px 0 var(--s1);
   font-size: 16px;
   font-weight: 600;
   letter-spacing: -.01em;
 }
 
-.three-column p {
-  margin: 0;
+.rev-journal-link {
+  display: inline-block;
+  margin-top: var(--s3);
   color: var(--g3);
-  font-size: 13px;
-  line-height: 1.6;
 }
 
 .faces {
@@ -174,6 +234,19 @@
 .rev-footer {
   padding: var(--s3) 0 var(--s6);
   border-top: 2px solid var(--ink);
+}
+
+.home-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  border-top: 1px solid var(--rule-l);
+}
+
+.home-footer a {
+  color: var(--g3);
+  text-decoration: none;
 }
 
 .dossiers-wrap {
@@ -582,9 +655,24 @@
     width: min(100% - var(--s4), 1200px);
   }
 
+  .rev-home-wrap {
+    width: min(100% - var(--s6), 1200px);
+  }
+
+  .operating-loop,
+  .commissioning-grid,
   .three-column,
   .faces {
     grid-template-columns: 1fr;
+  }
+
+  .operating-loop > article {
+    border-top: 1px solid var(--rule-l);
+    border-left: 0;
+  }
+
+  .operating-loop > article:first-child {
+    border-top: 0;
   }
 
   .doctrine-row {
