@@ -28,11 +28,11 @@ jobs:
       - name: npm run lint
         run: npm run lint
 
-      - name: npm run qa:doctrine
-        run: npm run qa:doctrine
-
       - name: npm run build
         run: npm run build
+
+      - name: npm run qa:doctrine
+        run: npm run qa:doctrine
 
       - name: install Playwright browsers
         run: |
@@ -57,6 +57,14 @@ jobs:
         env:
           QA_BASE_URL: http://localhost:3210
         run: npm run qa:diagnostic:e2e -- --browser=chromium
+
+      - name: REV 01 network-deny Playwright gate
+        env:
+          QA_BASE_URL: http://127.0.0.1:3210
+        run: npm run qa:network:rev01
+
+      - name: REV 01 brand conformity gate
+        run: npm run qa:brand:rev01
 
       - name: diagnostic contrast gate
         env:
