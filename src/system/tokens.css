@@ -10,6 +10,10 @@
   --g2: #9CA1A6;
   --g3: #55595E;
   --g4: #6F757B;
+  /* prototype REV 02 de facto tokens (hardcoded there; named here so the
+     brand gate can enforce them): body text on light / row labels on dark */
+  --body-l: #26282B;
+  --label-d: #C7CBCF;
   --red: #E10600;
   --red-p: #B80500;
 

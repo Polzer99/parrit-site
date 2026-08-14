@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
-import { K, RegistryLine, Seal } from "@/system/components";
+import { K, RegistryLine } from "@/system/components";
 
 export const metadata: Metadata = {
   title: "The Parrit Standard",
@@ -45,19 +46,10 @@ export default function StandardPage() {
   return (
     <main className="rev-page">
       <div className="rev-wrap">
-        <header className="spec-header">
-          <div>
-            <K>Parrit / Specification</K>
-            <h1>The Parrit Standard.</h1>
-          </div>
-          <RegistryLine value="PARRIT / STANDARD · STD-1.0 · 2026" />
+        <header className="standard-intro">
+          <K>Parrit / Specification</K>
+          <h1>Every system we deliver is certified to the same specification.</h1>
         </header>
-
-        <p className="spec-intro">
-          Every commissioned system is examined against the same six principles before it
-          enters production. The standard governs the operating state, the decisions it
-          surfaces and the infrastructure the company owns.
-        </p>
 
         <section className="doctrine" aria-label="The Parrit Standard specification">
           <div className="doctrine-head">
@@ -74,9 +66,15 @@ export default function StandardPage() {
             </div>
           ))}
           <div className="doctrine-foot">
-            <Seal />
+            <span className="seal">Certified — Built to the Parrit Standard</span>
           </div>
         </section>
+
+        <div className="standard-action">
+          <Link className="rev-button" href="/commission">
+            Commission your Operating System
+          </Link>
+        </div>
 
         <footer className="rev-footer">
           <RegistryLine />

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { Instrument, K, RegistryLine, St } from "@/system/components";
-import { COMMISSIONING } from "@/system/commissioning";
 
 export const metadata: Metadata = {
   title: "Company operating systems",
@@ -10,72 +9,87 @@ export const metadata: Metadata = {
 
 const LOOP = [
   {
-    label: "Understand",
-    title: "See the company as it operates.",
-    body: "The system maintains a sourced view of operations, cash, clients and work in motion. The state is visible without a chain of requests.",
+    label: "UNDERSTAND",
+    body: "The system maintains a live model of the company: orders, cash, operations, people, clients — provenance on every number.",
   },
   {
-    label: "Decide",
-    title: "Frame what requires a decision.",
-    body: "Only material exceptions reach the operator, with their source, rationale and documented path of return.",
+    label: "DECIDE",
+    body: "Only what requires the executive reaches the executive. Framed, sourced, quantified, with its path of return documented.",
+    critical: true,
   },
   {
-    label: "Act",
-    title: "Execute in the same system.",
-    body: "Approved actions run through the system that surfaced them. Each action is recorded in a shared journal.",
+    label: "ACT",
+    body: "A decision executes through the same system that surfaced it — held, committed, journaled.",
+  },
+] as const;
+
+const COMMISSIONING = [
+  {
+    label: "01 — EXAMINATION",
+    title: "We study how your company actually operates.",
+    body: "Not a workshop. A diagnostic of flows, decisions and failure points, documented as an engineering brief.",
+  },
+  {
+    label: "02 — CONSTRUCTION",
+    title: "We build the first system into production.",
+    body: "One critical operation, rebuilt end-to-end and certified to the Parrit Standard before anything else begins.",
+  },
+  {
+    label: "03 — COMPOUNDING",
+    title: "Each capability joins the Operating System.",
+    body: "The system grows with the company. You own it — code, data, documentation — as company infrastructure.",
   },
 ] as const;
 
 export default function HomePage() {
   return (
     <main className="rev-page">
-      <div className="rev-wrap">
+      <div className="rev-wrap rev-home-wrap">
         <header className="rev-hero">
-          <K>Parrit / Company operating systems</K>
-          <h1>Your company. One operating system.</h1>
+          <K>Parrit — Company operating systems</K>
+          <h1>Your company. One system.</h1>
           <p>
-            Parrit builds and operates the systems that let a company understand what is
-            happening, decide what matters and act from one line of record.
+            Parrit designs and builds the operating system your company runs on: one place
+            to understand what is happening, decide what matters and act — down to your
+            phone.
           </p>
           <div className="rev-actions">
             <Link className="rev-button" href="/commission">
-              Commission an examination
+              Commission your Operating System
             </Link>
             <Link className="rev-button ghost" href="/standard">
-              Examine the standard
-            </Link>
-            <Link className="rev-button ghost" href="/journal">
-              Read the journal
+              Examine a system
             </Link>
           </div>
         </header>
 
         <section className="instrument-stage" aria-label="Operating system instrument">
           <Instrument
-            left={<St kind="ok">Operational</St>}
-            center={<K>Parrit / Operating system</K>}
-            right={<K>Live state</K>}
+            className="home-instrument"
+            left={<St kind="crit">PARRIT / OS — LIVE DEMO</St>}
+            center={<K>·</K>}
+            right={<K>Tue 09:14</K>}
             rows={[
               {
-                value: "Back office",
-                label: "critical internal operations monitored in one system",
-                status: <K>Observable</K>,
+                value: "3",
+                label: "decisions require attention",
+                status: <K>Today</K>,
               },
               {
-                value: "Revenue",
-                label: "market signals and commercial actions connected to execution",
-                status: <K>Actionable</K>,
+                value: "€1.2M",
+                label: "at risk on blocked orders",
+                status: <K style={{ color: "var(--red)" }}>Action required</K>,
                 critical: true,
               },
               {
-                value: "Journal",
-                label: "decisions and actions recorded with their origin",
-                status: <K>Traceable</K>,
+                value: "7",
+                label: "actions executed overnight",
+                status: <K>Journal</K>,
               },
             ]}
           />
           <div className="instrument-caption">
-            <K>The company surfaced. Complexity absorbed underneath.</K>
+            <K>THE OPERATING SYSTEM — SURFACED. COMPLEXITY ABSORBED UNDERNEATH.</K>
           </div>
         </section>
 
@@ -84,11 +98,12 @@ export default function HomePage() {
             <h2 id="loop-heading">One operating loop</h2>
             <K>Screen 02</K>
           </div>
-          <div className="three-column">
+          <div className="operating-loop">
             {LOOP.map((item) => (
               <article key={item.label}>
-                <K>{item.label}</K>
-                <h3>{item.title}</h3>
+                <h3 className={"critical" in item && item.critical ? "critical" : undefined}>
+                  {item.label}
+                </h3>
                 <p>{item.body}</p>
               </article>
             ))}
@@ -100,19 +115,26 @@ export default function HomePage() {
             <h2 id="commissioning-heading">Commissioned, not subscribed</h2>
             <K>Screen 03</K>
           </div>
-          <div className="three-column">
+          <div className="commissioning-grid">
             {COMMISSIONING.map((item) => (
               <article key={item.label}>
                 <K>{item.label}</K>
-                <h3>{item.title}</h3>
+                <h4>{item.title}</h4>
                 <p>{item.body}</p>
               </article>
             ))}
           </div>
+          <Link className="rev-journal-link k" href="/journal">
+            Read the journal
+          </Link>
         </section>
 
-        <footer className="rev-footer">
+        <footer className="rev-footer home-footer">
           <RegistryLine />
+          <Link className="k" href="/legal">
+            /Legal
+          </Link>
+          <K>© 2026 Parrit.ai</K>
         </footer>
       </div>
     </main>

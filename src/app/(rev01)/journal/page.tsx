@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { RegistryLine } from "@/system/components";
+import { K, RegistryLine } from "@/system/components";
 import { getAllJournalEntrySummaries } from "@/system/journal";
 
 export const metadata: Metadata = {
@@ -26,6 +26,7 @@ export default function JournalPage() {
             <li key={entry.slug}>
               <Link href={`/journal/${entry.slug}`}>
                 <div>
+                  <K>Journal / Entry</K>
                   <h2>{entry.title}</h2>
                   <p>{entry.description}</p>
                 </div>

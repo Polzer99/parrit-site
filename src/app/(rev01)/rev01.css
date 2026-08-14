@@ -49,7 +49,7 @@
 }
 
 .rev-hero p {
-  max-width: 48ch;
+  max-width: 44ch;
   margin: 26px 0 0;
   color: var(--g3);
   font-size: 15.5px;
@@ -69,9 +69,9 @@
   justify-content: center;
   appearance: none;
   padding: 12px 18px;
-  border: 1.5px solid var(--red);
-  background: var(--red);
-  color: var(--paper2);
+  border: 1.5px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
   font-family: var(--mono);
   font-size: 9.5px;
   font-weight: 600;
@@ -82,9 +82,24 @@
 }
 
 .rev-button.ghost {
+  border-width: 1px;
   border-color: var(--rule-l);
   background: transparent;
   color: var(--g3);
+}
+
+.instrument .rev-button {
+  border-color: var(--paper);
+  color: var(--paper);
+}
+
+.instrument .rev-button.ghost {
+  border-color: var(--rule-d);
+  color: var(--g2);
+}
+
+.rev-button:hover {
+  background: var(--paper2);
 }
 
 .rev-button:focus-visible {
@@ -99,6 +114,16 @@
 .instrument-caption {
   margin-top: var(--s2);
   text-align: center;
+}
+
+.home-instrument .instrument-value {
+  min-width: 92px;
+  font-size: 25px;
+  text-transform: none;
+}
+
+.home-instrument .instrument-label {
+  color: var(--g2);
 }
 
 .rev-section {
@@ -122,7 +147,43 @@
   letter-spacing: -.015em;
 }
 
-.three-column {
+.operating-loop {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--rule-l);
+  background: var(--paper2);
+}
+
+.operating-loop > article {
+  padding: 26px var(--s3);
+  border-left: 1px solid var(--rule-l);
+}
+
+.operating-loop > article:first-child {
+  border-left: 0;
+}
+
+.operating-loop h3 {
+  margin: 0 0 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .2em;
+}
+
+.operating-loop h3.critical {
+  color: var(--red);
+}
+
+.operating-loop p,
+.commissioning-grid p {
+  margin: 0;
+  color: var(--body-l);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.commissioning-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
@@ -130,23 +191,22 @@
   background: var(--rule-l);
 }
 
-.three-column > article {
+.commissioning-grid > article {
   padding: 26px var(--s3);
   background: var(--paper2);
 }
 
-.three-column h3 {
+.commissioning-grid h4 {
   margin: 12px 0 var(--s1);
   font-size: 16px;
   font-weight: 600;
   letter-spacing: -.01em;
 }
 
-.three-column p {
-  margin: 0;
+.rev-journal-link {
+  display: inline-block;
+  margin-top: var(--s3);
   color: var(--g3);
-  font-size: 13px;
-  line-height: 1.6;
 }
 
 .faces {
@@ -174,6 +234,19 @@
 .rev-footer {
   padding: var(--s3) 0 var(--s6);
   border-top: 2px solid var(--ink);
+}
+
+.home-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  border-top: 1px solid var(--rule-l);
+}
+
+.home-footer a {
+  color: var(--g3);
+  text-decoration: none;
 }
 
 .dossiers-wrap {
@@ -213,61 +286,48 @@
 }
 
 .commission-header {
-  max-width: 780px;
-  padding: 84px 0 52px;
+  padding: 84px 0 0;
 }
 
 .commission-header h1 {
-  max-width: 12ch;
   margin: 20px 0 0;
-  font-size: clamp(38px, 6.6vw, 76px);
+  font-size: clamp(30px, 4vw, 52px);
   font-weight: 500;
-  letter-spacing: -.035em;
+  letter-spacing: -.03em;
   line-height: 1;
 }
 
 .commission-header p {
-  max-width: 58ch;
-  margin: 26px 0 0;
+  max-width: 44ch;
+  margin: var(--s3) 0 0;
   color: var(--g3);
   font-size: 15.5px;
   line-height: 1.65;
 }
 
-.commission-calendar {
-  padding: 56px 0 var(--s8);
-  border-top: 1px solid var(--rule-l);
+.commission-instrument .cal-stage {
+  padding: 30px 0 60px;
 }
 
-.spec-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--s3);
-  padding: var(--s8) 0 var(--s4);
-  border-bottom: 2px solid var(--ink);
+.commission-instrument .cal-status i {
+  width: 9px;
+  height: 9px;
 }
 
-.spec-header h1 {
-  max-width: 14ch;
-  margin: var(--s2) 0 0;
-  font-size: clamp(38px, 6.6vw, 76px);
+.standard-intro {
+  padding: 56px 0;
+}
+
+.standard-intro h1 {
+  max-width: 22ch;
+  margin: 20px 0 0;
+  font-size: clamp(30px, 4vw, 52px);
   font-weight: 500;
-  letter-spacing: -.035em;
-  line-height: 1;
-}
-
-.spec-intro {
-  max-width: 62ch;
-  margin: var(--s4) 0 var(--s6);
-  color: var(--g3);
-  font-size: 15.5px;
-  line-height: 1.65;
+  letter-spacing: -.03em;
+  line-height: 1.08;
 }
 
 .doctrine {
-  margin-bottom: var(--s8);
   border: 1.5px solid var(--ink);
   background: var(--paper2);
 }
@@ -277,7 +337,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
-  padding: var(--s2) 22px;
+  padding: 16px 22px;
   border-bottom: 1.5px solid var(--ink);
 }
 
@@ -306,7 +366,7 @@
 }
 
 .doctrine-definition {
-  color: var(--g3);
+  color: var(--body-l);
   font-size: 13px;
   line-height: 1.55;
 }
@@ -316,6 +376,10 @@
   align-items: center;
   padding: 15px 22px;
   border-top: 1.5px solid var(--ink);
+}
+
+.standard-action {
+  padding: 32px 0 56px;
 }
 
 .personal-wrap {
@@ -497,7 +561,7 @@
 .journal-list {
   margin: 0 0 var(--s8);
   padding: 0;
-  border-top: 2px solid var(--ink);
+  border-top: 1px solid var(--rule-l);
   list-style: none;
 }
 
@@ -515,9 +579,9 @@
 }
 
 .journal-list h2 {
-  margin: 0;
+  margin: var(--s1) 0 0;
   font-size: 22px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -.015em;
 }
 
@@ -534,15 +598,19 @@
   font-family: var(--mono);
   font-size: 10px;
   font-weight: 500;
-  letter-spacing: .12em;
+  letter-spacing: .16em;
   text-transform: uppercase;
   color: var(--g3);
 }
 
 .journal-article {
-  width: min(100% - var(--s6), 760px);
+  width: min(100% - var(--s6), 66ch);
   margin: 0 auto;
   padding: var(--s8) 0 0;
+}
+
+.journal-article h1 {
+  font-weight: 600;
 }
 
 .journal-body {
@@ -561,7 +629,7 @@
 .journal-body p,
 .journal-body li {
   font-size: 16px;
-  line-height: 1.75;
+  line-height: 1.7;
 }
 
 .journal-body p {
@@ -580,12 +648,8 @@
 }
 
 .journal-article-footer {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--s2);
   padding: var(--s3) 0 var(--s6);
-  border-top: 2px solid var(--ink);
+  border-top: 1px solid var(--rule-l);
 }
 
 @media (max-width: 680px) {
@@ -593,9 +657,24 @@
     width: min(100% - var(--s4), 1200px);
   }
 
+  .rev-home-wrap {
+    width: min(100% - var(--s6), 1200px);
+  }
+
+  .operating-loop,
+  .commissioning-grid,
   .three-column,
   .faces {
     grid-template-columns: 1fr;
+  }
+
+  .operating-loop > article {
+    border-top: 1px solid var(--rule-l);
+    border-left: 0;
+  }
+
+  .operating-loop > article:first-child {
+    border-top: 0;
   }
 
   .doctrine-row {
@@ -612,7 +691,7 @@
   }
 
   .journal-article {
-    width: min(100% - var(--s4), 760px);
+    width: min(100% - var(--s4), 66ch);
   }
 
   .legal-document p {
@@ -623,5 +702,6 @@
   .doctrine-name {
     padding-bottom: 0;
     border-right: 0;
+    border-bottom: 1px solid var(--rule-l);
   }
 }
