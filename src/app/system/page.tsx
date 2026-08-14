@@ -4,6 +4,7 @@ import {
   DecisionCard,
   Frame,
   Hold,
+  Instrument,
   K,
   RegistryLine,
   Seal,
@@ -39,6 +40,15 @@ function Components() {
         <St kind="done">Executed</St>
       </div>
       <Hold label="Hold to commit" doneLabel="Committed" />
+      <Instrument
+        left={<St kind="ok">Operational</St>}
+        center={<K>Instrument specimen</K>}
+        right={<K>Live</K>}
+        rows={[
+          { value: "State", label: "The current operating state", status: <K>Observable</K> },
+          { value: "Action", label: "A surfaced operating decision", status: <K>Actionable</K> },
+        ]}
+      />
       <DecisionCard
         title="Approve the operating decision"
         body="A marketing-safe specimen. Committing closes the frame and writes a simulated journal line."

@@ -44,6 +44,11 @@ export function proxy(request: NextRequest) {
     return;
   }
 
+  // REV 01 pages are intentionally outside the legacy locale tree.
+  if (pathname === "/" || pathname === "/standard" || pathname === "/commission") {
+    return;
+  }
+
   // Si le chemin commence déjà par une locale, on laisse passer
   const pathnameHasLocale = locales.some(
     (locale) =>

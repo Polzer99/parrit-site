@@ -1,6 +1,7 @@
 export { DecisionCard } from "./DecisionCard";
 export { Frame } from "./Frame";
 export { Hold } from "./Hold";
+export { Instrument } from "./Instrument";
 export { K } from "./K";
 export { RegistryLine } from "./RegistryLine";
 export { Seal } from "./Seal";

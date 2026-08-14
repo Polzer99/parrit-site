@@ -1,7 +1,7 @@
 import { readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
 
-const ROOTS = ["src/system", "src/app-rev01", "src/app/system"];
+const ROOTS = ["src/system", "src/app-rev01", "src/app/system", "src/app/(rev01)"];
 const TEXT_EXTENSIONS = new Set([".css", ".js", ".jsx", ".md", ".mjs", ".ts", ".tsx"]);
 const violations = [];
 
