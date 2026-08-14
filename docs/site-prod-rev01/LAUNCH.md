@@ -22,16 +22,11 @@ build output: **zero matches**. ✅
 
 ## 3. Placeholders `[TO FILL]`
 
-| Page | Occurrences | Constant |
-|---|---|---|
-| `/commission` | 0 | `CAL_LINK_COMMISSION` filled | ✅
-| `/paul` | 5 | `CAL_LINK_COACHING_PAUL`, `COACHING_OFFER_NAME`, `COACHING_PRICE_DISPLAY` | 🟡
-| `/maxime` | 5 | `CAL_LINK_COACHING_MAXIME`, `COACHING_OFFER_NAME`, `COACHING_PRICE_DISPLAY` | 🟡
-
-🟡 **Gate**: either Paul provides the 4 values in `site.config.ts`, or he signs off on
-launching with `/paul` and `/maxime` showing visible `[TO FILL]` markers (they are
-deliberately ugly so they cannot be forgotten). The rest of the site does not
-depend on them.
+**Resolved 14/08 evening (Lot 7, owner decision)**: the site displays exactly one
+booking link — Paul's (`CAL_LINK_COMMISSION`) — on `/commission`, `/paul` and
+`/maxime`. The coaching constants (`CAL_LINK_COACHING_*`, `COACHING_OFFER_NAME`,
+`COACHING_PRICE_DISPLAY`) were removed; no price or offer name is displayed.
+Verified on real server: **0 `[TO FILL]` occurrences site-wide**. ✅
 
 ## 4. Brand conformity
 
@@ -69,9 +64,9 @@ webhook which is unchanged by the cutover.
 
 ## GO / NO-GO summary
 
-- 🔴 1 blocker: Cal.com event type missing (Paul, ~2 min).
-- 🟡 2 sign-offs: launch with `[TO FILL]` on /paul + /maxime (or provide values);
-  legacy tree kept alive temporarily post-cutover.
-- ✅ everything else verified.
+- 🔴 1 blocker: Cal.com event type `executive-operating-session` missing (Paul, ~2 min).
+- 🟡 1 sign-off: legacy tree kept alive temporarily post-cutover (removed in a
+  post-launch lot after the archive tag).
+- ✅ everything else verified, including 0 `[TO FILL]` site-wide since Lot 7.
 
 Cutover happens **only on Paul's explicit "go"**.
