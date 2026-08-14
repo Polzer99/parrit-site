@@ -1,58 +1,43 @@
-# Parrit.ai
+# Parrit
 
-> Parrit.ai aide les DG et Directeurs métiers de PME/ETI à recruter des collaborateurs virtuels qui travaillent sur leurs vrais workflows : acquisition, veille, opérations, données, contenu et formation.
+> Parrit designs and builds company operating systems: one system to understand
+> what is happening in a company, decide what matters and act — down to the
+> executive's phone. Built for one company at a time. Commissioned, not subscribed.
 
-## Positionnement
-- Boutique franco-chinoise qui construit et opère des agents IA sur mesure.
-- Promesse : un agent avec une fiche de poste, un périmètre, des accès limités et un responsable humain.
-- Cible : DG, dirigeants et Directeurs métiers de PME/ETI qui veulent un système en production, pas un audit.
-- Données et exécution : déploiement sur les systèmes du client, avec logs, secrets serveur et validation humaine sur les actions sensibles.
+## Positioning
+- Parrit builds the operating system a company runs on, as owned infrastructure:
+  the client holds the code, the data and the documentation as company assets.
+- The engagement model is a commission, not a subscription. It starts with an
+  examination of how the company actually operates — not a workshop, a diagnostic
+  of flows, decisions and failure points documented as an engineering brief.
+- Three phases: Examination (we study how the company actually operates),
+  Construction (one critical operation rebuilt end-to-end into production),
+  Compounding (each new capability joins the operating system and increases the
+  value of every capability already in production).
 
-## Offres
-Trois offres, toutes sur devis (périmètre et prix cadrés après un diagnostic). La home n'affiche pas de prix.
-- Transformation IA : advisory COMEX/DSI, transformation de bout en bout. Sur devis.
-- Agent IA (Sprint agentique) : un agent en production contrôlée sur un workflow prioritaire. Sur devis.
-- Formation agentique : rendre les équipes autonomes sur les agents (ateliers hands-on, finançable OPCO). Sur devis.
-- La Veille : produit d'appel basse friction, un mail exploitable des sources utiles d'un dirigeant.
+## The Parrit Standard
+Every delivered system is certified to the same specification (STD-1.0):
+- PS-01 Observable — the operator can determine the state of the system at any
+  moment, without asking anyone.
+- PS-02 Actionable — every surfaced piece of information leads to a possible
+  action within the same view.
+- PS-03 Traceable — every significant decision carries its origin: data, author,
+  timestamp, rationale.
+- PS-04 Reversible — every critical process has a documented path of return
+  before it is put into production.
+- PS-05 Owned — the client holds the system, its data and its documentation as
+  company assets.
+- PS-06 Compounding — each new capability increases the value of every
+  capability already in production.
 
-## Méthode de déploiement
-- Diagnostic du workflow prioritaire.
-- VPS sécurisé et accès limités.
-- Premier agent en production, validation humaine sur les actions sensibles.
-- Passation aux équipes et documentation.
-
-## Catalogue public des agents
-- Content Factory (Ava, Marketing & Contenu) : articles + vidéos avatar produits chaque semaine, dans votre voix. Secteur : interne + clients.
-- Capture multicanal (Priya, Relation client & SAV) : WhatsApp, site, appel, formulaire regroupés → CRM + relance auto. Secteur : artisanat.
-- Facturation & suivi (Kenji, Finance & Gestion) : factures émises, heures décomptées, relance des impayés automatisée. Secteur : services.
-- Formation agentique (Amara, RH & Formation) : session animée + toolkit : vos équipes deviennent autonomes. Secteur : cosmétique.
-- Orchestration des flux (Yuki, Opérations & Supply) : commandes, stock, tâches répétitives enchaînés sans intervention. Secteur : e-commerce artisanal.
-- Veille juridique (Noah, Juridique & Conformité) : signaux sur vos dossiers → filtre humain 1-clic → mail hebdo. Secteur : cabinet d'avocats.
-- Veille de marché (Omar, Direction & Pilotage) : digest personnalisé chaque lundi 8h, signaux faibles, angle sur-mesure. Secteur : direction / recherche de poste.
-- Acquisition signal-first (Mateo, Commercial & Ventes) : signaux publics d'intention → séquences perso → RDV qualifiés, 24/7. Secteur : courtage énergie B2B.
-- Relance commerciale (Mateo, Commercial & Ventes) : devis et prospects sans réponse relancés J+3/7/14, les oui remontés. Secteur : multi-secteurs.
-- Génération de visuels (Ava, Marketing & Contenu) : un brief en une phrase → visuel au gabarit de marque. Secteur : retail.
-- Sourcing par événements (Mateo, Commercial & Ventes) : intervenants d'un salon extraits, enrichis, approchés par secteur. Secteur : interne Parrit.
-- Visibilité IA (GEO) (Ava, Marketing & Contenu) : l'IA d'Amazon recommande-t-elle votre marque ? mesure + correctifs. Secteur : grande conso.
-- Tri des réclamations (Priya, Relation client & SAV) : emails classés, urgences isolées, brouillon prêt à valider. Secteur : SAV B2B.
-- Interroger vos données (Kenji, Finance & Gestion) : poser une question en français à un système métier ou un reporting. Secteur : ESN / outil interne.
-- Production express (Yuki, Opérations & Supply) : un site ou un livrable propre généré et testé en une soirée. Secteur : interne réutilisable.
-
-## La Veille
-La Veille est le produit d'appel : toutes les sources utiles d'un dirigeant ou d'une équipe condensées dans un mail exploitable, sans engagement lourd.
-
-## Ressources
-- Home : https://parrit.ai/fr
-- Catalogue complet et index éditorial : https://parrit.ai/llms-full.txt
-- Blog cas d'usage : https://parrit.ai/fr/blog
-- Launches : https://parrit.ai/fr/launches
-
-## Guides et ressources
-- L'architecture CLAUDE.md — les 4 couches d'un agent qui pilote (socle, mémoire atomique, garde-fous, compétences) ; parti pris Parrit vs le mythe des « 7 fichiers » : https://parrit.ai/architecture-claude-md
-- Démarrer avec Claude Code — guide pas à pas pour dirigeants, sans code : https://parrit.ai/demarrer-claude-code
+## Pages
+- https://parrit.ai/ — Parrit, company operating systems.
+- https://parrit.ai/standard — The Parrit Standard, the certification every
+  delivered system meets.
+- https://parrit.ai/commission — Commission an examination: one 30-minute
+  conversation to examine how your company operates. Not a sales call.
+- https://parrit.ai/journal — We Find The Way, the Parrit journal.
 
 ## Contact
-- Email : paul.larmaraud@parrit.ai
-- WhatsApp : +33 7 59 66 56 87
-- Rendez-vous : https://parrit.ai/fr/rendez-vous?source=llms
-
+- Booking: https://parrit.ai/commission (30 min, video).
+- The site is in English. Company based in France (Lille).

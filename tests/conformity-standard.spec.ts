@@ -6,7 +6,7 @@ const PRINCIPLES = [
   ["PS-01", "The operator can determine the state of the system at any moment, without asking anyone."],
   ["PS-02", "Every surfaced piece of information leads to a possible action within the same view."],
   ["PS-03", "Every significant decision carries its origin: data, author, timestamp, rationale."],
-  ["PS-04", "Every critical process has a documented path of return before it enters production."],
+  ["PS-04", "Every critical process has a documented path of return before it is put into production."],
   ["PS-05", "The client holds the system, its data and its documentation as company assets."],
   ["PS-06", "Each new capability increases the value of every capability already in production."],
 ] as const;
