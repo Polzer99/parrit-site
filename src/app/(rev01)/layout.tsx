@@ -5,6 +5,8 @@ import "../../system/tokens.css";
 import "../../system/system.css";
 import "./rev01.css";
 
+import { RevHeader } from "@/system/components";
+
 export const metadata: Metadata = {
   title: {
     default: "Parrit · Company operating systems",
@@ -17,7 +19,10 @@ export const metadata: Metadata = {
 export default function Rev01Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <RevHeader />
+        {children}
+      </body>
     </html>
   );
 }
