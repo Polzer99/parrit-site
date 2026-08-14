@@ -5,6 +5,7 @@ export { Frame } from "./Frame";
 export { Hold } from "./Hold";
 export { Instrument } from "./Instrument";
 export { K } from "./K";
+export { Opening } from "./Opening";
 export { RegistryLine } from "./RegistryLine";
 export { RevHeader } from "./RevHeader";
 export { Seal } from "./Seal";
