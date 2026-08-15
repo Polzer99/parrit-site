@@ -92,6 +92,7 @@ export async function POST(req: NextRequest) {
             entreprise: corps.entreprise ?? "",
             interet,
             ouvert_appel: Boolean(corps.ouvertAppel),
+            sketch_url: `https://parrit.ai/sketch/${submissionId}`,
             page: corps.pageOrigine ?? "",
             lang,
             timestamp: new Date().toISOString(),
@@ -109,6 +110,7 @@ export async function POST(req: NextRequest) {
       submissionId,
       prospectId: resultat.prospectId,
       dejaEnregistre: resultat.dejaEnregistre,
+      sketchUrl: `/sketch/${submissionId}`,
       notification,
     });
   } catch (e) {

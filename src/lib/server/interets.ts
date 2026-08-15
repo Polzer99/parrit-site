@@ -228,7 +228,15 @@ async function poserCarteSuperApp(
       ? `Campagne ${contexte.attribution["utm_campaign"]}`
       : `Source ${contexte.source}`,
     "",
-    "Prochaine action : esquisser le mini-prototype et l'envoyer (promesse du funnel).",
+    `ESQUISSE DÉJÀ GÉNÉRÉE : https://parrit.ai/sketch/${contexte.submissionId}`,
+    "",
+    "Brouillon mail 1 (à envoyer tel quel ou ajusté) :",
+    `« Subject: Your operating system — first sketch`,
+    `Hi — while you were on parrit.ai, I sketched the first surface of an operating`,
+    `system for ${contexte.entreprise?.trim() || "your company"} from what you told us.`,
+    `It's live here: https://parrit.ai/sketch/${contexte.submissionId}`,
+    `In 10 focused hours we turn a sketch like this into a system in production.`,
+    `Want the 30-minute examination? — Parrit »`,
   ].join("\n");
 
   try {
