@@ -28,13 +28,19 @@ export function RegisterInterest({ source }: { source: string }) {
   const [interest, setInterest] = useState<string>("full-os");
   const [company, setCompany] = useState("");
   const [openToCall, setOpenToCall] = useState(false);
-  const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [state, setState] = useState<"idle" | "invalid" | "sending" | "done" | "error">("idle");
   const [detail, setDetail] = useState("");
   const [sketchUrl, setSketchUrl] = useState("");
 
-  const submit = async (event: React.FormEvent) => {
+  const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (state === "sending" || state === "done") return;
+    const emailField = event.currentTarget.querySelector<HTMLInputElement>('input[type="email"]');
+    if (emailField && !emailField.checkValidity()) {
+      setState("invalid");
+      emailField.focus();
+      return;
+    }
     setState("sending");
     track("form_started", { form: "register-interest", interest });
     try {
@@ -87,7 +93,7 @@ export function RegisterInterest({ source }: { source: string }) {
   }
 
   return (
-    <form className="ri" onSubmit={submit} aria-label="Register your interest">
+    <form className="ri" onSubmit={submit} noValidate aria-label="Register your interest">
       <div className="ri-head">
         <K>Register your interest</K>
         <h3>In 10 focused hours, your company gets its first system. Start here.</h3>
@@ -139,11 +145,15 @@ export function RegisterInterest({ source }: { source: string }) {
       </label>
       <div className="ri-foot">
         <button className="rev-button exec" type="submit" disabled={state === "sending"}>
-          {state === "sending" ? "Registering…" : "Register interest"}
+          {state === "sending" ? "Registering…" : "Register your interest"}
         </button>
         {state === "error" ? (
           <span className="ri-error" role="alert">
             Registration failed ({detail}). Write to us instead: paul.larmaraud@parrit.ai
+          </span>
+        ) : state === "invalid" ? (
+          <span className="ri-error" role="alert">
+            Enter a valid work e-mail to receive your sketch.
           </span>
         ) : (
           <K>One prototype per company · No automated sequence</K>

@@ -1,10 +1,21 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+
+const NAV = [
+  ["/", "System"],
+  ["/manufacture", "Manufacture"],
+  ["/standard", "Standard"],
+  ["/dossiers", "Dossiers"],
+  ["/journal", "Journal"],
+  ["/commission", "Commission"],
+] as const;
 
 export function RevHeader() {
   const [clock, setClock] = useState("—");
+  const pathname = usePathname();
 
   useEffect(() => {
     const updateClock = () => {
@@ -27,12 +38,19 @@ export function RevHeader() {
         PARRIT<i aria-hidden="true">.</i>AI
       </Link>
       <nav className="cmd-nav" aria-label="Main navigation">
-        <Link href="/">System</Link>
-        <Link href="/manufacture">Manufacture</Link>
-        <Link href="/standard">Standard</Link>
-        <Link href="/dossiers">Dossiers</Link>
-        <Link href="/journal">Journal</Link>
-        <Link href="/commission">Commission</Link>
+        {NAV.map(([href, label]) => {
+          const active = href === "/" ? pathname === "/" : pathname?.startsWith(href);
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={active ? "on" : undefined}
+              aria-current={active ? "page" : undefined}
+            >
+              {label}
+            </Link>
+          );
+        })}
       </nav>
       <time className="clock" aria-label="Local time">
         {clock}

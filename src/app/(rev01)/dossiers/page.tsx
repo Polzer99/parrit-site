@@ -15,7 +15,7 @@ const DOSSIERS = [
     ref: "DOSSIER 26-001",
     sector: "PARRIT ITSELF",
     title: "The system we sell is the system we run.",
-    body: "Parrit operates on its own operating system: one place where signals, clients and campaigns become decisions — delivered to the founder's phone as cards. Built for ourselves first, compounding since.",
+    body: "Parrit operates on its own operating system: one place where signals, clients and campaigns become decisions — delivered to the founder’s phone as cards. Built for ourselves first, compounding since.",
     value: "200+",
     result: "signals become decisions, every week",
     seal: "In production · Compounding",
@@ -24,7 +24,7 @@ const DOSSIERS = [
     ref: "DOSSIER 26-002",
     sector: "A LAW FIRM",
     title: "An operating system for a law firm.",
-    body: "Client intake, follow-ups and case flow — rebuilt as one system, on the firm's own infrastructure. First capabilities certified and live; the system grows case by case.",
+    body: "Client intake, follow-ups and case flow — rebuilt as one system, on the firm’s own infrastructure. First capabilities certified and live; the system grows case by case.",
     value: "+€5–10K",
     result: "additional revenue per month, from re-engaged case flow",
     seal: "Under construction · First capabilities live",
@@ -33,7 +33,7 @@ const DOSSIERS = [
     ref: "DOSSIER 26-003",
     sector: "A CONSUMER BRAND",
     title: "Reporting nobody writes.",
-    body: "The reporting assembles itself from source systems and ships on schedule — run today by the client's own team, without us. Owned, documented, handed over.",
+    body: "The reporting assembles itself from source systems and ships on schedule — run today by the client’s own team, without us. Owned, documented, handed over.",
     value: "2.5 months",
     result: "recovered on a single reporting process",
     seal: "Delivered · Operated by the client",
@@ -82,7 +82,7 @@ export default function DossiersPage() {
           <h2>Your company could be the next dossier.</h2>
           <p className="proof">30 MIN · AN EXAMINATION, NOT A SALES CALL</p>
           <Link className="rev-button exec" href="/commission">
-            Let&apos;s talk
+            Let’s talk
           </Link>
         </section>
 

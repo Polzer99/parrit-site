@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 /* Chaque intérêt déclaré reçoit son instrument : des lignes crédibles pour CE
    périmètre, pas un gabarit générique. Déterministe — aucun chiffre inventé
-   n'est présenté comme réel : c'est une ESQUISSE, dite comme telle. */
+   n’est présenté comme réel : c’est une ESQUISSE, dite comme telle. */
 const SKETCHES: Record<
   Interet,
   {
@@ -68,7 +68,7 @@ const SKETCHES: Record<
     next: [
       "Examination reads a week of your real inbox flow: volumes, delays, drops.",
       "Construction ships the classifier and the draft doctrine, certified.",
-      "Follow-ups stop depending on memory — yours or anyone's.",
+      "Follow-ups stop depending on memory — yours or anyone’s.",
     ],
   },
   "full-os": {
@@ -154,7 +154,7 @@ export default async function SketchPage({ params }: { params: Promise<{ id: str
             <h2>Thirty minutes turns this sketch into a scope.</h2>
             <p className="proof">30 MIN · AN EXAMINATION, NOT A SALES CALL</p>
             <Link className="rev-button exec" href="/commission">
-              Let&apos;s talk
+              Let’s talk
             </Link>
           </section>
 

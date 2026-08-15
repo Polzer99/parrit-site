@@ -45,7 +45,7 @@ Every delivered system is certified to the same specification (STD-1.0):
 
 ## Who is Parrit
 - An independent French maison, founded by Paul Larmaraud and steered by its
-  partners — around twenty engineers and operators around the project.
+  partners — twenty engineers and operators around the project.
 - A registered French company (PARRIT.AI, SASU, registered office in
   Rueil-Malmaison, France); full legal identity at https://parrit.ai/legal.
 - Based in Lille, France. Operates internationally, in English and in French —

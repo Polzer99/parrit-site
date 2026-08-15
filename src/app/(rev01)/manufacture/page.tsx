@@ -25,7 +25,7 @@ const PRINCIPLES = [
   },
   {
     name: "Built in your perimeter",
-    body: "The system is built in your accounts, on your infrastructure, under your keys — from the first day, not at handover. Your data never lives on Parrit's servers, and our access ends the day you revoke it. Security is not a clause in a contract; it is where the system physically lives.",
+    body: "The system is built in your accounts, on your infrastructure, under your keys — from the first day, not at handover. Your data never lives on Parrit’s servers, and our access ends the day you revoke it. Security is not a clause in a contract; it is where the system physically lives.",
   },
   {
     name: "Owned, not rented",
@@ -110,7 +110,7 @@ export default function ManufacturePage() {
           <h2>The Examination comes first. Commission it.</h2>
           <p className="proof">30 MIN · AN EXAMINATION, NOT A SALES CALL</p>
           <Link className="rev-button exec" href="/commission">
-            Let&apos;s talk
+            Let’s talk
           </Link>
         </section>
 

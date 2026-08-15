@@ -7,25 +7,25 @@ slug: "le-bon-endroit-pour-ecrire"
 
 Before connecting an editorial engine to a website, one question looks secondary: where is the engine allowed to write?
 
-      The wrong answer is tempting. The script opens the main blog file, finds the post array, injects a block in the right place, then hopes the structure will not change. It works once. After that, every redesign becomes a risk.
+The wrong answer is tempting. The script opens the main blog file, finds the post array, injects a block in the right place, then hopes the structure will not change. It works once. After that, every redesign becomes a risk.
 
-      ## The main file is not an API
+## The main file is not an API
 
-      A file read by humans is not automatically a machine entry point. If it contains historical articles, types, sorting functions and publishing logic, editing it automatically confuses a working page with a stable interface.
+A file read by humans is not automatically a machine entry point. If it contains historical articles, types, sorting functions and publishing logic, editing it automatically confuses a working page with a stable interface.
 
-      The rule is simple: the engine writes to a dedicated file. The site reads that file and combines it with the existing articles.
+The rule is simple: the engine writes to a dedicated file. The site reads that file and combines it with the existing articles.
 
-      ## What the separation prevents
+## What the separation prevents
 
-      It prevents fragile edits. It prevents insertions in the wrong place. Most importantly, it prevents a publishing tool from having the power to break the historical blog logic.
+It prevents fragile edits. It prevents insertions in the wrong place. Most importantly, it prevents a publishing tool from having the power to break the historical blog logic.
 
-      The main code remains reading code. The generated file becomes the only write target. The boundary is visible in the repository and verifiable during review.
+The main code remains reading code. The generated file becomes the only write target. The boundary is visible in the repository and verifiable during review.
 
-      ## Maintenance as proof of seriousness
+## Maintenance as proof of seriousness
 
-      This detail is invisible in the published article. It becomes visible six weeks later, when the blog page changes without anyone having to reread an injection script.
+This detail is invisible in the published article. It becomes visible six weeks later, when the blog page changes without anyone having to reread an injection script.
 
-      Reliable automation often starts with this kind of narrow decision: give the machine a precise corridor, then forbid the rest.
+Reliable automation often starts with this kind of narrow decision: give the machine a precise corridor, then forbid the rest.
 
-      The right system is not the one that can write everywhere. It is the one that knows exactly where it is allowed to write.
+The right system is not the one that can write everywhere. It is the one that knows exactly where it is allowed to write.
 

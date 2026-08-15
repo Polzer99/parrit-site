@@ -129,7 +129,7 @@ export default function LegalPage() {
           <section>
             <h3>Legal basis</h3>
             <p>
-              Processing is based on your consent (forms) and on Parrit.ai&apos;s legitimate interest in
+              Processing is based on your consent (forms) and on Parrit.ai’s legitimate interest in
               developing its business and securing its site.
             </p>
           </section>

@@ -1,0 +1,565 @@
+[
+  {
+    "page": "home",
+    "path": "/",
+    "url": "https://parrit.ai/",
+    "viewport": {
+      "w": 390,
+      "h": 844
+    },
+    "smallTargets": [
+      {
+        "tag": "A",
+        "text": "PARRIT.AI",
+        "w": 96,
+        "h": 17,
+        "x": 20,
+        "y": 17
+      },
+      {
+        "tag": "A",
+        "text": "Let's talk",
+        "w": 118,
+        "h": 40,
+        "x": 20,
+        "y": 472
+      },
+      {
+        "tag": "A",
+        "text": "Examine the Standard",
+        "w": 198,
+        "h": 40,
+        "x": 150,
+        "y": 472
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Hold to release",
+        "w": 145,
+        "h": 39,
+        "x": 66,
+        "y": 2503
+      },
+      {
+        "tag": "A",
+        "text": "Read the full Standard",
+        "w": 172,
+        "h": 13,
+        "x": 20,
+        "y": 5929
+      },
+      {
+        "tag": "A",
+        "text": "Read the journal",
+        "w": 125,
+        "h": 13,
+        "x": 195,
+        "y": 9977
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 14,
+        "h": 15,
+        "x": 57,
+        "y": 10833
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Register interest",
+        "w": 174,
+        "h": 40,
+        "x": 53,
+        "y": 10882
+      },
+      {
+        "tag": "A",
+        "text": "Let's talk",
+        "w": 118,
+        "h": 40,
+        "x": 136,
+        "y": 11356
+      },
+      {
+        "tag": "A",
+        "text": "FOUNDED BY PAUL LARMARAUD",
+        "w": 195,
+        "h": 13,
+        "x": 20,
+        "y": 11566
+      },
+      {
+        "tag": "A",
+        "text": "/Legal",
+        "w": 47,
+        "h": 13,
+        "x": 323,
+        "y": 11589
+      }
+    ],
+    "edgeTouching": [],
+    "smallFonts": [
+      {
+        "size": 10,
+        "tag": "A",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "System",
+        "count": 10
+      },
+      {
+        "size": 10,
+        "tag": "SPAN",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "Parrit — Company operating systems",
+        "count": 39
+      },
+      {
+        "size": 11,
+        "tag": "A",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "Let's talk",
+        "count": 3
+      },
+      {
+        "size": 10,
+        "tag": "DIV",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "07:12 · 7 actions executed · journal upd",
+        "count": 10
+      },
+      {
+        "size": 9,
+        "tag": "DIV",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "In production · Compounding",
+        "count": 3
+      },
+      {
+        "size": 11,
+        "tag": "BUTTON",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "Register interest",
+        "count": 1
+      }
+    ],
+    "h1": {
+      "fontSize": "46px",
+      "lineHeight": "46.92px",
+      "rect": {
+        "w": 350,
+        "h": 141,
+        "x": 20,
+        "y": 194
+      },
+      "text": "The system your company operates on.",
+      "overflowsViewport": false
+    },
+    "hasHorizontalScroll": false,
+    "scrollWidth": 390
+  },
+  {
+    "page": "manufacture",
+    "path": "/manufacture",
+    "url": "https://parrit.ai/manufacture",
+    "viewport": {
+      "w": 390,
+      "h": 844
+    },
+    "smallTargets": [
+      {
+        "tag": "A",
+        "text": "PARRIT.AI",
+        "w": 96,
+        "h": 17,
+        "x": 20,
+        "y": 17
+      },
+      {
+        "tag": "A",
+        "text": "Parrit Standard",
+        "w": 117,
+        "h": 13,
+        "x": 202,
+        "y": 2435
+      },
+      {
+        "tag": "A",
+        "text": "Let's talk",
+        "w": 118,
+        "h": 40,
+        "x": 136,
+        "y": 2782
+      },
+      {
+        "tag": "A",
+        "text": "/Legal",
+        "w": 47,
+        "h": 13,
+        "x": 323,
+        "y": 2992
+      }
+    ],
+    "edgeTouching": [],
+    "smallFonts": [
+      {
+        "size": 10,
+        "tag": "A",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "System",
+        "count": 8
+      },
+      {
+        "size": 10,
+        "tag": "SPAN",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "Parrit / The Manufacture",
+        "count": 6
+      },
+      {
+        "size": 10,
+        "tag": "DIV",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "01",
+        "count": 3
+      },
+      {
+        "size": 11,
+        "tag": "A",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "Let's talk",
+        "count": 1
+      }
+    ],
+    "h1": {
+      "fontSize": "46px",
+      "lineHeight": "46.92px",
+      "rect": {
+        "w": 350,
+        "h": 94,
+        "x": 20,
+        "y": 194
+      },
+      "text": "Manufactured, not installed.",
+      "overflowsViewport": false
+    },
+    "hasHorizontalScroll": false,
+    "scrollWidth": 390
+  },
+  {
+    "page": "standard",
+    "path": "/standard",
+    "url": "https://parrit.ai/standard",
+    "viewport": {
+      "w": 390,
+      "h": 844
+    },
+    "smallTargets": [
+      {
+        "tag": "A",
+        "text": "PARRIT.AI",
+        "w": 96,
+        "h": 17,
+        "x": 20,
+        "y": 17
+      },
+      {
+        "tag": "A",
+        "text": "Let's talk",
+        "w": 118,
+        "h": 40,
+        "x": 20,
+        "y": 2396
+      }
+    ],
+    "edgeTouching": [],
+    "smallFonts": [
+      {
+        "size": 10,
+        "tag": "A",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "System",
+        "count": 6
+      },
+      {
+        "size": 10,
+        "tag": "SPAN",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "Parrit / Specification",
+        "count": 9
+      },
+      {
+        "size": 11,
+        "tag": "SPAN",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "The Parrit Standard",
+        "count": 2
+      },
+      {
+        "size": 11,
+        "tag": "A",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "Let's talk",
+        "count": 1
+      }
+    ],
+    "h1": {
+      "fontSize": "30px",
+      "lineHeight": "32.4px",
+      "rect": {
+        "w": 350,
+        "h": 97,
+        "x": 20,
+        "y": 150
+      },
+      "text": "Every system we deliver is certified to the same specification.",
+      "overflowsViewport": false
+    },
+    "hasHorizontalScroll": false,
+    "scrollWidth": 390
+  },
+  {
+    "page": "dossiers",
+    "path": "/dossiers",
+    "url": "https://parrit.ai/dossiers",
+    "viewport": {
+      "w": 390,
+      "h": 844
+    },
+    "smallTargets": [
+      {
+        "tag": "A",
+        "text": "PARRIT.AI",
+        "w": 96,
+        "h": 17,
+        "x": 20,
+        "y": 17
+      },
+      {
+        "tag": "A",
+        "text": "Let's talk",
+        "w": 118,
+        "h": 40,
+        "x": 136,
+        "y": 2101
+      }
+    ],
+    "edgeTouching": [],
+    "smallFonts": [
+      {
+        "size": 10,
+        "tag": "A",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "System",
+        "count": 6
+      },
+      {
+        "size": 10,
+        "tag": "SPAN",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "Parrit / System dossiers",
+        "count": 10
+      },
+      {
+        "size": 9,
+        "tag": "DIV",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "In production · Compounding",
+        "count": 3
+      },
+      {
+        "size": 11,
+        "tag": "A",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "Let's talk",
+        "count": 1
+      }
+    ],
+    "h1": {
+      "fontSize": "46px",
+      "lineHeight": "46.92px",
+      "rect": {
+        "w": 350,
+        "h": 47,
+        "x": 20,
+        "y": 194
+      },
+      "text": "Sealed dossiers.",
+      "overflowsViewport": false
+    },
+    "hasHorizontalScroll": false,
+    "scrollWidth": 390
+  },
+  {
+    "page": "commission",
+    "path": "/commission",
+    "url": "https://parrit.ai/commission",
+    "viewport": {
+      "w": 390,
+      "h": 844
+    },
+    "smallTargets": [
+      {
+        "tag": "A",
+        "text": "PARRIT.AI",
+        "w": 96,
+        "h": 17,
+        "x": 20,
+        "y": 17
+      }
+    ],
+    "edgeTouching": [],
+    "smallFonts": [
+      {
+        "size": 10,
+        "tag": "A",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "System",
+        "count": 6
+      },
+      {
+        "size": 10,
+        "tag": "SPAN",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "Parrit — Commission",
+        "count": 6
+      }
+    ],
+    "h1": {
+      "fontSize": "30px",
+      "lineHeight": "30px",
+      "rect": {
+        "w": 350,
+        "h": 60,
+        "x": 20,
+        "y": 178
+      },
+      "text": "Commission your Operating System.",
+      "overflowsViewport": false
+    },
+    "hasHorizontalScroll": false,
+    "scrollWidth": 390
+  },
+  {
+    "page": "journal",
+    "path": "/journal",
+    "url": "https://parrit.ai/journal",
+    "viewport": {
+      "w": 390,
+      "h": 844
+    },
+    "smallTargets": [
+      {
+        "tag": "A",
+        "text": "PARRIT.AI",
+        "w": 96,
+        "h": 17,
+        "x": 20,
+        "y": 17
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 14,
+        "h": 15,
+        "x": 57,
+        "y": 6132
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Register interest",
+        "w": 174,
+        "h": 40,
+        "x": 53,
+        "y": 6181
+      }
+    ],
+    "edgeTouching": [],
+    "smallFonts": [
+      {
+        "size": 10,
+        "tag": "A",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "System",
+        "count": 6
+      },
+      {
+        "size": 10,
+        "tag": "SPAN",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "PARRIT / JOURNAL · REV 01 · 2026",
+        "count": 27
+      },
+      {
+        "size": 11,
+        "tag": "BUTTON",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "Register interest",
+        "count": 1
+      }
+    ],
+    "h1": {
+      "fontSize": "30px",
+      "lineHeight": "30px",
+      "rect": {
+        "w": 350,
+        "h": 30,
+        "x": 20,
+        "y": 145
+      },
+      "text": "We Find The Way.",
+      "overflowsViewport": false
+    },
+    "hasHorizontalScroll": false,
+    "scrollWidth": 390
+  },
+  {
+    "page": "journal-article",
+    "path": "/journal/glm-5-2-souverainete",
+    "url": "https://parrit.ai/journal/glm-5-2-souverainete",
+    "viewport": {
+      "w": 390,
+      "h": 844
+    },
+    "smallTargets": [
+      {
+        "tag": "A",
+        "text": "PARRIT.AI",
+        "w": 96,
+        "h": 17,
+        "x": 20,
+        "y": 17
+      }
+    ],
+    "edgeTouching": [],
+    "smallFonts": [
+      {
+        "size": 10,
+        "tag": "A",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "System",
+        "count": 6
+      },
+      {
+        "size": 10,
+        "tag": "SPAN",
+        "font": "\"JetBrains Mono\", Menlo, monos",
+        "text": "Journal / glm-5-2-souverainete",
+        "count": 2
+      }
+    ],
+    "h1": {
+      "fontSize": "30px",
+      "lineHeight": "30px",
+      "rect": {
+        "w": 358,
+        "h": 90,
+        "x": 16,
+        "y": 218
+      },
+      "text": "GLM-5.2: dependence on American AI is already no longer inevitable",
+      "overflowsViewport": false
+    },
+    "hasHorizontalScroll": false,
+    "scrollWidth": 390
+  }
+]

@@ -40,7 +40,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
     <main className="rev-page">
       <article className="journal-article">
         <header className="journal-header">
-          <K>Journal / {entry.slug}</K>
+          <K>Journal / Entry · {entry.date}</K>
           <h1>{entry.title}</h1>
           <p className="journal-deck">{entry.description}</p>
         </header>

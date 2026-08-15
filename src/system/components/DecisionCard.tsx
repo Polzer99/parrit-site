@@ -53,12 +53,10 @@ export function DecisionCard({
     </>
   );
 
-  return isDone ? (
-    <div className="decision-card" data-done="true">
-      {inner}
-    </div>
-  ) : (
-    <Frame closed={closing} className="decision-card">
+  /* Un seul wrapper dans les deux états : changer d'élément démontait le
+     sous-arbre et réarmait le Hold sous un titre « Executed ». */
+  return (
+    <Frame closed={closing || isDone} className="decision-card" data-done={isDone || undefined}>
       {inner}
     </Frame>
   );

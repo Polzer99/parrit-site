@@ -1,7 +1,7 @@
 "use client";
 
-/* Le « watch me work » du funnel : un boot log qui lit l'entreprise, mappe les
-   opérations et révèle l'esquisse. Même grammaire que l'Opening — skip au clic,
+/* Le « watch me work » du funnel : un boot log qui lit l’entreprise, mappe les
+   opérations et révèle l’esquisse. Même grammaire que l’Opening — skip au clic,
    skip total en reduced-motion, la page reste rendue dessous (SSR intact). */
 
 import { useCallback, useEffect, useState } from "react";

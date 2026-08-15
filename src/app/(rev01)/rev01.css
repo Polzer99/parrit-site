@@ -792,7 +792,7 @@ body {
   margin: var(--s2) 0 0;
   font-size: clamp(30px, 4vw, 52px);
   font-weight: 500;
-  letter-spacing: -.035em;
+  letter-spacing: -.03em;
   line-height: 1;
 }
 
@@ -856,9 +856,6 @@ body {
   padding: var(--s8) 0 0;
 }
 
-.journal-article h1 {
-  font-weight: 600;
-}
 
 .journal-body {
   padding: var(--s6) 0;
@@ -1001,21 +998,70 @@ body {
   letter-spacing: .16em;
   text-transform: uppercase;
   text-decoration: none;
+  transition: color .15s ease;
 }
 
-.cmd-nav a:hover,
+.cmd-nav a:hover {
+  color: var(--paper);
+}
+
 .cmd-nav a:focus-visible {
   color: var(--paper);
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
 }
 
 .cmd-nav a.on {
   color: var(--paper);
 }
 
+/* mobile : la nav reste accessible — rangée mono défilante, jamais supprimée */
 @media (max-width: 760px) {
+  .cmdbar {
+    gap: 14px;
+  }
+
   .cmd-nav {
+    gap: 16px;
+    overflow-x: auto;
+    margin: 0;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cmd-nav::-webkit-scrollbar {
     display: none;
   }
+
+  .cmd-nav a {
+    flex: 0 0 auto;
+  }
+
+  .clock {
+    display: none;
+  }
+}
+
+/* micro-transitions premium : chaque état survolé s'ease, rien ne claque
+   (reduced-motion est déjà neutralisé globalement dans system.css) */
+.rev-button,
+.r2-jrnl-row .nm,
+.ri input,
+.ri select,
+.k,
+a.k {
+  transition: color .15s ease, background-color .15s ease, border-color .15s ease;
+}
+
+a.k:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.rev-button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
 }
 
 /* — registre sombre générique — */

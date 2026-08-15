@@ -39,7 +39,7 @@ const PRINCIPLES = [
     "PS-05",
     "Owned",
     "The client holds the system, its data and its documentation as company assets.",
-    "Code, data and documentation are handed over as company assets. The client's team operates the system without us.",
+    "Code, data and documentation are handed over as company assets. The client’s team operates the system without us.",
   ],
   [
     "PS-06",
@@ -93,7 +93,7 @@ export default function StandardPage() {
 
         <div className="standard-action">
           <Link className="rev-button exec" href="/commission">
-            Let&apos;s talk
+            Let’s talk
           </Link>
         </div>
 

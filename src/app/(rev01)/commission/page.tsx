@@ -4,7 +4,7 @@ import { K, ParritCalInline, RegistryLine } from "@/system/components";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/commission" },
-  title: "Commission your Operating System",
+  title: "Commission your operating system",
   description:
     "One conversation to examine how your company operates. The first step — an examination, not a sales call.",
 };
@@ -14,8 +14,8 @@ export default function CommissionPage() {
     <main className="rev-page commission-page">
       <div className="rev-wrap">
         <header className="commission-header">
-          <K>Parrit — Commission</K>
-          <h1>Commission your Operating System.</h1>
+          <K>Parrit / Commission</K>
+          <h1>Commission your operating system.</h1>
           <p>
             One conversation to examine how your company operates. The first step — an
             examination, not a sales call.

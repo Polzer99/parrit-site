@@ -14,7 +14,7 @@ const DOSSIERS = [
     ref: "DOSSIER 26-001",
     sector: "PARRIT ITSELF",
     title: "The system we sell is the system we run.",
-    body: "Parrit operates on its own operating system: one place where signals, clients and campaigns become decisions — delivered to the founder's phone as cards. Built for ourselves first, compounding since.",
+    body: "Parrit operates on its own operating system: one place where signals, clients and campaigns become decisions — delivered to the founder’s phone as cards. Built for ourselves first, compounding since.",
     value: "200+",
     result: "signals become decisions, every week",
     seal: "In production · Compounding",
@@ -23,7 +23,7 @@ const DOSSIERS = [
     ref: "DOSSIER 26-002",
     sector: "A LAW FIRM",
     title: "An operating system for a law firm.",
-    body: "Client intake, follow-ups and case flow — rebuilt as one system, on the firm's own infrastructure. First capabilities certified and live; the system grows case by case.",
+    body: "Client intake, follow-ups and case flow — rebuilt as one system, on the firm’s own infrastructure. First capabilities certified and live; the system grows case by case.",
     value: "+€5–10K",
     result: "additional revenue per month, from re-engaged case flow",
     seal: "Under construction · First capabilities live",
@@ -32,7 +32,7 @@ const DOSSIERS = [
     ref: "DOSSIER 26-003",
     sector: "A CONSUMER BRAND",
     title: "Reporting nobody writes.",
-    body: "The reporting assembles itself from source systems and ships on schedule — run today by the client's own team, without us. Owned, documented, handed over.",
+    body: "The reporting assembles itself from source systems and ships on schedule — run today by the client’s own team, without us. Owned, documented, handed over.",
     value: "2.5 months",
     result: "recovered on a single reporting process",
     seal: "Delivered · Operated by the client",
@@ -81,7 +81,7 @@ const PHASES = [
 const FAQ = [
   {
     q: "Who is Parrit?",
-    a: "An independent French maison, founded by Paul Larmaraud and steered by its partners — around twenty engineers and operators around the project. A registered company whose full legal identity is one click away, under /Legal. Deliberately small at the core: we take few commissions, and a partner personally builds each one. The Journal is where our thinking is public.",
+    a: "An independent French maison, founded by Paul Larmaraud and steered by its partners — twenty engineers and operators around the project. A registered company whose full legal identity is one click away, under /Legal. Deliberately small at the core: we take few commissions, and a partner personally builds each one. The Journal is where our thinking is public.",
   },
   {
     q: "What do we own at the end?",
@@ -89,11 +89,11 @@ const FAQ = [
   },
   {
     q: "Where does our data live?",
-    a: "In your perimeter. Parrit builds inside your own accounts and infrastructure from day one — your data never lives on Parrit's servers, and our access ends the day you revoke it. GDPR posture follows from that: nothing changes hands to lose.",
+    a: "In your perimeter. Parrit builds inside your own accounts and infrastructure from day one — your data never lives on Parrit’s servers, and our access ends the day you revoke it. GDPR posture follows from that: nothing changes hands to lose.",
   },
   {
     q: "Who maintains it after delivery?",
-    a: "We do. There is maintenance — a living system is never finished — and we carry what we deliver: every commission includes maintenance and evolution, so the system keeps running and keeps growing. You still own everything, and because it is built on ordinary technology you can take it over with your own team whenever you choose, like the consumer brand in dossier 26-003. Maintenance is an explicit term of the commission, priced on its own — not a subscription in disguise: stop it whenever you want, the system stays yours and keeps running.",
+    a: "We do. There is maintenance. A living system is never finished, and we carry what we deliver: every commission includes maintenance and evolution, so the system keeps running and keeps growing. You still own everything, and because it is built on ordinary technology you can take it over with your own team whenever you choose, like the consumer brand in dossier 26-003. Maintenance is an explicit term of the commission, priced on its own — not a subscription in disguise: stop it whenever you want, the system stays yours and keeps running.",
   },
   {
     q: "How much does it ask of my team?",
@@ -108,7 +108,7 @@ const FAQ = [
     a: "Construction targets one critical operation, in production and certified — typically weeks, not quarters. The Examination fixes the scope before any commitment.",
   },
   {
-    q: "What if it doesn't hold?",
+    q: "What if it doesn’t hold?",
     a: "Every critical process ships with a documented path of return (PS-04). Nothing enters production without a way back out.",
   },
 ] as const;
@@ -121,7 +121,7 @@ export default function HomePage() {
       <main className="rev-page r2-dark">
         <div className="r2-wrap">
           <header className="r2-hero">
-            <K>Parrit — Company operating systems</K>
+            <K>Parrit / Company operating systems</K>
             <h1>
               The system your company{" "}
               <span className="frame">
@@ -136,7 +136,7 @@ export default function HomePage() {
             </p>
             <div className="rev-actions">
               <Link className="rev-button exec" href="/commission">
-                Let&apos;s talk
+                Let’s talk
               </Link>
               <Link className="rev-button ghost" href="/standard">
                 Examine the Standard
@@ -184,7 +184,7 @@ export default function HomePage() {
             </div>
             <div className="r2-metric">
               <div className="v">1</div>
-              <div className="l">company at a time. Every system built against how it actually operates</div>
+              <div className="l">company at a time. Every system is built against how it actually operates</div>
             </div>
             <div className="r2-metric">
               <div className="v">100%</div>
@@ -235,7 +235,7 @@ export default function HomePage() {
                   <h3>You talk to your company.</h3>
                   <p>
                     The interface converges toward conversation: you ask, the system answers
-                    with framed decisions — not dashboards to interpret.
+                    with framed decisions. Not dashboards to interpret.
                   </p>
                 </div>
                 <div className="r2-iface-point">
@@ -284,11 +284,11 @@ export default function HomePage() {
               ))}
             </div>
             <p className="r2-registre-note">
-              Also in the registry: a CRM an agency never touches by hand, outbound
+              Also among the dossiers: a CRM an agency never touches by hand, outbound
               infrastructure end-to-end, and systems commissioned by maisons in cosmetics and
-              craft retail. Figures are measured in the client&apos;s own systems and verified
-              live, on screen, during the examination call. The dossiers — and references,
-              with the client&apos;s consent — open in conversation, not on a website.
+              craft retail. Figures are measured in the client’s own systems and verified
+              live, on screen, during the examination call. The dossiers, and references
+              with the client’s consent, open in conversation — not on a website.
             </p>
           </section>
         </div>
@@ -417,13 +417,13 @@ export default function HomePage() {
               LIVE
             </p>
             <Link className="rev-button exec" href="/commission">
-              Let&apos;s talk
+              Let’s talk
             </Link>
           </section>
 
           <footer className="r2-footer">
             <RegistryLine />
-            <a className="k" href="https://paul-larmaraud.com">
+            <a className="k" href="https://paul-larmaraud.com" target="_blank" rel="noopener noreferrer">
               FOUNDED BY PAUL LARMARAUD
             </a>
             <K>COMMISSIONED, NOT SUBSCRIBED</K>
