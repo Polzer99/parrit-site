@@ -33,17 +33,22 @@ Every delivered system is certified to the same specification (STD-1.0):
 ## Who is Parrit
 - An independent French maison, founded by Paul Larmaraud and steered by its
   partners — around twenty engineers and operators around the project.
-- A registered French company (PARRIT.AI, SASU, Rueil-Malmaison, France); full
-  legal identity at https://parrit.ai/legal.
+- A registered French company (PARRIT.AI, SASU, registered office in
+  Rueil-Malmaison, France); full legal identity at https://parrit.ai/legal.
+- Based in Lille, France. Operates internationally, in English and in French —
+  commissions for European and African companies alike, built remotely inside
+  the client's own infrastructure.
 - Deliberately small at the core: few commissions, each one led hands-on by a
   partner.
 
 ## Ownership, maintenance and data
 - The repository is the client's from the first commit; the system runs in the
   client's own accounts, on their infrastructure, under their keys.
+- There is maintenance, and Parrit carries it: every commission includes
+  maintenance and evolution — Parrit carries what it delivers.
 - Built on ordinary, widely-adopted technology (TypeScript, Python, PostgreSQL)
-  so any competent engineer can maintain it without Parrit. Maintenance terms
-  are part of each commission — the client is never captive.
+  so any competent engineer can maintain it without Parrit — the client can
+  take over at any time and is never captive.
 - Client data never lives on Parrit's servers; Parrit's access ends the day the
   client revokes it.
 
@@ -70,4 +75,6 @@ Every delivered system is certified to the same specification (STD-1.0):
 
 ## Contact
 - Booking: https://parrit.ai/commission (30 min, video, with the founder).
-- The site is in English. Company based in Rueil-Malmaison, France.
+- The site is in English; commissions run in English and in French.
+- Based in Lille, France (registered office: Rueil-Malmaison, France).
+  International commissions welcome, including Africa.

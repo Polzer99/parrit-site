@@ -93,7 +93,15 @@ const FAQ = [
   },
   {
     q: "Who maintains it after delivery?",
-    a: "Your choice — that is the point of owning it. Some clients run the system with their own team from day one, like the consumer brand in dossier 26-003. Others commission Parrit to carry it: we carry what we deliver, and maintenance terms are set in each commission. Either way the system is built on ordinary technology so switching between the two never requires us.",
+    a: "We do. There is maintenance — a living system is never finished — and we carry what we deliver: every commission includes maintenance and evolution, so the system keeps running and keeps growing. You still own everything, and because it is built on ordinary technology you can take it over with your own team whenever you choose, like the consumer brand in dossier 26-003. Carried by us, owned by you — never captive.",
+  },
+  {
+    q: "How much does it ask of my team?",
+    a: "Less than a software project, more than a subscription. The Examination asks for a few hours of conversation with the people who actually run the operation. During Construction, your team keeps working as it always has — we build around the real flow, not in a workshop. Using the finished system requires no training: if a card needs a manual, we have failed.",
+  },
+  {
+    q: "Where do you operate?",
+    a: "From France — based in Lille, with the registered office near Paris — and internationally. Commissions run in English and in French, for European and African companies alike. The system is built remotely, inside your own infrastructure; the examination is a video call, wherever you are.",
   },
   {
     q: "How long before the first system runs?",
