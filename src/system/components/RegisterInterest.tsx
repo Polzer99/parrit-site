@@ -30,6 +30,7 @@ export function RegisterInterest({ source }: { source: string }) {
   const [openToCall, setOpenToCall] = useState(false);
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [detail, setDetail] = useState("");
+  const [sketchUrl, setSketchUrl] = useState("");
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -51,8 +52,9 @@ export function RegisterInterest({ source }: { source: string }) {
           attribution: attribution(),
         }),
       });
-      const body = (await response.json()) as { ok?: boolean; error?: string };
+      const body = (await response.json()) as { ok?: boolean; error?: string; sketchUrl?: string };
       if (response.ok && body.ok) {
+        if (body.sketchUrl) setSketchUrl(body.sketchUrl);
         setState("done");
         track("form_completed", { form: "register-interest", interest });
         track("prototype_requested", { interest, open_to_call: openToCall });
@@ -72,9 +74,14 @@ export function RegisterInterest({ source }: { source: string }) {
       <div className="ri" data-state="done">
         <K>Registered</K>
         <p className="ri-done">
-          Noted. Within days, a first sketch of an operating system for your company will
-          reach your inbox — built from what you just told us, not from a template.
+          Noted. The first sketch of your operating system is being assembled right now —
+          from what you just told us, not from a template.
         </p>
+        {sketchUrl ? (
+          <a className="rev-button exec" href={sketchUrl}>
+            Watch your sketch being assembled
+          </a>
+        ) : null}
       </div>
     );
   }
