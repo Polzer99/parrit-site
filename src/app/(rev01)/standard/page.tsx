@@ -83,9 +83,17 @@ export default function StandardPage() {
           </div>
         </section>
 
+        <p className="standard-note">
+          To be clear about what this is: STD-1.0 is our own bar, not a third-party
+          accreditation. We publish it so you can hold us to it. Each criterion is verified
+          in your production, on your data, against your flows — and signed off by you, not
+          by us. The certification you should trust is the one your own team gives after
+          running the system.
+        </p>
+
         <div className="standard-action">
           <Link className="rev-button exec" href="/commission">
-            Commission your Operating System
+            Commission your system
           </Link>
         </div>
 

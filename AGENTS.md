@@ -91,7 +91,8 @@ Une ressource a **une seule URL canonique** : celle qui rend son expérience com
 ## Routes (REV 01 — après purge legacy du 14/08/2026)
 - `src/app/(rev01)/page.tsx` → home institutionnelle (Opening + hero « Your company. One system. » + live demo + loop) ; `layout.tsx` du groupe porte la command bar (`RevHeader`) et le footer.
 - `/standard` (PS-01…PS-06) · `/commission` (Cal inline `paul-larmaraud/30min`, seul lien de booking du site) · `/journal` + `/journal/[slug]` · `/dossiers` · `/legal`.
-- `/paul` et `/maxime` : conservées à l'URL directe mais **noindex, hors sitemap, zéro lien entrant** (pivot institutionnel — sort final à trancher).
+- `/paul` et `/maxime` : **SUPPRIMÉES le 14/08/2026** (ordre Paul) — 301 vers `/` dans `next.config.ts`. Ne pas les recréer.
+- `/manufacture` (doctrine + phases) · `/sketch/[id]` (esquisse personnalisée du funnel, noindex, force-dynamic — l'UUID de soumission est le jeton d'accès).
 - `src/app/opengraph-image.tsx` (+ OG par article) = cartes OG, polices TTF officielles dans `src/og-assets/` (Satori refuse le woff2).
 - `src/app/camp-costa-rica/` = seule survivance de l'ancienne palette (voulu) ; `src/proxy.ts` ne gère plus que le rewrite d'hôte campparrita.com.
 - `scripts/generate-llms.mjs` (prebuild) régénère `public/llms.txt` — le modifier LUI, pas le fichier généré.

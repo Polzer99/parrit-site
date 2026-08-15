@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { DecisionCard, Instrument, K, Opening, RegisterInterest, RegistryLine, St } from "@/system/components";
+import { getAllJournalEntrySummaries } from "@/system/journal";
 
 export const metadata: Metadata = {
   title: { absolute: "Parrit — Company Operating Systems" },
@@ -79,8 +80,16 @@ const PHASES = [
 
 const FAQ = [
   {
+    q: "Who is Parrit?",
+    a: "An independent French maison — a registered company whose full legal identity is one click away, under /Legal. Deliberately small and senior: we take few commissions, and the founder builds each one. The Journal is where our thinking is public.",
+  },
+  {
     q: "What do we own at the end?",
-    a: "Everything. Code, data, documentation — handed over as company assets, per PS-05. If Parrit disappears tomorrow, your system does not.",
+    a: "Everything, from the start. The repository is yours from the first commit; the system runs in your accounts, on your infrastructure, under your keys. It is built on ordinary, widely-adopted technology — TypeScript, Python, PostgreSQL — so any competent engineer can maintain it without us. That is the mechanism behind PS-05, not a promise: if Parrit disappears tomorrow, your system does not notice.",
+  },
+  {
+    q: "Where does our data live?",
+    a: "In your perimeter. Parrit builds inside your own accounts and infrastructure from day one — your data never lives on Parrit's servers, and our access ends the day you revoke it. GDPR posture follows from that: nothing changes hands to lose.",
   },
   {
     q: "How long before the first system runs?",
@@ -93,6 +102,7 @@ const FAQ = [
 ] as const;
 
 export default function HomePage() {
+  const journal = getAllJournalEntrySummaries().slice(0, 3);
   return (
     <>
       <Opening />
@@ -149,6 +159,7 @@ export default function HomePage() {
             />
             <div className="r2-instrument-caption">
               <K>THE OPERATING SYSTEM — SURFACED. COMPLEXITY ABSORBED UNDERNEATH.</K>
+              <K>AN ILLUSTRATIVE SCENARIO — MEASURED CLIENT FIGURES LIVE IN THE DOSSIERS BELOW.</K>
             </div>
           </section>
         </div>
@@ -183,7 +194,7 @@ export default function HomePage() {
                 <div className="r2-phone-notch" aria-hidden="true" />
                 <div className="r2-phone-bar">
                   <K>PARRIT / OS</K>
-                  <K>09:14</K>
+                  <K>SCENARIO · 09:14</K>
                 </div>
                 <div className="r2-thread">
                   <div className="r2-msg sys">
@@ -263,7 +274,9 @@ export default function HomePage() {
             <p className="r2-registre-note">
               Also in the registry: a CRM an agency never touches by hand, outbound
               infrastructure end-to-end, and systems commissioned by maisons in cosmetics and
-              craft retail. The dossiers open in conversation — not on a website.
+              craft retail. Figures are measured in the client&apos;s own systems and verified
+              live, on screen, during the examination call. The dossiers — and references,
+              with the client&apos;s consent — open in conversation, not on a website.
             </p>
           </section>
         </div>
@@ -348,6 +361,31 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
+          </section>
+
+          <section className="r2-section" aria-labelledby="journal-heading">
+            <div className="r2-shead">
+              <h2 className="r2-ed" id="journal-heading">
+                From the journal.
+              </h2>
+              <K>How we actually think</K>
+            </div>
+            <div className="r2-jrnl">
+              {journal.map((entry) => (
+                <Link className="r2-jrnl-row" href={`/journal/${entry.slug}`} key={entry.slug}>
+                  <div className="no">{entry.date}</div>
+                  <div className="nm">{entry.title}</div>
+                  <div className="ds">{entry.description}</div>
+                </Link>
+              ))}
+            </div>
+            <p className="r2-registre-note">
+              Field notes on the systems we examine, build and operate — published under our
+              own names, dated, and occasionally wrong in public.{" "}
+              <Link className="k" href="/journal">
+                Read the journal
+              </Link>
+            </p>
           </section>
 
           <section className="r2-section" aria-labelledby="register-heading">

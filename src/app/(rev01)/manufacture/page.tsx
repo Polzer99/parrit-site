@@ -24,8 +24,12 @@ const PRINCIPLES = [
     body: "Only what requires the executive reaches the executive — framed, sourced, quantified. The decision then executes through the same system that surfaced it: traced, reversible, journaled.",
   },
   {
+    name: "Built in your perimeter",
+    body: "The system is built in your accounts, on your infrastructure, under your keys — from the first day, not at handover. Your data never lives on Parrit's servers, and our access ends the day you revoke it. Security is not a clause in a contract; it is where the system physically lives.",
+  },
+  {
     name: "Owned, not rented",
-    body: "Everything you receive is yours: code, data, documentation — handed over as company assets. Commissioned, not subscribed. If Parrit disappears tomorrow, your system does not.",
+    body: "Everything you receive is yours: code, data, documentation — handed over as company assets. The repository is yours from the first commit, and the system is built on ordinary, widely-adopted technology (TypeScript, Python, PostgreSQL), so any competent engineer can maintain it without us. Commissioned, not subscribed: if Parrit disappears tomorrow, your system does not.",
   },
 ] as const;
 
@@ -65,7 +69,7 @@ export default function ManufacturePage() {
             <h2 className="r2-ed" id="principles-heading">
               The doctrine.
             </h2>
-            <K>4 principles</K>
+            <K>5 principles</K>
           </div>
           <div className="r2-faq">
             {PRINCIPLES.map((principle) => (
@@ -113,6 +117,9 @@ export default function ManufacturePage() {
         <footer className="r2-footer">
           <RegistryLine value="PARRIT / MANUFACTURE · REV 01 · 2026" />
           <K>COMMISSIONED, NOT SUBSCRIBED</K>
+          <Link className="k" href="/legal">
+            /Legal
+          </Link>
           <K>© 2026 Parrit.ai</K>
         </footer>
       </div>
