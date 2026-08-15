@@ -83,10 +83,10 @@ body {
 
 .bootlog {
   width: 100%;
+  max-width: 1160px;
   min-height: 130px;
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 34px 24px 0;
+  padding: 34px 40px 0;
   color: var(--g4);
   font-family: var(--mono);
   font-size: 11px;
@@ -117,24 +117,37 @@ body {
   color: var(--red);
 }
 
+/* raccord Paul 15/08 : la phrase de l'Opening EST le H1 du hero — mêmes cotes,
+   même position, pour que la dissolution ne fasse pas « rétrécir » le titre */
 .boothero {
   display: flex;
   flex: 1;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1160px;
   margin: 0 auto;
-  padding: 40px 24px 90px;
+  padding: 43px 40px 90px;
+}
+
+@media (max-width: 760px) {
+  .bootlog {
+    padding: 34px 20px 0;
+  }
+
+  .boothero {
+    padding: 43px 20px 90px;
+  }
 }
 
 .boothero > div {
   max-width: 14ch;
   opacity: 0;
-  font-size: clamp(42px, 7.2vw, 96px);
+  font-size: clamp(46px, 6.4vw, 92px);
   font-weight: 500;
-  letter-spacing: -.03em;
+  letter-spacing: -.032em;
   line-height: 1.02;
+  text-wrap: balance;
 }
 
 .boothero > div.on {
