@@ -179,13 +179,18 @@ body {
   max-width: 34ch;
   margin: 0;
   color: var(--g2);
-  font-size: 14px;
+  font-size: 14.5px;
   line-height: 1.6;
 }
 
+/* revue cohérence Paul 15/08 : UNE seule grille sur tout le site — mêmes cotes
+   que .r2-wrap (1160 + 40) pour que le bord gauche ne saute jamais entre pages */
 .rev-wrap {
-  width: min(100% - var(--s6), 1200px);
+  width: 100%;
+  max-width: 1160px;
   margin: 0 auto;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .rev-hero {
@@ -205,7 +210,7 @@ body {
   max-width: 44ch;
   margin: 28px 0 0;
   color: var(--g3);
-  font-size: 16px;
+  font-size: 16.5px;
   line-height: 1.65;
 }
 
@@ -383,7 +388,7 @@ body {
 
 .commissioning-grid h4 {
   margin: 14px 0 var(--s1);
-  font-size: 17px;
+  font-size: 16.5px;
   font-weight: 600;
   letter-spacing: -.01em;
 }
@@ -466,7 +471,7 @@ body {
   max-width: 48ch;
   margin: var(--s2) 0 0;
   color: var(--g3);
-  font-size: 15px;
+  font-size: 14.5px;
   line-height: 1.65;
 }
 
@@ -486,7 +491,7 @@ body {
   max-width: 44ch;
   margin: var(--s3) 0 0;
   color: var(--g3);
-  font-size: 15.5px;
+  font-size: 16.5px;
   line-height: 1.65;
 }
 
@@ -595,13 +600,13 @@ body {
 }
 
 .doctrine-name {
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 600;
 }
 
 .doctrine-definition {
   color: var(--body-l);
-  font-size: 13px;
+  font-size: 13.5px;
   line-height: 1.55;
 }
 
@@ -620,7 +625,7 @@ body {
   max-width: 68ch;
   margin: 28px 0 0;
   color: var(--g3);
-  font-size: 14px;
+  font-size: 14.5px;
   line-height: 1.65;
 }
 
@@ -648,7 +653,7 @@ body {
 .personal-bridge p {
   max-width: 58ch;
   color: var(--g3);
-  font-size: 15.5px;
+  font-size: 16.5px;
   line-height: 1.65;
 }
 
@@ -755,7 +760,7 @@ body {
 
 .legal-document h3 {
   margin: 0;
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 600;
 }
 
@@ -785,7 +790,7 @@ body {
 .journal-header h1,
 .journal-article h1 {
   margin: var(--s2) 0 0;
-  font-size: clamp(38px, 6.6vw, 76px);
+  font-size: clamp(30px, 4vw, 52px);
   font-weight: 500;
   letter-spacing: -.035em;
   line-height: 1;
@@ -796,7 +801,7 @@ body {
   max-width: 58ch;
   margin: var(--s3) 0 0;
   color: var(--g3);
-  font-size: 15.5px;
+  font-size: 16.5px;
   line-height: 1.65;
 }
 
@@ -831,7 +836,7 @@ body {
   max-width: 64ch;
   margin: var(--s2) 0 0;
   color: var(--g3);
-  font-size: 13px;
+  font-size: 13.5px;
   line-height: 1.6;
 }
 
@@ -870,7 +875,7 @@ body {
 
 .journal-body p,
 .journal-body li {
-  font-size: 16px;
+  font-size: 16.5px;
   line-height: 1.7;
 }
 
@@ -906,7 +911,8 @@ body {
   }
 
   .rev-wrap {
-    width: min(100% - var(--s4), 1200px);
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .rev-home-wrap {
@@ -1057,7 +1063,7 @@ body {
   max-width: 46ch;
   margin-top: 28px;
   color: var(--g2);
-  font-size: 17px;
+  font-size: 16.5px;
 }
 
 .r2-hero .rev-actions {
@@ -1109,7 +1115,7 @@ body {
   max-width: 24ch;
   margin-top: 8px;
   color: var(--g4);
-  font-size: 13px;
+  font-size: 13.5px;
 }
 
 @media (max-width: 760px) {
@@ -1167,7 +1173,7 @@ body {
 .r2-dossier p {
   flex: 1;
   color: var(--g2);
-  font-size: 14px;
+  font-size: 14.5px;
 }
 
 .r2-dossier .res {
@@ -1185,7 +1191,7 @@ body {
 .r2-dossier .res .l {
   margin-top: 4px;
   color: var(--g4);
-  font-size: 12.5px;
+  font-size: 13.5px;
 }
 
 .r2-dossier .seal {
@@ -1276,7 +1282,7 @@ body {
 
 .r2-std-row .name {
   color: var(--ink);
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 600;
 }
 
@@ -1332,7 +1338,7 @@ body {
 .r2-manu-cols p {
   margin-bottom: 18px;
   color: var(--g2);
-  font-size: 15px;
+  font-size: 14.5px;
 }
 
 .r2-manu-cols p b {
@@ -1375,7 +1381,7 @@ body {
 
 .r2-phase .ds {
   color: var(--g4);
-  font-size: 13px;
+  font-size: 13.5px;
 }
 
 @media (max-width: 760px) {
@@ -1424,7 +1430,7 @@ body {
 
 .r2-jrnl-row .ds {
   color: var(--g4);
-  font-size: 13px;
+  font-size: 13.5px;
 }
 
 .r2-jrnl-row:hover .nm {
@@ -1769,7 +1775,7 @@ body {
   align-items: center;
   gap: 10px !important;
   color: var(--g2);
-  font-size: 14px;
+  font-size: 14.5px;
 }
 
 .ri-check input {
@@ -1794,7 +1800,7 @@ body {
   max-width: 60ch;
   margin-top: 10px;
   color: var(--paper);
-  font-size: 16px;
+  font-size: 16.5px;
 }
 
 /* le formulaire posé comme un instrument sombre dans les pages claires du journal */
