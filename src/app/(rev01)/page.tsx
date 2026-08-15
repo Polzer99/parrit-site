@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { Instrument, K, Opening, RegistryLine, St } from "@/system/components";
+import { DecisionCard, Instrument, K, Opening, RegistryLine, St } from "@/system/components";
 
 export const metadata: Metadata = {
   title: { absolute: "Parrit — Company Operating Systems" },
@@ -171,6 +171,71 @@ export default function HomePage() {
         </div>
 
         <div className="r2-wrap">
+          <section className="r2-section" aria-labelledby="iface-heading">
+            <div className="r2-shead">
+              <h2 className="r2-ed" id="iface-heading">
+                The interface.
+              </h2>
+              <K>What the executive actually sees</K>
+            </div>
+            <div className="r2-iface">
+              <div className="r2-phone" data-phone-mockup="true" aria-label="Parrit OS on a phone">
+                <div className="r2-phone-notch" aria-hidden="true" />
+                <div className="r2-phone-bar">
+                  <K>PARRIT / OS</K>
+                  <K>09:14</K>
+                </div>
+                <div className="r2-thread">
+                  <div className="r2-msg sys">
+                    <K>System · Today</K>
+                    Morning. Three decisions need you — everything else was handled overnight.
+                    First:
+                  </div>
+                  <DecisionCard
+                    title="Release the blocked order"
+                    body="€480K waiting on one signature. Client cleared, stock reserved, margin verified."
+                    action="Hold to release"
+                    doneLabel="Released"
+                    status="att"
+                  />
+                  <div className="r2-journal-line">07:12 · 7 actions executed · journal updated</div>
+                  <div className="r2-msg usr">What changed on the Milan account?</div>
+                  <div className="r2-msg sys">
+                    Payment settled yesterday, two orders moved to production. Nothing needs
+                    you there.
+                  </div>
+                </div>
+              </div>
+              <div className="r2-iface-points">
+                <div className="r2-iface-point">
+                  <K>Conversational by design</K>
+                  <h3>You talk to your company.</h3>
+                  <p>
+                    The interface converges toward conversation: you ask, the system answers
+                    with framed decisions — not dashboards to interpret.
+                  </p>
+                </div>
+                <div className="r2-iface-point">
+                  <K>One card, one action</K>
+                  <h3>Decisions arrive as cards.</h3>
+                  <p>
+                    Framed, sourced, quantified. Hold to commit — executed through the same
+                    system, journaled, reversible. Try the card on the left: it is the real
+                    component.
+                  </p>
+                </div>
+                <div className="r2-iface-point">
+                  <K>Down to your phone</K>
+                  <h3>The whole company, in your pocket.</h3>
+                  <p>
+                    The same operating system runs from the workshop floor to your phone —
+                    one place to understand, decide and act.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <section className="r2-section" aria-labelledby="dossiers-heading">
             <div className="r2-shead">
               <h2 className="r2-ed" id="dossiers-heading">

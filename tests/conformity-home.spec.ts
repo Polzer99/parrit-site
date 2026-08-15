@@ -32,7 +32,10 @@ test("the home locks the approved display scale and surface rules", async ({ pag
       (result, element) => {
         const style = getComputedStyle(element);
         if (style.boxShadow !== "none") result.shadowCount += 1;
+        // Canon exception: radius is allowed inside phone mockups only.
+        const insidePhoneMockup = element.closest("[data-phone-mockup]") !== null;
         if (
+          !insidePhoneMockup &&
           [
             style.borderTopLeftRadius,
             style.borderTopRightRadius,

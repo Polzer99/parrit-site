@@ -1459,3 +1459,123 @@ body {
 .r2-hero h1 .frame > .fx::after {
   content: none;
 }
+
+/* — l'interface : mockup téléphone conversationnel (radius autorisé ICI seulement) — */
+.r2-iface {
+  display: grid;
+  grid-template-columns: minmax(300px, 380px) 1fr;
+  gap: 70px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .r2-iface {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+}
+
+.r2-phone {
+  position: relative;
+  padding: 18px 14px 22px;
+  border: 1px solid var(--rule-d);
+  border-radius: 44px; /* mockup téléphone — exception canon */
+  background: var(--carbon);
+}
+
+.r2-phone-notch {
+  width: 118px;
+  height: 24px;
+  margin: 0 auto 14px;
+  border-radius: 12px; /* mockup téléphone — exception canon */
+  background: var(--ink);
+}
+
+.r2-phone-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px 12px;
+}
+
+.r2-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 4px 6px 0;
+}
+
+.r2-msg {
+  max-width: 88%;
+  padding: 12px 14px;
+  border-radius: 14px; /* mockup téléphone — exception canon */
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+
+.r2-msg.sys {
+  align-self: flex-start;
+  border: 1px solid var(--rule-d);
+  border-bottom-left-radius: 4px; /* mockup téléphone — exception canon */
+  background: var(--carbon2);
+  color: var(--label-d);
+}
+
+.r2-msg.usr {
+  align-self: flex-end;
+  border-bottom-right-radius: 4px; /* mockup téléphone — exception canon */
+  background: var(--steel);
+  color: var(--paper);
+}
+
+.r2-msg .k {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.r2-thread .decision-card {
+  align-self: stretch;
+}
+
+.r2-journal-line {
+  align-self: center;
+  padding: 4px 0 2px;
+  color: var(--g4);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.r2-iface-points {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.r2-iface-point h3 {
+  margin: 8px 0 8px;
+  color: var(--paper);
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -.015em;
+}
+
+.r2-iface-point p {
+  max-width: 52ch;
+  color: var(--g2);
+  font-size: 14.5px;
+}
+
+/* — DecisionCard en registre sombre dans le téléphone — */
+.r2-phone .decision-card {
+  border-color: var(--rule-d);
+  background: var(--carbon2);
+}
+
+.r2-phone .decision-head h3 {
+  color: var(--paper);
+}
+
+.r2-phone .decision-card p {
+  color: var(--g2);
+}
