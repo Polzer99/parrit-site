@@ -39,7 +39,8 @@ for (const root of ROOTS) {
       }
 
       const radius = line.match(/border-radius\s*:\s*([^;]+)/i);
-      if (radius && !/^0(?:px|rem|em|%)?$/i.test(radius[1].trim())) {
+      // Canon: radius 0 everywhere EXCEPT phone mockups — such lines carry "mockup" inline.
+      if (radius && !/mockup/i.test(line) && !/^0(?:px|rem|em|%)?$/i.test(radius[1].trim())) {
         report(file, lineNumber, "border-radius", radius[1]);
       }
 
