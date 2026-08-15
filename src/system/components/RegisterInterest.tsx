@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { K } from "./K";
+import { track } from "@/lib/analytics";
 
 const INTERESTS = [
   { value: "reporting", label: "Reporting & visibility" },
@@ -34,6 +35,7 @@ export function RegisterInterest({ source }: { source: string }) {
     event.preventDefault();
     if (state === "sending" || state === "done") return;
     setState("sending");
+    track("form_started", { form: "register-interest", interest });
     try {
       const response = await fetch("/api/interet", {
         method: "POST",
@@ -52,9 +54,12 @@ export function RegisterInterest({ source }: { source: string }) {
       const body = (await response.json()) as { ok?: boolean; error?: string };
       if (response.ok && body.ok) {
         setState("done");
+        track("form_completed", { form: "register-interest", interest });
+        track("prototype_requested", { interest, open_to_call: openToCall });
       } else {
         setState("error");
         setDetail(body.error ?? `status ${response.status}`);
+        track("form_failed", { form: "register-interest", reason: body.error ?? String(response.status) });
       }
     } catch {
       setState("error");

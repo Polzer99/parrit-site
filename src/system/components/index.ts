@@ -1,4 +1,5 @@
 export { ParritCalInline } from "./CalInline";
+export { AnalyticsInit } from "./AnalyticsInit";
 export { DecisionCard } from "./DecisionCard";
 export { Dossier } from "./Dossier";
 export { Frame } from "./Frame";
