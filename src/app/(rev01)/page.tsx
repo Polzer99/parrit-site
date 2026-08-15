@@ -50,7 +50,7 @@ const STANDARD_EXCERPT = [
     ps: "PS-03",
     name: "Traceable",
     example:
-      "Every decision carries author, timestamp, source and rationale — the journal is the audit.",
+      "Every decision carries author, timestamp, source and rationale. The journal is the audit.",
   },
   {
     ps: "PS-05",
@@ -85,7 +85,7 @@ const FAQ = [
   },
   {
     q: "What do we own at the end?",
-    a: "Everything, from the start. The repository is yours from the first commit; the system runs in your accounts, on your infrastructure, under your keys. It is built on ordinary, widely-adopted technology — TypeScript, Python, PostgreSQL — so any competent engineer can maintain it without us. That is the mechanism behind PS-05, not a promise: if Parrit disappears tomorrow, your system does not notice.",
+    a: "Everything, from the start. The repository is yours from the first commit; the system runs in your accounts, on your infrastructure, under your keys. It is built on ordinary, widely-adopted technology (TypeScript, Python, PostgreSQL), so any competent engineer can maintain it without us. That is the mechanism behind PS-05, not a promise: if Parrit disappears tomorrow, your system does not notice.",
   },
   {
     q: "Where does our data live?",
@@ -101,7 +101,7 @@ const FAQ = [
   },
   {
     q: "Where do you operate?",
-    a: "From France — based in Lille, with the registered office near Paris — and internationally. Commissions run in English and in French, for European and African companies alike. The system is built remotely, inside your own infrastructure; the examination is a video call, wherever you are.",
+    a: "From France, based in Lille with the registered office near Paris, and internationally. Commissions run in English and in French, for European and African companies alike. The system is built remotely, inside your own infrastructure; the examination is a video call, wherever you are.",
   },
   {
     q: "How long before the first system runs?",
@@ -131,8 +131,8 @@ export default function HomePage() {
               on.
             </h1>
             <p className="r2-sub">
-              One place to understand what is happening, decide what matters, and act —
-              designed and built for one company at a time.
+              One place to understand what is happening, decide what matters, and act.
+              Designed and built for one company at a time.
             </p>
             <div className="rev-actions">
               <Link className="rev-button exec" href="/commission">
@@ -211,7 +211,7 @@ export default function HomePage() {
                 <div className="r2-thread">
                   <div className="r2-msg sys">
                     <K>System · Today</K>
-                    Morning. Three decisions need you — everything else was handled overnight.
+                    Morning. Three decisions need you. Everything else was handled overnight.
                     First:
                   </div>
                   <DecisionCard

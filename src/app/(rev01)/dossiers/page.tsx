@@ -72,7 +72,7 @@ export default function DossiersPage() {
             ))}
           </div>
           <p className="r2-registre-note">
-            Also in the registry: a CRM an agency never touches by hand, outbound
+            Also among the dossiers: a CRM an agency never touches by hand, outbound
             infrastructure end-to-end, and systems commissioned by maisons in cosmetics and
             craft retail. The dossiers open in conversation — not on a website.
           </p>

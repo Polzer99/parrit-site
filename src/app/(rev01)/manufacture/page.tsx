@@ -59,7 +59,7 @@ export default function ManufacturePage() {
           <K>Parrit / The Manufacture</K>
           <h1>Manufactured, not installed.</h1>
           <p className="r2-sub">
-            How a company operating system is actually built — and why it cannot be bought
+            How a company operating system is actually built, and why it cannot be bought
             off the shelf.
           </p>
         </header>
