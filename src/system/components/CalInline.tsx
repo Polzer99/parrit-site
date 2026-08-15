@@ -1,7 +1,7 @@
 "use client";
 
 import Cal, { getCalApi } from "@calcom/embed-react";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { CAL_LINK_COMMISSION, isPlaceholder } from "../../../site.config";
 
@@ -15,12 +15,38 @@ export function ParritCalInline({
   preview = false,
 }: ParritCalInlineProps) {
   const placeholder = isPlaceholder(calLink);
+  /* lazy + état de chargement : l'embed (~1,7 MB) ne se monte qu'à l'approche du
+     viewport, et un état visible couvre les secondes où l'iframe est encore noire */
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [mount, setMount] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     if (preview || placeholder) return;
+    const node = stageRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") {
+      setMount(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setMount(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "400px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [placeholder, preview]);
+
+  useEffect(() => {
+    if (preview || placeholder || !mount) return;
 
     async function configureCalendar() {
       const cal = await getCalApi({ namespace: "commission" });
+      cal("on", { action: "linkReady", callback: () => setReady(true) });
       cal("ui", {
         theme: "dark",
         hideEventTypeDetails: false,
@@ -39,7 +65,7 @@ export function ParritCalInline({
     }
 
     void configureCalendar();
-  }, [placeholder, preview]);
+  }, [placeholder, preview, mount]);
 
   if (placeholder) {
     return (
@@ -51,21 +77,30 @@ export function ParritCalInline({
   }
 
   return (
-    <div className="cal-stage">
+    <div className="cal-stage" ref={stageRef}>
       <div className="cal-instrument">
         <div className="cal-bar">
           <span>PARRIT / COMMISSION</span>
-          <span>SELECT A TIME</span>
+          <span>{ready ? "SELECT A TIME" : "LOADING AVAILABLE TIMES…"}</span>
         </div>
         {preview ? (
           <div className="cal-preview">CAL.COM INLINE INSTRUMENT</div>
         ) : (
-          <Cal
-            namespace="commission"
-            calLink={calLink}
-            className="cal-embed"
-            config={{ layout: "month_view", theme: "dark" }}
-          />
+          <div className="cal-embed-stage" data-ready={ready || undefined}>
+            {!ready ? (
+              <div className="cal-loading" role="status" aria-live="polite">
+                <span className="k">RETRIEVING THE CALENDAR — A FEW SECONDS</span>
+              </div>
+            ) : null}
+            {mount ? (
+              <Cal
+                namespace="commission"
+                calLink={calLink}
+                className="cal-embed"
+                config={{ layout: "month_view", theme: "dark" }}
+              />
+            ) : null}
+          </div>
         )}
         <div className="cal-bar cal-bar-footer">
           <span>30 MIN · VIDEO</span>

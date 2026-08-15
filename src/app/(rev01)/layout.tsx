@@ -59,6 +59,9 @@ export default function Rev01Layout({ children }: Readonly<{ children: React.Rea
   return (
     <html lang="en">
       <head>
+        <link rel="preload" href="/fonts/rev02/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/rev02/GeneralSans-Medium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/rev02/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <script dangerouslySetInnerHTML={{ __html: POSTHOG_SNIPPET }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ORG_JSONLD }} />
       </head>

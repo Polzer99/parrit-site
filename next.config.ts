@@ -50,6 +50,18 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/journal/[slug]/opengraph-image": ["./src/system/tokens.css", "./src/og-assets/*"],
   },
+  async headers() {
+    // Le kit de polices est versionné par dossier (rev02) : tout changement de
+    // police passe par un nouveau dossier, donc immutable 1 an est sûr.
+    return [
+      {
+        source: "/fonts/rev02/:file*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
       { source: "/paul", destination: "/", permanent: true },

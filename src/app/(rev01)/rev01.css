@@ -50,11 +50,14 @@ body {
 }
 
 .clock {
+  min-width: 128px;
   margin-left: auto;
   color: var(--g4);
   font-family: var(--mono);
   font-size: 10px;
+  font-variant-numeric: tabular-nums;
   letter-spacing: .12em;
+  text-align: right;
 }
 
 .wordmark:focus-visible {
@@ -537,6 +540,41 @@ body {
   .commission-notes p:last-child {
     border-bottom: 0;
   }
+}
+
+/* cibles tactiles mobiles ≥ 44px (audit 15/08) */
+@media (max-width: 760px) {
+  .hold {
+    min-height: 44px;
+  }
+
+  .ri-check {
+    padding: 6px 0;
+  }
+}
+
+/* état de chargement Cal — l'iframe n'est jamais un mur noir muet */
+.cal-embed-stage {
+  position: relative;
+  min-height: 420px;
+}
+
+.cal-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--carbon);
+}
+
+.cal-loading .k {
+  animation: cal-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes cal-pulse {
+  0%, 100% { opacity: .45; }
+  50% { opacity: 1; }
 }
 
 .commission-instrument .cal-stage {
@@ -1266,7 +1304,7 @@ a.k:hover {
   margin-top: 18px;
   color: var(--g4);
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: .16em;
   text-transform: uppercase;
 }
@@ -1369,7 +1407,12 @@ a.k:hover {
 
 @media (max-width: 900px) {
   .r2-std-row {
-    grid-template-columns: 70px 1fr;
+    grid-template-columns: 92px 1fr;
+  }
+
+  .r2-std-row .ps {
+    white-space: nowrap;
+    letter-spacing: .08em;
   }
 
   .r2-std-row .ex {

@@ -45,7 +45,7 @@
 /* Fraunces: reserved for REV 02 editorial display headings — do not use for body text. */
 @font-face {
   font-family: "Fraunces";
-  src: url("/fonts/rev02/Fraunces-Variable.ttf") format("truetype");
+  src: url("/fonts/rev02/Fraunces-Variable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
