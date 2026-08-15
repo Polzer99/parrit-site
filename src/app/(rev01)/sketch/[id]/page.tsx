@@ -154,7 +154,7 @@ export default async function SketchPage({ params }: { params: Promise<{ id: str
             <h2>Thirty minutes turns this sketch into a scope.</h2>
             <p className="proof">30 MIN · AN EXAMINATION, NOT A SALES CALL</p>
             <Link className="rev-button exec" href="/commission">
-              Commission your system
+              Let&apos;s talk
             </Link>
           </section>
 

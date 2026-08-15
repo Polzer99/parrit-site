@@ -22,8 +22,9 @@ export default function CommissionPage() {
           </p>
           <div className="commission-notes">
             <p>
-              <b>Who you meet.</b> The founder — the person who builds the systems, not a
-              sales team. Figures from the dossiers are verified live, on screen.
+              <b>Who you meet.</b> Paul Larmaraud, the founder — the person who builds the
+              systems, not a sales team. Figures from the dossiers are verified live, on
+              screen.
             </p>
             <p>
               <b>What you leave with.</b> An honest read of your operations: either a

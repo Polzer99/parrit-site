@@ -93,7 +93,7 @@ export default function StandardPage() {
 
         <div className="standard-action">
           <Link className="rev-button exec" href="/commission">
-            Commission your system
+            Let&apos;s talk
           </Link>
         </div>
 

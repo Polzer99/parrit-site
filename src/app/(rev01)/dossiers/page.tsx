@@ -82,7 +82,7 @@ export default function DossiersPage() {
           <h2>Your company could be the next dossier.</h2>
           <p className="proof">30 MIN · AN EXAMINATION, NOT A SALES CALL</p>
           <Link className="rev-button exec" href="/commission">
-            Commission your system
+            Let&apos;s talk
           </Link>
         </section>
 

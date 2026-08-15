@@ -81,7 +81,7 @@ const PHASES = [
 const FAQ = [
   {
     q: "Who is Parrit?",
-    a: "An independent French maison — a registered company whose full legal identity is one click away, under /Legal. Deliberately small and senior: we take few commissions, and the founder builds each one. The Journal is where our thinking is public.",
+    a: "An independent French maison, founded by Paul Larmaraud — a registered company whose full legal identity is one click away, under /Legal. Deliberately small and senior: we take few commissions, and the founder builds each one. The Journal is where our thinking is public.",
   },
   {
     q: "What do we own at the end?",
@@ -124,7 +124,7 @@ export default function HomePage() {
             </p>
             <div className="rev-actions">
               <Link className="rev-button exec" href="/commission">
-                Commission your system
+                Let&apos;s talk
               </Link>
               <Link className="rev-button ghost" href="/standard">
                 Examine the Standard
@@ -405,12 +405,13 @@ export default function HomePage() {
               LIVE
             </p>
             <Link className="rev-button exec" href="/commission">
-              Commission your system
+              Let&apos;s talk
             </Link>
           </section>
 
           <footer className="r2-footer">
             <RegistryLine />
+            <K>FOUNDED BY PAUL LARMARAUD</K>
             <K>COMMISSIONED, NOT SUBSCRIBED</K>
             <Link className="k" href="/legal">
               /Legal
