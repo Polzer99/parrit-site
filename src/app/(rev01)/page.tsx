@@ -93,7 +93,7 @@ const FAQ = [
   },
   {
     q: "Who maintains it after delivery?",
-    a: "We do. There is maintenance — a living system is never finished — and we carry what we deliver: every commission includes maintenance and evolution, so the system keeps running and keeps growing. You still own everything, and because it is built on ordinary technology you can take it over with your own team whenever you choose, like the consumer brand in dossier 26-003. Carried by us, owned by you — never captive.",
+    a: "We do. There is maintenance — a living system is never finished — and we carry what we deliver: every commission includes maintenance and evolution, so the system keeps running and keeps growing. You still own everything, and because it is built on ordinary technology you can take it over with your own team whenever you choose, like the consumer brand in dossier 26-003. Maintenance is an explicit term of the commission, priced on its own — not a subscription in disguise: stop it whenever you want, the system stays yours and keeps running.",
   },
   {
     q: "How much does it ask of my team?",
