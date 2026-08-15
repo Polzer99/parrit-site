@@ -892,6 +892,28 @@ body {
 .journal-body code {
   font-family: var(--mono);
   font-size: .9em;
+  overflow-wrap: anywhere;
+}
+
+/* QA 15/08 : un bloc de code déborde dans SON cadre, jamais la page (8 articles
+   débordaient de ~1600px sur mobile — le body ne scrolle jamais horizontalement) */
+.journal-body pre {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 14px 16px;
+  border: 1px solid var(--rule-l);
+  background: var(--paper2);
+}
+
+.journal-body pre code {
+  overflow-wrap: normal;
+  white-space: pre;
+}
+
+.journal-body table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 .journal-article-footer {
