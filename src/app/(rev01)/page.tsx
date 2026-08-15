@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { DecisionCard, Instrument, K, Opening, RegistryLine, St } from "@/system/components";
+import { DecisionCard, Instrument, K, Opening, RegisterInterest, RegistryLine, St } from "@/system/components";
 
 export const metadata: Metadata = {
   title: { absolute: "Parrit — Company Operating Systems" },
@@ -348,6 +348,16 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
+          </section>
+
+          <section className="r2-section" aria-labelledby="register-heading">
+            <div className="r2-shead">
+              <h2 className="r2-ed" id="register-heading">
+                Or start smaller.
+              </h2>
+              <K>The prototype funnel</K>
+            </div>
+            <RegisterInterest source="site:home" />
           </section>
 
           <section className="r2-close" aria-label="Commission">
