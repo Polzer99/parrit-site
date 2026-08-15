@@ -52,6 +52,8 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      { source: "/paul", destination: "/", permanent: true },
+      { source: "/maxime", destination: "/", permanent: true },
       ...REDIRECTIONS_JOURNAL,
       {
         source: "/architecture-claude-md",
