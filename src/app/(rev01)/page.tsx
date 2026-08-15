@@ -81,7 +81,7 @@ const PHASES = [
 const FAQ = [
   {
     q: "Who is Parrit?",
-    a: "An independent French maison, founded by Paul Larmaraud — a registered company whose full legal identity is one click away, under /Legal. Deliberately small and senior: we take few commissions, and the founder builds each one. The Journal is where our thinking is public.",
+    a: "An independent French maison, founded by Paul Larmaraud and steered by its partners — around twenty engineers and operators around the project. A registered company whose full legal identity is one click away, under /Legal. Deliberately small at the core: we take few commissions, and a partner personally builds each one. The Journal is where our thinking is public.",
   },
   {
     q: "What do we own at the end?",
@@ -158,7 +158,7 @@ export default function HomePage() {
               ]}
             />
             <div className="r2-instrument-caption">
-              <K>THE OPERATING SYSTEM — SURFACED. COMPLEXITY ABSORBED UNDERNEATH.</K>
+              <K>EVERYTHING BELOW THIS SCREEN RUNS THE COMPANY. ONLY DECISIONS REACH YOU.</K>
               <K>AN ILLUSTRATIVE SCENARIO — MEASURED CLIENT FIGURES LIVE IN THE DOSSIERS BELOW.</K>
             </div>
           </section>

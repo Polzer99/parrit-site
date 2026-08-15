@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const PRINCIPLES = [
   {
     name: "One company at a time",
-    body: "A system is built against how your company actually operates — its flows, its decisions, its exceptions. Not against how software vendors assume a company should work. This is why we do not take every commission.",
+    body: "A system is built against how your company actually operates — its flows, its decisions, its exceptions. Not against how software vendors assume a company should work. Each commission is led hands-on by one of our partners, which is why we do not take every one.",
   },
   {
     name: "Production before promises",
