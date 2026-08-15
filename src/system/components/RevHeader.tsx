@@ -23,6 +23,15 @@ export function RevHeader() {
   }, [pathname]);
 
   useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
+  useEffect(() => {
     const updateClock = () => {
       const now = new Date();
       const time = [now.getHours(), now.getMinutes(), now.getSeconds()]
@@ -38,7 +47,8 @@ export function RevHeader() {
   }, []);
 
   return (
-    <header className="cmdbar">
+    <>
+      <header className="cmdbar">
       <Link className="wordmark" href="/" aria-label="Parrit home">
         PARRIT<i aria-hidden="true">.</i>AI
       </Link>
@@ -69,6 +79,9 @@ export function RevHeader() {
       >
         {menuOpen ? "Close" : "Menu"}
       </button>
+      </header>
+      {/* le panneau vit HORS de la cmdbar : son backdrop-filter fait de la barre
+         le bloc conteneur des fixed — dedans, le panneau se calait sur 52px */}
       {menuOpen ? (
         <nav className="cmd-panel" id="cmd-panel" aria-label="Main navigation">
           {NAV.map(([href, label]) => {
@@ -87,6 +100,6 @@ export function RevHeader() {
           })}
         </nav>
       ) : null}
-    </header>
+    </>
   );
 }
