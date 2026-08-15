@@ -5,6 +5,10 @@
 html,
 body {
   margin: 0;
+  /* clip (pas hidden) : coupe tout débordement horizontal sans créer de
+     scroll container, donc sans casser les éléments collés en haut */
+  overflow-x: clip;
+  overscroll-behavior-x: none;
 }
 
 body {
