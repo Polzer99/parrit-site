@@ -1076,8 +1076,9 @@ body {
 .cmd-menu-toggle {
   display: none;
   align-items: center;
+  min-height: 44px;
   margin-left: auto;
-  padding: 10px 12px;
+  padding: 10px 14px;
   border: 1px solid var(--rule-d);
   background: transparent;
   color: var(--g2);
