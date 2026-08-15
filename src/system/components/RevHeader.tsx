@@ -15,7 +15,12 @@ const NAV = [
 
 export function RevHeader() {
   const [clock, setClock] = useState("—");
+  const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     const updateClock = () => {
@@ -55,6 +60,33 @@ export function RevHeader() {
       <time className="clock" aria-label="Local time">
         {clock}
       </time>
+      <button
+        type="button"
+        className="cmd-menu-toggle"
+        aria-expanded={menuOpen}
+        aria-controls="cmd-panel"
+        onClick={() => setMenuOpen((open) => !open)}
+      >
+        {menuOpen ? "Close" : "Menu"}
+      </button>
+      {menuOpen ? (
+        <nav className="cmd-panel" id="cmd-panel" aria-label="Main navigation">
+          {NAV.map(([href, label]) => {
+            const active = href === "/" ? pathname === "/" : pathname?.startsWith(href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={active ? "on" : undefined}
+                aria-current={active ? "page" : undefined}
+                onClick={() => setMenuOpen(false)}
+              >
+                {label}
+              </Link>
+            );
+          })}
+        </nav>
+      ) : null}
     </header>
   );
 }
