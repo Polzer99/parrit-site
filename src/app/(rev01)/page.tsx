@@ -92,6 +92,10 @@ const FAQ = [
     a: "In your perimeter. Parrit builds inside your own accounts and infrastructure from day one — your data never lives on Parrit's servers, and our access ends the day you revoke it. GDPR posture follows from that: nothing changes hands to lose.",
   },
   {
+    q: "Who maintains it after delivery?",
+    a: "Your choice — that is the point of owning it. Some clients run the system with their own team from day one, like the consumer brand in dossier 26-003. Others commission Parrit to carry it: we carry what we deliver, and maintenance terms are set in each commission. Either way the system is built on ordinary technology so switching between the two never requires us.",
+  },
+  {
     q: "How long before the first system runs?",
     a: "Construction targets one critical operation, in production and certified — typically weeks, not quarters. The Examination fixes the scope before any commitment.",
   },

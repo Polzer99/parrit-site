@@ -43,17 +43,47 @@ Every delivered system is certified to the same specification (STD-1.0):
 - PS-06 Compounding — each new capability increases the value of every
   capability already in production.
 
+## Who is Parrit
+- An independent French maison, founded by Paul Larmaraud and steered by its
+  partners — around twenty engineers and operators around the project.
+- A registered French company (PARRIT.AI, SASU, Rueil-Malmaison, France); full
+  legal identity at https://parrit.ai/legal.
+- Deliberately small at the core: few commissions, each one led hands-on by a
+  partner.
+
+## Ownership, maintenance and data
+- The repository is the client's from the first commit; the system runs in the
+  client's own accounts, on their infrastructure, under their keys.
+- Built on ordinary, widely-adopted technology (TypeScript, Python, PostgreSQL)
+  so any competent engineer can maintain it without Parrit. Maintenance terms
+  are part of each commission — the client is never captive.
+- Client data never lives on Parrit's servers; Parrit's access ends the day the
+  client revokes it.
+
+## Proof (anonymized, verified live in conversation)
+- Parrit runs on its own operating system: 200+ signals become decisions every
+  week.
+- A law firm's operating system: +€5–10K additional revenue per month from
+  re-engaged case flow (first capabilities live).
+- A consumer brand's reporting system: 2.5 months recovered on a single
+  reporting process, now operated by the client's own team.
+
 ## Pages
 - https://parrit.ai/ — Parrit, company operating systems.
+- https://parrit.ai/manufacture — How a system is manufactured: doctrine and
+  the three phases.
 - https://parrit.ai/standard — The Parrit Standard, the certification every
   delivered system meets.
+- https://parrit.ai/dossiers — The sealed dossiers: delivered systems,
+  anonymized.
 - https://parrit.ai/commission — Commission an examination: one 30-minute
   conversation to examine how your company operates. Not a sales call.
 - https://parrit.ai/journal — We Find The Way, the Parrit journal.
+- https://parrit.ai/legal — Legal notice and privacy policy.
 
 ## Contact
-- Booking: https://parrit.ai/commission (30 min, video).
-- The site is in English. Company based in France (Lille).
+- Booking: https://parrit.ai/commission (30 min, video, with the founder).
+- The site is in English. Company based in Rueil-Malmaison, France.
 `;
 
 writeFileSync(outputPath, content);
