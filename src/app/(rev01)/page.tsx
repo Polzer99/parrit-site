@@ -423,7 +423,9 @@ export default function HomePage() {
 
           <footer className="r2-footer">
             <RegistryLine />
-            <K>FOUNDED BY PAUL LARMARAUD</K>
+            <a className="k" href="https://paul-larmaraud.com">
+              FOUNDED BY PAUL LARMARAUD
+            </a>
             <K>COMMISSIONED, NOT SUBSCRIBED</K>
             <Link className="k" href="/legal">
               /Legal
