@@ -139,7 +139,10 @@ body {
   }
 
   .boothero {
-    padding: 43px 20px 90px;
+    /* 10px et pas 43 : cale la phrase de l'Opening sur le H1 réel du hero
+       mobile (mesuré au pixel, écart 33px sinon) — on bouge l'overlay
+       transitoire, jamais la page auditée */
+    padding: 10px 20px 90px;
   }
 }
 
@@ -1209,12 +1212,25 @@ a.k:hover {
 
 .r2-hero h1 {
   max-width: 14ch;
+  /* marge FIXE : la marge h1 par défaut est en em, donc suit le clamp de la
+     fonte et fait dériver le titre sous 1440px — l'Opening, lui, est calé en
+     pixels ; raccord au pixel = les deux rythmes verticaux en px */
+  margin-top: 62px;
+  margin-bottom: 62px;
   color: var(--paper);
   font-size: clamp(46px, 6.4vw, 92px);
   font-weight: 500;
   letter-spacing: -.032em;
   line-height: 1.02;
   text-wrap: balance;
+}
+
+@media (max-width: 760px) {
+  .r2-hero h1 {
+    /* mêmes valeurs que la marge em d'origine à 46px — le mobile ne bouge pas */
+    margin-top: 31px;
+    margin-bottom: 31px;
+  }
 }
 
 .r2-hero h1 .frame {
