@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { K, RegistryLine } from "@/system/components";
+import { K, RegisterInterest, RegistryLine } from "@/system/components";
 import { getAllJournalEntrySummaries } from "@/system/journal";
 
 export const metadata: Metadata = {
@@ -36,6 +36,10 @@ export default function JournalPage() {
             </li>
           ))}
         </ol>
+
+        <section className="ri-stage r2-dark" aria-label="Register your interest">
+          <RegisterInterest source="site:journal" />
+        </section>
 
         <footer className="rev-footer">
           <RegistryLine />

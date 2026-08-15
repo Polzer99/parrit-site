@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 
-import { K, RegistryLine } from "@/system/components";
+import { K, RegisterInterest, RegistryLine } from "@/system/components";
 import { getAllJournalEntrySummaries, getJournalEntry } from "@/system/journal";
 
 type JournalArticlePageProps = {
