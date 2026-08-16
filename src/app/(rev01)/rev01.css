@@ -304,6 +304,15 @@ body {
   outline-offset: 2px;
 }
 
+@media (max-width: 760px) {
+  /* le CTA principal du site tombait à 40px de haut — sous le minimum
+     tactile (44pt Apple / 48dp Material) sur le bouton le plus important
+     de la page ; desktop garde son gabarit compact inchangé */
+  .rev-button {
+    padding: 15px 18px;
+  }
+}
+
 .instrument-stage {
   padding: 30px 0 80px;
 }
