@@ -21,6 +21,12 @@ body {
 }
 
 .wordmark {
+  display: inline-flex;
+  align-items: center;
+  /* le glyphe fait ~17px, le padding porte la cible tactile à ~45px sans
+     déplacer le texte (marge négative égale) — la cmdbar de 52px absorbe */
+  padding: 14px 0;
+  margin: -14px 0;
   color: var(--paper);
   font-family: var(--mono);
   font-size: 13px;
@@ -1697,9 +1703,17 @@ a.k:hover {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
   padding: 26px 0;
   border-top: 1px solid var(--rule-d);
+}
+
+.r2-footer a.k {
+  /* même principe que .wordmark : agrandir la cible tactile sans bouger le texte */
+  display: inline-block;
+  padding: 16px 0;
+  margin: -16px 0;
 }
 
 /* — variantes sombres des composants existants — */
