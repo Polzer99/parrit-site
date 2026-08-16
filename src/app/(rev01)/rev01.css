@@ -1201,6 +1201,14 @@ a.k:active {
   color: var(--paper);
 }
 
+/* .k est calé sur le registre clair (g3 sur paper = 6.3:1) ; sur ink/carbon
+   le même g3 tombe à 2.6:1, sous le seuil WCAG même pour du texte
+   secondaire — g4 (déjà dans la palette) remonte à ~3.9-4.2:1 sans changer
+   la taille, l'espacement ou la hiérarchie visuelle des libellés */
+.r2-dark .k {
+  color: var(--g4);
+}
+
 .r2-wrap {
   max-width: 1160px;
   margin: 0 auto;
