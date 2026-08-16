@@ -148,7 +148,7 @@ export default function HomePage() {
             <Instrument
               className="home-instrument"
               left={<St kind="crit">PARRIT / OS — LIVE</St>}
-              center={<K>·</K>}
+              center={<K className="instrument-sep">·</K>}
               right={<K>Tue 09:14</K>}
               rows={[
                 {

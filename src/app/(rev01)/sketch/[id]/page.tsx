@@ -114,7 +114,7 @@ export default async function SketchPage({ params }: { params: Promise<{ id: str
             <Instrument
               className="home-instrument"
               left={<St kind="crit">{`${company.toUpperCase()} / OS — SKETCH`}</St>}
-              center={<K>·</K>}
+              center={<K className="instrument-sep">·</K>}
               right={<K>Draft 01</K>}
               rows={sketch.instrument.map((row) => ({
                 value: row.value,

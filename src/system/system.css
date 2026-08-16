@@ -662,6 +662,12 @@ button {
     flex-direction: column;
   }
 
+  /* le séparateur central ("·") n'a de sens qu'en ligne entre les deux bouts
+     de la barre ; empilé, il devient un point orphelin sur sa propre ligne */
+  .instrument-sep {
+    display: none;
+  }
+
   .instrument-status {
     margin-left: 0;
   }
