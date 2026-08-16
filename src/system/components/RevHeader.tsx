@@ -16,11 +16,28 @@ const NAV = [
 export function RevHeader() {
   const [clock, setClock] = useState("—");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [panelMounted, setPanelMounted] = useState(false);
+  const [panelOn, setPanelOn] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
+
+  // pas de pop instantané au tap : le panneau monte d'abord à opacité 0, la
+  // classe "on" arrive une frame plus tard pour que la transition se joue
+  // (même logique de fondu que l'Opening) ; à la fermeture, la classe part
+  // en premier et le démontage suit 180ms plus tard, le temps du fondu
+  useEffect(() => {
+    if (menuOpen) {
+      setPanelMounted(true);
+      const frame = window.requestAnimationFrame(() => setPanelOn(true));
+      return () => window.cancelAnimationFrame(frame);
+    }
+    setPanelOn(false);
+    const timer = window.setTimeout(() => setPanelMounted(false), 180);
+    return () => window.clearTimeout(timer);
+  }, [menuOpen]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -87,8 +104,12 @@ export function RevHeader() {
       </header>
       {/* le panneau vit HORS de la cmdbar : son backdrop-filter fait de la barre
          le bloc conteneur des fixed — dedans, le panneau se calait sur 52px */}
-      {menuOpen ? (
-        <nav className="cmd-panel" id="cmd-panel" aria-label="Main navigation">
+      {panelMounted ? (
+        <nav
+          className={`cmd-panel${panelOn ? " on" : ""}`}
+          id="cmd-panel"
+          aria-label="Main navigation"
+        >
           {NAV.map(([href, label]) => {
             const active = href === "/" ? pathname === "/" : pathname?.startsWith(href);
             return (

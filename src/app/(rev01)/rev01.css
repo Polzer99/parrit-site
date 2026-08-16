@@ -1135,6 +1135,17 @@ body {
   gap: 6px;
   padding: 34px 20px;
   background: var(--ink);
+  /* pop instantané au tap = pas premium : un fondu + léger glissement au
+     montage/démontage, encore JS (RevHeader) qui garde le panneau monté
+     180ms pour jouer la sortie */
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.cmd-panel.on {
+  opacity: 1;
+  transform: none;
 }
 
 .cmd-panel a {
