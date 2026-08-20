@@ -91,18 +91,16 @@ Règles tenues :
 ## 3. APPROCHE — sous la section Claude Code
 
 ### Actuel
-> Notre approche : Nous ne vendons pas de formations génériques. Nous construisons avec vous. Prototype fonctionnel en quelques jours, itérations en temps réel, mise en production rapide. Un réseau de plus de vingt experts — techniques et métier — mobilisables selon vos besoins.
+> Notre approche : Nous ne vendons pas de formations génériques. Nous construisons avec vous. Prototype fonctionnel en quelques jours, itérations en temps réel, mise en production rapide.
 
 ### Proposé
 > **Notre méthode tient en quatre lignes.**
 > On vient sur place. On code avec vos équipes, pas à leur place. On part quand le système tourne en production. On revient pour la suite si vous le voulez.
->
-> Un réseau de plus de vingt experts — techniques et métier — est mobilisable en renfort sur les chantiers qui le nécessitent. Pas pour faire du conseil. Pour livrer.
 
 ### Raison
 - Voix Paul : phrases courtes, prise de position, refus du décoratif.
 - *"On code avec vos équipes, pas à leur place"* = opinion tranchée, anti-IA-magique. Citable.
-- *"Pas pour faire du conseil. Pour livrer."* = positionnement direct, démarque.
+- La méthode reste centrée sur la livraison, sans revendiquer un réseau contractualisé.
 
 ---
 
@@ -171,7 +169,7 @@ On garde la structure (très bien construite) mais on enrichit chaque cas avec u
 ```
 # Parrit.ai
 
-> Parrit.ai accompagne fondateurs et opérateurs de boîtes 15 à 50 personnes en croissance avec des sprints Claude Code on-site (1 200 € HT/jour, 1 à 4 jours), un setup Claude Code complet (hooks, skills, MCP, workflows) et des automatisations sur mesure (CRM, veille, outbound, post-acquisition). Fondateurs : Paul Larmaraud (ex-Lime, ex-Arkel) et Yukun Leng (10 ans en maisons de luxe européennes dont LVMH). Basé en France, intervient à Paris, Dubai, Shanghai.
+> Parrit.ai accompagne fondateurs et opérateurs de boîtes 15 à 50 personnes en croissance avec des sprints Claude Code on-site (1 200 € HT/jour, 1 à 4 jours), un setup Claude Code complet (hooks, skills, MCP, workflows) et des automatisations sur mesure (CRM, veille, outbound, post-acquisition). Fondateur : Paul Larmaraud. Basé en France, intervient à Paris, Dubai, Shanghai.
 
 ## Offres
 - [Sprint Claude Code on-site](https://parrit.ai/#claude-code-offer) : 1 à 4 jours sur place, 1 200 € HT/jour, livrable opérationnel en sortie.
@@ -201,10 +199,7 @@ On garde la structure (très bien construite) mais on enrichit chaque cas avec u
       "url": "https://parrit.ai",
       "logo": "https://parrit.ai/logo.png",
       "description": "Sprints Claude Code on-site et automatisations sur mesure pour fondateurs et opérateurs 15-50 personnes.",
-      "founder": [
-        { "@type": "Person", "name": "Paul Larmaraud", "email": "paul.larmaraud@parrit.ai" },
-        { "@type": "Person", "name": "Yukun Leng" }
-      ],
+      "founder": { "@type": "Person", "name": "Paul Larmaraud", "email": "paul.larmaraud@parrit.ai" },
       "address": { "@type": "PostalAddress", "addressLocality": "Rueil-Malmaison", "addressCountry": "FR" }
     },
     {
