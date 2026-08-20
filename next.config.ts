@@ -66,6 +66,7 @@ const nextConfig: NextConfig = {
     return [
       { source: "/paul", destination: "/", permanent: true },
       { source: "/maxime", destination: "/", permanent: true },
+      { source: "/fondateurs", destination: "/", statusCode: 301 },
       ...REDIRECTIONS_JOURNAL,
       {
         source: "/architecture-claude-md",

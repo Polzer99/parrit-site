@@ -44,15 +44,14 @@ Every delivered system is certified to the same specification (STD-1.0):
   capability already in production.
 
 ## Who is Parrit
-- An independent French maison, founded by Paul Larmaraud and steered by its
-  partners — twenty engineers and operators around the project.
+- An independent French maison, founded and led by Paul Larmaraud.
 - A registered French company (PARRIT.AI, SASU, registered office in
   Rueil-Malmaison, France); full legal identity at https://parrit.ai/legal.
 - Based in Lille, France. Operates internationally, in English and in French —
   commissions for European and African companies alike, built remotely inside
   the client's own infrastructure.
-- Deliberately small at the core: few commissions, each one led hands-on by a
-  partner.
+- Deliberately small at the core: few commissions, each one led hands-on by the
+  founder.
 
 ## Ownership, maintenance and data
 - The repository is the client's from the first commit; the system runs in the
@@ -68,8 +67,8 @@ Every delivered system is certified to the same specification (STD-1.0):
 ## Proof (anonymized, verified live in conversation)
 - Parrit runs on its own operating system: 200+ signals become decisions every
   week.
-- A law firm's operating system: +€5–10K additional revenue per month from
-  re-engaged case flow (first capabilities live).
+- A law firm's operating system: re-engaged case flow, with the first
+  capabilities live.
 - A consumer brand's reporting system: 2.5 months recovered on a single
   reporting process, now operated by the client's own team.
 

@@ -8,7 +8,7 @@
 
 ## 1. Ce qu'est Parrit (positionnement)
 
-Parrit.ai est une **boutique franco-chinoise** qui **construit ET opère** des outils sur-mesure avec des agents IA (Claude Code). **AI Operating Partner**, pas cabinet de conseil, pas programme hors-sol : on livre la chose qui tourne, on ne rend pas un deck.
+Parrit.ai est une **maison française indépendante**, fondée et dirigée par **Paul Larmaraud**, qui **construit ET opère** des outils sur-mesure avec des agents IA (Claude Code). **AI Operating Partner**, pas cabinet de conseil, pas programme hors-sol : on livre la chose qui tourne, on ne rend pas un deck.
 
 **Deux cas d'usage de poids ÉGAL** (ne jamais réduire Parrit à la lead gen) :
 1. **Back-office automatisé** — on opère les fronts critiques internes (gestion, capture multi-canal, facturation, veille, support…).
@@ -16,7 +16,7 @@ Parrit.ai est une **boutique franco-chinoise** qui **construit ET opère** des o
 
 Phrase canon : *« Parrit opère vos deux fronts critiques. »*
 
-Chaîne à deux mains : **Paul** fait naître le prototype (le zéro→un, il code tous les jours), **Yukun (冷宇坤)** le met en production sur les systèmes réels. « Ce qui tourne chez un client tourne d'abord chez moi. »
+Paul cadre, prototype et conduit la mise en production sur les systèmes réels. « Ce qui tourne chez un client tourne d'abord chez moi. »
 
 ## 2. North stars (ce que la conversion doit servir)
 

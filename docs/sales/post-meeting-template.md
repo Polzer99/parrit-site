@@ -103,8 +103,7 @@ Template :
 
 > Parrit intervient comme operating partner agentique :
 >
-> - Paul cadre le cas d'usage, prototype le flux et garde le lien avec la decision metier.
-> - Yukun met en production proprement, avec les integrations, les garde-fous et la maintenabilite.
+> - Paul cadre le cas d'usage, prototype le flux et conduit sa mise en production avec les integrations, les garde-fous et la maintenabilite.
 > - Vos equipes gardent la main : validation humaine, trace des actions, transfert progressif.
 >
 > Le livrable n'est pas un document de plus. C'est un flux qui tourne, puis une equipe capable de le superviser.
