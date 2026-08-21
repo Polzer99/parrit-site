@@ -1,3 +1,6 @@
+import "../../system/fonts.css";
+import "../../system/tokens.css";
+
 // Page documentaire autonome : typographie DA (Geist/Geist Mono, rouge accent)
 // mais mise en page éditoriale plein écran, photos 35mm, chapitres.
 const campCss = `
@@ -26,8 +29,10 @@ h2{font-size:clamp(30px,4.2vw,46px);font-weight:600;line-height:1.08;margin-top:
 .chero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .chero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,10,.55) 0%,rgba(8,8,10,.18) 38%,rgba(8,8,10,.72) 100%)}
 .cnav{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:26px 34px}
-.cnav-logo{height:26px;width:auto;filter:brightness(0) invert(1)}
-.cfooter .cnav-logo{filter:none}
+.cnav-logo{display:inline-flex;align-items:center;color:var(--paper);font-family:var(--mono);font-size:13px;font-weight:600;
+  letter-spacing:.22em;white-space:nowrap}
+.cnav-logo i{color:var(--red);font-style:normal}
+.cfooter .cnav-logo{color:var(--ink)}
 .cnav-cta{font-family:var(--c-mono);font-size:13px;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.55);padding:10px 22px}
 .cnav-cta:hover{background:#fff;color:var(--c-ink)}
 .chero-inner{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;justify-content:center;
@@ -119,8 +124,7 @@ h2{font-size:clamp(30px,4.2vw,46px);font-weight:600;line-height:1.08;margin-top:
 /* footer */
 .cfooter{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;
   max-width:980px;margin:0 auto;padding:44px 28px;border-top:1px solid var(--c-line)}
-.cfooter span{font-family:var(--c-mono);font-size:12px;color:var(--c-muted)}
-.cfooter .cnav-logo{height:22px}
+.cfooter > span:not(.cnav-logo){font-family:var(--c-mono);font-size:12px;color:var(--c-muted)}
 
 /* grilles de cellules (sécurité, créations, cadre) */
 .cgrid3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:64px;border-top:1px solid var(--c-line)}
@@ -187,7 +191,7 @@ body::before{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;
   .capply{padding:90px 0}
   .capply-card{padding:36px 24px}
   .cnav{padding:20px 22px;gap:14px}
-  .cnav-logo{height:20px;flex:none}
+  .cnav-logo{flex:none}
   .cnav-right{gap:12px}
   .cnav-cta{padding:8px 14px;font-size:12px}
   .clang{font-size:11px}

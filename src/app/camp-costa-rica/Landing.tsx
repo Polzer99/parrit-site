@@ -59,7 +59,9 @@ export default function Landing({ lang }: { lang: CampLang }) {
         <img className="chero-bg" src="/camp/hero-coast.jpg" alt="" />
         <div className="chero-veil" />
         <nav className="cnav">
-          <img className="cnav-logo" src="/brand/parrit-lockup-red.svg" alt="Parrit·AI" />
+          <span className="cnav-logo" role="img" aria-label="Parrit.AI">
+            PARRIT<i aria-hidden="true">.</i>AI
+          </span>
           <div className="cnav-right">
             <div className="clang">
               {CAMP_LANGS.map((l, i) => (
@@ -342,7 +344,9 @@ export default function Landing({ lang }: { lang: CampLang }) {
       </section>
 
       <footer className="cfooter">
-        <img className="cnav-logo" src="/brand/parrit-lockup-red.svg" alt="Parrit·AI" />
+        <span className="cnav-logo" role="img" aria-label="Parrit.AI">
+          PARRIT<i aria-hidden="true">.</i>AI
+        </span>
         <span>{c.footer}</span>
       </footer>
     </>
