@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import { ImageResponse } from "next/og";
 
 export const alt = "Parrit — Company Operating Systems";
@@ -7,12 +9,8 @@ export const dynamic = "force-dynamic";
 
 export default async function Image() {
   const [plexSans, plexMono] = await Promise.all([
-    fetch(new URL("../og-assets/GeneralSans-Medium.otf", import.meta.url)).then((r) =>
-      r.arrayBuffer(),
-    ),
-    fetch(new URL("../og-assets/JetBrainsMono-SemiBold.ttf", import.meta.url)).then((r) =>
-      r.arrayBuffer(),
-    ),
+    readFile(path.join(process.cwd(), "src/og-assets/GeneralSans-Medium.otf")),
+    readFile(path.join(process.cwd(), "src/og-assets/JetBrainsMono-SemiBold.ttf")),
   ]);
 
   return new ImageResponse(
