@@ -89,7 +89,7 @@ export function ParritCalInline({
           <div className="cal-embed-stage" data-ready={ready || undefined}>
             {!ready ? (
               <div className="cal-loading" role="status" aria-live="polite">
-                <span className="k">RETRIEVING THE CALENDAR — A FEW SECONDS</span>
+                <span className="k">RETRIEVING THE CALENDAR · A FEW SECONDS</span>
               </div>
             ) : null}
             {mount ? (

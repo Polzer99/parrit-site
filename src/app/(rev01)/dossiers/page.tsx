@@ -6,7 +6,7 @@ import { K, RegistryLine } from "@/system/components";
 export const metadata: Metadata = {
   title: "System dossiers",
   description:
-    "Sealed records of commissioned company operating systems — sectors, systems and verified results. The dossiers open in conversation.",
+    "Sealed records of commissioned company operating systems: sectors, systems and verified results. The dossiers open in conversation.",
   alternates: { canonical: "/dossiers" },
 };
 
@@ -15,7 +15,7 @@ const DOSSIERS = [
     ref: "DOSSIER 26-001",
     sector: "PARRIT ITSELF",
     title: "The system we sell is the system we run.",
-    body: "Parrit operates on its own operating system: one place where signals, clients and campaigns become decisions — delivered to the founder’s phone as cards. Built for ourselves first, compounding since.",
+    body: "Parrit operates on its own operating system: one place where signals, clients and campaigns become decisions, delivered to the founder’s phone as cards. Built for ourselves first, compounding since.",
     value: "200+",
     result: "signals become decisions, every week",
     seal: "In production · Compounding",
@@ -24,7 +24,7 @@ const DOSSIERS = [
     ref: "DOSSIER 26-002",
     sector: "A LAW FIRM",
     title: "An operating system for a law firm.",
-    body: "Client intake, follow-ups and case flow — rebuilt as one system, on the firm’s own infrastructure. First capabilities certified and live; the system grows case by case.",
+    body: "Client intake, follow-ups and case flow, rebuilt as one system on the firm’s own infrastructure. First capabilities certified and live; the system grows case by case.",
     value: "+€5–10K",
     result: "additional revenue per month, from re-engaged case flow",
     seal: "Under construction · First capabilities live",
@@ -33,7 +33,7 @@ const DOSSIERS = [
     ref: "DOSSIER 26-003",
     sector: "A CONSUMER BRAND",
     title: "Reporting nobody writes.",
-    body: "The reporting assembles itself from source systems and ships on schedule — run today by the client’s own team, without us. Owned, documented, handed over.",
+    body: "The reporting assembles itself from source systems and ships on schedule. It is run today by the client’s own team, without us. Owned, documented, handed over.",
     value: "2.5 months",
     result: "recovered on a single reporting process",
     seal: "Delivered · Operated by the client",
@@ -48,7 +48,7 @@ export default function DossiersPage() {
           <K>Parrit / System dossiers</K>
           <h1>Sealed dossiers.</h1>
           <p className="r2-sub">
-            Records of commissioned systems — anonymized by doctrine. Every figure below is
+            Records of commissioned systems, anonymized by doctrine. Every figure below is
             verified live, in conversation.
           </p>
         </header>
@@ -74,7 +74,7 @@ export default function DossiersPage() {
           <p className="r2-registre-note">
             Also among the dossiers: a CRM an agency never touches by hand, outbound
             infrastructure end-to-end, and systems commissioned by maisons in cosmetics and
-            craft retail. The dossiers open in conversation — not on a website.
+            craft retail. The dossiers open in conversation, not on a website.
           </p>
         </section>
 

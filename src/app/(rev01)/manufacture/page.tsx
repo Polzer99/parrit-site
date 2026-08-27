@@ -6,14 +6,14 @@ import { K, RegistryLine } from "@/system/components";
 export const metadata: Metadata = {
   title: "The Manufacture",
   description:
-    "How Parrit designs and builds a company operating system: examination, construction, compounding — one company at a time, certified to the Parrit Standard.",
+    "How Parrit designs and builds a company operating system: examination, construction, compounding. One company at a time, certified to the Parrit Standard.",
   alternates: { canonical: "/manufacture" },
 };
 
 const PRINCIPLES = [
   {
     name: "One company at a time",
-    body: "A system is built against how your company actually operates — its flows, its decisions, its exceptions. Not against how software vendors assume a company should work. Each commission is led hands-on by one of our partners, which is why we do not take every one.",
+    body: "A system is built against how your company actually operates: its flows, its decisions, its exceptions. Not against how software vendors assume a company should work. Each commission is led hands-on by one of our partners, which is why we do not take every one.",
   },
   {
     name: "Production before promises",
@@ -21,15 +21,15 @@ const PRINCIPLES = [
   },
   {
     name: "The executive decides, the system executes",
-    body: "Only what requires the executive reaches the executive — framed, sourced, quantified. The decision then executes through the same system that surfaced it: traced, reversible, journaled.",
+    body: "Only what requires the executive reaches the executive: framed, sourced, quantified. The decision then executes through the same system that surfaced it: traced, reversible, journaled.",
   },
   {
     name: "Built in your perimeter",
-    body: "The system is built in your accounts, on your infrastructure, under your keys — from the first day, not at handover. Your data never lives on Parrit’s servers, and our access ends the day you revoke it. Security is not a clause in a contract; it is where the system physically lives.",
+    body: "The system is built in your accounts, on your infrastructure, under your keys from the first day, not at handover. Your data never lives on Parrit’s servers, and our access ends the day you revoke it. Security is not a clause in a contract; it is where the system physically lives.",
   },
   {
     name: "Owned, not rented",
-    body: "Everything you receive is yours: code, data, documentation — handed over as company assets. The repository is yours from the first commit, and the system is built on ordinary, widely-adopted technology (TypeScript, Python, PostgreSQL), so any competent engineer can maintain it without us. Commissioned, not subscribed: if Parrit disappears tomorrow, your system does not.",
+    body: "Everything you receive is yours: code, data, documentation, handed over as company assets. The repository is yours from the first commit, and the system is built on ordinary, widely-adopted technology (TypeScript, Python, PostgreSQL), so any competent engineer can maintain it without us. Commissioned, not subscribed: if Parrit disappears tomorrow, your system does not.",
   },
 ] as const;
 
@@ -37,7 +37,7 @@ const PHASES = [
   {
     no: "01",
     name: "Examination",
-    body: "A diagnostic of flows, decisions and failure points, documented as an engineering brief. It fixes the scope, the first operation to rebuild, and the criteria of success — before any commitment.",
+    body: "A diagnostic of flows, decisions and failure points, documented as an engineering brief. It fixes the scope, the first operation to rebuild, and the criteria of success before any commitment.",
   },
   {
     no: "02",
@@ -47,7 +47,7 @@ const PHASES = [
   {
     no: "03",
     name: "Compounding",
-    body: "Each new capability joins the operating system and increases the value of every previous one. The system grows with the company — and the company keeps owning all of it.",
+    body: "Each new capability joins the operating system and increases the value of every previous one. The system grows with the company, and the company keeps owning all of it.",
   },
 ] as const;
 
@@ -101,8 +101,8 @@ export default function ManufacturePage() {
             Every phase ships against the{" "}
             <Link className="k" href="/standard">
               Parrit Standard
-            </Link>{" "}
-            — six criteria, the same for every system we deliver.
+            </Link>
+            . Six criteria, the same for every system we deliver.
           </p>
         </section>
 

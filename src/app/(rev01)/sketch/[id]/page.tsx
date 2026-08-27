@@ -10,7 +10,7 @@ import { SketchBoot } from "@/system/components/SketchBoot";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Operating System — Sketch",
+  title: "Operating System · Sketch",
   robots: { index: false, follow: false, nocache: true },
 };
 
@@ -29,52 +29,52 @@ const SKETCHES: Record<
   reporting: {
     title: "Reporting that writes itself.",
     intro:
-      "A live model of your operations assembles the pack on schedule — traced to the line, reversible to the day. Nobody writes it, everybody reads it.",
+      "A live model of your operations assembles the pack on schedule, traced to the line and reversible to the day. Nobody writes it, everybody reads it.",
     instrument: [
       { value: "MON 07:00", label: "the weekly pack assembled itself from source systems", status: "DONE" },
-      { value: "3", label: "figures moved beyond tolerance — flagged with cause and source", status: "REVIEW", critical: true },
+      { value: "3", label: "figures moved beyond tolerance, flagged with cause and source", status: "REVIEW", critical: true },
       { value: "0 h", label: "of manual assembly this week, or any week", status: "STANDING" },
     ],
     next: [
       "Examination maps your actual reporting flow: sources, owners, dead time.",
       "Construction rebuilds one pack end-to-end, certified, in production.",
-      "Every later capability reads the same live model — nothing is rebuilt twice.",
+      "Every later capability reads the same live model. Nothing is rebuilt twice.",
     ],
   },
   "client-flow": {
     title: "A client flow that never loses the thread.",
     intro:
-      "Every client, every promise, every next step — one system that remembers, so nobody has to. Touched by hand only when a human decision is required.",
+      "Every client, every promise, every next step: one system that remembers, so nobody has to. Touched by hand only when a human decision is required.",
     instrument: [
       { value: "12", label: "open threads, each with its next step and its owner", status: "LIVE" },
-      { value: "2", label: "commitments approaching their date — surfaced before they slip", status: "ACTION", critical: true },
+      { value: "2", label: "commitments approaching their date, surfaced before they slip", status: "ACTION", critical: true },
       { value: "0", label: "clients waiting on a reply nobody saw", status: "STANDING" },
     ],
     next: [
       "Examination maps how clients actually enter, wait, and leave your pipeline.",
-      "Construction rebuilds the critical path — intake to commitment — as one system.",
+      "Construction rebuilds the critical path, from intake to commitment, as one system.",
       "The CRM becomes something you read, not something you fill.",
     ],
   },
   "mail-followups": {
     title: "Mail answered as doctrine.",
     intro:
-      "Every inbound classified, drafted and journaled; every follow-up fired on time. You sign — the system remembers.",
+      "Every inbound classified, drafted and journaled; every follow-up fired on time. You sign. The system remembers.",
     instrument: [
       { value: "23", label: "inbound mails classified and drafted since this morning", status: "DONE" },
-      { value: "4", label: "follow-ups due today — drafted, waiting for your signature", status: "ACTION", critical: true },
+      { value: "4", label: "follow-ups due today, drafted and waiting for your signature", status: "ACTION", critical: true },
       { value: "100%", label: "of threads journaled with author, time and rationale", status: "STANDING" },
     ],
     next: [
       "Examination reads a week of your real inbox flow: volumes, delays, drops.",
       "Construction ships the classifier and the draft doctrine, certified.",
-      "Follow-ups stop depending on memory — yours or anyone’s.",
+      "Follow-ups stop depending on memory, yours or anyone’s.",
     ],
   },
   "full-os": {
     title: "Your company. One system.",
     intro:
-      "Orders, cash, operations, people, clients — one place to understand what is happening, decide what matters, and act. This sketch shows the first surface.",
+      "Orders, cash, operations, people, clients: one place to understand what is happening, decide what matters, and act. This sketch shows the first surface.",
     instrument: [
       { value: "3", label: "decisions require the executive this morning", status: "TODAY" },
       { value: "€ —", label: "exposure surfaced with cause and the one decision required", status: "ACTION", critical: true },
@@ -113,7 +113,7 @@ export default async function SketchPage({ params }: { params: Promise<{ id: str
           <section className="r2-instrument-stage" aria-label="Sketched instrument">
             <Instrument
               className="home-instrument"
-              left={<St kind="crit">{`${company.toUpperCase()} / OS — SKETCH`}</St>}
+              left={<St kind="crit">{`${company.toUpperCase()} / OS · SKETCH`}</St>}
               center={<K className="instrument-sep">·</K>}
               right={<K>Draft 01</K>}
               rows={sketch.instrument.map((row) => ({
@@ -126,7 +126,7 @@ export default async function SketchPage({ params }: { params: Promise<{ id: str
               }))}
             />
             <div className="r2-instrument-caption">
-              <K>A SKETCH, NOT A PROMISE — THE REAL INSTRUMENT IS BUILT ON YOUR ACTUAL FLOWS.</K>
+              <K>A SKETCH, NOT A PROMISE. THE REAL INSTRUMENT IS BUILT ON YOUR ACTUAL FLOWS.</K>
             </div>
           </section>
 
