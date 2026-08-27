@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/commission" },
   title: "Commission your operating system",
   description:
-    "One conversation to examine how your company operates. The first step — an examination, not a sales call.",
+    "One conversation to examine how your company operates. The first step is an examination, not a sales call.",
 };
 
 export default function CommissionPage() {
@@ -17,12 +17,12 @@ export default function CommissionPage() {
           <K>Parrit / Commission</K>
           <h1>Commission your operating system.</h1>
           <p>
-            One conversation to examine how your company operates. The first step — an
+            One conversation to examine how your company operates. The first step is an
             examination, not a sales call.
           </p>
           <div className="commission-notes">
             <p>
-              <b>Who you meet.</b> Paul Larmaraud, the founder — the person who builds the
+              <b>Who you meet.</b> Paul Larmaraud, the founder and the person who builds the
               systems, not a sales team. Figures from the dossiers are verified live, on
               screen.
             </p>
@@ -33,7 +33,7 @@ export default function CommissionPage() {
             </p>
             <p>
               <b>What it commits you to.</b> Nothing. Scope and terms are set in writing
-              after the conversation, before any engagement — walking away costs nothing
+              after the conversation, before any engagement. Walking away costs nothing
               and requires no explanation.
             </p>
           </div>

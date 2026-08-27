@@ -80,7 +80,7 @@ export function RegisterInterest({ source }: { source: string }) {
       <div className="ri" data-state="done">
         <K>Registered</K>
         <p className="ri-done">
-          Noted. The first sketch of your operating system is being assembled right now —
+          Noted. The first sketch of your operating system is being assembled right now.
           from what you just told us, not from a template.
         </p>
         {sketchUrl ? (
@@ -98,7 +98,7 @@ export function RegisterInterest({ source }: { source: string }) {
         <K>Register your interest</K>
         <h3>In 10 focused hours, your company gets its first system. Start here.</h3>
         <p>
-          Tell us where it hurts. We answer with a sketch of your operating system — a
+          Tell us where it hurts. We answer with a sketch of your operating system: a
           prototype built for your company, in your inbox. No newsletter, no sequence.
         </p>
       </div>

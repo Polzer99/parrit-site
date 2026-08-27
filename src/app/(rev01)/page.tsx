@@ -5,7 +5,7 @@ import { DecisionCard, Instrument, K, Opening, RegisterInterest, RegistryLine, S
 import { getAllJournalEntrySummaries } from "@/system/journal";
 
 export const metadata: Metadata = {
-  title: { absolute: "Parrit — Company Operating Systems" },
+  title: { absolute: "Parrit · Company Operating Systems" },
   alternates: { canonical: "/" },
 };
 
@@ -14,7 +14,7 @@ const DOSSIERS = [
     ref: "DOSSIER 26-001",
     sector: "PARRIT ITSELF",
     title: "The system we sell is the system we run.",
-    body: "Parrit operates on its own operating system: one place where signals, clients and campaigns become decisions — delivered to the founder’s phone as cards. Built for ourselves first, compounding since.",
+    body: "Parrit operates on its own operating system: one place where signals, clients and campaigns become decisions, delivered to the founder’s phone as cards. Built for ourselves first, compounding since.",
     value: "200+",
     result: "signals become decisions, every week",
     seal: "In production · Compounding",
@@ -23,7 +23,7 @@ const DOSSIERS = [
     ref: "DOSSIER 26-002",
     sector: "A LAW FIRM",
     title: "An operating system for a law firm.",
-    body: "Client intake, follow-ups and case flow — rebuilt as one system, on the firm’s own infrastructure. First capabilities certified and live; the system grows case by case.",
+    body: "Client intake, follow-ups and case flow, rebuilt as one system on the firm’s own infrastructure. First capabilities certified and live; the system grows case by case.",
     value: "+€5–10K",
     result: "additional revenue per month, from re-engaged case flow",
     seal: "Under construction · First capabilities live",
@@ -32,7 +32,7 @@ const DOSSIERS = [
     ref: "DOSSIER 26-003",
     sector: "A CONSUMER BRAND",
     title: "Reporting nobody writes.",
-    body: "The reporting assembles itself from source systems and ships on schedule — run today by the client’s own team, without us. Owned, documented, handed over.",
+    body: "The reporting assembles itself from source systems and ships on schedule. It is run today by the client’s own team, without us. Owned, documented, handed over.",
     value: "2.5 months",
     result: "recovered on a single reporting process",
     seal: "Delivered · Operated by the client",
@@ -44,7 +44,7 @@ const STANDARD_EXCERPT = [
     ps: "PS-01",
     name: "Observable",
     example:
-      "The operator reads the state of dossier 26-001 at any moment — no meeting, no export, no asking anyone.",
+      "The operator reads the state of dossier 26-001 at any moment: no meeting, no export, no asking anyone.",
   },
   {
     ps: "PS-03",
@@ -64,7 +64,7 @@ const PHASES = [
   {
     no: "01",
     name: "Examination",
-    body: "A diagnostic of flows, decisions and failure points — an engineering brief, not a workshop.",
+    body: "A diagnostic of flows, decisions and failure points: an engineering brief, not a workshop.",
   },
   {
     no: "02",
@@ -81,7 +81,7 @@ const PHASES = [
 const FAQ = [
   {
     q: "Who is Parrit?",
-    a: "An independent French maison, founded by Paul Larmaraud and steered by its partners — twenty engineers and operators around the project. A registered company whose full legal identity is one click away, under /Legal. Deliberately small at the core: we take few commissions, and a partner personally builds each one. The Journal is where our thinking is public.",
+    a: "An independent French maison, founded by Paul Larmaraud and steered by its partners, with twenty engineers and operators around the project. A registered company whose full legal identity is one click away, under /Legal. Deliberately small at the core: we take few commissions, and a partner personally builds each one. The Journal is where our thinking is public.",
   },
   {
     q: "What do we own at the end?",
@@ -89,15 +89,15 @@ const FAQ = [
   },
   {
     q: "Where does our data live?",
-    a: "In your perimeter. Parrit builds inside your own accounts and infrastructure from day one — your data never lives on Parrit’s servers, and our access ends the day you revoke it. GDPR posture follows from that: nothing changes hands to lose.",
+    a: "In your perimeter. Parrit builds inside your own accounts and infrastructure from day one. Your data never lives on Parrit’s servers, and our access ends the day you revoke it. GDPR posture follows from that: nothing changes hands to lose.",
   },
   {
     q: "Who maintains it after delivery?",
-    a: "We do. There is maintenance. A living system is never finished, and we carry what we deliver: every commission includes maintenance and evolution, so the system keeps running and keeps growing. You still own everything, and because it is built on ordinary technology you can take it over with your own team whenever you choose, like the consumer brand in dossier 26-003. Maintenance is an explicit term of the commission, priced on its own — not a subscription in disguise: stop it whenever you want, the system stays yours and keeps running.",
+    a: "We do. There is maintenance. A living system is never finished, and we carry what we deliver: every commission includes maintenance and evolution, so the system keeps running and keeps growing. You still own everything, and because it is built on ordinary technology you can take it over with your own team whenever you choose, like the consumer brand in dossier 26-003. Maintenance is an explicit term of the commission, priced on its own, not a subscription in disguise: stop it whenever you want, the system stays yours and keeps running.",
   },
   {
     q: "How much does it ask of my team?",
-    a: "Less than a software project, more than a subscription. The Examination asks for a few hours of conversation with the people who actually run the operation. During Construction, your team keeps working as it always has — we build around the real flow, not in a workshop. Using the finished system requires no training: if a card needs a manual, we have failed.",
+    a: "Less than a software project, more than a subscription. The Examination asks for a few hours of conversation with the people who actually run the operation. During Construction, your team keeps working as it always has. We build around the real flow, not in a workshop. Using the finished system requires no training: if a card needs a manual, we have failed.",
   },
   {
     q: "Where do you operate?",
@@ -105,7 +105,7 @@ const FAQ = [
   },
   {
     q: "How long before the first system runs?",
-    a: "Construction targets one critical operation, in production and certified — typically weeks, not quarters. The Examination fixes the scope before any commitment.",
+    a: "Construction targets one critical operation, in production and certified, typically in weeks, not quarters. The Examination fixes the scope before any commitment.",
   },
   {
     q: "What if it doesn’t hold?",
@@ -147,7 +147,7 @@ export default function HomePage() {
           <section className="r2-instrument-stage" aria-label="Operating system instrument">
             <Instrument
               className="home-instrument"
-              left={<St kind="crit">PARRIT / OS — LIVE</St>}
+              left={<St kind="crit">PARRIT / OS · LIVE</St>}
               center={<K className="instrument-sep">·</K>}
               right={<K>Tue 09:14</K>}
               rows={[
@@ -158,7 +158,7 @@ export default function HomePage() {
                 },
                 {
                   value: "€1.2M",
-                  label: "at risk on blocked orders — framed, sourced, quantified",
+                  label: "at risk on blocked orders, framed, sourced, quantified",
                   status: <K style={{ color: "var(--red)" }}>Action required</K>,
                   critical: true,
                 },
@@ -171,7 +171,7 @@ export default function HomePage() {
             />
             <div className="r2-instrument-caption">
               <K>EVERYTHING BELOW THIS SCREEN RUNS THE COMPANY. ONLY DECISIONS REACH YOU.</K>
-              <K>AN ILLUSTRATIVE SCENARIO — MEASURED CLIENT FIGURES LIVE IN THE DOSSIERS BELOW.</K>
+              <K>AN ILLUSTRATIVE SCENARIO. MEASURED CLIENT FIGURES LIVE IN THE DOSSIERS BELOW.</K>
             </div>
           </section>
         </div>
@@ -180,7 +180,7 @@ export default function HomePage() {
           <div className="r2-metrics-in">
             <div className="r2-metric">
               <div className="v">3</div>
-              <div className="l">operating systems in construction or production — including our own</div>
+              <div className="l">operating systems in construction or production, including our own</div>
             </div>
             <div className="r2-metric">
               <div className="v">1</div>
@@ -188,7 +188,7 @@ export default function HomePage() {
             </div>
             <div className="r2-metric">
               <div className="v">100%</div>
-              <div className="l">of delivered systems owned by the client — code, data, documentation</div>
+              <div className="l">of delivered systems owned by the client: code, data, documentation</div>
             </div>
           </div>
         </div>
@@ -242,7 +242,7 @@ export default function HomePage() {
                   <K>One card, one action</K>
                   <h3>Decisions arrive as cards.</h3>
                   <p>
-                    Framed, sourced, quantified. Hold to commit — executed through the same
+                    Framed, sourced, quantified. Hold to commit; executed through the same
                     system, journaled, reversible. Try the card on the left: it is the real
                     component.
                   </p>
@@ -251,7 +251,7 @@ export default function HomePage() {
                   <K>Down to your phone</K>
                   <h3>The whole company, in your pocket.</h3>
                   <p>
-                    The same operating system runs from the workshop floor to your phone —
+                    The same operating system runs from the workshop floor to your phone,
                     one place to understand, decide and act.
                   </p>
                 </div>
@@ -288,7 +288,7 @@ export default function HomePage() {
               infrastructure end-to-end, and systems commissioned by maisons in cosmetics and
               craft retail. Figures are measured in the client’s own systems and verified
               live, on screen, during the examination call. The dossiers, and references
-              with the client’s consent, open in conversation — not on a website.
+              with the client’s consent, open in conversation, not on a website.
             </p>
           </section>
         </div>
@@ -301,7 +301,7 @@ export default function HomePage() {
             </div>
             <div className="r2-std">
               <div className="r2-std-head">
-                <K>THE PARRIT STANDARD — EVERY SYSTEM, SAME SPECIFICATION</K>
+                <K>THE PARRIT STANDARD · EVERY SYSTEM, SAME SPECIFICATION</K>
                 <K>6 criteria</K>
               </div>
               {STANDARD_EXCERPT.map((row) => (
@@ -333,13 +333,13 @@ export default function HomePage() {
             </div>
             <div className="r2-manu">
               <p className="r2-manu-lede">
-                A company operating system is not installed. It is manufactured — on your
+                A company operating system is not installed. It is manufactured on your
                 flows, your decisions, your exceptions.
               </p>
               <div className="r2-manu-cols">
                 <p>
                   We work <b>one company at a time</b>. The system is built against how your
-                  company actually operates — not how software vendors assume it should.
+                  company actually operates, not how software vendors assume it should.
                 </p>
                 <p>
                   Everything ships against the Standard, and everything you receive is{" "}
@@ -392,7 +392,7 @@ export default function HomePage() {
               ))}
             </div>
             <p className="r2-registre-note">
-              Field notes on the systems we examine, build and operate — published under our
+              Field notes on the systems we examine, build and operate, published under our
               own names, dated, and occasionally wrong in public.{" "}
               <Link className="k" href="/journal">
                 Read the journal

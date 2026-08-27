@@ -15,13 +15,13 @@ const PRINCIPLES = [
     "PS-01",
     "Observable",
     "The operator can determine the state of the system at any moment, without asking anyone.",
-    "The operator reads the state of a live dossier at any moment — no meeting, no export, no asking anyone.",
+    "The operator reads the state of a live dossier at any moment: no meeting, no export, no asking anyone.",
   ],
   [
     "PS-02",
     "Actionable",
     "Every surfaced piece of information leads to a possible action within the same view.",
-    "A blocked order surfaces with its cause, its exposure and the one decision required — in the same card.",
+    "A blocked order surfaces with its cause, its exposure and the one decision required, all in the same card.",
   ],
   [
     "PS-03",
@@ -33,7 +33,7 @@ const PRINCIPLES = [
     "PS-04",
     "Reversible",
     "Every critical process has a documented path of return before it is put into production.",
-    "An automated action can be halted and unwound to the last human decision — the path back is documented before go-live.",
+    "An automated action can be halted and unwound to the last human decision. The path back is documented before go-live.",
   ],
   [
     "PS-05",
@@ -79,14 +79,14 @@ export default function StandardPage() {
             </div>
           ))}
           <div className="doctrine-foot">
-            <span className="seal">Certified — Built to the Parrit Standard</span>
+            <span className="seal">Certified · Built to the Parrit Standard</span>
           </div>
         </section>
 
         <p className="standard-note">
           To be clear about what this is: STD-1.0 is our own bar, not a third-party
           accreditation. We publish it so you can hold us to it. Each criterion is verified
-          in your production, on your data, against your flows — and signed off by you, not
+          in your production, on your data, against your flows; signed off by you, not
           by us. The certification you should trust is the one your own team gives after
           running the system.
         </p>
