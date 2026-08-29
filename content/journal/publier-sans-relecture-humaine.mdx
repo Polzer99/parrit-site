@@ -1,0 +1,36 @@
+---
+title: "Letting a system publish without human review"
+date: "2026-08-29"
+description: "Machine gates can carry the responsibility of publishing. The condition is that the gates know how to say no, and that the human moves upstream."
+slug: "publier-sans-relecture-humaine"
+---
+
+Most companies that automate content stop at the last step. The system drafts, then a human approves each piece before it goes live. It feels safe. It is also the reason the system never compounds: the human becomes the bottleneck, and shortly after, the rubber stamp.
+
+We run editorial engines that publish to production with no one reading the article first. Here is what actually carries the responsibility.
+
+## Approval is not review
+
+A person asked to approve every piece reads the first few carefully. Then the pieces keep coming, the pieces keep being fine, and reading turns into skimming. Per-item approval degrades precisely because it becomes routine. The safety it provides is mostly a feeling.
+
+The gate you need is not a person reading everything. It is a machine that knows how to refuse.
+
+## Gates that know how to say no
+
+Before anything ships, the piece has to pass a chain of hard checks. The format contract first: structure and metadata are validated, and a wrong shape is a refusal, not a warning. Then a scan for the phrases that give away generated text. Then a word-boundary scan for client and third-party names, so nobody can recognize themselves in something we publish. Then a similarity check against everything already published, because an engine that repeats itself is worse than one that stays silent. Then the site has to build.
+
+And after deployment, the system probes the page in production and checks that the content is really there. A 200 response proves nothing. The title has to be in the page.
+
+If a single gate is red, nothing ships. The most common useful output of the engine is a refusal with an exact reason attached.
+
+## Discretion is a gate, not a habit
+
+Two rules matter more than all the others. Material connected to a client meeting waits seven days before it can feed an article, on either side of the meeting. And before publishing, one question decides: could the person behind the material read the piece and think "this is me"? If the answer is yes, the subject changes or the situation is generalized until the answer is no.
+
+We learned this the expensive way, by retracting a live article that was clean by every other measure. The rule now lives in the gates, not in anyone's memory.
+
+## Where the human belongs
+
+Upstream, and above. The owner of the system writes the rules, raises the bar, and keeps a weekly review window: everything published during the week arrives in one email, and one command retracts any piece. The quality bar itself is versioned and only moves in one direction. Every week, what was good enough last week gets harder to publish.
+
+That is the posture we deploy with our clients: systems that act alone inside hard limits their owner wrote, with ownership of the gates rather than custody of the queue. Autonomy is not removing people. It is moving them from toll booth to legislator.
