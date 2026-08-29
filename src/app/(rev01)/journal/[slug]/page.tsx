@@ -9,6 +9,8 @@ type JournalArticlePageProps = {
   params: Promise<{ slug: string }>;
 };
 
+const SITE_URL = "https://parrit.ai";
+
 export function generateStaticParams() {
   return getAllJournalEntrySummaries().map(({ slug }) => ({ slug }));
 }
@@ -24,6 +26,7 @@ export async function generateMetadata({ params }: JournalArticlePageProps): Pro
   return {
     title: entry.title,
     description: entry.description,
+    alternates: { canonical: `/journal/${entry.slug}` },
     robots: entry.noindex ? { index: false, follow: true } : undefined,
   };
 }
@@ -36,8 +39,29 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
     notFound();
   }
 
+  const canonical = `${SITE_URL}/journal/${entry.slug}`;
+  const blogPostingJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: entry.title,
+    datePublished: entry.date,
+    description: entry.description,
+    author: {
+      "@type": "Organization",
+      name: "Parrit",
+      url: SITE_URL,
+    },
+    mainEntityOfPage: canonical,
+  };
+
   return (
     <main className="rev-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(blogPostingJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <article className="journal-article">
         <header className="journal-header">
           <K>Journal / Entry · {entry.date}</K>

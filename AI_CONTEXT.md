@@ -20,6 +20,10 @@ Manual tables, especially in `src/lib/blog.ts`, are brittle. Do not run broad AS
 
 Generated content and presentation logic are deliberately separated. Blog and actualite records carry content, metadata, and translations; components decide layout, styling, and interaction.
 
+## Journal publication contract
+
+Journal entries live in `content/journal/*.mdx` and are parsed by `src/system/journal.ts`. The headless daily publisher is `scripts/publish-journal.mjs`; it accepts either an existing slug or an absolute external MDX path, applies the pure editorial gates in `scripts/journal-gates.mjs`, then validates the existing prooflint/build/brand contract. Non-dry publications fetch `origin/main`, require the current `HEAD` to descend from it, and push `HEAD:main`.
+
 ## Rules Before Push
 
 Follow `BRAND.md` for palette, typography, visual components, and voice. Do not duplicate those rules here.
