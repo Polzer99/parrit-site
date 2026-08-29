@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test:journal": "node --test tests/publish-journal-gates.test.mjs",
     "qa:brand:rev01": "node scripts/brand-conformity-check.mjs",
     "qa:network:rev01": "playwright test tests/rev01-system.spec.ts tests/conformity-home.spec.ts tests/conformity-standard.spec.ts tests/conformity-commission.spec.ts tests/conformity-journal.spec.ts --browser=chromium"
   },
