@@ -2,6 +2,7 @@ import { readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
 
 const ROOTS = ["src/system", "src/app-rev01", "src/app/system", "src/app/(rev01)"];
+const CAMP_LANDING = "src/app/camp-costa-rica/Landing.tsx";
 const TEXT_EXTENSIONS = new Set([".css", ".js", ".jsx", ".md", ".mjs", ".ts", ".tsx"]);
 const violations = [];
 
@@ -58,6 +59,25 @@ for (const root of ROOTS) {
       if (banned) report(file, lineNumber, "PC-10 banned word", banned[0]);
     });
   }
+}
+
+const campLandingSource = await readFile(CAMP_LANDING, "utf8");
+const obsoleteCampLogo = "/brand/parrit-lockup-red.svg";
+if (campLandingSource.includes(obsoleteCampLogo)) {
+  report(CAMP_LANDING, 1, "obsolete camp logo", obsoleteCampLogo);
+}
+
+const campWordmarks =
+  campLandingSource.match(
+    /<span className="cnav-logo" role="img" aria-label="Parrit\.AI">\s*PARRIT<i aria-hidden="true">\.<\/i>AI\s*<\/span>/g,
+  ) ?? [];
+if (campWordmarks.length !== 2) {
+  report(
+    CAMP_LANDING,
+    1,
+    "camp live-text wordmarks",
+    `expected 2, found ${campWordmarks.length}`,
+  );
 }
 
 if (violations.length > 0) {
