@@ -21,7 +21,13 @@ export function RevHeader() {
   const pathname = usePathname();
 
   useEffect(() => {
-    setMenuOpen(false);
+    let cancelled = false;
+    queueMicrotask(() => {
+      if (!cancelled) setMenuOpen(false);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [pathname]);
 
   // pas de pop instantané au tap : le panneau monte d'abord à opacité 0, la
@@ -30,13 +36,27 @@ export function RevHeader() {
   // en premier et le démontage suit 180ms plus tard, le temps du fondu
   useEffect(() => {
     if (menuOpen) {
-      setPanelMounted(true);
-      const frame = window.requestAnimationFrame(() => setPanelOn(true));
-      return () => window.cancelAnimationFrame(frame);
+      let cancelled = false;
+      let frame: number | undefined;
+      queueMicrotask(() => {
+        if (cancelled) return;
+        setPanelMounted(true);
+        frame = window.requestAnimationFrame(() => setPanelOn(true));
+      });
+      return () => {
+        cancelled = true;
+        if (frame !== undefined) window.cancelAnimationFrame(frame);
+      };
     }
-    setPanelOn(false);
+    let cancelled = false;
+    queueMicrotask(() => {
+      if (!cancelled) setPanelOn(false);
+    });
     const timer = window.setTimeout(() => setPanelMounted(false), 180);
-    return () => window.clearTimeout(timer);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
   }, [menuOpen]);
 
   useEffect(() => {

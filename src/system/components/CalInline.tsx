@@ -25,8 +25,13 @@ export function ParritCalInline({
     if (preview || placeholder) return;
     const node = stageRef.current;
     if (!node || typeof IntersectionObserver === "undefined") {
-      setMount(true);
-      return;
+      let cancelled = false;
+      queueMicrotask(() => {
+        if (!cancelled) setMount(true);
+      });
+      return () => {
+        cancelled = true;
+      };
     }
     const observer = new IntersectionObserver(
       (entries) => {
