@@ -1,0 +1,36 @@
+---
+title: "Starting an AI Act compliance register without a compliance team"
+date: "2026-08-31"
+description: "The August 2, 2026 milestone is behind us. For a company that automates methodically, the compliance register is not a new project. It is an export of records the system should already be producing."
+slug: "ai-act-compliance-register"
+---
+
+Since August 2, 2026, the enforcement powers of the European AI Office and of national authorities apply. The question we now hear from executives is almost always the same: do we need to hire a compliance team before we deploy anything else? Our answer is no, and not because the regulation is toothless. It is because a compliance register is a list of things a well-built automation already produces. If your system cannot produce it, the gap is in the engineering, not in your legal department.
+
+## What actually changed on August 2
+
+Three things are worth separating, because most summaries blur them. First, the enforcement framework: the AI Office and national competent authorities can now act, which turns preparation into exposure. Second, the transparency obligations of Article 50 apply broadly: a system interacting with a human must clearly say it is an AI, and generated or manipulated content must be disclosed. Third, the high-risk obligations of Annex III, covering areas like employment, credit and critical infrastructure, formally reach their deadline on this date, but the Digital Omnibus agreement reached in May 2026 would defer them to December 2, 2027, and that deferral still requires formal adoption. So the prudent reading is that transparency and enforcement are live today, and the high-risk apparatus is coming with extra time you should use, not waste.
+
+The penalties explain the anxiety: up to 35 million euros or 7 percent of worldwide turnover for prohibited practices, up to 15 million euros or 3 percent for non-compliance on high-risk systems. Larger than the GDPR ceiling. This is what pushes companies to treat the AI Act as a legal emergency and to staff it accordingly.
+
+## Read the obligations as an engineering spec
+
+Look at what a deployer of a high-risk system must actually be able to show: human oversight procedures that exist and are followed, logs of the system's operation retained over time, documentation of what the system does and on what data, and the ability to tell affected people that an AI was involved. None of these is a legal artifact. Each one is a property of how the workflow was designed. A lawyer can tell you whether your use case falls under Annex III. A lawyer cannot retroactively create the logs of decisions your system never wrote down.
+
+That is the trap in treating compliance as a separate project: the project produces binders, and the binders describe a system that still does not record anything. The register has to be a query over data that exists, or it is fiction with a CE mark on the cover.
+
+## What we already record, and why it predates the regulation
+
+Every agent we deploy writes its decisions into a table in the client's own database. Not ours, theirs, because owning the substrate means owning the audit trail. Each row says what the agent did, which rule it applied, and what it refused to do. The rules themselves live in versioned files, so a change of rule is a commit with a date and an author, not a memory. And every action that touches the outside world, an email, a price, a commitment, passes through an explicit human gate, and the gate's approval or refusal is itself an event in the log.
+
+We did not build any of this for the AI Act. We built it because a system you cannot audit is a system you cannot fix, and because our own editorial and operational engines run unattended, which is only tolerable when every decision leaves a trace. The result is that the register the regulation asks for is, for our deployments, an export. The human oversight points are already named in the workflow. The logs are already in the client's database. The documentation is the rule files themselves.
+
+## Where to start if you have nothing
+
+Start with an inventory, and ask one question per automated system: can it show its decisions from last month, name the rule it applied, and point to the human who could have stopped it? Where the answer is yes, your register for that system is a report. Where the answer is no, you have found real work, and it is engineering work: add the decision log, extract the rules from the prompt or the code into a document that can be versioned, and make the human checkpoints explicit instead of informal. Bring in legal expertise for the one question that genuinely needs it, whether your use case is high-risk under Annex III at all.
+
+The deferral to December 2027, if formally adopted, is not a reprieve to do nothing. It is time to make traceability a property of your systems instead of a binder about them. Companies that automate methodically will discover they were largely compliant before anyone asked. The others will be hiring a compliance team to document systems nobody can explain.
+
+## Go to the source
+
+The enforcement framework is described on the European Commission's digital strategy site, at digital-strategy.ec.europa.eu under the enforcement of the AI Act. The penalty tiers are in Article 99 of the regulation, readable at artificialintelligenceact.eu. A clear breakdown of what the August 2, 2026 date changes, including the pending Digital Omnibus deferral, is at aiacto.eu.
