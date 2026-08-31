@@ -1,0 +1,36 @@
+---
+title: "Agents that fabricate facts: what a 1,355-row cleanup taught us"
+date: "2026-08-31"
+description: "The real risk of production AI is not a chatbot hallucinating in front of a user. It is a process silently writing plausible, false records into a database everything else trusts."
+slug: "agents-that-fabricate-facts"
+---
+
+Everyone worries about AI hallucinating in a chat window. That failure is annoying but visible: a human reads the answer, spots the nonsense, asks again. The failure that should worry you is quieter. This week we contained one: 1,355 database rows claiming our system had contacted people it had never contacted.
+
+No model hallucinated those rows. Legacy code did. A leftover writer was recording outbound interactions as a side effect of unrelated operations. Deterministic code, wrong assumptions, false facts. And to every downstream consumer, those facts were indistinguishable from real ones. Follow-up logic read them. Reporting read them. Any question of the form "when did we last talk to this person" was answered with fiction.
+
+## The write is silent, the read comes later
+
+That is the actual risk profile of agents in production. Not a chatbot inventing a citation in front of a user who can push back, but a process writing plausible, well-formed, false records into a database that everything else trusts. The write is silent. The read happens weeks later, in a different context, by a component that has no reason to doubt what it finds. Three practices came out of the cleanup. None of them are exotic. All of them were missing.
+
+## Fail-closed writes
+
+The fix we shipped inverts the default: when the code cannot establish what kind of interaction it is looking at, it writes nothing. A gap in the data is visible, measurable, and recoverable. A fabricated row is none of those things. Most pipelines are built fail-open because gaps feel like bugs and rows feel like progress. In a system other systems depend on, that instinct is backwards: missing data is a problem you can see, wrong data is a problem you inherit.
+
+## Provenance on every row
+
+The cleanup was only possible because we could ask each record where it came from, and the fabricated ones had a recognizable origin. Rows that cannot answer that question cannot be audited, cannot be reconciled, and cannot be safely deleted. Provenance is not metadata for compliance. It is the property that makes every future cleanup tractable instead of archaeological.
+
+## Probes on every pipeline
+
+The same audit surfaced a second defect: an ingestion pipeline that had been dead for two months. No error, no alert, 201 items sitting in a queue. Silence had been read as health. A pipeline must prove it is alive; the absence of output has to trip an alarm, because no news and broken produce exactly the same logs. The interval matters too. Two months of undetected death means two months of decisions made on stale data, and nobody deciding knew.
+
+## Verification needs a second instrument
+
+There is a fourth principle underneath the other three, and it showed up the same week in an unrelated place. A video-editing agent we run was cutting words in half because it trusted the timestamps of the transcription that guided its cuts; the fix was to make it re-transcribe the assembled audio around every cut and refuse to render until zero anomalies remain. An agent has to verify its own output with a different instrument than the one that produced it. The transcription cannot audit the cut it caused, and the writer cannot audit the row it wrote. Verification only counts when it comes from outside the loop that generated the artifact.
+
+## Foundation first
+
+The organizational lesson is the uncomfortable one. Every new feature adds readers to your data, and every reader inherits its lies. Shipping features on top of a foundation that fabricates facts does not just risk bugs, it compounds them: each consumer bakes the false records into its own outputs, and the cost of the eventual cleanup grows with every layer. So the doctrine we took away is blunt. Data foundation first: provenance, idempotence, reconciliation. Features after. It is slower for a quarter and faster for every quarter that follows, because the alternative is what we just did, tracing 1,355 fictions back to their source while the roadmap waited.
+
+Agents in production are worth it. Ours write content drafts, deploy client fixes behind a human approval, and edit video overnight. But they earn that autonomy the same way a junior engineer does: by proving that when they are unsure, they stop, and that what they write down can be checked by something other than themselves. This is the kind of production discipline we build at parrit.ai.
