@@ -1,0 +1,30 @@
+---
+title: "Is a cheaper model good enough for everyday production work?"
+date: "2026-09-01"
+description: "For most production tasks, yes. We route the bulk of our own workload to inexpensive open-weight models and treat frontier models as an escalation path, not a default."
+slug: "frontier-as-fallback"
+---
+
+The question arrives in two costumes. An executive asks it as a budget question: our AI bill is growing, can we use something cheaper? A builder asks it as a quality question: will a smaller model quietly degrade my system? Both are asking the same thing, and both usually get the wrong answer, because the answer they get is model-shaped. Which model is best this month, which benchmark says so. The honest answer is task-shaped. There is no such thing as a model that is good enough. There are tasks a given model is good enough for, and the only way to know is to name the task first.
+
+## Most production tokens are not hard tokens
+
+Look inside a real automated operation and the glamour evaporates. The overwhelming share of what our systems ask a model to do is classification, extraction, short summarization, formatting, and routine drafting against a well-defined rule. This work has two properties that matter: the instructions carry most of the intelligence, and a single error is cheap because something downstream checks it. For work like that, paying frontier rates is not a quality decision. It is a habit. The frontier model does not classify a lead source better than a model that costs a fraction of a cent. It classifies it identically, at a large multiple of the price.
+
+## How we actually route
+
+Our own runtime goes through a broker, so every model sits behind one API and switching is a configuration change rather than a rewrite. Behind it we keep three shelves. High-volume mechanical work runs on a cheap open-weight model. Everyday production work, the drafting and reasoning that makes up the middle of the day, runs on a stronger open-weight model. The premium shelf, reserved for long-horizon agentic work where the model must hold a plan across many steps, runs on the best open model available at the time. Frontier models from the large American labs are the escalation path above all three: reached for when a task has demonstrably resisted the shelf below, never reached for by reflex.
+
+The order matters more than the brands. Any name we write here will age; the shelf structure will not. When a better model appears on any shelf, it replaces the incumbent that week, because nothing in the code knows which model it is talking to.
+
+## What changed, and what did not
+
+The reason this routing works in 2026 is that open-weight models joined the leading pack on real work. We documented one case in June: an open model matching the best proprietary systems on repository-level coding benchmarks at a fraction of the cost, weights downloadable, no one able to revoke access. That closed most of the gap that used to justify defaulting to the frontier. What did not change is the top of the range. On genuinely hard problems, novel architecture decisions, adversarial review, subtle multi-file refactors, the strongest closed models still earn their price. So we still pay it. We just pay it for the small share of work that deserves it instead of the whole of the work that does not.
+
+## The mistake on each side
+
+The expensive mistake is obvious: batch summarization on a frontier model is money converted directly into heat. The cheap mistake is quieter and worse. A task where one wrong output contaminates everything downstream, a record written into a database other systems trust, a commitment sent to the outside world, is not the place to save a fraction of a cent. The cost of the model is trivial next to the cost of the error. Our rule is to price the failure, not the tokens: the model budget for a task follows from what a single bad output would cost to detect and undo.
+
+## How to answer it for your own system
+
+Take one automated task you run today and ask what actually breaks if the model is wrong once. If the answer is nothing much, because a human gate or a checking step catches it, route it down a shelf and measure for a week. If the answer is something serious, keep the strong model and spend your attention on the checking step instead. Then watch one number: the share of your production volume that genuinely needs the top shelf. Ours turned out to be small, and finding that out required no benchmark at all. It required a broker, a fallback, and the willingness to let the cheap model try first.
