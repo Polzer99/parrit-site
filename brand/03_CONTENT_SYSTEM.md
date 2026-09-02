@@ -35,6 +35,17 @@ Bring a workflow. We scope it, put it into production and transfer the system to
 
 ## Voice
 
+> **Couche Carla (02/09/2026, ordre Paul)** : tout copy éditorial (site,
+> deck, post, visuel marketing, description LinkedIn) passe la check-list
+> « LA PASSE CARLA » du corpus de style — 10 gestes (phrase courte qui
+> tombe, contraste par négation, chute en deux temps, hyper-concret nommé,
+> chiffres à verdict, écrit pour l'oreille, zéro superlatif…) + règle des
+> titres (les titres lus seuls = un mémo). **Chaque langue se PENSE dans
+> sa langue : le FR ne se traduit jamais de l'anglais, l'EN s'écrit
+> nativement.** Corpus PRIVÉ, hors repo :
+> `~/parrit-os/docs/doctrine-communication/CORPUS-CARLA-DE-PREVAL.md` —
+> ne jamais en publier les pièces.
+
 - First person when Paul speaks.
 - Active voice.
 - Short sentences.
