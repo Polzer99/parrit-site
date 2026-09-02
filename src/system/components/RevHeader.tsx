@@ -4,21 +4,41 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const NAV = [
-  ["/", "System"],
-  ["/manufacture", "Manufacture"],
-  ["/standard", "Standard"],
-  ["/dossiers", "Dossiers"],
-  ["/journal", "Journal"],
-  ["/commission", "Commission"],
-] as const;
+import type { Locale } from "@/system/locale";
 
-export function RevHeader() {
-  const [clock, setClock] = useState("—");
+const NAV = {
+  en: [
+    ["/", "System"],
+    ["/manufacture", "Manufacture"],
+    ["/standard", "Standard"],
+    ["/dossiers", "Dossiers"],
+    ["/journal", "Journal"],
+    ["/commission", "Commission"],
+  ],
+  fr: [
+    ["/", "Système"],
+    ["/manufacture", "Manufacture"],
+    ["/standard", "Standard"],
+    ["/dossiers", "Dossiers"],
+    ["/journal", "Journal"],
+    ["/commission", "Commande"],
+  ],
+} as const;
+
+export function RevHeader({ locale }: { locale: Locale }) {
+  const [clock, setClock] = useState("--:--:-- · LOCAL");
   const [menuOpen, setMenuOpen] = useState(false);
   const [panelMounted, setPanelMounted] = useState(false);
   const [panelOn, setPanelOn] = useState(false);
   const pathname = usePathname();
+  const nav = NAV[locale];
+
+  const switchLocale = (nextLocale: Locale) => {
+    if (nextLocale === locale) return;
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", nextLocale);
+    window.location.assign(`${url.pathname}${url.search}${url.hash}`);
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -95,7 +115,7 @@ export function RevHeader() {
         PARRIT<i aria-hidden="true">.</i>AI
       </Link>
       <nav className="cmd-nav" aria-label="Main navigation">
-        {NAV.map(([href, label]) => {
+        {nav.map(([href, label]) => {
           const active = href === "/" ? pathname === "/" : pathname?.startsWith(href);
           return (
             <Link
@@ -109,6 +129,19 @@ export function RevHeader() {
           );
         })}
       </nav>
+      <div className="locale-toggle" aria-label={locale === "fr" ? "Choisir la langue" : "Choose language"}>
+        {(["fr", "en"] as const).map((item) => (
+          <button
+            type="button"
+            key={item}
+            className={item === locale ? "on" : undefined}
+            aria-pressed={item === locale}
+            onClick={() => switchLocale(item)}
+          >
+            {item.toUpperCase()}
+          </button>
+        ))}
+      </div>
       <time className="clock" aria-label="Local time">
         {clock}
       </time>
@@ -119,7 +152,7 @@ export function RevHeader() {
         aria-controls="cmd-panel"
         onClick={() => setMenuOpen((open) => !open)}
       >
-        {menuOpen ? "Close" : "Menu"}
+        {menuOpen ? (locale === "fr" ? "Fermer" : "Close") : "Menu"}
       </button>
       </header>
       {/* le panneau vit HORS de la cmdbar : son backdrop-filter fait de la barre
@@ -130,7 +163,7 @@ export function RevHeader() {
           id="cmd-panel"
           aria-label="Main navigation"
         >
-          {NAV.map(([href, label]) => {
+          {nav.map(([href, label]) => {
             const active = href === "/" ? pathname === "/" : pathname?.startsWith(href);
             return (
               <Link

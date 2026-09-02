@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import {
+  isLocale,
+  localeFromAcceptLanguage,
+  LOCALE_COOKIE,
+  LOCALE_HEADER,
+} from "@/system/locale";
+
 // Domaine dédié du Camp Parrita : sert la landing camp à la racine,
 // sans jamais exposer l'arborescence parrit.ai.
 const CAMP_HOST = "campparrita.com";
@@ -25,6 +32,26 @@ export function proxy(request: NextRequest) {
     return;
   }
 
+  const queryLocale = request.nextUrl.searchParams.get("lang");
+  const cookieLocale = request.cookies.get(LOCALE_COOKIE)?.value;
+  const locale = isLocale(queryLocale)
+    ? queryLocale
+    : isLocale(cookieLocale)
+      ? cookieLocale
+      : localeFromAcceptLanguage(request.headers.get("accept-language"));
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set(LOCALE_HEADER, locale);
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
+  if (isLocale(queryLocale) || !isLocale(cookieLocale)) {
+    response.cookies.set(LOCALE_COOKIE, locale, {
+      maxAge: 60 * 60 * 24 * 365,
+      path: "/",
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+    });
+  }
+  return response;
+
 }
 
 export const config = {
@@ -38,5 +65,13 @@ export const config = {
       source: "/:path*",
       has: [{ type: "host", value: "www.campparrita.com" }],
     },
+    "/",
+    "/manufacture",
+    "/standard",
+    "/dossiers",
+    "/commission",
+    "/journal/:path*",
+    "/legal",
+    "/sketch/:path*",
   ],
 };

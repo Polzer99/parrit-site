@@ -2,9 +2,43 @@
 
 import { useCallback, useEffect, useState } from "react";
 
+import type { Locale } from "@/system/locale";
+
 const LINE_DELAYS = [180, 440, 700, 960, 1_220] as const;
 
-export function Opening() {
+const DICT = {
+  en: {
+    loading: "LOADING COMPANY MODEL ................",
+    loaded: "DONE",
+    connecting: "CONNECTING OPERATIONS ................",
+    systems: "14 SYSTEMS",
+    scanning: "SCANNING FOR EXCEPTIONS ..............",
+    found: "2 FOUND",
+    ready: "READY.",
+    heroBefore: "The system your company",
+    heroFrame: "operates",
+    heroAfter: "on.",
+    maker: <>Parrit designs and builds<br />company operating systems.</>,
+    statement: "One system to understand, decide and act across the company. Built for one company at a time. Commissioned, not subscribed.",
+  },
+  fr: {
+    loading: "CHARGEMENT DU MODÈLE DE L'ENTREPRISE ........",
+    loaded: "TERMINÉ",
+    connecting: "CONNEXION DES OPÉRATIONS ...................",
+    systems: "14 SYSTÈMES",
+    scanning: "RECHERCHE D'EXCEPTIONS .....................",
+    found: "2 TROUVÉES",
+    ready: "PRÊT.",
+    heroBefore: "Le système qui fait tourner votre",
+    heroFrame: "entreprise.",
+    heroAfter: "",
+    maker: <>Parrit conçoit et construit<br />des systèmes d'exploitation d'entreprise.</>,
+    statement: "Un seul système pour comprendre, décider et agir, à l'échelle de l'entreprise. Une entreprise à la fois. Une commande, pas un abonnement.",
+  },
+} as const;
+
+export function Opening({ locale }: { locale: Locale }) {
+  const copy = DICT[locale];
   const [visible, setVisible] = useState(false);
   const [exiting, setExiting] = useState(false);
   const [visibleLines, setVisibleLines] = useState(0);
@@ -64,34 +98,31 @@ export function Opening() {
       <div className="bootlog">
         <div className={visibleLines >= 1 ? "on" : undefined}>PARRIT / SITE · REV 01</div>
         <div className={visibleLines >= 2 ? "on" : undefined}>
-          LOADING COMPANY MODEL ................ <span className="ok-line">DONE</span>
+          {copy.loading} <span className="ok-line">{copy.loaded}</span>
         </div>
         <div className={visibleLines >= 3 ? "on" : undefined}>
-          CONNECTING OPERATIONS ................ <span className="ok-line">14 SYSTEMS</span>
+          {copy.connecting} <span className="ok-line">{copy.systems}</span>
         </div>
         <div className={visibleLines >= 4 ? "on" : undefined}>
-          SCANNING FOR EXCEPTIONS .............. <span className="red-line">2 FOUND</span>
+          {copy.scanning} <span className="red-line">{copy.found}</span>
         </div>
-        <div className={`ok-line${visibleLines >= 5 ? " on" : ""}`}>READY.</div>
+        <div className={`ok-line${visibleLines >= 5 ? " on" : ""}`}>{copy.ready}</div>
       </div>
       <div className="boothero">
         <div className={heroVisible ? "on" : undefined}>
-          The system your company{" "}
+          {copy.heroBefore}{" "}
           <span className="op frame">
-            operates<i className="fx" />
+            {copy.heroFrame}<i className="fx" />
           </span>{" "}
-          on.
+          {copy.heroAfter}
         </div>
       </div>
       <div className={`bootfoot${footVisible ? " on" : ""}`}>
         <span className="k">
-          Parrit designs and builds
-          <br />
-          company operating systems.
+          {copy.maker}
         </span>
         <p>
-          One system to understand, decide and act across the company. Built for one company
-          at a time. Commissioned, not subscribed.
+          {copy.statement}
         </p>
       </div>
     </div>

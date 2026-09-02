@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
     return erreur("adresse e-mail requise", 400);
   }
 
-  const interet = (corps.interet ?? "").trim() as Interet;
+  const interet = (corps.interet ?? "full-os").trim() as Interet;
   if (!INTERETS.includes(interet)) {
     return erreur("intérêt inconnu", 400);
   }
@@ -63,6 +63,7 @@ export async function POST(req: NextRequest) {
 
   const submissionId = corps.submissionId?.trim() || randomUUID();
   const lang = ["fr", "en"].includes(corps.lang ?? "") ? (corps.lang as string) : "en";
+  const source = (corps.source ?? (corps.interet ? "site:register-interest" : "site:quick-capture")).trim();
 
   try {
     const resultat = await enregistrerInteret({
@@ -71,7 +72,7 @@ export async function POST(req: NextRequest) {
       interet,
       entreprise: corps.entreprise,
       ouvertAppel: Boolean(corps.ouvertAppel),
-      source: (corps.source ?? "site:register-interest").trim(),
+      source,
       pageOrigine: (corps.pageOrigine ?? "").trim(),
       lang,
       attribution: corps.attribution ?? {},
@@ -84,7 +85,7 @@ export async function POST(req: NextRequest) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            source: "site:register-interest",
+            source,
             action: "interet_declare",
             submission_id: submissionId,
             prospect_id: resultat.prospectId,

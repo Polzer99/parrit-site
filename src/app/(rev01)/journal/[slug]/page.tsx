@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 
-import { K, RegisterInterest, RegistryLine } from "@/system/components";
+import { getLocale } from "@/lib/server/locale";
+import { K, RegistryLine } from "@/system/components";
 import { getAllJournalEntrySummaries, getJournalEntry } from "@/system/journal";
+import { localizedAlternates } from "@/system/locale";
 
 type JournalArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -26,7 +28,7 @@ export async function generateMetadata({ params }: JournalArticlePageProps): Pro
   return {
     title: entry.title,
     description: entry.description,
-    alternates: { canonical: `/journal/${entry.slug}` },
+    alternates: localizedAlternates(`/journal/${entry.slug}`),
     robots: entry.noindex ? { index: false, follow: true } : undefined,
   };
 }
@@ -34,6 +36,7 @@ export async function generateMetadata({ params }: JournalArticlePageProps): Pro
 export default async function JournalArticlePage({ params }: JournalArticlePageProps) {
   const { slug } = await params;
   const entry = getJournalEntry(slug);
+  const locale = await getLocale();
 
   if (!entry) {
     notFound();
@@ -64,7 +67,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
       />
       <article className="journal-article">
         <header className="journal-header">
-          <K>Journal / Entry · {entry.date}</K>
+          <K>{locale === "fr" ? "Journal / Entrée" : "Journal / Entry"} · {entry.date}</K>
           <h1>{entry.title}</h1>
           <p className="journal-deck">{entry.description}</p>
         </header>

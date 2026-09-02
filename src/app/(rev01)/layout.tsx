@@ -6,6 +6,8 @@ import "../../system/system.css";
 import "./rev01.css";
 
 import { AnalyticsInit, RevHeader } from "@/system/components";
+import { getLocale } from "@/lib/server/locale";
+import { localizedAlternates } from "@/system/locale";
 
 /* PostHog — standard global de tracking (décision Paul 15/08) : autocapture,
    heatmaps, session replay (inputs masqués), web vitals. Clé projet publique. */
@@ -53,11 +55,13 @@ export const metadata: Metadata = {
   },
   description:
     "Parrit examines how a company operates, builds its first production system and compounds it as owned infrastructure.",
+  alternates: localizedAlternates("/"),
 };
 
-export default function Rev01Layout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function Rev01Layout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const locale = await getLocale();
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
         <link rel="preload" href="/fonts/rev02/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/rev02/GeneralSans-Medium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
@@ -67,7 +71,7 @@ export default function Rev01Layout({ children }: Readonly<{ children: React.Rea
       </head>
       <body>
         <AnalyticsInit />
-        <RevHeader />
+        <RevHeader locale={locale} />
         {children}
       </body>
     </html>
