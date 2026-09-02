@@ -66,6 +66,34 @@ body {
   text-align: right;
 }
 
+.locale-toggle {
+  display: inline-flex;
+  border: 1px solid var(--rule-d);
+}
+
+.locale-toggle button {
+  min-width: 34px;
+  min-height: 30px;
+  border: 0;
+  background: transparent;
+  color: var(--g4);
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  cursor: pointer;
+}
+
+.locale-toggle button.on {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.locale-toggle button:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
 .wordmark:focus-visible {
   outline: 2px solid var(--red);
   outline-offset: 3px;
@@ -1095,6 +1123,10 @@ body {
     display: none;
   }
 
+  .locale-toggle {
+    margin-left: auto;
+  }
+
   .cmd-menu-toggle {
     display: inline-flex;
   }
@@ -1104,7 +1136,7 @@ body {
   display: none;
   align-items: center;
   min-height: 44px;
-  margin-left: auto;
+    margin-left: 0;
   padding: 10px 14px;
   border: 1px solid var(--rule-d);
   background: transparent;
@@ -1315,6 +1347,70 @@ a.k:active {
   border-top: 1px solid var(--rule-d);
   border-bottom: 1px solid var(--rule-d);
   background: var(--carbon);
+}
+
+.quick-capture {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(420px, 1.1fr);
+  gap: 52px;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 42px 40px;
+  border-bottom: 1px solid var(--rule-d);
+  background: var(--carbon);
+  color: var(--paper);
+}
+
+.quick-copy p,
+.quick-capture[data-state="done"] p {
+  max-width: 56ch;
+  margin-top: 12px;
+  color: var(--label-d);
+  line-height: 1.55;
+}
+
+.quick-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.quick-fields input {
+  min-width: 0;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--rule-d);
+  border-right: 0;
+  background: var(--carbon2);
+  color: var(--paper);
+  font: inherit;
+}
+
+.quick-capture form > .k {
+  display: block;
+  margin-top: 12px;
+  color: var(--g4);
+}
+
+.quick-capture .ri-error {
+  display: block;
+  margin-top: 12px;
+}
+
+@media (max-width: 760px) {
+  .quick-capture {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 34px 20px;
+  }
+
+  .quick-fields {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .quick-fields input {
+    border-right: 1px solid var(--rule-d);
+  }
 }
 
 .r2-metrics-in {

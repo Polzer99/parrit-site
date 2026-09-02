@@ -4,16 +4,34 @@ import Cal, { getCalApi } from "@calcom/embed-react";
 import { useEffect, useRef, useState } from "react";
 
 import { CAL_LINK_COMMISSION, isPlaceholder } from "../../../site.config";
+import type { Locale } from "@/system/locale";
 
 type ParritCalInlineProps = {
   calLink?: string;
   preview?: boolean;
+  locale?: Locale;
 };
 
 export function ParritCalInline({
   calLink = CAL_LINK_COMMISSION,
   preview = false,
+  locale = "en",
 }: ParritCalInlineProps) {
+  const copy = locale === "fr" ? {
+    title: "PARRIT / COMMANDE",
+    ready: "CHOISISSEZ UN CRÉNEAU",
+    loading: "CHARGEMENT DES CRÉNEAUX…",
+    retrieving: "OUVERTURE DU CALENDRIER · QUELQUES SECONDES",
+    format: "30 MIN · VISIO",
+    status: "UNE COMMANDE, PAS UN ABONNEMENT",
+  } : {
+    title: "PARRIT / COMMISSION",
+    ready: "SELECT A TIME",
+    loading: "LOADING AVAILABLE TIMES…",
+    retrieving: "RETRIEVING THE CALENDAR · A FEW SECONDS",
+    format: "30 MIN · VIDEO",
+    status: "COMMISSIONED, NOT SUBSCRIBED",
+  };
   const placeholder = isPlaceholder(calLink);
   /* lazy + état de chargement : l'embed (~1,7 MB) ne se monte qu'à l'approche du
      viewport, et un état visible couvre les secondes où l'iframe est encore noire */
@@ -85,8 +103,8 @@ export function ParritCalInline({
     <div className="cal-stage" ref={stageRef}>
       <div className="cal-instrument">
         <div className="cal-bar">
-          <span>PARRIT / COMMISSION</span>
-          <span>{ready ? "SELECT A TIME" : "LOADING AVAILABLE TIMES…"}</span>
+          <span>{copy.title}</span>
+          <span>{ready ? copy.ready : copy.loading}</span>
         </div>
         {preview ? (
           <div className="cal-preview">CAL.COM INLINE INSTRUMENT</div>
@@ -94,7 +112,7 @@ export function ParritCalInline({
           <div className="cal-embed-stage" data-ready={ready || undefined}>
             {!ready ? (
               <div className="cal-loading" role="status" aria-live="polite">
-                <span className="k">RETRIEVING THE CALENDAR · A FEW SECONDS</span>
+                <span className="k">{copy.retrieving}</span>
               </div>
             ) : null}
             {mount ? (
@@ -108,10 +126,10 @@ export function ParritCalInline({
           </div>
         )}
         <div className="cal-bar cal-bar-footer">
-          <span>30 MIN · VIDEO</span>
+          <span>{copy.format}</span>
           <span className="cal-status">
             <i aria-hidden="true" />
-            COMMISSIONED, NOT SUBSCRIBED
+            {copy.status}
           </span>
         </div>
       </div>

@@ -1,171 +1,26 @@
 import type { Metadata } from "next";
 
+import { getLocale } from "@/lib/server/locale";
 import { K, RegistryLine } from "@/system/components";
-
-export const metadata: Metadata = {
-  alternates: { canonical: "/legal" },
-  title: "Legal notice and privacy policy",
-  description:
-    "Legal notice and privacy policy for Parrit.ai, including company information, hosting, data processing and GDPR rights.",
-};
+import { localizedAlternates } from "@/system/locale";
 
 const COMPANY = {
-  name: "PARRIT.AI",
-  form: "Simplified joint-stock company with a sole shareholder (SASU)",
-  capital: "€100",
-  office: "3 avenue Otis Mygatt, 92500 Rueil-Malmaison, France",
-  registration: "Nanterre 928 503 218",
-  siret: "928 503 218 00010",
-  vat: "FR48 928 503 218",
-  businessCode: "62.01Z (Computer programming)",
-  publicationDirector: "Paul Larmaraud",
-  email: "paul.larmaraud@parrit.ai",
+  name: "PARRIT.AI", capital: "100 €", office: "3 avenue Otis Mygatt, 92500 Rueil-Malmaison, France", registration: "Nanterre 928 503 218", siret: "928 503 218 00010", vat: "FR48 928 503 218", publicationDirector: "Paul Larmaraud", email: "paul.larmaraud@parrit.ai",
 } as const;
 
-export default function LegalPage() {
-  return (
-    <main className="rev-page legal-page">
-      <div className="rev-wrap legal-wrap">
-        <header className="legal-header">
-          <div>
-            <K>Parrit / Document register</K>
-            <h1>Legal notice and privacy policy.</h1>
-          </div>
-          <RegistryLine value="PARRIT / LEGAL · REV 01 · 2026" />
-        </header>
+const DICT = {
+  en: {
+    metaTitle: "Legal notice and privacy policy", metaDescription: "Legal notice and privacy policy for Parrit.ai, including company information, hosting, data processing and GDPR rights.", kicker: "Parrit / Document register", title: "Legal notice and privacy policy.", updated: "Last updated / July 2026", doc1: "Document 01", legalTitle: "Legal notice", doc2: "Document 02", privacyTitle: "Privacy policy",
+    legal: [["Publisher", <>The parrit.ai website is published by <strong>{COMPANY.name}</strong>, a simplified joint-stock company with a sole shareholder (SASU), with a share capital of {COMPANY.capital}.<br /><br />Registered office: {COMPANY.office}. Registered with the Nanterre Trade and Companies Register under number {COMPANY.registration}. SIRET: {COMPANY.siret}. VAT: {COMPANY.vat}. Business code (APE): 62.01Z (Computer programming).<br /><br />Publication director: {COMPANY.publicationDirector}. Contact: <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>.</>], ["Hosting", <>The website is hosted by Vercel Inc., 340 S Lemon Ave {"#"}4133, Walnut, CA 91789, USA (vercel.com).</>], ["Intellectual property", <>All content on the site (text, visuals, logos, the Parrit.ai brand) is the exclusive property of {COMPANY.name}, unless otherwise stated. Any reproduction or representation, in whole or in part, without prior written authorization, is prohibited.</>], ["Liability", <>{COMPANY.name} strives to keep the information published accurate, without guaranteeing that it is complete or up to date. The site may contain links to third-party sites over whose content {COMPANY.name} has no control and for which it accepts no liability.</>], ["Personal data", <>How personal data collected through this site is processed is described in the privacy policy below.</>]],
+    privacy: [["Data controller", <>The data controller is <strong>{COMPANY.name}</strong>, {COMPANY.office}. For any question: <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>.</>], ["Data we collect", <>When you fill in a form (contact, booking, access to a resource), we collect the data you provide: first name, last name, email address and, where relevant, phone number. We also measure site audience through navigation analytics.</>], ["Purposes", <>This data is used to answer your requests, contact you in a commercial context, send you the resources you asked for and improve the site. We never send anything without a legitimate reason and never resell your data.</>], ["Legal basis", <>Processing is based on your consent (forms) and on Parrit.ai’s legitimate interest in developing its business and securing its site.</>], ["Recipients and processors", <>Your data is processed by Parrit.ai and by the technical providers strictly necessary to the service: hosting (Vercel), form automation (n8n), database (Supabase) and analytics (PostHog, hosted in the European Union). Some providers may process data outside the European Union, with the contractual safeguards required by the GDPR.</>], ["Retention", <>Prospecting data is kept for three years from the last contact, in line with French data protection authority (CNIL) guidance, then deleted or anonymized.</>], ["Your rights", <>You have the right to access, rectify, erase, restrict, object to and port your data. To exercise these rights, write to <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>. You may also lodge a complaint with the French data protection authority (CNIL, cnil.fr).</>]],
+  },
+  fr: {
+    metaTitle: "Mentions légales et politique de confidentialité", metaDescription: "Mentions légales et politique de confidentialité de Parrit.ai : société, hébergement, traitement des données et droits RGPD.", kicker: "Parrit / Registre documentaire", title: "Mentions légales et politique de confidentialité.", updated: "Dernière mise à jour / Juillet 2026", doc1: "Document 01", legalTitle: "Mentions légales", doc2: "Document 02", privacyTitle: "Politique de confidentialité",
+    legal: [["Éditeur", <>Le site parrit.ai est édité par <strong>{COMPANY.name}</strong>, société par actions simplifiée unipersonnelle (SASU), au capital social de {COMPANY.capital}.<br /><br />Siège social : {COMPANY.office}. Immatriculée au Registre du commerce et des sociétés de Nanterre sous le numéro {COMPANY.registration}. SIRET : {COMPANY.siret}. TVA intracommunautaire : {COMPANY.vat}. Code APE : 62.01Z (Programmation informatique).<br /><br />Directeur de la publication : {COMPANY.publicationDirector}. Contact : <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>.</>], ["Hébergement", <>Le site est hébergé par Vercel Inc., 340 S Lemon Ave {"#"}4133, Walnut, CA 91789, États-Unis (vercel.com).</>], ["Propriété intellectuelle", <>L'ensemble des contenus du site (textes, visuels, logos et marque Parrit.ai) est la propriété exclusive de {COMPANY.name}, sauf mention contraire. Toute reproduction ou représentation, totale ou partielle, sans autorisation écrite préalable, est interdite.</>], ["Responsabilité", <>{COMPANY.name} s'efforce d'assurer l'exactitude des informations publiées, sans garantir leur exhaustivité ni leur actualité. Le site peut contenir des liens vers des sites tiers dont {COMPANY.name} ne contrôle pas le contenu et pour lesquels elle décline toute responsabilité.</>], ["Données personnelles", <>Le traitement des données personnelles collectées par l'intermédiaire de ce site est décrit dans la politique de confidentialité ci-dessous.</>]],
+    privacy: [["Responsable du traitement", <>Le responsable du traitement est <strong>{COMPANY.name}</strong>, {COMPANY.office}. Pour toute question : <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>.</>], ["Données collectées", <>Lorsque vous remplissez un formulaire (contact, prise de rendez-vous, accès à une ressource), nous collectons les données que vous fournissez : prénom, nom, adresse e-mail et, le cas échéant, numéro de téléphone. Nous mesurons également l'audience du site au moyen de données de navigation.</>], ["Finalités", <>Ces données servent à répondre à vos demandes, à vous contacter dans un contexte commercial, à vous transmettre les ressources demandées et à améliorer le site. Nous n'envoyons rien sans motif légitime et ne revendons jamais vos données.</>], ["Base légale", <>Les traitements reposent sur votre consentement (formulaires) et sur l'intérêt légitime de Parrit.ai à développer son activité et à sécuriser son site.</>], ["Destinataires et sous-traitants", <>Vos données sont traitées par Parrit.ai et par les prestataires techniques strictement nécessaires au service : hébergement (Vercel), automatisation des formulaires (n8n), base de données (Supabase) et mesure d'audience (PostHog, hébergé dans l'Union européenne). Certains prestataires peuvent traiter des données hors de l'Union européenne, avec les garanties contractuelles exigées par le RGPD.</>], ["Durée de conservation", <>Les données de prospection sont conservées pendant trois ans à compter du dernier contact, conformément aux recommandations de la CNIL, puis supprimées ou anonymisées.</>], ["Vos droits", <>Vous disposez des droits d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité de vos données. Pour exercer ces droits, écrivez à <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>. Vous pouvez également adresser une réclamation à la Commission nationale de l'informatique et des libertés (CNIL, cnil.fr).</>]],
+  },
+} as const;
 
-        <section className="legal-document" aria-labelledby="legal-notice-heading">
-          <div className="legal-document-head">
-            <K>Document 01</K>
-            <K>Last updated / July 2026</K>
-          </div>
-          <h2 id="legal-notice-heading">Legal notice</h2>
+export async function generateMetadata(): Promise<Metadata> { const copy = DICT[await getLocale()]; return { title: copy.metaTitle, description: copy.metaDescription, alternates: localizedAlternates("/legal") }; }
 
-          <section>
-            <h3>Publisher</h3>
-            <p>
-              The parrit.ai website is published by <strong>{COMPANY.name}</strong>, {COMPANY.form},
-              with a share capital of {COMPANY.capital}.
-            </p>
-            <p>
-              Registered office: {COMPANY.office}. Registered with the Nanterre Trade and Companies
-              Register under number {COMPANY.registration}. SIRET: {COMPANY.siret}. VAT: {COMPANY.vat}.
-              Business code (APE): {COMPANY.businessCode}.
-            </p>
-            <p>
-              Publication director: {COMPANY.publicationDirector}. Contact:{" "}
-              <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>.
-            </p>
-          </section>
-
-          <section>
-            <h3>Hosting</h3>
-            <p>
-              The website is hosted by Vercel Inc., 340 S Lemon Ave {"#"}4133, Walnut, CA 91789,
-              USA (vercel.com).
-            </p>
-          </section>
-
-          <section>
-            <h3>Intellectual property</h3>
-            <p>
-              All content on the site (text, visuals, logos, the Parrit.ai brand) is the exclusive
-              property of {COMPANY.name}, unless otherwise stated. Any reproduction or representation,
-              in whole or in part, without prior written authorization, is prohibited.
-            </p>
-          </section>
-
-          <section>
-            <h3>Liability</h3>
-            <p>
-              {COMPANY.name} strives to keep the information published accurate, without guaranteeing
-              that it is complete or up to date. The site may contain links to third-party sites over
-              whose content {COMPANY.name} has no control and for which it accepts no liability.
-            </p>
-          </section>
-
-          <section>
-            <h3>Personal data</h3>
-            <p>
-              How personal data collected through this site is processed is described in the privacy
-              policy below.
-            </p>
-          </section>
-        </section>
-
-        <section className="legal-document" aria-labelledby="privacy-heading">
-          <div className="legal-document-head">
-            <K>Document 02</K>
-            <K>Last updated / July 2026</K>
-          </div>
-          <h2 id="privacy-heading">Privacy policy</h2>
-
-          <section>
-            <h3>Data controller</h3>
-            <p>
-              The data controller is <strong>{COMPANY.name}</strong>, {COMPANY.office}. For any
-              question: <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>.
-            </p>
-          </section>
-
-          <section>
-            <h3>Data we collect</h3>
-            <p>
-              When you fill in a form (contact, booking, access to a resource), we collect the data you
-              provide: first name, last name, email address and, where relevant, phone number. We also
-              measure site audience through navigation analytics.
-            </p>
-          </section>
-
-          <section>
-            <h3>Purposes</h3>
-            <p>
-              This data is used to answer your requests, contact you in a commercial context, send you
-              the resources you asked for and improve the site. We never send anything without a
-              legitimate reason and never resell your data.
-            </p>
-          </section>
-
-          <section>
-            <h3>Legal basis</h3>
-            <p>
-              Processing is based on your consent (forms) and on Parrit.ai’s legitimate interest in
-              developing its business and securing its site.
-            </p>
-          </section>
-
-          <section>
-            <h3>Recipients and processors</h3>
-            <p>
-              Your data is processed by Parrit.ai and by the technical providers strictly necessary to
-              the service: hosting (Vercel), form automation (n8n), database (Supabase) and analytics
-              (PostHog, hosted in the European Union). Some providers may process data outside the
-              European Union, with the contractual safeguards required by the GDPR.
-            </p>
-          </section>
-
-          <section>
-            <h3>Retention</h3>
-            <p>
-              Prospecting data is kept for three years from the last contact, in line with French data
-              protection authority (CNIL) guidance, then deleted or anonymized.
-            </p>
-          </section>
-
-          <section>
-            <h3>Your rights</h3>
-            <p>
-              You have the right to access, rectify, erase, restrict, object to and port your data. To
-              exercise these rights, write to <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>.
-              You may also lodge a complaint with the French data protection authority (CNIL, cnil.fr).
-            </p>
-          </section>
-        </section>
-
-        <footer className="rev-footer">
-          <RegistryLine />
-        </footer>
-      </div>
-    </main>
-  );
-}
+export default async function LegalPage() { const copy = DICT[await getLocale()]; return <main className="rev-page legal-page"><div className="rev-wrap legal-wrap"><header className="legal-header"><div><K>{copy.kicker}</K><h1>{copy.title}</h1></div><RegistryLine value="PARRIT / LEGAL · REV 01 · 2026" /></header><section className="legal-document" aria-labelledby="legal-notice-heading"><div className="legal-document-head"><K>{copy.doc1}</K><K>{copy.updated}</K></div><h2 id="legal-notice-heading">{copy.legalTitle}</h2>{copy.legal.map(([title, body]) => <section key={title}><h3>{title}</h3><p>{body}</p></section>)}</section><section className="legal-document" aria-labelledby="privacy-heading"><div className="legal-document-head"><K>{copy.doc2}</K><K>{copy.updated}</K></div><h2 id="privacy-heading">{copy.privacyTitle}</h2>{copy.privacy.map(([title, body]) => <section key={title}><h3>{title}</h3><p>{body}</p></section>)}</section><footer className="rev-footer"><RegistryLine /></footer></div></main>; }

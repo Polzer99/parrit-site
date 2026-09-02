@@ -1,106 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { getLocale } from "@/lib/server/locale";
 import { K, RegistryLine } from "@/system/components";
+import { localizedAlternates } from "@/system/locale";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/standard" },
-  title: "The Parrit Standard",
-  description:
-    "The six operating principles that govern every system commissioned and built by Parrit.",
-};
+const DICT = {
+  en: {
+    metaTitle: "The Parrit Standard", metaDescription: "The six operating principles that govern every system commissioned and built by Parrit.", kicker: "Parrit / Specification", title: "Every system we deliver is certified to the same specification.", tableTitle: "The Parrit Standard", tableMeta: "Specification · STD-1.0 · 2026", practice: "In practice",
+    principles: [["PS-01", "Observable", "The operator can determine the state of the system at any moment, without asking anyone.", "The operator reads the state of a live dossier at any moment: no meeting, no export, no asking anyone."], ["PS-02", "Actionable", "Every surfaced piece of information leads to a possible action within the same view.", "A blocked order surfaces with its cause, its exposure and the one decision required, all in the same card."], ["PS-03", "Traceable", "Every significant decision carries its origin: data, author, timestamp, rationale.", "The journal records author, timestamp, source and rationale for every decision. The journal is the audit."], ["PS-04", "Reversible", "Every critical process has a documented path of return before it is put into production.", "An automated action can be halted and unwound to the last human decision. The path back is documented before go-live."], ["PS-05", "Owned", "The client holds the system, its data and its documentation as company assets.", "Code, data and documentation are handed over as company assets. The client’s team operates the system without us."], ["PS-06", "Compounding", "Each new capability increases the value of every capability already in production.", "The reporting built in phase one feeds the follow-up system built in phase two. Each addition raises the value of the last."]],
+    seal: "Certified · Built to the Parrit Standard", note: "To be clear about what this is: STD-1.0 is our own bar, not a third-party accreditation. We publish it so you can hold us to it. Each criterion is verified in your production, on your data, against your flows; signed off by you, not by us. The certification you should trust is the one your own team gives after running the system.", button: "Let’s talk",
+  },
+  fr: {
+    metaTitle: "Le Standard Parrit", metaDescription: "Les six principes de fonctionnement qui régissent chaque système commandé et construit par Parrit.", kicker: "Parrit / Spécification", title: "Une seule spécification. Chaque système livré y répond.", tableTitle: "Le Standard Parrit", tableMeta: "Spécification · STD-1.0 · 2026", practice: "En pratique",
+    principles: [["PS-01", "Observable", "L'opérateur connaît l'état du système à tout moment, sans rien demander à personne.", "L'opérateur lit l'état d'un dossier en cours à tout moment : pas de réunion, pas d'export, personne à interroger."], ["PS-02", "Actionnable", "Toute information remontée ouvre sur une action possible, dans la même vue.", "Une commande bloquée remonte avec sa cause, le montant en jeu et la seule décision à prendre. Le tout sur une même carte."], ["PS-03", "Traçable", "Chaque décision significative porte son origine : données, auteur, horodatage, motif.", "Le journal consigne l'auteur, l'heure, la source et le motif de chaque décision. Le journal est l'audit."], ["PS-04", "Réversible", "Chaque processus critique a sa procédure de retour arrière, écrite avant la mise en production.", "Une action automatisée peut être arrêtée, puis ramenée à la dernière décision humaine. La procédure de retour est documentée avant la mise en service."], ["PS-05", "Propriété du client", "Le client détient le système, ses données et sa documentation comme des actifs de son entreprise.", "Le code, les données et la documentation entrent au patrimoine de l'entreprise. L'équipe du client fait tourner le système sans nous."], ["PS-06", "Capitalisation", "Chaque nouvelle brique augmente la valeur de toutes celles déjà en production.", "Le reporting construit en premier alimente les relances construites ensuite. Chaque ajout augmente la valeur du précédent."]],
+    seal: "Certifié · Construit selon le Standard Parrit", note: "Soyons clairs : STD-1.0 est notre exigence, pas une accréditation délivrée par un tiers. Nous la publions pour que vous puissiez nous demander des comptes. Chaque critère est vérifié en production, chez vous : sur vos données, sur vos flux réels. Et validé par vous, pas par nous. La seule certification qui vaille : celle que votre équipe délivre après avoir fait tourner le système.", button: "Parlons-en",
+  },
+} as const;
 
-const PRINCIPLES = [
-  [
-    "PS-01",
-    "Observable",
-    "The operator can determine the state of the system at any moment, without asking anyone.",
-    "The operator reads the state of a live dossier at any moment: no meeting, no export, no asking anyone.",
-  ],
-  [
-    "PS-02",
-    "Actionable",
-    "Every surfaced piece of information leads to a possible action within the same view.",
-    "A blocked order surfaces with its cause, its exposure and the one decision required, all in the same card.",
-  ],
-  [
-    "PS-03",
-    "Traceable",
-    "Every significant decision carries its origin: data, author, timestamp, rationale.",
-    "The journal records author, timestamp, source and rationale for every decision. The journal is the audit.",
-  ],
-  [
-    "PS-04",
-    "Reversible",
-    "Every critical process has a documented path of return before it is put into production.",
-    "An automated action can be halted and unwound to the last human decision. The path back is documented before go-live.",
-  ],
-  [
-    "PS-05",
-    "Owned",
-    "The client holds the system, its data and its documentation as company assets.",
-    "Code, data and documentation are handed over as company assets. The client’s team operates the system without us.",
-  ],
-  [
-    "PS-06",
-    "Compounding",
-    "Each new capability increases the value of every capability already in production.",
-    "The reporting built in phase one feeds the follow-up system built in phase two. Each addition raises the value of the last.",
-  ],
-] as const;
+export async function generateMetadata(): Promise<Metadata> { const copy = DICT[await getLocale()]; return { title: copy.metaTitle, description: copy.metaDescription, alternates: localizedAlternates("/standard") }; }
 
-export default function StandardPage() {
-  return (
-    <main className="rev-page">
-      <div className="rev-wrap">
-        <header className="standard-intro">
-          <K>Parrit / Specification</K>
-          <h1>Every system we deliver is certified to the same specification.</h1>
-        </header>
-
-        <section className="doctrine" aria-label="The Parrit Standard specification">
-          <div className="doctrine-head">
-            <K>The Parrit Standard</K>
-            <K>Specification · STD-1.0 · 2026</K>
-          </div>
-          {PRINCIPLES.map(([code, name, definition, example]) => (
-            <div className="doctrine-row" key={code}>
-              <div className="doctrine-code">
-                <K>{code}</K>
-              </div>
-              <div className="doctrine-name">{name}</div>
-              <div className="doctrine-definition">
-                {definition}
-                <span className="doctrine-example">
-                  <b>In practice</b>
-                  {example}
-                </span>
-              </div>
-            </div>
-          ))}
-          <div className="doctrine-foot">
-            <span className="seal">Certified · Built to the Parrit Standard</span>
-          </div>
-        </section>
-
-        <p className="standard-note">
-          To be clear about what this is: STD-1.0 is our own bar, not a third-party
-          accreditation. We publish it so you can hold us to it. Each criterion is verified
-          in your production, on your data, against your flows; signed off by you, not
-          by us. The certification you should trust is the one your own team gives after
-          running the system.
-        </p>
-
-        <div className="standard-action">
-          <Link className="rev-button exec" href="/commission">
-            Let’s talk
-          </Link>
-        </div>
-
-        <footer className="rev-footer">
-          <RegistryLine />
-        </footer>
-      </div>
-    </main>
-  );
-}
+export default async function StandardPage() { const copy = DICT[await getLocale()]; return <main className="rev-page"><div className="rev-wrap"><header className="standard-intro"><K>{copy.kicker}</K><h1>{copy.title}</h1></header><section className="doctrine" aria-label={copy.tableTitle}><div className="doctrine-head"><K>{copy.tableTitle}</K><K>{copy.tableMeta}</K></div>{copy.principles.map(([code, name, definition, example]) => <div className="doctrine-row" key={code}><div className="doctrine-code"><K>{code}</K></div><div className="doctrine-name">{name}</div><div className="doctrine-definition">{definition}<span className="doctrine-example"><b>{copy.practice}</b>{example}</span></div></div>)}<div className="doctrine-foot"><span className="seal">{copy.seal}</span></div></section><p className="standard-note">{copy.note}</p><div className="standard-action"><Link className="rev-button exec" href="/commission">{copy.button}</Link></div><footer className="rev-footer"><RegistryLine /></footer></div></main>; }
