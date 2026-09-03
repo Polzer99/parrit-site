@@ -1,0 +1,38 @@
+---
+title: "When you roll back a bad deploy, what else disappears with it?"
+date: "2026-09-03"
+description: "A rollback restores a known-good state, and everything that shipped since then goes with it. We lost a published article that way this week. The fix is in the shape of the deploy unit, not in the rollback."
+slug: "what-a-rollback-takes-with-it"
+---
+
+A rollback feels like the safest button in the room. Production is wrong, a known-good version exists, you put it back. Nothing new is introduced, so nothing new can break. That reasoning is correct about the code. It is silent about everything that shipped between the known-good version and the moment you pressed the button. This week that silence cost us a published article, and the way it happened is worth writing down because the same shape exists in most companies that automate anything.
+
+## What actually happened
+
+We run an editorial engine on one of our sites. Every weekday it harvests material, writes one piece, passes it through machine gates, commits it to the main branch, deploys, and probes the live page until the title comes back. On Wednesday morning it did exactly that. The page was green.
+
+The same day, the same repository received several iterations on the landing page layout. Those went through the same branch and the same deploy path. By evening the owner looked at the live result, rejected it on sight, and ordered production pinned to the last version they had validated, from two days earlier. Correct call, executed in minutes.
+
+Thursday morning the engine woke up, checked that the previous day's article was still alive, and got a 404. Nothing had been retracted. Nobody had decided to unpublish anything. The article had simply been born after the commit production was now pinned to, and the rollback took it along with the layout it was rolling back.
+
+## Two things with different owners in one deploy unit
+
+The article and the layout had nothing to do with each other. They had different authors, one a machine and one a designer, and different validation regimes, one a chain of automatic gates and the other the owner's eyes on a screen. What they shared was a branch and a deploy. That shared unit is the whole problem. A rollback operates on the deploy unit, so it cannot restore one thing and keep the other. It restores the unit.
+
+Most teams discover this with feature flags or database migrations. We discovered it with content, which is a gentler lesson, but it is the same one. Whenever two streams of change with different owners ride the same deploy, the first rollback on either stream will take the other down, and the person pressing the button will not know, because from where they stand they are only reverting their own work.
+
+## The earlier warning we half-read
+
+This was not the first sign. A few days before, a deploy launched from a stale checkout had quietly overwritten production with a version that predated a fresh article. We treated it as a routing accident, fixed the deploy target, and moved on. In hindsight it was the same fact stated differently: on this site, whoever runs a deploy from any checkout defines what production is, and nothing in the pipeline knows which content is supposed to be live. The main branch and production were already two different things. We just had not written it down.
+
+Now it is written down. The canon for that site states that main is not production, that every layout change goes to a preview deployment first, and that promotion happens only on the owner's explicit go. That is the right posture for the layout. It also means the editorial engine cannot publish on that site until the freeze lifts, because publishing there means deploying main. This morning the engine read the canon, understood the freeze, and wrote on our other site instead. A system that cannot read the owner's current orders would have redeployed main to get its article back, and undone a decision the owner had made the evening before.
+
+## What we intend to change
+
+The principle we are applying is that the deploy unit should match the decision unit. If the owner decides about layout and the gates decide about articles, those two decisions should not share a single rollback. Concretely, content stops being a file that lives in the layout's commit history and becomes data the site fetches at build time from a source the layout rollback does not touch. A pinned layout then renders whatever content is current, and a retracted article is retracted by the engine that published it, on purpose, with a trace, rather than as a side effect of someone else's evening.
+
+Until that is in place, two cheaper rules hold. The engine counts its work in living pages, so a run that ends in a 404 is a run that did not happen, whatever the log said the day before. And the engine never deploys production on a site where the owner has frozen it. It reports the gap and waits.
+
+## Why we bother with a small site
+
+Because this is the substrate we deploy for clients. Our own operation runs on the same shape of pipeline we put in production elsewhere, with one branch and one deploy for everything, and we would have described it as fine. The rollback made the coupling visible in a way no review had. If a lost article is the price of finding out that content and layout share a fate before a client's invoice run and their website redesign do, it was cheap. Roll back with confidence, but know what you are rolling back, and make sure the things that should survive live somewhere the button does not reach.
