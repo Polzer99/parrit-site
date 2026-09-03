@@ -10,7 +10,7 @@ const EN_DOSSIERS = [
     ref: "DOSSIER 26-001",
     sector: "PARRIT ITSELF",
     title: "The system we sell is the system we run.",
-    body: "Parrit operates on its own operating system: one place where signals, clients and campaigns become decisions, delivered to the founder’s phone as cards. Built for ourselves first, compounding since.",
+    body: "Parrit.ai operates on its own operating system: one place where signals, clients and campaigns become decisions, delivered to the founder’s phone as cards. Built for ourselves first, compounding since.",
     value: "200+",
     result: "signals become decisions, every week",
     seal: "In production · Compounding",
@@ -36,7 +36,7 @@ const EN_DOSSIERS = [
 ] as const;
 
 const FR_DOSSIERS = [
-  { ref: "DOSSIER 26-001", sector: "PARRIT", title: "Nous vendons le système qui nous fait tourner.", body: "Parrit tourne sur son propre système d'exploitation : un seul endroit où les signaux, les clients et les campagnes deviennent des décisions, qui arrivent en cartes sur le téléphone du fondateur. Construit pour nous d'abord. Depuis, la valeur s'accumule.", value: "200+", result: "signaux deviennent des décisions chaque semaine", seal: "En production · La valeur s'accumule" },
+  { ref: "DOSSIER 26-001", sector: "PARRIT", title: "Nous vendons le système qui nous fait tourner.", body: "Parrit.ai tourne sur son propre système d'exploitation : un seul endroit où les signaux, les clients et les campagnes deviennent des décisions, qui arrivent en cartes sur le téléphone du fondateur. Construit pour nous d'abord. Depuis, la valeur s'accumule.", value: "200+", result: "signaux deviennent des décisions chaque semaine", seal: "En production · La valeur s'accumule" },
   { ref: "DOSSIER 26-002", sector: "UN CABINET D'AVOCATS", title: "Un système d'exploitation pour un cabinet d'avocats.", body: "L'arrivée des nouveaux clients, les relances et la circulation des dossiers, refondues en un seul système sur l'infrastructure du cabinet. Les premières briques sont certifiées et en service. Le système grandit dossier après dossier.", value: "+5 à 10 K€", result: "de chiffre d'affaires en plus chaque mois, sur des dossiers relancés", seal: "En construction · Premières briques en service" },
   { ref: "DOSSIER 26-003", sector: "UNE MARQUE GRAND PUBLIC", title: "Le reporting que personne ne rédige.", body: "Le reporting s'assemble seul à partir des systèmes sources et part à l'heure. L'équipe du client le fait tourner aujourd'hui, sans nous. Documenté, transmis. À eux.", value: "2,5 mois", result: "gagnés sur un seul processus de reporting", seal: "Livré · Aux mains du client" },
 ] as const;
