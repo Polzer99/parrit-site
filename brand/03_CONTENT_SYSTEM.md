@@ -45,6 +45,11 @@ Bring a workflow. We scope it, put it into production and transfer the system to
 > nativement.** Corpus PRIVÉ, hors repo :
 > `~/parrit-os/docs/doctrine-communication/CORPUS-CARLA-DE-PREVAL.md` —
 > ne jamais en publier les pièces.
+> **Durcissements THE LOOP v1 (Carla, 03/09/2026, PIÈCE 8 du corpus)** :
+> « pas X mais Y » = une charnière max par pièce · triades mécaniques et
+> cadences ternaires interdites · annonceurs d'importance interdits ·
+> fins symétriques qui bouclent la forme interdites · un titre = un
+> constat (le titre-image nu échoue, même beau) · concret avant abstrait.
 
 - First person when Paul speaks.
 - Active voice.
