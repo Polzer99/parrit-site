@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 
 import { getJournalEntry } from "@/system/journal";
 
-export const alt = "Parrit Journal article";
+export const alt = "Parrit.ai Journal article";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

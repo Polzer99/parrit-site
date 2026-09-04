@@ -49,7 +49,7 @@ function attribution(): Record<string, string> {
   return values;
 }
 
-export function QuickCapture({ locale }: { locale: Locale }) {
+export function QuickCapture({ locale, id, hero = false }: { locale: Locale; id?: string; hero?: boolean }) {
   const copy = DICT[locale];
   const [email, setEmail] = useState("");
   const [submissionId] = useState(() => crypto.randomUUID());
@@ -108,7 +108,7 @@ export function QuickCapture({ locale }: { locale: Locale }) {
 
   if (state === "done") {
     return (
-      <section className="quick-capture" data-state="done" aria-live="polite">
+      <section id={id} className={`quick-capture${hero ? " home-s-quick-capture" : ""}`} data-state="done" aria-live="polite">
         <K>{copy.registered}</K>
         <p>{copy.done}</p>
         {sketchUrl ? <a className="rev-button exec" href={sketchUrl}>{copy.watch}</a> : null}
@@ -117,11 +117,11 @@ export function QuickCapture({ locale }: { locale: Locale }) {
   }
 
   return (
-    <section className="quick-capture" aria-label={copy.aria}>
-      <div className="quick-copy">
+    <section id={id} className={`quick-capture${hero ? " home-s-quick-capture" : ""}`} aria-label={copy.aria}>
+      {!hero ? <div className="quick-copy">
         <K>{copy.label}</K>
         <p>{copy.line}</p>
-      </div>
+      </div> : null}
       <form onSubmit={submit} noValidate>
         <div className="quick-fields">
           <label className="sr-only" htmlFor="quick-email">E-mail</label>
@@ -132,7 +132,7 @@ export function QuickCapture({ locale }: { locale: Locale }) {
           <span className="ri-error" role="alert">{copy.failure} ({detail}). {copy.direct} paul.larmaraud@parrit.ai</span>
         ) : state === "invalid" ? (
           <span className="ri-error" role="alert">{copy.invalid}</span>
-        ) : <K>{copy.note}</K>}
+        ) : <K>{hero ? (locale === "fr" ? "Un prototype par entreprise · Préparé à la main" : "One prototype per company · Prepared by hand") : copy.note}</K>}
       </form>
     </section>
   );

@@ -21,7 +21,7 @@ const ORG_JSONLD = JSON.stringify({
   url: "https://parrit.ai",
   logo: "https://parrit.ai/icon.png",
   description:
-    "Parrit designs and builds company operating systems: commissioned, not subscribed. Based in Lille, France; operating internationally in English and French.",
+    "Parrit.ai designs and builds company operating systems: commissioned, not subscribed. Based in Lille, France; operating internationally in English and French.",
   founder: {
     "@type": "Person",
     name: "Paul Larmaraud",
@@ -50,11 +50,11 @@ posthog.init('phc_MBE1dFuCrRbroLzBdP7JtrH0O1JlH8F5uNs9cieSHqm', {
 export const metadata: Metadata = {
   metadataBase: new URL("https://parrit.ai"),
   title: {
-    default: "Parrit · Company Operating Systems",
-    template: "%s · Parrit",
+    default: "Parrit.ai · Company Operating Systems",
+    template: "%s · Parrit.ai",
   },
   description:
-    "Parrit examines how a company operates, builds its first production system and compounds it as owned infrastructure.",
+    "Parrit.ai examines how a company operates, builds its first production system and compounds it as owned infrastructure.",
   alternates: localizedAlternates("/"),
 };
 
