@@ -6,6 +6,19 @@ body {
   padding-top: 52px;
 }
 
+/* Cache visuellement le contenu tout en le conservant pour les technologies d’assistance. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .cmdbar {
   position: fixed;
   z-index: 50;
