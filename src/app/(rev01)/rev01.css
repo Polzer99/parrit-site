@@ -1431,7 +1431,7 @@ a.k:active {
   max-width: 13ch;
   margin: 38px auto 30px;
   color: var(--paper);
-  font-size: clamp(48px, 7.3vw, 88px);
+  font-size: clamp(40px, 7vw, 84px);
   font-weight: 300;
   letter-spacing: -.045em;
   line-height: .98;
