@@ -24,6 +24,7 @@ export const INTERETS = [
   "client-flow",
   "mail-followups",
   "full-os",
+  "journal",
 ] as const;
 
 export type Interet = (typeof INTERETS)[number];

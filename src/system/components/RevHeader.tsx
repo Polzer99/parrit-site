@@ -8,20 +8,14 @@ import type { Locale } from "@/system/locale";
 
 const NAV = {
   en: [
-    ["/", "System"],
-    ["/manufacture", "Manufacture"],
-    ["/standard", "Standard"],
-    ["/dossiers", "Dossiers"],
     ["/journal", "Journal"],
     ["/commission", "Commission"],
+    ["/#prototype", "Your prototype"],
   ],
   fr: [
-    ["/", "Système"],
-    ["/manufacture", "Manufacture"],
-    ["/standard", "Standard"],
-    ["/dossiers", "Dossiers"],
     ["/journal", "Journal"],
     ["/commission", "Commande"],
+    ["/#prototype", "Votre prototype"],
   ],
 } as const;
 
@@ -111,17 +105,17 @@ export function RevHeader({ locale }: { locale: Locale }) {
   return (
     <>
       <header className="cmdbar">
-      <Link className="wordmark" href="/" aria-label="Parrit home">
+      <Link className="wordmark" href="/" aria-label="Parrit.ai home">
         PARRIT<i aria-hidden="true">.</i>AI
       </Link>
       <nav className="cmd-nav" aria-label="Main navigation">
         {nav.map(([href, label]) => {
-          const active = href === "/" ? pathname === "/" : pathname?.startsWith(href);
+          const active = href !== "/#prototype" && pathname?.startsWith(href);
           return (
             <Link
               key={href}
               href={href}
-              className={active ? "on" : undefined}
+              className={`${active ? "on" : ""}${href === "/#prototype" ? " cmd-nav-prototype" : ""}`.trim() || undefined}
               aria-current={active ? "page" : undefined}
             >
               {label}
@@ -164,12 +158,12 @@ export function RevHeader({ locale }: { locale: Locale }) {
           aria-label="Main navigation"
         >
           {nav.map(([href, label]) => {
-            const active = href === "/" ? pathname === "/" : pathname?.startsWith(href);
+            const active = href !== "/#prototype" && pathname?.startsWith(href);
             return (
               <Link
                 key={href}
                 href={href}
-                className={active ? "on" : undefined}
+                className={`${active ? "on" : ""}${href === "/#prototype" ? " cmd-nav-prototype" : ""}`.trim() || undefined}
                 aria-current={active ? "page" : undefined}
                 onClick={() => setMenuOpen(false)}
               >

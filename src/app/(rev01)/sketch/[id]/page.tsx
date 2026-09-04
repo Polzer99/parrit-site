@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 /* Chaque intérêt déclaré reçoit son instrument : des lignes crédibles pour CE
    périmètre, pas un gabarit générique. Déterministe — aucun chiffre inventé
    n’est présenté comme réel : c’est une ESQUISSE, dite comme telle. */
-const SKETCHES: Record<
+const SKETCHES: Partial<Record<
   Interet,
   {
     title: string;
@@ -25,7 +25,7 @@ const SKETCHES: Record<
     instrument: { value: string; label: string; status: string; critical?: boolean }[];
     next: string[];
   }
-> = {
+>> = {
   reporting: {
     title: "Reporting that writes itself.",
     intro:
@@ -93,7 +93,7 @@ export default async function SketchPage({ params }: { params: Promise<{ id: str
   const esquisse = await lireEsquisse(id).catch(() => null);
   if (!esquisse) notFound();
 
-  const sketch = SKETCHES[esquisse.interet] ?? SKETCHES["full-os"];
+  const sketch = SKETCHES[esquisse.interet] ?? SKETCHES["full-os"]!;
   const company = esquisse.entreprise;
 
   return (

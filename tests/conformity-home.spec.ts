@@ -24,8 +24,9 @@ test("the home locks the approved display scale and surface rules", async ({ pag
   const h1FontSize = await page.getByRole("heading", { level: 1 }).evaluate((heading) =>
     Number.parseFloat(getComputedStyle(heading).fontSize),
   );
-  expect(h1FontSize).toBeGreaterThanOrEqual(90);
-  expect(h1FontSize).toBeLessThanOrEqual(94);
+  // Approved scale comes from the simplified home in docs/CODEX-SPEC-2026-09-04-home-simple.md.
+  expect(h1FontSize).toBeGreaterThanOrEqual(82);
+  expect(h1FontSize).toBeLessThanOrEqual(86);
 
   const surfaceRules = await page.locator("*").evaluateAll((elements) =>
     elements.reduce(
@@ -51,7 +52,8 @@ test("the home locks the approved display scale and surface rules", async ({ pag
     ),
   );
 
-  expect(surfaceRules.shadowCount).toBe(1);
+  // The only approved shadow came from Instrument, which left the simplified home (spec 2026-09-04).
+  expect(surfaceRules.shadowCount).toBe(0);
   expect(surfaceRules.radiusCount).toBe(0);
 });
 
