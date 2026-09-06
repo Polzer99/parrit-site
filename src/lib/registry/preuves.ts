@@ -202,23 +202,7 @@ const REGISTRE: Preuve[] = [
     source: "00_CONSOLIDATION_GATE/GATE_CLOSURE_REPORT.md",
     confidentialite: "publiable",
   },
-  {
-    id: "preuve.atelier-cartographie",
-    type: "media",
-    titre: "Une séance de cartographie des flux",
-    description:
-      "Photo de terrain, non générative, fond réel conservé. Elle montre le moment où " +
-      "les flux sont posés sur un mur avant qu'une ligne de code soit écrite.",
-    niveauPreuve: 3,
-    source: "public/brand/terrain/atelier-cartographie.jpg",
-    confidentialite: "publiable",
-    media: {
-      src: "/brand/terrain/atelier-cartographie.jpg",
-      alt: "Séance de cartographie des flux, en atelier",
-      legende: "Cartographie des flux, en atelier",
-      nature: "photo",
-    },
-  },
+
 ];
 
 /* ------------------------------------------------------------ lecteurs */

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { getLocale } from "@/lib/server/locale";
+import { AgentEsquisse } from "@/system/components/AgentEsquisse";
 import { K, NewsletterCapture, Opening, QuickCapture } from "@/system/components";
 import { getAllJournalEntrySummaries } from "@/system/journal";
 
@@ -13,7 +14,7 @@ const DICT = {
       frame: "operates",
       after: "on.",
       sub: "Parrit.ai has built AI systems for three years, for large accounts, SMEs and mid-sized companies. One company at a time.",
-      alternative: "Or talk it through: a 30-minute examination, on video, with the founder.",
+      alternative: "Or talk it through: a 30-minute examination, on a video call, with the founder.",
     },
     metrics: [
       ["200+", "signals become decisions every week, on our own system"],
@@ -49,7 +50,7 @@ const DICT = {
     journal: { kicker: "What the work teaches us", title: "The Journal" },
     close: {
       title: "One conversation. Your operating system, examined.",
-      note: "30 min · An examination, on video, with the founder",
+      note: "30 min · An examination, on a video call, with the founder",
       button: "Let's talk",
     },
     footer: {
@@ -142,6 +143,12 @@ export default async function HomePage() {
           <p className="home-s-hero-sub">{copy.hero.sub}</p>
           <QuickCapture locale={locale} id="prototype" hero />
           <p className="home-s-alternative"><Link href="/commission">{copy.hero.alternative}</Link></p>
+        </div>
+      </section>
+
+      <section className="home-s-agent r2-dark">
+        <div className="home-s-wrap">
+          <AgentEsquisse locale={locale} />
         </div>
       </section>
 

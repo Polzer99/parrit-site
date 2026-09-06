@@ -34,6 +34,7 @@ export type ContexteInteret = {
   email: string;
   interet: Interet;
   entreprise?: string;
+  idee?: string;
   /** La personne accepte explicitement un appel d'examination. */
   ouvertAppel: boolean;
   source: string;
@@ -55,6 +56,7 @@ type InteretEnregistre = {
   submission_id: string;
   interet: Interet;
   entreprise?: string;
+  idee_prototype?: string;
   ouvert_appel: boolean;
   source: string;
   page_origine: string;
@@ -121,6 +123,7 @@ export async function enregistrerInteret(
   const declaration: InteretEnregistre = {
     submission_id: contexte.submissionId,
     interet: contexte.interet,
+    ...(contexte.idee ? { idee_prototype: contexte.idee } : {}),
     ...(contexte.entreprise?.trim() ? { entreprise: contexte.entreprise.trim() } : {}),
     ouvert_appel: contexte.ouvertAppel,
     source: contexte.source,
@@ -220,9 +223,38 @@ async function poserCarteSuperApp(
 ): Promise<void> {
   if (estAdresseDeTest(contexte.email)) return;
 
+  const sketchUrl = `https://parrit.ai/sketch/${contexte.submissionId}`;
+  const fr = contexte.lang === "fr";
+  const objet = fr
+    ? "Votre système d'exploitation · première esquisse"
+    : "Your operating system · first sketch";
+  const idee = contexte.idee
+    ? (fr
+      ? ` Vous parliez de : "${contexte.idee}". L'esquisse part de là.`
+      : ` You mentioned: "${contexte.idee}". The sketch starts there.`)
+    : "";
+  const brouillon = fr
+    ? `Bonjour,
+
+Vous avez laissé votre adresse sur parrit.ai.${idee} Voici la première esquisse de votre système : ${sketchUrl}
+
+Un examen de 30 minutes, en visio, la précise :
+https://parrit.ai/commission
+
+Paul Larmaraud · Parrit.ai`
+    : `Hello,
+
+You left your address on parrit.ai.${idee} Here is the first sketch of your system: ${sketchUrl}
+
+A 30-minute examination, on a video call, sharpens it:
+https://parrit.ai/commission
+
+Paul Larmaraud · Parrit.ai`;
+
   const texte = [
     `Intérêt déclaré · ${contexte.interet}`,
     contexte.email,
+    ...(contexte.idee ? [`Idée du prototype : ${contexte.idee}`] : []),
     contexte.entreprise?.trim() ? `Entreprise : ${contexte.entreprise.trim()}` : "Entreprise non donnée",
     contexte.ouvertAppel ? "OUVERT À UN APPEL d'examination" : "Pas d'appel demandé",
     contexte.attribution["utm_campaign"]
@@ -232,12 +264,8 @@ async function poserCarteSuperApp(
     `ESQUISSE DÉJÀ GÉNÉRÉE : https://parrit.ai/sketch/${contexte.submissionId}`,
     "",
     "Brouillon mail 1 (à envoyer tel quel ou ajusté) :",
-    `« Subject: Your operating system — first sketch`,
-    `Hi — while you were on parrit.ai, I sketched the first surface of an operating`,
-    `system for ${contexte.entreprise?.trim() || "your company"} from what you told us.`,
-    `It's live here: https://parrit.ai/sketch/${contexte.submissionId}`,
-    `In 10 focused hours we turn a sketch like this into a system in production.`,
-    `Want the 30-minute examination? — Parrit »`,
+    `${fr ? "Objet" : "Subject"}: ${objet}`,
+    brouillon,
   ].join("\n");
 
   try {
@@ -259,6 +287,7 @@ async function poserCarteSuperApp(
             submission_id: contexte.submissionId,
             interet: contexte.interet,
             entreprise: contexte.entreprise ?? null,
+            idee_prototype: contexte.idee ?? null,
             ouvert_appel: contexte.ouvertAppel,
             source: contexte.source,
             attribution: contexte.attribution,

@@ -15,6 +15,8 @@ const eslintConfig = defineConfig([
     ".vercel/**",
     // Prototypes de reference REV 02 (docs/site-prod-rev01/*.jsx) : artefacts, pas du code applicatif.
     "docs/**",
+    // Retired microsites are preserved outside application code.
+    "archive/**",
   ]),
   {
     rules: {

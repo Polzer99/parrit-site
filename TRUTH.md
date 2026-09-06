@@ -2,7 +2,7 @@
 
 > **Ce fichier est le cerveau partagé.** Le site (`AGENTS.md` → ici) ET l'agent d'amélioration continue **Hermes** (`hermes/`) le lisent à chaque fois. Toute amélioration du site doit être *cohérente avec ce document*. Quand la réalité de Parrit change, on met à jour CE fichier d'abord (HITL) — pas le code en premier.
 >
-> Doctrine source (hors-repo, priment en cas de conflit) : `parrit-os/REGLES-DOR.md` · `parrit-os/VISION.md` · `parrit-os/docs/doctrine-communication/DOCTRINE-COMMUNICATION.md`. Doctrine visuelle : `BRAND.md` (ce repo).
+> Doctrine source (hors-repo, priment en cas de conflit) : `parrit-os/REGLES-DOR.md` · `parrit-os/VISION.md` · `parrit-os/docs/doctrine-communication/DOCTRINE-COMMUNICATION.md`. Doctrine visuelle : prototype REV 03 `docs/site-prod-rev01/parrit-command-center-rev03.html`, valeurs `src/system/tokens.css`, composants `src/system/`. `BRAND.md` est une archive historique.
 
 ---
 
@@ -19,7 +19,12 @@ Parrit livre la chose qui tourne, pas un deck. Chaque commande est menée en per
 
 > Le rôle du SITE dans ce système = **transformer l'attention d'un dirigeant en RDV qualifié avec Paul.** C'est la métrique de conversion nord. Tout le reste (trafic, GEO, contenu) est en amont.
 
-**CTA primaire du site** : « Parlons-en » / réserver un Examen de 30 minutes. Surfaces : capture prototype `QuickCapture`, formulaire complet `RegisterInterest`, puis calendrier Cal.com sur `/commission`.
+**CTA et parcours de conversion** (spec validée du 06/09/2026) :
+- Hero : `QuickCapture` recueille l'e-mail et, uniquement dans sa variante hero, une idée optionnelle (`idee`, 300 caractères maximum) pour préparer le prototype.
+- Juste après le hero : `AgentEsquisse` propose un échange déterministe local (Signal / Décision / Action), puis renvoie vers la capture `#prototype`.
+- « Parlons-en » / « Let's talk » mène à `/commission` : Examen de 30 minutes via Cal.com, puis `QuickCapture` standard si aucun créneau ne convient.
+- Journal : `NewsletterCapture` pour recevoir chaque entrée par e-mail. La home propose également cet abonnement.
+- `RegisterInterest` reste dans le code mais n'est plus utilisé sur les pages.
 
 ## 3. ICP (à qui on parle)
 
@@ -32,6 +37,10 @@ Parrit livre la chose qui tourne, pas un deck. Chaque commande est menée en per
 Parrit vend des **systèmes d'exploitation d'entreprise sur mesure**. La Manufacture suit trois phases : Examen, Construction, Capitalisation. Chaque système est construit sur l'infrastructure du client, certifié selon le Standard Parrit, documenté et détenu par le client.
 
 Les commandes sont **sur devis** : périmètre et conditions sont cadrés par écrit après l'Examen. Le site public n'affiche aucun prix.
+
+La home simplifiée présente la promesse, la capture prototype et l'agent esquisse, puis les métriques, la méthode et les actions de conversion. Les cinq pages intérieures `/manufacture`, `/standard`, `/dossiers`, `/commission` et `/journal` suivent le copy FR/EN validé dans `docs/CODEX-SPEC-2026-09-06-site-integral.md` (lots 1 et 2). Le lot 3 retire les anciennes identités sans réécrire ce copy.
+
+La surface de debug `/system` est retirée (404). Le microsite camp est conservé dans `archive/camp-costa-rica/`, avec ses assets dédiés hors de `public/`. `/camp-costa-rica/:path*` redirige définitivement vers `/` ; le proxy ne réécrit plus le domaine du camp.
 
 Surfaces produit du site rev01 : `/`, `/manufacture`, `/standard`, `/dossiers`, `/commission`, `/journal`, `/legal` et les esquisses privées `/sketch/[id]`.
 
@@ -58,7 +67,7 @@ Surfaces produit du site rev01 : `/`, `/manufacture`, `/standard`, `/dossiers`, 
 
 - Stack : Next.js 16 / React 19 / TypeScript / Tailwind v4, Vercel, français et anglais. Analytics **PostHog** (`eu.i.posthog.com`, autocapture et session replay).
 - Site canon : `src/app/(rev01)/`. Le copy localisé vit dans les `DICT` des pages et composants concernés.
-- Capture lead : `src/system/components/QuickCapture.tsx` et `RegisterInterest.tsx` postent vers `/api/interet`. La prise de rendez-vous passe par Cal.com dans `CalInline.tsx` sur `/commission`.
+- Capture lead : `src/system/components/QuickCapture.tsx` poste vers `/api/interet` ; `idee` rejoint `metadata.interets_declares[].idee_prototype`. `AgentEsquisse.tsx` fonctionne sans backend ni LLM. Le Journal utilise `NewsletterCapture.tsx`. La prise de rendez-vous passe par Cal.com dans `CalInline.tsx` sur `/commission`.
 - Garde-fous avant push : `npm run build`, `npm run qa:brand:rev01`, puis `npm run qa:network:rev01` avec blocage réseau global.
 
 ## 8. Définition d'une « amélioration » (le filtre de Hermes)
@@ -67,7 +76,7 @@ Une amélioration valable :
 - **sert une north star** (plus de RDV qualifiés, ou un funnel moins fuyard, ou un meilleur signal/bruit pour le dirigeant cible) ;
 - **passe LE TAMIS** (sobre, Enargeia, pas de pathos) ;
 - **respecte les 7 règles dures** (§6) ;
-- est **falsifiable** : on nomme la métrique qui devra bouger (taux de soumission `QuickCapture` ou `RegisterInterest`, clics CTA, RDV/sem) ;
+- est **falsifiable** : on nomme la métrique qui devra bouger (taux de soumission `QuickCapture` ou `NewsletterCapture`, clics CTA, RDV/sem) ;
 - est **réversible** (une PR, un rollback possible).
 
 Anti-objectifs : faire « plus joli » sans hypothèse de conversion ; ajouter du trafic vanity ; tout ce qui sent le growth-hack performatif (ça trahit la voix).
@@ -75,9 +84,9 @@ Anti-objectifs : faire « plus joli » sans hypothèse de conversion ; ajouter d
 ## 9. Hypothèses de conversion ouvertes (backlog vivant — Hermes entretient ceci)
 
 - Le CTA « Parler à Paul » est-il assez tôt / assez clair au-dessus de la ligne de flottaison ?
-- Le concept « desktop-OS » est-il un coût cognitif pour un dirigeant pressé (vs clarté de l'offre) ?
+**Hypothèse desktop-OS close** : Paul a tranché le 04/09/2026 pour le retrait de l'instrument de la home. La home simplifiée est le canon ; ne pas réintroduire ce concept comme expérience de navigation.
+
 - Les preuves (Enargeia) sont-elles assez concrètes et chiffrées (sans violer §6) pour créer la confiance ?
-- Le détecteur de bullshit (`/outils/detecteur-bullshit`) ramène-t-il des leads qualifiés (action `bullshit_detector_lead`) ? Quel est son taux de gate-email ?
 - Mobile : le funnel de contact tient-il sur mobile ?
 
 > Hermes met à jour cette section à chaque cycle (ce qui a été testé, ce qui a bougé). Voir `hermes/PROGRESS.md`.

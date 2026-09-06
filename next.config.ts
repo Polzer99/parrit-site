@@ -45,9 +45,10 @@ const REDIRECTIONS_JOURNAL = Object.entries(JOURNAL_LEGACY_ROUTES).flatMap(
 );
 
 const nextConfig: NextConfig = {
-  // The journal OG generator reads src/system/tokens.css at runtime; without this
+  // The OG generators read src/system/tokens.css at runtime; without this
   // the file is absent from the serverless bundle and the route 500s.
   outputFileTracingIncludes: {
+    "/opengraph-image": ["./src/system/tokens.css", "./src/og-assets/*"],
     "/journal/[slug]/opengraph-image": ["./src/system/tokens.css", "./src/og-assets/*"],
   },
   async headers() {
@@ -64,6 +65,7 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      { source: "/camp-costa-rica/:path*", destination: "/", permanent: true },
       { source: "/paul", destination: "/", permanent: true },
       { source: "/maxime", destination: "/", permanent: true },
       ...REDIRECTIONS_JOURNAL,

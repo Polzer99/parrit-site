@@ -22,7 +22,7 @@
  *     canonique ; `/[lang]/ressources/[slug]` redirige vers elle en 301 et
  *     n'est donc jamais une seconde page indexable décrivant la même chose.
  *
- * Les six ressources publiées sont aujourd'hui en `route_dediee` : leur
+ * Les cinq ressources publiées sont aujourd'hui en `route_dediee` : leur
  * expérience complète existe déjà ailleurs, et la recopier dans un template
  * fabriquerait le doublon que cet arbitrage supprime.
  */
@@ -183,27 +183,7 @@ const REGISTRE: Ressource[] = [
     // Publiée ici pour qu'elle cesse de l'être.
     publiee: true,
   },
-  {
-    id: "res.detecteur-bullshit",
-    slug: "detecteur-bullshit",
-    titre: "Le détecteur de bullshit IA",
-    type: "audit_rapide",
-    promesse: "Un score sur ce qu'on vous vend, et la raison de chaque point retiré.",
-    contenu: [
-      "Un score de 0 à 100 sur un contenu ou une promesse",
-      "Le détail de ce qui fait baisser la note",
-      "Les questions à poser au fournisseur",
-    ],
-    livrable: "/outils/detecteur-bullshit",
-    experience: { rendu: "route_dediee", url: "/outils/detecteur-bullshit" },
-    pilier: "agents-ia",
-    formGabarit: "G1_optin_leger",
-    ctaPrincipal: "rdv.paul",
-    niveauEngagement: "faible",
-    livraisonVerifiee: true,
-    langue: "fr",
-    publiee: true,
-  },
+
   {
     id: "res.diagnostic",
     slug: "diagnostic",

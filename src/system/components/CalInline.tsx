@@ -70,19 +70,23 @@ export function ParritCalInline({
     async function configureCalendar() {
       const cal = await getCalApi({ namespace: "commission" });
       cal("on", { action: "linkReady", callback: () => setReady(true) });
+      // The cross-origin iframe cannot inherit the parent CSS variables.
+      // Resolve the canonical vars before passing colors through the embed API.
+      const styles = getComputedStyle(stageRef.current ?? document.documentElement);
+      const tokenValue = (variable: string) => styles.getPropertyValue(variable.slice(4, -1)).trim();
       cal("ui", {
         theme: "dark",
         hideEventTypeDetails: false,
         layout: "month_view",
-        styles: { branding: { brandColor: "#E10600" } },
+        styles: { branding: { brandColor: tokenValue("var(--red)") } },
         cssVarsPerTheme: {
           dark: {
-            "cal-brand": "#E10600",
-            "cal-bg": "#131518",
-            "cal-bg-emphasis": "#1A1D21",
-            "cal-border": "#24282D",
+            "cal-brand": tokenValue("var(--red)"),
+            "cal-bg": tokenValue("var(--carbon)"),
+            "cal-bg-emphasis": tokenValue("var(--carbon2)"),
+            "cal-border": tokenValue("var(--rule-d)"),
           },
-          light: { "cal-brand": "#E10600" },
+          light: { "cal-brand": tokenValue("var(--red)") },
         },
       });
     }

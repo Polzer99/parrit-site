@@ -1,0 +1,73 @@
+<!-- GABARIT E-MAIL PARRIT.AI · DA canon Parrit Simple (06/09/2026)
+     Structure : bandeau carbon (identité) + corps paper (lisibilité clients mail) + pied mono.
+     Règles : rouge #E10600 unique · zéro arrondi · zéro ombre · zéro cadratin ·
+     polices : General Sans avec repli Helvetica/Arial ; kickers monospace avec repli Courier.
+     Variantes par le seul kicker du bandeau : LE JOURNAL · VOTRE PROTOTYPE · L'EXAMEN.
+     Largeur 600px, tables imbriquées, styles inline : compatible Gmail/Outlook/Apple Mail.
+     Placeholders : {{KICKER}} {{TITRE}} {{CORPS}} {{ENTREES}} {{LIEN_DESABO}} {{DATE}} -->
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>Parrit.ai</title>
+</head>
+<body style="margin:0;padding:0;background-color:#E9EAEB;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#E9EAEB;">
+<tr><td align="center" style="padding:28px 12px;">
+  <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;">
+
+    <!-- BANDEAU CARBON -->
+    <tr><td style="background-color:#131518;padding:18px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+        <td style="font-family:'General Sans','Helvetica Neue',Arial,sans-serif;font-size:15px;letter-spacing:.14em;color:#F1F2F3;font-weight:600;">
+          PARRIT<span style="color:#E10600;">.</span>AI</td>
+        <td align="right" style="font-family:'JetBrains Mono','Courier New',monospace;font-size:10px;letter-spacing:.16em;color:#9CA1A6;text-transform:uppercase;">
+          {{KICKER}} · {{DATE}}</td>
+      </tr></table>
+    </td></tr>
+
+    <!-- CORPS PAPER -->
+    <tr><td style="background-color:#F1F2F3;padding:36px 28px 8px;">
+      <div style="font-family:'General Sans','Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:28px;line-height:1.15;letter-spacing:-.01em;color:#131518;">
+        {{TITRE}}</div>
+      <div style="font-family:'General Sans','Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:1.6;color:#3A3E43;padding:16px 0 8px;">
+        {{CORPS}}</div>
+    </td></tr>
+
+    <!-- ENTREES (répéter ce bloc par entrée du Journal ; retirer pour un mail simple) -->
+    <tr><td style="background-color:#F1F2F3;padding:0 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #D6D8DA;">
+        <tr><td style="padding:16px 0 4px;font-family:'JetBrains Mono','Courier New',monospace;font-size:10px;letter-spacing:.14em;color:#6F757B;text-transform:uppercase;">
+          Journal / Entrée · {{DATE}}</td></tr>
+        <tr><td style="font-family:'General Sans','Helvetica Neue',Arial,sans-serif;font-weight:400;font-size:17px;line-height:1.35;color:#131518;padding-bottom:6px;">
+          {{ENTREES}}</td></tr>
+        <tr><td style="padding-bottom:18px;">
+          <a href="https://parrit.ai/journal" style="font-family:'General Sans','Helvetica Neue',Arial,sans-serif;font-size:14px;color:#E10600;text-decoration:underline;">Lire l'entrée</a></td></tr>
+      </table>
+    </td></tr>
+
+    <!-- SIGNATURE -->
+    <tr><td style="background-color:#F1F2F3;padding:8px 28px 34px;">
+      <div style="font-family:'General Sans','Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:1.6;color:#3A3E43;">
+        Paul Larmaraud<br>
+        <span style="font-family:'JetBrains Mono','Courier New',monospace;font-size:10px;letter-spacing:.14em;color:#6F757B;text-transform:uppercase;">Fondateur · Parrit.ai</span></div>
+    </td></tr>
+
+    <!-- PIED CARBON -->
+    <tr><td style="background-color:#131518;padding:16px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+        <td style="font-family:'JetBrains Mono','Courier New',monospace;font-size:9px;letter-spacing:.14em;color:#6F757B;text-transform:uppercase;">
+          PARRIT / JOURNAL · 2026 · Une commande, pas un abonnement</td>
+        <td align="right" style="font-family:'JetBrains Mono','Courier New',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;">
+          <a href="{{LIEN_DESABO}}" style="color:#9CA1A6;text-decoration:underline;">Se désabonner en un clic</a></td>
+      </tr></table>
+    </td></tr>
+
+  </table>
+</td></tr>
+</table>
+</body>
+</html>

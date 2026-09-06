@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
@@ -6,6 +7,13 @@ export const alt = "Parrit.ai · Company Operating Systems";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const dynamic = "force-dynamic";
+
+function token(name: string): string {
+  const tokens = readFileSync(path.join(process.cwd(), "src/system/tokens.css"), "utf8");
+  const match = tokens.match(new RegExp(`${name}\\s*:\\s*([^;]+)`));
+  if (!match) throw new Error(`Missing design token ${name}.`);
+  return match[1].trim();
+}
 
 export default async function Image() {
   const [plexSans, plexMono] = await Promise.all([
@@ -23,8 +31,8 @@ export default async function Image() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "56px 64px",
-          background: "#131518",
-          color: "#F1F2F3",
+          background: token("--carbon"),
+          color: token("--paper"),
           fontFamily: "General Sans",
         }}
       >
@@ -35,12 +43,12 @@ export default async function Image() {
             fontFamily: "JetBrains Mono",
             fontSize: 22,
             letterSpacing: "0.18em",
-            color: "#6F757B",
+            color: token("--g4"),
           }}
         >
-          <span>PARRIT — COMPANY OPERATING SYSTEMS</span>
+          <span>PARRIT.AI · COMPANY OPERATING SYSTEMS</span>
           <span style={{ display: "flex" }}>
-            [P<span style={{ color: "#E10600" }}>.</span>]
+            [P<span style={{ color: token("--red") }}>.</span>]
           </span>
         </div>
         <div
@@ -62,10 +70,10 @@ export default async function Image() {
             fontFamily: "JetBrains Mono",
             fontSize: 20,
             letterSpacing: "0.16em",
-            color: "#9CA1A6",
+            color: token("--g2"),
           }}
         >
-          <div style={{ width: 14, height: 14, background: "#E10600" }} />
+          <div style={{ width: 14, height: 14, background: token("--red") }} />
           <span>COMMISSIONED, NOT SUBSCRIBED · PARRIT / SITE · REV 01 · 2026</span>
         </div>
       </div>

@@ -2,13 +2,32 @@ import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 
+// Copy lock updated for the approved 2026-09-06 LOT 1: six commitments.
 const PRINCIPLES = [
-  ["PS-01", "The operator can determine the state of the system at any moment, without asking anyone."],
-  ["PS-02", "Every surfaced piece of information leads to a possible action within the same view."],
-  ["PS-03", "Every significant decision carries its origin: data, author, timestamp, rationale."],
-  ["PS-04", "Every critical process has a documented path of return before it is put into production."],
-  ["PS-05", "The client holds the system, its data and its documentation as company assets."],
-  ["PS-06", "Each new capability increases the value of every capability already in production."],
+  [
+    "PS-01",
+    "The state is readable at any moment."
+  ],
+  [
+    "PS-02",
+    "Every signal carries its decision."
+  ],
+  [
+    "PS-03",
+    "Every decision keeps its origin."
+  ],
+  [
+    "PS-04",
+    "The way back is written in advance."
+  ],
+  [
+    "PS-05",
+    "The system belongs to you."
+  ],
+  [
+    "PS-06",
+    "The next brick raises the value of the ones before."
+  ]
 ] as const;
 
 test.describe("the Parrit Standard conformity", () => {
@@ -18,7 +37,7 @@ test.describe("the Parrit Standard conformity", () => {
     await page.goto(`${BASE_URL}/standard`);
 
     const display = page.getByRole("heading", {
-      name: "Every system we deliver is certified to the same specification.",
+      name: "Six commitments. Every system we deliver keeps them.",
     });
     await expect(display).toBeVisible();
 
@@ -30,8 +49,8 @@ test.describe("the Parrit Standard conformity", () => {
 
     for (const [code, definition] of PRINCIPLES) {
       await expect(page.getByText(code, { exact: true })).toBeVisible();
-      // The definition cell also carries an "In practice" example (LOT R2) — substring match.
-      await expect(page.getByText(definition)).toBeVisible();
+      // LOT 1 replaces the old labels and definitions with a statement and a scene.
+      await expect(page.getByText(definition, { exact: true })).toBeVisible();
     }
 
     const decoratedElements = await page.locator("body *").evaluateAll((elements) =>

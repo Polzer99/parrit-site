@@ -10,6 +10,7 @@ const DICT = {
   en: {
     label: "YOUR PROTOTYPE",
     line: "One e-mail address is enough. You receive the first sketch of your system, then a time to examine it together.",
+    idea: "The process to rebuild, in one sentence (optional)",
     placeholder: "you@company.com",
     button: "Get your prototype now",
     sending: "Sending…",
@@ -25,6 +26,7 @@ const DICT = {
   fr: {
     label: "VOTRE PROTOTYPE",
     line: "Une adresse e-mail suffit. Vous recevez l'esquisse de votre premier système, puis un créneau pour l'examiner ensemble.",
+    idea: "Votre process à reconstruire, en une phrase (facultatif)",
     placeholder: "vous@entreprise.fr",
     button: "Recevez votre prototype",
     sending: "Envoi en cours…",
@@ -52,6 +54,7 @@ function attribution(): Record<string, string> {
 export function QuickCapture({ locale, id, hero = false }: { locale: Locale; id?: string; hero?: boolean }) {
   const copy = DICT[locale];
   const [email, setEmail] = useState("");
+  const [idee, setIdee] = useState("");
   const [submissionId] = useState(() => crypto.randomUUID());
   const [started, setStarted] = useState(false);
   const [state, setState] = useState<"idle" | "invalid" | "sending" | "done" | "error">("idle");
@@ -81,6 +84,7 @@ export function QuickCapture({ locale, id, hero = false }: { locale: Locale; id?
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
+          ...(hero ? { idee: idee.slice(0, 300) } : {}),
           interet: "full-os",
           source: "site:quick-capture",
           pageOrigine: window.location.pathname,
@@ -123,6 +127,10 @@ export function QuickCapture({ locale, id, hero = false }: { locale: Locale; id?
         <p>{copy.line}</p>
       </div> : null}
       <form onSubmit={submit} noValidate>
+        {hero ? <>
+          <label className="sr-only" htmlFor="quick-idee">{copy.idea}</label>
+          <input className="quick-idea" id="quick-idee" name="idee" type="text" maxLength={300} value={idee} placeholder={copy.idea} onFocus={start} onChange={(event) => setIdee(event.target.value.slice(0, 300))} />
+        </> : null}
         <div className="quick-fields">
           <label className="sr-only" htmlFor="quick-email">E-mail</label>
           <input id="quick-email" name="quick-email" type="email" required autoComplete="email" value={email} placeholder={copy.placeholder} onFocus={start} onChange={(event) => setEmail(event.target.value)} />

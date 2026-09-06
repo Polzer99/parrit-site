@@ -583,6 +583,11 @@ body {
   line-height: 1.6;
 }
 
+/* LOT 1: the single verdict note occupies the existing full-width frame. */
+.commission-notes p:only-child {
+  grid-column: 1 / -1;
+}
+
 .commission-notes p:last-child {
   border-right: 0;
 }
@@ -1387,7 +1392,9 @@ a.k:active {
   grid-template-columns: minmax(0, 1fr) auto;
 }
 
-.quick-fields input {
+.quick-fields input,
+.quick-idea,
+.agent-esquisse-form input {
   min-width: 0;
   min-height: 48px;
   padding: 0 14px;
@@ -1407,6 +1414,95 @@ a.k:active {
 .quick-capture .ri-error {
   display: block;
   margin-top: 12px;
+}
+
+/* LOT 2: optional hero idea and deterministic sketch panel. */
+.quick-idea {
+  display: block;
+  width: 100%;
+  min-height: 54px;
+  margin-bottom: 10px;
+  border-right: 1px solid var(--rule-d);
+}
+
+.home-s-agent {
+  padding: 0 0 64px;
+}
+
+.agent-esquisse {
+  max-width: 900px;
+  margin: 0 auto;
+  border: 1px solid var(--rule-d);
+  background: var(--carbon);
+  color: var(--label-d);
+}
+
+.agent-esquisse-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--rule-d);
+}
+
+.agent-esquisse-title {
+  color: var(--red);
+}
+
+.agent-esquisse-body {
+  padding: 24px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.agent-esquisse-body p {
+  margin: 0 0 20px;
+}
+
+.agent-esquisse-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.agent-esquisse-exchange {
+  margin-top: 24px;
+}
+
+.agent-esquisse-message {
+  padding: 16px;
+  background: var(--carbon2);
+  color: var(--paper);
+  white-space: pre-wrap;
+}
+
+.agent-esquisse-cells {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 20px 0;
+  border: 1px solid var(--rule-d);
+  background: var(--rule-d);
+}
+
+.agent-esquisse-cells > div {
+  padding: 20px;
+  background: var(--carbon2);
+}
+
+.agent-esquisse-cells dd {
+  margin: 12px 0 0;
+}
+
+@media (max-width: 760px) {
+  .agent-esquisse-form,
+  .agent-esquisse-cells {
+    grid-template-columns: 1fr;
+  }
+
+  .agent-esquisse-form input {
+    border-right: 1px solid var(--rule-d);
+  }
 }
 
 /* Home simple */

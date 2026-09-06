@@ -1,15 +1,33 @@
 import type { Metadata } from "next";
 
 import { getLocale } from "@/lib/server/locale";
-import { K, ParritCalInline, RegistryLine } from "@/system/components";
+import { K, ParritCalInline, QuickCapture, RegistryLine } from "@/system/components";
 import { localizedAlternates } from "@/system/locale";
 
 const DICT = {
-  en: { metaTitle: "Commission your operating system", metaDescription: "One conversation to examine how your company operates. The first step is an examination, not a sales call.", kicker: "Parrit / Commission", title: "Commission your operating system.", sub: "One conversation to examine how your company operates. The first step is an examination, not a sales call.", notes: [["Who you meet.", "Paul Larmaraud, the founder and the person who builds the systems, not a sales team. Figures from the dossiers are verified live, on screen."], ["What you leave with.", "An honest read of your operations: either a written scope for an Examination, or a clear no if we are not the right maison for it."], ["What it commits you to.", "Nothing. Scope and terms are set in writing after the conversation, before any engagement. Walking away costs nothing and requires no explanation."]], aria: "Select a time" },
-  fr: { metaTitle: "Passez commande de votre système d'exploitation", metaDescription: "Une conversation pour examiner comment votre entreprise fonctionne. D'abord un examen. Pas un rendez-vous commercial.", kicker: "Parrit / Commande", title: "Passez commande de votre système d'exploitation.", sub: "Une conversation pour examiner comment votre entreprise fonctionne. D'abord un examen. Pas un rendez-vous commercial.", notes: [["Votre interlocuteur.", "Paul Larmaraud, le fondateur, celui qui construit les systèmes. Pas une équipe commerciale. Les chiffres des dossiers se vérifient en direct, à l'écran."], ["Ce que vous emportez.", "Un regard lucide sur vos opérations : soit un périmètre écrit pour un Examen, soit un non clair et net si nous ne sommes pas la bonne maison pour le faire."], ["À quoi cela vous engage.", "À rien. Le périmètre et les conditions se fixent par écrit après la conversation, avant tout engagement. Renoncer ne coûte rien et ne demande aucune justification."]], aria: "Choisissez un créneau" },
+  "en": {
+    "title": "Every commission begins with an examination.",
+    "metaDescription": "Thirty minutes on a video call with the founder. Select a time.",
+    "kicker": "Parrit / Commission",
+    "sub": "Thirty minutes on a video call with the founder.",
+    "noteTitle": "You leave with a verdict.",
+    "noteBody": "A written scope, or a clear no. Nothing is signed during the call; terms are set afterwards, in black and white.",
+    "capture": "No slot that works? Leave your e-mail",
+    "aria": "Select a time"
+  },
+  "fr": {
+    "title": "Toute commande commence par un examen.",
+    "metaDescription": "Trente minutes en visio avec le fondateur. Choisissez un créneau.",
+    "kicker": "Parrit / Commande",
+    "sub": "Trente minutes en visio avec le fondateur.",
+    "noteTitle": "Vous repartez avec un verdict.",
+    "noteBody": "Un périmètre écrit, ou un non clair. Rien ne se signe pendant l'appel ; les conditions se fixent après, noir sur blanc.",
+    "capture": "Pas de créneau ? Laissez votre e-mail",
+    "aria": "Choisissez un créneau"
+  }
 } as const;
 
-export async function generateMetadata(): Promise<Metadata> { const copy = DICT[await getLocale()]; return { title: copy.metaTitle, description: copy.metaDescription, alternates: localizedAlternates("/commission") }; }
+export async function generateMetadata(): Promise<Metadata> { const copy = DICT[await getLocale()]; return { title: copy.title, description: copy.metaDescription, alternates: localizedAlternates("/commission") }; }
 
 export default async function CommissionPage() {
   const locale = await getLocale();
@@ -21,13 +39,18 @@ export default async function CommissionPage() {
           <K>{copy.kicker}</K>
           <h1>{copy.title}</h1>
           <p>{copy.sub}</p>
-          <div className="commission-notes">
-            {copy.notes.map(([title, body]) => <p key={title}><b>{title}</b> {body}</p>)}
-          </div>
         </header>
 
         <section className="commission-instrument" aria-label={copy.aria}>
           <ParritCalInline locale={locale} />
+        </section>
+
+        <div className="commission-notes">
+          <p><b>{copy.noteTitle}</b> {copy.noteBody}</p>
+        </div>
+        <section className="standard-action" aria-label={copy.capture}>
+          <K>{copy.capture}</K>
+          <QuickCapture locale={locale} id="commission" />
         </section>
 
         <footer className="rev-footer">
