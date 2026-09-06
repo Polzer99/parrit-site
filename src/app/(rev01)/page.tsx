@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -122,6 +123,15 @@ const DICT = {
     },
   },
 } as const;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  // English and alternates inherit the layout unchanged.
+  return locale === "fr" ? {
+    title: { absolute: "Parrit.ai · Systèmes d'exploitation d'entreprise" },
+    description: "Parrit.ai construit des systèmes IA depuis trois ans, chez des grands comptes, des PME et des ETI : votre entreprise, examinée, reconstruite opération par opération, à vous pour de bon.",
+  } : {};
+}
 
 export default async function HomePage() {
   const locale = await getLocale();

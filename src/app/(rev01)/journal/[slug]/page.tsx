@@ -5,7 +5,6 @@ import ReactMarkdown from "react-markdown";
 import { getLocale } from "@/lib/server/locale";
 import { K, RegistryLine } from "@/system/components";
 import { getAllJournalEntrySummaries, getJournalEntry } from "@/system/journal";
-import { localizedAlternates } from "@/system/locale";
 
 type JournalArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -25,10 +24,20 @@ export async function generateMetadata({ params }: JournalArticlePageProps): Pro
     return {};
   }
 
+  const canonical = `${SITE_URL}/journal/${entry.slug}`;
   return {
     title: entry.title,
     description: entry.description,
-    alternates: localizedAlternates(`/journal/${entry.slug}`),
+    alternates: { canonical, languages: { en: canonical, "x-default": canonical } },
+    openGraph: {
+      title: entry.title,
+      description: entry.description,
+      type: "article",
+      publishedTime: entry.date,
+      siteName: "Parrit.ai",
+      url: canonical,
+    },
+    twitter: { card: "summary_large_image" },
     robots: entry.noindex ? { index: false, follow: true } : undefined,
   };
 }
@@ -48,6 +57,14 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
     "@type": "BlogPosting",
     headline: entry.title,
     datePublished: entry.date,
+    dateModified: entry.date,
+    image: `${canonical}/opengraph-image`,
+    inLanguage: "en",
+    publisher: {
+      "@type": "Organization",
+      name: "Parrit.ai",
+      logo: { "@type": "ImageObject", url: "https://parrit.ai/icon.png" },
+    },
     description: entry.description,
     author: {
       "@type": "Organization",
