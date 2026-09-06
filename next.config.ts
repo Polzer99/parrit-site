@@ -86,12 +86,12 @@ const nextConfig: NextConfig = {
         statusCode: 301,
       },
       {
-        source: "/:lang(fr|en|pt-BR|zh-CN)",
+        source: "/:lang(en|pt-BR|zh-CN)",
         destination: "/",
         statusCode: 301,
       },
       {
-        source: "/:lang(fr|en|pt-BR|zh-CN)/:path*",
+        source: "/:lang(en|pt-BR|zh-CN)/:path*",
         destination: "/",
         statusCode: 301,
       },

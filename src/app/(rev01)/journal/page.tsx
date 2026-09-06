@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getLocale } from "@/lib/server/locale";
 import { K, NewsletterCapture, RegistryLine } from "@/system/components";
 import { getAllJournalEntrySummaries } from "@/system/journal";
-import { localizedAlternates } from "@/system/locale";
+import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 
 const DICT = {
   "en": {
@@ -27,7 +27,7 @@ const DICT = {
   }
 } as const;
 
-export async function generateMetadata(): Promise<Metadata> { const copy = DICT[await getLocale()]; return { title: copy.title, description: copy.sub, alternates: { ...localizedAlternates("/journal"), types: { "application/rss+xml": [{ url: "/journal/rss.xml", title: "Parrit Journal" }] } } }; }
+export async function generateMetadata(): Promise<Metadata> { const locale = await getLocale(); const copy = DICT[locale]; return { title: copy.title, description: copy.sub, openGraph: localizedOpenGraph("/journal", locale, copy.title, copy.sub), alternates: { ...localizedAlternates("/journal", locale), types: { "application/rss+xml": [{ url: "/journal/rss.xml", title: "Parrit Journal" }] } } }; }
 
 export default async function JournalPage() {
   const locale = await getLocale();

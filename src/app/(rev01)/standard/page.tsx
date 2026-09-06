@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { getLocale } from "@/lib/server/locale";
 import { K, RegistryLine } from "@/system/components";
-import { localizedAlternates } from "@/system/locale";
+import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
 
 const DICT = {
   "en": {
@@ -94,12 +94,12 @@ const DICT = {
   }
 } as const;
 
-export async function generateMetadata(): Promise<Metadata> { const copy = DICT[await getLocale()]; return { title: copy.metaTitle, description: copy.metaDescription, alternates: localizedAlternates("/standard") }; }
+export async function generateMetadata(): Promise<Metadata> { const locale = await getLocale(); const copy = DICT[locale]; return { title: copy.metaTitle, description: copy.metaDescription, openGraph: localizedOpenGraph("/standard", locale, copy.metaTitle, copy.metaDescription), alternates: localizedAlternates("/standard", locale) }; }
 
-export default async function StandardPage() { const copy = DICT[await getLocale()]; return <main className="rev-page"><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+export default async function StandardPage() { const locale = await getLocale(); const copy = DICT[locale]; return <main className="rev-page"><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
   "@context": "https://schema.org",
   "@type": "ItemList",
   itemListElement: copy.principles.map(([, name, description], index) => ({
     "@type": "ListItem", position: index + 1, name, description,
   })),
-}).replace(/</g, "\\u003c") }} /><div className="rev-wrap"><header className="standard-intro"><K>{copy.kicker}</K><h1>{copy.title}</h1></header><section className="doctrine" aria-label={copy.metaTitle}><div className="doctrine-head"><K>{copy.tableMeta}</K></div>{copy.principles.map(([code, statement, scene]) => <div className="doctrine-row" key={code}><div className="doctrine-code"><K>{code}</K></div><h3 className="doctrine-name">{statement}</h3><div className="doctrine-definition">{scene}</div></div>)}<div className="doctrine-foot"><span className="seal">{copy.seal}</span></div></section><p className="standard-note">{copy.note}</p><div className="standard-action"><K>{copy.proof}</K><Link className="rev-button exec" href="/commission">{copy.button}</Link></div><footer className="rev-footer"><RegistryLine /></footer></div></main>; }
+}).replace(/</g, "\\u003c") }} /><div className="rev-wrap"><header className="standard-intro"><K>{copy.kicker}</K><h1>{copy.title}</h1></header><section className="doctrine" aria-label={copy.metaTitle}><div className="doctrine-head"><K>{copy.tableMeta}</K></div>{copy.principles.map(([code, statement, scene]) => <div className="doctrine-row" key={code}><div className="doctrine-code"><K>{code}</K></div><h3 className="doctrine-name">{statement}</h3><div className="doctrine-definition">{scene}</div></div>)}<div className="doctrine-foot"><span className="seal">{copy.seal}</span></div></section><p className="standard-note">{copy.note}</p><div className="standard-action"><K>{copy.proof}</K><Link className="rev-button exec" href={localizedPath("/commission", locale)}>{copy.button}</Link></div><footer className="rev-footer"><RegistryLine /></footer></div></main>; }

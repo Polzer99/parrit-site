@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { localizedAlternates, localizedPath } from "@/system/locale";
 import { getAllJournalEntrySummaries } from "@/system/journal";
 
 const SITE_URL =
@@ -16,22 +17,24 @@ const REV01_PUBLIC_ROUTES = [
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries = getAllJournalEntrySummaries();
 
-  const rev01PublicEntries: MetadataRoute.Sitemap = REV01_PUBLIC_ROUTES.map(
-    ({ path, changeFrequency, priority, lastModified }) => ({
-      url: `${SITE_URL}${path}`,
+  const rev01PublicEntries: MetadataRoute.Sitemap = REV01_PUBLIC_ROUTES.flatMap(
+    ({ path, changeFrequency, priority, lastModified }) => (["en", "fr"] as const).map((locale) => ({
+      url: `${SITE_URL}${localizedPath(path || "/", locale)}`,
+      alternates: { languages: Object.fromEntries(Object.entries(localizedAlternates(path || "/", locale).languages).map(([lang, url]) => [lang, `${SITE_URL}${url}`])) },
       lastModified,
       changeFrequency,
       priority,
-    }),
+    })),
   );
 
   const journalEntries: MetadataRoute.Sitemap = [
-    {
-      url: `${SITE_URL}/journal`,
+    ...(["en", "fr"] as const).map((locale) => ({
+      url: `${SITE_URL}${localizedPath("/journal", locale)}`,
+      alternates: { languages: Object.fromEntries(Object.entries(localizedAlternates("/journal", locale).languages).map(([lang, url]) => [lang, `${SITE_URL}${url}`])) },
       lastModified: entries[0]?.date,
       changeFrequency: "weekly" as const,
       priority: 0.8,
-    },
+    })),
     ...entries.filter((entry) => !entry.noindex).map((entry) => ({
       url: `${SITE_URL}/journal/${entry.slug}`,
       lastModified: new Date(entry.date),

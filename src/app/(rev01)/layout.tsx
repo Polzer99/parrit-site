@@ -57,7 +57,7 @@ export async function generateMetadata(): Promise<Metadata> {
   description:
     "Parrit.ai examines how a company operates, builds its first production system and compounds it as owned infrastructure.",
   alternates: {
-    ...localizedAlternates("/"),
+    ...localizedAlternates("/", await getLocale()),
     types: { "application/rss+xml": [{ url: "/journal/rss.xml", title: "Parrit Journal" }] },
   },
   };
