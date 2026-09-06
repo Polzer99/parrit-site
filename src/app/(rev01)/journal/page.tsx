@@ -27,7 +27,7 @@ const DICT = {
   }
 } as const;
 
-export async function generateMetadata(): Promise<Metadata> { const copy = DICT[await getLocale()]; return { title: copy.title, description: copy.sub, alternates: localizedAlternates("/journal") }; }
+export async function generateMetadata(): Promise<Metadata> { const copy = DICT[await getLocale()]; return { title: copy.title, description: copy.sub, alternates: { ...localizedAlternates("/journal"), types: { "application/rss+xml": [{ url: "/journal/rss.xml", title: "Parrit Journal" }] } } }; }
 
 export default async function JournalPage() {
   const locale = await getLocale();

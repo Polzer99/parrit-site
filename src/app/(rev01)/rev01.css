@@ -700,7 +700,8 @@ body {
   border-top: 0;
 }
 
-.doctrine-row > div {
+.doctrine-row > div,
+.doctrine-row > h3 {
   padding: 16px 22px;
 }
 
@@ -710,6 +711,9 @@ body {
 }
 
 .doctrine-name {
+  margin: 0;
+  font-family: inherit;
+  line-height: inherit;
   font-size: 14.5px;
   font-weight: 600;
 }
@@ -2244,7 +2248,8 @@ a.k:active {
   border-bottom: 0;
 }
 
-.r2-phase > div {
+.r2-phase > div,
+.r2-phase > h3 {
   padding: 16px 18px;
 }
 
@@ -2256,6 +2261,9 @@ a.k:active {
 }
 
 .r2-phase .nm {
+  margin: 0;
+  font-family: inherit;
+  line-height: inherit;
   color: var(--paper);
   font-size: 14.5px;
   font-weight: 500;

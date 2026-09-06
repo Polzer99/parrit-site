@@ -45,9 +45,11 @@ const REDIRECTIONS_JOURNAL = Object.entries(JOURNAL_LEGACY_ROUTES).flatMap(
 );
 
 const nextConfig: NextConfig = {
+  images: { minimumCacheTTL: 2678400 },
   // The OG generators read src/system/tokens.css at runtime; without this
   // the file is absent from the serverless bundle and the route 500s.
   outputFileTracingIncludes: {
+    "/llms-full.txt": ["./public/llms.txt", "./content/journal/*.mdx"],
     "/opengraph-image": ["./src/system/tokens.css", "./src/og-assets/*"],
     "/journal/[slug]/opengraph-image": ["./src/system/tokens.css", "./src/og-assets/*"],
   },
@@ -55,6 +57,10 @@ const nextConfig: NextConfig = {
     // Le kit de polices est versionné par dossier (rev02) : tout changement de
     // police passe par un nouveau dossier, donc immutable 1 an est sûr.
     return [
+      {
+        source: "/founder-portrait.jpg",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
       {
         source: "/fonts/rev02/:file*",
         headers: [

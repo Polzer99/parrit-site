@@ -47,7 +47,8 @@ posthog.init('phc_MBE1dFuCrRbroLzBdP7JtrH0O1JlH8F5uNs9cieSHqm', {
 });
 `;
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  return {
   metadataBase: new URL("https://parrit.ai"),
   title: {
     default: "Parrit.ai · Company Operating Systems",
@@ -55,8 +56,12 @@ export const metadata: Metadata = {
   },
   description:
     "Parrit.ai examines how a company operates, builds its first production system and compounds it as owned infrastructure.",
-  alternates: localizedAlternates("/"),
-};
+  alternates: {
+    ...localizedAlternates("/"),
+    types: { "application/rss+xml": [{ url: "/journal/rss.xml", title: "Parrit Journal" }] },
+  },
+  };
+}
 
 export default async function Rev01Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   const locale = await getLocale();

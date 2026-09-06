@@ -18,6 +18,7 @@ export function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set(LOCALE_HEADER, locale);
   const response = NextResponse.next({ request: { headers: requestHeaders } });
+  response.headers.append("Vary", "Accept-Language, Cookie");
   if (isLocale(queryLocale) || !isLocale(cookieLocale)) {
     response.cookies.set(LOCALE_COOKIE, locale, {
       maxAge: 60 * 60 * 24 * 365,

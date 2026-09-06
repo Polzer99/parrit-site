@@ -8,7 +8,7 @@ import { localizedAlternates } from "@/system/locale";
 const DICT = {
   "en": {
     "metaTitle": "The Dossiers",
-    "metaDescription": "Commissioned systems, anonymized on principle. Figures verified live.",
+    "metaDescription": "Systems commissioned by large accounts, SMEs and mid-sized companies, anonymized on principle. Figures verified live, dossier by dossier.",
     "kicker": "Parrit / The Dossiers",
     "title": "The dossiers open in conversation.",
     "sub": "Systems commissioned by large accounts, SMEs and mid-sized companies. Anonymized on principle. The figures are verified live.",
@@ -41,7 +41,7 @@ const DICT = {
   },
   "fr": {
     "metaTitle": "Les dossiers",
-    "metaDescription": "Systèmes commandés, anonymisés par principe. Les chiffres se vérifient en direct.",
+    "metaDescription": "Des systèmes commandés par des grands comptes, des PME et des ETI, anonymisés par principe. Les chiffres se vérifient en direct, dossier par dossier.",
     "kicker": "Parrit / Les dossiers",
     "title": "Les dossiers s'ouvrent de vive voix.",
     "sub": "Des systèmes commandés par des grands comptes, des PME et des ETI. Anonymisés par principe. Les chiffres se vérifient en direct.",

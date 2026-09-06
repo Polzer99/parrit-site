@@ -7,7 +7,7 @@ import { localizedAlternates } from "@/system/locale";
 const DICT = {
   "en": {
     "title": "Every commission begins with an examination.",
-    "metaDescription": "Thirty minutes on a video call with the founder. Select a time.",
+    "metaDescription": "Every commission begins with an examination: thirty minutes on a video call with the founder, a written scope or a clear no. Select a time.",
     "kicker": "Parrit / Commission",
     "sub": "Thirty minutes on a video call with the founder.",
     "noteTitle": "You leave with a verdict.",
@@ -17,7 +17,7 @@ const DICT = {
   },
   "fr": {
     "title": "Toute commande commence par un examen.",
-    "metaDescription": "Trente minutes en visio avec le fondateur. Choisissez un créneau.",
+    "metaDescription": "Toute commande commence par un examen : trente minutes en visio avec le fondateur, un périmètre écrit ou un non clair. Choisissez un créneau.",
     "kicker": "Parrit / Commande",
     "sub": "Trente minutes en visio avec le fondateur.",
     "noteTitle": "Vous repartez avec un verdict.",

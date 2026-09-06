@@ -8,7 +8,7 @@ import { localizedAlternates } from "@/system/locale";
 const DICT = {
   "en": {
     "metaTitle": "The Standard",
-    "metaDescription": "Six commitments on every system we deliver.",
+    "metaDescription": "Six commitments on every system we deliver: state readable at any moment, framed decisions, the way back written in advance, full client ownership.",
     "kicker": "Parrit / The Standard",
     "title": "Six commitments. Every system we deliver keeps them.",
     "tableMeta": "STD-1.0 · 2026",
@@ -51,7 +51,7 @@ const DICT = {
   },
   "fr": {
     "metaTitle": "Le Standard",
-    "metaDescription": "Six engagements sur chaque système livré.",
+    "metaDescription": "Six engagements sur chaque système livré : état lisible à tout moment, décisions cadrées et chiffrées, retour arrière écrit d'avance, propriété complète du client.",
     "kicker": "Parrit / Le Standard",
     "title": "Six engagements. Chaque système livré les tient.",
     "tableMeta": "STD-1.0 · 2026",
@@ -96,4 +96,10 @@ const DICT = {
 
 export async function generateMetadata(): Promise<Metadata> { const copy = DICT[await getLocale()]; return { title: copy.metaTitle, description: copy.metaDescription, alternates: localizedAlternates("/standard") }; }
 
-export default async function StandardPage() { const copy = DICT[await getLocale()]; return <main className="rev-page"><div className="rev-wrap"><header className="standard-intro"><K>{copy.kicker}</K><h1>{copy.title}</h1></header><section className="doctrine" aria-label={copy.metaTitle}><div className="doctrine-head"><K>{copy.tableMeta}</K></div>{copy.principles.map(([code, statement, scene]) => <div className="doctrine-row" key={code}><div className="doctrine-code"><K>{code}</K></div><div className="doctrine-name">{statement}</div><div className="doctrine-definition">{scene}</div></div>)}<div className="doctrine-foot"><span className="seal">{copy.seal}</span></div></section><p className="standard-note">{copy.note}</p><div className="standard-action"><K>{copy.proof}</K><Link className="rev-button exec" href="/commission">{copy.button}</Link></div><footer className="rev-footer"><RegistryLine /></footer></div></main>; }
+export default async function StandardPage() { const copy = DICT[await getLocale()]; return <main className="rev-page"><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: copy.principles.map(([, name, description], index) => ({
+    "@type": "ListItem", position: index + 1, name, description,
+  })),
+}).replace(/</g, "\\u003c") }} /><div className="rev-wrap"><header className="standard-intro"><K>{copy.kicker}</K><h1>{copy.title}</h1></header><section className="doctrine" aria-label={copy.metaTitle}><div className="doctrine-head"><K>{copy.tableMeta}</K></div>{copy.principles.map(([code, statement, scene]) => <div className="doctrine-row" key={code}><div className="doctrine-code"><K>{code}</K></div><h3 className="doctrine-name">{statement}</h3><div className="doctrine-definition">{scene}</div></div>)}<div className="doctrine-foot"><span className="seal">{copy.seal}</span></div></section><p className="standard-note">{copy.note}</p><div className="standard-action"><K>{copy.proof}</K><Link className="rev-button exec" href="/commission">{copy.button}</Link></div><footer className="rev-footer"><RegistryLine /></footer></div></main>; }

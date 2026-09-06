@@ -9,7 +9,6 @@ export { K } from "./K";
 export { NewsletterCapture } from "./NewsletterCapture";
 export { Opening } from "./Opening";
 export { QuickCapture } from "./QuickCapture";
-export { RegisterInterest } from "./RegisterInterest";
 export { RegistryLine } from "./RegistryLine";
 export { RevHeader } from "./RevHeader";
 export { Seal } from "./Seal";

@@ -36,7 +36,7 @@ export function localizedAlternates(pathname: string) {
   return {
     canonical: pathname,
     languages: {
-      "fr-FR": `${pathname}${separator}lang=fr`,
+      "fr": `${pathname}${separator}lang=fr`,
       "en": `${pathname}${separator}lang=en`,
       "x-default": `${pathname}${separator}lang=en`,
     },
