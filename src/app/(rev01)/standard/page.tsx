@@ -6,18 +6,94 @@ import { K, RegistryLine } from "@/system/components";
 import { localizedAlternates } from "@/system/locale";
 
 const DICT = {
-  en: {
-    metaTitle: "The Parrit Standard", metaDescription: "The six operating principles that govern every system commissioned and built by Parrit.ai.", kicker: "Parrit / Specification", title: "Every system we deliver is certified to the same specification.", tableTitle: "The Parrit Standard", tableMeta: "Specification · STD-1.0 · 2026", practice: "In practice",
-    principles: [["PS-01", "Observable", "The operator can determine the state of the system at any moment, without asking anyone.", "The operator reads the state of a live dossier at any moment: no meeting, no export, no asking anyone."], ["PS-02", "Actionable", "Every surfaced piece of information leads to a possible action within the same view.", "A blocked order surfaces with its cause, its exposure and the one decision required, all in the same card."], ["PS-03", "Traceable", "Every significant decision carries its origin: data, author, timestamp, rationale.", "The journal records author, timestamp, source and rationale for every decision. The journal is the audit."], ["PS-04", "Reversible", "Every critical process has a documented path of return before it is put into production.", "An automated action can be halted and unwound to the last human decision. The path back is documented before go-live."], ["PS-05", "Owned", "The client holds the system, its data and its documentation as company assets.", "Code, data and documentation are handed over as company assets. The client’s team operates the system without us."], ["PS-06", "Compounding", "Each new capability increases the value of every capability already in production.", "The reporting built in phase one feeds the follow-up system built in phase two. Each addition raises the value of the last."]],
-    seal: "Certified · Built to the Parrit Standard", note: "To be clear about what this is: STD-1.0 is our own bar, not a third-party accreditation. We publish it so you can hold us to it. Each criterion is verified in your production, on your data, against your flows; signed off by you, not by us. The certification you should trust is the one your own team gives after running the system.", button: "Let’s talk",
+  "en": {
+    "metaTitle": "The Standard",
+    "metaDescription": "Six commitments on every system we deliver.",
+    "kicker": "Parrit / The Standard",
+    "title": "Six commitments. Every system we deliver keeps them.",
+    "tableMeta": "STD-1.0 · 2026",
+    "principles": [
+      [
+        "PS-01",
+        "The state is readable at any moment.",
+        "Pipeline state, follow-ups sent, yesterday's incident. One screen."
+      ],
+      [
+        "PS-02",
+        "Every signal carries its decision.",
+        "A blocked invoice surfaces framed and quantified, on a card."
+      ],
+      [
+        "PS-03",
+        "Every decision keeps its origin.",
+        "Author, time, source, rationale. The journal is the audit."
+      ],
+      [
+        "PS-04",
+        "The way back is written in advance.",
+        "A follow-up sent by mistake: one click undoes it and restores the state before."
+      ],
+      [
+        "PS-05",
+        "The system belongs to you.",
+        "Code, data and documentation included. Your team runs it without us."
+      ],
+      [
+        "PS-06",
+        "The next brick raises the value of the ones before.",
+        "The reporting built first feeds the follow-ups built next."
+      ]
+    ],
+    "seal": "Sign-off by your team, at delivery",
+    "note": "STD-1.0 is not an accreditation. It is Parrit.ai's own bar. Hold us to it.",
+    "proof": "30 min · On a video call, with the founder",
+    "button": "Let's talk"
   },
-  fr: {
-    metaTitle: "Le Standard Parrit", metaDescription: "Les six principes de fonctionnement qui régissent chaque système commandé et construit par Parrit.ai.", kicker: "Parrit / Spécification", title: "Une seule spécification. Chaque système livré y répond.", tableTitle: "Le Standard Parrit", tableMeta: "Spécification · STD-1.0 · 2026", practice: "En pratique",
-    principles: [["PS-01", "Observable", "L'opérateur connaît l'état du système à tout moment, sans rien demander à personne.", "L'opérateur lit l'état d'un dossier en cours à tout moment : pas de réunion, pas d'export, personne à interroger."], ["PS-02", "Actionnable", "Toute information remontée ouvre sur une action possible, dans la même vue.", "Une commande bloquée remonte avec sa cause, le montant en jeu et la seule décision à prendre. Le tout sur une même carte."], ["PS-03", "Traçable", "Chaque décision significative porte son origine : données, auteur, horodatage, motif.", "Le journal consigne l'auteur, l'heure, la source et le motif de chaque décision. Le journal est l'audit."], ["PS-04", "Réversible", "Chaque processus critique a sa procédure de retour arrière, écrite avant la mise en production.", "Une action automatisée peut être arrêtée, puis ramenée à la dernière décision humaine. La procédure de retour est documentée avant la mise en service."], ["PS-05", "Propriété du client", "Le client détient le système, ses données et sa documentation comme des actifs de son entreprise.", "Le code, les données et la documentation entrent au patrimoine de l'entreprise. L'équipe du client fait tourner le système sans nous."], ["PS-06", "Capitalisation", "Chaque nouvelle brique augmente la valeur de toutes celles déjà en production.", "Le reporting construit en premier alimente les relances construites ensuite. Chaque ajout augmente la valeur du précédent."]],
-    seal: "Certifié · Construit selon le Standard Parrit", note: "Soyons clairs : STD-1.0 est notre exigence, pas une accréditation délivrée par un tiers. Nous la publions pour que vous puissiez nous demander des comptes. Chaque critère est vérifié en production, chez vous : sur vos données, sur vos flux réels. Et validé par vous, pas par nous. La seule certification qui vaille : celle que votre équipe délivre après avoir fait tourner le système.", button: "Parlons-en",
-  },
+  "fr": {
+    "metaTitle": "Le Standard",
+    "metaDescription": "Six engagements sur chaque système livré.",
+    "kicker": "Parrit / Le Standard",
+    "title": "Six engagements. Chaque système livré les tient.",
+    "tableMeta": "STD-1.0 · 2026",
+    "principles": [
+      [
+        "PS-01",
+        "L'état se lit à tout moment.",
+        "L'état du pipeline, les relances parties, l'incident d'hier. Un écran."
+      ],
+      [
+        "PS-02",
+        "Chaque signal porte sa décision.",
+        "La facture bloquée remonte cadrée et chiffrée, sur une carte."
+      ],
+      [
+        "PS-03",
+        "Chaque décision garde son origine.",
+        "Auteur, heure, source, motif. Le journal est l'audit."
+      ],
+      [
+        "PS-04",
+        "Le retour arrière est écrit d'avance.",
+        "Une relance partie par erreur : un clic l'annule et restaure l'état d'avant."
+      ],
+      [
+        "PS-05",
+        "Le système vous appartient.",
+        "Code, données et documentation compris. Votre équipe le fait tourner sans nous."
+      ],
+      [
+        "PS-06",
+        "La brique suivante augmente la valeur des précédentes.",
+        "Le reporting construit d'abord alimente les relances construites ensuite."
+      ]
+    ],
+    "seal": "Recette signée par votre équipe, à la livraison",
+    "note": "STD-1.0 n'est pas une accréditation. C'est l'exigence de Parrit.ai. Demandez-nous des comptes.",
+    "proof": "30 min · En visio, avec le fondateur",
+    "button": "Parlons-en"
+  }
 } as const;
 
 export async function generateMetadata(): Promise<Metadata> { const copy = DICT[await getLocale()]; return { title: copy.metaTitle, description: copy.metaDescription, alternates: localizedAlternates("/standard") }; }
 
-export default async function StandardPage() { const copy = DICT[await getLocale()]; return <main className="rev-page"><div className="rev-wrap"><header className="standard-intro"><K>{copy.kicker}</K><h1>{copy.title}</h1></header><section className="doctrine" aria-label={copy.tableTitle}><div className="doctrine-head"><K>{copy.tableTitle}</K><K>{copy.tableMeta}</K></div>{copy.principles.map(([code, name, definition, example]) => <div className="doctrine-row" key={code}><div className="doctrine-code"><K>{code}</K></div><div className="doctrine-name">{name}</div><div className="doctrine-definition">{definition}<span className="doctrine-example"><b>{copy.practice}</b>{example}</span></div></div>)}<div className="doctrine-foot"><span className="seal">{copy.seal}</span></div></section><p className="standard-note">{copy.note}</p><div className="standard-action"><Link className="rev-button exec" href="/commission">{copy.button}</Link></div><footer className="rev-footer"><RegistryLine /></footer></div></main>; }
+export default async function StandardPage() { const copy = DICT[await getLocale()]; return <main className="rev-page"><div className="rev-wrap"><header className="standard-intro"><K>{copy.kicker}</K><h1>{copy.title}</h1></header><section className="doctrine" aria-label={copy.metaTitle}><div className="doctrine-head"><K>{copy.tableMeta}</K></div>{copy.principles.map(([code, statement, scene]) => <div className="doctrine-row" key={code}><div className="doctrine-code"><K>{code}</K></div><div className="doctrine-name">{statement}</div><div className="doctrine-definition">{scene}</div></div>)}<div className="doctrine-foot"><span className="seal">{copy.seal}</span></div></section><p className="standard-note">{copy.note}</p><div className="standard-action"><K>{copy.proof}</K><Link className="rev-button exec" href="/commission">{copy.button}</Link></div><footer className="rev-footer"><RegistryLine /></footer></div></main>; }

@@ -33,6 +33,7 @@ export type EventName =
   | "meeting_requested"
   | "conversation_started"
   | "prototype_requested"
+  | "agent_esquisse_used"
   | "opportunity_created"
   | "deal_linked";
 

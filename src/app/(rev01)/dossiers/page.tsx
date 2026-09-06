@@ -5,45 +5,73 @@ import { getLocale } from "@/lib/server/locale";
 import { K, RegistryLine } from "@/system/components";
 import { localizedAlternates } from "@/system/locale";
 
-const EN_DOSSIERS = [
-  {
-    ref: "DOSSIER 26-001",
-    sector: "PARRIT ITSELF",
-    title: "The system we sell is the system we run.",
-    body: "Parrit.ai operates on its own operating system: one place where signals, clients and campaigns become decisions, delivered to the founder’s phone as cards. Built for ourselves first, compounding since.",
-    value: "200+",
-    result: "signals become decisions, every week",
-    seal: "In production · Compounding",
-  },
-  {
-    ref: "DOSSIER 26-002",
-    sector: "A LAW FIRM",
-    title: "An operating system for a law firm.",
-    body: "Client intake, follow-ups and case flow, rebuilt as one system on the firm’s own infrastructure. First capabilities certified and live; the system grows case by case.",
-    value: "+€5\u201310K",
-    result: "additional revenue per month, from re-engaged case flow",
-    seal: "Under construction · First capabilities live",
-  },
-  {
-    ref: "DOSSIER 26-003",
-    sector: "A CONSUMER BRAND",
-    title: "Reporting nobody writes.",
-    body: "The reporting assembles itself from source systems and ships on schedule. It is run today by the client’s own team, without us. Owned, documented, handed over.",
-    value: "2.5 months",
-    result: "recovered on a single reporting process",
-    seal: "Delivered · Operated by the client",
-  },
-] as const;
-
-const FR_DOSSIERS = [
-  { ref: "DOSSIER 26-001", sector: "PARRIT", title: "Nous vendons le système qui nous fait tourner.", body: "Parrit.ai tourne sur son propre système d'exploitation : un seul endroit où les signaux, les clients et les campagnes deviennent des décisions, qui arrivent en cartes sur le téléphone du fondateur. Construit pour nous d'abord. Depuis, la valeur s'accumule.", value: "200+", result: "signaux deviennent des décisions chaque semaine", seal: "En production · La valeur s'accumule" },
-  { ref: "DOSSIER 26-002", sector: "UN CABINET D'AVOCATS", title: "Un système d'exploitation pour un cabinet d'avocats.", body: "L'arrivée des nouveaux clients, les relances et la circulation des dossiers, refondues en un seul système sur l'infrastructure du cabinet. Les premières briques sont certifiées et en service. Le système grandit dossier après dossier.", value: "+5 à 10 K€", result: "de chiffre d'affaires en plus chaque mois, sur des dossiers relancés", seal: "En construction · Premières briques en service" },
-  { ref: "DOSSIER 26-003", sector: "UNE MARQUE GRAND PUBLIC", title: "Le reporting que personne ne rédige.", body: "Le reporting s'assemble seul à partir des systèmes sources et part à l'heure. L'équipe du client le fait tourner aujourd'hui, sans nous. Documenté, transmis. À eux.", value: "2,5 mois", result: "gagnés sur un seul processus de reporting", seal: "Livré · Aux mains du client" },
-] as const;
-
 const DICT = {
-  en: { metaTitle: "System dossiers", metaDescription: "Sealed records of commissioned company operating systems: sectors, systems and verified results. The dossiers open in conversation.", kicker: "Parrit / System dossiers", title: "Sealed dossiers.", sub: "Records of commissioned systems, anonymized by doctrine. Every figure below is verified live, in conversation.", dossiers: EN_DOSSIERS, note: "Also among the dossiers: a CRM an agency never touches by hand, outbound infrastructure end-to-end, and systems commissioned by maisons in cosmetics and craft retail. The dossiers open in conversation, not on a website.", close: "Your company could be the next dossier.", proof: "30 MIN · AN EXAMINATION, NOT A SALES CALL", button: "Let’s talk", status: "COMMISSIONED, NOT SUBSCRIBED" },
-  fr: { metaTitle: "Les dossiers", metaDescription: "Archives scellées : des systèmes d'exploitation commandés par des entreprises, leurs secteurs, leurs résultats vérifiés. Les dossiers s'ouvrent de vive voix.", kicker: "Parrit / Les dossiers", title: "Dossiers scellés.", sub: "Les archives des systèmes commandés, anonymisées par principe. Chaque chiffre ci-dessous se vérifie en direct, de vive voix.", dossiers: FR_DOSSIERS, note: "Les dossiers contiennent aussi : un CRM qu'une agence ne touche jamais à la main, une infrastructure de prospection de bout en bout, des systèmes commandés par des marques de cosmétique et de commerce artisanal. Les dossiers, et des références avec l'accord du client, s'ouvrent de vive voix. Pas sur un site.", close: "Le prochain dossier pourrait être le vôtre.", proof: "30 MIN · UN EXAMEN, PAS UN RENDEZ-VOUS COMMERCIAL", button: "Parlons-en", status: "UNE COMMANDE, PAS UN ABONNEMENT" },
+  "en": {
+    "metaTitle": "The Dossiers",
+    "metaDescription": "Commissioned systems, anonymized on principle. Figures verified live.",
+    "kicker": "Parrit / The Dossiers",
+    "title": "The dossiers open in conversation.",
+    "sub": "Systems commissioned by large accounts, SMEs and mid-sized companies. Anonymized on principle. The figures are verified live.",
+    "dossiers": [
+      {
+        "ref": "Dossier 26-003 · A consumer brand",
+        "title": "2.5 months recovered on a single reporting process.",
+        "body": "The reporting assembles itself and ships on schedule. The client's own team runs it today.",
+        "seal": "Delivered · In the client's hands"
+      },
+      {
+        "ref": "Dossier 26-002 · A law firm",
+        "title": "€5K to €10K more per month, from re-engaged case files.",
+        "body": "Client intake and follow-ups, rebuilt on the firm's own infrastructure. Measured on the capabilities already live.",
+        "seal": "Under construction · First capabilities live"
+      },
+      {
+        "ref": "Dossier 26-001 · Parrit.ai, our own system",
+        "title": "We sell the system we run on.",
+        "body": "More than 200 signals become decisions every week, received and arbitrated by the founder.",
+        "seal": "In production · Compounding"
+      }
+    ],
+    "registry": "The registry",
+    "registryTitle": "Other dossiers remain sealed.",
+    "note": "They are read in a meeting, with the client's consent.",
+    "close": "The next dossier could be yours.",
+    "proof": "30 min · An examination, with the founder",
+    "button": "Let's talk"
+  },
+  "fr": {
+    "metaTitle": "Les dossiers",
+    "metaDescription": "Systèmes commandés, anonymisés par principe. Les chiffres se vérifient en direct.",
+    "kicker": "Parrit / Les dossiers",
+    "title": "Les dossiers s'ouvrent de vive voix.",
+    "sub": "Des systèmes commandés par des grands comptes, des PME et des ETI. Anonymisés par principe. Les chiffres se vérifient en direct.",
+    "dossiers": [
+      {
+        "ref": "Dossier 26-003 · Une marque grand public",
+        "title": "2,5 mois gagnés sur un seul processus de reporting.",
+        "body": "Le reporting s'assemble et part à l'heure. L'équipe du client le fait tourner aujourd'hui.",
+        "seal": "Livré · Aux mains du client"
+      },
+      {
+        "ref": "Dossier 26-002 · Un cabinet d'avocats",
+        "title": "De 5 à 10 K€ de plus par mois, sur des dossiers relancés.",
+        "body": "L'arrivée des clients et les relances, refondues sur l'infrastructure du cabinet. Chiffre mesuré sur les briques en service.",
+        "seal": "En construction · Premières briques en service"
+      },
+      {
+        "ref": "Dossier 26-001 · Parrit.ai, notre propre système",
+        "title": "Nous vendons le système qui nous fait tourner.",
+        "body": "Plus de 200 signaux deviennent des décisions chaque semaine, reçus et arbitrés par le fondateur.",
+        "seal": "En production · La valeur s'accumule"
+      }
+    ],
+    "registry": "Le registre",
+    "registryTitle": "D'autres dossiers restent scellés.",
+    "note": "Ils se lisent en rendez-vous, avec l'accord du client.",
+    "close": "Le prochain dossier pourrait être le vôtre.",
+    "proof": "30 min · Un examen, avec le fondateur",
+    "button": "Parlons-en"
+  }
 } as const;
 
 export async function generateMetadata(): Promise<Metadata> { const copy = DICT[await getLocale()]; return { title: copy.metaTitle, description: copy.metaDescription, alternates: localizedAlternates("/dossiers") }; }
@@ -66,18 +94,18 @@ export default async function DossiersPage() {
               <article className="r2-dossier" key={dossier.ref}>
                 <div className="ref">
                   <K>{dossier.ref}</K>
-                  <K>{dossier.sector}</K>
                 </div>
                 <h3>{dossier.title}</h3>
                 <p>{dossier.body}</p>
-                <div className="res">
-                  <div className="v">{dossier.value}</div>
-                  <div className="l">{dossier.result}</div>
-                </div>
                 <div className="seal">{dossier.seal}</div>
               </article>
             ))}
           </div>
+        </section>
+
+        <section className="r2-section" aria-labelledby="registry-heading">
+          <K>{copy.registry}</K>
+          <h2 className="r2-ed" id="registry-heading">{copy.registryTitle}</h2>
           <p className="r2-registre-note">{copy.note}</p>
         </section>
 
@@ -91,7 +119,6 @@ export default async function DossiersPage() {
 
         <footer className="r2-footer">
           <RegistryLine value="PARRIT / DOSSIERS · REV 01 · 2026" />
-          <K>{copy.status}</K>
           <K>© 2026 Parrit.ai</K>
         </footer>
       </div>

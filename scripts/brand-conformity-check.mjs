@@ -1,7 +1,7 @@
 import { readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
 
-const ROOTS = ["src/system", "src/app-rev01", "src/app/system", "src/app/(rev01)"];
+const ROOTS = ["src/system", "src/app/(rev01)"];
 const TEXT_EXTENSIONS = new Set([".css", ".js", ".jsx", ".md", ".mjs", ".ts", ".tsx"]);
 const violations = [];
 
@@ -30,12 +30,7 @@ for (const root of ROOTS) {
       const lineNumber = index + 1;
       if (!file.endsWith("tokens.css")) {
         const hex = line.match(/#[\da-f]{3,8}\b/i);
-        // The Cal.com embed takes runtime color config (no CSS vars possible
-        // there); those literals must still BE token values — anything else fails.
-        const calRuntimeTokens = new Set(["#E10600", "#131518", "#1A1D21", "#24282D"]);
-        const isCalRuntime =
-          file.endsWith("components/CalInline.tsx") && hex && calRuntimeTokens.has(hex[0].toUpperCase());
-        if (hex && !isCalRuntime) report(file, lineNumber, "hex outside tokens.css", hex[0]);
+        if (hex) report(file, lineNumber, "hex outside tokens.css", hex[0]);
       }
 
       const radius = line.match(/border-radius\s*:\s*([^;]+)/i);

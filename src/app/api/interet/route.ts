@@ -21,6 +21,7 @@ const WEBHOOK_LEAD = process.env.PARRIT_LEAD_WEBHOOK ?? "";
 
 type Corps = {
   email?: string;
+  idee?: unknown;
   interet?: string;
   entreprise?: string;
   ouvertAppel?: boolean;
@@ -61,6 +62,10 @@ export async function POST(req: NextRequest) {
     return erreur("capture indisponible", 503, { raison: "configuration Supabase absente" });
   }
 
+  const idee = typeof corps.idee === "string" && corps.idee.length <= 300
+    ? corps.idee.trim() || undefined
+    : undefined;
+
   const submissionId = corps.submissionId?.trim() || randomUUID();
   const lang = ["fr", "en"].includes(corps.lang ?? "") ? (corps.lang as string) : "en";
   const source = (corps.source ?? (corps.interet ? "site:register-interest" : "site:quick-capture")).trim();
@@ -71,6 +76,7 @@ export async function POST(req: NextRequest) {
       email,
       interet,
       entreprise: corps.entreprise,
+      idee,
       ouvertAppel: Boolean(corps.ouvertAppel),
       source,
       pageOrigine: (corps.pageOrigine ?? "").trim(),
@@ -98,6 +104,7 @@ export async function POST(req: NextRequest) {
             lang,
             timestamp: new Date().toISOString(),
             ...(corps.attribution ?? {}),
+            idee_prototype: idee ?? null,
           }),
         });
         notification = reponse.ok ? "envoyee" : "echouee";
