@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { getLocale } from "@/lib/server/locale";
 import { AgentEsquisse } from "@/system/components/AgentEsquisse";
-import { K, NewsletterCapture, Opening, QuickCapture } from "@/system/components";
+import { K, NewsletterCapture, QuickCapture } from "@/system/components";
 import { getAllJournalEntrySummaries } from "@/system/journal";
 
 const DICT = {
@@ -130,8 +130,6 @@ export default async function HomePage() {
 
   return (
     <main className="rev-page home-s">
-      <Opening locale={locale} />
-
       <section className="home-s-hero r2-dark">
         <div className="home-s-wrap">
           <K>{copy.hero.kicker}</K>

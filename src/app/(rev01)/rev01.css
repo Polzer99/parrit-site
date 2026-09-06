@@ -1579,6 +1579,26 @@ a.k:active {
   min-height: 54px;
 }
 
+.home-s-quick-capture .home-s-idea-reveal {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-height 200ms ease, opacity 200ms ease;
+}
+
+.home-s-quick-capture .home-s-idea-reveal[data-open="true"] {
+  max-height: 64px;
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-s-quick-capture .home-s-idea-reveal {
+    transition: none;
+  }
+}
+
 .home-s-alternative {
   margin: 24px 0 0;
   color: var(--g2);
