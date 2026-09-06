@@ -4,22 +4,11 @@ const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 
 test.use({ viewport: { width: 1440, height: 900 } });
 
-test("the opening plays on every arrival and dismisses on input", async ({ page }) => {
-  await page.goto(`${BASE_URL}/`);
-  await expect(page.getByTestId("opening")).toBeVisible();
-
-  await page.mouse.click(720, 450);
-  await expect(page.getByTestId("opening")).toHaveCount(0);
-
-  await page.reload();
-  await expect(page.getByTestId("opening")).toBeVisible();
-});
-
 test("the home locks the approved display scale and surface rules", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(`${BASE_URL}/`);
 
-  await expect(page.getByTestId("opening")).toHaveCount(0);
+  // Opening retiré sur décision Paul 06/09
 
   const h1FontSize = await page.getByRole("heading", { level: 1 }).evaluate((heading) =>
     Number.parseFloat(getComputedStyle(heading).fontSize),
