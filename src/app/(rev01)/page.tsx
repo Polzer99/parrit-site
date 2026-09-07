@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
 import { getLocale } from "@/lib/server/locale";
 import { AgentEsquisse } from "@/system/components/AgentEsquisse";
 import { K, NewsletterCapture, QuickCapture } from "@/system/components";
@@ -126,11 +127,20 @@ const DICT = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  // English and alternates inherit the layout unchanged.
-  return locale === "fr" ? {
-    title: { absolute: "Parrit.ai · Systèmes d'exploitation d'entreprise" },
-    description: "Parrit.ai construit des systèmes IA depuis trois ans, chez des grands comptes, des PME et des ETI : votre entreprise, examinée, reconstruite opération par opération, à vous pour de bon.",
-  } : {};
+  const title = locale === "fr"
+    ? "Parrit.ai · Systèmes d'exploitation d'entreprise"
+    : "Parrit.ai · Company Operating Systems";
+  const description = locale === "fr"
+    ? "Parrit.ai construit des systèmes IA depuis trois ans, chez des grands comptes, des PME et des ETI : votre entreprise, examinée, reconstruite opération par opération, à vous pour de bon."
+    : "Parrit.ai examines how a company operates, builds its first production system and compounds it as owned infrastructure.";
+  return {
+    title: { absolute: title }, description,
+    alternates: {
+      ...localizedAlternates("/", locale),
+      types: { "application/rss+xml": [{ url: "/journal/rss.xml", title: "Parrit Journal" }] },
+    },
+    openGraph: localizedOpenGraph("/", locale, title, description),
+  };
 }
 
 export default async function HomePage() {
@@ -150,7 +160,7 @@ export default async function HomePage() {
           </h1>
           <p className="home-s-hero-sub">{copy.hero.sub}</p>
           <QuickCapture locale={locale} id="prototype" hero />
-          <p className="home-s-alternative"><Link href="/commission">{copy.hero.alternative}</Link></p>
+          <p className="home-s-alternative"><Link href={localizedPath("/commission", locale)}>{copy.hero.alternative}</Link></p>
         </div>
       </section>
 
@@ -188,7 +198,7 @@ export default async function HomePage() {
             <h2>{copy.maison.title}</h2>
             <p><strong>{copy.maison.leadStrong}</strong>{copy.maison.leadRest}</p>
             <p>{copy.maison.body}</p>
-            <Link className="home-s-text-link" href="/commission">{copy.maison.link}</Link>
+            <Link className="home-s-text-link" href={localizedPath("/commission", locale)}>{copy.maison.link}</Link>
           </div>
         </div>
       </section>
@@ -219,14 +229,14 @@ export default async function HomePage() {
         <div className="home-s-wrap">
           <h2>{copy.close.title}</h2>
           <K>{copy.close.note}</K>
-          <Link className="rev-button exec" href="/commission">{copy.close.button}</Link>
+          <Link className="rev-button exec" href={localizedPath("/commission", locale)}>{copy.close.button}</Link>
         </div>
       </section>
 
       <footer className="home-s-footer r2-dark">
         <div className="home-s-wrap">
           <nav aria-label="Footer">
-            {copy.footer.links.map(([href, label, description]) => <Link href={href} key={href}><span>{label}</span>{description ? <small> · {description}</small> : null}</Link>)}
+            {copy.footer.links.map(([href, label, description]) => <Link href={localizedPath(href, locale)} key={href}><span>{label}</span>{description ? <small> · {description}</small> : null}</Link>)}
           </nav>
           <div className="home-s-footer-meta">
             <a href="https://paul-larmaraud.com">{copy.footer.founder}</a>

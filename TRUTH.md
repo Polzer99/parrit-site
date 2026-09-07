@@ -60,7 +60,7 @@ Surfaces produit du site rev01 : `/`, `/manufacture`, `/standard`, `/dossiers`, 
 4. **Polices** : General Sans pour le corps et l'interface, JetBrains Mono pour le registre technique, Fraunces réservée aux grands titres éditoriaux. Elles sont auto-hébergées dans `public/fonts/rev02/`.
 5. **Jamais d'appel runtime à `*.vercel.app`** dans une livraison (le site EST sur Vercel — ça vise les ressources chargées au runtime).
 6. **Pas de tiret cadratin**, pas de superlatifs creux.
-7. **i18n** : le site rev01 existe en `fr · en`, sans préfixe de route. La langue suit le choix persistant du visiteur, puis `Accept-Language` : français pour un navigateur français, anglais sinon. Le copy vit dans des dictionnaires `DICT` par page. Les articles du Journal gardent leur langue d'origine.
+7. **i18n** : une langue = une URL (lot GEO/SEO B validé le 07/09/2026). Les URLs nues rendent l’anglais ; `/fr/*` rend le français, avec canonical auto-référent et x-default sur l’anglais. La négociation `Accept-Language` redirige temporairement vers `/fr`, hors bots et hors cookie de choix. La bascule du header pose le cookie et change d’URL. Le copy reste dans les dictionnaires `DICT` par page. L’index du Journal est traduit ; ses articles restent uniquement sur leurs URLs nues en anglais.
 8. **Déploiement** : push `main` → CD Vercel. Jamais de merge prod sans les **3 feux** (review APPROVE + CD/batterie vert + Paul a COMPRIS) — RÈGLES-DOR §22/§25.
 
 ## 7. Architecture du site (où agir)

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { getLocale } from "@/lib/server/locale";
 import { K, ParritCalInline, QuickCapture, RegistryLine } from "@/system/components";
-import { localizedAlternates } from "@/system/locale";
+import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 
 const DICT = {
   "en": {
@@ -27,7 +27,7 @@ const DICT = {
   }
 } as const;
 
-export async function generateMetadata(): Promise<Metadata> { const copy = DICT[await getLocale()]; return { title: copy.title, description: copy.metaDescription, alternates: localizedAlternates("/commission") }; }
+export async function generateMetadata(): Promise<Metadata> { const locale = await getLocale(); const copy = DICT[locale]; return { title: copy.title, description: copy.metaDescription, openGraph: localizedOpenGraph("/commission", locale, copy.title, copy.metaDescription), alternates: localizedAlternates("/commission", locale) }; }
 
 export default async function CommissionPage() {
   const locale = await getLocale();

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import type { Locale } from "@/system/locale";
+import { barePathname, localizedPath, LOCALE_COOKIE, type Locale } from "@/system/locale";
 
 const NAV = {
   en: [
@@ -19,6 +19,10 @@ const NAV = {
   ],
 } as const;
 
+function saveLocaleChoice(nextLocale: Locale) {
+  document.cookie = `${LOCALE_COOKIE}=${nextLocale}; Path=/; Max-Age=31536000; SameSite=Lax${window.location.protocol === "https:" ? "; Secure" : ""}`;
+}
+
 export function RevHeader({ locale }: { locale: Locale }) {
   const [clock, setClock] = useState("--:--:-- · LOCAL");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -28,9 +32,11 @@ export function RevHeader({ locale }: { locale: Locale }) {
   const nav = NAV[locale];
 
   const switchLocale = (nextLocale: Locale) => {
+    saveLocaleChoice(nextLocale);
     if (nextLocale === locale) return;
     const url = new URL(window.location.href);
-    url.searchParams.set("lang", nextLocale);
+    url.pathname = localizedPath(url.pathname, nextLocale);
+    url.searchParams.delete("lang");
     window.location.assign(`${url.pathname}${url.search}${url.hash}`);
   };
 
@@ -105,16 +111,16 @@ export function RevHeader({ locale }: { locale: Locale }) {
   return (
     <>
       <header className="cmdbar">
-      <Link className="wordmark" href="/" aria-label="Parrit.ai home">
+      <Link className="wordmark" href={localizedPath("/", locale)} aria-label="Parrit.ai home">
         PARRIT<i aria-hidden="true">.</i>AI
       </Link>
       <nav className="cmd-nav" aria-label="Main navigation">
         {nav.map(([href, label]) => {
-          const active = href !== "/#prototype" && pathname?.startsWith(href);
+          const active = href !== "/#prototype" && barePathname(pathname ?? "/").startsWith(href);
           return (
             <Link
               key={href}
-              href={href}
+              href={localizedPath(href, locale)}
               className={`${active ? "on" : ""}${href === "/#prototype" ? " cmd-nav-prototype" : ""}`.trim() || undefined}
               aria-current={active ? "page" : undefined}
             >
@@ -158,11 +164,11 @@ export function RevHeader({ locale }: { locale: Locale }) {
           aria-label="Main navigation"
         >
           {nav.map(([href, label]) => {
-            const active = href !== "/#prototype" && pathname?.startsWith(href);
+            const active = href !== "/#prototype" && barePathname(pathname ?? "/").startsWith(href);
             return (
               <Link
                 key={href}
-                href={href}
+                href={localizedPath(href, locale)}
                 className={`${active ? "on" : ""}${href === "/#prototype" ? " cmd-nav-prototype" : ""}`.trim() || undefined}
                 aria-current={active ? "page" : undefined}
                 onClick={() => setMenuOpen(false)}

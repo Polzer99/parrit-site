@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { getLocale } from "@/lib/server/locale";
 import { K, RegistryLine } from "@/system/components";
-import { localizedAlternates } from "@/system/locale";
+import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
 
 const DICT = {
   "en": {
@@ -74,7 +74,7 @@ const DICT = {
   }
 } as const;
 
-export async function generateMetadata(): Promise<Metadata> { const copy = DICT[await getLocale()]; return { title: copy.metaTitle, description: copy.metaDescription, alternates: localizedAlternates("/dossiers") }; }
+export async function generateMetadata(): Promise<Metadata> { const locale = await getLocale(); const copy = DICT[locale]; return { title: copy.metaTitle, description: copy.metaDescription, openGraph: localizedOpenGraph("/dossiers", locale, copy.metaTitle, copy.metaDescription), alternates: localizedAlternates("/dossiers", locale) }; }
 
 export default async function DossiersPage() {
   const locale = await getLocale();
@@ -112,7 +112,7 @@ export default async function DossiersPage() {
         <section className="r2-close" aria-label="Commission">
           <h2>{copy.close}</h2>
           <p className="proof">{copy.proof}</p>
-          <Link className="rev-button exec" href="/commission">
+          <Link className="rev-button exec" href={localizedPath("/commission", locale)}>
             {copy.button}
           </Link>
         </section>
