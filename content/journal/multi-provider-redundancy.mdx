@@ -1,0 +1,50 @@
+---
+title: "What does multi-provider redundancy actually protect you from?"
+date: "2026-09-07"
+description: "On Thursday 3 September, ChatGPT, Claude and Grok degraded inside the same morning, and four days later nobody outside those companies can say whether the three failures were connected. Not being able to tell is the finding. If you cannot name the layer you share, you have bought two vendors and one failure domain."
+slug: "multi-provider-redundancy"
+---
+
+On Thursday 3 September, three status pages went yellow inside the same morning. On the OpenAI side, reports drawing on its status updates describe roughly half an hour in which ChatGPT and Codex were unavailable for some users. Anthropic's ran far longer, with elevated error rates across several Claude model families, and accounts differ on the length: The Register gives three hours and six minutes, others reconstruct a little under three hours from the status timeline, which is close enough to say close to three hours and dishonest to state more precisely than that. xAI was investigating Grok from earlier that morning and published no duration we can cite, so we give none. The Register also quoted the company apologising for trouble at its Memphis compute centre and, separately, to its "impacted compute partners", an account we have found in that one outlet and have not seen corroborated anywhere else, which is why it appears here as a report rather than as a fact.
+
+That is the whole of what is solidly established. It is worth writing about anyway, and the reason is the part that is missing.
+
+## Nobody outside can tell you why
+
+Four days on, there is no confirmed common cause. Several outlets attributed the cluster to a cloud region failure and named a specific region, an attribution no provider has confirmed and which later reporting has been explicit in treating as unestablished. The apology to compute partners points somewhere else entirely. We are not going to arbitrate between those accounts. On this site a claim needs two independent sources that agree before it goes into an article, and the competing explanations for 3 September do not clear that bar, individually or together.
+
+A fair objection arrives here, and it is the one a good DSI will put to you in a meeting. Three labs having a bad morning proves nothing without a base rate. Each of these providers posts status incidents regularly, and three overlapping in one window may be an ordinary coincidence dressed up as a pattern. That objection is correct, and we cannot answer it, because the base rate that would settle it is not published in a form anyone outside can compute.
+
+Which is the finding. If you run production on two or three model providers, and a morning arrives where all of them wobble together, you cannot determine from the outside whether you were exposed to one shared thing or to three unrelated coincidences. Your architecture diagram says three vendors. Your real failure domain count was unknown to you before the incident and is still unknown after it. Redundancy you cannot verify is a belief about your suppliers rather than a property of your system.
+
+## What model agnosticism buys, and what it does not
+
+We have taken this up twice in this journal from the other direction. "GLM-5.2: dependence on American AI is already no longer inevitable" made the case for sovereignty in the sense of downloadable weights and access nobody can revoke. "Is a cheaper model good enough for everyday production work?" made the case for routing each task to the least expensive model that can actually do it. Both still hold, and neither of them helped anyone on 3 September.
+
+Model agnosticism protects you from a commercial event: a price rise, a deprecated endpoint, a licence you can no longer live with, a lab deciding your use case is unwelcome. It buys you the ability to move in weeks, which is real and worth paying for. It says nothing about the next ninety minutes, because switching providers during an incident only helps when the alternative is up, and that Thursday the alternatives were the story.
+
+The layer below is where the exposure most plausibly sits, and it is opaque to customers by construction. A buyer sees four logos and infers four independent systems. None of the providers publish enough about their physical dependencies for that inference to be checked, which is how a customer can end up learning something about their own supply chain by reading a competitor's incident note. So the honest posture is to stop treating vendor diversity as though it behaved like infrastructure diversity. Keep it for the commercial protection it genuinely gives, then design as though every model you use can be unreachable at the same moment, because you have no standing to claim otherwise.
+
+## Design for the model being absent
+
+This is where the work is, and it is unglamorous. In the pipelines we build, a model is a component that can fail, and the code around it is written to survive that the way it would survive a slow disk. The engine that publishes this journal is the one we can show in full, because it runs in the open and its own incidents get written up here.
+
+Every unit of work is durable before a model touches it. Material is harvested and stored first, and only then read. A model outage then costs latency instead of data, and when the provider returns, the backlog drains. That is the difference between a long outage and a hole in your records, and it is decided by one line of ordering: whether the item was persisted before the call or after it.
+
+Failure is loud and specific. A call that errors, times out, or returns something the schema rejects raises a distinguishable state rather than an empty result. We wrote this summer, in "Agents that fabricate facts: what a 1,355-row cleanup taught us", about a system of ours that quietly recorded interactions that never happened, and the same principle governs absence. Silence and "nothing to report" have to be different values, because a component that fails quietly gets read as a normal morning by everything downstream.
+
+Degradation is a designed mode. For each automated task, what happens when no model answers is decided in advance and written down: hold and retry, fall back to a deterministic rule that is worse and predictable, or escalate to a named person with the work already assembled. That decision gets made whether or not anyone makes it deliberately, and the undeclared version is reliably the worst one available. Our own engine carries two such rules, both written after they were needed. It counts a day's work in pages that are actually live rather than in runs that reported success, and it refuses to deploy to a site whose owner has frozen production, reporting the gap instead. The second rule exists because on the morning of 3 September, while three labs were failing, the engine was handling its own availability problem: a page it had published the day before had disappeared under a rollback aimed at something else. We published that postmortem here the same day, under the question of what a rollback takes with it, which is why it can be checked rather than taken on trust.
+
+None of this is a programme with a budget line. It gets done one task at a time, and the first task is the expensive one, because it forces someone to state a degradation rule out loud for the first time. The ones after it are mostly copying.
+
+## The arithmetic, with the assumptions on the table
+
+The cost of skipping this is easy to underestimate because it never appears as downtime on a dashboard. Work dropped in silence does not announce itself. It surfaces weeks later as the invoice nobody chased, the lead nobody routed, the compliance log with a gap that somebody has to explain.
+
+We have no measured figure for what that costs, and we are not going to invent one. What we can do is show the shape of it with numbers you should replace with your own. Take a queue receiving thirty items an hour, where a model does the first classification. Two hours of outage, a duration picked for the arithmetic and not taken from last Thursday, puts sixty items in play. If they were persisted first, the cost is a delay and a drain. If they were not, someone reconstructs sixty decisions from raw material at, say, five minutes each. That is five hours of work producing nothing new, done under time pressure, weeks late, by whoever owns the process rather than whoever signed the model contract. Change any input and the direction holds: the expensive part is never the outage, it is the reconstruction.
+
+## The test to run this week
+
+Take one automated task that matters and cut the model out of it deliberately. Point it at a dead endpoint for ten minutes during quiet hours, then answer honestly. Is every item that arrived in those ten minutes still in the system and marked as needing work. Did anything tell a person that a component was down. When the endpoint came back, did the backlog drain by itself, or did someone have to notice first. If the honest answer to the last one is that nobody would have noticed until a customer called, you have found the gap at a cost of ten minutes.
+
+Owning the thing that runs is the vantage point from which the question "what am I depending on right now" has an answer that does not require somebody else's status page. That is a narrower claim than sovereignty, which is about who can revoke your access. This is about who is able to tell you what just happened. On 3 September we could not tell, and as far as anything published since shows, nobody outside those three companies could either.
