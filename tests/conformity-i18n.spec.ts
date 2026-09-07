@@ -2,6 +2,9 @@ import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 const SITE = "https://parrit.ai";
+// Next émet la racine sans slash final (https://parrit.ai) ; toute attente
+// d'URL absolue passe par ici pour suivre cette convention.
+const absolute = (pathname: string) => (pathname === "/" ? SITE : `${SITE}${pathname}`);
 const PAGES = ["", "/manufacture", "/standard", "/dossiers", "/commission", "/legal", "/journal"];
 
 test.use({ serviceWorkers: "block" });
@@ -22,13 +25,19 @@ test("/fr serves French HTML, heading and self canonical", async ({ page }) => {
   await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute("content", "fr_FR");
 });
 
-test("Googlebot receives English on bare URL despite French preference", async ({ page }) => {
-  await page.setExtraHTTPHeaders({ "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8", "User-Agent": "Googlebot" });
-  const response = await page.goto(`${BASE_URL}/`);
-  expect(response?.request().redirectedFrom()).toBeNull();
-  await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.locator("h1")).toHaveText("The AI system your company operates on.");
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${SITE}/`);
+test("Googlebot receives English on bare URL despite French preference", async ({ request }) => {
+  // Le runner n'applique pas setExtraHTTPHeaders sur la premiere navigation
+  // (constate au proxy de logging, 07/09) : les assertions de protocole
+  // passent par APIRequestContext, qui envoie les en-tetes verbatim.
+  const response = await request.get(`${BASE_URL}/`, {
+    headers: { "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8", "User-Agent": "Googlebot" },
+    maxRedirects: 0,
+  });
+  expect(response.status()).toBe(200);
+  const html = await response.text();
+  expect(html).toContain('<html lang="en"');
+  expect(html).toContain("The AI system your company");
+  expect(html).toContain(`<link rel="canonical" href="${SITE}"/>`);
 });
 
 for (const path of PAGES) {
@@ -39,15 +48,15 @@ for (const path of PAGES) {
       const pathname = lang === "fr" ? `/fr${path}` : path || "/";
       await page.goto(`${BASE_URL}${pathname}`);
       await expect(page.locator("html")).toHaveAttribute("lang", lang);
-      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${SITE}${pathname}`);
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", absolute(pathname));
       for (const [hreflang, url] of [["en", path || "/"], ["fr", `/fr${path}`], ["x-default", path || "/"]]) {
-        await expect(page.locator(`link[rel="alternate"][hreflang="${hreflang}"]`)).toHaveAttribute("href", `${SITE}${url}`);
+        await expect(page.locator(`link[rel="alternate"][hreflang="${hreflang}"]`)).toHaveAttribute("href", absolute(url));
       }
       const description = await page.locator('meta[name="description"]').getAttribute("content");
       expect(description).toBeTruthy();
       descriptions.push(description ?? "");
       await expect(page.locator('meta[property="og:description"]')).toHaveAttribute("content", description ?? "");
-      await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `${SITE}${pathname}`);
+      await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", absolute(pathname));
     }
     expect(descriptions[0]).not.toBe(descriptions[1]);
   });
@@ -70,15 +79,18 @@ for (const [source, target] of [
   });
 }
 
-test("French negotiation is 302, preserves query and does not record a choice", async ({ page, context }) => {
-  await page.setExtraHTTPHeaders({ "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8" });
-  const response = await page.goto(`${BASE_URL}/standard?source=test`);
-  const redirect = await response?.request().redirectedFrom()?.response();
-  expect(redirect?.status()).toBe(302);
-  expect(redirect?.headers()["cache-control"]).toContain("no-store");
-  expect(redirect?.headers().vary?.toLowerCase()).toContain("user-agent");
-  await expect(page).toHaveURL(`${BASE_URL}/fr/standard?source=test`);
-  expect((await context.cookies()).some(({ name }) => name === "parrit_locale")).toBe(false);
+test("French negotiation is 302, preserves query and does not record a choice", async ({ request }) => {
+  const headers = { "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8" };
+  const response = await request.get(`${BASE_URL}/standard?source=test`, { headers, maxRedirects: 0 });
+  expect(response.status()).toBe(302);
+  const location = new URL(response.headers()["location"] ?? "", BASE_URL);
+  expect(`${location.pathname}${location.search}`).toBe("/fr/standard?source=test");
+  expect(response.headers()["cache-control"]).toContain("no-store");
+  expect(response.headers()["vary"]?.toLowerCase()).toContain("user-agent");
+  expect(response.headers()["set-cookie"]).toBeUndefined();
+  const followed = await request.get(location.href, { headers, maxRedirects: 0 });
+  expect(followed.status()).toBe(200);
+  expect(await followed.text()).toContain('<html lang="fr"');
 });
 
 for (const choice of ["en", "fr"]) {
