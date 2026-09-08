@@ -46,6 +46,18 @@ test("the home locks the approved display scale and surface rules", async ({ pag
   expect(surfaceRules.radiusCount).toBe(0);
 });
 
+test("sketch panel e-mail link stays readable on carbon", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto(`${BASE_URL}/`);
+  await page.locator("#agent-operation").fill("relance client");
+  await page.locator('.agent-esquisse-form button[type="submit"]').click();
+
+  const link = page.locator(".agent-esquisse .home-s-text-link");
+  await expect(link).toBeVisible();
+  const color = await link.evaluate((element) => getComputedStyle(element).color);
+  expect(color).toBe("rgb(241, 242, 243)");
+});
+
 test.describe("command bar", () => {
   // The /commission stop loads the Cal embed, which the deny-all fixture blocks by design.
   test.use({ expectBlockedRequest: true });
