@@ -1,7 +1,6 @@
 import { randomUUID } from "node:crypto";
 import type { NextRequest } from "next/server";
 
-import { estAdresseDeTest } from "@/lib/server/leads";
 import { enregistrerInteret, INTERETS, type Interet } from "@/lib/server/interets";
 import { persistanceDisponible } from "@/lib/server/supabase";
 
@@ -13,11 +12,9 @@ export const dynamic = "force-dynamic";
  *
  * Mêmes garanties que /api/ressource : `submission_id` émis par le serveur, la
  * réponse `200` n'arrive qu'après confirmation de la base, renvoyer la même
- * soumission ne duplique rien, la notification n8n vient APRÈS la persistance
- * et ne peut pas la contredire.
+ * soumission ne duplique rien. La notification passe uniquement par la carte
+ * `telegram_queue` (orchestrateur, règle 17).
  */
-
-const WEBHOOK_LEAD = process.env.PARRIT_LEAD_WEBHOOK ?? "";
 
 type Corps = {
   email?: string;
@@ -84,42 +81,12 @@ export async function POST(req: NextRequest) {
       attribution: corps.attribution ?? {},
     });
 
-    let notification: "envoyee" | "echouee" | "ignoree" = "ignoree";
-    if (WEBHOOK_LEAD && !estAdresseDeTest(email) && !resultat.dejaEnregistre) {
-      try {
-        const reponse = await fetch(WEBHOOK_LEAD, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            source,
-            action: "interet_declare",
-            submission_id: submissionId,
-            prospect_id: resultat.prospectId,
-            email,
-            entreprise: corps.entreprise ?? "",
-            interet,
-            ouvert_appel: Boolean(corps.ouvertAppel),
-            sketch_url: `https://parrit.ai/sketch/${submissionId}`,
-            page: corps.pageOrigine ?? "",
-            lang,
-            timestamp: new Date().toISOString(),
-            ...(corps.attribution ?? {}),
-            idee_prototype: idee ?? null,
-          }),
-        });
-        notification = reponse.ok ? "envoyee" : "echouee";
-      } catch {
-        notification = "echouee";
-      }
-    }
-
     return Response.json({
       ok: true,
       submissionId,
       prospectId: resultat.prospectId,
       dejaEnregistre: resultat.dejaEnregistre,
       sketchUrl: `/sketch/${submissionId}`,
-      notification,
     });
   } catch (e) {
     const message = e instanceof Error ? e.message : String(e);
