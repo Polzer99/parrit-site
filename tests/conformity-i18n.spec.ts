@@ -116,7 +116,7 @@ test("header switches paths, saves choice and preserves query/hash", async ({ pa
 });
 
 test("Journal articles are English only, including legacy French aliases", async ({ page }) => {
-  const path = "/journal/une-carte-une-action";
+  const path = "/journal/one-card-one-action";
   await page.setExtraHTTPHeaders({ "Accept-Language": "fr" });
   const direct = await page.goto(`${BASE_URL}${path}`);
   expect(direct?.request().redirectedFrom()).toBeNull();
