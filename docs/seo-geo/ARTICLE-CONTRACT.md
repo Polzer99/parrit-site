@@ -1,5 +1,16 @@
 # Le contrat d'article — un contenu se décline en article rankable + vidéo
 
+> **⚠️ CONTRAT PARTIELLEMENT PÉRIMÉ (constat du 08/09/2026).** Le
+> moteur décrit ici (`BlogPostSource`, `src/lib/blog.ts`, route
+> `/[lang]/blog/`, gate CI `qa:doctrine`, piliers) a été purgé lors de
+> la refonte Parrit Simple (PR#227-229). Le rail vivant est le
+> **Journal** (`content/journal/*.mdx`, frontmatter title/date/
+> description/slug/noindex validé par `src/system/journal.ts`). Restent
+> valables comme doctrine d'écriture : answer-first, description
+> courte menée par la réponse, zéro tiret cadratin, mot « chatbot »
+> banni, FAQ sourcées si le rendu le permet. Décision d'archivage ou de
+> réalignement complet : Paul.
+
 > Canon partagé `parrit-site` (rendu) ↔ `parrit-os/signals` (moteur content-factory). **Tout article** publié sur le blog respecte ce contrat, qu'il soit écrit à la main ou produit par le daily-blog-engine. C'est ce qui rend la production **mécanique** : un contenu produit (semaine Claude Code, transcript, post, idée) se décline en article SEO/GEO **+ vidéo** sans retravail de structure.
 
 ## 1. La forme (BlogPostSource, `src/lib/blog.ts`)

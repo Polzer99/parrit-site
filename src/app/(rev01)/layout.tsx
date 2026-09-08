@@ -21,7 +21,7 @@ const ORG_JSONLD = JSON.stringify({
   url: "https://parrit.ai",
   logo: "https://parrit.ai/icon.png",
   description:
-    "Parrit.ai designs and builds company operating systems: commissioned, not subscribed. Based in Lille, France; operating internationally in English and French.",
+    "Parrit.ai designs and builds company operating systems: commissioned, not subscribed. Based in France; operating internationally in English and French.",
   founder: {
     "@type": "Person",
     name: "Paul Larmaraud",
