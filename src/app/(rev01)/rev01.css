@@ -1722,6 +1722,10 @@ a.k:active {
   text-transform: uppercase;
 }
 
+.agent-esquisse .home-s-text-link {
+  color: var(--paper);
+}
+
 .home-s-build {
   padding: 110px 0;
 }
