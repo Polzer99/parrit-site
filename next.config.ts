@@ -1,5 +1,20 @@
 import type { NextConfig } from "next";
 
+const RENOMMAGES_JOURNAL: Readonly<Record<string, string>> = {
+  "agent-whatsapp-business-entreprise": "whatsapp-business-agent",
+  "crm-automatise-pme-artisans": "automated-crm-for-smes",
+  "evaluation-adoption-sap-intelligence-artificielle": "measuring-sap-adoption-with-ai",
+  "facturation-automatique-ia-pme": "automated-invoicing-with-ai",
+  "glm-5-2-souverainete": "glm-5-2-sovereignty",
+  "prospection-ia-signaux-podcasts-linkedin": "ai-prospecting-weak-signals",
+  "publier-sans-relecture-humaine": "publishing-without-human-review",
+  "securite-agents-ia-entreprise": "ai-agent-security-in-the-enterprise",
+  "une-carte-une-action": "one-card-one-action",
+  "veille-juridique-automatisee-avocats": "automated-legal-intelligence-for-lawyers",
+  "le-bon-endroit-pour-ecrire": "the-right-place-to-write",
+  "le-brouillon-qui-sait-se-taire": "the-draft-that-knows-when-to-stay-silent",
+};
+
 const JOURNAL_LEGACY_ROUTES = {
   blog: [
     "evaluation-adoption-sap-intelligence-artificielle",
@@ -32,13 +47,13 @@ const REDIRECTIONS_JOURNAL = Object.entries(JOURNAL_LEGACY_ROUTES).flatMap(
     slugs.flatMap((slug) => [
       {
         source: `/:lang(fr|en|pt-BR|zh-CN)/${section}/${slug}`,
-        destination: `/journal/${slug}`,
+        destination: `/journal/${RENOMMAGES_JOURNAL[slug] ?? slug}`,
         statusCode: 301 as const,
       },
       // Bare legacy path: one 301, no locale-detection hop in between.
       {
         source: `/${section}/${slug}`,
-        destination: `/journal/${slug}`,
+        destination: `/journal/${RENOMMAGES_JOURNAL[slug] ?? slug}`,
         statusCode: 301 as const,
       },
     ]),
@@ -75,6 +90,11 @@ const nextConfig: NextConfig = {
       { source: "/paul", destination: "/", permanent: true },
       { source: "/maxime", destination: "/", permanent: true },
       ...REDIRECTIONS_JOURNAL,
+      ...Object.entries(RENOMMAGES_JOURNAL).map(([ancien, nouveau]) => ({
+        source: `/journal/${ancien}`,
+        destination: `/journal/${nouveau}`,
+        statusCode: 301 as const,
+      })),
       {
         source: "/architecture-claude-md",
         destination: "/journal",
