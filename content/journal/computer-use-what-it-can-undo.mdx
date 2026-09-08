@@ -1,0 +1,58 @@
+---
+title: "Before you let a model click, ask what it can undo"
+date: "2026-09-08"
+description: "Computer use ends the argument that software without an API cannot be automated. It leaves a harder problem behind: a logged-in browser session carries a whole person's permissions, and none of them are scoped."
+slug: "computer-use-what-it-can-undo"
+---
+
+There is already a browser on our machines that nobody watches. Before any of our sites goes out, a test battery opens it across three browsers and three screen widths, clicks every link it can find, and reports what broke. Its exit code is the number of bugs. It runs unattended and we have never lost a minute of sleep over it, for a reason that has little to do with how good it is. It has no password. It cannot buy anything, send anything, or change a record. It can only look.
+
+That is the reason that matters most, and it is worth saying plainly now, because the constraint is about to become optional for a lot of teams.
+
+## What changed on 3 September
+
+OpenAI released GPT-6 Astra on 3 September 2026 and put computer use at the front of the announcement. The claim is that the model works software the way a person does, moving through browsers, spreadsheets and desktop applications, carrying a multistep task from one window to the next and producing a finished document at the end. Reporting on the launch at Fortune, CNBC and VentureBeat agreed on that description, and OpenAI's own announcement leads with it.
+
+The same announcement contains a second fact that got less attention. OpenAI placed the model at the Critical tier for cybersecurity in its preparedness framework, which is the vendor's internal scale for how dangerous a capability is, and acted on that rating by holding the offensive security abilities back from general API access and releasing them only to organizations it has vetted. Note what that is and is not. It is the supplier grading its own product, not an independent audit. It is still worth reading, because a company with every commercial reason to ship everything decided that one part of this model needed a gate in front of it.
+
+## The excuse that just expired
+
+For years the honest answer to "can you automate this?" was sometimes no, because the tool had no API. The supplier portal, the twenty-year-old ERP screen, the insurer's extranet that still asks for a certificate. You could imitate clicks with robotic process automation and accept that a changed button would break the recipe, or you could leave the work with the person doing it.
+
+That answer is weaker this month, and everyone selling automation knows it. What has not changed is the part that was actually load-bearing. The absence of an API was never the real reason those processes stayed manual. It was a convenient proxy for a different fact: nobody had worked out what happens when the automation is wrong at three in the morning on a Sunday.
+
+## A browser session is not a scoped credential
+
+This is the part we would put on the first slide if we were arguing it in front of a security team.
+
+An API key is a small, describable thing. You can issue it read-only. You can scope it to one endpoint, rate-limit it, rotate it, revoke it in a second, and read a log that attributes every call to that key and no other. When you hand a system an API key, you are handing it a defined and narrow capability, and you can say out loud what it is.
+
+A logged-in browser session is the opposite kind of object. It carries whatever the person who logged in is allowed to do, in full, because that is what a session is for. If that person can approve an invoice, issue a refund, export the customer list or delete a record, then so can anything driving their session. There is usually no way to hand over half of it. The permission model of most business software was written on the assumption that a human sits behind the screen and knows they are personally accountable for what they click, and that assumption is doing more work in your security posture than any document admits.
+
+The audit trail inherits the same flaw. Actions taken through a session appear under the name of the human who owns it. Six weeks later, when someone asks who approved the thing, the record says a person did.
+
+## Reversibility is the admission criterion
+
+So the question to ask about a computer-use agent is what the task writes, and whether you can put it back. Capability is the wrong axis. Assume these models get very good at clicking, because that is the way the release notes are pointing, and the interesting question survives the assumption intact.
+
+We have paid for both halves of this lesson on our own systems, and written both up on this Journal. On 31 August, in "Agents that fabricate facts: what a 1,355-row cleanup taught us", we described finding 1,355 rows in our own database claiming our system had contacted people it had never contacted. No client was involved and no model produced them. A leftover piece of our own code did, silently, and every part of the system downstream read them as true. Three days later we published "When you roll back a bad deploy, what else disappears with it?", which landed on the same date as the Astra announcement by an accident of our own calendar and had nothing to do with it. There we described a restore that was perfectly correct about the code and blind to a published article riding in the same deploy unit, which it deleted on the way past. Neither incident needed an agent. Both were about a write nobody could see and a state nobody could cleanly return to.
+
+That is also the honest answer to the finance question, usually posed as the cost of automating against the cost of the salary. The cost of a bad write is rarely the write. It is the search: discovering that the data is wrong, establishing how far it spread, and correcting every copy something else has already read. Ours ran to 1,355 rows, accumulated quietly over a stretch long enough that nothing in the daily numbers ever looked unusual. We never costed the hours that went into tracing them, and that omission is itself the lesson: this cost arrives late, in a lump, attached to no invoice line, which is exactly why it stays out of the comparison that justified the project.
+
+## What we are doing about it
+
+We sort the work by undo cost rather than by how tedious it is, and the sort has two boundaries in it.
+
+Below the first boundary sits everything that only reads. Gathering, checking, comparing, watching a portal for a status change. A model driving a browser is genuinely good at this and the worst case is a wrong sentence, which a person can argue with. Our test battery lives here, and things that live here can run at night.
+
+Above the second boundary sits everything that commits the company to somebody outside it. Sending, quoting, agreeing, paying. A person presses that, every time, and the machine's job is to have the thing ready and to make the press cheap. We held that line before any of this was possible, and a model that clicks well is not an argument to move it.
+
+The interesting work is in the middle, where the automation writes into systems we own. There, a computer-use agent is allowed to act when three conditions hold together. It works through an account of its own, carrying the narrowest permissions the software will grant, so that "narrow" describes something real instead of inheriting a person's whole desk. Every action it takes is recorded as its own before it happens, so the log reads as a plan rather than a memory. And the state it touches can be restored from a known point without taking anything else down with it, which is a property of how the system is shaped and cannot be bolted on afterwards. Where we cannot get all three, the task stays manual and we say so, rather than shipping it and hoping.
+
+## The list to make this week
+
+You can run the first half of this yourself, and it does not require buying anything or talking to us. Take every automation already running in your company, including the ones that predate anyone's interest in agents, and write down which credential each one uses. Not which tool, which credential. Then mark every line where the answer is a human being's login rather than an account belonging to the automation itself.
+
+Those lines are the ones to look at before you approve any computer-use pilot, because they already have the property that makes computer use risky, and they have had it for years. For each of them, ask the second question: if this thing does the wrong thing tonight, who finds out, and how do we put it back? A line with no answer is not a line you should be adding capability to.
+
+The list is usually shorter than people fear and worse than they expect. Ours was. None of this is a prediction about how good these models get, and none of it gets easier by waiting, because the gap it describes is not a technical gap. It sits between what a system is able to do and what somebody has decided it is allowed to do, and no vendor can close that one for you. Capability arrives on a release date. Permission is something you write down.
