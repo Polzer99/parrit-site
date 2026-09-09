@@ -58,6 +58,22 @@ test("sketch panel e-mail link stays readable on carbon", async ({ page }) => {
   expect(color).toBe("rgb(241, 242, 243)");
 });
 
+test("command bar nav items share one text baseline", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto(`${BASE_URL}/`);
+  const centres = await page.evaluate(() =>
+    [...document.querySelectorAll(".cmd-nav a")].map((element) => {
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      const rect = range.getBoundingClientRect();
+      range.detach();
+      return rect.top + rect.height / 2;
+    }),
+  );
+  expect(centres.length).toBeGreaterThanOrEqual(3);
+  expect(Math.max(...centres) - Math.min(...centres)).toBeLessThanOrEqual(1);
+});
+
 test.describe("command bar", () => {
   // The /commission stop loads the Cal embed, which the deny-all fixture blocks by design.
   test.use({ expectBlockedRequest: true });
