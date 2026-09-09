@@ -66,7 +66,7 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/llms-full.txt": ["./public/llms.txt", "./content/journal/*.mdx"],
     "/opengraph-image": ["./src/system/tokens.css", "./src/og-assets/*"],
-    "/journal/[slug]/opengraph-image": ["./src/system/tokens.css", "./src/og-assets/*"],
+    "/journal/\\[slug\\]/og": ["./src/system/tokens.css", "./src/og-assets/*"],
   },
   async headers() {
     // Le kit de polices est versionné par dossier (rev02) : tout changement de

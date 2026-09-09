@@ -14,6 +14,10 @@ type JournalArticlePageProps = {
 
 const SITE_URL = "https://parrit.ai";
 
+function articleImageUrl(canonical: string): string {
+  return `${canonical}/og`;
+}
+
 export function generateStaticParams() {
   return getAllJournalEntrySummaries().map(({ slug }) => ({ slug }));
 }
@@ -27,6 +31,12 @@ export async function generateMetadata({ params }: JournalArticlePageProps): Pro
   }
 
   const canonical = `${SITE_URL}/journal/${entry.slug}`;
+  const image = {
+    url: articleImageUrl(canonical),
+    width: 1200,
+    height: 630,
+    alt: "Parrit.ai Journal article",
+  };
   return {
     title: entry.title,
     authors: [{ name: AUTEUR.nom, url: AUTEUR.url }],
@@ -39,8 +49,9 @@ export async function generateMetadata({ params }: JournalArticlePageProps): Pro
       publishedTime: entry.date,
       siteName: "Parrit.ai",
       url: canonical,
+      images: [image],
     },
-    twitter: { card: "summary_large_image" },
+    twitter: { card: "summary_large_image", images: [image] },
     robots: entry.noindex ? { index: false, follow: true } : undefined,
   };
 }
@@ -69,7 +80,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
     headline: entry.title,
     datePublished: entry.date,
     dateModified: entry.date,
-    image: `${canonical}/opengraph-image`,
+    image: articleImageUrl(canonical),
     inLanguage: "en",
     publisher: {
       "@type": "Organization",
