@@ -19,9 +19,9 @@ Applies to any code delivered from this repo. "The CI blocks" beats "remember to
 > Site institutionnel public **parrit.ai** (Next.js 16 / React 19, déployé sur Vercel via push `main`). REV 01 : **anglais uniquement** (la version FR est un lot futur à spécifier — bascule cliquable, jamais de redirection auto). L'arbre multilingue legacy a été supprimé le 14/08/2026 (Lot P) ; `/:lang/*` répond 301 vers `/`.
 
 ## Source de vérité COMMUNE = `TRUTH.md`
-**Avant de toucher au contenu/positionnement/conversion, lire [`TRUTH.md`](./TRUTH.md)** : ce qu'est Parrit, les north stars (RDV qualifiés → cash), l'ICP, les offres, la voix (LE TAMIS), les 7 règles dures, et la définition d'une « amélioration ». C'est le **cerveau partagé** entre le site et l'agent d'amélioration continue **Hermes** (`hermes/`, voir `hermes/LOOP.md`). La source de vérité **visuelle** est la section suivante (REV 03). En cas de conflit : `REGLES-DOR.md` puis `VISION.md` (hors-repo) priment.
+**Avant de toucher au contenu/positionnement/conversion, lire [`TRUTH.md`](./TRUTH.md)** : ce qu'est Parrit, les north stars (RDV qualifiés → cash), l'ICP, les offres, la voix (LE TAMIS), les 7 règles dures, et la définition d'une « amélioration ». C'est le **cerveau partagé** entre le site et l'agent d'amélioration continue **Hermes** (`hermes/`, voir `hermes/LOOP.md`). La source de vérité **visuelle** est la section suivante (accent bleu du 09/09/2026). En cas de conflit : `REGLES-DOR.md` puis `VISION.md` (hors-repo) priment.
 
-## Source de vérité visuelle = REV 03 (14/08/2026) — l'ancienne DA est MORTE
+## Source de vérité visuelle : accent bleu (09/09/2026)
 
 > **Ordre de Paul, 14/08/2026 : la direction artistique Smoooth Studio / « papier crème »
 > (`#FFFDFA`, `#F5F8FF`, `#D1132F`, `#AA0003`, Arpona, grain papier, desktop-OS, sceau 速)
@@ -30,48 +30,53 @@ Applies to any code delivered from this repo. "The CI blocks" beats "remember to
 > `src/components/ds/`, `design-source/brand-kit/` = archives historiques du code legacy
 > non migré ; les rencontrer n'autorise pas à en écrire de nouvelles occurrences.
 
-La DA active est celle du site en production. Trois sources, dans cet ordre :
+Décision Paul sur conseil de Bénédicte, 09/09/2026 : le rouge disparaît intégralement.
+Les tokens bleus priment sur les couleurs du prototype historique. Sources :
 
 | Source | Rôle |
 |---|---|
-| `docs/site-prod-rev01/parrit-command-center-rev03.html` | **la LOI** — prototype approuvé par Paul (Brand Command Center REV 03) : registres, red law, composants, cotes exactes |
+| `docs/site-prod-rev01/parrit-command-center-rev03.html` | Référence historique de mise en page : registres, composants et cotes. Aucune autorité de couleur depuis le 09/09/2026. |
 | `src/system/tokens.css` | **les valeurs**. Un hex écrit ailleurs est un bug (gate `npm run qa:brand:rev01`) |
 | `src/system/` + `src/app/(rev01)/` | les composants et pages canon |
 
 Compléments : `docs/site-prod-rev01/REV03-DELTAS.md` (deltas appliqués),
 `CONFORMITY-REV01.md` (protocole de conformité, gate screenshot), `logo-rev04/` (le mark).
 
-- **Palette** : ink `#0A0B0C` · carbon `#131518` · carbon2 `#1A1D21` · paper `#F1F2F3` ·
-  paper2 `#FAFAFB` · rule-l `#DDE0E3` · rule-d `#24282D` · g2 `#9CA1A6` · g3 `#55595E` ·
-  g4 `#6F757B` · **Parrit Red `#E10600`** (pressé `#B80500`) · body-l `#26282B` · label-d `#C7CBCF`.
+- **Palette** : neutres inchangés, définis dans `src/system/tokens.css`.
+  L'accent est bleu : `--accent` profond pour remplissages et texte/bordure sur papier,
+  `--accent-p` pour l'état pressé, `--accent-clair` pour texte, bordure, focus et glyphe
+  sur ink/carbon/carbon2. Les deux valeurs ne s'échangent jamais. Une action remplie est toujours l’objet le plus contrasté de son fond :
+  sur ink/carbon/carbon2, fond `--accent-clair`, texte `--ink`, pressé `--accent-clair-p` ;
+  sur paper/paper2, fond `--accent`, texte `--paper`, pressé `--accent-p`.
   Deux registres seulement : documents blanc-froid (l'institution) et instruments carbone (le produit).
-- **Red law** : le rouge = décision requise, action qui s'exécute, état critique, objet
-  sélectionné, commission scellée. JAMAIS décoratif (pas de titre rouge, pas de fond, pas de logo).
+- **Loi de l'accent** : décision requise, action qui s'exécute, état critique, objet
+  sélectionné, commission scellée. Jamais décoratif. Aucun rouge, même pour un état critique.
 - **Typo T3 (arbitrage Paul 15/08, banc d'essai)** : **General Sans** (corps/UI, Fontshare,
   gratuite commerciale) + **JetBrains Mono** (registre technique, OFL) + **Fraunces variable**
   (OFL) — Fraunces RÉSERVÉE aux grands titres éditoriaux REV 02 (`--ed`, opsz 40, SOFT 0,
   WONK 0, poids ~480), jamais en corps. Auto-hébergées `public/fonts/rev02/`. Geist et
   IBM Plex sont MORTES. Pas d'italique, pas d'autre famille.
-  Registre « k » : Mono 10px, letter-spacing .18em, uppercase.
+  Registre « k » : Mono 14px minimum (`--t-k`), uppercase ; letter-spacing .18em par défaut, réduit à .04em sur certaines plages (PR #249, arbitrage Paul).
 - **Formes** : radius 0 partout (sauf mockups téléphone) · zéro ombre sauf l'unique ombre
   d'instrument `0 40px 80px -40px rgba(10,11,12,.4)` · zéro dégradé · statuts = forme + couleur.
-- **Logo REV 04** : mark live-text `[P.]` JetBrains Mono 600, point rouge ; wordmark live-text
-  `PARRIT.AI` (point rouge). Fichiers : `docs/site-prod-rev01/logo-rev04/` + `public/brand/`.
+- **Logo REV 04** : mark live-text `[P.]` JetBrains Mono 600, point bleu ; wordmark live-text
+  `PARRIT.AI` (point bleu). Fichiers : `docs/site-prod-rev01/logo-rev04/` + `public/brand/`.
 - **L'enveloppe fait partie du canon** : la command bar sombre (fixe 52px — wordmark,
   registre `SYSTEM PARRIT.AI · REV 01 · STATUS OPERATIONAL`, horloge live) est sur TOUTES les
   pages, et la séquence d'ouverture (`Opening.tsx` : boot log → statement avec Parrit Frame)
   joue à **chaque arrivée** sur `/` (décision Paul 14/08 — pas de flag de session ; skip au
   clic/scroll/touche, skip total en `prefers-reduced-motion`, SSR intact dessous).
-- **Éléments propriétaires** : le Parrit Frame (crochets rouges = objet en attente de décision),
+- **Éléments propriétaires** : le Parrit Frame (crochets bleus = objet en attente de décision),
   la registry line (`PARRIT / SITE · REV 01 · 2026`), le Standard en spécification PS-01…PS-06.
 
 ### Règle de création — non négociable
 
 Toute nouvelle page publique se construit avec `src/system/` (tokens, composants K/St/Frame/
 Instrument/RegistryLine, boutons `.rev-button` / `.exec` / `.ghost`) et se vérifie contre le
-prototype REV 03 (gate screenshot : paires 1440/390 prototype vs candidat). Un hex dans une
+prototype REV 03 pour la mise en page (gate screenshot : paires 1440/390 prototype vs candidat).
+Les couleurs se vérifient exclusivement contre les tokens bleus du 09/09/2026. Un hex dans une
 page est un défaut. Interdit de créer un design system local ou une seconde famille typo.
-La CI bloque : `qa:brand:rev01` (tokens, ombres, radius, PC-10) + `qa:network:rev01`
+La CI bloque : `qa:brand:rev01` (tokens, ombres, radius, PC-10, absence de rouge dans src/ et les SVG publics) + `qa:network:rev01`
 (specs de conformité — H1 88px, une ombre max, zéro radius).
 
 ### Règle d'index — arbitrage Paul du 02/08/2026

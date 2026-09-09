@@ -10,7 +10,7 @@ Le copy vit dans des dictionnaires `DICT` par page et dans les composants locali
 
 ## Canon visuel
 
-Le prototype REV 03 `docs/site-prod-rev01/parrit-command-center-rev03.html` fait autorité ; `src/system/tokens.css` porte les valeurs et `src/system/` les composants. General Sans pour le corps/UI, JetBrains Mono pour le registre technique, Fraunces pour les grands titres éditoriaux. Polices auto-hébergées dans `public/fonts/rev02/` ; polices OG dans `src/og-assets/`.
+Le prototype REV 03 `docs/site-prod-rev01/parrit-command-center-rev03.html` est une référence historique de mise en page ; depuis le 09/09/2026, seuls les tokens bleus de `src/system/tokens.css` font autorité pour les couleurs et `src/system/` les composants. General Sans pour le corps/UI, JetBrains Mono pour le registre technique, Fraunces pour les grands titres éditoriaux. Polices auto-hébergées dans `public/fonts/rev02/` ; polices OG dans `src/og-assets/`.
 
 `BRAND.md`, `docs/design-system/` et `design-source/` sont historiques. Ne pas restaurer la palette crème, les anciens logos, Geist ou IBM Plex. Les images OG lisent les couleurs via `token()` ; `next.config.ts` inclut le CSS et les polices dans leurs bundles. CalInline résout les variables CSS du parent avant de les transmettre à l'iframe externe.
 
@@ -68,3 +68,17 @@ Les usages CSS de rouge des deux arbres actifs passent par `--accent`/`--accent-
 Tracking réduit pour `.wordmark`, `.cmd-nav a`, `.clock` entre 761 et 1000 px, `.doctrine-code .k` et `.r2-std-row .ps` (media query comprise). Les numéros mobiles `.r2-phase .no` gardent 14 px avec un padding horizontal de 12 px. Les tests d'aération existants ajoutent le plancher strict et les neuf valeurs attendues indépendantes des tokens, tolérance 0.5 px sur les pas fluides ; champs et placeholders inclus.
 
 TypeScript, lint complet et gate de marque passent hors réseau. Le H1 home vaut statiquement 84 px à 1440 ; son override mobile passe de 46.8 à 38 px à 390, et de 68 à 49.152 px à 768. Aucun build, navigateur, port ou commit exécuté. Claude doit encore passer la batterie et regarder les trois largeurs, surtout la command bar tablette, les en-têtes de Manufacture, les sceaux du Standard et des dossiers, les libellés Cal et le hero mobile. Les routes Journal et les esquisses restent hors des huit routes du test d'aération prescrit.
+
+## Accent bleu, 09/09/2026
+
+Décision Paul sur conseil de Bénédicte : suppression du rouge. `--accent` remplit et sert sur papier, `--accent-p` porte le pressé, `--accent-clair` sert au texte, aux cadres et au focus sur fond sombre. Les composants partagés ont des variantes contextuelles ; la newsletter du Journal reste sur papier car `.ri-stage` est transparent. Les lectures OG des anciens tokens sont migrées. Le favicon SVG prend le profond demandé ; le lockup legacy est supprimé.
+
+La gate de marque refuse les hex rougeâtres dans src/ et les SVG de public/, avec exceptions explicites pour camp-costa-rica et docs. PNG inchangés : Claude doit les régénérer, passer build et tests navigateur et regarder les rendus. Cal conserve le profond pour sa couleur de marque partagée ; ses usages internes dans l'iframe sont à vérifier visuellement.
+
+Vérification locale : lint complet, TypeScript sans émission, gate de marque et mutations anti-rouge isolées passent. Comparaison statique : déclarations CSS hors couleur inchangées, TSX limité aux noms de classe et tokens de couleur. Aucun réseau, port, build, navigateur ou commit.
+
+## Contraste des actions remplies, 09/09/2026
+
+La claire vit sur le carbone, remplissages inclus. Les surfaces transmettent `--action-fill`, `--action-pressed` et `--action-text` ; les documents clairs imbriqués rétablissent le profond. Le pressé sombre utilise `--accent-clair-p` (#6399E6), texte ink. Navigation, captures, agent, clôtures et remplissage progressif Hold suivent ce contexte.
+
+Le contrôle dans `tests/aeration.spec.ts` compare le fond effectif de chaque contrôle interactif rempli à celui de son conteneur, seuil 3:1, avec composition alpha et opacité des ancêtres. Il inclut les champs et contrôles désactivés ; aucune exemption par classe. Les huit routes EN/FR et deux largeurs existantes restent le périmètre. Les images de fond non résolues font échouer le contrôle. Exécution navigateur interdite pour ce lot ; des défauts de champs peuvent donc encore être révélés.

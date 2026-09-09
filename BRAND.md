@@ -30,7 +30,7 @@ Alias canoniques (à utiliser en code) :
 
 | Fichier | Usage |
 |---|---|
-| `public/brand/parrit-lockup.svg` | **Lockup principal** — `PARRIT[速]AI`, sceau rouge imbriqué. Hero, headers. |
+| `public/brand/parrit-lockup.svg` | Retiré le 09/09/2026 avec la suppression du rouge. |
 | `public/brand/parrit-wordmark.svg` | `PARRIT·AI` + sceau à droite. Nav, pied de page. |
 | `public/brand/parrit-stacked.svg` | Sceau **au-dessus** du wordmark. Lockup centré (cartes, propales). |
 | `public/brand/parrit-reversed.svg` | Wordmark **blanc** `#FFFDFA`. Fonds sombres. |

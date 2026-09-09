@@ -16,11 +16,15 @@
   --label-d: #C7CBCF;
   /* REV 02 hybride B+C : ton intermédiaire d'interface sombre */
   --steel: #3A3F47;
-  --red: #E10600;
-  --red-p: #B80500;
-  /* L’accent du système. Changer ces deux lignes suffit à changer la DA. */
-  --accent: var(--red);
-  --accent-p: var(--red-p);
+  /* Deux registres : profonde sur papier, claire sur carbone, remplissages inclus.
+     Une action remplie est toujours l’objet le plus contrasté de son fond. */
+  --accent: #0047B3;
+  --accent-p: #00368A;
+  --accent-clair: #79ACF7;
+  --accent-clair-p: #6399E6;
+  --action-fill: var(--accent);
+  --action-pressed: var(--accent-p);
+  --action-text: var(--paper);
 
   /* PC-03 · type tokens */
   --ui: "General Sans", "Helvetica Neue", Arial, sans-serif;

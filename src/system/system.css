@@ -160,7 +160,7 @@ button {
 }
 
 .instrument-row.critical .instrument-value {
-  color: var(--accent);
+  color: var(--accent-clair);
 }
 
 .instrument-label {
@@ -345,7 +345,7 @@ button {
   position: absolute;
   inset: 0;
   width: 0%;
-  background: var(--accent);
+  background: var(--action-fill);
 }
 
 .hold .lab {
@@ -354,7 +354,7 @@ button {
 }
 
 .hold[data-armed="true"] .lab {
-  color: var(--paper2);
+  color: var(--action-text);
 }
 
 .hold[data-done="true"] {
@@ -696,4 +696,79 @@ button {
     animation-duration: 1ms !important;
     transition-duration: 1ms !important;
   }
+}
+
+/* Shared components on ink/carbon surfaces. Filled status marks and seals
+   retain the deep accent; only text, frames and focus contours change. */
+:is(.instrument, .r2-dark:where(:not(.ri-stage)), .opening, .r2-phone) .st.crit {
+  color: var(--accent-clair);
+}
+
+:is(.instrument, .r2-dark:where(:not(.ri-stage)), .opening, .r2-phone) .frame::before,
+:is(.instrument, .r2-dark:where(:not(.ri-stage)), .opening, .r2-phone) .frame::after,
+:is(.instrument, .r2-dark:where(:not(.ri-stage)), .opening, .r2-phone) .frame > .fx::before,
+:is(.instrument, .r2-dark:where(:not(.ri-stage)), .opening, .r2-phone) .frame > .fx::after {
+  border-color: var(--accent-clair);
+}
+
+:is(.instrument, .r2-dark:where(:not(.ri-stage)), .r2-phone) .hold:focus-visible {
+  outline-color: var(--accent-clair);
+}
+
+/* A nested document/card paints paper2 over the dark page. */
+:is(.r2-ecrin, .decision-card) .st.crit {
+  color: var(--accent);
+}
+
+:is(.r2-ecrin, .decision-card) .hold:focus-visible {
+  outline-color: var(--accent);
+}
+
+.r2-ecrin .frame::before,
+.r2-ecrin .frame::after,
+.r2-ecrin .frame > .fx::before,
+.r2-ecrin .frame > .fx::after,
+.decision-card.frame::before,
+.decision-card.frame::after,
+.decision-card.frame > .fx::before,
+.decision-card.frame > .fx::after {
+  border-color: var(--accent);
+}
+
+/* Instrument/phone cards explicitly repaint their own background carbon2. */
+:is(.instrument, .r2-phone) .decision-card .st.crit {
+  color: var(--accent-clair);
+}
+
+:is(.instrument, .r2-phone) .decision-card .hold:focus-visible {
+  outline-color: var(--accent-clair);
+}
+
+:is(.instrument, .r2-phone) .decision-card.frame::before,
+:is(.instrument, .r2-phone) .decision-card.frame::after,
+:is(.instrument, .r2-phone) .decision-card.frame > .fx::before,
+:is(.instrument, .r2-phone) .decision-card.frame > .fx::after {
+  border-color: var(--accent-clair);
+}
+
+/* L’action remplie est toujours l’objet le plus contrasté de son fond.
+   La claire vit sur ink/carbon/carbon2, remplissage et état pressé inclus.
+   Chaque surface peinte redéfinit le contexte, puis ses actions en héritent. */
+:where(.cmdbar, .cmd-panel, .r2-dark:not(.ri-stage), .instrument, .opening,
+       .r2-phone, .quick-capture, .agent-esquisse, .ri) {
+  --action-fill: var(--accent-clair);
+  --action-pressed: var(--accent-clair-p);
+  --action-text: var(--ink);
+}
+
+:where(.r2-ecrin, .decision-card, .home-s-newsletter) {
+  --action-fill: var(--accent);
+  --action-pressed: var(--accent-p);
+  --action-text: var(--paper);
+}
+
+:where(.instrument, .r2-phone) .decision-card {
+  --action-fill: var(--accent-clair);
+  --action-pressed: var(--accent-clair-p);
+  --action-text: var(--ink);
 }
