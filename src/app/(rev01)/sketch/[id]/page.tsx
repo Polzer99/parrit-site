@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { lireEsquisse } from "@/lib/server/sketch";
 import type { Interet } from "@/lib/server/interets";
 import { Instrument, K, RegistryLine, St } from "@/system/components";
-import { SketchBoot } from "@/system/components/SketchBoot";
 
 export const dynamic = "force-dynamic";
 
@@ -77,7 +76,7 @@ const SKETCHES: Partial<Record<
       "Orders, cash, operations, people, clients: one place to understand what is happening, decide what matters, and act. This sketch shows the first surface.",
     instrument: [
       { value: "3", label: "decisions require the executive this morning", status: "TODAY" },
-      { value: "€ —", label: "exposure surfaced with cause and the one decision required", status: "ACTION", critical: true },
+      { value: "1", label: "exposure surfaced with its cause and the one decision it requires", status: "ACTION", critical: true },
       { value: "7", label: "actions executed overnight, journaled and reversible", status: "JOURNAL" },
     ],
     next: [
@@ -97,74 +96,71 @@ export default async function SketchPage({ params }: { params: Promise<{ id: str
   const company = esquisse.entreprise;
 
   return (
-    <>
-      <SketchBoot company={company} />
-      <main className="rev-page r2-dark">
-        <div className="r2-wrap">
-          <header className="r2-hero sketch-hero">
-            <K>
-              PARRIT / SKETCH · PREPARED FOR {company.toUpperCase()} ·{" "}
-              {new Date(esquisse.declareLe).toISOString().slice(0, 10)}
-            </K>
-            <h1>{sketch.title}</h1>
-            <p className="r2-sub">{sketch.intro}</p>
-          </header>
+    <main className="rev-page r2-dark">
+      <div className="r2-wrap">
+        <header className="r2-hero sketch-hero">
+          <K>
+            PARRIT / SKETCH · PREPARED FOR {company.toUpperCase()} ·{" "}
+            {new Date(esquisse.declareLe).toISOString().slice(0, 10)}
+          </K>
+          <h1>{sketch.title}</h1>
+          <p className="r2-sub">{sketch.intro}</p>
+        </header>
 
-          <section className="r2-instrument-stage" aria-label="Sketched instrument">
-            <Instrument
-              className="home-instrument"
-              left={<St kind="crit">{`${company.toUpperCase()} / OS · SKETCH`}</St>}
-              center={<K className="instrument-sep">·</K>}
-              right={<K>Draft 01</K>}
-              rows={sketch.instrument.map((row) => ({
-                value: row.value,
-                label: row.label,
-                status: (
-                  <K style={row.critical ? { color: "var(--red)" } : undefined}>{row.status}</K>
-                ),
-                critical: row.critical,
-              }))}
-            />
-            <div className="r2-instrument-caption">
-              <K>A SKETCH, NOT A PROMISE. THE REAL INSTRUMENT IS BUILT ON YOUR ACTUAL FLOWS.</K>
-            </div>
-          </section>
+        <section className="r2-instrument-stage" aria-label="Sketched instrument">
+          <Instrument
+            className="home-instrument"
+            left={<St kind="crit">{`${company.toUpperCase()} / OS · SKETCH`}</St>}
+            center={<K className="instrument-sep">·</K>}
+            right={<K>Draft 01</K>}
+            rows={sketch.instrument.map((row) => ({
+              value: row.value,
+              label: row.label,
+              status: (
+                <K style={row.critical ? { color: "var(--red)" } : undefined}>{row.status}</K>
+              ),
+              critical: row.critical,
+            }))}
+          />
+          <div className="r2-instrument-caption">
+            <K>A SKETCH, NOT A PROMISE. THE REAL INSTRUMENT IS BUILT ON YOUR ACTUAL FLOWS.</K>
+          </div>
+        </section>
 
-          <section className="r2-section" aria-labelledby="sketch-next-heading">
-            <div className="r2-shead">
-              <h2 className="r2-ed" id="sketch-next-heading">
-                From sketch to system.
-              </h2>
-              <K>Three phases</K>
-            </div>
-            <div className="r2-phases">
-              {sketch.next.map((step, index) => (
-                <div className="r2-phase" key={step}>
-                  <div className="no">{`0${index + 1}`}</div>
-                  <div className="nm">
-                    {["Examination", "Construction", "Compounding"][index] ?? ""}
-                  </div>
-                  <div className="ds">{step}</div>
+        <section className="r2-section" aria-labelledby="sketch-next-heading">
+          <div className="r2-shead">
+            <h2 className="r2-ed" id="sketch-next-heading">
+              From sketch to system.
+            </h2>
+            <K>Three phases</K>
+          </div>
+          <div className="r2-phases">
+            {sketch.next.map((step, index) => (
+              <div className="r2-phase" key={step}>
+                <div className="no">{`0${index + 1}`}</div>
+                <div className="nm">
+                  {["Examination", "Construction", "Compounding"][index] ?? ""}
                 </div>
-              ))}
-            </div>
-          </section>
+                <div className="ds">{step}</div>
+              </div>
+            ))}
+          </div>
+        </section>
 
-          <section className="r2-close" aria-label="Commission">
-            <h2>Thirty minutes turns this sketch into a scope.</h2>
-            <p className="proof">30 MIN · AN EXAMINATION, NOT A SALES CALL</p>
-            <Link className="rev-button exec" href="/commission">
-              Let’s talk
-            </Link>
-          </section>
+        <section className="r2-close" aria-label="Commission">
+          <h2>Thirty minutes turns this sketch into a scope.</h2>
+          <p className="proof">30 MIN · AN EXAMINATION, NOT A SALES CALL</p>
+          <Link className="rev-button exec" href="/commission">
+            Let’s talk
+          </Link>
+        </section>
 
-          <footer className="r2-footer">
-            <RegistryLine value="PARRIT / SKETCH · DRAFT 01 · 2026" />
-            <K>COMMISSIONED, NOT SUBSCRIBED</K>
-            <K>© 2026 Parrit.ai</K>
-          </footer>
-        </div>
-      </main>
-    </>
+        <footer className="r2-footer">
+          <RegistryLine value="PARRIT / SKETCH · DRAFT 01 · 2026" />
+          <K>COMMISSIONED, NOT SUBSCRIBED</K>
+          <K>© 2026 Parrit.ai</K>
+        </footer>
+      </div>
+    </main>
   );
 }

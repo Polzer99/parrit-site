@@ -1,3 +1,4 @@
+/* NON RENDU depuis le 09/09/2026 : interdit visuel « préchargement long avant le message ». Conservé comme Opening. */
 "use client";
 
 /* Le « watch me work » du funnel : un boot log qui lit l’entreprise, mappe les
