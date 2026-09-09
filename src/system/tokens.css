@@ -18,11 +18,28 @@
   --steel: #3A3F47;
   --red: #E10600;
   --red-p: #B80500;
+  /* L’accent du système. Changer ces deux lignes suffit à changer la DA. */
+  --accent: var(--red);
+  --accent-p: var(--red-p);
 
   /* PC-03 · type tokens */
   --ui: "General Sans", "Helvetica Neue", Arial, sans-serif;
   --mono: "JetBrains Mono", Menlo, monospace;
   --ed: "Fraunces", Georgia, serif;
+
+  /* PC-03b · échelle typographique */
+  /* Pas fixes */
+  --t-k: 14px;
+  --t-s: 16px;
+  --t-m: 18px;
+  --t-l: 22px;
+  --t-xl: 26px;
+
+  /* Pas fluides, définis une seule fois */
+  --d-s: clamp(30px, 4vw, 44px);
+  --d-m: clamp(34px, 5vw, 54px);
+  --d-l: clamp(38px, 6.4vw, 68px);
+  --d-xl: clamp(40px, 6.8vw, 84px);
 
   /* PC-04 · space (8pt) */
   --s1: 8px;

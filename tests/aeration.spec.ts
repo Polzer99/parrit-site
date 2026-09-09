@@ -7,7 +7,7 @@ test.use({ serviceWorkers: "block" });
 test.describe.configure({ mode: "serial" });
 
 for (const width of [1440, 390]) {
-  test(`at ${width}px all routes keep text clear of actions and other text`, async ({ page }) => {
+  test(`at ${width}px all routes keep text clear and within the closed type scale`, async ({ page }) => {
     test.setTimeout(120_000);
     // Reuse the fixture page and its deny-all context for every route at this width.
     // None of these routes mounts Cal. Unexpected external requests must fail.
@@ -33,6 +33,13 @@ for (const width of [1440, 390]) {
           return true;
         };
         const texts: TextBox[] = [];
+        const typography = new Map<Element, { label: string; size: number }>();
+        const measureType = (element: Element, text: string) => {
+          typography.set(element, {
+            label: describe(element, text.trim().replace(/\s+/g, " ").slice(0, 40)),
+            size: Number.parseFloat(getComputedStyle(element).fontSize),
+          });
+        };
         const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
         let node: Node | null;
         while ((node = walker.nextNode())) {
@@ -46,12 +53,44 @@ for (const width of [1440, 390]) {
           range.setEnd(node, value.trimEnd().length);
           for (const rect of range.getClientRects()) {
             if (rect.width > 0 && rect.height > 0) {
+              measureType(element, value);
               texts.push({ element, label: describe(element, value), box: {
                 left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom,
               } });
             }
           }
           range.detach();
+        }
+        // Inputs and textarea placeholders have no DOM text nodes.
+        const placeholderType: { label: string; size: number }[] = [];
+        for (const control of document.querySelectorAll("input, textarea, select")) {
+          if (!visible(control)) continue;
+          const box = control.getBoundingClientRect();
+          if (box.width <= 0 || box.height <= 0) continue;
+          if (control instanceof HTMLSelectElement) {
+            measureType(control, control.selectedOptions[0]?.text ?? "");
+          } else if (control instanceof HTMLInputElement || control instanceof HTMLTextAreaElement) {
+            if (control instanceof HTMLInputElement && ["hidden", "checkbox", "radio", "range", "color", "file", "image"].includes(control.type)) continue;
+            measureType(control, control.value || control.placeholder);
+            if (!control.value && control.placeholder) {
+              placeholderType.push({
+                label: `${describe(control, control.placeholder.slice(0, 40))}::placeholder`,
+                size: Number.parseFloat(getComputedStyle(control, "::placeholder").fontSize),
+              });
+            }
+          }
+        }
+        // Independent spec values: do not read tokens, or a changed token would pass.
+        const fixedSizes = [14, 16, 18, 22, 26];
+        const fluidSizes = [[30, 4, 44], [34, 5, 54], [38, 6.4, 68], [40, 6.8, 84]]
+          .map(([min, vw, max]) => Math.min(max, Math.max(min, window.innerWidth * vw / 100)));
+        const floorFailures: string[] = [];
+        const scaleFailures: string[] = [];
+        for (const { label, size } of [...typography.values(), ...placeholderType]) {
+          if (!Number.isFinite(size) || size < 14) floorFailures.push(`${size}px: ${label}`);
+          if (!fixedSizes.includes(size) && !fluidSizes.some((expected) => Math.abs(size - expected) <= 0.5)) {
+            scaleFailures.push(`${size}px: ${label}`);
+          }
         }
         const actions = [...document.querySelectorAll("a, button")].filter((element) => {
           if (!visible(element)) return false;
@@ -64,6 +103,12 @@ for (const width of [1440, 390]) {
           const box = action.getBoundingClientRect();
           for (const text of texts) {
             if (action.contains(text.element)) continue;
+            const interactiveSelector = 'a, button, input, select, [role="button"]';
+            const textControl = text.element.closest(interactiveSelector);
+            if (
+              action.matches(interactiveSelector) && textControl &&
+              action.parentElement !== null && action.parentElement === textControl.parentElement
+            ) continue;
             const dx = Math.max(box.left - text.box.right, text.box.left - box.right, 0);
             const dy = Math.max(box.top - text.box.bottom, text.box.top - box.bottom, 0);
             const overlapX = Math.min(box.right, text.box.right) - Math.max(box.left, text.box.left);
@@ -97,13 +142,15 @@ for (const width of [1440, 390]) {
             if (x > 0 && y > 0) textFailures.push(`${a.label} / ${b.label} : overlap ${x.toFixed(2)} × ${y.toFixed(2)}px`);
           }
         }
-        return { textCount: texts.length, actionCount: actions.length, actionFailures, textFailures };
+        return { textCount: texts.length, actionCount: actions.length, actionFailures, textFailures, floorFailures, scaleFailures };
       });
 
       expect(result.textCount, "the geometry audit must measure rendered text").toBeGreaterThan(0);
       expect(result.actionCount, "the geometry audit must measure filled actions").toBeGreaterThan(0);
       expect.soft(result.actionFailures, `${path} at ${width}px: minimum text/action gap is 12px`).toEqual([]);
       expect.soft(result.textFailures, `${path} at ${width}px: text rectangles must not overlap`).toEqual([]);
+      expect.soft(result.floorFailures, `${path} at ${width}px: visible text must be at least 14px`).toEqual([]);
+      expect.soft(result.scaleFailures, `${path} at ${width}px: sizes outside the nine spec steps (fluid tolerance 0.5px)`).toEqual([]);
     }
   });
 }
