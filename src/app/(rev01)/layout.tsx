@@ -18,7 +18,8 @@ import { localizedAlternates } from "@/system/locale";
 const ORG_JSONLD = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "PARRIT.AI",
+  name: "Parrit.ai",
+  alternateName: "PARRIT.AI",
   url: "https://parrit.ai",
   logo: "https://parrit.ai/icon.png",
   description:

@@ -17,7 +17,7 @@ const DICT = {
     "unsubscribe": "One address is enough. Unsubscribe in one click."
   },
   "fr": {
-    "title": "Journal",
+    "title": "Le Journal",
     "heading": "Ce journal s'écrit sur les chantiers.",
     "sub": "Ce qui a tenu, ce qui a cassé, sur des systèmes IA en entreprise. Daté et consigné.",
     "entry": "Journal / Entrée",

@@ -6,9 +6,8 @@ import { notFound } from "next/navigation";
 
 import { getJournalEntry } from "@/system/journal";
 
-export const alt = "Parrit.ai Journal article";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+const size = { width: 1200, height: 630 };
+const contentType = "image/png";
 
 type JournalOpenGraphImageProps = {
   params: Promise<{ slug: string }>;
@@ -25,7 +24,7 @@ function token(name: string): string {
   return match[1].trim();
 }
 
-export default async function JournalOpenGraphImage({ params }: JournalOpenGraphImageProps) {
+export async function GET(_request: Request, { params }: JournalOpenGraphImageProps) {
   const { slug } = await params;
   const entry = getJournalEntry(slug);
 
@@ -84,6 +83,7 @@ export default async function JournalOpenGraphImage({ params }: JournalOpenGraph
     ),
     {
       ...size,
+      headers: { "Content-Type": contentType },
       fonts: [
         { name: "General Sans", data: plexSans, weight: 500 },
         { name: "JetBrains Mono", data: plexMono, weight: 500 },
