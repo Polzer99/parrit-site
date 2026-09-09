@@ -1,3 +1,27 @@
+/* Native wrapping progressively enhances browsers that support these values. */
+h1,
+h2 {
+  text-wrap: balance;
+}
+
+.rev-page p {
+  text-wrap: pretty;
+}
+
+/* Shared spacing for the two existing section-foot structures. */
+.standard-action,
+.r2-close {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+}
+
+.r2-close {
+  flex-direction: column;
+  justify-content: center;
+}
+
 .rev-page {
   min-height: 100vh;
 }
@@ -81,6 +105,7 @@ body {
 
 .locale-toggle {
   display: inline-flex;
+  gap: 4px;
   border: 1px solid var(--rule-d);
 }
 
@@ -692,7 +717,7 @@ body {
 
 .doctrine-row {
   display: grid;
-  grid-template-columns: 92px 170px 1fr;
+  grid-template-columns: 92px minmax(280px, 32%) minmax(0, 1fr);
   border-top: 1px solid var(--rule-l);
 }
 
@@ -1863,7 +1888,7 @@ a.k:active {
 
 .home-s-close h2 {
   max-width: 18ch;
-  margin: 0 auto 28px;
+  margin: 0 auto .8em;
 }
 
 .home-s-close .k {
@@ -2085,7 +2110,7 @@ a.k:active {
 }
 
 .r2-dossier p {
-  flex: 1;
+  margin-bottom: 18px;
   color: var(--g2);
   font-size: 14.5px;
 }
@@ -2109,7 +2134,8 @@ a.k:active {
 }
 
 .r2-dossier .seal {
-  margin-top: 18px;
+  align-items: flex-end;
+  margin-top: auto;
   color: var(--g4);
   font-family: var(--mono);
   font-size: 10px;
@@ -2122,7 +2148,8 @@ a.k:active {
   display: inline-block;
   width: 7px;
   height: 7px;
-  margin-right: 9px;
+  flex-shrink: 0;
+  margin: 0 0 .4em;
   background: var(--red);
 }
 
@@ -2422,7 +2449,7 @@ a.k:active {
 }
 
 .r2-close .proof {
-  margin: 26px auto 0;
+  margin: 0;
   color: var(--g4);
   font-family: var(--mono);
   font-size: 13.5px;
@@ -2430,7 +2457,7 @@ a.k:active {
 }
 
 .r2-close .rev-button {
-  margin-top: 36px;
+  margin-top: 0;
 }
 
 /* — footer sombre — */
