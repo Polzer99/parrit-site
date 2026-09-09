@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { track } from "@/lib/analytics";
+import { noteFunnel } from "@/system/engagements";
 import type { Locale } from "@/system/locale";
 import { K } from "./K";
 
@@ -14,7 +15,6 @@ const DICT = {
     placeholder: "you@company.com",
     button: "Get your prototype now",
     sending: "Sending…",
-    note: "One prototype per company · No automated sequence",
     invalid: "Enter a valid work e-mail to receive your sketch.",
     failure: "Registration failed",
     direct: "Write to us instead:",
@@ -30,7 +30,6 @@ const DICT = {
     placeholder: "vous@entreprise.fr",
     button: "Recevez votre prototype",
     sending: "Envoi en cours…",
-    note: "Un prototype par entreprise · Aucune séquence automatique",
     invalid: "Indiquez un e-mail professionnel valide pour recevoir votre esquisse.",
     failure: "L'envoi a échoué",
     direct: "Écrivez-nous directement :",
@@ -147,7 +146,7 @@ export function QuickCapture({ locale, id, hero = false }: { locale: Locale; id?
           <span className="ri-error" role="alert">{copy.failure} ({detail}). {copy.direct} paul.larmaraud@parrit.ai</span>
         ) : state === "invalid" ? (
           <span className="ri-error" role="alert">{copy.invalid}</span>
-        ) : <K>{hero ? (locale === "fr" ? "Un prototype par entreprise · Préparé à la main" : "One prototype per company · Prepared by hand") : copy.note}</K>}
+        ) : <K>{noteFunnel(locale, hero ? "hero" : "standard")}</K>}
       </form>
     </section>
   );

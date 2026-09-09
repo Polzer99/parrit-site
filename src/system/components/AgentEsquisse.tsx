@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { track } from "@/lib/analytics";
+import { ENGAGEMENTS } from "@/system/engagements";
 import type { Locale } from "@/system/locale";
 import { K } from "./K";
 
@@ -18,7 +19,7 @@ const DICT = {
       invoice: ["Facture bloquée détectée au jour 1", "Relance cadrée et chiffrée, à valider", "Encaissement suivi jusqu'au solde"],
       default: ["Votre opération, observée en continu", "Seuls les arbitrages remontent à vous", "Le reste s'exécute et se consigne"],
     },
-    close: "La version complète se construit après l'Examen. Laissez votre e-mail ci-dessus : le prototype arrive préparé à la main.",
+    close: "La version complète se construit après l'Examen. Laissez votre e-mail ci-dessus : le prototype arrive",
     link: "Laisser mon e-mail",
     input: "Votre opération",
     send: "Esquisser",
@@ -35,7 +36,7 @@ const DICT = {
       invoice: ["Blocked invoice caught on day 1", "Framed, quantified follow-up, for your approval", "Collection tracked to the balance"],
       default: ["Your operation, observed continuously", "Only the arbitrations reach you", "The rest executes and gets recorded"],
     },
-    close: "The full version is built after the Examination. Leave your e-mail above: the prototype arrives prepared by hand.",
+    close: "The full version is built after the Examination. Leave your e-mail above: the prototype arrives",
     link: "Leave my e-mail",
     input: "Your operation",
     send: "Sketch",
@@ -54,6 +55,8 @@ function scenarioFor(phrase: string): Scenario {
 
 export function AgentEsquisse({ locale }: { locale: Locale }) {
   const copy = DICT[locale];
+  const preparation = ENGAGEMENTS[locale].prepareALaMain;
+  const close = `${copy.close} ${preparation.charAt(0).toLowerCase()}${preparation.slice(1)}.`;
   const [phrase, setPhrase] = useState("");
   const [exchange, setExchange] = useState<{ phrase: string; scenario: Scenario } | null>(null);
   const tracked = useRef(false);
@@ -97,7 +100,7 @@ export function AgentEsquisse({ locale }: { locale: Locale }) {
                   </div>
                 ))}
               </dl>
-              <p>{copy.close}</p>
+              <p>{close}</p>
               <a className="home-s-text-link" href="#prototype">{copy.link}</a>
             </div>
           ) : null}
