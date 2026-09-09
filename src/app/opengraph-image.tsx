@@ -48,7 +48,7 @@ export default async function Image() {
         >
           <span>PARRIT.AI · COMPANY OPERATING SYSTEMS</span>
           <span style={{ display: "flex" }}>
-            [P<span style={{ color: token("--red") }}>.</span>]
+            [P<span style={{ color: token("--accent-clair") }}>.</span>]
           </span>
         </div>
         <div
@@ -73,7 +73,7 @@ export default async function Image() {
             color: token("--g2"),
           }}
         >
-          <div style={{ width: 14, height: 14, background: token("--red") }} />
+          <div style={{ width: 14, height: 14, background: token("--accent") }} />
           <span>COMMISSIONED, NOT SUBSCRIBED · PARRIT / SITE · REV 01 · 2026</span>
         </div>
       </div>
