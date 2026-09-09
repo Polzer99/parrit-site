@@ -117,7 +117,7 @@ export default async function SketchPage({ params }: { params: Promise<{ id: str
               value: row.value,
               label: row.label,
               status: (
-                <K style={row.critical ? { color: "var(--red)" } : undefined}>{row.status}</K>
+                <K style={row.critical ? { color: "var(--accent)" } : undefined}>{row.status}</K>
               ),
               critical: row.critical,
             }))}

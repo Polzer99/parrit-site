@@ -66,14 +66,14 @@ body {
   margin: -14px 0;
   color: var(--paper);
   font-family: var(--mono);
-  font-size: 13px;
+  font-size: var(--t-k);
   font-weight: 600;
   letter-spacing: .22em;
   text-decoration: none;
 }
 
 .wordmark i {
-  color: var(--red);
+  color: var(--accent);
   font-style: normal;
 }
 
@@ -82,7 +82,7 @@ body {
   gap: 18px;
   color: var(--g4);
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: var(--t-k);
   letter-spacing: .14em;
   text-transform: uppercase;
 }
@@ -97,7 +97,7 @@ body {
   margin-left: auto;
   color: var(--g4);
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: var(--t-k);
   font-variant-numeric: tabular-nums;
   letter-spacing: .12em;
   text-align: right;
@@ -116,7 +116,7 @@ body {
   background: transparent;
   color: var(--g4);
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: var(--t-k);
   font-weight: 600;
   letter-spacing: .12em;
   cursor: pointer;
@@ -128,12 +128,12 @@ body {
 }
 
 .locale-toggle button:focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
 .wordmark:focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -164,7 +164,7 @@ body {
   padding: 34px 40px 0;
   color: var(--g4);
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: var(--t-k);
   letter-spacing: .1em;
 }
 
@@ -189,7 +189,7 @@ body {
 }
 
 .bootlog .red-line {
-  color: var(--red);
+  color: var(--accent);
 }
 
 /* raccord Paul 15/08 : la phrase de l'Opening EST le H1 du hero — mêmes cotes,
@@ -221,7 +221,7 @@ body {
 .boothero > div {
   max-width: 14ch;
   opacity: 0;
-  font-size: clamp(46px, 6.4vw, 92px);
+  font-size: var(--d-xl);
   font-weight: 500;
   letter-spacing: -.032em;
   line-height: 1.02;
@@ -257,7 +257,7 @@ body {
   max-width: 34ch;
   margin: 0;
   color: var(--g2);
-  font-size: 14.5px;
+  font-size: var(--t-s);
   line-height: 1.6;
 }
 
@@ -278,7 +278,7 @@ body {
 .rev-hero h1 {
   max-width: 13ch;
   margin: 20px 0 0;
-  font-size: clamp(40px, 6.8vw, 88px);
+  font-size: var(--d-xl);
   font-weight: 500;
   letter-spacing: -.035em;
   line-height: 1;
@@ -288,7 +288,7 @@ body {
   max-width: 44ch;
   margin: 28px 0 0;
   color: var(--g3);
-  font-size: 16.5px;
+  font-size: var(--t-m);
   line-height: 1.65;
 }
 
@@ -309,7 +309,7 @@ body {
   background: transparent;
   color: var(--ink);
   font-family: var(--mono);
-  font-size: 10.5px;
+  font-size: var(--t-k);
   font-weight: 600;
   letter-spacing: .16em;
   text-decoration: none;
@@ -342,15 +342,15 @@ body {
 
 /* REV 03 red law: an action executes → exec button is the one filled-red surface */
 .rev-button.exec {
-  border-color: var(--red);
-  background: var(--red);
+  border-color: var(--accent);
+  background: var(--accent);
   color: var(--paper2);
 }
 
 .rev-button.exec:hover,
 .rev-button.exec:active {
-  border-color: var(--red-p);
-  background: var(--red-p);
+  border-color: var(--accent-p);
+  background: var(--accent-p);
   color: var(--paper2);
 }
 
@@ -366,7 +366,7 @@ body {
 }
 
 .rev-button:focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -390,7 +390,7 @@ body {
 
 .home-instrument .instrument-value {
   min-width: 88px;
-  font-size: 26px;
+  font-size: var(--t-xl);
   text-transform: none;
 }
 
@@ -414,7 +414,7 @@ body {
 
 .rev-section-head h2 {
   margin: 0;
-  font-size: 24px;
+  font-size: var(--t-xl);
   font-weight: 600;
   letter-spacing: -.02em;
 }
@@ -444,27 +444,27 @@ body {
 .operating-loop h3 {
   margin: 0 0 12px;
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: var(--t-k);
   font-weight: 600;
   letter-spacing: .2em;
   text-transform: uppercase;
 }
 
 .operating-loop h3.critical {
-  color: var(--red);
+  color: var(--accent);
 }
 
 .operating-loop p {
   margin: 0;
   color: var(--body-l);
-  font-size: 13.5px;
+  font-size: var(--t-s);
   line-height: 1.6;
 }
 
 .commissioning-grid p {
   margin: 0;
   color: var(--body-l);
-  font-size: 13.5px;
+  font-size: var(--t-s);
   line-height: 1.6;
 }
 
@@ -483,7 +483,7 @@ body {
 
 .commissioning-grid h4 {
   margin: 14px 0 var(--s1);
-  font-size: 16.5px;
+  font-size: var(--t-m);
   font-weight: 600;
   letter-spacing: -.01em;
 }
@@ -512,7 +512,7 @@ body {
 }
 
 .face strong {
-  font-size: 22px;
+  font-size: var(--t-l);
   font-weight: 500;
 }
 
@@ -545,7 +545,7 @@ body {
 
 .dossiers-header h1 {
   margin: var(--s2) 0 0;
-  font-size: clamp(38px, 6.6vw, 76px);
+  font-size: var(--d-xl);
   font-weight: 500;
   letter-spacing: -.035em;
   line-height: 1;
@@ -558,7 +558,7 @@ body {
 
 .dossiers-empty h2 {
   margin: var(--s3) 0 0;
-  font-size: 22px;
+  font-size: var(--t-l);
   font-weight: 600;
 }
 
@@ -566,7 +566,7 @@ body {
   max-width: 48ch;
   margin: var(--s2) 0 0;
   color: var(--g3);
-  font-size: 14.5px;
+  font-size: var(--t-s);
   line-height: 1.65;
 }
 
@@ -576,7 +576,7 @@ body {
 
 .commission-header h1 {
   margin: 20px 0 0;
-  font-size: clamp(30px, 4vw, 52px);
+  font-size: var(--d-m);
   font-weight: 500;
   letter-spacing: -.03em;
   line-height: 1;
@@ -586,7 +586,7 @@ body {
   max-width: 44ch;
   margin: var(--s3) 0 0;
   color: var(--g3);
-  font-size: 16.5px;
+  font-size: var(--t-m);
   line-height: 1.65;
 }
 
@@ -604,7 +604,7 @@ body {
   padding: 18px 20px;
   border-right: 1px solid var(--rule-l);
   color: var(--g3);
-  font-size: 13.5px;
+  font-size: var(--t-s);
   line-height: 1.6;
 }
 
@@ -690,7 +690,7 @@ body {
 .standard-intro h1 {
   max-width: 22ch;
   margin: 20px 0 0;
-  font-size: clamp(30px, 4vw, 52px);
+  font-size: var(--d-m);
   font-weight: 500;
   letter-spacing: -.03em;
   line-height: 1.08;
@@ -702,7 +702,7 @@ body {
 }
 
 .doctrine-head .k {
-  font-size: 11px;
+  font-size: var(--t-k);
   letter-spacing: .16em;
 }
 
@@ -735,17 +735,22 @@ body {
   border-right: 1px solid var(--rule-l);
 }
 
+.doctrine-code .k {
+  /* Five mono glyphs at 14px must fit the 47px inside the code column. */
+  letter-spacing: .04em;
+}
+
 .doctrine-name {
   margin: 0;
   font-family: inherit;
   line-height: inherit;
-  font-size: 14.5px;
+  font-size: var(--t-s);
   font-weight: 600;
 }
 
 .doctrine-definition {
   color: var(--body-l);
-  font-size: 13.5px;
+  font-size: var(--t-s);
   line-height: 1.55;
 }
 
@@ -764,7 +769,7 @@ body {
   max-width: 68ch;
   margin: 28px 0 0;
   color: var(--g3);
-  font-size: 14.5px;
+  font-size: var(--t-s);
   line-height: 1.65;
 }
 
@@ -780,7 +785,7 @@ body {
 .personal-hero h1 {
   max-width: 15ch;
   margin: var(--s3) 0 0;
-  font-size: clamp(38px, 6.6vw, 76px);
+  font-size: var(--d-xl);
   font-weight: 500;
   letter-spacing: -.035em;
   line-height: 1;
@@ -792,7 +797,7 @@ body {
 .personal-bridge p {
   max-width: 58ch;
   color: var(--g3);
-  font-size: 16.5px;
+  font-size: var(--t-m);
   line-height: 1.65;
 }
 
@@ -808,7 +813,7 @@ body {
 .personal-bridge h2 {
   max-width: 20ch;
   margin: var(--s2) 0 var(--s3);
-  font-size: clamp(28px, 4.2vw, 46px);
+  font-size: var(--d-s);
   font-weight: 500;
   letter-spacing: -.025em;
   line-height: 1.05;
@@ -819,19 +824,19 @@ body {
   gap: var(--s1);
   margin-top: var(--s2);
   padding: var(--s2);
-  border: 1.5px solid var(--red);
+  border: 1.5px solid var(--accent);
   background: var(--paper2);
   color: var(--ink);
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: var(--t-k);
   letter-spacing: .08em;
   line-height: 1.5;
   text-transform: uppercase;
 }
 
 .launch-placeholder strong {
-  color: var(--red-p);
-  font-size: 12px;
+  color: var(--accent-p);
+  font-size: var(--t-k);
 }
 
 .personal-calendar .launch-placeholder {
@@ -861,7 +866,7 @@ body {
 .legal-header h1 {
   max-width: 16ch;
   margin: var(--s2) 0 0;
-  font-size: clamp(38px, 6.6vw, 68px);
+  font-size: var(--d-l);
   font-weight: 500;
   letter-spacing: -.035em;
   line-height: 1;
@@ -883,7 +888,7 @@ body {
 
 .legal-document > h2 {
   margin: var(--s4) 0;
-  font-size: clamp(28px, 4.2vw, 46px);
+  font-size: var(--d-s);
   font-weight: 500;
   letter-spacing: -.025em;
   line-height: 1.05;
@@ -899,7 +904,7 @@ body {
 
 .legal-document h3 {
   margin: 0;
-  font-size: 14.5px;
+  font-size: var(--t-s);
   font-weight: 600;
 }
 
@@ -908,7 +913,7 @@ body {
   max-width: 68ch;
   margin: 0 0 var(--s2);
   color: var(--g3);
-  font-size: 13.5px;
+  font-size: var(--t-s);
   line-height: 1.7;
 }
 
@@ -929,7 +934,7 @@ body {
 .journal-header h1,
 .journal-article h1 {
   margin: var(--s2) 0 0;
-  font-size: clamp(30px, 4vw, 52px);
+  font-size: var(--d-m);
   font-weight: 500;
   letter-spacing: -.03em;
   line-height: 1;
@@ -940,7 +945,7 @@ body {
   max-width: 58ch;
   margin: var(--s3) 0 0;
   color: var(--g3);
-  font-size: 16.5px;
+  font-size: var(--t-m);
   line-height: 1.65;
 }
 
@@ -966,7 +971,7 @@ body {
 
 .journal-list h2 {
   margin: var(--s1) 0 0;
-  font-size: 22px;
+  font-size: var(--t-l);
   font-weight: 600;
   letter-spacing: -.015em;
 }
@@ -975,14 +980,14 @@ body {
   max-width: 64ch;
   margin: var(--s2) 0 0;
   color: var(--g3);
-  font-size: 13.5px;
+  font-size: var(--t-s);
   line-height: 1.6;
 }
 
 .journal-list time,
 .journal-date {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: var(--t-k);
   font-weight: 500;
   letter-spacing: .16em;
   text-transform: uppercase;
@@ -1003,7 +1008,7 @@ body {
 
 .journal-body h2 {
   margin: var(--s6) 0 var(--s2);
-  font-size: 25px;
+  font-size: var(--t-xl);
   font-weight: 600;
   letter-spacing: -.015em;
   line-height: 1.2;
@@ -1011,7 +1016,7 @@ body {
 
 .journal-body p,
 .journal-body li {
-  font-size: 16.5px;
+  font-size: var(--t-m);
   line-height: 1.7;
 }
 
@@ -1027,7 +1032,7 @@ body {
 
 .journal-body code {
   font-family: var(--mono);
-  font-size: .9em;
+  font-size: var(--t-s);
   overflow-wrap: anywhere;
 }
 
@@ -1162,7 +1167,7 @@ body {
 .cmd-nav a {
   color: var(--g2);
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: var(--t-k);
   letter-spacing: .16em;
   text-transform: uppercase;
   text-decoration: none;
@@ -1176,12 +1181,27 @@ body {
 
 .cmd-nav a:focus-visible {
   color: var(--paper);
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
 .cmd-nav a.on {
   color: var(--paper);
+}
+
+@media (min-width: 761px) and (max-width: 1000px) {
+  /* Keep the full nav and clock inside the 52px bar at tablet widths. */
+  .wordmark {
+    letter-spacing: .04em;
+  }
+
+  .cmd-nav a {
+    letter-spacing: .04em;
+  }
+
+  .clock {
+    letter-spacing: 0;
+  }
 }
 
 /* mobile : la nav reste accessible — rangée mono défilante, jamais supprimée */
@@ -1218,7 +1238,7 @@ body {
   background: transparent;
   color: var(--g2);
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: var(--t-k);
   font-weight: 600;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -1233,7 +1253,7 @@ body {
 }
 
 .cmd-menu-toggle:focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -1270,7 +1290,7 @@ body {
   border-bottom: 1px solid var(--rule-d);
   color: var(--g2);
   font-family: var(--mono);
-  font-size: 13px;
+  font-size: var(--t-k);
   letter-spacing: .18em;
   text-decoration: none;
   text-transform: uppercase;
@@ -1284,7 +1304,7 @@ body {
 }
 
 .cmd-panel a:focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -1352,7 +1372,7 @@ a.k:active {
 .r2-ed {
   color: var(--paper);
   font-family: var(--ed);
-  font-size: clamp(30px, 3.6vw, 44px);
+  font-size: var(--d-s);
   font-weight: 480;
   letter-spacing: -.01em;
   font-variation-settings: "opsz" 40, "SOFT" 0, "WONK" 0;
@@ -1377,7 +1397,7 @@ a.k:active {
   margin-top: 62px;
   margin-bottom: 62px;
   color: var(--paper);
-  font-size: clamp(46px, 6.4vw, 92px);
+  font-size: var(--d-xl);
   font-weight: 500;
   letter-spacing: -.032em;
   line-height: 1.02;
@@ -1400,7 +1420,7 @@ a.k:active {
   max-width: 46ch;
   margin-top: 28px;
   color: var(--g2);
-  font-size: 16.5px;
+  font-size: var(--t-m);
 }
 
 .r2-hero .rev-actions {
@@ -1505,7 +1525,7 @@ a.k:active {
 }
 
 .agent-esquisse-title {
-  color: var(--red);
+  color: var(--accent);
 }
 
 .agent-esquisse-body {
@@ -1576,7 +1596,7 @@ a.k:active {
 
 .home-s h2 {
   margin: 22px 0 34px;
-  font-size: clamp(36px, 5vw, 66px);
+  font-size: var(--d-l);
   font-weight: 400;
   letter-spacing: -.035em;
   line-height: 1.04;
@@ -1598,7 +1618,7 @@ a.k:active {
   max-width: 13ch;
   margin: 38px auto 30px;
   color: var(--paper);
-  font-size: clamp(40px, 7vw, 84px);
+  font-size: var(--d-xl);
   font-weight: 300;
   letter-spacing: -.045em;
   line-height: .98;
@@ -1619,7 +1639,7 @@ a.k:active {
   max-width: 62ch;
   margin: 0 auto;
   color: var(--label-d);
-  font-size: 17px;
+  font-size: var(--t-m);
   line-height: 1.6;
 }
 
@@ -1660,7 +1680,7 @@ a.k:active {
 .home-s-alternative {
   margin: 24px 0 0;
   color: var(--g2);
-  font-size: 14px;
+  font-size: var(--t-s);
 }
 
 .home-s-alternative a,
@@ -1694,7 +1714,7 @@ a.k:active {
   display: block;
   margin-bottom: 12px;
   color: var(--paper);
-  font-size: clamp(34px, 4vw, 54px);
+  font-size: var(--d-m);
   font-weight: 400;
   letter-spacing: -.04em;
 }
@@ -1721,7 +1741,7 @@ a.k:active {
   max-width: 980px;
   margin: 24px auto 16px;
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: var(--t-k);
   line-height: 2;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -1730,7 +1750,7 @@ a.k:active {
 .home-s-brands-list + p {
   margin: 0;
   color: var(--g3);
-  font-size: 13px;
+  font-size: var(--t-k);
 }
 
 .home-s-maison {
@@ -1762,7 +1782,7 @@ a.k:active {
 .home-s-maison-copy p {
   max-width: 56ch;
   color: var(--body-l);
-  font-size: 17px;
+  font-size: var(--t-m);
   line-height: 1.65;
 }
 
@@ -1771,7 +1791,7 @@ a.k:active {
   margin-top: 18px;
   color: var(--ink);
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: var(--t-k);
   letter-spacing: .14em;
   text-transform: uppercase;
 }
@@ -1803,7 +1823,7 @@ a.k:active {
 .home-s-build-grid h3 {
   margin: 42px 0 16px;
   color: var(--paper);
-  font-size: 24px;
+  font-size: var(--t-xl);
   font-weight: 500;
 }
 
@@ -1845,13 +1865,13 @@ a.k:active {
 }
 
 .home-s-journal li span {
-  font-size: 21px;
+  font-size: var(--t-l);
 }
 
 .home-s-journal time {
   color: var(--g3);
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: var(--t-k);
   letter-spacing: .12em;
 }
 
@@ -1911,7 +1931,7 @@ a.k:active {
   padding: 22px 16px 22px 0;
   border-bottom: 1px solid var(--rule-d);
   color: var(--paper);
-  font-size: 14px;
+  font-size: var(--t-s);
   text-decoration: none;
 }
 
@@ -1927,7 +1947,7 @@ a.k:active {
   margin-top: 36px;
   color: var(--g4);
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: var(--t-k);
   letter-spacing: .1em;
   text-transform: uppercase;
 }
@@ -1938,13 +1958,13 @@ a.k:active {
 
 .cmd-nav-prototype {
   padding: 9px 12px;
-  background: var(--red);
+  background: var(--accent);
   color: var(--paper2) !important;
 }
 
 .cmd-nav-prototype:hover,
 .cmd-nav-prototype:active {
-  background: var(--red-p);
+  background: var(--accent-p);
 }
 
 @media (max-width: 859px) {
@@ -1958,7 +1978,7 @@ a.k:active {
   }
 
   .home-s-hero h1 {
-    font-size: clamp(43px, 12vw, 68px);
+    font-size: var(--d-l);
   }
 
   .home-s-metrics-grid,
@@ -2046,7 +2066,7 @@ a.k:active {
 .r2-metric .v {
   color: var(--paper);
   font-family: var(--mono);
-  font-size: 34px;
+  font-size: var(--d-s);
   letter-spacing: -.02em;
 }
 
@@ -2054,7 +2074,7 @@ a.k:active {
   max-width: 24ch;
   margin-top: 8px;
   color: var(--g4);
-  font-size: 13.5px;
+  font-size: var(--t-s);
 }
 
 @media (max-width: 760px) {
@@ -2103,7 +2123,7 @@ a.k:active {
 .r2-dossier h3 {
   margin-bottom: 12px;
   color: var(--paper);
-  font-size: 19px;
+  font-size: var(--t-l);
   font-weight: 500;
   letter-spacing: -.015em;
   line-height: 1.25;
@@ -2112,7 +2132,7 @@ a.k:active {
 .r2-dossier p {
   margin-bottom: 18px;
   color: var(--g2);
-  font-size: 14.5px;
+  font-size: var(--t-s);
 }
 
 .r2-dossier .res {
@@ -2124,13 +2144,13 @@ a.k:active {
 .r2-dossier .res .v {
   color: var(--paper);
   font-family: var(--mono);
-  font-size: 22px;
+  font-size: var(--t-l);
 }
 
 .r2-dossier .res .l {
   margin-top: 4px;
   color: var(--g4);
-  font-size: 13.5px;
+  font-size: var(--t-s);
 }
 
 .r2-dossier .seal {
@@ -2138,7 +2158,7 @@ a.k:active {
   margin-top: auto;
   color: var(--g4);
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: var(--t-k);
   letter-spacing: .16em;
   text-transform: uppercase;
 }
@@ -2150,14 +2170,14 @@ a.k:active {
   height: 7px;
   flex-shrink: 0;
   margin: 0 0 .4em;
-  background: var(--red);
+  background: var(--accent);
 }
 
 .r2-registre-note {
   max-width: 70ch;
   margin-top: 22px;
   color: var(--g4);
-  font-size: 13.5px;
+  font-size: var(--t-s);
 }
 
 /* — document-écrin (clair dans la page sombre) — */
@@ -2217,20 +2237,20 @@ a.k:active {
 .r2-std-row .ps {
   color: var(--g3);
   font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: .14em;
+  font-size: var(--t-k);
+  letter-spacing: .02em;
 }
 
 .r2-std-row .name {
   color: var(--ink);
-  font-size: 14.5px;
+  font-size: var(--t-s);
   font-weight: 600;
 }
 
 .r2-std-row .ex {
   border-left: 1px solid var(--rule-l);
   color: var(--g3);
-  font-size: 13.5px;
+  font-size: var(--t-s);
 }
 
 .r2-std-row .ex b {
@@ -2247,7 +2267,7 @@ a.k:active {
 
   .r2-std-row .ps {
     white-space: nowrap;
-    letter-spacing: .08em;
+    letter-spacing: .02em;
   }
 
   .r2-std-row .ex {
@@ -2274,7 +2294,7 @@ a.k:active {
 .r2-manu-lede {
   color: var(--paper);
   font-family: var(--ed);
-  font-size: clamp(22px, 2.4vw, 30px);
+  font-size: var(--d-s);
   font-weight: 420;
   line-height: 1.35;
   font-variation-settings: "opsz" 28, "SOFT" 0, "WONK" 0;
@@ -2284,7 +2304,7 @@ a.k:active {
 .r2-manu-cols p {
   margin-bottom: 18px;
   color: var(--g2);
-  font-size: 14.5px;
+  font-size: var(--t-s);
 }
 
 .r2-manu-cols p b {
@@ -2314,9 +2334,9 @@ a.k:active {
 }
 
 .r2-phase .no {
-  color: var(--red);
+  color: var(--accent);
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: var(--t-k);
   letter-spacing: .1em;
 }
 
@@ -2325,18 +2345,24 @@ a.k:active {
   font-family: inherit;
   line-height: inherit;
   color: var(--paper);
-  font-size: 14.5px;
+  font-size: var(--t-s);
   font-weight: 500;
 }
 
 .r2-phase .ds {
   color: var(--g4);
-  font-size: 13.5px;
+  font-size: var(--t-s);
 }
 
 @media (max-width: 760px) {
   .r2-phase {
     grid-template-columns: 44px 1fr;
+  }
+
+  .r2-phase .no {
+    /* Two 14px mono digits need 20px; tracking alone cannot fit them in 8px. */
+    padding-right: 12px;
+    padding-left: 12px;
   }
 
   .r2-phase .ds {
@@ -2368,24 +2394,24 @@ a.k:active {
 .r2-jrnl-row .no {
   color: var(--g4);
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: var(--t-k);
   letter-spacing: .1em;
 }
 
 .r2-jrnl-row .nm {
   color: var(--paper);
-  font-size: 14.5px;
+  font-size: var(--t-s);
   font-weight: 500;
 }
 
 .r2-jrnl-row .ds {
   color: var(--g4);
-  font-size: 13.5px;
+  font-size: var(--t-s);
 }
 
 .r2-jrnl-row:hover .nm,
 .r2-jrnl-row:active .nm {
-  color: var(--red);
+  color: var(--accent);
 }
 
 @media (max-width: 760px) {
@@ -2420,14 +2446,14 @@ a.k:active {
 
 .r2-qa .q {
   color: var(--paper);
-  font-size: 16.5px;
+  font-size: var(--t-m);
   font-weight: 500;
   letter-spacing: -.01em;
 }
 
 .r2-qa .a {
   color: var(--g2);
-  font-size: 14.5px;
+  font-size: var(--t-s);
 }
 
 /* — close — */
@@ -2441,7 +2467,7 @@ a.k:active {
   margin: 0 auto;
   color: var(--paper);
   font-family: var(--ed);
-  font-size: clamp(30px, 4vw, 52px);
+  font-size: var(--d-m);
   font-weight: 480;
   letter-spacing: -.01em;
   font-variation-settings: "opsz" 60, "SOFT" 0, "WONK" 0;
@@ -2452,7 +2478,7 @@ a.k:active {
   margin: 0;
   color: var(--g4);
   font-family: var(--mono);
-  font-size: 13.5px;
+  font-size: var(--t-s);
   letter-spacing: .04em;
 }
 
@@ -2502,7 +2528,7 @@ a.k:active {
   padding-top: 10px;
   border-top: 1px dashed var(--rule-l);
   color: var(--g3);
-  font-size: 13.5px;
+  font-size: var(--t-s);
 }
 
 .doctrine-example b {
@@ -2527,7 +2553,7 @@ a.k:active {
   bottom: -.02em;
   width: .26em;
   height: auto;
-  border: 2px solid var(--red);
+  border: 2px solid var(--accent);
 }
 
 .r2-hero h1 .frame::before {
@@ -2593,7 +2619,7 @@ a.k:active {
   max-width: 88%;
   padding: 12px 14px;
   border-radius: 14px; /* mockup téléphone — exception canon */
-  font-size: 13.5px;
+  font-size: var(--t-s);
   line-height: 1.45;
 }
 
@@ -2626,7 +2652,7 @@ a.k:active {
   padding: 4px 0 2px;
   color: var(--g4);
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: var(--t-k);
   letter-spacing: .12em;
   text-transform: uppercase;
 }
@@ -2640,7 +2666,7 @@ a.k:active {
 .r2-iface-point h3 {
   margin: 8px 0 8px;
   color: var(--paper);
-  font-size: 19px;
+  font-size: var(--t-l);
   font-weight: 500;
   letter-spacing: -.015em;
 }
@@ -2648,7 +2674,7 @@ a.k:active {
 .r2-iface-point p {
   max-width: 52ch;
   color: var(--g2);
-  font-size: 14.5px;
+  font-size: var(--t-s);
 }
 
 /* — DecisionCard en registre sombre dans le téléphone — */
@@ -2678,7 +2704,7 @@ a.k:active {
 .ri-head h3 {
   margin: 10px 0 8px;
   color: var(--paper);
-  font-size: 21px;
+  font-size: var(--t-l);
   font-weight: 500;
   letter-spacing: -.015em;
   max-width: 34ch;
@@ -2687,7 +2713,7 @@ a.k:active {
 .ri-head p {
   max-width: 62ch;
   color: var(--g2);
-  font-size: 14.5px;
+  font-size: var(--t-s);
 }
 
 .ri-grid {
@@ -2717,23 +2743,22 @@ a.k:active {
   background: var(--ink);
   color: var(--paper);
   font-family: var(--ui);
-  font-size: 14.5px;
+  font-size: var(--t-s);
   appearance: none;
 }
 
 @media (max-width: 760px) {
-  /* iOS Safari zoome la page au focus d'un champ <16px — 14.5px canon reste
-     desktop, le mobile passe à 16px pile pour désarmer le zoom automatique */
+  /* Le pas mobile du formulaire reste au-dessus du seuil de zoom iOS. */
   .ri input[type="email"],
   .ri input[type="text"],
   .ri select {
-    font-size: 16px;
+    font-size: var(--t-m);
   }
 }
 
 .ri input:focus-visible,
 .ri select:focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--accent);
   outline-offset: 1px;
 }
 
@@ -2746,13 +2771,13 @@ a.k:active {
   align-items: center;
   gap: 10px !important;
   color: var(--g2);
-  font-size: 14.5px;
+  font-size: var(--t-s);
 }
 
 .ri-check input {
   width: 15px;
   height: 15px;
-  accent-color: var(--red);
+  accent-color: var(--accent);
 }
 
 .ri-foot {
@@ -2763,15 +2788,15 @@ a.k:active {
 }
 
 .ri-error {
-  color: var(--red);
-  font-size: 13.5px;
+  color: var(--accent);
+  font-size: var(--t-s);
 }
 
 .ri-done {
   max-width: 60ch;
   margin-top: 10px;
   color: var(--paper);
-  font-size: 16.5px;
+  font-size: var(--t-m);
 }
 
 /* le formulaire posé comme un instrument sombre dans les pages claires du journal */
