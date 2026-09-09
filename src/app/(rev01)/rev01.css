@@ -1101,6 +1101,8 @@ body {
 
 .cmd-nav {
   display: flex;
+  /* Sans align-items, les liens sans padding s'étirent à la hauteur du bouton et leur texte reste en haut. */
+  align-items: center;
   gap: 26px;
   margin: 0 auto;
 }
