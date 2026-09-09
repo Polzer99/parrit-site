@@ -1,3 +1,4 @@
+import { AUTEUR } from "@/system/auteur";
 import { getAllJournalEntries } from "@/system/journal";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://parrit.ai";
@@ -17,6 +18,7 @@ export function GET() {
     .map(
       (entry) => `    <item>
       <title>${escapeXml(entry.title)}</title>
+      <dc:creator>${escapeXml(AUTEUR.nom)}</dc:creator>
       <link>${SITE_URL}/journal/${entry.slug}</link>
       <guid isPermaLink="true">${SITE_URL}/journal/${entry.slug}</guid>
       <pubDate>${new Date(`${entry.date}T00:00:00.000Z`).toUTCString()}</pubDate>
@@ -26,7 +28,7 @@ export function GET() {
     .join("\n");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Parrit Journal</title>
     <link>${SITE_URL}/journal</link>

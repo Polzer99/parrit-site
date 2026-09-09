@@ -55,16 +55,6 @@ const DICT = {
       note: "30 min · An examination, on a video call, with the founder",
       button: "Let's talk",
     },
-    footer: {
-      links: [
-        ["/manufacture", "The Manufacture", "the method"],
-        ["/standard", "The Standard", "our commitments"],
-        ["/dossiers", "The Dossiers", "references"],
-        ["/legal", "Legal", ""],
-      ],
-      founder: "Founded by Paul Larmaraud",
-      principle: "Commissioned, not subscribed",
-    },
   },
   fr: {
     hero: {
@@ -111,16 +101,6 @@ const DICT = {
       title: "Une conversation. Votre système d'exploitation, examiné.",
       note: "30 min · Un examen, en visio, avec le fondateur",
       button: "Parlons-en",
-    },
-    footer: {
-      links: [
-        ["/manufacture", "La Manufacture", "la méthode"],
-        ["/standard", "Le Standard", "nos engagements"],
-        ["/dossiers", "Les Dossiers", "références"],
-        ["/legal", "Mentions légales", ""],
-      ],
-      founder: "Fondée par Paul Larmaraud",
-      principle: "Une commande, pas un abonnement",
     },
   },
 } as const;
@@ -232,19 +212,6 @@ export default async function HomePage() {
           <Link className="rev-button exec" href={localizedPath("/commission", locale)}>{copy.close.button}</Link>
         </div>
       </section>
-
-      <footer className="home-s-footer r2-dark">
-        <div className="home-s-wrap">
-          <nav aria-label="Footer">
-            {copy.footer.links.map(([href, label, description]) => <Link href={localizedPath(href, locale)} key={href}><span>{label}</span>{description ? <small> · {description}</small> : null}</Link>)}
-          </nav>
-          <div className="home-s-footer-meta">
-            <a href="https://paul-larmaraud.com">{copy.footer.founder}</a>
-            <span>{copy.footer.principle}</span>
-            <span>© 2026 Parrit.ai</span>
-          </div>
-        </div>
-      </footer>
     </main>
   );
 }

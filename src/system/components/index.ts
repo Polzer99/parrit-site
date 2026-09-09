@@ -10,6 +10,7 @@ export { NewsletterCapture } from "./NewsletterCapture";
 export { Opening } from "./Opening";
 export { QuickCapture } from "./QuickCapture";
 export { RegistryLine } from "./RegistryLine";
+export { RevFooter } from "./RevFooter";
 export { RevHeader } from "./RevHeader";
 export { Seal } from "./Seal";
 export { St, type StatusKind } from "./St";

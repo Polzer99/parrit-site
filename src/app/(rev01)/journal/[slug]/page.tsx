@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 
 import { getLocale } from "@/lib/server/locale";
+import { AUTEUR } from "@/system/auteur";
 import { K, RegistryLine } from "@/system/components";
 import { getAllJournalEntrySummaries, getJournalEntry } from "@/system/journal";
 
@@ -27,6 +29,7 @@ export async function generateMetadata({ params }: JournalArticlePageProps): Pro
   const canonical = `${SITE_URL}/journal/${entry.slug}`;
   return {
     title: entry.title,
+    authors: [{ name: AUTEUR.nom, url: AUTEUR.url }],
     description: entry.description,
     alternates: { canonical, languages: { en: canonical, "x-default": canonical } },
     openGraph: {
@@ -52,6 +55,14 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
   }
 
   const canonical = `${SITE_URL}/journal/${entry.slug}`;
+  const entries = getAllJournalEntrySummaries();
+  const currentIndex = entries.findIndex((candidate) => candidate.slug === entry.slug);
+  // Garder la position avant filtrage permet aussi de partir d'une entrée noindex.
+  const relatedEntries = [
+    ...entries.slice(currentIndex + 1),
+    ...entries.slice(0, currentIndex),
+  ].filter((candidate) => !candidate.noindex && candidate.slug !== entry.slug).slice(0, 3);
+  const relatedLabel = locale === "fr" ? "À lire ensuite" : "Continue reading";
   const blogPostingJsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -67,9 +78,9 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
     },
     description: entry.description,
     author: {
-      "@type": "Organization",
-      name: "Parrit",
-      url: SITE_URL,
+      "@type": "Person",
+      name: AUTEUR.nom,
+      url: AUTEUR.url,
     },
     mainEntityOfPage: canonical,
   };
@@ -92,6 +103,19 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
         <div className="journal-body">
           <ReactMarkdown>{entry.content}</ReactMarkdown>
         </div>
+
+        {relatedEntries.length > 0 ? (
+          <nav className="journal-related" aria-label={relatedLabel}>
+            <K>{relatedLabel}</K>
+            {/* Article anglais unique : une URL localisée ajouterait un saut 301. */}
+            {relatedEntries.map((related) => (
+              <Link key={related.slug} href={`/journal/${related.slug}`}>
+                <span>{related.title}</span>
+                <time dateTime={related.date}>{related.date}</time>
+              </Link>
+            ))}
+          </nav>
+        ) : null}
 
         <footer className="journal-article-footer">
           <RegistryLine value={`WE FIND THE WAY · ${entry.date} · PARRIT / JOURNAL`} />

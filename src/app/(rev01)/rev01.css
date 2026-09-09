@@ -1027,6 +1027,33 @@ body {
   overflow-x: auto;
 }
 
+.journal-related {
+  display: grid;
+  gap: var(--s2);
+  padding: var(--s3) 0;
+  border-top: 1px solid var(--rule-l);
+}
+
+.journal-related a {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s1) var(--s2);
+  padding: var(--s2) 0;
+  border-bottom: 1px solid var(--rule-l);
+  color: var(--body-l);
+  text-decoration: none;
+}
+
+.journal-related a:hover span {
+  text-decoration: underline;
+}
+
+.journal-related time {
+  color: var(--g3);
+  font-family: var(--mono);
+}
+
 .journal-article-footer {
   padding: var(--s3) 0 var(--s6);
   border-top: 1px solid var(--rule-l);
@@ -1849,7 +1876,7 @@ a.k:active {
 
 .home-s-footer nav {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   border-top: 1px solid var(--rule-d);
 }
 

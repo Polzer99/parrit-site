@@ -5,8 +5,9 @@ import "../../system/tokens.css";
 import "../../system/system.css";
 import "./rev01.css";
 
-import { AnalyticsInit, RevHeader } from "@/system/components";
+import { AnalyticsInit, RevFooter, RevHeader } from "@/system/components";
 import { getLocale } from "@/lib/server/locale";
+import { AUTEUR } from "@/system/auteur";
 import { localizedAlternates } from "@/system/locale";
 
 /* PostHog — standard global de tracking (décision Paul 15/08) : autocapture,
@@ -24,15 +25,15 @@ const ORG_JSONLD = JSON.stringify({
     "Parrit.ai designs and builds company operating systems: commissioned, not subscribed. Based in France; operating internationally in English and French.",
   founder: {
     "@type": "Person",
-    name: "Paul Larmaraud",
-    url: "https://paul-larmaraud.com",
+    name: AUTEUR.nom,
+    url: AUTEUR.url,
   },
   address: {
     "@type": "PostalAddress",
     addressLocality: "Rueil-Malmaison",
     addressCountry: "FR",
   },
-  sameAs: ["https://paul-larmaraud.com"],
+  sameAs: [AUTEUR.url],
 });
 
 const POSTHOG_SNIPPET = `
@@ -78,6 +79,7 @@ export default async function Rev01Layout({ children }: Readonly<{ children: Rea
         <AnalyticsInit />
         <RevHeader locale={locale} />
         {children}
+        <RevFooter locale={locale} />
       </body>
     </html>
   );
