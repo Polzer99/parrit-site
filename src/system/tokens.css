@@ -9,7 +9,20 @@
   --rule-d: #24282D;
   --g2: #9CA1A6;
   --g3: #55595E;
-  --g4: #6F757B;
+  /* --g4 est le registre secondaire du fond SOMBRE (libellés .k, annotations,
+     mentions de pied, filets). Un token employé comme couleur de TEXTE atteint
+     4,5:1 sur la plus CLAIRE des surfaces où il est réellement peint : mesuré
+     sur les 34 URL aux 3 viewports, cette surface est #1C1D1E — la command bar
+     translucide rgba(10,11,12,.92) composée au-dessus d'une page paper.
+     #6F757B y rendait 3,60:1, et 4,23:1 sur ink, 3,92:1 sur carbon : 1 202
+     nœuds de texte sous le plancher AA, 97,6 % de tous les échecs du site.
+     #7F858B est la valeur MINIMALE de la même famille de teinte (r-b = -12,
+     g-b = -6, conservés) qui franchit 4,5:1 sur les quatre fonds mesurés :
+     ink 5,28 · carbon 4,90 · carbon2 4,53 · command bar 4,53. Ce n'est pas un
+     gris « plus lisible » choisi au jugé, c'est le plus petit pas qui passe.
+     L'écart au registre --g2 reste franc (5,28 contre 7,56 sur ink) : deux gris,
+     pas un. */
+  --g4: #7F858B;
   /* prototype REV 02 de facto tokens (hardcoded there; named here so the
      brand gate can enforce them): body text on light / row labels on dark */
   --body-l: #26282B;

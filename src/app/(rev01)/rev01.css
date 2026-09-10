@@ -1080,9 +1080,19 @@ body {
   text-decoration: underline;
 }
 
+/* La date qui annote un lien d'article est une MÉTADONNÉE, pas de la lecture :
+   elle prend le composant date déjà canon (`.journal-list time, .journal-date`)
+   au lieu d'hériter du corps. Sans ces quatre déclarations elle rendait
+   General-Sans-héritée 18px/400 — seul texte mono au-dessus de 16px du site —
+   soit un rapport titre:date de 1,00 : trois dates du même rang que les trois
+   titres qu'elles annotent. */
 .journal-related time {
   color: var(--g3);
   font-family: var(--mono);
+  font-size: var(--t-k);
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
 }
 
 .journal-article-footer {
@@ -1340,11 +1350,18 @@ a.k:active {
   color: var(--paper);
 }
 
-/* .k est calé sur le registre clair (g3 sur paper = 6.3:1) ; sur ink/carbon
-   le même g3 tombe à 2.6:1, sous le seuil WCAG même pour du texte
-   secondaire — g4 (déjà dans la palette) remonte à ~3.9-4.2:1 sans changer
-   la taille, l'espacement ou la hiérarchie visuelle des libellés */
-.r2-dark .k {
+/* .k est calé sur le registre clair (g3 sur paper = 6,29:1) ; sur ink/carbon le
+   même g3 tombe à 2,59:1. Le registre de libellé sombre est donc `--g4`.
+   —
+   Il suit la SURFACE RÉELLEMENT PEINTE, jamais un nom de classe. Mesuré aux
+   3 viewports sur les 34 URL : `.quick-capture` de /commission et /fr/commission
+   est peinte carbone sans porter `.r2-dark`, son `.quick-copy .k` restait donc
+   en `--g3` à 2,59:1 (6 nœuds) — un correctif de symptôme existait déjà sur le
+   seul enfant `form >`, pas sur la surface. À l'inverse `.ri-stage` PORTE
+   `.r2-dark` mais est peinte en `--paper` : son `.k` en `--g4` tombait à
+   4,16:1. La même liste de surfaces sombres sert déjà au focus plus bas ; elle
+   est la source unique des deux. */
+:is(.r2-dark:where(:not(.ri-stage)), .instrument, .quick-capture, .agent-esquisse, .ri, .cal-instrument) .k {
   color: var(--g4);
 }
 
@@ -1485,10 +1502,11 @@ a.k:active {
   font: inherit;
 }
 
+/* la couleur vient de la surface (voir le registre de libellé sombre plus haut),
+   cette règle ne porte plus que la géométrie */
 .quick-capture form > .k {
   display: block;
   margin-top: 12px;
-  color: var(--g4);
 }
 
 .quick-capture .ri-error {
@@ -2806,16 +2824,31 @@ a.k:active {
   font-size: var(--t-m);
 }
 
-/* le formulaire posé comme un instrument sombre dans les pages claires du journal */
+/* le formulaire posé comme un instrument sombre dans les pages claires du journal
+   —
+   UN REGISTRE EST UN COUPLE (fond, encre). `.r2-dark` pose les DEUX :
+   `background: var(--ink)` + `color: var(--paper)`. `.ri-stage` n'annulait que
+   le fond : sa prose restait peinte en `--paper` SUR du `--paper`, soit 1,00:1.
+   Mesuré sur /journal et /fr/journal aux 3 viewports : deux phrases entières
+   (« Every entry goes out by e-mail the day it appears. » et « One address is
+   enough. Unsubscribe in one click. ») rendues invisibles, 12 nœuds à 1,00:1 —
+   le visiteur voit un champ e-mail sans sa promesse, sur la page qui lui
+   demande son adresse.
+   Une surface qui annule le fond d'un registre doit donc annuler son encre, et
+   reprendre celle du registre où elle atterrit : `--paper` (encre primaire du
+   registre sombre) a pour miroir `--body-l` (encre de corps sur clair, 13,19:1),
+   `--g4` (gris de libellé sombre) a pour miroir `--g3` (6,29:1, celui de tous
+   les autres `.k` de la page). Zéro token créé, zéro valeur nouvelle. */
 .ri-stage {
   margin: 72px 0 48px;
   padding: 0;
   background: transparent;
+  color: var(--body-l);
 }
 
 /* Focus is outside the button: use the surrounding dark surface, not its fill.
    ri-stage is transparent on the light Journal page despite its r2-dark class. */
-:is(.r2-dark:where(:not(.ri-stage)), .instrument, .quick-capture, .agent-esquisse, .ri) .rev-button:focus-visible {
+:is(.r2-dark:where(:not(.ri-stage)), .instrument, .quick-capture, .agent-esquisse, .ri, .cal-instrument) .rev-button:focus-visible {
   outline-color: var(--accent-clair);
 }
 

@@ -10,7 +10,9 @@
     "lint": "eslint",
     "test:journal": "node --test tests/publish-journal-gates.test.mjs",
     "qa:brand:rev01": "node scripts/brand-conformity-check.mjs",
-    "qa:network:rev01": "playwright test tests/rev01-system.spec.ts tests/conformity-home.spec.ts tests/conformity-standard.spec.ts tests/conformity-commission.spec.ts tests/conformity-journal.spec.ts tests/conformity-i18n.spec.ts tests/internal-linking.spec.ts tests/metadata-integrity.spec.ts tests/aeration.spec.ts tests/brand-pixels.spec.ts --browser=chromium"
+    "qa:network:rev01": "playwright test tests/rev01-system.spec.ts tests/conformity-home.spec.ts tests/conformity-standard.spec.ts tests/conformity-commission.spec.ts tests/conformity-journal.spec.ts tests/conformity-i18n.spec.ts tests/internal-linking.spec.ts tests/metadata-integrity.spec.ts tests/aeration.spec.ts tests/brand-pixels.spec.ts --browser=chromium && npm run qa:contraste:rev01",
+    "//qa:contraste:rev01": "Balaie les 34 URL du sitemap aux 3 viewports. Lancée APRÈS le reste de la batterie, jamais en parallèle : elle sature le serveur de dev partagé, et un test sensible à l'hydratation (conformity-i18n « header switches paths ») échouait alors pour une raison qui n'a rien à voir avec lui. Serialisée, pas allégée.",
+    "qa:contraste:rev01": "playwright test tests/contraste-registre.spec.ts --browser=chromium"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",
