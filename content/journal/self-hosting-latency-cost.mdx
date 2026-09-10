@@ -1,0 +1,54 @@
+---
+title: "Before you move a model in-house, measure the wait it will cost"
+date: "2026-09-10"
+description: "Sovereignty arguments get decided in the first second in front of a cursor. Running a model on hardware you own rarely fails on quality. It fails on the wait, because a rented endpoint spreads its cost across thousands of simultaneous strangers while your machine serves the handful of people who arrive at nine on Monday."
+slug: "self-hosting-latency-cost"
+---
+
+Someone inside the company types a question into the new internal tool and watches the cursor blink. What happens in the next second settles more about the project than any of the arguments that got it funded. If the screen stays empty long enough to be noticed, that person quietly reopens the tab they were using before, the one served from a datacentre on another continent, and the migration becomes a thing the building works around.
+
+We deploy models on infrastructure our clients own, and we argue for it in public, because you should own the thing that runs. The honest version of that argument comes with a bill, and the bill is not the hardware invoice. It is the wait.
+
+## The number that decides adoption is not on the benchmark card
+
+Two measurements describe how a model feels in someone's hands. Time to first token is the delay between the request arriving and the first piece of the answer landing on the screen. Inter-token latency is the gap between each piece and the next once the stream has started. Both are standard in serving stacks: vLLM documents them, and NVIDIA's benchmarking reference defines them the same way. Neither appears on the quality benchmark tables people compare when they choose a model.
+
+Put them against what a person can actually perceive. Jakob Nielsen's three response time limits, published in *Usability Engineering* in 1993 and still the reference the Nielsen Norman Group maintains today, sit at roughly a tenth of a second for an action that feels direct, one second for a delay a user notices without losing their train of thought, and ten seconds for the outer limit of held attention, past which you owe them a progress indicator and a way out.
+
+Now the other end. Marc Brysbaert's 2019 meta-analysis in the *Journal of Memory and Language*, covering 190 studies, puts adult silent reading of English non-fiction at 238 words per minute. That is about four words a second. Using the tokenizer approximation OpenAI publishes, a hundred tokens for seventy-five words, four words a second is a little over five tokens a second.
+
+That figure is the one to sit with. A stream faster than about five tokens a second is already outrunning the reader, and every additional token per second you buy after that is invisible to the human it was bought for. Which means that once generation is reasonably fluent, almost all of the perceived quality of your system lives in the first measurement, the silence before the first word. Teams optimise the one they can put in a slide.
+
+## Why the same weights feel slower on a machine you own
+
+Nothing about the weights has changed. What changed is who else is in the queue with you.
+
+Batching deserves a correction here, because it usually gets cited backwards in these conversations. Running many requests through the accelerator together raises the total number of tokens the machine produces per second, and it lengthens the wait for each individual request while doing so. The serving literature is direct about that trade: the Sarathi-Serve paper is titled after taming it, and continuous batching and chunked prefill exist in the engines you would actually deploy to limit the damage batching does to one person's wait. Batching buys throughput and spends latency.
+
+What makes the rented path feel quick is scale and the scheduling built on top of it. A provider pools demand across every time zone that pays it, so the peak it sizes against is smooth and enormous, and it employs people whose entire job is tuning the scheduler that decides whose token gets computed next. You are sizing a fixed amount of capacity against your own worst hour, and the people who press enter at nine on Monday queue behind each other on a machine with no elasticity to offer them.
+
+Long prompts widen the gap again. Before anything comes back, the system processes everything you sent, and internal deployments tend to send a great deal: the retrieved documents, the procedure, the history of the case. That work lands entirely inside the silence the user is watching. A model that has to be loaded into memory first, because the machine was doing something else, adds its own delay to the first request of the morning, and the person who hits it is usually the earliest and most motivated user you have.
+
+None of this is a defect a better card fixes. It is what owning a fixed amount of capacity means. You pay to heat a room whether or not anyone is sitting in it, and the size of the room is set by your worst hour rather than your average one.
+
+## Where the owned substrate belongs first
+
+Our rule is to route by task rather than by supplier, and latency is one of the things that decides the route. Work where a person is waiting goes on the fastest path available to us. Work where nobody is waiting is where owned infrastructure is at its best, and that category is larger than most teams assume: the overnight pass over the day's documents, the classification queue, the extraction that feeds a report somebody reads at eight the next morning. A batch job on your own hardware can take as long as it likes and cost you nothing in adoption, because the only thing downstream of it is a file.
+
+There is a second case where you accept the wait deliberately, which is when the reason for hosting is the data itself. Contracts, medical files, anything that cannot cross a boundary. Take the delay, and then design honestly for it. Do not present a job as a conversation. A ten second wait inside a chat window reads as a broken chat, while the same ten seconds inside something that announces itself as a job, with a state you can watch and a way to stop it, reads as a system doing work. Nielsen's third limit is a design instruction, and it is free.
+
+## Three measurements to take this week
+
+Count the people who will be waiting at the same moment, and name the hour. Not the number of employees with access, the number of simultaneous requests at the peak. Almost every sizing conversation we walk into has been held in headcount, which is the wrong unit and usually the flattering one.
+
+Then time what you already pay for. Open the hosted tool your teams use now, press enter on a realistic prompt, and time the gap until the first word appears. Do it at nine in the morning and again in the middle of the afternoon. Write both numbers down. That is the bar your own deployment will be judged against, and few people in the building will lower it out of sympathy for your infrastructure.
+
+Last, sort your work by whether a human is watching it happen. The half where nobody is watching can move onto hardware you own as soon as you like, and it is usually the half that touches your most sensitive data anyway. The half where someone is watching stays where it is until you can meet the number you wrote down.
+
+A stopwatch and an hour will get you all three. No purchase order, no pilot, no vendor in the room.
+
+## What ownership actually buys
+
+Speed was never the argument for owning your substrate. In *GLM-5.2: dependence on American AI is already no longer inevitable* we made the case that what you rent can be taken away, and that is still the reason to own it. Continuity when a supplier changes its terms, control over what leaves your walls, the ability to keep running on your own decision. Those are worth paying for, and what you pay in is seconds.
+
+Sovereignty is worth a wait. It is not worth an unmeasured one.
