@@ -1,0 +1,169 @@
+{
+  "design_canon_version": "parrit-visual-canon/1.0",
+  "verified_at": "2026-09-10",
+  "scope": "parrit.ai + tout support Parrit.ai",
+  "ready_for_ppt": true,
+  "ppt_impact": "major",
+  "human_readable": "docs/PARRIT-VISUAL-CANON.md",
+  "instrument": "scripts/da-harness.mjs",
+
+  "source_of_truth": {
+    "brand_canon": "docs/brand-v2/ (branche brand-lab-v1) — autorite de marque, PAS de direction visuelle parrit.ai",
+    "site_values": "src/system/tokens.css",
+    "layout_reference": "docs/site-prod-rev01/parrit-command-center-rev03.html (mise en page seulement, aucune autorite de couleur)",
+    "superseded": [
+      "DESIGN-SYSTEM.md",
+      "BRAND.md",
+      "docs/design-system/VISUAL-SOURCE-OF-TRUTH.md",
+      "docs/brand-v2/04-VISUAL-DIRECTION.md (c'est paul-larmaraud.com)"
+    ],
+    "main_branch_state": "origin/main porte encore --red #E10600 ; le bleu est sur da/bleu-remplace-rouge, PR #250 ouverte"
+  },
+
+  "temperament": "OLD-SCHOOL TRUST, NEW-SCHOOL EXECUTION. Institution, permanence, serieux, preuve, sophistication absorbee, execution moderne.",
+
+  "design_principles": [
+    "La DA doit supprimer ce qui empeche la competence reelle d'etre percue, pas fabriquer de la confiance.",
+    "BLEU = CONFIANCE n'est pas une regle. Le bleu est un accent, jamais une strategie.",
+    "Aucun token ne sert les deux fonds : une valeur papier, une valeur carbone, jamais echangees.",
+    "Une action remplie est toujours l'objet le plus contraste de son fond.",
+    "L'accent est reserve a la decision, l'action, l'etat critique, l'objet selectionne. Jamais decoratif.",
+    "Le sens vient du libelle, pas du glyphe.",
+    "La preuve doit peser plus que la decoration.",
+    "Un seuil se derive d'une mesure. Une porte mesure le resultat, pas le moyen."
+  ],
+
+  "anti_patterns": [
+    "degrade", "glow", "ombre decorative", "coin arrondi",
+    "cerveau", "circuit", "robot", "galaxie", "tableau de bord fictif",
+    "icone de bibliotheque", "emoji", "clipart", "pictogramme decoratif",
+    "bleu employe comme bequille de credibilite",
+    "grille de trois cartes qui riment",
+    "sections de meme rythme interchangeables",
+    "element graphique qui mime le serieux sans rien certifier",
+    "affirmation mise en avant sans preuve visible a cote",
+    "deux composants presque identiques mais pas tout a fait"
+  ],
+
+  "tokens": {
+    "color": {
+      "ink": "#0A0B0C", "carbon": "#131518", "carbon2": "#1A1D21",
+      "paper": "#F1F2F3", "paper2": "#FAFAFB",
+      "rule_l": "#DDE0E3", "rule_d": "#24282D",
+      "body_l": "#26282B", "label_d": "#C7CBCF",
+      "g3": "#55595E", "g2": "#9CA1A6", "steel": "#3A3F47",
+      "accent": "#0047B3", "accent_p": "#00368A",
+      "accent_clair": "#79ACF7", "accent_clair_p": "#6399E6"
+    },
+    "color_registers": {
+      "regle": "aucun token ne sert les deux fonds",
+      "sur_fond_clair": { "corps": "body_l", "secondaire": "g3", "filet": "rule_l", "accent": "accent", "accent_presse": "accent_p", "texte_sur_accent": "paper" },
+      "sur_fond_sombre": { "corps": "paper", "labels": "label_d", "secondaire": "g2", "filet": "rule_d", "accent": "accent_clair", "accent_presse": "accent_clair_p", "texte_sur_accent": "ink" },
+      "supprime": { "g4": "#6F757B — echoue AA sur les 5 fonds (4,16 / 4,47 / 4,23 / 3,92 / 3,63). Ne jamais reprendre." }
+    },
+    "type_scale_fixe": { "t_k": "14px", "t_s": "16px", "t_m": "18px", "t_l": "22px", "t_xl": "26px" },
+    "type_scale_fluide": {
+      "d_s": "clamp(30px,4vw,44px)", "d_m": "clamp(34px,5vw,54px)",
+      "d_l": "clamp(38px,6.4vw,68px)", "d_xl": "clamp(40px,6.8vw,84px)"
+    },
+    "familles": {
+      "ui": "General Sans", "mono": "JetBrains Mono", "editorial": "Fraunces (opsz 40, poids 480)"
+    },
+    "grille": { "max_width": "1160px", "marge_bord": "40px au-dessus de 760px, 20px en dessous" },
+    "filets": { "interne": "1px", "bornes_de_page": "2px en ink" },
+    "radius": "0 partout, zero exception",
+    "ombre": "0 40px 80px -40px rgba(10,11,12,.4) — unique, un seul composant"
+  },
+
+  "regles": [
+    { "dimension": "typography", "statut": "TENUE", "regle": "3 familles seulement, aucun repli systeme", "mesure": "102 chargements" },
+    { "dimension": "typography", "statut": "TENUE", "regle": "toute capitale est en mono 14px", "mesure": "20 declarations, 0 contre-exemple" },
+    { "dimension": "typography", "statut": "TENUE", "regle": "echelle fermee a 9 valeurs, plancher 14px", "mesure": "0 violation sur 102 chargements" },
+    { "dimension": "typography", "statut": "TENUE", "regle": "H1 a 3 paliers : 84 flagship, 68 legal, 54 autres", "mesure": "constant EN et FR" },
+    { "dimension": "typography", "statut": "TENUE", "regle": "grands titres a interligne 0,98 a 1,08", "mesure": "9 combinaisons" },
+    { "dimension": "typography", "statut": "TROUEE", "regle": "un role visuel, un reglage", "mesure": "10 letter-spacing pour le seul registre capitales" },
+    { "dimension": "typography", "statut": "TROUEE", "regle": "un composant nomme se rend identique", "mesure": "badge date en 3 implementations, une a 18px au lieu de 14" },
+    { "dimension": "typography", "statut": "TROUEE", "regle": "un H1, une recette", "mesure": "5 recettes ; 2 graisses a taille identique" },
+    { "dimension": "color", "statut": "TENUE", "regle": "un registre de fond par page, changement en bloc plein", "mesure": "34 URLs" },
+    { "dimension": "color", "statut": "TENUE", "regle": "zero rouge sous toute forme", "mesure": "porte de marque + porte pixels" },
+    { "dimension": "color", "statut": "TENUE", "regle": "hierarchie de plan par glissement tonal, jamais par ombre", "mesure": "34 URLs" },
+    { "dimension": "accent", "statut": "TENUE", "regle": "les deux couples ne s'echangent jamais, meme survole ou presse", "mesure": "rendu au pixel" },
+    { "dimension": "accent", "statut": "TENUE", "regle": "l'accent ne colore jamais un chiffre de preuve", "mesure": "0 occurrence" },
+    { "dimension": "accent", "statut": "TROUEE", "regle": "l'accent suit le registre de sa surface", "mesure": "5 violations mesurees" },
+    { "dimension": "accent", "statut": "TROUEE", "regle": "l'accent est reserve a la decision", "mesure": "numeros de phase 01/02/03 en accent permanent" },
+    { "dimension": "grid", "statut": "TENUE", "regle": "grille unique 1160 + 40/20, kicker et H1 au meme bord gauche", "mesure": "12 des 14 URLs structurelles" },
+    { "dimension": "grid", "statut": "TROUEE", "regle": "une seule grille sur tout le site", "mesure": "4 systemes ; footer decale de 40px ; article decale de 234px" },
+    { "dimension": "spacing", "statut": "TENUE", "regle": "rythme vertical fige en px absolus a tous les viewports", "mesure": "98 / 110 / 130px" },
+    { "dimension": "spacing", "statut": "TROUEE", "regle": "echelle 8pt", "mesure": "44 valeurs, 35 hors grille (79,5 %) ; 40px sans token" },
+    { "dimension": "borders", "statut": "TENUE", "regle": "rayon 0, zero exception vivante", "mesure": "~450 elements, 34 URLs x 3 viewports" },
+    { "dimension": "borders", "statut": "TENUE", "regle": "2 epaisseurs : 1px interne, 2px bornes de page en ink", "mesure": "jamais melangees" },
+    { "dimension": "borders", "statut": "TENUE", "regle": "couleur de filet selon le registre du fond", "mesure": "jamais croise" },
+    { "dimension": "borders", "statut": "TENUE", "regle": "une bordure vaut forme a partir de 3 cotes", "mesure": "cartes, boutons, champs" },
+    { "dimension": "borders", "statut": "TENUE", "regle": "une seule ombre dans tout le systeme", "mesure": "1 composant, 2 des 34 URLs" },
+    { "dimension": "cards", "statut": "TROUEE", "regle": "une recette de carte", "mesure": "4 cartes rendues, 4 recettes" },
+    { "dimension": "iconography", "statut": "TENUE", "regle": "aucune iconographie classique, 0 svg inline, 0 degrade, 0 glow", "mesure": "68 rendus" },
+    { "dimension": "iconography", "statut": "TENUE", "regle": "un statut est une forme pleine plus un libelle", "mesure": "34 URLs" },
+    { "dimension": "iconography", "statut": "TROUEE", "regle": "un point d'accent suit le registre de son fond", "mesure": "7 implementations ; valeur papier sur fond carbone dans 5 fichiers de marque sur 5" },
+    { "dimension": "proof", "statut": "TENUE", "regle": "le H1 reste toujours l'element le plus grand", "mesure": "34 URLs" },
+    { "dimension": "proof", "statut": "TROUEE", "regle": "la preuve pese plus que la decoration", "mesure": "0 graphique, 0 capture produit, 0 logo client, 1 image dans tout le code ; titre 3,9x le poids de toute la preuve" },
+    { "dimension": "motion", "statut": "TENUE", "regle": "prefers-reduced-motion ramene tout a 1ms, couverture 100 %", "mesure": "une regle globale" },
+    { "dimension": "motion", "statut": "TROUEE", "regle": "les tokens de mouvement sont utilises", "mesure": "0 des 5 n'atteint un visiteur ; --micro a 0 usage" },
+    { "dimension": "motion", "statut": "TROUEE", "regle": "le focus est catalogue", "mesure": "5 signatures d'anneau ; 61 % (88/144) sans survol ni focus ni pression propres" }
+  ],
+
+  "regle_du_ch": {
+    "constat": "en General Sans le glyphe 0, qui definit 1ch, est 31 % plus large que le caractere moyen (0,582em contre 0,443em)",
+    "consequence": "une colonne declaree 66ch rend 87 caracteres par ligne",
+    "regle": "pour viser N caracteres en General Sans, declarer environ N x 0,76 ch"
+  },
+
+  "baseline_51_surfaces": {
+    "CONTRAST_FAILURES": 745,
+    "dont_token_g4": 715,
+    "TYPOGRAPHY_VARIANTS_max_page": 23,
+    "COMPONENT_VARIANTS_max_page": 17,
+    "SPACING_VARIANTS_max_page": 12,
+    "ALIGNMENT_ERRORS": 2,
+    "OVERFLOW": 0,
+    "BRAND_DEVIATIONS": 0,
+    "VISUAL_DENSITY_moyenne_pct": 27.3,
+    "WORDS_AT_FIRST_SCAN_moyenne": 112
+  },
+
+  "cross_media": {
+    "transpose_tel_quel": [
+      "rayon 0 absolu",
+      "filets a 2 epaisseurs, couleur suivant le registre du fond",
+      "les deux registres : slide claire = regle papier, slide sombre = regle carbone",
+      "un seul accent par slide",
+      "aucune iconographie",
+      "logo en texte reel, jamais un bitmap",
+      "les relations entre niveaux typographiques : jamais plus de 3 a 4 par ecran",
+      "rythme vertical en valeurs absolues"
+    ],
+    "ne_transpose_pas": [
+      "le plancher de 14px, qui est un plancher d'ecran et ne se lit pas en salle",
+      "le rapport de dominance titre sur chiffre (1,56x), trop faible pour une projection",
+      "la fragmentation des grilles",
+      "tout ce qui est mouvement"
+    ]
+  },
+
+  "handoff": {
+    "do_not_do": [
+      "reprendre --g4 comme gris secondaire",
+      "reprendre les 10 valeurs de letter-spacing du registre capitales",
+      "reprendre le rapport titre sur chiffre du site",
+      "ajouter une icone pour illustrer",
+      "utiliser le bleu comme signal de confiance"
+    ],
+    "open_visual_questions": [
+      "Fraunces a 3,9 % de presence reelle : la reinstaller ou la retirer du canon ?",
+      "Le mark [P.] et le wordmark sont deux dessins de la meme marque : en garder un ?",
+      "Plancher typographique pour un support projete, a deriver d'une mesure de lisibilite",
+      "Le site n'a aucune preuve visuelle : un deck peut-il en montrer que le site n'a pas ? Question pour Paul."
+    ],
+    "format_de_retour_ppt": ["PPT_FINDING", "CANON_VERSION", "SLIDE_CONTEXT", "PROBLEM", "MEASUREMENT", "WHY_CANON_FAILS_HERE", "PROPOSED_GENERAL_RULE"],
+    "reponses_possibles_site": ["ACCEPT_GENERAL_RULE", "REJECT", "PPT_SPECIFIC_EXCEPTION", "NEEDS_MORE_TESTING"]
+  }
+}
