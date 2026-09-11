@@ -162,7 +162,21 @@ export default async function HomePage() {
       <section className="home-s-brands">
         <div className="home-s-wrap">
           <K>{copy.brands.kicker}</K>
-          <p className="home-s-brands-list">{copy.brands.list}</p>
+          {/* Chaque référence est insécable. Mesuré à 390px : « A cosmetics /
+              maison », « A B2B energy / broker » et « A / consumer brand »
+              cassaient en deux lignes, et deux lignes se terminaient par le
+              séparateur au lieu d'une référence. Un mur de preuves qui se
+              coupe au milieu d'un nom ne se lit plus comme une liste, il se
+              lit comme un paragraphe — et une liste de références qui a l'air
+              d'un paragraphe n'a plus l'air d'une liste de références. */}
+          <p className="home-s-brands-list">
+            {copy.brands.list.split(" · ").map((reference, rang) => (
+              <span key={reference}>
+                {rang > 0 ? " · " : null}
+                <span>{reference}</span>
+              </span>
+            ))}
+          </p>
           <p>{copy.brands.note}</p>
         </div>
       </section>

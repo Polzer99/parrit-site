@@ -1793,6 +1793,13 @@ a.k:active {
   text-transform: uppercase;
 }
 
+/* Le retour à la ligne tombe entre deux références, jamais à l'intérieur de
+   l'une d'elles. Le span extérieur porte le séparateur et reste sécable, celui
+   de l'intérieur porte le nom et ne l'est pas. */
+.home-s-brands-list > span > span {
+  white-space: nowrap;
+}
+
 .home-s-brands-list + p {
   margin: 0;
   color: var(--g3);

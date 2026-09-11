@@ -63,6 +63,37 @@ export function gateNoms(texte) {
   return { ok: true };
 }
 
+/**
+ * Le Journal est écrit en anglais, et l'anglais ne met pas d'espace devant une
+ * ponctuation haute. Le français, si. Un article qui porte cette espace n'est
+ * donc pas un article mal relu : c'est un article PENSÉ EN FRANÇAIS puis
+ * traduit, et la typographie d'origine a survécu au passage.
+ *
+ * C'est pour ça que la règle est ici plutôt que dans un correcteur : elle
+ * n'attrape pas une faute de frappe, elle attrape une méthode d'écriture que la
+ * doctrine refuse — chaque langue s'écrit nativement, jamais ne se traduit.
+ *
+ * Relevé du 11/09/2026 : 20 occurrences sur exactement 5 des 20 articles. Les
+ * 15 écrits nativement en anglais en portaient zéro. La typographie signait
+ * l'origine du texte mieux que n'importe quelle relecture.
+ *
+ * On vise l'espace ordinaire et les espaces insécables, devant les quatre
+ * ponctuations concernées. Les deux-points d'un horaire ou d'une URL n'ont
+ * jamais d'espace avant, ils ne peuvent donc pas déclencher.
+ */
+export function gateTypographie(texte) {
+  const PONCTUATION_HAUTE = /[    ]([:;!?])/u;
+  const trouve = PONCTUATION_HAUTE.exec(texte);
+  if (trouve) {
+    const debut = Math.max(0, trouve.index - 40);
+    return {
+      ok: false,
+      motif: `typographie : espace avant « ${trouve[1]} », habitude française dans un texte anglais — « …${texte.slice(debut, trouve.index + 2)} »`,
+    };
+  }
+  return { ok: true };
+}
+
 export function gateRepetition(title, description, entreesExistantes) {
   const titleTokens = tokens(title);
   const descriptionTokens = tokens(description);

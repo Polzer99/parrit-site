@@ -5,7 +5,10 @@ import { K, RegistryLine } from "@/system/components";
 import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 
 const COMPANY = {
-  name: "PARRIT.AI", capital: "100 €", office: "3 avenue Otis Mygatt, 92500 Rueil-Malmaison, France", registration: "Nanterre 928 503 218", siret: "928 503 218 00010", vat: "FR48 928 503 218", publicationDirector: "Paul Larmaraud", email: "paul.larmaraud@parrit.ai",
+  name: "PARRIT.AI", capital: "100 €", office: "3 avenue Otis Mygatt, 92500 Rueil-Malmaison, France", /* Le greffe seul, sans la ville : les deux phrases qui consomment ce champ
+     nomment déjà Nanterre, et rendaient « de Nanterre sous le numéro Nanterre
+     928 503 218 ». Même doublon dans les deux langues. */
+  registration: "928 503 218", siret: "928 503 218 00010", vat: "FR48 928 503 218", publicationDirector: "Paul Larmaraud", email: "paul.larmaraud@parrit.ai",
 } as const;
 
 const DICT = {
