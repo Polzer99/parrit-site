@@ -122,9 +122,21 @@ body {
   cursor: pointer;
 }
 
+/* L'état actif de la langue suit la MÊME grammaire que l'état actif de la nav
+   de cette barre (.cmd-nav a.on) : la couleur, jamais un pavé. Il y avait deux
+   grammaires d'état actif dans un bandeau de 52px.
+
+   Et surtout : un pavé --paper rend ~14:1 contre la barre, quand l'action
+   « Votre prototype » rend 7,89:1 avec son fond d'accent. Un sélecteur de
+   langue criait donc deux fois plus fort que la seule action du bandeau, ce
+   qui casse la loi de l'accent — une action remplie est toujours l'objet le
+   plus contrasté de son fond. La barre ne porte plus qu'un seul objet rempli,
+   et c'est l'action.
+
+   L'état reste porté par aria-pressed pour qui n'a pas la couleur, et le
+   groupe reste identifié par la bordure du conteneur. */
 .locale-toggle button.on {
-  background: var(--paper);
-  color: var(--ink);
+  color: var(--paper);
 }
 
 .locale-toggle button:focus-visible {
@@ -1503,10 +1515,24 @@ a.k:active {
 }
 
 /* la couleur vient de la surface (voir le registre de libellé sombre plus haut),
-   cette règle ne porte plus que la géométrie */
+   cette règle ne porte plus que la géométrie
+
+   Une ligne de réassurance se centre sur le formulaire qu'elle rassure : posée
+   au bord gauche sous un bloc centré, elle lit comme une note oubliée plutôt
+   que comme une garantie.
+
+   L'interlettrage descend au pas réduit du registre, celui arbitré par Paul
+   lors du lot « échelle fermée ».
+   À .18em, ce libellé de 47 signes occupe 513px en français et pèse
+   optiquement plus lourd que l'action au-dessus de lui, alors qu'il est déjà
+   à 14px. La taille ne bouge pas : 14px est un plancher, pas une variable
+   d'ajustement. Quand un texte paraît trop gros au plancher, ce sont sa
+   chasse et sa graisse qu'on reprend, jamais son corps. */
 .quick-capture form > .k {
   display: block;
   margin-top: 12px;
+  text-align: center;
+  letter-spacing: .04em;
 }
 
 .quick-capture .ri-error {
