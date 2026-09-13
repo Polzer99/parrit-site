@@ -1,4 +1,3 @@
-import { spawnSync } from "node:child_process";
 import { readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
 
@@ -62,10 +61,3 @@ if (violations.length > 0) {
 }
 
 console.log(`Brand conformity passed (${ROOTS.join(", ")}).`);
-
-const falseClaims = spawnSync(process.execPath, ["scripts/false-claims-check.mjs"], {
-  stdio: "inherit",
-});
-if (falseClaims.status !== 0) {
-  process.exit(falseClaims.status ?? 1);
-}

@@ -230,8 +230,8 @@ async function poserCarteSuperApp(
     : "Your operating system · first sketch";
   const idee = contexte.idee
     ? (fr
-      ? ` Vous parliez de : "${contexte.idee}". L'esquisse part de là.`
-      : ` You mentioned: "${contexte.idee}". The sketch starts there.`)
+      ? ` Vous parliez de : "${contexte.idee}".`
+      : ` You mentioned: "${contexte.idee}".`)
     : "";
   const brouillon = fr
     ? `Bonjour,

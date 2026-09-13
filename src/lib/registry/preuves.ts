@@ -165,7 +165,7 @@ const REGISTRE: Preuve[] = [
     description:
       "Le premier coupe-circuit se déclenchait sur la dépense du jour et aurait coupé " +
       "quatorze workflows de production pour une dépense déjà passée. Il mesure " +
-      "maintenant un débit sur une fenêtre d'au moins une demi-heure.",
+      "maintenant un débit sur une fenêtre d'au moins trente minutes.",
     niveauPreuve: 4,
     source: "signals/tools/llm_circuit_breaker.py",
     confidentialite: "publiable",

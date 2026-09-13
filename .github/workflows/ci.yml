@@ -28,6 +28,9 @@ jobs:
       - name: npm run lint
         run: npm run lint
 
+      - name: npm run qa:claims:rev01
+        run: npm run qa:claims:rev01
+
       - name: npm run build
         run: npm run build
 

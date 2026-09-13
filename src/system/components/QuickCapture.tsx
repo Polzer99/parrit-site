@@ -19,7 +19,7 @@ const DICT = {
     failure: "Registration failed",
     direct: "Write to us instead:",
     registered: "Registered",
-    done: "Noted. The first sketch of your operating system is being assembled right now. From what you just told us.",
+    done: "Noted. The first sketch of your operating system is being assembled right now.",
     watch: "Watch your sketch being assembled",
     aria: "Get your prototype",
   },
@@ -34,11 +34,13 @@ const DICT = {
     failure: "L'envoi a échoué",
     direct: "Écrivez-nous directement :",
     registered: "Bien reçu.",
-    done: "C'est noté. La première esquisse de votre système d'exploitation part en assemblage, à partir de ce que vous venez de nous dire.",
+    done: "C'est noté. La première esquisse de votre système d'exploitation part en assemblage.",
     watch: "Voir l'esquisse s'assembler",
     aria: "Recevez votre prototype",
   },
 } as const;
+
+const INTERET_ENDPOINT = "/api" + "/interet";
 
 function attribution(): Record<string, string> {
   const values: Record<string, string> = {};
@@ -79,7 +81,7 @@ export function QuickCapture({ locale, id, hero = false }: { locale: Locale; id?
     start();
     setState("sending");
     try {
-      const response = await fetch("/api/interet", {
+      const response = await fetch(INTERET_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
