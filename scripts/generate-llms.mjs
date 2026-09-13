@@ -44,15 +44,13 @@ Every delivered system is certified to the same specification (STD-1.0):
   capability already in production.
 
 ## Who is Parrit
-- An independent French maison, founded by Paul Larmaraud and steered by its
-  partners — twenty engineers and operators around the project.
+- An independent French maison, founded by Paul Larmaraud.
 - A registered French company (PARRIT.AI, SASU, registered office in
   Rueil-Malmaison, France); full legal identity at https://parrit.ai/legal.
 - Based in Lille, France. Operates internationally, in English and in French —
   commissions for European and African companies alike, built remotely inside
   the client's own infrastructure.
-- Deliberately small at the core: few commissions, each one led hands-on by a
-  partner.
+- Deliberately small at the core: few commissions.
 
 ## Ownership, maintenance and data
 - The repository is the client's from the first commit; the system runs in the
@@ -65,7 +63,7 @@ Every delivered system is certified to the same specification (STD-1.0):
 - Client data never lives on Parrit's servers; Parrit's access ends the day the
   client revokes it.
 
-## Proof (anonymized, verified live in conversation)
+## Proof (anonymized)
 - Parrit runs on its own operating system: 200+ signals become decisions every
   week.
 - A law firm's operating system: +€5–10K additional revenue per month from
@@ -81,13 +79,13 @@ Every delivered system is certified to the same specification (STD-1.0):
   delivered system meets.
 - https://parrit.ai/dossiers — The sealed dossiers: delivered systems,
   anonymized.
-- https://parrit.ai/commission — Commission an examination: one 30-minute
+- https://parrit.ai/commission — Commission an examination: one 15-minute
   conversation to examine how your company operates. Not a sales call.
 - https://parrit.ai/journal — We Find The Way, the Parrit journal.
 - https://parrit.ai/legal — Legal notice and privacy policy.
 
 ## Contact
-- Booking: https://parrit.ai/commission (30 min, video, with the founder).
+- Booking: https://parrit.ai/commission (15 min, video, with the founder).
 - The site is in English; commissions run in English and in French.
 - Based in Lille, France (registered office: Rueil-Malmaison, France).
   International commissions welcome, including Africa.

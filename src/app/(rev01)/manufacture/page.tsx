@@ -18,7 +18,7 @@ const DICT = {
       [
         "01",
         "Examination",
-        "Thirty minutes with the founder, then a written diagnostic: your flows, your failure points, the first operation to rebuild. Before any commitment."
+        "Fifteen minutes with the founder, then a written diagnostic: your flows, your failure points, the first operation to rebuild. Before any commitment."
       ],
       [
         "02",
@@ -34,7 +34,7 @@ const DICT = {
     "note": "All three phases answer to the same Standard. Six criteria, identical for any system delivered.",
     "standard": "Read the Standard",
     "close": "The Examination comes first.",
-    "proof": "30 min · On a video call, with the founder",
+    "proof": "15 min · On a video call, with the founder",
     "button": "Let's talk",
     "status": "EVERY SYSTEM CERTIFIED TO THE STANDARD",
     "legal": "Legal"
@@ -51,7 +51,7 @@ const DICT = {
       [
         "01",
         "L'Examen",
-        "Trente minutes avec le fondateur, puis un diagnostic écrit : vos flux, vos points de défaillance, la première opération à reconstruire. Avant tout engagement."
+        "Quinze minutes avec le fondateur, puis un diagnostic écrit : vos flux, vos points de défaillance, la première opération à reconstruire. Avant tout engagement."
       ],
       [
         "02",
@@ -67,7 +67,7 @@ const DICT = {
     "note": "Les trois phases répondent au même Standard. Six critères, identiques pour tout système livré.",
     "standard": "Lire le Standard",
     "close": "Tout commence par un Examen.",
-    "proof": "30 min · En visio, avec le fondateur",
+    "proof": "15 min · En visio, avec le fondateur",
     "button": "Parlons-en",
     "status": "CHAQUE SYSTÈME CERTIFIÉ AU STANDARD",
     "legal": "Mentions légales"

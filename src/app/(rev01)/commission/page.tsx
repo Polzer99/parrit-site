@@ -7,9 +7,9 @@ import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 const DICT = {
   "en": {
     "title": "Every commission begins with an examination.",
-    "metaDescription": "Every commission begins with an examination: thirty minutes on a video call with the founder, a written scope or a clear no. Select a time.",
+    "metaDescription": "Every commission begins with an examination: fifteen minutes on a video call with the founder, a written scope or a clear no. Select a time.",
     "kicker": "Parrit / Commission",
-    "sub": "Thirty minutes on a video call with the founder.",
+    "sub": "Fifteen minutes on a video call with the founder.",
     "noteTitle": "You leave with a verdict.",
     "noteBody": "A written scope, or a clear no. Nothing is signed during the call; terms are set afterwards, in black and white.",
     "capture": "No slot that works? Leave your e-mail",
@@ -17,9 +17,9 @@ const DICT = {
   },
   "fr": {
     "title": "Toute commande commence par un examen.",
-    "metaDescription": "Toute commande commence par un examen : trente minutes en visio avec le fondateur, un périmètre écrit ou un non clair. Choisissez un créneau.",
+    "metaDescription": "Toute commande commence par un examen : quinze minutes en visio avec le fondateur, un périmètre écrit ou un non clair. Choisissez un créneau.",
     "kicker": "Parrit / Commande",
-    "sub": "Trente minutes en visio avec le fondateur.",
+    "sub": "Quinze minutes en visio avec le fondateur.",
     "noteTitle": "Vous repartez avec un verdict.",
     "noteBody": "Un périmètre écrit, ou un non clair. Rien ne se signe pendant l'appel ; les conditions se fixent après, noir sur blanc.",
     "capture": "Pas de créneau ? Laissez votre e-mail",

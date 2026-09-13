@@ -13,8 +13,7 @@ const DICT = {
     "sub": "What held and what broke, on AI systems inside companies. Dated and on the record.",
     "entry": "Journal / Entry",
     "subscription": "Journal / Subscription",
-    "delivery": "Every entry goes out by e-mail the day it appears.",
-    "unsubscribe": "One address is enough. Unsubscribe in one click."
+    "unsubscribe": "One address is enough."
   },
   "fr": {
     "title": "Le Journal",
@@ -22,8 +21,7 @@ const DICT = {
     "sub": "Ce qui a tenu, ce qui a cassé, sur des systèmes IA en entreprise. Daté et consigné.",
     "entry": "Journal / Entrée",
     "subscription": "Journal / Abonnement",
-    "delivery": "Chaque entrée arrive par e-mail le jour où elle paraît.",
-    "unsubscribe": "Une adresse suffit. Désabonnement en un clic."
+    "unsubscribe": "Une adresse suffit."
   }
 } as const;
 
@@ -60,7 +58,6 @@ export default async function JournalPage() {
 
         <section className="ri-stage r2-dark" aria-label={copy.subscription}>
           <K>{copy.subscription}</K>
-          <p>{copy.delivery}</p>
           <p>{copy.unsubscribe}</p>
           <NewsletterCapture locale={locale} />
         </section>

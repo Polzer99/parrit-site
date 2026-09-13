@@ -46,7 +46,7 @@ const DICT = {
     ],
     "seal": "Sign-off by your team, at delivery",
     "note": "STD-1.0 is not an accreditation. It is Parrit.ai's own bar. Hold us to it.",
-    "proof": "30 min · On a video call, with the founder",
+    "proof": "15 min · On a video call, with the founder",
     "button": "Let's talk"
   },
   "fr": {
@@ -89,7 +89,7 @@ const DICT = {
     ],
     "seal": "Recette signée par votre équipe, à la livraison",
     "note": "STD-1.0 n'est pas une accréditation. C'est l'exigence de Parrit.ai. Demandez-nous des comptes.",
-    "proof": "30 min · En visio, avec le fondateur",
+    "proof": "15 min · En visio, avec le fondateur",
     "button": "Parlons-en"
   }
 } as const;
