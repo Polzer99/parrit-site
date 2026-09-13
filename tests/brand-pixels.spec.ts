@@ -1,7 +1,7 @@
 import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
-const ICONS = ["/brand/favicon.svg", "/icon.png", "/apple-icon.png"];
+const ICONS = ["/brand/favicon.svg", "/icon.png", "/apple-icon.png", "/opengraph-image"];
 
 test.use({ serviceWorkers: "block" });
 

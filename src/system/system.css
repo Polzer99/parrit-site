@@ -20,8 +20,8 @@ body {
 }
 
 ::selection {
-  background: var(--accent-soft);
-  color: var(--ink);
+  background: var(--selection-bg);
+  color: var(--selection-fg);
 }
 
 button {
@@ -135,16 +135,22 @@ button {
   box-shadow: 0 40px 80px -40px rgba(10, 11, 12, .4);
 }
 
-:where(.instrument, .register.instrument) {
+:where(.instrument, .register.instrument, .cal-instrument) {
   --action-fill: var(--accent-on-dark);
   --action-pressed: var(--accent-on-dark-p);
   --action-text: var(--ink);
+  --accent-fg: var(--accent-on-dark);
+  --accent-line: var(--accent-on-dark);
+  --focus-color: var(--accent-dark-border);
+  --selection-bg: var(--accent-dark-surface);
+  --selection-fg: var(--paper);
+  --crit-dot: var(--accent-on-dark);
 }
 
-:where(.instrument, .register.instrument)::selection,
-:where(.instrument, .register.instrument) ::selection {
-  background: var(--accent-dark-surface);
-  color: var(--paper);
+:where(.instrument, .register.instrument, .cal-instrument)::selection,
+:where(.instrument, .register.instrument, .cal-instrument) ::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
 }
 
 .instrument-bar {
@@ -177,11 +183,7 @@ button {
 }
 
 .instrument-row.critical .instrument-value {
-  color: var(--accent-text);
-}
-
-.instrument .instrument-row.critical .instrument-value {
-  color: var(--accent-on-dark);
+  color: var(--accent-fg);
 }
 
 .instrument-label {
@@ -204,16 +206,9 @@ button {
   position: absolute;
   width: 14px;
   height: 14px;
-  border: 0 solid var(--accent-border);
+  border: 0 solid var(--accent-line);
   content: "";
   transition: opacity var(--move) var(--ease), transform var(--move) var(--ease);
-}
-
-.instrument .frame::before,
-.instrument .frame::after,
-.instrument .frame > .fx::before,
-.instrument .frame > .fx::after {
-  border-color: var(--accent-on-dark);
 }
 
 .frame::before {
@@ -328,21 +323,13 @@ button {
 }
 
 .st.crit {
-  color: var(--accent-text);
-}
-
-.instrument .st.crit {
-  color: var(--accent-on-dark);
+  color: var(--accent-fg);
 }
 
 .st.crit::before {
   width: 8px;
   height: 8px;
-  background: var(--accent-strong);
-}
-
-.instrument .st.crit::before {
-  background: var(--accent-on-dark);
+  background: var(--crit-dot);
 }
 
 .st.done::before {
@@ -409,12 +396,8 @@ button {
 }
 
 .hold:focus-visible {
-  outline: 2px solid var(--accent-border);
+  outline: 2px solid var(--focus-color);
   outline-offset: 2px;
-}
-
-.instrument .hold:focus-visible {
-  outline-color: var(--accent-dark-border);
 }
 
 .decision-card {
@@ -478,12 +461,8 @@ button {
 .seal::before {
   width: 9px;
   height: 9px;
-  background: var(--accent-strong);
+  background: var(--crit-dot);
   content: "";
-}
-
-.instrument .seal::before {
-  background: var(--accent-on-dark);
 }
 
 .dossier {
@@ -647,7 +626,7 @@ button {
 .cal-status i {
   width: 8px;
   height: 8px;
-  background: var(--accent-on-dark);
+  background: var(--crit-dot);
 }
 
 .cal-embed {

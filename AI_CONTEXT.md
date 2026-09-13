@@ -67,7 +67,7 @@ Le rouge sort de l'identité active. `src/system/tokens.css` porte le système d
 
 Les neuf tailles canoniques vivent dans `tokens.css` (`--t-*`, `--d-*`). Les 102 déclarations de `rev01.css` sont normalisées (dont une reste `inherit`), ainsi que les 19 tailles de `system.css` ; le corps hérite désormais de `--t-m`. Les valeurs absentes du tableau de la spec sont rattachées sans nouveau pas : 26 px à `--t-xl`, 34 px fixe et clamps plafonnés à 30/38 px à `--d-s`, plafonds 76 px à `--d-xl`, 15 px et code `.9em` à `--t-s`, 9.5/12.5 px à `--t-k`.
 
-Les anciens usages d'accent rouge des deux arbres actifs sont remplacés par les jetons bleus contextualisés : `--accent-text`/`--accent-strong` sur papier, `--accent-on-dark`/`--accent-dark-border` sur ink/carbon, et `--action-*` pour les actions remplies.
+Les usages CSS de rouge des deux arbres actifs passent par `--accent`/`--accent-p`, alias des valeurs brutes conservées. CalInline et la couleur conditionnelle des esquisses suivent ces alias. Aucun texte affiché ni valeur de couleur modifié.
 
 Tracking réduit pour `.wordmark`, `.cmd-nav a`, `.clock` entre 761 et 1000 px, `.doctrine-code .k` et `.r2-std-row .ps` (media query comprise). Les numéros mobiles `.r2-phase .no` gardent 14 px avec un padding horizontal de 12 px. Les tests d'aération existants ajoutent le plancher strict et les neuf valeurs attendues indépendantes des tokens, tolérance 0.5 px sur les pas fluides ; champs et placeholders inclus.
 

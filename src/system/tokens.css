@@ -30,6 +30,12 @@
   --action-fill: var(--accent-strong);
   --action-pressed: var(--accent-strong-p);
   --action-text: var(--paper);
+  --accent-fg: var(--accent-text);
+  --accent-line: var(--accent-border);
+  --focus-color: var(--accent-border);
+  --selection-bg: var(--accent-soft);
+  --selection-fg: var(--ink);
+  --crit-dot: var(--accent-strong);
 
   /* PC-03 · type tokens */
   --ui: "General Sans", "Helvetica Neue", Arial, sans-serif;

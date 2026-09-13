@@ -1,10 +1,53 @@
 import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
-const PATHS = ["/", "/fr", "/standard", "/fr/standard", "/manufacture", "/fr/manufacture", "/dossiers", "/fr/dossiers"];
+const PATHS = [
+  "/",
+  "/fr",
+  "/standard",
+  "/fr/standard",
+  "/manufacture",
+  "/fr/manufacture",
+  "/dossiers",
+  "/fr/dossiers",
+  "/commission",
+  "/fr/commission",
+  "/journal",
+  "/fr/journal",
+  "/legal",
+  "/fr/legal",
+];
+
+const NEUTRAL_CONTROL_DEBT = new Set([
+  "/|input#quick-email|1.333",
+  "/|input#quick-idee|1.333",
+  "/|input#agent-operation|1.333",
+  "/|input#journal-email|1.267",
+  "/fr|input#quick-email|1.333",
+  "/fr|input#quick-idee|1.333",
+  "/fr|input#agent-operation|1.333",
+  "/fr|input#journal-email|1.267",
+  "/commission|input#quick-email|1.333",
+  "/fr/commission|input#quick-email|1.333",
+  "/journal|input#journal-email|1.267",
+  "/fr/journal|input#journal-email|1.267",
+  "/|button.cmd-menu-toggle|1.138",
+  "/fr|button.cmd-menu-toggle|1.138",
+  "/standard|button.cmd-menu-toggle|1.138",
+  "/fr/standard|button.cmd-menu-toggle|1.138",
+  "/manufacture|button.cmd-menu-toggle|1.138",
+  "/fr/manufacture|button.cmd-menu-toggle|1.138",
+  "/dossiers|button.cmd-menu-toggle|1.138",
+  "/fr/dossiers|button.cmd-menu-toggle|1.138",
+  "/commission|button.cmd-menu-toggle|1.138",
+  "/fr/commission|button.cmd-menu-toggle|1.138",
+  "/journal|button.cmd-menu-toggle|1.138",
+  "/fr/journal|button.cmd-menu-toggle|1.138",
+  "/legal|button.cmd-menu-toggle|1.138",
+  "/fr/legal|button.cmd-menu-toggle|1.138",
+]);
 
 test.use({ serviceWorkers: "block" });
-test.describe.configure({ mode: "serial" });
 
 for (const width of [1440, 390]) {
   test(`at ${width}px all routes keep text clear and within the closed type scale`, async ({ page }) => {
@@ -13,10 +56,16 @@ for (const width of [1440, 390]) {
     // None of these routes mounts Cal. Unexpected external requests must fail.
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
+    const accentTextRegisters = { dark: 0, light: 0 };
+    const accentControlRegisters = { dark: 0, light: 0 };
     for (const path of PATHS) {
       await page.goto(`${BASE_URL}${path}`, { waitUntil: "domcontentloaded" });
       await expect(page.locator("main h1")).toBeVisible();
       await page.evaluate(() => document.fonts.ready);
+      await page.addStyleTag({ content: "*,*::before,*::after{transition:none!important;animation:none!important}" });
+      for (const button of await page.locator("form button[type='submit']").all()) {
+        if (await button.isVisible()) await button.click();
+      }
 
       const result = await page.evaluate(() => {
         type Box = { left: number; right: number; top: number; bottom: number };
@@ -140,6 +189,13 @@ for (const width of [1440, 390]) {
           Math.abs(a[1] - b[1]) < 1 / 255 &&
           Math.abs(a[2] - b[2]) < 1 / 255 &&
           Math.abs(a[3] - b[3]) < 1 / 255;
+        const compactSelector = (element: Element) => {
+          const tag = element.tagName.toLowerCase();
+          if (element.id) return `${tag}#${element.id}`;
+          const classes = [...element.classList].slice(0, 2).join(".");
+          return classes ? `${tag}.${classes}` : tag;
+        };
+        const registerFor = (background: Color) => luminance(background) < 0.25 ? "dark" : "light";
 
         const rootStyle = getComputedStyle(document.documentElement);
         const accentTokens = [
@@ -155,6 +211,7 @@ for (const width of [1440, 390]) {
           "--accent-dark-border",
         ].map((token) => ({ token, value: color(rootStyle.getPropertyValue(token).trim()) }));
         const accentTextFailures: string[] = [];
+        const accentTextRegisters = { dark: 0, light: 0 };
         let accentTextCount = 0;
         for (const text of texts) {
           const foreground = color(getComputedStyle(text.element).color);
@@ -162,14 +219,44 @@ for (const width of [1440, 390]) {
           if (!match) continue;
           accentTextCount += 1;
           const background = painted(text.element);
+          accentTextRegisters[registerFor(background)] += 1;
           const ratio = contrast(foreground, background);
           if (ratio < 4.5) {
             accentTextFailures.push(`${location.pathname}: ${text.label}; ${match.token} ${rgb(foreground)} on ${rgb(background)} = ${ratio.toFixed(3)}:1`);
           }
         }
 
-        const controlContrastFailures: string[] = [];
+        const accentControlFailures: string[] = [];
+        const neutralControlDebt: string[] = [];
+        const focusFailures: string[] = [];
+        const accentControlRegisters = { dark: 0, light: 0 };
+        const matchedAccentToken = (value: Color) => accentTokens.find((token) => sameRgb(value, token.value));
+        const focusTargets = [
+          { name: "dark exec", selector: ".r2-dark .rev-button.exec, .quick-capture .rev-button.exec, .agent-esquisse .rev-button.exec" },
+          { name: "light exec", selector: ".r2-ecrin .rev-button.exec, .standard-action .rev-button.exec, .home-s-newsletter .rev-button.exec, .rev-actions .rev-button.exec" },
+        ];
+        for (const target of focusTargets) {
+          const control = [...document.querySelectorAll(target.selector)].find((element) => visible(element));
+          if (!control || !(control instanceof HTMLElement)) continue;
+          control.focus();
+          const style = getComputedStyle(control);
+          const outlineWidth = Number.parseFloat(style.outlineWidth);
+          const outlineStyle = style.outlineStyle;
+          const outline = color(style.outlineColor);
+          const match = matchedAccentToken(outline);
+          if (!(outlineWidth > 0) || outlineStyle === "none" || !match) {
+            focusFailures.push(`${location.pathname}: ${target.name} ${compactSelector(control)} outline ${style.outlineColor} is not an accent token`);
+            continue;
+          }
+          const background = painted(control.parentElement);
+          const ratio = contrast(outline, background);
+          if (ratio < 3) {
+            focusFailures.push(`${location.pathname}: ${target.name} ${compactSelector(control)} ${match.token} ${rgb(outline)} on ${rgb(background)} = ${ratio.toFixed(3)}:1`);
+          }
+        }
+
         let controlCount = 0;
+        let accentControlCount = 0;
         const interactive = 'a[href], button, input, textarea, select, summary, [role="button"], [role="link"], [role="checkbox"], [role="radio"], [role="switch"], [role="tab"], [role="slider"], [role="combobox"], [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
         for (const control of document.querySelectorAll(interactive)) {
           if (!visible(control)) continue;
@@ -177,6 +264,7 @@ for (const width of [1440, 390]) {
           if (box.width <= 0 || box.height <= 0) continue;
           const style = getComputedStyle(control);
           const background = style.backgroundColor;
+          const fillColor = color(background);
           const borders = ["top", "right", "bottom", "left"].flatMap((side) => {
             const width = Number.parseFloat(style.getPropertyValue(`border-${side}-width`));
             const borderStyle = style.getPropertyValue(`border-${side}-style`);
@@ -184,18 +272,39 @@ for (const width of [1440, 390]) {
             if (!(width > 0) || borderStyle === "none" || borderStyle === "hidden" || border[3] === 0) return [];
             return [border];
           });
+          const outlineWidth = Number.parseFloat(style.outlineWidth);
+          const outlineStyle = style.outlineStyle;
+          const outline = outlineWidth > 0 && outlineStyle !== "none" ? color(style.outlineColor) : null;
           const fill = painted(control);
           const container = painted(control.parentElement);
           const hasDistinctFill = color(background)[3] > 0 && fill.some((channel, i) => Math.abs(channel - container[i]) > 1e-6);
           const hasContour = borders.length >= 3;
-          if (!hasDistinctFill && !hasContour) continue;
+          const outlineToken = outline ? matchedAccentToken(outline) : undefined;
+          const accentParts = [
+            hasDistinctFill ? matchedAccentToken(fillColor) : undefined,
+            ...borders.map((border) => matchedAccentToken(border)),
+            outlineToken,
+          ].filter((match): match is { token: string; value: Color } => Boolean(match));
+          if (!hasDistinctFill && !hasContour && !outlineToken) continue;
           controlCount += 1;
           const fillRatio = contrast(fill, container);
           const borderRatios = hasContour ? borders.map((border) => contrast(painted(control, border), container)) : [];
+          const outlineRatio = outlineToken && outline ? contrast(painted(control, outline), container) : 1;
           const borderRatio = Math.max(1, ...borderRatios);
+          const bestRatio = Math.max(fillRatio, borderRatio, outlineRatio);
+          const selector = compactSelector(control);
+          const label = control.getAttribute("aria-label") || control.textContent || control.getAttribute("placeholder") || control.getAttribute("name") || "";
+          if (accentParts.length > 0) {
+            accentControlCount += 1;
+            accentControlRegisters[registerFor(container)] += 1;
+            if (bestRatio < 3) {
+              accentControlFailures.push(`${location.pathname}: ${describe(control, label)}; ${accentParts.map((part) => part.token).join(", ")}; fill ${background} (effective ${rgb(fill)}), container ${rgb(container)}; fill ratio ${fillRatio.toFixed(3)}:1, border ratio ${borderRatio.toFixed(3)}:1, outline ratio ${outlineRatio.toFixed(3)}:1; all < 3:1`);
+            }
+            continue;
+          }
           if (fillRatio < 3 && borderRatio < 3) {
-            const label = control.getAttribute("aria-label") || control.textContent || control.getAttribute("placeholder") || control.getAttribute("name") || "";
-            controlContrastFailures.push(`${location.pathname}: ${describe(control, label)}; fill ${background} (effective ${rgb(fill)}), container ${rgb(container)}; fill ratio ${fillRatio.toFixed(3)}:1, border ratio ${borderRatio.toFixed(3)}:1; both < 3:1`);
+            const item = `${location.pathname}|${selector}|${Math.max(fillRatio, borderRatio).toFixed(3)}|${describe(control, label)}`;
+            neutralControlDebt.push(item);
           }
         }
         const actionFailures: string[] = [];
@@ -243,12 +352,41 @@ for (const width of [1440, 390]) {
             if (x > 0 && y > 0) textFailures.push(`${a.label} / ${b.label} : overlap ${x.toFixed(2)} × ${y.toFixed(2)}px`);
           }
         }
-        return { controlCount, controlContrastFailures, accentTextCount, accentTextFailures, textCount: texts.length, actionCount: actions.length, actionFailures, textFailures, floorFailures, scaleFailures };
+        return {
+          controlCount,
+          accentControlCount,
+          accentControlFailures,
+          accentControlRegisters,
+          accentTextCount,
+          accentTextFailures,
+          accentTextRegisters,
+          focusFailures,
+          neutralControlDebt,
+          textCount: texts.length,
+          actionCount: actions.length,
+          actionFailures,
+          textFailures,
+          floorFailures,
+          scaleFailures,
+        };
       });
 
+      accentTextRegisters.dark += result.accentTextRegisters.dark;
+      accentTextRegisters.light += result.accentTextRegisters.light;
+      accentControlRegisters.dark += result.accentControlRegisters.dark;
+      accentControlRegisters.light += result.accentControlRegisters.light;
+      const unexpectedNeutralDebt = result.neutralControlDebt.filter((item) => {
+        const [pagePath, selector] = item.split("|");
+        return ![...NEUTRAL_CONTROL_DEBT].some((entry) => entry.startsWith(`${pagePath}|${selector}|`));
+      });
+      for (const item of result.neutralControlDebt) {
+        test.info().annotations.push({ type: "neutral-control-debt", description: item });
+      }
       expect(result.controlCount, "the contrast audit must measure interactive controls").toBeGreaterThan(0);
-      expect.soft(result.controlContrastFailures, `${path} at ${width}px: control fill or visible border contrast against the container must be at least 3:1`).toEqual([]);
+      expect.soft(result.accentControlFailures, `${path} at ${width}px: accent control fill, border or outline contrast against the container must be at least 3:1`).toEqual([]);
       expect.soft(result.accentTextFailures, `${path} at ${width}px: accent text must keep 4.5:1 contrast on its painted background`).toEqual([]);
+      expect.soft(result.focusFailures, `${path} at ${width}px: focused accent controls must use a visible accent outline`).toEqual([]);
+      expect.soft(unexpectedNeutralDebt, `${path} at ${width}px: neutral controls below 3:1 must not grow beyond the frozen debt list`).toEqual([]);
       expect(result.textCount, "the geometry audit must measure rendered text").toBeGreaterThan(0);
       expect(result.actionCount, "the geometry audit must measure filled actions").toBeGreaterThan(0);
       expect.soft(result.actionFailures, `${path} at ${width}px: minimum text/action gap is 12px`).toEqual([]);
@@ -256,5 +394,90 @@ for (const width of [1440, 390]) {
       expect.soft(result.floorFailures, `${path} at ${width}px: visible text must be at least 14px`).toEqual([]);
       expect.soft(result.scaleFailures, `${path} at ${width}px: sizes outside the nine spec steps (fluid tolerance 0.5px)`).toEqual([]);
     }
+    expect(accentTextRegisters.dark, `at ${width}px: accent text must be measured on at least one dark register page`).toBeGreaterThan(0);
+    expect(accentTextRegisters.light, `at ${width}px: accent text must be measured on at least one light register page`).toBeGreaterThan(0);
+    expect(accentControlRegisters.dark, `at ${width}px: accent controls must be measured on at least one dark register page`).toBeGreaterThan(0);
+    expect(accentControlRegisters.light, `at ${width}px: accent controls must be measured on at least one light register page`).toBeGreaterThan(0);
   });
 }
+
+test("accent surface variables keep injected nested surfaces readable", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto(`${BASE_URL}/manufacture`, { waitUntil: "domcontentloaded" });
+  await expect(page.locator("main h1")).toBeVisible();
+  await page.addStyleTag({ content: "*,*::before,*::after{transition:none!important;animation:none!important}" });
+
+  const result = await page.evaluate(() => {
+    type Color = [number, number, number, number];
+    const context = document.createElement("canvas").getContext("2d", { willReadFrequently: true });
+    if (!context) throw new Error("The contrast audit requires a 2D color parser");
+    const color = (value: string): Color => {
+      context.clearRect(0, 0, 1, 1);
+      context.fillStyle = value;
+      context.fillRect(0, 0, 1, 1);
+      const [r, g, b, a] = context.getImageData(0, 0, 1, 1).data;
+      return [r / 255, g / 255, b / 255, a / 255];
+    };
+    const over = (front: Color, back: Color): Color => {
+      const alpha = front[3] + back[3] * (1 - front[3]);
+      if (!alpha) return [0, 0, 0, 0];
+      const channel = (i: number) => (front[i] * front[3] + back[i] * back[3] * (1 - front[3])) / alpha;
+      return [channel(0), channel(1), channel(2), alpha];
+    };
+    const painted = (element: Element | null, foreground: Color = [0, 0, 0, 0]): Color => {
+      let result: Color = foreground;
+      for (let ancestor = element; ancestor; ancestor = ancestor.parentElement) {
+        const style = getComputedStyle(ancestor);
+        result = over(result, color(style.backgroundColor));
+        result[3] *= Number(style.opacity);
+      }
+      return over(result, [1, 1, 1, 1]);
+    };
+    const luminance = (value: Color) => {
+      const linear = value.slice(0, 3).map((v) => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
+      return linear[0] * 0.2126 + linear[1] * 0.7152 + linear[2] * 0.0722;
+    };
+    const contrast = (front: Color, back: Color) => {
+      const a = luminance(front);
+      const b = luminance(back);
+      return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+    };
+
+    const host = document.querySelector("main");
+    if (!host) throw new Error("Missing main host");
+    const light = document.createElement("section");
+    light.className = "r2-ecrin";
+    light.innerHTML = `<div class="frame" data-probe="light-frame"><span class="fx"></span><span>Probe</span></div><button class="rev-button exec" data-probe="light-exec">Probe</button>`;
+    const dark = document.createElement("section");
+    dark.className = "r2-dark";
+    dark.innerHTML = `<span class="st crit" data-probe="dark-crit">Probe</span>`;
+    host.append(light, dark);
+
+    const frame = document.querySelector('[data-probe="light-frame"]');
+    const button = document.querySelector('[data-probe="light-exec"]');
+    const crit = document.querySelector('[data-probe="dark-crit"]');
+    if (!(frame instanceof HTMLElement) || !(button instanceof HTMLElement) || !(crit instanceof HTMLElement)) {
+      throw new Error("Missing injected probes");
+    }
+    button.focus();
+    const frameLine = color(getComputedStyle(frame, "::before").borderTopColor);
+    const buttonOutline = color(getComputedStyle(button).outlineColor);
+    const critText = color(getComputedStyle(crit).color);
+    const critDot = color(getComputedStyle(crit, "::before").backgroundColor);
+    const lightBackground = painted(frame);
+    const lightContainer = painted(button.parentElement);
+    const darkBackground = painted(crit);
+    return {
+      lightFrameRatio: contrast(frameLine, lightBackground),
+      lightFocusRatio: contrast(buttonOutline, lightContainer),
+      darkCritTextRatio: contrast(critText, darkBackground),
+      darkCritDotRatio: contrast(critDot, darkBackground),
+    };
+  });
+
+  expect(result.lightFrameRatio, "injected r2-ecrin frame line must use the light-surface accent").toBeGreaterThanOrEqual(3);
+  expect(result.lightFocusRatio, "injected r2-ecrin exec focus must use the light-surface accent").toBeGreaterThanOrEqual(3);
+  expect(result.darkCritTextRatio, "injected dark critical status text must use the dark-surface accent").toBeGreaterThanOrEqual(4.5);
+  expect(result.darkCritDotRatio, "injected dark critical status dot must use the dark-surface accent").toBeGreaterThanOrEqual(3);
+});

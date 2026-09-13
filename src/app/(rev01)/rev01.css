@@ -43,6 +43,12 @@ body {
   --action-fill: var(--accent-on-dark);
   --action-pressed: var(--accent-on-dark-p);
   --action-text: var(--ink);
+  --accent-fg: var(--accent-on-dark);
+  --accent-line: var(--accent-on-dark);
+  --focus-color: var(--accent-dark-border);
+  --selection-bg: var(--accent-dark-surface);
+  --selection-fg: var(--paper);
+  --crit-dot: var(--accent-on-dark);
 }
 
 .r2-ecrin,
@@ -51,6 +57,12 @@ body {
   --action-fill: var(--accent-strong);
   --action-pressed: var(--accent-strong-p);
   --action-text: var(--paper);
+  --accent-fg: var(--accent-text);
+  --accent-line: var(--accent-border);
+  --focus-color: var(--accent-border);
+  --selection-bg: var(--accent-soft);
+  --selection-fg: var(--ink);
+  --crit-dot: var(--accent-strong);
 }
 
 .instrument .decision-card,
@@ -58,38 +70,18 @@ body {
   --action-fill: var(--accent-on-dark);
   --action-pressed: var(--accent-on-dark-p);
   --action-text: var(--ink);
+  --accent-fg: var(--accent-on-dark);
+  --accent-line: var(--accent-on-dark);
+  --focus-color: var(--accent-dark-border);
+  --selection-bg: var(--accent-dark-surface);
+  --selection-fg: var(--paper);
+  --crit-dot: var(--accent-on-dark);
 }
 
-.cmdbar::selection,
-.cmdbar ::selection,
-.cmd-panel::selection,
-.cmd-panel ::selection,
-.opening::selection,
-.opening ::selection,
-.r2-dark:not(.ri-stage)::selection,
-.r2-dark:not(.ri-stage) ::selection,
-.instrument::selection,
-.instrument ::selection,
-.quick-capture::selection,
-.quick-capture ::selection,
-.agent-esquisse::selection,
-.agent-esquisse ::selection,
-.ri::selection,
-.ri ::selection,
-.r2-phone::selection,
-.r2-phone ::selection,
-.r2-phase::selection,
-.r2-phase ::selection {
-  background: var(--accent-dark-surface);
-  color: var(--paper);
-}
-
-.r2-ecrin::selection,
-.r2-ecrin ::selection,
-.home-s-newsletter::selection,
-.home-s-newsletter ::selection {
-  background: var(--accent-soft);
-  color: var(--ink);
+.rev-page::selection,
+.rev-page ::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
 }
 
 /* Cache visuellement le contenu tout en le conservant pour les technologies d’assistance. */
@@ -327,14 +319,14 @@ body {
 :is(.opening, .r2-dark:not(.ri-stage), .instrument, .quick-capture, .agent-esquisse, .ri, .r2-phone) .frame::after,
 :is(.opening, .r2-dark:not(.ri-stage), .instrument, .quick-capture, .agent-esquisse, .ri, .r2-phone) .frame > .fx::before,
 :is(.opening, .r2-dark:not(.ri-stage), .instrument, .quick-capture, .agent-esquisse, .ri, .r2-phone) .frame > .fx::after {
-  border-color: var(--accent-on-dark);
+  border-color: var(--accent-line);
 }
 
 :is(.r2-ecrin, .home-s-newsletter) .frame::before,
 :is(.r2-ecrin, .home-s-newsletter) .frame::after,
 :is(.r2-ecrin, .home-s-newsletter) .frame > .fx::before,
 :is(.r2-ecrin, .home-s-newsletter) .frame > .fx::after {
-  border-color: var(--accent-border);
+  border-color: var(--accent-line);
 }
 
 /* revue cohérence Paul 15/08 : UNE seule grille sur tout le site — mêmes cotes
@@ -442,16 +434,16 @@ body {
 }
 
 .rev-button:focus-visible {
-  outline: 2px solid var(--accent-border);
+  outline: 2px solid var(--focus-color);
   outline-offset: 2px;
 }
 
 :is(.r2-dark:not(.ri-stage), .instrument, .quick-capture, .agent-esquisse, .ri, .r2-phone) .rev-button:focus-visible {
-  outline-color: var(--accent-dark-border);
+  outline-color: var(--focus-color);
 }
 
 :is(.r2-ecrin, .home-s-newsletter) .rev-button:focus-visible {
-  outline-color: var(--accent-border);
+  outline-color: var(--focus-color);
 }
 
 @media (max-width: 760px) {
@@ -535,7 +527,7 @@ body {
 }
 
 .operating-loop h3.critical {
-  color: var(--accent-text);
+  color: var(--accent-fg);
 }
 
 .operating-loop p {
@@ -908,7 +900,7 @@ body {
   gap: var(--s1);
   margin-top: var(--s2);
   padding: var(--s2);
-  border: 1.5px solid var(--accent-border);
+  border: 1.5px solid var(--accent-line);
   background: var(--paper2);
   color: var(--ink);
   font-family: var(--mono);
@@ -919,7 +911,7 @@ body {
 }
 
 .launch-placeholder strong {
-  color: var(--accent-text);
+  color: var(--accent-fg);
   font-size: var(--t-k);
 }
 
@@ -2252,7 +2244,7 @@ a.k:active {
   height: 7px;
   flex-shrink: 0;
   margin: 0 0 .4em;
-  background: var(--accent-on-dark);
+  background: var(--crit-dot);
 }
 
 .r2-registre-note {
@@ -2416,7 +2408,7 @@ a.k:active {
 }
 
 .r2-phase .no {
-  color: var(--accent-on-dark);
+  color: var(--accent-fg);
   font-family: var(--mono);
   font-size: var(--t-k);
   letter-spacing: .1em;
@@ -2581,7 +2573,7 @@ a.k:active {
   bottom: -.02em;
   width: .26em;
   height: auto;
-  border: 2px solid var(--accent-on-dark);
+  border: 2px solid var(--accent-line);
 }
 
 .r2-hero h1 .frame::before {
@@ -2786,7 +2778,7 @@ a.k:active {
 
 .ri input:focus-visible,
 .ri select:focus-visible {
-  outline: 2px solid var(--accent-dark-border);
+  outline: 2px solid var(--focus-color);
   outline-offset: 2px;
 }
 
@@ -2805,7 +2797,7 @@ a.k:active {
 .ri-check input {
   width: 15px;
   height: 15px;
-  accent-color: var(--accent-on-dark);
+  accent-color: var(--action-fill);
 }
 
 .ri-foot {
@@ -2816,7 +2808,7 @@ a.k:active {
 }
 
 .ri-error {
-  color: var(--accent-on-dark);
+  color: var(--accent-fg);
   font-size: var(--t-s);
 }
 
