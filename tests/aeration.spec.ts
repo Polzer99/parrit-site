@@ -97,6 +97,107 @@ for (const width of [1440, 390]) {
           const background = getComputedStyle(element).backgroundColor;
           return background !== "transparent" && !/^(?:rgba\(.*,[ ]*|.*\/[ ]*)0(?:\.0+)?\s*\)$/.test(background);
         });
+        // Canvas resolves computed CSS colors to sRGB; it never loads an image.
+        type Color = [number, number, number, number];
+        const context = document.createElement("canvas").getContext("2d", { willReadFrequently: true });
+        if (!context) throw new Error("The contrast audit requires a 2D color parser");
+        const color = (value: string): Color => {
+          context.clearRect(0, 0, 1, 1);
+          context.fillStyle = value;
+          context.fillRect(0, 0, 1, 1);
+          const [r, g, b, a] = context.getImageData(0, 0, 1, 1).data;
+          return [r / 255, g / 255, b / 255, a / 255];
+        };
+        const over = (front: Color, back: Color): Color => {
+          const alpha = front[3] + back[3] * (1 - front[3]);
+          if (!alpha) return [0, 0, 0, 0];
+          const channel = (i: number) => (front[i] * front[3] + back[i] * back[3] * (1 - front[3])) / alpha;
+          return [channel(0), channel(1), channel(2), alpha];
+        };
+        const painted = (element: Element | null, foreground: Color = [0, 0, 0, 0]): Color => {
+          let result: Color = foreground;
+          for (let ancestor = element; ancestor; ancestor = ancestor.parentElement) {
+            const style = getComputedStyle(ancestor);
+            if (style.backgroundImage !== "none") throw new Error(`Contrast: unsupported image on ${describe(ancestor, "")}`);
+            const backgroundClippedAtBorder = ancestor === element && foreground[3] > 0 && style.backgroundClip !== "border-box";
+            if (!backgroundClippedAtBorder) result = over(result, color(style.backgroundColor));
+            result[3] *= Number(style.opacity);
+          }
+          return over(result, [1, 1, 1, 1]);
+        };
+        const luminance = (value: Color) => {
+          const linear = value.slice(0, 3).map((v) => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
+          return linear[0] * 0.2126 + linear[1] * 0.7152 + linear[2] * 0.0722;
+        };
+        const contrast = (front: Color, back: Color) => {
+          const a = luminance(front);
+          const b = luminance(back);
+          return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+        };
+        const rgb = (value: Color) => `rgb(${value.slice(0, 3).map((v) => Math.round(v * 255)).join(", ")})`;
+        const sameRgb = (a: Color, b: Color) =>
+          Math.abs(a[0] - b[0]) < 1 / 255 &&
+          Math.abs(a[1] - b[1]) < 1 / 255 &&
+          Math.abs(a[2] - b[2]) < 1 / 255 &&
+          Math.abs(a[3] - b[3]) < 1 / 255;
+
+        const rootStyle = getComputedStyle(document.documentElement);
+        const accentTokens = [
+          "--accent-surface",
+          "--accent-soft",
+          "--accent-border",
+          "--accent-strong",
+          "--accent-strong-p",
+          "--accent-text",
+          "--accent-on-dark",
+          "--accent-on-dark-p",
+          "--accent-dark-surface",
+          "--accent-dark-border",
+        ].map((token) => ({ token, value: color(rootStyle.getPropertyValue(token).trim()) }));
+        const accentTextFailures: string[] = [];
+        let accentTextCount = 0;
+        for (const text of texts) {
+          const foreground = color(getComputedStyle(text.element).color);
+          const match = accentTokens.find((token) => sameRgb(foreground, token.value));
+          if (!match) continue;
+          accentTextCount += 1;
+          const background = painted(text.element);
+          const ratio = contrast(foreground, background);
+          if (ratio < 4.5) {
+            accentTextFailures.push(`${location.pathname}: ${text.label}; ${match.token} ${rgb(foreground)} on ${rgb(background)} = ${ratio.toFixed(3)}:1`);
+          }
+        }
+
+        const controlContrastFailures: string[] = [];
+        let controlCount = 0;
+        const interactive = 'a[href], button, input, textarea, select, summary, [role="button"], [role="link"], [role="checkbox"], [role="radio"], [role="switch"], [role="tab"], [role="slider"], [role="combobox"], [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
+        for (const control of document.querySelectorAll(interactive)) {
+          if (!visible(control)) continue;
+          const box = control.getBoundingClientRect();
+          if (box.width <= 0 || box.height <= 0) continue;
+          const style = getComputedStyle(control);
+          const background = style.backgroundColor;
+          const borders = ["top", "right", "bottom", "left"].flatMap((side) => {
+            const width = Number.parseFloat(style.getPropertyValue(`border-${side}-width`));
+            const borderStyle = style.getPropertyValue(`border-${side}-style`);
+            const border = color(style.getPropertyValue(`border-${side}-color`));
+            if (!(width > 0) || borderStyle === "none" || borderStyle === "hidden" || border[3] === 0) return [];
+            return [border];
+          });
+          const fill = painted(control);
+          const container = painted(control.parentElement);
+          const hasDistinctFill = color(background)[3] > 0 && fill.some((channel, i) => Math.abs(channel - container[i]) > 1e-6);
+          const hasContour = borders.length >= 3;
+          if (!hasDistinctFill && !hasContour) continue;
+          controlCount += 1;
+          const fillRatio = contrast(fill, container);
+          const borderRatios = hasContour ? borders.map((border) => contrast(painted(control, border), container)) : [];
+          const borderRatio = Math.max(1, ...borderRatios);
+          if (fillRatio < 3 && borderRatio < 3) {
+            const label = control.getAttribute("aria-label") || control.textContent || control.getAttribute("placeholder") || control.getAttribute("name") || "";
+            controlContrastFailures.push(`${location.pathname}: ${describe(control, label)}; fill ${background} (effective ${rgb(fill)}), container ${rgb(container)}; fill ratio ${fillRatio.toFixed(3)}:1, border ratio ${borderRatio.toFixed(3)}:1; both < 3:1`);
+          }
+        }
         const actionFailures: string[] = [];
         for (const action of actions) {
           // Only the action's painted box uses element geometry. Text always uses Range.
@@ -142,9 +243,12 @@ for (const width of [1440, 390]) {
             if (x > 0 && y > 0) textFailures.push(`${a.label} / ${b.label} : overlap ${x.toFixed(2)} × ${y.toFixed(2)}px`);
           }
         }
-        return { textCount: texts.length, actionCount: actions.length, actionFailures, textFailures, floorFailures, scaleFailures };
+        return { controlCount, controlContrastFailures, accentTextCount, accentTextFailures, textCount: texts.length, actionCount: actions.length, actionFailures, textFailures, floorFailures, scaleFailures };
       });
 
+      expect(result.controlCount, "the contrast audit must measure interactive controls").toBeGreaterThan(0);
+      expect.soft(result.controlContrastFailures, `${path} at ${width}px: control fill or visible border contrast against the container must be at least 3:1`).toEqual([]);
+      expect.soft(result.accentTextFailures, `${path} at ${width}px: accent text must keep 4.5:1 contrast on its painted background`).toEqual([]);
       expect(result.textCount, "the geometry audit must measure rendered text").toBeGreaterThan(0);
       expect(result.actionCount, "the geometry audit must measure filled actions").toBeGreaterThan(0);
       expect.soft(result.actionFailures, `${path} at ${width}px: minimum text/action gap is 12px`).toEqual([]);

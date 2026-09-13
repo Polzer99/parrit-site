@@ -104,7 +104,7 @@ export function Opening({ locale }: { locale: Locale }) {
           {copy.connecting} <span className="ok-line">{copy.systems}</span>
         </div>
         <div className={visibleLines >= 4 ? "on" : undefined}>
-          {copy.scanning} <span className="red-line">{copy.found}</span>
+          {copy.scanning} <span className="accent-line">{copy.found}</span>
         </div>
         <div className={`ok-line${visibleLines >= 5 ? " on" : ""}`}>{copy.ready}</div>
       </div>

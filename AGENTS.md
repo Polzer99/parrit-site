@@ -34,7 +34,7 @@ La DA active est celle du site en production. Trois sources, dans cet ordre :
 
 | Source | Rôle |
 |---|---|
-| `docs/site-prod-rev01/parrit-command-center-rev03.html` | **la LOI** — prototype approuvé par Paul (Brand Command Center REV 03) : registres, red law, composants, cotes exactes |
+| `docs/site-prod-rev01/parrit-command-center-rev03.html` | **la LOI** — prototype approuvé par Paul (Brand Command Center REV 03) : registres, loi de l'accent, composants, cotes exactes |
 | `src/system/tokens.css` | **les valeurs**. Un hex écrit ailleurs est un bug (gate `npm run qa:brand:rev01`) |
 | `src/system/` + `src/app/(rev01)/` | les composants et pages canon |
 
@@ -43,10 +43,14 @@ Compléments : `docs/site-prod-rev01/REV03-DELTAS.md` (deltas appliqués),
 
 - **Palette** : ink `#0A0B0C` · carbon `#131518` · carbon2 `#1A1D21` · paper `#F1F2F3` ·
   paper2 `#FAFAFB` · rule-l `#DDE0E3` · rule-d `#24282D` · g2 `#9CA1A6` · g3 `#55595E` ·
-  g4 `#6F757B` · **Parrit Red `#E10600`** (pressé `#B80500`) · body-l `#26282B` · label-d `#C7CBCF`.
+  g4 `#6F757B` · body-l `#26282B` · label-d `#C7CBCF` · accent-surface `#E3EEFD` ·
+  accent-soft `#D0E3FB` · accent-border `#2F82EE` · accent-strong `#1268D9` ·
+  accent-strong-p `#0F56B3` · accent-text `#0F56B3` · accent-on-dark `#84B5F5` ·
+  accent-on-dark-p `#68A4F3` · accent-dark-surface `#19293E` · accent-dark-border `#4C93F0`.
   Deux registres seulement : documents blanc-froid (l'institution) et instruments carbone (le produit).
-- **Red law** : le rouge = décision requise, action qui s'exécute, état critique, objet
-  sélectionné, commission scellée. JAMAIS décoratif (pas de titre rouge, pas de fond, pas de logo).
+- **Loi de l'accent** : l'accent = décision requise, action qui s'exécute, état critique, objet
+  sélectionné, commission scellée. JAMAIS décoratif. Un jeton clair n'est jamais peint sur fond sombre,
+  ni un jeton sombre sur fond clair.
 - **Typo T3 (arbitrage Paul 15/08, banc d'essai)** : **General Sans** (corps/UI, Fontshare,
   gratuite commerciale) + **JetBrains Mono** (registre technique, OFL) + **Fraunces variable**
   (OFL) — Fraunces RÉSERVÉE aux grands titres éditoriaux REV 02 (`--ed`, opsz 40, SOFT 0,
@@ -55,14 +59,14 @@ Compléments : `docs/site-prod-rev01/REV03-DELTAS.md` (deltas appliqués),
   Registre « k » : Mono 10px, letter-spacing .18em, uppercase.
 - **Formes** : radius 0 partout (sauf mockups téléphone) · zéro ombre sauf l'unique ombre
   d'instrument `0 40px 80px -40px rgba(10,11,12,.4)` · zéro dégradé · statuts = forme + couleur.
-- **Logo REV 04** : mark live-text `[P.]` JetBrains Mono 600, point rouge ; wordmark live-text
-  `PARRIT.AI` (point rouge). Fichiers : `docs/site-prod-rev01/logo-rev04/` + `public/brand/`.
+- **Logo REV 04** : mark live-text `[P.]` JetBrains Mono 600, point d'accent ; wordmark live-text
+  `PARRIT.AI` (point d'accent). Fichiers : `docs/site-prod-rev01/logo-rev04/` + `public/brand/`.
 - **L'enveloppe fait partie du canon** : la command bar sombre (fixe 52px — wordmark,
   registre `SYSTEM PARRIT.AI · REV 01 · STATUS OPERATIONAL`, horloge live) est sur TOUTES les
   pages, et la séquence d'ouverture (`Opening.tsx` : boot log → statement avec Parrit Frame)
   joue à **chaque arrivée** sur `/` (décision Paul 14/08 — pas de flag de session ; skip au
   clic/scroll/touche, skip total en `prefers-reduced-motion`, SSR intact dessous).
-- **Éléments propriétaires** : le Parrit Frame (crochets rouges = objet en attente de décision),
+- **Éléments propriétaires** : le Parrit Frame (crochets d'accent = objet en attente de décision),
   la registry line (`PARRIT / SITE · REV 01 · 2026`), le Standard en spécification PS-01…PS-06.
 
 ### Règle de création — non négociable
