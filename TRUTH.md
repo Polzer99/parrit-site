@@ -8,9 +8,9 @@
 
 ## 1. Ce qu'est Parrit (positionnement)
 
-Parrit.ai est une **maison française indépendante**, fondée par Paul Larmaraud et menée par ses associés, qui conçoit et construit des **systèmes d'exploitation d'entreprise**. Un seul système pour comprendre, décider et agir à l'échelle de l'entreprise, construit pour une entreprise à la fois. Une commande, pas un abonnement.
+Parrit.ai est une **maison française indépendante**, fondée par Paul Larmaraud, qui conçoit et construit des **systèmes d'exploitation d'entreprise**. Un seul système pour comprendre, décider et agir à l'échelle de l'entreprise, construit pour une entreprise à la fois. Une commande, pas un abonnement.
 
-Parrit livre la chose qui tourne, pas un deck. Chaque commande est menée en personne par un associé et répond au Standard Parrit.
+Parrit livre la chose qui tourne, pas un deck. Chaque commande répond au Standard Parrit.
 
 ## 2. North stars (ce que la conversion doit servir)
 
@@ -20,10 +20,10 @@ Parrit livre la chose qui tourne, pas un deck. Chaque commande est menée en per
 > Le rôle du SITE dans ce système = **transformer l'attention d'un dirigeant en RDV qualifié avec Paul.** C'est la métrique de conversion nord. Tout le reste (trafic, GEO, contenu) est en amont.
 
 **CTA et parcours de conversion** (spec validée du 06/09/2026) :
-- Hero : `QuickCapture` recueille l'e-mail et, uniquement dans sa variante hero, une idée optionnelle (`idee`, 300 caractères maximum) pour préparer le prototype.
+- Hero : `QuickCapture` recueille l'e-mail et, uniquement dans sa variante hero, une idée optionnelle (`idee`, 300 caractères maximum), stockée mais sans effet sur l'esquisse rendue.
 - Juste après le hero : `AgentEsquisse` propose un échange déterministe local (Signal / Décision / Action), puis renvoie vers la capture `#prototype`.
-- « Parlons-en » / « Let's talk » mène à `/commission` : Examen de 30 minutes via Cal.com, puis `QuickCapture` standard si aucun créneau ne convient.
-- Journal : `NewsletterCapture` pour recevoir chaque entrée par e-mail. La home propose également cet abonnement.
+- « Parlons-en » / « Let's talk » mène à `/commission` : Examen de 15 minutes via Cal.com, puis `QuickCapture` standard si aucun créneau ne convient.
+- Journal : `NewsletterCapture` recueille une adresse ; aucun envoi automatique du Journal n'existe dans le code. La home propose également cet abonnement.
 - `RegisterInterest` reste dans le code mais n'est plus utilisé sur les pages.
 
 ## 3. ICP (à qui on parle)

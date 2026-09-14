@@ -8,10 +8,10 @@ import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system
 const DICT = {
   "en": {
     "metaTitle": "The Dossiers",
-    "metaDescription": "Systems commissioned by large accounts, SMEs and mid-sized companies, anonymized on principle. Figures verified live, dossier by dossier.",
+    "metaDescription": "Systems commissioned by large accounts, SMEs and mid-sized companies, anonymized on principle.",
     "kicker": "Parrit / The Dossiers",
     "title": "The dossiers open in conversation.",
-    "sub": "Systems commissioned by large accounts, SMEs and mid-sized companies. Anonymized on principle. The figures are verified live.",
+    "sub": "Systems commissioned by large accounts, SMEs and mid-sized companies. Anonymized on principle.",
     "dossiers": [
       {
         "ref": "Dossier 26-003 · A consumer brand",
@@ -22,7 +22,7 @@ const DICT = {
       {
         "ref": "Dossier 26-002 · A law firm",
         "title": "€5K to €10K more per month, from re-engaged case files.",
-        "body": "Client intake and follow-ups, rebuilt on the firm's own infrastructure. Measured on the capabilities already live.",
+        "body": "Client intake and follow-ups, rebuilt on the firm's own infrastructure.",
         "seal": "Under construction · First capabilities live"
       },
       {
@@ -36,15 +36,15 @@ const DICT = {
     "registryTitle": "Other dossiers remain sealed.",
     "note": "They are read in a meeting, with the client's consent.",
     "close": "The next dossier could be yours.",
-    "proof": "30 min · An examination, with the founder",
+    "proof": "15 min · An examination, with the founder",
     "button": "Let's talk"
   },
   "fr": {
     "metaTitle": "Les dossiers",
-    "metaDescription": "Des systèmes commandés par des grands comptes, des PME et des ETI, anonymisés par principe. Les chiffres se vérifient en direct, dossier par dossier.",
+    "metaDescription": "Des systèmes commandés par des grands comptes, des PME et des ETI, anonymisés par principe.",
     "kicker": "Parrit / Les dossiers",
     "title": "Les dossiers s'ouvrent de vive voix.",
-    "sub": "Des systèmes commandés par des grands comptes, des PME et des ETI. Anonymisés par principe. Les chiffres se vérifient en direct.",
+    "sub": "Des systèmes commandés par des grands comptes, des PME et des ETI. Anonymisés par principe.",
     "dossiers": [
       {
         "ref": "Dossier 26-003 · Une marque grand public",
@@ -55,7 +55,7 @@ const DICT = {
       {
         "ref": "Dossier 26-002 · Un cabinet d'avocats",
         "title": "De 5 à 10 K€ de plus par mois, sur des dossiers relancés.",
-        "body": "L'arrivée des clients et les relances, refondues sur l'infrastructure du cabinet. Chiffre mesuré sur les briques en service.",
+        "body": "L'arrivée des clients et les relances, refondues sur l'infrastructure du cabinet.",
         "seal": "En construction · Premières briques en service"
       },
       {
@@ -69,7 +69,7 @@ const DICT = {
     "registryTitle": "D'autres dossiers restent scellés.",
     "note": "Ils se lisent en rendez-vous, avec l'accord du client.",
     "close": "Le prochain dossier pourrait être le vôtre.",
-    "proof": "30 min · Un examen, avec le fondateur",
+    "proof": "15 min · Un examen, avec le fondateur",
     "button": "Parlons-en"
   }
 } as const;

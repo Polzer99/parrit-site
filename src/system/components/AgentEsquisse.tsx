@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import { track } from "@/lib/analytics";
-import { ENGAGEMENTS } from "@/system/engagements";
 import type { Locale } from "@/system/locale";
 import { K } from "./K";
 
@@ -55,8 +54,7 @@ function scenarioFor(phrase: string): Scenario {
 
 export function AgentEsquisse({ locale }: { locale: Locale }) {
   const copy = DICT[locale];
-  const preparation = ENGAGEMENTS[locale].prepareALaMain;
-  const close = `${copy.close} ${preparation.charAt(0).toLowerCase()}${preparation.slice(1)}.`;
+  const close = `${copy.close}.`;
   const [phrase, setPhrase] = useState("");
   const [exchange, setExchange] = useState<{ phrase: string; scenario: Scenario } | null>(null);
   const tracked = useRef(false);

@@ -230,15 +230,15 @@ async function poserCarteSuperApp(
     : "Your operating system · first sketch";
   const idee = contexte.idee
     ? (fr
-      ? ` Vous parliez de : "${contexte.idee}". L'esquisse part de là.`
-      : ` You mentioned: "${contexte.idee}". The sketch starts there.`)
+      ? ` Vous parliez de : "${contexte.idee}".`
+      : ` You mentioned: "${contexte.idee}".`)
     : "";
   const brouillon = fr
     ? `Bonjour,
 
 Vous avez laissé votre adresse sur parrit.ai.${idee} Voici la première esquisse de votre système : ${sketchUrl}
 
-Un examen de 30 minutes, en visio, la précise :
+Un examen de 15 minutes, en visio, la précise :
 https://parrit.ai/commission
 
 Paul Larmaraud · Parrit.ai`
@@ -246,7 +246,7 @@ Paul Larmaraud · Parrit.ai`
 
 You left your address on parrit.ai.${idee} Here is the first sketch of your system: ${sketchUrl}
 
-A 30-minute examination, on a video call, sharpens it:
+A 15-minute examination, on a video call, sharpens it:
 https://parrit.ai/commission
 
 Paul Larmaraud · Parrit.ai`;

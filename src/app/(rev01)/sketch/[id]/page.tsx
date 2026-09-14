@@ -148,8 +148,8 @@ export default async function SketchPage({ params }: { params: Promise<{ id: str
         </section>
 
         <section className="r2-close" aria-label="Commission">
-          <h2>Thirty minutes turns this sketch into a scope.</h2>
-          <p className="proof">30 MIN · AN EXAMINATION, NOT A SALES CALL</p>
+          <h2>Fifteen minutes turns this sketch into a scope.</h2>
+          <p className="proof">15 MIN · AN EXAMINATION, NOT A SALES CALL</p>
           <Link className="rev-button exec" href="/commission">
             Let’s talk
           </Link>

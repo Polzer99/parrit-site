@@ -13,7 +13,7 @@ const DICT = {
     invalid: "Enter a valid work e-mail to receive the journal.",
     failure: "Registration failed",
     direct: "Write to us instead:",
-    done: "Noted. The journal arrives by e-mail.",
+    done: "Noted.",
     aria: "Receive the journal",
   },
   fr: {
@@ -23,7 +23,7 @@ const DICT = {
     invalid: "Indiquez un e-mail professionnel valide pour recevoir le journal.",
     failure: "L'envoi a échoué",
     direct: "Écrivez-nous directement :",
-    done: "Bien reçu. Le journal arrive par e-mail.",
+    done: "Bien reçu.",
     aria: "Recevoir le journal",
   },
 } as const;
