@@ -19,43 +19,47 @@ const PATHS = [
   "/fr/legal",
 ];
 
-const NEUTRAL_CONTROL_DEBT_BASE = [
-  "/|input#quick-email|1.333",
-  "/|input#quick-idee|1.333",
-  "/|input#agent-operation|1.333",
-  "/|input#journal-email|1.267",
-  "/fr|input#quick-email|1.333",
-  "/fr|input#quick-idee|1.333",
-  "/fr|input#agent-operation|1.333",
-  "/fr|input#journal-email|1.267",
-  "/commission|input#quick-email|1.333",
-  "/fr/commission|input#quick-email|1.333",
-  "/journal|input#journal-email|1.267",
-  "/fr/journal|input#journal-email|1.267",
-  "/|button.cmd-menu-toggle|1.138",
-  "/fr|button.cmd-menu-toggle|1.138",
-  "/standard|button.cmd-menu-toggle|1.138",
-  "/fr/standard|button.cmd-menu-toggle|1.138",
-  "/manufacture|button.cmd-menu-toggle|1.138",
-  "/fr/manufacture|button.cmd-menu-toggle|1.138",
-  "/dossiers|button.cmd-menu-toggle|1.138",
-  "/fr/dossiers|button.cmd-menu-toggle|1.138",
-  "/commission|button.cmd-menu-toggle|1.138",
-  "/fr/commission|button.cmd-menu-toggle|1.138",
-  "/journal|button.cmd-menu-toggle|1.138",
-  "/fr/journal|button.cmd-menu-toggle|1.138",
-  "/legal|button.cmd-menu-toggle|1.138",
-  "/fr/legal|button.cmd-menu-toggle|1.138",
-] as const;
-
-const NEUTRAL_CONTROL_DEBT: Map<string, number> = new Map(
-  [1440, 390].flatMap((width) =>
-    NEUTRAL_CONTROL_DEBT_BASE.map((entry) => {
-      const [path, selector, ratio] = entry.split("|");
-      return [`${path}|${width}|${selector}`, Number(ratio)] as const;
-    }),
-  ),
-);
+// Measured 2026-09-14 on `cf0ff26`; values measured on `cf0ff26`, never enter by hand.
+const NEUTRAL_CONTROL_DEBT: Map<string, number> = new Map([
+  ["/|1440|input#quick-email", 1.329],
+  ["/|1440|input#quick-idee", 1.329],
+  ["/|1440|input#agent-operation", 1.234],
+  ["/|1440|input#journal-email", 1.267],
+  ["/fr|1440|input#quick-email", 1.329],
+  ["/fr|1440|input#quick-idee", 1.329],
+  ["/fr|1440|input#agent-operation", 1.234],
+  ["/fr|1440|input#journal-email", 1.267],
+  ["/commission|1440|input#quick-email", 1.234],
+  ["/fr/commission|1440|input#quick-email", 1.234],
+  ["/journal|1440|input#journal-email", 1.182],
+  ["/fr/journal|1440|input#journal-email", 1.182],
+  ["/|390|input#quick-email", 1.329],
+  ["/|390|input#quick-idee", 1.329],
+  ["/|390|input#agent-operation", 1.234],
+  ["/|390|input#journal-email", 1.267],
+  ["/fr|390|input#quick-email", 1.329],
+  ["/fr|390|input#quick-idee", 1.329],
+  ["/fr|390|input#agent-operation", 1.234],
+  ["/fr|390|input#journal-email", 1.267],
+  ["/commission|390|input#quick-email", 1.234],
+  ["/fr/commission|390|input#quick-email", 1.234],
+  ["/journal|390|input#journal-email", 1.182],
+  ["/fr/journal|390|input#journal-email", 1.182],
+  ["/|390|button.cmd-menu-toggle", 1.138],
+  ["/fr|390|button.cmd-menu-toggle", 1.138],
+  ["/standard|390|button.cmd-menu-toggle", 1.138],
+  ["/fr/standard|390|button.cmd-menu-toggle", 1.138],
+  ["/manufacture|390|button.cmd-menu-toggle", 1.138],
+  ["/fr/manufacture|390|button.cmd-menu-toggle", 1.138],
+  ["/dossiers|390|button.cmd-menu-toggle", 1.138],
+  ["/fr/dossiers|390|button.cmd-menu-toggle", 1.138],
+  ["/commission|390|button.cmd-menu-toggle", 1.138],
+  ["/fr/commission|390|button.cmd-menu-toggle", 1.138],
+  ["/journal|390|button.cmd-menu-toggle", 1.138],
+  ["/fr/journal|390|button.cmd-menu-toggle", 1.138],
+  ["/legal|390|button.cmd-menu-toggle", 1.138],
+  ["/fr/legal|390|button.cmd-menu-toggle", 1.138],
+]);
 
 const CAL_SCRIPT_ROUTES = ["https://app.cal.com/**", "https://cal.com/**"] as const;
 
