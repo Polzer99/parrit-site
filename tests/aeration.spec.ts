@@ -100,6 +100,7 @@ for (const width of [1440, 390]) {
     const accentTextRestRegisters: Record<AccentRegister, number> = { dark: 0, light: 0 };
     const accentTextErrorRegisters: Record<AccentRegister, number> = { dark: 0, light: 0 };
     const accentTextRegisters: Record<AccentRegister, number> = { dark: 0, light: 0 };
+    const g4TextRegisters: Record<AccentRegister, number> = { dark: 0, light: 0 };
     const accentControlRegisters = { dark: 0, light: 0 };
     const errorMeasurements: string[] = [];
     for (const path of PATHS) {
@@ -266,6 +267,35 @@ for (const width of [1440, 390]) {
             accentTextFailures.push(`${location.pathname}: ${text.label}; ${match.token} ${rgb(foreground)} on ${rgb(background)} = ${ratio.toFixed(3)}:1`);
           }
         }
+        const g4Tokens = [
+          { token: "--g4", value: color("#606366") },
+          { token: "--g4-l", value: color("#606366") },
+          { token: "--g4-d", value: color("#8C8F92") },
+        ];
+        const g4TextFailures: string[] = [];
+        const g4TextRegisters = { dark: 0, light: 0 };
+        const auditG4Text = (element: Element, label: string, foreground: Color) => {
+          const match = g4Tokens.find((token) => sameRgb(foreground, token.value));
+          if (!match) return;
+          const background = painted(element);
+          const register = registerFor(background);
+          g4TextRegisters[register] += 1;
+          const ratio = contrast(foreground, background);
+          if (ratio < 4.5) {
+            g4TextFailures.push(`${location.pathname}: ${label}; ${match.token} ${rgb(foreground)} on ${rgb(background)} = ${ratio.toFixed(3)}:1`);
+          }
+        };
+        for (const text of texts) {
+          auditG4Text(text.element, text.label, color(getComputedStyle(text.element).color));
+        }
+        for (const control of document.querySelectorAll("input, textarea")) {
+          if (!visible(control)) continue;
+          const box = control.getBoundingClientRect();
+          if (box.width <= 0 || box.height <= 0) continue;
+          if (control instanceof HTMLInputElement && ["hidden", "checkbox", "radio", "range", "color", "file", "image"].includes(control.type)) continue;
+          if (!(control instanceof HTMLInputElement || control instanceof HTMLTextAreaElement) || !control.placeholder || control.value) continue;
+          auditG4Text(control, `${describe(control, control.placeholder.slice(0, 40))}::placeholder`, color(getComputedStyle(control, "::placeholder").color));
+        }
 
         const accentControlFailures: string[] = [];
         const neutralControlDebt: string[] = [];
@@ -401,6 +431,8 @@ for (const width of [1440, 390]) {
           accentTextCount,
           accentTextFailures,
           accentTextRegisters,
+          g4TextFailures,
+          g4TextRegisters,
           focusFailures,
           neutralControlDebt,
           textCount: texts.length,
@@ -422,6 +454,8 @@ for (const width of [1440, 390]) {
       accentTextRegisters.light += errorResult.accentTextRegisters.light;
       accentTextErrorRegisters.dark += errorResult.accentTextRegisters.dark;
       accentTextErrorRegisters.light += errorResult.accentTextRegisters.light;
+      g4TextRegisters.dark += result.g4TextRegisters.dark;
+      g4TextRegisters.light += result.g4TextRegisters.light;
       accentControlRegisters.dark += result.accentControlRegisters.dark;
       accentControlRegisters.light += result.accentControlRegisters.light;
       errorMeasurements.push(...errorResult.measurements);
@@ -449,6 +483,7 @@ for (const width of [1440, 390]) {
       expect(result.controlCount, "the contrast audit must measure interactive controls").toBeGreaterThan(0);
       expect.soft(result.accentControlFailures, `${path} at ${width}px: accent control fill, border or outline contrast against the container must be at least 3:1`).toEqual([]);
       expect.soft(result.accentTextFailures, `${path} at ${width}px: accent text must keep 4.5:1 contrast on its painted background`).toEqual([]);
+      expect.soft(result.g4TextFailures, `${path} at ${width}px: g4 text must keep 4.5:1 contrast on its painted background`).toEqual([]);
       expect.soft(result.focusFailures, `${path} at ${width}px: focused accent controls must use a visible accent outline`).toEqual([]);
       expect.soft(unexpectedNeutralDebt, `${path} at ${width}px: neutral controls below 3:1 must not grow beyond the frozen debt list`).toEqual([]);
       expect.soft(regressedNeutralDebt, `${path} at ${width}px: frozen neutral control ratios must not decrease`).toEqual([]);
@@ -465,6 +500,10 @@ for (const width of [1440, 390]) {
       type: "accent-text-registers",
       description: `at ${width}px: rest dark ${accentTextRestRegisters.dark}, rest light ${accentTextRestRegisters.light}; errors dark ${accentTextErrorRegisters.dark}, errors light ${accentTextErrorRegisters.light}; final dark ${accentTextRegisters.dark}, final light ${accentTextRegisters.light}`,
     });
+    test.info().annotations.push({
+      type: "g4-text-registers",
+      description: `at ${width}px: dark ${g4TextRegisters.dark}, light ${g4TextRegisters.light}`,
+    });
     expect(accentTextRegisters.dark, `at ${width}px: accent text must be measured on at least one dark register page at rest or in a reachable form error state`).toBeGreaterThan(0);
     if (accentTextRegisters.light === 0) {
       test.info().annotations.push({
@@ -474,6 +513,13 @@ for (const width of [1440, 390]) {
     }
     expect(accentControlRegisters.dark, `at ${width}px: accent controls must be measured on at least one dark register page`).toBeGreaterThan(0);
     expect(accentControlRegisters.light, `at ${width}px: accent controls must be measured on at least one light register page`).toBeGreaterThan(0);
+    expect(g4TextRegisters.dark, `at ${width}px: g4 text must be measured on at least one dark register page`).toBeGreaterThan(0);
+    if (g4TextRegisters.light === 0) {
+      test.info().annotations.push({
+        type: "light-g4-proof",
+        description: `at ${width}px: real routes expose 0 light-register g4 text nodes; light-register g4 is guarded by the injected nested-surface test`,
+      });
+    }
     expect(errorMeasurements.length, `at ${width}px: reachable form error states must be measured`).toBeGreaterThan(0);
     for (const measurement of errorMeasurements) {
       test.info().annotations.push({ type: "form-error-contrast", description: measurement });
@@ -634,16 +680,34 @@ test("accent surface variables keep injected nested surfaces readable", async ({
       const b = luminance(back);
       return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
     };
+    const rgb = (value: Color) => `rgb(${value.slice(0, 3).map((channel) => Math.round(channel * 255)).join(", ")})`;
+    const sameRgb = (a: Color, b: Color) =>
+      Math.abs(a[0] - b[0]) < 1 / 255 &&
+      Math.abs(a[1] - b[1]) < 1 / 255 &&
+      Math.abs(a[2] - b[2]) < 1 / 255 &&
+      Math.abs(a[3] - b[3]) < 1 / 255;
+    const registerFor = (background: Color) => luminance(background) < 0.25 ? "dark" : "light";
 
     const host = document.querySelector("main");
     if (!host) throw new Error("Missing main host");
-    const light = document.createElement("section");
-    light.className = "r2-ecrin";
-    light.innerHTML = `<div class="frame" data-probe="light-frame"><span class="fx"></span><span>Probe</span></div><button class="rev-button exec" data-probe="light-exec">Probe</button>`;
     const dark = document.createElement("section");
     dark.className = "r2-dark";
-    dark.innerHTML = `<span class="st crit" data-probe="dark-crit">Probe</span>`;
-    host.append(light, dark);
+    dark.innerHTML = `
+      <section class="r2-ecrin" data-probe="nested-light">
+        <div class="frame" data-probe="light-frame"><span class="fx"></span><span>Probe</span></div>
+        <button class="rev-button exec" data-probe="light-exec">Probe</button>
+        <p class="r2-registre-note" data-probe="g4-nested-light">Probe</p>
+      </section>
+      <p class="r2-registre-note" data-probe="g4-dark">Probe</p>
+      <span class="st crit" data-probe="dark-crit">Probe</span>`;
+    const instrument = document.createElement("section");
+    instrument.className = "instrument";
+    instrument.innerHTML = `
+      <div class="frame decision-card" data-probe="instrument-card">
+        <span class="fx"></span>
+        <span class="r2-registre-note" data-probe="g4-instrument-card">Probe</span>
+      </div>`;
+    host.append(dark, instrument);
 
     const frame = document.querySelector('[data-probe="light-frame"]');
     const button = document.querySelector('[data-probe="light-exec"]');
@@ -659,11 +723,35 @@ test("accent surface variables keep injected nested surfaces readable", async ({
     const lightBackground = painted(frame);
     const lightContainer = painted(button.parentElement);
     const darkBackground = painted(crit);
+    const rootStyle = getComputedStyle(document.documentElement);
+    const g4Light = color(rootStyle.getPropertyValue("--g4-l").trim());
+    const g4Dark = color(rootStyle.getPropertyValue("--g4-d").trim());
+    const g4Probes = [
+      { name: "r2-dark > r2-ecrin > r2-registre-note", selector: '[data-probe="g4-nested-light"]', expectedToken: "--g4-l", expected: g4Light },
+      { name: "r2-dark > r2-registre-note", selector: '[data-probe="g4-dark"]', expectedToken: "--g4-d", expected: g4Dark },
+      { name: "instrument > decision-card > r2-registre-note", selector: '[data-probe="g4-instrument-card"]', expectedToken: "--g4-d", expected: g4Dark },
+    ].map((probe) => {
+      const element = document.querySelector(probe.selector);
+      if (!(element instanceof HTMLElement)) throw new Error(`Missing ${probe.name} g4 probe`);
+      const foreground = color(getComputedStyle(element).color);
+      const background = painted(element);
+      return {
+        name: probe.name,
+        expectedToken: probe.expectedToken,
+        expected: rgb(probe.expected),
+        foreground: rgb(foreground),
+        background: rgb(background),
+        register: registerFor(background),
+        ratio: contrast(foreground, background),
+        matchesExpectedToken: sameRgb(foreground, probe.expected),
+      };
+    });
     return {
       lightFrameRatio: contrast(frameLine, lightBackground),
       lightFocusRatio: contrast(buttonOutline, lightContainer),
       darkCritTextRatio: contrast(critText, darkBackground),
       darkCritDotRatio: contrast(critDot, darkBackground),
+      g4Probes,
     };
   });
 
@@ -671,8 +759,25 @@ test("accent surface variables keep injected nested surfaces readable", async ({
     type: "injected-light-accent-proof",
     description: `frame ${result.lightFrameRatio.toFixed(3)}:1; focus ${result.lightFocusRatio.toFixed(3)}:1`,
   });
+  test.info().annotations.push({
+    type: "injected-g4-proof",
+    description: result.g4Probes
+      .map((probe) => `${probe.name}: ${probe.foreground} expected ${probe.expectedToken} ${probe.expected} on ${probe.background} (${probe.register}) = ${probe.ratio.toFixed(3)}:1`)
+      .join("; "),
+  });
+  const g4ProbeFailures = result.g4Probes.flatMap((probe) => {
+    const failures: string[] = [];
+    if (!probe.matchesExpectedToken) {
+      failures.push(`${probe.name}: expected ${probe.expectedToken} ${probe.expected}, received ${probe.foreground}`);
+    }
+    if (probe.ratio < 4.5) {
+      failures.push(`${probe.name}: ${probe.foreground} on ${probe.background} (${probe.register}) = ${probe.ratio.toFixed(3)}:1`);
+    }
+    return failures;
+  });
   expect(result.lightFrameRatio, "injected r2-ecrin frame line must use the light-surface accent").toBeGreaterThanOrEqual(3);
   expect(result.lightFocusRatio, "injected r2-ecrin exec focus must use the light-surface accent").toBeGreaterThanOrEqual(3);
   expect(result.darkCritTextRatio, "injected dark critical status text must use the dark-surface accent").toBeGreaterThanOrEqual(4.5);
   expect(result.darkCritDotRatio, "injected dark critical status dot must use the dark-surface accent").toBeGreaterThanOrEqual(3);
+  expect(g4ProbeFailures, "injected g4 probes must use the exact expected token and keep 4.5:1 contrast").toEqual([]);
 });

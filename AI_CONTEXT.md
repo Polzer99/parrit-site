@@ -10,9 +10,9 @@ Le copy vit dans des dictionnaires `DICT` par page et dans les composants locali
 
 ## Canon visuel
 
-Le prototype REV 03 `docs/site-prod-rev01/parrit-command-center-rev03.html` fait autorité ; `src/system/tokens.css` porte les valeurs et `src/system/` les composants. General Sans pour le corps/UI, JetBrains Mono pour le registre technique, Fraunces pour les grands titres éditoriaux. Polices auto-hébergées dans `public/fonts/rev02/` ; polices OG dans `src/og-assets/`.
+Le prototype REV 03 `docs/site-prod-rev01/parrit-command-center-rev03.html` fait autorité ; `src/system/tokens.css` porte les valeurs et `src/system/` les composants. General Sans pour le corps/UI, IBM Plex Mono pour le registre technique, Source Serif 4 pour les grands titres éditoriaux. General Sans est auto-hébergée dans `public/fonts/rev02/` ; IBM Plex Mono et Source Serif 4 dans `public/fonts/rev03/` ; polices OG dans `src/og-assets/`.
 
-`BRAND.md`, `docs/design-system/` et `design-source/` sont historiques. Ne pas restaurer la palette crème, les anciens logos, Geist ou IBM Plex. Les images OG lisent les couleurs via `token()` ; `next.config.ts` inclut le CSS et les polices dans leurs bundles. CalInline résout les variables CSS du parent avant de les transmettre à l'iframe externe.
+`BRAND.md`, `docs/design-system/` et `design-source/` sont historiques. Ne pas restaurer la palette crème, les anciens logos, Geist ni les anciens choix typographiques. Les images OG lisent les couleurs via `token()` ; `next.config.ts` inclut le CSS et les polices dans leurs bundles. CalInline résout les variables CSS du parent avant de les transmettre à l'iframe externe.
 
 ## Conversion et données
 
@@ -62,6 +62,10 @@ TypeScript, ESLint ciblé et gate de marque validés. Build, rendu navigateur, c
 ## Accent bleu, 13/09/2026
 
 Le rouge sort de l'identité active. `src/system/tokens.css` porte le système d'accent bleu : jetons clairs pour papier, jetons sombres pour ink/carbon, et contexte `--action-*` redéfini par surface. Aucun jeton clair ne doit être peint sur fond sombre, ni l'inverse.
+
+## Polices et gris lisible, 14/09/2026
+
+IBM Plex Mono remplace le mono technique pour les kickers, labels, boutons, chiffres, wordmark, mark `[P.]` et images de partage. Source Serif 4 remplace la fonte éditoriale de `--ed`; le fichier retenu est la variante variable `source-serif-4-latin-opsz-normal.woff2`, qui expose `wght` et `opsz`. `--g4` vaut le gris clair lisible `#606366` sur papier et `--g4-d` vaut `#8C8F92` sur carbone ; les surfaces sombres redéfinissent `--g4` vers `--g4-d`.
 
 ## Retrait capture Journal, 14/09/2026
 

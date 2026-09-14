@@ -18,7 +18,7 @@ function token(name: string): string {
 export default async function Image() {
   const [plexSans, plexMono] = await Promise.all([
     readFile(path.join(process.cwd(), "src/og-assets/GeneralSans-Medium.otf")),
-    readFile(path.join(process.cwd(), "src/og-assets/JetBrainsMono-SemiBold.ttf")),
+    readFile(path.join(process.cwd(), "src/og-assets/ibm-plex-mono-latin-600-normal.woff")),
   ]);
 
   return new ImageResponse(
@@ -40,10 +40,10 @@ export default async function Image() {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            fontFamily: "JetBrains Mono",
+            fontFamily: "IBM Plex Mono",
             fontSize: 22,
             letterSpacing: "0.18em",
-            color: token("--g4"),
+            color: token("--g4-d"),
           }}
         >
           <span>PARRIT.AI · COMPANY OPERATING SYSTEMS</span>
@@ -67,7 +67,7 @@ export default async function Image() {
             display: "flex",
             alignItems: "center",
             gap: 16,
-            fontFamily: "JetBrains Mono",
+            fontFamily: "IBM Plex Mono",
             fontSize: 20,
             letterSpacing: "0.16em",
             color: token("--g2"),
@@ -82,7 +82,7 @@ export default async function Image() {
       ...size,
       fonts: [
         { name: "General Sans", data: plexSans, weight: 500, style: "normal" },
-        { name: "JetBrains Mono", data: plexMono, weight: 600, style: "normal" },
+        { name: "IBM Plex Mono", data: plexMono, weight: 600, style: "normal" },
       ],
     },
   );

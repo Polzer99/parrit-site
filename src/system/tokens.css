@@ -9,7 +9,9 @@
   --rule-d: #24282D;
   --g2: #9CA1A6;
   --g3: #55595E;
-  --g4: #6F757B;
+  --g4: #606366;
+  --g4-l: #606366;
+  --g4-d: #8C8F92;
   /* prototype REV 02 de facto tokens (hardcoded there; named here so the
      brand gate can enforce them): body text on light / row labels on dark */
   --body-l: #26282B;
@@ -39,8 +41,8 @@
 
   /* PC-03 · type tokens */
   --ui: "General Sans", "Helvetica Neue", Arial, sans-serif;
-  --mono: "JetBrains Mono", Menlo, monospace;
-  --ed: "Fraunces", Georgia, serif;
+  --mono: "IBM Plex Mono", Menlo, monospace;
+  --ed: "Source Serif 4", Georgia, serif;
 
   /* PC-03b · échelle typographique */
   /* Pas fixes */

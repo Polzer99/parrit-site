@@ -51,15 +51,16 @@ Compléments : `docs/site-prod-rev01/REV03-DELTAS.md` (deltas appliqués),
 - **Loi de l'accent** : l'accent = décision requise, action qui s'exécute, état critique, objet
   sélectionné, commission scellée. JAMAIS décoratif. Un jeton clair n'est jamais peint sur fond sombre,
   ni un jeton sombre sur fond clair.
-- **Typo T3 (arbitrage Paul 15/08, banc d'essai)** : **General Sans** (corps/UI, Fontshare,
-  gratuite commerciale) + **JetBrains Mono** (registre technique, OFL) + **Fraunces variable**
-  (OFL) — Fraunces RÉSERVÉE aux grands titres éditoriaux REV 02 (`--ed`, opsz 40, SOFT 0,
-  WONK 0, poids ~480), jamais en corps. Auto-hébergées `public/fonts/rev02/`. Geist et
-  IBM Plex sont MORTES. Pas d'italique, pas d'autre famille.
+- **Typo T4 (arbitrage Paul 14/09)** : **General Sans** (corps/UI, Fontshare,
+  gratuite commerciale) + **IBM Plex Mono** (registre technique, OFL) + **Source Serif 4**
+  (OFL) — Source Serif 4 RÉSERVÉE aux grands titres éditoriaux REV 02 (`--ed`, opsz 40,
+  poids ~480), jamais en corps. General Sans reste auto-hébergée `public/fonts/rev02/` ;
+  IBM Plex Mono et Source Serif 4 sont auto-hébergées `public/fonts/rev03/`. Geist,
+  JetBrains Mono et Fraunces sont MORTES. Pas d'italique, pas d'autre famille.
   Registre « k » : Mono 10px, letter-spacing .18em, uppercase.
 - **Formes** : radius 0 partout (sauf mockups téléphone) · zéro ombre sauf l'unique ombre
   d'instrument `0 40px 80px -40px rgba(10,11,12,.4)` · zéro dégradé · statuts = forme + couleur.
-- **Logo REV 04** : mark live-text `[P.]` JetBrains Mono 600, point d'accent ; wordmark live-text
+- **Logo REV 04** : mark live-text `[P.]` IBM Plex Mono 600, point d'accent ; wordmark live-text
   `PARRIT.AI` (point d'accent). Fichiers : `docs/site-prod-rev01/logo-rev04/` + `public/brand/`.
 - **L'enveloppe fait partie du canon** : la command bar sombre (fixe 52px — wordmark,
   registre `SYSTEM PARRIT.AI · REV 01 · STATUS OPERATIONAL`, horloge live) est sur TOUTES les
@@ -97,7 +98,7 @@ Une ressource a **une seule URL canonique** : celle qui rend son expérience com
 - `/standard` (PS-01…PS-06) · `/commission` (Cal inline `paul-larmaraud/30min`, seul lien de booking du site) · `/journal` + `/journal/[slug]` · `/dossiers` · `/legal`.
 - `/paul` et `/maxime` : **SUPPRIMÉES le 14/08/2026** (ordre Paul) — 301 vers `/` dans `next.config.ts`. Ne pas les recréer.
 - `/manufacture` (doctrine + phases) · `/sketch/[id]` (esquisse personnalisée du funnel, noindex, force-dynamic — l'UUID de soumission est le jeton d'accès).
-- `src/app/opengraph-image.tsx` (+ OG par article) = cartes OG, polices TTF officielles dans `src/og-assets/` (Satori refuse le woff2).
+- `src/app/opengraph-image.tsx` (+ OG par article) = cartes OG, polices locales officielles dans `src/og-assets/` (Satori refuse le woff2).
 - `src/app/camp-costa-rica/` = seule survivance de l'ancienne palette (voulu) ; `src/proxy.ts` ne gère plus que le rewrite d'hôte campparrita.com.
 - `scripts/generate-llms.mjs` (prebuild) régénère `public/llms.txt` — le modifier LUI, pas le fichier généré.
 
