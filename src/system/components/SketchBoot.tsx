@@ -66,7 +66,7 @@ export function SketchBoot({ company }: { company: string }) {
           MAPPING OPERATIONS ................... <span className="ok-line">DRAFT</span>
         </div>
         <div className={visibleLines >= 4 ? "on" : undefined}>
-          DRAWING FIRST INSTRUMENT ............. <span className="red-line">1 SKETCH</span>
+          DRAWING FIRST INSTRUMENT ............. <span className="accent-line">1 SKETCH</span>
         </div>
         <div className={`ok-line${visibleLines >= 5 ? " on" : ""}`}>READY.</div>
       </div>

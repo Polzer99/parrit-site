@@ -30,6 +30,60 @@ body {
   padding-top: 52px;
 }
 
+.cmdbar,
+.cmd-panel,
+.opening,
+.r2-dark:not(.ri-stage),
+.instrument,
+.quick-capture,
+.agent-esquisse,
+.ri,
+.r2-phone,
+.r2-phase {
+  --action-fill: var(--accent-on-dark);
+  --action-pressed: var(--accent-on-dark-p);
+  --action-text: var(--ink);
+  --accent-fg: var(--accent-on-dark);
+  --accent-line: var(--accent-on-dark);
+  --focus-color: var(--accent-dark-border);
+  --selection-bg: var(--accent-dark-surface);
+  --selection-fg: var(--paper);
+  --crit-dot: var(--accent-on-dark);
+}
+
+.r2-ecrin,
+.decision-card,
+.home-s-newsletter {
+  --action-fill: var(--accent-strong);
+  --action-pressed: var(--accent-strong-p);
+  --action-text: var(--paper);
+  --accent-fg: var(--accent-text);
+  --accent-line: var(--accent-border);
+  --focus-color: var(--accent-border);
+  --selection-bg: var(--accent-soft);
+  --selection-fg: var(--ink);
+  --crit-dot: var(--accent-strong);
+}
+
+.instrument .decision-card,
+.r2-phone .decision-card {
+  --action-fill: var(--accent-on-dark);
+  --action-pressed: var(--accent-on-dark-p);
+  --action-text: var(--ink);
+  --accent-fg: var(--accent-on-dark);
+  --accent-line: var(--accent-on-dark);
+  --focus-color: var(--accent-dark-border);
+  --selection-bg: var(--accent-dark-surface);
+  --selection-fg: var(--paper);
+  --crit-dot: var(--accent-on-dark);
+}
+
+.rev-page::selection,
+.rev-page ::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
+}
+
 /* Cache visuellement le contenu tout en le conservant pour les technologies d’assistance. */
 .sr-only {
   position: absolute;
@@ -73,7 +127,7 @@ body {
 }
 
 .wordmark i {
-  color: var(--accent);
+  color: var(--accent-on-dark);
   font-style: normal;
 }
 
@@ -128,12 +182,12 @@ body {
 }
 
 .locale-toggle button:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-dark-border);
   outline-offset: 2px;
 }
 
 .wordmark:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-dark-border);
   outline-offset: 3px;
 }
 
@@ -188,8 +242,8 @@ body {
   color: var(--g2);
 }
 
-.bootlog .red-line {
-  color: var(--accent);
+.bootlog .accent-line {
+  color: var(--accent-on-dark);
 }
 
 /* raccord Paul 15/08 : la phrase de l'Opening EST le H1 du hero — mêmes cotes,
@@ -259,6 +313,20 @@ body {
   color: var(--g2);
   font-size: var(--t-s);
   line-height: 1.6;
+}
+
+:is(.opening, .r2-dark:not(.ri-stage), .instrument, .quick-capture, .agent-esquisse, .ri, .r2-phone) .frame::before,
+:is(.opening, .r2-dark:not(.ri-stage), .instrument, .quick-capture, .agent-esquisse, .ri, .r2-phone) .frame::after,
+:is(.opening, .r2-dark:not(.ri-stage), .instrument, .quick-capture, .agent-esquisse, .ri, .r2-phone) .frame > .fx::before,
+:is(.opening, .r2-dark:not(.ri-stage), .instrument, .quick-capture, .agent-esquisse, .ri, .r2-phone) .frame > .fx::after {
+  border-color: var(--accent-line);
+}
+
+:is(.r2-ecrin, .home-s-newsletter) .frame::before,
+:is(.r2-ecrin, .home-s-newsletter) .frame::after,
+:is(.r2-ecrin, .home-s-newsletter) .frame > .fx::before,
+:is(.r2-ecrin, .home-s-newsletter) .frame > .fx::after {
+  border-color: var(--accent-line);
 }
 
 /* revue cohérence Paul 15/08 : UNE seule grille sur tout le site — mêmes cotes
@@ -340,18 +408,18 @@ body {
   color: var(--paper);
 }
 
-/* REV 03 red law: an action executes → exec button is the one filled-red surface */
+/* Accent law: an action executes, so exec buttons use the contextual filled surface. */
 .rev-button.exec {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: var(--paper2);
+  border-color: var(--action-fill);
+  background: var(--action-fill);
+  color: var(--action-text);
 }
 
 .rev-button.exec:hover,
 .rev-button.exec:active {
-  border-color: var(--accent-p);
-  background: var(--accent-p);
-  color: var(--paper2);
+  border-color: var(--action-pressed);
+  background: var(--action-pressed);
+  color: var(--action-text);
 }
 
 .rev-button.ghost:hover,
@@ -366,8 +434,16 @@ body {
 }
 
 .rev-button:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--focus-color);
   outline-offset: 2px;
+}
+
+:is(.r2-dark:not(.ri-stage), .instrument, .quick-capture, .agent-esquisse, .ri, .r2-phone) .rev-button:focus-visible {
+  outline-color: var(--focus-color);
+}
+
+:is(.r2-ecrin, .home-s-newsletter) .rev-button:focus-visible {
+  outline-color: var(--focus-color);
 }
 
 @media (max-width: 760px) {
@@ -451,7 +527,7 @@ body {
 }
 
 .operating-loop h3.critical {
-  color: var(--accent);
+  color: var(--accent-fg);
 }
 
 .operating-loop p {
@@ -824,7 +900,7 @@ body {
   gap: var(--s1);
   margin-top: var(--s2);
   padding: var(--s2);
-  border: 1.5px solid var(--accent);
+  border: 1.5px solid var(--accent-line);
   background: var(--paper2);
   color: var(--ink);
   font-family: var(--mono);
@@ -835,7 +911,7 @@ body {
 }
 
 .launch-placeholder strong {
-  color: var(--accent-p);
+  color: var(--accent-fg);
   font-size: var(--t-k);
 }
 
@@ -1181,7 +1257,7 @@ body {
 
 .cmd-nav a:focus-visible {
   color: var(--paper);
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-dark-border);
   outline-offset: 3px;
 }
 
@@ -1253,7 +1329,7 @@ body {
 }
 
 .cmd-menu-toggle:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-dark-border);
   outline-offset: 2px;
 }
 
@@ -1304,15 +1380,13 @@ body {
 }
 
 .cmd-panel a:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-dark-border);
   outline-offset: 3px;
 }
 
 /* micro-transitions premium : chaque état survolé s'ease, rien ne claque
    (reduced-motion est déjà neutralisé globalement dans system.css) */
 .rev-button,
-.r2-jrnl-row,
-.r2-jrnl-row .nm,
 .hold,
 .ri input,
 .ri select,
@@ -1525,7 +1599,7 @@ a.k:active {
 }
 
 .agent-esquisse-title {
-  color: var(--accent);
+  color: var(--accent-on-dark);
 }
 
 .agent-esquisse-body {
@@ -1958,13 +2032,13 @@ a.k:active {
 
 .cmd-nav-prototype {
   padding: 9px 12px;
-  background: var(--accent);
-  color: var(--paper2) !important;
+  background: var(--action-fill);
+  color: var(--action-text) !important;
 }
 
 .cmd-nav-prototype:hover,
 .cmd-nav-prototype:active {
-  background: var(--accent-p);
+  background: var(--action-pressed);
 }
 
 @media (max-width: 859px) {
@@ -2170,7 +2244,7 @@ a.k:active {
   height: 7px;
   flex-shrink: 0;
   margin: 0 0 .4em;
-  background: var(--accent);
+  background: var(--crit-dot);
 }
 
 .r2-registre-note {
@@ -2334,7 +2408,7 @@ a.k:active {
 }
 
 .r2-phase .no {
-  color: var(--accent);
+  color: var(--accent-fg);
   font-family: var(--mono);
   font-size: var(--t-k);
   letter-spacing: .1em;
@@ -2366,60 +2440,6 @@ a.k:active {
   }
 
   .r2-phase .ds {
-    grid-column: 2;
-  }
-}
-
-/* home — strip journal : des liens, et pas de rouge (le rouge reste décisionnel) */
-.r2-jrnl {
-  border: 1px solid var(--rule-d);
-}
-
-.r2-jrnl-row {
-  display: grid;
-  grid-template-columns: 110px 300px 1fr;
-  border-bottom: 1px solid var(--rule-d);
-  background: var(--carbon);
-  text-decoration: none;
-}
-
-.r2-jrnl-row:last-child {
-  border-bottom: 0;
-}
-
-.r2-jrnl-row > div {
-  padding: 16px 18px;
-}
-
-.r2-jrnl-row .no {
-  color: var(--g4);
-  font-family: var(--mono);
-  font-size: var(--t-k);
-  letter-spacing: .1em;
-}
-
-.r2-jrnl-row .nm {
-  color: var(--paper);
-  font-size: var(--t-s);
-  font-weight: 500;
-}
-
-.r2-jrnl-row .ds {
-  color: var(--g4);
-  font-size: var(--t-s);
-}
-
-.r2-jrnl-row:hover .nm,
-.r2-jrnl-row:active .nm {
-  color: var(--accent);
-}
-
-@media (max-width: 760px) {
-  .r2-jrnl-row {
-    grid-template-columns: 110px 1fr;
-  }
-
-  .r2-jrnl-row .ds {
     grid-column: 2;
   }
 }
@@ -2553,7 +2573,7 @@ a.k:active {
   bottom: -.02em;
   width: .26em;
   height: auto;
-  border: 2px solid var(--accent);
+  border: 2px solid var(--accent-line);
 }
 
 .r2-hero h1 .frame::before {
@@ -2758,8 +2778,8 @@ a.k:active {
 
 .ri input:focus-visible,
 .ri select:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
 }
 
 .ri input::placeholder {
@@ -2777,7 +2797,7 @@ a.k:active {
 .ri-check input {
   width: 15px;
   height: 15px;
-  accent-color: var(--accent);
+  accent-color: var(--action-fill);
 }
 
 .ri-foot {
@@ -2788,7 +2808,7 @@ a.k:active {
 }
 
 .ri-error {
-  color: var(--accent);
+  color: var(--accent-fg);
   font-size: var(--t-s);
 }
 

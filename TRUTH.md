@@ -56,7 +56,7 @@ Surfaces produit du site rev01 : `/`, `/manufacture`, `/standard`, `/dossiers`, 
 
 1. **Prix** : depuis le pivot 2026, les offres sont **sur devis** (périmètre et prix cadrés après diagnostic) et **la home n'affiche AUCUN prix**. Interdit : ré-afficher les anciens prix fermes (Sprint 5 000 €, Abonnement 99 €/mois, Évolution 250 €/h) — ils sont retirés. Pas de devis personnalisé hors propale privée, pas de promesse de ROI garanti. « sur devis » est la formulation validée pour le prix public.
 2. **Pas de noms de clients** en texte (anonymisé ; mur de logos visuel autorisé, override Paul `BRAND.md §6`).
-3. **Palette stricte rev02** : les valeurs vivent uniquement dans `src/system/tokens.css`. Registres carbone et papier froid, Parrit Red `#E10600`. Un hex écrit dans une page ou un composant est un défaut.
+3. **Palette stricte rev02** : les valeurs vivent uniquement dans `src/system/tokens.css`. Registres carbone et papier froid, système d'accent bleu contextualisé par fond. Un hex écrit dans une page ou un composant est un défaut.
 4. **Polices** : General Sans pour le corps et l'interface, JetBrains Mono pour le registre technique, Fraunces réservée aux grands titres éditoriaux. Elles sont auto-hébergées dans `public/fonts/rev02/`.
 5. **Jamais d'appel runtime à `*.vercel.app`** dans une livraison (le site EST sur Vercel — ça vise les ressources chargées au runtime).
 6. **Pas de tiret cadratin**, pas de superlatifs creux.

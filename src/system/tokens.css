@@ -16,11 +16,26 @@
   --label-d: #C7CBCF;
   /* REV 02 hybride B+C : ton intermédiaire d'interface sombre */
   --steel: #3A3F47;
-  --red: #E10600;
-  --red-p: #B80500;
-  /* L’accent du système. Changer ces deux lignes suffit à changer la DA. */
-  --accent: var(--red);
-  --accent-p: var(--red-p);
+  /* Accent system: light tokens stay on paper; dark tokens stay on ink/carbon. */
+  --accent-surface: #E3EEFD;
+  --accent-soft: #D0E3FB;
+  --accent-border: #2F82EE;
+  --accent-strong: #1268D9;
+  --accent-strong-p: #0F56B3;
+  --accent-text: #0F56B3;
+  --accent-on-dark: #84B5F5;
+  --accent-on-dark-p: #68A4F3;
+  --accent-dark-surface: #19293E;
+  --accent-dark-border: #4C93F0;
+  --action-fill: var(--accent-strong);
+  --action-pressed: var(--accent-strong-p);
+  --action-text: var(--paper);
+  --accent-fg: var(--accent-text);
+  --accent-line: var(--accent-border);
+  --focus-color: var(--accent-border);
+  --selection-bg: var(--accent-soft);
+  --selection-fg: var(--ink);
+  --crit-dot: var(--accent-strong);
 
   /* PC-03 · type tokens */
   --ui: "General Sans", "Helvetica Neue", Arial, sans-serif;

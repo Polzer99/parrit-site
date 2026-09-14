@@ -78,15 +78,15 @@ export function ParritCalInline({
         theme: "dark",
         hideEventTypeDetails: false,
         layout: "month_view",
-        styles: { branding: { brandColor: tokenValue("var(--accent)") } },
+        styles: { branding: { brandColor: tokenValue("var(--accent-on-dark)") } },
         cssVarsPerTheme: {
           dark: {
-            "cal-brand": tokenValue("var(--accent)"),
+            "cal-brand": tokenValue("var(--accent-on-dark)"),
             "cal-bg": tokenValue("var(--carbon)"),
             "cal-bg-emphasis": tokenValue("var(--carbon2)"),
             "cal-border": tokenValue("var(--rule-d)"),
           },
-          light: { "cal-brand": tokenValue("var(--accent)") },
+          light: { "cal-brand": tokenValue("var(--accent-strong)") },
         },
       });
     }
