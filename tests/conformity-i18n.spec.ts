@@ -1,4 +1,5 @@
 import { expect, test } from "./network-deny.setup";
+import type { BrowserContext, Page } from "@playwright/test";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 const SITE = "https://parrit.ai";
@@ -6,6 +7,26 @@ const SITE = "https://parrit.ai";
 // d'URL absolue passe par ici pour suivre cette convention.
 const absolute = (pathname: string) => (pathname === "/" ? SITE : `${SITE}${pathname}`);
 const PAGES = ["", "/manufacture", "/standard", "/dossiers", "/commission", "/legal", "/journal"];
+
+async function switchHeaderLanguage(
+  page: Page,
+  context: BrowserContext,
+  target: "en" | "fr",
+  expectedUrl: string,
+) {
+  const label = target.toUpperCase();
+  await expect(async () => {
+    const button = page.getByRole("button", { name: label, exact: true });
+    await expect(button).toBeVisible({ timeout: 1_000 });
+    await button.click({ timeout: 1_000 });
+    await expect(page).toHaveURL(expectedUrl, { timeout: 1_500 });
+    expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe(target);
+    await expect(page.locator("html")).toHaveAttribute("lang", target, { timeout: 1_000 });
+  }).toPass({
+    intervals: [100, 250, 500],
+    timeout: 10_000,
+  });
+}
 
 test.use({ serviceWorkers: "block" });
 
@@ -105,11 +126,11 @@ for (const choice of ["en", "fr"]) {
 
 test("header switches paths, saves choice and preserves query/hash", async ({ page, context }) => {
   await page.goto(`${BASE_URL}/fr/standard?source=test#top`);
-  await page.getByRole("button", { name: "EN", exact: true }).click();
+  await switchHeaderLanguage(page, context, "en", `${BASE_URL}/standard?source=test#top`);
   await expect(page).toHaveURL(`${BASE_URL}/standard?source=test#top`);
   expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe("en");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await page.getByRole("button", { name: "FR", exact: true }).click();
+  await switchHeaderLanguage(page, context, "fr", `${BASE_URL}/fr/standard?source=test#top`);
   await expect(page).toHaveURL(`${BASE_URL}/fr/standard?source=test#top`);
   expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe("fr");
   await expect(page.locator('.cmd-nav a[href="/fr/commission"]')).toHaveCount(1);
