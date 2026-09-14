@@ -2,6 +2,7 @@ import { expect, test } from "./network-deny.setup";
 import type { Page } from "@playwright/test";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
+type AccentRegister = "dark" | "light";
 const PATHS = [
   "/",
   "/fr",
@@ -112,7 +113,9 @@ for (const width of [1440, 390]) {
     // never reaches the deny-all outbound list. Unexpected external requests must fail.
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
-    const accentTextRegisters = { dark: 0, light: 0 };
+    const accentTextRestRegisters: Record<AccentRegister, number> = { dark: 0, light: 0 };
+    const accentTextErrorRegisters: Record<AccentRegister, number> = { dark: 0, light: 0 };
+    const accentTextRegisters: Record<AccentRegister, number> = { dark: 0, light: 0 };
     const accentControlRegisters = { dark: 0, light: 0 };
     const errorMeasurements: string[] = [];
     for (const path of PATHS) {
@@ -429,6 +432,12 @@ for (const width of [1440, 390]) {
 
       accentTextRegisters.dark += result.accentTextRegisters.dark;
       accentTextRegisters.light += result.accentTextRegisters.light;
+      accentTextRestRegisters.dark += result.accentTextRegisters.dark;
+      accentTextRestRegisters.light += result.accentTextRegisters.light;
+      accentTextRegisters.dark += errorResult.accentTextRegisters.dark;
+      accentTextRegisters.light += errorResult.accentTextRegisters.light;
+      accentTextErrorRegisters.dark += errorResult.accentTextRegisters.dark;
+      accentTextErrorRegisters.light += errorResult.accentTextRegisters.light;
       accentControlRegisters.dark += result.accentControlRegisters.dark;
       accentControlRegisters.light += result.accentControlRegisters.light;
       errorMeasurements.push(...errorResult.measurements);
@@ -468,8 +477,12 @@ for (const width of [1440, 390]) {
       expect.soft(result.scaleFailures, `${path} at ${width}px: sizes outside the nine spec steps (fluid tolerance 0.5px)`).toEqual([]);
       expect.soft(errorResult.failures, `${path} at ${width}px: reachable form errors must be triggered through client validation and keep 4.5:1 contrast`).toEqual([]);
     }
-    expect(accentTextRegisters.dark, `at ${width}px: accent text must be measured on at least one dark register page`).toBeGreaterThan(0);
-    expect(accentTextRegisters.light, `at ${width}px: accent text must be measured on at least one light register page`).toBeGreaterThan(0);
+    test.info().annotations.push({
+      type: "accent-text-registers",
+      description: `at ${width}px: rest dark ${accentTextRestRegisters.dark}, rest light ${accentTextRestRegisters.light}; errors dark ${accentTextErrorRegisters.dark}, errors light ${accentTextErrorRegisters.light}; final dark ${accentTextRegisters.dark}, final light ${accentTextRegisters.light}`,
+    });
+    expect(accentTextRegisters.dark, `at ${width}px: accent text must be measured on at least one dark register page at rest or in a reachable form error state`).toBeGreaterThan(0);
+    expect(accentTextRegisters.light, `at ${width}px: accent text must be measured on at least one light register page at rest or in a reachable form error state`).toBeGreaterThan(0);
     expect(accentControlRegisters.dark, `at ${width}px: accent controls must be measured on at least one dark register page`).toBeGreaterThan(0);
     expect(accentControlRegisters.light, `at ${width}px: accent controls must be measured on at least one light register page`).toBeGreaterThan(0);
     expect(errorMeasurements.length, `at ${width}px: reachable form error states must be measured`).toBeGreaterThan(0);
@@ -483,6 +496,7 @@ async function measureInvalidFormStates(page: Page, path: string, width: number)
   const probes = ERROR_PROBES_BY_PATH[path] ?? [];
   const failures: string[] = [];
   const measurements: string[] = [];
+  const accentTextRegisters: Record<AccentRegister, number> = { dark: 0, light: 0 };
 
   for (const probe of probes) {
     await page.goto(`${BASE_URL}${path}`, { waitUntil: "domcontentloaded" });
@@ -538,21 +552,49 @@ async function measureInvalidFormStates(page: Page, path: string, width: number)
         return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
       };
       const rgb = (value: Color) => `rgb(${value.slice(0, 3).map((channel) => Math.round(channel * 255)).join(", ")})`;
+      const sameRgb = (a: Color, b: Color) =>
+        Math.abs(a[0] - b[0]) < 1 / 255 &&
+        Math.abs(a[1] - b[1]) < 1 / 255 &&
+        Math.abs(a[2] - b[2]) < 1 / 255 &&
+        Math.abs(a[3] - b[3]) < 1 / 255;
+      const registerFor = (background: Color) => luminance(background) < 0.25 ? "dark" : "light";
+      const rootStyle = getComputedStyle(document.documentElement);
+      const accentTokens = [
+        "--accent-surface",
+        "--accent-soft",
+        "--accent-border",
+        "--accent-strong",
+        "--accent-strong-p",
+        "--accent-text",
+        "--accent-on-dark",
+        "--accent-on-dark-p",
+        "--accent-dark-surface",
+        "--accent-dark-border",
+      ].map((token) => ({ token, value: color(rootStyle.getPropertyValue(token).trim()) }));
       const foreground = color(getComputedStyle(element).color);
       const background = painted(element);
+      const accentToken = accentTokens.find((token) => sameRgb(foreground, token.value))?.token ?? null;
       return {
+        accentToken,
         foreground: rgb(foreground),
         background: rgb(background),
+        register: registerFor(background),
         ratio: contrast(foreground, background),
       };
     });
 
-    const description = `${path} at ${width}px: ${probe.name} via ${probe.field}=pas-un-email; ${contrastResult.foreground} on ${contrastResult.background} = ${contrastResult.ratio.toFixed(3)}:1`;
+    const tokenDescription = contrastResult.accentToken ? `${contrastResult.accentToken} ` : "";
+    const description = `${path} at ${width}px: ${probe.name} via ${probe.field}=pas-un-email; ${tokenDescription}${contrastResult.foreground} on ${contrastResult.background} (${contrastResult.register}) = ${contrastResult.ratio.toFixed(3)}:1`;
     measurements.push(description);
+    if (contrastResult.accentToken) {
+      accentTextRegisters[contrastResult.register as AccentRegister] += 1;
+    } else {
+      failures.push(`${description}; error text color is not an accent token`);
+    }
     if (contrastResult.ratio < 4.5) failures.push(description);
   }
 
-  return { failures, measurements };
+  return { failures, measurements, accentTextRegisters };
 }
 
 test("accent surface variables keep injected nested surfaces readable", async ({ page }) => {
