@@ -5,7 +5,7 @@ import Link from "next/link";
 import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
 import { getLocale } from "@/lib/server/locale";
 import { AgentEsquisse } from "@/system/components/AgentEsquisse";
-import { K, NewsletterCapture, QuickCapture } from "@/system/components";
+import { K, QuickCapture } from "@/system/components";
 import { getAllJournalEntrySummaries } from "@/system/journal";
 
 const DICT = {
@@ -201,7 +201,6 @@ export default async function HomePage() {
           <ol>
             {entries.map((entry) => <li key={entry.slug}><Link href={`/journal/${entry.slug}`}><span>{entry.title}</span><time dateTime={entry.date}>{entry.date}</time></Link></li>)}
           </ol>
-          <NewsletterCapture locale={locale} />
         </div>
       </section>
 

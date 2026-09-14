@@ -58,6 +58,14 @@ test("sketch panel e-mail link stays readable on carbon", async ({ page }) => {
   expect(color).toBe("rgb(241, 242, 243)");
 });
 
+test("home journal section stays a direct article list without an idle capture", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto(`${BASE_URL}/`);
+
+  await expect(page.locator(".home-s-journal ol > li")).toHaveCount(3);
+  await expect(page.locator(".home-s-journal form")).toHaveCount(0);
+});
+
 test("command bar nav items share one text baseline", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(`${BASE_URL}/`);

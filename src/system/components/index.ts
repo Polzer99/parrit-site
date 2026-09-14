@@ -6,7 +6,6 @@ export { Frame } from "./Frame";
 export { Hold } from "./Hold";
 export { Instrument } from "./Instrument";
 export { K } from "./K";
-export { NewsletterCapture } from "./NewsletterCapture";
 export { Opening } from "./Opening";
 export { QuickCapture } from "./QuickCapture";
 export { RegistryLine } from "./RegistryLine";

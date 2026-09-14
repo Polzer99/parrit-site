@@ -25,27 +25,19 @@ const NEUTRAL_CONTROL_DEBT: Map<string, number> = new Map([
   ["/|1440|input#quick-email", 1.329],
   ["/|1440|input#quick-idee", 1.329],
   ["/|1440|input#agent-operation", 1.234],
-  ["/|1440|input#journal-email", 1.267],
   ["/fr|1440|input#quick-email", 1.329],
   ["/fr|1440|input#quick-idee", 1.329],
   ["/fr|1440|input#agent-operation", 1.234],
-  ["/fr|1440|input#journal-email", 1.267],
   ["/commission|1440|input#quick-email", 1.234],
   ["/fr/commission|1440|input#quick-email", 1.234],
-  ["/journal|1440|input#journal-email", 1.182],
-  ["/fr/journal|1440|input#journal-email", 1.182],
   ["/|390|input#quick-email", 1.329],
   ["/|390|input#quick-idee", 1.329],
   ["/|390|input#agent-operation", 1.234],
-  ["/|390|input#journal-email", 1.267],
   ["/fr|390|input#quick-email", 1.329],
   ["/fr|390|input#quick-idee", 1.329],
   ["/fr|390|input#agent-operation", 1.234],
-  ["/fr|390|input#journal-email", 1.267],
   ["/commission|390|input#quick-email", 1.234],
   ["/fr/commission|390|input#quick-email", 1.234],
-  ["/journal|390|input#journal-email", 1.182],
-  ["/fr/journal|390|input#journal-email", 1.182],
   ["/|390|button.cmd-menu-toggle", 1.138],
   ["/fr|390|button.cmd-menu-toggle", 1.138],
   ["/standard|390|button.cmd-menu-toggle", 1.138],
@@ -74,23 +66,15 @@ type ErrorProbe = {
 const ERROR_PROBES_BY_PATH: Record<string, ErrorProbe[]> = {
   "/": [
     { name: "home prototype capture", form: ".home-s-quick-capture form", field: "input#quick-email", error: ".ri-error[role='alert']" },
-    { name: "home newsletter", form: "form.home-s-newsletter", field: "input#journal-email", error: ".ri-error[role='alert']" },
   ],
   "/fr": [
     { name: "home prototype capture", form: ".home-s-quick-capture form", field: "input#quick-email", error: ".ri-error[role='alert']" },
-    { name: "home newsletter", form: "form.home-s-newsletter", field: "input#journal-email", error: ".ri-error[role='alert']" },
   ],
   "/commission": [
     { name: "commission prototype capture", form: ".quick-capture form", field: "input#quick-email", error: ".ri-error[role='alert']" },
   ],
   "/fr/commission": [
     { name: "commission prototype capture", form: ".quick-capture form", field: "input#quick-email", error: ".ri-error[role='alert']" },
-  ],
-  "/journal": [
-    { name: "journal newsletter", form: "form.home-s-newsletter", field: "input#journal-email", error: ".ri-error[role='alert']" },
-  ],
-  "/fr/journal": [
-    { name: "journal newsletter", form: "form.home-s-newsletter", field: "input#journal-email", error: ".ri-error[role='alert']" },
   ],
 };
 
@@ -290,7 +274,7 @@ for (const width of [1440, 390]) {
         const matchedAccentToken = (value: Color) => accentTokens.find((token) => sameRgb(value, token.value));
         const focusTargets = [
           { name: "dark exec", selector: ".r2-dark .rev-button.exec, .quick-capture .rev-button.exec, .agent-esquisse .rev-button.exec" },
-          { name: "light exec", selector: ".r2-ecrin .rev-button.exec, .standard-action .rev-button.exec, .home-s-newsletter .rev-button.exec, .rev-actions .rev-button.exec" },
+          { name: "light exec", selector: ".r2-ecrin .rev-button.exec, .standard-action .rev-button.exec, .rev-actions .rev-button.exec" },
         ];
         for (const target of focusTargets) {
           const control = [...document.querySelectorAll(target.selector)].find((element) => visible(element));
@@ -482,7 +466,12 @@ for (const width of [1440, 390]) {
       description: `at ${width}px: rest dark ${accentTextRestRegisters.dark}, rest light ${accentTextRestRegisters.light}; errors dark ${accentTextErrorRegisters.dark}, errors light ${accentTextErrorRegisters.light}; final dark ${accentTextRegisters.dark}, final light ${accentTextRegisters.light}`,
     });
     expect(accentTextRegisters.dark, `at ${width}px: accent text must be measured on at least one dark register page at rest or in a reachable form error state`).toBeGreaterThan(0);
-    expect(accentTextRegisters.light, `at ${width}px: accent text must be measured on at least one light register page at rest or in a reachable form error state`).toBeGreaterThan(0);
+    if (accentTextRegisters.light === 0) {
+      test.info().annotations.push({
+        type: "light-accent-proof",
+        description: `at ${width}px: real routes expose 0 light-register accent text nodes after the newsletter removal; light-register frame and focus contrast are guarded by the injected r2-ecrin test`,
+      });
+    }
     expect(accentControlRegisters.dark, `at ${width}px: accent controls must be measured on at least one dark register page`).toBeGreaterThan(0);
     expect(accentControlRegisters.light, `at ${width}px: accent controls must be measured on at least one light register page`).toBeGreaterThan(0);
     expect(errorMeasurements.length, `at ${width}px: reachable form error states must be measured`).toBeGreaterThan(0);
@@ -672,6 +661,10 @@ test("accent surface variables keep injected nested surfaces readable", async ({
     };
   });
 
+  test.info().annotations.push({
+    type: "injected-light-accent-proof",
+    description: `frame ${result.lightFrameRatio.toFixed(3)}:1; focus ${result.lightFocusRatio.toFixed(3)}:1`,
+  });
   expect(result.lightFrameRatio, "injected r2-ecrin frame line must use the light-surface accent").toBeGreaterThanOrEqual(3);
   expect(result.lightFocusRatio, "injected r2-ecrin exec focus must use the light-surface accent").toBeGreaterThanOrEqual(3);
   expect(result.darkCritTextRatio, "injected dark critical status text must use the dark-surface accent").toBeGreaterThanOrEqual(4.5);

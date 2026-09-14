@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { getLocale } from "@/lib/server/locale";
-import { K, NewsletterCapture, RegistryLine } from "@/system/components";
+import { K, RegistryLine } from "@/system/components";
 import { getAllJournalEntrySummaries } from "@/system/journal";
 import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 
@@ -11,17 +11,13 @@ const DICT = {
     "title": "Journal",
     "heading": "This journal is written on the job.",
     "sub": "What held and what broke, on AI systems inside companies. Dated and on the record.",
-    "entry": "Journal / Entry",
-    "subscription": "Journal / Subscription",
-    "unsubscribe": "One address is enough."
+    "entry": "Journal / Entry"
   },
   "fr": {
     "title": "Le Journal",
     "heading": "Ce journal s'écrit sur les chantiers.",
     "sub": "Ce qui a tenu, ce qui a cassé, sur des systèmes IA en entreprise. Daté et consigné.",
-    "entry": "Journal / Entrée",
-    "subscription": "Journal / Abonnement",
-    "unsubscribe": "Une adresse suffit."
+    "entry": "Journal / Entrée"
   }
 } as const;
 
@@ -55,12 +51,6 @@ export default async function JournalPage() {
             </li>
           ))}
         </ol>
-
-        <section className="ri-stage r2-dark" aria-label={copy.subscription}>
-          <K>{copy.subscription}</K>
-          <p>{copy.unsubscribe}</p>
-          <NewsletterCapture locale={locale} />
-        </section>
 
         <footer className="rev-footer">
           <RegistryLine value="PARRIT / JOURNAL · REV 01 · 2026" />
