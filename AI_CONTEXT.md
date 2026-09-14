@@ -18,7 +18,7 @@ Le prototype REV 03 `docs/site-prod-rev01/parrit-command-center-rev03.html` fait
 
 `QuickCapture` poste vers `/api/interet`. Sa variante hero propose `idee` optionnelle (300 caractères) ; `src/lib/server/interets.ts` la range dans `metadata.interets_declares[].idee_prototype`. Les écritures métier passent par le serveur ; aucun secret côté client. `RegisterInterest` a été supprimé au lot GEO/SEO A.
 
-`AgentEsquisse` est un échange déterministe local, sans backend ni LLM, avec un événement analytique au premier envoi. `/commission` porte `ParritCalInline` puis une capture standard. `NewsletterCapture` porte l'abonnement sur le Journal et la home. Les esquisses privées `/sketch/[id]` restent noindex et dynamiques ; leur UUID est le jeton d'accès.
+`AgentEsquisse` est un échange déterministe local, sans backend ni LLM, avec un événement analytique au premier envoi. `/commission` porte `ParritCalInline` puis une capture standard. Le Journal n'a pas de capture d'abonnement. Les esquisses privées `/sketch/[id]` restent noindex et dynamiques ; leur UUID est le jeton d'accès.
 
 ## Journal et zones sensibles
 
@@ -62,6 +62,10 @@ TypeScript, ESLint ciblé et gate de marque validés. Build, rendu navigateur, c
 ## Accent bleu, 13/09/2026
 
 Le rouge sort de l'identité active. `src/system/tokens.css` porte le système d'accent bleu : jetons clairs pour papier, jetons sombres pour ink/carbon, et contexte `--action-*` redéfini par surface. Aucun jeton clair ne doit être peint sur fond sombre, ni l'inverse.
+
+## Retrait capture Journal, 14/09/2026
+
+Règle Paul : un bouton qui ne déclenche rien de réel est supprimé. La capture d'abonnement au Journal a été retirée de la home et de `/journal` parce qu'aucun envoi du Journal n'existe ; `QuickCapture` et `/api/interet` restent en place pour le prototype.
 
 ## Échelle fermée et plancher 14 px, 09/09/2026
 

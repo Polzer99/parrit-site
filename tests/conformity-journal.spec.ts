@@ -25,6 +25,8 @@ test("journal index uses square, shadowless list rows", async ({ page }) => {
 
   const rows = page.locator(".journal-list > li");
   await expect(rows).not.toHaveCount(0);
+  await expect(page.locator("main form")).toHaveCount(0);
+  await expect(page.locator("main .ri-stage")).toHaveCount(0);
 
   const decoratedElements = await page.locator("body, body *").evaluateAll((elements) =>
     elements.filter((element) => {

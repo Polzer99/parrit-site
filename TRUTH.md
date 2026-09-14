@@ -23,7 +23,7 @@ Parrit livre la chose qui tourne, pas un deck. Chaque commande répond au Standa
 - Hero : `QuickCapture` recueille l'e-mail et, uniquement dans sa variante hero, une idée optionnelle (`idee`, 300 caractères maximum), stockée mais sans effet sur l'esquisse rendue.
 - Juste après le hero : `AgentEsquisse` propose un échange déterministe local (Signal / Décision / Action), puis renvoie vers la capture `#prototype`.
 - « Parlons-en » / « Let's talk » mène à `/commission` : Examen de 15 minutes via Cal.com, puis `QuickCapture` standard si aucun créneau ne convient.
-- Journal : `NewsletterCapture` recueille une adresse ; aucun envoi automatique du Journal n'existe dans le code. La home propose également cet abonnement.
+- Journal : pas de capture d'abonnement (retirée le 14/09 : aucun envoi n'existait).
 - `RegisterInterest` reste dans le code mais n'est plus utilisé sur les pages.
 
 ## 3. ICP (à qui on parle)
@@ -67,7 +67,7 @@ Surfaces produit du site rev01 : `/`, `/manufacture`, `/standard`, `/dossiers`, 
 
 - Stack : Next.js 16 / React 19 / TypeScript / Tailwind v4, Vercel, français et anglais. Analytics **PostHog** (`eu.i.posthog.com`, autocapture et session replay).
 - Site canon : `src/app/(rev01)/`. Le copy localisé vit dans les `DICT` des pages et composants concernés.
-- Capture lead : `src/system/components/QuickCapture.tsx` poste vers `/api/interet` ; `idee` rejoint `metadata.interets_declares[].idee_prototype`. `AgentEsquisse.tsx` fonctionne sans backend ni LLM. Le Journal utilise `NewsletterCapture.tsx`. La prise de rendez-vous passe par Cal.com dans `CalInline.tsx` sur `/commission`.
+- Capture lead : `src/system/components/QuickCapture.tsx` poste vers `/api/interet` ; `idee` rejoint `metadata.interets_declares[].idee_prototype`. `AgentEsquisse.tsx` fonctionne sans backend ni LLM. Le Journal n'a pas de capture d'abonnement. La prise de rendez-vous passe par Cal.com dans `CalInline.tsx` sur `/commission`.
 - Garde-fous avant push : `npm run build`, `npm run qa:brand:rev01`, puis `npm run qa:network:rev01` avec blocage réseau global.
 
 ## 8. Définition d'une « amélioration » (le filtre de Hermes)
@@ -76,7 +76,7 @@ Une amélioration valable :
 - **sert une north star** (plus de RDV qualifiés, ou un funnel moins fuyard, ou un meilleur signal/bruit pour le dirigeant cible) ;
 - **passe LE TAMIS** (sobre, Enargeia, pas de pathos) ;
 - **respecte les 7 règles dures** (§6) ;
-- est **falsifiable** : on nomme la métrique qui devra bouger (taux de soumission `QuickCapture` ou `NewsletterCapture`, clics CTA, RDV/sem) ;
+- est **falsifiable** : on nomme la métrique qui devra bouger (taux de soumission `QuickCapture`, clics CTA, RDV/sem) ;
 - est **réversible** (une PR, un rollback possible).
 
 Anti-objectifs : faire « plus joli » sans hypothèse de conversion ; ajouter du trafic vanity ; tout ce qui sent le growth-hack performatif (ça trahit la voix).
