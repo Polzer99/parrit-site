@@ -500,9 +500,15 @@ async function measureInvalidFormStates(page: Page, path: string, width: number)
     const error = form.locator(probe.error);
 
     await expect(form, `${path} at ${width}px: ${probe.name} form must exist`).toBeVisible({ timeout: 10_000 });
-    await field.fill("pas-un-email", { timeout: 10_000 });
-    await button.click({ timeout: 10_000 });
-    await expect(error, `${path} at ${width}px: ${probe.name} must expose its client validation error`).toBeVisible({ timeout: 10_000 });
+    await expect(async () => {
+      await field.fill("pas-un-email", { timeout: 1_000 });
+      await expect(field, `${path} at ${width}px: ${probe.name} invalid value must survive hydration before submit`).toHaveValue("pas-un-email", { timeout: 500 });
+      await button.click({ timeout: 1_000 });
+      await expect(error, `${path} at ${width}px: ${probe.name} must expose its client validation error`).toBeVisible({ timeout: 1_000 });
+    }).toPass({
+      intervals: [100, 250, 500],
+      timeout: 10_000,
+    });
 
     const contrastResult = await error.evaluate((element) => {
       type Color = [number, number, number, number];
