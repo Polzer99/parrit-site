@@ -1,4 +1,5 @@
 import { expect, test } from "./network-deny.setup";
+import type { Page } from "@playwright/test";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 const PATHS = [
@@ -18,7 +19,7 @@ const PATHS = [
   "/fr/legal",
 ];
 
-const NEUTRAL_CONTROL_DEBT = new Set([
+const NEUTRAL_CONTROL_DEBT_BASE = [
   "/|input#quick-email|1.333",
   "/|input#quick-idee|1.333",
   "/|input#agent-operation|1.333",
@@ -45,27 +46,76 @@ const NEUTRAL_CONTROL_DEBT = new Set([
   "/fr/journal|button.cmd-menu-toggle|1.138",
   "/legal|button.cmd-menu-toggle|1.138",
   "/fr/legal|button.cmd-menu-toggle|1.138",
-]);
+] as const;
+
+const NEUTRAL_CONTROL_DEBT: Map<string, number> = new Map(
+  [1440, 390].flatMap((width) =>
+    NEUTRAL_CONTROL_DEBT_BASE.map((entry) => {
+      const [path, selector, ratio] = entry.split("|");
+      return [`${path}|${width}|${selector}`, Number(ratio)] as const;
+    }),
+  ),
+);
+
+const CAL_SCRIPT_ROUTES = ["https://app.cal.com/**", "https://cal.com/**"] as const;
+
+type ErrorProbe = {
+  name: string;
+  form: string;
+  field: string;
+  error: string;
+};
+
+const ERROR_PROBES_BY_PATH: Record<string, ErrorProbe[]> = {
+  "/": [
+    { name: "home prototype capture", form: ".home-s-quick-capture form", field: "input#quick-email", error: ".ri-error[role='alert']" },
+    { name: "home newsletter", form: "form.home-s-newsletter", field: "input#journal-email", error: ".ri-error[role='alert']" },
+  ],
+  "/fr": [
+    { name: "home prototype capture", form: ".home-s-quick-capture form", field: "input#quick-email", error: ".ri-error[role='alert']" },
+    { name: "home newsletter", form: "form.home-s-newsletter", field: "input#journal-email", error: ".ri-error[role='alert']" },
+  ],
+  "/commission": [
+    { name: "commission prototype capture", form: ".quick-capture form", field: "input#quick-email", error: ".ri-error[role='alert']" },
+  ],
+  "/fr/commission": [
+    { name: "commission prototype capture", form: ".quick-capture form", field: "input#quick-email", error: ".ri-error[role='alert']" },
+  ],
+  "/journal": [
+    { name: "journal newsletter", form: "form.home-s-newsletter", field: "input#journal-email", error: ".ri-error[role='alert']" },
+  ],
+  "/fr/journal": [
+    { name: "journal newsletter", form: "form.home-s-newsletter", field: "input#journal-email", error: ".ri-error[role='alert']" },
+  ],
+};
 
 test.use({ serviceWorkers: "block" });
+
+test.beforeEach(async ({ page }) => {
+  for (const routePattern of CAL_SCRIPT_ROUTES) {
+    await page.route(routePattern, (route) => {
+      const contentType = route.request().url().endsWith(".js") ? "application/javascript" : "text/html";
+      return route.fulfill({ contentType, body: "" });
+    });
+  }
+});
 
 for (const width of [1440, 390]) {
   test(`at ${width}px all routes keep text clear and within the closed type scale`, async ({ page }) => {
     test.setTimeout(120_000);
     // Reuse the fixture page and its deny-all context for every route at this width.
-    // None of these routes mounts Cal. Unexpected external requests must fail.
+    // /commission mounts Cal; serve its embed script locally through Playwright so it
+    // never reaches the deny-all outbound list. Unexpected external requests must fail.
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     const accentTextRegisters = { dark: 0, light: 0 };
     const accentControlRegisters = { dark: 0, light: 0 };
+    const errorMeasurements: string[] = [];
     for (const path of PATHS) {
       await page.goto(`${BASE_URL}${path}`, { waitUntil: "domcontentloaded" });
       await expect(page.locator("main h1")).toBeVisible();
       await page.evaluate(() => document.fonts.ready);
       await page.addStyleTag({ content: "*,*::before,*::after{transition:none!important;animation:none!important}" });
-      for (const button of await page.locator("form button[type='submit']").all()) {
-        if (await button.isVisible()) await button.click();
-      }
 
       const result = await page.evaluate(() => {
         type Box = { left: number; right: number; top: number; bottom: number };
@@ -238,7 +288,7 @@ for (const width of [1440, 390]) {
         for (const target of focusTargets) {
           const control = [...document.querySelectorAll(target.selector)].find((element) => visible(element));
           if (!control || !(control instanceof HTMLElement)) continue;
-          control.focus();
+          control.focus({ preventScroll: true });
           const style = getComputedStyle(control);
           const outlineWidth = Number.parseFloat(style.outlineWidth);
           const outlineStyle = style.outlineStyle;
@@ -303,7 +353,7 @@ for (const width of [1440, 390]) {
             continue;
           }
           if (fillRatio < 3 && borderRatio < 3) {
-            const item = `${location.pathname}|${selector}|${Math.max(fillRatio, borderRatio).toFixed(3)}|${describe(control, label)}`;
+            const item = `${location.pathname}|${window.innerWidth}|${selector}|${Math.max(fillRatio, borderRatio).toFixed(3)}|${describe(control, label)}`;
             neutralControlDebt.push(item);
           }
         }
@@ -371,14 +421,31 @@ for (const width of [1440, 390]) {
         };
       });
 
+      const errorResult = await measureInvalidFormStates(page, path, width);
+
       accentTextRegisters.dark += result.accentTextRegisters.dark;
       accentTextRegisters.light += result.accentTextRegisters.light;
       accentControlRegisters.dark += result.accentControlRegisters.dark;
       accentControlRegisters.light += result.accentControlRegisters.light;
-      const unexpectedNeutralDebt = result.neutralControlDebt.filter((item) => {
-        const [pagePath, selector] = item.split("|");
-        return ![...NEUTRAL_CONTROL_DEBT].some((entry) => entry.startsWith(`${pagePath}|${selector}|`));
-      });
+      errorMeasurements.push(...errorResult.measurements);
+      const seenNeutralDebt = new Set<string>();
+      const unexpectedNeutralDebt: string[] = [];
+      const regressedNeutralDebt: string[] = [];
+      const duplicateNeutralDebt: string[] = [];
+      for (const item of result.neutralControlDebt) {
+        const [pagePath, measuredWidth, selector, ratio] = item.split("|");
+        const key = `${pagePath}|${measuredWidth}|${selector}`;
+        const frozenRatio = NEUTRAL_CONTROL_DEBT.get(key);
+        if (frozenRatio === undefined) {
+          unexpectedNeutralDebt.push(item);
+          continue;
+        }
+        if (Number(ratio) + 0.01 < frozenRatio) {
+          regressedNeutralDebt.push(`${item}; frozen ${frozenRatio.toFixed(3)}:1`);
+        }
+        if (seenNeutralDebt.has(key)) duplicateNeutralDebt.push(item);
+        seenNeutralDebt.add(key);
+      }
       for (const item of result.neutralControlDebt) {
         test.info().annotations.push({ type: "neutral-control-debt", description: item });
       }
@@ -387,18 +454,101 @@ for (const width of [1440, 390]) {
       expect.soft(result.accentTextFailures, `${path} at ${width}px: accent text must keep 4.5:1 contrast on its painted background`).toEqual([]);
       expect.soft(result.focusFailures, `${path} at ${width}px: focused accent controls must use a visible accent outline`).toEqual([]);
       expect.soft(unexpectedNeutralDebt, `${path} at ${width}px: neutral controls below 3:1 must not grow beyond the frozen debt list`).toEqual([]);
+      expect.soft(regressedNeutralDebt, `${path} at ${width}px: frozen neutral control ratios must not decrease`).toEqual([]);
+      expect.soft(duplicateNeutralDebt, `${path} at ${width}px: debt entries with the same selector must not absorb each other`).toEqual([]);
       expect(result.textCount, "the geometry audit must measure rendered text").toBeGreaterThan(0);
       expect(result.actionCount, "the geometry audit must measure filled actions").toBeGreaterThan(0);
       expect.soft(result.actionFailures, `${path} at ${width}px: minimum text/action gap is 12px`).toEqual([]);
       expect.soft(result.textFailures, `${path} at ${width}px: text rectangles must not overlap`).toEqual([]);
       expect.soft(result.floorFailures, `${path} at ${width}px: visible text must be at least 14px`).toEqual([]);
       expect.soft(result.scaleFailures, `${path} at ${width}px: sizes outside the nine spec steps (fluid tolerance 0.5px)`).toEqual([]);
+      expect.soft(errorResult.failures, `${path} at ${width}px: reachable form errors must be triggered through client validation and keep 4.5:1 contrast`).toEqual([]);
     }
     expect(accentTextRegisters.dark, `at ${width}px: accent text must be measured on at least one dark register page`).toBeGreaterThan(0);
     expect(accentTextRegisters.light, `at ${width}px: accent text must be measured on at least one light register page`).toBeGreaterThan(0);
     expect(accentControlRegisters.dark, `at ${width}px: accent controls must be measured on at least one dark register page`).toBeGreaterThan(0);
     expect(accentControlRegisters.light, `at ${width}px: accent controls must be measured on at least one light register page`).toBeGreaterThan(0);
+    expect(errorMeasurements.length, `at ${width}px: reachable form error states must be measured`).toBeGreaterThan(0);
+    for (const measurement of errorMeasurements) {
+      test.info().annotations.push({ type: "form-error-contrast", description: measurement });
+    }
   });
+}
+
+async function measureInvalidFormStates(page: Page, path: string, width: number) {
+  const probes = ERROR_PROBES_BY_PATH[path] ?? [];
+  const failures: string[] = [];
+  const measurements: string[] = [];
+
+  for (const probe of probes) {
+    await page.goto(`${BASE_URL}${path}`, { waitUntil: "domcontentloaded" });
+    await expect(page.locator("main h1")).toBeVisible({ timeout: 10_000 });
+    await page.evaluate(() => document.fonts.ready);
+    await page.addStyleTag({ content: "*,*::before,*::after{transition:none!important;animation:none!important}" });
+    await page.evaluate(() => window.scrollTo(0, 0));
+
+    const form = page.locator(probe.form).first();
+    const field = form.locator(probe.field);
+    const button = form.locator("button[type='submit']");
+    const error = form.locator(probe.error);
+
+    await expect(form, `${path} at ${width}px: ${probe.name} form must exist`).toBeVisible({ timeout: 10_000 });
+    await field.fill("pas-un-email", { timeout: 10_000 });
+    await button.click({ timeout: 10_000 });
+    await expect(error, `${path} at ${width}px: ${probe.name} must expose its client validation error`).toBeVisible({ timeout: 10_000 });
+
+    const contrastResult = await error.evaluate((element) => {
+      type Color = [number, number, number, number];
+      const context = document.createElement("canvas").getContext("2d", { willReadFrequently: true });
+      if (!context) throw new Error("The contrast audit requires a 2D color parser");
+      const color = (value: string): Color => {
+        context.clearRect(0, 0, 1, 1);
+        context.fillStyle = value;
+        context.fillRect(0, 0, 1, 1);
+        const [r, g, b, a] = context.getImageData(0, 0, 1, 1).data;
+        return [r / 255, g / 255, b / 255, a / 255];
+      };
+      const over = (front: Color, back: Color): Color => {
+        const alpha = front[3] + back[3] * (1 - front[3]);
+        if (!alpha) return [0, 0, 0, 0];
+        const channel = (i: number) => (front[i] * front[3] + back[i] * back[3] * (1 - front[3])) / alpha;
+        return [channel(0), channel(1), channel(2), alpha];
+      };
+      const painted = (target: Element | null, foreground: Color = [0, 0, 0, 0]): Color => {
+        let result: Color = foreground;
+        for (let ancestor = target; ancestor; ancestor = ancestor.parentElement) {
+          const style = getComputedStyle(ancestor);
+          if (style.backgroundImage !== "none") throw new Error(`Contrast: unsupported image on ${ancestor.tagName.toLowerCase()}`);
+          result = over(result, color(style.backgroundColor));
+          result[3] *= Number(style.opacity);
+        }
+        return over(result, [1, 1, 1, 1]);
+      };
+      const luminance = (value: Color) => {
+        const linear = value.slice(0, 3).map((v) => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
+        return linear[0] * 0.2126 + linear[1] * 0.7152 + linear[2] * 0.0722;
+      };
+      const contrast = (front: Color, back: Color) => {
+        const a = luminance(front);
+        const b = luminance(back);
+        return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+      };
+      const rgb = (value: Color) => `rgb(${value.slice(0, 3).map((channel) => Math.round(channel * 255)).join(", ")})`;
+      const foreground = color(getComputedStyle(element).color);
+      const background = painted(element);
+      return {
+        foreground: rgb(foreground),
+        background: rgb(background),
+        ratio: contrast(foreground, background),
+      };
+    });
+
+    const description = `${path} at ${width}px: ${probe.name} via ${probe.field}=pas-un-email; ${contrastResult.foreground} on ${contrastResult.background} = ${contrastResult.ratio.toFixed(3)}:1`;
+    measurements.push(description);
+    if (contrastResult.ratio < 4.5) failures.push(description);
+  }
+
+  return { failures, measurements };
 }
 
 test("accent surface variables keep injected nested surfaces readable", async ({ page }) => {

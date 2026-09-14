@@ -19,6 +19,10 @@ const RED_CSS_NAMES = new Map([
   ["salmon", [250, 128, 114]],
   ["tomato", [255, 99, 71]],
 ]);
+const COLOR_PROPERTY_PATTERN =
+  /\b(?:color|background(?:-color)?|border(?:-[\w-]+)?-color|outline(?:-color)?|fill|stroke|accent-color|caret-color|text-decoration-color|box-shadow|stop-color)\s*:\s*([^;}"']+)/giu;
+const SVG_COLOR_ATTRIBUTE_PATTERN = /\b(?:fill|stroke|stop-color|color)\s*=\s*(["'])(.*?)\1/giu;
+const STYLE_ATTRIBUTE_PATTERN = /\bstyle\s*=\s*(["'])(.*?)\1/giu;
 const violations = [];
 
 async function filesUnder(directory) {
@@ -93,6 +97,59 @@ function parseHslChannels(value) {
   return hslToRgb(hue, saturation, lightness);
 }
 
+function parseHwbChannels(value) {
+  const channels = value
+    .trim()
+    .replace(/\s*\/\s*[^,)\s]+$/, "")
+    .split(/[,\s]+/)
+    .filter(Boolean)
+    .slice(0, 3);
+  if (channels.length !== 3) return null;
+  const hue = Number.parseFloat(channels[0].replace(/deg$/i, ""));
+  const whiteness = channels[1].endsWith("%") ? Number.parseFloat(channels[1]) / 100 : Number.parseFloat(channels[1]);
+  const blackness = channels[2].endsWith("%") ? Number.parseFloat(channels[2]) / 100 : Number.parseFloat(channels[2]);
+  if (![hue, whiteness, blackness].every(Number.isFinite)) return null;
+  const [red, green, blue] = hslToRgb(hue, 1, 0.5).map((channel) => channel / 255);
+  const total = whiteness + blackness;
+  if (total >= 1) {
+    const gray = whiteness / total;
+    return [gray, gray, gray].map((channel) => Math.round(channel * 255));
+  }
+  return [red, green, blue].map((channel) => Math.round((channel * (1 - whiteness - blackness) + whiteness) * 255));
+}
+
+function parseSrgbChannels(value) {
+  const channels = value
+    .trim()
+    .replace(/\s*\/\s*[^,)\s]+$/, "")
+    .split(/[,\s]+/)
+    .filter(Boolean)
+    .slice(0, 3)
+    .map((channel) => {
+      if (channel.endsWith("%")) return Number.parseFloat(channel) * 2.55;
+      const numeric = Number.parseFloat(channel);
+      return numeric <= 1 ? numeric * 255 : numeric;
+    });
+  if (channels.length !== 3 || channels.some((channel) => !Number.isFinite(channel))) return null;
+  return channels.map((channel) => Math.max(0, Math.min(255, Math.round(channel))));
+}
+
+function colorValueContexts(line) {
+  const contexts = [];
+  for (const match of line.matchAll(COLOR_PROPERTY_PATTERN)) {
+    contexts.push(match[1]);
+  }
+  for (const match of line.matchAll(SVG_COLOR_ATTRIBUTE_PATTERN)) {
+    contexts.push(match[2]);
+  }
+  for (const match of line.matchAll(STYLE_ATTRIBUTE_PATTERN)) {
+    for (const declaration of match[2].matchAll(COLOR_PROPERTY_PATTERN)) {
+      contexts.push(declaration[1]);
+    }
+  }
+  return contexts;
+}
+
 function reportReddishColors(file, line, lineNumber, allowModernSpaces) {
   for (const match of line.matchAll(/#([\da-f]{8}|[\da-f]{6}|[\da-f]{4}|[\da-f]{3})\b/gi)) {
     const rgb = hexToRgb(match[0]);
@@ -109,13 +166,25 @@ function reportReddishColors(file, line, lineNumber, allowModernSpaces) {
     if (rgb && isReddish(rgb)) report(file, lineNumber, "reddish color", match[0]);
   }
 
+  for (const match of line.matchAll(/\bhwb\(\s*([^)]+)\)/gi)) {
+    const rgb = parseHwbChannels(match[1]);
+    if (rgb && isReddish(rgb)) report(file, lineNumber, "reddish color", match[0]);
+  }
+
+  for (const match of line.matchAll(/\bcolor\(\s*srgb\s+([^)]+)\)/gi)) {
+    const rgb = parseSrgbChannels(match[1]);
+    if (rgb && isReddish(rgb)) report(file, lineNumber, "reddish color", match[0]);
+  }
+
   for (const match of line.matchAll(/\b(?:oklch|oklab|lab|lch)\(\s*[^)]+\)/gi)) {
     if (!allowModernSpaces) report(file, lineNumber, "modern color space outside tokens.css", match[0]);
   }
 
-  for (const match of line.matchAll(/(?<![\p{L}-])(?:crimson|darkred|firebrick|indianred|lightcoral|lightsalmon|maroon|orangered|red|salmon|tomato)(?![\p{L}-])/giu)) {
-    const rgb = RED_CSS_NAMES.get(match[0].toLowerCase());
-    if (rgb && isReddish(rgb)) report(file, lineNumber, "reddish color", match[0]);
+  for (const context of colorValueContexts(line)) {
+    for (const match of context.matchAll(/(?<![\p{L}-])(?:crimson|darkred|firebrick|indianred|lightcoral|lightsalmon|maroon|orangered|red|salmon|tomato)(?![\p{L}-])/giu)) {
+      const rgb = RED_CSS_NAMES.get(match[0].toLowerCase());
+      if (rgb && isReddish(rgb)) report(file, lineNumber, "reddish color", match[0]);
+    }
   }
 }
 
