@@ -514,7 +514,12 @@ for (const width of [1440, 390]) {
     expect(accentControlRegisters.dark, `at ${width}px: accent controls must be measured on at least one dark register page`).toBeGreaterThan(0);
     expect(accentControlRegisters.light, `at ${width}px: accent controls must be measured on at least one light register page`).toBeGreaterThan(0);
     expect(g4TextRegisters.dark, `at ${width}px: g4 text must be measured on at least one dark register page`).toBeGreaterThan(0);
-    expect(g4TextRegisters.light, `at ${width}px: g4 text must be measured on at least one light register page`).toBeGreaterThan(0);
+    if (g4TextRegisters.light === 0) {
+      test.info().annotations.push({
+        type: "light-g4-proof",
+        description: `at ${width}px: real routes expose 0 light-register g4 text nodes; light-register g4 is guarded by the injected nested-surface test`,
+      });
+    }
     expect(errorMeasurements.length, `at ${width}px: reachable form error states must be measured`).toBeGreaterThan(0);
     for (const measurement of errorMeasurements) {
       test.info().annotations.push({ type: "form-error-contrast", description: measurement });
@@ -669,16 +674,34 @@ test("accent surface variables keep injected nested surfaces readable", async ({
       const b = luminance(back);
       return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
     };
+    const rgb = (value: Color) => `rgb(${value.slice(0, 3).map((channel) => Math.round(channel * 255)).join(", ")})`;
+    const sameRgb = (a: Color, b: Color) =>
+      Math.abs(a[0] - b[0]) < 1 / 255 &&
+      Math.abs(a[1] - b[1]) < 1 / 255 &&
+      Math.abs(a[2] - b[2]) < 1 / 255 &&
+      Math.abs(a[3] - b[3]) < 1 / 255;
+    const registerFor = (background: Color) => luminance(background) < 0.25 ? "dark" : "light";
 
     const host = document.querySelector("main");
     if (!host) throw new Error("Missing main host");
-    const light = document.createElement("section");
-    light.className = "r2-ecrin";
-    light.innerHTML = `<div class="frame" data-probe="light-frame"><span class="fx"></span><span>Probe</span></div><button class="rev-button exec" data-probe="light-exec">Probe</button>`;
     const dark = document.createElement("section");
     dark.className = "r2-dark";
-    dark.innerHTML = `<span class="st crit" data-probe="dark-crit">Probe</span>`;
-    host.append(light, dark);
+    dark.innerHTML = `
+      <section class="r2-ecrin" data-probe="nested-light">
+        <div class="frame" data-probe="light-frame"><span class="fx"></span><span>Probe</span></div>
+        <button class="rev-button exec" data-probe="light-exec">Probe</button>
+        <p class="r2-registre-note" data-probe="g4-nested-light">Probe</p>
+      </section>
+      <p class="r2-registre-note" data-probe="g4-dark">Probe</p>
+      <span class="st crit" data-probe="dark-crit">Probe</span>`;
+    const instrument = document.createElement("section");
+    instrument.className = "instrument";
+    instrument.innerHTML = `
+      <div class="frame decision-card" data-probe="instrument-card">
+        <span class="fx"></span>
+        <span class="r2-registre-note" data-probe="g4-instrument-card">Probe</span>
+      </div>`;
+    host.append(dark, instrument);
 
     const frame = document.querySelector('[data-probe="light-frame"]');
     const button = document.querySelector('[data-probe="light-exec"]');
@@ -694,11 +717,35 @@ test("accent surface variables keep injected nested surfaces readable", async ({
     const lightBackground = painted(frame);
     const lightContainer = painted(button.parentElement);
     const darkBackground = painted(crit);
+    const rootStyle = getComputedStyle(document.documentElement);
+    const g4Light = color(rootStyle.getPropertyValue("--g4-l").trim());
+    const g4Dark = color(rootStyle.getPropertyValue("--g4-d").trim());
+    const g4Probes = [
+      { name: "r2-dark > r2-ecrin > r2-registre-note", selector: '[data-probe="g4-nested-light"]', expectedToken: "--g4-l", expected: g4Light },
+      { name: "r2-dark > r2-registre-note", selector: '[data-probe="g4-dark"]', expectedToken: "--g4-d", expected: g4Dark },
+      { name: "instrument > decision-card > r2-registre-note", selector: '[data-probe="g4-instrument-card"]', expectedToken: "--g4-d", expected: g4Dark },
+    ].map((probe) => {
+      const element = document.querySelector(probe.selector);
+      if (!(element instanceof HTMLElement)) throw new Error(`Missing ${probe.name} g4 probe`);
+      const foreground = color(getComputedStyle(element).color);
+      const background = painted(element);
+      return {
+        name: probe.name,
+        expectedToken: probe.expectedToken,
+        expected: rgb(probe.expected),
+        foreground: rgb(foreground),
+        background: rgb(background),
+        register: registerFor(background),
+        ratio: contrast(foreground, background),
+        matchesExpectedToken: sameRgb(foreground, probe.expected),
+      };
+    });
     return {
       lightFrameRatio: contrast(frameLine, lightBackground),
       lightFocusRatio: contrast(buttonOutline, lightContainer),
       darkCritTextRatio: contrast(critText, darkBackground),
       darkCritDotRatio: contrast(critDot, darkBackground),
+      g4Probes,
     };
   });
 
@@ -706,8 +753,25 @@ test("accent surface variables keep injected nested surfaces readable", async ({
     type: "injected-light-accent-proof",
     description: `frame ${result.lightFrameRatio.toFixed(3)}:1; focus ${result.lightFocusRatio.toFixed(3)}:1`,
   });
+  test.info().annotations.push({
+    type: "injected-g4-proof",
+    description: result.g4Probes
+      .map((probe) => `${probe.name}: ${probe.foreground} expected ${probe.expectedToken} ${probe.expected} on ${probe.background} (${probe.register}) = ${probe.ratio.toFixed(3)}:1`)
+      .join("; "),
+  });
+  const g4ProbeFailures = result.g4Probes.flatMap((probe) => {
+    const failures: string[] = [];
+    if (!probe.matchesExpectedToken) {
+      failures.push(`${probe.name}: expected ${probe.expectedToken} ${probe.expected}, received ${probe.foreground}`);
+    }
+    if (probe.ratio < 4.5) {
+      failures.push(`${probe.name}: ${probe.foreground} on ${probe.background} (${probe.register}) = ${probe.ratio.toFixed(3)}:1`);
+    }
+    return failures;
+  });
   expect(result.lightFrameRatio, "injected r2-ecrin frame line must use the light-surface accent").toBeGreaterThanOrEqual(3);
   expect(result.lightFocusRatio, "injected r2-ecrin exec focus must use the light-surface accent").toBeGreaterThanOrEqual(3);
   expect(result.darkCritTextRatio, "injected dark critical status text must use the dark-surface accent").toBeGreaterThanOrEqual(4.5);
   expect(result.darkCritDotRatio, "injected dark critical status dot must use the dark-surface accent").toBeGreaterThanOrEqual(3);
+  expect(g4ProbeFailures, "injected g4 probes must use the exact expected token and keep 4.5:1 contrast").toEqual([]);
 });
