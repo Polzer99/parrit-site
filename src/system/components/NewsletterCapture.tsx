@@ -28,8 +28,6 @@ const DICT = {
   },
 } as const;
 
-const INTERET_ENDPOINT = "/api" + "/interet";
-
 function attribution(): Record<string, string> {
   const values: Record<string, string> = {};
   const params = new URLSearchParams(window.location.search);
@@ -66,7 +64,7 @@ export function NewsletterCapture({ locale }: { locale: Locale }) {
     start();
     setState("sending");
     try {
-      const response = await fetch(INTERET_ENDPOINT, {
+      const response = await fetch("/api/interet", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -3,7 +3,7 @@ import { extname, join, relative } from "node:path";
 
 const ROOTS = ["src", "scripts"];
 const EXTRA_FILES = ["public/llms.txt", "site.config.ts", "TRUTH.md"];
-const TEXT_EXTENSIONS = new Set([".js", ".jsx", ".mjs", ".ts", ".tsx", ".txt"]);
+const TEXT_EXTENSIONS = new Set([".js", ".jsx", ".mjs", ".ts", ".tsx", ".txt", ".md"]);
 const SELF = "scripts/false-claims-check.mjs";
 
 const exactClaims = [
