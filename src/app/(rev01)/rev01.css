@@ -40,6 +40,7 @@ body {
 .ri,
 .r2-phone,
 .r2-phase {
+  --g4: var(--g4-d);
   --action-fill: var(--accent-on-dark);
   --action-pressed: var(--accent-on-dark-p);
   --action-text: var(--ink);
@@ -53,6 +54,7 @@ body {
 
 .r2-ecrin,
 .decision-card {
+  --g4: var(--g4-l);
   --action-fill: var(--accent-strong);
   --action-pressed: var(--accent-strong-p);
   --action-text: var(--paper);
@@ -66,6 +68,7 @@ body {
 
 .instrument .decision-card,
 .r2-phone .decision-card {
+  --g4: var(--g4-d);
   --action-fill: var(--accent-on-dark);
   --action-pressed: var(--accent-on-dark-p);
   --action-text: var(--ink);
@@ -1448,7 +1451,7 @@ a.k:active {
   font-size: var(--d-s);
   font-weight: 480;
   letter-spacing: -.01em;
-  font-variation-settings: "opsz" 40, "SOFT" 0, "WONK" 0;
+  font-variation-settings: "opsz" 40;
   text-wrap: balance;
 }
 
@@ -2342,7 +2345,7 @@ a.k:active {
   font-size: var(--d-s);
   font-weight: 420;
   line-height: 1.35;
-  font-variation-settings: "opsz" 28, "SOFT" 0, "WONK" 0;
+  font-variation-settings: "opsz" 28;
   text-wrap: balance;
 }
 
@@ -2461,7 +2464,7 @@ a.k:active {
   font-size: var(--d-m);
   font-weight: 480;
   letter-spacing: -.01em;
-  font-variation-settings: "opsz" 60, "SOFT" 0, "WONK" 0;
+  font-variation-settings: "opsz" 60;
   text-wrap: balance;
 }
 

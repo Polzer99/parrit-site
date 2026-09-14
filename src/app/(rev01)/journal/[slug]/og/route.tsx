@@ -36,7 +36,7 @@ export async function GET(_request: Request, { params }: JournalOpenGraphImagePr
     path.join(process.cwd(), "src/og-assets/GeneralSans-Medium.otf"),
   );
   const plexMono = fs.readFileSync(
-    path.join(process.cwd(), "src/og-assets/JetBrainsMono-Medium.ttf"),
+    path.join(process.cwd(), "src/og-assets/ibm-plex-mono-latin-500-normal.woff"),
   );
 
   return new ImageResponse(
@@ -57,12 +57,12 @@ export async function GET(_request: Request, { params }: JournalOpenGraphImagePr
         <div
           style={{
             display: "flex",
-            fontFamily: "JetBrains Mono",
+            fontFamily: "IBM Plex Mono",
             fontSize: 18,
             fontWeight: 500,
             letterSpacing: "0.16em",
             textTransform: "uppercase",
-            color: token("--g4"),
+            color: token("--g4-d"),
           }}
         >
           PARRIT / JOURNAL · REV 01 · {entry.date}
@@ -86,7 +86,7 @@ export async function GET(_request: Request, { params }: JournalOpenGraphImagePr
       headers: { "Content-Type": contentType },
       fonts: [
         { name: "General Sans", data: plexSans, weight: 500 },
-        { name: "JetBrains Mono", data: plexMono, weight: 500 },
+        { name: "IBM Plex Mono", data: plexMono, weight: 500 },
       ],
     },
   );

@@ -136,6 +136,7 @@ button {
 }
 
 :where(.instrument, .register.instrument, .cal-instrument) {
+  --g4: var(--g4-d);
   --action-fill: var(--accent-on-dark);
   --action-pressed: var(--accent-on-dark-p);
   --action-text: var(--ink);

@@ -100,6 +100,7 @@ for (const width of [1440, 390]) {
     const accentTextRestRegisters: Record<AccentRegister, number> = { dark: 0, light: 0 };
     const accentTextErrorRegisters: Record<AccentRegister, number> = { dark: 0, light: 0 };
     const accentTextRegisters: Record<AccentRegister, number> = { dark: 0, light: 0 };
+    const g4TextRegisters: Record<AccentRegister, number> = { dark: 0, light: 0 };
     const accentControlRegisters = { dark: 0, light: 0 };
     const errorMeasurements: string[] = [];
     for (const path of PATHS) {
@@ -266,6 +267,35 @@ for (const width of [1440, 390]) {
             accentTextFailures.push(`${location.pathname}: ${text.label}; ${match.token} ${rgb(foreground)} on ${rgb(background)} = ${ratio.toFixed(3)}:1`);
           }
         }
+        const g4Tokens = [
+          { token: "--g4", value: color("#606366") },
+          { token: "--g4-l", value: color("#606366") },
+          { token: "--g4-d", value: color("#8C8F92") },
+        ];
+        const g4TextFailures: string[] = [];
+        const g4TextRegisters = { dark: 0, light: 0 };
+        const auditG4Text = (element: Element, label: string, foreground: Color) => {
+          const match = g4Tokens.find((token) => sameRgb(foreground, token.value));
+          if (!match) return;
+          const background = painted(element);
+          const register = registerFor(background);
+          g4TextRegisters[register] += 1;
+          const ratio = contrast(foreground, background);
+          if (ratio < 4.5) {
+            g4TextFailures.push(`${location.pathname}: ${label}; ${match.token} ${rgb(foreground)} on ${rgb(background)} = ${ratio.toFixed(3)}:1`);
+          }
+        };
+        for (const text of texts) {
+          auditG4Text(text.element, text.label, color(getComputedStyle(text.element).color));
+        }
+        for (const control of document.querySelectorAll("input, textarea")) {
+          if (!visible(control)) continue;
+          const box = control.getBoundingClientRect();
+          if (box.width <= 0 || box.height <= 0) continue;
+          if (control instanceof HTMLInputElement && ["hidden", "checkbox", "radio", "range", "color", "file", "image"].includes(control.type)) continue;
+          if (!(control instanceof HTMLInputElement || control instanceof HTMLTextAreaElement) || !control.placeholder || control.value) continue;
+          auditG4Text(control, `${describe(control, control.placeholder.slice(0, 40))}::placeholder`, color(getComputedStyle(control, "::placeholder").color));
+        }
 
         const accentControlFailures: string[] = [];
         const neutralControlDebt: string[] = [];
@@ -401,6 +431,8 @@ for (const width of [1440, 390]) {
           accentTextCount,
           accentTextFailures,
           accentTextRegisters,
+          g4TextFailures,
+          g4TextRegisters,
           focusFailures,
           neutralControlDebt,
           textCount: texts.length,
@@ -422,6 +454,8 @@ for (const width of [1440, 390]) {
       accentTextRegisters.light += errorResult.accentTextRegisters.light;
       accentTextErrorRegisters.dark += errorResult.accentTextRegisters.dark;
       accentTextErrorRegisters.light += errorResult.accentTextRegisters.light;
+      g4TextRegisters.dark += result.g4TextRegisters.dark;
+      g4TextRegisters.light += result.g4TextRegisters.light;
       accentControlRegisters.dark += result.accentControlRegisters.dark;
       accentControlRegisters.light += result.accentControlRegisters.light;
       errorMeasurements.push(...errorResult.measurements);
@@ -449,6 +483,7 @@ for (const width of [1440, 390]) {
       expect(result.controlCount, "the contrast audit must measure interactive controls").toBeGreaterThan(0);
       expect.soft(result.accentControlFailures, `${path} at ${width}px: accent control fill, border or outline contrast against the container must be at least 3:1`).toEqual([]);
       expect.soft(result.accentTextFailures, `${path} at ${width}px: accent text must keep 4.5:1 contrast on its painted background`).toEqual([]);
+      expect.soft(result.g4TextFailures, `${path} at ${width}px: g4 text must keep 4.5:1 contrast on its painted background`).toEqual([]);
       expect.soft(result.focusFailures, `${path} at ${width}px: focused accent controls must use a visible accent outline`).toEqual([]);
       expect.soft(unexpectedNeutralDebt, `${path} at ${width}px: neutral controls below 3:1 must not grow beyond the frozen debt list`).toEqual([]);
       expect.soft(regressedNeutralDebt, `${path} at ${width}px: frozen neutral control ratios must not decrease`).toEqual([]);
@@ -465,6 +500,10 @@ for (const width of [1440, 390]) {
       type: "accent-text-registers",
       description: `at ${width}px: rest dark ${accentTextRestRegisters.dark}, rest light ${accentTextRestRegisters.light}; errors dark ${accentTextErrorRegisters.dark}, errors light ${accentTextErrorRegisters.light}; final dark ${accentTextRegisters.dark}, final light ${accentTextRegisters.light}`,
     });
+    test.info().annotations.push({
+      type: "g4-text-registers",
+      description: `at ${width}px: dark ${g4TextRegisters.dark}, light ${g4TextRegisters.light}`,
+    });
     expect(accentTextRegisters.dark, `at ${width}px: accent text must be measured on at least one dark register page at rest or in a reachable form error state`).toBeGreaterThan(0);
     if (accentTextRegisters.light === 0) {
       test.info().annotations.push({
@@ -474,6 +513,8 @@ for (const width of [1440, 390]) {
     }
     expect(accentControlRegisters.dark, `at ${width}px: accent controls must be measured on at least one dark register page`).toBeGreaterThan(0);
     expect(accentControlRegisters.light, `at ${width}px: accent controls must be measured on at least one light register page`).toBeGreaterThan(0);
+    expect(g4TextRegisters.dark, `at ${width}px: g4 text must be measured on at least one dark register page`).toBeGreaterThan(0);
+    expect(g4TextRegisters.light, `at ${width}px: g4 text must be measured on at least one light register page`).toBeGreaterThan(0);
     expect(errorMeasurements.length, `at ${width}px: reachable form error states must be measured`).toBeGreaterThan(0);
     for (const measurement of errorMeasurements) {
       test.info().annotations.push({ type: "form-error-contrast", description: measurement });

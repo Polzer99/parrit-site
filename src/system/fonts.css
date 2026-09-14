@@ -1,5 +1,5 @@
-/* Font files are self-hosted under /public/fonts/rev02 — General Sans (Fontshare licence,
-   commercial use), JetBrains Mono (OFL), Fraunces variable (OFL, editorial display only). */
+/* Font files are self-hosted: General Sans under /public/fonts/rev02 (Fontshare licence,
+   commercial use); IBM Plex Mono and Source Serif 4 under /public/fonts/rev03 (OFL). */
 @font-face {
   font-family: "General Sans";
   src: url("/fonts/rev02/GeneralSans-Regular.woff2") format("woff2");
@@ -22,31 +22,30 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "JetBrains Mono";
-  src: url("/fonts/rev02/JetBrainsMono-Regular.woff2") format("woff2");
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/rev03/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "JetBrains Mono";
-  src: url("/fonts/rev02/JetBrainsMono-Medium.woff2") format("woff2");
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/rev03/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "JetBrains Mono";
-  src: url("/fonts/rev02/JetBrainsMono-SemiBold.woff2") format("woff2");
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/rev03/ibm-plex-mono-latin-600-normal.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
-/* Fraunces: reserved for REV 02 editorial display headings — do not use for body text. */
 @font-face {
-  font-family: "Fraunces";
-  src: url("/fonts/rev02/Fraunces-Variable.woff2") format("woff2");
-  font-weight: 100 900;
+  font-family: "Source Serif 4";
+  src: url("/fonts/rev03/source-serif-4-latin-opsz-normal.woff2") format("woff2");
+  font-weight: 200 900;
   font-style: normal;
   font-display: swap;
 }
