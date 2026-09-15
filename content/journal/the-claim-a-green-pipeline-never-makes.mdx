@@ -1,0 +1,36 @@
+---
+title: "The Claim a Green Pipeline Never Makes"
+date: "2026-09-15"
+description: "A pull request with no code in it. A dashboard as quiet as a slow Sunday. A test suite that stayed green because the thing it was testing never ran. Three of our own systems reported success this month, and none of them had earned the word."
+slug: "the-claim-a-green-pipeline-never-makes"
+---
+
+A pull request landed open, waiting for review, with zero lines changed. The model behind it had refused the task and said so in its own log. Nothing downstream read that log. The test suite ran against the unmodified code, which of course still passed, because it had passed the day before and the day before that. Every screen involved showed green. The only thing missing was the work.
+
+We build systems that hand decisions to a model and then run a battery of checks before trusting the result. That sentence sounds like a safeguard. This month it produced three separate incidents where the safeguard agreed with a failure instead of catching one, and each time the agreement looked, from the outside, exactly like health.
+
+## Green is an output, not a claim
+
+A status light answers one question: did the last step return without error. It says nothing about whether the step touched what it was supposed to touch. A test passes when the code path it exercises behaves as expected, and it passes just as easily when that code path was never exercised at all, because a configuration value was missing and the whole block quietly skipped.
+
+That is what happened to the second incident. An environment variable was absent on one machine and present on another. The suite that ran on the machine missing the variable reported success, fast, because it had nothing to do. The suite reads as identical whether the feature works or was never tested. Nobody had written down what the test was supposed to prove; it only recorded that nothing had blown up.
+
+The pull request with no code is the same failure wearing a different shape. Continuous integration checks that a build compiles and a test suite passes. It does not check that the pull request contains the change it claims to contain. A worker that refuses a task and a worker that completes it both hand the pipeline something to run tests against, and if the something happens to be unchanged code, both paths report the same green.
+
+## An empty screen has two causes, and only one of them is fine
+
+The third incident sat one layer up, in a dashboard rather than a pipeline. A screen meant to surface the day's activity showed nothing to review, on a day when the underlying database connection was down. The same screen, on an ordinary quiet Sunday with the database perfectly healthy, shows exactly the same thing: nothing to review.
+
+A human glancing at either screen sees the same picture and draws the same conclusion, that there is nothing to do. One of those two situations is true. The other is a system that stopped reporting and is being read as a system with nothing to report. The cost of that confusion is not visible in the moment. It shows up later, when someone asks why a week of activity never reached the place it was supposed to land, and the answer turns out to be a dead connection nobody was told about because nothing on screen ever asked to be told.
+
+## The fix is not more monitoring
+
+Adding another dashboard on top of a broken one produces a fourth screen that can also fail silently. The fix we settled on is smaller and less satisfying: before a step is allowed to report a result, it has to state what a real absence of work would look like, separately from what a failure to observe work would look like, and the two get different labels. A test that never ran does not say passed. It says the state it observed, or it says it could not observe a state at all, and those are not the same word.
+
+That distinction is cheap to write into a new check and expensive to retrofit into an old one, because retrofitting means finding every place a green light has been standing in for two different facts and pulling them apart by hand. We are doing that one pipeline at a time, starting with the ones a human trusts enough to stop checking behind.
+
+## Ask a pipeline what it would look like if it failed quietly
+
+Before trusting a green result anywhere in a system you run, pick one check and ask what its output would be if the thing it monitors went dark instead of failing loudly. If the answer is the same output it gives on a normal, empty day, the check cannot tell you which one happened, and it needs a third state before it can be trusted again. We found all three of ours this way, one check at a time, after the incidents rather than before them. A check that fails quietly was rarely designed that way on purpose. It happens by omission, one missing else-branch at a time.
+
+A pipeline that ran and found nothing, and a pipeline that never ran, are two different facts. Ours had been reporting them as one.
