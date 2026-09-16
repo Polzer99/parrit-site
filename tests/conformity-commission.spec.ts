@@ -2,7 +2,7 @@ import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 
-test.use({
+test.use({ serviceWorkers: "block",
   expectBlockedRequest: true,
   viewport: { width: 1440, height: 900 },
 });
@@ -38,3 +38,22 @@ test("commission matches the REV 01 display and instrument constraints", async (
   expect(visualConstraints.shadows).toBe(1);
   expect(visualConstraints.radii).toBe(0);
 });
+
+for (const width of [375, 1440]) {
+  for (const locale of ["en", "fr"] as const) {
+    test(`standard capture keeps its layout at ${width}px in ${locale}`, async ({ page }, testInfo) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.goto(`${BASE_URL}${locale === "fr" ? "/fr/commission" : "/commission"}`);
+      await page.evaluate(() => document.fonts.ready);
+      const capture = page.locator(".quick-capture");
+      await expect(capture).toBeVisible();
+      await expect(capture).not.toHaveClass(/home-s-quick-capture/);
+      await expect(capture).toHaveCSS("display", "grid");
+      await testInfo.attach(`commission-capture-${locale}-${width}`, {
+        body: await capture.screenshot({ animations: "disabled" }),
+        contentType: "image/png",
+      });
+    });
+  }
+}
