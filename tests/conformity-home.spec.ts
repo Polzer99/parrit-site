@@ -2,7 +2,7 @@ import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 
-test.use({ viewport: { width: 1440, height: 900 } });
+test.use({ serviceWorkers: "block", viewport: { width: 1440, height: 900 } });
 
 test("the home locks the approved display scale and surface rules", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
@@ -99,3 +99,46 @@ test.describe("command bar", () => {
     }
   });
 });
+
+for (const width of [375, 1440]) {
+  for (const locale of ["en", "fr"] as const) {
+    test(`hero capture stays centred at ${width}px in ${locale}`, async ({ page }, testInfo) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.goto(`${BASE_URL}${locale === "fr" ? "/fr" : "/"}`);
+      await page.evaluate(() => document.fonts.ready);
+
+      await expect(page.locator(".home-s-hero-sub")).toHaveText(locale === "fr"
+        ? "On code chez vous. Avec vos données. Jusqu'à ce que ça tourne."
+        : "We build inside your systems. On your data. Until it runs.");
+      await expect(page.locator(".home-s-maison h2")).toHaveText(locale === "fr"
+        ? "Nous construisons chez vous."
+        : "We build inside your systems.");
+
+      const capture = page.locator(".home-s-quick-capture");
+      await expect(capture).toHaveCSS("text-align", "center");
+      await expect(capture.locator("form > .k")).toHaveCSS("text-align", "center");
+      const geometry = await capture.evaluate((element) => {
+        const fields = element.querySelector(".quick-fields")!;
+        const input = fields.querySelector("input")!.getBoundingClientRect();
+        const button = fields.querySelector("button")!.getBoundingClientRect();
+        const bounds = fields.getBoundingClientRect();
+        const hero = element.closest(".home-s-hero")!.getBoundingClientRect();
+        return {
+          centreOffset: Math.abs(bounds.x + bounds.width / 2 - hero.x - hero.width / 2),
+          inputLeft: Math.abs(input.left - bounds.left),
+          buttonRight: Math.abs(button.right - bounds.right),
+          gap: Math.abs(input.right - button.left),
+        };
+      });
+      expect(geometry.centreOffset).toBeLessThanOrEqual(1);
+      expect(geometry.inputLeft).toBeLessThanOrEqual(1);
+      expect(geometry.buttonRight).toBeLessThanOrEqual(1);
+      if (width === 1440) expect(geometry.gap).toBeLessThanOrEqual(1);
+      await testInfo.attach(`hero-${locale}-${width}`, {
+        body: await page.locator(".home-s-hero").screenshot({ animations: "disabled" }),
+        contentType: "image/png",
+      });
+    });
+  }
+}
