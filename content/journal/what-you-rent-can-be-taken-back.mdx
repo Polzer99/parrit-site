@@ -1,0 +1,28 @@
+---
+title: "What You Rent Can Be Taken Back"
+date: "2026-09-18"
+description: "On 29 July 2026, an AI agent builder told its users the product was ending in a month. Eight weeks earlier, OpenAI had quietly scheduled the same fate for two of its own. Size never bought either set of users more runway."
+slug: "what-you-rent-can-be-taken-back"
+---
+
+On 29 July 2026, the team behind Flowise, an open-source AI agent builder that Workday had acquired less than a year earlier, published a wind-down notice to its users. Development froze immediately. The repository would move to public archive on 10 August. The product itself would stop running on 31 August, thirty-three days after the notice went out. Eight weeks earlier, on 3 June, OpenAI's own developer documentation shows a comparable notice going out to a different set of builders: Agent Builder and the Evals platform, two of its own tools for building and testing agents, had been flagged for retirement. That same documentation puts existing evaluations going read-only on 31 October, the dashboard and the API behind Agent Builder closing on 30 November, and a third product in the same family, the Assistants API, closing sooner still, on 26 August.
+
+Neither closure came from a vendor caught off guard by its own market. One is the largest AI lab in the industry, retiring tools it designed and shipped itself. The other had just been bought by a company with Workday's balance sheet behind it. Size bought neither set of users a single extra week.
+
+## The calendar was never yours to keep
+
+A platform you build agents on top of has its own roadmap, and that roadmap answers to the company that owns it, not to the teams running on it. Most of the time this is invisible, because most months nothing changes. The invisibility is the risk. A subscription reads as a stable foundation right up until the notice arrives, and the notice arrives on the vendor's schedule, not yours. Workday did not ask Flowise's users whether a month was enough time. OpenAI did not ask Agent Builder's users whether their migration could finish by November. Neither company owed anyone that conversation, because nothing in the arrangement had ever promised it.
+
+## The artifact is what survives the notice, not the plan
+
+Flowise's code carried an Apache 2.0 license, so anyone who had cloned the repository before 10 August kept a working agent builder, deployable on their own machines, past the date the hosted product went dark. Anyone who had only ever used the hosted version lost it on schedule, along with every workflow built inside it. The difference between those two groups had nothing to do with how much either had paid, or how long either had been a customer. It came down to whether what they held was a running copy they controlled, or an account on a server that stopped answering. OpenAI's Agent Builder never offered that second option: there is no license to invoke, no repository to fork, because the product was never distributed as an artifact in the first place. It was only ever access.
+
+## What we hand a client is the artifact, not the login
+
+This is the distinction we build around. A system we deliver runs on the client's own infrastructure, and the code, the configuration, and the runbook that operates it are delivered with it, not held back on our side, so that if we ever went unreachable the system is built to keep running the way it did the day before. By design, the client does not need our permission to read what the system does, change it, or move it. That is a harder thing to build than a hosted dashboard, and it is slower to demo in a first meeting, because there is no login screen to show off thirty seconds in. It also means the client's continuity was never a line item on our roadmap to begin with, because it was never ours to schedule.
+
+## Three questions before the contract, not after
+
+Before signing anything that a vendor calls an agent platform, ask what you would actually be left holding if today were the day their notice went out. Ask what license covers the code the system runs on, and whether that license lets you run a copy yourself, not whether the vendor lets you export a spreadsheet of your data. Ask who would write your migration guide if the answer to the first two questions turned out to be nobody and nothing: whoever writes it will be on the vendor's team, working to the vendor's timeline, because nothing in the arrangement ever gave you a claim on either.
+
+A rented agent still answers your questions right up until the day it doesn't. The notice, when it comes, tells you exactly how much of what you built was ever really yours.
