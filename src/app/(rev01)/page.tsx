@@ -18,23 +18,17 @@ const DICT = {
       sub: "We build inside your systems. On your data. Until it runs.",
       alternative: "Or talk it through: a 15-minute examination, on a video call, with the founder.",
     },
-    metrics: [
-      ["200+", "signals become decisions every week, on our own system"],
-      ["2.5 months", "recovered on a single reporting process, at a consumer brand"],
-      ["100%", "of delivered systems owned by the client, code and data included"],
-    ],
-    metricsNote: "Current as of 02·09·2026",
     brands: {
       kicker: "Systems commissioned by",
       list: "An industrial group · A cosmetics maison · A law firm · A B2B energy broker · A restaurant network · A consumer brand",
-      note: "Names are given in person, with each client's consent.",
+      note: "Not published. Shared in person.",
     },
     maison: {
       kicker: "The maison",
-      title: "We build inside your systems.",
-      leadStrong: "No deck. No report.",
-      leadRest: " A working system, coded with your team, on your data.",
-      body: "The examination is held by the founder, live. What we show you, we already run ourselves.",
+      title: "You talk to the person who builds.",
+      leadStrong: "No account manager. No project lead.",
+      leadRest: " The founder, in person, on every commission.",
+      body: "What he shows at the examination, he already runs himself.",
       link: "Book an examination",
       alt: "Portrait of the founder",
       caption: "Paul Larmaraud · Founder",
@@ -65,23 +59,17 @@ const DICT = {
       sub: "On code chez vous. Avec vos données. Jusqu'à ce que ça tourne.",
       alternative: "Ou parlons-en : un examen de 15 minutes, en visio, avec le fondateur.",
     },
-    metrics: [
-      ["200+", "signaux deviennent des décisions chaque semaine, sur notre propre système"],
-      ["2,5 mois", "gagnés sur un seul processus de reporting, chez une marque grand public"],
-      ["100 %", "des systèmes livrés appartiennent au client, code et données compris"],
-    ],
-    metricsNote: "À jour au 02·09·2026",
     brands: {
       kicker: "Des systèmes commandés par",
       list: "Un grand groupe industriel · Une maison de cosmétique · Un cabinet d'avocats · Un courtier énergie B2B · Un réseau de restauration · Une marque grand public",
-      note: "Les noms se donnent en rendez-vous, avec l'accord de chaque client.",
+      note: "Pas publiés. Partagés en rendez-vous.",
     },
     maison: {
       kicker: "La maison",
-      title: "Nous construisons chez vous.",
-      leadStrong: "Pas de rapport, pas de slide.",
-      leadRest: " Un système qui tourne, codé avec vos équipes, sur vos données.",
-      body: "L'examen se tient avec le fondateur, en direct. Ce qu'on vous montre, on l'a déjà fait tourner chez nous.",
+      title: "Vous parlez à celui qui construit.",
+      leadStrong: "Pas de compte client, pas de chef de projet.",
+      leadRest: " Le fondateur, en personne, sur chaque commande.",
+      body: "Ce qu'il montre à l'examen, il le fait déjà tourner chez lui.",
       link: "Réserver un examen",
       alt: "Portrait du fondateur",
       caption: "Paul Larmaraud · Fondateur",
@@ -147,15 +135,6 @@ export default async function HomePage() {
       <section className="home-s-agent r2-dark">
         <div className="home-s-wrap">
           <AgentEsquisse locale={locale} />
-        </div>
-      </section>
-
-      <section className="home-s-metrics r2-dark" aria-label="Metrics">
-        <div className="home-s-wrap">
-          <div className="home-s-metrics-grid">
-            {copy.metrics.map(([value, label]) => <article key={value}><strong>{value}</strong><p>{label}</p></article>)}
-          </div>
-          <K>{copy.metricsNote}</K>
         </div>
       </section>
 
