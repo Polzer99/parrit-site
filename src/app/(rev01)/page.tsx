@@ -32,6 +32,7 @@ const DICT = {
       link: "Book an examination",
       alt: "Portrait of the founder",
       caption: "Paul Larmaraud · Founder",
+      bridge: "Meet Paul",
     },
     build: {
       kicker: "What we build",
@@ -73,6 +74,7 @@ const DICT = {
       link: "Réserver un examen",
       alt: "Portrait du fondateur",
       caption: "Paul Larmaraud · Fondateur",
+      bridge: "Rencontrez Paul",
     },
     build: {
       kicker: "Ce que nous construisons",
@@ -158,6 +160,15 @@ export default async function HomePage() {
             <p><strong>{copy.maison.leadStrong}</strong>{copy.maison.leadRest}</p>
             <p>{copy.maison.body}</p>
             <Link className="home-s-text-link" href={localizedPath("/commission", locale)}>{copy.maison.link}</Link>
+            <a
+              className="home-s-text-link home-s-text-link--secondary"
+              href="https://paul-larmaraud.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${copy.maison.bridge} (${locale === "fr" ? "ouvre paul-larmaraud.com dans un nouvel onglet" : "opens paul-larmaraud.com in a new tab"})`}
+            >
+              {copy.maison.bridge} →
+            </a>
           </div>
         </div>
       </section>
