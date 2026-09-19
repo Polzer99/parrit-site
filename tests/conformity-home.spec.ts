@@ -112,8 +112,8 @@ for (const width of [375, 1440]) {
         ? "On code chez vous. Avec vos données. Jusqu'à ce que ça tourne."
         : "We build inside your systems. On your data. Until it runs.");
       await expect(page.locator(".home-s-maison h2")).toHaveText(locale === "fr"
-        ? "Nous construisons chez vous."
-        : "We build inside your systems.");
+        ? "Vous parlez à celui qui construit."
+        : "You talk to the person who builds.");
 
       const capture = page.locator(".home-s-quick-capture");
       await expect(capture).toHaveCSS("text-align", "center");
@@ -141,4 +141,50 @@ for (const width of [375, 1440]) {
       });
     });
   }
+}
+
+for (const locale of ["en", "fr"] as const) {
+  test(`home has no metric badges and flows into brands in ${locale}`, async ({ page }, testInfo) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(`${BASE_URL}${locale === "fr" ? "/fr" : "/"}`);
+    await page.evaluate(() => document.fonts.ready);
+
+    await expect(page.getByRole("region", { name: "Metrics", exact: true })).toHaveCount(0);
+    await expect(page.getByText(/200\+|2[.,]5 (?:months|mois)|100\s*%|02·09·2026/)).toHaveCount(0);
+    await expect(page.locator(".home-s-brands-list + p")).toHaveText(locale === "fr"
+      ? "Pas publiés. Partagés en rendez-vous."
+      : "Not published. Shared in person.");
+    const gap = await page.locator(".home-s-brands").evaluate((brands) => {
+      const previous = brands.previousElementSibling;
+      if (!previous?.classList.contains("home-s-agent")) throw new Error("Agent must precede brands");
+      return brands.getBoundingClientRect().top - previous.getBoundingClientRect().bottom;
+    });
+    expect(Math.abs(gap)).toBeLessThanOrEqual(1);
+    await testInfo.attach(`home-copy-${locale}-1440`, {
+      body: await page.screenshot({ fullPage: true, animations: "disabled" }),
+      contentType: "image/png",
+    });
+  });
+
+  test(`dossier titles describe operations in ${locale}`, async ({ page }, testInfo) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(`${BASE_URL}${locale === "fr" ? "/fr/dossiers" : "/dossiers"}`);
+    await page.evaluate(() => document.fonts.ready);
+    await expect(page.locator(".r2-dossier h3")).toHaveText(locale === "fr" ? [
+      "Le reporting qui s'assemble seul et part à l'heure.",
+      "Les dossiers relancés ne retombent plus dans l'oubli.",
+      "Nous vendons le système qui nous fait tourner.",
+    ] : [
+      "The reporting that assembles itself and ships on time.",
+      "Re-engaged case files stop falling through again.",
+      "We sell the system we run on.",
+    ]);
+    await expect(page.locator(".r2-registre-note")).toHaveText(locale === "fr"
+      ? "Ils se lisent en rendez-vous, sur demande."
+      : "They are read in a meeting, on request.");
+    await testInfo.attach(`dossiers-copy-${locale}-1440`, {
+      body: await page.screenshot({ fullPage: true, animations: "disabled" }),
+      contentType: "image/png",
+    });
+  });
 }

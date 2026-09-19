@@ -15,26 +15,26 @@ const DICT = {
     "dossiers": [
       {
         "ref": "Dossier 26-003 · A consumer brand",
-        "title": "2.5 months recovered on a single reporting process.",
-        "body": "The reporting assembles itself and ships on schedule. The client's own team runs it today.",
+        "title": "The reporting that assembles itself and ships on time.",
+        "body": "Two and a half months of that cycle are gone. The client's own team runs it alone, today.",
         "seal": "Delivered · In the client's hands"
       },
       {
         "ref": "Dossier 26-002 · A law firm",
-        "title": "€5K to €10K more per month, from re-engaged case files.",
-        "body": "Client intake and follow-ups, rebuilt on the firm's own infrastructure.",
+        "title": "Re-engaged case files stop falling through again.",
+        "body": "€5K to €10K more per month. Client intake and follow-ups, rebuilt on the firm's own infrastructure.",
         "seal": "Under construction · First capabilities live"
       },
       {
         "ref": "Dossier 26-001 · Parrit.ai, our own system",
         "title": "We sell the system we run on.",
-        "body": "More than 200 signals become decisions every week, received and arbitrated by the founder.",
+        "body": "Every signal that touches the business reaches the founder already framed as a decision to make.",
         "seal": "In production · Compounding"
       }
     ],
     "registry": "The registry",
     "registryTitle": "Other dossiers remain sealed.",
-    "note": "They are read in a meeting, with the client's consent.",
+    "note": "They are read in a meeting, on request.",
     "close": "The next dossier could be yours.",
     "proof": "15 min · An examination, with the founder",
     "button": "Let's talk"
@@ -48,26 +48,26 @@ const DICT = {
     "dossiers": [
       {
         "ref": "Dossier 26-003 · Une marque grand public",
-        "title": "2,5 mois gagnés sur un seul processus de reporting.",
-        "body": "Le reporting s'assemble et part à l'heure. L'équipe du client le fait tourner aujourd'hui.",
+        "title": "Le reporting qui s'assemble seul et part à l'heure.",
+        "body": "Deux mois et demi de ce cycle ont disparu. L'équipe du client le fait tourner seule, aujourd'hui.",
         "seal": "Livré · Aux mains du client"
       },
       {
         "ref": "Dossier 26-002 · Un cabinet d'avocats",
-        "title": "De 5 à 10 K€ de plus par mois, sur des dossiers relancés.",
-        "body": "L'arrivée des clients et les relances, refondues sur l'infrastructure du cabinet.",
+        "title": "Les dossiers relancés ne retombent plus dans l'oubli.",
+        "body": "5 à 10 K€ de plus par mois. L'arrivée des clients et les relances, refondues sur l'infrastructure du cabinet.",
         "seal": "En construction · Premières briques en service"
       },
       {
         "ref": "Dossier 26-001 · Parrit.ai, notre propre système",
         "title": "Nous vendons le système qui nous fait tourner.",
-        "body": "Plus de 200 signaux deviennent des décisions chaque semaine, reçus et arbitrés par le fondateur.",
+        "body": "Chaque signal qui touche l'entreprise arrive chez le fondateur déjà transformé en décision à trancher.",
         "seal": "En production · La valeur s'accumule"
       }
     ],
     "registry": "Le registre",
     "registryTitle": "D'autres dossiers restent scellés.",
-    "note": "Ils se lisent en rendez-vous, avec l'accord du client.",
+    "note": "Ils se lisent en rendez-vous, sur demande.",
     "close": "Le prochain dossier pourrait être le vôtre.",
     "proof": "15 min · Un examen, avec le fondateur",
     "button": "Parlons-en"
