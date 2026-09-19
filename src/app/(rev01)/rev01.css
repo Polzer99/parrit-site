@@ -1875,6 +1875,17 @@ a.k:active {
   color: var(--paper);
 }
 
+.home-s-text-link--secondary {
+  display: block;
+  width: fit-content;
+  color: var(--g3);
+}
+
+.home-s-text-link--secondary:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 4px;
+}
+
 .home-s-build {
   padding: 110px 0;
 }

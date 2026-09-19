@@ -102,6 +102,44 @@ test.describe("command bar", () => {
 
 for (const width of [375, 1440]) {
   for (const locale of ["en", "fr"] as const) {
+    test(`founder bridge is secondary and keyboard accessible at ${width}px in ${locale}`, async ({ page }, testInfo) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.goto(`${BASE_URL}${locale === "fr" ? "/fr" : "/"}`);
+      await page.evaluate(() => document.fonts.ready);
+
+      const maison = page.locator(".home-s-maison");
+      const primary = maison.getByRole("link", { name: locale === "fr" ? "Réserver un examen" : "Book an examination", exact: true });
+      const name = locale === "fr"
+        ? "Rencontrez Paul (ouvre paul-larmaraud.com dans un nouvel onglet)"
+        : "Meet Paul (opens paul-larmaraud.com in a new tab)";
+      const bridge = maison.getByRole("link", { name, exact: true });
+      await expect(maison.getByRole("link")).toHaveCount(2);
+      await expect(primary).toHaveAttribute("href", locale === "fr" ? "/fr/commission" : "/commission");
+      await expect(bridge).toHaveText(locale === "fr" ? "Rencontrez Paul →" : "Meet Paul →");
+      await expect(bridge).toHaveAttribute("href", "https://paul-larmaraud.com");
+      await expect(bridge).toHaveAttribute("target", "_blank");
+      await expect(bridge).toHaveAttribute("rel", "noopener noreferrer");
+      await expect(bridge).toHaveCSS("color", "rgb(85, 89, 94)");
+      await expect(primary).toHaveCSS("color", "rgb(10, 11, 12)");
+      const primaryBounds = await primary.boundingBox();
+      const bridgeBounds = await bridge.boundingBox();
+      expect(primaryBounds).not.toBeNull();
+      expect(bridgeBounds).not.toBeNull();
+      expect(bridgeBounds!.y - primaryBounds!.y - primaryBounds!.height).toBeGreaterThanOrEqual(12);
+      expect(bridgeBounds!.x + bridgeBounds!.width).toBeLessThanOrEqual(width);
+
+      await primary.focus();
+      await page.keyboard.press("Tab");
+      await expect(bridge).toBeFocused();
+      await expect(bridge).toHaveCSS("outline-style", "solid");
+      await expect(bridge).toHaveCSS("outline-width", "2px");
+      await testInfo.attach(`maison-${locale}-${width}`, {
+        body: await maison.screenshot({ animations: "disabled" }),
+        contentType: "image/png",
+      });
+    });
+
     test(`hero capture stays centred at ${width}px in ${locale}`, async ({ page }, testInfo) => {
       await page.setViewportSize({ width, height: 900 });
       await page.emulateMedia({ reducedMotion: "reduce" });
