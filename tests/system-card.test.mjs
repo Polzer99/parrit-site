@@ -56,10 +56,36 @@ test("untrusted text is escaped rather than interpreted as markup", () => {
   assert.ok(html.includes("&lt;script&gt;"));
 });
 const { RegistrySnapshot } = loadComponent("RegistrySnapshot");
-test("registry preserves its date, zero writers and exact historical totals", () => {
-  const html = renderToStaticMarkup(createElement(RegistrySnapshot, {
-    asOf: "2026-09-13", rows: [{ domain: "GTM.campaigns / outbound", source: "external:instantly", status: "NOT_STARTED", legacyWriters: 0 }],
-    summary: { total: 25, cutover: 1, migrating: 8, notStarted: 12, parityFail: 4 },
-  }));
-  for (const value of ['dateTime="2026-09-13"', "GTM.campaigns / outbound", "external:instantly", "NOT_STARTED", ">0</td>", "25 domains", "CUTOVER 1", "MIGRATING 8", "NOT_STARTED 12", "PARITY_FAIL 4"]) assert.ok(html.includes(value), value);
+test("registry preserves its date, zero writers and supplied localized summary verbatim", () => {
+  for (const locale of ["fr", "en"]) {
+    const summaryText = locale === "fr"
+      ? "25 types d'information suivis au total. Pour 1, le transfert est terminé. Pour 8, il est en cours. Pour 4, les deux versions ne concordent pas. Pour 12, il n'a pas encore commencé."
+      : "25 types of information tracked in total. For 1, the transfer is complete. For 8, it's underway. For 4, the two versions don't match. For 12, it hasn't started.";
+    const html = renderToStaticMarkup(createElement(RegistrySnapshot, {
+      locale, asOf: "2026-09-13", rows: [{ domain: "Outreach", source: "External tool (Instantly)", status: "Transfer not started", legacyWriters: 0 }], summaryText,
+    }));
+    for (const value of ['dateTime="2026-09-13"', "Outreach", "External tool (Instantly)", "Transfer not started", ">0</td>", renderToStaticMarkup(createElement("p", null, summaryText)).slice(3, -4)]) assert.ok(html.includes(value), value);
+    const headings = locale === "fr"
+      ? ["Type d'information", "Où l'information est enregistrée", "Situation", "Anciens outils encore utilisés en parallèle"]
+      : ["Type of information", "Where it's recorded", "Status", "Legacy tools still in parallel use"];
+    for (const heading of headings) {
+      const escaped = renderToStaticMarkup(createElement("span", null, heading)).slice(6, -7);
+      assert.ok(html.includes(`scope="col">${escaped}</th>`));
+      assert.ok(html.includes(`data-label="${escaped}"`));
+    }
+    assert.doesNotMatch(html, /CUTOVER|MIGRATING|NOT_STARTED|PARITY_FAIL/);
+  }
+});
+
+test("registry summary is escaped as plain text", () => {
+  const html = renderToStaticMarkup(createElement(RegistrySnapshot, { asOf: "2026-09-13", rows: [], summaryText: "<script>bad()</script>" }));
+  assert.ok(html.includes("&lt;script&gt;bad()&lt;/script&gt;"));
+  assert.ok(!html.includes("<script>"));
+});
+
+test("editorial sources contain no em dash or retired step anchors", () => {
+  for (const path of ["../src/app/(rev01)/systems/page.tsx", "../src/system/components/RegistrySnapshot.tsx"]) {
+    const source = readFileSync(new URL(path, import.meta.url), "utf8");
+    assert.doesNotMatch(source, /—|#step-|evidence\.steps|copy\.chain|copy\.stepNames/);
+  }
 });

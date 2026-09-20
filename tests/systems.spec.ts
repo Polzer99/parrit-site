@@ -14,7 +14,7 @@ for (const width of [375, 767, 768, 1440]) {
       expect(response?.status()).toBe(200);
       await page.evaluate(() => document.fonts.ready);
       await expect(page.locator("html")).toHaveAttribute("lang", locale);
-      await expect(page.getByRole("heading", { level: 1 })).toHaveText(locale === "fr" ? "Ce que Parrit construit, réellement." : "What Parrit actually builds.");
+      await expect(page.getByRole("heading", { level: 1 })).toHaveText(locale === "fr" ? "Nous montrons le système. Vous jugez avant de vous engager." : "We show the system. You judge before you commit.");
       const cards = page.locator("#capacites article");
       await expect(cards).toHaveCount(4);
       const labels = locale === "fr" ? ["Entrée", "Traitement", "Sortie", "Limites"] : ["Input", "Process", "Output", "Limits"];
@@ -32,16 +32,35 @@ for (const width of [375, 767, 768, 1440]) {
       await expect(table).toBeVisible();
       await expect(table.locator("caption time")).toHaveText("2026-09-13");
       await expect(table.locator("tbody tr")).toHaveCount(7);
-      await expect(table.locator("tbody tr").nth(2)).toContainText("GTM.campaigns / outbound");
-      await expect(table.locator("tbody tr").nth(2)).toContainText("NOT_STARTED");
+      await expect(table.locator("tbody tr").nth(2)).toContainText(locale === "fr" ? "Prospection commerciale" : "Outreach");
+      await expect(table.locator("tbody tr").nth(2)).toContainText(locale === "fr" ? "Le transfert n'a pas commencé" : "Transfer not started");
       await expect(table.locator("tbody tr").nth(2).locator("td").last()).toHaveText("0");
       const distinction = page.locator("#acquisition-distinction");
       await expect(distinction).toBeVisible();
-      for (const phrase of locale === "fr" ? ["signaux que le pipeline peut traiter", "aucun constaté", "ventes attribuées", "relations personnelles"] : ["signals the pipeline can process", "none recorded", "sales attributed", "personal relationships"]) await expect(distinction).toContainText(phrase);
+      for (const phrase of locale === "fr" ? ["il repère, dans des informations publiques", "aucun rendez-vous", "aucune vente", "personnes que nous connaissons déjà"] : ["it looks for public signs", "a single meeting", "no sale", "people we already know"]) await expect(distinction).toContainText(phrase);
       await expect(page.locator("#offre article")).toHaveCount(1);
       await expect(page.locator("#offre .offer-price")).toHaveText(locale === "fr" ? "3 200 € HT · forfait" : "€3,200 excl. VAT · fixed fee");
       await expect(page.locator("#faq h3")).toHaveCount(4);
-      await expect(page.locator(".r2-phase")).toHaveCount(7);
+      await expect(page.locator("#operating-view .r2-phase")).toHaveCount(0);
+      await expect(page.locator('[id^="step-"]')).toHaveCount(0);
+      const narrative = page.locator("#operating-view > p").first();
+      await expect(narrative).toContainText(locale === "fr" ? "Prenons un exemple réel." : "Take a real example.");
+      await expect(page.locator("#operating-view > p + .registry-snapshot")).toHaveCount(1);
+      await expect(page.locator(".registry-snapshot + #acquisition-distinction")).toHaveCount(1);
+      const headings = locale === "fr"
+        ? ["Type d'information", "Où l'information est enregistrée", "Situation", "Anciens outils encore utilisés en parallèle"]
+        : ["Type of information", "Where it's recorded", "Status", "Legacy tools still in parallel use"];
+      await expect(table.locator("thead th")).toHaveText(headings);
+      for (const row of await table.locator("tbody tr").all()) {
+        for (let i = 0; i < headings.length; i++) await expect(row.locator("th, td").nth(i)).toHaveAttribute("data-label", headings[i]);
+      }
+      await expect(table.locator("tbody tr td:last-child")).toHaveText(["11", "1", "0", "1", "2", "6", "6"]);
+      await expect(page.locator(".registry-snapshot > p")).toHaveText(locale === "fr"
+        ? "25 types d'information suivis au total. Pour 1, le transfert est terminé. Pour 8, il est en cours. Pour 4, les deux versions ne concordent pas. Pour 12, il n'a pas encore commencé."
+        : "25 types of information tracked in total. For 1, the transfer is complete. For 8, it's underway. For 4, the two versions don't match. For 12, it hasn't started.");
+      const guards = page.locator("#garde-fous a");
+      for (let i = 0; i < 4; i++) await expect(guards.nth(i)).toHaveAttribute("href", i < 3 ? "#operating-view" : "#capacites");
+      expect(await page.locator("main").innerText()).not.toMatch(/—|R-06|R-13|PARITY_FAIL|NOT_STARTED|CUTOVER|MIGRATING/);
       await expect(page.locator('main a[href$="/commission"]')).toHaveCount(3);
       for (const link of await page.locator("main a").all()) {
         const href = await link.getAttribute("href");
@@ -66,6 +85,9 @@ for (const width of [375, 767, 768, 1440]) {
         return rect.left >= 0 && rect.right <= innerWidth;
       }))).toBe(true);
       if (width === 375 || width === 1440) {
+        await testInfo.attach(`systems-${locale}-${width}-full-page`, {
+          body: await page.screenshot({ fullPage: true, animations: "disabled" }), contentType: "image/png",
+        });
         for (const selector of [".r2-hero", '[aria-labelledby="evidence-heading"]', "#operating-view", "#capacites", "#r06", "#method", "#garde-fous", "#offre", "#faq"]) {
           await testInfo.attach(`systems-${locale}-${width}-${selector.replace(/[^a-z-]/gi, "")}`, {
             body: await page.locator(selector).screenshot({ animations: "disabled" }), contentType: "image/png",
