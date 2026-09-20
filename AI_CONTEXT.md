@@ -84,3 +84,9 @@ TypeScript, lint complet et gate de marque passent hors réseau. Le H1 home vaut
 ## Tests pré-hydratation, 14/09/2026
 
 `tests/aeration.spec.ts` et `tests/conformity-i18n.spec.ts` rejouent désormais les gestes client fragiles avec `expect(...).toPass` et des bornes courtes : le champ email invalide doit garder sa valeur avant submit puis exposer `.ri-error[role='alert']`, et chaque switch de langue ne retente qu'une seule cible (`EN` puis `FR`) tout en conservant URL, query/hash, cookie et `lang`. Aucun attribut produit ni retry Playwright global ajouté ; si une saisie réelle est perdue avant hydratation sur connexion lente, ce sera un lot `src/` séparé.
+
+## Offres home, 20/09/2026
+
+La spec validée `docs/CODEX-SPEC-2026-09-20-offer-cards-home.md` prime sur l’ancienne interdiction de prix public de TRUTH.md pour Build With You : 3 200 € HT forfait, 10 heures. Deux OfferCard entre build et Journal ; champs absents masqués, prix et priceNote mutuellement exclusifs. La page `/build-with-you` et `/fr/build-with-you` utilise les composants et styles r2 existants ; registre locale, matcher proxy et sitemap incluent cette route. Aucun changement commission/dossiers/founder bridge. Écart commercial conservé selon mandat : audit offert 30 min pour Build With You, destination commission annonçant 15 min.
+
+Tests : `node --test tests/offer-card.test.mjs` (rendu serveur réel) et `tests/offer-cards.spec.ts` intégré à qa:network:rev01 (FR/EN, 375/767/768/1440, liens, métadonnées, débordements, captures 375/1440). Validation navigateur et captures à terminer hors sandbox, Chromium refusé par macOS.

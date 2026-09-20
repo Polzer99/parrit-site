@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
 import { getLocale } from "@/lib/server/locale";
+import { OfferCard } from "@/system/components/OfferCard";
 import { AgentEsquisse } from "@/system/components/AgentEsquisse";
 import { K, QuickCapture } from "@/system/components";
 import { getAllJournalEntrySummaries } from "@/system/journal";
@@ -43,6 +44,28 @@ const DICT = {
         ["03", "Act", "The action executes in the same system. Journaled, reversible. The system belongs to you."],
       ],
       verdict: "Three moves. The rest runs without you.",
+    },
+    offers: {
+      kicker: "Ways to start",
+      cards: [
+        {
+          name: "Build With You",
+          audience: "For leaders who want something that runs, not an audit or a deck.",
+          outcome: "A working system, built with the founder.",
+          deliverables: ["Free 30-minute audit", "30-minute findings review", "10 hours of building with the founder"],
+          format: "10 hours, with the founder",
+          price: { amountHt: 3200, currency: "EUR", basis: "fixed fee" },
+          cta: { label: "See Build With You", href: "/build-with-you" },
+        },
+        {
+          name: "Custom system",
+          audience: "For leaders who want Parrit to handle the entire build.",
+          outcome: "A system built and put into production by Parrit.",
+          deliverables: ["Examination of your needs with the founder", "A verdict: a written scope or a clear no", "Terms set in writing before work begins"],
+          priceNote: "Custom quote",
+          cta: { label: "Book an examination", href: "/commission" },
+        },
+      ],
     },
     journal: { kicker: "What the work teaches us", title: "The Journal" },
     close: {
@@ -85,6 +108,28 @@ const DICT = {
         ["03", "Agir", "L'action s'exécute dans le même système. Consignée au journal, réversible. Le système vous appartient."],
       ],
       verdict: "Trois gestes. Le reste tourne sans vous.",
+    },
+    offers: {
+      kicker: "Pour commencer",
+      cards: [
+        {
+          name: "Build With You",
+          audience: "Pour le dirigeant qui veut repartir avec quelque chose qui tourne, pas un audit ni un deck.",
+          outcome: "Un système qui tourne, construit avec le fondateur.",
+          deliverables: ["Audit de 30 min offert", "Restitution de 30 min", "10 heures de construction avec le fondateur"],
+          format: "10 heures, avec le fondateur",
+          price: { amountHt: 3200, currency: "EUR", basis: "forfait" },
+          cta: { label: "Découvrir Build With You", href: "/build-with-you" },
+        },
+        {
+          name: "Système sur mesure",
+          audience: "Pour le dirigeant qui veut confier la réalisation complète à Parrit.",
+          outcome: "Un système construit et mis en production par Parrit.",
+          deliverables: ["Examen du besoin avec le fondateur", "Un verdict : un périmètre écrit ou un non clair", "Des conditions écrites avant de commencer"],
+          priceNote: "Sur devis",
+          cta: { label: "Réserver un examen", href: "/commission" },
+        },
+      ],
     },
     journal: { kicker: "Ce que les chantiers nous apprennent", title: "Le Journal" },
     close: {
@@ -181,6 +226,16 @@ export default async function HomePage() {
             {copy.build.items.map(([number, title, body]) => <article key={number}><K>{number}</K><h3>{title}</h3><p>{body}</p></article>)}
           </div>
           <K className="home-s-verdict">{copy.build.verdict}</K>
+        </div>
+      </section>
+
+      <section className="home-s-offers r2-dark" aria-label={copy.offers.kicker}>
+        <div className="home-s-wrap">
+          <K>{copy.offers.kicker}</K>
+          <div className="home-s-offers-grid">
+            {copy.offers.cards.map((offer) => <OfferCard key={offer.name} {...offer} locale={locale}
+              cta={{ ...offer.cta, href: localizedPath(offer.cta.href, locale) }} />)}
+          </div>
         </div>
       </section>
 

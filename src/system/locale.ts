@@ -8,7 +8,7 @@ export const PATHNAME_HEADER = "x-parrit-pathname";
 
 // The Journal index has translated chrome; individual entries do not.
 export const TRANSLATED_PATHS: readonly string[] = [
-  "/", "/manufacture", "/standard", "/dossiers", "/commission", "/journal", "/legal",
+  "/", "/build-with-you", "/manufacture", "/standard", "/dossiers", "/commission", "/journal", "/legal",
 ];
 
 export function barePathname(pathname: string): string {
