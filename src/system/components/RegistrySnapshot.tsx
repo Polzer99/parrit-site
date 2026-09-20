@@ -8,7 +8,7 @@ export type RegistrySnapshotProps = {
 };
 
 export function RegistrySnapshot({ asOf, rows, summaryText, locale = "en" }: RegistrySnapshotProps) {
-  const headings = locale === "fr" ? ["Type d'information", "Où l'information est enregistrée", "Situation", "Anciens outils encore utilisés en parallèle"] : ["Type of information", "Where it's recorded", "Status", "Legacy tools still in parallel use"];
+  const headings = locale === "fr" ? ["Type d'information", "Où l'information est enregistrée", "Situation", "Anciens points d'écriture recensés"] : ["Type of information", "Where it's recorded", "Status", "Legacy write points on record"];
   return <div className="registry-snapshot" style={{ marginTop: 40, fontFamily: "var(--mono)", fontSize: "var(--t-k)" }}>
     <table>
       <caption style={{ textAlign: "left", paddingBottom: 24 }}>
