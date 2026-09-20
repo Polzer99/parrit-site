@@ -133,7 +133,7 @@ test("header switches paths, saves choice and preserves query/hash", async ({ pa
   await switchHeaderLanguage(page, context, "fr", `${BASE_URL}/fr/standard?source=test#top`);
   await expect(page).toHaveURL(`${BASE_URL}/fr/standard?source=test#top`);
   expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe("fr");
-  await expect(page.locator('.cmd-nav a[href="/fr/commission"]')).toHaveCount(1);
+  await expect(page.locator('.cmd-cta[href="/fr/commission"]')).toHaveCount(1);
 });
 
 test("Journal articles are English only, including legacy French aliases", async ({ page }) => {
@@ -162,3 +162,11 @@ test("sitemap contains both translated sets and no French articles", async ({ pa
   expect(xml).not.toMatch(/<loc>[^<]*\/fr\/journal\//);
   expect(xml).not.toContain("?lang=");
 });
+
+for (const locale of ["en", "fr"] as const) {
+  test(`home links to systems from the ${locale} navigation`, async ({ page }) => {
+    const prefix = locale === "fr" ? "/fr" : "";
+    await page.goto(`${BASE_URL}${prefix}/`);
+    await expect(page.locator(`.cmd-nav a[href="${prefix}/systems"]`)).toHaveCount(1);
+  });
+}
