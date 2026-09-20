@@ -2841,7 +2841,39 @@ a.k:active {
   font-weight: 400;
 }
 .offer-card-action .rev-button { margin-top: 24px; max-width: 100%; white-space: normal; text-align: center; }
+.registry-snapshot table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.registry-snapshot th, .registry-snapshot td {
+  padding: 16px 8px;
+  border-bottom: 1px solid var(--rule-d);
+  vertical-align: top;
+}
 @media (max-width: 767px) {
+  .registry-snapshot thead { display: none; }
+  .registry-snapshot table,
+  .registry-snapshot caption,
+  .registry-snapshot tbody,
+  .registry-snapshot tr { display: block; }
+  .registry-snapshot tbody { border: 1px solid var(--rule-d); }
+  .registry-snapshot tbody tr { padding: 28px 20px; }
+  .registry-snapshot tbody tr + tr { border-top: 1px solid var(--rule-d); }
+  .registry-snapshot tbody th,
+  .registry-snapshot td {
+    display: block;
+    padding: 0;
+    border: 0;
+  }
+  .registry-snapshot td { margin-top: 20px; }
+  .registry-snapshot [data-label]::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 8px;
+    color: var(--label-d);
+    font-weight: 400;
+  }
   .home-s-offers { padding: 56px 0; }
   .home-s-offers-grid { grid-template-columns: minmax(0, 1fr); }
   .offer-card { padding: 28px 20px; }
