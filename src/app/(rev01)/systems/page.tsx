@@ -273,6 +273,10 @@ export default async function SystemsPage() {
       <header className="r2-hero">
         <K>{copy.kicker}</K><h1>{copy.title}</h1><p className="r2-sub">{copy.sub}</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 24, marginTop: 32 }}>{talk}<Link className="rev-button ghost" href="#capacites">{copy.catalogue}</Link></div>
+        <div className="systems-hero-proof">
+          <K>{copy.observed}</K>
+          <SystemCard {...evidence.cards[0]} locale={locale} />
+        </div>
       </header>
       <section className="r2-section" aria-labelledby="evidence-heading">
         {heading("evidence-heading", copy.evidence)}<p>{copy.intro}</p>
