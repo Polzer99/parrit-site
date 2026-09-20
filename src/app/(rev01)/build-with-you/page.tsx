@@ -11,7 +11,7 @@ const DICT = {
     promise: "You want to leave with something that runs, built with you. Not an audit or a deck.",
     stepsTitle: "Build with the founder.",
     steps: [
-      ["01", "Free audit", "30 minutes to examine your needs."],
+      ["01", "Free audit", "30 minutes to go over your situation."],
       ["02", "Findings review", "30 minutes to review the findings together."],
       ["03", "Build together", "10 hours with the founder to build a working system."],
     ],
@@ -23,7 +23,7 @@ const DICT = {
     promise: "Vous voulez repartir avec quelque chose qui tourne, construit avec vous. Pas un audit ni un deck.",
     stepsTitle: "Construire avec le fondateur.",
     steps: [
-      ["01", "Audit offert", "30 minutes pour examiner votre besoin."],
+      ["01", "Audit offert", "30 minutes pour parcourir votre situation."],
       ["02", "Restitution", "30 minutes pour reprendre les constats ensemble."],
       ["03", "Construction ensemble", "10 heures avec le fondateur pour construire un système qui tourne."],
     ],
