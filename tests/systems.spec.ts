@@ -45,7 +45,8 @@ for (const width of [375, 767, 768, 1440]) {
       await expect(page.locator('[id^="step-"]')).toHaveCount(0);
       const narrative = page.locator("#operating-view > p").first();
       await expect(narrative).toContainText(locale === "fr" ? "Prenons l'exemple le plus net : l'identification de nos contacts." : "Take the clearest example: contact identification.");
-      await expect(page.locator("#operating-view > p + .registry-snapshot")).toHaveCount(1);
+      await expect(page.locator('#operating-view > p + .mechanism-schema')).toHaveCount(1);
+      await expect(page.locator('#operating-view > .mechanism-schema + .registry-snapshot')).toHaveCount(1);
       await expect(page.locator(".registry-snapshot + #acquisition-distinction")).toHaveCount(1);
       const headings = locale === "fr"
         ? ["Type d'information", "Où l'information est enregistrée", "Situation", "Anciens points d'écriture recensés"]

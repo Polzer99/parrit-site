@@ -194,7 +194,7 @@ for (const locale of ["en", "fr"] as const) {
       : "Not published. Shared in person.");
     const gap = await page.locator(".home-s-brands").evaluate((brands) => {
       const previous = brands.previousElementSibling;
-      if (!previous?.classList.contains("home-s-agent")) throw new Error("Agent must precede brands");
+      if (!previous?.classList.contains("home-s-hero")) throw new Error("Hero containing the agent must precede brands");
       return brands.getBoundingClientRect().top - previous.getBoundingClientRect().bottom;
     });
     expect(Math.abs(gap)).toBeLessThanOrEqual(1);

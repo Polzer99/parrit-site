@@ -303,11 +303,11 @@ for (const width of [1440, 390]) {
         const accentControlRegisters = { dark: 0, light: 0 };
         const matchedAccentToken = (value: Color) => accentTokens.find((token) => sameRgb(value, token.value));
         const focusTargets = [
-          { name: "dark exec", selector: ".r2-dark .rev-button.exec, .quick-capture .rev-button.exec, .agent-esquisse .rev-button.exec" },
+          { name: "dark exec", selector: ".r2-dark .rev-button.exec, .quick-capture .rev-button.exec, .agent-esquisse .rev-button.exec, .cmdbar .rev-button.exec" },
           { name: "light exec", selector: ".r2-ecrin .rev-button.exec, .standard-action .rev-button.exec, .rev-actions .rev-button.exec" },
         ];
         for (const target of focusTargets) {
-          const control = [...document.querySelectorAll(target.selector)].find((element) => visible(element));
+          const control = [...document.querySelectorAll(target.selector)].find((element) => visible(element) && !(element instanceof HTMLButtonElement && element.disabled));
           if (!control || !(control instanceof HTMLElement)) continue;
           control.focus({ preventScroll: true });
           const style = getComputedStyle(control);
