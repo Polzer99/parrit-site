@@ -16,7 +16,7 @@ Applies to any code delivered from this repo. "The CI blocks" beats "remember to
 # parrit-site — carte du dépôt (pour Codex & Claude)
 
 > Entrée des agents. `CLAUDE.md` importe ce fichier : même source pour les deux.
-> Site institutionnel public **parrit.ai** (Next.js 16 / React 19, déployé sur Vercel via push `main`). REV 01 : **anglais uniquement** (la version FR est un lot futur à spécifier — bascule cliquable, jamais de redirection auto). L'arbre multilingue legacy a été supprimé le 14/08/2026 (Lot P) ; `/:lang/*` répond 301 vers `/`.
+> Site institutionnel public **parrit.ai** (Next.js 16 / React 19, déployé sur Vercel via push `main`). REV 01 : **FR + EN** (`src/system/locale.ts`, `LOCALES = ["fr", "en"]`), bascule cliquable, jamais de redirection auto. *Corrigé le 20/09/2026 : la mention « anglais uniquement » était obsolète depuis l'ajout du FR.* L'arbre multilingue legacy `[lang]` a été supprimé le 14/08/2026 (Lot P) ; `/:lang/*` répond 301 vers `/`.
 
 ## Source de vérité COMMUNE = `TRUTH.md`
 **Avant de toucher au contenu/positionnement/conversion, lire [`TRUTH.md`](./TRUTH.md)** : ce qu'est Parrit, les north stars (RDV qualifiés → cash), l'ICP, les offres, la voix (LE TAMIS), les 7 règles dures, et la définition d'une « amélioration ». C'est le **cerveau partagé** entre le site et l'agent d'amélioration continue **Hermes** (`hermes/`, voir `hermes/LOOP.md`). La source de vérité **visuelle** est la section suivante (REV 03). En cas de conflit : `REGLES-DOR.md` puis `VISION.md` (hors-repo) priment.
@@ -95,7 +95,7 @@ Une ressource a **une seule URL canonique** : celle qui rend son expérience com
 
 ## Routes (REV 01 — après purge legacy du 14/08/2026)
 - `src/app/(rev01)/page.tsx` → home institutionnelle (Opening + hero « Your company. One system. » + live demo + loop) ; `layout.tsx` du groupe porte la command bar (`RevHeader`) et le footer.
-- `/standard` (PS-01…PS-06) · `/commission` (Cal inline `paul-larmaraud/30min`, seul lien de booking du site) · `/journal` + `/journal/[slug]` · `/dossiers` · `/legal`.
+- `/standard` (PS-01…PS-06) · `/commission` (Cal inline `paul-larmaraud/audit`, 15 min — premier échange, seul lien de booking du site ; *corrigé le 20/09/2026, `paul-larmaraud/30min` ne correspondait plus à `CAL_LINK_COMMISSION` dans `site.config.ts`*) · `/journal` + `/journal/[slug]` · `/dossiers` · `/legal`.
 - `/paul` et `/maxime` : **SUPPRIMÉES le 14/08/2026** (ordre Paul) — 301 vers `/` dans `next.config.ts`. Ne pas les recréer.
 - `/manufacture` (doctrine + phases) · `/sketch/[id]` (esquisse personnalisée du funnel, noindex, force-dynamic — l'UUID de soumission est le jeton d'accès).
 - `src/app/opengraph-image.tsx` (+ OG par article) = cartes OG, polices locales officielles dans `src/og-assets/` (Satori refuse le woff2).

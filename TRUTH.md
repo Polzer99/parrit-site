@@ -36,7 +36,7 @@ Parrit livre la chose qui tourne, pas un deck. Chaque commande répond au Standa
 
 Parrit vend des **systèmes d'exploitation d'entreprise sur mesure**. La Manufacture suit trois phases : Examen, Construction, Capitalisation. Chaque système est construit sur l'infrastructure du client, certifié selon le Standard Parrit, documenté et détenu par le client.
 
-Les commandes sont **sur devis** : périmètre et conditions sont cadrés par écrit après l'Examen. Le site public n'affiche aucun prix.
+Les commandes sont **sur devis** : périmètre et conditions sont cadrés par écrit après l'Examen. Le site peut afficher des **ancrages tarifaires publics** (REGLES-DOR §5, amendé 23/06/2026 : « ancrages OK, détail au call ») — le détail complet reste réglé au call. *Corrigé le 20/09/2026 : la phrase précédente (« aucun prix ») ne reflétait plus l'amendement §5.*
 
 La home simplifiée présente la promesse, la capture prototype et l'agent esquisse, puis les métriques, la méthode et les actions de conversion. Les cinq pages intérieures `/manufacture`, `/standard`, `/dossiers`, `/commission` et `/journal` suivent le copy FR/EN validé dans `docs/CODEX-SPEC-2026-09-06-site-integral.md` (lots 1 et 2). Le lot 3 retire les anciennes identités sans réécrire ce copy.
 
