@@ -63,10 +63,16 @@ Compléments : `docs/site-prod-rev01/REV03-DELTAS.md` (deltas appliqués),
 - **Logo REV 04** : mark live-text `[P.]` IBM Plex Mono 600, point d'accent ; wordmark live-text
   `PARRIT.AI` (point d'accent). Fichiers : `docs/site-prod-rev01/logo-rev04/` + `public/brand/`.
 - **L'enveloppe fait partie du canon** : la command bar sombre (fixe 52px — wordmark,
-  registre `SYSTEM PARRIT.AI · REV 01 · STATUS OPERATIONAL`, horloge live) est sur TOUTES les
-  pages, et la séquence d'ouverture (`Opening.tsx` : boot log → statement avec Parrit Frame)
-  joue à **chaque arrivée** sur `/` (décision Paul 14/08 — pas de flag de session ; skip au
-  clic/scroll/touche, skip total en `prefers-reduced-motion`, SSR intact dessous).
+  navigation, sélecteur de langue, action principale « Parlons-en »/« Let's talk ») est sur
+  TOUTES les pages, et la séquence d'ouverture (`Opening.tsx` : boot log → statement avec Parrit
+  Frame) joue à **chaque arrivée** sur `/` (décision Paul 14/08 — pas de flag de session ; skip
+  au clic/scroll/touche, skip total en `prefers-reduced-motion`, SSR intact dessous).
+  *Corrigé le 20/09/2026 (décision Paul, chantier DA) : l'horloge live est retirée de la barre
+  — décorative, sans information pour le visiteur. Ne pas la réintroduire. La barre porte
+  désormais une action claire au lieu d'un chronomètre. (Le registre `SYSTEM PARRIT.AI · REV 01
+  · STATUS OPERATIONAL` décrit par `docs/site-prod-rev01/lots/LOT-O-OPENING-CMDBAR.md` n'a
+  jamais été implémenté dans `RevHeader.tsx` : cette ligne du présent fichier décrivait déjà le
+  prototype, pas le composant livré — écart non corrigé ici, signalé pour mémoire.)*
 - **Éléments propriétaires** : le Parrit Frame (crochets d'accent = objet en attente de décision),
   la registry line (`PARRIT / SITE · REV 01 · 2026`), le Standard en spécification PS-01…PS-06.
 
