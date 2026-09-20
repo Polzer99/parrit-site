@@ -24,7 +24,6 @@ function saveLocaleChoice(nextLocale: Locale) {
 }
 
 export function RevHeader({ locale }: { locale: Locale }) {
-  const [clock, setClock] = useState("--:--:-- · LOCAL");
   const [menuOpen, setMenuOpen] = useState(false);
   const [panelMounted, setPanelMounted] = useState(false);
   const [panelOn, setPanelOn] = useState(false);
@@ -93,21 +92,6 @@ export function RevHeader({ locale }: { locale: Locale }) {
     };
   }, [menuOpen]);
 
-  useEffect(() => {
-    const updateClock = () => {
-      const now = new Date();
-      const time = [now.getHours(), now.getMinutes(), now.getSeconds()]
-        .map((part) => String(part).padStart(2, "0"))
-        .join(":");
-      setClock(`${time} · LOCAL`);
-    };
-
-    updateClock();
-    const interval = window.setInterval(updateClock, 1_000);
-
-    return () => window.clearInterval(interval);
-  }, []);
-
   return (
     <>
       <header className="cmdbar">
@@ -142,9 +126,9 @@ export function RevHeader({ locale }: { locale: Locale }) {
           </button>
         ))}
       </div>
-      <time className="clock" aria-label="Local time">
-        {clock}
-      </time>
+      <Link className="cmd-cta rev-button exec" href={localizedPath("/commission", locale)}>
+        {locale === "fr" ? "Parlons-en" : "Let's talk"}
+      </Link>
       <button
         type="button"
         className="cmd-menu-toggle"
@@ -156,7 +140,7 @@ export function RevHeader({ locale }: { locale: Locale }) {
       </button>
       </header>
       {/* le panneau vit HORS de la cmdbar : son backdrop-filter fait de la barre
-         le bloc conteneur des fixed — dedans, le panneau se calait sur 52px */}
+         le bloc conteneur des fixed ; dedans, le panneau se calait sur 52px */}
       {panelMounted ? (
         <nav
           className={`cmd-panel${panelOn ? " on" : ""}`}
@@ -177,6 +161,9 @@ export function RevHeader({ locale }: { locale: Locale }) {
               </Link>
             );
           })}
+          <Link className="cmd-panel-cta" href={localizedPath("/commission", locale)} onClick={() => setMenuOpen(false)}>
+            {locale === "fr" ? "Parlons-en" : "Let's talk"}
+          </Link>
         </nav>
       ) : null}
     </>

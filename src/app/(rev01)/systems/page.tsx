@@ -4,6 +4,7 @@ import { getLocale } from "@/lib/server/locale";
 import { K, RegistryLine } from "@/system/components";
 import { OfferCard } from "@/system/components/OfferCard";
 import { SystemCard } from "@/system/components/SystemCard";
+import { MechanismSchema } from "@/system/components/MechanismSchema";
 import { RegistrySnapshot } from "@/system/components/RegistrySnapshot";
 import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
 
@@ -280,6 +281,7 @@ export default async function SystemsPage() {
       <section className="r2-section" id="operating-view" aria-labelledby="operating-heading">
         {heading("operating-heading", copy.operating)}
         <p style={{ lineHeight: 1.8 }}>{evidence.narrative}</p>
+        <MechanismSchema locale={locale} />
         <RegistrySnapshot locale={locale} asOf="2026-09-13" rows={ROWS[locale]} summaryText={copy.summaryText} />
         <p id="acquisition-distinction" style={{ marginTop: 40, paddingTop: 32, borderTop: "1px solid var(--rule-d)", lineHeight: 1.8 }}>{evidence.acquisition}</p>
       </section>

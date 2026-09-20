@@ -174,14 +174,9 @@ export default async function HomePage() {
             <span>{copy.hero.after}</span>
           </h1>
           <p className="home-s-hero-sub">{copy.hero.sub}</p>
+          <AgentEsquisse locale={locale} />
           <QuickCapture locale={locale} id="prototype" hero />
           <p className="home-s-alternative"><Link href={localizedPath("/commission", locale)}>{copy.hero.alternative}</Link></p>
-        </div>
-      </section>
-
-      <section className="home-s-agent r2-dark">
-        <div className="home-s-wrap">
-          <AgentEsquisse locale={locale} />
         </div>
       </section>
 
