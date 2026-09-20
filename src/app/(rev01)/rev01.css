@@ -26,10 +26,6 @@ h2 {
   min-height: 100vh;
 }
 
-body {
-  padding-top: 64px;
-}
-
 .cmdbar,
 .cmd-panel,
 .opening,
@@ -100,13 +96,9 @@ body {
 }
 
 .cmdbar {
-  position: fixed;
   height: 64px;
-  z-index: 50;
-  inset: 0 0 auto;
   border-bottom: 1px solid var(--rule-d);
   background: rgba(10, 11, 12, .92);
-  backdrop-filter: blur(8px);
 }
 
 .cmdbar-inner {
@@ -2891,7 +2883,7 @@ a.k:active {
 }
 
 .mechanism-diagram-node--decision {
-  border: 1px solid var(--accent-dark-border);
+  border: 1px solid var(--rule-d);
   background: var(--carbon);
 }
 
@@ -2938,4 +2930,10 @@ a.k:active {
   .home-s-offers-grid { grid-template-columns: minmax(0, 1fr); }
   .offer-card { padding: 28px 20px; }
   .offer-card + .offer-card { border-left: 0; border-top: 1px solid var(--rule-d); }
+}
+
+.systems-hero-proof {
+  max-width: 480px;
+  margin-top: 40px;
+  text-align: left;
 }

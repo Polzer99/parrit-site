@@ -112,3 +112,14 @@ l'accent (« décision requise ») ; déplacée sur « Décision humaine, datée
 fait sur les captures : l'en-tête aligné sur la grille 1160px et la nav à 2 liens + 1 CTA se
 distinguent clairement de l'ancienne barre plein-bord ; le schéma montre une vraie relation
 2 sources → 1 contrôle → 1 décision, pas trois cartes parallèles.
+
+## En-tête dans le flux et preuve Systems, 20/09/2026
+
+La spec `docs/CODEX-SPEC-2026-09-20-header-static-systems-hero-proof.md`, sections 1 à 4, remplace le canon fixe précédent : command bar de 64 px dans le flux, sans compensation body. Opening et panneau mobile restent fixes. Le hero Systems réutilise la première SystemCard et la date observée ; le catalogue conserve ses quatre cartes. MechanismSchema reprend les formulations FR/EN prescrites et la bordure décision devient neutre (`--rule-d`), avec le fond `--carbon` conservé. Seul le test de positionnement est adapté au nouveau contrat.
+
+Validation complétée hors sandbox (build, `qa:brand:rev01`, `qa:network:rev01` 76/76, captures
+desktop/mobile FR/EN avant/après, dont une capture après défilement confirmant que la barre
+quitte bien l'écran sur l'accueil et sur `/systems`). Jugement visuel fait sur les captures :
+la carte de preuve du hero Systems est lisible sans défiler sur desktop, atteignable par un
+court défilement sur mobile ; le nœud décision du schéma est visuellement identique au nœud
+contrôle (bordure neutre), seule sa profondeur (`--carbon`) le distingue des deux nœuds sources.

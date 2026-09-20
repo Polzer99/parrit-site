@@ -86,15 +86,15 @@ test.describe("command bar", () => {
   // The /commission stop loads the Cal embed, which the deny-all fixture blocks by design.
   test.use({ expectBlockedRequest: true });
 
-  test("the command bar is fixed at the approved height on every core page", async ({ page }) => {
+  test("the command bar keeps the approved height and sits in normal flow on every core page", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
 
     for (const path of ["/", "/standard", "/commission", "/journal"]) {
-    await page.goto(`${BASE_URL}${path}`);
+      await page.goto(`${BASE_URL}${path}`);
 
       const commandBar = page.locator(".cmdbar");
       await expect(commandBar).toBeVisible();
-      await expect(commandBar).toHaveCSS("position", "fixed");
+      await expect(commandBar).not.toHaveCSS("position", "fixed");
       await expect(commandBar).toHaveCSS("height", "64px");
     }
   });

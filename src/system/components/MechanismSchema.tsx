@@ -4,16 +4,16 @@ import { K } from "./K";
 const COPY = {
   fr: {
     label: "Le mécanisme, vérifié",
-    sourceCanonical: ["La source qui doit faire foi", "Notre application interne."],
+    sourceCanonical: ["Ce qui fait foi", "Notre application interne."],
     sourceLegacy: ["Ce qui écrit encore à côté", "Onze anciens outils, dont une synchronisation toutes les 15 minutes."],
-    control: ["Deux contrôles", "Un verrou empêche tout nouveau point d'écriture non déclaré depuis le 13 septembre 2026. Un audit périodique, comme celui du 11 septembre, compare les deux sources : il a trouvé 114 fiches présentes seulement côté ancien système."],
+    control: ["Deux contrôles", "Un verrou bloque toute nouvelle écriture non déclarée. Un audit du 11 septembre a trouvé 114 fiches présentes uniquement dans l'ancien système."],
     decision: ["Décision humaine, datée", "Le fondateur tranche, un type d'information à la fois. Une décision déjà prise et datée, comme celle du 14 septembre."],
   },
   en: {
     label: "The mechanism, verified",
-    sourceCanonical: ["The source meant to be trusted", "Our internal application."],
+    sourceCanonical: ["What's trusted", "Our internal application."],
     sourceLegacy: ["What still writes alongside it", "Eleven older tools, including a sync job running every 15 minutes."],
-    control: ["Two checks", "A gate has blocked any new undeclared write path since September 13, 2026. A periodic audit, like the one run on September 11, compares both sources: it found 114 records that existed only in the old system."],
+    control: ["Two checks", "A gate blocks any new undeclared write. An audit run on September 11 found 114 records that existed only in the old system."],
     decision: ["Human decision, dated", "The founder decides, one type of information at a time. A decision already made and dated, like the one on September 14."],
   },
 } as const;
