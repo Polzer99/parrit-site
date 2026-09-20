@@ -17,15 +17,15 @@ const EVIDENCE = {
         "input": "une information créée ou modifiée n'importe où dans l'entreprise (un contact, un rendez-vous, un dossier)",
         "process": "vérifie si l'outil utilisé est bien celui qui doit faire foi, et repère si un autre outil, plus ancien, contient encore une version différente",
         "output": "une situation claire pour chaque type d'information, et un signal si deux versions se contredisent",
-        "limits": "Au 13 septembre 2026, un seul type d'information sur 25 avait une source unique stabilisée. Les autres étaient en cours de transfert, pas encore commencés, ou avaient deux versions actives en parallèle.",
+        "limits": "Au 13 septembre 2026, 15 types d'information sur 25 avaient encore deux sources en présence, et pour 4, une vérification directe avait trouvé un désaccord entre elles. Aucune ancienne source n'est retirée tant qu'elle n'a pas été vérifiée comme redondante.",
         "proofLabel": "Le système que nous utilisons nous-mêmes, tous les jours."
       },
       {
         "domain": "Comment nous vérifions notre propre travail",
-        "name": "Deux regards avant chaque changement",
+        "name": "Deux systèmes, une décision humaine",
         "input": "une idée de changement, écrite noir sur blanc avant de commencer",
-        "process": "la modification est préparée dans un espace de travail séparé, une autre personne que l'auteur la relit entièrement, puis nous relançons l'ensemble de nos tests",
-        "output": "une modification acceptée ou refusée, jamais mise en ligne sans être passée par ces deux vérifications",
+        "process": "la modification est préparée dans un espace de travail séparé, un second système, distinct de celui qui l'a écrite, la relit en entier, puis nous relançons l'ensemble de nos tests",
+        "output": "une modification acceptée ou refusée ; la mise en ligne reste une décision humaine, jamais automatique",
         "limits": "C'est notre propre façon de travailler, appliquée à notre propre système avant de l'être au vôtre.",
         "proofLabel": "Vous pouvez le vérifier à chaque mise à jour du site."
       },
@@ -48,7 +48,7 @@ const EVIDENCE = {
         "proofLabel": "Un prototype interne, pas un produit livré à un client."
       }
     ],
-    "narrative": "Prenons un exemple réel. Un commercial enregistre un nouveau contact dans son outil habituel. Le système vérifie aussitôt si cet outil est bien celui qui doit faire foi pour les contacts, ou si un outil plus ancien s'en occupe encore en parallèle. Si les deux outils sont encore utilisés, rien n'est corrigé tout seul : la situation est simplement signalée. C'est le fondateur qui décide, un outil à la fois, du jour où l'ancien est mis de côté. Une fois la décision prise, elle est appliquée directement dans le système, et notée noir sur blanc : qui a décidé, et quand. Voilà pourquoi, au 13 septembre 2026, 4 des 25 types d'information suivis avaient encore deux outils actifs en parallèle, comme dans cet exemple, et un seul était réglé sur les 25. Nous ne le cachons pas.",
+    "narrative": "Prenons l'exemple le plus net : l'identification de nos contacts. Onze anciens outils y écrivent encore aujourd'hui, certains automatiquement, comme une synchronisation qui tourne toutes les 15 minutes. Une comparaison directe des deux sources, menée le 11 septembre 2026, a trouvé 114 fiches présentes uniquement dans l'ancien système. Rien n'est corrigé tout seul : la situation est signalée, et un contrôle automatique interdit désormais d'ajouter un nouveau point d'écriture vers l'ancien système sans le déclarer ici. C'est le fondateur qui décide, un type d'information à la fois, du jour où une ancienne source est mise de côté. Cette décision a déjà été prise et datée pour plusieurs d'entre elles. Voilà pourquoi, au 13 septembre 2026, 15 des 25 types d'information suivis avaient encore deux sources en présence, dont 4 où une vérification directe avait trouvé un désaccord, comme dans cet exemple. Nous ne le cachons pas.",
     "acquisition": "Ce même travail de vérification s'applique aussi à notre prospection commerciale. Notre outil fonctionne : il repère, dans des informations publiques, des indices qu'une entreprise pourrait avoir besoin de nous. Mais nous ne l'avons pas encore branché sur notre système principal. Cet outil n'a encore débouché sur aucun rendez-vous. Et aucune vente ne lui est due : nos clients viennent de personnes que nous connaissons déjà.",
     "story": "Toutes nos informations importantes (les contacts, les rendez-vous, les appels, les dossiers en cours) doivent avoir une seule source qui fait foi. Ce travail n'est pas terminé partout. Nous montrons où il en est vraiment."
   },
@@ -60,15 +60,15 @@ const EVIDENCE = {
         "input": "a piece of information created or changed anywhere in the company (a contact, a meeting, a file)",
         "process": "checks whether the tool used is the one meant to hold it, and flags whether an older tool still holds a different version",
         "output": "a clear status for each type of information, and a flag if two versions disagree",
-        "limits": "As of September 13, 2026, only 1 of 25 types of information had a single stable source. The rest were being transferred, not started, or had two active versions in parallel.",
+        "limits": "As of September 13, 2026, 15 of the 25 types of information still had two sources in place, and for 4, a direct check had found a disagreement between them. No old source is retired until it's been confirmed redundant.",
         "proofLabel": "The system we use ourselves, every day."
       },
       {
         "domain": "How we check our own work",
-        "name": "Two sets of eyes on every change",
+        "name": "Two systems, one human decision",
         "input": "an idea for a change, written down before we start",
-        "process": "the change is prepared in a separate workspace, someone other than the author reads it in full, then we rerun our whole test suite",
-        "output": "a change accepted or refused, never put live without passing both checks",
+        "process": "the change is built in a separate workspace, a second system, distinct from the one that wrote it, reviews it in full, then we rerun our whole test suite",
+        "output": "a change accepted or refused; going live stays a human decision, never automatic",
         "limits": "This is our own way of working, applied to our own system before it's applied to yours.",
         "proofLabel": "You can verify it on every update to this site."
       },
@@ -91,7 +91,7 @@ const EVIDENCE = {
         "proofLabel": "An internal prototype, not a product delivered to a client."
       }
     ],
-    "narrative": "Take a real example. A salesperson enters a new contact in the tool they normally use. The system immediately checks whether that tool is the one meant to hold contacts, or whether an older tool is still handling them too. If both tools are still in use, nothing gets fixed on its own: the situation is simply flagged. It's the founder who decides, one tool at a time, when the old one is retired. Once that decision is made, it's applied directly in the system, and written down in plain terms: who decided, and when. That is why, as of September 13, 2026, 4 of the 25 types of information we track still had two active tools in parallel, as in this example, and only 1 out of 25 was settled. We do not hide it.",
+    "narrative": "Take the clearest example: contact identification. Eleven legacy tools still write to it today, some automatically, including a sync job that runs every 15 minutes. A direct comparison of both sources, run on September 11, 2026, found 114 records that existed only in the old system. Nothing gets fixed on its own: the mismatch is flagged, and an automatic gate now blocks any new write path into the old system unless it's declared here first. It's the founder who decides, one type of information at a time, when an old source gets retired. That decision has already been made and dated for several of them. That is why, as of September 13, 2026, 15 of the 25 types of information we track still had two sources in place, 4 of which had a directly measured disagreement, as in this example. We do not hide it.",
     "acquisition": "The same check applies to our own outreach. Our tool works: it looks for public signs that a company might need us. But we haven't connected it to our main system yet. That tool hasn't led to a single meeting so far. And no sale is owed to it: our clients come from people we already know.",
     "story": "Every piece of information Parrit depends on (a contact, a deadline, a call, an open deal) needs one trusted source. That work isn't finished everywhere. We show where it actually stands."
   }
@@ -104,11 +104,11 @@ const DICT = {
     cta: "Let's talk", catalogue: "Demonstrated capabilities.", evidence: "Shown, not claimed.",
     intro: "Here are three things we hold ourselves to before we offer them to you.",
     facts: [
-      ["The list that's trusted", "In a lot of companies, several files each claim to be the real customer list, and nobody knows which one to believe. Here, for each type of information (contacts, meetings, calls, open files), one source is trusted, and the old file only gets retired once we've checked the new one holds everything. As of September 13, 2026, that work wasn't finished everywhere: of 25 types of information we track, only 1 was settled, and 4 had two versions directly contradicting each other."],
-      ["Two sets of eyes on every change", "Before a change touches one of our systems, someone other than the person who wrote it reads it in full, in a separate workspace. Then we rerun our whole test suite. A change that hasn't passed both steps never goes live."],
+      ["The list that's trusted", "In a lot of companies, several files each claim to be the real customer list, and nobody knows which one to believe. Here, for each type of information (contacts, meetings, calls, open files), one source is meant to be trusted, and the old one only gets retired once we've checked the new one holds everything. As of September 13, 2026, that work wasn't finished everywhere: of the 25 types of information we track, 15 still had two sources in place, and for 4 of them, a direct check had already found a disagreement between them."],
+      ["Two checks before every change", "Whoever writes a change is never the one who approves it. A change is first built in a separate workspace, then a second system, distinct from the one that wrote it, reviews it in full. We then rerun our whole test suite. A single person decides alone whether it goes live. A change that hasn't passed these steps is never published."],
       ["A check that can block a page", "Before a page on this site goes live, an automatic check reads the text and the layout. It blocks if a number looks unverifiable, if a colour breaks our guidelines, or if the text overflows on a phone. If it blocks something wrongly, we fix the text. We never turn the check off."],
     ],
-    summaryText: "25 types of information tracked in total. For 1, the transfer is complete. For 8, it's underway. For 4, the two versions don't match. For 12, it hasn't started.",
+    summaryText: "25 types of information tracked in total. For 1, the transfer is complete. For 8, it's underway. For 4, a check found a disagreement between the two versions. For 12, the transfer hasn't started. The legacy-tool count includes points already paused or failing, kept on record until formally closed.",
     operating: "How we catch a mismatch, and what happens next.",
     central: "Parrit / Central case", caseTitle: "The first client of this system is us.",
     observed: "Internal use · observed 2026-09-13",
@@ -116,7 +116,7 @@ const DICT = {
     mechanism: "Back to the detailed explanation, above", method: "Method",
     methodBody: "Every system above is built the same way: Examination, Construction, Compounding.", methodLink: "Read the Manufacture",
     guardrails: "Guardrails.",
-    guards: ["For each type of information, a single tool is trusted. It's never chosen by default or by habit.", "Every system change and every automatic correction must be validated by a person.", "Every decision is logged: who decided, and when. Nothing happens silently.", "Before a change touches the site or our tools, someone other than its author reads it, and it can always be rolled back.", "The choice of AI model depends on the need and the cost, never on a single imposed provider."],
+    guards: ["For each type of information, a single tool is trusted. It's never chosen by default or by habit.", "Every system change and every automatic correction must be validated by a person.", "Every decision is logged: who decided, and when. Nothing happens silently.", "Before a change touches the site or our tools, a second system, distinct from the one that wrote it, reviews it, and a person decides alone whether to ship it. It can always be rolled back.", "The choice of AI model depends on the need and the cost, never on a single imposed provider."],
     offer: "Where to start.", audience: "For leaders who want something that runs, not an audit or a deck.",
     outcome: "A working system, built with the founder.",
     deliverables: ["Free 30-minute audit", "30-minute findings review", "10 hours of building with Paul"],
@@ -134,11 +134,11 @@ const DICT = {
     cta: "Parlons-en", catalogue: "Capacités démontrées.", evidence: "Montré, pas revendiqué.",
     intro: "Voici trois méthodes que nous utilisons dans notre propre travail avant de vous les proposer.",
     facts: [
-      ["La liste qui fait foi", "Dans beaucoup d'entreprises, plusieurs fichiers prétendent chacun être la bonne liste de clients, et personne ne sait lequel croire. Chez nous, pour chaque type d'information (les contacts, les rendez-vous, les appels, les dossiers en cours), une seule source fait foi, et l'ancien fichier n'est mis de côté que le jour où l'on a vérifié que le nouveau contient tout. Au 13 septembre 2026, ce travail n'était pas fini partout : sur 25 types d'information suivis, un seul était réglé, et 4 avaient deux versions qui se contredisaient directement."],
-      ["Deux regards avant chaque changement", "Avant qu'un changement touche un de nos systèmes, une autre personne que l'auteur le relit entièrement, dans un espace de travail séparé. Puis nous relançons l'ensemble de nos tests. Un changement qui n'a pas passé ces deux étapes n'est jamais mis en ligne."],
+      ["La liste qui fait foi", "Dans beaucoup d'entreprises, plusieurs fichiers prétendent chacun être la bonne liste de clients, et personne ne sait lequel croire. Chez nous, pour chaque type d'information (les contacts, les rendez-vous, les appels, les dossiers en cours), une seule source doit faire foi, et l'ancienne n'est mise de côté que le jour où l'on a vérifié que la nouvelle contient tout. Au 13 septembre 2026, ce travail n'était pas fini partout : sur 25 types d'information suivis, 15 avaient encore deux sources en présence, et pour 4 d'entre eux, une vérification directe avait déjà trouvé un désaccord entre elles."],
+      ["Deux vérifications avant chaque changement", "Celui qui écrit une modification n'est jamais celui qui la valide. Une modification est d'abord préparée dans un espace de travail séparé, puis un second système, distinct de celui qui l'a écrite, la relit en entier. Nos tests sont ensuite rejoués intégralement. Une personne décide seule de la mise en ligne finale. Une modification qui n'a pas passé ces étapes n'est jamais publiée."],
       ["Une vérification qui peut bloquer une page", "Avant qu'une page de ce site soit mise en ligne, une vérification automatique relit le texte et la mise en page. Elle bloque si un chiffre semble invérifiable, si une couleur sort de notre charte, ou si le texte déborde sur un téléphone. Si elle bloque à tort, on corrige le texte concerné. On ne désactive jamais la vérification elle-même."],
     ],
-    summaryText: "25 types d'information suivis au total. Pour 1, le transfert est terminé. Pour 8, il est en cours. Pour 4, les deux versions ne concordent pas. Pour 12, il n'a pas encore commencé.",
+    summaryText: "25 types d'information suivis au total. Pour 1, le transfert est terminé. Pour 8, il est en cours. Pour 4, une vérification a trouvé un désaccord entre les deux versions. Pour 12, le transfert n'a pas encore commencé. Le compte des anciens outils inclut des points déjà mis en pause ou en échec, gardés au registre jusqu'à fermeture actée.",
     operating: "Comment nous repérons un écart, et ce qu'il se passe ensuite.",
     central: "Parrit / Cas central", caseTitle: "Le premier client de ce système, c'est nous.",
     observed: "Usage interne · vérifié le 13 septembre 2026",
@@ -146,7 +146,7 @@ const DICT = {
     mechanism: "Revenir à l'explication détaillée, plus haut", method: "Méthode",
     methodBody: "Chaque système ci-dessus se construit de la même façon : Examen, Construction, Capitalisation.", methodLink: "Lire la Manufacture",
     guardrails: "Garde-fous.",
-    guards: ["Pour chaque type d'information, un seul outil fait foi. Il n'est jamais choisi par hasard ni par habitude.", "Tout changement de système et toute correction automatique doivent être validés par une personne.", "Chaque décision est notée : qui a décidé, et quand. Rien ne se passe sans laisser de trace.", "Avant qu'un changement touche le site ou nos outils, quelqu'un d'autre que son auteur le relit, et on peut toujours revenir en arrière.", "Le choix d'un outil d'intelligence artificielle dépend du besoin et du coût, jamais d'un seul fournisseur imposé."],
+    guards: ["Pour chaque type d'information, un seul outil fait foi. Il n'est jamais choisi par hasard ni par habitude.", "Tout changement de système et toute correction automatique doivent être validés par une personne.", "Chaque décision est notée : qui a décidé, et quand. Rien ne se passe sans laisser de trace.", "Avant qu'un changement touche le site ou nos outils, un second système, distinct de celui qui l'a écrit, le relit, et une personne décide seule de le mettre en ligne. On peut toujours revenir en arrière.", "Le choix d'un outil d'intelligence artificielle dépend du besoin et du coût, jamais d'un seul fournisseur imposé."],
     offer: "Par où commencer.", audience: "Pour le dirigeant qui veut repartir avec quelque chose qui tourne, pas un audit ni un deck.",
     outcome: "Un système qui tourne, construit avec le fondateur.",
     deliverables: ["Audit de 30 min offert", "Restitution de 30 min", "10 heures de construction avec Paul"],

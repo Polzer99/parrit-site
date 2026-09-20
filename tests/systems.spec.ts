@@ -44,20 +44,20 @@ for (const width of [375, 767, 768, 1440]) {
       await expect(page.locator("#operating-view .r2-phase")).toHaveCount(0);
       await expect(page.locator('[id^="step-"]')).toHaveCount(0);
       const narrative = page.locator("#operating-view > p").first();
-      await expect(narrative).toContainText(locale === "fr" ? "Prenons un exemple réel." : "Take a real example.");
+      await expect(narrative).toContainText(locale === "fr" ? "Prenons l'exemple le plus net : l'identification de nos contacts." : "Take the clearest example: contact identification.");
       await expect(page.locator("#operating-view > p + .registry-snapshot")).toHaveCount(1);
       await expect(page.locator(".registry-snapshot + #acquisition-distinction")).toHaveCount(1);
       const headings = locale === "fr"
-        ? ["Type d'information", "Où l'information est enregistrée", "Situation", "Anciens outils encore utilisés en parallèle"]
-        : ["Type of information", "Where it's recorded", "Status", "Legacy tools still in parallel use"];
+        ? ["Type d'information", "Où l'information est enregistrée", "Situation", "Anciens points d'écriture recensés"]
+        : ["Type of information", "Where it's recorded", "Status", "Legacy write points on record"];
       await expect(table.locator("thead th")).toHaveText(headings);
       for (const row of await table.locator("tbody tr").all()) {
         for (let i = 0; i < headings.length; i++) await expect(row.locator("th, td").nth(i)).toHaveAttribute("data-label", headings[i]);
       }
       await expect(table.locator("tbody tr td:last-child")).toHaveText(["11", "1", "0", "1", "2", "6", "6"]);
       await expect(page.locator(".registry-snapshot > p")).toHaveText(locale === "fr"
-        ? "25 types d'information suivis au total. Pour 1, le transfert est terminé. Pour 8, il est en cours. Pour 4, les deux versions ne concordent pas. Pour 12, il n'a pas encore commencé."
-        : "25 types of information tracked in total. For 1, the transfer is complete. For 8, it's underway. For 4, the two versions don't match. For 12, it hasn't started.");
+        ? "25 types d'information suivis au total. Pour 1, le transfert est terminé. Pour 8, il est en cours. Pour 4, une vérification a trouvé un désaccord entre les deux versions. Pour 12, le transfert n'a pas encore commencé. Le compte des anciens outils inclut des points déjà mis en pause ou en échec, gardés au registre jusqu'à fermeture actée."
+        : "25 types of information tracked in total. For 1, the transfer is complete. For 8, it's underway. For 4, a check found a disagreement between the two versions. For 12, the transfer hasn't started. The legacy-tool count includes points already paused or failing, kept on record until formally closed.");
       const guards = page.locator("#garde-fous a");
       for (let i = 0; i < 4; i++) await expect(guards.nth(i)).toHaveAttribute("href", i < 3 ? "#operating-view" : "#capacites");
       expect(await page.locator("main").innerText()).not.toMatch(/—|R-06|R-13|PARITY_FAIL|NOT_STARTED|CUTOVER|MIGRATING/);
