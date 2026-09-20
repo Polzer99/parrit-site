@@ -6,14 +6,14 @@ type DossierProps = {
   title: string;
   client: string;
   systemId: string;
-  domain: string;
+  domain?: string;
   commissionedYear: string | number;
-  revision: string;
+  revision?: string;
   status: string;
   problem: string;
-  capabilities: readonly string[];
-  before: readonly string[];
-  after: readonly string[];
+  capabilities?: readonly string[];
+  before?: readonly string[];
+  after?: readonly string[];
   measurementPeriod?: string;
 };
 
@@ -40,6 +40,10 @@ export function Dossier({
     ["Status", status],
   ] as const;
 
+  const hasCapabilities = Boolean(capabilities?.length);
+  const hasBefore = Boolean(before?.length);
+  const hasAfter = Boolean(after?.length);
+
   return (
     <article className="dossier">
       <header className="dossier-header">
@@ -48,7 +52,7 @@ export function Dossier({
           <h2>{title}</h2>
         </div>
         <dl className="dossier-plate">
-          {plate.map(([label, value]) => (
+          {plate.filter(([, value]) => value !== undefined && value !== "").map(([label, value]) => (
             <div key={label}>
               <dt><K>{label}</K></dt>
               <dd><K><strong>{value}</strong></K></dd>
@@ -62,35 +66,46 @@ export function Dossier({
         <p>{problem}</p>
       </section>
 
-      <section className="dossier-section">
-        <K><strong>02 · Capabilities built</strong></K>
-        <ol className="dossier-capabilities">
-          {capabilities.map((capability, index) => (
-            <li key={`${index}-${capability}`}>
-              <K>CAP-{String(index + 1).padStart(2, "0")}</K>
-              <div>{capability}</div>
-            </li>
-          ))}
-        </ol>
-      </section>
+      {hasCapabilities && (
+        <section className="dossier-section">
+          <K><strong>02 · Capabilities built</strong></K>
+          <ol className="dossier-capabilities">
+            {capabilities?.map((capability, index) => (
+              <li key={`${index}-${capability}`}>
+                <K>CAP-{String(index + 1).padStart(2, "0")}</K>
+                <div>{capability}</div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
 
-      <section className="dossier-section">
-        <K>
-          <strong>
-            03 · Measured change{measurementPeriod ? ` · ${measurementPeriod}` : ""}
-          </strong>
-        </K>
-        <div className="dossier-change">
-          <div>
-            <K>Before</K>
-            <ul>{before.map((item) => <li key={item}>{item}</li>)}</ul>
+      {(hasBefore || hasAfter) && (
+        <section className="dossier-section">
+          <K>
+            <strong>
+              03 · Measured change{measurementPeriod ? ` · ${measurementPeriod}` : ""}
+            </strong>
+          </K>
+          <div
+            className="dossier-change"
+            style={hasBefore && hasAfter ? undefined : { gridTemplateColumns: "minmax(0, 1fr)" }}
+          >
+            {hasBefore && (
+              <div>
+                <K>Before</K>
+                <ul>{before?.map((item) => <li key={item}>{item}</li>)}</ul>
+              </div>
+            )}
+            {hasAfter && (
+              <div className="dossier-after">
+                <K>After</K>
+                <ul>{after?.map((item) => <li key={item}>{item}</li>)}</ul>
+              </div>
+            )}
           </div>
-          <div className="dossier-after">
-            <K>After</K>
-            <ul>{after.map((item) => <li key={item}>{item}</li>)}</ul>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <footer className="dossier-footer">
         <Seal />
