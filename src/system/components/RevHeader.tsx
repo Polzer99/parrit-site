@@ -9,13 +9,11 @@ import { barePathname, localizedPath, LOCALE_COOKIE, type Locale } from "@/syste
 const NAV = {
   en: [
     ["/journal", "Journal"],
-    ["/commission", "Commission"],
-    ["/#prototype", "Your prototype"],
+    ["/systems", "Systems"],
   ],
   fr: [
     ["/journal", "Journal"],
-    ["/commission", "Commande"],
-    ["/#prototype", "Votre prototype"],
+    ["/systems", "Systèmes"],
   ],
 } as const;
 
@@ -95,52 +93,54 @@ export function RevHeader({ locale }: { locale: Locale }) {
   return (
     <>
       <header className="cmdbar">
-      <Link className="wordmark" href={localizedPath("/", locale)} aria-label="Parrit.ai home">
-        PARRIT<i aria-hidden="true">.</i>AI
-      </Link>
-      <nav className="cmd-nav" aria-label="Main navigation">
-        {nav.map(([href, label]) => {
-          const active = href !== "/#prototype" && barePathname(pathname ?? "/").startsWith(href);
-          return (
-            <Link
-              key={href}
-              href={localizedPath(href, locale)}
-              className={`${active ? "on" : ""}${href === "/#prototype" ? " cmd-nav-prototype" : ""}`.trim() || undefined}
-              aria-current={active ? "page" : undefined}
-            >
-              {label}
-            </Link>
-          );
-        })}
-      </nav>
-      <div className="locale-toggle" aria-label={locale === "fr" ? "Choisir la langue" : "Choose language"}>
-        {(["fr", "en"] as const).map((item) => (
+        <div className="cmdbar-inner">
+          <Link className="wordmark" href={localizedPath("/", locale)} aria-label="Parrit.ai home">
+            PARRIT<i aria-hidden="true">.</i>AI
+          </Link>
+          <nav className="cmd-nav" aria-label="Main navigation">
+            {nav.map(([href, label]) => {
+              const active = barePathname(pathname ?? "/").startsWith(href);
+              return (
+                <Link
+                  key={href}
+                  href={localizedPath(href, locale)}
+                  className={active ? "on" : undefined}
+                  aria-current={active ? "page" : undefined}
+                >
+                  {label}
+                </Link>
+              );
+            })}
+          </nav>
+          <div className="locale-toggle" aria-label={locale === "fr" ? "Choisir la langue" : "Choose language"}>
+            {(["fr", "en"] as const).map((item) => (
+              <button
+                type="button"
+                key={item}
+                className={item === locale ? "on" : undefined}
+                aria-pressed={item === locale}
+                onClick={() => switchLocale(item)}
+              >
+                {item.toUpperCase()}
+              </button>
+            ))}
+          </div>
+          <Link className="cmd-cta rev-button exec" href={localizedPath("/commission", locale)}>
+            {locale === "fr" ? "Parlons-en" : "Let's talk"}
+          </Link>
           <button
             type="button"
-            key={item}
-            className={item === locale ? "on" : undefined}
-            aria-pressed={item === locale}
-            onClick={() => switchLocale(item)}
+            className="cmd-menu-toggle"
+            aria-expanded={menuOpen}
+            aria-controls="cmd-panel"
+            onClick={() => setMenuOpen((open) => !open)}
           >
-            {item.toUpperCase()}
+            {menuOpen ? (locale === "fr" ? "Fermer" : "Close") : "Menu"}
           </button>
-        ))}
-      </div>
-      <Link className="cmd-cta rev-button exec" href={localizedPath("/commission", locale)}>
-        {locale === "fr" ? "Parlons-en" : "Let's talk"}
-      </Link>
-      <button
-        type="button"
-        className="cmd-menu-toggle"
-        aria-expanded={menuOpen}
-        aria-controls="cmd-panel"
-        onClick={() => setMenuOpen((open) => !open)}
-      >
-        {menuOpen ? (locale === "fr" ? "Fermer" : "Close") : "Menu"}
-      </button>
+        </div>
       </header>
       {/* le panneau vit HORS de la cmdbar : son backdrop-filter fait de la barre
-         le bloc conteneur des fixed ; dedans, le panneau se calait sur 52px */}
+         le bloc conteneur des fixed ; dedans, le panneau se calait sur 64px */}
       {panelMounted ? (
         <nav
           className={`cmd-panel${panelOn ? " on" : ""}`}
@@ -148,12 +148,12 @@ export function RevHeader({ locale }: { locale: Locale }) {
           aria-label="Main navigation"
         >
           {nav.map(([href, label]) => {
-            const active = href !== "/#prototype" && barePathname(pathname ?? "/").startsWith(href);
+            const active = barePathname(pathname ?? "/").startsWith(href);
             return (
               <Link
                 key={href}
                 href={localizedPath(href, locale)}
-                className={`${active ? "on" : ""}${href === "/#prototype" ? " cmd-nav-prototype" : ""}`.trim() || undefined}
+                className={active ? "on" : undefined}
                 aria-current={active ? "page" : undefined}
                 onClick={() => setMenuOpen(false)}
               >

@@ -1,30 +1,51 @@
 import type { Locale } from "../locale";
 import { K } from "./K";
 
-const STEPS = {
-  fr: [
-    ["Écriture", "Un contact, un rendez-vous ou un dossier est créé, ici ou dans l'un des onze outils plus anciens qui écrivent encore sur nos contacts."],
-    ["Deux contrôles", "Un verrou bloque tout nouveau point d'écriture non déclaré depuis le 13 septembre 2026. Un audit périodique, comme celui du 11 septembre, compare les deux sources."],
-    ["Décision humaine", "Le fondateur tranche, un type d'information à la fois, et la date est notée, comme le 14 septembre pour le premier domaine fermé."],
-  ],
-  en: [
-    ["Write", "A contact, a meeting, or a file gets created, here or in one of the eleven older tools that still write to our contacts."],
-    ["Two checks", "A gate has blocked any new undeclared write path since September 13, 2026. A periodic audit, like the one run on September 11, compares both sources."],
-    ["Human decision", "The founder decides, one type of information at a time, and the date gets logged, like September 14 for the first domain closed."],
-  ],
+const COPY = {
+  fr: {
+    label: "Le mécanisme, vérifié",
+    sourceCanonical: ["La source qui doit faire foi", "Notre application interne."],
+    sourceLegacy: ["Ce qui écrit encore à côté", "Onze anciens outils, dont une synchronisation toutes les 15 minutes."],
+    control: ["Deux contrôles", "Un verrou empêche tout nouveau point d'écriture non déclaré depuis le 13 septembre 2026. Un audit périodique, comme celui du 11 septembre, compare les deux sources : il a trouvé 114 fiches présentes seulement côté ancien système."],
+    decision: ["Décision humaine, datée", "Le fondateur tranche, un type d'information à la fois. Une décision déjà prise et datée, comme celle du 14 septembre."],
+  },
+  en: {
+    label: "The mechanism, verified",
+    sourceCanonical: ["The source meant to be trusted", "Our internal application."],
+    sourceLegacy: ["What still writes alongside it", "Eleven older tools, including a sync job running every 15 minutes."],
+    control: ["Two checks", "A gate has blocked any new undeclared write path since September 13, 2026. A periodic audit, like the one run on September 11, compares both sources: it found 114 records that existed only in the old system."],
+    decision: ["Human decision, dated", "The founder decides, one type of information at a time. A decision already made and dated, like the one on September 14."],
+  },
 } as const;
 
 export function MechanismSchema({ locale = "en" }: { locale?: Locale }) {
-  const steps = STEPS[locale];
+  const copy = COPY[locale];
+  const ariaLabel = locale === "fr"
+    ? "Schéma : deux sources se rejoignent dans un contrôle, qui alimente une décision humaine."
+    : "Diagram: two sources feed into a check, which feeds into a human decision.";
   return (
-    <div className="mechanism-schema" role="img" aria-label={locale === "fr" ? "Le mécanisme, en trois temps : écriture, deux contrôles, décision humaine." : "The mechanism, in three steps: write, two checks, human decision."}>
-      {steps.map(([label, body], index) => (
-        <div className="mechanism-schema-step" key={label}>
-          <K>{String(index + 1).padStart(2, "0")}</K>
-          <h3>{label}</h3>
-          <p>{body}</p>
+    <div className="mechanism-diagram" role="img" aria-label={ariaLabel}>
+      <K className="mechanism-diagram-label">{copy.label}</K>
+      <div className="mechanism-diagram-sources">
+        <div className="mechanism-diagram-node mechanism-diagram-node--canonical">
+          <h3>{copy.sourceCanonical[0]}</h3>
+          <p>{copy.sourceCanonical[1]}</p>
         </div>
-      ))}
+        <div className="mechanism-diagram-node mechanism-diagram-node--legacy">
+          <h3>{copy.sourceLegacy[0]}</h3>
+          <p>{copy.sourceLegacy[1]}</p>
+        </div>
+      </div>
+      <div className="mechanism-diagram-arrow" aria-hidden="true">↓</div>
+      <div className="mechanism-diagram-node mechanism-diagram-node--control">
+        <h3>{copy.control[0]}</h3>
+        <p>{copy.control[1]}</p>
+      </div>
+      <div className="mechanism-diagram-arrow" aria-hidden="true">↓</div>
+      <div className="mechanism-diagram-node mechanism-diagram-node--decision">
+        <h3>{copy.decision[0]}</h3>
+        <p>{copy.decision[1]}</p>
+      </div>
     </div>
   );
 }

@@ -98,3 +98,17 @@ La spec `docs/CODEX-SPEC-2026-09-20-header-hero-systems-visual.md` remplace l'ho
 Validation complétée hors sandbox Codex (build, `qa:brand:rev01`, `qa:network:rev01` 74/74, captures desktop/mobile avant/après) : deux régressions réelles trouvées et corrigées avant merge — cascade CSS `.rev-button` écrasant le padding `.cmd-cta` (fixée par `.cmdbar .cmd-cta`), et le test de contraste du focus sur bouton sombre qui ciblait par erreur un bouton `disabled` d'AgentEsquisse après la réorganisation du hero (le sélecteur exclut désormais les contrôles désactivés et couvre aussi `.cmdbar .rev-button.exec`).
 
 Lint, TypeScript et contrôle de marque passent. Les trois grep prescrits sont vides. Validation visuelle non obtenue : Chromium et le port local sont refusés dans le sandbox. Voir le rapport dédié pour les limites de validation et de distinctivité.
+
+## Recomposition de l'en-tête et schéma relationnel, 20/09/2026
+
+La spec `docs/CODEX-SPEC-2026-09-20-header-recompose-systems-diagram.md` remplace la composition précédente : `.cmdbar` reste fixe, hauteur 64 px, contenu dans `.cmdbar-inner` sur la grille 1160 px. Navigation Journal et Systems/Systèmes, commission uniquement via le CTA. Les décalages liés à l'en-tête suivent 64 px ; les quatre espacements indépendants de 52 px restent identiques. `MechanismSchema` reprend exactement le copy et les quatre blocs de la spec : deux sources, contrôle, décision, avec deux flèches. Tests de hauteur, cardinalité, CTA localisé et sélecteurs mis à jour ; accès Systems depuis les deux accueils ajouté.
+
+Lint, TypeScript et gate de marque passent. Les quatre grep sont vides.
+
+Validation complétée hors sandbox (build, `qa:brand:rev01`, `qa:network:rev01` 76/76,
+captures desktop/mobile FR/EN avant/après) : une correction appliquée avant merge. La bordure
+d'accent du schéma était posée sur le nœud « Deux contrôles », en contradiction avec la loi de
+l'accent (« décision requise ») ; déplacée sur « Décision humaine, datée ». Jugement visuel
+fait sur les captures : l'en-tête aligné sur la grille 1160px et la nav à 2 liens + 1 CTA se
+distinguent clairement de l'ancienne barre plein-bord ; le schéma montre une vraie relation
+2 sources → 1 contrôle → 1 décision, pas trois cartes parallèles.

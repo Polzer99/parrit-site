@@ -78,7 +78,7 @@ test("command bar nav items share one text baseline", async ({ page }) => {
       return rect.top + rect.height / 2;
     }),
   );
-  expect(centres.length).toBeGreaterThanOrEqual(3);
+  expect(centres.length).toBe(2);
   expect(Math.max(...centres) - Math.min(...centres)).toBeLessThanOrEqual(1);
 });
 
@@ -95,7 +95,7 @@ test.describe("command bar", () => {
       const commandBar = page.locator(".cmdbar");
       await expect(commandBar).toBeVisible();
       await expect(commandBar).toHaveCSS("position", "fixed");
-      await expect(commandBar).toHaveCSS("height", "52px");
+      await expect(commandBar).toHaveCSS("height", "64px");
     }
   });
 });

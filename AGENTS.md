@@ -62,17 +62,26 @@ Compléments : `docs/site-prod-rev01/REV03-DELTAS.md` (deltas appliqués),
   d'instrument `0 40px 80px -40px rgba(10,11,12,.4)` · zéro dégradé · statuts = forme + couleur.
 - **Logo REV 04** : mark live-text `[P.]` IBM Plex Mono 600, point d'accent ; wordmark live-text
   `PARRIT.AI` (point d'accent). Fichiers : `docs/site-prod-rev01/logo-rev04/` + `public/brand/`.
-- **L'enveloppe fait partie du canon** : la command bar sombre (fixe 52px — wordmark,
-  navigation, sélecteur de langue, action principale « Parlons-en »/« Let's talk ») est sur
-  TOUTES les pages, et la séquence d'ouverture (`Opening.tsx` : boot log → statement avec Parrit
-  Frame) joue à **chaque arrivée** sur `/` (décision Paul 14/08 — pas de flag de session ; skip
-  au clic/scroll/touche, skip total en `prefers-reduced-motion`, SSR intact dessous).
-  *Corrigé le 20/09/2026 (décision Paul, chantier DA) : l'horloge live est retirée de la barre
-  — décorative, sans information pour le visiteur. Ne pas la réintroduire. La barre porte
-  désormais une action claire au lieu d'un chronomètre. (Le registre `SYSTEM PARRIT.AI · REV 01
-  · STATUS OPERATIONAL` décrit par `docs/site-prod-rev01/lots/LOT-O-OPENING-CMDBAR.md` n'a
-  jamais été implémenté dans `RevHeader.tsx` : cette ligne du présent fichier décrivait déjà le
-  prototype, pas le composant livré — écart non corrigé ici, signalé pour mémoire.)*
+- **L'enveloppe fait partie du canon** : la command bar sombre (fixe 64px — wordmark,
+  navigation à 2 liens (Journal, Systèmes), sélecteur de langue, une seule action principale
+  « Parlons-en »/« Let's talk ») est sur TOUTES les pages, et la séquence d'ouverture
+  (`Opening.tsx` : boot log → statement avec Parrit Frame) joue à **chaque arrivée** sur `/`
+  (décision Paul 14/08 — pas de flag de session ; skip au clic/scroll/touche, skip total en
+  `prefers-reduced-motion`, SSR intact dessous).
+  *Corrigé le 20/09/2026 (décision Paul, chantier DA, 2 passes) : l'horloge live est retirée
+  de la barre — décorative, sans information pour le visiteur. Ne pas la réintroduire. Passe 2
+  (Paul : « la bande sombre fixe subsiste ») : le contenu de la barre est aligné sur la même
+  colonne `max-width:1160px` que le reste du site (`.cmdbar-inner`, plus de padding brut aux
+  bords), la hauteur passe de 52 à 64px pour respirer, et la navigation ne porte plus de
+  doublon vers `/commission` (`Commande` supprimée, seul le CTA y mène) ni de lien `Votre
+  prototype`/`#prototype` (la démonstration vit déjà dans le premier écran de l'accueil depuis
+  la passe 1) — remplacé par un lien `Systèmes`/`Systems` vers `/systems`, accès explicite
+  depuis toutes les pages. `position: fixed` reste inchangé (canon, testé explicitement par
+  `tests/conformity-home.spec.ts`) : ce qui a changé est la composition, pas le mécanisme de
+  positionnement. (Le registre `SYSTEM PARRIT.AI · REV 01 · STATUS OPERATIONAL` décrit par
+  `docs/site-prod-rev01/lots/LOT-O-OPENING-CMDBAR.md` n'a jamais été implémenté dans
+  `RevHeader.tsx` : cette ligne du présent fichier décrivait déjà le prototype, pas le
+  composant livré — écart non corrigé ici, signalé pour mémoire.)*
 - **Éléments propriétaires** : le Parrit Frame (crochets d'accent = objet en attente de décision),
   la registry line (`PARRIT / SITE · REV 01 · 2026`), le Standard en spécification PS-01…PS-06.
 
