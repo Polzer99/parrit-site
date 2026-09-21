@@ -283,18 +283,17 @@ export default async function SystemsPage() {
   const heading = (id: string, title: string) => <div className="r2-shead"><h2 className="r2-ed" id={id}>{title}</h2></div>;
   return <main className="rev-page r2-dark">
     <div className="r2-wrap" style={{ overflowWrap: "anywhere" }}>
-      <header className="r2-hero">
+      <header className="r2-hero systems-hero">
         <K>{copy.kicker}</K><h1>{copy.title}</h1><p className="r2-sub">{copy.sub}</p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 24, marginTop: 32 }}>{talk}<Link className="rev-button ghost" href="#capacites">{copy.catalogue}</Link></div>
         <div className="systems-hero-proof">
-          <K>{copy.observed}</K>
-          <article className="system-card offer-card" style={{ border: 0, background: "var(--ink)" }}>
+          <article className="systems-hero-proof-card">
+            <K>{copy.observed}</K>
             <h3>{evidence.cards[0].name}</h3>
-            <p>{evidence.cards[0].output}</p>
-            <p style={{ color: "var(--g2)" }}>{HERO_PROOF_LIMIT[locale]}</p>
+            <p>{evidence.cards[0].output} {HERO_PROOF_LIMIT[locale]}</p>
             <K>{evidence.cards[0].proofLabel}</K>
           </article>
         </div>
+        <div className="systems-hero-actions">{talk}<Link className="rev-button ghost" href="#capacites">{copy.catalogue}</Link></div>
       </header>
       <section className="r2-section" aria-labelledby="evidence-heading">
         {heading("evidence-heading", copy.evidence)}<p>{copy.intro}</p>

@@ -16,7 +16,7 @@ const DICT = {
       before: "The AI system your company",
       frame: "operates",
       after: "on.",
-      sub: "We build inside your systems. On your data. Until it runs.",
+      sub: "The invoice nobody owns until it's overdue. The report stitched together by hand every Monday. We build inside your systems, on your data, until it runs.",
       alternative: "Or talk it through: a 15-minute examination, on a video call, with the founder.",
     },
     brands: {
@@ -37,18 +37,26 @@ const DICT = {
     },
     build: {
       kicker: "What we build",
-      title: "Your company, on one system.",
+      title: "One operation becomes one system, brick by brick.",
       items: [
         ["01", "Understand", "Everything that happens, readable at any moment. You open it, you know."],
         ["02", "Decide", "Only decisions reach you. Framed and quantified, on a card."],
         ["03", "Act", "The action executes in the same system. Journaled, reversible. The system belongs to you."],
       ],
-      verdict: "Three moves. The rest runs without you.",
+      verdict: "Three moves, on the operation you chose. Everything else executes without you.",
     },
     proof: {
       kicker: "The proof",
-      systems: { title: "We show the system. You judge before you commit.", cta: "See the system" },
-      dossiers: { title: "The dossiers open in conversation.", cta: "See the dossiers" },
+      systems: {
+        title: "We show the system. You judge before you commit.",
+        fact: "15 of 25 information sources still duplicated, checked September 13, 2026.",
+        cta: "See the system",
+      },
+      dossiers: {
+        title: "The dossiers open in conversation.",
+        fact: "Three open dossiers today. The rest stay sealed until a meeting.",
+        cta: "See the dossiers",
+      },
     },
     offers: {
       kicker: "Ways to start",
@@ -82,6 +90,9 @@ const DICT = {
       note: "15 min · An examination, on a video call, with the founder",
       button: "Let's talk",
     },
+    credential: {
+      text: "Formia, also led by our founder, is Qualiopi-certified (ATA 1926 2026, valid through May 2029).",
+    },
   },
   fr: {
     hero: {
@@ -89,7 +100,7 @@ const DICT = {
       before: "Le système IA qui fait tourner votre",
       frame: "entreprise.",
       after: "",
-      sub: "On code chez vous. Avec vos données. Jusqu'à ce que ça tourne.",
+      sub: "La facture que personne ne suit avant qu'elle traîne. Le rapport recomposé à la main chaque lundi. On code chez vous, avec vos données, jusqu'à ce que ça tourne.",
       alternative: "Ou parlons-en : un examen de 15 minutes, en visio, avec le fondateur.",
     },
     brands: {
@@ -110,18 +121,26 @@ const DICT = {
     },
     build: {
       kicker: "Ce que nous construisons",
-      title: "Votre entreprise, sur un seul système.",
+      title: "Une opération devient un système, brique après brique.",
       items: [
         ["01", "Comprendre", "Tout ce qui se passe, lisible à tout moment. Vous ouvrez, vous savez."],
         ["02", "Décider", "Seules les décisions remontent jusqu'à vous. Cadrées et chiffrées, sur une carte."],
         ["03", "Agir", "L'action s'exécute dans le même système. Consignée au journal, réversible. Le système vous appartient."],
       ],
-      verdict: "Trois gestes. Le reste tourne sans vous.",
+      verdict: "Trois gestes, sur l'opération choisie. Le reste s'exécute sans vous.",
     },
     proof: {
       kicker: "La preuve",
-      systems: { title: "Nous montrons le système. Vous jugez avant de vous engager.", cta: "Voir le système" },
-      dossiers: { title: "Les dossiers s'ouvrent de vive voix.", cta: "Voir les dossiers" },
+      systems: {
+        title: "Nous montrons le système. Vous jugez avant de vous engager.",
+        fact: "15 sources d'information sur 25 encore en double, vérifié le 13 septembre 2026.",
+        cta: "Voir le système",
+      },
+      dossiers: {
+        title: "Les dossiers s'ouvrent de vive voix.",
+        fact: "Trois dossiers ouverts aujourd'hui. Les autres restent scellés jusqu'au rendez-vous.",
+        cta: "Voir les dossiers",
+      },
     },
     offers: {
       kicker: "Pour commencer",
@@ -154,6 +173,9 @@ const DICT = {
       title: "Une conversation. Votre système d'exploitation, examiné.",
       note: "15 min · Un examen, en visio, avec le fondateur",
       button: "Parlons-en",
+    },
+    credential: {
+      text: "Formia, également dirigée par notre fondateur, est certifiée Qualiopi (ATA 1926 2026, valable jusqu'en mai 2029).",
     },
   },
 } as const;
@@ -247,10 +269,12 @@ export default async function HomePage() {
           <div className="home-s-proof-grid">
             <Link className="home-s-proof-item home-s-proof-item--systems" href={localizedPath("/systems", locale)}>
               <h3>{copy.proof.systems.title}</h3>
+              <p>{copy.proof.systems.fact}</p>
               <span>{copy.proof.systems.cta} →</span>
             </Link>
             <Link className="home-s-proof-item home-s-proof-item--dossiers" href={localizedPath("/dossiers", locale)}>
               <h3>{copy.proof.dossiers.title}</h3>
+              <p>{copy.proof.dossiers.fact}</p>
               <span>{copy.proof.dossiers.cta} →</span>
             </Link>
           </div>
@@ -282,6 +306,13 @@ export default async function HomePage() {
           <h2>{copy.close.title}</h2>
           <K>{copy.close.note}</K>
           <Link className="rev-button exec" href={localizedPath("/commission", locale)}>{copy.close.button}</Link>
+        </div>
+      </section>
+
+      <section className="home-s-credential">
+        <div className="home-s-wrap">
+          <Image src="/brand/qualiopi-formia.png" alt="Qualiopi" width={96} height={51} />
+          <p>{copy.credential.text}</p>
         </div>
       </section>
     </main>
