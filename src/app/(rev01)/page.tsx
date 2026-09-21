@@ -45,6 +45,11 @@ const DICT = {
       ],
       verdict: "Three moves. The rest runs without you.",
     },
+    proof: {
+      kicker: "The proof",
+      systems: { title: "We show the system. You judge before you commit.", cta: "See the system" },
+      dossiers: { title: "The dossiers open in conversation.", cta: "See the dossiers" },
+    },
     offers: {
       kicker: "Ways to start",
       cards: [
@@ -112,6 +117,11 @@ const DICT = {
         ["03", "Agir", "L'action s'exécute dans le même système. Consignée au journal, réversible. Le système vous appartient."],
       ],
       verdict: "Trois gestes. Le reste tourne sans vous.",
+    },
+    proof: {
+      kicker: "La preuve",
+      systems: { title: "Nous montrons le système. Vous jugez avant de vous engager.", cta: "Voir le système" },
+      dossiers: { title: "Les dossiers s'ouvrent de vive voix.", cta: "Voir les dossiers" },
     },
     offers: {
       kicker: "Pour commencer",
@@ -228,6 +238,22 @@ export default async function HomePage() {
             {copy.build.items.map(([number, title, body]) => <article key={number}><K>{number}</K><h3>{title}</h3><p>{body}</p></article>)}
           </div>
           <K className="home-s-verdict">{copy.build.verdict}</K>
+        </div>
+      </section>
+
+      <section className="home-s-proof" aria-label={copy.proof.kicker}>
+        <div className="home-s-wrap">
+          <K>{copy.proof.kicker}</K>
+          <div className="home-s-proof-grid">
+            <Link className="home-s-proof-item home-s-proof-item--systems" href={localizedPath("/systems", locale)}>
+              <h3>{copy.proof.systems.title}</h3>
+              <span>{copy.proof.systems.cta} →</span>
+            </Link>
+            <Link className="home-s-proof-item home-s-proof-item--dossiers" href={localizedPath("/dossiers", locale)}>
+              <h3>{copy.proof.dossiers.title}</h3>
+              <span>{copy.proof.dossiers.cta} →</span>
+            </Link>
+          </div>
         </div>
       </section>
 

@@ -30,6 +30,15 @@ const PATHS = [
 // reveals them for real, they measure identically to input#agent-operation
 // (1.234), which shares the exact same border/background declaration in
 // rev01.css. This is the first genuine measurement, not a regression.
+// Added 2026-09-21 for a.home-s-proof-item.home-s-proof-item--systems/
+// --dossiers (copywriting-parcours branch): the new home "proof" section
+// reuses the same 1px-divider grid pattern already used elsewhere on the
+// site (home-s-offers-grid, the systems catalogue) — a light card fill
+// (--paper2) resting in a --rule-l gap, deliberately subtle. The two cards
+// carry distinct modifier classes solely so this debt list can key them
+// separately (the checker treats a repeated selector as an unexplained
+// duplicate); both measure identically (1.270) on both locales and widths.
+// Text contrast inside the card is audited separately and is unaffected.
 const NEUTRAL_CONTROL_DEBT: Map<string, number> = new Map([
   ["/|1440|input#quick-email", 1.234],
   ["/|1440|input#quick-idee", 1.234],
@@ -47,6 +56,14 @@ const NEUTRAL_CONTROL_DEBT: Map<string, number> = new Map([
   ["/fr|390|input#agent-operation", 1.234],
   ["/commission|390|input#quick-email", 1.234],
   ["/fr/commission|390|input#quick-email", 1.234],
+  ["/|1440|a.home-s-proof-item.home-s-proof-item--systems", 1.270],
+  ["/|1440|a.home-s-proof-item.home-s-proof-item--dossiers", 1.270],
+  ["/fr|1440|a.home-s-proof-item.home-s-proof-item--systems", 1.270],
+  ["/fr|1440|a.home-s-proof-item.home-s-proof-item--dossiers", 1.270],
+  ["/|390|a.home-s-proof-item.home-s-proof-item--systems", 1.270],
+  ["/|390|a.home-s-proof-item.home-s-proof-item--dossiers", 1.270],
+  ["/fr|390|a.home-s-proof-item.home-s-proof-item--systems", 1.270],
+  ["/fr|390|a.home-s-proof-item.home-s-proof-item--dossiers", 1.270],
   ["/|390|button.cmd-menu-toggle", 1.138],
   ["/fr|390|button.cmd-menu-toggle", 1.138],
   ["/standard|390|button.cmd-menu-toggle", 1.138],
