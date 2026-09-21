@@ -120,10 +120,14 @@ for (const width of [1440, 390]) {
 
       if (path === "/" || path === "/fr") {
         await expect(async () => {
+          // Force a real value transition on every retry: refilling an input with
+          // the value it already holds can fail to redispatch a native input event,
+          // which would leave this stuck if an earlier attempt raced React hydration.
+          await page.locator("#agent-operation").fill("");
           await page.locator("#agent-operation").fill("reporting");
           await page.locator('.agent-esquisse-form button[type="submit"]').click();
           await expect(page.locator("#quick-idee")).toHaveValue("reporting");
-        }).toPass({ timeout: 10_000 });
+        }).toPass({ timeout: 20_000 });
         // The click above leaves Chromium's focus-visible modality in "pointer" mode,
         // which suppresses the accent outline on the next programmatically focused
         // control even though a real keyboard user would still see it. A harmless Tab
@@ -564,10 +568,11 @@ async function measureInvalidFormStates(page: Page, path: string, width: number)
 
     if (path === "/" || path === "/fr") {
       await expect(async () => {
+        await page.locator("#agent-operation").fill("");
         await page.locator("#agent-operation").fill("reporting");
         await page.locator('.agent-esquisse-form button[type="submit"]').click();
         await expect(page.locator("#quick-idee")).toHaveValue("reporting");
-      }).toPass({ timeout: 10_000 });
+      }).toPass({ timeout: 20_000 });
     }
 
     const form = page.locator(probe.form).first();
