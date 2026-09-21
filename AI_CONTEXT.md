@@ -161,3 +161,31 @@ Validation complétée hors sandbox (build, `qa:brand:rev01`, `qa:network:rev01`
 de suite après correctifs —, captures desktop/mobile FR/EN avant/après). Une seconde spec,
 `docs/CODEX-SPEC-2026-09-21-copywriting-parcours.md`, reprend le copywriting de l'accueil sous
 le premier écran et de `/build-with-you` une fois celle-ci mergée.
+
+## Reprise du copywriting : preuve sur l'accueil et Build With You, 21/09/2026
+
+La spec `docs/CODEX-SPEC-2026-09-21-copywriting-parcours.md` (seconde des deux specs de reprise,
+suite de la première ci-dessus) referme l'écart F09 : la promesse de « Ce que nous construisons »
+n'avait aucune preuve visible depuis l'accueil avant l'offre. Une nouvelle section « La preuve »
+est insérée entre `home-s-build` et `home-s-offers`, reprenant mot pour mot les `<h1>` déjà en
+production de `/systems` et `/dossiers` (vérifiés caractère pour caractère) comme titres de deux
+cartes-liens — aucun texte nouveau n'est inventé, seule la navigation est ajoutée. `/build-with-you`
+est réécrite pour répondre à F11 : trois nouvelles sections (« What comes out of these 10 hours »,
+« What you bring », « What happens next ») s'appuient sur des engagements déjà écrits ailleurs
+(PS-05, PS-06 du Standard ; « pas de chef de projet » de la section « La maison ») plutôt que
+d'inventer une garantie propre à cette offre. Prix et étapes 01-03 (durées déjà corrigées en PR A)
+inchangés.
+
+Un défaut de test trouvé et corrigé avant merge : les deux nouvelles cartes de la section preuve
+partagent la même classe CSS, ce qui les faisait mesurer comme une seule entrée dans la liste
+figée de contraste (`NEUTRAL_CONTROL_DEBT`) puis se signaler mutuellement comme « doublon » —
+la vérification exige qu'un sélecteur répété corresponde à un seul élément par page. Deux classes
+de modificateur (`--systems`/`--dossiers`) distinguent désormais les deux cartes ; leur contraste
+réel (1.270:1, fond `--paper2` sur grille `--rule-l`, même motif de séparation 1px que
+`home-s-offers-grid` et le catalogue `/systems`) est documenté dans la liste figée, pas contourné.
+
+Validation complétée hors sandbox (build, lint, `qa:claims:rev01`, `qa:brand:rev01`,
+`qa:network:rev01` 76/76, captures desktop/mobile FR/EN avant/après). `qa:claims:rev01` a
+d'abord bloqué la PR A pour une fausse alerte sans lien avec cette spec (voir historique PR
+#277) — la reprise ici en tient compte : aucun tableau de durées n'est reformé sur une seule
+ligne source dans cette PR.

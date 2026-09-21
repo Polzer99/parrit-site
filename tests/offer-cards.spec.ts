@@ -23,7 +23,8 @@ for (const width of [375, 1440, 767, 768]) {
       await expect(cards.nth(1).locator(".offer-price")).toHaveText(locale === "fr" ? "Sur devis" : "Custom quote");
       await expect(cards.nth(0).getByRole("link")).toHaveAttribute("href", `${prefix}/build-with-you`);
       await expect(cards.nth(1).getByRole("link")).toHaveAttribute("href", `${prefix}/commission`);
-      expect(await section.evaluate((el) => [el.previousElementSibling?.className, el.nextElementSibling?.className])).toEqual(["home-s-build r2-dark", "home-s-journal"]);
+      expect(await section.evaluate((el) => [el.previousElementSibling?.className, el.nextElementSibling?.className])).toEqual(["home-s-proof", "home-s-journal"]);
+      expect(await page.locator(".home-s-proof").evaluate((el) => el.previousElementSibling?.className)).toBe("home-s-build r2-dark");
       const columns = await section.locator(".home-s-offers-grid").evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(" ").length);
       expect(columns).toBe(width < 768 ? 1 : 2);
       // Detect child overflow as well: the home itself deliberately hides overflow-x.
@@ -41,8 +42,10 @@ for (const width of [375, 1440, 767, 768]) {
       await expect(page.locator(".r2-phase")).toHaveCount(3);
       await expect(page.locator("main .offer-price")).toHaveText(locale === "fr" ? "3 200 € HT · forfait" : "€3,200 excl. VAT · fixed fee");
       await expect(page.locator("main form")).toHaveCount(0);
-      await expect(page.locator("main a")).toHaveCount(1);
-      await expect(page.locator("main a")).toHaveAttribute("href", `${prefix}/commission`);
+      await expect(page.locator("main a")).toHaveCount(2);
+      for (const link of await page.locator("main a").all()) {
+        await expect(link).toHaveAttribute("href", `${prefix}/commission`);
+      }
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://parrit.ai${prefix}/build-with-you`);
       await expect(page.locator('link[hreflang="fr"]')).toHaveAttribute("href", "https://parrit.ai/fr/build-with-you");
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
