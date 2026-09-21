@@ -75,6 +75,21 @@ export function QuickCapture({
   const [sketchUrl, setSketchUrl] = useState("");
   const emailRef = useRef<HTMLInputElement>(null);
 
+  // Une nouvelle esquisse change `initialIdee` : le récapitulatif doit suivre.
+  // Ajustement pendant le rendu (pattern React officiel), pas un effet : évite
+  // `react-hooks/set-state-in-effect` et le clignotement d'un rendu en trop.
+  // Une frappe locale dans le champ ne touche jamais cette prop, donc une
+  // modification directe du récapitulatif par l'utilisateur n'est jamais
+  // écrasée. L'e-mail n'est pas concerné.
+  const [syncedIdee, setSyncedIdee] = useState(initialIdee);
+  if (initialIdee !== syncedIdee) {
+    setSyncedIdee(initialIdee);
+    if (initialIdee !== undefined) {
+      setIdee(initialIdee);
+      setIdeaRevealed(true);
+    }
+  }
+
   useEffect(() => {
     if (autoFocusEmail) emailRef.current?.focus();
   }, [autoFocusEmail]);

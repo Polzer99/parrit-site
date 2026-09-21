@@ -225,9 +225,12 @@ async function poserCarteSuperApp(
 
   const sketchUrl = `https://parrit.ai/sketch/${contexte.submissionId}`;
   const fr = contexte.lang === "fr";
+  // Le brouillon français doit renvoyer vers le parcours français, jamais
+  // vers l'anglais (corrigé le 21/09/2026).
+  const commissionUrl = fr ? "https://parrit.ai/fr/commission" : "https://parrit.ai/commission";
   const objet = fr
-    ? "Votre système d'exploitation · première esquisse"
-    : "Your operating system · first sketch";
+    ? "Un exemple pour votre besoin"
+    : "An example for what you described";
   const idee = contexte.idee
     ? (fr
       ? ` Vous parliez de : "${contexte.idee}".`
@@ -236,25 +239,25 @@ async function poserCarteSuperApp(
   const brouillon = fr
     ? `Bonjour,
 
-Vous avez laissé votre adresse sur parrit.ai.${idee} Voici la première esquisse de votre système : ${sketchUrl}
+Vous avez laissé votre adresse sur parrit.ai.${idee} Voici un exemple illustratif, proche de votre besoin, pas une analyse de votre entreprise : ${sketchUrl}
 
 Un examen de 15 minutes, en visio, la précise :
-https://parrit.ai/commission
+${commissionUrl}
 
 Paul Larmaraud · Parrit.ai`
     : `Hello,
 
-You left your address on parrit.ai.${idee} Here is the first sketch of your system: ${sketchUrl}
+You left your address on parrit.ai.${idee} Here is an illustrative example, close to your need, not an analysis of your company: ${sketchUrl}
 
 A 15-minute examination, on a video call, sharpens it:
-https://parrit.ai/commission
+${commissionUrl}
 
 Paul Larmaraud · Parrit.ai`;
 
   const texte = [
     `Intérêt déclaré · ${contexte.interet}`,
     contexte.email,
-    ...(contexte.idee ? [`Idée du prototype : ${contexte.idee}`] : []),
+    ...(contexte.idee ? [`Besoin décrit : ${contexte.idee}`] : []),
     contexte.entreprise?.trim() ? `Entreprise : ${contexte.entreprise.trim()}` : "Entreprise non donnée",
     contexte.ouvertAppel ? "OUVERT À UN APPEL d'examination" : "Pas d'appel demandé",
     contexte.attribution["utm_campaign"]
