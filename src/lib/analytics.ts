@@ -39,7 +39,7 @@ function getLang(pathname: string): string {
   const segment = pathname.split("/").filter(Boolean)[0];
   return segment && ["fr", "en", "pt-BR", "zh-CN"].includes(segment)
     ? segment
-    : "fr";
+    : "en";
 }
 
 export function track(name: EventName, props?: EventProperties): void {

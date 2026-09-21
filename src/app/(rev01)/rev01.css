@@ -1540,6 +1540,13 @@ a.k:active {
   line-height: 1.55;
 }
 
+.quick-capture-next {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
 .quick-fields {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -1607,6 +1614,12 @@ a.k:active {
 
 .agent-esquisse-body p {
   margin: 0 0 20px;
+}
+
+.agent-esquisse-body p.agent-esquisse-transition {
+  line-height: 1.6;
+  color: var(--label-d);
+  margin-top: 20px;
 }
 
 .agent-esquisse-form {

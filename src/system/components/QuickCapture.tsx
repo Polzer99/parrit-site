@@ -1,42 +1,46 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { track } from "@/lib/analytics";
 import { noteFunnel } from "@/system/engagements";
+import { localizedPath } from "@/system/locale";
 import type { Locale } from "@/system/locale";
+import type { Interet } from "@/lib/server/interets";
 import { K } from "./K";
 
 const DICT = {
   en: {
-    label: "YOUR PROTOTYPE",
-    line: "One e-mail address is enough. You receive the first sketch of your system, then a time to examine it together.",
+    label: "YOUR REQUEST",
+    line: "One e-mail address is enough. We reply personally, with an example if your need matches a case we've already sketched.",
     idea: "The process to rebuild, in one sentence (optional)",
     placeholder: "you@company.com",
-    button: "Get your prototype now",
+    button: "Send my request",
     sending: "Sending…",
-    invalid: "Enter a valid work e-mail to receive your sketch.",
+    invalid: "Enter a valid work e-mail to receive a reply.",
     failure: "Registration failed",
     direct: "Write to us instead:",
     registered: "Registered",
-    done: "Noted. The first sketch of your operating system is being assembled right now.",
-    watch: "Watch your sketch being assembled",
-    aria: "Get your prototype",
+    done: "Your request is registered. Paul reviews it personally and replies by e-mail.",
+    watch: "See an illustrative example",
+    bookExam: "Book a 15-minute examination",
+    aria: "Send my request",
   },
   fr: {
-    label: "VOTRE PROTOTYPE",
-    line: "Une adresse e-mail suffit. Vous recevez l'esquisse de votre premier système, puis un créneau pour l'examiner ensemble.",
+    label: "VOTRE DEMANDE",
+    line: "Une adresse e-mail suffit. Nous revenons vers vous personnellement, avec un exemple si votre besoin correspond à un cas déjà esquissé.",
     idea: "Votre process à reconstruire, en une phrase (facultatif)",
     placeholder: "vous@entreprise.fr",
-    button: "Recevez votre prototype",
+    button: "Envoyer ma demande",
     sending: "Envoi en cours…",
-    invalid: "Indiquez un e-mail professionnel valide pour recevoir votre esquisse.",
+    invalid: "Indiquez un e-mail professionnel valide pour recevoir une réponse.",
     failure: "L'envoi a échoué",
     direct: "Écrivez-nous directement :",
     registered: "Bien reçu.",
-    done: "C'est noté. La première esquisse de votre système d'exploitation part en assemblage.",
-    watch: "Voir l'esquisse s'assembler",
-    aria: "Recevez votre prototype",
+    done: "Votre demande est enregistrée. Paul la regarde personnellement et vous répond par e-mail.",
+    watch: "Voir l'exemple illustratif",
+    bookExam: "Réserver un examen de 15 minutes",
+    aria: "Envoyer ma demande",
   },
 } as const;
 
@@ -50,21 +54,35 @@ function attribution(): Record<string, string> {
   return values;
 }
 
-export function QuickCapture({ locale, id, hero = false }: { locale: Locale; id?: string; hero?: boolean }) {
+export function QuickCapture({
+  locale, id, hero = false, initialIdee, interet, autoFocusEmail = false,
+}: {
+  locale: Locale;
+  id?: string;
+  hero?: boolean;
+  initialIdee?: string;
+  interet?: Interet;
+  autoFocusEmail?: boolean;
+}) {
   const copy = DICT[locale];
   const [email, setEmail] = useState("");
-  const [idee, setIdee] = useState("");
-  const [ideaRevealed, setIdeaRevealed] = useState(false);
+  const [idee, setIdee] = useState(initialIdee ?? "");
+  const [ideaRevealed, setIdeaRevealed] = useState(Boolean(initialIdee));
   const [submissionId] = useState(() => crypto.randomUUID());
   const [started, setStarted] = useState(false);
   const [state, setState] = useState<"idle" | "invalid" | "sending" | "done" | "error">("idle");
   const [detail, setDetail] = useState("");
   const [sketchUrl, setSketchUrl] = useState("");
+  const emailRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (autoFocusEmail) emailRef.current?.focus();
+  }, [autoFocusEmail]);
 
   const start = () => {
     if (started) return;
     setStarted(true);
-    track("form_started", { form: "quick-capture", interest: "full-os" });
+    track("form_started", { form: "quick-capture", interest: interet ?? "full-os" });
   };
 
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -85,7 +103,7 @@ export function QuickCapture({ locale, id, hero = false }: { locale: Locale; id?
         body: JSON.stringify({
           email,
           ...(hero ? { idee: idee.slice(0, 300) } : {}),
-          interet: "full-os",
+          interet: interet ?? "full-os",
           source: "site:quick-capture",
           pageOrigine: window.location.pathname,
           lang: locale,
@@ -97,8 +115,8 @@ export function QuickCapture({ locale, id, hero = false }: { locale: Locale; id?
       if (response.ok && body.ok) {
         if (body.sketchUrl) setSketchUrl(body.sketchUrl);
         setState("done");
-        track("form_completed", { form: "quick-capture", interest: "full-os" });
-        track("prototype_requested", { form: "quick-capture", interest: "full-os" });
+        track("form_completed", { form: "quick-capture", interest: interet ?? "full-os" });
+        track("prototype_requested", { form: "quick-capture", interest: interet ?? "full-os" });
       } else {
         setState("error");
         setDetail(body.error ?? `status ${response.status}`);
@@ -115,7 +133,10 @@ export function QuickCapture({ locale, id, hero = false }: { locale: Locale; id?
       <section id={id} className={`quick-capture${hero ? " home-s-quick-capture" : ""}`} data-state="done" aria-live="polite">
         <K>{copy.registered}</K>
         <p>{copy.done}</p>
-        {sketchUrl ? <a className="rev-button exec" href={sketchUrl}>{copy.watch}</a> : null}
+        <div className="quick-capture-next">
+          {sketchUrl ? <a className="rev-button exec" href={sketchUrl}>{copy.watch}</a> : null}
+          <a className="rev-button ghost" href={localizedPath("/commission", locale)}>{copy.bookExam}</a>
+        </div>
       </section>
     );
   }
@@ -133,7 +154,7 @@ export function QuickCapture({ locale, id, hero = false }: { locale: Locale; id?
         </div> : null}
         <div className="quick-fields">
           <label className="sr-only" htmlFor="quick-email">E-mail</label>
-          <input id="quick-email" name="quick-email" type="email" required autoComplete="email" value={email} placeholder={copy.placeholder} onFocus={() => {
+          <input ref={emailRef} id="quick-email" name="quick-email" type="email" required autoComplete="email" value={email} placeholder={copy.placeholder} onFocus={() => {
             if (hero) setIdeaRevealed(true);
             start();
           }} onChange={(event) => {

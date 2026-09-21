@@ -16,13 +16,13 @@ const DICT = {
       {
         "ref": "Dossier 26-003 · A consumer brand",
         "title": "The reporting that assembles itself and ships on time.",
-        "body": "Two and a half months of that cycle are gone. The client's own team runs it alone, today.",
+        "body": "The report assembles itself from the source systems, with no manual rebuild. The client's own team runs it alone, today.",
         "seal": "Delivered · In the client's hands"
       },
       {
         "ref": "Dossier 26-002 · A law firm",
         "title": "Re-engaged case files stop falling through again.",
-        "body": "€5K to €10K more per month. Client intake and follow-ups, rebuilt on the firm's own infrastructure.",
+        "body": "Client intake and follow-ups are being rebuilt on the firm's own infrastructure. The first capabilities are already running; the rest follows the same method.",
         "seal": "Under construction · First capabilities live"
       },
       {
@@ -49,13 +49,13 @@ const DICT = {
       {
         "ref": "Dossier 26-003 · Une marque grand public",
         "title": "Le reporting qui s'assemble seul et part à l'heure.",
-        "body": "Deux mois et demi de ce cycle ont disparu. L'équipe du client le fait tourner seule, aujourd'hui.",
+        "body": "Le rapport s'assemble depuis les systèmes sources, sans reprise manuelle. L'équipe du client le fait tourner seule, aujourd'hui.",
         "seal": "Livré · Aux mains du client"
       },
       {
         "ref": "Dossier 26-002 · Un cabinet d'avocats",
         "title": "Les dossiers relancés ne retombent plus dans l'oubli.",
-        "body": "5 à 10 K€ de plus par mois. L'arrivée des clients et les relances, refondues sur l'infrastructure du cabinet.",
+        "body": "L'arrivée des clients et les relances sont refondues sur l'infrastructure du cabinet. Les premières briques tournent déjà ; le reste suit la même méthode.",
         "seal": "En construction · Premières briques en service"
       },
       {

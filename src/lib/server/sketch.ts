@@ -2,6 +2,7 @@ import "server-only";
 
 import { requeteSupabase } from "./supabase";
 import type { Interet } from "./interets";
+import type { Locale } from "@/system/locale";
 
 /**
  * LECTURE d'une esquisse : la déclaration d'intérêt est retrouvée par son
@@ -13,6 +14,7 @@ export type Esquisse = {
   interet: Interet;
   entreprise: string;
   declareLe: string;
+  lang: Locale;
 };
 
 type LigneProspect = {
@@ -27,6 +29,7 @@ type Declaration = {
   interet: Interet;
   entreprise?: string;
   declare_le: string;
+  lang?: string;
 };
 
 function entrepriseDepuisEmail(email: string): string {
@@ -35,6 +38,10 @@ function entrepriseDepuisEmail(email: string): string {
   const generiques = ["gmail", "outlook", "hotmail", "yahoo", "icloud", "proton", "protonmail", "orange", "free", "sfr", "laposte"];
   if (!racine || generiques.includes(racine.toLowerCase())) return "your company";
   return racine.charAt(0).toUpperCase() + racine.slice(1);
+}
+
+function localeDepuisDeclaration(value: string | undefined): Locale {
+  return value === "fr" ? "fr" : "en";
 }
 
 export async function lireEsquisse(submissionId: string): Promise<Esquisse | null> {
@@ -64,5 +71,6 @@ export async function lireEsquisse(submissionId: string): Promise<Esquisse | nul
     interet: declaration.interet,
     entreprise,
     declareLe: declaration.declare_le,
+    lang: localeDepuisDeclaration(declaration.lang),
   };
 }
