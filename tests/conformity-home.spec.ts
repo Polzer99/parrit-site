@@ -150,8 +150,8 @@ for (const width of [375, 1440]) {
         ? "La facture que personne ne suit avant qu'elle traîne. Le rapport recomposé à la main chaque lundi. On code chez vous, avec vos données, jusqu'à ce que ça tourne."
         : "The invoice nobody owns until it's overdue. The report stitched together by hand every Monday. We build inside your systems, on your data, until it runs.");
       await expect(page.locator(".home-s-maison h2")).toHaveText(locale === "fr"
-        ? "Vous parlez à celui qui construit."
-        : "You talk to the person who builds.");
+        ? "Paul répond seul, du premier message à la dernière ligne de code."
+        : "Paul answers alone, from the first message to the last line of code.");
 
       await expect(page.locator(".home-s-quick-capture")).toHaveCount(0);
       await expect(async () => {
