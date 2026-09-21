@@ -147,8 +147,8 @@ for (const width of [375, 1440]) {
       await page.evaluate(() => document.fonts.ready);
 
       await expect(page.locator(".home-s-hero-sub")).toHaveText(locale === "fr"
-        ? "On code chez vous. Avec vos données. Jusqu'à ce que ça tourne."
-        : "We build inside your systems. On your data. Until it runs.");
+        ? "La facture que personne ne suit avant qu'elle traîne. Le rapport recomposé à la main chaque lundi. On code chez vous, avec vos données, jusqu'à ce que ça tourne."
+        : "The invoice nobody owns until it's overdue. The report stitched together by hand every Monday. We build inside your systems, on your data, until it runs.");
       await expect(page.locator(".home-s-maison h2")).toHaveText(locale === "fr"
         ? "Vous parlez à celui qui construit."
         : "You talk to the person who builds.");
