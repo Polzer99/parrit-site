@@ -215,12 +215,12 @@ for (const locale of ["en", "fr"] as const) {
     await page.goto(`${BASE_URL}${locale === "fr" ? "/fr/dossiers" : "/dossiers"}`);
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator(".r2-dossier h3")).toHaveText(locale === "fr" ? [
-      "Le reporting qui s'assemble seul et part à l'heure.",
-      "Les dossiers relancés ne retombent plus dans l'oubli.",
+      "Un reporting commandé pour s'assembler seul et partir à l'heure.",
+      "Un système commandé pour que les dossiers relancés ne retombent plus dans l'oubli.",
       "Nous vendons le système qui nous fait tourner.",
     ] : [
-      "The reporting that assembles itself and ships on time.",
-      "Re-engaged case files stop falling through again.",
+      "A reporting system, commissioned to assemble itself and ship on time.",
+      "A system commissioned so re-engaged case files stop falling through.",
       "We sell the system we run on.",
     ]);
     await expect(page.locator(".r2-registre-note")).toHaveText(locale === "fr"
