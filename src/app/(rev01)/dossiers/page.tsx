@@ -15,15 +15,15 @@ const DICT = {
     "dossiers": [
       {
         "ref": "Dossier 26-003 · A consumer brand",
-        "title": "The reporting that assembles itself and ships on time.",
-        "body": "The report assembles itself from the source systems, with no manual rebuild. The client's own team runs it alone, today.",
-        "seal": "Delivered · In the client's hands"
+        "title": "A reporting system, commissioned to assemble itself and ship on time.",
+        "body": "The brief: pull the report together from the source systems automatically, with no manual rebuild each cycle.",
+        "seal": "Commissioned"
       },
       {
         "ref": "Dossier 26-002 · A law firm",
-        "title": "Re-engaged case files stop falling through again.",
-        "body": "Client intake and follow-ups are being rebuilt on the firm's own infrastructure. The first capabilities are already running; the rest follows the same method.",
-        "seal": "Under construction · First capabilities live"
+        "title": "A system commissioned so re-engaged case files stop falling through.",
+        "body": "The brief: rebuild client intake and follow-ups on the firm's own infrastructure, one capability at a time.",
+        "seal": "Commissioned"
       },
       {
         "ref": "Dossier 26-001 · Parrit.ai, our own system",
@@ -48,15 +48,15 @@ const DICT = {
     "dossiers": [
       {
         "ref": "Dossier 26-003 · Une marque grand public",
-        "title": "Le reporting qui s'assemble seul et part à l'heure.",
-        "body": "Le rapport s'assemble depuis les systèmes sources, sans reprise manuelle. L'équipe du client le fait tourner seule, aujourd'hui.",
-        "seal": "Livré · Aux mains du client"
+        "title": "Un reporting commandé pour s'assembler seul et partir à l'heure.",
+        "body": "Le mandat : assembler le rapport depuis les systèmes sources, sans reprise manuelle à chaque cycle.",
+        "seal": "Commandé"
       },
       {
         "ref": "Dossier 26-002 · Un cabinet d'avocats",
-        "title": "Les dossiers relancés ne retombent plus dans l'oubli.",
-        "body": "L'arrivée des clients et les relances sont refondues sur l'infrastructure du cabinet. Les premières briques tournent déjà ; le reste suit la même méthode.",
-        "seal": "En construction · Premières briques en service"
+        "title": "Un système commandé pour que les dossiers relancés ne retombent plus dans l'oubli.",
+        "body": "Le mandat : refondre l'arrivée des clients et les relances sur l'infrastructure du cabinet, une capacité à la fois.",
+        "seal": "Commandé"
       },
       {
         "ref": "Dossier 26-001 · Parrit.ai, notre propre système",
