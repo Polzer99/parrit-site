@@ -1479,6 +1479,10 @@ a.k:active {
   text-wrap: balance;
 }
 
+.systems-hero h1 {
+  max-width: 32ch;
+}
+
 @media (max-width: 760px) {
   .r2-hero h1 {
     /* mêmes valeurs que la marge em d'origine à 46px : le mobile ne bouge pas */
@@ -2833,6 +2837,12 @@ a.k:active {
   font-size: var(--d-l);
   font-weight: 400;
 }
+
+.home-s-proof-item p {
+  margin: 16px 0 0;
+  line-height: 1.6;
+  color: var(--label-d);
+}
 .home-s-proof-item span {
   display: inline-block;
   margin-top: 12px;
@@ -2981,6 +2991,61 @@ a.k:active {
 
 .systems-hero-proof {
   max-width: 480px;
-  margin-top: 40px;
+  margin-top: 24px;
   text-align: left;
+}
+
+.systems-hero-proof-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 24px;
+  background: var(--ink);
+}
+
+.systems-hero-proof-card h3 {
+  margin: 0;
+  font-size: var(--t-l);
+  font-weight: 500;
+  color: var(--paper);
+}
+
+.systems-hero-proof-card p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--label-d);
+}
+
+.systems-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+@media (max-width: 760px) {
+  .systems-hero-proof-card { padding: 16px 18px; }
+}
+
+.home-s-credential {
+  padding: 32px 0;
+  border-top: 1px solid var(--rule-l);
+}
+.home-s-credential .home-s-wrap {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.home-s-credential img {
+  width: 96px;
+  height: auto;
+  flex-shrink: 0;
+}
+.home-s-credential p {
+  margin: 0;
+  max-width: 56ch;
+  color: var(--g3);
+  font-size: var(--t-m);
+  line-height: 1.6;
 }

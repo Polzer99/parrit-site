@@ -189,3 +189,15 @@ Validation complétée hors sandbox (build, lint, `qa:claims:rev01`, `qa:brand:r
 d'abord bloqué la PR A pour une fausse alerte sans lien avec cette spec (voir historique PR
 #277) — la reprise ici en tient compte : aucun tableau de durées n'est reformé sur une seule
 ligne source dans cette PR.
+
+## Accueil et ouverture Systems, 21/09/2026
+
+La spec `docs/CODEX-SPEC-2026-09-21-home-systems-rewrite.md` est appliquée à
+l'identique : scènes concrètes dans le sous-titre du hero FR/EN, portée de la
+méthode limitée à l'opération choisie, faits visibles dans les deux cartes de
+preuve. Une bande après la clôture attribue la certification Qualiopi à Formia ;
+elle utilise l'asset fourni `public/brand/qualiopi-formia.png`, sans le modifier.
+L'ouverture Systems utilise un titre de largeur 32ch, une preuve compacte dédiée
+et les actions après la preuve. Les autres heroes et le catalogue restent inchangés.
+Les mesures navigateur avant/après et la vérification de l'asset en production
+sont prévues par la spec côté Claude après merge.
