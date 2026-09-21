@@ -2,13 +2,15 @@
 
 import { useRef, useState } from "react";
 import { track } from "@/lib/analytics";
+import type { Interet } from "@/lib/server/interets";
 import type { Locale } from "@/system/locale";
 import { K } from "./K";
+import { QuickCapture } from "./QuickCapture";
 
 const DICT = {
   fr: {
     title: "Votre agent · esquisse",
-    mode: "Esquisse déterministe",
+    mode: "Un exemple, pas une analyse de votre entreprise",
     opening: "Décrivez l'opération qui vous coûte le plus de temps. J'esquisse le système qui la reprend.",
     response: "Voici la première esquisse de votre système :",
     labels: ["Signal", "Décision", "Action"],
@@ -18,14 +20,13 @@ const DICT = {
       invoice: ["Facture bloquée détectée au jour 1", "Relance cadrée et chiffrée, à valider", "Encaissement suivi jusqu'au solde"],
       default: ["Votre opération, observée en continu", "Seuls les arbitrages remontent à vous", "Le reste s'exécute et se consigne"],
     },
-    close: "La version complète se construit après l'Examen. Laissez votre e-mail ci-dessous : le prototype arrive",
-    link: "Laisser mon e-mail",
+    transition: "Cette esquisse est un exemple, choisi dans une catégorie proche de votre phrase, pas une analyse de votre entreprise. Envoyez-la à Paul : il regarde si un système comme celui-ci a du sens pour vous, et vous répond personnellement.",
     input: "Votre opération",
     send: "Esquisser",
   },
   en: {
     title: "Your agent · sketch",
-    mode: "Deterministic sketch",
+    mode: "An example, not an analysis of your company",
     opening: "Describe the operation that costs you the most time. I'll sketch the system that takes it over.",
     response: "Here is the first sketch of your system:",
     labels: ["Signal", "Decision", "Action"],
@@ -35,14 +36,20 @@ const DICT = {
       invoice: ["Blocked invoice caught on day 1", "Framed, quantified follow-up, for your approval", "Collection tracked to the balance"],
       default: ["Your operation, observed continuously", "Only the arbitrations reach you", "The rest executes and gets recorded"],
     },
-    close: "The full version is built after the Examination. Leave your e-mail below: the prototype arrives",
-    link: "Leave my e-mail",
+    transition: "This sketch is an example, picked from a category close to your sentence, not an analysis of your company. Send it to Paul: he checks whether a system like this makes sense for you, and replies to you personally.",
     input: "Your operation",
     send: "Sketch",
   },
 } as const;
 
 type Scenario = keyof typeof DICT.fr.scenarios;
+
+const INTERET_FOR_SCENARIO: Record<Scenario, Interet> = {
+  followup: "client-flow",
+  reporting: "reporting",
+  invoice: "mail-followups",
+  default: "full-os",
+};
 
 // LOT 2: bilingual keywords, with precedence matching the validated spec.
 function scenarioFor(phrase: string): Scenario {
@@ -54,7 +61,6 @@ function scenarioFor(phrase: string): Scenario {
 
 export function AgentEsquisse({ locale }: { locale: Locale }) {
   const copy = DICT[locale];
-  const close = `${copy.close}.`;
   const [phrase, setPhrase] = useState("");
   const [exchange, setExchange] = useState<{ phrase: string; scenario: Scenario } | null>(null);
   const tracked = useRef(false);
@@ -98,8 +104,15 @@ export function AgentEsquisse({ locale }: { locale: Locale }) {
                   </div>
                 ))}
               </dl>
-              <p>{close}</p>
-              <a className="home-s-text-link" href="#prototype">{copy.link}</a>
+              <p className="agent-esquisse-transition">{copy.transition}</p>
+              <QuickCapture
+                locale={locale}
+                id="prototype"
+                hero
+                initialIdee={exchange.phrase}
+                interet={INTERET_FOR_SCENARIO[exchange.scenario]}
+                autoFocusEmail
+              />
             </div>
           ) : null}
         </div>

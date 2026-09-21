@@ -98,6 +98,11 @@ const EVIDENCE = {
   }
 } as const;
 
+const HERO_PROOF_LIMIT = {
+  fr: "Au 13 septembre 2026, 15 types d'information sur 25 avaient encore deux sources en présence.",
+  en: "As of September 13, 2026, 15 of the 25 types of information still had two sources in place.",
+} as const;
+
 const DICT = {
   en: {
     kicker: "Parrit / Systems", title: "We show the system. You judge before you commit.",
@@ -120,7 +125,7 @@ const DICT = {
     guards: ["For each type of information, a single tool is trusted. It's never chosen by default or by habit.", "Every system change and every automatic correction must be validated by a person.", "Every decision is logged: who decided, and when. Nothing happens silently.", "Before a change touches the site or our tools, a second system, distinct from the one that wrote it, reviews it, and a person decides alone whether to ship it. It can always be rolled back.", "The choice of AI model depends on the need and the cost, never on a single imposed provider."],
     offer: "Where to start.", audience: "For leaders who want something that runs, not an audit or a deck.",
     outcome: "A working system, built with the founder.",
-    deliverables: ["Free 30-minute audit", "30-minute findings review", "10 hours of building with Paul"],
+    deliverables: ["Free 15-minute examination", "30-minute findings review", "10 hours of building with Paul"],
     format: "10 hours, with the founder", basis: "fixed fee", offerCta: "See Build With You",
     faq: [
       ["Is this training or a delivered system?", "A system. You learn to use it along the way, but what we deliver is something that runs, not a course."],
@@ -150,7 +155,7 @@ const DICT = {
     guards: ["Pour chaque type d'information, un seul outil fait foi. Il n'est jamais choisi par hasard ni par habitude.", "Tout changement de système et toute correction automatique doivent être validés par une personne.", "Chaque décision est notée : qui a décidé, et quand. Rien ne se passe sans laisser de trace.", "Avant qu'un changement touche le site ou nos outils, un second système, distinct de celui qui l'a écrit, le relit, et une personne décide seule de le mettre en ligne. On peut toujours revenir en arrière.", "Le choix d'un outil d'intelligence artificielle dépend du besoin et du coût, jamais d'un seul fournisseur imposé."],
     offer: "Par où commencer.", audience: "Pour le dirigeant qui veut repartir avec quelque chose qui tourne, pas un audit ni un deck.",
     outcome: "Un système qui tourne, construit avec le fondateur.",
-    deliverables: ["Audit de 30 min offert", "Restitution de 30 min", "10 heures de construction avec Paul"],
+    deliverables: ["Examen offert de 15 min", "Restitution de 30 min", "10 heures de construction avec Paul"],
     format: "10 heures, avec le fondateur", basis: "forfait", offerCta: "Découvrir Build With You",
     faq: [
       ["Formation ou système livré ?", "Un système. Vous apprenez à vous en servir en cours de route, mais ce que nous livrons, c'est quelque chose qui fonctionne, pas un cours."],
@@ -275,7 +280,12 @@ export default async function SystemsPage() {
         <div style={{ display: "flex", flexWrap: "wrap", gap: 24, marginTop: 32 }}>{talk}<Link className="rev-button ghost" href="#capacites">{copy.catalogue}</Link></div>
         <div className="systems-hero-proof">
           <K>{copy.observed}</K>
-          <SystemCard {...evidence.cards[0]} locale={locale} />
+          <article className="system-card offer-card" style={{ border: 0, background: "var(--ink)" }}>
+            <h3>{evidence.cards[0].name}</h3>
+            <p>{evidence.cards[0].output}</p>
+            <p style={{ color: "var(--g2)" }}>{HERO_PROOF_LIMIT[locale]}</p>
+            <K>{evidence.cards[0].proofLabel}</K>
+          </article>
         </div>
       </header>
       <section className="r2-section" aria-labelledby="evidence-heading">

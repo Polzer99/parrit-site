@@ -6,14 +6,14 @@ const COPY = {
     label: "Le mécanisme, vérifié",
     sourceCanonical: ["Ce qui fait foi", "Notre application interne."],
     sourceLegacy: ["Ce qui écrit encore à côté", "Onze anciens outils, dont une synchronisation toutes les 15 minutes."],
-    control: ["Deux contrôles", "Un verrou bloque toute nouvelle écriture non déclarée. Un audit du 11 septembre a trouvé 114 fiches présentes uniquement dans l'ancien système."],
+    control: ["Deux contrôles", "Un verrou, posé au moment de modifier le code, empêche d'ajouter un nouveau point d'écriture non déclaré. Un audit du 11 septembre a trouvé 114 fiches présentes uniquement dans l'ancien système."],
     decision: ["Décision humaine, datée", "Le fondateur tranche, un type d'information à la fois. Une décision déjà prise et datée, comme celle du 14 septembre."],
   },
   en: {
     label: "The mechanism, verified",
     sourceCanonical: ["What's trusted", "Our internal application."],
     sourceLegacy: ["What still writes alongside it", "Eleven older tools, including a sync job running every 15 minutes."],
-    control: ["Two checks", "A gate blocks any new undeclared write. An audit run on September 11 found 114 records that existed only in the old system."],
+    control: ["Two checks", "A gate, applied when the code changes, blocks any new undeclared write path from being added. An audit run on September 11 found 114 records that existed only in the old system."],
     decision: ["Human decision, dated", "The founder decides, one type of information at a time. A decision already made and dated, like the one on September 14."],
   },
 } as const;

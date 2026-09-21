@@ -46,16 +46,16 @@ test("the home locks the approved display scale and surface rules", async ({ pag
   expect(surfaceRules.radiusCount).toBe(0);
 });
 
-test("sketch panel e-mail link stays readable on carbon", async ({ page }) => {
+test("sketch panel transition stays readable on carbon", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(`${BASE_URL}/`);
   await page.locator("#agent-operation").fill("relance client");
   await page.locator('.agent-esquisse-form button[type="submit"]').click();
 
-  const link = page.locator(".agent-esquisse .home-s-text-link");
+  const link = page.locator(".agent-esquisse-transition");
   await expect(link).toBeVisible();
   const color = await link.evaluate((element) => getComputedStyle(element).color);
-  expect(color).toBe("rgb(241, 242, 243)");
+  expect(color).toBe("rgb(199, 203, 207)");
 });
 
 test("home journal section stays a direct article list without an idle capture", async ({ page }) => {
@@ -153,6 +153,12 @@ for (const width of [375, 1440]) {
         ? "Vous parlez à celui qui construit."
         : "You talk to the person who builds.");
 
+      await expect(page.locator(".home-s-quick-capture")).toHaveCount(0);
+      await expect(async () => {
+        await page.locator("#agent-operation").fill("reporting");
+        await page.locator('.agent-esquisse-form button[type="submit"]').click();
+        await expect(page.locator("#quick-idee")).toHaveValue("reporting");
+      }).toPass({ timeout: 10_000 });
       const capture = page.locator(".home-s-quick-capture");
       await expect(capture).toHaveCSS("text-align", "center");
       await expect(capture.locator("form > .k")).toHaveCSS("text-align", "center");

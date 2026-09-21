@@ -6,7 +6,7 @@ import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system
 import { getLocale } from "@/lib/server/locale";
 import { OfferCard } from "@/system/components/OfferCard";
 import { AgentEsquisse } from "@/system/components/AgentEsquisse";
-import { K, QuickCapture } from "@/system/components";
+import { K } from "@/system/components";
 import { getAllJournalEntrySummaries } from "@/system/journal";
 
 const DICT = {
@@ -52,7 +52,7 @@ const DICT = {
           name: "Build With You",
           audience: "For leaders who want something that runs, not an audit or a deck.",
           outcome: "A working system, built with the founder.",
-          deliverables: ["Free 30-minute audit", "30-minute findings review", "10 hours of building with Paul"],
+          deliverables: ["Free 15-minute examination", "30-minute findings review", "10 hours of building with Paul"],
           format: "10 hours, with the founder",
           price: { amountHt: 3200, currency: "EUR", basis: "fixed fee" },
           cta: { label: "See Build With You", href: "/build-with-you" },
@@ -116,7 +116,7 @@ const DICT = {
           name: "Build With You",
           audience: "Pour le dirigeant qui veut repartir avec quelque chose qui tourne, pas un audit ni un deck.",
           outcome: "Un système qui tourne, construit avec le fondateur.",
-          deliverables: ["Audit de 30 min offert", "Restitution de 30 min", "10 heures de construction avec Paul"],
+          deliverables: ["Examen offert de 15 min", "Restitution de 30 min", "10 heures de construction avec Paul"],
           format: "10 heures, avec le fondateur",
           price: { amountHt: 3200, currency: "EUR", basis: "forfait" },
           cta: { label: "Découvrir Build With You", href: "/build-with-you" },
@@ -175,7 +175,6 @@ export default async function HomePage() {
           </h1>
           <p className="home-s-hero-sub">{copy.hero.sub}</p>
           <AgentEsquisse locale={locale} />
-          <QuickCapture locale={locale} id="prototype" hero />
           <p className="home-s-alternative"><Link href={localizedPath("/commission", locale)}>{copy.hero.alternative}</Link></p>
         </div>
       </section>

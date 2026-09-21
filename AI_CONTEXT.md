@@ -123,3 +123,41 @@ quitte bien l'écran sur l'accueil et sur `/systems`). Jugement visuel fait sur 
 la carte de preuve du hero Systems est lisible sans défiler sur desktop, atteignable par un
 court défilement sur mobile ; le nœud décision du schéma est visuellement identique au nœud
 contrôle (bordure neutre), seule sa profondeur (`--carbon`) le distingue des deux nœuds sources.
+
+## Continuité du funnel et justesse des engagements, 21/09/2026
+
+La spec `docs/CODEX-SPEC-2026-09-21-funnel-continuity.md` (première des deux specs de reprise
+demandées après l'audit funnel/copywriting du 20-21/09) referme plusieurs écarts trouvés en
+audit. `AgentEsquisse` et `QuickCapture` sont fusionnés dans un seul parcours : le besoin tapé
+est transmis (`initialIdee`), le classement suit enfin le scénario détecté au lieu d'être
+toujours `full-os` (`interet={INTERET_FOR_SCENARIO[...]}`), le focus va au champ e-mail sans
+saut d'ancre (`autoFocusEmail`), et l'ancienne ancre `#prototype` a disparu. `/sketch/[id]` lit
+désormais la langue déclarée (`lireEsquisse` renvoie `lang`) et rend les 4 gabarits et tout le
+chrome dans cette langue — plus de texte anglais fixe sur une esquisse française. `getLang()`
+retombe sur `"en"` par défaut (un chemin sans préfixe est anglais sur ce site, jamais français).
+Le contrôle du schéma (`MechanismSchema`) redevient scopé à l'ajout d'un point d'écriture, pas
+à toute écriture. Deux résultats clients de `/dossiers` sans appui dans `preuves.ts` (le
+registre canon, qui déclare lui-même 0 métrique client publiable) sont redevenus des
+descriptions de mécanisme, sans chiffre inventé. PS-04 du Standard distingue désormais
+annulation avant envoi, retour à l'état interne, et correction après envoi — sans jamais
+promettre l'effacement d'un message déjà reçu. L'écart documenté le 20/09 (« audit offert 30 min
+pour Build With You, destination commission annonçant 15 min ») est refermé : l'étape 1 devient
+un examen de 15 min, identique au lien réellement réservé ; la restitution de 30 min n'est pas
+touchée. Le hero de `/systems` n'affiche plus la fiche catalogue complète (4 blocs, ~937 px
+mesurés en audit) mais un fragment compact (nom, preuve, limite, ~400 px).
+
+Deux défauts de test trouvés et corrigés avant merge (Codex n'a pas pu les exécuter, son
+sandbox refuse Chromium) : deux entrées de la liste figée de contraste `NEUTRAL_CONTROL_DEBT`
+(`input#quick-idee`/`input#quick-email` sur l'accueil) n'avaient jamais été mesurées pour de
+vrai avant cette fusion — le panneau était toujours resté replié pendant l'audit — et affichaient
+une valeur jamais vérifiée (1.329) ; la première mesure réelle donne 1.234, identique à
+`input#agent-operation` qui partage exactement la même règle CSS. Et un `.click()` de test juste
+avant une vérification de contour de focus faisait passer Chromium en modalité pointeur, masquant
+le contour d'accent réel d'un lien du header pour un vrai utilisateur au clavier ; un `Tab` de
+test restaure la modalité clavier avant la mesure. Aucune assertion n'a été assouplie au-delà de
+ce qui a réellement changé.
+
+Validation complétée hors sandbox (build, `qa:brand:rev01`, `qa:network:rev01` 76/76 — deux fois
+de suite après correctifs —, captures desktop/mobile FR/EN avant/après). Une seconde spec,
+`docs/CODEX-SPEC-2026-09-21-copywriting-parcours.md`, reprend le copywriting de l'accueil sous
+le premier écran et de `/build-with-you` une fois celle-ci mergée.

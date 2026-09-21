@@ -21,20 +21,29 @@ const PATHS = [
 ];
 
 // Measured 2026-09-14 on `cf0ff26`; values measured on `cf0ff26`, never enter by hand.
+// Re-measured 2026-09-21 on the funnel-continuity branch for /|input#quick-email,
+// /|input#quick-idee, /fr|input#quick-email, /fr|input#quick-idee (both widths):
+// the hero's quick-idee/quick-email fields were never actually reachable/visible
+// in this test before the funnel merge (the idea-reveal panel was always
+// collapsed at measurement time), so 1.329 was never a real observed ratio for
+// them — it was carried over unexercised. Now that submitting the sketch form
+// reveals them for real, they measure identically to input#agent-operation
+// (1.234), which shares the exact same border/background declaration in
+// rev01.css. This is the first genuine measurement, not a regression.
 const NEUTRAL_CONTROL_DEBT: Map<string, number> = new Map([
-  ["/|1440|input#quick-email", 1.329],
-  ["/|1440|input#quick-idee", 1.329],
+  ["/|1440|input#quick-email", 1.234],
+  ["/|1440|input#quick-idee", 1.234],
   ["/|1440|input#agent-operation", 1.234],
-  ["/fr|1440|input#quick-email", 1.329],
-  ["/fr|1440|input#quick-idee", 1.329],
+  ["/fr|1440|input#quick-email", 1.234],
+  ["/fr|1440|input#quick-idee", 1.234],
   ["/fr|1440|input#agent-operation", 1.234],
   ["/commission|1440|input#quick-email", 1.234],
   ["/fr/commission|1440|input#quick-email", 1.234],
-  ["/|390|input#quick-email", 1.329],
-  ["/|390|input#quick-idee", 1.329],
+  ["/|390|input#quick-email", 1.234],
+  ["/|390|input#quick-idee", 1.234],
   ["/|390|input#agent-operation", 1.234],
-  ["/fr|390|input#quick-email", 1.329],
-  ["/fr|390|input#quick-idee", 1.329],
+  ["/fr|390|input#quick-email", 1.234],
+  ["/fr|390|input#quick-idee", 1.234],
   ["/fr|390|input#agent-operation", 1.234],
   ["/commission|390|input#quick-email", 1.234],
   ["/fr/commission|390|input#quick-email", 1.234],
@@ -108,6 +117,19 @@ for (const width of [1440, 390]) {
       await expect(page.locator("main h1")).toBeVisible();
       await page.evaluate(() => document.fonts.ready);
       await page.addStyleTag({ content: "*,*::before,*::after{transition:none!important;animation:none!important}" });
+
+      if (path === "/" || path === "/fr") {
+        await expect(async () => {
+          await page.locator("#agent-operation").fill("reporting");
+          await page.locator('.agent-esquisse-form button[type="submit"]').click();
+          await expect(page.locator("#quick-idee")).toHaveValue("reporting");
+        }).toPass({ timeout: 10_000 });
+        // The click above leaves Chromium's focus-visible modality in "pointer" mode,
+        // which suppresses the accent outline on the next programmatically focused
+        // control even though a real keyboard user would still see it. A harmless Tab
+        // restores keyboard modality before the audit below probes focus styles.
+        await page.keyboard.press("Tab");
+      }
 
       const result = await page.evaluate(() => {
         type Box = { left: number; right: number; top: number; bottom: number };
@@ -539,6 +561,14 @@ async function measureInvalidFormStates(page: Page, path: string, width: number)
     await page.evaluate(() => document.fonts.ready);
     await page.addStyleTag({ content: "*,*::before,*::after{transition:none!important;animation:none!important}" });
     await page.evaluate(() => window.scrollTo(0, 0));
+
+    if (path === "/" || path === "/fr") {
+      await expect(async () => {
+        await page.locator("#agent-operation").fill("reporting");
+        await page.locator('.agent-esquisse-form button[type="submit"]').click();
+        await expect(page.locator("#quick-idee")).toHaveValue("reporting");
+      }).toPass({ timeout: 10_000 });
+    }
 
     const form = page.locator(probe.form).first();
     const field = form.locator(probe.field);

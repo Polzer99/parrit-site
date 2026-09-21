@@ -31,7 +31,7 @@ const DICT = {
       [
         "PS-04",
         "The way back is written in advance.",
-        "A follow-up sent by mistake: one click undoes it and restores the state before."
+        "A send still pending cancels with one click. Once it's gone, the internal state rolls back and a correction can go out: never the erasure of a message someone has already received."
       ],
       [
         "PS-05",
@@ -74,7 +74,7 @@ const DICT = {
       [
         "PS-04",
         "Le retour arrière est écrit d'avance.",
-        "Une relance partie par erreur : un clic l'annule et restaure l'état d'avant."
+        "Un envoi encore en attente s'annule d'un clic. Une fois parti, l'état interne revient en arrière et une correction peut repartir : jamais l'effacement d'un message déjà reçu."
       ],
       [
         "PS-05",
