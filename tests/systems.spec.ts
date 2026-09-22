@@ -39,7 +39,7 @@ for (const width of [375, 767, 768, 1440]) {
       await expect(distinction).toBeVisible();
       for (const phrase of locale === "fr" ? ["il repère, dans des informations publiques", "aucun rendez-vous", "aucune vente", "personnes que nous connaissons déjà"] : ["it looks for public signs", "a single meeting", "no sale", "people we already know"]) await expect(distinction).toContainText(phrase);
       await expect(page.locator("#offre article")).toHaveCount(1);
-      await expect(page.locator("#offre .offer-price")).toHaveText(locale === "fr" ? "3 200 € HT · forfait" : "€3,200 excl. VAT · fixed fee");
+      await expect(page.locator("#offre .offer-price")).toHaveText(locale === "fr" ? "À partir de 3 200 € HT · forfait" : "Starting at €3,200 excl. VAT · fixed fee");
       await expect(page.locator("#faq h3")).toHaveCount(4);
       await expect(page.locator("#operating-view .r2-phase")).toHaveCount(0);
       await expect(page.locator('[id^="step-"]')).toHaveCount(0);
