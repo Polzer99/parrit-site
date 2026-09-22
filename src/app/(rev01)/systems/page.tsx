@@ -108,7 +108,7 @@ const DICT = {
     kicker: "Parrit / Systems", title: "We show the system. You judge before you commit.",
     sub: "Here is the system that runs our own files and our own decisions, shown as it works today, including what doesn't work yet.",
     cta: "Let's talk", catalogue: "Demonstrated capabilities.", evidence: "Shown, not claimed.",
-    intro: "Here are three things we hold ourselves to before we offer them to you.",
+    intro: "Before you trust a system with your operation, three questions matter: is it reliable, who's in control when it changes, what happens when it goes live. We answer them for ourselves first.",
     facts: [
       ["The list that's trusted", "In a lot of companies, several files each claim to be the real customer list, and nobody knows which one to believe. Here, for each type of information (contacts, meetings, calls, open files), one source is meant to be trusted, and the old one only gets retired once we've checked the new one holds everything. As of September 13, 2026, that work wasn't finished everywhere: of the 25 types of information we track, 15 still had two sources in place, and for 4 of them, a direct check had already found a disagreement between them."],
       ["Two checks before every change", "Whoever writes a change is never the one who approves it. A change is first built in a separate workspace, then a second system, distinct from the one that wrote it, reviews it in full. We then rerun our whole test suite. A single person decides alone whether it goes live. A change that hasn't passed these steps is never published."],
@@ -122,7 +122,7 @@ const DICT = {
     mechanism: "Back to the detailed explanation, above", method: "Method",
     methodBody: "Every system above is built the same way: Examination, Construction, Compounding.", methodLink: "Read the Manufacture",
     guardrails: "Guardrails.",
-    guards: ["For each type of information, a single tool is trusted. It's never chosen by default or by habit.", "Every system change and every automatic correction must be validated by a person.", "Every decision is logged: who decided, and when. Nothing happens silently.", "Before a change touches the site or our tools, a second system, distinct from the one that wrote it, reviews it, and a person decides alone whether to ship it. It can always be rolled back.", "The choice of AI model depends on the need and the cost, never on a single imposed provider."],
+    guards: ["For each type of information, a single tool is trusted. It's never chosen by default or by habit.", "A new write path into a legacy tool can't be added without being declared here first.", "Every decision is logged: who decided, and when. Nothing happens silently.", "Before a change touches the site or our tools, a second system, distinct from the one that wrote it, reviews it, and a person decides alone whether to ship it. It can always be rolled back.", "The choice of AI model depends on the need and the cost, never on a single imposed provider."],
     offer: "Where to start.", audience: "For leaders who want something that runs, not an audit or a deck.",
     outcome: "A working system, built with the founder.",
     deliverables: [
@@ -133,7 +133,7 @@ const DICT = {
     format: "10 hours, with the founder", basis: "fixed fee", offerCta: "See Build With You",
     faq: [
       ["Is this training or a delivered system?", "A system. You learn to use it along the way, but what we deliver is something that runs, not a course."],
-      ["Where does our data go?", "Into your own accounts, with your own access. We don't keep a copy elsewhere."],
+      ["Where does our data go?", "Into your own accounts. We don't build a second database of it. If you choose ongoing support, we keep the technical access that takes, nothing more."],
       ["Who maintains the system afterward?", "You, or us on a quote: the choice is made after the Examination, never before."],
       ["Where do we start?", "A 15-minute Examination, no commitment."],
     ], legal: "Legal",
@@ -142,7 +142,7 @@ const DICT = {
     kicker: "Parrit / Systèmes", title: "Nous montrons le système. Vous jugez avant de vous engager.",
     sub: "Voici le système qui organise nos dossiers et nos décisions, tel qu'il fonctionne aujourd'hui, avec ce qui ne marche pas encore.",
     cta: "Parlons-en", catalogue: "Capacités démontrées.", evidence: "Montré, pas revendiqué.",
-    intro: "Voici trois méthodes que nous utilisons dans notre propre travail avant de vous les proposer.",
+    intro: "Avant de confier une opération à un système, trois questions comptent : est-il fiable, qui contrôle un changement, que se passe-t-il à la mise en service. Nous y répondons d'abord pour nous-mêmes.",
     facts: [
       ["La liste qui fait foi", "Dans beaucoup d'entreprises, plusieurs fichiers prétendent chacun être la bonne liste de clients, et personne ne sait lequel croire. Chez nous, pour chaque type d'information (les contacts, les rendez-vous, les appels, les dossiers en cours), une seule source doit faire foi, et l'ancienne n'est mise de côté que le jour où l'on a vérifié que la nouvelle contient tout. Au 13 septembre 2026, ce travail n'était pas fini partout : sur 25 types d'information suivis, 15 avaient encore deux sources en présence, et pour 4 d'entre eux, une vérification directe avait déjà trouvé un désaccord entre elles."],
       ["Deux vérifications avant chaque changement", "Celui qui écrit une modification n'est jamais celui qui la valide. Une modification est d'abord préparée dans un espace de travail séparé, puis un second système, distinct de celui qui l'a écrite, la relit en entier. Nos tests sont ensuite rejoués intégralement. Une personne décide seule de la mise en ligne finale. Une modification qui n'a pas passé ces étapes n'est jamais publiée."],
@@ -156,7 +156,7 @@ const DICT = {
     mechanism: "Revenir à l'explication détaillée, plus haut", method: "Méthode",
     methodBody: "Chaque système ci-dessus se construit de la même façon : Examen, Construction, Capitalisation.", methodLink: "Lire la Manufacture",
     guardrails: "Garde-fous.",
-    guards: ["Pour chaque type d'information, un seul outil fait foi. Il n'est jamais choisi par hasard ni par habitude.", "Tout changement de système et toute correction automatique doivent être validés par une personne.", "Chaque décision est notée : qui a décidé, et quand. Rien ne se passe sans laisser de trace.", "Avant qu'un changement touche le site ou nos outils, un second système, distinct de celui qui l'a écrit, le relit, et une personne décide seule de le mettre en ligne. On peut toujours revenir en arrière.", "Le choix d'un outil d'intelligence artificielle dépend du besoin et du coût, jamais d'un seul fournisseur imposé."],
+    guards: ["Pour chaque type d'information, un seul outil fait foi. Il n'est jamais choisi par hasard ni par habitude.", "Un nouveau point d'écriture vers un ancien outil ne peut pas s'ajouter sans être déclaré ici.", "Chaque décision est notée : qui a décidé, et quand. Rien ne se passe sans laisser de trace.", "Avant qu'un changement touche le site ou nos outils, un second système, distinct de celui qui l'a écrit, le relit, et une personne décide seule de le mettre en ligne. On peut toujours revenir en arrière.", "Le choix d'un outil d'intelligence artificielle dépend du besoin et du coût, jamais d'un seul fournisseur imposé."],
     offer: "Par où commencer.", audience: "Pour le dirigeant qui veut repartir avec quelque chose qui tourne, pas un audit ni un deck.",
     outcome: "Un système qui tourne, construit avec le fondateur.",
     deliverables: [
@@ -167,7 +167,7 @@ const DICT = {
     format: "10 heures, avec le fondateur", basis: "forfait", offerCta: "Découvrir Build With You",
     faq: [
       ["Formation ou système livré ?", "Un système. Vous apprenez à vous en servir en cours de route, mais ce que nous livrons, c'est quelque chose qui fonctionne, pas un cours."],
-      ["Où vont nos données ?", "Dans vos comptes, avec vos propres accès. Nous n'en gardons pas de copie ailleurs."],
+      ["Où vont nos données ?", "Dans vos comptes. Nous n'en construisons pas une seconde base ailleurs. Si vous choisissez un suivi continu, nous gardons l'accès technique que ça demande, rien de plus."],
       ["Qui maintient le système ensuite ?", "Vous, ou nous sur devis : le choix se fait après l'Examen, jamais avant."],
       ["Par où commence-t-on ?", "Un Examen de 15 minutes, sans engagement."],
     ], legal: "Mentions légales",

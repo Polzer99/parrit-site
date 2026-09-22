@@ -36,7 +36,7 @@ const DICT = {
       [
         "PS-05",
         "The system belongs to you.",
-        "Code, data and documentation included. Your team runs it without us."
+        "Code, data and documentation included. Your team can run it without us. If you'd rather keep us on for support, that access is your choice, never a dependency we build in."
       ],
       [
         "PS-06",
@@ -79,7 +79,7 @@ const DICT = {
       [
         "PS-05",
         "Le système vous appartient.",
-        "Code, données et documentation compris. Votre équipe le fait tourner sans nous."
+        "Code, données et documentation compris. Votre équipe peut le faire tourner sans nous. Si vous préférez nous garder en support, cet accès est votre choix, jamais une dépendance imposée."
       ],
       [
         "PS-06",

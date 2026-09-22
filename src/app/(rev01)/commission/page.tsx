@@ -7,21 +7,21 @@ import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 const DICT = {
   "en": {
     "title": "Every commission begins with an examination.",
-    "metaDescription": "Every commission begins with an examination: fifteen minutes on a video call with the founder, a written scope or a clear no. Select a time.",
+    "metaDescription": "Fifteen minutes on a video call with the founder, to name the operation costing you the most and check a system makes sense for it. You leave with a written scope or a clear no.",
     "kicker": "Parrit / Commission",
-    "sub": "Fifteen minutes on a video call with the founder.",
-    "noteTitle": "You leave with a verdict.",
-    "noteBody": "A written scope, or a clear no. Nothing is signed during the call; terms are set afterwards, in black and white.",
+    "sub": "Fifteen minutes on a video call with the founder, to name the operation costing you the most and check a system makes sense for it.",
+    "noteTitle": "You leave with a clear direction.",
+    "noteBody": "Either Paul sends you a written scope next: what gets built, what he'll need from you, how success is judged. Or a clear no, right away. Nothing is signed during the call; the scope is written afterwards, in black and white.",
     "capture": "No slot that works? Leave your e-mail",
     "aria": "Select a time"
   },
   "fr": {
     "title": "Toute commande commence par un examen.",
-    "metaDescription": "Toute commande commence par un examen : quinze minutes en visio avec le fondateur, un périmètre écrit ou un non clair. Choisissez un créneau.",
+    "metaDescription": "Quinze minutes en visio avec le fondateur, pour nommer l'opération qui vous coûte le plus et vérifier qu'un système a du sens pour elle. Vous repartez avec un périmètre écrit ou un non clair.",
     "kicker": "Parrit / Commande",
-    "sub": "Quinze minutes en visio avec le fondateur.",
-    "noteTitle": "Vous repartez avec un verdict.",
-    "noteBody": "Un périmètre écrit, ou un non clair. Rien ne se signe pendant l'appel ; les conditions se fixent après, noir sur blanc.",
+    "sub": "Quinze minutes en visio avec le fondateur, pour nommer l'opération qui vous coûte le plus et vérifier qu'un système a du sens pour elle.",
+    "noteTitle": "Vous repartez avec une direction claire.",
+    "noteBody": "Soit Paul vous envoie ensuite un périmètre écrit : ce qui sera construit, ce dont il aura besoin de vous, comment on juge que c'est réussi. Soit un non clair, tout de suite. Rien ne se signe pendant l'appel ; le périmètre se rédige après, noir sur blanc.",
     "capture": "Pas de créneau ? Laissez votre e-mail",
     "aria": "Choisissez un créneau"
   }
