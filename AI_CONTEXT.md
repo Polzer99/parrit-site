@@ -201,3 +201,15 @@ L'ouverture Systems utilise un titre de largeur 32ch, une preuve compacte dédi�
 et les actions après la preuve. Les autres heroes et le catalogue restent inchangés.
 Les mesures navigateur avant/après et la vérification de l'asset en production
 sont prévues par la spec côté Claude après merge.
+
+## Parcours accueil, 22/09/2026
+
+La spec `docs/CODEX-SPEC-2026-09-22-home-journey.md` est appliquée à
+l'identique : `journey` remplace `maison` dans les dictionnaires FR/EN, avec
+quatre étapes en liste ordonnée ; les classes de mise en page sont conservées.
+Comprendre/Décider/Agir suit désormais l'exemple de la facture impayée.
+L'assertion du titre est actualisée sans assouplissement. Blocs de remplacement
+vérifiés caractère par caractère ; gates marque et claims vertes avant/après.
+Lint, build et tests navigateur non validés ici : dépendances absentes,
+installation hors réseau impossible (ENOTCACHED). Captures et batterie complète
+restent à réaliser par Claude selon la spec.
