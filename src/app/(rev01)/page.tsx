@@ -30,9 +30,9 @@ const DICT = {
       intro: "From the first conversation to handover, four steps, always with him.",
       steps: [
         ["01", "Name the operation", "You describe what costs you the most time. Paul examines with you who it touches and what it really costs."],
-        ["02", "Write the scope", "What gets built, what Paul will need from you, and how success is judged — written before work starts."],
+        ["02", "Write the scope", "What gets built, what Paul will need from you, and how success is judged, written before work starts."],
         ["03", "Build and verify", "The system gets built, then checked the way Parrit checks its own tools first. It doesn't go live until your team has been through it."],
-        ["04", "Take it over", "Code, data and documentation are yours. Your team learns to run it at handover, and can take it further alone — or call Parrit back, depending on the path you chose."],
+        ["04", "Take it over", "Code, data and documentation are yours. Your team learns to run it at handover, and can take it further alone, or call Parrit back, depending on the path you chose."],
       ],
       link: "Book an examination",
       alt: "Portrait of the founder",
@@ -44,7 +44,7 @@ const DICT = {
       title: "One operation becomes one system, brick by brick.",
       items: [
         ["01", "Understand", "An invoice sits unpaid for 12 days: you know the moment you open the screen, not at next month's reconciliation."],
-        ["02", "Decide", "The follow-up arrives already drafted, quantified, ready to approve — you never start from a blank page."],
+        ["02", "Decide", "The follow-up arrives already drafted, quantified, ready to approve. You never start from a blank page."],
         ["03", "Act", "Once approved, it goes out and logs itself in the journal. You can always roll it back; the system stays yours."],
       ],
       verdict: "Three moves, on the operation you chose. Everything else executes without you.",
@@ -118,9 +118,9 @@ const DICT = {
       intro: "De la première conversation à la prise en main, quatre étapes, toujours avec lui.",
       steps: [
         ["01", "Nommer l'opération", "Vous décrivez ce qui vous coûte le plus de temps. Paul examine avec vous qui elle touche et ce qu'elle coûte réellement."],
-        ["02", "Écrire le périmètre", "Ce qui sera construit, ce dont Paul aura besoin de vous, et comment on juge que c'est réussi — écrit avant que le travail commence."],
+        ["02", "Écrire le périmètre", "Ce qui sera construit, ce dont Paul aura besoin de vous, et comment on juge que c'est réussi, écrit avant que le travail commence."],
         ["03", "Construire et vérifier", "Le système se construit puis se vérifie avec la méthode que Parrit applique d'abord à ses propres outils. Il n'entre en service qu'une fois votre équipe passée dessus."],
-        ["04", "Prendre la main", "Le code, les données et la documentation vous appartiennent. Votre équipe apprend à s'en servir à la livraison, et peut le faire évoluer seule — ou vous rappelez Parrit, selon la formule choisie."],
+        ["04", "Prendre la main", "Le code, les données et la documentation vous appartiennent. Votre équipe apprend à s'en servir à la livraison, et peut le faire évoluer seule, ou vous rappelez Parrit, selon la formule choisie."],
       ],
       link: "Réserver un examen",
       alt: "Portrait du fondateur",
@@ -132,7 +132,7 @@ const DICT = {
       title: "Une opération devient un système, brique après brique.",
       items: [
         ["01", "Comprendre", "Une facture reste impayée depuis 12 jours : vous le savez dès l'ouverture de l'écran, pas au rapprochement du mois suivant."],
-        ["02", "Décider", "La relance vous arrive déjà rédigée, chiffrée, prête à valider — vous ne partez jamais d'une page blanche."],
+        ["02", "Décider", "La relance vous arrive déjà rédigée, chiffrée, prête à valider. Vous ne partez jamais d'une page blanche."],
         ["03", "Agir", "Une fois validée, elle part et se note au journal. Vous pouvez toujours revenir en arrière ; le système reste à vous."],
       ],
       verdict: "Trois gestes, sur l'opération choisie. Le reste s'exécute sans vous.",
