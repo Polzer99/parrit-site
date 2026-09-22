@@ -30,7 +30,7 @@ test("provided facts render and the price precedes the only CTA", () => {
   assert.ok(html.indexOf("Sur devis") < html.indexOf("<a "));
 });
 test("documented price is localized without changing its amount or basis", () => {
-  for (const [locale, basis, expected] of [["fr", "forfait", "3 200 € HT · forfait"], ["en", "fixed fee", "€3,200 excl. VAT · fixed fee"]]) {
+  for (const [locale, basis, expected] of [["fr", "forfait", "À partir de 3 200 € HT · forfait"], ["en", "fixed fee", "Starting at €3,200 excl. VAT · fixed fee"]]) {
     const html = render({ locale, price: { amountHt: 3200, currency: "EUR", basis } }).replace(/[\u00a0\u202f]/g, " ");
     assert.ok(html.includes(expected));
   }

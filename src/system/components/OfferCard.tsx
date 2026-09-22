@@ -24,7 +24,8 @@ export function formatOfferPrice(price: OfferPrice, locale: Locale): string {
   const amount = new Intl.NumberFormat(locale === "fr" ? "fr-FR" : "en-GB", {
     style: "currency", currency: price.currency, minimumFractionDigits: 0, maximumFractionDigits: 2,
   }).format(price.amountHt);
-  return `${amount} ${locale === "fr" ? "HT" : "excl. VAT"} · ${price.basis}`;
+  const anchor = locale === "fr" ? "À partir de" : "Starting at";
+  return `${anchor} ${amount} ${locale === "fr" ? "HT" : "excl. VAT"} · ${price.basis}`;
 }
 
 export function OfferCard({
