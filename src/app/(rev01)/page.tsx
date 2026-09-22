@@ -26,11 +26,11 @@ const DICT = {
     },
     journey: {
       kicker: "How it works",
-      title: "Paul Larmaraud is your point of contact throughout the project.",
-      intro: "From the first conversation to handover, four steps, always with him.",
+      title: "From the first message to handover, in four steps.",
+      intro: "Each step names what Parrit does, what you bring, and what it unlocks next.",
       steps: [
-        ["01", "Name the operation", "You describe what costs you the most time. Paul examines with you who it touches and what it really costs."],
-        ["02", "Write the scope", "What gets built, what Paul will need from you, and how success is judged, written before work starts."],
+        ["01", "Name the operation", "You describe what costs you the most time. Parrit examines with you who it touches and what it really costs."],
+        ["02", "Write the scope", "What gets built, what Parrit will need from you, and how success is judged, written before work starts."],
         ["03", "Build and verify", "The system gets built, then checked the way Parrit checks its own tools first. It doesn't go live until your team has been through it."],
         ["04", "Take it over", "Code, data and documentation are yours. Your team learns to run it at handover, and can take it further alone, or call Parrit back, depending on the path you chose."],
       ],
@@ -72,7 +72,7 @@ const DICT = {
           deliverables: [
             "Free 15-minute examination",
             "30-minute findings review",
-            "10 hours of building with Paul",
+            "10 hours of building with the founder",
           ],
           format: "10 hours, with the founder",
           price: { amountHt: 3200, currency: "EUR", basis: "fixed fee" },
@@ -114,11 +114,11 @@ const DICT = {
     },
     journey: {
       kicker: "Le déroulement",
-      title: "Paul Larmaraud est votre interlocuteur tout au long du projet.",
-      intro: "De la première conversation à la prise en main, quatre étapes, toujours avec lui.",
+      title: "Du premier message à la prise en main, en quatre étapes.",
+      intro: "Chaque étape dit ce que Parrit fait, ce que vous apportez, et ce qu'elle débloque pour la suite.",
       steps: [
-        ["01", "Nommer l'opération", "Vous décrivez ce qui vous coûte le plus de temps. Paul examine avec vous qui elle touche et ce qu'elle coûte réellement."],
-        ["02", "Écrire le périmètre", "Ce qui sera construit, ce dont Paul aura besoin de vous, et comment on juge que c'est réussi, écrit avant que le travail commence."],
+        ["01", "Nommer l'opération", "Vous décrivez ce qui vous coûte le plus de temps. Parrit examine avec vous qui elle touche et ce qu'elle coûte réellement."],
+        ["02", "Écrire le périmètre", "Ce qui sera construit, ce dont Parrit aura besoin de vous, et comment on juge que c'est réussi, écrit avant que le travail commence."],
         ["03", "Construire et vérifier", "Le système se construit puis se vérifie avec la méthode que Parrit applique d'abord à ses propres outils. Il n'entre en service qu'une fois votre équipe passée dessus."],
         ["04", "Prendre la main", "Le code, les données et la documentation vous appartiennent. Votre équipe apprend à s'en servir à la livraison, et peut le faire évoluer seule, ou vous rappelez Parrit, selon la formule choisie."],
       ],
@@ -160,7 +160,7 @@ const DICT = {
           deliverables: [
             "Examen offert de 15 min",
             "Restitution de 30 min",
-            "10 heures de construction avec Paul",
+            "10 heures de construction avec le fondateur",
           ],
           format: "10 heures, avec le fondateur",
           price: { amountHt: 3200, currency: "EUR", basis: "forfait" },

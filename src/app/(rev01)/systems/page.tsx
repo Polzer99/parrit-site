@@ -128,7 +128,7 @@ const DICT = {
     deliverables: [
       "Free 15-minute examination",
       "30-minute findings review",
-      "10 hours of building with Paul",
+      "10 hours of building with the founder",
     ],
     format: "10 hours, with the founder", basis: "fixed fee", offerCta: "See Build With You",
     faq: [
@@ -162,7 +162,7 @@ const DICT = {
     deliverables: [
       "Examen offert de 15 min",
       "Restitution de 30 min",
-      "10 heures de construction avec Paul",
+      "10 heures de construction avec le fondateur",
     ],
     format: "10 heures, avec le fondateur", basis: "forfait", offerCta: "Découvrir Build With You",
     faq: [

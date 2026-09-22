@@ -150,8 +150,8 @@ for (const width of [375, 1440]) {
         ? "La facture qui traîne, le rapport refait à la main chaque semaine : des points de départ, jamais la limite. Nous construisons dans vos systèmes, sur vos données, jusqu'à la mise en service."
         : "The invoice that drags, the report rebuilt by hand every week: entry points, never the limit. We build inside your systems, on your data, until it goes live.");
       await expect(page.locator(".home-s-maison h2")).toHaveText(locale === "fr"
-        ? "Paul Larmaraud est votre interlocuteur tout au long du projet."
-        : "Paul Larmaraud is your point of contact throughout the project.");
+        ? "Du premier message à la prise en main, en quatre étapes."
+        : "From the first message to handover, in four steps.");
 
       await expect(page.locator(".home-s-quick-capture")).toHaveCount(0);
       await expect(async () => {
