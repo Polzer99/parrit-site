@@ -11,7 +11,7 @@ const DICT = {
     "kicker": "Parrit / Commission",
     "sub": "Fifteen minutes on a video call with the founder, to name the operation costing you the most and check a system makes sense for it.",
     "noteTitle": "You leave with a clear direction.",
-    "noteBody": "Either Paul sends you a written scope next: what gets built, what he'll need from you, how success is judged. Or a clear no, right away. Nothing is signed during the call; the scope is written afterwards, in black and white.",
+    "noteBody": "Either the founder sends you a written scope next: what gets built, what he'll need from you, how success is judged. Or a clear no, right away. Nothing is signed during the call; the scope is written afterwards, in black and white.",
     "capture": "No slot that works? Leave your e-mail",
     "aria": "Select a time"
   },
@@ -21,7 +21,7 @@ const DICT = {
     "kicker": "Parrit / Commande",
     "sub": "Quinze minutes en visio avec le fondateur, pour nommer l'opération qui vous coûte le plus et vérifier qu'un système a du sens pour elle.",
     "noteTitle": "Vous repartez avec une direction claire.",
-    "noteBody": "Soit Paul vous envoie ensuite un périmètre écrit : ce qui sera construit, ce dont il aura besoin de vous, comment on juge que c'est réussi. Soit un non clair, tout de suite. Rien ne se signe pendant l'appel ; le périmètre se rédige après, noir sur blanc.",
+    "noteBody": "Soit le fondateur vous envoie ensuite un périmètre écrit : ce qui sera construit, ce dont il aura besoin de vous, comment on juge que c'est réussi. Soit un non clair, tout de suite. Rien ne se signe pendant l'appel ; le périmètre se rédige après, noir sur blanc.",
     "capture": "Pas de créneau ? Laissez votre e-mail",
     "aria": "Choisissez un créneau"
   }
