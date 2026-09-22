@@ -16,7 +16,7 @@ const DICT = {
       before: "The AI system your company",
       frame: "operates",
       after: "on.",
-      sub: "The invoice nobody owns until it's overdue. The report stitched together by hand every Monday. We build inside your systems, on your data, until it runs.",
+      sub: "The invoice that drags, the report rebuilt by hand every week: entry points, never the limit. We build inside your systems, on your data, until it goes live.",
       alternative: "Or talk it through: a 15-minute examination, on a video call, with the founder.",
     },
     brands: {
@@ -104,7 +104,7 @@ const DICT = {
       before: "Le système IA qui fait tourner votre",
       frame: "entreprise.",
       after: "",
-      sub: "La facture que personne ne suit avant qu'elle traîne. Le rapport recomposé à la main chaque lundi. On code chez vous, avec vos données, jusqu'à ce que ça tourne.",
+      sub: "La facture qui traîne, le rapport refait à la main chaque semaine : des points de départ, jamais la limite. Nous construisons dans vos systèmes, sur vos données, jusqu'à la mise en service.",
       alternative: "Ou parlons-en : un examen de 15 minutes, en visio, avec le fondateur.",
     },
     brands: {
