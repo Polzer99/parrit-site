@@ -111,12 +111,12 @@ for (const width of [375, 1440]) {
       const maison = page.locator(".home-s-maison");
       const primary = maison.getByRole("link", { name: locale === "fr" ? "Réserver un examen" : "Book an examination", exact: true });
       const name = locale === "fr"
-        ? "Rencontrez Paul (ouvre paul-larmaraud.com dans un nouvel onglet)"
-        : "Meet Paul (opens paul-larmaraud.com in a new tab)";
+        ? "Rencontrons-nous (ouvre paul-larmaraud.com dans un nouvel onglet)"
+        : "Let's meet (opens paul-larmaraud.com in a new tab)";
       const bridge = maison.getByRole("link", { name, exact: true });
       await expect(maison.getByRole("link")).toHaveCount(2);
       await expect(primary).toHaveAttribute("href", locale === "fr" ? "/fr/commission" : "/commission");
-      await expect(bridge).toHaveText(locale === "fr" ? "Rencontrez Paul →" : "Meet Paul →");
+      await expect(bridge).toHaveText(locale === "fr" ? "Rencontrons-nous →" : "Let's meet →");
       await expect(bridge).toHaveAttribute("href", "https://paul-larmaraud.com");
       await expect(bridge).toHaveAttribute("target", "_blank");
       await expect(bridge).toHaveAttribute("rel", "noopener noreferrer");

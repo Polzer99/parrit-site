@@ -37,7 +37,7 @@ const DICT = {
       link: "Book an examination",
       alt: "Portrait of the founder",
       caption: "Paul Larmaraud · Founder",
-      bridge: "Meet Paul",
+      bridge: "Let's meet",
     },
     build: {
       kicker: "What we build",
@@ -125,7 +125,7 @@ const DICT = {
       link: "Réserver un examen",
       alt: "Portrait du fondateur",
       caption: "Paul Larmaraud · Fondateur",
-      bridge: "Rencontrez Paul",
+      bridge: "Rencontrons-nous",
     },
     build: {
       kicker: "Ce que nous construisons",
