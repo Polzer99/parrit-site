@@ -6,7 +6,7 @@ const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 const PRINCIPLES = [
   [
     "PS-01",
-    "The state is readable at any moment."
+    "State is readable at any moment."
   ],
   [
     "PS-02",
@@ -14,11 +14,11 @@ const PRINCIPLES = [
   ],
   [
     "PS-03",
-    "Every decision keeps its origin."
+    "A decision always keeps its origin."
   ],
   [
     "PS-04",
-    "The way back is written in advance."
+    "Rolling back is written in advance."
   ],
   [
     "PS-05",
@@ -26,7 +26,7 @@ const PRINCIPLES = [
   ],
   [
     "PS-06",
-    "The next brick raises the value of the ones before."
+    "Each brick raises the value of the ones before it."
   ]
 ] as const;
 

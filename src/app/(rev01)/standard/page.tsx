@@ -15,7 +15,7 @@ const DICT = {
     "principles": [
       [
         "PS-01",
-        "The state is readable at any moment.",
+        "State is readable at any moment.",
         "Pipeline state, follow-ups sent, yesterday's incident. One screen."
       ],
       [
@@ -25,12 +25,12 @@ const DICT = {
       ],
       [
         "PS-03",
-        "Every decision keeps its origin.",
+        "A decision always keeps its origin.",
         "Author, time, source, rationale. The journal is the audit."
       ],
       [
         "PS-04",
-        "The way back is written in advance.",
+        "Rolling back is written in advance.",
         "A send still pending cancels with one click. Once it's gone, the internal state rolls back and a correction can go out: never the erasure of a message someone has already received."
       ],
       [
@@ -40,7 +40,7 @@ const DICT = {
       ],
       [
         "PS-06",
-        "The next brick raises the value of the ones before.",
+        "Each brick raises the value of the ones before it.",
         "The reporting built first feeds the follow-ups built next."
       ]
     ],
@@ -68,7 +68,7 @@ const DICT = {
       ],
       [
         "PS-03",
-        "Chaque décision garde son origine.",
+        "Toute décision garde son origine.",
         "Auteur, heure, source, motif. Le journal est l'audit."
       ],
       [
@@ -78,12 +78,12 @@ const DICT = {
       ],
       [
         "PS-05",
-        "Le système vous appartient.",
+        "Vous restez propriétaire du système.",
         "Code, données et documentation compris. Votre équipe peut le faire tourner sans nous. Si vous préférez nous garder en support, cet accès est votre choix, jamais une dépendance imposée."
       ],
       [
         "PS-06",
-        "La brique suivante augmente la valeur des précédentes.",
+        "Une nouvelle brique augmente la valeur des précédentes.",
         "Le reporting construit d'abord alimente les relances construites ensuite."
       ]
     ],

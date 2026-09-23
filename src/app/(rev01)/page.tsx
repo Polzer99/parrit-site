@@ -16,7 +16,7 @@ const DICT = {
       before: "The AI system your company",
       frame: "operates",
       after: "on.",
-      sub: "The invoice that drags, the report rebuilt by hand every week: entry points, never the limit. We build inside your systems, on your data, until it goes live.",
+      sub: "The invoice that drags, the report rebuilt by hand every week: entry points we push as far as the operation demands. We build inside your systems, on your data, until it goes live.",
       alternative: "Or talk it through: a 15-minute examination, on a video call, with the founder.",
     },
     brands: {
@@ -44,7 +44,7 @@ const DICT = {
       title: "One operation becomes one system, brick by brick.",
       items: [
         ["01", "Understand", "An invoice sits unpaid for 12 days: you know the moment you open the screen, not at next month's reconciliation."],
-        ["02", "Decide", "The follow-up arrives already drafted, quantified, ready to approve. You never start from a blank page."],
+        ["02", "Decide", "The follow-up arrives already drafted, quantified, ready to approve."],
         ["03", "Act", "Once approved, it goes out and logs itself in the journal. You can always roll it back; the system stays yours."],
       ],
       verdict: "Three moves, on the operation you chose. Everything else executes without you.",
@@ -95,7 +95,7 @@ const DICT = {
       button: "Let's talk",
     },
     credential: {
-      text: "Formia, also led by our founder, is Qualiopi-certified (ATA 1926 2026, valid through May 2029).",
+      text: "Formia, also led by our founder, holds the Qualiopi certification (ATA 1926 2026, valid through May 2029): the same rigor he holds Parrit's own Standard to.",
     },
   },
   fr: {
@@ -104,7 +104,7 @@ const DICT = {
       before: "Le système IA qui fait tourner votre",
       frame: "entreprise.",
       after: "",
-      sub: "La facture qui traîne, le rapport refait à la main chaque semaine : des points de départ, jamais la limite. Nous construisons dans vos systèmes, sur vos données, jusqu'à la mise en service.",
+      sub: "La facture qui traîne, le rapport refait à la main chaque semaine : des points de départ que nous poussons aussi loin que l'opération l'exige. Nous construisons dans vos systèmes, sur vos données, jusqu'à la mise en service.",
       alternative: "Ou parlons-en : un examen de 15 minutes, en visio, avec le fondateur.",
     },
     brands: {
@@ -132,7 +132,7 @@ const DICT = {
       title: "Une opération devient un système, brique après brique.",
       items: [
         ["01", "Comprendre", "Une facture reste impayée depuis 12 jours : vous le savez dès l'ouverture de l'écran, pas au rapprochement du mois suivant."],
-        ["02", "Décider", "La relance vous arrive déjà rédigée, chiffrée, prête à valider. Vous ne partez jamais d'une page blanche."],
+        ["02", "Décider", "La relance vous arrive déjà rédigée, chiffrée, prête à valider."],
         ["03", "Agir", "Une fois validée, elle part et se note au journal. Vous pouvez toujours revenir en arrière ; le système reste à vous."],
       ],
       verdict: "Trois gestes, sur l'opération choisie. Le reste s'exécute sans vous.",
@@ -183,7 +183,7 @@ const DICT = {
       button: "Parlons-en",
     },
     credential: {
-      text: "Formia, également dirigée par notre fondateur, est certifiée Qualiopi (ATA 1926 2026, valable jusqu'en mai 2029).",
+      text: "Formia, également dirigée par notre fondateur, détient la certification Qualiopi (ATA 1926 2026, valable jusqu'en mai 2029) : la même exigence qu'il applique au Standard de Parrit.",
     },
   },
 } as const;

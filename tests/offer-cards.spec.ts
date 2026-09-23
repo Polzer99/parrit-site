@@ -42,7 +42,7 @@ for (const width of [375, 1440, 767, 768]) {
       await expect(page.locator(".r2-phase")).toHaveCount(3);
       await expect(page.locator("main .offer-price")).toHaveText(locale === "fr" ? "À partir de 3 200 € HT · forfait" : "Starting at €3,200 excl. VAT · fixed fee");
       await expect(page.locator("main form")).toHaveCount(0);
-      await expect(page.locator("main a")).toHaveCount(2);
+      await expect(page.locator("main a")).toHaveCount(3);
       for (const link of await page.locator("main a").all()) {
         await expect(link).toHaveAttribute("href", `${prefix}/commission`);
       }

@@ -23,7 +23,7 @@ const DICT = {
       [
         "02",
         "Construction",
-        "One critical operation, rebuilt end-to-end in your accounts, under your keys. It runs in production, with real users, then it is certified to the Standard. A few weeks, usually. Only then, the rest."
+        "One critical operation, rebuilt end-to-end in your accounts, under your keys. It runs in production, with real users, then it is checked against the Standard. Two to four weeks, usually, depending on the scope written at the Examination. Only then, the rest."
       ],
       [
         "03",
@@ -36,7 +36,7 @@ const DICT = {
     "close": "The Examination comes first.",
     "proof": "15 min · On a video call, with the founder",
     "button": "Let's talk",
-    "status": "EVERY SYSTEM CERTIFIED TO THE STANDARD",
+    "status": "EVERY SYSTEM CHECKED AGAINST THE STANDARD",
     "legal": "Legal"
   },
   "fr": {
@@ -56,7 +56,7 @@ const DICT = {
       [
         "02",
         "La Construction",
-        "Une opération critique, reconstruite de bout en bout dans vos comptes, avec vos clés. Elle tourne en production, devant de vrais utilisateurs, puis elle est certifiée selon le Standard. Quelques semaines, en général. Ensuite seulement, le reste."
+        "Une opération critique, reconstruite de bout en bout dans vos comptes, avec vos clés. Elle tourne en production, devant de vrais utilisateurs, puis elle est vérifiée au regard du Standard. Deux à quatre semaines, en général, selon le périmètre écrit à l'Examen. Ensuite seulement, le reste."
       ],
       [
         "03",
@@ -69,7 +69,7 @@ const DICT = {
     "close": "Tout commence par un Examen.",
     "proof": "15 min · En visio, avec le fondateur",
     "button": "Parlons-en",
-    "status": "CHAQUE SYSTÈME CERTIFIÉ AU STANDARD",
+    "status": "CHAQUE SYSTÈME VÉRIFIÉ AU STANDARD",
     "legal": "Mentions légales"
   }
 } as const;

@@ -11,7 +11,7 @@ const DICT = {
   fr: {
     title: "Votre agent · esquisse",
     mode: "Un exemple, pas une analyse de votre entreprise",
-    opening: "Décrivez l'opération qui vous coûte le plus de temps. J'esquisse le système qui la reprend.",
+    opening: "Décrivez l'opération qui vous coûte le plus de temps. Un système s'esquisse pour la reprendre.",
     response: "Voici la première esquisse de votre système :",
     labels: ["Signal", "Décision", "Action"],
     scenarios: {
@@ -27,7 +27,7 @@ const DICT = {
   en: {
     title: "Your agent · sketch",
     mode: "An example, not an analysis of your company",
-    opening: "Describe the operation that costs you the most time. I'll sketch the system that takes it over.",
+    opening: "Describe the operation that costs you the most time. A system gets sketched to take it over.",
     response: "Here is the first sketch of your system:",
     labels: ["Signal", "Decision", "Action"],
     scenarios: {
