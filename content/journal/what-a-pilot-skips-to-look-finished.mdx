@@ -1,0 +1,36 @@
+---
+title: "What a Pilot Skips to Look Finished"
+date: "2026-09-23"
+description: "In June 2025, Gartner checked how many self-described agentic AI products could actually plan and execute a task without a human approving every step. Out of thousands claiming to, it counted about 130. The same report expects more than 40% of the projects built around the rest to be canceled by the end of 2027."
+slug: "what-a-pilot-skips-to-look-finished"
+---
+
+{/* FICHE D'ENTRÉE · RAIL parrit · MÉTIER dirigeant PME / DSI (sponsor de pilote) · FAMILLE BUILD · SIGNAL aucun (evergreen, ancré sur le communiqué Gartner du 25/06/2025, revérifié le 23/09/2026) · URGENCE Normale */}
+
+In June 2025, Gartner's analysts went looking for agentic AI products that actually deserved the label: software that could plan a multi-step task, carry it out, and adjust course without a person approving every move. Thousands of vendors were marketing something under that name. The count that could really do it came to roughly 130. The rest, in Gartner's own description, were AI assistants, chatbots, and robotic process automation tools relabeled for a market that wanted the word "agentic" on the box.
+
+The same report carried a second number, aimed further downstream. Gartner expects more than 40% of the agentic AI projects running inside real companies to be canceled before the end of 2027. It names three reasons: escalating costs, unclear business value, and inadequate risk controls.
+
+## A pilot is built to be approved, not to run
+
+A pilot's job in most organizations is to get a green light in a steering committee, not to survive contact with the company's actual systems: an ERP with a decade of inconsistent records, access rules written by three departments that no longer coordinate, a support queue with volume the demo never had to touch. A demo environment is set up so it does not have to answer for any of that. It runs on sample data picked because it is clean, against a workflow simplified because the real one carries too many exceptions to fit inside a thirty-minute meeting.
+
+None of this is a deception. It is a different product from the one that gets asked to run payroll or approve a wire transfer six months later. The demo answers the question the room in front of it is actually asking: does the idea work in principle. It was never built to answer the question a production system answers every day, which is whether it still works once every input is a real one.
+
+## Gartner's three reasons trace back to one missing step
+
+Line the three reasons up and they point at the same gap. Escalating costs usually means the integration work, real data pipes, legacy authentication, the monitoring a pilot's scope rarely lists, only gets priced once someone tries to connect the pilot to the systems it was always going to need and finds out what that connection costs. Unclear business value usually means the pilot's success was measured against a scripted scenario instead of a live process with a baseline worth comparing to, so six months in, there is no number anyone can point to that moved. Inadequate risk controls usually means a system that handled ten hand-picked examples cleanly came nowhere near the threshold that ten thousand real ones will hit in its first week of actual traffic.
+
+None of the three is a flaw in the model doing the reasoning. All three describe what happens when the thing being tested was built somewhere other than the ground it was eventually going to have to stand on.
+
+## What building on the client's own infrastructure changes from day one
+
+The alternative is not a better pilot. It skips the category. When we build a system, it authenticates through whatever identity provider the client already runs, not a service account created to make the demo possible. It reads from the client's live database, not a copied and cleaned export sitting in a separate environment. The volume from the first week is whatever volume the business already produces, not a sample sized to fit inside a meeting.
+
+That makes the first weeks less impressive to watch. There is no separate demo environment to build, show off, and quietly discard once the real work starts, because there was only ever one environment: the client's own. That single decision is what keeps Gartner's three reasons from showing up later. There is no second phase left to escalate the cost of: the identity provider and the live data were the starting point, not a later integration. There is no invented scenario left to measure value against, since the only process available to measure was the one already running. Nor is there a gap between the risk the system was tested against and the risk it actually faces: both were the same risk from the first day.
+
+## The one question a pilot demo cannot answer
+
+Before agreeing to fund the next pilot, ask the team proposing it a direct question: what is this running against right now, in this room, and what would have to change for it to run against the company's actual systems tomorrow. If the answer names a second phase, a migration, a data cleanup, an integration project that comes after the pilot succeeds, the demo in front of you was never a pilot of the system you are going to operate. It was a pilot of an idea that system might eventually resemble.
+
+Gartner's count of real agentic products, about 130 out of thousands claiming the word, will be out of date within a year. The gap it measured will not close on its own. It closes one system at a time, wired into what the company already runs before anyone in the room gets to clap.
