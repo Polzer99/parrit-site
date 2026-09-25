@@ -1,0 +1,36 @@
+---
+title: "What MCP's Stateless Rewrite Changes for a Company Running Its Own Servers"
+date: "2026-09-25"
+description: "The 28 July 2026 revision of the Model Context Protocol removes sessions from the protocol and starts a deprecation clock. Nothing forces a change today, and that is the moment to read your own code."
+slug: "mcp-stateless-spec-what-changes-for-your-servers"
+---
+
+Picture an MCP server running as two replicas behind a load balancer. A client opens a session on the first replica, sends its next call, and the balancer hands that call to the second one, which has never heard of the session and refuses it. One workaround is sticky routing: pin each client to one replica for as long as its session lives.
+
+The specification dated 28 July 2026 removes the cause. The project's [own announcement](https://blog.modelcontextprotocol.io/posts/2026-07-28/) says every request is now self-describing, so any request can land on any instance behind a plain round-robin load balancer. The initialize handshake and the Mcp-Session-Id header are retired. Each request carries its protocol version, client identity and client capabilities in its `_meta` field, and an optional server/discover call lets a client learn what a server offers before it asks for anything.
+
+## What moved out of the transport
+
+State did not vanish, the protocol just stopped holding it. A server that needs to remember something between calls now returns an identifier from one tool call, and the client passes it back as an ordinary argument on the next. That pattern comes from write-ups of the release and is not a mechanism the protocol defines. Two other changes belong to the same move. Some requests a server used to initiate over an open stream, such as asking for missing input, are replaced by a multi round-trip pattern: the server answers with a result of type input_required that lists what it needs, and the client retries the original call with the answers attached. And Streamable HTTP requests now carry Mcp-Method and Mcp-Name headers, so a gateway can route and meter by tool without opening the request body.
+
+That last change matters more than it looks. Routing and metering by tool used to require a gateway that parsed JSON, and they can now happen at the edge from the headers alone. Whether a header may authorize anything is a separate question, because the server still has to check that the header and the body agree.
+
+## The clock is readable
+
+Roots, Sampling and Logging are deprecated, with support promised for at least twelve months. The older HTTP+SSE transport is deprecated on a one-year timeline, and Dynamic Client Registration gives way to Client ID Metadata Documents in the authorization flow. Counting from the release date, the earliest Roots, Sampling, Logging or the older transport can disappear is late July 2027. That arithmetic is ours, not the specification's, and we found no announced date for the Dynamic Client Registration change.
+
+Nothing in the revision breaks a running server today. What changed is that a migration date now exists that nobody on your side chose, and the only open question is whether it arrives as a plan or as an incident.
+
+## Where this lands for us
+
+We operate MCP servers for our own tooling, so this revision is a ticket in our queue and not a headline. Because we own the substrate those servers run on, we decide when each one moves to the new revision and what it does in the meantime. A client whose agent tooling lives inside a vendor's hosted connector can get the revision on the vendor's release day, with whatever the vendor's test suite happened to cover.
+
+This is the ordinary case for building on a protocol still young enough to publish a revision this large. A revision is cheap when the person running the server can read the diff, and expensive when they only receive its effects.
+
+If your agent tooling sits behind a hosted connector, two questions to your vendor replace the searches below: on what date will the connector speak the 28 July 2026 revision, and what does its test suite cover during the switch. Their answers are the only migration plan you will get, so ask for them in writing.
+
+## Three searches to run in your own code
+
+Search your server code for anything that reads the session header, or that expects state set during the initialize call. Each hit is a place where a second replica fails unless session state is shared, and where the new revision asks for an explicit identifier instead. List which of Roots, Sampling and Logging your servers or clients actually call, because those are the ones with a date on them. Then check which transport your remote servers speak, since the older HTTP+SSE one carries its own one-year clock.
+
+Read the results in that order: session hits first, since they fail on the first day you add a replica, then the deprecated features, then the transport. Together they give a first estimate of the migration, measured in files. We have not priced it for you, since the cost is whatever those searches turn up multiplied by your own hourly rate. The date is already on the calendar, and what remains is finding out which of your files it lands on.
