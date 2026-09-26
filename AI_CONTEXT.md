@@ -213,3 +213,19 @@ vérifiés caractère par caractère ; gates marque et claims vertes avant/aprè
 Lint, build et tests navigateur non validés ici : dépendances absentes,
 installation hors réseau impossible (ENOTCACHED). Captures et batterie complète
 restent à réaliser par Claude selon la spec.
+
+## Identité d'entité, 26/09/2026
+
+`src/system/auteur.ts` centralise l'identifiant personnel et ORG_ID ; `personRef()`
+et `orgRef()` alimentent les constructeurs purs de `src/system/jsonld.ts`, utilisés
+par le layout et les articles. Organization.sameAs reste vide ; le site personnel
+est relié uniquement via founder. BlogPosting porte son URL canonique + #article.
+Aucun changement de copy, de frontmatter ni de dateModified.
+
+`npm run test:entity` contrôle les graphes et l'orthographe dans src/content/public/docs.
+Seule la spec contenant volontairement les contre-exemples est exclue explicitement.
+Le publisher exécute cette gate d'orthographe après la copie éventuelle, avant
+prooflint/build/publication. Un test d'intégration isolé verrouille cet arrêt.
+Résultats : entité 7/7, Journal 9/9, TypeScript, lint, marque et claims verts.
+Les JSON-LD avant/après et limites d'environnement sont dans
+`docs/REPORT-2026-09-26-entity-identity-v0.md`. Aucun déploiement effectué.
