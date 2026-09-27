@@ -1,5 +1,9 @@
 # EXIGENCE-JOURNAL-PARRIT — la barre du rail parrit.ai
 
+> v5 — 2026-09-20 (cliquet dimanche : référence de la semaine +
+> nouveau tic banni — l'intertitre H2 en contraste négatif « X, not Y »,
+> répété cinq fois sur huit intertitres cumulés des deux articles de la
+> semaine).
 > v4 — 2026-09-13 (cliquet dimanche : référence de la semaine + slugs
 > des références mis à jour après le passage en anglais + trois défauts
 > promus du registre + premiers tics répétés bannis sur ce rail).
@@ -58,6 +62,21 @@ anglais le 08/09 (PR #241, 301 en un saut depuis l'ancien slug).
   L'aphorisme a été refusé en H1 et gardé pour la chute. Préféré à
   `computer-use-what-it-can-undo` (08/09), très solide aussi, parce
   qu'il met notre position à l'épreuve au lieu de la confirmer.
+- `the-claim-a-green-pipeline-never-makes` (15/09, référence de la
+  semaine du 14 au 18/09) — deux articles sur le rail cette semaine
+  (celui-ci et `what-you-rent-can-be-taken-back`, 18/09), tous deux
+  ledger 5/5/5/5 ; celui-ci l'emporte parce que son tour 2 de panel
+  balaie les quatre lecteurs sans laisser de résidu (CMO, CEO, DAF, DRH
+  tous PASS), alors que le tour 2 de `what-you-rent-can-be-taken-back`
+  rouvre un RETURN du CEO sur un point neuf, corrigé hors panel sans
+  troisième tour complet. Matière tirée du moteur lui-même (trois
+  incidents vécus dans le mois : une PR verte sans code, un test vert
+  qui n'avait rien testé, un écran vide illisible entre panne et
+  dimanche calme), aucun tiers, aucun chiffre externe. La demande au
+  lecteur (choisir un check et lui demander ce qu'il rendrait en cas de
+  panne silencieuse) est exécutable sans nous. Réserve : voir « Tics
+  bannis », son deuxième intertitre porte la même forme de contraste
+  négatif que celle bannie ci-dessous.
 
 ## Discipline chiffres externes (cliquet 06/09)
 
@@ -131,3 +150,17 @@ en amont ce que le panel attrapait en aval.
   that argument », « answer honestly », « dishonest to state more
   precisely »). Une au plus par article : l'honnêteté se lit dans la
   source citée, pas dans l'adjectif.
+- **L'intertitre H2 en contraste négatif « X, not Y » (cliquet 20/09,
+  relecture du texte complet des deux articles du 15 et du 18/09)** :
+  `the-claim-a-green-pipeline-never-makes` porte deux H2 sur quatre
+  construits sur ce moule (« Green is an output, not a claim », « The
+  fix is not more monitoring ») ; `what-you-rent-can-be-taken-back` en
+  porte trois sur quatre (« The artifact is what survives the notice,
+  not the plan », « What we hand a client is the artifact, not the
+  login », « Three questions before the contract, not after ») — soit
+  cinq occurrences sur huit intertitres cumulés, sur deux articles
+  consécutifs. C'est la même famille que `ask_heading_template` (13/09)
+  et `neg_parallel` (promu 03/09), appliquée cette fois à la FORME du
+  titre plutôt qu'à une phrase du corps ou à un gabarit de sujet. Un
+  article ne porte pas plus d'un H2 construit sur ce moule, et deux
+  articles consécutifs ne titrent pas tous deux dessus.
