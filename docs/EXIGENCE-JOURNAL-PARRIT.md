@@ -1,5 +1,10 @@
 # EXIGENCE-JOURNAL-PARRIT — la barre du rail parrit.ai
 
+> v6 — 2026-09-27 (cliquet dimanche : référence de la semaine +
+> plafond des contrastes négatifs dans le CORPS, 13 relevés dans un
+> article publié le 23/09 + incident gravé : un cliquet non mergé n'est
+> lu par aucun run, la v5 est restée en PR sept jours et le tic qu'elle
+> bannissait est reparu entre-temps).
 > v5 — 2026-09-20 (cliquet dimanche : référence de la semaine +
 > nouveau tic banni — l'intertitre H2 en contraste négatif « X, not Y »,
 > répété cinq fois sur huit intertitres cumulés des deux articles de la
@@ -77,6 +82,26 @@ anglais le 08/09 (PR #241, 301 en un saut depuis l'ancien slug).
   panne silencieuse) est exécutable sans nous. Réserve : voir « Tics
   bannis », son deuxième intertitre porte la même forme de contraste
   négatif que celle bannie ci-dessous.
+- `mcp-stateless-spec-what-changes-for-your-servers` (25/09, référence
+  de la semaine du 21 au 25/09) — deux articles sur le rail cette
+  semaine (celui-ci et `what-a-pilot-skips-to-look-finished`, 23/09).
+  Le ledger du 23/09 est plus haut (5/5/5 contre perception 4 et titre
+  4), et celui-ci l'emporte quand même, sur trois points que le ledger
+  ne mesure pas. D'abord, c'est le premier article du rail qui applique
+  à la lettre la règle « Scope kept with the source » promue le 13/09 :
+  « That arithmetic is ours, not the specification's » sépare la date
+  que la spécification donne de celle que nous en déduisons, dans une
+  phrase à part et signée. Il avoue aussi ce qu'il n'a pas trouvé
+  (aucune date annoncée pour Dynamic Client Registration). Ensuite, sa
+  preuve « nous » est un fait interne vérifié (nous exploitons des
+  serveurs MCP pour notre propre outillage) plutôt qu'une affirmation
+  de méthode. Enfin, il ouvre sur une scène technique précise (deux
+  réplicas derrière un load balancer, un appel refusé), donne au
+  lecteur trois recherches à lancer dans son propre code avec leur ordre
+  de lecture, et prévoit une voie pour celui qui ne possède pas ses
+  serveurs. Il compte 4 contrastes négatifs dans le corps, contre 13
+  pour l'article du 23/09 (voir « Tics bannis »). Réserve : titre noté
+  4, il nomme le sujet sans dire la conséquence.
 
 ## Discipline chiffres externes (cliquet 06/09)
 
@@ -164,3 +189,38 @@ en amont ce que le panel attrapait en aval.
   titre plutôt qu'à une phrase du corps ou à un gabarit de sujet. Un
   article ne porte pas plus d'un H2 construit sur ce moule, et deux
   articles consécutifs ne titrent pas tous deux dessus.
+- **Le contraste négatif en série dans le CORPS (cliquet 27/09,
+  relecture du texte complet des deux articles du 23 et du 25/09)** :
+  `what-a-pilot-skips-to-look-finished` porte 13 constructions de
+  contraste ou d'absence dans le corps (« , not to run », « , not a
+  service account », « , not a copied and cleaned export », « , not a
+  sample sized to fit », « None of this is », « None of the three is »,
+  « There is no separate demo », « There is no second phase », « There
+  is no invented scenario », « Nor is there a gap »…). Trois appositions
+  « , not a … » s'y suivent dans trois phrases consécutives, et trois
+  phrases consécutives commencent par « There is no » / « Nor is
+  there ». `mcp-stateless-spec-what-changes-for-your-servers` en porte
+  4 sur une longueur comparable. `prooflint --loop` ne les a pas
+  bloquées, parce que chacune est isolée dans sa phrase et que la série
+  n'existe qu'au niveau du paragraphe. Règle : **au plus quatre
+  contrastes négatifs dans le corps d'un article** (« X, not Y », « not
+  a … », « None of … », « There is no … »). **Jamais deux phrases
+  consécutives sur le même moule.** Avant le panel, un seul balayage
+  compte les occurrences, comme pour les nombres (`borrowed_number`).
+  Le contraste qui signe un périmètre (« That arithmetic is ours, not
+  the specification's ») compte dans le plafond, et c'est le meilleur
+  usage qu'on puisse lui donner.
+
+## Un cliquet ne compte qu'une fois mergé (incident du 23/09)
+
+La v5 (intertitre H2 en contraste négatif banni) a été ouverte en PR
+le 20/09 (#269) et n'a été mergée que le 27/09. Pendant ces sept jours,
+chaque run a lu la v4 sur `origin/main`, comme l'exige la skill. Le
+23/09, `what-a-pilot-skips-to-look-finished` est sorti avec « A pilot
+is built to be approved, not to run » en premier H2, soit exactement la
+forme que la v5 bannissait. Aucun run n'était en faute : l'interdit
+n'était pas encore lisible. Règle : le run du dimanche commence par
+l'état de la PR cliquet de la semaine précédente. Si elle est verte, il
+la merge ; sinon, il la ferme avec un motif. Il n'empile jamais une
+nouvelle version sur une PR encore ouverte, et il consigne l'écart au
+LOG s'il en trouve un.
