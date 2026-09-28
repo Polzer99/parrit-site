@@ -1,0 +1,40 @@
+---
+title: "Securing an AI coding agent starts with the shell"
+date: "2026-09-28"
+description: "Our first guard on a coding agent watched the file editor. Eight weeks of logs later, 97 percent of what the second version refused had come through shell commands. A rule written in a prompt is a request; a hook that runs before every tool call is a permission."
+slug: "permission-layer-for-coding-agents"
+---
+
+On a Wednesday evening in August, an agent working in one of our repositories issued a shell command that opened a configuration file. The file held API keys. A script that runs before every tool call read the command, matched the file against a list of credential carriers, and returned exit code 2. The command never ran, and the agent received a one-line reason instead of the file.
+
+That refusal is one line in a log that has recorded every decision of that script since 2 August 2026. The log is what answers the question engineers keep asking in public, most plainly in a Hacker News thread titled "How do you secure AI coding agents?": where does the control have to sit for it to hold.
+
+## The first version watched the wrong door
+
+We run two coding agents with separate roles. One writes production code and opens a pull request. The other reviews and merges, and is barred from writing production code itself. We wrote that rule down first, as an instruction in the reviewing agent's standing context. An instruction works only if the agent reads it and weighs it the same way on every call, and a permission cannot depend on that.
+
+So we turned it into a hook. Claude Code runs a PreToolUse hook before a tool call executes, and its [documentation](https://code.claude.com/docs/en/hooks) states that exit code 2 blocks the call, whatever the hook prints. The first version of our guard matched the file editing tools, Write and Edit, because that is where we pictured code being written.
+
+The log of the second version shows where writing actually happens. Out of 40,044 decisions recorded between 2 August and 28 September 2026, test fixtures excluded, the guard refused 2,034. Of those refusals, 1,976 were shell commands and 58 came through the file editing tools. These are attempts, and an agent that retries a refused command is counted each time. The deduction is ours: a guard watching only the editor would have let through roughly 97 percent of what this one stopped, because a shell can write a file, push a branch or print a secret without ever calling the editor.
+
+## What the refusals were
+
+The largest family is secrets. 624 refusals, about three in ten, involved a file that carries credentials, most often a read combined with printing it to the screen. A secret printed to the screen lands in the agent's transcript, and from then on it has to be rotated everywhere it is used; each of those refusals saved that chore. Then come the git commands whose effect cannot be read from the command line alone: 57 force pushes, the same number of merges into the main branch, and 24 hard resets. Each of those rewrites or discards history, and the guard refuses them because it cannot tell in advance what they will touch.
+
+That last reason is the design choice that matters most. The second version reasons on a closed allowlist: documentation folders and a handful of named files are writable in a repository bridged to the writing agent, and everything else is refused by default, including any command whose target the guard cannot determine. A redirection to an unreadable path is refused. So is an interpreter that writes a file from inline code. The guard asks one question of every command: can it name the target? When it cannot, the answer is no.
+
+## Where the human still sits
+
+The same Hacker News thread raises the obvious worry that an agent may talk its user into switching the hook off. We keep one override, a flag that a person sets deliberately and that the log records next to the decision it changed. In eight weeks it was used once.
+
+The guard has limits we would rather state than have found. It governs writes and secrets inside our repositories. It does not watch network traffic, and its own configuration lives on the machine outside the repositories it protects, so a process with enough reach could edit it. Closing that gap is the job of a layer below the agent.
+
+The platforms are moving in the same direction from their side. OpenAI's Codex runs commands inside a [sandbox](https://learn.chatgpt.com/docs/sandboxing) enforced by the operating system (Seatbelt on macOS and bubblewrap on Linux, the process isolation each system provides), and in its workspace-write mode it asks for approval before writing outside the project or reaching the network. A sandbox of that kind bounds what a process can touch, and in workspace-write mode that leaves out files outside the project, such as the ones that configure a hook. Our hook adds the part a vendor cannot know, which is what we consider production in our own repositories, and we own it down to the file that lists what it allows.
+
+## Reading your own log first
+
+If a coding agent already works in your repositories, open whatever record it keeps of the commands it ran over the last month and sort them by tool. Count how many went through the shell, then count how many of those your current controls would have seen before they executed. If the second number is smaller than the first, that gap is where your rule is still an instruction.
+
+Then pick the commands you would least like an agent to run unattended in your main repository, and write a hook that refuses them and logs each refusal with its reason. Keep it running for two weeks before you widen it, because the log tells you where the agent actually goes, which is rarely where you pictured it.
+
+An agent follows a rule for as long as it remembers it, and a hook runs on every call it is matched to.
