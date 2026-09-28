@@ -10,9 +10,9 @@ Le copy vit dans des dictionnaires `DICT` par page et dans les composants locali
 
 ## Canon visuel
 
-Le prototype REV 03 `docs/site-prod-rev01/parrit-command-center-rev03.html` fait autorité ; `src/system/tokens.css` porte les valeurs et `src/system/` les composants. General Sans pour le corps/UI, IBM Plex Mono pour le registre technique, Source Serif 4 pour les grands titres éditoriaux. General Sans est auto-hébergée dans `public/fonts/rev02/` ; IBM Plex Mono et Source Serif 4 dans `public/fonts/rev03/` ; polices OG dans `src/og-assets/`.
+Depuis la spec du 28/09/2026, le Brand OS P1 (`~/parrit-canon/brand`, `brand_os.py resolve`) fait autorité pour les couleurs. Son adapter généré est vendorisé dans `src/system/brand-os.tokens.css` ; `tokens.css` conserve les alias et `src/system/` les composants. Le prototype REV 03 conserve son rôle structurel ; sa palette T4 est SUPERSEDED. General Sans pour le corps/UI, IBM Plex Mono pour le registre technique, Source Serif 4 pour les grands titres éditoriaux. General Sans est auto-hébergée dans `public/fonts/rev02/` ; IBM Plex Mono et Source Serif 4 dans `public/fonts/rev03/` ; polices OG dans `src/og-assets/`.
 
-`BRAND.md`, `docs/design-system/` et `design-source/` sont historiques. Ne pas restaurer la palette crème, les anciens logos, Geist ni les anciens choix typographiques. Les images OG lisent les couleurs via `token()` ; `next.config.ts` inclut le CSS et les polices dans leurs bundles. CalInline résout les variables CSS du parent avant de les transmettre à l'iframe externe.
+`BRAND.md`, `docs/design-system/` et `design-source/` sont historiques. Ne pas restaurer la palette crème, les anciens logos, Geist ni les anciens choix typographiques. Les images OG résolvent les alias via `token.server.ts` (cycles et valeurs manquantes bloquants) ; `next.config.ts` inclut les deux CSS et les polices dans leurs bundles. CalInline résout les variables CSS du parent avant de les transmettre à l'iframe externe.
 
 ## Conversion et données
 
@@ -32,7 +32,7 @@ Les registres `src/lib/registry/` restent des données legacy : éviter les tran
 
 ## Vérification
 
-Pour chaque lot : `npm run lint`, `npx tsc --noEmit`, `npm run qa:brand:rev01`. La gate de marque parcourt les deux arbres actifs `src/system` et `src/app/(rev01)` et interdit les hex hors tokens, y compris dans CalInline. L'hôte exécute `npm run build` et `npm run qa:network:rev01` avec le serveur sur le port 3210 ; ne pas lancer de serveur dans ce sandbox. Tous les tests e2e doivent utiliser le deny-all réseau partagé. La spec `tests/rev01-system.spec.ts` verrouille désormais la 404 et conserve l'autotest de blocage réseau.
+Pour chaque lot : `npm run lint`, `npx tsc --noEmit`, `npm run qa:brand:rev01`. La gate de marque interdit les anciennes couleurs et les couleurs littérales dans tout `src/` hors archives ; seul `brand-os.tokens.css` accepte les valeurs de la palette candidate. Les règles de forme restent limitées aux surfaces canoniques. L'hôte exécute `npm run build` et `npm run qa:network:rev01` avec le serveur sur le port 3210 ; ne pas lancer de serveur dans ce sandbox. Tous les tests e2e doivent utiliser le deny-all réseau partagé. La spec `tests/rev01-system.spec.ts` verrouille désormais la 404 et conserve l'autotest de blocage réseau.
 
 Aucun appel runtime à `*.vercel.app`. Aucun changement de schéma sans migration. Aucun secret committé. Le lot 3 interdit toute commande git ; Paul reste responsable du merge.
 
@@ -213,3 +213,16 @@ vérifiés caractère par caractère ; gates marque et claims vertes avant/aprè
 Lint, build et tests navigateur non validés ici : dépendances absentes,
 installation hors réseau impossible (ENOTCACHED). Captures et batterie complète
 restent à réaliser par Claude selon la spec.
+
+## Palette Brand OS P1, 28/09/2026
+
+La correspondance de la spec conserve les noms publics des tokens. Les surfaces sombres
+redéfinissent aussi `--g2` et `--g3` vers `--brand-derived-on-ink-2` ; les surfaces claires
+imbriquées rétablissent `--brand-accessible-ink2`. Les descriptions des cartes preuve
+emploient le gris clair-de-surface `--g3`, pas `--label-d`. Ombres et barre translucide
+utilisent `color-mix` avec le nouvel ink. Typographie, copy et logos inchangés.
+
+Validation détaillée : `.codex-handoffs/brand-os-p1/REPORT.md`. Tests Node du resolver,
+contrastes, garde-fou adversarial et vrais PNG OG ; tests navigateur/captures dans
+`tests/brand-os.spec.ts`. Captures et mesures DOM restent à exécuter hors sandbox macOS.
+Aucun commit, push, merge ou déploiement pendant ce lot.

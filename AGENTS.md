@@ -30,24 +30,23 @@ Applies to any code delivered from this repo. "The CI blocks" beats "remember to
 > `src/components/ds/`, `design-source/brand-kit/` = archives historiques du code legacy
 > non migré ; les rencontrer n'autorise pas à en écrire de nouvelles occurrences.
 
-La DA active est celle du site en production. Trois sources, dans cet ordre :
+La palette active du code suit le Brand OS P1 (spec du 28/09/2026) ; sa mise en production attend le feu vert de Paul. Sources :
 
 | Source | Rôle |
 |---|---|
-| `docs/site-prod-rev01/parrit-command-center-rev03.html` | **la LOI** — prototype approuvé par Paul (Brand Command Center REV 03) : registres, loi de l'accent, composants, cotes exactes |
-| `src/system/tokens.css` | **les valeurs**. Un hex écrit ailleurs est un bug (gate `npm run qa:brand:rev01`) |
+| `docs/site-prod-rev01/parrit-command-center-rev03.html` | Référence de structure, registres, composants et cotes ; couleurs T4 SUPERSEDED |
+| `src/system/brand-os.tokens.css` | **les valeurs** — adapter généré du Brand OS, unique fichier autorisé à contenir les couleurs en dur |
+| `src/system/tokens.css` | Alias de compatibilité vers le Brand OS (gate `npm run qa:brand:rev01`) |
 | `src/system/` + `src/app/(rev01)/` | les composants et pages canon |
 
 Compléments : `docs/site-prod-rev01/REV03-DELTAS.md` (deltas appliqués),
 `CONFORMITY-REV01.md` (protocole de conformité, gate screenshot), `logo-rev04/` (le mark).
 
-- **Palette** : ink `#0A0B0C` · carbon `#131518` · carbon2 `#1A1D21` · paper `#F1F2F3` ·
-  paper2 `#FAFAFB` · rule-l `#DDE0E3` · rule-d `#24282D` · g2 `#9CA1A6` · g3 `#55595E` ·
-  g4 `#6F757B` · body-l `#26282B` · label-d `#C7CBCF` · accent-surface `#E3EEFD` ·
-  accent-soft `#D0E3FB` · accent-border `#2F82EE` · accent-strong `#1268D9` ·
-  accent-strong-p `#0F56B3` · accent-text `#0F56B3` · accent-on-dark `#84B5F5` ·
-  accent-on-dark-p `#68A4F3` · accent-dark-surface `#19293E` · accent-dark-border `#4C93F0`.
-  Deux registres seulement : documents blanc-froid (l'institution) et instruments carbone (le produit).
+- **Palette — Brand OS P1 (28/09/2026)** : source de vérité `~/parrit-canon/brand`
+  (`brand_os.py resolve`), adapter généré vendorisé dans `src/system/brand-os.tokens.css`.
+  `src/system/tokens.css` conserve les noms historiques et les raccorde aux variables Brand OS.
+  Régimes « calm » sur clair et « ink » sur sombre. La palette T4 est SUPERSEDED ;
+  le prototype REV 03 reste la référence de structure, pas de valeurs de couleur.
 - **Loi de l'accent** : l'accent = décision requise, action qui s'exécute, état critique, objet
   sélectionné, commission scellée. JAMAIS décoratif. Un jeton clair n'est jamais peint sur fond sombre,
   ni un jeton sombre sur fond clair.
@@ -59,7 +58,7 @@ Compléments : `docs/site-prod-rev01/REV03-DELTAS.md` (deltas appliqués),
   JetBrains Mono et Fraunces sont MORTES. Pas d'italique, pas d'autre famille.
   Registre « k » : Mono 10px, letter-spacing .18em, uppercase.
 - **Formes** : radius 0 partout (sauf mockups téléphone) · zéro ombre sauf l'unique ombre
-  d'instrument `0 40px 80px -40px rgba(10,11,12,.4)` · zéro dégradé · statuts = forme + couleur.
+  d'instrument `0 40px 80px -40px color-mix(in srgb, var(--ink) 40%, transparent)` · zéro dégradé · statuts = forme + couleur.
 - **Logo REV 04** : mark live-text `[P.]` IBM Plex Mono 600, point d'accent ; wordmark live-text
   `PARRIT.AI` (point d'accent). Fichiers : `docs/site-prod-rev01/logo-rev04/` + `public/brand/`.
 - **L'enveloppe fait partie du canon, état au 20/09/2026** : la command bar sombre (64px,

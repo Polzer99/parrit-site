@@ -1,3 +1,4 @@
+import { token } from "@/system/token.server";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -13,16 +14,7 @@ type JournalOpenGraphImageProps = {
   params: Promise<{ slug: string }>;
 };
 
-function token(name: string): string {
-  const tokens = fs.readFileSync(path.join(process.cwd(), "src/system/tokens.css"), "utf8");
-  const match = tokens.match(new RegExp(`${name}\\s*:\\s*([^;]+)`));
 
-  if (!match) {
-    throw new Error(`Missing design token ${name}.`);
-  }
-
-  return match[1].trim();
-}
 
 export async function GET(_request: Request, { params }: JournalOpenGraphImageProps) {
   const { slug } = await params;

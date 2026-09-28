@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import "../../system/fonts.css";
+import "../../system/brand-os.tokens.css";
 import "../../system/tokens.css";
 import "../../system/system.css";
 import "./rev01.css";

@@ -311,9 +311,9 @@ for (const width of [1440, 390]) {
           }
         }
         const g4Tokens = [
-          { token: "--g4", value: color("#606366") },
-          { token: "--g4-l", value: color("#606366") },
-          { token: "--g4-d", value: color("#8C8F92") },
+          { token: "--g4", value: color(rootStyle.getPropertyValue("--g4").trim()) },
+          { token: "--g4-l", value: color(rootStyle.getPropertyValue("--g4-l").trim()) },
+          { token: "--g4-d", value: color(rootStyle.getPropertyValue("--g4-d").trim()) },
         ];
         const g4TextFailures: string[] = [];
         const g4TextRegisters = { dark: 0, light: 0 };

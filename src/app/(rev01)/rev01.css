@@ -36,6 +36,8 @@ h2 {
 .ri,
 .r2-phone,
 .r2-phase {
+  --g2: var(--brand-derived-on-ink-2);
+  --g3: var(--brand-derived-on-ink-2);
   --g4: var(--g4-d);
   --action-fill: var(--accent-on-dark);
   --action-pressed: var(--accent-on-dark-p);
@@ -50,6 +52,8 @@ h2 {
 
 .r2-ecrin,
 .decision-card {
+  --g2: var(--brand-accessible-ink2);
+  --g3: var(--brand-accessible-ink2);
   --g4: var(--g4-l);
   --action-fill: var(--accent-strong);
   --action-pressed: var(--accent-strong-p);
@@ -64,6 +68,8 @@ h2 {
 
 .instrument .decision-card,
 .r2-phone .decision-card {
+  --g2: var(--brand-derived-on-ink-2);
+  --g3: var(--brand-derived-on-ink-2);
   --g4: var(--g4-d);
   --action-fill: var(--accent-on-dark);
   --action-pressed: var(--accent-on-dark-p);
@@ -98,7 +104,7 @@ h2 {
 .cmdbar {
   height: 64px;
   border-bottom: 1px solid var(--rule-d);
-  background: rgba(10, 11, 12, .92);
+  background: color-mix(in srgb, var(--ink) 92%, transparent);
 }
 
 .cmdbar-inner {
@@ -2867,7 +2873,7 @@ a.k:active {
 .home-s-proof-item p {
   margin: 16px 0 0;
   line-height: 1.6;
-  color: var(--label-d);
+  color: var(--g3);
 }
 .home-s-proof-item span {
   display: inline-block;

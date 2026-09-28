@@ -1,6 +1,11 @@
 import { readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
 
+const VENDOR = "src/system/brand-os.tokens.css";
+const RETIRED_HEX = new Set((
+  "0A0B0C 131518 1A1D21 F1F2F3 FAFAFB 1268D9 0F56B3 84B5F5 68A4F3 2F82EE 4C93F0 E3EEFD D0E3FB 19293E DDE0E3 24282D 606366 8C8F92 55595E 9CA1A6 26282B C7CBCF 3A3F47 " +
+  "6F757B 8C6A3F C44536 D1132F E10600 F6F2EB FEFDF9 FFFDFA"
+).toLowerCase().split(" "));
 const ROOTS = ["src/system", "src/app/(rev01)", "public/brand"];
 // Standalone public/brand/*.svg files cannot consume CSS tokens. This exception
 // applies only to the generic hex-location rule, never to the anti-red scan.
@@ -28,7 +33,7 @@ const violations = [];
 async function filesUnder(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
   const nested = await Promise.all(
-    entries.map((entry) => {
+    entries.filter((entry) => !(entry.isDirectory() && entry.name === "archive")).map((entry) => {
       const path = join(directory, entry.name);
       return entry.isDirectory() ? filesUnder(path) : [path];
     }),
@@ -196,9 +201,9 @@ for (const root of ROOTS) {
 
     lines.forEach((line, index) => {
       const lineNumber = index + 1;
-      if (!file.endsWith("tokens.css") && !HEX_OUTSIDE_TOKENS_EXCEPTIONS.some((pattern) => pattern.test(file))) {
+      if (file !== VENDOR && !HEX_OUTSIDE_TOKENS_EXCEPTIONS.some((pattern) => pattern.test(file))) {
         const hex = line.match(/#[\da-f]{3,8}\b/i);
-        if (hex) report(file, lineNumber, "hex outside tokens.css", hex[0]);
+        if (hex) report(file, lineNumber, "hex outside brand-os.tokens.css", hex[0]);
       }
 
       const radius = line.match(/border-radius\s*:\s*([^;]+)/i);
@@ -212,7 +217,7 @@ for (const root of ROOTS) {
       }
 
       const shadow = line.match(/box-shadow\s*:\s*([^;]+)/i);
-      const instrumentShadow = "0 40px 80px -40px rgba(10, 11, 12, .4)";
+      const instrumentShadow = "0 40px 80px -40px color-mix(in srgb, var(--ink) 40%, transparent)";
       if (shadow && shadow[1].trim() !== instrumentShadow) {
         report(file, lineNumber, "box-shadow", shadow[1]);
       }
@@ -225,7 +230,6 @@ for (const root of ROOTS) {
 
 const NO_RED_ROOTS = ["src", "public"];
 const NO_RED_EXCEPTIONS = [
-  "src/app/camp-costa-rica/", // Voluntary archived legacy palette retained by Paul's decision.
   "archive/camp-costa-rica/",
 ];
 
@@ -237,7 +241,22 @@ for (const root of NO_RED_ROOTS) {
     if (bytes.includes(0)) continue; // Binary assets are covered by pixel QA.
     const lines = bytes.toString("utf8").split(/\r?\n/);
     lines.forEach((line, index) => {
-      reportReddishColors(file, line, index + 1, relativeFile.endsWith("src/system/tokens.css"));
+      if (file.startsWith("src/")) {
+        for (const match of line.matchAll(/#(?:[\da-f]{8}|[\da-f]{6}|[\da-f]{4}|[\da-f]{3})\b/gi)) {
+          const hex = match[0].slice(1).toLowerCase();
+          const expanded = hex.length <= 4 ? [...hex.slice(0, 3)].map((digit) => digit + digit).join("") : hex.slice(0, 6);
+          if (RETIRED_HEX.has(expanded)) report(file, index + 1, "retired palette", match[0]);
+          if (file !== VENDOR) report(file, index + 1, "hex outside brand-os.tokens.css", match[0]);
+        }
+        // No alternative literal spelling may bypass the single palette source.
+        if (file !== VENDOR) {
+          const literal = line.match(/\b(?:rgba?|hsla?|hwb|oklch|oklab|lab|lch|color)\(\s*[^)]+\)/i);
+          if (literal) report(file, index + 1, "literal color outside brand-os.tokens.css", literal[0]);
+          const namedWhite = line.match(/\b(?:color|background(?:-color)?|fill|stroke)\s*[:=]\s*["']?white\b/i);
+          if (namedWhite) report(file, index + 1, "literal color outside brand-os.tokens.css", namedWhite[0]);
+        }
+      }
+      if (file !== VENDOR) reportReddishColors(file, line, index + 1, false);
     });
   }
 }
