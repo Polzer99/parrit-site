@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { token } from "@/system/token.server";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
@@ -8,12 +8,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const dynamic = "force-dynamic";
 
-function token(name: string): string {
-  const tokens = readFileSync(path.join(process.cwd(), "src/system/tokens.css"), "utf8");
-  const match = tokens.match(new RegExp(`${name}\\s*:\\s*([^;]+)`));
-  if (!match) throw new Error(`Missing design token ${name}.`);
-  return match[1].trim();
-}
+
 
 export default async function Image() {
   const [plexSans, plexMono] = await Promise.all([
@@ -70,7 +65,7 @@ export default async function Image() {
             fontFamily: "IBM Plex Mono",
             fontSize: 20,
             letterSpacing: "0.16em",
-            color: token("--g2"),
+            color: token("--g4-d"),
           }}
         >
           <div style={{ width: 14, height: 14, background: token("--accent-on-dark") }} />

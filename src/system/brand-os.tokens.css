@@ -1,0 +1,52 @@
+/* GÉNÉRÉ par brand/tools/brand_os.py generate — NE PAS ÉDITER. Brand OS 0.1.0-candidate (2026-09-24), statut CANDIDAT.
+   Source : brand/tokens/*.json. Variables préfixées --brand-* : aucune collision avec les tokens actuels du site. */
+:root{
+  --brand-core-canard:#006F8A;
+  --brand-core-rose:#F08E85;
+  --brand-core-off:#F7F9F8;
+  --brand-accessible-ink:#06262E;
+  --brand-accessible-ink2:#496167;
+  --brand-accessible-sky:#DBE9E1;
+  --brand-accessible-warm:#FADDDA;
+  --brand-accessible-line:#798A8E;
+  --brand-complex-ink:#041C22;
+  --brand-complex-surf:#0A2A32;
+  --brand-complex-off:#EAF1EF;
+  --brand-complex-dim:#9DB8B8;
+  --brand-complex-line:#4F8088;
+  --brand-complex-dots:#0D3039;
+  --brand-complex-aqua:#68A29B;
+  --brand-complex-lbg:#EEF3F2;
+  --brand-complex-lline:#5E8087;
+  --brand-complex-ldim:#3F5F66;
+  --brand-complex-ldots:#D3DFDD;
+  --brand-derived-white:#FFFFFF;
+  --brand-derived-on-canard-2:#D5EAEF;
+  --brand-derived-on-ink-2:#A9C2C7;
+  --brand-derived-on-ink-line:#7FA0A7;
+  --brand-derived-on-rose-2:#3D2320;
+  --brand-derived-aqua-dots:#5C948D;
+  --brand-derived-aux-1:#B8CDD1;
+  --brand-derived-aux-2:#95BEB9;
+  --brand-derived-aux-3:#062A30;
+  --brand-s1:8px;
+  --brand-s2:16px;
+  --brand-s3:24px;
+  --brand-s4:32px;
+  --brand-s6:48px;
+  --brand-s8:64px;
+  --brand-font-sans-accessible:"General Sans", "Helvetica Neue", Arial, sans-serif;
+  --brand-font-sans-complex:"Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --brand-font-mono:"IBM Plex Mono", Menlo, monospace;
+}
+[data-brand-mode="accessible"]{--brand-font-sans:var(--brand-font-sans-accessible)}
+[data-brand-mode="complex"]{--brand-font-sans:var(--brand-font-sans-complex)}
+[data-brand-mode="accessible"] [data-regime="calm"], [data-brand-mode="accessible"][data-regime="calm"]{--brand-bg:#F7F9F8;--brand-fg:#06262E;--brand-fg2:#496167;--brand-g:#496167;--brand-dot:#006F8A;--brand-acc:#006F8A;--brand-line:#798A8E;--brand-surf:#FFFFFF;--brand-wmdot:#006F8A}
+[data-brand-mode="accessible"] [data-regime="canard"], [data-brand-mode="accessible"][data-regime="canard"]{--brand-bg:#006F8A;--brand-fg:#FFFFFF;--brand-fg2:#D5EAEF;--brand-g:#D5EAEF;--brand-dot:#F08E85;--brand-acc:#FFFFFF;--brand-line:#FFFFFF;--brand-surf:rgba(255,255,255,.12);--brand-wmdot:#FFFFFF}
+[data-brand-mode="accessible"] [data-regime="ink"], [data-brand-mode="accessible"][data-regime="ink"]{--brand-bg:#06262E;--brand-fg:#F7F9F8;--brand-fg2:#A9C2C7;--brand-g:#A9C2C7;--brand-dot:#F08E85;--brand-acc:#F08E85;--brand-line:#7FA0A7;--brand-surf:rgba(255,255,255,.07);--brand-wmdot:#F7F9F8}
+[data-brand-mode="accessible"] [data-regime="rose"], [data-brand-mode="accessible"][data-regime="rose"]{--brand-bg:#F08E85;--brand-fg:#06262E;--brand-fg2:#3D2320;--brand-g:#3D2320;--brand-dot:#06262E;--brand-acc:#06262E;--brand-line:#06262E;--brand-surf:rgba(255,255,255,.35);--brand-wmdot:#06262E}
+[data-brand-mode="complex"] [data-regime="dk"], [data-brand-mode="complex"][data-regime="dk"]{--brand-bg:#041C22;--brand-fg:#EAF1EF;--brand-fg2:#9DB8B8;--brand-line:#4F8088;--brand-surf:#0A2A32;--brand-dots:#0D3039;--brand-acc:#68A29B;--brand-mire:#4F8088}
+[data-brand-mode="complex"] [data-regime="lt"], [data-brand-mode="complex"][data-regime="lt"]{--brand-bg:#EEF3F2;--brand-fg:#041C22;--brand-fg2:#3F5F66;--brand-line:#5E8087;--brand-surf:#fff;--brand-dots:#D3DFDD;--brand-acc:#006F8A;--brand-mire:#5E8087}
+[data-brand-mode="complex"] [data-regime="aq"], [data-brand-mode="complex"][data-regime="aq"]{--brand-bg:#68A29B;--brand-fg:#041C22;--brand-fg2:#041C22;--brand-line:#041C22;--brand-surf:rgba(255,255,255,.3);--brand-dots:#5C948D;--brand-acc:#041C22;--brand-mire:#041C22}
+
+/* Source : ~/parrit-canon/brand/adapters/web/tokens.css — copie du 28/09/2026. */
