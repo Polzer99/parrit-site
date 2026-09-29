@@ -1,0 +1,46 @@
+---
+title: "The 2 December AI Act marking deadline may apply to the system you built yourself"
+date: "2026-09-29"
+description: "Article 50 asks providers of systems that generate text, images, audio or video to mark those outputs as machine-generated. A company that assembled its own system on a model API may sit in that seat, and the first piece of work is to count the exits its content takes."
+slug: "ai-act-marking-deadline-systems-you-built"
+---
+
+Every weekday morning, a script of 184 lines decides whether an article reaches this Journal. It checks the front matter, the slug, the absence of client names, the distance from everything already published, a list of phrasing defects, and then whether the site builds. Six gates run in a fixed order. If one refuses, nothing is pushed. The text it publishes is drafted with a language model.
+
+On 2 December 2026, a grace period in the European AI Act ends, and it concerns exactly that kind of system: software that produces text with a model and sends it out. Summaries of the summer's news left many readers with the impression that everything had been postponed. For this obligation, the texts say otherwise.
+
+## What ends on 2 December
+
+Article 50(2) of the AI Act requires "providers of AI systems, including general-purpose AI systems, generating synthetic audio, image, video or text content" to ensure those outputs are "marked in a machine-readable format and detectable as artificially generated or manipulated." That obligation has applied since 2 August 2026. The Digital Omnibus, Regulation (EU) 2026/1744, in force since 27 July 2026, did defer the high-risk rules to December 2027, and it left Article 50 where it was, which is where the "everything was postponed" reading goes wrong.
+
+It added one narrow transition. In the words of the European Commission's FAQ, "a limited grace period is envisaged only for AI systems placed on the market before 2 August 2026 and only as regards the marking and detection obligation." Providers of those systems must comply from 2 December 2026. A system launched after 2 August has owed the marking since its first day.
+
+The Commission also lists what falls outside the marking duty: short strings of numbers or letters, source code, outputs exchanged only between machines, closed industrial loops, and systems that perform "an assistive function for standard editing." A spell checker falls outside the duty, while a system that writes the reply falls inside it.
+
+## Why the provider may be you
+
+Most teams read "provider" and think of the company that trained the model. Article 3 defines it more widely: a provider is whoever "develops an AI system" and "puts the AI system into service under its own name or trademark," and putting into service includes supply "for own use." Our reading is that a company which wired a model API into a support tool, a quoting assistant or a report generator, and runs it under its own name, has developed an AI system in the Act's vocabulary, and can therefore stand in the provider's seat for Article 50(2), whoever trained the model underneath. The Commission's FAQ says nothing on whether a downstream provider may rely on the marking done by the model vendor and the guidance we read leaves the question open.
+
+Two further points stay open, and we would rather say so than paper over them. The grace period is worded for systems "placed on the market," and whether a system built only for internal use benefits from the same transition is a question we could not answer from the texts. And the Cloud Security Alliance, in its research note on this deadline, describes reliable machine-readable marking of text as "an open technical question." Metadata attached to an image can be signed, whereas a paragraph pasted into an email carries none of it along.
+
+The stakes are written in Article 99: non-compliance with the transparency obligations of Article 50 can cost up to 15 million euros or 3 percent of worldwide annual turnover, whichever is higher. For small and medium-sized companies, the same article applies whichever of the two amounts is lower.
+
+## Count the exits before choosing a mark
+
+The Cloud Security Alliance's first recommendation is to map "every pathway through which it emits synthetic content." That is an inventory, and it is the part a company can do without waiting for a standard.
+
+We ran it on our own editorial engine. The answer was a single exit, the publishing script described above, because every article goes through it and nothing else writes to the Journal. Whether that engine puts us under Article 50(2) is a legal question we are still treating as open. What the inventory settled on its own is the engineering: if a mark is needed, it is one more gate in a file we own, added on a date we choose, and the pages it produces can be checked by fetching them.
+
+That is where owning the pipeline changes the calendar. A generated output that leaves through code you control can be marked by a commit. One that leaves through a hosted product you rent will be marked when the vendor ships it, and 2 December does not move to match their roadmap.
+
+## An inventory in three columns
+
+Take each system in your company that produces text, images, audio or video with a model, including the ones a single team assembled in an afternoon. For each, write down the date it was first used, whether it runs under your company's name, and every place its output leaves: an email, a PDF, a web page, a message in a chat tool, a file dropped in a shared folder.
+
+The first column tells you whether the grace period could concern you at all. The second tells you whether the provider question is yours to ask. The third is your list of places where a mark would have to be applied, and it is usually longer than anyone expects. Take the finished table to your legal adviser along with the Commission's FAQ, and you will spend that meeting on the two open questions rather than on discovering what you run.
+
+Whoever ends up writing the mark, your own team or a vendor, will start from that list of exits.
+
+## Go to the source
+
+The Commission's FAQ on the transparency obligations of Article 50 is at digital-strategy.ec.europa.eu. The definitions of provider and putting into service are in Article 3, and the fines in Article 99, both readable at artificialintelligenceact.eu. The Digital Omnibus is published in the Official Journal as Regulation (EU) 2026/1744, on eur-lex.europa.eu. The Cloud Security Alliance research note on the Article 50 marking deadline is at labs.cloudsecurityalliance.org.
