@@ -6,6 +6,7 @@
 //   1. front-matter complet (title, date, description, slug = nom du fichier)
 //   2. slug, noms clients et répétition éditoriale
 //   3. pièges MDX connus (indentation = code-block CommonMark, mojibake, tirets cadratins)
+//   3b. orthographe de l’entité dans src/content/public/docs
 //   4. prooflint (anti-IA, ~/parrit-os/tools/prooflint.py)
 //   5. build Next (régénère llms.txt via prebuild)
 //   6. gate de conformité marque
@@ -114,6 +115,12 @@ if (/Ã¢|â/.test(content)) traps.push("mojibake UTF-8 détecté (séquence �
 if (/—/.test(content)) traps.push("tiret cadratin — présent (tell IA, doctrine voix)");
 if (traps.length) fail(`pièges MDX :\n   • ${traps.join("\n   • ")}`);
 console.log("✓ pièges MDX : aucun");
+
+// Gate d'identité : après la copie éventuelle de l'article, avant build/publication.
+execFileSync(process.execPath, ["--test", "tests/entity-spelling.test.mjs"], {
+  cwd: REPO,
+  stdio: "inherit",
+});
 
 // ── gate 4 · prooflint (anti-IA) ─────────────────────────────────────────────
 try {

@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 
 import { getLocale } from "@/lib/server/locale";
 import { AUTEUR } from "@/system/auteur";
+import { blogPostingJsonLd } from "@/system/jsonld";
 import { K, RegistryLine } from "@/system/components";
 import { getAllJournalEntrySummaries, getJournalEntry } from "@/system/journal";
 
@@ -65,7 +66,6 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
     notFound();
   }
 
-  const canonical = `${SITE_URL}/journal/${entry.slug}`;
   const entries = getAllJournalEntrySummaries();
   const currentIndex = entries.findIndex((candidate) => candidate.slug === entry.slug);
   // Garder la position avant filtrage permet aussi de partir d'une entrée noindex.
@@ -74,34 +74,13 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
     ...entries.slice(0, currentIndex),
   ].filter((candidate) => !candidate.noindex && candidate.slug !== entry.slug).slice(0, 3);
   const relatedLabel = locale === "fr" ? "À lire ensuite" : "Continue reading";
-  const blogPostingJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: entry.title,
-    datePublished: entry.date,
-    dateModified: entry.date,
-    image: articleImageUrl(canonical),
-    inLanguage: "en",
-    publisher: {
-      "@type": "Organization",
-      name: "Parrit.ai",
-      logo: { "@type": "ImageObject", url: "https://parrit.ai/icon.png" },
-    },
-    description: entry.description,
-    author: {
-      "@type": "Person",
-      name: AUTEUR.nom,
-      url: AUTEUR.url,
-    },
-    mainEntityOfPage: canonical,
-  };
 
   return (
     <main className="rev-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(blogPostingJsonLd).replace(/</g, "\\u003c"),
+          __html: JSON.stringify(blogPostingJsonLd(entry)).replace(/</g, "\\u003c"),
         }}
       />
       <article className="journal-article">
