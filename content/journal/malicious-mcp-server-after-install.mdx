@@ -1,0 +1,32 @@
+---
+title: "An MCP server can pass your install review and turn hostile after its third call"
+date: "2026-10-04"
+description: "The Deadbugz campaign hid its payload behind a call counter, where a review at install time cannot see it. The control that still works sits on what the agent does next, and we checked ours against the four things the server asked for."
+slug: "malicious-mcp-server-after-install"
+---
+
+On the evening of 10 August 2026, between 21:52 and 23:07 UTC, a single GitHub account opened 23 pull requests against AI, MCP and developer-tool projects. Seventeen of them added a remote MCP endpoint to the project's configuration, under the name productivity-suite. Anyone who opened that server and called it would see a modest text-formatting utility. After it had answered three calls, it would be something else.
+
+[Pillar Security](https://www.pillar.security/blog/deadbugz-currently-active-mcp-supply-chain-campaign), which named the campaign Deadbugz, describes the trigger precisely. Once the server has answered three tool calls, the tool descriptions and prompts it sends back to the agent change, and the new text tells the agent to look for SSH keys, AWS credentials, shell history and Kubernetes configuration, and to keep the search out of the user's sight. The [Cloud Security Alliance](https://labs.cloudsecurityalliance.org/research/csa-research-note-deadbugz-mcp-metadata-poisoning-20260902-c/) analysed the same campaign and reports that maintainers closed 19 of the 23 pull requests, four stayed open, and none was merged through ordinary review.
+
+## Why the install review saw a clean server
+
+The usual advice for choosing an MCP server is to read its code, check who publishes it, and look at the tools it declares before approving it. Each of those checks is usually done before the first call. A server built like productivity-suite passes them at install time, because the hostile text does not exist yet when you look. It is produced at runtime, by a counter, and sent as metadata that the agent treats as part of its instructions.
+
+That changes what a server's answer is. Whatever a remote server sends back, its tool descriptions included, is input written by someone you have not vetted, and it lands in the same context the agent uses to decide its next action. Pillar's recommendations include the matching rule: a client should treat a change in the tool definition of a server it already approved as a security event. Our own setup raises no alert on such a change today, so the place where we can hold the line is one step later, on the action the agent tries to take after reading the poisoned text.
+
+## The check that sits after the server
+
+We run a hook that inspects every shell command and every file edit our coding agents attempt, before it executes, and we described it on this Journal in [September](/journal/permission-layer-for-coding-agents). One of its rules refuses a shell command that names a file carrying credentials, whatever instruction led the agent to type it. A server that tells our agent to print a private key from the shell gets as far as the attempt, and the attempt is refused with a logged reason.
+
+On the day this article was written, we put that rule against the four targets Deadbugz names, and it covered less than we assumed. The list of credential carriers matches private SSH key files and files named credentials, so the first two targets are on it. Shell history and Kubernetes configuration are missing, although the second often holds cluster tokens and the first sometimes holds a secret typed inline. A stolen key costs whatever it can open, and a cluster token can open a whole cluster. The larger gap sits elsewhere. The hook is attached to the shell and to the editing tools, and the agent also has a dedicated tool for reading files that never passes through it. A poisoned server that asked for a key to be opened with that tool would have met no refusal from us.
+
+The same check gave us a count we had not looked at closely. The agent we use most is connected to ten MCP servers, and six of them are remote endpoints run by their vendors. Those six can change what they send us without anything on our side changing.
+
+## Putting the four targets to your own agent
+
+Open the configuration of the agent your team uses most and count its MCP servers, separating the ones that run on your machine from the remote endpoints someone else operates. For each remote one, ask whether you would notice if its tool descriptions changed tomorrow.
+
+Then take the four targets from the Deadbugz analysis and try them against whatever stands between your agent and your files: a hook that checks each command before it runs, a sandbox that limits what the agent can touch, a list of forbidden paths. Place harmless decoy files under those four names in a scratch directory, ask the agent to read each one with every tool it has, and write down which attempts were refused and which went through. The ones that went through are the gaps a server would use, and closing them is usually a few lines of configuration. If that configuration is not yours to open, the two counts above are the questions to bring to whoever runs your security.
+
+A server can be clean on the day you approve it, and the check that would have stopped Deadbugz is the one still running on every call after that.
