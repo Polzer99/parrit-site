@@ -10,10 +10,10 @@ const DICT = {
     "metaTitle": "The Manufacture",
     "metaDescription": "How Parrit.ai builds a company operating system, from Examination to Compounding.",
     "kicker": "Parrit / The Manufacture",
-    "title": "Manufactured, not installed.",
-    "sub": "How Parrit.ai builds a company operating system: your operations, rebuilt one by one, from Examination to Compounding.",
-    "phasesTitle": "Three phases.",
-    "phasesKicker": "Examination → Construction → Compounding",
+    "title": "We build each system one operation at a time, from Examination to Compounding.",
+    "sub": "A system is manufactured. It is not installed.",
+    "phasesTitle": "Three phases turn an examined operation into a system you own.",
+    "phasesKicker": "Examination · Construction · Compounding",
     "phases": [
       [
         "01",
@@ -43,10 +43,10 @@ const DICT = {
     "metaTitle": "La Manufacture",
     "metaDescription": "La méthode de Parrit.ai : comment une commande se construit, de l'Examen à la Capitalisation.",
     "kicker": "Parrit / La Manufacture",
-    "title": "Un système se fabrique. Il ne s'installe pas.",
-    "sub": "Comment Parrit.ai construit un système d'exploitation d'entreprise : vos opérations, reconstruites une par une, de l'Examen à la Capitalisation.",
-    "phasesTitle": "Trois phases.",
-    "phasesKicker": "Examen → Construction → Capitalisation",
+    "title": "Nous construisons chaque système une opération à la fois, de l'Examen à la Capitalisation.",
+    "sub": "Un système se fabrique. Il ne s'installe pas.",
+    "phasesTitle": "Trois phases transforment une opération examinée en un système qui vous appartient.",
+    "phasesKicker": "Examen · Construction · Capitalisation",
     "phases": [
       [
         "01",

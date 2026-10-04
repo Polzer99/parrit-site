@@ -36,12 +36,12 @@ export function MechanismSchema({ locale = "en" }: { locale?: Locale }) {
           <p>{copy.sourceLegacy[1]}</p>
         </div>
       </div>
-      <div className="mechanism-diagram-arrow" aria-hidden="true">↓</div>
+      <div className="mechanism-diagram-arrow" aria-hidden="true" />
       <div className="mechanism-diagram-node mechanism-diagram-node--control">
         <h3>{copy.control[0]}</h3>
         <p>{copy.control[1]}</p>
       </div>
-      <div className="mechanism-diagram-arrow" aria-hidden="true">↓</div>
+      <div className="mechanism-diagram-arrow" aria-hidden="true" />
       <div className="mechanism-diagram-node mechanism-diagram-node--decision">
         <h3>{copy.decision[0]}</h3>
         <p>{copy.decision[1]}</p>

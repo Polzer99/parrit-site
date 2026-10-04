@@ -67,5 +67,6 @@ export function localizedOpenGraph(pathname: string, locale: Locale, title: stri
     url: localizedPath(pathname, locale),
     locale: locale === "fr" ? "fr_FR" : "en_US",
     alternateLocale: locale === "fr" ? "en_US" : "fr_FR",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   };
 }

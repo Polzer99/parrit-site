@@ -65,17 +65,13 @@ const nextConfig: NextConfig = {
   // the file is absent from the serverless bundle and the route 500s.
   outputFileTracingIncludes: {
     "/llms-full.txt": ["./public/llms.txt", "./content/journal/*.mdx"],
-    "/opengraph-image": ["./src/system/tokens.css", "./src/og-assets/*"],
-    "/journal/\\[slug\\]/og": ["./src/system/tokens.css", "./src/og-assets/*"],
+    "/opengraph-image": ["./src/system/brand-os.tokens.css", "./src/system/tokens.css", "./src/og-assets/*"],
+    "/journal/\\[slug\\]/og": ["./src/system/brand-os.tokens.css", "./src/system/tokens.css", "./src/og-assets/*"],
   },
   async headers() {
     // Le kit de polices est versionné par dossier : tout changement de
     // police passe par un nouveau dossier, donc immutable 1 an est sûr.
     return [
-      {
-        source: "/founder-portrait.jpg",
-        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
-      },
       {
         source: "/fonts/rev02/:file*",
         headers: [

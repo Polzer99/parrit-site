@@ -117,7 +117,7 @@ button {
   border-color: var(--rule-d);
   background: var(--carbon);
   color: var(--paper);
-  box-shadow: 0 40px 80px -40px rgba(10, 11, 12, .4);
+  box-shadow: 0 40px 80px -40px color-mix(in srgb, var(--ink) 40%, transparent);
 }
 
 .component-stack {
@@ -132,10 +132,12 @@ button {
   border: 1px solid var(--rule-d);
   background: var(--carbon);
   color: var(--paper);
-  box-shadow: 0 40px 80px -40px rgba(10, 11, 12, .4);
+  box-shadow: 0 40px 80px -40px color-mix(in srgb, var(--ink) 40%, transparent);
 }
 
 :where(.instrument, .register.instrument, .cal-instrument) {
+  --g2: var(--brand-derived-on-ink-2);
+  --g3: var(--brand-derived-on-ink-2);
   --g4: var(--g4-d);
   --action-fill: var(--accent-on-dark);
   --action-pressed: var(--accent-on-dark-p);
@@ -595,7 +597,7 @@ button {
   border: 1px solid var(--rule-d);
   background: var(--carbon);
   color: var(--paper);
-  box-shadow: 0 40px 80px -40px rgba(10, 11, 12, .4);
+  box-shadow: 0 40px 80px -40px color-mix(in srgb, var(--ink) 40%, transparent);
 }
 
 .cal-bar {

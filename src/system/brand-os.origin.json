@@ -1,0 +1,30 @@
+{
+ "generator": "brand/tools/export_web.py",
+ "source_repo": "parrit-canon (dépôt local de Paul, sans remote : SHA vérifiable sur ce poste)",
+ "branch": "brand-os/visual-system-v0.2",
+ "commit": "112de90e0a1ce811d47869af624202367722350e",
+ "head": "112de90e0a1ce811d47869af624202367722350e",
+ "brand_os_version": "0.1.0-candidate",
+ "status": "CANDIDATE (palette D1 décidée 24/09 ; ancienne charte T4 désactivée 28/09)",
+ "mode": "accessible",
+ "excluded": [
+  "mode complex (Inter Tight, AV-6 ouvert)"
+ ],
+ "generated_at": "2026-10-04T14:40:53+02:00",
+ "regenerate": "python3 ~/parrit-canon-visual-system/brand/tools/export_web.py --out <ce dossier>",
+ "canon_fonts": {
+  "GeneralSans-Regular.woff2": "1336dc6137440a94f87d883bcc3ee26bdbd580606d61e89e6e530757d9328886",
+  "GeneralSans-Medium.woff2": "0168813e5da4bb7fcbffbe1305cc4932220772ff26c0488c5d62e28f579aa5ae",
+  "GeneralSans-Semibold.woff2": "225c2c18bd1cebdd9c4aedc07201d5a5fd086f44d5418c09bce308a0832ccfcf",
+  "ibm-plex-mono-latin-400-normal.woff2": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7",
+  "ibm-plex-mono-latin-500-normal.woff2": "01d285447409c8a588692162439a038b8cbd7871309ee20267b0d2d91c6e8e22",
+  "ibm-plex-mono-latin-600-normal.woff2": "0d1f0b8d0722224e32e9f28261bdc86c79115be73444ae5eceb73976a1bcdf83",
+  "LICENSE-IBM-Plex-Mono.txt": "23b0a9d0c6d3f140a0b77e483c5cfa6bba574325ef5cb189ed9f2fec4884533f"
+ },
+ "files": {
+  "brand-os.connectors.json": "dd2f27026abab73102e5894ab319d6120f52263a9f70bbdc2a96d49e3f6850a9",
+  "brand-os.forbidden-assets.json": "527b8ae5f1877951d07616471d5a96ac53743d3cc961f218a0096abfa3c2875d",
+  "brand-os.glyphs.json": "549f23fe2c797e593178a0aa68c70f310590a1675f67d760bfc788abdcd66c44",
+  "brand-os.tokens.css": "c8e3bc5e0b5ca9428d2556750920c0ff0a8c979533b7db2c46cd9706966f5f3f"
+ }
+}

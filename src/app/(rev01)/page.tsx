@@ -26,7 +26,7 @@ const DICT = {
     },
     journey: {
       kicker: "How it works",
-      title: "From the first message to handover, in four steps.",
+      title: "Four steps take you from the first message to a system your team runs.",
       intro: "Each step names what Parrit does, what you bring, and what it unlocks next.",
       steps: [
         ["01", "Name the operation", "You describe what costs you the most time. Parrit examines with you who it touches and what it really costs."],
@@ -35,7 +35,6 @@ const DICT = {
         ["04", "Take it over", "Code, data and documentation are yours. Your team learns to run it at handover, and can take it further alone, or call Parrit back, depending on the path you chose."],
       ],
       link: "Book an examination",
-      alt: "Portrait of the founder",
       caption: "Paul Larmaraud · Founder",
       bridge: "Let's meet",
     },
@@ -57,7 +56,7 @@ const DICT = {
         cta: "See the system",
       },
       dossiers: {
-        title: "The dossiers open in conversation.",
+        title: "We show client dossiers in a meeting, not online.",
         fact: "Three open dossiers today. The rest stay sealed until a meeting.",
         cta: "See the dossiers",
       },
@@ -88,9 +87,9 @@ const DICT = {
         },
       ],
     },
-    journal: { kicker: "What the work teaches us", title: "The Journal" },
+    journal: { kicker: "What the work teaches us", title: "The Journal records what held and what broke on our projects." },
     close: {
-      title: "One conversation. Your operating system, examined.",
+      title: "A 15-minute examination tells you whether a system is worth building.",
       note: "15 min · An examination, on a video call, with the founder",
       button: "Let's talk",
     },
@@ -114,7 +113,7 @@ const DICT = {
     },
     journey: {
       kicker: "Le déroulement",
-      title: "Du premier message à la prise en main, en quatre étapes.",
+      title: "Quatre étapes mènent du premier message à un système que votre équipe fait tourner.",
       intro: "Chaque étape dit ce que Parrit fait, ce que vous apportez, et ce qu'elle débloque pour la suite.",
       steps: [
         ["01", "Nommer l'opération", "Vous décrivez ce qui vous coûte le plus de temps. Parrit examine avec vous qui elle touche et ce qu'elle coûte réellement."],
@@ -123,7 +122,6 @@ const DICT = {
         ["04", "Prendre la main", "Le code, les données et la documentation vous appartiennent. Votre équipe apprend à s'en servir à la livraison, et peut le faire évoluer seule, ou vous rappelez Parrit, selon la formule choisie."],
       ],
       link: "Réserver un examen",
-      alt: "Portrait du fondateur",
       caption: "Paul Larmaraud · Fondateur",
       bridge: "Rencontrons-nous",
     },
@@ -145,7 +143,7 @@ const DICT = {
         cta: "Voir le système",
       },
       dossiers: {
-        title: "Les dossiers s'ouvrent de vive voix.",
+        title: "Nous montrons les dossiers clients en rendez-vous, pas en ligne.",
         fact: "Trois dossiers ouverts aujourd'hui. Les autres restent scellés jusqu'au rendez-vous.",
         cta: "Voir les dossiers",
       },
@@ -176,9 +174,9 @@ const DICT = {
         },
       ],
     },
-    journal: { kicker: "Ce que les chantiers nous apprennent", title: "Le Journal" },
+    journal: { kicker: "Ce que les chantiers nous apprennent", title: "Le Journal consigne ce qui a tenu et ce qui a cassé sur nos chantiers." },
     close: {
-      title: "Une conversation. Votre système d'exploitation, examiné.",
+      title: "Un examen de 15 minutes vous dit si un système vaut d'être construit.",
       note: "15 min · Un examen, en visio, avec le fondateur",
       button: "Parlons-en",
     },
@@ -237,11 +235,8 @@ export default async function HomePage() {
 
       <section className="home-s-maison">
         <div className="home-s-wrap home-s-maison-grid">
-          <figure>
-            <Image src="/founder-portrait.jpg" alt={copy.journey.alt} width={340} height={453} sizes="(max-width: 859px) 100vw, 340px" />
-            <figcaption><K>{copy.journey.caption}</K></figcaption>
-          </figure>
           <div className="home-s-maison-copy">
+            <K>{copy.journey.caption}</K>
             <K>{copy.journey.kicker}</K>
             <h2>{copy.journey.title}</h2>
             <p>{copy.journey.intro}</p>
@@ -258,7 +253,7 @@ export default async function HomePage() {
               rel="noopener noreferrer"
               aria-label={`${copy.journey.bridge} (${locale === "fr" ? "ouvre paul-larmaraud.com dans un nouvel onglet" : "opens paul-larmaraud.com in a new tab"})`}
             >
-              {copy.journey.bridge} →
+              {copy.journey.bridge}
             </a>
           </div>
         </div>
@@ -282,12 +277,12 @@ export default async function HomePage() {
             <Link className="home-s-proof-item home-s-proof-item--systems" href={localizedPath("/systems", locale)}>
               <h3>{copy.proof.systems.title}</h3>
               <p>{copy.proof.systems.fact}</p>
-              <span>{copy.proof.systems.cta} →</span>
+              <span>{copy.proof.systems.cta}</span>
             </Link>
             <Link className="home-s-proof-item home-s-proof-item--dossiers" href={localizedPath("/dossiers", locale)}>
               <h3>{copy.proof.dossiers.title}</h3>
               <p>{copy.proof.dossiers.fact}</p>
-              <span>{copy.proof.dossiers.cta} →</span>
+              <span>{copy.proof.dossiers.cta}</span>
             </Link>
           </div>
         </div>

@@ -38,7 +38,7 @@ for (const width of [375, 1440, 767, 768]) {
       await cards.nth(0).getByRole("link").click();
       await expect(page).toHaveURL(`${BASE_URL}${prefix}/build-with-you`);
       await expect(page.locator("html")).toHaveAttribute("lang", locale);
-      await expect(page.getByRole("heading", { level: 1 })).toHaveText("Build With You");
+      await expect(page.getByRole("heading", { level: 1 })).toHaveText(locale === "fr" ? "En 10 heures avec le fondateur, vous construisez un système qui tourne." : "In 10 hours with the founder, you build a system that runs.");
       await expect(page.locator(".r2-phase")).toHaveCount(3);
       await expect(page.locator("main .offer-price")).toHaveText(locale === "fr" ? "À partir de 3 200 € HT · forfait" : "Starting at €3,200 excl. VAT · fixed fee");
       await expect(page.locator("main form")).toHaveCount(0);

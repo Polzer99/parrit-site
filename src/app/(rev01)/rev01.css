@@ -26,6 +26,7 @@ h2 {
   min-height: 100vh;
 }
 
+.home-s-hero,
 .cmdbar,
 .cmd-panel,
 .opening,
@@ -36,7 +37,10 @@ h2 {
 .ri,
 .r2-phone,
 .r2-phase {
-  --g4: var(--g4-d);
+  --g2: var(--brand-derived-on-ink-2);
+  --g3: var(--brand-derived-on-ink-2);
+  --g4: var(--brand-derived-on-ink-2);
+  --label-d: var(--brand-derived-on-ink-2);
   --action-fill: var(--accent-on-dark);
   --action-pressed: var(--accent-on-dark-p);
   --action-text: var(--ink);
@@ -50,7 +54,10 @@ h2 {
 
 .r2-ecrin,
 .decision-card {
+  --g2: var(--brand-accessible-ink2);
+  --g3: var(--brand-accessible-ink2);
   --g4: var(--g4-l);
+  --label-d: var(--brand-accessible-ink2);
   --action-fill: var(--accent-strong);
   --action-pressed: var(--accent-strong-p);
   --action-text: var(--paper);
@@ -64,7 +71,10 @@ h2 {
 
 .instrument .decision-card,
 .r2-phone .decision-card {
-  --g4: var(--g4-d);
+  --g2: var(--brand-derived-on-ink-2);
+  --g3: var(--brand-derived-on-ink-2);
+  --g4: var(--brand-derived-on-ink-2);
+  --label-d: var(--brand-derived-on-ink-2);
   --action-fill: var(--accent-on-dark);
   --action-pressed: var(--accent-on-dark-p);
   --action-text: var(--ink);
@@ -98,7 +108,7 @@ h2 {
 .cmdbar {
   height: 64px;
   border-bottom: 1px solid var(--rule-d);
-  background: rgba(10, 11, 12, .92);
+  background: color-mix(in srgb, var(--ink) 92%, transparent);
 }
 
 .cmdbar-inner {
@@ -742,12 +752,7 @@ h2 {
 }
 
 .cal-loading .k {
-  animation: cal-pulse 1.6s ease-in-out infinite;
-}
-
-@keyframes cal-pulse {
-  0%, 100% { opacity: .45; }
-  50% { opacity: 1; }
+  color: var(--g4-d);
 }
 
 .commission-instrument .cal-stage {
@@ -1402,8 +1407,14 @@ a.k:active {
   text-underline-offset: 3px;
 }
 
-.rev-button:disabled {
-  opacity: .55;
+.rev-button:disabled,
+.rev-button.exec:disabled,
+.rev-button.exec:disabled:hover,
+.rev-button.exec:disabled:active {
+  opacity: 1;
+  background: transparent;
+  border-color: var(--g3);
+  color: var(--g3);
   cursor: not-allowed;
 }
 
@@ -1413,12 +1424,9 @@ a.k:active {
   color: var(--paper);
 }
 
-/* .k est calé sur le registre clair (g3 sur paper = 6.3:1) ; sur ink/carbon
-   le même g3 tombe à 2.6:1, sous le seuil WCAG même pour du texte
-   secondaire : g4 (déjà dans la palette) remonte à ~3.9-4.2:1 sans changer
-   la taille, l'espacement ou la hiérarchie visuelle des libellés */
+/* Dark labels use the site's canonical on-ink alias. */
 .r2-dark .k {
-  color: var(--g4);
+  color: var(--g4-d);
 }
 
 .r2-wrap {
@@ -1448,9 +1456,8 @@ a.k:active {
   color: var(--paper);
   font-family: var(--ed);
   font-size: var(--d-s);
-  font-weight: 480;
+  font-weight: 500;
   letter-spacing: -.01em;
-  font-variation-settings: "opsz" 40;
   text-wrap: balance;
 }
 
@@ -1504,6 +1511,18 @@ a.k:active {
 
 .r2-hero .rev-actions {
   margin-top: 38px;
+}
+
+.not-found-page .r2-hero h1 {
+  max-width: none;
+}
+
+.not-found-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s3);
+  padding-bottom: var(--s8);
 }
 
 .r2-instrument-stage {
@@ -1572,7 +1591,7 @@ a.k:active {
 .quick-capture form > .k {
   display: block;
   margin-top: 12px;
-  color: var(--g4);
+  color: var(--g4-d);
 }
 
 .quick-capture .ri-error {
@@ -1850,24 +1869,17 @@ a.k:active {
 
 .home-s-maison-grid {
   display: grid;
-  grid-template-columns: 340px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(60px, 10vw, 140px);
   align-items: center;
 }
 
-.home-s-maison figure {
-  margin: 0;
-}
-
-.home-s-maison img {
+.home-s-maison-copy > .k {
   display: block;
-  width: 340px;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
 }
 
-.home-s-maison figcaption {
-  margin-top: 12px;
+.home-s-maison-copy > .k + .k {
+  margin-top: var(--s3);
 }
 
 .home-s-maison-copy p {
@@ -2097,9 +2109,6 @@ a.k:active {
     gap: 50px;
   }
 
-  .home-s-maison img {
-    width: min(340px, 100%);
-  }
 
   .home-s-build-grid article:last-child {
     border-bottom: 0;
@@ -2384,9 +2393,9 @@ a.k:active {
   color: var(--paper);
   font-family: var(--ed);
   font-size: var(--d-s);
-  font-weight: 420;
+  font-weight: 500;
   line-height: 1.35;
-  font-variation-settings: "opsz" 28;
+
   text-wrap: balance;
 }
 
@@ -2503,9 +2512,9 @@ a.k:active {
   color: var(--paper);
   font-family: var(--ed);
   font-size: var(--d-m);
-  font-weight: 480;
+  font-weight: 500;
   letter-spacing: -.01em;
-  font-variation-settings: "opsz" 60;
+
   text-wrap: balance;
 }
 
@@ -2797,8 +2806,11 @@ a.k:active {
   outline-offset: 2px;
 }
 
-.ri input::placeholder {
-  color: var(--g3);
+.ri input::placeholder,
+.quick-capture input::placeholder,
+.agent-esquisse-form input::placeholder {
+  color: var(--g4-d);
+  opacity: 1;
 }
 
 .ri-check {
@@ -2867,7 +2879,7 @@ a.k:active {
 .home-s-proof-item p {
   margin: 16px 0 0;
   line-height: 1.6;
-  color: var(--label-d);
+  color: var(--g3);
 }
 .home-s-proof-item span {
   display: inline-block;
@@ -2971,13 +2983,30 @@ a.k:active {
 }
 
 .mechanism-diagram-arrow {
-  display: flex;
-  justify-content: center;
-  margin: 4px 0;
-  color: var(--g4);
-  font-family: var(--mono);
-  font-size: 20px;
-  line-height: 1;
+  position: relative;
+  width: var(--brand-connector-head-w);
+  height: calc(var(--brand-connector-min-shaft) + var(--brand-connector-head-len));
+  margin: var(--brand-connector-endpoint-gap) auto;
+  color: var(--g3);
+}
+.mechanism-diagram-arrow::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--brand-connector-stroke);
+  height: var(--brand-connector-min-shaft);
+  background: currentColor;
+}
+.mechanism-diagram-arrow::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: var(--brand-connector-head-w);
+  height: var(--brand-connector-head-len);
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 
 @media (max-width: 760px) {
@@ -3074,4 +3103,14 @@ a.k:active {
   color: var(--g3);
   font-size: var(--t-m);
   line-height: 1.6;
+}
+
+/* Unstyled links inherit the dark register's accessible action color. */
+:where(.r2-dark, .r2-sub) a:not([class]) {
+  color: var(--accent-on-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.quick-capture .k {
+  color: var(--g4-d);
 }
