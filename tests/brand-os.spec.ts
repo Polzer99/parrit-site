@@ -141,6 +141,7 @@ for (const width of [375, 390, 768, 1440]) {
       const labels = page.locator(".home-s-maison-copy > .k");
       const photo = page.locator(".home-s-maison figure img");
       await expect(photo).toHaveCount(1);
+      await expect(photo).toHaveAttribute("src", "/brand/founder/parrit-ai-founder-linkedin-3x4-340.webp");
       await expect(photo).toHaveAttribute("alt", route === "/fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai");
       await expect(photo).toHaveAttribute("width", "340");
       await expect(photo).toHaveAttribute("height", "453");
@@ -155,7 +156,7 @@ for (const width of [375, 390, 768, 1440]) {
       for (const [index, format] of ["avif", "webp"].entries()) {
         await expect(sources.nth(index)).toHaveAttribute("type", `image/${format}`);
         await expect(sources.nth(index)).toHaveAttribute("sizes", "(max-width: 859px) min(340px, 100vw), 340px");
-        await expect(sources.nth(index)).toHaveAttribute("srcset", `/brand/founder/parrit-ai-founder-dsc00629-3x4-340.${format} 340w, /brand/founder/parrit-ai-founder-dsc00629-3x4-680.${format} 680w`);
+        await expect(sources.nth(index)).toHaveAttribute("srcset", `/brand/founder/parrit-ai-founder-linkedin-3x4-340.${format} 340w, /brand/founder/parrit-ai-founder-linkedin-3x4-680.${format} 680w`);
       }
       const figureBox = await page.locator(".home-s-maison figure").boundingBox();
       const copyBox = await page.locator(".home-s-maison-copy").boundingBox();

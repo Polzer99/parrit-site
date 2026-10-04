@@ -407,3 +407,15 @@ conservées, écart de 6 px ajouté aux dix parcours, rendu compilé FR/EN véri
 Build Webpack, lint, types, claims, marque et 52 tests Node passent. Turbopack
 interrompu sans progression ; Chromium refusé par macOS avant navigation.
 Captures et preuve responsive FIX2 restent à produire sur l'hôte (rapport scène).
+
+## Photo LinkedIn, 05/10/2026
+
+La décision `docs/CODEX-SPEC-2026-10-05-parrit-ai-photo-linkedin-v1.md` remplace
+la précédente autorisation DSC00629 : seuls les quatre exports LinkedIn AVIF/WebP
+340/680 sont livrés dans `public/brand/founder/`, identiques au manifeste canonique
+`2026-10-04/photos-linkedin`. Mise en page, dimensions, alt et légende conservés.
+La fixture photo et les tests SSR/navigateur suivent ces exports ; un test Node
+interdit toute référence ou nom de fichier DSC00629 dans `src/` et `public/`.
+Build Webpack, lint, types, claims, marque et 18 tests Brand OS passent.
+Chromium est refusé par le sandbox macOS avant navigation ; captures et batterie
+navigateur restent à exécuter sur l’hôte. Voir `docs/REPORT-2026-10-05-photo-linkedin.md`.
