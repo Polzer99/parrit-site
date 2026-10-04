@@ -17,6 +17,21 @@ Le défaut venait du générateur d'icônes (corrigé, commit `6da9777` du Brand
 (ainsi que les trois autres icônes si leur sha256 a changé), relancer `npm run build` (Turbopack, la commande standard,
 pas Webpack) et `npm run test:brand-os`. Rien d'autre à modifier.
 
+## FIX2 (04/10) — CI GitHub de la PR #294 rouge (run 37203746920), défauts réels
+1. `input::placeholder` sur fond sombre : 3,30:1 (minimum 4,5) → couleur claire des conteneurs sombres
+   (`--brand-derived-on-ink-2` via les variables du site), sur `/` et `/commission`, EN et FR.
+2. `button.rev-button.exec` « Sketch / Esquisser » à l'état désactivé : rose à opacité réduite sur encre, 2,89:1
+   (minimum 3:1 pour un contrôle). L'état désactivé ne passe plus par l'opacité : fond transparent, bordure et texte
+   en couleur claire des conteneurs sombres (≥ 3:1 pour la bordure, ≥ 4,5:1 pour le texte), curseur `not-allowed`.
+   L'état actif garde le rose plein.
+3. `span.k` sur fond sombre à 2,83:1 (`/commission`, `/` à 375 et 1440) : couleur claire des conteneurs sombres.
+4. `tests/conformity-home.spec.ts:119` fige « Let's meet → » / « Rencontrons-nous → » : la spec retire la flèche
+   (contrat VS-CONNECTOR, caractère absent des polices) ; mettre à jour l'attendu en « Let's meet » / « Rencontrons-nous ».
+5. Registre des ressources : « La matrice tâche · modèle » affaiblit le sens ; écrire « La matrice qui associe chaque
+   tâche à un modèle, et le calcul de ce que vous payez en trop. » et « La matrice qui associe chaque tâche à un modèle,
+   avec les seuils ».
+Ne pas assouplir les tests. La batterie du pont lancera cette fois `qa:network:rev01` hors sandbox.
+
 ## 0. Sources à lire (lecture seule, hors du dépôt)
 - Paquet de raccordement (versionné dans le Brand OS, commit `cd69c5b`, branche `brand-os/visual-system-v0.2`) :
   `/Users/paullarmaraud/parrit-canon-visual-system/brand/visual/sites/handoff/2026-10-04/parrit-ai/brand-os/`

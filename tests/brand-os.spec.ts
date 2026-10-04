@@ -74,7 +74,8 @@ for (const width of [1440, 375]) {
         const result: { element: string; foreground: Color; background: Color; ratio: number; minimum: number }[] = [];
         const seen = new Set<string>();
         const measure = (element: Element, pseudo?: string) => {
-          if (!element.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }) || element.closest(".sr-only, :disabled")) return;
+          // FIX2 explicitly requires readable disabled controls too.
+          if (!element.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }) || element.closest(".sr-only")) return;
           const style = getComputedStyle(element, pseudo);
           const pseudoBackground: Color = pseudo ? parse(style.backgroundColor) : [0, 0, 0, 0];
           const pseudoForeground = over(parse(style.color), pseudoBackground);
@@ -92,6 +93,14 @@ for (const width of [1440, 375]) {
           if (seen.has(key)) return;
           seen.add(key);
           result.push({ element: label, foreground: fg, background: bg, ratio: (hi + .05) / (lo + .05), minimum });
+          if (!pseudo && element.matches("button.rev-button.exec:disabled")) {
+            const border = paint(element, parse(style.borderTopColor));
+            const container = element.parentElement;
+            if (!container) throw new Error("Disabled button has no container");
+            const background = paint(container);
+            const [high, low] = [luminance(border), luminance(background)].sort((a, b) => b - a);
+            result.push({ element: `${label} border`, foreground: border, background, ratio: (high + .05) / (low + .05), minimum: 3 });
+          }
         };
         const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
         let node: Node | null;
@@ -176,4 +185,52 @@ for (const width of [1440, 375]) {
       expect(Math.abs(geometry.gap - connectorContract.px.endpoint_gap)).toBeLessThanOrEqual(connectorContract.px.tolerance);
     }
   });
+}
+
+// Exercise the native disabled state and hydration without submitting a lead.
+for (const width of [1440, 375]) {
+  for (const route of ["/", "/fr"]) {
+    test(`Brand OS sketch disabled and active states ${route} at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`${BASE_URL}${route}`);
+      const button = page.locator(".agent-esquisse-form button");
+      const input = page.locator("#agent-operation");
+      const disabled = async () => {
+        await expect(button).toBeDisabled();
+        await expect(button).toHaveCSS("opacity", "1");
+        await expect(button).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+        await expect(button).toHaveCSS("cursor", "not-allowed");
+        await expect(button).toHaveCSS("border-top-style", "solid");
+        expect(await button.evaluate((element) => parseFloat(getComputedStyle(element).borderTopWidth))).toBeGreaterThan(0);
+        const expected = await button.evaluate((element) => {
+          const probe = document.createElement("span");
+          probe.style.color = "var(--g4-d)";
+          element.append(probe);
+          const expected = getComputedStyle(probe).color;
+          probe.remove();
+          return expected;
+        });
+        await expect(button).toHaveCSS("color", expected);
+        await expect(button).toHaveCSS("border-top-color", expected);
+      };
+      await disabled();
+      await button.hover();
+      await disabled();
+      await expect(async () => {
+        await input.fill("Une opération à examiner");
+        await expect(button).toBeEnabled();
+      }).toPass({ timeout: 5000 });
+      const activeFill = await button.evaluate((element) => {
+        const probe = document.createElement("span");
+        probe.style.color = "var(--accent-on-dark)";
+        element.append(probe);
+        const expected = getComputedStyle(probe).color;
+        probe.remove();
+        return expected;
+      });
+      await expect(button).toHaveCSS("background-color", activeFill);
+      await input.fill("   ");
+      await disabled();
+    });
+  }
 }

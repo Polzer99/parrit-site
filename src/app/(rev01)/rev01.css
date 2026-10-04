@@ -752,12 +752,7 @@ h2 {
 }
 
 .cal-loading .k {
-  animation: cal-pulse 1.6s ease-in-out infinite;
-}
-
-@keyframes cal-pulse {
-  0%, 100% { opacity: .45; }
-  50% { opacity: 1; }
+  color: var(--g4-d);
 }
 
 .commission-instrument .cal-stage {
@@ -1412,8 +1407,14 @@ a.k:active {
   text-underline-offset: 3px;
 }
 
-.rev-button:disabled {
-  opacity: .55;
+.rev-button:disabled,
+.rev-button.exec:disabled,
+.rev-button.exec:disabled:hover,
+.rev-button.exec:disabled:active {
+  opacity: 1;
+  background: transparent;
+  border-color: var(--g3);
+  color: var(--g3);
   cursor: not-allowed;
 }
 
@@ -1423,12 +1424,9 @@ a.k:active {
   color: var(--paper);
 }
 
-/* .k est calé sur le registre clair (g3 sur paper = 6.3:1) ; sur ink/carbon
-   le même g3 tombe à 2.6:1, sous le seuil WCAG même pour du texte
-   secondaire : g4 (déjà dans la palette) remonte à ~3.9-4.2:1 sans changer
-   la taille, l'espacement ou la hiérarchie visuelle des libellés */
+/* Dark labels use the site's canonical on-ink alias. */
 .r2-dark .k {
-  color: var(--g4);
+  color: var(--g4-d);
 }
 
 .r2-wrap {
@@ -1581,7 +1579,7 @@ a.k:active {
 .quick-capture form > .k {
   display: block;
   margin-top: 12px;
-  color: var(--g4);
+  color: var(--g4-d);
 }
 
 .quick-capture .ri-error {
@@ -2791,8 +2789,11 @@ a.k:active {
   outline-offset: 2px;
 }
 
-.ri input::placeholder {
-  color: var(--g3);
+.ri input::placeholder,
+.quick-capture input::placeholder,
+.agent-esquisse-form input::placeholder {
+  color: var(--g4-d);
+  opacity: 1;
 }
 
 .ri-check {
@@ -3094,5 +3095,5 @@ a.k:active {
   text-underline-offset: 3px;
 }
 .quick-capture .k {
-  color: var(--brand-derived-on-ink-2);
+  color: var(--g4-d);
 }

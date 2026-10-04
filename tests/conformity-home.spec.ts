@@ -116,7 +116,7 @@ for (const width of [375, 1440]) {
       const bridge = maison.getByRole("link", { name, exact: true });
       await expect(maison.getByRole("link")).toHaveCount(2);
       await expect(primary).toHaveAttribute("href", locale === "fr" ? "/fr/commission" : "/commission");
-      await expect(bridge).toHaveText(locale === "fr" ? "Rencontrons-nous →" : "Let's meet →");
+      await expect(bridge).toHaveText(locale === "fr" ? "Rencontrons-nous" : "Let's meet");
       await expect(bridge).toHaveAttribute("href", "https://paul-larmaraud.com");
       await expect(bridge).toHaveAttribute("target", "_blank");
       await expect(bridge).toHaveAttribute("rel", "noopener noreferrer");

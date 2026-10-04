@@ -247,3 +247,16 @@ contraste, métadonnées, connecteurs et débordement 375px dans la batterie den
 Le registre immuable des assets interdits est l'unique exception à son propre scan textuel.
 Aucun commit, push, merge ni déploiement pendant ce lot. Les preuves d'exécution et limites
 sont dans `docs/REPORT-2026-10-04-brand-os-v1.md`.
+
+## Brand OS FIX2, 04/10/2026
+
+Les placeholders des captures et de l'agent esquisse utilisent `--g4-d`, alias du
+jeton clair canonique, avec opacité 1. Les boutons désactivés gardent une bordure
+et un texte contextuels lisibles, un fond transparent et le curseur `not-allowed`,
+y compris au survol ; l'action active conserve son accent. Les labels sombres
+utilisent `--g4-d` ; le chargement Cal ne fait plus varier l'opacité du texte.
+`tests/brand-os.spec.ts` contrôle aussi le texte et la bordure désactivés et ajoute
+quatre parcours FR/EN à 375/1440 px (vide, survol, saisie, espaces seuls), sans envoi.
+L'attendu du lien fondateur suit le contrat sans flèche. Les deux formulations
+« La matrice qui associe chaque tâche à un modèle » sont restaurées au registre.
+Voir `docs/REPORT-2026-10-04-brand-os-fix2.md` pour la validation et ses limites.
