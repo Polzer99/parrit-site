@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
 import { getLocale } from "@/lib/server/locale";
+import { ProductScene } from "@/system/components/ProductScene";
 import { OfferCard } from "@/system/components/OfferCard";
 import { AgentEsquisse } from "@/system/components/AgentEsquisse";
 import { K } from "@/system/components";
@@ -39,13 +40,13 @@ const DICT = {
     },
     build: {
       kicker: "What we build",
-      title: "One operation becomes one system, brick by brick.",
-      items: [
-        ["01", "Understand", "An invoice sits unpaid for 12 days: you know the moment you open the screen, not at next month's reconciliation."],
-        ["02", "Decide", "The follow-up arrives already drafted, quantified, ready to approve."],
-        ["03", "Act", "Once approved, it goes out and logs itself in the journal. You can always roll it back; the system stays yours."],
-      ],
-      verdict: "Three moves, on the operation you chose. Everything else executes without you.",
+      title: "You ask, you approve, the record is created.",
+      phrase: "One example: an agent in the sales team's messaging app, connected to the company's CRM.",
+      steps: ["You photograph the card.", "You reply “yes”.", "The contact is in the CRM."],
+      label: "In your CRM",
+      mention: "Fictional example",
+      conversationAlt: "Conversation with the CRM agent: a photographed business card, the question “Is that right?” and the reply “yes”",
+      objectAlt: "Contact record created in the CRM: company, name, role, masked mobile number",
     },
     proof: {
       kicker: "The proof",
@@ -123,13 +124,13 @@ const DICT = {
     },
     build: {
       kicker: "Ce que nous construisons",
-      title: "Une opération devient un système, brique après brique.",
-      items: [
-        ["01", "Comprendre", "Une facture reste impayée depuis 12 jours : vous le savez dès l'ouverture de l'écran, pas au rapprochement du mois suivant."],
-        ["02", "Décider", "La relance vous arrive déjà rédigée, chiffrée, prête à valider."],
-        ["03", "Agir", "Une fois validée, elle part et se note au journal. Vous pouvez toujours revenir en arrière ; le système reste à vous."],
-      ],
-      verdict: "Trois gestes, sur l'opération choisie. Le reste s'exécute sans vous.",
+      title: "Vous demandez, vous validez, la fiche est créée.",
+      phrase: "Un exemple : un agent dans la messagerie de l'équipe commerciale, relié au CRM de l'entreprise.",
+      steps: ["Vous photographiez la carte.", "Vous répondez « oui ».", "Le contact est dans le CRM."],
+      label: "Dans votre CRM",
+      mention: "Exemple fictif",
+      conversationAlt: "Conversation avec l'agent CRM : une carte de visite photographiée, la question « C'est bon ? » et la réponse « oui »",
+      objectAlt: "Fiche du contact créée dans le CRM : société, nom, poste, mobile masqué",
     },
     proof: {
       kicker: "La preuve",
@@ -264,11 +265,30 @@ export default async function HomePage() {
       <section className="home-s-build r2-dark">
         <div className="home-s-wrap">
           <K>{copy.build.kicker}</K>
-          <h2>{copy.build.title}</h2>
-          <div className="home-s-build-grid">
-            {copy.build.items.map(([number, title, body]) => <article key={number}><K>{number}</K><h3>{title}</h3><p>{body}</p></article>)}
-          </div>
-          <K className="home-s-verdict">{copy.build.verdict}</K>
+          <ProductScene
+            title={copy.build.title}
+            phrase={copy.build.phrase}
+            steps={copy.build.steps}
+            label={copy.build.label}
+            mention={copy.build.mention}
+            conversation={{
+              src: "/brand/scenes/scene-carte-visite-messagerie",
+              width: 1434, height: 2400, widths: [480, 960],
+              sizes: "(max-width: 767px) 320px, 360px",
+              alt: copy.build.conversationAlt,
+            }}
+            object={{
+              src: "/brand/scenes/scene-carte-visite-fiche-crm",
+              width: 860, height: 564, widths: [430, 860],
+              sizes: "(max-width: 767px) 340px, 380px",
+              alt: copy.build.objectAlt,
+            }}
+            markers={[
+              { number: 1, image: "conversation", left: 25.2, top: 23.3 },
+              { number: 2, image: "conversation", left: 64.5, top: 69.5 },
+              { number: 3, image: "object", left: 93, top: 9 },
+            ]}
+          />
         </div>
       </section>
 

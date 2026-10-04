@@ -1,0 +1,22 @@
+{
+ "scene-carte-visite-messagerie.png": {
+  "role": "conversation (messagerie reconstituée, rendu HTML 3x, scène p2 sans « Lyon »)",
+  "size": [
+   1434,
+   2400
+  ],
+  "sha256": "b8e7d3b52b77f59e5451d7f8aed19b713c02296be54747065ecb32a6190928a2",
+  "bytes": 628229
+ },
+ "scene-carte-visite-fiche-crm.png": {
+  "role": "objet obtenu (capture réelle du CRM, jeu de données fictif, recadrée)",
+  "size": [
+   860,
+   564
+  ],
+  "sha256": "465b6890e19685276626798e375ce99426afbab637cead484b1f45a473814b6f",
+  "bytes": 36740
+ },
+ "_provenance": "Plaquette CRM V4 (04/10/2026), SOURCE/telegram/render.mjs + scenes.mjs (scène p2, carte sans lieu) et SOURCE/assets/captures-v4/p2_contact.png. Données fictives. OCR macOS Vision du 04/10 : aucun nom réel, aucun lieu, aucun logo (relevé dans ocr.txt).",
+ "_decision": "Paul, 04/10/2026 (via terminal 64, confirmé en direct dans a7 : « Oui, les deux ») : réutiliser la mise en scène conversation + résultat sur le site, exemple anonyme."
+}

@@ -375,3 +375,17 @@ FIX8 photo (04/10) : la marge haute de `home-s-hero-ending` passe de `0.12em`
 Build Webpack, lint, types, claims, marque et 39 tests Node passent. La batterie
 navigateur reste bloquée au lancement de Chromium par macOS ; la géométrie
 reste à valider sur l’hôte. Voir la reprise FIX8 du rapport photo.
+
+## Scène produit, 04/10/2026 — validation navigateur restante
+
+La section `home-s-build` utilise désormais `ProductScene` : conversation commerciale
+et fiche CRM fictive, copy FR/EN et repères HTML selon VS-PRODUCT-SCENE. Deux PNG
+canoniques inchangés, huit dérivés AVIF/WebP dans `public/brand/scenes/`. Le manifeste
+fait foi pour la hauteur de messagerie : 2400 px. Compositions mobile/tablette/desktop,
+avec titre au cran `--t-xl` entre 1025 et 1200 px pour la colonne étroite.
+`test:brand-os` inclut les empreintes/dimensions et vérifie le HTML compilé de la scène ;
+`qa:network:rev01` inclut dix parcours FR/EN à 375/768/1024/1025/1440 px. Le contrôle
+d'éclat rose regroupe seulement les repères de chaque scène et garde leur emprise totale.
+Build Webpack, lint, types, marque, claims et 52 tests Node passent. Turbopack refuse
+le lien local node_modules ; Chromium refuse le lancement macOS. Captures et preuve
+visuelle restent à produire sur l'hôte ; voir `docs/REPORT-2026-10-04-scene-produit.md`.

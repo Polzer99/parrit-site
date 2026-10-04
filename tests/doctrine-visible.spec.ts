@@ -124,13 +124,13 @@ for (const locale of ["fr", "en"] as const) {
         // CSS serialization and layout round fractional pixels differently.
         expect(Math.abs(measure.maxWidth - measure.expectedWidth)).toBeLessThanOrEqual(1);
       }
-      for (const prose of await page.locator(".home-s-verdict, .home-s-proof-item span, .doctrine-note").all()) {
+      for (const prose of await page.locator(".home-s-proof-item span, .doctrine-note").all()) {
         await expect(prose).toHaveCSS("font-family", /General Sans/);
         await expect(prose).toHaveCSS("text-transform", "none");
         await expect(prose).toHaveCSS("letter-spacing", "normal");
         await expect(prose).toHaveCSS("font-size", await prose.evaluate((el) => el.matches(".home-s-proof-item span") ? "18px" : "14px"));
       }
-      for (const kicker of await page.locator(".home-s-build .k:not(.home-s-verdict), .home-s-maison .k").all()) {
+      for (const kicker of await page.locator(".home-s-build .k, .home-s-maison .k").all()) {
         await expect(kicker).toHaveCSS("font-family", /IBM Plex Mono/);
       }
       await expect(page.locator(".home-s-offers .rev-button.ghost")).toHaveCount(2);
@@ -166,14 +166,28 @@ for (const locale of ["fr", "en"] as const) {
           document.body.append(probe);
           const pink = getComputedStyle(probe).backgroundColor;
           probe.remove();
-          return [...document.querySelectorAll("body *")].flatMap((element) => {
+          const markerGroups = new Map<Element, { label: string; top: number; bottom: number }>();
+          const individual = [...document.querySelectorAll("body *")].flatMap((element) => {
             const style = getComputedStyle(element);
             const bounds = element.getBoundingClientRect();
             const frame = element.matches(".home-s-hero .frame") && getComputedStyle(element, "::before").borderColor === pink;
             if (!bounds.width || !bounds.height || style.visibility === "hidden" || style.display === "none" || Number(style.opacity) === 0) return [];
             if (!frame && style.backgroundColor !== pink) return [];
+            // VS-PRODUCT-SCENE: only numbered markers within the same scene
+            // form one accent. Keep their full extent to catch other pink fills.
+            const scene = element.matches(".scene-marker") ? element.closest(".product-scene") : null;
+            if (scene) {
+              const previous = markerGroups.get(scene);
+              markerGroups.set(scene, {
+                label: `product-scene marker group ${[...document.querySelectorAll(".product-scene")].indexOf(scene)}`,
+                top: Math.min(previous?.top ?? Infinity, bounds.top + scrollY),
+                bottom: Math.max(previous?.bottom ?? -Infinity, bounds.bottom + scrollY),
+              });
+              return [];
+            }
             return [{ label: `${element.tagName}.${element.className}`, top: bounds.top + scrollY, bottom: bounds.bottom + scrollY }];
           });
+          return [...individual, ...markerGroups.values()];
         });
         await testInfo.attach("pink-accents", { body: JSON.stringify(accents, null, 2), contentType: "application/json" });
         expect(accents.length).toBeGreaterThan(0);

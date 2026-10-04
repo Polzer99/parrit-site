@@ -70,6 +70,27 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
         const text = visibleText(html);
         for (const title of titles[locale][route] ?? []) assert.ok(text.includes(title), `${label}: ${title}`);
         if (route === "/") {
+          const scene = html.match(/<section class="home-s-build r2-dark">[\s\S]*?<\/section>/)?.[0];
+          assert.ok(scene, `${label}: product scene renders on the server`);
+          const sceneText = visibleText(scene);
+          const sceneCopy = locale === "fr" ? [
+            "Vous demandez, vous validez, la fiche est créée.",
+            "Un exemple : un agent dans la messagerie de l'équipe commerciale, relié au CRM de l'entreprise.",
+            "Vous photographiez la carte.", "Vous répondez « oui ».", "Le contact est dans le CRM.",
+            "Dans votre CRM", "Exemple fictif",
+          ] : [
+            "You ask, you approve, the record is created.",
+            "One example: an agent in the sales team's messaging app, connected to the company's CRM.",
+            "You photograph the card.", "You reply “yes”.", "The contact is in the CRM.",
+            "In your CRM", "Fictional example",
+          ];
+          for (const text of sceneCopy) assert.ok(sceneText.includes(text), `${label}: ${text}`);
+          assert.doesNotMatch(sceneText, /Laparra|Rungis|\bMIN\b|GESLOT|Lyon/i);
+          assert.doesNotMatch(scene, /home-s-build-grid|home-s-verdict/);
+          assert.deepEqual([...scene.matchAll(/class="scene-marker"[^>]*>([123])<\/span>/g)].map((match) => match[1]), ["1", "2", "3", "1", "2", "3"]);
+          assert.equal((scene.match(/<picture>/g) ?? []).length, 2);
+          assert.equal((scene.match(/loading="lazy"/g) ?? []).length, 2);
+          assert.equal((scene.match(/decoding="async"/g) ?? []).length, 2);
           assert.ok(html.includes(locale === "fr"
             ? "Parrit.ai · Données et IA, des outils qui vous appartiennent"
             : "Parrit.ai · Data and AI, tools you own"));
