@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
@@ -93,9 +92,6 @@ const DICT = {
       note: "15 min · An examination, on a video call, with the founder",
       button: "Let's talk",
     },
-    credential: {
-      text: "Formia, also led by our founder, holds the Qualiopi certification (ATA 1926 2026, valid through May 2029): the same rigor he holds Parrit's own Standard to.",
-    },
   },
   fr: {
     hero: {
@@ -180,9 +176,6 @@ const DICT = {
       note: "15 min · Un examen, en visio, avec le fondateur",
       button: "Parlons-en",
     },
-    credential: {
-      text: "Formia, également dirigée par notre fondateur, détient la certification Qualiopi (ATA 1926 2026, valable jusqu'en mai 2029) : la même exigence qu'il applique au Standard de Parrit.",
-    },
   },
 } as const;
 
@@ -192,7 +185,7 @@ export async function generateMetadata(): Promise<Metadata> {
     ? "Parrit.ai · Systèmes d'exploitation d'entreprise"
     : "Parrit.ai · Company Operating Systems";
   const description = locale === "fr"
-    ? "Parrit.ai construit des systèmes IA depuis trois ans, chez des grands comptes, des PME et des ETI : votre entreprise, examinée, reconstruite opération par opération, à vous pour de bon."
+    ? "Parrit.ai construit des systèmes IA chez des grands comptes, des PME et des ETI : votre entreprise, examinée, reconstruite opération par opération, à vous pour de bon."
     : "Parrit.ai examines how a company operates, builds its first production system and compounds it as owned infrastructure.";
   return {
     title: { absolute: title }, description,
@@ -316,12 +309,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="home-s-credential">
-        <div className="home-s-wrap">
-          <Image src="/brand/qualiopi-formia.png" alt="Qualiopi" width={96} height={51} />
-          <p>{copy.credential.text}</p>
-        </div>
-      </section>
     </main>
   );
 }

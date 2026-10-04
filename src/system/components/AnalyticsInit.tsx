@@ -4,8 +4,7 @@ import { useEffect } from "react";
 
 import { captureTouch } from "@/lib/attribution";
 
-/* Capture le premier/dernier touch (utm, referrer) dès l'arrivée — le snippet
-   PostHog, lui, est injecté côté layout (autocapture, heatmaps, web vitals). */
+/* Attribution de la visite en mémoire uniquement ; aucune mesure d’audience. */
 export function AnalyticsInit() {
   useEffect(() => {
     captureTouch();

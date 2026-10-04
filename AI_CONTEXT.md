@@ -269,3 +269,17 @@ seul bouton plein et deux secondaires ; son titre utilise toute la colonne.
 Les tests Brand OS couvrent la séparation FR/EN à 375/768/1440 px et la visibilité
 des trois actions avant le footer dans la fenêtre 1440 × 900.
 Résultats et limites d'exécution : `docs/REPORT-2026-10-04-brand-os-fix3.md`.
+
+## Corrections de confidentialité et formulations, 05/10/2026
+
+Le lot `docs/CODEX-SPEC-2026-10-05-parrit-ai-corrections-v1.md` désactive l’injection
+PostHog navigateur ; sa constante reste dormante dans le layout. Attribution en
+mémoire du document uniquement, conservée en navigation client et perdue au
+rechargement ; aucun accès au stockage navigateur. QuickCapture transmet aussi
+cette attribution d’arrivée. AgentEsquisse et les gabarits sketch restent sans LLM.
+Aucun envoi serveur PostHog ni appel n8n/Sheets trouvé dans les parcours du site.
+Confidentialité FR/EN alignée, mentions chiffrées visées retirées des pages,
+des deux articles et du générateur llms ; bloc de certification tierce retiré de
+l’accueil (asset conservé). Les indications historiques contraires sont obsolètes.
+`npm run test:privacy` couvre les régressions ; le deny-all e2e ne tolère plus
+PostHog. Voir le rapport du lot pour les preuves et contrôles hors sandbox restants.

@@ -62,6 +62,7 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
         const { status, html } = await render(route, locale);
         const label = `${locale} ${route}`;
         assert.equal(status, 200, label);
+        assert.doesNotMatch(html, /posthog/i, `${label}: browser analytics must stay disabled`);
         for (const [name, value] of [["og:image", "https://parrit.ai/opengraph-image"], ["og:image:width", "1200"], ["og:image:height", "630"], ["twitter:card", "summary_large_image"], ["twitter:image", "https://parrit.ai/opengraph-image"]]) {
           assert.ok(html.includes(`${name}" content="${value}"`), `${label}: ${name}`);
         }

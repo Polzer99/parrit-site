@@ -18,13 +18,6 @@ export const test = base.extend<NetworkDenyFixtures>({
           return;
         }
 
-        // Analytics intentionnelles (PostHog) : bloquées quand même — rien ne
-        // sort d'un test — mais pas comptées comme fuite, c'est le produit.
-        if (url.hostname.endsWith(".posthog.com")) {
-          await route.abort("blockedbyclient");
-          return;
-        }
-
         blockedRequests.push(route.request().url());
         await route.abort("blockedbyclient");
       });
