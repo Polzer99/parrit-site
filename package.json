@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "qa:claims:rev01": "node scripts/false-claims-check.mjs",
+    "test:privacy": "node --test tests/privacy-corrections.test.mjs",
     "test:entity": "node --test tests/entity-spelling.test.mjs tests/entity-graph.test.mjs",
     "test:journal": "node --test tests/publish-journal-gates.test.mjs",
     "qa:brand:rev01": "node scripts/brand-conformity-check.mjs",

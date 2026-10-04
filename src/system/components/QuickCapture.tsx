@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { getAttribution } from "@/lib/attribution";
 import { track } from "@/lib/analytics";
 import { noteFunnel } from "@/system/engagements";
 import { localizedPath } from "@/system/locale";
@@ -45,7 +46,7 @@ const DICT = {
 } as const;
 
 function attribution(): Record<string, string> {
-  const values: Record<string, string> = {};
+  const values: Record<string, string> = getAttribution();
   const params = new URLSearchParams(window.location.search);
   for (const [key, value] of params) {
     if (key.startsWith("utm_") || key === "source") values[key] = value;

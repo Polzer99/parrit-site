@@ -1,15 +1,5 @@
-/**
- * Attribution tracking : capture UTMs + referrer + landing page au 1er touch
- * et au last touch, persiste 90 jours en localStorage. Survit aux navigations
- * cross-page sur parrit.ai.
- *
- * Usage :
- *   captureTouch()            // appelée 1× par page load (layout client)
- *   getAttribution()          // retourne props plates à spread dans events
- */
+/** Attribution de la visite en mémoire ; perdue au rechargement du document. */
 
-const STORAGE_KEY = "parrit_attribution_v1";
-const WINDOW_DAYS = 90;
 const UTM_KEYS = [
   "utm_source",
   "utm_medium",
@@ -52,50 +42,13 @@ function buildTouch(): TouchData {
   };
 }
 
-function readStored(): Attribution | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as Attribution;
-    const ageMs = Date.now() - new Date(parsed.first_touch.timestamp).getTime();
-    if (ageMs > WINDOW_DAYS * 24 * 60 * 60 * 1000) return null;
-    return parsed;
-  } catch {
-    return null;
-  }
-}
+let visit: Attribution | null = null;
 
-function writeStored(a: Attribution) {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(a));
-  } catch {
-    /* localStorage indisponible, on dégrade silencieux */
-  }
-}
-
-function hasAttributionSignal(t: TouchData): boolean {
-  return UTM_KEYS.some((k) => t[k]) || Boolean(t.referrer);
-}
-
-/**
- * Appelée 1× par page load. Pose first_touch si vide ou > 90j. Met à jour
- * last_touch dès qu'un signal d'attribution arrive (UTMs OU referrer externe).
- */
+/** Capture une seule fois l'arrivée, y compris si le formulaire précède l'effet. */
 export function captureTouch(): void {
-  if (typeof window === "undefined") return;
-  const now = buildTouch();
-  const stored = readStored();
-
-  if (!stored) {
-    writeStored({ first_touch: now, last_touch: now });
-    return;
-  }
-
-  if (hasAttributionSignal(now)) {
-    writeStored({ first_touch: stored.first_touch, last_touch: now });
-  }
+  if (typeof window === "undefined" || visit) return;
+  const arrival = buildTouch();
+  visit = { first_touch: arrival, last_touch: arrival };
 }
 
 /**
@@ -105,7 +58,8 @@ export function captureTouch(): void {
  */
 export function getAttribution(): Record<string, string> {
   const out: Record<string, string> = {};
-  const stored = readStored();
+  captureTouch();
+  const stored = typeof window === "undefined" ? null : visit;
   const current = readUtmsFromUrl();
 
   if (stored) {
@@ -127,7 +81,8 @@ export function getAttribution(): Record<string, string> {
 /** Propriétés first-touch immuables destinées au `$set_once` PostHog. */
 export function getFirstTouchOnly(): Record<string, string> {
   const out: Record<string, string> = {};
-  const stored = readStored();
+  captureTouch();
+  const stored = typeof window === "undefined" ? null : visit;
 
   if (!stored) return out;
   Object.entries(stored.first_touch).forEach(([key, value]) => {

@@ -23,7 +23,7 @@ const DICT = {
       [
         "02",
         "Construction",
-        "One critical operation, rebuilt end-to-end in your accounts, under your keys. It runs in production, with real users, then it is checked against the Standard. Two to four weeks, usually, depending on the scope written at the Examination. Only then, the rest."
+        "One critical operation, rebuilt end-to-end in your accounts, under your keys. It runs in production, with real users, then it is checked against the Standard. Only then, the rest."
       ],
       [
         "03",
@@ -56,7 +56,7 @@ const DICT = {
       [
         "02",
         "La Construction",
-        "Une opération critique, reconstruite de bout en bout dans vos comptes, avec vos clés. Elle tourne en production, devant de vrais utilisateurs, puis elle est vérifiée au regard du Standard. Deux à quatre semaines, en général, selon le périmètre écrit à l'Examen. Ensuite seulement, le reste."
+        "Une opération critique, reconstruite de bout en bout dans vos comptes, avec vos clés. Elle tourne en production, devant de vrais utilisateurs, puis elle est vérifiée au regard du Standard. Ensuite seulement, le reste."
       ],
       [
         "03",
