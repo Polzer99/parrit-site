@@ -307,3 +307,29 @@ Les 36 captures PNG suivies de brand-os-p1/after sont sauvegardées hors dépôt
 retirées ; les PNG de `.codex-handoffs` sont désormais ignorés. Tests de composition
 complétés. Lint, types, claims, brand et tests Node passent ; Chromium reste bloqué,
 le build et la preuve visuelle doivent être exécutés par l’hôte (voir rapport FIX2).
+
+## Photo et catégorie, 04/10/2026 — AV-3 / DV-01 a / DV-02 a
+
+La spec `docs/CODEX-SPEC-2026-10-04-parrit-ai-photo-dv01-dv02-v1.md` autorise
+DSC00629 : quatre exports AVIF/WebP 340/680 copiés sans transformation dans
+`public/brand/founder/`, avec légende et alt FR/EN. La home présente désormais
+« Données et IA » / « Data and AI » et la promesse de systèmes qui fonctionnent ;
+métadonnées, OG, Opening, JSON-LD et introduction llms suivent cette catégorie.
+DV-03 et les articles du Journal restent inchangés. Le H1 garde le cadre sans
+coupure et utilise le palier existant `--d-s` à 480 px et moins.
+Build Webpack, lint, types, claims, marque et 13 tests Brand OS passent. Le rendu
+navigateur et les captures 375/768/1440 restent à vérifier par l’hôte : Chromium
+est refusé dans le sandbox macOS. Détails dans `docs/REPORT-2026-10-04-photo-dv01-dv02.md`.
+
+FIX1 : le test de composition doctrine mesure désormais l'ensemble photo + texte
+au-dessus de 859 px quand une image est rendue. La branche sans photo/mobile et
+les seuils existants sont conservés. Build Webpack, lint, claims, marque et les
+39 tests Node passent à la reprise ; Chromium reste bloqué avant navigation.
+
+
+FIX2 photo (04/10) : conformément à la section FIX2 de la spec photo,
+le test doctrine du h2 à 1440 px autorise quatre lignes avec photo et conserve
+les trois lignes sans photo (tolérance 0.01 inchangée). Aucun autre changement
+fonctionnel. Build Webpack, lint, types, claims, marque et 39 tests Node passent.
+La batterie navigateur reste bloquée au lancement de Chromium par macOS ;
+voir la section Reprise FIX2 du rapport photo pour les résultats de cette passe.

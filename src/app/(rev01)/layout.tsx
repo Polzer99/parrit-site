@@ -36,11 +36,11 @@ export async function generateMetadata(): Promise<Metadata> {
   metadataBase: new URL("https://parrit.ai"),
   twitter: { card: "summary_large_image", images: ["https://parrit.ai/opengraph-image"] },
   title: {
-    default: "Parrit.ai · Company Operating Systems",
+    default: "Parrit.ai · Data and AI, tools you own",
     template: "%s · Parrit.ai",
   },
   description:
-    "Parrit.ai examines how a company operates, builds its first production system and compounds it as owned infrastructure.",
+    "Parrit.ai connects your sources, cleans up your data and builds tools on top of it that you own: the code, the data and the documentation.",
   alternates: {
     ...localizedAlternates("/", await getLocale()),
     types: { "application/rss+xml": [{ url: "/journal/rss.xml", title: "Parrit Journal" }] },

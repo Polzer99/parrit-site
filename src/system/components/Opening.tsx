@@ -15,10 +15,10 @@ const DICT = {
     scanning: "SCANNING FOR EXCEPTIONS ..............",
     found: "2 FOUND",
     ready: "READY.",
-    heroBefore: "The AI system your company",
-    heroFrame: "operates",
-    heroAfter: "on.",
-    maker: <>Parrit.ai designs and builds<br />company operating systems.</>,
+    heroBefore: "We turn operational problems into",
+    heroFrame: "systems that work",
+    heroAfter: ".",
+    maker: <>Parrit.ai turns operational problems<br />into systems that work.</>,
     statement: "One system to understand, decide and act across the company. Built for one company at a time. Commissioned, not subscribed.",
   },
   fr: {
@@ -29,10 +29,10 @@ const DICT = {
     scanning: "RECHERCHE D'EXCEPTIONS .....................",
     found: "2 TROUVÉES",
     ready: "PRÊT.",
-    heroBefore: "Le système IA qui fait tourner votre",
-    heroFrame: "entreprise.",
-    heroAfter: "",
-    maker: <>Parrit.ai conçoit et construit<br />des systèmes d'exploitation d'entreprise.</>,
+    heroBefore: "Nous transformons des problèmes opérationnels en",
+    heroFrame: "systèmes qui fonctionnent",
+    heroAfter: ".",
+    maker: <>Parrit.ai transforme des problèmes opérationnels<br />en systèmes qui fonctionnent.</>,
     statement: "Un seul système pour comprendre, décider et agir, à l'échelle de l'entreprise. Une entreprise à la fois. Une commande, pas un abonnement.",
   },
 } as const;
@@ -113,8 +113,7 @@ export function Opening({ locale }: { locale: Locale }) {
           {copy.heroBefore}{" "}
           <span className="op frame">
             {copy.heroFrame}<i className="fx" />
-          </span>{" "}
-          {copy.heroAfter}
+          </span>{copy.heroAfter}
         </div>
       </div>
       <div className={`bootfoot${footVisible ? " on" : ""}`}>

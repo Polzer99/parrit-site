@@ -86,14 +86,19 @@ for (const locale of ["fr", "en"] as const) {
       await expect(journey).not.toContainText(locale === "fr" ? "Paul Larmaraud · Fondateur" : "Paul Larmaraud · Founder");
       await expect(journey.locator(".rev-button.ghost")).toHaveText(label);
       await expect(journey.locator('a[href="https://paul-larmaraud.com"]')).not.toHaveClass(/rev-button/);
-      const geometry = await journey.evaluate((element) => {
+      // AV-3 / FIX1: on desktop the photo and copy form one composition.
+      // Preserve the original copy-only checks on mobile and without a photo.
+      const grid = page.locator(".home-s-maison-grid");
+      const hasPhoto = await grid.locator("img:visible").count() > 0;
+      const composition = width > 859 && hasPhoto ? grid : journey;
+      const geometry = await composition.evaluate((element) => {
         const parent = element.parentElement!.getBoundingClientRect();
         const box = element.getBoundingClientRect();
         return Math.abs(box.x + box.width / 2 - parent.x - parent.width / 2);
       });
       expect(geometry).toBeLessThanOrEqual(1);
       if (width === 1440) {
-        const measure = await journey.evaluate((element) => {
+        const measure = await composition.evaluate((element) => {
           const heading = element.querySelector("h2")!;
           const build = document.querySelector(".home-s-build > .home-s-wrap")!;
           return {
@@ -103,7 +108,8 @@ for (const locale of ["fr", "en"] as const) {
           };
         });
         expect(Math.abs(measure.width - measure.referenceWidth)).toBeLessThanOrEqual(1);
-        expect(measure.lines).toBeLessThanOrEqual(3.01);
+        // AV-3 / FIX2: the photo narrows the copy; keep three lines without it.
+        expect(measure.lines).toBeLessThanOrEqual(hasPhoto ? 4.01 : 3.01);
       }
       for (const paragraph of await journey.locator("p").all()) {
         const measure = await paragraph.evaluate((element) => {

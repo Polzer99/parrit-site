@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+import founderPhotos from "./fixtures/founder-photo.json";
 import { mkdir } from "node:fs/promises";
 import connectorContract from "../src/system/brand-os.connectors.json";
 import { expect, test } from "./network-deny.setup";
@@ -131,13 +133,67 @@ for (const width of [1440, 375]) {
 
 for (const width of [375, 768, 1440]) {
   for (const route of ["/", "/fr"]) {
-    test(`Brand OS omits founder caption without a photo ${route} at ${width}px`, async ({ page }) => {
+    test(`Brand OS approved founder photo, caption and heading ${route} at ${width}px`, async ({ page }, testInfo) => {
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.setViewportSize({ width, height: 900 });
       await page.goto(`${BASE_URL}${route}`);
       await page.evaluate(() => document.fonts.ready);
       const labels = page.locator(".home-s-maison-copy > .k");
-      await expect(page.locator(".home-s-maison img")).toHaveCount(0);
+      const photo = page.locator(".home-s-maison figure img");
+      await expect(photo).toHaveCount(1);
+      await expect(photo).toHaveAttribute("alt", route === "/fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai");
+      await expect(photo).toHaveAttribute("width", "340");
+      await expect(photo).toHaveAttribute("height", "453");
+      await expect(photo).toHaveAttribute("loading", "lazy");
+      await expect(photo).toHaveAttribute("decoding", "async");
+      await photo.scrollIntoViewIfNeeded();
+      await expect(photo).toBeVisible();
+      await expect.poll(() => photo.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth > 0)).toBe(true);
+      await expect(page.locator(".home-s-maison figcaption")).toHaveText(`Paul Larmaraud · ${route === "/fr" ? "Fondateur" : "Founder"}`);
+      const sources = page.locator(".home-s-maison picture source");
+      await expect(sources).toHaveCount(2);
+      for (const [index, format] of ["avif", "webp"].entries()) {
+        await expect(sources.nth(index)).toHaveAttribute("type", `image/${format}`);
+        await expect(sources.nth(index)).toHaveAttribute("sizes", "(max-width: 859px) min(340px, 100vw), 340px");
+        await expect(sources.nth(index)).toHaveAttribute("srcset", `/brand/founder/parrit-ai-founder-dsc00629-3x4-340.${format} 340w, /brand/founder/parrit-ai-founder-dsc00629-3x4-680.${format} 680w`);
+      }
+      const figureBox = await page.locator(".home-s-maison figure").boundingBox();
+      const copyBox = await page.locator(".home-s-maison-copy").boundingBox();
+      expect(figureBox).not.toBeNull();
+      expect(copyBox).not.toBeNull();
+      expect(figureBox!.width).toBeLessThanOrEqual(340);
+      if (width > 859) {
+        expect(figureBox!.x + figureBox!.width).toBeLessThan(copyBox!.x);
+        expect(Math.abs(figureBox!.y + figureBox!.height / 2 - copyBox!.y - copyBox!.height / 2)).toBeLessThanOrEqual(1);
+      } else {
+        expect(figureBox!.y + figureBox!.height).toBeLessThan(copyBox!.y);
+      }
+      const h1 = page.locator("h1");
+      await expect(h1).toHaveText(route === "/fr" ? "Nous transformons des problèmes opérationnels en systèmes qui fonctionnent." : "We turn operational problems into systems that work.");
+      await expect(h1.locator(".frame")).toHaveCSS("display", "inline-block");
+      await expect(h1.locator(".frame")).toHaveCSS("white-space", "nowrap");
+      await expect(h1.locator(".frame")).toHaveText(route === "/fr" ? "systèmes qui fonctionnent" : "systems that work");
+      const lines = await h1.evaluate((element) => {
+        const lines: Record<string, string[]> = {};
+        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+        let node: Node | null;
+        while ((node = walker.nextNode())) {
+          for (const match of (node.textContent ?? "").matchAll(/\S+/g)) {
+            if (!/\p{L}/u.test(match[0])) continue;
+            const range = document.createRange();
+            range.setStart(node, match.index!);
+            range.setEnd(node, match.index! + match[0].length);
+            const top = Math.round(range.getBoundingClientRect().top);
+            (lines[top] ??= []).push(match[0]);
+          }
+        }
+        return Object.values(lines);
+      });
+      expect(lines.length).toBeGreaterThan(0);
+      expect(lines.filter((line) => line.length === 1), JSON.stringify(lines)).toEqual([]);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+      await h1.scrollIntoViewIfNeeded();
+      await testInfo.attach(`photo-dv-${route === "/fr" ? "fr" : "en"}-${width}`, { body: await page.screenshot({ fullPage: true }), contentType: "image/png" });
       await expect(labels).toHaveCount(1);
       await expect(labels).not.toContainText(route === "/fr" ? "Fondateur" : "Founder");
     });
@@ -285,3 +341,13 @@ for (const width of [1440, 375]) {
     });
   }
 }
+
+
+test("all four approved founder photo URLs serve the original bytes", async ({ page }) => {
+  for (const [name, expected] of Object.entries(founderPhotos)) {
+    const response = await page.goto(`${BASE_URL}/brand/founder/${name}`);
+    expect(response?.status()).toBe(200);
+    expect(response?.headers()["content-type"]).toContain(name.endsWith(".avif") ? "image/avif" : "image/webp");
+    expect(createHash("sha256").update(await response!.body()).digest("hex")).toBe(expected.sha256);
+  }
+});

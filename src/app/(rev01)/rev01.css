@@ -1736,7 +1736,7 @@ a.k:active {
 }
 
 .home-s-hero h1 {
-  max-width: 13ch;
+  max-width: 24ch;
   margin: 38px auto 30px;
   color: var(--paper);
   font-size: var(--d-xl);
@@ -1883,9 +1883,26 @@ a.k:active {
 
 .home-s-maison-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: 340px minmax(0, 1fr);
   gap: clamp(60px, 10vw, 140px);
   align-items: center;
+}
+
+.home-s-founder {
+  width: min(340px, 100%);
+  margin: 0;
+}
+
+.home-s-founder img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.home-s-founder figcaption {
+  margin-top: 16px;
+  color: var(--body-l);
+  font-size: var(--t-k);
 }
 
 .home-s-maison-copy > .k {
@@ -3172,4 +3189,13 @@ a.k:active {
 }
 .quick-capture .k {
   color: var(--g4-d);
+}
+
+/* Keep the approved final group inside one rectangular Frame on narrow phones.
+   The display-small step belongs to the existing closed type scale. */
+@media (max-width: 480px) {
+  .home-s-hero h1 {
+    font-size: var(--d-s);
+    letter-spacing: -.06em;
+  }
 }
