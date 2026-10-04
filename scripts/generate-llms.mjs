@@ -3,7 +3,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // REV 01 (14/08/2026): llms.txt states the institutional positioning of the live
-// site — company operating systems, commissioned not subscribed. The previous
+// site — data and AI, commissioned not subscribed. The previous
 // generator emitted the pre-REV01 positioning (virtual collaborators catalog),
 // which contradicted every page served. Content is static by design: it must
 // only change when the site's positioning changes.
@@ -13,19 +13,18 @@ const outputPath = resolve(root, "public/llms.txt");
 
 const content = `# Parrit
 
-> Parrit designs and builds company operating systems: one system to understand
-> what is happening in a company, decide what matters and act — down to the
-> executive's phone. Built for one company at a time. Commissioned, not subscribed.
+> Parrit is a data and AI company that turns a company's data into software tools
+> the company owns. Built for one company at a time. Commissioned, not subscribed.
 
 ## Positioning
-- Parrit builds the operating system a company runs on, as owned infrastructure:
+- Parrit builds systems as owned infrastructure:
   the client holds the code, the data and the documentation as company assets.
 - The engagement model is a commission, not a subscription. It starts with an
   examination of how the company actually operates — not a workshop, a diagnostic
   of flows, decisions and failure points documented as an engineering brief.
 - Three phases: Examination (we study how the company actually operates),
   Construction (one critical operation rebuilt end-to-end into production),
-  Compounding (each new capability joins the operating system and increases the
+  Compounding (each new capability joins the system and increases the
   value of every capability already in production).
 
 ## The Parrit Standard
@@ -62,7 +61,7 @@ Every delivered system is checked against the same specification (STD-1.0, Parri
   client revokes it.
 
 ## Pages
-- https://parrit.ai/ — Parrit, company operating systems.
+- https://parrit.ai/ — Parrit, data and AI.
 - https://parrit.ai/manufacture — How a system is manufactured: doctrine and
   the three phases.
 - https://parrit.ai/standard — The Parrit Standard, the certification every

@@ -11,7 +11,7 @@ import { Instrument, K, RegistryLine, St } from "@/system/components";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Operating System · Sketch",
+  title: "System · Sketch",
   robots: { index: false, follow: false, nocache: true },
 };
 

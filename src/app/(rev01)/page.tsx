@@ -11,12 +11,12 @@ import { getAllJournalEntrySummaries } from "@/system/journal";
 const DICT = {
   en: {
     hero: {
-      kicker: "Parrit / Company operating systems",
-      before: "The AI system your company",
-      frame: "operates",
-      after: "on.",
-      sub: "The invoice that drags, the report rebuilt by hand every week: entry points we push as far as the operation demands. We build inside your systems, on your data, until it goes live.",
-      alternative: "Or talk it through: a 15-minute examination, on a video call, with the founder.",
+      kicker: "Parrit / Data and AI",
+      before: "We turn operational problems into",
+      frame: "systems that work",
+      after: ".",
+      sub: "Parrit.ai is a data and AI company. The invoice that drags, the report rebuilt by hand every week: we start from your data and build tools you own.",
+      alternative: "Or book the examination: 15 minutes, by video, with the founder.",
     },
     brands: {
       kicker: "Systems commissioned by",
@@ -95,12 +95,12 @@ const DICT = {
   },
   fr: {
     hero: {
-      kicker: "Parrit / Systèmes d'exploitation d'entreprise",
-      before: "Le système IA qui fait tourner votre",
-      frame: "entreprise.",
-      after: "",
-      sub: "La facture qui traîne, le rapport refait à la main chaque semaine : des points de départ que nous poussons aussi loin que l'opération l'exige. Nous construisons dans vos systèmes, sur vos données, jusqu'à la mise en service.",
-      alternative: "Ou parlons-en : un examen de 15 minutes, en visio, avec le fondateur.",
+      kicker: "Parrit / Données et IA",
+      before: "Nous transformons des problèmes opérationnels en",
+      frame: "systèmes qui fonctionnent",
+      after: ".",
+      sub: "Parrit.ai est une maison de données et d'IA. La facture qui traîne, le rapport refait à la main chaque semaine : nous partons de vos données et construisons des outils qui vous appartiennent.",
+      alternative: "Ou réservez l'examen : 15 minutes, en visio, avec le fondateur.",
     },
     brands: {
       kicker: "Des systèmes commandés par",
@@ -182,11 +182,11 @@ const DICT = {
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const title = locale === "fr"
-    ? "Parrit.ai · Systèmes d'exploitation d'entreprise"
-    : "Parrit.ai · Company Operating Systems";
+    ? "Parrit.ai · Données et IA, des outils qui vous appartiennent"
+    : "Parrit.ai · Data and AI, tools you own";
   const description = locale === "fr"
-    ? "Parrit.ai construit des systèmes IA chez des grands comptes, des PME et des ETI : votre entreprise, examinée, reconstruite opération par opération, à vous pour de bon."
-    : "Parrit.ai examines how a company operates, builds its first production system and compounds it as owned infrastructure.";
+    ? "Parrit.ai relie vos sources, remet vos données à plat et construit dessus des outils qui vous appartiennent : le code, les données et la documentation."
+    : "Parrit.ai connects your sources, cleans up your data and builds tools on top of it that you own: the code, the data and the documentation.";
   return {
     title: { absolute: title }, description,
     alternates: {
@@ -209,8 +209,9 @@ export default async function HomePage() {
           <K>{copy.hero.kicker}</K>
           <h1>
             <span>{copy.hero.before} </span>
-            <span className="frame">{copy.hero.frame}<i className="fx" aria-hidden="true" /></span>{" "}
-            <span>{copy.hero.after}</span>
+            <span className="home-s-hero-ending">
+              <span className="frame">{copy.hero.frame}<i className="fx" aria-hidden="true" /></span>{copy.hero.after}
+            </span>
           </h1>
           <p className="home-s-hero-sub">{copy.hero.sub}</p>
           <AgentEsquisse locale={locale} />
@@ -228,6 +229,15 @@ export default async function HomePage() {
 
       <section className="home-s-maison">
         <div className="home-s-wrap home-s-maison-grid">
+          <figure className="home-s-founder">
+            <picture>
+              <source type="image/avif" srcSet="/brand/founder/parrit-ai-founder-dsc00629-3x4-340.avif 340w, /brand/founder/parrit-ai-founder-dsc00629-3x4-680.avif 680w" sizes="(max-width: 859px) min(340px, 100vw), 340px" />
+              <source type="image/webp" srcSet="/brand/founder/parrit-ai-founder-dsc00629-3x4-340.webp 340w, /brand/founder/parrit-ai-founder-dsc00629-3x4-680.webp 680w" sizes="(max-width: 859px) min(340px, 100vw), 340px" />
+              {/* Native picture preserves the approved, byte-identical studio exports. */}
+              <img src="/brand/founder/parrit-ai-founder-dsc00629-3x4-340.webp" width={340} height={453} loading="lazy" decoding="async" alt={locale === "fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai"} />
+            </picture>
+            <figcaption>{copy.journey.caption}</figcaption>
+          </figure>
           <div className="home-s-maison-copy">
             <K>{copy.journey.kicker}</K>
             <h2>{copy.journey.title}</h2>

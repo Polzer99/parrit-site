@@ -70,9 +70,18 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
         const text = visibleText(html);
         for (const title of titles[locale][route] ?? []) assert.ok(text.includes(title), `${label}: ${title}`);
         if (route === "/") {
-          assert.equal(html.includes("founder-portrait"), false);
+          assert.ok(html.includes(locale === "fr"
+            ? "Parrit.ai · Données et IA, des outils qui vous appartiennent"
+            : "Parrit.ai · Data and AI, tools you own"));
           const journey = html.match(/<section class="home-s-maison">[\s\S]*?<\/section>/)?.[0];
           assert.ok(journey, `${label}: journey section must be rendered`);
+          assert.match(journey, /<picture>/);
+          assert.match(journey, /parrit-ai-founder-dsc00629-3x4-340.webp/);
+          assert.ok(journey.includes(locale === "fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai"));
+          const heading = visibleText((html.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/)?.[0] ?? "").replace(/<[^>]*>/g, "")).trim();
+          assert.equal(heading, locale === "fr"
+            ? "Nous transformons des problèmes opérationnels en systèmes qui fonctionnent."
+            : "We turn operational problems into systems that work.");
           assert.equal(
             visibleText(journey).includes(`Paul Larmaraud · ${locale === "fr" ? "Fondateur" : "Founder"}`),
             /<img\b/.test(journey),

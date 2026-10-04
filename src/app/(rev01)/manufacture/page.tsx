@@ -8,7 +8,7 @@ import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system
 const DICT = {
   "en": {
     "metaTitle": "The Manufacture",
-    "metaDescription": "How Parrit.ai builds a company operating system, from Examination to Compounding.",
+    "metaDescription": "How Parrit.ai builds a system, from Examination to Compounding.",
     "kicker": "Parrit / The Manufacture",
     "title": "We build each system one operation at a time, from Examination to Compounding.",
     "sub": "A system is manufactured. It is not installed.",

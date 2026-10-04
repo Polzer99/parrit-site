@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+import founderPhotos from "./fixtures/founder-photo.json";
 import { mkdir } from "node:fs/promises";
 import connectorContract from "../src/system/brand-os.connectors.json";
 import { expect, test } from "./network-deny.setup";
@@ -129,15 +131,152 @@ for (const width of [1440, 375]) {
   }
 }
 
-for (const width of [375, 768, 1440]) {
+for (const width of [375, 390, 768, 1440]) {
   for (const route of ["/", "/fr"]) {
-    test(`Brand OS omits founder caption without a photo ${route} at ${width}px`, async ({ page }) => {
+    test(`Brand OS approved founder photo, caption and heading ${route} at ${width}px`, async ({ page }, testInfo) => {
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.setViewportSize({ width, height: 900 });
       await page.goto(`${BASE_URL}${route}`);
       await page.evaluate(() => document.fonts.ready);
       const labels = page.locator(".home-s-maison-copy > .k");
-      await expect(page.locator(".home-s-maison img")).toHaveCount(0);
+      const photo = page.locator(".home-s-maison figure img");
+      await expect(photo).toHaveCount(1);
+      await expect(photo).toHaveAttribute("alt", route === "/fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai");
+      await expect(photo).toHaveAttribute("width", "340");
+      await expect(photo).toHaveAttribute("height", "453");
+      await expect(photo).toHaveAttribute("loading", "lazy");
+      await expect(photo).toHaveAttribute("decoding", "async");
+      await photo.scrollIntoViewIfNeeded();
+      await expect(photo).toBeVisible();
+      await expect.poll(() => photo.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth > 0)).toBe(true);
+      await expect(page.locator(".home-s-maison figcaption")).toHaveText(`Paul Larmaraud · ${route === "/fr" ? "Fondateur" : "Founder"}`);
+      const sources = page.locator(".home-s-maison picture source");
+      await expect(sources).toHaveCount(2);
+      for (const [index, format] of ["avif", "webp"].entries()) {
+        await expect(sources.nth(index)).toHaveAttribute("type", `image/${format}`);
+        await expect(sources.nth(index)).toHaveAttribute("sizes", "(max-width: 859px) min(340px, 100vw), 340px");
+        await expect(sources.nth(index)).toHaveAttribute("srcset", `/brand/founder/parrit-ai-founder-dsc00629-3x4-340.${format} 340w, /brand/founder/parrit-ai-founder-dsc00629-3x4-680.${format} 680w`);
+      }
+      const figureBox = await page.locator(".home-s-maison figure").boundingBox();
+      const copyBox = await page.locator(".home-s-maison-copy").boundingBox();
+      expect(figureBox).not.toBeNull();
+      expect(copyBox).not.toBeNull();
+      expect(figureBox!.width).toBeLessThanOrEqual(340);
+      if (width > 859) {
+        expect(figureBox!.x + figureBox!.width).toBeLessThan(copyBox!.x);
+        expect(Math.abs(figureBox!.y + figureBox!.height / 2 - copyBox!.y - copyBox!.height / 2)).toBeLessThanOrEqual(1);
+      } else {
+        expect(figureBox!.y + figureBox!.height).toBeLessThan(copyBox!.y);
+      }
+      const h1 = page.locator("h1");
+      await expect(h1).toHaveText(route === "/fr" ? "Nous transformons des problèmes opérationnels en systèmes qui fonctionnent." : "We turn operational problems into systems that work.");
+      await expect(h1.locator(".frame")).toHaveCSS("display", "inline-block");
+      await expect(h1.locator(".frame")).toHaveCSS("white-space", "nowrap");
+      await expect(h1.locator(".frame")).toHaveText(route === "/fr" ? "systèmes qui fonctionnent" : "systems that work");
+      const ending = h1.locator(".home-s-hero-ending");
+      await expect(ending).toHaveCSS("display", "block");
+      const headingBox = await h1.boundingBox();
+      const endingBox = await ending.boundingBox();
+      expect(headingBox).not.toBeNull();
+      expect(endingBox).not.toBeNull();
+      expect(Math.abs(endingBox!.x + endingBox!.width / 2 - headingBox!.x - headingBox!.width / 2)).toBeLessThanOrEqual(1);
+      const frameGeometry = await h1.locator(".frame").evaluate((frame) => {
+        const bounds = frame.getBoundingClientRect();
+        const fx = frame.querySelector(".fx");
+        if (!fx) throw new Error("Missing bottom corners");
+        const textRects: { left: number; right: number; top: number; bottom: number }[] = [];
+        const walker = document.createTreeWalker(frame, NodeFilter.SHOW_TEXT);
+        let node: Node | null;
+        while ((node = walker.nextNode())) {
+          if (!node.textContent?.trim()) continue;
+          const range = document.createRange();
+          range.selectNodeContents(node);
+          for (const rect of range.getClientRects()) {
+            textRects.push({ left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom });
+          }
+        }
+        // FIX6: include every non-whitespace glyph, even outside the frame.
+        const heading = frame.closest("h1");
+        if (!heading) throw new Error("Missing heading");
+        const glyphs: { left: number; right: number; top: number; bottom: number; framed: boolean; word: boolean }[] = [];
+        const headingWalker = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT);
+        while ((node = headingWalker.nextNode())) {
+          for (const match of (node.textContent ?? "").matchAll(/\S/gu)) {
+            const range = document.createRange();
+            range.setStart(node, match.index!);
+            range.setEnd(node, match.index! + match[0].length);
+            for (const rect of range.getClientRects()) {
+              glyphs.push({ left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom,
+                framed: frame.contains(node), word: /\p{L}/u.test(match[0]) });
+            }
+          }
+        }
+        // Pseudo-elements have no DOMRect API. Reconstruct their border boxes
+        // from computed sizes/insets in their positioned containing block.
+        const corners = [frame, fx].flatMap((owner) => ["::before", "::after"].map((pseudo) => {
+          const style = getComputedStyle(owner, pseudo);
+          if (style.position !== "absolute" || style.transform !== "none") {
+            throw new Error("Frame geometry contract changed");
+          }
+          const width = parseFloat(style.width) + (style.boxSizing === "border-box" ? 0 :
+            parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth));
+          const height = parseFloat(style.height) + (style.boxSizing === "border-box" ? 0 :
+            parseFloat(style.paddingTop) + parseFloat(style.paddingBottom) + parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth));
+          const left = style.left !== "auto" ? bounds.left + parseFloat(style.left) : bounds.right - parseFloat(style.right) - width;
+          const top = style.top !== "auto" ? bounds.top + parseFloat(style.top) : bounds.bottom - parseFloat(style.bottom) - height;
+          return { left, right: left + width, top, bottom: top + height };
+        }));
+        return { textRects, corners, glyphs };
+      });
+      expect(frameGeometry.textRects).toHaveLength(1);
+      expect(frameGeometry.corners).toHaveLength(4);
+      expect(frameGeometry.glyphs.some((glyph) => !glyph.framed && glyph.word)).toBe(true);
+      // No unframed word may share the framed group's line (punctuation may).
+      for (const glyph of frameGeometry.glyphs.filter((glyph) => !glyph.framed && glyph.word)) {
+        for (const text of frameGeometry.textRects) {
+          expect(Math.abs(glyph.top - text.top)).toBeGreaterThan(1);
+        }
+      }
+      for (const corner of frameGeometry.corners) {
+        expect(corner.right).toBeGreaterThan(corner.left);
+        expect(corner.bottom).toBeGreaterThan(corner.top);
+        expect(corner.left).toBeGreaterThanOrEqual(0);
+        expect(corner.right).toBeLessThanOrEqual(width);
+        // FIX5: screen inset, independent of the section's responsive gutter.
+        expect(corner.left).toBeGreaterThanOrEqual(16);
+        expect(corner.right).toBeLessThanOrEqual(width - 16);
+        for (const glyph of frameGeometry.glyphs) {
+          const intersects = corner.left < glyph.right && corner.right > glyph.left && corner.top < glyph.bottom && corner.bottom > glyph.top;
+          expect(intersects, JSON.stringify({ corner, glyph })).toBe(false);
+        }
+        for (const text of frameGeometry.textRects) {
+          const intersects = corner.left < text.right && corner.right > text.left && corner.top < text.bottom && corner.bottom > text.top;
+          expect(intersects, JSON.stringify({ corner, text })).toBe(false);
+          const horizontalGap = Math.max(text.left - corner.right, corner.left - text.right);
+          expect(horizontalGap, JSON.stringify({ corner, text })).toBeGreaterThanOrEqual(12);
+        }
+      }
+      const lines = await h1.evaluate((element) => {
+        const lines: Record<string, string[]> = {};
+        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+        let node: Node | null;
+        while ((node = walker.nextNode())) {
+          for (const match of (node.textContent ?? "").matchAll(/\S+/g)) {
+            if (!/\p{L}/u.test(match[0])) continue;
+            const range = document.createRange();
+            range.setStart(node, match.index!);
+            range.setEnd(node, match.index! + match[0].length);
+            const top = Math.round(range.getBoundingClientRect().top);
+            (lines[top] ??= []).push(match[0]);
+          }
+        }
+        return Object.values(lines);
+      });
+      expect(lines.length).toBeGreaterThan(0);
+      expect(lines.filter((line) => line.length === 1), JSON.stringify(lines)).toEqual([]);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+      await h1.scrollIntoViewIfNeeded();
+      await testInfo.attach(`photo-dv-${route === "/fr" ? "fr" : "en"}-${width}`, { body: await page.screenshot({ fullPage: true }), contentType: "image/png" });
       await expect(labels).toHaveCount(1);
       await expect(labels).not.toContainText(route === "/fr" ? "Fondateur" : "Founder");
     });
@@ -285,3 +424,13 @@ for (const width of [1440, 375]) {
     });
   }
 }
+
+
+test("all four approved founder photo URLs serve the original bytes", async ({ page }) => {
+  for (const [name, expected] of Object.entries(founderPhotos)) {
+    const response = await page.goto(`${BASE_URL}/brand/founder/${name}`);
+    expect(response?.status()).toBe(200);
+    expect(response?.headers()["content-type"]).toContain(name.endsWith(".avif") ? "image/avif" : "image/webp");
+    expect(createHash("sha256").update(await response!.body()).digest("hex")).toBe(expected.sha256);
+  }
+});

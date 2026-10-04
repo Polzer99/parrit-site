@@ -147,8 +147,8 @@ for (const width of [375, 1440]) {
       await page.evaluate(() => document.fonts.ready);
 
       await expect(page.locator(".home-s-hero-sub")).toHaveText(locale === "fr"
-        ? "La facture qui traîne, le rapport refait à la main chaque semaine : des points de départ que nous poussons aussi loin que l'opération l'exige. Nous construisons dans vos systèmes, sur vos données, jusqu'à la mise en service."
-        : "The invoice that drags, the report rebuilt by hand every week: entry points we push as far as the operation demands. We build inside your systems, on your data, until it goes live.");
+        ? "Parrit.ai est une maison de données et d'IA. La facture qui traîne, le rapport refait à la main chaque semaine : nous partons de vos données et construisons des outils qui vous appartiennent."
+        : "Parrit.ai is a data and AI company. The invoice that drags, the report rebuilt by hand every week: we start from your data and build tools you own.");
       await expect(page.locator(".home-s-maison h2")).toHaveText(locale === "fr"
         ? "Quatre étapes mènent du premier message à un système que votre équipe fait tourner."
         : "Four steps take you from the first message to a system your team runs.");
