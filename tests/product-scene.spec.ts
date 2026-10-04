@@ -46,9 +46,29 @@ for (const locale of ["fr", "en"] as const) {
           (rect.y + rect.height / 2 - image.y) / image.height * 100];
       }));
       for (const [index, expected] of [[25.2, 23.3], [64.5, 69.5], [93, 9]].entries()) {
-        expect(positions[index][0]).toBeCloseTo(expected[0], 1);
+        // FIX2 anchors marker 2 by its right edge; its exact gap is checked below.
+        if (index !== 1) expect(positions[index][0]).toBeCloseTo(expected[0], 1);
         expect(positions[index][1]).toBeCloseTo(expected[1], 1);
       }
+      // FIX1: compare the full marker with the approved “oui” bubble bounds.
+      const approval = await section.locator(".product-scene-conversation").evaluate((el) => {
+        const image = el.querySelector("img")!.getBoundingClientRect();
+        const marker = el.querySelectorAll(".scene-marker")[1].getBoundingClientRect();
+        const bubble = {
+          left: image.left + image.width * 0.645,
+          top: image.top + image.height * 0.673,
+          right: image.left + image.width * 0.864,
+          bottom: image.top + image.height * 0.717,
+        };
+        return {
+          gap: bubble.left - marker.right,
+          intersects: marker.left < bubble.right && marker.right > bubble.left
+            && marker.top < bubble.bottom && marker.bottom > bubble.top,
+        };
+      });
+      expect(approval.intersects, "repère 2 outside the oui bubble").toBe(false);
+      expect(approval.gap, "repère 2 strictly left of the oui bubble without touching").toBeGreaterThan(0);
+      expect(approval.gap, "FIX2 keeps a 6px gap at every viewport").toBeCloseTo(6, 1);
       const geometry = await section.evaluate((el) => {
         const box = (selector: string) => {
           const r = el.querySelector(selector)!.getBoundingClientRect();

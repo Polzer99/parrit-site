@@ -88,6 +88,7 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
           assert.doesNotMatch(sceneText, /Laparra|Rungis|\bMIN\b|GESLOT|Lyon/i);
           assert.doesNotMatch(scene, /home-s-build-grid|home-s-verdict/);
           assert.deepEqual([...scene.matchAll(/class="scene-marker"[^>]*>([123])<\/span>/g)].map((match) => match[1]), ["1", "2", "3", "1", "2", "3"]);
+          assert.match(scene, /class="scene-marker"[^>]*style="left:64\.5%;top:69\.5%;transform:translate\(calc\(-100% - 6px\), -50%\)"[^>]*>2<\/span>/, `${label}: FIX2 anchors marker 2 by its right edge, 6px left of the approval bubble`);
           assert.equal((scene.match(/<picture>/g) ?? []).length, 2);
           assert.equal((scene.match(/loading="lazy"/g) ?? []).length, 2);
           assert.equal((scene.match(/decoding="async"/g) ?? []).length, 2);

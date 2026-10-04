@@ -285,7 +285,7 @@ export default async function HomePage() {
             }}
             markers={[
               { number: 1, image: "conversation", left: 25.2, top: 23.3 },
-              { number: 2, image: "conversation", left: 64.5, top: 69.5 },
+              { number: 2, image: "conversation", left: 64.5, top: 69.5, anchor: "before" },
               { number: 3, image: "object", left: 93, top: 9 },
             ]}
           />

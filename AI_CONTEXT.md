@@ -389,3 +389,21 @@ d'éclat rose regroupe seulement les repères de chaque scène et garde leur emp
 Build Webpack, lint, types, marque, claims et 52 tests Node passent. Turbopack refuse
 le lien local node_modules ; Chromium refuse le lancement macOS. Captures et preuve
 visuelle restent à produire sur l'hôte ; voir `docs/REPORT-2026-10-04-scene-produit.md`.
+
+
+FIX1 scène (04/10) : repère 2 déplacé à 60 % horizontal, hauteur 69,5 % conservée.
+Les dix parcours FR/EN vérifient son rectangle hors de la bulle « oui » et un
+écart strictement positif à gauche ; le rendu compilé verrouille sa position.
+Build Webpack, lint, types, marque, claims et 52 tests Node passent. Turbopack
+interrompu sans progression en compilation ; Chromium toujours refusé par macOS.
+Captures et validation géométrique navigateur restent à produire sur l'hôte.
+Voir la reprise FIX1 du rapport scène produit.
+
+
+FIX2 scène (04/10) : repère 2 ancré par son bord droit à 6 px de la bulle,
+via `left: 64.5%`, `top: 69.5%` et translation `calc(-100% - 6px)`.
+Le composant propose l'ancrage optionnel `before`. Assertions FIX1 de séparation
+conservées, écart de 6 px ajouté aux dix parcours, rendu compilé FR/EN vérifié.
+Build Webpack, lint, types, claims, marque et 52 tests Node passent. Turbopack
+interrompu sans progression ; Chromium refusé par macOS avant navigation.
+Captures et preuve responsive FIX2 restent à produire sur l'hôte (rapport scène).

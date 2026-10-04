@@ -78,3 +78,94 @@ Relecture indépendante, lecture seule :
 Sur l'hôte avec dépendances installées, exécuter la batterie prescrite : lint, claims, build, brand, test:brand-os ; lancer `next start -p 3210`, puis `qa:network:rev01`. Les dix tests de scène produisent automatiquement les six captures prescrites et les quatre captures de seuil supplémentaires. Contrôler également les accents avec les sections voisines.
 
 PRODUCTION_PROOF : non recherchée, aucun déploiement autorisé. La preuve actuellement disponible est la compilation, le rendu serveur FR/EN réel sans réseau et l'intégrité des fichiers. La preuve responsive navigateur reste ouverte.
+
+
+## Reprise FIX1 — 04/10/2026
+
+La scène était déjà livrée dans le checkout mandaté `e5b1c00cfc12b3f6110164efb422c1f30555591d`.
+Seule la spec comportait une modification initiale (ajout FIX1) : elle est préservée sans édition.
+Plan limité : contrôle initial → déplacement prescrit → assertions → batterie ; aucune
+modification des assets, du composant, du CSS ou des autres sections. Écritures réversibles
+limitées au checkout, aucune donnée métier, aucun commit, push ni déploiement.
+
+Fichiers de cette reprise :
+- `src/app/(rev01)/page.tsx` : repère 2 à `left: 60%`, `top: 69.5%` inchangé.
+- `tests/product-scene.spec.ts` : attendu horizontal actualisé de 64,5 à 60 selon FIX1 ;
+  les dix parcours FR/EN vérifient la non-intersection du rectangle complet du repère
+  avec la bulle (64,5 / 67,3 / 86,4 / 71,7 % de l'image), et un écart strictement
+  positif à gauche. Deny-all et contrôles existants conservés.
+- `tests/brand-os-render.test.mjs` : position 60 / 69,5 vérifiée dans le HTML compilé FR/EN.
+- `AI_CONTEXT.md` et présent rapport : état et limites de validation.
+
+Baseline : marque, claims et quatre tests d'assets passent avant modification.
+Résultats après FIX1 :
+
+| Vérification | Résultat |
+|---|---|
+| `npm run lint` | OK |
+| `npm run qa:claims:rev01` | OK |
+| `npm run qa:brand:rev01` | OK |
+| `npm run build` | Interrompu : Turbopack reste à l'étape compile sans progression ni diagnostic d'erreur ; cause non établie |
+| `npm run build -- --webpack` | OK, 55 pages générées |
+| `npx tsc --noEmit` | OK |
+| `npm run test:brand-os` | 17/17, dont rendu compilé FIX1 et quatre tests d'assets |
+| Doctrine / privacy / entity / journal | 10/10 + 9/9 + 7/7 + 9/9 ; total Node 52/52 |
+| Collecte Playwright scène | 10 parcours collectés |
+| `npm run qa:network:rev01 -- --workers=1 --max-failures=1` | 183 cas collectés ; premier cas bloqué au lancement Chromium, 182 non exécutés |
+| `git diff --check` | OK |
+
+Chromium est refusé par macOS : `bootstrap_check_in … Permission denied (1100)`,
+SIGTRAP avant navigation. Aucun serveur lancé, conformément aux instructions locales.
+Les captures 1440/768/375 FR/EN et la preuve géométrique dans le navigateur restent
+à produire sur l'hôte avec le serveur local sur 3210. Aucun succès navigateur revendiqué.
+Le build émet aussi un avertissement `metadataBase` ; les tests entité émettent
+`MODULE_TYPELESS_PACKAGE_JSON`. Aucun changement hors périmètre pour ces avertissements.
+
+
+## Reprise FIX2 — 04/10/2026
+
+Source : dernière section FIX2 de la spec locale, sur HEAD
+`e5b1c00cfc12b3f6110164efb422c1f30555591d`. La scène complète et FIX1 étaient
+présents. Les dix fichiers déjà modifiés à l'arrivée (dont quatre captures PNG
+et la spec) sont préservés ; aucune capture préexistante ne constitue une preuve FIX2.
+
+Plan exécuté : baseline Brand OS → correction ciblée → relecture indépendante
+lecture seule → même batterie. Une passe de correction, aucun nouvel essai après
+confirmation du refus Chromium. Écritures limitées au checkout local, réversibles,
+aucune donnée métier ; sauvegarde des six fichiers concernés avant édition dans
+`/tmp/scene-fix2-backup/`. Aucun commit, push ni déploiement.
+
+Fichiers de cette reprise :
+- `src/system/components/ProductScene.tsx` : ancrage optionnel `before`, qui pose
+  `transform: translate(calc(-100% - 6px), -50%)` ; les autres repères gardent leur centrage.
+- `src/app/(rev01)/page.tsx` : repère 2 à 64,5 % / 69,5 % avec cet ancrage.
+- `tests/product-scene.spec.ts` : assertions FIX1 de non-intersection et d'écart
+  strictement positif inchangées ; ajout de l'écart de 6 px pour les dix parcours.
+  L'ancien attendu du centre à 60 % est remplacé, car FIX2 prescrit un ancrage par
+  le bord droit. Hauteur et positions des autres repères toujours contrôlées.
+- `tests/brand-os-render.test.mjs` : HTML compilé FR/EN contrôlé pour la position
+  et la translation exactes FIX2, remplaçant l'attendu FIX1 devenu obsolète.
+- `AI_CONTEXT.md` et ce rapport : traçabilité des résultats.
+
+Résultats de cette exécution :
+
+| Contrôle | Résultat |
+|---|---|
+| Baseline `test:brand-os` avant édition | 17/17 |
+| Lint, claims, brand | OK |
+| `npm run build` | Interrompu (code 130) après absence de progression Turbopack à la compilation ; cause non établie |
+| `npm run build -- --webpack` | OK, 55 pages générées |
+| `npx tsc --noEmit` | OK |
+| `npm run test:brand-os` après build | 17/17, dont rendu compilé FIX2 FR/EN |
+| Doctrine, privacy, entity, journal | 10 + 9 + 7 + 9 réussis ; total Node 52/52 |
+| `npm run qa:network:rev01 -- --workers=1 --max-failures=1` | 183 tests collectés ; premier bloqué au lancement Chromium, 182 non exécutés |
+| `git diff --check` | OK |
+
+Relecture indépendante statique : aucun défaut concret ; la formule garantit
+`marker.right = image.left + image.width × 0.645 − 6`. La validation géométrique
+réelle reste ouverte. Chromium échoue avant navigation avec
+`bootstrap_check_in … Permission denied (1100)` et SIGTRAP dans le sandbox macOS.
+Aucun serveur lancé conformément aux instructions locales. Captures FIX2 à
+1440/768/375 en FR/EN non produites, à réaliser sur l'hôte via les tests existants.
+Avertissements préexistants `metadataBase` et `MODULE_TYPELESS_PACKAGE_JSON` conservés.
+PRODUCTION_PROOF : non recherchée, aucun déploiement autorisé.

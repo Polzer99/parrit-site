@@ -8,6 +8,17 @@ entièrement anonyme. Motif inscrit au Brand OS : `VS-PRODUCT-SCENE`
 **Ce lot va en PR et en préversion seulement. Rien n'est fusionné sans le GO de Paul.**
 **Ne pas toucher** : hero, déroulement, photo, preuve, offres, Journal, header, footer, tokens, polices, autres pages.
 
+## FIX2 (04/10) — sur le travail FIX1 présent (ne rien refaire)
+À 768 px le repère 2 (taille fixe 28 px) recoupe encore la bulle. L'accrocher par son bord DROIT : `left: 64.5%` (bord
+gauche de la bulle) et `transform: translate(calc(-100% - 6px), -50%)`, `top` au milieu vertical de la bulle (69,5 %).
+Ainsi il reste à 6 px à gauche de la bulle à toutes les largeurs. Le test FIX1 reste tel quel.
+
+## FIX1 (04/10) — sur la PR #302 (ne rien refaire)
+Relecture visuelle : le repère 2 recouvre le mot « oui » de la bulle. Le placer à gauche de la bulle, sans la toucher :
+`left: 60%` (au lieu de 64,5 %), `top` inchangé. Ajouter au test : le repère 2 ne recoupe pas le rectangle de la bulle
+« oui » (coordonnées de la bulle en pourcentage de l'image : left 64,5 %, top 67,3 %, right 86,4 %, bottom 71,7 %). Rien
+d'autre ne change.
+
 ## 1. Assets (lecture seule, copier octet pour octet)
 Source : `/Users/paullarmaraud/parrit-canon-visual-system/brand/visual/sites/handoff/2026-10-04/scene-agent-crm/`
 (`manifest.json` : rôle, taille, sha256 ; `ocr.txt` : texte relevé, aucun nom réel, lieu ni logo).
