@@ -18,8 +18,8 @@ const DICT = {
     heroBefore: "The AI system your company",
     heroFrame: "operates",
     heroAfter: "on.",
-    maker: <>Parrit.ai designs and builds<br />company operating systems.</>,
-    statement: "One system to understand, decide and act across the company. Built for one company at a time. Commissioned, not subscribed.",
+    maker: <>Parrit.ai turns operational problems<br />into systems that work.</>,
+    statement: "One system to understand, decide and act across the company. Built for one company at a time. What we build belongs to you.",
   },
   fr: {
     loading: "CHARGEMENT DU MODÈLE DE L'ENTREPRISE ........",
@@ -32,8 +32,8 @@ const DICT = {
     heroBefore: "Le système IA qui fait tourner votre",
     heroFrame: "entreprise.",
     heroAfter: "",
-    maker: <>Parrit.ai conçoit et construit<br />des systèmes d'exploitation d'entreprise.</>,
-    statement: "Un seul système pour comprendre, décider et agir, à l'échelle de l'entreprise. Une entreprise à la fois. Une commande, pas un abonnement.",
+    maker: <>Parrit.ai transforme des problèmes opérationnels<br />en systèmes qui fonctionnent.</>,
+    statement: "Un seul système pour comprendre, décider et agir, à l'échelle de l'entreprise. Une entreprise à la fois. Ce que nous construisons vous appartient.",
   },
 } as const;
 

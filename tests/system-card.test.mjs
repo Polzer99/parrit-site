@@ -65,9 +65,10 @@ test("registry preserves its date, zero writers and supplied localized summary v
       locale, asOf: "2026-09-13", rows: [{ domain: "Outreach", source: "External tool (Instantly)", status: "Transfer not started", legacyWriters: 0 }], summaryText,
     }));
     for (const value of ['dateTime="2026-09-13"', "Outreach", "External tool (Instantly)", "Transfer not started", ">0</td>", renderToStaticMarkup(createElement("p", null, summaryText)).slice(3, -4)]) assert.ok(html.includes(value), value);
+    // Approved correction: docs/CODEX-SPEC-2026-09-20-systems-editorial-corrections.md, Remplacement 1.
     const headings = locale === "fr"
-      ? ["Type d'information", "Où l'information est enregistrée", "Situation", "Anciens outils encore utilisés en parallèle"]
-      : ["Type of information", "Where it's recorded", "Status", "Legacy tools still in parallel use"];
+      ? ["Type d'information", "Où l'information est enregistrée", "Situation", "Anciens points d'écriture recensés"]
+      : ["Type of information", "Where it's recorded", "Status", "Legacy write points on record"];
     for (const heading of headings) {
       const escaped = renderToStaticMarkup(createElement("span", null, heading)).slice(6, -7);
       assert.ok(html.includes(`scope="col">${escaped}</th>`));

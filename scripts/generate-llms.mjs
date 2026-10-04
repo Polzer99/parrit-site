@@ -2,30 +2,28 @@ import { writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// REV 01 (14/08/2026): llms.txt states the institutional positioning of the live
-// site — company operating systems, commissioned not subscribed. The previous
-// generator emitted the pre-REV01 positioning (virtual collaborators catalog),
-// which contradicted every page served. Content is static by design: it must
-// only change when the site's positioning changes.
+// Prepared positioning (spec 2026-10-05): data and AI, tools the client owns.
+// This introduction is also consumed by /llms-full.txt. Journal content stays intact.
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outputPath = resolve(root, "public/llms.txt");
 
 const content = `# Parrit
 
-> Parrit designs and builds company operating systems: one system to understand
-> what is happening in a company, decide what matters and act — down to the
-> executive's phone. Built for one company at a time. Commissioned, not subscribed.
+> Parrit.ai is a data and AI company: it turns a company's data into software tools the company owns.
+> Based in France; working in English and French.
+> What Parrit builds belongs to the client: the code, the data and the documentation.
 
 ## Positioning
-- Parrit builds the operating system a company runs on, as owned infrastructure:
+- Parrit.ai turns a company's data into software tools the company owns:
   the client holds the code, the data and the documentation as company assets.
-- The engagement model is a commission, not a subscription. It starts with an
+- What Parrit builds belongs to the client: the code, the data and the documentation.
+  It starts with an
   examination of how the company actually operates — not a workshop, a diagnostic
   of flows, decisions and failure points documented as an engineering brief.
 - Three phases: Examination (we study how the company actually operates),
   Construction (one critical operation rebuilt end-to-end into production),
-  Compounding (each new capability joins the operating system and increases the
+  Compounding (each new capability joins the system and increases the
   value of every capability already in production).
 
 ## The Parrit Standard
@@ -55,8 +53,6 @@ Every delivered system is certified to the same specification (STD-1.0):
 ## Ownership, maintenance and data
 - The repository is the client's from the first commit; the system runs in the
   client's own accounts, on their infrastructure, under their keys.
-- There is maintenance, and Parrit carries it: every commission includes
-  maintenance and evolution — Parrit carries what it delivers.
 - Built on ordinary, widely-adopted technology (TypeScript, Python, PostgreSQL)
   so any competent engineer can maintain it without Parrit — the client can
   take over at any time and is never captive.
@@ -64,15 +60,15 @@ Every delivered system is certified to the same specification (STD-1.0):
   client revokes it.
 
 ## Proof (anonymized)
-- Parrit runs on its own operating system: 200+ signals become decisions every
+- Parrit runs on its own system: 200+ signals become decisions every
   week.
-- A law firm's operating system: +€5–10K additional revenue per month from
+- A law firm's system: +€5–10K additional revenue per month from
   re-engaged case flow (first capabilities live).
 - A consumer brand's reporting system: 2.5 months recovered on a single
   reporting process, now operated by the client's own team.
 
 ## Pages
-- https://parrit.ai/ — Parrit, company operating systems.
+- https://parrit.ai/ — Parrit.ai, a data and AI company building tools the client owns.
 - https://parrit.ai/manufacture — How a system is manufactured: doctrine and
   the three phases.
 - https://parrit.ai/standard — The Parrit Standard, the certification every

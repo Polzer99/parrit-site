@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
 
-export const alt = "Parrit.ai · Company Operating Systems";
+export const alt = "PARRIT.AI · DATA AND AI";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const dynamic = "force-dynamic";
@@ -41,7 +41,7 @@ export default async function Image() {
             color: token("--g4-d"),
           }}
         >
-          <span>PARRIT.AI · COMPANY OPERATING SYSTEMS</span>
+          <span>PARRIT.AI · DATA AND AI</span>
           <span style={{ display: "flex" }}>
             [P<span style={{ color: token("--accent-on-dark") }}>.</span>]
           </span>
@@ -69,7 +69,7 @@ export default async function Image() {
           }}
         >
           <div style={{ width: 14, height: 14, background: token("--accent-on-dark") }} />
-          <span>COMMISSIONED, NOT SUBSCRIBED · PARRIT / SITE · REV 01 · 2026</span>
+          <span>WHAT WE BUILD BELONGS TO YOU · PARRIT / SITE · REV 01 · 2026</span>
         </div>
       </div>
     ),

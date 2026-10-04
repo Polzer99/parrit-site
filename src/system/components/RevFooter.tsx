@@ -13,7 +13,7 @@ const FOOTER = {
       ["/legal", "Legal", ""],
     ],
     founder: "Founded by Paul Larmaraud",
-    principle: "Commissioned, not subscribed",
+    principle: "What we build belongs to you",
   },
   fr: {
     links: [
@@ -25,7 +25,7 @@ const FOOTER = {
       ["/legal", "Mentions légales", ""],
     ],
     founder: "Fondée par Paul Larmaraud",
-    principle: "Une commande, pas un abonnement",
+    principle: "Ce que nous construisons vous appartient",
   },
 } as const;
 

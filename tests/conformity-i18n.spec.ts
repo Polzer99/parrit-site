@@ -41,7 +41,7 @@ test("/fr serves French HTML, heading and self canonical", async ({ page }) => {
   const response = await page.goto(`${BASE_URL}/fr`);
   expect(response?.status()).toBe(200);
   await expect(page.locator("html")).toHaveAttribute("lang", "fr");
-  await expect(page.locator("h1")).toHaveText("Le système IA qui fait tourner votre entreprise.");
+  await expect(page.locator("h1")).toHaveText("Nous transformons des problèmes opérationnels en systèmes qui fonctionnent.");
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${SITE}/fr`);
   await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute("content", "fr_FR");
 });
@@ -57,7 +57,7 @@ test("Googlebot receives English on bare URL despite French preference", async (
   expect(response.status()).toBe(200);
   const html = await response.text();
   expect(html).toContain('<html lang="en"');
-  expect(html).toContain("The AI system your company");
+  expect(html).toContain("We turn operational problems into");
   expect(html).toContain(`<link rel="canonical" href="${SITE}"/>`);
 });
 

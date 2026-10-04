@@ -269,3 +269,14 @@ seul bouton plein et deux secondaires ; son titre utilise toute la colonne.
 Les tests Brand OS couvrent la séparation FR/EN à 375/768/1440 px et la visibilité
 des trois actions avant le footer dans la fenêtre 1440 × 900.
 Résultats et limites d'exécution : `docs/REPORT-2026-10-04-brand-os-fix3.md`.
+
+## Arbitrages préparés, 05/10/2026 (non publiés)
+
+Candidat de la spec `docs/CODEX-SPEC-2026-10-05-parrit-ai-arbitrages-prets-v1.md` :
+photo DSC00629 copiée sans transformation (quatre formats/tailles, SHA figés),
+positionnement données et IA / outils détenus par le client sur les surfaces
+prescrites, correction llms et mentions légales. AV-3 et DV-01 à DV-06 restent
+soumis à la décision de Paul ; aucune mise en production par ce travail.
+`npm test` exécute les tests Node après build. La batterie réseau inclut les
+18 captures FR/EN à 375/768/1440 et le contrôle des lignes du H1.
+Résultats et limites : `docs/REPORT-2026-10-05-arbitrages-prets.md`.

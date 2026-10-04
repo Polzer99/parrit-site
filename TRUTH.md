@@ -8,7 +8,7 @@
 
 ## 1. Ce qu'est Parrit (positionnement)
 
-Parrit.ai est une **maison française indépendante**, fondée par Paul Larmaraud, qui conçoit et construit des **systèmes d'exploitation d'entreprise**. Un seul système pour comprendre, décider et agir à l'échelle de l'entreprise, construit pour une entreprise à la fois. Une commande, pas un abonnement.
+Parrit.ai est une **maison française indépendante de données et d'IA**, fondée par Paul Larmaraud, qui transforme les données métier d'une entreprise en outils logiciels qu'elle possède. Un seul système pour comprendre, décider et agir à l'échelle de l'entreprise, construit pour une entreprise à la fois. Ce que Parrit construit appartient au client : le code, les données et la documentation.
 
 Parrit livre la chose qui tourne, pas un deck. Chaque commande répond au Standard Parrit.
 
@@ -34,7 +34,7 @@ Parrit livre la chose qui tourne, pas un deck. Chaque commande répond au Standa
 
 ## 4. Offres (ce qu'on vend)
 
-Parrit vend des **systèmes d'exploitation d'entreprise sur mesure**. La Manufacture suit trois phases : Examen, Construction, Capitalisation. Chaque système est construit sur l'infrastructure du client, certifié selon le Standard Parrit, documenté et détenu par le client.
+Parrit vend des **systèmes sur mesure**. La Manufacture suit trois phases : Examen, Construction, Capitalisation. Chaque système est construit sur l'infrastructure du client, certifié selon le Standard Parrit, documenté et détenu par le client.
 
 Les commandes sont **sur devis** : périmètre et conditions sont cadrés par écrit après l'Examen. Le site peut afficher des **ancrages tarifaires publics** (REGLES-DOR §5, amendé 23/06/2026 : « ancrages OK, détail au call ») — le détail complet reste réglé au call. *Corrigé le 20/09/2026 : la phrase précédente (« aucun prix ») ne reflétait plus l'amendement §5.*
 
@@ -54,7 +54,7 @@ Surfaces produit du site rev01 : `/`, `/manufacture`, `/standard`, `/dossiers`, 
 
 ## 6. Règles dures (non négociables — un changement qui les viole est REJETÉ)
 
-1. **Prix** : depuis le pivot 2026, les offres sont **sur devis** (périmètre et prix cadrés après diagnostic) et **la home n'affiche AUCUN prix**. Interdit : ré-afficher les anciens prix fermes (Sprint 5 000 €, Abonnement 99 €/mois, Évolution 250 €/h) — ils sont retirés. Pas de devis personnalisé hors propale privée, pas de promesse de ROI garanti. « sur devis » est la formulation validée pour le prix public.
+1. **Prix** : la home affiche l'ancrage de Build With You (à partir de 3 200 € HT, au forfait) ; le sur-mesure est sur devis. Interdit : ré-afficher les anciens prix fermes (Sprint 5 000 €, Abonnement 99 €/mois, Évolution 250 €/h) — ils sont retirés. Pas de devis personnalisé hors propale privée, pas de promesse de ROI garanti. « Sur devis » reste la formulation du sur-mesure ; Build With You affiche son ancrage public.
 2. **Pas de noms de clients** en texte (anonymisé ; mur de logos visuel autorisé, override Paul `BRAND.md §6`).
 3. **Palette stricte rev02** : les valeurs vivent uniquement dans `src/system/tokens.css`. Registres carbone et papier froid, système d'accent bleu contextualisé par fond ; gris secondaire `--g4` lisible par fond avec `--g4-d` sur carbone. Un hex écrit dans une page ou un composant est un défaut.
 4. **Polices** : General Sans pour le corps et l'interface, IBM Plex Mono pour le registre technique, Source Serif 4 réservée aux grands titres éditoriaux. General Sans est auto-hébergée dans `public/fonts/rev02/` ; IBM Plex Mono et Source Serif 4 dans `public/fonts/rev03/`.

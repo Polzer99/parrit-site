@@ -1722,7 +1722,7 @@ a.k:active {
 }
 
 .home-s-hero h1 {
-  max-width: 13ch;
+  max-width: 100%;
   margin: 38px auto 30px;
   color: var(--paper);
   font-size: var(--d-xl);
@@ -1734,6 +1734,10 @@ a.k:active {
 
 .home-s-hero h1 > span:first-child {
   color: var(--g2);
+}
+
+.home-s-hero h1 > span:last-child {
+  white-space: nowrap;
 }
 
 .home-s-hero h1 .frame {
@@ -1869,9 +1873,20 @@ a.k:active {
 
 .home-s-maison-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: 340px minmax(0, 1fr);
   gap: clamp(60px, 10vw, 140px);
   align-items: center;
+}
+
+.home-s-founder {
+  width: min(340px, 100%);
+  margin: 0;
+}
+
+.home-s-founder img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .home-s-maison-copy > .k {
@@ -3113,4 +3128,11 @@ a.k:active {
 }
 .quick-capture .k {
   color: var(--g4-d);
+}
+
+/* Use the existing small display step for the longer French mobile title. */
+@media (max-width: 479px) {
+  html[lang="fr"] .home-s-hero h1 {
+    font-size: var(--d-s);
+  }
 }

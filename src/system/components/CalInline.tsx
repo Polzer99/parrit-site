@@ -23,14 +23,14 @@ export function ParritCalInline({
     loading: "CHARGEMENT DES CRÉNEAUX…",
     retrieving: "OUVERTURE DU CALENDRIER · QUELQUES SECONDES",
     format: "15 MIN · VISIO",
-    status: "UNE COMMANDE, PAS UN ABONNEMENT",
+    status: "CE QUE NOUS CONSTRUISONS VOUS APPARTIENT",
   } : {
     title: "PARRIT / COMMISSION",
     ready: "SELECT A TIME",
     loading: "LOADING AVAILABLE TIMES…",
     retrieving: "RETRIEVING THE CALENDAR · A FEW SECONDS",
     format: "15 MIN · VIDEO",
-    status: "COMMISSIONED, NOT SUBSCRIBED",
+    status: "WHAT WE BUILD BELONGS TO YOU",
   };
   const placeholder = isPlaceholder(calLink);
   /* lazy + état de chargement : l'embed (~1,7 MB) ne se monte qu'à l'approche du

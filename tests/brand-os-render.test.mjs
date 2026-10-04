@@ -17,6 +17,25 @@ const glyphs = json("src/system/brand-os.glyphs.json");
 const connectors = json("src/system/brand-os.connectors.json");
 const routes = ["/", "/build-with-you", "/systems", "/commission", "/manufacture", "/dossiers", "/standard", "/journal", "/legal"];
 
+const positioning = {
+  en: {
+    heading: "We turn operational problems into systems that work.",
+    title: "Parrit.ai · Data and AI, tools you own",
+    description: "Parrit.ai connects your sources, cleans up your data and builds tools on top of it that you own: the code, the data and the documentation.",
+    footer: "What we build belongs to you",
+    alt: "Paul Larmaraud, founder of Parrit.ai",
+    legal: "When you use the prototype form",
+  },
+  fr: {
+    heading: "Nous transformons des problèmes opérationnels en systèmes qui fonctionnent.",
+    title: "Parrit.ai · Données et IA, des outils qui vous appartiennent",
+    description: "Parrit.ai relie vos sources, remet vos données à plat et construit dessus des outils qui vous appartiennent : le code, les données et la documentation.",
+    footer: "Ce que nous construisons vous appartient",
+    alt: "Paul Larmaraud, fondateur de Parrit.ai",
+    legal: "Lorsque vous utilisez le formulaire prototype",
+  },
+};
+
 const titles = {
   en: {
     "/": ["Four steps take you from the first message to a system your team runs.", "We show client dossiers in a meeting, not online.", "The Journal records what held and what broke on our projects.", "A 15-minute examination tells you whether a system is worth building."],
@@ -67,13 +86,43 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
         }
         assert.deepEqual(checkGlyphs(html, label, glyphs, connectors), []);
         const text = visibleText(html);
+        const copy = positioning[locale];
+        assert.ok(text.includes(copy.footer), `${label}: ownership footer`);
+        if (route === "/legal") assert.ok(text.includes(copy.legal), `${label}: prototype form only`);
         for (const title of titles[locale][route] ?? []) assert.ok(text.includes(title), `${label}: ${title}`);
         if (route === "/") {
           assert.equal(html.includes("founder-portrait"), false);
           assert.ok(text.includes(`Paul Larmaraud · ${locale === "fr" ? "Fondateur" : "Founder"}`));
+          assert.equal(visibleText(html.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/)?.[0] ?? "").replace(/\s+/g, " ").trim(), copy.heading);
+          assert.ok(html.includes(`<title>${copy.title}</title>`), `${label}: title`);
+          for (const name of ["description", "og:description"]) {
+            assert.ok(html.includes(`${name}" content="${copy.description}"`), `${label}: ${name}`);
+          }
+          assert.ok(html.includes(`og:title" content="${copy.title}"`), `${label}: OG title`);
+          const organization = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+            .map((match) => JSON.parse(match[1])).find((value) => value["@type"] === "Organization");
+          assert.equal(organization?.description, "Parrit.ai is a data and AI company: it turns a company's data into software tools the company owns. Based in France; working in English and French.");
+          const figure = html.match(/<figure class="home-s-founder">[\s\S]*?<\/figure>/)?.[0] ?? "";
+          assert.ok(figure.includes(`alt="${copy.alt}"`), `${label}: founder alt`);
+          assert.ok(figure.includes('loading="lazy"'));
+          assert.ok(figure.includes('decoding="async"'));
+          assert.ok(figure.includes('width="340" height="453"'));
+          assert.ok(figure.indexOf('type="image/avif"') < figure.indexOf('type="image/webp"'));
+          for (const format of ["avif", "webp"]) {
+            assert.ok(figure.includes(`srcSet="/brand/founder/parrit-ai-founder-dsc00629-3x4-340.${format} 340w, /brand/founder/parrit-ai-founder-dsc00629-3x4-680.${format} 680w"`));
+          }
+          assert.ok(figure.includes('sizes="(max-width: 859px) min(340px, 100vw), 340px"'));
         }
       }
     }
+    const llms = readFileSync("public/llms.txt", "utf8");
+    assert.ok(llms.includes("Parrit.ai is a data and AI company: it turns a company's data into software tools the company owns."));
+    assert.ok(llms.includes("What Parrit builds belongs to the client: the code, the data and the documentation."));
+    assert.doesNotMatch(llms, /operating systems?|commissioned, not subscribed|maintenance and evolution/i);
+    const full = await render("/llms-full.txt");
+    assert.equal(full.status, 200);
+    assert.ok(full.html.replace(/\s+/g, " ").trim().startsWith("Parrit Parrit.ai is a data and AI company: it turns a company's data into software tools the company owns. Based in France; working in English and French. What Parrit builds belongs to the client: the code, the data and the documentation."));
+    assert.ok(full.html.includes("What is a company operating system?"), "Editorial article remains available unchanged");
     for (const route of ["/brand-os-missing-page", "/fr/brand-os-missing-page"]) {
       const { status, html } = await render(route);
       assert.equal(status, 404, route);

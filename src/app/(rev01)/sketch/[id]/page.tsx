@@ -11,7 +11,7 @@ import { Instrument, K, RegistryLine, St } from "@/system/components";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Operating System · Sketch",
+  title: "System · Sketch",
   robots: { index: false, follow: false, nocache: true },
 };
 
@@ -157,7 +157,7 @@ const CHROME = {
     closeProof: "15 MIN · AN EXAMINATION, NOT A SALES CALL",
     talk: "Let's talk",
     registry: "PARRIT / SKETCH · DRAFT 01 · 2026",
-    commissioned: "COMMISSIONED, NOT SUBSCRIBED",
+    commissioned: "WHAT WE BUILD BELONGS TO YOU",
   },
   fr: {
     sectionKicker: (company: string, date: string) => `PARRIT / ESQUISSE · PRÉPARÉ POUR ${company.toUpperCase()} · ${date}`,
@@ -171,7 +171,7 @@ const CHROME = {
     closeProof: "15 MIN · UN EXAMEN, PAS UN APPEL COMMERCIAL",
     talk: "Parlons-en",
     registry: "PARRIT / ESQUISSE · BROUILLON 01 · 2026",
-    commissioned: "UNE COMMANDE, PAS UN ABONNEMENT",
+    commissioned: "CE QUE NOUS CONSTRUISONS VOUS APPARTIENT",
   },
 } as const;
 
