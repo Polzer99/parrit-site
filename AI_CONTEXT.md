@@ -260,3 +260,12 @@ quatre parcours FR/EN à 375/1440 px (vide, survol, saisie, espaces seuls), sans
 L'attendu du lien fondateur suit le contrat sans flèche. Les deux formulations
 « La matrice qui associe chaque tâche à un modèle » sont restaurées au registre.
 Voir `docs/REPORT-2026-10-04-brand-os-fix2.md` pour la validation et ses limites.
+
+## Brand OS FIX3, 04/10/2026
+
+Les deux labels directs de `home-s-maison-copy` sont des blocs séparés par `--s3`
+(24 px). La 404 utilise une colonne d'actions dédiée, alignée à gauche, avec un
+seul bouton plein et deux secondaires ; son titre utilise toute la colonne.
+Les tests Brand OS couvrent la séparation FR/EN à 375/768/1440 px et la visibilité
+des trois actions avant le footer dans la fenêtre 1440 × 900.
+Résultats et limites d'exécution : `docs/REPORT-2026-10-04-brand-os-fix3.md`.

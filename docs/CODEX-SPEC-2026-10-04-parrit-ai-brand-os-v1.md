@@ -17,6 +17,21 @@ Le défaut venait du générateur d'icônes (corrigé, commit `6da9777` du Brand
 (ainsi que les trois autres icônes si leur sha256 a changé), relancer `npm run build` (Turbopack, la commande standard,
 pas Webpack) et `npm run test:brand-os`. Rien d'autre à modifier.
 
+## REPRISE (04/10, 15h20) — rien à coder
+FIX1 à FIX3 sont implémentés dans ce worktree. Ne modifie aucun fichier de code. Ne lance ni `next build` ni serveur
+ni navigateur : un build interrompu dans le sandbox laisse `.next/lock` et bloque la batterie hôte, qui fait toutes
+ces vérifications hors sandbox. Termine immédiatement par « rien à modifier ».
+
+## FIX3 (04/10) — constaté sur captures réelles du build de la PR #294
+1. Accueil, section `home-s-maison` : la légende « Paul Larmaraud · Founder » et le kicker « How it works » se
+   rendent sur UNE ligne (« PAUL LARMARAUD · FOUNDERHOW IT WORKS »). Les deux `K` doivent être deux lignes distinctes
+   (la légende au-dessus, espacement de la grille entre les deux), FR et EN, à 375, 768 et 1440. Ajouter une assertion
+   Playwright : les deux éléments ont des `top` différents.
+2. Page 404 : titre et kicker sont alignés à gauche sur la colonne, les boutons sont centrés : aligner les actions sur
+   le même axe gauche que le titre ; vérifier que les trois liens (accueil EN, accueil FR, Journal) sont visibles
+   au-dessus du pied de page à 1440 × 900 ; un seul bouton plein (rose), les autres secondaires.
+Rien d'autre.
+
 ## FIX2 (04/10) — CI GitHub de la PR #294 rouge (run 37203746920), défauts réels
 1. `input::placeholder` sur fond sombre : 3,30:1 (minimum 4,5) → couleur claire des conteneurs sombres
    (`--brand-derived-on-ink-2` via les variables du site), sur `/` et `/commission`, EN et FR.

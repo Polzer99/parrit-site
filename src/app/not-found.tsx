@@ -16,16 +16,16 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return <div lang="en">
     <RevHeader locale="en" />
-    <main className="rev-page r2-dark">
+    <main className="rev-page r2-dark not-found-page">
       <div className="r2-wrap">
         <header className="r2-hero">
           <K>Parrit / 404</K>
           <h1>This page does not exist.<br /><span lang="fr">Cette page n&apos;existe pas.</span></h1>
         </header>
-        <nav className="r2-close" aria-label="Page not found">
+        <nav className="not-found-actions" aria-label="Page not found">
           <Link className="rev-button exec" href="/">Back to the home page</Link>
           <Link className="rev-button ghost" href="/fr" lang="fr">Revenir à l&apos;accueil</Link>
-          <Link href="/journal">Read the Journal</Link>
+          <Link className="rev-button ghost" href="/journal">Read the Journal</Link>
         </nav>
       </div>
     </main>

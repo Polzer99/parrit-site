@@ -129,26 +129,83 @@ for (const width of [1440, 375]) {
   }
 }
 
-for (const route of ["/brand-os-missing-page", "/fr/brand-os-missing-page"]) {
-  test(`Brand OS bilingual 404 ${route}`, async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 900 });
-    const response = await page.goto(`${BASE_URL}${route}`);
-    expect(response?.status()).toBe(404);
-    const heading = page.locator("h1");
-    await expect(heading).toContainText("This page does not exist.");
-    await expect(heading).toContainText("Cette page n'existe pas.");
-    await expect(page.locator('meta[name="robots"][content*="noindex"]').first()).toHaveCount(1);
-    await expect(page.locator(".cmdbar")).toBeVisible();
-    await expect(page.locator("footer")).toBeVisible();
-    for (const [name, href] of [
-      ["Back to the home page", "/"],
-      ["Revenir à l'accueil", "/fr"],
-      ["Read the Journal", "/journal"],
-    ]) await expect(page.getByRole("link", { name, exact: true })).toHaveAttribute("href", href);
-    const fontFamily = await heading.evaluate((element) => getComputedStyle(element).fontFamily);
-    expect(fontFamily).toContain("General Sans");
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
-  });
+for (const width of [375, 768, 1440]) {
+  for (const route of ["/", "/fr"]) {
+    test(`Brand OS founder caption precedes journey kicker ${route} at ${width}px`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`${BASE_URL}${route}`);
+      await page.evaluate(() => document.fonts.ready);
+      const labels = page.locator(".home-s-maison-copy > .k");
+      await expect(labels).toHaveCount(2);
+      await expect(labels.nth(0)).toContainText(route === "/fr" ? "Fondateur" : "Founder");
+      const caption = await labels.nth(0).boundingBox();
+      const kicker = await labels.nth(1).boundingBox();
+      expect(caption).not.toBeNull();
+      expect(kicker).not.toBeNull();
+      expect(kicker!.y).toBeGreaterThan(caption!.y);
+      expect(kicker!.y - caption!.y - caption!.height).toBeCloseTo(24, 0);
+      expect(kicker!.x).toBeCloseTo(caption!.x, 0);
+    });
+  }
+}
+
+for (const width of [375, 1440]) {
+  for (const route of ["/brand-os-missing-page", "/fr/brand-os-missing-page"]) {
+    test(`Brand OS bilingual 404 ${route} at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      const response = await page.goto(`${BASE_URL}${route}`);
+      expect(response?.status()).toBe(404);
+      const heading = page.locator("h1");
+      await expect(heading).toContainText("This page does not exist.");
+      await expect(heading).toContainText("Cette page n'existe pas.");
+      await expect(page.locator('meta[name="robots"][content*="noindex"]').first()).toHaveCount(1);
+      await expect(page.locator(".cmdbar")).toBeVisible();
+      await expect(page.locator("footer")).toBeVisible();
+      for (const [name, href] of [
+        ["Back to the home page", "/"],
+        ["Revenir à l'accueil", "/fr"],
+        ["Read the Journal", "/journal"],
+      ]) await expect(page.getByRole("link", { name, exact: true })).toHaveAttribute("href", href);
+      const fontFamily = await heading.evaluate((element) => getComputedStyle(element).fontFamily);
+      expect(fontFamily).toContain("General Sans");
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+      if (width === 1440) {
+        await page.evaluate(() => document.fonts.ready);
+        const actions = page.getByRole("navigation", { name: "Page not found", exact: true });
+        await expect(actions.locator(".exec")).toHaveCount(1);
+        await expect(actions.locator(".ghost")).toHaveCount(2);
+        const primary = actions.locator(".exec");
+        const fill = await primary.evaluate((element) => {
+          const probe = document.createElement("span");
+          probe.style.backgroundColor = "var(--action-fill)";
+          element.append(probe);
+          const color = getComputedStyle(probe).backgroundColor;
+          probe.remove();
+          return color;
+        });
+        expect(fill).not.toBe("rgba(0, 0, 0, 0)");
+        await expect(primary).toHaveCSS("background-color", fill);
+        for (const secondary of await actions.locator(".ghost").all()) {
+          await expect(secondary).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+        }
+        const titleBox = await heading.boundingBox();
+        const kickerBox = await page.locator("main header .k").boundingBox();
+        const footerBox = await page.locator("footer").boundingBox();
+        expect(titleBox).not.toBeNull();
+        expect(kickerBox).not.toBeNull();
+        expect(footerBox).not.toBeNull();
+        expect(kickerBox!.x).toBeCloseTo(titleBox!.x, 0);
+        for (const link of await actions.getByRole("link").all()) {
+          await expect(link).toBeInViewport({ ratio: 1 });
+          const box = await link.boundingBox();
+          expect(box).not.toBeNull();
+          expect(box!.x).toBeCloseTo(titleBox!.x, 0);
+          expect(box!.y + box!.height).toBeLessThanOrEqual(Math.min(900, footerBox!.y));
+        }
+      }
+    });
+  }
 }
 
 for (const width of [1440, 375]) {
