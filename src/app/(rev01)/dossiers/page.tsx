@@ -37,7 +37,7 @@ const DICT = {
     "note": "They are read in a meeting, on request.",
     "close": "The next dossier could be yours.",
     "proof": "15 min · An examination, with the founder",
-    "button": "Let's talk"
+    "button": "Book the examination"
   },
   "fr": {
     "metaTitle": "Les dossiers",
@@ -70,7 +70,7 @@ const DICT = {
     "note": "Ils se lisent en rendez-vous, sur demande.",
     "close": "Le prochain dossier pourrait être le vôtre.",
     "proof": "15 min · Un examen, avec le fondateur",
-    "button": "Parlons-en"
+    "button": "Réserver l'examen"
   }
 } as const;
 

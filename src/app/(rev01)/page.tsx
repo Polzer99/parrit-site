@@ -33,9 +33,9 @@ const DICT = {
         ["03", "Build and verify", "The system gets built, then checked the way Parrit checks its own tools first. It doesn't go live until your team has been through it."],
         ["04", "Take it over", "Code, data and documentation are yours. Your team learns to run it at handover, and can take it further alone, or call Parrit back, depending on the path you chose."],
       ],
-      link: "Book an examination",
+      link: "Book the examination",
       caption: "Paul Larmaraud · Founder",
-      bridge: "Let's meet",
+      bridge: "The founder: Paul Larmaraud",
     },
     build: {
       kicker: "What we build",
@@ -82,7 +82,7 @@ const DICT = {
           outcome: "A system built and put into production by Parrit.",
           deliverables: ["Examination of your needs with the founder", "A verdict: a written scope or a clear no", "Terms set in writing before work begins"],
           priceNote: "Custom quote",
-          cta: { label: "Book an examination", href: "/commission" },
+          cta: { label: "Book the examination", href: "/commission" },
         },
       ],
     },
@@ -90,7 +90,7 @@ const DICT = {
     close: {
       title: "A 15-minute examination tells you whether a system is worth building.",
       note: "15 min · An examination, on a video call, with the founder",
-      button: "Let's talk",
+      button: "Book the examination",
     },
   },
   fr: {
@@ -117,9 +117,9 @@ const DICT = {
         ["03", "Construire et vérifier", "Le système se construit puis se vérifie avec la méthode que Parrit applique d'abord à ses propres outils. Il n'entre en service qu'une fois votre équipe passée dessus."],
         ["04", "Prendre la main", "Le code, les données et la documentation vous appartiennent. Votre équipe apprend à s'en servir à la livraison, et peut le faire évoluer seule, ou vous rappelez Parrit, selon la formule choisie."],
       ],
-      link: "Réserver un examen",
+      link: "Réserver l'examen",
       caption: "Paul Larmaraud · Fondateur",
-      bridge: "Rencontrons-nous",
+      bridge: "Le fondateur : Paul Larmaraud",
     },
     build: {
       kicker: "Ce que nous construisons",
@@ -166,7 +166,7 @@ const DICT = {
           outcome: "Un système construit et mis en production par Parrit.",
           deliverables: ["Examen du besoin avec le fondateur", "Un verdict : un périmètre écrit ou un non clair", "Des conditions écrites avant de commencer"],
           priceNote: "Sur devis",
-          cta: { label: "Réserver un examen", href: "/commission" },
+          cta: { label: "Réserver l'examen", href: "/commission" },
         },
       ],
     },
@@ -174,7 +174,7 @@ const DICT = {
     close: {
       title: "Un examen de 15 minutes vous dit si un système vaut d'être construit.",
       note: "15 min · Un examen, en visio, avec le fondateur",
-      button: "Parlons-en",
+      button: "Réserver l'examen",
     },
   },
 } as const;
@@ -229,7 +229,6 @@ export default async function HomePage() {
       <section className="home-s-maison">
         <div className="home-s-wrap home-s-maison-grid">
           <div className="home-s-maison-copy">
-            <K>{copy.journey.caption}</K>
             <K>{copy.journey.kicker}</K>
             <h2>{copy.journey.title}</h2>
             <p>{copy.journey.intro}</p>
@@ -238,7 +237,7 @@ export default async function HomePage() {
                 <li key={number}><K>{number}</K><h3>{title}</h3><p>{body}</p></li>
               ))}
             </ol>
-            <Link className="home-s-text-link" href={localizedPath("/commission", locale)}>{copy.journey.link}</Link>
+            <Link className="rev-button ghost home-s-journey-action" href={localizedPath("/commission", locale)}>{copy.journey.link}</Link>
             <a
               className="home-s-text-link home-s-text-link--secondary"
               href="https://paul-larmaraud.com"
@@ -295,8 +294,9 @@ export default async function HomePage() {
         <div className="home-s-wrap">
           <K>{copy.journal.kicker}</K>
           <h2>{copy.journal.title}</h2>
+          {locale === "fr" && <p className="doctrine-note">Articles en anglais.</p>}
           <ol>
-            {entries.map((entry) => <li key={entry.slug}><Link href={`/journal/${entry.slug}`}><span>{entry.title}</span><time dateTime={entry.date}>{entry.date}</time></Link></li>)}
+            {entries.map((entry) => <li key={entry.slug}><Link href={`/journal/${entry.slug}`} hrefLang="en"><span lang="en">{entry.title}</span><time dateTime={entry.date}>{entry.date}</time></Link></li>)}
           </ol>
         </div>
       </section>
@@ -304,7 +304,7 @@ export default async function HomePage() {
       <section className="home-s-close r2-dark">
         <div className="home-s-wrap">
           <h2>{copy.close.title}</h2>
-          <K>{copy.close.note}</K>
+          <p className="doctrine-note home-s-close-note">{copy.close.note}</p>
           <Link className="rev-button exec" href={localizedPath("/commission", locale)}>{copy.close.button}</Link>
         </div>
       </section>

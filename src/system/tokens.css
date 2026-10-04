@@ -48,6 +48,7 @@
   /* Pas fixes */
   --t-k: 14px;
   --t-s: 16px;
+  --text-note: var(--t-s);
   --t-m: 18px;
   --t-l: 22px;
   --t-xl: 26px;

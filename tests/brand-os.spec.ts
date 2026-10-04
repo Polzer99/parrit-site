@@ -131,21 +131,15 @@ for (const width of [1440, 375]) {
 
 for (const width of [375, 768, 1440]) {
   for (const route of ["/", "/fr"]) {
-    test(`Brand OS founder caption precedes journey kicker ${route} at ${width}px`, async ({ page }) => {
+    test(`Brand OS omits founder caption without a photo ${route} at ${width}px`, async ({ page }) => {
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.setViewportSize({ width, height: 900 });
       await page.goto(`${BASE_URL}${route}`);
       await page.evaluate(() => document.fonts.ready);
       const labels = page.locator(".home-s-maison-copy > .k");
-      await expect(labels).toHaveCount(2);
-      await expect(labels.nth(0)).toContainText(route === "/fr" ? "Fondateur" : "Founder");
-      const caption = await labels.nth(0).boundingBox();
-      const kicker = await labels.nth(1).boundingBox();
-      expect(caption).not.toBeNull();
-      expect(kicker).not.toBeNull();
-      expect(kicker!.y).toBeGreaterThan(caption!.y);
-      expect(kicker!.y - caption!.y - caption!.height).toBeCloseTo(24, 0);
-      expect(kicker!.x).toBeCloseTo(caption!.x, 0);
+      await expect(page.locator(".home-s-maison img")).toHaveCount(0);
+      await expect(labels).toHaveCount(1);
+      await expect(labels).not.toContainText(route === "/fr" ? "Fondateur" : "Founder");
     });
   }
 }

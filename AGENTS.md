@@ -42,7 +42,8 @@ correspondre à `canon_fonts`. Mode accessible uniquement ; `--ed` utilise `--ui
 Aucun mode complex ni Inter Tight.
 
 - **Accent** : utiliser les jetons contextuels du registre clair/sombre ; aucune couleur littérale hors du fichier vendorisé.
-- **Formes** : radius 0 sauf téléphone, zéro dégradé ; ombre d'instrument via `color-mix` et `--ink`.
+- **Boutons** : General Sans 600, casse normale, sans espacement de lettres ajouté.
+- **Formes** : radius 0 sauf téléphone, zéro dégradé ; zéro ombre.
 - **Logo** : `[P.]` et `PARRIT.AI`, arbitrage AV-2 conservé ; icônes issues du paquet canon.
 - **Connecteurs** : tige et tête vectorielles suivant VS-CONNECTOR, aucune flèche-caractère.
 - **Photo** : aucune photo de remplacement avant AV-3 ; certification Qualiopi conservée.
@@ -50,7 +51,7 @@ Aucun mode complex ni Inter Tight.
   dans le flux normal du document, PAS `position: fixed` — elle défile avec la page depuis la
   correction du 20/09 ; `tests/conformity-home.spec.ts` vérifie explicitement `not.toHaveCSS
   ("position", "fixed")`) porte le wordmark, une navigation à 2 liens (Journal, Systèmes), le
-  sélecteur de langue et une seule action principale « Parlons-en »/« Let's talk ». Son contenu
+  sélecteur de langue et une seule action principale « Réserver l'examen »/« Book the examination ». Son contenu
   est aligné sur la colonne `max-width:1160px` du reste du site (`.cmdbar-inner`), pas sur les
   bords bruts de l'écran. Elle est rendue avant `{children}` dans `layout.tsx` sur TOUTES les
   pages ; sans horloge live (retirée, décorative) ni doublon de navigation vers `/commission`.
