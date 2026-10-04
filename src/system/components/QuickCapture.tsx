@@ -24,7 +24,7 @@ const DICT = {
     registered: "Registered",
     done: "Your request is registered. Paul reviews it personally and replies by e-mail.",
     watch: "See an illustrative example",
-    bookExam: "Book a 15-minute examination",
+    bookExam: "Book the examination",
     aria: "Send to Paul",
   },
   fr: {
@@ -40,7 +40,7 @@ const DICT = {
     registered: "Bien reçu.",
     done: "Votre demande est enregistrée. Paul la regarde personnellement et vous répond par e-mail.",
     watch: "Voir l'exemple illustratif",
-    bookExam: "Réserver un examen de 15 minutes",
+    bookExam: "Réserver l'examen",
     aria: "Envoyer à Paul",
   },
 } as const;

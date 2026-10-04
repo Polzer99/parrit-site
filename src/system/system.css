@@ -597,7 +597,6 @@ button {
   border: 1px solid var(--rule-d);
   background: var(--carbon);
   color: var(--paper);
-  box-shadow: 0 40px 80px -40px color-mix(in srgb, var(--ink) 40%, transparent);
 }
 
 .cal-bar {

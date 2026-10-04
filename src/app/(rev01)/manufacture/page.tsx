@@ -35,7 +35,7 @@ const DICT = {
     "standard": "Read the Standard",
     "close": "The Examination comes first.",
     "proof": "15 min · On a video call, with the founder",
-    "button": "Let's talk",
+    "button": "Book the examination",
     "status": "EVERY SYSTEM CHECKED AGAINST THE STANDARD",
     "legal": "Legal"
   },
@@ -68,7 +68,7 @@ const DICT = {
     "standard": "Lire le Standard",
     "close": "Tout commence par un Examen.",
     "proof": "15 min · En visio, avec le fondateur",
-    "button": "Parlons-en",
+    "button": "Réserver l'examen",
     "status": "CHAQUE SYSTÈME VÉRIFIÉ AU STANDARD",
     "legal": "Mentions légales"
   }

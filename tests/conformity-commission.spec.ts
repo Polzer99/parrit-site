@@ -35,7 +35,7 @@ test("commission matches the REV 01 display and instrument constraints", async (
     }).length,
   }));
 
-  expect(visualConstraints.shadows).toBe(1);
+  expect(visualConstraints.shadows).toBe(0);
   expect(visualConstraints.radii).toBe(0);
 });
 

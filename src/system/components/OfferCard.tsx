@@ -48,7 +48,7 @@ export function OfferCard({
       </div>}
       <footer className="offer-card-action">
         {(price || priceNote) && <p className="offer-price">{price ? formatOfferPrice(price, locale) : priceNote}</p>}
-        <Link className="rev-button exec" href={cta.href}>{cta.label}</Link>
+        <Link className="rev-button ghost" href={cta.href}>{cta.label}</Link>
       </footer>
     </article>
   );

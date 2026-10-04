@@ -386,12 +386,12 @@ h2 {
   border: 1px solid var(--ink);
   background: transparent;
   color: var(--ink);
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: var(--t-k);
   font-weight: 600;
-  letter-spacing: .16em;
+  letter-spacing: normal;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: none;
   cursor: pointer;
 }
 
@@ -436,6 +436,16 @@ h2 {
 .rev-button.ghost:active {
   background: var(--paper2);
   color: var(--g3);
+}
+
+.cmdbar .cmd-cta.ghost {
+  border-color: currentColor;
+  color: var(--paper);
+}
+
+.cmdbar .cmd-cta.ghost:hover,
+.cmdbar .cmd-cta.ghost:active {
+  background: var(--ink);
 }
 
 /* pas de :hover fiable au toucher : :active porte tout le retour tactile sur mobile */
@@ -1385,7 +1395,11 @@ h2 {
   outline-offset: 3px;
 }
 
-.cmd-panel-cta {
+.cmd-panel .cmd-panel-cta {
+  font-family: var(--ui);
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
   margin-top: 12px;
   border: 0 !important;
 }
@@ -1878,8 +1892,13 @@ a.k:active {
   display: block;
 }
 
-.home-s-maison-copy > .k + .k {
-  margin-top: var(--s3);
+.home-s-maison-copy {
+  width: 100%;
+  justify-self: center;
+}
+
+.home-s-journey-action {
+  margin-top: 18px;
 }
 
 .home-s-maison-copy p {
@@ -1930,6 +1949,9 @@ a.k:active {
 }
 
 .home-s-text-link--secondary {
+  font-family: var(--ui);
+  letter-spacing: normal;
+  text-transform: none;
   display: block;
   width: fit-content;
   color: var(--g3);
@@ -1977,6 +1999,10 @@ a.k:active {
   display: block;
   margin-top: 26px;
   text-align: center;
+  font-family: var(--ui);
+  font-size: var(--t-k);
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 .home-s-journal {
@@ -2026,9 +2052,33 @@ a.k:active {
   margin: 0 auto .8em;
 }
 
-.home-s-close .k {
-  display: block;
-  margin-bottom: 30px;
+.doctrine-note {
+  font-family: var(--ui);
+  font-size: var(--t-k);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.home-s-close-note {
+  margin: 0 0 30px;
+}
+
+.build-with-you-examination {
+  margin-top: var(--s3);
+}
+
+.build-with-you-examination .doctrine-note {
+  margin: 0 0 var(--s2);
+}
+
+@media (max-width: 760px) {
+  .build-with-you-hero {
+    padding-top: var(--s6);
+  }
+
+  .build-with-you-hero h1 {
+    max-width: none;
+  }
 }
 
 .home-s-footer {
@@ -2548,6 +2598,13 @@ a.k:active {
   margin: -16px 0;
 }
 
+/* New outline actions need a visible contour without adding another accent. */
+.home-s-maison .home-s-journey-action,
+.home-s-offers .offer-card-action .rev-button.ghost,
+.build-with-you-hero .build-with-you-examination .rev-button.ghost {
+  border-color: currentColor;
+}
+
 /* : variantes sombres des composants existants : */
 .r2-dark .rev-button.ghost {
   border-color: var(--rule-d);
@@ -2872,8 +2929,9 @@ a.k:active {
   color: inherit;
 }
 .home-s-proof-item h3 {
-  font-size: var(--d-l);
-  font-weight: 400;
+  font-size: var(--t-xl);
+  font-weight: 500;
+  line-height: inherit;
 }
 
 .home-s-proof-item p {
@@ -2884,9 +2942,10 @@ a.k:active {
 .home-s-proof-item span {
   display: inline-block;
   margin-top: 12px;
-  font-family: var(--mono);
-  font-size: var(--t-k);
-  letter-spacing: .05em;
+  font-family: var(--ui);
+  font-size: var(--t-m);
+  letter-spacing: normal;
+  text-transform: none;
   color: var(--accent-text);
 }
 @media (max-width: 640px) {

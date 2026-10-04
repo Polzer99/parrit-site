@@ -283,3 +283,27 @@ des deux articles et du générateur llms ; bloc de certification tierce retiré
 l’accueil (asset conservé). Les indications historiques contraires sont obsolètes.
 `npm run test:privacy` couvre les régressions ; le deny-all e2e ne tolère plus
 PostHog. Voir le rapport du lot pour les preuves et contrôles hors sandbox restants.
+
+## Doctrine visible, 04/10/2026 — validation partielle
+
+Le lot `docs/CODEX-SPEC-2026-10-04-parrit-ai-doctrine-visible-v1.md` unifie les
+boutons en General Sans 600 et le libellé de réservation FR/EN. Déroulement
+centré sans légende orpheline, offres en contour, preuves au cran des cartes,
+Journal anglais annoncé en FR, CTA dans le hero Build With You, ombre Cal retirée.
+Le contenu du hero accueil, les prix, routes, intégrations et assets canon sont préservés.
+`test:doctrine` vérifie les esquisses privées avec des données synthétiques ;
+`tests/doctrine-visible.spec.ts` rejoint la batterie réseau avec 42 cas et les captures.
+FIX1 applique W-66 : header en contour tant que le hero accueil est visible, plein
+après sa sortie via IntersectionObserver ; sans JS, contour ; ailleurs, plein.
+Le test strict d’accent est conservé ; transitions, navigation et absence de JS couvertes.
+L’assertion de légende compilée suit désormais la présence d’une photo dans la section.
+Build interdit ici ; Chromium refuse de démarrer dans le sandbox. Voir
+`docs/REPORT-2026-10-04-doctrine-visible.md` avant de considérer le lot validé.
+
+FIX2 (04/10) : alias `--text-note` retiré ; notes et verdict au cran existant
+`--t-k` (14 px), liens de preuve en General Sans au corps (18 px), casse normale.
+Le déroulement occupe la largeur commune des sections ; paragraphes conservés à 56ch.
+Les 36 captures PNG suivies de brand-os-p1/after sont sauvegardées hors dépôt puis
+retirées ; les PNG de `.codex-handoffs` sont désormais ignorés. Tests de composition
+complétés. Lint, types, claims, brand et tests Node passent ; Chromium reste bloqué,
+le build et la preuve visuelle doivent être exécutés par l’hôte (voir rapport FIX2).

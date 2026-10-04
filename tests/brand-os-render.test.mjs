@@ -71,7 +71,13 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
         for (const title of titles[locale][route] ?? []) assert.ok(text.includes(title), `${label}: ${title}`);
         if (route === "/") {
           assert.equal(html.includes("founder-portrait"), false);
-          assert.ok(text.includes(`Paul Larmaraud · ${locale === "fr" ? "Fondateur" : "Founder"}`));
+          const journey = html.match(/<section class="home-s-maison">[\s\S]*?<\/section>/)?.[0];
+          assert.ok(journey, `${label}: journey section must be rendered`);
+          assert.equal(
+            visibleText(journey).includes(`Paul Larmaraud · ${locale === "fr" ? "Fondateur" : "Founder"}`),
+            /<img\b/.test(journey),
+            `${label}: founder caption is rendered if and only if the section renders a photo`,
+          );
         }
       }
     }

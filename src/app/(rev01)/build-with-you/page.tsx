@@ -24,7 +24,8 @@ const DICT = {
     nextBody: "You keep the system, and you keep the method: you watched, for 10 hours, how one operation turns into something that runs. The next one you spot, your team can take on alone with what it learned, or you call Parrit back for a custom Commission, starting from the same place.",
     nextLink: "Book an examination for a custom system",
     basis: "fixed fee",
-    cta: "Book the free examination",
+    cta: "Book the examination",
+    examinationNote: "Free 15-minute examination with the founder",
   },
   fr: {
     title: "En 10 heures avec le fondateur, vous construisez un système qui tourne.",
@@ -44,7 +45,8 @@ const DICT = {
     nextBody: "Vous repartez avec le système, et avec la manière de le refaire : vous avez vu, pendant les 10 heures, comment une opération se transforme en quelque chose qui tourne. La prochaine que vous repérerez, votre équipe peut s'y attaquer seule avec ce qu'elle a appris, ou vous rappelez Parrit pour une Commande sur mesure qui part du même endroit.",
     nextLink: "Réserver un examen pour un système sur mesure",
     basis: "forfait",
-    cta: "Réserver l'examen offert",
+    cta: "Réserver l'examen",
+    examinationNote: "Examen offert de 15 minutes, avec le fondateur",
   },
 } as const;
 
@@ -64,10 +66,14 @@ export default async function BuildWithYouPage() {
   return (
     <main className="rev-page r2-dark">
       <div className="r2-wrap">
-        <header className="r2-hero">
+        <header className="r2-hero build-with-you-hero">
           <K>Build With You</K>
           <h1>{copy.title}</h1>
           <p className="r2-sub">{copy.promise}</p>
+          <div className="build-with-you-examination">
+            <p className="doctrine-note">{copy.examinationNote}</p>
+            <Link className="rev-button ghost" href={localizedPath("/commission", locale)}>{copy.cta}</Link>
+          </div>
         </header>
         <section className="r2-section" aria-labelledby="build-steps">
           <div className="r2-shead"><h2 className="r2-ed" id="build-steps">{copy.stepsTitle}</h2></div>
