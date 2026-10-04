@@ -173,6 +173,13 @@ for (const width of [375, 390, 768, 1440]) {
       await expect(h1.locator(".frame")).toHaveCSS("display", "inline-block");
       await expect(h1.locator(".frame")).toHaveCSS("white-space", "nowrap");
       await expect(h1.locator(".frame")).toHaveText(route === "/fr" ? "systèmes qui fonctionnent" : "systems that work");
+      const ending = h1.locator(".home-s-hero-ending");
+      await expect(ending).toHaveCSS("display", "block");
+      const headingBox = await h1.boundingBox();
+      const endingBox = await ending.boundingBox();
+      expect(headingBox).not.toBeNull();
+      expect(endingBox).not.toBeNull();
+      expect(Math.abs(endingBox!.x + endingBox!.width / 2 - headingBox!.x - headingBox!.width / 2)).toBeLessThanOrEqual(1);
       const frameGeometry = await h1.locator(".frame").evaluate((frame) => {
         const bounds = frame.getBoundingClientRect();
         const fx = frame.querySelector(".fx");
@@ -186,6 +193,22 @@ for (const width of [375, 390, 768, 1440]) {
           range.selectNodeContents(node);
           for (const rect of range.getClientRects()) {
             textRects.push({ left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom });
+          }
+        }
+        // FIX6: include every non-whitespace glyph, even outside the frame.
+        const heading = frame.closest("h1");
+        if (!heading) throw new Error("Missing heading");
+        const glyphs: { left: number; right: number; top: number; bottom: number; framed: boolean; word: boolean }[] = [];
+        const headingWalker = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT);
+        while ((node = headingWalker.nextNode())) {
+          for (const match of (node.textContent ?? "").matchAll(/\S/gu)) {
+            const range = document.createRange();
+            range.setStart(node, match.index!);
+            range.setEnd(node, match.index! + match[0].length);
+            for (const rect of range.getClientRects()) {
+              glyphs.push({ left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom,
+                framed: frame.contains(node), word: /\p{L}/u.test(match[0]) });
+            }
           }
         }
         // Pseudo-elements have no DOMRect API. Reconstruct their border boxes
@@ -203,10 +226,17 @@ for (const width of [375, 390, 768, 1440]) {
           const top = style.top !== "auto" ? bounds.top + parseFloat(style.top) : bounds.bottom - parseFloat(style.bottom) - height;
           return { left, right: left + width, top, bottom: top + height };
         }));
-        return { textRects, corners };
+        return { textRects, corners, glyphs };
       });
       expect(frameGeometry.textRects).toHaveLength(1);
       expect(frameGeometry.corners).toHaveLength(4);
+      expect(frameGeometry.glyphs.some((glyph) => !glyph.framed && glyph.word)).toBe(true);
+      // No unframed word may share the framed group's line (punctuation may).
+      for (const glyph of frameGeometry.glyphs.filter((glyph) => !glyph.framed && glyph.word)) {
+        for (const text of frameGeometry.textRects) {
+          expect(Math.abs(glyph.top - text.top)).toBeGreaterThan(1);
+        }
+      }
       for (const corner of frameGeometry.corners) {
         expect(corner.right).toBeGreaterThan(corner.left);
         expect(corner.bottom).toBeGreaterThan(corner.top);
@@ -215,6 +245,10 @@ for (const width of [375, 390, 768, 1440]) {
         // FIX5: screen inset, independent of the section's responsive gutter.
         expect(corner.left).toBeGreaterThanOrEqual(16);
         expect(corner.right).toBeLessThanOrEqual(width - 16);
+        for (const glyph of frameGeometry.glyphs) {
+          const intersects = corner.left < glyph.right && corner.right > glyph.left && corner.top < glyph.bottom && corner.bottom > glyph.top;
+          expect(intersects, JSON.stringify({ corner, glyph })).toBe(false);
+        }
         for (const text of frameGeometry.textRects) {
           const intersects = corner.left < text.right && corner.right > text.left && corner.top < text.bottom && corner.bottom > text.top;
           expect(intersects, JSON.stringify({ corner, text })).toBe(false);

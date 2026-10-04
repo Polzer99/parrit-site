@@ -1750,6 +1750,13 @@ a.k:active {
   color: var(--g2);
 }
 
+.home-s-hero-ending {
+  display: block;
+  width: fit-content;
+  margin-inline: auto;
+  margin-top: 0.2em;
+}
+
 .home-s-hero h1 .frame {
   display: inline-block;
   /* Clear the 14px corners by at least 12px at the smallest (30px) H1.

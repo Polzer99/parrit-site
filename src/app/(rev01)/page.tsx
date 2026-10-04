@@ -209,7 +209,9 @@ export default async function HomePage() {
           <K>{copy.hero.kicker}</K>
           <h1>
             <span>{copy.hero.before} </span>
-            <span className="frame">{copy.hero.frame}<i className="fx" aria-hidden="true" /></span>{copy.hero.after}
+            <span className="home-s-hero-ending">
+              <span className="frame">{copy.hero.frame}<i className="fx" aria-hidden="true" /></span>{copy.hero.after}
+            </span>
           </h1>
           <p className="home-s-hero-sub">{copy.hero.sub}</p>
           <AgentEsquisse locale={locale} />

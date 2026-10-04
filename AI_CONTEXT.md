@@ -354,3 +354,24 @@ gouttière FIX4 par une marge écran minimale de 16 px pour chaque coin du H1.
 Les huit parcours FR/EN conservent non-intersection et séparation texte ≥12 px.
 CSS inchangé. Build Webpack, lint, types et 39 tests Node passent ; validation
 navigateur toujours bloquée au lancement de Chromium (voir rapport FIX5).
+
+FIX6 photo (04/10) : le groupe encadré du H1 et son point final sont réunis dans
+un bloc centré (`home-s-hero-ending`), sur leur propre ligne en FR/EN. Les huit
+parcours à 375/390/768/1440 px vérifient désormais chaque glyphe du H1 contre
+les quatre coins, ainsi que le centrage et l'absence de mot extérieur sur la
+ligne encadrée. Marges écran ≥16 px et séparation du texte encadré ≥12 px
+conservées. Voir la reprise FIX6 du rapport photo pour les résultats et la
+limite de validation navigateur dans le sandbox.
+
+FIX7 photo (04/10) : ajout de `margin-top: 0.12em` au bloc
+`home-s-hero-ending`, seule correction fonctionnelle demandée. Tests FIX6
+inchangés. Build Webpack, types, lint, claims, marque et 39 tests Node passent.
+Chromium reste bloqué au lancement par le sandbox macOS ; la non-intersection
+des coins avec tous les glyphes du H1 reste à vérifier sur l'hôte.
+
+
+FIX8 photo (04/10) : la marge haute de `home-s-hero-ending` passe de `0.12em`
+à `0.2em`, seule correction fonctionnelle demandée ; tests FIX6 inchangés.
+Build Webpack, lint, types, claims, marque et 39 tests Node passent. La batterie
+navigateur reste bloquée au lancement de Chromium par macOS ; la géométrie
+reste à valider sur l’hôte. Voir la reprise FIX8 du rapport photo.

@@ -330,3 +330,134 @@ captures navigateur. Aucun serveur démarré dans ce sandbox, conformément au
 contexte du dépôt. La validation visuelle reste à exécuter sur l'hôte avec le
 serveur local sur 3210 : marge écran ≥16 px et séparation texte ≥12 px aux
 quatre largeurs, FR/EN. Aucune preuve de production revendiquée.
+
+## Reprise FIX6 — 04/10/2026
+
+Source : section FIX6 de la spec locale, déjà modifiée à l'arrivée ; cette
+modification utilisateur est conservée. Le code présent implémentait le lot
+initial et FIX1–FIX5. Plan : baseline, correction locale de la ligne du H1,
+extension des huit parcours existants, contrôles et rapport. Une itération.
+Écriture : checkout local uniquement ; aucune donnée métier, aucun système
+client, aucune écriture distante. Changements réversibles par retrait du diff
+de cette passe. Aucun commit, push ni déploiement.
+
+Fichiers modifiés :
+
+- `src/app/(rev01)/page.tsx` : wrapper autour du cadre et du point final pour
+  garder la ponctuation sur la même ligne, sans changer le texte du H1.
+- `src/app/(rev01)/rev01.css` : wrapper en bloc, largeur `fit-content`, marges
+  automatiques. Le cadre conserve ses dimensions et son retrait intérieur.
+- `tests/brand-os.spec.ts` : avant, non-intersection des coins avec seulement
+  le texte encadré ; après, contrôle supplémentaire de chaque glyphe du H1
+  par Range, ponctuation comprise. Centrage du bloc à ±1 px et absence de mot
+  extérieur sur sa ligne également vérifiés. Les huit parcours FR/EN à
+  375/390/768/1440 px conservent les contrôles photo, légende, mots par ligne,
+  marge écran ≥16 px, séparation ≥12 px, débordement et deny-all réseau.
+- `AI_CONTEXT.md` et ce rapport : état FIX6 et résultats.
+
+Aucun texte attendu n'est remplacé dans les tests ; aucun seuil existant n'est
+assoupli. Journal inchangé, notamment « What is a company operating system? ».
+Le grep prescrit dans `src scripts` ne trouve aucune correspondance.
+
+| Vérification | Résultat de cette passe |
+|---|---|
+| Baseline `test:brand-os` | 13/13 réussis. |
+| Parcours photo/titre avant et après | Chromium refusé avant navigation. |
+| `npm run lint`, `npx tsc --noEmit` | Réussis. |
+| `npm run qa:claims:rev01`, `npm run qa:brand:rev01` | Réussis. |
+| `npm run build -- --webpack` | Réussi, 54 pages ; avertissement metadataBase préexistant. |
+| `npm run test:brand-os` après build | 13/13 réussis. |
+| `test:doctrine`, `test:privacy`, `test:entity` | 10/10, 9/9, 7/7 ; 39 tests Node au total avec Brand OS. |
+| `npm run qa:network:rev01 -- --workers=1 --max-failures=1` | 1 échec de lancement Chromium, 172 cas non exécutés. |
+| `git diff --check` | Réussi. |
+
+Logs : `/tmp/photo-fix6-*.log`. Le premier filtre de baseline navigateur
+(`home labels`) ne sélectionnait aucun cas ; il a été corrigé en
+`approved founder photo` avant modification du code.
+
+Blocage : Chromium est refusé par macOS (`MachPortRendezvousServer: Permission
+denied (1100)`). Aucune mesure ni capture navigateur n'a pu être produite ;
+le build ne prouve pas la géométrie. PRODUCTION_PROOF encore à obtenir sur
+l'hôte : batterie réseau verte avec serveur local sur 3210, inspection des
+captures FR/EN aux quatre largeurs, groupe seul sur sa ligne et aucun coin
+sur les glyphes de l'ensemble du H1. Aucun serveur lancé dans ce sandbox,
+conformément au contexte du dépôt. La validation visuelle reste ouverte.
+
+## Reprise FIX7 — 04/10/2026
+
+La section FIX7 de la spec locale demande uniquement une marge haute de
+`0.12em` sur le bloc encadré. FIX1–FIX6 et les changements non commités présents
+à l'arrivée sont conservés, y compris la spec, les tests et les captures.
+Plan exécuté : baseline, correction CSS unique, mêmes contrôles, rapport.
+Une itération ; aucune écriture distante ni donnée métier touchée. La correction
+est réversible en retirant cette seule déclaration CSS. Aucun commit, push ou
+déploiement. Aucun serveur démarré dans ce sandbox.
+
+Fichiers modifiés pendant cette passe :
+
+- `src/app/(rev01)/rev01.css` : `margin-top: 0.12em` ajouté à
+  `.home-s-hero-ending`, pour dégager les coins supérieurs de la ligne précédente.
+- `AI_CONTEXT.md` et ce rapport : résultats et limite de validation FIX7.
+
+Tests ajoutés ou modifiés : aucun, conformément à FIX7 (« le test reste tel
+quel »). Les huit parcours FR/EN à 375/390/768/1440 px conservent leur contrôle
+de chaque glyphe du H1, sans assouplissement des seuils ni changement de texte.
+
+| Vérification | Résultat de cette passe |
+|---|---|
+| Baseline `npm run test:brand-os` | 13/13 réussis. |
+| Baseline navigateur, filtre `approved founder photo` | Chromium refusé avant navigation. |
+| `npm run lint`, `npx tsc --noEmit` | Réussis. |
+| `npm run qa:claims:rev01`, `npm run qa:brand:rev01` | Réussis. |
+| `npm run build -- --webpack` | Réussi, 54 pages ; avertissement metadataBase préexistant. |
+| `npm run test:brand-os` après build | 13/13 réussis. |
+| `test:doctrine`, `test:privacy`, `test:entity` | 10/10, 9/9, 7/7 ; 39 tests Node au total avec Brand OS. |
+| `npm run qa:network:rev01 -- --workers=1 --max-failures=1` | Échec au lancement Chromium, 172 cas non exécutés. |
+| `git diff --check` | Réussi. |
+| Grep prescrit dans `src scripts` | Aucune correspondance. |
+
+Logs : `/tmp/photo-fix7-*.log`. Le Journal reste inchangé, dont « What is a
+company operating system? ». Le refus macOS
+`MachPortRendezvousServer: Permission denied (1100)` empêche toute mesure ou
+capture navigateur. PRODUCTION_PROOF à obtenir sur l'hôte : batterie réseau
+sur le serveur local 3210, puis vérification FR/EN aux quatre largeurs que
+les coins ne recoupent aucun glyphe du H1. Le build ne prouve pas cette géométrie.
+
+
+## Reprise FIX8 — 04/10/2026
+
+Source : section FIX8 de la spec locale, sur le checkout explicitement demandé
+(`HEAD b7a922a53edb4b2520fe7be5926c8a2c7df803bc` avec changements existants).
+La seule correction fonctionnelle de cette passe porte `margin-top` de
+`.home-s-hero-ending` de `0.12em` à `0.2em` dans `src/app/(rev01)/rev01.css`.
+Les corrections FIX1–FIX7, la spec, les tests et les captures déjà modifiés
+sont préservés. `AI_CONTEXT.md` et ce rapport documentent cette reprise.
+
+Plan exécuté : baseline, correction unique, mêmes contrôles, rapport ; une
+itération. Écriture limitée au checkout local, aucune donnée métier ni écriture
+distante. Retour arrière : remettre uniquement cette marge à `0.12em`.
+Aucun commit, push, déploiement ni serveur lancé dans le sandbox.
+
+Tests ajoutés ou modifiés : aucun, conformément à FIX8 (« le test reste tel
+quel »). Les huit parcours FR/EN à 375/390/768/1440 px conservent les assertions
+sur tous les glyphes du H1, le centrage et les marges, sans modification de seuil.
+
+| Vérification | Résultat de cette passe |
+|---|---|
+| Baseline `npm run test:brand-os` | 13/13 réussis. |
+| Baseline navigateur, filtre `approved founder photo` | Chromium refusé avant navigation. |
+| `npm run lint`, `npx tsc --noEmit` | Réussis. |
+| `npm run qa:claims:rev01`, `npm run qa:brand:rev01` | Réussis. |
+| `npm run build -- --webpack` | Réussi, 54 pages ; avertissement metadataBase préexistant. |
+| `npm run test:brand-os` après build | 13/13 réussis. |
+| `test:doctrine`, `test:privacy`, `test:entity` | 10/10, 9/9, 7/7 ; 39 tests Node au total avec Brand OS. |
+| `npm run qa:network:rev01 -- --workers=1 --max-failures=1` | Échec au lancement Chromium, 172 cas non exécutés. |
+| `git diff --check` | Réussi. |
+| Grep prescrit dans `src scripts` | Aucune correspondance. |
+
+Logs : `/tmp/photo-fix8-*.log`. Journal inchangé, notamment « What is a company
+operating system? ». Le refus macOS `MachPortRendezvousServer: Permission denied
+(1100)` bloque toute mesure ou capture navigateur. PRODUCTION_PROOF reste à
+obtenir sur l’hôte : batterie réseau avec serveur local sur 3210 et contrôle
+FR/EN aux quatre largeurs que les coins ne recoupent aucun glyphe du H1.
+Le build et les tests Node ne prouvent pas cette géométrie.

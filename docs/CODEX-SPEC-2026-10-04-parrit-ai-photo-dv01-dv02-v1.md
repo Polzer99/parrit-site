@@ -9,6 +9,23 @@ partout où il est (`RevFooter`, `CalInline`, `sketch/[id]`, `opengraph-image.ts
 Ne pas toucher non plus : prix, durées, offres, `QuickCapture`/`AgentEsquisse` (comportement), Journal, tokens, polices,
 routes, ni les acquis de #300 (boutons, libellé « Réserver l'examen », un éclat rose par écran).
 
+## FIX8 (04/10) — sur le travail FIX7 présent (ne rien refaire)
+Mesure : avec `0.12em`, les coins recoupent encore la boîte de la ligne précédente de 0,4 px (390) et 1,6 px (1440).
+Porter la marge haute du bloc encadré à `0.2em`. Rien d'autre ne change, le test reste tel quel.
+
+## FIX7 (04/10) — sur le travail FIX6 présent (ne rien refaire)
+Rendu visuel correct (vérifié par Claude, FR/EN, 390 et 1440). Le test échoue d'environ 3 px : les coins supérieurs du
+cadre entrent dans la boîte de contenu de la ligne précédente (zone des jambages). Ajouter au bloc encadré une marge
+haute de `0.12em` (et rien d'autre) pour que les coins sortent de cette boîte ; le test reste tel quel (aucun coin ne
+recoupe aucun rectangle de glyphe du H1).
+
+## FIX6 (04/10) — sur le travail FIX5 présent (ne rien refaire)
+En EN à 375 px, le crochet gauche chevauche « into », mot NON encadré qui partage la ligne du groupe encadré (« into
+systems that work. »). Le groupe encadré se place toujours sur sa propre ligne, centré (`display: block; width:
+fit-content; margin-inline: auto` ou équivalent), en FR et en EN, à toutes les largeurs : aucun mot hors cadre ne
+partage sa ligne. Étendre l'assertion du test : aucun coin ne recoupe AUCUN glyphe du H1 (pas seulement le texte
+encadré), à 375, 390, 768 et 1440 px, FR et EN.
+
 ## FIX5 (04/10) — sur le travail FIX4 présent (ne rien refaire)
 Seul échec : `brand-os.spec.ts:218` à 768 px FR (coin gauche 65,7 px contre gouttière 74 px). L'exigence « dans la
 gouttière de page » venait du FIX4 et dépasse la règle (rien ne touche rien). Remplacer l'assertion `corner.left >=
