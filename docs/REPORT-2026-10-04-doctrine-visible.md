@@ -1,5 +1,109 @@
 # Doctrine visible — rapport d’implémentation
 
+## Reprise FIX3 — 04/10/2026 (état actuel)
+
+Les changements FIX2 présents à l’arrivée sont conservés, ainsi que la spec utilisateur.
+Plan appliqué : contrôler les prérequis FIX2, corriger uniquement l’assertion FIX3,
+sauvegarder les captures encore suivies, puis rejouer la batterie autorisée.
+Cible : worktree local ; aucune donnée métier ni écriture distante. Une passe de
+correction, une vérification avant/après ; aucun commit, push ou déploiement.
+
+### Modifications FIX3
+
+- `tests/doctrine-visible.spec.ts` : comparaison textuelle exacte de `max-width`
+  remplacée par `Math.abs(maxWidth - expectedWidth) <= 1`, avec conversion numérique
+  des deux mesures. La sonde reste à **56ch**, les autres assertions sont conservées.
+  Aucun nouveau cas de test permanent : correction des cas FR/EN, 1440/390 existants,
+  expressément demandée par FIX3. Aucun changement de code produit.
+- `.codex-handoffs/brand-os-p1/after/` : les **36 PNG présents et suivis** à l’arrivée
+  ont été copiés hors dépôt, chacun vérifié par SHA256, puis supprimés du worktree.
+  Sauvegarde actuelle (y compris les huit PNG modifiés avant cette reprise) :
+  `/private/tmp/parrit-doctrine-fix3-tnlpr8dd/`, avec `manifest.json`.
+  Le motif `.codex-handoffs/**/*.png` était déjà dans `.gitignore` et est conservé.
+- Ce rapport est complété ; les autres modifications préexistantes restent intactes.
+
+### Contrôles FIX2 demandés par FIX3
+
+`git diff origin/main -- src/system/tokens.css` est vide ; aucune occurrence de
+`--text-note` dans `src`. Les notes utilisent le cran existant `--t-k`.
+Les corrections de largeur, du verdict et des liens de preuve sont présentes.
+
+**Limite Git explicite :** l’index est en lecture seule dans cet environnement.
+Les 36 suppressions sont donc non indexées et `git ls-files` les énumère encore.
+Le script utilisateur devra inclure ces suppressions lors de son indexation ; après
+cette étape, aucun PNG sous `.codex-handoffs/` ne doit rester suivi. Les copies hors
+dépôt préservent tous les octets, dont les changements utilisateur.
+
+### Résultats FIX3
+
+| Contrôle | Avant / après correction |
+|---|---|
+| `npm run lint` | Réussi / réussi. |
+| `npx --no-install tsc --noEmit` | Réussi / réussi. |
+| `npm run qa:claims:rev01` | Réussi / réussi. |
+| `npm run qa:brand:rev01` | Réussi / réussi. |
+| `npm run test:doctrine` | 10/10 / 10/10. |
+| `npm run test:brand-os` | 12/12 / 12/12, sur le build préexistant ; avertissement metadataBase inchangé. |
+| `npm run qa:network:rev01 -- --workers=1 --max-failures=1` | Même blocage avant/après : Chromium, `MachPortRendezvousServer: Permission denied (1100)` ; 1 échec au lancement, 169 cas non exécutés. |
+| `git diff --check` | Réussi après correction. |
+| Vérification ponctuelle des bornes numériques | 6 assertions réussies : écart signalé 586.656/586.641, bornes ±1, rejet au-delà des deux bornes et rejet de NaN. Ne remplace pas le rendu navigateur. |
+| Build et captures | Build non lancé conformément au §8 (interdit dans le sandbox) ; aucune nouvelle capture, Chromium indisponible. |
+
+La batterie navigateur complète et les captures FR 1440/390 restent à exécuter sur
+l’hôte. Aucun résultat visuel ni effet en production n’est revendiqué par cette reprise.
+
+---
+
+## Reprise FIX2 — 04/10/2026 (historique)
+
+Base du worktree demandé : `855bd6ad2d429e9ee5d99cd18125a528c940cf2c`.
+La spec était le seul fichier modifié à l’arrivée ; son diff préexistant est conservé
+sans modification. Les sections suivantes décrivent historiquement les passes initiale
+et FIX1 ; les valeurs ci-dessous remplacent leurs mentions de `--text-note` et de largeur.
+Instructions, contexte, TRUTH et spec lus avant modification ; guide CSS Next installé
+consulté. Plan borné aux quatre points FIX2, une passe de correction et une batterie.
+Cible : fichiers locaux uniquement ; aucun accès métier, aucune écriture distante.
+Retour possible par restauration ciblée depuis la base, sans toucher à la spec utilisateur.
+
+### Modifications de cette reprise
+
+| Fichier | Avant → après |
+|---|---|
+| `src/system/tokens.css` | Suppression de l’alias ajouté `--text-note: var(--t-s)`. Aucun fichier vendorisé touché. |
+| `src/app/(rev01)/rev01.css` | Notes : 16 → 14 px via `--t-k`. Colonne déroulement : plafond 56ch supprimé, largeur de `.home-s-wrap` comme « Ce que nous construisons » ; paragraphes toujours limités à 56ch. Verdict : Plex Mono/capitales → General Sans/casse normale, 14 px. Liens des preuves : Plex Mono 14 px → General Sans 18 px, casse normale et espacement normal. Surtitres, numéros et textes conservés. |
+| `.gitignore` | Ajout de `.codex-handoffs/**/*.png`. |
+| `.codex-handoffs/brand-os-p1/after/*.png` | **36** PNG suivis réellement présents (la spec en annonçait 32), retirés du worktree après copie et comparaison SHA256 de chaque fichier. Sauvegarde hors dépôt : `/private/tmp/parrit-doctrine-visible-fix2-855bd6a/after/`. Suppressions non indexées, à prendre en charge par le script utilisateur. |
+| `tests/doctrine-visible.spec.ts` | Assertions ajoutées aux cas existants FR/EN à 1440/390 : largeur commune, titre du déroulement sur trois lignes maximum à 1440, paragraphes à 56ch, notes/verdict à 14 px, liens à 18 px, General Sans sans capitales ni tracking ; maintien des surtitres/numéros en Plex Mono. Note Build With You vérifiée à 14 px. |
+| `AI_CONTEXT.md`, ce rapport | État FIX2 et limites de vérification documentés. |
+
+Aucun nouveau libellé, aucun seuil existant changé, aucun autre test modifié.
+Les tests privés existants sont conservés : ils vérifient les libellés de réservation
+explicitement demandés au §8(b), sans tester le métier des esquisses.
+AGENTS.md porte déjà les trois corrections exigées ; aucune réécriture nécessaire.
+
+### Exécutions FIX2
+
+Baseline avant édition : lint, claims, brand, doctrine (10/10) et Brand OS (12/12) verts.
+
+| Contrôle après édition | Résultat |
+|---|---|
+| `npm run lint` | Réussi. |
+| `npx --no-install tsc --noEmit` | Réussi. |
+| `npm run qa:claims:rev01` | Réussi. |
+| `npm run qa:brand:rev01` | Réussi. |
+| `npm run test:doctrine` | 10/10. |
+| `npm run test:brand-os` | 12/12 ; rendu compilé sur le `.next` préexistant, donc sans preuve du CSS FIX2. Avertissement metadataBase déjà présent en baseline. |
+| `npm run qa:network:rev01 -- --workers=1 --max-failures=1` | 170 cas collectés ; premier cas bloqué au lancement Chromium (`MachPortRendezvousServer: Permission denied (1100)`), 169 non exécutés. |
+| `git diff --check` | Réussi. |
+| Build | Non lancé conformément à l’interdiction explicite de la spec dans le sandbox ; aucun serveur lancé. |
+
+**Validation visuelle encore requise sur l’hôte** après nouveau build : batterie réseau,
+six captures FR 1440/390 et inspection du titre sur trois lignes maximum. Les anciennes
+captures sauvegardées ne prouvent pas le rendu FIX2. Aucune nouvelle capture ni preuve
+de production revendiquée. Aucun commit, indexation, push ou déploiement effectué.
+
+---
+
 Date : 04/10/2026. Base locale : `26dcd2695a8c07c2576e9dc9304b2dbf6e2cf964`,
 identique à la base de la spec. **Validation partielle ; ne pas considérer la batterie verte.**
 

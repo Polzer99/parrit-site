@@ -299,3 +299,11 @@ Le test strict d’accent est conservé ; transitions, navigation et absence de 
 L’assertion de légende compilée suit désormais la présence d’une photo dans la section.
 Build interdit ici ; Chromium refuse de démarrer dans le sandbox. Voir
 `docs/REPORT-2026-10-04-doctrine-visible.md` avant de considérer le lot validé.
+
+FIX2 (04/10) : alias `--text-note` retiré ; notes et verdict au cran existant
+`--t-k` (14 px), liens de preuve en General Sans au corps (18 px), casse normale.
+Le déroulement occupe la largeur commune des sections ; paragraphes conservés à 56ch.
+Les 36 captures PNG suivies de brand-os-p1/after sont sauvegardées hors dépôt puis
+retirées ; les PNG de `.codex-handoffs` sont désormais ignorés. Tests de composition
+complétés. Lint, types, claims, brand et tests Node passent ; Chromium reste bloqué,
+le build et la preuve visuelle doivent être exécutés par l’hôte (voir rapport FIX2).

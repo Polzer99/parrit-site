@@ -14,6 +14,29 @@ P1/P3 du 24/09, REGLES-DOR §48 « un seul canon de marque ») et périmée sur 
 d'instrument ou impose le libellé « Parlons-en », ce lot l'emporte. Mettre à jour la puce correspondante d'`AGENTS.md`
 (libellé de l'action du header ; boutons en General Sans ; zéro ombre) dans le même lot, sans réécrire le reste.
 
+## FIX3 (04/10) — sur le travail FIX2 présent (ne rien refaire)
+Batterie hors sandbox : seul `tests/doctrine-visible.spec.ts:109` échoue (8 cas, FR/EN, 1440/390) : `toHaveCSS("max-width",
+…)` compare deux largeurs au millième (attendu 586.641px, reçu 586.656px). Remplacer l'égalité exacte par une
+comparaison numérique à ±1 px (même tolérance que les contrôles d'axe du dépôt). La règle (mesure de 56 ch) ne change
+pas. Vérifier aussi que FIX2 §1 et §2 sont bien faits : `git diff origin/main -- src/system/tokens.css` vide, aucun PNG
+sous `.codex-handoffs/` suivi par git.
+
+## FIX2 (04/10) — sur la PR #300 (ne rien refaire, ne rien annuler)
+Relecture de Claude (diff + rendu local, FR, 1440 et 375) :
+1. **Token ajouté** : `src/system/tokens.css` reçoit `--text-note: var(--t-s)` (16 px). Un token nouveau exige une
+   décision (REGLES-DOR §48) et une note se rend au cran existant de 14 px. Retirer la ligne ; utiliser `--t-k` (14 px)
+   là où `--text-note` était employé.
+2. **Captures commitées** : retirer du dépôt les 32 PNG de `.codex-handoffs/brand-os-p1/after/` (les garder hors git ;
+   ajouter `.codex-handoffs/**/*.png` à `.gitignore`).
+3. **Déroulement** : centrée, la colonne est trop étroite et le titre h2 tient sur cinq lignes à 1440 px. Porter la
+   largeur de la colonne à la mesure de texte des autres sections de l'accueil (celle de « Ce que nous construisons »),
+   pour un titre sur trois lignes au plus à 1440 px ; mesure du paragraphe inchangée (≤ 75 caractères par ligne).
+4. **Phrases en Plex Mono** (W-25, mono réservée à l'appareil) : la phrase de conclusion « Trois gestes, sur l'opération
+   choisie… » (`build.verdict`) et les liens « Voir le système » / « Voir les dossiers » passent en General Sans,
+   casse normale (`--t-k` pour le verdict, taille de lien du corps pour les liens). Les surtitres et numéros restent en
+   Plex Mono.
+Rien d'autre ne change.
+
 ## FIX1 (04/10) — À FAIRE SUR LE TRAVAIL DÉJÀ PRÉSENT DANS CE WORKTREE (ne rien refaire, ne rien annuler)
 Batterie hors sandbox : lint, claims, build, brand verts ; `test:brand-os` rouge sur un seul test.
 1. `tests/brand-os-render.test.mjs:74` exige la légende « Paul Larmaraud · Fondateur/Founder » : elle gèle l'ancien

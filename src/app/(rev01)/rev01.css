@@ -1894,7 +1894,6 @@ a.k:active {
 
 .home-s-maison-copy {
   width: 100%;
-  max-width: 56ch;
   justify-self: center;
 }
 
@@ -2000,6 +1999,10 @@ a.k:active {
   display: block;
   margin-top: 26px;
   text-align: center;
+  font-family: var(--ui);
+  font-size: var(--t-k);
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 .home-s-journal {
@@ -2051,7 +2054,7 @@ a.k:active {
 
 .doctrine-note {
   font-family: var(--ui);
-  font-size: var(--text-note);
+  font-size: var(--t-k);
   letter-spacing: normal;
   text-transform: none;
 }
@@ -2939,9 +2942,10 @@ a.k:active {
 .home-s-proof-item span {
   display: inline-block;
   margin-top: 12px;
-  font-family: var(--mono);
-  font-size: var(--t-k);
-  letter-spacing: .05em;
+  font-family: var(--ui);
+  font-size: var(--t-m);
+  letter-spacing: normal;
+  text-transform: none;
   color: var(--accent-text);
 }
 @media (max-width: 640px) {

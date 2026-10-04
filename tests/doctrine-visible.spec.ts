@@ -92,6 +92,41 @@ for (const locale of ["fr", "en"] as const) {
         return Math.abs(box.x + box.width / 2 - parent.x - parent.width / 2);
       });
       expect(geometry).toBeLessThanOrEqual(1);
+      if (width === 1440) {
+        const measure = await journey.evaluate((element) => {
+          const heading = element.querySelector("h2")!;
+          const build = document.querySelector(".home-s-build > .home-s-wrap")!;
+          return {
+            width: element.getBoundingClientRect().width,
+            referenceWidth: build.getBoundingClientRect().width,
+            lines: heading.getBoundingClientRect().height / parseFloat(getComputedStyle(heading).lineHeight),
+          };
+        });
+        expect(Math.abs(measure.width - measure.referenceWidth)).toBeLessThanOrEqual(1);
+        expect(measure.lines).toBeLessThanOrEqual(3.01);
+      }
+      for (const paragraph of await journey.locator("p").all()) {
+        const measure = await paragraph.evaluate((element) => {
+          const probe = document.createElement("span");
+          probe.style.cssText = "display:block;width:56ch;font:inherit";
+          element.append(probe);
+          const expectedWidth = parseFloat(getComputedStyle(probe).width);
+          const maxWidth = parseFloat(getComputedStyle(element).maxWidth);
+          probe.remove();
+          return { expectedWidth, maxWidth };
+        });
+        // CSS serialization and layout round fractional pixels differently.
+        expect(Math.abs(measure.maxWidth - measure.expectedWidth)).toBeLessThanOrEqual(1);
+      }
+      for (const prose of await page.locator(".home-s-verdict, .home-s-proof-item span, .doctrine-note").all()) {
+        await expect(prose).toHaveCSS("font-family", /General Sans/);
+        await expect(prose).toHaveCSS("text-transform", "none");
+        await expect(prose).toHaveCSS("letter-spacing", "normal");
+        await expect(prose).toHaveCSS("font-size", await prose.evaluate((el) => el.matches(".home-s-proof-item span") ? "18px" : "14px"));
+      }
+      for (const kicker of await page.locator(".home-s-build .k:not(.home-s-verdict), .home-s-maison .k").all()) {
+        await expect(kicker).toHaveCSS("font-family", /IBM Plex Mono/);
+      }
       await expect(page.locator(".home-s-offers .rev-button.ghost")).toHaveCount(2);
       const offerTitle = page.locator(".offer-card h3").first();
       for (const heading of await page.locator(".home-s-proof-item h3").all()) {
@@ -175,6 +210,7 @@ for (const locale of ["fr", "en"] as const) {
     expect(bounds!.y).toBeGreaterThanOrEqual(0);
     expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(844);
     await expect(hero.locator(".doctrine-note")).toHaveText(locale === "fr" ? "Examen offert de 15 minutes, avec le fondateur" : "Free 15-minute examination with the founder");
+    await expect(hero.locator(".doctrine-note")).toHaveCSS("font-size", "14px");
     await expect(hero.locator(".offer-price")).toHaveCount(0);
     await expect(page.locator(".r2-close .offer-price")).toHaveCount(1);
     await expect(page.locator('[aria-labelledby="build-next"] > a')).toHaveText(locale === "fr" ? "Réserver un examen pour un système sur mesure" : "Book an examination for a custom system");
