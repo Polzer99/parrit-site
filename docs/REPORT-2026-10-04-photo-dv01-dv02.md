@@ -181,3 +181,152 @@ Résultats de cette reprise :
 Logs : `/tmp/photo-fix2-{baseline,build,lint,brand-tests,doctrine,privacy,entity,types,network}.log`.
 Les mesures navigateur et captures restent à exécuter sur l’hôte ; aucune preuve
 visuelle ou de production n’est revendiquée. Aucun commit, push ou déploiement.
+
+## Reprise FIX3 — 04/10/2026
+
+La photo, les textes DV-01/DV-02 et FIX1/FIX2 étaient déjà implémentés dans le
+checkout. Seule la spec portait une modification préexistante (ajout de FIX3) :
+elle est préservée intégralement. Aucun changement des assets, du Journal,
+des tokens, des polices ou du contenu dans cette reprise.
+
+Plan appliqué : baseline, correction du cadre, contrôle géométrique ciblé,
+vérifications et rapport. Écritures limitées au checkout local, réversibles par
+fichier ; aucune donnée métier ni système distant, zéro ligne métier affectée.
+Les versions initiales des fichiers modifiés sont dans HEAD ; la spec préexistante
+n’est pas écrasée. Une passe de correction et de vérifications, sans contournement
+du sandbox. Aucun commit, push ni déploiement.
+
+Fichiers de cette reprise :
+
+- `src/app/(rev01)/rev01.css` : uniquement le cadre du H1 accueil,
+  `padding-inline: .9em` et `margin-inline: -.9em`. Les marges compensent
+  l’espace ajouté pour garder la largeur typographique participant à la coupure.
+  Taille du H1, tracking, line-height et nowrap inchangés. À 30 px, le retrait
+  vaut 27 px : même avec des coins de 16 px en content-box placés à -1 px,
+  la séparation théorique est de 12 px.
+- `tests/brand-os.spec.ts` : les six parcours photo/titre existants deviennent
+  huit avec FR/EN à 390 px. Chaque parcours mesure le texte par
+  `Range.getClientRects()` et reconstruit les quatre rectangles des pseudo-éléments
+  depuis leurs dimensions et positions calculées (bordures incluses). Assertions :
+  un seul rectangle de texte, quatre coins non vides, aucune intersection,
+  séparation horizontale ≥ 12 px et coins entièrement dans le viewport.
+  Les assertions existantes (texte, mots seuls, débordement, photo, légende,
+  captures) et le deny-all réseau sont conservés. Aucun seuil assoupli.
+- `AI_CONTEXT.md` et ce rapport : état du correctif et limites de validation.
+
+Résultats de cette reprise :
+
+| Vérification | Résultat |
+|---|---|
+| Baseline marque, claims, Brand OS Node | Réussie ; 13/13 tests Node. |
+| Baseline navigateur ciblée | Refus Chromium avant navigation, aucune mesure obtenue. |
+| `npm run lint`, `npx tsc --noEmit` | Réussis après modification finale du test. |
+| `npm run qa:claims:rev01`, `npm run qa:brand:rev01` | Réussis. |
+| `npm run build -- --webpack` | Réussi, 54 pages ; avertissement metadataBase préexistant. |
+| `npm run test:brand-os` après build | 13/13 réussis. |
+| `test:doctrine`, `test:privacy`, `test:entity` | 10/10, 9/9 et 7/7 : 39 tests Node au total. |
+| `git diff --check` | Réussi. |
+| Grep prescrit dans `src scripts` | Aucune correspondance. Article Journal préservé comme documenté plus haut. |
+| `npm run qa:network:rev01 -- --workers=1 --max-failures=1` | 1 échec d’infrastructure Chromium, 172 cas non exécutés. |
+
+Logs : `/tmp/photo-fix3-{baseline-node,baseline-browser,build,lint,brand-tests,doctrine,privacy,entity,network}.log`.
+Le refus Chromium (`MachPortRendezvousServer`, permission système) empêche toute
+validation visuelle et toute capture nouvelle. La non-intersection, les 12 px de
+séparation et la coupure effective restent donc à vérifier sur l’hôte avec le
+serveur local sur 3210. Le test tient compte du box-sizing des pseudo-éléments,
+car le reset `*` ne suffit pas à garantir leur border-box. Aucune preuve navigateur
+ou de production n’est revendiquée.
+
+## Reprise FIX4 — 04/10/2026
+
+Le checkout contient déjà la photo, DV-01/DV-02 et FIX1–FIX3. Les neuf fichiers
+initialement modifiés, notamment la spec et les quatre PNG, sont préservés.
+Instructions du dépôt, contexte, spec et guide CSS de Next installé lus avant
+édition. Aucun changement de contenu ni d’API externe dans cette reprise.
+
+Plan : baseline, correction CSS locale sous 400 px, renforcement des assertions,
+vérifications puis rapport. Une seule itération de correction ; aucune escalade
+de permissions. Écritures locales réversibles, aucun système distant ni donnée
+métier (zéro ligne affectée). Sauvegarde des quatre fichiers avant modification :
+`/tmp/photo-fix4-backup/`. Aucun commit, push ou déploiement.
+
+Fichiers modifiés dans cette reprise :
+
+- `src/app/(rev01)/rev01.css` : sous 400 px strictement, descente d’un cran de
+  `--d-s` vers le palier existant `--t-xl` (26 px). Le retrait passe à 1.04em
+  (27.04 px), avec marge compensatrice, pour maintenir les 12 px de séparation
+  malgré la réduction de taille. À partir de 400 px, CSS FIX3 conservé.
+- `tests/brand-os.spec.ts` : les huit parcours FR/EN × 375/390/768/1440 conservent
+  leurs contrôles de viewport, d’intersection Range, d’écart ≥12 px et de mots
+  seuls ; deux assertions supplémentaires imposent les limites intérieures de
+  la gouttière, mesurées sur `.home-s-wrap`. Aucun seuil assoupli ni texte attendu
+  changé. Deny-all conservé.
+- `AI_CONTEXT.md` et ce rapport : état de FIX4 et limites de validation.
+
+| Vérification | Résultat de cette reprise |
+|---|---|
+| Baseline `test:brand-os` | 13/13 réussis. |
+| Baseline navigateur, parcours photo/titre | Chromium refusé avant navigation. |
+| `npm run lint`, `npx tsc --noEmit` | Réussis. |
+| `npm run qa:claims:rev01`, `npm run qa:brand:rev01` | Réussis. |
+| `npm run build -- --webpack` | Réussi, 54 pages ; avertissement metadataBase préexistant. |
+| `npm run test:brand-os` après build | 13/13 réussis. |
+| `test:doctrine`, `test:privacy`, `test:entity` | 10/10, 9/9, 7/7 : 39 tests Node au total avec Brand OS. |
+| `npm run qa:network:rev01 -- --workers=1 --max-failures=1` | Refus Chromium : 1 échec d’infrastructure, 172 cas non exécutés. |
+| `git diff --check` | Réussi. |
+| Grep prescrit dans `src scripts` | Aucune correspondance. Journal inchangé, dont « What is a company operating system? ». |
+
+Logs : `/tmp/photo-fix4-{baseline-node,baseline-browser,lint,static,types,build,brand-tests,node,network}.log`.
+Le log `node` contient la suite entité ; doctrine et confidentialité ont aussi
+été observées en sortie du terminal (10 et 9 succès respectivement).
+
+Limite : `bootstrap_check_in … MachPortRendezvousServer: Permission denied (1100)`
+empêche toute mesure navigateur. Le build et les tests Node ne prouvent pas la
+géométrie : vérifier sur l’hôte les coins dans la gouttière, la séparation ≥12 px,
+les mots par ligne et les captures aux quatre largeurs FR/EN. Aucune nouvelle
+capture ni preuve de production revendiquée ; validation visuelle encore ouverte.
+
+## Reprise FIX5 — 04/10/2026
+
+Source : section FIX5 de la spec présente dans le checkout demandé par Paul.
+Elle remplace explicitement l'exigence de gouttière FIX4 par une marge écran de
+16 px. Le lot photo et FIX1–FIX4 étaient déjà présents ; ils sont conservés.
+Plan exécuté : baseline Node/navigateur, modification ciblée du test, mêmes
+contrôles après modification et batterie du dépôt. Une seule itération.
+Écriture limitée au checkout local, réversible par les sauvegardes de cette
+passe dans `/tmp/photo-fix5-backup/` ; aucune donnée métier ni écriture distante.
+
+Fichiers modifiés pendant cette reprise :
+
+- `tests/brand-os.spec.ts` : suppression de la mesure de `.home-s-wrap` devenue
+  inutile ; avant, `corner.left >= pageLeft` et `corner.right <= pageRight` ;
+  après, `corner.left >= 16` et `corner.right <= width - 16`. Les huit parcours
+  existants FR/EN à 375/390/768/1440 px sont adaptés, sans nouveau scénario.
+  Non-intersection Range, séparation ≥12 px, présence des quatre coins, mots
+  par ligne, photo, légende, captures et deny-all réseau restent inchangés.
+- `AI_CONTEXT.md` et ce rapport : décision FIX5 et résultats de cette passe.
+
+Le CSS et les changements préexistants sont préservés. L'empreinte du CSS avant
+et après est identique (`/tmp/photo-fix5-css.sha256`). Aucun commit, push ou
+déploiement. Le changement d'assertion suit le nouveau contrat explicite ; il
+ne constitue pas une correction du rendu ni une preuve de sa géométrie.
+
+| Vérification | Résultat de cette passe |
+|---|---|
+| Baseline `test:brand-os` | 13/13 réussis. |
+| Parcours photo/titre avant et après | Chromium refusé avant navigation. |
+| `npm run lint`, `npx tsc --noEmit` | Réussis. |
+| `npm run qa:claims:rev01`, `npm run qa:brand:rev01` | Réussis. |
+| `npm run build -- --webpack` | Réussi, 54 pages ; avertissement metadataBase préexistant. |
+| `npm run test:brand-os` après build | 13/13 réussis. |
+| `test:doctrine`, `test:privacy`, `test:entity` | 10/10, 9/9, 7/7 ; 39 tests Node au total avec Brand OS. |
+| `npm run qa:network:rev01 -- --workers=1 --max-failures=1` | 1 échec de lancement Chromium, 172 cas non exécutés. |
+| `git diff --check` | Réussi. |
+| Grep prescrit dans `src scripts` | Aucune correspondance. Journal préservé, dont « What is a company operating system? ». |
+
+Logs : `/tmp/photo-fix5-*.log`. Le refus macOS
+`MachPortRendezvousServer: Permission denied (1100)` empêche les mesures et
+captures navigateur. Aucun serveur démarré dans ce sandbox, conformément au
+contexte du dépôt. La validation visuelle reste à exécuter sur l'hôte avec le
+serveur local sur 3210 : marge écran ≥16 px et séparation texte ≥12 px aux
+quatre largeurs, FR/EN. Aucune preuve de production revendiquée.

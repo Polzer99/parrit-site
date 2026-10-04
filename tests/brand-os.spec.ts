@@ -131,7 +131,7 @@ for (const width of [1440, 375]) {
   }
 }
 
-for (const width of [375, 768, 1440]) {
+for (const width of [375, 390, 768, 1440]) {
   for (const route of ["/", "/fr"]) {
     test(`Brand OS approved founder photo, caption and heading ${route} at ${width}px`, async ({ page }, testInfo) => {
       await page.emulateMedia({ reducedMotion: "reduce" });
@@ -173,6 +173,55 @@ for (const width of [375, 768, 1440]) {
       await expect(h1.locator(".frame")).toHaveCSS("display", "inline-block");
       await expect(h1.locator(".frame")).toHaveCSS("white-space", "nowrap");
       await expect(h1.locator(".frame")).toHaveText(route === "/fr" ? "systèmes qui fonctionnent" : "systems that work");
+      const frameGeometry = await h1.locator(".frame").evaluate((frame) => {
+        const bounds = frame.getBoundingClientRect();
+        const fx = frame.querySelector(".fx");
+        if (!fx) throw new Error("Missing bottom corners");
+        const textRects: { left: number; right: number; top: number; bottom: number }[] = [];
+        const walker = document.createTreeWalker(frame, NodeFilter.SHOW_TEXT);
+        let node: Node | null;
+        while ((node = walker.nextNode())) {
+          if (!node.textContent?.trim()) continue;
+          const range = document.createRange();
+          range.selectNodeContents(node);
+          for (const rect of range.getClientRects()) {
+            textRects.push({ left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom });
+          }
+        }
+        // Pseudo-elements have no DOMRect API. Reconstruct their border boxes
+        // from computed sizes/insets in their positioned containing block.
+        const corners = [frame, fx].flatMap((owner) => ["::before", "::after"].map((pseudo) => {
+          const style = getComputedStyle(owner, pseudo);
+          if (style.position !== "absolute" || style.transform !== "none") {
+            throw new Error("Frame geometry contract changed");
+          }
+          const width = parseFloat(style.width) + (style.boxSizing === "border-box" ? 0 :
+            parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth));
+          const height = parseFloat(style.height) + (style.boxSizing === "border-box" ? 0 :
+            parseFloat(style.paddingTop) + parseFloat(style.paddingBottom) + parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth));
+          const left = style.left !== "auto" ? bounds.left + parseFloat(style.left) : bounds.right - parseFloat(style.right) - width;
+          const top = style.top !== "auto" ? bounds.top + parseFloat(style.top) : bounds.bottom - parseFloat(style.bottom) - height;
+          return { left, right: left + width, top, bottom: top + height };
+        }));
+        return { textRects, corners };
+      });
+      expect(frameGeometry.textRects).toHaveLength(1);
+      expect(frameGeometry.corners).toHaveLength(4);
+      for (const corner of frameGeometry.corners) {
+        expect(corner.right).toBeGreaterThan(corner.left);
+        expect(corner.bottom).toBeGreaterThan(corner.top);
+        expect(corner.left).toBeGreaterThanOrEqual(0);
+        expect(corner.right).toBeLessThanOrEqual(width);
+        // FIX5: screen inset, independent of the section's responsive gutter.
+        expect(corner.left).toBeGreaterThanOrEqual(16);
+        expect(corner.right).toBeLessThanOrEqual(width - 16);
+        for (const text of frameGeometry.textRects) {
+          const intersects = corner.left < text.right && corner.right > text.left && corner.top < text.bottom && corner.bottom > text.top;
+          expect(intersects, JSON.stringify({ corner, text })).toBe(false);
+          const horizontalGap = Math.max(text.left - corner.right, corner.left - text.right);
+          expect(horizontalGap, JSON.stringify({ corner, text })).toBeGreaterThanOrEqual(12);
+        }
+      }
       const lines = await h1.evaluate((element) => {
         const lines: Record<string, string[]> = {};
         const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);

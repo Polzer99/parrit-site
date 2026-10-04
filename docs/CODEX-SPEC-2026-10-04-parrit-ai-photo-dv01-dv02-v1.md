@@ -9,6 +9,29 @@ partout où il est (`RevFooter`, `CalInline`, `sketch/[id]`, `opengraph-image.ts
 Ne pas toucher non plus : prix, durées, offres, `QuickCapture`/`AgentEsquisse` (comportement), Journal, tokens, polices,
 routes, ni les acquis de #300 (boutons, libellé « Réserver l'examen », un éclat rose par écran).
 
+## FIX5 (04/10) — sur le travail FIX4 présent (ne rien refaire)
+Seul échec : `brand-os.spec.ts:218` à 768 px FR (coin gauche 65,7 px contre gouttière 74 px). L'exigence « dans la
+gouttière de page » venait du FIX4 et dépasse la règle (rien ne touche rien). Remplacer l'assertion `corner.left >=
+pageLeft` / `corner.right <= pageRight` par : chaque coin reste à 16 px au moins des bords de l'écran. Garder
+l'assertion « aucun coin ne recoupe le texte » et ne rien changer au CSS.
+
+## FIX4 (04/10) — sur le travail FIX3 présent (ne rien refaire)
+Le retrait intérieur du cadre fonctionne (plus de chevauchement), mais à 375 et 390 px les coins sortent de l'écran
+(`brand-os.spec.ts:213` : coin gauche à -1,3 px, coin droit à 377,9 px pour 375). Sous 400 px uniquement, autoriser le
+H1 à descendre d'UN cran dans l'échelle typographique existante (aucune taille nouvelle), ou réduire le retrait du
+cadre en `em` tant qu'aucun coin ne recoupe le texte : l'objectif est que les coins restent dans la marge de page
+(≥ la gouttière du site) ET hors des glyphes, à 375, 390, 768 et 1440 px, FR et EN. Les deux assertions (dans l'écran,
+hors du texte) restent exigées.
+
+## FIX3 (04/10) — sur la PR #301 (ne rien refaire)
+Relecture visuelle du H1 (FR et EN) : les crochets du cadre Parrit qui entoure « systèmes qui fonctionnent » / « systems
+that work » chevauchent les glyphes de bord (« s » initial et « t » final) à 375 px, et les touchent presque à 1440 px.
+Règle « rien ne touche rien » (≥ 12 px de séparation visuelle, EXIGENCE-SITE-PARRIT) : donner au cadre un retrait
+intérieur horizontal suffisant (en `em`, pour suivre la taille du titre) pour qu'aucun trait de crochet ne recouvre un
+glyphe à 375, 390, 768 et 1440 px, FR et EN, sans changer la taille du H1 ni sa coupure. Ajouter un test navigateur :
+les rectangles des quatre coins du cadre ne recoupent pas le rectangle du texte encadré (Range.getClientRects) à ces
+largeurs. Rien d'autre ne change.
+
 ## FIX2 (04/10) — sur le travail présent (ne rien refaire)
 Seul échec restant : `doctrine-visible.spec.ts:111`, le titre h2 du déroulement fait 4 lignes à 1440 px. Le seuil de
 3 lignes avait été fixé par Claude pour la composition SANS photo (spec #300, FIX2 §3) ; avec la photo de 340 px, la

@@ -333,3 +333,24 @@ les trois lignes sans photo (tolérance 0.01 inchangée). Aucun autre changement
 fonctionnel. Build Webpack, lint, types, claims, marque et 39 tests Node passent.
 La batterie navigateur reste bloquée au lancement de Chromium par macOS ;
 voir la section Reprise FIX2 du rapport photo pour les résultats de cette passe.
+
+FIX3 photo (04/10) : le cadre du H1 accueil reçoit un padding horizontal de
+0.9em avec marges compensatrices de -0.9em pour préserver la coupure du texte.
+Les tests Brand OS vérifient les quatre coins face aux rectangles Range du texte,
+un écart horizontal de 12 px minimum et des coins dans le viewport, FR/EN à
+375/390/768/1440 px. Build Webpack, lint, types, claims, marque et 39 tests Node
+passent ; Chromium reste refusé par le sandbox avant navigation. La géométrie
+réelle reste à valider sur l’hôte ; voir la reprise FIX3 du rapport photo.
+
+FIX4 photo (04/10) : sous 400 px uniquement, le H1 utilise le palier existant
+`--t-xl` (26 px), avec retrait du cadre de 1.04em pour conserver la séparation
+de 12 px. Les huit parcours FR/EN à 375/390/768/1440 contrôlent également les
+coins dans la gouttière réelle de `.home-s-wrap`. Build Webpack et contrôles
+statiques/Node passent ; géométrie navigateur non validée (Chromium refusé par
+macOS avant navigation). Voir la reprise FIX4 du rapport photo.
+
+FIX5 photo (04/10) : la dernière décision de la spec remplace le contrôle de
+gouttière FIX4 par une marge écran minimale de 16 px pour chaque coin du H1.
+Les huit parcours FR/EN conservent non-intersection et séparation texte ≥12 px.
+CSS inchangé. Build Webpack, lint, types et 39 tests Node passent ; validation
+navigateur toujours bloquée au lancement de Chromium (voir rapport FIX5).

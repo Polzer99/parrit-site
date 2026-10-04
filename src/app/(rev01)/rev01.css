@@ -1752,6 +1752,10 @@ a.k:active {
 
 .home-s-hero h1 .frame {
   display: inline-block;
+  /* Clear the 14px corners by at least 12px at the smallest (30px) H1.
+     Compensate the inset so the approved text wrapping stays unchanged. */
+  padding-inline: .9em;
+  margin-inline: -.9em;
   color: var(--paper);
   white-space: nowrap;
 }
@@ -3197,5 +3201,18 @@ a.k:active {
   .home-s-hero h1 {
     font-size: var(--d-s);
     letter-spacing: -.06em;
+  }
+}
+
+/* FIX4: one existing scale step below display-small on narrow phones.
+   Keep at least 27px inset (16px corner at -1px + 12px text clearance). */
+@media (width < 400px) {
+  .home-s-hero h1 {
+    font-size: var(--t-xl);
+  }
+
+  .home-s-hero h1 .frame {
+    padding-inline: 1.04em;
+    margin-inline: -1.04em;
   }
 }
