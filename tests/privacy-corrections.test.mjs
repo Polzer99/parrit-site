@@ -72,6 +72,23 @@ test("track is harmless without a PostHog client", () => {
   assert.doesNotThrow(() => track("form_completed"));
 });
 for (const locale of ["en", "fr"]) {
+  test(`legal page discloses Cloudflare measurement and processor (${locale})`, async () => {
+    const { default: LegalPage } = load("src/app/(rev01)/legal/page.tsx", {}, {
+      "@/lib/server/locale": { getLocale: async () => locale },
+      "@/system/components": { K: ({ children }) => children, RegistryLine: () => null },
+      "@/system/locale": {},
+    });
+    const html = renderToStaticMarkup(await LegalPage());
+    const heading = locale === "fr" ? "Mesure d’audience" : "Audience measurement";
+    const measurement = html.split(`<h3>${heading}</h3><p>`)[1]?.split("</p>")[0];
+    assert.equal(measurement, locale === "fr"
+      ? "Cloudflare, qui achemine le site, mesure les performances des pages (temps de chargement) et compte les visites. Cette mesure ne dépose ni cookie ni stockage dans votre navigateur et ne produit que des statistiques agrégées. Base légale : notre intérêt légitime à faire fonctionner et à améliorer le site."
+      : "Cloudflare, which delivers the site, measures page performance (load times) and counts visits. This measurement sets no cookie and no browser storage, and produces aggregated statistics only. Legal basis: our legitimate interest in running and improving the site.");
+    assert.ok(html.includes(locale === "fr"
+      ? "hébergement (Vercel), acheminement du site et mesure des performances (Cloudflare), base de données (Supabase)"
+      : "hosting (Vercel), site delivery and performance measurement (Cloudflare), database (Supabase)"));
+    assert.doesNotMatch(html, /ne mesure plus l(?:’|'|&#x27;|&#39;)audience|no longer measures/i);
+  });
   test(`actual layout renders no PostHog script (${locale}), retaining JSON-LD`, async () => {
     const { default: Layout } = load("src/app/(rev01)/layout.tsx", {}, {
       "@/lib/server/locale": { getLocale: async () => locale },
