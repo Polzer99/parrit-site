@@ -1,5 +1,10 @@
 # EXIGENCE-JOURNAL-PARRIT — la barre du rail parrit.ai
 
+> v7 — 2026-10-04 (cliquet dimanche : référence de la semaine +
+> `scope_stretch` revenu trois fois APRÈS sa promotion, donc balayage
+> des affirmations obligatoire avant le panel + franchise
+> auto-certifiée au conditionnel bannie, vue dans deux articles
+> consécutifs).
 > v6 — 2026-09-27 (cliquet dimanche : référence de la semaine +
 > plafond des contrastes négatifs dans le CORPS, 13 relevés dans un
 > article publié le 23/09 + incident gravé : un cliquet non mergé n'est
@@ -102,6 +107,29 @@ anglais le 08/09 (PR #241, 301 en un saut depuis l'ancien slug).
   serveurs. Il compte 4 contrastes négatifs dans le corps, contre 13
   pour l'article du 23/09 (voir « Tics bannis »). Réserve : titre noté
   4, il nomme le sujet sans dire la conséquence.
+- `permission-layer-for-coding-agents` (28/09, référence de la
+  semaine du 28/09 au 02/10). Deux articles sur le rail cette semaine,
+  celui-ci et `ai-act-marking-deadline-systems-you-built` (29/09), au
+  même ledger (perception 5, style 5, titre 4, porte 5). Celui-ci
+  l'emporte pour trois raisons. Sa preuve « nous » est une mesure
+  qu'aucun autre blog ne possède : 40 044 décisions d'un garde lues
+  dans son propre journal, réparties par outil, avec ce qu'un chiffre
+  compte (« These are attempts, and an agent that retries a refused
+  command is counted each time ») et la déduction signée à part (« The
+  deduction is ours »). C'est la règle « Scope kept with the source »
+  appliquée à un fait interne. Ensuite, il écrit les limites de notre
+  propre outil (pas de filtrage réseau, configuration modifiable par un
+  processus assez puissant) dans le corps, sans attendre qu'un lecteur
+  les trouve. Enfin, son panel a fini sur un PASS franc (CMO), alors que
+  celui du 29/09 n'a rendu que des PASS WITH CONDITIONS. La demande au
+  lecteur (trier un mois de commandes par outil, compter ce que ses
+  contrôles auraient vu) se fait seul, sur ses propres données.
+  Réserves : la phrase qui annonce les limites porte le tic désormais
+  banni (« limits we would rather state than have found », voir « Tics
+  bannis »), et le titre nomme le lieu du contrôle sans chiffrer la
+  conséquence. L'article du 29/09 reste le meilleur modèle pour une
+  question juridique laissée ouverte : il dit ce que les textes ne
+  tranchent pas et ne conclut pas à la place du juriste.
 
 ## Discipline chiffres externes (cliquet 06/09)
 
@@ -137,6 +165,17 @@ en amont ce que le panel attrapait en aval.
   do are replaced by a stated frequency or cut. Précédent : « nobody in
   the building is going to lower it », relevé par deux lecteurs du panel
   le 10/09.
+- **Claim sweep before the panel (cliquet 04/10)** : `scope_stretch`
+  was promoted on 13/09 and still came back three times in four
+  articles (25/09, 28/09 « We run both », affirmed without checking the
+  real mode of our own bridge ; 29/09 a fine quoted without « whichever
+  is higher », so the SME exception appeared without the general rule).
+  The panel caught all three, and that is too late. Before the panel,
+  list every factual claim of the text in one sweep (statement, source,
+  scope as the source states it) the same way numbers are swept for
+  `borrowed_number`. A claim about our own systems is checked in the
+  system that day, not from memory. An exception never appears without
+  the rule it is an exception to.
 
 ## Tics bannis
 
@@ -210,6 +249,18 @@ en amont ce que le panel attrapait en aval.
   Le contraste qui signe un périmètre (« That arithmetic is ours, not
   the specification's ») compte dans le plafond, et c'est le meilleur
   usage qu'on puisse lui donner.
+- **La franchise auto-certifiée au conditionnel (cliquet 04/10,
+  relecture du texte complet des deux articles du 28 et du 29/09)** :
+  « The guard has limits we would rather state than have found »
+  (28/09), puis « Two further points stay open, and we would rather say
+  so than paper over them » (29/09). Deux articles consécutifs, le même
+  geste : annoncer qu'on est franc juste avant de l'être. C'est la
+  forme longue de « honest / honestly », banni le 13/09 (registre :
+  `candor_selfcert`, rattaché à `honest_selfcert`). La limite s'écrit
+  telle quelle (« The guard does not watch network traffic »), et sa
+  vertu ne se commente pas. Interdit : « we would rather say/state … than
+  … », « we prefer to be clear », « to be transparent », « in fairness »
+  et leurs variantes, sur les deux rails.
 
 ## Un cliquet ne compte qu'une fois mergé (incident du 23/09)
 
