@@ -142,9 +142,9 @@ const REGISTRE: Ressource[] = [
     titre: "Le harnais IA",
     type: "matrice",
     promesse:
-      "La matrice tâche → modèle, et le calcul de ce que vous payez en trop.",
+      "La matrice tâche · modèle, et le calcul de ce que vous payez en trop.",
     contenu: [
-      "La matrice tâche → modèle, avec les seuils",
+      "La matrice tâche · modèle, avec les seuils",
       "Le calculateur de coût par tâche",
       "Les deux défauts qui font exploser une facture sans alerte",
     ],

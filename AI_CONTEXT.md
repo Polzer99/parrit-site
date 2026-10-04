@@ -10,9 +10,13 @@ Le copy vit dans des dictionnaires `DICT` par page et dans les composants locali
 
 ## Canon visuel
 
-Le prototype REV 03 `docs/site-prod-rev01/parrit-command-center-rev03.html` fait autorité ; `src/system/tokens.css` porte les valeurs et `src/system/` les composants. General Sans pour le corps/UI, IBM Plex Mono pour le registre technique, Source Serif 4 pour les grands titres éditoriaux. General Sans est auto-hébergée dans `public/fonts/rev02/` ; IBM Plex Mono et Source Serif 4 dans `public/fonts/rev03/` ; polices OG dans `src/og-assets/`.
-
-`BRAND.md`, `docs/design-system/` et `design-source/` sont historiques. Ne pas restaurer la palette crème, les anciens logos, Geist ni les anciens choix typographiques. Les images OG lisent les couleurs via `token()` ; `next.config.ts` inclut le CSS et les polices dans leurs bundles. CalInline résout les variables CSS du parent avant de les transmettre à l'iframe externe.
+Depuis le 04/10/2026, le Brand OS remplace T4/REV 03 : `src/system/brand-os.*` contient
+le paquet vendorisé immuable (mode accessible), avec empreintes et régénération dans
+`brand-os.origin.json`. `tokens.css` adapte ses valeurs par alias. General Sans (UI et titres)
+et IBM Plex Mono (technique) sont conservées à leurs chemins actuels, contrôlées par SHA256.
+Les documents REV 03 et `BRAND.md` sont historiques. Aucun mode complex ni Inter Tight.
+Les OG utilisent `token.server.ts` et les deux CSS sont tracés dans les bundles Next.
+Les états sombres redéfinissent les gris et `--label-d`, dont le défaut convient au clair.
 
 ## Conversion et données
 
@@ -65,7 +69,7 @@ Le rouge sort de l'identité active. `src/system/tokens.css` porte le système d
 
 ## Polices et gris lisible, 14/09/2026
 
-IBM Plex Mono remplace le mono technique pour les kickers, labels, boutons, chiffres, wordmark, mark `[P.]` et images de partage. Source Serif 4 remplace la fonte éditoriale de `--ed`; le fichier retenu est la variante variable `source-serif-4-latin-opsz-normal.woff2`, qui expose `wght` et `opsz`. `--g4` vaut le gris clair lisible `#606366` sur papier et `--g4-d` vaut `#8C8F92` sur carbone ; les surfaces sombres redéfinissent `--g4` vers `--g4-d`.
+IBM Plex Mono remplace le mono technique pour les kickers, labels, boutons, chiffres, wordmark, mark `[P.]` et images de partage. la police éditoriale historique (retirée le 04/10) remplace la fonte éditoriale de `--ed`; le fichier retenu est la variante variable `source-serif-4-latin-opsz-normal.woff2`, qui expose `wght` et `opsz`. `--g4` vaut le gris clair lisible `#606366` sur papier et `--g4-d` vaut `#8C8F92` sur carbone ; les surfaces sombres redéfinissent `--g4` vers `--g4-d`.
 
 ## Retrait capture Journal, 14/09/2026
 
@@ -229,3 +233,17 @@ prooflint/build/publication. Un test d'intégration isolé verrouille cet arrêt
 Résultats : entité 7/7, Journal 9/9, TypeScript, lint, marque et claims verts.
 Les JSON-LD avant/après et limites d'environnement sont dans
 `docs/REPORT-2026-09-26-entity-identity-v0.md`. Aucun déploiement effectué.
+
+## Migration Brand OS, 04/10/2026
+
+La spec `docs/CODEX-SPEC-2026-10-04-parrit-ai-brand-os-v1.md` est appliquée au checkout
+`3593c229` (identique à origin/main local), avec reprise sans commit du contenu de `ec09bc3`.
+Paquet de raccordement copié octet pour octet ; son origin déclare `112de90e`, export du 04/10.
+Portrait rejeté et fonte éditoriale retirés. Connecteurs CSS vectoriels, CTA sans flèches.
+Titres FR/EN changés uniquement dans le périmètre prescrit ; hero, offres, articles et juridique préservés.
+OpenGraph explicite sur les pages localisées, Twitter large hérité, images propres aux articles conservées.
+404 bilingue, chrome partagé, noindex. La CI ajoute `test:brand-os` après build ; contrôles de
+contraste, métadonnées, connecteurs et débordement 375px dans la batterie deny-all.
+Le registre immuable des assets interdits est l'unique exception à son propre scan textuel.
+Aucun commit, push, merge ni déploiement pendant ce lot. Les preuves d'exécution et limites
+sont dans `docs/REPORT-2026-10-04-brand-os-v1.md`.

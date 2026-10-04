@@ -1,0 +1,44 @@
+/* GÉNÉRÉ par brand/tools/export_web.py — NE PAS ÉDITER. Brand OS 0.1.0-candidate, statut CANDIDAT (palette D1 décidée le 24/09).
+   Origine : parrit-canon@112de90e0a1c (voir brand-os.origin.json). Mode accessible seul ; mode complex non exporté (AV-6). */
+:root{
+  --brand-core-canard:#006F8A;
+  --brand-core-rose:#F08E85;
+  --brand-core-off:#F7F9F8;
+  --brand-accessible-ink:#06262E;
+  --brand-accessible-ink2:#496167;
+  --brand-accessible-sky:#DBE9E1;
+  --brand-accessible-warm:#FADDDA;
+  --brand-accessible-line:#798A8E;
+  --brand-derived-white:#FFFFFF;
+  --brand-derived-on-canard-2:#D5EAEF;
+  --brand-derived-on-ink-2:#A9C2C7;
+  --brand-derived-on-ink-line:#7FA0A7;
+  --brand-derived-on-rose-2:#3D2320;
+  --brand-derived-aqua-dots:#5C948D;
+  --brand-derived-aux-1:#B8CDD1;
+  --brand-derived-aux-2:#95BEB9;
+  --brand-derived-aux-3:#062A30;
+  --brand-s1:8px;
+  --brand-s2:16px;
+  --brand-s3:24px;
+  --brand-s4:32px;
+  --brand-s6:48px;
+  --brand-s8:64px;
+  --brand-font-sans-accessible:"General Sans", "Helvetica Neue", Arial, sans-serif;
+  --brand-font-mono:"IBM Plex Mono", Menlo, monospace;
+}
+[data-brand-mode="accessible"]{--brand-font-sans:var(--brand-font-sans-accessible)}
+[data-brand-mode="accessible"] [data-regime="calm"], [data-brand-mode="accessible"][data-regime="calm"]{--brand-bg:#F7F9F8;--brand-fg:#06262E;--brand-fg2:#496167;--brand-g:#496167;--brand-dot:#006F8A;--brand-acc:#006F8A;--brand-line:#798A8E;--brand-surf:#FFFFFF;--brand-wmdot:#006F8A}
+[data-brand-mode="accessible"] [data-regime="canard"], [data-brand-mode="accessible"][data-regime="canard"]{--brand-bg:#006F8A;--brand-fg:#FFFFFF;--brand-fg2:#D5EAEF;--brand-g:#D5EAEF;--brand-dot:#F08E85;--brand-acc:#FFFFFF;--brand-line:#FFFFFF;--brand-surf:rgba(255,255,255,.12);--brand-wmdot:#FFFFFF}
+[data-brand-mode="accessible"] [data-regime="ink"], [data-brand-mode="accessible"][data-regime="ink"]{--brand-bg:#06262E;--brand-fg:#F7F9F8;--brand-fg2:#A9C2C7;--brand-g:#A9C2C7;--brand-dot:#F08E85;--brand-acc:#F08E85;--brand-line:#7FA0A7;--brand-surf:rgba(255,255,255,.07);--brand-wmdot:#F7F9F8}
+[data-brand-mode="accessible"] [data-regime="rose"], [data-brand-mode="accessible"][data-regime="rose"]{--brand-bg:#F08E85;--brand-fg:#06262E;--brand-fg2:#3D2320;--brand-g:#3D2320;--brand-dot:#06262E;--brand-acc:#06262E;--brand-line:#06262E;--brand-surf:rgba(255,255,255,.35);--brand-wmdot:#06262E}
+/* VS-CONNECTOR 1.1.0 (CANDIDATE), 1 u = 0.5 px */
+:root{
+  --brand-connector-stroke:2.0px;
+  --brand-connector-head-len:10.0px;
+  --brand-connector-head-w:8.0px;
+  --brand-connector-min-shaft:15.0px;
+  --brand-connector-clearance:2.0px;
+  --brand-connector-tolerance:1.0px;
+  --brand-connector-endpoint-gap:3.0px;
+}

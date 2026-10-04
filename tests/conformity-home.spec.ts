@@ -55,7 +55,7 @@ test("sketch panel transition stays readable on carbon", async ({ page }) => {
   const link = page.locator(".agent-esquisse-transition");
   await expect(link).toBeVisible();
   const color = await link.evaluate((element) => getComputedStyle(element).color);
-  expect(color).toBe("rgb(199, 203, 207)");
+  expect(color).toBe("rgb(169, 194, 199)");
 });
 
 test("home journal section stays a direct article list without an idle capture", async ({ page }) => {
@@ -120,8 +120,8 @@ for (const width of [375, 1440]) {
       await expect(bridge).toHaveAttribute("href", "https://paul-larmaraud.com");
       await expect(bridge).toHaveAttribute("target", "_blank");
       await expect(bridge).toHaveAttribute("rel", "noopener noreferrer");
-      await expect(bridge).toHaveCSS("color", "rgb(85, 89, 94)");
-      await expect(primary).toHaveCSS("color", "rgb(10, 11, 12)");
+      await expect(bridge).toHaveCSS("color", "rgb(73, 97, 103)");
+      await expect(primary).toHaveCSS("color", "rgb(6, 38, 46)");
       const primaryBounds = await primary.boundingBox();
       const bridgeBounds = await bridge.boundingBox();
       expect(primaryBounds).not.toBeNull();
@@ -150,8 +150,8 @@ for (const width of [375, 1440]) {
         ? "La facture qui traîne, le rapport refait à la main chaque semaine : des points de départ que nous poussons aussi loin que l'opération l'exige. Nous construisons dans vos systèmes, sur vos données, jusqu'à la mise en service."
         : "The invoice that drags, the report rebuilt by hand every week: entry points we push as far as the operation demands. We build inside your systems, on your data, until it goes live.");
       await expect(page.locator(".home-s-maison h2")).toHaveText(locale === "fr"
-        ? "Du premier message à la prise en main, en quatre étapes."
-        : "From the first message to handover, in four steps.");
+        ? "Quatre étapes mènent du premier message à un système que votre équipe fait tourner."
+        : "Four steps take you from the first message to a system your team runs.");
 
       await expect(page.locator(".home-s-quick-capture")).toHaveCount(0);
       await expect(async () => {

@@ -10,8 +10,8 @@ const DICT = {
     "metaTitle": "The Dossiers",
     "metaDescription": "Systems commissioned by large accounts, SMEs and mid-sized companies, anonymized on principle.",
     "kicker": "Parrit / The Dossiers",
-    "title": "The dossiers open in conversation.",
-    "sub": "Systems commissioned by large accounts, SMEs and mid-sized companies. Anonymized on principle.",
+    "title": "We show client dossiers in a meeting, not on this site.",
+    "sub": "The dossiers open in conversation. Systems commissioned by large accounts, SMEs and mid-sized companies. Anonymized on principle.",
     "dossiers": [
       {
         "ref": "Dossier 26-003 · A consumer brand",
@@ -43,8 +43,8 @@ const DICT = {
     "metaTitle": "Les dossiers",
     "metaDescription": "Des systèmes commandés par des grands comptes, des PME et des ETI, anonymisés par principe.",
     "kicker": "Parrit / Les dossiers",
-    "title": "Les dossiers s'ouvrent de vive voix.",
-    "sub": "Des systèmes commandés par des grands comptes, des PME et des ETI. Anonymisés par principe.",
+    "title": "Nous montrons les dossiers clients en rendez-vous, pas sur ce site.",
+    "sub": "Les dossiers s'ouvrent de vive voix. Des systèmes commandés par des grands comptes, des PME et des ETI. Anonymisés par principe.",
     "dossiers": [
       {
         "ref": "Dossier 26-003 · Une marque grand public",

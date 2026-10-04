@@ -7,7 +7,8 @@ import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system
 
 const DICT = {
   en: {
-    metaTitle: "Build With You · Build with the founder",
+    title: "In 10 hours with the founder, you build a system that runs.",
+    metaTitle: "In 10 hours with the founder, you build a system that runs.",
     promise: "You want to leave with something that runs, built with you.",
     stepsTitle: "Build with the founder.",
     steps: [
@@ -26,7 +27,8 @@ const DICT = {
     cta: "Book the free examination",
   },
   fr: {
-    metaTitle: "Build With You · Construire avec le fondateur",
+    title: "En 10 heures avec le fondateur, vous construisez un système qui tourne.",
+    metaTitle: "En 10 heures avec le fondateur, vous construisez un système qui tourne.",
     promise: "Vous voulez repartir avec quelque chose qui tourne, construit avec vous.",
     stepsTitle: "Construire avec le fondateur.",
     steps: [
@@ -63,8 +65,8 @@ export default async function BuildWithYouPage() {
     <main className="rev-page r2-dark">
       <div className="r2-wrap">
         <header className="r2-hero">
-          <K>Parrit / Build With You</K>
-          <h1>Build With You</h1>
+          <K>Build With You</K>
+          <h1>{copy.title}</h1>
           <p className="r2-sub">{copy.promise}</p>
         </header>
         <section className="r2-section" aria-labelledby="build-steps">

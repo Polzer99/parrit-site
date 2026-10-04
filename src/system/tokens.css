@@ -1,34 +1,34 @@
 :root {
   /* PC-01/02 · color tokens */
-  --ink: #0A0B0C;
-  --carbon: #131518;
-  --carbon2: #1A1D21;
-  --paper: #F1F2F3;
-  --paper2: #FAFAFB;
-  --rule-l: #DDE0E3;
-  --rule-d: #24282D;
-  --g2: #9CA1A6;
-  --g3: #55595E;
-  --g4: #606366;
-  --g4-l: #606366;
-  --g4-d: #8C8F92;
+  --ink: var(--brand-accessible-ink);
+  --carbon: var(--brand-accessible-ink);
+  --carbon2: var(--brand-derived-aux-3);
+  --paper: var(--brand-core-off);
+  --paper2: var(--brand-derived-white);
+  --rule-l: var(--brand-derived-aux-1);
+  --rule-d: var(--brand-derived-on-ink-line);
+  --g2: var(--brand-accessible-ink2);
+  --g3: var(--brand-accessible-ink2);
+  --g4: var(--brand-accessible-ink2);
+  --g4-l: var(--brand-accessible-ink2);
+  --g4-d: var(--brand-derived-on-ink-2);
   /* prototype REV 02 de facto tokens (hardcoded there; named here so the
      brand gate can enforce them): body text on light / row labels on dark */
-  --body-l: #26282B;
-  --label-d: #C7CBCF;
+  --body-l: var(--brand-accessible-ink);
+  --label-d: var(--brand-accessible-ink2);
   /* REV 02 hybride B+C : ton intermédiaire d'interface sombre */
-  --steel: #3A3F47;
+  --steel: var(--brand-derived-aux-3);
   /* Accent system: light tokens stay on paper; dark tokens stay on ink/carbon. */
-  --accent-surface: #E3EEFD;
-  --accent-soft: #D0E3FB;
-  --accent-border: #2F82EE;
-  --accent-strong: #1268D9;
-  --accent-strong-p: #0F56B3;
-  --accent-text: #0F56B3;
-  --accent-on-dark: #84B5F5;
-  --accent-on-dark-p: #68A4F3;
-  --accent-dark-surface: #19293E;
-  --accent-dark-border: #4C93F0;
+  --accent-surface: var(--brand-accessible-sky);
+  --accent-soft: var(--brand-accessible-sky);
+  --accent-border: var(--brand-core-canard);
+  --accent-strong: var(--brand-core-canard);
+  --accent-strong-p: var(--brand-core-canard);
+  --accent-text: var(--brand-core-canard);
+  --accent-on-dark: var(--brand-core-rose);
+  --accent-on-dark-p: var(--brand-core-rose);
+  --accent-dark-surface: var(--brand-derived-aux-3);
+  --accent-dark-border: var(--brand-core-rose);
   --action-fill: var(--accent-strong);
   --action-pressed: var(--accent-strong-p);
   --action-text: var(--paper);
@@ -42,7 +42,7 @@
   /* PC-03 · type tokens */
   --ui: "General Sans", "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", Menlo, monospace;
-  --ed: "Source Serif 4", Georgia, serif;
+  --ed: var(--ui);
 
   /* PC-03b · échelle typographique */
   /* Pas fixes */

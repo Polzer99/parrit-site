@@ -1,0 +1,84 @@
+{
+ "_doc": "Assets qu'aucune page ne doit référencer (registre Brand OS assets/registry.json). Un nom de fichier, un identifiant ou une empreinte présents dans le site = échec.",
+ "patterns": [
+  "crop-jardin-2066",
+  "jardin-2066",
+  "jardin-ref-2066",
+  "paul-ref-2066"
+ ],
+ "rejected": [
+  {
+   "id": "jardin-ref-2066",
+   "file": "paul-ref-2066.jpg",
+   "reason": "INTERDITE par Paul le 26/09/2026 (dossier AV-3, « Décidé ») : ni site, ni export, ni épreuve ; alias et dérivés compris. Recommandation du constructeur retirée le 04/10/2026."
+  },
+  {
+   "id": "founder-portrait-studio",
+   "file": "founder-portrait.jpg",
+   "reason": "À arbitrer. ATTENTION : cette image est servie en production sur parrit.ai."
+  },
+  {
+   "id": "landing-portrait-v3",
+   "file": "paul-portrait-v3-800.webp",
+   "reason": "REJECTED sur ordre documenté de Paul (01/09) ; encore référencé par la landing personnelle (hors Brand OS)."
+  },
+  {
+   "id": "session-3x2",
+   "file": "paul-session-3x2-1048.webp",
+   "reason": "REJECTED : handoff 2026-09-02-vraie-photo-bureau.md"
+  },
+  {
+   "id": "intervenant-blazer-ia",
+   "file": "00-intervenant-paul.jpg",
+   "reason": "REJECTED — §37."
+  },
+  {
+   "id": "team-paul-portrait",
+   "file": "paul-portrait.jpg",
+   "reason": "REJECTED"
+  },
+  {
+   "id": "costarica-ia",
+   "file": "paul-costarica.jpg",
+   "reason": "REJECTED"
+  },
+  {
+   "id": "portrait-dirigeant",
+   "file": "PAUL-PORTRAIT-DIRIGEANT.png",
+   "reason": "REJECTED (§37) sauf preuve de provenance photographique"
+  },
+  {
+   "id": "portrait-dirigeant-biblio",
+   "file": "PAUL-PORTRAIT-DIRIGEANT-VARIANTE-BIBLIO.png",
+   "reason": "REJECTED (§37) sauf preuve de provenance photographique"
+  },
+  {
+   "id": "portrait-signature",
+   "file": "PAUL-PORTRAIT-SIGNATURE.png",
+   "reason": "REJECTED (§37) sauf preuve de provenance photographique"
+  },
+  {
+   "id": "deck-client-rh-paul",
+   "file": "paul.jpg",
+   "reason": "REJECTED (§37) sauf preuve de provenance"
+  },
+  {
+   "id": "crop-jardin-2066",
+   "file": "jardin-2066.jpg",
+   "reason": "INTERDITE par Paul le 26/09/2026 (dossier AV-3, « Décidé ») : ni site, ni export, ni épreuve ; alias et dérivés compris. Recommandation du constructeur retirée le 04/10/2026."
+  }
+ ],
+ "sha256": [
+  "00de741e43f5e97793a7529ac96f9515f33d4db65f135f44ee45a7296794b6ae",
+  "33b3c4ac05d70cf1918d29dca2d92170f2114d07601cfd202d38b3691ca6ad10",
+  "4bde2365f727831033317b1311843eb5f9f317d2b95dad24d842c80895353416",
+  "5cedb4815d7bad305fe96d7a5b8ee5e2982fd3a1a29896d022eae760fc652c22",
+  "6215c69172eb4e3058ea67752eca2a7c7ab252050682cd7465ce847eda3a6f4a",
+  "8376fe0ad91ad02c4756518fbfa71044bb0609d9d8b93b144cba538d8f0d9ef6",
+  "a3eaeaefd163c6782e73b01370f7407528468d93c4a099f83aecc4b3a6464de8",
+  "b93f174ae019cdbb92b79d472d15dc120a2cc3284963eb839360702d78726d9a",
+  "f695eca27d0212c35695d5c89233dc2aceddc59b022ae7587c713977baa195bc",
+  "f95478c0f55f5131f832d7abf75c44e3a2061dbffac52b6f80af9036e89e6036",
+  "f97d3c1999116e5465c8ac417dd5312099e8abd907f8a451c5a1f8a91db1db9f"
+ ]
+}

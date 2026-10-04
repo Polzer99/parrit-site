@@ -16,52 +16,36 @@ Applies to any code delivered from this repo. "The CI blocks" beats "remember to
 # parrit-site — carte du dépôt (pour Codex & Claude)
 
 > Entrée des agents. `CLAUDE.md` importe ce fichier : même source pour les deux.
-> Site institutionnel public **parrit.ai** (Next.js 16 / React 19, déployé sur Vercel via push `main`). REV 01 : **FR + EN** (`src/system/locale.ts`, `LOCALES = ["fr", "en"]`), bascule cliquable, jamais de redirection auto. *Corrigé le 20/09/2026 : la mention « anglais uniquement » était obsolète depuis l'ajout du FR.* L'arbre multilingue legacy `[lang]` a été supprimé le 14/08/2026 (Lot P) ; `/:lang/*` répond 301 vers `/`.
+> Site institutionnel public **parrit.ai** (Next.js 16 / React 19, déployé sur Vercel via push `main`). REV 01 : **FR + EN** (`src/system/locale.ts`, `LOCALES = ["fr", "en"]`), URLs nues en anglais et `/fr/*` en français ; bascule cliquable avec cookie. `src/proxy.ts` négocie `Accept-Language` par 302 vers le français hors bots et hors cookie de choix. *Corrigé le 20/09/2026 : la mention « anglais uniquement » était obsolète depuis l'ajout du FR.* L'arbre multilingue legacy `[lang]` a été supprimé le 14/08/2026 (Lot P) ; `/:lang/*` répond 301 vers `/`.
 
 ## Source de vérité COMMUNE = `TRUTH.md`
-**Avant de toucher au contenu/positionnement/conversion, lire [`TRUTH.md`](./TRUTH.md)** : ce qu'est Parrit, les north stars (RDV qualifiés → cash), l'ICP, les offres, la voix (LE TAMIS), les 7 règles dures, et la définition d'une « amélioration ». C'est le **cerveau partagé** entre le site et l'agent d'amélioration continue **Hermes** (`hermes/`, voir `hermes/LOOP.md`). La source de vérité **visuelle** est la section suivante (REV 03). En cas de conflit : `REGLES-DOR.md` puis `VISION.md` (hors-repo) priment.
+**Avant de toucher au contenu/positionnement/conversion, lire [`TRUTH.md`](./TRUTH.md)** : ce qu'est Parrit, les north stars (RDV qualifiés → cash), l'ICP, les offres, la voix (LE TAMIS), les 7 règles dures, et la définition d'une « amélioration ». C'est le **cerveau partagé** entre le site et l'agent d'amélioration continue **Hermes** (`hermes/`, voir `hermes/LOOP.md`). La source de vérité **visuelle** est la section suivante (Brand OS). En cas de conflit : `REGLES-DOR.md` puis `VISION.md` (hors-repo) priment.
 
-## Source de vérité visuelle = REV 03 (14/08/2026) — l'ancienne DA est MORTE
+## Source de vérité visuelle = Brand OS (04/10/2026)
 
-> **Ordre de Paul, 14/08/2026 : la direction artistique Smoooth Studio / « papier crème »
-> (`#FFFDFA`, `#F5F8FF`, `#D1132F`, `#AA0003`, Arpona, grain papier, desktop-OS, sceau 速)
-> est SUPPRIMÉE. Plus aucune surface ne s'en réclame. Ne jamais la reproduire, ne jamais
-> « corriger » vers elle.** `BRAND.md`, `docs/design-system/`, `src/styles/parrit-tokens.css`,
-> `src/components/ds/`, `design-source/brand-kit/` = archives historiques du code legacy
-> non migré ; les rencontrer n'autorise pas à en écrire de nouvelles occurrences.
-
-La DA active est celle du site en production. Trois sources, dans cet ordre :
+Le Brand OS remplace la charte T4/REV 03 (D1 du 24/09, désactivation le 28/09).
+Le prototype REV 03, `BRAND.md`, `docs/design-system/` et `design-source/` sont historiques.
+Ne pas recopier leurs couleurs ni réintroduire leurs polices.
 
 | Source | Rôle |
 |---|---|
-| `docs/site-prod-rev01/parrit-command-center-rev03.html` | **la LOI** — prototype approuvé par Paul (Brand Command Center REV 03) : registres, loi de l'accent, composants, cotes exactes |
-| `src/system/tokens.css` | **les valeurs**. Un hex écrit ailleurs est un bug (gate `npm run qa:brand:rev01`) |
-| `src/system/` + `src/app/(rev01)/` | les composants et pages canon |
+| `src/system/brand-os.origin.json` | Provenance, commande de régénération et SHA256 du paquet et des polices |
+| `src/system/brand-os.tokens.css` | Valeurs vendorisées, jamais éditées à la main |
+| `src/system/brand-os.{forbidden-assets,glyphs,connectors}.json` | Contrats d'assets, de couverture typographique et de connecteurs |
+| `src/system/tokens.css` | Adaptation du site par `var(--brand-*)`, sans valeur de palette recopiée |
+| `src/system/` + `src/app/(rev01)/` | Composants et pages du site |
 
-Compléments : `docs/site-prod-rev01/REV03-DELTAS.md` (deltas appliqués),
-`CONFORMITY-REV01.md` (protocole de conformité, gate screenshot), `logo-rev04/` (le mark).
+Régénérer dans le dépôt canon avec la commande de `origin.json`, puis recopier les cinq fichiers
+à l'identique. `npm run test:brand-os` contrôle leurs empreintes après build. Les fichiers de
+polices General Sans (`public/fonts/rev02/`) et IBM Plex Mono (`public/fonts/rev03/`) doivent
+correspondre à `canon_fonts`. Mode accessible uniquement ; `--ed` utilise `--ui`, poids 500.
+Aucun mode complex ni Inter Tight.
 
-- **Palette** : ink `#0A0B0C` · carbon `#131518` · carbon2 `#1A1D21` · paper `#F1F2F3` ·
-  paper2 `#FAFAFB` · rule-l `#DDE0E3` · rule-d `#24282D` · g2 `#9CA1A6` · g3 `#55595E` ·
-  g4 `#6F757B` · body-l `#26282B` · label-d `#C7CBCF` · accent-surface `#E3EEFD` ·
-  accent-soft `#D0E3FB` · accent-border `#2F82EE` · accent-strong `#1268D9` ·
-  accent-strong-p `#0F56B3` · accent-text `#0F56B3` · accent-on-dark `#84B5F5` ·
-  accent-on-dark-p `#68A4F3` · accent-dark-surface `#19293E` · accent-dark-border `#4C93F0`.
-  Deux registres seulement : documents blanc-froid (l'institution) et instruments carbone (le produit).
-- **Loi de l'accent** : l'accent = décision requise, action qui s'exécute, état critique, objet
-  sélectionné, commission scellée. JAMAIS décoratif. Un jeton clair n'est jamais peint sur fond sombre,
-  ni un jeton sombre sur fond clair.
-- **Typo T4 (arbitrage Paul 14/09)** : **General Sans** (corps/UI, Fontshare,
-  gratuite commerciale) + **IBM Plex Mono** (registre technique, OFL) + **Source Serif 4**
-  (OFL) — Source Serif 4 RÉSERVÉE aux grands titres éditoriaux REV 02 (`--ed`, opsz 40,
-  poids ~480), jamais en corps. General Sans reste auto-hébergée `public/fonts/rev02/` ;
-  IBM Plex Mono et Source Serif 4 sont auto-hébergées `public/fonts/rev03/`. Geist,
-  JetBrains Mono et Fraunces sont MORTES. Pas d'italique, pas d'autre famille.
-  Registre « k » : Mono 10px, letter-spacing .18em, uppercase.
-- **Formes** : radius 0 partout (sauf mockups téléphone) · zéro ombre sauf l'unique ombre
-  d'instrument `0 40px 80px -40px rgba(10,11,12,.4)` · zéro dégradé · statuts = forme + couleur.
-- **Logo REV 04** : mark live-text `[P.]` IBM Plex Mono 600, point d'accent ; wordmark live-text
-  `PARRIT.AI` (point d'accent). Fichiers : `docs/site-prod-rev01/logo-rev04/` + `public/brand/`.
+- **Accent** : utiliser les jetons contextuels du registre clair/sombre ; aucune couleur littérale hors du fichier vendorisé.
+- **Formes** : radius 0 sauf téléphone, zéro dégradé ; ombre d'instrument via `color-mix` et `--ink`.
+- **Logo** : `[P.]` et `PARRIT.AI`, arbitrage AV-2 conservé ; icônes issues du paquet canon.
+- **Connecteurs** : tige et tête vectorielles suivant VS-CONNECTOR, aucune flèche-caractère.
+- **Photo** : aucune photo de remplacement avant AV-3 ; certification Qualiopi conservée.
 - **L'enveloppe fait partie du canon, état au 20/09/2026** : la command bar sombre (64px,
   dans le flux normal du document, PAS `position: fixed` — elle défile avec la page depuis la
   correction du 20/09 ; `tests/conformity-home.spec.ts` vérifie explicitement `not.toHaveCSS
@@ -86,7 +70,7 @@ Compléments : `docs/site-prod-rev01/REV03-DELTAS.md` (deltas appliqués),
 
 Toute nouvelle page publique se construit avec `src/system/` (tokens, composants K/St/Frame/
 Instrument/RegistryLine, boutons `.rev-button` / `.exec` / `.ghost`) et se vérifie contre le
-prototype REV 03 (gate screenshot : paires 1440/390 prototype vs candidat). Un hex dans une
+Brand OS et ses contrats (captures 1440/375, contraste et absence de débordement). Un hex dans une
 page est un défaut. Interdit de créer un design system local ou une seconde famille typo.
 La CI bloque : `qa:brand:rev01` (tokens, ombres, radius, PC-10) + `qa:network:rev01`
 (specs de conformité — H1 88px, une ombre max, zéro radius).
@@ -126,7 +110,8 @@ Concrètement, dans toute spec e2e :
 ## Batterie avant tout push
 ```bash
 npm run build                                   # inclut prebuild (llms.txt)
-npm run qa:brand:rev01                          # hex hors tokens, radius, ombres, dégradés, PC-10
+npm run qa:brand:rev01                          # couleurs hors vendor, radius, ombres, dégradés, PC-10
+npm run test:brand-os                           # origine, polices, assets, glyphes après build
 npx next start -p 3210 &                        # les specs visent :3210 (QA_BASE_URL)
 npm run qa:network:rev01                        # 5 specs Playwright (deny-all réseau)
 ```

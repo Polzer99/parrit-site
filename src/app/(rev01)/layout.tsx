@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import "../../system/fonts.css";
+import "../../system/brand-os.tokens.css";
 import "../../system/tokens.css";
 import "../../system/system.css";
 import "./rev01.css";
@@ -32,6 +33,7 @@ posthog.init('phc_MBE1dFuCrRbroLzBdP7JtrH0O1JlH8F5uNs9cieSHqm', {
 export async function generateMetadata(): Promise<Metadata> {
   return {
   metadataBase: new URL("https://parrit.ai"),
+  twitter: { card: "summary_large_image", images: ["https://parrit.ai/opengraph-image"] },
   title: {
     default: "Parrit.ai · Company Operating Systems",
     template: "%s · Parrit.ai",
