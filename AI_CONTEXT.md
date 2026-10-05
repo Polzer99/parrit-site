@@ -433,3 +433,15 @@ Lint, types, claims, marque, build Webpack et 64 tests Node passent. Chromium es
 refusé au lancement par le sandbox ; captures et géométrie restent à valider sur
 l'hôte. Voir docs/REPORT-2026-10-05-contre-verification.md pour le détail et la limite
 persistante des petits libellés raster CRM.
+
+## Photo buste, 05/10/2026
+
+La spec `docs/CODEX-SPEC-2026-10-05-parrit-ai-photo-buste-v1.md` remplace les
+exports LinkedIn précédents par les quatre exports buste AVIF/WebP 340/680 du
+canon `2026-10-05/photos-linkedin-buste`, copiés sans transformation. Seules les
+URLs de la picture changent ; dimensions, mise en page, alt et légende conservés.
+Fixture SHA256 et attentes SSR/navigateur actualisées ; un test interdit les
+anciens exports et leurs références dans src/public. Lint, types, claims, marque,
+build Webpack et 20 tests Brand OS passent. Chromium reste refusé par le sandbox
+macOS avant navigation ; validation responsive à terminer sur l’hôte.
+Voir `docs/REPORT-2026-10-05-photo-buste.md`.
