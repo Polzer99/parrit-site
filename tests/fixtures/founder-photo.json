@@ -1,58 +1,58 @@
 {
-  "parrit-ai-founder-dsc00629-3x4-340.webp": {
+  "parrit-ai-founder-linkedin-3x4-340.webp": {
     "site": "parrit-ai",
-    "source": "DSC00629.JPG",
+    "source": "WhatsApp Image 2026-08-01 at 16.19.25.jpeg (registre gym-original ; cadrage LinkedIn = carré haut 1200x1200)",
     "crop_box": [
+      190,
       0,
-      404,
-      4000,
-      5737
+      1090,
+      1200
     ],
     "width": 340,
     "height": 453,
-    "sha256": "c254aebda18440e0bcc20eda08757b6ed04d6ab248ee89189951f679b8d6a977",
-    "bytes": 6322
+    "sha256": "d644294fdbe9611bd10ee353ff10a0be90e71609cb584924769529a73d98c272",
+    "bytes": 23724
   },
-  "parrit-ai-founder-dsc00629-3x4-340.avif": {
+  "parrit-ai-founder-linkedin-3x4-340.avif": {
     "site": "parrit-ai",
-    "source": "DSC00629.JPG",
+    "source": "WhatsApp Image 2026-08-01 at 16.19.25.jpeg (registre gym-original ; cadrage LinkedIn = carré haut 1200x1200)",
     "crop_box": [
+      190,
       0,
-      404,
-      4000,
-      5737
+      1090,
+      1200
     ],
     "width": 340,
     "height": 453,
-    "sha256": "0532b4be30d7736554478a435fbaa88de98eb133026ca0e17e7a31c318a29b2c",
-    "bytes": 4622
+    "sha256": "55ae02bf104793cc0c2336eb544f339ea68a91646a64585cc2adc839b334ef96",
+    "bytes": 18837
   },
-  "parrit-ai-founder-dsc00629-3x4-680.webp": {
+  "parrit-ai-founder-linkedin-3x4-680.webp": {
     "site": "parrit-ai",
-    "source": "DSC00629.JPG",
+    "source": "WhatsApp Image 2026-08-01 at 16.19.25.jpeg (registre gym-original ; cadrage LinkedIn = carré haut 1200x1200)",
     "crop_box": [
+      190,
       0,
-      404,
-      4000,
-      5737
+      1090,
+      1200
     ],
     "width": 680,
     "height": 907,
-    "sha256": "d7cae0e257b6b8842cd86727eb9c25a86ee4570aff88fb9391975e6f066ef6ae",
-    "bytes": 16712
+    "sha256": "1478ce059e0baad45a8415f5a7be170b3cbc1d778b39c2abae0268cbe9adcc29",
+    "bytes": 69278
   },
-  "parrit-ai-founder-dsc00629-3x4-680.avif": {
+  "parrit-ai-founder-linkedin-3x4-680.avif": {
     "site": "parrit-ai",
-    "source": "DSC00629.JPG",
+    "source": "WhatsApp Image 2026-08-01 at 16.19.25.jpeg (registre gym-original ; cadrage LinkedIn = carré haut 1200x1200)",
     "crop_box": [
+      190,
       0,
-      404,
-      4000,
-      5737
+      1090,
+      1200
     ],
     "width": 680,
     "height": 907,
-    "sha256": "96395b3eb9048aaeacb71f8e73155d38eed6e63bb424eafc3c3df6dfbcb1915b",
-    "bytes": 11329
+    "sha256": "7d90923911141bccd537d0eda91f255c49a9d14320e605132919e457ed3f5ad2",
+    "bytes": 49890
   }
 }

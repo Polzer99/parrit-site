@@ -98,7 +98,7 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
           const journey = html.match(/<section class="home-s-maison">[\s\S]*?<\/section>/)?.[0];
           assert.ok(journey, `${label}: journey section must be rendered`);
           assert.match(journey, /<picture>/);
-          assert.match(journey, /parrit-ai-founder-dsc00629-3x4-340.webp/);
+          assert.match(journey, /parrit-ai-founder-linkedin-3x4-340.webp/);
           assert.ok(journey.includes(locale === "fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai"));
           const heading = visibleText((html.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/)?.[0] ?? "").replace(/<[^>]*>/g, "")).trim();
           assert.equal(heading, locale === "fr"
