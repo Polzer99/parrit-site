@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BUILD_WITH_YOU_PRICE } from "../../../../site.config";
 import { getLocale } from "@/lib/server/locale";
 import { K, RegistryLine } from "@/system/components";
 import { formatOfferPrice } from "@/system/components/OfferCard";
@@ -21,9 +22,9 @@ const DICT = {
     bringTitle: "What you bring.",
     bringBody: "One precise operation: the follow-up that quietly drops, the spreadsheet you copy out every week, the decision that always lands on your desk. You're in the room for the 10 hours: you decide.",
     nextTitle: "What happens next.",
-    nextBody: "You keep the system, and you keep the method: you watched, for 10 hours, how one operation turns into something that runs. The next one you spot, your team can take on alone with what it learned, or you call Parrit back for a custom Commission, starting from the same place.",
+    nextBody: "You keep the system, and you keep the method: you watched, for 10 hours, how one operation turns into something that runs. The next one you spot, your team can take on alone with what it learned, or you call Parrit back for a custom system, starting from the same place.",
     nextLink: "Book an examination for a custom system",
-    basis: "fixed fee",
+    basis: "fixed price",
     cta: "Book the examination",
     examinationNote: "Free 15-minute examination with the founder",
   },
@@ -42,9 +43,9 @@ const DICT = {
     bringTitle: "Ce que vous apportez.",
     bringBody: "Une opération précise : la relance qui retombe dans l'oubli, le tableau que vous recopiez chaque semaine, la décision qui atterrit toujours sur votre bureau. Vous êtes présent pendant les 10 heures : c'est vous qui tranchez.",
     nextTitle: "Et ensuite.",
-    nextBody: "Vous repartez avec le système, et avec la manière de le refaire : vous avez vu, pendant les 10 heures, comment une opération se transforme en quelque chose qui tourne. La prochaine que vous repérerez, votre équipe peut s'y attaquer seule avec ce qu'elle a appris, ou vous rappelez Parrit pour une Commande sur mesure qui part du même endroit.",
+    nextBody: "Vous repartez avec le système, et avec la manière de le refaire : vous avez vu, pendant les 10 heures, comment une opération se transforme en quelque chose qui tourne. La prochaine que vous repérerez, votre équipe peut s'y attaquer seule avec ce qu'elle a appris, ou vous rappelez Parrit pour un système sur mesure qui part du même endroit.",
     nextLink: "Réserver un examen pour un système sur mesure",
-    basis: "forfait",
+    basis: "au forfait",
     cta: "Réserver l'examen",
     examinationNote: "Examen offert de 15 minutes, avec le fondateur",
   },
@@ -100,7 +101,7 @@ export default async function BuildWithYouPage() {
           <Link href={localizedPath("/commission", locale)}>{copy.nextLink}</Link>
         </section>
         <section className="r2-close" aria-label="Build With You">
-          <p className="offer-price">{formatOfferPrice({ amountHt: 3200, currency: "EUR", basis: copy.basis }, locale)}</p>
+          <p className="offer-price">{formatOfferPrice({ ...BUILD_WITH_YOU_PRICE, basis: copy.basis }, locale)}</p>
           <Link className="rev-button exec" href={localizedPath("/commission", locale)}>{copy.cta}</Link>
         </section>
         <footer className="r2-footer"><RegistryLine value="PARRIT / BUILD WITH YOU · 2026" /></footer>

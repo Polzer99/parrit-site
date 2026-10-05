@@ -1,0 +1,39 @@
+/* Reconstitution d'interface tierce (scène p2), pas des tokens de marque.
+   Ces variables sont locales à la messagerie ; aucun autre composant ne les consomme. */
+.scene-chat {
+  --chat-paper: rgb(255 255 255);
+  --chat-ink: rgb(20 25 22);
+  --chat-muted: rgb(70 80 72);
+  --chat-wall: rgb(206 223 184);
+  --chat-outgoing: rgb(226 255 198);
+  --chat-chrome: rgb(243 244 243);
+  --chat-green: rgb(35 112 53);
+  --chat-avatar: rgb(0 110 130);
+  color: var(--chat-ink);
+  background: var(--chat-chrome);
+  border: 4px solid var(--chat-ink);
+  border-radius: 24px; /* phone mockup */
+  overflow: hidden;
+  font-family: var(--ui);
+  font-size: 14px;
+  line-height: 1.45;
+}
+.scene-chat-header { display: flex; align-items: center; justify-content: space-between; padding: 16px; }
+.scene-chat-header strong { display: block; font-size: 18px; }
+.scene-chat-header div > span { color: var(--chat-muted); }
+.scene-chat-avatar { padding: 10px; background: var(--chat-avatar); color: var(--chat-paper); clip-path: circle(50%); font-weight: 600; }
+.scene-chat-messages { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 12px 12px 12px 38px; background: var(--chat-wall); }
+.scene-chat-date { align-self: center; margin: 0; color: var(--chat-muted); }
+.scene-chat-bubble { position: relative; max-width: 100%; padding: 10px; background: var(--chat-paper); border-radius: 12px; /* phone mockup */ }
+.scene-chat-bubble p { margin: 0; font-size: 14px; line-height: 1.45; }
+.scene-chat-bubble > img { display: block; width: 100%; height: auto; margin-bottom: 8px; }
+.scene-chat-outgoing { align-self: flex-end; background: var(--chat-outgoing); }
+.scene-chat-bubble > .scene-marker { position: absolute; right: calc(100% + 6px); top: 10px; }
+.scene-chat-time { display: flex; justify-content: flex-end; align-items: center; gap: 4px; margin-top: 4px; color: var(--chat-muted); font-size: 14px; }
+.scene-chat svg { width: 20px; height: 20px; vertical-align: middle; fill: none; stroke: currentColor; stroke-width: 2; }
+.scene-chat-time svg { width: 28px; color: var(--chat-green); }
+.scene-chat-check rect { fill: var(--chat-green); stroke: none; }
+.scene-chat-check path { stroke: var(--chat-paper); }
+.scene-chat-choices { display: flex; width: 100%; gap: 8px; }
+.scene-chat-choices > span { flex: 1; padding: 10px 4px; text-align: center; background: var(--chat-paper); font-weight: 600; }
+.scene-chat-input { margin: 12px; padding: 8px 12px; background: var(--chat-paper); color: var(--chat-muted); border: 1px solid var(--chat-muted); border-radius: 20px; /* phone mockup */ }

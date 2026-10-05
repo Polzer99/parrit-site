@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   barePathname,
   isLocale,
+  isJournalArticlePath,
   localeFromAcceptLanguage,
   localizedPath,
   LOCALE_COOKIE,
@@ -18,6 +19,7 @@ export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const bare = barePathname(pathname);
   const translated = TRANSLATED_PATHS.includes(bare);
+  const frenchChrome = translated || isJournalArticlePath(bare);
   const french = pathname !== bare;
   const queryLocale = request.nextUrl.searchParams.get("lang");
   const safeMethod = request.method === "GET" || request.method === "HEAD";
@@ -36,8 +38,8 @@ export function proxy(request: NextRequest) {
     return response;
   }
 
-  // No French aliases for articles, feeds, private sketches or unknown routes.
-  if (french && !translated) {
+  // Articles retain their French alias; feeds, private sketches and other routes do not.
+  if (french && !frenchChrome) {
     const url = request.nextUrl.clone();
     url.pathname = bare;
     return NextResponse.redirect(url, 301);
@@ -57,7 +59,7 @@ export function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   // Overwrite inbound hints: a cookie/header cannot change an URL's language.
   requestHeaders.set(PATHNAME_HEADER, pathname);
-  requestHeaders.set(LOCALE_HEADER, french && translated ? "fr" : "en");
+  requestHeaders.set(LOCALE_HEADER, french && frenchChrome ? "fr" : "en");
   const url = request.nextUrl.clone();
   url.pathname = bare;
   const response = french

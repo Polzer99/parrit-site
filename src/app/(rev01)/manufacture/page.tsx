@@ -18,7 +18,7 @@ const DICT = {
       [
         "01",
         "Examination",
-        "Fifteen minutes with the founder, then a written diagnostic: your flows, your failure points, the first operation to rebuild. Before any commitment."
+        "Fifteen minutes with the founder, then a written scope or a clear no."
       ],
       [
         "02",
@@ -28,7 +28,7 @@ const DICT = {
       [
         "03",
         "Compounding",
-        "Each new capability joins the system and raises the value of every previous one: the one that detects the signal hands over to the one that follows up with the client. You keep ownership of everything, code and data included."
+        "Each new capability joins the same system and reuses what the previous ones put in place. The one that detects the signal hands over to the one that follows up with the client. You keep ownership of everything, code and data included."
       ]
     ],
     "note": "All three phases answer to the same Standard. Six criteria, identical for any system delivered.",
@@ -51,7 +51,7 @@ const DICT = {
       [
         "01",
         "L'Examen",
-        "Quinze minutes avec le fondateur, puis un diagnostic écrit : vos flux, vos points de défaillance, la première opération à reconstruire. Avant tout engagement."
+        "Quinze minutes avec le fondateur, puis un périmètre écrit, ou un non clair."
       ],
       [
         "02",
@@ -61,7 +61,7 @@ const DICT = {
       [
         "03",
         "La Capitalisation",
-        "Chaque nouvelle brique rejoint le système et augmente la valeur des précédentes : celle qui détecte le signal passe la main à celle qui relance le client. Vous restez propriétaire de tout, code et données compris."
+        "Chaque nouvelle brique rejoint le même système et réutilise ce que les précédentes ont mis en place. Celle qui détecte le signal passe la main à celle qui relance le client. Vous restez propriétaire de tout, code et données compris."
       ]
     ],
     "note": "Les trois phases répondent au même Standard. Six critères, identiques pour tout système livré.",

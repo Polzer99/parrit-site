@@ -24,8 +24,10 @@ export function formatOfferPrice(price: OfferPrice, locale: Locale): string {
   const amount = new Intl.NumberFormat(locale === "fr" ? "fr-FR" : "en-GB", {
     style: "currency", currency: price.currency, minimumFractionDigits: 0, maximumFractionDigits: 2,
   }).format(price.amountHt);
-  const anchor = locale === "fr" ? "À partir de" : "Starting at";
-  return `${anchor} ${amount} ${locale === "fr" ? "HT" : "excl. VAT"} · ${price.basis}`;
+  // Keep the French amount, currency and tax status together at every width.
+  return locale === "fr"
+    ? `À partir de ${amount}\u00a0HT ${price.basis}`
+    : `From ${amount} excl. VAT, ${price.basis}`;
 }
 
 export function OfferCard({

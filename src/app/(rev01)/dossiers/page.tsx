@@ -29,7 +29,7 @@ const DICT = {
         "ref": "Dossier 26-001 · Parrit.ai, our own system",
         "title": "We sell the system we run on.",
         "body": "Every signal that touches the business reaches the founder already framed as a decision to make.",
-        "seal": "In production · Compounding"
+        "seal": "In production"
       }
     ],
     "registry": "The registry",
@@ -62,7 +62,7 @@ const DICT = {
         "ref": "Dossier 26-001 · Parrit.ai, notre propre système",
         "title": "Nous vendons le système qui nous fait tourner.",
         "body": "Chaque signal qui touche l'entreprise arrive chez le fondateur déjà transformé en décision à trancher.",
-        "seal": "En production · La valeur s'accumule"
+        "seal": "En production"
       }
     ],
     "registry": "Le registre",

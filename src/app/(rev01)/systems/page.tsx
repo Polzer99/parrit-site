@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BUILD_WITH_YOU_PRICE } from "../../../../site.config";
 import { getLocale } from "@/lib/server/locale";
 import { K, RegistryLine } from "@/system/components";
 import { OfferCard } from "@/system/components/OfferCard";
@@ -130,7 +131,7 @@ const DICT = {
       "30-minute findings review",
       "10 hours of building with the founder",
     ],
-    format: "10 hours, with the founder", basis: "fixed fee", offerCta: "See Build With You",
+    format: "10 hours, with the founder", basis: "fixed price", offerCta: "See Build With You",
     faq: [
       ["Is this training or a delivered system?", "A system. You learn to use it along the way, but what we deliver is something that runs, not a course."],
       ["Where does our data go?", "Into your own accounts. We don't build a second database of it. If you choose ongoing support, we keep the technical access that takes, nothing more."],
@@ -164,7 +165,7 @@ const DICT = {
       "Restitution de 30 min",
       "10 heures de construction avec le fondateur",
     ],
-    format: "10 heures, avec le fondateur", basis: "forfait", offerCta: "Découvrir Build With You",
+    format: "10 heures, avec le fondateur", basis: "au forfait", offerCta: "Découvrir Build With You",
     faq: [
       ["Formation ou système livré ?", "Un système. Vous apprenez à vous en servir en cours de route, mais ce que nous livrons, c'est quelque chose qui fonctionne, pas un cours."],
       ["Où vont nos données ?", "Dans vos comptes. Nous n'en construisons pas une seconde base ailleurs. Si vous choisissez un suivi continu, nous gardons l'accès technique que ça demande, rien de plus."],
@@ -278,7 +279,7 @@ export default async function SystemsPage() {
   const copy = DICT[locale];
   const evidence = EVIDENCE[locale];
   const commission = localizedPath("/commission", locale);
-  const price = { amountHt: 3200, currency: "EUR", basis: copy.basis };
+  const price = { ...BUILD_WITH_YOU_PRICE, basis: copy.basis };
   const talk = <Link className="rev-button exec" href={commission}>{copy.cta}</Link>;
   const heading = (id: string, title: string) => <div className="r2-shead"><h2 className="r2-ed" id={id}>{title}</h2></div>;
   return <main className="rev-page r2-dark">
@@ -289,11 +290,11 @@ export default async function SystemsPage() {
           <article className="systems-hero-proof-card">
             <K>{copy.observed}</K>
             <h3>{evidence.cards[0].name}</h3>
-            <p>{evidence.cards[0].output} {HERO_PROOF_LIMIT[locale]}</p>
+            <p>{evidence.cards[0].output}. {HERO_PROOF_LIMIT[locale]}</p>
             <K>{evidence.cards[0].proofLabel}</K>
           </article>
         </div>
-        <div className="systems-hero-actions">{talk}<Link className="rev-button ghost" href="#capacites">{copy.catalogue}</Link></div>
+        <div className="systems-hero-actions"><Link className="rev-button ghost" href={commission}>{copy.cta}</Link><Link className="rev-button ghost" href="#capacites">{copy.catalogue}</Link></div>
       </header>
       <section className="r2-section" aria-labelledby="evidence-heading">
         {heading("evidence-heading", copy.evidence)}<p>{copy.intro}</p>
