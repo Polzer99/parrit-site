@@ -2,7 +2,7 @@ import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 
-// Copy lock updated for the approved 2026-09-06 LOT 1: six commitments.
+// Copy lock updated for the approved 2026-10-05 verification: six commitments.
 const PRINCIPLES = [
   [
     "PS-01",
@@ -26,7 +26,7 @@ const PRINCIPLES = [
   ],
   [
     "PS-06",
-    "Each brick raises the value of the ones before it."
+    "Each new capability reuses what already exists."
   ]
 ] as const;
 
@@ -37,7 +37,7 @@ test.describe("the Parrit Standard conformity", () => {
     await page.goto(`${BASE_URL}/standard`);
 
     const display = page.getByRole("heading", {
-      name: "Six commitments. Every system we deliver keeps them.",
+      name: "Six commitments we apply to our systems.",
     });
     await expect(display).toBeVisible();
 

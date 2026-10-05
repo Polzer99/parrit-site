@@ -628,7 +628,7 @@ button {
 .cal-status i {
   width: 8px;
   height: 8px;
-  background: var(--crit-dot);
+  background: currentColor;
 }
 
 .cal-embed {

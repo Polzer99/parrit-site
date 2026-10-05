@@ -86,18 +86,19 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
       <article className="journal-article">
         <header className="journal-header">
           <K>{locale === "fr" ? "Journal / Entrée" : "Journal / Entry"} · {entry.date}</K>
-          <h1>{entry.title}</h1>
-          <p className="journal-deck">{entry.description}</p>
+          <h1 lang="en">{entry.title}</h1>
+          {locale === "fr" ? <p>Article en anglais.</p> : null}
+          <p className="journal-deck" lang="en">{entry.description}</p>
         </header>
 
-        <div className="journal-body">
+        <div className="journal-body" lang="en">
           <ReactMarkdown>{entry.content}</ReactMarkdown>
         </div>
 
         {relatedEntries.length > 0 ? (
           <nav className="journal-related" aria-label={relatedLabel}>
             <K>{relatedLabel}</K>
-            {/* Article anglais unique : une URL localisée ajouterait un saut 301. */}
+            {/* Les articles restent liés à leur URL canonique anglaise. */}
             {relatedEntries.map((related) => (
               <Link key={related.slug} href={`/journal/${related.slug}`}>
                 <span>{related.title}</span>

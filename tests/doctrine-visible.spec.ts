@@ -151,12 +151,23 @@ for (const locale of ["fr", "en"] as const) {
       await expect(page.locator(".home-s-close-note")).toHaveCSS("text-transform", "none");
     });
 
-    for (const route of ["", "/build-with-you"]) {
+    for (const route of ["", "/build-with-you", "/commission", "/systems"]) {
       test(`doctrine one pink accent in every viewport ${locale} ${route || "/"} ${width}`, async ({ page }, testInfo) => {
         await page.setViewportSize({ width, height: 844 });
         await page.goto(`${BASE_URL}${prefix}${route || (prefix ? "" : "/")}`);
         await page.evaluate(() => document.fonts.ready);
         const headerAction = page.locator(".cmd-cta");
+        if (route === "/systems") await expect(page.locator(".systems-hero-actions a").first()).toHaveClass(/\bghost\b/);
+        for (const link of await page.locator(".home-s-alternative a, .home-s-footer-meta a, main a:not([class])").all()) {
+          expect(await link.evaluate((el) => {
+            const probe = document.createElement("span");
+            probe.style.color = "var(--brand-core-rose)";
+            el.append(probe);
+            const pink = getComputedStyle(probe).color;
+            probe.remove();
+            return getComputedStyle(el).color === pink;
+          }), "prose links do not add pink accents").toBe(false);
+        }
         await expect(headerAction).toHaveClass(route ? /\bexec\b/ : /\bghost\b/);
         // Include the shared header and the hero frame, even though it is not a fill.
         // Check all possible vertical overlaps, not only selected scroll positions.
@@ -172,7 +183,7 @@ for (const locale of ["fr", "en"] as const) {
             const bounds = element.getBoundingClientRect();
             const frame = element.matches(".home-s-hero .frame") && getComputedStyle(element, "::before").borderColor === pink;
             if (!bounds.width || !bounds.height || style.visibility === "hidden" || style.display === "none" || Number(style.opacity) === 0) return [];
-            if (!frame && style.backgroundColor !== pink) return [];
+            if (!frame && style.backgroundColor !== pink && !(element.matches("a") && style.color === pink)) return [];
             // VS-PRODUCT-SCENE: only numbered markers within the same scene
             // form one accent. Keep their full extent to catch other pink fills.
             const scene = element.matches(".scene-marker") ? element.closest(".product-scene") : null;
@@ -237,13 +248,23 @@ for (const locale of ["fr", "en"] as const) {
   });
 }
 
-for (const width of [1440, 390]) {
+for (const width of [1440, 768, 375, 390]) {
   for (const route of ["/fr", "/fr/build-with-you", "/fr/commission"]) {
     test(`doctrine FR capture ${route} ${width}`, async ({ page }, testInfo) => {
       await page.setViewportSize({ width, height: 844 });
       await page.goto(`${BASE_URL}${route}`);
       await page.evaluate(() => document.fonts.ready);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+      if (route === "/fr") {
+        await expect(page.locator(".home-s-brands-list > span")).toHaveCount(6);
+        for (const item of await page.locator(".home-s-brands-list > span").all()) {
+          await expect(item).toHaveCSS("white-space", "nowrap");
+          expect(await item.evaluate((el) => {
+            const range = document.createRange(); range.selectNodeContents(el);
+            return new Set([...range.getClientRects()].map((r) => Math.round(r.top))).size;
+          })).toBe(1);
+        }
+      }
       if (route.endsWith("commission")) await expect(page.locator(".cal-instrument")).toHaveCSS("box-shadow", "none");
       await testInfo.attach(`doctrine-${route.replaceAll("/", "-")}-${width}`, {
         body: await page.screenshot({ fullPage: true, animations: "disabled" }), contentType: "image/png",

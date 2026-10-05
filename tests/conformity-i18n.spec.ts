@@ -136,7 +136,7 @@ test("header switches paths, saves choice and preserves query/hash", async ({ pa
   await expect(page.locator('.cmd-cta[href="/fr/commission"]')).toHaveCount(1);
 });
 
-test("Journal articles are English only, including legacy French aliases", async ({ page }) => {
+test("French Journal aliases retain their URL and label the unchanged English article", async ({ page, context }) => {
   const path = "/journal/one-card-one-action";
   await page.setExtraHTTPHeaders({ "Accept-Language": "fr" });
   const direct = await page.goto(`${BASE_URL}${path}`);
@@ -144,11 +144,28 @@ test("Journal articles are English only, including legacy French aliases", async
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator('link[hreflang="fr"]')).toHaveCount(0);
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${SITE}${path}`);
+  await expect(page.getByText("Article en anglais.", { exact: true })).toHaveCount(0);
+  const englishTitle = await page.locator("h1").textContent();
+  const englishBody = await page.locator(".journal-body").textContent();
+  const frenchAlias = await page.goto(`${BASE_URL}/fr${path}?source=test`);
+  expect(frenchAlias?.status()).toBe(200);
+  expect(frenchAlias?.request().redirectedFrom()).toBeNull();
+  await expect(page).toHaveURL(`${BASE_URL}/fr${path}?source=test`);
+  await expect(page.locator("html")).toHaveAttribute("lang", "fr");
+  await expect(page.locator("h1 + p")).toHaveText("Article en anglais.");
+  await expect(page.locator("h1")).toHaveText(englishTitle!);
+  await expect(page.locator(".journal-body")).toHaveText(englishBody!);
+  await expect(page.locator(".journal-body")).toHaveAttribute("lang", "en");
+  await expect(page.locator('link[hreflang="fr"]')).toHaveCount(0);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${SITE}${path}`);
   const alias = await page.goto(`${BASE_URL}/fr${path}?lang=fr&source=test`);
   expect((await alias?.request().redirectedFrom()?.response())?.status()).toBe(301);
+  await expect(page).toHaveURL(`${BASE_URL}/fr${path}?source=test`);
+  await switchHeaderLanguage(page, context, "en", `${BASE_URL}${path}?source=test`);
   await expect(page).toHaveURL(`${BASE_URL}${path}?source=test`);
-  await page.getByRole("button", { name: "FR", exact: true }).click();
-  await expect(page).toHaveURL(`${BASE_URL}${path}?source=test`);
+  await expect(page.getByText("Article en anglais.", { exact: true })).toHaveCount(0);
+  await switchHeaderLanguage(page, context, "fr", `${BASE_URL}/fr${path}?source=test`);
+  await expect(page.locator("h1 + p")).toHaveText("Article en anglais.");
 });
 
 test("sitemap contains both translated sets and no French articles", async ({ page }) => {

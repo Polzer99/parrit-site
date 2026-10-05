@@ -27,3 +27,13 @@ for (const [file, expected] of Object.entries(manifest).filter(([file]) => file.
     }
   });
 }
+
+// Spec §1: crop only, no redraw, recolor or resampling of the business card.
+test("business card is an unretouched pixel crop of the approved scene", async () => {
+  const source = new URL("../public/brand/scenes/scene-carte-visite-messagerie.png", import.meta.url);
+  const crop = new URL("../public/brand/scenes/scene-carte-visite-photo.png", import.meta.url);
+  const expected = await sharp(readFileSync(source)).extract({ left: 376, top: 570, width: 754, height: 520 }).raw().toBuffer();
+  const actual = await sharp(readFileSync(crop)).raw().toBuffer({ resolveWithObject: true });
+  assert.deepEqual([actual.info.width, actual.info.height], [754, 520]);
+  assert.deepEqual(actual.data, expected);
+});

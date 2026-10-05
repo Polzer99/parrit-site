@@ -2,6 +2,15 @@ import { readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
 import cssColorNames from "color-name";
 
+// Spec 2026-10-05 §1: exact, component-local third-party mockup declarations.
+// No blanket file exemption: every other literal remains forbidden.
+const CHAT_COLORS = new Set([
+  "--chat-paper: rgb(255 255 255);", "--chat-ink: rgb(20 25 22);",
+  "--chat-muted: rgb(70 80 72);", "--chat-wall: rgb(206 223 184);",
+  "--chat-outgoing: rgb(226 255 198);", "--chat-chrome: rgb(243 244 243);",
+  "--chat-green: rgb(35 112 53);", "--chat-avatar: rgb(0 110 130);",
+]);
+const isChatColor = (file, line) => file === "src/system/components/ProductScene.css" && CHAT_COLORS.has(line.trim());
 const VENDOR = "src/system/brand-os.tokens.css";
 const RETIRED_HEX = new Set((
   "0A0B0C 131518 1A1D21 F1F2F3 FAFAFB 1268D9 0F56B3 84B5F5 68A4F3 2F82EE 4C93F0 E3EEFD D0E3FB 19293E DDE0E3 24282D 606366 8C8F92 55595E 9CA1A6 26282B C7CBCF 3A3F47 " +
@@ -250,7 +259,7 @@ for (const root of NO_RED_ROOTS) {
           if (file !== VENDOR) report(file, index + 1, "hex outside brand-os.tokens.css", match[0]);
         }
         // No alternative literal spelling may bypass the single palette source.
-        if (file !== VENDOR) {
+        if (file !== VENDOR && !isChatColor(file, line)) {
           const literal = line.match(/\b(?:rgba?|hsla?|hwb|oklch|oklab|lab|lch|color)\(\s*[^)]+\)/i);
           if (literal) report(file, index + 1, "literal color outside brand-os.tokens.css", literal[0]);
           for (const context of colorValueContexts(line)) {

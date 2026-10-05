@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BUILD_WITH_YOU_PRICE } from "../../../site.config";
 
 import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
 import { getLocale } from "@/lib/server/locale";
@@ -74,7 +75,7 @@ const DICT = {
             "10 hours of building with the founder",
           ],
           format: "10 hours, with the founder",
-          price: { amountHt: 3200, currency: "EUR", basis: "fixed fee" },
+          price: { ...BUILD_WITH_YOU_PRICE, basis: "fixed price" },
           cta: { label: "See Build With You", href: "/build-with-you" },
         },
         {
@@ -158,7 +159,7 @@ const DICT = {
             "10 heures de construction avec le fondateur",
           ],
           format: "10 heures, avec le fondateur",
-          price: { amountHt: 3200, currency: "EUR", basis: "forfait" },
+          price: { ...BUILD_WITH_YOU_PRICE, basis: "au forfait" },
           cta: { label: "Découvrir Build With You", href: "/build-with-you" },
         },
         {
@@ -223,7 +224,7 @@ export default async function HomePage() {
       <section className="home-s-brands">
         <div className="home-s-wrap">
           <K>{copy.brands.kicker}</K>
-          <p className="home-s-brands-list">{copy.brands.list}</p>
+          <p className="home-s-brands-list">{copy.brands.list.split(" · ").map((item) => <span key={item}>{item}</span>)}</p>
           <p>{copy.brands.note}</p>
         </div>
       </section>
@@ -271,21 +272,13 @@ export default async function HomePage() {
             steps={copy.build.steps}
             label={copy.build.label}
             mention={copy.build.mention}
-            conversation={{
-              src: "/brand/scenes/scene-carte-visite-messagerie",
-              width: 1434, height: 2400, widths: [480, 960],
-              sizes: "(max-width: 767px) 320px, 360px",
-              alt: copy.build.conversationAlt,
-            }}
             object={{
               src: "/brand/scenes/scene-carte-visite-fiche-crm",
               width: 860, height: 564, widths: [430, 860],
-              sizes: "(max-width: 767px) 340px, 380px",
+              sizes: "(max-width: 859px) calc(100vw - 40px), (max-width: 1024px) calc(100vw - 80px), 420px",
               alt: copy.build.objectAlt,
             }}
             markers={[
-              { number: 1, image: "conversation", left: 25.2, top: 23.3 },
-              { number: 2, image: "conversation", left: 64.5, top: 69.5, anchor: "before" },
               { number: 3, image: "object", left: 93, top: 9 },
             ]}
           />

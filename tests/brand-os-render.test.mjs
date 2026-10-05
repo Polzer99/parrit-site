@@ -88,8 +88,25 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
           assert.doesNotMatch(sceneText, /Laparra|Rungis|\bMIN\b|GESLOT|Lyon/i);
           assert.doesNotMatch(scene, /home-s-build-grid|home-s-verdict/);
           assert.deepEqual([...scene.matchAll(/class="scene-marker"[^>]*>([123])<\/span>/g)].map((match) => match[1]), ["1", "2", "3", "1", "2", "3"]);
-          assert.match(scene, /class="scene-marker"[^>]*style="left:64\.5%;top:69\.5%;transform:translate\(calc\(-100% - 6px\), -50%\)"[^>]*>2<\/span>/, `${label}: FIX2 anchors marker 2 by its right edge, 6px left of the approval bubble`);
-          assert.equal((scene.match(/<picture>/g) ?? []).length, 2);
+          assert.match(scene, /class="scene-chat-approval"|class="scene-chat-bubble scene-chat-outgoing scene-chat-approval"/);
+          assert.match(scene, /class="scene-chat-bubble scene-chat-outgoing scene-chat-approval"><span class="scene-marker" aria-hidden="true">2<\/span><p>oui<\/p>/, `${label}: marker 2 is anchored to the HTML approval bubble`);
+          assert.match(scene, /class="scene-chat"[^>]*lang="fr"/);
+          for (const transcript of ["Agent CRM", "bot", "CRM", "Aujourd'hui", "nouveau contact chez Prospect B, vu ce matin", "Message"]) {
+            assert.ok(sceneText.includes(transcript), `${label}: exact p2 transcript: ${transcript}`);
+          }
+          const messages = [...scene.matchAll(/class="scene-chat-bubble[^"]*">[\s\S]*?<p>([\s\S]*?)<\/p>/g)]
+            .map((match) => visibleText(match[1].replace(/<[^>]*>/g, "")).trim());
+          assert.deepEqual(messages, [
+            "nouveau contact chez Prospect B, vu ce matin",
+            "Je crée Contact achat (acheteur) chez Prospect B. C'est bon ?",
+            "oui",
+            "C'est créé : Contact achat (acheteur) chez Prospect B.",
+          ], `${label}: exact HTML messages preserve inline emphasis without changing punctuation`);
+          assert.deepEqual([...scene.matchAll(/class="scene-chat-time">(08:0[45])/g)].map((match) => match[1]), ["08:04", "08:04", "08:05", "08:05"]);
+          assert.match(scene, /<strong>Contact achat<\/strong> \(acheteur\) chez <strong>Prospect B<\/strong>/);
+          assert.match(scene, /src="\/brand\/scenes\/scene-carte-visite-photo.png"/);
+          assert.equal((scene.match(/<picture>/g) ?? []).length, 1);
+          assert.equal((scene.match(/<img\b/g) ?? []).length, 2);
           assert.equal((scene.match(/loading="lazy"/g) ?? []).length, 2);
           assert.equal((scene.match(/decoding="async"/g) ?? []).length, 2);
           assert.ok(html.includes(locale === "fr"
@@ -112,6 +129,19 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
         }
       }
     }
+    // The alias keeps English content/canonical, but the French chrome warns readers.
+    const articleRoute = "/journal/one-card-one-action";
+    const english = await render(articleRoute, "en");
+    const french = await render(articleRoute, "fr");
+    assert.equal(english.status, 200);
+    assert.equal(french.status, 200);
+    assert.doesNotMatch(english.html, /Article en anglais\./);
+    assert.match(french.html, /<h1[^>]*>[\s\S]*?<\/h1><p>Article en anglais\.<\/p>/);
+    for (const html of [english.html, french.html]) {
+      assert.ok(html.includes(`rel="canonical" href="https://parrit.ai${articleRoute}"`));
+    }
+    assert.equal(french.html.match(/<div class="journal-body"[^>]*>[\s\S]*?<\/div>/)?.[0],
+      english.html.match(/<div class="journal-body"[^>]*>[\s\S]*?<\/div>/)?.[0]);
     for (const route of ["/brand-os-missing-page", "/fr/brand-os-missing-page"]) {
       const { status, html } = await render(route);
       assert.equal(status, 404, route);

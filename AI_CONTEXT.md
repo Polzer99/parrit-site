@@ -419,3 +419,17 @@ interdit toute référence ou nom de fichier DSC00629 dans `src/` et `public/`.
 Build Webpack, lint, types, claims, marque et 18 tests Brand OS passent.
 Chromium est refusé par le sandbox macOS avant navigation ; captures et batterie
 navigateur restent à exécuter sur l’hôte. Voir `docs/REPORT-2026-10-05-photo-linkedin.md`.
+
+## Contre-vérification, 05/10/2026
+
+La conversation ProductScene est désormais HTML serveur (transcript p2 FR, corps 14 px),
+avec photo recadrée sans retouche et capture CRM conservée. Couleurs tierces locales
+à ProductScene.css, huit déclarations autorisées exactement par la gate de marque.
+Prix BWY centralisé dans site.config.ts ; formulations FR/EN et claims corrigés.
+Les alias /fr/journal/[slug] gardent désormais leur URL et portent la notice
+« Article en anglais. » avec canonical EN ; les anciennes mentions d'une redirection
+systématique de ces alias sont obsolètes. Aucun contenu MDX ou token canon modifié.
+Lint, types, claims, marque, build Webpack et 64 tests Node passent. Chromium est
+refusé au lancement par le sandbox ; captures et géométrie restent à valider sur
+l'hôte. Voir docs/REPORT-2026-10-05-contre-verification.md pour le détail et la limite
+persistante des petits libellés raster CRM.

@@ -4,6 +4,7 @@ import { cookies, headers } from "next/headers";
 
 import {
   isLocale,
+  isJournalArticlePath,
   localeFromAcceptLanguage,
   LOCALE_COOKIE,
   LOCALE_HEADER,
@@ -18,7 +19,7 @@ export async function getLocale(): Promise<Locale> {
   const pathname = requestHeaders.get(PATHNAME_HEADER);
   if (pathname) {
     const bare = barePathname(pathname);
-    return pathname !== bare && TRANSLATED_PATHS.includes(bare) ? "fr" : "en";
+    return pathname !== bare && (TRANSLATED_PATHS.includes(bare) || isJournalArticlePath(bare)) ? "fr" : "en";
   }
   const forwardedLocale = requestHeaders.get(LOCALE_HEADER);
   if (isLocale(forwardedLocale)) return forwardedLocale;

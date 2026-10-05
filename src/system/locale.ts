@@ -6,7 +6,7 @@ export const LOCALE_COOKIE = "parrit_locale";
 export const LOCALE_HEADER = "x-parrit-locale";
 export const PATHNAME_HEADER = "x-parrit-pathname";
 
-// The Journal index has translated chrome; individual entries do not.
+// Only these pages have translated content and participate in language negotiation.
 export const TRANSLATED_PATHS: readonly string[] = [
   "/", "/build-with-you", "/systems", "/manufacture", "/standard", "/dossiers", "/commission", "/journal", "/legal",
 ];
@@ -15,12 +15,18 @@ export function barePathname(pathname: string): string {
   return pathname === "/fr" ? "/" : pathname.startsWith("/fr/") ? pathname.slice(3) : pathname;
 }
 
+// Articles have French chrome and a language notice, but keep their English canonical.
+// Feeds, OG images and other nested routes are not article pages.
+export function isJournalArticlePath(pathname: string): boolean {
+  return /^\/journal\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(pathname);
+}
+
 export function localizedPath(href: string, locale: Locale): string {
   const suffixAt = href.search(/[?#]/);
   const pathname = suffixAt < 0 ? href : href.slice(0, suffixAt);
   const suffix = suffixAt < 0 ? "" : href.slice(suffixAt);
   const bare = barePathname(pathname);
-  return `${locale === "fr" && TRANSLATED_PATHS.includes(bare) ? `/fr${bare === "/" ? "" : bare}` : bare}${suffix}`;
+  return `${locale === "fr" && (TRANSLATED_PATHS.includes(bare) || isJournalArticlePath(bare)) ? `/fr${bare === "/" ? "" : bare}` : bare}${suffix}`;
 }
 
 export function isLocale(value: string | null | undefined): value is Locale {

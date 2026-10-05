@@ -227,10 +227,24 @@ for (const width of [375, 390, 768, 1440]) {
           const top = style.top !== "auto" ? bounds.top + parseFloat(style.top) : bounds.bottom - parseFloat(style.bottom) - height;
           return { left, right: left + width, top, bottom: top + height };
         }));
-        return { textRects, corners, glyphs };
+        const style = getComputedStyle(frame);
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d")!;
+        context.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+        const descender = context.measureText("yq").actualBoundingBoxDescent;
+        return { textRects, corners, glyphs, descender, bottomPadding: parseFloat(style.paddingBottom) };
       });
       expect(frameGeometry.textRects).toHaveLength(1);
       expect(frameGeometry.corners).toHaveLength(4);
+      const text = frameGeometry.textRects[0];
+      const left = Math.min(...frameGeometry.corners.map((c) => c.left));
+      const right = Math.max(...frameGeometry.corners.map((c) => c.right));
+      expect(Math.abs((text.left - left) - (right - text.right)), "frame centered on its text").toBeLessThanOrEqual(2);
+      expect(frameGeometry.bottomPadding, "descenders remain inside the frame").toBeGreaterThanOrEqual(frameGeometry.descender);
+      for (const corner of frameGeometry.corners) {
+        expect(corner.right - corner.left).toBe(14);
+        expect(corner.bottom - corner.top).toBe(14);
+      }
       expect(frameGeometry.glyphs.some((glyph) => !glyph.framed && glyph.word)).toBe(true);
       // No unframed word may share the framed group's line (punctuation may).
       for (const glyph of frameGeometry.glyphs.filter((glyph) => !glyph.framed && glyph.word)) {

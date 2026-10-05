@@ -10,7 +10,7 @@ const DICT = {
     "metaTitle": "The Standard",
     "metaDescription": "Six commitments on every system we deliver: state readable at any moment, framed decisions, the way back written in advance, full client ownership.",
     "kicker": "Parrit / The Standard",
-    "title": "Six commitments. Every system we deliver keeps them.",
+    "title": "Six commitments we apply to our systems.",
     "tableMeta": "STD-1.0 · 2026",
     "principles": [
       [
@@ -40,7 +40,7 @@ const DICT = {
       ],
       [
         "PS-06",
-        "Each brick raises the value of the ones before it.",
+        "Each new capability reuses what already exists.",
         "The reporting built first feeds the follow-ups built next."
       ]
     ],
@@ -53,7 +53,7 @@ const DICT = {
     "metaTitle": "Le Standard",
     "metaDescription": "Six engagements sur chaque système livré : état lisible à tout moment, décisions cadrées et chiffrées, retour arrière écrit d'avance, propriété complète du client.",
     "kicker": "Parrit / Le Standard",
-    "title": "Six engagements. Chaque système livré les tient.",
+    "title": "Six engagements que nous appliquons à nos systèmes.",
     "tableMeta": "STD-1.0 · 2026",
     "principles": [
       [
@@ -83,7 +83,7 @@ const DICT = {
       ],
       [
         "PS-06",
-        "Une nouvelle brique augmente la valeur des précédentes.",
+        "Une nouvelle brique réutilise ce qui existe déjà.",
         "Le reporting construit d'abord alimente les relances construites ensuite."
       ]
     ],
