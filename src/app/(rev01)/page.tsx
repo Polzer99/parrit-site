@@ -233,10 +233,10 @@ export default async function HomePage() {
         <div className="home-s-wrap home-s-maison-grid">
           <figure className="home-s-founder">
             <picture>
-              <source type="image/avif" srcSet="/brand/founder/parrit-ai-founder-linkedin-3x4-340.avif 340w, /brand/founder/parrit-ai-founder-linkedin-3x4-680.avif 680w" sizes="(max-width: 859px) min(340px, 100vw), 340px" />
-              <source type="image/webp" srcSet="/brand/founder/parrit-ai-founder-linkedin-3x4-340.webp 340w, /brand/founder/parrit-ai-founder-linkedin-3x4-680.webp 680w" sizes="(max-width: 859px) min(340px, 100vw), 340px" />
+              <source type="image/avif" srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.avif 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.avif 680w" sizes="(max-width: 859px) min(340px, 100vw), 340px" />
+              <source type="image/webp" srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.webp 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.webp 680w" sizes="(max-width: 859px) min(340px, 100vw), 340px" />
               {/* Native picture preserves the approved, byte-identical LinkedIn exports. */}
-              <img src="/brand/founder/parrit-ai-founder-linkedin-3x4-340.webp" width={340} height={453} loading="lazy" decoding="async" alt={locale === "fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai"} />
+              <img src="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.webp" width={340} height={453} loading="lazy" decoding="async" alt={locale === "fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai"} />
             </picture>
             <figcaption>{copy.journey.caption}</figcaption>
           </figure>

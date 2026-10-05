@@ -1,58 +1,62 @@
 {
-  "parrit-ai-founder-linkedin-3x4-340.webp": {
+  "parrit-ai-founder-linkedin-buste-3x4-340.webp": {
     "site": "parrit-ai",
-    "source": "WhatsApp Image 2026-08-01 at 16.19.25.jpeg (registre gym-original ; cadrage LinkedIn = carré haut 1200x1200)",
+    "source": "WhatsApp Image 2026-08-01 at 16.19.25.jpeg (registre gym-original)",
     "crop_box": [
-      190,
-      0,
-      1090,
-      1200
+      365,
+      40,
+      905,
+      760
     ],
     "width": 340,
     "height": 453,
-    "sha256": "d644294fdbe9611bd10ee353ff10a0be90e71609cb584924769529a73d98c272",
-    "bytes": 23724
+    "sha256": "e73908482d942e78589f2d323e8ee8081fbb2ea3e57fb9a8e8bfebde9157a134",
+    "bytes": 18020,
+    "upscaled": false
   },
-  "parrit-ai-founder-linkedin-3x4-340.avif": {
+  "parrit-ai-founder-linkedin-buste-3x4-340.avif": {
     "site": "parrit-ai",
-    "source": "WhatsApp Image 2026-08-01 at 16.19.25.jpeg (registre gym-original ; cadrage LinkedIn = carré haut 1200x1200)",
+    "source": "WhatsApp Image 2026-08-01 at 16.19.25.jpeg (registre gym-original)",
     "crop_box": [
-      190,
-      0,
-      1090,
-      1200
+      365,
+      40,
+      905,
+      760
     ],
     "width": 340,
     "height": 453,
-    "sha256": "55ae02bf104793cc0c2336eb544f339ea68a91646a64585cc2adc839b334ef96",
-    "bytes": 18837
+    "sha256": "690ef8da73695b01ed747433f5738bd80770edbe0925d07e6affc86176f6afd7",
+    "bytes": 13439,
+    "upscaled": false
   },
-  "parrit-ai-founder-linkedin-3x4-680.webp": {
+  "parrit-ai-founder-linkedin-buste-3x4-680.webp": {
     "site": "parrit-ai",
-    "source": "WhatsApp Image 2026-08-01 at 16.19.25.jpeg (registre gym-original ; cadrage LinkedIn = carré haut 1200x1200)",
+    "source": "WhatsApp Image 2026-08-01 at 16.19.25.jpeg (registre gym-original)",
     "crop_box": [
-      190,
-      0,
-      1090,
-      1200
+      365,
+      40,
+      905,
+      760
     ],
     "width": 680,
     "height": 907,
-    "sha256": "1478ce059e0baad45a8415f5a7be170b3cbc1d778b39c2abae0268cbe9adcc29",
-    "bytes": 69278
+    "sha256": "0ddbf01ea8951217be4a2d126ece0bceba6113e4d5bac1a6ed1317ff1e9b5305",
+    "bytes": 43724,
+    "upscaled": true
   },
-  "parrit-ai-founder-linkedin-3x4-680.avif": {
+  "parrit-ai-founder-linkedin-buste-3x4-680.avif": {
     "site": "parrit-ai",
-    "source": "WhatsApp Image 2026-08-01 at 16.19.25.jpeg (registre gym-original ; cadrage LinkedIn = carré haut 1200x1200)",
+    "source": "WhatsApp Image 2026-08-01 at 16.19.25.jpeg (registre gym-original)",
     "crop_box": [
-      190,
-      0,
-      1090,
-      1200
+      365,
+      40,
+      905,
+      760
     ],
     "width": 680,
     "height": 907,
-    "sha256": "7d90923911141bccd537d0eda91f255c49a9d14320e605132919e457ed3f5ad2",
-    "bytes": 49890
+    "sha256": "8a099ecdde5747da896f42c0e138b17eaf8d7e02bb5e9ea292463e25d1954db0",
+    "bytes": 29500,
+    "upscaled": true
   }
 }
