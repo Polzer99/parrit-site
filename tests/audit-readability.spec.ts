@@ -1,5 +1,16 @@
 import { expect, test } from "./network-deny.setup";
 
+async function tokenColor(element: import("@playwright/test").Locator, token: string) {
+  return element.evaluate((el, name) => {
+    const probe = document.createElement("span");
+    probe.style.color = `var(${name})`;
+    el.append(probe);
+    const color = getComputedStyle(probe).color;
+    probe.remove();
+    return color;
+  }, token);
+}
+
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 test.use({ serviceWorkers: "block" });
 
@@ -14,8 +25,19 @@ for (const width of [375, 390, 1440]) {
         await page.locator(".cmd-menu-toggle").click();
         await expect(page.locator(".cmd-panel-cta")).toHaveCSS("padding", "14px 24px");
         await expect(page.locator(".cmd-panel-cta")).toHaveCSS("font-size", "16px");
+        const mobileAction = page.locator(".cmd-panel-cta");
+        await expect(mobileAction).toHaveCSS("color", await tokenColor(mobileAction, "--accent-on-dark"));
+        await expect(mobileAction).toHaveCSS("border-top-color", await tokenColor(mobileAction, "--accent-on-dark"));
+        await expect(mobileAction).toHaveCSS("border-top-width", "1px");
+        await expect(mobileAction).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
         await page.keyboard.press("Escape");
         await expect(page.locator(".cmd-panel")).toHaveCount(0);
+      }
+      if (width >= 760) {
+        const header = page.locator(".cmd-cta");
+        await expect(header).toHaveCSS("color", await tokenColor(header, "--accent-on-dark"));
+        await expect(header).toHaveCSS("border-top-color", await tokenColor(header, "--accent-on-dark"));
+        await expect(header).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
       }
       const result = await page.evaluate(() => {
         const visible = (el: Element) => el.getBoundingClientRect().width > 0 && el.getBoundingClientRect().height > 0;
@@ -50,10 +72,19 @@ for (const width of [375, 390, 1440]) {
         await expect(link).toBeVisible();
         expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44);
         await expect(link).toHaveCSS("font-size", "18px");
+        await expect(link).toHaveCSS("color", await link.evaluate(el => getComputedStyle(el.parentElement!).color));
         await expect(link).toHaveAttribute("href", path.startsWith("/fr") ? "/fr/commission" : "/commission");
       }
       if (path === "/" || path === "/fr") {
         const booking = page.locator(".home-s-alternative .rev-button");
+        await expect(booking).toHaveClass(/\bghost\b/);
+        await expect(booking).toHaveCSS("color", await tokenColor(booking, "--paper"));
+        await expect(booking).toHaveCSS("border-top-color", await tokenColor(booking, "--rule-d"));
+        await expect(booking).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+        await booking.hover();
+        await expect(booking).toHaveCSS("background-color", await tokenColor(booking, "--carbon2"));
+        await expect(booking).toHaveCSS("color", await tokenColor(booking, "--paper"));
+        await page.mouse.move(0, 0);
         const hero = await page.locator(".home-s-hero h1").boundingBox();
         const sketch = await page.locator(".agent-esquisse").boundingBox();
         const button = await booking.boundingBox();
@@ -67,7 +98,7 @@ for (const width of [375, 390, 1440]) {
         await expect(founder).toBeVisible();
         expect((await founder.boundingBox())!.height).toBeGreaterThanOrEqual(44);
         await expect(founder).toHaveCSS("font-size", "16px");
-        for (const selector of [".home-s-hero .rev-button.exec", ".agent-esquisse button"]) {
+        for (const selector of [".agent-esquisse button"]) {
           const action = page.locator(selector).first();
           await expect(action).toBeVisible();
           expect(await action.evaluate(el => {

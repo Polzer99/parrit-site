@@ -71,3 +71,75 @@ Vérifications de cette reprise :
 Aucun certificat publié, aucune donnée métier modifiée, aucun commit, push ou
 déploiement. La preuve visuelle et la preuve de production restent non obtenues.
 Les avertissements metadataBase du build existaient déjà dans le rapport initial.
+
+## Complément FIX2, 08/10/2026
+
+Source de cette reprise : checkout demandé par Paul, HEAD
+`509a1bb1a1de75f04aa00dcc08cd7cb173c56459`. Seule modification initiale :
+la section FIX2 de la spec, conservée sans modification. Les sections principales
+et FIX1 étaient déjà implémentées ; baseline `npm test` : 102/102.
+AGENTS.md, AI_CONTEXT.md, TRUTH.md, spec et doctrine Harness relus ; rapports A/B/C
+consultés dans le checkout d'audit indiqué plus haut (absents du présent dépôt).
+Plan : corriger la cascade et les variantes CTA, mettre à jour les contrats
+explicitement remplacés, rejouer la batterie. Une passe de correction et une revue
+indépendante en lecture seule ; arrêt des tentatives sur les blocages d'environnement.
+Écritures : sources/tests/docs de ce checkout uniquement, réversibles par diff,
+aucune ligne métier ni certificat public ajouté. Aucun commit, push ou déploiement.
+
+### Modifications
+
+- `src/app/(rev01)/rev01.css` : lien BWY hérite du texte sombre du registre,
+  cible 44 px et taille conservées ; mesure 68ch par défaut à spécificité nulle,
+  laissant gagner les mesures locales dont 56ch du parcours. Interlignage 1,45
+  conservé. En-tête et panneau mobile en contour rose ; second CTA hero en
+  contour clair, centré. Survol sombre conservant le contraste du texte clair.
+- `src/system/components/RevHeader.tsx` : variantes ghost desktop/mobile,
+  sans dépendance au scroll ni changement des libellés/destinations.
+- `src/app/(rev01)/page.tsx` : second CTA hero ghost ; Sketch reste plein rose.
+- Aucun jeton vendorisé, contenu éditorial ou mécanisme Harness modifié.
+
+### Tests renforcés et références actualisées
+
+- `tests/audit-readability.spec.ts` : couleurs/bordures/fond transparent des
+  CTA desktop/mobile depuis les jetons, couleur héritée BWY, contour clair et
+  survol du second CTA hero ; maintien des contrôles 48/44 px et centrage.
+- `tests/brand-os.spec.ts` : Sketch désactivé plein selon le jeton exec,
+  texte et bordure correspondants, hauteur >=48 px ; états désactivé/survol/
+  activé/réinitialisé toujours exercés. Le point 6 de FIX2 cite doctrine-visible
+  ligne 409, mais l'assertion correspondante se trouve dans brand-os.spec.ts.
+- `tests/systems.spec.ts` : Lemlist et transfert en cours, toujours troisième
+  ligne et compteur zéro.
+- `tests/doctrine-visible.spec.ts` : quatre secteurs ; header ghost sans JS,
+  après scroll et navigation ; titre d'article ciblé par `span[lang]` pour ne
+  pas confondre l'étiquette EN ajoutée avec le titre. Ce dernier point explique
+  un échec supplémentaire de « home composition and language ».
+- Sur mobile, le CTA desktop est masqué : le test des accents ouvre le panneau,
+  attend son apparition puis vérifie l'accent effectivement disponible dans ce
+  panneau. Il le ferme avant les parcours suivants. Les assertions d'espacement
+  >=844 px et les groupes de repères produit sont conservés.
+- `tests/readability-contract.test.mjs` : contrat statique du header ghost,
+  absence d'observateur de scroll toujours contrôlée.
+
+Revue indépendante : attentes exec périmées, ambiguïté des spans EN, doublon du
+sélecteur Sketch et absence d'accent au repos sur le header mobile identifiés et
+traités. La correction hover évite un texte clair sur le fond clair de la variante
+ghost générique. Aucune assertion de largeur 56ch, contraste ou débordement retirée.
+
+### Résultats et preuve restante
+
+- `npm run build` : interrompu après absence de progression en compilation
+  Turbopack ; `npm run build -- --webpack && npm test` : réussi, 55 pages,
+  **102/102 tests** (même batterie que la baseline).
+- `npm run lint`, `npx tsc --noEmit`, `node scripts/false-claims-check.mjs`,
+  `node scripts/brand-conformity-check.mjs`, `git diff --check` : réussis.
+- `npm run test:brand-os` : **20/20**.
+- `npx playwright test --max-failures=1` : arrêt au lancement de Chromium,
+  `bootstrap_check_in ... Permission denied (1100)`, avant navigation.
+  `npx playwright test --list` : **215 tests / 16 fichiers**.
+- Les 39 échecs du run CI cité par la spec ne peuvent donc pas être déclarés
+  résolus par une exécution navigateur ici. Rejouer la batterie sur l'hôte,
+  serveur local port 3210, avec les deny-all réseau conservés ; captures,
+  géométrie et contraste calculé restent non validés dans cette reprise.
+- Avertissements metadataBase et type de module Node déjà présents dans les
+  rapports précédents. Aucune preuve de production : déploiement interdit par
+  le mandat de cette session.

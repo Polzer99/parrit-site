@@ -439,13 +439,16 @@ h3 {
   color: var(--g3);
 }
 
-.cmdbar .cmd-cta.ghost {
+.cmdbar .cmd-cta.ghost,
+.cmd-panel .cmd-panel-cta.ghost {
   border-color: currentColor;
-  color: var(--paper);
+  color: var(--accent-on-dark);
 }
 
 .cmdbar .cmd-cta.ghost:hover,
-.cmdbar .cmd-cta.ghost:active {
+.cmdbar .cmd-cta.ghost:active,
+.cmd-panel .cmd-panel-cta.ghost:hover,
+.cmd-panel .cmd-panel-cta.ghost:active {
   background: var(--ink);
 }
 
@@ -1402,7 +1405,7 @@ h3 {
   letter-spacing: normal;
   text-transform: none;
   margin-top: 12px;
-  border: 0 !important;
+  border: 1px solid currentColor;
 }
 
 /* micro-transitions premium : chaque état survolé s'ease, rien ne claque
@@ -1828,8 +1831,19 @@ a.k:active {
   font-size: var(--t-s);
 }
 
+.home-s-alternative .rev-button.ghost {
+  border-color: var(--rule-d);
+  color: var(--paper);
+}
+
+.home-s-alternative .rev-button.ghost:hover,
+.home-s-alternative .rev-button.ghost:active {
+  background: var(--carbon2);
+}
+
 .home-s-alternative a,
-.home-s-text-link {
+.home-s-text-link,
+.build-with-you-next-link {
   color: inherit;
   text-underline-offset: 4px;
 }
@@ -3270,6 +3284,9 @@ a.k {
 .rev-page :is(p, li, dd),
 .home-s-footer :is(p, li, dd) {
   line-height: 1.45;
+}
+/* Default measure yields to component-specific reading widths (e.g. 56ch). */
+:where(.rev-page, .home-s-footer) :where(p, li, dd) {
   max-width: 68ch;
 }
 /* One H3 role, including cards and reconstructed product interfaces. */

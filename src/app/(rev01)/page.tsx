@@ -217,7 +217,7 @@ export default async function HomePage() {
           </h1>
           <p className="home-s-hero-sub">{copy.hero.sub}</p>
           <AgentEsquisse locale={locale} />
-          <p className="home-s-alternative"><Link className="rev-button exec" href={localizedPath("/commission", locale)}>{copy.hero.alternative}</Link></p>
+          <p className="home-s-alternative"><Link className="rev-button ghost" href={localizedPath("/commission", locale)}>{copy.hero.alternative}</Link></p>
         </div>
       </section>
 

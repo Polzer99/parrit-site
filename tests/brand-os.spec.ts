@@ -406,20 +406,29 @@ for (const width of [1440, 375]) {
       const disabled = async () => {
         await expect(button).toBeDisabled();
         await expect(button).toHaveCSS("opacity", "1");
-        await expect(button).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+        expect((await button.boundingBox())!.height).toBeGreaterThanOrEqual(48);
         await expect(button).toHaveCSS("cursor", "not-allowed");
         await expect(button).toHaveCSS("border-top-style", "solid");
         expect(await button.evaluate((element) => parseFloat(getComputedStyle(element).borderTopWidth))).toBeGreaterThan(0);
         const expected = await button.evaluate((element) => {
           const probe = document.createElement("span");
-          probe.style.color = "var(--g4-d)";
+          probe.style.color = "var(--action-text)";
           element.append(probe);
           const expected = getComputedStyle(probe).color;
           probe.remove();
           return expected;
         });
         await expect(button).toHaveCSS("color", expected);
-        await expect(button).toHaveCSS("border-top-color", expected);
+        const fill = await button.evaluate((element) => {
+          const probe = document.createElement("span");
+          probe.style.color = "var(--action-fill)";
+          element.append(probe);
+          const color = getComputedStyle(probe).color;
+          probe.remove();
+          return color;
+        });
+        await expect(button).toHaveCSS("background-color", fill);
+        await expect(button).toHaveCSS("border-top-color", fill);
       };
       await disabled();
       await button.hover();

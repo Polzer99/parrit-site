@@ -107,3 +107,27 @@ Le mécanisme sans aucun certificat publié dans cette PR (les certificats arriv
    (accueil), « Book an examination for a custom system » (/build-with-you) : zone cliquable de 44 px de haut (padding vertical),
    sans changer la taille du texte.
 Batterie inchangée.
+
+## FIX2 (CI « REV 01 network-deny Playwright gate » rouge : 39 échecs, run 37756807107)
+Le sandbox de Codex ne lance pas Chromium ; Claude a lu les échecs. Corriger ainsi :
+Régressions réelles (le test a raison) :
+1. `tests/brand-os.spec.ts` contraste : `a.build-with-you-next-link` est rendu en bleu navigateur par défaut (rgb(0,0,238)), ratio
+   1,69 sur fond sombre. Lui rendre la couleur de lien du registre sombre (jetons), sans changer son libellé ; garder la zone 44 px.
+2. `tests/doctrine-visible.spec.ts:125` : les paragraphes du parcours ont une largeur voulue de 56ch ; la règle globale
+   `max-width: 68ch` l'a écrasée. La règle 68ch ne s'applique qu'aux éléments qui n'ont pas déjà une largeur de mesure propre
+   (sélecteur de plus faible spécificité, par exemple `:where(p, li, dd)`), la largeur 56ch du parcours reste.
+3. Doctrine Brand OS : une seule pastille rose par viewport (`doctrine decorative pink accent spacing`, 0 accent trouvé sur
+   /build-with-you, /commission, /systems). Rétablir : CTA d'en-tête = bouton CONTOUR à texte et bord roses (c'est l'accent de la
+   page), à 48 px et 16 px ; bouton « Sketch » = seul bouton plein rose (`.rev-button.exec`) ; le second « Book the examination »
+   du hero = bouton secondaire en contour clair, non rose, 48 px, centré. Aucune autre surface rose ajoutée.
+Références périmées (le changement est voulu, mettre à jour le test en gardant son exigence) :
+4. `tests/systems.spec.ts:36` : attendre « Transfer under way » / « Transfert en cours » et « External tool (Lemlist) » ; la ligne
+   reste la 3e, compteur « 0 » inchangé.
+5. `tests/doctrine-visible.spec.ts:261` : `.home-s-brands-list > span` compte 4 (cosmétique et restauration retirées : aucune
+   commande documentée).
+6. `tests/doctrine-visible.spec.ts:409` : « Sketch » est désormais plein ; attendre le fond rose du jeton exec au lieu de transparent,
+   en gardant l'assertion de hauteur 48 px.
+Puis vérifier les autres échecs du même run (`doctrine home composition and language`, `doctrine FR capture`) : s'ils dérivent des
+points 1 à 6, ils doivent passer ; sinon, les traiter selon la même règle (régression réelle corrigée dans le code, référence
+périmée mise à jour avec son exigence) et l'écrire dans le compte rendu.
+Batterie : ajouter `npx playwright test` si le sandbox le permet ; sinon Claude la rejoue sur l'hôte.

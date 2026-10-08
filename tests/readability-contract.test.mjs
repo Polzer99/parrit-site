@@ -18,9 +18,9 @@ test("product scene text uses Brand OS colors rather than the audit's off-palett
   assert.match(css, /--chat-muted:\s*var\(--brand-accessible-ink2\)/);
 });
 
-test("booking action stays primary with or without JavaScript and scroll observers", () => {
+test("booking action stays outlined with or without JavaScript and scroll observers", () => {
   const header = read("src/system/components/RevHeader.tsx");
-  assert.match(header, /className="cmd-cta rev-button exec"/);
-  assert.match(header, /className="cmd-panel-cta rev-button exec"/);
+  assert.match(header, /className="cmd-cta rev-button ghost"/);
+  assert.match(header, /className="cmd-panel-cta rev-button ghost"/);
   assert.doesNotMatch(header, /IntersectionObserver/);
 });

@@ -474,3 +474,15 @@ sans modification typographique. Le test audit-readability couvre désormais
 375/390/1440 et BWY FR, avec assertions de centrage et de cibles tactiles.
 Build Webpack et 102 tests Node passent ; validation Chromium toujours bloquée
 par le sandbox macOS avant navigation.
+
+### FIX2, 08/10/2026
+
+Le header et son panneau mobile portent un CTA contour rose ; le second CTA hero
+est en contour clair, Sketch reste plein rose. Dimensions 48 px/16 px conservées.
+Le lien BWY hérite du registre sombre avec cible 44 px. La mesure globale 68ch
+utilise une spécificité nulle et respecte les mesures locales 56ch. Les tests
+suivent les quatre secteurs documentés, Lemlist/transfert en cours et le titre
+EN distinct de son étiquette. L'accent mobile se vérifie dans le panneau ouvert.
+Build Webpack, 102 tests Node et 20 tests Brand OS passent ; Chromium reste bloqué
+au lancement par macOS. Géométrie/contraste et CI navigateur à rejouer sur l'hôte.
+Voir le complément FIX2 du rapport audit du 08/10.

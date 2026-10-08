@@ -23,7 +23,7 @@ function saveLocaleChoice(nextLocale: Locale) {
 
 function HeaderBookingAction({ locale }: { locale: Locale }) {
   return (
-    <Link className="cmd-cta rev-button exec" href={localizedPath("/commission", locale)}>
+    <Link className="cmd-cta rev-button ghost" href={localizedPath("/commission", locale)}>
       {locale === "fr" ? "Réserver l'examen" : "Book the examination"}
     </Link>
   );
@@ -167,7 +167,7 @@ export function RevHeader({ locale }: { locale: Locale }) {
               </Link>
             );
           })}
-          <Link className="cmd-panel-cta rev-button exec" href={localizedPath("/commission", locale)} onClick={() => setMenuOpen(false)}>
+          <Link className="cmd-panel-cta rev-button ghost" href={localizedPath("/commission", locale)} onClick={() => setMenuOpen(false)}>
             {locale === "fr" ? "Réserver l'examen" : "Book the examination"}
           </Link>
         </nav>

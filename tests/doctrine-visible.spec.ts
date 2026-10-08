@@ -24,9 +24,9 @@ for (const locale of ["fr", "en"] as const) {
     try {
       const page = await context.newPage();
       await page.goto(`${BASE_URL}${prefix || "/"}`);
-      await expect(page.locator(".cmd-cta")).toHaveClass(/\bexec\b/);
+      await expect(page.locator(".cmd-cta")).toHaveClass(/\bghost\b/);
       await page.goto(`${BASE_URL}${prefix}/build-with-you`);
-      await expect(page.locator(".cmd-cta")).toHaveClass(/\bexec\b/);
+      await expect(page.locator(".cmd-cta")).toHaveClass(/\bghost\b/);
     } finally {
       await context.close();
       expect(blocked, "No external requests without JavaScript").toEqual([]);
@@ -145,7 +145,7 @@ for (const locale of ["fr", "en"] as const) {
       expect(await journal.locator("li a").count()).toBeGreaterThan(0);
       for (const article of await journal.locator("li a").all()) {
         await expect(article).toHaveAttribute("hreflang", "en");
-        await expect(article.locator("span")).toHaveAttribute("lang", "en");
+        await expect(article.locator("span[lang]")).toHaveAttribute("lang", "en");
       }
       await expect(page.locator(".home-s-close-note")).toHaveCSS("font-family", /General Sans/);
       await expect(page.locator(".home-s-close-note")).toHaveCSS("text-transform", "none");
@@ -168,8 +168,14 @@ for (const locale of ["fr", "en"] as const) {
             return getComputedStyle(el).color === pink;
           }), "prose links do not add pink accents").toBe(false);
         }
-        await expect(headerAction).toHaveClass(/\bexec\b/);
-        // Audit 2026-10-08 §2 explicitly requires filled primary actions.
+        await expect(headerAction).toHaveClass(/\bghost\b/);
+        // The desktop action is hidden on mobile; its accent lives in the menu.
+        if (width < 760) {
+          await page.locator(".cmd-menu-toggle").click();
+          await expect(page.locator(".cmd-panel")).toHaveCSS("opacity", "1");
+          await expect(page.locator(".cmd-panel-cta")).toBeVisible();
+        }
+        // FIX2: the header outline is the decorative pink accent; Sketch stays filled.
         // Keep the accent-spacing contract for decorative accents only.
         // Check all possible vertical overlaps, not only selected scroll positions.
         const accents = await page.evaluate(() => {
@@ -210,22 +216,26 @@ for (const locale of ["fr", "en"] as const) {
             expect(gap, `${accents[i].label} and ${other.label} share a viewport`).toBeGreaterThanOrEqual(844);
           }
         }
+        if (width < 760) {
+          await page.keyboard.press("Escape");
+          await expect(page.locator(".cmd-panel")).toHaveCount(0);
+        }
         if (!route) {
-          // Audit §2: primary action remains consistent while scrolling.
+          // FIX2: header outline remains consistent while scrolling.
           const heroBottom = await page.locator(".home-s-hero").evaluate((el) => el.getBoundingClientRect().bottom + scrollY);
           await page.evaluate((y) => window.scrollTo(0, y - 10), heroBottom);
-          await expect(headerAction).toHaveClass(/\bexec\b/);
+          await expect(headerAction).toHaveClass(/\bghost\b/);
           await page.evaluate((y) => window.scrollTo(0, y + 1), heroBottom);
-          await expect(headerAction).toHaveClass(/\bexec\b/);
+          await expect(headerAction).toHaveClass(/\bghost\b/);
           await page.evaluate(() => window.scrollTo(0, 0));
-          await expect(headerAction).toHaveClass(/\bexec\b/);
-          // Shared layouts keep that same primary action after navigation.
+          await expect(headerAction).toHaveClass(/\bghost\b/);
+          // Shared layouts keep the same outline after navigation.
           await page.locator('.home-s-offers a[href$="/build-with-you"]').click();
           await expect(page).toHaveURL(new RegExp(`${prefix}/build-with-you$`));
-          await expect(headerAction).toHaveClass(/\bexec\b/);
+          await expect(headerAction).toHaveClass(/\bghost\b/);
           await page.locator(".wordmark").click();
           await expect(page.locator(".home-s-hero")).toBeVisible();
-          await expect(headerAction).toHaveClass(/\bexec\b/);
+          await expect(headerAction).toHaveClass(/\bghost\b/);
         }
       });
     }
@@ -258,7 +268,7 @@ for (const width of [1440, 768, 375, 390]) {
       await page.evaluate(() => document.fonts.ready);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
       if (route === "/fr") {
-        await expect(page.locator(".home-s-brands-list > span")).toHaveCount(6);
+        await expect(page.locator(".home-s-brands-list > span")).toHaveCount(4);
         for (const item of await page.locator(".home-s-brands-list > span").all()) {
           await expect(item).toHaveCSS("white-space", "nowrap");
           expect(await item.evaluate((el) => {
