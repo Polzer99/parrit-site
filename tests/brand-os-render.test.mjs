@@ -142,6 +142,14 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
         }
       }
     }
+    for (const locale of ["en", "fr"]) {
+      const { status, html } = await render("/journal/malicious-mcp-server-after-install", locale);
+      assert.equal(status, 200);
+      const badge = html.match(/<aside class="harness-badge"[^>]*>[\s\S]*?<\/aside>/)?.[0];
+      assert.ok(badge, `${locale}: first certified article renders its badge`);
+      assert.ok(visibleText(badge).includes("Harness Certified ✓"));
+      assert.match(badge, /href="\/certificates\/malicious-mcp-server-after-install\.json"/);
+    }
     // The alias keeps English content/canonical, but the French chrome warns readers.
     const articleRoute = "/journal/one-card-one-action";
     const english = await render(articleRoute, "en");

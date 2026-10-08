@@ -499,3 +499,15 @@ dupliqué. La note FR redevient « Pas publiés. Partagés en rendez-vous. ».
 Build Webpack, 103 tests Node et 20 tests Brand OS passent. Lint/types/claims/marque
 passent. Chromium reste bloqué au lancement par macOS ; les 221 tests navigateur
 et la correction géométrique Manufacture restent à confirmer sur l'hôte.
+
+## Premier certificat Harness, 08/10/2026
+
+Le certificat public de `malicious-mcp-server-after-install` est livré dans
+`public/certificates/`, copié octet pour octet depuis l'export public canonique
+`~/.parrit/certificates/journal/parrit/` (le dossier intermédiaire
+`docs/certificates-source/` était absent du checkout). L'article MDX est inchangé.
+Les tests verrouillent la validité, l'empreinte complète de l'export et le badge
+avec son lien dans le rendu serveur EN/FR ; Playwright vérifie aussi l'accès au JSON.
+Build Webpack et 104 tests Node passent. Turbopack interrompu sans progression ;
+Chromium bloqué par le sandbox avant navigation. Détails dans
+`docs/REPORT-2026-10-08-premier-certificat-harness.md`.

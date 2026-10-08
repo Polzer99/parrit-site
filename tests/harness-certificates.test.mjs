@@ -18,6 +18,13 @@ const compiled = ts.transpileModule(readFileSync(component, "utf8"), {
 }).outputText;
 const require = createRequire(component);
 
+test("first published Harness certificate matches the exact article and canonical public bytes", () => {
+  assert.deepEqual(checkCertificate("malicious-mcp-server-after-install"), { valid: true, reason: "" });
+  const bytes = readFileSync(new URL("../public/certificates/malicious-mcp-server-after-install.json", import.meta.url));
+  // Digest of the complete canonical public export, including whitespace and newline.
+  assert.equal(createHash("sha256").update(bytes).digest("hex"), "0d37563c83c45655d2d43ae3fcc34e3ae812352b9ac7cf672bbdf130b3d04354");
+});
+
 function fixture(run) {
   const root = mkdtempSync(join(tmpdir(), "parrit-certificate-"));
   mkdirSync(join(root, "public/certificates"), { recursive: true });
