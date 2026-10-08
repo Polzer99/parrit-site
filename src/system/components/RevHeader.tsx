@@ -37,7 +37,7 @@ function HeaderBookingAction({ locale, home }: { locale: Locale; home: boolean }
   }, [home]);
 
   return (
-    <Link className={`cmd-cta rev-button ${!home || heroOutside ? "exec" : "ghost"}`} href={localizedPath("/commission", locale)}>
+    <Link data-home={home} className={`cmd-cta rev-button ${home && heroOutside ? "exec" : "ghost"}`} href={localizedPath("/commission", locale)}>
       {locale === "fr" ? "Réserver l'examen" : "Book the examination"}
     </Link>
   );
@@ -181,7 +181,7 @@ export function RevHeader({ locale }: { locale: Locale }) {
               </Link>
             );
           })}
-          <Link className="cmd-panel-cta" href={localizedPath("/commission", locale)} onClick={() => setMenuOpen(false)}>
+          <Link className={barePathname(pathname ?? "/") === "/" ? "cmd-panel-cta" : "cmd-panel-cta rev-button ghost"} href={localizedPath("/commission", locale)} onClick={() => setMenuOpen(false)}>
             {locale === "fr" ? "Réserver l'examen" : "Book the examination"}
           </Link>
         </nav>

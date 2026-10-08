@@ -18,7 +18,7 @@ for (const locale of ["fr", "en"] as const) {
         : "You ask, you approve, the record is created.");
       await expect(section.locator(".product-scene-mention")).toHaveText(locale === "fr" ? "Exemple fictif" : "Fictional example");
       await expect(section.locator(".product-scene-mention")).toHaveCSS("font-family", /IBM Plex Mono/);
-      await expect(section.locator(".product-scene-mention")).toHaveCSS("font-size", "14px");
+      await expect(section.locator(".product-scene-mention")).toHaveCSS("font-size", "16px");
       await expect(section.locator(".product-scene-steps .scene-marker")).toHaveText(["1", "2", "3"]);
       await expect(section.locator(".scene-chat .scene-marker, .product-scene-image .scene-marker")).toHaveText(["1", "2", "3"]);
       expect(await section.innerText()).not.toMatch(/Laparra|Rungis|\bMIN\b|GESLOT|Lyon/i);

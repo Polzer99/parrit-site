@@ -34,7 +34,7 @@ Parrit livre la chose qui tourne, pas un deck. Chaque commande répond au Standa
 
 ## 4. Offres (ce qu'on vend)
 
-Parrit vend des **systèmes sur mesure**. La Manufacture suit trois phases : Examen, Construction, Capitalisation. Chaque système est construit sur l'infrastructure du client, certifié selon le Standard Parrit, documenté et détenu par le client.
+Parrit vend des **systèmes sur mesure**. La Manufacture suit trois phases : Examen, Construction, Capitalisation. Chaque système est construit sur l'infrastructure du client, vérifié selon le Standard Parrit (contrôle interne, pas une accréditation), documenté et détenu par le client.
 
 Les commandes sont **sur devis** : périmètre et conditions sont cadrés par écrit après l'Examen. Le site peut afficher des **ancrages tarifaires publics** (REGLES-DOR §5, amendé 23/06/2026 : « ancrages OK, détail au call ») — le détail complet reste réglé au call. *Corrigé le 20/09/2026 : la phrase précédente (« aucun prix ») ne reflétait plus l'amendement §5.*
 

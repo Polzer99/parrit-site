@@ -46,17 +46,17 @@
 
   /* PC-03b · échelle typographique */
   /* Pas fixes */
-  --t-k: 14px;
+  --t-k: 16px;
   --t-s: 16px;
   --t-m: 18px;
   --t-l: 22px;
   --t-xl: 26px;
 
-  /* Pas fluides, définis une seule fois */
-  --d-s: clamp(30px, 4vw, 44px);
-  --d-m: clamp(34px, 5vw, 54px);
-  --d-l: clamp(38px, 6.4vw, 68px);
-  --d-xl: clamp(40px, 6.8vw, 84px);
+  /* Titres : cinq pas avec --t-l/--t-xl ; adaptation mobile plus bas. */
+  --d-s: 40px;
+  --d-m: 54px;
+  --d-l: var(--d-m);
+  --d-xl: 84px;
 
   /* PC-04 · space (8pt) */
   --s1: 8px;
@@ -72,4 +72,19 @@
   --move: 240ms;
   --seq: 400ms;
   --hold: 600ms;
+}
+
+/* Audit readability contract: five heading steps, shared action geometry. */
+:root {
+  --button-min-height: 48px;
+  --button-font-size: 16px;
+  --button-font-weight: 600;
+  --button-padding: 14px 24px;
+}
+@media (max-width: 760px) {
+  :root {
+    --d-xl: 40px;
+    --d-m: 34px;
+    --d-s: 32px;
+  }
 }

@@ -15,7 +15,7 @@
   value of every capability already in production).
 
 ## The Parrit Standard
-Every delivered system is checked against the same specification (STD-1.0, Parrit's own bar, not an accreditation):
+Each system delivered from now on is checked against the same specification (STD-1.0, Parrit's own bar, not an accreditation).
 - PS-01 Observable — the operator can determine the state of the system at any
   moment, without asking anyone.
 - PS-02 Actionable — every surfaced piece of information leads to a possible
@@ -31,16 +31,15 @@ Every delivered system is checked against the same specification (STD-1.0, Parri
 
 ## Who is Parrit
 - An independent French maison, founded by Paul Larmaraud.
-- A registered French company (PARRIT.AI, SASU, registered office in
+- A registered French company (PARRIT.AI, SAS, registered office in
   Rueil-Malmaison, France); full legal identity at https://parrit.ai/legal.
-- Based in Lille, France. Operates internationally, in English and in French —
+- Operates internationally, in English and in French —
   commissions for European and African companies alike, built remotely inside
   the client's own infrastructure.
 - Deliberately small at the core: few commissions.
 
 ## Ownership, maintenance and data
-- The repository is the client's from the first commit; the system runs in the
-  client's own accounts, on their infrastructure, under their keys.
+- By design, the repository is the client's and the system runs in the client's own accounts. That is the engagement we sign, and the handover is where we check it.
 - Built on ordinary, widely-adopted technology (TypeScript, Python, PostgreSQL)
   so any competent engineer can maintain it without Parrit — the client can
   take over at any time and is never captive.
@@ -51,8 +50,7 @@ Every delivered system is checked against the same specification (STD-1.0, Parri
 - https://parrit.ai/ — Parrit, data and AI.
 - https://parrit.ai/manufacture — How a system is manufactured: doctrine and
   the three phases.
-- https://parrit.ai/standard — The Parrit Standard, the certification every
-  delivered system meets.
+- https://parrit.ai/standard — The Standard, six commitments Parrit.ai applies to its systems. It is not an accreditation.
 - https://parrit.ai/dossiers — The sealed dossiers: delivered systems,
   anonymized.
 - https://parrit.ai/commission — Commission an examination: one 15-minute
@@ -63,5 +61,5 @@ Every delivered system is checked against the same specification (STD-1.0, Parri
 ## Contact
 - Booking: https://parrit.ai/commission (15 min, video, with the founder).
 - The site is in English; commissions run in English and in French.
-- Based in Lille, France (registered office: Rueil-Malmaison, France).
+- Registered office: Rueil-Malmaison, France.
   International commissions welcome, including Africa.

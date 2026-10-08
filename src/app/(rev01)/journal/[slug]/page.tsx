@@ -6,7 +6,7 @@ import ReactMarkdown from "react-markdown";
 import { getLocale } from "@/lib/server/locale";
 import { AUTEUR } from "@/system/auteur";
 import { blogPostingJsonLd } from "@/system/jsonld";
-import { K, RegistryLine } from "@/system/components";
+import { HarnessBadge, K, RegistryLine } from "@/system/components";
 import { getAllJournalEntrySummaries, getJournalEntry } from "@/system/journal";
 
 type JournalArticlePageProps = {
@@ -87,6 +87,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
         <header className="journal-header">
           <K>{locale === "fr" ? "Journal / Entrée" : "Journal / Entry"} · {entry.date}</K>
           <h1 lang="en">{entry.title}</h1>
+          <HarnessBadge slug={entry.slug} locale={locale} />
           {locale === "fr" ? <p>Article en anglais.</p> : null}
           <p className="journal-deck" lang="en">{entry.description}</p>
         </header>

@@ -445,3 +445,57 @@ anciens exports et leurs références dans src/public. Lint, types, claims, marq
 build Webpack et 20 tests Brand OS passent. Chromium reste refusé par le sandbox
 macOS avant navigation ; validation responsive à terminer sur l’hôte.
 Voir `docs/REPORT-2026-10-05-photo-buste.md`.
+
+## Audit vérité, lisibilité et Harness, 08/10/2026
+
+La spec audit du 08/10 remplace les formulations de livraison par les engagements
+prescrits, actualise Lemlist/SAS/llms et ajoute la promesse d'autonomie BWY ainsi que
+les étiquettes EN par article sur les listes FR. Les actions partagent 48 px/16 px,
+les textes informatifs ont un plancher 16 px, les titres cinq pas et un H3 unique.
+Le cadre hero peut se répartir sur plusieurs lignes mobiles pour conserver la taille.
+Le paquet Brand OS vendorisé reste inchangé.
+
+HarnessBadge vérifie côté serveur le statut CERTIFIED, l'URL canonique EN et le
+SHA256 du fichier MDX complet. Aucun certificat public livré ; un JSON invalide est
+invisible au rendu et bloque prebuild/npm test. Les certificats futurs nécessitent
+une réémission après chaque changement des octets source. Le contrôle des claims
+inclut les articles et isole les textes TS/TSX par AST.
+
+Build Webpack et 102 tests Node passent ; Turbopack a été interrompu sans progression.
+Chromium est refusé au lancement dans le sandbox : validation responsive sur l'hôte
+requise. Voir docs/REPORT-2026-10-08-audit-verite-lisibilite-harness.md.
+
+### FIX1, 08/10/2026
+
+Le conteneur du second CTA hero conserve sa largeur de lecture et utilise des
+marges horizontales automatiques pour rester centré. Les liens isolés fondateur
+et suite sur mesure BWY ont 12 px de padding vertical et un minimum de 44 px,
+sans modification typographique. Le test audit-readability couvre désormais
+375/390/1440 et BWY FR, avec assertions de centrage et de cibles tactiles.
+Build Webpack et 102 tests Node passent ; validation Chromium toujours bloquée
+par le sandbox macOS avant navigation.
+
+### FIX2, 08/10/2026
+
+Le header et son panneau mobile portent un CTA contour rose ; le second CTA hero
+est en contour clair, Sketch reste plein rose. Dimensions 48 px/16 px conservées.
+Le lien BWY hérite du registre sombre avec cible 44 px. La mesure globale 68ch
+utilise une spécificité nulle et respecte les mesures locales 56ch. Les tests
+suivent les quatre secteurs documentés, Lemlist/transfert en cours et le titre
+EN distinct de son étiquette. L'accent mobile se vérifie dans le panneau ouvert.
+Build Webpack, 102 tests Node et 20 tests Brand OS passent ; Chromium reste bloqué
+au lancement par macOS. Géométrie/contraste et CI navigateur à rejouer sur l'hôte.
+Voir le complément FIX2 du rapport audit du 08/10.
+
+### FIX3, 08/10/2026
+
+Sur les accueils FR/EN, le CTA desktop retrouve le contour neutre et l'observateur
+canonique de `origin/main` ; le panneau mobile retrouve son lien neutre, avec les
+48 px/16 px conservés. Hors accueil, le contour rose FIX2 reste l'accent de page.
+Le bouton secondaire du hero impose `--paper` malgré la variante sombre générique.
+Le titre et le libellé `.r2-shead` peuvent revenir à la ligne pour Manufacture mobile.
+Dossier 26-002 : opération dans le h3, secteur dans la référence, sans paragraphe
+dupliqué. La note FR redevient « Pas publiés. Partagés en rendez-vous. ».
+Build Webpack, 103 tests Node et 20 tests Brand OS passent. Lint/types/claims/marque
+passent. Chromium reste bloqué au lancement par macOS ; les 221 tests navigateur
+et la correction géométrique Manufacture restent à confirmer sur l'hôte.

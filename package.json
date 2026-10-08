@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild": "node scripts/generate-llms.mjs",
+    "prebuild": "node scripts/verify-certificates.mjs && node scripts/generate-llms.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -14,8 +14,9 @@
     "test:entity": "node --test tests/entity-spelling.test.mjs tests/entity-graph.test.mjs",
     "test:journal": "node --test tests/publish-journal-gates.test.mjs",
     "qa:brand:rev01": "node scripts/brand-conformity-check.mjs",
-    "qa:network:rev01": "playwright test tests/product-scene.spec.ts tests/doctrine-visible.spec.ts tests/brand-os.spec.ts tests/rev01-system.spec.ts tests/conformity-home.spec.ts tests/conformity-standard.spec.ts tests/conformity-commission.spec.ts tests/conformity-journal.spec.ts tests/conformity-i18n.spec.ts tests/internal-linking.spec.ts tests/metadata-integrity.spec.ts tests/aeration.spec.ts tests/brand-pixels.spec.ts tests/offer-cards.spec.ts tests/systems.spec.ts --browser=chromium",
-    "test:brand-os": "node --test tests/product-scene.test.mjs tests/founder-photo.test.mjs tests/brand-os.test.mjs tests/brand-os-contracts.test.mjs tests/brand-os-render.test.mjs"
+    "qa:network:rev01": "playwright test tests/product-scene.spec.ts tests/doctrine-visible.spec.ts tests/brand-os.spec.ts tests/rev01-system.spec.ts tests/conformity-home.spec.ts tests/conformity-standard.spec.ts tests/conformity-commission.spec.ts tests/conformity-journal.spec.ts tests/conformity-i18n.spec.ts tests/internal-linking.spec.ts tests/metadata-integrity.spec.ts tests/aeration.spec.ts tests/brand-pixels.spec.ts tests/offer-cards.spec.ts tests/systems.spec.ts tests/audit-readability.spec.ts --browser=chromium",
+    "test:brand-os": "node --test tests/product-scene.test.mjs tests/founder-photo.test.mjs tests/brand-os.test.mjs tests/brand-os-contracts.test.mjs tests/brand-os-render.test.mjs",
+    "test": "node scripts/verify-certificates.mjs && node --test tests/*.test.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",

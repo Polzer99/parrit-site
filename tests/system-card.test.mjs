@@ -62,12 +62,13 @@ test("registry preserves its date, zero writers and supplied localized summary v
       ? "25 types d'information suivis au total. Pour 1, le transfert est terminé. Pour 8, il est en cours. Pour 4, les deux versions ne concordent pas. Pour 12, il n'a pas encore commencé."
       : "25 types of information tracked in total. For 1, the transfer is complete. For 8, it's underway. For 4, the two versions don't match. For 12, it hasn't started.";
     const html = renderToStaticMarkup(createElement(RegistrySnapshot, {
-      locale, asOf: "2026-09-13", rows: [{ domain: "Outreach", source: "External tool (Instantly)", status: "Transfer not started", legacyWriters: 0 }], summaryText,
+      locale, asOf: "2026-09-13", rows: [{ domain: "Outreach", source: "External tool (Lemlist)", status: "Transfer under way", legacyWriters: 0 }], summaryText,
     }));
-    for (const value of ['dateTime="2026-09-13"', "Outreach", "External tool (Instantly)", "Transfer not started", ">0</td>", renderToStaticMarkup(createElement("p", null, summaryText)).slice(3, -4)]) assert.ok(html.includes(value), value);
+    for (const value of ['dateTime="2026-09-13"', "Outreach", "External tool (Lemlist)", "Transfer under way", ">0</td>", renderToStaticMarkup(createElement("p", null, summaryText)).slice(3, -4)]) assert.ok(html.includes(value), value);
+    // Contract corrected by docs/CODEX-SPEC-2026-09-20-systems-editorial-corrections.md §2.
     const headings = locale === "fr"
-      ? ["Type d'information", "Où l'information est enregistrée", "Situation", "Anciens outils encore utilisés en parallèle"]
-      : ["Type of information", "Where it's recorded", "Status", "Legacy tools still in parallel use"];
+      ? ["Type d'information", "Où l'information est enregistrée", "Situation", "Anciens points d'écriture recensés"]
+      : ["Type of information", "Where it's recorded", "Status", "Legacy write points on record"];
     for (const heading of headings) {
       const escaped = renderToStaticMarkup(createElement("span", null, heading)).slice(6, -7);
       assert.ok(html.includes(`scope="col">${escaped}</th>`));

@@ -40,11 +40,11 @@ export default async function JournalPage() {
         <ol className="journal-list">
           {entries.map((entry) => (
             <li key={entry.slug}>
-              <Link href={`/journal/${entry.slug}`}>
+              <Link href={`/journal/${entry.slug}`} hrefLang="en">
                 <div>
-                  <K>{copy.entry}</K>
-                  <h2>{entry.title}</h2>
-                  <p>{entry.description}</p>
+                  <K>{copy.entry}{locale === "fr" && <> · <span lang="en">EN</span></>}</K>
+                  <h2 lang="en">{entry.title}</h2>
+                  <p lang="en">{entry.description}</p>
                 </div>
                 <time dateTime={entry.date}>{entry.date}</time>
               </Link>

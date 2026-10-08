@@ -439,14 +439,26 @@ h3 {
   color: var(--g3);
 }
 
-.cmdbar .cmd-cta.ghost {
+.cmdbar .cmd-cta.ghost:not([data-home="true"]),
+.cmd-panel .cmd-panel-cta.ghost {
+  border-color: currentColor;
+  color: var(--accent-on-dark);
+}
+
+.cmdbar .cmd-cta.ghost:hover,
+.cmdbar .cmd-cta.ghost:active,
+.cmd-panel .cmd-panel-cta.ghost:hover,
+.cmd-panel .cmd-panel-cta.ghost:active {
+  background: var(--ink);
+}
+
+.cmdbar .cmd-cta.ghost[data-home="true"] {
   border-color: currentColor;
   color: var(--paper);
 }
 
-.cmdbar .cmd-cta.ghost:hover,
-.cmdbar .cmd-cta.ghost:active {
-  background: var(--ink);
+.cmd-panel .cmd-panel-cta:not(.rev-button) {
+  border: 0;
 }
 
 /* pas de :hover fiable au toucher : :active porte tout le retour tactile sur mobile */
@@ -541,7 +553,7 @@ h3 {
 .operating-loop h3 {
   margin: 0 0 12px;
   font-family: var(--mono);
-  font-size: var(--t-k);
+  font-size: var(--t-l);
   font-weight: 600;
   letter-spacing: .2em;
   text-transform: uppercase;
@@ -580,7 +592,7 @@ h3 {
 
 .commissioning-grid h4 {
   margin: 14px 0 var(--s1);
-  font-size: var(--t-m);
+  font-size: var(--t-l);
   font-weight: 600;
   letter-spacing: -.01em;
 }
@@ -996,7 +1008,7 @@ h3 {
 
 .legal-document h3 {
   margin: 0;
-  font-size: var(--t-s);
+  font-size: var(--t-l);
   font-weight: 600;
 }
 
@@ -1402,7 +1414,7 @@ h3 {
   letter-spacing: normal;
   text-transform: none;
   margin-top: 12px;
-  border: 0 !important;
+  border: 1px solid currentColor;
 }
 
 /* micro-transitions premium : chaque état survolé s'ease, rien ne claque
@@ -1462,6 +1474,8 @@ a.k:active {
 
 .r2-shead {
   display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 44px;
@@ -1823,15 +1837,35 @@ a.k:active {
 }
 
 .home-s-alternative {
-  margin: 24px 0 0;
+  margin: 24px auto 0;
   color: var(--paper);
   font-size: var(--t-s);
 }
 
+.r2-dark .home-s-alternative .rev-button.ghost {
+  border-color: var(--rule-d);
+  color: var(--paper);
+}
+
+.home-s-alternative .rev-button.ghost:hover,
+.home-s-alternative .rev-button.ghost:active {
+  background: var(--carbon2);
+}
+
 .home-s-alternative a,
-.home-s-text-link {
+.home-s-text-link,
+.build-with-you-next-link {
   color: inherit;
   text-underline-offset: 4px;
+}
+
+/* Standalone links: enlarge the hit area without changing the type size. */
+.home-s-text-link--secondary,
+.build-with-you-next-link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
+  padding-block: 12px;
 }
 
 .home-s-metrics {
@@ -2974,7 +3008,7 @@ a.k:active {
   color: inherit;
 }
 .home-s-proof-item h3 {
-  font-size: var(--t-xl);
+  font-size: var(--t-l);
   font-weight: 500;
   line-height: inherit;
 }
@@ -3014,7 +3048,7 @@ a.k:active {
   overflow-wrap: anywhere;
 }
 .offer-card + .offer-card { border-left: 1px solid var(--rule-d); }
-.offer-card h3 { margin: 0; font-size: var(--t-xl); font-weight: 500; }
+.offer-card h3 { margin: 0; font-size: var(--t-l); font-weight: 500; }
 .offer-card p, .offer-card ul { margin: 0; line-height: 1.65; }
 .offer-card p, .offer-card li { color: var(--label-d); }
 .offer-card .offer-card-outcome { color: var(--paper); }
@@ -3068,7 +3102,7 @@ a.k:active {
 .mechanism-diagram-node h3 {
   margin: 0 0 8px;
   color: var(--paper);
-  font-size: var(--t-m);
+  font-size: var(--t-l);
 }
 
 .mechanism-diagram-node p {
@@ -3220,27 +3254,79 @@ a.k:active {
   color: var(--g4-d);
 }
 
-/* Keep the approved final group inside one rectangular Frame on narrow phones.
-   The display-small step belongs to the existing closed type scale. */
-@media (max-width: 480px) {
-  .home-s-hero h1 {
-    font-size: var(--d-s);
-    letter-spacing: -.06em;
-  }
-}
-
-/* FIX4: one existing scale step below display-small on narrow phones.
-   Keep at least 27px inset (14px corner at -1px + 12px text clearance). */
-@media (width < 400px) {
-  .home-s-hero h1 {
-    font-size: var(--t-xl);
-  }
-
-  .home-s-hero h1 .frame {
-    padding-inline: 1.04em;
-    margin-inline: -1.04em;
-  }
-}
-
 .home-s-brands-list span { display: inline-block; white-space: nowrap; }
 .home-s-brands-list span:not(:last-child)::after { content: " · "; white-space: pre; }
+
+/* 2026-10-08 audit §2: shared readable actions and copy. Inline prose links
+   deliberately remain inline; target geometry applies only to navigation. */
+.rev-button,
+.cmdbar .cmd-cta,
+.cmd-panel .cmd-panel-cta,
+.fp-cta,
+.locale-toggle button {
+  min-height: var(--button-min-height);
+  font-family: var(--ui);
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  padding: var(--button-padding);
+  line-height: 1.125;
+  letter-spacing: normal;
+}
+.locale-toggle button { min-width: 44px; }
+.rev-button.exec {
+  --action-fill: var(--brand-core-rose);
+  --action-pressed: var(--brand-core-rose);
+  --action-text: var(--brand-accessible-ink);
+}
+/* A disabled Sketch remains recognisable as the primary action. */
+.agent-esquisse .rev-button.exec:disabled {
+  background: var(--action-fill);
+  border-color: var(--action-fill);
+  color: var(--action-text);
+}
+.cmd-nav a,
+.cmd-panel a,
+.home-s-footer a,
+a.k {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
+}
+.rev-page :is(p, li, dd),
+.home-s-footer :is(p, li, dd) {
+  line-height: 1.45;
+}
+/* Default measure yields to component-specific reading widths (e.g. 56ch). */
+:where(.rev-page, .home-s-footer) :where(p, li, dd) {
+  max-width: 68ch;
+}
+/* One H3 role, including cards and reconstructed product interfaces. */
+.rev-page h3 { font-size: var(--t-l); }
+.harness-badge {
+  border: 1px solid var(--rule-l);
+  padding: var(--s3);
+  max-width: 68ch;
+}
+.harness-badge p { font-size: var(--t-s); line-height: 1.45; }
+@media (max-width: 1000px) {
+  .cmdbar-inner { gap: 8px; padding-inline: 12px; }
+  .cmd-nav { gap: 12px; }
+  .wordmark { letter-spacing: .04em; }
+}
+@media (max-width: 760px) {
+  .rev-page h1 { font-size: var(--d-m); }
+  .home-s-hero h1 { font-size: var(--d-xl); }
+  .cmdbar-inner { padding-inline: 12px; }
+  .cmd-menu-toggle { padding-inline: 8px; }
+}
+
+/* The heading keeps its readable mobile size; the frame may span lines. */
+@media (max-width: 760px) {
+  .home-s-hero h1 .frame {
+    white-space: normal;
+    max-width: 100%;
+    padding-inline: 28px;
+    margin-inline: 0;
+  }
+  .home-s-hero-ending { max-width: 100%; }
+}

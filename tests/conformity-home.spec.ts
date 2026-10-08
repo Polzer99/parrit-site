@@ -216,11 +216,11 @@ for (const locale of ["en", "fr"] as const) {
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator(".r2-dossier h3")).toHaveText(locale === "fr" ? [
       "Un reporting commandé pour s'assembler seul et partir à l'heure.",
-      "Un système commandé pour que les dossiers relancés ne retombent plus dans l'oubli.",
+      "Un système commandé pour traiter la boîte mail du cabinet et lui servir d'assistant sur mesure.",
       "Nous vendons le système qui nous fait tourner.",
     ] : [
       "A reporting system, commissioned to assemble itself and ship on time.",
-      "A system commissioned so re-engaged case files stop falling through.",
+      "A system commissioned to handle the firm's mailbox and act as a tailored assistant.",
       "We sell the system we run on.",
     ]);
     await expect(page.locator(".r2-registre-note")).toHaveText(locale === "fr"

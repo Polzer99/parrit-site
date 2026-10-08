@@ -18,11 +18,11 @@ const DICT = {
       frame: "systems that work",
       after: ".",
       sub: "Parrit.ai is a data and AI company. The invoice that drags, the report rebuilt by hand every week: we start from your data and build tools you own.",
-      alternative: "Or book the examination: 15 minutes, by video, with the founder.",
+      alternative: "Book the examination",
     },
     brands: {
-      kicker: "Systems commissioned by",
-      list: "An industrial group · A cosmetics maison · A law firm · A B2B energy broker · A restaurant network · A consumer brand",
+      kicker: "Orders from:",
+      list: "an industrial group · a law firm · a B2B energy broker · a consumer brand.",
       note: "Not published. Shared in person.",
     },
     journey: {
@@ -53,7 +53,7 @@ const DICT = {
       kicker: "The proof",
       systems: {
         title: "We show the system. You judge before you commit.",
-        fact: "15 of 25 information sources still duplicated, checked September 13, 2026.",
+        fact: "15 of the 25 types of information we track were still held in two places (measured September 13, 2026).",
         cta: "See the system",
       },
       dossiers: {
@@ -88,7 +88,7 @@ const DICT = {
         },
       ],
     },
-    journal: { kicker: "What the work teaches us", title: "The Journal records what held and what broke on our projects." },
+    journal: { kicker: "What the work teaches us", title: "The Journal records what held and what broke on our own systems, and what we take from it for yours." },
     close: {
       title: "A 15-minute examination tells you whether a system is worth building.",
       note: "15 min · An examination, on a video call, with the founder",
@@ -102,11 +102,11 @@ const DICT = {
       frame: "systèmes qui fonctionnent",
       after: ".",
       sub: "Parrit.ai est une maison de données et d'IA. La facture qui traîne, le rapport refait à la main chaque semaine : nous partons de vos données et construisons des outils qui vous appartiennent.",
-      alternative: "Ou réservez l'examen : 15 minutes, en visio, avec le fondateur.",
+      alternative: "Réserver l'examen",
     },
     brands: {
-      kicker: "Des systèmes commandés par",
-      list: "Un grand groupe industriel · Une maison de cosmétique · Un cabinet d'avocats · Un courtier énergie B2B · Un réseau de restauration · Une marque grand public",
+      kicker: "Commandes de :",
+      list: "un groupe industriel · un cabinet d'avocats · un courtier en énergie B2B · une marque grand public.",
       note: "Pas publiés. Partagés en rendez-vous.",
     },
     journey: {
@@ -137,7 +137,7 @@ const DICT = {
       kicker: "La preuve",
       systems: {
         title: "Nous montrons le système. Vous jugez avant de vous engager.",
-        fact: "15 sources d'information sur 25 encore en double, vérifié le 13 septembre 2026.",
+        fact: "15 des 25 types d'information que nous suivons étaient encore tenus en double (mesuré le 13 septembre 2026).",
         cta: "Voir le système",
       },
       dossiers: {
@@ -172,7 +172,7 @@ const DICT = {
         },
       ],
     },
-    journal: { kicker: "Ce que les chantiers nous apprennent", title: "Le Journal consigne ce qui a tenu et ce qui a cassé sur nos chantiers." },
+    journal: { kicker: "Ce que les chantiers nous apprennent", title: "Le Journal consigne ce qui a tenu et ce qui a cassé sur nos propres systèmes, et ce que nous en tirons pour les vôtres." },
     close: {
       title: "Un examen de 15 minutes vous dit si un système vaut d'être construit.",
       note: "15 min · Un examen, en visio, avec le fondateur",
@@ -217,7 +217,7 @@ export default async function HomePage() {
           </h1>
           <p className="home-s-hero-sub">{copy.hero.sub}</p>
           <AgentEsquisse locale={locale} />
-          <p className="home-s-alternative"><Link href={localizedPath("/commission", locale)}>{copy.hero.alternative}</Link></p>
+          <p className="home-s-alternative"><Link className="rev-button ghost" href={localizedPath("/commission", locale)}>{copy.hero.alternative}</Link></p>
         </div>
       </section>
 
@@ -319,7 +319,7 @@ export default async function HomePage() {
           <h2>{copy.journal.title}</h2>
           {locale === "fr" && <p className="doctrine-note">Articles en anglais.</p>}
           <ol>
-            {entries.map((entry) => <li key={entry.slug}><Link href={`/journal/${entry.slug}`} hrefLang="en"><span lang="en">{entry.title}</span><time dateTime={entry.date}>{entry.date}</time></Link></li>)}
+            {entries.map((entry) => <li key={entry.slug}><Link href={`/journal/${entry.slug}`} hrefLang="en"><span lang="en">{entry.title}</span>{locale === "fr" && <K>EN</K>}<time dateTime={entry.date}>{entry.date}</time></Link></li>)}
           </ol>
         </div>
       </section>

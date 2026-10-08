@@ -33,7 +33,8 @@ for (const width of [375, 767, 768, 1440]) {
       await expect(table.locator("caption time")).toHaveText("2026-09-13");
       await expect(table.locator("tbody tr")).toHaveCount(7);
       await expect(table.locator("tbody tr").nth(2)).toContainText(locale === "fr" ? "Prospection commerciale" : "Outreach");
-      await expect(table.locator("tbody tr").nth(2)).toContainText(locale === "fr" ? "Le transfert n'a pas commencé" : "Transfer not started");
+      await expect(table.locator("tbody tr").nth(2)).toContainText(locale === "fr" ? "Transfert en cours" : "Transfer under way");
+      await expect(table.locator("tbody tr").nth(2)).toContainText(locale === "fr" ? "Outil externe (Lemlist)" : "External tool (Lemlist)");
       await expect(table.locator("tbody tr").nth(2).locator("td").last()).toHaveText("0");
       const distinction = page.locator("#acquisition-distinction");
       await expect(distinction).toBeVisible();

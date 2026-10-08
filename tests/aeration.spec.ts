@@ -215,13 +215,13 @@ for (const width of [1440, 390]) {
           }
         }
         // Independent spec values: do not read tokens, or a changed token would pass.
-        const fixedSizes = [14, 16, 18, 22, 26];
-        const fluidSizes = [[30, 4, 44], [34, 5, 54], [38, 6.4, 68], [40, 6.8, 84]]
-          .map(([min, vw, max]) => Math.min(max, Math.max(min, window.innerWidth * vw / 100)));
+        // Audit 2026-10-08 §2: 16px informative floor; five heading steps.
+        const fixedSizes = [16, 18, 22, 26];
+        const fluidSizes = window.innerWidth <= 760 ? [32, 34, 40] : [40, 54, 84];
         const floorFailures: string[] = [];
         const scaleFailures: string[] = [];
         for (const { label, size } of [...typography.values(), ...placeholderType]) {
-          if (!Number.isFinite(size) || size < 14) floorFailures.push(`${size}px: ${label}`);
+          if (!Number.isFinite(size) || size < 16) floorFailures.push(`${size}px: ${label}`);
           if (!fixedSizes.includes(size) && !fluidSizes.some((expected) => Math.abs(size - expected) <= 0.5)) {
             scaleFailures.push(`${size}px: ${label}`);
           }
@@ -535,8 +535,8 @@ for (const width of [1440, 390]) {
       expect(result.actionCount, "the geometry audit must measure filled actions").toBeGreaterThan(0);
       expect.soft(result.actionFailures, `${path} at ${width}px: minimum text/action gap is 12px`).toEqual([]);
       expect.soft(result.textFailures, `${path} at ${width}px: text rectangles must not overlap`).toEqual([]);
-      expect.soft(result.floorFailures, `${path} at ${width}px: visible text must be at least 14px`).toEqual([]);
-      expect.soft(result.scaleFailures, `${path} at ${width}px: sizes outside the nine spec steps (fluid tolerance 0.5px)`).toEqual([]);
+      expect.soft(result.floorFailures, `${path} at ${width}px: visible text must be at least 16px`).toEqual([]);
+      expect.soft(result.scaleFailures, `${path} at ${width}px: sizes outside the audit body and five heading steps`).toEqual([]);
       expect.soft(errorResult.failures, `${path} at ${width}px: reachable form errors must be triggered through client validation and keep 4.5:1 contrast`).toEqual([]);
     }
     test.info().annotations.push({

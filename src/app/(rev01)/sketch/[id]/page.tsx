@@ -37,7 +37,7 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
       ],
       next: [
         "Examination maps your actual reporting flow: sources, owners, dead time.",
-        "Construction rebuilds one pack end-to-end, certified, in production.",
+        "Construction rebuilds one pack end-to-end, checked, in production.",
         "Every later capability reads the same live model. Nothing is rebuilt twice.",
       ],
     },
@@ -65,7 +65,7 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
       ],
       next: [
         "Examination reads a week of your real inbox flow: volumes, delays, drops.",
-        "Construction ships the classifier and the draft doctrine, certified.",
+        "Construction ships the classifier and the draft doctrine, checked.",
         "Follow-ups stop depending on memory, yours or anyone's.",
       ],
     },
@@ -79,7 +79,7 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
       ],
       next: [
         "Examination maps flows, decisions and failure points as an engineering brief.",
-        "Construction rebuilds one critical operation end-to-end, certified.",
+        "Construction rebuilds one critical operation end-to-end, checked.",
         "Each capability joins the system; the value of every previous one increases.",
       ],
     },
@@ -95,7 +95,7 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
       ],
       next: [
         "L'Examen cartographie votre reporting réel : sources, responsables, temps mort.",
-        "La Construction reconstruit un rapport de bout en bout, certifié, en production.",
+        "La Construction reconstruit un rapport de bout en bout, vérifié, en production.",
         "Chaque capacité suivante lit le même modèle à jour. Rien n'est reconstruit deux fois.",
       ],
     },
@@ -123,7 +123,7 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
       ],
       next: [
         "L'Examen relit une semaine de votre boîte réelle : volumes, délais, oublis.",
-        "La Construction livre le classeur et la doctrine de rédaction, certifiés.",
+        "La Construction livre le classeur et la doctrine de rédaction, vérifiés.",
         "Les relances cessent de dépendre d'une mémoire, la vôtre ou celle de quelqu'un d'autre.",
       ],
     },
@@ -137,7 +137,7 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
       ],
       next: [
         "L'Examen cartographie les flux, les décisions et les points de rupture, comme un cahier des charges technique.",
-        "La Construction reconstruit une opération critique de bout en bout, certifiée.",
+        "La Construction reconstruit une opération critique de bout en bout, vérifiée.",
         "Chaque capacité rejoint le système ; la valeur de toutes les précédentes augmente.",
       ],
     },
