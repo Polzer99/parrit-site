@@ -19,7 +19,7 @@
     "test": "node scripts/verify-certificates.mjs && node --test tests/*.test.mjs"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.110.0",
+    "@anthropic-ai/sdk": "^0.131.0",
     "@calcom/embed-react": "^1.5.3",
     "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.38.0",
