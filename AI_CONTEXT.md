@@ -486,3 +486,16 @@ EN distinct de son étiquette. L'accent mobile se vérifie dans le panneau ouver
 Build Webpack, 102 tests Node et 20 tests Brand OS passent ; Chromium reste bloqué
 au lancement par macOS. Géométrie/contraste et CI navigateur à rejouer sur l'hôte.
 Voir le complément FIX2 du rapport audit du 08/10.
+
+### FIX3, 08/10/2026
+
+Sur les accueils FR/EN, le CTA desktop retrouve le contour neutre et l'observateur
+canonique de `origin/main` ; le panneau mobile retrouve son lien neutre, avec les
+48 px/16 px conservés. Hors accueil, le contour rose FIX2 reste l'accent de page.
+Le bouton secondaire du hero impose `--paper` malgré la variante sombre générique.
+Le titre et le libellé `.r2-shead` peuvent revenir à la ligne pour Manufacture mobile.
+Dossier 26-002 : opération dans le h3, secteur dans la référence, sans paragraphe
+dupliqué. La note FR redevient « Pas publiés. Partagés en rendez-vous. ».
+Build Webpack, 103 tests Node et 20 tests Brand OS passent. Lint/types/claims/marque
+passent. Chromium reste bloqué au lancement par macOS ; les 221 tests navigateur
+et la correction géométrique Manufacture restent à confirmer sur l'hôte.

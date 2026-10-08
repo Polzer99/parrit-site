@@ -107,7 +107,7 @@ const DICT = {
     brands: {
       kicker: "Commandes de :",
       list: "un groupe industriel · un cabinet d'avocats · un courtier en énergie B2B · une marque grand public.",
-      note: "Non publié. Montré en rendez-vous.",
+      note: "Pas publiés. Partagés en rendez-vous.",
     },
     journey: {
       kicker: "Le déroulement",

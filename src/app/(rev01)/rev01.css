@@ -439,7 +439,7 @@ h3 {
   color: var(--g3);
 }
 
-.cmdbar .cmd-cta.ghost,
+.cmdbar .cmd-cta.ghost:not([data-home="true"]),
 .cmd-panel .cmd-panel-cta.ghost {
   border-color: currentColor;
   color: var(--accent-on-dark);
@@ -450,6 +450,15 @@ h3 {
 .cmd-panel .cmd-panel-cta.ghost:hover,
 .cmd-panel .cmd-panel-cta.ghost:active {
   background: var(--ink);
+}
+
+.cmdbar .cmd-cta.ghost[data-home="true"] {
+  border-color: currentColor;
+  color: var(--paper);
+}
+
+.cmd-panel .cmd-panel-cta:not(.rev-button) {
+  border: 0;
 }
 
 /* pas de :hover fiable au toucher : :active porte tout le retour tactile sur mobile */
@@ -1465,6 +1474,8 @@ a.k:active {
 
 .r2-shead {
   display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 44px;
@@ -1831,7 +1842,7 @@ a.k:active {
   font-size: var(--t-s);
 }
 
-.home-s-alternative .rev-button.ghost {
+.r2-dark .home-s-alternative .rev-button.ghost {
   border-color: var(--rule-d);
   color: var(--paper);
 }

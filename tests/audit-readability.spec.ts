@@ -15,28 +15,30 @@ const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 test.use({ serviceWorkers: "block" });
 
 for (const width of [375, 390, 1440]) {
-  for (const path of ["/", "/fr", "/build-with-you", "/fr/build-with-you", "/fr/systems", "/journal"]) {
+  for (const path of ["/", "/fr", "/build-with-you", "/fr/build-with-you", "/fr/systems", "/journal", "/manufacture", "/fr/manufacture"]) {
     test(`audit readability ${path} at ${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.goto(`${BASE_URL}${path}`);
       await page.evaluate(() => document.fonts.ready);
+      const home = path === "/" || path === "/fr";
       if (width < 760) {
         await page.locator(".cmd-menu-toggle").click();
         await expect(page.locator(".cmd-panel-cta")).toHaveCSS("padding", "14px 24px");
         await expect(page.locator(".cmd-panel-cta")).toHaveCSS("font-size", "16px");
         const mobileAction = page.locator(".cmd-panel-cta");
-        await expect(mobileAction).toHaveCSS("color", await tokenColor(mobileAction, "--accent-on-dark"));
-        await expect(mobileAction).toHaveCSS("border-top-color", await tokenColor(mobileAction, "--accent-on-dark"));
-        await expect(mobileAction).toHaveCSS("border-top-width", "1px");
+        await expect(mobileAction).toHaveCSS("color", await tokenColor(mobileAction, home ? "--g2" : "--accent-on-dark"));
+        if (!home) await expect(mobileAction).toHaveCSS("border-top-color", await tokenColor(mobileAction, "--accent-on-dark"));
+        await expect(mobileAction).toHaveCSS("border-top-width", home ? "0px" : "1px");
+        expect((await mobileAction.boundingBox())!.height).toBeGreaterThanOrEqual(48);
         await expect(mobileAction).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
         await page.keyboard.press("Escape");
         await expect(page.locator(".cmd-panel")).toHaveCount(0);
       }
       if (width >= 760) {
         const header = page.locator(".cmd-cta");
-        await expect(header).toHaveCSS("color", await tokenColor(header, "--accent-on-dark"));
-        await expect(header).toHaveCSS("border-top-color", await tokenColor(header, "--accent-on-dark"));
+        await expect(header).toHaveCSS("color", await tokenColor(header, home ? "--paper" : "--accent-on-dark"));
+        await expect(header).toHaveCSS("border-top-color", await tokenColor(header, home ? "--paper" : "--accent-on-dark"));
         await expect(header).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
       }
       const result = await page.evaluate(() => {

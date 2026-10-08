@@ -131,3 +131,22 @@ Puis vérifier les autres échecs du même run (`doctrine home composition and l
 points 1 à 6, ils doivent passer ; sinon, les traiter selon la même règle (régression réelle corrigée dans le code, référence
 périmée mise à jour avec son exigence) et l'écrire dans le compte rendu.
 Batterie : ajouter `npx playwright test` si le sandbox le permet ; sinon Claude la rejoue sur l'hôte.
+
+## FIX3 (CI run 37757924290 : 13 échecs restants sur 215, lus par Claude)
+1. Accent rose (`doctrine decorative pink accent spacing`, accueil EN/FR 1440 et 390) : « A.cmd-cta rev-button ghost and
+   SPAN.frame share a viewport » et « A.cmd-panel-cta … ». Sur l'accueil, l'accent de la page est le cadre du hero : le CTA
+   d'en-tête (et celui du panneau mobile) ne doit pas y être rose. Reprendre EXACTEMENT la logique de couleur de ces deux CTA telle
+   qu'elle est sur `origin/main` (`git show origin/main:src/system/components/RevHeader.tsx` et les règles CSS associées) et ne
+   garder de FIX2 que les tailles (48 px, 16 px). Ne pas affaiblir le test.
+2. `/fr/manufacture` à 375 px : `body.scrollWidth` = 395 > 375 (régression réelle, débordement horizontal). Trouver l'élément qui
+   déborde (probablement le libellé « CHAQUE NOUVEAU SYSTÈME… » ou un bouton de 48 px à largeur fixe) et le faire passer à la ligne.
+3. `conformity-home.spec.ts:191` : garder la phrase FR d'origine « Pas publiés. Partagés en rendez-vous. » (elle reste vraie) ;
+   seul le préfixe de liste change en « Commandes de : ». Ne pas toucher au test.
+4. `/dossiers` et la section dossiers de l'accueil, 26-002 : le TITRE (h3) doit décrire l'opération, pas le client. h3 FR « Un
+   système commandé pour traiter la boîte mail du cabinet et lui servir d'assistant sur mesure. » ; EN « A system commissioned to
+   handle the firm's mailbox and act as a tailored assistant. » « Un cabinet d'avocats » / « A law firm » reste seulement comme
+   libellé de secteur s'il existe un emplacement prévu pour cela, sinon il disparaît. Mettre à jour `conformity-home.spec.ts:217`
+   avec le nouveau titre (exigence conservée : les titres décrivent des opérations).
+5. `audit-readability.spec.ts:81` (test ajouté par toi) : `.home-s-alternative .rev-button` attend la couleur `--paper` et reçoit
+   rgb(169,194,199). Le bouton secondaire en contour clair doit porter le texte `--paper` (lisibilité maximale) : corriger le CSS,
+   pas le test.

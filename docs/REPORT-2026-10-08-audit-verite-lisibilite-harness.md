@@ -143,3 +143,66 @@ ghost générique. Aucune assertion de largeur 56ch, contraste ou débordement r
 - Avertissements metadataBase et type de module Node déjà présents dans les
   rapports précédents. Aucune preuve de production : déploiement interdit par
   le mandat de cette session.
+
+## Complément FIX3, 08/10/2026
+
+Source : checkout demandé, HEAD `e4c3c8ceea0062d1fd9af26ab52f85ebbe78542c`.
+Référence canonique lue par `git show origin/main` :
+`85465b5ae510deea0d8a42de45ea590285fb356d` (référence locale, aucun fetch).
+La modification initiale de la spec (19 lignes FIX3) est conservée intégralement.
+AGENTS, AI_CONTEXT, TRUTH, spec, doctrine Harness et rapports A/B/C du checkout
+`spec-parrit-audit-2026-10-08` consultés. Documentation Next locale lue ; aucune
+nouvelle API externe introduite. Baseline : 102/102 tests Node.
+
+Plan exécuté : vérifier les acquis des sections 1–4/FIX1/FIX2, corriger FIX3,
+revue indépendante en lecture seule, batterie. Une passe puis correction ciblée
+de la cause potentielle du débordement ; pas de tentatives répétées contre le
+blocage navigateur. Écritures limitées aux sources/tests/docs du checkout,
+réversibles par diff ; aucune donnée métier ni certificat ajouté.
+
+Fichiers produit :
+- `src/system/components/RevHeader.tsx` : logique d'accueil reprise du canon,
+  observateur du hero et nettoyage conservés, contour desktop neutre au repos,
+  panneau mobile neutre. Interprétation de « Sur l'accueil » dans FIX3 : la
+  restauration concerne les accueils FR/EN ; les pages intérieures conservent
+  le contour rose de FIX2 pour garder leur accent. Tailles 48 px/16 px conservées.
+- `src/app/(rev01)/rev01.css` : couleurs contextuelles du header, spécificité
+  du texte `--paper` du second CTA hero ; `.r2-shead` autorise le retour à la
+  ligne avec un espacement de 16 px. La revue a identifié ses deux enfants
+  flex sans wrap comme cause plausible du débordement ; le footer n'avait pas
+  de nowrap et n'a finalement pas été modifié. Cause et résultat géométriques
+  non mesurés, Chromium étant indisponible.
+- `src/app/(rev01)/page.tsx` : note FR originale restaurée.
+- `src/app/(rev01)/dossiers/page.tsx` : titres opérationnels FR/EN de 26-002,
+  secteur conservé dans la référence, statut inchangé, paragraphe redondant
+  retiré. La home n'affiche pas les fiches individuelles : son lien générique
+  vers les dossiers est conservé, sans ajout d'un nouveau contenu.
+
+Tests :
+- `tests/audit-truth-copy.test.mjs` : nouveau cas sur titres opérationnels,
+  unicité des phrases, note FR et préfixe Commandes de.
+- `tests/audit-readability.spec.ts` : six cas supplémentaires Manufacture
+  FR/EN à 375/390/1440 ; débordement, typo et cibles toujours contrôlés ; couleurs
+  neutres accueil et roses pages intérieures, hauteur mobile >=48 px.
+- `tests/readability-contract.test.mjs` : observer, nettoyage, branches accueil
+  et couleur neutre ; remplace le contrat FIX2 devenu obsolète.
+- `tests/doctrine-visible.spec.ts` : transition après sortie du hero attendue
+  exec comme au canon ; aucune relaxation de l'assertion d'espacement des accents.
+- `tests/conformity-home.spec.ts` : titres attendus FR/EN de 26-002 actualisés ;
+  test de note FR inchangé. Assertion `--paper` d'audit-readability inchangée.
+- `AI_CONTEXT.md` actualisé.
+
+Résultats :
+- `npm run build` : compilation Turbopack sans progression, interrompue.
+- `npm run build -- --webpack && npm test` : code 0, 55 pages, **103/103** tests.
+- `npm run test:brand-os` : **20/20**.
+- Lint, TypeScript, false-claims-check, brand-conformity-check, diff-check : verts.
+- `npx playwright test --max-failures=1` : échec de lancement Chromium,
+  `bootstrap_check_in ... Permission denied (1100)`, avant navigation ;
+  1 échec de lancement, 4 interrompus, 216 non exécutés.
+- `npx playwright test --list` : **221 tests, 16 fichiers**.
+- Avertissement metadataBase déjà documenté dans les reprises antérieures.
+
+Les 13 échecs CI cités par FIX3 ne sont pas déclarés résolus par mesure ici.
+Rejouer sur l'hôte les tests navigateur et les captures 1440/390/375, notamment
+Manufacture FR. Aucune preuve de production, aucun commit, push ou déploiement.

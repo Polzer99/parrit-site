@@ -18,9 +18,12 @@ test("product scene text uses Brand OS colors rather than the audit's off-palett
   assert.match(css, /--chat-muted:\s*var\(--brand-accessible-ink2\)/);
 });
 
-test("booking action stays outlined with or without JavaScript and scroll observers", () => {
+test("home booking restores the canonical observer and neutral initial accent", () => {
   const header = read("src/system/components/RevHeader.tsx");
-  assert.match(header, /className="cmd-cta rev-button ghost"/);
-  assert.match(header, /className="cmd-panel-cta rev-button ghost"/);
-  assert.doesNotMatch(header, /IntersectionObserver/);
+  assert.match(header, /home && heroOutside \? "exec" : "ghost"/);
+  assert.match(header, /IntersectionObserver/);
+  assert.match(header, /observer\.disconnect\(\)/);
+  assert.match(header, /\? "cmd-panel-cta" : "cmd-panel-cta rev-button ghost"/);
+  const css = read("src/app/(rev01)/rev01.css");
+  assert.match(css, /\.cmdbar \.cmd-cta\.ghost\[data-home="true"\]\s*\{[^}]*color: var\(--paper\)/);
 });

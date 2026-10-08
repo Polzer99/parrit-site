@@ -175,7 +175,7 @@ for (const locale of ["fr", "en"] as const) {
           await expect(page.locator(".cmd-panel")).toHaveCSS("opacity", "1");
           await expect(page.locator(".cmd-panel-cta")).toBeVisible();
         }
-        // FIX2: the header outline is the decorative pink accent; Sketch stays filled.
+        // The home frame owns its accent; inner pages use the header outline.
         // Keep the accent-spacing contract for decorative accents only.
         // Check all possible vertical overlaps, not only selected scroll positions.
         const accents = await page.evaluate(() => {
@@ -221,12 +221,12 @@ for (const locale of ["fr", "en"] as const) {
           await expect(page.locator(".cmd-panel")).toHaveCount(0);
         }
         if (!route) {
-          // FIX2: header outline remains consistent while scrolling.
+          // FIX3: canonical home observer changes the action only beyond the hero.
           const heroBottom = await page.locator(".home-s-hero").evaluate((el) => el.getBoundingClientRect().bottom + scrollY);
           await page.evaluate((y) => window.scrollTo(0, y - 10), heroBottom);
           await expect(headerAction).toHaveClass(/\bghost\b/);
           await page.evaluate((y) => window.scrollTo(0, y + 1), heroBottom);
-          await expect(headerAction).toHaveClass(/\bghost\b/);
+          await expect(headerAction).toHaveClass(/\bexec\b/);
           await page.evaluate(() => window.scrollTo(0, 0));
           await expect(headerAction).toHaveClass(/\bghost\b/);
           // Shared layouts keep the same outline after navigation.

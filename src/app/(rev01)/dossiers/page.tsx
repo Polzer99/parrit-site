@@ -21,8 +21,8 @@ const DICT = {
       },
       {
         "ref": "Dossier 26-002 · A law firm",
-        "title": "A law firm.",
-        "body": "A system commissioned to handle the firm's mailbox and act as a tailored assistant.",
+        "title": "A system commissioned to handle the firm's mailbox and act as a tailored assistant.",
+        "body": "",
         "seal": "Commissioned"
       },
       {
@@ -54,8 +54,8 @@ const DICT = {
       },
       {
         "ref": "Dossier 26-002 · Un cabinet d'avocats",
-        "title": "Un cabinet d'avocats.",
-        "body": "Un système commandé pour traiter la boîte mail du cabinet et lui servir d'assistant sur mesure.",
+        "title": "Un système commandé pour traiter la boîte mail du cabinet et lui servir d'assistant sur mesure.",
+        "body": "",
         "seal": "Commandé"
       },
       {
@@ -96,7 +96,7 @@ export default async function DossiersPage() {
                   <K>{dossier.ref}</K>
                 </div>
                 <h3>{dossier.title}</h3>
-                <p>{dossier.body}</p>
+                {dossier.body ? <p>{dossier.body}</p> : null}
                 <div className="seal">{dossier.seal}</div>
               </article>
             ))}

@@ -77,3 +77,13 @@ test("legal identity and generated machine-readable claims stay consistent", () 
     for (const required of ["The Standard, six commitments Parrit.ai applies to its systems. It is not an accreditation.", "Each system delivered from now on is checked", "That is the engagement we sign, and the handover is where we check it."]) assert.ok(text.includes(required), `${path}: ${required}`);
   }
 });
+
+test("FIX3 dossier titles describe the operation and home retains the French disclosure", () => {
+  const source = page("dossiers");
+  for (const title of ["A system commissioned to handle the firm's mailbox and act as a tailored assistant.", "Un système commandé pour traiter la boîte mail du cabinet et lui servir d'assistant sur mesure."]) {
+    assert.ok(source.includes(`"title": "${title}"`));
+    assert.equal(source.split(title).length - 1, 1);
+  }
+  assert.ok(page().includes("Pas publiés. Partagés en rendez-vous."));
+  assert.ok(page().includes("Commandes de :"));
+});
