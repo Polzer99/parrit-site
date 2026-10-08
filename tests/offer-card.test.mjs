@@ -30,18 +30,19 @@ test("provided facts render and the price precedes the only CTA", () => {
   assert.ok(html.indexOf("Sur devis") < html.indexOf("<a "));
 });
 test("documented price is localized without changing its amount or basis", () => {
-  for (const [locale, basis, expected] of [["fr", "au forfait", "À partir de 3 200 € HT au forfait"], ["en", "fixed price", "From €3,200 excl. VAT, fixed price"]]) {
-    const html = render({ locale, price: { amountHt: 3200, currency: "EUR", basis } }).replace(/[\u00a0\u202f]/g, " ");
+  for (const [locale, basis, expected] of [["fr", "au forfait", "À partir de 3 500 € HT au forfait"], ["en", "fixed price", "From €3,500 excl. VAT, fixed price"]]) {
+    const html = render({ locale, price: { amountHt: 3500, currency: "EUR", basis } }).replace(/[\u00a0\u202f]/g, " ");
     assert.ok(html.includes(expected));
+    assert.doesNotMatch(html, /3,200|3[\s\u00a0\u202f]200\s*€/);
   }
 });
 test("two explicit price modes are rejected", () => {
-  assert.throws(() => render({ price: { amountHt: 3200, currency: "EUR", basis: "au forfait" }, priceNote: "Sur devis" }), /either price or priceNote/);
+  assert.throws(() => render({ price: { amountHt: 3500, currency: "EUR", basis: "au forfait" }, priceNote: "Sur devis" }), /either price or priceNote/);
 });
 
 test("French amount, currency and HT form an unbreakable group", () => {
-  const price = formatOfferPrice({ amountHt: 3200, currency: "EUR", basis: "au forfait" }, "fr");
-  assert.match(price, /3[\u00a0\u202f]200[\u00a0\u202f]€[\u00a0\u202f]HT/);
+  const price = formatOfferPrice({ amountHt: 3500, currency: "EUR", basis: "au forfait" }, "fr");
+  assert.match(price, /3[\u00a0\u202f]500[\u00a0\u202f]€[\u00a0\u202f]HT/);
 });
 
 test("the formatter preserves a changed configured amount instead of hardcoding the anchor", () => {

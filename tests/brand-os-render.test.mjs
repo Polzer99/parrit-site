@@ -68,6 +68,11 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
         }
         assert.deepEqual(checkGlyphs(html, label, glyphs, connectors), []);
         const text = visibleText(html);
+        assert.doesNotMatch(text, /3,200|3[\s\u00a0\u202f]200\s*€/, `${label}: retired BWY price must not render`);
+        if (["/", "/build-with-you", "/systems"].includes(route)) {
+          const price = locale === "fr" ? "À partir de 3 500 € HT au forfait" : "From €3,500 excl. VAT, fixed price";
+          assert.ok(text.replace(/[\u00a0\u202f]/g, " ").includes(price), `${label}: current BWY anchor`);
+        }
         for (const title of titles[locale][route] ?? []) assert.ok(text.includes(title), `${label}: ${title}`);
         if (route === "/" || route === "/journal") {
           const journal = route === "/"
