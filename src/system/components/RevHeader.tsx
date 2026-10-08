@@ -21,23 +21,9 @@ function saveLocaleChoice(nextLocale: Locale) {
   document.cookie = `${LOCALE_COOKIE}=${nextLocale}; Path=/; Max-Age=31536000; SameSite=Lax${window.location.protocol === "https:" ? "; Secure" : ""}`;
 }
 
-function HeaderBookingAction({ locale, home }: { locale: Locale; home: boolean }) {
-  // SSR and browsers without IntersectionObserver keep the home action outlined.
-  const [heroOutside, setHeroOutside] = useState(false);
-
-  useEffect(() => {
-    if (!home || typeof IntersectionObserver === "undefined") return;
-    const hero = document.querySelector(".home-s-hero");
-    if (!hero) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      setHeroOutside(!entry.isIntersecting);
-    }, { threshold: 0 });
-    observer.observe(hero);
-    return () => observer.disconnect();
-  }, [home]);
-
+function HeaderBookingAction({ locale }: { locale: Locale }) {
   return (
-    <Link className={`cmd-cta rev-button ${!home || heroOutside ? "exec" : "ghost"}`} href={localizedPath("/commission", locale)}>
+    <Link className="cmd-cta rev-button exec" href={localizedPath("/commission", locale)}>
       {locale === "fr" ? "Réserver l'examen" : "Book the examination"}
     </Link>
   );
@@ -147,7 +133,7 @@ export function RevHeader({ locale }: { locale: Locale }) {
               </button>
             ))}
           </div>
-          <HeaderBookingAction key={pathname} locale={locale} home={barePathname(pathname ?? "/") === "/"} />
+          <HeaderBookingAction key={pathname} locale={locale} />
           <button
             type="button"
             className="cmd-menu-toggle"
@@ -181,7 +167,7 @@ export function RevHeader({ locale }: { locale: Locale }) {
               </Link>
             );
           })}
-          <Link className="cmd-panel-cta" href={localizedPath("/commission", locale)} onClick={() => setMenuOpen(false)}>
+          <Link className="cmd-panel-cta rev-button exec" href={localizedPath("/commission", locale)} onClick={() => setMenuOpen(false)}>
             {locale === "fr" ? "Réserver l'examen" : "Book the examination"}
           </Link>
         </nav>

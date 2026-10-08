@@ -21,8 +21,8 @@ const DICT = {
       },
       {
         "ref": "Dossier 26-002 · A law firm",
-        "title": "A system commissioned so re-engaged case files stop falling through.",
-        "body": "The brief: rebuild client intake and follow-ups on the firm's own infrastructure, one capability at a time.",
+        "title": "A law firm.",
+        "body": "A system commissioned to handle the firm's mailbox and act as a tailored assistant.",
         "seal": "Commissioned"
       },
       {
@@ -54,8 +54,8 @@ const DICT = {
       },
       {
         "ref": "Dossier 26-002 · Un cabinet d'avocats",
-        "title": "Un système commandé pour que les dossiers relancés ne retombent plus dans l'oubli.",
-        "body": "Le mandat : refondre l'arrivée des clients et les relances sur l'infrastructure du cabinet, une capacité à la fois.",
+        "title": "Un cabinet d'avocats.",
+        "body": "Un système commandé pour traiter la boîte mail du cabinet et lui servir d'assistant sur mesure.",
         "seal": "Commandé"
       },
       {

@@ -10,6 +10,7 @@ const DICT = {
   en: {
     title: "In 10 hours with the founder, you build a system that runs.",
     metaTitle: "In 10 hours with the founder, you build a system that runs.",
+    autonomy: "In 10 hours with the founder, you build a system that runs, and you leave able to build the next one without us.",
     promise: "You want to leave with something that runs, built with you.",
     stepsTitle: "Build with the founder.",
     steps: [
@@ -31,6 +32,7 @@ const DICT = {
   fr: {
     title: "En 10 heures avec le fondateur, vous construisez un système qui tourne.",
     metaTitle: "En 10 heures avec le fondateur, vous construisez un système qui tourne.",
+    autonomy: "En 10 heures avec le fondateur, vous construisez un système qui tourne, et vous repartez capable de construire le suivant sans nous.",
     promise: "Vous voulez repartir avec quelque chose qui tourne, construit avec vous.",
     stepsTitle: "Construire avec le fondateur.",
     steps: [
@@ -70,6 +72,7 @@ export default async function BuildWithYouPage() {
         <header className="r2-hero build-with-you-hero">
           <K>Build With You</K>
           <h1>{copy.title}</h1>
+          <p className="r2-sub">{copy.autonomy}</p>
           <p className="r2-sub">{copy.promise}</p>
           <div className="build-with-you-examination">
             <p className="doctrine-note">{copy.examinationNote}</p>

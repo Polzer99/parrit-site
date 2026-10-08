@@ -445,3 +445,22 @@ anciens exports et leurs références dans src/public. Lint, types, claims, marq
 build Webpack et 20 tests Brand OS passent. Chromium reste refusé par le sandbox
 macOS avant navigation ; validation responsive à terminer sur l’hôte.
 Voir `docs/REPORT-2026-10-05-photo-buste.md`.
+
+## Audit vérité, lisibilité et Harness, 08/10/2026
+
+La spec audit du 08/10 remplace les formulations de livraison par les engagements
+prescrits, actualise Lemlist/SAS/llms et ajoute la promesse d'autonomie BWY ainsi que
+les étiquettes EN par article sur les listes FR. Les actions partagent 48 px/16 px,
+les textes informatifs ont un plancher 16 px, les titres cinq pas et un H3 unique.
+Le cadre hero peut se répartir sur plusieurs lignes mobiles pour conserver la taille.
+Le paquet Brand OS vendorisé reste inchangé.
+
+HarnessBadge vérifie côté serveur le statut CERTIFIED, l'URL canonique EN et le
+SHA256 du fichier MDX complet. Aucun certificat public livré ; un JSON invalide est
+invisible au rendu et bloque prebuild/npm test. Les certificats futurs nécessitent
+une réémission après chaque changement des octets source. Le contrôle des claims
+inclut les articles et isole les textes TS/TSX par AST.
+
+Build Webpack et 102 tests Node passent ; Turbopack a été interrompu sans progression.
+Chromium est refusé au lancement dans le sandbox : validation responsive sur l'hôte
+requise. Voir docs/REPORT-2026-10-08-audit-verite-lisibilite-harness.md.

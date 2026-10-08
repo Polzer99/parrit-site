@@ -19,13 +19,13 @@ const routes = ["/", "/build-with-you", "/systems", "/commission", "/manufacture
 
 const titles = {
   en: {
-    "/": ["Four steps take you from the first message to a system your team runs.", "We show client dossiers in a meeting, not online.", "The Journal records what held and what broke on our projects.", "A 15-minute examination tells you whether a system is worth building."],
+    "/": ["Four steps take you from the first message to a system your team runs.", "We show client dossiers in a meeting, not online.", "The Journal records what held and what broke on our own systems, and what we take from it for yours.", "A 15-minute examination tells you whether a system is worth building."],
     "/build-with-you": ["In 10 hours with the founder, you build a system that runs."],
     "/manufacture": ["We build each system one operation at a time, from Examination to Compounding.", "A system is manufactured. It is not installed.", "Three phases turn an examined operation into a system you own."],
     "/dossiers": ["We show client dossiers in a meeting, not on this site.", "The dossiers open in conversation. Systems commissioned by large accounts, SMEs and mid-sized companies. Anonymized on principle."],
   },
   fr: {
-    "/": ["Quatre étapes mènent du premier message à un système que votre équipe fait tourner.", "Nous montrons les dossiers clients en rendez-vous, pas en ligne.", "Le Journal consigne ce qui a tenu et ce qui a cassé sur nos chantiers.", "Un examen de 15 minutes vous dit si un système vaut d'être construit."],
+    "/": ["Quatre étapes mènent du premier message à un système que votre équipe fait tourner.", "Nous montrons les dossiers clients en rendez-vous, pas en ligne.", "Le Journal consigne ce qui a tenu et ce qui a cassé sur nos propres systèmes, et ce que nous en tirons pour les vôtres.", "Un examen de 15 minutes vous dit si un système vaut d'être construit."],
     "/build-with-you": ["En 10 heures avec le fondateur, vous construisez un système qui tourne."],
     "/manufacture": ["Nous construisons chaque système une opération à la fois, de l'Examen à la Capitalisation.", "Un système se fabrique. Il ne s'installe pas.", "Trois phases transforment une opération examinée en un système qui vous appartient."],
     "/dossiers": ["Nous montrons les dossiers clients en rendez-vous, pas sur ce site.", "Les dossiers s'ouvrent de vive voix. Des systèmes commandés par des grands comptes, des PME et des ETI. Anonymisés par principe."],
@@ -69,6 +69,19 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
         assert.deepEqual(checkGlyphs(html, label, glyphs, connectors), []);
         const text = visibleText(html);
         for (const title of titles[locale][route] ?? []) assert.ok(text.includes(title), `${label}: ${title}`);
+        if (route === "/" || route === "/journal") {
+          const journal = route === "/"
+            ? html.match(/<section class="home-s-journal">[\s\S]*?<\/section>/)?.[0]
+            : html.match(/<ol class="journal-list">[\s\S]*?<\/ol>/)?.[0];
+          assert.ok(journal, `${label}: Journal entries render`);
+          const links = [...journal.matchAll(/<a\b[^>]*href="\/journal\/[^"]+"[^>]*>[\s\S]*?<\/a>/g)].map((match) => match[0]);
+          assert.ok(links.length > 0, `${label}: nonempty Journal`);
+          for (const link of links) {
+            assert.match(link, /hrefLang="en"|hreflang="en"/, label);
+            const badge = />EN<\//.test(link);
+            assert.equal(badge, locale === "fr", `${label}: per-entry EN label only in French interface`);
+          }
+        }
         if (route === "/") {
           const scene = html.match(/<section class="home-s-build r2-dark">[\s\S]*?<\/section>/)?.[0];
           assert.ok(scene, `${label}: product scene renders on the server`);

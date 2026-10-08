@@ -1,9 +1,10 @@
 import { readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
+import { certificationClaims, sourceProse } from "./lib/certification-claims.mjs";
 
-const ROOTS = ["src", "scripts"];
+const ROOTS = ["src", "scripts", "content/journal"];
 const EXTRA_FILES = ["public/llms.txt", "site.config.ts", "TRUTH.md"];
-const TEXT_EXTENSIONS = new Set([".js", ".jsx", ".mjs", ".ts", ".tsx", ".txt", ".md"]);
+const TEXT_EXTENSIONS = new Set([".js", ".jsx", ".mjs", ".ts", ".tsx", ".txt", ".md", ".mdx"]);
 const SELF = "scripts/false-claims-check.mjs";
 
 const exactClaims = [
@@ -104,6 +105,21 @@ for (const file of files) {
   if (!TEXT_EXTENSIONS.has(extname(file))) continue;
 
   const source = await readFile(file, "utf8");
+  // Check published prose, not enum values, implementation comments or tooling.
+  // TS/TSX strings are checked independently so another dictionary entry cannot
+  // supply a disclaimer to an unrelated claim.
+  if (relativePath !== "scripts/lib/certification-claims.mjs" &&
+      (relativePath.startsWith("content/") || relativePath === "scripts/generate-llms.mjs" || EXTRA_FILES.includes(relativePath) ||
+       /\.(?:tsx|ts)$/.test(relativePath))) {
+    const prose = /\.(?:tsx|ts|mjs)$/.test(file)
+      ? sourceProse(source, file)
+      : [{ text: source, line: 1 }];
+    for (const value of prose) {
+      for (const claim of certificationClaims(value.text, relativePath === "src/system/components/HarnessBadge.tsx")) {
+        report(file, value.line, "unsupported certification", claim);
+      }
+    }
+  }
   const lines = source.split(/\r?\n/);
   lines.forEach((line, index) => {
     for (const { rule, pattern } of forbidden) {

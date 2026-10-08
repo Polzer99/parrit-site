@@ -64,6 +64,7 @@ const nextConfig: NextConfig = {
   // The OG generators read src/system/tokens.css at runtime; without this
   // the file is absent from the serverless bundle and the route 500s.
   outputFileTracingIncludes: {
+    "/journal/\\[slug\\]": ["./content/journal/*.mdx", "./public/certificates/*.json"],
     "/llms-full.txt": ["./public/llms.txt", "./content/journal/*.mdx"],
     "/opengraph-image": ["./src/system/brand-os.tokens.css", "./src/system/tokens.css", "./src/og-assets/*"],
     "/journal/\\[slug\\]/og": ["./src/system/brand-os.tokens.css", "./src/system/tokens.css", "./src/og-assets/*"],

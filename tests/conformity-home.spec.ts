@@ -220,7 +220,7 @@ for (const locale of ["en", "fr"] as const) {
       "Nous vendons le système qui nous fait tourner.",
     ] : [
       "A reporting system, commissioned to assemble itself and ship on time.",
-      "A system commissioned so re-engaged case files stop falling through.",
+      "A law firm.",
       "We sell the system we run on.",
     ]);
     await expect(page.locator(".r2-registre-note")).toHaveText(locale === "fr"

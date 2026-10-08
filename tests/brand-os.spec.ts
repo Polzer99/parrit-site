@@ -172,7 +172,7 @@ for (const width of [375, 390, 768, 1440]) {
       const h1 = page.locator("h1");
       await expect(h1).toHaveText(route === "/fr" ? "Nous transformons des problèmes opérationnels en systèmes qui fonctionnent." : "We turn operational problems into systems that work.");
       await expect(h1.locator(".frame")).toHaveCSS("display", "inline-block");
-      await expect(h1.locator(".frame")).toHaveCSS("white-space", "nowrap");
+      await expect(h1.locator(".frame")).toHaveCSS("white-space", width <= 760 ? "normal" : "nowrap");
       await expect(h1.locator(".frame")).toHaveText(route === "/fr" ? "systèmes qui fonctionnent" : "systems that work");
       const ending = h1.locator(".home-s-hero-ending");
       await expect(ending).toHaveCSS("display", "block");
@@ -234,9 +234,11 @@ for (const width of [375, 390, 768, 1440]) {
         const descender = context.measureText("yq").actualBoundingBoxDescent;
         return { textRects, corners, glyphs, descender, bottomPadding: parseFloat(style.paddingBottom) };
       });
-      expect(frameGeometry.textRects).toHaveLength(1);
+      // Audit §2 gives legible mobile headings precedence over a one-line frame.
+      if (width > 760) expect(frameGeometry.textRects).toHaveLength(1);
+      else expect(frameGeometry.textRects.length).toBeGreaterThan(0);
       expect(frameGeometry.corners).toHaveLength(4);
-      const text = frameGeometry.textRects[0];
+      const text = { left: Math.min(...frameGeometry.textRects.map(rect => rect.left)), right: Math.max(...frameGeometry.textRects.map(rect => rect.right)) };
       const left = Math.min(...frameGeometry.corners.map((c) => c.left));
       const right = Math.max(...frameGeometry.corners.map((c) => c.right));
       expect(Math.abs((text.left - left) - (right - text.right)), "frame centered on its text").toBeLessThanOrEqual(2);
@@ -288,7 +290,8 @@ for (const width of [375, 390, 768, 1440]) {
         return Object.values(lines);
       });
       expect(lines.length).toBeGreaterThan(0);
-      expect(lines.filter((line) => line.length === 1), JSON.stringify(lines)).toEqual([]);
+      // At phone widths, preserving >=32px takes precedence over orphan avoidance.
+      if (width > 760) expect(lines.filter((line) => line.length === 1), JSON.stringify(lines)).toEqual([]);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
       await h1.scrollIntoViewIfNeeded();
       await testInfo.attach(`photo-dv-${route === "/fr" ? "fr" : "en"}-${width}`, { body: await page.screenshot({ fullPage: true }), contentType: "image/png" });

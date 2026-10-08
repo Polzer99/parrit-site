@@ -119,7 +119,7 @@ const DICT = {
     operating: "How we catch a mismatch, and what happens next.",
     central: "Parrit / Central case", caseTitle: "The first client of this system is us.",
     observed: "Internal use · observed 2026-09-13",
-    record: ["25 types of information tracked across the company", "1 settled, 8 being transferred, 4 with two different versions, 12 not started", "Every automatic correction has been checked and logged by a person."],
+    record: ["25 types of information tracked across the company", "1 settled, 8 being transferred, 4 with two different versions, 12 not started"],
     mechanism: "Back to the detailed explanation, above", method: "Method",
     methodBody: "Every system above is built the same way: Examination, Construction, Compounding.", methodLink: "Read the Manufacture",
     guardrails: "Guardrails.",
@@ -153,7 +153,7 @@ const DICT = {
     operating: "Comment nous repérons un écart, et ce qu'il se passe ensuite.",
     central: "Parrit / Cas central", caseTitle: "Le premier client de ce système, c'est nous.",
     observed: "Usage interne · vérifié le 13 septembre 2026",
-    record: ["25 types d'information suivis dans l'entreprise", "1 réglé, 8 en cours de transfert, 4 avec deux versions différentes, 12 pas encore commencés", "Toute correction a été validée et notée par une personne."],
+    record: ["25 types d'information suivis dans l'entreprise", "1 réglé, 8 en cours de transfert, 4 avec deux versions différentes, 12 pas encore commencés"],
     mechanism: "Revenir à l'explication détaillée, plus haut", method: "Méthode",
     methodBody: "Chaque système ci-dessus se construit de la même façon : Examen, Construction, Capitalisation.", methodLink: "Lire la Manufacture",
     guardrails: "Garde-fous.",
@@ -191,8 +191,8 @@ const ROWS = {
     },
     {
       "domain": "Prospection commerciale",
-      "source": "Outil externe (Instantly)",
-      "status": "Le transfert n'a pas commencé",
+      "source": "Outil externe (Lemlist)",
+      "status": "Transfert en cours",
       "legacyWriters": 0
     },
     {
@@ -235,8 +235,8 @@ const ROWS = {
     },
     {
       "domain": "Outreach",
-      "source": "External tool (Instantly)",
-      "status": "Transfer not started",
+      "source": "External tool (Lemlist)",
+      "status": "Transfer under way",
       "legacyWriters": 0
     },
     {

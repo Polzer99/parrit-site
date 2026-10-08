@@ -24,7 +24,7 @@ for (const locale of ["fr", "en"] as const) {
     try {
       const page = await context.newPage();
       await page.goto(`${BASE_URL}${prefix || "/"}`);
-      await expect(page.locator(".cmd-cta")).toHaveClass(/\bghost\b/);
+      await expect(page.locator(".cmd-cta")).toHaveClass(/\bexec\b/);
       await page.goto(`${BASE_URL}${prefix}/build-with-you`);
       await expect(page.locator(".cmd-cta")).toHaveClass(/\bexec\b/);
     } finally {
@@ -128,7 +128,7 @@ for (const locale of ["fr", "en"] as const) {
         await expect(prose).toHaveCSS("font-family", /General Sans/);
         await expect(prose).toHaveCSS("text-transform", "none");
         await expect(prose).toHaveCSS("letter-spacing", "normal");
-        await expect(prose).toHaveCSS("font-size", await prose.evaluate((el) => el.matches(".home-s-proof-item span") ? "18px" : "14px"));
+        await expect(prose).toHaveCSS("font-size", await prose.evaluate((el) => el.matches(".home-s-proof-item span") ? "18px" : "16px"));
       }
       for (const kicker of await page.locator(".home-s-build .k, .home-s-maison .k").all()) {
         await expect(kicker).toHaveCSS("font-family", /IBM Plex Mono/);
@@ -152,7 +152,7 @@ for (const locale of ["fr", "en"] as const) {
     });
 
     for (const route of ["", "/build-with-you", "/commission", "/systems"]) {
-      test(`doctrine one pink accent in every viewport ${locale} ${route || "/"} ${width}`, async ({ page }, testInfo) => {
+      test(`doctrine decorative pink accent spacing in every viewport ${locale} ${route || "/"} ${width}`, async ({ page }, testInfo) => {
         await page.setViewportSize({ width, height: 844 });
         await page.goto(`${BASE_URL}${prefix}${route || (prefix ? "" : "/")}`);
         await page.evaluate(() => document.fonts.ready);
@@ -168,8 +168,9 @@ for (const locale of ["fr", "en"] as const) {
             return getComputedStyle(el).color === pink;
           }), "prose links do not add pink accents").toBe(false);
         }
-        await expect(headerAction).toHaveClass(route ? /\bexec\b/ : /\bghost\b/);
-        // Include the shared header and the hero frame, even though it is not a fill.
+        await expect(headerAction).toHaveClass(/\bexec\b/);
+        // Audit 2026-10-08 §2 explicitly requires filled primary actions.
+        // Keep the accent-spacing contract for decorative accents only.
         // Check all possible vertical overlaps, not only selected scroll positions.
         const accents = await page.evaluate(() => {
           const probe = document.createElement("span");
@@ -183,6 +184,7 @@ for (const locale of ["fr", "en"] as const) {
             const bounds = element.getBoundingClientRect();
             const frame = element.matches(".home-s-hero .frame") && getComputedStyle(element, "::before").borderColor === pink;
             if (!bounds.width || !bounds.height || style.visibility === "hidden" || style.display === "none" || Number(style.opacity) === 0) return [];
+            if (element.matches(".rev-button.exec")) return [];
             if (!frame && style.backgroundColor !== pink && !(element.matches("a") && style.color === pink)) return [];
             // VS-PRODUCT-SCENE: only numbered markers within the same scene
             // form one accent. Keep their full extent to catch other pink fills.
@@ -209,21 +211,21 @@ for (const locale of ["fr", "en"] as const) {
           }
         }
         if (!route) {
-          // W-66: observe the whole hero, including when only its bottom remains.
+          // Audit §2: primary action remains consistent while scrolling.
           const heroBottom = await page.locator(".home-s-hero").evaluate((el) => el.getBoundingClientRect().bottom + scrollY);
           await page.evaluate((y) => window.scrollTo(0, y - 10), heroBottom);
-          await expect(headerAction).toHaveClass(/\bghost\b/);
+          await expect(headerAction).toHaveClass(/\bexec\b/);
           await page.evaluate((y) => window.scrollTo(0, y + 1), heroBottom);
           await expect(headerAction).toHaveClass(/\bexec\b/);
           await page.evaluate(() => window.scrollTo(0, 0));
-          await expect(headerAction).toHaveClass(/\bghost\b/);
-          // Shared layouts survive client navigation; the observer must not leak.
+          await expect(headerAction).toHaveClass(/\bexec\b/);
+          // Shared layouts keep that same primary action after navigation.
           await page.locator('.home-s-offers a[href$="/build-with-you"]').click();
           await expect(page).toHaveURL(new RegExp(`${prefix}/build-with-you$`));
           await expect(headerAction).toHaveClass(/\bexec\b/);
           await page.locator(".wordmark").click();
           await expect(page.locator(".home-s-hero")).toBeVisible();
-          await expect(headerAction).toHaveClass(/\bghost\b/);
+          await expect(headerAction).toHaveClass(/\bexec\b/);
         }
       });
     }
@@ -241,7 +243,7 @@ for (const locale of ["fr", "en"] as const) {
     expect(bounds!.y).toBeGreaterThanOrEqual(0);
     expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(844);
     await expect(hero.locator(".doctrine-note")).toHaveText(locale === "fr" ? "Examen offert de 15 minutes, avec le fondateur" : "Free 15-minute examination with the founder");
-    await expect(hero.locator(".doctrine-note")).toHaveCSS("font-size", "14px");
+    await expect(hero.locator(".doctrine-note")).toHaveCSS("font-size", "16px");
     await expect(hero.locator(".offer-price")).toHaveCount(0);
     await expect(page.locator(".r2-close .offer-price")).toHaveCount(1);
     await expect(page.locator('[aria-labelledby="build-next"] > a')).toHaveText(locale === "fr" ? "Réserver un examen pour un système sur mesure" : "Book an examination for a custom system");
