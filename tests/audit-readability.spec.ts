@@ -3,14 +3,14 @@ import { expect, test } from "./network-deny.setup";
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 test.use({ serviceWorkers: "block" });
 
-for (const width of [375, 1440]) {
-  for (const path of ["/", "/fr", "/build-with-you", "/fr/systems", "/journal"]) {
+for (const width of [375, 390, 1440]) {
+  for (const path of ["/", "/fr", "/build-with-you", "/fr/build-with-you", "/fr/systems", "/journal"]) {
     test(`audit readability ${path} at ${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.goto(`${BASE_URL}${path}`);
       await page.evaluate(() => document.fonts.ready);
-      if (width === 375) {
+      if (width < 760) {
         await page.locator(".cmd-menu-toggle").click();
         await expect(page.locator(".cmd-panel-cta")).toHaveCSS("padding", "14px 24px");
         await expect(page.locator(".cmd-panel-cta")).toHaveCSS("font-size", "16px");
@@ -45,7 +45,28 @@ for (const width of [375, 1440]) {
       expect(result.smallProse).toEqual([]);
       expect(result.tightProse).toEqual([]);
       expect(result.overflow).toBe(false);
+      if (path.endsWith("/build-with-you")) {
+        const link = page.locator(".build-with-you-next-link");
+        await expect(link).toBeVisible();
+        expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+        await expect(link).toHaveCSS("font-size", "18px");
+        await expect(link).toHaveAttribute("href", path.startsWith("/fr") ? "/fr/commission" : "/commission");
+      }
       if (path === "/" || path === "/fr") {
+        const booking = page.locator(".home-s-alternative .rev-button");
+        const hero = await page.locator(".home-s-hero h1").boundingBox();
+        const sketch = await page.locator(".agent-esquisse").boundingBox();
+        const button = await booking.boundingBox();
+        expect(hero).not.toBeNull();
+        expect(sketch).not.toBeNull();
+        expect(button).not.toBeNull();
+        for (const reference of [hero!, sketch!]) {
+          expect(Math.abs(button!.x + button!.width / 2 - reference.x - reference.width / 2)).toBeLessThanOrEqual(1);
+        }
+        const founder = page.locator(".home-s-text-link--secondary");
+        await expect(founder).toBeVisible();
+        expect((await founder.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+        await expect(founder).toHaveCSS("font-size", "16px");
         for (const selector of [".home-s-hero .rev-button.exec", ".agent-esquisse button"]) {
           const action = page.locator(selector).first();
           await expect(action).toBeVisible();

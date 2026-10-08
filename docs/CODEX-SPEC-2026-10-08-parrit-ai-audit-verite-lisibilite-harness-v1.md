@@ -99,3 +99,11 @@ Le mécanisme sans aucun certificat publié dans cette PR (les certificats arriv
   déjà un test navigateur ; sinon un test sur les jetons CSS.
 - Batterie : `npm run build && npm test`, plus `node scripts/false-claims-check.mjs` et `node scripts/brand-conformity-check.mjs`.
 - Diffusion : PR. Fusion après relecture de Claude et batterie verte ; déploiement selon la décision de Paul.
+
+## FIX1 (relecture de Claude, 08/10, captures 1440 et 390 px)
+1. Accueil EN et FR, hero : le second bouton « Book the examination » / « Réserver l'examen » sous le bloc Sketch est aligné à
+   gauche alors que tout le hero est centré. Le centrer sur l'axe du hero (même axe que le titre et le bloc Sketch).
+2. Liens isolés hors paragraphe encore à 22 px de haut : « The founder: Paul Larmaraud » / « Le fondateur : Paul Larmaraud »
+   (accueil), « Book an examination for a custom system » (/build-with-you) : zone cliquable de 44 px de haut (padding vertical),
+   sans changer la taille du texte.
+Batterie inchangée.

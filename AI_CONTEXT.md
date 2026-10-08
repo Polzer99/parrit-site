@@ -464,3 +464,13 @@ inclut les articles et isole les textes TS/TSX par AST.
 Build Webpack et 102 tests Node passent ; Turbopack a été interrompu sans progression.
 Chromium est refusé au lancement dans le sandbox : validation responsive sur l'hôte
 requise. Voir docs/REPORT-2026-10-08-audit-verite-lisibilite-harness.md.
+
+### FIX1, 08/10/2026
+
+Le conteneur du second CTA hero conserve sa largeur de lecture et utilise des
+marges horizontales automatiques pour rester centré. Les liens isolés fondateur
+et suite sur mesure BWY ont 12 px de padding vertical et un minimum de 44 px,
+sans modification typographique. Le test audit-readability couvre désormais
+375/390/1440 et BWY FR, avec assertions de centrage et de cibles tactiles.
+Build Webpack et 102 tests Node passent ; validation Chromium toujours bloquée
+par le sandbox macOS avant navigation.

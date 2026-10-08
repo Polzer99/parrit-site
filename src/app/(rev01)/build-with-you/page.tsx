@@ -101,7 +101,7 @@ export default async function BuildWithYouPage() {
         <section className="r2-section" aria-labelledby="build-next">
           <div className="r2-shead"><h2 className="r2-ed" id="build-next">{copy.nextTitle}</h2></div>
           <p style={{ lineHeight: 1.8, marginBottom: 16 }}>{copy.nextBody}</p>
-          <Link href={localizedPath("/commission", locale)}>{copy.nextLink}</Link>
+          <Link className="build-with-you-next-link" href={localizedPath("/commission", locale)}>{copy.nextLink}</Link>
         </section>
         <section className="r2-close" aria-label="Build With You">
           <p className="offer-price">{formatOfferPrice({ ...BUILD_WITH_YOU_PRICE, basis: copy.basis }, locale)}</p>

@@ -1823,7 +1823,7 @@ a.k:active {
 }
 
 .home-s-alternative {
-  margin: 24px 0 0;
+  margin: 24px auto 0;
   color: var(--paper);
   font-size: var(--t-s);
 }
@@ -1832,6 +1832,15 @@ a.k:active {
 .home-s-text-link {
   color: inherit;
   text-underline-offset: 4px;
+}
+
+/* Standalone links: enlarge the hit area without changing the type size. */
+.home-s-text-link--secondary,
+.build-with-you-next-link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
+  padding-block: 12px;
 }
 
 .home-s-metrics {

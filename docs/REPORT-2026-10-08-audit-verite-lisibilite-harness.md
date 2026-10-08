@@ -41,3 +41,33 @@ Le test SystemCard échouait déjà avant modification : ses en-têtes suivaient
 - Avertissements du build : metadataBase absent sur certaines métadonnées ; avertissement Node de type de module non déclaré. Non bloquants et hors changement demandé.
 
 Revue indépendante : deux défauts trouvés et corrigés, spécificité du padding du CTA mobile et extraction regex des textes permettant un disclaimer voisin. Ce dernier est couvert par un test de régression AST. La validation visuelle/production ne peut pas être déclarée obtenue.
+
+## Complément FIX1, 08/10/2026
+
+Base de cette reprise : checkout demandé `8309ba5`. Seule modification initiale :
+l'ajout FIX1 dans la spec, préservé intégralement. Les sections principales étaient
+déjà implémentées ; les 102 tests Node passaient avant cette reprise.
+
+Modifications :
+- `src/app/(rev01)/rev01.css` : marges horizontales automatiques sur le conteneur
+  du second CTA hero, dont la largeur est plafonnée à 68ch ; cibles des liens
+  isolés fondateur et suite BWY de 44 px minimum, padding vertical 12 px.
+- `src/app/(rev01)/build-with-you/page.tsx` : classe dédiée au lien de suite sur
+  mesure, commune aux deux langues. Texte, taille et destination conservés.
+- `tests/audit-readability.spec.ts` : 18 parcours au lieu de 10, ajout de 390 px
+  et BWY FR ; vérification du centrage par rapport au titre et à Sketch (1 px de
+  tolérance), hauteur des liens, tailles conservées et destination localisée.
+- `AI_CONTEXT.md` : état du correctif et limites de validation.
+
+Vérifications de cette reprise :
+- `npm run build` : Turbopack interrompu pendant la compilation sans progression.
+- `npm run build -- --webpack && npm test` : réussi, 55 pages et 102/102 tests.
+- Lint, TypeScript, claims, conformité de marque et `git diff --check` : réussis.
+- `npm run test:brand-os` : 20/20 réussis.
+- Batterie navigateur : 215 cas ; arrêt au lancement de Chromium avec
+  `bootstrap_check_in ... Permission denied (1100)`, avant toute navigation.
+  Géométrie et captures restent à vérifier sur l'hôte avec le serveur local.
+
+Aucun certificat publié, aucune donnée métier modifiée, aucun commit, push ou
+déploiement. La preuve visuelle et la preuve de production restent non obtenues.
+Les avertissements metadataBase du build existaient déjà dans le rapport initial.
