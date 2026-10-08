@@ -1,0 +1,36 @@
+{
+ "schema": "parrit.harness_certificate/v0",
+ "status": "CERTIFIED",
+ "label": "Harness Certified ✓ (étapes déclarées : EVALUATOR, ATTACK, GATES)",
+ "issued_at": "2026-10-05T21:00:15+02:00",
+ "profile": "article-journal",
+ "content_sha256": "7c514e04973364814bb05e29f2e09dc08c432bd5a3b2116c59f79b072a40df83",
+ "url": "https://parrit.ai/journal/malicious-mcp-server-after-install",
+ "stages": {
+  "SOURCES": {
+   "pass": true,
+   "level": "verified"
+  },
+  "EVALUATOR": {
+   "pass": true,
+   "level": "declared"
+  },
+  "ATTACK": {
+   "pass": true,
+   "level": "declared"
+  },
+  "GATES": {
+   "pass": true,
+   "level": "declared"
+  },
+  "HUMAN": {
+   "pass": true,
+   "level": "not_required"
+  }
+ },
+ "sources": [
+  "https://labs.cloudsecurityalliance.org/research/csa-research-note-deadbugz-mcp-metadata-poisoning-20260902-c/",
+  "https://www.pillar.security/blog/deadbugz-currently-active-mcp-supply-chain-campaign"
+ ],
+ "certificate_sha256": "fa6eb4369b6089fe6cd9319f73049fc40e262e131723faab920b56347f2085d5"
+}

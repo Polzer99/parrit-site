@@ -2,6 +2,23 @@ import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 
+test("first certified article renders its Harness label and serves the linked certificate", async ({ page }) => {
+  await page.goto(`${BASE_URL}/journal/malicious-mcp-server-after-install`);
+  const badge = page.locator(".journal-header .harness-badge");
+  await expect(badge.locator("strong")).toHaveText("Harness Certified ✓");
+  await expect(badge.locator("a")).toHaveAttribute("href", "/certificates/malicious-mcp-server-after-install.json");
+  const [response] = await Promise.all([
+    page.waitForResponse((response) => new URL(response.url()).pathname === "/certificates/malicious-mcp-server-after-install.json"),
+    badge.locator("a").click(),
+  ]);
+  expect(response.status()).toBe(200);
+  expect(await response.json()).toMatchObject({
+    status: "CERTIFIED",
+    url: "https://parrit.ai/journal/malicious-mcp-server-after-install",
+    content_sha256: "7c514e04973364814bb05e29f2e09dc08c432bd5a3b2116c59f79b072a40df83",
+  });
+});
+
 test("renamed French slugs answer one permanent redirect", async ({ request }) => {
   // API requests bypass the browser deny-all: restrict the origin and never auto-follow.
   expect(["localhost", "127.0.0.1"]).toContain(new URL(BASE_URL).hostname);
