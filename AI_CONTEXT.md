@@ -91,7 +91,7 @@ TypeScript, lint complet et gate de marque passent hors réseau. Le H1 home vaut
 
 ## Offres home, 20/09/2026
 
-La spec validée `docs/CODEX-SPEC-2026-09-20-offer-cards-home.md` prime sur l’ancienne interdiction de prix public de TRUTH.md pour Build With You : 3 200 € HT forfait, 10 heures. Deux OfferCard entre build et Journal ; champs absents masqués, prix et priceNote mutuellement exclusifs. La page `/build-with-you` et `/fr/build-with-you` utilise les composants et styles r2 existants ; registre locale, matcher proxy et sitemap incluent cette route. Aucun changement commission/dossiers/founder bridge. Écart commercial conservé selon mandat : audit offert 30 min pour Build With You, destination commission annonçant 15 min.
+La spec validée `docs/CODEX-SPEC-2026-09-20-offer-cards-home.md` prime sur l’ancienne interdiction de prix public de TRUTH.md pour Build With You : à partir de 3 500 € HT au forfait, 10 heures (montant actualisé par décision directe de Paul le 08/10/2026, CLM-OFFER-BWY). Deux OfferCard entre build et Journal ; champs absents masqués, prix et priceNote mutuellement exclusifs. La page `/build-with-you` et `/fr/build-with-you` utilise les composants et styles r2 existants ; registre locale, matcher proxy et sitemap incluent cette route. Aucun changement commission/dossiers/founder bridge. Écart commercial conservé selon mandat : audit offert 30 min pour Build With You, destination commission annonçant 15 min.
 
 Tests : `node --test tests/offer-card.test.mjs` (rendu serveur réel) et `tests/offer-cards.spec.ts` intégré à qa:network:rev01 (FR/EN, 375/767/768/1440, liens, métadonnées, débordements, captures 375/1440). Validation navigateur et captures à terminer hors sandbox, Chromium refusé par macOS.
 
@@ -511,3 +511,12 @@ avec son lien dans le rendu serveur EN/FR ; Playwright vérifie aussi l'accès a
 Build Webpack et 104 tests Node passent. Turbopack interrompu sans progression ;
 Chromium bloqué par le sandbox avant navigation. Détails dans
 `docs/REPORT-2026-10-08-premier-certificat-harness.md`.
+
+## Prix Build With You, 08/10/2026
+
+Décision directe de Paul : « à partir de 3 500 € HT » / « From €3,500 excl. VAT ».
+`BUILD_WITH_YOU_PRICE` dans `site.config.ts` reste la source unique du montant
+pour les pages accueil, Build With You et Systèmes en FR/EN. Aucun prix à modifier
+dans les articles, le générateur llms.txt ou les JSON-LD existants. Les tests
+unitaires, SSR et navigateur verrouillent le nouvel ancrage et rejettent l’ancien.
+Composition de l’accueil et design-source historiques préservés.

@@ -19,7 +19,8 @@ for (const width of [375, 1440, 767, 768]) {
         await expect(card.getByRole("link")).toHaveCount(1);
         await expect(card.getByRole("listitem")).toHaveCount(3);
       }
-      await expect(cards.nth(0).locator(".offer-price")).toHaveText(locale === "fr" ? "À partir de 3 200 € HT au forfait" : "From €3,200 excl. VAT, fixed price");
+      await expect(cards.nth(0).locator(".offer-price")).toHaveText(locale === "fr" ? "À partir de 3 500 € HT au forfait" : "From €3,500 excl. VAT, fixed price");
+      await expect(page.locator("body")).not.toContainText(/3,200|3[\s\u00a0\u202f]200\s*€/);
       await expect(cards.nth(1).locator(".offer-price")).toHaveText(locale === "fr" ? "Sur devis" : "Custom quote");
       await expect(cards.nth(0).getByRole("link")).toHaveAttribute("href", `${prefix}/build-with-you`);
       await expect(cards.nth(1).getByRole("link")).toHaveAttribute("href", `${prefix}/commission`);
@@ -40,7 +41,8 @@ for (const width of [375, 1440, 767, 768]) {
       await expect(page.locator("html")).toHaveAttribute("lang", locale);
       await expect(page.getByRole("heading", { level: 1 })).toHaveText(locale === "fr" ? "En 10 heures avec le fondateur, vous construisez un système qui tourne." : "In 10 hours with the founder, you build a system that runs.");
       await expect(page.locator(".r2-phase")).toHaveCount(3);
-      await expect(page.locator("main .offer-price")).toHaveText(locale === "fr" ? "À partir de 3 200 € HT au forfait" : "From €3,200 excl. VAT, fixed price");
+      await expect(page.locator("main .offer-price")).toHaveText(locale === "fr" ? "À partir de 3 500 € HT au forfait" : "From €3,500 excl. VAT, fixed price");
+      await expect(page.locator("body")).not.toContainText(/3,200|3[\s\u00a0\u202f]200\s*€/);
       await expect(page.locator("main form")).toHaveCount(0);
       await expect(page.locator("main a")).toHaveCount(4);
       for (const link of await page.locator("main a").all()) {
