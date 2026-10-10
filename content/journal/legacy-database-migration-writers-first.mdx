@@ -1,0 +1,46 @@
+---
+title: "Switching our sales screen to the new database would have hidden 16 of its 34 items"
+date: "2026-10-10"
+description: "Before moving a screen off an old database, run it against both and sort every difference. Ours showed that most of the gap was a filter that disagreed, and that the real risk was the scripts still writing to the old side."
+slug: "legacy-database-migration-writers-first"
+---
+
+{/*
+RAIL parrit
+MÉTIER DSI
+FAMILLE BUILD
+SIGNAL aucun crochet daté, matière interne mesurée (registre des sources de vérité, origin/main 550f217 du 08/10/2026 ; journal du garde legacy 13/09 au 04/10)
+URGENCE Normale
+*/}
+
+On 11 September we ran our sales screen against our old database and our new one. The old side showed 34 items, the new side 21, and 16 appeared only on the old side. Switching that day would have changed almost half of what the screen showed, without a single error. So a screen switches only when both sides show the same thing, and every script still writing to the old database moves first.
+
+The rest of the count matters too: 18 items appeared on both sides, three were records created only on the new one, and the screen alone gave no way to tell which of the 16 mattered.
+
+## The scripts that keep writing
+
+A migration is usually planned as a copy followed by a switch, and the plan assumes the old database stops changing once the copy is done. On 13 September we listed every job that still wrote contact records to our old database and found eleven: scheduled jobs, handlers that receive notifications from other tools, small sync scripts. As long as they ran, the old database kept learning things the new one did not, and a screen moved to the new side would show an older company than the one we were running.
+
+The same inventory corrected a status we had written ourselves. Our internal application kept a list of screens it considered migrated, and the meetings screen was on it. Reading the code showed that screen still loaded meetings from the old table. We now treat a migration status as a claim and read the code behind it.
+
+## What the comparison found
+
+We compare what a person sees, because two databases can hold the same number of rows and disagree on what matters. Someone who uses the screen every day sits with whoever owns the scripts, runs the same screen with the same filters on both sides, and sorts every difference into three groups: missing from the new side, present but filtered out by a rule that differs, and junk the old side happened to display.
+
+The 16 items from the sales screen, together with 114 from our booking screen, make 130 items seen only on the old side. When we traced them, 91 were in the new database and hidden by a filter written differently there, and 39 were call transcripts that an old script had filed as prospects. None of the 130 was missing. The work on those two screens was aligning a definition and deleting junk, and the comparison is what told us so.
+
+The missing group does exist elsewhere. Since 24 August, recorded calls from every source but one have arrived only in the old database, because their writers have not moved yet. That is the case where switching loses data, and it is invisible on any screen that does not show calls.
+
+## Where we stand
+
+We keep a registry of 26 data domains that says, for each, which database is authoritative, and on 8 October it showed one domain switched: payment records, where the bank's own records are the source and no script wrote the old table, so the comparison came back empty. Four are blocked because their comparison failed, eight are migrating, and thirteen have not started. At our last inventory, on 13 September, both databases were still receiving writes in fifteen of the 26.
+
+While writers move, a check holds the line. Our coding agents are AI tools that type commands for us, and the database commands they type in a session pass through a small program that refuses writes aimed at the old database. Between 13 September and 4 October it refused 59 attempts. It reads commands typed in a session and cannot see inside a script launched by its file name, which the automated checks that run before any code change is accepted cover with their own rule.
+
+There is one thing we would do in a different order. On 13 September our own check found the old database no longer answering: four test reads out of four timed out, the latest backup dated from the day before, and continuous backup, which lets you restore to any minute, was switched off. The four failed comparisons cannot run again until we restore a readable copy, and at the date of our registry that copy did not exist yet, so those four domains stay where they are. Turn continuous backup on before the first comparison, because a comparison is only worth something if you can run it twice.
+
+## Running it on your own migration
+
+Pick the screen your team uses to decide, the one that would hurt most if it showed less than it should. List every job, script and integration that writes to the table behind it, on both systems, and note which side each one targets. Then run the screen against both databases with the same filters, with the person who uses it next to you, and sort every difference into the three groups.
+
+A missing item names a writer still on the old side. A filtered item names a rule to agree on. When the first group is empty and no writer targets the old side, that screen can switch, and the next one is already on your list.
