@@ -1,0 +1,38 @@
+---
+title: "A Claude Code hook that runs past its timeout lets the tool call through"
+date: "2026-10-11"
+description: "Our publishing check once needed more than five minutes, and the hook that ran it was given 70 seconds. Claude Code cancelled the hook, and an article went live that the check had never read. What we changed, and the table to build for your own hooks."
+slug: "hook-timeout-lets-tool-call-through"
+---
+
+{/*
+RAIL parrit · MÉTIER DSI/RSSI · FAMILLE BUILD · SIGNAL aucun crochet daté (incident interne du 10/10/2026, doc Claude Code hooks lue le 11/10/2026) · URGENCE Normale
+*/}
+
+When a Claude Code hook is still running at the end of its timeout, Claude Code cancels it and the tool call goes ahead. The [hook documentation](https://code.claude.com/docs/en/hooks) says it plainly: a timed-out hook "doesn't block the tool call", so "don't count on a stalled hook to act as a gate." A hook that enforces a rule therefore needs a timeout longer than its slowest run, and it needs to block when it fails.
+
+We learned this on our own publishing pipeline on 10 October 2026.
+
+## What happened on 10 October
+
+The articles on this page are drafted by an AI agent and published by a script once a series of checks pass. A hook stands in front of that script. A hook is a small program that Claude Code runs before each tool call, and it can refuse the call. Ours asks a checking step whether the article may go out. One of those checks hands the draft to a separate reader, a language model, which refuses it if the answer to the title comes after the first 80 words or if a hurried reader would not follow it. The hook was given 70 seconds. When we ran the same check by hand that morning, it took more than five minutes; this morning it took 26 seconds.
+
+Our repository history shows the article published at 10:22. The file where that reader stores each verdict has no entry for it before 10:51, when we ran the check by hand after the fact. The reader refused the published version, then refused a rewrite. The sequence in between is our deduction from those timings and the documentation: the hook ran out of time, Claude Code cancelled it, and the publishing command ran as if nothing had objected. The article has been online for about 21 hours as we write. We have no reader count for it, so the cost we can state is narrower: for a day, a rule we believed enforced was not. Whether the article stays up is our founder's decision, with both refusals on the table.
+
+## Why the hook's own failure rule did not apply
+
+The hook was written to refuse a publication whenever it cannot reach a decision. That rule sits in the hook's own code, and it covers every failure the code can see: a missing file, an error from the checking step, an unreadable answer. A cancellation comes from outside. Claude Code stops the process before it reaches the line that would have refused, so the refusal never happens. Only Claude Code can decide what a cancelled hook means, and by default it lets the call through.
+
+## The fix we recommend
+
+The documentation offers a one-line setting. With `onFailure` set to `"block"`, Claude Code refuses the tool call when that hook times out, crashes or returns something it cannot read. According to the same page it requires Claude Code 2.1.295 or later. The machine that publishes this journal runs 2.1.72 (read with `claude --version` on 11 October), so the setting needs an update before it exists for us.
+
+The fix we recommend works on any version: keep the hook fast. The slow judgement runs earlier, as its own step, and writes its verdict to a file keyed by the exact text of the draft. The hook only reads that file, which takes well under a second, and refuses when no verdict exists for the text it is about to publish. The check can take five minutes or five seconds; the hook's answer no longer depends on it. Add `onFailure: "block"` on top once your version supports it.
+
+Until that ships on our side, the agent runs the check itself, waits for the verdict, and starts the publishing script only after it reads "allowed".
+
+## Checking your own hooks
+
+Open the settings file where your hooks are declared and build a three-column table: each hook that is meant to refuse something, its timeout, and its slowest run. If no timeout is set, the [documented default](https://code.claude.com/docs/en/hooks) for a command hook is 600 seconds. Time the slowest run you can provoke, with the network slow and the model busy, because our check ranged from 26 seconds to more than five minutes on two consecutive days. Without `onFailure: "block"`, every hook whose slowest run exceeds its timeout lets calls through on the days it is slow.
+
+For each of those, move the slow part out of the hook, and check your version with `claude --version` before you count on `onFailure`. The table tells you which of your rules are still enforced on a bad day.
