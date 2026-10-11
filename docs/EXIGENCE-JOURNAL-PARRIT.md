@@ -1,5 +1,10 @@
 # EXIGENCE-JOURNAL-PARRIT — la barre du rail parrit.ai
 
+> v8 · 2026-10-11 (cliquet dimanche : référence de la semaine, premier
+> article du rail jugé lisible par la porte C-LISIBILITE sur son texte
+> final + trois défauts promus depuis les refus de cette porte (réponse
+> tardive, terme non glosé, formule) + tic banni : la section-demande
+> sur le même moule trois articles de suite).
 > v7 — 2026-10-04 (cliquet dimanche : référence de la semaine +
 > `scope_stretch` revenu trois fois APRÈS sa promotion, donc balayage
 > des affirmations obligatoire avant le panel + franchise
@@ -131,6 +136,33 @@ anglais le 08/09 (PR #241, 301 en un saut depuis l'ancien slug).
   question juridique laissée ouverte : il dit ce que les textes ne
   tranchent pas et ne conclut pas à la place du juriste.
 
+- `hook-timeout-lets-tool-call-through` (11/10, référence de la
+  semaine du 04 au 11/10). Trois articles en ligne sur le rail cette
+  semaine : `malicious-mcp-server-after-install` (04/10),
+  `legacy-database-migration-writers-first` (10/10, exclu d'office :
+  publié pendant que la porte C-LISIBILITE ne répondait pas, refusé deux
+  fois par elle après coup) et celui-ci. Il l'emporte sur l'article du
+  04/10 pour trois raisons. C'est le premier texte du rail que la porte
+  de lisibilité a jugé sur sa version finale (refus au premier passage,
+  PASS sur la réécriture, PASS sur le texte publié après le tour 2 du
+  panel) : la réponse au titre tient dans le premier paragraphe, citation
+  de la documentation comprise, et la scène datée vient juste après,
+  là où l'article du 04/10 ouvrait sur la scène et donnait la réponse au
+  troisième paragraphe. Ensuite, il raconte un incident qui nous dessert
+  (un article publié sans le contrôle que nous disions obligatoire), il
+  sépare ce que nos journaux montrent de ce que nous en déduisons
+  (« The sequence in between is our deduction »), et il écrit ce qu'il
+  ne sait pas chiffrer (« We have no reader count for it, so the cost we
+  can state is narrower »). Enfin, chaque terme qu'un lecteur pressé ne
+  connaît pas est glosé à sa première occurrence (« A hook is a small
+  program that Claude Code runs before each tool call »), et la demande
+  au lecteur se fait seul, dans son propre fichier de réglages. Réserve :
+  son intertitre de demande et sa phrase d'entrée dans la demande
+  reprennent le moule des deux articles précédents (voir « Tics
+  bannis », cliquet 11/10). L'article du 04/10 reste le meilleur modèle
+  pour vérifier notre propre outil contre une menace publiée : il a
+  trouvé et écrit trois trous dans notre garde le jour même.
+
 ## Discipline chiffres externes (cliquet 06/09)
 
 - Deux articles de la semaine (31/08 → 01/09) ont écarté ou neutralisé
@@ -176,6 +208,32 @@ en amont ce que le panel attrapait en aval.
   `borrowed_number`. A claim about our own systems is checked in the
   system that day, not from memory. An exception never appears without
   the rule it is an exception to.
+
+- **Défauts promus depuis la porte C-LISIBILITE (cliquet 11/10)**. La
+  porte de lisibilité, en service depuis le 05/10, a refusé huit
+  versions en sept jours sur les deux rails. Trois motifs reviennent
+  trois fois ou plus, et ils se corrigent à l'écriture, avant la porte :
+  - **Answer first** (`answer_late` : 06/10 chiffres avant leur
+    conséquence, 07/10 mécanisme avant la consigne, 09/10 premier
+    paragraphe de plus de 80 mots portant trois idées, et le 08/10 sur
+    le rail paul). The first paragraph is written first and answers the
+    title in 80 words or fewer, with one idea. The dated scene, the
+    measurement and the mechanism come after it. Précédent conforme :
+    `hook-timeout-lets-tool-call-through`, réponse et citation en
+    quatre phrases, scène du 10/10 au paragraphe suivant.
+  - **Every term glossed once** (`jargon_unglossed` : 09/10
+    `workflow_dispatch`, 10/10 « moves » non défini, 11/10 « closed by
+    default », et le 08/10 sur le rail paul). Any term a hurried reader
+    of the rail may not know, including our own internal words, gets a
+    plain clause at its first occurrence or is replaced. Before the
+    panel, list these terms in one sweep, as numbers and claims are
+    already swept.
+  - **No formula sentences** (`formula_line` : 06/10 chute stylisée,
+    11/10 « general lesson », chute « says yes » et description en
+    aphorisme ; le même jour sur le rail paul, « slogans »). The
+    `description` is a factual summary, never an aphorism. The single
+    slogan allowed by the house style stays in the closing line, and
+    the body carries none.
 
 ## Tics bannis
 
@@ -261,6 +319,24 @@ en amont ce que le panel attrapait en aval.
   vertu ne se commente pas. Interdit : « we would rather say/state … than
   … », « we prefer to be clear », « to be transparent », « in fairness »
   et leurs variantes, sur les deux rails.
+
+- **La section-demande sur le même moule, trois articles de suite
+  (cliquet 11/10, relecture du texte complet des trois articles du
+  04, 10 et 11/10)**. Les trois intertitres de demande se construisent
+  pareil, un gérondif suivi de « your own » : « Putting the four targets
+  to your own agent », « Running it on your own migration », « Checking
+  your own hooks ». Leur première phrase aussi, un impératif suivi de
+  l'objet que l'équipe utilise le plus : « Open the configuration of
+  the agent your team uses most », « Pick the screen your team uses to
+  decide », « Open the settings file where your hooks are declared ».
+  C'est `ask_heading_template` (banni le 13/09 sur « … this week »)
+  revenu sous une autre forme, parce que la règle visait le mot et non
+  le moule. Règle : deux articles consécutifs ne construisent pas leur
+  intertitre de demande sur la même forme grammaticale, et « your
+  own » n'y figure pas plus d'une fois sur trois articles. La
+  formule « the X your team uses most » est gelée. Avant d'écrire la
+  demande, relire les intertitres et la première phrase de demande des
+  deux derniers articles du rail.
 
 ## Un cliquet ne compte qu'une fois mergé (incident du 23/09)
 
