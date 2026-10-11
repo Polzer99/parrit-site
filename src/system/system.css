@@ -592,7 +592,7 @@ button {
 }
 
 .cal-instrument {
-  max-width: 860px;
+  max-width: none;
   margin: 0 auto;
   border: 1px solid var(--rule-d);
   background: var(--carbon);

@@ -196,8 +196,8 @@ for (const locale of ["en", "fr"] as const) {
     await expect(page.getByRole("region", { name: "Metrics", exact: true })).toHaveCount(0);
     await expect(page.getByText(/200\+|2[.,]5 (?:months|mois)|100\s*%|02·09·2026/)).toHaveCount(0);
     await expect(page.locator(".home-s-brands-list + p")).toHaveText(locale === "fr"
-      ? "Pas publiés. Partagés en rendez-vous."
-      : "Not published. Shared in person.");
+      ? "Les noms des clients sont communiqués en rendez-vous."
+      : "Client names are shared in a meeting.");
     const gap = await page.locator(".home-s-brands").evaluate((brands) => {
       const previous = brands.previousElementSibling;
       if (!previous?.classList.contains("home-s-hero")) throw new Error("Hero containing the agent must precede brands");

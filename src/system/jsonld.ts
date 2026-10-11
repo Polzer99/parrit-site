@@ -8,7 +8,7 @@ export function organizationJsonLd() {
     alternateName: "PARRIT.AI",
     logo: "https://parrit.ai/icon.png",
     description:
-      "Parrit.ai is a data and AI company that turns a company's data into software tools the company owns: commissioned, not subscribed. Based in France; operating internationally in English and French.",
+      "Parrit.ai is an independent French data and AI firm. We turn a company's data into tools it owns, built in its own accounts and documented.",
     founder: personRef(),
     address: {
       "@type": "PostalAddress",

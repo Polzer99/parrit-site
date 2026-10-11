@@ -36,8 +36,8 @@ test("home EN/FR uses documented orders, dated information types and own-system 
   for (const required of [
     "an industrial group · a law firm · a B2B energy broker · a consumer brand.",
     "un groupe industriel · un cabinet d'avocats · un courtier en énergie B2B · une marque grand public.",
-    "15 of the 25 types of information we track were still held in two places (measured September 13, 2026).",
-    "15 des 25 types d'information que nous suivons étaient encore tenus en double (mesuré le 13 septembre 2026).",
+    "We publish the real state of our own system: as of September 13, 2026, 15 of the 25 types of information we track were still held in two places.",
+    "Nous publions l'état réel de notre propre système : au 13 septembre 2026, 15 des 25 types d'information suivis étaient encore tenus en double.",
     "The Journal records what held and what broke on our own systems, and what we take from it for yours.",
     "Le Journal consigne ce qui a tenu et ce qui a cassé sur nos propres systèmes, et ce que nous en tirons pour les vôtres.",
   ]) assert.ok(source.includes(required), required);
@@ -52,18 +52,16 @@ test("dossier 26-002 keeps commissioned status and confines scope to mailbox ass
 test("systems EN/FR names Lemlist transfer and removes unsupported universal human review", () => {
   const source = page("systems");
   assert.doesNotMatch(source, /Instantly|Every automatic correction has been checked|Toute correction a été validée/);
-  assert.match(source, /External tool \(Lemlist\)[\s\S]*?Transfer under way/);
-  assert.match(source, /Outil externe \(Lemlist\)[\s\S]*?Transfert en cours/);
+  assert.match(source, /External tool \(Lemlist\)[\s\S]*?Being transferred/);
+  assert.match(source, /Outil externe \(Lemlist\)[\s\S]*?En cours de transfert/);
 });
 test("new systems and autonomy promise are explicit in both languages", () => {
   assert.match(page("manufacture"), /EACH NEW SYSTEM CHECKED AGAINST THE STANDARD/);
   assert.match(page("manufacture"), /CHAQUE NOUVEAU SYSTÈME VÉRIFIÉ AU STANDARD/);
   const source = page("build-with-you");
   for (const phrase of [
-    "In 10 hours with the founder, you build a system that runs, and you leave able to build the next one without us.",
-    "En 10 heures avec le fondateur, vous construisez un système qui tourne, et vous repartez capable de construire le suivant sans nous.",
-    "You want to leave with something that runs, built with you.",
-    "Vous voulez repartir avec quelque chose qui tourne, construit avec vous.",
+    "You also leave able to build the next one without us.",
+    "Vous repartez aussi capable de construire le suivant sans nous.",
   ]) assert.ok(source.includes(phrase), phrase);
   assert.match(source, /<h1>\{copy.title\}<\/h1>\s*<p[^>]*>\{copy.autonomy\}<\/p>/);
 });
@@ -74,7 +72,7 @@ test("legal identity and generated machine-readable claims stay consistent", () 
   for (const path of ["scripts/generate-llms.mjs", "public/llms.txt"]) {
     const text = read(path);
     assert.doesNotMatch(text, /Based in Lille|SASU|certification every|Every delivered system|from the first commit/);
-    for (const required of ["The Standard, six commitments Parrit.ai applies to its systems. It is not an accreditation.", "Each system delivered from now on is checked", "That is the engagement we sign, and the handover is where we check it."]) assert.ok(text.includes(required), `${path}: ${required}`);
+    for (const required of ["The Standard, six commitments Parrit.ai applies to its systems. It is an internal check, with no external accreditation.", "Each system delivered from now on is checked", "That is the engagement we sign, and the handover is where we check it."]) assert.ok(text.includes(required), `${path}: ${required}`);
   }
 });
 
@@ -84,6 +82,6 @@ test("FIX3 dossier titles describe the operation and home retains the French dis
     assert.ok(source.includes(`"title": "${title}"`));
     assert.equal(source.split(title).length - 1, 1);
   }
-  assert.ok(page().includes("Pas publiés. Partagés en rendez-vous."));
-  assert.ok(page().includes("Commandes de :"));
+  assert.ok(page().includes("Les noms des clients sont communiqués en rendez-vous."));
+  assert.ok(page().includes("Ils nous ont commandé un système :"));
 });

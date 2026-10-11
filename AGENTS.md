@@ -55,17 +55,16 @@ Aucun mode complex ni Inter Tight.
   est aligné sur la colonne `max-width:1160px` du reste du site (`.cmdbar-inner`), pas sur les
   bords bruts de l'écran. Elle est rendue avant `{children}` dans `layout.tsx` sur TOUTES les
   pages ; sans horloge live (retirée, décorative) ni doublon de navigation vers `/commission`.
-  La séquence d'ouverture (`Opening.tsx` : boot log → statement avec Parrit Frame), elle,
-  **reste** un overlay `position: fixed` sous les 64px de la barre — elle joue à **chaque
-  arrivée** sur `/` (décision Paul 14/08 — pas de flag de session ; skip au clic/scroll/touche,
-  skip total en `prefers-reduced-motion`, SSR intact dessous). Historique des passes (retrait
+  Le composant `Opening.tsx` (boot log et statement avec Parrit Frame) est conservé
+  mais n'est importé ni rendu par aucune page depuis le 06/09/2026.
+  Historique des passes (retrait
   de l'horloge, alignement sur la grille, puis retrait de `position: fixed`) : voir les trois
   spécifications `docs/CODEX-SPEC-2026-09-20-header-*.md`. (Le registre `SYSTEM PARRIT.AI · REV
   01 · STATUS OPERATIONAL` décrit par `docs/site-prod-rev01/lots/LOT-O-OPENING-CMDBAR.md` n'a
   jamais été implémenté dans `RevHeader.tsx` : cette ligne décrivait déjà le prototype, pas le
   composant livré — écart non corrigé, signalé pour mémoire.)
 - **Éléments propriétaires** : le Parrit Frame (crochets d'accent = objet en attente de décision),
-  la registry line (`PARRIT / SITE · REV 01 · 2026`), le Standard en spécification PS-01…PS-06.
+  la registry line (`PARRIT / X · 2026`), le Standard en critères numérotés 01…06.
 
 ### Règle de création — non négociable
 
@@ -91,8 +90,8 @@ Une ressource a **une seule URL canonique** : celle qui rend son expérience com
 `tests/ressources-reachability.spec.ts` bloque les cinq régressions correspondantes. Ses assertions portent sur les URL et le registre, **jamais sur des classes CSS** : une refonte visuelle ne doit pas casser un test de conversion.
 
 ## Routes (REV 01 — après purge legacy du 14/08/2026)
-- `src/app/(rev01)/page.tsx` → home institutionnelle (Opening + hero « Your company. One system. » + live demo + loop) ; `layout.tsx` du groupe porte la command bar (`RevHeader`) et le footer.
-- `/standard` (PS-01…PS-06) · `/commission` (Cal inline `paul-larmaraud/audit`, 15 min — premier échange, seul lien de booking du site ; *corrigé le 20/09/2026, `paul-larmaraud/30min` ne correspondait plus à `CAL_LINK_COMMISSION` dans `site.config.ts`*) · `/journal` + `/journal/[slug]` · `/dossiers` · `/legal`.
+- `src/app/(rev01)/page.tsx` → home institutionnelle (hero « We turn operational problems into systems that work. », esquisse, méthode et preuves) ; `layout.tsx` du groupe porte la command bar (`RevHeader`) et le footer.
+- `/standard` (critères 01…06) · `/commission` (Cal inline `paul-larmaraud/audit`, 15 min — premier échange, seul lien de booking du site ; *corrigé le 20/09/2026, `paul-larmaraud/30min` ne correspondait plus à `CAL_LINK_COMMISSION` dans `site.config.ts`*) · `/journal` + `/journal/[slug]` · `/dossiers` · `/legal`.
 - `/paul` et `/maxime` : **SUPPRIMÉES le 14/08/2026** (ordre Paul) — 301 vers `/` dans `next.config.ts`. Ne pas les recréer.
 - `/manufacture` (doctrine + phases) · `/sketch/[id]` (esquisse personnalisée du funnel, noindex, force-dynamic — l'UUID de soumission est le jeton d'accès).
 - `src/app/opengraph-image.tsx` (+ OG par article) = cartes OG, polices locales officielles dans `src/og-assets/` (Satori refuse le woff2).

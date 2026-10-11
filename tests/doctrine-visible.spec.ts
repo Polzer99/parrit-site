@@ -256,7 +256,7 @@ for (const locale of ["fr", "en"] as const) {
     await expect(hero.locator(".doctrine-note")).toHaveCSS("font-size", "16px");
     await expect(hero.locator(".offer-price")).toHaveCount(0);
     await expect(page.locator(".r2-close .offer-price")).toHaveCount(1);
-    await expect(page.locator('[aria-labelledby="build-next"] > a')).toHaveText(locale === "fr" ? "Réserver un examen pour un système sur mesure" : "Book an examination for a custom system");
+    await expect(page.locator('[aria-labelledby="build-next"] > a')).toHaveText(locale === "fr" ? "Réserver l'examen (système sur mesure)" : "Book the examination (custom system)");
   });
 }
 

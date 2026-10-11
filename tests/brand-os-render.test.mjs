@@ -19,16 +19,16 @@ const routes = ["/", "/build-with-you", "/systems", "/commission", "/manufacture
 
 const titles = {
   en: {
-    "/": ["Four steps take you from the first message to a system your team runs.", "We show client dossiers in a meeting, not online.", "The Journal records what held and what broke on our own systems, and what we take from it for yours.", "A 15-minute examination tells you whether a system is worth building."],
+    "/": ["Four steps take you from the first message to a system your team runs.", "Three dossiers are summarised here. The others are presented in a meeting.", "The Journal records what held and what broke on our own systems, and what we take from it for yours.", "A 15-minute examination tells you whether a system is worth building."],
     "/build-with-you": ["In 10 hours with the founder, you build a system that runs."],
-    "/manufacture": ["We build each system one operation at a time, from Examination to Compounding.", "A system is manufactured. It is not installed.", "Three phases turn an examined operation into a system you own."],
-    "/dossiers": ["We show client dossiers in a meeting, not on this site.", "The dossiers open in conversation. Systems commissioned by large accounts, SMEs and mid-sized companies. Anonymized on principle."],
+    "/manufacture": ["We build each system one operation at a time, from Examination to Compounding.", "Each system is built in your accounts, under your keys.", "Three phases turn an examined operation into a system you own."],
+    "/dossiers": ["Three dossiers are summarised here. The others are presented in a meeting.", "These systems were commissioned by large accounts, SMEs and mid-sized companies. We anonymize all of them."],
   },
   fr: {
-    "/": ["Quatre étapes mènent du premier message à un système que votre équipe fait tourner.", "Nous montrons les dossiers clients en rendez-vous, pas en ligne.", "Le Journal consigne ce qui a tenu et ce qui a cassé sur nos propres systèmes, et ce que nous en tirons pour les vôtres.", "Un examen de 15 minutes vous dit si un système vaut d'être construit."],
+    "/": ["Quatre étapes mènent du premier message à un système que votre équipe fait tourner.", "Trois dossiers sont résumés ici. Les autres se présentent en rendez-vous.", "Le Journal consigne ce qui a tenu et ce qui a cassé sur nos propres systèmes, et ce que nous en tirons pour les vôtres.", "Un examen de 15 minutes vous dit si un système vaut d'être construit."],
     "/build-with-you": ["En 10 heures avec le fondateur, vous construisez un système qui tourne."],
-    "/manufacture": ["Nous construisons chaque système une opération à la fois, de l'Examen à la Capitalisation.", "Un système se fabrique. Il ne s'installe pas.", "Trois phases transforment une opération examinée en un système qui vous appartient."],
-    "/dossiers": ["Nous montrons les dossiers clients en rendez-vous, pas sur ce site.", "Les dossiers s'ouvrent de vive voix. Des systèmes commandés par des grands comptes, des PME et des ETI. Anonymisés par principe."],
+    "/manufacture": ["Nous construisons chaque système une opération à la fois, de l'Examen à la Capitalisation.", "Chaque système se fabrique dans vos comptes, avec vos clés.", "Trois phases transforment une opération examinée en un système qui vous appartient."],
+    "/dossiers": ["Trois dossiers sont résumés ici. Les autres se présentent en rendez-vous.", "Ces systèmes ont été commandés par des grands comptes, des PME et des ETI. Nous les anonymisons tous."],
   },
 };
 
@@ -68,6 +68,10 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
         }
         assert.deepEqual(checkGlyphs(html, label, glyphs, connectors), []);
         const text = visibleText(html);
+        const accessible = [...html.matchAll(/(?:aria-label|alt)="([^"]*)"/g)].map((match) => visibleText(match[1])).join(" ");
+        for (const pattern of [/[—–]/, /\b(fictif|fictive|fictional|illustrati(f|ve)|illustrées?|non interactive|pas une analyse|not an analysis)\b/i, /\bREV\s?0\d\b|\bPS-0\d\b|\bSTD-\d\.\d\b|\bP0\b/]) {
+          assert.doesNotMatch(`${text} ${accessible}`, pattern, `${label}: anti-slop SSR`);
+        }
         assert.doesNotMatch(text, /3,200|3[\s\u00a0\u202f]200\s*€/, `${label}: retired BWY price must not render`);
         if (["/", "/build-with-you", "/systems"].includes(route)) {
           const price = locale === "fr" ? "À partir de 3 500 € HT au forfait" : "From €3,500 excl. VAT, fixed price";
@@ -95,12 +99,12 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
             "Vous demandez, vous validez, la fiche est créée.",
             "Un exemple : un agent dans la messagerie de l'équipe commerciale, relié au CRM de l'entreprise.",
             "Vous photographiez la carte.", "Vous répondez « oui ».", "Le contact est dans le CRM.",
-            "Dans votre CRM", "Exemple fictif",
+            "Dans votre CRM",
           ] : [
             "You ask, you approve, the record is created.",
             "One example: an agent in the sales team's messaging app, connected to the company's CRM.",
             "You photograph the card.", "You reply “yes”.", "The contact is in the CRM.",
-            "In your CRM", "Fictional example",
+            "In your CRM",
           ];
           for (const text of sceneCopy) assert.ok(sceneText.includes(text), `${label}: ${text}`);
           assert.doesNotMatch(sceneText, /Laparra|Rungis|\bMIN\b|GESLOT|Lyon/i);
@@ -152,7 +156,7 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
       assert.equal(status, 200);
       const badge = html.match(/<aside class="harness-badge"[^>]*>[\s\S]*?<\/aside>/)?.[0];
       assert.ok(badge, `${locale}: first certified article renders its badge`);
-      assert.ok(visibleText(badge).includes("Harness Certified ✓"));
+      assert.ok(visibleText(badge).includes(locale === "fr" ? "Vérifié par le contrôle interne" : "Harness Certified ✓"));
       assert.match(badge, /href="\/certificates\/malicious-mcp-server-after-install\.json"/);
     }
     // The alias keeps English content/canonical, but the French chrome warns readers.

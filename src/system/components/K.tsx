@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from "react";
+import { Children, type CSSProperties, type ReactNode } from "react";
 
 type KProps = {
   children: ReactNode;
@@ -9,7 +9,7 @@ type KProps = {
 export function K({ children, style, className = "" }: KProps) {
   return (
     <span className={["k", className].filter(Boolean).join(" ")} style={style}>
-      {children}
+      {Children.map(children, (child) => typeof child === "string" ? child.replaceAll(" · ", "\u00a0·\u00a0") : child)}
     </span>
   );
 }

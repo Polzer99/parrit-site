@@ -5,27 +5,27 @@ const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 // Copy lock updated for the approved 2026-10-05 verification: six commitments.
 const PRINCIPLES = [
   [
-    "PS-01",
+    "01",
     "State is readable at any moment."
   ],
   [
-    "PS-02",
+    "02",
     "Every signal carries its decision."
   ],
   [
-    "PS-03",
+    "03",
     "A decision always keeps its origin."
   ],
   [
-    "PS-04",
+    "04",
     "Rolling back is written in advance."
   ],
   [
-    "PS-05",
+    "05",
     "The system belongs to you."
   ],
   [
-    "PS-06",
+    "06",
     "Each new capability reuses what already exists."
   ]
 ] as const;

@@ -20,7 +20,7 @@ export function SystemCard({ domain, name, input, process, output, limits, proof
     <dl style={{ margin: 0, display: "grid", gap: 24 }}>
       {[input, process, output, limits].map((value, index) => (index === 3 || value) && <div key={labels[index]}>
         <dt><K>{labels[index]}</K></dt>
-        <dd style={{ margin: "8px 0 0", lineHeight: 1.65, color: "var(--label-d)", whiteSpace: "pre-wrap" }}>{value}</dd>
+        <dd style={{ margin: "8px 0 0", color: "var(--label-d)", whiteSpace: "pre-wrap" }}>{value}</dd>
       </div>)}
     </dl>
     {proofLabel && <footer style={{ marginTop: "auto" }}><K>{proofLabel}</K></footer>}
