@@ -241,18 +241,18 @@ async function poserCarteSuperApp(
 
 Vous avez laissé votre adresse sur parrit.ai.${idee} Voici une esquisse qui part d'un cas proche de votre besoin : ${sketchUrl}
 
-Un échange en visio avec le fondateur la précise :
+Un échange en visio avec Parrit.ai la précise :
 ${commissionUrl}
 
-Paul Larmaraud · Parrit.ai`
+Parrit.ai`
     : `Hello,
 
 You left your address on parrit.ai.${idee} Here is a sketch starting from a case close to your need: ${sketchUrl}
 
-A video call with the founder sharpens it:
+A video call with Parrit.ai sharpens it:
 ${commissionUrl}
 
-Paul Larmaraud · Parrit.ai`;
+Parrit.ai`;
 
   const texte = [
     `Intérêt déclaré · ${contexte.interet}`,

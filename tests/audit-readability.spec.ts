@@ -96,10 +96,7 @@ for (const width of [375, 390, 1440]) {
         for (const reference of [hero!, sketch!]) {
           expect(Math.abs(button!.x + button!.width / 2 - reference.x - reference.width / 2)).toBeLessThanOrEqual(1);
         }
-        const founder = page.locator(".home-s-text-link--secondary");
-        await expect(founder).toBeVisible();
-        expect((await founder.boundingBox())!.height).toBeGreaterThanOrEqual(44);
-        await expect(founder).toHaveCSS("font-size", "16px");
+        await expect(page.locator(".home-s-founder, .home-s-text-link--secondary")).toHaveCount(0);
         for (const selector of [".agent-esquisse button"]) {
           const action = page.locator(selector).first();
           await expect(action).toBeVisible();

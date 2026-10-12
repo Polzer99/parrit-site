@@ -1,3 +1,4 @@
+import { readdirSync } from "node:fs";
 import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
@@ -11,7 +12,8 @@ const forbidden = [
 ];
 test.use({ serviceWorkers: "block" });
 for (const locale of ["en", "fr"]) {
-  for (const route of routes) {
+  const articles = readdirSync("content/journal").filter((file) => file.endsWith(".mdx")).map((file) => `/journal/${file.slice(0, -4)}`);
+  for (const route of [...routes, ...(locale === "en" ? articles : [])]) {
     test(`public copy ${locale} ${route || "/"}`, async ({ page }) => {
       // Known third-party embed is mocked; all other outbound traffic fails the fixture.
       await page.route("https://app.cal.com/**", (request) => request.fulfill({ body: "", contentType: "text/html" }));
@@ -22,11 +24,15 @@ for (const locale of ["en", "fr"]) {
       const audit = async () => {
         const text = await page.locator("body").innerText();
         const attributes = await page.locator("[aria-label], [alt]").evaluateAll((elements) => elements.flatMap((el) => [el.getAttribute("aria-label"), el.getAttribute("alt")]).filter(Boolean).join("\n"));
-        for (const pattern of forbidden) expect(`${text}\n${attributes}`).not.toMatch(pattern);
+        for (const pattern of (route.startsWith("/journal/") ? [] : forbidden)) expect(`${text}\n${attributes}`).not.toMatch(pattern);
         const metadata = await page.locator('title, meta[name="description"], meta[property^="og:"], meta[name^="twitter:"], script[type="application/ld+json"]').evaluateAll((elements) => elements.map((el) => el.getAttribute("content") ?? el.textContent ?? "").join("\n"));
         const publicCopy = `${text}\n${attributes}\n${metadata}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
-        expect(publicCopy).not.toMatch(noOffer);
-        if (route !== "/legal") expect(publicCopy).not.toContain("€");
+        if (!route.startsWith("/journal/")) expect(publicCopy).not.toMatch(noOffer);
+        if (route !== "/legal") {
+          if (!route.startsWith("/journal/")) expect(publicCopy).not.toContain("€");
+          expect(publicCopy).not.toMatch(/\bPaul\b|Larmaraud|fondat(eur|rice)|fondée par|founder|founded by|quinze minutes|fifteen minutes/i);
+          await expect(page.locator('a[href*="paul-larmaraud.com"]')).toHaveCount(0);
+        }
         if (!route) await expect(page.locator(".home-s-offers")).toHaveCount(0);
         if (route === "/systems") await expect(page.locator("#offre")).toHaveCount(0);
         if (route === "/build-with-you") await expect(page.locator(".offer-price")).toHaveCount(0);

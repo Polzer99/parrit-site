@@ -11,8 +11,8 @@ import { getLocale } from "@/lib/server/locale";
 import { organizationJsonLd } from "@/system/jsonld";
 import { localizedAlternates } from "@/system/locale";
 
-/* JSON-LD Organization — graphe d'entités Google/IA : relie parrit.ai, le
-   fondateur et paul-larmaraud.com. Compléter sameAs quand la page LinkedIn
+/* JSON-LD Organization — graphe d'entités Google/IA : relie parrit.ai à
+   l'organisation Parrit.ai. Compléter sameAs quand la page LinkedIn
    entreprise existera. */
 const ORG_JSONLD = JSON.stringify(organizationJsonLd());
 

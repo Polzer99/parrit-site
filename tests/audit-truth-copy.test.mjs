@@ -24,7 +24,7 @@ for (const [slug, required, forbidden] of contracts) {
 test("institutional article states examination, ownership and prospective Standard", () => {
   const text = article("what-is-parrit-ai");
   for (const required of [
-    "fifteen-minute examination", "fifteen minutes with the founder, then a written scope or a clear no",
+    "Each commission starts with a video call with Parrit.ai.", "a first conversation, then a written scope or a reasoned refusal",
     "Every system we deliver is designed to be owned this way, by the client, in full.",
     "For a consumer brand, one dossier records a reporting process commissioned to assemble itself every month.",
     "Each system we deliver from now on is checked against the Standard. STD-1.0 is not an accreditation.",

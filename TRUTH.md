@@ -8,7 +8,7 @@
 
 ## 1. Ce qu'est Parrit (positionnement)
 
-Parrit.ai est une **maison française indépendante de données et d'IA**, fondée par Paul Larmaraud, qui transforme les données des entreprises en **outils qui leur appartiennent**. Un seul système pour comprendre, décider et agir à l'échelle de l'entreprise, construit pour une entreprise à la fois.
+Parrit.ai est une **maison française indépendante de données et d'IA**, qui transforme les données des entreprises en **outils qui leur appartiennent**. Un seul système pour comprendre, décider et agir à l'échelle de l'entreprise, construit pour une entreprise à la fois.
 
 Parrit livre la chose qui tourne, pas un deck. Chaque commande répond au Standard Parrit.
 
@@ -17,12 +17,12 @@ Parrit livre la chose qui tourne, pas un deck. Chaque commande répond au Standa
 1. **RDV qualifiés / semaine** (le site doit transformer un visiteur dirigeant en RDV).
 2. **Cash hebdo** (les RDV deviennent des deals).
 
-> Le rôle du SITE dans ce système = **transformer l'attention d'un dirigeant en RDV qualifié avec Paul.** C'est la métrique de conversion nord. Tout le reste (trafic, GEO, contenu) est en amont.
+> Le rôle du SITE dans ce système = **transformer l'attention d'un dirigeant en RDV qualifié avec Parrit.ai.** C'est la métrique de conversion nord. Tout le reste (trafic, GEO, contenu) est en amont.
 
 **CTA et parcours de conversion** (spec validée du 06/09/2026) :
 - Hero : `QuickCapture` recueille l'e-mail et, uniquement dans sa variante hero, une idée optionnelle (`idee`, 300 caractères maximum), stockée mais sans effet sur l'esquisse rendue.
 - Juste après le hero : `AgentEsquisse` propose un échange déterministe local (Signal / Décision / Action), puis renvoie vers la capture `#prototype`.
-- « Parlons-en » / « Let's talk » mène à `/commission` : Échange avec le fondateur via Cal.com, puis `QuickCapture` standard si aucun créneau ne convient.
+- « Parlons-en » / « Let's talk » mène à `/commission` : Échange avec Parrit.ai via Cal.com, puis `QuickCapture` standard si aucun créneau ne convient.
 - Journal : pas de capture d'abonnement (retirée le 14/09 : aucun envoi n'existait).
 - `RegisterInterest` reste dans le code mais n'est plus utilisé sur les pages.
 
@@ -36,7 +36,7 @@ Parrit livre la chose qui tourne, pas un deck. Chaque commande répond au Standa
 
 Parrit vend des **systèmes sur mesure**. La Manufacture suit trois phases : Examen, Construction, Capitalisation. Chaque système est construit sur l'infrastructure du client, vérifié selon le Standard Parrit (contrôle interne, pas une accréditation), documenté et détenu par le client.
 
-Le site public invite à un premier échange avec le fondateur, sans prix ni offre détaillée. Le périmètre et le prix se donnent en rendez-vous puis en propale privée (décision Paul du 12/10/2026).
+Le site public invite à un premier échange avec Parrit.ai, sans prix ni offre détaillée. Le périmètre et le prix se donnent en rendez-vous puis en propale privée (décision Paul du 12/10/2026).
 
 La home simplifiée présente la promesse, la capture prototype et l'agent esquisse, puis les métriques, la méthode et les actions de conversion. Les cinq pages intérieures `/manufacture`, `/standard`, `/dossiers`, `/commission` et `/journal` suivent le copy FR/EN validé dans `docs/CODEX-SPEC-2026-09-06-site-integral.md` (lots 1 et 2). Le lot 3 retire les anciennes identités sans réécrire ce copy.
 
@@ -83,10 +83,12 @@ Anti-objectifs : faire « plus joli » sans hypothèse de conversion ; ajouter d
 
 ## 9. Hypothèses de conversion ouvertes (backlog vivant — Hermes entretient ceci)
 
-- Le CTA « Parler à Paul » est-il assez tôt / assez clair au-dessus de la ligne de flottaison ?
+- Le CTA « Parler à Parrit.ai » est-il assez tôt / assez clair au-dessus de la ligne de flottaison ?
 **Hypothèse desktop-OS close** : Paul a tranché le 04/09/2026 pour le retrait de l'instrument de la home. La home simplifiée est le canon ; ne pas réintroduire ce concept comme expérience de navigation.
 
 - Les preuves (Enargeia) sont-elles assez concrètes et chiffrées (sans violer §6) pour créer la confiance ?
 - Mobile : le funnel de contact tient-il sur mobile ?
 
 > Hermes met à jour cette section à chaque cycle (ce qui a été testé, ce qui a bougé). Voir `hermes/PROGRESS.md`.
+
+Décision Paul du 12/10/2026, marque unifiée : le site parle au nom de Parrit.ai ; aucun nom de personne hors mentions légales. Auteurs, métadonnées, données structurées, RSS, textes et e-mails de capture utilisent Parrit.ai. La photo et le lien personnel sont retirés du rendu ; les fichiers photo du canon, les identifiants internes, le compte Cal.com et l’adresse de contact sont conservés.

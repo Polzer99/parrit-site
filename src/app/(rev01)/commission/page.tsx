@@ -7,21 +7,21 @@ import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 const DICT = {
   "en": {
     "title": "Every commission begins with an examination.",
-    "metaDescription": "Fifteen minutes on a video call with the founder, to name the operation costing you the most and check a system makes sense for it. You then receive a written scope, or a clear no.",
+    "metaDescription": "A video call, to name the operation costing you the most and check a system makes sense for it. You then receive a written scope, or a clear no.",
     "kicker": "Parrit / Commission",
-    "sub": "Fifteen minutes on a video call with the founder, to name the operation costing you the most and check a system makes sense for it.",
+    "sub": "A video call, to name the operation costing you the most and check a system makes sense for it.",
     "noteTitle": "After the call, a written scope or a clear no.",
-    "noteBody": "Either the founder sends you a written scope next: what gets built, what he'll need from you, how success is judged. Or a clear no, right away. Nothing is signed during the call; the scope is written afterwards, in black and white.",
+    "noteBody": "Either Parrit.ai sends you a written scope next: what gets built, what we need from you, how success is judged. Or a clear no, right away. Nothing is signed during the call; the scope is written afterwards, in black and white.",
     "capture": "No slot that works? Leave your e-mail",
     "aria": "Select a time"
   },
   "fr": {
     "title": "Toute commande commence par un examen.",
-    "metaDescription": "Quinze minutes en visio avec le fondateur, pour nommer l'opération qui vous coûte le plus et vérifier qu'un système a du sens pour elle. Vous recevez ensuite un périmètre écrit, ou un non clair.",
+    "metaDescription": "Un échange en visio, pour nommer l'opération qui vous coûte le plus et vérifier qu'un système a du sens pour elle. Vous recevez ensuite un périmètre écrit, ou un non clair.",
     "kicker": "Parrit / Commande",
-    "sub": "Quinze minutes en visio avec le fondateur, pour nommer l'opération qui vous coûte le plus et vérifier qu'un système a du sens pour elle.",
+    "sub": "Un échange en visio, pour nommer l'opération qui vous coûte le plus et vérifier qu'un système a du sens pour elle.",
     "noteTitle": "Après l'appel, un périmètre écrit ou un non clair.",
-    "noteBody": "Soit le fondateur vous envoie ensuite un périmètre écrit : ce qui sera construit, ce dont il aura besoin de vous, comment on juge que c'est réussi. Soit un non clair, tout de suite. Rien ne se signe pendant l'appel ; le périmètre se rédige après, noir sur blanc.",
+    "noteBody": "Soit Parrit.ai vous envoie ensuite un périmètre écrit : ce qui sera construit, ce dont nous aurons besoin de vous, comment on juge que c'est réussi. Soit un non clair, tout de suite. Rien ne se signe pendant l'appel ; le périmètre se rédige après, noir sur blanc.",
     "capture": "Pas de créneau ? Laissez votre e-mail",
     "aria": "Choisissez un créneau"
   }

@@ -85,12 +85,9 @@ for (const locale of ["fr", "en"] as const) {
       await expect(journey.locator(":scope > .k")).toHaveCount(1);
       await expect(journey).not.toContainText(locale === "fr" ? "Paul Larmaraud · Fondateur" : "Paul Larmaraud · Founder");
       await expect(journey.locator(".rev-button.ghost")).toHaveText(label);
-      await expect(journey.locator('a[href="https://paul-larmaraud.com"]')).not.toHaveClass(/rev-button/);
-      // AV-3 / FIX1: on desktop the photo and copy form one composition.
-      // Preserve the original copy-only checks on mobile and without a photo.
-      const grid = page.locator(".home-s-maison-grid");
-      const hasPhoto = await grid.locator("img:visible").count() > 0;
-      const composition = width > 859 && hasPhoto ? grid : journey;
+      await expect(journey.locator('a[href="https://paul-larmaraud.com"]')).toHaveCount(0);
+      await expect(page.locator(".home-s-maison figure")).toHaveCount(0);
+      const composition = journey;
       const geometry = await composition.evaluate((element) => {
         const parent = element.parentElement!.getBoundingClientRect();
         const box = element.getBoundingClientRect();
@@ -101,15 +98,18 @@ for (const locale of ["fr", "en"] as const) {
         const measure = await composition.evaluate((element) => {
           const heading = element.querySelector("h2")!;
           const build = document.querySelector(".home-s-build > .home-s-wrap")!;
+          const buildStyle = getComputedStyle(build);
           return {
             width: element.getBoundingClientRect().width,
-            referenceWidth: build.getBoundingClientRect().width,
+            referenceWidth: build.getBoundingClientRect().width
+              - parseFloat(buildStyle.paddingLeft)
+              - parseFloat(buildStyle.paddingRight),
             lines: heading.getBoundingClientRect().height / parseFloat(getComputedStyle(heading).lineHeight),
           };
         });
         expect(Math.abs(measure.width - measure.referenceWidth)).toBeLessThanOrEqual(1);
-        // AV-3 / FIX2: the photo narrows the copy; keep three lines without it.
-        expect(measure.lines).toBeLessThanOrEqual(hasPhoto ? 4.01 : 3.01);
+        // The single text column keeps the heading within three lines.
+        expect(measure.lines).toBeLessThanOrEqual(3.01);
       }
       for (const paragraph of await journey.locator("p").all()) {
         const measure = await paragraph.evaluate((element) => {
@@ -249,7 +249,7 @@ for (const locale of ["fr", "en"] as const) {
     expect(bounds).not.toBeNull();
     expect(bounds!.y).toBeGreaterThanOrEqual(0);
     expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(844);
-    await expect(hero.locator(".doctrine-note")).toHaveText(locale === "fr" ? "En visio, avec le fondateur" : "Video call with the founder");
+    await expect(hero.locator(".doctrine-note")).toHaveText(locale === "fr" ? "En visio" : "Video call");
     await expect(hero.locator(".doctrine-note")).toHaveCSS("font-size", "16px");
     await expect(hero.locator(".offer-price")).toHaveCount(0);
     await expect(page.locator(".r2-close .offer-price")).toHaveCount(0);

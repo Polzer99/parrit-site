@@ -7,15 +7,15 @@ import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system
 
 const DICT = {
   en: {
-    title: "With the founder, you build a system that runs.",
-    metaTitle: "With the founder, you build a system that runs.",
-    metaDescription: "With the founder, you build a system that runs, and you leave able to build the next one without us.",
+    title: "With Parrit.ai, you build a system that runs.",
+    metaTitle: "With Parrit.ai, you build a system that runs.",
+    metaDescription: "With Parrit.ai, you build a system that runs, and you leave able to build the next one without us.",
     autonomy: "You also leave able to build the next one without us.",
-    stepsTitle: "Build with the founder.",
+    stepsTitle: "Build together.",
     steps: [
-      ["01", "Examination", "An examination of your needs with the founder."],
+      ["01", "Examination", "An examination of your needs."],
       ["02", "Findings review", "The findings reviewed together."],
-      ["03", "Building together", "Building a working system with the founder."],
+      ["03", "Building together", "Building a working system together."],
     ],
     outTitle: "What comes out of it.",
     outBody: "A system running at the end, in your own tools. Code, data and documentation are yours: for this engagement, your team runs it without us.",
@@ -28,15 +28,15 @@ const DICT = {
     examinationNote: EXAM_NOTE.en,
   },
   fr: {
-    title: "Avec le fondateur, vous construisez un système qui tourne.",
-    metaTitle: "Avec le fondateur, vous construisez un système qui tourne.",
-    metaDescription: "Avec le fondateur, vous construisez un système qui tourne, et vous repartez capable de construire le suivant sans nous.",
+    title: "Avec Parrit.ai, vous construisez un système qui tourne.",
+    metaTitle: "Avec Parrit.ai, vous construisez un système qui tourne.",
+    metaDescription: "Avec Parrit.ai, vous construisez un système qui tourne, et vous repartez capable de construire le suivant sans nous.",
     autonomy: "Vous repartez aussi capable de construire le suivant sans nous.",
-    stepsTitle: "Construire avec le fondateur.",
+    stepsTitle: "Construire ensemble.",
     steps: [
-      ["01", "Examen", "Un examen du besoin avec le fondateur."],
+      ["01", "Examen", "Un examen du besoin."],
       ["02", "Restitution", "Les constats repris ensemble."],
-      ["03", "Construction ensemble", "La construction, avec le fondateur, d'un système qui tourne."],
+      ["03", "Construction ensemble", "La construction ensemble d'un système qui tourne."],
     ],
     outTitle: "Ce qui en sort.",
     outBody: "Un système qui tourne à la fin, dans vos outils. Le code, les données et la documentation vous appartiennent : pour cette formule, votre équipe le fait tourner sans nous.",

@@ -48,7 +48,7 @@ const EVIDENCE = {
         "proofLabel": "Un prototype interne, pas un produit livré à un client."
       }
     ],
-    "narrative": "Prenons l'exemple le plus net : l'identification de nos contacts. Onze anciens outils y écrivent encore aujourd'hui, certains automatiquement, comme une synchronisation qui tourne toutes les 15 minutes. Une comparaison directe des deux sources, menée le 11 septembre 2026, a trouvé 114 fiches présentes uniquement dans l'ancien système. Rien n'est corrigé tout seul : la situation est signalée, et un contrôle automatique interdit désormais d'ajouter un nouveau point d'écriture vers l'ancien système sans le déclarer ici. C'est le fondateur qui décide, un type d'information à la fois, du jour où une ancienne source est mise de côté. Cette décision a déjà été prise et datée pour plusieurs d'entre elles. Voilà pourquoi, au 13 septembre 2026, 15 des 25 types d'information suivis avaient encore deux sources en présence, dont 4 où une vérification directe avait trouvé un désaccord, comme dans cet exemple.",
+    "narrative": "Prenons l'exemple le plus net : l'identification de nos contacts. Onze anciens outils y écrivent encore aujourd'hui, certains automatiquement, comme une synchronisation qui tourne toutes les 15 minutes. Une comparaison directe des deux sources, menée le 11 septembre 2026, a trouvé 114 fiches présentes uniquement dans l'ancien système. Rien n'est corrigé tout seul : la situation est signalée, et un contrôle automatique interdit désormais d'ajouter un nouveau point d'écriture vers l'ancien système sans le déclarer ici. Parrit.ai décide, un type d'information à la fois, du jour où une ancienne source est mise de côté. Cette décision a déjà été prise et datée pour plusieurs d'entre elles. Voilà pourquoi, au 13 septembre 2026, 15 des 25 types d'information suivis avaient encore deux sources en présence, dont 4 où une vérification directe avait trouvé un désaccord, comme dans cet exemple.",
     "acquisition": "Ce même travail de vérification s'applique aussi à notre prospection commerciale. Notre outil fonctionne : il repère, dans des informations publiques, des indices qu'une entreprise pourrait avoir besoin de nous. Mais nous ne l'avons pas encore branché sur notre système principal. Cet outil n'a encore débouché sur aucun rendez-vous. Aucune vente ne lui est due : nos clients viennent de personnes que nous connaissons déjà.",
     "story": "Toutes nos informations importantes (les contacts, les rendez-vous, les appels, les dossiers en cours) doivent avoir une seule source qui fait foi. Ce travail n'est pas terminé partout. Nous montrons où il en est vraiment."
   },
@@ -91,7 +91,7 @@ const EVIDENCE = {
         "proofLabel": "An internal prototype, not a product delivered to a client."
       }
     ],
-    "narrative": "Take the clearest example: contact identification. Eleven legacy tools still write to it today, some automatically, including a sync job that runs every 15 minutes. A direct comparison of both sources, run on September 11, 2026, found 114 records that existed only in the old system. Nothing gets fixed on its own: the mismatch is flagged, and an automatic gate now blocks any new write path into the old system unless it's declared here first. It's the founder who decides, one type of information at a time, when an old source gets retired. That decision has already been made and dated for several of them. That is why, as of September 13, 2026, 15 of the 25 types of information we track still had two sources in place, 4 of which had a directly measured disagreement, as in this example.",
+    "narrative": "Take the clearest example: contact identification. Eleven legacy tools still write to it today, some automatically, including a sync job that runs every 15 minutes. A direct comparison of both sources, run on September 11, 2026, found 114 records that existed only in the old system. Nothing gets fixed on its own: the mismatch is flagged, and an automatic gate now blocks any new write path into the old system unless it's declared here first. Parrit.ai decides, one type of information at a time, when an old source gets retired. That decision has already been made and dated for several of them. That is why, as of September 13, 2026, 15 of the 25 types of information we track still had two sources in place, 4 of which had a directly measured disagreement, as in this example.",
     "acquisition": "The same check applies to our own outreach. Our tool works: it looks for public signs that a company might need us. But we haven't connected it to our main system yet. That tool hasn't led to a single meeting so far. No sale is owed to it: our clients come from people we already know.",
     "story": "Every piece of information Parrit depends on (contacts, meetings, calls, open files) needs one trusted source. That work isn't finished everywhere. We show where it actually stands."
   }
@@ -126,7 +126,7 @@ const DICT = {
       ["Is this training or a delivered system?", "A system. You learn to use it along the way, but what we deliver is something that runs, not a course."],
       ["Where does our data go?", "Into your own accounts. We don't build a second database of it. If you choose ongoing support, we keep the technical access that takes, nothing more."],
       ["Who maintains the system afterward?", "You, or us: the choice is made after the examination, never before."],
-      ["Where do we start?", "With a first conversation with the founder."],
+      ["Where do we start?", "With a first conversation with Parrit.ai."],
     ], legal: "Legal",
   },
   fr: {
@@ -152,7 +152,7 @@ const DICT = {
       ["Formation ou système livré ?", "Un système. Vous apprenez à vous en servir en cours de route, mais ce que nous livrons, c'est quelque chose qui fonctionne, pas un cours."],
       ["Où vont nos données ?", "Dans vos comptes. Nous n'en construisons pas une seconde base ailleurs. Si vous choisissez un suivi continu, nous gardons l'accès technique que ça demande, rien de plus."],
       ["Qui maintient le système ensuite ?", "Vous, ou nous : le choix se fait après l'examen, jamais avant."],
-      ["Par où commence-t-on ?", "Par un premier échange avec le fondateur."],
+      ["Par où commence-t-on ?", "Par un premier échange avec Parrit.ai."],
     ], legal: "Mentions légales",
   },
 } as const;

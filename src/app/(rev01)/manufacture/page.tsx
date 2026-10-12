@@ -19,7 +19,7 @@ const DICT = {
       [
         "01",
         "Examination",
-        "Fifteen minutes with the founder, then a written scope or a clear no."
+        "A first conversation, then a written scope or a reasoned refusal."
       ],
       [
         "02",
@@ -52,7 +52,7 @@ const DICT = {
       [
         "01",
         "L'Examen",
-        "Quinze minutes avec le fondateur, puis un périmètre écrit, ou un non clair."
+        "Un premier échange, puis un périmètre écrit ou un refus motivé."
       ],
       [
         "02",

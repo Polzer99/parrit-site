@@ -563,3 +563,7 @@ réussis. Build Turbopack interrompu sans progression. Mesures et clics navigate
 non validés dans ce sandbox. Aucun commit, push ou déploiement.
 
 Décision Paul du 12/10/2026 : retrait de la tagline et des prix, durées et offres détaillées publiques FR/EN ; invitation à un premier échange. Gate anti-offre sur le rendu, les métadonnées et llms.txt, avec exceptions limitées au capital légal et aux faits techniques de synchronisation.
+
+Décision Paul du 12/10/2026, marque unifiée : le site parle au nom de Parrit.ai ; aucun nom de personne hors mentions légales. Auteurs, métadonnées, données structurées, RSS, textes et e-mails de capture utilisent Parrit.ai. La photo et le lien personnel sont retirés du rendu ; les fichiers photo du canon, les identifiants internes, le compte Cal.com et l’adresse de contact sont conservés.
+
+Validation marque unifiée : `npm test` 102/102, `npm run lint` et `npm run qa:brand:rev01` passent. `npm run build` Turbopack a refusé le lien externe node_modules ; après copie locale des mêmes dépendances, il est resté sans progression et a été interrompu. `npm run build -- --webpack` passe sans modification de package.json. Le rendu serveur testé bloque tout réseau sortant et couvre aussi les trois articles corrigés, RSS et llms-full.txt. Playwright reste à lancer par le relecteur sur :3210, selon la spec. Aucun commit ni push.

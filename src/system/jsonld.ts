@@ -1,4 +1,4 @@
-import { orgRef, personRef } from "./auteur.ts";
+import { orgRef } from "./auteur.ts";
 import type { JournalEntry } from "./journal";
 
 export function organizationJsonLd() {
@@ -9,7 +9,6 @@ export function organizationJsonLd() {
     logo: "https://parrit.ai/icon.png",
     description:
       "Parrit.ai is an independent French data and AI firm. We turn a company's data into tools it owns, built in its own accounts and documented.",
-    founder: personRef(),
     address: {
       "@type": "PostalAddress",
       addressLocality: "Rueil-Malmaison",
@@ -36,7 +35,7 @@ export function blogPostingJsonLd(entry: Pick<JournalEntry, "slug" | "title" | "
       logo: { "@type": "ImageObject", url: "https://parrit.ai/icon.png" },
     },
     description: entry.description,
-    author: personRef(),
+    author: orgRef(),
     mainEntityOfPage: canonical,
   };
 }

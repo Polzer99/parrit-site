@@ -19,14 +19,14 @@ const routes = ["/", "/build-with-you", "/systems", "/commission", "/manufacture
 
 const titles = {
   en: {
-    "/": ["Four steps take you from the first message to a system your team runs.", "Three dossiers are available online. The others are presented in a meeting.", "The Journal records what held and what broke on our own systems, and what we take from it for yours.", "A first conversation with the founder tells you whether a system is worth building."],
-    "/build-with-you": ["With the founder, you build a system that runs."],
+    "/": ["Four steps take you from the first message to a system your team runs.", "Three dossiers are available online. The others are presented in a meeting.", "The Journal records what held and what broke on our own systems, and what we take from it for yours.", "A first conversation with Parrit.ai tells you whether a system is worth building."],
+    "/build-with-you": ["With Parrit.ai, you build a system that runs."],
     "/manufacture": ["We build each system one operation at a time, from Examination to Compounding.", "Each system is built in your accounts, under your keys.", "Three phases turn an examined operation into a system you own."],
     "/dossiers": ["Three dossiers are summarized here. The others are presented in a meeting.", "These systems were commissioned by large accounts, SMEs and mid-sized companies. We anonymize all of them."],
   },
   fr: {
-    "/": ["Quatre étapes mènent du premier message à un système que votre équipe fait tourner.", "Trois dossiers sont consultables en ligne. Les autres se présentent en rendez-vous.", "Le Journal consigne ce qui a tenu et ce qui a cassé sur nos propres systèmes, et ce que nous en tirons pour les vôtres.", "Un premier échange avec le fondateur vous dit si un système vaut d'être construit."],
-    "/build-with-you": ["Avec le fondateur, vous construisez un système qui tourne."],
+    "/": ["Quatre étapes mènent du premier message à un système que votre équipe fait tourner.", "Trois dossiers sont consultables en ligne. Les autres se présentent en rendez-vous.", "Le Journal consigne ce qui a tenu et ce qui a cassé sur nos propres systèmes, et ce que nous en tirons pour les vôtres.", "Un premier échange avec Parrit.ai vous dit si un système vaut d'être construit."],
+    "/build-with-you": ["Avec Parrit.ai, vous construisez un système qui tourne."],
     "/manufacture": ["Nous construisons chaque système une opération à la fois, de l'Examen à la Capitalisation.", "Chaque système se fabrique dans vos comptes, avec vos clés.", "Trois phases transforment une opération examinée en un système qui vous appartient."],
     "/dossiers": ["Trois dossiers sont résumés ici. Les autres se présentent en rendez-vous.", "Ces systèmes ont été commandés par des grands comptes, des PME et des ETI. Nous les anonymisons tous."],
   },
@@ -77,11 +77,15 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
         const publicCopy = `${text} ${accessible} ${metadata} ${structured}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
         assert.doesNotMatch(publicCopy, /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de|\bHT\b|excl\. VAT/i, `${label}: no public offer`);
         if (route !== "/legal") assert.doesNotMatch(publicCopy, /€/, label);
+        if (route !== "/legal") {
+          assert.doesNotMatch(publicCopy, /\bPaul\b|Larmaraud|fondat(eur|rice)|fondée par|founder|founded by|quinze minutes|fifteen minutes/i, label);
+          assert.doesNotMatch(html, /<a[^>]*href="[^"]*paul-larmaraud\.com/i, label);
+        }
         for (const title of titles[locale][route] ?? []) assert.ok(text.includes(title), `${label}: ${title}`);
         if (route === "/build-with-you") {
           const description = locale === "fr"
-            ? "Avec le fondateur, vous construisez un système qui tourne, et vous repartez capable de construire le suivant sans nous."
-            : "With the founder, you build a system that runs, and you leave able to build the next one without us.";
+            ? "Avec Parrit.ai, vous construisez un système qui tourne, et vous repartez capable de construire le suivant sans nous."
+            : "With Parrit.ai, you build a system that runs, and you leave able to build the next one without us.";
           for (const name of ["description", "og:description"]) {
             assert.ok(html.includes(`${name}" content="${description}"`), `${label}: standalone ${name}`);
           }
@@ -147,18 +151,11 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
             : "Parrit.ai · Data and AI, tools you own"));
           const journey = html.match(/<section class="home-s-maison">[\s\S]*?<\/section>/)?.[0];
           assert.ok(journey, `${label}: journey section must be rendered`);
-          assert.match(journey, /<picture>/);
-          assert.match(journey, /parrit-ai-founder-linkedin-buste-3x4-340.webp/);
-          assert.ok(journey.includes(locale === "fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai"));
+          assert.doesNotMatch(journey, /<picture>|<figure|<img|<figcaption|paul-larmaraud\.com/);
           const heading = visibleText((html.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/)?.[0] ?? "").replace(/<[^>]*>/g, "")).trim();
           assert.equal(heading, locale === "fr"
             ? "Nous transformons des problèmes opérationnels en systèmes qui fonctionnent."
             : "We turn operational problems into systems that work.");
-          assert.equal(
-            visibleText(journey).includes(`Paul Larmaraud · ${locale === "fr" ? "Fondateur" : "Founder"}`),
-            /<img\b/.test(journey),
-            `${label}: founder caption is rendered if and only if the section renders a photo`,
-          );
         }
       }
     }
@@ -169,6 +166,13 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
       assert.ok(badge, `${locale}: first certified article renders its badge`);
       assert.ok(visibleText(badge).includes(locale === "fr" ? "Vérifié par le contrôle interne" : "Harness Certified ✓"));
       assert.match(badge, /href="\/certificates\/malicious-mcp-server-after-install\.json"/);
+    }
+    for (const route of ["/journal/what-is-parrit-ai", "/journal/what-is-a-company-operating-system", "/journal/hook-timeout-lets-tool-call-through", "/journal/rss.xml", "/llms-full.txt"]) {
+      const { status, html } = await render(route);
+      assert.equal(status, 200, route);
+      assert.doesNotMatch(html, /\bPaul\b|Larmaraud|fondat(eur|rice)|fondée par|founder|founded by|quinze minutes|fifteen minutes/i, route);
+      assert.doesNotMatch(html, /paul-larmaraud\.com/i, route);
+      if (route === "/journal/rss.xml") assert.match(html, /<dc:creator>Parrit\.ai<\/dc:creator>/);
     }
     // The alias keeps English content/canonical, but the French chrome warns readers.
     const articleRoute = "/journal/one-card-one-action";
