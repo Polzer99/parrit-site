@@ -92,7 +92,7 @@ for (const locale of ["fr", "en"] as const) {
         };
         return {
           copy: box(".product-scene-copy"), conversation: box(".product-scene-conversation"),
-          object: box(".product-scene-object"), mention: box(".product-scene-mention"),
+          object: box(".product-scene-object"),
           container: box(".product-scene"), crm: box(".product-scene-image"), label: box(".product-scene-label"),
           overflow: [...el.querySelectorAll("*")].some((child) => {
             const r = child.getBoundingClientRect();
@@ -121,7 +121,6 @@ for (const locale of ["fr", "en"] as const) {
       } else {
         expect(geometry.copy.bottom).toBeLessThanOrEqual(geometry.conversation.y);
         expect(geometry.conversation.bottom).toBeLessThanOrEqual(geometry.object.y);
-        expect(geometry.object.bottom).toBeLessThanOrEqual(geometry.mention.y);
         expect(geometry.conversation.width).toBeCloseTo(Math.min(360, geometry.container.width), 1);
         expect(geometry.object.width).toBeCloseTo(geometry.container.width, 1);
       }

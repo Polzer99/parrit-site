@@ -223,9 +223,10 @@ for (const locale of ["en", "fr"] as const) {
       "A system commissioned to handle the firm's mailbox and act as a tailored assistant.",
       "We sell the system we run on.",
     ]);
-    await expect(page.locator(".r2-registre-note")).toHaveText(locale === "fr"
-      ? "Ils se lisent en rendez-vous, sur demande."
-      : "They are read in a meeting, on request.");
+    await expect(page.locator(".r2-registre-note")).toHaveCount(0);
+    await expect(page.locator("h1")).toHaveText(locale === "fr"
+      ? "Trois dossiers sont résumés ici. Les autres se présentent en rendez-vous."
+      : "Three dossiers are summarized here. The others are presented in a meeting.");
     await testInfo.attach(`dossiers-copy-${locale}-1440`, {
       body: await page.screenshot({ fullPage: true, animations: "disabled" }),
       contentType: "image/png",

@@ -110,7 +110,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
         ) : null}
 
         <footer className="journal-article-footer">
-          <RegistryLine value="PARRIT / JOURNAL · 2026" />
+          <RegistryLine value={`WE FIND THE WAY · ${entry.date} · PARRIT / JOURNAL`} />
         </footer>
       </article>
     </main>

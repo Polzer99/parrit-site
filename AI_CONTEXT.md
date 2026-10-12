@@ -542,3 +542,22 @@ aux seules chaînes remplacées ; contrôle anti-slop ajouté au rendu serveur r
 
 Validation et limites du sandbox : voir `docs/REPORT-2026-10-11-alignement-anti-slop.md`.
 Aucun commit, push ou déploiement dans cette intervention.
+
+## Revue PR #313, 11/10/2026
+
+Les séparateurs de K restent attachés au mot précédent, avec retour possible après
+le point médian ; les dates du Journal ne s’étirent plus dans leur grille. Le pied
+d’article retrouve « WE FIND THE WAY · date de l’article · PARRIT / JOURNAL ».
+Accueil : dossiers consultables en ligne ; /dossiers : summarized. BWY distingue
+la description SEO autonome du texte visible. Les assertions Playwright suivent
+les nouveaux textes, le point encadré, la suppression du registre et de la mention
+produit ; les autres assertions géométriques sont conservées.
+
+L’échec aeration à 390 px reste ouvert : aucun correctif spéculatif, test inchangé.
+Chromium est refusé avant navigation (MachPortRendezvousServer, permission denied).
+La trace de l’hôte est nécessaire pour établir la cause du timeout de soumission.
+
+Validation de cette reprise : npm ci hors réseau, lint, TypeScript, qa:claims,
+qa:brand, build Webpack (57 pages), npm test (107/107) et test:brand-os (23/23)
+réussis. Build Turbopack interrompu sans progression. Mesures et clics navigateur
+non validés dans ce sandbox. Aucun commit, push ou déploiement.

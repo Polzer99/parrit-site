@@ -56,7 +56,7 @@ const DICT = {
         cta: "See the system",
       },
       dossiers: {
-        title: "Three dossiers are summarised here. The others are presented in a meeting.",
+        title: "Three dossiers are available online. The others are presented in a meeting.",
         cta: "See the dossiers",
       },
     },
@@ -136,7 +136,7 @@ const DICT = {
         cta: "Voir le système",
       },
       dossiers: {
-        title: "Trois dossiers sont résumés ici. Les autres se présentent en rendez-vous.",
+        title: "Trois dossiers sont consultables en ligne. Les autres se présentent en rendez-vous.",
         cta: "Voir les dossiers",
       },
     },
@@ -205,7 +205,7 @@ export default async function HomePage() {
           <h1>
             <span>{copy.hero.before} </span>
             <span className="home-s-hero-ending">
-              <span className="frame">{copy.hero.frame}{copy.hero.after}<i className="fx" aria-hidden="true" /></span>
+              <span className="frame">{`${copy.hero.frame}${copy.hero.after}`}<i className="fx" aria-hidden="true" /></span>
             </span>
           </h1>
           <p className="home-s-hero-sub">{copy.hero.sub}</p>

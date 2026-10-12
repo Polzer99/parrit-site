@@ -11,6 +11,7 @@ const DICT = {
   en: {
     title: "In 10 hours with the founder, you build a system that runs.",
     metaTitle: "In 10 hours with the founder, you build a system that runs.",
+    metaDescription: "In 10 hours with the founder, you build a system that runs, and you leave able to build the next one without us.",
     autonomy: "You also leave able to build the next one without us.",
     stepsTitle: "Build with the founder.",
     steps: [
@@ -32,6 +33,7 @@ const DICT = {
   fr: {
     title: "En 10 heures avec le fondateur, vous construisez un système qui tourne.",
     metaTitle: "En 10 heures avec le fondateur, vous construisez un système qui tourne.",
+    metaDescription: "En 10 heures avec le fondateur, vous construisez un système qui tourne, et vous repartez capable de construire le suivant sans nous.",
     autonomy: "Vous repartez aussi capable de construire le suivant sans nous.",
     stepsTitle: "Construire avec le fondateur.",
     steps: [
@@ -54,7 +56,7 @@ const DICT = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const description = DICT[locale].autonomy;
+  const description = DICT[locale].metaDescription;
   return {
     title: DICT[locale].metaTitle, description,
     alternates: localizedAlternates("/build-with-you", locale),

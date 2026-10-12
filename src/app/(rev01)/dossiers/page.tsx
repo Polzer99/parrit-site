@@ -11,7 +11,7 @@ const DICT = {
     "metaTitle": "The Dossiers",
     "metaDescription": "Systems commissioned by large accounts, SMEs and mid-sized companies, anonymized on principle.",
     "kicker": "Parrit / The Dossiers",
-    "title": "Three dossiers are summarised here. The others are presented in a meeting.",
+    "title": "Three dossiers are summarized here. The others are presented in a meeting.",
     "sub": "These systems were commissioned by large accounts, SMEs and mid-sized companies. We anonymize all of them.",
     "dossiers": [
       {

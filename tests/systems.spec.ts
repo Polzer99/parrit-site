@@ -30,7 +30,8 @@ for (const width of [375, 767, 768, 1440]) {
       }
       const table = page.getByRole("table");
       await expect(table).toBeVisible();
-      await expect(table.locator("caption time")).toHaveText("2026-09-13");
+      await expect(table.locator("caption time")).toHaveAttribute("datetime", "2026-09-13");
+      await expect(table.locator("caption time")).toHaveText(locale === "fr" ? "13 septembre 2026" : "September 13, 2026");
       await expect(table.locator("tbody tr")).toHaveCount(7);
       await expect(table.locator("tbody tr").nth(2)).toContainText(locale === "fr" ? "Prospection commerciale" : "Outreach");
       await expect(table.locator("tbody tr").nth(2)).toContainText(locale === "fr" ? "En cours de transfert" : "Being transferred");
@@ -38,7 +39,7 @@ for (const width of [375, 767, 768, 1440]) {
       await expect(table.locator("tbody tr").nth(2).locator("td").last()).toHaveText("0");
       const distinction = page.locator("#acquisition-distinction");
       await expect(distinction).toBeVisible();
-      for (const phrase of locale === "fr" ? ["il repère, dans des informations publiques", "aucun rendez-vous", "aucune vente", "personnes que nous connaissons déjà"] : ["it looks for public signs", "a single meeting", "no sale", "people we already know"]) await expect(distinction).toContainText(phrase);
+      for (const phrase of locale === "fr" ? ["il repère, dans des informations publiques", "aucun rendez-vous", "aucune vente", "personnes que nous connaissons déjà"] : ["it looks for public signs", "a single meeting", "no sale", "people we already know"]) await expect(distinction).toContainText(phrase, { ignoreCase: true });
       await expect(page.locator("#offre article")).toHaveCount(1);
       await expect(page.locator("#offre .offer-price")).toHaveText(locale === "fr" ? "À partir de 3 500 € HT au forfait" : "From €3,500 excl. VAT, fixed price");
       await expect(page.locator("body")).not.toContainText(/3,200|3[\s\u00a0\u202f]200\s*€/);

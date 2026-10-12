@@ -1066,6 +1066,7 @@ h3 {
 
 .journal-list a {
   display: grid;
+  align-items: start;
   grid-template-columns: minmax(0, 1fr) max-content;
   gap: var(--s3);
   padding: var(--s4) 0;
