@@ -196,8 +196,8 @@ for (const locale of ["en", "fr"] as const) {
     await expect(page.getByRole("region", { name: "Metrics", exact: true })).toHaveCount(0);
     await expect(page.getByText(/200\+|2[.,]5 (?:months|mois)|100\s*%|02·09·2026/)).toHaveCount(0);
     await expect(page.locator(".home-s-brands-list + p")).toHaveText(locale === "fr"
-      ? "Pas publiés. Partagés en rendez-vous."
-      : "Not published. Shared in person.");
+      ? "Les noms des clients sont communiqués en rendez-vous."
+      : "Client names are shared in a meeting.");
     const gap = await page.locator(".home-s-brands").evaluate((brands) => {
       const previous = brands.previousElementSibling;
       if (!previous?.classList.contains("home-s-hero")) throw new Error("Hero containing the agent must precede brands");
@@ -223,9 +223,10 @@ for (const locale of ["en", "fr"] as const) {
       "A system commissioned to handle the firm's mailbox and act as a tailored assistant.",
       "We sell the system we run on.",
     ]);
-    await expect(page.locator(".r2-registre-note")).toHaveText(locale === "fr"
-      ? "Ils se lisent en rendez-vous, sur demande."
-      : "They are read in a meeting, on request.");
+    await expect(page.locator(".r2-registre-note")).toHaveCount(0);
+    await expect(page.locator("h1")).toHaveText(locale === "fr"
+      ? "Trois dossiers sont résumés ici. Les autres se présentent en rendez-vous."
+      : "Three dossiers are summarized here. The others are presented in a meeting.");
     await testInfo.attach(`dossiers-copy-${locale}-1440`, {
       body: await page.screenshot({ fullPage: true, animations: "disabled" }),
       contentType: "image/png",

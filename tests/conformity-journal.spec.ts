@@ -62,7 +62,7 @@ test("journal article renders its registry-line footer", async ({ page }) => {
   await page.goto(`${BASE_URL}/journal/one-card-one-action`);
 
   await expect(page.locator(".journal-article-footer .registry-line")).toHaveText(
-    /^WE FIND THE WAY · \d{4}-\d{2}-\d{2} · PARRIT \/ JOURNAL$/,
+    /^WE FIND THE WAY[\s\u00a0]·\s\d{4}-\d{2}-\d{2}[\s\u00a0]·\sPARRIT \/ JOURNAL$/,
   );
 });
 

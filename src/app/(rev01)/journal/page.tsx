@@ -10,13 +10,13 @@ const DICT = {
   "en": {
     "title": "Journal",
     "heading": "This journal is written on the job.",
-    "sub": "What held and what broke, on AI systems inside companies. Dated and on the record.",
+    "sub": "What held and what broke on AI systems inside companies, dated and on the record.",
     "entry": "Journal / Entry"
   },
   "fr": {
     "title": "Le Journal",
     "heading": "Ce journal s'écrit sur les chantiers.",
-    "sub": "Ce qui a tenu, ce qui a cassé, sur des systèmes IA en entreprise. Daté et consigné.",
+    "sub": "Ce qui a tenu et ce qui a cassé sur des systèmes d'IA en entreprise, daté et consigné.",
     "entry": "Journal / Entrée"
   }
 } as const;
@@ -32,7 +32,7 @@ export default async function JournalPage() {
     <main className="rev-page">
       <div className="rev-wrap">
         <header className="journal-header">
-          <RegistryLine value="PARRIT / JOURNAL · REV 01 · 2026" />
+          <K>{locale === "fr" ? "Parrit / Le Journal" : "Parrit / Journal"}</K>
           <h1>{copy.heading}</h1>
           <p>{copy.sub}</p>
         </header>
@@ -52,9 +52,7 @@ export default async function JournalPage() {
           ))}
         </ol>
 
-        <footer className="rev-footer">
-          <RegistryLine value="PARRIT / JOURNAL · REV 01 · 2026" />
-        </footer>
+        <footer className="rev-footer"><RegistryLine value="PARRIT / JOURNAL · 2026" /></footer>
       </div>
     </main>
   );

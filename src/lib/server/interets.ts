@@ -239,7 +239,7 @@ async function poserCarteSuperApp(
   const brouillon = fr
     ? `Bonjour,
 
-Vous avez laissé votre adresse sur parrit.ai.${idee} Voici un exemple illustratif, proche de votre besoin, pas une analyse de votre entreprise : ${sketchUrl}
+Vous avez laissé votre adresse sur parrit.ai.${idee} Voici une esquisse qui part d'un cas proche de votre besoin : ${sketchUrl}
 
 Un examen de 15 minutes, en visio, la précise :
 ${commissionUrl}
@@ -247,7 +247,7 @@ ${commissionUrl}
 Paul Larmaraud · Parrit.ai`
     : `Hello,
 
-You left your address on parrit.ai.${idee} Here is an illustrative example, close to your need, not an analysis of your company: ${sketchUrl}
+You left your address on parrit.ai.${idee} Here is a sketch starting from a case close to your need: ${sketchUrl}
 
 A 15-minute examination, on a video call, sharpens it:
 ${commissionUrl}

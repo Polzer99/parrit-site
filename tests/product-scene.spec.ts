@@ -16,9 +16,7 @@ for (const locale of ["fr", "en"] as const) {
       await expect(section.getByRole("heading", { level: 2 })).toHaveText(locale === "fr"
         ? "Vous demandez, vous validez, la fiche est créée."
         : "You ask, you approve, the record is created.");
-      await expect(section.locator(".product-scene-mention")).toHaveText(locale === "fr" ? "Exemple fictif" : "Fictional example");
-      await expect(section.locator(".product-scene-mention")).toHaveCSS("font-family", /IBM Plex Mono/);
-      await expect(section.locator(".product-scene-mention")).toHaveCSS("font-size", "16px");
+      await expect(section.locator(".product-scene-mention")).toHaveCount(0);
       await expect(section.locator(".product-scene-steps .scene-marker")).toHaveText(["1", "2", "3"]);
       await expect(section.locator(".scene-chat .scene-marker, .product-scene-image .scene-marker")).toHaveText(["1", "2", "3"]);
       expect(await section.innerText()).not.toMatch(/Laparra|Rungis|\bMIN\b|GESLOT|Lyon/i);
@@ -94,7 +92,7 @@ for (const locale of ["fr", "en"] as const) {
         };
         return {
           copy: box(".product-scene-copy"), conversation: box(".product-scene-conversation"),
-          object: box(".product-scene-object"), mention: box(".product-scene-mention"),
+          object: box(".product-scene-object"),
           container: box(".product-scene"), crm: box(".product-scene-image"), label: box(".product-scene-label"),
           overflow: [...el.querySelectorAll("*")].some((child) => {
             const r = child.getBoundingClientRect();
@@ -123,7 +121,6 @@ for (const locale of ["fr", "en"] as const) {
       } else {
         expect(geometry.copy.bottom).toBeLessThanOrEqual(geometry.conversation.y);
         expect(geometry.conversation.bottom).toBeLessThanOrEqual(geometry.object.y);
-        expect(geometry.object.bottom).toBeLessThanOrEqual(geometry.mention.y);
         expect(geometry.conversation.width).toBeCloseTo(Math.min(360, geometry.container.width), 1);
         expect(geometry.object.width).toBeCloseTo(geometry.container.width, 1);
       }

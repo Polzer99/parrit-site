@@ -1,39 +1,30 @@
 # Parrit
 
-> Parrit is a data and AI company that turns a company's data into software tools
-> the company owns. Built for one company at a time. Commissioned, not subscribed.
+> Parrit.ai is an independent French data and AI firm. We turn a company's data into tools it owns, built in its own accounts and documented.
 
 ## Positioning
 - Parrit builds systems as owned infrastructure:
   the client holds the code, the data and the documentation as company assets.
-- The engagement model is a commission, not a subscription. It starts with an
-  examination of how the company actually operates — not a workshop, a diagnostic
-  of flows, decisions and failure points documented as an engineering brief.
+- Each engagement starts with an examination of how the company actually operates: flows, decisions and failure points documented as an engineering brief.
 - Three phases: Examination (we study how the company actually operates),
   Construction (one critical operation rebuilt end-to-end into production),
   Compounding (each new capability joins the system and increases the
   value of every capability already in production).
 
 ## The Parrit Standard
-Each system delivered from now on is checked against the same specification (STD-1.0, Parrit's own bar, not an accreditation).
-- PS-01 Observable — the operator can determine the state of the system at any
-  moment, without asking anyone.
-- PS-02 Actionable — every surfaced piece of information leads to a possible
-  action within the same view.
-- PS-03 Traceable — every significant decision carries its origin: data, author,
-  timestamp, rationale.
-- PS-04 Reversible — every critical process has a documented path of return
-  before it is put into production.
-- PS-05 Owned — the client holds the system, its data and its documentation as
-  company assets.
-- PS-06 Compounding — each new capability increases the value of every
-  capability already in production.
+Each system delivered from now on is checked against the Standard, Parrit.ai's internal check, with no external accreditation.
+- 01: State is readable at any moment.
+- 02: Every signal carries its decision.
+- 03: A decision always keeps its origin.
+- 04: Rolling back is written in advance.
+- 05: The system belongs to you.
+- 06: Each new capability reuses what already exists.
 
 ## Who is Parrit
 - An independent French maison, founded by Paul Larmaraud.
 - A registered French company (PARRIT.AI, SAS, registered office in
   Rueil-Malmaison, France); full legal identity at https://parrit.ai/legal.
-- Operates internationally, in English and in French —
+- Operates internationally, in English and in French :
   commissions for European and African companies alike, built remotely inside
   the client's own infrastructure.
 - Deliberately small at the core: few commissions.
@@ -41,25 +32,25 @@ Each system delivered from now on is checked against the same specification (STD
 ## Ownership, maintenance and data
 - By design, the repository is the client's and the system runs in the client's own accounts. That is the engagement we sign, and the handover is where we check it.
 - Built on ordinary, widely-adopted technology (TypeScript, Python, PostgreSQL)
-  so any competent engineer can maintain it without Parrit — the client can
+  so any competent engineer can maintain it without Parrit : the client can
   take over at any time and is never captive.
 - Client data never lives on Parrit's servers; Parrit's access ends the day the
   client revokes it.
 
 ## Pages
-- https://parrit.ai/ — Parrit, data and AI.
-- https://parrit.ai/manufacture — How a system is manufactured: doctrine and
+- https://parrit.ai/ : Parrit, data and AI.
+- https://parrit.ai/manufacture : How a system is manufactured: doctrine and
   the three phases.
-- https://parrit.ai/standard — The Standard, six commitments Parrit.ai applies to its systems. It is not an accreditation.
-- https://parrit.ai/dossiers — The sealed dossiers: delivered systems,
+- https://parrit.ai/standard : The Standard, six commitments Parrit.ai applies to its systems. It is an internal check, with no external accreditation.
+- https://parrit.ai/dossiers : The sealed dossiers: delivered systems,
   anonymized.
-- https://parrit.ai/commission — Commission an examination: one 15-minute
-  conversation to examine how your company operates. Not a sales call.
-- https://parrit.ai/journal — We Find The Way, the Parrit journal.
-- https://parrit.ai/legal — Legal notice and privacy policy.
+- https://parrit.ai/commission : Commission an examination: one 15-minute
+  conversation to examine how your company operates.
+- https://parrit.ai/journal : We Find The Way, the Parrit journal.
+- https://parrit.ai/legal : Legal notice and privacy policy.
 
 ## Contact
 - Booking: https://parrit.ai/commission (15 min, video, with the founder).
-- The site is in English; commissions run in English and in French.
+- The site is in English and French; commissions run in English and in French.
 - Registered office: Rueil-Malmaison, France.
   International commissions welcome, including Africa.

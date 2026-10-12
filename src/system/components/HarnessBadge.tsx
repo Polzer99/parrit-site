@@ -6,11 +6,11 @@ export function HarnessBadge({ slug, locale = "en" }: { slug: string; locale?: "
 
   return (
     <aside className="harness-badge" aria-label="Harness">
-      <strong lang="en">Harness Certified ✓</strong>
+      <strong>{locale === "fr" ? "Vérifié par le contrôle interne" : "Harness Certified ✓"}</strong>
       <p>
         {locale === "fr"
-          ? "Contrôle interne Parrit, pas une accréditation. "
-          : "Parrit internal check, not an accreditation. "}
+          ? "Contrôle interne Parrit.ai, sans accréditation externe. "
+          : "Parrit.ai internal check, with no external accreditation. "}
         <a href={`/certificates/${slug}.json`}>
           {locale === "fr" ? "Voir la preuve" : "See the proof"}
         </a>

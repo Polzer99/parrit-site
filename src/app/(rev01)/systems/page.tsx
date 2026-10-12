@@ -50,8 +50,8 @@ const EVIDENCE = {
         "proofLabel": "Un prototype interne, pas un produit livré à un client."
       }
     ],
-    "narrative": "Prenons l'exemple le plus net : l'identification de nos contacts. Onze anciens outils y écrivent encore aujourd'hui, certains automatiquement, comme une synchronisation qui tourne toutes les 15 minutes. Une comparaison directe des deux sources, menée le 11 septembre 2026, a trouvé 114 fiches présentes uniquement dans l'ancien système. Rien n'est corrigé tout seul : la situation est signalée, et un contrôle automatique interdit désormais d'ajouter un nouveau point d'écriture vers l'ancien système sans le déclarer ici. C'est le fondateur qui décide, un type d'information à la fois, du jour où une ancienne source est mise de côté. Cette décision a déjà été prise et datée pour plusieurs d'entre elles. Voilà pourquoi, au 13 septembre 2026, 15 des 25 types d'information suivis avaient encore deux sources en présence, dont 4 où une vérification directe avait trouvé un désaccord, comme dans cet exemple. Nous ne le cachons pas.",
-    "acquisition": "Ce même travail de vérification s'applique aussi à notre prospection commerciale. Notre outil fonctionne : il repère, dans des informations publiques, des indices qu'une entreprise pourrait avoir besoin de nous. Mais nous ne l'avons pas encore branché sur notre système principal. Cet outil n'a encore débouché sur aucun rendez-vous. Et aucune vente ne lui est due : nos clients viennent de personnes que nous connaissons déjà.",
+    "narrative": "Prenons l'exemple le plus net : l'identification de nos contacts. Onze anciens outils y écrivent encore aujourd'hui, certains automatiquement, comme une synchronisation qui tourne toutes les 15 minutes. Une comparaison directe des deux sources, menée le 11 septembre 2026, a trouvé 114 fiches présentes uniquement dans l'ancien système. Rien n'est corrigé tout seul : la situation est signalée, et un contrôle automatique interdit désormais d'ajouter un nouveau point d'écriture vers l'ancien système sans le déclarer ici. C'est le fondateur qui décide, un type d'information à la fois, du jour où une ancienne source est mise de côté. Cette décision a déjà été prise et datée pour plusieurs d'entre elles. Voilà pourquoi, au 13 septembre 2026, 15 des 25 types d'information suivis avaient encore deux sources en présence, dont 4 où une vérification directe avait trouvé un désaccord, comme dans cet exemple.",
+    "acquisition": "Ce même travail de vérification s'applique aussi à notre prospection commerciale. Notre outil fonctionne : il repère, dans des informations publiques, des indices qu'une entreprise pourrait avoir besoin de nous. Mais nous ne l'avons pas encore branché sur notre système principal. Cet outil n'a encore débouché sur aucun rendez-vous. Aucune vente ne lui est due : nos clients viennent de personnes que nous connaissons déjà.",
     "story": "Toutes nos informations importantes (les contacts, les rendez-vous, les appels, les dossiers en cours) doivent avoir une seule source qui fait foi. Ce travail n'est pas terminé partout. Nous montrons où il en est vraiment."
   },
   "en": {
@@ -93,9 +93,9 @@ const EVIDENCE = {
         "proofLabel": "An internal prototype, not a product delivered to a client."
       }
     ],
-    "narrative": "Take the clearest example: contact identification. Eleven legacy tools still write to it today, some automatically, including a sync job that runs every 15 minutes. A direct comparison of both sources, run on September 11, 2026, found 114 records that existed only in the old system. Nothing gets fixed on its own: the mismatch is flagged, and an automatic gate now blocks any new write path into the old system unless it's declared here first. It's the founder who decides, one type of information at a time, when an old source gets retired. That decision has already been made and dated for several of them. That is why, as of September 13, 2026, 15 of the 25 types of information we track still had two sources in place, 4 of which had a directly measured disagreement, as in this example. We do not hide it.",
-    "acquisition": "The same check applies to our own outreach. Our tool works: it looks for public signs that a company might need us. But we haven't connected it to our main system yet. That tool hasn't led to a single meeting so far. And no sale is owed to it: our clients come from people we already know.",
-    "story": "Every piece of information Parrit depends on (a contact, a deadline, a call, an open deal) needs one trusted source. That work isn't finished everywhere. We show where it actually stands."
+    "narrative": "Take the clearest example: contact identification. Eleven legacy tools still write to it today, some automatically, including a sync job that runs every 15 minutes. A direct comparison of both sources, run on September 11, 2026, found 114 records that existed only in the old system. Nothing gets fixed on its own: the mismatch is flagged, and an automatic gate now blocks any new write path into the old system unless it's declared here first. It's the founder who decides, one type of information at a time, when an old source gets retired. That decision has already been made and dated for several of them. That is why, as of September 13, 2026, 15 of the 25 types of information we track still had two sources in place, 4 of which had a directly measured disagreement, as in this example.",
+    "acquisition": "The same check applies to our own outreach. Our tool works: it looks for public signs that a company might need us. But we haven't connected it to our main system yet. That tool hasn't led to a single meeting so far. No sale is owed to it: our clients come from people we already know.",
+    "story": "Every piece of information Parrit depends on (contacts, meetings, calls, open files) needs one trusted source. That work isn't finished everywhere. We show where it actually stands."
   }
 } as const;
 
@@ -108,69 +108,67 @@ const DICT = {
   en: {
     kicker: "Parrit / Systems", title: "We show the system. You judge before you commit.",
     sub: "Here is the system that runs our own files and our own decisions, shown as it works today, including what doesn't work yet.",
-    cta: "Book the examination", catalogue: "Demonstrated capabilities.", evidence: "Shown, not claimed.",
+    cta: "Book the examination", catalogue: "Demonstrated capabilities.", evidence: "What the system does today.",
     intro: "Before you trust a system with your operation, three questions matter: is it reliable, who's in control when it changes, what happens when it goes live. We answer them for ourselves first.",
     facts: [
       ["The list that's trusted", "In a lot of companies, several files each claim to be the real customer list, and nobody knows which one to believe. Here, for each type of information (contacts, meetings, calls, open files), one source is meant to be trusted, and the old one only gets retired once we've checked the new one holds everything. As of September 13, 2026, that work wasn't finished everywhere: of the 25 types of information we track, 15 still had two sources in place, and for 4 of them, a direct check had already found a disagreement between them."],
       ["Two checks before every change", "Whoever writes a change is never the one who approves it. A change is first built in a separate workspace, then a second system, distinct from the one that wrote it, reviews it in full. We then rerun our whole test suite. A single person decides alone whether it goes live. A change that hasn't passed these steps is never published."],
       ["A check that can block a page", "Before a page on this site goes live, an automatic check reads the text and the layout. It blocks if a number looks unverifiable, if a colour breaks our guidelines, or if the text overflows on a phone. If it blocks something wrongly, we fix the text. We never turn the check off."],
     ],
-    summaryText: "25 types of information tracked in total. For 1, the transfer is complete. For 8, it's underway. For 4, a check found a disagreement between the two versions. For 12, the transfer hasn't started. The legacy-tool count includes points already paused or failing, kept on record until formally closed. The table above lists the 7 most significant of the 25; the full registry is shown at the Examination.",
+    summaryText: "25 types of information tracked in total. For 1, the transfer is complete. For 8, it's underway. For 4, a check found a disagreement between the two versions. For 12, the transfer hasn't started. The legacy-tool count includes points already paused or failing, kept on record until formally closed. The table above lists the 7 most significant of the 25; the full registry is shown at the examination.",
     operating: "How we catch a mismatch, and what happens next.",
-    central: "Parrit / Central case", caseTitle: "The first client of this system is us.",
-    observed: "Internal use · observed 2026-09-13",
+    central: "Our own case", caseTitle: "The first client of this system is us.",
+    observed: "Internal use · observed September 13, 2026",
     record: ["25 types of information tracked across the company", "1 settled, 8 being transferred, 4 with two different versions, 12 not started"],
     mechanism: "Back to the detailed explanation, above", method: "Method",
     methodBody: "Every system above is built the same way: Examination, Construction, Compounding.", methodLink: "Read the Manufacture",
     guardrails: "Guardrails.",
     guards: ["For each type of information, a single tool is trusted. It's never chosen by default or by habit.", "A new write path into a legacy tool can't be added without being declared here first.", "Every decision is logged: who decided, and when. Nothing happens silently.", "Before a change touches the site or our tools, a second system, distinct from the one that wrote it, reviews it, and a person decides alone whether to ship it. It can always be rolled back.", "The choice of AI model depends on the need and the cost, never on a single imposed provider."],
-    offer: "Where to start.", audience: "For leaders who want something that runs, not an audit or a deck.",
+    offer: "Where to start.", audience: "For leaders who want to leave with a system in service.",
     outcome: "A working system, built with the founder.",
     deliverables: [
       "Free 15-minute examination",
       "30-minute findings review",
       "10 hours of building with the founder",
-    ],
-    format: "10 hours, with the founder", basis: "fixed price", offerCta: "See Build With You",
+    ], basis: "fixed price", offerCta: "See Build With You",
     faq: [
       ["Is this training or a delivered system?", "A system. You learn to use it along the way, but what we deliver is something that runs, not a course."],
       ["Where does our data go?", "Into your own accounts. We don't build a second database of it. If you choose ongoing support, we keep the technical access that takes, nothing more."],
-      ["Who maintains the system afterward?", "You, or us on a quote: the choice is made after the Examination, never before."],
-      ["Where do we start?", "A 15-minute Examination, no commitment."],
+      ["Who maintains the system afterward?", "You, or us on a quote: the choice is made after the examination, never before."],
+      ["Where do we start?", "A 15-minute examination, no commitment."],
     ], legal: "Legal",
   },
   fr: {
     kicker: "Parrit / Systèmes", title: "Nous montrons le système. Vous jugez avant de vous engager.",
     sub: "Voici le système qui organise nos dossiers et nos décisions, tel qu'il fonctionne aujourd'hui, avec ce qui ne marche pas encore.",
-    cta: "Réserver l'examen", catalogue: "Capacités démontrées.", evidence: "Montré, pas revendiqué.",
+    cta: "Réserver l'examen", catalogue: "Capacités démontrées.", evidence: "Ce que le système fait aujourd'hui.",
     intro: "Avant de confier une opération à un système, trois questions comptent : est-il fiable, qui contrôle un changement, que se passe-t-il à la mise en service. Nous y répondons d'abord pour nous-mêmes.",
     facts: [
       ["La liste qui fait foi", "Dans beaucoup d'entreprises, plusieurs fichiers prétendent chacun être la bonne liste de clients, et personne ne sait lequel croire. Chez nous, pour chaque type d'information (les contacts, les rendez-vous, les appels, les dossiers en cours), une seule source doit faire foi, et l'ancienne n'est mise de côté que le jour où l'on a vérifié que la nouvelle contient tout. Au 13 septembre 2026, ce travail n'était pas fini partout : sur 25 types d'information suivis, 15 avaient encore deux sources en présence, et pour 4 d'entre eux, une vérification directe avait déjà trouvé un désaccord entre elles."],
       ["Deux vérifications avant chaque changement", "Celui qui écrit une modification n'est jamais celui qui la valide. Une modification est d'abord préparée dans un espace de travail séparé, puis un second système, distinct de celui qui l'a écrite, la relit en entier. Nos tests sont ensuite rejoués intégralement. Une personne décide seule de la mise en ligne finale. Une modification qui n'a pas passé ces étapes n'est jamais publiée."],
       ["Une vérification qui peut bloquer une page", "Avant qu'une page de ce site soit mise en ligne, une vérification automatique relit le texte et la mise en page. Elle bloque si un chiffre semble invérifiable, si une couleur sort de notre charte, ou si le texte déborde sur un téléphone. Si elle bloque à tort, on corrige le texte concerné. On ne désactive jamais la vérification elle-même."],
     ],
-    summaryText: "25 types d'information suivis au total. Pour 1, le transfert est terminé. Pour 8, il est en cours. Pour 4, une vérification a trouvé un désaccord entre les deux versions. Pour 12, le transfert n'a pas encore commencé. Le compte des anciens outils inclut des points déjà mis en pause ou en échec, gardés au registre jusqu'à fermeture actée. Le tableau ci-dessus détaille les 7 types les plus significatifs sur les 25 ; le registre complet est montré à l'Examen.",
+    summaryText: "25 types d'information suivis au total. Pour 1, le transfert est terminé. Pour 8, il est en cours. Pour 4, une vérification a trouvé un désaccord entre les deux versions. Pour 12, le transfert n'a pas encore commencé. Le compte des anciens outils inclut des points déjà mis en pause ou en échec, gardés au registre jusqu'à fermeture actée. Le tableau ci-dessus détaille les 7 types les plus significatifs sur les 25 ; le registre complet est montré à l'examen.",
     operating: "Comment nous repérons un écart, et ce qu'il se passe ensuite.",
-    central: "Parrit / Cas central", caseTitle: "Le premier client de ce système, c'est nous.",
+    central: "Notre propre cas", caseTitle: "Le premier client de ce système, c'est nous.",
     observed: "Usage interne · vérifié le 13 septembre 2026",
     record: ["25 types d'information suivis dans l'entreprise", "1 réglé, 8 en cours de transfert, 4 avec deux versions différentes, 12 pas encore commencés"],
     mechanism: "Revenir à l'explication détaillée, plus haut", method: "Méthode",
     methodBody: "Chaque système ci-dessus se construit de la même façon : Examen, Construction, Capitalisation.", methodLink: "Lire la Manufacture",
     guardrails: "Garde-fous.",
     guards: ["Pour chaque type d'information, un seul outil fait foi. Il n'est jamais choisi par hasard ni par habitude.", "Un nouveau point d'écriture vers un ancien outil ne peut pas s'ajouter sans être déclaré ici.", "Chaque décision est notée : qui a décidé, et quand. Rien ne se passe sans laisser de trace.", "Avant qu'un changement touche le site ou nos outils, un second système, distinct de celui qui l'a écrit, le relit, et une personne décide seule de le mettre en ligne. On peut toujours revenir en arrière.", "Le choix d'un outil d'intelligence artificielle dépend du besoin et du coût, jamais d'un seul fournisseur imposé."],
-    offer: "Par où commencer.", audience: "Pour le dirigeant qui veut repartir avec quelque chose qui tourne, pas un audit ni un deck.",
+    offer: "Par où commencer.", audience: "Pour le dirigeant qui veut repartir avec un système en service.",
     outcome: "Un système qui tourne, construit avec le fondateur.",
     deliverables: [
       "Examen offert de 15 min",
       "Restitution de 30 min",
       "10 heures de construction avec le fondateur",
-    ],
-    format: "10 heures, avec le fondateur", basis: "au forfait", offerCta: "Découvrir Build With You",
+    ], basis: "au forfait", offerCta: "Découvrir Build With You",
     faq: [
       ["Formation ou système livré ?", "Un système. Vous apprenez à vous en servir en cours de route, mais ce que nous livrons, c'est quelque chose qui fonctionne, pas un cours."],
       ["Où vont nos données ?", "Dans vos comptes. Nous n'en construisons pas une seconde base ailleurs. Si vous choisissez un suivi continu, nous gardons l'accès technique que ça demande, rien de plus."],
-      ["Qui maintient le système ensuite ?", "Vous, ou nous sur devis : le choix se fait après l'Examen, jamais avant."],
-      ["Par où commence-t-on ?", "Un Examen de 15 minutes, sans engagement."],
+      ["Qui maintient le système ensuite ?", "Vous, ou nous sur devis : le choix se fait après l'examen, jamais avant."],
+      ["Par où commence-t-on ?", "Un examen de 15 minutes, sans engagement."],
     ], legal: "Mentions légales",
   },
 } as const;
@@ -192,7 +190,7 @@ const ROWS = {
     {
       "domain": "Prospection commerciale",
       "source": "Outil externe (Lemlist)",
-      "status": "Transfert en cours",
+      "status": "En cours de transfert",
       "legacyWriters": 0
     },
     {
@@ -236,7 +234,7 @@ const ROWS = {
     {
       "domain": "Outreach",
       "source": "External tool (Lemlist)",
-      "status": "Transfer under way",
+      "status": "Being transferred",
       "legacyWriters": 0
     },
     {
@@ -298,14 +296,14 @@ export default async function SystemsPage() {
       </header>
       <section className="r2-section" aria-labelledby="evidence-heading">
         {heading("evidence-heading", copy.evidence)}<p>{copy.intro}</p>
-        {copy.facts.map(([label, body]) => <div key={label} style={{ marginTop: 28 }}><K>{label}</K><p style={{ lineHeight: 1.7, marginTop: 12 }}>{body}</p></div>)}
+        {copy.facts.map(([label, body]) => <div key={label} style={{ marginTop: 28 }}><K>{label}</K><p style={{ marginTop: 12 }}>{body}</p></div>)}
       </section>
       <section className="r2-section" id="operating-view" aria-labelledby="operating-heading">
         {heading("operating-heading", copy.operating)}
-        <p style={{ lineHeight: 1.8 }}>{evidence.narrative}</p>
+        <p>{evidence.narrative}</p>
         <MechanismSchema locale={locale} />
         <RegistrySnapshot locale={locale} asOf="2026-09-13" rows={ROWS[locale]} summaryText={copy.summaryText} />
-        <p id="acquisition-distinction" style={{ marginTop: 40, paddingTop: 32, borderTop: "1px solid var(--rule-d)", lineHeight: 1.8 }}>{evidence.acquisition}</p>
+        <p id="acquisition-distinction" style={{ marginTop: 40, paddingTop: 32, borderTop: "1px solid var(--rule-d)" }}>{evidence.acquisition}</p>
       </section>
       <section className="r2-section" id="capacites" aria-labelledby="capabilities-heading">
         {heading("capabilities-heading", copy.catalogue)}
@@ -313,26 +311,26 @@ export default async function SystemsPage() {
       </section>
       <section className="r2-section" id="r06" aria-labelledby="case-heading">
         <K>{copy.central}</K>{heading("case-heading", copy.caseTitle)}<K>{copy.observed}</K>
-        <ul style={{ paddingLeft: 24, lineHeight: 2, marginTop: 24 }}>{copy.record.map((item) => <li key={item}>{item}</li>)}</ul>
-        <p style={{ lineHeight: 1.8, margin: "32px 0" }}>{evidence.story}</p>
+        <ul style={{ paddingLeft: 24, marginTop: 24 }}>{copy.record.map((item) => <li key={item}>{item}</li>)}</ul>
+        <p style={{ margin: "32px 0" }}>{evidence.story}</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 24, alignItems: "center" }}><Link href="#operating-view">{copy.mechanism}</Link>{talk}</div>
       </section>
       <section className="r2-section" id="method" aria-labelledby="method-heading">
         {heading("method-heading", copy.method)}<p style={{ marginBottom: 24 }}>{copy.methodBody}</p><Link href={localizedPath("/manufacture", locale)}>{copy.methodLink}</Link>
       </section>
       <section className="r2-section" id="garde-fous" aria-labelledby="guardrails-heading">
-        {heading("guardrails-heading", copy.guardrails)}<ul style={{ paddingLeft: 24, lineHeight: 1.8 }}>{copy.guards.map((guard, i) => <li key={guard} style={{ marginTop: 20 }}>{i < 4 ? <Link href={["#operating-view", "#operating-view", "#operating-view", "#capacites"][i]}>{guard}</Link> : guard}</li>)}</ul>
+        {heading("guardrails-heading", copy.guardrails)}<ul style={{ paddingLeft: 24 }}>{copy.guards.map((guard, i) => <li key={guard} style={{ marginTop: 20 }}>{i < 4 ? <Link href={["#operating-view", "#operating-view", "#operating-view", "#capacites"][i]}>{guard}</Link> : guard}</li>)}</ul>
       </section>
       <section className="r2-section" id="offre" aria-labelledby="offer-heading">
         {heading("offer-heading", copy.offer)}
-        <OfferCard name="Build With You" audience={copy.audience} outcome={copy.outcome} deliverables={copy.deliverables} format={copy.format}
+        <OfferCard name="Build With You" audience={copy.audience} outcome={copy.outcome} deliverables={copy.deliverables}
           price={price} locale={locale} cta={{ label: copy.offerCta, href: localizedPath("/build-with-you", locale) }} />
       </section>
       <section className="r2-section" id="faq" aria-labelledby="faq-heading">
-        {heading("faq-heading", "FAQ")}{copy.faq.map(([question, answer]) => <div key={question} style={{ marginBottom: 32 }}><h3>{question}</h3><p style={{ lineHeight: 1.8, marginTop: 16 }}>{answer}</p></div>)}
+        {heading("faq-heading", "FAQ")}{copy.faq.map(([question, answer]) => <div key={question} style={{ marginBottom: 32 }}><h3>{question}</h3><p style={{ marginTop: 16 }}>{answer}</p></div>)}
       </section>
       <div className="r2-close">{talk}</div>
-      <footer className="r2-footer"><RegistryLine value="PARRIT / SYSTEMS · 2026" /><Link href={localizedPath("/legal", locale)}>{copy.legal}</Link></footer>
+      <footer className="rev-footer"><RegistryLine value="PARRIT / SYSTEMS · 2026" /></footer>
     </div>
   </main>;
 }

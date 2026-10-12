@@ -520,3 +520,44 @@ pour les pages accueil, Build With You et Systèmes en FR/EN. Aucun prix à modi
 dans les articles, le générateur llms.txt ou les JSON-LD existants. Les tests
 unitaires, SSR et navigateur verrouillent le nouvel ancrage et rejettent l’ancien.
 Composition de l’accueil et design-source historiques préservés.
+
+## Alignement et copy, 11/10/2026
+
+La spec anti-slop du 11/10 conserve les compositions et le Brand OS. Les colonnes
+partagent 1160 px, avec 40/20 px de padding : bord de contenu à 180/20 px pour
+1440/375. Attaque des heros 98 px, pieds locaux réduits à RegistryLine, cartes en
+subgrid, notes centrées, dates et numéros du Standard insécables. Les paragraphes
+utilisent le rythme CSS commun ; la conversation tierce conserve son rythme propre.
+
+`src/system/examination.ts` centralise EXAM_NOTE FR/EN ; BWY conserve la mention
+offert. Les mentions défensives quittent le rendu, l'accessibilité et le mail de
+capture. La tagline reste dans RevFooter uniquement (Opening reste inutilisé).
+Le générateur llms reprend les six énoncés EN du Standard. Aucun article MDX,
+certificat, prix, fait client ou fichier vendorisé modifié.
+
+Nouvelles gates : anti-slop-copy (Playwright + Node) et alignment-grid (Playwright,
+1440/375, FR/EN, neuf pages et un article). Deny-all partagé, Cal simulé. Le test
+Node fait aussi partie de test:brand-os, déjà exécuté en CI. Tests existants adaptés
+aux seules chaînes remplacées ; contrôle anti-slop ajouté au rendu serveur réel.
+
+Validation et limites du sandbox : voir `docs/REPORT-2026-10-11-alignement-anti-slop.md`.
+Aucun commit, push ou déploiement dans cette intervention.
+
+## Revue PR #313, 11/10/2026
+
+Les séparateurs de K restent attachés au mot précédent, avec retour possible après
+le point médian ; les dates du Journal ne s’étirent plus dans leur grille. Le pied
+d’article retrouve « WE FIND THE WAY · date de l’article · PARRIT / JOURNAL ».
+Accueil : dossiers consultables en ligne ; /dossiers : summarized. BWY distingue
+la description SEO autonome du texte visible. Les assertions Playwright suivent
+les nouveaux textes, le point encadré, la suppression du registre et de la mention
+produit ; les autres assertions géométriques sont conservées.
+
+L’échec aeration à 390 px reste ouvert : aucun correctif spéculatif, test inchangé.
+Chromium est refusé avant navigation (MachPortRendezvousServer, permission denied).
+La trace de l’hôte est nécessaire pour établir la cause du timeout de soumission.
+
+Validation de cette reprise : npm ci hors réseau, lint, TypeScript, qa:claims,
+qa:brand, build Webpack (57 pages), npm test (107/107) et test:brand-os (23/23)
+réussis. Build Turbopack interrompu sans progression. Mesures et clics navigateur
+non validés dans ce sandbox. Aucun commit, push ou déploiement.

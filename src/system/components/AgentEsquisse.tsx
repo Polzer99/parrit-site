@@ -10,33 +10,31 @@ import { QuickCapture } from "./QuickCapture";
 const DICT = {
   fr: {
     title: "Votre agent · esquisse",
-    mode: "Un exemple, pas une analyse de votre entreprise",
-    opening: "Décrivez l'opération qui vous coûte le plus de temps. Un système s'esquisse pour la reprendre.",
+    opening: "Décrivez l'opération qui vous coûte le plus de temps. Nous esquissons le système qui la reprendrait.",
     response: "Voici la première esquisse de votre système :",
     labels: ["Signal", "Décision", "Action"],
     scenarios: {
-      followup: ["Dossier sans réponse depuis 12 jours", "Relancer · ton direct · modèle B", "Brouillon prêt, journalisé, réversible"],
+      followup: ["Dossier sans réponse depuis 12 jours", "Relancer · ton direct · modèle B", "Brouillon prêt, consigné, annulable"],
       reporting: ["Les chiffres de la semaine, collectés seuls", "Deux écarts à trancher, sur une carte", "Le rapport part à l'heure, sans vous"],
       invoice: ["Facture bloquée détectée au jour 1", "Relance cadrée et chiffrée, à valider", "Encaissement suivi jusqu'au solde"],
       default: ["Votre opération, observée en continu", "Seuls les arbitrages remontent à vous", "Le reste s'exécute et se consigne"],
     },
-    transition: "Cette esquisse est un exemple, choisi dans une catégorie proche de votre phrase, pas une analyse de votre entreprise. Envoyez-la à Paul : il regarde si un système comme celui-ci a du sens pour vous, et vous répond personnellement.",
+    transition: "Cette esquisse part d'un cas proche de votre phrase. Envoyez-la à Paul : il regarde si un système de ce type a du sens chez vous et vous répond personnellement.",
     input: "Votre opération",
     send: "Esquisser",
   },
   en: {
     title: "Your agent · sketch",
-    mode: "An example, not an analysis of your company",
-    opening: "Describe the operation that costs you the most time. A system gets sketched to take it over.",
+    opening: "Describe the operation that costs you the most time. We sketch the system that would take it over.",
     response: "Here is the first sketch of your system:",
     labels: ["Signal", "Decision", "Action"],
     scenarios: {
-      followup: ["File silent for 12 days", "Follow up · direct tone · template B", "Draft ready, journaled, reversible"],
-      reporting: ["The week's numbers, collected on their own", "Two gaps to arbitrate, on a card", "The report ships on time, without you"],
+      followup: ["File silent for 12 days", "Follow up · direct tone · template B", "Draft ready, logged, can be undone"],
+      reporting: ["The week's numbers, collected on their own", "Two gaps to decide on, on a card", "The report ships on time, without you"],
       invoice: ["Blocked invoice caught on day 1", "Framed, quantified follow-up, for your approval", "Collection tracked to the balance"],
-      default: ["Your operation, observed continuously", "Only the arbitrations reach you", "The rest executes and gets recorded"],
+      default: ["Your operation, observed continuously", "Only the decisions reach you", "The rest executes and gets recorded"],
     },
-    transition: "This sketch is an example, picked from a category close to your sentence, not an analysis of your company. Send it to Paul: he checks whether a system like this makes sense for you, and replies to you personally.",
+    transition: "This sketch starts from a case close to your sentence. Send it to Paul: he checks whether a system like this makes sense for you and replies personally.",
     input: "Your operation",
     send: "Sketch",
   },
@@ -82,7 +80,6 @@ export function AgentEsquisse({ locale }: { locale: Locale }) {
     <div className="agent-esquisse" role="region" aria-label={copy.title}>
       <header className="agent-esquisse-header">
         <K className="agent-esquisse-title">{copy.title}</K>
-        <K>{copy.mode}</K>
       </header>
       <div className="agent-esquisse-body">
         <p>{copy.opening}</p>

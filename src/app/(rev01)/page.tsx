@@ -1,3 +1,4 @@
+import { EXAM_NOTE } from "@/system/examination";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BUILD_WITH_YOU_PRICE } from "../../../site.config";
@@ -21,14 +22,13 @@ const DICT = {
       alternative: "Book the examination",
     },
     brands: {
-      kicker: "Orders from:",
+      kicker: "Systems commissioned by:",
       list: "an industrial group · a law firm · a B2B energy broker · a consumer brand.",
-      note: "Not published. Shared in person.",
+      note: "Client names are shared in a meeting.",
     },
     journey: {
       kicker: "How it works",
       title: "Four steps take you from the first message to a system your team runs.",
-      intro: "Each step names what Parrit does, what you bring, and what it unlocks next.",
       steps: [
         ["01", "Name the operation", "You describe what costs you the most time. Parrit examines with you who it touches and what it really costs."],
         ["02", "Write the scope", "What gets built, what Parrit will need from you, and how success is judged, written before work starts."],
@@ -45,7 +45,6 @@ const DICT = {
       phrase: "One example: an agent in the sales team's messaging app, connected to the company's CRM.",
       steps: ["You photograph the card.", "You reply “yes”.", "The contact is in the CRM."],
       label: "In your CRM",
-      mention: "Fictional example",
       conversationAlt: "Conversation with the CRM agent: a photographed business card, the question “Is that right?” and the reply “yes”",
       objectAlt: "Contact record created in the CRM: company, name, role, masked mobile number",
     },
@@ -53,12 +52,11 @@ const DICT = {
       kicker: "The proof",
       systems: {
         title: "We show the system. You judge before you commit.",
-        fact: "15 of the 25 types of information we track were still held in two places (measured September 13, 2026).",
+        fact: "We publish the real state of our own system: as of September 13, 2026, 15 of the 25 types of information we track were still held in two places.",
         cta: "See the system",
       },
       dossiers: {
-        title: "We show client dossiers in a meeting, not online.",
-        fact: "Three open dossiers today. The rest stay sealed until a meeting.",
+        title: "Three dossiers are available online. The others are presented in a meeting.",
         cta: "See the dossiers",
       },
     },
@@ -67,14 +65,13 @@ const DICT = {
       cards: [
         {
           name: "Build With You",
-          audience: "For leaders who want something that runs, not an audit or a deck.",
+          audience: "For leaders who want to leave with a system in service.",
           outcome: "A working system, built with the founder.",
           deliverables: [
             "Free 15-minute examination",
             "30-minute findings review",
             "10 hours of building with the founder",
           ],
-          format: "10 hours, with the founder",
           price: { ...BUILD_WITH_YOU_PRICE, basis: "fixed price" },
           cta: { label: "See Build With You", href: "/build-with-you" },
         },
@@ -91,7 +88,7 @@ const DICT = {
     journal: { kicker: "What the work teaches us", title: "The Journal records what held and what broke on our own systems, and what we take from it for yours." },
     close: {
       title: "A 15-minute examination tells you whether a system is worth building.",
-      note: "15 min · An examination, on a video call, with the founder",
+      note: EXAM_NOTE.en,
       button: "Book the examination",
     },
   },
@@ -105,14 +102,13 @@ const DICT = {
       alternative: "Réserver l'examen",
     },
     brands: {
-      kicker: "Commandes de :",
+      kicker: "Ils nous ont commandé un système :",
       list: "un groupe industriel · un cabinet d'avocats · un courtier en énergie B2B · une marque grand public.",
-      note: "Pas publiés. Partagés en rendez-vous.",
+      note: "Les noms des clients sont communiqués en rendez-vous.",
     },
     journey: {
       kicker: "Le déroulement",
       title: "Quatre étapes mènent du premier message à un système que votre équipe fait tourner.",
-      intro: "Chaque étape dit ce que Parrit fait, ce que vous apportez, et ce qu'elle débloque pour la suite.",
       steps: [
         ["01", "Nommer l'opération", "Vous décrivez ce qui vous coûte le plus de temps. Parrit examine avec vous qui elle touche et ce qu'elle coûte réellement."],
         ["02", "Écrire le périmètre", "Ce qui sera construit, ce dont Parrit aura besoin de vous, et comment on juge que c'est réussi, écrit avant que le travail commence."],
@@ -129,7 +125,6 @@ const DICT = {
       phrase: "Un exemple : un agent dans la messagerie de l'équipe commerciale, relié au CRM de l'entreprise.",
       steps: ["Vous photographiez la carte.", "Vous répondez « oui ».", "Le contact est dans le CRM."],
       label: "Dans votre CRM",
-      mention: "Exemple fictif",
       conversationAlt: "Conversation avec l'agent CRM : une carte de visite photographiée, la question « C'est bon ? » et la réponse « oui »",
       objectAlt: "Fiche du contact créée dans le CRM : société, nom, poste, mobile masqué",
     },
@@ -137,12 +132,11 @@ const DICT = {
       kicker: "La preuve",
       systems: {
         title: "Nous montrons le système. Vous jugez avant de vous engager.",
-        fact: "15 des 25 types d'information que nous suivons étaient encore tenus en double (mesuré le 13 septembre 2026).",
+        fact: "Nous publions l'état réel de notre propre système : au 13 septembre 2026, 15 des 25 types d'information suivis étaient encore tenus en double.",
         cta: "Voir le système",
       },
       dossiers: {
-        title: "Nous montrons les dossiers clients en rendez-vous, pas en ligne.",
-        fact: "Trois dossiers ouverts aujourd'hui. Les autres restent scellés jusqu'au rendez-vous.",
+        title: "Trois dossiers sont consultables en ligne. Les autres se présentent en rendez-vous.",
         cta: "Voir les dossiers",
       },
     },
@@ -151,14 +145,13 @@ const DICT = {
       cards: [
         {
           name: "Build With You",
-          audience: "Pour le dirigeant qui veut repartir avec quelque chose qui tourne, pas un audit ni un deck.",
+          audience: "Pour le dirigeant qui veut repartir avec un système en service.",
           outcome: "Un système qui tourne, construit avec le fondateur.",
           deliverables: [
             "Examen offert de 15 min",
             "Restitution de 30 min",
             "10 heures de construction avec le fondateur",
           ],
-          format: "10 heures, avec le fondateur",
           price: { ...BUILD_WITH_YOU_PRICE, basis: "au forfait" },
           cta: { label: "Découvrir Build With You", href: "/build-with-you" },
         },
@@ -175,7 +168,7 @@ const DICT = {
     journal: { kicker: "Ce que les chantiers nous apprennent", title: "Le Journal consigne ce qui a tenu et ce qui a cassé sur nos propres systèmes, et ce que nous en tirons pour les vôtres." },
     close: {
       title: "Un examen de 15 minutes vous dit si un système vaut d'être construit.",
-      note: "15 min · Un examen, en visio, avec le fondateur",
+      note: EXAM_NOTE.fr,
       button: "Réserver l'examen",
     },
   },
@@ -187,8 +180,8 @@ export async function generateMetadata(): Promise<Metadata> {
     ? "Parrit.ai · Données et IA, des outils qui vous appartiennent"
     : "Parrit.ai · Data and AI, tools you own";
   const description = locale === "fr"
-    ? "Parrit.ai relie vos sources, remet vos données à plat et construit dessus des outils qui vous appartiennent : le code, les données et la documentation."
-    : "Parrit.ai connects your sources, cleans up your data and builds tools on top of it that you own: the code, the data and the documentation.";
+    ? "Parrit.ai est une maison française indépendante de données et d'IA : nous transformons les données d'une entreprise en outils qui lui appartiennent, construits dans ses comptes et documentés."
+    : "Parrit.ai is an independent French data and AI firm. We turn a company's data into tools it owns, built in its own accounts and documented.";
   return {
     title: { absolute: title }, description,
     alternates: {
@@ -212,7 +205,7 @@ export default async function HomePage() {
           <h1>
             <span>{copy.hero.before} </span>
             <span className="home-s-hero-ending">
-              <span className="frame">{copy.hero.frame}<i className="fx" aria-hidden="true" /></span>{copy.hero.after}
+              <span className="frame">{`${copy.hero.frame}${copy.hero.after}`}<i className="fx" aria-hidden="true" /></span>
             </span>
           </h1>
           <p className="home-s-hero-sub">{copy.hero.sub}</p>
@@ -243,7 +236,7 @@ export default async function HomePage() {
           <div className="home-s-maison-copy">
             <K>{copy.journey.kicker}</K>
             <h2>{copy.journey.title}</h2>
-            <p>{copy.journey.intro}</p>
+
             <ol className="home-s-journey-steps">
               {copy.journey.steps.map(([number, title, body]) => (
                 <li key={number}><K>{number}</K><h3>{title}</h3><p>{body}</p></li>
@@ -271,7 +264,6 @@ export default async function HomePage() {
             phrase={copy.build.phrase}
             steps={copy.build.steps}
             label={copy.build.label}
-            mention={copy.build.mention}
             object={{
               src: "/brand/scenes/scene-carte-visite-fiche-crm",
               width: 860, height: 564, widths: [430, 860],
@@ -296,7 +288,7 @@ export default async function HomePage() {
             </Link>
             <Link className="home-s-proof-item home-s-proof-item--dossiers" href={localizedPath("/dossiers", locale)}>
               <h3>{copy.proof.dossiers.title}</h3>
-              <p>{copy.proof.dossiers.fact}</p>
+
               <span>{copy.proof.dossiers.cta}</span>
             </Link>
           </div>

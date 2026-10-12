@@ -20,6 +20,7 @@ function loadSketch(lang, interet) {
     "next/link": ({ children, ...props }) => React.createElement("a", props, children),
     "next/navigation": { notFound: () => { throw new Error("Unexpected notFound"); } },
     "@/lib/server/sketch": { lireEsquisse: async () => ({ lang, interet, entreprise: "Fixture", declareLe: "2026-10-04T00:00:00Z" }) },
+    "@/system/examination": nativeRequire("../src/system/examination.ts"),
     "@/system/locale": { localizedPath: (path, locale) => `${locale === "fr" ? "/fr" : ""}${path}` },
     "@/system/components": { K: wrap, St: wrap, RegistryLine: () => null, Instrument: () => null },
   };

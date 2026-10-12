@@ -7,20 +7,20 @@ import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 const DICT = {
   "en": {
     "title": "Every commission begins with an examination.",
-    "metaDescription": "Fifteen minutes on a video call with the founder, to name the operation costing you the most and check a system makes sense for it. You leave with a written scope or a clear no.",
+    "metaDescription": "Fifteen minutes on a video call with the founder, to name the operation costing you the most and check a system makes sense for it. You then receive a written scope, or a clear no.",
     "kicker": "Parrit / Commission",
     "sub": "Fifteen minutes on a video call with the founder, to name the operation costing you the most and check a system makes sense for it.",
-    "noteTitle": "You leave with a clear direction.",
+    "noteTitle": "After the call, a written scope or a clear no.",
     "noteBody": "Either the founder sends you a written scope next: what gets built, what he'll need from you, how success is judged. Or a clear no, right away. Nothing is signed during the call; the scope is written afterwards, in black and white.",
     "capture": "No slot that works? Leave your e-mail",
     "aria": "Select a time"
   },
   "fr": {
     "title": "Toute commande commence par un examen.",
-    "metaDescription": "Quinze minutes en visio avec le fondateur, pour nommer l'opération qui vous coûte le plus et vérifier qu'un système a du sens pour elle. Vous repartez avec un périmètre écrit ou un non clair.",
+    "metaDescription": "Quinze minutes en visio avec le fondateur, pour nommer l'opération qui vous coûte le plus et vérifier qu'un système a du sens pour elle. Vous recevez ensuite un périmètre écrit, ou un non clair.",
     "kicker": "Parrit / Commande",
     "sub": "Quinze minutes en visio avec le fondateur, pour nommer l'opération qui vous coûte le plus et vérifier qu'un système a du sens pour elle.",
-    "noteTitle": "Vous repartez avec une direction claire.",
+    "noteTitle": "Après l'appel, un périmètre écrit ou un non clair.",
     "noteBody": "Soit le fondateur vous envoie ensuite un périmètre écrit : ce qui sera construit, ce dont il aura besoin de vous, comment on juge que c'est réussi. Soit un non clair, tout de suite. Rien ne se signe pendant l'appel ; le périmètre se rédige après, noir sur blanc.",
     "capture": "Pas de créneau ? Laissez votre e-mail",
     "aria": "Choisissez un créneau"
@@ -53,9 +53,7 @@ export default async function CommissionPage() {
           <QuickCapture locale={locale} id="commission" />
         </section>
 
-        <footer className="rev-footer">
-          <RegistryLine />
-        </footer>
+        <footer className="rev-footer"><RegistryLine /></footer>
       </div>
     </main>
   );

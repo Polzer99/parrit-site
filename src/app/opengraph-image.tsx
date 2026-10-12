@@ -48,14 +48,14 @@ export default async function Image() {
         </div>
         <div
           style={{
-            fontSize: 104,
+            fontSize: 72,
             fontWeight: 500,
             letterSpacing: "-0.035em",
             lineHeight: 1.02,
             maxWidth: 820,
           }}
         >
-          Your company. One system.
+          We turn operational problems into systems that work.
         </div>
         <div
           style={{
@@ -69,7 +69,7 @@ export default async function Image() {
           }}
         >
           <div style={{ width: 14, height: 14, background: token("--accent-on-dark") }} />
-          <span>COMMISSIONED, NOT SUBSCRIBED · PARRIT / SITE · REV 01 · 2026</span>
+          <span>PARRIT.AI · DATA AND AI · 2026</span>
         </div>
       </div>
     ),

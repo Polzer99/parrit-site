@@ -46,9 +46,9 @@ function fixture(run) {
 test("valid source certificate renders the real badge, disclaimer and local proof in both languages", () => fixture(({ root, certificate, save, render }) => {
   save(certificate);
   assert.deepEqual(verifyCertificates(root), []);
-  for (const [locale, disclaimer, link] of [["en", "Parrit internal check, not an accreditation.", "See the proof"], ["fr", "Contrôle interne Parrit, pas une accréditation.", "Voir la preuve"]]) {
+  for (const [locale, disclaimer, link] of [["en", "Parrit.ai internal check, with no external accreditation.", "See the proof"], ["fr", "Contrôle interne Parrit.ai, sans accréditation externe.", "Voir la preuve"]]) {
     const html = render(locale);
-    for (const text of ["Harness Certified ✓", disclaimer, link, 'href="/certificates/example.json"']) assert.ok(html.includes(text));
+    for (const text of [locale === "fr" ? "Vérifié par le contrôle interne" : "Harness Certified ✓", disclaimer, link, 'href="/certificates/example.json"']) assert.ok(html.includes(text));
   }
 }));
 

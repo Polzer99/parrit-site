@@ -20,7 +20,7 @@ const FOOTER = {
       ["/manufacture", "La Manufacture", "la méthode"],
       ["/standard", "Le Standard", "nos engagements"],
       ["/dossiers", "Les Dossiers", "références"],
-      ["/journal", "Le Journal", "les chantiers"],
+      ["/journal", "Le Journal", "notes de chantier"],
       ["/commission", "Commande", "réserver l'examen"],
       ["/legal", "Mentions légales", ""],
     ],
@@ -36,7 +36,7 @@ export function RevFooter({ locale }: { locale: Locale }) {
     <footer className="home-s-footer r2-dark">
       <div className="home-s-wrap">
         <nav aria-label="Footer">
-          {copy.links.map(([href, label, description]) => <Link href={localizedPath(href, locale)} key={href}><span>{label}</span>{description ? <small> · {description}</small> : null}</Link>)}
+          {copy.links.map(([href, label, description]) => <Link href={localizedPath(href, locale)} key={href}><span>{label}</span>{description ? <small>{"\u00a0· "}{description}</small> : null}</Link>)}
         </nav>
         <div className="home-s-footer-meta">
           <a href="https://paul-larmaraud.com">{copy.founder}</a>

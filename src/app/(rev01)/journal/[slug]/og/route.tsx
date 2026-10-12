@@ -57,7 +57,7 @@ export async function GET(_request: Request, { params }: JournalOpenGraphImagePr
             color: token("--g4-d"),
           }}
         >
-          PARRIT / JOURNAL · REV 01 · {entry.date}
+          PARRIT / JOURNAL · {entry.date}
         </div>
         <div
           style={{
@@ -66,7 +66,6 @@ export async function GET(_request: Request, { params }: JournalOpenGraphImagePr
             fontSize: 68,
             fontWeight: 500,
             letterSpacing: "-0.035em",
-            lineHeight: 1.05,
           }}
         >
           {entry.title}

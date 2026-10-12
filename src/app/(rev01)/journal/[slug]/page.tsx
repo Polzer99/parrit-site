@@ -66,6 +66,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
     notFound();
   }
 
+  const dateLabel = new Intl.DateTimeFormat(locale === "fr" ? "fr-FR" : "en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(entry.date));
   const entries = getAllJournalEntrySummaries();
   const currentIndex = entries.findIndex((candidate) => candidate.slug === entry.slug);
   // Garder la position avant filtrage permet aussi de partir d'une entrée noindex.
@@ -80,12 +81,11 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(blogPostingJsonLd(entry)).replace(/</g, "\\u003c"),
-        }}
+          __html: JSON.stringify(blogPostingJsonLd(entry)).replace(/</g, "\\u003c") }}
       />
-      <article className="journal-article">
+      <article className="rev-wrap journal-article">
         <header className="journal-header">
-          <K>{locale === "fr" ? "Journal / Entrée" : "Journal / Entry"} · {entry.date}</K>
+          <K>{locale === "fr" ? "Journal / Entrée" : "Journal / Entry"} · <time dateTime={entry.date}>{dateLabel}</time></K>
           <h1 lang="en">{entry.title}</h1>
           <HarnessBadge slug={entry.slug} locale={locale} />
           {locale === "fr" ? <p>Article en anglais.</p> : null}

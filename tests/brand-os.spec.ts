@@ -173,9 +173,11 @@ for (const width of [375, 390, 768, 1440]) {
       await expect(h1).toHaveText(route === "/fr" ? "Nous transformons des problèmes opérationnels en systèmes qui fonctionnent." : "We turn operational problems into systems that work.");
       await expect(h1.locator(".frame")).toHaveCSS("display", "inline-block");
       await expect(h1.locator(".frame")).toHaveCSS("white-space", width <= 760 ? "normal" : "nowrap");
-      await expect(h1.locator(".frame")).toHaveText(route === "/fr" ? "systèmes qui fonctionnent" : "systems that work");
+      await expect(h1.locator(".frame")).toHaveText(route === "/fr" ? "systèmes qui fonctionnent." : "systems that work.");
       const ending = h1.locator(".home-s-hero-ending");
       await expect(ending).toHaveCSS("display", "block");
+      await expect(ending).toHaveText(route === "/fr" ? "systèmes qui fonctionnent." : "systems that work.");
+      expect(await ending.evaluate((el) => [...el.childNodes].filter((node) => node.nodeType === Node.TEXT_NODE).every((node) => !node.textContent?.trim()))).toBe(true);
       const headingBox = await h1.boundingBox();
       const endingBox = await ending.boundingBox();
       expect(headingBox).not.toBeNull();

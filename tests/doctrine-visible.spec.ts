@@ -252,11 +252,11 @@ for (const locale of ["fr", "en"] as const) {
     expect(bounds).not.toBeNull();
     expect(bounds!.y).toBeGreaterThanOrEqual(0);
     expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(844);
-    await expect(hero.locator(".doctrine-note")).toHaveText(locale === "fr" ? "Examen offert de 15 minutes, avec le fondateur" : "Free 15-minute examination with the founder");
+    await expect(hero.locator(".doctrine-note")).toHaveText(locale === "fr" ? "Examen offert · 15 min · En visio, avec le fondateur" : "Free examination · 15 min · Video call with the founder");
     await expect(hero.locator(".doctrine-note")).toHaveCSS("font-size", "16px");
     await expect(hero.locator(".offer-price")).toHaveCount(0);
     await expect(page.locator(".r2-close .offer-price")).toHaveCount(1);
-    await expect(page.locator('[aria-labelledby="build-next"] > a')).toHaveText(locale === "fr" ? "Réserver un examen pour un système sur mesure" : "Book an examination for a custom system");
+    await expect(page.locator('[aria-labelledby="build-next"] > a')).toHaveText(locale === "fr" ? "Réserver l'examen (système sur mesure)" : "Book the examination (custom system)");
   });
 }
 

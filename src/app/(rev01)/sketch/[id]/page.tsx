@@ -1,3 +1,4 @@
+import { EXAM_NOTE } from "@/system/examination";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -29,7 +30,7 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
   en: {
     reporting: {
       title: "Reporting that writes itself.",
-      intro: "A live model of your operations assembles the pack on schedule, traced to the line and reversible to the day. Nobody writes it, everybody reads it.",
+      intro: "A live model of your operations assembles the pack on schedule, every figure traces to its source line and can be undone. Nobody writes it by hand.",
       instrument: [
         { value: "MON 07:00", label: "the weekly pack assembled itself from source systems", status: "DONE" },
         { value: "3", label: "figures moved beyond tolerance, flagged with cause and source", status: "REVIEW", critical: true },
@@ -37,7 +38,7 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
       ],
       next: [
         "Examination maps your actual reporting flow: sources, owners, dead time.",
-        "Construction rebuilds one pack end-to-end, checked, in production.",
+        "Construction rebuilds one pack in full, checked, in production.",
         "Every later capability reads the same live model. Nothing is rebuilt twice.",
       ],
     },
@@ -52,12 +53,12 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
       next: [
         "Examination maps how clients actually enter, wait, and leave your pipeline.",
         "Construction rebuilds the critical path, from intake to commitment, as one system.",
-        "The CRM becomes something you read, not something you fill.",
+        "You read the CRM instead of filling it in.",
       ],
     },
     "mail-followups": {
-      title: "Mail answered as doctrine.",
-      intro: "Every inbound classified, drafted and journaled; every follow-up fired on time. You sign. The system remembers.",
+      title: "Every mail sorted, every follow-up on time.",
+      intro: "Every inbound classified, drafted and journaled; every follow-up fired on time. You sign; the system keeps the record.",
       instrument: [
         { value: "23", label: "inbound mails classified and drafted since this morning", status: "DONE" },
         { value: "4", label: "follow-ups due today, drafted and waiting for your signature", status: "ACTION", critical: true },
@@ -65,12 +66,12 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
       ],
       next: [
         "Examination reads a week of your real inbox flow: volumes, delays, drops.",
-        "Construction ships the classifier and the draft doctrine, checked.",
+        "Construction ships the mail classifier and the drafting rules, checked.",
         "Follow-ups stop depending on memory, yours or anyone's.",
       ],
     },
     "full-os": {
-      title: "Your company. One system.",
+      title: "Your whole company in one system.",
       intro: "Orders, cash, operations, people, clients: one place to understand what is happening, decide what matters, and act. This sketch shows the first surface.",
       instrument: [
         { value: "3", label: "decisions require the executive this morning", status: "TODAY" },
@@ -79,7 +80,7 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
       ],
       next: [
         "Examination maps flows, decisions and failure points as an engineering brief.",
-        "Construction rebuilds one critical operation end-to-end, checked.",
+        "Construction rebuilds one critical operation in full, checked.",
         "Each capability joins the system; the value of every previous one increases.",
       ],
     },
@@ -87,7 +88,7 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
   fr: {
     reporting: {
       title: "Le reporting qui s'écrit tout seul.",
-      intro: "Un modèle à jour de vos opérations assemble le rapport à l'heure prévue, tracé jusqu'à la ligne et réversible jusqu'au jour. Personne ne l'écrit. Tout le monde le lit.",
+      intro: "Un modèle à jour de vos opérations assemble le rapport à l'heure prévue, chaque chiffre renvoie à sa ligne source et peut être annulé. Il se lit sans être écrit à la main.",
       instrument: [
         { value: "LUN 07:00", label: "le rapport de la semaine s'est assemblé seul depuis vos systèmes", status: "FAIT" },
         { value: "3", label: "chiffres sortis de la tolérance, signalés avec leur cause et leur source", status: "À TRANCHER", critical: true },
@@ -95,7 +96,7 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
       ],
       next: [
         "L'Examen cartographie votre reporting réel : sources, responsables, temps mort.",
-        "La Construction reconstruit un rapport de bout en bout, vérifié, en production.",
+        "La Construction reconstruit un rapport entièrement, vérifié, en production.",
         "Chaque capacité suivante lit le même modèle à jour. Rien n'est reconstruit deux fois.",
       ],
     },
@@ -110,12 +111,12 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
       next: [
         "L'Examen cartographie comment vos clients entrent, attendent et sortent réellement de votre pipeline.",
         "La Construction reconstruit le chemin critique, de l'arrivée à l'engagement, en un seul système.",
-        "Le CRM devient quelque chose que vous lisez, pas quelque chose que vous remplissez.",
+        "Le CRM se lit au lieu de se remplir.",
       ],
     },
     "mail-followups": {
-      title: "Le mail traité comme une doctrine.",
-      intro: "Chaque message entrant classé, rédigé et consigné ; chaque relance part à l'heure. Vous signez. Le système se souvient.",
+      title: "Chaque mail classé, chaque relance à l'heure.",
+      intro: "Chaque message entrant classé, rédigé et consigné ; chaque relance part à l'heure. Vous signez, le système garde la trace.",
       instrument: [
         { value: "23", label: "mails entrants classés et rédigés depuis ce matin", status: "FAIT" },
         { value: "4", label: "relances dues aujourd'hui, rédigées et en attente de votre signature", status: "À TRANCHER", critical: true },
@@ -123,21 +124,21 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
       ],
       next: [
         "L'Examen relit une semaine de votre boîte réelle : volumes, délais, oublis.",
-        "La Construction livre le classeur et la doctrine de rédaction, vérifiés.",
+        "La Construction livre le tri automatique des mails et les règles de rédaction, vérifiés.",
         "Les relances cessent de dépendre d'une mémoire, la vôtre ou celle de quelqu'un d'autre.",
       ],
     },
     "full-os": {
-      title: "Votre entreprise. Un seul système.",
+      title: "Toute votre entreprise dans un seul système.",
       intro: "Commandes, trésorerie, opérations, équipe, clients : un seul endroit pour comprendre ce qui se passe, décider ce qui compte, et agir. Cette esquisse montre la première surface.",
       instrument: [
         { value: "3", label: "décisions attendent le dirigeant ce matin", status: "AUJOURD'HUI" },
-        { value: "1", label: "exposition signalée avec sa cause et la seule décision qu'elle exige", status: "À TRANCHER", critical: true },
+        { value: "1", label: "risque signalé avec sa cause et la seule décision qu'elle exige", status: "À TRANCHER", critical: true },
         { value: "7", label: "actions exécutées cette nuit, consignées et réversibles", status: "JOURNAL" },
       ],
       next: [
         "L'Examen cartographie les flux, les décisions et les points de rupture, comme un cahier des charges technique.",
-        "La Construction reconstruit une opération critique de bout en bout, vérifiée.",
+        "La Construction reconstruit une opération critique entièrement, vérifiée.",
         "Chaque capacité rejoint le système ; la valeur de toutes les précédentes augmente.",
       ],
     },
@@ -147,31 +148,27 @@ const SKETCHES: Record<Locale, Partial<Record<Interet, SketchContent>>> = {
 const CHROME = {
   en: {
     sectionKicker: (company: string, date: string) => `PARRIT / SKETCH · PREPARED FOR ${company.toUpperCase()} · ${date}`,
-    instrumentLeft: (company: string) => `${company.toUpperCase()} / OS · SKETCH`,
-    draft: "Draft 01",
-    caption: "A SKETCH, NOT A PROMISE. THE REAL INSTRUMENT IS BUILT ON YOUR ACTUAL FLOWS.",
+    instrumentLeft: (company: string) => `${company.toUpperCase()} · SKETCH`,
+    caption: "THE REAL FIGURES WILL COME FROM YOUR OWN FLOWS.",
     nextHeading: "From sketch to system.",
     phasesLabel: "Three phases",
     phaseNames: ["Examination", "Construction", "Compounding"],
     closeTitle: "Fifteen minutes turns this sketch into a scope.",
-    closeProof: "15 MIN · AN EXAMINATION, NOT A SALES CALL",
+    closeProof: EXAM_NOTE.en,
     talk: "Book the examination",
-    registry: "PARRIT / SKETCH · DRAFT 01 · 2026",
-    commissioned: "COMMISSIONED, NOT SUBSCRIBED",
+    registry: "PARRIT / SKETCH · 2026",
   },
   fr: {
     sectionKicker: (company: string, date: string) => `PARRIT / ESQUISSE · PRÉPARÉ POUR ${company.toUpperCase()} · ${date}`,
-    instrumentLeft: (company: string) => `${company.toUpperCase()} / OS · ESQUISSE`,
-    draft: "Brouillon 01",
-    caption: "UNE ESQUISSE, PAS UNE PROMESSE. LE VRAI INSTRUMENT SE CONSTRUIT SUR VOS FLUX RÉELS.",
+    instrumentLeft: (company: string) => `${company.toUpperCase()} · ESQUISSE`,
+    caption: "LES CHIFFRES RÉELS VIENDRONT DE VOS PROPRES FLUX.",
     nextHeading: "De l'esquisse au système.",
     phasesLabel: "Trois phases",
     phaseNames: ["Examen", "Construction", "Capitalisation"],
     closeTitle: "Quinze minutes transforment cette esquisse en périmètre.",
-    closeProof: "15 MIN · UN EXAMEN, PAS UN APPEL COMMERCIAL",
+    closeProof: EXAM_NOTE.fr,
     talk: "Réserver l'examen",
-    registry: "PARRIT / ESQUISSE · BROUILLON 01 · 2026",
-    commissioned: "UNE COMMANDE, PAS UN ABONNEMENT",
+    registry: "PARRIT / ESQUISSE · 2026",
   },
 } as const;
 
@@ -184,7 +181,7 @@ export default async function SketchPage({ params }: { params: Promise<{ id: str
   const chrome = CHROME[locale];
   const sketch = SKETCHES[locale][esquisse.interet] ?? SKETCHES[locale]["full-os"]!;
   const company = esquisse.entreprise;
-  const date = new Date(esquisse.declareLe).toISOString().slice(0, 10);
+  const date = new Intl.DateTimeFormat(locale === "fr" ? "fr-FR" : "en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(esquisse.declareLe));
 
   return (
     <main className="rev-page r2-dark">
@@ -199,8 +196,8 @@ export default async function SketchPage({ params }: { params: Promise<{ id: str
           <Instrument
             className="home-instrument"
             left={<St kind="crit">{chrome.instrumentLeft(company)}</St>}
-            center={<K className="instrument-sep">·</K>}
-            right={<K>{chrome.draft}</K>}
+            center={null}
+            right={null}
             rows={sketch.instrument.map((row) => ({
               value: row.value,
               label: row.label,
@@ -237,11 +234,7 @@ export default async function SketchPage({ params }: { params: Promise<{ id: str
           <Link className="rev-button exec" href={localizedPath("/commission", locale)}>{chrome.talk}</Link>
         </section>
 
-        <footer className="r2-footer">
-          <RegistryLine value={chrome.registry} />
-          <K>{chrome.commissioned}</K>
-          <K>© 2026 Parrit.ai</K>
-        </footer>
+        <footer className="rev-footer"><RegistryLine value={chrome.registry} /></footer>
       </div>
     </main>
   );
