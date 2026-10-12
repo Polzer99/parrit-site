@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BUILD_WITH_YOU_PRICE } from "../../../../site.config";
 import { getLocale } from "@/lib/server/locale";
 import { K, RegistryLine } from "@/system/components";
-import { OfferCard } from "@/system/components/OfferCard";
 import { SystemCard } from "@/system/components/SystemCard";
 import { MechanismSchema } from "@/system/components/MechanismSchema";
 import { RegistrySnapshot } from "@/system/components/RegistrySnapshot";
@@ -124,18 +122,11 @@ const DICT = {
     methodBody: "Every system above is built the same way: Examination, Construction, Compounding.", methodLink: "Read the Manufacture",
     guardrails: "Guardrails.",
     guards: ["For each type of information, a single tool is trusted. It's never chosen by default or by habit.", "A new write path into a legacy tool can't be added without being declared here first.", "Every decision is logged: who decided, and when. Nothing happens silently.", "Before a change touches the site or our tools, a second system, distinct from the one that wrote it, reviews it, and a person decides alone whether to ship it. It can always be rolled back.", "The choice of AI model depends on the need and the cost, never on a single imposed provider."],
-    offer: "Where to start.", audience: "For leaders who want to leave with a system in service.",
-    outcome: "A working system, built with the founder.",
-    deliverables: [
-      "Free 15-minute examination",
-      "30-minute findings review",
-      "10 hours of building with the founder",
-    ], basis: "fixed price", offerCta: "See Build With You",
     faq: [
       ["Is this training or a delivered system?", "A system. You learn to use it along the way, but what we deliver is something that runs, not a course."],
       ["Where does our data go?", "Into your own accounts. We don't build a second database of it. If you choose ongoing support, we keep the technical access that takes, nothing more."],
-      ["Who maintains the system afterward?", "You, or us on a quote: the choice is made after the examination, never before."],
-      ["Where do we start?", "A 15-minute examination, no commitment."],
+      ["Who maintains the system afterward?", "You, or us: the choice is made after the examination, never before."],
+      ["Where do we start?", "With a first conversation with the founder."],
     ], legal: "Legal",
   },
   fr: {
@@ -157,18 +148,11 @@ const DICT = {
     methodBody: "Chaque système ci-dessus se construit de la même façon : Examen, Construction, Capitalisation.", methodLink: "Lire la Manufacture",
     guardrails: "Garde-fous.",
     guards: ["Pour chaque type d'information, un seul outil fait foi. Il n'est jamais choisi par hasard ni par habitude.", "Un nouveau point d'écriture vers un ancien outil ne peut pas s'ajouter sans être déclaré ici.", "Chaque décision est notée : qui a décidé, et quand. Rien ne se passe sans laisser de trace.", "Avant qu'un changement touche le site ou nos outils, un second système, distinct de celui qui l'a écrit, le relit, et une personne décide seule de le mettre en ligne. On peut toujours revenir en arrière.", "Le choix d'un outil d'intelligence artificielle dépend du besoin et du coût, jamais d'un seul fournisseur imposé."],
-    offer: "Par où commencer.", audience: "Pour le dirigeant qui veut repartir avec un système en service.",
-    outcome: "Un système qui tourne, construit avec le fondateur.",
-    deliverables: [
-      "Examen offert de 15 min",
-      "Restitution de 30 min",
-      "10 heures de construction avec le fondateur",
-    ], basis: "au forfait", offerCta: "Découvrir Build With You",
     faq: [
       ["Formation ou système livré ?", "Un système. Vous apprenez à vous en servir en cours de route, mais ce que nous livrons, c'est quelque chose qui fonctionne, pas un cours."],
       ["Où vont nos données ?", "Dans vos comptes. Nous n'en construisons pas une seconde base ailleurs. Si vous choisissez un suivi continu, nous gardons l'accès technique que ça demande, rien de plus."],
-      ["Qui maintient le système ensuite ?", "Vous, ou nous sur devis : le choix se fait après l'examen, jamais avant."],
-      ["Par où commence-t-on ?", "Un examen de 15 minutes, sans engagement."],
+      ["Qui maintient le système ensuite ?", "Vous, ou nous : le choix se fait après l'examen, jamais avant."],
+      ["Par où commence-t-on ?", "Par un premier échange avec le fondateur."],
     ], legal: "Mentions légales",
   },
 } as const;
@@ -277,7 +261,6 @@ export default async function SystemsPage() {
   const copy = DICT[locale];
   const evidence = EVIDENCE[locale];
   const commission = localizedPath("/commission", locale);
-  const price = { ...BUILD_WITH_YOU_PRICE, basis: copy.basis };
   const talk = <Link className="rev-button exec" href={commission}>{copy.cta}</Link>;
   const heading = (id: string, title: string) => <div className="r2-shead"><h2 className="r2-ed" id={id}>{title}</h2></div>;
   return <main className="rev-page r2-dark">
@@ -320,11 +303,6 @@ export default async function SystemsPage() {
       </section>
       <section className="r2-section" id="garde-fous" aria-labelledby="guardrails-heading">
         {heading("guardrails-heading", copy.guardrails)}<ul style={{ paddingLeft: 24 }}>{copy.guards.map((guard, i) => <li key={guard} style={{ marginTop: 20 }}>{i < 4 ? <Link href={["#operating-view", "#operating-view", "#operating-view", "#capacites"][i]}>{guard}</Link> : guard}</li>)}</ul>
-      </section>
-      <section className="r2-section" id="offre" aria-labelledby="offer-heading">
-        {heading("offer-heading", copy.offer)}
-        <OfferCard name="Build With You" audience={copy.audience} outcome={copy.outcome} deliverables={copy.deliverables}
-          price={price} locale={locale} cta={{ label: copy.offerCta, href: localizedPath("/build-with-you", locale) }} />
       </section>
       <section className="r2-section" id="faq" aria-labelledby="faq-heading">
         {heading("faq-heading", "FAQ")}{copy.faq.map(([question, answer]) => <div key={question} style={{ marginBottom: 32 }}><h3>{question}</h3><p style={{ marginTop: 16 }}>{answer}</p></div>)}

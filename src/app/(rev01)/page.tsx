@@ -1,12 +1,10 @@
 import { EXAM_NOTE } from "@/system/examination";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BUILD_WITH_YOU_PRICE } from "../../../site.config";
 
 import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
 import { getLocale } from "@/lib/server/locale";
 import { ProductScene } from "@/system/components/ProductScene";
-import { OfferCard } from "@/system/components/OfferCard";
 import { AgentEsquisse } from "@/system/components/AgentEsquisse";
 import { K } from "@/system/components";
 import { getAllJournalEntrySummaries } from "@/system/journal";
@@ -60,34 +58,9 @@ const DICT = {
         cta: "See the dossiers",
       },
     },
-    offers: {
-      kicker: "Ways to start",
-      cards: [
-        {
-          name: "Build With You",
-          audience: "For leaders who want to leave with a system in service.",
-          outcome: "A working system, built with the founder.",
-          deliverables: [
-            "Free 15-minute examination",
-            "30-minute findings review",
-            "10 hours of building with the founder",
-          ],
-          price: { ...BUILD_WITH_YOU_PRICE, basis: "fixed price" },
-          cta: { label: "See Build With You", href: "/build-with-you" },
-        },
-        {
-          name: "Custom system",
-          audience: "For leaders who want Parrit to handle the entire build.",
-          outcome: "A system built and put into production by Parrit.",
-          deliverables: ["Examination of your needs with the founder", "A verdict: a written scope or a clear no", "Terms set in writing before work begins"],
-          priceNote: "Custom quote",
-          cta: { label: "Book the examination", href: "/commission" },
-        },
-      ],
-    },
     journal: { kicker: "What the work teaches us", title: "The Journal records what held and what broke on our own systems, and what we take from it for yours." },
     close: {
-      title: "A 15-minute examination tells you whether a system is worth building.",
+      title: "A first conversation with the founder tells you whether a system is worth building.",
       note: EXAM_NOTE.en,
       button: "Book the examination",
     },
@@ -140,34 +113,9 @@ const DICT = {
         cta: "Voir les dossiers",
       },
     },
-    offers: {
-      kicker: "Pour commencer",
-      cards: [
-        {
-          name: "Build With You",
-          audience: "Pour le dirigeant qui veut repartir avec un système en service.",
-          outcome: "Un système qui tourne, construit avec le fondateur.",
-          deliverables: [
-            "Examen offert de 15 min",
-            "Restitution de 30 min",
-            "10 heures de construction avec le fondateur",
-          ],
-          price: { ...BUILD_WITH_YOU_PRICE, basis: "au forfait" },
-          cta: { label: "Découvrir Build With You", href: "/build-with-you" },
-        },
-        {
-          name: "Système sur mesure",
-          audience: "Pour le dirigeant qui veut confier la réalisation complète à Parrit.",
-          outcome: "Un système construit et mis en production par Parrit.",
-          deliverables: ["Examen du besoin avec le fondateur", "Un verdict : un périmètre écrit ou un non clair", "Des conditions écrites avant de commencer"],
-          priceNote: "Sur devis",
-          cta: { label: "Réserver l'examen", href: "/commission" },
-        },
-      ],
-    },
     journal: { kicker: "Ce que les chantiers nous apprennent", title: "Le Journal consigne ce qui a tenu et ce qui a cassé sur nos propres systèmes, et ce que nous en tirons pour les vôtres." },
     close: {
-      title: "Un examen de 15 minutes vous dit si un système vaut d'être construit.",
+      title: "Un premier échange avec le fondateur vous dit si un système vaut d'être construit.",
       note: EXAM_NOTE.fr,
       button: "Réserver l'examen",
     },
@@ -291,16 +239,6 @@ export default async function HomePage() {
 
               <span>{copy.proof.dossiers.cta}</span>
             </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="home-s-offers r2-dark" aria-label={copy.offers.kicker}>
-        <div className="home-s-wrap">
-          <K>{copy.offers.kicker}</K>
-          <div className="home-s-offers-grid">
-            {copy.offers.cards.map((offer) => <OfferCard key={offer.name} {...offer} locale={locale}
-              cta={{ ...offer.cta, href: localizedPath(offer.cta.href, locale) }} />)}
           </div>
         </div>
       </section>

@@ -8,7 +8,7 @@
 
 ## 1. Ce qu'est Parrit (positionnement)
 
-Parrit.ai est une **maison française indépendante de données et d'IA**, fondée par Paul Larmaraud, qui transforme les données des entreprises en **outils qui leur appartiennent**. Un seul système pour comprendre, décider et agir à l'échelle de l'entreprise, construit pour une entreprise à la fois. Une commande, pas un abonnement.
+Parrit.ai est une **maison française indépendante de données et d'IA**, fondée par Paul Larmaraud, qui transforme les données des entreprises en **outils qui leur appartiennent**. Un seul système pour comprendre, décider et agir à l'échelle de l'entreprise, construit pour une entreprise à la fois.
 
 Parrit livre la chose qui tourne, pas un deck. Chaque commande répond au Standard Parrit.
 
@@ -22,7 +22,7 @@ Parrit livre la chose qui tourne, pas un deck. Chaque commande répond au Standa
 **CTA et parcours de conversion** (spec validée du 06/09/2026) :
 - Hero : `QuickCapture` recueille l'e-mail et, uniquement dans sa variante hero, une idée optionnelle (`idee`, 300 caractères maximum), stockée mais sans effet sur l'esquisse rendue.
 - Juste après le hero : `AgentEsquisse` propose un échange déterministe local (Signal / Décision / Action), puis renvoie vers la capture `#prototype`.
-- « Parlons-en » / « Let's talk » mène à `/commission` : Examen de 15 minutes via Cal.com, puis `QuickCapture` standard si aucun créneau ne convient.
+- « Parlons-en » / « Let's talk » mène à `/commission` : Échange avec le fondateur via Cal.com, puis `QuickCapture` standard si aucun créneau ne convient.
 - Journal : pas de capture d'abonnement (retirée le 14/09 : aucun envoi n'existait).
 - `RegisterInterest` reste dans le code mais n'est plus utilisé sur les pages.
 
@@ -36,7 +36,7 @@ Parrit livre la chose qui tourne, pas un deck. Chaque commande répond au Standa
 
 Parrit vend des **systèmes sur mesure**. La Manufacture suit trois phases : Examen, Construction, Capitalisation. Chaque système est construit sur l'infrastructure du client, vérifié selon le Standard Parrit (contrôle interne, pas une accréditation), documenté et détenu par le client.
 
-Les commandes sont **sur devis** : périmètre et conditions sont cadrés par écrit après l'Examen. Le site peut afficher des **ancrages tarifaires publics** (REGLES-DOR §5, amendé 23/06/2026 : « ancrages OK, détail au call ») — le détail complet reste réglé au call. *Corrigé le 20/09/2026 : la phrase précédente (« aucun prix ») ne reflétait plus l'amendement §5.*
+Le site public invite à un premier échange avec le fondateur, sans prix ni offre détaillée. Le périmètre et le prix se donnent en rendez-vous puis en propale privée (décision Paul du 12/10/2026).
 
 La home simplifiée présente la promesse, la capture prototype et l'agent esquisse, puis les métriques, la méthode et les actions de conversion. Les cinq pages intérieures `/manufacture`, `/standard`, `/dossiers`, `/commission` et `/journal` suivent le copy FR/EN validé dans `docs/CODEX-SPEC-2026-09-06-site-integral.md` (lots 1 et 2). Le lot 3 retire les anciennes identités sans réécrire ce copy.
 

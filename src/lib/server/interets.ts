@@ -241,7 +241,7 @@ async function poserCarteSuperApp(
 
 Vous avez laissé votre adresse sur parrit.ai.${idee} Voici une esquisse qui part d'un cas proche de votre besoin : ${sketchUrl}
 
-Un examen de 15 minutes, en visio, la précise :
+Un échange en visio avec le fondateur la précise :
 ${commissionUrl}
 
 Paul Larmaraud · Parrit.ai`
@@ -249,7 +249,7 @@ Paul Larmaraud · Parrit.ai`
 
 You left your address on parrit.ai.${idee} Here is a sketch starting from a case close to your need: ${sketchUrl}
 
-A 15-minute examination, on a video call, sharpens it:
+A video call with the founder sharpens it:
 ${commissionUrl}
 
 Paul Larmaraud · Parrit.ai`;

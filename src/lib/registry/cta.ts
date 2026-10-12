@@ -64,7 +64,7 @@ export const BOOKING_URL = "https://calendar.app.google/kkpaNisBa78BuuAj8";
 const REGISTRE: Record<CtaId, Cta> = {
   "rdv.paul": {
     id: "rdv.paul",
-    libelle: "Réserver 15 minutes avec Paul",
+    libelle: "Réserver un échange avec Paul",
     action: "prendre_rdv",
     cible: "/{lang}/rendez-vous",
     funnel: "rendez_vous",
@@ -85,7 +85,7 @@ const REGISTRE: Record<CtaId, Cta> = {
   // tranchée (TEMPLATE-GRAMMAR.md §8.3).
   "rdv.offre": {
     id: "rdv.offre",
-    libelle: "Réserver 15 minutes sur cette offre",
+    libelle: "Réserver un échange sur ce sujet",
     action: "prendre_rdv",
     cible: "/{lang}/rendez-vous",
     funnel: "rendez_vous",
@@ -94,7 +94,7 @@ const REGISTRE: Record<CtaId, Cta> = {
   },
   "rdv.auteur": {
     id: "rdv.auteur",
-    libelle: "Réserver 15 minutes",
+    libelle: "Réserver un échange",
     action: "prendre_rdv",
     cible: "/{lang}/rendez-vous",
     funnel: "rendez_vous",

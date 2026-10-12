@@ -133,12 +133,9 @@ for (const locale of ["fr", "en"] as const) {
       for (const kicker of await page.locator(".home-s-build .k, .home-s-maison .k").all()) {
         await expect(kicker).toHaveCSS("font-family", /IBM Plex Mono/);
       }
-      await expect(page.locator(".home-s-offers .rev-button.ghost")).toHaveCount(2);
-      const offerTitle = page.locator(".offer-card h3").first();
+      await expect(page.locator(".home-s-offers")).toHaveCount(0);
       for (const heading of await page.locator(".home-s-proof-item h3").all()) {
-        for (const property of ["font-size", "line-height"]) {
-          await expect(heading).toHaveCSS(property, await offerTitle.evaluate((el, prop) => getComputedStyle(el).getPropertyValue(prop), property));
-        }
+        await expect(heading).toHaveCSS("font-size", "22px");
       }
       const journal = page.locator(".home-s-journal");
       await expect(journal.getByText("Articles en anglais.", { exact: true })).toHaveCount(locale === "fr" ? 1 : 0);
@@ -230,8 +227,8 @@ for (const locale of ["fr", "en"] as const) {
           await page.evaluate(() => window.scrollTo(0, 0));
           await expect(headerAction).toHaveClass(/\bghost\b/);
           // Shared layouts keep the same outline after navigation.
-          await page.locator('.home-s-offers a[href$="/build-with-you"]').click();
-          await expect(page).toHaveURL(new RegExp(`${prefix}/build-with-you$`));
+          await page.locator('.home-s-proof-item[href$="/systems"]').click();
+          await expect(page).toHaveURL(new RegExp(`${prefix}/systems$`));
           await expect(headerAction).toHaveClass(/\bghost\b/);
           await page.locator(".wordmark").click();
           await expect(page.locator(".home-s-hero")).toBeVisible();
@@ -252,10 +249,10 @@ for (const locale of ["fr", "en"] as const) {
     expect(bounds).not.toBeNull();
     expect(bounds!.y).toBeGreaterThanOrEqual(0);
     expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(844);
-    await expect(hero.locator(".doctrine-note")).toHaveText(locale === "fr" ? "Examen offert · 15 min · En visio, avec le fondateur" : "Free examination · 15 min · Video call with the founder");
+    await expect(hero.locator(".doctrine-note")).toHaveText(locale === "fr" ? "En visio, avec le fondateur" : "Video call with the founder");
     await expect(hero.locator(".doctrine-note")).toHaveCSS("font-size", "16px");
     await expect(hero.locator(".offer-price")).toHaveCount(0);
-    await expect(page.locator(".r2-close .offer-price")).toHaveCount(1);
+    await expect(page.locator(".r2-close .offer-price")).toHaveCount(0);
     await expect(page.locator('[aria-labelledby="build-next"] > a')).toHaveText(locale === "fr" ? "Réserver l'examen (système sur mesure)" : "Book the examination (custom system)");
   });
 }

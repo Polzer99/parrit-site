@@ -57,13 +57,12 @@ Each system delivered from now on is checked against the Standard, Parrit.ai's i
 - https://parrit.ai/standard : The Standard, six commitments Parrit.ai applies to its systems. It is an internal check, with no external accreditation.
 - https://parrit.ai/dossiers : The sealed dossiers: delivered systems,
   anonymized.
-- https://parrit.ai/commission : Commission an examination: one 15-minute
-  conversation to examine how your company operates.
+- https://parrit.ai/commission : Book a video call with the founder.
 - https://parrit.ai/journal : We Find The Way, the Parrit journal.
 - https://parrit.ai/legal : Legal notice and privacy policy.
 
 ## Contact
-- Booking: https://parrit.ai/commission (15 min, video, with the founder).
+- Booking: https://parrit.ai/commission (a video call with the founder).
 - The site is in English and French; commissions run in English and in French.
 - Registered office: Rueil-Malmaison, France.
   International commissions welcome, including Africa.
