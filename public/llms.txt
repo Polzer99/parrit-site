@@ -21,7 +21,7 @@ Each system delivered from now on is checked against the Standard, Parrit.ai's i
 - 06: Each new capability reuses what already exists.
 
 ## Who is Parrit
-- An independent French maison, founded by Paul Larmaraud.
+- An independent French maison.
 - A registered French company (PARRIT.AI, SAS, registered office in
   Rueil-Malmaison, France); full legal identity at https://parrit.ai/legal.
 - Operates internationally, in English and in French :
@@ -44,12 +44,12 @@ Each system delivered from now on is checked against the Standard, Parrit.ai's i
 - https://parrit.ai/standard : The Standard, six commitments Parrit.ai applies to its systems. It is an internal check, with no external accreditation.
 - https://parrit.ai/dossiers : The sealed dossiers: delivered systems,
   anonymized.
-- https://parrit.ai/commission : Book a video call with the founder.
+- https://parrit.ai/commission : Book a video call with Parrit.ai.
 - https://parrit.ai/journal : We Find The Way, the Parrit journal.
 - https://parrit.ai/legal : Legal notice and privacy policy.
 
 ## Contact
-- Booking: https://parrit.ai/commission (a video call with the founder).
+- Booking: https://parrit.ai/commission (a video call with Parrit.ai).
 - The site is in English and French; commissions run in English and in French.
 - Registered office: Rueil-Malmaison, France.
   International commissions welcome, including Africa.

@@ -42,7 +42,7 @@ for (const width of [375, 767, 768, 1440]) {
       for (const phrase of locale === "fr" ? ["il repère, dans des informations publiques", "aucun rendez-vous", "aucune vente", "personnes que nous connaissons déjà"] : ["it looks for public signs", "a single meeting", "no sale", "people we already know"]) await expect(distinction).toContainText(phrase, { ignoreCase: true });
       await expect(page.locator("#offre")).toHaveCount(0);
       await expect(page.locator("body")).not.toContainText(/€|sur devis|custom quote/i);
-      await expect(page.locator("#faq")).toContainText(locale === "fr" ? "Par un premier échange avec le fondateur." : "With a first conversation with the founder.");
+      await expect(page.locator("#faq")).toContainText(locale === "fr" ? "Par un premier échange avec Parrit.ai." : "With a first conversation with Parrit.ai.");
       await expect(page.locator("#faq h3")).toHaveCount(4);
       await expect(page.locator("#operating-view .r2-phase")).toHaveCount(0);
       await expect(page.locator('[id^="step-"]')).toHaveCount(0);

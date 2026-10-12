@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { test } from "node:test";
 
@@ -8,6 +8,7 @@ test("generated llms copy has no forbidden dashes or defensive labels and mirror
   execFileSync(process.execPath, ["scripts/generate-llms.mjs"]);
   const text = read("public/llms.txt");
   assert.doesNotMatch(text, /[—–€]/);
+  assert.doesNotMatch(text, /\bPaul\b|Larmaraud|fondat(eur|rice)|fondée par|founder|founded by|quinze minutes|fifteen minutes/i);
   assert.doesNotMatch(text, /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de|\bHT\b|excl\. VAT/i);
   assert.doesNotMatch(text, /\b(fictif|fictive|fictional|illustrati(f|ve)|illustrées?|non interactive|pas une analyse|not an analysis)\b/i);
   assert.doesNotMatch(text, /PS-0|STD-\d|commissioned, not subscribed|not a workshop|not a sales call/i);
@@ -18,8 +19,8 @@ test("generated llms copy has no forbidden dashes or defensive labels and mirror
 });
 test("examination notes use the shared locale contract, without price or duration qualifiers", () => {
   const shared = read("src/system/examination.ts");
-  assert.ok(shared.includes("En visio, avec le fondateur"));
-  assert.ok(shared.includes("Video call with the founder"));
+  assert.ok(shared.includes('fr: "En visio"'));
+  assert.ok(shared.includes('en: "Video call"'));
   for (const route of ["", "standard/", "manufacture/", "dossiers/", "build-with-you/", "sketch/[id]/"]) {
     const source = read(`src/app/(rev01)/${route}page.tsx`);
     assert.match(source, /EXAM_NOTE\.fr/);
@@ -33,4 +34,10 @@ test("automatic sketch mail uses the same sober framing as the site", () => {
   assert.doesNotMatch(source, /illustrati(f|ve)|pas une analyse|not an analysis/i);
   assert.ok(source.includes("Voici une esquisse qui part d'un cas proche de votre besoin"));
   assert.ok(source.includes("Here is a sketch starting from a case close to your need"));
+});
+
+test("Journal articles and descriptions publish only the house identity", () => {
+  for (const file of readdirSync("content/journal").filter((name) => name.endsWith(".mdx"))) {
+    assert.doesNotMatch(read(`content/journal/${file}`), /\bPaul\b|Larmaraud|fondat(eur|rice)|fondée par|founder|founded by|quinze minutes|fifteen minutes/i, file);
+  }
 });

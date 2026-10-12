@@ -64,7 +64,7 @@ export const BOOKING_URL = "https://calendar.app.google/kkpaNisBa78BuuAj8";
 const REGISTRE: Record<CtaId, Cta> = {
   "rdv.paul": {
     id: "rdv.paul",
-    libelle: "Réserver un échange avec Paul",
+    libelle: "Réserver un échange",
     action: "prendre_rdv",
     cible: "/{lang}/rendez-vous",
     funnel: "rendez_vous",
@@ -165,7 +165,7 @@ const REGISTRE: Record<CtaId, Cta> = {
   },
   "presse.contact": {
     id: "presse.contact",
-    libelle: "Contacter Paul Larmaraud",
+    libelle: "Contacter Parrit.ai",
     action: "aller_page",
     cible: "mailto:paul.larmaraud@parrit.ai",
     funnel: "presse",

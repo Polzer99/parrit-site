@@ -133,42 +133,18 @@ for (const width of [1440, 375]) {
 
 for (const width of [375, 390, 768, 1440]) {
   for (const route of ["/", "/fr"]) {
-    test(`Brand OS approved founder photo, caption and heading ${route} at ${width}px`, async ({ page }, testInfo) => {
+    test(`Brand OS no founder figure and preserved heading ${route} at ${width}px`, async ({ page }, testInfo) => {
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.setViewportSize({ width, height: 900 });
       await page.goto(`${BASE_URL}${route}`);
       await page.evaluate(() => document.fonts.ready);
       const labels = page.locator(".home-s-maison-copy > .k");
-      const photo = page.locator(".home-s-maison figure img");
-      await expect(photo).toHaveCount(1);
-      await expect(photo).toHaveAttribute("src", "/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.webp");
-      await expect(photo).toHaveAttribute("alt", route === "/fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai");
-      await expect(photo).toHaveAttribute("width", "340");
-      await expect(photo).toHaveAttribute("height", "453");
-      await expect(photo).toHaveAttribute("loading", "lazy");
-      await expect(photo).toHaveAttribute("decoding", "async");
-      await photo.scrollIntoViewIfNeeded();
-      await expect(photo).toBeVisible();
-      await expect.poll(() => photo.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth > 0)).toBe(true);
-      await expect(page.locator(".home-s-maison figcaption")).toHaveText(`Paul Larmaraud · ${route === "/fr" ? "Fondateur" : "Founder"}`);
-      const sources = page.locator(".home-s-maison picture source");
-      await expect(sources).toHaveCount(2);
-      for (const [index, format] of ["avif", "webp"].entries()) {
-        await expect(sources.nth(index)).toHaveAttribute("type", `image/${format}`);
-        await expect(sources.nth(index)).toHaveAttribute("sizes", "(max-width: 859px) min(340px, 100vw), 340px");
-        await expect(sources.nth(index)).toHaveAttribute("srcset", `/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.${format} 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.${format} 680w`);
-      }
-      const figureBox = await page.locator(".home-s-maison figure").boundingBox();
+      await expect(page.locator(".home-s-founder, .home-s-maison figure, .home-s-maison figcaption, .home-s-maison picture")).toHaveCount(0);
+      await expect(page.locator('a[href*="paul-larmaraud.com"]')).toHaveCount(0);
       const copyBox = await page.locator(".home-s-maison-copy").boundingBox();
-      expect(figureBox).not.toBeNull();
       expect(copyBox).not.toBeNull();
-      expect(figureBox!.width).toBeLessThanOrEqual(340);
-      if (width > 859) {
-        expect(figureBox!.x + figureBox!.width).toBeLessThan(copyBox!.x);
-        expect(Math.abs(figureBox!.y + figureBox!.height / 2 - copyBox!.y - copyBox!.height / 2)).toBeLessThanOrEqual(1);
-      } else {
-        expect(figureBox!.y + figureBox!.height).toBeLessThan(copyBox!.y);
-      }
+      expect(copyBox!.x).toBeGreaterThanOrEqual(0);
+      expect(copyBox!.x + copyBox!.width).toBeLessThanOrEqual(width);
       const h1 = page.locator("h1");
       await expect(h1).toHaveText(route === "/fr" ? "Nous transformons des problèmes opérationnels en systèmes qui fonctionnent." : "We turn operational problems into systems that work.");
       await expect(h1.locator(".frame")).toHaveCSS("display", "inline-block");

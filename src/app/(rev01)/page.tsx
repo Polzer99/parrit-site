@@ -34,8 +34,6 @@ const DICT = {
         ["04", "Take it over", "Code, data and documentation are yours. Your team learns to run it at handover, and can take it further alone, or call Parrit back, depending on the path you chose."],
       ],
       link: "Book the examination",
-      caption: "Paul Larmaraud · Founder",
-      bridge: "The founder: Paul Larmaraud",
     },
     build: {
       kicker: "What we build",
@@ -60,7 +58,7 @@ const DICT = {
     },
     journal: { kicker: "What the work teaches us", title: "The Journal records what held and what broke on our own systems, and what we take from it for yours." },
     close: {
-      title: "A first conversation with the founder tells you whether a system is worth building.",
+      title: "A first conversation with Parrit.ai tells you whether a system is worth building.",
       note: EXAM_NOTE.en,
       button: "Book the examination",
     },
@@ -89,8 +87,6 @@ const DICT = {
         ["04", "Prendre la main", "Le code, les données et la documentation vous appartiennent. Votre équipe apprend à s'en servir à la livraison, et peut le faire évoluer seule, ou vous rappelez Parrit, selon la formule choisie."],
       ],
       link: "Réserver l'examen",
-      caption: "Paul Larmaraud · Fondateur",
-      bridge: "Le fondateur : Paul Larmaraud",
     },
     build: {
       kicker: "Ce que nous construisons",
@@ -115,7 +111,7 @@ const DICT = {
     },
     journal: { kicker: "Ce que les chantiers nous apprennent", title: "Le Journal consigne ce qui a tenu et ce qui a cassé sur nos propres systèmes, et ce que nous en tirons pour les vôtres." },
     close: {
-      title: "Un premier échange avec le fondateur vous dit si un système vaut d'être construit.",
+      title: "Un premier échange avec Parrit.ai vous dit si un système vaut d'être construit.",
       note: EXAM_NOTE.fr,
       button: "Réserver l'examen",
     },
@@ -172,15 +168,6 @@ export default async function HomePage() {
 
       <section className="home-s-maison">
         <div className="home-s-wrap home-s-maison-grid">
-          <figure className="home-s-founder">
-            <picture>
-              <source type="image/avif" srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.avif 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.avif 680w" sizes="(max-width: 859px) min(340px, 100vw), 340px" />
-              <source type="image/webp" srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.webp 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.webp 680w" sizes="(max-width: 859px) min(340px, 100vw), 340px" />
-              {/* Native picture preserves the approved, byte-identical LinkedIn exports. */}
-              <img src="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.webp" width={340} height={453} loading="lazy" decoding="async" alt={locale === "fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai"} />
-            </picture>
-            <figcaption>{copy.journey.caption}</figcaption>
-          </figure>
           <div className="home-s-maison-copy">
             <K>{copy.journey.kicker}</K>
             <h2>{copy.journey.title}</h2>
@@ -191,15 +178,6 @@ export default async function HomePage() {
               ))}
             </ol>
             <Link className="rev-button ghost home-s-journey-action" href={localizedPath("/commission", locale)}>{copy.journey.link}</Link>
-            <a
-              className="home-s-text-link home-s-text-link--secondary"
-              href="https://paul-larmaraud.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${copy.journey.bridge} (${locale === "fr" ? "ouvre paul-larmaraud.com dans un nouvel onglet" : "opens paul-larmaraud.com in a new tab"})`}
-            >
-              {copy.journey.bridge}
-            </a>
           </div>
         </div>
       </section>

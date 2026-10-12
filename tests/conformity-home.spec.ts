@@ -102,7 +102,7 @@ test.describe("command bar", () => {
 
 for (const width of [375, 1440]) {
   for (const locale of ["en", "fr"] as const) {
-    test(`founder bridge is secondary and keyboard accessible at ${width}px in ${locale}`, async ({ page }, testInfo) => {
+    test(`maison has one booking action without personal branding at ${width}px in ${locale}`, async ({ page }, testInfo) => {
       await page.setViewportSize({ width, height: 900 });
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.goto(`${BASE_URL}${locale === "fr" ? "/fr" : "/"}`);
@@ -110,30 +110,18 @@ for (const width of [375, 1440]) {
 
       const maison = page.locator(".home-s-maison");
       const primary = maison.getByRole("link", { name: locale === "fr" ? "Réserver l'examen" : "Book the examination", exact: true });
-      const name = locale === "fr"
-        ? "Le fondateur : Paul Larmaraud (ouvre paul-larmaraud.com dans un nouvel onglet)"
-        : "The founder: Paul Larmaraud (opens paul-larmaraud.com in a new tab)";
-      const bridge = maison.getByRole("link", { name, exact: true });
-      await expect(maison.getByRole("link")).toHaveCount(2);
+      await expect(maison.getByRole("link")).toHaveCount(1);
       await expect(primary).toHaveAttribute("href", locale === "fr" ? "/fr/commission" : "/commission");
-      await expect(bridge).toHaveText(locale === "fr" ? "Le fondateur : Paul Larmaraud" : "The founder: Paul Larmaraud");
-      await expect(bridge).toHaveAttribute("href", "https://paul-larmaraud.com");
-      await expect(bridge).toHaveAttribute("target", "_blank");
-      await expect(bridge).toHaveAttribute("rel", "noopener noreferrer");
-      await expect(bridge).toHaveCSS("color", "rgb(73, 97, 103)");
-      await expect(primary).toHaveCSS("color", "rgb(73, 97, 103)");
-      const primaryBounds = await primary.boundingBox();
-      const bridgeBounds = await bridge.boundingBox();
-      expect(primaryBounds).not.toBeNull();
-      expect(bridgeBounds).not.toBeNull();
-      expect(bridgeBounds!.y - primaryBounds!.y - primaryBounds!.height).toBeGreaterThanOrEqual(12);
-      expect(bridgeBounds!.x + bridgeBounds!.width).toBeLessThanOrEqual(width);
-
-      await primary.focus();
+      await expect(maison.locator("figure, figcaption, picture")).toHaveCount(0);
+      await expect(page.locator('a[href*="paul-larmaraud.com"]')).toHaveCount(0);
+      const bounds = await primary.boundingBox();
+      expect(bounds).not.toBeNull();
+      expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
       await page.keyboard.press("Tab");
-      await expect(bridge).toBeFocused();
-      await expect(bridge).toHaveCSS("outline-style", "solid");
-      await expect(bridge).toHaveCSS("outline-width", "2px");
+      await primary.focus();
+      await expect(primary).toBeFocused();
+      await expect(primary).toHaveCSS("outline-style", "solid");
+      await expect(primary).toHaveCSS("outline-width", "2px");
       await testInfo.attach(`maison-${locale}-${width}`, {
         body: await maison.screenshot({ animations: "disabled" }),
         contentType: "image/png",

@@ -2,28 +2,25 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
 import matter from "gray-matter";
-import { AUTEUR, ORG_ID, orgRef, personRef } from "../src/system/auteur.ts";
+import { AUTEUR, ORG_ID, orgRef } from "../src/system/auteur.ts";
 import { blogPostingJsonLd, organizationJsonLd } from "../src/system/jsonld.ts";
 
-const PERSON_ID = "https://paul-larmaraud.com/#person";
 
 test("références canoniques exactes et indépendantes", () => {
-  assert.equal(AUTEUR.id, PERSON_ID);
+  assert.equal(AUTEUR.id, ORG_ID);
   assert.equal(ORG_ID, "https://parrit.ai/#organization");
-  assert.deepEqual(personRef(), { "@type": "Person", "@id": PERSON_ID, name: "Paul Larmaraud", url: "https://paul-larmaraud.com" });
   assert.deepEqual(orgRef(), { "@type": "Organization", "@id": ORG_ID, name: "Parrit.ai", url: "https://parrit.ai" });
-  personRef().name = "Mutated";
   orgRef().name = "Mutated";
-  assert.equal(personRef().name, AUTEUR.nom);
+  assert.equal(orgRef().name, AUTEUR.nom);
   assert.equal(orgRef().name, "Parrit.ai");
 });
 
-test("Organization identifie le fondateur sans confondre personne et société", () => {
+test("Organization représente la maison sans fondateur", () => {
   const org = organizationJsonLd();
   assert.equal(org["@context"], "https://schema.org");
   assert.equal(org["@type"], "Organization");
   assert.equal(org["@id"], ORG_ID);
-  assert.deepEqual(org.founder, personRef());
+  assert.equal("founder" in org, false);
   assert.deepEqual(org.sameAs, []);
   assert.equal(org.logo, "https://parrit.ai/icon.png");
   assert.equal(org.address.addressLocality, "Rueil-Malmaison");
@@ -39,7 +36,7 @@ test("BlogPosting d'un vrai article : graphe lié, URL canonique et champs prés
     "@context": "https://schema.org", "@type": "BlogPosting", "@id": `${canonical}#article`,
     headline: entry.title, datePublished: entry.date, dateModified: entry.date,
     image: `${canonical}/og`, inLanguage: "en", description: entry.description,
-    author: personRef(), publisher: { ...orgRef(), logo: { "@type": "ImageObject", url: "https://parrit.ai/icon.png" } },
+    author: orgRef(), publisher: { ...orgRef(), logo: { "@type": "ImageObject", url: "https://parrit.ai/icon.png" } },
     mainEntityOfPage: canonical,
   });
 });
