@@ -3400,5 +3400,18 @@ a.k {
 .r2-dossier .seal { grid-row: 4; }
 
 .cmdbar .wordmark { height: var(--button-min-height); padding-block: 0; margin-block: 0; }
+.cmdbar .cmd-nav a,
+.cmdbar .locale-toggle,
+.cmdbar .locale-toggle button,
+.cmdbar .cmd-menu-toggle,
+.cmdbar .cmd-cta {
+  height: var(--button-min-height);
+  box-sizing: border-box;
+  align-items: center;
+}
+.cmdbar .locale-toggle button {
+  display: inline-flex;
+  justify-content: center;
+}
 
 .home-s-journal ol { margin-top: 34px; }
