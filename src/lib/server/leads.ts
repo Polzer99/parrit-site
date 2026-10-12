@@ -325,7 +325,7 @@ async function poserCarteSuperApp(
       ? `Canal ${contexte.attribution["utm_source"]}`
       : `Source ${contexte.source}`,
     "",
-    "La ressource lui a été remise à l'écran. Prochaine action : proposer les 15 minutes.",
+    "La ressource lui a été remise à l'écran. Prochaine action : proposer un échange.",
   ].join("\n");
 
   try {

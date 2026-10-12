@@ -19,7 +19,7 @@ const DICT = {
     heroFrame: "systems that work",
     heroAfter: ".",
     maker: <>Parrit.ai turns operational problems<br />into systems that work.</>,
-    statement: "One system to understand, decide and act across the company. Built for one company at a time. Commissioned, not subscribed.",
+    statement: "One system to understand, decide and act across the company. Built for one company at a time.",
   },
   fr: {
     loading: "CHARGEMENT DU MODÈLE DE L'ENTREPRISE ........",
@@ -33,7 +33,7 @@ const DICT = {
     heroFrame: "systèmes qui fonctionnent",
     heroAfter: ".",
     maker: <>Parrit.ai transforme des problèmes opérationnels<br />en systèmes qui fonctionnent.</>,
-    statement: "Un seul système pour comprendre, décider et agir, à l'échelle de l'entreprise. Une entreprise à la fois. Une commande, pas un abonnement.",
+    statement: "Un seul système pour comprendre, décider et agir, à l'échelle de l'entreprise. Une entreprise à la fois.",
   },
 } as const;
 

@@ -561,3 +561,5 @@ Validation de cette reprise : npm ci hors réseau, lint, TypeScript, qa:claims,
 qa:brand, build Webpack (57 pages), npm test (107/107) et test:brand-os (23/23)
 réussis. Build Turbopack interrompu sans progression. Mesures et clics navigateur
 non validés dans ce sandbox. Aucun commit, push ou déploiement.
+
+Décision Paul du 12/10/2026 : retrait de la tagline et des prix, durées et offres détaillées publiques FR/EN ; invitation à un premier échange. Gate anti-offre sur le rendu, les métadonnées et llms.txt, avec exceptions limitées au capital légal et aux faits techniques de synchronisation.

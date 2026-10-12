@@ -22,13 +22,13 @@ export function ParritCalInline({
     ready: "CHOISISSEZ UN CRÉNEAU",
     loading: "CHARGEMENT DES CRÉNEAUX…",
     retrieving: "OUVERTURE DU CALENDRIER · QUELQUES SECONDES",
-    format: "15 MIN · VISIO",
+    format: "VISIO",
   } : {
     title: "PARRIT / COMMISSION",
     ready: "SELECT A TIME",
     loading: "LOADING AVAILABLE TIMES…",
     retrieving: "RETRIEVING THE CALENDAR · A FEW SECONDS",
-    format: "15 MIN · VIDEO",
+    format: "VIDEO",
   };
   const placeholder = isPlaceholder(calLink);
   /* lazy + état de chargement : l'embed (~1,7 MB) ne se monte qu'à l'approche du

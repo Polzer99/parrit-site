@@ -13,7 +13,6 @@ const FOOTER = {
       ["/legal", "Legal", ""],
     ],
     founder: "Founded by Paul Larmaraud",
-    principle: "Commissioned, not subscribed",
   },
   fr: {
     links: [
@@ -25,7 +24,6 @@ const FOOTER = {
       ["/legal", "Mentions légales", ""],
     ],
     founder: "Fondée par Paul Larmaraud",
-    principle: "Une commande, pas un abonnement",
   },
 } as const;
 
@@ -40,7 +38,6 @@ export function RevFooter({ locale }: { locale: Locale }) {
         </nav>
         <div className="home-s-footer-meta">
           <a href="https://paul-larmaraud.com">{copy.founder}</a>
-          <span>{copy.principle}</span>
           <span>© 2026 Parrit.ai</span>
         </div>
       </div>

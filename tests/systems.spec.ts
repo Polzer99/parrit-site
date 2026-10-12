@@ -40,9 +40,9 @@ for (const width of [375, 767, 768, 1440]) {
       const distinction = page.locator("#acquisition-distinction");
       await expect(distinction).toBeVisible();
       for (const phrase of locale === "fr" ? ["il repère, dans des informations publiques", "aucun rendez-vous", "aucune vente", "personnes que nous connaissons déjà"] : ["it looks for public signs", "a single meeting", "no sale", "people we already know"]) await expect(distinction).toContainText(phrase, { ignoreCase: true });
-      await expect(page.locator("#offre article")).toHaveCount(1);
-      await expect(page.locator("#offre .offer-price")).toHaveText(locale === "fr" ? "À partir de 3 500 € HT au forfait" : "From €3,500 excl. VAT, fixed price");
-      await expect(page.locator("body")).not.toContainText(/3,200|3[\s\u00a0\u202f]200\s*€/);
+      await expect(page.locator("#offre")).toHaveCount(0);
+      await expect(page.locator("body")).not.toContainText(/€|sur devis|custom quote/i);
+      await expect(page.locator("#faq")).toContainText(locale === "fr" ? "Par un premier échange avec le fondateur." : "With a first conversation with the founder.");
       await expect(page.locator("#faq h3")).toHaveCount(4);
       await expect(page.locator("#operating-view .r2-phase")).toHaveCount(0);
       await expect(page.locator('[id^="step-"]')).toHaveCount(0);
@@ -92,7 +92,7 @@ for (const width of [375, 767, 768, 1440]) {
         await testInfo.attach(`systems-${locale}-${width}-full-page`, {
           body: await page.screenshot({ fullPage: true, animations: "disabled" }), contentType: "image/png",
         });
-        for (const selector of [".r2-hero", '[aria-labelledby="evidence-heading"]', "#operating-view", "#capacites", "#r06", "#method", "#garde-fous", "#offre", "#faq"]) {
+        for (const selector of [".r2-hero", '[aria-labelledby="evidence-heading"]', "#operating-view", "#capacites", "#r06", "#method", "#garde-fous", "#faq"]) {
           await testInfo.attach(`systems-${locale}-${width}-${selector.replace(/[^a-z-]/gi, "")}`, {
             body: await page.locator(selector).screenshot({ animations: "disabled" }), contentType: "image/png",
           });
