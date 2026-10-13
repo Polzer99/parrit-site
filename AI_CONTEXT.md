@@ -567,3 +567,14 @@ Décision Paul du 12/10/2026 : retrait de la tagline et des prix, durées et off
 Décision Paul du 12/10/2026, marque unifiée : le site parle au nom de Parrit.ai ; aucun nom de personne hors mentions légales. Auteurs, métadonnées, données structurées, RSS, textes et e-mails de capture utilisent Parrit.ai. La photo et le lien personnel sont retirés du rendu ; les fichiers photo du canon, les identifiants internes, le compte Cal.com et l’adresse de contact sont conservés.
 
 Validation marque unifiée : `npm test` 102/102, `npm run lint` et `npm run qa:brand:rev01` passent. `npm run build` Turbopack a refusé le lien externe node_modules ; après copie locale des mêmes dépendances, il est resté sans progression et a été interrompu. `npm run build -- --webpack` passe sans modification de package.json. Le rendu serveur testé bloque tout réseau sortant et couvre aussi les trois articles corrigés, RSS et llms-full.txt. Playwright reste à lancer par le relecteur sur :3210, selon la spec. Aucun commit ni push.
+
+## Commentaires internes du Journal, 13/10/2026
+
+`journal.ts` exporte `stripJournalComments` : les commentaires MDX et HTML sont
+retirés au chargement, puis les lignes vides laissées en tête. Aucun trim global :
+le reste du corps conserve ses espaces. Les sources MDX restent inchangées.
+`llms-full.txt` bénéficie du même chargeur ; le générateur `llms.txt` est statique.
+Dix tests ciblés et le rendu compilé des trois articles signalés couvrent la fuite.
+112 tests Node, 24 tests Brand OS, lint, types et build Webpack passent.
+Turbopack interrompu sans progression ; Chromium bloqué au lancement par le
+sandbox macOS. Détails : `docs/REPORT-2026-10-13-journal-commentaires-mdx.md`.

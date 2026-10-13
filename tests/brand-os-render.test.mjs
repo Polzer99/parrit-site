@@ -174,6 +174,16 @@ test("compiled EN/FR pages publish images, exact copy and supported glyphs; miss
       assert.doesNotMatch(html, /paul-larmaraud\.com/i, route);
       if (route === "/journal/rss.xml") assert.match(html, /<dc:creator>Parrit\.ai<\/dc:creator>/);
     }
+    for (const route of [
+      "/journal/hook-timeout-lets-tool-call-through",
+      "/journal/legacy-database-migration-writers-first",
+      "/journal/what-a-pilot-skips-to-look-finished",
+      "/llms-full.txt",
+    ]) {
+      const { status, html } = await render(route);
+      assert.equal(status, 200, route);
+      assert.doesNotMatch(html, /\{\/\*|RAIL parrit|FICHE D(?:'|&#x27;|&#39;)ENTRÉE/u, `${route}: internal comments stay private`);
+    }
     // The alias keeps English content/canonical, but the French chrome warns readers.
     const articleRoute = "/journal/one-card-one-action";
     const english = await render(articleRoute, "en");

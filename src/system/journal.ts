@@ -8,6 +8,9 @@ import matter from "gray-matter";
 const JOURNAL_DIRECTORY = path.join(process.cwd(), "content", "journal");
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const SAFE_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const MDX_COMMENT = /\{\/\*[\s\S]*?\*\/\}/g;
+const HTML_COMMENT = /<!--[\s\S]*?-->/g;
+const LEADING_EMPTY_LINES = /^(?:[\t ]*\r?\n)+/;
 
 export type JournalEntry = {
   title: string;
@@ -21,6 +24,16 @@ export type JournalEntry = {
 export type JournalEntrySummary = Omit<JournalEntry, "content">;
 
 type JournalFrontmatter = Omit<JournalEntry, "content">;
+
+export function stripJournalComments(content: string): string {
+  const withoutComments = content
+    .replace(MDX_COMMENT, "")
+    .replace(HTML_COMMENT, "");
+
+  return withoutComments === content
+    ? content
+    : withoutComments.replace(LEADING_EMPTY_LINES, "");
+}
 
 function requireString(
   data: Record<string, unknown>,
@@ -79,7 +92,7 @@ function readJournalFile(filename: string): JournalEntry {
 
   return {
     ...frontmatter,
-    content: parsed.content.trim(),
+    content: stripJournalComments(parsed.content),
   };
 }
 
