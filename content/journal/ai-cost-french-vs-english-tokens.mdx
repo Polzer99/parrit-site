@@ -1,0 +1,38 @@
+---
+title: "Does AI cost more when your team works in French?"
+date: "2026-10-13"
+description: "We counted the tokens in the English and French versions of the GDPR and the AI Act with five public tokenizers. French took 29 to 54 percent more on four of them, GPT-5's included. How to correct an AI budget for it, and how to compare model prices for French work."
+slug: "ai-cost-french-vs-english-tokens"
+---
+
+{/*
+RAIL parrit · MÉTIER DAF, dirigeant PME · FAMILLE BRAIN · SIGNAL « coût des tokens en français » (veille du 12/10/2026, péremption 31/10 ; étude citée par la veille NON reprise faute de source primaire ; mesure Parrit du 12/10/2026 sur EUR-Lex ; table tiktoken 0.14.0 revérifiée le 13/10) · URGENCE Haute
+*/}
+
+Yes, on work billed per token, the few-letter pieces of text AI services charge for. A budget sized on English test runs falls short once the real documents are French. In the English and French versions of two EU laws, French took 29 to 54 percent more tokens on four public tokenizers, GPT-5's among them. Multiply English-based estimates by your own French-to-English ratio, and compare models on what your French document costs on each.
+
+## What a tokenizer is, and what we counted
+
+A tokenizer is the program that splits text into tokens before a model reads it. Each model family has its own, and the bill counts what it produces. To compare languages fairly we needed text that says exactly the same thing in both, so on 12 October we downloaded the official English and French versions of two EU laws from EUR-Lex, the EU's legal database: the GDPR, on personal data, and the AI Act, on artificial intelligence.
+
+We ran both through five tokenizers on our own machine. Two come from `tiktoken`, OpenAI's free counting library (version 0.14.0), whose own table assigns the first to GPT-5, GPT-4.1 and GPT-4o and the second to the older GPT-4. The other three are the files published with three model families from other makers: Mistral Nemo, Qwen3 and DeepSeek-V3.
+
+On the GDPR, French took 31 percent more tokens on the GPT-5 tokenizer, 29 percent on Mistral Nemo's, 49 percent on DeepSeek-V3's and 51 percent on Qwen3's. On the AI Act the same four gave 31, 33, 51 and 54 percent. The older GPT-4 tokenizer gave 56 and 58 percent; we keep it apart because OpenAI's recent models use the other one. The two laws land within four points of each other on every tokenizer.
+
+Part of the gap is length, since both French versions have 12.5 percent more words. The rest comes from French words being split into more pieces: on the GPT-5 tokenizer, 1.36 tokens per word in the French GDPR against 1.17 in the English one.
+
+## Where it changes a budget
+
+The gap matters on the calls your systems pay for by the token. That is how a program is billed when it sends text to a model through the provider's API, the access point programs use instead of a chat window. Size such a job on English test runs, then feed it French documents, and an estimate of 100 becomes 129 to 154 at the same price per token. A per-user subscription is billed per seat; whether French uses up a plan's limits sooner is something we have not measured.
+
+Our count covers the text sent to the model, in two legal texts written in one institutional style. Emails, meeting notes and reports may give another ratio. The model's French reply goes through the same tokenizer, so we expect a similar gap on output, and that part is our expectation, unchecked. We work mostly in French, which is why we measured it.
+
+The second effect is on price comparisons. Price lists quote a price per million tokens, but a million tokens holds a different amount of French on each model. The French GDPR took 83,960 tokens on the GPT-5 tokenizer and 99,703 on Qwen3's, 19 percent more for the same pages, while on the English versions of both laws the five tokenizers stayed within 5 percent of each other. Two models at the same price per token therefore bill the same French document differently.
+
+Claude is missing from our count. We found no tokenizer published by Anthropic for its Claude models. Anthropic's API has a token counting service, usable with an account key, that returns an estimate of the tokens a given text will take.
+
+## One document in both languages
+
+Take a document your company already publishes in French and English, such as terms of sale or a product sheet, and count its tokens in each language with the tokenizer of the model you pay for: `tiktoken` for OpenAI models, Anthropic's counting service for Claude, and for an open model, one whose files anyone can download, the tokenizer file published with it. French divided by English is your ratio, on your own text. If someone else runs your AI tools, ask them for the two counts.
+
+Multiply your per-token estimates by that ratio. When two models compete for French work, multiply each one's price per token by the number of tokens your French document takes on that model, and compare those two totals. On the French GDPR, the GPT-5 tokenizer needed 16 percent fewer tokens than Qwen3's for the same pages.
