@@ -1,6 +1,11 @@
 # EXIGENCE-JOURNAL-PARRIT — la barre du rail parrit.ai
 
-> v8 · 2026-10-11 (cliquet dimanche : référence de la semaine, premier
+> v9 · 2026-10-18 (cliquet dimanche : référence de la semaine, le seul
+> article publié sur les deux rails du 12 au 18/10 ; trois défauts
+> promus depuis douze refus de la porte C-LISIBILITE : pas de question
+> sans problème du lecteur, la réponse a la forme que le titre demande,
+> une recommandation est une chose que nous faisons tourner).
+> v8 — 2026-10-11 (cliquet dimanche : référence de la semaine, premier
 > article du rail jugé lisible par la porte C-LISIBILITE sur son texte
 > final + trois défauts promus depuis les refus de cette porte (réponse
 > tardive, terme non glosé, formule) + tic banni : la section-demande
@@ -163,6 +168,34 @@ anglais le 08/09 (PR #241, 301 en un saut depuis l'ancien slug).
   pour vérifier notre propre outil contre une menace publiée : il a
   trouvé et écrit trois trous dans notre garde le jour même.
 
+- `ai-cost-french-vs-english-tokens` (13/10, référence de la semaine
+  du 12 au 18/10). Seul article publié sur les deux rails cette semaine :
+  les onze autres brouillons ont été refusés deux fois par la porte de
+  lisibilité. Il ne gagne donc pas par comparaison, il est retenu parce
+  qu'il tient la barre sur quatre points. Sa preuve « nous » est une
+  mesure faite le jour même sur des textes que tout le monde peut
+  télécharger (RGPD et AI Act sur EUR-Lex, cinq tokenizers, versions
+  citées), donc rejouable par le lecteur. Il garde chaque chiffre dans
+  son périmètre (« Our count covers the text sent to the model, in two
+  legal texts written in one institutional style ») et signe ce qui
+  reste une attente (« that part is our expectation, unchecked »). Il
+  écrit ce qui manque sans se décerner de franchise : « Claude is
+  missing from our count. We found no tokenizer published by Anthropic »,
+  la forme exacte que la règle `candor_selfcert` (04/10) demandait.
+  Enfin, la porte l'a d'abord refusé pour « pas de problème vécu, mesure
+  de labo », et le texte n'est passé qu'une fois rouvert sur le problème
+  du lecteur (un budget calé sur des essais en anglais qui ne tient plus
+  devant des documents français) : c'est le précédent de la règle
+  « Le problème du lecteur avant la mesure » ci-dessous. Sa demande se
+  fait seule, sur un document que l'entreprise publie déjà dans les deux
+  langues, et son intertitre (« One document in both languages ») sort
+  du moule banni le 11/10. Réserves : titre noté 4, il pose la question
+  sans la conséquence ; la glose de « token » est coincée en apposition
+  dans la première phrase (« the few-letter pieces of text AI services
+  charge for »), lisible mais lourde. La porte a basculé de PASS à REFUS
+  sur deux mots ajoutés le même matin : un PASS n'est valable que pour
+  le texte exact qui part.
+
 ## Discipline chiffres externes (cliquet 06/09)
 
 - Deux articles de la semaine (31/08 → 01/09) ont écarté ou neutralisé
@@ -234,6 +267,39 @@ en amont ce que le panel attrapait en aval.
     `description` is a factual summary, never an aphorism. The single
     slogan allowed by the house style stays in the closing line, and
     the body carries none.
+
+- **Défauts promus depuis la porte C-LISIBILITE (cliquet 18/10)**. Du
+  12 au 18/10, la porte a refusé douze versions sur les deux rails et un
+  seul article est sorti. Trois motifs ont atteint trois occurrences, et
+  ils se corrigent avant d'écrire, pas après le refus :
+  - **The reader's problem before the measurement** (`no_lived_problem`,
+    08, 11, 12, 17 et 18/10 sur le rail paul ; 14/10 sur ce rail, un article
+    parti d'un décompte maison ; variante
+    `own_tool_not_reader_problem`, 16/10). A question qualifies only if
+    the fiche can state, in one line, who has the problem, when it bites
+    and what it costs them. A count of our own pull requests, our own
+    tool or our own laptop is evidence, never the subject. The measurement
+    comes after the problem it settles. Précédent conforme :
+    `ai-cost-french-vs-english-tokens`, refusé en « mesure de labo »,
+    publié une fois rouvert sur le budget du lecteur.
+  - **The answer takes the shape the title asks for** (`answer_late`,
+    promu le 11/10 et revenu quatre fois depuis : 12/10 « Yes. » sous un
+    titre affirmatif ; 14/10 neuf chiffres empilés avant la conclusion ;
+    16/10 un titre « where » répondu par une pile d'exigences ; 18/10 le
+    principe dans les 80 premiers mots et la recette en dernière
+    section). « Where » is answered by a place, « how » by the gesture,
+    « does » by yes or no with its condition, « how much » by a number.
+    A principle, a list of requirements or a stack of figures is not an
+    answer. If the gesture is a prompt or a command, its first line
+    appears in the first paragraph.
+  - **We recommend what we run** (`unproven_fix` 06/10 et 07/10,
+    `untested_recommendation` 16/10 et 17/10 : relance par
+    `workflow_dispatch` jamais essayée, jeton sans portée minimale,
+    alerte que nous n'avons pas posée chez nous, deux fois). A fix, an
+    alert or a setting recommended to the reader is one we run, checked
+    in our own system the day of writing. Otherwise it is cut, or written
+    as an untested idea in a sentence of its own (« we have not run
+    this »), never as advice.
 
 ## Tics bannis
 
@@ -337,6 +403,11 @@ en amont ce que le panel attrapait en aval.
   formule « the X your team uses most » est gelée. Avant d'écrire la
   demande, relire les intertitres et la première phrase de demande des
   deux derniers articles du rail.
+
+- **Aucun tic répété relevé sur la semaine du 12 au 18/10** : un seul
+  article publié, rien à comparer d'un texte à l'autre. La relecture des
+  brouillons refusés est consignée au registre, pas ici (un brouillon
+  refusé n'a pas été lu par un lecteur).
 
 ## Un cliquet ne compte qu'une fois mergé (incident du 23/09)
 
