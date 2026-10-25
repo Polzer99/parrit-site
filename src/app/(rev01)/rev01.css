@@ -164,27 +164,41 @@ h3 {
 }
 
 .locale-toggle {
+  position: relative;
   display: inline-flex;
   gap: 4px;
-  border: 1px solid var(--rule-d);
+}
+
+.locale-toggle::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 1em;
+  border-left: 1px solid var(--rule-d);
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .locale-toggle button {
-  min-width: 34px;
-  min-height: 30px;
+  min-width: 44px;
+  min-height: var(--button-min-height);
+  padding: 0 var(--s1);
   border: 0;
   background: transparent;
-  color: var(--g4);
+  color: var(--g2);
   font-family: var(--mono);
   font-size: var(--t-k);
   font-weight: 600;
-  letter-spacing: .12em;
+  line-height: 1.125;
+  letter-spacing: .16em;
   cursor: pointer;
 }
 
 .locale-toggle button.on {
-  background: var(--paper);
-  color: var(--ink);
+  color: var(--paper);
+  text-decoration: underline;
+  text-underline-offset: .25em;
 }
 
 .locale-toggle button:focus-visible {
@@ -383,7 +397,7 @@ h3 {
   align-items: center;
   justify-content: center;
   appearance: none;
-  padding: 12px 18px;
+  padding: var(--button-padding);
   border: 1px solid var(--ink);
   background: transparent;
   color: var(--ink);
@@ -523,7 +537,7 @@ h3 {
 
 .rev-section-head h2 {
   margin: 0;
-  font-size: var(--t-xl);
+  font-size: var(--d-s);
   font-weight: 600;
   letter-spacing: -.02em;
 }
@@ -840,6 +854,7 @@ h3 {
 }
 
 .doctrine-code .k {
+  color: var(--accent-text);
   /* Five mono glyphs at 14px must fit the 47px inside the code column. */
   letter-spacing: .04em;
 }
@@ -1301,7 +1316,8 @@ h3 {
     letter-spacing: .04em;
   }
 
-  .cmd-nav a {
+  .cmd-nav a,
+  .locale-toggle button {
     letter-spacing: .04em;
   }
 }
@@ -1736,7 +1752,7 @@ a.k:active {
 
 .home-s h2 {
   margin: 22px 0 34px;
-  font-size: var(--d-l);
+  font-size: var(--d-s);
   font-weight: 400;
   letter-spacing: -.035em;
   line-height: 1.04;
@@ -1759,7 +1775,7 @@ a.k:active {
   margin: 38px auto 30px;
   color: var(--paper);
   font-size: var(--d-xl);
-  font-weight: 300;
+  font-weight: 500;
   letter-spacing: -.045em;
   line-height: .98;
   text-wrap: balance;
@@ -1981,6 +1997,7 @@ a.k:active {
 .home-s-journey-steps .k {
   display: block;
   margin-bottom: 6px;
+  color: var(--accent-text);
 }
 .home-s-journey-steps h3 {
   margin: 0 0 6px;
@@ -2064,10 +2081,6 @@ a.k:active {
 .product-scene-label { font-family: var(--mono); font-size: var(--t-k); color: var(--label-d); }
 .product-scene-label { margin: 0 0 10px; }
 
-@media (min-width: 1025px) and (max-width: 1200px) {
-  .product-scene-copy h2 { font-size: var(--t-xl); }
-}
-
 @media (max-width: 1024px) {
   .product-scene { display: flex; flex-direction: column; gap: var(--s4); }
   .product-scene-conversation { width: min(360px, 100%); align-self: center; }
@@ -2119,6 +2132,8 @@ a.k:active {
 .home-s-close h2 {
   max-width: 18ch;
   margin: 0 auto .8em;
+  /* Closing notes keep their existing size outside the section-title scale. */
+  font-size: var(--d-l);
 }
 
 .doctrine-note {
@@ -2447,7 +2462,7 @@ a.k:active {
 }
 
 .r2-std-row .ps {
-  color: var(--g3);
+  color: var(--accent-text);
   font-family: var(--mono);
   font-size: var(--t-k);
   letter-spacing: .02em;
@@ -2546,7 +2561,7 @@ a.k:active {
 }
 
 .r2-phase .no {
-  color: var(--accent-fg);
+  color: var(--g3);
   font-family: var(--mono);
   font-size: var(--t-k);
   letter-spacing: .1em;
@@ -3247,8 +3262,7 @@ a.k:active {
 .rev-button,
 .cmdbar .cmd-cta,
 .cmd-panel .cmd-panel-cta,
-.fp-cta,
-.locale-toggle button {
+.fp-cta {
   min-height: var(--button-min-height);
   font-family: var(--ui);
   font-size: var(--button-font-size);
@@ -3257,7 +3271,6 @@ a.k:active {
   line-height: 1.125;
   letter-spacing: normal;
 }
-.locale-toggle button { min-width: 44px; }
 .rev-button.exec {
   --action-fill: var(--brand-core-rose);
   --action-pressed: var(--brand-core-rose);
@@ -3358,8 +3371,6 @@ a.k {
 .r2-close h2 { line-height: 1.04; letter-spacing: -.035em; }
 .r2-close .proof, .home-s-close-note { font-family: var(--ui); letter-spacing: normal; }
 .cmd-nav a, .cmd-menu-toggle { min-height: var(--button-min-height); }
-.locale-toggle { border: 0; }
-.locale-toggle button { border: 1px solid var(--rule-d); }
 .r2-registre-note a.k { display: inline; min-block-size: 0; }
 #garde-fous a { text-decoration: none; }
 #garde-fous a:hover { text-decoration: underline; }

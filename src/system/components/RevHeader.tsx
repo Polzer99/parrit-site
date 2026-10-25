@@ -141,6 +141,7 @@ export function RevHeader({ locale }: { locale: Locale }) {
                 key={item}
                 className={item === locale ? "on" : undefined}
                 aria-pressed={item === locale}
+                aria-current={item === locale ? "true" : undefined}
                 onClick={() => switchLocale(item)}
               >
                 {item.toUpperCase()}

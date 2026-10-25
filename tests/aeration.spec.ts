@@ -226,11 +226,6 @@ for (const width of [1440, 390]) {
             scaleFailures.push(`${size}px: ${label}`);
           }
         }
-        const actions = [...document.querySelectorAll("a, button")].filter((element) => {
-          if (!visible(element)) return false;
-          const background = getComputedStyle(element).backgroundColor;
-          return background !== "transparent" && !/^(?:rgba\(.*,[ ]*|.*\/[ ]*)0(?:\.0+)?\s*\)$/.test(background);
-        });
         // Canvas resolves computed CSS colors to sRGB; it never loads an image.
         type Color = [number, number, number, number];
         const context = document.createElement("canvas").getContext("2d", { willReadFrequently: true });
@@ -242,6 +237,19 @@ for (const width of [1440, 390]) {
           const [r, g, b, a] = context.getImageData(0, 0, 1, 1).data;
           return [r / 255, g / 255, b / 255, a / 255];
         };
+        const actions = [...document.querySelectorAll("a, button")].filter((element) => {
+          if (!visible(element)) return false;
+          const box = element.getBoundingClientRect();
+          if (box.width <= 0 || box.height <= 0) return false;
+          const style = getComputedStyle(element);
+          if (color(style.backgroundColor)[3] > 0) return true;
+          // Outlined actions need the same 12px clearance as filled actions.
+          // A single link underline is not a painted button contour.
+          return ["top", "right", "bottom", "left"].every((edge) =>
+            Number.parseFloat(style.getPropertyValue(`border-${edge}-width`)) > 0 &&
+            color(style.getPropertyValue(`border-${edge}-color`))[3] > 0,
+          );
+        });
         const over = (front: Color, back: Color): Color => {
           const alpha = front[3] + back[3] * (1 - front[3]);
           if (!alpha) return [0, 0, 0, 0];
@@ -532,7 +540,7 @@ for (const width of [1440, 390]) {
       expect.soft(regressedNeutralDebt, `${path} at ${width}px: frozen neutral control ratios must not decrease`).toEqual([]);
       expect.soft(duplicateNeutralDebt, `${path} at ${width}px: debt entries with the same selector must not absorb each other`).toEqual([]);
       expect(result.textCount, "the geometry audit must measure rendered text").toBeGreaterThan(0);
-      expect(result.actionCount, "the geometry audit must measure filled actions").toBeGreaterThan(0);
+      expect(result.actionCount, "the geometry audit must measure visible filled or outlined actions").toBeGreaterThan(0);
       expect.soft(result.actionFailures, `${path} at ${width}px: minimum text/action gap is 12px`).toEqual([]);
       expect.soft(result.textFailures, `${path} at ${width}px: text rectangles must not overlap`).toEqual([]);
       expect.soft(result.floorFailures, `${path} at ${width}px: visible text must be at least 16px`).toEqual([]);
