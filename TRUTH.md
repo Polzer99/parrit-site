@@ -2,29 +2,25 @@
 
 > **Ce fichier est le cerveau partagé.** Le site (`AGENTS.md` → ici) ET l'agent d'amélioration continue **Hermes** (`hermes/`) le lisent à chaque fois. Toute amélioration du site doit être *cohérente avec ce document*. Quand la réalité de Parrit change, on met à jour CE fichier d'abord (HITL) — pas le code en premier.
 >
-> Doctrine source (hors-repo, priment en cas de conflit) : `parrit-os/REGLES-DOR.md` · `parrit-os/VISION.md` · `parrit-os/docs/doctrine-communication/DOCTRINE-COMMUNICATION.md`. Doctrine visuelle : prototype REV 03 `docs/site-prod-rev01/parrit-command-center-rev03.html`, valeurs `src/system/tokens.css`, composants `src/system/`. `BRAND.md` est une archive historique.
+> Doctrine source (hors-repo, priment en cas de conflit) : `parrit-os/REGLES-DOR.md` · `parrit-os/VISION.md` · `parrit-os/docs/doctrine-communication/DOCTRINE-COMMUNICATION.md`. Doctrine visuelle : Brand OS P1/P3 (D1, 24/09/2026), valeurs générées `src/system/brand-os.tokens.css`, adaptation `src/system/tokens.css`, composants `src/system/`. `BRAND.md` est une archive historique.
 
 ---
 
 ## 1. Ce qu'est Parrit (positionnement)
 
-Parrit.ai est une **maison française indépendante de données et d'IA**, qui transforme les données des entreprises en **outils qui leur appartiennent**. Un seul système pour comprendre, décider et agir à l'échelle de l'entreprise, construit pour une entreprise à la fois.
+Décision du 25/10/2026 : Parrit.ai construit des **logiciels métier**, avec l'ambition de verticaliser des produits, et accompagne les entreprises dans leur **transformation IA**. Deux parcours : PME/ETI et grands groupes ; conseil et logiciel sont ouverts aux deux. FormIA est l'organisme de formation de Parrit.ai, sans site propre. Les outils construits appartiennent au client.
 
 Parrit livre la chose qui tourne, pas un deck. Chaque commande répond au Standard Parrit.
 
-## 2. North stars (ce que la conversion doit servir)
+## 2. Rôle du site (24/10/2026)
 
-1. **RDV qualifiés / semaine** (le site doit transformer un visiteur dirigeant en RDV).
-2. **Cash hebdo** (les RDV deviennent des deals).
+Peu de texte : montrer les produits, les réalisations, les capacités et les preuves.
+Le rendez-vous est une suite possible, pas une métrique à maximiser.
+L'ancien objectif RDV/semaine et cash hebdo est remplacé le 24/10/2026.
 
-> Le rôle du SITE dans ce système = **transformer l'attention d'un dirigeant en RDV qualifié avec Parrit.ai.** C'est la métrique de conversion nord. Tout le reste (trafic, GEO, contenu) est en amont.
-
-**CTA et parcours de conversion** (spec validée du 06/09/2026) :
-- Hero : `QuickCapture` recueille l'e-mail et, uniquement dans sa variante hero, une idée optionnelle (`idee`, 300 caractères maximum), stockée mais sans effet sur l'esquisse rendue.
-- Juste après le hero : `AgentEsquisse` propose un échange déterministe local (Signal / Décision / Action), puis renvoie vers la capture `#prototype`.
-- « Parlons-en » / « Let's talk » mène à `/commission` : Échange avec Parrit.ai via Cal.com, puis `QuickCapture` standard si aucun créneau ne convient.
-- Journal : pas de capture d'abonnement (retirée le 14/09 : aucun envoi n'existait).
-- `RegisterInterest` reste dans le code mais n'est plus utilisé sur les pages.
+**CTA en vigueur depuis le 04/10/2026** : « Réserver l'examen » / « Book the examination »
+vers `/commission` (ou `/fr/commission`). Le libellé reste inchangé dans ce lot.
+Le hero associe l'agent esquisse et la capture. Le Journal n'a pas de capture d'abonnement.
 
 ## 3. ICP (à qui on parle)
 
@@ -54,18 +50,20 @@ Surfaces produit du site rev01 : `/`, `/manufacture`, `/standard`, `/dossiers`, 
 
 ## 6. Règles dures (non négociables — un changement qui les viole est REJETÉ)
 
-1. **Prix** : décision directe de Paul du 08/10/2026 (CLM-OFFER-BWY) : ancrage « À partir de 3 500 € HT » / « From €3,500 excl. VAT ». Depuis le pivot 2026, les offres sont **sur devis** (périmètre et prix cadrés après diagnostic) et **la home affiche l'ancrage de Build With You (à partir de 3 500 € HT, au forfait) ; le sur-mesure est sur devis**. Interdit : ré-afficher les anciens prix fermes (Sprint 5 000 €, Abonnement 99 €/mois, Évolution 250 €/h) — ils sont retirés. Pas de devis personnalisé hors propale privée, pas de promesse de ROI garanti. « sur devis » est la formulation validée pour le prix public.
-2. **Pas de noms de clients** en texte (anonymisé ; mur de logos visuel autorisé, override Paul `BRAND.md §6`).
-3. **Palette stricte rev02** : les valeurs vivent uniquement dans `src/system/tokens.css`. Registres carbone et papier froid, système d'accent bleu contextualisé par fond ; gris secondaire `--g4` lisible par fond avec `--g4-d` sur carbone. Un hex écrit dans une page ou un composant est un défaut.
-4. **Polices** : General Sans pour le corps et l'interface, IBM Plex Mono pour le registre technique, Source Serif 4 réservée aux grands titres éditoriaux. General Sans est auto-hébergée dans `public/fonts/rev02/` ; IBM Plex Mono et Source Serif 4 dans `public/fonts/rev03/`.
+1. **Prix (12/10/2026)** : aucun prix ni offre détaillée sur le site public. Périmètre et prix en rendez-vous puis en propale privée ; aucun devis personnalisé public ni promesse de ROI garanti.
+2. **Clients (25/10/2026)** : seuls les noms de `src/system/public-clients.ts` sont publiables (Laparra). Tous les autres clients restent anonymisés. Aucun logo ajouté par ce lot.
+3. **Couleurs (24/09/2026, D1)** : Brand OS P1/P3. Valeurs dans `src/system/brand-os.tokens.css` (généré), adaptées par `src/system/tokens.css`. Un hex dans une page ou un composant est un défaut.
+4. **Polices (04/10/2026)** : General Sans pour le texte et l'interface, IBM Plex Mono pour le registre technique. Toutes deux auto-hébergées ; aucune autre famille.
 5. **Jamais d'appel runtime à `*.vercel.app`** dans une livraison (le site EST sur Vercel — ça vise les ressources chargées au runtime).
 6. **Pas de tiret cadratin**, pas de superlatifs creux.
 7. **i18n** : une langue = une URL (lot GEO/SEO B validé le 07/09/2026). Les URLs nues rendent l’anglais ; `/fr/*` rend le français, avec canonical auto-référent et x-default sur l’anglais. La négociation `Accept-Language` redirige temporairement vers `/fr`, hors bots et hors cookie de choix. La bascule du header pose le cookie et change d’URL. Le copy reste dans les dictionnaires `DICT` par page. L’index du Journal est traduit ; ses articles restent uniquement sur leurs URLs nues en anglais.
 8. **Déploiement** : push `main` → CD Vercel. Jamais de merge prod sans les **3 feux** (review APPROVE + CD/batterie vert + Paul a COMPRIS) — RÈGLES-DOR §22/§25.
 
+9. **Tests (25/10/2026)** : les tests contrôlent les règles de fond et la structure, pas des libellés.
+
 ## 7. Architecture du site (où agir)
 
-- Stack : Next.js 16 / React 19 / TypeScript / Tailwind v4, Vercel, français et anglais. Analytics **PostHog** (`eu.i.posthog.com`, autocapture et session replay).
+- Stack : Next.js 16 / React 19 / TypeScript / Tailwind v4, Vercel, français et anglais. Mesure d'audience (05/10/2026) : PostHog retiré du navigateur ; seule mesure active, Cloudflare Web Analytics injectée par Cloudflare hors dépôt, décrite dans `/legal`.
 - Site canon : `src/app/(rev01)/`. Le copy localisé vit dans les `DICT` des pages et composants concernés.
 - Capture lead : `src/system/components/QuickCapture.tsx` poste vers `/api/interet` ; `idee` rejoint `metadata.interets_declares[].idee_prototype`. `AgentEsquisse.tsx` fonctionne sans backend ni LLM. Le Journal n'a pas de capture d'abonnement. La prise de rendez-vous passe par Cal.com dans `CalInline.tsx` sur `/commission`.
 - Garde-fous avant push : `npm run build`, `npm run qa:brand:rev01`, puis `npm run qa:network:rev01` avec blocage réseau global.
@@ -73,17 +71,17 @@ Surfaces produit du site rev01 : `/`, `/manufacture`, `/standard`, `/dossiers`, 
 ## 8. Définition d'une « amélioration » (le filtre de Hermes)
 
 Une amélioration valable :
-- **sert une north star** (plus de RDV qualifiés, ou un funnel moins fuyard, ou un meilleur signal/bruit pour le dirigeant cible) ;
+- **rend les produits, réalisations, capacités ou preuves plus compréhensibles** (rôle du site décidé le 24/10/2026) ;
 - **passe LE TAMIS** (sobre, Enargeia, pas de pathos) ;
-- **respecte les 7 règles dures** (§6) ;
-- est **falsifiable** : on nomme la métrique qui devra bouger (taux de soumission `QuickCapture`, clics CTA, RDV/sem) ;
+- **respecte les règles dures** (§6) ;
+- est **falsifiable** : on nomme le comportement observable à vérifier (accès à une réalisation, compréhension d'une capacité, lisibilité d'une preuve), sans maximiser les rendez-vous ;
 - est **réversible** (une PR, un rollback possible).
 
 Anti-objectifs : faire « plus joli » sans hypothèse de conversion ; ajouter du trafic vanity ; tout ce qui sent le growth-hack performatif (ça trahit la voix).
 
 ## 9. Hypothèses de conversion ouvertes (backlog vivant — Hermes entretient ceci)
 
-- Le CTA « Parler à Parrit.ai » est-il assez tôt / assez clair au-dessus de la ligne de flottaison ?
+- Le CTA « Réserver l'examen » / « Book the examination » (04/10/2026) propose-t-il une suite claire après les preuves ?
 **Hypothèse desktop-OS close** : Paul a tranché le 04/09/2026 pour le retrait de l'instrument de la home. La home simplifiée est le canon ; ne pas réintroduire ce concept comme expérience de navigation.
 
 - Les preuves (Enargeia) sont-elles assez concrètes et chiffrées (sans violer §6) pour créer la confiance ?

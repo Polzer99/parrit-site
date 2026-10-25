@@ -1,3 +1,5 @@
+import { PUBLIC_CLIENT_NAMES } from "../src/system/public-clients";
+import { expectPopulated } from "./content-structure";
 import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
@@ -13,13 +15,12 @@ for (const locale of ["fr", "en"] as const) {
       const section = page.locator(".home-s-build");
       await section.scrollIntoViewIfNeeded();
       await page.evaluate(() => document.fonts.ready);
-      await expect(section.getByRole("heading", { level: 2 })).toHaveText(locale === "fr"
-        ? "Vous demandez, vous validez, la fiche est créée."
-        : "You ask, you approve, the record is created.");
+      await expectPopulated(section.getByRole("heading", { level: 2 }));
       await expect(section.locator(".product-scene-mention")).toHaveCount(0);
       await expect(section.locator(".product-scene-steps .scene-marker")).toHaveText(["1", "2", "3"]);
       await expect(section.locator(".scene-chat .scene-marker, .product-scene-image .scene-marker")).toHaveText(["1", "2", "3"]);
-      expect(await section.innerText()).not.toMatch(/Laparra|Rungis|\bMIN\b|GESLOT|Lyon/i);
+      const sceneCopy = (await section.innerText()).replace(new RegExp(PUBLIC_CLIENT_NAMES.join("|"), "gi"), "");
+      expect(sceneCopy).not.toMatch(/Rungis|\bMIN\b|GESLOT|Lyon/i);
       await expect(section.locator(".home-s-build-grid, .home-s-verdict")).toHaveCount(0);
       for (const img of await section.locator("img").all()) {
         await img.scrollIntoViewIfNeeded();
@@ -43,19 +44,14 @@ for (const locale of ["fr", "en"] as const) {
       }
       const chat = section.locator(".scene-chat");
       await expect(chat).toHaveAttribute("lang", "fr");
-      await expect(chat.locator(".scene-chat-header strong")).toHaveText("Agent CRM");
-      await expect(chat.locator(".scene-chat-header div > span")).toHaveText("bot");
-      await expect(chat.locator(".scene-chat-avatar")).toHaveText("CRM");
-      await expect(chat.locator(".scene-chat-date")).toHaveText("Aujourd'hui");
-      await expect(chat.locator(".scene-chat-bubble > p")).toHaveText([
-        "nouveau contact chez Prospect B, vu ce matin",
-        "Je crée Contact achat (acheteur) chez Prospect B. C'est bon ?",
-        "oui",
-        "C'est créé : Contact achat (acheteur) chez Prospect B.",
-      ]);
+      await expectPopulated(chat.locator(".scene-chat-header strong"));
+      await expectPopulated(chat.locator(".scene-chat-header div > span"));
+      await expectPopulated(chat.locator(".scene-chat-avatar"));
+      await expectPopulated(chat.locator(".scene-chat-date"));
+      await expectPopulated(chat.locator(".scene-chat-bubble > p"), 4);
       await expect(chat.locator(".scene-chat-time")).toHaveText(["08:04", "08:04", "08:05", "08:05"]);
-      await expect(chat.locator(".scene-chat-choices > span")).toHaveText(["Oui", "Non"]);
-      await expect(chat.locator(".scene-chat-input")).toHaveText("Message");
+      await expectPopulated(chat.locator(".scene-chat-choices > span"), 2);
+      await expectPopulated(chat.locator(".scene-chat-input"));
       await expect(chat.locator(".scene-chat-time svg")).toHaveCount(2);
       await expect(chat.locator(".scene-chat-check")).toHaveCount(2);
       for (const text of await chat.locator(".scene-chat-bubble p, .scene-chat-bubble strong, .scene-chat-time").all()) {

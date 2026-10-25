@@ -88,7 +88,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
           <K>{locale === "fr" ? "Journal / Entrée" : "Journal / Entry"} · <time dateTime={entry.date}>{dateLabel}</time></K>
           <h1 lang="en">{entry.title}</h1>
           <HarnessBadge slug={entry.slug} locale={locale} />
-          {locale === "fr" ? <p>Article en anglais.</p> : null}
+          {locale === "fr" ? <p data-language-note="">Article en anglais.</p> : null}
           <p className="journal-deck" lang="en">{entry.description}</p>
         </header>
 

@@ -1,22 +1,4 @@
-const NOMS_INTERDITS = [
-  "Joone",
-  "Clevery",
-  "Lavazza",
-  "Naval Group",
-  "Estée Lauder",
-  "Hiolle",
-  "Toyotomi",
-  "Metavisio",
-  "Stratera",
-  "Rydge",
-  "Eficia",
-  "TerraCall",
-  "SNCF",
-];
-
-function escapeRegExp(value) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
+import { privateClientNames } from "./lib/public-clients.mjs";
 
 function tokens(value) {
   return new Set(
@@ -51,15 +33,8 @@ export function gateSlug(slug) {
 }
 
 export function gateNoms(texte) {
-  for (const nom of NOMS_INTERDITS) {
-    const pattern = new RegExp(
-      `(?<![\\p{L}\\p{N}_])${escapeRegExp(nom)}(?![\\p{L}\\p{N}_])`,
-      "iu",
-    );
-    if (pattern.test(texte)) {
-      return { ok: false, motif: `nom client interdit : « ${nom} »` };
-    }
-  }
+  const [nom] = privateClientNames(texte);
+  if (nom) return { ok: false, motif: `nom client interdit : « ${nom} »` };
   return { ok: true };
 }
 

@@ -12,17 +12,26 @@ import { getAllJournalEntrySummaries } from "@/system/journal";
 const DICT = {
   en: {
     hero: {
-      kicker: "Parrit / Data and AI",
+      kicker: "Parrit / Software and AI",
       before: "We turn operational problems into",
       frame: "systems that work",
       after: ".",
-      sub: "Parrit.ai is a data and AI company. The invoice that drags, the report rebuilt by hand every week: we start from your data and build tools you own.",
+      sub: "Parrit.ai builds business software and helps companies through their AI transformation. The invoice that drags, the report rebuilt by hand every week: we start from your data and build tools you own.",
       alternative: "Book the examination",
     },
     brands: {
       kicker: "Systems commissioned by:",
-      list: "an industrial group · a law firm · a B2B energy broker · a consumer brand.",
-      note: "Client names are shared in a meeting.",
+      list: "Laparra, a fruit and vegetable wholesaler at the Rungis market · an industrial group · a law firm · a B2B energy broker · a consumer brand.",
+      note: "Other names are shared in a meeting.",
+    },
+    parcours: {
+      kicker: "Who we work with",
+      title: "We work with SMEs, mid-sized companies and large groups.",
+      columns: [
+        ["SMEs and mid-sized companies", "The CEO brings us one precise problem. We scope it together, we build, then the team takes the tool over. At Laparra, a fruit and vegetable wholesaler at the Rungis market, the sales team works in the CRM we built with them."],
+        ["Large groups", "A business unit or the transformation office owns the project. We set the scope with the sponsor and the technical teams, then we build."],
+      ],
+      note: "Either way, we do consulting and software. Training goes through FormIA, Parrit.ai's training organisation.",
     },
     journey: {
       kicker: "How it works",
@@ -65,17 +74,26 @@ const DICT = {
   },
   fr: {
     hero: {
-      kicker: "Parrit / Données et IA",
+      kicker: "Parrit / Logiciels et IA",
       before: "Nous transformons des problèmes opérationnels en",
       frame: "systèmes qui fonctionnent",
       after: ".",
-      sub: "Parrit.ai est une maison de données et d'IA. La facture qui traîne, le rapport refait à la main chaque semaine : nous partons de vos données et construisons des outils qui vous appartiennent.",
+      sub: "Parrit.ai construit des logiciels métier et accompagne les entreprises dans leur transformation IA. La facture qui traîne, le rapport refait à la main chaque semaine : nous partons de vos données et construisons des outils qui vous appartiennent.",
       alternative: "Réserver l'examen",
     },
     brands: {
       kicker: "Ils nous ont commandé un système :",
-      list: "un groupe industriel · un cabinet d'avocats · un courtier en énergie B2B · une marque grand public.",
-      note: "Les noms des clients sont communiqués en rendez-vous.",
+      list: "Laparra, grossiste en fruits et légumes au MIN de Rungis · un groupe industriel · un cabinet d'avocats · un courtier en énergie B2B · une marque grand public.",
+      note: "Les autres noms sont communiqués en rendez-vous.",
+    },
+    parcours: {
+      kicker: "Avec qui nous travaillons",
+      title: "Nous travaillons avec des PME, des ETI et des grands groupes.",
+      columns: [
+        ["PME et ETI", "Le dirigeant nous apporte un sujet précis. Nous le cadrons avec lui, nous construisons, puis son équipe reprend l'outil. Chez Laparra, grossiste en fruits et légumes au MIN de Rungis, les commerciaux travaillent dans le CRM que nous avons construit avec eux."],
+        ["Grands groupes", "Une direction métier ou la direction de la transformation porte le projet. Nous préparons le périmètre avec le sponsor et les équipes techniques, puis nous construisons."],
+      ],
+      note: "Dans les deux cas, nous faisons du conseil et du logiciel. Pour former vos équipes, nous passons par FormIA, l'organisme de formation de Parrit.ai.",
     },
     journey: {
       kicker: "Le déroulement",
@@ -121,11 +139,11 @@ const DICT = {
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const title = locale === "fr"
-    ? "Parrit.ai · Données et IA, des outils qui vous appartiennent"
-    : "Parrit.ai · Data and AI, tools you own";
+    ? "Parrit.ai · Logiciels métier et IA, des outils qui vous appartiennent"
+    : "Parrit.ai · Business software and AI, tools you own";
   const description = locale === "fr"
-    ? "Parrit.ai est une maison française indépendante de données et d'IA : nous transformons les données d'une entreprise en outils qui lui appartiennent, construits dans ses comptes et documentés."
-    : "Parrit.ai is an independent French data and AI firm. We turn a company's data into tools it owns, built in its own accounts and documented.";
+    ? "Parrit.ai construit des logiciels métier et accompagne les PME, les ETI et les grands groupes dans leur transformation IA. Ce que nous construisons vit dans vos comptes et vous appartient."
+    : "Parrit.ai builds business software and helps SMEs, mid-sized companies and large groups with their AI transformation. What we build lives in your accounts and belongs to you.";
   return {
     title: { absolute: title }, description,
     alternates: {
@@ -163,6 +181,22 @@ export default async function HomePage() {
           <K>{copy.brands.kicker}</K>
           <p className="home-s-brands-list">{copy.brands.list.split(" · ").map((item) => <span key={item}>{item}</span>)}</p>
           <p>{copy.brands.note}</p>
+        </div>
+      </section>
+
+      <section className="home-s-parcours">
+        <div className="home-s-wrap">
+          <K>{copy.parcours.kicker}</K>
+          <h2>{copy.parcours.title}</h2>
+          <div className="home-s-proof-grid">
+            {copy.parcours.columns.map(([title, body]) => (
+              <div className="home-s-proof-item" key={title}>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </div>
+            ))}
+          </div>
+          <p className="doctrine-note">{copy.parcours.note}</p>
         </div>
       </section>
 
@@ -225,7 +259,7 @@ export default async function HomePage() {
         <div className="home-s-wrap">
           <K>{copy.journal.kicker}</K>
           <h2>{copy.journal.title}</h2>
-          {locale === "fr" && <p className="doctrine-note">Articles en anglais.</p>}
+          {locale === "fr" && <p className="doctrine-note" data-language-note="">Articles en anglais.</p>}
           <ol>
             {entries.map((entry) => <li key={entry.slug}><Link href={`/journal/${entry.slug}`} hrefLang="en"><span lang="en">{entry.title}</span>{locale === "fr" && <K>EN</K>}<time dateTime={entry.date}>{entry.date}</time></Link></li>)}
           </ol>

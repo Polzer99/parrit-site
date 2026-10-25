@@ -1,3 +1,5 @@
+import { homeClientViolations } from "../scripts/lib/public-clients.mjs";
+import { sourceProse } from "../scripts/lib/certification-claims.mjs";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
@@ -7,62 +9,69 @@ const article = (slug) => read(`content/journal/${slug}.mdx`).replace(/\[([^\]]+
 const page = (route = "") => read(`src/app/(rev01)/${route ? `${route}/` : ""}page.tsx`);
 
 const contracts = [
-  ["self-hosting-latency-cost", "We propose models on infrastructure our clients own", /We deploy models on infrastructure/],
-  ["what-is-parrit-ai", "We have taken orders from large accounts, SMEs and mid-sized companies, one company at a time.", /We have built these systems|Every system we have delivered|Every system we ship|thirty-minute examination|thirty minutes with the founder|usually within a few weeks|Today that reporting assembles itself/],
-  ["what-a-pilot-skips-to-look-finished", "When we can, it reads from the client's live database rather than from a copied export", /It reads from the client's live database, not/],
-  ["what-you-rent-can-be-taken-back", "A system we deliver is built to run on the client's own infrastructure", /A system we deliver runs on/],
-  ["glm-5-2-sovereignty", "That is the posture we apply to our own systems, and the one we propose to clients.", /posture we deploy with our clients/],
-  ["publishing-without-human-review", "That is the posture we apply to our own systems, and the one we propose to clients.", /posture we deploy with our clients/],
-  ["what-a-rollback-takes-with-it", "Because this is the shape of pipeline we propose to clients: one branch and one deploy for everything.", /substrate we deploy for clients|client's invoice run and their website redesign/],
+  ["self-hosting-latency-cost", /propos[^.]*infrastructure[^.]*own/i, /We deploy models on infrastructure/],
+  ["what-is-parrit-ai", /orders[^.]*SMEs/i, /We have built these systems|Every system we have delivered|Every system we ship|thirty-minute examination|thirty minutes with the founder|usually within a few weeks|Today that reporting assembles itself/],
+  ["what-a-pilot-skips-to-look-finished", /when we can[^.]*database/i, /It reads from the client's live database, not/],
+  ["what-you-rent-can-be-taken-back", /built to run[^.]*infrastructure/i, /A system we deliver runs on/],
+  ["glm-5-2-sovereignty", /own systems[^.]*propose/i, /posture we deploy with our clients/],
+  ["publishing-without-human-review", /own systems[^.]*propose/i, /posture we deploy with our clients/],
+  ["what-a-rollback-takes-with-it", /pipeline[^.]*propose/i, /substrate we deploy for clients|client's invoice run and their website redesign/],
 ];
 for (const [slug, required, forbidden] of contracts) {
   test(`audit truth: ${slug} states the bounded claim`, () => {
-    assert.ok(article(slug).includes(required));
+    assert.match(article(slug), required);
     assert.doesNotMatch(article(slug), forbidden);
   });
 }
 test("institutional article states examination, ownership and prospective Standard", () => {
   const text = article("what-is-parrit-ai");
-  for (const required of [
-    "Each commission starts with a video call with Parrit.ai.", "a first conversation, then a written scope or a reasoned refusal",
-    "Every system we deliver is designed to be owned this way, by the client, in full.",
-    "For a consumer brand, one dossier records a reporting process commissioned to assemble itself every month.",
-    "Each system we deliver from now on is checked against the Standard. STD-1.0 is not an accreditation.",
-  ]) assert.ok(text.includes(required), required);
+  for (const rule of [/video call[^.]*Parrit\.ai/i, /written scope/i, /designed to be owned/i,
+    /reporting[^.]*commissioned/i, /from now on[^.]*Standard/i, /not an accreditation/i]) assert.match(text, rule);
+
 });
 test("home EN/FR uses documented orders, dated information types and own-system Journal", () => {
   const source = page();
   assert.doesNotMatch(source, /cosmetics maison|restaurant network|maison de cosmétique|réseau de restauration|15 of 25 information sources|15 sources d'information sur 25/);
-  for (const required of [
-    "an industrial group · a law firm · a B2B energy broker · a consumer brand.",
-    "un groupe industriel · un cabinet d'avocats · un courtier en énergie B2B · une marque grand public.",
-    "We publish the real state of our own system: as of September 13, 2026, 15 of the 25 types of information we track were still held in two places.",
-    "Nous publions l'état réel de notre propre système : au 13 septembre 2026, 15 des 25 types d'information suivis étaient encore tenus en double.",
-    "The Journal records what held and what broke on our own systems, and what we take from it for yours.",
-    "Le Journal consigne ce qui a tenu et ce qui a cassé sur nos propres systèmes, et ce que nous en tirons pour les vôtres.",
-  ]) assert.ok(source.includes(required), required);
+  assert.deepEqual(homeClientViolations(source), []);
+  const prose = sourceProse(source, "page.tsx").map(({ text }) => text);
+  assert.equal(prose.filter((text) => text.includes(" · ") && !text.startsWith("Parrit.ai") && text.trim() !== "·").length, 2);
+  // Dated counts and first-party evidence remain required facts, not slogans.
+  for (const text of prose.filter((text) => /15.*25/.test(text))) {
+    assert.match(text, /2026/);
+    assert.match(text, /own|propre/);
+  }
+  assert.equal(prose.filter((text) => /15.*25/.test(text)).length, 2);
+  assert.match(source, /<h2>\{copy.journal.title\}<\/h2>/);
+
 });
 test("dossier 26-002 keeps commissioned status and confines scope to mailbox assistant", () => {
   const source = page("dossiers");
   assert.doesNotMatch(source, /re-engaged case files|rebuild client intake|dossiers relancés|refondre l'arrivée des clients/);
-  assert.match(source, /A system commissioned to handle the firm's mailbox and act as a tailored assistant/);
-  assert.match(source, /Un système commandé pour traiter la boîte mail du cabinet et lui servir d'assistant sur mesure/);
-  for (const status of ['"seal": "Commissioned"', '"seal": "Commandé"']) assert.ok(source.includes(status));
+  const dossiers = [...source.matchAll(/\{\s*"ref": "Dossier 26-002[^"]*"[\s\S]*?\}/g)].map(([entry]) => JSON.parse(entry));
+  assert.equal(dossiers.length, 2, "mailbox dossier in both locales");
+  for (const dossier of dossiers) {
+    assert.match(dossier.title, /commissioned[^.]*mailbox|commandé[^.]*boîte mail/i);
+    assert.match(dossier.seal, /commissioned|commandé/i);
+    assert.doesNotMatch(dossier.seal, /production|operational|opérationnel/i);
+  }
 });
 test("systems EN/FR names Lemlist transfer and removes unsupported universal human review", () => {
   const source = page("systems");
   assert.doesNotMatch(source, /Instantly|Every automatic correction has been checked|Toute correction a été validée/);
-  assert.match(source, /External tool \(Lemlist\)[\s\S]*?Being transferred/);
-  assert.match(source, /Outil externe \(Lemlist\)[\s\S]*?En cours de transfert/);
+  const rows = [...source.matchAll(/\{\s*"domain": "[^"]*",\s*"source": "[^"]*Lemlist[^"]*"[\s\S]*?\}/g)].map(([row]) => JSON.parse(row));
+  assert.equal(rows.length, 2, "Lemlist row in each locale");
+  for (const row of rows) {
+    assert.match(row.status, /(?:being|underway|in progress).*transfer|transfer.*(?:underway|in progress)|en cours.*transfert/i);
+    assert.equal(row.legacyWriters, 0);
+  }
 });
 test("new systems and autonomy promise are explicit in both languages", () => {
-  assert.match(page("manufacture"), /EACH NEW SYSTEM CHECKED AGAINST THE STANDARD/);
-  assert.match(page("manufacture"), /CHAQUE NOUVEAU SYSTÈME VÉRIFIÉ AU STANDARD/);
+  assert.match(page("manufacture"), /new system[^"]*standard/i);
+  assert.match(page("manufacture"), /nouveau système[^"]*standard/i);
   const source = page("build-with-you");
-  for (const phrase of [
-    "You also leave able to build the next one without us.",
-    "Vous repartez aussi capable de construire le suivant sans nous.",
-  ]) assert.ok(source.includes(phrase), phrase);
+  const autonomy = [...source.matchAll(/autonomy: "([^"]+)"/g)].map((match) => match[1]);
+  assert.equal(autonomy.length, 2);
+  for (const promise of autonomy) assert.match(promise, /build[^.]*without us|construire[^.]*sans nous/i);
   assert.match(source, /<h1>\{copy.title\}<\/h1>\s*<p[^>]*>\{copy.autonomy\}<\/p>/);
 });
 test("legal identity and generated machine-readable claims stay consistent", () => {
@@ -72,16 +81,18 @@ test("legal identity and generated machine-readable claims stay consistent", () 
   for (const path of ["scripts/generate-llms.mjs", "public/llms.txt"]) {
     const text = read(path);
     assert.doesNotMatch(text, /Based in Lille|SASU|certification every|Every delivered system|from the first commit/);
-    for (const required of ["The Standard, six commitments Parrit.ai applies to its systems. It is an internal check, with no external accreditation.", "Each system delivered from now on is checked", "That is the engagement we sign, and the handover is where we check it."]) assert.ok(text.includes(required), `${path}: ${required}`);
+    for (const rule of [/no external accreditation/i, /from now on/i, /handover[^.]*check/i]) assert.match(text, rule, path);
   }
 });
 
 test("FIX3 dossier titles describe the operation and home retains the French disclosure", () => {
   const source = page("dossiers");
-  for (const title of ["A system commissioned to handle the firm's mailbox and act as a tailored assistant.", "Un système commandé pour traiter la boîte mail du cabinet et lui servir d'assistant sur mesure."]) {
-    assert.ok(source.includes(`"title": "${title}"`));
-    assert.equal(source.split(title).length - 1, 1);
+  const titles = [...source.matchAll(/"title": "([^"]+)"/g)].map((match) => match[1]);
+  assert.ok(titles.length > 0);
+  assert.equal(new Set(titles).size, titles.length);
+  assert.deepEqual(homeClientViolations(page()), []);
+  for (const field of ["kicker", "note"]) {
+    assert.match(page(), new RegExp(`brands: \\{[^}]*${field}: "[^"]+"`));
   }
-  assert.ok(page().includes("Les noms des clients sont communiqués en rendez-vous."));
-  assert.ok(page().includes("Ils nous ont commandé un système :"));
+
 });

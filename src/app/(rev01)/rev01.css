@@ -2974,7 +2974,8 @@ a.k:active {
   background: transparent;
 }
 
-.home-s-proof {
+.home-s-proof,
+.home-s-parcours {
   padding: 64px 0;
   border-bottom: 1px solid var(--rule-l);
 }
@@ -3011,6 +3012,10 @@ a.k:active {
   letter-spacing: normal;
   text-transform: none;
   color: var(--accent-text);
+}
+.home-s-parcours .doctrine-note { margin-top: var(--s3); }
+@media (max-width: 760px) {
+  .home-s-parcours .home-s-proof-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .home-s-proof-grid { grid-template-columns: 1fr; }
@@ -3239,7 +3244,7 @@ a.k:active {
   color: var(--g4-d);
 }
 
-.home-s-brands-list span { display: inline-block; white-space: nowrap; }
+.home-s-brands-list span { display: inline-block; max-width: 100%; white-space: normal; }
 .home-s-brands-list span:not(:last-child)::after { content: " · "; white-space: pre; }
 
 /* 2026-10-08 audit §2: shared readable actions and copy. Inline prose links
@@ -3367,7 +3372,7 @@ a.k {
 .product-scene-object { align-self: end; }
 @media (max-width: 859px) {
   .home-s-footer-meta { grid-template-columns: 1fr; }
-  .home-s-brands, .home-s-proof { padding: 44px 0; }
+  .home-s-brands, .home-s-proof, .home-s-parcours { padding: 44px 0; }
   .home-s-close, .r2-close, .home-s-offers { padding: 78px 0; }
 }
 @media (max-width: 760px) {

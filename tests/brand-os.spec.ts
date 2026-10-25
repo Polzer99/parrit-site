@@ -1,3 +1,4 @@
+import { expectPopulated } from "./content-structure";
 import { createHash } from "node:crypto";
 import founderPhotos from "./fixtures/founder-photo.json";
 import { mkdir } from "node:fs/promises";
@@ -146,13 +147,13 @@ for (const width of [375, 390, 768, 1440]) {
       expect(copyBox!.x).toBeGreaterThanOrEqual(0);
       expect(copyBox!.x + copyBox!.width).toBeLessThanOrEqual(width);
       const h1 = page.locator("h1");
-      await expect(h1).toHaveText(route === "/fr" ? "Nous transformons des problèmes opérationnels en systèmes qui fonctionnent." : "We turn operational problems into systems that work.");
+      await expectPopulated(h1);
       await expect(h1.locator(".frame")).toHaveCSS("display", "inline-block");
       await expect(h1.locator(".frame")).toHaveCSS("white-space", width <= 760 ? "normal" : "nowrap");
-      await expect(h1.locator(".frame")).toHaveText(route === "/fr" ? "systèmes qui fonctionnent." : "systems that work.");
+      await expectPopulated(h1.locator(".frame"));
       const ending = h1.locator(".home-s-hero-ending");
       await expect(ending).toHaveCSS("display", "block");
-      await expect(ending).toHaveText(route === "/fr" ? "systèmes qui fonctionnent." : "systems that work.");
+      await expectPopulated(ending);
       expect(await ending.evaluate((el) => [...el.childNodes].filter((node) => node.nodeType === Node.TEXT_NODE).every((node) => !node.textContent?.trim()))).toBe(true);
       const headingBox = await h1.boundingBox();
       const endingBox = await ending.boundingBox();
@@ -286,22 +287,26 @@ for (const width of [375, 1440]) {
       const response = await page.goto(`${BASE_URL}${route}`);
       expect(response?.status()).toBe(404);
       const heading = page.locator("h1");
-      await expect(heading).toContainText("This page does not exist.");
-      await expect(heading).toContainText("Cette page n'existe pas.");
+      await expectPopulated(heading);
+      await expectPopulated(heading.locator('[lang="fr"]'));
+      expect(await heading.evaluate((element) => [...element.childNodes]
+        .filter((node) => node.nodeType === Node.TEXT_NODE)
+        .map((node) => node.textContent ?? "").join("").trim())).not.toBe("");
       await expect(page.locator('meta[name="robots"][content*="noindex"]').first()).toHaveCount(1);
       await expect(page.locator(".cmdbar")).toBeVisible();
       await expect(page.locator("footer")).toBeVisible();
-      for (const [name, href] of [
-        ["Back to the home page", "/"],
-        ["Revenir à l'accueil", "/fr"],
-        ["Read the Journal", "/journal"],
-      ]) await expect(page.getByRole("link", { name, exact: true })).toHaveAttribute("href", href);
+      for (const href of ["/", "/fr", "/journal"]) {
+        const action = page.locator(`.not-found-actions a[href="${href}"]`);
+        await expectPopulated(action);
+        await expect(action).toHaveAttribute("href", href);
+      }
       const fontFamily = await heading.evaluate((element) => getComputedStyle(element).fontFamily);
       expect(fontFamily).toContain("General Sans");
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
       if (width === 1440) {
         await page.evaluate(() => document.fonts.ready);
-        const actions = page.getByRole("navigation", { name: "Page not found", exact: true });
+        const actions = page.getByRole("navigation").and(page.locator(".not-found-actions"));
+        await expect(actions).toHaveAccessibleName(/\S/);
         await expect(actions.locator(".exec")).toHaveCount(1);
         await expect(actions.locator(".ghost")).toHaveCount(2);
         const primary = actions.locator(".exec");

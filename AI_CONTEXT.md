@@ -1,5 +1,32 @@
 # AI Context
 
+## Positionnement et règles en vigueur, 25/10/2026
+
+La spec `docs/handoffs/2026-10-25-positionnement-deux-parcours.md`, révision 3,
+est implémentée pour revue. Parrit construit des logiciels métier avec l'ambition de
+verticaliser des produits, et accompagne la transformation IA. Deux parcours PME/ETI
+et grands groupes, conseil et logiciel pour les deux ; FormIA est l'organisme de
+formation de Parrit.ai, sans site propre. Laparra est nommé dans l'accueil FR/EN.
+Seuls les clients de `src/system/public-clients.ts` sont publiables (25/10).
+
+Rôle du site (24/10) : peu de texte, montrer produits, réalisations, capacités et
+preuves ; le rendez-vous est une suite possible, sans objectif de maximisation.
+Aucun prix ni offre détaillée, aucune mention du fondateur hors `/legal` (12/10).
+CTA conservés : « Réserver l'examen » / « Book the examination » vers `/commission`
+ou `/fr/commission` (04/10). Les tests vérifient structure et règles de fond, sans
+figer les libellés (25/10). Le contrôle client partage la liste canonique.
+Mesure active (05/10) : Cloudflare Web Analytics injectée par Cloudflare hors dépôt,
+décrite dans `/legal` ; PostHog retiré du navigateur.
+
+R3 : les notices françaises du Journal portent `data-language-note` ; ne jamais
+les repérer par `h1 + p` (le chapeau anglais occupe aussi cette position). Tests
+Node 109/109, Brand OS 24/24 et build Webpack réussis. Turbopack interrompu sans
+progression ; Chromium refusé par le sandbox, validation navigateur à reprendre
+sur l'hôte. Captures préexistantes conservées, à exclure du commit par le script.
+
+Résultats et limites : `docs/REPORT-2026-10-25-positionnement-deux-parcours.md`.
+Aucun commit, push ou déploiement ; validation de publication réservée à Paul.
+
 ## Architecture actuelle
 
 Site public Parrit.ai : Next.js 16.2.2 (App Router), React 19, TypeScript strict, Tailwind v4. Déploiement Vercel depuis `main`, Node.js 24.x (`.nvmrc`). Lire `AGENTS.md`, puis `TRUTH.md` avant tout changement de contenu ou de conversion. La spec validée `docs/CODEX-SPEC-2026-09-06-site-integral.md` décrit les lots du 06/09/2026.
@@ -63,13 +90,12 @@ Le lot géométrique conserve textes, tailles et couleurs. `rev01.css` regroupe 
 
 TypeScript, ESLint ciblé et gate de marque validés. Build, rendu navigateur, captures et preuve de mutation sur l'ancien build restent à exécuter par Claude, hors sandbox. Aucun port, réseau ou commit dans ce lot.
 
-## Accent bleu, 13/09/2026
+## Couleurs et polices en vigueur, 04/10/2026
 
-Le rouge sort de l'identité active. `src/system/tokens.css` porte le système d'accent bleu : jetons clairs pour papier, jetons sombres pour ink/carbon, et contexte `--action-*` redéfini par surface. Aucun jeton clair ne doit être peint sur fond sombre, ni l'inverse.
-
-## Polices et gris lisible, 14/09/2026
-
-IBM Plex Mono remplace le mono technique pour les kickers, labels, boutons, chiffres, wordmark, mark `[P.]` et images de partage. la police éditoriale historique (retirée le 04/10) remplace la fonte éditoriale de `--ed`; le fichier retenu est la variante variable `source-serif-4-latin-opsz-normal.woff2`, qui expose `wght` et `opsz`. `--g4` vaut le gris clair lisible `#606366` sur papier et `--g4-d` vaut `#8C8F92` sur carbone ; les surfaces sombres redéfinissent `--g4` vers `--g4-d`.
+Brand OS P1/P3 (24/09/2026, D1) : valeurs générées dans
+`src/system/brand-os.tokens.css`, adaptées par `src/system/tokens.css`.
+General Sans (texte et interface), IBM Plex Mono (registre technique), auto-hébergées.
+Anciennes consignes couleur et typographie remplacées le 04/10/2026.
 
 ## Retrait capture Journal, 14/09/2026
 
@@ -89,11 +115,12 @@ TypeScript, lint complet et gate de marque passent hors réseau. Le H1 home vaut
 
 `tests/aeration.spec.ts` et `tests/conformity-i18n.spec.ts` rejouent désormais les gestes client fragiles avec `expect(...).toPass` et des bornes courtes : le champ email invalide doit garder sa valeur avant submit puis exposer `.ri-error[role='alert']`, et chaque switch de langue ne retente qu'une seule cible (`EN` puis `FR`) tout en conservant URL, query/hash, cookie et `lang`. Aucun attribut produit ni retry Playwright global ajouté ; si une saisie réelle est perdue avant hydratation sur connexion lente, ce sera un lot `src/` séparé.
 
-## Offres home, 20/09/2026
+## Offres publiques, décision du 12/10/2026
 
-La spec validée `docs/CODEX-SPEC-2026-09-20-offer-cards-home.md` prime sur l’ancienne interdiction de prix public de TRUTH.md pour Build With You : à partir de 3 500 € HT au forfait, 10 heures (montant actualisé par décision directe de Paul le 08/10/2026, CLM-OFFER-BWY). Deux OfferCard entre build et Journal ; champs absents masqués, prix et priceNote mutuellement exclusifs. La page `/build-with-you` et `/fr/build-with-you` utilise les composants et styles r2 existants ; registre locale, matcher proxy et sitemap incluent cette route. Aucun changement commission/dossiers/founder bridge. Écart commercial conservé selon mandat : audit offert 30 min pour Build With You, destination commission annonçant 15 min.
-
-Tests : `node --test tests/offer-card.test.mjs` (rendu serveur réel) et `tests/offer-cards.spec.ts` intégré à qa:network:rev01 (FR/EN, 375/767/768/1440, liens, métadonnées, débordements, captures 375/1440). Validation navigateur et captures à terminer hors sandbox, Chromium refusé par macOS.
+Aucun prix ni offre détaillée sur le site public. L'ancien ancrage et les cartes
+commerciales sont retirés ; prix et périmètre restent dans les propales privées.
+La page `/build-with-you` et sa variante FR restent des présentations sans prix.
+Les tests contrôlent cette absence et les liens, pas les libellés.
 
 ## En-tête, hero et schéma, 20/09/2026
 
@@ -512,15 +539,6 @@ Build Webpack et 104 tests Node passent. Turbopack interrompu sans progression ;
 Chromium bloqué par le sandbox avant navigation. Détails dans
 `docs/REPORT-2026-10-08-premier-certificat-harness.md`.
 
-## Prix Build With You, 08/10/2026
-
-Décision directe de Paul : « à partir de 3 500 € HT » / « From €3,500 excl. VAT ».
-`BUILD_WITH_YOU_PRICE` dans `site.config.ts` reste la source unique du montant
-pour les pages accueil, Build With You et Systèmes en FR/EN. Aucun prix à modifier
-dans les articles, le générateur llms.txt ou les JSON-LD existants. Les tests
-unitaires, SSR et navigateur verrouillent le nouvel ancrage et rejettent l’ancien.
-Composition de l’accueil et design-source historiques préservés.
-
 ## Alignement et copy, 11/10/2026
 
 La spec anti-slop du 11/10 conserve les compositions et le Brand OS. Les colonnes
@@ -529,8 +547,7 @@ partagent 1160 px, avec 40/20 px de padding : bord de contenu à 180/20 px pour
 subgrid, notes centrées, dates et numéros du Standard insécables. Les paragraphes
 utilisent le rythme CSS commun ; la conversation tierce conserve son rythme propre.
 
-`src/system/examination.ts` centralise EXAM_NOTE FR/EN ; BWY conserve la mention
-offert. Les mentions défensives quittent le rendu, l'accessibilité et le mail de
+`src/system/examination.ts` centralise EXAM_NOTE FR/EN ; BWY ne comporte aucune offre détaillée (12/10/2026). Les mentions défensives quittent le rendu, l'accessibilité et le mail de
 capture. La tagline reste dans RevFooter uniquement (Opening reste inutilisé).
 Le générateur llms reprend les six énoncés EN du Standard. Aucun article MDX,
 certificat, prix, fait client ou fichier vendorisé modifié.
