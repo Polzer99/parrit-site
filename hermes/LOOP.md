@@ -1,7 +1,26 @@
 # LOOP.md — Hermes (amélioration continue site + conversion)
 
 > Gabarit loop-doctor (RÈGLES-DOR §28). Pipeline = `hermes/`. Source de vérité commune = `../TRUTH.md`.
-> **Autonomie DÉCLARÉE : L2 + cadence autonome GATÉE** (armée par Paul le 2026-06-21, §30). Hermes observe + propose + **ouvre une issue Codex tout seul, chaque semaine** (cron `hermes-weekly.yml`, lundi 07:00 UTC, assignée à Paul). Il **n'applique rien en prod seul** : le merge vers `main` (= prod) exige les **3 feux** (review APPROVE + CD/batterie vert + Paul a COMPRIS), §22/§25. Garde-fou anti-pileup : pas de nouvelle issue si ≥3 issues `hermes` déjà ouvertes. Désarmer : `gh workflow disable "Hermes — amelioration continue (gated)"`.
+> **Autonomie DÉCLARÉE — deux étages distincts** (§30) :
+> - **`hermes.mjs` (cycle hebdo, cron `hermes-weekly.yml`) : L2.** Observe + propose + **ouvre une issue Codex tout seul, chaque semaine** (lundi 07:00 UTC, assignée à Paul). N'applique **rien** en prod. Garde-fou anti-pileup : pas de nouvelle issue si ≥3 issues `hermes` déjà ouvertes. Désarmer : `gh workflow disable "Hermes — amelioration continue (gated)"`.
+> - **skill `site-analysis` (cron local `site-optim`, mardi 09:00) : L3 BORNÉ** (armé par Paul le 2026-07-27). Elle **merge seule** un changement **mineur** vers `main` (= déploie en prod), dans un cadre tranché par `hermes/automerge-gate.mjs` — pas par le LLM. Tout le reste (MAJEUR) reste aux **3 feux** (review APPROVE + CI verte + Paul a COMPRIS), §22/§25. Désarmer : `hermes cron disable c8fe67fec45c`, ou couper net en changeant `RULES.branchPrefix` dans le gate.
+>
+> **Pourquoi L3 est arrivé.** Entre le 26/06 et le 27/07, Hermes a ouvert des PR correctes, CI vertes — et **aucune n'a été mergée** (20 PR ouvertes au 27/07). Une proposition qui n'atterrit pas n'est pas une amélioration, c'est du bruit (§45). Le goulot n'était pas la qualité des propositions, c'était le geste humain hebdomadaire. L3 borné déplace ce geste : Paul ne merge plus le mineur, il **révoque** s'il n'est pas d'accord.
+
+## Le gate d'auto-merge (`hermes/automerge-gate.mjs`)
+
+Le périmètre du MINEUR est du **code testable**, jamais un jugement de LLM. Une PR est auto-mergeable si et seulement si les 6 règles passent :
+
+| Règle | Seuil | Pourquoi |
+|---|---|---|
+| Préfixe de branche | `hermes-auto/` | une PR humaine ne peut pas être auto-mergée par accident |
+| Fichiers touchés | ≤ 3 | au-delà, ce n'est plus une retouche |
+| Lignes changées | ≤ 20 | un diff qu'un humain relit en 30 s |
+| Périmètre | `src/components/*.tsx` · `src/app/**/*.tsx`, **modifiés uniquement** | exclut `globals.css`, tokens, `package.json`, `.github/`, `public/` ; création/suppression de fichier = nouvelle page ou suppression de contenu = MAJEUR |
+| CI | **toute** verte (lint · qa:doctrine · build · Playwright · contraste) | la CI bloque, la consigne ne bloque pas |
+| Cadence | 1 merge / 7 j | un changement à la fois, sinon on ne sait plus lequel a bougé le funnel |
+
+Boucle de mesure fermée : chaque auto-merge est enregistré (`~/.hermes/state/site_automerge.json`, avec le SHA). Le cycle suivant **commence** par comparer le funnel avant/après et revert (`revert-last`, qui repasse par la CI) si ça s'est dégradé.
 
 ## Les 2 loops
 
@@ -22,7 +41,7 @@
 | Mémoire | 🟢 | `PROGRESS.md` versionné + lu à chaque cycle |
 | Evaluator-optimizer | 🟢 | writer(Codex)≠checker(Claude+build/contrast) ✓ ; gate de CONVERSION objectif (PostHog) **câblé** : observe pageviews 14j + `form_submitted` 30j |
 | Stop condition | 🟢 | `SCORE_THRESHOLD` (aucune proposition ICE≥seuil → stop) + `MAX_PROPOSALS` backstop |
-| Autonomy ladder | 🟢 | **L2 déclarée** ici + dans chaque sortie ; jamais d'auto-merge prod |
+| Autonomy ladder | 🟢 | **L2** pour `hermes.mjs` · **L3 borné** pour la skill `site-analysis` (27/07), périmètre tranché par `automerge-gate.mjs`, pas par le LLM |
 | Token guard | 🟢 | `HERMES_MAX_TOKENS` (kill par run) |
 | Liveness connecteur (+1 Parrit) | 🟡 | la livraison réelle = PR mergée **+ vérif live** (`curl` page après CD, comme le détecteur) ; à formaliser en check |
 
