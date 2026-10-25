@@ -3,7 +3,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // REV 01 (14/08/2026): llms.txt states the institutional positioning of the live
-// site : data and AI, commissioned not subscribed. The previous
+// site : business software and AI (25/10/2026), commissioned not subscribed. The previous
 // generator emitted the pre-REV01 positioning (virtual collaborators catalog),
 // which contradicted every page served. Content is static by design: it must
 // only change when the site's positioning changes.
@@ -13,7 +13,7 @@ const outputPath = resolve(root, "public/llms.txt");
 
 const content = `# Parrit
 
-> Parrit.ai is an independent French data and AI firm. We turn a company's data into tools it owns, built in its own accounts and documented.
+> Parrit.ai builds business software and helps companies with their AI transformation, for SMEs, mid-sized companies and large groups.
 
 ## Positioning
 - Parrit builds systems as owned infrastructure:
@@ -51,7 +51,7 @@ Each system delivered from now on is checked against the Standard, Parrit.ai's i
   client revokes it.
 
 ## Pages
-- https://parrit.ai/ : Parrit, data and AI.
+- https://parrit.ai/ : Parrit, business software and AI.
 - https://parrit.ai/manufacture : How a system is manufactured: doctrine and
   the three phases.
 - https://parrit.ai/standard : The Standard, six commitments Parrit.ai applies to its systems. It is an internal check, with no external accreditation.

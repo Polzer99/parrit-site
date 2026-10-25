@@ -2,7 +2,7 @@ import { readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
 import { certificationClaims, sourceProse } from "./lib/certification-claims.mjs";
 
-import { homeClientViolations, privateClientNames } from "./lib/public-clients.mjs";
+import { homeClientViolations, privateClientNames, journalClientNames } from "./lib/public-clients.mjs";
 
 const ROOTS = ["src", "scripts", "content/journal"];
 const EXTRA_FILES = ["public/llms.txt", "site.config.ts", "TRUTH.md"];
@@ -111,8 +111,9 @@ for (const file of files) {
     for (const { line, name } of homeClientViolations(source)) report(file, line, "private client", name);
   }
   if (relativePath.startsWith("content/journal/") || relativePath.startsWith("src/app/(rev01)/")) {
+    const checkNames = relativePath.startsWith("content/journal/") ? journalClientNames : privateClientNames;
     for (const value of relativePath.startsWith("content/") ? [{ text: source, line: 1 }] : sourceProse(source, file)) {
-      for (const name of privateClientNames(value.text)) report(file, value.line, "private client", name);
+      for (const name of checkNames(value.text)) report(file, value.line, "unauthorized client", name);
     }
   }
   // Check published prose, not enum values, implementation comments or tooling.

@@ -276,8 +276,8 @@ for (const width of [1440, 768, 375, 390]) {
       await page.evaluate(() => document.fonts.ready);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
       if (route === "/fr") {
-        await expect(page.locator(".home-s-brands-list > span")).toHaveCount(5);
-        for (const item of await page.locator(".home-s-brands-list > span").all()) {
+        await expect(page.locator(".home-s-brands-list > li")).toHaveCount(5);
+        for (const item of await page.locator(".home-s-brands-list > li").all()) {
           await expect(item).toHaveCSS("white-space", "normal");
           expect(await item.evaluate((el) => {
             const range = document.createRange(); range.selectNodeContents(el);

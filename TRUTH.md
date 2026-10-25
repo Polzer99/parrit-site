@@ -51,7 +51,7 @@ Surfaces produit du site rev01 : `/`, `/manufacture`, `/standard`, `/dossiers`, 
 ## 6. Règles dures (non négociables — un changement qui les viole est REJETÉ)
 
 1. **Prix (12/10/2026)** : aucun prix ni offre détaillée sur le site public. Périmètre et prix en rendez-vous puis en propale privée ; aucun devis personnalisé public ni promesse de ROI garanti.
-2. **Clients (25/10/2026)** : seuls les noms de `src/system/public-clients.ts` sont publiables (Laparra). Tous les autres clients restent anonymisés. Aucun logo ajouté par ce lot.
+2. **Clients (25/10/2026, révision 4)** : seuls les noms de `src/system/public-clients.ts` sont publiables (Laparra, Clevery, Forexpert, Joone, SNCF). Clevery Avocats désigne Clevery. Joone est un accompagnement IA ; la SNCF est une formation avec Arkel, jamais un client direct. Tous les autres clients restent anonymisés. Le Journal ne nomme aucun client, y compris ceux de la liste publique. Aucun logo ajouté par ce lot.
 3. **Couleurs (24/09/2026, D1)** : Brand OS P1/P3. Valeurs dans `src/system/brand-os.tokens.css` (généré), adaptées par `src/system/tokens.css`. Un hex dans une page ou un composant est un défaut.
 4. **Polices (04/10/2026)** : General Sans pour le texte et l'interface, IBM Plex Mono pour le registre technique. Toutes deux auto-hébergées ; aucune autre famille.
 5. **Jamais d'appel runtime à `*.vercel.app`** dans une livraison (le site EST sur Vercel — ça vise les ressources chargées au runtime).

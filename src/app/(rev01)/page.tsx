@@ -20,18 +20,24 @@ const DICT = {
       alternative: "Book the examination",
     },
     brands: {
-      kicker: "Systems commissioned by:",
-      list: "Laparra, a fruit and vegetable wholesaler at the Rungis market · an industrial group · a law firm · a B2B energy broker · a consumer brand.",
-      note: "Other names are shared in a meeting.",
+      kicker: "They trusted us with a problem:",
+      list: [
+        { name: "Laparra", description: "fruit and vegetable wholesaler at the Rungis market: the CRM its sales team works in" },
+        { name: "Clevery Avocats", description: "an agent for the firm's inbox and legal monitoring" },
+        { name: "Forexpert", description: "a prospecting agent connected to its inbox" },
+        { name: "Joone", description: "baby care brand: AI coaching for its teams" },
+        { name: "SNCF", description: "an AI training program, with Arkel" },
+      ],
+      note: "Other clients prefer to stay anonymous.",
     },
     parcours: {
       kicker: "Who we work with",
       title: "We work with SMEs, mid-sized companies and large groups.",
       columns: [
-        ["SMEs and mid-sized companies", "The CEO brings us one precise problem. We scope it together, we build, then the team takes the tool over. At Laparra, a fruit and vegetable wholesaler at the Rungis market, the sales team works in the CRM we built with them."],
-        ["Large groups", "A business unit or the transformation office owns the project. We set the scope with the sponsor and the technical teams, then we build."],
+        ["SMEs and mid-sized companies", "You bring us one precise problem. We scope it with you, we build, then your team takes the tool over."],
+        ["Large companies", "Your business unit or transformation office owns the project. We set the frame with them and your technical teams, then we build."],
       ],
-      note: "Either way, we do consulting and software. Training goes through FormIA, Parrit.ai's training organisation.",
+      note: "Either way, we do consulting and software. Training for your teams goes through FormIA, our training organization.",
     },
     journey: {
       kicker: "How it works",
@@ -82,18 +88,24 @@ const DICT = {
       alternative: "Réserver l'examen",
     },
     brands: {
-      kicker: "Ils nous ont commandé un système :",
-      list: "Laparra, grossiste en fruits et légumes au MIN de Rungis · un groupe industriel · un cabinet d'avocats · un courtier en énergie B2B · une marque grand public.",
-      note: "Les autres noms sont communiqués en rendez-vous.",
+      kicker: "Ils nous ont confié un sujet :",
+      list: [
+        { name: "Laparra", description: "grossiste en fruits et légumes au MIN de Rungis : le CRM de ses commerciaux" },
+        { name: "Clevery Avocats", description: "un agent pour la messagerie et la veille juridique du cabinet" },
+        { name: "Forexpert", description: "un agent de prospection relié à sa messagerie" },
+        { name: "Joone", description: "marque de soins pour bébé : l'accompagnement IA de ses équipes" },
+        { name: "SNCF", description: "un programme de formation à l'IA, avec Arkel" },
+      ],
+      note: "D'autres clients préfèrent rester anonymes.",
     },
     parcours: {
       kicker: "Avec qui nous travaillons",
       title: "Nous travaillons avec des PME, des ETI et des grands groupes.",
       columns: [
-        ["PME et ETI", "Le dirigeant nous apporte un sujet précis. Nous le cadrons avec lui, nous construisons, puis son équipe reprend l'outil. Chez Laparra, grossiste en fruits et légumes au MIN de Rungis, les commerciaux travaillent dans le CRM que nous avons construit avec eux."],
-        ["Grands groupes", "Une direction métier ou la direction de la transformation porte le projet. Nous préparons le périmètre avec le sponsor et les équipes techniques, puis nous construisons."],
+        ["PME et ETI", "Vous nous apportez un sujet précis. Nous le cadrons avec vous, nous construisons, puis votre équipe reprend l'outil."],
+        ["Grands groupes", "Votre direction métier ou votre direction de la transformation porte le projet. Nous préparons le cadre avec elle et vos équipes techniques, puis nous construisons."],
       ],
-      note: "Dans les deux cas, nous faisons du conseil et du logiciel. Pour former vos équipes, nous passons par FormIA, l'organisme de formation de Parrit.ai.",
+      note: "Dans les deux cas, nous faisons du conseil et du logiciel. La formation de vos équipes passe par FormIA, notre organisme de formation.",
     },
     journey: {
       kicker: "Le déroulement",
@@ -179,7 +191,11 @@ export default async function HomePage() {
       <section className="home-s-brands">
         <div className="home-s-wrap">
           <K>{copy.brands.kicker}</K>
-          <p className="home-s-brands-list">{copy.brands.list.split(" · ").map((item) => <span key={item}>{item}</span>)}</p>
+          <ul className="home-s-brands-list" role="list">
+            {copy.brands.list.map(({ name, description }) => (
+              <li key={name}><strong>{name}</strong>{" · "}<span>{description}</span></li>
+            ))}
+          </ul>
           <p>{copy.brands.note}</p>
         </div>
       </section>

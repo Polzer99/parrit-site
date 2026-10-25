@@ -1,4 +1,4 @@
-import { privateClientNames } from "./lib/public-clients.mjs";
+import { journalClientNames } from "./lib/public-clients.mjs";
 
 function tokens(value) {
   return new Set(
@@ -33,7 +33,7 @@ export function gateSlug(slug) {
 }
 
 export function gateNoms(texte) {
-  const [nom] = privateClientNames(texte);
+  const [nom] = journalClientNames(texte);
   if (nom) return { ok: false, motif: `nom client interdit : « ${nom} »` };
   return { ok: true };
 }

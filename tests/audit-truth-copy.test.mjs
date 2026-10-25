@@ -1,4 +1,5 @@
-import { homeClientViolations } from "../scripts/lib/public-clients.mjs";
+import { homeClientViolations, homeClientReferences } from "../scripts/lib/public-clients.mjs";
+import { PUBLIC_CLIENT_NAMES, publicClientName } from "../src/system/public-clients.ts";
 import { sourceProse } from "../scripts/lib/certification-claims.mjs";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -34,7 +35,26 @@ test("home EN/FR uses documented orders, dated information types and own-system 
   assert.doesNotMatch(source, /cosmetics maison|restaurant network|maison de cosmétique|réseau de restauration|15 of 25 information sources|15 sources d'information sur 25/);
   assert.deepEqual(homeClientViolations(source), []);
   const prose = sourceProse(source, "page.tsx").map(({ text }) => text);
-  assert.equal(prose.filter((text) => text.includes(" · ") && !text.startsWith("Parrit.ai") && text.trim() !== "·").length, 2);
+  const references = homeClientReferences(source);
+  assert.deepEqual(references.map(({ locale }) => locale).sort(), ["en", "fr"]);
+  for (const { clients, note, kicker } of references) {
+    assert.equal(clients.length, PUBLIC_CLIENT_NAMES.length);
+    assert.ok(note.trim());
+    assert.ok(kicker.trim());
+    assert.deepEqual(clients.map(({ name }) => publicClientName(name)).sort(), [...PUBLIC_CLIENT_NAMES].sort());
+    for (const { name, description } of clients) {
+      assert.ok(description.trim(), name);
+      if (publicClientName(name) === "SNCF") {
+        assert.match(description, /Arkel/);
+        assert.match(description, /formation|training/i);
+        assert.doesNotMatch(description, /direct|CRM|syst[eè]m/i);
+      }
+      if (publicClientName(name) === "Joone") {
+        assert.match(description, /accompagnement|coaching/i);
+        assert.doesNotMatch(description, /syst[eè]m/i);
+      }
+    }
+  }
   // Dated counts and first-party evidence remain required facts, not slogans.
   for (const text of prose.filter((text) => /15.*25/.test(text))) {
     assert.match(text, /2026/);
@@ -83,6 +103,12 @@ test("legal identity and generated machine-readable claims stay consistent", () 
     assert.doesNotMatch(text, /Based in Lille|SASU|certification every|Every delivered system|from the first commit/);
     for (const rule of [/no external accreditation/i, /from now on/i, /handover[^.]*check/i]) assert.match(text, rule, path);
   }
+  for (const path of ["src/system/jsonld.ts", "scripts/generate-llms.mjs", "public/llms.txt"]) {
+    const text = read(path);
+    assert.doesNotMatch(text, /maison (?:française indépendante )?de données|data and AI firm|Données et IA/i, path);
+    assert.match(text, /business software/i, path);
+    assert.match(text, /AI transformation/i, path);
+  }
 });
 
 test("FIX3 dossier titles describe the operation and home retains the French disclosure", () => {
@@ -91,8 +117,12 @@ test("FIX3 dossier titles describe the operation and home retains the French dis
   assert.ok(titles.length > 0);
   assert.equal(new Set(titles).size, titles.length);
   assert.deepEqual(homeClientViolations(page()), []);
-  for (const field of ["kicker", "note"]) {
-    assert.match(page(), new RegExp(`brands: \\{[^}]*${field}: "[^"]+"`));
+  const references = homeClientReferences(page());
+  assert.equal(references.length, 2);
+  for (const { clients, note, kicker } of references) {
+    assert.ok(note.trim());
+    assert.ok(kicker.trim());
+    for (const { name } of clients) assert.ok(publicClientName(name), name);
   }
 
 });

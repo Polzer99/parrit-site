@@ -88,7 +88,7 @@ console.log("✓ slug : non daté et spécifique");
 
 const nomsGate = gateNoms(raw);
 if (!nomsGate.ok) fail(nomsGate.motif);
-console.log("✓ noms clients : conformes à la liste publique");
+console.log("✓ noms clients : aucun dans le Journal, y compris les références publiques");
 
 const entreesExistantes = readdirSync(path.join(REPO, "content/journal"), { withFileTypes: true })
   .filter((entry) => entry.isFile() && entry.name.endsWith(".mdx") && entry.name !== `${slug}.mdx`)

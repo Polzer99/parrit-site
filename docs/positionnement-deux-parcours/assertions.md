@@ -1,4 +1,24 @@
-# Assertions remplacées, 25/10/2026, révisions 2 et 3
+# Assertions remplacées, 25/10/2026, révisions 2 à 4
+
+## Corrections R4 (prioritaires sur les inventaires historiques ci-dessous)
+
+| Fichier | Assertion précédente → assertion R4 |
+| --- | --- |
+| `public-clients.test.mjs` | `gateNoms(publicName).ok === true` → false pour chaque client public, y compris Clevery Avocats ; contrôle des bornes et alias exact ajouté. |
+| `public-clients.test.mjs` | Au moins quatre occurrences de Laparra → deux occurrences de chaque nom affiché, mutées séparément en ClientTemoinInterdit (dix mutations). Injection privée Clevery → Naval Group. |
+| `public-clients.test.mjs` | Ajout d'un test de la commande réelle claims en dossier isolé : accueil autorisé, six variantes de noms publics refusées dans un article. |
+| `audit-truth-copy.test.mjs` | Deux chaînes contenant ` · ` → deux listes FR/EN dont chaque référence appartient au canon, descriptions non vides et note/kicker non vides. Attributions Joone/SNCF contrôlées dans leur propre entrée. |
+| `audit-truth-copy.test.mjs` | Regex `brands` limitée au premier `}` pour kicker/note → lecture AST des deux objets brands, validation de chaque note et de chaque nom. |
+| `audit-truth-copy.test.mjs` | Ajout : ancien positionnement interdit dans JSON-LD, générateur et llms.txt ; logiciels métier et transformation IA requis. |
+| `brand-os-render.test.mjs` | Cinq spans dans un paragraphe → cinq li avec strong et span ; noms normalisés exactement égaux au canon, note non vide, zéro lien/bouton/logo. Présence de Laparra dans parcours retirée conformément à R4-3. |
+| `brand-os-render.test.mjs` | Ajout : contrôle de positionnement dans chaque rendu (texte, métadonnées, JSON-LD), tous les articles et llms.txt. |
+| `conformity-home.spec.ts` | Note clients non vide → même contrôle et noms canoniques dans la liste rendue. |
+| `conformity-home.spec.ts` | Géométrie parcours existante → mêmes contrôles plus égalité de taille calculée des h2, alignement du premier h3 et des paragraphes. |
+| `conformity-home.spec.ts` | Dix cas clients ajoutés, FR/EN à 1440/1024/1023/390/375 : références canoniques, note, poids 600/400, famille commune, filets, seuil des colonnes et absence de débordement/actions/images. |
+| `doctrine-visible.spec.ts` | Sélecteur `.home-s-brands-list > span` → `> li` ; les cinq éléments et leurs limites géométriques restent contrôlés. |
+
+Aucun test entier supprimé ; les formulations R4 ne sont pas figées. Les noms de
+clients et les attributions sont des faits contrôlés, pas des slogans.
 
 ## Corrections R3 (prioritaires sur l'inventaire R2 ci-dessous)
 

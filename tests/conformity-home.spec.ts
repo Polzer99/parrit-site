@@ -1,5 +1,6 @@
 import { expectPopulated } from "./content-structure";
 import { expect, test } from "./network-deny.setup";
+import { PUBLIC_CLIENT_NAMES, publicClientName } from "../src/system/public-clients";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 
@@ -32,23 +33,65 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
         const heading = element.querySelector("h2")!.getBoundingClientRect();
         const maisonHeading = next.querySelector("h2")!.getBoundingClientRect();
         const columns = [...element.querySelectorAll("h3")].map((column) => column.getBoundingClientRect());
+        const paragraphs = [...element.querySelectorAll(".home-s-proof-item p")].map((paragraph) => paragraph.getBoundingClientRect());
         return {
           left: heading.left,
           offset: Math.abs(heading.left - maisonHeading.left),
           sameRow: Math.abs(columns[0].top - columns[1].top),
           sameColumn: Math.abs(columns[0].left - columns[1].left),
           overflow: element.scrollWidth - element.clientWidth,
+          headingSize: getComputedStyle(element.querySelector("h2")!).fontSize,
+          maisonHeadingSize: getComputedStyle(next.querySelector("h2")!).fontSize,
+          firstColumnOffset: Math.abs(columns[0].left - heading.left),
+          paragraphOffsets: paragraphs.map((paragraph, index) => Math.abs(paragraph.left - columns[index].left)),
         };
       });
       expect(geometry.offset).toBeLessThanOrEqual(1);
       expect(Math.abs(geometry.left - (viewport.width === 1440 ? 180 : 20))).toBeLessThanOrEqual(1);
       expect(geometry.overflow).toBeLessThanOrEqual(1);
+      expect(geometry.headingSize).toBe(geometry.maisonHeadingSize);
+      expect(geometry.firstColumnOffset).toBeLessThanOrEqual(1);
+      for (const offset of geometry.paragraphOffsets) expect(offset).toBeLessThanOrEqual(1);
       if (viewport.width === 1440) expect(geometry.sameRow).toBeLessThanOrEqual(1);
       else expect(geometry.sameColumn).toBeLessThanOrEqual(1);
       await testInfo.attach(`parcours-${locale}-${viewport.width}`, {
         body: await section.screenshot({ animations: "disabled" }),
         contentType: "image/png",
       });
+    });
+  }
+}
+
+for (const width of [1440, 1024, 1023, 390, 375]) {
+  for (const locale of ["en", "fr"] as const) {
+    test(`home client references preserve attribution and layout at ${width}px in ${locale}`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`${BASE_URL}${locale === "fr" ? "/fr" : "/"}`);
+      await page.evaluate(() => document.fonts.ready);
+      const section = page.locator(".home-s-brands");
+      const rows = section.locator("li");
+      await expectPopulated(rows, PUBLIC_CLIENT_NAMES.length);
+      await expect(section.locator("a, button, img, svg")).toHaveCount(0);
+      await expectPopulated(section.locator(".home-s-brands-list + p"));
+      const names = await rows.locator("strong").allTextContents();
+      expect(names.map(publicClientName).sort()).toEqual([...PUBLIC_CLIENT_NAMES].sort());
+      for (const row of await rows.all()) {
+        await expectPopulated(row.locator("strong"));
+        await expectPopulated(row.locator("span"));
+        await expect(row.locator("strong")).toHaveCSS("font-weight", "600");
+        await expect(row.locator("span")).toHaveCSS("font-weight", "400");
+        await expect(row).toHaveCSS("border-bottom-width", "1px");
+        expect(await row.locator("strong").evaluate((el) => getComputedStyle(el).fontFamily)).toBe(
+          await row.locator("span").evaluate((el) => getComputedStyle(el).fontFamily),
+        );
+      }
+      const geometry = await rows.evaluateAll((elements) => {
+        const boxes = elements.map((el) => el.getBoundingClientRect());
+        return { sameRow: Math.abs(boxes[0].top - boxes[1].top), sameColumn: Math.abs(boxes[0].left - boxes[1].left) };
+      });
+      if (width >= 1024) expect(geometry.sameRow).toBeLessThanOrEqual(1);
+      else expect(geometry.sameColumn).toBeLessThanOrEqual(1);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
     });
   }
 }
@@ -229,6 +272,8 @@ for (const locale of ["en", "fr"] as const) {
     await expect(page.locator(".home-s-metrics")).toHaveCount(0);
     await expect(page.getByText(/200\+|2[.,]5 (?:months|mois)|100\s*%|02·09·2026/)).toHaveCount(0);
     await expectPopulated(page.locator(".home-s-brands-list + p"));
+    const clients = await page.locator(".home-s-brands-list > li > strong").allTextContents();
+    expect(clients.map(publicClientName).sort()).toEqual([...PUBLIC_CLIENT_NAMES].sort());
     const gap = await page.locator(".home-s-brands").evaluate((brands) => {
       const previous = brands.previousElementSibling;
       if (!previous?.classList.contains("home-s-hero")) throw new Error("Hero containing the agent must precede brands");

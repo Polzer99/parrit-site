@@ -2,27 +2,33 @@
 
 ## Positionnement et règles en vigueur, 25/10/2026
 
-La spec `docs/handoffs/2026-10-25-positionnement-deux-parcours.md`, révision 3,
+La spec `docs/handoffs/2026-10-25-positionnement-deux-parcours.md`, révision 4,
 est implémentée pour revue. Parrit construit des logiciels métier avec l'ambition de
 verticaliser des produits, et accompagne la transformation IA. Deux parcours PME/ETI
 et grands groupes, conseil et logiciel pour les deux ; FormIA est l'organisme de
-formation de Parrit.ai, sans site propre. Laparra est nommé dans l'accueil FR/EN.
-Seuls les clients de `src/system/public-clients.ts` sont publiables (25/10).
+formation de Parrit.ai, sans site propre. L'accueil FR/EN présente cinq références :
+Laparra, Clevery Avocats (Clevery), Forexpert, Joone (accompagnement IA), SNCF
+(formation avec Arkel, jamais client direct). Seuls les clients de
+`src/system/public-clients.ts` sont publiables (25/10). Le Journal continue de
+refuser tous les clients connus, même ceux de la liste publique.
 
 Rôle du site (24/10) : peu de texte, montrer produits, réalisations, capacités et
 preuves ; le rendez-vous est une suite possible, sans objectif de maximisation.
 Aucun prix ni offre détaillée, aucune mention du fondateur hors `/legal` (12/10).
 CTA conservés : « Réserver l'examen » / « Book the examination » vers `/commission`
 ou `/fr/commission` (04/10). Les tests vérifient structure et règles de fond, sans
-figer les libellés (25/10). Le contrôle client partage la liste canonique.
+figer les libellés (25/10). Le contrôle client des pages partage la liste canonique ;
+le Journal conserve son interdiction globale. JSON-LD et llms.txt décrivent logiciels métier et IA.
 Mesure active (05/10) : Cloudflare Web Analytics injectée par Cloudflare hors dépôt,
 décrite dans `/legal` ; PostHog retiré du navigateur.
 
 R3 : les notices françaises du Journal portent `data-language-note` ; ne jamais
-les repérer par `h1 + p` (le chapeau anglais occupe aussi cette position). Tests
-Node 109/109, Brand OS 24/24 et build Webpack réussis. Turbopack interrompu sans
-progression ; Chromium refusé par le sandbox, validation navigateur à reprendre
-sur l'hôte. Captures préexistantes conservées, à exclure du commit par le script.
+les repérer par `h1 + p` (le chapeau anglais occupe aussi cette position).
+R4 : références en liste à deux colonnes dès 1024 px, une en dessous ; parcours
+alignés à gauche et h2 partageant la règle de maison. Tests Node 110/110, Brand OS
+24/24, lint, types, claims, marque et build Webpack réussis. Turbopack interrompu
+sans progression ; Chromium refusé au lancement par le sandbox (326 tests recensés,
+325 non exécutés). Validation navigateur à reprendre sur l'hôte. Aucune capture modifiée.
 
 Résultats et limites : `docs/REPORT-2026-10-25-positionnement-deux-parcours.md`.
 Aucun commit, push ou déploiement ; validation de publication réservée à Paul.

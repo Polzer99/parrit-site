@@ -1,6 +1,6 @@
 # Plan d'exécution, 25/10/2026
 
-Source : `docs/handoffs/2026-10-25-positionnement-deux-parcours.md`, révision 3.
+Source : `docs/handoffs/2026-10-25-positionnement-deux-parcours.md`, révision 4.
 Exécution autorisée par la demande explicite de Paul. Aucun commit, push ou déploiement.
 
 1. Conserver les modifications du premier passage ; compléter les deux dictionnaires
@@ -21,3 +21,14 @@ Complément R3 autorisé par le handoff : identifier les notices de langue par
 chaque substitution R2 pour rattacher les contrôles au contenu concerné (statut,
 ligne de registre, confidentialité et accessibilité). Conserver les captures
 existantes et laisser la batterie externe gérer le serveur.
+
+Complément R4 autorisé par la demande d'implémentation intégrale :
+1. Étendre la liste publique aux cinq noms et reconnaître Clevery Avocats ; séparer
+   le contrôle des pages de celui du Journal, où tous les clients restent interdits.
+2. Remplacer les références de l'accueil par une liste structurée responsive,
+   appliquer les textes R4, aligner parcours et harmoniser son h2 avec maison.
+3. Corriger dossiers, JSON-LD et le générateur llms, puis régénérer llms.txt.
+4. Renforcer les contrôles clients (mutations incluses), positionnement servi et
+   géométrie ; adapter les sélecteurs à la liste sémantique sans perdre de contrôle.
+5. Aligner les règles clients, exécuter la batterie prescrite et consigner les
+   résultats effectifs. Conserver intacte la modification préexistante du handoff.

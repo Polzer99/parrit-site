@@ -158,3 +158,80 @@ substitut. Corrige : repère l'élément qui porte la mention de langue de l'ali
 présence sur l'alias FR et son absence sur l'URL EN. Relis toutes les autres assertions structurelles que tu as
 écrites avec la même question : « ce substitut peut-il être vrai pour une autre raison ? » ; corrige celles qui le
 peuvent. Ne committe aucune capture `.codex-handoffs/**/*.png`.
+
+
+---
+
+# RÉVISION 4 (26/10/2026) — cinq clients nommables, corrections des revues
+
+Ton travail des révisions 2 et 3 est dans ce worktree et la PR #319 existe : garde-le et complète-le.
+
+Décision de Paul du 25/10 au soir : « on a le droit de citer la SNCF, Joone, Clevery, Forexpert » (en plus de
+Laparra). Règle d'or n° 6 mise à jour en conséquence. Chaque nom se cite avec ce qui a réellement été fait, jamais
+avec un verbe qui surqualifie : Joone est un accompagnement, pas un système ; la SNCF est un programme de formation
+réalisé avec notre partenaire Arkel, jamais un client direct.
+
+## R4-1. Liste unique
+`src/system/public-clients.ts` : `PUBLIC_CLIENT_NAMES = ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"]`
+(« Clevery Avocats » doit être reconnu comme Clevery). Retire ces noms de la liste des noms privés connus.
+**Exception volontaire : le Journal.** `scripts/journal-gates.mjs` (et les contrôles de `content/journal`) continuent
+de refuser TOUS les noms de clients connus, publics compris : le Journal ne nomme aucun client. Le site (pages de
+`src/app/(rev01)/`) utilise la liste publique. Teste les deux comportements (un nom public passe sur l'accueil et
+échoue dans un article du Journal).
+
+## R4-2. Section clients de l'accueil (`brands`)
+Remplace la liste en ligne par une liste compacte, une ligne par client : le nom (General Sans 600) puis ce qui a
+été fait (General Sans 400), filet bas de 1 px entre les lignes, deux colonnes à partir de 1024 px, une colonne en
+dessous. Aucune nouvelle couleur, aucun logo, aucun lien. Le kicker garde son style mono.
+FR :
+- kicker : `Ils nous ont confié un sujet :`
+- `Laparra` · `grossiste en fruits et légumes au MIN de Rungis : le CRM de ses commerciaux`
+- `Clevery Avocats` · `un agent pour la messagerie et la veille juridique du cabinet`
+- `Forexpert` · `un agent de prospection relié à sa messagerie`
+- `Joone` · `marque de soins pour bébé : l'accompagnement IA de ses équipes`
+- `SNCF` · `un programme de formation à l'IA, avec Arkel`
+- note : `D'autres clients préfèrent rester anonymes.`
+EN :
+- kicker : `They trusted us with a problem:`
+- `Laparra` · `fruit and vegetable wholesaler at the Rungis market: the CRM its sales team works in`
+- `Clevery Avocats` · `an agent for the firm's inbox and legal monitoring`
+- `Forexpert` · `a prospecting agent connected to its inbox`
+- `Joone` · `baby care brand: AI coaching for its teams`
+- `SNCF` · `an AI training programme, with Arkel`
+- note : `Other clients prefer to stay anonymous.`
+(Remplace « programme » par « program » en anglais : le site écrit en anglais américain.)
+
+## R4-3. Section parcours réécrite (le lecteur est le dirigeant)
+Supprime la phrase Laparra de la colonne PME (Laparra est désormais dans la liste clients). Textes :
+FR :
+- h3 `PME et ETI` : `Vous nous apportez un sujet précis. Nous le cadrons avec vous, nous construisons, puis votre équipe reprend l'outil.`
+- h3 `Grands groupes` : `Votre direction métier ou votre direction de la transformation porte le projet. Nous préparons le cadre avec elle et vos équipes techniques, puis nous construisons.`
+- note : `Dans les deux cas, nous faisons du conseil et du logiciel. La formation de vos équipes passe par FormIA, notre organisme de formation.`
+EN :
+- h3 `SMEs and mid-sized companies` : `You bring us one precise problem. We scope it with you, we build, then your team takes the tool over.`
+- h3 `Large companies` : `Your business unit or transformation office owns the project. We set the frame with them and your technical teams, then we build.`
+- note : `Either way, we do consulting and software. Training for your teams goes through FormIA, our training organization.`
+Le texte des deux colonnes s'aligne sur le bord gauche du h2 de la section (aujourd'hui décalé de 32 px) : retire le
+retrait intérieur de la première colonne, garde le filet vertical entre les colonnes.
+
+## R4-4. /dossiers ne contredit plus l'accueil
+FR : la phrase `Nous les anonymisons tous.` devient `Sauf accord du client, nous les anonymisons.`
+EN : l'équivalent devient `Unless the client agrees otherwise, we anonymize them.`
+
+## R4-5. Positionnement partout où les machines le lisent
+`src/**/jsonld.ts` (ou équivalent), `public/llms.txt`, `scripts/generate-llms.mjs` et toute autre description
+d'entité : remplace « independent French data and AI firm » / « maison française indépendante de données et d'IA »
+par la description du 25/10 (EN : `Parrit.ai builds business software and helps companies with their AI transformation, for SMEs, mid-sized companies and large groups.` ; FR : `Parrit.ai construit des logiciels métier et accompagne les entreprises dans leur transformation IA, des PME aux grands groupes.`).
+
+## R4-6. Tests de fond (remplacent ceux devenus trop lâches)
+- `audit-truth-copy.test.mjs` ~l.44 et ~l.93-95, `conformity-home.spec.ts` ~l.231 : remplace par (a) chaque nom de la
+  liste clients de l'accueil appartient à `PUBLIC_CLIENT_NAMES` ; (b) la note clients existe et n'est pas vide ;
+  (c) aucune page servie ni le JSON-LD ni `llms.txt` ne contient « maison de données », « data and AI firm » ou
+  « Données et IA » en kicker/titre.
+- Un test qui vérifie, sur l'accueil à 1440 et 390 px, que le h2 de `.home-s-parcours` a la même taille calculée que le
+  h2 de `.home-s-maison` (il restera vrai après la fusion avec #320).
+- Ne relâche aucune règle de fond existante.
+
+## Contrôle
+Avant de finir : grep dans `src/` et `public/` de « anonymisons tous », « data and AI firm », « maison de données »,
+« Prospect B » hors scène produit, « organisation » en anglais. Rapporte le résultat.

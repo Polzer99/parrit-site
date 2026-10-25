@@ -1,7 +1,8 @@
-import { PUBLIC_CLIENT_NAMES } from "../src/system/public-clients.ts";
+import { PUBLIC_CLIENT_NAMES, publicClientName } from "../src/system/public-clients.ts";
 import { privateClientNames } from "../scripts/lib/public-clients.mjs";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
+import matter from "gray-matter";
 import { test } from "node:test";
 import http from "node:http";
 import https from "node:https";
@@ -49,7 +50,11 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       });
       await server.getRequestHandler()(req, res);
       if (!res.finished) await new Promise((resolve) => res.once("finish", resolve));
-      return { status: res.statusCode, html: Buffer.concat(chunks).toString() };
+      const html = Buffer.concat(chunks).toString();
+      const structured = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((match) => match[1]).join(" ");
+      const metadata = [...html.matchAll(/<meta\b[^>]*content="([^"]*)"[^>]*>/g)].map((match) => visibleText(match[1])).join(" ");
+      assert.doesNotMatch(`${visibleText(html)} ${structured} ${metadata}`, /maison (?:française indépendante )?de données|data and AI firm|Données et IA/i, `${locale} ${url}: current positioning`);
+      return { status: res.statusCode, html };
     };
     for (const locale of ["en", "fr"]) {
       for (const route of routes) {
@@ -144,13 +149,16 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           assert.doesNotMatch(parcours, /<(?:a|button)\b|role="(?:link|button)"/);
           assert.ok(html.indexOf('class="home-s-brands"') < sections[0].index);
           assert.ok(sections[0].index < html.indexOf('class="home-s-maison"'));
-          const brands = html.match(/<p class="home-s-brands-list">([\s\S]*?)<\/p>/)?.[1];
+          const brands = html.match(/<ul class="home-s-brands-list"[^>]*>([\s\S]*?)<\/ul>/)?.[1];
           assert.ok(brands);
-          populatedTags(brands, "span", 5);
-          for (const name of PUBLIC_CLIENT_NAMES) {
-            assert.ok(visibleText(brands).includes(name), `${label}: public client in references`);
-            assert.ok(visibleText(parcours).includes(name), `${label}: public client in case description`);
-          }
+          populatedTags(brands, "li", PUBLIC_CLIENT_NAMES.length);
+          populatedTags(brands, "strong", PUBLIC_CLIENT_NAMES.length);
+          populatedTags(brands, "span", PUBLIC_CLIENT_NAMES.length);
+          const names = [...brands.matchAll(/<strong>([^<]+)<\/strong>/g)].map((match) => publicClientName(visibleText(match[1])));
+          assert.deepEqual(names.sort(), [...PUBLIC_CLIENT_NAMES].sort(), `${label}: only canonical clients`);
+          assert.doesNotMatch(brands, /<(?:a|button|img|svg)\b/);
+          const note = html.match(/<ul class="home-s-brands-list"[^>]*>[\s\S]*?<\/ul><p>([^<]+)<\/p>/)?.[1];
+          assert.ok(note && visibleText(note).trim(), `${label}: client disclosure`);
         }
       }
     }
@@ -169,6 +177,13 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       assert.doesNotMatch(html, /paul-larmaraud\.com/i, route);
       if (route === "/journal/rss.xml") assert.match(html, /<dc:creator>Parrit\.ai<\/dc:creator>/);
     }
+    // Every published article also passes the positioning assertion in render().
+    for (const file of readdirSync("content/journal").filter((file) => file.endsWith(".mdx"))) {
+      const { data } = matter(readFileSync(`content/journal/${file}`, "utf8"));
+      const route = `/journal/${data.slug}`;
+      assert.equal((await render(route)).status, 200, route);
+    }
+    assert.doesNotMatch(readFileSync("public/llms.txt", "utf8"), /maison (?:française indépendante )?de données|data and AI firm|Données et IA/i);
     // The alias keeps English content/canonical, but the French chrome warns readers.
     const articleRoute = "/journal/one-card-one-action";
     const english = await render(articleRoute, "en");
