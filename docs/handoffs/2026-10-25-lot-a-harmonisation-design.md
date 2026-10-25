@@ -97,3 +97,26 @@ Exceptions inchangées : titres d'entrées du Journal, titres de cartes, h2 de l
    `#quick-idee` = "reporting"). Détermine si c'est causé par ce lot (ex. header mobile plus large, élément qui
    recouvre le bouton, padding) en comparant avec origin/main ; corrige la cause si elle vient de ce lot. Ne modifie
    pas ce test.
+
+
+---
+
+# RÉVISION 3 (26/10/2026) — corrections des revues
+
+Ton travail est dans ce worktree et la PR #320 existe : garde-le et complète-le. Précision de Paul : la direction
+artistique de référence est celle des slides du Presentation System (titres en deux tons : un premier ton léger,
+un second ton semibold, point final coloré). Un h1 d'un seul bloc à 500 s'en éloigne.
+
+1. **h1 de l'accueil à 400** (et non 500) : c'est le rendu réel actuel (300 n'étant pas chargé, le navigateur
+   affichait 400). Aucune autre graisse de titre ne change.
+2. **Sélecteur de langue** : ajoute `role="group"` et un `aria-label` localisé (« Langue » / « Language ») sur le
+   conteneur ; garde `aria-pressed`, retire `aria-current` s'il double l'information.
+3. **Règle CSS morte** : retire `.r2-std-row .ps` si plus aucun élément ne la porte (vérifie par grep des classes).
+4. **/systems, accessibilité et alignement** (mesurés par un outil d'audit à 390 et 1440 px) :
+   - saut de niveau de titre h1 → h3 (« La liste qui fait foi ») : rétablis une hiérarchie sans saut, sans changer
+     le rendu visuel (adapte le niveau et garde la classe de style) ;
+   - `#method a` mesure 22 px de haut : cible ≥ 24 px (idéalement 44 px) sans changer la mise en page ;
+   - `#capacites` : les deux cartes d'offre côte à côte ont leurs blocs `dd` décalés de 22 et 72 px : aligne les
+     parties homologues (subgrid ou grille commune) ;
+   - `#capacites h3` est à 6 px de la ligne d'alignement commune : aligne-le.
+5. Ajoute ces vérifications au test `tests/design-harmonisation.spec.ts`.

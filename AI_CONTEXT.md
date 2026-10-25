@@ -592,3 +592,34 @@ Aucun texte public ni contrat vendorisé modifié ; seul le présupposé « acti
 pleines » du test d'aération est corrigé, selon l'autorisation de la révision 2.
 Détails :
 `docs/handoffs/2026-10-25-lot-a-harmonisation-design-rapport.md`.
+
+### Harmonisation design — révision 3, 26/10/2026
+
+La révision 3 remplace A1/A5 ci-dessus : H1 home à 400 ; sélecteur de langue
+nommé Langue/Language avec `role="group"` et `aria-pressed` seul. A2 bis et
+A3/A4/A6 restent en place. Les deux règles `.r2-std-row .ps` sans consommateur
+sont supprimées. Sur Systems, la preuve du hero devient un H2 de carte (22 px,
+500), le lien Méthode a une cible de 44 px et les cartes partagent sept lignes
+de grille, dont une par rubrique du DL. Les titres et preuves s'alignent en haut
+de leur ligne ; les valeurs absentes gardent leur emplacement sans texte ajouté.
+Le retrait des cartes rejoint celui de la preuve du hero (24 px desktop,
+18 px mobile), supprimant l'écart horizontal de 6 px prévu par l'ancienne CSS.
+`design-harmonisation.spec.ts` couvre ces contrats FR/EN à 1440/390 (21 cas).
+Lint, types, claims, marque, build Webpack, 102 tests Node et 24 tests Brand OS
+passent sur l'état final. Turbopack interrompu après 90 s sans progression.
+Chromium est toujours refusé par macOS avant navigation ; les nouvelles mesures
+et le timeout mobile préexistant restent à vérifier sur l'hôte. Voir le rapport
+du lot pour les résultats de compilation et les contrôles exécutés.
+
+Reprise finale du lot A : état R3 présent conservé après revue, sans nouveau
+changement de code ou de test. Lint, types, claims, marque, build Webpack (58
+pages), 102 tests Node et 24 tests Brand OS repassent. Turbopack interrompu après
+120 s sans progression ; Chromium toujours refusé avant navigation (333 cas
+dans la batterie, 21 dans la spec du lot). Résultats et limites actualisés dans
+le rapport du lot ; journaux `/private/tmp/lot-a-final-*.log`.
+
+Nouvelle vérification, journaux `/private/tmp/lot-a-verify-*.log` : mêmes résultats
+confirmés (lint/types/claims/marque, 102 tests Node, 24 tests Brand OS, build
+Webpack 58/58). Code et 21 tests du lot préexistants conservés. Turbopack arrêté
+après 120 s sans progression ; Chromium refusé avant navigation. Aucun nouveau
+point annulé ; diagnostic du timeout mobile et mesures navigateur toujours ouverts.

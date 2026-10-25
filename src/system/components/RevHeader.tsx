@@ -134,14 +134,13 @@ export function RevHeader({ locale }: { locale: Locale }) {
               );
             })}
           </nav>
-          <div className="locale-toggle" aria-label={locale === "fr" ? "Choisir la langue" : "Choose language"}>
+          <div className="locale-toggle" role="group" aria-label={locale === "fr" ? "Langue" : "Language"}>
             {(["fr", "en"] as const).map((item) => (
               <button
                 type="button"
                 key={item}
                 className={item === locale ? "on" : undefined}
                 aria-pressed={item === locale}
-                aria-current={item === locale ? "true" : undefined}
                 onClick={() => switchLocale(item)}
               >
                 {item.toUpperCase()}

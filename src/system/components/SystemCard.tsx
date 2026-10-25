@@ -17,12 +17,12 @@ export function SystemCard({ domain, name, input, process, output, limits, proof
   return <article className="system-card offer-card" style={{ border: 0, background: "var(--ink)" }}>
     {domain && <K>{domain}</K>}
     {name && <h3>{name}</h3>}
-    <dl style={{ margin: 0, display: "grid", gap: 24 }}>
-      {[input, process, output, limits].map((value, index) => (index === 3 || value) && <div key={labels[index]}>
+    <dl>
+      {[input, process, output, limits].map((value, index) => (index === 3 || value) && <div key={labels[index]} style={{ gridRow: index + 1 }}>
         <dt><K>{labels[index]}</K></dt>
         <dd style={{ margin: "8px 0 0", color: "var(--label-d)", whiteSpace: "pre-wrap" }}>{value}</dd>
       </div>)}
     </dl>
-    {proofLabel && <footer style={{ marginTop: "auto" }}><K>{proofLabel}</K></footer>}
+    {proofLabel && <footer><K>{proofLabel}</K></footer>}
   </article>;
 }

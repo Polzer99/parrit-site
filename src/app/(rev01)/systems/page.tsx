@@ -270,7 +270,7 @@ export default async function SystemsPage() {
         <div className="systems-hero-proof">
           <article className="systems-hero-proof-card">
             <K>{copy.observed}</K>
-            <h3>{evidence.cards[0].name}</h3>
+            <h2 className="systems-hero-proof-title">{evidence.cards[0].name}</h2>
             <p>{evidence.cards[0].output}. {HERO_PROOF_LIMIT[locale]}</p>
             <K>{evidence.cards[0].proofLabel}</K>
           </article>

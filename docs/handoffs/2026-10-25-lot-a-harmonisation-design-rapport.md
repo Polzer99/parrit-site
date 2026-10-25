@@ -2,7 +2,7 @@
 
 Date : 25/10/2026. Spec : `2026-10-25-lot-a-harmonisation-design.md`.
 
-**État courant : voir « Révision 2 » en fin de document.** Les sections
+**État courant : voir « Révision 3 » en fin de document.** Les sections
 précédentes sont conservées comme historique de la première livraison. A2 bis
 remplace désormais l'annulation d'A2 et la révision 2 autorise la correction du
 présupposé de l'audit d'aération.
@@ -247,3 +247,140 @@ et A6 est conservé. Restent à exécuter sur l'hôte : build Turbopack, batteri
 navigateur complète avec le serveur sur 3210, diagnostic interactif du timeout
 mobile, puis revue visuelle par Claude. Aucun résultat de géométrie ou
 d'interaction n'est présenté comme validé par ce sandbox.
+
+## Révision 3 — corrections des revues, 26/10/2026
+
+La spec complète, AGENTS.md, AI_CONTEXT.md, TRUTH.md et les guides CSS/CLI de
+Next 16.3.4 installé ont été lus avant modification. La révision 3 constitue le
+plan validé. Le code des révisions précédentes est conservé ; la modification
+préexistante de la spec est intacte. Aucun commit, push ou déploiement effectué.
+
+| Fichier et ligne | Modification |
+| --- | --- |
+| `src/app/(rev01)/rev01.css:1773` | H1 accueil à 400, taille/cadre/couleurs inchangés ; autres graisses inchangées. |
+| `src/system/components/RevHeader.tsx:137` | Groupe nommé « Langue » / « Language », état `aria-pressed` conservé, `aria-current` redondant retiré. Aucune logique de bascule modifiée. |
+| `src/app/(rev01)/rev01.css:2464` | Suppression des deux règles `.r2-std-row .ps`, desktop et responsive, après recherche sans consommateur dans `src/`. |
+| `src/app/(rev01)/systems/page.tsx:274`, `rev01.css:3187` | Titre de preuve du hero en H2 avec classe dédiée reprenant le style précédent : 22 px, 500, marge nulle. |
+| `src/app/(rev01)/rev01.css:3207` | Cible réelle du lien Méthode de 44 px, sans changement de libellé ou de destination. |
+| `src/system/components/SystemCard.tsx:20`, `rev01.css:3383` | Sept lignes partagées : domaine, titre, quatre rubriques, preuve. Le DL utilise les quatre lignes de subgrid correspondantes. Une rubrique absente conserve sa position sans contenu fabriqué. Titres et preuves alignés en haut. |
+| `src/app/(rev01)/rev01.css:3385` | Retrait des cartes aligné sur la preuve du hero : 24 px (`--s3`) sur desktop, 18 px jusqu'à 760 px. L'ancien retrait de 30 px expliquait un écart horizontal de 6 px sur desktop. |
+| `tests/design-harmonisation.spec.ts:88`, `:143` | Contrats H1/langue actualisés ; quatre nouveaux cas Systems, FR/EN à 1440×900 et 390×844, soit 21 cas dans le fichier. |
+| `AI_CONTEXT.md:596` | État révision 3 et limites de vérification consignés. |
+
+Les nouveaux tests contrôlent la hiérarchie complète des titres, le style
+inchangé du titre de preuve, le maintien de la graisse des autres H1, la cible
+du lien (y compris ses zones de padding), les quatre rubriques par carte,
+l'alignement des deux paires de cartes sur desktop, leur empilement mobile,
+l'alignement horizontal avec la preuve du hero, l'absence de chevauchement et
+de débordement. Ils utilisent le harnais deny-all commun, sans capture ajoutée.
+
+Les assertions 500/aria-current du test du lot sont remplacées par celles
+explicitement demandées par la révision 3 ; aucun autre test existant n'est
+modifié dans cette reprise. Aucun texte visible, métadonnée, URL, API, article
+ou fichier vendorisé n'a changé. Le seul libellé accessible modifié est celui
+du groupe de langues, expressément demandé. A2 bis et A3/A4/A6 sont conservés.
+
+Le diagnostic mobile reste limité : comparaison locale avec `origin/main`
+(`c8dce63`), AgentEsquisse et QuickCapture identiques ; le test d'aération est
+inchangé dans cette reprise. AI_CONTEXT sur cette référence signale déjà
+l'échec à 390 px. Chromium étant refusé avant navigation, aucune cause CSS
+n'est confirmée et aucun correctif spéculatif du formulaire n'est ajouté.
+
+Aucun point supplémentaire annulé. A2 initial à 48 px reste remplacé par A2 bis
+à 40/32 px ; les clôtures restent exemptées. A1 à 500 et `aria-current` sont
+remplacés par les arbitrages explicites de la révision 3, pas par un relâchement
+des contrôles.
+
+### Résultats d'exécution de la révision 3
+
+| Commande | Résultat |
+| --- | --- |
+| `npm run lint` | Succès, code 0. |
+| `npx tsc --noEmit` | Succès, code 0. |
+| `npm test` | Succès, 102/102, rejoué sur le build final. |
+| `npm run test:brand-os` | Succès, 24/24, rejoué sur le build final. |
+| `npm run qa:claims:rev01` | Succès, code 0. |
+| `npm run build` | Turbopack sans progression pendant 90 s à la compilation ; arrêté par SIGINT, wrapper code 124. |
+| `npm run build -- --webpack` | Succès après le dernier changement CSS, 58/58 pages ; avertissement `metadataBase` préexistant. Script et dépendances inchangés. |
+| `npm run qa:brand:rev01` | Succès, y compris après le build final. |
+| `npm run qa:network:rev01 -- --workers=1 --max-failures=1 --output=/private/tmp/lot-a-r3-playwright` | 333 cas découverts ; Chromium refusé avant navigation (`MachPortRendezvousServer: Permission denied (1100)`), code 1. Un échec d'infrastructure, 332 cas non exécutés. |
+| `npx playwright test tests/design-harmonisation.spec.ts --list` | Succès, 21 cas découverts après le dernier changement. |
+| `git diff --check` | Succès. |
+| Recherche `box-shadow`, `boxShadow`, `.r2-std-row .ps` dans `src/` | Aucune occurrence. |
+
+Les tests SSR utilisent le build final et interdisent les sorties réseau.
+Aucun serveur lancé, conformément à AI_CONTEXT ; aucune capture créée.
+La batterie navigateur devra être rejouée sur l'hôte avec le serveur sur 3210,
+y compris les 21 cas du lot et le parcours d'aération mobile inchangé.
+La revue visuelle reste à Claude. Logs : `/private/tmp/lot-a-r3-*.log`, notamment
+`build`, `build-webpack-final`, `test-final`, `brand-os-final` et `network`.
+
+### Vérification finale du worktree — 25/10/2026
+
+La reprise trouve déjà les corrections de la révision 3 et leurs tests dans
+le worktree. Après lecture des instructions, de la spec complète, des guides
+Next locaux et revue du diff contre `origin/main`, aucun complément de code
+n'est nécessaire. Les modifications préexistantes, notamment la spec, sont
+conservées. Seuls ce rapport et AI_CONTEXT sont complétés pendant cette reprise.
+La liste de fichiers et les lignes de la révision 3 ci-dessus restent valables.
+
+Les 21 cas de `tests/design-harmonisation.spec.ts` sont conservés : tailles des
+titres et exceptions, couleurs des numéros, langues accessibles, cibles tactiles,
+hiérarchie et alignement des cartes Systems, absence d'ombres et de débordement.
+Aucun test supplémentaire ni modification des assertions n'a été nécessaire.
+Le harnais deny-all reste actif. Aucun point supplémentaire annulé.
+
+| Commande relancée | Résultat de cette reprise |
+| --- | --- |
+| `npm run lint` | Succès, code 0. |
+| `npx --no-install tsc --noEmit` | Succès, code 0. |
+| `npm test` | Succès, 102/102 ; également après le nouveau build Webpack. |
+| `npm run test:brand-os` | Succès, 24/24 ; également après le nouveau build Webpack. |
+| `npm run qa:claims:rev01` | Succès, code 0. |
+| `npm run build` | Aucune progression après 120 s à la compilation Turbopack ; interruption SIGINT, wrapper code 124. |
+| `npm run build -- --webpack` | Succès, 58/58 pages ; avertissement `metadataBase` préexistant. |
+| `npm run qa:brand:rev01` | Succès, également après build. |
+| `npm run qa:network:rev01 -- --workers=1 --max-failures=1 --output=/private/tmp/lot-a-final-network-results` | 333 cas découverts ; Chromium refusé par macOS (`MachPortRendezvousServer`, permission denied 1100) avant toute navigation. Un échec d'infrastructure, 332 cas non exécutés. |
+| `npx --no-install playwright test tests/design-harmonisation.spec.ts --list` | Succès, 21 cas découverts. |
+| `git diff --check` | Succès. |
+
+La comparaison confirme que `AgentEsquisse.tsx`, `QuickCapture.tsx` et la page
+d'accueil sont identiques à `origin/main`, ainsi que la fonction
+`measureInvalidFormStates`. Le timeout à 390 px figure déjà dans AI_CONTEXT
+sur cette référence. Le diagnostic navigateur demeure bloqué ; aucune cause
+CSS ni résolution de ce timeout n'est affirmée.
+
+Les recherches d'ombres et de `.r2-std-row .ps` dans `src/` sont vides. Aucun
+serveur, capture, commit, push ou déploiement ajouté. Les journaux de cette
+exécution sont dans `/private/tmp/lot-a-final-*.log`. La validation navigateur
+et le build Turbopack restent à exécuter sur l'hôte ; Webpack ne remplace pas
+ces validations.
+
+### Nouvelle vérification — journaux `lot-a-verify`, 25/10/2026
+
+Les huit fichiers déjà modifiés à l'ouverture sont conservés. La revue de la
+spec complète (révisions 1 à 3), des consignes et du diff confirme que le code
+et les 21 tests du lot sont déjà présents ; aucun ajout de code ou de test
+n'est nécessaire dans cette reprise. Seuls ce rapport et AI_CONTEXT sont
+complétés. Les fichiers et lignes de la révision 3 restent valables.
+
+| Commande exécutée | Résultat |
+| --- | --- |
+| `npm run lint` | Succès. |
+| `npx --no-install tsc --noEmit` | Succès. |
+| `npm test` | 102/102, y compris après le nouveau build Webpack. |
+| `npm run test:brand-os` | 24/24, y compris après le nouveau build Webpack. |
+| `npm run qa:claims:rev01` | Succès. |
+| `npm run build` | Interrompu après 120 s sans progression à la compilation Turbopack ; code du wrapper 124. |
+| `npm run build -- --webpack` | Succès, 58/58 pages ; avertissement `metadataBase` préexistant. |
+| `npm run qa:brand:rev01` | Succès avant et après build. |
+| `npm run qa:network:rev01 -- --workers=1 --max-failures=1 --output=/private/tmp/lot-a-verify-network-results` | Chromium refusé avant navigation : `MachPortRendezvousServer`, permission denied 1100. Un échec d'infrastructure, 332 cas non exécutés. |
+| `npx --no-install playwright test tests/design-harmonisation.spec.ts --list` | 21 cas découverts. |
+| `git diff --check` | Succès. |
+
+Aucun point supplémentaire annulé. La comparaison avec `origin/main` confirme
+que le formulaire et sa séquence de test mobile sont inchangés ; le timeout
+mobile y était déjà documenté. Sa cause reste à établir dans le navigateur.
+Les recherches d'ombres et de la règle `.r2-std-row .ps` restent vides.
+Les journaux de cette reprise sont dans `/private/tmp/lot-a-verify-*.log`.
+Aucun serveur, capture, commit, push ou déploiement effectué.

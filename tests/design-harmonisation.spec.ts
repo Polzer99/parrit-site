@@ -89,16 +89,16 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
       await page.setViewportSize(viewport);
       await page.goto(`${BASE_URL}${locale === "fr" ? "/fr" : "/"}`);
       await page.evaluate(() => document.fonts.ready);
-      await expect(page.locator(".home-s-hero h1")).toHaveCSS("font-weight", "500");
+      await expect(page.locator(".home-s-hero h1")).toHaveCSS("font-weight", "400");
       await expect(page.locator(".home-s-hero h1")).toHaveCSS("font-size", viewport.width <= 760 ? "40px" : "84px");
-      const toggle = page.locator(".locale-toggle");
+      const toggle = page.getByRole("group", { name: locale === "fr" ? "Langue" : "Language", exact: true });
+      await expect(toggle).toHaveCount(1);
       const current = toggle.getByRole("button", { name: locale.toUpperCase(), exact: true });
       const other = toggle.getByRole("button", { name: locale === "fr" ? "EN" : "FR", exact: true });
-      await expect(current).toHaveAttribute("aria-current", "true");
+      await expect(toggle.locator("[aria-current]")).toHaveCount(0);
       await expect(current).toHaveAttribute("aria-pressed", "true");
       await expect(current).toHaveCSS("text-decoration-line", "underline");
       await expect(current).toHaveCSS("color", await tokenColor(current, "--paper"));
-      await expect(other).not.toHaveAttribute("aria-current", "true");
       await expect(other).toHaveAttribute("aria-pressed", "false");
       await expect(other).toHaveCSS("color", await tokenColor(other, "--g2"));
       for (const element of [toggle, current, other]) {
@@ -137,6 +137,88 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
         .filter(el => getComputedStyle(el).boxShadow !== "none")
         .map(el => `${el.tagName}.${el.className}`));
       expect(shadows).toEqual([]);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width);
+    });
+
+    test(`systems heading hierarchy, method target and aligned cards ${locale} ${viewport.width}`, async ({ page }) => {
+      await page.setViewportSize(viewport);
+      await page.goto(`${BASE_URL}${locale === "fr" ? "/fr" : ""}/systems`);
+      await page.evaluate(() => document.fonts.ready);
+      const headings = await page.locator("main :is(h1, h2, h3, h4, h5, h6)").evaluateAll(elements =>
+        elements.map(el => ({ level: Number(el.tagName.slice(1)), text: el.textContent })));
+      expect(headings[0].level).toBe(1);
+      for (let index = 1; index < headings.length; index++) {
+        expect(headings[index].level, `heading level: ${headings[index].text}`).toBeLessThanOrEqual(headings[index - 1].level + 1);
+      }
+      const proofTitle = page.locator(".systems-hero-proof-card").getByRole("heading", { level: 2 });
+      await expect(proofTitle).toHaveCount(1);
+      await expect(proofTitle).toHaveCSS("font-size", "22px");
+      await expect(proofTitle).toHaveCSS("font-weight", "500");
+      await expect(proofTitle).toHaveCSS("margin", "0px");
+      await expect(page.locator(".systems-hero h1")).toHaveCSS("font-weight", "500");
+
+      const method = page.locator("#method a");
+      await expect(method).toHaveCount(1);
+      await expect(method).toHaveAttribute("href", `${locale === "fr" ? "/fr" : ""}/manufacture`);
+      const target = (await method.boundingBox())!;
+      expect(target.height).toBeGreaterThanOrEqual(44);
+      expect(target.width).toBeGreaterThanOrEqual(44);
+      // Both the upper and lower padding must belong to the real hit target.
+      await method.scrollIntoViewIfNeeded();
+      expect(await method.evaluate(el => {
+        const box = el.getBoundingClientRect();
+        return [box.top + 1, box.bottom - 1].every(y => el.contains(document.elementFromPoint(box.x + box.width / 2, y)));
+      })).toBe(true);
+
+      const cards = page.locator("#capacites .system-card");
+      await expect(cards).toHaveCount(4);
+      const geometry = [];
+      for (const card of await cards.all()) {
+        await expect(card.locator("h3")).toHaveCount(1);
+        await expect(card.locator("dt")).toHaveCount(4);
+        await expect(card.locator("dd")).toHaveCount(4);
+        const measures = await card.evaluate(el => {
+          const box = el.getBoundingClientRect();
+          const style = getComputedStyle(el);
+          const parts = [...el.querySelectorAll("h3, dt, dd, footer")].map(part => {
+            const rect = part.getBoundingClientRect();
+            return { top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right };
+          });
+          return {
+            top: box.top, bottom: box.bottom,
+            left: box.left + parseFloat(style.borderLeftWidth) + parseFloat(style.paddingLeft),
+            right: box.right - parseFloat(style.borderRightWidth) - parseFloat(style.paddingRight),
+            parts,
+          };
+        });
+        for (const part of measures.parts) {
+          expect(Math.abs(part.left - measures.left), "card heading and definitions share the content edge").toBeLessThanOrEqual(1);
+          expect(part.right).toBeLessThanOrEqual(measures.right + 1);
+        }
+        for (let index = 1; index < measures.parts.length; index++) {
+          expect(measures.parts[index].top, "card content does not overlap").toBeGreaterThanOrEqual(measures.parts[index - 1].bottom - 1);
+        }
+        geometry.push(measures);
+      }
+      const proofEdge = (await proofTitle.boundingBox())!.x;
+      expect(Math.abs(geometry[0].parts[0].left - proofEdge), "catalogue title aligns with the hero proof title").toBeLessThanOrEqual(1);
+      if (viewport.width === 1440) {
+        // Check both pairs: headings, all four dt/dd pairs and proof footers.
+        for (const index of [0, 2]) {
+          const left = geometry[index];
+          const right = geometry[index + 1];
+          expect(Math.abs(left.parts[0].left - proofEdge)).toBeLessThanOrEqual(1);
+          expect(Math.abs(left.top - right.top)).toBeLessThanOrEqual(1);
+          for (let part = 0; part < left.parts.length; part++) {
+            expect(Math.abs(left.parts[part].top - right.parts[part].top), `cards ${index + 1}/${index + 2}, part ${part}`).toBeLessThanOrEqual(1);
+          }
+        }
+      } else {
+        for (let index = 1; index < geometry.length; index++) {
+          expect(geometry[index].top).toBeGreaterThanOrEqual(geometry[index - 1].bottom);
+          expect(Math.abs(geometry[index].left - geometry[0].left)).toBeLessThanOrEqual(1);
+        }
+      }
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width);
     });
   }
