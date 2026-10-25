@@ -1,6 +1,13 @@
 # EXIGENCE-JOURNAL-PARRIT — la barre du rail parrit.ai
 
-> v9 · 2026-10-18 (cliquet dimanche : référence de la semaine, le seul
+> v10 · 2026-10-25 (cliquet dimanche : aucune référence possible, aucun
+> article publié sur les deux rails du 19 au 25/10, 22 refus de la porte
+> C-LISIBILITE ; cinq défauts promus ou durcis : le problème du lecteur
+> dans le premier paragraphe, le titre ne promet pas plus que la mesure,
+> une consigne vient avec sa procédure, une limite avouée ne vide pas la
+> recommandation, une question de données dit où partent les données ;
+> `jargon_unglossed` durci après huit retours depuis sa promotion).
+> v9 — 2026-10-18 (cliquet dimanche : référence de la semaine, le seul
 > article publié sur les deux rails du 12 au 18/10 ; trois défauts
 > promus depuis douze refus de la porte C-LISIBILITE : pas de question
 > sans problème du lecteur, la réponse a la forme que le titre demande,
@@ -196,6 +203,20 @@ anglais le 08/09 (PR #241, 301 en un saut depuis l'ancien slug).
   sur deux mots ajoutés le même matin : un PASS n'est valable que pour
   le texte exact qui part.
 
+- **Semaine du 19 au 25/10 : aucune référence, la barre ne bouge pas.**
+  Aucun article publié sur ce rail (ni sur le rail paul). Six sujets
+  écrits du 20 au 25/10 (`check-meeting-report-against-transcript` deux
+  jours de suite, `ai-anonymise-client-data-before-reuse`,
+  `mcp-or-cli-where-the-key-lives`, `ai-agent-outdated-reference-file`,
+  `claude-total-large-excel-export`), chacun refusé deux fois par la
+  porte de lisibilité ; le 19/10, aucun run. Une semaine sans article ne
+  fournit aucun exemple et n'autorise pas à reprendre une référence
+  ancienne pour combler le trou : la référence en vigueur reste
+  `ai-cost-french-vs-english-tokens` (13/10). La meilleure piste laissée
+  par la semaine est la mesure du 25/10 (export fabriqué de 5 000
+  lignes, cinq essais isolés) : elle est juste, et c'est l'article qui
+  manque, pas la preuve (voir « A rule comes with its procedure »).
+
 ## Discipline chiffres externes (cliquet 06/09)
 
 - Deux articles de la semaine (31/08 → 01/09) ont écarté ou neutralisé
@@ -300,6 +321,78 @@ en amont ce que le panel attrapait en aval.
     in our own system the day of writing. Otherwise it is cut, or written
     as an untested idea in a sentence of its own (« we have not run
     this »), never as advice.
+
+- **Défauts promus depuis la porte C-LISIBILITE (cliquet 25/10)**. Du
+  19 au 25/10, la porte a rendu 22 refus sur les deux rails et aucun
+  article n'est sorti. Comptés sur les motifs écrits au LOG, cinq
+  défauts atteignent ou dépassent trois occurrences, et un défaut déjà
+  promu revient huit fois. Ils se corrigent à l'entrée, sur la fiche et
+  sur le premier paragraphe, avant la première version :
+  - **The reader's problem is in the first paragraph** (`problem_late` :
+    21/10 « problème posé trop tard », 22/10 « problème concret en 2e
+    section », 23/10 « ouvre sur une consigne et un chiffre interne » ;
+    sur le rail paul 21, 23, 24 et 25/10 ; sept occurrences). The first
+    paragraph holds, in 80 words or fewer, the problem in one sentence
+    (who, when it bites) and then the answer in the shape the title asks
+    for. Opening on the instruction, on our number or on our tool and
+    reaching the problem afterwards is a return, even when the answer
+    arrives inside 80 words. This sharpens `no_lived_problem` (18/10) :
+    the fiche had the problem, the text pushed it down.
+  - **The title promises what the measurement does** (`title_overpromise`
+    24/10 « How do you stop… » over a mechanism that only warns ;
+    `answer_too_strong` 25/10 V2 and V3, a « Yes » under a title wider
+    than one file tested on one assistant ; the same day on the rail paul,
+    « oui, l'IA lit bien » against a test that showed the risk elsewhere).
+    The verb of the title is the verb the measurement performs (warn,
+    flag, total), and the title's perimeter is the proof's perimeter
+    (one assistant, one file shape, one size). Sweep the title and the
+    `description` with the claims, as `scope_stretch` already requires
+    since 05/10.
+  - **A rule comes with its procedure** (`gesture_without_procedure` :
+    20/10 « quatre issues sans exemple », 23/10 « geste final vague »,
+    24/10 « pas de mise en œuvre », 25/10 « consigne sans procédure,
+    aucune consigne d'équipe » (`team_rule_missing`) ; 20/10 rail paul
+    « aucune liste prête à copier » ; cinq occurrences). An instruction
+    to the reader states what to do in one sentence a person could
+    execute without asking (what to open, what to filter, what to
+    compare against, what to forbid), with one real example. When the
+    reader is a team lead, the article ends on the team rule it implies
+    (what to allow, what to forbid), not on advice to an individual.
+  - **An admitted limit never empties the recommendation**
+    (`admission_undercuts`, with `panel_vs_gate` which was under watch
+    since 14/10 and 18/10 : 20/10 « non mesuré » and « une seule fois »
+    requested by the panel then read by the gate as weakness ; 22/10
+    « we have not built / connected » read as weakness ; 23/10 the
+    article recommends MCP then states that our own MCP keys sit in clear
+    text, « recommandation vidée de sa substance » ; five occurrences
+    counting watch). The rule « We recommend what we run » (18/10) stays.
+    If our own system fails the recommendation, either we fix it before
+    writing, or the article is about the gap, or the subject changes. A
+    limit of scope (« one file, Claude only ») is written once, in the
+    sentence that carries the result, never as a closing confession, and
+    a panel condition that adds such a sentence is placed in the answer
+    it qualifies, never in the reader's instruction.
+  - **A data question says where the data goes** (`data_path_unnamed` :
+    20/10 service and law left unnamed, 21/10 hosting and subprocessor
+    unnamed, 22/10 « où part le fichier, rétention, entraînement,
+    sous-traitant, quelle clause » ; three occurrences). On any question
+    about client data, the CISO reading the rail needs four facts per
+    provider named : where the file is sent, how long it is kept,
+    whether it trains a model, which contractual clause says so. Each is
+    read on the provider's own page the day of writing. When discretion
+    forbids naming the client's tool, the article names the public tool
+    we use ourselves and checks it, or changes subject.
+  - **`jargon_unglossed` hardened** (promoted 11/10, back eight times
+    since : 20/10 « agent / assistant » used as two things on both rails,
+    21/10 « machine, hébergement, journal des actions », 23/10 « guard,
+    launcher, PreToolUse, .mcp.json » and « réunion d'arbitrage, coût
+    horaire chargé », 24/10 « registry / repository » and « fusionnées,
+    CSV », 25/10 « run, side figure »). Glossing at first use is not
+    enough. The first paragraph uses no term that needs a gloss ; the
+    body uses one name per object from start to end (never « agent »
+    then « assistant » for the same thing) ; the pre-check reader
+    receives the explicit instruction to list every word a hurried CISO
+    or CIO would stop on, and the list is empty before the gate is run.
 
 ## Tics bannis
 
@@ -408,6 +501,12 @@ en amont ce que le panel attrapait en aval.
   article publié, rien à comparer d'un texte à l'autre. La relecture des
   brouillons refusés est consignée au registre, pas ici (un brouillon
   refusé n'a pas été lu par un lecteur).
+
+- **Aucun tic répété relevé sur la semaine du 19 au 25/10** : aucun
+  article publié. Les formules relevées dans les brouillons refusés
+  (« Pour conclure » le 23/10, chutes rhétoriques le 21/10) sont au
+  registre ; elles ne deviennent des tics bannis ici qu'une fois vues
+  dans un texte publié.
 
 ## Un cliquet ne compte qu'une fois mergé (incident du 23/09)
 
