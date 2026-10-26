@@ -135,7 +135,7 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "Un agent pour le cabinet.": "An agent for the firm.",
   "Un agent de prospection.": "A prospecting agent.",
   "L'accompagnement des équipes à l'IA.": "Helping its teams adopt AI.",
-  "Un programme de formation, réalisé avec Arkel.": "A training program, delivered with Arkel.",
+  "Un programme de formation.": "A training program.",
   "Les outils avec lesquels nous construisons.": "The tools we build with.",
   "Les marques citées appartiennent à leurs propriétaires. Nous les utilisons ; aucun partenariat n'est sous-entendu.": "The brands named belong to their owners. We use them; no partnership is implied.",
   "fondateur de Parrit.ai.": "founder of Parrit.ai.",

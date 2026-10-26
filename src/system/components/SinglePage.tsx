@@ -183,7 +183,7 @@ export function SinglePage({ locale }: { locale: Locale }) {
     <ClientReference id="Clevery">{t("Un agent pour le cabinet.")}</ClientReference>
     <ClientReference id="Forexpert">{t("Un agent de prospection.")}</ClientReference>
     <ClientReference id="Joone">{t("L'accompagnement des équipes à l'IA.")}</ClientReference>
-    <ClientReference id="SNCF">{t("Un programme de formation, réalisé avec Arkel.")}</ClientReference>
+    <ClientReference id="SNCF">{t("Un programme de formation.")}</ClientReference>
   </div>
   </>}
   <h3 style={{"marginTop": "96px"}}>{t("Les outils avec lesquels nous construisons.")}</h3>
