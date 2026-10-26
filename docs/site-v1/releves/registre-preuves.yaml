@@ -1,0 +1,796 @@
+# REGISTRE DE PREUVES, parrit.ai site V1 : BROUILLON (26/10/2026)
+# Établi en lecture seule, strictement à partir de sources existantes. Aucune permission supposée.
+# Règle : tout ce qui n'est pas prouvé = permission_status: unknown. Rien ici ne vaut autorisation de publier.
+#
+# Abréviations de chemins
+#   WT  = /Users/paullarmaraud/codex-work/wt-site-v1
+#   MEM = /Users/paullarmaraud/.claude/projects/-Users-paullarmaraud/memory
+#   OS  = /Users/paullarmaraud/parrit-os
+#   CAN = /Users/paullarmaraud/parrit-canon
+#   LAND = /Users/paullarmaraud/paul-larmaraud-landing   (NB: src/content/site.ts n'existe pas ; le contenu publié vit dans src/content/copy.ts)
+#   DL  = /Users/paullarmaraud/Downloads
+#
+# Valeurs: relationship_type = direct|via_partner|collaboration|subcontracting|technical_use|unknown
+#          permission_status = granted|refused|unknown
+# Champ ajouté hors spec: "notes" (lecture humaine, jamais affiché).
+# Dates de relecture: revue trimestrielle (spec section 8) => 2027-01-26 sauf mention.
+# Pages proposées (ids): home, conseil-transformation, ai-sprints, engineering-integration, harness-engineering,
+#   realisations, partenaires, ecosysteme, a-propos-equipe, contact
+
+meta:
+  version: "0.1-brouillon"
+  date: "2026-10-26"
+  statut: "BROUILLON, non validé par Paul"
+  verification_reseau: >
+    Lecture publique unique: liste publique des organismes de formation (data.gouv.fr / monactiviteformation.emploi.gouv.fr,
+    CSV quotidien) pour contrôler FORMIA (SIREN 100415884) et l'absence de Parrit.ai (SIREN 928503218). Aucune écriture.
+
+entries:
+
+# ======================================================================
+# 1. CLIENTS (liste autorisée = WT/src/system/public-clients.ts)
+# ======================================================================
+- id: CLI-LAPARRA
+  category: client
+  display_name: "Laparra"
+  relationship_type: direct
+  claim: "Grossiste en fruits et légumes au MIN de Rungis : le CRM dans lequel travaillent ses commerciaux (agent Telegram inclus)."
+  evidence_source:
+    - "WT/src/system/public-clients.ts:2 (nom publiable)"
+    - "OS/REGLES-DOR.md:88 (§6 amendé 25/10 : Laparra autorisé, avec ce qui a été fait)"
+    - "WT/src/app/(rev01)/page.tsx:25 et :106 (libellé actuellement en ligne)"
+    - "MEM/project_laparra_crm.md ; MEM/project_laparra_formation_opco_2640.md (client réel, facture logiciel F-2026-029 payée)"
+  permission_owner: "Paul (autorisation de nommer, 25/10) ; Éric Godard-Durand, Président de Laparra (accord à obtenir pour tout logo ou capture)"
+  permission_status: granted
+  approved_assets: []
+  usage_scope: "NOM seul, en texte, avec la phrase de réalisation ci-dessus. Pas de logo, pas de capture, pas de métrique, pas de citation."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [home, realisations]
+  notes: >
+    Permission de nom = Paul seulement. L'accord d'Éric pour nom + logo sur support dédié est marqué "à obtenir" dans
+    MEM/project_plaquette_crm_laparra_2026_10_04.md:18. Deux NDA signés en mai (05/05 et 20/05) existent et sont incohérents entre eux
+    (MEM/project_laparra_formation_opco_2640.md) : leur éventuelle clause de publicité n'a pas été relue ici (UNKNOWN).
+    Écarts produit réel vs plaquette à ne pas vendre (MEM/project_plaquette_crm_laparra_2026_10_04.md:16).
+
+- id: LOGO-LAPARRA
+  category: client
+  display_name: "Logo Laparra"
+  relationship_type: direct
+  claim: "Affichage du logo Laparra dans un bandeau de confiance."
+  evidence_source:
+    - "WT/AGENTS.md:125 ('Aucun logo ajouté dans ce lot')"
+    - "WT/docs/site-v1/NOTE-CADRAGE.md:11 ('Aucun logo ajouté sans preuve et permission')"
+    - "MEM/project_plaquette_crm_laparra_2026_10_04.md:18 (accord d'Éric à obtenir)"
+    - "Fichier historique non autorisé pour le site: WT/design-source/brand-kit/client-logos/logo-2.png (design-source/site-home.html:40)"
+  permission_owner: "Laparra (Éric Godard-Durand)"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "BLOQUÉ. Aucun logo tant qu'une autorisation écrite de Laparra n'est pas versée au registre."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [home, realisations]
+
+- id: CLI-CLEVERY
+  category: client
+  display_name: "Clevery Avocats (affiché: Clevery Avocats ; clé interne: Clevery)"
+  relationship_type: direct
+  claim: "Un agent pour la messagerie et la veille juridique du cabinet."
+  evidence_source:
+    - "WT/src/system/public-clients.ts:2 et :7 (alias Clevery Avocats)"
+    - "OS/REGLES-DOR.md:88"
+    - "WT/src/app/(rev01)/page.tsx:26 et :107"
+    - "MEM/project_clevery_client.md ; MEM/project_clevery_agent_mail_t1_2026_07_21.md"
+  permission_owner: "Paul (autorisation 25/10) ; Henri Larmaraud, avocat associé de Clevery (à confirmer pour logo)"
+  permission_status: granted
+  approved_assets: []
+  usage_scope: "NOM seul, en texte, avec la phrase de réalisation. Pas de logo, pas de citation."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [home, realisations]
+  notes: >
+    Lien familial à ne pas masquer dans une catégorisation 'client direct' : le cabinet est celui d'Henri Larmaraud, père de Paul
+    (MEM/reference_henri_larmaraud_pere_avocat.md, MEM/project_clevery_client.md). Clevery est aussi un compartiment étanche de Paul
+    (~/.claude/CLAUDE.md : VPS OVH souverain). Le nom est autorisé; ne rien publier de l'infrastructure ni des données.
+    Question ouverte pour Paul: souhaite-t-il une mention de ce lien dans une page de réalisation (honnêteté du bandeau H02) ?
+
+- id: LOGO-CLEVERY
+  category: client
+  display_name: "Logo Clevery Avocats"
+  relationship_type: direct
+  claim: "Affichage du logo Clevery dans un bandeau de confiance."
+  evidence_source:
+    - "WT/AGENTS.md:125"
+    - "Fichier historique non autorisé: WT/design-source/brand-kit/client-logos/logo-5.png (design-source/site-home.html:43)"
+  permission_owner: "Clevery (Henri Larmaraud)"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "BLOQUÉ. Aucune autorisation de logo trouvée."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [home, realisations]
+
+- id: CLI-FOREXPERT
+  category: client
+  display_name: "Forexpert"
+  relationship_type: direct
+  claim: "Un agent de prospection relié à sa messagerie."
+  evidence_source:
+    - "WT/src/system/public-clients.ts:2"
+    - "OS/REGLES-DOR.md:88"
+    - "WT/src/app/(rev01)/page.tsx:27 et :108"
+    - "MEM/project_forexpert_mcp_mail_v1_en_ligne_2026_10_05.md (V1 en ligne depuis 05/10, 40 envois PROMAN réussis au 12/10)"
+  permission_owner: "Paul (autorisation 25/10) ; Dalila (Forexpert) pour tout accord supplémentaire"
+  permission_status: granted
+  approved_assets: []
+  usage_scope: "NOM seul, en texte, avec la phrase de réalisation. Aucun chiffre d'envoi, aucune agence citée."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [home, realisations]
+  notes: >
+    MEM/project_forexpert_s1_seance_15_09_backlog_gtm.md:61 rappelle 'accord explicite de Dalila avant de nommer' (état du 15/09, antérieur
+    à l'autorisation de Paul du 25/10). Cet accord client n'est pas retrouvé par écrit : UNKNOWN. À lever par Paul.
+
+- id: LOGO-FOREXPERT
+  category: client
+  display_name: "Logo Forexpert"
+  relationship_type: direct
+  claim: "Affichage du logo Forexpert."
+  evidence_source: ["Aucun fichier de logo Forexpert trouvé dans WT/design-source/brand-kit/client-logos (non identifié)"]
+  permission_owner: "Forexpert (Dalila)"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "BLOQUÉ. Aucun asset, aucune autorisation."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [home, realisations]
+
+- id: CLI-JOONE
+  category: client
+  display_name: "Joone"
+  relationship_type: direct
+  claim: "Marque de soins pour bébé : l'accompagnement IA de ses équipes (accompagnement facturé, pas un système livré)."
+  evidence_source:
+    - "WT/src/system/public-clients.ts:2"
+    - "OS/REGLES-DOR.md:88 ('accompagnement IA des équipes, pas un système livré')"
+    - "WT/src/app/(rev01)/page.tsx:28 et :109"
+    - "MEM/project_joone_cesar_coaching.md (Option 1 Enablement & Cascade, validée en Codir)"
+    - "MEM/feedback_logo_client_verifier_statut_avant_affichage.md (verbe qui surqualifie interdit)"
+  permission_owner: "Paul (autorisation 25/10) ; César Caulliez (Joone) pour logo"
+  permission_status: granted
+  approved_assets: []
+  usage_scope: "NOM seul, en texte, verbe 'accompagnement' obligatoire. Pas de 'système livré', pas de durée ni de gain (2,5 mois est un claim bloqué)."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [home, realisations]
+
+- id: LOGO-JOONE
+  category: client
+  display_name: "Logo Joone"
+  relationship_type: direct
+  claim: "Affichage du logo Joone."
+  evidence_source:
+    - "Fichier historique non autorisé: WT/design-source/brand-kit/client-logos/logo-4.png (design-source/site-home.html:42)"
+  permission_owner: "Joone (César Caulliez)"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "BLOQUÉ. Aucune autorisation de logo trouvée (la validation du 30/09 porte sur des decks commerciaux, pas sur le site: MEM/feedback_decks_references_clients_avec_logos_2026_10_03.md)."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [home, realisations]
+
+- id: CLI-SNCF
+  category: client
+  display_name: "SNCF"
+  relationship_type: via_partner
+  claim: "Un programme de formation à l'IA, réalisé avec Arkel. Jamais présentée comme client direct de Parrit.ai."
+  evidence_source:
+    - "WT/src/system/public-clients.ts:2"
+    - "OS/REGLES-DOR.md:88"
+    - "WT/TRUTH.md:84 ; WT/AGENTS.md:125 ; WT/src/app/(rev01)/page.tsx:29 et :110"
+    - "MEM/reference_cv_paul_parrit_qualiopi.md:12 (formation IA générative animée le 28/04/2026 pour SNCF Réseau / Université de l'ingénierie, via Arkel)"
+    - "MEM/feedback_logo_client_verifier_statut_avant_affichage.md (SNCF: fiches prospect uniquement dans l'ancien CRM, 09/09)"
+  permission_owner: "Paul (autorisation 25/10) ; SNCF / Arkel pour tout logo (non traité)"
+  permission_status: granted
+  approved_assets: []
+  usage_scope: "NOM seul, en texte, TOUJOURS accompagné de 'avec Arkel'. Pas de logo. Catégorie bandeau: via_partner, jamais 'ils nous font confiance'."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [home, realisations]
+  notes: >
+    Livraison constatée dans les sources: une session le 28/04/2026. Les sessions suivantes (Paul 'formateur officiel via Arkel', 09/06)
+    ne sont pas prouvées comme livrées : UNKNOWN. Le texte actuel dit 'un programme de formation': à garder au singulier factuel.
+    Cette formation n'est PAS sous la certification Qualiopi de FORMIA (aucune source ne l'y rattache).
+
+- id: LOGO-SNCF
+  category: client
+  display_name: "Logo SNCF"
+  relationship_type: via_partner
+  claim: "Affichage du logo SNCF."
+  evidence_source:
+    - "Fichier historique non autorisé: WT/design-source/brand-kit/client-logos/logo-3.png (design-source/site-home.html:41)"
+  permission_owner: "SNCF (charte de marque) via Arkel"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "BLOQUÉ. Aucune autorisation SNCF ou Arkel."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [home, realisations]
+
+- id: CLI-AUTRES-ANONYMISES
+  category: client
+  display_name: "Autres clients (non nommables)"
+  relationship_type: unknown
+  claim: "Tous les autres clients restent anonymisés (cas types)."
+  evidence_source:
+    - "WT/TRUTH.md:84"
+    - "OS/REGLES-DOR.md:88 ('les autres restent en cas types anonymisés tant que Paul ne les a pas autorisés un par un')"
+  permission_owner: "Paul, un par un"
+  permission_status: refused
+  approved_assets: []
+  usage_scope: "Aucun nom, aucun logo, aucun détail identifiant. Le Journal ne nomme AUCUN client, même public (WT/AGENTS.md:125). Une tribune ne parle d'aucun client, même indirect (OS/REGLES-DOR.md:928, §63)."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [home, realisations]
+  notes: >
+    Les pages de réalisations du spec (H04: finance, CRM carte de visite, documents internes) doivent être des cas reconstitués ou
+    anonymisés. Marquer 'simulation / prototype / pilote / en production' (spec section 6).
+    Sur paul-larmaraud.com, Paul affiche d'autres noms (LAND/src/content/copy.ts:514-521) : c'est un site personnel, pas une autorité
+    pour parrit.ai; l'un de ces noms avait un statut 'perdu' en base le 09/09 (MEM/feedback_logo_client_verifier_statut_avant_affichage.md).
+
+# ======================================================================
+# 2. PARTENAIRES (contrat / collaboration / simple usage)
+# ======================================================================
+- id: PAR-ARKEL
+  category: partner
+  display_name: "Arkel"
+  relationship_type: collaboration
+  claim: "Partenaire de la formation SNCF (et de projets de transformation de grands groupes). Paul y a aussi exercé (GTM, mai 2024 à nov. 2025)."
+  evidence_source:
+    - "OS/REGLES-DOR.md:88 (SNCF 'avec Arkel')"
+    - "MEM/reference_cv_paul_parrit_qualiopi.md:12 et :18 (Arkel/ex-Enephtys, GTM, mai 2024 à nov. 2025)"
+    - "MEM/reference_arkel_accord_reutilisation_rebranding.md (accord oral de réutiliser des decks, 04/09 ; ne pas présenter ce contenu comme référence client Parrit)"
+    - "LAND/src/content/copy.ts:521 (Paul publie Arkel sur son site personnel)"
+  permission_owner: "Arkel (dirigeant) ; Paul"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Nom autorisé UNIQUEMENT dans la formule 'avec Arkel' liée à la ligne SNCF. Pas de logo ni de page partenaire sans accord d'Arkel."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [home, partenaires]
+  notes: >
+    Pas de contrat Arkel retrouvé (UNKNOWN). L'accord de réutilisation est oral et couvre des decks, pas un usage de marque.
+    Le mémo MEM/project_registre_partenaires_prod_prestataires_2026_08_19.md:27 note que Paul n'a jamais clarifié le lien Arkel (laissé hors registre).
+    Selon MEM/project_laparra_formation_opco_2640.md, 'Arkel/DISTRIME' (SIREN 890293301) est un organisme distinct: à confirmer avant d'afficher une raison sociale.
+
+- id: PAR-DENEM
+  category: partner
+  display_name: "DENEM Labs LLC"
+  relationship_type: subcontracting
+  claim: "Partenaire technique (sous-traitant technique) sur certains projets; fournisseur de profils d'ingénierie."
+  evidence_source:
+    - "MEM/project_storesdiscount_simon_prototype_2026_08_20.md:18 (Simon Heilles, fondateur Denem Labs, partenaire technique)"
+    - "MEM/project_yol_industrie_contrat_cotraitance_2026_09_11.md:20-30 (Simon 'sous-traitant technique' dans un montage tripartite; autre société citée, US)"
+    - "CAN/ontology-research/toyotomi-fixture/parite/hiolle.fixture.yaml:50 (DENEM Labs LLC, role sous_traitant_technique_de_parrit)"
+    - "MEM/project_signature_denem_portail_2026_10_05.md (contrat en cours de signature, signature de Simon non constatée)"
+  permission_owner: "DENEM Labs (Simon Heilles)"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Aucune mention publique tant que: (1) contrat signé, (2) accord écrit de DENEM sur le nom, le rôle et le logo."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [partenaires, a-propos-equipe]
+  notes: >
+    Interdit de présenter comme partenaire scientifique ou institutionnel. Contrat non confirmé signé au dernier état (05/10).
+    L'entité contractante varie selon les sources ('DENEM Labs LLC' vs société US distincte dans le dossier YOL): UNKNOWN.
+    Le harnais de Paul a été donné à Simon par dépôt privé le 25/10 (MEM/project_harnais_partage_simon_heilles_2026_10_25.md): don sans cadre, ne prouve aucun contrat.
+
+- id: PAR-MAXIME
+  category: partner
+  display_name: "Maxime (partenaire, développement CRM)"
+  relationship_type: collaboration
+  claim: "Partenaire développeur du CRM; non salarié."
+  evidence_source:
+    - "MEM/MEMORY.md (ligne 'Yukun... Maxime = partenaire, dév. CRM')"
+    - "MEM/project_passation_laparra_yukun_maxime_2026_07_28.md"
+    - "MEM/feedback_deck_presente_par_paul_premiere_personne.md (pas de Maxime cité dans un deck présenté par Paul)"
+  permission_owner: "Maxime lui-même"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Aucun nom ni photo. Si la section 'qui fait quoi' (H11) l'évoque: 'partenaire de développement', sans nom, sans le faire passer pour un salarié."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [a-propos-equipe]
+  notes: "Nom de famille présent en mémoire mais non nécessaire: non reproduit. Statut contractuel (société, partage) UNKNOWN."
+
+- id: PAR-ACTON
+  category: partner
+  display_name: "Partenaire intégrateur de conseil (non nommé)"
+  relationship_type: collaboration
+  claim: "Partenaires de conseil avec qui Parrit.ai co-livre des projets d'entreprise (contrats de co-traitance)."
+  evidence_source:
+    - "MEM/project_yol_industrie_contrat_cotraitance_2026_09_11.md:20-30 (montage co-traitance, rôles)"
+    - "MEM/project_hiolle_actongroup_calliope_formia_opco_2026_09_16.md (Parrit.ai socle technique, partenaire formation)"
+  permission_owner: "Chaque partenaire concerné"
+  permission_status: refused
+  approved_assets: []
+  usage_scope: "Aucun nom de partenaire de conseil, ni de leurs clients. Les clients finaux liés ne sont pas dans public-clients.ts (donc non nommables)."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [partenaires]
+  notes: "Entrée volontairement anonyme: citer le partenaire révélerait des clients non autorisés. Voir CLI-AUTRES-ANONYMISES."
+
+- id: PAR-NICOLAS-ENGEL
+  category: partner
+  display_name: "Prestataire d'accompagnement à la création de l'organisme de formation (non nommé)"
+  relationship_type: subcontracting
+  claim: "A accompagné la mise en place de FORMIA (NDA, Qualiopi). Hors site public."
+  evidence_source:
+    - "MEM/project_nicolas_engel_makemyos_partenaire_of.md (chronologie vérifiée 11/09)"
+  permission_owner: "Intéressé"
+  permission_status: refused
+  approved_assets: []
+  usage_scope: "Aucune mention publique. Relation privée, pas de valeur de preuve pour un dirigeant."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: []
+
+- id: PAR-ETHAN-OPCO
+  category: partner
+  display_name: "Apporteur formations financées OPCO (non nommé)"
+  relationship_type: collaboration
+  claim: "Apporteur d'affaires (partage de revenus 25 %, en cours de formalisation en septembre)."
+  evidence_source:
+    - "MEM/reference_ethan_rameau_partenaire_qualiopi.md (note: la Qualiopi mentionnée là a été corrigée: l'OF certifié est FORMIA)"
+  permission_owner: "Intéressé"
+  permission_status: refused
+  approved_assets: []
+  usage_scope: "Aucune mention publique. Ne jamais lui attribuer la certification Qualiopi: l'ancienne note de mémoire est périmée sur ce point."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: []
+
+# ======================================================================
+# 3. CHERCHEURS / PARTENAIRES SCIENTIFIQUES / MIT
+# ======================================================================
+- id: RES-AUCUNE-SOURCE
+  category: researcher
+  display_name: "Aucune source trouvée"
+  relationship_type: unknown
+  claim: "Aucune source écrite (dépôts, canon, mémoire, docs, site personnel) ne nomme de chercheur affilié à une institution et vérifiée comme tel. Aucun contrat, publication ou page institutionnelle trouvé."
+  evidence_source:
+    - "Recherches: wt-site-v1, parrit-canon, parrit-os/docs, mémoire, paul-larmaraud-landing (mots-clés MIT, chercheur, researcher, scientifique, laboratoire, PhD)"
+    - "Seules pistes: RES-CANDIDAT-SIMON (affiliation non vérifiée) et MIT-INSTITUTION"
+  permission_owner: "n/a"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "La section H09 'Partenaires scientifiques' reste en état vide élégant (spec 11, étape 2) tant que Paul n'a pas fourni: noms, affiliation vérifiable, rôle, accord écrit."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [partenaires, a-propos-equipe]
+
+- id: RES-CANDIDAT-SIMON
+  category: researcher
+  display_name: "Candidat interne à qualifier: fondateur de DENEM Labs (nom connu en mémoire, non reproduit ici)"
+  relationship_type: subcontracting
+  claim: "UNKNOWN. La mémoire le décrit tantôt 'chercheur MIT', tantôt 'publication MIT', tantôt 'expert technique IA'. Aucune preuve primaire (publication, page d'affiliation, e-mail institutionnel) trouvée."
+  evidence_source:
+    - "MEM/project_storesdiscount_simon_prototype_2026_08_20.md:18 ('Chercheur MIT', rédigé par Claude, non sourcé)"
+    - "MEM/project_yol_industrie_contrat_cotraitance_2026_09_11.md:27 ('publication MIT, sollicité Silicon Valley', propos de Paul rapportés)"
+    - "MEM/project_acton_pilote_maj_meeting_24_09_2026.md:62 et :71 ('Chercheur du MIT' retiré des decks: seule trace = mail du 20/08 'travaille avec le MIT'; 'MIT clos')"
+    - "MEM/project_anne_sophie_gardent_la_francaise_2026_10_04.md:16 ('chercheurs au MIT: non sourcé, à étayer')"
+    - "MEM/project_hiolle_dsi_discovery_deck_2026_08_18.md:132 ('niveau Palantir/MIT' = référence de style d'un schéma, pas une affiliation)"
+  permission_owner: "La personne concernée + son employeur éventuel"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "INTERDIT: nom, photo, titre, citation, mention 'MIT'. Tant que l'affiliation n'est pas prouvée, la personne ne peut figurer qu'au titre de PAR-DENEM, et seulement après accord de DENEM."
+  expiration_or_review_date: "2026-11-30"
+  last_verified: "2026-10-26"
+  page_ids: [partenaires]
+  notes: >
+    Décision déjà prise sur les supports Act-On le 30/09 ('Expert technique IA', MIT retiré). Le site doit suivre la même ligne.
+    Un test automatique 'aucune attribution MIT institutionnelle' doit distinguer ce cas de la licence logicielle MIT (voir TECH-HERMES).
+
+- id: MIT-INSTITUTION
+  category: entity
+  display_name: "Massachusetts Institute of Technology (nom et logo)"
+  relationship_type: unknown
+  claim: "Aucune relation institutionnelle entre Parrit.ai et le MIT n'est documentée."
+  evidence_source:
+    - "WT/docs/site-v1/PARRIT_SITE_SPEC_V1_2026-10-26.md:163 et :199 (ne pas appeler le MIT 'partenaire institutionnel', pas de logo sans preuve et autorisation)"
+    - "Recherche de contrats, courriers, accords: aucun résultat"
+  permission_owner: "MIT (via un contact institutionnel; non applicable en l'état)"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "INTERDIT: logo, 'partenaire du MIT', 'avec le MIT', 'issu du MIT'. Citer un rapport public du MIT (ex.: LNE-06) reste une citation de source, pas une relation."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [partenaires]
+  notes: "Source publique citée dans OS/docs/super-app/articles/LNE-06-la-feuille-de-route-ia-commence-par-les-metiers.md:24 et :34 (rapport MIT NANDA): c'est une citation, pas un lien."
+
+- id: RES-PUBLICATION-NOM-PERSONNE
+  category: researcher
+  display_name: "Règle de marque: aucun nom de personne hors mentions légales"
+  relationship_type: unknown
+  claim: "La décision de Paul du 12/10/2026 (marque unifiée Parrit.ai) interdit tout nom de personne hors /legal; la spec H09 demande des profils individuels nommés."
+  evidence_source:
+    - "WT/TRUTH.md:122 ; WT/AGENTS.md:127"
+    - "WT/docs/site-v1/PARRIT_SITE_SPEC_V1_2026-10-26.md:162 (profils individuels)"
+  permission_owner: "Paul"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Conflit à arbitrer par Paul avant toute ScientificPartnerCard nommée."
+  expiration_or_review_date: "2026-11-02"
+  last_verified: "2026-10-26"
+  page_ids: [partenaires, a-propos-equipe]
+
+# ======================================================================
+# 4. ENTITÉS, FORMIA, QUALIOPI
+# ======================================================================
+- id: ENT-PARRIT
+  category: entity
+  display_name: "PARRIT.AI (SAS)"
+  relationship_type: direct
+  claim: "Société éditrice du site. Non certifiée Qualiopi et absente de la liste publique des organismes de formation."
+  evidence_source:
+    - "CAN/ontology-research/toyotomi-fixture/parite/hiolle.fixture.yaml:56 (RCS Nanterre 928 503 218)"
+    - "MEM/project_audit_sites_verite_lisibilite_2026_10_08.md:15 ('FORMIA est Qualiopi, Parrit.ai ne l'est pas')"
+    - "Liste publique OF, interrogée le 2026-10-26: aucune ligne pour SIREN 928503218 ni dénomination PARRIT"
+  permission_owner: "Paul"
+  permission_status: granted
+  approved_assets: []
+  usage_scope: "Mentions légales seulement. Siège: sources divergentes (Rueil-Malmaison vs adresse du tampon de contresignature 'Croix'); à relire dans /legal."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [ecosysteme]
+
+- id: ENT-FORMIA
+  category: entity
+  display_name: "FORMIA (affichage à fixer: 'Formia' dans la spec, 'FormIA' dans TRUTH.md, 'FORMIA' sur le certificat et au registre)"
+  relationship_type: collaboration
+  claim: "Organisme de formation (SAS, SIREN 100415884, NDA 11757517475) lié à Parrit.ai. Relation capitalistique et de direction NON publiable en l'état."
+  evidence_source:
+    - "DL/LAPARRA-DOSSIER-2026-09-14/pieces/formia/FormIA-Certificat-Qualiopi-ATA-1926-2026.pdf (certificat ATALIA, empreinte md5 882e25f3…, identique à ~/Desktop/QUALIOPI FORMIA.pdf)"
+    - "Liste publique OF, 2026-10-26: FORMIA, SIREN 100415884, NDA 11757517475, certifications.actionsDeFormation = true"
+    - "WT/TRUTH.md:17 ('FormIA est l'organisme de formation de Parrit.ai, sans site propre')"
+    - "WT/docs/site-v1/PARRIT_SITE_SPEC_V1_2026-10-26.md:26, :85, :167 (texte de Paul: montrer Formia)"
+    - "MEM/project_laparra_formation_opco_2640.md (ordre de mouvement de titres: acquéreur PARRIT.AI, 100/100 actions, 13/05/2026; président inscrit encore Lacangel Group au registre)"
+  permission_owner: "Paul (FORMIA); dirigeant légal de FORMIA à confirmer"
+  permission_status: granted
+  approved_assets: []
+  usage_scope: "Nom, rôle 'organisme de formation', certification Qualiopi de FORMIA (voir CERT-QUALIOPI-FORMIA). Aucune mention de capital, de présidence ni de pourcentage."
+  expiration_or_review_date: "2026-11-30"
+  last_verified: "2026-10-26"
+  page_ids: [ecosysteme, conseil-transformation, a-propos-equipe]
+  notes: >
+    Sources contradictoires sur l'actionnariat et la présidence: Parrit.ai associé unique 100/100 (MEM, actes du 13/05) vs 100/1000 (10 %) avec
+    cession de 900 actions 'prévue 29/09, exécution UNKNOWN' (CAN/…/hiolle.fixture.yaml:57); président inscrit Lacangel Group au registre (28/09),
+    puis Parrit.ai 'présidente' selon le Kbis du 05/10 (MEM/project_laparra_formation_opco_2640.md) et MEM/project_audit_sites_verite_lisibilite_2026_10_08.md:15.
+    Le spec interdit d'inventer un schéma capitalistique : ne rien écrire. 'Granted' porte sur le NOM, par le texte même de Paul (spec).
+
+- id: CERT-QUALIOPI-FORMIA
+  category: certification
+  display_name: "Certification Qualiopi de FORMIA"
+  relationship_type: collaboration
+  claim: "FORMIA (et non Parrit.ai) est certifiée au titre du référentiel national qualité (Qualiopi), catégorie 'Actions de formation' (L6313-1 1°), certificat ATA 1926 2026 délivré par ATALIA Certification, valable du 26/05/2026 au 25/05/2029, site 1 rue Marguerin 75014 Paris."
+  evidence_source:
+    - "DL/LAPARRA-DOSSIER-2026-09-14/pieces/formia/FormIA-Certificat-Qualiopi-ATA-1926-2026.pdf (lu en entier le 2026-10-26)"
+    - "Liste publique OF 2026-10-26: actionsDeFormation=true, bilansDeCompetences=false, VAE=false, apprentissage=false"
+    - "~/Downloads/NDA Félicitations Qualiopi.pdf (déclaration d'activité DRIEETS Île-de-France, 17/02/2026)"
+  permission_owner: "FORMIA (Paul) ; ATALIA Certification pour les règles d'usage de la marque/logo"
+  permission_status: unknown
+  approved_assets:
+    - "WT/public/brand/qualiopi-formia.png (présent dans le dépôt, non rendu depuis le 05/10)"
+    - "~/Downloads/_Images/Logo Qualiopi avec Marianne.png (non versé au dépôt)"
+  usage_scope: >
+    PUBLIABLE seulement après deux gestes de Paul: (1) lever le claim bloqué DS-013 / claims.json:328 ('numéro non vérifié, entité tierce'),
+    désormais vérifiable contre le certificat primaire; (2) valider la formulation et l'affichage de la mention obligatoire (catégorie).
+    Toujours libellé 'FORMIA est certifiée', jamais 'Parrit.ai est certifié'. Pas de lien avec les formations données au nom de Parrit.ai.
+  expiration_or_review_date: "2026-11-30"
+  last_verified: "2026-10-26"
+  page_ids: [ecosysteme, conseil-transformation]
+  notes: >
+    Mention obligatoire (règle générale de la marque Qualiopi, NON versée dans les sources du dépôt, à confirmer auprès d'ATALIA/charte du ministère):
+    le logo Qualiopi s'accompagne de 'La certification qualité a été délivrée au titre de la catégorie suivante : actions de formation'.
+    Le certificat est valable 'sous réserve du respect des caractéristiques certifiées' : contrôle à prévoir avant d'afficher l'échéance 2029.
+    Sources internes encore contradictoires sur 'qui porte le Qualiopi' avant juin (MEM/project_delivery_proof_layer_2026_09_12.md:60): le certificat tranche, c'est FORMIA.
+
+- id: ENT-ATALIA
+  category: entity
+  display_name: "ATALIA Certification"
+  relationship_type: unknown
+  claim: "Organisme certificateur de FORMIA (accréditation Cofrac n°5-0628)."
+  evidence_source: ["Certificat ATA 1926 2026, pied de page (lu le 2026-10-26)"]
+  permission_owner: "ATALIA Certification"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Mention factuelle sur la page ecosysteme au plus. Pas de logo ATALIA sans autorisation."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [ecosysteme]
+
+- id: ENT-CALYPIE
+  category: entity
+  display_name: "Calypie / Calypy / Calliope"
+  relationship_type: unknown
+  claim: "AUCUNE entité de ce nom. Erreur de dictée pour 'Qualiopi' (Paul, 26/10/2026; déjà observé le 16/09: Jarvis écrit 'Calliope'/'Calypy' pour Qualiopi)."
+  evidence_source:
+    - "WT/docs/site-v1/NOTE-CADRAGE.md:6"
+    - "MEM/project_hiolle_actongroup_calliope_formia_opco_2026_09_16.md:11"
+    - "MEM/feedback_calliope_jamais_mentionner_qualiopi_oui.md (ne jamais écrire Calliope dans un livrable externe)"
+  permission_owner: "Paul"
+  permission_status: refused
+  approved_assets: []
+  usage_scope: "Ne jamais publier 'Calypie' ni 'Calliope'. Le test de preuve doit les rejeter."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: []
+
+# ======================================================================
+# 5. TECHNOLOGIES (statuts: production / projet / expérimenté / compatible; jamais 'partenariat')
+# Logos: aucune charte de marque fournisseur lue. Le logo n'est autorisé qu'après lecture de sa charte.
+# Une mention TEXTE nominative d'un outil effectivement utilisé est proposée comme défendable, à valider par Paul.
+# ======================================================================
+- id: TECH-SUPABASE
+  category: technology
+  display_name: "Supabase"
+  relationship_type: technical_use
+  claim: "Statut: intégré en production (base de données des systèmes Parrit; PostgREST/RPC du CRM Laparra)."
+  evidence_source: ["~/.claude/CLAUDE.md:107 (stack canon)", "MEM/project_plaquette_crm_laparra_2026_10_04.md:12 (requêtes PostgREST/RPC)"]
+  permission_owner: "Supabase Inc. (charte de marque non lue)"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Texte nominatif proposé; logo bloqué. Ne pas écrire 'partenaire'."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [engineering-integration]
+
+- id: TECH-OPENROUTER
+  category: technology
+  display_name: "OpenRouter"
+  relationship_type: technical_use
+  claim: "Statut: intégré en production (accès LLM unique des systèmes Parrit)."
+  evidence_source: ["~/.claude/CLAUDE.md:107", "LAND/src/content/copy.ts:377"]
+  permission_owner: "OpenRouter (charte non lue)"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Texte nominatif proposé; logo bloqué."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [engineering-integration]
+
+- id: TECH-N8N
+  category: technology
+  display_name: "n8n"
+  relationship_type: technical_use
+  claim: "Statut: intégré en production (n8n auto-hébergé; workflows de veille chez un client)."
+  evidence_source: ["~/.claude/CLAUDE.md:107-109 (n8n self-hosted)", "MEM/project_clevery_client.md (veille juridique n8n)"]
+  permission_owner: "n8n GmbH (charte non lue)"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Texte nominatif proposé; logo bloqué."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [engineering-integration]
+
+- id: TECH-TELEGRAM
+  category: technology
+  display_name: "Telegram"
+  relationship_type: technical_use
+  claim: "Statut: intégré en production (canal des agents: Laparra, Clevery)."
+  evidence_source: ["MEM/project_plaquette_crm_laparra_2026_10_04.md:16 ('l'agent est un bot Telegram')", "MEM/project_clevery_client.md"]
+  permission_owner: "Telegram (charte non lue)"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Texte nominatif proposé; ne jamais écrire 'agent WhatsApp'."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [engineering-integration]
+
+- id: TECH-CLAUDE
+  category: technology
+  display_name: "Claude / Claude Code (Anthropic)"
+  relationship_type: technical_use
+  claim: "Statut: utilisé sur projet (outil de construction et de relecture; harnais)."
+  evidence_source: ["~/.claude/CLAUDE.md (§25)", "LAND/src/content/copy.ts:369"]
+  permission_owner: "Anthropic (charte non lue)"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Texte nominatif proposé; aucun logo, aucun 'partenaire Anthropic'."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [engineering-integration, harness-engineering]
+
+- id: TECH-CODEX
+  category: technology
+  display_name: "Codex (OpenAI)"
+  relationship_type: technical_use
+  claim: "Statut: utilisé sur projet (écriture du code de production, relu par Claude)."
+  evidence_source: ["~/.claude/CLAUDE.md (§25)", "LAND/src/content/copy.ts:370"]
+  permission_owner: "OpenAI (charte non lue)"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Texte nominatif proposé; logo bloqué."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [engineering-integration, harness-engineering]
+
+- id: TECH-GEMINI
+  category: technology
+  display_name: "Gemini (Google)"
+  relationship_type: technical_use
+  claim: "Statut: intégré en production sur un système client (modèle google/gemini-2.5-flash du bot Clevery, état de mai/juin)."
+  evidence_source: ["MEM/project_clevery_client.md", "LAND/src/content/copy.ts:371"]
+  permission_owner: "Google (charte non lue)"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Texte nominatif proposé; modèle exact à revérifier (daté)."
+  expiration_or_review_date: "2026-11-30"
+  last_verified: "2026-10-26"
+  page_ids: [engineering-integration]
+
+- id: TECH-DEEPSEEK
+  category: technology
+  display_name: "DeepSeek"
+  relationship_type: technical_use
+  claim: "Statut: utilisé sur projet (modèles cités comme runtime Parrit via OpenRouter dans la doctrine interne)."
+  evidence_source: ["~/.claude/CLAUDE.md (section Modèle et budget)", "LAND/src/content/copy.ts:372"]
+  permission_owner: "DeepSeek (charte non lue)"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Texte nominatif seulement si Paul confirme l'usage en production; sinon 'compatible'. Ne rien dire de souveraineté."
+  expiration_or_review_date: "2026-11-30"
+  last_verified: "2026-10-26"
+  page_ids: [engineering-integration]
+
+- id: TECH-MISTRAL-GROK-KIMI-CHATGPT
+  category: technology
+  display_name: "Mistral, Grok, Kimi, ChatGPT"
+  relationship_type: unknown
+  claim: "Cités comme 'pratiqués' sur le site personnel de Paul (15/08). Statut de production sur un système livré: UNKNOWN."
+  evidence_source: ["LAND/src/content/copy.ts:363-378 (liste d'outils choisie par Paul pour son site)"]
+  permission_owner: "Chaque éditeur"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Pas affichés tant que le statut (production / projet / expérimenté / compatible) n'est pas prouvé. Forexpert utilise ChatGPT côté client (MEM/project_forexpert_mcp_mail_v1_en_ligne_2026_10_05.md): connecteur compatible, pas intégration Parrit à nommer sans accord."
+  expiration_or_review_date: "2026-11-30"
+  last_verified: "2026-10-26"
+  page_ids: [engineering-integration]
+
+- id: TECH-HERMES
+  category: technology
+  display_name: "Hermes Agent (Nous Research, licence MIT)"
+  relationship_type: technical_use
+  claim: "Agent open source utilisé dans l'architecture; jamais présenté comme technologie propriétaire de Parrit. Attribution obligatoire mot pour mot: 'Hermes Agent, open source by Nous Research, MIT License.'"
+  evidence_source:
+    - "WT/docs/design-system/12_AGENT_INSTRUCTIONS.md:86"
+    - "WT/docs/design-system/PARRIT-TECH-TRUST-V1.md:79"
+    - "WT/docs/design-system/PARRIT-COPY-RESET-V1.md:82"
+  permission_owner: "Nous Research (licence MIT du logiciel)"
+  permission_status: granted
+  approved_assets: []
+  usage_scope: "Texte avec attribution complète. ATTENTION: 'MIT' désigne ici la licence logicielle, pas l'institution. Le test 'aucune attribution MIT' doit exclure ce motif précis."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [harness-engineering, engineering-integration]
+  notes: "Les contenus 'design-system' sont des archives du prototype (WT/AGENTS.md: historiques). L'attribution reste la règle écrite la plus récente; à confirmer que Hermes est encore dans la stack de production (Clevery utilise un profil Hermes en 2026)."
+
+# ======================================================================
+# 6. SOLUTIONS PROPRIÉTAIRES (détenteur des droits à confirmer AVANT le mot 'propriétaire')
+# ======================================================================
+- id: PROP-CRM-LAPARRA
+  category: proprietary_solution
+  display_name: "CRM Laparra"
+  relationship_type: direct
+  claim: "Outil construit pour un client; les outils construits appartiennent au client (TRUTH.md:17). Non 'propriétaire Parrit'."
+  evidence_source: ["WT/TRUTH.md:17", "MEM/project_laparra_contrat_maintenance_deck_30_09.md (contrat consolidé du 29/09, clauses de propriété non relues ici)"]
+  permission_owner: "Laparra"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Ne pas écrire 'notre solution propriétaire'. Dire 'construit avec eux'. Le code est développé avec un partenaire (voir PAR-MAXIME): détenteur UNKNOWN."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [realisations, engineering-integration]
+
+- id: PROP-HARNAIS
+  category: proprietary_solution
+  display_name: "Harnais Parrit (hooks, règles, skills, orchestration)"
+  relationship_type: direct
+  claim: "Harnais de travail agentique de Paul/Parrit.ai (base de la page Harness Engineering)."
+  evidence_source: ["MEM/project_harnais_partage_simon_heilles_2026_10_25.md (copie anonymisée dans un dépôt privé)", "MEM/project_offre_harnais_ia_cadrage_2026_10_21.md (offre en cadrage)"]
+  permission_owner: "Paul / PARRIT.AI (détention des droits à confirmer)"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Pas de 'propriétaire' ni de capture tant que la détention des droits et l'anonymisation ne sont pas confirmées. Pas de mesure de fiabilité sans test réel (spec H07)."
+  expiration_or_review_date: "2026-11-30"
+  last_verified: "2026-10-26"
+  page_ids: [harness-engineering]
+  notes: "Le harnais contient des composants tiers (licences). Un don à un tiers a eu lieu le 25/10: vérifier qu'il ne vaut pas cession."
+
+- id: PROP-STANDARD-PARRIT
+  category: proprietary_solution
+  display_name: "Standard Parrit"
+  relationship_type: direct
+  claim: "Contrôle interne de Parrit.ai appliqué à chaque système; PAS une accréditation ni une certification."
+  evidence_source: ["WT/TRUTH.md:63", "CAN/brand/verbal/claims.json (bloqué: 'certified to the same specification (STD-1.0)')"]
+  permission_owner: "Paul"
+  permission_status: granted
+  approved_assets: []
+  usage_scope: "Toujours 'contrôle interne'. Jamais près du mot Qualiopi."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [home, engineering-integration]
+
+- id: PROP-CONTENT-FACTORY
+  category: proprietary_solution
+  display_name: "Content Factory"
+  relationship_type: direct
+  claim: "Retirée du catalogue commercial, des verticales et de la navigation par la spec du 26/10; outil marketing interne possible."
+  evidence_source: ["WT/docs/site-v1/PARRIT_SITE_SPEC_V1_2026-10-26.md:27, :302", "WT/TRUTH.md:28 (capacité 6 'Content Factories', canon du 26/10 non encore mis à jour)"]
+  permission_owner: "Paul"
+  permission_status: refused
+  approved_assets: []
+  usage_scope: "Absente de la navigation, des offres et des preuves du site V1."
+  expiration_or_review_date: "2026-11-02"
+  last_verified: "2026-10-26"
+  page_ids: []
+  notes: "Écart déjà noté dans NOTE-CADRAGE.md:9: TRUTH.md et la définition canonique devront être alignés dans le même lot."
+
+# ======================================================================
+# 7. MÉTRIQUES ET AFFIRMATIONS CHIFFRÉES
+# ======================================================================
+- id: MET-BLOQUEES
+  category: metric
+  display_name: "Chiffres et formulations déjà bloqués"
+  relationship_type: unknown
+  claim: "Interdits sans méthode ni période: '200+ signals/semaine', '+5 à 10 k€ de CA/mois', '2,5 mois récupérés', 'deux à quatre semaines', '14 jours', '-40 %', '15/135/185 agents', 'dizaines d'entreprises', 'certified to the same specification'."
+  evidence_source: ["CAN/brand/verbal/claims.json:294-340 (liste blocked)", "WT/docs/CODEX-SPEC-2026-10-05-parrit-ai-corrections-v1.md:16-38"]
+  permission_owner: "Paul"
+  permission_status: refused
+  approved_assets: []
+  usage_scope: "Aucun chiffre sur le site V1 sans méthode de mesure, période et source. Le titre de bandeau H02 ne porte aucun compteur."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [home, realisations]
+
+- id: MET-ANCIENNETE
+  category: metric
+  display_name: "Ancienneté: 'depuis trois ans'"
+  relationship_type: unknown
+  claim: "Faux pour Parrit.ai (fondée en mai 2024 selon les documents écrits). Ancienneté personnelle de Paul en IA appliquée: affirmée par Paul sur son site (LAND copy.ts:287)."
+  evidence_source: ["CAN/brand/verbal/claims.json:300-301", "LAND/src/content/copy.ts:287 et :297"]
+  permission_owner: "Paul"
+  permission_status: refused
+  approved_assets: []
+  usage_scope: "Pas de durée d'existence de Parrit.ai sur le site sans date de création vérifiée au Kbis."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [home, a-propos-equipe]
+
+- id: MET-CENTAINES-AGENTS
+  category: metric
+  display_name: "'Des centaines d'agents mis en production'"
+  relationship_type: unknown
+  claim: "Affirmation publiée par Paul sur paul-larmaraud.com; aucun décompte sourcé trouvé (les compteurs 15/135/185 ont été retirés le 07/08)."
+  evidence_source: ["LAND/src/content/copy.ts:290", "CAN/brand/verbal/claims.json (compteurs retirés)"]
+  permission_owner: "Paul"
+  permission_status: unknown
+  approved_assets: []
+  usage_scope: "Ne pas reprendre sur parrit.ai sans décompte réel daté."
+  expiration_or_review_date: "2026-11-30"
+  last_verified: "2026-10-26"
+  page_ids: [home]
+
+- id: MET-SPRINT-DELAI
+  category: metric
+  display_name: "Délai d'un AI Sprint"
+  relationship_type: unknown
+  claim: "Aucun délai fixe promis (spec:71). Le '14 jours' historique est bloqué."
+  evidence_source: ["WT/docs/site-v1/PARRIT_SITE_SPEC_V1_2026-10-26.md:71, :141", "CAN/brand/verbal/claims.json (bloqué)"]
+  permission_owner: "Paul"
+  permission_status: refused
+  approved_assets: []
+  usage_scope: "Aucun nombre de jours sur la page AI Sprints."
+  expiration_or_review_date: "2027-01-26"
+  last_verified: "2026-10-26"
+  page_ids: [ai-sprints]

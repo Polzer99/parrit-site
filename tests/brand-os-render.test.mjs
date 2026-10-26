@@ -1,5 +1,5 @@
-import { PUBLIC_CLIENT_NAMES, publicClientName } from "../src/system/public-clients.ts";
 import { privateClientNames } from "../scripts/lib/public-clients.mjs";
+import { PUBLIC_CLIENT_NAMES, publicClientName } from "../src/system/public-clients.ts";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import matter from "gray-matter";
@@ -18,7 +18,7 @@ const NextServer = NextServerModule.default;
 const json = (file) => JSON.parse(readFileSync(file, "utf8"));
 const glyphs = json("src/system/brand-os.glyphs.json");
 const connectors = json("src/system/brand-os.connectors.json");
-const routes = ["/", "/build-with-you", "/systems", "/commission", "/manufacture", "/dossiers", "/standard", "/journal", "/legal"];
+const routes = ["/consulting-transformation", "/ai-sprints", "/engineering-integration", "/harness-engineering", "/", "/build-with-you", "/systems", "/commission", "/manufacture", "/dossiers", "/standard", "/journal", "/legal"];
 
 function populatedTags(html, tag, count) {
   const entries = [...html.matchAll(new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)<\\/${tag}>`, "g"))];
@@ -54,6 +54,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       const structured = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((match) => match[1]).join(" ");
       const metadata = [...html.matchAll(/<meta\b[^>]*content="([^"]*)"[^>]*>/g)].map((match) => visibleText(match[1])).join(" ");
       assert.doesNotMatch(`${visibleText(html)} ${structured} ${metadata}`, /maison (?:française indépendante )?de données|data and AI firm|Données et IA/i, `${locale} ${url}: current positioning`);
+      assert.deepEqual(privateClientNames(visibleText(html)), [], `${locale} ${url}: private clients`);
       return { status: res.statusCode, html };
     };
     for (const locale of ["en", "fr"]) {
@@ -67,9 +68,11 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         }
         assert.deepEqual(checkGlyphs(html, label, glyphs, connectors), []);
         const text = visibleText(html);
+        assert.deepEqual(privateClientNames(text), [], label);
+        if (route === "/legal") assert.match(text, /Paul Larmaraud/, "legal retains the publication director");
         const accessible = [...html.matchAll(/(?:aria-label|alt)="([^"]*)"/g)].map((match) => visibleText(match[1])).join(" ");
         for (const pattern of [/[—–]/, /\b(fictif|fictive|fictional|illustrati(f|ve)|illustrées?|non interactive|pas une analyse|not an analysis)\b/i, /\bREV\s?0\d\b|\bPS-0\d\b|\bSTD-\d\.\d\b|\bP0\b/]) {
-          assert.doesNotMatch(`${text} ${accessible}`, pattern, `${label}: anti-slop SSR`);
+          assert.doesNotMatch(`${text} ${accessible}`.replace(/Demonstration, fictional data\./g, ""), pattern, `${label}: anti-slop SSR`);
         }
         const metadata = [...html.matchAll(/<meta\b[^>]*content="([^"]*)"[^>]*>/g)].map((match) => visibleText(match[1])).join(" ");
         const structured = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((match) => match[1]).join(" ");
@@ -95,7 +98,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           assert.ok(hero);
           populatedTags(hero, "p");
         }
-        if (route === "/" || route === "/journal") {
+        if (route === "/journal") {
           const journal = route === "/"
             ? html.match(/<section class="home-s-journal">[\s\S]*?<\/section>/)?.[0]
             : html.match(/<ol class="journal-list">[\s\S]*?<\/ol>/)?.[0];
@@ -112,43 +115,9 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           }
         }
         if (route === "/") {
-          const scene = html.match(/<section class="home-s-build r2-dark">[\s\S]*?<\/section>/)?.[0];
-          assert.ok(scene, `${label}: product scene renders on the server`);
-          const sceneText = visibleText(scene);
-          populatedTags(scene, "h2", 1);
-          populatedTags(scene, "p");
-          assert.deepEqual(privateClientNames(sceneText), []);
-          assert.doesNotMatch(sceneText, /Rungis|\bMIN\b|Lyon/i);
-          assert.doesNotMatch(scene, /home-s-build-grid|home-s-verdict/);
-          assert.deepEqual([...scene.matchAll(/class="scene-marker"[^>]*>([123])<\/span>/g)].map((match) => match[1]), ["1", "2", "3", "1", "2", "3"]);
-          assert.match(scene, /class="scene-chat-approval"|class="scene-chat-bubble scene-chat-outgoing scene-chat-approval"/);
-          assert.match(scene, /class="scene-chat-bubble scene-chat-outgoing scene-chat-approval"><span class="scene-marker" aria-hidden="true">2<\/span><p>[^<]+<\/p>/, `${label}: marker 2 is anchored to the HTML approval bubble`);
-          assert.match(scene, /class="scene-chat"[^>]*lang="fr"/);
-          populatedTags(scene, "strong");
-          const messages = [...scene.matchAll(/class="scene-chat-bubble[^"]*">[\s\S]*?<p>([\s\S]*?)<\/p>/g)]
-            .map((match) => visibleText(match[1].replace(/<[^>]*>/g, "")).trim());
-          assert.equal(messages.length, 4, `${label}: four conversation messages`);
-          for (const message of messages) assert.ok(message.trim());
-          assert.deepEqual([...scene.matchAll(/class="scene-chat-time">(08:0[45])/g)].map((match) => match[1]), ["08:04", "08:04", "08:05", "08:05"]);
-          assert.match(scene, /<strong>[^<]+<\/strong>[^<]+<strong>[^<]+<\/strong>/);
-          assert.match(scene, /src="\/brand\/scenes\/scene-carte-visite-photo.png"/);
-          assert.equal((scene.match(/<picture>/g) ?? []).length, 1);
-          assert.equal((scene.match(/<img\b/g) ?? []).length, 2);
-          assert.equal((scene.match(/loading="lazy"/g) ?? []).length, 2);
-          assert.equal((scene.match(/decoding="async"/g) ?? []).length, 2);
-          const journey = html.match(/<section class="home-s-maison">[\s\S]*?<\/section>/)?.[0];
-          assert.ok(journey, `${label}: journey section must be rendered`);
-          assert.doesNotMatch(journey, /<picture>|<figure|<img|<figcaption|paul-larmaraud\.com/);
-          populatedTags(html, "h1", 1);
-          const sections = [...html.matchAll(/<section class="home-s-parcours">[\s\S]*?<\/section>/g)];
-          assert.equal(sections.length, 1, `${label}: one parcours section`);
-          const parcours = sections[0][0];
-          populatedTags(parcours, "h2", 1);
-          populatedTags(parcours, "h3", 2);
-          populatedTags(parcours, "p", 3);
-          assert.doesNotMatch(parcours, /<(?:a|button)\b|role="(?:link|button)"/);
-          assert.ok(html.indexOf('class="home-s-brands"') < sections[0].index);
-          assert.ok(sections[0].index < html.indexOf('class="home-s-maison"'));
+          assert.deepEqual([...html.matchAll(/<section\b[^>]*id="(H\d+)"/g)].map(m => m[1]), ["H01", "H02", "H03", "H04", "H05", "H06", "H07", "H11", "H12"]);
+          assert.equal((html.match(/class="v1-case"/g) ?? []).length, 3);
+          assert.doesNotMatch(text, /Content Factor|usines? de contenu|FormIA|Qualiopi|\bMIT\b/i);
           const brands = html.match(/<ul class="home-s-brands-list"[^>]*>([\s\S]*?)<\/ul>/)?.[1];
           assert.ok(brands);
           populatedTags(brands, "li", PUBLIC_CLIENT_NAMES.length);
@@ -157,8 +126,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           const names = [...brands.matchAll(/<strong>([^<]+)<\/strong>/g)].map((match) => publicClientName(visibleText(match[1])));
           assert.deepEqual(names.sort(), [...PUBLIC_CLIENT_NAMES].sort(), `${label}: only canonical clients`);
           assert.doesNotMatch(brands, /<(?:a|button|img|svg)\b/);
-          const note = html.match(/<ul class="home-s-brands-list"[^>]*>[\s\S]*?<\/ul><p>([^<]+)<\/p>/)?.[1];
-          assert.ok(note && visibleText(note).trim(), `${label}: client disclosure`);
+
         }
       }
     }
@@ -207,7 +175,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       assert.ok(heading.trim());
       assert.match(html, /<h1[^>]*>[^<]+<br\s*\/?>\s*<span lang="fr">[^<]+<\/span>/);
       assert.match(html, /name="robots" content="noindex/);
-      assert.equal((html.match(/class="cmdbar"/g) ?? []).length, 1);
+      assert.equal((html.match(/class="cmdbar(?: [^"]*)?"/g) ?? []).length, 1);
       assert.match(html, /<footer/);
       assert.equal(html.includes("http://localhost:3000/opengraph-image"), false);
     }

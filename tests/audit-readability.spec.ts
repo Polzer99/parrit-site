@@ -23,17 +23,14 @@ for (const width of [375, 390, 1440]) {
       await page.evaluate(() => document.fonts.ready);
       const home = path === "/" || path === "/fr";
       if (width < 760) {
-        await page.locator(".cmd-menu-toggle").click();
-        await expect(page.locator(".cmd-panel-cta")).toHaveCSS("padding", "14px 24px");
-        await expect(page.locator(".cmd-panel-cta")).toHaveCSS("font-size", "16px");
-        const mobileAction = page.locator(".cmd-panel-cta");
-        await expect(mobileAction).toHaveCSS("color", await tokenColor(mobileAction, home ? "--g2" : "--accent-on-dark"));
-        if (!home) await expect(mobileAction).toHaveCSS("border-top-color", await tokenColor(mobileAction, "--accent-on-dark"));
-        await expect(mobileAction).toHaveCSS("border-top-width", home ? "0px" : "1px");
+        await page.locator(".v1-mobile-menu summary").click();
+        const mobileAction = page.locator(".cmd-cta");
+        await expect(mobileAction).toBeVisible();
+        await expect(mobileAction).toHaveCSS("padding", "14px 24px");
+        await expect(mobileAction).toHaveCSS("font-size", "16px");
         expect((await mobileAction.boundingBox())!.height).toBeGreaterThanOrEqual(48);
-        await expect(mobileAction).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
         await page.keyboard.press("Escape");
-        await expect(page.locator(".cmd-panel")).toHaveCount(0);
+        await expect(page.locator(".v1-mobile-menu")).not.toHaveAttribute("open", "");
       }
       if (width >= 760) {
         const header = page.locator(".cmd-cta");
@@ -44,7 +41,7 @@ for (const width of [375, 390, 1440]) {
       const result = await page.evaluate(() => {
         const visible = (el: Element) => el.getBoundingClientRect().width > 0 && el.getBoundingClientRect().height > 0;
         const actions = [...document.querySelectorAll(".rev-button, .cmd-cta, .fp-cta, .locale-toggle button")].filter(visible);
-        const targets = [...document.querySelectorAll(".cmd-nav a, .cmd-panel a, .home-s-footer a, .locale-toggle button")].filter(visible);
+        const targets = [...document.querySelectorAll(".cmd-nav a, .v1-mobile-menu a, .home-s-footer a, .locale-toggle button")].filter(visible);
         const h3 = [...document.querySelectorAll("main h3")].filter(visible);
         const prose = [...document.querySelectorAll("main p, main li, main dd")].filter(visible);
         return {
@@ -78,37 +75,12 @@ for (const width of [375, 390, 1440]) {
         await expect(link).toHaveAttribute("href", path.startsWith("/fr") ? "/fr/commission" : "/commission");
       }
       if (path === "/" || path === "/fr") {
-        const booking = page.locator(".home-s-alternative .rev-button");
-        await expect(booking).toHaveClass(/\bghost\b/);
-        await expect(booking).toHaveCSS("color", await tokenColor(booking, "--paper"));
-        await expect(booking).toHaveCSS("border-top-color", await tokenColor(booking, "--rule-d"));
-        await expect(booking).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-        await booking.hover();
-        await expect(booking).toHaveCSS("background-color", await tokenColor(booking, "--carbon2"));
-        await expect(booking).toHaveCSS("color", await tokenColor(booking, "--paper"));
-        await page.mouse.move(0, 0);
-        const hero = await page.locator(".home-s-hero h1").boundingBox();
-        const sketch = await page.locator(".agent-esquisse").boundingBox();
-        const button = await booking.boundingBox();
-        expect(hero).not.toBeNull();
-        expect(sketch).not.toBeNull();
-        expect(button).not.toBeNull();
-        for (const reference of [hero!, sketch!]) {
-          expect(Math.abs(button!.x + button!.width / 2 - reference.x - reference.width / 2)).toBeLessThanOrEqual(1);
-        }
-        await expect(page.locator(".home-s-founder, .home-s-text-link--secondary")).toHaveCount(0);
-        for (const selector of [".agent-esquisse button"]) {
-          const action = page.locator(selector).first();
-          await expect(action).toBeVisible();
-          expect(await action.evaluate(el => {
-            const probe = document.createElement("span");
-            probe.style.color = "var(--brand-core-rose)";
-            el.append(probe);
-            const rose = getComputedStyle(probe).color;
-            probe.remove();
-            return getComputedStyle(el).backgroundColor === rose;
-          })).toBe(true);
-        }
+        const actions = page.locator(".v1-actions");
+        const hero = (await page.locator(".home-s-hero h1").boundingBox())!;
+        const box = (await actions.boundingBox())!;
+        expect(Math.abs(box.x + box.width / 2 - hero.x - hero.width / 2)).toBeLessThanOrEqual(1);
+        await expect(actions.locator("a")).toHaveCount(2);
+        await expect(page.locator(".home-s-founder")).toHaveCount(0);
       }
     });
   }

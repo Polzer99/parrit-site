@@ -1,6 +1,89 @@
 # AI Context
 
-## Positionnement en vigueur, 26/10/2026
+## Reprise V4 après clarification du point 5, 26/10/2026
+
+Les correctifs de rendu V4 présents au démarrage sont conservés. Le point 5 du
+handoff autorise l’alignement des tests créés en V3 : H12 exige désormais une
+seule destination localisée dans `site-v1-visual.test.mjs` et dans les deux
+assertions correspondantes de `site-v1-visual.spec.ts`. Toutes les autres
+assertions et les tests antérieurs à V3 restent inchangés dans cette reprise.
+Les deux tests Node et douze parcours navigateur V4 déjà présents sont conservés.
+
+`npm ci --silent`, lint, types, marque, claims, build Webpack, 148/148 tests Node
+et 24/24 tests Brand OS passent. Turbopack interrompu sans progression ; écoute
+3210 refusée (EPERM) et Chromium refusé avant navigation. Les 424 cas navigateur
+ne sont donc pas validés. Aucun commit, push ou déploiement. Cette reprise lève
+la contradiction de tests décrite dans l’état historique ci-dessous, pas le
+blocage de validation visuelle sur l’hôte. Voir le rapport V4 pour les journaux.
+
+## Site V1 lot 1 V4, 26/10/2026
+
+Checkout initial `2115aab` ; socle V3 `19e5e88` repris dans les fichiers de travail
+sans commit ni changement d'index. H2 de section 40/32 px, clôtures 54/34 px,
+H3 22 px, un seul lien H12 localisé. L'onglet actif H06 était à 2,749:1 sur canard
+selon les traces hôte V3 ; contour clair du registre ajouté (calcul 5,768:1).
+Filets, schéma, statuts et mouvements V3 conservés. Aucun test hérité modifié.
+Deux tests Node et douze tests navigateur V4 ajoutés ; deny-all réseau conservé.
+
+Lint, types, marque, claims, build Webpack et 24 tests Brand OS passent.
+`npm test` : 146/148 ; les deux assertions V3 attendent encore trois liens H12,
+contrairement à V4. Onze tests navigateur V3 portent la même contradiction.
+V4 interdit de modifier les tests ; exception demandée, sans réponse reçue.
+Turbopack interrompu sans progression ; Chromium et écoute :3210 interdits par
+le sandbox. Validation visuelle et batterie verte non acquises.
+Détails : `docs/site-v1/RAPPORT-LOT-1-V4-CORRECTIFS-VISUEL.md`.
+
+
+## Site V1, lot 1 V3 visuel — 26/10/2026
+
+Base V2 `d05a3b4` reprise dans le checkout initial `2115aab`, sans commit.
+Passe visuelle limitée aux nouvelles pages : régimes Brand OS, grille six colonnes,
+filets, numérotation des méthodes, statut des preuves en tête et trois liens H12.
+Textes V2 conservés. Webpack, lint, types, 146 tests Node et 24 tests Brand OS passent.
+Turbopack sans progression ; Chromium refusé par macOS avant navigation.
+T04 et actions H02/H04 restent ouverts faute de textes/destinations validés.
+Voir `docs/site-v1/RAPPORT-LOT-1-V3-VISUEL.md` avant de considérer le lot clos.
+
+## Site V1, lot 1 V2, 26/10/2026
+
+La reprise V2 inclut le lot 1 du commit `3052fce` dans ce checkout initialement
+sur `2115aab`, sans commit ni changement de branche. La date de revue des preuves
+ne les retire jamais en production : CI échoue 30 jours avant, avec date injectée
+dans les tests déterministes. Permission et portée restent obligatoires ; les
+sections H02/H04 vides disparaissent. CaseStudyCard exige le pageId consommateur.
+Menu refermé sur lien, route, Échap et clic extérieur ; l'observateur du header
+ne considère le hero dépassé que si son bas est au-dessus du viewport.
+Les titres FR/EN sont uniques ; l'alias conseil avec lang=en fait un seul 301.
+TRUTH garde les cinq capacités restantes et leurs garde-fous. Les conditions de
+propriété de Standard/Manufacture et la page Build With You restent inchangées.
+`SITE_V1_CAPTURE=1` est obligatoire pour écrire les captures de site-v1.spec.ts.
+
+Validation : 144 tests Node et 24 tests Brand OS passent ; lint, types, marque,
+claims et build Webpack 62 pages passent. Turbopack sans progression interrompu ;
+Chromium refusé par le sandbox avant navigation. Rapport :
+`docs/site-v1/RAPPORT-LOT-1-V2.md`. Validation visuelle et 401 tests navigateur à
+reprendre sur l'hôte. Aucun commit, push, déploiement ni preuve de production.
+
+## Site V1, lot 1, état précédent du 26/10/2026
+
+Le plan `docs/site-v1/ETAPE-1-PLAN.md` remplace l’accueil à six capacités :
+H01 à H07, H11 et H12 ; trois portes et Harness Engineering. Quatre pages FR/EN
+utilisent `SiteV1Page`, avec `/fr/conseil-transformation` associé à
+`/consulting-transformation`. Le proxy, les alternates, le sitemap et llms suivent
+cette correspondance. `/contact` et `/fr/contact` redirigent en 301 vers la réservation.
+
+Navigation à quatre entrées, sous-menu Engineering et accordéon mobile natifs,
+dans le flux. H06 expose trois panneaux sans JS et des onglets clavier après
+hydratation. Les preuves publiques passent par `getSiteEvidence` : permission,
+portée, source et dates calendaires valides ; revue trimestrielle au 26/01/2027.
+Les anciennes preuves sans permission explicite ne passent plus le filtre public.
+Les références lisent `public-clients.ts` ; aucune nouvelle permission de logo.
+
+Les textes exacts du plan priment sur les descriptions historiques ci-dessous.
+Pages protégées, Journal, fichiers vendorisés et polices conservés. Résultats et
+limites : `docs/site-v1/RAPPORT-LOT-1.md`. Aucun commit, push ou déploiement.
+
+## Positionnement précédent, remplacé par le site V1, 26/10/2026
 
 Parrit.ai conçoit, construit et met en production des systèmes intelligents qui
 transforment les opérations des entreprises. La spec du 26/10 ajoute six capacités

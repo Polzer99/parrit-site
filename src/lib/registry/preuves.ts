@@ -102,6 +102,8 @@ export type Nominatif = {
 /* ------------------------------------------------------------- l'entité */
 
 export type Preuve = {
+  /** Legacy records without a reviewed permission remain private. */
+  permission_status?: "granted" | "pending" | "denied";
   id: string;
   type: TypePreuve;
   titre: string;
@@ -234,7 +236,8 @@ export function nominatifAutorise(p: Preuve): boolean {
  * d'un coup : rien d'interne, rien de nominatif sans permission.
  */
 export function preuvesPubliables(preuves: Preuve[]): Preuve[] {
-  return preuves.filter((p) => p.confidentialite === "publiable" && nominatifAutorise(p));
+  return preuves.filter((p) => p.permission_status === "granted" && p.confidentialite === "publiable" && nominatifAutorise(p)
+    && (!p.type.startsWith("metrique_") || metriqueAffichable(p)));
 }
 
 /**
@@ -245,13 +248,14 @@ export function preuvesPubliables(preuves: Preuve[]): Preuve[] {
  * la permission, et il se rend parfaitement quand la réponse est `null`.
  */
 export function libelleOrganisation(p: Preuve): string | null {
+  if (p.permission_status !== "granted") return null;
   if (p.nominatif && p.nominatif.publicationPermission) return p.nominatif.organisation;
   return p.descriptifAnonymise ?? null;
 }
 
 /** Le logo, uniquement si l'autorisation existe. Jamais requis par un template. */
 export function logoAutorise(p: Preuve): string | null {
-  if (p.nominatif?.publicationPermission && p.nominatif.logo) return p.nominatif.logo;
+  if (p.permission_status === "granted" && p.nominatif?.publicationPermission && p.nominatif.logo) return p.nominatif.logo;
   return null;
 }
 
@@ -261,4 +265,68 @@ export function getPreuvesParType(type: TypePreuve): Preuve[] {
 
 export function toutesLesPreuves(): Preuve[] {
   return REGISTRE;
+}
+
+/** Site V1: permission is scoped to a claim and a page, never to a whole brand. */
+export type PublicationEvidence = {
+  id: string;
+  category: "client" | "demonstration";
+  display_name: string;
+  relationship_type: string;
+  claim: string;
+  evidence_source: string;
+  permission_owner: string;
+  permission_status: "granted" | "pending" | "denied";
+  approved_assets: readonly string[];
+  usage_scope: readonly string[];
+  expiration_or_review_date: string;
+  last_verified: string;
+  page_ids: readonly string[];
+};
+
+function validEvidenceDate(value: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const date = new Date(`${value}T00:00:00.000Z`);
+  return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value;
+}
+
+export function evidencePublishable(evidence: PublicationEvidence, page: string): boolean {
+  return evidence.permission_status === "granted" && evidence.page_ids.includes(page)
+    && evidence.usage_scope.includes("text") && Boolean(evidence.evidence_source.trim() && evidence.permission_owner.trim())
+    && validEvidenceDate(evidence.expiration_or_review_date) && validEvidenceDate(evidence.last_verified)
+    && evidence.last_verified <= evidence.expiration_or_review_date;
+}
+
+const publication = (id: string, display_name: string, claim: string, relationship_type: string): PublicationEvidence => ({
+  id, display_name, claim, relationship_type, category: id === "demo-crm" ? "demonstration" : "client",
+  evidence_source: "docs/site-v1/ETAPE-1-PLAN.md §4; docs/site-v1/releves/RAPPORT-PREUVES.md §1",
+  permission_owner: "Paul, décision éditoriale du 26/10/2026",
+  permission_status: "granted", approved_assets: [], usage_scope: ["text"],
+  expiration_or_review_date: "2027-01-26", last_verified: "2026-10-26", page_ids: ["home"],
+});
+
+export const SITE_EVIDENCE: readonly PublicationEvidence[] = [
+  publication("Laparra", "Laparra", "Un CRM pour un grossiste du MIN de Rungis", "réalisé pour le client"),
+  publication("Clevery", "Clevery Avocats", "Un agent pour le cabinet", "réalisé pour le client"),
+  publication("Forexpert", "Forexpert", "Un agent de prospection", "réalisé pour le client"),
+  publication("Joone", "Joone", "Un accompagnement des équipes à l'IA", "accompagnement"),
+  publication("SNCF", "SNCF", "Un programme de formation réalisé avec Arkel", "via partenaire"),
+  publication("demo-crm", "Carte de visite et CRM", "Une carte de visite devient une fiche CRM après validation", "démonstration, données fictives"),
+];
+
+export function getSiteEvidence(id: string, page: string): PublicationEvidence | undefined {
+  const evidence = SITE_EVIDENCE.find(item => item.id === id);
+  return evidence && evidencePublishable(evidence, page) ? evidence : undefined;
+}
+
+/** Editorial review is a CI obligation, never a production expiry switch. */
+export function evidenceReviewWarnings(evidence: readonly PublicationEvidence[], today: string): string[] {
+  if (!validEvidenceDate(today)) throw new Error("Invalid evidence review date: " + today);
+  const deadline = new Date(`${today}T00:00:00.000Z`);
+  deadline.setUTCDate(deadline.getUTCDate() + 30);
+  const horizon = deadline.toISOString().slice(0, 10);
+  return evidence.filter(item => item.permission_status === "granted").flatMap(item =>
+    !validEvidenceDate(item.expiration_or_review_date) || item.expiration_or_review_date <= horizon
+      ? [`Evidence ${item.id}: editorial review required by ${item.expiration_or_review_date} (30-day CI warning; publication is unchanged).`]
+      : []);
 }

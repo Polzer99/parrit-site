@@ -27,10 +27,10 @@ test("home accepts canonical public clients while the Journal rejects all known 
 test("an unknown client injected into either locale of the home DICT fails", () => {
   for (const name of PUBLIC_CLIENT_NAMES) {
     const displayName = name === "Clevery" ? "Clevery Avocats" : name;
-    const mutations = [...source.matchAll(new RegExp(displayName, "g"))];
+    const mutations = [...source.matchAll(new RegExp(`name: "(${displayName})"`, "g"))];
     assert.equal(mutations.length, 2, "one client reference in each locale");
     for (const match of mutations) {
-      const changed = source.slice(0, match.index) + "ClientTemoinInterdit" + source.slice(match.index + displayName.length);
+      const changed = source.slice(0, match.index) + 'name: "ClientTemoinInterdit"' + source.slice(match.index + match[0].length);
       assert.ok(homeClientViolations(changed).some(({ name }) => name === "ClientTemoinInterdit"));
     }
   }
