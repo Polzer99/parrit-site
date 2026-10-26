@@ -277,7 +277,7 @@ export default async function SystemsPage() {
             <K>{evidence.cards[0].proofLabel}</K>
           </article>
         </div>
-        <div className="systems-hero-actions"><Link className="rev-button exec" href={commission}>{copy.cta}</Link><Link className="rev-button ghost" href="#capacites">{copy.catalogue}</Link></div>
+        <div className="systems-hero-actions"><Link className="rev-button ghost" href={commission}>{copy.cta}</Link><Link className="rev-button ghost" href="#capacites">{copy.catalogue}</Link></div>
       </header>
       <section className="r2-section" aria-labelledby="evidence-heading">
         {heading("evidence-heading", copy.evidence)}<p>{copy.intro}</p>
@@ -307,7 +307,7 @@ export default async function SystemsPage() {
         {heading("guardrails-heading", copy.guardrails)}<ul style={{ paddingLeft: 24 }}>{copy.guards.map((guard, i) => <li key={guard} style={{ marginTop: 20 }}>{i < 4 ? <Link href={["#operating-view", "#operating-view", "#operating-view", "#capacites"][i]}>{guard}</Link> : guard}</li>)}</ul>
       </section>
       <section className="r2-section" id="faq" aria-labelledby="faq-heading">
-        {heading("faq-heading", "FAQ")}<Faq items={copy.faq}/>
+        {heading("faq-heading", "FAQ")}<Faq items={copy.faq} questionHeading/>
       </section>
       <FinalCall locale={locale} className="r2-close"/>
 

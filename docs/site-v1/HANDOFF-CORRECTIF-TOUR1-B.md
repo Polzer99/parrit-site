@@ -1,0 +1,10 @@
+# Correctif B du tour 1 (27/10/2026, nuit)
+
+Tu travailles dans ce dossier, avec les modifications non commitées du correctif A. Ne fais ni commit, ni push, ni changement de branche. **Ne modifie aucun test.**
+
+Suite navigateur rejouée par Claude sur l'hôte après le correctif A : 469 réussis, 20 échecs, tous dus à deux règles du handoff du tour 1 qui contredisaient des choix de design existants, encodés dans les tests. Claude tranche en faveur des tests (la règle Brand OS prime sur la règle des boutons).
+
+1. **Titre d'accueil** (`tests/design-harmonisation.spec.ts:87`) : le H1 de l'accueil (`.home-s-hero h1`) reste un titre d'affichage en graisse 400 (84 px, 40 px sous 760 px). Les H1 des autres pages restent en 500 (test ligne 142). La « recette unique de H1 » du tour 1 s'entend donc ainsi : une recette pour le titre d'affichage de l'accueil, une recette pour toutes les autres pages. Rétablir 400 sur l'accueil uniquement.
+2. **Bouton de la barre** (`tests/doctrine-visible.spec.ts:94`, 16 échecs) : règle Brand OS « un seul éclat rose par écran ». Rétablir le comportement précédent : `.cmd-cta` en `ghost` tant qu'un bouton `exec` du haut de page est visible, puis en `exec` une fois ce bouton sorti de l'écran (le test attend la bascule, ligne 168). Sur Systems, le premier bouton est `ghost` comme le test l'exige. Dans `AGENTS.md`, section « Boutons publics — tour 1 », remplacer « La navigation conserve le même style d'action sur toutes les pages » par : « Un seul éclat rose par écran (Brand OS) : le bouton de navigation reste `ghost` tant qu'un `exec` du haut de page est visible, puis devient `exec` ; la paire `exec` puis `ghost` ne s'applique que si aucun autre rose n'est déjà à l'écran. » Adapter en conséquence `tests/tour1-coherence.spec.ts` **uniquement** si ce test interdit cette bascule (c'est ton test du tour 1, il doit refléter cette règle) ; aucun autre test.
+
+Batterie : `npm run lint && npm test && npm run build && npm run qa:brand:rev01 && npm run qa:claims:rev01 && npm run test:brand-os`. Ajoute « Correctif B » au rapport du tour 1.

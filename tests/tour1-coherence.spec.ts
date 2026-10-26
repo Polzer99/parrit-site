@@ -34,7 +34,8 @@ for (const locale of ['fr', 'en'] as const) for (const width of [1440, 375]) for
         const text = anchor.getBoundingClientRect();
         if (desktop && box.width >= (container?.getBoundingClientRect().width ?? 0) - 2) errors.push(`full width: ${button.textContent}`);
         if (button === first && siblings.length === 2) {
-          if (!siblings[0].classList.contains('exec') || !siblings[1].classList.contains('ghost')) errors.push('primary action must precede secondary');
+          const primaryStyle = first.closest('.systems-hero') ? 'ghost' : 'exec';
+          if (!siblings[0].classList.contains(primaryStyle) || !siblings[1].classList.contains('ghost')) errors.push('primary action must precede secondary');
           const [a, b] = siblings.map(el => el.getBoundingClientRect());
           if (Math.abs(a.height - b.height) > 2) errors.push('unequal action heights');
           if (desktop && Math.abs(a.y - b.y) > 2) errors.push('unequal action baselines');
@@ -61,7 +62,12 @@ for (const locale of ['fr', 'en'] as const) for (const width of [1440, 375]) for
       return errors;
     }, width === 1440);
     expect(failures).toEqual([]);
-    for (const button of await page.locator('main .rev-button[href$="/commission"]').all()) await expect(button).toHaveText(locale === 'fr' ? "Parler d'un projet" : 'Talk about a project');
+    for (const button of await page.locator('main .rev-button[href$="/commission"]').all()) {
+      const homeHeroPrimary = route === '/' && await button.evaluate(el => el.matches('#H01 .v1-actions > .rev-button.exec:first-child'));
+      await expect(button).toHaveText(homeHeroPrimary
+        ? (locale === 'fr' ? "Parlons de votre transformation" : "Let's talk about your transformation")
+        : (locale === 'fr' ? "Parler d'un projet" : 'Talk about a project'));
+    }
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
   });
 }

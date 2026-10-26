@@ -1,5 +1,32 @@
 # AI Context
 
+## Correctif B tour 1 — 27/10/2026, nuit
+
+H1 accueil restauré à 400 (autres H1 : 500), observateur historique de
+navigation restauré (ghost puis exec après le hero accueil), accent canonique
+et premier bouton Systems ghost rétablis. AGENTS actualisé ; seul le test
+tour1-coherence est adapté pour l’exception du hero Systems.
+Lint, build Webpack 62 pages, marque, claims et 24 tests Brand OS passent.
+168/169 tests Node : readability-contract exige encore la navigation
+invariante et interdit l’observateur ; laissé intact conformément au handoff B.
+Turbopack interrompu sans progression, serveur 3210 refusé EPERM.
+Rapport tour 1, section Correctif B : détails et validation navigateur à rejouer.
+Aucun commit, push ni changement de branche.
+
+## Correctif tour 1 — 26/10/2026, nuit
+
+H12 section directe, H1 à 500, navigation non rose invariante, contours des
+onglets renforcés, lien BWY clair et boutons groupés de dimensions cohérentes.
+FAQ Systems conserve quatre titres h3 via le composant partagé. Hero accueil :
+« Parlons de votre transformation » / « Let's talk about your transformation ».
+Deux tests seulement adaptés (ancrage footer et exception CTA hero).
+Le rapport tour 1 contient les 46 causes et corrections, ainsi que les assertions
+navigateur contradictoires laissées intactes. Aucun commit, push ni changement
+de branche ; preuve navigateur à rejouer par Claude sur l’hôte.
+Validation : npm ci, lint, 169 tests Node, marque, claims et 24 tests Brand OS
+réussis avec build Webpack (62 pages). Chaîne exacte bloquée au build Turbopack,
+interrompu après environ 120 s sans progression ; script build inchangé.
+
 ## Tour 1 cohérence — 26/10/2026
 
 Textes contractuels et accroches Journal corrigés (corps inchangés), articles

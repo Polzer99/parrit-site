@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { barePathname, localizedPath, LOCALE_COOKIE, type Locale } from "@/system/locale";
 
 const NAV = {
@@ -13,8 +13,16 @@ const SUBNAV = {
   fr: [["/harness-engineering", "Harness Engineering", "Fiabiliser les agents que vous utilisez."], ["/engineering-integration#custom", "Logiciels & agents sur mesure", "Construire ce qu’aucun outil ne couvre."], ["/engineering-integration#integrations", "Intégrations & infrastructures privées", "Relier vos outils et choisir l’hébergement."]],
   en: [["/harness-engineering", "Harness Engineering", "Make the agents you use reliable."], ["/engineering-integration#custom", "Custom software & agents", "Build what no tool covers."], ["/engineering-integration#integrations", "Integrations & private infrastructure", "Connect your tools and choose the hosting."]],
 } as const;
-function HeaderBookingAction({ locale }: { locale: Locale }) {
-  return <Link className="cmd-cta rev-button ghost" href={localizedPath("/commission", locale)}>{locale === "fr" ? "Parler d'un projet" : "Talk about a project"}</Link>;
+function HeaderBookingAction({ locale, home }: { locale: Locale; home: boolean }) {
+  const [heroOutside, setHeroOutside] = useState(false);
+  useEffect(() => {
+    if (!home || typeof IntersectionObserver === "undefined") return;
+    const hero = document.querySelector(".home-s-hero");
+    if (!hero) return;
+    const observer = new IntersectionObserver(([entry]) => setHeroOutside(entry.boundingClientRect.bottom <= 0));
+    observer.observe(hero); return () => observer.disconnect();
+  }, [home]);
+  return <Link data-home={home} className={`cmd-cta rev-button ${home && heroOutside ? "exec" : "ghost"}`} href={localizedPath("/commission", locale)}>{locale === "fr" ? "Parler d'un projet" : "Talk about a project"}</Link>;
 }
 export function RevHeader({ locale }: { locale: Locale }) {
   const pathname = usePathname();
@@ -55,7 +63,7 @@ export function RevHeader({ locale }: { locale: Locale }) {
         document.cookie = `${LOCALE_COOKIE}=${item}; Path=/; Max-Age=31536000; SameSite=Lax${window.location.protocol === "https:" ? "; Secure" : ""}`;
         const url = new URL(window.location.href); url.pathname = localizedPath(url.pathname, item); url.searchParams.delete("lang"); window.location.assign(`${url.pathname}${url.search}${url.hash}`);
       }}>{item.toUpperCase()}</button>)}</div>
-      <HeaderBookingAction key={pathname} locale={locale}/>
+      <HeaderBookingAction key={pathname} locale={locale} home={barePathname(pathname ?? "/") === "/"}/>
     </div>
     <details className="v1-mobile-menu" onKeyDown={event => { if (event.key === "Escape") { event.currentTarget.open = false; event.currentTarget.querySelector("summary")?.focus(); } }}>
       <summary>Menu</summary><nav onClick={event => { if ((event.target as HTMLElement).closest("a")) { const menu = event.currentTarget.closest("details"); if (menu) menu.open = false; } }} aria-label={locale === "fr" ? "Navigation mobile" : "Mobile navigation"}>

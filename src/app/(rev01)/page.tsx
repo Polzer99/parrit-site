@@ -25,7 +25,7 @@ const DICT = {
       kicker: "CONSEIL · TRANSFORMATION · ENGINEERING",
       title: "Transformez votre entreprise. Pas simplement vos outils.",
       sub: "De la stratégie à la mise en production, nous repensons vos opérations, nous intégrons les bonnes technologies et nous livrons un système qui tourne. Pas une maquette.",
-      primary: "Parler d'un projet",
+      primary: "Parlons de votre transformation",
       secondary: "Voir nos réalisations"
     },
     brands: {
@@ -132,7 +132,7 @@ const DICT = {
       kicker: "CONSULTING · TRANSFORMATION · ENGINEERING",
       title: "Transform your business. Not just your tools.",
       sub: "From strategy to production, we rethink how you operate, bring in the right technology and deliver a system that runs. Not a mock-up.",
-      primary: "Talk about a project",
+      primary: "Let's talk about your transformation",
       secondary: "See our work"
     },
     brands: {
@@ -257,6 +257,6 @@ export default async function HomePage() {
     <section id="H06" data-regime="canard"><div className="home-s-wrap"><h2>{copy.engineering}</h2><IntegrationBuildSwitcher locale={locale}/><Link className="rev-button ghost" href={href("/engineering-integration")}>{locale === "fr" ? "Voir l'engineering" : "See engineering"}</Link></div></section>
     <section id="H07" data-regime="ink" className="r2-dark"><div className="home-s-wrap"><h2>{copy.harness.title}</h2><p>{copy.harness.body}</p><Link className="rev-button ghost" href={href("/harness-engineering")}>{copy.harness.link}</Link></div></section>
     <section id="H11" data-regime="calm"><div className="home-s-wrap"><h2>{locale === "fr" ? "Six étapes, de vos opérations à un système en production." : "Six steps, from how you operate to a system in production."}</h2><Sequence className="v1-method" steps={copy.method.map(step => [step])}/></div></section>
-    <div data-regime="ink" className="home-s-close r2-dark"><FinalCall id="H12" locale={locale} title={copy.close.title} className="home-s-wrap"/></div>
+    <FinalCall id="H12" locale={locale} title={copy.close.title} className="home-s-close r2-dark" contentClassName="home-s-wrap" regime="ink"/>
   </main>;
 }
