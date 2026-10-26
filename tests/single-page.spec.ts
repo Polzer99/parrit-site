@@ -31,7 +31,18 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     }).map(node => node.textContent?.slice(0, 60)));
     expect(mono).toEqual([]);
     await expect(page.locator("#references .refs img")).toHaveCount(0);
-    await expect(page.locator("main")).not.toContainText(/\bMIT\b/);
+    const partners = page.locator(locale === "fr" ? "#partenaires" : "#team");
+    const cards = partners.locator(".services > div");
+    await expect(cards).toHaveCount(7);
+    await expect(cards.last()).toContainText(/MIT/);
+    await expect(partners.locator("img, svg")).toHaveCount(0);
+    const grid = await partners.locator(".services").boundingBox();
+    const last = await cards.last().boundingBox();
+    expect(grid).not.toBeNull();
+    expect(last).not.toBeNull();
+    expect(last!.width).toBeCloseTo(grid!.width - 2, 0);
+    const rows = await cards.evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().top));
+    expect(new Set(rows).size).toBe(width === 1440 ? 3 : 7);
     for (const button of await page.locator(".rev-button:visible").all()) {
       const style = await button.evaluate(el => { const c = getComputedStyle(el); return { family: c.fontFamily, weight: c.fontWeight, spacing: c.letterSpacing, height: el.getBoundingClientRect().height }; });
       expect(style.family).toContain("General");
@@ -123,6 +134,22 @@ test("retired routes redirect once with their complete source query", async ({ r
 });
 
 for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
+  test(`primary buttons use canonical rose ${locale} ${width}`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(local(locale === "fr" ? "/fr" : "/"));
+    for (const selector of [".hero .btn.exec", ".founder .btn.exec"]) {
+      const button = page.locator(selector);
+      const rose = await button.evaluate(el => {
+        const probe = document.createElement("span");
+        probe.style.color = "var(--brand-core-rose)";
+        el.append(probe);
+        const color = getComputedStyle(probe).color;
+        probe.remove();
+        return color;
+      });
+      await expect(button).toHaveCSS("background-color", rose);
+    }
+  });
   test(`addendum figure, final reduced-motion state and type scale ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });

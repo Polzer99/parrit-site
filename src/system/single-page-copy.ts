@@ -122,6 +122,8 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "Des experts de l'image de marque, des contenus et de la vente.": "Experts in branding, content and sales.",
   "Acculturation": "AI adoption",
   "Une quinzaine de formateurs mobilisables, et un organisme certifié.": "Around fifteen trainers available, and a certified training organization.",
+  "Chercheurs du MIT": "MIT researchers",
+  "Des chercheurs du MIT dans notre réseau, pour vos déploiements d'agents les plus exigeants.": "MIT researchers in our network, for your most demanding agent deployments.",
   "Conseil et qualité": "Advisory and quality",
   "Des cabinets de conseil et des relecteurs de nos livrables.": "Consulting firms and reviewers of our deliverables.",
   "À l'international : des partenaires au Brésil et en Italie ; au Cameroun, une expansion en cours et de premiers clients.": "Abroad: partners in Brazil and Italy; in Cameroon, an expansion under way and first clients.",
