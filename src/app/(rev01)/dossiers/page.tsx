@@ -35,7 +35,7 @@ const DICT = {
     ],
     "close": "A dossier starts with an examination.",
     "proof": EXAM_NOTE.en,
-    "button": "Book the examination"
+    "button": "Talk about a project"
   },
   "fr": {
     "metaTitle": "Les dossiers",
@@ -65,7 +65,7 @@ const DICT = {
     ],
     "close": "Un dossier commence par un examen.",
     "proof": EXAM_NOTE.fr,
-    "button": "Réserver l'examen"
+    "button": "Parler d'un projet"
   }
 } as const;
 

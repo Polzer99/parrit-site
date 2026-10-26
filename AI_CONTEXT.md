@@ -1,6 +1,45 @@
 # AI Context
 
-## Positionnement en vigueur, 26/10/2026
+## Site V1, lot 1 V2, 26/10/2026
+
+La reprise V2 inclut le lot 1 du commit `3052fce` dans ce checkout initialement
+sur `2115aab`, sans commit ni changement de branche. La date de revue des preuves
+ne les retire jamais en production : CI échoue 30 jours avant, avec date injectée
+dans les tests déterministes. Permission et portée restent obligatoires ; les
+sections H02/H04 vides disparaissent. CaseStudyCard exige le pageId consommateur.
+Menu refermé sur lien, route, Échap et clic extérieur ; l'observateur du header
+ne considère le hero dépassé que si son bas est au-dessus du viewport.
+Les titres FR/EN sont uniques ; l'alias conseil avec lang=en fait un seul 301.
+TRUTH garde les cinq capacités restantes et leurs garde-fous. Les conditions de
+propriété de Standard/Manufacture et la page Build With You restent inchangées.
+`SITE_V1_CAPTURE=1` est obligatoire pour écrire les captures de site-v1.spec.ts.
+
+Validation : 144 tests Node et 24 tests Brand OS passent ; lint, types, marque,
+claims et build Webpack 62 pages passent. Turbopack sans progression interrompu ;
+Chromium refusé par le sandbox avant navigation. Rapport :
+`docs/site-v1/RAPPORT-LOT-1-V2.md`. Validation visuelle et 401 tests navigateur à
+reprendre sur l'hôte. Aucun commit, push, déploiement ni preuve de production.
+
+## Site V1, lot 1, état précédent du 26/10/2026
+
+Le plan `docs/site-v1/ETAPE-1-PLAN.md` remplace l’accueil à six capacités :
+H01 à H07, H11 et H12 ; trois portes et Harness Engineering. Quatre pages FR/EN
+utilisent `SiteV1Page`, avec `/fr/conseil-transformation` associé à
+`/consulting-transformation`. Le proxy, les alternates, le sitemap et llms suivent
+cette correspondance. `/contact` et `/fr/contact` redirigent en 301 vers la réservation.
+
+Navigation à quatre entrées, sous-menu Engineering et accordéon mobile natifs,
+dans le flux. H06 expose trois panneaux sans JS et des onglets clavier après
+hydratation. Les preuves publiques passent par `getSiteEvidence` : permission,
+portée, source et dates calendaires valides ; revue trimestrielle au 26/01/2027.
+Les anciennes preuves sans permission explicite ne passent plus le filtre public.
+Les références lisent `public-clients.ts` ; aucune nouvelle permission de logo.
+
+Les textes exacts du plan priment sur les descriptions historiques ci-dessous.
+Pages protégées, Journal, fichiers vendorisés et polices conservés. Résultats et
+limites : `docs/site-v1/RAPPORT-LOT-1.md`. Aucun commit, push ou déploiement.
+
+## Positionnement précédent, remplacé par le site V1, 26/10/2026
 
 Parrit.ai conçoit, construit et met en production des systèmes intelligents qui
 transforment les opérations des entreprises. La spec du 26/10 ajoute six capacités

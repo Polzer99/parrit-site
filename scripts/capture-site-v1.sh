@@ -1,0 +1,5 @@
+#!/bin/sh
+# Run after npm run build, against a local Next server on port 3210.
+# Browser requests use tests/network-deny.setup.ts (localhost only).
+set -eu
+SITE_V1_CAPTURE=1 npm run qa:site-v1 -- --grep 'site V1 capture and proof' --workers=1

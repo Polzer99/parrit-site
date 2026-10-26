@@ -37,9 +37,9 @@ test("home EN/FR uses documented orders, dated information types and own-system 
   const prose = sourceProse(source, "page.tsx").map(({ text }) => text);
   const references = homeClientReferences(source);
   assert.deepEqual(references.map(({ locale }) => locale).sort(), ["en", "fr"]);
-  for (const { clients, note, kicker } of references) {
+  for (const { clients, kicker } of references) {
     assert.equal(clients.length, PUBLIC_CLIENT_NAMES.length);
-    assert.ok(note.trim());
+
     assert.ok(kicker.trim());
     assert.deepEqual(clients.map(({ name }) => publicClientName(name)).sort(), [...PUBLIC_CLIENT_NAMES].sort());
     for (const { name, description } of clients) {
@@ -50,7 +50,7 @@ test("home EN/FR uses documented orders, dated information types and own-system 
         assert.doesNotMatch(description, /direct|CRM|syst[eè]m/i);
       }
       if (publicClientName(name) === "Joone") {
-        assert.match(description, /accompagnement|coaching/i);
+        assert.match(description, /accompagnement|support/i);
         assert.doesNotMatch(description, /syst[eè]m/i);
       }
     }
@@ -60,8 +60,8 @@ test("home EN/FR uses documented orders, dated information types and own-system 
     assert.match(text, /2026/);
     assert.match(text, /own|propre/);
   }
-  assert.equal(prose.filter((text) => /15.*25/.test(text)).length, 2);
-  assert.match(source, /<h2>\{copy.journal.title\}<\/h2>/);
+  assert.equal(prose.filter((text) => /15.*25/.test(text)).length, 0);
+  assert.match(source, /id="H07"/);
 
 });
 test("dossier 26-002 keeps commissioned status and confines scope to mailbox assistant", () => {
@@ -121,8 +121,8 @@ test("FIX3 dossier titles describe the operation and home retains the French dis
   assert.deepEqual(homeClientViolations(page()), []);
   const references = homeClientReferences(page());
   assert.equal(references.length, 2);
-  for (const { clients, note, kicker } of references) {
-    assert.ok(note.trim());
+  for (const { clients, kicker } of references) {
+
     assert.ok(kicker.trim());
     for (const { name } of clients) assert.ok(publicClientName(name), name);
   }

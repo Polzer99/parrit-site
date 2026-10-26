@@ -48,7 +48,7 @@ const DICT = {
     "seal": "Sign-off by your team, at delivery",
     "note": "The Standard is Parrit.ai's internal check, with no external accreditation. Hold us to it.",
     "proof": EXAM_NOTE.en,
-    "button": "Book the examination"
+    "button": "Talk about a project"
   },
   "fr": {
     "metaTitle": "Le Standard",
@@ -91,7 +91,7 @@ const DICT = {
     "seal": "Recette signée par votre équipe, à la livraison",
     "note": "Le Standard est un contrôle interne de Parrit.ai, sans accréditation externe. Demandez-nous des comptes.",
     "proof": EXAM_NOTE.fr,
-    "button": "Réserver l'examen"
+    "button": "Parler d'un projet"
   }
 } as const;
 

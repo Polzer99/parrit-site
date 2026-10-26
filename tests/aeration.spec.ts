@@ -4,6 +4,7 @@ import type { Page } from "@playwright/test";
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 type AccentRegister = "dark" | "light";
 const PATHS = [
+  "/consulting-transformation", "/fr/conseil-transformation", "/ai-sprints", "/fr/ai-sprints", "/engineering-integration", "/fr/engineering-integration", "/harness-engineering", "/fr/harness-engineering",
   "/",
   "/fr",
   "/standard",
@@ -90,12 +91,6 @@ type ErrorProbe = {
 };
 
 const ERROR_PROBES_BY_PATH: Record<string, ErrorProbe[]> = {
-  "/": [
-    { name: "home prototype capture", form: ".home-s-quick-capture form", field: "input#quick-email", error: ".ri-error[role='alert']" },
-  ],
-  "/fr": [
-    { name: "home prototype capture", form: ".home-s-quick-capture form", field: "input#quick-email", error: ".ri-error[role='alert']" },
-  ],
   "/commission": [
     { name: "commission prototype capture", form: ".quick-capture form", field: "input#quick-email", error: ".ri-error[role='alert']" },
   ],
@@ -135,22 +130,7 @@ for (const width of [1440, 390]) {
       await page.evaluate(() => document.fonts.ready);
       await page.addStyleTag({ content: "*,*::before,*::after{transition:none!important;animation:none!important}" });
 
-      if (path === "/" || path === "/fr") {
-        await expect(async () => {
-          // Force a real value transition on every retry: refilling an input with
-          // the value it already holds can fail to redispatch a native input event,
-          // which would leave this stuck if an earlier attempt raced React hydration.
-          await page.locator("#agent-operation").fill("");
-          await page.locator("#agent-operation").fill("reporting");
-          await page.locator('.agent-esquisse-form button[type="submit"]').click();
-          await expect(page.locator("#quick-idee")).toHaveValue("reporting");
-        }).toPass({ timeout: 20_000 });
-        // The click above leaves Chromium's focus-visible modality in "pointer" mode,
-        // which suppresses the accent outline on the next programmatically focused
-        // control even though a real keyboard user would still see it. A harmless Tab
-        // restores keyboard modality before the audit below probes focus styles.
-        await page.keyboard.press("Tab");
-      }
+
 
       const result = await page.evaluate(() => {
         type Box = { left: number; right: number; top: number; bottom: number };
@@ -591,14 +571,7 @@ async function measureInvalidFormStates(page: Page, path: string, width: number)
     await page.addStyleTag({ content: "*,*::before,*::after{transition:none!important;animation:none!important}" });
     await page.evaluate(() => window.scrollTo(0, 0));
 
-    if (path === "/" || path === "/fr") {
-      await expect(async () => {
-        await page.locator("#agent-operation").fill("");
-        await page.locator("#agent-operation").fill("reporting");
-        await page.locator('.agent-esquisse-form button[type="submit"]').click();
-        await expect(page.locator("#quick-idee")).toHaveValue("reporting");
-      }).toPass({ timeout: 20_000 });
-    }
+
 
     const form = page.locator(probe.form).first();
     const field = form.locator(probe.field);

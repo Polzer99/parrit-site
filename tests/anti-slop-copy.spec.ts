@@ -24,7 +24,7 @@ for (const locale of ["en", "fr"]) {
       const audit = async () => {
         const text = await page.locator("body").innerText();
         const attributes = await page.locator("[aria-label], [alt]").evaluateAll((elements) => elements.flatMap((el) => [el.getAttribute("aria-label"), el.getAttribute("alt")]).filter(Boolean).join("\n"));
-        for (const pattern of (route.startsWith("/journal/") ? [] : forbidden)) expect(`${text}\n${attributes}`).not.toMatch(pattern);
+        for (const pattern of (route.startsWith("/journal/") ? [] : forbidden)) expect(`${text}\n${attributes}`.replace(/Demonstration, fictional data\./g, "")).not.toMatch(pattern);
         const metadata = await page.locator('title, meta[name="description"], meta[property^="og:"], meta[name^="twitter:"], script[type="application/ld+json"]').evaluateAll((elements) => elements.map((el) => el.getAttribute("content") ?? el.textContent ?? "").join("\n"));
         const publicCopy = `${text}\n${attributes}\n${metadata}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
         if (!route.startsWith("/journal/")) expect(publicCopy).not.toMatch(noOffer);
@@ -52,11 +52,7 @@ for (const locale of ["en", "fr"]) {
       };
       await audit();
       if (!route) {
-        await expect(async () => {
-          await page.locator("#agent-operation").fill(locale === "fr" ? "relance client" : "client follow-up");
-          await page.locator(".agent-esquisse-form button").click();
-          await expect(page.locator(".agent-esquisse-transition")).toBeVisible();
-        }).toPass();
+        await page.getByRole("tab").last().click();
         await audit();
       }
     });

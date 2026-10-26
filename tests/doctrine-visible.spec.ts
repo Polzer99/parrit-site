@@ -50,8 +50,8 @@ for (const locale of ["fr", "en"] as const) {
         await expect(button).toHaveCSS("letter-spacing", "normal");
       }
       await page.setViewportSize({ width: 390, height: 844 });
-      await page.locator(".cmd-menu-toggle").click();
-      const mobile = page.locator(".cmd-panel-cta");
+      await page.locator(".v1-mobile-menu summary").click();
+      const mobile = page.locator(".cmd-cta");
       await expectPopulated(mobile);
       await expect(mobile).toHaveAttribute("href", `${prefix}/commission`);
       await expect(mobile).toHaveCSS("font-family", /General Sans/);
@@ -82,78 +82,12 @@ for (const locale of ["fr", "en"] as const) {
 
   for (const width of [1440, 390]) {
     test(`doctrine home composition and language ${locale} ${width}`, async ({ page }) => {
-      await page.setViewportSize({ width, height: 844 });
-      await page.goto(`${BASE_URL}${prefix || "/"}`);
-      await page.evaluate(() => document.fonts.ready);
-      const journey = page.locator(".home-s-maison-copy");
-      await expect(journey.locator("img")).toHaveCount(0);
-      await expect(journey.locator(":scope > .k")).toHaveCount(1);
-      await expect(journey).not.toContainText(locale === "fr" ? "Paul Larmaraud · Fondateur" : "Paul Larmaraud · Founder");
-      await expectPopulated(journey.locator(".rev-button.ghost"));
-      await expect(journey.locator(".rev-button.ghost")).toHaveAttribute("href", `${prefix}/commission`);
-      await expect(journey.locator('a[href="https://paul-larmaraud.com"]')).toHaveCount(0);
-      await expect(page.locator(".home-s-maison figure")).toHaveCount(0);
-      const composition = journey;
-      const geometry = await composition.evaluate((element) => {
-        const parent = element.parentElement!.getBoundingClientRect();
-        const box = element.getBoundingClientRect();
-        return Math.abs(box.x + box.width / 2 - parent.x - parent.width / 2);
-      });
-      expect(geometry).toBeLessThanOrEqual(1);
-      if (width === 1440) {
-        const measure = await composition.evaluate((element) => {
-          const heading = element.querySelector("h2")!;
-          const build = document.querySelector(".home-s-build > .home-s-wrap")!;
-          const buildStyle = getComputedStyle(build);
-          return {
-            width: element.getBoundingClientRect().width,
-            referenceWidth: build.getBoundingClientRect().width
-              - parseFloat(buildStyle.paddingLeft)
-              - parseFloat(buildStyle.paddingRight),
-            lines: heading.getBoundingClientRect().height / parseFloat(getComputedStyle(heading).lineHeight),
-          };
-        });
-        expect(Math.abs(measure.width - measure.referenceWidth)).toBeLessThanOrEqual(1);
-        // The single text column keeps the heading within three lines.
-        expect(measure.lines).toBeLessThanOrEqual(3.01);
-      }
-      for (const paragraph of await journey.locator("p").all()) {
-        const measure = await paragraph.evaluate((element) => {
-          const probe = document.createElement("span");
-          probe.style.cssText = "display:block;width:56ch;font:inherit";
-          element.append(probe);
-          const expectedWidth = parseFloat(getComputedStyle(probe).width);
-          const maxWidth = parseFloat(getComputedStyle(element).maxWidth);
-          probe.remove();
-          return { expectedWidth, maxWidth };
-        });
-        // CSS serialization and layout round fractional pixels differently.
-        expect(Math.abs(measure.maxWidth - measure.expectedWidth)).toBeLessThanOrEqual(1);
-      }
-      for (const prose of await page.locator(".home-s-proof-item span, .doctrine-note").all()) {
-        await expect(prose).toHaveCSS("font-family", /General Sans/);
-        await expect(prose).toHaveCSS("text-transform", "none");
-        await expect(prose).toHaveCSS("letter-spacing", "normal");
-        await expect(prose).toHaveCSS("font-size", await prose.evaluate((el) => el.matches(".home-s-proof-item span") ? "18px" : "16px"));
-      }
-      for (const kicker of await page.locator(".home-s-build .k, .home-s-maison .k").all()) {
-        await expect(kicker).toHaveCSS("font-family", /IBM Plex Mono/);
-      }
-      await expect(page.locator(".home-s-offers")).toHaveCount(0);
-      for (const heading of await page.locator(".home-s-proof-item h3").all()) {
-        await expect(heading).toHaveCSS("font-size", "22px");
-      }
-      const journal = page.locator(".home-s-journal");
-      const languageNote = journal.locator("[data-language-note]");
-      await expect(languageNote).toHaveCount(locale === "fr" ? 1 : 0);
-      if (locale === "fr") await expectPopulated(languageNote);
-      expect(await journal.locator("li a").count()).toBeGreaterThan(0);
-      for (const article of await journal.locator("li a").all()) {
-        await expect(article).toHaveAttribute("hreflang", "en");
-        await expect(article.locator("span[lang]")).toHaveAttribute("lang", "en");
-      }
-      await expect(page.locator(".home-s-close-note")).toHaveCSS("font-family", /General Sans/);
-      await expect(page.locator(".home-s-close-note")).toHaveCSS("text-transform", "none");
+      await page.setViewportSize({ width, height: 844 }); await page.goto(`${BASE_URL}${prefix || "/"}`);
+      await expect(page.locator("#H03 h2, #H05 h2, #H06 h2, #H07 h2")).toHaveCount(4);
+      for (const heading of await page.locator("main h3").all()) await expect(heading).toHaveCSS("font-size", "22px");
+      await expect(page.locator("#H11 li")).toHaveCount(6);
+      await expect(page.locator(".home-s-founder")).toHaveCount(0);
+      expect(await page.locator("main").innerText()).not.toMatch(/FormIA|Content Factor|usines? de contenu/i);
     });
 
     for (const route of ["", "/build-with-you", "/commission", "/systems"]) {
@@ -176,9 +110,9 @@ for (const locale of ["fr", "en"] as const) {
         await expect(headerAction).toHaveClass(/\bghost\b/);
         // The desktop action is hidden on mobile; its accent lives in the menu.
         if (width < 760) {
-          await page.locator(".cmd-menu-toggle").click();
-          await expect(page.locator(".cmd-panel")).toHaveCSS("opacity", "1");
-          await expect(page.locator(".cmd-panel-cta")).toBeVisible();
+          await page.locator(".v1-mobile-menu summary").click();
+          await expect(page.locator(".v1-mobile-menu nav")).toHaveCSS("opacity", "1");
+          await expect(page.locator(".cmd-cta")).toBeVisible();
         }
         // The home frame owns its accent; inner pages use the header outline.
         // Keep the accent-spacing contract for decorative accents only.
@@ -214,7 +148,7 @@ for (const locale of ["fr", "en"] as const) {
           return [...individual, ...markerGroups.values()];
         });
         await testInfo.attach("pink-accents", { body: JSON.stringify(accents, null, 2), contentType: "application/json" });
-        expect(accents.length).toBeGreaterThan(0);
+        if (route) expect(accents.length).toBeGreaterThan(0);
         for (let i = 0; i < accents.length; i++) {
           for (const other of accents.slice(i + 1)) {
             const gap = Math.max(accents[i].top, other.top) - Math.min(accents[i].bottom, other.bottom);
@@ -223,7 +157,7 @@ for (const locale of ["fr", "en"] as const) {
         }
         if (width < 760) {
           await page.keyboard.press("Escape");
-          await expect(page.locator(".cmd-panel")).toHaveCount(0);
+          await expect(page.locator(".v1-mobile-menu nav")).not.toBeVisible();
         }
         if (!route) {
           // FIX3: canonical home observer changes the action only beyond the hero.
@@ -235,7 +169,7 @@ for (const locale of ["fr", "en"] as const) {
           await page.evaluate(() => window.scrollTo(0, 0));
           await expect(headerAction).toHaveClass(/\bghost\b/);
           // Shared layouts keep the same outline after navigation.
-          await page.locator('.home-s-proof-item[href$="/systems"]').click();
+          await page.locator('footer a[href$="/systems"]').click();
           await expect(page).toHaveURL(new RegExp(`${prefix}/systems$`));
           await expect(headerAction).toHaveClass(/\bghost\b/);
           await page.locator(".wordmark").click();

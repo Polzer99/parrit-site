@@ -5,6 +5,7 @@ import "../../system/brand-os.tokens.css";
 import "../../system/tokens.css";
 import "../../system/system.css";
 import "./rev01.css";
+import "../../system/site-v1.css";
 
 import { AnalyticsInit, RevFooter, RevHeader } from "@/system/components";
 import { getLocale } from "@/lib/server/locale";
@@ -36,11 +37,11 @@ export async function generateMetadata(): Promise<Metadata> {
   metadataBase: new URL("https://parrit.ai"),
   twitter: { card: "summary_large_image", images: ["https://parrit.ai/opengraph-image"] },
   title: {
-    default: "Parrit.ai · Business software and AI, tools you own",
+    default: "Parrit.ai · Consulting, transformation and engineering",
     template: "%s · Parrit.ai",
   },
   description:
-    "Parrit.ai connects your sources, cleans up your data and builds tools on top of it that you own: the code, the data and the documentation.",
+    "Parrit.ai supports business transformation and builds the systems that make it possible.",
   alternates: {
     ...localizedAlternates("/", await getLocale()),
     types: { "application/rss+xml": [{ url: "/journal/rss.xml", title: "Parrit Journal" }] },
