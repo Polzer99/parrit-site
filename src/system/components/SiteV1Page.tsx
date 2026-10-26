@@ -35,6 +35,6 @@ export async function SiteV1Page({ id }: { id: SiteV1PageId }) {
       </div>
     </div>
     <section><div className="home-s-wrap"><h2>{fr ? "Poursuivre votre réflexion" : "Explore further"}</h2><nav className="v1-related" aria-label={fr ? "Pages associées" : "Related pages"}>{(Object.keys(SITE_V1_PAGES) as SiteV1PageId[]).filter(key => key !== id).map(key => <Link key={key} href={href(`/${key}`)}>{SITE_V1_PAGES[key][locale].name}</Link>)}<Link href={href("/dossiers")}>{fr ? "Réalisations" : "Work"}</Link><Link href={href("/standard")}>{fr ? "Le Standard" : "The Standard"}</Link><Link href={href("/manufacture")}>{fr ? "La méthode" : "The method"}</Link><Link href={href("/journal")}>Journal</Link></nav></div></section>
-    <section className="home-s-close r2-dark" data-regime="ink"><div className="home-s-wrap"><h2>{fr ? "Parlons de l'opération que vous voulez transformer." : "Let's talk about the operation you want to transform."}</h2><Link className="rev-button ghost" href={href("/commission")}>{fr ? "Parler d'un projet" : "Talk about a project"}</Link></div></section>
+    <section className="home-s-close r2-dark" data-regime="ink"><div className="home-s-wrap"><h2>{fr ? "Parlons de l'opération que vous voulez transformer." : "Let's talk about the operation you want to transform."}</h2><Link className="rev-button exec" href={href("/commission")}>{fr ? "Parler d'un projet" : "Talk about a project"}</Link></div></section>
   </main>;
 }

@@ -15,11 +15,11 @@ test("generated llms copy has no forbidden dashes or defensive labels and respec
   const standard = read("src/app/(rev01)/standard/page.tsx").split('  "fr":')[0];
   const statements = [...standard.matchAll(/"0[1-6]",\s*"([^"]+)"/g)].map((match) => match[1]);
   assert.equal(statements.length, 6);
-  // V2 explicitly removes the universal ownership claim from llms, while
-  // the Standard page awaits Paul's contractual decision and stays unchanged.
+  // The ownership criterion is summarized separately by the scoped contractual
+  // assignment below; all other Standard statements remain in the overview.
   for (const statement of statements.filter((_, index) => index !== 4)) assert.ok(text.includes(statement), statement);
   assert.doesNotMatch(text, /The system belongs to you|intelligent systems for operations|built remotely inside|one critical operation rebuilt end-to-end into production/i);
-  assert.match(text, /ownership, hosting, reversibility and maintenance are agreed for each project, by contract/i);
+  assert.match(text, /assignment of rights to what we build, hosting, reversibility and maintenance are written into each project's contract/i);
 });
 test("examination notes use the shared locale contract, without price or duration qualifiers", () => {
   const shared = read("src/system/examination.ts");

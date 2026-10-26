@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
+import { inflateSync, deflateSync } from 'node:zlib';
 import { join } from 'node:path';
 import { generateGrain, readTokens, TONES, INK, makeTile, chunk } from '../scripts/generate-grain.mjs';
 import { checkGrain, decodeGrain } from '../scripts/check-grain.mjs';
@@ -25,11 +26,11 @@ test('two prebuild generations are byte-identical and match delivered tiles', as
   for (const [i, tone] of Object.keys(TONES).entries()) {
     assert.deepEqual(await tile(root, tone), first[i]);
     assert.deepEqual(await tile(process.cwd(), tone), first[i]);
-    assert.ok(first[i].length < 4096);
+    assert.ok(first[i].length < 8192);
     const { palette, pixels } = decodeGrain(first[i]);
     assert.equal(palette.length, 6);
-    assert.equal(pixels.length, 256 * 256);
-    assert.equal(pixels.filter(Boolean).length, Math.round(128 * 128 * TONES[tone][1]) * 4);
+    assert.equal(pixels.length, 512 * 512);
+    assert.equal(pixels.filter(Boolean).length, Math.round(256 * 256 * TONES[tone][1]) * 4);
   }
 });
 
@@ -99,3 +100,32 @@ for (const locale of ['fr', 'en']) {
     assert.match(renderToStaticMarkup(React.createElement(Matiere, { tone: 'canard' })), /<div aria-hidden="true" data-matiere="canard"[^>]*><\/div>/);
   });
 }
+
+
+test('grain gate rejects old dimensions, oversized lossless tiles and broken cells', async t => {
+  const root = await fixture(t);
+  await generateGrain(root);
+  const path = join(root, 'public/matiere/grain-clair.png');
+  const png = await readFile(path);
+  const header = Buffer.from(png.subarray(16, 29));
+  const palette = png.subarray(41, 47);
+  const compressed = png.subarray(59, 59 + png.readUInt32BE(51));
+  const raw = inflateSync(compressed);
+  const encode = (ihdr, data) => Buffer.concat([png.subarray(0, 8), chunk('IHDR', ihdr), chunk('PLTE', palette), chunk('IDAT', data), chunk('IEND', Buffer.alloc(0))]);
+  header.writeUInt32BE(256, 0);
+  await writeFile(path, encode(header, compressed));
+  await assert.rejects(checkGrain(root), /format/);
+  header.writeUInt32BE(512, 0);
+  const oversized = encode(header, deflateSync(raw, { level: 0 }));
+  assert.ok(oversized.length >= 8192);
+  await writeFile(path, oversized);
+  await assert.rejects(checkGrain(root), /8 KiB/);
+  // Exchange one ink and one background pixel: density stays exactly constant.
+  const { pixels } = decodeGrain(png);
+  for (const pixel of [pixels.indexOf(0), pixels.indexOf(1)]) {
+    const y = Math.floor(pixel / 512); const x = pixel % 512;
+    raw[y * 65 + 1 + (x >> 3)] ^= 1 << (7 - x % 8);
+  }
+  await writeFile(path, encode(header, deflateSync(raw, { level: 9 })));
+  await assert.rejects(checkGrain(root), /2×2 cells/);
+});

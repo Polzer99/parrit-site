@@ -47,7 +47,7 @@ test("claims gate allows the public home but rejects each public client in Journ
   for (const directory of ["scripts/lib", "src/system", "src/app/(rev01)", "content/journal", "public"]) {
     mkdirSync(path.join(root, directory), { recursive: true });
   }
-  for (const file of ["scripts/false-claims-check.mjs", "scripts/lib/public-clients.mjs", "scripts/lib/certification-claims.mjs", "src/system/public-clients.ts"]) {
+  for (const file of ["scripts/false-claims-check.mjs", "scripts/lib/public-clients.mjs", "scripts/lib/certification-claims.mjs", "scripts/lib/ownership-claims.mjs", "src/system/public-clients.ts"]) {
     copyFileSync(file, path.join(root, file));
   }
   symlinkSync(realpathSync("node_modules"), path.join(root, "node_modules"), "dir");

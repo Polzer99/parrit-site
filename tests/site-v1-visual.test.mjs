@@ -24,8 +24,8 @@ for (const locale of ['fr', 'en']) {
     for (const regime of ['ink', 'calm', 'canard']) assert.ok(html.includes(`data-regime="${regime}"`));
     assert.doesNotMatch(html, /data-regime="rose"/);
     const diagram = html.match(/<figure class="v1-process"[\s\S]*?<\/figure>/)[0];
-    assert.equal((diagram.match(/<svg/g) ?? []).length, 2);
-    assert.equal((diagram.match(/stroke-width="2"/g) ?? []).length, 2);
+    assert.equal((diagram.match(/<svg/g) ?? []).length, 6);
+    assert.equal((diagram.match(/stroke-width="2"/g) ?? []).length, 6);
     assert.doesNotMatch(diagram, /[→←]/);
   });
 }

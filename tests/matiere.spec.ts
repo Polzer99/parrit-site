@@ -38,6 +38,7 @@ for (const width of [375, 1440]) for (const locale of ['fr', 'en']) {
         }
       }
       return {
+        marginTop: parseFloat(getComputedStyle(el).marginTop),
         overlaps, height: box.height, expectedHeight: parseFloat(getComputedStyle(el).getPropertyValue('--brand-s6')),
         width: box.width, expectedWidth: parentBox.width - parseFloat(parentStyle.paddingLeft) - parseFloat(parentStyle.paddingRight),
         afterHero: el.closest('main')?.querySelector('#H01')?.nextElementSibling?.contains(el),
@@ -48,6 +49,7 @@ for (const width of [375, 1440]) for (const locale of ['fr', 'en']) {
     });
     expect(geometry.overlaps).toEqual([]);
     expect(geometry.height).toBe(geometry.expectedHeight);
+    expect(geometry.marginTop).toBe(geometry.expectedHeight);
     expect(geometry.width).toBe(geometry.expectedWidth);
     expect(geometry.afterHero).toBe(true);
     expect(geometry.regime).toBe('calm');
@@ -56,7 +58,7 @@ for (const width of [375, 1440]) for (const locale of ['fr', 'en']) {
     expect(await page.evaluate(async () => {
       const image = new Image(); image.src = '/matiere/grain-clair.png'; await image.decode();
       return [image.naturalWidth, image.naturalHeight];
-    })).toEqual([256, 256]);
+    })).toEqual([512, 512]);
     const screenshot = await page.screenshot({ path: testInfo.outputPath(`home-${locale}-${width}.png`), fullPage: true });
     await testInfo.attach(`home-${locale}-${width}`, { body: screenshot, contentType: 'image/png' });
     await page.goto(`${BASE}${locale === 'fr' ? '/fr/ai-sprints' : '/ai-sprints'}`);

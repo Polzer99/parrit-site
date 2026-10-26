@@ -1,6 +1,7 @@
 import { readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
 import { certificationClaims, sourceProse } from "./lib/certification-claims.mjs";
+import { ownershipClaims } from "./lib/ownership-claims.mjs";
 
 import { homeClientViolations, privateClientNames, journalClientNames } from "./lib/public-clients.mjs";
 
@@ -107,6 +108,9 @@ for (const file of files) {
   if (!TEXT_EXTENSIONS.has(extname(file))) continue;
 
   const source = await readFile(file, "utf8");
+  for (const value of ownershipClaims(source, relativePath)) {
+    report(file, value.line, "unsupported ownership", value.text);
+  }
   if (relativePath === "src/app/(rev01)/page.tsx") {
     for (const { line, name } of homeClientViolations(source)) report(file, line, "private client", name);
   }

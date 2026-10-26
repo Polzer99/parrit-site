@@ -9,7 +9,7 @@ import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system
 const DICT = {
   "en": {
     "metaTitle": "The Standard",
-    "metaDescription": "Six commitments on every system we deliver: state readable at any moment, framed, quantified decisions, the way back written in advance, full client ownership.",
+    "metaDescription": "Six commitments on every system we deliver: state readable at any moment, framed, quantified decisions, the way back written in advance, written assignment of what is built for you.",
     "kicker": "Parrit / The Standard",
     "title": "Six commitments we apply to our systems.",
     "tableMeta": "The Standard · 2026",
@@ -36,8 +36,8 @@ const DICT = {
       ],
       [
         "05",
-        "The system belongs to you.",
-        "Code, data and documentation included. Your team can run it without us. If you'd rather keep us on for support, that access is your choice, never a dependency we build in."
+        "What is built for you is assigned to you in writing.",
+        "The contract assigns, right by right, the rights to the code and documentation built for your project. Your data remains yours. Reused components, open-source software and third-party services stay under their own licences and are listed in an annex. Your team can run the system without us; keeping us for support remains your choice."
       ],
       [
         "06",
@@ -52,7 +52,7 @@ const DICT = {
   },
   "fr": {
     "metaTitle": "Le Standard",
-    "metaDescription": "Six engagements sur chaque système livré : état lisible à tout moment, décisions cadrées et chiffrées, retour arrière écrit d'avance, propriété complète du client.",
+    "metaDescription": "Six engagements sur chaque système livré : état lisible à tout moment, décisions cadrées et chiffrées, retour arrière écrit d'avance, cession écrite de ce qui est développé pour vous.",
     "kicker": "Parrit / Le Standard",
     "title": "Six engagements que nous appliquons à nos systèmes.",
     "tableMeta": "Le Standard · 2026",
@@ -79,8 +79,8 @@ const DICT = {
       ],
       [
         "05",
-        "Vous restez propriétaire du système.",
-        "Code, données et documentation compris. Votre équipe peut le faire tourner sans nous. Si vous préférez nous garder en support, cet accès est votre choix, jamais une dépendance imposée."
+        "Ce qui est développé pour vous vous est cédé par écrit.",
+        "Le contrat cède, droit par droit, les droits sur le code et la documentation développés pour votre projet. Vos données restent les vôtres. Les briques réutilisées, les logiciels libres et les services tiers restent sous leur propre licence et sont listés en annexe. Votre équipe peut faire tourner le système sans nous ; nous garder en support reste votre choix."
       ],
       [
         "06",

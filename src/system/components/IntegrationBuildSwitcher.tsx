@@ -35,6 +35,6 @@ export function IntegrationBuildSwitcher({ locale }: { locale: Locale }) {
     {items.map(([title, body], index) => <div key={title} id={`${id}-panel-${index}`} role={enhanced ? "tabpanel" : undefined} aria-labelledby={enhanced ? `${id}-tab-${index}` : undefined} hidden={enhanced && selected !== index} tabIndex={enhanced ? 0 : undefined}>
       <h3>{title}</h3><p>{body}</p>
     </div>)}
-    <p>{locale === "fr" ? "La propriété du code, l'hébergement, la réversibilité et la maintenance se décident pour chaque projet, par contrat." : "Code ownership, hosting, reversibility and maintenance are agreed for each project, by contract."}</p>
+    <p>{locale === "fr" ? "La cession des droits sur ce que nous développons, l'hébergement, la réversibilité et la maintenance sont écrits dans le contrat de chaque projet." : "The assignment of rights to what we build, hosting, reversibility and maintenance are written into each project's contract."}</p>
   </div>;
 }
