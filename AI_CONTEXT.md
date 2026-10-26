@@ -1,5 +1,24 @@
 # AI Context
 
+## Site V1, lot 1, 26/10/2026
+
+Le plan `docs/site-v1/ETAPE-1-PLAN.md` remplace l’accueil à six capacités :
+H01 à H07, H11 et H12 ; trois portes et Harness Engineering. Quatre pages FR/EN
+utilisent `SiteV1Page`, avec `/fr/conseil-transformation` associé à
+`/consulting-transformation`. Le proxy, les alternates, le sitemap et llms suivent
+cette correspondance. `/contact` et `/fr/contact` redirigent en 301 vers la réservation.
+
+Navigation à quatre entrées, sous-menu Engineering et accordéon mobile natifs,
+dans le flux. H06 expose trois panneaux sans JS et des onglets clavier après
+hydratation. Les preuves publiques passent par `getSiteEvidence` : permission,
+portée, source et dates calendaires valides ; revue trimestrielle au 26/01/2027.
+Les anciennes preuves sans permission explicite ne passent plus le filtre public.
+Les références lisent `public-clients.ts` ; aucune nouvelle permission de logo.
+
+Les textes exacts du plan priment sur les descriptions historiques ci-dessous.
+Pages protégées, Journal, fichiers vendorisés et polices conservés. Résultats et
+limites : `docs/site-v1/RAPPORT-LOT-1.md`. Aucun commit, push ou déploiement.
+
 ## Positionnement en vigueur, 26/10/2026
 
 Parrit.ai conçoit, construit et met en production des systèmes intelligents qui

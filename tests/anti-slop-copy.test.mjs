@@ -21,7 +21,7 @@ test("examination notes use the shared locale contract, without price or duratio
   const shared = read("src/system/examination.ts");
   assert.match(shared, /fr: "[^"]+"/);
   assert.match(shared, /en: "[^"]+"/);
-  for (const route of ["", "standard/", "manufacture/", "dossiers/", "build-with-you/", "sketch/[id]/"]) {
+  for (const route of ["standard/", "manufacture/", "dossiers/", "build-with-you/", "sketch/[id]/"]) {
     const source = read(`src/app/(rev01)/${route}page.tsx`);
     assert.match(source, /EXAM_NOTE\.fr/);
     assert.match(source, /EXAM_NOTE\.en/);

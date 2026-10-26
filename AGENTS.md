@@ -49,11 +49,11 @@ Aucun mode complex ni Inter Tight.
 - **Logo** : `[P.]` et `PARRIT.AI`, arbitrage AV-2 conservé ; icônes issues du paquet canon.
 - **Connecteurs** : tige et tête vectorielles suivant VS-CONNECTOR, aucune flèche-caractère.
 - **Photo** : aucune photo de remplacement avant AV-3 ; certification Qualiopi conservée.
-- **L'enveloppe fait partie du canon, état au 20/09/2026** : la command bar sombre (64px,
+- **L'enveloppe fait partie du canon, état au 20/09/2026** : la command bar sombre (hauteur adaptée au contenu,
   dans le flux normal du document, PAS `position: fixed` — elle défile avec la page depuis la
   correction du 20/09 ; `tests/conformity-home.spec.ts` vérifie explicitement `not.toHaveCSS
-  ("position", "fixed")`) porte le wordmark, une navigation à 2 liens (Journal, Systèmes), le
-  sélecteur de langue et une seule action principale « Réserver l'examen »/« Book the examination ». Son contenu
+  ("position", "fixed")`) porte le wordmark, une navigation à quatre entrées (Conseil & Transformation, AI Sprints, Engineering & Intégration, Journal), le
+  sélecteur de langue et une seule action principale « Parler d'un projet »/« Talk about a project ». Son contenu
   est aligné sur la colonne `max-width:1160px` du reste du site (`.cmdbar-inner`), pas sur les
   bords bruts de l'écran. Elle est rendue avant `{children}` dans `layout.tsx` sur TOUTES les
   pages ; sans horloge live (retirée, décorative) ni doublon de navigation vers `/commission`.
@@ -123,9 +123,18 @@ Voir aussi la skill `qa-playwright` (batterie responsive + multi-navigateur).
 - **Jamais d'appel runtime à `*.vercel.app`** dans une livraison (REGLES-DOR §13). Le site EST hébergé sur Vercel — ça vise les ressources chargées au runtime (images/redirects/signatures), pas l'hébergement.
 - Aucun prix ni offre détaillée sur le site public (12/10/2026). Pas de devis détaillé ni de prix personnalisé hors propale privée.
 - Clients (25/10/2026, révision 4) : seuls les noms de `src/system/public-clients.ts` sont publiables (Laparra, Clevery, Forexpert, Joone, SNCF) ; tous les autres restent anonymisés. Clevery Avocats désigne Clevery. Joone : accompagnement IA ; SNCF : formation avec Arkel, jamais client direct. Exception : le Journal ne nomme aucun client, même public. Aucun logo ajouté dans ce lot. Aucun template n'exige de nom ou de logo pour se rendre.
-- Positionnement (26/10/2026) : définition canonique `parrit-canon/positioning/POSITIONNEMENT-CANONIQUE-2026-10-26.md`, six capacités (pas un catalogue) ; deux parcours PME/ETI et grands groupes conservés.
+- Positionnement (26/10/2026) : définition canonique `parrit-canon/positioning/POSITIONNEMENT-CANONIQUE-2026-10-26.md`, remplacé pour le site par `docs/site-v1/ETAPE-1-PLAN.md` : trois portes et Harness Engineering ; pas de Content Factory, chiffres de résultat ni mentions d’écosystème au lot 1.
 - Marque (12/10/2026) : Parrit.ai uniquement ; aucune mention du fondateur hors `/legal`.
 - Mesure d'audience (05/10/2026) : PostHog retiré du navigateur ; seule mesure active, Cloudflare Web Analytics injectée hors dépôt par Cloudflare et décrite dans `/legal`.
-- CTA (04/10/2026) : « Réserver l'examen » / « Book the examination » vers `/commission` ou `/fr/commission`.
+- CTA (26/10/2026) : « Parler d'un projet » / « Talk about a project », hero « Parlons de votre transformation » vers `/commission` ou `/fr/commission`.
 - Tests (25/10/2026) : contrôler les règles de fond et la structure, pas les libellés. Conserver les contrôles de destination, accessibilité, réseau et géométrie.
 - Collab Codex↔Claude = via **GitHub Issues/PR**, jamais d'auto-merge, **Paul merge**. Codex = codeur, Claude = relecteur (sécu/archi/bugs/dette).
+
+## Site V1, lot 1 (26/10/2026)
+
+Accueil H01 à H07, H11 et H12. Quatre nouvelles pages bilingues, dont
+`/fr/conseil-transformation` associé à `/consulting-transformation`.
+Menu mobile accordéon natif, dans le flux ; CTA accessible sans recouvrir le contenu.
+H06 affiche tous ses panneaux sans JavaScript ; onglets clavier après hydratation.
+Les preuves passent par `getSiteEvidence` : permission accordée, portée et revue valides.
+Aucun logo client, chiffre de résultat ni attribution institutionnelle au lot 1.

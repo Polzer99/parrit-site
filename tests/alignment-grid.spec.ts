@@ -23,12 +23,13 @@ for (const width of [1440, 375]) for (const locale of ["en", "fr"]) for (const r
     const title = page.locator("h1").first();
     const box = await title.boundingBox();
     expect(box).not.toBeNull();
-    expect(box!.x).toBeCloseTo(left, 0);
+    if (route) expect(box!.x).toBeCloseTo(left, 0);
+    else expect(Math.abs(box!.x + box!.width / 2 - width / 2)).toBeLessThanOrEqual(1);
     for (const element of await page.locator(".journal-list time, .doctrine-code .k").all()) {
       expect((await element.boundingBox())!.height).toBeLessThanOrEqual(24);
     }
     if (!route) {
-      const note = (await page.locator(".home-s-close-note").boundingBox())!;
+      const note = (await page.locator(".home-s-close h2").boundingBox())!;
       expect(Math.abs(note.x + note.width / 2 - width / 2)).toBeLessThanOrEqual(2);
     }
     for (const control of await page.locator(".cmdbar .wordmark, .cmdbar .cmd-nav a:visible, .cmdbar .locale-toggle, .cmdbar .locale-toggle button, .cmdbar .cmd-menu-toggle:visible, .cmdbar .cmd-cta:visible").all()) {

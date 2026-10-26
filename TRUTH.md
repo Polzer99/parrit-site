@@ -14,19 +14,16 @@ Parrit.ai conçoit, construit et met en production des systèmes intelligents qu
 
 EN : Parrit.ai designs, builds and runs intelligent systems that change how companies operate.
 
-Deux parcours : PME/ETI et grands groupes ; conseil et logiciel sont ouverts aux deux. FormIA est l'organisme de formation de Parrit.ai, sans site propre. Les outils construits appartiennent au client.
+Deux parcours : PME/ETI et grands groupes ; conseil et logiciel sont ouverts aux deux. Les relations d'écosystème attendent leur validation au lot 2. Les droits se définissent par contrat.
 
-### Six capacités, pas un catalogue
+### Site V1, lot 1 (26/10/2026)
 
-| # | Capacité | Ce qu'elle fait (formulation publique) | Limite toujours dite |
-|---|---|---|---|
-| 1 | AI Transformation | choisir les cas d'usage à partir des opérations, les chiffrer et les ordonner | aucune promesse de gain sans mesure de référence |
-| 2 | Autonomous Agents | des agents qui agissent dans des limites écrites | ce qui engage l'entreprise passe par une validation humaine |
-| 3 | Custom Software & Internal Systems | des outils construits autour du processus réel, dans les comptes de l'entreprise | testé avant déploiement |
-| 4 | Private & Sovereign AI | modèles et données hébergés là où l'entreprise le décide | aucune revendication de conformité sans audit |
-| 5 | AI Go-to-Market Infrastructure | donnée commerciale, qualité, relances | aucun envoi sans validation humaine |
-| 6 | Content Factories | produire, vérifier, publier avec contrôles avant diffusion | aucune publication sans contrôles (C-JURY pour le Journal) |
-
+Référence : `docs/site-v1/ETAPE-1-PLAN.md`, sections 2 à 6.
+Trois portes : Conseil & Transformation, AI Sprints, Engineering & Intégration.
+Harness Engineering dispose de sa page guide et d'une entrée dans le menu Engineering.
+Les mentions de l'écosystème attendent le lot 2.
+La propriété du code, l'hébergement, la réversibilité et la maintenance se décident
+pour chaque projet, par contrat. Aucun chiffre de résultat dans le lot 1.
 
 ### Huit principes
 
@@ -48,9 +45,9 @@ Peu de texte : montrer les produits, les réalisations, les capacités et les pr
 Le rendez-vous est une suite possible, pas une métrique à maximiser.
 L'ancien objectif RDV/semaine et cash hebdo est remplacé le 24/10/2026.
 
-**CTA en vigueur depuis le 04/10/2026** : « Réserver l'examen » / « Book the examination »
-vers `/commission` (ou `/fr/commission`). Le libellé reste inchangé dans ce lot.
-Le hero associe l'agent esquisse et la capture. Le Journal n'a pas de capture d'abonnement.
+**CTA site V1 du 26/10/2026** : « Parlons de votre transformation » au hero et
+« Parler d'un projet » dans la navigation et les clôtures, vers `/commission`
+ou `/fr/commission`. Le hero montre un processus actuel et sa cible. Le Journal n'a pas de capture d'abonnement.
 
 ## 3. ICP (à qui on parle)
 
@@ -64,7 +61,7 @@ Parrit vend des **systèmes sur mesure**. La Manufacture suit trois phases : Exa
 
 Le site public invite à un premier échange avec Parrit.ai, sans prix ni offre détaillée. Le périmètre et le prix se donnent en rendez-vous puis en propale privée (décision Paul du 12/10/2026).
 
-La home simplifiée présente la promesse, la capture prototype et l'agent esquisse, puis les métriques, la méthode et les actions de conversion. Les cinq pages intérieures `/manufacture`, `/standard`, `/dossiers`, `/commission` et `/journal` suivent le copy FR/EN validé dans `docs/CODEX-SPEC-2026-09-06-site-integral.md` (lots 1 et 2). Le lot 3 retire les anciennes identités sans réécrire ce copy.
+L’accueil suit H01 à H07, H11 et H12 du plan site V1 : promesse, références autorisées, conseil, exemples qualifiés, sprints, engineering, harness, méthode et contact. Les cinq pages intérieures `/manufacture`, `/standard`, `/dossiers`, `/commission` et `/journal` suivent le copy FR/EN validé dans `docs/CODEX-SPEC-2026-09-06-site-integral.md` (lots 1 et 2). Le lot 3 retire les anciennes identités sans réécrire ce copy.
 
 La surface de debug `/system` est retirée (404). Le microsite camp est conservé dans `archive/camp-costa-rica/`, avec ses assets dédiés hors de `public/`. `/camp-costa-rica/:path*` redirige définitivement vers `/` ; le proxy ne réécrit plus le domaine du camp.
 
@@ -111,7 +108,7 @@ Anti-objectifs : faire « plus joli » sans hypothèse de conversion ; ajouter d
 
 ## 9. Hypothèses de conversion ouvertes (backlog vivant — Hermes entretient ceci)
 
-- Le CTA « Réserver l'examen » / « Book the examination » (04/10/2026) propose-t-il une suite claire après les preuves ?
+- Le CTA « Parler d'un projet » / « Talk about a project » (26/10/2026) propose-t-il une suite claire après les preuves ?
 **Hypothèse desktop-OS close** : Paul a tranché le 04/09/2026 pour le retrait de l'instrument de la home. La home simplifiée est le canon ; ne pas réintroduire ce concept comme expérience de navigation.
 
 - Les preuves (Enargeia) sont-elles assez concrètes et chiffrées (sans violer §6) pour créer la confiance ?

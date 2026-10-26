@@ -1,0 +1,80 @@
+/* Site V1 uses only the existing Brand OS aliases and typography. */
+.v1-page > section { padding-block: 64px; }
+.v1-page h3 { font-size: var(--t-l); font-weight: 500; }
+.v1-page p { max-width: 68ch; }
+.v1-page .v1-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-block: 24px; }
+.v1-page .home-s-hero { min-height: auto; }
+.v1-page .home-s-hero h1 { max-width: 22ch; }
+.v1-page .home-s-hero-sub { margin-inline: auto; }
+.v1-process { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 680px; margin: 40px auto 0; text-align: left; }
+.v1-process > div { border: 1px solid var(--rule-d); padding: 20px; }
+.v1-process svg { transform: rotate(90deg); margin: 12px 0; }
+.v1-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-block: 32px; padding-left: 0; list-style-position: inside; }
+.v1-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.v1-case { border-top: 1px solid var(--rule-l); padding-block: 24px; }
+.v1-case dl > div, .v1-brief > div { margin-block: 20px; }
+.v1-page dt { font-weight: 600; }
+.v1-page dd { margin: 8px 0 0; }
+.v1-switcher { margin-block: 32px; }
+.v1-switcher [role="tablist"] { display: flex; flex-wrap: wrap; gap: 12px; }
+.v1-switcher button { font: inherit; min-height: 48px; padding: 12px 16px; color: var(--ink); background: var(--paper); border: 1px solid var(--ink); cursor: pointer; }
+.v1-switcher button[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.v1-switcher [role="tabpanel"] { border-bottom: 1px solid var(--rule-l); padding: 24px 0; }
+.v1-switcher [hidden] { display: none; }
+.v1-page :focus-visible, .v1-header :focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.v1-guide h1 { font-size: var(--d-xl); line-height: 1.04; font-weight: 400; max-width: 22ch; margin-block: 32px; }
+.v1-guide-hero .rev-button { margin-top: 24px; }
+.v1-guide-body section { padding-block: 36px; scroll-margin-top: 24px; }
+.v1-with-toc { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 40px; }
+.v1-toc { position: sticky; top: 24px; align-self: start; margin-block: 48px; }
+.v1-toc a, .v1-related a { display: block; padding-block: 12px; min-height: 44px; }
+.v1-related { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.v1-faq { border-top: 1px solid var(--rule-l); padding-block: 16px; }
+.v1-faq summary { min-height: 44px; padding-block: 10px; cursor: pointer; }
+.v1-harness-diagram { display: grid; grid-template-columns: 1fr 1fr; padding: 0; gap: 24px; list-style: none; }
+.v1-harness-diagram li { display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid var(--rule-l); padding: 16px; }
+.v1-header { height: auto; }
+.v1-header .cmdbar-inner { gap: 16px; height: auto; min-height: 64px; flex-wrap: wrap; padding-block: 8px; }
+.v1-header .cmd-nav { gap: 16px; }
+.v1-header .cmd-nav a { font-family: var(--ui); font-size: 16px; letter-spacing: normal; text-transform: none; display: inline-flex; align-items: center; min-height: 48px; }
+.v1-nav-entry { display: flex; align-items: center; gap: 8px; }
+.v1-nav-entry details { position: relative; }
+.v1-nav-entry summary { cursor: pointer; min-width: 44px; min-height: 44px; display: grid; place-items: center; color: var(--paper); }
+.v1-nav-entry details > div { position: absolute; z-index: 10; top: 48px; right: 0; width: 320px; background: var(--ink); border: 1px solid var(--rule-d); padding: 16px; }
+.v1-nav-entry details span { display: block; }
+.v1-header .cmd-cta { display: inline-flex; margin-left: auto; }
+.v1-mobile-menu { display: none; }
+@media (max-width: 1200px) {
+  .v1-header .cmd-nav { display: none; }
+  .v1-mobile-menu { display: block; max-width: 1160px; margin-inline: auto; padding: 0 40px 8px; color: var(--paper); }
+  .v1-mobile-menu summary { min-height: 44px; padding-block: 12px; cursor: pointer; }
+  .v1-mobile-menu nav { padding-block: 16px; }
+  .v1-mobile-menu nav > div { border-top: 1px solid var(--rule-d); padding-block: 12px; }
+  .v1-mobile-menu a { display: inline-flex; align-items: center; min-height: 44px; color: var(--paper); }
+  .v1-mobile-menu p { color: var(--g2); margin: 0; }
+}
+@media (max-width: 760px) {
+  .v1-page > section { padding-block: 40px; }
+  .v1-page .home-s-hero { padding-top: 24px; }
+  .v1-page .home-s-hero h1 { font-size: var(--d-xl); margin-block: 20px; }
+  .v1-page .home-s-hero-sub { font-size: 16px; }
+  .v1-page .v1-actions { flex-direction: column; align-items: stretch; }
+  .v1-process { gap: 12px; margin-top: 24px; }
+  .v1-process > div { padding: 12px; }
+  .v1-cases, .v1-grid, .v1-with-toc { grid-template-columns: 1fr; }
+  .v1-with-toc { gap: 0; }
+  .v1-toc { position: static; margin-block: 20px; }
+  .v1-guide h1 { font-size: var(--d-m); }
+  .v1-header .cmdbar-inner { padding-inline: 20px; }
+  .v1-header .cmd-cta { flex-basis: 100%; }
+  .v1-mobile-menu { padding-inline: 20px; }
+  .v1-related, .v1-harness-diagram { grid-template-columns: 1fr; }
+}
+
+.v1-page p, .v1-page li, .v1-page dd { line-height: 1.5; }
+.v1-header .locale-toggle button { letter-spacing: normal; }
+
+.v1-page .home-s-brands-list { grid-template-columns: 1fr; }
+
+.v1-switcher :focus-visible { outline-color: var(--accent-border); }
+.v1-header p { line-height: 1.5; }

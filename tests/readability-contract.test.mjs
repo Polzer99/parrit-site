@@ -23,7 +23,7 @@ test("home booking restores the canonical observer and neutral initial accent", 
   assert.match(header, /home && heroOutside \? "exec" : "ghost"/);
   assert.match(header, /IntersectionObserver/);
   assert.match(header, /observer\.disconnect\(\)/);
-  assert.match(header, /\? "cmd-panel-cta" : "cmd-panel-cta rev-button ghost"/);
+  assert.match(header, /<details className="v1-mobile-menu"/);
   const css = read("src/app/(rev01)/rev01.css");
   assert.match(css, /\.cmdbar \.cmd-cta\.ghost\[data-home="true"\]\s*\{[^}]*color: var\(--paper\)/);
 });

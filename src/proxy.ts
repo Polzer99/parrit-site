@@ -71,6 +71,7 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
+    "/consulting-transformation", "/ai-sprints", "/engineering-integration", "/harness-engineering",
     "/", "/fr/:path*", "/manufacture", "/standard", "/dossiers",
     "/commission", "/build-with-you", "/systems", "/journal/:path*", "/legal", "/sketch/:path*",
   ],
