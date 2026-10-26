@@ -567,3 +567,59 @@ Décision Paul du 12/10/2026 : retrait de la tagline et des prix, durées et off
 Décision Paul du 12/10/2026, marque unifiée : le site parle au nom de Parrit.ai ; aucun nom de personne hors mentions légales. Auteurs, métadonnées, données structurées, RSS, textes et e-mails de capture utilisent Parrit.ai. La photo et le lien personnel sont retirés du rendu ; les fichiers photo du canon, les identifiants internes, le compte Cal.com et l’adresse de contact sont conservés.
 
 Validation marque unifiée : `npm test` 102/102, `npm run lint` et `npm run qa:brand:rev01` passent. `npm run build` Turbopack a refusé le lien externe node_modules ; après copie locale des mêmes dépendances, il est resté sans progression et a été interrompu. `npm run build -- --webpack` passe sans modification de package.json. Le rendu serveur testé bloque tout réseau sortant et couvre aussi les trois articles corrigés, RSS et llms-full.txt. Playwright reste à lancer par le relecteur sur :3210, selon la spec. Aucun commit ni push.
+
+## Harmonisation design, lot A, 25/10/2026
+
+A1/A3/A4/A5/A6 : H1 home en 500 ; numéros d'étape gris sur encre et canard sur
+papier, sans toucher aux marqueurs ProductScene ; suppression des deux ombres
+Instrument ; langues en Plex Mono sans cadre ni fond, langue active soulignée
+et `aria-current`, cibles de 48 px de haut ; padding de base des boutons par token.
+A2 bis (révision 2 validée) remplace le clamp à 48 px rejeté : les H2 de section
+utilisent `--d-s` (40 px, 32 px jusqu'à 760 px), y compris la scène à largeur
+tablette. Les clôtures restent à 54/34 px ; le seul H2 de Dossiers est une
+clôture, donc exempté. Titres de cartes, Journal, H1 et tokens inchangés.
+L'audit d'aération compte les actions pleines et au contour ; écart de 12 px,
+plancher de 16 px, échelle fermée et chevauchements restent strictement identiques.
+Les 17 cas de `tests/design-harmonisation.spec.ts` rejoignent `qa:network:rev01`.
+Lint, TypeScript, claims, marque, build Webpack, 102 tests Node et 24 tests Brand OS
+passent. Turbopack interrompu sans progression ; Chromium interdit par macOS avant
+navigation (MachPortRendezvousServer). Géométrie et interactions à vérifier chez
+l'hôte. Le timeout mobile était déjà documenté dans AI_CONTEXT sur origin/main ;
+AgentEsquisse, QuickCapture et `measureInvalidFormStates` sont inchangés. La trace
+existante montre un bouton encore désactivé après saisie, compatible avec une
+course à l'hydratation, sans preuve d'une cause CSS. Diagnostic navigateur bloqué.
+Aucun texte public ni contrat vendorisé modifié ; seul le présupposé « actions
+pleines » du test d'aération est corrigé, selon l'autorisation de la révision 2.
+Détails :
+`docs/handoffs/2026-10-25-lot-a-harmonisation-design-rapport.md`.
+
+### Harmonisation design — révision 3, 26/10/2026
+
+La révision 3 remplace A1/A5 ci-dessus : H1 home à 400 ; sélecteur de langue
+nommé Langue/Language avec `role="group"` et `aria-pressed` seul. A2 bis et
+A3/A4/A6 restent en place. Les deux règles `.r2-std-row .ps` sans consommateur
+sont supprimées. Sur Systems, la preuve du hero devient un H2 de carte (22 px,
+500), le lien Méthode a une cible de 44 px et les cartes partagent sept lignes
+de grille, dont une par rubrique du DL. Les titres et preuves s'alignent en haut
+de leur ligne ; les valeurs absentes gardent leur emplacement sans texte ajouté.
+Le retrait des cartes rejoint celui de la preuve du hero (24 px desktop,
+18 px mobile), supprimant l'écart horizontal de 6 px prévu par l'ancienne CSS.
+`design-harmonisation.spec.ts` couvre ces contrats FR/EN à 1440/390 (21 cas).
+Lint, types, claims, marque, build Webpack, 102 tests Node et 24 tests Brand OS
+passent sur l'état final. Turbopack interrompu après 90 s sans progression.
+Chromium est toujours refusé par macOS avant navigation ; les nouvelles mesures
+et le timeout mobile préexistant restent à vérifier sur l'hôte. Voir le rapport
+du lot pour les résultats de compilation et les contrôles exécutés.
+
+Reprise finale du lot A : état R3 présent conservé après revue, sans nouveau
+changement de code ou de test. Lint, types, claims, marque, build Webpack (58
+pages), 102 tests Node et 24 tests Brand OS repassent. Turbopack interrompu après
+120 s sans progression ; Chromium toujours refusé avant navigation (333 cas
+dans la batterie, 21 dans la spec du lot). Résultats et limites actualisés dans
+le rapport du lot ; journaux `/private/tmp/lot-a-final-*.log`.
+
+Nouvelle vérification, journaux `/private/tmp/lot-a-verify-*.log` : mêmes résultats
+confirmés (lint/types/claims/marque, 102 tests Node, 24 tests Brand OS, build
+Webpack 58/58). Code et 21 tests du lot préexistants conservés. Turbopack arrêté
+après 120 s sans progression ; Chromium refusé avant navigation. Aucun nouveau
+point annulé ; diagnostic du timeout mobile et mesures navigateur toujours ouverts.
