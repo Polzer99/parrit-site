@@ -1,3 +1,21 @@
+## Passe 2 langue et photo, 27/10/2026
+
+Sections 1 à 3 de `docs/site-v1/page-unique/PASSE-2-LANGUE-ET-PHOTO.md`
+appliquées sur la passe 1 non commitée. Portrait buste LinkedIn souriant en
+picture AVIF/WebP 340/680, entier en 3:4 ; ancienne image conservée intacte.
+Textes FR/EN et contact révisés ; deux statuts anti-slop remplacés verbatim,
+filtrage par lignes entières inchangé. Ancres et textes protégés conservés.
+Prooflint sans avertissement sur le texte FR/EN extrait du build Webpack,
+rendu serveur sans réseau ; corpus `/private/tmp/passe2-visible-fr-en.txt`.
+Port local 3210 refusé par le sandbox : géométrie et captures navigateur non validées.
+Validation : lint, 105/105 tests, build Webpack (52 pages), gates marque/claims
+et 19/19 tests Brand OS réussis. Turbopack interrompu après 90 s sans progression ;
+chaîne demandée complète avec repli Webpack, journal `/private/tmp/passe2-final-battery.log`.
+Aucun commit ni push.
+
+Scénario donnée (27/10/2026) : cycle SVG 9 s FR/EN, résultat statique sans JS/en mouvement réduit, rose limité à `.onto .gold` (exception Paul) ; phrase Humby visible à 390 px.
+Textes raccourcis selon `SCENARIO-DONNEE-ET-MOTS-INUTILES.md` §§1–2 ; contrôles existants conservés et scénario couvert dans `single-page.spec.ts`.
+
 ## Mesure de silhouette et septième partenaire — 27/10/2026
 
 Demande explicite de Paul : contraste des boutons opaques mesuré par le meilleur

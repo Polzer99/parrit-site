@@ -1,7 +1,10 @@
 import { mkdir } from "node:fs/promises";
 import { createHash } from "node:crypto";
+import founderPhotos from "./fixtures/founder-photo.json";
 import { test, expect } from "./network-deny.setup";
 const BASE = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
+// Exception scénario donnée : exception validée par Paul le 27/10/2026.
+const ONTOLOGY_STORY_ROSE_EXCEPTION = ".onto .gold";
 const local = (path: string) => {
   const url = new URL(path, BASE);
   expect(["localhost", "127.0.0.1"]).toContain(url.hostname);
@@ -21,6 +24,14 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
+    const portrait = page.locator(".founder picture img");
+    await expect(portrait).toHaveAttribute("alt", "Paul Larmaraud");
+    await expect(portrait).toHaveAttribute("loading", "lazy");
+    await expect(portrait).toHaveCSS("object-fit", "contain");
+    await expect(portrait).toHaveCSS("border-radius", "0px");
+    const portraitBox = await portrait.boundingBox();
+    expect(portraitBox).not.toBeNull();
+    expect(portraitBox!.width / portraitBox!.height).toBeCloseTo(3 / 4, 2);
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator("main > section")).toHaveCount(9);
     expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["en-production", "ce-qui-change", "parcours", "services", "confiance", "partenaires", "references", "contact"] : ["in-production", "what-changes", "path", "services", "safeguards", "team", "references", "contact"]);
@@ -74,9 +85,11 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
   });
 }
 test("photo is served byte-identical and sitemap contains only successful canonical pages", async ({ request }) => {
-  const photo = await request.get(local("/photos/paul-centre.png"), { maxRedirects: 0 });
-  expect(photo.status()).toBe(200);
-  expect(createHash("sha256").update(await photo.body()).digest("hex")).toBe("b5537ffe836e6933a11e2ff6b81b617e5ccab24213462bfc41c27aae0e182733");
+  for (const [name, expected] of Object.entries(founderPhotos)) {
+    const photo = await request.get(local(`/brand/founder/${name}`), { maxRedirects: 0 });
+    expect(photo.status()).toBe(200);
+    expect(createHash("sha256").update(await photo.body()).digest("hex")).toBe(expected.sha256);
+  }
   const sitemap = await request.get(local("/sitemap.xml"), { maxRedirects: 0 });
   const paths = [...(await sitemap.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => new URL(m[1]).pathname);
   expect(paths).toContain("/journal/themes/harness-engineering");
@@ -96,6 +109,13 @@ test("no JavaScript conversations remain visible and legal and 404 stay accessib
   const page = await context.newPage();
   await page.goto(local("/fr"));
   for (const message of await page.locator(".phone .msg").all()) await expect(message).toBeVisible();
+  for (const path of ["/fr", "/"]) {
+    await page.goto(local(path));
+    await expect(page.locator(".onto .gold")).toHaveCSS("opacity", "1");
+    await expect(page.locator(".onto .goldt")).toHaveCSS("opacity", "1");
+    await expect(page.locator(".onto .story animate, .onto .story animateMotion, .onto .token")).toHaveCount(0);
+    await expect(page.locator(".humby")).toBeVisible();
+  }
   for (const path of ["/legal", "/fr/legal"]) {
     expect((await page.goto(local(path)))?.status()).toBe(200);
     await expect(page.locator("main")).toContainText("Cloudflare");
@@ -158,15 +178,18 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     await expect(figure).toBeVisible();
     await expect(figure).toHaveAttribute("aria-hidden", "true");
     await expect(figure.locator(".layer")).toHaveCount(3);
-    await expect(figure.locator(".edge")).toHaveCount(11);
+    await expect(figure.locator(".edge:not(.ghost)")).toHaveCount(11);
+    await expect(figure.locator(".story .edge.ghost")).toHaveCount(1);
     await expect(figure.locator(".ag")).toHaveCount(3);
     await expect(figure.locator(".eye")).toHaveCount(6);
     for (const pulse of await figure.locator(".pulse").all()) await expect(pulse).toBeHidden();
     const pink = await page.locator(".hero .exec").evaluate(el => getComputedStyle(el).backgroundColor);
-    expect(await figure.locator("*").evaluateAll((nodes, pink) => nodes.filter(el => {
+    await expect(page.locator(ONTOLOGY_STORY_ROSE_EXCEPTION)).toHaveCount(1);
+    await expect(page.locator(ONTOLOGY_STORY_ROSE_EXCEPTION)).toHaveCSS("fill", pink);
+    expect(await figure.locator("*").evaluateAll((nodes, { pink, exception }) => nodes.filter(el => {
       const style = getComputedStyle(el);
-      return [style.fill, style.stroke, style.backgroundColor].includes(pink);
-    }).length, pink)).toBe(0);
+      return !el.matches(exception) && [style.fill, style.stroke, style.backgroundColor].includes(pink);
+    }).length, { pink, exception: ONTOLOGY_STORY_ROSE_EXCEPTION })).toBe(0);
     for (const el of await page.locator(".panel .answer, .doc .ok, .doc .l, .soft .row:last-child span").all()) {
       await expect(el).toBeVisible();
       await expect(el).toHaveCSS("animation-name", "none");
@@ -190,5 +213,53 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await expect(page.locator(".panel .answer")).toHaveCSS("opacity", "1");
     await expect(page.locator(".panel .answer")).toHaveCSS("animation-name", "none");
+  });
+}
+
+for (const locale of ["fr", "en"]) for (const width of [1440, 390]) {
+  test(`data story cycle, action rose and static reduced-motion result ${locale} ${width}`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(local(locale === "fr" ? "/fr" : "/"));
+    const figure = page.locator("svg.onto");
+    const result = figure.locator(".gold");
+    const label = figure.locator(".goldt");
+    await expect(result).toBeVisible();
+    await expect(result).toHaveCSS("opacity", "1");
+    await expect(label).toBeVisible();
+    await expect(label).toHaveCSS("opacity", "1");
+    await expect(label).toHaveText(locale === "fr" ? "Relance prête" : "Follow-up ready");
+    await expect(label).toHaveCSS("font-weight", "600");
+    const rose = await page.locator(".hero .exec").evaluate(el => getComputedStyle(el).backgroundColor);
+    await expect(result).toHaveCSS("fill", rose);
+    await expect(figure.locator(".story animate, .story animateMotion, .token")).toHaveCount(0);
+    const humby = page.locator(".humby");
+    await expect(humby).toBeVisible();
+    await expect(humby).toHaveCSS("font-size", "16px");
+    await expect(humby).toHaveText(locale === "fr"
+      ? "« La donnée est le nouveau pétrole », disait Clive Humby en 2006. Brute, elle ne sert à rien : nous la raffinons."
+      : "“Data is the new oil,” Clive Humby said in 2006. Raw, it is useless: we refine it.");
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await expect(figure.locator(".token animateMotion")).toHaveAttribute("dur", "9s");
+    await expect(figure.locator(".token mpath")).toHaveAttribute("href", "#onto-story-path");
+    await expect(figure.locator(".in")).toHaveText(locale === "fr" ? "E-mail client" : "Client e-mail");
+    // Seek the real SVG timeline: input, moving token, result, then next cycle.
+    for (const [seconds, outputOpacity, tokenOpacity] of [[1, "0", "1"], [7.5, "1", "0"], [10, "0", "1"]] as const) {
+      await figure.evaluate((el, time) => {
+        const svg = el as SVGSVGElement;
+        svg.pauseAnimations();
+        svg.setCurrentTime(time);
+      }, seconds);
+      await expect(result).toHaveCSS("opacity", outputOpacity);
+      await expect(label).toHaveCSS("opacity", outputOpacity);
+      await expect(figure.locator(".token")).toHaveCSS("opacity", tokenOpacity);
+    }
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await expect(figure.locator(".token")).toHaveCount(0);
+    await expect(result).toHaveCSS("opacity", "1");
+    await expect(label).toHaveCSS("opacity", "1");
+    await expect(figure.locator(".story animate, .story animateMotion")).toHaveCount(0);
   });
 }

@@ -53,8 +53,9 @@ Aucun mode complex ni Inter Tight.
   `docs/site-v1/page-unique/` ; section 0 prime. Barre canard dans le flux,
   six ancres, langues et contact ; menu mobile natif. Pied : copyright,
   Journal, mentions légales, langue. Aucun surtitre ni registre visible.
-- **Photo** : portrait `person.paul.primary_portrait` autorisé explicitement par
-  Paul dans le handoff, section contact ; octets et SHA256 du registre conservés.
+- **Photo** : portrait choisi par Paul le 27/10/2026 : buste LinkedIn souriant,
+  section contact, exports AVIF/WebP 340/680 de `public/brand/founder/` ;
+  octets et SHA256 contrôlés par `tests/fixtures/founder-photo.json`, cadrage entier 3:4.
 
 ### Boutons publics — tour 1 (26/10/2026)
 

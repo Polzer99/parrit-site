@@ -11,8 +11,8 @@ import type { Interet } from "@/lib/server/interets";
 
 const DICT = {
   en: {
-    label: "YOUR REQUEST",
-    line: "One e-mail address is enough. We reply personally, with an example if your need matches a case we've already sketched.",
+    label: "Your request",
+    line: "We reply ourselves.",
     idea: "The operation to take over, in one sentence (optional)",
     placeholder: "you@company.com",
     button: "Send",
@@ -27,8 +27,8 @@ const DICT = {
     aria: "Send",
   },
   fr: {
-    label: "VOTRE DEMANDE",
-    line: "Une adresse e-mail suffit. Nous revenons vers vous personnellement, avec un exemple si votre besoin correspond à un cas déjà esquissé.",
+    label: "Votre demande",
+    line: "Une adresse e-mail suffit. Nous vous répondons nous-mêmes.",
     idea: "L'opération à reprendre, en une phrase (facultatif)",
     placeholder: "vous@entreprise.fr",
     button: "Envoyer",

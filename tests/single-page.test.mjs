@@ -23,7 +23,15 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.match(html, /href="#reservation"/);
   const contact = html.slice(html.indexOf('id="contact"'));
   assert.match(contact, /id="reservation"[\s\S]*data-booking-mock[\s\S]*data-capture-mock/);
-  assert.match(contact, /src="\/photos\/paul-centre.png"/);
+  const picture = contact.match(/<picture>[\s\S]*?<\/picture>/)?.[0];
+  assert.ok(picture);
+  assert.deepEqual([...picture.matchAll(/<source type="([^"]+)"/g)].map(m => m[1]), ["image/avif", "image/webp"]);
+  for (const format of ["avif", "webp"]) {
+    assert.ok(picture.includes(`srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.${format} 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.${format} 680w"`));
+  }
+  assert.match(picture, /src="\/brand\/founder\/parrit-ai-founder-linkedin-buste-3x4-680.webp"/);
+  assert.match(picture, /alt="Paul Larmaraud" width="600" height="800" loading="lazy"/);
+  assert.doesNotMatch(contact, /paul-centre\.png/);
   assert.match(html, new RegExp(`href="${locale === "fr" ? "/fr" : ""}/journal"`));
   assert.equal((html.match(/class="phone"/g) ?? []).length, 3);
   for (const tool of ["ChatGPT", "Claude Code", "Codex", "OpenCode", "Gemini", "n8n", "Supabase", "Telegram", "GitHub", "Vercel"]) assert.ok(visibleText(html).includes(tool));
@@ -33,7 +41,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.match(text, locale === "fr" ? /données fictives/ : /fictional data/);
   for (const [, label] of html.matchAll(/<a class="[^"]*rev-button[^\"]*"[^>]*>(.*?)<\/a>/g)) assert.doesNotMatch(visibleText(label), /\.$/);
 });
-test("portrait matches the approved registry checksum and is not retouched", () => {
+test("previous portrait remains intact in the repository after the founder photo change", () => {
   const { portrait } = JSON.parse(readFileSync("src/system/single-page-assets.json", "utf8"));
   assert.equal(portrait.reference, "person.paul.primary_portrait");
   assert.equal(portrait.sha256, "b5537ffe836e6933a11e2ff6b81b617e5ccab24213462bfc41c27aae0e182733");
@@ -72,7 +80,7 @@ test("revoking every permission hides production and client headings, retaining 
     const html = renderToStaticMarkup(createElement(load("src/system/components/SinglePage.tsx").SinglePage, { locale: "en" }));
     const text = visibleText(html);
     assert.doesNotMatch(html, /id="in-production"|class="refs"/);
-    assert.doesNotMatch(text, /Our agents already work|They work with us|Laparra|Clevery|Forexpert|Joone|SNCF/);
+    assert.doesNotMatch(text, /Our agents are already at work|They work with us|Laparra|Clevery|Forexpert|Joone|SNCF/);
     assert.match(text, /The tools we build with/);
     assert.match(text, /no partnership is implied/);
   } finally { SITE_EVIDENCE.forEach((e, i) => { e.permission_status = permissions[i]; }); }
@@ -88,8 +96,12 @@ for (const locale of ["fr", "en"]) test(`addendum ontology structure and transla
     assert.equal((figure.match(new RegExp(`class="${kind}"`, "g")) ?? []).length, count, kind);
   }
   const ids = [...figure.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
-  assert.equal(new Set(ids).size, 11);
-  assert.deepEqual([...figure.matchAll(/<mpath href="#([^"]+)"/g)].map(m => m[1]), ids);
+  assert.equal(new Set(ids).size, 12);
+  assert.deepEqual([...figure.matchAll(/<mpath href="#([^"]+)"/g)].map(m => m[1]), ids.filter(id => id !== "onto-story-path"));
+  assert.match(figure, /id="onto-story-path" d="M190 40 L310 130 L260 220 L520 220 L1010 130"/);
+  assert.match(figure, /width="140" height="36" class="gold"/);
+  assert.ok(visibleText(figure).includes(locale === "fr" ? "Relance prête" : "Follow-up ready"));
+  assert.match(html, /class="humby">[^<]*Clive Humby[^<]*2006/);
   assert.doesNotMatch(figure, /rose|pink|#[\da-f]{3,8}\b|style=/i);
   assert.doesNotMatch(html, /class="stairs"/);
   for (const label of locale === "fr" ? ["Vos données", "Clients", "Commandes", "Stocks", "Factures", "Vos règles", "Validation", "Droits", "Échéances", "Vos agents"] : ["Your data", "Customers", "Orders", "Stock", "Invoices", "Your rules", "Approval", "Permissions", "Deadlines", "Your agents"]) assert.ok(visibleText(figure).includes(label), label);

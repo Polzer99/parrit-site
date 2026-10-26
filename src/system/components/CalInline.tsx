@@ -18,17 +18,15 @@ export function ParritCalInline({
   locale = "en",
 }: ParritCalInlineProps) {
   const copy = locale === "fr" ? {
-    title: "PARRIT / COMMANDE",
+    title: "Prendre rendez-vous",
     ready: "Choisissez un créneau",
     loading: "Chargement des créneaux…",
-    retrieving: "Ouverture du calendrier · Quelques secondes",
-    format: "VISIO",
+    format: "Visio",
   } : {
-    title: "PARRIT / COMMISSION",
+    title: "Book a meeting",
     ready: "Select a time",
     loading: "Loading available times…",
-    retrieving: "Retrieving the calendar · A few seconds",
-    format: "VIDEO",
+    format: "Video call",
   };
   const placeholder = isPlaceholder(calLink);
   /* lazy + état de chargement : l'embed (~1,7 MB) ne se monte qu'à l'approche du
@@ -112,7 +110,7 @@ export function ParritCalInline({
       <div className="cal-instrument">
         <div className="cal-bar">
           <span>{copy.title}</span>
-          <span>{ready ? copy.ready : copy.loading}</span>
+          {ready ? <span>{copy.ready}</span> : null}
         </div>
         {preview ? (
           <div className="cal-preview">CAL.COM INLINE INSTRUMENT</div>
@@ -120,7 +118,7 @@ export function ParritCalInline({
           <div className="cal-embed-stage" data-ready={ready || undefined}>
             {!ready ? (
               <div className="cal-loading" role="status" aria-live="polite">
-                <span>{copy.retrieving}</span>
+                <span>{copy.loading}</span>
               </div>
             ) : null}
             {mount ? (
