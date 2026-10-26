@@ -130,10 +130,11 @@ for (const file of files) {
       ? sourceProse(source, file)
       : [{ text: source, line: 1 }];
     for (const value of prose) {
-      // Exact copy explicitly approved in HANDOFF-PAGE-UNIQUE.md §0 (27/10).
+      // Exact copy approved in HANDOFF-PAGE-UNIQUE.md §0, shortened by
+      // SCENARIO-DONNEE-ET-MOTS-INUTILES.md §2 (27/10/2026).
       // This does not authorize any other certification or any Journal claim.
       if (["src/system/components/SinglePage.tsx", "src/system/single-page-copy.ts"].includes(relativePath)
-          && ["Une quinzaine de formateurs mobilisables, et un organisme certifié.", "Around fifteen trainers available, and a certified training organization."].includes(value.text)) continue;
+          && ["Une quinzaine de formateurs et un organisme certifié.", "Around fifteen trainers and a certified training organization."].includes(value.text)) continue;
       for (const claim of certificationClaims(value.text, relativePath === "src/system/components/HarnessBadge.tsx")) {
         report(file, value.line, "unsupported certification", claim);
       }

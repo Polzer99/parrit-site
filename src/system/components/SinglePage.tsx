@@ -8,6 +8,7 @@ import { getSiteEvidence } from "@/lib/registry/preuves";
 import { ClientReference, ResearchPartner } from "./PublicEvidence";
 import { ServiceGrid } from "./ServiceGrid";
 import { ConversationMotion } from "./ConversationMotion";
+import { OntologyStory } from "./OntologyStory";
 export function SinglePage({ locale }: { locale: Locale }) {
  const fr = locale === "fr";
  const clients = ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"].filter(id => getSiteEvidence(id, "home"));
@@ -77,7 +78,11 @@ export function SinglePage({ locale }: { locale: Locale }) {
     </animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" className="pulse"><animateMotion dur="3.87s" begin="3.47s" repeatCount="indefinite"><mpath href="#onto-e8"/>
     </animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" className="pulse"><animateMotion dur="3.65s" begin="2.97s" repeatCount="indefinite"><mpath href="#onto-e9"/>
     </animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" className="pulse"><animateMotion dur="3.94s" begin="0.26s" repeatCount="indefinite"><mpath href="#onto-e10"/>
-    </animateMotion></rect></svg>
+    </animateMotion></rect>
+    <OntologyStory input={t("E-mail client")} result={t("Résultat")} output={t("Relance prête")}/>
+  </svg>
+  {/* Attribution de la citation courte : https://ico.org.uk/for-the-public/ico-40/data-as-a-commodity/ */}
+  <p className="humby">{t("« La donnée est le nouveau pétrole », disait Clive Humby en 2006. Brute, elle ne sert à rien : nous la raffinons.")}</p>
 </div></section>
 
 {clients.some(id => ["Clevery", "Forexpert", "Laparra"].includes(id)) && <section className="live" id={fr ? "en-production" : "in-production"}><div className="wrap">
@@ -91,29 +96,29 @@ export function SinglePage({ locale }: { locale: Locale }) {
         <div className="msg a">{t("Elle est dans votre messagerie, à relire avant envoi.")}</div>
         <div className="msg card"><b>{t("Dans sa messagerie")}</b>{t("Réponse au client A : brouillon prêt, à relire.")}</div>
       </div></div>
-      <h3>{t("Un cabinet d'avocats démarre sa journée avec ses actions prêtes.")}</h3><p className="who">{t("Clevery Avocats, chaque matin.")}</p>
+      <h3>{t("Chaque matin, un cabinet d'avocats trouve ses réponses déjà rédigées.")}</h3><p className="who">{t("Clevery Avocats.")}</p>
     </div>}
     {getSiteEvidence("Forexpert", "home") && <div className="scene">
-      <div className="phone"><div className="bar">{t("Agent prospection")}{" "}<i></i></div><div className="chat">
+      <div className="phone"><div className="bar">{t("Agent de prospection")}{" "}<i></i></div><div className="chat">
         <div className="msg a">{t("Bonjour. Les 10 messages du jour sont partis à 8 h.")}</div>
-        <div className="msg a">{t("Les relances de la semaine sont programmées.\nUn appel est prévu aujourd'hui : Entreprise C, à J+35.")}</div>
+        <div className="msg a">{t("Les relances de la semaine sont programmées.\nUn appel est prévu aujourd'hui : Entreprise C.")}</div>
         <div className="msg m">{t("Merci, je l'appelle dans la journée.")}</div>
         <div className="msg card"><b>{t("Dans son suivi")}</b>{t("Appeler Entreprise C, aujourd'hui, après 5 semaines.")}</div>
       </div></div>
-      <h3>{t("Un organisme de formation prospecte chaque matin à 8 h.")}</h3><p className="who">{t("Forexpert, chaque matin.")}</p>
+      <h3>{t("Un organisme de formation prospecte chaque matin à 8 h.")}</h3><p className="who">{t("Forexpert.")}</p>
     </div>}
     {getSiteEvidence("Laparra", "home") && <div className="scene">
-      <div className="phone"><div className="bar">{t("Agent CRM")}{" "}<i></i></div><div className="chat">
+      <div className="phone"><div className="bar">{t("Agent commercial")}{" "}<i></i></div><div className="chat">
         <div className="msg m">{t("Tâche pour Commercial 1 : relancer Client A sur l'offre avocat Hass, pour jeudi.")}</div>
         <div className="msg a">{t("Je crée cette tâche : relancer Client A, à faire par Commercial 1, pour le 8 octobre. Tu confirmes ?")}</div>
         <div className="msg m">{t("oui")}</div>
-        <div className="msg a">{t("C'est fait, la tâche est dans le CRM.")}</div>
-        <div className="msg card"><b>{t("Dans son CRM")}</b>{t("Relancer Client A, à faire, Commercial 1.")}</div>
+        <div className="msg a">{t("C'est fait, la tâche est enregistrée.")}</div>
+        <div className="msg card"><b>{t("Dans sa base clients")}</b>{t("Relancer Client A, à faire, Commercial 1.")}</div>
       </div></div>
       <h3>{t("Un grossiste de Rungis pilote sa base clients en parlant à ses agents.")}</h3><p className="who">{t("Laparra, sur le téléphone de l'équipe.")}</p>
     </div>}
   </div>
-  <p className="note">{t("Scènes reconstituées sur données fictives, fidèles aux systèmes en service. Rien ne part sans l'accord d'une personne.")}</p>
+  <p className="note">{t("Scènes reconstituées sur données fictives, fidèles aux systèmes en service.")}</p>
 </div></section>}
 
 <section id={fr ? "ce-qui-change" : "what-changes"}><div className="wrap">
@@ -122,7 +127,7 @@ export function SinglePage({ locale }: { locale: Locale }) {
     <div className="item"><div className="panel"><div className="bubble">{t("Liste chaque décision et son responsable.")}</div><div className="answer">{t("Voici les trois décisions et leurs responsables.")}</div></div>
       <h3>{t("Vos équipes savent utiliser l'IA.")}</h3><p className="muted">{t("Une demande claire donne une réponse utile.")}</p><div className="status"><i></i>{t("Exemple illustratif")}</div></div>
     <div className="item"><div className="panel"><div className="doc"><b>{t("Compte rendu")}</b><div className="l"></div><div className="l"></div><div className="l" style={{"width": "60%"}}></div><span className="ok">{t("Prêt à relire")}</span></div></div>
-      <h3>{t("Un outil prépare vos tâches répétitives.")}</h3><p className="muted">{t("L'outil rédige le compte rendu, vous le relisez.")}</p><div className="status"><i></i>{t("Exemple illustratif")}</div></div>
+      <h3>{t("Un outil prépare vos tâches répétitives.")}</h3><p className="muted">{t("Il rédige le compte rendu, vous le relisez.")}</p><div className="status"><i></i>{t("Exemple illustratif")}</div></div>
     <div className="item"><div className="panel"><div className="soft"><div className="top">{t("Votre logiciel")}</div><div className="row"><span>{t("Vos informations")}</span><span>{t("Vos règles")}</span></div><div className="row"><span>{"Agent"}</span><span>{"Agent"}</span><span>{"Agent"}</span></div></div></div>
       <h3>{t("Votre façon de travailler devient un logiciel.")}</h3><p className="muted">{t("Chacun voit les mêmes informations, à jour.")}</p><div className="status client"><i></i>{t("Chez un client")}</div></div>
   </div>
@@ -133,11 +138,11 @@ export function SinglePage({ locale }: { locale: Locale }) {
 <section className="parcours" id={fr ? "parcours" : "path"}><div className="wrap">
   <h2>{t("Trois étapes,")}{" "}<b>{t("vous commencez où vous voulez.")}</b></h2>
   <div className="steps">
-    <div className="step"><span className="n">{t("Étape 1")}</span><h3>{t("Apprendre")}</h3><p>{t("Former les équipes, puis construire un premier agent avec nous.")}</p></div>
-    <div className="step"><span className="n">{t("Étape 2")}</span><h3>{t("Améliorer")}</h3><p>{t("Choisir les priorités, puis mettre en place des solutions rapides et utiles.")}</p></div>
-    <div className="step"><span className="n">{t("Étape 3")}</span><h3>{t("Construire")}</h3><p>{t("Des outils reliés entre eux, puis des logiciels à vous, en production.")}</p></div>
+    <div className="step"><span className="n">{t("Étape 1")}</span><h3>{t("Apprendre")}</h3><p>{t("Former les équipes, puis créer avec elles un premier agent.")}</p></div>
+    <div className="step"><span className="n">{t("Étape 2")}</span><h3>{t("Améliorer")}</h3><p>{t("Choisir les priorités, puis livrer des solutions rapides.")}</p></div>
+    <div className="step"><span className="n">{t("Étape 3")}</span><h3>{t("Construire")}</h3><p>{t("Relier vos outils, puis bâtir vos propres logiciels.")}</p></div>
   </div>
-  <p className="aussi">{t("Déjà équipé ? Nous vérifions vos agents et leurs règles, nous installons l'IA sur vos serveurs, nous auditons votre usage de Claude Code.")}</p>
+  <p className="aussi">{t("Déjà équipés ? Nous vérifions vos agents et leurs règles, installons l'IA sur vos serveurs et auditons votre usage de Claude Code.")}</p>
 </div></section>
 
 <section id="services"><div className="wrap">
@@ -149,25 +154,25 @@ export function SinglePage({ locale }: { locale: Locale }) {
 <section id={fr ? "confiance" : "safeguards"} style={{"background": "var(--sky)"}}><div className="wrap">
   <h2>{t("Vos agents agissent")}{" "}<b>{t("dans des limites que vous fixez.")}</b></h2>
   <div className="trust">
-    <div className="card"><div className="q">{t("Quels clients relancer cette semaine ?")}</div><div className="v"><b>{t("Autorisé")}</b>{t("Il reçoit la liste de ses clients.")}</div><div className="q">{t("Montre-moi les salaires.")}</div><div className="v"><b className="no">{t("Refusé")}</b>{t("Il n'a pas le droit de lire la paie.")}</div>
+    <div className="card"><div className="q">{t("Quels clients relancer cette semaine ?")}</div><div className="v"><b>{t("Autorisé")}</b>{t("Il reçoit la liste de ses clients.")}</div><div className="q">{t("Montre-moi les salaires.")}</div><div className="v"><b className="no">{t("Refusé")}</b>{t("Il n'a pas accès à la paie.")}</div>
       <h3>{t("Chaque agent ne voit que ce qu'il a le droit de voir.")}</h3></div>
-    <div className="card"><div className="flow"><div>{t("L'agent veut envoyer un devis au client A.")}</div><div>{t("Tout envoi demande l'accord d'une personne.")}</div><div className="ok">{t("Une personne valide : le devis part.")}</div></div>
-      <h3>{t("Rien ne part sans validation.")}</h3><p className="muted">{t("Chez Parrit.ai, aucun message ne part sans l'accord d'une personne.")}</p></div>
-    <div className="card"><div className="flow"><div>{t("Un agent écrit le code demandé.")}</div><div>{t("D'autres le relisent, chacun sous un angle.")}</div><div className="ok">{t("Les tests tranchent.")}</div></div>
-      <h3>{t("Un agent écrit le code, d'autres le vérifient.")}</h3><p className="muted">{t("Le 19/10/2026, quatre agents ont relu le code avant qu'il soit accepté.")}</p></div>
+    <div className="card"><div className="flow"><div>{t("L'agent prépare un devis pour le client A.")}</div><div>{t("Il attend votre accord.")}</div><div className="ok">{t("Vous validez : le devis part.")}</div></div>
+      <h3>{t("Rien ne part sans validation.")}</h3></div>
+    <div className="card"><div className="flow"><div>{t("Un agent écrit le code.")}</div><div>{t("D'autres le relisent, chacun sous un angle.")}</div><div className="ok">{t("Les tests tranchent.")}</div></div>
+      <p className="muted">{t("Le 19 octobre 2026, quatre agents l'ont relu avant validation.")}</p></div>
   </div>
   <div className="host">
     <div><b>{t("Chez un fournisseur")}</b><p className="muted">{t("Vos données sont traitées selon le contrat.")}</p></div>
-    <div><b>{t("Sur vos serveurs")}</b><p className="muted">{t("Vos données sont traitées chez vous.")}</p></div>
-    <div><b>{t("Mixte")}</b><p className="muted">{t("Les données sensibles restent chez vous.")}</p></div>
+    <div><b>{t("Sur vos serveurs")}</b><p className="muted">{t("Elles ne quittent pas votre entreprise.")}</p></div>
+    <div><b>{t("Mixte")}</b><p className="muted">{t("Les plus sensibles restent chez vous.")}</p></div>
   </div>
 </div></section>
 
 <section id={fr ? "partenaires" : "team"}><div className="wrap">
   <h2>{t("Chaque projet a son équipe")}{" "}<b>{t("et sa technologie.")}</b></h2>
   <p className="muted" style={{"marginTop": "20px", "maxWidth": "720px"}}>{t("Plus de vingt partenaires, entrepreneurs et consultants indépendants, choisis selon le diagnostic.")}</p>
-  <ServiceGrid items={[[t("Ingénieurs IA"), t("Plus de dix ingénieurs en IA appliquée, chacun sa spécialité : vision, agents, intégration.")], [t("Sans code et assistants"), t("Des développeurs et des studios : automatisations, assistants écrits, vocaux et vidéo.")], [t("Transformation et projet"), t("Des experts de la conduite du changement et du pilotage de projet.")], [t("Marque et marketing"), t("Des experts de l'image de marque, des contenus et de la vente.")], [t("Acculturation"), t("Une quinzaine de formateurs mobilisables, et un organisme certifié.")], [t("Conseil et qualité"), t("Des cabinets de conseil et des relecteurs de nos livrables.")], [t("Chercheurs du MIT"), t("Des chercheurs du MIT dans notre réseau, pour vos déploiements d'agents les plus exigeants.")]]} />
-  <p className="muted" style={{"marginTop": "28px"}}>{t("À l'international : des partenaires au Brésil et en Italie ; au Cameroun, une expansion en cours et de premiers clients.")}</p>
+  <ServiceGrid items={[[t("Ingénieurs IA"), t("Plus de dix, chacun sa spécialité : vision, agents, intégration.")], [t("Automatisation et assistants"), t("Des développeurs et des studios : assistants écrits, vocaux et vidéo.")], [t("Transformation et projet"), t("Conduite du changement et pilotage de projet.")], [t("Marque et marketing"), t("Image de marque, contenus et vente.")], [t("Formation"), t("Une quinzaine de formateurs et un organisme certifié.")], [t("Conseil et qualité"), t("Des cabinets partenaires et des relecteurs de nos livrables.")], [t("Chercheurs du MIT"), t("Des chercheurs du MIT dans notre réseau, pour vos déploiements d'agents les plus exigeants.")]]} />
+  <p className="muted" style={{"marginTop": "28px"}}>{t("À l'international : des partenaires au Brésil et en Italie, de premiers clients au Cameroun.")}</p>
 <ResearchPartner/>
 </div></section>
 
@@ -201,19 +206,22 @@ export function SinglePage({ locale }: { locale: Locale }) {
 
 <div className="journal-entry wrap"><a href={localizedPath("/journal", locale)}>{fr ? "Ce que nous écrivons" : "What we write"}</a></div>
 <section className="founder" id="contact"><div className="wrap"><div className="grid">
-  <img src="/photos/paul-centre.png" alt="Paul Larmaraud" width="860" height="1720" loading="lazy" />
+  <picture>
+    <source type="image/avif" srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.avif 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.avif 680w" sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1160px) calc((100vw - 144px) / 3), 339px" />
+    <source type="image/webp" srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.webp 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.webp 680w" sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1160px) calc((100vw - 144px) / 3), 339px" />
+    <img src="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.webp" alt="Paul Larmaraud" width="600" height="800" loading="lazy" />
+  </picture>
   <div>
     <h2>{"Paul Larmaraud, "}<b>{t("fondateur de Parrit.ai.")}</b></h2>
-    <p style={{"marginTop": "20px"}}>{t("Il a fondé Parrit.ai en 2024, après deux ans chez Lime.")}</p>
+    <p style={{"marginTop": "20px"}}>{t("Il a créé l'entreprise en 2024, après deux ans chez Lime.")}</p>
     <ul>
-      <li>{t("Il conçoit des systèmes où plusieurs agents travaillent ensemble.")}</li>
-      <li>{t("Il met en place les garde-fous qui encadrent les agents.")}</li>
-      <li>{t("Il forme les équipes et pilote les projets d'IA.")}</li>
+      <li>{t("Il conçoit des systèmes où plusieurs agents travaillent ensemble, et les garde-fous qui les encadrent.")}</li>
+      <li>{t("Il forme les équipes et pilote les projets.")}</li>
     </ul>
     <p className="local-note">{fr ? "Basé dans la métropole lilloise, il travaille aussi à Paris." : "Based in the Lille area, he also works in Paris."}</p>
     <div className="actions"><a className="btn rev-button exec" href="#reservation">{t("Parler d'un projet")}</a><a className="mail" href="mailto:paul.larmaraud@parrit.ai">{"paul.larmaraud@parrit.ai"}</a></div>
   </div>
-</div><div id="reservation" className="reservation"><ParritCalInline locale={locale}/><details className="contact-fallback"><summary>{fr ? "Pas de créneau ? Laissez votre e-mail" : "No slot that works? Leave your e-mail"}</summary><QuickCapture locale={locale} id="single-contact" /></details></div></div></section>
+</div><div id="reservation" className="reservation"><ParritCalInline locale={locale}/><details className="contact-fallback"><summary>{fr ? "Aucun créneau ne convient ? Laissez votre e-mail." : "No suitable time? Leave your e-mail."}</summary><QuickCapture locale={locale} id="single-contact" /></details></div></div></section>
 
 </main>;
 }

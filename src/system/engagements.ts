@@ -12,16 +12,16 @@ import type { Locale } from "@/system/locale";
 export const ENGAGEMENTS = {
   en: {
     reponsePersonnelle: "One personal reply per company",
-    aucuneSequence: "No automated sequence",
+    aucuneSequence: "No automated follow-up.",
   },
   fr: {
     reponsePersonnelle: "Une réponse personnelle par entreprise",
-    aucuneSequence: "Aucune séquence automatique",
+    aucuneSequence: "Aucune relance automatique.",
   },
 } as const;
 
 export function noteFunnel(locale: Locale, variante: "hero" | "standard"): string {
   const e = ENGAGEMENTS[locale];
   if (variante === "hero") return e.reponsePersonnelle;
-  return `${e.reponsePersonnelle} · ${e.aucuneSequence}`;
+  return e.aucuneSequence;
 }
