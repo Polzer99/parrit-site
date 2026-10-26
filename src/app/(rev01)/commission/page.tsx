@@ -6,7 +6,7 @@ import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 
 const DICT = {
   "en": {
-    "title": "Every commission begins with an examination.",
+    "title": "A first video call to discuss your project.",
     "metaDescription": "A video call, to name the operation costing you the most and check a system makes sense for it. You then receive a written scope, or a clear no.",
     "kicker": "Parrit / Commission",
     "sub": "A video call, to name the operation costing you the most and check a system makes sense for it.",
@@ -16,7 +16,7 @@ const DICT = {
     "aria": "Select a time"
   },
   "fr": {
-    "title": "Toute commande commence par un examen.",
+    "title": "Un premier échange en visio pour parler de votre projet.",
     "metaDescription": "Un échange en visio, pour nommer l'opération qui vous coûte le plus et vérifier qu'un système a du sens pour elle. Vous recevez ensuite un périmètre écrit, ou un non clair.",
     "kicker": "Parrit / Commande",
     "sub": "Un échange en visio, pour nommer l'opération qui vous coûte le plus et vérifier qu'un système a du sens pour elle.",

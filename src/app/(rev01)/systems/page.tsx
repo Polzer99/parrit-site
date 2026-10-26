@@ -1,7 +1,9 @@
+import { Faq } from "@/system/components/Faq";
+import { FinalCall } from "@/system/components/FinalCall";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getLocale } from "@/lib/server/locale";
-import { K, RegistryLine } from "@/system/components";
+import { K } from "@/system/components";
 import { SystemCard } from "@/system/components/SystemCard";
 import { MechanismSchema } from "@/system/components/MechanismSchema";
 import { RegistrySnapshot } from "@/system/components/RegistrySnapshot";
@@ -123,8 +125,8 @@ const DICT = {
     guardrails: "Guardrails.",
     guards: ["For each type of information, a single tool is trusted. It's never chosen by default or by habit.", "A new write path into a legacy tool can't be added without being declared here first.", "Every decision is logged: who decided, and when. Nothing happens silently.", "Before a change touches the site or our tools, a second system, distinct from the one that wrote it, reviews it, and a person decides alone whether to ship it. It can always be rolled back.", "The choice of AI model depends on the need and the cost, never on a single imposed provider."],
     faq: [
-      ["Is this training or a delivered system?", "A system. You learn to use it along the way, but what we deliver is something that runs, not a course."],
-      ["Where does our data go?", "Into your own accounts. We don't build a second database of it. If you choose ongoing support, we keep the technical access that takes, nothing more."],
+      ["Is this training or a delivered system?", "Both. Our systems come with team training; training alone is not our main offer."],
+      ["Where does our data go?", "Where the contract says. Hosting is decided per project, based on your data and access."],
       ["Who maintains the system afterward?", "You, or us: the choice is made after the examination, never before."],
       ["Where do we start?", "With a first conversation with Parrit.ai."],
     ], legal: "Legal",
@@ -149,8 +151,8 @@ const DICT = {
     guardrails: "Garde-fous.",
     guards: ["Pour chaque type d'information, un seul outil fait foi. Il n'est jamais choisi par hasard ni par habitude.", "Un nouveau point d'écriture vers un ancien outil ne peut pas s'ajouter sans être déclaré ici.", "Chaque décision est notée : qui a décidé, et quand. Rien ne se passe sans laisser de trace.", "Avant qu'un changement touche le site ou nos outils, un second système, distinct de celui qui l'a écrit, le relit, et une personne décide seule de le mettre en ligne. On peut toujours revenir en arrière.", "Le choix d'un outil d'intelligence artificielle dépend du besoin et du coût, jamais d'un seul fournisseur imposé."],
     faq: [
-      ["Formation ou système livré ?", "Un système. Vous apprenez à vous en servir en cours de route, mais ce que nous livrons, c'est quelque chose qui fonctionne, pas un cours."],
-      ["Où vont nos données ?", "Dans vos comptes. Nous n'en construisons pas une seconde base ailleurs. Si vous choisissez un suivi continu, nous gardons l'accès technique que ça demande, rien de plus."],
+      ["Formation ou système livré ?", "Les deux existent. Nos systèmes s'accompagnent d'une formation des équipes ; la formation seule n'est pas notre offre principale."],
+      ["Où vont nos données ?", "Là où le contrat le prévoit. L'hébergement se décide projet par projet, selon vos données et vos accès."],
       ["Qui maintient le système ensuite ?", "Vous, ou nous : le choix se fait après l'examen, jamais avant."],
       ["Par où commence-t-on ?", "Par un premier échange avec Parrit.ai."],
     ], legal: "Mentions légales",
@@ -296,7 +298,7 @@ export default async function SystemsPage() {
         <K>{copy.central}</K>{heading("case-heading", copy.caseTitle)}<K>{copy.observed}</K>
         <ul style={{ paddingLeft: 24, marginTop: 24 }}>{copy.record.map((item) => <li key={item}>{item}</li>)}</ul>
         <p style={{ margin: "32px 0" }}>{evidence.story}</p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 24, alignItems: "center" }}><Link href="#operating-view">{copy.mechanism}</Link>{talk}</div>
+        <div className="systems-hero-actions">{talk}<Link className="rev-button ghost" href="#operating-view">{copy.mechanism}</Link></div>
       </section>
       <section className="r2-section" id="method" aria-labelledby="method-heading">
         {heading("method-heading", copy.method)}<p style={{ marginBottom: 24 }}>{copy.methodBody}</p><Link href={localizedPath("/manufacture", locale)}>{copy.methodLink}</Link>
@@ -305,10 +307,10 @@ export default async function SystemsPage() {
         {heading("guardrails-heading", copy.guardrails)}<ul style={{ paddingLeft: 24 }}>{copy.guards.map((guard, i) => <li key={guard} style={{ marginTop: 20 }}>{i < 4 ? <Link href={["#operating-view", "#operating-view", "#operating-view", "#capacites"][i]}>{guard}</Link> : guard}</li>)}</ul>
       </section>
       <section className="r2-section" id="faq" aria-labelledby="faq-heading">
-        {heading("faq-heading", "FAQ")}{copy.faq.map(([question, answer]) => <div key={question} style={{ marginBottom: 32 }}><h3>{question}</h3><p style={{ marginTop: 16 }}>{answer}</p></div>)}
+        {heading("faq-heading", "FAQ")}<Faq items={copy.faq} questionHeading/>
       </section>
-      <div className="r2-close">{talk}</div>
-      <footer className="rev-footer"><RegistryLine value="PARRIT / SYSTEMS · 2026" /></footer>
+      <FinalCall locale={locale} className="r2-close"/>
+
     </div>
   </main>;
 }

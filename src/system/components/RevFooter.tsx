@@ -6,9 +6,9 @@ const FOOTER = {
   en: {
     links: [
       ["/systems", "Systems", ""],
-      ["/manufacture", "The Manufacture", "the method"],
+      ["/manufacture", "How we build", "the method"],
       ["/standard", "The Standard", "our commitments"],
-      ["/dossiers", "The Dossiers", "references"],
+      ["/dossiers", "Case files", "references"],
       ["/journal", "The Journal", "field notes"],
       ["/commission", "Talk about a project", ""],
       ["/build-with-you", "Build a first system with us", ""],

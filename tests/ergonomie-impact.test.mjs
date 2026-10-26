@@ -14,7 +14,7 @@ for (const locale of ['fr', 'en']) {
     assert.doesNotMatch(hero, /class="v1-process"/);
     assert.ok(consulting.indexOf('</ol>') < consulting.indexOf('<figure'));
     assert.doesNotMatch(html, /class="k"|class="v1-index"|<dt>/);
-    const steps = html.match(/<ol class="v1-grid v1-numbered v1-method">[\s\S]*?<\/ol>/)[0];
+    const steps = html.match(/<ol class="v1-sequence v1-method">[\s\S]*?<\/ol>/)[0];
     assert.equal((steps.match(/<li>/g) ?? []).length, 6);
     assert.equal((steps.match(/<svg/g) ?? []).length, 5);
     for (const [, text] of html.matchAll(/<a class="rev-button [^"]+"[^>]*>(.*?)<\/a>/g)) assert.doesNotMatch(visibleText(text), /\.$/);

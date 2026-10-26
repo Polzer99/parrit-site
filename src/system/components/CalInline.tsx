@@ -19,15 +19,15 @@ export function ParritCalInline({
 }: ParritCalInlineProps) {
   const copy = locale === "fr" ? {
     title: "PARRIT / COMMANDE",
-    ready: "CHOISISSEZ UN CRÉNEAU",
-    loading: "CHARGEMENT DES CRÉNEAUX…",
-    retrieving: "OUVERTURE DU CALENDRIER · QUELQUES SECONDES",
+    ready: "Choisissez un créneau",
+    loading: "Chargement des créneaux…",
+    retrieving: "Ouverture du calendrier · Quelques secondes",
     format: "VISIO",
   } : {
     title: "PARRIT / COMMISSION",
-    ready: "SELECT A TIME",
-    loading: "LOADING AVAILABLE TIMES…",
-    retrieving: "RETRIEVING THE CALENDAR · A FEW SECONDS",
+    ready: "Select a time",
+    loading: "Loading available times…",
+    retrieving: "Retrieving the calendar · A few seconds",
     format: "VIDEO",
   };
   const placeholder = isPlaceholder(calLink);
@@ -76,12 +76,18 @@ export function ParritCalInline({
         theme: "dark",
         hideEventTypeDetails: false,
         layout: "month_view",
-        styles: { branding: { brandColor: tokenValue("var(--accent-on-dark)") } },
+        styles: { align: "left", branding: { brandColor: tokenValue("var(--accent-on-dark)") } },
         cssVarsPerTheme: {
           dark: {
             "cal-brand": tokenValue("var(--accent-on-dark)"),
-            "cal-bg": tokenValue("var(--carbon)"),
-            "cal-bg-emphasis": tokenValue("var(--carbon2)"),
+            "cal-bg": tokenValue("var(--ink)"),
+            "cal-bg-emphasis": tokenValue("var(--ink)"),
+            "cal-bg-subtle": tokenValue("var(--ink)"),
+            "cal-bg-muted": tokenValue("var(--ink)"),
+            "cal-text": tokenValue("var(--paper)"),
+            "cal-text-emphasis": tokenValue("var(--paper)"),
+            "cal-text-subtle": tokenValue("var(--g4-d)"),
+            "cal-text-muted": tokenValue("var(--g4-d)"),
             "cal-border": tokenValue("var(--rule-d)"),
           },
           light: { "cal-brand": tokenValue("var(--accent-strong)") },

@@ -24,7 +24,7 @@ export function proxy(request: NextRequest) {
   const queryLocale = request.nextUrl.searchParams.get("lang");
   const safeMethod = request.method === "GET" || request.method === "HEAD";
 
-  if (safeMethod && isLocale(queryLocale)) {
+  if (safeMethod && isLocale(queryLocale) && !isJournalArticlePath(bare)) {
     const url = request.nextUrl.clone();
     url.pathname = localizedPath(bare, queryLocale);
     url.searchParams.delete("lang");
@@ -46,7 +46,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(url, 301);
   }
 
-  // Articles retain their French alias; feeds, private sketches and other routes do not.
+  // Article aliases redirect in next.config before proxy; other French aliases below are unchanged.
   if (french && !frenchChrome) {
     const url = request.nextUrl.clone();
     url.pathname = bare;

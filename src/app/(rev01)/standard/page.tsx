@@ -1,9 +1,9 @@
+import { FinalCall } from "@/system/components/FinalCall";
 import { EXAM_NOTE } from "@/system/examination";
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import { getLocale } from "@/lib/server/locale";
-import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
+import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 
 const DICT = {
   "en": {
@@ -16,17 +16,17 @@ const DICT = {
       [
         "01",
         "State is readable at any moment.",
-        "Pipeline state, follow-ups sent and yesterday's incident fit on one screen."
+        "Sales status, follow-ups sent and yesterday's incident fit on one screen."
       ],
       [
         "02",
         "Every signal carries its decision.",
-        "A blocked invoice surfaces framed and quantified, on a card."
+        "A blocked invoice surfaces framed and quantified, ready to decide."
       ],
       [
         "03",
         "A decision always keeps its origin.",
-        "Author, time, source, rationale. The journal is the audit."
+        "Author, time, source, rationale. The log is the audit trail."
       ],
       [
         "04",
@@ -36,7 +36,7 @@ const DICT = {
       [
         "05",
         "What is built for you is assigned to you in writing.",
-        "The contract assigns, right by right, the rights to the code and documentation built for your project. Your data remains yours. Reused components, open-source software and third-party services stay under their own licences and are listed in an annex. Your team can run the system without us; keeping us for support remains your choice."
+        "The contract assigns, right by right, the rights to the code and documentation built for your project. Your data remains yours. Reused components, open-source software and third-party services stay under their own licenses and are listed in an annex. Maintenance, by your team or by us, is written into the contract."
       ],
       [
         "06",
@@ -59,17 +59,17 @@ const DICT = {
       [
         "01",
         "L'état se lit à tout moment.",
-        "L'état du pipeline, les relances parties et l'incident d'hier tiennent sur un écran."
+        "L'état des ventes, les relances parties et l'incident d'hier tiennent sur un écran."
       ],
       [
         "02",
         "Chaque signal porte sa décision.",
-        "La facture bloquée remonte cadrée et chiffrée, sur une carte."
+        "La facture bloquée remonte cadrée et chiffrée, prête à être tranchée."
       ],
       [
         "03",
         "Toute décision garde son origine.",
-        "Auteur, heure, source, motif. Le journal est l'audit."
+        "Auteur, heure, source, motif. L'historique fait foi."
       ],
       [
         "04",
@@ -79,7 +79,7 @@ const DICT = {
       [
         "05",
         "Ce qui est développé pour vous vous est cédé par écrit.",
-        "Le contrat cède, droit par droit, les droits sur le code et la documentation développés pour votre projet. Vos données restent les vôtres. Les briques réutilisées, les logiciels libres et les services tiers restent sous leur propre licence et sont listés en annexe. Votre équipe peut faire tourner le système sans nous ; nous garder en support reste votre choix."
+        "Le contrat cède, droit par droit, les droits sur le code et la documentation développés pour votre projet. Vos données restent les vôtres. Les briques réutilisées, les logiciels libres et les services tiers restent sous leur propre licence et sont listés en annexe. La maintenance, par votre équipe ou par nous, est écrite dans le contrat."
       ],
       [
         "06",
@@ -102,4 +102,4 @@ export default async function StandardPage() { const locale = await getLocale();
   itemListElement: copy.principles.map(([, name, description], index) => ({
     "@type": "ListItem", position: index + 1, name, description,
   })),
-}).replace(/</g, "\\u003c") }} /><div className="rev-wrap"><header className="standard-intro"><h1>{copy.title}</h1></header><section className="doctrine" aria-label={copy.metaTitle}>{copy.principles.map(([code, statement, scene]) => <div className="doctrine-row" key={code}><h3 className="doctrine-name">{statement}</h3><div className="doctrine-definition">{scene}</div></div>)}<div className="doctrine-foot"><span className="seal">{copy.seal}</span></div></section><p className="standard-note">{copy.note}</p><div className="standard-action"><p>{copy.proof}</p><Link className="rev-button exec" href={localizedPath("/commission", locale)}>{copy.button}</Link></div></div></main>; }
+}).replace(/</g, "\\u003c") }} /><div className="rev-wrap"><header className="standard-intro"><h1>{copy.title}</h1></header><section className="doctrine" aria-label={copy.metaTitle}>{copy.principles.map(([code, statement, scene]) => <div className="doctrine-row" key={code}><h3 className="doctrine-name">{statement}</h3><div className="doctrine-definition">{scene}</div></div>)}<div className="doctrine-foot"><span className="seal">{copy.seal}</span></div></section><p className="standard-note">{copy.note}</p><FinalCall locale={locale} className="standard-action"><p>{copy.proof}</p></FinalCall></div></main>; }

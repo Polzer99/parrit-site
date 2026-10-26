@@ -1,3 +1,6 @@
+import { Faq } from "./Faq";
+import { FinalCall } from "./FinalCall";
+import { Sequence } from "./Sequence";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getLocale } from "@/lib/server/locale";
@@ -9,7 +12,7 @@ export async function siteV1Metadata(id: SiteV1PageId): Promise<Metadata> {
   const locale = await getLocale(); const copy = SITE_V1_PAGES[id][locale];
   const titles = {
     "ai-sprints": { fr: "AI Sprints : un problème, un système testable", en: "AI Sprints: one problem, a testable system" },
-    "harness-engineering": { fr: "Harness Engineering : des agents fiables en production", en: "Harness Engineering: reliable agents in production" },
+    "harness-engineering": { fr: "Harness Engineering : rendre vos agents plus fiables", en: "Harness Engineering: making your agents more reliable" },
   };
   const title = `${id === "ai-sprints" || id === "harness-engineering" ? titles[id][locale] : copy.name} · Parrit.ai`;
   return { title: { absolute: title }, description: copy.description, alternates: localizedAlternates(`/${id}`, locale), openGraph: localizedOpenGraph(`/${id}`, locale, title, copy.description) };
@@ -25,15 +28,16 @@ export async function SiteV1Page({ id }: { id: SiteV1PageId }) {
       <div>
         {copy.brief && <section><h2>{fr ? "En bref" : "At a glance"}</h2><dl className="v1-brief">{copy.brief.map(([term, value]) => <div key={term}><dt>{term}</dt><dd>{value}</dd></div>)}</dl></section>}
         {id === "engineering-integration" && <section><h2>{fr ? "Intégrer ce qui existe. Construire ce qui manque." : "Integrate what exists. Build what is missing."}</h2><IntegrationBuildSwitcher locale={locale}/></section>}
-        {copy.sections.map(([anchor, title, paragraphs]) => <section key={anchor} id={anchor} data-regime="calm"><h2>{title}</h2>{paragraphs.map(text => <p key={text}>{text}</p>)}
+        {id === "ai-sprints" && <Sequence steps={copy.sections.slice(0, 4).map(([, title, paragraphs]) => [title, paragraphs.join(" ")])}/>}
+        {copy.sections.filter(([anchor]) => id !== "ai-sprints" || !["scoping", "construction", "evaluation", "decision"].includes(anchor)).map(([anchor, title, paragraphs]) => <section key={anchor} id={anchor} data-regime="calm"><h2>{title}</h2>{id === "consulting-transformation" && anchor === "method" ? <Sequence steps={paragraphs.flatMap(text => text.split(/(?<=\.)\s+/)).map(text => [text])}/> : paragraphs.map(text => <p key={text}>{text}</p>)}
           {harness && anchor === "harness" && <ol className="v1-harness-diagram" aria-label={fr ? "Composants du harnais" : "Harness components"}>{(fr ? ["Instructions", "Contexte", "Mémoire", "Outils", "Permissions", "Vérifications", "Supervision", "Coûts"] : ["Instructions", "Context", "Memory", "Tools", "Permissions", "Checks", "Supervision", "Costs"]).map(text => <li key={text}>{text}</li>)}</ol>}
           {id === "engineering-integration" && anchor === "harness" && <Link className="rev-button ghost" href={href("/harness-engineering")}>Harness Engineering</Link>}
         </section>)}
-        {copy.faq.length > 0 && <section><h2>{fr ? "Questions fréquentes" : "Frequently asked questions"}</h2>{copy.faq.map(([question, answer]) => <details className="v1-faq" key={question}><summary>{question}</summary><p>{answer}</p></details>)}</section>}
-        {harness && <p>{fr ? "Mis à jour le " : "Updated on "}<time dateTime="2026-10-26">{fr ? "26 octobre 2026" : "26 October 2026"}</time></p>}
+        {copy.faq.length > 0 && <section><h2>{fr ? "Questions fréquentes" : "Frequently asked questions"}</h2><Faq items={copy.faq}/></section>}
+        {harness && <p className="v1-updated">{fr ? "Mis à jour le " : "Updated on "}<time dateTime="2026-10-26">{fr ? "26 octobre 2026" : "26 October 2026"}</time></p>}
       </div>
     </div>
     <section><div className="home-s-wrap"><h2>{fr ? "Poursuivre votre réflexion" : "Explore further"}</h2><nav className="v1-related" aria-label={fr ? "Pages associées" : "Related pages"}>{(Object.keys(SITE_V1_PAGES) as SiteV1PageId[]).filter(key => key !== id).map(key => <Link key={key} href={href(`/${key}`)}>{SITE_V1_PAGES[key][locale].name}</Link>)}<Link href={href("/dossiers")}>{fr ? "Réalisations" : "Work"}</Link><Link href={href("/standard")}>{fr ? "Le Standard" : "The Standard"}</Link><Link href={href("/manufacture")}>{fr ? "La méthode" : "The method"}</Link><Link href={href("/journal")}>Journal</Link></nav></div></section>
-    <section className="home-s-close r2-dark" data-regime="ink"><div className="home-s-wrap"><h2>{fr ? "Parlons de l'opération que vous voulez transformer." : "Let's talk about the operation you want to transform."}</h2><Link className="rev-button exec" href={href("/commission")}>{fr ? "Parler d'un projet" : "Talk about a project"}</Link></div></section>
+    <div className="home-s-close r2-dark" data-regime="ink"><FinalCall locale={locale} className="home-s-wrap"/></div>
   </main>;
 }

@@ -17,7 +17,7 @@ export function barePathname(pathname: string): string {
   return pathname === "/fr" ? "/" : pathname.startsWith("/fr/") ? pathname.slice(3) : pathname;
 }
 
-// Articles have French chrome and a language notice, but keep their English canonical.
+// Articles have a single English URL; French aliases redirect before proxy.
 // Feeds, OG images and other nested routes are not article pages.
 export function isJournalArticlePath(pathname: string): boolean {
   return /^\/journal\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(pathname);
@@ -29,7 +29,7 @@ export function localizedPath(href: string, locale: Locale): string {
   const suffix = suffixAt < 0 ? "" : href.slice(suffixAt);
   const bare = barePathname(pathname);
   if (locale === "fr" && bare === "/consulting-transformation") return `/fr/conseil-transformation${suffix}`;
-  return `${locale === "fr" && (TRANSLATED_PATHS.includes(bare) || isJournalArticlePath(bare)) ? `/fr${bare === "/" ? "" : bare}` : bare}${suffix}`;
+  return `${locale === "fr" && TRANSLATED_PATHS.includes(bare) ? `/fr${bare === "/" ? "" : bare}` : bare}${suffix}`;
 }
 
 export function isLocale(value: string | null | undefined): value is Locale {

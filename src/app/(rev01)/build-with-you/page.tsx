@@ -1,3 +1,4 @@
+import { FinalCall } from "@/system/components/FinalCall";
 import { EXAM_NOTE } from "@/system/examination";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -22,8 +23,8 @@ const DICT = {
     bringBody: "One precise operation: the follow-up that quietly drops, the spreadsheet you copy out every week, the decision that always lands on your desk. You're in the room: you decide.",
     nextTitle: "What happens next.",
     nextBody: "The system runs on your side, and the method stays with your team: you watched how one operation turns into something that runs. The next one you spot, your team can take on alone with what it learned, or you call Parrit back for a custom system, starting from the same place.",
-    nextLink: "Book the examination (custom system)",
-    cta: "Book the examination",
+    nextLink: "Talk about a custom system",
+    cta: "Talk about a project",
     examinationNote: EXAM_NOTE.en,
   },
   fr: {
@@ -43,8 +44,8 @@ const DICT = {
     bringBody: "Une opération précise : la relance qui retombe dans l'oubli, le tableau que vous recopiez chaque semaine, la décision qui atterrit toujours sur votre bureau. Vous êtes présent : c'est vous qui tranchez.",
     nextTitle: "Et ensuite.",
     nextBody: "Le système tourne chez vous, et la méthode reste à votre équipe : vous avez vu comment une opération se transforme en quelque chose qui tourne. La prochaine que vous repérerez, votre équipe peut s'y attaquer seule avec ce qu'elle a appris, ou vous rappelez Parrit pour un système sur mesure qui part du même endroit.",
-    nextLink: "Réserver l'examen (système sur mesure)",
-    cta: "Réserver l'examen",
+    nextLink: "Parler d'un système sur mesure",
+    cta: "Parler d'un projet",
     examinationNote: EXAM_NOTE.fr,
   },
 } as const;
@@ -98,9 +99,7 @@ export default async function BuildWithYouPage() {
           <p style={{ marginBottom: 16 }}>{copy.nextBody}</p>
           <Link className="build-with-you-next-link" href={localizedPath("/commission", locale)}>{copy.nextLink}</Link>
         </section>
-        <section className="r2-close" aria-label="Build With You">
-          <Link className="rev-button exec" href={localizedPath("/commission", locale)}>{copy.cta}</Link>
-        </section>
+        <FinalCall locale={locale} className="r2-close"></FinalCall>
 
       </div>
     </main>
