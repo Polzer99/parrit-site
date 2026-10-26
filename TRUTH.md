@@ -8,7 +8,37 @@
 
 ## 1. Ce qu'est Parrit (positionnement)
 
-Décision du 25/10/2026 : Parrit.ai construit des **logiciels métier**, avec l'ambition de verticaliser des produits, et accompagne les entreprises dans leur **transformation IA**. Deux parcours : PME/ETI et grands groupes ; conseil et logiciel sont ouverts aux deux. FormIA est l'organisme de formation de Parrit.ai, sans site propre. Les outils construits appartiennent au client.
+Décision du 26/10/2026, source : `parrit-canon/positioning/POSITIONNEMENT-CANONIQUE-2026-10-26.md`.
+
+Parrit.ai conçoit, construit et met en production des systèmes intelligents qui transforment les opérations des entreprises.
+
+EN : Parrit.ai designs, builds and runs intelligent systems that change how companies operate.
+
+Deux parcours : PME/ETI et grands groupes ; conseil et logiciel sont ouverts aux deux. FormIA est l'organisme de formation de Parrit.ai, sans site propre. Les outils construits appartiennent au client.
+
+### Six capacités, pas un catalogue
+
+| # | Capacité | Ce qu'elle fait (formulation publique) | Limite toujours dite |
+|---|---|---|---|
+| 1 | AI Transformation | choisir les cas d'usage à partir des opérations, les chiffrer et les ordonner | aucune promesse de gain sans mesure de référence |
+| 2 | Autonomous Agents | des agents qui agissent dans des limites écrites | ce qui engage l'entreprise passe par une validation humaine |
+| 3 | Custom Software & Internal Systems | des outils construits autour du processus réel, dans les comptes de l'entreprise | testé avant déploiement |
+| 4 | Private & Sovereign AI | modèles et données hébergés là où l'entreprise le décide | aucune revendication de conformité sans audit |
+| 5 | AI Go-to-Market Infrastructure | donnée commerciale, qualité, relances | aucun envoi sans validation humaine |
+| 6 | Content Factories | produire, vérifier, publier avec contrôles avant diffusion | aucune publication sans contrôles (C-JURY pour le Journal) |
+
+
+### Huit principes
+
+1. Partir des opérations et des problèmes métier, pas des technologies.
+2. Absorber la complexité pour les décideurs.
+3. Reverse-engineerer les processus humains avant de les automatiser.
+4. Distinguer optimisation de l'existant et nouvelles capacités.
+5. Construire brique par brique.
+6. Mesurer, tester et valider avant déploiement.
+7. Conserver supervision humaine, traçabilité et maîtrise des données.
+8. Ne pas promettre d'autonomie ou de performance sans démonstration.
+
 
 Parrit livre la chose qui tourne, pas un deck. Chaque commande répond au Standard Parrit.
 

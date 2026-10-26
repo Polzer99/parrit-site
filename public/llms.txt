@@ -1,6 +1,6 @@
 # Parrit
 
-> Parrit.ai builds business software and helps companies with their AI transformation, for SMEs, mid-sized companies and large groups.
+> Parrit.ai designs, builds and runs intelligent systems that change how companies operate.
 
 ## Positioning
 - Parrit builds systems as owned infrastructure:
@@ -21,7 +21,7 @@ Each system delivered from now on is checked against the Standard, Parrit.ai's i
 - 06: Each new capability reuses what already exists.
 
 ## Who is Parrit
-- An independent French maison.
+- Parrit.ai designs, builds and runs intelligent systems that change how companies operate.
 - A registered French company (PARRIT.AI, SAS, registered office in
   Rueil-Malmaison, France); full legal identity at https://parrit.ai/legal.
 - Operates internationally, in English and in French :
@@ -38,7 +38,7 @@ Each system delivered from now on is checked against the Standard, Parrit.ai's i
   client revokes it.
 
 ## Pages
-- https://parrit.ai/ : Parrit, business software and AI.
+- https://parrit.ai/ : Parrit, intelligent systems for operations.
 - https://parrit.ai/manufacture : How a system is manufactured: doctrine and
   the three phases.
 - https://parrit.ai/standard : The Standard, six commitments Parrit.ai applies to its systems. It is an internal check, with no external accreditation.

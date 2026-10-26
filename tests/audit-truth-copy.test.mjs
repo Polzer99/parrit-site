@@ -106,8 +106,10 @@ test("legal identity and generated machine-readable claims stay consistent", () 
   for (const path of ["src/system/jsonld.ts", "scripts/generate-llms.mjs", "public/llms.txt"]) {
     const text = read(path);
     assert.doesNotMatch(text, /maison (?:française indépendante )?de données|data and AI firm|Données et IA/i, path);
-    assert.match(text, /business software/i, path);
-    assert.match(text, /AI transformation/i, path);
+    const definition = read("src/system/jsonld.ts").match(/description:\s*"([^"]+)"/)?.[1];
+    assert.ok(definition?.trim());
+    assert.ok(text.includes(definition), `${path}: canonical organization description`);
+
   }
 });
 

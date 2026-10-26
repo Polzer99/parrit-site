@@ -3427,3 +3427,13 @@ a.k {
 }
 
 .home-s-journal ol { margin-top: 34px; }
+
+/* Secondary journey link: readable text with a full touch target. */
+.home-s-journey-secondary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-block: 12px;
+  color: inherit;
+}
+#capacites .home-s-proof-item:nth-child(odd) { padding-left: 0; }
