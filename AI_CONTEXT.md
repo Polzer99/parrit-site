@@ -1,5 +1,18 @@
 # AI Context
 
+## Matière granuleuse, option A — 26/10/2026
+
+Une bande décorative vide et aria-hidden suit H01 sur les accueils FR/EN.
+Matiere utilise une tuile PNG opaque issue des jetons vendorisés ; prebuild
+régénère les deux tons de façon déterministe, sans dépendance ajoutée.
+La gate de marque vérifie format, palette, cellules, densité et poids.
+Six tests Node et quatre parcours Playwright ajoutés ; fixtures existantes
+étendues sans changer leurs assertions. Lint/types/claims/marque, 154 tests Node,
+24 tests Brand OS et deux builds Webpack passent, PNG identiques entre builds.
+Turbopack sans progression interrompu ; serveur :3210 et Chromium refusés par
+le sandbox. Captures et validation navigateur restent à faire sur l'hôte.
+Voir `docs/site-v1/RAPPORT-MATIERE-GRAIN-A.md`. Aucun commit/push/déploiement.
+
 ## Reprise V4 après clarification du point 5, 26/10/2026
 
 Les correctifs de rendu V4 présents au démarrage sont conservés. Le point 5 du

@@ -4,7 +4,7 @@ import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system
 import { getLocale } from "@/lib/server/locale";
 import { PUBLIC_CLIENT_NAMES, publicClientName } from "@/system/public-clients";
 import { getSiteEvidence } from "@/lib/registry/preuves";
-import { K } from "@/system/components";
+import { K, Matiere } from "@/system/components";
 import { CaseStudyCard } from "@/system/components/CaseStudyCard";
 import { IntegrationBuildSwitcher } from "@/system/components/IntegrationBuildSwitcher";
 import { ProcessDiagram } from "@/system/components/ProcessDiagram";
@@ -228,6 +228,7 @@ export default async function HomePage() {
       <div className="v1-actions"><Link className="rev-button exec" href={href("/commission")}>{copy.hero.primary}</Link><Link className="rev-button ghost" href={href("/dossiers")}>{copy.hero.secondary}</Link></div>
       <ProcessDiagram locale={locale}/>
     </div></section>
+    <div data-regime="calm"><div className="home-s-wrap"><Matiere tone="clair" /></div></div>
     {references.length > 0 && <section className="home-s-brands" id="H02" data-regime="calm"><div className="home-s-wrap"><h2>{copy.brands.kicker}</h2><ul className="home-s-brands-list" role="list">
       {references.map(id => { const evidence = getSiteEvidence(id, "home"); const item = copy.brands.list.find(client => publicClientName(client.name) === id); return evidence && item ? <li key={id} data-evidence={id}><strong>{item.name}</strong>{locale === "fr" ? (id === "Laparra" ? ", " : " : ") : ": "}<span>{item.description}</span></li> : null; })}
     </ul></div></section>}
