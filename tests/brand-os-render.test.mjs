@@ -124,7 +124,12 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           const ids = [...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]);
           const expected = locale === "fr" ? ["en-production", "ce-qui-change", "parcours", "services", "confiance", "partenaires", "references", "contact"] : ["in-production", "what-changes", "path", "services", "safeguards", "team", "references", "contact"];
           assert.deepEqual(ids.filter(id => expected.includes(id)), expected);
-          assert.doesNotMatch(text, /Content Factor|usines? de contenu|FormIA|Qualiopi|\bMIT\b/i);
+          assert.doesNotMatch(text, /Content Factor|usines? de contenu|FormIA|Qualiopi/i);
+          const partners = html.match(new RegExp(`<section id="${locale === "fr" ? "partenaires" : "team"}">[\\s\\S]*?</section>`))?.[0];
+          assert.ok(partners, `${label}: partners section`);
+          assert.match(visibleText(partners), /\bMIT\b/);
+          assert.doesNotMatch(partners, /<img|<svg/);
+          assert.doesNotMatch(visibleText(html.replace(partners, "")), /\bMIT\b/);
           for (const name of PUBLIC_CLIENT_NAMES) assert.ok(text.includes(name), `${label}: ${name}`);
         }
 

@@ -44,86 +44,7 @@ for (const width of [1440, 390]) {
       const image = await page.locator('meta[property="og:image"]').getAttribute("content");
       await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute("content", image!);
 
-      const measurements = await page.evaluate(() => {
-        type Color = [number, number, number, number];
-        const ctx = document.createElement("canvas").getContext("2d", { willReadFrequently: true });
-        if (!ctx) throw new Error("Missing canvas parser");
-        const parse = (value: string): Color => {
-          ctx.clearRect(0, 0, 1, 1);
-          ctx.fillStyle = value;
-          ctx.fillRect(0, 0, 1, 1);
-          return [...ctx.getImageData(0, 0, 1, 1).data].map((v) => v / 255) as Color;
-        };
-        const over = (a: Color, b: Color): Color => {
-          const alpha = a[3] + b[3] * (1 - a[3]);
-          if (!alpha) return [0, 0, 0, 0];
-          return [0, 1, 2].map((i) => (a[i] * a[3] + b[i] * b[3] * (1 - a[3])) / alpha).concat(alpha) as Color;
-        };
-        const paint = (element: Element, foreground: Color = [0, 0, 0, 0]): Color => {
-          let result = foreground;
-          for (let ancestor: Element | null = element; ancestor; ancestor = ancestor.parentElement) {
-            const style = getComputedStyle(ancestor);
-            if (style.backgroundImage !== "none") throw new Error("Text over image requires a separate contrast audit");
-            result = over(result, parse(style.backgroundColor));
-            result[3] *= Number(style.opacity);
-          }
-          return over(result, [1, 1, 1, 1]);
-        };
-        const luminance = (rgb: Color) => {
-          const [r, g, b] = rgb.slice(0, 3).map((v) => v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4);
-          return .2126 * r + .7152 * g + .0722 * b;
-        };
-        const result: { element: string; foreground: Color; background: Color; ratio: number; minimum: number }[] = [];
-        const seen = new Set<string>();
-        const measure = (element: Element, pseudo?: string) => {
-          // FIX2 explicitly requires readable disabled controls too.
-          if (!element.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }) || element.closest(".sr-only")) return;
-          const style = getComputedStyle(element, pseudo);
-          const pseudoBackground: Color = pseudo ? parse(style.backgroundColor) : [0, 0, 0, 0];
-          const pseudoForeground = over(parse(style.color), pseudoBackground);
-          if (pseudo) {
-            if (style.backgroundImage !== "none") throw new Error("Pseudo-element image requires a separate contrast audit");
-            pseudoForeground[3] *= Number(style.opacity);
-            pseudoBackground[3] *= Number(style.opacity);
-          }
-          const fg = paint(element, pseudoForeground);
-          const bg = paint(element, pseudoBackground);
-          const [hi, lo] = [luminance(fg), luminance(bg)].sort((a, b) => b - a);
-          const minimum = parseFloat(style.fontSize) >= 24 ? 3 : 4.5;
-          const label = `${element.tagName.toLowerCase()}.${[...element.classList].join(".")}${pseudo ?? ""}`;
-          const key = `${label}:${fg}:${bg}:${minimum}`;
-          if (seen.has(key)) return;
-          seen.add(key);
-          result.push({ element: label, foreground: fg, background: bg, ratio: (hi + .05) / (lo + .05), minimum });
-          if (!pseudo && element.matches(".rev-button")) {
-            const border = paint(element, parse(style.backgroundColor === "rgba(0, 0, 0, 0)" ? style.borderTopColor : style.backgroundColor));
-            const container = element.parentElement;
-            if (!container) throw new Error("Disabled button has no container");
-            const background = paint(container);
-            const [high, low] = [luminance(border), luminance(background)].sort((a, b) => b - a);
-            result.push({ element: `${label} border`, foreground: border, background, ratio: (high + .05) / (low + .05), minimum: 3 });
-          }
-        };
-        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-        let node: Node | null;
-        while ((node = walker.nextNode())) {
-          if (!node.textContent?.trim() || !node.parentElement) continue;
-          const range = document.createRange();
-          range.selectNodeContents(node);
-          if ([...range.getClientRects()].some((rect) => rect.width > 0 && rect.height > 0)) measure(node.parentElement);
-        }
-        for (const input of document.querySelectorAll("input, textarea, select")) {
-          measure(input);
-          if ((input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement) && input.placeholder && !input.value) measure(input, "::placeholder");
-        }
-        for (const element of document.querySelectorAll("*")) {
-          for (const pseudo of ["::before", "::after"]) {
-            const style = getComputedStyle(element, pseudo);
-            if (!["none", "normal", '\"\"', "''"].includes(style.content) && style.display !== "none" && style.visibility !== "hidden" && Number(style.opacity) > 0) measure(element, pseudo);
-          }
-        }
-        return result;
-      });
+      const measurements = await page.evaluate(measureContrast);
       await testInfo.attach(`contrast-${name}`, { body: JSON.stringify(measurements, null, 2), contentType: "application/json" });
       expect(measurements.length).toBeGreaterThan(0);
       expect(measurements.filter((item) => item.ratio < item.minimum)).toEqual([]);
@@ -202,3 +123,127 @@ test("all four approved founder photo URLs serve the original bytes", async ({ p
     expect(createHash("sha256").update(await response!.body()).digest("hex")).toBe(expected.sha256);
   }
 });
+
+// Shared with the negative fixtures: they exercise the exact production-page audit.
+function measureContrast() {
+  type Color = [number, number, number, number];
+  const ctx = document.createElement("canvas").getContext("2d", { willReadFrequently: true });
+  if (!ctx) throw new Error("Missing canvas parser");
+  const parse = (value: string): Color => {
+    ctx.clearRect(0, 0, 1, 1);
+    ctx.fillStyle = value;
+    ctx.fillRect(0, 0, 1, 1);
+    return [...ctx.getImageData(0, 0, 1, 1).data].map((v) => v / 255) as Color;
+  };
+  const over = (a: Color, b: Color): Color => {
+    const alpha = a[3] + b[3] * (1 - a[3]);
+    if (!alpha) return [0, 0, 0, 0];
+    return [0, 1, 2].map((i) => (a[i] * a[3] + b[i] * b[3] * (1 - a[3])) / alpha).concat(alpha) as Color;
+  };
+  const paint = (element: Element, foreground: Color = [0, 0, 0, 0]): Color => {
+    let result = foreground;
+    for (let ancestor: Element | null = element; ancestor; ancestor = ancestor.parentElement) {
+      const style = getComputedStyle(ancestor);
+      if (style.backgroundImage !== "none") throw new Error("Text over image requires a separate contrast audit");
+      result = over(result, parse(style.backgroundColor));
+      result[3] *= Number(style.opacity);
+    }
+    return over(result, [1, 1, 1, 1]);
+  };
+  const luminance = (rgb: Color) => {
+    const [r, g, b] = rgb.slice(0, 3).map((v) => v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4);
+    return .2126 * r + .7152 * g + .0722 * b;
+  };
+  const result: { element: string; foreground: Color; background: Color; ratio: number; minimum: number }[] = [];
+  const seen = new Set<string>();
+  const measure = (element: Element, pseudo?: string) => {
+    // FIX2 explicitly requires readable disabled controls too.
+    if (!element.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }) || element.closest(".sr-only")) return;
+    const style = getComputedStyle(element, pseudo);
+    const pseudoBackground: Color = pseudo ? parse(style.backgroundColor) : [0, 0, 0, 0];
+    const pseudoForeground = over(parse(style.color), pseudoBackground);
+    if (pseudo) {
+      if (style.backgroundImage !== "none") throw new Error("Pseudo-element image requires a separate contrast audit");
+      pseudoForeground[3] *= Number(style.opacity);
+      pseudoBackground[3] *= Number(style.opacity);
+    }
+    const fg = paint(element, pseudoForeground);
+    const bg = paint(element, pseudoBackground);
+    const [hi, lo] = [luminance(fg), luminance(bg)].sort((a, b) => b - a);
+    const minimum = parseFloat(style.fontSize) >= 24 ? 3 : 4.5;
+    const label = `${element.tagName.toLowerCase()}.${[...element.classList].join(".")}${pseudo ?? ""}`;
+    const key = `${label}:${fg}:${bg}:${minimum}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    result.push({ element: label, foreground: fg, background: bg, ratio: (hi + .05) / (lo + .05), minimum });
+    if (!pseudo && element.matches(".rev-button")) {
+      const border = paint(element, parse(style.backgroundColor === "rgba(0, 0, 0, 0)" ? style.borderTopColor : style.backgroundColor));
+      const container = element.parentElement;
+      if (!container) throw new Error("Disabled button has no container");
+      const background = paint(container);
+      const contrast = (color: Color) => {
+        const [high, low] = [luminance(color), luminance(background)].sort((a, b) => b - a);
+        return (high + .05) / (low + .05);
+      };
+      let silhouette = border;
+      // An opaque button can be distinguished by its fill or a complete solid contour.
+      // Use the weakest edge so one contrasting side cannot qualify the whole outline.
+      const sides = ["top", "right", "bottom", "left"];
+      if (parse(style.backgroundColor)[3] === 1 && sides.every(side =>
+        style.getPropertyValue(`border-${side}-style`) === "solid" &&
+        parseFloat(style.getPropertyValue(`border-${side}-width`)) >= 2
+      )) {
+        const outline = sides.map(side => paint(element, parse(style.getPropertyValue(`border-${side}-color`))))
+          .sort((a, b) => contrast(a) - contrast(b))[0];
+        if (contrast(outline) > contrast(silhouette)) silhouette = outline;
+      }
+      result.push({ element: `${label} border`, foreground: silhouette, background, ratio: contrast(silhouette), minimum: 3 });
+    }
+  };
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  let node: Node | null;
+  while ((node = walker.nextNode())) {
+    if (!node.textContent?.trim() || !node.parentElement) continue;
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    if ([...range.getClientRects()].some((rect) => rect.width > 0 && rect.height > 0)) measure(node.parentElement);
+  }
+  for (const input of document.querySelectorAll("input, textarea, select")) {
+    measure(input);
+    if ((input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement) && input.placeholder && !input.value) measure(input, "::placeholder");
+  }
+  for (const element of document.querySelectorAll("*")) {
+    for (const pseudo of ["::before", "::after"]) {
+      const style = getComputedStyle(element, pseudo);
+      if (!["none", "normal", '\"\"', "''"].includes(style.content) && style.display !== "none" && style.visibility !== "hidden" && Number(style.opacity) > 0) measure(element, pseudo);
+    }
+  }
+  return result;
+}
+
+for (const [name, border, passes] of [
+  ["no border", "border: none", false],
+  ["solid 2px border", "border: 2px solid white", true],
+  ["solid 1px border", "border: 1px solid white", false],
+  ["dashed border", "border: 2px dashed white", false],
+  ["incomplete border", "border: 2px solid white; border-bottom: none", false],
+  ["transparent border", "border: 2px solid transparent", false],
+] as const) {
+  test(`Brand OS silhouette regression: ${name}`, async ({ page }) => {
+    await page.setContent(`<body style="background: rgb(0, 111, 138)">
+      <button class="rev-button" style="background: rgb(240, 142, 133); color: black; ${border}">Action</button>
+    </body>`);
+    const measurements = await page.evaluate(measureContrast);
+    const silhouette = measurements.find(item => item.element.endsWith(" border"));
+    expect(silhouette).toBeDefined();
+    expect(silhouette?.minimum).toBe(3);
+    const failures = measurements.filter(item => item.ratio < item.minimum);
+    if (passes) {
+      expect(failures).toEqual([]);
+    } else {
+      expect(silhouette?.ratio).toBeLessThan(3);
+      expect(failures).toEqual([silhouette]);
+      expect(() => expect(failures).toEqual([])).toThrow();
+    }
+  });
+}

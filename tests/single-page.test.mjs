@@ -14,7 +14,12 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
   assert.match(visibleText(html), locale === "fr" ? /Nous allons à la frontière du possible/ : /We go to the frontier of what is possible/);
   assert.doesNotMatch(html, /\shidden[=> ]|class="k"|v1-index|registry-line/);
-  assert.doesNotMatch(visibleText(html), /\bMIT\b|Votre phrase indique|What you say tells/);
+  assert.doesNotMatch(visibleText(html), /Votre phrase indique|What you say tells/);
+  const partners = html.match(new RegExp(`<section id="${locale === "fr" ? "partenaires" : "team"}">[\\s\\S]*?</section>`))?.[0];
+  assert.ok(partners);
+  assert.equal((partners.match(/class="s"/g) ?? []).length, 7);
+  assert.match(visibleText(partners), /MIT/);
+  assert.doesNotMatch(partners, /<img|<svg/);
   assert.match(html, /href="#reservation"/);
   const contact = html.slice(html.indexOf('id="contact"'));
   assert.match(contact, /id="reservation"[\s\S]*data-booking-mock[\s\S]*data-capture-mock/);

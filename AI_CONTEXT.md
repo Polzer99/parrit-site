@@ -1,3 +1,38 @@
+## Mesure de silhouette et septième partenaire — 27/10/2026
+
+Demande explicite de Paul : contraste des boutons opaques mesuré par le meilleur
+contraste entre fond et contour complet plein >= 2 px ; seuil 3:1 conservé.
+La mesure partagée de brand-os.spec.ts conserve toutes les assertions antérieures ;
+fixtures négatives sans bordure, fine, discontinue, incomplète ou transparente.
+ServiceGrid partenaires : septième case « Chercheurs du MIT » / « MIT researchers »,
+textes FR/EN fournis par Paul, rangée complète sur ordinateur et pile sur mobile.
+Aucun nom de personne ni logo ajouté ; registre MIT inchangé et éteint.
+Les anciennes interdictions textuelles globales MIT sont remplacées par des
+contrôles de section, sept cases et absence de logo, y compris sur le HTML compilé.
+Baseline : 105 tests Node réussis. Chromium refusé par le sandbox avant navigation ;
+preuve navigateur (contraste et géométrie 1440/390) encore à rejouer sur l'hôte.
+Turbopack interrompu après deux minutes sans progression ; repli Webpack utilisé.
+Validation finale : lint, 105/105 tests Node, build Webpack (52 pages), gates
+marque et claims, 19/19 tests Brand OS et TypeScript réussis.
+Aucun commit ni push. Le correctif rose et les captures préexistantes sont conservés.
+
+## Correctif bouton rose — 27/10/2026
+
+Hero et fondateur : fond via `--action-fill` → `--accent-on-dark` →
+`--brand-core-rose`, texte encre ; surcharge rose pâle du hero supprimée.
+Reprise du journal hôte (226 réussis / 6 échecs) : bordure hero de 2 px via
+`--white` → `--brand-derived-white`, contraste calculé canard 5,768:1.
+Contact rose/encre déjà à 6,730:1. Erreur formulaire restaurée en
+`--accent-on-dark` pour corriger les deux échecs d'aération.
+Aucun test modifié dans cette reprise ; les quatre tests couleur ajoutés
+précédemment sont conservés. Lint, 105 tests Node, build Webpack, conformité
+marque et 19 tests Brand OS passent. Turbopack interrompu ; Chromium et écoute
+3210 refusés par le sandbox, validation navigateur candidate indisponible.
+Limite restante : `brand-os.spec.ts` ignore la bordure d'un bouton opaque et
+mesure son fond ; ses quatre assertions hero mesureront toujours 2,448:1.
+Ni contournement ni seuil modifié. Détails dans CORRECTIF-BOUTON-ROSE.md.
+Aucun commit, push ni changement de branche.
+
 ## Correctifs des 16 échecs navigateur page unique
 
 Baseline hôte : `page-unique-echecs-2.log`, 212 réussis / 16 échecs.
