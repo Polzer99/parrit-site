@@ -312,7 +312,7 @@ export const SITE_EVIDENCE: readonly PublicationEvidence[] = [
   publication("Clevery", "Clevery Avocats", "Un agent pour le cabinet", "réalisé pour le client"),
   publication("Forexpert", "Forexpert", "Un agent de prospection", "réalisé pour le client"),
   publication("Joone", "Joone", "Un accompagnement des équipes à l'IA", "accompagnement"),
-  publication("SNCF", "SNCF", "Un programme de formation réalisé avec Arkel", "via partenaire"),
+  publication("SNCF", "SNCF", "Un programme de formation", "via partenaire"),
   publication("demo-crm", "Carte de visite et CRM", "Une carte de visite devient une fiche CRM après validation", "démonstration, données fictives"),
 ];
 
