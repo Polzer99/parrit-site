@@ -42,7 +42,24 @@ for (const width of [375, 390, 1023, 1024, 1440]) for (const locale of ["en", "f
     const lefts = await headings.evaluateAll(els => els.map(el => el.getBoundingClientRect().left)); expect(Math.max(...lefts) - Math.min(...lefts)).toBeLessThanOrEqual(1);
     const closing = page.locator("#H12 a"); await expect(closing).toHaveAttribute("href", `${locale === "fr" ? "/fr" : ""}/commission`);
     await closing.focus(); await expect(closing).toBeFocused(); await expect(closing).toHaveCSS("outline-width", "2px");
-    const surfaces = await page.locator("*").evaluateAll(els => els.filter(el => { const s = getComputedStyle(el); return s.boxShadow !== "none" || [s.borderTopLeftRadius, s.borderTopRightRadius, s.borderBottomLeftRadius, s.borderBottomRightRadius].some(r => parseFloat(r) > 0); }).map(el => el.tagName)); expect(surfaces).toEqual([]);
+    const surfaces = await page.locator("*").evaluateAll(els => els.map(el => {
+      const style = getComputedStyle(el);
+      return {
+        tag: el.tagName,
+        className: el.getAttribute("class"),
+        shadow: style.boxShadow,
+        rounded: [style.borderTopLeftRadius, style.borderTopRightRadius, style.borderBottomLeftRadius, style.borderBottomRightRadius].some(radius => parseFloat(radius) > 0),
+        // closest includes the phone container itself, as well as its descendants.
+        inPhone: el.closest(".scene-chat") !== null,
+      };
+    }));
+    expect(surfaces.filter(surface => surface.shadow !== "none"), "no shadows, including inside the phone").toEqual([]);
+    expect(surfaces.filter(surface => surface.rounded && !surface.inPhone), "zero radius outside the phone").toEqual([]);
+    const roundedSurfaces = surfaces.filter(surface => surface.rounded);
+    expect(roundedSurfaces.length, "the phone provides rounded surfaces to check").toBeGreaterThan(0);
+    for (const surface of roundedSurfaces) {
+      expect(surface, "every rounded surface belongs to .scene-chat").toMatchObject({ inPhone: true });
+    }
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
     await expect(page.locator(".cmdbar")).not.toHaveCSS("position", "fixed");
     if (width === 1440) {
