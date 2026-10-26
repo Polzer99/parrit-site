@@ -36,7 +36,7 @@ const DICT = {
     "standard": "Read the Standard",
     "close": "It starts with an examination.",
     "proof": EXAM_NOTE.en,
-    "button": "Book the examination",
+    "button": "Talk about a project",
     "status": "EACH NEW SYSTEM CHECKED AGAINST THE STANDARD",
     "legal": "Legal"
   },
@@ -69,7 +69,7 @@ const DICT = {
     "standard": "Lire le Standard",
     "close": "Tout commence par un examen.",
     "proof": EXAM_NOTE.fr,
-    "button": "Réserver l'examen",
+    "button": "Parler d'un projet",
     "status": "CHAQUE NOUVEAU SYSTÈME VÉRIFIÉ AU STANDARD",
     "legal": "Mentions légales"
   }

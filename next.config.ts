@@ -89,6 +89,8 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      { source: "/contact", destination: "/commission", statusCode: 301 },
+      { source: "/fr/contact", destination: "/fr/commission", statusCode: 301 },
       { source: "/camp-costa-rica/:path*", destination: "/", permanent: true },
       { source: "/paul", destination: "/", permanent: true },
       { source: "/maxime", destination: "/", permanent: true },

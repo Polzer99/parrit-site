@@ -1,3 +1,4 @@
+import { localizedPath } from "../src/system/locale";
 import { expectPopulated } from "./content-structure";
 import { createHash } from "node:crypto";
 import founderPhotos from "./fixtures/founder-photo.json";
@@ -11,8 +12,8 @@ if (!["before", "after"].includes(CAPTURE_PHASE)) throw new Error("Invalid BRAND
 
 test.use({ serviceWorkers: "block" });
 
-const ROUTES = ["/", "/build-with-you", "/systems", "/commission", "/manufacture", "/dossiers", "/standard", "/journal", "/legal"]
-  .flatMap((route) => [route, route === "/" ? "/fr" : `/fr${route}`]);
+const ROUTES = ["/consulting-transformation", "/ai-sprints", "/engineering-integration", "/harness-engineering", "/", "/build-with-you", "/systems", "/commission", "/manufacture", "/dossiers", "/standard", "/journal", "/legal"]
+  .flatMap(route => [route, localizedPath(route, "fr")]);
 
 test.beforeEach(async ({ page }) => {
   await page.setExtraHTTPHeaders({ "Accept-Language": "en" });
@@ -132,152 +133,18 @@ for (const width of [1440, 375]) {
   }
 }
 
-for (const width of [375, 390, 768, 1440]) {
-  for (const route of ["/", "/fr"]) {
-    test(`Brand OS no founder figure and preserved heading ${route} at ${width}px`, async ({ page }, testInfo) => {
-      await page.emulateMedia({ reducedMotion: "reduce" });
-      await page.setViewportSize({ width, height: 900 });
-      await page.goto(`${BASE_URL}${route}`);
-      await page.evaluate(() => document.fonts.ready);
-      const labels = page.locator(".home-s-maison-copy > .k");
-      await expect(page.locator(".home-s-founder, .home-s-maison figure, .home-s-maison figcaption, .home-s-maison picture")).toHaveCount(0);
-      await expect(page.locator('a[href*="paul-larmaraud.com"]')).toHaveCount(0);
-      const copyBox = await page.locator(".home-s-maison-copy").boundingBox();
-      expect(copyBox).not.toBeNull();
-      expect(copyBox!.x).toBeGreaterThanOrEqual(0);
-      expect(copyBox!.x + copyBox!.width).toBeLessThanOrEqual(width);
-      const h1 = page.locator("h1");
-      await expectPopulated(h1);
-      await expect(h1.locator(".frame")).toHaveCSS("display", "inline-block");
-      await expect(h1.locator(".frame")).toHaveCSS("white-space", width <= 760 ? "normal" : "nowrap");
-      await expectPopulated(h1.locator(".frame"));
-      const ending = h1.locator(".home-s-hero-ending");
-      await expect(ending).toHaveCSS("display", "block");
-      await expectPopulated(ending);
-      expect(await ending.evaluate((el) => [...el.childNodes].filter((node) => node.nodeType === Node.TEXT_NODE).every((node) => !node.textContent?.trim()))).toBe(true);
-      const headingBox = await h1.boundingBox();
-      const endingBox = await ending.boundingBox();
-      expect(headingBox).not.toBeNull();
-      expect(endingBox).not.toBeNull();
-      expect(Math.abs(endingBox!.x + endingBox!.width / 2 - headingBox!.x - headingBox!.width / 2)).toBeLessThanOrEqual(1);
-      const frameGeometry = await h1.locator(".frame").evaluate((frame) => {
-        const bounds = frame.getBoundingClientRect();
-        const fx = frame.querySelector(".fx");
-        if (!fx) throw new Error("Missing bottom corners");
-        const textRects: { left: number; right: number; top: number; bottom: number }[] = [];
-        const walker = document.createTreeWalker(frame, NodeFilter.SHOW_TEXT);
-        let node: Node | null;
-        while ((node = walker.nextNode())) {
-          if (!node.textContent?.trim()) continue;
-          const range = document.createRange();
-          range.selectNodeContents(node);
-          for (const rect of range.getClientRects()) {
-            textRects.push({ left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom });
-          }
-        }
-        // FIX6: include every non-whitespace glyph, even outside the frame.
-        const heading = frame.closest("h1");
-        if (!heading) throw new Error("Missing heading");
-        const glyphs: { left: number; right: number; top: number; bottom: number; framed: boolean; word: boolean }[] = [];
-        const headingWalker = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT);
-        while ((node = headingWalker.nextNode())) {
-          for (const match of (node.textContent ?? "").matchAll(/\S/gu)) {
-            const range = document.createRange();
-            range.setStart(node, match.index!);
-            range.setEnd(node, match.index! + match[0].length);
-            for (const rect of range.getClientRects()) {
-              glyphs.push({ left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom,
-                framed: frame.contains(node), word: /\p{L}/u.test(match[0]) });
-            }
-          }
-        }
-        // Pseudo-elements have no DOMRect API. Reconstruct their border boxes
-        // from computed sizes/insets in their positioned containing block.
-        const corners = [frame, fx].flatMap((owner) => ["::before", "::after"].map((pseudo) => {
-          const style = getComputedStyle(owner, pseudo);
-          if (style.position !== "absolute" || style.transform !== "none") {
-            throw new Error("Frame geometry contract changed");
-          }
-          const width = parseFloat(style.width) + (style.boxSizing === "border-box" ? 0 :
-            parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth));
-          const height = parseFloat(style.height) + (style.boxSizing === "border-box" ? 0 :
-            parseFloat(style.paddingTop) + parseFloat(style.paddingBottom) + parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth));
-          const left = style.left !== "auto" ? bounds.left + parseFloat(style.left) : bounds.right - parseFloat(style.right) - width;
-          const top = style.top !== "auto" ? bounds.top + parseFloat(style.top) : bounds.bottom - parseFloat(style.bottom) - height;
-          return { left, right: left + width, top, bottom: top + height };
-        }));
-        const style = getComputedStyle(frame);
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d")!;
-        context.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
-        const descender = context.measureText("yq").actualBoundingBoxDescent;
-        return { textRects, corners, glyphs, descender, bottomPadding: parseFloat(style.paddingBottom) };
-      });
-      // Audit §2 gives legible mobile headings precedence over a one-line frame.
-      if (width > 760) expect(frameGeometry.textRects).toHaveLength(1);
-      else expect(frameGeometry.textRects.length).toBeGreaterThan(0);
-      expect(frameGeometry.corners).toHaveLength(4);
-      const text = { left: Math.min(...frameGeometry.textRects.map(rect => rect.left)), right: Math.max(...frameGeometry.textRects.map(rect => rect.right)) };
-      const left = Math.min(...frameGeometry.corners.map((c) => c.left));
-      const right = Math.max(...frameGeometry.corners.map((c) => c.right));
-      expect(Math.abs((text.left - left) - (right - text.right)), "frame centered on its text").toBeLessThanOrEqual(2);
-      expect(frameGeometry.bottomPadding, "descenders remain inside the frame").toBeGreaterThanOrEqual(frameGeometry.descender);
-      for (const corner of frameGeometry.corners) {
-        expect(corner.right - corner.left).toBe(14);
-        expect(corner.bottom - corner.top).toBe(14);
-      }
-      expect(frameGeometry.glyphs.some((glyph) => !glyph.framed && glyph.word)).toBe(true);
-      // No unframed word may share the framed group's line (punctuation may).
-      for (const glyph of frameGeometry.glyphs.filter((glyph) => !glyph.framed && glyph.word)) {
-        for (const text of frameGeometry.textRects) {
-          expect(Math.abs(glyph.top - text.top)).toBeGreaterThan(1);
-        }
-      }
-      for (const corner of frameGeometry.corners) {
-        expect(corner.right).toBeGreaterThan(corner.left);
-        expect(corner.bottom).toBeGreaterThan(corner.top);
-        expect(corner.left).toBeGreaterThanOrEqual(0);
-        expect(corner.right).toBeLessThanOrEqual(width);
-        // FIX5: screen inset, independent of the section's responsive gutter.
-        expect(corner.left).toBeGreaterThanOrEqual(16);
-        expect(corner.right).toBeLessThanOrEqual(width - 16);
-        for (const glyph of frameGeometry.glyphs) {
-          const intersects = corner.left < glyph.right && corner.right > glyph.left && corner.top < glyph.bottom && corner.bottom > glyph.top;
-          expect(intersects, JSON.stringify({ corner, glyph })).toBe(false);
-        }
-        for (const text of frameGeometry.textRects) {
-          const intersects = corner.left < text.right && corner.right > text.left && corner.top < text.bottom && corner.bottom > text.top;
-          expect(intersects, JSON.stringify({ corner, text })).toBe(false);
-          const horizontalGap = Math.max(text.left - corner.right, corner.left - text.right);
-          expect(horizontalGap, JSON.stringify({ corner, text })).toBeGreaterThanOrEqual(12);
-        }
-      }
-      const lines = await h1.evaluate((element) => {
-        const lines: Record<string, string[]> = {};
-        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
-        let node: Node | null;
-        while ((node = walker.nextNode())) {
-          for (const match of (node.textContent ?? "").matchAll(/\S+/g)) {
-            if (!/\p{L}/u.test(match[0])) continue;
-            const range = document.createRange();
-            range.setStart(node, match.index!);
-            range.setEnd(node, match.index! + match[0].length);
-            const top = Math.round(range.getBoundingClientRect().top);
-            (lines[top] ??= []).push(match[0]);
-          }
-        }
-        return Object.values(lines);
-      });
-      expect(lines.length).toBeGreaterThan(0);
-      // At phone widths, preserving >=32px takes precedence over orphan avoidance.
-      if (width > 760) expect(lines.filter((line) => line.length === 1), JSON.stringify(lines)).toEqual([]);
-      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
-      await h1.scrollIntoViewIfNeeded();
-      await testInfo.attach(`photo-dv-${route === "/fr" ? "fr" : "en"}-${width}`, { body: await page.screenshot({ fullPage: true }), contentType: "image/png" });
-      await expect(labels).toHaveCount(1);
-      await expect(labels).not.toContainText(route === "/fr" ? "Fondateur" : "Founder");
-    });
-  }
+// The former framed sentence is replaced by the lot 1 heading and process.
+for (const width of [375, 390, 768, 1440]) for (const route of ["/", "/fr"]) {
+  test(`Brand OS heading and process bounds ${route} ${width}`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 }); await page.goto(`${BASE_URL}${route}`); await page.evaluate(() => document.fonts.ready);
+    await expectPopulated(page.locator("h1"));
+    await expect(page.locator(".home-s-founder, a[href*='paul-larmaraud.com']")).toHaveCount(0);
+    for (const selector of ["h1", ".v1-process", "#H03 .home-s-wrap"]) {
+      const b = (await page.locator(selector).boundingBox())!;
+      expect(b.x).toBeGreaterThanOrEqual(0); expect(b.x + b.width).toBeLessThanOrEqual(width);
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+  });
 }
 
 for (const width of [375, 1440]) {
@@ -378,63 +245,7 @@ for (const width of [1440, 375]) {
   });
 }
 
-// Exercise the native disabled state and hydration without submitting a lead.
-for (const width of [1440, 375]) {
-  for (const route of ["/", "/fr"]) {
-    test(`Brand OS sketch disabled and active states ${route} at ${width}px`, async ({ page }) => {
-      await page.setViewportSize({ width, height: 900 });
-      await page.goto(`${BASE_URL}${route}`);
-      const button = page.locator(".agent-esquisse-form button");
-      const input = page.locator("#agent-operation");
-      const disabled = async () => {
-        await expect(button).toBeDisabled();
-        await expect(button).toHaveCSS("opacity", "1");
-        expect((await button.boundingBox())!.height).toBeGreaterThanOrEqual(48);
-        await expect(button).toHaveCSS("cursor", "not-allowed");
-        await expect(button).toHaveCSS("border-top-style", "solid");
-        expect(await button.evaluate((element) => parseFloat(getComputedStyle(element).borderTopWidth))).toBeGreaterThan(0);
-        const expected = await button.evaluate((element) => {
-          const probe = document.createElement("span");
-          probe.style.color = "var(--action-text)";
-          element.append(probe);
-          const expected = getComputedStyle(probe).color;
-          probe.remove();
-          return expected;
-        });
-        await expect(button).toHaveCSS("color", expected);
-        const fill = await button.evaluate((element) => {
-          const probe = document.createElement("span");
-          probe.style.color = "var(--action-fill)";
-          element.append(probe);
-          const color = getComputedStyle(probe).color;
-          probe.remove();
-          return color;
-        });
-        await expect(button).toHaveCSS("background-color", fill);
-        await expect(button).toHaveCSS("border-top-color", fill);
-      };
-      await disabled();
-      await button.hover();
-      await disabled();
-      await expect(async () => {
-        await input.fill("Une opération à examiner");
-        await expect(button).toBeEnabled();
-      }).toPass({ timeout: 5000 });
-      const activeFill = await button.evaluate((element) => {
-        const probe = document.createElement("span");
-        probe.style.color = "var(--accent-on-dark)";
-        element.append(probe);
-        const expected = getComputedStyle(probe).color;
-        probe.remove();
-        return expected;
-      });
-      await expect(button).toHaveCSS("background-color", activeFill);
-      await input.fill("   ");
-      await disabled();
-    });
-  }
-}
-
+// Home interactions are now the accessible tabs, exercised in site-v1.spec.ts.
 
 test("all four approved founder photo URLs serve the original bytes", async ({ page }) => {
   for (const [name, expected] of Object.entries(founderPhotos)) {

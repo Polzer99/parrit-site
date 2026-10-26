@@ -2,190 +2,74 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-
+import { useEffect, useRef, useState } from "react";
 import { barePathname, localizedPath, LOCALE_COOKIE, type Locale } from "@/system/locale";
 
 const NAV = {
-  en: [
-    ["/journal", "Journal"],
-    ["/systems", "Systems"],
-  ],
-  fr: [
-    ["/journal", "Journal"],
-    ["/systems", "Systèmes"],
-  ],
+  fr: [["/consulting-transformation", "Conseil & Transformation", "Comprendre, décider, transformer."], ["/ai-sprints", "AI Sprints", "Tester une première brique."], ["/engineering-integration", "Engineering & Intégration", "Relier vos outils et construire le manquant."], ["/journal", "Journal", "Lire les enseignements des chantiers."]],
+  en: [["/consulting-transformation", "Consulting & Transformation", "Understand, decide, transform."], ["/ai-sprints", "AI Sprints", "Test a first building block."], ["/engineering-integration", "Engineering & Integration", "Connect your tools and build what is missing."], ["/journal", "Journal", "Read what the work teaches us."]],
 } as const;
-
-function saveLocaleChoice(nextLocale: Locale) {
-  document.cookie = `${LOCALE_COOKIE}=${nextLocale}; Path=/; Max-Age=31536000; SameSite=Lax${window.location.protocol === "https:" ? "; Secure" : ""}`;
-}
-
+const SUBNAV = {
+  fr: [["/harness-engineering", "Harness Engineering"], ["/engineering-integration#custom", "Logiciels & agents sur mesure"], ["/engineering-integration#integrations", "Intégrations & infrastructures privées"]],
+  en: [["/harness-engineering", "Harness Engineering"], ["/engineering-integration#custom", "Custom software & agents"], ["/engineering-integration#integrations", "Integrations & private infrastructure"]],
+} as const;
 function HeaderBookingAction({ locale, home }: { locale: Locale; home: boolean }) {
-  // SSR and browsers without IntersectionObserver keep the home action outlined.
   const [heroOutside, setHeroOutside] = useState(false);
-
   useEffect(() => {
     if (!home || typeof IntersectionObserver === "undefined") return;
     const hero = document.querySelector(".home-s-hero");
     if (!hero) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      setHeroOutside(!entry.isIntersecting);
-    }, { threshold: 0 });
-    observer.observe(hero);
-    return () => observer.disconnect();
+    const observer = new IntersectionObserver(([entry]) => setHeroOutside(entry.boundingClientRect.bottom <= 0));
+    observer.observe(hero); return () => observer.disconnect();
   }, [home]);
-
-  return (
-    <Link data-home={home} className={`cmd-cta rev-button ${home && heroOutside ? "exec" : "ghost"}`} href={localizedPath("/commission", locale)}>
-      {locale === "fr" ? "Réserver l'examen" : "Book the examination"}
-    </Link>
-  );
+  return <Link data-home={home} className={`cmd-cta rev-button ${home && heroOutside ? "exec" : "ghost"}`} href={localizedPath("/commission", locale)}>{locale === "fr" ? "Parler d'un projet" : "Talk about a project"}</Link>;
 }
-
 export function RevHeader({ locale }: { locale: Locale }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [panelMounted, setPanelMounted] = useState(false);
-  const [panelOn, setPanelOn] = useState(false);
   const pathname = usePathname();
-  const nav = NAV[locale];
-
-  const switchLocale = (nextLocale: Locale) => {
-    saveLocaleChoice(nextLocale);
-    if (nextLocale === locale) return;
-    const url = new URL(window.location.href);
-    url.pathname = localizedPath(url.pathname, nextLocale);
-    url.searchParams.delete("lang");
-    window.location.assign(`${url.pathname}${url.search}${url.hash}`);
-  };
-
+  const header = useRef<HTMLElement>(null);
   useEffect(() => {
-    let cancelled = false;
-    queueMicrotask(() => {
-      if (!cancelled) setMenuOpen(false);
-    });
+    const close = () => header.current?.querySelectorAll<HTMLDetailsElement>("details[open]").forEach(menu => { menu.open = false; });
+    close();
+    const outside = (event: PointerEvent) => {
+      header.current?.querySelectorAll<HTMLDetailsElement>("details[open]").forEach(menu => {
+        if (event.target instanceof Node && !menu.contains(event.target)) menu.open = false;
+      });
+    };
+    const escape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      const menu = header.current?.querySelector<HTMLDetailsElement>("details[open]");
+      close(); menu?.querySelector("summary")?.focus();
+    };
+    document.addEventListener("pointerdown", outside);
+    document.addEventListener("keydown", escape);
+    window.addEventListener("hashchange", close);
     return () => {
-      cancelled = true;
+      document.removeEventListener("pointerdown", outside);
+      document.removeEventListener("keydown", escape);
+      window.removeEventListener("hashchange", close);
     };
   }, [pathname]);
-
-  // pas de pop instantané au tap : le panneau monte d'abord à opacité 0, la
-  // classe "on" arrive une frame plus tard pour que la transition se joue
-  // (même logique de fondu que l'Opening) ; à la fermeture, la classe part
-  // en premier et le démontage suit 180ms plus tard, le temps du fondu
-  useEffect(() => {
-    if (menuOpen) {
-      let cancelled = false;
-      let frame: number | undefined;
-      queueMicrotask(() => {
-        if (cancelled) return;
-        setPanelMounted(true);
-        frame = window.requestAnimationFrame(() => setPanelOn(true));
-      });
-      return () => {
-        cancelled = true;
-        if (frame !== undefined) window.cancelAnimationFrame(frame);
-      };
-    }
-    let cancelled = false;
-    queueMicrotask(() => {
-      if (!cancelled) setPanelOn(false);
-    });
-    const timer = window.setTimeout(() => setPanelMounted(false), 180);
-    return () => {
-      cancelled = true;
-      window.clearTimeout(timer);
-    };
-  }, [menuOpen]);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [menuOpen]);
-
-  return (
-    <>
-      <header className="cmdbar">
-        <div className="cmdbar-inner">
-          <Link className="wordmark" href={localizedPath("/", locale)} aria-label="Parrit.ai home">
-            PARRIT<i aria-hidden="true">.</i>AI
-          </Link>
-          <nav className="cmd-nav" aria-label="Main navigation">
-            {nav.map(([href, label]) => {
-              const active = barePathname(pathname ?? "/").startsWith(href);
-              return (
-                <Link
-                  key={href}
-                  href={localizedPath(href, locale)}
-                  className={active ? "on" : undefined}
-                  aria-current={active ? "page" : undefined}
-                >
-                  {label}
-                </Link>
-              );
-            })}
-          </nav>
-          <div className="locale-toggle" role="group" aria-label={locale === "fr" ? "Langue" : "Language"}>
-            {(["fr", "en"] as const).map((item) => (
-              <button
-                type="button"
-                key={item}
-                className={item === locale ? "on" : undefined}
-                aria-pressed={item === locale}
-                onClick={() => switchLocale(item)}
-              >
-                {item.toUpperCase()}
-              </button>
-            ))}
-          </div>
-          <HeaderBookingAction key={pathname} locale={locale} home={barePathname(pathname ?? "/") === "/"} />
-          <button
-            type="button"
-            className="cmd-menu-toggle"
-            aria-expanded={menuOpen}
-            aria-controls="cmd-panel"
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            {menuOpen ? (locale === "fr" ? "Fermer" : "Close") : "Menu"}
-          </button>
-        </div>
-      </header>
-      {/* le panneau vit HORS de la cmdbar : son backdrop-filter fait de la barre
-         le bloc conteneur des fixed ; dedans, le panneau se calait sur 64px */}
-      {panelMounted ? (
-        <nav
-          className={`cmd-panel${panelOn ? " on" : ""}`}
-          id="cmd-panel"
-          aria-label="Main navigation"
-        >
-          {nav.map(([href, label]) => {
-            const active = barePathname(pathname ?? "/").startsWith(href);
-            return (
-              <Link
-                key={href}
-                href={localizedPath(href, locale)}
-                className={active ? "on" : undefined}
-                aria-current={active ? "page" : undefined}
-                onClick={() => setMenuOpen(false)}
-              >
-                {label}
-              </Link>
-            );
-          })}
-          <Link className={barePathname(pathname ?? "/") === "/" ? "cmd-panel-cta" : "cmd-panel-cta rev-button ghost"} href={localizedPath("/commission", locale)} onClick={() => setMenuOpen(false)}>
-            {locale === "fr" ? "Réserver l'examen" : "Book the examination"}
-          </Link>
-        </nav>
-      ) : null}
-    </>
-  );
+  const nav = NAV[locale];
+  const link = (href: string, label: string) => <Link href={localizedPath(href, locale)} aria-current={barePathname(pathname ?? "/") === href ? "page" : undefined}>{label}</Link>;
+  return <header ref={header} className="cmdbar v1-header" onClick={event => {
+    if ((event.target as HTMLElement).closest("a")) header.current?.querySelectorAll<HTMLDetailsElement>("details[open]").forEach(menu => { menu.open = false; });
+  }}>
+    <div className="cmdbar-inner">
+      <Link className="wordmark" href={localizedPath("/", locale)} aria-label={locale === "fr" ? "Accueil Parrit.ai" : "Parrit.ai home"}>PARRIT<i aria-hidden="true">.</i>AI</Link>
+      <nav className="cmd-nav" aria-label={locale === "fr" ? "Navigation principale" : "Main navigation"}>
+        {nav.map(([href, label]) => <div key={href} className="v1-nav-entry">{link(href, label)}{href === "/engineering-integration" && <details onKeyDown={event => { if (event.key === "Escape") { event.currentTarget.open = false; event.currentTarget.querySelector("summary")?.focus(); } }}><summary aria-label={locale === "fr" ? "Explorer Engineering" : "Explore Engineering"}>+</summary><div>{SUBNAV[locale].map(([target, title]) => <span key={target}>{link(target, title)}</span>)}</div></details>}</div>)}
+      </nav>
+      <div className="locale-toggle" role="group" aria-label={locale === "fr" ? "Langue" : "Language"}>{(["fr", "en"] as const).map(item => <button key={item} type="button" aria-pressed={locale === item} className={locale === item ? "on" : undefined} onClick={() => {
+        document.cookie = `${LOCALE_COOKIE}=${item}; Path=/; Max-Age=31536000; SameSite=Lax${window.location.protocol === "https:" ? "; Secure" : ""}`;
+        const url = new URL(window.location.href); url.pathname = localizedPath(url.pathname, item); url.searchParams.delete("lang"); window.location.assign(`${url.pathname}${url.search}${url.hash}`);
+      }}>{item.toUpperCase()}</button>)}</div>
+      <HeaderBookingAction key={pathname} locale={locale} home={barePathname(pathname ?? "/") === "/"}/>
+    </div>
+    <details className="v1-mobile-menu" onKeyDown={event => { if (event.key === "Escape") { event.currentTarget.open = false; event.currentTarget.querySelector("summary")?.focus(); } }}>
+      <summary>Menu</summary><nav onClick={event => { if ((event.target as HTMLElement).closest("a")) { const menu = event.currentTarget.closest("details"); if (menu) menu.open = false; } }} aria-label={locale === "fr" ? "Navigation mobile" : "Mobile navigation"}>
+        {nav.map(([href, label, benefit]) => <div key={href}>{link(href, label)}<p>{benefit}</p></div>)}
+        {SUBNAV[locale].map(([href, label]) => <div key={href}>{link(href, label)}<p>{locale === "fr" ? "Concevoir un système adapté à vos opérations." : "Design a system suited to your operations."}</p></div>)}
+      </nav>
+    </details>
+  </header>;
 }

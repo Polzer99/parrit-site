@@ -186,6 +186,6 @@ for (const locale of ["en", "fr"] as const) {
   test(`home links to systems from the ${locale} navigation`, async ({ page }) => {
     const prefix = locale === "fr" ? "/fr" : "";
     await page.goto(`${BASE_URL}${prefix}/`);
-    await expect(page.locator(`.cmd-nav a[href="${prefix}/systems"]`)).toHaveCount(1);
+    await expect(page.locator(`.cmd-nav a[href="${prefix}/engineering-integration"]`)).toHaveCount(1);
   });
 }
