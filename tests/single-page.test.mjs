@@ -29,7 +29,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   for (const tool of ["ChatGPT", "Claude Code", "Codex", "OpenCode", "Gemini", "n8n", "Supabase", "Telegram", "GitHub", "Vercel"]) assert.ok(visibleText(html).includes(tool));
   const text = visibleText(html);
   for (const client of ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"]) assert.ok(text.includes(client));
-  assert.match(text, /Arkel/);
+  assert.doesNotMatch(text, /Arkel/);
   assert.match(text, locale === "fr" ? /données fictives/ : /fictional data/);
   for (const [, label] of html.matchAll(/<a class="[^"]*rev-button[^\"]*"[^>]*>(.*?)<\/a>/g)) assert.doesNotMatch(visibleText(label), /\.$/);
 });
