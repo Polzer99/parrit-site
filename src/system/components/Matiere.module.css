@@ -1,5 +1,6 @@
 .matiere {
   width: 100%;
+  margin-top: var(--brand-s6);
   height: var(--brand-s6);
   background-repeat: repeat;
   image-rendering: pixelated;

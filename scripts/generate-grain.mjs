@@ -37,20 +37,20 @@ export function chunk(type, data) {
 export function makeTile(background, ink, density) {
   if (background.equals(ink)) throw new Error('Grain requires two distinct colors');
   // Uniform sampling without replacement: the nearest whole number of 2×2 cells.
-  const cells = Array.from({ length: 128 * 128 }, (_, i) => i);
+  const cells = Array.from({ length: 256 * 256 }, (_, i) => i);
   let state = 20261026;
   const random = () => { state = (Math.imul(state, 1664525) + 1013904223) >>> 0; return state / 2 ** 32; };
   for (let i = cells.length - 1; i > 0; i--) {
     const j = Math.floor(random() * (i + 1));
     [cells[i], cells[j]] = [cells[j], cells[i]];
   }
-  const scanlines = Buffer.alloc(256 * 33); // filter 0 + 256 one-bit palette indices
+  const scanlines = Buffer.alloc(512 * 65); // filter 0 + 512 one-bit palette indices
   for (const cell of cells.slice(0, Math.round(cells.length * density))) {
-    const x = (cell % 128) * 2; const y = Math.floor(cell / 128) * 2;
-    for (let dy = 0; dy < 2; dy++) scanlines[(y + dy) * 33 + 1 + (x >> 3)] |= 3 << (6 - (x % 8));
+    const x = (cell % 256) * 2; const y = Math.floor(cell / 256) * 2;
+    for (let dy = 0; dy < 2; dy++) scanlines[(y + dy) * 65 + 1 + (x >> 3)] |= 3 << (6 - (x % 8));
   }
   const header = Buffer.alloc(13);
-  header.writeUInt32BE(256, 0); header.writeUInt32BE(256, 4); header[8] = 1; header[9] = 3;
+  header.writeUInt32BE(512, 0); header.writeUInt32BE(512, 4); header[8] = 1; header[9] = 3;
   return Buffer.concat([
     Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), chunk('IHDR', header),
     chunk('PLTE', Buffer.concat([background, ink])), chunk('IDAT', deflateSync(scanlines, { level: 9 })), chunk('IEND', Buffer.alloc(0)),
@@ -62,7 +62,7 @@ export async function generateGrain(root = process.cwd()) {
   const tiles = Object.entries(TONES).map(([tone, [token, density]]) => [tone, makeTile(tokens.get(token), tokens.get(INK), density)]);
   await mkdir(join(root, 'public/matiere'), { recursive: true });
   for (const [tone, png] of tiles) {
-    if (png.length >= 4096) throw new Error(`Grain ${tone} exceeds 4 KiB`);
+    if (png.length >= 8192) throw new Error(`Grain ${tone} exceeds 8 KiB`);
     await writeFile(join(root, `public/matiere/grain-${tone}.png`), png);
     console.log(`grain-${tone}.png: ${png.length} bytes`);
   }

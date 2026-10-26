@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { Locale } from "@/system/locale";
 
 // VS-CONNECTOR: 2 px stroke, 10 × 8 px solid head, 15 px minimum shaft.
@@ -6,7 +7,20 @@ export function ProcessConnector() {
 }
 export function ProcessDiagram({ locale }: { locale: Locale }) {
   const fr = locale === "fr";
+  const columns = [
+    { title: fr ? "Aujourd'hui" : "Today", target: false, steps: fr
+      ? ["Demande reçue", "Saisie à la main", "Vérifiée à la main", "Relance oubliée"]
+      : ["Request received", "Typed in by hand", "Checked by hand", "Follow-up forgotten"] },
+    { title: fr ? "Demain" : "Tomorrow", target: true, steps: fr
+      ? ["Demande reçue", "Le système prépare", "Une personne valide", "Trace consignée"]
+      : ["Request received", "The system prepares", "A person approves", "Record kept"] },
+  ];
   return <figure className="v1-process" aria-label={fr ? "Un processus actuel et sa cible" : "A current process and its target"}>
-    {[[fr ? "Aujourd'hui" : "Today", fr ? "Saisie manuelle" : "Manual entry", fr ? "Vérification manuelle" : "Manual check"], [fr ? "Demain" : "Tomorrow", fr ? "Système" : "System", fr ? "Validation humaine" : "Human approval"]].map(([title, first, last]) => <div key={title}><p><strong>{title}</strong></p><p>{first}</p><ProcessConnector/><p>{last}</p></div>)}
+    {columns.map(({ title, target, steps }) => <div key={title} className={target ? "v1-process-target" : undefined}>
+      <p><strong>{title}</strong></p>
+      {steps.map((step, index) => <Fragment key={step}>
+        {index > 0 && <ProcessConnector/>}<p>{step}</p>
+      </Fragment>)}
+    </div>)}
   </figure>;
 }

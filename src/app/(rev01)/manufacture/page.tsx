@@ -13,7 +13,7 @@ const DICT = {
     "kicker": "Parrit / The Manufacture",
     "title": "We build each system one operation at a time, from Examination to Compounding.",
     "sub": "Each system is built in your accounts, under your keys.",
-    "phasesTitle": "Three phases turn an examined operation into a system you own.",
+    "phasesTitle": "Three phases turn an examined operation into a system that runs on your side.",
     "phasesKicker": "Examination · Construction · Compounding",
     "phases": [
       [
@@ -29,7 +29,7 @@ const DICT = {
       [
         "03",
         "Compounding",
-        "Each new capability joins the same system and reuses what the previous ones put in place. The one that detects the signal hands over to the one that follows up with the client. You keep ownership of everything, code and data included."
+        "Each new capability joins the same system and reuses what the previous ones put in place. The one that detects the signal hands over to the one that follows up with the client. The contract assigns you the rights to what we build for you; your data remains yours."
       ]
     ],
     "note": "All three phases answer to the same Standard: six criteria, the same for every system delivered.",
@@ -46,7 +46,7 @@ const DICT = {
     "kicker": "Parrit / La Manufacture",
     "title": "Nous construisons chaque système une opération à la fois, de l'Examen à la Capitalisation.",
     "sub": "Chaque système se fabrique dans vos comptes, avec vos clés.",
-    "phasesTitle": "Trois phases transforment une opération examinée en un système qui vous appartient.",
+    "phasesTitle": "Trois phases transforment une opération examinée en un système qui tourne chez vous.",
     "phasesKicker": "Examen · Construction · Capitalisation",
     "phases": [
       [
@@ -62,7 +62,7 @@ const DICT = {
       [
         "03",
         "La Capitalisation",
-        "Chaque nouvelle brique rejoint le même système et réutilise ce que les précédentes ont mis en place. Celle qui détecte le signal passe la main à celle qui relance le client. Vous restez propriétaire de tout, code et données compris."
+        "Chaque nouvelle brique rejoint le même système et réutilise ce que les précédentes ont mis en place. Celle qui détecte le signal passe la main à celle qui relance le client. Le contrat vous cède les droits sur ce que nous développons pour vous ; vos données restent les vôtres."
       ]
     ],
     "note": "Les trois phases répondent au même Standard : six critères, les mêmes pour tout système livré.",

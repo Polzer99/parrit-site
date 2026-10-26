@@ -25,7 +25,7 @@ Each system delivered from now on is checked against the Standard, Parrit.ai's i
 - Deliberately small at the core: few commissions.
 
 ## Ownership, maintenance and data
-- Code ownership, hosting, reversibility and maintenance are agreed for each project, by contract.
+- The assignment of rights to what we build, hosting, reversibility and maintenance are written into each project's contract.
 - The handover is where we check the agreed scope and operating documentation.
 
 ## Pages

@@ -1,5 +1,20 @@
 # AI Context
 
+## Cession écrite et faiblesses du lot 1 — 26/10/2026
+
+Les textes FR/EN de Standard, Manufacture, BWY et des guides annoncent une
+cession contractuelle limitée ; Standard explicite les licences des tiers.
+La gate de claims bloque les anciennes promesses de propriété, hors mentions
+légales, démonstrations privées, Journal et commentaires. Schéma à quatre
+étapes par colonne, CTA finaux pleins, grain 512 px avec respiration brand-s6.
+Le paragraphe « Prendre la main » cité par le handoff est absent de cette base ;
+les six étapes courtes de l'accueil sont conservées.
+Lint/types/claims/marque, 161 tests Node, 24 tests Brand OS et build Webpack
+passent. Turbopack interrompu sans progression ; serveur :3210 et Chromium
+refusés par le sandbox. Les 428 cas navigateur restent à exécuter sur l'hôte.
+Aucun commit, push ni déploiement. Rapport :
+`docs/site-v1/RAPPORT-JURIDIQUE-FAIBLESSES.md`.
+
 ## Matière granuleuse, option A — 26/10/2026
 
 Une bande décorative vide et aria-hidden suit H01 sur les accueils FR/EN.

@@ -43,7 +43,7 @@ export const SITE_V1_PAGES = {
           "Contraintes et gouvernance",
           [
             "Nous cadrons les accès aux données, les responsabilités et les validations humaines avant de construire.",
-            "La propriété du code, l'hébergement, la réversibilité et la maintenance se décident pour chaque projet, par contrat."
+            "La cession des droits sur ce que nous développons, l'hébergement, la réversibilité et la maintenance sont écrits dans le contrat de chaque projet."
           ]
         ]
       ],
@@ -98,7 +98,7 @@ export const SITE_V1_PAGES = {
           "Constraints and governance",
           [
             "We define data access, responsibilities and human approvals before building.",
-            "Code ownership, hosting, reversibility and maintenance are agreed for each project, by contract."
+            "The assignment of rights to what we build, hosting, reversibility and maintenance are written into each project's contract."
           ]
         ]
       ],
@@ -318,7 +318,7 @@ export const SITE_V1_PAGES = {
           "governance",
           "Contraintes et gouvernance",
           [
-            "La propriété du code, l'hébergement, la réversibilité et la maintenance se décident pour chaque projet, par contrat."
+            "La cession des droits sur ce que nous développons, l'hébergement, la réversibilité et la maintenance sont écrits dans le contrat de chaque projet."
           ]
         ]
       ],
@@ -364,7 +364,7 @@ export const SITE_V1_PAGES = {
           "governance",
           "Constraints and governance",
           [
-            "Code ownership, hosting, reversibility and maintenance are agreed for each project, by contract."
+            "The assignment of rights to what we build, hosting, reversibility and maintenance are written into each project's contract."
           ]
         ]
       ],
