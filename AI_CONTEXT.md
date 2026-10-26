@@ -4,9 +4,9 @@
 
 Parrit.ai conçoit, construit et met en production des systèmes intelligents qui
 transforment les opérations des entreprises. La spec du 26/10 ajoute six capacités
-FR/EN entre les parcours et la méthode, sans actions par carte, et relie Build With
-You depuis la méthode et le footer. H1, références, preuves, scène produit, Journal,
-header et page Build With You conservés. Métadonnées, JSON-LD, llms.txt et TRUTH
+FR/EN après la méthode et avant la scène produit, sans actions par carte, et relie
+Build With You depuis le footer uniquement (correctif V2 du 26/10).
+H1, références, preuves, scène produit, Journal, header et page Build With You conservés. Métadonnées, JSON-LD, llms.txt et TRUTH
 reprennent le canon `parrit-canon/positioning/POSITIONNEMENT-CANONIQUE-2026-10-26.md`.
 TRUTH conserve les parcours et FormIA et ajoute les huit principes canoniques.
 

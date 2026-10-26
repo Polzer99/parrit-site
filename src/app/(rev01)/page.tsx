@@ -61,7 +61,6 @@ const DICT = {
         ["03", "Build and verify", "The system gets built, then checked the way Parrit checks its own tools first. It doesn't go live until your team has been through it."],
         ["04", "Take it over", "Code, data and documentation are yours. Your team learns to run it at handover, and can take it further alone, or call Parrit back, depending on the path you chose."],
       ],
-      buildWithYou: "Build a first system with us",
       link: "Book the examination",
     },
     build: {
@@ -143,7 +142,6 @@ const DICT = {
         ["03", "Construire et vérifier", "Le système se construit puis se vérifie avec la méthode que Parrit applique d'abord à ses propres outils. Il n'entre en service qu'une fois votre équipe passée dessus."],
         ["04", "Prendre la main", "Le code, les données et la documentation vous appartiennent. Votre équipe apprend à s'en servir à la livraison, et peut le faire évoluer seule, ou vous rappelez Parrit, selon la formule choisie."],
       ],
-      buildWithYou: "Construire un premier système avec nous",
       link: "Réserver l'examen",
     },
     build: {
@@ -244,22 +242,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="home-s-parcours" id="capacites" aria-labelledby="capacites-title">
-        <div className="home-s-wrap">
-          <K>{copy.capacites.kicker}</K>
-          <h2 id="capacites-title">{copy.capacites.title}</h2>
-          <div className="home-s-proof-grid">
-            {copy.capacites.items.map(([title, body]) => (
-              <div className="home-s-proof-item" key={title}>
-                <h3>{title}</h3>
-                <p>{body}</p>
-              </div>
-            ))}
-          </div>
-          <p className="doctrine-note">{copy.capacites.note}</p>
-        </div>
-      </section>
-
       <section className="home-s-maison">
         <div className="home-s-wrap home-s-maison-grid">
           <div className="home-s-maison-copy">
@@ -272,8 +254,23 @@ export default async function HomePage() {
               ))}
             </ol>
             <Link className="rev-button ghost home-s-journey-action" href={localizedPath("/commission", locale)}>{copy.journey.link}</Link>
-            <p><Link className="home-s-journey-secondary" href={localizedPath("/build-with-you", locale)}>{copy.journey.buildWithYou}</Link></p>
           </div>
+        </div>
+      </section>
+
+      <section className="home-s-capacites" id="capacites" aria-labelledby="capacites-title">
+        <div className="home-s-wrap">
+          <K>{copy.capacites.kicker}</K>
+          <h2 id="capacites-title">{copy.capacites.title}</h2>
+          <div className="home-s-proof-grid">
+            {copy.capacites.items.map(([title, body]) => (
+              <div className="home-s-proof-item" key={title}>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </div>
+            ))}
+          </div>
+          <p className="doctrine-note">{copy.capacites.note}</p>
         </div>
       </section>
 

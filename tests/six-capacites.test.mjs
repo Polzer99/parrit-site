@@ -38,7 +38,7 @@ for (const locale of ["fr", "en"]) {
   };
   const home = load(homePath, mocks, "\nexport const testDictionary = DICT;");
   dictionaries.push(home.testDictionary[locale].capacites);
-  test(`six capabilities and localized journey/footer links render (${locale})`, async () => {
+  test(`six capabilities and localized footer link render (${locale})`, async () => {
     const copy = home.testDictionary[locale].capacites;
     assert.equal(copy.items.length, 6);
     for (const item of copy.items) {
@@ -53,21 +53,28 @@ for (const locale of ["fr", "en"]) {
     const sections = [...html.matchAll(/<section\b[^>]*>[\s\S]*?<\/section>/g)].map(([section]) => section);
     const index = sections.findIndex((section) => section.includes('id="capacites"'));
     assert.ok(index > 0);
-    assert.match(sections[index - 1], /home-s-parcours/);
-    assert.match(sections[index + 1], /home-s-maison/);
+    assert.match(sections[index - 2], /home-s-parcours/);
+    assert.match(sections[index - 1], /home-s-maison/);
+    assert.match(sections[index + 1], /home-s-build/);
+    assert.equal(sections.filter((section) => /class="home-s-parcours"/.test(section)).length, 1);
     const section = sections[index];
+    assert.match(section, /class="home-s-capacites"/);
+    assert.doesNotMatch(section, /home-s-parcours/);
     assert.equal((section.match(/<h3\b/g) ?? []).length, 6);
     assert.equal((section.match(/<h2\b/g) ?? []).length, 1);
     assert.doesNotMatch(section, /<(?:a|button)\b|\shref=/);
     assert.doesNotMatch(visibleText(section), forbidden);
     const href = localeModule.localizedPath("/build-with-you", locale);
-    assert.ok(sections[index + 1].includes(`href="${href}"`));
-    const secondary = sections[index + 1].match(new RegExp(`<a[^>]*href="${href}"[^>]*>`))?.[0];
-    assert.ok(secondary);
-    assert.doesNotMatch(secondary, /rev-button|\bexec\b|\bghost\b/);
+    assert.ok(!html.includes(`href="${href}"`));
+    const maison = sections[index - 1];
+    assert.equal((maison.match(/<a\b/g) ?? []).length, 1);
+    assert.ok(maison.includes(`href="${localeModule.localizedPath("/commission", locale)}"`));
     const footer = load("src/system/components/RevFooter.tsx", mocks);
     const footerHtml = renderToStaticMarkup(createElement(footer.RevFooter, { locale }));
     assert.ok(footerHtml.includes(`href="${href}"`));
+    const secondary = footerHtml.match(new RegExp(`<a[^>]*href="${href}"[^>]*>`))?.[0];
+    assert.ok(secondary);
+    assert.doesNotMatch(secondary, /rev-button|\bexec\b|\bghost\b/);
     const metadata = await home.generateMetadata();
     assert.equal(metadata.description, home.testDictionary[locale].hero.sub.split(". ")[0] + ".");
   });
