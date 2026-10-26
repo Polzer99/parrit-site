@@ -8,7 +8,6 @@ import { noteFunnel } from "@/system/engagements";
 import { localizedPath } from "@/system/locale";
 import type { Locale } from "@/system/locale";
 import type { Interet } from "@/lib/server/interets";
-import { K } from "./K";
 
 const DICT = {
   en: {
@@ -147,7 +146,7 @@ export function QuickCapture({
   if (state === "done") {
     return (
       <section id={id} className={`quick-capture${hero ? " home-s-quick-capture" : ""}`} data-state="done" aria-live="polite">
-        <K>{copy.registered}</K>
+        <p>{copy.registered}</p>
         <p>{copy.done}</p>
         <div className="quick-capture-next">
           {sketchUrl ? <a className="rev-button exec" href={sketchUrl}>{copy.watch}</a> : null}
@@ -160,7 +159,7 @@ export function QuickCapture({
   return (
     <section id={id} className={`quick-capture${hero ? " home-s-quick-capture" : ""}`} aria-label={copy.aria}>
       {!hero ? <div className="quick-copy">
-        <K>{copy.label}</K>
+        <p>{copy.label}</p>
         <p>{copy.line}</p>
       </div> : null}
       <form onSubmit={submit} noValidate>
@@ -183,7 +182,7 @@ export function QuickCapture({
           <span className="ri-error" role="alert">{copy.failure} ({detail}). {copy.direct} paul.larmaraud@parrit.ai</span>
         ) : state === "invalid" ? (
           <span className="ri-error" role="alert">{copy.invalid}</span>
-        ) : <K>{noteFunnel(locale, hero ? "hero" : "standard")}</K>}
+        ) : <p>{noteFunnel(locale, hero ? "hero" : "standard")}</p>}
       </form>
     </section>
   );

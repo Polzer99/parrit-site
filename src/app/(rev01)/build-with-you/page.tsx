@@ -2,7 +2,6 @@ import { EXAM_NOTE } from "@/system/examination";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getLocale } from "@/lib/server/locale";
-import { K, RegistryLine } from "@/system/components";
 import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
 
 const DICT = {
@@ -67,7 +66,7 @@ export default async function BuildWithYouPage() {
     <main className="rev-page r2-dark">
       <div className="r2-wrap">
         <header className="r2-hero build-with-you-hero">
-          <K>Build With You</K>
+
           <h1>{copy.title}</h1>
           <p className="r2-sub">{copy.autonomy}</p>
           <div className="build-with-you-examination">
@@ -79,7 +78,7 @@ export default async function BuildWithYouPage() {
           <div className="r2-shead"><h2 className="r2-ed" id="build-steps">{copy.stepsTitle}</h2></div>
           <div className="r2-phases">
             {copy.steps.map(([number, title, body]) => <div className="r2-phase" key={number}>
-              <div className="no">{number}</div><h3 className="nm">{title}</h3><div className="ds">{body}</div>
+              <h3 className="nm">{title}</h3><div className="ds">{body}</div>
             </div>)}
           </div>
           <p style={{ marginTop: 24 }}>
@@ -102,7 +101,7 @@ export default async function BuildWithYouPage() {
         <section className="r2-close" aria-label="Build With You">
           <Link className="rev-button exec" href={localizedPath("/commission", locale)}>{copy.cta}</Link>
         </section>
-        <footer className="rev-footer"><RegistryLine value="PARRIT / BUILD WITH YOU · 2026" /></footer>
+
       </div>
     </main>
   );

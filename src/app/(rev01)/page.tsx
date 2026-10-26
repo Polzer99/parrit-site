@@ -4,22 +4,30 @@ import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system
 import { getLocale } from "@/lib/server/locale";
 import { PUBLIC_CLIENT_NAMES, publicClientName } from "@/system/public-clients";
 import { getSiteEvidence } from "@/lib/registry/preuves";
-import { K, Matiere } from "@/system/components";
+import { Matiere } from "@/system/components";
 import { CaseStudyCard } from "@/system/components/CaseStudyCard";
 import { IntegrationBuildSwitcher } from "@/system/components/IntegrationBuildSwitcher";
-import { ProcessDiagram } from "@/system/components/ProcessDiagram";
+import { ProductScene } from "@/system/components/ProductScene";
+import { ProcessDiagram, ProcessConnector } from "@/system/components/ProcessDiagram";
 
 const DICT = {
   fr: {
+    build: {
+      title: "Vous demandez, vous validez, la fiche est créée.",
+      phrase: "Un exemple : un agent dans la messagerie de l'équipe commerciale, relié au CRM de l'entreprise.",
+      steps: ["Vous photographiez la carte.", "Vous répondez « oui ».", "Le contact est dans le CRM."],
+      label: "Dans votre CRM",
+      objectAlt: "Fiche du contact créée dans le CRM : société, nom, poste, mobile masqué",
+    },
     hero: {
       kicker: "CONSEIL · TRANSFORMATION · ENGINEERING",
       title: "Transformez votre entreprise. Pas simplement vos outils.",
-      sub: "De la stratégie à la mise en production, nous repensons vos opérations, intégrons les bonnes technologies et construisons les systèmes adaptés à votre métier.",
+      sub: "De la stratégie à la mise en production, nous repensons vos opérations, nous intégrons les bonnes technologies et nous livrons un système qui tourne. Pas une maquette.",
       primary: "Parlons de votre transformation",
       secondary: "Voir nos réalisations"
     },
     brands: {
-      kicker: "Ce que nous avons fait, et pour qui",
+      kicker: "Ce que nous avons construit, et pour qui",
       list: [
         {
           name: "Laparra",
@@ -64,11 +72,11 @@ const DICT = {
           "ce qui a changé, avec une méthode décidée au départ"
         ]
       ],
-      link: "Explorer notre approche conseil."
+      link: "Voir l'approche conseil"
     },
-    examples: "Trois façons dont nous travaillons",
+    examples: "Trois systèmes que nous avons construits",
     sprints: {
-      title: "Un problème précis, un système testable, une décision fondée sur des preuves.",
+      title: "AI Sprints : tester un système sur un problème précis, puis décider sur preuves.",
       body: "Plutôt que des mois d'hypothèses, un cycle court sur un périmètre décidé ensemble. La durée dépend du problème et se fixe au cadrage.",
       steps: [
         [
@@ -89,13 +97,13 @@ const DICT = {
         ]
       ],
       limit: "Ce qui n'est pas livré : un système en production à grande échelle, une promesse de délai fixe.",
-      link: "Cadrer un sprint."
+      link: "Cadrer un sprint"
     },
     engineering: "Intégrer ce qui existe. Construire ce qui manque.",
     harness: {
       title: "Le modèle ne suffit pas. Il faut un système fiable autour.",
       body: "Un agent qui réussit une démonstration peut échouer dans vos opérations. Ce qui fait la différence se trouve autour du modèle : le contexte qu'on lui donne, les outils qu'il a le droit d'utiliser, les vérifications avant chaque action, la supervision humaine et le suivi des coûts.",
-      link: "Optimiser notre système d'agents."
+      link: "Fiabiliser vos agents"
     },
     method: [
       "Comprendre comment vos équipes travaillent",
@@ -111,15 +119,22 @@ const DICT = {
     }
   },
   en: {
+    build: {
+      title: "You ask, you approve, the record is created.",
+      phrase: "One example: an agent in the sales team's messaging app, connected to the company's CRM.",
+      steps: ["You photograph the card.", "You reply “yes”.", "The contact is in the CRM."],
+      label: "In your CRM",
+      objectAlt: "Contact record created in the CRM: company, name, role, masked mobile number",
+    },
     hero: {
       kicker: "CONSULTING · TRANSFORMATION · ENGINEERING",
       title: "Transform your business. Not just your tools.",
-      sub: "From strategy to production, we rethink your operations, integrate the right technologies and build systems suited to your business.",
+      sub: "From strategy to production, we rethink how you operate, bring in the right technology and deliver a system that runs. Not a mock-up.",
       primary: "Let's talk about your transformation",
       secondary: "See our work"
     },
     brands: {
-      kicker: "What we have done, and for whom",
+      kicker: "What we have built, and for whom",
       list: [
         {
           name: "Laparra",
@@ -164,11 +179,11 @@ const DICT = {
           "what has changed, using a method agreed at the outset"
         ]
       ],
-      link: "Explore our consulting approach."
+      link: "See our consulting approach"
     },
-    examples: "Three ways we work",
+    examples: "Three systems we have built",
     sprints: {
-      title: "A precise problem, a testable system, a decision based on evidence.",
+      title: "AI Sprints: test a system on one precise problem, then decide on evidence.",
       body: "Instead of months of assumptions, a short cycle with a scope agreed together. Duration depends on the problem and is set during scoping.",
       steps: [
         [
@@ -189,13 +204,13 @@ const DICT = {
         ]
       ],
       limit: "What is not delivered: a system in production at scale, a promise of a fixed deadline.",
-      link: "Scope a sprint."
+      link: "Scope a sprint"
     },
     engineering: "Integrate what exists. Build what is missing.",
     harness: {
       title: "The model is not enough. It needs a reliable system around it.",
       body: "An agent that succeeds in a demonstration can fail in your operations. What makes the difference sits around the model: the context it receives, the tools it is allowed to use, checks before each action, human supervision and cost tracking.",
-      link: "Optimize our agent system."
+      link: "Make your agents reliable"
     },
     method: [
       "Understand how your teams work",
@@ -223,21 +238,23 @@ export default async function HomePage() {
   const references = PUBLIC_CLIENT_NAMES.filter(id => getSiteEvidence(id, "home"));
   const cases = (["demo-crm", "Laparra", "Clevery"] as const).filter(id => getSiteEvidence(id, "home"));
   return <main className="rev-page home-s v1-page" data-brand-mode="accessible">
-    <section className="home-s-hero r2-dark" id="H01" data-regime="ink"><div className="home-s-wrap">
-      <K>{copy.hero.kicker}</K><h1>{copy.hero.title}</h1><p className="home-s-hero-sub">{copy.hero.sub}</p>
+    <section className="home-s-hero r2-dark" id="H01" data-regime="ink"><div className="home-s-wrap v1-hero-grid"><div className="v1-hero-copy">
+      <h1>{copy.hero.title}</h1><p className="home-s-hero-sub">{copy.hero.sub}</p>
       <div className="v1-actions"><Link className="rev-button exec" href={href("/commission")}>{copy.hero.primary}</Link><Link className="rev-button ghost" href={href("/dossiers")}>{copy.hero.secondary}</Link></div>
-      <ProcessDiagram locale={locale}/>
+      </div><div className="v1-hero-scene"><p className="v1-demo-note">{locale === "fr" ? "Démonstration, données fictives." : "Demonstration, fictional data."}</p><ProductScene title={copy.build.title} phrase={copy.build.phrase} steps={copy.build.steps} label={copy.build.label}
+        object={{ src: "/brand/scenes/scene-carte-visite-fiche-crm", width: 860, height: 564, widths: [430, 860], sizes: "(max-width: 760px) calc(100vw - 40px), 520px", alt: copy.build.objectAlt }}
+        markers={[{ number: 3, image: "object", left: 93, top: 9 }]} /></div>
     </div></section>
     <div data-regime="calm"><div className="home-s-wrap"><Matiere tone="clair" /></div></div>
     {references.length > 0 && <section className="home-s-brands" id="H02" data-regime="calm"><div className="home-s-wrap"><h2>{copy.brands.kicker}</h2><ul className="home-s-brands-list" role="list">
-      {references.map(id => { const evidence = getSiteEvidence(id, "home"); const item = copy.brands.list.find(client => publicClientName(client.name) === id); return evidence && item ? <li key={id} data-evidence={id}><strong>{item.name}</strong>{locale === "fr" ? (id === "Laparra" ? ", " : " : ") : ": "}<span>{item.description}</span></li> : null; })}
+      {references.map(id => { const evidence = getSiteEvidence(id, "home"); const item = copy.brands.list.find(client => publicClientName(client.name) === id); return evidence && item ? <li key={id} data-evidence={id}><strong>{item.name}</strong><span>{item.description}</span></li> : null; })}
     </ul></div></section>}
-    <section id="H03" data-regime="calm"><div className="home-s-wrap"><K>{locale === "fr" ? "Conseil & Transformation" : "Consulting & Transformation"}</K><h2>{copy.consulting.title}</h2><p>{copy.consulting.body}</p><ol className="v1-grid v1-numbered">{copy.consulting.steps.map(([title, body], index) => <li key={title}><span className="v1-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{body}</p></li>)}</ol><Link className="rev-button ghost" href={href("/consulting-transformation")}>{copy.consulting.link}</Link></div></section>
+    <section id="H03" data-regime="calm"><div className="home-s-wrap"><h2>{copy.consulting.title}</h2><p>{copy.consulting.body}</p><ol className="v1-grid v1-numbered">{copy.consulting.steps.map(([title, body]) => <li key={title}><h3>{title}</h3><p>{body}</p></li>)}</ol><ProcessDiagram locale={locale}/><Link className="rev-button ghost" href={href("/consulting-transformation")}>{copy.consulting.link}</Link></div></section>
     {cases.length > 0 && <section id="H04" data-regime="ink"><div className="home-s-wrap"><h2>{copy.examples}</h2><div className="v1-cases">{cases.map(id => <CaseStudyCard key={id} id={id} locale={locale} pageId="home"/>)}</div></div></section>}
-    <section id="H05" data-regime="calm"><div className="home-s-wrap"><K>AI Sprints</K><h2>{copy.sprints.title}</h2><p>{copy.sprints.body}</p><div className="v1-grid">{copy.sprints.steps.map(([title, body]) => <div key={title}><h3>{title}</h3><p>{body}</p></div>)}</div><p>{copy.sprints.limit}</p><Link className="rev-button ghost" href={href("/ai-sprints")}>{copy.sprints.link}</Link></div></section>
-    <section id="H06" data-regime="canard"><div className="home-s-wrap"><K>{locale === "fr" ? "Engineering & Intégration" : "Engineering & Integration"}</K><h2>{copy.engineering}</h2><IntegrationBuildSwitcher locale={locale}/><Link className="rev-button ghost" href={href("/engineering-integration")}>{locale === "fr" ? "Explorer l'engineering" : "Explore engineering"}</Link></div></section>
-    <section id="H07" data-regime="ink" className="r2-dark"><div className="home-s-wrap"><K>Harness Engineering</K><h2>{copy.harness.title}</h2><p>{copy.harness.body}</p><Link className="rev-button ghost" href={href("/harness-engineering")}>{copy.harness.link}</Link></div></section>
-    <section id="H11" data-regime="calm"><div className="home-s-wrap"><h2>{locale === "fr" ? "Méthode" : "Method"}</h2><ol className="v1-grid v1-numbered v1-method">{copy.method.map((step, index) => <li key={step}><span className="v1-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>{step}</li>)}</ol></div></section>
+    <section id="H05" data-regime="calm"><div className="home-s-wrap"><h2>{copy.sprints.title}</h2><p>{copy.sprints.body}</p><div className="v1-grid">{copy.sprints.steps.map(([title, body]) => <div key={title}><h3>{title}</h3><p>{body}</p></div>)}</div><p>{copy.sprints.limit}</p><Link className="rev-button ghost" href={href("/ai-sprints")}>{copy.sprints.link}</Link></div></section>
+    <section id="H06" data-regime="canard"><div className="home-s-wrap"><h2>{copy.engineering}</h2><IntegrationBuildSwitcher locale={locale}/><Link className="rev-button ghost" href={href("/engineering-integration")}>{locale === "fr" ? "Voir l'engineering" : "See engineering"}</Link></div></section>
+    <section id="H07" data-regime="ink" className="r2-dark"><div className="home-s-wrap"><h2>{copy.harness.title}</h2><p>{copy.harness.body}</p><Link className="rev-button ghost" href={href("/harness-engineering")}>{copy.harness.link}</Link></div></section>
+    <section id="H11" data-regime="calm"><div className="home-s-wrap"><h2>{locale === "fr" ? "Six étapes, de vos opérations à un système en production." : "Six steps, from how you operate to a system in production."}</h2><ol className="v1-grid v1-numbered v1-method">{copy.method.map((step, index) => <li key={step}><span>{step}</span>{index < copy.method.length - 1 && <ProcessConnector/>}</li>)}</ol></div></section>
     <section id="H12" data-regime="ink" className="home-s-close r2-dark"><div className="home-s-wrap"><h2>{copy.close.title}</h2><div className="v1-close-rows"><Link className="rev-button exec" href={href("/commission")}>{copy.close.button}</Link></div></div></section>
   </main>;
 }

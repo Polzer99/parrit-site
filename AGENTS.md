@@ -66,7 +66,7 @@ Aucun mode complex ni Inter Tight.
   jamais été implémenté dans `RevHeader.tsx` : cette ligne décrivait déjà le prototype, pas le
   composant livré — écart non corrigé, signalé pour mémoire.)
 - **Éléments propriétaires** : le Parrit Frame (crochets d'accent = objet en attente de décision),
-  la registry line (`PARRIT / X · 2026`), le Standard en critères numérotés 01…06.
+  la registry line et les numéros 01…06 ne s’affichent plus en mode accessible. Le Standard conserve ses six engagements sans numéros en police machine.
 
 ### Règle de création — non négociable
 
@@ -139,3 +139,15 @@ H06 affiche tous ses panneaux sans JavaScript ; onglets clavier après hydratati
 Les preuves passent par `getSiteEvidence` : permission accordée, portée et dates valides.
 La date de revue déclenche un échec CI 30 jours avant, jamais un retrait en production.
 Aucun logo client, chiffre de résultat ni attribution institutionnelle au lot 1.
+
+## Mode accessible, décision du 26/10/2026 (soir)
+
+Paul : « Nous vendons le système en production. […] tout cet univers, la visuelle de pseudo-geek qu'on avait supprimée dans la nouvelle direction artistique, dans le nouveau branding. »
+
+Sur les pages publiques rev01 et SiteV1Page : aucun surtitre K/eyebrow/kicker,
+aucune étiquette de fiche technique ou registre documentaire, aucun index
+numéroté en police machine. La police IBM Plex Mono est réservée aux blocs de
+code du Journal et à l’annexe `/systems`. Le mot-symbole de navigation demeure
+inchangé. Référence : `docs/site-v1/HANDOFF-ERGONOMIE-IMPACT.md`.
+La spec `tests/ergonomie-impact.spec.ts` bloque la réapparition de mono visible
+sur l’accueil et les quatre pages V1 FR/EN, hors mot-symbole et code autorisé.

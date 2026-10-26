@@ -21,12 +21,14 @@ for (const width of [360, 390, 768, 1024, 1440]) for (const locale of ['fr', 'en
       await expect(row).toHaveCSS('border-left-width', '0px');
       await expect(row).toHaveCSS('box-shadow', 'none');
     }
-    await expect(page.locator('#H03 .v1-index')).toHaveText(['01', '02', '03', '04']);
-    await expect(page.locator('#H11 .v1-index')).toHaveText(['01', '02', '03', '04', '05', '06']);
+    await expect(page.locator('#H03 ol > li')).toHaveCount(4);
+    await expect(page.locator('#H03 .v1-index')).toHaveCount(0);
+    await expect(page.locator('#H11 ol > li')).toHaveCount(6);
+    await expect(page.locator('#H11 .v1-index')).toHaveCount(0);
     for (const card of await page.locator('.v1-case').all()) {
       const status = (await card.locator('.v1-case-status').boundingBox())!;
       const title = (await card.locator('h3').boundingBox())!;
-      expect(status.y + status.height).toBeLessThanOrEqual(title.y);
+      expect(title.y + title.height).toBeLessThanOrEqual(status.y);
     }
     const actions = page.locator('#H12 a');
     await expect(actions).toHaveCount(1);

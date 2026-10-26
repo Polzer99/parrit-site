@@ -1,5 +1,18 @@
 # AI Context
 
+## Ergonomie et impact, mode accessible, 26/10/2026 soir
+
+Handoff ERGONOMIE-IMPACT implémenté localement : ProductScene restauré au hero,
+schéma déplacé au Conseil, cartes à deux lignes, méthode 3 × 2, actions à largeur
+de contenu, surtitres et registres décoratifs retirés. Mono réservée à Systems,
+au code du Journal et au mot-symbole. H06 garde ses titres sans JS et les masque
+visuellement après hydratation. Preuves et permissions inchangées.
+Lint/types/claims/marque, 165 tests Node, 24 tests Brand OS et build Webpack passent.
+Turbopack interrompu sans progression ; port 3210 et Chromium refusés par le
+sandbox. Les 434 cas navigateur et les quatre captures restent à valider sur
+l’hôte. Aucun commit, push ou déploiement. Détail des adaptations de tests et
+résultats : `docs/site-v1/RAPPORT-ERGONOMIE-IMPACT.md`.
+
 ## Cession écrite et faiblesses du lot 1 — 26/10/2026
 
 Les textes FR/EN de Standard, Manufacture, BWY et des guides annoncent une

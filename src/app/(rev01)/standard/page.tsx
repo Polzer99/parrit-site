@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { getLocale } from "@/lib/server/locale";
-import { K, RegistryLine } from "@/system/components";
 import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
 
 const DICT = {
@@ -103,4 +102,4 @@ export default async function StandardPage() { const locale = await getLocale();
   itemListElement: copy.principles.map(([, name, description], index) => ({
     "@type": "ListItem", position: index + 1, name, description,
   })),
-}).replace(/</g, "\\u003c") }} /><div className="rev-wrap"><header className="standard-intro"><K>{copy.kicker}</K><h1>{copy.title}</h1></header><section className="doctrine" aria-label={copy.metaTitle}><div className="doctrine-head"><K>{copy.tableMeta}</K></div>{copy.principles.map(([code, statement, scene]) => <div className="doctrine-row" key={code}><div className="doctrine-code"><K>{code}</K></div><h3 className="doctrine-name">{statement}</h3><div className="doctrine-definition">{scene}</div></div>)}<div className="doctrine-foot"><span className="seal">{copy.seal}</span></div></section><p className="standard-note">{copy.note}</p><div className="standard-action"><K>{copy.proof}</K><Link className="rev-button exec" href={localizedPath("/commission", locale)}>{copy.button}</Link></div><footer className="rev-footer"><RegistryLine /></footer></div></main>; }
+}).replace(/</g, "\\u003c") }} /><div className="rev-wrap"><header className="standard-intro"><h1>{copy.title}</h1></header><section className="doctrine" aria-label={copy.metaTitle}>{copy.principles.map(([code, statement, scene]) => <div className="doctrine-row" key={code}><h3 className="doctrine-name">{statement}</h3><div className="doctrine-definition">{scene}</div></div>)}<div className="doctrine-foot"><span className="seal">{copy.seal}</span></div></section><p className="standard-note">{copy.note}</p><div className="standard-action"><p>{copy.proof}</p><Link className="rev-button exec" href={localizedPath("/commission", locale)}>{copy.button}</Link></div></div></main>; }

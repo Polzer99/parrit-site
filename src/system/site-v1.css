@@ -107,9 +107,7 @@
 .v1-page h2 { font-size: var(--d-s); line-height: 1.1; font-weight: 500; }
 .v1-page .home-s-close h2 { font-size: var(--d-m); }
 .v1-page p, .v1-page li, .v1-page dd, .v1-page .home-s-hero-sub { font-size: var(--t-m); }
-.v1-page .k, .v1-page dt, .v1-page .v1-index, .v1-case-status dd {
-  font-family: var(--mono); font-size: var(--t-k); font-weight: 400;
-}
+.v1-page dt { font-family: var(--ui); font-size: var(--t-k); font-weight: 400; }
 .v1-page [data-regime] h2, .v1-page [data-regime] h3 { color: inherit; }
 .v1-page [data-regime] p { color: var(--brand-fg2); }
 .v1-page [data-regime] .rev-button.ghost { color: var(--brand-fg); }
@@ -124,15 +122,10 @@
 .v1-page .v1-cases { display: block; }
 .v1-page .v1-case { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--s3); padding-block: var(--s4); }
 .v1-case .v1-case-status { grid-column: 1 / -1; margin: 0; }
-.v1-case .v1-case-status > div { display: flex; flex-wrap: wrap; gap: var(--s3); margin: 0; }
-.v1-case .v1-case-status dd { margin: 0; color: var(--brand-fg2); }
 .v1-case h3 { grid-column: span 2; margin: 0; }
-.v1-case > dl:not(.v1-case-status) { grid-column: span 4; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s3); }
-.v1-case > dl:not(.v1-case-status) > div { margin: 0; }
 .v1-page .v1-numbered { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s3); list-style: none; }
 .v1-page .v1-numbered > li { border-left: 1px solid var(--brand-line); padding-left: var(--s3); }
 .v1-page .v1-numbered > li:first-child { border-left-color: var(--brand-acc); }
-.v1-index { display: block; margin-bottom: var(--s3); }
 .v1-page .v1-method { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 .v1-close-rows { text-align: left; }
 .v1-page .home-s-brands-list li:hover, .v1-page .v1-case:hover { background: var(--brand-surf); }
@@ -156,4 +149,54 @@
   .v1-page .v1-case > dl:not(.v1-case-status) { grid-template-columns: 1fr; }
   .v1-page .v1-with-toc > .v1-toc, .v1-page .v1-with-toc > div { grid-column: 1 / -1; }
   .v1-page .home-s-hero { padding-top: var(--s3); }
+}
+
+/* Accessible public presentation, decision 26/10/2026. Technical annex keeps mono. */
+.rev-page:not(.systems-page), .v1-header, .home-s-footer { --mono: var(--ui); }
+.journal-article :is(pre, code) { font-family: 'IBM Plex Mono', monospace; }
+.v1-header .wordmark { font-family: 'IBM Plex Mono', monospace; }
+.home-s-footer-meta { letter-spacing: normal; text-transform: none; }
+.rev-page:not(.systems-page) .k { font-family: var(--ui); letter-spacing: normal; text-transform: none; }
+.v1-page .rev-button { width: fit-content; justify-self: start; }
+.v1-page .home-s-close .rev-button { justify-self: center; }
+.v1-page .home-s-close, .v1-page .v1-close-rows { border: 0; }
+body:has(main > :last-child:is(.r2-dark, [data-regime="ink"])) .home-s-footer { border-top: 0; }
+.home-s-footer nav { border-top: 0; }
+.v1-switcher [role="tabpanel"] { border-bottom: 0; }
+.v1-page .home-s-brands-list, .v1-page .v1-cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s3); }
+.v1-page .home-s-brands-list li, .v1-page .home-s-brands-list li:last-child, .v1-page .v1-case {
+  display: block; border: 0; padding: var(--s3); background: var(--brand-surf);
+}
+.v1-page .home-s-brands-list strong, .v1-page .home-s-brands-list span { display: block; }
+.v1-page .v1-case-status { margin-block: var(--s2) 0; font-family: var(--ui); font-size: var(--t-s); }
+.v1-page .v1-numbered > li { border: 0; padding-left: 0; }
+.v1-page .v1-method { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s4); }
+.v1-method li { display: flex; align-items: center; gap: var(--s3); }
+.v1-method li span { flex: 1; }
+.v1-method svg { flex: 0 0 32px; }
+.v1-process > div > p:first-child { font-family: var(--ui); }
+.v1-page dt { font-family: var(--ui); }
+.v1-page .home-s-hero .v1-hero-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; text-align: left; }
+.v1-page .v1-hero-grid > * { grid-column: auto; }
+.v1-page .home-s-hero h1 { margin: 0 0 var(--s3); text-wrap: auto; }
+.v1-page .v1-actions { justify-content: flex-start; }
+.v1-hero-scene .product-scene { display: grid; grid-template-columns: 1fr; gap: var(--s3); margin: 0; }
+.v1-hero-scene .product-scene-copy, .v1-hero-scene .product-scene-object { grid-column: 1; grid-row: auto; width: 100%; }
+/* The CRM object supplies the first-screen visual; the transcript follows it. */
+.v1-hero-scene .product-scene-object { grid-row: 1; }
+.v1-hero-scene .product-scene-conversation { grid-column: 1; grid-row: 3; width: 320px; justify-self: center; }
+.v1-hero-scene .product-scene-label { font-family: var(--ui); }
+.v1-hero-scene .product-scene-steps { margin-top: var(--s3); }
+.v1-hero-scene .product-scene-steps li { margin-top: var(--s2); }
+.v1-page .scene-chat p { color: var(--chat-ink); font-size: var(--t-s); }
+.v1-page .scene-chat .scene-chat-date { color: var(--chat-muted); }
+.v1-demo-note { margin-top: var(--s3); }
+.doctrine-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+@media (max-width: 760px) {
+  .v1-page .home-s-hero .v1-hero-grid, .v1-page .home-s-brands-list, .v1-page .v1-cases, .v1-page .v1-method { grid-template-columns: 1fr; }
+  .v1-page .v1-actions { align-items: flex-start; }
+  .v1-hero-scene { margin-top: var(--s4); }
+  .v1-method li { flex-direction: column; align-items: flex-start; }
+  .v1-method svg { transform: rotate(90deg); }
+  .doctrine-row { grid-template-columns: 1fr; }
 }

@@ -114,7 +114,7 @@ export function ParritCalInline({
           <div className="cal-embed-stage" data-ready={ready || undefined}>
             {!ready ? (
               <div className="cal-loading" role="status" aria-live="polite">
-                <span className="k">{copy.retrieving}</span>
+                <span>{copy.retrieving}</span>
               </div>
             ) : null}
             {mount ? (

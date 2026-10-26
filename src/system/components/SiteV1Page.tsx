@@ -3,7 +3,6 @@ import Link from "next/link";
 import { getLocale } from "@/lib/server/locale";
 import { localizedPath, localizedAlternates, localizedOpenGraph } from "@/system/locale";
 import { SITE_V1_PAGES, type SiteV1PageId, type GuideCopy } from "@/system/site-v1-pages";
-import { K } from "@/system/components";
 import { IntegrationBuildSwitcher } from "./IntegrationBuildSwitcher";
 
 export async function siteV1Metadata(id: SiteV1PageId): Promise<Metadata> {
@@ -20,7 +19,7 @@ export async function SiteV1Page({ id }: { id: SiteV1PageId }) {
   const copy: GuideCopy = SITE_V1_PAGES[id][locale]; const harness = id === "harness-engineering";
   const href = (path: string) => localizedPath(path, locale);
   return <main className="rev-page home-s v1-page v1-guide" data-brand-mode="accessible">
-    <section className="v1-guide-hero r2-dark" data-regime="ink"><div className="home-s-wrap"><K>{copy.name}</K><h1>{copy.title}</h1><p>{copy.description}</p><Link className="rev-button ghost" href={href("/commission")}>{fr ? "Parler d'un projet" : "Talk about a project"}</Link></div></section>
+    <section className="v1-guide-hero r2-dark" data-regime="ink"><div className="home-s-wrap"><h1>{copy.title}</h1><p>{copy.description}</p><Link className="rev-button ghost" href={href("/commission")}>{fr ? "Parler d'un projet" : "Talk about a project"}</Link></div></section>
     <div className={`home-s-wrap v1-guide-body${harness ? " v1-with-toc" : ""}`}>
       {harness && <nav className="v1-toc" aria-label={fr ? "Sommaire" : "Contents"}>{copy.sections.map(([anchor, title]) => <a key={anchor} href={`#${anchor}`}>{title}</a>)}</nav>}
       <div>

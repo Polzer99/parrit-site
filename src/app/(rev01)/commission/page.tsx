@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { getLocale } from "@/lib/server/locale";
-import { K, ParritCalInline, QuickCapture, RegistryLine } from "@/system/components";
+import { ParritCalInline, QuickCapture } from "@/system/components";
 import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 
 const DICT = {
@@ -36,7 +36,7 @@ export default async function CommissionPage() {
     <main className="rev-page commission-page">
       <div className="rev-wrap">
         <header className="commission-header">
-          <K>{copy.kicker}</K>
+
           <h1>{copy.title}</h1>
           <p>{copy.sub}</p>
         </header>
@@ -49,11 +49,12 @@ export default async function CommissionPage() {
           <p><b>{copy.noteTitle}</b> {copy.noteBody}</p>
         </div>
         <section className="standard-action" aria-label={copy.capture}>
-          <K>{copy.capture}</K>
+
+          <h2>{copy.capture}</h2>
           <QuickCapture locale={locale} id="commission" />
         </section>
 
-        <footer className="rev-footer"><RegistryLine /></footer>
+
       </div>
     </main>
   );
