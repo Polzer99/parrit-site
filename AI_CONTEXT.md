@@ -1,3 +1,15 @@
+## OG et icônes canard — 27/10/2026
+
+OG français 1200 × 630, deux graisses General Sans locales, couleurs via token().
+URL OG/Twitter versionnée `?v=2026-10-27`, runtime Node conservé. Trois icônes
+reproductibles par `node scripts/generate-canard-icons.mjs` (police IBM locale).
+Tests : rendu OG/pixels/dimensions, régénération exacte des icônes, métadonnées
+SSR FR/EN et deux parcours HTTP. Aucun texte de page modifié.
+Validation : npm ci, lint, build Webpack 52 pages, 109 tests Node, conformité
+marque et 19 tests Brand OS réussis. Turbopack interrompu sans progression ;
+port 3210 et Chromium refusés par le sandbox. Tests navigateur à rejouer
+sur l’hôte. Aucun commit, push ni déploiement ; handoff préexistant conservé.
+
 ## Mesure de silhouette et septième partenaire — 27/10/2026
 
 Demande explicite de Paul : contraste des boutons opaques mesuré par le meilleur

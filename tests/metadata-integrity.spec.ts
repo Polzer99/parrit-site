@@ -107,3 +107,30 @@ test("sitemap metadata has unique titles and reachable images", async ({ request
     contentType: "application/json",
   });
 });
+
+for (const path of ["/", "/fr"]) {
+  test(`${path}: OG and Twitter publish the versioned canard image`, async ({ request }) => {
+    const html = await getText(request, localUrl(path));
+    const metas = [...html.matchAll(/<meta\b(?:[^>"']|"[^"]*"|'[^']*')*>/gi)].map(([tag]) => attributes(tag));
+    for (const field of ["og:image", "twitter:image"]) {
+      const images = metas.filter((meta) => (meta.property ?? meta.name) === field);
+      expect(images).toHaveLength(1);
+      const url = new URL(images[0].content, SITE_URL);
+      expect(url.origin).toBe(SITE_URL);
+      expect(url.pathname).toBe("/opengraph-image");
+      expect(url.searchParams.get("v")).toBe("2026-10-27");
+      const response = await getLocal(request, localUrl(url.href));
+      try {
+        expect(response.status()).toBe(200);
+        expect(response.headers()["content-type"]).toMatch(/^image\/png/);
+        const sharp = (await import("sharp")).default;
+        const { token } = await import("../src/system/token.server");
+        const { data, info } = await sharp(await response.body()).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+        expect([info.width, info.height]).toEqual([1200, 630]);
+        expect([...data.subarray(0, 4)]).toEqual([...Buffer.from(token("--accent-strong").slice(1), "hex"), 255]);
+      } finally {
+        await response.dispose();
+      }
+    }
+  });
+}

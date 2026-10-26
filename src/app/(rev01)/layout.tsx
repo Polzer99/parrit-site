@@ -35,7 +35,7 @@ posthog.init('phc_MBE1dFuCrRbroLzBdP7JtrH0O1JlH8F5uNs9cieSHqm', {
 export async function generateMetadata(): Promise<Metadata> {
   return {
   metadataBase: new URL("https://parrit.ai"),
-  twitter: { card: "summary_large_image", images: ["https://parrit.ai/opengraph-image"] },
+  twitter: { card: "summary_large_image", images: ["https://parrit.ai/opengraph-image?v=2026-10-27"] },
   title: {
     default: "Parrit.ai · Consulting, transformation and engineering",
     template: "%s · Parrit.ai",
