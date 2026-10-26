@@ -68,6 +68,18 @@ Aucun mode complex ni Inter Tight.
 - **Éléments propriétaires** : le Parrit Frame (crochets d'accent = objet en attente de décision),
   la registry line et les numéros 01…06 ne s’affichent plus en mode accessible. Le Standard conserve ses six engagements sans numéros en police machine.
 
+### Boutons publics — tour 1 (26/10/2026)
+
+Largeur de contenu à partir de 600 px ; sous 600 px, tous les boutons d’un même
+groupe suivent le même choix de largeur. Alignement sur le bord gauche du texte
+précédent, ou centré si son titre est centré. Deux actions : `exec` puis `ghost`,
+espacement `var(--brand-s2)`, hauteur et ligne de base communes. Un seul `exec`
+par section ; principal en clôture. Pas de point final, infinitif FR et impératif
+court EN. Vers `/commission` : « Parler d'un projet » / « Talk about a project ».
+Exception : lien textuel BWY « Parler d'un système sur mesure » / « Talk about a
+custom system ». L’envoi du formulaire commission reste à droite du champ.
+La navigation conserve le même style d’action sur toutes les pages.
+
 ### Règle de création — non négociable
 
 Toute nouvelle page publique se construit avec `src/system/` (tokens, composants K/St/Frame/
@@ -126,7 +138,7 @@ Voir aussi la skill `qa-playwright` (batterie responsive + multi-navigateur).
 - Positionnement (26/10/2026) : définition canonique `parrit-canon/positioning/POSITIONNEMENT-CANONIQUE-2026-10-26.md`, remplacé pour le site par `docs/site-v1/ETAPE-1-PLAN.md` : trois portes et Harness Engineering ; pas de Content Factory, chiffres de résultat ni mentions d’écosystème au lot 1.
 - Marque (12/10/2026) : Parrit.ai uniquement ; aucune mention du fondateur hors `/legal`.
 - Mesure d'audience (05/10/2026) : PostHog retiré du navigateur ; seule mesure active, Cloudflare Web Analytics injectée hors dépôt par Cloudflare et décrite dans `/legal`.
-- CTA (26/10/2026) : « Parler d'un projet » / « Talk about a project », hero « Parlons de votre transformation » vers `/commission` ou `/fr/commission`.
+- CTA (26/10/2026) : « Parler d'un projet » / « Talk about a project », hero « Parler d'un projet » vers `/commission` ou `/fr/commission`.
 - Tests (25/10/2026) : contrôler les règles de fond et la structure, pas les libellés. Conserver les contrôles de destination, accessibilité, réseau et géométrie.
 - Collab Codex↔Claude = via **GitHub Issues/PR**, jamais d'auto-merge, **Paul merge**. Codex = codeur, Claude = relecteur (sécu/archi/bugs/dette).
 

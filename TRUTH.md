@@ -57,8 +57,8 @@ Peu de texte : montrer les produits, les réalisations, les capacités et les pr
 Le rendez-vous est une suite possible, pas une métrique à maximiser.
 L'ancien objectif RDV/semaine et cash hebdo est remplacé le 24/10/2026.
 
-**CTA site V1 du 26/10/2026** : « Parlons de votre transformation » au hero et
-« Parler d'un projet » dans la navigation et les clôtures, vers `/commission`
+**CTA site V1, tour 1 du 26/10/2026** : « Parler d'un projet » au hero,
+dans la navigation et les clôtures, vers `/commission`
 ou `/fr/commission`. Le hero montre un processus actuel et sa cible. Le Journal n'a pas de capture d'abonnement.
 
 ## 3. ICP (à qui on parle)

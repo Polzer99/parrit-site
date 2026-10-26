@@ -23,7 +23,7 @@ const DICT = {
     registered: "Registered",
     done: "Your request is registered. Parrit.ai reviews it and replies by e-mail.",
     watch: "See the sketch",
-    bookExam: "Book the examination",
+    bookExam: "Talk about a project",
     aria: "Send",
   },
   fr: {
@@ -39,7 +39,7 @@ const DICT = {
     registered: "Bien reçu.",
     done: "Votre demande est enregistrée. Parrit.ai l'étudie et vous répond par e-mail.",
     watch: "Voir l'esquisse",
-    bookExam: "Réserver l'examen",
+    bookExam: "Parler d'un projet",
     aria: "Envoyer",
   },
 } as const;

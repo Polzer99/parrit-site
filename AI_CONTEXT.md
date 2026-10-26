@@ -1,5 +1,17 @@
 # AI Context
 
+## Tour 1 cohérence — 26/10/2026
+
+Textes contractuels et accroches Journal corrigés (corps inchangés), articles
+/fr redirigés 308 vers les URL anglaises, composants Sequence/Faq/FinalCall
+partagés et règles de boutons/liens/H1 harmonisées. CTA navigation invariant.
+169 tests Node, 24 Brand OS, lint/types/claims/marque et build Webpack passent.
+Turbopack sans progression ; serveur 3210 et Chromium refusés par le sandbox.
+489 cas navigateur à rejouer sur l’hôte. Langue/24 h Cal.com non pris en charge
+par l’API embed 1.5.3 installée ; thème et dimensions côté hôte corrigés.
+Voir docs/site-v1/RAPPORT-TOUR1-COHERENCE.md, notamment les limites de preuve.
+Aucun commit, push ou déploiement.
+
 ## Correctif PR #330 — 26/10/2026
 
 Checkout initial `01e334f` : socle `bdf6167` repris sans commit ni changement

@@ -18,12 +18,12 @@ test("product scene text uses Brand OS colors rather than the audit's off-palett
   assert.match(css, /--chat-muted:\s*var\(--brand-accessible-ink2\)/);
 });
 
-test("home booking restores the canonical observer and neutral initial accent", () => {
+test("booking uses the same style on every page, with native mobile navigation", () => {
   const header = read("src/system/components/RevHeader.tsx");
-  assert.match(header, /home && heroOutside \? "exec" : "ghost"/);
-  assert.match(header, /IntersectionObserver/);
-  assert.match(header, /observer\.disconnect\(\)/);
+  assert.match(header, /className="cmd-cta rev-button ghost"/);
+  assert.doesNotMatch(header, /IntersectionObserver/);
+  assert.doesNotMatch(header, /data-home=/);
   assert.match(header, /<details className="v1-mobile-menu"/);
   const css = read("src/app/(rev01)/rev01.css");
-  assert.match(css, /\.cmdbar \.cmd-cta\.ghost\[data-home="true"\]\s*\{[^}]*color: var\(--paper\)/);
+  assert.match(css, /\.cmdbar \.cmd-cta\.ghost,[^{]*\{[^}]*color: var\(--accent-on-dark\)/);
 });

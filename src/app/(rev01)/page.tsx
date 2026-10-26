@@ -1,3 +1,5 @@
+import { Sequence } from "@/system/components/Sequence";
+import { FinalCall } from "@/system/components/FinalCall";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
@@ -8,7 +10,7 @@ import { Matiere } from "@/system/components";
 import { CaseStudyCard } from "@/system/components/CaseStudyCard";
 import { IntegrationBuildSwitcher } from "@/system/components/IntegrationBuildSwitcher";
 import { ProductScene } from "@/system/components/ProductScene";
-import { ProcessDiagram, ProcessConnector } from "@/system/components/ProcessDiagram";
+import { ProcessDiagram } from "@/system/components/ProcessDiagram";
 
 const DICT = {
   fr: {
@@ -23,7 +25,7 @@ const DICT = {
       kicker: "CONSEIL · TRANSFORMATION · ENGINEERING",
       title: "Transformez votre entreprise. Pas simplement vos outils.",
       sub: "De la stratégie à la mise en production, nous repensons vos opérations, nous intégrons les bonnes technologies et nous livrons un système qui tourne. Pas une maquette.",
-      primary: "Parlons de votre transformation",
+      primary: "Parler d'un projet",
       secondary: "Voir nos réalisations"
     },
     brands: {
@@ -130,7 +132,7 @@ const DICT = {
       kicker: "CONSULTING · TRANSFORMATION · ENGINEERING",
       title: "Transform your business. Not just your tools.",
       sub: "From strategy to production, we rethink how you operate, bring in the right technology and deliver a system that runs. Not a mock-up.",
-      primary: "Let's talk about your transformation",
+      primary: "Talk about a project",
       secondary: "See our work"
     },
     brands: {
@@ -150,7 +152,7 @@ const DICT = {
         },
         {
           name: "Joone",
-          description: "AI support for the teams"
+          description: "helping the teams adopt AI"
         },
         {
           name: "SNCF",
@@ -192,7 +194,7 @@ const DICT = {
         ],
         [
           "Construction",
-          "a system that runs on your real cases"
+          "a building block that runs on your real cases"
         ],
         [
           "Evaluation",
@@ -249,12 +251,12 @@ export default async function HomePage() {
     {references.length > 0 && <section className="home-s-brands" id="H02" data-regime="calm"><div className="home-s-wrap"><h2>{copy.brands.kicker}</h2><ul className="home-s-brands-list" role="list">
       {references.map(id => { const evidence = getSiteEvidence(id, "home"); const item = copy.brands.list.find(client => publicClientName(client.name) === id); return evidence && item ? <li key={id} data-evidence={id}><strong>{item.name}</strong><span>{item.description}</span></li> : null; })}
     </ul></div></section>}
-    <section id="H03" data-regime="calm"><div className="home-s-wrap"><h2>{copy.consulting.title}</h2><p>{copy.consulting.body}</p><ol className="v1-grid v1-numbered">{copy.consulting.steps.map(([title, body]) => <li key={title}><h3>{title}</h3><p>{body}</p></li>)}</ol><ProcessDiagram locale={locale}/><Link className="rev-button ghost" href={href("/consulting-transformation")}>{copy.consulting.link}</Link></div></section>
+    <section id="H03" data-regime="calm"><div className="home-s-wrap"><h2>{copy.consulting.title}</h2><p>{copy.consulting.body}</p><Sequence steps={copy.consulting.steps}/><ProcessDiagram locale={locale}/><Link className="rev-button ghost" href={href("/consulting-transformation")}>{copy.consulting.link}</Link></div></section>
     {cases.length > 0 && <section id="H04" data-regime="ink"><div className="home-s-wrap"><h2>{copy.examples}</h2><div className="v1-cases">{cases.map(id => <CaseStudyCard key={id} id={id} locale={locale} pageId="home"/>)}</div></div></section>}
-    <section id="H05" data-regime="calm"><div className="home-s-wrap"><h2>{copy.sprints.title}</h2><p>{copy.sprints.body}</p><div className="v1-grid">{copy.sprints.steps.map(([title, body]) => <div key={title}><h3>{title}</h3><p>{body}</p></div>)}</div><p>{copy.sprints.limit}</p><Link className="rev-button ghost" href={href("/ai-sprints")}>{copy.sprints.link}</Link></div></section>
+    <section id="H05" data-regime="calm"><div className="home-s-wrap"><h2>{copy.sprints.title}</h2><p>{copy.sprints.body}</p><Sequence steps={copy.sprints.steps}/><p>{copy.sprints.limit}</p><Link className="rev-button ghost" href={href("/ai-sprints")}>{copy.sprints.link}</Link></div></section>
     <section id="H06" data-regime="canard"><div className="home-s-wrap"><h2>{copy.engineering}</h2><IntegrationBuildSwitcher locale={locale}/><Link className="rev-button ghost" href={href("/engineering-integration")}>{locale === "fr" ? "Voir l'engineering" : "See engineering"}</Link></div></section>
     <section id="H07" data-regime="ink" className="r2-dark"><div className="home-s-wrap"><h2>{copy.harness.title}</h2><p>{copy.harness.body}</p><Link className="rev-button ghost" href={href("/harness-engineering")}>{copy.harness.link}</Link></div></section>
-    <section id="H11" data-regime="calm"><div className="home-s-wrap"><h2>{locale === "fr" ? "Six étapes, de vos opérations à un système en production." : "Six steps, from how you operate to a system in production."}</h2><ol className="v1-grid v1-numbered v1-method">{copy.method.map((step, index) => <li key={step}><span>{step}</span>{index < copy.method.length - 1 && <ProcessConnector/>}</li>)}</ol></div></section>
-    <section id="H12" data-regime="ink" className="home-s-close r2-dark"><div className="home-s-wrap"><h2>{copy.close.title}</h2><div className="v1-close-rows"><Link className="rev-button exec" href={href("/commission")}>{copy.close.button}</Link></div></div></section>
+    <section id="H11" data-regime="calm"><div className="home-s-wrap"><h2>{locale === "fr" ? "Six étapes, de vos opérations à un système en production." : "Six steps, from how you operate to a system in production."}</h2><Sequence className="v1-method" steps={copy.method.map(step => [step])}/></div></section>
+    <div data-regime="ink" className="home-s-close r2-dark"><FinalCall id="H12" locale={locale} title={copy.close.title} className="home-s-wrap"/></div>
   </main>;
 }

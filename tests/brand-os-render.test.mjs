@@ -106,12 +106,13 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           if (route === "/") {
             assert.equal((journal.match(/data-language-note=""/g) ?? []).length, locale === "fr" ? 1 : 0);
           }
+          assert.equal((text.match(/Articles en anglais/g) ?? []).length, locale === "fr" ? 1 : 0, `${label}: one index language note`);
           const links = [...journal.matchAll(/<a\b[^>]*href="\/journal\/[^"]+"[^>]*>[\s\S]*?<\/a>/g)].map((match) => match[0]);
           assert.ok(links.length > 0, `${label}: nonempty Journal`);
           for (const link of links) {
             assert.match(link, /hrefLang="en"|hreflang="en"/, label);
             const badge = />EN<\//.test(link);
-            assert.equal(badge, locale === "fr", `${label}: per-entry EN label only in French interface`);
+            assert.equal(badge, false, `${label}: no repeated language label`);
           }
         }
         if (route === "/") {

@@ -50,7 +50,7 @@ test("home EN/FR uses documented orders, dated information types and own-system 
         assert.doesNotMatch(description, /direct|CRM|syst[eè]m/i);
       }
       if (publicClientName(name) === "Joone") {
-        assert.match(description, /accompagnement|support/i);
+        assert.match(description, /accompagnement|support|helping the teams adopt AI/i);
         assert.doesNotMatch(description, /syst[eè]m/i);
       }
     }

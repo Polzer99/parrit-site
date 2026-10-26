@@ -242,7 +242,7 @@ export const SITE_V1_PAGES = {
           "construction",
           "Construction",
           [
-            "A system that runs on your real cases."
+            "A building block that runs on your real cases."
           ]
         ],
         [

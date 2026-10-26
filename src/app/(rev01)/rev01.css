@@ -453,7 +453,7 @@ h3 {
   color: var(--g3);
 }
 
-.cmdbar .cmd-cta.ghost:not([data-home="true"]),
+.cmdbar .cmd-cta.ghost,
 .cmd-panel .cmd-panel-cta.ghost {
   border-color: currentColor;
   color: var(--accent-on-dark);
@@ -464,11 +464,6 @@ h3 {
 .cmd-panel .cmd-panel-cta.ghost:hover,
 .cmd-panel .cmd-panel-cta.ghost:active {
   background: var(--ink);
-}
-
-.cmdbar .cmd-cta.ghost[data-home="true"] {
-  border-color: currentColor;
-  color: var(--paper);
 }
 
 .cmd-panel .cmd-panel-cta:not(.rev-button) {

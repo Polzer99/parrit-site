@@ -1,15 +1,15 @@
+import { FinalCall } from "@/system/components/FinalCall";
 import { EXAM_NOTE } from "@/system/examination";
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import { getLocale } from "@/lib/server/locale";
-import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
+import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 
 const DICT = {
   "en": {
-    "metaTitle": "The Dossiers",
+    "metaTitle": "Case files",
     "metaDescription": "Systems commissioned by large accounts, SMEs and mid-sized companies, anonymized on principle.",
-    "kicker": "Parrit / The Dossiers",
+    "kicker": "Parrit / Case files",
     "title": "Three dossiers are summarized here. The others are presented in a meeting.",
     "sub": "These systems were commissioned by large accounts, SMEs and mid-sized companies. Unless the client agrees otherwise, we anonymize them.",
     "dossiers": [
@@ -98,13 +98,7 @@ export default async function DossiersPage() {
         </section>
 
 
-        <section className="r2-close" aria-label="Commission">
-          <h2>{copy.close}</h2>
-          <p className="proof">{copy.proof}</p>
-          <Link className="rev-button exec" href={localizedPath("/commission", locale)}>
-            {copy.button}
-          </Link>
-        </section>
+        <FinalCall locale={locale} className="r2-close" title={copy.close}><p className="proof">{copy.proof}</p></FinalCall>
 
 
       </div>

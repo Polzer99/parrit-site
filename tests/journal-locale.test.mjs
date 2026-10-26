@@ -23,13 +23,18 @@ const origin = "http://localhost:3210";
 const article = "/journal/one-card-one-action";
 const request = (path, headers) => proxy(new NextRequest(`${origin}${path}`, { headers }));
 
-test("French article aliases rewrite in place with French chrome and intact query", () => {
-  const response = request(`/fr${article}?source=test`);
-  assert.equal(response.status, 200);
-  assert.equal(response.headers.get("location"), null);
-  assert.equal(response.headers.get("x-middleware-rewrite"), `${origin}${article}?source=test`);
-  assert.equal(response.headers.get("x-middleware-request-x-parrit-locale"), "fr");
-  assert.equal(response.headers.get("x-middleware-request-x-parrit-pathname"), `/fr${article}`);
+test("French article aliases have one configured 308 before the proxy, retaining queries", () => {
+  const { redirects } = load("../next.config.ts").default;
+  return redirects().then(rules => {
+    const rule = rules.find(item => item.source === "/fr/journal/:slug");
+    assert.equal(rule.statusCode, 308);
+    assert.equal(rule.destination, "/journal/:slug");
+    const response = request(`${article}?source=test`);
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get("location"), null);
+    assert.equal(response.headers.get("x-middleware-request-x-parrit-locale"), "en");
+    assert.equal(response.headers.get("x-middleware-request-x-parrit-pathname"), article);
+  });
 });
 
 test("English articles do not negotiate or trust a forged French hint", () => {
@@ -47,10 +52,11 @@ test("French feed, OG, private and unrelated aliases keep their original redirec
   }
 });
 
-test("article language switches and legacy queries preserve the chosen alias and suffix", () => {
-  assert.equal(locale.localizedPath(`${article}?source=test#body`, "fr"), `/fr${article}?source=test#body`);
+test("article language switches keep the English canonical and preserve the suffix", () => {
+  assert.equal(locale.localizedPath(`${article}?source=test#body`, "fr"), `${article}?source=test#body`);
   assert.equal(locale.localizedPath(`/fr${article}?source=test#body`, "en"), `${article}?source=test#body`);
-  const response = request(`/fr${article}?lang=fr&source=test`);
-  assert.equal(response.status, 301);
-  assert.equal(response.headers.get("location"), `${origin}/fr${article}?source=test`);
+  const response = request(`${article}?lang=fr&source=test`);
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("location"), null);
+  assert.equal(response.headers.get("x-middleware-request-x-parrit-locale"), "en");
 });

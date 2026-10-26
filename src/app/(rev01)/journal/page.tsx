@@ -34,6 +34,7 @@ export default async function JournalPage() {
 
           <h1>{copy.heading}</h1>
           <p>{copy.sub}</p>
+          {locale === "fr" && <p>Articles en anglais</p>}
         </header>
 
         <ol className="journal-list">
@@ -42,11 +43,11 @@ export default async function JournalPage() {
               <Link href={`/journal/${entry.slug}`} hrefLang="en">
                 <div>
 
-                  {locale === "fr" && <span lang="en">EN</span>}
+
                   <h2 lang="en">{entry.title}</h2>
                   <p lang="en">{entry.description}</p>
                 </div>
-                <time dateTime={entry.date}>{entry.date}</time>
+                <time dateTime={entry.date}>{new Intl.DateTimeFormat(locale === "fr" ? "fr-FR" : "en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(`${entry.date}T00:00:00Z`))}</time>
               </Link>
             </li>
           ))}

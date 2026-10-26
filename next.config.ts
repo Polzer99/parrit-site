@@ -89,6 +89,8 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      ...Object.entries(RENOMMAGES_JOURNAL).map(([old, current]) => ({ source: `/fr/journal/${old}`, destination: `/journal/${current}`, statusCode: 308 as const })),
+      { source: "/fr/journal/:slug", destination: "/journal/:slug", statusCode: 308 },
       { source: "/contact", destination: "/commission", statusCode: 301 },
       { source: "/fr/contact", destination: "/fr/commission", statusCode: 301 },
       { source: "/camp-costa-rica/:path*", destination: "/", permanent: true },

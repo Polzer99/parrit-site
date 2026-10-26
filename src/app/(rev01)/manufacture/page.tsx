@@ -1,3 +1,4 @@
+import { FinalCall } from "@/system/components/FinalCall";
 import { EXAM_NOTE } from "@/system/examination";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -7,11 +8,11 @@ import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system
 
 const DICT = {
   "en": {
-    "metaTitle": "The Manufacture",
+    "metaTitle": "How we build",
     "metaDescription": "How Parrit.ai builds a system, from Examination to Compounding.",
-    "kicker": "Parrit / The Manufacture",
+    "kicker": "Parrit / How we build",
     "title": "We build each system one operation at a time, from Examination to Compounding.",
-    "sub": "Each system is built in your accounts, under your keys.",
+    "sub": "Hosting and access are decided for each project and written into the contract.",
     "phasesTitle": "Three phases turn an examined operation into a system that runs on your side.",
     "phasesKicker": "Examination · Construction · Compounding",
     "phases": [
@@ -31,7 +32,7 @@ const DICT = {
         "Each new capability joins the same system and reuses what the previous ones put in place. The one that detects the signal hands over to the one that follows up with the client. The contract assigns you the rights to what we build for you; your data remains yours."
       ]
     ],
-    "note": "All three phases answer to the same Standard: six criteria, the same for every system delivered.",
+    "note": "All three phases answer to the same Standard: six commitments, the same for every system delivered.",
     "standard": "Read the Standard",
     "close": "It starts with an examination.",
     "proof": EXAM_NOTE.en,
@@ -44,7 +45,7 @@ const DICT = {
     "metaDescription": "La méthode de Parrit.ai : comment une commande se construit, de l'Examen à la Capitalisation.",
     "kicker": "Parrit / La Manufacture",
     "title": "Nous construisons chaque système une opération à la fois, de l'Examen à la Capitalisation.",
-    "sub": "Chaque système se fabrique dans vos comptes, avec vos clés.",
+    "sub": "L'hébergement et les accès sont décidés pour chaque projet et écrits dans le contrat.",
     "phasesTitle": "Trois phases transforment une opération examinée en un système qui tourne chez vous.",
     "phasesKicker": "Examen · Construction · Capitalisation",
     "phases": [
@@ -64,7 +65,7 @@ const DICT = {
         "Chaque nouvelle brique rejoint le même système et réutilise ce que les précédentes ont mis en place. Celle qui détecte le signal passe la main à celle qui relance le client. Le contrat vous cède les droits sur ce que nous développons pour vous ; vos données restent les vôtres."
       ]
     ],
-    "note": "Les trois phases répondent au même Standard : six critères, les mêmes pour tout système livré.",
+    "note": "Les trois phases répondent au même Standard : six engagements, les mêmes pour tout système livré.",
     "standard": "Lire le Standard",
     "close": "Tout commence par un examen.",
     "proof": EXAM_NOTE.fr,
@@ -81,7 +82,7 @@ export default async function ManufacturePage() {
   return <main className="rev-page r2-dark"><div className="r2-wrap">
     <header className="r2-hero"><h1>{copy.title}</h1><p className="r2-sub">{copy.sub}</p></header>
     <section className="r2-section" aria-labelledby="phases-heading"><div className="r2-shead"><h2 className="r2-ed" id="phases-heading">{copy.phasesTitle}</h2></div><div className="r2-phases">{copy.phases.map(([no, name, body]) => <div className="r2-phase" key={no}><h3 className="nm">{name}</h3><div className="ds">{body}</div></div>)}</div><p className="r2-registre-note">{copy.note} <Link className="k" href={localizedPath("/standard", locale)}>{copy.standard}</Link></p></section>
-    <section className="r2-close" aria-label={locale === "fr" ? "Commande" : "Commission"}><h2>{copy.close}</h2><p className="proof">{copy.proof}</p><Link className="rev-button exec" href={localizedPath("/commission", locale)}>{copy.button}</Link></section>
+    <FinalCall locale={locale} className="r2-close" title={copy.close}><p className="proof">{copy.proof}</p></FinalCall>
 
   </div></main>;
 }
