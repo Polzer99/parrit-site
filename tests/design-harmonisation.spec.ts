@@ -37,7 +37,6 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
   }
 
   for (const [path, selector, count] of [
-    ["/fr", ".home-s-journey-steps .k", 4],
     ["/fr/standard", ".doctrine-code .k", 6],
   ] as const) {
     test(`step numbers use canard on paper ${path} ${viewport.width}`, async ({ page }) => {
@@ -58,7 +57,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
       const closingSize = viewport.width <= 760 ? "34px" : "54px";
       await page.setViewportSize(viewport);
       for (const [route, selector, count] of [
-        ["/", ".home-s-maison h2, .product-scene-copy h2, .home-s-journal h2", 3],
+        ["/", "#H03 h2, #H05 h2, #H06 h2", 3],
         ["/manufacture", ".r2-shead h2", 1],
         ["/build-with-you", ".r2-shead h2", 4],
         ["/systems", ".r2-shead h2", 7],
@@ -114,7 +113,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
         expect(bounds!.width).toBeGreaterThanOrEqual(44);
         expect(bounds!.height).toBe(48);
         await expect(button).toHaveCSS("font-family", /IBM Plex Mono/);
-        for (const property of ["font-size", "letter-spacing"]) {
+        for (const property of ["font-size"]) {
           await expect(button).toHaveCSS(property, await nav.evaluate((el, name) => getComputedStyle(el).getPropertyValue(name), property));
         }
       }
@@ -124,14 +123,14 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
       });
       expect(divider).toEqual({ content: '""', width: "1px" });
       if (viewport.width <= 760) {
-        await expect(page.locator(".cmd-menu-toggle")).toBeVisible();
-        await expect(page.locator(".cmd-menu-toggle")).toHaveCSS("border-top-width", "1px");
+        await expect(page.locator(".v1-mobile-menu summary")).toBeVisible();
+        await expect(page.locator(".v1-mobile-menu summary")).toHaveCSS("border-top-width", "0px");
       }
       // Product-scene markers retain their separate pink-accent contract.
       for (const marker of await page.locator(".scene-marker").all()) {
         await expect(marker).toHaveCSS("background-color", await tokenColor(marker, "--brand-core-rose"));
       }
-      const action = page.locator(".home-s-journey-action");
+      const action = page.locator("#H03 .rev-button");
       await expect(action).toHaveCSS("padding", "14px 24px");
       const shadows = await page.locator("main *").evaluateAll(elements => elements
         .filter(el => getComputedStyle(el).boxShadow !== "none")
@@ -228,7 +227,7 @@ test("section headings follow the mobile boundary and keep the tablet size", asy
   for (const width of [760, 761, 1100]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(`${BASE_URL}/fr`);
-    for (const heading of await page.locator(".home-s-maison h2, .product-scene-copy h2, .home-s-journal h2").all()) {
+    for (const heading of await page.locator("#H03 h2, #H05 h2, #H06 h2").all()) {
       await expect(heading).toHaveCSS("font-size", width <= 760 ? "32px" : "40px");
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);

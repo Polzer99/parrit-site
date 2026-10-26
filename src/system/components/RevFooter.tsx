@@ -5,22 +5,24 @@ import { localizedPath, type Locale } from "@/system/locale";
 const FOOTER = {
   en: {
     links: [
+      ["/systems", "Systems", ""],
       ["/manufacture", "The Manufacture", "the method"],
       ["/standard", "The Standard", "our commitments"],
       ["/dossiers", "The Dossiers", "references"],
       ["/journal", "The Journal", "field notes"],
-      ["/commission", "Commission", "book the examination"],
+      ["/commission", "Talk about a project", ""],
       ["/build-with-you", "Build a first system with us", ""],
       ["/legal", "Legal", ""],
     ],
   },
   fr: {
     links: [
+      ["/systems", "Systèmes", ""],
       ["/manufacture", "La Manufacture", "la méthode"],
       ["/standard", "Le Standard", "nos engagements"],
       ["/dossiers", "Les Dossiers", "références"],
       ["/journal", "Le Journal", "notes de chantier"],
-      ["/commission", "Commande", "réserver l'examen"],
+      ["/commission", "Parler d'un projet", ""],
       ["/build-with-you", "Construire un premier système avec nous", ""],
       ["/legal", "Mentions légales", ""],
     ],

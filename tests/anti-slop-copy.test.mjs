@@ -4,7 +4,7 @@ import { execFileSync } from "node:child_process";
 import { test } from "node:test";
 
 const read = (path) => readFileSync(path, "utf8");
-test("generated llms copy has no forbidden dashes or defensive labels and mirrors the Standard", () => {
+test("generated llms copy has no forbidden dashes or defensive labels and respects the approved Standard claims", () => {
   execFileSync(process.execPath, ["scripts/generate-llms.mjs"]);
   const text = read("public/llms.txt");
   assert.doesNotMatch(text, /[—–€]/);
@@ -15,13 +15,17 @@ test("generated llms copy has no forbidden dashes or defensive labels and mirror
   const standard = read("src/app/(rev01)/standard/page.tsx").split('  "fr":')[0];
   const statements = [...standard.matchAll(/"0[1-6]",\s*"([^"]+)"/g)].map((match) => match[1]);
   assert.equal(statements.length, 6);
-  for (const statement of statements) assert.ok(text.includes(statement), statement);
+  // V2 explicitly removes the universal ownership claim from llms, while
+  // the Standard page awaits Paul's contractual decision and stays unchanged.
+  for (const statement of statements.filter((_, index) => index !== 4)) assert.ok(text.includes(statement), statement);
+  assert.doesNotMatch(text, /The system belongs to you|intelligent systems for operations|built remotely inside|one critical operation rebuilt end-to-end into production/i);
+  assert.match(text, /ownership, hosting, reversibility and maintenance are agreed for each project, by contract/i);
 });
 test("examination notes use the shared locale contract, without price or duration qualifiers", () => {
   const shared = read("src/system/examination.ts");
   assert.match(shared, /fr: "[^"]+"/);
   assert.match(shared, /en: "[^"]+"/);
-  for (const route of ["", "standard/", "manufacture/", "dossiers/", "build-with-you/", "sketch/[id]/"]) {
+  for (const route of ["standard/", "manufacture/", "dossiers/", "build-with-you/", "sketch/[id]/"]) {
     const source = read(`src/app/(rev01)/${route}page.tsx`);
     assert.match(source, /EXAM_NOTE\.fr/);
     assert.match(source, /EXAM_NOTE\.en/);

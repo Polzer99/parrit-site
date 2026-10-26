@@ -155,7 +155,7 @@ const CHROME = {
     phaseNames: ["Examination", "Construction", "Compounding"],
     closeTitle: "A first conversation turns this sketch into a scope.",
     closeProof: EXAM_NOTE.en,
-    talk: "Book the examination",
+    talk: "Talk about a project",
     registry: "PARRIT / SKETCH · 2026",
   },
   fr: {
@@ -167,7 +167,7 @@ const CHROME = {
     phaseNames: ["Examen", "Construction", "Capitalisation"],
     closeTitle: "Un premier échange transforme cette esquisse en périmètre.",
     closeProof: EXAM_NOTE.fr,
-    talk: "Réserver l'examen",
+    talk: "Parler d'un projet",
     registry: "PARRIT / ESQUISSE · 2026",
   },
 } as const;
