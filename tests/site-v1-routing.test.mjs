@@ -16,10 +16,10 @@ function compile(file, imports) {
   return compiled.exports;
 }
 const { proxy, config } = compile("src/proxy.ts", { "next/server": require("next/server"), "@/system/locale": locale });
-for (const id of ["consulting-transformation", "ai-sprints", "engineering-integration", "harness-engineering"]) {
+for (const id of ["conseil-transformation", "ai-sprints", "integration-developpement", "harness-engineering"]) {
   test(`proxy serves and negotiates both languages for ${id}`, () => {
-    const en = `/${id}`; const fr = locale.localizedPath(en, "fr");
-    assert.ok(config.matcher.includes(en)); assert.ok(config.matcher.includes("/fr/:path*"));
+    const en = `/journal/themes/${id}`; const fr = locale.localizedPath(en, "fr");
+    assert.ok(config.matcher.includes("/journal/:path*")); assert.ok(config.matcher.includes("/fr/:path*"));
     const request = (path, headers = {}) => new NextRequest(`https://parrit.ai${path}`, { headers });
     const french = proxy(request(`${fr}?source=qa`));
     const rewrite = new URL(french.headers.get("x-middleware-rewrite"));
@@ -33,21 +33,20 @@ for (const id of ["consulting-transformation", "ai-sprints", "engineering-integr
     assert.equal(new URL(legacy.headers.get("location")).search, "?utm_source=qa");
   });
 }
-test("contact redirects are explicit 301 destinations, before generic aliases", async () => {
+test("old routes resolve directly to themes or single-page anchors with permanent status", async () => {
   const rules = await compile("next.config.ts", {}).default.redirects();
-  for (const prefix of ["", "/fr"]) {
-    const rule = rules.find(rule => rule.source === `${prefix}/contact`);
-    assert.deepEqual(rule, { source: `${prefix}/contact`, destination: `${prefix}/commission`, statusCode: 301 });
+  const themes = { "consulting-transformation": "conseil-transformation", "ai-sprints": "ai-sprints", "engineering-integration": "integration-developpement", "harness-engineering": "harness-engineering" };
+  for (const [old, theme] of Object.entries(themes)) for (const prefix of ["", "/fr"]) {
+    const rule = rules.find(rule => rule.source === `${prefix}/${old}`);
+    assert.deepEqual(rule, { source: `${prefix}/${old}`, destination: `${prefix}/journal/themes/${theme}`, statusCode: 308 });
   }
-});
-
-test("French consulting alias resolves the language choice in one 301", () => {
-  for (const [query, target] of [["", "/fr/conseil-transformation"], ["&lang=en", "/consulting-transformation"], ["&lang=fr", "/fr/conseil-transformation"]]) {
-    const result = proxy(new NextRequest(`https://parrit.ai/fr/consulting-transformation?source=qa&utm_source=test${query}`));
-    assert.equal(result.status, 301);
-    const url = new URL(result.headers.get("location"));
-    assert.equal(url.pathname, target); assert.equal(url.search, "?source=qa&utm_source=test");
-    const next = proxy(new NextRequest(url, { headers: { cookie: "parrit_locale=en" } }));
-    assert.equal(next.headers.get("location"), null);
+  const sections = { manufacture: ["path", "parcours"], "build-with-you": ["path", "parcours"], standard: ["safeguards", "confiance"], systems: ["safeguards", "confiance"], dossiers: ["references", "references"], commission: ["contact", "contact"], contact: ["contact", "contact"] };
+  for (const [old, anchors] of Object.entries(sections)) for (const [index, prefix] of ["", "/fr"].entries()) {
+    const rule = rules.find(rule => rule.source === `${prefix}/${old}`);
+    assert.deepEqual(rule, { source: `${prefix}/${old}`, destination: `${prefix || "/"}#${anchors[index]}`, statusCode: 308 });
   }
+  assert.deepEqual(rules.find(rule => rule.source === "/fr/conseil-transformation"), { source: "/fr/conseil-transformation", destination: "/fr/journal/themes/conseil-transformation", statusCode: 308 });
+  // Next preserves source queries when a redirect has no explicit destination query.
+  for (const rule of rules.filter(rule => rule.statusCode === 308 && !rule.source.includes(":"))) assert.ok(!rule.destination.includes("?"));
+  for (const rule of rules) assert.ok(!/^\/(?:fr\/)?(?:commission|manufacture|systems|standard|dossiers|build-with-you)(?:[?#]|$)/.test(rule.destination), `${rule.source} would create a chain`);
 });

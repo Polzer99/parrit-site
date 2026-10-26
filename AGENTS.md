@@ -49,24 +49,12 @@ Aucun mode complex ni Inter Tight.
 - **Logo** : `[P.]` et `PARRIT.AI`, arbitrage AV-2 conservé ; icônes issues du paquet canon.
 - **Connecteurs** : tige et tête vectorielles suivant VS-CONNECTOR, aucune flèche-caractère.
 - **Photo** : aucune photo de remplacement avant AV-3 ; certification Qualiopi conservée.
-- **L'enveloppe fait partie du canon, état au 20/09/2026** : la command bar sombre (hauteur adaptée au contenu,
-  dans le flux normal du document, PAS `position: fixed` — elle défile avec la page depuis la
-  correction du 20/09 ; `tests/conformity-home.spec.ts` vérifie explicitement `not.toHaveCSS
-  ("position", "fixed")`) porte le wordmark, une navigation à quatre entrées (Conseil & Transformation, AI Sprints, Engineering & Intégration, Journal), le
-  sélecteur de langue et une seule action principale « Parler d'un projet »/« Talk about a project ». Son contenu
-  est aligné sur la colonne `max-width:1160px` du reste du site (`.cmdbar-inner`), pas sur les
-  bords bruts de l'écran. Elle est rendue avant `{children}` dans `layout.tsx` sur TOUTES les
-  pages ; sans horloge live (retirée, décorative) ni doublon de navigation vers `/commission`.
-  Le composant `Opening.tsx` (boot log et statement avec Parrit Frame) est conservé
-  mais n'est importé ni rendu par aucune page depuis le 06/09/2026.
-  Historique des passes (retrait
-  de l'horloge, alignement sur la grille, puis retrait de `position: fixed`) : voir les trois
-  spécifications `docs/CODEX-SPEC-2026-09-20-header-*.md`. (Le registre `SYSTEM PARRIT.AI · REV
-  01 · STATUS OPERATIONAL` décrit par `docs/site-prod-rev01/lots/LOT-O-OPENING-CMDBAR.md` n'a
-  jamais été implémenté dans `RevHeader.tsx` : cette ligne décrivait déjà le prototype, pas le
-  composant livré — écart non corrigé, signalé pour mémoire.)
-- **Éléments propriétaires** : le Parrit Frame (crochets d'accent = objet en attente de décision),
-  la registry line et les numéros 01…06 ne s’affichent plus en mode accessible. Le Standard conserve ses six engagements sans numéros en police machine.
+- **Enveloppe, décision Paul du 27/10/2026** : page unique, maquette et handoff dans
+  `docs/site-v1/page-unique/` ; section 0 prime. Barre canard dans le flux,
+  six ancres, langues et contact ; menu mobile natif. Pied : copyright,
+  Journal, mentions légales, langue. Aucun surtitre ni registre visible.
+- **Photo** : portrait `person.paul.primary_portrait` autorisé explicitement par
+  Paul dans le handoff, section contact ; octets et SHA256 du registre conservés.
 
 ### Boutons publics — tour 1 (26/10/2026)
 
@@ -75,11 +63,10 @@ groupe suivent le même choix de largeur. Alignement sur le bord gauche du texte
 précédent, ou centré si son titre est centré. Deux actions : `exec` puis `ghost`,
 espacement `var(--brand-s2)`, hauteur et ligne de base communes. Un seul `exec`
 par section ; principal en clôture. Pas de point final, infinitif FR et impératif
-court EN. Vers `/commission` : « Parler d'un projet » / « Talk about a project ».
-Exceptions : bouton principal du hero accueil « Parlons de votre transformation » /
-« Let's talk about your transformation » ; lien textuel BWY « Parler d'un système sur mesure » / « Talk about a
-custom system ». L’envoi du formulaire commission reste à droite du champ.
-Un seul éclat rose par écran (Brand OS) : le bouton de navigation reste `ghost` tant qu’un `exec` du haut de page est visible, puis devient `exec` ; la paire `exec` puis `ghost` ne s’applique que si aucun autre rose n’est déjà à l’écran.
+court EN. Vers `/#contact` ou `/fr#contact` : « Parler d'un projet » / « Talk about a project ».
+Exception : bouton principal du hero accueil « Parlons de votre transformation » /
+« Let's talk about your transformation ». L’envoi du formulaire de contact reste à droite du champ.
+Un seul éclat rose par écran (Brand OS) : navigation `ghost`, dans le flux ; boutons principaux du hero et du contact `exec`. Repli e-mail à bouton neutre.
 
 ### Règle de création — non négociable
 
@@ -104,14 +91,17 @@ Une ressource a **une seule URL canonique** : celle qui rend son expérience com
 
 `tests/ressources-reachability.spec.ts` bloque les cinq régressions correspondantes. Ses assertions portent sur les URL et le registre, **jamais sur des classes CSS** : une refonte visuelle ne doit pas casser un test de conversion.
 
-## Routes (REV 01 — après purge legacy du 14/08/2026)
-- `src/app/(rev01)/page.tsx` → home institutionnelle (hero « We turn operational problems into systems that work. », esquisse, méthode et preuves) ; `layout.tsx` du groupe porte la command bar (`RevHeader`) et le footer.
-- `/standard` (critères 01…06) · `/commission` (Cal inline `paul-larmaraud/audit`, 15 min — premier échange, seul lien de booking du site ; *corrigé le 20/09/2026, `paul-larmaraud/30min` ne correspondait plus à `CAL_LINK_COMMISSION` dans `site.config.ts`*) · `/journal` + `/journal/[slug]` · `/dossiers` · `/legal`.
-- `/paul` et `/maxime` : **SUPPRIMÉES le 14/08/2026** (ordre Paul) — 301 vers `/` dans `next.config.ts`. Ne pas les recréer.
-- `/manufacture` (doctrine + phases) · `/sketch/[id]` (esquisse personnalisée du funnel, noindex, force-dynamic — l'UUID de soumission est le jeton d'accès).
-- `src/app/opengraph-image.tsx` (+ OG par article) = cartes OG, polices locales officielles dans `src/og-assets/` (Satori refuse le woff2).
-- `src/app/camp-costa-rica/` = seule survivance de l'ancienne palette (voulu) ; `src/proxy.ts` ne gère plus que le rewrite d'hôte campparrita.com.
-- `scripts/generate-llms.mjs` (prebuild) régénère `public/llms.txt` — le modifier LUI, pas le fichier généré.
+## Routes, page unique (27/10/2026)
+
+- `/` et `/fr` : neuf sections dans l'ordre de la section 0 du handoff.
+- `/journal`, `/fr/journal`, `/journal/[slug]`, RSS et `/legal`, `/fr/legal` conservés.
+- Quatre thèmes bilingues sous `/journal/themes/` : harness-engineering,
+  ai-sprints, integration-developpement, conseil-transformation.
+- Anciennes pages : 308 en un saut dans `next.config.ts`, quatre pages V1 vers
+  leurs thèmes, autres vers les ancres du handoff. Requête conservée.
+- `/sketch/[id]` : privé, noindex, inchangé. `/system` reste 404.
+- OG et chaîne de publication Journal conservés. `scripts/generate-llms.mjs`
+  génère `public/llms.txt` ; ne pas éditer ce dernier à la main.
 
 ## Tests : blocage réseau global obligatoire (règle repo, 14/08/2026)
 
@@ -136,31 +126,24 @@ Voir aussi la skill `qa-playwright` (batterie responsive + multi-navigateur).
 - **Jamais d'appel runtime à `*.vercel.app`** dans une livraison (REGLES-DOR §13). Le site EST hébergé sur Vercel — ça vise les ressources chargées au runtime (images/redirects/signatures), pas l'hébergement.
 - Aucun prix ni offre détaillée sur le site public (12/10/2026). Pas de devis détaillé ni de prix personnalisé hors propale privée.
 - Clients (25/10/2026, révision 4) : seuls les noms de `src/system/public-clients.ts` sont publiables (Laparra, Clevery, Forexpert, Joone, SNCF) ; tous les autres restent anonymisés. Clevery Avocats désigne Clevery. Joone : accompagnement IA ; SNCF : formation avec Arkel, jamais client direct. Exception : le Journal ne nomme aucun client, même public. Aucun logo ajouté dans ce lot. Aucun template n'exige de nom ou de logo pour se rendre.
-- Positionnement (26/10/2026) : définition canonique `parrit-canon/positioning/POSITIONNEMENT-CANONIQUE-2026-10-26.md`, remplacé pour le site par `docs/site-v1/ETAPE-1-PLAN.md` : trois portes et Harness Engineering ; pas de Content Factory, chiffres de résultat ni mentions d’écosystème au lot 1.
-- Marque (12/10/2026) : Parrit.ai uniquement ; aucune mention du fondateur hors `/legal`.
+- Positionnement : page unique validée par Paul le 27/10/2026, `docs/site-v1/page-unique/HANDOFF-PAGE-UNIQUE.md` §0.
+- Marque : Parrit.ai ; nom et portrait de Paul autorisés dans le contact (27/10), identité du Journal inchangée.
 - Mesure d'audience (05/10/2026) : PostHog retiré du navigateur ; seule mesure active, Cloudflare Web Analytics injectée hors dépôt par Cloudflare et décrite dans `/legal`.
-- CTA (26/10/2026) : « Parler d'un projet » / « Talk about a project », hero « Parlons de votre transformation » / « Let's talk about your transformation » vers `/commission` ou `/fr/commission`.
+- CTA (26/10/2026) : « Parler d'un projet » / « Talk about a project », hero « Parlons de votre transformation » / « Let's talk about your transformation » vers `/#contact` ou `/fr#contact`.
 - Tests (25/10/2026) : contrôler les règles de fond et la structure, pas les libellés. Conserver les contrôles de destination, accessibilité, réseau et géométrie.
 - Collab Codex↔Claude = via **GitHub Issues/PR**, jamais d'auto-merge, **Paul merge**. Codex = codeur, Claude = relecteur (sécu/archi/bugs/dette).
 
-## Site V1, lot 1 (26/10/2026)
+## Page unique et mode accessible (27/10/2026)
 
-Accueil H01 à H07, H11 et H12. Quatre nouvelles pages bilingues, dont
-`/fr/conseil-transformation` associé à `/consulting-transformation`.
-Menu mobile accordéon natif, dans le flux ; CTA accessible sans recouvrir le contenu.
-H06 affiche tous ses panneaux sans JavaScript ; onglets clavier après hydratation.
-Les preuves passent par `getSiteEvidence` : permission accordée, portée et dates valides.
-La date de revue déclenche un échec CI 30 jours avant, jamais un retrait en production.
-Aucun logo client, chiffre de résultat ni attribution institutionnelle au lot 1.
-
-## Mode accessible, décision du 26/10/2026 (soir)
-
-Paul : « Nous vendons le système en production. […] tout cet univers, la visuelle de pseudo-geek qu'on avait supprimée dans la nouvelle direction artistique, dans le nouveau branding. »
-
-Sur les pages publiques rev01 et SiteV1Page : aucun surtitre K/eyebrow/kicker,
-aucune étiquette de fiche technique ou registre documentaire, aucun index
-numéroté en police machine. La police IBM Plex Mono est réservée aux blocs de
-code du Journal et à l’annexe `/systems`. Le mot-symbole de navigation demeure
-inchangé. Référence : `docs/site-v1/HANDOFF-ERGONOMIE-IMPACT.md`.
-La spec `tests/ergonomie-impact.spec.ts` bloque la réapparition de mono visible
-sur l’accueil et les quatre pages V1 FR/EN, hors mot-symbole et code autorisé.
+La section 0 du handoff et `MAQUETTE-VALIDEE.html` priment sur l'ancien lot V1.
+Ordre : hero, en production, ce qui change, parcours, services, garde-fous,
+partenaires, références/outils, fondateur/contact avec réservation intégrée.
+Aucune section « Votre phrase ». Aucun prix. Aucun CRM en vedette.
+Les chiffres et outils explicitement présents dans la maquette sont autorisés.
+Les preuves passent par `getSiteEvidence`. Revue J-30 en CI, pas d'expiration
+silencieuse en production. Logos clients et MIT éteints : accord nominatif daté,
+source et fichier obligatoires pour afficher un logo ; MIT dans partenaires.
+Aucun logo de client téléchargé. Logos techniques : outils utilisés, pas partenariat.
+General Sans partout sur la page ; IBM Plex Mono uniquement dans le code du Journal.
+Téléphones : seule exception de rayon ; animations CSS, messages visibles sans JS
+et avec mouvement réduit. Contrôles dans `tests/single-page.spec.ts`.

@@ -6,14 +6,8 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://parrit.ai";
 
 const REV01_PUBLIC_ROUTES = [
-  ...["/consulting-transformation", "/ai-sprints", "/engineering-integration", "/harness-engineering"].map(path => ({ path, lastModified: "2026-10-26", changeFrequency: "monthly" as const, priority: 0.8 })),
-  { path: "/systems", lastModified: "2026-09-20", changeFrequency: "monthly" as const, priority: 0.8 },
-  { path: "/build-with-you", lastModified: "2026-09-20", changeFrequency: "monthly" as const, priority: 0.8 },
-  { path: "", lastModified: "2026-09-06", changeFrequency: "weekly" as const, priority: 1.0 },
-  { path: "/manufacture", lastModified: "2026-09-06", changeFrequency: "monthly" as const, priority: 0.8 },
-  { path: "/standard", lastModified: "2026-09-06", changeFrequency: "monthly" as const, priority: 0.8 },
-  { path: "/dossiers", lastModified: "2026-09-06", changeFrequency: "monthly" as const, priority: 0.7 },
-  { path: "/commission", lastModified: "2026-09-06", changeFrequency: "monthly" as const, priority: 0.9 },
+  ...["harness-engineering", "ai-sprints", "integration-developpement", "conseil-transformation"].map(theme => ({ path: `/journal/themes/${theme}`, lastModified: "2026-10-27", changeFrequency: "monthly" as const, priority: 0.8 })),
+  { path: "", lastModified: "2026-10-27", changeFrequency: "weekly" as const, priority: 1.0 },
   { path: "/legal", lastModified: "2026-09-02", changeFrequency: "yearly" as const, priority: 0.3 },
 ];
 

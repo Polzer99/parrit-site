@@ -104,7 +104,7 @@ for (const locale of ["en", "fr"]) {
   });
 }
 test("public claim corrections stay absent from pages, articles and generated feed", () => {
-  for (const file of ["src/app/(rev01)/page.tsx", "src/app/(rev01)/manufacture/page.tsx", "scripts/generate-llms.mjs", "public/llms.txt", "content/journal/what-is-a-company-operating-system.mdx", "content/journal/what-is-parrit-ai.mdx"]) {
+  for (const file of ["src/app/(rev01)/page.tsx", "scripts/generate-llms.mjs", "public/llms.txt", "content/journal/what-is-a-company-operating-system.mdx", "content/journal/what-is-parrit-ai.mdx"]) {
     assert.doesNotMatch(readFileSync(file, "utf8"), /depuis trois ans|three years|certified to|200\+? signals|5–10K|2\.5 months|Two to four weeks|Deux à quatre semaines|ATA 1926|Qualiopi|maintenance and evolution/i, file);
   }
 });

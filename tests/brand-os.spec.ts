@@ -3,7 +3,6 @@ import { expectPopulated } from "./content-structure";
 import { createHash } from "node:crypto";
 import founderPhotos from "./fixtures/founder-photo.json";
 import { mkdir } from "node:fs/promises";
-import connectorContract from "../src/system/brand-os.connectors.json";
 import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
@@ -12,8 +11,7 @@ if (!["before", "after"].includes(CAPTURE_PHASE)) throw new Error("Invalid BRAND
 
 test.use({ serviceWorkers: "block" });
 
-const ROUTES = ["/consulting-transformation", "/ai-sprints", "/engineering-integration", "/harness-engineering", "/", "/build-with-you", "/systems", "/commission", "/manufacture", "/dossiers", "/standard", "/journal", "/legal"]
-  .flatMap(route => [route, localizedPath(route, "fr")]);
+const ROUTES = ["/", "/journal", "/legal", ...["harness-engineering", "ai-sprints", "integration-developpement", "conseil-transformation"].map(slug => `/journal/themes/${slug}`)].flatMap(route => [route, localizedPath(route, "fr")]);
 
 test.beforeEach(async ({ page }) => {
   await page.setExtraHTTPHeaders({ "Accept-Language": "en" });
@@ -22,7 +20,7 @@ test.beforeEach(async ({ page }) => {
   await page.route("https://cal.com/**", (route) => route.fulfill({ contentType: "text/html", body: "" }));
 });
 
-for (const width of [1440, 375]) {
+for (const width of [1440, 390]) {
   for (const route of ROUTES) {
     test(`Brand OS text contrast and capture ${route} at ${width}px`, async ({ page }, testInfo) => {
       await page.emulateMedia({ reducedMotion: "reduce" });
@@ -35,7 +33,7 @@ for (const width of [1440, 375]) {
       await mkdir(directory, { recursive: true });
       await page.screenshot({ path: `${directory}/${name}.png`, fullPage: true, animations: "disabled" });
       // Capture phase only selects the output folder; it never disables a gate.
-      if (width === 375) {
+      if (width === 390) {
         expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
         expect(await page.evaluate(() => document.body.scrollWidth)).toBeLessThanOrEqual(width);
       }
@@ -97,8 +95,8 @@ for (const width of [1440, 375]) {
           if (seen.has(key)) return;
           seen.add(key);
           result.push({ element: label, foreground: fg, background: bg, ratio: (hi + .05) / (lo + .05), minimum });
-          if (!pseudo && element.matches("button.rev-button.exec:disabled")) {
-            const border = paint(element, parse(style.borderTopColor));
+          if (!pseudo && element.matches(".rev-button")) {
+            const border = paint(element, parse(style.backgroundColor === "rgba(0, 0, 0, 0)" ? style.borderTopColor : style.backgroundColor));
             const container = element.parentElement;
             if (!container) throw new Error("Disabled button has no container");
             const background = paint(container);
@@ -131,20 +129,6 @@ for (const width of [1440, 375]) {
       expect(measurements.filter((item) => item.ratio < item.minimum)).toEqual([]);
     });
   }
-}
-
-// The former framed sentence is replaced by the lot 1 heading and process.
-for (const width of [375, 390, 768, 1440]) for (const route of ["/", "/fr"]) {
-  test(`Brand OS heading and process bounds ${route} ${width}`, async ({ page }) => {
-    await page.setViewportSize({ width, height: 900 }); await page.goto(`${BASE_URL}${route}`); await page.evaluate(() => document.fonts.ready);
-    await expectPopulated(page.locator("h1"));
-    await expect(page.locator(".home-s-founder, a[href*='paul-larmaraud.com']")).toHaveCount(0);
-    for (const selector of ["h1", ".v1-process", "#H03 .home-s-wrap"]) {
-      const b = (await page.locator(selector).boundingBox())!;
-      expect(b.x).toBeGreaterThanOrEqual(0); expect(b.x + b.width).toBeLessThanOrEqual(width);
-    }
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
-  });
 }
 
 for (const width of [375, 1440]) {
@@ -209,44 +193,6 @@ for (const width of [375, 1440]) {
     });
   }
 }
-
-for (const width of [1440, 375]) {
-  test(`Brand OS connector geometry at ${width}px`, async ({ page }) => {
-    await page.setViewportSize({ width, height: 900 });
-    await page.goto(`${BASE_URL}/systems`);
-    const arrows = page.locator(".mechanism-diagram-arrow");
-    await expect(arrows).toHaveCount(2);
-    for (const arrow of await arrows.all()) {
-      await expect(arrow).toHaveAttribute("aria-hidden", "true");
-      await expect(arrow).toHaveText("");
-      const geometry = await arrow.evaluate((element) => {
-        const shaft = getComputedStyle(element, "::before");
-        const head = getComputedStyle(element, "::after");
-        const target = element.nextElementSibling;
-        if (!target) throw new Error("Connector has no destination");
-        return {
-          stroke: parseFloat(shaft.width),
-          shaft: parseFloat(shaft.height),
-          headLength: parseFloat(head.height),
-          headWidth: parseFloat(head.width),
-          headShape: head.clipPath,
-          headFill: head.backgroundColor,
-          color: getComputedStyle(element).color,
-          gap: target.getBoundingClientRect().top - element.getBoundingClientRect().bottom,
-        };
-      });
-      expect(geometry.stroke).toBe(connectorContract.px.stroke);
-      expect(geometry.shaft).toBeGreaterThanOrEqual(connectorContract.px.min_shaft);
-      expect(geometry.headLength).toBe(connectorContract.px.head_len);
-      expect(geometry.headWidth).toBe(connectorContract.px.head_w);
-      expect(geometry.headShape).toBe("polygon(0px 0px, 100% 0px, 50% 100%)");
-      expect(geometry.headFill).toBe(geometry.color);
-      expect(Math.abs(geometry.gap - connectorContract.px.endpoint_gap)).toBeLessThanOrEqual(connectorContract.px.tolerance);
-    }
-  });
-}
-
-// Home interactions are now the accessible tabs, exercised in site-v1.spec.ts.
 
 test("all four approved founder photo URLs serve the original bytes", async ({ page }) => {
   for (const [name, expected] of Object.entries(founderPhotos)) {

@@ -17,9 +17,10 @@ export function loader(locale) {
       if (["react", "react/jsx-runtime"].includes(id)) return native(id);
       if (id === "next/link") return function TestLink({ children, ...props }) { return React.createElement("a", props, children); };
       if (id === "@/lib/server/locale") return { getLocale: async () => locale };
-      if (id === "./ProductScene.css") return {};
-      if (id === "./Matiere.module.css") return { matiere: "matiere", clair: "clair", canard: "canard" };
-      if (id === "@/system/components") return { Matiere: load("src/system/components/Matiere.tsx").Matiere, K: ({ children }) => React.createElement("p", { className: "k" }, children) };
+      if (id.endsWith(".css")) return {};
+      if (id.endsWith("/CalInline") || id === "./CalInline") return { ParritCalInline: () => React.createElement("div", { "data-booking-mock": true }) };
+      if (id.endsWith("/QuickCapture") || id === "./QuickCapture") return { QuickCapture: () => React.createElement("form", { "data-capture-mock": true }) };
+      if (id === "./ConversationMotion") return { ConversationMotion: () => null };
       if (id.startsWith("@/") || id.startsWith(".")) {
         const base = id.startsWith("@/") ? path.resolve("src", id.slice(2)) : path.resolve(path.dirname(file), id);
         const resolved = [base, `${base}.ts`, `${base}.tsx`].find(candidate => existsSync(candidate));

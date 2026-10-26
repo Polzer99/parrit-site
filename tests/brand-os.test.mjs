@@ -85,8 +85,6 @@ test("brand gate rejects retired and hardcoded colors anywhere in src, including
     for (const directory of ["src/system", "src/app/(rev01)", "src/lib", "public/brand", "archive", "src/lib/archive"]) mkdirSync(path.join(fixture, directory), { recursive: true });
     writeFileSync(path.join(fixture, "src/system/brand-os.tokens.css"), vendor);
     writeFileSync(path.join(fixture, "src/system/tokens.css"), aliases);
-    const { generateGrain } = await import("../scripts/generate-grain.mjs");
-    await generateGrain(fixture);
     const script = new URL("../scripts/brand-conformity-check.mjs", import.meta.url).pathname;
     const run = () => spawnSync(process.execPath, [script], { cwd: fixture, encoding: "utf8" });
     assert.equal(run().status, 0);

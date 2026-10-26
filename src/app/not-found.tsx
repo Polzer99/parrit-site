@@ -6,7 +6,7 @@ import "../system/brand-os.tokens.css";
 import "../system/tokens.css";
 import "../system/system.css";
 import "./(rev01)/rev01.css";
-import "../system/site-v1.css";
+import "../system/single-page.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://parrit.ai"),

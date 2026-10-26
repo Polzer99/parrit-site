@@ -1,25 +1,10 @@
+import { PUBLIC_ROUTES } from "./public-routes";
 import { expect, test } from "./network-deny.setup";
 import type { Page } from "@playwright/test";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 type AccentRegister = "dark" | "light";
-const PATHS = [
-  "/consulting-transformation", "/fr/conseil-transformation", "/ai-sprints", "/fr/ai-sprints", "/engineering-integration", "/fr/engineering-integration", "/harness-engineering", "/fr/harness-engineering",
-  "/",
-  "/fr",
-  "/standard",
-  "/fr/standard",
-  "/manufacture",
-  "/fr/manufacture",
-  "/dossiers",
-  "/fr/dossiers",
-  "/commission",
-  "/fr/commission",
-  "/journal",
-  "/fr/journal",
-  "/legal",
-  "/fr/legal",
-];
+const PATHS = PUBLIC_ROUTES;
 
 // Measured 2026-09-14 on `cf0ff26`; values measured on `cf0ff26`, never enter by hand.
 // Re-measured 2026-09-21 on the funnel-continuity branch for /|input#quick-email,
@@ -91,17 +76,19 @@ type ErrorProbe = {
 };
 
 const ERROR_PROBES_BY_PATH: Record<string, ErrorProbe[]> = {
-  "/commission": [
-    { name: "commission prototype capture", form: ".quick-capture form", field: "input#quick-email", error: ".ri-error[role='alert']" },
+  "/": [
+    { name: "contact fallback capture", form: ".quick-capture form", field: "input#quick-email", error: ".ri-error[role='alert']" },
   ],
-  "/fr/commission": [
-    { name: "commission prototype capture", form: ".quick-capture form", field: "input#quick-email", error: ".ri-error[role='alert']" },
+  "/fr": [
+    { name: "contact fallback capture", form: ".quick-capture form", field: "input#quick-email", error: ".ri-error[role='alert']" },
   ],
 };
 
 test.use({ serviceWorkers: "block" });
 
 test.beforeEach(async ({ page }) => {
+  await page.setExtraHTTPHeaders({ "Accept-Language": "en" });
+  await page.route("**/api/interet", route => route.fulfill({ json: { ok: true } }));
   for (const routePattern of CAL_SCRIPT_ROUTES) {
     await page.route(routePattern, (route) => {
       const contentType = route.request().url().endsWith(".js") ? "application/javascript" : "text/html";
@@ -132,6 +119,7 @@ for (const width of [1440, 390]) {
 
 
 
+      if (path === "/" || path === "/fr") await page.locator(".contact-fallback summary").click();
       const result = await page.evaluate(() => {
         type Box = { left: number; right: number; top: number; bottom: number };
         type TextBox = { element: Element; label: string; box: Box };
@@ -272,6 +260,7 @@ for (const width of [1440, 390]) {
 
         const rootStyle = getComputedStyle(document.documentElement);
         const accentTokens = [
+          "--brand-accessible-warm",
           "--accent-surface",
           "--accent-soft",
           "--accent-border",
@@ -334,8 +323,8 @@ for (const width of [1440, 390]) {
         const accentControlRegisters = { dark: 0, light: 0 };
         const matchedAccentToken = (value: Color) => accentTokens.find((token) => sameRgb(value, token.value));
         const focusTargets = [
-          { name: "dark exec", selector: ".r2-dark .rev-button.exec, .quick-capture .rev-button.exec, .agent-esquisse .rev-button.exec, .cmdbar .rev-button.exec" },
-          { name: "light exec", selector: ".r2-ecrin .rev-button.exec, .standard-action .rev-button.exec, .rev-actions .rev-button.exec" },
+          { name: "dark exec", selector: ".single-page .hero .rev-button.exec, .single-page .founder .rev-button.exec, .r2-dark .rev-button.exec, .quick-capture .rev-button.exec, .agent-esquisse .rev-button.exec, .cmdbar .rev-button.exec" },
+          { name: "light exec", selector: ".journal-theme-body .rev-button.exec, .r2-ecrin .rev-button.exec, .standard-action .rev-button.exec, .rev-actions .rev-button.exec" },
         ];
         for (const target of focusTargets) {
           const control = [...document.querySelectorAll(target.selector)].find((element) => visible(element) && !(element instanceof HTMLButtonElement && element.disabled));
@@ -573,6 +562,7 @@ async function measureInvalidFormStates(page: Page, path: string, width: number)
 
 
 
+    await page.locator(".contact-fallback summary").click();
     const form = page.locator(probe.form).first();
     const field = form.locator(probe.field);
     const button = form.locator("button[type='submit']");
@@ -634,7 +624,8 @@ async function measureInvalidFormStates(page: Page, path: string, width: number)
       const registerFor = (background: Color) => luminance(background) < 0.25 ? "dark" : "light";
       const rootStyle = getComputedStyle(document.documentElement);
       const accentTokens = [
-        "--accent-surface",
+        "--brand-accessible-warm",
+          "--accent-surface",
         "--accent-soft",
         "--accent-border",
         "--accent-strong",
@@ -674,7 +665,7 @@ async function measureInvalidFormStates(page: Page, path: string, width: number)
 test("accent surface variables keep injected nested surfaces readable", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto(`${BASE_URL}/manufacture`, { waitUntil: "domcontentloaded" });
+  await page.goto(`${BASE_URL}/journal/themes/integration-developpement`, { waitUntil: "domcontentloaded" });
   await expect(page.locator("main h1")).toBeVisible();
   await page.addStyleTag({ content: "*,*::before,*::after{transition:none!important;animation:none!important}" });
 

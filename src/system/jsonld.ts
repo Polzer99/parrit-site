@@ -14,7 +14,8 @@ export function organizationJsonLd() {
       addressLocality: "Rueil-Malmaison",
       addressCountry: "FR",
     },
-    // Compléter sameAs quand la page LinkedIn entreprise existera.
+    areaServed: ["Lille", "Métropole européenne de Lille", "Hauts-de-France", "France"],
+    // Aucun profil entreprise vérifié dans le graphe existant.
     sameAs: [],
   };
 }
@@ -38,4 +39,8 @@ export function blogPostingJsonLd(entry: Pick<JournalEntry, "slug" | "title" | "
     author: orgRef(),
     mainEntityOfPage: canonical,
   };
+}
+
+export function personJsonLd() {
+  return { "@context": "https://schema.org", "@type": "Person", "@id": "https://parrit.ai/#founder", name: "Paul Larmaraud", jobTitle: "Founder", worksFor: orgRef() };
 }

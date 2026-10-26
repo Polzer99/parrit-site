@@ -114,7 +114,7 @@ for (const file of files) {
   if (relativePath === "src/app/(rev01)/page.tsx") {
     for (const { line, name } of homeClientViolations(source)) report(file, line, "private client", name);
   }
-  if (relativePath.startsWith("content/journal/") || relativePath.startsWith("src/app/(rev01)/")) {
+  if (relativePath.startsWith("content/journal/") || relativePath.startsWith("src/app/(rev01)/") || ["src/system/components/SinglePage.tsx", "src/system/single-page-copy.ts"].includes(relativePath)) {
     const checkNames = relativePath.startsWith("content/journal/") ? journalClientNames : privateClientNames;
     for (const value of relativePath.startsWith("content/") ? [{ text: source, line: 1 }] : sourceProse(source, file)) {
       for (const name of checkNames(value.text)) report(file, value.line, "unauthorized client", name);
@@ -130,6 +130,10 @@ for (const file of files) {
       ? sourceProse(source, file)
       : [{ text: source, line: 1 }];
     for (const value of prose) {
+      // Exact copy explicitly approved in HANDOFF-PAGE-UNIQUE.md §0 (27/10).
+      // This does not authorize any other certification or any Journal claim.
+      if (["src/system/components/SinglePage.tsx", "src/system/single-page-copy.ts"].includes(relativePath)
+          && ["Une quinzaine de formateurs mobilisables, et un organisme certifié.", "Around fifteen trainers available, and a certified training organization."].includes(value.text)) continue;
       for (const claim of certificationClaims(value.text, relativePath === "src/system/components/HarnessBadge.tsx")) {
         report(file, value.line, "unsupported certification", claim);
       }

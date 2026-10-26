@@ -3,11 +3,12 @@ import { expect, test } from "./network-deny.setup";
 import type { BrowserContext, Page } from "@playwright/test";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
+if (!["localhost", "127.0.0.1"].includes(new URL(BASE_URL).hostname)) throw new Error("Local test origin required");
 const SITE = "https://parrit.ai";
 // Next émet la racine sans slash final (https://parrit.ai) ; toute attente
 // d'URL absolue passe par ici pour suivre cette convention.
 const absolute = (pathname: string) => (pathname === "/" ? SITE : `${SITE}${pathname}`);
-const PAGES = ["", "/manufacture", "/standard", "/dossiers", "/commission", "/legal", "/journal"];
+const PAGES = ["", "/legal", "/journal", "/journal/themes/harness-engineering", "/journal/themes/ai-sprints", "/journal/themes/integration-developpement", "/journal/themes/conseil-transformation"];
 
 async function switchHeaderLanguage(
   page: Page,
@@ -18,9 +19,10 @@ async function switchHeaderLanguage(
 ) {
   const label = target.toUpperCase();
   await expect(async () => {
-    const button = page.getByRole("button", { name: label, exact: true });
-    await expect(button).toBeVisible({ timeout: 1_000 });
-    await button.click({ timeout: 1_000 });
+    const link = page.locator(".cmdbar").getByRole("link", { name: label, exact: true });
+    await expect(link).toBeVisible({ timeout: 1_000 });
+    await expect(link).toHaveAttribute("href", new URL(expectedUrl).pathname);
+    await link.click({ timeout: 1_000 });
     await expect(page).toHaveURL(expectedUrl, { timeout: 1_500 });
     expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe(target);
     await expect(page.locator("html")).toHaveAttribute("lang", expectedLocale, { timeout: 1_000 });
@@ -87,8 +89,8 @@ for (const path of PAGES) {
 
 for (const [source, target] of [
   ["/?lang=fr&utm_source=test", "/fr?utm_source=test"],
-  ["/standard?lang=fr&source=test", "/fr/standard?source=test"],
-  ["/fr/standard?lang=en&utm_campaign=test", "/standard?utm_campaign=test"],
+  ["/legal?lang=fr&source=test", "/fr/legal?source=test"],
+  ["/fr/legal?lang=en&utm_campaign=test", "/legal?utm_campaign=test"],
   ["/fr?lang=en", "/"],
 ]) {
   test(`legacy choice is a single 301: ${source}`, async ({ page }) => {
@@ -104,10 +106,10 @@ for (const [source, target] of [
 
 test("French negotiation is 302, preserves query and does not record a choice", async ({ request }) => {
   const headers = { "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8" };
-  const response = await request.get(`${BASE_URL}/standard?source=test`, { headers, maxRedirects: 0 });
+  const response = await request.get(`${BASE_URL}/legal?source=test`, { headers, maxRedirects: 0 });
   expect(response.status()).toBe(302);
   const location = new URL(response.headers()["location"] ?? "", BASE_URL);
-  expect(`${location.pathname}${location.search}`).toBe("/fr/standard?source=test");
+  expect(`${location.pathname}${location.search}`).toBe("/fr/legal?source=test");
   expect(response.headers()["cache-control"]).toContain("no-store");
   expect(response.headers()["vary"]?.toLowerCase()).toContain("user-agent");
   expect(response.headers()["set-cookie"]).toBeUndefined();
@@ -120,22 +122,22 @@ for (const choice of ["en", "fr"]) {
   test(`choice cookie ${choice} suppresses negotiation without changing bare content`, async ({ page, context }) => {
     await context.addCookies([{ name: "parrit_locale", value: choice, url: BASE_URL }]);
     await page.setExtraHTTPHeaders({ "Accept-Language": "fr" });
-    const response = await page.goto(`${BASE_URL}/standard`);
+    const response = await page.goto(`${BASE_URL}/legal`);
     expect(response?.request().redirectedFrom()).toBeNull();
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
   });
 }
 
 test("header switches paths, saves choice and preserves query/hash", async ({ page, context }) => {
-  await page.goto(`${BASE_URL}/fr/standard?source=test#top`);
-  await switchHeaderLanguage(page, context, "en", `${BASE_URL}/standard?source=test#top`);
-  await expect(page).toHaveURL(`${BASE_URL}/standard?source=test#top`);
+  await page.goto(`${BASE_URL}/fr/legal?source=test#top`);
+  await switchHeaderLanguage(page, context, "en", `${BASE_URL}/legal?source=test#top`);
+  await expect(page).toHaveURL(`${BASE_URL}/legal?source=test#top`);
   expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe("en");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await switchHeaderLanguage(page, context, "fr", `${BASE_URL}/fr/standard?source=test#top`);
-  await expect(page).toHaveURL(`${BASE_URL}/fr/standard?source=test#top`);
+  await switchHeaderLanguage(page, context, "fr", `${BASE_URL}/fr/legal?source=test#top`);
+  await expect(page).toHaveURL(`${BASE_URL}/fr/legal?source=test#top`);
   expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe("fr");
-  await expect(page.locator('.cmd-cta[href="/fr/commission"]')).toHaveCount(1);
+  await expect(page.locator('.cmdbar a.rev-button[href="/fr#contact"]')).toHaveCount(1);
 });
 
 test("French Journal aliases redirect once to the unchanged English article", async ({ page, context }) => {
@@ -184,14 +186,6 @@ test("sitemap contains both translated sets and no French articles", async ({ pa
     expect(xml).toContain(`<loc>${SITE}${path || "/"}</loc>`);
     expect(xml).toContain(`<loc>${SITE}/fr${path}</loc>`);
   }
-  expect(xml).not.toMatch(/<loc>[^<]*\/fr\/journal\//);
+  expect(xml).not.toMatch(/<loc>[^<]*\/fr\/journal\/(?!themes\/)/);
   expect(xml).not.toContain("?lang=");
 });
-
-for (const locale of ["en", "fr"] as const) {
-  test(`home links to systems from the ${locale} navigation`, async ({ page }) => {
-    const prefix = locale === "fr" ? "/fr" : "";
-    await page.goto(`${BASE_URL}${prefix}/`);
-    await expect(page.locator(`.cmd-nav a[href="${prefix}/engineering-integration"]`)).toHaveCount(1);
-  });
-}

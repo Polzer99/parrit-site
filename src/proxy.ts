@@ -38,14 +38,6 @@ export function proxy(request: NextRequest) {
     return response;
   }
 
-  // Canonicalize the French alias after consuming a legacy language choice,
-  // so alias + ?lang=en reaches the final English URL in one hop.
-  if (pathname === "/fr/consulting-transformation") {
-    const url = request.nextUrl.clone();
-    url.pathname = localizedPath(bare, "fr");
-    return NextResponse.redirect(url, 301);
-  }
-
   // Article aliases redirect in next.config before proxy; other French aliases below are unchanged.
   if (french && !frenchChrome) {
     const url = request.nextUrl.clone();
@@ -78,9 +70,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/consulting-transformation", "/ai-sprints", "/engineering-integration", "/harness-engineering",
-    "/", "/fr/:path*", "/manufacture", "/standard", "/dossiers",
-    "/commission", "/build-with-you", "/systems", "/journal/:path*", "/legal", "/sketch/:path*",
-  ],
+  matcher: ["/", "/fr/:path*", "/journal/:path*", "/legal", "/sketch/:path*"],
 };

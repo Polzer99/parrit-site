@@ -1,7 +1,6 @@
 export { ParritCalInline } from "./CalInline";
 export { AnalyticsInit } from "./AnalyticsInit";
 export { DecisionCard } from "./DecisionCard";
-export { Dossier } from "./Dossier";
 export { Frame } from "./Frame";
 export { Hold } from "./Hold";
 export { HarnessBadge } from "./HarnessBadge";
@@ -14,4 +13,3 @@ export { RevFooter } from "./RevFooter";
 export { RevHeader } from "./RevHeader";
 export { Seal } from "./Seal";
 export { St, type StatusKind } from "./St";
-export { Matiere } from "./Matiere";

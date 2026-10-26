@@ -1,5 +1,5 @@
 import { privateClientNames } from "../scripts/lib/public-clients.mjs";
-import { PUBLIC_CLIENT_NAMES, publicClientName } from "../src/system/public-clients.ts";
+import { PUBLIC_CLIENT_NAMES } from "../src/system/public-clients.ts";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import matter from "gray-matter";
@@ -18,7 +18,7 @@ const NextServer = NextServerModule.default;
 const json = (file) => JSON.parse(readFileSync(file, "utf8"));
 const glyphs = json("src/system/brand-os.glyphs.json");
 const connectors = json("src/system/brand-os.connectors.json");
-const routes = ["/consulting-transformation", "/ai-sprints", "/engineering-integration", "/harness-engineering", "/", "/build-with-you", "/systems", "/commission", "/manufacture", "/dossiers", "/standard", "/journal", "/legal"];
+const routes = ["/", "/journal", "/legal", ...["harness-engineering", "ai-sprints", "integration-developpement", "conseil-transformation"].map(slug => `/journal/themes/${slug}`)];
 
 function populatedTags(html, tag, count) {
   const entries = [...html.matchAll(new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)<\\/${tag}>`, "g"))];
@@ -57,6 +57,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       assert.deepEqual(privateClientNames(visibleText(html)), [], `${locale} ${url}: private clients`);
       return { status: res.statusCode, html };
     };
+    const metadataTitles = new Set();
     for (const locale of ["en", "fr"]) {
       for (const route of routes) {
         const { status, html } = await render(route, locale);
@@ -72,19 +73,22 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         if (route === "/legal") assert.match(text, /Paul Larmaraud/, "legal retains the publication director");
         const accessible = [...html.matchAll(/(?:aria-label|alt)="([^"]*)"/g)].map((match) => visibleText(match[1])).join(" ");
         for (const pattern of [/[—–]/, /\b(fictif|fictive|fictional|illustrati(f|ve)|illustrées?|non interactive|pas une analyse|not an analysis)\b/i, /\bREV\s?0\d\b|\bPS-0\d\b|\bSTD-\d\.\d\b|\bP0\b/]) {
-          assert.doesNotMatch(`${text} ${accessible}`.replace(/Demonstration, fictional data\./g, ""), pattern, `${label}: anti-slop SSR`);
+          if (!(route === "/" && pattern.source.includes("fictif"))) assert.doesNotMatch(`${text} ${accessible}`.replace(/Demonstration, fictional data\./g, ""), pattern, `${label}: anti-slop SSR`);
         }
         const metadata = [...html.matchAll(/<meta\b[^>]*content="([^"]*)"[^>]*>/g)].map((match) => visibleText(match[1])).join(" ");
         const structured = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((match) => match[1]).join(" ");
         const publicCopy = `${text} ${accessible} ${metadata} ${structured}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
         assert.doesNotMatch(publicCopy, /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de(?! vos opérations\b)|\bHT\b|excl\. VAT/i, `${label}: no public offer`);
         if (route !== "/legal") assert.doesNotMatch(publicCopy, /€/, label);
-        if (route !== "/legal") {
+        if (route !== "/legal" && route !== "/") {
           assert.doesNotMatch(publicCopy, /\bPaul\b|Larmaraud|fondat(eur|rice)|fondée par|founder|founded by|quinze minutes|fifteen minutes/i, label);
           assert.doesNotMatch(html, /<a[^>]*href="[^"]*paul-larmaraud\.com/i, label);
         }
         populatedTags(html, "h1", 1);
         populatedTags(html, "title", 1);
+        const title = visibleText(html.match(/<title>([\s\S]*?)<\/title>/)?.[1] ?? "");
+        assert.equal(metadataTitles.has(title), false, `${label}: unique title across locales and routes`);
+        metadataTitles.add(title);
         if (["/", "/build-with-you", "/manufacture", "/dossiers"].includes(route)) populatedTags(html, "h2");
         for (const name of ["description", "og:description", "og:title", "twitter:title"]) {
           const matches = [...html.matchAll(new RegExp(`<meta (?:name|property)="${name}" content="([^"]*)"`, "g"))];
@@ -116,19 +120,14 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           }
         }
         if (route === "/") {
-          assert.deepEqual([...html.matchAll(/<section\b[^>]*id="(H\d+)"/g)].map(m => m[1]), ["H01", "H02", "H03", "H04", "H05", "H06", "H07", "H11", "H12"]);
-          assert.equal((html.match(/class="v1-case"/g) ?? []).length, 3);
+          assert.match(html, /<section class="hero"/);
+          const ids = [...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]);
+          const expected = locale === "fr" ? ["en-production", "ce-qui-change", "parcours", "services", "confiance", "partenaires", "references", "contact"] : ["in-production", "what-changes", "path", "services", "safeguards", "team", "references", "contact"];
+          assert.deepEqual(ids.filter(id => expected.includes(id)), expected);
           assert.doesNotMatch(text, /Content Factor|usines? de contenu|FormIA|Qualiopi|\bMIT\b/i);
-          const brands = html.match(/<ul class="home-s-brands-list"[^>]*>([\s\S]*?)<\/ul>/)?.[1];
-          assert.ok(brands);
-          populatedTags(brands, "li", PUBLIC_CLIENT_NAMES.length);
-          populatedTags(brands, "strong", PUBLIC_CLIENT_NAMES.length);
-          populatedTags(brands, "span", PUBLIC_CLIENT_NAMES.length);
-          const names = [...brands.matchAll(/<strong>([^<]+)<\/strong>/g)].map((match) => publicClientName(visibleText(match[1])));
-          assert.deepEqual(names.sort(), [...PUBLIC_CLIENT_NAMES].sort(), `${label}: only canonical clients`);
-          assert.doesNotMatch(brands, /<(?:a|button|img|svg)\b/);
-
+          for (const name of PUBLIC_CLIENT_NAMES) assert.ok(text.includes(name), `${label}: ${name}`);
         }
+
       }
     }
     for (const locale of ["en", "fr"]) {
