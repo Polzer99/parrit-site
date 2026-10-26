@@ -358,3 +358,103 @@ Elles ne reprennent que des mécanismes de la table 3. Toutes respectent le cont
 - `video/` : 1 182 images de parcours (analyse seulement).
 - `*.json` : `css-home.json`, `css-work.json`, `type-*.json` (échelle typographique, grilles, couleurs, rayons, bordures, espacements par page et par largeur), `measure-work.json`, `measure-reveal.json`, `structure.json`, `hero-media.json`, `js-analysis.json`, `social-probe.json`, `social-probe2.json`, `social-probe3.json`, `counts.json`, `tour-marks.json`, `tour-frames.json`, `mobile-reduced.json`.
 - Scripts (voir section 0).
+
+---
+
+## 8. Preuves REA : comment les matières sont fabriquées (26/10/2026, soir)
+
+**Pourquoi cette section.** Le premier relevé (Playwright) a établi que les matières sont dans les images et que le mouvement passe par GSAP, Framer et Lenis, sans pouvoir dire comment ces images sont faites ni comment le code règle le mouvement. Cette section y répond avec REA (`rea-agents` 6.8.0), outil d'analyse inverse branché sur Claude Code.
+
+**Convention.** Chaque affirmation porte son statut : `FAIT` (avec sa source et sa preuve), `DÉDUIT` (inférence, la preuve dit jusqu'où elle va) ou `UNKNOWN`.
+
+### 8.1 Méthode et périmètre
+
+- **Trois pages** : accueil, étude de cas Midjourney, étude de cas Robinhood. Navigation et défilement au clavier (touche Fin) seulement. Aucun bandeau cookies ne s'est présenté ; aucune connexion, aucun formulaire, aucun clic.
+- **Capture** : `capture_browser_scenario` (Chrome 156 sans fenêtre, 1440 x 900, mouvement non réduit), réseau avec en-têtes.
+  - Passe 1 (preuve `ev_1747bada…`) : **incomplète**. J'avais demandé les corps de réponse ; le budget de rétention par défaut (16 Mo) a été rempli après une quarantaine de requêtes, 908 événements perdus. Erreur de réglage de ma part, pas une panne de l'outil.
+  - Passe 2 (preuve `ev_e9cf7f38…`) : **complète**, 1 702 événements, 0 perdu, 342 requêtes, sans corps de réponse.
+  - La note de reprise prévoyait une seule passe ; il y en a eu deux, la seconde pour corriger la première. Borne « deux échecs sur la même étape » non atteinte.
+- **Médias** : six fonds (les plus lourds de la passe 2) et leur version servie, téléchargés **dans le dossier temporaire de la session, hors dépôt**, pour mesure locale (couche alpha, bruit, périodicité, palette). Rien n'est versionné ici.
+- **JavaScript** : `analyze_javascript_application` sur les deux paquets propres au site (`_app` 1,56 Mo, et un paquet de 355 Ko), lus comme texte inerte et jamais exécutés : 186 modules, 481 920 nœuds analysés, 0 échec de lecture (preuve `ev_dfb45def…`). Les valeurs précises ont ensuite été lues aux emplacements du texte inerte, avec leur décalage en octets.
+
+### 8.2 Les images porteuses de matière
+
+| # | Fond | Source | Servi au navigateur | Constat |
+|---|---|---|---|---|
+| 1 | champ granuleux orange, lavande, prune (cas Suno) | PNG RGBA 2500 x 1500, 6 964 108 o | WebP 2000 px q80 : 673 078 o (accueil) ; 2500 px q100 : 2 425 568 o | seul vrai grain, voir 8.3 |
+| 2 | étoile de perles 3D sur bleu nuit | JPG 2500 x 1500, 337 751 o | WebP 2500 px q100 : 744 818 o | rendu 3D, aucun grain ajouté |
+| 3 | étoile en verre dépoli 3D | JPG 2500 x 1500, 193 096 o | WebP 2500 px q100 : 590 616 o | rendu 3D, aucun grain ajouté |
+| 4 | étoile en fourrure 3D bleu électrique | JPG 2500 x 1500, 402 549 o | WebP 2500 px q100 : 1 192 456 o | rendu 3D, aucun grain ajouté |
+| 5 | vague chromée + trame de filets fins | PNG RGBA 2500 x 1500, 2 837 231 o | WebP 2500 px q100 : 459 076 o | les filets sont **dessinés dans l'image** |
+| 6 | mur de logos clients | PNG RGBA 2500 x 1500, 123 379 o | WebP 2500 px q100 : 136 626 o | 247 couleurs, 96,6 % de noir pur : une image, pas une grille HTML |
+
+- `FAIT` — **Tous les médias passent par le CDN Sanity** (`cdn.sanity.io/images/nuxb3jim/production-july-2025/…`), qui recadre et réencode à la demande par paramètres d'URL (`w`, `q`, `fm=webp` ou `auto=format`). SOURCE : inventaire de la passe 2. EVIDENCE : 84 réponses `image/webp`, 24 `image/avif`, largeurs demandées 32, 50, 120, 144, 1000, 1200, 1500, 1920, 2000 et 2500 px.
+- `FAIT` — **Aucune couche de transparence n'est utilisée**, alors que trois sources sont des PNG avec canal alpha : alpha minimal 255 sur 100 % des pixels des trois fichiers. La matière ne vient donc jamais d'une superposition par transparence.
+- `FAIT` — **Les études de cas servent du WebP qualité 100 à 2 500 px, souvent plus lourd que la source** : fond 4 = 402 549 o en JPG, 1 192 456 o servi (x 2,96) ; fond 2 = x 2,2 ; fond 3 = x 3,1. L'accueil sert les mêmes familles en qualité 80 à 2 000 px. Le grain et les rendus 3D résistent mal à la compression : c'est le coût réel de cette esthétique.
+- `FAIT` — **Les rendus 3D n'ont pas de grain ajouté** : dans les zones lisses, l'écart-type du bruit fin vaut 0,03 à 0,08 niveau de gris (sur 255), contre 2,37 pour le fond 1. Leur matière (perles, verre, fourrure, chrome) vient de la géométrie et de l'éclairage. `DÉDUIT` : rendus produits dans un logiciel 3D, hors du site ; l'outil exact est `UNKNOWN`.
+- `FAIT` — **Les vidéos sont des MP4 H.264**. Boucle de l'accueil : 1920 x 1080, 30 images/s, 20,03 s, 2 922 144 o (lecture des métadonnées). 25 vidéos distinctes sur les trois pages. Correction du relevé précédent, qui indiquait 1920 x 1152 : c'était la taille affichée, pas celle du fichier.
+- `FAIT` — **Aucun canvas ni WebGL propre au site** pour fabriquer une matière. Les 100 occurrences de `canvas` et les 9 `getContext(` du second paquet appartiennent à un **lecteur Lottie** (paquet qui exporte `Player`, `Controls`, `PlayerState` ; 44 occurrences de `lottie`). Aucune occurrence de `noise`, `grain`, `dither`, `feTurbulence` ni `image-rendering` dans les paquets et la feuille de style.
+
+### 8.3 Comment le grain du fond 1 est fait
+
+- `FAIT` — **Le grain mesure environ 2 px** : la corrélation du bruit entre deux pixels voisins vaut 0,535, puis 0,03 à deux pixels d'écart. Au-delà de 2 px, le bruit est indépendant.
+- `FAIT` — **Trois tons dominent** : prune `#801d70` (16,6 % des pixels), lavande `#d294ee` (5,3 %), orange autour de `#ff8a40`. 176 couleurs couvrent la moitié de l'image et 18 398 en couvrent 99 %, pour 3 750 000 pixels.
+- `DÉDUIT` — Recette : un champ de couleur flou à grande échelle, puis un **tramage aléatoire** qui choisit pour chaque grain de 2 px un des trois tons, avec une probabilité qui suit le champ. Les milliers de nuances restantes viennent des bords lissés et de l'encodage. Le logiciel employé reste `UNKNOWN`.
+- `DÉDUIT`, non prouvé — **La mosaïque de blocs** vue pendant les transitions de fond n'est pas codée : aucun composant ni mot-clé de mosaïque dans les paquets. Piste : 31 aperçus de 50 px de large (environ 750 o chacun, par exemple le fond 4 en `w=50`), affichés en plein écran le temps que la grande image arrive. Lien de cause à effet : `UNKNOWN`.
+
+### 8.4 Le mouvement, lu dans le code
+
+Source : paquet `_app-e535c3db12f7b53f.js` et feuille `d26cadaf32c64819.css`, lus comme texte inerte. Les décalages en octets permettent de retrouver chaque passage.
+
+- `FAIT` (octet 620 336) — **Défilement Lenis** : `duration: 1.2`, redimensionnement automatique coupé. Sur ordinateur et sur Chrome mobile, Lenis pilote la fenêtre ; ailleurs, un conteneur interne. Il est cadencé par l'horloge de GSAP (`ticker`, lissage des saccades coupé) et met à jour ScrollTrigger à chaque défilement. **L'initialisation ne consulte pas la préférence de mouvement réduit**, ce qui confirme le constat du premier relevé (Lenis reste actif).
+- `FAIT` (octet 934 888, et CSS `MaskReveal`) — **Révélation d'image** : un `clip-path` en polygone dont deux sommets sont des variables CSS (`--left-y`, `--right-y`) animées par GSAP de 0 à 100 % ; en même temps, le conteneur passe de l'échelle 1,3 à 1. **Durée 0,8 s, courbe `Power3.easeInOut`, même délai pour les deux.** Correction du relevé précédent : la mesure à l'écran donnait 1,2 s pour l'échelle avec un départ retardé ; le code dit 0,8 s et le même départ. L'écart vient probablement de la mesure par images (UNKNOWN sans nouvelle mesure).
+- `FAIT` (octet 1 234 054) — **Rangées de chiffres** : titre en fondu, puis chaque rangée (filet `scaleX` 0 → 1 et texte qui monte) en 1,2 s `Power3.easeOut`, décalées de 0,25 s.
+- `FAIT` — **Courbes réellement employées** (comptage dans le paquet) : `Power3.easeOut` x 22, `Power4.easeInOut` x 11, `Power3.easeInOut` x 6, `Power2` x 3. Durées les plus fréquentes : 0,3 s (x 18), 0,6 s et 1,2 s (x 8 chacune), 0,8 s (x 6). ScrollTrigger cité 96 fois.
+- `FAIT` (module 9113, octet 1 456 884) — **Mouvement réduit** : un crochet maison lit `prefers-reduced-motion: reduce` et il est consulté 42 fois. Quand la préférence est active, les animations GSAP passent en `set` (état final sans transition) ou prennent une durée de 0,0001 à 0,001 s. Côté CSS, **5 règles seulement** : opacité forcée à 1 sur trois blocs, hauteur figée sur deux défileurs.
+- `FAIT` (octet 665 053) — Framer Motion garde sa valeur par défaut `reducedMotion: "never"` dans son contexte. Que le site la surcharge ailleurs : `UNKNOWN`.
+
+### 8.5 Ce qui change par rapport au premier relevé
+
+1. Le grain n'est pas un effet du site : il est cuit dans **une seule** image sur six (fond 1). Les autres matières sont des rendus 3D.
+2. Ni canvas, ni WebGL, ni filtre SVG : un site Next.js, des images et des vidéos préparées, un CDN qui les réencode.
+3. Masque d'image : 0,8 s pour la découpe comme pour l'échelle (code), et non 1,2 s.
+4. Vidéo de l'accueil : 1920 x 1080 (fichier), et non 1920 x 1152.
+5. Le prix de cette esthétique est le poids : jusqu'à 2,4 Mo pour un seul fond servi.
+
+---
+
+## 9. Proposition de matière Parrit (option à arbitrer, rien n'est appliqué)
+
+**Principe.** Reprendre la **technique** du fond 1 (un grain de 2 px, peu de tons), jamais ses couleurs ni ses images. Les deux tons viennent **uniquement des jetons** du fichier vendorisé `src/system/brand-os.tokens.css`, lus par un petit générateur au lieu d'être recopiés. Si les jetons changent, on régénère.
+
+**Échantillons** (dossier `matiere-parrit/`, 1440 x 900, WebP sans perte) :
+
+| Fichier | Tons (jetons) | Densité | Poids | Couleurs |
+|---|---|---|---|---|
+| `A-aplat-granuleux-clair.webp` | fond `--brand-core-off`, grain `--brand-accessible-ink` | 6 % constante | 17 198 o | 2 |
+| `A-aplat-granuleux-canard.webp` | fond `--brand-core-canard`, grain `--brand-accessible-ink` | 10 % constante | 20 910 o | 2 |
+| `B-champ-tramé-canard-encre.webp` | `--brand-core-canard` vers `--brand-accessible-ink` | variable, de 10 à 90 % | 35 562 o | 2 |
+
+Pour comparaison, le fond 1 de Metalab pèse 673 078 o servi en qualité 80 : les échantillons Parrit sont 20 à 40 fois plus légers.
+
+Le générateur (`grain.py`, 30 lignes) n'est **pas versionné** : le garde §25 refuse tout fichier de code dans ce dépôt, même sous `docs/`. Il reste dans le dossier de travail de la session et devra passer par Codex si l'option est retenue.
+
+**Relecture contre `AGENTS.md`, section Brand OS (contrôle 2) :**
+
+| Règle | Option A (aplat granuleux) | Option B (champ tramé) |
+|---|---|---|
+| Couleurs issues du fichier vendorisé uniquement | conforme : 2 jetons, lus et non recopiés | conforme |
+| « Un hex dans une page est un défaut » | aucun hex dans le code ; l'image contient des pixels de couleur, à valider comme actif dérivé | idem |
+| Zéro dégradé | **conforme** : densité constante, aucune transition de ton | **non conforme** : la variation de densité simule un dégradé |
+| Zéro ombre, radius 0 | conforme | conforme |
+| Mode accessible uniquement | conforme | conforme |
+| Lisibilité (contraste AA) | **à vérifier** : texte jamais posé directement sur le grain, sauf mesure AA | idem, plus difficile |
+| Contrat d'assets (`brand-os.forbidden-assets.json`) | conforme : le contrat ne liste que des photos (motifs `jardin-2066`, portraits) ; aucun nom de grain | conforme |
+
+**Recommandation.** L'option A est la seule compatible avec la charte telle qu'elle est écrite. Usage : zones sans texte (bandeau d'ouverture de page, séparateur de section, fond d'une figure). L'option B demande une décision de Paul, puisqu'elle revient à autoriser un dégradé simulé. Rien n'est appliqué au site sans spec validée.
+
+### Arbitrages ajoutés pour Paul
+
+10. **Matière granuleuse** : option A (aplat à densité constante, deux jetons) oui ou non ? Si oui, sur quelles zones ?
+11. **Option B** (champ tramé, effet de dégradé) : exception à « zéro dégradé », oui ou non ?
+12. **Statut d'une image générée depuis les jetons** : actif dérivé autorisé, ou faut-il l'inscrire au Brand OS canon d'abord ?
