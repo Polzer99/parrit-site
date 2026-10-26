@@ -1,0 +1,43 @@
+
+> parrit-site@0.1.0 test:brand-os
+> node --test tests/anti-slop-copy.test.mjs tests/product-scene.test.mjs tests/founder-photo.test.mjs tests/brand-os.test.mjs tests/brand-os-contracts.test.mjs tests/brand-os-render.test.mjs
+
+✔ generated llms copy has no forbidden dashes or defensive labels and respects the approved Standard claims (78.130584ms)
+✔ examination notes use the shared locale contract, without price or duration qualifiers (0.81475ms)
+✔ automatic sketch mail uses the same sober framing as the site (0.172542ms)
+✔ Journal articles and descriptions publish only the house identity (1.38625ms)
+✔ vendor files and every canonical font match the exported SHA-256 (1.89125ms)
+✔ forbidden assets are absent from sources, public files and built HTML (63.039709ms)
+✔ all prerendered text uses supported glyphs and no font arrows (2.950708ms)
+✔ contracts reject tampered vendor bytes, renamed banned binaries, filenames and references (6.740459ms)
+✔ glyph scan decodes named/numeric entities and excludes markup, scripts and styles (0.394916ms)
+(node:27994) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/src/system/public-clients.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+✔ compiled EN/FR pages publish images, content structure and supported glyphs; missing routes return branded 404 (842.150125ms)
+✔ all color aliases resolve to vendor literals, including multi-hop action aliases (2.24875ms)
+✔ OG resolver uses root only, exact names, and fails on missing/cyclic/unsupported tokens (0.253ms)
+✔ light and dark text, actions, selections and OG pairs meet 4.5:1 (0.749125ms)
+✔ both OG routes bundle both CSS inputs and share the resolver (0.200542ms)
+grain-clair.png: 4500 bytes
+grain-canard.png: 6019 bytes
+✔ brand gate rejects retired and hardcoded colors anywhere in src, including aliases and fake token files (1487.953584ms)
+✔ both OG handlers produce real PNGs with resolved colors (no network) (138.653042ms)
+✔ only the four approved LinkedIn bust exports are shipped, byte for byte (3.29725ms)
+✔ superseded LinkedIn exports have no file or reference in src or public (25.17825ms)
+✔ the rejected DSC00629 photo has no file or reference in src or public (23.065542ms)
+✔ scene source is byte-identical: scene-carte-visite-messagerie.png (6.243667ms)
+✔ scene derivatives preserve aspect ratio and alpha: scene-carte-visite-messagerie.png (4.347292ms)
+✔ scene source is byte-identical: scene-carte-visite-fiche-crm.png (1.856958ms)
+✔ scene derivatives preserve aspect ratio and alpha: scene-carte-visite-fiche-crm.png (2.669583ms)
+✔ business card is an unretouched pixel crop of the approved scene (14.319375ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1919.136709

@@ -2,7 +2,7 @@ import { readdirSync } from "node:fs";
 import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
-const routes = ["", "/systems", "/journal", "/standard", "/commission", "/manufacture", "/build-with-you", "/dossiers", "/legal"];
+const routes = ["", "/systems", "/journal", "/standard", "/commission", "/manufacture", "/build-with-you", "/dossiers", "/legal", "/engineering-integration"];
 const noOffer = /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de(?! vos opérations\b)|\bHT\b|excl\. VAT/i;
 const forbidden = [
   /[—–]/,
@@ -24,9 +24,10 @@ for (const locale of ["en", "fr"]) {
       const audit = async () => {
         const text = await page.locator("body").innerText();
         const attributes = await page.locator("[aria-label], [alt]").evaluateAll((elements) => elements.flatMap((el) => [el.getAttribute("aria-label"), el.getAttribute("alt")]).filter(Boolean).join("\n"));
-        for (const pattern of (route.startsWith("/journal/") ? [] : forbidden)) expect(`${text}\n${attributes}`.replace(/Demonstration, fictional data\./g, "")).not.toMatch(pattern);
+        for (const pattern of (route.startsWith("/journal/") ? [] : forbidden)) expect(`${text}\n${attributes}`.replace(/Demonstration(?: in French)?, fictional data\./g, "")).not.toMatch(pattern);
         const metadata = await page.locator('title, meta[name="description"], meta[property^="og:"], meta[name^="twitter:"], script[type="application/ld+json"]').evaluateAll((elements) => elements.map((el) => el.getAttribute("content") ?? el.textContent ?? "").join("\n"));
-        const publicCopy = `${text}\n${attributes}\n${metadata}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
+        let publicCopy = `${text}\n${attributes}\n${metadata}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
+        if (route === "/commission") publicCopy = publicCopy.replace(/(?:[Uu]n premier échange de 15 minutes en visio|[Aa] first 15-minute video call)/g, "");
         if (!route.startsWith("/journal/")) expect(publicCopy).not.toMatch(noOffer);
         if (route !== "/legal") {
           if (!route.startsWith("/journal/")) expect(publicCopy).not.toContain("€");
@@ -51,7 +52,7 @@ for (const locale of ["en", "fr"]) {
         }
       };
       await audit();
-      if (!route) {
+      if (route === "/engineering-integration") {
         await page.getByRole("tab").last().click();
         await audit();
       }

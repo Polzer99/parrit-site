@@ -108,11 +108,12 @@ for (const locale of ["fr", "en"] as const) {
           }), "prose links do not add pink accents").toBe(false);
         }
         await expect(headerAction).toHaveClass(/\bghost\b/);
-        // The desktop action is hidden on mobile; its accent lives in the menu.
+        // Tour 2: the mobile action lives in the home hero; navigation stays one row.
         if (width < 760) {
           await page.locator(".v1-mobile-menu summary").click();
           await expect(page.locator(".v1-mobile-menu nav")).toHaveCSS("opacity", "1");
-          await expect(page.locator(".cmd-cta")).toBeVisible();
+          await expect(page.locator(".cmd-cta")).toBeHidden();
+          if (!route) await expect(page.locator("#H01 .rev-button.exec")).toBeVisible();
         }
         // The home frame owns its accent; inner pages use the header outline.
         // Keep the accent-spacing contract for decorative accents only.

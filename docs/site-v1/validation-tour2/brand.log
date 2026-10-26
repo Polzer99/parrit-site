@@ -1,0 +1,5 @@
+
+> parrit-site@0.1.0 qa:brand:rev01
+> node scripts/brand-conformity-check.mjs
+
+Brand conformity passed (src/system, src/app/(rev01), public/brand; no reddish colors in src/ or public text assets).

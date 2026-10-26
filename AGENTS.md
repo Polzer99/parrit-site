@@ -148,7 +148,9 @@ Voir aussi la skill `qa-playwright` (batterie responsive + multi-navigateur).
 Accueil H01 à H07, H11 et H12. Quatre nouvelles pages bilingues, dont
 `/fr/conseil-transformation` associé à `/consulting-transformation`.
 Menu mobile accordéon natif, dans le flux ; CTA accessible sans recouvrir le contenu.
-H06 affiche tous ses panneaux sans JavaScript ; onglets clavier après hydratation.
+Depuis le tour 2, H06 affiche un visuel CRM ; le module à onglets reste sur
+`/engineering-integration`, avec tous ses panneaux sans JavaScript et onglets
+clavier après hydratation.
 Les preuves passent par `getSiteEvidence` : permission accordée, portée et dates valides.
 La date de revue déclenche un échec CI 30 jours avant, jamais un retrait en production.
 Aucun logo client, chiffre de résultat ni attribution institutionnelle au lot 1.
@@ -164,3 +166,13 @@ code du Journal et à l’annexe `/systems`. Le mot-symbole de navigation demeur
 inchangé. Référence : `docs/site-v1/HANDOFF-ERGONOMIE-IMPACT.md`.
 La spec `tests/ergonomie-impact.spec.ts` bloque la réapparition de mono visible
 sur l’accueil et les quatre pages V1 FR/EN, hors mot-symbole et code autorisé.
+
+## Tour 2 impact (27/10/2026)
+
+Accueil : H1 7 colonnes, résumé/actions 5 colonnes, cadre produit 1160 px utiles
+en dessous. H03/H05/H06/H07 alternent texte et visuel partagé avec leur page V1
+(`ServiceVisual`). Mobile : texte puis visuel, navigation sur une rangée et CTA
+du hero. Les pages V1 ont des rangées titre/contenu 4/8 et le Conseil regroupe
+problèmes, travail et livrables. Référence : `docs/site-v1/HANDOFF-TOUR2-IMPACT.md`.
+La mesure avant/après et les captures passent par `tests/tour2-impact.spec.ts` ;
+le test de hauteur exige une référence réelle avant de valider les 30 %.

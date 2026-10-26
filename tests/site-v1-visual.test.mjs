@@ -6,7 +6,8 @@ for (const locale of ['fr', 'en']) {
   test(`V3 ${locale}: ordered methods, evidence metadata and final destinations render without JS`, async () => {
     const html = await renderPage(locale);
     for (const [id, count] of [['H03', 4], ['H11', 6]]) {
-      const section = html.match(new RegExp(`<section[^>]*id="${id}"[^>]*>([\\s\\S]*?)</section>`))[1];
+      const source = id === 'H03' ? await renderPage(locale, 'consulting-transformation') : html;
+      const section = source.match(new RegExp(`<section[^>]*id="${id === 'H03' ? 'method' : id}"[^>]*>([\\s\\S]*?)</section>`))[1];
       assert.equal((section.match(/<li\b/g) ?? []).length, count);
       assert.doesNotMatch(section, /class="v1-index"/);
       assert.match(section, /<ol/);

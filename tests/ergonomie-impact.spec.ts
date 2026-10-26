@@ -31,19 +31,10 @@ for (const locale of ['fr', 'en'] as const) for (const width of [375, 1440]) {
       const copy = (await page.locator('.v1-hero-copy').boundingBox())!;
       const visual = (await scene.boundingBox())!;
       if (width === 1440) {
-        expect(visual.x).toBeGreaterThanOrEqual(copy.x + copy.width);
-        expect(visual.y + visual.height).toBeLessThanOrEqual(900);
+        expect(visual.y).toBeGreaterThanOrEqual(copy.y + copy.height);
+        expect((await page.locator(".product-scene-frame").boundingBox())!.y).toBeLessThan(900);
       } else expect(visual.y).toBeGreaterThanOrEqual(copy.y + copy.height);
       await expect(page.locator('#H03 .v1-process')).toHaveCount(1);
-      const tabs = page.locator('#H06 [role="tab"]');
-      await expect(tabs).toHaveCount(3);
-      for (const tab of await tabs.all()) {
-        await tab.click();
-        const panel = page.locator('#H06 [role="tabpanel"]:visible');
-        await expect(panel.locator('h3')).toHaveClass('sr-only');
-        expect((await panel.locator('h3').boundingBox())!.width).toBeLessThanOrEqual(1);
-        await expect(tab).toHaveAttribute('aria-selected', 'true');
-      }
       const steps = page.locator('#H11 ol > li');
       await expect(steps).toHaveCount(6);
       await expect(page.locator('#H11 svg')).toHaveCount(5);
@@ -79,3 +70,16 @@ for (const locale of ['fr', 'en'] as const) test(`method three columns at 1024 $
   expect(rows).toHaveLength(6);
   expect(new Set(rows).size).toBe(2);
 });
+
+for (const locale of ['fr', 'en'] as const) test(`engineering panel headings ${locale}`, async ({ page }) => {
+  await page.goto(`${BASE}${localizedPath('/engineering-integration', locale)}`);
+      const tabs = page.locator('[role="tab"]');
+      await expect(tabs).toHaveCount(3);
+      for (const tab of await tabs.all()) {
+        await tab.click();
+        const panel = page.locator('[role="tabpanel"]:visible');
+        await expect(panel.locator('h3')).toHaveClass('sr-only');
+        expect((await panel.locator('h3').boundingBox())!.width).toBeLessThanOrEqual(1);
+        await expect(tab).toHaveAttribute('aria-selected', 'true');
+      }
+ });

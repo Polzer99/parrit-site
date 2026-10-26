@@ -1,3 +1,4 @@
+import { ServiceVisual } from "./ServiceVisual";
 import { Faq } from "./Faq";
 import { FinalCall } from "./FinalCall";
 import { Sequence } from "./Sequence";
@@ -22,18 +23,18 @@ export async function SiteV1Page({ id }: { id: SiteV1PageId }) {
   const copy: GuideCopy = SITE_V1_PAGES[id][locale]; const harness = id === "harness-engineering";
   const href = (path: string) => localizedPath(path, locale);
   return <main className="rev-page home-s v1-page v1-guide" data-brand-mode="accessible">
-    <section className="v1-guide-hero r2-dark" data-regime="ink"><div className="home-s-wrap"><h1>{copy.title}</h1><p>{copy.description}</p><Link className="rev-button ghost" href={href("/commission")}>{fr ? "Parler d'un projet" : "Talk about a project"}</Link></div></section>
-    <div className={`home-s-wrap v1-guide-body${harness ? " v1-with-toc" : ""}`}>
+    <section className="v1-guide-hero r2-dark" data-regime="ink"><div className="home-s-wrap"><h1>{copy.title}</h1><p>{copy.description}</p><Link className="rev-button ghost" href={href("/commission")}>{fr ? "Parler d’un projet" : "Talk about a project"}</Link></div></section>
+    <div className="home-s-wrap v1-guide-visual"><ServiceVisual id={id} locale={locale}/></div>
+    <div className="home-s-wrap v1-guide-body">
       {harness && <nav className="v1-toc" aria-label={fr ? "Sommaire" : "Contents"}>{copy.sections.map(([anchor, title]) => <a key={anchor} href={`#${anchor}`}>{title}</a>)}</nav>}
       <div>
-        {copy.brief && <section><h2>{fr ? "En bref" : "At a glance"}</h2><dl className="v1-brief">{copy.brief.map(([term, value]) => <div key={term}><dt>{term}</dt><dd>{value}</dd></div>)}</dl></section>}
-        {id === "engineering-integration" && <section><h2>{fr ? "Intégrer ce qui existe. Construire ce qui manque." : "Integrate what exists. Build what is missing."}</h2><IntegrationBuildSwitcher locale={locale}/></section>}
-        {id === "ai-sprints" && <Sequence steps={copy.sections.slice(0, 4).map(([, title, paragraphs]) => [title, paragraphs.join(" ")])}/>}
-        {copy.sections.filter(([anchor]) => id !== "ai-sprints" || !["scoping", "construction", "evaluation", "decision"].includes(anchor)).map(([anchor, title, paragraphs]) => <section key={anchor} id={anchor} data-regime="calm"><h2>{title}</h2>{id === "consulting-transformation" && anchor === "method" ? <Sequence steps={paragraphs.flatMap(text => text.split(/(?<=\.)\s+/)).map(text => [text])}/> : paragraphs.map(text => <p key={text}>{text}</p>)}
-          {harness && anchor === "harness" && <ol className="v1-harness-diagram" aria-label={fr ? "Composants du harnais" : "Harness components"}>{(fr ? ["Instructions", "Contexte", "Mémoire", "Outils", "Permissions", "Vérifications", "Supervision", "Coûts"] : ["Instructions", "Context", "Memory", "Tools", "Permissions", "Checks", "Supervision", "Costs"]).map(text => <li key={text}>{text}</li>)}</ol>}
+        {copy.brief && <section className="v1-guide-row"><h2>{fr ? "En bref" : "At a glance"}</h2><dl className="v1-brief">{copy.brief.map(([term, value]) => <div key={term}><dt>{term}</dt><dd>{value}</dd></div>)}</dl></section>}
+        {id === "consulting-transformation" && <div className="v1-guide-triptych">{copy.sections.filter(([anchor]) => ["problems", "work", "deliverables"].includes(anchor)).map(([anchor, title, paragraphs]) => <section id={anchor} key={anchor}><h2>{title}</h2>{paragraphs.map(text => <p key={text}>{text}</p>)}</section>)}</div>}
+        {id === "engineering-integration" && <section className="v1-guide-row" data-regime="calm"><h2>{fr ? "Intégrer ce qui existe. Construire ce qui manque." : "Integrate what exists. Build what is missing."}</h2><IntegrationBuildSwitcher locale={locale}/></section>}
+        {copy.sections.filter(([anchor]) => id !== "consulting-transformation" || !["problems", "work", "deliverables"].includes(anchor)).map(([anchor, title, paragraphs]) => <section className="v1-guide-row" key={anchor} id={anchor} data-regime="calm"><h2>{title}</h2><div>{id === "consulting-transformation" && anchor === "method" ? <Sequence steps={paragraphs.flatMap(text => text.split(/(?<=\.)\s+/)).map(text => [text])}/> : paragraphs.map(text => <p key={text}>{text}</p>)}
           {id === "engineering-integration" && anchor === "harness" && <Link className="rev-button ghost" href={href("/harness-engineering")}>Harness Engineering</Link>}
-        </section>)}
-        {copy.faq.length > 0 && <section><h2>{fr ? "Questions fréquentes" : "Frequently asked questions"}</h2><Faq items={copy.faq}/></section>}
+        </div></section>)}
+        {copy.faq.length > 0 && <section className="v1-guide-row"><h2>{fr ? "Questions fréquentes" : "Frequently asked questions"}</h2><div><Faq items={copy.faq}/></div></section>}
         {harness && <p className="v1-updated">{fr ? "Mis à jour le " : "Updated on "}<time dateTime="2026-10-26">{fr ? "26 octobre 2026" : "26 October 2026"}</time></p>}
       </div>
     </div>

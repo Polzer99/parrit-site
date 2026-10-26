@@ -12,8 +12,8 @@ for (const locale of ["fr", "en"]) test(`three entry points and Harness render i
   for (const path of ["/consulting-transformation", "/ai-sprints", "/engineering-integration", "/harness-engineering", "/commission", "/dossiers"]) assert.ok(html.includes(`href="${localize(path, locale)}"`), path);
   assert.doesNotMatch(visibleText(html), /Content Factor|usines? de contenu|FormIA|Qualiopi|\bMIT\b|[—–]/i);
   assert.equal((html.match(/class="v1-case"/g) ?? []).length, 3);
-  assert.ok(html.includes(locale === "fr" ? "Démonstration, données fictives." : "Demonstration, fictional data."));
-  assert.equal((html.match(/<img\b/g) ?? []).length, 2);
+  assert.ok(html.includes(locale === "fr" ? "Démonstration, données fictives." : "Demonstration in French, fictional data."));
+  assert.equal((html.match(/<img\b/g) ?? []).length, 3);
   for (const [, src] of html.matchAll(/<img[^>]*src="([^"]+)"/g)) assert.match(src, /^\/brand\/scenes\/scene-carte-visite-(photo|fiche-crm)\.png$/);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
 });

@@ -1,0 +1,64 @@
+
+> parrit-site@0.1.0 qa:network:rev01
+> playwright test tests/tour2-impact.spec.ts tests/tour1-coherence.spec.ts tests/ergonomie-impact.spec.ts tests/matiere.spec.ts tests/site-v1-v4.spec.ts tests/site-v1-visual.spec.ts tests/site-v1.spec.ts tests/six-capacites.spec.ts tests/design-harmonisation.spec.ts tests/anti-slop-copy.spec.ts tests/alignment-grid.spec.ts tests/product-scene.spec.ts tests/doctrine-visible.spec.ts tests/brand-os.spec.ts tests/rev01-system.spec.ts tests/conformity-home.spec.ts tests/conformity-standard.spec.ts tests/conformity-commission.spec.ts tests/conformity-journal.spec.ts tests/conformity-i18n.spec.ts tests/internal-linking.spec.ts tests/metadata-integrity.spec.ts tests/aeration.spec.ts tests/brand-pixels.spec.ts tests/systems.spec.ts tests/audit-readability.spec.ts --browser=chromium --max-failures=1
+
+
+Running 498 tests using 5 workers
+
+(node:25110) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25106) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25109) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25107) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘    3 [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /consulting-transformation at 1440px (1ms)
+Testing stopped early after 1 maximum allowed failures.
+  ✘    5 [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en / (1ms)
+  ✘    1 [chromium] › tests/aeration.spec.ts:114:7 › at 1440px all routes keep text clear and within the closed type scale (1ms)
+  ✘    4 [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en / 1440 (0ms)
+  ✘    2 [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability / at 375px (1ms)
+
+
+  1) [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /consulting-transformation at 1440px 
+
+    Error: browserType.launch: Target page, context or browser has been closed
+    Browser logs:
+
+    <launching> /Users/paullarmaraud/Library/Caches/ms-playwright/chromium_headless_shell-1228/chrome-headless-shell-mac-arm64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/zr/0zvt8f290yv0bj3v1vy8xlbh0000gn/T/playwright_chromiumdev_profile-YIC37x --remote-debugging-pipe --no-startup-window
+    <launched> pid=25115
+    [pid=25115][err] [1026/223345.523408:ERROR:base/power_monitor/thermal_state_observer_mac.mm:140] ThermalStateObserverMac unable to register to power notifications. Result: 9
+    [pid=25115][err] [1026/223345.540258:ERROR:net/dns/dns_config_service_posix.cc:138] DNS config watch failed to start.
+    [pid=25115][err] [1026/223345.541918:WARNING:net/dns/dns_config_service_posix.cc:197] Failed to read DnsConfig.
+    [pid=25115][err] [1026/223345.549630:FATAL:base/apple/mach_port_rendezvous_mac.cc:159] Check failed: kr == KERN_SUCCESS. bootstrap_check_in org.chromium.Chromium.MachPortRendezvousServer.25115: Permission denied (1100)
+    Call log:
+      - <launching> /Users/paullarmaraud/Library/Caches/ms-playwright/chromium_headless_shell-1228/chrome-headless-shell-mac-arm64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/zr/0zvt8f290yv0bj3v1vy8xlbh0000gn/T/playwright_chromiumdev_profile-YIC37x --remote-debugging-pipe --no-startup-window
+      - <launched> pid=25115
+      - [pid=25115][err] [1026/223345.523408:ERROR:base/power_monitor/thermal_state_observer_mac.mm:140] ThermalStateObserverMac unable to register to power notifications. Result: 9
+      - [pid=25115][err] [1026/223345.540258:ERROR:net/dns/dns_config_service_posix.cc:138] DNS config watch failed to start.
+      - [pid=25115][err] [1026/223345.541918:WARNING:net/dns/dns_config_service_posix.cc:197] Failed to read DnsConfig.
+      - [pid=25115][err] [1026/223345.549630:FATAL:base/apple/mach_port_rendezvous_mac.cc:159] Check failed: kr == KERN_SUCCESS. bootstrap_check_in org.chromium.Chromium.MachPortRendezvousServer.25115: Permission denied (1100)
+      - [pid=25115] <gracefully close start>
+      - [pid=25115] <kill>
+      - [pid=25115] <will force kill>
+      - [pid=25115] exception while trying to kill process: Error: kill EPERM
+      - [pid=25115] <process did exit: exitCode=null, signal=SIGTRAP>
+      - [pid=25115] starting temporary directories cleanup
+      - [pid=25115] finished temporary directories cleanup
+      - [pid=25115] <gracefully close end>
+
+
+    Error Context: test-results/tests-brand-os-Brand-OS-te-f9eed-ng-transformation-at-1440px-chromium/error-context.md
+
+  1 failed
+    [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /consulting-transformation at 1440px 
+  4 interrupted
+    [chromium] › tests/aeration.spec.ts:114:7 › at 1440px all routes keep text clear and within the closed type scale 
+    [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en / 1440 ──────────────────────────
+    [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en / ──────────────────────────────
+    [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability / at 375px ───────────────
+  493 did not run
+  1 error was not a part of any test, see above for details

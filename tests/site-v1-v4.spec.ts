@@ -35,8 +35,8 @@ for (const width of [390, 1440]) for (const locale of ['fr', 'en']) {
     await page.setViewportSize({ width, height: 900 });
     await page.setExtraHTTPHeaders({ 'Accept-Language': 'en' });
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto(`${BASE}${locale === 'fr' ? '/fr' : '/'}`);
-    const tabs = page.locator('#H06 [role="tab"]');
+    await page.goto(`${BASE}${locale === 'fr' ? '/fr' : ''}/engineering-integration`);
+    const tabs = page.locator('[role="tab"]');
     await expect(tabs).toHaveCount(3);
     for (const tab of await tabs.all()) {
       await tab.click();

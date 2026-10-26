@@ -45,26 +45,26 @@ const DICT = {
     "dossiers": [
       {
         "ref": "Dossier 26-003 · Une marque grand public",
-        "title": "Un reporting commandé pour s'assembler seul et partir à l'heure.",
+        "title": "Un reporting commandé pour s’assembler seul et partir à l’heure.",
         "body": "Le mandat : assembler le rapport depuis les systèmes sources, sans reprise manuelle à chaque cycle.",
         "seal": "Commandé"
       },
       {
-        "ref": "Dossier 26-002 · Un cabinet d'avocats",
-        "title": "Un système commandé pour traiter la boîte mail du cabinet et lui servir d'assistant sur mesure.",
+        "ref": "Dossier 26-002 · Un cabinet d’avocats",
+        "title": "Un système commandé pour traiter la boîte mail du cabinet et lui servir d’assistant sur mesure.",
         "body": "",
         "seal": "Commandé"
       },
       {
         "ref": "Dossier 26-001 · Parrit.ai, notre propre système",
         "title": "Nous vendons le système qui nous fait tourner.",
-        "body": "Chaque signal qui touche l'entreprise arrive chez le dirigeant déjà transformé en décision à trancher.",
+        "body": "Chaque signal qui touche l’entreprise arrive chez le dirigeant déjà transformé en décision à trancher.",
         "seal": "En production"
       }
     ],
     "close": "Un dossier commence par un examen.",
     "proof": EXAM_NOTE.fr,
-    "button": "Parler d'un projet"
+    "button": "Parler d’un projet"
   }
 } as const;
 

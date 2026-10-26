@@ -22,7 +22,7 @@ function HeaderBookingAction({ locale, home }: { locale: Locale; home: boolean }
     const observer = new IntersectionObserver(([entry]) => setHeroOutside(entry.boundingClientRect.bottom <= 0));
     observer.observe(hero); return () => observer.disconnect();
   }, [home]);
-  return <Link data-home={home} className={`cmd-cta rev-button ${home && heroOutside ? "exec" : "ghost"}`} href={localizedPath("/commission", locale)}>{locale === "fr" ? "Parler d'un projet" : "Talk about a project"}</Link>;
+  return <Link data-home={home} className={`cmd-cta rev-button ${home && heroOutside ? "exec" : "ghost"}`} href={localizedPath("/commission", locale)}>{locale === "fr" ? "Parler d’un projet" : "Talk about a project"}</Link>;
 }
 export function RevHeader({ locale }: { locale: Locale }) {
   const pathname = usePathname();
@@ -66,7 +66,7 @@ export function RevHeader({ locale }: { locale: Locale }) {
       <HeaderBookingAction key={pathname} locale={locale} home={barePathname(pathname ?? "/") === "/"}/>
     </div>
     <details className="v1-mobile-menu" onKeyDown={event => { if (event.key === "Escape") { event.currentTarget.open = false; event.currentTarget.querySelector("summary")?.focus(); } }}>
-      <summary>Menu</summary><nav onClick={event => { if ((event.target as HTMLElement).closest("a")) { const menu = event.currentTarget.closest("details"); if (menu) menu.open = false; } }} aria-label={locale === "fr" ? "Navigation mobile" : "Mobile navigation"}>
+      <summary>Menu<svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="M3 10h14M10 3v14" /></svg></summary><nav onClick={event => { if ((event.target as HTMLElement).closest("a")) { const menu = event.currentTarget.closest("details"); if (menu) menu.open = false; } }} aria-label={locale === "fr" ? "Navigation mobile" : "Mobile navigation"}>
         {nav.map(([href, label, benefit]) => <div key={href}>{link(href, label)}<p>{benefit}</p></div>)}
         {SUBNAV[locale].map(([href, label, benefit]) => <div key={href}>{link(href, label)}<p>{benefit}</p></div>)}
       </nav>

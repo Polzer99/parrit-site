@@ -6,22 +6,22 @@ import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 
 const DICT = {
   "en": {
-    "title": "A first video call to discuss your project.",
-    "metaDescription": "A video call, to name the operation costing you the most and check a system makes sense for it. You then receive a written scope, or a clear no.",
+    "title": "A first 15-minute video call to discuss your project.",
+    "metaDescription": "A first 15-minute video call, to name the operation costing you the most and check a system makes sense for it. You then receive a written scope, or a clear no.",
     "kicker": "Parrit / Commission",
-    "sub": "A video call, to name the operation costing you the most and check a system makes sense for it.",
+    "sub": "A first 15-minute video call, to name the operation costing you the most and check a system makes sense for it.",
     "noteTitle": "After the call, a written scope or a clear no.",
-    "noteBody": "Either Parrit.ai sends you a written scope next: what gets built, what we need from you, how success is judged. Or a clear no, right away. Nothing is signed during the call; the scope is written afterwards, in black and white.",
+    "noteBody": "Either Parrit.ai sends you a written scope next: what gets built, what we need from you, how success is judged. Or a clear no, right away. Nothing is committed during the call; the scope is written afterwards, in black and white.",
     "capture": "No slot that works? Leave your e-mail",
     "aria": "Select a time"
   },
   "fr": {
-    "title": "Un premier échange en visio pour parler de votre projet.",
-    "metaDescription": "Un échange en visio, pour nommer l'opération qui vous coûte le plus et vérifier qu'un système a du sens pour elle. Vous recevez ensuite un périmètre écrit, ou un non clair.",
+    "title": "Un premier échange de 15 minutes en visio pour parler de votre projet.",
+    "metaDescription": "Un premier échange de 15 minutes en visio, pour nommer l’opération qui vous coûte le plus et vérifier qu’un système a du sens pour elle. Vous recevez ensuite un périmètre écrit, ou un non clair.",
     "kicker": "Parrit / Commande",
-    "sub": "Un échange en visio, pour nommer l'opération qui vous coûte le plus et vérifier qu'un système a du sens pour elle.",
-    "noteTitle": "Après l'appel, un périmètre écrit ou un non clair.",
-    "noteBody": "Soit Parrit.ai vous envoie ensuite un périmètre écrit : ce qui sera construit, ce dont nous aurons besoin de vous, comment on juge que c'est réussi. Soit un non clair, tout de suite. Rien ne se signe pendant l'appel ; le périmètre se rédige après, noir sur blanc.",
+    "sub": "Un premier échange de 15 minutes en visio, pour nommer l’opération qui vous coûte le plus et vérifier qu’un système a du sens pour elle.",
+    "noteTitle": "Après l’appel, un périmètre écrit ou un non clair.",
+    "noteBody": "Soit Parrit.ai vous envoie ensuite un périmètre écrit : ce qui sera construit, ce dont nous aurons besoin de vous, comment on juge que c’est réussi. Soit un non clair, tout de suite. Aucun engagement n’est pris pendant l’appel ; le périmètre se rédige après, noir sur blanc.",
     "capture": "Pas de créneau ? Laissez votre e-mail",
     "aria": "Choisissez un créneau"
   }

@@ -14,8 +14,8 @@ const DICT = {
   },
   "fr": {
     "title": "Le Journal",
-    "heading": "Ce journal s'écrit sur les chantiers.",
-    "sub": "Ce qui a tenu et ce qui a cassé sur des systèmes d'IA en entreprise, daté et consigné.",
+    "heading": "Ce journal s’écrit sur les chantiers.",
+    "sub": "Ce qui a tenu et ce qui a cassé sur des systèmes d’IA en entreprise, daté et consigné.",
     "entry": "Journal / Entrée"
   }
 } as const;

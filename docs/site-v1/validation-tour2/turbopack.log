@@ -1,0 +1,16 @@
+
+> parrit-site@0.1.0 prebuild
+> node scripts/verify-certificates.mjs && node scripts/generate-llms.mjs && node scripts/generate-grain.mjs
+
+Certificate verification passed.
+llms.txt generated (REV 01 institutional positioning).
+grain-clair.png: 4500 bytes
+grain-canard.png: 6019 bytes
+
+> parrit-site@0.1.0 build
+> next build
+
+▲ Next.js 16.3.4 (Turbopack)
+✓ Running next.config.ts took 850ms
+
+  Creating an optimized production build ...

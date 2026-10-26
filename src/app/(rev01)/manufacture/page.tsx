@@ -42,16 +42,16 @@ const DICT = {
   },
   "fr": {
     "metaTitle": "La Manufacture",
-    "metaDescription": "La méthode de Parrit.ai : comment une commande se construit, de l'Examen à la Capitalisation.",
+    "metaDescription": "La méthode de Parrit.ai : comment une commande se construit, de l’Examen à la Capitalisation.",
     "kicker": "Parrit / La Manufacture",
-    "title": "Nous construisons chaque système une opération à la fois, de l'Examen à la Capitalisation.",
-    "sub": "L'hébergement et les accès sont décidés pour chaque projet et écrits dans le contrat.",
+    "title": "Nous construisons chaque système une opération à la fois, de l’Examen à la Capitalisation.",
+    "sub": "L’hébergement et les accès sont décidés pour chaque projet et écrits dans le contrat.",
     "phasesTitle": "Trois phases transforment une opération examinée en un système qui tourne chez vous.",
     "phasesKicker": "Examen · Construction · Capitalisation",
     "phases": [
       [
         "01",
-        "L'Examen",
+        "L’Examen",
         "Un premier échange, puis un périmètre écrit ou un refus motivé."
       ],
       [
@@ -69,7 +69,7 @@ const DICT = {
     "standard": "Lire le Standard",
     "close": "Tout commence par un examen.",
     "proof": EXAM_NOTE.fr,
-    "button": "Parler d'un projet",
+    "button": "Parler d’un projet",
     "status": "CHAQUE NOUVEAU SYSTÈME VÉRIFIÉ AU STANDARD",
     "legal": "Mentions légales"
   }

@@ -22,7 +22,7 @@ const FOOTER = {
       ["/standard", "Le Standard", "nos engagements"],
       ["/dossiers", "Les Dossiers", "références"],
       ["/journal", "Le Journal", "notes de chantier"],
-      ["/commission", "Parler d'un projet", ""],
+      ["/commission", "Parler d’un projet", ""],
       ["/build-with-you", "Construire un premier système avec nous", ""],
       ["/legal", "Mentions légales", ""],
     ],

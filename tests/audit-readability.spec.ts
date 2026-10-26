@@ -24,11 +24,15 @@ for (const width of [375, 390, 1440]) {
       const home = path === "/" || path === "/fr";
       if (width < 760) {
         await page.locator(".v1-mobile-menu summary").click();
-        const mobileAction = page.locator(".cmd-cta");
+        await expect(page.locator(".cmd-cta")).toBeHidden();
+        if (home) {
+        const mobileAction = page.locator("#H01 .rev-button.exec");
         await expect(mobileAction).toBeVisible();
         await expect(mobileAction).toHaveCSS("padding", "14px 24px");
         await expect(mobileAction).toHaveCSS("font-size", "16px");
         expect((await mobileAction.boundingBox())!.height).toBeGreaterThanOrEqual(48);
+        }
+        await expect(page.locator(".v1-mobile-menu nav a")).toHaveCount(7);
         await page.keyboard.press("Escape");
         await expect(page.locator(".v1-mobile-menu")).not.toHaveAttribute("open", "");
       }
@@ -76,7 +80,7 @@ for (const width of [375, 390, 1440]) {
       }
       if (path === "/" || path === "/fr") {
         const actions = page.locator(".v1-actions");
-        const hero = (await page.locator(".home-s-hero h1").boundingBox())!;
+        const hero = (await page.locator(".v1-hero-summary").boundingBox())!;
         const box = (await actions.boundingBox())!;
         expect(Math.abs(box.x + box.width / 2 - hero.x - hero.width / 2)).toBeLessThanOrEqual(1);
         await expect(actions.locator("a")).toHaveCount(2);

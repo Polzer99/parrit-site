@@ -39,7 +39,13 @@ for (const width of [375, 390, 1023, 1024, 1440]) for (const locale of ["en", "f
       if (index % columns) expect(box.left).toBeGreaterThanOrEqual(boxes[index - 1].right);
     }
     const headings = page.locator("#H03 h2, #H05 h2, #H06 h2, #H07 h2");
-    const lefts = await headings.evaluateAll(els => els.map(el => el.getBoundingClientRect().left)); expect(Math.max(...lefts) - Math.min(...lefts)).toBeLessThanOrEqual(1);
+    const lefts = await headings.evaluateAll(els => els.map(el => el.getBoundingClientRect().left));
+    if (width <= 760) expect(Math.max(...lefts) - Math.min(...lefts)).toBeLessThanOrEqual(1);
+    else {
+      expect(lefts[0]).toBeCloseTo(lefts[2], 0);
+      expect(lefts[1]).toBeCloseTo(lefts[3], 0);
+      expect(lefts[1]).toBeGreaterThan(lefts[0]);
+    }
     const closing = page.locator("#H12 a"); await expect(closing).toHaveAttribute("href", `${locale === "fr" ? "/fr" : ""}/commission`);
     await closing.focus(); await expect(closing).toBeFocused(); await expect(closing).toHaveCSS("outline-width", "2px");
     const surfaces = await page.locator("*").evaluateAll(els => els.map(el => {

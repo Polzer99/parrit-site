@@ -8,30 +8,30 @@ import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 const DICT = {
   "en": {
     "metaTitle": "The Standard",
-    "metaDescription": "Six commitments on every system we deliver: state readable at any moment, framed, quantified decisions, the way back written in advance, written assignment of what is built for you.",
+    "metaDescription": "Six commitments on every system we deliver: state readable at any time during the project, framed, quantified decisions, the way back written in advance, written assignment of what is built for you.",
     "kicker": "Parrit / The Standard",
     "title": "Six commitments we apply to our systems.",
     "tableMeta": "The Standard · 2026",
     "principles": [
       [
         "01",
-        "State is readable at any moment.",
+        "State is readable at any time during the project.",
         "Sales status, follow-ups sent and yesterday's incident fit on one screen."
       ],
       [
         "02",
-        "Every signal carries its decision.",
+        "Each signal comes with a proposed decision.",
         "A blocked invoice surfaces framed and quantified, ready to decide."
       ],
       [
         "03",
-        "A decision always keeps its origin.",
+        "Each decision records its origin.",
         "Author, time, source, rationale. The log is the audit trail."
       ],
       [
         "04",
         "Rolling back is written in advance.",
-        "A send still pending cancels with one click. Once it's gone, the internal state rolls back and a correction can go out: never the erasure of a message someone has already received."
+        "A send still pending cancels with one click. Once it's gone, the internal state rolls back and a correction can go out: a message already received is not erased."
       ],
       [
         "05",
@@ -51,30 +51,30 @@ const DICT = {
   },
   "fr": {
     "metaTitle": "Le Standard",
-    "metaDescription": "Six engagements sur chaque système livré : état lisible à tout moment, décisions cadrées et chiffrées, retour arrière écrit d'avance, cession écrite de ce qui est développé pour vous.",
+    "metaDescription": "Six engagements sur chaque système livré : état lisible à tout moment du projet, décisions cadrées et chiffrées, retour arrière écrit d’avance, cession écrite de ce qui est développé pour vous.",
     "kicker": "Parrit / Le Standard",
     "title": "Six engagements que nous appliquons à nos systèmes.",
     "tableMeta": "Le Standard · 2026",
     "principles": [
       [
         "01",
-        "L'état se lit à tout moment.",
-        "L'état des ventes, les relances parties et l'incident d'hier tiennent sur un écran."
+        "L’état se lit à tout moment du projet.",
+        "L’état des ventes, les relances parties et l’incident d’hier tiennent sur un écran."
       ],
       [
         "02",
-        "Chaque signal porte sa décision.",
+        "Chaque signal est accompagné d’une proposition de décision.",
         "La facture bloquée remonte cadrée et chiffrée, prête à être tranchée."
       ],
       [
         "03",
-        "Toute décision garde son origine.",
-        "Auteur, heure, source, motif. L'historique fait foi."
+        "Chaque décision consigne son origine.",
+        "Auteur, heure, source, motif. L’historique fait foi."
       ],
       [
         "04",
-        "Le retour arrière est écrit d'avance.",
-        "Un envoi encore en attente s'annule d'un clic. Une fois parti, l'état interne revient en arrière et une correction peut repartir : jamais l'effacement d'un message déjà reçu."
+        "Le retour arrière est écrit d’avance.",
+        "Un envoi encore en attente s’annule d’un clic. Une fois parti, l’état interne revient en arrière et une correction peut repartir : un message déjà reçu n’est pas effacé."
       ],
       [
         "05",
@@ -84,13 +84,13 @@ const DICT = {
       [
         "06",
         "Une nouvelle brique réutilise ce qui existe déjà.",
-        "Le reporting construit d'abord alimente les relances construites ensuite."
+        "Le reporting construit d’abord alimente les relances construites ensuite."
       ]
     ],
     "seal": "Recette signée par votre équipe, à la livraison",
     "note": "Le Standard est un contrôle interne de Parrit.ai, sans accréditation externe. Demandez-nous des comptes.",
     "proof": EXAM_NOTE.fr,
-    "button": "Parler d'un projet"
+    "button": "Parler d’un projet"
   }
 } as const;
 

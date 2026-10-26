@@ -21,7 +21,8 @@ for (const width of [360, 390, 768, 1024, 1440]) for (const locale of ['fr', 'en
       await expect(row).toHaveCSS('border-left-width', '0px');
       await expect(row).toHaveCSS('box-shadow', 'none');
     }
-    await expect(page.locator('#H03 ol > li')).toHaveCount(4);
+    await expect(page.locator('#H03 .v1-process > div')).toHaveCount(2);
+    for (const column of await page.locator('#H03 .v1-process > div').all()) await expect(column.locator('p:not(:first-child)')).toHaveCount(4);
     await expect(page.locator('#H03 .v1-index')).toHaveCount(0);
     await expect(page.locator('#H11 ol > li')).toHaveCount(6);
     await expect(page.locator('#H11 .v1-index')).toHaveCount(0);
@@ -39,7 +40,7 @@ for (const width of [360, 390, 768, 1024, 1440]) for (const locale of ['fr', 'en
       expect((await action.boundingBox())!.height).toBeGreaterThanOrEqual(48);
     }
     await page.emulateMedia({ reducedMotion: 'no-preference' });
-    await expect(page.locator('.v1-process')).toHaveCSS('animation-duration', '0.6s');
+    await expect(page.locator('#H03 .v1-service-visual')).toHaveCSS('animation-duration', '0.6s');
   });
 }
 test('V3 full content without JavaScript', async ({ browser }) => {
@@ -56,7 +57,8 @@ test('V3 full content without JavaScript', async ({ browser }) => {
     await page.goto(BASE);
     await expect(page.locator('.v1-process')).toBeVisible();
     await expect(page.locator('#H12 a')).toHaveCount(1);
-    await expect(page.locator('#H06 .v1-switcher h3')).toHaveCount(3);
+    await page.goto(`${BASE}/engineering-integration`);
+    await expect(page.locator('.v1-switcher h3')).toHaveCount(3);
     expect(blocked).toEqual([]);
   } finally { await context.close(); }
 });

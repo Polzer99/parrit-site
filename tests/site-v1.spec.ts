@@ -19,7 +19,7 @@ for (const width of [360, 390, 768, 1024, 1440]) for (const locale of ["fr", "en
     await expect(page.locator('link[hreflang="en"]')).toHaveAttribute("href", `https://parrit.ai${route === "/" ? "" : route}`);
     const main = page.locator("main");
     expect((await main.innerText()).replace(/MIT License/g, "")).not.toMatch(/Content Factor|usines? de contenu|FormIA|Qualiopi|\bMIT\b|[—–]|\d+\s*%/i);
-    await expect(main.locator("img")).toHaveCount(route === "/" ? 2 : 0);
+    await expect(main.locator("img")).toHaveCount(route === "/" ? 3 : route === "/engineering-integration" ? 1 : 0);
     await expect(main.locator("svg[role='img']")).toHaveCount(0);
     for (const img of await main.locator("img").all()) await expect(img).toHaveAttribute("src", /^\/brand\/scenes\/scene-carte-visite-(photo|fiche-crm)\.png$/);
     const claims = await main.evaluate(el => { const clone = el.cloneNode(true) as HTMLElement; clone.querySelectorAll("time, .scene-marker, .scene-chat-time").forEach(time => time.remove()); return clone.textContent; });
@@ -44,10 +44,11 @@ for (const width of [360, 390, 768, 1024, 1440]) for (const locale of ["fr", "en
     if (width < 1201) {
       const menu = page.locator(".v1-mobile-menu"); await menu.locator("summary").click();
       await expect(menu.locator("nav a")).toHaveCount(7);
-      const navBox = (await menu.boundingBox())!; const mainBox = (await main.boundingBox())!;
+      const navBox = (await menu.locator("nav").boundingBox())!; const mainBox = (await main.boundingBox())!;
       expect(navBox.y + navBox.height).toBeLessThanOrEqual(mainBox.y + 1);
       await page.keyboard.press("Escape"); await expect(menu).not.toHaveAttribute("open", "");
-      await expect(page.locator(".cmd-cta")).toBeVisible();
+      await expect(page.locator(".cmd-cta")).toBeHidden();
+      await expect(page.locator("main a.rev-button[href$='/commission']").first()).toBeVisible();
     } else await expect(page.locator(".cmd-nav > .v1-nav-entry")).toHaveCount(4);
     // Verify all text boxes fit the viewport; shared brand/aeration tests audit contrast.
     const overflow = await main.locator("h1, h2, h3, p, li, dd").evaluateAll(els => els.filter(el => { const b = el.getBoundingClientRect(); return b.width && (b.left < -1 || b.right > innerWidth + 1); }).map(el => el.textContent));
@@ -58,7 +59,7 @@ for (const width of [360, 390, 768, 1024, 1440]) for (const locale of ["fr", "en
     }
   });
 }
-for (const locale of ["fr", "en"] as const) for (const route of ["/", "/engineering-integration"]) {
+for (const locale of ["fr", "en"] as const) for (const route of ["/engineering-integration"]) {
   test(`tabs keyboard ${locale} ${route}`, async ({ page }) => {
     await page.goto(`${BASE}${localizedPath(route, locale)}`);
     await expect(page.getByRole("tablist")).toHaveAttribute("aria-label", locale === "fr" ? "Engineering & Intégration" : "Engineering & Integration");
@@ -83,7 +84,7 @@ test.describe("JavaScript disabled", () => {
   test.use({ javaScriptEnabled: false });
   for (const path of ["/", "/fr", "/engineering-integration", "/fr/engineering-integration"]) test(`all three panels and native mobile navigation remain usable ${path}`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 900 }); await page.setExtraHTTPHeaders({ "Accept-Language": "en" }); await page.goto(`${BASE}${path}`);
-    await expect(page.locator(".v1-switcher h3")).toHaveCount(3);
+    await expect(page.locator(".v1-switcher h3")).toHaveCount(path.includes("engineering-integration") ? 3 : 0);
     for (const heading of await page.locator(".v1-switcher h3").all()) await expect(heading).toBeVisible();
     await page.locator(".v1-mobile-menu summary").click(); await expect(page.locator(".v1-mobile-menu nav")).toBeVisible();
   });

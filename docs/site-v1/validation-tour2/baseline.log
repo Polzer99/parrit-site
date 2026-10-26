@@ -1,0 +1,290 @@
+
+> parrit-site@0.1.0 test
+> node scripts/verify-certificates.mjs && node --test tests/*.test.mjs
+
+Certificate verification passed.
+✔ generated llms copy has no forbidden dashes or defensive labels and respects the approved Standard claims (136.03625ms)
+✔ examination notes use the shared locale contract, without price or duration qualifiers (0.406042ms)
+✔ automatic sketch mail uses the same sober framing as the site (0.142458ms)
+✔ Journal articles and descriptions publish only the house identity (1.171459ms)
+(node:22868) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/src/system/public-clients.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ audit truth: self-hosting-latency-cost states the bounded claim (0.683708ms)
+✔ audit truth: what-is-parrit-ai states the bounded claim (3.921042ms)
+✔ audit truth: what-a-pilot-skips-to-look-finished states the bounded claim (0.548042ms)
+✔ audit truth: what-you-rent-can-be-taken-back states the bounded claim (0.489625ms)
+✔ audit truth: glm-5-2-sovereignty states the bounded claim (0.438208ms)
+✔ audit truth: publishing-without-human-review states the bounded claim (0.317583ms)
+✔ audit truth: what-a-rollback-takes-with-it states the bounded claim (0.317042ms)
+✔ institutional article states examination, ownership and prospective Standard (0.547ms)
+✔ home EN/FR uses documented orders, dated information types and own-system Journal (88.400834ms)
+✔ dossier 26-002 keeps commissioned status and confines scope to mailbox assistant (0.363708ms)
+✔ systems EN/FR names Lemlist transfer and removes unsupported universal human review (0.390291ms)
+✔ new systems and autonomy promise are explicit in both languages (0.800833ms)
+✔ legal identity and generated machine-readable claims stay consistent (1.199125ms)
+✔ FIX3 dossier titles describe the operation and home retains the French disclosure (10.097ms)
+✔ vendor files and every canonical font match the exported SHA-256 (5.9925ms)
+✖ forbidden assets are absent from sources, public files and built HTML (1.097292ms)
+✖ all prerendered text uses supported glyphs and no font arrows (0.057542ms)
+✔ contracts reject tampered vendor bytes, renamed banned binaries, filenames and references (23.173542ms)
+✔ glyph scan decodes named/numeric entities and excludes markup, scripts and styles (2.272208ms)
+(node:22870) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/src/system/public-clients.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ compiled EN/FR pages publish images, content structure and supported glyphs; missing routes return branded 404 (0.867208ms)
+✔ all color aliases resolve to vendor literals, including multi-hop action aliases (0.9735ms)
+✔ OG resolver uses root only, exact names, and fails on missing/cyclic/unsupported tokens (0.244625ms)
+✔ light and dark text, actions, selections and OG pairs meet 4.5:1 (0.733792ms)
+✔ both OG routes bundle both CSS inputs and share the resolver (0.37325ms)
+grain-clair.png: 4500 bytes
+grain-canard.png: 6019 bytes
+✔ brand gate rejects retired and hardcoded colors anywhere in src, including aliases and fake token files (2089.9475ms)
+✔ both OG handlers produce real PNGs with resolved colors (no network) (131.368916ms)
+(node:22872) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/site.config.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ commission uses the canonical audit event configured for Google Meet (0.379542ms)
+✔ active source files do not expose the legacy booking link (38.804917ms)
+✔ private sketch booking label and destination fr/reporting (189.794542ms)
+✔ private sketch booking label and destination fr/client-flow (9.5995ms)
+✔ private sketch booking label and destination fr/mail-followups (9.514209ms)
+✔ private sketch booking label and destination fr/full-os (8.521833ms)
+✔ private sketch booking label and destination fr/unknown-fixture (7.114208ms)
+✔ private sketch booking label and destination en/reporting (39.223042ms)
+✔ private sketch booking label and destination en/client-flow (4.8905ms)
+✔ private sketch booking label and destination en/mail-followups (18.964375ms)
+✔ private sketch booking label and destination en/full-os (29.574417ms)
+✔ private sketch booking label and destination en/unknown-fixture (45.415291ms)
+✔ required facts render without optional metadata or empty sections (26.001209ms)
+✔ after alone renders one full-width change block (3.789041ms)
+✔ before alone renders one full-width change block (0.986375ms)
+✔ empty optional arrays and empty metadata produce no empty sections or rows (0.795042ms)
+✔ all supplied facts render verbatim with both change blocks and period (2.04675ms)
+(node:22875) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/src/system/auteur.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ références canoniques exactes et indépendantes (0.63425ms)
+✔ Organization représente la maison sans fondateur (0.092416ms)
+✔ BlogPosting d'un vrai article : graphe lié, URL canonique et champs préservés (1.864666ms)
+✔ détecte les variantes prescrites, la casse et la position exacte (4.437166ms)
+✔ distance réelle, seuil inclusif, tokens entiers et orthographe canonique (0.141417ms)
+✔ scan récursif des quatre racines, exclusion exacte et fichiers binaires (22.685958ms)
+✔ aucune variante interdite dans src, content, public et docs (222.072167ms)
+✔ accessible home restores approved scene and moves process without JS (fr) (218.275583ms)
+✔ accessible guides preserve all unenhanced panel titles (fr) (226.838292ms)
+✔ accessible home restores approved scene and moves process without JS (en) (79.878583ms)
+✔ accessible guides preserve all unenhanced panel titles (en) (227.23775ms)
+✔ only the four approved LinkedIn bust exports are shipped, byte for byte (5.826291ms)
+✔ superseded LinkedIn exports have no file or reference in src or public (25.481084ms)
+✔ the rejected DSC00629 photo has no file or reference in src or public (36.79875ms)
+grain-clair.png: 4500 bytes
+grain-canard.png: 6019 bytes
+grain-clair.png: 4500 bytes
+grain-canard.png: 6019 bytes
+✔ two prebuild generations are byte-identical and match delivered tiles (260.949292ms)
+grain-clair.png: 4500 bytes
+grain-canard.png: 6019 bytes
+grain-clair.png: 4500 bytes
+grain-canard.png: 6019 bytes
+grain-clair.png: 4500 bytes
+grain-canard.png: 6019 bytes
+grain-clair.png: 4500 bytes
+grain-canard.png: 6019 bytes
+✔ changing each token in an isolated copy changes the corresponding tiles (578.102541ms)
+✔ missing, unreadable, duplicate and identical colors fail closed (1.052291ms)
+grain-clair.png: 4500 bytes
+grain-canard.png: 6019 bytes
+✔ brand gate rejects foreign palette, wrong density, corruption and extra files (234.961292ms)
+✔ server-rendered home has one empty decorative tile; guide pages have none (fr) (797.860584ms)
+✔ server-rendered home has one empty decorative tile; guide pages have none (en) (120.35425ms)
+grain-clair.png: 4500 bytes
+grain-canard.png: 6019 bytes
+✔ grain gate rejects old dimensions, oversized lossless tiles and broken cells (125.048625ms)
+✔ first published Harness certificate matches the exact article and canonical public bytes (1.322333ms)
+✔ valid source certificate renders the real badge, disclaimer and local proof in both languages (6.195834ms)
+✔ absent, NOT_CERTIFIED, malformed, mismatched and unsafe certificates never render a badge (8.078959ms)
+✔ source byte changes including frontmatter invalidate the certificate (1.522875ms)
+✔ npm build lifecycle fails before compilation for a stale hash (367.193666ms)
+✔ certification wording requires its own sentence disclaimer or exact badge (3.135833ms)
+✔ source extraction isolates dictionary entries from comments and unrelated disclaimers (0.734208ms)
+✔ language notice is independent of deck and badge (en, certified=false) (20.767625ms)
+✔ language notice is independent of deck and badge (en, certified=true) (0.580583ms)
+✔ language notice is independent of deck and badge (fr, certified=false) (0.643083ms)
+✔ language notice is independent of deck and badge (fr, certified=true) (1.012166ms)
+✔ French article aliases have one configured 308 before the proxy, retaining queries (23.900417ms)
+✔ English articles do not negotiate or trust a forged French hint (0.424292ms)
+✔ French feed, OG, private and unrelated aliases keep their original redirects (0.571875ms)
+✔ article language switches keep the English canonical and preserve the suffix (0.214833ms)
+✔ four-step process and canonical final actions render without JS (fr) (545.91825ms)
+✔ four-step process and canonical final actions render without JS (en) (270.481209ms)
+✔ grain breathing space and target marker use canonical tokens (5.898833ms)
+✔ ownership gate catches each forbidden promise in dictionaries, JSX and metadata (16.863792ms)
+✔ ownership gate excludes comments and protected routes, and accepts scoped assignment (0.842708ms)
+✔ qa claims exits nonzero on an injected ownership promise and passes after correction (953.555209ms)
+✔ attribution captures arrival once, survives client navigation, never touches storage (96.499ms)
+✔ fresh document loses prior attribution; SSR and direct visits remain safe (68.351125ms)
+✔ attribution source forbids persistent browser storage, including future additions (0.573625ms)
+✔ track is harmless without a PostHog client (8.137958ms)
+✔ legal page discloses Cloudflare measurement and processor (en) (41.694542ms)
+✔ actual layout renders no PostHog script (en), retaining JSON-LD (45.403125ms)
+✔ legal page discloses Cloudflare measurement and processor (fr) (20.923125ms)
+✔ actual layout renders no PostHog script (fr), retaining JSON-LD (25.99275ms)
+✔ public claim corrections stay absent from pages, articles and generated feed (2.308917ms)
+✔ scene source is byte-identical: scene-carte-visite-messagerie.png (3.311375ms)
+✔ scene derivatives preserve aspect ratio and alpha: scene-carte-visite-messagerie.png (4.341667ms)
+✔ scene source is byte-identical: scene-carte-visite-fiche-crm.png (1.681333ms)
+✔ scene derivatives preserve aspect ratio and alpha: scene-carte-visite-fiche-crm.png (3.089125ms)
+✔ business card is an unretouched pixel crop of the approved scene (15.256166ms)
+(node:22909) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/src/system/public-clients.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ home accepts canonical public clients while the Journal rejects all known clients (39.744916ms)
+✔ an unknown client injected into either locale of the home DICT fails (60.155791ms)
+✔ known private clients are rejected in any home prose (13.118875ms)
+✔ claims gate allows the public home but rejects each public client in Journal content (2037.629084ms)
+(node:22937) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/src/system/public-clients.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ publisher bloque une faute d'entité avant prooflint et build (572.601583ms)
+✔ gateSlug refuse un slug daté (0.108958ms)
+✔ gateSlug refuse le préfixe journal- (0.106292ms)
+✔ gateSlug accepte un slug sain (0.329375ms)
+✔ gateNoms refuse un nom client sans tenir compte de la casse (10.2355ms)
+✔ gateNoms ne déclenche pas sur une sous-chaîne (0.746167ms)
+✔ gateRepetition refuse une similarité Jaccard exactement égale à 0.6 (0.951292ms)
+✔ gateRepetition compare aussi les descriptions (0.290875ms)
+✔ gateRepetition accepte des titres et descriptions disjoints (0.213166ms)
+✔ the audit action and informative-text floors are explicit shared tokens (2.358ms)
+✔ product scene text uses Brand OS colors rather than the audit's off-palette values (0.382167ms)
+✔ home booking restores the canonical observer and neutral initial accent (0.661625ms)
+✔ proxy serves and negotiates both languages for consulting-transformation (3.571333ms)
+✔ proxy serves and negotiates both languages for ai-sprints (0.560583ms)
+✔ proxy serves and negotiates both languages for engineering-integration (0.352875ms)
+✔ proxy serves and negotiates both languages for harness-engineering (0.323125ms)
+✔ contact redirects are explicit 301 destinations, before generic aliases (8.704375ms)
+✔ French consulting alias resolves the language choice in one 301 (0.546584ms)
+✔ V4 closing has one final destination without JavaScript (fr) (284.256ms)
+✔ V4 closing has one final destination without JavaScript (en) (57.340667ms)
+✔ V3 fr: ordered methods, evidence metadata and final destinations render without JS (263.26475ms)
+✔ V3 en: ordered methods, evidence metadata and final destinations render without JS (103.92425ms)
+(node:22947) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/src/system/public-clients.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ permissions fail closed for missing, denied, pending, invalid and out-of-scope evidence (2.296583ms)
+✔ removing a permission removes the entire public card (21.776167ms)
+✔ EvidenceBadge is absent from public rendering (1.684833ms)
+✔ localized paths roundtrip with query and fragment, including asymmetric consulting slug (0.18325ms)
+✔ metadata is unique and reciprocal (fr) (132.927ms)
+✔ publication proof and no-JS content fr/home (108.831167ms)
+✔ publication proof and no-JS content fr/consulting-transformation (46.2815ms)
+✔ publication proof and no-JS content fr/ai-sprints (50.3125ms)
+✔ publication proof and no-JS content fr/engineering-integration (29.746917ms)
+✔ publication proof and no-JS content fr/harness-engineering (24.835084ms)
+✔ metadata is unique and reciprocal (en) (14.194917ms)
+✔ publication proof and no-JS content en/home (42.215167ms)
+✔ publication proof and no-JS content en/consulting-transformation (24.961708ms)
+✔ publication proof and no-JS content en/ai-sprints (33.442042ms)
+✔ publication proof and no-JS content en/engineering-integration (22.427416ms)
+✔ publication proof and no-JS content en/harness-engineering (16.496791ms)
+✔ legacy registry also refuses entries without an explicit grant (0.118ms)
+✔ review deadline warns at 30 days without expiring publication (0.6325ms)
+✔ CI warning: review granted evidence at least 30 days before its deadline (0.242709ms)
+✔ every client ID in evidence and case cards is explicitly public (0.07725ms)
+✔ case cards respect the consuming page permission scope (0.118666ms)
+✔ empty references and cases remove their section and heading (27.717041ms)
+✔ all eight guide metadata titles are unique across languages (135.200667ms)
+✔ harness components are a set without directional connectors (27.538709ms)
+✔ three entry points and Harness render in the specified order (fr) (190.630041ms)
+✔ three entry points and Harness render in the specified order (en) (63.641875ms)
+✔ machine-readable positioning matches the organization (0.225792ms)
+✔ offer guards still reject pricing (0.733125ms)
+✔ all supplied facts render verbatim, including long values (8.285917ms)
+✔ the limits row remains present even for an empty or whitespace-only value (2.88075ms)
+✔ limits is required by the public TypeScript contract (2.061875ms)
+✔ field labels are localized and missing non-limit facts are not fabricated (0.948666ms)
+✔ untrusted text is escaped rather than interpreted as markup (0.257875ms)
+✔ registry preserves its date, zero writers and supplied localized summary verbatim (11.611375ms)
+✔ registry summary is escaped as plain text (0.239166ms)
+✔ editorial sources contain no em dash or retired step anchors (0.218667ms)
+✔ Journal claim gate checks headings and summaries but leaves article bodies out of scope (8.815416ms)
+✔ shared sequences and FAQ retain content without JavaScript fr (159.535041ms)
+✔ shared sequences and FAQ retain content without JavaScript en (71.470917ms)
+✖ built redirects put French article aliases before generic routes (0.199584ms)
+ℹ tests 169
+ℹ suites 0
+ℹ pass 165
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3670.611625
+
+✖ failing tests:
+
+test at tests/brand-os-contracts.test.mjs:14:1
+✖ forbidden assets are absent from sources, public files and built HTML (1.097292ms)
+  Error: Required scan directory missing: /Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/.next/server/app
+      at filesUnder (file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/scripts/brand-os-contracts.mjs:10:32)
+      at prerenderedPages (file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/scripts/brand-os-contracts.mjs:38:17)
+      at TestContext.<anonymous> (file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/tests/brand-os-contracts.test.mjs:15:67)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests/brand-os-contracts.test.mjs:17:1
+✖ all prerendered text uses supported glyphs and no font arrows (0.057542ms)
+  Error: Required scan directory missing: /Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/.next/server/app
+      at filesUnder (file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/scripts/brand-os-contracts.mjs:10:32)
+      at prerenderedPages (file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/scripts/brand-os-contracts.mjs:38:17)
+      at TestContext.<anonymous> (file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/tests/brand-os-contracts.test.mjs:18:18)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/brand-os-render.test.mjs:30:1
+✖ compiled EN/FR pages publish images, content structure and supported glyphs; missing routes return branded 404 (0.867208ms)
+  Error: ENOENT: no such file or directory, open '.next/required-server-files.json'
+      at readFileSync (node:fs:624:20)
+      at json (file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/tests/brand-os-render.test.mjs:18:35)
+      at TestContext.<anonymous> (file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/tests/brand-os-render.test.mjs:41:73)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '.next/required-server-files.json'
+  }
+
+test at tests/tour1-coherence.test.mjs:28:1
+✖ built redirects put French article aliases before generic routes (0.199584ms)
+  Error: ENOENT: no such file or directory, open '.next/routes-manifest.json'
+      at readFileSync (node:fs:624:20)
+      at TestContext.<anonymous> (file:///Users/paullarmaraud/codex-work/handoff-docs-site-v1-HANDOFF-TOUR2-IMPACT-md/tests/tour1-coherence.test.mjs:29:36)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '.next/routes-manifest.json'
+  }

@@ -72,11 +72,12 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         if (route === "/legal") assert.match(text, /Paul Larmaraud/, "legal retains the publication director");
         const accessible = [...html.matchAll(/(?:aria-label|alt)="([^"]*)"/g)].map((match) => visibleText(match[1])).join(" ");
         for (const pattern of [/[—–]/, /\b(fictif|fictive|fictional|illustrati(f|ve)|illustrées?|non interactive|pas une analyse|not an analysis)\b/i, /\bREV\s?0\d\b|\bPS-0\d\b|\bSTD-\d\.\d\b|\bP0\b/]) {
-          assert.doesNotMatch(`${text} ${accessible}`.replace(/Demonstration, fictional data\./g, ""), pattern, `${label}: anti-slop SSR`);
+          assert.doesNotMatch(`${text} ${accessible}`.replace(/Demonstration(?: in French)?, fictional data\./g, ""), pattern, `${label}: anti-slop SSR`);
         }
         const metadata = [...html.matchAll(/<meta\b[^>]*content="([^"]*)"[^>]*>/g)].map((match) => visibleText(match[1])).join(" ");
         const structured = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((match) => match[1]).join(" ");
-        const publicCopy = `${text} ${accessible} ${metadata} ${structured}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
+        let publicCopy = `${text} ${accessible} ${metadata} ${structured}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
+        if (route === "/commission") publicCopy = publicCopy.replace(/(?:[Uu]n premier échange de 15 minutes en visio|[Aa] first 15-minute video call)/g, "");
         assert.doesNotMatch(publicCopy, /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de(?! vos opérations\b)|\bHT\b|excl\. VAT/i, `${label}: no public offer`);
         if (route !== "/legal") assert.doesNotMatch(publicCopy, /€/, label);
         if (route !== "/legal") {

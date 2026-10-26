@@ -23,9 +23,9 @@ const content = `# Parrit
 
 ## The Parrit Standard
 Each system delivered from now on is checked against the Standard, Parrit.ai's internal check, with no external accreditation.
-- 01: State is readable at any moment.
-- 02: Every signal carries its decision.
-- 03: A decision always keeps its origin.
+- 01: State is readable at any time during the project.
+- 02: Each signal comes with a proposed decision.
+- 03: Each decision records its origin.
 - 04: Rolling back is written in advance.
 - 06: Each new capability reuses what already exists.
 

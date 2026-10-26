@@ -6,7 +6,7 @@ export const SITE_V1_PAGES = {
     "fr": {
       "name": "Conseil & Transformation",
       "title": "Comprendre, décider, transformer.",
-      "description": "Partir de vos opérations pour décider des priorités, construire une feuille de route et préparer l'adoption.",
+      "description": "Partir de vos opérations pour décider des priorités, construire une feuille de route et préparer l’adoption.",
       "sections": [
         [
           "problems",
@@ -27,7 +27,7 @@ export const SITE_V1_PAGES = {
           "deliverables",
           "Les livrables",
           [
-            "Un état des lieux, une matrice de priorisation, une feuille de route, un plan d'adoption et des indicateurs."
+            "Un état des lieux, une matrice de priorisation, une feuille de route, un plan d’adoption et des indicateurs."
           ]
         ],
         [
@@ -43,7 +43,7 @@ export const SITE_V1_PAGES = {
           "Contraintes et gouvernance",
           [
             "Nous cadrons les accès aux données, les responsabilités et les validations humaines avant de construire.",
-            "La cession des droits sur ce que nous développons, l'hébergement, la réversibilité et la maintenance sont écrits dans le contrat de chaque projet."
+            "La cession des droits sur ce que nous développons, l’hébergement, la réversibilité et la maintenance sont écrits dans le contrat de chaque projet."
           ]
         ]
       ],
@@ -54,7 +54,7 @@ export const SITE_V1_PAGES = {
         ],
         [
           "Comment les équipes participent-elles ?",
-          "Elles décrivent leurs tâches, testent le système et participent au plan d'adoption."
+          "Elles décrivent leurs tâches, testent le système et participent au plan d’adoption."
         ]
       ]
     },
@@ -133,14 +133,6 @@ export const SITE_V1_PAGES = {
           "Une brique testable et une évaluation documentée."
         ],
         [
-          "Ce qui n'est pas livré",
-          "Un système en production à grande échelle, une promesse de délai fixe."
-        ],
-        [
-          "Comment on décide",
-          "Avec vos utilisateurs, contre les critères du cadrage."
-        ],
-        [
           "Suite possible",
           "Passer en production, corriger ou arrêter, et pourquoi."
         ]
@@ -178,7 +170,7 @@ export const SITE_V1_PAGES = {
           "deliverables",
           "Les livrables",
           [
-            "Un démonstrateur, les critères d'évaluation, une synthèse des écarts, une décision et une suite."
+            "Un démonstrateur, les critères d’évaluation, une synthèse des écarts, une décision et une suite."
           ]
         ],
         [
@@ -216,14 +208,6 @@ export const SITE_V1_PAGES = {
         [
           "What you receive",
           "A testable building block and a documented evaluation."
-        ],
-        [
-          "What is not delivered",
-          "A system in production at scale, a promise of a fixed deadline."
-        ],
-        [
-          "How we decide",
-          "With your users, against the scoping criteria."
         ],
         [
           "Possible next step",
@@ -296,15 +280,14 @@ export const SITE_V1_PAGES = {
           "custom",
           "Logiciels & agents sur mesure",
           [
-            "Un logiciel ou un agent sur mesure quand votre métier a un besoin qu'aucun outil ne couvre. Nous définissons les outils autorisés, les validations humaines et les tests avant de construire."
+            "Un logiciel ou un agent sur mesure quand votre métier a un besoin qu’aucun outil ne couvre. Nous définissons les outils autorisés, les validations humaines et les tests avant de construire."
           ]
         ],
         [
           "integrations",
           "Intégrations & infrastructures privées",
           [
-            "Vos outils actuels restent en place quand ils font le travail. Nous les relions entre eux et à vos données.",
-            "Le choix de l'hébergement dépend des données, des accès et du contrat. Le nom d'un fournisseur ne suffit pas à établir la souveraineté d'une infrastructure."
+            "Le choix de l’hébergement dépend des données, des accès et du contrat. Le nom d’un fournisseur ne suffit pas à établir la souveraineté d’une infrastructure."
           ]
         ],
         [
@@ -318,7 +301,7 @@ export const SITE_V1_PAGES = {
           "governance",
           "Contraintes et gouvernance",
           [
-            "La cession des droits sur ce que nous développons, l'hébergement, la réversibilité et la maintenance sont écrits dans le contrat de chaque projet."
+            "La cession des droits sur ce que nous développons, l’hébergement, la réversibilité et la maintenance sont écrits dans le contrat de chaque projet."
           ]
         ]
       ],
@@ -349,7 +332,6 @@ export const SITE_V1_PAGES = {
           "integrations",
           "Integrations & private infrastructure",
           [
-            "Your current tools stay in place when they do the job. We connect them to each other and to your data.",
             "Hosting choices depend on data, access and the contract. A provider's name alone does not establish infrastructure sovereignty."
           ]
         ],
@@ -390,19 +372,19 @@ export const SITE_V1_PAGES = {
           "problem",
           "Performant en démonstration, fragile en production",
           [
-            "Un agent peut réussir une démonstration et échouer sur vos opérations. Le harnais est le système qui organise ce qu'il sait, ce qu'il peut faire et ce qui doit être vérifié."
+            "Un agent peut réussir une démonstration et échouer sur vos opérations. Le harnais est le système qui organise ce qu’il sait, ce qu’il peut faire et ce qui doit être vérifié."
           ]
         ],
         [
           "harness",
           "Le système autour du modèle",
           [
-            "Les instructions définissent le travail. Le contexte et la mémoire apportent les informations utiles. Les outils et les permissions bornent les actions. Les vérifications et la supervision contrôlent les décisions. Le suivi des coûts permet de surveiller l'exploitation."
+            "Les instructions définissent le travail. Le contexte et la mémoire apportent les informations utiles. Les outils et les permissions bornent les actions. Les vérifications et la supervision contrôlent les décisions. Le suivi des coûts permet de surveiller l’exploitation."
           ]
         ],
         [
           "interventions",
-          "Deux cas d'intervention",
+          "Deux cas d’intervention",
           [
             "Construire un harnais neuf : partir des tâches, définir les accès et écrire les vérifications avant de brancher les outils.",
             "Auditer et corriger un système existant : reproduire ses échecs, prioriser les corrections et les tester sur les mêmes tâches."
@@ -410,24 +392,24 @@ export const SITE_V1_PAGES = {
         ],
         [
           "evaluation",
-          "Protocole d'évaluation",
+          "Protocole d’évaluation",
           [
             "Nous utilisons les mêmes tâches avant et après les corrections. Les critères sont écrits avant les tests et les résultats sont consignés, y compris les échecs.",
-            "La supervision humaine reste définie pour les actions qui engagent l'entreprise."
+            "La supervision humaine reste définie pour les actions qui engagent l’entreprise."
           ]
         ],
         [
           "deliverables",
           "Les livrables",
           [
-            "Un audit, une liste de corrections priorisée, un harnais refait, une suite de tests et un guide d'exploitation, selon le périmètre retenu."
+            "Un audit, une liste de corrections priorisée, un harnais refait, une suite de tests et un guide d’exploitation, selon le périmètre retenu."
           ]
         ],
         [
           "limits",
           "Les limites",
           [
-            "Un test réussi ne prouve pas la fiabilité dans tous les contextes. Les cas non testés restent à évaluer. Aucune mesure de performance n'est publiée ici."
+            "Un test réussi ne prouve pas la fiabilité dans tous les contextes. Les cas non testés restent à évaluer. Aucune mesure de performance n’est publiée ici."
           ]
         ]
       ],

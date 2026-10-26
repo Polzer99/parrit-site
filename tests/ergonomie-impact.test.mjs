@@ -8,11 +8,12 @@ for (const locale of ['fr', 'en']) {
     const html = await renderPage(locale);
     const hero = html.match(/<section[^>]*id="H01"[\s\S]*?<\/section>/)[0];
     const consulting = html.match(/<section[^>]*id="H03"[\s\S]*?<\/section>/)[0];
-    assert.match(hero, /class="product-scene"/);
+    assert.match(hero, /class="product-scene product-scene-hero"/);
     assert.match(hero, /scene-carte-visite-fiche-crm/);
     assert.match(hero, /class="v1-demo-note">[^<]+/);
     assert.doesNotMatch(hero, /class="v1-process"/);
-    assert.ok(consulting.indexOf('</ol>') < consulting.indexOf('<figure'));
+    assert.ok(consulting.indexOf('v1-door-copy') < consulting.indexOf('<figure'));
+    assert.doesNotMatch(consulting, /v1-sequence/);
     assert.doesNotMatch(html, /class="k"|class="v1-index"|<dt>/);
     const steps = html.match(/<ol class="v1-sequence v1-method">[\s\S]*?<\/ol>/)[0];
     assert.equal((steps.match(/<li>/g) ?? []).length, 6);

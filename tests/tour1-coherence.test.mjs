@@ -15,9 +15,10 @@ test('Journal claim gate checks headings and summaries but leaves article bodies
 for (const locale of ['fr', 'en']) test(`shared sequences and FAQ retain content without JavaScript ${locale}`, async () => {
   const home = await renderPage(locale);
   for (const [id, count] of [['H03', 4], ['H05', 4], ['H11', 6]]) {
-    const section = home.match(new RegExp(`<section[^>]*id="${id}"[\\s\\S]*?</section>`))[0];
-    assert.equal((section.match(/<li>/g) ?? []).length, count);
+    const source = id === 'H03' ? await renderPage(locale, 'consulting-transformation') : home;
+    const section = source.match(new RegExp(`<section[^>]*id="${id === 'H03' ? 'method' : id}"[\\s\\S]*?</section>`))[0];
     const sequence = section.match(/<ol[\s\S]*?<\/ol>/)[0];
+    assert.equal((sequence.match(/<li>/g) ?? []).length, count);
     assert.equal((sequence.match(/<svg/g) ?? []).length, count - 1);
   }
   const guide = await renderPage(locale, 'ai-sprints');

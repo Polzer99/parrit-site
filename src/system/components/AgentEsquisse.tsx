@@ -10,16 +10,16 @@ import { QuickCapture } from "./QuickCapture";
 const DICT = {
   fr: {
     title: "Votre agent · esquisse",
-    opening: "Décrivez l'opération qui vous coûte le plus de temps. Nous esquissons le système qui la reprendrait.",
+    opening: "Décrivez l’opération qui vous coûte le plus de temps. Nous esquissons le système qui la reprendrait.",
     response: "Voici la première esquisse de votre système :",
     labels: ["Signal", "Décision", "Action"],
     scenarios: {
       followup: ["Dossier sans réponse depuis 12 jours", "Relancer · ton direct · modèle B", "Brouillon prêt, consigné, annulable"],
-      reporting: ["Les chiffres de la semaine, collectés seuls", "Deux écarts à trancher, sur une carte", "Le rapport part à l'heure, sans vous"],
-      invoice: ["Facture bloquée détectée au jour 1", "Relance cadrée et chiffrée, à valider", "Encaissement suivi jusqu'au solde"],
-      default: ["Votre opération, observée en continu", "Seuls les arbitrages remontent à vous", "Le reste s'exécute et se consigne"],
+      reporting: ["Les chiffres de la semaine, collectés seuls", "Deux écarts à trancher, sur une carte", "Le rapport part à l’heure, sans vous"],
+      invoice: ["Facture bloquée détectée au jour 1", "Relance cadrée et chiffrée, à valider", "Encaissement suivi jusqu’au solde"],
+      default: ["Votre opération, observée en continu", "Seuls les arbitrages remontent à vous", "Le reste s’exécute et se consigne"],
     },
-    transition: "Cette esquisse part d'un cas proche de votre phrase. Envoyez-la : Parrit.ai regarde si un système de ce type a du sens chez vous et vous répond par e-mail.",
+    transition: "Cette esquisse part d’un cas proche de votre phrase. Envoyez-la : Parrit.ai regarde si un système de ce type a du sens chez vous et vous répond par e-mail.",
     input: "Votre opération",
     send: "Esquisser",
   },

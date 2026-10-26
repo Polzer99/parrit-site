@@ -12,11 +12,11 @@ import type { Locale } from "@/system/locale";
 export const ENGAGEMENTS = {
   en: {
     reponsePersonnelle: "One personal reply per company",
-    aucuneSequence: "No automated sequence",
+    aucuneSequence: "A reply written by a person",
   },
   fr: {
     reponsePersonnelle: "Une réponse personnelle par entreprise",
-    aucuneSequence: "Aucune séquence automatique",
+    aucuneSequence: "Une réponse écrite par une personne",
   },
 } as const;
 

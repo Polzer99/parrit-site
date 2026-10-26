@@ -1,5 +1,16 @@
 # AI Context
 
+## Tour 2 impact — 27/10/2026
+
+Accueil en grille 7/5 puis cadre produit pleine largeur ; quatre visuels partagés
+avec les guides, rangées alternées et guides à filets 4/8. Onglets Engineering
+conservés sur leur page, schémas compacts sur mobile, navigation sur une rangée.
+Promesses Standard/Commission adoucies et apostrophes françaises harmonisées.
+Actifs approuvés et jetons vendorisés inchangés. Aucun commit/push/déploiement.
+Validation et limites : `docs/site-v1/RAPPORT-TOUR2-IMPACT.md`. Chromium refusé
+par macOS : captures, hauteur −30 % et batterie navigateur restent à valider
+sur l’hôte ; le test de hauteur exige une mesure initiale, sans valeur inventée.
+
 ## Correctif B tour 1 — 27/10/2026, nuit
 
 H1 accueil restauré à 400 (autres H1 : 500), observateur historique de

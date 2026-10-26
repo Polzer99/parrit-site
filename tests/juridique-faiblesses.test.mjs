@@ -34,5 +34,5 @@ test('grain breathing space and target marker use canonical tokens', async () =>
   const grain = await readFile('src/system/components/Matiere.module.css', 'utf8');
   assert.match(grain, /margin-top:\s*var\(--brand-s6\)/);
   const css = await readFile('src/system/site-v1.css', 'utf8');
-  assert.match(css, /\.v1-process-target\s*\{[^}]*border-top-color:\s*var\(--brand-acc\)/);
+  assert.match(css, /\.v1-process-target strong\s*\{[^}]*color:\s*var\(--brand-acc\)/);
 });

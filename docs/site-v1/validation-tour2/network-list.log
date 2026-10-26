@@ -1,0 +1,504 @@
+
+> parrit-site@0.1.0 qa:network:rev01
+> playwright test tests/tour2-impact.spec.ts tests/tour1-coherence.spec.ts tests/ergonomie-impact.spec.ts tests/matiere.spec.ts tests/site-v1-v4.spec.ts tests/site-v1-visual.spec.ts tests/site-v1.spec.ts tests/six-capacites.spec.ts tests/design-harmonisation.spec.ts tests/anti-slop-copy.spec.ts tests/alignment-grid.spec.ts tests/product-scene.spec.ts tests/doctrine-visible.spec.ts tests/brand-os.spec.ts tests/rev01-system.spec.ts tests/conformity-home.spec.ts tests/conformity-standard.spec.ts tests/conformity-commission.spec.ts tests/conformity-journal.spec.ts tests/conformity-i18n.spec.ts tests/internal-linking.spec.ts tests/metadata-integrity.spec.ts tests/aeration.spec.ts tests/brand-pixels.spec.ts tests/systems.spec.ts tests/audit-readability.spec.ts --browser=chromium --list
+
+Listing tests:
+  [chromium] › tests/aeration.spec.ts:114:7 › at 1440px all routes keep text clear and within the closed type scale
+  [chromium] › tests/aeration.spec.ts:114:7 › at 390px all routes keep text clear and within the closed type scale
+  [chromium] › tests/aeration.spec.ts:674:5 › accent surface variables keep injected nested surfaces readable
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en / 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /systems 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /journal 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /standard 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /commission 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /manufacture 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /build-with-you 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /dossiers 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /legal 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /journal/one-card-one-action 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr / 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /systems 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /journal 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /standard 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /commission 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /manufacture 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /build-with-you 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /dossiers 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /legal 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /journal/one-card-one-action 1440
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en / 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /systems 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /journal 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /standard 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /commission 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /manufacture 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /build-with-you 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /dossiers 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /legal 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid en /journal/one-card-one-action 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr / 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /systems 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /journal 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /standard 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /commission 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /manufacture 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /build-with-you 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /dossiers 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /legal 375
+  [chromium] › tests/alignment-grid.spec.ts:7:7 › shared grid fr /journal/one-card-one-action 375
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /systems
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /standard
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /commission
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /manufacture
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /build-with-you
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /dossiers
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /legal
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /engineering-integration
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/agent-ia-entreprise
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/agent-ia-vs-rpa
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/agents-that-fabricate-facts
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/ai-act-compliance-register
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/ai-act-marking-deadline-systems-you-built
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/ai-agent-security-in-the-enterprise
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/ai-cost-french-vs-english-tokens
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/ai-prospecting-weak-signals
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/automated-crm-for-smes
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/automated-invoicing-with-ai
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/automated-legal-intelligence-for-lawyers
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/automatiser-veille-juridique
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/claude-code-pour-non-dev
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/claude-code-vs-chatgpt
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/comment-deployer-llm-entreprise
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/comment-integrer-agent-ia
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/computer-use-what-it-can-undo
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/frontier-as-fallback
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/glm-5-2-sovereignty
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/hook-timeout-lets-tool-call-through
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/legacy-database-migration-writers-first
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/malicious-mcp-server-after-install
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/mcp-anthropic-explication
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/mcp-stateless-spec-what-changes-for-your-servers
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/measuring-sap-adoption-with-ai
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/multi-provider-redundancy
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/one-card-one-action
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/permission-layer-for-coding-agents
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/publishing-without-human-review
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/rgpd-llm-securite
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/self-hosting-latency-cost
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/the-claim-a-green-pipeline-never-makes
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/the-draft-that-knows-when-to-stay-silent
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/the-right-place-to-write
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/what-a-pilot-skips-to-look-finished
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/what-a-rollback-takes-with-it
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/what-is-a-company-operating-system
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/what-is-parrit-ai
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/what-you-rent-can-be-taken-back
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy en /journal/whatsapp-business-agent
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy fr /
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy fr /systems
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy fr /journal
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy fr /standard
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy fr /commission
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy fr /manufacture
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy fr /build-with-you
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy fr /dossiers
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy fr /legal
+  [chromium] › tests/anti-slop-copy.spec.ts:17:9 › public copy fr /engineering-integration
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability / at 375px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /fr at 375px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /build-with-you at 375px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /fr/build-with-you at 375px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /fr/systems at 375px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /journal at 375px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /manufacture at 375px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /fr/manufacture at 375px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability / at 390px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /fr at 390px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /build-with-you at 390px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /fr/build-with-you at 390px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /fr/systems at 390px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /journal at 390px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /manufacture at 390px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /fr/manufacture at 390px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability / at 1440px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /fr at 1440px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /build-with-you at 1440px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /fr/build-with-you at 1440px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /fr/systems at 1440px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /journal at 1440px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /manufacture at 1440px
+  [chromium] › tests/audit-readability.spec.ts:19:9 › audit readability /fr/manufacture at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /consulting-transformation at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/conseil-transformation at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /ai-sprints at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/ai-sprints at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /engineering-integration at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/engineering-integration at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /harness-engineering at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/harness-engineering at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture / at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /build-with-you at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/build-with-you at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /systems at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/systems at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /commission at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/commission at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /manufacture at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/manufacture at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /dossiers at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/dossiers at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /standard at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/standard at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /journal at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/journal at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /legal at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/legal at 1440px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /consulting-transformation at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/conseil-transformation at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /ai-sprints at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/ai-sprints at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /engineering-integration at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/engineering-integration at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /harness-engineering at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/harness-engineering at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture / at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /build-with-you at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/build-with-you at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /systems at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/systems at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /commission at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/commission at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /manufacture at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/manufacture at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /dossiers at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/dossiers at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /standard at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/standard at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /journal at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/journal at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /legal at 375px
+  [chromium] › tests/brand-os.spec.ts:27:9 › Brand OS text contrast and capture /fr/legal at 375px
+  [chromium] › tests/brand-os.spec.ts:138:7 › Brand OS heading and process bounds / 375
+  [chromium] › tests/brand-os.spec.ts:138:7 › Brand OS heading and process bounds /fr 375
+  [chromium] › tests/brand-os.spec.ts:138:7 › Brand OS heading and process bounds / 390
+  [chromium] › tests/brand-os.spec.ts:138:7 › Brand OS heading and process bounds /fr 390
+  [chromium] › tests/brand-os.spec.ts:138:7 › Brand OS heading and process bounds / 768
+  [chromium] › tests/brand-os.spec.ts:138:7 › Brand OS heading and process bounds /fr 768
+  [chromium] › tests/brand-os.spec.ts:138:7 › Brand OS heading and process bounds / 1440
+  [chromium] › tests/brand-os.spec.ts:138:7 › Brand OS heading and process bounds /fr 1440
+  [chromium] › tests/brand-os.spec.ts:152:9 › Brand OS bilingual 404 /brand-os-missing-page at 375px
+  [chromium] › tests/brand-os.spec.ts:152:9 › Brand OS bilingual 404 /fr/brand-os-missing-page at 375px
+  [chromium] › tests/brand-os.spec.ts:152:9 › Brand OS bilingual 404 /brand-os-missing-page at 1440px
+  [chromium] › tests/brand-os.spec.ts:152:9 › Brand OS bilingual 404 /fr/brand-os-missing-page at 1440px
+  [chromium] › tests/brand-os.spec.ts:214:7 › Brand OS connector geometry at 1440px
+  [chromium] › tests/brand-os.spec.ts:214:7 › Brand OS connector geometry at 375px
+  [chromium] › tests/brand-os.spec.ts:251:5 › all four approved founder photo URLs serve the original bytes
+  [chromium] › tests/brand-pixels.spec.ts:9:7 › /brand/favicon.svg contains no reddish pixels
+  [chromium] › tests/brand-pixels.spec.ts:9:7 › /icon.png contains no reddish pixels
+  [chromium] › tests/brand-pixels.spec.ts:9:7 › /apple-icon.png contains no reddish pixels
+  [chromium] › tests/brand-pixels.spec.ts:9:7 › /opengraph-image contains no reddish pixels
+  [chromium] › tests/conformity-commission.spec.ts:10:5 › commission matches the REV 01 display and instrument constraints
+  [chromium] › tests/conformity-commission.spec.ts:44:9 › standard capture keeps its layout at 375px in en
+  [chromium] › tests/conformity-commission.spec.ts:44:9 › standard capture keeps its layout at 375px in fr
+  [chromium] › tests/conformity-commission.spec.ts:44:9 › standard capture keeps its layout at 390px in en
+  [chromium] › tests/conformity-commission.spec.ts:44:9 › standard capture keeps its layout at 390px in fr
+  [chromium] › tests/conformity-commission.spec.ts:44:9 › standard capture keeps its layout at 1440px in en
+  [chromium] › tests/conformity-commission.spec.ts:44:9 › standard capture keeps its layout at 1440px in fr
+  [chromium] › tests/conformity-home.spec.ts:5:7 › home structure, references and geometry en 375
+  [chromium] › tests/conformity-home.spec.ts:5:7 › home structure, references and geometry fr 375
+  [chromium] › tests/conformity-home.spec.ts:5:7 › home structure, references and geometry en 390
+  [chromium] › tests/conformity-home.spec.ts:5:7 › home structure, references and geometry fr 390
+  [chromium] › tests/conformity-home.spec.ts:5:7 › home structure, references and geometry en 1023
+  [chromium] › tests/conformity-home.spec.ts:5:7 › home structure, references and geometry fr 1023
+  [chromium] › tests/conformity-home.spec.ts:5:7 › home structure, references and geometry en 1024
+  [chromium] › tests/conformity-home.spec.ts:5:7 › home structure, references and geometry fr 1024
+  [chromium] › tests/conformity-home.spec.ts:5:7 › home structure, references and geometry en 1440
+  [chromium] › tests/conformity-home.spec.ts:5:7 › home structure, references and geometry fr 1440
+  [chromium] › tests/conformity-i18n.spec.ts:41:5 › /fr serves French HTML, heading and self canonical
+  [chromium] › tests/conformity-i18n.spec.ts:51:5 › Googlebot receives English on bare URL despite French preference
+  [chromium] › tests/conformity-i18n.spec.ts:67:7 › reciprocal hreflang and path metadata: /
+  [chromium] › tests/conformity-i18n.spec.ts:67:7 › reciprocal hreflang and path metadata: /manufacture
+  [chromium] › tests/conformity-i18n.spec.ts:67:7 › reciprocal hreflang and path metadata: /standard
+  [chromium] › tests/conformity-i18n.spec.ts:67:7 › reciprocal hreflang and path metadata: /dossiers
+  [chromium] › tests/conformity-i18n.spec.ts:67:7 › reciprocal hreflang and path metadata: /commission
+  [chromium] › tests/conformity-i18n.spec.ts:67:7 › reciprocal hreflang and path metadata: /legal
+  [chromium] › tests/conformity-i18n.spec.ts:67:7 › reciprocal hreflang and path metadata: /journal
+  [chromium] › tests/conformity-i18n.spec.ts:94:7 › legacy choice is a single 301: /?lang=fr&utm_source=test
+  [chromium] › tests/conformity-i18n.spec.ts:94:7 › legacy choice is a single 301: /standard?lang=fr&source=test
+  [chromium] › tests/conformity-i18n.spec.ts:94:7 › legacy choice is a single 301: /fr/standard?lang=en&utm_campaign=test
+  [chromium] › tests/conformity-i18n.spec.ts:94:7 › legacy choice is a single 301: /fr?lang=en
+  [chromium] › tests/conformity-i18n.spec.ts:105:5 › French negotiation is 302, preserves query and does not record a choice
+  [chromium] › tests/conformity-i18n.spec.ts:120:7 › choice cookie en suppresses negotiation without changing bare content
+  [chromium] › tests/conformity-i18n.spec.ts:120:7 › choice cookie fr suppresses negotiation without changing bare content
+  [chromium] › tests/conformity-i18n.spec.ts:129:5 › header switches paths, saves choice and preserves query/hash
+  [chromium] › tests/conformity-i18n.spec.ts:141:5 › French Journal aliases redirect once to the unchanged English article
+  [chromium] › tests/conformity-i18n.spec.ts:179:5 › sitemap contains both translated sets and no French articles
+  [chromium] › tests/conformity-i18n.spec.ts:192:7 › home links to systems from the en navigation
+  [chromium] › tests/conformity-i18n.spec.ts:192:7 › home links to systems from the fr navigation
+  [chromium] › tests/conformity-journal.spec.ts:6:5 › first certified article renders its Harness label and serves the linked certificate
+  [chromium] › tests/conformity-journal.spec.ts:23:5 › renamed French slugs answer one permanent redirect
+  [chromium] › tests/conformity-journal.spec.ts:41:5 › journal index uses square, shadowless list rows
+  [chromium] › tests/conformity-journal.spec.ts:62:5 › journal article preserves its date without a technical registry
+  [chromium] › tests/conformity-journal.spec.ts:70:5 › machine-translated glossary entry is noindex
+  [chromium] › tests/conformity-standard.spec.ts:9:7 › the Parrit Standard conformity › matches the desktop display and flat specification treatment
+  [chromium] › tests/design-harmonisation.spec.ts:24:9 › step numbers stay neutral on ink /fr/build-with-you 1440
+  [chromium] › tests/design-harmonisation.spec.ts:24:9 › step numbers stay neutral on ink /fr/manufacture 1440
+  [chromium] › tests/design-harmonisation.spec.ts:41:9 › step numbers use canard on paper /fr/standard 1440
+  [chromium] › tests/design-harmonisation.spec.ts:55:9 › section headings share a size and preserve exceptions fr 1440
+  [chromium] › tests/design-harmonisation.spec.ts:87:9 › home title and text language selector fr 1440
+  [chromium] › tests/design-harmonisation.spec.ts:142:9 › systems heading hierarchy, method target and aligned cards fr 1440
+  [chromium] › tests/design-harmonisation.spec.ts:55:9 › section headings share a size and preserve exceptions en 1440
+  [chromium] › tests/design-harmonisation.spec.ts:87:9 › home title and text language selector en 1440
+  [chromium] › tests/design-harmonisation.spec.ts:142:9 › systems heading hierarchy, method target and aligned cards en 1440
+  [chromium] › tests/design-harmonisation.spec.ts:24:9 › step numbers stay neutral on ink /fr/build-with-you 390
+  [chromium] › tests/design-harmonisation.spec.ts:24:9 › step numbers stay neutral on ink /fr/manufacture 390
+  [chromium] › tests/design-harmonisation.spec.ts:41:9 › step numbers use canard on paper /fr/standard 390
+  [chromium] › tests/design-harmonisation.spec.ts:55:9 › section headings share a size and preserve exceptions fr 390
+  [chromium] › tests/design-harmonisation.spec.ts:87:9 › home title and text language selector fr 390
+  [chromium] › tests/design-harmonisation.spec.ts:142:9 › systems heading hierarchy, method target and aligned cards fr 390
+  [chromium] › tests/design-harmonisation.spec.ts:55:9 › section headings share a size and preserve exceptions en 390
+  [chromium] › tests/design-harmonisation.spec.ts:87:9 › home title and text language selector en 390
+  [chromium] › tests/design-harmonisation.spec.ts:142:9 › systems heading hierarchy, method target and aligned cards en 390
+  [chromium] › tests/design-harmonisation.spec.ts:226:5 › section headings follow the mobile boundary and keep the tablet size
+  [chromium] › tests/doctrine-visible.spec.ts:16:7 › doctrine header accent without JavaScript fr
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography fr /
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography fr /manufacture
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography fr /standard
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography fr /dossiers
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography fr /systems
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography fr /build-with-you
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography fr /commission
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography fr /journal
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography fr /legal
+  [chromium] › tests/doctrine-visible.spec.ts:62:7 › doctrine booking after capture success fr
+  [chromium] › tests/doctrine-visible.spec.ts:84:9 › doctrine home composition and language fr 1440
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport fr / 1440
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport fr /build-with-you 1440
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport fr /commission 1440
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport fr /systems 1440
+  [chromium] › tests/doctrine-visible.spec.ts:84:9 › doctrine home composition and language fr 390
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport fr / 390
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport fr /build-with-you 390
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport fr /commission 390
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport fr /systems 390
+  [chromium] › tests/doctrine-visible.spec.ts:183:7 › doctrine Build With You booking is above the fold fr
+  [chromium] › tests/doctrine-visible.spec.ts:16:7 › doctrine header accent without JavaScript en
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography en /
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography en /manufacture
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography en /standard
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography en /dossiers
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography en /systems
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography en /build-with-you
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography en /commission
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography en /journal
+  [chromium] › tests/doctrine-visible.spec.ts:36:9 › doctrine booking label and button typography en /legal
+  [chromium] › tests/doctrine-visible.spec.ts:62:7 › doctrine booking after capture success en
+  [chromium] › tests/doctrine-visible.spec.ts:84:9 › doctrine home composition and language en 1440
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport en / 1440
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport en /build-with-you 1440
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport en /commission 1440
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport en /systems 1440
+  [chromium] › tests/doctrine-visible.spec.ts:84:9 › doctrine home composition and language en 390
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport en / 390
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport en /build-with-you 390
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport en /commission 390
+  [chromium] › tests/doctrine-visible.spec.ts:94:11 › doctrine decorative pink accent spacing in every viewport en /systems 390
+  [chromium] › tests/doctrine-visible.spec.ts:183:7 › doctrine Build With You booking is above the fold en
+  [chromium] › tests/doctrine-visible.spec.ts:207:9 › doctrine FR capture /fr 1440
+  [chromium] › tests/doctrine-visible.spec.ts:207:9 › doctrine FR capture /fr/build-with-you 1440
+  [chromium] › tests/doctrine-visible.spec.ts:207:9 › doctrine FR capture /fr/commission 1440
+  [chromium] › tests/doctrine-visible.spec.ts:207:9 › doctrine FR capture /fr 768
+  [chromium] › tests/doctrine-visible.spec.ts:207:9 › doctrine FR capture /fr/build-with-you 768
+  [chromium] › tests/doctrine-visible.spec.ts:207:9 › doctrine FR capture /fr/commission 768
+  [chromium] › tests/doctrine-visible.spec.ts:207:9 › doctrine FR capture /fr 375
+  [chromium] › tests/doctrine-visible.spec.ts:207:9 › doctrine FR capture /fr/build-with-you 375
+  [chromium] › tests/doctrine-visible.spec.ts:207:9 › doctrine FR capture /fr/commission 375
+  [chromium] › tests/doctrine-visible.spec.ts:207:9 › doctrine FR capture /fr 390
+  [chromium] › tests/doctrine-visible.spec.ts:207:9 › doctrine FR capture /fr/build-with-you 390
+  [chromium] › tests/doctrine-visible.spec.ts:207:9 › doctrine FR capture /fr/commission 390
+  [chromium] › tests/ergonomie-impact.spec.ts:10:7 › accessible typography and home geometry fr 375
+  [chromium] › tests/ergonomie-impact.spec.ts:10:7 › accessible typography and home geometry fr 1440
+  [chromium] › tests/ergonomie-impact.spec.ts:10:7 › accessible typography and home geometry en 375
+  [chromium] › tests/ergonomie-impact.spec.ts:10:7 › accessible typography and home geometry en 1440
+  [chromium] › tests/ergonomie-impact.spec.ts:65:49 › method three columns at 1024 fr
+  [chromium] › tests/ergonomie-impact.spec.ts:65:49 › method three columns at 1024 en
+  [chromium] › tests/ergonomie-impact.spec.ts:74:49 › engineering panel headings fr
+  [chromium] › tests/ergonomie-impact.spec.ts:74:49 › engineering panel headings en
+  [chromium] › tests/internal-linking.spec.ts:57:5 › every discovered page has at least seven unique internal links
+  [chromium] › tests/matiere.spec.ts:7:7 › Matiere decorative geometry fr 375
+  [chromium] › tests/matiere.spec.ts:7:7 › Matiere decorative geometry en 375
+  [chromium] › tests/matiere.spec.ts:7:7 › Matiere decorative geometry fr 1440
+  [chromium] › tests/matiere.spec.ts:7:7 › Matiere decorative geometry en 1440
+  [chromium] › tests/metadata-integrity.spec.ts:64:5 › sitemap metadata has unique titles and reachable images
+  [chromium] › tests/product-scene.spec.ts:4:84 › process and case geometry fr 375
+  [chromium] › tests/product-scene.spec.ts:4:84 › process and case geometry en 375
+  [chromium] › tests/product-scene.spec.ts:4:84 › process and case geometry fr 768
+  [chromium] › tests/product-scene.spec.ts:4:84 › process and case geometry en 768
+  [chromium] › tests/product-scene.spec.ts:4:84 › process and case geometry fr 1024
+  [chromium] › tests/product-scene.spec.ts:4:84 › process and case geometry en 1024
+  [chromium] › tests/product-scene.spec.ts:4:84 › process and case geometry fr 1440
+  [chromium] › tests/product-scene.spec.ts:4:84 › process and case geometry en 1440
+  [chromium] › tests/rev01-system.spec.ts:6:5 › the retired system route returns 404
+  [chromium] › tests/rev01-system.spec.ts:14:7 › network deny self-test › blocks an unmatched external request
+  [chromium] › tests/site-v1-v4.spec.ts:8:7 › V4 heading scale and single closing action fr 390
+  [chromium] › tests/site-v1-v4.spec.ts:8:7 › V4 heading scale and single closing action en 390
+  [chromium] › tests/site-v1-v4.spec.ts:8:7 › V4 heading scale and single closing action fr 760
+  [chromium] › tests/site-v1-v4.spec.ts:8:7 › V4 heading scale and single closing action en 760
+  [chromium] › tests/site-v1-v4.spec.ts:8:7 › V4 heading scale and single closing action fr 761
+  [chromium] › tests/site-v1-v4.spec.ts:8:7 › V4 heading scale and single closing action en 761
+  [chromium] › tests/site-v1-v4.spec.ts:8:7 › V4 heading scale and single closing action fr 1440
+  [chromium] › tests/site-v1-v4.spec.ts:8:7 › V4 heading scale and single closing action en 1440
+  [chromium] › tests/site-v1-v4.spec.ts:34:7 › V4 every selected engineering tab has a 3:1 contour fr 390
+  [chromium] › tests/site-v1-v4.spec.ts:34:7 › V4 every selected engineering tab has a 3:1 contour en 390
+  [chromium] › tests/site-v1-v4.spec.ts:34:7 › V4 every selected engineering tab has a 3:1 contour fr 1440
+  [chromium] › tests/site-v1-v4.spec.ts:34:7 › V4 every selected engineering tab has a 3:1 contour en 1440
+  [chromium] › tests/site-v1-visual.spec.ts:6:7 › V3 geometry, motion and keyboard fr 360
+  [chromium] › tests/site-v1-visual.spec.ts:6:7 › V3 geometry, motion and keyboard en 360
+  [chromium] › tests/site-v1-visual.spec.ts:6:7 › V3 geometry, motion and keyboard fr 390
+  [chromium] › tests/site-v1-visual.spec.ts:6:7 › V3 geometry, motion and keyboard en 390
+  [chromium] › tests/site-v1-visual.spec.ts:6:7 › V3 geometry, motion and keyboard fr 768
+  [chromium] › tests/site-v1-visual.spec.ts:6:7 › V3 geometry, motion and keyboard en 768
+  [chromium] › tests/site-v1-visual.spec.ts:6:7 › V3 geometry, motion and keyboard fr 1024
+  [chromium] › tests/site-v1-visual.spec.ts:6:7 › V3 geometry, motion and keyboard en 1024
+  [chromium] › tests/site-v1-visual.spec.ts:6:7 › V3 geometry, motion and keyboard fr 1440
+  [chromium] › tests/site-v1-visual.spec.ts:6:7 › V3 geometry, motion and keyboard en 1440
+  [chromium] › tests/site-v1-visual.spec.ts:46:5 › V3 full content without JavaScript
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr / 360
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /consulting-transformation 360
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /ai-sprints 360
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /engineering-integration 360
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /harness-engineering 360
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en / 360
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /consulting-transformation 360
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /ai-sprints 360
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /engineering-integration 360
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /harness-engineering 360
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr / 390
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /consulting-transformation 390
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /ai-sprints 390
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /engineering-integration 390
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /harness-engineering 390
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en / 390
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /consulting-transformation 390
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /ai-sprints 390
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /engineering-integration 390
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /harness-engineering 390
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr / 768
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /consulting-transformation 768
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /ai-sprints 768
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /engineering-integration 768
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /harness-engineering 768
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en / 768
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /consulting-transformation 768
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /ai-sprints 768
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /engineering-integration 768
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /harness-engineering 768
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr / 1024
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /consulting-transformation 1024
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /ai-sprints 1024
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /engineering-integration 1024
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /harness-engineering 1024
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en / 1024
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /consulting-transformation 1024
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /ai-sprints 1024
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /engineering-integration 1024
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /harness-engineering 1024
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr / 1440
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /consulting-transformation 1440
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /ai-sprints 1440
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /engineering-integration 1440
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof fr /harness-engineering 1440
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en / 1440
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /consulting-transformation 1440
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /ai-sprints 1440
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /engineering-integration 1440
+  [chromium] › tests/site-v1.spec.ts:9:7 › site V1 capture and proof en /harness-engineering 1440
+  [chromium] › tests/site-v1.spec.ts:63:7 › tabs keyboard fr /engineering-integration
+  [chromium] › tests/site-v1.spec.ts:75:7 › no JavaScript exposes all panels fr /engineering-integration
+  [chromium] › tests/site-v1.spec.ts:63:7 › tabs keyboard en /engineering-integration
+  [chromium] › tests/site-v1.spec.ts:75:7 › no JavaScript exposes all panels en /engineering-integration
+  [chromium] › tests/site-v1.spec.ts:85:99 › JavaScript disabled › all three panels and native mobile navigation remain usable /
+  [chromium] › tests/site-v1.spec.ts:85:99 › JavaScript disabled › all three panels and native mobile navigation remain usable /fr
+  [chromium] › tests/site-v1.spec.ts:85:99 › JavaScript disabled › all three panels and native mobile navigation remain usable /engineering-integration
+  [chromium] › tests/site-v1.spec.ts:85:99 › JavaScript disabled › all three panels and native mobile navigation remain usable /fr/engineering-integration
+  [chromium] › tests/site-v1.spec.ts:92:5 › contact aliases preserve tracking in a single 301
+  [chromium] › tests/site-v1.spec.ts:101:5 › desktop engineering menu closes on Escape, outside click, links and route changes
+  [chromium] › tests/site-v1.spec.ts:114:5 › consulting legacy alias plus language choice has a single 301
+  [chromium] › tests/six-capacites.spec.ts:5:49 › capability destinations fr
+  [chromium] › tests/six-capacites.spec.ts:5:49 › capability destinations en
+  [chromium] › tests/systems.spec.ts:10:9 › systems en at 375px
+  [chromium] › tests/systems.spec.ts:10:9 › systems fr at 375px
+  [chromium] › tests/systems.spec.ts:10:9 › systems en at 767px
+  [chromium] › tests/systems.spec.ts:10:9 › systems fr at 767px
+  [chromium] › tests/systems.spec.ts:10:9 › systems en at 768px
+  [chromium] › tests/systems.spec.ts:10:9 › systems fr at 768px
+  [chromium] › tests/systems.spec.ts:10:9 › systems en at 1440px
+  [chromium] › tests/systems.spec.ts:10:9 › systems fr at 1440px
+  [chromium] › tests/systems.spec.ts:127:5 › systems routes appear in sitemap with reciprocal language URLs
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 1440 /
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 1440 /consulting-transformation
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 1440 /ai-sprints
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 1440 /engineering-integration
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 1440 /harness-engineering
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 1440 /standard
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 1440 /manufacture
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 1440 /systems
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 1440 /build-with-you
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 1440 /dossiers
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 1440 /journal
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 1440 /legal
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 1440 /commission
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 375 /
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 375 /consulting-transformation
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 375 /ai-sprints
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 375 /engineering-integration
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 375 /harness-engineering
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 375 /standard
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 375 /manufacture
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 375 /systems
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 375 /build-with-you
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 375 /dossiers
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 375 /journal
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 375 /legal
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence fr 375 /commission
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 1440 /
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 1440 /consulting-transformation
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 1440 /ai-sprints
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 1440 /engineering-integration
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 1440 /harness-engineering
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 1440 /standard
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 1440 /manufacture
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 1440 /systems
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 1440 /build-with-you
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 1440 /dossiers
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 1440 /journal
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 1440 /legal
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 1440 /commission
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 375 /
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 375 /consulting-transformation
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 375 /ai-sprints
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 375 /engineering-integration
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 375 /harness-engineering
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 375 /standard
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 375 /manufacture
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 375 /systems
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 375 /build-with-you
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 375 /dossiers
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 375 /journal
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 375 /legal
+  [chromium] › tests/tour1-coherence.spec.ts:8:7 › coherence en 375 /commission
+  [chromium] › tests/tour1-coherence.spec.ts:74:5 › French articles redirect once, retaining query parameters
+  [chromium] › tests/tour2-impact.spec.ts:12:9 › tour2 fr 375 JS=true › hero, alternating visuals, compact mobile and accessible content
+  [chromium] › tests/tour2-impact.spec.ts:12:9 › tour2 fr 375 JS=false › hero, alternating visuals, compact mobile and accessible content
+  [chromium] › tests/tour2-impact.spec.ts:12:9 › tour2 fr 1440 JS=true › hero, alternating visuals, compact mobile and accessible content
+  [chromium] › tests/tour2-impact.spec.ts:12:9 › tour2 fr 1440 JS=false › hero, alternating visuals, compact mobile and accessible content
+  [chromium] › tests/tour2-impact.spec.ts:12:9 › tour2 en 375 JS=true › hero, alternating visuals, compact mobile and accessible content
+  [chromium] › tests/tour2-impact.spec.ts:12:9 › tour2 en 375 JS=false › hero, alternating visuals, compact mobile and accessible content
+  [chromium] › tests/tour2-impact.spec.ts:12:9 › tour2 en 1440 JS=true › hero, alternating visuals, compact mobile and accessible content
+  [chromium] › tests/tour2-impact.spec.ts:12:9 › tour2 en 1440 JS=false › hero, alternating visuals, compact mobile and accessible content
+  [chromium] › tests/tour2-impact.spec.ts:71:5 › tour2 page heights before and after
+Total: 498 tests in 26 files

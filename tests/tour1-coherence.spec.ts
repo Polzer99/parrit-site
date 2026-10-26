@@ -66,7 +66,7 @@ for (const locale of ['fr', 'en'] as const) for (const width of [1440, 375]) for
       const homeHeroPrimary = route === '/' && await button.evaluate(el => el.matches('#H01 .v1-actions > .rev-button.exec:first-child'));
       await expect(button).toHaveText(homeHeroPrimary
         ? (locale === 'fr' ? "Parlons de votre transformation" : "Let's talk about your transformation")
-        : (locale === 'fr' ? "Parler d'un projet" : 'Talk about a project'));
+        : (locale === 'fr' ? "Parler d’un projet" : 'Talk about a project'));
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
   });

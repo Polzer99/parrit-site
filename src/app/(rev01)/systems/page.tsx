@@ -16,43 +16,43 @@ const EVIDENCE = {
       {
         "domain": "Vos informations, une seule version qui compte",
         "name": "La liste qui fait foi",
-        "input": "une information créée ou modifiée n'importe où dans l'entreprise (un contact, un rendez-vous, un dossier)",
-        "process": "vérifie si l'outil utilisé est bien celui qui doit faire foi, et repère si un autre outil, plus ancien, contient encore une version différente",
-        "output": "une situation claire pour chaque type d'information, et un signal si deux versions se contredisent",
-        "limits": "Au 13 septembre 2026, 15 types d'information sur 25 avaient encore deux sources en présence, et pour 4, une vérification directe avait trouvé un désaccord entre elles. Aucune ancienne source n'est retirée tant qu'elle n'a pas été vérifiée comme redondante.",
+        "input": "une information créée ou modifiée n’importe où dans l’entreprise (un contact, un rendez-vous, un dossier)",
+        "process": "vérifie si l’outil utilisé est bien celui qui doit faire foi, et repère si un autre outil, plus ancien, contient encore une version différente",
+        "output": "une situation claire pour chaque type d’information, et un signal si deux versions se contredisent",
+        "limits": "Au 13 septembre 2026, 15 types d’information sur 25 avaient encore deux sources en présence, et pour 4, une vérification directe avait trouvé un désaccord entre elles. Aucune ancienne source n’est retirée tant qu’elle n’a pas été vérifiée comme redondante.",
         "proofLabel": "Le système que nous utilisons nous-mêmes, tous les jours."
       },
       {
         "domain": "Comment nous vérifions notre propre travail",
         "name": "Deux systèmes, une décision humaine",
         "input": "une idée de changement, écrite noir sur blanc avant de commencer",
-        "process": "la modification est préparée dans un espace de travail séparé, un second système, distinct de celui qui l'a écrite, la relit en entier, puis nous relançons l'ensemble de nos tests",
+        "process": "la modification est préparée dans un espace de travail séparé, un second système, distinct de celui qui l’a écrite, la relit en entier, puis nous relançons l’ensemble de nos tests",
         "output": "une modification acceptée ou refusée ; la mise en ligne reste une décision humaine, jamais automatique",
-        "limits": "C'est notre propre façon de travailler, appliquée à notre propre système avant de l'être au vôtre.",
+        "limits": "C’est notre propre façon de travailler, appliquée à notre propre système avant de l’être au vôtre.",
         "proofLabel": "Vous pouvez le vérifier à chaque mise à jour du site."
       },
       {
         "domain": "Qualité avant publication",
         "name": "Une vérification automatique qui peut bloquer une page",
         "input": "une page prête à être publiée sur le site",
-        "process": "une vérification automatique relit le texte, les couleurs et l'affichage sur téléphone",
-        "output": "la mise en ligne est bloquée si quelque chose ne va pas, sans attendre qu'un humain le remarque",
+        "process": "une vérification automatique relit le texte, les couleurs et l’affichage sur téléphone",
+        "output": "la mise en ligne est bloquée si quelque chose ne va pas, sans attendre qu’un humain le remarque",
         "limits": "Si elle bloque à tort, on corrige le texte concerné. On ne désactive jamais la vérification elle-même.",
         "proofLabel": "Vérifiable à chaque mise à jour du site."
       },
       {
         "domain": "Prendre une décision depuis un téléphone",
         "name": "Un prototype pour décider depuis son téléphone",
-        "input": "un dossier ou une tâche en attente d'une décision",
-        "process": "l'information est présentée simplement, et une personne décide directement depuis son téléphone",
-        "output": "la décision est enregistrée, avec le nom de la personne qui l'a prise",
-        "limits": "C'est encore un usage interne : aucun client ne l'utilise aujourd'hui, et nous n'avons pas encore mesuré la fréquence d'utilisation de ce prototype.",
+        "input": "un dossier ou une tâche en attente d’une décision",
+        "process": "l’information est présentée simplement, et une personne décide directement depuis son téléphone",
+        "output": "la décision est enregistrée, avec le nom de la personne qui l’a prise",
+        "limits": "C’est encore un usage interne : aucun client ne l’utilise aujourd’hui, et nous n’avons pas encore mesuré la fréquence d’utilisation de ce prototype.",
         "proofLabel": "Un prototype interne, pas un produit livré à un client."
       }
     ],
-    "narrative": "Prenons l'exemple le plus net : l'identification de nos contacts. Onze anciens outils y écrivent encore aujourd'hui, certains automatiquement, comme une synchronisation qui tourne toutes les 15 minutes. Une comparaison directe des deux sources, menée le 11 septembre 2026, a trouvé 114 fiches présentes uniquement dans l'ancien système. Rien n'est corrigé tout seul : la situation est signalée, et un contrôle automatique interdit désormais d'ajouter un nouveau point d'écriture vers l'ancien système sans le déclarer ici. Parrit.ai décide, un type d'information à la fois, du jour où une ancienne source est mise de côté. Cette décision a déjà été prise et datée pour plusieurs d'entre elles. Voilà pourquoi, au 13 septembre 2026, 15 des 25 types d'information suivis avaient encore deux sources en présence, dont 4 où une vérification directe avait trouvé un désaccord, comme dans cet exemple.",
-    "acquisition": "Ce même travail de vérification s'applique aussi à notre prospection commerciale. Notre outil fonctionne : il repère, dans des informations publiques, des indices qu'une entreprise pourrait avoir besoin de nous. Mais nous ne l'avons pas encore branché sur notre système principal. Cet outil n'a encore débouché sur aucun rendez-vous. Aucune vente ne lui est due : nos clients viennent de personnes que nous connaissons déjà.",
-    "story": "Toutes nos informations importantes (les contacts, les rendez-vous, les appels, les dossiers en cours) doivent avoir une seule source qui fait foi. Ce travail n'est pas terminé partout. Nous montrons où il en est vraiment."
+    "narrative": "Prenons l’exemple le plus net : l’identification de nos contacts. Onze anciens outils y écrivent encore aujourd’hui, certains automatiquement, comme une synchronisation qui tourne toutes les 15 minutes. Une comparaison directe des deux sources, menée le 11 septembre 2026, a trouvé 114 fiches présentes uniquement dans l’ancien système. Rien n’est corrigé tout seul : la situation est signalée, et un contrôle automatique interdit désormais d’ajouter un nouveau point d’écriture vers l’ancien système sans le déclarer ici. Parrit.ai décide, un type d’information à la fois, du jour où une ancienne source est mise de côté. Cette décision a déjà été prise et datée pour plusieurs d’entre elles. Voilà pourquoi, au 13 septembre 2026, 15 des 25 types d’information suivis avaient encore deux sources en présence, dont 4 où une vérification directe avait trouvé un désaccord, comme dans cet exemple.",
+    "acquisition": "Ce même travail de vérification s’applique aussi à notre prospection commerciale. Notre outil fonctionne : il repère, dans des informations publiques, des indices qu’une entreprise pourrait avoir besoin de nous. Mais nous ne l’avons pas encore branché sur notre système principal. Cet outil n’a encore débouché sur aucun rendez-vous. Aucune vente ne lui est due : nos clients viennent de personnes que nous connaissons déjà.",
+    "story": "Toutes nos informations importantes (les contacts, les rendez-vous, les appels, les dossiers en cours) doivent avoir une seule source qui fait foi. Ce travail n’est pas terminé partout. Nous montrons où il en est vraiment."
   },
   "en": {
     "cards": [
@@ -100,7 +100,7 @@ const EVIDENCE = {
 } as const;
 
 const HERO_PROOF_LIMIT = {
-  fr: "Au 13 septembre 2026, 15 types d'information sur 25 avaient encore deux sources en présence.",
+  fr: "Au 13 septembre 2026, 15 types d’information sur 25 avaient encore deux sources en présence.",
   en: "As of September 13, 2026, 15 of the 25 types of information still had two sources in place.",
 } as const;
 
@@ -133,27 +133,27 @@ const DICT = {
   },
   fr: {
     kicker: "Parrit / Systèmes", title: "Nous montrons le système. Vous jugez avant de vous engager.",
-    sub: "Voici le système qui organise nos dossiers et nos décisions, tel qu'il fonctionne aujourd'hui, avec ce qui ne marche pas encore.",
-    cta: "Parler d'un projet", catalogue: "Capacités démontrées", evidence: "Ce que le système fait aujourd'hui.",
-    intro: "Avant de confier une opération à un système, trois questions comptent : est-il fiable, qui contrôle un changement, que se passe-t-il à la mise en service. Nous y répondons d'abord pour nous-mêmes.",
+    sub: "Voici le système qui organise nos dossiers et nos décisions, tel qu’il fonctionne aujourd’hui, avec ce qui ne marche pas encore.",
+    cta: "Parler d’un projet", catalogue: "Capacités démontrées", evidence: "Ce que le système fait aujourd’hui.",
+    intro: "Avant de confier une opération à un système, trois questions comptent : est-il fiable, qui contrôle un changement, que se passe-t-il à la mise en service. Nous y répondons d’abord pour nous-mêmes.",
     facts: [
-      ["La liste qui fait foi", "Dans beaucoup d'entreprises, plusieurs fichiers prétendent chacun être la bonne liste de clients, et personne ne sait lequel croire. Chez nous, pour chaque type d'information (les contacts, les rendez-vous, les appels, les dossiers en cours), une seule source doit faire foi, et l'ancienne n'est mise de côté que le jour où l'on a vérifié que la nouvelle contient tout. Au 13 septembre 2026, ce travail n'était pas fini partout : sur 25 types d'information suivis, 15 avaient encore deux sources en présence, et pour 4 d'entre eux, une vérification directe avait déjà trouvé un désaccord entre elles."],
-      ["Deux vérifications avant chaque changement", "Celui qui écrit une modification n'est jamais celui qui la valide. Une modification est d'abord préparée dans un espace de travail séparé, puis un second système, distinct de celui qui l'a écrite, la relit en entier. Nos tests sont ensuite rejoués intégralement. Une personne décide seule de la mise en ligne finale. Une modification qui n'a pas passé ces étapes n'est jamais publiée."],
-      ["Une vérification qui peut bloquer une page", "Avant qu'une page de ce site soit mise en ligne, une vérification automatique relit le texte et la mise en page. Elle bloque si un chiffre semble invérifiable, si une couleur sort de notre charte, ou si le texte déborde sur un téléphone. Si elle bloque à tort, on corrige le texte concerné. On ne désactive jamais la vérification elle-même."],
+      ["La liste qui fait foi", "Dans beaucoup d’entreprises, plusieurs fichiers prétendent chacun être la bonne liste de clients, et personne ne sait lequel croire. Chez nous, pour chaque type d’information (les contacts, les rendez-vous, les appels, les dossiers en cours), une seule source doit faire foi, et l’ancienne n’est mise de côté que le jour où l’on a vérifié que la nouvelle contient tout. Au 13 septembre 2026, ce travail n’était pas fini partout : sur 25 types d’information suivis, 15 avaient encore deux sources en présence, et pour 4 d’entre eux, une vérification directe avait déjà trouvé un désaccord entre elles."],
+      ["Deux vérifications avant chaque changement", "Celui qui écrit une modification n’est jamais celui qui la valide. Une modification est d’abord préparée dans un espace de travail séparé, puis un second système, distinct de celui qui l’a écrite, la relit en entier. Nos tests sont ensuite rejoués intégralement. Une personne décide seule de la mise en ligne finale. Une modification qui n’a pas passé ces étapes n’est jamais publiée."],
+      ["Une vérification qui peut bloquer une page", "Avant qu’une page de ce site soit mise en ligne, une vérification automatique relit le texte et la mise en page. Elle bloque si un chiffre semble invérifiable, si une couleur sort de notre charte, ou si le texte déborde sur un téléphone. Si elle bloque à tort, on corrige le texte concerné. On ne désactive jamais la vérification elle-même."],
     ],
-    summaryText: "25 types d'information suivis au total. Pour 1, le transfert est terminé. Pour 8, il est en cours. Pour 4, une vérification a trouvé un désaccord entre les deux versions. Pour 12, le transfert n'a pas encore commencé. Le compte des anciens outils inclut des points déjà mis en pause ou en échec, gardés au registre jusqu'à fermeture actée. Le tableau ci-dessus détaille les 7 types les plus significatifs sur les 25 ; le registre complet est montré à l'examen.",
-    operating: "Comment nous repérons un écart, et ce qu'il se passe ensuite.",
-    central: "Notre propre cas", caseTitle: "Le premier client de ce système, c'est nous.",
+    summaryText: "25 types d’information suivis au total. Pour 1, le transfert est terminé. Pour 8, il est en cours. Pour 4, une vérification a trouvé un désaccord entre les deux versions. Pour 12, le transfert n’a pas encore commencé. Le compte des anciens outils inclut des points déjà mis en pause ou en échec, gardés au registre jusqu’à fermeture actée. Le tableau ci-dessus détaille les 7 types les plus significatifs sur les 25 ; le registre complet est montré à l’examen.",
+    operating: "Comment nous repérons un écart, et ce qu’il se passe ensuite.",
+    central: "Notre propre cas", caseTitle: "Le premier client de ce système, c’est nous.",
     observed: "Usage interne · vérifié le 13 septembre 2026",
-    record: ["25 types d'information suivis dans l'entreprise", "1 réglé, 8 en cours de transfert, 4 avec deux versions différentes, 12 pas encore commencés"],
-    mechanism: "Revenir à l'explication détaillée, plus haut", method: "Méthode",
+    record: ["25 types d’information suivis dans l’entreprise", "1 réglé, 8 en cours de transfert, 4 avec deux versions différentes, 12 pas encore commencés"],
+    mechanism: "Revenir à l’explication détaillée, plus haut", method: "Méthode",
     methodBody: "Chaque système ci-dessus se construit de la même façon : Examen, Construction, Capitalisation.", methodLink: "Lire la Manufacture",
     guardrails: "Garde-fous.",
-    guards: ["Pour chaque type d'information, un seul outil fait foi. Il n'est jamais choisi par hasard ni par habitude.", "Un nouveau point d'écriture vers un ancien outil ne peut pas s'ajouter sans être déclaré ici.", "Chaque décision est notée : qui a décidé, et quand. Rien ne se passe sans laisser de trace.", "Avant qu'un changement touche le site ou nos outils, un second système, distinct de celui qui l'a écrit, le relit, et une personne décide seule de le mettre en ligne. On peut toujours revenir en arrière.", "Le choix d'un outil d'intelligence artificielle dépend du besoin et du coût, jamais d'un seul fournisseur imposé."],
+    guards: ["Pour chaque type d’information, un seul outil fait foi. Il n’est jamais choisi par hasard ni par habitude.", "Un nouveau point d’écriture vers un ancien outil ne peut pas s’ajouter sans être déclaré ici.", "Chaque décision est notée : qui a décidé, et quand. Rien ne se passe sans laisser de trace.", "Avant qu’un changement touche le site ou nos outils, un second système, distinct de celui qui l’a écrit, le relit, et une personne décide seule de le mettre en ligne. On peut toujours revenir en arrière.", "Le choix d’un outil d’intelligence artificielle dépend du besoin et du coût, jamais d’un seul fournisseur imposé."],
     faq: [
-      ["Formation ou système livré ?", "Les deux existent. Nos systèmes s'accompagnent d'une formation des équipes ; la formation seule n'est pas notre offre principale."],
-      ["Où vont nos données ?", "Là où le contrat le prévoit. L'hébergement se décide projet par projet, selon vos données et vos accès."],
-      ["Qui maintient le système ensuite ?", "Vous, ou nous : le choix se fait après l'examen, jamais avant."],
+      ["Formation ou système livré ?", "Les deux existent. Nos systèmes s’accompagnent d’une formation des équipes ; la formation seule n’est pas notre offre principale."],
+      ["Où vont nos données ?", "Là où le contrat le prévoit. L’hébergement se décide projet par projet, selon vos données et vos accès."],
+      ["Qui maintient le système ensuite ?", "Vous, ou nous : le choix se fait après l’examen, jamais avant."],
       ["Par où commence-t-on ?", "Par un premier échange avec Parrit.ai."],
     ], legal: "Mentions légales",
   },
@@ -192,7 +192,7 @@ const ROWS = {
       "legacyWriters": 2
     },
     {
-      "domain": "Comptes rendus d'appels",
+      "domain": "Comptes rendus d’appels",
       "source": "Notre application interne",
       "status": "En cours de transfert",
       "legacyWriters": 6

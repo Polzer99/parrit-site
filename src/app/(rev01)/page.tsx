@@ -8,15 +8,15 @@ import { PUBLIC_CLIENT_NAMES, publicClientName } from "@/system/public-clients";
 import { getSiteEvidence } from "@/lib/registry/preuves";
 import { Matiere } from "@/system/components";
 import { CaseStudyCard } from "@/system/components/CaseStudyCard";
-import { IntegrationBuildSwitcher } from "@/system/components/IntegrationBuildSwitcher";
+
 import { ProductScene } from "@/system/components/ProductScene";
-import { ProcessDiagram } from "@/system/components/ProcessDiagram";
+import { ServiceVisual } from "@/system/components/ServiceVisual";
 
 const DICT = {
   fr: {
     build: {
       title: "Vous demandez, vous validez, la fiche est créée.",
-      phrase: "Un exemple : un agent dans la messagerie de l'équipe commerciale, relié au CRM de l'entreprise.",
+      phrase: "Un exemple : un agent dans la messagerie de l’équipe commerciale, relié au CRM de l’entreprise.",
       steps: ["Vous photographiez la carte.", "Vous répondez « oui ».", "Le contact est dans le CRM."],
       label: "Dans votre CRM",
       objectAlt: "Fiche du contact créée dans le CRM : société, nom, poste, mobile masqué",
@@ -45,7 +45,7 @@ const DICT = {
         },
         {
           name: "Joone",
-          description: "un accompagnement des équipes à l'IA"
+          description: "un accompagnement des équipes à l’IA"
         },
         {
           name: "SNCF",
@@ -55,7 +55,7 @@ const DICT = {
     },
     consulting: {
       title: "Comprendre vos opérations avant de choisir une technologie.",
-      body: "Nous commençons par regarder comment votre équipe travaille aujourd'hui. Nous repérons les tâches qui reviennent, celles qui coûtent du temps et celles qui portent un risque. Puis nous décidons avec vous de ce qui mérite d'être transformé, dans quel ordre, et comment vos équipes s'approprieront le changement.",
+      body: "Nous commençons par regarder comment votre équipe travaille aujourd’hui. Nous repérons les tâches qui reviennent, celles qui coûtent du temps et celles qui portent un risque. Puis nous décidons avec vous de ce qui mérite d’être transformé, dans quel ordre, et comment vos équipes s’approprieront le changement.",
       steps: [
         [
           "Observer",
@@ -74,12 +74,12 @@ const DICT = {
           "ce qui a changé, avec une méthode décidée au départ"
         ]
       ],
-      link: "Voir l'approche conseil"
+      link: "Voir l’approche conseil"
     },
     examples: "Trois systèmes que nous avons construits",
     sprints: {
       title: "AI Sprints : tester un système sur un problème précis, puis décider sur preuves.",
-      body: "Plutôt que des mois d'hypothèses, un cycle court sur un périmètre décidé ensemble. La durée dépend du problème et se fixe au cadrage.",
+      body: "Plutôt que des mois d’hypothèses, un cycle court sur un périmètre décidé ensemble. La durée dépend du problème et se fixe au cadrage.",
       steps: [
         [
           "Cadrage",
@@ -98,26 +98,26 @@ const DICT = {
           "passer en production, corriger ou arrêter, et pourquoi"
         ]
       ],
-      limit: "Ce qui n'est pas livré : un système en production à grande échelle, une promesse de délai fixe.",
+      limit: "Ce qui n’est pas livré : un système en production à grande échelle, une promesse de délai fixe.",
       link: "Cadrer un sprint"
     },
     engineering: "Intégrer ce qui existe. Construire ce qui manque.",
     harness: {
       title: "Le modèle ne suffit pas. Il faut un système fiable autour.",
-      body: "Un agent qui réussit une démonstration peut échouer dans vos opérations. Ce qui fait la différence se trouve autour du modèle : le contexte qu'on lui donne, les outils qu'il a le droit d'utiliser, les vérifications avant chaque action, la supervision humaine et le suivi des coûts.",
+      body: "Un agent qui réussit une démonstration peut échouer dans vos opérations. Ce qui fait la différence se trouve autour du modèle : le contexte qu’on lui donne, les outils qu’il a le droit d’utiliser, les vérifications avant chaque action, la supervision humaine et le suivi des coûts.",
       link: "Fiabiliser vos agents"
     },
     method: [
       "Comprendre comment vos équipes travaillent",
       "Prioriser",
       "Construire une première brique mesurée",
-      "L'intégrer à vos outils",
+      "L’intégrer à vos outils",
       "La tester avec vos équipes",
-      "L'adopter et la maintenir"
+      "L’adopter et la maintenir"
     ],
     close: {
-      title: "Parlons de l'opération que vous voulez transformer.",
-      button: "Parler d'un projet"
+      title: "Parlons de l’opération que vous voulez transformer.",
+      button: "Parler d’un projet"
     }
   },
   en: {
@@ -241,21 +241,21 @@ export default async function HomePage() {
   const cases = (["demo-crm", "Laparra", "Clevery"] as const).filter(id => getSiteEvidence(id, "home"));
   return <main className="rev-page home-s v1-page" data-brand-mode="accessible">
     <section className="home-s-hero r2-dark" id="H01" data-regime="ink"><div className="home-s-wrap v1-hero-grid"><div className="v1-hero-copy">
-      <h1>{copy.hero.title}</h1><p className="home-s-hero-sub">{copy.hero.sub}</p>
+      <h1>{copy.hero.title}</h1></div><div className="v1-hero-summary"><p className="home-s-hero-sub">{copy.hero.sub}</p>
       <div className="v1-actions"><Link className="rev-button exec" href={href("/commission")}>{copy.hero.primary}</Link><Link className="rev-button ghost" href={href("/dossiers")}>{copy.hero.secondary}</Link></div>
-      </div><div className="v1-hero-scene"><p className="v1-demo-note">{locale === "fr" ? "Démonstration, données fictives." : "Demonstration, fictional data."}</p><ProductScene title={copy.build.title} phrase={copy.build.phrase} steps={copy.build.steps} label={copy.build.label}
-        object={{ src: "/brand/scenes/scene-carte-visite-fiche-crm", width: 860, height: 564, widths: [430, 860], sizes: "(max-width: 760px) calc(100vw - 40px), 520px", alt: copy.build.objectAlt }}
+      </div><div className="v1-hero-scene"><ProductScene presentation="hero" demoNote={locale === "fr" ? "Démonstration, données fictives." : "Demonstration in French, fictional data."} title={copy.build.title} phrase={copy.build.phrase} steps={copy.build.steps} label={copy.build.label}
+        object={{ src: "/brand/scenes/scene-carte-visite-fiche-crm", width: 860, height: 564, widths: [430, 860], sizes: "(max-width: 760px) calc(100vw - 40px), 680px", alt: copy.build.objectAlt }}
         markers={[{ number: 3, image: "object", left: 93, top: 9 }]} /></div>
     </div></section>
     <div data-regime="calm"><div className="home-s-wrap"><Matiere tone="clair" /></div></div>
     {references.length > 0 && <section className="home-s-brands" id="H02" data-regime="calm"><div className="home-s-wrap"><h2>{copy.brands.kicker}</h2><ul className="home-s-brands-list" role="list">
       {references.map(id => { const evidence = getSiteEvidence(id, "home"); const item = copy.brands.list.find(client => publicClientName(client.name) === id); return evidence && item ? <li key={id} data-evidence={id}><strong>{item.name}</strong><span>{item.description}</span></li> : null; })}
     </ul></div></section>}
-    <section id="H03" data-regime="calm"><div className="home-s-wrap"><h2>{copy.consulting.title}</h2><p>{copy.consulting.body}</p><Sequence steps={copy.consulting.steps}/><ProcessDiagram locale={locale}/><Link className="rev-button ghost" href={href("/consulting-transformation")}>{copy.consulting.link}</Link></div></section>
+    <section id="H03" data-regime="calm"><div className="home-s-wrap v1-door"><div className="v1-door-copy"><h2>{copy.consulting.title}</h2><p>{copy.consulting.body}</p><Link className="rev-button ghost" href={href("/consulting-transformation")}>{copy.consulting.link}</Link></div><ServiceVisual id="consulting-transformation" locale={locale}/></div></section>
     {cases.length > 0 && <section id="H04" data-regime="ink"><div className="home-s-wrap"><h2>{copy.examples}</h2><div className="v1-cases">{cases.map(id => <CaseStudyCard key={id} id={id} locale={locale} pageId="home"/>)}</div></div></section>}
-    <section id="H05" data-regime="calm"><div className="home-s-wrap"><h2>{copy.sprints.title}</h2><p>{copy.sprints.body}</p><Sequence steps={copy.sprints.steps}/><p>{copy.sprints.limit}</p><Link className="rev-button ghost" href={href("/ai-sprints")}>{copy.sprints.link}</Link></div></section>
-    <section id="H06" data-regime="canard"><div className="home-s-wrap"><h2>{copy.engineering}</h2><IntegrationBuildSwitcher locale={locale}/><Link className="rev-button ghost" href={href("/engineering-integration")}>{locale === "fr" ? "Voir l'engineering" : "See engineering"}</Link></div></section>
-    <section id="H07" data-regime="ink" className="r2-dark"><div className="home-s-wrap"><h2>{copy.harness.title}</h2><p>{copy.harness.body}</p><Link className="rev-button ghost" href={href("/harness-engineering")}>{copy.harness.link}</Link></div></section>
+    <section id="H05" data-regime="calm"><div className="home-s-wrap v1-door v1-door-reverse"><div className="v1-door-copy"><h2>{copy.sprints.title}</h2><p>{copy.sprints.body}</p><Link className="rev-button ghost" href={href("/ai-sprints")}>{copy.sprints.link}</Link></div><ServiceVisual id="ai-sprints" locale={locale}/></div></section>
+    <section id="H06" data-regime="canard"><div className="home-s-wrap v1-door"><div className="v1-door-copy"><h2>{copy.engineering}</h2><p>{locale === "fr" ? "Vos outils actuels restent en place quand ils font le travail ; nous les relions entre eux et à vos données." : "Your current tools stay in place when they do the job; we connect them to each other and to your data."}</p><Link className="rev-button ghost" href={href("/engineering-integration")}>{locale === "fr" ? "Voir l’engineering" : "See engineering"}</Link></div><ServiceVisual id="engineering-integration" locale={locale}/></div></section>
+    <section id="H07" data-regime="ink"><div className="home-s-wrap v1-door v1-door-reverse"><div className="v1-door-copy"><h2>{copy.harness.title}</h2><p>{copy.harness.body}</p><Link className="rev-button ghost" href={href("/harness-engineering")}>{copy.harness.link}</Link></div><ServiceVisual id="harness-engineering" locale={locale}/></div></section>
     <section id="H11" data-regime="calm"><div className="home-s-wrap"><h2>{locale === "fr" ? "Six étapes, de vos opérations à un système en production." : "Six steps, from how you operate to a system in production."}</h2><Sequence className="v1-method" steps={copy.method.map(step => [step])}/></div></section>
     <FinalCall id="H12" locale={locale} title={copy.close.title} className="home-s-close r2-dark" contentClassName="home-s-wrap" regime="ink"/>
   </main>;

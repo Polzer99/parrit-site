@@ -6,8 +6,8 @@ const COPY = {
     label: "Le mécanisme, vérifié",
     sourceCanonical: ["Ce qui fait foi", "Notre application interne."],
     sourceLegacy: ["Ce qui écrit encore à côté", "Onze anciens outils, dont une synchronisation toutes les 15 minutes."],
-    control: ["Deux contrôles", "Un verrou, posé au moment de modifier le code, empêche d'ajouter un nouveau point d'écriture non déclaré. Un audit du 11 septembre a trouvé 114 fiches présentes uniquement dans l'ancien système."],
-    decision: ["Décision humaine, datée", "Parrit.ai tranche, un type d'information à la fois. Une décision déjà prise et datée, comme celle du 14 septembre."],
+    control: ["Deux contrôles", "Un verrou, posé au moment de modifier le code, empêche d’ajouter un nouveau point d’écriture non déclaré. Un audit du 11 septembre a trouvé 114 fiches présentes uniquement dans l’ancien système."],
+    decision: ["Décision humaine, datée", "Parrit.ai tranche, un type d’information à la fois. Une décision déjà prise et datée, comme celle du 14 septembre."],
   },
   en: {
     label: "The mechanism, verified",

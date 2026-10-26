@@ -56,9 +56,9 @@ for (const locale of ["fr", "en"]) {
     for (const [, src] of html.matchAll(/<img[^>]*src="([^"]+)"/g)) assert.ok(["/brand/scenes/scene-carte-visite-photo.png", "/brand/scenes/scene-carte-visite-fiche-crm.png"].includes(src), "Only approved scene assets");
     assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
     if (id !== "home") assert.ok(new Set([...html.matchAll(/href="(\/[^"#]+)"/g)].map(m => m[1])).size >= 7);
-    if (["home", "engineering-integration"].includes(id)) {
+    if (id === "engineering-integration") {
       assert.ok(html.includes('data-enhanced="false"')); assert.doesNotMatch(html, /\shidden[=> ]/);
-      for (const word of locale === "fr" ? ["Intégrer l&#x27;existant", "Construire le manquant", "Orchestrer l&#x27;ensemble"] : ["Integrate what exists", "Build what is missing", "Orchestrate the whole"]) assert.ok(html.includes(word));
+      for (const word of locale === "fr" ? ["Intégrer l’existant", "Construire le manquant", "Orchestrer l’ensemble"] : ["Integrate what exists", "Build what is missing", "Orchestrate the whole"]) assert.ok(html.includes(word));
     }
   });
 }
@@ -112,11 +112,12 @@ test("all eight guide metadata titles are unique across languages", async () => 
   for (const locale of ["fr", "en"]) for (const id of pageIds) titles.push((await loader(locale)("src/system/components/SiteV1Page.tsx").siteV1Metadata(id)).title.absolute);
   assert.equal(new Set(titles).size, 8);
 });
-test("harness components are a set without directional connectors", async () => {
+test("harness components surround the model with eight canonical connectors", async () => {
   for (const locale of ["fr", "en"]) {
     const html = await renderPage(locale, "harness-engineering");
     const diagram = html.match(/<ol class="v1-harness-diagram"[\s\S]*?<\/ol>/)?.[0];
     assert.ok(diagram); assert.equal((diagram.match(/<li/g) ?? []).length, 8);
-    assert.doesNotMatch(diagram, /<svg|[→←]/);
+    assert.equal((html.match(/marker-end="url\(#harness-head-/g) ?? []).length, 8);
+    assert.doesNotMatch(diagram, /[→←]/);
   }
 });

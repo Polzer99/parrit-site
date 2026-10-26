@@ -21,6 +21,8 @@ type SceneMarker = {
 
 type ProductSceneProps = {
   title: string;
+  presentation?: "default" | "hero";
+  demoNote?: string;
   phrase: string;
   steps: readonly [string, string, string];
   object: SceneImage;
@@ -46,22 +48,25 @@ function ScenePicture({ image, markers }: { image: SceneImage; markers: readonly
 }
 
 /** VS-PRODUCT-SCENE: a conversation and its resulting object, without client JS. */
-export function ProductScene({ title, phrase, steps, object, label, markers }: ProductSceneProps) {
+export function ProductScene({ title, phrase, steps, object, label, markers, presentation = "default", demoNote }: ProductSceneProps) {
   return (
-    <div className="product-scene">
+    <div className={`product-scene${presentation === "hero" ? " product-scene-hero" : ""}`}>
       <div className="product-scene-copy">
-        <h2>{title}</h2>
+        {presentation === "hero" ? <p>{title}</p> : <h2>{title}</h2>}
         <p>{phrase}</p>
         <ol className="product-scene-steps" role="list">
-          {steps.map((step, index) => <li key={step}><span className="scene-marker" aria-hidden="true">{index + 1}</span><span>{step}</span></li>)}
+          {steps.map((step, index) => <li key={step}>{presentation !== "hero" && <span className="scene-marker" aria-hidden="true">{index + 1}</span>}<span>{step}</span></li>)}
         </ol>
       </div>
+      <div className="product-scene-frame" data-regime={presentation === "hero" ? "canard" : undefined}>
       <div className="product-scene-conversation">
         <Conversation />
       </div>
       <div className="product-scene-object">
         <p className="product-scene-label">{label}</p>
         <ScenePicture image={object} markers={markers.filter((marker) => marker.image === "object")} />
+      </div>
+      {demoNote && <p className="v1-demo-note">{demoNote}</p>}
       </div>
     </div>
   );
@@ -72,7 +77,7 @@ function Conversation() {
   return <div className="scene-chat" data-phone-mockup lang="fr" aria-label="Conversation avec l’agent CRM">
     <div className="scene-chat-header"><div><strong>Agent CRM</strong><span>bot</span></div><span className="scene-chat-avatar">CRM</span></div>
     <div className="scene-chat-messages">
-      <p className="scene-chat-date">Aujourd&apos;hui</p>
+      <p className="scene-chat-date">Aujourd’hui</p>
       <div className="scene-chat-bubble scene-chat-outgoing">
         <span className="scene-marker" aria-hidden="true">1</span>
         {/* Unretouched crop of the approved p2 PNG; served directly to preserve pixels. */}
@@ -80,12 +85,12 @@ function Conversation() {
         <img src="/brand/scenes/scene-carte-visite-photo.png" width={754} height={520} loading="lazy" decoding="async" alt="Carte de visite photographiée : Contact achat, acheteur chez Prospect B" />
         <p>nouveau contact chez Prospect B, vu ce matin</p><ChatTime value="08:04" sent />
       </div>
-      <div className="scene-chat-bubble"><p>Je crée <strong>Contact achat</strong> (acheteur) chez <strong>Prospect B</strong>. C&apos;est bon ?</p><ChatTime value="08:04" /></div>
+      <div className="scene-chat-bubble"><p>Je crée <strong>Contact achat</strong> (acheteur) chez <strong>Prospect B</strong>. C’est bon ?</p><ChatTime value="08:04" /></div>
       <div className="scene-chat-choices" aria-label="Réponses proposées : oui ou non">
         <span><CheckIcon /> Oui</span><span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" /></svg> Non</span>
       </div>
       <div className="scene-chat-bubble scene-chat-outgoing scene-chat-approval"><span className="scene-marker" aria-hidden="true">2</span><p>oui</p><ChatTime value="08:05" sent /></div>
-      <div className="scene-chat-bubble"><p><CheckIcon /> C&apos;est créé : <strong>Contact achat</strong> (acheteur) chez <strong>Prospect B</strong>.</p><ChatTime value="08:05" /></div>
+      <div className="scene-chat-bubble"><p><CheckIcon /> C’est créé : <strong>Contact achat</strong> (acheteur) chez <strong>Prospect B</strong>.</p><ChatTime value="08:05" /></div>
     </div>
     <div className="scene-chat-input">Message</div>
   </div>;

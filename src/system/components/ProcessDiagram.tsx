@@ -8,7 +8,7 @@ export function ProcessConnector() {
 export function ProcessDiagram({ locale }: { locale: Locale }) {
   const fr = locale === "fr";
   const columns = [
-    { title: fr ? "Aujourd'hui" : "Today", target: false, steps: fr
+    { title: fr ? "Aujourd’hui" : "Today", target: false, steps: fr
       ? ["Demande reçue", "Saisie à la main", "Vérifiée à la main", "Relance oubliée"]
       : ["Request received", "Typed in by hand", "Checked by hand", "Follow-up forgotten"] },
     { title: fr ? "Demain" : "Tomorrow", target: true, steps: fr

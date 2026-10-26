@@ -22,18 +22,18 @@ const DICT = {
     statement: "One system to understand, decide and act across the company. Built for one company at a time.",
   },
   fr: {
-    loading: "CHARGEMENT DU MODÈLE DE L'ENTREPRISE ........",
+    loading: "CHARGEMENT DU MODÈLE DE L’ENTREPRISE ........",
     loaded: "TERMINÉ",
     connecting: "CONNEXION DES OPÉRATIONS ...................",
     systems: "14 SYSTÈMES",
-    scanning: "RECHERCHE D'EXCEPTIONS .....................",
+    scanning: "RECHERCHE D’EXCEPTIONS .....................",
     found: "2 TROUVÉES",
     ready: "PRÊT.",
     heroBefore: "Nous transformons des problèmes opérationnels en",
     heroFrame: "systèmes qui fonctionnent",
     heroAfter: ".",
     maker: <>Parrit.ai transforme des problèmes opérationnels<br />en systèmes qui fonctionnent.</>,
-    statement: "Un seul système pour comprendre, décider et agir, à l'échelle de l'entreprise. Une entreprise à la fois.",
+    statement: "Un seul système pour comprendre, décider et agir, à l’échelle de l’entreprise. Une entreprise à la fois.",
   },
 } as const;
 

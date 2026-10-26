@@ -12,7 +12,7 @@ for (const width of [1440, 375]) for (const locale of ["en", "fr"]) for (const r
     await page.setViewportSize({ width, height: 900 });
     await page.goto(`${BASE_URL}${locale === "fr" ? "/fr" : ""}${route || (locale === "en" ? "/" : "")}`);
     await page.evaluate(() => document.fonts.ready);
-    const left = width === 1440 ? 180 : 20;
+    const left = width === 1440 ? (route ? 180 : 140) : 20;
     const anchors = page.locator(".cmdbar .wordmark, .home-s-footer nav, main > .rev-wrap > header, main > .r2-wrap > header, main > .rev-wrap > section, main > .r2-wrap > section, main > section > .home-s-wrap, .journal-article > header");
     expect(await anchors.count()).toBeGreaterThan(2);
     for (const element of await anchors.all()) {
@@ -27,8 +27,9 @@ for (const width of [1440, 375]) for (const locale of ["en", "fr"]) for (const r
     if (!route && width === 1440) {
       await expect(title).toHaveCSS("text-align", "left");
       const actions = page.locator("#H01 .v1-actions");
-      expect((await actions.boundingBox())!.x).toBeCloseTo(box!.x, 0);
-      expect((await actions.locator("a").first().boundingBox())!.x).toBeCloseTo(box!.x, 0);
+      const summary = (await page.locator(".v1-hero-summary").boundingBox())!;
+      expect((await actions.boundingBox())!.x).toBeCloseTo(summary.x, 0);
+      expect((await actions.locator("a").first().boundingBox())!.x).toBeCloseTo(summary.x, 0);
       await expect(actions).toHaveCSS("justify-content", "flex-start");
     }
     for (const element of await page.locator(".journal-list time, .doctrine-code .k").all()) {

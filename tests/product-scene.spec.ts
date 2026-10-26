@@ -12,15 +12,10 @@ for (const width of [375, 768, 1024, 1440]) for (const locale of ["fr", "en"]) t
   }
   const first = (await columns.nth(0).boundingBox())!;
   const second = (await columns.nth(1).boundingBox())!;
-  if (width <= 760) {
-    expect(second.y).toBeGreaterThanOrEqual(first.y + first.height);
-    expect(second.x).toBe(first.x);
-  } else {
-    expect(second.x).toBeGreaterThanOrEqual(first.x + first.width);
-    expect(second.y).toBe(first.y);
-  }
+  expect(second.x).toBeGreaterThanOrEqual(first.x + first.width);
+  expect(second.y).toBe(first.y);
   const target = diagram.locator('.v1-process-target');
-  expect(await target.evaluate(el => getComputedStyle(el).borderTopColor)).not.toBe(await columns.nth(0).evaluate(el => getComputedStyle(el).borderTopColor));
+  expect(await target.evaluate(el => getComputedStyle(el).borderTopColor)).toBe(await columns.nth(0).evaluate(el => getComputedStyle(el).borderTopColor));
   await expect(page.locator('#H12 a')).toHaveClass('rev-button exec');
   for (const connector of await diagram.locator("svg").all()) {
     await expect(connector).toHaveAttribute("aria-hidden", "true"); await expect(connector.locator("path").first()).toHaveAttribute("stroke-width", "2");
