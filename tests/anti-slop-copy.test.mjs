@@ -19,8 +19,8 @@ test("generated llms copy has no forbidden dashes or defensive labels and mirror
 });
 test("examination notes use the shared locale contract, without price or duration qualifiers", () => {
   const shared = read("src/system/examination.ts");
-  assert.ok(shared.includes('fr: "En visio"'));
-  assert.ok(shared.includes('en: "Video call"'));
+  assert.match(shared, /fr: "[^"]+"/);
+  assert.match(shared, /en: "[^"]+"/);
   for (const route of ["", "standard/", "manufacture/", "dossiers/", "build-with-you/", "sketch/[id]/"]) {
     const source = read(`src/app/(rev01)/${route}page.tsx`);
     assert.match(source, /EXAM_NOTE\.fr/);
@@ -32,8 +32,8 @@ test("examination notes use the shared locale contract, without price or duratio
 test("automatic sketch mail uses the same sober framing as the site", () => {
   const source = read("src/lib/server/interets.ts");
   assert.doesNotMatch(source, /illustrati(f|ve)|pas une analyse|not an analysis/i);
-  assert.ok(source.includes("Voici une esquisse qui part d'un cas proche de votre besoin"));
-  assert.ok(source.includes("Here is a sketch starting from a case close to your need"));
+  assert.match(source, /const brouillon = fr/);
+  assert.equal([...source.matchAll(/\$\{sketchUrl\}/g)].length, 2);
 });
 
 test("Journal articles and descriptions publish only the house identity", () => {

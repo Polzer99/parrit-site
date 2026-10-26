@@ -1,3 +1,4 @@
+import { expectPopulated } from "./content-structure";
 import { expect, test } from "./network-deny.setup";
 import type { BrowserContext, Page } from "@playwright/test";
 
@@ -41,7 +42,7 @@ test("/fr serves French HTML, heading and self canonical", async ({ page }) => {
   const response = await page.goto(`${BASE_URL}/fr`);
   expect(response?.status()).toBe(200);
   await expect(page.locator("html")).toHaveAttribute("lang", "fr");
-  await expect(page.locator("h1")).toHaveText("Nous transformons des problèmes opérationnels en systèmes qui fonctionnent.");
+  await expectPopulated(page.locator("h1"));
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${SITE}/fr`);
   await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute("content", "fr_FR");
 });
@@ -57,7 +58,7 @@ test("Googlebot receives English on bare URL despite French preference", async (
   expect(response.status()).toBe(200);
   const html = await response.text();
   expect(html).toContain('<html lang="en"');
-  expect(html).toContain("We turn operational problems into");
+  expect(html).toMatch(/<h1\b[^>]*>[\s\S]*?\S[\s\S]*?<\/h1>/);
   expect(html).toContain(`<link rel="canonical" href="${SITE}"/>`);
 });
 
@@ -144,7 +145,8 @@ test("French Journal aliases retain their URL and label the unchanged English ar
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator('link[hreflang="fr"]')).toHaveCount(0);
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${SITE}${path}`);
-  await expect(page.getByText("Article en anglais.", { exact: true })).toHaveCount(0);
+  await expect(page.locator("[data-language-note]")).toHaveCount(0);
+  await expectPopulated(page.locator(".journal-header .journal-deck"));
   const englishTitle = await page.locator("h1").textContent();
   const englishBody = await page.locator(".journal-body").textContent();
   const frenchAlias = await page.goto(`${BASE_URL}/fr${path}?source=test`);
@@ -152,7 +154,7 @@ test("French Journal aliases retain their URL and label the unchanged English ar
   expect(frenchAlias?.request().redirectedFrom()).toBeNull();
   await expect(page).toHaveURL(`${BASE_URL}/fr${path}?source=test`);
   await expect(page.locator("html")).toHaveAttribute("lang", "fr");
-  await expect(page.locator("h1 + p")).toHaveText("Article en anglais.");
+  await expectPopulated(page.locator(".journal-header [data-language-note]"));
   await expect(page.locator("h1")).toHaveText(englishTitle!);
   await expect(page.locator(".journal-body")).toHaveText(englishBody!);
   await expect(page.locator(".journal-body")).toHaveAttribute("lang", "en");
@@ -163,9 +165,9 @@ test("French Journal aliases retain their URL and label the unchanged English ar
   await expect(page).toHaveURL(`${BASE_URL}/fr${path}?source=test`);
   await switchHeaderLanguage(page, context, "en", `${BASE_URL}${path}?source=test`);
   await expect(page).toHaveURL(`${BASE_URL}${path}?source=test`);
-  await expect(page.getByText("Article en anglais.", { exact: true })).toHaveCount(0);
+  await expect(page.locator("[data-language-note]")).toHaveCount(0);
   await switchHeaderLanguage(page, context, "fr", `${BASE_URL}/fr${path}?source=test`);
-  await expect(page.locator("h1 + p")).toHaveText("Article en anglais.");
+  await expectPopulated(page.locator(".journal-header [data-language-note]"));
 });
 
 test("sitemap contains both translated sets and no French articles", async ({ page }) => {

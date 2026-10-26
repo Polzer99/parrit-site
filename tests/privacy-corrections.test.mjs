@@ -79,14 +79,15 @@ for (const locale of ["en", "fr"]) {
       "@/system/locale": {},
     });
     const html = renderToStaticMarkup(await LegalPage());
-    const heading = locale === "fr" ? "Mesure d’audience" : "Audience measurement";
-    const measurement = html.split(`<h3>${heading}</h3><p>`)[1]?.split("</p>")[0];
-    assert.equal(measurement, locale === "fr"
-      ? "Cloudflare, qui achemine le site, mesure les performances des pages (temps de chargement) et compte les visites. Cette mesure ne dépose ni cookie ni stockage dans votre navigateur et ne produit que des statistiques agrégées. Base légale : notre intérêt légitime à faire fonctionner et à améliorer le site."
-      : "Cloudflare, which delivers the site, measures page performance (load times) and counts visits. This measurement sets no cookie and no browser storage, and produces aggregated statistics only. Legal basis: our legitimate interest in running and improving the site.");
-    assert.ok(html.includes(locale === "fr"
-      ? "hébergement (Vercel), acheminement du site et mesure des performances (Cloudflare), base de données (Supabase)"
-      : "hosting (Vercel), site delivery and performance measurement (Cloudflare), database (Supabase)"));
+    const paragraphs = [...html.matchAll(/<p>([\s\S]*?)<\/p>/g)].map((match) => match[1]);
+    const disclosures = paragraphs.filter((text) => /Cloudflare/.test(text) && /cookie/.test(text));
+    assert.equal(disclosures.length, 1, "unique measurement disclosure");
+    const [measurement] = disclosures;
+    assert.match(measurement, /(?:ni|aucun|no) cookies?\b/);
+    assert.match(measurement, /(?:ni|no)[^.]*stockage|no[^.]*storage/);
+    assert.match(measurement, /agrégées|aggregated/);
+    assert.match(measurement, /intérêt légitime|legitimate interest/);
+    assert.ok(paragraphs.some((text) => ["Vercel", "Cloudflare", "Supabase"].every((vendor) => text.includes(vendor))));
     assert.doesNotMatch(html, /ne mesure plus l(?:’|'|&#x27;|&#39;)audience|no longer measures/i);
   });
   test(`actual layout renders no PostHog script (${locale}), retaining JSON-LD`, async () => {

@@ -1937,13 +1937,25 @@ a.k:active {
 }
 
 .home-s-brands-list {
-  max-width: 980px;
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 32px;
   margin: 24px auto 16px;
-  font-family: var(--mono);
-  font-size: var(--t-k);
-  line-height: 2;
-  letter-spacing: .1em;
-  text-transform: uppercase;
+  padding: 0;
+  list-style: none;
+  font-family: var(--ui);
+  font-size: var(--t-m);
+  font-weight: 400;
+  text-align: left;
+}
+.home-s-brands-list li {
+  max-width: none;
+  padding-block: 16px;
+  border-bottom: 1px solid var(--rule-l);
+}
+.home-s-brands-list strong { font-weight: 600; }
+@media (min-width: 1024px) {
+  .home-s-brands-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .home-s-brands-list + p {
@@ -2977,7 +2989,8 @@ a.k:active {
   background: transparent;
 }
 
-.home-s-proof {
+.home-s-proof,
+.home-s-parcours {
   padding: 64px 0;
   border-bottom: 1px solid var(--rule-l);
 }
@@ -3014,6 +3027,12 @@ a.k:active {
   letter-spacing: normal;
   text-transform: none;
   color: var(--accent-text);
+}
+.home-s-parcours .doctrine-note { margin-top: var(--s3); }
+.home-s-parcours .home-s-proof-item:first-child { padding-left: 0; }
+@media (max-width: 760px) {
+  .home-s-parcours .home-s-proof-grid { grid-template-columns: 1fr; }
+  .home-s-parcours .home-s-proof-item { padding-left: 0; }
 }
 @media (max-width: 640px) {
   .home-s-proof-grid { grid-template-columns: 1fr; }
@@ -3248,9 +3267,6 @@ a.k:active {
   color: var(--g4-d);
 }
 
-.home-s-brands-list span { display: inline-block; white-space: nowrap; }
-.home-s-brands-list span:not(:last-child)::after { content: " · "; white-space: pre; }
-
 /* 2026-10-08 audit §2: shared readable actions and copy. Inline prose links
    deliberately remain inline; target geometry applies only to navigation. */
 .rev-button,
@@ -3372,7 +3388,7 @@ a.k {
 .product-scene-object { align-self: end; }
 @media (max-width: 859px) {
   .home-s-footer-meta { grid-template-columns: 1fr; }
-  .home-s-brands, .home-s-proof { padding: 44px 0; }
+  .home-s-brands, .home-s-proof, .home-s-parcours { padding: 44px 0; }
   .home-s-close, .r2-close, .home-s-offers { padding: 78px 0; }
 }
 @media (max-width: 760px) {

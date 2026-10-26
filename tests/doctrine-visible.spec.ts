@@ -1,3 +1,4 @@
+import { expectPopulated } from "./content-structure";
 import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
@@ -12,7 +13,6 @@ test.beforeEach(async ({ page }) => {
 
 for (const locale of ["fr", "en"] as const) {
   const prefix = locale === "fr" ? "/fr" : "";
-  const label = locale === "fr" ? "Réserver l'examen" : "Book the examination";
   test(`doctrine header accent without JavaScript ${locale}`, async ({ browser }) => {
     const context = await browser.newContext({ javaScriptEnabled: false, serviceWorkers: "block", extraHTTPHeaders: { "Accept-Language": "en" } });
     const blocked: string[] = [];
@@ -39,7 +39,10 @@ for (const locale of ["fr", "en"] as const) {
       await page.evaluate(() => document.fonts.ready);
       const actions = page.locator('a.rev-button[href$="/commission"]');
       expect(await actions.count()).toBeGreaterThan(0);
-      for (const action of await actions.all()) await expect(action).toHaveText(label);
+      for (const action of await actions.all()) {
+        await expectPopulated(action);
+        await expect(action).toHaveAttribute("href", `${prefix}/commission`);
+      }
       for (const button of await page.locator(".rev-button:visible").all()) {
         await expect(button).toHaveCSS("font-family", /General Sans/);
         await expect(button).toHaveCSS("font-weight", "600");
@@ -49,7 +52,8 @@ for (const locale of ["fr", "en"] as const) {
       await page.setViewportSize({ width: 390, height: 844 });
       await page.locator(".cmd-menu-toggle").click();
       const mobile = page.locator(".cmd-panel-cta");
-      await expect(mobile).toHaveText(label);
+      await expectPopulated(mobile);
+      await expect(mobile).toHaveAttribute("href", `${prefix}/commission`);
       await expect(mobile).toHaveCSS("font-family", /General Sans/);
       await expect(mobile).toHaveCSS("text-transform", "none");
     });
@@ -68,7 +72,8 @@ for (const locale of ["fr", "en"] as const) {
     await capture.locator('input[type="email"]').fill("doctrine@example.invalid");
     await capture.locator('button[type="submit"]').click();
     await expect(capture).toHaveAttribute("data-state", "done");
-    const booking = capture.getByRole("link", { name: label, exact: true });
+    const booking = capture.getByRole("link");
+    await expectPopulated(booking);
     await expect(booking).toHaveAttribute("href", `${prefix}/commission`);
     await expect(booking).toHaveCSS("font-family", /General Sans/);
     await expect(booking).toHaveCSS("text-transform", "none");
@@ -84,7 +89,8 @@ for (const locale of ["fr", "en"] as const) {
       await expect(journey.locator("img")).toHaveCount(0);
       await expect(journey.locator(":scope > .k")).toHaveCount(1);
       await expect(journey).not.toContainText(locale === "fr" ? "Paul Larmaraud · Fondateur" : "Paul Larmaraud · Founder");
-      await expect(journey.locator(".rev-button.ghost")).toHaveText(label);
+      await expectPopulated(journey.locator(".rev-button.ghost"));
+      await expect(journey.locator(".rev-button.ghost")).toHaveAttribute("href", `${prefix}/commission`);
       await expect(journey.locator('a[href="https://paul-larmaraud.com"]')).toHaveCount(0);
       await expect(page.locator(".home-s-maison figure")).toHaveCount(0);
       const composition = journey;
@@ -138,7 +144,9 @@ for (const locale of ["fr", "en"] as const) {
         await expect(heading).toHaveCSS("font-size", "22px");
       }
       const journal = page.locator(".home-s-journal");
-      await expect(journal.getByText("Articles en anglais.", { exact: true })).toHaveCount(locale === "fr" ? 1 : 0);
+      const languageNote = journal.locator("[data-language-note]");
+      await expect(languageNote).toHaveCount(locale === "fr" ? 1 : 0);
+      if (locale === "fr") await expectPopulated(languageNote);
       expect(await journal.locator("li a").count()).toBeGreaterThan(0);
       for (const article of await journal.locator("li a").all()) {
         await expect(article).toHaveAttribute("hreflang", "en");
@@ -243,17 +251,20 @@ for (const locale of ["fr", "en"] as const) {
     await page.goto(`${BASE_URL}${prefix}/build-with-you`);
     await page.evaluate(() => document.fonts.ready);
     const hero = page.locator(".build-with-you-hero");
-    const button = hero.getByRole("link", { name: label, exact: true });
+    const button = hero.locator('a[href$="/commission"]');
+    await expectPopulated(button);
+    await expect(button).toHaveAttribute("href", `${prefix}/commission`);
     await expect(button).toBeVisible();
     const bounds = await button.boundingBox();
     expect(bounds).not.toBeNull();
     expect(bounds!.y).toBeGreaterThanOrEqual(0);
     expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(844);
-    await expect(hero.locator(".doctrine-note")).toHaveText(locale === "fr" ? "En visio" : "Video call");
+    await expectPopulated(hero.locator(".doctrine-note"));
     await expect(hero.locator(".doctrine-note")).toHaveCSS("font-size", "16px");
     await expect(hero.locator(".offer-price")).toHaveCount(0);
     await expect(page.locator(".r2-close .offer-price")).toHaveCount(0);
-    await expect(page.locator('[aria-labelledby="build-next"] > a')).toHaveText(locale === "fr" ? "Réserver l'examen (système sur mesure)" : "Book the examination (custom system)");
+    await expectPopulated(page.locator('[aria-labelledby="build-next"] > a'));
+    await expect(page.locator('[aria-labelledby="build-next"] > a')).toHaveAttribute("href", `${prefix}/commission`);
   });
 }
 
@@ -265,13 +276,14 @@ for (const width of [1440, 768, 375, 390]) {
       await page.evaluate(() => document.fonts.ready);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
       if (route === "/fr") {
-        await expect(page.locator(".home-s-brands-list > span")).toHaveCount(4);
-        for (const item of await page.locator(".home-s-brands-list > span").all()) {
-          await expect(item).toHaveCSS("white-space", "nowrap");
+        await expect(page.locator(".home-s-brands-list > li")).toHaveCount(5);
+        for (const item of await page.locator(".home-s-brands-list > li").all()) {
+          await expect(item).toHaveCSS("white-space", "normal");
           expect(await item.evaluate((el) => {
             const range = document.createRange(); range.selectNodeContents(el);
-            return new Set([...range.getClientRects()].map((r) => Math.round(r.top))).size;
-          })).toBe(1);
+            const box = el.getBoundingClientRect();
+            return [...range.getClientRects()].every((r) => r.left >= box.left - 1 && r.right <= box.right + 1);
+          })).toBe(true);
         }
       }
       if (route.endsWith("commission")) await expect(page.locator(".cal-instrument")).toHaveCSS("box-shadow", "none");

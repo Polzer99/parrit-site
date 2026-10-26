@@ -12,10 +12,10 @@ test("publisher bloque une faute d'entité avant prooflint et build", (t) => {
   const root = mkdtempSync(path.join(tmpdir(), "entity-publisher-"));
   t.after(() => rmSync(root, { recursive: true, force: true }));
   const repo = fileURLToPath(new URL("..", import.meta.url));
-  for (const directory of ["scripts", "tests", "src", "content/journal", "public", "docs", "home"]) {
+  for (const directory of ["scripts", "scripts/lib", "tests", "src", "src/system", "content/journal", "public", "docs", "home"]) {
     mkdirSync(path.join(root, directory), { recursive: true });
   }
-  for (const file of ["scripts/publish-journal.mjs", "scripts/journal-gates.mjs", "scripts/entity-spelling.mjs", "tests/entity-spelling.test.mjs"]) {
+  for (const file of ["src/system/public-clients.ts", "scripts/lib/public-clients.mjs", "scripts/publish-journal.mjs", "scripts/journal-gates.mjs", "scripts/entity-spelling.mjs", "tests/entity-spelling.test.mjs"]) {
     copyFileSync(path.join(repo, file), path.join(root, file));
   }
   symlinkSync(realpathSync(path.join(repo, "node_modules")), path.join(root, "node_modules"), "dir");

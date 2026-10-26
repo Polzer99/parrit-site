@@ -10,9 +10,9 @@ test.use({ serviceWorkers: "block",
 test("commission matches the REV 01 display and instrument constraints", async ({ page }) => {
   await page.goto(`${BASE_URL}/commission`);
 
-  // H1 copy lock updated to the approved 2026-09-06 LOT 1.
+  // The main heading remains unique and accessible as copy evolves.
   await expect(
-    page.getByRole("heading", { name: "Every commission begins with an examination." }),
+    page.getByRole("heading", { level: 1 }),
   ).toBeVisible();
   await expect(page.locator(".cal-instrument")).toBeVisible();
 

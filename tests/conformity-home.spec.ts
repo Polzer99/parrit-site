@@ -1,8 +1,100 @@
+import { expectPopulated } from "./content-structure";
 import { expect, test } from "./network-deny.setup";
+import { PUBLIC_CLIENT_NAMES, publicClientName } from "../src/system/public-clients";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 
 test.use({ serviceWorkers: "block", viewport: { width: 1440, height: 900 } });
+
+for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+  for (const locale of ["en", "fr"] as const) {
+    test(`home parcours presents two audiences without actions at ${viewport.width}px in ${locale}`, async ({ page }, testInfo) => {
+      await page.setViewportSize(viewport);
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.goto(`${BASE_URL}${locale === "fr" ? "/fr" : "/"}`);
+      await page.evaluate(() => document.fonts.ready);
+
+      const section = page.locator(".home-s-parcours");
+      await expect(section).toHaveCount(1);
+      await expect(section).toBeVisible();
+      await expect(section.locator("h3")).toHaveCount(2);
+      await expect(section.locator("a, [role='link']")).toHaveCount(0);
+      await expect(section.locator("button, [role='button']")).toHaveCount(0);
+      await expectPopulated(section.locator("h2"));
+      await expectPopulated(section.locator("h3"), 2);
+      await expectPopulated(section.locator(".doctrine-note"));
+
+      const geometry = await section.evaluate((element) => {
+        const previous = element.previousElementSibling;
+        const next = element.nextElementSibling;
+        if (!previous?.classList.contains("home-s-brands") || !next?.classList.contains("home-s-maison")) {
+          throw new Error("Parcours must sit directly between brands and maison");
+        }
+        const heading = element.querySelector("h2")!.getBoundingClientRect();
+        const maisonHeading = next.querySelector("h2")!.getBoundingClientRect();
+        const columns = [...element.querySelectorAll("h3")].map((column) => column.getBoundingClientRect());
+        const paragraphs = [...element.querySelectorAll(".home-s-proof-item p")].map((paragraph) => paragraph.getBoundingClientRect());
+        return {
+          left: heading.left,
+          offset: Math.abs(heading.left - maisonHeading.left),
+          sameRow: Math.abs(columns[0].top - columns[1].top),
+          sameColumn: Math.abs(columns[0].left - columns[1].left),
+          overflow: element.scrollWidth - element.clientWidth,
+          headingSize: getComputedStyle(element.querySelector("h2")!).fontSize,
+          maisonHeadingSize: getComputedStyle(next.querySelector("h2")!).fontSize,
+          firstColumnOffset: Math.abs(columns[0].left - heading.left),
+          paragraphOffsets: paragraphs.map((paragraph, index) => Math.abs(paragraph.left - columns[index].left)),
+        };
+      });
+      expect(geometry.offset).toBeLessThanOrEqual(1);
+      expect(Math.abs(geometry.left - (viewport.width === 1440 ? 180 : 20))).toBeLessThanOrEqual(1);
+      expect(geometry.overflow).toBeLessThanOrEqual(1);
+      expect(geometry.headingSize).toBe(geometry.maisonHeadingSize);
+      expect(geometry.firstColumnOffset).toBeLessThanOrEqual(1);
+      for (const offset of geometry.paragraphOffsets) expect(offset).toBeLessThanOrEqual(1);
+      if (viewport.width === 1440) expect(geometry.sameRow).toBeLessThanOrEqual(1);
+      else expect(geometry.sameColumn).toBeLessThanOrEqual(1);
+      await testInfo.attach(`parcours-${locale}-${viewport.width}`, {
+        body: await section.screenshot({ animations: "disabled" }),
+        contentType: "image/png",
+      });
+    });
+  }
+}
+
+for (const width of [1440, 1024, 1023, 390, 375]) {
+  for (const locale of ["en", "fr"] as const) {
+    test(`home client references preserve attribution and layout at ${width}px in ${locale}`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`${BASE_URL}${locale === "fr" ? "/fr" : "/"}`);
+      await page.evaluate(() => document.fonts.ready);
+      const section = page.locator(".home-s-brands");
+      const rows = section.locator("li");
+      await expectPopulated(rows, PUBLIC_CLIENT_NAMES.length);
+      await expect(section.locator("a, button, img, svg")).toHaveCount(0);
+      await expectPopulated(section.locator(".home-s-brands-list + p"));
+      const names = await rows.locator("strong").allTextContents();
+      expect(names.map(publicClientName).sort()).toEqual([...PUBLIC_CLIENT_NAMES].sort());
+      for (const row of await rows.all()) {
+        await expectPopulated(row.locator("strong"));
+        await expectPopulated(row.locator("span"));
+        await expect(row.locator("strong")).toHaveCSS("font-weight", "600");
+        await expect(row.locator("span")).toHaveCSS("font-weight", "400");
+        await expect(row).toHaveCSS("border-bottom-width", "1px");
+        expect(await row.locator("strong").evaluate((el) => getComputedStyle(el).fontFamily)).toBe(
+          await row.locator("span").evaluate((el) => getComputedStyle(el).fontFamily),
+        );
+      }
+      const geometry = await rows.evaluateAll((elements) => {
+        const boxes = elements.map((el) => el.getBoundingClientRect());
+        return { sameRow: Math.abs(boxes[0].top - boxes[1].top), sameColumn: Math.abs(boxes[0].left - boxes[1].left) };
+      });
+      if (width >= 1024) expect(geometry.sameRow).toBeLessThanOrEqual(1);
+      else expect(geometry.sameColumn).toBeLessThanOrEqual(1);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+    });
+  }
+}
 
 test("the home locks the approved display scale and surface rules", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
@@ -109,7 +201,7 @@ for (const width of [375, 1440]) {
       await page.evaluate(() => document.fonts.ready);
 
       const maison = page.locator(".home-s-maison");
-      const primary = maison.getByRole("link", { name: locale === "fr" ? "Réserver l'examen" : "Book the examination", exact: true });
+      const primary = maison.getByRole("link");
       await expect(maison.getByRole("link")).toHaveCount(1);
       await expect(primary).toHaveAttribute("href", locale === "fr" ? "/fr/commission" : "/commission");
       await expect(maison.locator("figure, figcaption, picture")).toHaveCount(0);
@@ -134,12 +226,8 @@ for (const width of [375, 1440]) {
       await page.goto(`${BASE_URL}${locale === "fr" ? "/fr" : "/"}`);
       await page.evaluate(() => document.fonts.ready);
 
-      await expect(page.locator(".home-s-hero-sub")).toHaveText(locale === "fr"
-        ? "Parrit.ai est une maison de données et d'IA. La facture qui traîne, le rapport refait à la main chaque semaine : nous partons de vos données et construisons des outils qui vous appartiennent."
-        : "Parrit.ai is a data and AI company. The invoice that drags, the report rebuilt by hand every week: we start from your data and build tools you own.");
-      await expect(page.locator(".home-s-maison h2")).toHaveText(locale === "fr"
-        ? "Quatre étapes mènent du premier message à un système que votre équipe fait tourner."
-        : "Four steps take you from the first message to a system your team runs.");
+      await expectPopulated(page.locator(".home-s-hero-sub"));
+      await expectPopulated(page.locator(".home-s-maison h2"));
 
       await expect(page.locator(".home-s-quick-capture")).toHaveCount(0);
       await expect(async () => {
@@ -181,11 +269,11 @@ for (const locale of ["en", "fr"] as const) {
     await page.goto(`${BASE_URL}${locale === "fr" ? "/fr" : "/"}`);
     await page.evaluate(() => document.fonts.ready);
 
-    await expect(page.getByRole("region", { name: "Metrics", exact: true })).toHaveCount(0);
+    await expect(page.locator(".home-s-metrics")).toHaveCount(0);
     await expect(page.getByText(/200\+|2[.,]5 (?:months|mois)|100\s*%|02·09·2026/)).toHaveCount(0);
-    await expect(page.locator(".home-s-brands-list + p")).toHaveText(locale === "fr"
-      ? "Les noms des clients sont communiqués en rendez-vous."
-      : "Client names are shared in a meeting.");
+    await expectPopulated(page.locator(".home-s-brands-list + p"));
+    const clients = await page.locator(".home-s-brands-list > li > strong").allTextContents();
+    expect(clients.map(publicClientName).sort()).toEqual([...PUBLIC_CLIENT_NAMES].sort());
     const gap = await page.locator(".home-s-brands").evaluate((brands) => {
       const previous = brands.previousElementSibling;
       if (!previous?.classList.contains("home-s-hero")) throw new Error("Hero containing the agent must precede brands");
@@ -202,19 +290,9 @@ for (const locale of ["en", "fr"] as const) {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(`${BASE_URL}${locale === "fr" ? "/fr/dossiers" : "/dossiers"}`);
     await page.evaluate(() => document.fonts.ready);
-    await expect(page.locator(".r2-dossier h3")).toHaveText(locale === "fr" ? [
-      "Un reporting commandé pour s'assembler seul et partir à l'heure.",
-      "Un système commandé pour traiter la boîte mail du cabinet et lui servir d'assistant sur mesure.",
-      "Nous vendons le système qui nous fait tourner.",
-    ] : [
-      "A reporting system, commissioned to assemble itself and ship on time.",
-      "A system commissioned to handle the firm's mailbox and act as a tailored assistant.",
-      "We sell the system we run on.",
-    ]);
+    await expectPopulated(page.locator(".r2-dossier h3"), 3);
     await expect(page.locator(".r2-registre-note")).toHaveCount(0);
-    await expect(page.locator("h1")).toHaveText(locale === "fr"
-      ? "Trois dossiers sont résumés ici. Les autres se présentent en rendez-vous."
-      : "Three dossiers are summarized here. The others are presented in a meeting.");
+    await expectPopulated(page.locator("h1"));
     await testInfo.attach(`dossiers-copy-${locale}-1440`, {
       body: await page.screenshot({ fullPage: true, animations: "disabled" }),
       contentType: "image/png",

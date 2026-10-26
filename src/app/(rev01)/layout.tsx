@@ -36,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
   metadataBase: new URL("https://parrit.ai"),
   twitter: { card: "summary_large_image", images: ["https://parrit.ai/opengraph-image"] },
   title: {
-    default: "Parrit.ai · Data and AI, tools you own",
+    default: "Parrit.ai · Business software and AI, tools you own",
     template: "%s · Parrit.ai",
   },
   description:

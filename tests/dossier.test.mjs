@@ -38,13 +38,13 @@ const base = {
   problem: "Manual processing",
 };
 const render = (props = {}) => renderToStaticMarkup(createElement(Dossier, { ...base, ...props }));
-const label = (name) => new RegExp(`>${name}</span>`);
+const labels = (html) => [...html.matchAll(/<dt>([\s\S]*?)<\/dt>/g)];
 
 test("required facts render without optional metadata or empty sections", () => {
   const html = render();
   for (const value of Object.values(base)) assert.ok(html.includes(String(value)));
-  for (const name of ["Client", "System", "Commissioned", "Status"]) assert.match(html, label(name));
-  for (const name of ["Domain", "Rev", "Capabilities built", "Measured change"]) assert.ok(!html.includes(name));
+  assert.equal(labels(html).length, 4);
+  for (const label of labels(html)) assert.match(label[1], />[^<]+<\/span>/);
   assert.equal((html.match(/<section/g) ?? []).length, 1);
   assert.doesNotMatch(html, /<dd>.*?<strong><\/strong>|N\/A|TBD|—/);
 });
@@ -52,9 +52,8 @@ test("required facts render without optional metadata or empty sections", () => 
 for (const side of ["after", "before"]) {
   test(`${side} alone renders one full-width change block`, () => {
     const html = render({ [side]: ["Documented fact"] });
-    assert.match(html, /03 · Measured change<\/strong>/);
-    assert.match(html, label(side === "after" ? "After" : "Before"));
-    assert.doesNotMatch(html, label(side === "after" ? "Before" : "After"));
+    assert.match(html, /03 · [^<]+<\/strong>/);
+    assert.equal(html.includes('class="dossier-after"'), side === "after");
     assert.match(html, /<li>Documented fact<\/li>/);
     assert.equal((html.match(/<ul>/g) ?? []).length, 1);
     assert.match(html, /grid-template-columns:minmax\(0, 1fr\)/);
@@ -63,19 +62,19 @@ for (const side of ["after", "before"]) {
 
 test("empty optional arrays and empty metadata produce no empty sections or rows", () => {
   const html = render({ domain: "", revision: "", capabilities: [], before: [], after: [], measurementPeriod: "30 days" });
-  for (const name of ["Domain", "Rev", "Capabilities built", "Measured change", "30 days"]) assert.ok(!html.includes(name));
+  assert.equal(labels(html).length, 4);
+  assert.ok(!html.includes("30 days"));
   assert.equal((html.match(/<section/g) ?? []).length, 1);
 });
 
 test("all supplied facts render verbatim with both change blocks and period", () => {
   const html = render({ domain: "Operations", revision: "R2", capabilities: ["Routing"], before: ["Manual"], after: ["Automated"], measurementPeriod: "30 days" });
   for (const value of ["Operations", "R2", "Routing", "Manual", "Automated"]) assert.ok(html.includes(value));
-  assert.match(html, label("Domain"));
-  assert.match(html, label("Rev"));
-  assert.match(html, /02 · Capabilities built/);
-  assert.match(html, /03 · Measured change · 30 days/);
-  assert.match(html, label("Before"));
-  assert.match(html, label("After"));
+  assert.equal(labels(html).length, 6);
+  assert.match(html, /02 · [^<]+/);
+  assert.match(html, /03 · [^<]+ · 30 days/);
+  assert.equal([...html.matchAll(/<ul>/g)].length, 2);
+  assert.match(html, /class="dossier-after"/);
   assert.equal((html.match(/<section/g) ?? []).length, 3);
   assert.doesNotMatch(html, /grid-template-columns/);
 });

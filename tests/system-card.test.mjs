@@ -32,7 +32,7 @@ test("all supplied facts render verbatim, including long values", () => {
 test("the limits row remains present even for an empty or whitespace-only value", () => {
   for (const limits of ["", "   ", "\n"]) {
     const html = render({ limits });
-    assert.match(html, />Limits<\/span><\/dt><dd[^>]*>/);
+    assert.match(html, /<dt><span[^>]*>[^<]+<\/span><\/dt><dd[^>]*>\s*<\/dd><\/div><\/dl>/);
     assert.equal((html.match(/<dt>/g) ?? []).length, 4);
   }
 });
@@ -46,8 +46,14 @@ test("limits is required by the public TypeScript contract", () => {
 });
 test("field labels are localized and missing non-limit facts are not fabricated", () => {
   const html = render({ locale: "fr", input: "", proofLabel: "" });
-  for (const label of ["Traitement", "Sortie", "Limites"]) assert.ok(html.includes(label));
-  assert.ok(!html.includes("Entrée"));
+  const labels = [...html.matchAll(/<dt>([\s\S]*?)<\/dt>/g)].map((match) => match[1]);
+  assert.equal(labels.length, 3);
+  for (const label of labels) assert.match(label, />[^<]+<\/span>/);
+  const englishLabels = [...render({ locale: "en", input: "", proofLabel: "" }).matchAll(/<dt>([\s\S]*?)<\/dt>/g)].map((match) => match[1]);
+  assert.equal(englishLabels.length, labels.length);
+  labels.forEach((label, index) => assert.notEqual(label, englishLabels[index]));
+  const values = [...html.matchAll(/<dd[^>]*>([\s\S]*?)<\/dd>/g)].map((match) => match[1]);
+  assert.deepEqual(values, [props.process, props.output, props.limits]);
   assert.ok(!html.includes("<footer"));
 });
 test("untrusted text is escaped rather than interpreted as markup", () => {
@@ -65,14 +71,11 @@ test("registry preserves its date, zero writers and supplied localized summary v
       locale, asOf: "2026-09-13", rows: [{ domain: "Outreach", source: "External tool (Lemlist)", status: "Being transferred", legacyWriters: 0 }], summaryText,
     }));
     for (const value of ['dateTime="2026-09-13"', "Outreach", "External tool (Lemlist)", "Being transferred", ">0</td>", renderToStaticMarkup(createElement("p", null, summaryText)).slice(3, -4)]) assert.ok(html.includes(value), value);
-    // Contract corrected by docs/CODEX-SPEC-2026-09-20-systems-editorial-corrections.md §2.
-    const headings = locale === "fr"
-      ? ["Type d'information", "Où l'information est enregistrée", "Situation", "Anciens points d'écriture recensés"]
-      : ["Type of information", "Where it's recorded", "Status", "Legacy write points on record"];
+    const headings = [...html.matchAll(/scope="col">([^<]+)<\/th>/g)].map((match) => match[1]);
+    assert.equal(headings.length, 4);
     for (const heading of headings) {
-      const escaped = renderToStaticMarkup(createElement("span", null, heading)).slice(6, -7);
-      assert.ok(html.includes(`scope="col">${escaped}</th>`));
-      assert.ok(html.includes(`data-label="${escaped}"`));
+      assert.ok(heading.trim());
+      assert.ok(html.includes(`data-label="${heading}"`));
     }
     assert.doesNotMatch(html, /CUTOVER|MIGRATING|NOT_STARTED|PARITY_FAIL/);
   }

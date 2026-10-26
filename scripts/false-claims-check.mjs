@@ -2,6 +2,8 @@ import { readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
 import { certificationClaims, sourceProse } from "./lib/certification-claims.mjs";
 
+import { homeClientViolations, privateClientNames, journalClientNames } from "./lib/public-clients.mjs";
+
 const ROOTS = ["src", "scripts", "content/journal"];
 const EXTRA_FILES = ["public/llms.txt", "site.config.ts", "TRUTH.md"];
 const TEXT_EXTENSIONS = new Set([".js", ".jsx", ".mjs", ".ts", ".tsx", ".txt", ".md", ".mdx"]);
@@ -105,6 +107,15 @@ for (const file of files) {
   if (!TEXT_EXTENSIONS.has(extname(file))) continue;
 
   const source = await readFile(file, "utf8");
+  if (relativePath === "src/app/(rev01)/page.tsx") {
+    for (const { line, name } of homeClientViolations(source)) report(file, line, "private client", name);
+  }
+  if (relativePath.startsWith("content/journal/") || relativePath.startsWith("src/app/(rev01)/")) {
+    const checkNames = relativePath.startsWith("content/journal/") ? journalClientNames : privateClientNames;
+    for (const value of relativePath.startsWith("content/") ? [{ text: source, line: 1 }] : sourceProse(source, file)) {
+      for (const name of checkNames(value.text)) report(file, value.line, "unauthorized client", name);
+    }
+  }
   // Check published prose, not enum values, implementation comments or tooling.
   // TS/TSX strings are checked independently so another dictionary entry cannot
   // supply a disclaimer to an unrelated claim.
