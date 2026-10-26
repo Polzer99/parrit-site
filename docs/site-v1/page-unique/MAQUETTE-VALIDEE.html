@@ -40,7 +40,9 @@ nav{display:flex;gap:32px;font-size:16px}
 nav a{color:var(--on-canard);text-decoration:none}
 /* hero */
 .hero{background:var(--canard);color:var(--white);padding:96px 0 120px}
-.hero .grid{display:grid;grid-template-columns:7fr 5fr;gap:64px;align-items:end}
+.hero .grid{display:grid;grid-template-columns:1fr;gap:40px}
+.hero h1{max-width:1060px}
+.hero .sub{display:flex;gap:48px;align-items:center;flex-wrap:wrap}
 .hero p{color:var(--on-canard);font-size:21px;max-width:480px}
 .hero .actions{margin-top:36px;display:flex;gap:16px}
 .hero h1 b{display:block}
@@ -151,31 +153,19 @@ footer a{color:var(--on-ink);margin-left:24px}
 </head>
 <body>
 <header><div class="wrap"><span class="mark">PARRIT.AI</span>
-<nav><a href="#en-production">En production</a><a href="#ce-qui-change">Ce que l'IA change</a><a href="#parcours">Le parcours</a><a href="#confiance">Garde-fous</a><a href="#references">Références</a><a href="#contact">Contact</a></nav>
+<nav><a href="#en-production">En production</a><a href="#parcours">Le parcours</a><a href="#confiance">Garde-fous</a><a href="#partenaires">L'équipe</a><a href="#references">Références</a><a href="#contact">Contact</a></nav>
 <a class="btn ghost" href="#contact" style="padding:11px 18px;font-size:15px">Parler d'un projet</a></div></header>
 
 <div class="hero"><div class="wrap">
   <div class="grid">
-    <h1>De la découverte de l'IA <b>à vos logiciels métier.</b></h1>
-    <div>
-      <p>Parrit.ai forme vos équipes, construit avec elles et met en production des logiciels faits pour votre entreprise.</p>
-      <div class="actions"><a class="btn exec" href="#contact">Parlons de votre transformation</a></div>
+    <h1>Nous allons à la frontière du possible, <b>puis nous le livrons à nos clients.</b></h1>
+    <div class="sub">
+      <p>Nous transformons des problèmes opérationnels en systèmes qui fonctionnent.</p>
+      <div class="actions" style="margin-top:0"><a class="btn exec" href="#contact">Parlons de votre transformation</a></div>
     </div>
   </div>
   <svg class="stairs" viewBox="0 0 1080 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 110 H260 V75 H560 V40 H860 V8 H1080" fill="none" stroke="currentColor" stroke-width="2" opacity=".55"/><rect x="1068" y="0" width="12" height="12" fill="currentColor"/></svg>
 </div></div>
-
-<section id="ce-qui-change"><div class="wrap">
-  <h2>Ce que l'IA change <b>dans votre entreprise.</b></h2>
-  <div class="three">
-    <div class="item"><div class="panel"><div class="bubble">Liste chaque décision et son responsable.</div><div class="answer">Voici les trois décisions et leurs responsables.</div></div>
-      <h3>Vos équipes savent utiliser l'IA.</h3><p class="muted">Une demande claire donne une réponse utile.</p><div class="status"><i></i>Exemple illustratif</div></div>
-    <div class="item"><div class="panel"><div class="doc"><b>Compte rendu</b><div class="l"></div><div class="l"></div><div class="l" style="width:60%"></div><span class="ok">Prêt à relire</span></div></div>
-      <h3>Un outil prépare vos tâches répétitives.</h3><p class="muted">L'outil rédige le compte rendu, vous le relisez.</p><div class="status"><i></i>Exemple illustratif</div></div>
-    <div class="item"><div class="panel"><div class="soft"><div class="top">Votre logiciel</div><div class="row"><span>Vos informations</span><span>Vos règles</span></div><div class="row"><span>Agent</span><span>Agent</span><span>Agent</span></div></div></div>
-      <h3>Votre façon de travailler devient un logiciel.</h3><p class="muted">Chacun voit les mêmes informations, à jour.</p><div class="status client"><i></i>Chez un client</div></div>
-  </div>
-</div></section>
 
 <section class="live" id="en-production"><div class="wrap">
   <h2>Nos agents travaillent déjà <b>chez nos clients.</b></h2>
@@ -215,6 +205,20 @@ Un appel est prévu aujourd'hui : Entreprise C, à J+35.</div>
   </div>
   <p class="note">Scènes reconstituées sur données fictives, fidèles aux systèmes en service. Rien ne part sans l'accord d'une personne.</p>
 </div></section>
+
+<section id="ce-qui-change"><div class="wrap">
+  <h2>Ce que l'IA change <b>dans votre entreprise.</b></h2>
+  <div class="three">
+    <div class="item"><div class="panel"><div class="bubble">Liste chaque décision et son responsable.</div><div class="answer">Voici les trois décisions et leurs responsables.</div></div>
+      <h3>Vos équipes savent utiliser l'IA.</h3><p class="muted">Une demande claire donne une réponse utile.</p><div class="status"><i></i>Exemple illustratif</div></div>
+    <div class="item"><div class="panel"><div class="doc"><b>Compte rendu</b><div class="l"></div><div class="l"></div><div class="l" style="width:60%"></div><span class="ok">Prêt à relire</span></div></div>
+      <h3>Un outil prépare vos tâches répétitives.</h3><p class="muted">L'outil rédige le compte rendu, vous le relisez.</p><div class="status"><i></i>Exemple illustratif</div></div>
+    <div class="item"><div class="panel"><div class="soft"><div class="top">Votre logiciel</div><div class="row"><span>Vos informations</span><span>Vos règles</span></div><div class="row"><span>Agent</span><span>Agent</span><span>Agent</span></div></div></div>
+      <h3>Votre façon de travailler devient un logiciel.</h3><p class="muted">Chacun voit les mêmes informations, à jour.</p><div class="status client"><i></i>Chez un client</div></div>
+  </div>
+</div></section>
+
+
 
 <section class="parcours" id="parcours"><div class="wrap">
   <h2>Trois étapes, <b>vous commencez où vous voulez.</b></h2>
@@ -256,7 +260,21 @@ Un appel est prévu aujourd'hui : Entreprise C, à J+35.</div>
   </div>
 </div></section>
 
-<section id="references"><div class="wrap">
+<section id="partenaires"><div class="wrap">
+  <h2>Chaque projet a son équipe <b>et sa technologie.</b></h2>
+  <p class="muted" style="margin-top:20px;max-width:720px">Plus de vingt partenaires, entrepreneurs et consultants indépendants, choisis selon le diagnostic.</p>
+  <div class="services">
+    <div><span class="s">Ingénieurs IA</span><p>Plus de dix ingénieurs en IA appliquée, chacun sa spécialité : vision, agents, intégration.</p></div>
+    <div><span class="s">Sans code et assistants</span><p>Des développeurs et des studios : automatisations, assistants écrits, vocaux et vidéo.</p></div>
+    <div><span class="s">Transformation et projet</span><p>Des experts de la conduite du changement et du pilotage de projet.</p></div>
+    <div><span class="s">Marque et marketing</span><p>Des experts de l'image de marque, des contenus et de la vente.</p></div>
+    <div><span class="s">Acculturation</span><p>Une quinzaine de formateurs mobilisables, et un organisme certifié.</p></div>
+    <div><span class="s">Conseil et qualité</span><p>Des cabinets de conseil et des relecteurs de nos livrables.</p></div>
+  </div>
+  <p class="muted" style="margin-top:28px">À l'international : des partenaires au Brésil et en Italie ; au Cameroun, une expansion en cours et de premiers clients.</p>
+</div></section>
+
+<section id="references" style="padding-top:0"><div class="wrap">
   <h2>Ils travaillent <b>avec nous.</b></h2>
   <div class="refs">
     <div><h3>Laparra</h3><p class="muted">Grossiste en fruits et légumes du MIN de Rungis : des agents qui gèrent la base clients, et un outil de pilotage de l'entreprise.</p></div>
@@ -281,16 +299,7 @@ Un appel est prévu aujourd'hui : Entreprise C, à J+35.</div>
   <p class="legal-note">Les marques citées appartiennent à leurs propriétaires. Nous les utilisons ; aucun partenariat n'est sous-entendu.</p>
 </div></section>
 
-<section style="padding-top:0"><div class="wrap">
-  <h2>Votre phrase <b>indique par où commencer.</b></h2>
-  <div class="phrases">
-    <div><span class="ph">« Nous avons l'IA, mais personne ne s'en sert. »</span><span class="et">Former les équipes</span></div>
-    <div><span class="ph">« Nous voulons l'essayer sur une vraie tâche. »</span><span class="et">Construire un premier agent avec nous</span></div>
-    <div><span class="ph">« Nous avons beaucoup d'idées : par où commencer ? »</span><span class="et">Choisir les priorités</span></div>
-    <div><span class="ph">« Nous voulons un outil fait pour nous. »</span><span class="et">Logiciel métier</span></div>
-    <div><span class="ph">« Nos outils existent, nous voulons les fiabiliser. »</span><span class="et">Audit et garde-fous</span></div>
-  </div>
-</div></section>
+
 
 <section class="founder" id="contact"><div class="wrap"><div class="grid">
   <img src="file:///Users/paullarmaraud/parrit-canon/brand/assets/photos/paul-centre.png" alt="Paul Larmaraud">
