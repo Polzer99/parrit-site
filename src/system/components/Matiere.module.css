@@ -1,0 +1,9 @@
+.matiere {
+  width: 100%;
+  height: var(--brand-s6);
+  background-repeat: repeat;
+  image-rendering: pixelated;
+  border-radius: 0;
+}
+.clair { background-image: url('/matiere/grain-clair.png'); }
+.canard { background-image: url('/matiere/grain-canard.png'); }

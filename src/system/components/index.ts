@@ -14,3 +14,4 @@ export { RevFooter } from "./RevFooter";
 export { RevHeader } from "./RevHeader";
 export { Seal } from "./Seal";
 export { St, type StatusKind } from "./St";
+export { Matiere } from "./Matiere";

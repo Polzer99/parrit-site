@@ -1,3 +1,4 @@
+import { checkGrain } from "./check-grain.mjs";
 import { readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
 import cssColorNames from "color-name";
@@ -274,6 +275,10 @@ for (const root of NO_RED_ROOTS) {
       if (file !== VENDOR) reportReddishColors(file, line, index + 1, false);
     });
   }
+}
+
+try { await checkGrain(); } catch (error) {
+  violations.push(`public/matiere [grain] ${error.message}`);
 }
 
 if (violations.length > 0) {

@@ -17,7 +17,8 @@ export function loader(locale) {
       if (["react", "react/jsx-runtime"].includes(id)) return native(id);
       if (id === "next/link") return function TestLink({ children, ...props }) { return React.createElement("a", props, children); };
       if (id === "@/lib/server/locale") return { getLocale: async () => locale };
-      if (id === "@/system/components") return { K: ({ children }) => React.createElement("p", { className: "k" }, children) };
+      if (id === "./Matiere.module.css") return { matiere: "matiere", clair: "clair", canard: "canard" };
+      if (id === "@/system/components") return { Matiere: load("src/system/components/Matiere.tsx").Matiere, K: ({ children }) => React.createElement("p", { className: "k" }, children) };
       if (id.startsWith("@/") || id.startsWith(".")) {
         const base = id.startsWith("@/") ? path.resolve("src", id.slice(2)) : path.resolve(path.dirname(file), id);
         const resolved = [base, `${base}.ts`, `${base}.tsx`].find(candidate => existsSync(candidate));
