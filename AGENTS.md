@@ -123,7 +123,7 @@ Voir aussi la skill `qa-playwright` (batterie responsive + multi-navigateur).
 - **Jamais d'appel runtime à `*.vercel.app`** dans une livraison (REGLES-DOR §13). Le site EST hébergé sur Vercel — ça vise les ressources chargées au runtime (images/redirects/signatures), pas l'hébergement.
 - Aucun prix ni offre détaillée sur le site public (12/10/2026). Pas de devis détaillé ni de prix personnalisé hors propale privée.
 - Clients (25/10/2026, révision 4) : seuls les noms de `src/system/public-clients.ts` sont publiables (Laparra, Clevery, Forexpert, Joone, SNCF) ; tous les autres restent anonymisés. Clevery Avocats désigne Clevery. Joone : accompagnement IA ; SNCF : formation avec Arkel, jamais client direct. Exception : le Journal ne nomme aucun client, même public. Aucun logo ajouté dans ce lot. Aucun template n'exige de nom ou de logo pour se rendre.
-- Positionnement (25/10/2026) : logiciels métier, ambition de verticaliser des produits, transformation IA. Deux parcours PME/ETI et grands groupes, conseil et logiciel ouverts aux deux. FormIA est l'organisme de formation de Parrit.ai, sans site propre.
+- Positionnement (26/10/2026) : définition canonique `parrit-canon/positioning/POSITIONNEMENT-CANONIQUE-2026-10-26.md`, six capacités (pas un catalogue) ; deux parcours PME/ETI et grands groupes conservés.
 - Marque (12/10/2026) : Parrit.ai uniquement ; aucune mention du fondateur hors `/legal`.
 - Mesure d'audience (05/10/2026) : PostHog retiré du navigateur ; seule mesure active, Cloudflare Web Analytics injectée hors dépôt par Cloudflare et décrite dans `/legal`.
 - CTA (04/10/2026) : « Réserver l'examen » / « Book the examination » vers `/commission` ou `/fr/commission`.

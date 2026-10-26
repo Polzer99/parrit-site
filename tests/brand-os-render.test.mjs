@@ -74,7 +74,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         const metadata = [...html.matchAll(/<meta\b[^>]*content="([^"]*)"[^>]*>/g)].map((match) => visibleText(match[1])).join(" ");
         const structured = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((match) => match[1]).join(" ");
         const publicCopy = `${text} ${accessible} ${metadata} ${structured}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
-        assert.doesNotMatch(publicCopy, /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de|\bHT\b|excl\. VAT/i, `${label}: no public offer`);
+        assert.doesNotMatch(publicCopy, /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de(?! vos opérations\b)|\bHT\b|excl\. VAT/i, `${label}: no public offer`);
         if (route !== "/legal") assert.doesNotMatch(publicCopy, /€/, label);
         if (route !== "/legal") {
           assert.doesNotMatch(publicCopy, /\bPaul\b|Larmaraud|fondat(eur|rice)|fondée par|founder|founded by|quinze minutes|fifteen minutes/i, label);

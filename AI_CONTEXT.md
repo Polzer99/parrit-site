@@ -1,6 +1,18 @@
 # AI Context
 
-## Positionnement et règles en vigueur, 25/10/2026
+## Positionnement en vigueur, 26/10/2026
+
+Parrit.ai conçoit, construit et met en production des systèmes intelligents qui
+transforment les opérations des entreprises. La spec du 26/10 ajoute six capacités
+FR/EN après la méthode et avant la scène produit, sans actions par carte, et relie
+Build With You depuis le footer uniquement (correctif V2 du 26/10).
+H1, références, preuves, scène produit, Journal, header et page Build With You conservés. Métadonnées, JSON-LD, llms.txt et TRUTH
+reprennent le canon `parrit-canon/positioning/POSITIONNEMENT-CANONIQUE-2026-10-26.md`.
+TRUTH conserve les parcours et FormIA et ajoute les huit principes canoniques.
+
+Validation et limites : `docs/REPORT-2026-10-26-six-capacites.md`.
+
+## État précédent, 25/10/2026 (définition remplacée le 26/10)
 
 La spec `docs/handoffs/2026-10-25-positionnement-deux-parcours.md`, révision 4,
 est implémentée pour revue. Parrit construit des logiciels métier avec l'ambition de

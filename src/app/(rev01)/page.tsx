@@ -12,11 +12,11 @@ import { getAllJournalEntrySummaries } from "@/system/journal";
 const DICT = {
   en: {
     hero: {
-      kicker: "Parrit / Software and AI",
+      kicker: "Parrit / Intelligent systems for operations",
       before: "We turn operational problems into",
       frame: "systems that work",
       after: ".",
-      sub: "Parrit.ai builds business software and helps companies through their AI transformation. The invoice that drags, the report rebuilt by hand every week: we start from your data and build tools you own.",
+      sub: "Parrit.ai designs, builds and runs intelligent systems that change how companies operate. The invoice that drags, the report rebuilt by hand every week: we start from how your team works today, then build tools you own.",
       alternative: "Book the examination",
     },
     brands: {
@@ -38,6 +38,19 @@ const DICT = {
         ["Large companies", "Your business unit or transformation office owns the project. We set the frame with them and your technical teams, then we build."],
       ],
       note: "Either way, we do consulting and software. Training for your teams goes through FormIA, our training organization.",
+    },
+    capacites: {
+      kicker: "What we can do",
+      title: "Six capabilities, combined according to the problem at hand.",
+      items: [
+        ["AI Transformation", "Choosing use cases from your operations, then costing and sequencing them."],
+        ["Autonomous Agents", "Agents that act within written limits. Whatever commits the company goes through human approval."],
+        ["Custom Software & Internal Systems", "Tools built around the real process, inside your own accounts."],
+        ["Private & Sovereign AI", "Models and data hosted where you decide."],
+        ["AI Go-to-Market Infrastructure", "Commercial data, its quality and follow-ups, under human supervision."],
+        ["Content Factories", "Producing, checking and publishing, with controls before every release."],
+      ],
+      note: "Before automating, we study the work as it is done today. We keep apart what improves the existing process and what becomes possible for the first time.",
     },
     journey: {
       kicker: "How it works",
@@ -80,11 +93,11 @@ const DICT = {
   },
   fr: {
     hero: {
-      kicker: "Parrit / Logiciels et IA",
+      kicker: "Parrit / Systèmes intelligents pour les opérations",
       before: "Nous transformons des problèmes opérationnels en",
       frame: "systèmes qui fonctionnent",
       after: ".",
-      sub: "Parrit.ai construit des logiciels métier et accompagne les entreprises dans leur transformation IA. La facture qui traîne, le rapport refait à la main chaque semaine : nous partons de vos données et construisons des outils qui vous appartiennent.",
+      sub: "Parrit.ai conçoit, construit et met en production des systèmes intelligents qui transforment les opérations des entreprises. La facture qui traîne, le rapport refait à la main chaque semaine : nous partons de la façon dont votre équipe travaille aujourd'hui, puis nous construisons des outils qui vous appartiennent.",
       alternative: "Réserver l'examen",
     },
     brands: {
@@ -106,6 +119,19 @@ const DICT = {
         ["Grands groupes", "Votre direction métier ou votre direction de la transformation porte le projet. Nous préparons le cadre avec elle et vos équipes techniques, puis nous construisons."],
       ],
       note: "Dans les deux cas, nous faisons du conseil et du logiciel. La formation de vos équipes passe par FormIA, notre organisme de formation.",
+    },
+    capacites: {
+      kicker: "Ce que nous savons faire",
+      title: "Six capacités, que nous combinons selon le problème à résoudre.",
+      items: [
+        ["Transformation IA", "Choisir les cas d'usage à partir de vos opérations, les chiffrer et les ordonner."],
+        ["Agents autonomes", "Des agents qui agissent dans des limites écrites. Ce qui engage l'entreprise passe par une validation humaine."],
+        ["Logiciels sur mesure et systèmes internes", "Des outils construits autour du processus réel, dans vos comptes."],
+        ["IA privée et souveraine", "Des modèles et des données hébergés là où vous le décidez."],
+        ["Infrastructure go-to-market", "La donnée commerciale, sa qualité et les relances, sous supervision humaine."],
+        ["Usines de contenu", "Produire, vérifier et publier, avec des contrôles avant chaque diffusion."],
+      ],
+      note: "Avant d'automatiser, nous observons le travail tel qu'il se fait. Nous distinguons ce qui améliore l'existant de ce qui devient possible pour la première fois.",
     },
     journey: {
       kicker: "Le déroulement",
@@ -151,11 +177,11 @@ const DICT = {
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const title = locale === "fr"
-    ? "Parrit.ai · Logiciels métier et IA, des outils qui vous appartiennent"
-    : "Parrit.ai · Business software and AI, tools you own";
+    ? "Parrit.ai · Systèmes intelligents pour les opérations"
+    : "Parrit.ai · Intelligent systems for real operations";
   const description = locale === "fr"
-    ? "Parrit.ai construit des logiciels métier et accompagne les PME, les ETI et les grands groupes dans leur transformation IA. Ce que nous construisons vit dans vos comptes et vous appartient."
-    : "Parrit.ai builds business software and helps SMEs, mid-sized companies and large groups with their AI transformation. What we build lives in your accounts and belongs to you.";
+    ? "Parrit.ai conçoit, construit et met en production des systèmes intelligents qui transforment les opérations des entreprises."
+    : "Parrit.ai designs, builds and runs intelligent systems that change how companies operate.";
   return {
     title: { absolute: title }, description,
     alternates: {
@@ -229,6 +255,22 @@ export default async function HomePage() {
             </ol>
             <Link className="rev-button ghost home-s-journey-action" href={localizedPath("/commission", locale)}>{copy.journey.link}</Link>
           </div>
+        </div>
+      </section>
+
+      <section className="home-s-capacites" id="capacites" aria-labelledby="capacites-title">
+        <div className="home-s-wrap">
+          <K>{copy.capacites.kicker}</K>
+          <h2 id="capacites-title">{copy.capacites.title}</h2>
+          <div className="home-s-proof-grid">
+            {copy.capacites.items.map(([title, body]) => (
+              <div className="home-s-proof-item" key={title}>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </div>
+            ))}
+          </div>
+          <p className="doctrine-note">{copy.capacites.note}</p>
         </div>
       </section>
 

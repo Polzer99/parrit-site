@@ -37,7 +37,7 @@ test("an unknown client injected into either locale of the home DICT fails", () 
 });
 
 test("known private clients are rejected in any home prose", () => {
-  const changed = source.replace('kicker: "Parrit / Software and AI"', 'kicker: "Naval Group"');
+  const changed = source.replace(/kicker: "[^"]+"/, 'kicker: "Naval Group"');
   assert.ok(homeClientViolations(changed).some(({ name }) => name === "Naval Group"));
 });
 
