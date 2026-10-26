@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { getLocale } from "@/lib/server/locale";
-import { K, RegistryLine } from "@/system/components";
 import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
 
 const DICT = {
@@ -78,7 +77,7 @@ export default async function DossiersPage() {
     <main className="rev-page r2-dark">
       <div className="r2-wrap">
         <header className="r2-hero">
-          <K>{copy.kicker}</K>
+
           <h1>{copy.title}</h1>
           <p className="r2-sub">{copy.sub}</p>
         </header>
@@ -88,7 +87,7 @@ export default async function DossiersPage() {
             {copy.dossiers.map((dossier) => (
               <article className="r2-dossier" key={dossier.ref}>
                 <div className="ref">
-                  <K>{dossier.ref}</K>
+
                 </div>
                 <h3>{dossier.title}</h3>
                 {dossier.body ? <p>{dossier.body}</p> : null}
@@ -107,7 +106,7 @@ export default async function DossiersPage() {
           </Link>
         </section>
 
-        <footer className="rev-footer"><RegistryLine value="PARRIT / DOSSIERS · 2026" /></footer>
+
       </div>
     </main>
   );

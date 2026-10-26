@@ -59,12 +59,12 @@ test("journal index uses square, shadowless list rows", async ({ page }) => {
   expect(decoratedElements).toEqual([]);
 });
 
-test("journal article renders its registry-line footer", async ({ page }) => {
+test("journal article preserves its date without a technical registry", async ({ page }) => {
   await page.goto(`${BASE_URL}/journal/one-card-one-action`);
 
-  await expect(page.locator(".journal-article-footer .registry-line")).toHaveText(
-    /\S+[\s\u00a0]·\s\d{4}-\d{2}-\d{2}[\s\u00a0]·\s\S+/,
-  );
+  await expect(page.locator(".journal-article-footer .registry-line")).toHaveCount(0);
+  await expect(page.locator(".journal-header time")).toHaveAttribute("datetime", /\d{4}-\d{2}-\d{2}/);
+
 });
 
 test("machine-translated glossary entry is noindex", async ({ page }) => {

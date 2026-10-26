@@ -22,7 +22,7 @@ test.describe("the Parrit Standard conformity", () => {
 
     await expectPopulated(page.locator(".doctrine-row h3"), 6);
     for (const code of ["01", "02", "03", "04", "05", "06"]) {
-      await expect(page.getByText(code, { exact: true })).toBeVisible();
+      await expect(page.getByText(code, { exact: true })).toHaveCount(0);
     }
 
     const decoratedElements = await page.locator("body *").evaluateAll((elements) =>

@@ -884,6 +884,11 @@ h3 {
   padding: 32px 0 56px;
 }
 
+.commission-page .standard-action h2 {
+  font-size: var(--t-m);
+  font-weight: 600;
+}
+
 .standard-note {
   max-width: 68ch;
   margin: 28px 0 0;

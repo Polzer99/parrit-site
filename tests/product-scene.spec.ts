@@ -1,4 +1,4 @@
-// The lot replaces the raster scene with a process diagram and qualified cases.
+// Product scene in the hero, process in consulting, qualified two-line cases.
 import { expect, test } from "./network-deny.setup";
 const BASE = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 for (const width of [375, 768, 1024, 1440]) for (const locale of ["fr", "en"]) test(`process and case geometry ${locale} ${width}`, async ({ page }) => {
@@ -27,6 +27,6 @@ for (const width of [375, 768, 1024, 1440]) for (const locale of ["fr", "en"]) t
     await expect(connector.locator("path").last()).toHaveAttribute("d", "M20 3L30 7L20 11Z");
   }
   await expect(page.locator(".v1-case")).toHaveCount(3);
-  for (const card of await page.locator(".v1-case").all()) { await expect(card.locator("dt")).toHaveCount(4); await expect(card.locator("dd")).toHaveCount(4); const b = (await card.boundingBox())!; expect(b.x).toBeGreaterThanOrEqual(0); expect(b.x + b.width).toBeLessThanOrEqual(width); }
+  for (const card of await page.locator(".v1-case").all()) { await expect(card.locator("dt, dd")).toHaveCount(0); await expect(card.locator("h3")).toHaveCount(1); await expect(card.locator("p.v1-case-status")).toHaveCount(1); const b = (await card.boundingBox())!; expect(b.x).toBeGreaterThanOrEqual(0); expect(b.x + b.width).toBeLessThanOrEqual(width); }
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
 });

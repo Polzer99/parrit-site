@@ -50,9 +50,10 @@ for (const locale of ["fr", "en"]) {
     assert.deepEqual(privateClientNames(text), [], `${locale}/${id}: private clients`);
     assert.doesNotMatch(text, /\bPaul\b|Larmaraud|fondat(eur|rice)|founder/i);
     assert.doesNotMatch(text.replace(/MIT License/g, ""), /Content Factor|usines? de contenu|FormIA|Qualiopi|\bMIT\b|[—–]|\d+\s*%|\bROI\b/i);
-    // Editorial dates and the exact V3 step indices are not results. Other numeric claims remain forbidden.
-    assert.doesNotMatch(visibleText(html.replace(/<time\b[^>]*>[\s\S]*?<\/time>/g, "").replace(/<span class="v1-index" aria-hidden="true">0[1-6]<\/span>/g, "")), /\d/);
-    assert.doesNotMatch(html, /<img\b|<svg\b[^>]*(?:logo|client)/i);
+    // Dates and approved scene markers/chat times are not business result claims.
+    assert.doesNotMatch(visibleText(html.replace(/<time\b[^>]*>[\s\S]*?<\/time>/g, "").replace(/<span class="scene-marker"[^>]*>\d<\/span>/g, "").replace(/<span class="scene-chat-time">[\s\S]*?<\/span>/g, "")), /\d/);
+    assert.doesNotMatch(html, /<svg\b[^>]*(?:logo|client)/i);
+    for (const [, src] of html.matchAll(/<img[^>]*src="([^"]+)"/g)) assert.ok(["/brand/scenes/scene-carte-visite-photo.png", "/brand/scenes/scene-carte-visite-fiche-crm.png"].includes(src), "Only approved scene assets");
     assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
     if (id !== "home") assert.ok(new Set([...html.matchAll(/href="(\/[^"#]+)"/g)].map(m => m[1])).size >= 7);
     if (["home", "engineering-integration"].includes(id)) {

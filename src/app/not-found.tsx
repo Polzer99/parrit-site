@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { K, RevFooter, RevHeader } from "@/system/components";
+import { RevFooter, RevHeader } from "@/system/components";
 import "../system/fonts.css";
 import "../system/brand-os.tokens.css";
 import "../system/tokens.css";
@@ -20,7 +20,6 @@ export default function NotFound() {
     <main className="rev-page r2-dark not-found-page">
       <div className="r2-wrap">
         <header className="r2-hero">
-          <K>Parrit / 404</K>
           <h1>This page does not exist.<br /><span lang="fr">Cette page n&apos;existe pas.</span></h1>
         </header>
         <nav className="not-found-actions" aria-label="Page not found">

@@ -191,12 +191,13 @@ for (const width of [375, 1440]) {
           await expect(secondary).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
         }
         const titleBox = await heading.boundingBox();
-        const kickerBox = await page.locator("main header .k").boundingBox();
+        const heroBox = await page.locator("main header").boundingBox();
+        await expect(page.locator("main header .k")).toHaveCount(0);
         const footerBox = await page.locator("footer").boundingBox();
         expect(titleBox).not.toBeNull();
-        expect(kickerBox).not.toBeNull();
+        expect(heroBox).not.toBeNull();
         expect(footerBox).not.toBeNull();
-        expect(kickerBox!.x).toBeCloseTo(titleBox!.x, 0);
+        expect(heroBox!.x).toBeCloseTo(titleBox!.x, 0);
         for (const link of await actions.getByRole("link").all()) {
           await expect(link).toBeInViewport({ ratio: 1 });
           const box = await link.boundingBox();

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import { getLocale } from "@/lib/server/locale";
-import { K, RegistryLine } from "@/system/components";
 import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 
 const COMPANY = {
@@ -23,4 +22,4 @@ const DICT = {
 
 export async function generateMetadata(): Promise<Metadata> { const locale = await getLocale(); const copy = DICT[locale]; return { title: copy.metaTitle, description: copy.metaDescription, openGraph: localizedOpenGraph("/legal", locale, copy.metaTitle, copy.metaDescription), alternates: localizedAlternates("/legal", locale) }; }
 
-export default async function LegalPage() { const locale = await getLocale(); const copy = DICT[locale]; return <main className="rev-page legal-page"><div className="rev-wrap legal-wrap"><header className="legal-header"><div><K>{copy.kicker}</K><h1>{copy.title}</h1></div><RegistryLine value="PARRIT / LEGAL · 2026" /></header><section className="legal-document" aria-labelledby="legal-notice-heading"><div className="legal-document-head"><K>{copy.doc1}</K><K>{copy.updated}</K></div><h2 id="legal-notice-heading">{copy.legalTitle}</h2>{copy.legal.map(([title, body]) => <section key={title}><h3>{title}</h3><p>{body}</p></section>)}</section><section className="legal-document" aria-labelledby="privacy-heading"><div className="legal-document-head"><K>{copy.doc2}</K><K>{copy.updated}</K></div><h2 id="privacy-heading">{copy.privacyTitle}</h2>{copy.privacy.map(([title, body]) => <section key={title}><h3>{title}</h3><p>{body}</p></section>)}</section><footer className="rev-footer"><RegistryLine /></footer></div></main>; }
+export default async function LegalPage() { const locale = await getLocale(); const copy = DICT[locale]; return <main className="rev-page legal-page"><div className="rev-wrap legal-wrap"><header className="legal-header"><div><h1>{copy.title}</h1></div></header><section className="legal-document" aria-labelledby="legal-notice-heading"><div className="legal-document-head"><p>{copy.updated}</p></div><h2 id="legal-notice-heading">{copy.legalTitle}</h2>{copy.legal.map(([title, body]) => <section key={title}><h3>{title}</h3><p>{body}</p></section>)}</section><section className="legal-document" aria-labelledby="privacy-heading"><div className="legal-document-head"><p>{copy.updated}</p></div><h2 id="privacy-heading">{copy.privacyTitle}</h2>{copy.privacy.map(([title, body]) => <section key={title}><h3>{title}</h3><p>{body}</p></section>)}</section></div></main>; }

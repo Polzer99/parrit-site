@@ -6,7 +6,7 @@ import ReactMarkdown from "react-markdown";
 import { getLocale } from "@/lib/server/locale";
 import { AUTEUR } from "@/system/auteur";
 import { blogPostingJsonLd } from "@/system/jsonld";
-import { HarnessBadge, K, RegistryLine } from "@/system/components";
+import { HarnessBadge } from "@/system/components";
 import { getAllJournalEntrySummaries, getJournalEntry } from "@/system/journal";
 
 type JournalArticlePageProps = {
@@ -85,7 +85,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
       />
       <article className="rev-wrap journal-article">
         <header className="journal-header">
-          <K>{locale === "fr" ? "Journal / Entrée" : "Journal / Entry"} · <time dateTime={entry.date}>{dateLabel}</time></K>
+          <p><time dateTime={entry.date}>{dateLabel}</time></p>
           <h1 lang="en">{entry.title}</h1>
           <HarnessBadge slug={entry.slug} locale={locale} />
           {locale === "fr" ? <p data-language-note="">Article en anglais.</p> : null}
@@ -98,7 +98,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
 
         {relatedEntries.length > 0 ? (
           <nav className="journal-related" aria-label={relatedLabel}>
-            <K>{relatedLabel}</K>
+
             {/* Les articles restent liés à leur URL canonique anglaise. */}
             {relatedEntries.map((related) => (
               <Link key={related.slug} href={`/journal/${related.slug}`}>
@@ -109,9 +109,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
           </nav>
         ) : null}
 
-        <footer className="journal-article-footer">
-          <RegistryLine value={`WE FIND THE WAY · ${entry.date} · PARRIT / JOURNAL`} />
-        </footer>
+
       </article>
     </main>
   );

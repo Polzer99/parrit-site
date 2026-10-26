@@ -25,13 +25,12 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
       await page.setViewportSize(viewport);
       await page.goto(`${BASE_URL}${path}`);
       await page.evaluate(() => document.fonts.ready);
-      const numbers = page.locator(".r2-phase .no");
-      await expect(numbers).toHaveCount(3);
-      for (const number of await numbers.all()) {
-        await expect(number).toBeVisible();
-        await expect(number).not.toHaveCSS("color", await tokenColor(number, "--brand-core-rose"));
-        await expect(number).toHaveCSS("color", await tokenColor(number, "--brand-derived-on-ink-2"));
-        await expect(number).toHaveCSS("font-family", /IBM Plex Mono/);
+      await expect(page.locator(".r2-phase .no")).toHaveCount(0);
+      const steps = page.locator(".r2-phase .nm");
+      await expect(steps).toHaveCount(3);
+      for (const step of await steps.all()) {
+        await expect(step).toBeVisible();
+        await expect(step).toHaveCSS("font-family", /General Sans/);
       }
     });
   }
@@ -42,11 +41,12 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
     test(`step numbers use canard on paper ${path} ${viewport.width}`, async ({ page }) => {
       await page.setViewportSize(viewport);
       await page.goto(`${BASE_URL}${path}`);
-      const numbers = page.locator(selector);
-      await expect(numbers).toHaveCount(count);
-      for (const number of await numbers.all()) {
-        await expect(number).toHaveCSS("color", await tokenColor(number, "--brand-core-canard"));
-        await expect(number).toHaveCSS("font-family", /IBM Plex Mono/);
+      await expect(page.locator(selector)).toHaveCount(0);
+      const commitments = page.locator(".doctrine-name");
+      await expect(commitments).toHaveCount(count);
+      for (const commitment of await commitments.all()) {
+        await expect(commitment).toBeVisible();
+        await expect(commitment).toHaveCSS("font-family", /General Sans/);
       }
     });
   }
@@ -112,7 +112,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
         expect(bounds).not.toBeNull();
         expect(bounds!.width).toBeGreaterThanOrEqual(44);
         expect(bounds!.height).toBe(48);
-        await expect(button).toHaveCSS("font-family", /IBM Plex Mono/);
+        await expect(button).toHaveCSS("font-family", /General Sans/);
         for (const property of ["font-size"]) {
           await expect(button).toHaveCSS(property, await nav.evaluate((el, name) => getComputedStyle(el).getPropertyValue(name), property));
         }

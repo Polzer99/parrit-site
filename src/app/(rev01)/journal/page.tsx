@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { getLocale } from "@/lib/server/locale";
-import { K, RegistryLine } from "@/system/components";
 import { getAllJournalEntrySummaries } from "@/system/journal";
 import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 
@@ -32,7 +31,7 @@ export default async function JournalPage() {
     <main className="rev-page">
       <div className="rev-wrap">
         <header className="journal-header">
-          <K>{locale === "fr" ? "Parrit / Le Journal" : "Parrit / Journal"}</K>
+
           <h1>{copy.heading}</h1>
           <p>{copy.sub}</p>
         </header>
@@ -42,7 +41,8 @@ export default async function JournalPage() {
             <li key={entry.slug}>
               <Link href={`/journal/${entry.slug}`} hrefLang="en">
                 <div>
-                  <K>{copy.entry}{locale === "fr" && <> · <span lang="en">EN</span></>}</K>
+
+                  {locale === "fr" && <span lang="en">EN</span>}
                   <h2 lang="en">{entry.title}</h2>
                   <p lang="en">{entry.description}</p>
                 </div>
@@ -52,7 +52,7 @@ export default async function JournalPage() {
           ))}
         </ol>
 
-        <footer className="rev-footer"><RegistryLine value="PARRIT / JOURNAL · 2026" /></footer>
+
       </div>
     </main>
   );
