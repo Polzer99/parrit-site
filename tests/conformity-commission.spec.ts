@@ -39,13 +39,18 @@ test("commission matches the REV 01 display and instrument constraints", async (
   expect(visualConstraints.radii).toBe(0);
 });
 
-for (const width of [375, 1440]) {
+for (const width of [375, 390, 1440]) {
   for (const locale of ["en", "fr"] as const) {
     test(`standard capture keeps its layout at ${width}px in ${locale}`, async ({ page }, testInfo) => {
       await page.setViewportSize({ width, height: 900 });
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.goto(`${BASE_URL}${locale === "fr" ? "/fr/commission" : "/commission"}`);
       await page.evaluate(() => document.fonts.ready);
+      const title = page.locator(".standard-action h2");
+      await expect(title).toBeVisible();
+      const bodySize = await title.evaluate(el => getComputedStyle(el).getPropertyValue("--t-m").trim());
+      await expect(title).toHaveCSS("font-size", bodySize);
+      await expect(title).toHaveCSS("font-weight", "600");
       const capture = page.locator(".quick-capture");
       await expect(capture).toBeVisible();
       await expect(capture).not.toHaveClass(/home-s-quick-capture/);

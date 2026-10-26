@@ -8,9 +8,36 @@ for (const width of [375, 390, 1023, 1024, 1440]) for (const locale of ["en", "f
     const refs = page.locator("#H02 li"); await expect(refs).toHaveCount(5);
     expect((await refs.locator("strong").allTextContents()).map(publicClientName).sort()).toEqual([...PUBLIC_CLIENT_NAMES].sort());
     await expect(page.locator("#H02 img, #H02 svg, #H02 a, #H02 button")).toHaveCount(0);
-    for (const row of await refs.all()) { await expect(row.locator("strong")).toHaveCSS("font-weight", "600"); await expect(row.locator("span")).toHaveCSS("font-weight", "400"); await expect(row).toHaveCSS("border-bottom-width", "1px"); }
-    const geometry = await refs.evaluateAll(els => { const boxes = els.map(el => el.getBoundingClientRect()); return { row: Math.abs(boxes[0].top - boxes[1].top), column: Math.abs(boxes[0].left - boxes[1].left) }; });
-    expect(geometry.column).toBeLessThanOrEqual(1);
+    for (const row of await refs.all()) {
+      await expect(row.locator("strong")).toHaveCSS("font-weight", "600");
+      await expect(row.locator("span")).toHaveCSS("font-weight", "400");
+      const surface = await row.evaluate(el => {
+        const probe = document.createElement("span");
+        probe.style.backgroundColor = "var(--brand-surf)";
+        el.append(probe);
+        const color = getComputedStyle(probe).backgroundColor;
+        probe.remove();
+        return color;
+      });
+      await expect(row).toHaveCSS("background-color", surface);
+      await expect(row).toHaveCSS("border-radius", "0px");
+      await expect(row).toHaveCSS("box-shadow", "none");
+      for (const side of ["top", "right", "bottom", "left"]) {
+        await expect(row).toHaveCSS(`border-${side}-width`, "0px");
+      }
+    }
+    const boxes = await refs.evaluateAll(els => els.map(el => {
+      const { left, top, right, bottom } = el.getBoundingClientRect();
+      return { left, top, right, bottom };
+    }));
+    const columns = width > 760 ? 2 : 1;
+    for (let index = 0; index < boxes.length; index++) {
+      const box = boxes[index];
+      expect(box.left).toBeCloseTo(boxes[index % columns].left, 0);
+      expect(box.top).toBeCloseTo(boxes[index - index % columns].top, 0);
+      if (index >= columns) expect(box.top).toBeGreaterThanOrEqual(boxes[index - columns].bottom);
+      if (index % columns) expect(box.left).toBeGreaterThanOrEqual(boxes[index - 1].right);
+    }
     const headings = page.locator("#H03 h2, #H05 h2, #H06 h2, #H07 h2");
     const lefts = await headings.evaluateAll(els => els.map(el => el.getBoundingClientRect().left)); expect(Math.max(...lefts) - Math.min(...lefts)).toBeLessThanOrEqual(1);
     const closing = page.locator("#H12 a"); await expect(closing).toHaveAttribute("href", `${locale === "fr" ? "/fr" : ""}/commission`);

@@ -19,8 +19,10 @@ for (const width of [360, 390, 768, 1024, 1440]) for (const locale of ["fr", "en
     await expect(page.locator('link[hreflang="en"]')).toHaveAttribute("href", `https://parrit.ai${route === "/" ? "" : route}`);
     const main = page.locator("main");
     expect((await main.innerText()).replace(/MIT License/g, "")).not.toMatch(/Content Factor|usines? de contenu|FormIA|Qualiopi|\bMIT\b|[—–]|\d+\s*%/i);
-    await expect(main.locator("img, svg[role='img']")).toHaveCount(0);
-    const claims = await main.evaluate(el => { const clone = el.cloneNode(true) as HTMLElement; clone.querySelectorAll("time, .v1-index").forEach(time => time.remove()); return clone.textContent; });
+    await expect(main.locator("img")).toHaveCount(route === "/" ? 2 : 0);
+    await expect(main.locator("svg[role='img']")).toHaveCount(0);
+    for (const img of await main.locator("img").all()) await expect(img).toHaveAttribute("src", /^\/brand\/scenes\/scene-carte-visite-(photo|fiche-crm)\.png$/);
+    const claims = await main.evaluate(el => { const clone = el.cloneNode(true) as HTMLElement; clone.querySelectorAll("time, .scene-marker, .scene-chat-time").forEach(time => time.remove()); return clone.textContent; });
     expect(claims).not.toMatch(/\d/);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
     await expect(page.locator(".cmdbar")).not.toHaveCSS("position", "fixed");

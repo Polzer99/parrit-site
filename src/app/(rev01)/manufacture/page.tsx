@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { getLocale } from "@/lib/server/locale";
-import { K, RegistryLine } from "@/system/components";
 import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
 
 const DICT = {
@@ -80,9 +79,9 @@ export async function generateMetadata(): Promise<Metadata> { const locale = awa
 export default async function ManufacturePage() {
   const locale = await getLocale(); const copy = DICT[locale];
   return <main className="rev-page r2-dark"><div className="r2-wrap">
-    <header className="r2-hero"><K>{copy.kicker}</K><h1>{copy.title}</h1><p className="r2-sub">{copy.sub}</p></header>
-    <section className="r2-section" aria-labelledby="phases-heading"><div className="r2-shead"><h2 className="r2-ed" id="phases-heading">{copy.phasesTitle}</h2><K>{copy.phasesKicker}</K></div><div className="r2-phases">{copy.phases.map(([no, name, body]) => <div className="r2-phase" key={no}><div className="no">{no}</div><h3 className="nm">{name}</h3><div className="ds">{body}</div></div>)}</div><p className="r2-registre-note">{copy.note} <Link className="k" href={localizedPath("/standard", locale)}>{copy.standard}</Link></p></section>
+    <header className="r2-hero"><h1>{copy.title}</h1><p className="r2-sub">{copy.sub}</p></header>
+    <section className="r2-section" aria-labelledby="phases-heading"><div className="r2-shead"><h2 className="r2-ed" id="phases-heading">{copy.phasesTitle}</h2></div><div className="r2-phases">{copy.phases.map(([no, name, body]) => <div className="r2-phase" key={no}><h3 className="nm">{name}</h3><div className="ds">{body}</div></div>)}</div><p className="r2-registre-note">{copy.note} <Link className="k" href={localizedPath("/standard", locale)}>{copy.standard}</Link></p></section>
     <section className="r2-close" aria-label={locale === "fr" ? "Commande" : "Commission"}><h2>{copy.close}</h2><p className="proof">{copy.proof}</p><Link className="rev-button exec" href={localizedPath("/commission", locale)}>{copy.button}</Link></section>
-    <footer className="rev-footer"><RegistryLine value="PARRIT / MANUFACTURE · 2026" /></footer>
+
   </div></main>;
 }

@@ -106,7 +106,7 @@ const DICT = {
   en: {
     kicker: "Parrit / Systems", title: "We show the system. You judge before you commit.",
     sub: "Here is the system that runs our own files and our own decisions, shown as it works today, including what doesn't work yet.",
-    cta: "Talk about a project", catalogue: "Demonstrated capabilities.", evidence: "What the system does today.",
+    cta: "Talk about a project", catalogue: "Demonstrated capabilities", evidence: "What the system does today.",
     intro: "Before you trust a system with your operation, three questions matter: is it reliable, who's in control when it changes, what happens when it goes live. We answer them for ourselves first.",
     facts: [
       ["The list that's trusted", "In a lot of companies, several files each claim to be the real customer list, and nobody knows which one to believe. Here, for each type of information (contacts, meetings, calls, open files), one source is meant to be trusted, and the old one only gets retired once we've checked the new one holds everything. As of September 13, 2026, that work wasn't finished everywhere: of the 25 types of information we track, 15 still had two sources in place, and for 4 of them, a direct check had already found a disagreement between them."],
@@ -132,7 +132,7 @@ const DICT = {
   fr: {
     kicker: "Parrit / Systèmes", title: "Nous montrons le système. Vous jugez avant de vous engager.",
     sub: "Voici le système qui organise nos dossiers et nos décisions, tel qu'il fonctionne aujourd'hui, avec ce qui ne marche pas encore.",
-    cta: "Parler d'un projet", catalogue: "Capacités démontrées.", evidence: "Ce que le système fait aujourd'hui.",
+    cta: "Parler d'un projet", catalogue: "Capacités démontrées", evidence: "Ce que le système fait aujourd'hui.",
     intro: "Avant de confier une opération à un système, trois questions comptent : est-il fiable, qui contrôle un changement, que se passe-t-il à la mise en service. Nous y répondons d'abord pour nous-mêmes.",
     facts: [
       ["La liste qui fait foi", "Dans beaucoup d'entreprises, plusieurs fichiers prétendent chacun être la bonne liste de clients, et personne ne sait lequel croire. Chez nous, pour chaque type d'information (les contacts, les rendez-vous, les appels, les dossiers en cours), une seule source doit faire foi, et l'ancienne n'est mise de côté que le jour où l'on a vérifié que la nouvelle contient tout. Au 13 septembre 2026, ce travail n'était pas fini partout : sur 25 types d'information suivis, 15 avaient encore deux sources en présence, et pour 4 d'entre eux, une vérification directe avait déjà trouvé un désaccord entre elles."],
@@ -263,7 +263,7 @@ export default async function SystemsPage() {
   const commission = localizedPath("/commission", locale);
   const talk = <Link className="rev-button exec" href={commission}>{copy.cta}</Link>;
   const heading = (id: string, title: string) => <div className="r2-shead"><h2 className="r2-ed" id={id}>{title}</h2></div>;
-  return <main className="rev-page r2-dark">
+  return <main className="rev-page r2-dark systems-page">
     <div className="r2-wrap" style={{ overflowWrap: "anywhere" }}>
       <header className="r2-hero systems-hero">
         <K>{copy.kicker}</K><h1>{copy.title}</h1><p className="r2-sub">{copy.sub}</p>

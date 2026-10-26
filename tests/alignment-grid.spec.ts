@@ -23,8 +23,14 @@ for (const width of [1440, 375]) for (const locale of ["en", "fr"]) for (const r
     const title = page.locator("h1").first();
     const box = await title.boundingBox();
     expect(box).not.toBeNull();
-    if (route) expect(box!.x).toBeCloseTo(left, 0);
-    else expect(Math.abs(box!.x + box!.width / 2 - width / 2)).toBeLessThanOrEqual(1);
+    expect(box!.x).toBeCloseTo(left, 0);
+    if (!route && width === 1440) {
+      await expect(title).toHaveCSS("text-align", "left");
+      const actions = page.locator("#H01 .v1-actions");
+      expect((await actions.boundingBox())!.x).toBeCloseTo(box!.x, 0);
+      expect((await actions.locator("a").first().boundingBox())!.x).toBeCloseTo(box!.x, 0);
+      await expect(actions).toHaveCSS("justify-content", "flex-start");
+    }
     for (const element of await page.locator(".journal-list time, .doctrine-code .k").all()) {
       expect((await element.boundingBox())!.height).toBeLessThanOrEqual(24);
     }
@@ -41,12 +47,13 @@ for (const width of [1440, 375]) for (const locale of ["en", "fr"]) for (const r
       expect(cal.width).toBeCloseTo(width - 2 * left, 0);
     }
     const localFooter = page.locator("main footer.rev-footer, main footer.journal-article-footer");
-    await expect(localFooter).toHaveCount(route ? 1 : 0);
-    if (route) {
+    const technical = route === "/systems";
+    await expect(localFooter).toHaveCount(technical ? 1 : 0);
+    if (technical) {
       await expect(localFooter.locator(":scope > *")).toHaveCount(1);
       await expect(localFooter.locator(".registry-line")).toHaveCount(1);
       expect(await localFooter.innerText()).not.toMatch(/©|REV 0/);
-    }
+    } else await expect(page.locator("main .registry-line")).toHaveCount(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
     await testInfo.attach(`alignment-${locale}-${width}`, { body: await page.screenshot({ fullPage: true, animations: "disabled" }), contentType: "image/png" });
   });
