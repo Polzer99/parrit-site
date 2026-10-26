@@ -149,8 +149,8 @@ export function QuickCapture({
         <p>{copy.registered}</p>
         <p>{copy.done}</p>
         <div className="quick-capture-next">
-          {sketchUrl ? <a className="rev-button exec" href={sketchUrl}>{copy.watch}</a> : null}
-          <a className="rev-button ghost" href={localizedPath("/commission", locale)}>{copy.bookExam}</a>
+          {sketchUrl ? <a className="rev-button ghost" href={sketchUrl}>{copy.watch}</a> : null}
+          <a className="rev-button ghost" href={localizedPath("/#contact", locale)}>{copy.bookExam}</a>
         </div>
       </section>
     );
@@ -176,7 +176,7 @@ export function QuickCapture({
             setEmail(event.target.value);
             if (hero && event.target.value.length > 0) setIdeaRevealed(true);
           }} />
-          <button className="rev-button exec" type="submit" disabled={state === "sending"}>{state === "sending" ? copy.sending : copy.button}</button>
+          <button className="rev-button ghost" type="submit" disabled={state === "sending"}>{state === "sending" ? copy.sending : copy.button}</button>
         </div>
         {state === "error" ? (
           <span className="ri-error" role="alert">{copy.failure} ({detail}). {copy.direct} paul.larmaraud@parrit.ai</span>

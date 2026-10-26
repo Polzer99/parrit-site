@@ -278,6 +278,7 @@ export type PublicationEvidence = {
   permission_owner: string;
   permission_status: "granted" | "pending" | "denied";
   approved_assets: readonly string[];
+  logo?: PublicationLogo;
   usage_scope: readonly string[];
   expiration_or_review_date: string;
   last_verified: string;
@@ -299,10 +300,11 @@ export function evidencePublishable(evidence: PublicationEvidence, page: string)
 
 const publication = (id: string, display_name: string, claim: string, relationship_type: string): PublicationEvidence => ({
   id, display_name, claim, relationship_type, category: id === "demo-crm" ? "demonstration" : "client",
-  evidence_source: "docs/site-v1/ETAPE-1-PLAN.md §4; docs/site-v1/releves/RAPPORT-PREUVES.md §1",
-  permission_owner: "Paul, décision éditoriale du 26/10/2026",
+  evidence_source: "docs/site-v1/ETAPE-1-PLAN.md §4; docs/site-v1/releves/RAPPORT-PREUVES.md §1; docs/site-v1/page-unique/HANDOFF-PAGE-UNIQUE.md §0 et §6.1",
+  permission_owner: "Paul, maquette et handoff validés le 27/10/2026",
+  logo: { autorise: false, fichier: null, source: null, accord: null },
   permission_status: "granted", approved_assets: [], usage_scope: ["text"],
-  expiration_or_review_date: "2027-01-26", last_verified: "2026-10-26", page_ids: ["home"],
+  expiration_or_review_date: "2027-01-26", last_verified: "2026-10-27", page_ids: ["home"],
 });
 
 export const SITE_EVIDENCE: readonly PublicationEvidence[] = [
@@ -330,3 +332,20 @@ export function evidenceReviewWarnings(evidence: readonly PublicationEvidence[],
       ? [`Evidence ${item.id}: editorial review required by ${item.expiration_or_review_date} (30-day CI warning; publication is unchanged).`]
       : []);
 }
+
+/** Logo permission is distinct from permission to name a client. */
+export type PublicationLogo = {
+  autorise: boolean;
+  fichier: string | null;
+  source: string | null;
+  accord: { qui: string; date: string } | null;
+};
+export function publicationLogo(logo: PublicationLogo | undefined): string | null {
+  return logo?.autorise === true && logo.fichier?.startsWith("/") && !logo.fichier.startsWith("//")
+    && logo.source?.trim() && logo.accord?.qui.trim() && validEvidenceDate(logo.accord.date)
+    ? logo.fichier : null;
+}
+export const RESEARCH_PARTNER: { id: string; title: string | null; logo: PublicationLogo } = {
+  id: "MIT", title: null,
+  logo: { autorise: false, fichier: null, source: null, accord: null },
+};

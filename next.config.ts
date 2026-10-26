@@ -59,12 +59,33 @@ const REDIRECTIONS_JOURNAL = Object.entries(JOURNAL_LEGACY_ROUTES).flatMap(
     ]),
 );
 
+// Final page-unique handoff §6.4: preserve the four editorial subjects.
+const THEME_REDIRECTS = [
+  ["consulting-transformation", "conseil-transformation"],
+  ["ai-sprints", "ai-sprints"],
+  ["engineering-integration", "integration-developpement"],
+  ["harness-engineering", "harness-engineering"],
+].flatMap(([old, theme]) => [
+  { source: `/${old}`, destination: `/journal/themes/${theme}`, statusCode: 308 as const },
+  { source: `/fr/${old}`, destination: `/fr/journal/themes/${theme}`, statusCode: 308 as const },
+]);
+const SECTION_REDIRECTS = [
+  ["manufacture", "path", "parcours"], ["build-with-you", "path", "parcours"],
+  ["standard", "safeguards", "confiance"], ["systems", "safeguards", "confiance"],
+  ["dossiers", "references", "references"], ["commission", "contact", "contact"],
+  ["contact", "contact", "contact"],
+].flatMap(([old, en, fr]) => [
+  { source: `/${old}`, destination: `/#${en}`, statusCode: 308 as const },
+  { source: `/fr/${old}`, destination: `/fr#${fr}`, statusCode: 308 as const },
+]);
+
 const nextConfig: NextConfig = {
   images: { minimumCacheTTL: 2678400 },
   // The OG generators read src/system/tokens.css at runtime; without this
   // the file is absent from the serverless bundle and the route 500s.
   outputFileTracingIncludes: {
     "/journal/\\[slug\\]": ["./content/journal/*.mdx", "./public/certificates/*.json"],
+    "/journal/themes/\\[theme\\]": ["./content/journal/*.mdx"],
     "/llms-full.txt": ["./public/llms.txt", "./content/journal/*.mdx"],
     "/opengraph-image": ["./src/system/brand-os.tokens.css", "./src/system/tokens.css", "./src/og-assets/*"],
     "/journal/\\[slug\\]/og": ["./src/system/brand-os.tokens.css", "./src/system/tokens.css", "./src/og-assets/*"],
@@ -89,10 +110,11 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      ...THEME_REDIRECTS,
+      ...SECTION_REDIRECTS,
+      { source: "/fr/conseil-transformation", destination: "/fr/journal/themes/conseil-transformation", statusCode: 308 },
       ...Object.entries(RENOMMAGES_JOURNAL).map(([old, current]) => ({ source: `/fr/journal/${old}`, destination: `/journal/${current}`, statusCode: 308 as const })),
       { source: "/fr/journal/:slug", destination: "/journal/:slug", statusCode: 308 },
-      { source: "/contact", destination: "/commission", statusCode: 301 },
-      { source: "/fr/contact", destination: "/fr/commission", statusCode: 301 },
       { source: "/camp-costa-rica/:path*", destination: "/", permanent: true },
       { source: "/paul", destination: "/", permanent: true },
       { source: "/maxime", destination: "/", permanent: true },

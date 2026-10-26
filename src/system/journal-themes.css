@@ -1,0 +1,22 @@
+.journal-theme { font-family: var(--ui); }
+.journal-theme-hero { padding-block: var(--s8); }
+.journal-theme-hero h1 { max-width: 1000px; font-size: var(--d-xl); line-height: 1.08; font-weight: 500; }
+.journal-theme-hero p { max-width: 760px; margin-top: var(--s3); font-size: var(--t-l); line-height: 1.5; }
+.journal-theme-body { padding-block: var(--s8); }
+.journal-theme-body > div { max-width: 850px; }
+.journal-theme-body section + section { margin-top: var(--s8); }
+.journal-theme-body h2 { font-size: var(--d-s); line-height: 1.15; font-weight: 500; margin-bottom: var(--s3); }
+.journal-theme-body h3 { font-family: var(--ui); font-size: var(--t-l); line-height: 1.3; font-weight: 500; }
+.journal-theme-body p { font-size: var(--t-m); line-height: 1.65; margin-block: var(--s2); }
+.journal-theme-body .journal-list { margin-block: var(--s3); }
+@media (max-width: 599px) {
+  .journal-theme-hero, .journal-theme-body { padding-block: var(--s6); }
+  .journal-theme-body h2 { font-size: 32px; }
+}
+
+/* Action contrastée dans le registre clair des thèmes. */
+.journal-theme .rev-button.exec {
+  --action-fill:var(--brand-core-canard);
+  --action-pressed:var(--brand-core-canard);
+  --action-text:var(--brand-derived-white);
+}

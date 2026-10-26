@@ -1,4 +1,54 @@
+## Correctifs des 16 échecs navigateur page unique
+
+Baseline hôte : `page-unique-echecs-2.log`, 212 réussis / 16 échecs.
+Le H3 outils avait une taille inline de 26 px : suppression pour hériter de
+`--t-l` (22 px), cause commune aux 8 cas doctrine et aux 6 cas lisibilité.
+Focus hero/fondateur : contour complet avec accent du registre sur `:focus`,
+y compris après un clic. Note sous le formulaire : marge de 16 px (écart
+mesuré à 2 px sur mobile dans la baseline). Aucun test modifié.
+Lint, 105 tests Node, build Webpack, conformité marque et 19 tests Brand OS
+passent. Turbopack interrompu sans progression. Les 8 cas doctrine ont été
+lancés mais Chromium est refusé avant navigation ; écoute 3210 refusée EPERM.
+La preuve navigateur des correctifs reste à rejouer sur l'hôte. Aucun commit/push.
+
+## Restauration des contrôles transverses
+
+Les cinq specs aération, lisibilité, anti-slop, doctrine et liens internes sont
+restaurées depuis HEAD et adaptées aux routes page unique/Journal/thèmes/légal.
+Seuils conservés ; corrections CSS et lien de capture. Rapport et limites :
+`docs/site-v1/page-unique/CONTROLES-TRANSVERSES.md`. Tests navigateur à rejouer
+hors sandbox (port et Chromium interdits), aucun commit/push.
+
+## Addendum page unique, 27/10/2026
+
+Sous-titre expertise FR/EN, boutons hero/fondateur 22 px, ontologie SVG à
+3 couches/11 liens remplaçant l'escalier, tâches animées dans les trois panneaux.
+État final sans JS/en mouvement réduit ; impulsions blanches masquées en reduce.
+Sources : ADDENDUM-PAGE-UNIQUE.md et maquette mise à jour. Rapport du lot
+complété ; tests SSR et navigateur ajoutés. Lint, 105 tests Node, build Webpack,
+marque/claims et 19 tests Brand OS passent. Turbopack interrompu sans progression ;
+serveur/Chromium bloqués par le sandbox. Aucun commit/push/branche modifiée.
+
 # AI Context
+
+## Page unique, handoff final du 27/10/2026
+
+Accueil FR/EN : neuf sections selon §0 du handoff `docs/site-v1/page-unique/`.
+SinglePage et single-page.css reprennent maquette, téléphones, partenaires,
+outils et portrait vérifié. Contact intègre calendrier et repli QuickCapture.
+Quatre anciennes pages V1 migrées vers `/journal/themes/`; autres pages de
+présentation supprimées et redirigées 308 vers ancres. Journal/privé conservés.
+Assets de marque vendorisés inchangés. Logos clients/MIT éteints, droits séparés.
+Nom/portrait du fondateur désormais autorisés au contact ; règle du 12/10 remplacée.
+Validation : npm ci/lint, 103 tests Node, build Webpack (52 pages), gates marque
+et claims, 19 tests Brand OS réussis. Turbopack sans progression interrompu.
+Rapport : `docs/site-v1/page-unique/RAPPORT-PAGE-UNIQUE.md`, résultats et réserves.
+Sandbox : écoute 3210 EPERM, Chromium Permission denied avant navigation ; aucune
+capture candidate ni preuve production. Aucun commit/push/changement de branche.
+
+Les états ci-dessous sont historiques ; routes et doctrine anciennes remplacées
+par le handoff page unique, AGENTS et TRUTH actualisés.
+
 
 ## Correctif B tour 1 — 27/10/2026, nuit
 

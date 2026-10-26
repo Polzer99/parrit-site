@@ -1,12 +1,21 @@
+import { JOURNAL_THEMES } from "./public-routes";
 import { readdirSync } from "node:fs";
 import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
-const routes = ["", "/systems", "/journal", "/standard", "/commission", "/manufacture", "/build-with-you", "/dossiers", "/legal"];
+const routes = ["", "/journal", "/legal", ...JOURNAL_THEMES.map(theme => `/journal/themes/${theme}`)];
 const noOffer = /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de(?! vos opérations\b)|\bHT\b|excl\. VAT/i;
+// Only whole, verbatim status lines are exempt, never substrings or patterns.
+const approvedStatuses = new Set([
+  "Démonstration, données fictives.", "Demonstration, fictional data.",
+  "Exemple illustratif", "Exemples illustratifs", "Illustrative example", "Illustrative examples",
+  "Scènes reconstituées sur données fictives, fidèles aux systèmes en service. Rien ne part sans l'accord d'une personne.",
+  "Scenes rebuilt with fictional data, faithful to the systems in service. Nothing goes out without a person's approval.",
+]);
+const withoutStatuses = (copy: string) => copy.split("\n").filter(line => !approvedStatuses.has(line.trim())).join("\n");
 const forbidden = [
   /[—–]/,
-  /\b(fictif|fictive|fictional|illustrati(f|ve)|illustrées?|non interactive|pas une analyse|not an analysis)\b/i,
+  /\b(fictifs?|fictives?|fictional|illustrati(?:fs?|ves?)|illustrées?|non interactive|pas une analyse|not an analysis)\b/i,
   /\bREV\s?0\d\b|\bPS-0\d\b|\bSTD-\d\.\d\b|\bP0\b/,
   /(?:^|[.!?]\s+)(?:Pas|Not)\s+[^.!?]{1,40}\.\s+[A-ZÀ-Ý][^.!?]{1,60}\./,
 ];
@@ -21,21 +30,27 @@ for (const locale of ["en", "fr"]) {
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.setExtraHTTPHeaders({ "Accept-Language": "en" });
       await page.goto(`${BASE_URL}${locale === "fr" ? "/fr" : ""}${route || (locale === "en" ? "/" : "")}`);
+      const article = articles.includes(route);
+      // Editorial articles retain HEAD's scope for internal version references
+      // and rhetorical patterns. Dashes and unapproved status wording are checked everywhere.
+      const patterns = article ? forbidden.slice(0, 2) : forbidden;
       const audit = async () => {
         const text = await page.locator("body").innerText();
         const attributes = await page.locator("[aria-label], [alt]").evaluateAll((elements) => elements.flatMap((el) => [el.getAttribute("aria-label"), el.getAttribute("alt")]).filter(Boolean).join("\n"));
-        for (const pattern of (route.startsWith("/journal/") ? [] : forbidden)) expect(`${text}\n${attributes}`.replace(/Demonstration, fictional data\./g, "")).not.toMatch(pattern);
+        for (const pattern of patterns) expect(withoutStatuses(`${text}\n${attributes}`)).not.toMatch(pattern);
         const metadata = await page.locator('title, meta[name="description"], meta[property^="og:"], meta[name^="twitter:"], script[type="application/ld+json"]').evaluateAll((elements) => elements.map((el) => el.getAttribute("content") ?? el.textContent ?? "").join("\n"));
         const publicCopy = `${text}\n${attributes}\n${metadata}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
-        if (!route.startsWith("/journal/")) expect(publicCopy).not.toMatch(noOffer);
-        if (route !== "/legal") {
-          if (!route.startsWith("/journal/")) expect(publicCopy).not.toContain("€");
+        // Preserve HEAD's editorial noOffer scope: article bodies discuss third-party
+        // tools (e.g. free libraries); themes are public pages, never articles.
+        if (!article) expect(publicCopy).not.toMatch(noOffer);
+        for (const pattern of patterns) expect(withoutStatuses(metadata)).not.toMatch(pattern);
+        if (route !== "/legal" && !article) expect(publicCopy).not.toContain("€");
+        if (route !== "/legal" && route !== "") {
           expect(publicCopy).not.toMatch(/\bPaul\b|Larmaraud|fondat(eur|rice)|fondée par|founder|founded by|quinze minutes|fifteen minutes/i);
           await expect(page.locator('a[href*="paul-larmaraud.com"]')).toHaveCount(0);
         }
         if (!route) await expect(page.locator(".home-s-offers")).toHaveCount(0);
-        if (route === "/systems") await expect(page.locator("#offre")).toHaveCount(0);
-        if (route === "/build-with-you") await expect(page.locator(".offer-price")).toHaveCount(0);
+        await expect(page.locator(".offer-price")).toHaveCount(0);
         if (locale === "fr") {
           // Exclude time elements and Journal lists only, never other page copy.
           const french = await page.locator("body").evaluate((body) => {
@@ -52,7 +67,7 @@ for (const locale of ["en", "fr"]) {
       };
       await audit();
       if (!route) {
-        await page.getByRole("tab").last().click();
+        await page.locator(".contact-fallback summary").click();
         await audit();
       }
     });

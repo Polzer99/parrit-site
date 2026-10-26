@@ -1,3 +1,4 @@
+import { PUBLIC_ROUTES } from "./public-routes";
 import type { APIRequestContext } from "@playwright/test";
 
 import { expect, test } from "./network-deny.setup";
@@ -6,6 +7,10 @@ const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 
 function normalizeUrl(href: string, base = BASE_URL): string {
   const url = new URL(href, base);
+  if (url.origin === "https://parrit.ai") {
+    const local = new URL(BASE_URL);
+    url.protocol = local.protocol; url.host = local.host;
+  }
   url.pathname = url.pathname.replace(/\/+$/, "") || "/";
   return url.href;
 }
@@ -32,7 +37,7 @@ async function getText(request: APIRequestContext, url: string): Promise<string>
   expect(["localhost", "127.0.0.1"]).toContain(target.hostname);
   expect(target.origin, `Origine interdite : ${url}`).toBe(new URL(BASE_URL).origin);
   // APIRequestContext échappe au deny-all navigateur : aucun suivi de redirection.
-  const response = await request.get(url, { maxRedirects: 0 });
+  const response = await request.get(url, { maxRedirects: 0, headers: { "Accept-Language": "en" } });
   try {
     expect(response.status(), `URL inaccessible : ${url}`).toBe(200);
     return await response.text();
@@ -41,10 +46,17 @@ async function getText(request: APIRequestContext, url: string): Promise<string>
   }
 }
 
+const pages = new Map<string, string>();
+async function cachedText(request: APIRequestContext, url: string) {
+  const target = new URL(url); target.hash = "";
+  if (!pages.has(target.href)) pages.set(target.href, await getText(request, target.href));
+  return pages.get(target.href)!;
+}
+
 async function checkInternalLinks(request: APIRequestContext, url: string) {
-  const html = await getText(request, url);
+  const html = await cachedText(request, url);
   const currentUrl = normalizeUrl(url);
-  const links = [...new Set(anchorHrefs(html).filter((href) => href && !href.startsWith("#"))
+  const links = [...new Set(anchorHrefs(html).filter((href) => href)
     .map((href) => normalizeUrl(href, url))
     .filter((href) => new URL(href).origin === new URL(currentUrl).origin && href !== currentUrl))].sort();
 
@@ -52,6 +64,16 @@ async function checkInternalLinks(request: APIRequestContext, url: string) {
     links.length,
     `${url} : ${links.length} liens internes uniques (minimum 7). Liens trouvés :\n${links.join("\n")}`,
   ).toBeGreaterThanOrEqual(7);
+  // Anchors are final destinations in the single-page architecture. Count them,
+  // but verify both the document and the exact target, including local # links.
+  for (const link of links) {
+    const target = new URL(link);
+    const destination = await cachedText(request, target.href);
+    if (target.hash) {
+      const ids = [...destination.matchAll(/\b(?:id|name)=["']([^"']+)["']/g)].map(match => decodeEntities(match[1]));
+      expect.soft(ids, `${url}: missing anchor ${link}`).toContain(decodeURIComponent(target.hash.slice(1)));
+    }
+  }
 }
 
 test("every discovered page has at least seven unique internal links", async ({ request }) => {
@@ -65,6 +87,8 @@ test("every discovered page has at least seven unique internal links", async ({ 
     expect(url.origin, `Origine inattendue dans le sitemap : ${location}`).toBe("https://parrit.ai");
     return normalizeUrl(`${url.pathname}${url.search}`, BASE_URL);
   }));
+
+  for (const path of PUBLIC_ROUTES) expect(urls, `Missing canonical route: ${path}`).toContain(normalizeUrl(path));
 
   for (const path of ["/journal", "/fr/journal"]) {
     const html = await getText(request, `${BASE_URL}${path}`);

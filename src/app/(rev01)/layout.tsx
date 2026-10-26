@@ -5,7 +5,7 @@ import "../../system/brand-os.tokens.css";
 import "../../system/tokens.css";
 import "../../system/system.css";
 import "./rev01.css";
-import "../../system/site-v1.css";
+import "../../system/single-page.css";
 
 import { AnalyticsInit, RevFooter, RevHeader } from "@/system/components";
 import { getLocale } from "@/lib/server/locale";

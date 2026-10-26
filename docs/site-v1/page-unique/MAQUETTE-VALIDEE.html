@@ -31,6 +31,7 @@ p{font-size:18px;line-height:1.55;text-wrap:pretty}
 section{padding:128px 0}
 .btn{display:inline-block;font-weight:600;font-size:17px;padding:16px 26px;text-decoration:none;border:1.5px solid transparent}
 .btn.exec{background:var(--rose);color:var(--ink)}
+.hero .btn.exec,.founder .btn.exec{font-size:21px;padding:22px 36px}
 .btn.ghost{border-color:currentColor;color:inherit}
 /* barre */
 header{background:var(--canard);color:var(--white)}
@@ -43,10 +44,21 @@ nav a{color:var(--on-canard);text-decoration:none}
 .hero .grid{display:grid;grid-template-columns:1fr;gap:40px}
 .hero h1{max-width:1060px}
 .hero .sub{display:flex;gap:48px;align-items:center;flex-wrap:wrap}
-.hero p{color:var(--on-canard);font-size:21px;max-width:480px}
+.hero p{color:var(--on-canard);font-size:24px;line-height:1.45;max-width:560px}
 .hero .actions{margin-top:36px;display:flex;gap:16px}
 .hero h1 b{display:block}
-.stairs{margin-top:72px;height:120px;width:100%}
+.stairs{margin-top:56px;width:100%;height:auto;display:block;overflow:visible}
+.onto{display:block;width:100%;height:auto;margin-top:64px;overflow:visible}
+.onto .layer{stroke:var(--on-canard);stroke-width:1;opacity:.25}
+.onto .lab{fill:var(--on-canard);font-size:13px;opacity:.8}
+.onto .edge{stroke:var(--on-canard);stroke-width:1.2;opacity:.45;fill:none}
+.onto .node{fill:var(--white)}.onto .node.r{fill:var(--on-canard)}
+.onto .nt{fill:var(--white);font-size:13px;opacity:.9}
+.onto .ag{fill:var(--white)}.onto .eye{fill:var(--canard)}
+.onto .pulse{fill:var(--white)}
+@media (prefers-reduced-motion:reduce){.onto .pulse{display:none}}
+.runner-static{display:none}
+@media (prefers-reduced-motion:reduce){.runner{display:none}.runner-static{display:inline}}
 /* change */
 .three{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
 .panel{background:var(--white);padding:28px;min-height:220px;display:flex;flex-direction:column;justify-content:center}
@@ -113,6 +125,18 @@ nav a{color:var(--on-canard);text-decoration:none}
 .founder li{font-size:17px;color:var(--on-ink);padding:10px 0;border-top:1px solid var(--brand-derived-on-ink-line)}
 .founder .actions{margin-top:36px;display:flex;gap:16px;align-items:center}
 .founder .mail{color:var(--white);font-size:17px}
+
+/* tâches qui s'exécutent */
+.panel .answer{opacity:0;animation:pop 8s infinite 1.2s}
+.doc .l{transform-origin:left;transform:scaleX(0);animation:write 8s infinite}
+.doc .l:nth-of-type(2){animation-delay:.6s}.doc .l:nth-of-type(3){animation-delay:1.2s}
+.doc .ok{opacity:0;animation:pop 8s infinite 2.4s}
+.soft .row:last-child span{animation:lit 6s infinite}
+.soft .row:last-child span:nth-child(2){animation-delay:1s}.soft .row:last-child span:nth-child(3){animation-delay:2s}
+@keyframes pop{0%,8%{opacity:0;transform:translateY(6px)}14%,85%{opacity:1;transform:none}95%,100%{opacity:0}}
+@keyframes write{0%{transform:scaleX(0)}20%,85%{transform:scaleX(1)}95%,100%{transform:scaleX(0)}}
+@keyframes lit{0%,100%{background:var(--sky);color:var(--ink)}15%,35%{background:var(--canard);color:var(--white)}}
+@media (prefers-reduced-motion:reduce){.panel .answer,.doc .ok{animation:none;opacity:1}.doc .l{animation:none;transform:none}.soft .row:last-child span{animation:none}}
 /* en production : téléphones */
 .live{background:var(--canard);color:var(--white)}
 .scenes{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:64px}
@@ -160,11 +184,11 @@ footer a{color:var(--on-ink);margin-left:24px}
   <div class="grid">
     <h1>Nous allons à la frontière du possible, <b>puis nous le livrons à nos clients.</b></h1>
     <div class="sub">
-      <p>Nous transformons des problèmes opérationnels en systèmes qui fonctionnent.</p>
+      <p>Votre expertise est la matière première. Nous en faisons des systèmes qui en multiplient l'impact.</p>
       <div class="actions" style="margin-top:0"><a class="btn exec" href="#contact">Parlons de votre transformation</a></div>
     </div>
   </div>
-  <svg class="stairs" viewBox="0 0 1080 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 110 H260 V75 H560 V40 H860 V8 H1080" fill="none" stroke="currentColor" stroke-width="2" opacity=".55"/><rect x="1068" y="0" width="12" height="12" fill="currentColor"/></svg>
+  <svg class="onto" viewBox="0 0 1080 260" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><line x1="0" y1="40" x2="1080" y2="40" class="layer"/><text x="0" y="30" class="lab">Vos données</text><line x1="0" y1="130" x2="1080" y2="130" class="layer"/><text x="0" y="120" class="lab">Vos règles</text><line x1="0" y1="220" x2="1080" y2="220" class="layer"/><text x="0" y="210" class="lab">Vos agents</text><path id="e0" d="M190 40 L310 130" class="edge"/><path id="e1" d="M430 40 L310 130" class="edge"/><path id="e2" d="M430 40 L590 130" class="edge"/><path id="e3" d="M670 40 L590 130" class="edge"/><path id="e4" d="M670 40 L830 130" class="edge"/><path id="e5" d="M910 40 L830 130" class="edge"/><path id="e6" d="M310 130 L260 220" class="edge"/><path id="e7" d="M590 130 L540 220" class="edge"/><path id="e8" d="M830 130 L860 220" class="edge"/><path id="e9" d="M310 130 L540 220" class="edge"/><path id="e10" d="M590 130 L860 220" class="edge"/><rect x="184" y="34" width="12" height="12" class="node"/><text x="202" y="58" class="nt">Clients</text><rect x="424" y="34" width="12" height="12" class="node"/><text x="442" y="58" class="nt">Commandes</text><rect x="664" y="34" width="12" height="12" class="node"/><text x="682" y="58" class="nt">Stocks</text><rect x="904" y="34" width="12" height="12" class="node"/><text x="922" y="58" class="nt">Factures</text><rect x="304" y="124" width="12" height="12" class="node r"/><text x="322" y="148" class="nt">Validation</text><rect x="584" y="124" width="12" height="12" class="node r"/><text x="602" y="148" class="nt">Droits</text><rect x="824" y="124" width="12" height="12" class="node r"/><text x="842" y="148" class="nt">Échéances</text><g transform="translate(260 222) scale(1.4)"><rect x="-11" y="-22" width="22" height="22" class="ag"/><rect x="-6" y="-15" width="4" height="5" class="eye"/><rect x="2" y="-15" width="4" height="5" class="eye"/></g><g transform="translate(540 222) scale(1.4)"><rect x="-11" y="-22" width="22" height="22" class="ag"/><rect x="-6" y="-15" width="4" height="5" class="eye"/><rect x="2" y="-15" width="4" height="5" class="eye"/></g><g transform="translate(860 222) scale(1.4)"><rect x="-11" y="-22" width="22" height="22" class="ag"/><rect x="-6" y="-15" width="4" height="5" class="eye"/><rect x="2" y="-15" width="4" height="5" class="eye"/></g><rect width="7" height="7" x="-3.5" y="-3.5" class="pulse"><animateMotion dur="3.08s" begin="2.18s" repeatCount="indefinite"><mpath href="#e0"/></animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" class="pulse"><animateMotion dur="3.34s" begin="2.42s" repeatCount="indefinite"><mpath href="#e1"/></animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" class="pulse"><animateMotion dur="3.85s" begin="0.26s" repeatCount="indefinite"><mpath href="#e2"/></animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" class="pulse"><animateMotion dur="2.63s" begin="3.35s" repeatCount="indefinite"><mpath href="#e3"/></animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" class="pulse"><animateMotion dur="3.12s" begin="0.94s" repeatCount="indefinite"><mpath href="#e4"/></animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" class="pulse"><animateMotion dur="4.59s" begin="1.88s" repeatCount="indefinite"><mpath href="#e5"/></animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" class="pulse"><animateMotion dur="4.27s" begin="1.91s" repeatCount="indefinite"><mpath href="#e6"/></animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" class="pulse"><animateMotion dur="3.88s" begin="0.6s" repeatCount="indefinite"><mpath href="#e7"/></animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" class="pulse"><animateMotion dur="3.87s" begin="3.47s" repeatCount="indefinite"><mpath href="#e8"/></animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" class="pulse"><animateMotion dur="3.65s" begin="2.97s" repeatCount="indefinite"><mpath href="#e9"/></animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" class="pulse"><animateMotion dur="3.94s" begin="0.26s" repeatCount="indefinite"><mpath href="#e10"/></animateMotion></rect></svg>
 </div></div>
 
 <section class="live" id="en-production"><div class="wrap">

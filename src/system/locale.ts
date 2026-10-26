@@ -8,12 +8,12 @@ export const PATHNAME_HEADER = "x-parrit-pathname";
 
 // Only these pages have translated content and participate in language negotiation.
 export const TRANSLATED_PATHS: readonly string[] = [
-  "/consulting-transformation", "/ai-sprints", "/engineering-integration", "/harness-engineering",
-  "/", "/build-with-you", "/systems", "/manufacture", "/standard", "/dossiers", "/commission", "/journal", "/legal",
+  "/", "/journal", "/legal",
+  "/journal/themes/harness-engineering", "/journal/themes/ai-sprints",
+  "/journal/themes/integration-developpement", "/journal/themes/conseil-transformation",
 ];
 
 export function barePathname(pathname: string): string {
-  if (pathname === "/fr/conseil-transformation") return "/consulting-transformation";
   return pathname === "/fr" ? "/" : pathname.startsWith("/fr/") ? pathname.slice(3) : pathname;
 }
 
@@ -28,7 +28,6 @@ export function localizedPath(href: string, locale: Locale): string {
   const pathname = suffixAt < 0 ? href : href.slice(0, suffixAt);
   const suffix = suffixAt < 0 ? "" : href.slice(suffixAt);
   const bare = barePathname(pathname);
-  if (locale === "fr" && bare === "/consulting-transformation") return `/fr/conseil-transformation${suffix}`;
   return `${locale === "fr" && TRANSLATED_PATHS.includes(bare) ? `/fr${bare === "/" ? "" : bare}` : bare}${suffix}`;
 }
 

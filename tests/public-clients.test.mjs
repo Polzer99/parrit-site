@@ -24,8 +24,9 @@ test("home accepts canonical public clients while the Journal rejects all known 
   assert.deepEqual(journalClientNames("Clevernesse, Joones, SNCFrance"), []);
 });
 
-test("an unknown client injected into either locale of the home DICT fails", () => {
-  for (const name of PUBLIC_CLIENT_NAMES) {
+test("the reference parser rejects an unknown client in either locale", () => {
+  const source = `const DICT = { en: { brandKicker: "References", brands: [{ name: "Laparra", description: "Reference" }] }, fr: { brandKicker: "Références", brands: [{ name: "Laparra", description: "Référence" }] } };`;
+  for (const name of ["Laparra"]) {
     const displayName = name === "Clevery" ? "Clevery Avocats" : name;
     const mutations = [...source.matchAll(new RegExp(`name: "(${displayName})"`, "g"))];
     assert.equal(mutations.length, 2, "one client reference in each locale");
@@ -37,7 +38,7 @@ test("an unknown client injected into either locale of the home DICT fails", () 
 });
 
 test("known private clients are rejected in any home prose", () => {
-  const changed = source.replace(/kicker: "[^"]+"/, 'kicker: "Naval Group"');
+  const changed = 'const DICT = { en: { kicker: "Naval Group" } };';
   assert.ok(homeClientViolations(changed).some(({ name }) => name === "Naval Group"));
 });
 

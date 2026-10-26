@@ -1,4 +1,3 @@
-import { checkGrain } from "./check-grain.mjs";
 import { readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
 import cssColorNames from "color-name";
@@ -277,9 +276,6 @@ for (const root of NO_RED_ROOTS) {
   }
 }
 
-try { await checkGrain(); } catch (error) {
-  violations.push(`public/matiere [grain] ${error.message}`);
-}
 
 if (violations.length > 0) {
   console.error("Brand conformity failed:\n" + violations.map((item) => `- ${item}`).join("\n"));

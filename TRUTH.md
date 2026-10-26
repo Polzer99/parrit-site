@@ -14,16 +14,19 @@ Nous accompagnons la transformation des entreprises. Et nous construisons les sy
 
 EN : We support business transformation. And we build the systems that make it possible.
 
-Deux parcours : PME/ETI et grands groupes ; conseil et logiciel sont ouverts aux deux. Les relations d'écosystème attendent leur validation au lot 2. Les droits se définissent par contrat.
+Deux parcours : PME/ETI et grands groupes ; conseil et logiciel sont ouverts aux deux. Les partenaires sont présentés dans les termes validés de la maquette. Les droits se définissent par contrat.
 
-### Site V1, lot 1 (26/10/2026)
+### Page unique validée (27/10/2026)
 
-Référence : `docs/site-v1/ETAPE-1-PLAN.md`, sections 2 à 6.
-Trois portes : Conseil & Transformation, AI Sprints, Engineering & Intégration.
-Harness Engineering dispose de sa page guide et d'une entrée dans le menu Engineering.
-Les mentions de l'écosystème attendent le lot 2.
-La propriété du code, l'hébergement, la réversibilité et la maintenance se décident
-pour chaque projet, par contrat. Aucun chiffre de résultat dans le lot 1.
+Source : `docs/site-v1/page-unique/HANDOFF-PAGE-UNIQUE.md`, section 0 prioritaire,
+`MAQUETTE-VALIDEE.html` et rendus 1440/390.
+Nous allons à la frontière du possible, puis nous le livrons à nos clients.
+Votre expertise est la matière première. Nous en faisons des systèmes qui en multiplient l'impact.
+Neuf sections : hero, agents en production, changements, parcours, services,
+garde-fous, partenaires, références et outils, fondateur et contact.
+Les quatre pages V1 deviennent des thèmes du Journal ; les autres pages de
+présentation redirigent vers les sections. Journal, légal et esquisses conservés.
+Les droits, l'hébergement, la réversibilité et la maintenance restent contractuels.
 
 ### Capacités et garde-fous
 
@@ -59,8 +62,8 @@ L'ancien objectif RDV/semaine et cash hebdo est remplacé le 24/10/2026.
 
 **CTA site V1, correctif tour 1** : « Parlons de votre transformation » /
 « Let's talk about your transformation » sur le seul bouton principal du hero accueil ;
-« Parler d'un projet » / « Talk about a project » dans la navigation et les clôtures, vers `/commission`
-ou `/fr/commission`. Le hero montre un processus actuel et sa cible. Le Journal n'a pas de capture d'abonnement.
+« Parler d'un projet » / « Talk about a project » dans la navigation et les clôtures, vers `/#contact`
+ou `/fr#contact`. Le hero porte la promesse et l’ontologie validées (addendum du 27/10). Le Journal n'a pas de capture d'abonnement.
 
 ## 3. ICP (à qui on parle)
 
@@ -74,11 +77,10 @@ Parrit vend des **systèmes sur mesure**. La Manufacture suit trois phases : Exa
 
 Le site public invite à un premier échange avec Parrit.ai, sans prix ni offre détaillée. Le périmètre et le prix se donnent en rendez-vous puis en propale privée (décision Paul du 12/10/2026).
 
-L’accueil suit H01 à H07, H11 et H12 du plan site V1 : promesse, références autorisées, conseil, exemples qualifiés, sprints, engineering, harness, méthode et contact. Les cinq pages intérieures `/manufacture`, `/standard`, `/dossiers`, `/commission` et `/journal` suivent le copy FR/EN validé dans `docs/CODEX-SPEC-2026-09-06-site-integral.md` (lots 1 et 2). Le lot 3 retire les anciennes identités sans réécrire ce copy.
-
-La surface de debug `/system` est retirée (404). Le microsite camp est conservé dans `archive/camp-costa-rica/`, avec ses assets dédiés hors de `public/`. `/camp-costa-rica/:path*` redirige définitivement vers `/` ; le proxy ne réécrit plus le domaine du camp.
-
-Surfaces produit du site rev01 : `/`, `/manufacture`, `/standard`, `/dossiers`, `/commission`, `/journal`, `/legal` et les esquisses privées `/sketch/[id]`.
+Surfaces publiques : `/`, `/fr`, Journal et ses quatre thèmes bilingues,
+articles anglais et mentions légales bilingues. Esquisses privées `/sketch/[id]`
+conservées. Anciennes pages : redirections 308 vers leur thème ou section.
+`/system` reste 404 ; le microsite camp reste archivé hors routage.
 
 ## 5. Voix (DOCTRINE-COMMUNICATION — « LE TAMIS »)
 
@@ -105,7 +107,7 @@ Surfaces produit du site rev01 : `/`, `/manufacture`, `/standard`, `/dossiers`, 
 
 - Stack : Next.js 16 / React 19 / TypeScript / Tailwind v4, Vercel, français et anglais. Mesure d'audience (05/10/2026) : PostHog retiré du navigateur ; seule mesure active, Cloudflare Web Analytics injectée par Cloudflare hors dépôt, décrite dans `/legal`.
 - Site canon : `src/app/(rev01)/`. Le copy localisé vit dans les `DICT` des pages et composants concernés.
-- Capture lead : `src/system/components/QuickCapture.tsx` poste vers `/api/interet` ; `idee` rejoint `metadata.interets_declares[].idee_prototype`. `AgentEsquisse.tsx` fonctionne sans backend ni LLM. Le Journal n'a pas de capture d'abonnement. La prise de rendez-vous passe par Cal.com dans `CalInline.tsx` sur `/commission`.
+- Capture lead : `src/system/components/QuickCapture.tsx` poste vers `/api/interet` ; `idee` rejoint `metadata.interets_declares[].idee_prototype`. `AgentEsquisse.tsx` fonctionne sans backend ni LLM. Le Journal n'a pas de capture d'abonnement. La prise de rendez-vous passe par Cal.com dans `CalInline.tsx` dans la section contact de la page unique.
 - Garde-fous avant push : `npm run build`, `npm run qa:brand:rev01`, puis `npm run qa:network:rev01` avec blocage réseau global.
 
 ## 8. Définition d'une « amélioration » (le filtre de Hermes)
@@ -129,4 +131,9 @@ Anti-objectifs : faire « plus joli » sans hypothèse de conversion ; ajouter d
 
 > Hermes met à jour cette section à chaque cycle (ce qui a été testé, ce qui a bougé). Voir `hermes/PROGRESS.md`.
 
-Décision Paul du 12/10/2026, marque unifiée : le site parle au nom de Parrit.ai ; aucun nom de personne hors mentions légales. Auteurs, métadonnées, données structurées, RSS, textes et e-mails de capture utilisent Parrit.ai. La photo et le lien personnel sont retirés du rendu ; les fichiers photo du canon, les identifiants internes, le compte Cal.com et l’adresse de contact sont conservés.
+Décision Paul du 27/10/2026 : nom et portrait du fondateur autorisés dans la
+section contact, portrait `person.paul.primary_portrait` sans retouche. Cette
+décision remplace l'interdiction de personne hors mentions légales du 12/10.
+Le Journal conserve son identité Parrit.ai. Partenaires et outils : texte exact
+validé ; aucun partenariat technique implicite. Logos clients et MIT éteints
+par défaut, accord nominatif daté, source et fichier indispensables à l'affichage.
