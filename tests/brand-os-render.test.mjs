@@ -1,5 +1,6 @@
 import { privateClientNames } from "../scripts/lib/public-clients.mjs";
 import { PUBLIC_CLIENT_NAMES } from "../src/system/public-clients.ts";
+import { TECHNOLOGIES } from "../src/system/technologies.ts";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import matter from "gray-matter";
@@ -122,8 +123,20 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         if (route === "/") {
           assert.match(html, /<section class="hero"/);
           const ids = [...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]);
-          const expected = locale === "fr" ? ["en-production", "ce-qui-change", "parcours", "services", "partenaires", "references", "architecture", "contact"] : ["in-production", "what-changes", "path", "services", "team", "references", "architecture", "contact"];
-          assert.deepEqual(ids.filter(id => expected.includes(id)), expected);
+          const expected = locale === "fr" ? ["technologies", "en-production", "ce-qui-change", "parcours", "services", "partenaires", "references", "contact"] : ["technologies", "in-production", "what-changes", "path", "services", "team", "references", "contact"];
+          // The compiled contact also contains QuickCapture's nested section.
+          assert.deepEqual(ids, [...expected, "single-contact"]);
+          assert.doesNotMatch(html, /id="architecture"/);
+          assert.match(html, /<section class="hero">[\s\S]*?<\/section><section id="technologies"/);
+          const technologyBand = html.match(/<section id="technologies"[\s\S]*?<\/section>/)?.[0];
+          assert.ok(technologyBand, `${label}: compiled server renders the band`);
+          const technologyLists = [...technologyBand.matchAll(/<ul([^>]*)>([\s\S]*?)<\/ul>/g)];
+          assert.equal(technologyLists.length, 2);
+          assert.doesNotMatch(technologyLists[0][1], /aria-hidden/);
+          assert.match(technologyLists[1][1], /aria-hidden="true"/);
+          for (const [, , list] of technologyLists) {
+            assert.deepEqual([...list.matchAll(/<span>([^<]+)<\/span>/g)].map(m => m[1]), TECHNOLOGIES.map(item => item.name));
+          }
           assert.doesNotMatch(text, /Content Factor|usines? de contenu|FormIA|Qualiopi/i);
           const partners = html.match(new RegExp(`<section id="${locale === "fr" ? "partenaires" : "team"}">[\\s\\S]*?</section>`))?.[0];
           assert.ok(partners, `${label}: partners section`);

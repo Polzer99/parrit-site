@@ -71,7 +71,7 @@ const THEME_REDIRECTS = [
 ]);
 const SECTION_REDIRECTS = [
   ["manufacture", "path", "parcours"], ["build-with-you", "path", "parcours"],
-  ["standard", "architecture", "architecture"], ["systems", "architecture", "architecture"],
+  ["standard", "technologies", "technologies"], ["systems", "technologies", "technologies"],
   ["dossiers", "references", "references"], ["commission", "contact", "contact"],
   ["contact", "contact", "contact"],
 ].flatMap(([old, en, fr]) => [

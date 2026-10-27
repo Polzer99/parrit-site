@@ -1,3 +1,19 @@
+## Bandeau technologies, 27/10/2026 au soir
+
+`docs/site-v1/page-unique/BANDEAU-TECHNOLOGIES.md` remplace la confidentialité
+technique de la passe 4 : `#technologies` suit le hero, 41 noms dans
+`src/system/technologies.ts`, 33 masques SVG locaux et tracés sans couleur.
+Architecture retirée (composant, textes, CSS et autodéfilement devenu inutilisé).
+Cinq carrousels natifs conservés ; standard/systems ciblent technologies en 308.
+SSR complet FR/EN, boucle CSS 60 s avec pause survol/clavier ; mouvement réduit :
+une seule copie visible, retour à la ligne. Titre 22 px pour conserver l'échelle
+fermée existante ; noms 18 px, mention 16 px, géométrie sans seuil assoupli.
+Validation locale : npm ci, lint, build Webpack, 117/117 tests Node, marque/claims
+et 19/19 Brand OS réussis ; 55 cas Playwright recensés, sans exécution navigateur.
+Rapport et preuve navigateur à rejouer sur l'hôte :
+`docs/site-v1/page-unique/BANDEAU-TECHNOLOGIES-RAPPORT.md`.
+Les entrées antérieures ci-dessous décrivent les états historiques.
+
 ## Passe 4, contraste du menu téléphone, 27/10/2026
 
 Les audits aération et lisibilité partagent le sélecteur du summary natif.

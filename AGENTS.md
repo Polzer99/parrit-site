@@ -94,7 +94,7 @@ Une ressource a **une seule URL canonique** : celle qui rend son expérience com
 
 ## Routes, page unique (27/10/2026)
 
-- `/` et `/fr` : neuf sections selon `PASSE-3-PAGE-RACONTEE.md` §1.
+- `/` et `/fr` : neuf sections selon `BANDEAU-TECHNOLOGIES.md` §2.
 - `/journal`, `/fr/journal`, `/journal/[slug]`, RSS et `/legal`, `/fr/legal` conservés.
 - Quatre thèmes bilingues sous `/journal/themes/` : harness-engineering,
   ai-sprints, integration-developpement, conseil-transformation.
@@ -138,12 +138,12 @@ Voir aussi la skill `qa-playwright` (batterie responsive + multi-navigateur).
 
 La passe 3 (`docs/site-v1/page-unique/PASSE-3-PAGE-RACONTEE.md`) et sa maquette
 archivée dans `passe-3/maquette/` priment sur la maquette précédente pour leur périmètre.
-Ordre passe 3 : hero, en production, ce qui change, parcours, services,
-partenaires, références, architecture, fondateur/contact avec réservation intégrée.
+Ordre actuel (bandeau, 27/10 au soir) : hero, technologies, en production, ce qui change, parcours, services,
+partenaires, références, fondateur/contact avec réservation intégrée.
 Aucune section « Votre phrase ». Aucun prix. Aucun CRM en vedette.
 Les chiffres et outils explicitement présents dans la maquette sont autorisés.
 Navigation : production, parcours, services, équipe, références, contact.
-`standard` et `systems` redirigent en 308 vers `#architecture`.
+`standard` et `systems` redirigent en 308 vers `#technologies`.
 Les preuves passent par `getSiteEvidence`. Revue J-30 en CI, pas d'expiration
 silencieuse en production. Décision Paul du 27/10/2026 : logos des cinq clients publiables affichés sans
 accord écrit des clients, sur sa décision nominative datée ; provenance dans
@@ -158,14 +158,17 @@ et avec mouvement réduit. Contrôles dans `tests/single-page.spec.ts`.
 `docs/site-v1/page-unique/PASSE-4-CAS-D-USAGE-ET-ECRAN.md` prime sur la passe 3
 pour les cas d’usage, les offres partenaires, le trajet et la géométrie.
 Maquette source archivée : `docs/site-v1/page-unique/passe-4/passe4.py`.
-Ne pas dévoiler la stack interne sur la page : le trajet décrit les sources
-clients, le choix cloud/serveurs/local et les harnais, sans l’outillage Parrit.
+Décision Paul du 27/10/2026, soir : `BANDEAU-TECHNOLOGIES.md` remplace la
+règle de confidentialité de la stack. Bandeau agnostique `#technologies` juste
+après le hero : pour chaque besoin, la meilleure technologie. Liste canonique
+dans `src/system/technologies.ts`, logos locaux dans `public/tech/`, aucun
+partenariat sous-entendu. La section architecture est retirée.
 Les mentions de Claude Code comme formation/audit restent autorisées.
 Un bloc = un écran : en FR/EN et mouvement réduit, à 1440×800, 1280×720 et
 390×700, le premier enfant de chaque section (hors hero/contact) et chaque
 figure doivent tenir dans la hauteur du viewport, sans découpe ni texte masqué.
 Le hero entier, barre comprise, tient à 1440×800 ; le calendrier seul est exempté.
-Six carrousels mobiles natifs, accessibles au clavier, avec points de position.
+Cinq carrousels mobiles natifs (celui du trajet est retiré), accessibles au clavier, avec points de position.
 Les 48 cas et les 20 offres restent dans le HTML serveur ; aucun mouvement
 en mode réduit et aucun minuteur après démontage. Laparra est présenté comme
 un outil de pilotage agentique pour les fruits et légumes.

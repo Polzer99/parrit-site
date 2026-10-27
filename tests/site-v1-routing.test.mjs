@@ -40,7 +40,7 @@ test("old routes resolve directly to themes or single-page anchors with permanen
     const rule = rules.find(rule => rule.source === `${prefix}/${old}`);
     assert.deepEqual(rule, { source: `${prefix}/${old}`, destination: `${prefix}/journal/themes/${theme}`, statusCode: 308 });
   }
-  const sections = { manufacture: ["path", "parcours"], "build-with-you": ["path", "parcours"], standard: ["architecture", "architecture"], systems: ["architecture", "architecture"], dossiers: ["references", "references"], commission: ["contact", "contact"], contact: ["contact", "contact"] };
+  const sections = { manufacture: ["path", "parcours"], "build-with-you": ["path", "parcours"], standard: ["technologies", "technologies"], systems: ["technologies", "technologies"], dossiers: ["references", "references"], commission: ["contact", "contact"], contact: ["contact", "contact"] };
   for (const [old, anchors] of Object.entries(sections)) for (const [index, prefix] of ["", "/fr"].entries()) {
     const rule = rules.find(rule => rule.source === `${prefix}/${old}`);
     assert.deepEqual(rule, { source: `${prefix}/${old}`, destination: `${prefix || "/"}#${anchors[index]}`, statusCode: 308 });

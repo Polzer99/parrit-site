@@ -10,7 +10,7 @@ import { ConversationMotion } from "./ConversationMotion";
 import { OntologyHero } from "./OntologyHero";
 import { PathWalker } from "./PathWalker";
 import { RevealOnView } from "./RevealOnView";
-import { DataArchitecture } from "./DataArchitecture";
+import { TechnologyBand } from "./TechnologyBand";
 import { MobileCarousel } from "./MobileCarousel";
 import { ServiceTasks } from "./ServiceTasks";
 export function SinglePage({ locale }: { locale: Locale }) {
@@ -32,6 +32,8 @@ export function SinglePage({ locale }: { locale: Locale }) {
   {/* Attribution de la citation courte : https://ico.org.uk/for-the-public/ico-40/data-as-a-commodity/ */}
   <p className="humby">{t("« La donnée est le nouveau pétrole », disait Clive Humby en 2006. Brute, elle ne sert à rien : nous la raffinons.")}</p>
 </div></section>
+
+<TechnologyBand locale={locale}/>
 
 {clients.some(id => ["Clevery", "Forexpert", "Laparra"].includes(id)) && <section className="live" id={fr ? "en-production" : "in-production"}><div className="wrap">
   <h2>{t("Nos agents travaillent déjà")}{" "}<b>{t("chez nos clients.")}</b></h2>
@@ -121,7 +123,6 @@ export function SinglePage({ locale }: { locale: Locale }) {
   </>}
 </RevealOnView></section>
 
-<DataArchitecture locale={locale}/>
 
 
 

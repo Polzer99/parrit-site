@@ -6,7 +6,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
-const anchors = { fr: ["en-production", "ce-qui-change", "parcours", "services", "partenaires", "references", "architecture", "contact"], en: ["in-production", "what-changes", "path", "services", "team", "references", "architecture", "contact"] };
+const anchors = { fr: ["technologies", "en-production", "ce-qui-change", "parcours", "services", "partenaires", "references", "contact"], en: ["technologies", "in-production", "what-changes", "path", "services", "team", "references", "contact"] };
 for (const locale of ["fr", "en"]) test(`final single-page sections and booking render without JS (${locale})`, async () => {
   const html = await renderPage(locale);
   assert.equal((html.match(/<section\b/g) ?? []).length, 9);
@@ -34,7 +34,6 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.doesNotMatch(contact, /paul-centre\.png/);
   assert.match(html, new RegExp(`href="${locale === "fr" ? "/fr" : ""}/journal"`));
   assert.equal((html.match(/class="phone"/g) ?? []).length, 3);
-  for (const tool of ["WhatsApp", "iMessage", "Teams", "Slack", "Telegram"]) assert.ok(visibleText(html).includes(tool));
   const text = visibleText(html);
   for (const client of ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"]) assert.ok(text.includes(client));
   assert.doesNotMatch(text, /Arkel/);
@@ -124,7 +123,7 @@ for (const locale of ["fr", "en"]) test(`six-story ontology with four static res
   assert.ok(visibleText(html).includes(locale === "fr" ? "Votre expertise est la matière première. Nous en faisons des systèmes qui en multiplient l'impact." : "Your expertise is the raw material. We turn it into systems that multiply its impact."));
 });
 
-for (const locale of ["fr", "en"]) test(`passe 4 services, architecture, logos and final walker (${locale})`, async () => {
+for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos and final walker (${locale})`, async () => {
   const html = await renderPage(locale);
   const text = visibleText(html);
   assert.doesNotMatch(text, /Brésil|Brazil|Cameroun|Cameroon|métropole lilloise|Lille area|Exemples illustratifs|Illustrative examples/);
@@ -132,7 +131,7 @@ for (const locale of ["fr", "en"]) test(`passe 4 services, architecture, logos a
   assert.match(html, /class="walk s1 s2 s3 withbot" viewBox="0 0 1080 130" aria-hidden="true"/);
   assert.match(html, /class="human" transform="translate\(900 120\)"/);
   assert.equal((html.match(/class="use-case"/g) ?? []).length, 12);
-  assert.equal((html.match(/class="stage"/g) ?? []).length, 5);
+  assert.doesNotMatch(html, /id="architecture"|class="stage"/);
   assert.equal((html.match(/role="img"/g) ?? []).length, 10);
   const strip = html.match(/class="logo-track">([\s\S]*?)<div class="logo-set" aria-hidden="true">/)?.[1];
   assert.ok(strip);
@@ -143,7 +142,7 @@ for (const locale of ["fr", "en"]) test(`passe 4 services, architecture, logos a
   assert.doesNotMatch(visibleText(founder), /\.$/);
 });
 
-for (const locale of ["fr", "en"]) test(`passe 4 complete SSR use cases, offers and private-stack boundary (${locale})`, async () => {
+for (const locale of ["fr", "en"]) test(`passe 4 complete SSR use cases, offers after architecture removal (${locale})`, async () => {
   const html = await renderPage(locale);
   const { SERVICE_CASES, PARTNER_OFFERS, SINGLE_PAGE_EN } = loader(locale)("src/system/single-page-copy.ts");
   const t = value => locale === "fr" ? value : SINGLE_PAGE_EN[value];
@@ -160,14 +159,8 @@ for (const locale of ["fr", "en"]) test(`passe 4 complete SSR use cases, offers 
   assert.equal((html.match(/class="use-case"[^>]*aria-live="off" data-case="0"/g) ?? []).length, 12);
   assert.equal((html.match(/class="tag bo"/g) ?? []).length, 24);
   assert.equal((html.match(/class="tag new"/g) ?? []).length, 24);
-  assert.equal((html.match(/class="swipe-dots"/g) ?? []).length, 6);
-  const architecture = html.match(/<section id="architecture">[\s\S]*?<\/section>/)?.[0];
-  assert.ok(architecture);
-  assert.doesNotMatch(visibleText(architecture), /Supabase|OVH|OpenRouter|Claude|ChatGPT|Gemini|Mistral|Qwen|DeepSeek|Codex|OpenCode|GitHub|Vercel|n8n|Nous construisons avec|We build with/i);
-  assert.doesNotMatch(architecture, /<img|<svg|class="ic"|class="chip"[^>]*><i|\/tools\//);
-  assert.match(architecture, /class="chips"><span class="chip app">/);
-  assert.ok(visibleText(architecture).includes(locale === "fr" ? "Votre propre application" : "Your own app"));
-  assert.ok(visibleText(architecture).includes(locale === "fr" ? "En local, sur vos machines" : "Locally, on your machines"));
+  assert.equal((html.match(/class="swipe-dots"/g) ?? []).length, 5);
+  assert.doesNotMatch(html, /id="architecture"|class="flowmap|\/tools\//);
   const { SITE_EVIDENCE } = loader(locale)("src/lib/registry/preuves.ts");
   assert.match(SITE_EVIDENCE.find(item => item.id === "Laparra").claim, /pilotage agentique/);
   assert.doesNotMatch(visibleText(html), /pilote sa base clients|runs its customer base|agents that manage the customer base/);
