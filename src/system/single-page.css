@@ -398,7 +398,7 @@
 @media(max-width:760px){
   .single-page :is(.service-tasks,.services,.steps,.flowmap,.scenes,.three).mobile-carousel {
     display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;align-items:flex-start;
-    background:none;border:0;margin-left:-16px;margin-right:-16px;padding:0 16px 4px;scrollbar-width:none;
+    background:none;border:0;margin-left:-16px;margin-right:-16px;padding:0 16px 4px;scroll-padding-inline:16px;scrollbar-width:none;
   }
   .single-page .mobile-carousel::-webkit-scrollbar {display:none;}
   .single-page .mobile-carousel > * {flex:0 0 84%;min-width:0;scroll-snap-align:start;}
