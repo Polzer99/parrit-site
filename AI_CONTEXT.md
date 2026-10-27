@@ -1,3 +1,21 @@
+## Espace sous les blocs partenaires, 27/10/2026
+
+Le gap de grille et la marge de `.partner-next` totalisent désormais `--s3`
+(24px), à toutes les tailles. Les deux autres gaps restent fluides. Le groupe
+d'action passe en grille (sans espace de ligne implicite) ; les espaces sous
+le bouton sont de 12px pour garder la page dans un écran ordinateur.
+Estimation statique depuis CSS/textes/polices locales : hauteur naturelle
+718,1px FR / 717,2px EN aux deux largeurs desktop ; enveloppe flex inchangée.
+Ce calcul ne remplace pas une mesure navigateur.
+
+Baseline et candidat : 117/117 tests Node. Lint, build Webpack et contrôle de
+marque réussis ; aucun test ni seuil modifié. PRODUCTION_PROOF restant à obtenir :
+aération et géométrie FR/EN à 1440×800 et 1280×720 ; Chromium est bloqué avant
+navigation par le sandbox macOS (`bootstrap_check_in`, Permission denied),
+avant/après. Écriture locale sur `feat/devenir-partenaire`, CSS et ce contexte
+uniquement ; aucun service ni donnée modifié, retour arrière par revert, état
+précédent dans Git. Captures préexistantes exclues du commit ; aucun push.
+
 ## Devenir partenaire dans un écran, 27/10/2026
 
 Remplace le calcul de hauteur et la réserve d'incompatibilité de l'entrée suivante.

@@ -14,9 +14,10 @@ body:has(> .partner-page) > :is(header, footer) {
   padding-block: clamp(32px, 4vh, 128px);
 }
 .single-page.partner-page > .wrap {
+  --partner-row-gap: clamp(var(--s1), 1vh, var(--s2));
   width: 100%;
   display: grid;
-  gap: clamp(var(--s1), 1vh, var(--s2));
+  gap: var(--partner-row-gap);
 }
 .single-page.partner-page h1 { font-size: var(--d-s); line-height: 1.06; max-width: none; }
 .single-page.partner-page h2 { font-size: var(--t-l); line-height: 1.25; letter-spacing: normal; }
@@ -30,17 +31,20 @@ body:has(> .partner-page) > :is(header, footer) {
 .single-page.partner-page .partner-blocks > div { border-top: 1px solid var(--line); padding-top: var(--s1); }
 .single-page.partner-page .partner-blocks p { margin-top: var(--s1); }
 .single-page.partner-page .partner-next {
+  /* Complete the row gap to 24px without enlarging the other grid gaps. */
+  margin-top: calc(var(--s3) - var(--partner-row-gap));
   display: grid;
   justify-items: start;
-  gap: var(--s2);
+  gap: calc(var(--s3) / 2);
 }
-.single-page.partner-page .partner-action p { margin-top: var(--s2); }
+.single-page.partner-page .partner-action { display: grid; justify-items: start; }
+.single-page.partner-page .partner-action p { margin-top: calc(var(--s3) / 2); }
 .single-page.partner-page .partner-privacy { max-width: 820px; }
 .single-page.partner-page .btn.exec { border: 2px solid var(--ink); padding-block: calc(var(--s3) / 2); }
 .single-page.partner-page .btn.exec:focus { outline: 2px solid var(--accent-border); outline-offset: 4px; }
 .single-page.partner-page .partner-privacy a { color: var(--canard); text-underline-offset: .2em; }
 @media (max-width: 760px) {
-  .single-page.partner-page > .wrap { gap: var(--s3); }
+  .single-page.partner-page > .wrap { --partner-row-gap: var(--s3); }
   /* Match the existing mobile .single-page h2 scale. */
   .single-page.partner-page h1 { font-size: 34px; }
   .single-page.partner-page .partner-introduction { font-size: var(--t-l); }
