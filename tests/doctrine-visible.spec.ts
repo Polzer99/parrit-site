@@ -32,7 +32,7 @@ for (const path of PUBLIC_ROUTES) {
     }
     await page.setViewportSize({ width: 390, height: 844 });
     await page.locator(".mobile-menu summary").click();
-    const mobile = page.locator(".single-header .rev-button");
+    const mobile = page.locator(".single-header .mobile-menu .rev-button");
     await expectPopulated(mobile);
     await expect(mobile).toHaveAttribute("href", contact);
     await expect(mobile).toHaveCSS("font-family", /General Sans/);
@@ -45,7 +45,7 @@ for (const path of PUBLIC_ROUTES) {
       await page.setViewportSize({ width, height: 844 });
       await page.goto(`${BASE_URL}${path}`);
       await page.evaluate(() => document.fonts.ready);
-      await expect(page.locator(".single-header .rev-button")).toHaveClass(/\bghost\b/);
+      await expect(page.locator(".single-header .rev-button")).toHaveClass([/\bghost\b/, /\bghost\b/]);
       if (width < 760) await page.locator(".mobile-menu summary").click();
       for (const link of await page.locator("main a:not(.rev-button)").all()) {
         expect(await link.evaluate(el => {
@@ -98,7 +98,7 @@ for (const path of PUBLIC_ROUTES) {
         await expect(page.locator(".mobile-menu nav")).not.toBeVisible();
       }
       await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
-      await expect(page.locator(".single-header .rev-button")).toHaveClass(/\bghost\b/);
+      await expect(page.locator(".single-header .rev-button")).toHaveClass([/\bghost\b/, /\bghost\b/]);
     });
   }
 }
@@ -118,7 +118,7 @@ for (const locale of ["fr", "en"] as const) {
       const page = await context.newPage();
       for (const path of PUBLIC_ROUTES.filter(path => locale === "fr" ? path.startsWith("/fr") : !path.startsWith("/fr"))) {
         await page.goto(`${BASE_URL}${path}`);
-        await expect(page.locator(".single-header .rev-button")).toHaveClass(/\bghost\b/);
+        await expect(page.locator(".single-header .rev-button")).toHaveClass([/\bghost\b/, /\bghost\b/]);
       }
     } finally {
       await context.close();

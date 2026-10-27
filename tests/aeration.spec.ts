@@ -1,4 +1,5 @@
 import { PUBLIC_ROUTES } from "./public-routes";
+import { MOBILE_MENU_TOGGLE_SELECTOR } from "./interactive-controls";
 import { expect, test } from "./network-deny.setup";
 import type { Page } from "@playwright/test";
 
@@ -120,7 +121,7 @@ for (const width of [1440, 390]) {
 
 
       if (path === "/" || path === "/fr") await expect(page.locator(".contact-fallback input[type=email]")).toBeVisible();
-      const result = await page.evaluate(() => {
+      const result = await page.evaluate((menuToggleSelector) => {
         type Box = { left: number; right: number; top: number; bottom: number };
         type TextBox = { element: Element; label: string; box: Box };
         const describe = (element: Element, text: string) =>
@@ -135,11 +136,12 @@ for (const width of [1440, 390]) {
           return true;
         };
         const texts: TextBox[] = [];
-        const typography = new Map<Element, { label: string; size: number }>();
+        const typography = new Map<Element, { label: string; size: number; passe4Hero: boolean }>();
         const measureType = (element: Element, text: string) => {
           typography.set(element, {
             label: describe(element, text.trim().replace(/\s+/g, " ").slice(0, 40)),
             size: Number.parseFloat(getComputedStyle(element).fontSize),
+            passe4Hero: !!element.closest(".single-page .hero h1"),
           });
         };
         const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
@@ -188,9 +190,18 @@ for (const width of [1440, 390]) {
         const fluidSizes = window.innerWidth <= 760 ? [32, 34, 40] : [40, 54, 84];
         const floorFailures: string[] = [];
         const scaleFailures: string[] = [];
-        for (const { label, size } of [...typography.values(), ...placeholderType]) {
+        for (const entry of [...typography.values(), ...placeholderType]) {
+          const { label, size } = entry;
           if (!Number.isFinite(size) || size < 16) floorFailures.push(`${size}px: ${label}`);
-          if (!fixedSizes.includes(size) && !fluidSizes.some((expected) => Math.abs(size - expected) <= 0.5)) {
+          // PASSE-4 §7 replaces only the desktop hero's 88px with >=72px:
+          // its shared wrap and full fit at 1440×800 are checked in single-page.spec.ts.
+          // Keep the 16px floor and every other page's closed scale unchanged.
+          if ("passe4Hero" in entry && entry.passe4Hero && innerWidth > 760) {
+            if (size < 72) scaleFailures.push(`${size}px: ${label}`);
+            continue;
+          }
+          const expected = [...fixedSizes, ...fluidSizes];
+          if (!expected.some(value => Math.abs(size - value) <= 0.5)) {
             scaleFailures.push(`${size}px: ${label}`);
           }
         }
@@ -205,10 +216,11 @@ for (const width of [1440, 390]) {
           const [r, g, b, a] = context.getImageData(0, 0, 1, 1).data;
           return [r / 255, g / 255, b / 255, a / 255];
         };
-        const actions = [...document.querySelectorAll("a, button")].filter((element) => {
+        const actions = [...document.querySelectorAll(`a, button, ${menuToggleSelector}`)].filter((element) => {
           if (!visible(element)) return false;
           const box = element.getBoundingClientRect();
           if (box.width <= 0 || box.height <= 0) return false;
+          if (element.matches(menuToggleSelector)) return true;
           const style = getComputedStyle(element);
           if (color(style.backgroundColor)[3] > 0) return true;
           // Outlined actions need the same 12px clearance as filled actions.
@@ -319,6 +331,7 @@ for (const width of [1440, 390]) {
 
         const accentControlFailures: string[] = [];
         const neutralControlDebt: string[] = [];
+        const menuTextFailures: string[] = [];
         const focusFailures: string[] = [];
         const accentControlRegisters = { dark: 0, light: 0 };
         const matchedAccentToken = (value: Color) => accentTokens.find((token) => sameRgb(value, token.value));
@@ -368,6 +381,21 @@ for (const width of [1440, 390]) {
           const outline = outlineWidth > 0 && outlineStyle !== "none" ? color(style.outlineColor) : null;
           const fill = painted(control);
           const container = painted(control.parentElement);
+          // A native summary is identified by its visible label, without requiring
+          // a painted box. Measure its rendered text, including inherited opacity.
+          const isMenuToggle = control.matches(menuToggleSelector);
+          let menuLabelRatio = 1;
+          if (isMenuToggle) {
+            const labels = texts.filter((text) => control.contains(text.element));
+            const ratios = labels.map((text) => contrast(
+              painted(text.element, color(getComputedStyle(text.element).color)),
+              painted(text.element),
+            ));
+            menuLabelRatio = ratios.length ? Math.min(...ratios) : 1;
+            if (menuLabelRatio < 4.5) {
+              menuTextFailures.push(`${location.pathname}: menu label = ${menuLabelRatio.toFixed(3)}:1 (requires visible text at 4.5:1)`);
+            }
+          }
           const hasDistinctFill = color(background)[3] > 0 && fill.some((channel, i) => Math.abs(channel - container[i]) > 1e-6);
           const hasContour = borders.length >= 3;
           const outlineToken = outline ? matchedAccentToken(outline) : undefined;
@@ -376,13 +404,13 @@ for (const width of [1440, 390]) {
             ...borders.map((border) => matchedAccentToken(border)),
             outlineToken,
           ].filter((match): match is { token: string; value: Color } => Boolean(match));
-          if (!hasDistinctFill && !hasContour && !outlineToken) continue;
+          if (!hasDistinctFill && !hasContour && !outlineToken && !isMenuToggle) continue;
           controlCount += 1;
           const fillRatio = contrast(fill, container);
           const borderRatios = hasContour ? borders.map((border) => contrast(painted(control, border), container)) : [];
           const outlineRatio = outlineToken && outline ? contrast(painted(control, outline), container) : 1;
           const borderRatio = Math.max(1, ...borderRatios);
-          const bestRatio = Math.max(fillRatio, borderRatio, outlineRatio);
+          const bestRatio = Math.max(fillRatio, borderRatio, outlineRatio, menuLabelRatio);
           const selector = compactSelector(control);
           const label = control.getAttribute("aria-label") || control.textContent || control.getAttribute("placeholder") || control.getAttribute("name") || "";
           if (accentParts.length > 0) {
@@ -393,8 +421,8 @@ for (const width of [1440, 390]) {
             }
             continue;
           }
-          if (fillRatio < 3 && borderRatio < 3) {
-            const item = `${location.pathname}|${window.innerWidth}|${selector}|${Math.max(fillRatio, borderRatio).toFixed(3)}|${describe(control, label)}`;
+          if (fillRatio < 3 && borderRatio < 3 && menuLabelRatio < 3) {
+            const item = `${location.pathname}|${window.innerWidth}|${selector}|${Math.max(fillRatio, borderRatio, menuLabelRatio).toFixed(3)}|${describe(control, label)}`;
             neutralControlDebt.push(item);
           }
         }
@@ -455,6 +483,7 @@ for (const width of [1440, 390]) {
           g4TextRegisters,
           focusFailures,
           neutralControlDebt,
+          menuTextFailures,
           textCount: texts.length,
           actionCount: actions.length,
           actionFailures,
@@ -462,7 +491,7 @@ for (const width of [1440, 390]) {
           floorFailures,
           scaleFailures,
         };
-      });
+      }, MOBILE_MENU_TOGGLE_SELECTOR);
 
       const errorResult = await measureInvalidFormStates(page, path, width);
 
@@ -501,6 +530,7 @@ for (const width of [1440, 390]) {
         test.info().annotations.push({ type: "neutral-control-debt", description: item });
       }
       expect(result.controlCount, "the contrast audit must measure interactive controls").toBeGreaterThan(0);
+      expect.soft(result.menuTextFailures, `${path} at ${width}px: menu text must keep 4.5:1 contrast on its painted background`).toEqual([]);
       expect.soft(result.accentControlFailures, `${path} at ${width}px: accent control fill, border or outline contrast against the container must be at least 3:1`).toEqual([]);
       expect.soft(result.accentTextFailures, `${path} at ${width}px: accent text must keep 4.5:1 contrast on its painted background`).toEqual([]);
       expect.soft(result.g4TextFailures, `${path} at ${width}px: g4 text must keep 4.5:1 contrast on its painted background`).toEqual([]);
@@ -509,7 +539,7 @@ for (const width of [1440, 390]) {
       expect.soft(regressedNeutralDebt, `${path} at ${width}px: frozen neutral control ratios must not decrease`).toEqual([]);
       expect.soft(duplicateNeutralDebt, `${path} at ${width}px: debt entries with the same selector must not absorb each other`).toEqual([]);
       expect(result.textCount, "the geometry audit must measure rendered text").toBeGreaterThan(0);
-      expect(result.actionCount, "the geometry audit must measure visible filled or outlined actions").toBeGreaterThan(0);
+      expect(result.actionCount, "the geometry audit must measure visible filled, outlined or native menu actions").toBeGreaterThan(0);
       expect.soft(result.actionFailures, `${path} at ${width}px: minimum text/action gap is 12px`).toEqual([]);
       expect.soft(result.textFailures, `${path} at ${width}px: text rectangles must not overlap`).toEqual([]);
       expect.soft(result.floorFailures, `${path} at ${width}px: visible text must be at least 16px`).toEqual([]);

@@ -6,7 +6,7 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 const native = createRequire(import.meta.url);
 // Closed import allowlist: render real local components without Next server or network.
-export function loader(locale) {
+export function loader(locale, overrides = {}) {
   const cache = new Map();
   function load(file) {
     file = path.resolve(file);
@@ -14,6 +14,7 @@ export function loader(locale) {
     const compiledModule = { exports: {} }; cache.set(file, compiledModule.exports);
     const code = ts.transpileModule(readFileSync(file, "utf8"), { compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true } }).outputText;
     new Function("require", "module", "exports", code)((id) => {
+      if (Object.hasOwn(overrides, id)) return overrides[id];
       if (["react", "react/jsx-runtime"].includes(id)) return native(id);
       if (id === "next/link") return function TestLink({ children, ...props }) { return React.createElement("a", props, children); };
       if (id === "@/lib/server/locale") return { getLocale: async () => locale };

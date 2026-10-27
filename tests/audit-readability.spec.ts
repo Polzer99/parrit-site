@@ -1,4 +1,5 @@
 import { PUBLIC_ROUTES } from "./public-routes";
+import { MOBILE_MENU_TOGGLE_SELECTOR } from "./interactive-controls";
 import { expect, test } from "./network-deny.setup";
 
 async function tokenColor(element: import("@playwright/test").Locator, token: string) {
@@ -30,8 +31,11 @@ for (const width of [375, 390, 1440]) {
       await page.evaluate(() => document.fonts.ready);
 
       if (width < 760) {
-        await page.locator(".mobile-menu summary").click();
-        const mobileAction = page.locator(".single-header .rev-button");
+        const menuToggle = page.locator(MOBILE_MENU_TOGGLE_SELECTOR);
+        await expect(menuToggle).toBeVisible();
+        await expect(menuToggle).toHaveText(/\S/);
+        await menuToggle.click();
+        const mobileAction = page.locator(".single-header .mobile-menu .rev-button");
         await expect(mobileAction).toBeVisible();
         await expect(mobileAction).toHaveCSS("padding", "14px 24px");
         await expect(mobileAction).toHaveCSS("font-size", "16px");
@@ -40,15 +44,15 @@ for (const width of [375, 390, 1440]) {
         await expect(page.locator(".mobile-menu")).not.toHaveAttribute("open", "");
       }
       if (width >= 760) {
-        const header = page.locator(".single-header .rev-button");
+        const header = page.locator(".single-header > .wrap > .rev-button");
         await expect(header).toHaveCSS("color", await tokenColor(header, "--white"));
         await expect(header).toHaveCSS("border-top-color", await tokenColor(header, "--white"));
         await expect(header).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
       }
       if (path === "/" || path === "/fr") await expect(page.locator(".contact-fallback input[type=email]")).toBeVisible();
-      const result = await page.evaluate(() => {
+      const result = await page.evaluate((menuToggleSelector) => {
         const visible = (el: Element) => el.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }) && el.getBoundingClientRect().width > 0 && el.getBoundingClientRect().height > 0;
-        const actions = [...document.querySelectorAll(".rev-button, .single-header .rev-button, .fp-cta, .locale-toggle button")].filter(visible);
+        const actions = [...document.querySelectorAll(`.rev-button, ${menuToggleSelector}, .fp-cta, .locale-toggle button`)].filter(visible);
         const targets = [...document.querySelectorAll(".desktop-nav a, .mobile-menu a, .single-footer a, .languages a")].filter(visible);
         const h3 = [...document.querySelectorAll("main h3")].filter(visible);
         const prose = [...document.querySelectorAll("main p, main li, main dd")].filter(visible);
@@ -61,7 +65,7 @@ for (const width of [375, 390, 1440]) {
           tightProse: prose.filter(el => parseFloat(getComputedStyle(el).lineHeight) / parseFloat(getComputedStyle(el).fontSize) < 1.44).map(el => el.textContent),
           overflow: document.documentElement.scrollWidth > innerWidth,
         };
-      });
+      }, MOBILE_MENU_TOGGLE_SELECTOR);
       expect(result.actions.length).toBeGreaterThan(0);
       for (const action of result.actions) {
         expect(action.height, action.text ?? "action").toBeGreaterThanOrEqual(48);

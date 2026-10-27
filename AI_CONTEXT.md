@@ -1,3 +1,65 @@
+## Passe 4, contraste du menu téléphone, 27/10/2026
+
+Les audits aération et lisibilité partagent le sélecteur du summary natif.
+Son libellé visible identifie le contrôle sans fond ni bordure : contraste
+du contrôle >=3:1 et du texte >=4,5:1, aucun seuil ni dette assoupli.
+L'aération inclut aussi le menu dans les actions soumises à l'écart de 12 px.
+Couleurs CSS inchangées ; blanc/canard calculé depuis les tokens : 5,768:1.
+Baseline et candidat : 113/113 tests Node ; lint et build Webpack réussis.
+Preuve navigateur encore requise sur l'hôte : Chromium refusé avant navigation
+par le sandbox macOS (bootstrap_check_in, Permission denied), avant/après.
+Écriture locale limitée aux audits et à ce contexte, réversible par revert ;
+aucune donnée modifiée. Captures restaurées, aucun push.
+
+## Passe 4 §7, contrats téléphone, 27/10/2026
+
+Reprise après a030f52 : le summary natif rejoint les actions de l'audit lisibilité,
+avec libellé visible, cible de 48 px et General Sans 16 px/600. Padding vertical
+de la barre à 8 px pour conserver 64 px au total. Seule l'attente du paragraphe
+hero à 375 px passe à 22 px selon §7.2 ; ordinateur à 26 px et autres seuils conservés.
+Amendement §7 inclus, captures `.codex-handoffs/` restaurées et exclues du changement.
+Baseline et candidat : 113/113 tests Node ; lint et build Webpack réussis.
+Preuve Playwright à rejouer sur l'hôte : écoute 127.0.0.1:3210 refusée (EPERM).
+
+## Passe 4 §7, relecture visuelle, 27/10/2026
+
+Source : amendement §7 de `PASSE-4-CAS-D-USAGE-ET-ECRAN.md`, branche
+`feat/passe-4-page`, baseline `3502afb` (113 tests Node réussis).
+Hero dans le `.wrap` commun ; H1 fluide 72–75 px pour garder la seconde
+phrase sur une ligne à 1440/1280. Téléphone : barre de 64 px, menu natif
+sur la même ligne, action de contact dans le panneau ; hero resserré et
+cartes des six carrousels explicitement alignées en haut sans étirement.
+Tests FR/EN : alignement titre/phrase/action avec la marque à 1440/1280,
+hero complet à 1440×800 conservé, titre/phrase/action visibles à 390×700,
+barre ≤64 px et menu clavier avec/sans JS. Le seul contrat de taille
+remplacé est le H1 ordinateur (88 px → ≥72 px selon §7).
+Sélecteurs des contrôles transverses adaptés aux deux actions de navigation
+ordinateur/menu ; assertions de destination, style, contraste et géométrie conservées.
+Écriture locale réversible, sans données ni service externe ; rollback par
+revert du commit. Captures et amendement source préexistants conservés hors commit.
+Revue indépendante : ambiguïtés des sélecteurs corrigées, aucun autre défaut
+statique identifié. Preuve navigateur encore requise sur l'hôte : Chromium
+refusé par le sandbox macOS avant navigation (`bootstrap_check_in`, Permission denied).
+Validation finale : lint, build Webpack avec TypeScript strict, 113/113 tests
+Node, gates marque/claims et 19/19 tests Brand OS réussis. Les 39 tests de
+single-page.spec.ts sont découverts ; tentative ciblée bloquée au lancement du navigateur.
+
+## Passe 4, cas d’usage et écran, 27/10/2026
+
+Spec : `docs/site-v1/page-unique/PASSE-4-CAS-D-USAGE-ET-ECRAN.md`.
+48 cas FR/EN, 20 offres partenaires, trajet sans outillage interne, Laparra
+présenté comme outil de pilotage agentique. Six carrousels mobiles natifs ;
+SSR complet, mouvement réduit statique, arrêt et nettoyage des minuteurs.
+Hero à 88 px sur ordinateur selon §5 ; figure et résultats lisibles.
+Les textes restent à 16 px minimum pour conserver le contrôle d’aération.
+Les contrôles de contenu n’ont pas été affaiblis : trois formulations adaptées.
+Batterie locale : baseline 109 tests, candidat 113 tests ; lint, build Webpack,
+marque, claims et 19 tests Brand OS verts. Test bloquant « un bloc = un écran »
+écrit pour les six couples langue/taille, sans seuil relâché ni contenu coupé.
+Preuve navigateur encore à effectuer sur l’hôte, conformément au mandat :
+aucun serveur ni navigateur lancé ici. Rapport : `docs/site-v1/page-unique/passe-4/RAPPORT.md`.
+Un seul commit demandé, aucun push ni déploiement.
+
 ## Relance déterministe du test hero — 27/10/2026
 
 Lecture d'OntologyHero et observeMotion : premier lancement synchrone dans

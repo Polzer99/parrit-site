@@ -22,7 +22,7 @@ export function ClientLogoStrip() {
     return file && evidence ? [{ id, name: evidence.display_name, file, width: width / height * displayHeight, height: displayHeight }] : [];
   });
   if (!logos.length) return null;
-  return <div className="logo-strip"><div className="logo-track">{[false, true].map(duplicate =>
+  return <div className="logo-strip" tabIndex={0} role="region" aria-label="Clients"><div className="logo-track">{[false, true].map(duplicate =>
     <div key={String(duplicate)} className="logo-set" aria-hidden={duplicate ? "true" : undefined}>
       {logos.map(logo => <span key={logo.id} data-evidence={logo.id} role="img" aria-label={logo.name} className="client-logo" style={{ maskImage: `url(${logo.file})`, width: logo.width, height: logo.height }}/>) }
     </div>)}</div></div>;

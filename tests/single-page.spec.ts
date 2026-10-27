@@ -41,7 +41,7 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     expect(mono).toEqual([]);
     await expect(page.locator("#references").getByRole("img")).toHaveCount(5);
     await expect(page.locator(".logo-set[aria-hidden=true]")).toHaveCount(1);
-    await expect(page.locator("#services .job")).toHaveCount(12);
+    await expect(page.locator("#services .use-case")).toHaveCount(12);
     await expect(page.locator("#architecture .stage")).toHaveCount(5);
     await expect(page.locator("#contact h2")).not.toHaveText(/\.$/);
     await expect(page.locator("main")).not.toContainText(/Brésil|Brazil|Cameroun|Cameroon|métropole lilloise|Lille area/);
@@ -59,9 +59,10 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     const last = await cards.last().boundingBox();
     expect(grid).not.toBeNull();
     expect(last).not.toBeNull();
-    expect(last!.width).toBeCloseTo(grid!.width - 2, 0);
+    if (width === 1440) expect(last!.width).toBeCloseTo(grid!.width - 2, 0);
+    else expect(last!.width).toBeLessThan(grid!.width);
     const rows = await cards.evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().top));
-    expect(new Set(rows).size).toBe(width === 1440 ? 3 : 7);
+    expect(new Set(rows).size).toBe(width === 1440 ? 3 : 1);
     for (const button of await page.locator(".rev-button:visible").all()) {
       const style = await button.evaluate(el => { const c = getComputedStyle(el); return { family: c.fontFamily, weight: c.fontWeight, spacing: c.letterSpacing, height: el.getBoundingClientRect().height }; });
       expect(style.family).toContain("General");
@@ -130,7 +131,11 @@ test("no JavaScript conversations remain visible and legal and 404 stay accessib
     for (const result of await page.locator(".onto .rest").all()) await expect(result).toBeVisible();
     await expect(page.locator(".walk .human")).toHaveAttribute("transform", "translate(900 120)");
     await expect(page.locator(".walk")).toHaveClass(/withbot/);
-    for (const done of await page.locator(".job .done").all()) await expect(done).toBeVisible();
+    await expect(page.locator(".use-case")).toHaveCount(12);
+    await expect(page.locator(".case:not(.visually-hidden)")).toHaveCount(12);
+    await expect(page.locator(".partner-offers li")).toHaveCount(20);
+    for (const offer of await page.locator(".partner-offers li").all()) await expect(offer).toBeVisible();
+    for (const face of await page.locator(".partner-delivery").all()) await expect(face).toBeHidden();
     await expect(page.locator("#references").getByRole("img")).toHaveCount(5);
     await expect(page.locator(".contact-fallback input[type=email]")).toBeVisible();
     await expect(page.locator(".onto .story animate, .onto .story animateMotion, .onto .token")).toHaveCount(0);
@@ -216,7 +221,8 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     }
     const active = await page.locator(".soft .top").evaluate(el => getComputedStyle(el).color);
     for (const agent of await page.locator(".soft .row:last-child span").all()) await expect(agent).toHaveCSS("background-color", active);
-    await expect(page.locator(".hero .sub p")).toHaveCSS("font-size", "26px");
+    // PASSE-4-CAS-D-USAGE-ET-ECRAN.md §7.2 : seul le hero téléphone passe à 22px pour tenir sans défiler.
+    await expect(page.locator(".hero .sub p")).toHaveCSS("font-size", width === 375 ? "22px" : "26px");
     for (const button of await page.locator(".hero .btn.exec, .founder .btn.exec").all()) {
       await expect(button).toHaveCSS("font-size", "22px");
       await expect(button).toHaveCSS("padding", "22px 36px");
@@ -339,15 +345,15 @@ for (const width of [1440, 800, 390]) test(`service columns and animation entry 
   await page.locator("#services h2").scrollIntoViewIfNeeded();
   await expect(services).toHaveAttribute("data-anim", "in");
   const columns = await page.locator(".service-tasks").evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").length);
-  expect(columns).toBe(width > 1100 ? 4 : width >= 600 ? 2 : 1);
-  await expect(page.locator(".job .bar i").first()).toHaveCSS("animation-duration", "6s");
+  expect(columns).toBe(width > 1100 ? 4 : width > 760 ? 2 : 1);
+  await expect(page.locator(".use-case").nth(1)).toHaveAttribute("data-case", "1");
   await page.locator("#architecture h2").scrollIntoViewIfNeeded();
   await expect(services).toHaveAttribute("data-anim", "out");
-  await expect(page.locator(".job .bar i").first()).toHaveCSS("animation-name", "none");
+  for (const card of await page.locator(".use-case").all()) await expect(card).toHaveAttribute("data-case", "0");
   await expect(page.locator("#architecture > .wrap")).toHaveAttribute("data-anim", "in");
   await expect(page.locator(".rail i")).toHaveCSS("animation-duration", "12s");
   await page.emulateMedia({ reducedMotion: "reduce" });
-  for (const el of await page.locator(".job .done, .rail i, .results span").all()) await expect(el).toHaveCSS("animation-name", "none");
+  for (const el of await page.locator(".case, .rail i, .results span").all()) await expect(el).toHaveCSS("animation-name", "none");
 });
 
 test("visible contact variant keeps the capture payload and error recovery", async ({ page }) => {
@@ -372,4 +378,216 @@ test("visible contact variant keeps the capture payload and error recovery", asy
   await page.route("**/api/interet", route => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ ok: true }) }));
   await button.click();
   await expect(page.locator(".contact-fallback [data-state=done]")).toBeVisible();
+});
+
+// Blocking contract §5: measure intrinsic content, never a capped/clipped section.
+for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [1280, 720], [390, 700]]) {
+  test(`un bloc = un écran ${locale} ${width}×${height}`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(local(locale === "fr" ? "/fr" : "/"));
+    await page.evaluate(() => document.fonts.ready);
+    const sections = await page.locator(".single-page > section:not(.hero):not(#contact)").evaluateAll(nodes => nodes.map(section => {
+      const content = section.firstElementChild as HTMLElement;
+      return { id: section.id, height: content.getBoundingClientRect().height, scrollHeight: content.scrollHeight, overflowY: getComputedStyle(content).overflowY };
+    }));
+    expect(sections).toHaveLength(7);
+    for (const section of sections) {
+      expect(section.height, `${section.id}: first child's full border box, without margins`).toBeLessThanOrEqual(height);
+      expect(section.scrollHeight, `${section.id}: content must not be clipped`).toBeLessThanOrEqual(height);
+      expect(section.overflowY).not.toMatch(/hidden|clip/);
+    }
+    const figures = page.locator(".ontology-hero, .onto, .scenes, .three, .path-walker, .steps, .service-tasks, .services, .logo-strip, .reflines, .flow-container, .founder > .wrap > .grid");
+    await expect(figures).toHaveCount(12);
+    for (const figure of await figures.all()) {
+      const box = await figure.boundingBox();
+      expect(box).not.toBeNull();
+      expect(box!.height, await figure.getAttribute("class") ?? "figure").toBeLessThanOrEqual(height);
+    }
+    for (const track of await page.locator(".mobile-carousel").all()) {
+      await expect(track).toHaveAttribute("tabindex", "0");
+      expect(await track.getAttribute("aria-label")).toBeTruthy();
+      for (const card of await track.locator(":scope > *").all()) {
+        expect((await card.boundingBox())!.height).toBeLessThanOrEqual(height);
+      }
+      if (width === 390) {
+        await expect(track).toHaveCSS("scroll-snap-type", "x mandatory");
+        await expect(track).toHaveCSS("align-items", "flex-start");
+        const top = (await track.boundingBox())!.y;
+        for (const card of await track.locator(":scope > *").all()) {
+          await expect(card).toHaveCSS("align-self", "flex-start");
+          expect((await card.boundingBox())!.y).toBeCloseTo(top, 0);
+        }
+        expect(await track.evaluate(el => el.scrollWidth > el.clientWidth)).toBe(true);
+      }
+    }
+    if (width === 1440 || width === 1280) {
+      const mark = (await page.locator(".single-header .mark").boundingBox())!;
+      for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
+        const box = (await page.locator(selector).boundingBox())!;
+        expect(box.x, `${selector}: same left edge as the header brand`).toBeCloseTo(mark.x, 0);
+      }
+      expect(await page.locator(".hero h1").evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(72);
+    }
+    if (width === 1440) {
+      const header = (await page.locator(".single-header").boundingBox())!;
+      const hero = (await page.locator(".hero").boundingBox())!;
+      expect(hero.y).toBeGreaterThanOrEqual(header.y + header.height);
+      expect(hero.y + hero.height).toBeLessThanOrEqual(height);
+      // §7 permits a fluid H1 >=72px to retain this full-hero viewport contract.
+      for (const selector of [".hero h1", ".hero .sub p", ".hero .exec", ".onto", ".ontocap", ".humby"]) {
+        const box = (await page.locator(selector).boundingBox())!;
+        expect(box.y).toBeGreaterThanOrEqual(0);
+        expect(box.y + box.height, selector).toBeLessThanOrEqual(height);
+      }
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+  });
+}
+
+for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
+  test.describe(`compact mobile header ${locale} JS=${javaScriptEnabled}`, () => {
+    test.use({ javaScriptEnabled });
+    test("hero visible without scrolling and native menu reachable by keyboard", async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 700 });
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.goto(local(locale === "fr" ? "/fr" : "/"));
+      await page.evaluate(() => document.fonts.ready);
+      const header = page.locator(".single-header");
+      const menu = header.locator("details");
+      const summary = menu.locator("summary");
+      const headerBox = (await header.boundingBox())!;
+      expect(headerBox.y).toBe(0);
+      expect(headerBox.height).toBeLessThanOrEqual(64);
+      const brand = (await header.locator(".mark").boundingBox())!;
+      for (const control of await header.locator(".languages a, summary").all()) {
+        const box = (await control.boundingBox())!;
+        expect(box.x).toBeGreaterThan(brand.x + brand.width);
+        expect(box.y + box.height / 2).toBeCloseTo(brand.y + brand.height / 2, 0);
+        await expect(control).toBeInViewport({ ratio: 1 });
+      }
+      await expect(header.locator(":scope > .wrap > .btn")).toBeHidden();
+      for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
+        await expect(page.locator(selector)).toBeVisible();
+        await expect(page.locator(selector)).toBeInViewport({ ratio: 1 });
+      }
+      expect(await page.evaluate(() => window.scrollY)).toBe(0);
+      await header.locator(".mark").focus();
+      for (const control of [...await header.locator(".languages a").all(), summary]) {
+        await page.keyboard.press("Tab");
+        await expect(control).toBeFocused();
+      }
+      await page.keyboard.press("Enter");
+      await expect(menu).toHaveAttribute("open", "");
+      for (const link of await menu.locator("nav a").all()) {
+        await page.keyboard.press("Tab");
+        await expect(link).toBeFocused();
+        await expect(link).toBeInViewport({ ratio: 1 });
+      }
+      const contact = menu.locator(".btn");
+      await expect(contact).toHaveAttribute("href", locale === "fr" ? "/fr#contact" : "/#contact");
+      if (javaScriptEnabled) {
+        await page.keyboard.press("Escape");
+        await expect(menu).not.toHaveAttribute("open", "");
+        await expect(summary).toBeFocused();
+        await page.keyboard.press("Space");
+        await expect(menu).toHaveAttribute("open", "");
+        await contact.focus();
+        await page.keyboard.press("Enter");
+        await expect(menu).not.toHaveAttribute("open", "");
+        await expect(page).toHaveURL(/#contact$/);
+      } else {
+        await summary.focus();
+        await page.keyboard.press("Space");
+        await expect(menu).not.toHaveAttribute("open", "");
+      }
+    });
+  });
+}
+
+for (const locale of ["fr", "en"]) test(`passe 4 services cycle and restore SSR state ${locale}`, async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const epoch = new Date("2026-10-27T12:00:00Z");
+  await page.clock.install({ time: epoch });
+  await page.goto(local(locale === "fr" ? "/fr" : "/"));
+  const cards = page.locator(".use-case");
+  await expect(cards).toHaveCount(12);
+  await expect(page.locator(".case")).toHaveCount(48);
+  const first = cards.first();
+  const text = await first.locator(".case-text").allTextContents();
+  await page.locator("#services h2").scrollIntoViewIfNeeded();
+  await page.clock.pauseAt(new Date(epoch.getTime() + 10000));
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await expect(cards.nth(1)).toHaveAttribute("data-case", "1");
+  await page.clock.runFor(3499);
+  await expect(first).toHaveAttribute("data-case", "0");
+  await page.clock.runFor(1);
+  await expect(first).toHaveClass(/blink/);
+  await page.clock.runFor(120);
+  await expect(first).toHaveAttribute("data-case", "1");
+  await expect(first.locator(".case:not(.visually-hidden) .case-text")).toHaveText(text[1]);
+  await expect(cards.nth(1)).toHaveAttribute("data-case", "1");
+  await page.clock.runFor(290);
+  await expect(cards.nth(1)).toHaveAttribute("data-case", "2");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  for (const card of await cards.all()) await expect(card).toHaveAttribute("data-case", "0");
+  await page.clock.runFor(20000);
+  for (const card of await cards.all()) await expect(card).toHaveAttribute("data-case", "0");
+});
+
+test("partner offers keep at most two faces active and restore every static offer", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 800 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const epoch = new Date("2026-10-27T12:00:00Z");
+  await page.clock.install({ time: epoch });
+  await page.goto(local("/fr"));
+  await page.locator("#partenaires h2").scrollIntoViewIfNeeded();
+  await page.clock.pauseAt(new Date(epoch.getTime() + 10000));
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await expect(page.locator(".partner-motion")).toHaveAttribute("data-anim", "in");
+  const cards = page.locator(".partner");
+  await page.clock.runFor(1200);
+  await expect(cards.first()).toHaveClass(/flip/);
+  const offers = await cards.first().locator("li").allTextContents();
+  await expect(cards.first().locator(".offer")).toHaveText(offers[0]);
+  await page.clock.runFor(2200);
+  await expect(cards.first()).toHaveClass(/blink/);
+  await page.clock.runFor(150);
+  await expect(cards.first().locator(".offer")).toHaveText(offers[1]);
+  await page.clock.runFor(2350);
+  await expect(cards.first().locator(".offer")).toHaveText(offers[2]);
+  for (let time = 0; time < 28000; time += 100) {
+    await page.clock.runFor(100);
+    expect(await page.locator(".partner.flip").count()).toBeLessThanOrEqual(2);
+  }
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(page.locator(".partner.flip")).toHaveCount(0);
+  for (const offer of await page.locator(".partner-offers li").all()) await expect(offer).toBeVisible();
+});
+
+test("mobile data journey stops on interaction; dots follow native keyboard scrolling", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 700 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto(local("/fr"));
+  const track = page.locator(".flowmap");
+  await page.locator("#architecture h2").scrollIntoViewIfNeeded();
+  await expect.poll(() => track.evaluate(el => el.scrollLeft)).toBe(0);
+  await page.waitForTimeout(2600);
+  expect(await track.evaluate(el => el.scrollLeft)).toBe(0);
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await expect.poll(() => track.evaluate(el => el.scrollLeft), { timeout: 4000 }).toBeGreaterThan(100);
+  await track.dispatchEvent("touchstart");
+  await track.evaluate(el => el.scrollTo({ left: 0, behavior: "instant" }));
+  await page.waitForTimeout(2700);
+  expect(await track.evaluate(el => el.scrollLeft)).toBe(0);
+  await track.focus();
+  await page.keyboard.press("End");
+  await expect.poll(() => track.evaluate(el => el.scrollLeft)).toBeGreaterThan(500);
+  await expect(page.locator(".flow-container .swipe-dots i").last()).toHaveClass("on");
+  // A live preference change must not re-arm autoplay after touch.
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  const end = await track.evaluate(el => el.scrollLeft);
+  await page.waitForTimeout(2700);
+  expect(await track.evaluate(el => el.scrollLeft)).toBe(end);
 });

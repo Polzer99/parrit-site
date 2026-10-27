@@ -33,6 +33,17 @@ function svgElement<K extends keyof SVGElementTagNameMap>(tag: K, attrs: Record<
   return node;
 }
 
+// Keep the SVG labels readable at the smaller screen-sized figure.
+function resultLines(text: string) {
+  const lines: string[] = [];
+  for (const word of text.split(" ")) {
+    const last = lines.length - 1;
+    if (last < 0 || lines[last].length + word.length + 1 > 18) lines.push(word);
+    else lines[last] += ` ${word}`;
+  }
+  return lines;
+}
+
 export function OntologyHero({ locale }: { locale: Locale }) {
   const ref = useRef<HTMLDivElement>(null);
   const start = useCallback((element: HTMLElement) => {
@@ -82,7 +93,11 @@ export function OntologyHero({ locale }: { locale: Locale }) {
       // Keep reading order aligned with the newest-first visual stack.
       feedGroup.prepend(slot);
       svgElement("rect", { width: "250", height: "50", class: "resbox" }, slot);
-      svgElement("text", { x: "16", y: "31", class: "rest" }, slot).textContent = t(result);
+      const lines = resultLines(t(result));
+      const label = svgElement("text", { class: "rest" }, slot);
+      lines.forEach((line, i) => {
+        svgElement("tspan", { x: "12", y: String(lines.length === 1 ? 31 : 20 + i * 23) }, label).textContent = line + (i < lines.length - 1 ? " " : "");
+      });
       slot.style.transform = `translate(820px, ${SLOT_Y[0]}px)`;
       // Reveal at full opacity once the previous result has vacated this row.
       // An opaque entrance above it would overlap the heading and old result.
@@ -181,16 +196,16 @@ export function OntologyHero({ locale }: { locale: Locale }) {
   }, [locale]);
   useMotionOnView(ref, start);
   const t = (text: string) => locale === "fr" ? text : SINGLE_PAGE_EN[text];
-  return <div className="ontology-hero" ref={ref}>
+  return <div className="ontology-hero" ref={ref} tabIndex={0} role="region" aria-label={locale === "fr" ? "Des données aux résultats" : "From data to results"}>
     <svg className="onto" viewBox="0 0 1080 360" aria-hidden="true">
-      {[["Vos données", 60], ["Vos règles", 175], ["Vos agents", 300]].map(([label, y]) => <g key={label}><line x1="0" y1={y} x2="770" y2={y} className="layer"/><text x="0" y={Number(y) - 12} className="lab">{t(String(label))}</text></g>)}
+      {[["Vos données", 60], ["Vos règles", 175], ["Vos agents", 300]].map(([label, y]) => <g key={label}><line x1="0" y1={y} x2="770" y2={y} className="layer"/><text x="0" y={Number(y) - 36} className="lab">{t(String(label))}</text></g>)}
       {ambient.map(([a, b], i) => <path key={i} id={`onto-amb${i}`} d={`M${points[a].join(" ")} L${points[b].join(" ")}`} className="edge"/>)}
       {talk.map(([a, b], i) => <path key={i} id={`onto-talk${i}`} d={`M${points[a][0]} 318 Q${(points[a][0] + points[b][0]) / 2} 348 ${points[b][0]} 318`} className="edge talk"/>)}
       {[data, rules].map((layer, i) => Object.entries(layer).map(([label, [x, y]]) => <g key={label}><rect data-node={label} x={x - 6} y={y - 6} width="12" height="12" className={i ? "node r" : "node"}/><text x={x + 12} y={y + 22} className="nt">{t(label)}</text></g>))}
       {Object.entries(agents).map(([label, [x, y]]) => <g key={label} data-agent={label} transform={`translate(${x} ${y})`} className="agent"><rect x="-14" y="-26" width="28" height="28" className="ag"/><rect x="-8" y="-18" width="5" height="6" className="eye"/><rect x="3" y="-18" width="5" height="6" className="eye"/><text x="0" y="22" textAnchor="middle" className="nt">{t(label)}</text></g>)}
       <text x="820" y="48" className="lab">{t("Résultats")}</text>
       <g className="feed static-feed">
-        {stories.slice(0, 4).map((story, i) => <g key={story.result} transform={`translate(820 ${SLOT_Y[i]})`} opacity={1} className={i === 0 ? "res on hot" : "res on"}><rect width="250" height="50" className="resbox"/><text x="16" y="31" className="rest">{t(story.result)}</text></g>)}
+        {stories.slice(0, 4).map((story, i) => <g key={story.result} transform={`translate(820 ${SLOT_Y[i]})`} opacity={1} className={i === 0 ? "res on hot" : "res on"}><rect width="250" height="50" className="resbox"/><text className="rest">{resultLines(t(story.result)).map((line, index, lines) => <tspan key={index} x="12" y={lines.length === 1 ? 31 : 20 + index * 23}>{line}{index < lines.length - 1 ? " " : ""}</tspan>)}</text></g>)}
       </g>
     </svg>
     <p className="ontocap" aria-live="off">{t(stories[0].cap)}</p>

@@ -318,7 +318,7 @@ const publication = (id: string, display_name: string, claim: string, relationsh
 });
 
 export const SITE_EVIDENCE: readonly PublicationEvidence[] = [
-  publication("Laparra", "Laparra", "Un CRM pour un grossiste du MIN de Rungis", "réalisé pour le client"),
+  publication("Laparra", "Laparra", "Un outil de pilotage agentique pour les fruits et légumes", "réalisé pour le client"),
   publication("Clevery", "Clevery Avocats", "Un agent pour le cabinet", "réalisé pour le client"),
   publication("Forexpert", "Forexpert", "Un agent de prospection", "réalisé pour le client"),
   publication("Joone", "Joone", "Un accompagnement des équipes à l'IA", "accompagnement"),

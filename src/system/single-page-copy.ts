@@ -41,9 +41,9 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "Je crée cette tâche : relancer Client A, à faire par Commercial 1, pour le 8 octobre. Tu confirmes ?": "I'm creating this task: follow up Client A, owner Sales 1, due October 8. Confirm?",
   "oui": "yes",
   "C'est fait, la tâche est enregistrée.": "Done, the task is saved.",
-  "Dans sa base clients": "In the customer base",
+  "Dans son outil de pilotage": "In the management tool",
   "Relancer Client A, à faire, Commercial 1.": "Follow up Client A, to do, Sales 1.",
-  "Un grossiste de Rungis pilote sa base clients en parlant à ses agents.": "A Rungis wholesaler runs its customer base by talking to its agents.",
+  "Un grossiste de Rungis pilote son activité en parlant à ses agents.": "A Rungis wholesaler runs its business by talking to its agents.",
   "Laparra, sur le téléphone de l'équipe.": "Laparra, on the team's phones.",
   "Scènes reconstituées sur données fictives, fidèles aux systèmes en service.": "Scenes recreated with fictional data, true to the systems in use.",
   "Ce que l'IA change": "What AI changes",
@@ -106,7 +106,7 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "Des cabinets partenaires et des relecteurs de nos livrables.": "Partner firms and reviewers of our deliverables.",
   "Ils travaillent": "They work",
   "avec nous.": "with us.",
-  "Grossiste en fruits et légumes du MIN de Rungis : des agents qui gèrent la base clients, et un outil de pilotage de l'entreprise.": "Fruit and vegetable wholesaler at the Rungis market: agents that manage the customer base, and a tool to steer the business.",
+  "Grossiste du MIN de Rungis : un outil de pilotage agentique pour les fruits et légumes.": "Wholesaler at the Rungis market: an agentic management tool for fruit and vegetables.",
   "Un agent pour le cabinet.": "An agent for the firm.",
   "Un agent de prospection.": "A prospecting agent.",
   "L'accompagnement des équipes à l'IA.": "Helping its teams adopt AI.",
@@ -143,22 +143,15 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "Le trajet d'une donnée,": "How your data travels,",
   "de vos sources au résultat.": "from source to result.",
   "Vos sources": "Your sources",
-  "Là où l'information arrive aujourd'hui.": "Where information reaches you today.",
-  "ERP et CRM": "ERP and CRM",
-  "Fichiers": "Files",
   "Votre base": "Your database",
-  "Une seule base, chez vous ou chez un hébergeur.": "One database, on your premises or with a host.",
   "Les agents": "The agents",
-  "Ils lisent, appliquent vos règles et préparent le travail.": "They read, apply your rules and prepare the work.",
   "Vous validez": "You approve",
   "Là où vous êtes déjà.": "Where you already are.",
-  "Votre application": "Your own app",
   "Le résultat": "The result",
   "Le travail est fait.": "The work is done.",
   "Relance envoyée": "Follow-up sent",
   "Commande saisie": "Order entered",
   "Tableau à jour": "Dashboard updated",
-  "Nous construisons avec": "We build with",
   "Comité du lundi": "Monday committee",
   "3 décisions": "3 decisions",
   "Finance": "Finance",
@@ -197,5 +190,239 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "4 versions": "4 versions",
   "Contrat": "Contract",
   "12 clauses": "12 clauses",
-  "Parler d'un projet": "Talk about a project"
+  "Parler d'un projet": "Talk about a project",
+  "Résume les décisions de chaque réunion, et qui s'en charge.": "Summarizes each meeting's decisions, and who owns them.",
+  "Simule l'effet d'une décision sur la marge avant de la prendre.": "Simulates a decision's effect on margin before you make it.",
+  "Prépare le tableau de bord du lundi.": "Prepares Monday's dashboard.",
+  "Répond à une question sur toute l'entreprise, sources à l'appui.": "Answers a question about the whole company, with sources.",
+  "Rapproche les relevés bancaires et le grand livre.": "Reconciles bank statements with the ledger.",
+  "Prévoit la trésorerie à treize semaines, à jour chaque matin.": "Forecasts cash thirteen weeks ahead, updated every morning.",
+  "Relance les factures échues, sur le bon ton.": "Chases overdue invoices, in the right tone.",
+  "Repère une dépense anormale le jour même.": "Spots an unusual expense the same day.",
+  "Met à jour la base clients après chaque rendez-vous.": "Updates the customer base after every meeting.",
+  "Repère les entreprises qui viennent d'avoir besoin de vous.": "Spots the companies that have just come to need you.",
+  "Prépare les devis selon vos conditions.": "Prepares quotes on your terms.",
+  "Prépare chaque rendez-vous avec tout l'historique du client.": "Prepares every meeting with the client's full history.",
+  "Saisit les commandes reçues par e-mail.": "Enters orders received by e-mail.",
+  "Lit un bon de commande scanné ou manuscrit.": "Reads a scanned or handwritten purchase order.",
+  "Confirme les délais de livraison au client.": "Confirms delivery dates to the client.",
+  "Prévient le client d'un retard avant qu'il n'appelle.": "Warns the client of a delay before they call.",
+  "Compare les offres des fournisseurs.": "Compares supplier offers.",
+  "Surveille le prix des matières et alerte au bon moment.": "Watches raw material prices and alerts you at the right time.",
+  "Vérifie chaque facture contre sa commande.": "Checks every invoice against its order.",
+  "Prévient quand une livraison prend du retard.": "Warns you when a delivery runs late.",
+  "Recalcule les tournées chaque matin selon les commandes du jour.": "Recalculates delivery rounds every morning from the day's orders.",
+  "Prépare les documents d'expédition.": "Prepares shipping documents.",
+  "Anticipe une rupture avant qu'elle n'arrive.": "Anticipates a stock-out before it happens.",
+  "Prépare le planning de la semaine.": "Prepares the week's schedule.",
+  "Replanifie dans l'heure quand une machine s'arrête.": "Reschedules within the hour when a machine stops.",
+  "Consigne les arrêts machine.": "Logs machine stoppages.",
+  "Répond aux opérateurs avec les notices techniques.": "Answers operators from the technical manuals.",
+  "Classe les réclamations par cause.": "Sorts complaints by cause.",
+  "Relie chaque réclamation au lot et à la machine en cause.": "Links each complaint to the batch and machine involved.",
+  "Tient à jour les fiches de non-conformité.": "Keeps non-conformity reports up to date.",
+  "Rassemble les preuves d'un audit avant qu'il commence.": "Gathers the evidence for an audit before it starts.",
+  "Vérifie qu'un dossier est complet.": "Checks that an employee file is complete.",
+  "Répond aux questions des salariés sur leurs droits, à toute heure.": "Answers employees' questions about their rights, at any hour.",
+  "Prépare l'arrivée d'un nouveau salarié.": "Prepares a new hire's arrival.",
+  "Trouve qui, en interne, a déjà résolu ce problème.": "Finds who, in-house, has already solved this problem.",
+  "Adapte un même texte à chaque canal.": "Adapts one text to each channel.",
+  "Écrit une version par secteur client, en une fois.": "Writes one version per client sector, in one go.",
+  "Fait le bilan de chaque campagne.": "Reviews each campaign.",
+  "Suit chaque semaine ce que publient vos concurrents.": "Tracks what your competitors publish, every week.",
+  "Prépare un projet de contrat à relire.": "Drafts a contract for review.",
+  "Compare un contrat reçu à vos règles et signale les écarts.": "Compares an incoming contract with your rules and flags the gaps.",
+  "Suit les échéances de vos contrats.": "Tracks your contracts' deadlines.",
+  "Retrouve une clause dans dix ans d'archives.": "Finds a clause in ten years of archives.",
+  "Des agents sur mesure": "Custom agents",
+  "La vision par ordinateur": "Computer vision",
+  "L'intégration à vos logiciels": "Integration with your software",
+  "Des assistants écrits": "Written assistants",
+  "Des assistants vocaux": "Voice assistants",
+  "Des vidéos générées": "Generated videos",
+  "La conduite du changement": "Change management",
+  "Le pilotage de projet": "Project delivery",
+  "Votre feuille de route IA": "Your AI roadmap",
+  "Votre identité de marque": "Your brand identity",
+  "Vos contenus": "Your content",
+  "Votre prospection": "Your prospecting",
+  "Des ateliers par métier": "Workshops by role",
+  "La formation à Claude Code": "Claude Code training",
+  "L'audit de vos processus": "Process audits",
+  "Le diagnostic IA": "AI diagnosis",
+  "La relecture de chaque livrable": "A review of every deliverable",
+  "Vos déploiements d'agents les plus exigeants": "Your most demanding agent deployments",
+  "La revue d'architecture": "Architecture review",
+  "Tout ce que vos équipes utilisent déjà.": "Everything your teams already use.",
+  "Agenda": "Calendar",
+  "Téléphone et messages vocaux": "Phone and voicemail",
+  "Teams et Slack": "Teams and Slack",
+  "Comptabilité": "Accounting",
+  "Paie": "Payroll",
+  "Tableurs": "Spreadsheets",
+  "Documents et PDF": "Documents and PDFs",
+  "Scans et photos": "Scans and photos",
+  "Sites web": "Websites",
+  "Machines et capteurs": "Machines and sensors",
+  "Une seule base, où vous le décidez.": "One database, wherever you decide.",
+  "Dans le cloud, en Europe": "In the cloud, in Europe",
+  "Sur vos serveurs": "On your servers",
+  "En local, sur vos machines": "Locally, on your machines",
+  "Le bon modèle en face de chaque tâche, dans un harnais construit pour vous.": "The right model for each task, inside a harness built for you.",
+  "Le bon modèle pour chaque tâche": "The right model for each task",
+  "En ligne ou en local": "Online or local",
+  "Vos règles et vos contrôles": "Your rules and checks",
+  "Des tests à chaque changement": "Tests on every change",
+  "Votre propre application": "Your own app",
+  "Back-office": "Back office",
+  "Nouveau": "New",
+  "Avec eux, nous livrons": "With them, we deliver",
+  "Une équipe composée pour chaque diagnostic, et ce qu'elle livre": "A team assembled for each diagnosis, and what it delivers",
+  "Des formations par métier": "Training by role",
+  "Évalue un nouveau fournisseur avec des sources publiques.": "Assesses a new supplier from public sources.",
+  "Propose une réponse à chaque demande.": "Suggests a reply to each request.",
+  "Répond la nuit et le week-end, dans votre ton.": "Replies at night and at weekends, in your tone.",
+  "Trie les demandes par urgence.": "Sorts requests by urgency.",
+  "Repère un client sur le point de partir.": "Spots a client about to leave.",
 };
+
+// Passe 4: back office, new, back office, new; translated by SINGLE_PAGE_EN.
+export const SERVICE_CASES = [
+  [
+    "Direction",
+    [
+      "Résume les décisions de chaque réunion, et qui s'en charge.",
+      "Simule l'effet d'une décision sur la marge avant de la prendre.",
+      "Prépare le tableau de bord du lundi.",
+      "Répond à une question sur toute l'entreprise, sources à l'appui."
+    ]
+  ],
+  [
+    "Finance",
+    [
+      "Rapproche les relevés bancaires et le grand livre.",
+      "Prévoit la trésorerie à treize semaines, à jour chaque matin.",
+      "Relance les factures échues, sur le bon ton.",
+      "Repère une dépense anormale le jour même."
+    ]
+  ],
+  [
+    "Commercial",
+    [
+      "Met à jour la base clients après chaque rendez-vous.",
+      "Repère les entreprises qui viennent d'avoir besoin de vous.",
+      "Prépare les devis selon vos conditions.",
+      "Prépare chaque rendez-vous avec tout l'historique du client."
+    ]
+  ],
+  [
+    "Administration des ventes",
+    [
+      "Saisit les commandes reçues par e-mail.",
+      "Lit un bon de commande scanné ou manuscrit.",
+      "Confirme les délais de livraison au client.",
+      "Prévient le client d'un retard avant qu'il n'appelle."
+    ]
+  ],
+  [
+    "Achats",
+    [
+      "Compare les offres des fournisseurs.",
+      "Surveille le prix des matières et alerte au bon moment.",
+      "Vérifie chaque facture contre sa commande.",
+      "Évalue un nouveau fournisseur avec des sources publiques."
+    ]
+  ],
+  [
+    "Logistique",
+    [
+      "Prévient quand une livraison prend du retard.",
+      "Recalcule les tournées chaque matin selon les commandes du jour.",
+      "Prépare les documents d'expédition.",
+      "Anticipe une rupture avant qu'elle n'arrive."
+    ]
+  ],
+  [
+    "Production",
+    [
+      "Prépare le planning de la semaine.",
+      "Replanifie dans l'heure quand une machine s'arrête.",
+      "Consigne les arrêts machine.",
+      "Répond aux opérateurs avec les notices techniques."
+    ]
+  ],
+  [
+    "Qualité",
+    [
+      "Classe les réclamations par cause.",
+      "Relie chaque réclamation au lot et à la machine en cause.",
+      "Tient à jour les fiches de non-conformité.",
+      "Rassemble les preuves d'un audit avant qu'il commence."
+    ]
+  ],
+  ["Service client", ["Propose une réponse à chaque demande.", "Répond la nuit et le week-end, dans votre ton.", "Trie les demandes par urgence.", "Repère un client sur le point de partir."]],
+  [
+    "Ressources humaines",
+    [
+      "Vérifie qu'un dossier est complet.",
+      "Répond aux questions des salariés sur leurs droits, à toute heure.",
+      "Prépare l'arrivée d'un nouveau salarié.",
+      "Trouve qui, en interne, a déjà résolu ce problème."
+    ]
+  ],
+  [
+    "Marketing",
+    [
+      "Adapte un même texte à chaque canal.",
+      "Écrit une version par secteur client, en une fois.",
+      "Fait le bilan de chaque campagne.",
+      "Suit chaque semaine ce que publient vos concurrents."
+    ]
+  ],
+  [
+    "Juridique",
+    [
+      "Prépare un projet de contrat à relire.",
+      "Compare un contrat reçu à vos règles et signale les écarts.",
+      "Suit les échéances de vos contrats.",
+      "Retrouve une clause dans dix ans d'archives."
+    ]
+  ]
+] as const;
+
+export const PARTNER_OFFERS = [
+  [
+    "Des agents sur mesure",
+    "La vision par ordinateur",
+    "L'intégration à vos logiciels"
+  ],
+  [
+    "Des assistants écrits",
+    "Des assistants vocaux",
+    "Des vidéos générées"
+  ],
+  [
+    "La conduite du changement",
+    "Le pilotage de projet",
+    "Votre feuille de route IA"
+  ],
+  [
+    "Votre identité de marque",
+    "Vos contenus",
+    "Votre prospection"
+  ],
+  [
+    "Des formations par métier",
+    "Des ateliers par métier",
+    "La formation à Claude Code"
+  ],
+  [
+    "L'audit de vos processus",
+    "Le diagnostic IA",
+    "La relecture de chaque livrable"
+  ],
+  [
+    "Vos déploiements d'agents les plus exigeants",
+    "La revue d'architecture"
+  ]
+] as const;
