@@ -430,7 +430,8 @@
 
 /* Bandeau validé, 27/10 : pleine largeur, masques locaux et noms rendus serveur. */
 .single-page .tech {background:var(--ink);color:var(--white);padding:28px 0 30px;}
-.single-page .tech-title {font-size:var(--t-l);line-height:1.45;color:var(--on-ink);}
+/* Integer line boxes keep the wrapped band height on whole CSS pixels. */
+.single-page .tech-title {font-size:var(--t-l);line-height:32px;color:var(--on-ink);}
 .single-page .tech-title b {color:var(--white);font-weight:600;}
 .single-page .tech-marquee {overflow:hidden;margin-top:20px;}
 .single-page .tech-track {display:flex;width:max-content;animation:technology-scroll 60s linear infinite;}
@@ -438,7 +439,7 @@
 .single-page .tech-set li {display:flex;align-items:center;gap:10px;font-size:18px;line-height:26px;font-weight:600;white-space:nowrap;}
 .single-page .tech-icon {display:block;width:26px;height:26px;flex-shrink:0;background:var(--white);mask-size:contain;mask-position:center;mask-repeat:no-repeat;}
 .single-page .tech-square {display:block;width:14px;height:14px;flex-shrink:0;background:var(--white);}
-.single-page .tech-note {font-size:16px;line-height:1.45;color:var(--on-ink);margin-top:16px;}
+.single-page .tech-note {font-size:16px;line-height:24px;color:var(--on-ink);margin-top:16px;}
 .single-page .tech:hover .tech-track, .single-page .tech:focus-within .tech-track {animation-play-state:paused;}
 @keyframes technology-scroll {to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){

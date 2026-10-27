@@ -1,3 +1,22 @@
+## Bandeau technologies, hauteur entière, 27/10/2026
+
+Correctif local sur `feat/bandeau-technologies` : lignes du titre à 32 px et
+de la mention à 24 px, au lieu de 31,9 et 23,2 px. Les autres dimensions
+verticales du bandeau sont déjà entières ; aucun test modifié.
+Calcul en mouvement réduit depuis les métriques hmtx des General Sans locales
+(avances arrondies au pixel supérieur, estimation des retours sans navigateur) :
+contenu de 1080 px sur ordinateur, 350 px à 390 px ; liste de 6 / 15 lignes.
+Ordinateur FR/EN : 58 + 32 + 20 + (6 × 26 + 5 × 12) + 16 + 24 = 366 px,
+soit 434 px libres à 1440×800 et 354 px à 1280×720.
+Mobile : 32 + 3 × 32 + 12 + (15 × 26 + 14 × 4) + 12 + mention ;
+mention FR 3 × 24, EN 2 × 24, soit 670 / 646 px et 30 / 54 px libres.
+Le rendu et le calcul sont identiques avec/sans JS (composant serveur, CSS seule).
+Validation : lint, build Webpack et 117/117 tests Node réussis ; baseline 117/117.
+Preuve navigateur à confirmer sur l'hôte : Chromium refusé avant navigation
+par le sandbox macOS (`MachPortRendezvousServer`, permission denied).
+Écriture limitée au CSS et à ce contexte, réversible par revert, sans données
+ni service externe ; captures restaurées hors périmètre, aucun push.
+
 ## Bandeau technologies, 27/10/2026 au soir
 
 `docs/site-v1/page-unique/BANDEAU-TECHNOLOGIES.md` remplace la confidentialité
