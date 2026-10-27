@@ -1,3 +1,117 @@
+## Espace sous les blocs partenaires, 27/10/2026
+
+Le gap de grille et la marge de `.partner-next` totalisent désormais `--s3`
+(24px), à toutes les tailles. Les deux autres gaps restent fluides. Le groupe
+d'action passe en grille (sans espace de ligne implicite) ; les espaces sous
+le bouton sont de 12px pour garder la page dans un écran ordinateur.
+Estimation statique depuis CSS/textes/polices locales : hauteur naturelle
+718,1px FR / 717,2px EN aux deux largeurs desktop ; enveloppe flex inchangée.
+Ce calcul ne remplace pas une mesure navigateur.
+
+Baseline et candidat : 117/117 tests Node. Lint, build Webpack et contrôle de
+marque réussis ; aucun test ni seuil modifié. PRODUCTION_PROOF restant à obtenir :
+aération et géométrie FR/EN à 1440×800 et 1280×720 ; Chromium est bloqué avant
+navigation par le sandbox macOS (`bootstrap_check_in`, Permission denied),
+avant/après. Écriture locale sur `feat/devenir-partenaire`, CSS et ce contexte
+uniquement ; aucun service ni donnée modifié, retour arrière par revert, état
+précédent dans Git. Captures préexistantes exclues du commit ; aucun push.
+
+## Devenir partenaire dans un écran, 27/10/2026
+
+Remplace le calcul de hauteur et la réserve d'incompatibilité de l'entrée suivante.
+Mandat : page entière dans un écran ordinateur ET aucun vide sous le pied,
+sans modifier les tests ni les seuils. Périmètre : CSS partenaire et ce contexte,
+local sur `feat/devenir-partenaire`, aucune donnée/service externe ; réversible
+par revert du commit, état précédent conservé dans Git. Aucun push.
+
+`body` en colonne flex, minimum 100svh ; barre/pied non réductibles à hauteur
+intrinsèque, `main` flexible et contenu centré. Aucun calcul de hauteur figé.
+Padding `clamp(32px, 4vh, 128px)`, trois gaps de contenu
+`clamp(8px, 1vh, 16px)` ; gap mobile de 24px conservé. Le H1 dispose des 1080px
+utiles sur ordinateur pour tenir en une ligne, taille et poids inchangés.
+
+Calcul statique depuis CSS/textes/polices General Sans locales (pas une mesure
+navigateur) : barre 77px, pied 113px ; contenu FR 457,7px / EN 460,8px majoré
+avec une boîte de ligne du bouton de 56px. Introduction : quatre lignes FR,
+trois EN ; blocs : 143,7px. Padding 32px aux deux tailles. Le navigateur calcule
+les hauteurs intrinsèques, ces chiffres ne sont pas codés dans la mise en page.
+
+| Langue / écran | Hauteur naturelle majorée | Main disponible | Page après flex |
+| --- | ---: | ---: | ---: |
+| FR 1440×800 | 711,7px | 610px | 800px |
+| EN 1440×800 | 714,8px | 610px | 800px |
+| FR 1280×720 | 711,7px | 530px | 720px |
+| EN 1280×720 | 714,8px | 530px | 720px |
+
+Baseline et candidat : 117/117 tests Node. Lint, build Webpack et contrôle
+de marque réussis. Aucun test ni seuil modifié. PRODUCTION_PROOF navigateur
+reste absente : Chromium refusé avant navigation par le sandbox macOS
+(`bootstrap_check_in`, Permission denied), avant/après ; géométrie et captures
+à rejouer sur l'hôte. Captures préexistantes exclues du commit.
+
+## Aération Devenir partenaire, 27/10/2026
+
+Correctif local sur `feat/devenir-partenaire` : enveloppe en grille de minimum
+100svh, barre et pied à hauteur intrinsèque, contenu centré dans l'espace restant.
+Padding principal `clamp(56px, 10vh, 128px)`, H1 à l'échelle des H2 accueil,
+accroche à l'échelle du hero, mesure 820px ; note RGPD secondaire sous le bouton.
+Écritures limitées à CSS/JSX, ajout de tests et ce contexte ; aucune donnée ni
+service externe modifié, retour arrière par revert du commit.
+
+Baseline et candidat : 117/117 tests Node. Lint, build Webpack et marque passent.
+Les tests Node de rendu dépendent du build : les exécuter après sa fin.
+Huit cas Playwright ajoutés, FR/EN à 1440×800, 1280×720, 390×700 et 1440×1600 :
+pied au moins au bas de l'écran, aucun vide après lui, H1 à 32px minimum de la
+barre, note sous le bouton et alignement gauche. Aucun test ni seuil existant
+modifié. Les anciennes assertions « page entière <= écran desktop » restent
+en place mais peuvent être incompatibles avec les nouveaux espacements demandés.
+PRODUCTION_PROOF visuelle encore absente : Chromium refusé avant navigation
+par macOS (`bootstrap_check_in`, Permission denied), baseline et candidat.
+Captures préexistantes exclues du commit ; aucun push.
+
+## Invitation partenaire sur la ligne de légende, 27/10/2026
+
+Correctif local sur `feat/devenir-partenaire` : `.team-footer` réunit la légende
+et l'invitation alignée à droite ; bouton ghost compact, cible de 48 px conservée.
+Sous 760 px, invitation sous la légende. Aucun test ni seuil modifié.
+Périmètre : JSX/CSS de l'accueil et ce contexte, sans donnée ni service externe ;
+changement réversible par revert, captures préexistantes exclues du commit.
+
+Calcul statique du contenu `.wrap` (hors padding de section, comme les tests),
+sur les sources courantes et les métriques des General Sans locales : largeur
+utile ordinateur 1160 − 80 = 1080 px aux deux viewports. Légende + écart +
+invitation : 967,864 px FR / 877,464 px EN, bouton compris. Rangée haute de 48 px.
+Estimation conservatrice des hauteurs, ligne normale des cartes arrondie de
+24,3 à 26 px, offres visibles en mouvement réduit :
+- FR : titre 42,4 + marge 20 + intro 55,8 + marge 20 + grille 500 + marge 16
+  + rangée 48 = **702,2 px**, sous 720 à 1280×720 et sous 800 à 1440×800.
+- EN : titre 84,8 + 20 + 55,8 + 20 + grille 449,6 + 16 + 48 = **694,2 px**.
+- À 390×700, largeur utile 350 px : titre majoré à 3 lignes (101,76), intro
+  83,7, carrousel avec points 230,2, pied empilé 154,4, marges 56 :
+  **626,06 px maximum estimé** dans les deux langues.
+
+Ces calculs ne sont pas des mesures navigateur : Chromium refusé avant navigation
+par le sandbox macOS (`bootstrap_check_in`, Permission denied). PRODUCTION_PROOF
+encore à rejouer sur l'hôte : les deux tests de géométrie existants FR/EN aux
+trois tailles. Baseline et candidat : 117/117 tests Node ; lint, build Webpack
+et contrôle de marque réussis. Aucun push.
+
+## Devenir partenaire, 27/10/2026
+
+Routes `/become-a-partner` et `/fr/devenir-partenaire`, composant serveur commun
+dans `src/system`, layout accueil conservé, lien ghost sous la légende partenaires.
+Le proxy et `locale.ts` gèrent les noms de route différents ; SEO/sitemap/bascule
+croisés. Formulaire externe exact, sans embed ; aucun backend ajouté.
+Écarts de texte uniquement pour les gates existants, laissés intacts : durée FR
+en lettres, retrait du mot certification, responsable nommé Parrit.ai et adresse
+mailto conservée sous un libellé de contact. Rapport et détails :
+`docs/site-v1/page-unique/RAPPORT-DEVENIR-PARTENAIRE.md`.
+Baseline 113 tests ; candidat 117, lint/build Webpack, marque/claims et 19 tests
+Brand OS réussis. Dix-huit tests Playwright dédiés ajoutés à la batterie réseau ;
+preuve navigateur et géométrie à effectuer sur l'hôte selon mandat, aucun serveur
+à l'écoute ni navigateur lancé ici. Revue indépendante sans défaut bloquant.
+Écriture locale réversible, aucun service ni donnée modifiés ; aucun push.
+
 ## Passe 4, contraste du menu téléphone, 27/10/2026
 
 Les audits aération et lisibilité partagent le sélecteur du summary natif.

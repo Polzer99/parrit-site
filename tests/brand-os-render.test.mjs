@@ -1,5 +1,7 @@
 import { privateClientNames } from "../scripts/lib/public-clients.mjs";
 import { PUBLIC_CLIENT_NAMES } from "../src/system/public-clients.ts";
+import { PUBLIC_ROUTES } from "./public-routes.ts";
+import { localizedPath } from "../src/system/locale.ts";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import matter from "gray-matter";
@@ -18,7 +20,7 @@ const NextServer = NextServerModule.default;
 const json = (file) => JSON.parse(readFileSync(file, "utf8"));
 const glyphs = json("src/system/brand-os.glyphs.json");
 const connectors = json("src/system/brand-os.connectors.json");
-const routes = ["/", "/journal", "/legal", ...["harness-engineering", "ai-sprints", "integration-developpement", "conseil-transformation"].map(slug => `/journal/themes/${slug}`)];
+const routes = PUBLIC_ROUTES.filter(route => route !== "/fr" && !route.startsWith("/fr/"));
 
 function populatedTags(html, tag, count) {
   const entries = [...html.matchAll(new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)<\\/${tag}>`, "g"))];
@@ -43,9 +45,12 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
     await server.prepare();
     const render = async (url, locale = "en") => {
       const chunks = [];
+      // Retain legacy French article/404 probes; only this new slug differs by language.
+      const pathname = url === "/become-a-partner" ? localizedPath(url, locale)
+        : locale === "fr" ? `/fr${url === "/" ? "" : url}` : url;
       const { req, res } = createRequestResponseMocks({
         url,
-        headers: { host: "localhost:3210", "x-parrit-locale": locale, "x-parrit-pathname": locale === "fr" ? `/fr${url === "/" ? "" : url}` : url },
+        headers: { host: "localhost:3210", "x-parrit-locale": locale, "x-parrit-pathname": pathname },
         resWriter: (chunk) => { chunks.push(Buffer.from(chunk)); return true; },
       });
       await server.getRequestHandler()(req, res);

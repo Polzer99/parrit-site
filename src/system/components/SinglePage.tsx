@@ -104,7 +104,13 @@ export function SinglePage({ locale }: { locale: Locale }) {
   <h2>{t("Chaque projet a son équipe")}{" "}<b>{t("et sa technologie.")}</b></h2>
   <p className="muted" style={{"marginTop": "20px", "maxWidth": "720px"}}>{t("Plus de vingt partenaires, entrepreneurs et consultants indépendants, choisis selon le diagnostic.")}</p>
   <ServiceGrid offers={PARTNER_OFFERS.map(offers => offers.map(t))} deliveryLabel={t("Avec eux, nous livrons")} label={fr ? "Partenaires et livrables" : "Partners and deliverables"} items={[[t("Ingénieurs IA"), t("Plus de dix, chacun sa spécialité : vision, agents, intégration.")], [t("Automatisation et assistants"), t("Des développeurs et des studios : assistants écrits, vocaux et vidéo.")], [t("Transformation et projet"), t("Conduite du changement et pilotage de projet.")], [t("Marque et marketing"), t("Image de marque, contenus et vente.")], [t("Formation"), t("Une quinzaine de formateurs et un organisme certifié.")], [t("Conseil et qualité"), t("Des cabinets partenaires et des relecteurs de nos livrables.")], [t("Chercheurs du MIT"), t("Des chercheurs du MIT dans notre réseau, pour vos déploiements d'agents les plus exigeants.")]]} />
-  <p className="teamcap"><i aria-hidden="true"/>{t("Une équipe composée pour chaque diagnostic, et ce qu'elle livre")}</p>
+  <div className="team-footer">
+    <p className="teamcap"><i aria-hidden="true"/>{t("Une équipe composée pour chaque diagnostic, et ce qu'elle livre")}</p>
+    <div className="partner-invitation">
+      <p>{fr ? "Vous êtes formateur ou consultant IA ?" : "Are you an AI trainer or consultant?"}</p>
+      <a className="btn rev-button ghost" href={localizedPath("/become-a-partner", locale)}>{fr ? "Rejoindre le réseau" : "Join the network"}</a>
+    </div>
+  </div>
 <ResearchPartner/>
 </RevealOnView></section>
 

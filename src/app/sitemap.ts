@@ -9,6 +9,7 @@ const REV01_PUBLIC_ROUTES = [
   ...["harness-engineering", "ai-sprints", "integration-developpement", "conseil-transformation"].map(theme => ({ path: `/journal/themes/${theme}`, lastModified: "2026-10-27", changeFrequency: "monthly" as const, priority: 0.8 })),
   { path: "", lastModified: "2026-10-27", changeFrequency: "weekly" as const, priority: 1.0 },
   { path: "/legal", lastModified: "2026-09-02", changeFrequency: "yearly" as const, priority: 0.3 },
+  { path: "/become-a-partner", lastModified: "2026-10-27", changeFrequency: "monthly" as const, priority: 0.6 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

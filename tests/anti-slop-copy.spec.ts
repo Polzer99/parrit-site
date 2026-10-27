@@ -1,9 +1,8 @@
-import { JOURNAL_THEMES } from "./public-routes";
+import { PUBLIC_ROUTES } from "./public-routes";
 import { readdirSync } from "node:fs";
 import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
-const routes = ["", "/journal", "/legal", ...JOURNAL_THEMES.map(theme => `/journal/themes/${theme}`)];
 const noOffer = /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de(?! vos opérations\b)|\bHT\b|excl\. VAT/i;
 // Only whole, verbatim status lines are exempt, never substrings or patterns.
 const approvedStatuses = new Set([
@@ -22,14 +21,16 @@ const forbidden = [
 test.use({ serviceWorkers: "block" });
 for (const locale of ["en", "fr"]) {
   const articles = readdirSync("content/journal").filter((file) => file.endsWith(".mdx")).map((file) => `/journal/${file.slice(0, -4)}`);
-  for (const route of [...routes, ...(locale === "en" ? articles : [])]) {
+  const routes = PUBLIC_ROUTES.filter(path => locale === "fr" ? path === "/fr" || path.startsWith("/fr/") : !path.startsWith("/fr"));
+  for (const pathname of [...routes, ...(locale === "en" ? articles : [])]) {
+    const route = pathname === "/" || pathname === "/fr" ? "" : pathname.replace(/^\/fr\//, "/");
     test(`public copy ${locale} ${route || "/"}`, async ({ page }) => {
       // Known third-party embed is mocked; all other outbound traffic fails the fixture.
       await page.route("https://app.cal.com/**", (request) => request.fulfill({ body: "", contentType: "text/html" }));
       await page.route("https://cal.com/**", (request) => request.fulfill({ body: "", contentType: "text/html" }));
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.setExtraHTTPHeaders({ "Accept-Language": "en" });
-      await page.goto(`${BASE_URL}${locale === "fr" ? "/fr" : ""}${route || (locale === "en" ? "/" : "")}`);
+      await page.goto(`${BASE_URL}${pathname}`);
       const article = articles.includes(route);
       // Editorial articles retain HEAD's scope for internal version references
       // and rhetorical patterns. Dashes and unapproved status wording are checked everywhere.
