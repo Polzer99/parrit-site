@@ -6,7 +6,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
-const anchors = { fr: ["en-production", "ce-qui-change", "parcours", "services", "confiance", "partenaires", "references", "contact"], en: ["in-production", "what-changes", "path", "services", "safeguards", "team", "references", "contact"] };
+const anchors = { fr: ["en-production", "ce-qui-change", "parcours", "services", "partenaires", "references", "architecture", "contact"], en: ["in-production", "what-changes", "path", "services", "team", "references", "architecture", "contact"] };
 for (const locale of ["fr", "en"]) test(`final single-page sections and booking render without JS (${locale})`, async () => {
   const html = await renderPage(locale);
   assert.equal((html.match(/<section\b/g) ?? []).length, 9);
@@ -47,19 +47,30 @@ test("previous portrait remains intact in the repository after the founder photo
   assert.equal(portrait.sha256, "b5537ffe836e6933a11e2ff6b81b617e5ccab24213462bfc41c27aae0e182733");
   assert.equal(createHash("sha256").update(readFileSync(`public${portrait.file}`)).digest("hex"), portrait.sha256);
 });
-test("client logos fail closed until file, source and dated named consent are all present", () => {
+test("client logos fail closed without permission, file, source and a dated named decision", () => {
   const load = loader("en");
   const { SITE_EVIDENCE, publicationLogo, RESEARCH_PARTNER } = load("src/lib/registry/preuves.ts");
-  const { ClientReference, ResearchPartner } = load("src/system/components/PublicEvidence.tsx");
+  const { ClientReference, ClientLogoStrip, ResearchPartner } = load("src/system/components/PublicEvidence.tsx");
   assert.equal(renderToStaticMarkup(createElement(ClientReference, { id: "Unknown client" }, "Description")), "");
   const valid = { autorise: true, fichier: "/approved.svg", source: "Written consent", accord: { qui: "Rights owner", date: "2026-10-27" } };
   assert.equal(publicationLogo(valid), "/approved.svg");
   for (const patch of [{ autorise: false }, { fichier: null }, { fichier: "//external/logo.svg" }, { source: null }, { accord: null }, { accord: { qui: "", date: "2026-10-27" } }, { accord: { qui: "Owner", date: "2026-02-30" } }]) assert.equal(publicationLogo({ ...valid, ...patch }), null);
   assert.equal(publicationLogo(undefined), null);
   for (const evidence of SITE_EVIDENCE.filter(e => e.category === "client")) {
-    assert.deepEqual(evidence.logo, { autorise: false, fichier: null, source: null, accord: null });
+    assert.equal(evidence.logo.autorise, true);
+    assert.ok(publicationLogo(evidence.logo));
+    assert.ok(readFileSync(`public${evidence.logo.fichier}`).length > 0);
+    assert.ok(evidence.logo.source);
+    assert.deepEqual(evidence.logo.accord, { qui: "Paul Larmaraud, décision d'affichage sans accord écrit du client", date: "2026-10-27" });
     assert.doesNotMatch(renderToStaticMarkup(createElement(ClientReference, { id: evidence.id }, "Description")), /<img/);
   }
+  const logoEvidence = SITE_EVIDENCE.find(e => e.id === "Laparra");
+  const savedLogo = logoEvidence.logo;
+  try {
+    logoEvidence.logo = { ...savedLogo, autorise: false };
+    assert.doesNotMatch(renderToStaticMarkup(createElement(ClientLogoStrip)), /clients\/laparra|aria-label="Laparra"/);
+    assert.match(renderToStaticMarkup(createElement(ClientReference, { id: "Laparra" }, "Description")), /Laparra/);
+  } finally { logoEvidence.logo = savedLogo; }
   assert.equal(RESEARCH_PARTNER.logo.autorise, false);
   assert.equal(renderToStaticMarkup(createElement(ResearchPartner)), "");
   const evidence = SITE_EVIDENCE.find(e => e.id === "Laparra");
@@ -69,6 +80,7 @@ test("client logos fail closed until file, source and dated named consent are al
     assert.equal(renderToStaticMarkup(createElement(ClientReference, { id: "Laparra" }, "Description")), "");
     const html = renderToStaticMarkup(createElement(load("src/system/components/SinglePage.tsx").SinglePage, { locale: "en" }));
     assert.doesNotMatch(visibleText(html), /Laparra/);
+    assert.doesNotMatch(html, /clients\/laparra|data-evidence="Laparra"/);
   } finally { evidence.permission_status = permission; }
 });
 test("revoking every permission hides production and client headings, retaining tool disclosures", () => {
@@ -79,31 +91,50 @@ test("revoking every permission hides production and client headings, retaining 
     SITE_EVIDENCE.forEach(e => { e.permission_status = "denied"; });
     const html = renderToStaticMarkup(createElement(load("src/system/components/SinglePage.tsx").SinglePage, { locale: "en" }));
     const text = visibleText(html);
-    assert.doesNotMatch(html, /id="in-production"|class="refs"/);
+    assert.doesNotMatch(html, /id="in-production"|class="reflines"/);
     assert.doesNotMatch(text, /Our agents are already at work|They work with us|Laparra|Clevery|Forexpert|Joone|SNCF/);
-    assert.match(text, /The tools we build with/);
+    assert.match(text, /We build with/);
     assert.match(text, /no partnership is implied/);
   } finally { SITE_EVIDENCE.forEach((e, i) => { e.permission_status = permissions[i]; }); }
 });
 
-for (const locale of ["fr", "en"]) test(`addendum ontology structure and translated copy (${locale})`, async () => {
+for (const locale of ["fr", "en"]) test(`three-story ontology structure and translated copy (${locale})`, async () => {
   const html = await renderPage(locale);
   const figure = html.match(/<svg class="onto"[\s\S]*?<\/svg>/)?.[0];
   assert.ok(figure);
   assert.match(figure, /aria-hidden="true"/);
-  assert.match(figure, /viewBox="0 0 1080 260"/);
-  for (const [kind, count] of [["layer", 3], ["edge", 11], ["node", 4], ["node r", 3], ["ag", 3], ["eye", 6], ["pulse", 11]]) {
+  assert.match(figure, /viewBox="0 0 1080 360"/);
+  for (const [kind, count] of [["layer", 3], ["edge", 16], ["edge talk", 5], ["node", 5], ["node r", 4], ["ag", 6], ["eye", 12], ["res on", 3]]) {
     assert.equal((figure.match(new RegExp(`class="${kind}"`, "g")) ?? []).length, count, kind);
   }
   const ids = [...figure.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
-  assert.equal(new Set(ids).size, 12);
-  assert.deepEqual([...figure.matchAll(/<mpath href="#([^"]+)"/g)].map(m => m[1]), ids.filter(id => id !== "onto-story-path"));
-  assert.match(figure, /id="onto-story-path" d="M190 40 L310 130 L260 220 L520 220 L1010 130"/);
-  assert.match(figure, /width="140" height="36" class="gold"/);
+  assert.equal(new Set(ids).size, 21);
+  assert.doesNotMatch(figure, /<animate|class="token"/);
+  assert.equal((figure.match(/width="250" height="50"/g) ?? []).length, 3);
+  assert.match(html, /class="ontocap" aria-live="off"/);
   assert.ok(visibleText(figure).includes(locale === "fr" ? "Relance prête" : "Follow-up ready"));
   assert.match(html, /class="humby">[^<]*Clive Humby[^<]*2006/);
   assert.doesNotMatch(figure, /rose|pink|#[\da-f]{3,8}\b|style=/i);
   assert.doesNotMatch(html, /class="stairs"/);
   for (const label of locale === "fr" ? ["Vos données", "Clients", "Commandes", "Stocks", "Factures", "Vos règles", "Validation", "Droits", "Échéances", "Vos agents"] : ["Your data", "Customers", "Orders", "Stock", "Invoices", "Your rules", "Approval", "Permissions", "Deadlines", "Your agents"]) assert.ok(visibleText(figure).includes(label), label);
   assert.ok(visibleText(html).includes(locale === "fr" ? "Votre expertise est la matière première. Nous en faisons des systèmes qui en multiplient l'impact." : "Your expertise is the raw material. We turn it into systems that multiply its impact."));
+});
+
+for (const locale of ["fr", "en"]) test(`passe 3 services, architecture, logos and final walker (${locale})`, async () => {
+  const html = await renderPage(locale);
+  const text = visibleText(html);
+  assert.doesNotMatch(text, /Brésil|Brazil|Cameroun|Cameroon|métropole lilloise|Lille area|Exemples illustratifs|Illustrative examples/);
+  assert.doesNotMatch(html, /id="confiance"|id="safeguards"|class="local-note"|<details/);
+  assert.match(html, /class="walk s1 s2 s3 withbot" viewBox="0 0 1080 130" aria-hidden="true"/);
+  assert.match(html, /class="human" transform="translate\(900 120\)"/);
+  assert.equal((html.match(/class="job"/g) ?? []).length, 12);
+  assert.equal((html.match(/class="stage"/g) ?? []).length, 5);
+  assert.equal((html.match(/role="img"/g) ?? []).length, 10);
+  const strip = html.match(/class="logo-track">([\s\S]*?)<div class="logo-set" aria-hidden="true">/)?.[1];
+  assert.ok(strip);
+  assert.equal((strip.match(/role="img"/g) ?? []).length, 5);
+  assert.doesNotMatch(html, /mask-image:url\(https?:/);
+  const founder = html.match(/<h2>Paul Larmaraud,[\s\S]*?<\/h2>/)?.[0];
+  assert.ok(founder);
+  assert.doesNotMatch(visibleText(founder), /\.$/);
 });

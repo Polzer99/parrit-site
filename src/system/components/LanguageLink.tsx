@@ -1,7 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { LOCALE_COOKIE, localizedPath, type Locale } from "@/system/locale";
-const HASHES: Readonly<Record<string, string>> = { "en-production": "in-production", "ce-qui-change": "what-changes", parcours: "path", confiance: "safeguards", partenaires: "team" };
+const HASHES: Readonly<Record<string, string>> = { "en-production": "in-production", "ce-qui-change": "what-changes", parcours: "path", partenaires: "team" };
 export function LanguageLink({ locale, children }: { locale: Locale; children: React.ReactNode }) {
   const path = usePathname() || "/";
   return <a href={localizedPath(path, locale)} hrefLang={locale} onClick={event => {

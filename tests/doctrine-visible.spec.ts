@@ -135,7 +135,7 @@ for (const locale of ["fr", "en"] as const) {
       await route.fulfill({ json: { ok: true } });
     });
     await page.goto(`${BASE_URL}${home}`);
-    await page.locator(".contact-fallback summary").click();
+    await expect(page.locator(".contact-fallback input[type=email]")).toBeVisible();
     const capture = page.locator(".quick-capture");
     await capture.locator('input[type="email"]').fill("doctrine@example.invalid");
     await capture.locator('button[type="submit"]').click();

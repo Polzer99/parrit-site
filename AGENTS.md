@@ -94,7 +94,7 @@ Une ressource a **une seule URL canonique** : celle qui rend son expérience com
 
 ## Routes, page unique (27/10/2026)
 
-- `/` et `/fr` : neuf sections dans l'ordre de la section 0 du handoff.
+- `/` et `/fr` : neuf sections selon `PASSE-3-PAGE-RACONTEE.md` §1.
 - `/journal`, `/fr/journal`, `/journal/[slug]`, RSS et `/legal`, `/fr/legal` conservés.
 - Quatre thèmes bilingues sous `/journal/themes/` : harness-engineering,
   ai-sprints, integration-developpement, conseil-transformation.
@@ -126,8 +126,8 @@ Voir aussi la skill `qa-playwright` (batterie responsive + multi-navigateur).
 ## Règles de sortie (non négociables)
 - **Jamais d'appel runtime à `*.vercel.app`** dans une livraison (REGLES-DOR §13). Le site EST hébergé sur Vercel — ça vise les ressources chargées au runtime (images/redirects/signatures), pas l'hébergement.
 - Aucun prix ni offre détaillée sur le site public (12/10/2026). Pas de devis détaillé ni de prix personnalisé hors propale privée.
-- Clients (25/10/2026, révision 4) : seuls les noms de `src/system/public-clients.ts` sont publiables (Laparra, Clevery, Forexpert, Joone, SNCF) ; tous les autres restent anonymisés. Clevery Avocats désigne Clevery. Joone : accompagnement IA ; SNCF : formation avec Arkel, jamais client direct. Exception : le Journal ne nomme aucun client, même public. Aucun logo ajouté dans ce lot. Aucun template n'exige de nom ou de logo pour se rendre.
-- Positionnement : page unique validée par Paul le 27/10/2026, `docs/site-v1/page-unique/HANDOFF-PAGE-UNIQUE.md` §0.
+- Clients (25/10/2026, révision 4) : seuls les noms de `src/system/public-clients.ts` sont publiables (Laparra, Clevery, Forexpert, Joone, SNCF) ; tous les autres restent anonymisés. Clevery Avocats désigne Clevery. Joone : accompagnement IA ; SNCF : formation avec Arkel, jamais client direct. Exception : le Journal ne nomme aucun client, même public. Décision Paul du 27/10/2026 : logos des cinq clients publiables affichés sans accord écrit des clients ; provenance dans `public/clients/SOURCES.md`, MIT sans logo. Aucun template n'exige de nom ou de logo pour se rendre.
+- Positionnement : page unique validée par Paul le 27/10/2026, `docs/site-v1/page-unique/PASSE-3-PAGE-RACONTEE.md`.
 - Marque : Parrit.ai ; nom et portrait de Paul autorisés dans le contact (27/10), identité du Journal inchangée.
 - Mesure d'audience (05/10/2026) : PostHog retiré du navigateur ; seule mesure active, Cloudflare Web Analytics injectée hors dépôt par Cloudflare et décrite dans `/legal`.
 - CTA (26/10/2026) : « Parler d'un projet » / « Talk about a project », hero « Parlons de votre transformation » / « Let's talk about your transformation » vers `/#contact` ou `/fr#contact`.
@@ -136,15 +136,19 @@ Voir aussi la skill `qa-playwright` (batterie responsive + multi-navigateur).
 
 ## Page unique et mode accessible (27/10/2026)
 
-La section 0 du handoff et `MAQUETTE-VALIDEE.html` priment sur l'ancien lot V1.
-Ordre : hero, en production, ce qui change, parcours, services, garde-fous,
-partenaires, références/outils, fondateur/contact avec réservation intégrée.
+La passe 3 (`docs/site-v1/page-unique/PASSE-3-PAGE-RACONTEE.md`) et sa maquette
+archivée dans `passe-3/maquette/` priment sur la maquette précédente pour leur périmètre.
+Ordre passe 3 : hero, en production, ce qui change, parcours, services,
+partenaires, références, architecture, fondateur/contact avec réservation intégrée.
 Aucune section « Votre phrase ». Aucun prix. Aucun CRM en vedette.
 Les chiffres et outils explicitement présents dans la maquette sont autorisés.
+Navigation : production, parcours, services, équipe, références, contact.
+`standard` et `systems` redirigent en 308 vers `#architecture`.
 Les preuves passent par `getSiteEvidence`. Revue J-30 en CI, pas d'expiration
-silencieuse en production. Logos clients et MIT éteints : accord nominatif daté,
-source et fichier obligatoires pour afficher un logo ; MIT dans partenaires.
-Aucun logo de client téléchargé. Logos techniques : outils utilisés, pas partenariat.
+silencieuse en production. Décision Paul du 27/10/2026 : logos des cinq clients publiables affichés sans
+accord écrit des clients, sur sa décision nominative datée ; provenance dans
+`public/clients/SOURCES.md`. Le contrat `publicationLogo` reste obligatoire,
+ainsi que la permission de publication du client. MIT dans partenaires, sans logo. Logos techniques : outils utilisés, pas partenariat.
 General Sans partout sur la page ; IBM Plex Mono uniquement dans le code du Journal.
 Téléphones : seule exception de rayon ; animations CSS, messages visibles sans JS
 et avec mouvement réduit. Contrôles dans `tests/single-page.spec.ts`.

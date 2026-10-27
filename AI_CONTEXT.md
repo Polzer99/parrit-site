@@ -1,3 +1,22 @@
+## Passe 3, page racontée — 27/10/2026
+
+Spec : `docs/site-v1/page-unique/PASSE-3-PAGE-RACONTEE.md` ; maquette copiée
+sans MP4 dans `passe-3/maquette/`. Neuf sections FR/EN, architecture remplace
+les garde-fous ; navigation Services et redirections standard/systems actualisées.
+OntologyHero (trois histoires), PathWalker, douze services, équipe, bandeau
+local des cinq logos, trajet de donnée et repli QuickCapture toujours visible.
+Décision de logos Paul sans accord écrit client conservée explicitement dans
+le registre et SOURCES.md ; permission client et contrat publicationLogo intacts.
+RevealOnView déclenche à l'entrée et arrête hors écran ; rendu SSR/réduit complet.
+Téléphones/panneaux : contenu et séquences conservés, déclenchement à l'écran.
+Charte : échelle canonique conservée, fond des résultats hero contrasté ;
+OpenCode reste une image locale (PNG opaque impropre au masque alpha).
+Validation : lint sans avertissement, build Webpack 52 pages, 107 tests Node,
+marque/claims et 19 tests Brand OS réussis. Build Turbopack interrompu à 90 s.
+Rapport de validation et écarts : `docs/site-v1/page-unique/passe-3/RAPPORT.md`.
+Aucun push ni déploiement. La validation navigateur est bloquée par le sandbox
+(port 3210 EPERM, lancement Chromium refusé) et n'est pas réputée acquise.
+
 ## Passe 2 langue et photo, 27/10/2026
 
 Sections 1 à 3 de `docs/site-v1/page-unique/PASSE-2-LANGUE-ET-PHOTO.md`

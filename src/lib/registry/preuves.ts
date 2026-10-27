@@ -298,11 +298,21 @@ export function evidencePublishable(evidence: PublicationEvidence, page: string)
     && evidence.last_verified <= evidence.expiration_or_review_date;
 }
 
+// Paul authorizes these five displays without written client consent (passe 3 §6).
+// This decision does not authorize any other asset, client, or the MIT logo.
+const CLIENT_LOGOS: Readonly<Record<string, PublicationLogo>> = {
+  Laparra: { autorise: true, fichier: "/clients/laparra.png", source: "https://www.laparra.fr", accord: { qui: "Paul Larmaraud, décision d'affichage sans accord écrit du client", date: "2026-10-27" } },
+  Clevery: { autorise: true, fichier: "/clients/clevery.png", source: "https://www.cleveryavocats.fr", accord: { qui: "Paul Larmaraud, décision d'affichage sans accord écrit du client", date: "2026-10-27" } },
+  Forexpert: { autorise: true, fichier: "/clients/forexpert.png", source: "https://www.forexpert-formation.com", accord: { qui: "Paul Larmaraud, décision d'affichage sans accord écrit du client", date: "2026-10-27" } },
+  Joone: { autorise: true, fichier: "/clients/joone.png", source: "https://www.joone.fr", accord: { qui: "Paul Larmaraud, décision d'affichage sans accord écrit du client", date: "2026-10-27" } },
+  SNCF: { autorise: true, fichier: "/clients/sncf.svg", source: "simple-icons@15.16.1/icons/sncf.svg", accord: { qui: "Paul Larmaraud, décision d'affichage sans accord écrit du client", date: "2026-10-27" } },
+};
+
 const publication = (id: string, display_name: string, claim: string, relationship_type: string): PublicationEvidence => ({
   id, display_name, claim, relationship_type, category: id === "demo-crm" ? "demonstration" : "client",
   evidence_source: "docs/site-v1/ETAPE-1-PLAN.md §4; docs/site-v1/releves/RAPPORT-PREUVES.md §1; docs/site-v1/page-unique/HANDOFF-PAGE-UNIQUE.md §0 et §6.1",
   permission_owner: "Paul, maquette et handoff validés le 27/10/2026",
-  logo: { autorise: false, fichier: null, source: null, accord: null },
+  logo: CLIENT_LOGOS[id] ?? { autorise: false, fichier: null, source: null, accord: null },
   permission_status: "granted", approved_assets: [], usage_scope: ["text"],
   expiration_or_review_date: "2027-01-26", last_verified: "2026-10-27", page_ids: ["home"],
 });

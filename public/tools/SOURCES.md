@@ -6,3 +6,12 @@ Copie sans modification des fichiers fournis dans docs/site-v1/page-unique/logos
 - opencode.png : icône du site officiel https://opencode.ai/, fichier fourni avec la maquette. Licence de cette icône non précisée dans la source fournie ; marque de son propriétaire (ne pas lui attribuer CC0).
 
 Les marques citées appartiennent à leurs propriétaires. Nous les utilisons ; aucun partenariat n'est sous-entendu.
+
+## Passe 3, 27/10/2026
+
+Huit masques fournis dans `passe3-assets/tools/`, copiés sans modification :
+
+- `mistralai.svg`, `ovh.svg`, `whatsapp.svg`, `imessage.svg`, `gmail.svg` : simple-icons@15.16.1, `icons/`.
+- `qwen.svg`, `deepseek.svg`, `openrouter.svg` : @lobehub/icons-static-svg@1.60.0.
+
+Tous servis depuis `/tools/` ; les marques restent celles de leurs propriétaires.

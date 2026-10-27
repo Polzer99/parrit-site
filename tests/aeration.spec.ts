@@ -119,7 +119,7 @@ for (const width of [1440, 390]) {
 
 
 
-      if (path === "/" || path === "/fr") await page.locator(".contact-fallback summary").click();
+      if (path === "/" || path === "/fr") await expect(page.locator(".contact-fallback input[type=email]")).toBeVisible();
       const result = await page.evaluate(() => {
         type Box = { left: number; right: number; top: number; bottom: number };
         type TextBox = { element: Element; label: string; box: Box };
@@ -562,7 +562,7 @@ async function measureInvalidFormStates(page: Page, path: string, width: number)
 
 
 
-    await page.locator(".contact-fallback summary").click();
+    await expect(page.locator(".contact-fallback input[type=email]")).toBeVisible();
     const form = page.locator(probe.form).first();
     const field = form.locator(probe.field);
     const button = form.locator("button[type='submit']");
