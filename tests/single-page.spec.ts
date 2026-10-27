@@ -658,7 +658,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await page.goto(local(locale === "fr" ? "/fr" : "/"));
         await page.evaluate(() => document.fonts.ready);
         const band = page.locator(".hero + #technologies");
-        await band.scrollIntoViewIfNeeded();
+        await band.evaluate(el => el.scrollIntoView({ block: "start" }));
         await expect(band).toBeInViewport({ ratio: 1 });
         expect((await band.boundingBox())!.height).toBeLessThanOrEqual(height);
         await expect(band.locator(".tech-note")).toHaveCount(0);
