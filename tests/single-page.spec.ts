@@ -684,18 +684,26 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         }
         const audit = await band.evaluate(section => {
           const style = getComputedStyle(section);
-          const probe = document.createElement("i");
-          // Resolve scoped tokens inside the band, where --on-ink is inherited.
-          section.append(probe);
+          // Read scoped tokens directly without relying on a rendered probe.
           const resolve = (token: string) => {
-            if (!getComputedStyle(probe).getPropertyValue(token).trim()) {
+            const value = style.getPropertyValue(token).trim();
+            if (!value) {
               throw new Error(`Undefined technology band color token: ${token}`);
             }
-            probe.style.color = `var(${token})`;
-            return getComputedStyle(probe).color;
+            const hex = value.match(/^#([\da-f]{3}|[\da-f]{6})$/i);
+            if (hex) {
+              const digits = hex[1].length === 3 ? [...hex[1]].map(n => n + n).join("") : hex[1];
+              const channels = [0, 2, 4].map(offset => parseInt(digits.slice(offset, offset + 2), 16));
+              return `rgb(${channels.join(", ")})`;
+            }
+            const rgb = value.match(/^rgb\((.*)\)$/i);
+            const channels = rgb?.[1].trim().split(/[\s,]+/);
+            if (channels?.length === 3 && channels.every(n => /^\d+(?:\.\d+)?$/.test(n) && Number(n) <= 255)) {
+              return `rgb(${channels.map(Number).join(", ")})`;
+            }
+            throw new Error(`Unsupported technology band color token: ${token}=${value}`);
           };
           const ink = resolve("--ink"), white = resolve("--white"), onInk = resolve("--on-ink");
-          probe.remove();
           const luminance = (color: string) => {
             const rgb = color.match(/[\d.]+/g)!.slice(0, 3).map(Number).map(n => n / 255);
             const linear = rgb.map(n => n <= .04045 ? n / 12.92 : ((n + .055) / 1.055) ** 2.4);
