@@ -197,7 +197,7 @@
 .single-header nav a, .single-header .languages a, .single-footer a {
   display:inline-flex;align-items:center;min-height:44px;
 }
-.single-header .mobile-menu summary {min-height:44px;line-height:44px;cursor:pointer;}
+.single-header .mobile-menu summary {min-height:48px;line-height:48px;font-family:var(--ui);font-size:var(--t-s);font-weight:600;cursor:pointer;}
 .single-page li {line-height:1.55;}
 .single-page .phone .chat {flex-shrink:0;}
 .single-page .phone .bar {flex-shrink:0;}
@@ -205,7 +205,7 @@
 .single-page .quick-capture .ri-error {display:block;margin-top:16px;color:var(--accent-on-dark);}
 .single-page .quick-capture form > p {margin-top:var(--s2);}
 @media (max-width:760px) {
-  .single-header > .wrap {min-height:64px;padding-top:10px;padding-bottom:10px;}
+  .single-header > .wrap {min-height:64px;padding-top:8px;padding-bottom:8px;}
   .single-header > .wrap > .btn {display:none;}
   .single-header .languages {margin-left:auto;}
   .single-header .mobile-menu nav {max-height:calc(100svh - 64px);}

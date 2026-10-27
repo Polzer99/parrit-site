@@ -126,3 +126,18 @@ Moyens (maquette, partie 5 de `passe4.py`) :
   la page » et règle « un bloc = un écran ».
 - Batterie : `npm ci && npm run lint && npm run build && npm test && npm run qa:brand:rev01 &&
   npm run qa:claims:rev01 && npm run test:brand-os` ; navigateur rejoué par Claude sur l'hôte.
+
+## 7. Amendement après relecture visuelle (Claude, 27/10, 16 h)
+
+1. **Hero ordinateur aligné** : le bord gauche du H1, de la phrase et du bouton est celui de la
+   barre et du reste de la page (même `.wrap`, même x que « PARRIT.AI » à 1440 et 1280). Garder
+   « tout le hero tient en 1440×800 ». Si le H1 à 88px ne le permet pas dans la largeur du `.wrap`,
+   le H1 du hero prend la plus grande taille qui tient (`clamp`, jamais sous 72px sur ordinateur) et
+   le contrat 88px du contrôle d'aération est remplacé, pour le seul H1 du hero, par « ≥ 72px et le
+   hero tient en 1440×800 », avec la raison en commentaire. Aucun autre contrôle ne change.
+2. **En-tête téléphone compact** (≤ 760px) : une seule ligne de 64px au plus, « PARRIT.AI » à
+   gauche, « FR EN » et le bouton du menu natif à droite. « Parler d'un projet » passe dans le
+   panneau du menu (le hero a déjà son bouton rose). Test : à 390×700, le H1, la phrase et le
+   bouton rose du hero sont entièrement visibles sans défiler.
+3. **Carrousels téléphone** : cartes alignées en haut (`align-items:flex-start`), aucune carte
+   étirée à la hauteur de la plus haute.

@@ -1,3 +1,13 @@
+## Passe 4 §7, contrats téléphone, 27/10/2026
+
+Reprise après a030f52 : le summary natif rejoint les actions de l'audit lisibilité,
+avec libellé visible, cible de 48 px et General Sans 16 px/600. Padding vertical
+de la barre à 8 px pour conserver 64 px au total. Seule l'attente du paragraphe
+hero à 375 px passe à 22 px selon §7.2 ; ordinateur à 26 px et autres seuils conservés.
+Amendement §7 inclus, captures `.codex-handoffs/` restaurées et exclues du changement.
+Baseline et candidat : 113/113 tests Node ; lint et build Webpack réussis.
+Preuve Playwright à rejouer sur l'hôte : écoute 127.0.0.1:3210 refusée (EPERM).
+
 ## Passe 4 §7, relecture visuelle, 27/10/2026
 
 Source : amendement §7 de `PASSE-4-CAS-D-USAGE-ET-ECRAN.md`, branche

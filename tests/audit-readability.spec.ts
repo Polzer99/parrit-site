@@ -30,7 +30,10 @@ for (const width of [375, 390, 1440]) {
       await page.evaluate(() => document.fonts.ready);
 
       if (width < 760) {
-        await page.locator(".mobile-menu summary").click();
+        const menuToggle = page.locator(".single-header .mobile-menu summary");
+        await expect(menuToggle).toBeVisible();
+        await expect(menuToggle).toHaveText(/\S/);
+        await menuToggle.click();
         const mobileAction = page.locator(".single-header .mobile-menu .rev-button");
         await expect(mobileAction).toBeVisible();
         await expect(mobileAction).toHaveCSS("padding", "14px 24px");
@@ -48,7 +51,7 @@ for (const width of [375, 390, 1440]) {
       if (path === "/" || path === "/fr") await expect(page.locator(".contact-fallback input[type=email]")).toBeVisible();
       const result = await page.evaluate(() => {
         const visible = (el: Element) => el.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }) && el.getBoundingClientRect().width > 0 && el.getBoundingClientRect().height > 0;
-        const actions = [...document.querySelectorAll(".rev-button, .single-header .rev-button, .fp-cta, .locale-toggle button")].filter(visible);
+        const actions = [...document.querySelectorAll(".rev-button, .single-header .mobile-menu summary, .fp-cta, .locale-toggle button")].filter(visible);
         const targets = [...document.querySelectorAll(".desktop-nav a, .mobile-menu a, .single-footer a, .languages a")].filter(visible);
         const h3 = [...document.querySelectorAll("main h3")].filter(visible);
         const prose = [...document.querySelectorAll("main p, main li, main dd")].filter(visible);

@@ -221,7 +221,8 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     }
     const active = await page.locator(".soft .top").evaluate(el => getComputedStyle(el).color);
     for (const agent of await page.locator(".soft .row:last-child span").all()) await expect(agent).toHaveCSS("background-color", active);
-    await expect(page.locator(".hero .sub p")).toHaveCSS("font-size", "26px");
+    // PASSE-4-CAS-D-USAGE-ET-ECRAN.md §7.2 : seul le hero téléphone passe à 22px pour tenir sans défiler.
+    await expect(page.locator(".hero .sub p")).toHaveCSS("font-size", width === 375 ? "22px" : "26px");
     for (const button of await page.locator(".hero .btn.exec, .founder .btn.exec").all()) {
       await expect(button).toHaveCSS("font-size", "22px");
       await expect(button).toHaveCSS("padding", "22px 36px");
