@@ -1,3 +1,20 @@
+## Applications concrètes, amendement du 27/10/2026 au soir
+
+`BANDEAU-TECHNOLOGIES.md` §4 : trois téléphones anonymes toujours rendus,
+indépendants des permissions ; références nominatives et logos encore filtrés.
+Navigation « Applications », ancres conservées. Bouton hero ordinateur à largeur
+intrinsèque et insécable ; colonne réservant sa largeur, mobile inchangé.
+Tests de révocation FR/EN : scènes identiques avant/après, aucun nom ni logo
+client après révocation. Assertions navigateur ajoutées sans seuil assoupli :
+ligne unique, largeur, padding, alignement, absence de chevauchement, mobile.
+Baseline 117/117 tests Node ; candidat 118/118. Lint, build Webpack (TypeScript
+strict), marque, claims et 19/19 tests Brand OS réussis. Revue indépendante :
+aucun défaut restant. Les 55 tests Playwright sont découverts ; preuve visuelle
+non acquise, serveur refusé par le sandbox (`listen EPERM 127.0.0.1:3210`).
+À rejouer sur l'hôte : tests/single-page.spec.ts, notamment « un bloc = un écran ».
+Écriture locale sur feat/bandeau-technologies, réversible par revert du commit,
+sans données ni service externe. Captures restaurées et exclues ; aucun push.
+
 ## Bandeau technologies, hauteur entière, 27/10/2026
 
 Correctif local sur `feat/bandeau-technologies` : lignes du titre à 32 px et

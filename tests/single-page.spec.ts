@@ -44,6 +44,15 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     await expect(page.locator("#services .use-case")).toHaveCount(12);
     await expect(page.locator("#architecture")).toHaveCount(0);
     await expect(page.locator(".hero + #technologies")).toHaveCount(1);
+    const applications = page.locator(locale === "fr" ? "#en-production" : "#in-production");
+    await expect(applications.locator(".phone")).toHaveCount(3);
+    await expect(applications.locator("h3")).toHaveCount(3);
+    await expect(applications).not.toContainText(/Laparra|Clevery|Forexpert|Joone|SNCF/);
+    await expect(applications.locator(".note")).toContainText(locale === "fr" ? "données fictives" : "fictional data");
+    for (const nav of [".desktop-nav", ".mobile-menu nav"]) {
+      await expect(page.locator(`${nav} a`).first()).toHaveText("Applications");
+      await expect(page.locator(`${nav} a`).first()).toHaveAttribute("href", locale === "fr" ? "/fr#en-production" : "/#in-production");
+    }
     await expect(page.locator("#contact h2")).not.toHaveText(/\.$/);
     await expect(page.locator("main")).not.toContainText(/Brésil|Brazil|Cameroun|Cameroon|métropole lilloise|Lille area/);
     const smallText = await page.locator("main *, header *, footer *").evaluateAll(nodes => nodes.filter(el => {
@@ -429,6 +438,35 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
         expect(box.x, `${selector}: same left edge as the header brand`).toBeCloseTo(mark.x, 0);
       }
       expect(await page.locator(".hero h1").evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(72);
+      const button = page.locator(".hero .exec");
+      await expect(button).toHaveCSS("white-space", "nowrap");
+      const geometry = await button.evaluate(el => {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const style = getComputedStyle(el);
+        return {
+          lines: range.getClientRects().length,
+          contentWidth: range.getBoundingClientRect().width,
+          width: el.getBoundingClientRect().width,
+          horizontalInset: parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth),
+        };
+      });
+      expect(geometry.lines).toBe(1);
+      expect(geometry.width).toBeCloseTo(geometry.contentWidth + geometry.horizontalInset, 0);
+      // Keep the existing exec padding and line height, including the founder counterpart.
+      for (const property of ["padding-top", "padding-bottom", "padding-left", "padding-right", "line-height"]) {
+        await expect(button).toHaveCSS(property, await page.locator(".founder .exec").evaluate((el, property) => getComputedStyle(el).getPropertyValue(property), property));
+      }
+      const phrase = (await page.locator(".hero .sub p").boundingBox())!;
+      const action = (await button.boundingBox())!;
+      const figure = (await page.locator(".ontology-hero").boundingBox())!;
+      expect(action.y).toBeGreaterThanOrEqual(phrase.y + phrase.height);
+      expect(action.x + action.width).toBeLessThanOrEqual(figure.x);
+    } else {
+      const action = (await page.locator(".hero .exec").boundingBox())!;
+      const group = (await page.locator(".hero .actions").boundingBox())!;
+      expect(action.width).toBeCloseTo(group.width, 0);
+      await expect(page.locator(".hero .exec")).toHaveCSS("white-space", "normal");
     }
     if (width === 1440) {
       const header = (await page.locator(".single-header").boundingBox())!;

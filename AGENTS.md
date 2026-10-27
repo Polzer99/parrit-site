@@ -138,13 +138,13 @@ Voir aussi la skill `qa-playwright` (batterie responsive + multi-navigateur).
 
 La passe 3 (`docs/site-v1/page-unique/PASSE-3-PAGE-RACONTEE.md`) et sa maquette
 archivée dans `passe-3/maquette/` priment sur la maquette précédente pour leur périmètre.
-Ordre actuel (bandeau, 27/10 au soir) : hero, technologies, en production, ce qui change, parcours, services,
+Ordre actuel (bandeau, 27/10 au soir) : hero, technologies, applications, ce qui change, parcours, services,
 partenaires, références, fondateur/contact avec réservation intégrée.
 Aucune section « Votre phrase ». Aucun prix. Aucun CRM en vedette.
 Les chiffres et outils explicitement présents dans la maquette sont autorisés.
-Navigation : production, parcours, services, équipe, références, contact.
+Navigation : Applications, parcours, services, équipe, références, contact.
 `standard` et `systems` redirigent en 308 vers `#technologies`.
-Les preuves passent par `getSiteEvidence`. Revue J-30 en CI, pas d'expiration
+Les références nominatives passent par `getSiteEvidence`. Revue J-30 en CI, pas d'expiration
 silencieuse en production. Décision Paul du 27/10/2026 : logos des cinq clients publiables affichés sans
 accord écrit des clients, sur sa décision nominative datée ; provenance dans
 `public/clients/SOURCES.md`. Le contrat `publicationLogo` reste obligatoire,
@@ -170,5 +170,19 @@ figure doivent tenir dans la hauteur du viewport, sans découpe ni texte masqué
 Le hero entier, barre comprise, tient à 1440×800 ; le calendrier seul est exempté.
 Cinq carrousels mobiles natifs (celui du trajet est retiré), accessibles au clavier, avec points de position.
 Les 48 cas et les 20 offres restent dans le HTML serveur ; aucun mouvement
-en mode réduit et aucun minuteur après démontage. Laparra est présenté comme
-un outil de pilotage agentique pour les fruits et légumes.
+en mode réduit et aucun minuteur après démontage. Dans les références, Laparra
+est présenté comme un outil de pilotage agentique pour les fruits et légumes.
+
+## Applications concrètes et bouton du hero, amendement du 27/10 au soir
+
+`BANDEAU-TECHNOLOGIES.md` §4 prime pour la section des téléphones et le bouton du hero.
+« Quelques applications concrètes. » / « A few real-world applications. » :
+trois scènes anonymes, titres et note de données fictives conservés, toujours
+visibles même si toutes les permissions clients sont révoquées. Navigation
+« Applications » dans les deux langues ; ancres `#en-production` / `#in-production`
+conservées. Les noms et logos clients restent uniquement dans `#references`,
+avec `getSiteEvidence` et les contrôles de publication inchangés.
+Sur ordinateur (>760 px), le bouton rose du hero tient sur une ligne, à sa
+largeur de contenu, sous l'accroche et aligné à gauche ; hauteur et rembourrage
+existants conservés. Sur téléphone, pleine largeur inchangée. Le hero entier,
+barre comprise, tient toujours à 1440×800, sans aucun seuil de contrôle assoupli.

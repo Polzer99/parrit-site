@@ -7,6 +7,16 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
 const anchors = { fr: ["technologies", "en-production", "ce-qui-change", "parcours", "services", "partenaires", "references", "contact"], en: ["technologies", "in-production", "what-changes", "path", "services", "team", "references", "contact"] };
+function applications(html, locale) {
+  const section = html.match(new RegExp(`<section class="live" id="${locale === "fr" ? "en-production" : "in-production"}">[\\s\\S]*?</section>`))?.[0];
+  assert.ok(section, "applications remain present");
+  assert.equal((section.match(/class="phone"/g) ?? []).length, 3);
+  assert.equal((section.match(/<h3>/g) ?? []).length, 3);
+  assert.match(section, /<h2>[^<]+ <b>[^<]+<\/b><\/h2>/);
+  assert.match(visibleText(section), locale === "fr" ? /données fictives/ : /fictional data/);
+  assert.doesNotMatch(section, /Laparra|Clevery|Forexpert|Joone|SNCF|data-evidence|class="who"|\/clients\//i);
+  return section;
+}
 for (const locale of ["fr", "en"]) test(`final single-page sections and booking render without JS (${locale})`, async () => {
   const html = await renderPage(locale);
   assert.equal((html.match(/<section\b/g) ?? []).length, 9);
@@ -34,6 +44,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.doesNotMatch(contact, /paul-centre\.png/);
   assert.match(html, new RegExp(`href="${locale === "fr" ? "/fr" : ""}/journal"`));
   assert.equal((html.match(/class="phone"/g) ?? []).length, 3);
+  applications(html, locale);
   const text = visibleText(html);
   for (const client of ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"]) assert.ok(text.includes(client));
   assert.doesNotMatch(text, /Arkel/);
@@ -82,18 +93,22 @@ test("client logos fail closed without permission, file, source and a dated name
     assert.doesNotMatch(html, /clients\/laparra|data-evidence="Laparra"/);
   } finally { evidence.permission_status = permission; }
 });
-test("revoking every permission hides production and client headings, retaining tool disclosures", () => {
-  const load = loader("en");
+for (const locale of ["fr", "en"]) test(`revoking every permission hides client names but retains anonymous applications (${locale})`, () => {
+  const load = loader(locale);
   const { SITE_EVIDENCE } = load("src/lib/registry/preuves.ts");
   const permissions = SITE_EVIDENCE.map(e => e.permission_status);
+  const SinglePage = load("src/system/components/SinglePage.tsx").SinglePage;
+  const before = applications(renderToStaticMarkup(createElement(SinglePage, { locale })), locale);
   try {
     SITE_EVIDENCE.forEach(e => { e.permission_status = "denied"; });
-    const html = renderToStaticMarkup(createElement(load("src/system/components/SinglePage.tsx").SinglePage, { locale: "en" }));
+    const html = renderToStaticMarkup(createElement(SinglePage, { locale }));
     const text = visibleText(html);
-    assert.doesNotMatch(html, /id="in-production"|class="reflines"/);
-    assert.doesNotMatch(text, /Our agents are already at work|They work with us|Laparra|Clevery|Forexpert|Joone|SNCF/);
+    assert.equal(applications(html, locale), before, "all scenes and captions survive permission revocation unchanged");
+    assert.doesNotMatch(html, /class="reflines"|data-evidence|\/clients\//);
+    assert.doesNotMatch(html, /Laparra|Clevery|Forexpert|Joone|SNCF/i);
+    assert.doesNotMatch(text, /Our agents are already at work|They work with us|Nos agents travaillent déjà|Ils travaillent avec nous|Laparra|Clevery|Forexpert|Joone|SNCF/);
     assert.doesNotMatch(text, /We build with/);
-    assert.match(text, /no partnership is implied/);
+    assert.match(text, locale === "fr" ? /aucun partenariat/ : /no partnership is implied/);
   } finally { SITE_EVIDENCE.forEach((e, i) => { e.permission_status = permissions[i]; }); }
 });
 

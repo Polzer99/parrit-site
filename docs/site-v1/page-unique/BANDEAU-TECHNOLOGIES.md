@@ -43,8 +43,8 @@ Maquette (lecture seule) : `/private/tmp/claude-501/-Users-paullarmaraud/b2420e7
 - Supprimer `#architecture` (« Le trajet d'une donnée »), son composant `DataArchitecture.tsx` s'il
   n'est plus utilisé, ses textes et son CSS, et les icônes de `public/tools/` devenues inutiles.
 - `next.config.ts` : `/standard` et `/systems` → 308 vers `/#technologies` et `/fr#technologies`.
-- Ordre des sections : hero, technologies, en production, ce qui change, parcours, services,
-  partenaires, références, fondateur et contact. Navigation inchangée.
+- Ordre des sections : hero, technologies, applications, ce qui change, parcours, services,
+  partenaires, références, fondateur et contact. Navigation « Applications » selon l’amendement §4.
 
 ## 3. Documents et tests
 
@@ -56,3 +56,39 @@ Maquette (lecture seule) : `/private/tmp/claude-501/-Users-paullarmaraud/b2420e7
   aucune couleur littérale dans les SVG de `public/tech/`, contraste du texte sur `--ink`.
 - Batterie : `npm ci && npm run lint && npm run build && npm test && npm run qa:brand:rev01 &&
   npm run qa:claims:rev01 && npm run test:brand-os` ; navigateur rejoué par Claude sur l'hôte.
+
+## 4. Amendement du 27/10, soir (Paul)
+
+1. **Section des trois téléphones conservée, présentée comme des applications concrètes** (Paul : « on
+   n'a rien à prouver », « juste des cas en quelques applications concrètes »). Dans `#en-production` /
+   `#in-production` (identifiants inchangés) :
+   - titre « Quelques applications **concrètes.** » / « A few **real-world applications.** » au lieu de
+     « Nos agents travaillent déjà chez nos clients. » ;
+   - retirer les lignes de nom de client sous chaque téléphone (« Clevery Avocats. », « Forexpert. »,
+     « Laparra, sur le téléphone de l'équipe. ») ; garder le titre de chaque scène et la note
+     « Scènes reconstituées sur données fictives, fidèles aux systèmes en service. » ;
+   - la section ne dépend plus de la permission de publication des clients pour s'afficher (elle ne
+     nomme plus personne) ; les noms et logos clients restent dans `#references` avec leurs règles ;
+   - navigation : « En production » / « In production » devient « Applications » / « Applications »
+     (même ancre).
+2. **Bouton rose du hero** : sur ordinateur, « Parlons de votre transformation » tient sur **une seule
+   ligne** (largeur de contenu, `white-space: nowrap`), placé sous la phrase d'accroche et aligné sur son
+   bord gauche ; hauteur et rembourrage des boutons `exec` existants, plus de boîte étirée. Sur
+   téléphone, comportement actuel (pleine largeur) inchangé. Le hero tient toujours en 1440×800.
+3. Ordre final : hero, technologies, applications, ce qui change, parcours, services, partenaires,
+   références, fondateur et contact. Mettre à jour AGENTS.md, TRUTH.md et les tests de structure en
+   conséquence, sans assouplir aucun contrôle (le test « révoquer toutes les permissions masque les
+   noms clients » reste vrai : plus aucun nom dans la section applications).
+
+### Contrôles de l’amendement
+
+- FR/EN, HTML serveur : les trois téléphones, titres de scène et note restent
+  identiques après révocation de toutes les permissions ; aucun nom, logo ou
+  attribut de preuve client dans les applications. Les références nominatives
+  et leurs logos disparaissent après révocation, sans changer les règles du registre.
+- Navigation ordinateur et mobile : « Applications » mène à l’ancre existante.
+- À 1440×800 et 1280×720 : une seule ligne de texte dans le bouton, largeur de
+  contenu sans étirement, sous l’accroche et sur son bord gauche ; rembourrage
+  `exec` conservé. À 390×700 : bouton pleine largeur, retour à la ligne autorisé.
+- Le contrôle du hero entier à 1440×800, les contrôles « un bloc = un écran »,
+  de contraste, de mouvement réduit et de réseau restent intacts.

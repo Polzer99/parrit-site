@@ -26,7 +26,7 @@ Nous allons à la frontière du possible, puis nous le livrons à nos clients.
 Votre expertise est la matière première. Nous en faisons des systèmes qui en multiplient l'impact.
 Décision actuelle : `docs/site-v1/page-unique/BANDEAU-TECHNOLOGIES.md`
 (27/10 au soir), qui remplace le trajet par le bandeau agnostique.
-Neuf sections : hero, technologies, agents en production, changements, parcours, services,
+Neuf sections : hero, technologies, applications, changements, parcours, services,
 partenaires, références, fondateur et contact.
 Les quatre pages V1 deviennent des thèmes du Journal ; les autres pages de
 présentation redirigent vers les sections. Journal, légal et esquisses conservés.
@@ -161,5 +161,19 @@ figure doivent tenir dans la hauteur du viewport, sans découpe ni texte masqué
 Le hero entier, barre comprise, tient à 1440×800 ; le calendrier seul est exempté.
 Cinq carrousels mobiles natifs (celui du trajet est retiré), accessibles au clavier, avec points de position.
 Les 48 cas et les 20 offres restent dans le HTML serveur ; aucun mouvement
-en mode réduit et aucun minuteur après démontage. Laparra est présenté comme
-un outil de pilotage agentique pour les fruits et légumes.
+en mode réduit et aucun minuteur après démontage. Dans les références, Laparra
+est présenté comme un outil de pilotage agentique pour les fruits et légumes.
+
+## Applications concrètes et bouton du hero, amendement du 27/10 au soir
+
+`BANDEAU-TECHNOLOGIES.md` §4 prime pour la section des téléphones et le bouton du hero.
+« Quelques applications concrètes. » / « A few real-world applications. » :
+trois scènes anonymes, titres et note de données fictives conservés, toujours
+visibles même si toutes les permissions clients sont révoquées. Navigation
+« Applications » dans les deux langues ; ancres `#en-production` / `#in-production`
+conservées. Les noms et logos clients restent uniquement dans `#references`,
+avec `getSiteEvidence` et les contrôles de publication inchangés.
+Sur ordinateur (>760 px), le bouton rose du hero tient sur une ligne, à sa
+largeur de contenu, sous l'accroche et aligné à gauche ; hauteur et rembourrage
+existants conservés. Sur téléphone, pleine largeur inchangée. Le hero entier,
+barre comprise, tient toujours à 1440×800, sans aucun seuil de contrôle assoupli.

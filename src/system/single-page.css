@@ -84,7 +84,6 @@
 .single-page .live{background:var(--canard);color:var(--white)}
 .single-page .scenes{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:64px}
 .single-page .scene h3{font-size:var(--t-l);margin-top:28px;color:var(--white)}
-.single-page .scene .who{font-size:var(--t-s);color:var(--on-canard);margin-top:8px}
 .single-page .phone{width:100%;max-width:300px;margin:0 auto;min-height:560px;border:10px solid var(--ink);border-radius:34px;background:var(--off);display:flex;flex-direction:column;overflow:hidden} /* phone mockup */
 .single-page .phone .bar{background:var(--white);padding:12px 14px;font-size:var(--t-s);font-weight:600;color:var(--ink);display:flex;justify-content:space-between;border-bottom:1px solid var(--sky)}
 .single-page .phone .bar i{width:18px;height:18px;border-radius:50%;background:var(--canard);display:inline-block} /* phone mockup */
@@ -349,7 +348,6 @@
 .single-page .phone .msg.card {max-width:100%;}
 .single-page .phone .msg.card b {font-size:16px;}
 .single-page .scene h3 {margin-top:14px;}
-.single-page .scene .who {margin-top:6px;}
 .single-page .note {margin-top:16px;}
 .single-page .founder .grid {row-gap:16px;align-items:start;}
 .single-page .founder picture {grid-row:1 / 3;}
@@ -360,13 +358,15 @@
 .single-page .onto :is(.lab,.nt,.rest,.toklab) {font-size:22px;}
 @media(min-width:761px){
   .single-page .hero {padding:16px 0;}
-  .single-page .hero .wrap {display:grid;grid-template-columns:minmax(0, .8fr) minmax(0,1.6fr);column-gap:28px;row-gap:12px;align-items:center;}
+  .single-page .hero .wrap {display:grid;grid-template-columns:minmax(min-content, .8fr) minmax(0,1.6fr);column-gap:28px;row-gap:12px;align-items:center;}
   .single-page .hero .grid {display:contents;}
   /* §7 : 75px garde la seconde phrase sur une ligne dans les 1080px du wrap,
      et le hero entier en 1440×800 ; plancher ordinateur de 72px. */
   .single-page .hero h1 {grid-column:1 / -1;max-width:none;font-size:clamp(72px, 6.45vw, 75px);}
   .single-page .hero .sub {display:flex;flex-direction:column;align-items:flex-start;gap:24px;}
   .single-page .hero .sub p {max-width:none;}
+  /* §4 : la colonne réserve la largeur du libellé, sans étirer le bouton. */
+  .single-page .hero .btn.exec {width:max-content;white-space:nowrap;flex:none;}
   .single-page .hero .onto {margin-top:0;max-height:calc(100svh - 460px);}
   .single-page .hero .ontocap {margin-top:12px;font-size:16px;line-height:1.45;}
   .single-page .hero .humby {grid-column:1 / -1;margin-top:0;}
@@ -394,9 +394,7 @@
   .single-page .scene h3 {margin-top:10px;}
   .single-page .phone .msg {line-height:1.2;padding:3px 5px;}
   .single-page .phone .chat {gap:4px;padding:6px;}
-  .single-page .scene .who,.single-page .note {font-size:16px;line-height:1.45;}
-  .single-page .scene .who {margin-top:4px;}
-  .single-page .note {margin-top:12px;}
+  .single-page .note {font-size:var(--t-s);line-height:1.45;margin-top:12px;}
   .single-page .logo-strip {margin-top:28px;}
   .single-page .logo-track,.single-page .logo-set {gap:20px;}
   .single-page .reflines {gap:12px;margin-top:24px;}
