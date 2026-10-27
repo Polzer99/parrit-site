@@ -658,7 +658,8 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await page.goto(local(locale === "fr" ? "/fr" : "/"));
         await page.evaluate(() => document.fonts.ready);
         const band = page.locator(".hero + #technologies");
-        await band.evaluate(el => el.scrollIntoView({ block: "start" }));
+        // Round down to keep the section top visible when the hero height includes a subpixel.
+        await band.evaluate(el => window.scrollTo(0, Math.floor(el.getBoundingClientRect().top + window.scrollY)));
         await expect(band).toBeInViewport({ ratio: 1 });
         expect((await band.boundingBox())!.height).toBeLessThanOrEqual(height);
         await expect(band.locator(".tech-note")).toHaveCount(0);
