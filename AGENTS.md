@@ -152,3 +152,20 @@ ainsi que la permission de publication du client. MIT dans partenaires, sans log
 General Sans partout sur la page ; IBM Plex Mono uniquement dans le code du Journal.
 Téléphones : seule exception de rayon ; animations CSS, messages visibles sans JS
 et avec mouvement réduit. Contrôles dans `tests/single-page.spec.ts`.
+
+## Passe 4, 27/10/2026
+
+`docs/site-v1/page-unique/PASSE-4-CAS-D-USAGE-ET-ECRAN.md` prime sur la passe 3
+pour les cas d’usage, les offres partenaires, le trajet et la géométrie.
+Maquette source archivée : `docs/site-v1/page-unique/passe-4/passe4.py`.
+Ne pas dévoiler la stack interne sur la page : le trajet décrit les sources
+clients, le choix cloud/serveurs/local et les harnais, sans l’outillage Parrit.
+Les mentions de Claude Code comme formation/audit restent autorisées.
+Un bloc = un écran : en FR/EN et mouvement réduit, à 1440×800, 1280×720 et
+390×700, le premier enfant de chaque section (hors hero/contact) et chaque
+figure doivent tenir dans la hauteur du viewport, sans découpe ni texte masqué.
+Le hero entier, barre comprise, tient à 1440×800 ; le calendrier seul est exempté.
+Six carrousels mobiles natifs, accessibles au clavier, avec points de position.
+Les 48 cas et les 20 offres restent dans le HTML serveur ; aucun mouvement
+en mode réduit et aucun minuteur après démontage. Laparra est présenté comme
+un outil de pilotage agentique pour les fruits et légumes.

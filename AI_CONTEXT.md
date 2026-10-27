@@ -1,3 +1,19 @@
+## Passe 4, cas d’usage et écran, 27/10/2026
+
+Spec : `docs/site-v1/page-unique/PASSE-4-CAS-D-USAGE-ET-ECRAN.md`.
+48 cas FR/EN, 20 offres partenaires, trajet sans outillage interne, Laparra
+présenté comme outil de pilotage agentique. Six carrousels mobiles natifs ;
+SSR complet, mouvement réduit statique, arrêt et nettoyage des minuteurs.
+Hero à 88 px sur ordinateur selon §5 ; figure et résultats lisibles.
+Les textes restent à 16 px minimum pour conserver le contrôle d’aération.
+Les contrôles de contenu n’ont pas été affaiblis : trois formulations adaptées.
+Batterie locale : baseline 109 tests, candidat 113 tests ; lint, build Webpack,
+marque, claims et 19 tests Brand OS verts. Test bloquant « un bloc = un écran »
+écrit pour les six couples langue/taille, sans seuil relâché ni contenu coupé.
+Preuve navigateur encore à effectuer sur l’hôte, conformément au mandat :
+aucun serveur ni navigateur lancé ici. Rapport : `docs/site-v1/page-unique/passe-4/RAPPORT.md`.
+Un seul commit demandé, aucun push ni déploiement.
+
 ## Relance déterministe du test hero — 27/10/2026
 
 Lecture d'OntologyHero et observeMotion : premier lancement synchrone dans

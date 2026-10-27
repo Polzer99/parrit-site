@@ -34,7 +34,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.doesNotMatch(contact, /paul-centre\.png/);
   assert.match(html, new RegExp(`href="${locale === "fr" ? "/fr" : ""}/journal"`));
   assert.equal((html.match(/class="phone"/g) ?? []).length, 3);
-  for (const tool of ["ChatGPT", "Claude Code", "Codex", "OpenCode", "Gemini", "n8n", "Supabase", "Telegram", "GitHub", "Vercel"]) assert.ok(visibleText(html).includes(tool));
+  for (const tool of ["WhatsApp", "iMessage", "Teams", "Slack", "Telegram"]) assert.ok(visibleText(html).includes(tool));
   const text = visibleText(html);
   for (const client of ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"]) assert.ok(text.includes(client));
   assert.doesNotMatch(text, /Arkel/);
@@ -93,7 +93,7 @@ test("revoking every permission hides production and client headings, retaining 
     const text = visibleText(html);
     assert.doesNotMatch(html, /id="in-production"|class="reflines"/);
     assert.doesNotMatch(text, /Our agents are already at work|They work with us|Laparra|Clevery|Forexpert|Joone|SNCF/);
-    assert.match(text, /We build with/);
+    assert.doesNotMatch(text, /We build with/);
     assert.match(text, /no partnership is implied/);
   } finally { SITE_EVIDENCE.forEach((e, i) => { e.permission_status = permissions[i]; }); }
 });
@@ -113,7 +113,7 @@ for (const locale of ["fr", "en"]) test(`six-story ontology with four static res
   assert.equal((figure.match(/width="250" height="50"/g) ?? []).length, 4);
   assert.match(html, /class="ontocap" aria-live="off"/);
   const outputs = locale === "fr" ? ["Relance prête", "Commande fournisseur prête", "Trésorerie à jour", "Commande saisie"] : ["Follow-up ready", "Supplier order ready", "Cash position updated", "Order entered"];
-  assert.deepEqual([...figure.matchAll(/class="rest">([^<]+)<\/text>/g)].map(m => m[1]), outputs);
+  assert.deepEqual([...figure.matchAll(/class="rest">([\s\S]*?)<\/text>/g)].map(m => visibleText(m[1]).replace(/\s+/g, " ").trim()), outputs);
   assert.deepEqual([...figure.matchAll(/transform="translate\(820 (\d+)\)" opacity="([^"]+)"/g)].map(m => [Number(m[1]), Number(m[2])]), [[70, 1], [132, 1], [194, 1], [256, 1]]);
   const caption = html.match(/class="ontocap" aria-live="off">([^<]+)<\/p>/)?.[1];
   assert.equal(caption, locale === "fr" ? "Un client écrit. L&#x27;agent commercial le reconnaît, l&#x27;agent de relance prépare la réponse." : "A client writes. The sales agent recognizes them; the follow-up agent drafts the reply.");
@@ -124,14 +124,14 @@ for (const locale of ["fr", "en"]) test(`six-story ontology with four static res
   assert.ok(visibleText(html).includes(locale === "fr" ? "Votre expertise est la matière première. Nous en faisons des systèmes qui en multiplient l'impact." : "Your expertise is the raw material. We turn it into systems that multiply its impact."));
 });
 
-for (const locale of ["fr", "en"]) test(`passe 3 services, architecture, logos and final walker (${locale})`, async () => {
+for (const locale of ["fr", "en"]) test(`passe 4 services, architecture, logos and final walker (${locale})`, async () => {
   const html = await renderPage(locale);
   const text = visibleText(html);
   assert.doesNotMatch(text, /Brésil|Brazil|Cameroun|Cameroon|métropole lilloise|Lille area|Exemples illustratifs|Illustrative examples/);
   assert.doesNotMatch(html, /id="confiance"|id="safeguards"|class="local-note"|<details/);
   assert.match(html, /class="walk s1 s2 s3 withbot" viewBox="0 0 1080 130" aria-hidden="true"/);
   assert.match(html, /class="human" transform="translate\(900 120\)"/);
-  assert.equal((html.match(/class="job"/g) ?? []).length, 12);
+  assert.equal((html.match(/class="use-case"/g) ?? []).length, 12);
   assert.equal((html.match(/class="stage"/g) ?? []).length, 5);
   assert.equal((html.match(/role="img"/g) ?? []).length, 10);
   const strip = html.match(/class="logo-track">([\s\S]*?)<div class="logo-set" aria-hidden="true">/)?.[1];
@@ -141,4 +141,34 @@ for (const locale of ["fr", "en"]) test(`passe 3 services, architecture, logos a
   const founder = html.match(/<h2>Paul Larmaraud,[\s\S]*?<\/h2>/)?.[0];
   assert.ok(founder);
   assert.doesNotMatch(visibleText(founder), /\.$/);
+});
+
+for (const locale of ["fr", "en"]) test(`passe 4 complete SSR use cases, offers and private-stack boundary (${locale})`, async () => {
+  const html = await renderPage(locale);
+  const { SERVICE_CASES, PARTNER_OFFERS, SINGLE_PAGE_EN } = loader(locale)("src/system/single-page-copy.ts");
+  const t = value => locale === "fr" ? value : SINGLE_PAGE_EN[value];
+  assert.equal(SERVICE_CASES.length, 12);
+  assert.equal(PARTNER_OFFERS.flat().length, 20);
+  for (const [name, cases] of SERVICE_CASES) {
+    assert.ok(t(name), name);
+    assert.equal(cases.length, 4);
+    for (const value of cases) { assert.ok(t(value), value); assert.ok(visibleText(html).includes(t(value)), value); }
+  }
+  for (const offer of PARTNER_OFFERS.flat()) { assert.ok(t(offer), offer); assert.ok(visibleText(html).includes(t(offer)), offer); }
+  assert.equal((html.match(/class="case"/g) ?? []).length, 12);
+  assert.equal((html.match(/class="case visually-hidden"/g) ?? []).length, 36);
+  assert.equal((html.match(/class="use-case"[^>]*aria-live="off" data-case="0"/g) ?? []).length, 12);
+  assert.equal((html.match(/class="tag bo"/g) ?? []).length, 24);
+  assert.equal((html.match(/class="tag new"/g) ?? []).length, 24);
+  assert.equal((html.match(/class="swipe-dots"/g) ?? []).length, 6);
+  const architecture = html.match(/<section id="architecture">[\s\S]*?<\/section>/)?.[0];
+  assert.ok(architecture);
+  assert.doesNotMatch(visibleText(architecture), /Supabase|OVH|OpenRouter|Claude|ChatGPT|Gemini|Mistral|Qwen|DeepSeek|Codex|OpenCode|GitHub|Vercel|n8n|Nous construisons avec|We build with/i);
+  assert.doesNotMatch(architecture, /<img|<svg|class="ic"|class="chip"[^>]*><i|\/tools\//);
+  assert.match(architecture, /class="chips"><span class="chip app">/);
+  assert.ok(visibleText(architecture).includes(locale === "fr" ? "Votre propre application" : "Your own app"));
+  assert.ok(visibleText(architecture).includes(locale === "fr" ? "En local, sur vos machines" : "Locally, on your machines"));
+  const { SITE_EVIDENCE } = loader(locale)("src/lib/registry/preuves.ts");
+  assert.match(SITE_EVIDENCE.find(item => item.id === "Laparra").claim, /pilotage agentique/);
+  assert.doesNotMatch(visibleText(html), /pilote sa base clients|runs its customer base|agents that manage the customer base/);
 });

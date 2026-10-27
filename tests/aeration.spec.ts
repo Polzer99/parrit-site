@@ -135,11 +135,12 @@ for (const width of [1440, 390]) {
           return true;
         };
         const texts: TextBox[] = [];
-        const typography = new Map<Element, { label: string; size: number }>();
+        const typography = new Map<Element, { label: string; size: number; passe4Hero: boolean }>();
         const measureType = (element: Element, text: string) => {
           typography.set(element, {
             label: describe(element, text.trim().replace(/\s+/g, " ").slice(0, 40)),
             size: Number.parseFloat(getComputedStyle(element).fontSize),
+            passe4Hero: !!element.closest(".single-page .hero h1"),
           });
         };
         const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
@@ -188,9 +189,13 @@ for (const width of [1440, 390]) {
         const fluidSizes = window.innerWidth <= 760 ? [32, 34, 40] : [40, 54, 84];
         const floorFailures: string[] = [];
         const scaleFailures: string[] = [];
-        for (const { label, size } of [...typography.values(), ...placeholderType]) {
+        for (const entry of [...typography.values(), ...placeholderType]) {
+          const { label, size } = entry;
           if (!Number.isFinite(size) || size < 16) floorFailures.push(`${size}px: ${label}`);
-          if (!fixedSizes.includes(size) && !fluidSizes.some((expected) => Math.abs(size - expected) <= 0.5)) {
+          // PASSE-4 §5 explicitly requires 88px for the desktop home H1.
+          // Keep the 16px floor and every other page's closed scale unchanged.
+          const expected = "passe4Hero" in entry && entry.passe4Hero && innerWidth > 760 ? [88] : [...fixedSizes, ...fluidSizes];
+          if (!expected.some(value => Math.abs(size - value) <= 0.5)) {
             scaleFailures.push(`${size}px: ${label}`);
           }
         }
