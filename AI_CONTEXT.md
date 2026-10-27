@@ -1,3 +1,16 @@
+## Passe 4, contraste du menu téléphone, 27/10/2026
+
+Les audits aération et lisibilité partagent le sélecteur du summary natif.
+Son libellé visible identifie le contrôle sans fond ni bordure : contraste
+du contrôle >=3:1 et du texte >=4,5:1, aucun seuil ni dette assoupli.
+L'aération inclut aussi le menu dans les actions soumises à l'écart de 12 px.
+Couleurs CSS inchangées ; blanc/canard calculé depuis les tokens : 5,768:1.
+Baseline et candidat : 113/113 tests Node ; lint et build Webpack réussis.
+Preuve navigateur encore requise sur l'hôte : Chromium refusé avant navigation
+par le sandbox macOS (bootstrap_check_in, Permission denied), avant/après.
+Écriture locale limitée aux audits et à ce contexte, réversible par revert ;
+aucune donnée modifiée. Captures restaurées, aucun push.
+
 ## Passe 4 §7, contrats téléphone, 27/10/2026
 
 Reprise après a030f52 : le summary natif rejoint les actions de l'audit lisibilité,
