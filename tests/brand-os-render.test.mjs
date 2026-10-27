@@ -64,7 +64,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         const label = `${locale} ${route}`;
         assert.equal(status, 200, label);
         assert.doesNotMatch(html, /posthog/i, `${label}: browser analytics must stay disabled`);
-        for (const [name, value] of [["og:image", "https://parrit.ai/opengraph-image"], ["og:image:width", "1200"], ["og:image:height", "630"], ["twitter:card", "summary_large_image"], ["twitter:image", "https://parrit.ai/opengraph-image"]]) {
+        for (const [name, value] of [["og:image", "https://parrit.ai/opengraph-image?v=2026-10-27"], ["og:image:width", "1200"], ["og:image:height", "630"], ["twitter:card", "summary_large_image"], ["twitter:image", "https://parrit.ai/opengraph-image?v=2026-10-27"]]) {
           assert.ok(html.includes(`${name}" content="${value}"`), `${label}: ${name}`);
         }
         assert.deepEqual(checkGlyphs(html, label, glyphs, connectors), []);
