@@ -6,7 +6,9 @@ le seul fichier non suivi au démarrage. Aucun push ni déploiement.
 
 ## Périmètre réalisé
 
-- Maquette §0 copiée à l'identique dans `maquette/`, sauf le MP4 demandé.
+- Maquette §0 initialement copiée à l'identique dans `maquette/`, sauf le MP4 demandé.
+  Après nettoyage, seuls `index.html`, `hero.js`, `hero.css` et le dossier
+  `icons/` sont conservés au dépôt.
   Logos et huit icônes copiés sans modification depuis les assets fournis.
   Vérification byte-identical des 56 fichiers fournis réussie au moment de la copie.
   La source `hero.js` a ensuite été constatée différente de la version lue en
