@@ -1,3 +1,30 @@
+## Invitation partenaire sur la ligne de légende, 27/10/2026
+
+Correctif local sur `feat/devenir-partenaire` : `.team-footer` réunit la légende
+et l'invitation alignée à droite ; bouton ghost compact, cible de 48 px conservée.
+Sous 760 px, invitation sous la légende. Aucun test ni seuil modifié.
+Périmètre : JSX/CSS de l'accueil et ce contexte, sans donnée ni service externe ;
+changement réversible par revert, captures préexistantes exclues du commit.
+
+Calcul statique du contenu `.wrap` (hors padding de section, comme les tests),
+sur les sources courantes et les métriques des General Sans locales : largeur
+utile ordinateur 1160 − 80 = 1080 px aux deux viewports. Légende + écart +
+invitation : 967,864 px FR / 877,464 px EN, bouton compris. Rangée haute de 48 px.
+Estimation conservatrice des hauteurs, ligne normale des cartes arrondie de
+24,3 à 26 px, offres visibles en mouvement réduit :
+- FR : titre 42,4 + marge 20 + intro 55,8 + marge 20 + grille 500 + marge 16
+  + rangée 48 = **702,2 px**, sous 720 à 1280×720 et sous 800 à 1440×800.
+- EN : titre 84,8 + 20 + 55,8 + 20 + grille 449,6 + 16 + 48 = **694,2 px**.
+- À 390×700, largeur utile 350 px : titre majoré à 3 lignes (101,76), intro
+  83,7, carrousel avec points 230,2, pied empilé 154,4, marges 56 :
+  **626,06 px maximum estimé** dans les deux langues.
+
+Ces calculs ne sont pas des mesures navigateur : Chromium refusé avant navigation
+par le sandbox macOS (`bootstrap_check_in`, Permission denied). PRODUCTION_PROOF
+encore à rejouer sur l'hôte : les deux tests de géométrie existants FR/EN aux
+trois tailles. Baseline et candidat : 117/117 tests Node ; lint, build Webpack
+et contrôle de marque réussis. Aucun push.
+
 ## Devenir partenaire, 27/10/2026
 
 Routes `/become-a-partner` et `/fr/devenir-partenaire`, composant serveur commun
