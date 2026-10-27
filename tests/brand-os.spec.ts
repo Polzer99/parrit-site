@@ -1,4 +1,4 @@
-import { localizedPath } from "../src/system/locale";
+import { PUBLIC_ROUTES } from "./public-routes";
 import { expectPopulated } from "./content-structure";
 import { createHash } from "node:crypto";
 import founderPhotos from "./fixtures/founder-photo.json";
@@ -11,7 +11,7 @@ if (!["before", "after"].includes(CAPTURE_PHASE)) throw new Error("Invalid BRAND
 
 test.use({ serviceWorkers: "block" });
 
-const ROUTES = ["/", "/journal", "/legal", ...["harness-engineering", "ai-sprints", "integration-developpement", "conseil-transformation"].map(slug => `/journal/themes/${slug}`)].flatMap(route => [route, localizedPath(route, "fr")]);
+const ROUTES = PUBLIC_ROUTES;
 
 test.beforeEach(async ({ page }) => {
   await page.setExtraHTTPHeaders({ "Accept-Language": "en" });

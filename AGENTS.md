@@ -95,6 +95,9 @@ Une ressource a **une seule URL canonique** : celle qui rend son expérience com
 ## Routes, page unique (27/10/2026)
 
 - `/` et `/fr` : neuf sections selon `PASSE-3-PAGE-RACONTEE.md` §1.
+- `/become-a-partner` et `/fr/devenir-partenaire` : recrutement des formateurs
+  et consultants IA, selon `PAGE-DEVENIR-PARTENAIRE.md`, lien depuis partenaires.
+  Le proxy réécrit la route française vers la page commune ; sitemap et langues croisés.
 - `/journal`, `/fr/journal`, `/journal/[slug]`, RSS et `/legal`, `/fr/legal` conservés.
 - Quatre thèmes bilingues sous `/journal/themes/` : harness-engineering,
   ai-sprints, integration-developpement, conseil-transformation.

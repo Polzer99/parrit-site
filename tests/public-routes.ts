@@ -2,6 +2,8 @@
 export const PUBLIC_ROUTES = [
   "/",
   "/fr",
+  "/become-a-partner",
+  "/fr/devenir-partenaire",
   "/journal",
   "/fr/journal",
   "/journal/themes/harness-engineering",

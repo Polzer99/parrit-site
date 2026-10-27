@@ -1,3 +1,19 @@
+## Devenir partenaire, 27/10/2026
+
+Routes `/become-a-partner` et `/fr/devenir-partenaire`, composant serveur commun
+dans `src/system`, layout accueil conservé, lien ghost sous la légende partenaires.
+Le proxy et `locale.ts` gèrent les noms de route différents ; SEO/sitemap/bascule
+croisés. Formulaire externe exact, sans embed ; aucun backend ajouté.
+Écarts de texte uniquement pour les gates existants, laissés intacts : durée FR
+en lettres, retrait du mot certification, responsable nommé Parrit.ai et adresse
+mailto conservée sous un libellé de contact. Rapport et détails :
+`docs/site-v1/page-unique/RAPPORT-DEVENIR-PARTENAIRE.md`.
+Baseline 113 tests ; candidat 117, lint/build Webpack, marque/claims et 19 tests
+Brand OS réussis. Dix-huit tests Playwright dédiés ajoutés à la batterie réseau ;
+preuve navigateur et géométrie à effectuer sur l'hôte selon mandat, aucun serveur
+à l'écoute ni navigateur lancé ici. Revue indépendante sans défaut bloquant.
+Écriture locale réversible, aucun service ni donnée modifiés ; aucun push.
+
 ## Passe 4, contraste du menu téléphone, 27/10/2026
 
 Les audits aération et lisibilité partagent le sélecteur du summary natif.

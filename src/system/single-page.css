@@ -364,6 +364,8 @@
 .single-page .partner.flip .partner-type {opacity:0;}
 .single-page .partner.blink .offer {opacity:0;}
 .single-page .teamcap {margin-top:16px;}
+.single-page .partner-invitation {display:flex;align-items:center;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s2);}
+.single-page .partner-invitation p {font-size:var(--t-s);}
 .single-page .flow-container {position:relative;margin-top:28px;padding-top:20px;}
 .single-page .flowmap {grid-template-columns:1.7fr 1fr 1fr 1fr .9fr;gap:14px;margin-top:0;padding-top:0;}
 .single-page .stage {padding:16px;gap:8px;}
