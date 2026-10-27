@@ -685,8 +685,15 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         const audit = await band.evaluate(section => {
           const style = getComputedStyle(section);
           const probe = document.createElement("i");
+          // Resolve scoped tokens inside the band, where --on-ink is inherited.
           section.append(probe);
-          const resolve = (token: string) => { probe.style.color = `var(${token})`; return getComputedStyle(probe).color; };
+          const resolve = (token: string) => {
+            if (!getComputedStyle(probe).getPropertyValue(token).trim()) {
+              throw new Error(`Undefined technology band color token: ${token}`);
+            }
+            probe.style.color = `var(${token})`;
+            return getComputedStyle(probe).color;
+          };
           const ink = resolve("--ink"), white = resolve("--white"), onInk = resolve("--on-ink");
           probe.remove();
           const luminance = (color: string) => {
