@@ -11,6 +11,44 @@ test.beforeEach(async ({ page }) => {
 });
 
 for (const locale of ["fr", "en"] as const) {
+  for (const [width, height] of [[1440, 800], [1280, 720], [390, 700], [1440, 1600]]) {
+    test(`partner spacing and footer coverage ${locale} ${width}×${height}`, async ({ page }, testInfo) => {
+      await page.setViewportSize({ width, height });
+      await page.goto(`${BASE_URL}${PATHS[locale]}`);
+      await page.evaluate(() => document.fonts.ready);
+      const metrics = await page.evaluate(() => {
+        const rect = (selector: string) => document.querySelector(selector)!.getBoundingClientRect();
+        const header = rect(".single-header");
+        const heading = rect("main h1");
+        const action = rect("main a.exec");
+        const privacy = rect(".partner-privacy");
+        return {
+          headingGap: heading.top - header.bottom,
+          footerBottom: rect(".single-footer").bottom + scrollY,
+          viewportHeight: innerHeight,
+          pageHeight: document.documentElement.scrollHeight,
+          privacyGap: privacy.top - action.bottom,
+          actionLeft: action.left,
+          privacyLeft: privacy.left,
+          headingLeft: heading.left,
+        };
+      });
+      // Unconditional: also catches a short page leaving space below its footer.
+      expect(metrics.footerBottom).toBeGreaterThanOrEqual(metrics.viewportHeight);
+      expect(Math.abs(metrics.pageHeight - metrics.footerBottom)).toBeLessThanOrEqual(1);
+      expect(metrics.headingGap).toBeGreaterThanOrEqual(32);
+      expect(metrics.privacyGap).toBeGreaterThan(0);
+      expect(metrics.actionLeft).toBe(metrics.headingLeft);
+      expect(metrics.privacyLeft).toBe(metrics.headingLeft);
+      // Tall viewport exercises surplus space without hiding or removing content.
+      if (height === 1600) expect(metrics.pageHeight).toBe(height);
+      await testInfo.attach(`partner-spacing-${locale}-${width}-${height}`, {
+        body: await page.screenshot({ fullPage: true, animations: "disabled" }),
+        contentType: "image/png",
+      });
+    });
+  }
+
   test(`partner response, metadata, form destination and language switch ${locale}`, async ({ page, context, request }) => {
     const path = PATHS[locale];
     const response = await page.goto(`${BASE_URL}${path}?source=partner#information`);

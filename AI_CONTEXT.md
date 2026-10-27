@@ -1,3 +1,23 @@
+## Aération Devenir partenaire, 27/10/2026
+
+Correctif local sur `feat/devenir-partenaire` : enveloppe en grille de minimum
+100svh, barre et pied à hauteur intrinsèque, contenu centré dans l'espace restant.
+Padding principal `clamp(56px, 10vh, 128px)`, H1 à l'échelle des H2 accueil,
+accroche à l'échelle du hero, mesure 820px ; note RGPD secondaire sous le bouton.
+Écritures limitées à CSS/JSX, ajout de tests et ce contexte ; aucune donnée ni
+service externe modifié, retour arrière par revert du commit.
+
+Baseline et candidat : 117/117 tests Node. Lint, build Webpack et marque passent.
+Les tests Node de rendu dépendent du build : les exécuter après sa fin.
+Huit cas Playwright ajoutés, FR/EN à 1440×800, 1280×720, 390×700 et 1440×1600 :
+pied au moins au bas de l'écran, aucun vide après lui, H1 à 32px minimum de la
+barre, note sous le bouton et alignement gauche. Aucun test ni seuil existant
+modifié. Les anciennes assertions « page entière <= écran desktop » restent
+en place mais peuvent être incompatibles avec les nouveaux espacements demandés.
+PRODUCTION_PROOF visuelle encore absente : Chromium refusé avant navigation
+par macOS (`bootstrap_check_in`, Permission denied), baseline et candidat.
+Captures préexistantes exclues du commit ; aucun push.
+
 ## Invitation partenaire sur la ligne de légende, 27/10/2026
 
 Correctif local sur `feat/devenir-partenaire` : `.team-footer` réunit la légende

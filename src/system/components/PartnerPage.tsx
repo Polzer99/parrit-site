@@ -19,7 +19,7 @@ export function PartnerPage({ locale }: { locale: Locale }) {
           <a className="btn rev-button exec" href={PARTNER_FORM_URL} target="_blank" rel="noopener noreferrer">{copy.action}</a>
           {copy.formLanguage && <p>{copy.formLanguage}</p>}
         </div>
-        <p className="partner-privacy">{copy.privacy}{" "}<a href="mailto:paul.larmaraud@parrit.ai">{copy.contact}</a>.</p>
+        <p className="partner-privacy muted">{copy.privacy}{" "}<a href="mailto:paul.larmaraud@parrit.ai">{copy.contact}</a>.</p>
       </div>
     </div>
   </main>;
