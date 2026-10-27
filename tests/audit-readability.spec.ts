@@ -31,7 +31,7 @@ for (const width of [375, 390, 1440]) {
 
       if (width < 760) {
         await page.locator(".mobile-menu summary").click();
-        const mobileAction = page.locator(".single-header .rev-button");
+        const mobileAction = page.locator(".single-header .mobile-menu .rev-button");
         await expect(mobileAction).toBeVisible();
         await expect(mobileAction).toHaveCSS("padding", "14px 24px");
         await expect(mobileAction).toHaveCSS("font-size", "16px");
@@ -40,7 +40,7 @@ for (const width of [375, 390, 1440]) {
         await expect(page.locator(".mobile-menu")).not.toHaveAttribute("open", "");
       }
       if (width >= 760) {
-        const header = page.locator(".single-header .rev-button");
+        const header = page.locator(".single-header > .wrap > .rev-button");
         await expect(header).toHaveCSS("color", await tokenColor(header, "--white"));
         await expect(header).toHaveCSS("border-top-color", await tokenColor(header, "--white"));
         await expect(header).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");

@@ -411,15 +411,29 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       }
       if (width === 390) {
         await expect(track).toHaveCSS("scroll-snap-type", "x mandatory");
+        await expect(track).toHaveCSS("align-items", "flex-start");
+        const top = (await track.boundingBox())!.y;
+        for (const card of await track.locator(":scope > *").all()) {
+          await expect(card).toHaveCSS("align-self", "flex-start");
+          expect((await card.boundingBox())!.y).toBeCloseTo(top, 0);
+        }
         expect(await track.evaluate(el => el.scrollWidth > el.clientWidth)).toBe(true);
       }
+    }
+    if (width === 1440 || width === 1280) {
+      const mark = (await page.locator(".single-header .mark").boundingBox())!;
+      for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
+        const box = (await page.locator(selector).boundingBox())!;
+        expect(box.x, `${selector}: same left edge as the header brand`).toBeCloseTo(mark.x, 0);
+      }
+      expect(await page.locator(".hero h1").evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(72);
     }
     if (width === 1440) {
       const header = (await page.locator(".single-header").boundingBox())!;
       const hero = (await page.locator(".hero").boundingBox())!;
       expect(hero.y).toBeGreaterThanOrEqual(header.y + header.height);
       expect(hero.y + hero.height).toBeLessThanOrEqual(height);
-      await expect(page.locator(".hero h1")).toHaveCSS("font-size", "88px");
+      // §7 permits a fluid H1 >=72px to retain this full-hero viewport contract.
       for (const selector of [".hero h1", ".hero .sub p", ".hero .exec", ".onto", ".ontocap", ".humby"]) {
         const box = (await page.locator(selector).boundingBox())!;
         expect(box.y).toBeGreaterThanOrEqual(0);
@@ -427,6 +441,66 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       }
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+  });
+}
+
+for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
+  test.describe(`compact mobile header ${locale} JS=${javaScriptEnabled}`, () => {
+    test.use({ javaScriptEnabled });
+    test("hero visible without scrolling and native menu reachable by keyboard", async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 700 });
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.goto(local(locale === "fr" ? "/fr" : "/"));
+      await page.evaluate(() => document.fonts.ready);
+      const header = page.locator(".single-header");
+      const menu = header.locator("details");
+      const summary = menu.locator("summary");
+      const headerBox = (await header.boundingBox())!;
+      expect(headerBox.y).toBe(0);
+      expect(headerBox.height).toBeLessThanOrEqual(64);
+      const brand = (await header.locator(".mark").boundingBox())!;
+      for (const control of await header.locator(".languages a, summary").all()) {
+        const box = (await control.boundingBox())!;
+        expect(box.x).toBeGreaterThan(brand.x + brand.width);
+        expect(box.y + box.height / 2).toBeCloseTo(brand.y + brand.height / 2, 0);
+        await expect(control).toBeInViewport({ ratio: 1 });
+      }
+      await expect(header.locator(":scope > .wrap > .btn")).toBeHidden();
+      for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
+        await expect(page.locator(selector)).toBeVisible();
+        await expect(page.locator(selector)).toBeInViewport({ ratio: 1 });
+      }
+      expect(await page.evaluate(() => window.scrollY)).toBe(0);
+      await header.locator(".mark").focus();
+      for (const control of [...await header.locator(".languages a").all(), summary]) {
+        await page.keyboard.press("Tab");
+        await expect(control).toBeFocused();
+      }
+      await page.keyboard.press("Enter");
+      await expect(menu).toHaveAttribute("open", "");
+      for (const link of await menu.locator("nav a").all()) {
+        await page.keyboard.press("Tab");
+        await expect(link).toBeFocused();
+        await expect(link).toBeInViewport({ ratio: 1 });
+      }
+      const contact = menu.locator(".btn");
+      await expect(contact).toHaveAttribute("href", locale === "fr" ? "/fr#contact" : "/#contact");
+      if (javaScriptEnabled) {
+        await page.keyboard.press("Escape");
+        await expect(menu).not.toHaveAttribute("open", "");
+        await expect(summary).toBeFocused();
+        await page.keyboard.press("Space");
+        await expect(menu).toHaveAttribute("open", "");
+        await contact.focus();
+        await page.keyboard.press("Enter");
+        await expect(menu).not.toHaveAttribute("open", "");
+        await expect(page).toHaveURL(/#contact$/);
+      } else {
+        await summary.focus();
+        await page.keyboard.press("Space");
+        await expect(menu).not.toHaveAttribute("open", "");
+      }
+    });
   });
 }
 

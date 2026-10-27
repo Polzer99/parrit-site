@@ -137,7 +137,9 @@ test("header switches paths, saves choice and preserves query/hash", async ({ pa
   await switchHeaderLanguage(page, context, "fr", `${BASE_URL}/fr/legal?source=test#top`);
   await expect(page).toHaveURL(`${BASE_URL}/fr/legal?source=test#top`);
   expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe("fr");
-  await expect(page.locator('.cmdbar a.rev-button[href="/fr#contact"]')).toHaveCount(1);
+  // §7 keeps one desktop action and moves the phone action into its native menu.
+  await expect(page.locator('.cmdbar > .wrap > a.rev-button[href="/fr#contact"]')).toHaveCount(1);
+  await expect(page.locator('.cmdbar .mobile-menu a.rev-button[href="/fr#contact"]')).toHaveCount(1);
 });
 
 test("French Journal aliases redirect once to the unchanged English article", async ({ page, context }) => {

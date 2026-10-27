@@ -192,9 +192,14 @@ for (const width of [1440, 390]) {
         for (const entry of [...typography.values(), ...placeholderType]) {
           const { label, size } = entry;
           if (!Number.isFinite(size) || size < 16) floorFailures.push(`${size}px: ${label}`);
-          // PASSE-4 §5 explicitly requires 88px for the desktop home H1.
+          // PASSE-4 §7 replaces only the desktop hero's 88px with >=72px:
+          // its shared wrap and full fit at 1440×800 are checked in single-page.spec.ts.
           // Keep the 16px floor and every other page's closed scale unchanged.
-          const expected = "passe4Hero" in entry && entry.passe4Hero && innerWidth > 760 ? [88] : [...fixedSizes, ...fluidSizes];
+          if ("passe4Hero" in entry && entry.passe4Hero && innerWidth > 760) {
+            if (size < 72) scaleFailures.push(`${size}px: ${label}`);
+            continue;
+          }
+          const expected = [...fixedSizes, ...fluidSizes];
           if (!expected.some(value => Math.abs(size - value) <= 0.5)) {
             scaleFailures.push(`${size}px: ${label}`);
           }

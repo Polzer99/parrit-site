@@ -1,3 +1,26 @@
+## Passe 4 §7, relecture visuelle, 27/10/2026
+
+Source : amendement §7 de `PASSE-4-CAS-D-USAGE-ET-ECRAN.md`, branche
+`feat/passe-4-page`, baseline `3502afb` (113 tests Node réussis).
+Hero dans le `.wrap` commun ; H1 fluide 72–75 px pour garder la seconde
+phrase sur une ligne à 1440/1280. Téléphone : barre de 64 px, menu natif
+sur la même ligne, action de contact dans le panneau ; hero resserré et
+cartes des six carrousels explicitement alignées en haut sans étirement.
+Tests FR/EN : alignement titre/phrase/action avec la marque à 1440/1280,
+hero complet à 1440×800 conservé, titre/phrase/action visibles à 390×700,
+barre ≤64 px et menu clavier avec/sans JS. Le seul contrat de taille
+remplacé est le H1 ordinateur (88 px → ≥72 px selon §7).
+Sélecteurs des contrôles transverses adaptés aux deux actions de navigation
+ordinateur/menu ; assertions de destination, style, contraste et géométrie conservées.
+Écriture locale réversible, sans données ni service externe ; rollback par
+revert du commit. Captures et amendement source préexistants conservés hors commit.
+Revue indépendante : ambiguïtés des sélecteurs corrigées, aucun autre défaut
+statique identifié. Preuve navigateur encore requise sur l'hôte : Chromium
+refusé par le sandbox macOS avant navigation (`bootstrap_check_in`, Permission denied).
+Validation finale : lint, build Webpack avec TypeScript strict, 113/113 tests
+Node, gates marque/claims et 19/19 tests Brand OS réussis. Les 39 tests de
+single-page.spec.ts sont découverts ; tentative ciblée bloquée au lancement du navigateur.
+
 ## Passe 4, cas d’usage et écran, 27/10/2026
 
 Spec : `docs/site-v1/page-unique/PASSE-4-CAS-D-USAGE-ET-ECRAN.md`.
