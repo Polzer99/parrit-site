@@ -1,3 +1,24 @@
+## Tour 2 de la nuit, 27/10/2026
+
+Source : `docs/site-v1/page-unique/NUIT-TOUR-2.md`, branche `fix/nuit-tour-2`,
+baseline `97ed83f` : build Webpack et 121/121 tests Node réussis.
+Téléphones : deux rangées partagées par sous-grille CSS, hauteur intrinsèque
+commune plus une ligne de message ; sans JS, carrousel et alignement haut conservés.
+Grossiste : clémentines, échéance jeudi cohérente FR/EN. Journal uniquement au
+pied ; hauteurs optiques Forexpert/SNCF ajustées sans changer les fichiers.
+Fondateur : première rangée min-content, texte rapproché, portrait entier 3:4.
+Formulaire : padding horizontal de 24 px par jeton, seul bouton modifié.
+Hero, Cal.com et offres intacts ; aucune assertion existante supprimée.
+Le test Node de lien Journal inclut maintenant le vrai pied de page et contrôle
+aussi l'absence de ce lien dans le contenu central, conformément à la spec.
+Validation : npm ci, lint, build Webpack, 121/121 tests Node, marque/claims,
+19/19 Brand OS ; revue indépendante sans défaut restant. Turbopack interrompu
+sans progression ; 87 tests Playwright recensés, navigateur réservé à l'hôte.
+Preuve visuelle encore requise : hauteur des téléphones, espacement du fondateur,
+rembourrage du formulaire et équilibre optique des logos en FR/EN.
+Écritures locales réversibles par revert, 0 ligne métier, aucun service externe.
+Spec incluse au commit ; aucun push ni déploiement.
+
 ## Tour 1 de la nuit, 27/10/2026
 
 Source : `BANDEAU-TECHNOLOGIES.md` §5 et consigne explicite de Paul ; branche

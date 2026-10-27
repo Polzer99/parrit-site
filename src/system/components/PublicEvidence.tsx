@@ -12,8 +12,9 @@ export function ResearchPartner() {
 }
 
 const logoDimensions = [
-  ["Laparra", 551, 120, 56], ["Clevery", 367, 120, 56], ["Forexpert", 119, 120, 64],
-  ["Joone", 387, 120, 56], ["SNCF", 24, 24, 64],
+  // Hauteurs optiques : Forexpert est compact ; le dessin SNCF occupe la moitié du SVG carré.
+  ["Laparra", 551, 120, 56], ["Clevery", 367, 120, 56], ["Forexpert", 119, 120, 88],
+  ["Joone", 387, 120, 56], ["SNCF", 24, 24, 112],
 ] as const;
 export function ClientLogoStrip() {
   const logos = logoDimensions.flatMap(([id, width, height, displayHeight]) => {

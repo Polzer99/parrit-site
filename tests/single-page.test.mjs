@@ -18,7 +18,16 @@ function applications(html, locale) {
   return section;
 }
 for (const locale of ["fr", "en"]) test(`final single-page sections and booking render without JS (${locale})`, async () => {
-  const html = await renderPage(locale);
+  // Tour 2 moves the Journal entry to the real footer: retain the link assertion
+  // on the complete public surface instead of restoring the removed main link.
+  const main = await renderPage(locale);
+  const load = loader(locale, { "next/navigation": { usePathname: () => locale === "fr" ? "/fr" : "/" } });
+  const { RevFooter } = load("src/system/components/RevFooter.tsx");
+  const footer = renderToStaticMarkup(createElement(RevFooter, { locale }));
+  const html = main + footer;
+  const journalLink = new RegExp(`href="${locale === "fr" ? "/fr" : ""}/journal"`);
+  assert.doesNotMatch(main, journalLink);
+  assert.match(footer, journalLink);
   assert.equal((html.match(/<section\b/g) ?? []).length, 9);
   assert.deepEqual([...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]), anchors[locale]);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
