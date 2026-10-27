@@ -222,7 +222,7 @@
 .single-page .onto .agent .ag {transition:fill .3s;}
 .single-page .onto .agent.busy {animation:ontology-hop .45s ease-out 2;}
 @keyframes ontology-hop {50%{translate:0 -6px}}
-.single-page .onto .feed .res {transition:transform .5s ease-out,opacity .5s;}
+.single-page .onto .feed .res {transition:transform .5s ease-out;}
 .single-page .ontology-hero[data-anim="in"] .static-feed {display:none;}
 .single-page .onto .pulse {opacity:.55;}
 .single-page .onto .token {stroke:var(--canard);stroke-width:2;}

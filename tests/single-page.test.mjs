@@ -114,7 +114,7 @@ for (const locale of ["fr", "en"]) test(`six-story ontology with four static res
   assert.match(html, /class="ontocap" aria-live="off"/);
   const outputs = locale === "fr" ? ["Relance prête", "Commande fournisseur prête", "Trésorerie à jour", "Commande saisie"] : ["Follow-up ready", "Supplier order ready", "Cash position updated", "Order entered"];
   assert.deepEqual([...figure.matchAll(/class="rest">([^<]+)<\/text>/g)].map(m => m[1]), outputs);
-  assert.deepEqual([...figure.matchAll(/transform="translate\(820 (\d+)\)" opacity="([^"]+)"/g)].map(m => [Number(m[1]), Number(m[2])]), [[70, 1], [132, .63], [194, .51], [256, .39]]);
+  assert.deepEqual([...figure.matchAll(/transform="translate\(820 (\d+)\)" opacity="([^"]+)"/g)].map(m => [Number(m[1]), Number(m[2])]), [[70, 1], [132, 1], [194, 1], [256, 1]]);
   const caption = html.match(/class="ontocap" aria-live="off">([^<]+)<\/p>/)?.[1];
   assert.equal(caption, locale === "fr" ? "Un client écrit. L&#x27;agent commercial le reconnaît, l&#x27;agent de relance prépare la réponse." : "A client writes. The sales agent recognizes them; the follow-up agent drafts the reply.");
   assert.match(html, /class="humby">[^<]*Clive Humby[^<]*2006/);

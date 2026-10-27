@@ -1,3 +1,18 @@
+## Correctif du fil hero et lien Journal — 27/10/2026
+
+Reprise des 13 échecs navigateur signalés par Paul sur feat/passe-3-page.
+Résultats statiques et animés à pleine opacité ; sortant retiré immédiatement.
+DOM du plus récent au plus ancien ; nouvelle case révélée sans fondu après
+le glissement des anciennes, pour éviter tout chevauchement. Légende sans fondu.
+Contrôles conservés : attente réduite à quatre résultats selon §14 et assertion
+SSR des quatre opacités à 1, conformément au nouveau contrat demandé par Paul.
+Lien obsolète du Journal retiré, texte « the Standard » conservé ; aucune ancre
+#safeguards ou #confiance restante dans content/ et src/.
+Baseline et candidat : 107/107 tests Node. Candidat final : lint, build Webpack,
+marque, claims et 19/19 tests Brand OS réussis ; revue indépendante conforme.
+Preuve navigateur encore à rejouer sur l'hôte : écoute 127.0.0.1:3210 refusée
+par le sandbox (EPERM). Aucun push ; captures préexistantes hors du commit.
+
 ## Hero vivant — amendement du 27/10/2026, 13 h
 
 §14 de PASSE-3-PAGE-RACONTEE appliqué à OntologyHero : six histoires FR/EN,

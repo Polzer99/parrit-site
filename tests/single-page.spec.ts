@@ -205,7 +205,7 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     await expect(figure.locator(".node.r")).toHaveCount(4);
     await expect(figure.locator(".ag")).toHaveCount(6);
     await expect(figure.locator(".eye")).toHaveCount(12);
-    await expect(figure.locator(".res.on")).toHaveCount(3);
+    await expect(figure.locator(".res.on")).toHaveCount(4);
     await expect(figure.locator(".pulse, .token, animateMotion")).toHaveCount(0);
     await expect(page.locator(".ontocap")).toHaveAttribute("aria-live", "off");
     for (const el of await page.locator(".panel .answer, .doc .ok, .doc .l, .soft .row:last-child span").all()) {

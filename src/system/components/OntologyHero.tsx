@@ -79,23 +79,24 @@ export function OntologyHero({ locale }: { locale: Locale }) {
     const feed: SVGGElement[] = [];
     const pushResult = (result: string) => {
       const slot = svgElement("g", { class: "res on hot" }, feedGroup);
+      // Keep reading order aligned with the newest-first visual stack.
+      feedGroup.prepend(slot);
       svgElement("rect", { width: "250", height: "50", class: "resbox" }, slot);
       svgElement("text", { x: "16", y: "31", class: "rest" }, slot).textContent = t(result);
-      slot.style.transform = `translate(820px, ${SLOT_Y[0] - 30}px)`;
-      slot.style.opacity = "0";
+      slot.style.transform = `translate(820px, ${SLOT_Y[0]}px)`;
+      // Reveal at full opacity once the previous result has vacated this row.
+      // An opaque entrance above it would overlap the heading and old result.
+      if (feed.length) slot.style.visibility = "hidden";
       feed.forEach(item => item.classList.remove("hot"));
       feed.unshift(slot);
       const outgoing = feed.length > SLOT_Y.length ? feed.pop() : undefined;
-      if (outgoing) {
-        outgoing.classList.add("exiting");
-        outgoing.style.transform = `translate(820px, ${SLOT_Y[3] + 40}px)`;
-        outgoing.style.opacity = "0";
-        later(() => outgoing.remove(), 500);
-      }
-      nextFrame(() => nextFrame(() => feed.forEach((item, i) => {
-        item.style.transform = `translate(820px, ${SLOT_Y[i]}px)`;
-        item.style.opacity = String(i === 0 ? 1 : .75 - i * .12);
-      })));
+      outgoing?.remove();
+      nextFrame(() => nextFrame(() => {
+        feed.forEach((item, i) => {
+          item.style.transform = `translate(820px, ${SLOT_Y[i]}px)`;
+        });
+        later(() => { slot.style.removeProperty("visibility"); }, 500);
+      }));
     };
     const highlight = (key: NodeName) => {
       const node = svg.querySelector<SVGElement>(`[data-node="${key}"], [data-agent="${key}"]`)!;
@@ -120,7 +121,7 @@ export function OntologyHero({ locale }: { locale: Locale }) {
       svgElement("rect", { x: "-7", y: "-7", width: "14", height: "14", class: "token" }, token);
       svgElement("text", { x: "12", y: "-10", class: "toklab" }, token).textContent = t(story.label);
       caption.textContent = t(story.cap);
-      animate(caption, [{ opacity: 0, transform: "translateY(4px)" }, { opacity: 1, transform: "translateY(0)" }], 600);
+      animate(caption, [{ transform: "translateY(4px)" }, { transform: "translateY(0)" }], 600);
       let travelled = 0;
       story.route.forEach((key, i) => {
         later(() => highlight(key), travelled / total * DURATION);
@@ -179,7 +180,7 @@ export function OntologyHero({ locale }: { locale: Locale }) {
       {Object.entries(agents).map(([label, [x, y]]) => <g key={label} data-agent={label} transform={`translate(${x} ${y})`} className="agent"><rect x="-14" y="-26" width="28" height="28" className="ag"/><rect x="-8" y="-18" width="5" height="6" className="eye"/><rect x="3" y="-18" width="5" height="6" className="eye"/><text x="0" y="22" textAnchor="middle" className="nt">{t(label)}</text></g>)}
       <text x="820" y="48" className="lab">{t("Résultats")}</text>
       <g className="feed static-feed">
-        {stories.slice(0, 4).map((story, i) => <g key={story.result} transform={`translate(820 ${SLOT_Y[i]})`} opacity={i === 0 ? 1 : .75 - i * .12} className={i === 0 ? "res on hot" : "res on"}><rect width="250" height="50" className="resbox"/><text x="16" y="31" className="rest">{t(story.result)}</text></g>)}
+        {stories.slice(0, 4).map((story, i) => <g key={story.result} transform={`translate(820 ${SLOT_Y[i]})`} opacity={1} className={i === 0 ? "res on hot" : "res on"}><rect width="250" height="50" className="resbox"/><text x="16" y="31" className="rest">{t(story.result)}</text></g>)}
       </g>
     </svg>
     <p className="ontocap" aria-live="off">{t(stories[0].cap)}</p>
