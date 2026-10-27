@@ -1,3 +1,18 @@
+## Hero vivant — amendement du 27/10/2026, 13 h
+
+§14 de PASSE-3-PAGE-RACONTEE appliqué à OntologyHero : six histoires FR/EN,
+lancement toutes les 2,3 s, trajet 4,2 s, deux jetons maximum, tracé blanc,
+nœuds lit et agents busy. Fil de quatre résultats, premier seul rose du schéma.
+SSR/réduit : quatre premiers résultats et légende 1, sans jeton ni tracé.
+Nettoyage au démontage, hors écran et au passage en mouvement réduit : timers,
+frames, Web Animations, CSS et groupe SVG animé ; redémarrage depuis histoire 1.
+Maquettes hero.js/hero.css recopiées et comparées octet pour octet (CSS déjà identique).
+Baseline 107 tests Node ; candidat : lint, build Webpack, 107 tests Node,
+marque/claims et 19 tests Brand OS réussis. Revue adverse indépendante sans défaut.
+Tests structure SSR et Playwright adaptés. Preuve visuelle, transitions et nettoyage
+navigateur restent à vérifier par Paul : aucun serveur ni Playwright lancé dans le sandbox.
+Un commit sur feat/passe-3-page, sans push ni déploiement.
+
 ## Passe 3, page racontée — 27/10/2026
 
 Spec : `docs/site-v1/page-unique/PASSE-3-PAGE-RACONTEE.md` ; maquette copiée

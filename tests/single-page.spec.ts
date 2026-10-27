@@ -126,7 +126,7 @@ test("no JavaScript conversations remain visible and legal and 404 stay accessib
   for (const message of await page.locator(".phone .msg").all()) await expect(message).toBeVisible();
   for (const path of ["/fr", "/"]) {
     await page.goto(local(path));
-    await expect(page.locator(".onto .res.on")).toHaveCount(3);
+    await expect(page.locator(".onto .res.on")).toHaveCount(4);
     for (const result of await page.locator(".onto .rest").all()) await expect(result).toBeVisible();
     await expect(page.locator(".walk .human")).toHaveAttribute("transform", "translate(900 120)");
     await expect(page.locator(".walk")).toHaveClass(/withbot/);
@@ -237,48 +237,71 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
 
 
 for (const locale of ["fr", "en"]) for (const width of [1440, 390]) {
-  test(`three stories, viewport activation and live reduced-motion preference ${locale} ${width}`, async ({ page }) => {
+  test(`six overlapping stories, four-result feed and live reduced-motion preference ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     const epoch = new Date("2026-10-27T12:00:00Z");
     await page.clock.install({ time: epoch });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
     const figure = page.locator("svg.onto");
-    const outputs = locale === "fr" ? ["Relance prête", "Commande fournisseur prête", "Trésorerie à jour"] : ["Follow-up ready", "Supplier order ready", "Cash position updated"];
-    await expect(figure.locator(".rest")).toHaveText(outputs);
-    await expect(figure.locator(".token, animateMotion")).toHaveCount(0);
+    const outputs = locale === "fr" ? ["Relance prête", "Commande fournisseur prête", "Trésorerie à jour", "Commande saisie", "Devis à valider", "Rapport de la semaine prêt"] : ["Follow-up ready", "Supplier order ready", "Cash position updated", "Order entered", "Quote to approve", "Weekly report ready"];
+    const captions = locale === "fr" ? ["Un client écrit.", "Un article passe", "Une facture", "Un client envoie", "Un prospect", "Le vendredi"] : ["A client writes.", "An item drops", "An invoice", "A client sends", "A prospect", "On Fridays"];
+    const staticFeed = figure.locator(".static-feed");
+    const liveFeed = figure.locator(".live-feed");
+    await expect(staticFeed.locator(".rest")).toHaveText(outputs.slice(0, 4));
+    await expect(staticFeed.locator(".hot")).toHaveCount(1);
+    await expect(figure.locator(".token, .trail, animateMotion")).toHaveCount(0);
+    await expect(page.locator(".ontocap")).toContainText(captions[0]);
     await expect(page.locator(".humby")).toHaveCSS("font-size", "16px");
     await expect(page.locator(".humby")).toContainText("Clive Humby");
     await figure.scrollIntoViewIfNeeded();
     await page.clock.pauseAt(new Date(epoch.getTime() + 10000));
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await expect(page.locator(".ontology-hero")).toHaveAttribute("data-anim", "in");
+    await expect(staticFeed).toBeHidden();
     await expect(figure.locator(".pulse animateMotion")).toHaveCount(21);
     await expect(figure.locator(".token")).toHaveCount(1);
+    await page.clock.runFor(100);
+    await expect(figure.locator('[data-node="E-mails"]')).toHaveClass(/lit/);
     const firstPosition = await figure.locator(".story").getAttribute("transform");
-    await page.clock.runFor(800);
+    const firstOffset = await figure.locator(".trail").evaluate(el => getComputedStyle(el).strokeDashoffset);
+    await page.clock.runFor(700);
     expect(await figure.locator(".story").getAttribute("transform")).not.toBe(firstPosition);
+    expect(Number.parseFloat(await figure.locator(".trail").evaluate(el => getComputedStyle(el).strokeDashoffset))).toBeLessThan(Number.parseFloat(firstOffset));
+    await page.clock.runFor(1600);
+    await expect(figure.locator(".token")).toHaveCount(2);
+    await expect(figure.locator(".trail")).toHaveCount(2);
+    await expect(page.locator(".ontocap")).toContainText(captions[1]);
     await expect(figure.locator('[data-agent="Commercial"]')).toHaveClass(/busy/);
-    await page.clock.runFor(3600);
-    await expect(figure.locator(".res.on")).toHaveCount(1);
-    await expect(figure.locator(".res.hot .rest")).toHaveText(outputs[0]);
-    await page.clock.runFor(5800);
-    await expect(figure.locator(".res.on")).toHaveCount(2);
-    await expect(figure.locator(".res.hot .rest")).toHaveText(outputs[1]);
-    await page.clock.runFor(5800);
-    await expect(figure.locator(".res.on")).toHaveCount(3);
-    await expect(figure.locator(".res.hot .rest")).toHaveText(outputs[2]);
-    await expect(page.locator(".ontocap")).toContainText(locale === "fr" ? "Une facture" : "An invoice");
-    await page.clock.runFor(3200);
-    await expect(figure.locator(".res.on")).toHaveCount(0);
+    await page.clock.runFor(2000);
+    for (let i = 0; i < outputs.length; i++) {
+      if (i > 0) await page.clock.runFor(2300);
+      await expect(liveFeed.locator(".res:not(.exiting) .rest")).toHaveText(outputs.slice(Math.max(0, i - 3), i + 1).reverse());
+      await expect(liveFeed.locator(".hot")).toHaveCount(1);
+      await expect(liveFeed.locator(".hot .rest")).toHaveText(outputs[i]);
+      await expect(page.locator(".ontocap")).toContainText(captions[(i + 1) % captions.length]);
+      expect(await figure.locator(".token").count()).toBeLessThanOrEqual(2);
+    }
+    await page.clock.runFor(500);
+    await expect(liveFeed.locator(".res")).toHaveCount(4);
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await expect(figure.locator(".token, animateMotion")).toHaveCount(0);
-    await expect(figure.locator(".rest")).toHaveText(outputs);
-    await expect(figure.locator(".busy, .hot")).toHaveCount(0);
-    await expect(page.locator(".ontocap")).toContainText(locale === "fr" ? "Un client" : "A client");
+    await expect(figure.locator(".ontology-motion, .busy, .lit")).toHaveCount(0);
+    await expect(staticFeed).toBeVisible();
+    await expect(staticFeed.locator(".rest")).toHaveText(outputs.slice(0, 4));
+    await expect(staticFeed.locator(".hot")).toHaveCount(1);
+    await expect(page.locator(".ontocap")).toContainText(captions[0]);
     await page.clock.runFor(20000);
-    await expect(figure.locator(".rest")).toHaveText(outputs);
-    await expect(figure.locator(".token")).toHaveCount(0);
+    await expect(staticFeed.locator(".rest")).toHaveText(outputs.slice(0, 4));
+    await expect(figure.locator(".token, .trail, animateMotion")).toHaveCount(0);
+    // Restart after cleanup, then leave the viewport while two stories are running.
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.clock.runFor(2400);
+    await expect(figure.locator(".token")).toHaveCount(2);
+    await page.locator("footer").scrollIntoViewIfNeeded();
+    await page.clock.runFor(100);
+    await expect(figure.locator(".ontology-motion, .busy, .lit")).toHaveCount(0);
+    await page.clock.runFor(20000);
+    await expect(figure.locator(".ontology-motion")).toHaveCount(0);
   });
 }
 

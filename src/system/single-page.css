@@ -216,13 +216,21 @@
 .single-page .hero .humby {margin-top:10px;}
 .single-page .onto .talk {stroke-dasharray:3 4;}
 .single-page .onto .agent.busy .ag {fill:var(--sky);}
+.single-page .onto .trail {fill:none;stroke:var(--white);stroke-width:2.5;opacity:.9;}
+.single-page .onto .node {transform-box:fill-box;transform-origin:center;transition:transform .3s,fill .3s;}
+.single-page .onto .node.lit {transform:scale(1.8);fill:var(--sky);}
+.single-page .onto .agent .ag {transition:fill .3s;}
+.single-page .onto .agent.busy {animation:ontology-hop .45s ease-out 2;}
+@keyframes ontology-hop {50%{translate:0 -6px}}
+.single-page .onto .feed .res {transition:transform .5s ease-out,opacity .5s;}
+.single-page .ontology-hero[data-anim="in"] .static-feed {display:none;}
 .single-page .onto .pulse {opacity:.55;}
 .single-page .onto .token {stroke:var(--canard);stroke-width:2;}
 .single-page .onto .toklab {fill:var(--white);font-size:var(--t-s);font-weight:600;}
 .single-page .onto .resbox {fill:none;stroke:var(--on-canard);stroke-width:1;}
 .single-page .onto .rest {fill:var(--white);font-size:var(--t-s);font-weight:600;}
 .single-page .onto .res.on .resbox {fill:color-mix(in srgb, var(--white) 8%, var(--canard));}
-/* Exception Paul du 27/10 : seul le dernier résultat animé est rose dans le hero. */
+/* Exception Paul du 27/10 : seul le premier résultat du fil est rose dans le schéma. */
 .single-page .onto .res.hot .resbox {fill:var(--rose);stroke:var(--rose);}
 .single-page .onto .res.hot .rest {fill:var(--ink);}
 
@@ -338,4 +346,5 @@
 @media(prefers-reduced-motion:reduce){
   .single-page [data-anim] *, .single-page [data-anim] *::after {animation:none!important;transition:none!important;}
   .single-page .ontology-motion {display:none;}
+  .single-page .ontology-hero[data-anim="in"] .static-feed {display:inline;}
 }

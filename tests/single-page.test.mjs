@@ -98,21 +98,25 @@ test("revoking every permission hides production and client headings, retaining 
   } finally { SITE_EVIDENCE.forEach((e, i) => { e.permission_status = permissions[i]; }); }
 });
 
-for (const locale of ["fr", "en"]) test(`three-story ontology structure and translated copy (${locale})`, async () => {
+for (const locale of ["fr", "en"]) test(`six-story ontology with four static results and translated copy (${locale})`, async () => {
   const html = await renderPage(locale);
   const figure = html.match(/<svg class="onto"[\s\S]*?<\/svg>/)?.[0];
   assert.ok(figure);
   assert.match(figure, /aria-hidden="true"/);
   assert.match(figure, /viewBox="0 0 1080 360"/);
-  for (const [kind, count] of [["layer", 3], ["edge", 16], ["edge talk", 5], ["node", 5], ["node r", 4], ["ag", 6], ["eye", 12], ["res on", 3]]) {
+  for (const [kind, count] of [["layer", 3], ["edge", 16], ["edge talk", 5], ["node", 5], ["node r", 4], ["ag", 6], ["eye", 12], ["res on", 3], ["res on hot", 1], ["feed static-feed", 1]]) {
     assert.equal((figure.match(new RegExp(`class="${kind}"`, "g")) ?? []).length, count, kind);
   }
   const ids = [...figure.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
   assert.equal(new Set(ids).size, 21);
-  assert.doesNotMatch(figure, /<animate|class="token"/);
-  assert.equal((figure.match(/width="250" height="50"/g) ?? []).length, 3);
+  assert.doesNotMatch(figure, /<animate|class="token"|class="trail"|class="ontology-motion"/);
+  assert.equal((figure.match(/width="250" height="50"/g) ?? []).length, 4);
   assert.match(html, /class="ontocap" aria-live="off"/);
-  assert.ok(visibleText(figure).includes(locale === "fr" ? "Relance prête" : "Follow-up ready"));
+  const outputs = locale === "fr" ? ["Relance prête", "Commande fournisseur prête", "Trésorerie à jour", "Commande saisie"] : ["Follow-up ready", "Supplier order ready", "Cash position updated", "Order entered"];
+  assert.deepEqual([...figure.matchAll(/class="rest">([^<]+)<\/text>/g)].map(m => m[1]), outputs);
+  assert.deepEqual([...figure.matchAll(/transform="translate\(820 (\d+)\)" opacity="([^"]+)"/g)].map(m => [Number(m[1]), Number(m[2])]), [[70, 1], [132, .63], [194, .51], [256, .39]]);
+  const caption = html.match(/class="ontocap" aria-live="off">([^<]+)<\/p>/)?.[1];
+  assert.equal(caption, locale === "fr" ? "Un client écrit. L&#x27;agent commercial le reconnaît, l&#x27;agent de relance prépare la réponse." : "A client writes. The sales agent recognizes them; the follow-up agent drafts the reply.");
   assert.match(html, /class="humby">[^<]*Clive Humby[^<]*2006/);
   assert.doesNotMatch(figure, /rose|pink|#[\da-f]{3,8}\b|style=/i);
   assert.doesNotMatch(html, /class="stairs"/);

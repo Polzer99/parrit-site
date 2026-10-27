@@ -26,35 +26,54 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   }
   // pulsations d'ambiance
   if (!reduce) paths.concat([...svg.querySelectorAll(".talk")]).forEach((p, i) => { const r = el("rect", { width: 6, height: 6, x: -3, y: -3, class: "pulse" }, svg); const m = el("animateMotion", { dur: (2.6 + (i % 5) * 0.4) + "s", begin: (i * 0.37 % 3) + "s", repeatCount: "indefinite" }, r); el("mpath", { href: "#" + p.id }, m); });
-  // colonne résultats
+  // nœuds par nom, pour les faire s'allumer au passage
+  const nodeEls = {};
+  svg.querySelectorAll("rect.node").forEach(r => { const x = +r.getAttribute("x") + 6, y = +r.getAttribute("y") + 6; for (const [k, v] of Object.entries({ ...D, ...R })) if (v[0] === x && v[1] === y) nodeEls[k] = r; });
+  // colonne résultats : un fil qui défile, le plus récent en haut
   el("text", { x: 820, y: 48, class: "lab" }, svg, "Résultats");
-  const slots = [110, 180, 250].map(y => { const g = el("g", { transform: `translate(820 ${y})`, class: "res" }, svg); el("rect", { width: 250, height: 50, class: "resbox" }, g); el("text", { x: 16, y: 31, class: "rest" }, g, ""); return g; });
+  const SLOT_Y = [70, 132, 194, 256], feed = [];
+  const feedG = el("g", { class: "feed" }, svg);
+  const pushResult = (text, instant) => {
+    const g = el("g", { class: "res on hot" }, feedG); el("rect", { width: 250, height: 50, class: "resbox" }, g); el("text", { x: 16, y: 31, class: "rest" }, g, text);
+    g.style.transform = `translate(820px, ${SLOT_Y[0] - (instant ? 0 : 30)}px)`; g.style.opacity = instant ? 1 : 0;
+    feed.forEach(o => o.classList.remove("hot")); feed.unshift(g);
+    requestAnimationFrame(() => requestAnimationFrame(() => feed.forEach((o, i) => { o.style.transform = `translate(820px, ${SLOT_Y[Math.min(i, 3)] + (i > 3 ? 40 : 0)}px)`; o.style.opacity = i > 3 ? 0 : (i === 0 ? 1 : 0.75 - i * 0.12); })));
+    while (feed.length > 5) feed.pop().remove();
+  };
   const stories = [
     { label: "E-mail client", route: ["E-mails", "Clients", "Validation", "Commercial", "Relances"], result: "Relance prête", cap: "Un client écrit. L'agent commercial le reconnaît, l'agent de relance prépare la réponse." },
     { label: "Stock bas", route: ["Stocks", "Seuils", "Stock", "ADV"], result: "Commande fournisseur prête", cap: "Un article passe sous son seuil. L'agent de stock alerte l'administration des ventes, qui prépare la commande." },
     { label: "Facture échue", route: ["Factures", "Échéances", "Compta", "Pilotage"], result: "Trésorerie à jour", cap: "Une facture arrive à échéance. L'agent comptable la rapproche, le tableau de pilotage se met à jour." },
+    { label: "Bon de commande", route: ["E-mails", "Commandes", "Droits", "ADV"], result: "Commande saisie", cap: "Un client envoie son bon de commande. L'administration des ventes le saisit, vous vérifiez." },
+    { label: "Demande de devis", route: ["Clients", "Commandes", "Validation", "Commercial"], result: "Devis à valider", cap: "Un prospect demande un devis. L'agent commercial le prépare selon vos conditions, vous le validez." },
+    { label: "Vendredi soir", route: ["Commandes", "Échéances", "Pilotage"], result: "Rapport de la semaine prêt", cap: "Le vendredi, l'agent de pilotage rassemble commandes et échéances dans un rapport." },
   ];
   const cap = document.getElementById("ontocap");
-  const tok = el("g", { class: "story" }, svg); el("rect", { x: -7, y: -7, width: 14, height: 14, class: "token" }, tok); const tl = el("text", { x: 12, y: -10, class: "toklab" }, tok, "");
-  const showAll = () => stories.forEach((s, i) => { slots[i].querySelector("text").textContent = s.result; slots[i].classList.add("on"); });
-  if (reduce) { showAll(); tok.style.display = "none"; cap.textContent = stories[0].cap; return; }
-  let si = 0;
-  const run = () => {
-    const s = stories[si]; if (si === 0) slots.forEach(g => { g.classList.remove("on", "hot"); g.querySelector("text").textContent = ""; });
-    const pts = s.route.map(k => P[k]).concat([[820, [110, 180, 250][si] + 25]]);
-    tl.textContent = s.label; cap.textContent = s.cap; cap.classList.remove("fade"); void cap.offsetWidth; cap.classList.add("fade");
-    const seg = pts.slice(1).map((p, i) => Math.hypot(p[0] - pts[i][0], p[1] - pts[i][1])); const total = seg.reduce((a, b) => a + b, 0); const dur = 4200; const t0 = performance.now();
-    s.route.filter(k => A[k]).forEach((k, i) => setTimeout(() => { agentEls[k].classList.add("busy"); setTimeout(() => agentEls[k].classList.remove("busy"), 900); }, 600 + i * 1100));
+  if (reduce) { stories.slice(0, 4).reverse().forEach(s => pushResult(s.result, true)); feed.forEach((g, i) => { g.style.transform = `translate(820px, ${SLOT_Y[i]}px)`; g.style.opacity = i ? 0.75 - i * 0.12 : 1; }); cap.textContent = stories[0].cap; return; }
+  const trails = el("g", { class: "trails" }, svg);
+  const DUR = 4200, GAP = 2300;
+  const launch = s => {
+    const pts = s.route.map(k => P[k]).concat([[820, SLOT_Y[0] + 25]]);
+    const d = "M" + pts.map(p => p.join(" ")).join(" L");
+    const trail = el("path", { d, class: "trail" }, trails); const len = trail.getTotalLength();
+    trail.style.strokeDasharray = len; trail.style.strokeDashoffset = len;
+    trail.animate([{ strokeDashoffset: len }, { strokeDashoffset: 0 }], { duration: DUR, fill: "forwards" });
+    const tok = el("g", { class: "story" }, svg); el("rect", { x: -7, y: -7, width: 14, height: 14, class: "token" }, tok); el("text", { x: 12, y: -10, class: "toklab" }, tok, s.label);
+    cap.textContent = s.cap; cap.classList.remove("fade"); void cap.offsetWidth; cap.classList.add("fade");
+    const seg = pts.slice(1).map((p, i) => Math.hypot(p[0] - pts[i][0], p[1] - pts[i][1])); const total = seg.reduce((a, b) => a + b, 0);
+    let acc = 0; s.route.forEach((k, i) => { const t = acc / total * DUR; acc += seg[i] || 0;
+      setTimeout(() => { const n = nodeEls[k] || agentEls[k]; if (!n) return; n.classList.add(agentEls[k] ? "busy" : "lit"); setTimeout(() => n.classList.remove("busy", "lit"), 900); }, t); });
+    const t0 = performance.now();
     const step = now => {
-      let d = Math.min(1, (now - t0) / dur) * total, i = 0; while (i < seg.length - 1 && d > seg[i]) { d -= seg[i]; i++; }
-      const f = seg[i] ? Math.min(1, d / seg[i]) : 1; const x = pts[i][0] + (pts[i + 1][0] - pts[i][0]) * f, y = pts[i][1] + (pts[i + 1][1] - pts[i][1]) * f;
-      tok.setAttribute("transform", `translate(${x} ${y})`);
-      if (now - t0 < dur) requestAnimationFrame(step);
-      else { slots.forEach(g => g.classList.remove("hot")); slots[si].querySelector("text").textContent = s.result; slots[si].classList.add("on", "hot"); tl.textContent = ""; si = (si + 1) % stories.length; setTimeout(run, si === 0 ? 3200 : 1600); }
+      let dd = Math.min(1, (now - t0) / DUR) * total, i = 0; while (i < seg.length - 1 && dd > seg[i]) { dd -= seg[i]; i++; }
+      const f = seg[i] ? Math.min(1, dd / seg[i]) : 1; tok.setAttribute("transform", `translate(${pts[i][0] + (pts[i + 1][0] - pts[i][0]) * f} ${pts[i][1] + (pts[i + 1][1] - pts[i][1]) * f})`);
+      if (now - t0 < DUR) requestAnimationFrame(step);
+      else { tok.remove(); pushResult(s.result); trail.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, fill: "forwards" }).onfinish = () => trail.remove(); }
     };
     requestAnimationFrame(step);
   };
-  run();
+  let si = 0; const tick = () => { launch(stories[si]); si = (si + 1) % stories.length; setTimeout(tick, GAP); };
+  tick();
 })();
 
 /* ---------- parcours : un humain et son agent marchent ---------- */
