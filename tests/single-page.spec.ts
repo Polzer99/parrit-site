@@ -1,3 +1,4 @@
+import { readingMs } from "../src/system/reading";
 import { mkdir } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import founderPhotos from "./fixtures/founder-photo.json";
@@ -32,7 +33,7 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     expect(portraitBox!.width / portraitBox!.height).toBeCloseTo(3 / 4, 2);
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator("main > section")).toHaveCount(9);
-    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["en-production", "ce-qui-change", "parcours", "services", "partenaires", "references", "architecture", "contact"] : ["in-production", "what-changes", "path", "services", "team", "references", "architecture", "contact"]);
+    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["technologies", "en-production", "ce-qui-change", "parcours", "services", "partenaires", "references", "contact"] : ["technologies", "in-production", "what-changes", "path", "services", "team", "references", "contact"]);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     const mono = await page.locator("main *, footer *, header *").evaluateAll(nodes => nodes.filter(node => {
       const style = getComputedStyle(node);
@@ -42,7 +43,17 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     await expect(page.locator("#references").getByRole("img")).toHaveCount(5);
     await expect(page.locator(".logo-set[aria-hidden=true]")).toHaveCount(1);
     await expect(page.locator("#services .use-case")).toHaveCount(12);
-    await expect(page.locator("#architecture .stage")).toHaveCount(5);
+    await expect(page.locator("#architecture")).toHaveCount(0);
+    await expect(page.locator(".hero + #technologies")).toHaveCount(1);
+    const applications = page.locator(locale === "fr" ? "#en-production" : "#in-production");
+    await expect(applications.locator(".phone")).toHaveCount(3);
+    await expect(applications.locator("h3")).toHaveCount(3);
+    await expect(applications).not.toContainText(/Laparra|Clevery|Forexpert|Joone|SNCF/);
+    await expect(applications.locator(".note")).toContainText(locale === "fr" ? "données fictives" : "fictional data");
+    for (const nav of [".desktop-nav", ".mobile-menu nav"]) {
+      await expect(page.locator(`${nav} a`).first()).toHaveText("Applications");
+      await expect(page.locator(`${nav} a`).first()).toHaveAttribute("href", locale === "fr" ? "/fr#en-production" : "/#in-production");
+    }
     await expect(page.locator("#contact h2")).not.toHaveText(/\.$/);
     await expect(page.locator("main")).not.toContainText(/Brésil|Brazil|Cameroun|Cameroon|métropole lilloise|Lille area/);
     const smallText = await page.locator("main *, header *, footer *").evaluateAll(nodes => nodes.filter(el => {
@@ -133,7 +144,7 @@ test("no JavaScript conversations remain visible and legal and 404 stay accessib
     await expect(page.locator(".walk")).toHaveClass(/withbot/);
     await expect(page.locator(".use-case")).toHaveCount(12);
     await expect(page.locator(".case:not(.visually-hidden)")).toHaveCount(12);
-    await expect(page.locator(".partner-offers li")).toHaveCount(20);
+    await expect(page.locator(".partner-offers li")).toHaveCount(23);
     for (const offer of await page.locator(".partner-offers li").all()) await expect(offer).toBeVisible();
     for (const face of await page.locator(".partner-delivery").all()) await expect(face).toBeHidden();
     await expect(page.locator("#references").getByRole("img")).toHaveCount(5);
@@ -161,7 +172,7 @@ test.describe("network denial self-test", () => {
 });
 test("retired routes redirect once with their complete source query", async ({ request }) => {
   const themes: Record<string, string> = { "consulting-transformation": "conseil-transformation", "ai-sprints": "ai-sprints", "engineering-integration": "integration-developpement", "harness-engineering": "harness-engineering" };
-  const sections: Record<string, [string, string]> = { manufacture: ["path", "parcours"], "build-with-you": ["path", "parcours"], standard: ["architecture", "architecture"], systems: ["architecture", "architecture"], dossiers: ["references", "references"], commission: ["contact", "contact"], contact: ["contact", "contact"] };
+  const sections: Record<string, [string, string]> = { manufacture: ["path", "parcours"], "build-with-you": ["path", "parcours"], standard: ["technologies", "technologies"], systems: ["technologies", "technologies"], dossiers: ["references", "references"], commission: ["contact", "contact"], contact: ["contact", "contact"] };
   const cases: [string, string][] = [["/fr/conseil-transformation", "/fr/journal/themes/conseil-transformation"]];
   for (const [old, theme] of Object.entries(themes)) for (const prefix of ["", "/fr"]) cases.push([`${prefix}/${old}`, `${prefix}/journal/themes/${theme}`]);
   for (const [old, anchors] of Object.entries(sections)) for (const [i, prefix] of ["", "/fr"].entries()) cases.push([`${prefix}/${old}`, `${prefix || "/"}#${anchors[i]}`]);
@@ -347,13 +358,13 @@ for (const width of [1440, 800, 390]) test(`service columns and animation entry 
   const columns = await page.locator(".service-tasks").evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").length);
   expect(columns).toBe(width > 1100 ? 4 : width > 760 ? 2 : 1);
   await expect(page.locator(".use-case").nth(1)).toHaveAttribute("data-case", "1");
-  await page.locator("#architecture h2").scrollIntoViewIfNeeded();
+  await page.locator("#references h2").scrollIntoViewIfNeeded();
   await expect(services).toHaveAttribute("data-anim", "out");
   for (const card of await page.locator(".use-case").all()) await expect(card).toHaveAttribute("data-case", "0");
-  await expect(page.locator("#architecture > .wrap")).toHaveAttribute("data-anim", "in");
-  await expect(page.locator(".rail i")).toHaveCSS("animation-duration", "12s");
+  await expect(page.locator("#references > .wrap")).toHaveAttribute("data-anim", "in");
+  await expect(page.locator(".logo-track")).toHaveCSS("animation-duration", "28s");
   await page.emulateMedia({ reducedMotion: "reduce" });
-  for (const el of await page.locator(".case, .rail i, .results span").all()) await expect(el).toHaveCSS("animation-name", "none");
+  for (const el of await page.locator(".case, .logo-track, .tech-track").all()) await expect(el).toHaveCSS("animation-name", "none");
 });
 
 test("visible contact variant keeps the capture payload and error recovery", async ({ page }) => {
@@ -397,8 +408,8 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       expect(section.scrollHeight, `${section.id}: content must not be clipped`).toBeLessThanOrEqual(height);
       expect(section.overflowY).not.toMatch(/hidden|clip/);
     }
-    const figures = page.locator(".ontology-hero, .onto, .scenes, .three, .path-walker, .steps, .service-tasks, .services, .logo-strip, .reflines, .flow-container, .founder > .wrap > .grid");
-    await expect(figures).toHaveCount(12);
+    const figures = page.locator(".ontology-hero, .onto, .scenes, .three, .path-walker, .steps, .service-tasks, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid");
+    await expect(figures).toHaveCount(11);
     for (const figure of await figures.all()) {
       const box = await figure.boundingBox();
       expect(box).not.toBeNull();
@@ -428,6 +439,35 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
         expect(box.x, `${selector}: same left edge as the header brand`).toBeCloseTo(mark.x, 0);
       }
       expect(await page.locator(".hero h1").evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(72);
+      const button = page.locator(".hero .exec");
+      await expect(button).toHaveCSS("white-space", "nowrap");
+      const geometry = await button.evaluate(el => {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const style = getComputedStyle(el);
+        return {
+          lines: range.getClientRects().length,
+          contentWidth: range.getBoundingClientRect().width,
+          width: el.getBoundingClientRect().width,
+          horizontalInset: parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth),
+        };
+      });
+      expect(geometry.lines).toBe(1);
+      expect(geometry.width).toBeCloseTo(geometry.contentWidth + geometry.horizontalInset, 0);
+      // Keep the existing exec padding and line height, including the founder counterpart.
+      for (const property of ["padding-top", "padding-bottom", "padding-left", "padding-right", "line-height"]) {
+        await expect(button).toHaveCSS(property, await page.locator(".founder .exec").evaluate((el, property) => getComputedStyle(el).getPropertyValue(property), property));
+      }
+      const phrase = (await page.locator(".hero .sub p").boundingBox())!;
+      const action = (await button.boundingBox())!;
+      const figure = (await page.locator(".ontology-hero").boundingBox())!;
+      expect(action.y).toBeGreaterThanOrEqual(phrase.y + phrase.height);
+      expect(action.x + action.width).toBeLessThanOrEqual(figure.x);
+    } else {
+      const action = (await page.locator(".hero .exec").boundingBox())!;
+      const group = (await page.locator(".hero .actions").boundingBox())!;
+      expect(action.width).toBeCloseTo(group.width, 0);
+      await expect(page.locator(".hero .exec")).toHaveCSS("white-space", "normal");
     }
     if (width === 1440) {
       const header = (await page.locator(".single-header").boundingBox())!;
@@ -519,15 +559,22 @@ for (const locale of ["fr", "en"]) test(`passe 4 services cycle and restore SSR 
   await page.clock.pauseAt(new Date(epoch.getTime() + 10000));
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await expect(cards.nth(1)).toHaveAttribute("data-case", "1");
-  await page.clock.runFor(3499);
+  const cases = await first.locator(".case").allTextContents();
+  const secondCases = await cards.nth(1).locator(".case").allTextContents();
+  const firstDuration = readingMs(cases[0]);
+  const secondDuration = readingMs(secondCases[1]) + 290;
+  await page.clock.runFor(firstDuration - 1);
   await expect(first).toHaveAttribute("data-case", "0");
   await page.clock.runFor(1);
   await expect(first).toHaveClass(/blink/);
   await page.clock.runFor(120);
   await expect(first).toHaveAttribute("data-case", "1");
   await expect(first.locator(".case:not(.visually-hidden) .case-text")).toHaveText(text[1]);
-  await expect(cards.nth(1)).toHaveAttribute("data-case", "1");
-  await page.clock.runFor(290);
+  // Each neighbor follows its own text length as well as the stagger.
+  if (secondDuration > firstDuration + 120) {
+    await expect(cards.nth(1)).toHaveAttribute("data-case", "1");
+    await page.clock.runFor(secondDuration - firstDuration);
+  }
   await expect(cards.nth(1)).toHaveAttribute("data-case", "2");
   await page.emulateMedia({ reducedMotion: "reduce" });
   for (const card of await cards.all()) await expect(card).toHaveAttribute("data-case", "0");
@@ -546,16 +593,24 @@ test("partner offers keep at most two faces active and restore every static offe
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await expect(page.locator(".partner-motion")).toHaveAttribute("data-anim", "in");
   const cards = page.locator(".partner");
-  await page.clock.runFor(1200);
+  const fronts = await cards.evaluateAll(nodes => nodes.map(card => [...card.querySelectorAll(".partner-type .s, .partner-type p")].map(node => node.textContent).join(" ")));
+  await page.clock.runFor(Math.max(...fronts.map(readingMs)));
   await expect(cards.first()).toHaveClass(/flip/);
   const offers = await cards.first().locator("li").allTextContents();
   await expect(cards.first().locator(".offer")).toHaveText(offers[0]);
-  await page.clock.runFor(2200);
-  await expect(cards.first()).toHaveClass(/blink/);
-  await page.clock.runFor(150);
-  await expect(cards.first().locator(".offer")).toHaveText(offers[1]);
-  await page.clock.runFor(2350);
-  await expect(cards.first().locator(".offer")).toHaveText(offers[2]);
+  for (let i = 0; i < offers.length; i++) {
+    const dwell = readingMs(offers[i]) + (i ? 150 : 0);
+    await page.clock.runFor(dwell - 1);
+    await expect(cards.first()).toHaveClass(/flip/);
+    await expect(cards.first()).not.toHaveClass(/blink/);
+    await expect(cards.first().locator(".offer")).toHaveText(offers[i]);
+    await page.clock.runFor(1);
+    if (i + 1 < offers.length) {
+      await expect(cards.first()).toHaveClass(/blink/);
+      await page.clock.runFor(150);
+      await expect(cards.first().locator(".offer")).toHaveText(offers[i + 1]);
+    } else await expect(cards.first()).not.toHaveClass(/flip/);
+  }
   for (let time = 0; time < 28000; time += 100) {
     await page.clock.runFor(100);
     expect(await page.locator(".partner.flip").count()).toBeLessThanOrEqual(2);
@@ -565,29 +620,240 @@ test("partner offers keep at most two faces active and restore every static offe
   for (const offer of await page.locator(".partner-offers li").all()) await expect(offer).toBeVisible();
 });
 
-test("mobile data journey stops on interaction; dots follow native keyboard scrolling", async ({ page }) => {
+for (const locale of ["fr", "en"]) test(`five native carousels retain keyboard scrolling and position dots ${locale}`, async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 700 });
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto(local("/fr"));
-  const track = page.locator(".flowmap");
-  await page.locator("#architecture h2").scrollIntoViewIfNeeded();
-  await expect.poll(() => track.evaluate(el => el.scrollLeft)).toBe(0);
-  await page.waitForTimeout(2600);
-  expect(await track.evaluate(el => el.scrollLeft)).toBe(0);
+  await page.goto(local(locale === "fr" ? "/fr" : "/"));
+  const tracks = page.locator(".mobile-carousel");
+  await expect(tracks).toHaveCount(5);
+  for (const track of await tracks.all()) {
+    await track.scrollIntoViewIfNeeded();
+    await expect.poll(() => track.evaluate(el => el.scrollLeft)).toBe(0);
+    await track.focus();
+    await page.keyboard.press("End");
+    await expect.poll(() => track.evaluate(el => el.scrollLeft)).toBeGreaterThan(100);
+    const dots = track.locator("xpath=following-sibling::*[1]");
+    await expect(dots.locator("i").last()).toHaveClass("on");
+    await page.keyboard.press("Home");
+    await expect.poll(() => track.evaluate(el => el.scrollLeft)).toBe(0);
+    await expect(dots.locator("i").first()).toHaveClass("on");
+    await page.keyboard.press("ArrowRight");
+    await expect(dots.locator("i").nth(1)).toHaveClass("on");
+    await page.keyboard.press("ArrowLeft");
+    await expect(dots.locator("i").first()).toHaveClass("on");
+  }
   await page.emulateMedia({ reducedMotion: "no-preference" });
-  await expect.poll(() => track.evaluate(el => el.scrollLeft), { timeout: 4000 }).toBeGreaterThan(100);
-  await track.dispatchEvent("touchstart");
-  await track.evaluate(el => el.scrollTo({ left: 0, behavior: "instant" }));
   await page.waitForTimeout(2700);
-  expect(await track.evaluate(el => el.scrollLeft)).toBe(0);
-  await track.focus();
-  await page.keyboard.press("End");
-  await expect.poll(() => track.evaluate(el => el.scrollLeft)).toBeGreaterThan(500);
-  await expect(page.locator(".flow-container .swipe-dots i").last()).toHaveClass("on");
-  // A live preference change must not re-arm autoplay after touch.
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  const end = await track.evaluate(el => el.scrollLeft);
-  await page.waitForTimeout(2700);
-  expect(await track.evaluate(el => el.scrollLeft)).toBe(end);
+  for (const track of await tracks.all()) expect(await track.evaluate(el => el.scrollLeft)).toBe(0);
 });
+
+// The band must remain complete without hydration and fit the same screen contract.
+for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
+  test.describe(`technology band ${locale} JS=${javaScriptEnabled}`, () => {
+    test.use({ javaScriptEnabled });
+    for (const [width, height] of [[1440, 800], [1280, 720], [390, 700]]) {
+      test(`reduced motion, full contents, contrast and screen at ${width}×${height}`, async ({ page }) => {
+        await page.setViewportSize({ width, height });
+        await page.emulateMedia({ reducedMotion: "reduce" });
+        await page.goto(local(locale === "fr" ? "/fr" : "/"));
+        await page.evaluate(() => document.fonts.ready);
+        const band = page.locator(".hero + #technologies");
+        // Round down to keep the section top visible when the hero height includes a subpixel.
+        await band.evaluate(el => window.scrollTo(0, Math.floor(el.getBoundingClientRect().top + window.scrollY)));
+        await expect(band).toBeInViewport({ ratio: 1 });
+        expect((await band.boundingBox())!.height).toBeLessThanOrEqual(height);
+        await expect(band.locator(".tech-note")).toHaveCount(0);
+        const list = band.locator(".tech-set:not([aria-hidden])");
+        const { TECHNOLOGIES } = await import("../src/system/technologies");
+        expect(await list.locator("li span").allTextContents()).toEqual(TECHNOLOGIES.map(item => item.name));
+        await expect(band.locator(".tech-set[aria-hidden=true]")).toBeHidden();
+        await expect(band.locator(".tech-track")).toHaveCSS("animation-name", "none");
+        await expect(band.locator(".tech-track")).toHaveCSS("transform", "none");
+        for (const item of await list.locator("li").all()) {
+          await expect(item).toBeInViewport({ ratio: 1 });
+          await expect(item).toHaveCSS("font-size", "18px");
+          await expect(item).toHaveCSS("font-weight", "600");
+        }
+        for (const icon of await list.locator(".tech-icon").all()) {
+          await expect(icon).toHaveCSS("width", "26px");
+          await expect(icon).toHaveCSS("height", "26px");
+          expect(await icon.evaluate(el => getComputedStyle(el).maskImage)).toContain("/tech/");
+        }
+        for (const square of await list.locator(".tech-square").all()) {
+          await expect(square).toHaveCSS("width", "14px");
+          await expect(square).toHaveCSS("height", "14px");
+        }
+        const audit = await band.evaluate(section => {
+          const style = getComputedStyle(section);
+          // Read scoped tokens directly without relying on a rendered probe.
+          const resolve = (token: string) => {
+            const value = style.getPropertyValue(token).trim();
+            if (!value) {
+              throw new Error(`Undefined technology band color token: ${token}`);
+            }
+            const hex = value.match(/^#([\da-f]{3}|[\da-f]{6})$/i);
+            if (hex) {
+              const digits = hex[1].length === 3 ? [...hex[1]].map(n => n + n).join("") : hex[1];
+              const channels = [0, 2, 4].map(offset => parseInt(digits.slice(offset, offset + 2), 16));
+              return `rgb(${channels.join(", ")})`;
+            }
+            const rgb = value.match(/^rgb\((.*)\)$/i);
+            const channels = rgb?.[1].trim().split(/[\s,]+/);
+            if (channels?.length === 3 && channels.every(n => /^\d+(?:\.\d+)?$/.test(n) && Number(n) <= 255)) {
+              return `rgb(${channels.map(Number).join(", ")})`;
+            }
+            throw new Error(`Unsupported technology band color token: ${token}=${value}`);
+          };
+          const ink = resolve("--ink"), white = resolve("--white"), onInk = resolve("--on-ink");
+          const luminance = (color: string) => {
+            const rgb = color.match(/[\d.]+/g)!.slice(0, 3).map(Number).map(n => n / 255);
+            const linear = rgb.map(n => n <= .04045 ? n / 12.92 : ((n + .055) / 1.055) ** 2.4);
+            return linear[0] * .2126 + linear[1] * .7152 + linear[2] * .0722;
+          };
+          const text = [...section.querySelectorAll<HTMLElement>(".tech-title, .tech-title b, .tech-set:not([aria-hidden]) li span")];
+          const background = luminance(style.backgroundColor);
+          return {
+            background: style.backgroundColor, ink,
+            clipped: [...section.querySelectorAll<HTMLElement>(".tech-content, .tech-marquee, .tech-track, .tech-set:not([aria-hidden])")]
+              .filter(el => el.scrollHeight > el.clientHeight + 1 || /hidden|clip/.test(getComputedStyle(el).overflowY)).map(el => el.className),
+            text: text.map(el => {
+              const css = getComputedStyle(el);
+              const foreground = luminance(css.color);
+              return { name: el.textContent, size: parseFloat(css.fontSize), ratio: (Math.max(background, foreground) + .05) / (Math.min(background, foreground) + .05), color: css.color, expected: el.matches(".tech-title") ? onInk : white };
+            }),
+            animations: section.getAnimations({ subtree: true }).length,
+          };
+        });
+        expect(audit.background).toBe(audit.ink);
+        expect(audit.animations).toBe(0);
+        expect(audit.clipped).toEqual([]);
+        for (const text of audit.text) {
+          expect(text.size, text.name ?? "text").toBeGreaterThanOrEqual(16);
+          expect(text.ratio, text.name ?? "text").toBeGreaterThanOrEqual(4.5);
+          expect(text.color).toBe(text.expected);
+        }
+        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+      });
+    }
+  });
+}
+
+for (const locale of ["fr", "en"]) test(`technology loop moves left, joins seamlessly, pauses and respects live motion preference ${locale}`, async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 800 });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto(local(locale === "fr" ? "/fr" : "/"));
+  await page.evaluate(() => document.fonts.ready);
+  const band = page.locator("#technologies");
+  await band.scrollIntoViewIfNeeded();
+  await page.mouse.move(0, 0);
+  const track = band.locator(".tech-track");
+  await expect(track).toHaveCSS("animation-duration", "60s");
+  await expect(track).toHaveCSS("animation-timing-function", "linear");
+  await expect(track).toHaveCSS("animation-iteration-count", "infinite");
+  await expect(track).toHaveCSS("animation-play-state", "running");
+  await expect(band.locator(".tech-set[aria-hidden=true]")).toBeVisible();
+  const start = await track.evaluate(el => new DOMMatrixReadOnly(getComputedStyle(el).transform).m41);
+  await expect.poll(() => track.evaluate(el => new DOMMatrixReadOnly(getComputedStyle(el).transform).m41)).toBeLessThan(start);
+  const seam = await track.evaluate(el => {
+    const [first, second] = Array.from(el.children).map(child => child.getBoundingClientRect());
+    const animation = el.getAnimations()[0];
+    animation.pause();
+    animation.currentTime = 30000;
+    const midpoint = new DOMMatrixReadOnly(getComputedStyle(el).transform).m41;
+    animation.currentTime = 59999;
+    const beforeSeam = new DOMMatrixReadOnly(getComputedStyle(el).transform).m41;
+    animation.currentTime = 60000;
+    const end = new DOMMatrixReadOnly(getComputedStyle(el).transform).m41;
+    animation.currentTime = 0;
+    const beginning = new DOMMatrixReadOnly(getComputedStyle(el).transform).m41;
+    animation.play();
+    return { first: first.width, second: second.width, step: second.x - first.x, midpoint, beforeSeam, end, beginning };
+  });
+  expect(seam.first).toBeCloseTo(seam.second, 1);
+  expect(seam.step).toBeCloseTo(seam.first, 1);
+  expect(seam.midpoint).toBeCloseTo(-seam.first / 2, 1);
+  expect(seam.beforeSeam).toBeCloseTo(-seam.first * 59999 / 60000, 1);
+  expect(Math.abs(seam.first + seam.beforeSeam - seam.beginning)).toBeLessThan(1);
+  // At the next iteration the first copy occupies the same position as the preceding duplicate.
+  expect(seam.end).toBeCloseTo(seam.beginning, 1);
+  await band.hover();
+  await expect(track).toHaveCSS("animation-play-state", "paused");
+  await page.mouse.move(0, 0);
+  await band.focus();
+  await expect(track).toHaveCSS("animation-play-state", "paused");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(track).toHaveCSS("animation-name", "none");
+  await expect(band.locator(".tech-set[aria-hidden=true]")).toBeHidden();
+  expect(await band.evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);
+});
+
+test("technology masks are served locally with the exact supplied SVG bytes", async ({ request }) => {
+  const { readFile } = await import("node:fs/promises");
+  const { TECHNOLOGIES } = await import("../src/system/technologies");
+  for (const logo of new Set(TECHNOLOGIES.map(item => item.logo).filter(Boolean))) {
+    const response = await request.get(local(`/tech/${logo}.svg`), { maxRedirects: 0 });
+    expect(response.status()).toBe(200);
+    expect(response.headers()["content-type"]).toContain("image/svg+xml");
+    expect(await response.body()).toEqual(await readFile(`public/tech/${logo}.svg`));
+  }
+});
+
+for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
+  test.describe(`equal application phones ${locale} JS=${javaScriptEnabled}`, () => {
+    test.use({ javaScriptEnabled });
+    for (const [width, height] of [[1440, 800], [1280, 720], [820, 900], [390, 700], [375, 700], [320, 700]]) {
+      test(`complete messages and identical screens at ${width}×${height}`, async ({ page }) => {
+        await page.setViewportSize({ width, height });
+        await page.emulateMedia({ reducedMotion: "reduce" });
+        await page.goto(local(locale === "fr" ? "/fr" : "/"));
+        await page.evaluate(() => document.fonts.ready);
+        const phones = page.locator(".live .phone");
+        await expect(phones).toHaveCount(3);
+        const dimensions = await phones.evaluateAll(nodes => nodes.map(phone => {
+          const screen = phone.querySelector<HTMLElement>(".chat")!;
+          const bar = phone.querySelector<HTMLElement>(".bar")!;
+          const rect = phone.getBoundingClientRect();
+          const frame = screen.getBoundingClientRect();
+          const textRects = [...phone.querySelectorAll<HTMLElement>(".bar, .msg")].flatMap(node => {
+            const range = document.createRange(); range.selectNodeContents(node);
+            return [...range.getClientRects()].map(box => ({ top: box.top, bottom: box.bottom, left: box.left, right: box.right }));
+          });
+          return {
+            width: rect.width, height: rect.height, screenHeight: frame.height,
+            clipped: textRects.some(box => box.top < rect.top || box.bottom > rect.bottom || box.left < rect.left || box.right > rect.right),
+            scrollHeight: screen.scrollHeight, clientHeight: screen.clientHeight,
+            top: screen.querySelector(".msg")!.getBoundingClientRect().top - frame.top,
+            padding: parseFloat(getComputedStyle(screen).paddingTop),
+            barHeight: bar.getBoundingClientRect().height,
+            fontSizes: [...phone.querySelectorAll<HTMLElement>(".bar, .msg, .msg b")].map(node => parseFloat(getComputedStyle(node).fontSize)),
+          };
+        }));
+        for (const size of dimensions) {
+          expect(size.width).toBeCloseTo(dimensions[0].width, 1);
+          expect(size.height).toBeCloseTo(dimensions[0].height, 1);
+          expect(size.screenHeight).toBeCloseTo(dimensions[0].screenHeight, 1);
+          expect(size.barHeight).toBeCloseTo(dimensions[0].barHeight, 1);
+          expect(size.clipped).toBe(false);
+          expect(size.scrollHeight).toBeLessThanOrEqual(size.clientHeight + 1);
+          expect(size.top).toBeCloseTo(size.padding, 1);
+          expect(Math.min(...size.fontSizes)).toBeGreaterThanOrEqual(16);
+        }
+        const references = page.locator("#references");
+        await expect(references.locator(".reflines, p")).toHaveCount(0);
+        for (const client of ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"]) {
+          await expect(references.getByRole("img", { name: new RegExp(client) })).toHaveCount(1);
+        }
+        if (width <= 1100) {
+          const track = page.locator(".scenes.mobile-carousel");
+          await expect(track).toHaveCSS("scroll-snap-type", "x mandatory");
+          if (javaScriptEnabled) {
+            await track.focus();
+            await page.keyboard.press("End");
+            await expect.poll(() => track.evaluate(el => el.scrollLeft)).toBeGreaterThan(100);
+            await expect(track.locator("xpath=following-sibling::*[1]").locator("i").last()).toHaveClass("on");
+          }
+        }
+      });
+    }
+  });
+}

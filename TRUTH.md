@@ -18,14 +18,16 @@ Deux parcours : PME/ETI et grands groupes ; conseil et logiciel sont ouverts aux
 
 ### Page unique validée (27/10/2026)
 
-Source actuelle : `docs/site-v1/page-unique/PASSE-3-PAGE-RACONTEE.md`,
+Socle : `docs/site-v1/page-unique/PASSE-3-PAGE-RACONTEE.md`,
 maquette validée par Paul le 27/10/2026, archivée dans `passe-3/maquette/`.
 Objectif de cette passe : donner envie de prendre rendez-vous, sans tout dévoiler.
 Elle prime sur le handoff et la maquette précédents pour son périmètre.
 Nous allons à la frontière du possible, puis nous le livrons à nos clients.
 Votre expertise est la matière première. Nous en faisons des systèmes qui en multiplient l'impact.
-Neuf sections : hero, agents en production, changements, parcours, services,
-partenaires, références, architecture, fondateur et contact.
+Décision actuelle : `docs/site-v1/page-unique/BANDEAU-TECHNOLOGIES.md`
+(27/10 au soir), qui remplace le trajet par le bandeau agnostique.
+Neuf sections : hero, technologies, applications, changements, parcours, services,
+partenaires, références, fondateur et contact.
 Les quatre pages V1 deviennent des thèmes du Journal ; les autres pages de
 présentation redirigent vers les sections. Journal, légal et esquisses conservés.
 Les droits, l'hébergement, la réversibilité et la maintenance restent contractuels.
@@ -147,14 +149,44 @@ La permission de publication du client reste obligatoire. MIT reste sans logo.
 `docs/site-v1/page-unique/PASSE-4-CAS-D-USAGE-ET-ECRAN.md` prime sur la passe 3
 pour les cas d’usage, les offres partenaires, le trajet et la géométrie.
 Maquette source archivée : `docs/site-v1/page-unique/passe-4/passe4.py`.
-Ne pas dévoiler la stack interne sur la page : le trajet décrit les sources
-clients, le choix cloud/serveurs/local et les harnais, sans l’outillage Parrit.
+Décision Paul du 27/10/2026, soir : `BANDEAU-TECHNOLOGIES.md` remplace la
+règle de confidentialité de la stack. Bandeau agnostique `#technologies` juste
+après le hero : pour chaque besoin, la meilleure technologie. Liste canonique
+dans `src/system/technologies.ts`, logos locaux dans `public/tech/`, aucun
+partenariat sous-entendu. La section architecture est retirée.
 Les mentions de Claude Code comme formation/audit restent autorisées.
 Un bloc = un écran : en FR/EN et mouvement réduit, à 1440×800, 1280×720 et
 390×700, le premier enfant de chaque section (hors hero/contact) et chaque
 figure doivent tenir dans la hauteur du viewport, sans découpe ni texte masqué.
 Le hero entier, barre comprise, tient à 1440×800 ; le calendrier seul est exempté.
-Six carrousels mobiles natifs, accessibles au clavier, avec points de position.
-Les 48 cas et les 20 offres restent dans le HTML serveur ; aucun mouvement
-en mode réduit et aucun minuteur après démontage. Laparra est présenté comme
-un outil de pilotage agentique pour les fruits et légumes.
+Cinq carrousels mobiles natifs (celui du trajet est retiré), accessibles au clavier, avec points de position.
+Les 48 cas et les 23 offres restent dans le HTML serveur ; aucun mouvement
+en mode réduit et aucun minuteur après démontage. Le registre de preuves conserve
+le pilotage agentique des fruits et légumes pour Laparra ; seuls les logos
+sont désormais affichés dans les références (§5 du tour 1).
+
+## Applications concrètes et bouton du hero, amendement du 27/10 au soir
+
+`BANDEAU-TECHNOLOGIES.md` §4 prime pour la section des téléphones et le bouton du hero.
+« Quelques applications concrètes. » / « A few real-world applications. » :
+trois scènes anonymes, titres et note de données fictives conservés, toujours
+visibles même si toutes les permissions clients sont révoquées. Navigation
+« Applications » dans les deux langues ; ancres `#en-production` / `#in-production`
+conservées. Les noms et logos clients restent uniquement dans `#references`,
+avec `getSiteEvidence` et les contrôles de publication inchangés.
+Sur ordinateur (>760 px), le bouton rose du hero tient sur une ligne, à sa
+largeur de contenu, sous l'accroche et aligné à gauche ; hauteur et rembourrage
+existants conservés. Sur téléphone, pleine largeur inchangée. Le hero entier,
+barre comprise, tient toujours à 1440×800, sans aucun seuil de contrôle assoupli.
+
+
+## Tour 1 de la nuit, 27/10/2026
+
+`BANDEAU-TECHNOLOGIES.md` §5 : téléphones de dimensions communes, cartes des
+applications pleine largeur sur mobile et carrousel également sur tablette.
+Références : seuls les logos autorisés et leurs noms accessibles ; aucun texte
+sous le bandeau. Mention de propriété des marques retirée des technologies.
+23 offres partenaires FR/EN. `src/system/reading.ts` centralise la lecture :
+max(3 000 ms, 1 200 ms + 300 ms par mot), services et offres ; fondus ajoutés
+à cette durée, départs décalés, aucune offre tronquée. Hero et contact intacts
+sur consigne explicite de Paul : le timing du hero est exclu de ce tour.

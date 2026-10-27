@@ -4,13 +4,13 @@ import { SINGLE_PAGE_EN, PARTNER_OFFERS } from "@/system/single-page-copy";
 import { ParritCalInline } from "./CalInline";
 import { QuickCapture } from "./QuickCapture";
 import { getSiteEvidence } from "@/lib/registry/preuves";
-import { ClientReference, ClientLogoStrip, ResearchPartner } from "./PublicEvidence";
+import { ClientLogoStrip, ResearchPartner } from "./PublicEvidence";
 import { ServiceGrid } from "./ServiceGrid";
 import { ConversationMotion } from "./ConversationMotion";
 import { OntologyHero } from "./OntologyHero";
 import { PathWalker } from "./PathWalker";
 import { RevealOnView } from "./RevealOnView";
-import { DataArchitecture } from "./DataArchitecture";
+import { TechnologyBand } from "./TechnologyBand";
 import { MobileCarousel } from "./MobileCarousel";
 import { ServiceTasks } from "./ServiceTasks";
 export function SinglePage({ locale }: { locale: Locale }) {
@@ -33,10 +33,12 @@ export function SinglePage({ locale }: { locale: Locale }) {
   <p className="humby">{t("« La donnée est le nouveau pétrole », disait Clive Humby en 2006. Brute, elle ne sert à rien : nous la raffinons.")}</p>
 </div></section>
 
-{clients.some(id => ["Clevery", "Forexpert", "Laparra"].includes(id)) && <section className="live" id={fr ? "en-production" : "in-production"}><div className="wrap">
-  <h2>{t("Nos agents travaillent déjà")}{" "}<b>{t("chez nos clients.")}</b></h2>
-  <MobileCarousel className="scenes" label={fr ? "Agents en production" : "Agents in production"}>
-    {getSiteEvidence("Clevery", "home") && <div className="scene">
+<TechnologyBand locale={locale}/>
+
+<section className="live" id={fr ? "en-production" : "in-production"}><div className="wrap">
+  <h2>{t("Quelques applications")}{" "}<b>{t("concrètes.")}</b></h2>
+  <MobileCarousel className="scenes" label={fr ? "Applications concrètes" : "Real-world applications"}>
+    <div className="scene">
       <div className="phone"><div className="bar">{t("Agent du cabinet")}{" "}<i></i></div><div className="chat">
         <div className="msg a">{t("Bonjour Maître. 6 messages cette nuit, 3 demandent une action.")}</div>
         <div className="msg a">{t("1. Client A : demande de rendez-vous, réponse prête.\n2. Greffe : pièce reçue, classée au dossier.\n3. Client B : relance, réponse prête.")}</div>
@@ -44,18 +46,18 @@ export function SinglePage({ locale }: { locale: Locale }) {
         <div className="msg a">{t("Elle est dans votre messagerie, à relire avant envoi.")}</div>
         <div className="msg card"><b>{t("Dans sa messagerie")}</b>{t("Réponse au client A : brouillon prêt, à relire.")}</div>
       </div></div>
-      <h3>{t("Chaque matin, un cabinet d'avocats trouve ses réponses déjà rédigées.")}</h3><p className="who">{t("Clevery Avocats.")}</p>
-    </div>}
-    {getSiteEvidence("Forexpert", "home") && <div className="scene">
+      <h3>{t("Chaque matin, un cabinet d'avocats trouve ses réponses déjà rédigées.")}</h3>
+    </div>
+    <div className="scene">
       <div className="phone"><div className="bar">{t("Agent de prospection")}{" "}<i></i></div><div className="chat">
         <div className="msg a">{t("Bonjour. Les 10 messages du jour sont partis à 8 h.")}</div>
         <div className="msg a">{t("Les relances de la semaine sont programmées.\nUn appel est prévu aujourd'hui : Entreprise C.")}</div>
         <div className="msg m">{t("Merci, je l'appelle dans la journée.")}</div>
         <div className="msg card"><b>{t("Dans son suivi")}</b>{t("Appeler Entreprise C, aujourd'hui, après 5 semaines.")}</div>
       </div></div>
-      <h3>{t("Un organisme de formation prospecte chaque matin à 8 h.")}</h3><p className="who">{t("Forexpert.")}</p>
-    </div>}
-    {getSiteEvidence("Laparra", "home") && <div className="scene">
+      <h3>{t("Un organisme de formation prospecte chaque matin à 8 h.")}</h3>
+    </div>
+    <div className="scene">
       <div className="phone"><div className="bar">{t("Agent commercial")}{" "}<i></i></div><div className="chat">
         <div className="msg m">{t("Tâche pour Commercial 1 : relancer Client A sur l'offre avocat Hass, pour jeudi.")}</div>
         <div className="msg a">{t("Je crée cette tâche : relancer Client A, à faire par Commercial 1, pour le 8 octobre. Tu confirmes ?")}</div>
@@ -63,11 +65,11 @@ export function SinglePage({ locale }: { locale: Locale }) {
         <div className="msg a">{t("C'est fait, la tâche est enregistrée.")}</div>
         <div className="msg card"><b>{t("Dans son outil de pilotage")}</b>{t("Relancer Client A, à faire, Commercial 1.")}</div>
       </div></div>
-      <h3>{t("Un grossiste de Rungis pilote son activité en parlant à ses agents.")}</h3><p className="who">{t("Laparra, sur le téléphone de l'équipe.")}</p>
-    </div>}
+      <h3>{t("Un grossiste de Rungis pilote son activité en parlant à ses agents.")}</h3>
+    </div>
   </MobileCarousel>
   <p className="note">{t("Scènes reconstituées sur données fictives, fidèles aux systèmes en service.")}</p>
-</div></section>}
+</div></section>
 
 <section id={fr ? "ce-qui-change" : "what-changes"}><div className="wrap">
   <h2>{t("Ce que l'IA change")}{" "}<b>{t("dans votre entreprise.")}</b></h2>
@@ -111,17 +113,9 @@ export function SinglePage({ locale }: { locale: Locale }) {
 <section id="references" style={{"paddingTop": "0"}}><RevealOnView className="wrap">
   {clients.length > 0 && <><h2>{t("Ils travaillent")}{" "}<b>{t("avec nous.")}</b></h2>
   <ClientLogoStrip/>
-  <div className="reflines">
-    <ClientReference id="Laparra">{t("Grossiste du MIN de Rungis : un outil de pilotage agentique pour les fruits et légumes.")}</ClientReference>
-    <ClientReference id="Clevery">{t("Un agent pour le cabinet.")}</ClientReference>
-    <ClientReference id="Forexpert">{t("Un agent de prospection.")}</ClientReference>
-    <ClientReference id="Joone">{t("L'accompagnement des équipes à l'IA.")}</ClientReference>
-    <ClientReference id="SNCF">{t("Un programme de formation.")}</ClientReference>
-  </div>
   </>}
 </RevealOnView></section>
 
-<DataArchitecture locale={locale}/>
 
 
 

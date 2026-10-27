@@ -18,7 +18,7 @@ export function RevHeader({ locale }: { locale: Locale }) {
     return () => { document.removeEventListener("keydown", escape); document.removeEventListener("pointerdown", outside); };
   }, [pathname]);
   const fr = locale === "fr";
-  const nav = fr ? [["en-production", "En production"], ["parcours", "Le parcours"], ["services", "Services"], ["partenaires", "L'équipe"], ["references", "Références"], ["contact", "Contact"]] : [["in-production", "In production"], ["path", "The path"], ["services", "Services"], ["team", "The team"], ["references", "References"], ["contact", "Contact"]];
+  const nav = fr ? [["en-production", "Applications"], ["parcours", "Le parcours"], ["services", "Services"], ["partenaires", "L'équipe"], ["references", "Références"], ["contact", "Contact"]] : [["in-production", "Applications"], ["path", "The path"], ["services", "Services"], ["team", "The team"], ["references", "References"], ["contact", "Contact"]];
   const links = nav.map(([anchor, label]) => <a key={anchor} href={localizedPath(`/#${anchor}`, locale)}>{label}</a>);
   return <header ref={header} className="cmdbar single-header" onClick={event => { if ((event.target as HTMLElement).closest("a")) header.current?.querySelectorAll<HTMLDetailsElement>("details[open]").forEach(menu => { menu.open = false; }); }}>
     <div className="wrap">

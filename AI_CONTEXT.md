@@ -1,3 +1,79 @@
+## Tour 1 de la nuit, 27/10/2026
+
+Source : `BANDEAU-TECHNOLOGIES.md` §5 et consigne explicite de Paul ; branche
+`feat/bandeau-technologies`, baseline `51b8f7b` (118/118 tests Node).
+Téléphones : hauteur commune 432 px ordinateur/tablette, 368 px mobile,
+448 px sous 360 px ; messages en haut, cartes entières, carrousel dès 1100 px
+pour éviter les colonnes étroites. Aucune fonte réduite, couleurs par jetons.
+Références : logos seuls, noms accessibles et permissions inchangés ; mention
+sous technologies supprimée. Offres partenaires FR/EN : 23, toutes dans le SSR.
+`readingMs` = max(3000, 1200 + 300 × mots séparés par espaces), partagé par
+services et offres. Les fondus s'ajoutent au temps de lecture ; départs décalés,
+deux cartes partenaires maximum, chaque offre entièrement lue, timers nettoyés.
+Écart volontaire : hero, boutons, contact et Cal.com intacts sur mandat explicite,
+y compris les timings du hero pourtant cités au §5.5. Aucun seuil assoupli :
+seul le comptage de figures retire reflines, et les noms sont vérifiés en aria-label.
+Validation : lint, build Webpack/TypeScript strict, 121/121 tests Node,
+marque/claims et 19/19 Brand OS réussis ; revue adverse indépendante sans défaut.
+79 tests Playwright recensés (dont 24 nouveaux cas téléphones FR/EN, avec/sans JS).
+Preuve navigateur non acquise : Chromium refusé par macOS avant navigation
+(`MachPortRendezvousServer`, Permission denied). Estimation via fontes locales
+à390×700 : bloc applications ~626 px FR/~598 px EN ; mesures à rejouer sur l'hôte.
+Écritures locales réversibles, sans données ni services externes (0 ligne métier) ;
+rollback par revert du commit. Captures restaurées ; aucun push ni déploiement.
+
+## Applications concrètes, amendement du 27/10/2026 au soir
+
+`BANDEAU-TECHNOLOGIES.md` §4 : trois téléphones anonymes toujours rendus,
+indépendants des permissions ; références nominatives et logos encore filtrés.
+Navigation « Applications », ancres conservées. Bouton hero ordinateur à largeur
+intrinsèque et insécable ; colonne réservant sa largeur, mobile inchangé.
+Tests de révocation FR/EN : scènes identiques avant/après, aucun nom ni logo
+client après révocation. Assertions navigateur ajoutées sans seuil assoupli :
+ligne unique, largeur, padding, alignement, absence de chevauchement, mobile.
+Baseline 117/117 tests Node ; candidat 118/118. Lint, build Webpack (TypeScript
+strict), marque, claims et 19/19 tests Brand OS réussis. Revue indépendante :
+aucun défaut restant. Les 55 tests Playwright sont découverts ; preuve visuelle
+non acquise, serveur refusé par le sandbox (`listen EPERM 127.0.0.1:3210`).
+À rejouer sur l'hôte : tests/single-page.spec.ts, notamment « un bloc = un écran ».
+Écriture locale sur feat/bandeau-technologies, réversible par revert du commit,
+sans données ni service externe. Captures restaurées et exclues ; aucun push.
+
+## Bandeau technologies, hauteur entière, 27/10/2026
+
+Correctif local sur `feat/bandeau-technologies` : lignes du titre à 32 px et
+de la mention à 24 px, au lieu de 31,9 et 23,2 px. Les autres dimensions
+verticales du bandeau sont déjà entières ; aucun test modifié.
+Calcul en mouvement réduit depuis les métriques hmtx des General Sans locales
+(avances arrondies au pixel supérieur, estimation des retours sans navigateur) :
+contenu de 1080 px sur ordinateur, 350 px à 390 px ; liste de 6 / 15 lignes.
+Ordinateur FR/EN : 58 + 32 + 20 + (6 × 26 + 5 × 12) + 16 + 24 = 366 px,
+soit 434 px libres à 1440×800 et 354 px à 1280×720.
+Mobile : 32 + 3 × 32 + 12 + (15 × 26 + 14 × 4) + 12 + mention ;
+mention FR 3 × 24, EN 2 × 24, soit 670 / 646 px et 30 / 54 px libres.
+Le rendu et le calcul sont identiques avec/sans JS (composant serveur, CSS seule).
+Validation : lint, build Webpack et 117/117 tests Node réussis ; baseline 117/117.
+Preuve navigateur à confirmer sur l'hôte : Chromium refusé avant navigation
+par le sandbox macOS (`MachPortRendezvousServer`, permission denied).
+Écriture limitée au CSS et à ce contexte, réversible par revert, sans données
+ni service externe ; captures restaurées hors périmètre, aucun push.
+
+## Bandeau technologies, 27/10/2026 au soir
+
+`docs/site-v1/page-unique/BANDEAU-TECHNOLOGIES.md` remplace la confidentialité
+technique de la passe 4 : `#technologies` suit le hero, 41 noms dans
+`src/system/technologies.ts`, 33 masques SVG locaux et tracés sans couleur.
+Architecture retirée (composant, textes, CSS et autodéfilement devenu inutilisé).
+Cinq carrousels natifs conservés ; standard/systems ciblent technologies en 308.
+SSR complet FR/EN, boucle CSS 60 s avec pause survol/clavier ; mouvement réduit :
+une seule copie visible, retour à la ligne. Titre 22 px pour conserver l'échelle
+fermée existante ; noms 18 px, mention 16 px, géométrie sans seuil assoupli.
+Validation locale : npm ci, lint, build Webpack, 117/117 tests Node, marque/claims
+et 19/19 Brand OS réussis ; 55 cas Playwright recensés, sans exécution navigateur.
+Rapport et preuve navigateur à rejouer sur l'hôte :
+`docs/site-v1/page-unique/BANDEAU-TECHNOLOGIES-RAPPORT.md`.
+Les entrées antérieures ci-dessous décrivent les états historiques.
+
 ## Passe 4, contraste du menu téléphone, 27/10/2026
 
 Les audits aération et lisibilité partagent le sélecteur du summary natif.
