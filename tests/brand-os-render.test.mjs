@@ -122,7 +122,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         if (route === "/") {
           assert.match(html, /<section class="hero"/);
           const ids = [...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]);
-          const expected = locale === "fr" ? ["en-production", "ce-qui-change", "parcours", "services", "confiance", "partenaires", "references", "contact"] : ["in-production", "what-changes", "path", "services", "safeguards", "team", "references", "contact"];
+          const expected = locale === "fr" ? ["en-production", "ce-qui-change", "parcours", "services", "partenaires", "references", "architecture", "contact"] : ["in-production", "what-changes", "path", "services", "team", "references", "architecture", "contact"];
           assert.deepEqual(ids.filter(id => expected.includes(id)), expected);
           assert.doesNotMatch(text, /Content Factor|usines? de contenu|FormIA|Qualiopi/i);
           const partners = html.match(new RegExp(`<section id="${locale === "fr" ? "partenaires" : "team"}">[\\s\\S]*?</section>`))?.[0];

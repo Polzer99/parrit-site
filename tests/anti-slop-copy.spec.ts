@@ -8,7 +8,7 @@ const noOffer = /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom qu
 // Only whole, verbatim status lines are exempt, never substrings or patterns.
 const approvedStatuses = new Set([
   "Démonstration, données fictives.", "Demonstration, fictional data.",
-  "Exemple illustratif", "Exemples illustratifs", "Illustrative example", "Illustrative examples",
+  "Exemple illustratif", "Illustrative example",
   "Scènes reconstituées sur données fictives, fidèles aux systèmes en service.",
   "Scenes recreated with fictional data, true to the systems in use.",
 ]);
@@ -67,7 +67,7 @@ for (const locale of ["en", "fr"]) {
       };
       await audit();
       if (!route) {
-        await page.locator(".contact-fallback summary").click();
+        await expect(page.locator(".contact-fallback input[type=email]")).toBeVisible();
         await audit();
       }
     });

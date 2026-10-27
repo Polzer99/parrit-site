@@ -18,12 +18,14 @@ Deux parcours : PME/ETI et grands groupes ; conseil et logiciel sont ouverts aux
 
 ### Page unique validée (27/10/2026)
 
-Source : `docs/site-v1/page-unique/HANDOFF-PAGE-UNIQUE.md`, section 0 prioritaire,
-`MAQUETTE-VALIDEE.html` et rendus 1440/390.
+Source actuelle : `docs/site-v1/page-unique/PASSE-3-PAGE-RACONTEE.md`,
+maquette validée par Paul le 27/10/2026, archivée dans `passe-3/maquette/`.
+Objectif de cette passe : donner envie de prendre rendez-vous, sans tout dévoiler.
+Elle prime sur le handoff et la maquette précédents pour son périmètre.
 Nous allons à la frontière du possible, puis nous le livrons à nos clients.
 Votre expertise est la matière première. Nous en faisons des systèmes qui en multiplient l'impact.
 Neuf sections : hero, agents en production, changements, parcours, services,
-garde-fous, partenaires, références et outils, fondateur et contact.
+partenaires, références, architecture, fondateur et contact.
 Les quatre pages V1 deviennent des thèmes du Journal ; les autres pages de
 présentation redirigent vers les sections. Journal, légal et esquisses conservés.
 Les droits, l'hébergement, la réversibilité et la maintenance restent contractuels.
@@ -135,5 +137,7 @@ Décision Paul du 27/10/2026 : nom et portrait du fondateur autorisés dans la
 section contact, portrait `person.paul.primary_portrait` sans retouche. Cette
 décision remplace l'interdiction de personne hors mentions légales du 12/10.
 Le Journal conserve son identité Parrit.ai. Partenaires et outils : texte exact
-validé ; aucun partenariat technique implicite. Logos clients et MIT éteints
-par défaut, accord nominatif daté, source et fichier indispensables à l'affichage.
+validé ; aucun partenariat technique implicite. Décision Paul du 27/10/2026 (passe 3) : logos des cinq clients publiables
+affichés sans accord écrit des clients, sur sa décision nominative datée,
+avec source et fichier obligatoires (`public/clients/SOURCES.md`).
+La permission de publication du client reste obligatoire. MIT reste sans logo.

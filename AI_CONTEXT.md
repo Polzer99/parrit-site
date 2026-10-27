@@ -1,3 +1,66 @@
+## Relance déterministe du test hero — 27/10/2026
+
+Lecture d'OntologyHero et observeMotion : premier lancement synchrone dans
+start, suivant à 2 300 ms ; rAF pour le trajet de 4 200 ms. Aucun délai de
+relance ajouté par le composant. Le test avançait l'horloge immédiatement
+après emulateMedia, sans attendre la notification native matchMedia/change.
+Synchronisation désormais sur data-anim=in, le premier jeton et sa légende,
+puis avance de 3 000 ms dans le chevauchement des deux histoires. Toutes les
+assertions conservées, légende de la deuxième histoire également vérifiée.
+Lint, build Webpack et 107/107 tests Node réussis (baseline Node : 107/107).
+Preuve navigateur FR/EN 1440/390 à rejouer sur l'hôte : tentative Playwright
+bloquée au lancement de Chromium par le sandbox macOS, avant navigation.
+Aucun push ; captures préexistantes exclues du commit.
+
+## Correctif du fil hero et lien Journal — 27/10/2026
+
+Reprise des 13 échecs navigateur signalés par Paul sur feat/passe-3-page.
+Résultats statiques et animés à pleine opacité ; sortant retiré immédiatement.
+DOM du plus récent au plus ancien ; nouvelle case révélée sans fondu après
+le glissement des anciennes, pour éviter tout chevauchement. Légende sans fondu.
+Contrôles conservés : attente réduite à quatre résultats selon §14 et assertion
+SSR des quatre opacités à 1, conformément au nouveau contrat demandé par Paul.
+Lien obsolète du Journal retiré, texte « the Standard » conservé ; aucune ancre
+#safeguards ou #confiance restante dans content/ et src/.
+Baseline et candidat : 107/107 tests Node. Candidat final : lint, build Webpack,
+marque, claims et 19/19 tests Brand OS réussis ; revue indépendante conforme.
+Preuve navigateur encore à rejouer sur l'hôte : écoute 127.0.0.1:3210 refusée
+par le sandbox (EPERM). Aucun push ; captures préexistantes hors du commit.
+
+## Hero vivant — amendement du 27/10/2026, 13 h
+
+§14 de PASSE-3-PAGE-RACONTEE appliqué à OntologyHero : six histoires FR/EN,
+lancement toutes les 2,3 s, trajet 4,2 s, deux jetons maximum, tracé blanc,
+nœuds lit et agents busy. Fil de quatre résultats, premier seul rose du schéma.
+SSR/réduit : quatre premiers résultats et légende 1, sans jeton ni tracé.
+Nettoyage au démontage, hors écran et au passage en mouvement réduit : timers,
+frames, Web Animations, CSS et groupe SVG animé ; redémarrage depuis histoire 1.
+Maquettes hero.js/hero.css recopiées et comparées octet pour octet (CSS déjà identique).
+Baseline 107 tests Node ; candidat : lint, build Webpack, 107 tests Node,
+marque/claims et 19 tests Brand OS réussis. Revue adverse indépendante sans défaut.
+Tests structure SSR et Playwright adaptés. Preuve visuelle, transitions et nettoyage
+navigateur restent à vérifier par Paul : aucun serveur ni Playwright lancé dans le sandbox.
+Un commit sur feat/passe-3-page, sans push ni déploiement.
+
+## Passe 3, page racontée — 27/10/2026
+
+Spec : `docs/site-v1/page-unique/PASSE-3-PAGE-RACONTEE.md` ; maquette copiée
+sans MP4 dans `passe-3/maquette/`. Neuf sections FR/EN, architecture remplace
+les garde-fous ; navigation Services et redirections standard/systems actualisées.
+OntologyHero (trois histoires), PathWalker, douze services, équipe, bandeau
+local des cinq logos, trajet de donnée et repli QuickCapture toujours visible.
+Décision de logos Paul sans accord écrit client conservée explicitement dans
+le registre et SOURCES.md ; permission client et contrat publicationLogo intacts.
+RevealOnView déclenche à l'entrée et arrête hors écran ; rendu SSR/réduit complet.
+Téléphones/panneaux : contenu et séquences conservés, déclenchement à l'écran.
+Charte : échelle canonique conservée, fond des résultats hero contrasté ;
+OpenCode reste une image locale (PNG opaque impropre au masque alpha).
+Validation : lint sans avertissement, build Webpack 52 pages, 107 tests Node,
+marque/claims et 19 tests Brand OS réussis. Build Turbopack interrompu à 90 s.
+Rapport de validation et écarts : `docs/site-v1/page-unique/passe-3/RAPPORT.md`.
+Aucun push ni déploiement. La validation navigateur est bloquée par le sandbox
+(port 3210 EPERM, lancement Chromium refusé) et n'est pas réputée acquise.
+
 ## Passe 2 langue et photo, 27/10/2026
 
 Sections 1 à 3 de `docs/site-v1/page-unique/PASSE-2-LANGUE-ET-PHOTO.md`

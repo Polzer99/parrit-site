@@ -55,7 +55,7 @@ function attribution(): Record<string, string> {
 }
 
 export function QuickCapture({
-  locale, id, hero = false, initialIdee, interet, autoFocusEmail = false,
+  locale, id, hero = false, initialIdee, interet, autoFocusEmail = false, variant = "default",
 }: {
   locale: Locale;
   id?: string;
@@ -63,8 +63,14 @@ export function QuickCapture({
   initialIdee?: string;
   interet?: Interet;
   autoFocusEmail?: boolean;
+  variant?: "default" | "contact";
 }) {
-  const copy = DICT[locale];
+  const copy = variant === "contact" ? {
+    ...DICT[locale],
+    label: locale === "fr" ? "Vous préférez écrire ?" : "Prefer to write?",
+    line: locale === "fr" ? "Laissez votre adresse, nous vous répondons nous-mêmes." : "Leave your address and we will reply ourselves.",
+    button: locale === "fr" ? "Être recontacté" : "Contact me",
+  } : DICT[locale];
   const [email, setEmail] = useState("");
   const [idee, setIdee] = useState(initialIdee ?? "");
   const [ideaRevealed, setIdeaRevealed] = useState(Boolean(initialIdee));
@@ -159,7 +165,7 @@ export function QuickCapture({
   return (
     <section id={id} className={`quick-capture${hero ? " home-s-quick-capture" : ""}`} aria-label={copy.aria}>
       {!hero ? <div className="quick-copy">
-        <p>{copy.label}</p>
+        {variant === "contact" ? <h3>{copy.label}</h3> : <p>{copy.label}</p>}
         <p>{copy.line}</p>
       </div> : null}
       <form onSubmit={submit} noValidate>

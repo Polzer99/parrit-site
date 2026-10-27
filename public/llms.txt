@@ -5,7 +5,7 @@
 ## The single page
 - https://parrit.ai/ (English)
 - https://parrit.ai/fr (French)
-- Agents in production, what AI changes, the path, departments, safeguards and hosting, the team, references, and founder and contact.
+- Agents in production, what AI changes, the path, departments, how data travels through our systems, the team, references, and founder and contact.
 - Parrit.ai trains your teams, builds with them and puts software made for your company into production.
 - Paul Larmaraud, founder of Parrit.ai. Based in the Lille area, he also works in Paris.
 - Service area: Lille, Métropole européenne de Lille, Hauts-de-France, France.

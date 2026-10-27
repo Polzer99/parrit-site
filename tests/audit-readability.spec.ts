@@ -45,7 +45,7 @@ for (const width of [375, 390, 1440]) {
         await expect(header).toHaveCSS("border-top-color", await tokenColor(header, "--white"));
         await expect(header).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
       }
-      if (path === "/" || path === "/fr") await page.locator(".contact-fallback summary").click();
+      if (path === "/" || path === "/fr") await expect(page.locator(".contact-fallback input[type=email]")).toBeVisible();
       const result = await page.evaluate(() => {
         const visible = (el: Element) => el.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }) && el.getBoundingClientRect().width > 0 && el.getBoundingClientRect().height > 0;
         const actions = [...document.querySelectorAll(".rev-button, .single-header .rev-button, .fp-cta, .locale-toggle button")].filter(visible);

@@ -1,14 +1,17 @@
-/* eslint-disable @next/next/no-img-element */
 import type { Locale } from "@/system/locale";
 import { localizedPath } from "@/system/locale";
 import { SINGLE_PAGE_EN } from "@/system/single-page-copy";
 import { ParritCalInline } from "./CalInline";
 import { QuickCapture } from "./QuickCapture";
 import { getSiteEvidence } from "@/lib/registry/preuves";
-import { ClientReference, ResearchPartner } from "./PublicEvidence";
+import { ClientReference, ClientLogoStrip, ResearchPartner } from "./PublicEvidence";
 import { ServiceGrid } from "./ServiceGrid";
 import { ConversationMotion } from "./ConversationMotion";
-import { OntologyStory } from "./OntologyStory";
+import { OntologyHero } from "./OntologyHero";
+import { PathWalker } from "./PathWalker";
+import { RevealOnView } from "./RevealOnView";
+import { DataArchitecture } from "./DataArchitecture";
+import { ServiceTasks } from "./ServiceTasks";
 export function SinglePage({ locale }: { locale: Locale }) {
  const fr = locale === "fr";
  const clients = ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"].filter(id => getSiteEvidence(id, "home"));
@@ -24,63 +27,7 @@ export function SinglePage({ locale }: { locale: Locale }) {
       <div className="actions" style={{"marginTop": "0"}}><a className="btn rev-button exec" href="#contact">{t("Parlons de votre transformation")}</a></div>
     </div>
   </div>
-  <svg className="onto" viewBox="0 0 1080 260" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><line x1="0" y1="40" x2="1080" y2="40" className="layer"/>
-    <text x="0" y="30" className="lab">{t("Vos données")}</text>
-    <line x1="0" y1="130" x2="1080" y2="130" className="layer"/>
-    <text x="0" y="120" className="lab">{t("Vos règles")}</text>
-    <line x1="0" y1="220" x2="1080" y2="220" className="layer"/>
-    <text x="0" y="210" className="lab">{t("Vos agents")}</text>
-    <path id="onto-e0" d="M190 40 L310 130" className="edge"/>
-    <path id="onto-e1" d="M430 40 L310 130" className="edge"/>
-    <path id="onto-e2" d="M430 40 L590 130" className="edge"/>
-    <path id="onto-e3" d="M670 40 L590 130" className="edge"/>
-    <path id="onto-e4" d="M670 40 L830 130" className="edge"/>
-    <path id="onto-e5" d="M910 40 L830 130" className="edge"/>
-    <path id="onto-e6" d="M310 130 L260 220" className="edge"/>
-    <path id="onto-e7" d="M590 130 L540 220" className="edge"/>
-    <path id="onto-e8" d="M830 130 L860 220" className="edge"/>
-    <path id="onto-e9" d="M310 130 L540 220" className="edge"/>
-    <path id="onto-e10" d="M590 130 L860 220" className="edge"/>
-    <rect x="184" y="34" width="12" height="12" className="node"/>
-    <text x="202" y="58" className="nt">{t("Clients")}</text>
-    <rect x="424" y="34" width="12" height="12" className="node"/>
-    <text x="442" y="58" className="nt">{t("Commandes")}</text>
-    <rect x="664" y="34" width="12" height="12" className="node"/>
-    <text x="682" y="58" className="nt">{t("Stocks")}</text>
-    <rect x="904" y="34" width="12" height="12" className="node"/>
-    <text x="922" y="58" className="nt">{t("Factures")}</text>
-    <rect x="304" y="124" width="12" height="12" className="node r"/>
-    <text x="322" y="148" className="nt">{t("Validation")}</text>
-    <rect x="584" y="124" width="12" height="12" className="node r"/>
-    <text x="602" y="148" className="nt">{t("Droits")}</text>
-    <rect x="824" y="124" width="12" height="12" className="node r"/>
-    <text x="842" y="148" className="nt">{t("Échéances")}</text>
-    <g transform="translate(260 222) scale(1.4)"><rect x="-11" y="-22" width="22" height="22" className="ag"/>
-    <rect x="-6" y="-15" width="4" height="5" className="eye"/>
-    <rect x="2" y="-15" width="4" height="5" className="eye"/>
-    </g>
-    <g transform="translate(540 222) scale(1.4)"><rect x="-11" y="-22" width="22" height="22" className="ag"/>
-    <rect x="-6" y="-15" width="4" height="5" className="eye"/>
-    <rect x="2" y="-15" width="4" height="5" className="eye"/>
-    </g>
-    <g transform="translate(860 222) scale(1.4)"><rect x="-11" y="-22" width="22" height="22" className="ag"/>
-    <rect x="-6" y="-15" width="4" height="5" className="eye"/>
-    <rect x="2" y="-15" width="4" height="5" className="eye"/>
-    </g>
-    <rect width="7" height="7" x="-3.5" y="-3.5" className="pulse"><animateMotion dur="3.08s" begin="2.18s" repeatCount="indefinite"><mpath href="#onto-e0"/>
-    </animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" className="pulse"><animateMotion dur="3.34s" begin="2.42s" repeatCount="indefinite"><mpath href="#onto-e1"/>
-    </animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" className="pulse"><animateMotion dur="3.85s" begin="0.26s" repeatCount="indefinite"><mpath href="#onto-e2"/>
-    </animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" className="pulse"><animateMotion dur="2.63s" begin="3.35s" repeatCount="indefinite"><mpath href="#onto-e3"/>
-    </animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" className="pulse"><animateMotion dur="3.12s" begin="0.94s" repeatCount="indefinite"><mpath href="#onto-e4"/>
-    </animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" className="pulse"><animateMotion dur="4.59s" begin="1.88s" repeatCount="indefinite"><mpath href="#onto-e5"/>
-    </animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" className="pulse"><animateMotion dur="4.27s" begin="1.91s" repeatCount="indefinite"><mpath href="#onto-e6"/>
-    </animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" className="pulse"><animateMotion dur="3.88s" begin="0.6s" repeatCount="indefinite"><mpath href="#onto-e7"/>
-    </animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" className="pulse"><animateMotion dur="3.87s" begin="3.47s" repeatCount="indefinite"><mpath href="#onto-e8"/>
-    </animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" className="pulse"><animateMotion dur="3.65s" begin="2.97s" repeatCount="indefinite"><mpath href="#onto-e9"/>
-    </animateMotion></rect><rect width="7" height="7" x="-3.5" y="-3.5" className="pulse"><animateMotion dur="3.94s" begin="0.26s" repeatCount="indefinite"><mpath href="#onto-e10"/>
-    </animateMotion></rect>
-    <OntologyStory input={t("E-mail client")} result={t("Résultat")} output={t("Relance prête")}/>
-  </svg>
+  <OntologyHero locale={locale}/>
   {/* Attribution de la citation courte : https://ico.org.uk/for-the-public/ico-40/data-as-a-commodity/ */}
   <p className="humby">{t("« La donnée est le nouveau pétrole », disait Clive Humby en 2006. Brute, elle ne sert à rien : nous la raffinons.")}</p>
 </div></section>
@@ -137,6 +84,7 @@ export function SinglePage({ locale }: { locale: Locale }) {
 
 <section className="parcours" id={fr ? "parcours" : "path"}><div className="wrap">
   <h2>{t("Trois étapes,")}{" "}<b>{t("vous commencez où vous voulez.")}</b></h2>
+  <PathWalker/>
   <div className="steps">
     <div className="step"><span className="n">{t("Étape 1")}</span><h3>{t("Apprendre")}</h3><p>{t("Former les équipes, puis créer avec elles un premier agent.")}</p></div>
     <div className="step"><span className="n">{t("Étape 2")}</span><h3>{t("Améliorer")}</h3><p>{t("Choisir les priorités, puis livrer des solutions rapides.")}</p></div>
@@ -145,40 +93,24 @@ export function SinglePage({ locale }: { locale: Locale }) {
   <p className="aussi">{t("Déjà équipés ? Nous vérifions vos agents et leurs règles, installons l'IA sur vos serveurs et auditons votre usage de Claude Code.")}</p>
 </div></section>
 
-<section id="services"><div className="wrap">
+<section id="services"><RevealOnView className="wrap">
   <h2>{t("Ce que l'IA prépare")}{" "}<b>{t("dans chaque service.")}</b></h2>
-  <ServiceGrid items={[[t("Direction"), t("Elle résume les décisions de chaque réunion.")], ["Finance", t("Elle signale les écarts entre deux fichiers.")], [t("Commercial"), t("Elle repère les entreprises à contacter.")], [t("Ressources humaines"), t("Elle vérifie qu'un dossier est complet.")], ["Marketing", t("Elle adapte un même texte à chaque canal.")], [t("Juridique"), t("Elle prépare un projet de contrat à relire.")]]} />
-  <div className="status"><i></i>{t("Exemples illustratifs")}</div>
-</div></section>
+  <ServiceTasks locale={locale}/>
+</RevealOnView></section>
 
-<section id={fr ? "confiance" : "safeguards"} style={{"background": "var(--sky)"}}><div className="wrap">
-  <h2>{t("Vos agents agissent")}{" "}<b>{t("dans des limites que vous fixez.")}</b></h2>
-  <div className="trust">
-    <div className="card"><div className="q">{t("Quels clients relancer cette semaine ?")}</div><div className="v"><b>{t("Autorisé")}</b>{t("Il reçoit la liste de ses clients.")}</div><div className="q">{t("Montre-moi les salaires.")}</div><div className="v"><b className="no">{t("Refusé")}</b>{t("Il n'a pas accès à la paie.")}</div>
-      <h3>{t("Chaque agent ne voit que ce qu'il a le droit de voir.")}</h3></div>
-    <div className="card"><div className="flow"><div>{t("L'agent prépare un devis pour le client A.")}</div><div>{t("Il attend votre accord.")}</div><div className="ok">{t("Vous validez : le devis part.")}</div></div>
-      <h3>{t("Rien ne part sans validation.")}</h3></div>
-    <div className="card"><div className="flow"><div>{t("Un agent écrit le code.")}</div><div>{t("D'autres le relisent, chacun sous un angle.")}</div><div className="ok">{t("Les tests tranchent.")}</div></div>
-      <p className="muted">{t("Le 19 octobre 2026, quatre agents l'ont relu avant validation.")}</p></div>
-  </div>
-  <div className="host">
-    <div><b>{t("Chez un fournisseur")}</b><p className="muted">{t("Vos données sont traitées selon le contrat.")}</p></div>
-    <div><b>{t("Sur vos serveurs")}</b><p className="muted">{t("Elles ne quittent pas votre entreprise.")}</p></div>
-    <div><b>{t("Mixte")}</b><p className="muted">{t("Les plus sensibles restent chez vous.")}</p></div>
-  </div>
-</div></section>
 
-<section id={fr ? "partenaires" : "team"}><div className="wrap">
+<section id={fr ? "partenaires" : "team"}><RevealOnView className="wrap">
   <h2>{t("Chaque projet a son équipe")}{" "}<b>{t("et sa technologie.")}</b></h2>
   <p className="muted" style={{"marginTop": "20px", "maxWidth": "720px"}}>{t("Plus de vingt partenaires, entrepreneurs et consultants indépendants, choisis selon le diagnostic.")}</p>
   <ServiceGrid items={[[t("Ingénieurs IA"), t("Plus de dix, chacun sa spécialité : vision, agents, intégration.")], [t("Automatisation et assistants"), t("Des développeurs et des studios : assistants écrits, vocaux et vidéo.")], [t("Transformation et projet"), t("Conduite du changement et pilotage de projet.")], [t("Marque et marketing"), t("Image de marque, contenus et vente.")], [t("Formation"), t("Une quinzaine de formateurs et un organisme certifié.")], [t("Conseil et qualité"), t("Des cabinets partenaires et des relecteurs de nos livrables.")], [t("Chercheurs du MIT"), t("Des chercheurs du MIT dans notre réseau, pour vos déploiements d'agents les plus exigeants.")]]} />
-  <p className="muted" style={{"marginTop": "28px"}}>{t("À l'international : des partenaires au Brésil et en Italie, de premiers clients au Cameroun.")}</p>
+  <p className="teamcap"><i aria-hidden="true"/>{t("Une équipe composée pour chaque diagnostic")}</p>
 <ResearchPartner/>
-</div></section>
+</RevealOnView></section>
 
-<section id="references" style={{"paddingTop": "0"}}><div className="wrap">
+<section id="references" style={{"paddingTop": "0"}}><RevealOnView className="wrap">
   {clients.length > 0 && <><h2>{t("Ils travaillent")}{" "}<b>{t("avec nous.")}</b></h2>
-  <div className="refs">
+  <ClientLogoStrip/>
+  <div className="reflines">
     <ClientReference id="Laparra">{t("Grossiste en fruits et légumes du MIN de Rungis : des agents qui gèrent la base clients, et un outil de pilotage de l'entreprise.")}</ClientReference>
     <ClientReference id="Clevery">{t("Un agent pour le cabinet.")}</ClientReference>
     <ClientReference id="Forexpert">{t("Un agent de prospection.")}</ClientReference>
@@ -186,21 +118,9 @@ export function SinglePage({ locale }: { locale: Locale }) {
     <ClientReference id="SNCF">{t("Un programme de formation.")}</ClientReference>
   </div>
   </>}
-  <h3 style={{"marginTop": "96px"}}>{t("Les outils avec lesquels nous construisons.")}</h3>
-  <div className="tools">
-    <div><span aria-hidden="true" className="ic" style={{ maskImage: "url(/tools/openai.svg)" }} />{"ChatGPT"}</div>
-    <div><span aria-hidden="true" className="ic" style={{ maskImage: "url(/tools/claude.svg)" }} />{"Claude Code"}</div>
-    <div><span aria-hidden="true" className="ic" style={{ maskImage: "url(/tools/openai.svg)" }} />{"Codex"}</div>
-    <div><img src="/tools/opencode.png" width="34" height="34" alt="" />{"OpenCode"}</div>
-    <div><span aria-hidden="true" className="ic" style={{ maskImage: "url(/tools/googlegemini.svg)" }} />{"Gemini"}</div>
-    <div><span aria-hidden="true" className="ic" style={{ maskImage: "url(/tools/n8n.svg)" }} />{"n8n"}</div>
-    <div><span aria-hidden="true" className="ic" style={{ maskImage: "url(/tools/supabase.svg)" }} />{"Supabase"}</div>
-    <div><span aria-hidden="true" className="ic" style={{ maskImage: "url(/tools/telegram.svg)" }} />{"Telegram"}</div>
-    <div><span aria-hidden="true" className="ic" style={{ maskImage: "url(/tools/github.svg)" }} />{"GitHub"}</div>
-    <div><span aria-hidden="true" className="ic" style={{ maskImage: "url(/tools/vercel.svg)" }} />{"Vercel"}</div>
-  </div>
-  <p className="legal-note">{t("Les marques citées appartiennent à leurs propriétaires. Nous les utilisons ; aucun partenariat n'est sous-entendu.")}</p>
-</div></section>
+</RevealOnView></section>
+
+<DataArchitecture locale={locale}/>
 
 
 
@@ -212,16 +132,15 @@ export function SinglePage({ locale }: { locale: Locale }) {
     <img src="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.webp" alt="Paul Larmaraud" width="600" height="800" loading="lazy" />
   </picture>
   <div>
-    <h2>{"Paul Larmaraud, "}<b>{t("fondateur de Parrit.ai.")}</b></h2>
+    <h2>{"Paul Larmaraud, "}<b>{t("fondateur de Parrit.ai")}</b></h2>
     <p style={{"marginTop": "20px"}}>{t("Il a créé l'entreprise en 2024, après deux ans chez Lime.")}</p>
     <ul>
       <li>{t("Il conçoit des systèmes où plusieurs agents travaillent ensemble, et les garde-fous qui les encadrent.")}</li>
       <li>{t("Il forme les équipes et pilote les projets.")}</li>
     </ul>
-    <p className="local-note">{fr ? "Basé dans la métropole lilloise, il travaille aussi à Paris." : "Based in the Lille area, he also works in Paris."}</p>
     <div className="actions"><a className="btn rev-button exec" href="#reservation">{t("Parler d'un projet")}</a><a className="mail" href="mailto:paul.larmaraud@parrit.ai">{"paul.larmaraud@parrit.ai"}</a></div>
   </div>
-</div><div id="reservation" className="reservation"><ParritCalInline locale={locale}/><details className="contact-fallback"><summary>{fr ? "Aucun créneau ne convient ? Laissez votre e-mail." : "No suitable time? Leave your e-mail."}</summary><QuickCapture locale={locale} id="single-contact" /></details></div></div></section>
+</div><div id="reservation" className="reservation"><ParritCalInline locale={locale}/><div className="contact-fallback"><QuickCapture locale={locale} id="single-contact" variant="contact" /></div></div></div></section>
 
 </main>;
 }

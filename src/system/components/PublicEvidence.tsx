@@ -3,11 +3,27 @@ import { getSiteEvidence, publicationLogo, RESEARCH_PARTNER } from "@/lib/regist
 export function ClientReference({ id, children }: { id: string; children: React.ReactNode }) {
   const evidence = getSiteEvidence(id, "home");
   if (!evidence) return null;
-  const logo = publicationLogo(evidence.logo);
-  return <div data-evidence={id}><h3>{logo ? <img className="client-logo" src={logo} alt={evidence.display_name}/> : evidence.display_name}</h3><p className="muted">{children}</p></div>;
+  return <div data-evidence={id}><b>{evidence.display_name}</b><p className="muted">{children}</p></div>;
 }
 export function ResearchPartner() {
   const logo = publicationLogo(RESEARCH_PARTNER.logo);
   if (!logo || !RESEARCH_PARTNER.title?.trim()) return null;
   return <div className="research-partner"><img src={logo} alt={RESEARCH_PARTNER.title}/></div>;
+}
+
+const logoDimensions = [
+  ["Laparra", 551, 120, 56], ["Clevery", 367, 120, 56], ["Forexpert", 119, 120, 64],
+  ["Joone", 387, 120, 56], ["SNCF", 24, 24, 64],
+] as const;
+export function ClientLogoStrip() {
+  const logos = logoDimensions.flatMap(([id, width, height, displayHeight]) => {
+    const evidence = getSiteEvidence(id, "home");
+    const file = evidence && publicationLogo(evidence.logo);
+    return file && evidence ? [{ id, name: evidence.display_name, file, width: width / height * displayHeight, height: displayHeight }] : [];
+  });
+  if (!logos.length) return null;
+  return <div className="logo-strip"><div className="logo-track">{[false, true].map(duplicate =>
+    <div key={String(duplicate)} className="logo-set" aria-hidden={duplicate ? "true" : undefined}>
+      {logos.map(logo => <span key={logo.id} data-evidence={logo.id} role="img" aria-label={logo.name} className="client-logo" style={{ maskImage: `url(${logo.file})`, width: logo.width, height: logo.height }}/>) }
+    </div>)}</div></div>;
 }
