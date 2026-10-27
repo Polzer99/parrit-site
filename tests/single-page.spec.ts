@@ -304,6 +304,15 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390]) {
     await page.clock.runFor(3000);
     await expect(figure.locator(".token")).toHaveCount(2);
     await expect(page.locator(".ontocap")).toContainText(captions[1]);
+    const labels = figure.locator(".toklab");
+    await expect(labels).toHaveCount(2);
+    // CSS transitions use real time; await the fade while story time stays paused.
+    // Playwright visibility alone includes elements whose opacity is zero.
+    await expect(labels.first()).toHaveCSS("opacity", "0");
+    await expect(labels.last()).toHaveCSS("opacity", "1");
+    expect(await labels.evaluateAll(nodes => nodes
+      .filter(node => Number.parseFloat(getComputedStyle(node).opacity) > 0)
+      .map(node => node.textContent))).toEqual([locale === "fr" ? "Stock bas" : "Low stock"]);
     await page.locator("footer").scrollIntoViewIfNeeded();
     await page.clock.runFor(100);
     await expect(figure.locator(".ontology-motion, .busy, .lit")).toHaveCount(0);

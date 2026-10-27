@@ -111,6 +111,7 @@ export function OntologyHero({ locale }: { locale: Locale }) {
     let active = 0;
     const launch = (story: Story) => {
       active++;
+      motion.querySelectorAll(".toklab").forEach(label => label.classList.add("previous"));
       const route: Point[] = [...story.route.map(key => points[key]), [820, SLOT_Y[0] + 25]];
       const lengths = route.slice(1).map((point, i) => Math.hypot(point[0] - route[i][0], point[1] - route[i][1]));
       const total = lengths.reduce((a, b) => a + b, 0);
@@ -119,7 +120,15 @@ export function OntologyHero({ locale }: { locale: Locale }) {
       trail.style.strokeDashoffset = String(total);
       const token = svgElement("g", { class: "story", transform: `translate(${route[0].join(" ")})` }, motion);
       svgElement("rect", { x: "-7", y: "-7", width: "14", height: "14", class: "token" }, token);
-      svgElement("text", { x: "12", y: "-10", class: "toklab" }, token).textContent = t(story.label);
+      const label = svgElement("text", { class: "toklab" }, token);
+      label.textContent = t(story.label);
+      const positionLabel = (x: number) => {
+        const right = x > 540;
+        label.setAttribute("x", right ? "-12" : "12");
+        label.setAttribute("y", right ? "-14" : "-10");
+        label.setAttribute("text-anchor", right ? "end" : "start");
+      };
+      positionLabel(route[0][0]);
       caption.textContent = t(story.cap);
       animate(caption, [{ transform: "translateY(4px)" }, { transform: "translateY(0)" }], 600);
       let travelled = 0;
@@ -138,6 +147,7 @@ export function OntologyHero({ locale }: { locale: Locale }) {
         const x = route[i][0] + (route[i + 1][0] - route[i][0]) * fraction;
         const y = route[i][1] + (route[i + 1][1] - route[i][1]) * fraction;
         token.setAttribute("transform", `translate(${x} ${y})`);
+        positionLabel(x);
         if (progress < 1) nextFrame(step);
         else {
           active--;
