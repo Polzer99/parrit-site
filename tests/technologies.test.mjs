@@ -46,7 +46,7 @@ for (const locale of ["fr", "en"]) test(`technologies immediately follow the her
   assert.ok(text.includes(locale === "fr"
     ? "Agnostiques par nature : pour chaque besoin, la meilleure technologie."
     : "Technology-agnostic by nature: for every need, the best technology."));
-  assert.match(text, locale === "fr" ? /aucun partenariat n'est sous-entendu/ : /no partnership is implied/);
+  assert.doesNotMatch(section, /tech-note|Les marques citées|The brands named/);
   assert.doesNotMatch(section, /<script|<img|https?:|#[a-f\d]{3,8}\b/i);
 });
 

@@ -46,7 +46,10 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.equal((html.match(/class="phone"/g) ?? []).length, 3);
   applications(html, locale);
   const text = visibleText(html);
-  for (const client of ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"]) assert.ok(text.includes(client));
+  const references = html.match(/<section id="references"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(references);
+  assert.doesNotMatch(references, /class="reflines"|<p/);
+  for (const client of ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"]) assert.match(references, new RegExp(`aria-label="${client}[^"]*"`));
   assert.doesNotMatch(text, /Arkel/);
   assert.match(text, locale === "fr" ? /données fictives/ : /fictional data/);
   for (const [, label] of html.matchAll(/<a class="[^"]*rev-button[^\"]*"[^>]*>(.*?)<\/a>/g)) assert.doesNotMatch(visibleText(label), /\.$/);
@@ -108,7 +111,7 @@ for (const locale of ["fr", "en"]) test(`revoking every permission hides client 
     assert.doesNotMatch(html, /Laparra|Clevery|Forexpert|Joone|SNCF/i);
     assert.doesNotMatch(text, /Our agents are already at work|They work with us|Nos agents travaillent déjà|Ils travaillent avec nous|Laparra|Clevery|Forexpert|Joone|SNCF/);
     assert.doesNotMatch(text, /We build with/);
-    assert.match(text, locale === "fr" ? /aucun partenariat/ : /no partnership is implied/);
+    assert.doesNotMatch(text, /Les marques citées|The brands named/);
   } finally { SITE_EVIDENCE.forEach((e, i) => { e.permission_status = permissions[i]; }); }
 });
 
@@ -162,7 +165,7 @@ for (const locale of ["fr", "en"]) test(`passe 4 complete SSR use cases, offers 
   const { SERVICE_CASES, PARTNER_OFFERS, SINGLE_PAGE_EN } = loader(locale)("src/system/single-page-copy.ts");
   const t = value => locale === "fr" ? value : SINGLE_PAGE_EN[value];
   assert.equal(SERVICE_CASES.length, 12);
-  assert.equal(PARTNER_OFFERS.flat().length, 20);
+  assert.equal(PARTNER_OFFERS.flat().length, 23);
   for (const [name, cases] of SERVICE_CASES) {
     assert.ok(t(name), name);
     assert.equal(cases.length, 4);

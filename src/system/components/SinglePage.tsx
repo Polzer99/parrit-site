@@ -4,7 +4,7 @@ import { SINGLE_PAGE_EN, PARTNER_OFFERS } from "@/system/single-page-copy";
 import { ParritCalInline } from "./CalInline";
 import { QuickCapture } from "./QuickCapture";
 import { getSiteEvidence } from "@/lib/registry/preuves";
-import { ClientReference, ClientLogoStrip, ResearchPartner } from "./PublicEvidence";
+import { ClientLogoStrip, ResearchPartner } from "./PublicEvidence";
 import { ServiceGrid } from "./ServiceGrid";
 import { ConversationMotion } from "./ConversationMotion";
 import { OntologyHero } from "./OntologyHero";
@@ -113,13 +113,6 @@ export function SinglePage({ locale }: { locale: Locale }) {
 <section id="references" style={{"paddingTop": "0"}}><RevealOnView className="wrap">
   {clients.length > 0 && <><h2>{t("Ils travaillent")}{" "}<b>{t("avec nous.")}</b></h2>
   <ClientLogoStrip/>
-  <div className="reflines">
-    <ClientReference id="Laparra">{t("Grossiste du MIN de Rungis : un outil de pilotage agentique pour les fruits et légumes.")}</ClientReference>
-    <ClientReference id="Clevery">{t("Un agent pour le cabinet.")}</ClientReference>
-    <ClientReference id="Forexpert">{t("Un agent de prospection.")}</ClientReference>
-    <ClientReference id="Joone">{t("L'accompagnement des équipes à l'IA.")}</ClientReference>
-    <ClientReference id="SNCF">{t("Un programme de formation.")}</ClientReference>
-  </div>
   </>}
 </RevealOnView></section>
 

@@ -19,7 +19,7 @@ export function MobileCarousel({ children, className, label }: {
       dots.current?.querySelectorAll("i").forEach((dot, i) => dot.classList.toggle("on", i === nearest));
     };
     const key = (event: KeyboardEvent) => {
-      if (!window.matchMedia("(max-width: 760px)").matches || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      if (box.scrollWidth <= box.clientWidth || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
       event.preventDefault();
       const cards = Array.from(box.children);
       const left = box.getBoundingClientRect().left + parseFloat(getComputedStyle(box).paddingLeft);

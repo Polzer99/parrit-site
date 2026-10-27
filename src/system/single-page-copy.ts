@@ -110,7 +110,6 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "Un programme de formation.": "A training program.",
   "Agnostiques par nature :": "Technology-agnostic by nature:",
   "pour chaque besoin, la meilleure technologie.": "for every need, the best technology.",
-  "Les marques citées appartiennent à leurs propriétaires. Nous les utilisons ; aucun partenariat n'est sous-entendu.": "The brands named belong to their owners. We use them; no partnership is implied.",
   "fondateur de Parrit.ai": "founder of Parrit.ai",
   "Il a créé l'entreprise en 2024, après deux ans chez Lime.": "He started the company in 2024, after two years at Lime.",
   "Il conçoit des systèmes où plusieurs agents travaillent ensemble, et les garde-fous qui les encadrent.": "He designs systems where several agents work together, and the safeguards around them.",
@@ -223,7 +222,9 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "Suit les échéances de vos contrats.": "Tracks your contracts' deadlines.",
   "Retrouve une clause dans dix ans d'archives.": "Finds a clause in ten years of archives.",
   "Des agents sur mesure": "Custom agents",
-  "La vision par ordinateur": "Computer vision",
+  "Des outils sur mesure": "Custom tools",
+  "Le harness engineering": "Harness engineering",
+  "Des automatisations sur mesure": "Custom automations",
   "L'intégration à vos logiciels": "Integration with your software",
   "Des assistants écrits": "Written assistants",
   "Des assistants vocaux": "Voice assistants",
@@ -239,7 +240,8 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "L'audit de vos processus": "Process audits",
   "Le diagnostic IA": "AI diagnosis",
   "La relecture de chaque livrable": "A review of every deliverable",
-  "Vos déploiements d'agents les plus exigeants": "Your most demanding agent deployments",
+  "Les déploiements exigeants": "Demanding deployments",
+  "L'évaluation des modèles": "Model evaluation",
   "La revue d'architecture": "Architecture review",
   "Back-office": "Back office",
   "Nouveau": "New",
@@ -360,10 +362,12 @@ export const SERVICE_CASES = [
 export const PARTNER_OFFERS = [
   [
     "Des agents sur mesure",
-    "La vision par ordinateur",
+    "Des outils sur mesure",
+    "Le harness engineering",
     "L'intégration à vos logiciels"
   ],
   [
+    "Des automatisations sur mesure",
     "Des assistants écrits",
     "Des assistants vocaux",
     "Des vidéos générées"
@@ -389,7 +393,8 @@ export const PARTNER_OFFERS = [
     "La relecture de chaque livrable"
   ],
   [
-    "Vos déploiements d'agents les plus exigeants",
-    "La revue d'architecture"
+    "Les déploiements exigeants",
+    "La revue d'architecture",
+    "L'évaluation des modèles"
   ]
 ] as const;

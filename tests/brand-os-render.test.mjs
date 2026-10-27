@@ -143,7 +143,12 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           assert.match(visibleText(partners), /\bMIT\b/);
           assert.doesNotMatch(partners, /<img|<svg/);
           assert.doesNotMatch(visibleText(html.replace(partners, "")), /\bMIT\b/);
-          for (const name of PUBLIC_CLIENT_NAMES) assert.ok(text.includes(name), `${label}: ${name}`);
+          const references = html.match(/<section id="references"[\s\S]*?<\/section>/)?.[0];
+          assert.ok(references, `${label}: references section`);
+          assert.doesNotMatch(references, /class="reflines"|<p/);
+          const names = [...references.matchAll(/role="img" aria-label="([^"]+)"/g)].map(match => match[1]);
+          for (const name of PUBLIC_CLIENT_NAMES) assert.ok(names.some(label => label.includes(name)), `${label}: accessible logo ${name}`);
+          assert.doesNotMatch(technologyBand, /tech-note|Les marques citées|The brands named/);
         }
 
       }

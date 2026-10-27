@@ -1,3 +1,27 @@
+## Tour 1 de la nuit, 27/10/2026
+
+Source : `BANDEAU-TECHNOLOGIES.md` §5 et consigne explicite de Paul ; branche
+`feat/bandeau-technologies`, baseline `51b8f7b` (118/118 tests Node).
+Téléphones : hauteur commune 432 px ordinateur/tablette, 368 px mobile,
+448 px sous 360 px ; messages en haut, cartes entières, carrousel dès 1100 px
+pour éviter les colonnes étroites. Aucune fonte réduite, couleurs par jetons.
+Références : logos seuls, noms accessibles et permissions inchangés ; mention
+sous technologies supprimée. Offres partenaires FR/EN : 23, toutes dans le SSR.
+`readingMs` = max(3000, 1200 + 300 × mots séparés par espaces), partagé par
+services et offres. Les fondus s'ajoutent au temps de lecture ; départs décalés,
+deux cartes partenaires maximum, chaque offre entièrement lue, timers nettoyés.
+Écart volontaire : hero, boutons, contact et Cal.com intacts sur mandat explicite,
+y compris les timings du hero pourtant cités au §5.5. Aucun seuil assoupli :
+seul le comptage de figures retire reflines, et les noms sont vérifiés en aria-label.
+Validation : lint, build Webpack/TypeScript strict, 121/121 tests Node,
+marque/claims et 19/19 Brand OS réussis ; revue adverse indépendante sans défaut.
+79 tests Playwright recensés (dont 24 nouveaux cas téléphones FR/EN, avec/sans JS).
+Preuve navigateur non acquise : Chromium refusé par macOS avant navigation
+(`MachPortRendezvousServer`, Permission denied). Estimation via fontes locales
+à390×700 : bloc applications ~626 px FR/~598 px EN ; mesures à rejouer sur l'hôte.
+Écritures locales réversibles, sans données ni services externes (0 ligne métier) ;
+rollback par revert du commit. Captures restaurées ; aucun push ni déploiement.
+
 ## Applications concrètes, amendement du 27/10/2026 au soir
 
 `BANDEAU-TECHNOLOGIES.md` §4 : trois téléphones anonymes toujours rendus,

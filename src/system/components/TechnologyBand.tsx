@@ -19,7 +19,6 @@ export function TechnologyBand({ locale }: { locale: Locale }) {
           </li>)}
         </ul>)}
       </div></div>
-      <div className="wrap"><p className="tech-note">{t("Les marques citées appartiennent à leurs propriétaires. Nous les utilisons ; aucun partenariat n'est sous-entendu.")}</p></div>
     </div>
   </section>;
 }

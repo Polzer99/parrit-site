@@ -4,6 +4,7 @@ import { useCallback, useRef } from "react";
 import type { Locale } from "@/system/locale";
 import { SINGLE_PAGE_EN, SERVICE_CASES } from "@/system/single-page-copy";
 import { useMotionOnView } from "./RevealOnView";
+import { readingMs } from "@/system/reading";
 import { MobileCarousel } from "./MobileCarousel";
 
 export function ServiceTasks({ locale }: { locale: Locale }) {
@@ -21,6 +22,8 @@ export function ServiceTasks({ locale }: { locale: Locale }) {
       card.querySelectorAll(".case-dots i").forEach((dot, i) => dot.classList.toggle("on", i === index));
     };
     cards.forEach((card, i) => {
+      const cases = Array.from(card.querySelectorAll<HTMLElement>(".case"));
+      const duration = () => readingMs(cases[index].textContent ?? "");
       let index = i % 2;
       show(card, index);
       const next = () => {
@@ -29,10 +32,10 @@ export function ServiceTasks({ locale }: { locale: Locale }) {
           index = (index + 1) % 4;
           show(card, index);
           card.classList.remove("blink");
-          later(next, 3500);
+          later(next, duration() + 120);
         }, 120);
       };
-      later(next, 3500 + i * 290);
+      later(next, duration() + i * 290);
     });
     return () => {
       timers.forEach(clearTimeout);
@@ -45,7 +48,7 @@ export function ServiceTasks({ locale }: { locale: Locale }) {
     {SERVICE_CASES.map(([title, cases]) => <div className="use-case" key={title} aria-live="off" data-case="0">
       <span className="s">{t(title)}</span>
       {cases.map((text, i) => <div key={text} className={`case${i ? " visually-hidden" : ""}`}>
-        <p className="case-text">{t(text)}</p><span className={`tag ${i % 2 ? "new" : "bo"}`}>{t(i % 2 ? "Nouveau" : "Back-office")}</span>
+        <p className="case-text">{t(text)}</p>{" "}<span className={`tag ${i % 2 ? "new" : "bo"}`}>{t(i % 2 ? "Nouveau" : "Back-office")}</span>
       </div>)}
       <span className="case-dots" aria-hidden="true">{cases.map((_, i) => <i key={i} className={i === 0 ? "on" : undefined}/>)}</span>
     </div>)}

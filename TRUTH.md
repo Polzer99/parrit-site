@@ -160,9 +160,10 @@ Un bloc = un écran : en FR/EN et mouvement réduit, à 1440×800, 1280×720 et
 figure doivent tenir dans la hauteur du viewport, sans découpe ni texte masqué.
 Le hero entier, barre comprise, tient à 1440×800 ; le calendrier seul est exempté.
 Cinq carrousels mobiles natifs (celui du trajet est retiré), accessibles au clavier, avec points de position.
-Les 48 cas et les 20 offres restent dans le HTML serveur ; aucun mouvement
-en mode réduit et aucun minuteur après démontage. Dans les références, Laparra
-est présenté comme un outil de pilotage agentique pour les fruits et légumes.
+Les 48 cas et les 23 offres restent dans le HTML serveur ; aucun mouvement
+en mode réduit et aucun minuteur après démontage. Le registre de preuves conserve
+le pilotage agentique des fruits et légumes pour Laparra ; seuls les logos
+sont désormais affichés dans les références (§5 du tour 1).
 
 ## Applications concrètes et bouton du hero, amendement du 27/10 au soir
 
@@ -177,3 +178,15 @@ Sur ordinateur (>760 px), le bouton rose du hero tient sur une ligne, à sa
 largeur de contenu, sous l'accroche et aligné à gauche ; hauteur et rembourrage
 existants conservés. Sur téléphone, pleine largeur inchangée. Le hero entier,
 barre comprise, tient toujours à 1440×800, sans aucun seuil de contrôle assoupli.
+
+
+## Tour 1 de la nuit, 27/10/2026
+
+`BANDEAU-TECHNOLOGIES.md` §5 : téléphones de dimensions communes, cartes des
+applications pleine largeur sur mobile et carrousel également sur tablette.
+Références : seuls les logos autorisés et leurs noms accessibles ; aucun texte
+sous le bandeau. Mention de propriété des marques retirée des technologies.
+23 offres partenaires FR/EN. `src/system/reading.ts` centralise la lecture :
+max(3 000 ms, 1 200 ms + 300 ms par mot), services et offres ; fondus ajoutés
+à cette durée, départs décalés, aucune offre tronquée. Hero et contact intacts
+sur consigne explicite de Paul : le timing du hero est exclu de ce tour.

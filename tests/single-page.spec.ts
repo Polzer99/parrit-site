@@ -1,3 +1,4 @@
+import { readingMs } from "../src/system/reading";
 import { mkdir } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import founderPhotos from "./fixtures/founder-photo.json";
@@ -143,7 +144,7 @@ test("no JavaScript conversations remain visible and legal and 404 stay accessib
     await expect(page.locator(".walk")).toHaveClass(/withbot/);
     await expect(page.locator(".use-case")).toHaveCount(12);
     await expect(page.locator(".case:not(.visually-hidden)")).toHaveCount(12);
-    await expect(page.locator(".partner-offers li")).toHaveCount(20);
+    await expect(page.locator(".partner-offers li")).toHaveCount(23);
     for (const offer of await page.locator(".partner-offers li").all()) await expect(offer).toBeVisible();
     for (const face of await page.locator(".partner-delivery").all()) await expect(face).toBeHidden();
     await expect(page.locator("#references").getByRole("img")).toHaveCount(5);
@@ -407,8 +408,8 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       expect(section.scrollHeight, `${section.id}: content must not be clipped`).toBeLessThanOrEqual(height);
       expect(section.overflowY).not.toMatch(/hidden|clip/);
     }
-    const figures = page.locator(".ontology-hero, .onto, .scenes, .three, .path-walker, .steps, .service-tasks, .services, .logo-strip, .reflines, .tech-marquee, .founder > .wrap > .grid");
-    await expect(figures).toHaveCount(12);
+    const figures = page.locator(".ontology-hero, .onto, .scenes, .three, .path-walker, .steps, .service-tasks, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid");
+    await expect(figures).toHaveCount(11);
     for (const figure of await figures.all()) {
       const box = await figure.boundingBox();
       expect(box).not.toBeNull();
@@ -558,15 +559,22 @@ for (const locale of ["fr", "en"]) test(`passe 4 services cycle and restore SSR 
   await page.clock.pauseAt(new Date(epoch.getTime() + 10000));
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await expect(cards.nth(1)).toHaveAttribute("data-case", "1");
-  await page.clock.runFor(3499);
+  const cases = await first.locator(".case").allTextContents();
+  const secondCases = await cards.nth(1).locator(".case").allTextContents();
+  const firstDuration = readingMs(cases[0]);
+  const secondDuration = readingMs(secondCases[1]) + 290;
+  await page.clock.runFor(firstDuration - 1);
   await expect(first).toHaveAttribute("data-case", "0");
   await page.clock.runFor(1);
   await expect(first).toHaveClass(/blink/);
   await page.clock.runFor(120);
   await expect(first).toHaveAttribute("data-case", "1");
   await expect(first.locator(".case:not(.visually-hidden) .case-text")).toHaveText(text[1]);
-  await expect(cards.nth(1)).toHaveAttribute("data-case", "1");
-  await page.clock.runFor(290);
+  // Each neighbor follows its own text length as well as the stagger.
+  if (secondDuration > firstDuration + 120) {
+    await expect(cards.nth(1)).toHaveAttribute("data-case", "1");
+    await page.clock.runFor(secondDuration - firstDuration);
+  }
   await expect(cards.nth(1)).toHaveAttribute("data-case", "2");
   await page.emulateMedia({ reducedMotion: "reduce" });
   for (const card of await cards.all()) await expect(card).toHaveAttribute("data-case", "0");
@@ -585,16 +593,24 @@ test("partner offers keep at most two faces active and restore every static offe
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await expect(page.locator(".partner-motion")).toHaveAttribute("data-anim", "in");
   const cards = page.locator(".partner");
-  await page.clock.runFor(1200);
+  const fronts = await cards.evaluateAll(nodes => nodes.map(card => [...card.querySelectorAll(".partner-type .s, .partner-type p")].map(node => node.textContent).join(" ")));
+  await page.clock.runFor(Math.max(...fronts.map(readingMs)));
   await expect(cards.first()).toHaveClass(/flip/);
   const offers = await cards.first().locator("li").allTextContents();
   await expect(cards.first().locator(".offer")).toHaveText(offers[0]);
-  await page.clock.runFor(2200);
-  await expect(cards.first()).toHaveClass(/blink/);
-  await page.clock.runFor(150);
-  await expect(cards.first().locator(".offer")).toHaveText(offers[1]);
-  await page.clock.runFor(2350);
-  await expect(cards.first().locator(".offer")).toHaveText(offers[2]);
+  for (let i = 0; i < offers.length; i++) {
+    const dwell = readingMs(offers[i]) + (i ? 150 : 0);
+    await page.clock.runFor(dwell - 1);
+    await expect(cards.first()).toHaveClass(/flip/);
+    await expect(cards.first()).not.toHaveClass(/blink/);
+    await expect(cards.first().locator(".offer")).toHaveText(offers[i]);
+    await page.clock.runFor(1);
+    if (i + 1 < offers.length) {
+      await expect(cards.first()).toHaveClass(/blink/);
+      await page.clock.runFor(150);
+      await expect(cards.first().locator(".offer")).toHaveText(offers[i + 1]);
+    } else await expect(cards.first()).not.toHaveClass(/flip/);
+  }
   for (let time = 0; time < 28000; time += 100) {
     await page.clock.runFor(100);
     expect(await page.locator(".partner.flip").count()).toBeLessThanOrEqual(2);
@@ -645,6 +661,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await band.scrollIntoViewIfNeeded();
         await expect(band).toBeInViewport({ ratio: 1 });
         expect((await band.boundingBox())!.height).toBeLessThanOrEqual(height);
+        await expect(band.locator(".tech-note")).toHaveCount(0);
         const list = band.locator(".tech-set:not([aria-hidden])");
         const { TECHNOLOGIES } = await import("../src/system/technologies");
         expect(await list.locator("li span").allTextContents()).toEqual(TECHNOLOGIES.map(item => item.name));
@@ -677,7 +694,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
             const linear = rgb.map(n => n <= .04045 ? n / 12.92 : ((n + .055) / 1.055) ** 2.4);
             return linear[0] * .2126 + linear[1] * .7152 + linear[2] * .0722;
           };
-          const text = [...section.querySelectorAll<HTMLElement>(".tech-title, .tech-title b, .tech-note, .tech-set:not([aria-hidden]) li span")];
+          const text = [...section.querySelectorAll<HTMLElement>(".tech-title, .tech-title b, .tech-set:not([aria-hidden]) li span")];
           const background = luminance(style.backgroundColor);
           return {
             background: style.backgroundColor, ink,
@@ -686,7 +703,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
             text: text.map(el => {
               const css = getComputedStyle(el);
               const foreground = luminance(css.color);
-              return { name: el.textContent, size: parseFloat(css.fontSize), ratio: (Math.max(background, foreground) + .05) / (Math.min(background, foreground) + .05), color: css.color, expected: el.matches(".tech-title, .tech-note") ? onInk : white };
+              return { name: el.textContent, size: parseFloat(css.fontSize), ratio: (Math.max(background, foreground) + .05) / (Math.min(background, foreground) + .05), color: css.color, expected: el.matches(".tech-title") ? onInk : white };
             }),
             animations: section.getAnimations({ subtree: true }).length,
           };
@@ -764,3 +781,63 @@ test("technology masks are served locally with the exact supplied SVG bytes", as
     expect(await response.body()).toEqual(await readFile(`public/tech/${logo}.svg`));
   }
 });
+
+for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
+  test.describe(`equal application phones ${locale} JS=${javaScriptEnabled}`, () => {
+    test.use({ javaScriptEnabled });
+    for (const [width, height] of [[1440, 800], [1280, 720], [820, 900], [390, 700], [375, 700], [320, 700]]) {
+      test(`complete messages and identical screens at ${width}×${height}`, async ({ page }) => {
+        await page.setViewportSize({ width, height });
+        await page.emulateMedia({ reducedMotion: "reduce" });
+        await page.goto(local(locale === "fr" ? "/fr" : "/"));
+        await page.evaluate(() => document.fonts.ready);
+        const phones = page.locator(".live .phone");
+        await expect(phones).toHaveCount(3);
+        const dimensions = await phones.evaluateAll(nodes => nodes.map(phone => {
+          const screen = phone.querySelector<HTMLElement>(".chat")!;
+          const bar = phone.querySelector<HTMLElement>(".bar")!;
+          const rect = phone.getBoundingClientRect();
+          const frame = screen.getBoundingClientRect();
+          const textRects = [...phone.querySelectorAll<HTMLElement>(".bar, .msg")].flatMap(node => {
+            const range = document.createRange(); range.selectNodeContents(node);
+            return [...range.getClientRects()].map(box => ({ top: box.top, bottom: box.bottom, left: box.left, right: box.right }));
+          });
+          return {
+            width: rect.width, height: rect.height, screenHeight: frame.height,
+            clipped: textRects.some(box => box.top < rect.top || box.bottom > rect.bottom || box.left < rect.left || box.right > rect.right),
+            scrollHeight: screen.scrollHeight, clientHeight: screen.clientHeight,
+            top: screen.querySelector(".msg")!.getBoundingClientRect().top - frame.top,
+            padding: parseFloat(getComputedStyle(screen).paddingTop),
+            barHeight: bar.getBoundingClientRect().height,
+            fontSizes: [...phone.querySelectorAll<HTMLElement>(".bar, .msg, .msg b")].map(node => parseFloat(getComputedStyle(node).fontSize)),
+          };
+        }));
+        for (const size of dimensions) {
+          expect(size.width).toBeCloseTo(dimensions[0].width, 1);
+          expect(size.height).toBeCloseTo(dimensions[0].height, 1);
+          expect(size.screenHeight).toBeCloseTo(dimensions[0].screenHeight, 1);
+          expect(size.barHeight).toBeCloseTo(dimensions[0].barHeight, 1);
+          expect(size.clipped).toBe(false);
+          expect(size.scrollHeight).toBeLessThanOrEqual(size.clientHeight + 1);
+          expect(size.top).toBeCloseTo(size.padding, 1);
+          expect(Math.min(...size.fontSizes)).toBeGreaterThanOrEqual(16);
+        }
+        const references = page.locator("#references");
+        await expect(references.locator(".reflines, p")).toHaveCount(0);
+        for (const client of ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"]) {
+          await expect(references.getByRole("img", { name: new RegExp(client) })).toHaveCount(1);
+        }
+        if (width <= 1100) {
+          const track = page.locator(".scenes.mobile-carousel");
+          await expect(track).toHaveCSS("scroll-snap-type", "x mandatory");
+          if (javaScriptEnabled) {
+            await track.focus();
+            await page.keyboard.press("End");
+            await expect.poll(() => track.evaluate(el => el.scrollLeft)).toBeGreaterThan(100);
+            await expect(track.locator("xpath=following-sibling::*[1]").locator("i").last()).toHaveClass("on");
+          }
+        }
+      });
+    }
+  });
+}

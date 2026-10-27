@@ -92,3 +92,36 @@ Maquette (lecture seule) : `/private/tmp/claude-501/-Users-paullarmaraud/b2420e7
   `exec` conservé. À 390×700 : bouton pleine largeur, retour à la ligne autorisé.
 - Le contrôle du hero entier à 1440×800, les contrôles « un bloc = un écran »,
   de contraste, de mouvement réduit et de réseau restent intacts.
+
+## 5. Tour 1 de la nuit du 27/10 (retours de Paul + revue)
+
+1. **Trois téléphones de taille identique** (`#en-production`) : même largeur, même hauteur d'écran
+   (hauteur fixe commune ; les messages s'alignent en haut ; aucun texte coupé, aucune barre de
+   défilement visible), à toutes les tailles et dans le carrousel téléphone.
+2. **Références** : retirer les lignes de texte sous le bandeau des logos (`reflines` : nom en gras +
+   phrase). Le bandeau des logos reste ; chaque logo garde son `aria-label` (nom du client). Les
+   contrôles de permission (`getSiteEvidence`, `publicationLogo`) restent la condition d'affichage.
+   Les tests qui cherchent les noms dans le texte visible les cherchent désormais dans les
+   `aria-label` du bandeau.
+3. **Retirer la mention « Les marques citées appartiennent à leurs propriétaires… »** sous le bandeau
+   des technologies (décision de Paul). Corrige du même coup l'échec actuel du test « technology band
+   … reduced motion, full contents, contrast and screen » (couleur attendue de cette mention) : le test
+   ne doit plus chercher cette mention, sans retirer ses autres contrôles.
+4. **Offres des partenaires** (`PARTNER_OFFERS`, FR/EN) :
+   - Ingénieurs IA : Des agents sur mesure · Des outils sur mesure · Le harness engineering ·
+     L'intégration à vos logiciels / Custom agents · Custom tools · Harness engineering · Integration
+     with your software ;
+   - Automatisation et assistants : Des automatisations sur mesure · Des assistants écrits ·
+     Des assistants vocaux · Des vidéos générées / Custom automations · Written assistants · Voice
+     assistants · Generated videos ;
+   - Chercheurs du MIT : Les déploiements exigeants · La revue d'architecture · L'évaluation des
+     modèles / Demanding deployments · Architecture review · Model evaluation ;
+   - les autres inchangées.
+5. **Règle de lecture (neurosciences de la lecture, Paul : « que l'œil puisse saisir de quoi il
+   s'agit partout »)**, appliquée à **tout texte qui change seul** (offres partenaires, cas des
+   services, légende et étiquettes du hero) : durée d'affichage = 1 200 ms + 300 ms par mot, jamais
+   moins de 3 000 ms ; une seule fonction partagée calcule cette durée (`readingMs(text)`), testée.
+   Les cadences fixes actuelles (2,2 s, 3,5 s…) sont remplacées par cette fonction ; les départs
+   restent décalés pour que deux textes voisins ne changent pas en même temps. Mettre à jour les tests
+   de timing en conséquence (ils lisent la durée via la même fonction, pas une constante).
+6. Ne pas toucher : le hero (« c'est canon »), les boutons, le contact, Cal.com.
