@@ -295,8 +295,15 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390]) {
     await expect(figure.locator(".token, .trail, animateMotion")).toHaveCount(0);
     // Restart after cleanup, then leave the viewport while two stories are running.
     await page.emulateMedia({ reducedMotion: "no-preference" });
-    await page.clock.runFor(2400);
+    // Media-query change delivery is not driven by the mocked clock. Anchor time
+    // to the actual restart before advancing the story timers and animation frames.
+    await expect(page.locator(".ontology-hero")).toHaveAttribute("data-anim", "in");
+    await expect(figure.locator(".token")).toHaveCount(1);
+    await expect(page.locator(".ontocap")).toContainText(captions[0]);
+    // Both stories are in flight at 3000 ms (0–4200 and 2300–6500 ms).
+    await page.clock.runFor(3000);
     await expect(figure.locator(".token")).toHaveCount(2);
+    await expect(page.locator(".ontocap")).toContainText(captions[1]);
     await page.locator("footer").scrollIntoViewIfNeeded();
     await page.clock.runFor(100);
     await expect(figure.locator(".ontology-motion, .busy, .lit")).toHaveCount(0);

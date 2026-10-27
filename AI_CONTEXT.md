@@ -1,3 +1,17 @@
+## Relance déterministe du test hero — 27/10/2026
+
+Lecture d'OntologyHero et observeMotion : premier lancement synchrone dans
+start, suivant à 2 300 ms ; rAF pour le trajet de 4 200 ms. Aucun délai de
+relance ajouté par le composant. Le test avançait l'horloge immédiatement
+après emulateMedia, sans attendre la notification native matchMedia/change.
+Synchronisation désormais sur data-anim=in, le premier jeton et sa légende,
+puis avance de 3 000 ms dans le chevauchement des deux histoires. Toutes les
+assertions conservées, légende de la deuxième histoire également vérifiée.
+Lint, build Webpack et 107/107 tests Node réussis (baseline Node : 107/107).
+Preuve navigateur FR/EN 1440/390 à rejouer sur l'hôte : tentative Playwright
+bloquée au lancement de Chromium par le sandbox macOS, avant navigation.
+Aucun push ; captures préexistantes exclues du commit.
+
 ## Correctif du fil hero et lien Journal — 27/10/2026
 
 Reprise des 13 échecs navigateur signalés par Paul sur feat/passe-3-page.
