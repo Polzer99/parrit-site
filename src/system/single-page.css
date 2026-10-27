@@ -264,7 +264,7 @@
 
 .single-page .logo-strip {overflow:hidden;margin-top:56px;}
 .single-page .logo-track {display:flex;width:max-content;gap:96px;}
-.single-page .logo-set {display:flex;align-items:center;gap:96px;}
+.single-page .logo-set {display:flex;align-items:stretch;gap:var(--brand-s8);}
 .single-page .client-logo {display:block;flex-shrink:0;background:var(--ink);mask-size:contain;mask-repeat:no-repeat;mask-position:center;max-width:100%;}
 .single-page .logo-set[aria-hidden] {display:none;}
 .single-page .logo-track, .single-page .logo-set {max-width:100%;flex-wrap:wrap;}

@@ -872,6 +872,45 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
   });
 }
 
+for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
+  test.describe(`reference logos on one line ${locale} JS=${javaScriptEnabled}`, () => {
+    test.use({ javaScriptEnabled });
+    for (const [width, height] of [[1440, 800], [1280, 720]]) {
+      test(`all logos fit inside the strip at ${width}×${height}`, async ({ page }) => {
+        await page.setViewportSize({ width, height });
+        await page.emulateMedia({ reducedMotion: "reduce" });
+        await page.goto(local(locale === "fr" ? "/fr" : "/"));
+        await page.evaluate(() => document.fonts.ready);
+        const set = page.locator(".logo-set:not([aria-hidden])");
+        await expect(set).toHaveCount(1);
+        await expect(set.getByRole("img")).toHaveCount(5);
+        const geometry = await set.evaluate(el => {
+          const strip = el.closest(".logo-strip")!.getBoundingClientRect();
+          return {
+            width: el.getBoundingClientRect().width,
+            strip: { top: strip.top, right: strip.right, bottom: strip.bottom, left: strip.left },
+            logos: [...el.querySelectorAll('[role="img"]')].map(logo => {
+              const rect = logo.getBoundingClientRect();
+              return { top: rect.top, right: rect.right, bottom: rect.bottom, left: rect.left, width: rect.width, height: rect.height };
+            }),
+          };
+        });
+        expect(geometry.width).toBeLessThanOrEqual(1060);
+        const tops = geometry.logos.map(logo => logo.top);
+        expect(Math.max(...tops) - Math.min(...tops)).toBeLessThanOrEqual(1);
+        for (const logo of geometry.logos) {
+          expect(logo.width).toBeGreaterThan(0);
+          expect(logo.height).toBeGreaterThan(0);
+          expect(logo.left).toBeGreaterThanOrEqual(geometry.strip.left - 1);
+          expect(logo.right).toBeLessThanOrEqual(geometry.strip.right + 1);
+          expect(logo.top).toBeGreaterThanOrEqual(geometry.strip.top - 1);
+          expect(logo.bottom).toBeLessThanOrEqual(geometry.strip.bottom + 1);
+        }
+      });
+    }
+  });
+}
+
 for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [1280, 720], [390, 700], [320, 700]]) {
   test(`night tour 2: timeless scenes, footer Journal and contact spacing ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height });

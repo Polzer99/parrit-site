@@ -14,7 +14,7 @@ export function ResearchPartner() {
 const logoDimensions = [
   // Hauteurs optiques : Forexpert est compact ; le dessin SNCF occupe la moitié du SVG carré.
   ["Laparra", 551, 120, 56], ["Clevery", 367, 120, 56], ["Forexpert", 119, 120, 88],
-  ["Joone", 387, 120, 56], ["SNCF", 24, 24, 112],
+  ["Joone", 387, 120, 56], ["SNCF", 24, 24, 88],
 ] as const;
 export function ClientLogoStrip() {
   const logos = logoDimensions.flatMap(([id, width, height, displayHeight]) => {
@@ -25,6 +25,6 @@ export function ClientLogoStrip() {
   if (!logos.length) return null;
   return <div className="logo-strip" tabIndex={0} role="region" aria-label="Clients"><div className="logo-track">{[false, true].map(duplicate =>
     <div key={String(duplicate)} className="logo-set" aria-hidden={duplicate ? "true" : undefined}>
-      {logos.map(logo => <span key={logo.id} data-evidence={logo.id} role="img" aria-label={logo.name} className="client-logo" style={{ maskImage: `url(${logo.file})`, width: logo.width, height: logo.height }}/>) }
+      {logos.map(logo => <span key={logo.id} data-evidence={logo.id} role="img" aria-label={logo.name} className="client-logo" style={{ maskImage: `url(${logo.file})`, width: logo.width, minHeight: logo.height }}/>) }
     </div>)}</div></div>;
 }
