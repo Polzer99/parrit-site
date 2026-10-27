@@ -1,3 +1,36 @@
+## Devenir partenaire dans un écran, 27/10/2026
+
+Remplace le calcul de hauteur et la réserve d'incompatibilité de l'entrée suivante.
+Mandat : page entière dans un écran ordinateur ET aucun vide sous le pied,
+sans modifier les tests ni les seuils. Périmètre : CSS partenaire et ce contexte,
+local sur `feat/devenir-partenaire`, aucune donnée/service externe ; réversible
+par revert du commit, état précédent conservé dans Git. Aucun push.
+
+`body` en colonne flex, minimum 100svh ; barre/pied non réductibles à hauteur
+intrinsèque, `main` flexible et contenu centré. Aucun calcul de hauteur figé.
+Padding `clamp(32px, 4vh, 128px)`, trois gaps de contenu
+`clamp(8px, 1vh, 16px)` ; gap mobile de 24px conservé. Le H1 dispose des 1080px
+utiles sur ordinateur pour tenir en une ligne, taille et poids inchangés.
+
+Calcul statique depuis CSS/textes/polices General Sans locales (pas une mesure
+navigateur) : barre 77px, pied 113px ; contenu FR 457,7px / EN 460,8px majoré
+avec une boîte de ligne du bouton de 56px. Introduction : quatre lignes FR,
+trois EN ; blocs : 143,7px. Padding 32px aux deux tailles. Le navigateur calcule
+les hauteurs intrinsèques, ces chiffres ne sont pas codés dans la mise en page.
+
+| Langue / écran | Hauteur naturelle majorée | Main disponible | Page après flex |
+| --- | ---: | ---: | ---: |
+| FR 1440×800 | 711,7px | 610px | 800px |
+| EN 1440×800 | 714,8px | 610px | 800px |
+| FR 1280×720 | 711,7px | 530px | 720px |
+| EN 1280×720 | 714,8px | 530px | 720px |
+
+Baseline et candidat : 117/117 tests Node. Lint, build Webpack et contrôle
+de marque réussis. Aucun test ni seuil modifié. PRODUCTION_PROOF navigateur
+reste absente : Chromium refusé avant navigation par le sandbox macOS
+(`bootstrap_check_in`, Permission denied), avant/après ; géométrie et captures
+à rejouer sur l'hôte. Captures préexistantes exclues du commit.
+
 ## Aération Devenir partenaire, 27/10/2026
 
 Correctif local sur `feat/devenir-partenaire` : enveloppe en grille de minimum
