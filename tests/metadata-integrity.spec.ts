@@ -107,3 +107,24 @@ test("sitemap metadata has unique titles and reachable images", async ({ request
     contentType: "application/json",
   });
 });
+
+for (const pathname of ["/", "/fr"]) {
+  test(`home ${pathname} publishes the refreshed OG and Twitter image`, async ({ request }) => {
+    const html = await getText(request, localUrl(pathname));
+    const metas = [...html.matchAll(/<meta\b(?:[^>"']|"[^"]*"|'[^']*')*>/gi)]
+      .map(([tag]) => attributes(tag));
+    for (const field of ["og:image", "twitter:image"]) {
+      const images = metas.filter((meta) => meta.property === field || meta.name === field);
+      expect(images).toHaveLength(1);
+      expect(images[0].content).toBe(`${SITE_URL}/opengraph-image?v=2026-10-27`);
+      const response = await getLocal(request, localUrl(images[0].content));
+      try {
+        expect(response.status()).toBe(200);
+        expect(response.headers()["content-type"]).toContain("image/png");
+        const bytes = await response.body();
+        expect(bytes.readUInt32BE(16)).toBe(1200);
+        expect(bytes.readUInt32BE(20)).toBe(630);
+      } finally { await response.dispose(); }
+    }
+  });
+}
