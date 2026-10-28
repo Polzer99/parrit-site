@@ -143,6 +143,7 @@
   .single-header .wrap{position:relative;flex-wrap:nowrap;}
   .single-header .mobile-menu{display:block;}
   .single-header .mobile-menu nav{position:absolute;z-index:10;top:100%;left:0;right:0;display:flex;flex-wrap:wrap;gap:16px;padding:16px 20px;background:var(--canard);font-size:var(--t-s);max-height:calc(100svh - 76px);overflow-y:auto;}
+  .single-header .mobile-menu[open] nav{border-bottom:1px solid var(--on-canard);padding-block:var(--brand-s2);}
 }
 @media(min-width:761px) and (max-width:900px){
   .single-header .wrap{gap:calc(var(--brand-s3) / 2);}

@@ -1,3 +1,16 @@
+## Tour 5 de la nuit, 28/10/2026
+
+Source : `docs/site-v1/page-unique/NUIT-TOUR-5.md`, branche `fix/nuit-tour-5`,
+baseline `42dc16d` : build Webpack et 121/121 tests Node réussis.
+Seul le panneau ouvert du menu à ≤900 px évolue : bordure basse de 1 px
+via `--on-canard`, padding vertical symétrique via `--brand-s2`.
+Quatre tests Playwright FR/EN à 390×844 et 800×1100 ajoutés ; aucun contrôle
+existant modifié. Preuve visuelle et géométrique à rejouer par Claude sur l'hôte.
+Validation : npm ci, lint, build Webpack, 121/121 tests Node, marque/claims,
+19/19 tests Brand OS réussis ; 121 tests Playwright recensés sans exécution.
+Build Turbopack interrompu après 90 s sans progression. Écriture locale
+réversible par revert, sauvegarde Git baseline, 0 ligne métier ; aucun push.
+
 ## Tour 4 de la nuit, 28/10/2026
 
 Source : `docs/site-v1/page-unique/NUIT-TOUR-4.md`, branche `fix/nuit-tour-4`,

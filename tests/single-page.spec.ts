@@ -391,6 +391,66 @@ test("visible contact variant keeps the capture payload and error recovery", asy
   await expect(page.locator(".contact-fallback [data-state=done]")).toBeVisible();
 });
 
+for (const locale of ["fr", "en"]) for (const viewport of [{ width: 390, height: 844 }, { width: 800, height: 1100 }]) {
+  test(`mobile menu panel has a visible lower edge only when open ${locale} ${viewport.width}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(local(locale === "fr" ? "/fr" : "/"));
+    await page.evaluate(() => document.fonts.ready);
+    const header = page.locator(".single-header");
+    const menu = header.locator(".mobile-menu");
+    const panel = menu.locator("nav");
+    const summary = menu.locator("summary");
+    const closedHeader = await header.boundingBox();
+    await expect(panel).toBeHidden();
+    await expect(panel).toHaveCSS("border-bottom-width", "0px");
+    await summary.click();
+    await expect(menu).toHaveAttribute("open", "");
+    await expect(panel).toBeVisible();
+    await expect(panel).toBeInViewport({ ratio: 1 });
+    await expect(panel).toHaveCSS("border-bottom-width", "1px");
+    await expect(panel).toHaveCSS("border-bottom-style", "solid");
+    const geometry = await panel.evaluate(el => {
+      const style = getComputedStyle(el);
+      const box = el.getBoundingClientRect();
+      return {
+        border: style.borderBottomColor, background: style.backgroundColor,
+        paddingTop: style.paddingTop, paddingBottom: style.paddingBottom,
+        left: box.left + parseFloat(style.paddingLeft), right: box.right - parseFloat(style.paddingRight),
+        top: box.top + parseFloat(style.paddingTop),
+        bottom: box.bottom - parseFloat(style.borderBottomWidth) - parseFloat(style.paddingBottom),
+        scrollWidth: el.scrollWidth, clientWidth: el.clientWidth,
+        scrollHeight: el.scrollHeight, clientHeight: el.clientHeight,
+      };
+    });
+    expect(geometry.border).toMatch(/^rgb\(/); // Opaque, not merely different from the background.
+    expect(geometry.border).not.toBe(geometry.background);
+    expect(geometry.paddingBottom).toBe(geometry.paddingTop);
+    expect(parseFloat(geometry.paddingTop)).toBeGreaterThan(0);
+    expect(geometry.scrollWidth).toBe(geometry.clientWidth);
+    expect(geometry.scrollHeight).toBe(geometry.clientHeight);
+    await expect(panel.locator("a")).toHaveCount(6);
+    for (const link of await panel.locator("a").all()) {
+      await expect(link).toBeVisible();
+      await expect(link).toBeInViewport({ ratio: 1 });
+      const box = (await link.boundingBox())!;
+      expect(box.x).toBeGreaterThanOrEqual(geometry.left);
+      expect(box.x + box.width).toBeLessThanOrEqual(geometry.right);
+      expect(box.y).toBeGreaterThanOrEqual(geometry.top);
+      expect(box.y + box.height).toBeLessThanOrEqual(geometry.bottom);
+      expect(await link.evaluate(el => el.scrollWidth <= el.clientWidth && el.scrollHeight <= el.clientHeight)).toBe(true);
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
+    await summary.click();
+    await expect(menu).not.toHaveAttribute("open", "");
+    await expect(panel).toBeHidden();
+    await expect(panel).toHaveCSS("border-bottom-width", "0px");
+    await expect(header).toHaveCSS("border-bottom-width", "0px");
+    expect(await header.boundingBox()).toEqual(closedHeader);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width);
+  });
+}
+
 for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
   test.describe(`tour 3 change cards ${locale} JS=${javaScriptEnabled}`, () => {
     test.use({ javaScriptEnabled });
