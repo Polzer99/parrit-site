@@ -444,7 +444,8 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         if (width <= 1100) {
           const dots = section.locator(".swipe-dots");
           await expect(dots).toBeVisible();
-          await track.scrollIntoViewIfNeeded();
+          // Round down to keep the cards fully visible when the track top includes a subpixel.
+          await track.evaluate(el => window.scrollTo(0, Math.floor(el.getBoundingClientRect().top + window.scrollY)));
           for (let index = 0; index < 3; index++) {
             if (javaScriptEnabled) {
               await track.focus();
