@@ -219,3 +219,12 @@ des cartes, carrousel natif dès la tablette. Aucun texte ni taille de texte
 modifié ; hero, boutons, Cal.com et offres intacts. Tests FR/EN avec/sans JS,
 mouvement réduit, alignement à 1 px et écart aux points ≤ 48 px ; contrôles
 existants inchangés, dont « un bloc = un écran ». Navigateur à rejouer sur l'hôte.
+
+## Tour 4 de la nuit, 28/10/2026
+
+`docs/site-v1/page-unique/NUIT-TOUR-4.md` : entre 761 et 900 px uniquement,
+langues, bouton et menu groupés à droite, logo seul à gauche ; espacement
+mobile conservé via Brand OS. Libellés, styles des boutons, hero, Cal.com et
+offres intacts. Six tests FR/EN à 900, 800 et 761 px : ordre, ligne commune,
+bords à 1 px, écarts ≤ 48 px et absence de débordement horizontal.
+Contrôles existants inchangés ; navigateur à rejouer sur l'hôte.
