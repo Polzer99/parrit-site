@@ -42,3 +42,40 @@
   font-style: normal;
   font-display: swap;
 }
+
+/* Repli Arial déjà présent dans --ui, sans nouvelle fonte téléchargée.
+   Métriques General Sans : UPM 1000, hhea 1010 / -240 / 100.
+   size-adjust = somme des avances hmtx FR/EN / somme Arial : accroche (400),
+   première phrase du H1 (500), seconde phrase (600). Arial pour 400/500,
+   Arial Bold pour 600. Overrides = métrique / ratio.
+   Source : fichiers locaux canon, calcul fontTools 4.62.1, 28/10/2026. */
+@font-face {
+  font-family: "General Sans Fallback";
+  src: local("Arial");
+  font-weight: 400;
+  font-style: normal;
+  size-adjust: 101.96893%;
+  ascent-override: 99.04978%;
+  descent-override: 23.53658%;
+  line-gap-override: 9.80691%;
+}
+@font-face {
+  font-family: "General Sans Fallback";
+  src: local("Arial");
+  font-weight: 500;
+  font-style: normal;
+  size-adjust: 103.45208%;
+  ascent-override: 97.62974%;
+  descent-override: 23.19915%;
+  line-gap-override: 9.66631%;
+}
+@font-face {
+  font-family: "General Sans Fallback";
+  src: local("Arial Bold");
+  font-weight: 600;
+  font-style: normal;
+  size-adjust: 97.75528%;
+  ascent-override: 103.31923%;
+  descent-override: 24.55110%;
+  line-gap-override: 10.22963%;
+}

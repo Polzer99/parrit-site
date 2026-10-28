@@ -55,9 +55,14 @@ export function ServiceGrid({ items, offers, deliveryLabel, label }: {
   useMotionOnView(ref, start);
   return <div className="partner-motion" ref={ref}><MobileCarousel className="services" label={label}>
     {items.map(([title, text], i) => <div className="partner" key={title} aria-live="off">
-      <div className="partner-type"><span className="s">{title}</span><p>{text}</p></div>
-      <ul className="partner-offers">{offers[i].map(offer => <li key={offer}>{offer}</li>)}</ul>
-      <div className="partner-delivery" aria-hidden="true"><span>{deliveryLabel}</span><p className="offer">{offers[i][0]}</p></div>
+      <div className="partner-summary">
+        <div className="partner-type"><span className="s">{title}</span><p>{text}</p></div>
+        <ul className="partner-offers">{offers[i].map(offer => <li key={offer}>{offer}</li>)}</ul>
+      </div>
+      <div className="partner-delivery" aria-hidden="true"><span>{deliveryLabel}</span><div className="offer-stack">
+        <p className="offer">{offers[i][0]}</p>
+        {offers[i].map(offer => <p className="offer-sizer" key={offer}>{offer}</p>)}
+      </div></div>
     </div>)}
   </MobileCarousel></div>;
 }
