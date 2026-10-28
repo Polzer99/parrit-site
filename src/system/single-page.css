@@ -475,7 +475,7 @@
 .single-page :is(#ce-qui-change,#what-changes) .item > :is(h3,p,.status) {align-self:start;}
 @media(max-width:1100px){
   .single-page :is(#ce-qui-change,#what-changes) .three {
-    grid-template-columns:none;grid-auto-columns:84%;grid-auto-flow:column;
+    grid-template-columns:none;grid-auto-columns:84%;grid-auto-columns:round(down, 84%, 1px);grid-auto-flow:column;
     overflow-x:auto;scroll-snap-type:x mandatory;column-gap:var(--brand-s2);
     align-items:flex-start;scrollbar-width:none;
   }
