@@ -391,6 +391,86 @@ test("visible contact variant keeps the capture payload and error recovery", asy
   await expect(page.locator(".contact-fallback [data-state=done]")).toBeVisible();
 });
 
+for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
+  test.describe(`tour 3 change cards ${locale} JS=${javaScriptEnabled}`, () => {
+    test.use({ javaScriptEnabled });
+    for (const [width, height] of [[1440, 800], [1280, 720], [800, 900], [390, 844]]) {
+      test(`aligned illustrations, readable content and nearby dots ${width}×${height}`, async ({ page }) => {
+        await page.setViewportSize({ width, height });
+        await page.emulateMedia({ reducedMotion: "reduce" });
+        await page.goto(local(locale === "fr" ? "/fr" : "/"));
+        await page.evaluate(() => document.fonts.ready);
+        const section = page.locator(locale === "fr" ? "#ce-qui-change" : "#what-changes");
+        const track = section.locator(".three");
+        const cards = track.locator(":scope > .item");
+        await expect(cards).toHaveCount(3);
+        await expect(cards.locator(":scope > .panel")).toHaveCount(3);
+        await expect(cards.locator(":scope > h3")).toHaveCount(3);
+        const geometry = await cards.evaluateAll(nodes => nodes.map(card => ({
+          panelHeight: card.querySelector(".panel")!.getBoundingClientRect().height,
+          titleTop: card.querySelector("h3")!.getBoundingClientRect().top,
+        })));
+        for (const key of ["panelHeight", "titleTop"] as const) {
+          const values = geometry.map(card => card[key]);
+          expect(Math.max(...values) - Math.min(...values), key).toBeLessThanOrEqual(1);
+        }
+        // Equal heights must not come from clipping or shrinking illustration text.
+        for (const panel of await cards.locator(":scope > .panel").all()) {
+          const audit = await panel.evaluate(frame => {
+            const bounds = frame.getBoundingClientRect();
+            const text = [frame, ...frame.querySelectorAll<HTMLElement>("*")].flatMap(el =>
+              [...el.childNodes].filter(node => node.nodeType === Node.TEXT_NODE && node.textContent?.trim()).map(node => {
+                const range = document.createRange();
+                range.selectNodeContents(node);
+                const parent = el.getBoundingClientRect();
+                return {
+                  label: node.textContent,
+                  size: parseFloat(getComputedStyle(el).fontSize),
+                  contained: [...range.getClientRects()].every(rect =>
+                    rect.left >= Math.max(bounds.left, parent.left) - 1 && rect.right <= Math.min(bounds.right, parent.right) + 1 &&
+                    rect.top >= Math.max(bounds.top, parent.top) - 1 && rect.bottom <= Math.min(bounds.bottom, parent.bottom) + 1),
+                };
+              }));
+            return { text, scrollHeight: frame.scrollHeight, clientHeight: frame.clientHeight, overflow: getComputedStyle(frame).overflowY };
+          });
+          expect(audit.text.length).toBeGreaterThan(0);
+          expect(audit.scrollHeight).toBeLessThanOrEqual(audit.clientHeight + 1);
+          expect(audit.overflow).not.toMatch(/hidden|clip/);
+          for (const text of audit.text) {
+            expect(text.size, text.label ?? "text").toBeGreaterThanOrEqual(16);
+            expect(text.contained, text.label ?? "text").toBe(true);
+          }
+        }
+        if (width <= 1100) {
+          const dots = section.locator(".swipe-dots");
+          await expect(dots).toBeVisible();
+          // Round down to keep the cards fully visible when the track top includes a subpixel.
+          await track.evaluate(el => window.scrollTo(0, Math.floor(el.getBoundingClientRect().top + window.scrollY)));
+          for (let index = 0; index < 3; index++) {
+            if (javaScriptEnabled) {
+              await track.focus();
+              await page.keyboard.press(index === 0 ? "Home" : "ArrowRight");
+              await expect(dots.locator("i").nth(index)).toHaveClass("on");
+            } else {
+              // Drive the native scroll without relying on page hydration.
+              await cards.nth(index).evaluate(card => card.scrollIntoView({ block: "nearest", inline: "start", behavior: "instant" }));
+            }
+            await expect(cards.nth(index)).toBeInViewport({ ratio: 1 });
+            const card = (await cards.nth(index).boundingBox())!;
+            const status = (await cards.nth(index).locator(".status").boundingBox())!;
+            const position = (await dots.boundingBox())!;
+            for (const bottom of [card.y + card.height, status.y + status.height]) {
+              const gap = position.y - bottom;
+              expect(gap, `card ${index + 1}: dots below card and visible content`).toBeGreaterThanOrEqual(0);
+              expect(gap, `card ${index + 1}: no empty band before dots`).toBeLessThanOrEqual(48);
+            }
+          }
+        }
+      });
+    }
+  });
+}
+
 // Blocking contract §5: measure intrinsic content, never a capped/clipped section.
 for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [1280, 720], [390, 700]]) {
   test(`un bloc = un écran ${locale} ${width}×${height}`, async ({ page }) => {

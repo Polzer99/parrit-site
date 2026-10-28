@@ -1,3 +1,32 @@
+## Bandeau technologies, arrêt immédiat du mouvement, 28/10/2026
+
+Mesure hôte fournie par Paul : 2 échecs sur 8 au passage en mouvement réduit,
+quatre CSSTransition sur les gaps et paddings de `.tech-set`. Source confirmée :
+`system.css` impose `transition-duration:1ms` à `*`, avec la propriété implicite
+`all`. La règle d'arrêt de `single-page.css`, à côté de `[data-anim]`, couvre
+désormais `#technologies`, ses descendants et pseudo-éléments avec
+`animation:none!important;transition:none!important`, uniquement en mode réduit.
+Baseline et candidat : 121/121 tests Node ; lint, build Webpack et marque réussis.
+Turbopack arrêté sans progression ; test navigateur à rejouer sur l'hôte.
+Aucun test modifié ; captures restaurées. Écriture locale réversible par revert
+sur `fix/nuit-tour-3`, sans données métier, push ni déploiement.
+
+## Tour 3 de la nuit, 28/10/2026
+
+Source : `docs/site-v1/page-unique/NUIT-TOUR-3.md`, branche `fix/nuit-tour-3`,
+baseline `7227aaa` : build Webpack et 121/121 tests Node réussis.
+Seule la mise en page de ce-qui-change/what-changes évolue : quatre rangées
+intrinsèques partagées par sous-grille, cases du logiciel en rangées sur mobile,
+carrousel tablette. Textes, tailles de texte et autres sections inchangés.
+16 cas Playwright ajoutés FR/EN, avec/sans JS : cadres et titres à 1 px,
+texte entier ≥16 px, points à ≤48 px du bas de carte et du statut visible.
+Aucun contrôle existant modifié. Revue indépendante : aucun défaut statique.
+Validation : npm ci, lint, build Webpack, 121/121 tests Node, marque/claims,
+19/19 Brand OS ; 111 tests Playwright recensés. Turbopack interrompu sans
+progression avant/après ; preuve navigateur réservée à l'hôte, non acquise ici.
+Écritures locales réversibles par revert, sauvegarde Git baseline, 0 ligne métier.
+Spec incluse au commit ; aucun push ni déploiement.
+
 ## Tour 2 de la nuit, 27/10/2026
 
 Source : `docs/site-v1/page-unique/NUIT-TOUR-2.md`, branche `fix/nuit-tour-2`,

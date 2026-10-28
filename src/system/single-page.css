@@ -298,7 +298,10 @@
 @media(max-width:1100px){.single-page .service-tasks {grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:599px){.single-page .service-tasks {grid-template-columns:1fr;}}
 @media(prefers-reduced-motion:reduce){
-  .single-page [data-anim] *, .single-page [data-anim] *::after {animation:none!important;transition:none!important;}
+  .single-page [data-anim] *, .single-page [data-anim] *::after,
+  .single-page #technologies, .single-page #technologies *,
+  .single-page #technologies::before, .single-page #technologies::after,
+  .single-page #technologies *::before, .single-page #technologies *::after {animation:none!important;transition:none!important;}
   .single-page .ontology-motion {display:none;}
   .single-page .ontology-hero[data-anim="in"] .static-feed {display:inline;}
 }
@@ -461,4 +464,32 @@
 }
 @media(max-width:760px){
   .single-page .phone {line-height:1.2;}
+}
+
+/* Tour 3 : cadres et légendes partagent leurs rangées intrinsèques, sans JS.
+   Aucun cadre plafonné : le contenu le plus haut détermine la première rangée. */
+.single-page :is(#ce-qui-change,#what-changes) .three {
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-rows:repeat(4,auto);row-gap:0;
+}
+.single-page :is(#ce-qui-change,#what-changes) .three > .item {
+  display:grid;grid-template-rows:subgrid;grid-row:1 / span 4;min-width:0;
+}
+.single-page :is(#ce-qui-change,#what-changes) .item > :is(h3,p,.status) {align-self:start;}
+@media(max-width:1100px){
+  .single-page :is(#ce-qui-change,#what-changes) .three {
+    grid-template-columns:none;grid-auto-columns:84%;grid-auto-columns:round(down, 84%, 1px);grid-auto-flow:column;
+    overflow-x:auto;scroll-snap-type:x mandatory;column-gap:var(--brand-s2);
+    align-items:flex-start;scrollbar-width:none;
+  }
+  .single-page :is(#ce-qui-change,#what-changes) .three > .item {align-self:flex-start;scroll-snap-align:start;}
+  .single-page :is(#ce-qui-change,#what-changes) .three + .swipe-dots {
+    display:flex;gap:var(--brand-s1);margin-top:var(--brand-s2);
+  }
+}
+@media(max-width:760px){
+  /* Garder les cases en rangées évite d'allonger artificiellement le logiciel. */
+  .single-page :is(#ce-qui-change,#what-changes) .panel {padding:var(--brand-s2);}
+  .single-page :is(#ce-qui-change,#what-changes) .soft .row {flex-wrap:nowrap;}
+  .single-page :is(#ce-qui-change,#what-changes) .soft .row span {flex-basis:0;padding:var(--brand-s1);}
 }
