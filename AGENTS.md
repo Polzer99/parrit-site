@@ -228,3 +228,11 @@ mobile conservé via Brand OS. Libellés, styles des boutons, hero, Cal.com et
 offres intacts. Six tests FR/EN à 900, 800 et 761 px : ordre, ligne commune,
 bords à 1 px, écarts ≤ 48 px et absence de débordement horizontal.
 Contrôles existants inchangés ; navigateur à rejouer sur l'hôte.
+
+## Tour 5 de la nuit, 28/10/2026
+
+`docs/site-v1/page-unique/NUIT-TOUR-5.md` : panneau du menu ouvert uniquement,
+à ≤900 px, filet bas de 1 px via `--on-canard` et rembourrages verticaux
+égaux via `--brand-s2`. Quatre tests FR/EN à 390×844 et 800×1100 : bordure
+visible, liens entiers, absence de débordement et état fermé inchangé.
+Contrôles existants conservés ; Playwright à rejouer par Claude sur l'hôte.
