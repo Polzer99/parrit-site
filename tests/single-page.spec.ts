@@ -565,6 +565,45 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
   });
 }
 
+for (const locale of ["fr", "en"]) for (const width of [900, 800, 761]) {
+  test(`tablet header groups languages, contact and menu on the right ${locale} ${width}`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 1100 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(local(locale === "fr" ? "/fr" : "/"));
+    await page.evaluate(() => document.fonts.ready);
+    const header = page.locator(".single-header");
+    await expect(header.locator(".desktop-nav")).toBeHidden();
+    const content = await header.locator(":scope > .wrap").evaluate(el => {
+      const box = el.getBoundingClientRect();
+      const style = getComputedStyle(el);
+      return {
+        left: box.left + parseFloat(style.borderLeftWidth) + parseFloat(style.paddingLeft),
+        right: box.right - parseFloat(style.borderRightWidth) - parseFloat(style.paddingRight),
+      };
+    });
+    const logo = header.locator(".mark");
+    await expect(logo).toBeVisible();
+    await expect(logo).toBeInViewport({ ratio: 1 });
+    const brand = (await logo.boundingBox())!;
+    expect(Math.abs(brand.x - content.left), "logo at the left content edge").toBeLessThanOrEqual(1);
+    const controls = [header.locator(".languages"), header.locator(":scope > .wrap > .btn"), header.locator(".mobile-menu summary")];
+    for (const link of await controls[0].locator("a").all()) await expect(link).toBeVisible();
+    let previous = brand;
+    for (const [index, control] of controls.entries()) {
+      await expect(control).toBeVisible();
+      await expect(control).toBeInViewport({ ratio: 1 });
+      const box = (await control.boundingBox())!;
+      const gap = box.x - (previous.x + previous.width);
+      expect(gap, "controls keep their order without overlap").toBeGreaterThanOrEqual(0);
+      if (index > 0) expect(gap, "adjacent controls stay grouped").toBeLessThanOrEqual(48);
+      expect(Math.abs(box.y + box.height / 2 - (brand.y + brand.height / 2)), "controls share the logo's row").toBeLessThanOrEqual(1);
+      previous = box;
+    }
+    expect(Math.abs(previous.x + previous.width - content.right), "menu at the right content edge").toBeLessThanOrEqual(1);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+  });
+}
+
 for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
   test.describe(`compact mobile header ${locale} JS=${javaScriptEnabled}`, () => {
     test.use({ javaScriptEnabled });

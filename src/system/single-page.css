@@ -144,6 +144,10 @@
   .single-header .mobile-menu{display:block;}
   .single-header .mobile-menu nav{position:absolute;z-index:10;top:100%;left:0;right:0;display:flex;flex-wrap:wrap;gap:16px;padding:16px 20px;background:var(--canard);font-size:var(--t-s);max-height:calc(100svh - 76px);overflow-y:auto;}
 }
+@media(min-width:761px) and (max-width:900px){
+  .single-header .wrap{gap:calc(var(--brand-s3) / 2);}
+  .single-header .languages{margin-left:auto;}
+}
 @media(max-width:760px){.single-page h1{font-size:40px;}.single-page h2{font-size:34px;}.single-header .wrap,.single-footer .wrap{padding-left:20px;padding-right:20px;}.single-header .mark{font-size:var(--t-s);}.single-header .btn{display:inline-block;font-size:var(--t-s);padding:14px 24px;white-space:normal;text-align:center;}.single-header .languages{font-size:var(--t-s);}.single-page .hero .sub{gap:32px;}.single-page .hero .actions{width:100%;}.single-page .founder .mail{overflow-wrap:anywhere;}.single-page .reservation{margin-top:56px;}.single-page .cal-instrument{min-width:0;}.single-footer .footer-links{gap:16px;font-size:var(--t-s);}}
 @media (max-width:760px) {
   .single-page .hero .grid, .single-page .three, .single-page .steps,

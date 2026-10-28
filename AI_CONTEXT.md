@@ -1,3 +1,19 @@
+## Tour 4 de la nuit, 28/10/2026
+
+Source : `docs/site-v1/page-unique/NUIT-TOUR-4.md`, branche `fix/nuit-tour-4`,
+baseline `3def5be` : build Webpack et 121/121 tests Node réussis.
+Barre seule entre 761 et 900 px : marge automatique avant les langues,
+espacement mobile de 12 px via `calc(var(--brand-s3) / 2)` ; aucun autre
+format, libellé, style de bouton, hero, Cal.com ou offre modifié.
+Six tests Playwright ajoutés FR/EN à 900/800/761 px : logo à gauche,
+langues/bouton/menu à droite, ligne commune, bords à 1 px, écarts ≤48 px,
+aucun débordement. Assertions existantes et deny-all réseau conservés.
+Validation : npm ci, lint, build Webpack, 121/121 tests Node, marque/claims,
+19/19 Brand OS ; 117 tests Playwright recensés. Build Turbopack interrompu
+après 90 s sans achèvement ; preuve géométrique à rejouer par Claude sur l'hôte.
+Écriture locale réversible par revert, sauvegarde Git baseline, 0 ligne métier.
+Spec incluse ; aucun push ni déploiement.
+
 ## Bandeau technologies, arrêt immédiat du mouvement, 28/10/2026
 
 Mesure hôte fournie par Paul : 2 échecs sur 8 au passage en mouvement réduit,
