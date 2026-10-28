@@ -1,3 +1,16 @@
+## Bandeau technologies, arrêt immédiat du mouvement, 28/10/2026
+
+Mesure hôte fournie par Paul : 2 échecs sur 8 au passage en mouvement réduit,
+quatre CSSTransition sur les gaps et paddings de `.tech-set`. Source confirmée :
+`system.css` impose `transition-duration:1ms` à `*`, avec la propriété implicite
+`all`. La règle d'arrêt de `single-page.css`, à côté de `[data-anim]`, couvre
+désormais `#technologies`, ses descendants et pseudo-éléments avec
+`animation:none!important;transition:none!important`, uniquement en mode réduit.
+Baseline et candidat : 121/121 tests Node ; lint, build Webpack et marque réussis.
+Turbopack arrêté sans progression ; test navigateur à rejouer sur l'hôte.
+Aucun test modifié ; captures restaurées. Écriture locale réversible par revert
+sur `fix/nuit-tour-3`, sans données métier, push ni déploiement.
+
 ## Tour 3 de la nuit, 28/10/2026
 
 Source : `docs/site-v1/page-unique/NUIT-TOUR-3.md`, branche `fix/nuit-tour-3`,
