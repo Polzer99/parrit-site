@@ -250,3 +250,22 @@ les tests animés FR/EN ordinateur/mobile ; aucun contrôle existant assoupli.
 Validation : npm ci, lint, build Webpack, 121/121 tests Node (avant/après),
 marque/claims et 19/19 Brand OS réussis. Turbopack interrompu après 90 s sans
 progression ; 125 tests Playwright recensés, à rejouer par Claude sur l'hôte.
+
+## Page stable, 28/10/2026
+
+`docs/site-v1/page-unique/PAGE-STABLE.md` : légendes, cas et faces partenaires
+réservent leur variante la plus haute par grille dès le SSR. Conversations
+complètes dans le flux ; animation par opacité/translation seulement. General Sans
+400/500/600 préchargées, repli Arial ajusté aux métriques des fichiers canoniques.
+Correctif hôte : General Sans 400/500/600 en `font-display: optional` pour éviter
+les sauts liés aux coupures de mots différentes en Arial ; préchargements et
+repli conservés, IBM Plex Mono inchangée. Test de fontes lentes intact (position
+et hauteur ≤ 1 px, layout-shift ≤ 0,01, chargement vérifié par `document.fonts.check`) ;
+huit contrôles FR/EN supplémentaires vérifient General Sans sur le H1 au premier
+affichage avec les fontes servies normalement (`getComputedStyle` et `document.fonts.check`).
+Cal.com réserve 570/910 px selon la largeur du cadre, sans plafond ni découpe ;
+profil étroit à 800 px à confirmer avec le calendrier réel sur l'hôte.
+`tests/stabilite.spec.ts` rejoint `qa:network:rev01` : huit parcours FR/EN,
+quatre tailles, 25 s immobiles puis défilement ; huit contrôles de fontes lentes.
+SDK et iframe Cal servis localement, deny-all inchangé. Textes, `reading.ts`
+et assertions existantes intacts ; géométrie et CLS à rejouer par Claude sur l'hôte.

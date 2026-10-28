@@ -133,6 +133,15 @@
 .single-page .reservation {margin-top:80px;scroll-margin-top:24px;}
 .single-page .reservation * {font-family:var(--ui);}
 .single-page .reservation .cal-bar {display:none;}
+.single-page .reservation .cal-instrument {container-type:inline-size;}
+/* PAGE-STABLE : cadre initial de 420px + delta mesuré de 150px (570px).
+   Réservation minimale : les étapes suivantes peuvent grandir sans être coupées. */
+.single-page .reservation .cal-embed-stage {min-height:calc(var(--brand-s1) * 71.25);}
+.single-page .reservation .cal-embed-stage > .cal-embed {height:auto;}
+@container(max-width:768px){
+  /* Même mesure mobile : 420px + 712px = 1132px. */
+  .single-page .reservation .cal-embed-stage {min-height:calc(var(--brand-s1) * 141.5);}
+}
 .single-page .contact-fallback {margin-top:32px;}
 .single-page .contact-fallback .ghost {background:transparent;color:var(--white);border:1.5px solid currentColor;}
 .single-page .founder img {height:auto;aspect-ratio:3/4;}
@@ -220,7 +229,7 @@
 
 /* Passe 3 : valeurs de maquette adaptées à l'échelle accessible canonique. */
 .single-page .live {padding-top:72px;}
-.single-page .hero .ontocap {min-height:28px;margin-top:18px;font-size:var(--t-m);color:var(--white);max-width:none;line-height:1.55;}
+.single-page .hero :is(.ontocap,.ontocap-sizer) {min-height:28px;margin-top:18px;font-size:var(--t-m);color:var(--white);max-width:none;line-height:1.55;}
 .single-page .hero .humby {margin-top:10px;}
 .single-page .onto .talk {stroke-dasharray:3 4;}
 .single-page .onto .agent.busy .ag {fill:var(--sky);}
@@ -315,13 +324,17 @@
 .single-page section {padding:clamp(56px,9vh,112px) 0;}
 .single-page .mobile-carousel {min-width:0;}
 .single-page .swipe-dots {display:none;}
-.single-page .visually-hidden,
-.single-page .partner-motion[data-anim="in"] .partner-offers {
-  position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
-  clip-path:inset(50%);white-space:nowrap;border:0;
-}
+/* Toutes les variantes participent au calcul intrinsèque, dès le HTML serveur. */
+.single-page .ontocap-stack, .single-page .offer-stack {display:grid;}
+.single-page .ontocap-stack > *, .single-page .offer-stack > * {grid-area:1 / 1;}
+.single-page .ontocap-sizer, .single-page .offer-sizer {visibility:hidden;}
+/* La liste reste accessible : la face animée est son doublon aria-hidden. */
+.single-page .partner-motion[data-anim="in"] .partner-offers {opacity:0;}
 .single-page .service-tasks {margin-top:28px;}
-.single-page .service-tasks > .use-case {position:relative;padding:18px 20px;min-height:0;}
+.single-page .service-tasks > .use-case {position:relative;padding:18px 20px;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);}
+.single-page .use-case > .s {grid-area:1 / 1;}
+.single-page .use-case > .case {grid-area:2 / 1;}
+.single-page .use-case > .case.visually-hidden {visibility:hidden;}
 .single-page .use-case .s {line-height:1.3;min-height:42px;}
 .single-page .use-case .case-text {font-size:16px;line-height:1.45;margin:8px 0 12px;min-height:68px;}
 .single-page .tag {display:inline-block;font-size:16px;line-height:1.3;font-weight:600;padding:3px 8px;border:1.5px solid var(--canard);color:var(--canard);}
@@ -332,14 +345,16 @@
 .single-page .case-dots i,.single-page .swipe-dots i {display:block;width:7px;height:7px;background:var(--line);}
 .single-page .case-dots i.on,.single-page .swipe-dots i.on {background:var(--canard);}
 .single-page .services {margin-top:20px;}
-.single-page .services > .partner {position:relative;padding:12px 18px;min-height:128px;}
+.single-page .services > .partner {position:relative;padding:0;min-height:128px;display:grid;grid-template-columns:minmax(0,1fr);}
+.single-page .partner-summary, .single-page .partner-delivery {grid-area:1 / 1;}
+.single-page .partner-summary {padding:calc(var(--brand-s3) / 2) calc(var(--brand-s3) * .75);}
 .single-page .services .partner-type p {font-size:16px;line-height:1.45;margin-top:6px;}
 .single-page .partner-offers {display:flex;flex-wrap:wrap;column-gap:12px;row-gap:2px;list-style:none;margin-top:8px;}
 .single-page .partner-offers li {font-size:16px;line-height:1.45;}
-.single-page .partner-delivery {display:none;position:absolute;inset:0;padding:18px;background:var(--canard);color:var(--white);}
+.single-page .partner-delivery {visibility:hidden;padding:calc(var(--brand-s3) * .75);background:var(--canard);color:var(--white);}
 .single-page .partner-delivery > span {font-size:16px;line-height:1.3;color:var(--on-canard);}
-.single-page .partner-delivery .offer {font-size:22px;font-weight:600;line-height:1.45;color:var(--white);margin-top:10px;transition:opacity .15s;}
-.single-page .partner.flip .partner-delivery {display:block;}
+.single-page .partner-delivery :is(.offer,.offer-sizer) {font-size:22px;font-weight:600;line-height:1.45;color:var(--white);margin-top:10px;transition:opacity .15s;}
+.single-page .partner.flip .partner-delivery {visibility:visible;}
 .single-page .partner.flip .partner-type {opacity:0;}
 .single-page .partner.blink .offer {opacity:0;}
 .single-page .teamcap {margin-top:16px;}
@@ -371,7 +386,7 @@
   /* §4 : la colonne réserve la largeur du libellé, sans étirer le bouton. */
   .single-page .hero .btn.exec {width:max-content;white-space:nowrap;flex:none;}
   .single-page .hero .onto {margin-top:0;max-height:calc(100svh - 460px);}
-  .single-page .hero .ontocap {margin-top:12px;font-size:16px;line-height:1.45;}
+  .single-page .hero :is(.ontocap,.ontocap-sizer) {margin-top:12px;font-size:16px;line-height:1.45;}
   .single-page .hero .humby {grid-column:1 / -1;margin-top:0;}
 }
 /* Tablette : le schéma suit le bouton, à sa largeur et hauteur intrinsèques. */
@@ -417,14 +432,13 @@
 @media(prefers-reduced-motion:reduce){
   .single-page .case-text,.single-page .tag,.single-page .partner-delivery .offer {transition:none;}
   .single-page .use-case.blink .case-text,.single-page .use-case.blink .tag,.single-page .partner.flip .partner-type {opacity:1;}
-  .single-page .partner-delivery {display:none;}
+  .single-page .partner-delivery {visibility:hidden;}
 }
 /* The static logo band also stays on one row, with native access to every logo. */
 .single-page .logo-strip {overflow-x:auto;}
 .single-page .logo-track,.single-page .logo-set {max-width:none;flex-wrap:nowrap;}
-/* Absolute delivery faces reserve enough room for their longest translated offer. */
-.single-page .partner-motion[data-anim="in"] .partner {min-height:156px;}
-@media(max-width:760px){.single-page .partner-motion[data-anim="in"] .partner {min-height:200px;}}
+/* Une conversation complète reste dans le flux, même pendant son animation. */
+.single-page .phone .msg {flex-shrink:0;}
 
 
 @media(max-width:760px){

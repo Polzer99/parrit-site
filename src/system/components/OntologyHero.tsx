@@ -208,6 +208,9 @@ export function OntologyHero({ locale }: { locale: Locale }) {
         {stories.slice(0, 4).map((story, i) => <g key={story.result} transform={`translate(820 ${SLOT_Y[i]})`} opacity={1} className={i === 0 ? "res on hot" : "res on"}><rect width="250" height="50" className="resbox"/><text className="rest">{resultLines(t(story.result)).map((line, index, lines) => <tspan key={index} x="12" y={lines.length === 1 ? 31 : 20 + index * 23}>{line}{index < lines.length - 1 ? " " : ""}</tspan>)}</text></g>)}
       </g>
     </svg>
-    <p className="ontocap" aria-live="off">{t(stories[0].cap)}</p>
+    <div className="ontocap-stack">
+      <p className="ontocap" aria-live="off">{t(stories[0].cap)}</p>
+      {stories.map(story => <p className="ontocap-sizer" aria-hidden="true" key={story.cap}>{t(story.cap)}</p>)}
+    </div>
   </div>;
 }

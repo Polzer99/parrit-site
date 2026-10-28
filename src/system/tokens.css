@@ -40,7 +40,7 @@
   --crit-dot: var(--accent-strong);
 
   /* PC-03 · type tokens */
-  --ui: "General Sans", "Helvetica Neue", Arial, sans-serif;
+  --ui: "General Sans", "General Sans Fallback", "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", Menlo, monospace;
   --ed: var(--ui);
 

@@ -18,7 +18,10 @@ export function ServiceTasks({ locale }: { locale: Locale }) {
     const cards = element.querySelectorAll<HTMLElement>(".use-case");
     const show = (card: HTMLElement, index: number) => {
       card.dataset.case = String(index);
-      card.querySelectorAll(".case").forEach((node, i) => node.classList.toggle("visually-hidden", i !== index));
+      card.querySelectorAll(".case").forEach((node, i) => {
+        node.classList.toggle("visually-hidden", i !== index);
+        node.ariaHidden = String(i !== index);
+      });
       card.querySelectorAll(".case-dots i").forEach((dot, i) => dot.classList.toggle("on", i === index));
     };
     cards.forEach((card, i) => {
@@ -47,7 +50,7 @@ export function ServiceTasks({ locale }: { locale: Locale }) {
   return <div ref={ref}><MobileCarousel className="service-tasks" label={locale === "fr" ? "Cas d'usage par service" : "Use cases by department"}>
     {SERVICE_CASES.map(([title, cases]) => <div className="use-case" key={title} aria-live="off" data-case="0">
       <span className="s">{t(title)}</span>
-      {cases.map((text, i) => <div key={text} className={`case${i ? " visually-hidden" : ""}`}>
+      {cases.map((text, i) => <div key={text} className={`case${i ? " visually-hidden" : ""}`} aria-hidden={i !== 0}>
         <p className="case-text">{t(text)}</p>{" "}<span className={`tag ${i % 2 ? "new" : "bo"}`}>{t(i % 2 ? "Nouveau" : "Back-office")}</span>
       </div>)}
       <span className="case-dots" aria-hidden="true">{cases.map((_, i) => <i key={i} className={i === 0 ? "on" : undefined}/>)}</span>

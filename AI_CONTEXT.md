@@ -1,3 +1,36 @@
+## Page stable, 28/10/2026
+
+Correctif suivant, demandé après mesure hôte : General Sans 400/500/600 passe
+de `swap` à `optional`, car les coupures Arial ajoutaient une ligne au H1 malgré
+les métriques ajustées ; préchargements, repli et IBM Plex Mono conservés.
+Test de fontes lentes intact ; huit contrôles du H1 au premier affichage ajoutés.
+Baseline/candidat : 127/127 tests Node ; lint, build Webpack, marque et 19/19
+Brand OS réussis. 24 tests de stabilité recensés ; preuve navigateur à rejouer
+sur l'hôte (serveur local refusé : `listen EPERM 127.0.0.1:3210`).
+
+Source : `docs/site-v1/page-unique/PAGE-STABLE.md`, branche `fix/page-stable`,
+baseline `ef69ccb` : build Webpack et 127/127 tests Node réussis.
+Réservations intrinsèques SSR des six légendes, quatre cas par service et faces
+partenaires ; leurs offres restent accessibles pendant l'animation. Les messages
+étaient déjà tous dans le flux : flex-shrink verrouillé, séquence inchangée.
+Semibold rejoint les préchargements ; repli Arial calibré par poids sur H1/accroche
+FR/EN et métriques hhea des fichiers locaux. Aucun fichier de fonte modifié.
+Cal : 570/910 px déduits du minimum initial 420 px et des deltas de la spec ;
+réservation minimale sans découpe, requête de conteneur à 768 px. La hauteur réelle
+à 800 px reste UNKNOWN : le mock utilise le profil étroit pour un cadre de 718 px.
+Preuve hôte requise avant de déclarer la stabilité réelle acquise, notamment
+échange des fontes, calendrier réel et contrôles existants « un bloc = un écran ».
+Seize nouveaux tests recensés dans `stabilite.spec.ts`, inclus dans le gate réseau ;
+SDK Cal installé et iframe retardée servis par réponses locales, deny-all intact.
+Revue adverse indépendante : accès aux offres et test des fontes corrigés.
+Validation finale : npm ci, lint, build Webpack, 127/127 tests Node,
+marque/claims et 19/19 Brand OS réussis ; 16 nouveaux tests Playwright recensés.
+Turbopack interrompu sans progression ; aucun navigateur lancé dans le sandbox.
+Limite du scénario de 25 s : ne couvre pas un cycle complet des 23 offres ;
+les réservations SSR incluent toutes les variantes, les tests Node vérifient les durées.
+Écriture locale réversible par revert, sauvegarde Git baseline, zéro ligne métier.
+Aucun texte ni `reading.ts` ni contrôle existant modifié ; aucun push.
+
 ## Tour 5 de la nuit, 28/10/2026
 
 Source : `docs/site-v1/page-unique/NUIT-TOUR-5.md`, branche `fix/nuit-tour-5`,
