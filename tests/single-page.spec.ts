@@ -323,6 +323,16 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390]) {
     await expect(page.locator(".ontocap")).toContainText(captions[1]);
     const labels = figure.locator(".toklab");
     await expect(labels).toHaveCount(2);
+    // The moving label alone gets a canard outline, behind its white fill.
+    const canard = await page.locator(".hero").evaluate(el => getComputedStyle(el).backgroundColor);
+    for (const label of await labels.all()) {
+      await expect(label).toHaveCSS("paint-order", /stroke/);
+      await expect(label).toHaveCSS("stroke", canard);
+      await expect(label).toHaveCSS("stroke-linejoin", "round");
+      const strokeWidth = await label.evaluate(el => parseFloat(getComputedStyle(el).strokeWidth));
+      expect(strokeWidth).toBeGreaterThanOrEqual(4);
+      expect(strokeWidth).toBeLessThanOrEqual(6);
+    }
     // CSS transitions use real time; await the fade while story time stays paused.
     // Playwright visibility alone includes elements whose opacity is zero.
     await expect(labels.first()).toHaveCSS("opacity", "0");
@@ -622,6 +632,67 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       }
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+  });
+}
+
+for (const locale of ["fr", "en"]) for (const [width, height] of [[800, 1100], [1024, 768]]) {
+  test(`tablet hero diagram follows the button at readable full width ${locale} ${width}`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(local(locale === "fr" ? "/fr" : "/"));
+    await page.evaluate(() => document.fonts.ready);
+
+    const button = page.locator(".hero .exec");
+    const action = (await button.boundingBox())!;
+    const phrase = (await page.locator(".hero .sub p").boundingBox())!;
+    const figure = page.locator(".ontology-hero");
+    const svg = page.locator("svg.onto");
+    const diagram = (await svg.boundingBox())!;
+    const content = await page.locator(".hero .wrap").evaluate(el => {
+      const box = el.getBoundingClientRect();
+      const style = getComputedStyle(el);
+      const left = parseFloat(style.paddingLeft);
+      const right = parseFloat(style.paddingRight);
+      return { x: box.x + left, width: box.width - left - right };
+    });
+    expect(action.y).toBeGreaterThanOrEqual(phrase.y + phrase.height);
+    expect(action.x).toBeCloseTo(phrase.x, 0);
+    expect(diagram.y).toBeGreaterThanOrEqual(action.y + action.height);
+    expect(diagram.x).toBeCloseTo(content.x, 0);
+    expect(diagram.width).toBeGreaterThanOrEqual(content.width * .9);
+    expect(diagram.width).toBeLessThanOrEqual(content.width);
+    await expect(svg).toHaveCSS("max-height", "none");
+
+    // Measure rendered glyph size, including the SVG viewBox scale (not CSS alone).
+    for (const selector of [".lab", ".nt"]) {
+      const sizes = await svg.locator(selector).evaluateAll(nodes => nodes.map(node => {
+        const matrix = (node as SVGGraphicsElement).getScreenCTM();
+        if (!matrix) throw new Error("Missing SVG screen transform");
+        return parseFloat(getComputedStyle(node).fontSize) * Math.hypot(matrix.c, matrix.d);
+      }));
+      expect(sizes.length).toBeGreaterThan(0);
+      for (const size of sizes) expect(size, `${selector}: rendered pixels`).toBeGreaterThanOrEqual(14);
+    }
+    const caption = (await page.locator(".ontocap").boundingBox())!;
+    const quote = (await page.locator(".humby").boundingBox())!;
+    expect(caption.y).toBeGreaterThanOrEqual(diagram.y + diagram.height);
+    expect(quote.y).toBeGreaterThanOrEqual(caption.y + caption.height);
+    expect(await figure.evaluate(el => el.scrollWidth <= el.clientWidth)).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+
+    await expect(button).toHaveCSS("white-space", "nowrap");
+    const geometry = await button.evaluate(el => {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const style = getComputedStyle(el);
+      return {
+        lines: range.getClientRects().length,
+        contentWidth: range.getBoundingClientRect().width,
+        inset: parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth),
+      };
+    });
+    expect(geometry.lines).toBe(1);
+    expect(action.width).toBeCloseTo(geometry.contentWidth + geometry.inset, 0);
   });
 }
 

@@ -237,3 +237,16 @@ Contrôles existants inchangés ; navigateur à rejouer sur l'hôte.
 égaux via `--brand-s2`. Quatre tests FR/EN à 390×844 et 800×1100 : bordure
 visible, liens entiers, absence de débordement et état fermé inchangé.
 Contrôles existants conservés ; Playwright à rejouer par Claude sur l'hôte.
+
+## Hero tablette, 28/10/2026
+
+`docs/site-v1/page-unique/HERO-TABLETTE.md` : entre 761 et 1100 px, schéma
+sous le texte et le bouton, pleine largeur et sans plafond de hauteur ; légende
+puis citation. Contour canard de 4 unités sur `.toklab` seulement, via Brand OS.
+Textes, composant, animation et géométrie hors tablette inchangés. Quatre tests
+FR/EN à 800×1100 et 1024×768 : ordre, largeur ≥90 %, étiquettes à l'écran ≥14 px,
+bouton intrinsèque sur une ligne et absence de débordement. Contour vérifié dans
+les tests animés FR/EN ordinateur/mobile ; aucun contrôle existant assoupli.
+Validation : npm ci, lint, build Webpack, 121/121 tests Node (avant/après),
+marque/claims et 19/19 Brand OS réussis. Turbopack interrompu après 90 s sans
+progression ; 125 tests Playwright recensés, à rejouer par Claude sur l'hôte.

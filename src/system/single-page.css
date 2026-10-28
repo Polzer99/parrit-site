@@ -234,7 +234,7 @@
 .single-page .ontology-hero[data-anim="in"] .static-feed {display:none;}
 .single-page .onto .pulse {opacity:.55;}
 .single-page .onto .token {stroke:var(--canard);stroke-width:2;}
-.single-page .onto .toklab {fill:var(--white);font-size:var(--t-s);font-weight:600;opacity:1;transition:opacity .3s;}
+.single-page .onto .toklab {fill:var(--white);font-size:var(--t-s);font-weight:600;opacity:1;transition:opacity .3s;paint-order:stroke;stroke:var(--canard);stroke-width:calc(var(--brand-s1) / 2);stroke-linejoin:round;}
 .single-page .onto .toklab.previous {opacity:0;}
 .single-page .onto .resbox {fill:none;stroke:var(--on-canard);stroke-width:1;}
 .single-page .onto .rest {fill:var(--white);font-size:var(--t-s);font-weight:600;}
@@ -373,6 +373,11 @@
   .single-page .hero .onto {margin-top:0;max-height:calc(100svh - 460px);}
   .single-page .hero .ontocap {margin-top:12px;font-size:16px;line-height:1.45;}
   .single-page .hero .humby {grid-column:1 / -1;margin-top:0;}
+}
+/* Tablette : le schéma suit le bouton, à sa largeur et hauteur intrinsèques. */
+@media(min-width:761px) and (max-width:1100px){
+  .single-page .hero .wrap {grid-template-columns:minmax(0,1fr);}
+  .single-page .hero .onto {max-height:none;}
 }
 @media(max-width:760px){
   .single-page .hero {padding-top:24px;}
