@@ -209,3 +209,13 @@ Journal uniquement au pied ; hauteurs optiques des logos sans modifier les image
 Titre du fondateur suivi du texte, portrait entier 3:4 ; seul le rembourrage
 horizontal du bouton du formulaire change. Hero, autres boutons, Cal.com et
 offres intacts. Contrôles existants conservés ; géométrie à rejouer sur l'hôte.
+
+## Tour 3 de la nuit, 28/10/2026
+
+`docs/site-v1/page-unique/NUIT-TOUR-3.md` : seule la mise en page de
+`ce-qui-change` / `what-changes` évolue. Cadres et légendes en sous-grille
+intrinsèque commune ; cases du logiciel en rangées sur mobile, points proches
+des cartes, carrousel natif dès la tablette. Aucun texte ni taille de texte
+modifié ; hero, boutons, Cal.com et offres intacts. Tests FR/EN avec/sans JS,
+mouvement réduit, alignement à 1 px et écart aux points ≤ 48 px ; contrôles
+existants inchangés, dont « un bloc = un écran ». Navigateur à rejouer sur l'hôte.
