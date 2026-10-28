@@ -23,10 +23,52 @@ declare global {
   interface Window {
     pageStability: Stability;
     fontStability: { top: Range; height: Range; shifts: number; stop: () => void };
+    firstHeadingFonts: Promise<{ family: string; weight: string; loaded: boolean }[]>;
   }
 }
 
 test.use({ serviceWorkers: "block" });
+
+for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
+  test(`titre en General Sans au premier affichage ${locale} ${viewport.width}`, async ({ page }, testInfo) => {
+    await page.setViewportSize(viewport);
+    await page.route("**/embed/embed.js", async route => {
+      expect(new URL(route.request().url()).hostname).toBe("app.cal.com");
+      await route.fulfill({ contentType: "application/javascript", body: "/* Calendrier hors écran. */" });
+    });
+    // Contexte neuf, fontes locales servies normalement : capture au premier
+    // contenu peint, sans attendre fonts.ready ni retenter la mesure après coup.
+    await page.addInitScript(() => {
+      window.firstHeadingFonts = new Promise(resolve => {
+        const observer = new PerformanceObserver(list => {
+          if (!list.getEntries().some(entry => entry.name === "first-contentful-paint")) return;
+          observer.disconnect();
+          resolve(Array.from(document.querySelectorAll(".hero h1, .hero h1 b"), node => {
+            const style = getComputedStyle(node);
+            return {
+              family: style.fontFamily.split(",")[0].trim().replace(/["']/g, ""),
+              weight: style.fontWeight,
+              loaded: document.fonts.check(`${style.fontWeight} ${style.fontSize} "General Sans"`, node.textContent ?? ""),
+            };
+          }));
+        });
+        observer.observe({ type: "paint", buffered: true });
+      });
+    });
+    const url = new URL(locale === "fr" ? "/fr" : "/", BASE);
+    expect(["localhost", "127.0.0.1"]).toContain(url.hostname);
+    await page.goto(url.href, { waitUntil: "domcontentloaded" });
+    const result = await page.evaluate(() => window.firstHeadingFonts);
+    await testInfo.attach("polices-premier-affichage.json", {
+      body: JSON.stringify(result), contentType: "application/json",
+    });
+    expect(result.map(font => font.weight)).toEqual(["500", "600"]);
+    for (const font of result) {
+      expect(font.family, `famille du titre, graisse ${font.weight}`).toBe("General Sans");
+      expect(font.loaded, `General Sans ${font.weight} chargée au premier affichage`).toBe(true);
+    }
+  });
+}
 
 for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
   test(`page stable ${locale} ${viewport.width}×${viewport.height}`, async ({ page }, testInfo) => {

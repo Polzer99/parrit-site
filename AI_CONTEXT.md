@@ -1,5 +1,13 @@
 ## Page stable, 28/10/2026
 
+Correctif suivant, demandé après mesure hôte : General Sans 400/500/600 passe
+de `swap` à `optional`, car les coupures Arial ajoutaient une ligne au H1 malgré
+les métriques ajustées ; préchargements, repli et IBM Plex Mono conservés.
+Test de fontes lentes intact ; huit contrôles du H1 au premier affichage ajoutés.
+Baseline/candidat : 127/127 tests Node ; lint, build Webpack, marque et 19/19
+Brand OS réussis. 24 tests de stabilité recensés ; preuve navigateur à rejouer
+sur l'hôte (serveur local refusé : `listen EPERM 127.0.0.1:3210`).
+
 Source : `docs/site-v1/page-unique/PAGE-STABLE.md`, branche `fix/page-stable`,
 baseline `ef69ccb` : build Webpack et 127/127 tests Node réussis.
 Réservations intrinsèques SSR des six légendes, quatre cas par service et faces

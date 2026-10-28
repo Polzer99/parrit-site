@@ -5,21 +5,21 @@
   src: url("/fonts/rev02/GeneralSans-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 @font-face {
   font-family: "General Sans";
   src: url("/fonts/rev02/GeneralSans-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 @font-face {
   font-family: "General Sans";
   src: url("/fonts/rev02/GeneralSans-Semibold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 @font-face {
   font-family: "IBM Plex Mono";

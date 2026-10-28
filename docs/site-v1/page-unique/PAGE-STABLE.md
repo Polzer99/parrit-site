@@ -30,8 +30,9 @@ longue. Le contenu bouge, la page jamais.
   apparaissent par opacité/transformation, jamais en entrant dans le flux.
 - Polices : précharger les fichiers General Sans utilisés au-dessus de la ligne de flottaison et
   donner à la police de repli des métriques ajustées (`size-adjust`, `ascent-override`,
-  `descent-override`, `line-gap-override`) pour que l'échange ne déplace plus le titre ; aucune
-  police nouvelle, aucun service externe.
+  `descent-override`, `line-gap-override`), avec `font-display: optional` pour General Sans
+  400/500/600 afin de conserver le repli pendant la visite si les fontes arrivent trop tard,
+  sans saut dû aux coupures de mots ; IBM Plex Mono inchangée, aucune police nouvelle ni service externe.
 - Réservation : réserver pour le cadre Cal.com la hauteur qu'il prend une fois chargé, à chaque
   largeur testée (pas de saut au chargement), sans couper le calendrier.
 - Ne change ni texte, ni durée de lecture, ni rendu final ; hero, boutons, offres et Cal.com

@@ -257,6 +257,12 @@ progression ; 125 tests Playwright recensés, à rejouer par Claude sur l'hôte.
 réservent leur variante la plus haute par grille dès le SSR. Conversations
 complètes dans le flux ; animation par opacité/translation seulement. General Sans
 400/500/600 préchargées, repli Arial ajusté aux métriques des fichiers canoniques.
+Correctif hôte : General Sans 400/500/600 en `font-display: optional` pour éviter
+les sauts liés aux coupures de mots différentes en Arial ; préchargements et
+repli conservés, IBM Plex Mono inchangée. Test de fontes lentes intact (position
+et hauteur ≤ 1 px, layout-shift ≤ 0,01, chargement vérifié par `document.fonts.check`) ;
+huit contrôles FR/EN supplémentaires vérifient General Sans sur le H1 au premier
+affichage avec les fontes servies normalement (`getComputedStyle` et `document.fonts.check`).
 Cal.com réserve 570/910 px selon la largeur du cadre, sans plafond ni découpe ;
 profil étroit à 800 px à confirmer avec le calendrier réel sur l'hôte.
 `tests/stabilite.spec.ts` rejoint `qa:network:rev01` : huit parcours FR/EN,
