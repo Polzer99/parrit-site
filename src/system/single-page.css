@@ -130,8 +130,6 @@
 .single-footer .wrap {gap:24px;flex-wrap:wrap;}
 .single-footer .footer-links {display:flex;flex-wrap:wrap;gap:24px;}
 .single-footer a {margin:0;}
-.single-page .journal-entry {padding-bottom:56px;}
-.single-page .journal-entry a {color:var(--canard);font-size:var(--t-m);}
 .single-page .reservation {margin-top:80px;scroll-margin-top:24px;}
 .single-page .reservation * {font-family:var(--ui);}
 .single-page .reservation .cal-bar {display:none;}
@@ -266,7 +264,7 @@
 
 .single-page .logo-strip {overflow:hidden;margin-top:56px;}
 .single-page .logo-track {display:flex;width:max-content;gap:96px;}
-.single-page .logo-set {display:flex;align-items:center;gap:96px;}
+.single-page .logo-set {display:flex;align-items:stretch;gap:var(--brand-s8);}
 .single-page .client-logo {display:block;flex-shrink:0;background:var(--ink);mask-size:contain;mask-repeat:no-repeat;mask-position:center;max-width:100%;}
 .single-page .logo-set[aria-hidden] {display:none;}
 .single-page .logo-track, .single-page .logo-set {max-width:100%;flex-wrap:wrap;}
@@ -275,6 +273,7 @@
 .single-page .contact-fallback .quick-capture {padding:0;margin:0;}
 .single-page .contact-fallback .quick-fields {grid-template-columns:minmax(0,1fr) auto;gap:0;}
 .single-page .contact-fallback .quick-fields input {border-right:0;}
+.single-page .contact-fallback .quick-fields button {padding-inline:var(--brand-s3);}
 .single-page .contact-fallback .quick-copy p {margin-top:8px;}
 .single-page .contact-fallback .quick-copy h3 {font-size:var(--t-l);}
 
@@ -337,7 +336,7 @@
 .single-page .partner.blink .offer {opacity:0;}
 .single-page .teamcap {margin-top:16px;}
 .single-page .scenes,.single-page .three {margin-top:28px;gap:24px;}
-.single-page .phone {min-height:0;max-width:320px;height:calc(var(--brand-s6) * 9);border-width:8px;}
+.single-page .phone {min-height:0;max-width:320px;border-width:8px;font-size:16px;line-height:1.3;padding-bottom:1lh;}
 .single-page .phone .bar {font-size:16px;padding:8px 10px;}
 .single-page .phone .chat {padding:8px;gap:6px;}
 .single-page .phone .msg {font-size:16px;line-height:1.3;padding:5px 7px;max-width:96%;}
@@ -345,7 +344,7 @@
 .single-page .phone .msg.card b {font-size:16px;}
 .single-page .scene h3 {margin-top:14px;}
 .single-page .note {margin-top:16px;}
-.single-page .founder .grid {row-gap:16px;align-items:start;}
+.single-page .founder .grid {grid-template-rows:min-content 1fr;row-gap:16px;align-items:start;}
 .single-page .founder picture {grid-row:1 / 3;}
 .single-page .founder-details {grid-column:2;}
 .single-page .founder-details ul {margin-top:12px;}
@@ -393,7 +392,7 @@
   .single-page .note {font-size:var(--t-s);line-height:1.45;margin-top:12px;}
   .single-page .logo-strip {margin-top:28px;}
   .single-page .logo-track,.single-page .logo-set {gap:20px;}
-  .single-page .founder .grid {grid-template-columns:38% minmax(0,1fr);gap:16px;}
+  .single-page .founder .grid {grid-template-columns:38% minmax(0,1fr);grid-template-rows:auto auto;gap:16px;}
   .single-page .founder picture {grid-row:auto;}
   .single-page .founder h2 {font-size:26px;line-height:1.15;}
   .single-page .founder-details {grid-column:1 / -1;}
@@ -448,17 +447,18 @@
   .single-page .tech-set li {gap:6px;}
 }
 
-/* §5: identical screens, top-aligned messages; wide cards preserve readable copy. */
+/* Tour 2 : la rangée commune prend la hauteur du contenu le plus long, sans JS.
+   La seconde rangée réserve les légendes sans étirer les téléphones. */
+.single-page .scenes.mobile-carousel {display:grid;grid-template-rows:auto auto;row-gap:0;}
+.single-page .scenes.mobile-carousel > .scene {display:grid;grid-template-rows:subgrid;grid-row:1 / span 2;min-width:0;}
+/* §5 : cartes entières et défilement natif dès la tablette. */
 @media(max-width:1100px){
-  .single-page .scenes.mobile-carousel {display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:var(--brand-s2);align-items:flex-start;scrollbar-width:none;}
-  .single-page .scenes.mobile-carousel > .scene {flex:0 0 100%;min-width:0;align-self:flex-start;scroll-snap-align:start;}
+  .single-page .scenes.mobile-carousel {grid-template-columns:none;grid-auto-columns:100%;grid-auto-flow:column;overflow-x:auto;scroll-snap-type:x mandatory;column-gap:var(--brand-s2);align-items:flex-start;scrollbar-width:none;}
+  .single-page .scenes.mobile-carousel > .scene {align-self:flex-start;scroll-snap-align:start;}
   .single-page .scenes + .swipe-dots {display:flex;gap:var(--brand-s1);margin-top:var(--brand-s1);}
   .single-page .scenes + .swipe-dots i {background:var(--on-canard);}
   .single-page .scenes + .swipe-dots i.on {background:var(--white);}
 }
 @media(max-width:760px){
-  .single-page .phone {height:calc(var(--brand-s8) * 6 - var(--brand-s2));}
-}
-@media(max-width:359px){
-  .single-page .phone {height:calc(var(--brand-s8) * 7);}
+  .single-page .phone {line-height:1.2;}
 }

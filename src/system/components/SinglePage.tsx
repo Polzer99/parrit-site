@@ -1,5 +1,4 @@
 import type { Locale } from "@/system/locale";
-import { localizedPath } from "@/system/locale";
 import { SINGLE_PAGE_EN, PARTNER_OFFERS } from "@/system/single-page-copy";
 import { ParritCalInline } from "./CalInline";
 import { QuickCapture } from "./QuickCapture";
@@ -59,8 +58,8 @@ export function SinglePage({ locale }: { locale: Locale }) {
     </div>
     <div className="scene">
       <div className="phone"><div className="bar">{t("Agent commercial")}{" "}<i></i></div><div className="chat">
-        <div className="msg m">{t("Tâche pour Commercial 1 : relancer Client A sur l'offre avocat Hass, pour jeudi.")}</div>
-        <div className="msg a">{t("Je crée cette tâche : relancer Client A, à faire par Commercial 1, pour le 8 octobre. Tu confirmes ?")}</div>
+        <div className="msg m">{t("Tâche pour Commercial 1 : relancer Client A sur l'offre de clémentines, pour jeudi.")}</div>
+        <div className="msg a">{t("Je crée cette tâche : relancer Client A, à faire par Commercial 1, pour jeudi. Tu confirmes ?")}</div>
         <div className="msg m">{t("oui")}</div>
         <div className="msg a">{t("C'est fait, la tâche est enregistrée.")}</div>
         <div className="msg card"><b>{t("Dans son outil de pilotage")}</b>{t("Relancer Client A, à faire, Commercial 1.")}</div>
@@ -119,7 +118,6 @@ export function SinglePage({ locale }: { locale: Locale }) {
 
 
 
-<div className="journal-entry wrap"><a href={localizedPath("/journal", locale)}>{fr ? "Ce que nous écrivons" : "What we write"}</a></div>
 <section className="founder" id="contact"><div className="wrap"><div className="grid">
   <picture>
     <source type="image/avif" srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.avif 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.avif 680w" sizes="(max-width: 760px) calc((100vw - 40px) * .38), (max-width: 1160px) calc((100vw - 144px) / 3), 339px" />

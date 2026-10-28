@@ -814,11 +814,21 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
           const bar = phone.querySelector<HTMLElement>(".bar")!;
           const rect = phone.getBoundingClientRect();
           const frame = screen.getBoundingClientRect();
+          const messages = [...screen.querySelectorAll<HTMLElement>(".msg")];
+          const screenStyle = getComputedStyle(screen);
+          const phoneStyle = getComputedStyle(phone);
+          // Intrinsic content only: the flex chat can grow to fill the shared row.
+          // Do not include phone padding here: it is the whitespace under test.
+          const contentHeight = parseFloat(phoneStyle.borderTopWidth) + parseFloat(phoneStyle.borderBottomWidth)
+            + bar.getBoundingClientRect().height + parseFloat(screenStyle.paddingTop) + parseFloat(screenStyle.paddingBottom)
+            + messages.reduce((sum, message) => sum + message.getBoundingClientRect().height, 0)
+            + (messages.length - 1) * parseFloat(screenStyle.rowGap);
           const textRects = [...phone.querySelectorAll<HTMLElement>(".bar, .msg")].flatMap(node => {
             const range = document.createRange(); range.selectNodeContents(node);
             return [...range.getClientRects()].map(box => ({ top: box.top, bottom: box.bottom, left: box.left, right: box.right }));
           });
           return {
+            contentHeight, messageLine: parseFloat(getComputedStyle(messages[0]).lineHeight),
             width: rect.width, height: rect.height, screenHeight: frame.height,
             clipped: textRects.some(box => box.top < rect.top || box.bottom > rect.bottom || box.left < rect.left || box.right > rect.right),
             scrollHeight: screen.scrollHeight, clientHeight: screen.clientHeight,
@@ -828,7 +838,11 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
             fontSizes: [...phone.querySelectorAll<HTMLElement>(".bar, .msg, .msg b")].map(node => parseFloat(getComputedStyle(node).fontSize)),
           };
         }));
+        const longestContent = Math.max(...dimensions.map(size => size.contentHeight));
         for (const size of dimensions) {
+          expect(size.height).toBeGreaterThanOrEqual(longestContent);
+          expect(size.height).toBeLessThanOrEqual(longestContent + size.messageLine + 1);
+          expect(size.height - longestContent).toBeGreaterThanOrEqual(size.messageLine - 1);
           expect(size.width).toBeCloseTo(dimensions[0].width, 1);
           expect(size.height).toBeCloseTo(dimensions[0].height, 1);
           expect(size.screenHeight).toBeCloseTo(dimensions[0].screenHeight, 1);
@@ -855,5 +869,108 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         }
       });
     }
+  });
+}
+
+for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
+  test.describe(`reference logos on one line ${locale} JS=${javaScriptEnabled}`, () => {
+    test.use({ javaScriptEnabled });
+    for (const [width, height] of [[1440, 800], [1280, 720]]) {
+      test(`all logos fit inside the strip at ${width}×${height}`, async ({ page }) => {
+        await page.setViewportSize({ width, height });
+        await page.emulateMedia({ reducedMotion: "reduce" });
+        await page.goto(local(locale === "fr" ? "/fr" : "/"));
+        await page.evaluate(() => document.fonts.ready);
+        const set = page.locator(".logo-set:not([aria-hidden])");
+        await expect(set).toHaveCount(1);
+        await expect(set.getByRole("img")).toHaveCount(5);
+        const geometry = await set.evaluate(el => {
+          const strip = el.closest(".logo-strip")!.getBoundingClientRect();
+          return {
+            width: el.getBoundingClientRect().width,
+            strip: { top: strip.top, right: strip.right, bottom: strip.bottom, left: strip.left },
+            logos: [...el.querySelectorAll('[role="img"]')].map(logo => {
+              const rect = logo.getBoundingClientRect();
+              return { top: rect.top, right: rect.right, bottom: rect.bottom, left: rect.left, width: rect.width, height: rect.height };
+            }),
+          };
+        });
+        expect(geometry.width).toBeLessThanOrEqual(1060);
+        const tops = geometry.logos.map(logo => logo.top);
+        expect(Math.max(...tops) - Math.min(...tops)).toBeLessThanOrEqual(1);
+        for (const logo of geometry.logos) {
+          expect(logo.width).toBeGreaterThan(0);
+          expect(logo.height).toBeGreaterThan(0);
+          expect(logo.left).toBeGreaterThanOrEqual(geometry.strip.left - 1);
+          expect(logo.right).toBeLessThanOrEqual(geometry.strip.right + 1);
+          expect(logo.top).toBeGreaterThanOrEqual(geometry.strip.top - 1);
+          expect(logo.bottom).toBeLessThanOrEqual(geometry.strip.bottom + 1);
+        }
+      });
+    }
+  });
+}
+
+for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [1280, 720], [390, 700], [320, 700]]) {
+  test(`night tour 2: timeless scenes, footer Journal and contact spacing ${locale} ${width}`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(local(locale === "fr" ? "/fr" : "/"));
+    await page.evaluate(() => document.fonts.ready);
+
+    // Keep relative deadlines; reject calendar dates in either language, including numeric forms.
+    const months = "janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre|january|february|march|april|may|june|july|august|september|october|november|december";
+    const calendarDate = new RegExp(`\\b(?:\\d{1,2}(?:er|st|nd|rd|th)?\\s+(?:${months})|(?:${months})\\s+\\d{1,2}|\\d{1,4}[/-]\\d{1,2}[/-]\\d{1,4}|(?:19|20)\\d{2})\\b`, "i");
+    await expect(page.locator(".scenes")).not.toContainText(calendarDate);
+    const journal = locale === "fr" ? "/fr/journal" : "/journal";
+    await expect(page.locator(`#references a[href="${journal}"]`)).toHaveCount(0);
+    // The old isolated link was a sibling of #references, so test main as well.
+    await expect(page.locator(`main a[href="${journal}"]`)).toHaveCount(0);
+    await expect(page.locator(`footer a[href="${journal}"]`)).toBeVisible();
+
+    if (width >= 1280) {
+      const spacing = await page.locator(".founder .grid").evaluate(grid => {
+        const title = grid.querySelector("h2")!.getBoundingClientRect();
+        const paragraph = grid.querySelector(".founder-details > p")!;
+        const range = document.createRange();
+        range.selectNodeContents(paragraph);
+        return { box: paragraph.getBoundingClientRect().top - title.bottom, firstLine: range.getClientRects()[0].top - title.bottom };
+      });
+      expect(spacing.box).toBeGreaterThanOrEqual(0);
+      expect(spacing.firstLine).toBeGreaterThanOrEqual(0);
+      expect(spacing.firstLine).toBeLessThanOrEqual(40);
+    }
+
+    const geometry = await page.locator(".contact-fallback .quick-fields").evaluate(fields => {
+      const button = fields.querySelector("button")!;
+      const input = fields.querySelector("input")!;
+      const style = getComputedStyle(button);
+      const box = button.getBoundingClientRect();
+      const range = document.createRange();
+      range.selectNodeContents(button);
+      const lines = [...range.getClientRects()];
+      const text = range.getBoundingClientRect();
+      const grid = fields.getBoundingClientRect();
+      return {
+        paddingLeft: parseFloat(style.paddingLeft), paddingRight: parseFloat(style.paddingRight),
+        textLeft: text.left - box.left - parseFloat(style.borderLeftWidth),
+        textRight: box.right - text.right - parseFloat(style.borderRightWidth),
+        lines: lines.length, textTop: text.top - box.top, textBottom: box.bottom - text.bottom,
+        left: box.left, right: box.right, gridLeft: grid.left, gridRight: grid.right,
+        inputRight: input.getBoundingClientRect().right, scrollWidth: fields.scrollWidth, clientWidth: fields.clientWidth,
+      };
+    });
+    expect(geometry.paddingLeft).toBeGreaterThanOrEqual(16);
+    expect(geometry.paddingRight).toBeGreaterThanOrEqual(16);
+    expect(geometry.lines).toBe(1);
+    expect(geometry.textLeft).toBeGreaterThanOrEqual(geometry.paddingLeft - 1);
+    expect(geometry.textRight).toBeGreaterThanOrEqual(geometry.paddingRight - 1);
+    expect(geometry.textTop).toBeGreaterThanOrEqual(0);
+    expect(geometry.textBottom).toBeGreaterThanOrEqual(0);
+    expect(geometry.left).toBeGreaterThanOrEqual(geometry.gridLeft);
+    expect(geometry.right).toBeLessThanOrEqual(geometry.gridRight + 1);
+    expect(geometry.inputRight).toBeLessThanOrEqual(geometry.left + 1);
+    expect(geometry.scrollWidth).toBeLessThanOrEqual(geometry.clientWidth + 1);
+    expect(geometry.gridRight).toBeLessThanOrEqual(width);
   });
 }

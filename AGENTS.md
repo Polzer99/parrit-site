@@ -199,3 +199,13 @@ sous le bandeau. Mention de propriété des marques retirée des technologies.
 max(3 000 ms, 1 200 ms + 300 ms par mot), services et offres ; fondus ajoutés
 à cette durée, départs décalés, aucune offre tronquée. Hero et contact intacts
 sur consigne explicite de Paul : le timing du hero est exclu de ce tour.
+
+## Tour 2 de la nuit, 27/10/2026
+
+`docs/site-v1/page-unique/NUIT-TOUR-2.md` : hauteur des trois téléphones
+partagée par une sous-grille CSS, selon le contenu le plus long plus une ligne,
+y compris sans JS. Grossiste : clémentines et échéance relative cohérente FR/EN.
+Journal uniquement au pied ; hauteurs optiques des logos sans modifier les images.
+Titre du fondateur suivi du texte, portrait entier 3:4 ; seul le rembourrage
+horizontal du bouton du formulaire change. Hero, autres boutons, Cal.com et
+offres intacts. Contrôles existants conservés ; géométrie à rejouer sur l'hôte.
