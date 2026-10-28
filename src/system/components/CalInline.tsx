@@ -3,7 +3,7 @@
 import Cal, { getCalApi } from "@calcom/embed-react";
 import { useEffect, useRef, useState } from "react";
 
-import { CAL_LINK_COMMISSION, isPlaceholder } from "../../../site.config";
+import { CAL_LINK_COMMISSION, CAL_LINK_COMMISSION_EN, isPlaceholder } from "../../../site.config";
 import type { Locale } from "@/system/locale";
 
 type ParritCalInlineProps = {
@@ -13,10 +13,11 @@ type ParritCalInlineProps = {
 };
 
 export function ParritCalInline({
-  calLink = CAL_LINK_COMMISSION,
+  calLink,
   preview = false,
   locale = "en",
 }: ParritCalInlineProps) {
+  const resolvedCalLink = calLink ?? (locale === "fr" ? CAL_LINK_COMMISSION : CAL_LINK_COMMISSION_EN);
   const copy = locale === "fr" ? {
     title: "Prendre rendez-vous",
     ready: "Choisissez un créneau",
@@ -28,7 +29,7 @@ export function ParritCalInline({
     loading: "Loading available times…",
     format: "Video call",
   };
-  const placeholder = isPlaceholder(calLink);
+  const placeholder = isPlaceholder(resolvedCalLink);
   /* lazy + état de chargement : l'embed (~1,7 MB) ne se monte qu'à l'approche du
      viewport, et un état visible couvre les secondes où l'iframe est encore noire */
   const stageRef = useRef<HTMLDivElement>(null);
@@ -124,7 +125,7 @@ export function ParritCalInline({
             {mount ? (
               <Cal
                 namespace="commission"
-                calLink={calLink}
+                calLink={resolvedCalLink}
                 className="cal-embed"
                 config={{ layout: "month_view", theme: "dark" }}
               />
