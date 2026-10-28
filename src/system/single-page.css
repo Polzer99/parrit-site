@@ -139,8 +139,8 @@
 .single-page .reservation .cal-embed-stage {min-height:calc(var(--brand-s1) * 71.25);}
 .single-page .reservation .cal-embed-stage > .cal-embed {height:auto;}
 @container(max-width:768px){
-  /* Même mesure mobile : 420px + 490px = 910px. */
-  .single-page .reservation .cal-embed-stage {min-height:calc(var(--brand-s1) * 113.75);}
+  /* Même mesure mobile : 420px + 712px = 1132px. */
+  .single-page .reservation .cal-embed-stage {min-height:calc(var(--brand-s1) * 141.5);}
 }
 .single-page .contact-fallback {margin-top:32px;}
 .single-page .contact-fallback .ghost {background:transparent;color:var(--white);border:1.5px solid currentColor;}
