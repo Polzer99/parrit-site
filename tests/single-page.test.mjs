@@ -7,6 +7,36 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
 const anchors = { fr: ["technologies", "en-production", "ce-qui-change", "parcours", "services", "partenaires", "references", "contact"], en: ["technologies", "in-production", "what-changes", "path", "services", "team", "references", "contact"] };
+function heroGeometries(html) {
+  return [...html.matchAll(/<g class="onto-geo onto-geo-(desktop|compact)">([\s\S]*?)(?=<g class="onto-geo |<\/svg>)/g)];
+}
+
+test("hero paths never depend on CSS d or responsive path variables", () => {
+  const css = readFileSync("src/system/single-page.css", "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+  assert.doesNotMatch(css, /(?:^|[;{])\s*d\s*:/i);
+  assert.doesNotMatch(css, /--(?:desktop|compact)-path/);
+});
+
+for (const locale of ["fr", "en"]) test(`both SVG geometries have static path attributes in SSR (${locale})`, async () => {
+  const html = await renderPage(locale);
+  assert.doesNotMatch(html, /--(?:desktop|compact)-path/);
+  const groups = heroGeometries(html);
+  assert.deepEqual(groups.map(group => group[1]), ["desktop", "compact"]);
+  const paths = groups.map(([, , markup]) => {
+    const elements = [...markup.matchAll(/<path\b[^>]*>/g)].map(match => match[0]);
+    assert.ok(elements.length > 0);
+    return elements.map(element => {
+      const d = element.match(/\sd="([^"]+)"/)?.[1];
+      assert.ok(d, "every plane and link has a nonempty d attribute");
+      assert.match(d, /^M[\d. -]+(?: L[\d. -]+)+(?: Z)?$/);
+      return d;
+    });
+  });
+  assert.equal(paths[0].length, paths[1].length);
+  for (let i = 0; i < paths[0].length; i++) assert.notEqual(paths[0][i], paths[1][i]);
+  const linkStates = markup => [...markup.matchAll(/data-link="([^"]+)" class="([^"]+)"/g)].map(match => match.slice(1));
+  assert.deepEqual(linkStates(groups[0][2]), linkStates(groups[1][2]));
+});
 function applications(html, locale) {
   const section = html.match(new RegExp(`<section class="live" id="${locale === "fr" ? "en-production" : "in-production"}">[\\s\\S]*?</section>`))?.[0];
   assert.ok(section, "applications remain present");
@@ -133,12 +163,16 @@ for (const locale of ["fr", "en"]) test(`three planes, 33 nodes and four complet
   const t = text => locale === "fr" ? text : SINGLE_PAGE_EN[text];
   assert.equal(HERO_STORIES.length, 4);
   assert.equal((hero.match(/data-node=/g) ?? []).length, 33);
-  assert.deepEqual([...hero.matchAll(/data-plane="([^"]+)"/g)].map(m => m[1]), ["bot", "mid", "top"]);
-  assert.equal((hero.match(/data-link=/g) ?? []).length, UP.length + REL.length + TOP.length);
-  assert.ok(hero.indexOf('data-plane="bot"') < hero.indexOf('data-link="up_'));
-  assert.ok(hero.indexOf('data-link="up_') < hero.indexOf('data-plane="mid"'));
-  assert.ok(hero.indexOf('data-plane="mid"') < hero.indexOf('data-link="rel_'));
-  assert.ok(hero.indexOf('data-link="top_') < hero.indexOf('data-plane="top"'));
+  const geometries = heroGeometries(hero);
+  assert.equal(geometries.length, 2);
+  for (const [, , geometry] of geometries) {
+    assert.deepEqual([...geometry.matchAll(/data-plane="([^"]+)"/g)].map(m => m[1]), ["bot", "mid", "top"]);
+    assert.equal((geometry.match(/data-link=/g) ?? []).length, UP.length + REL.length + TOP.length);
+    assert.ok(geometry.indexOf('data-plane="bot"') < geometry.indexOf('data-link="up_'));
+    assert.ok(geometry.indexOf('data-link="up_') < geometry.indexOf('data-plane="mid"'));
+    assert.ok(geometry.indexOf('data-plane="mid"') < geometry.indexOf('data-link="rel_'));
+    assert.ok(geometry.indexOf('data-link="top_') < geometry.indexOf('data-plane="top"'));
+  }
   assert.match(hero, /tabindex="0" role="region"/);
   assert.ok(hero.includes(`aria-label="${locale === "fr" ? "Des sources aux résultats" : "From sources to results"}"`));
   assert.match(hero, /data-story="0" data-step="4"/);

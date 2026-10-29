@@ -42,8 +42,14 @@ for (const locale of ["fr", "en"]) test(`four stories light their exact nodes an
       const nodes = [...html.matchAll(/data-node="([^\"]+)"[^>]*class="onto-node is-lit/g)].map(m => m[1]).sort();
       const expected = [...(step >= 1 ? [story.d, story.o1] : []), ...(step >= 2 ? [story.o2] : []), ...(step >= 3 ? [story.r, story.out] : []), ...(step >= 4 ? [story.act] : [])].sort();
       assert.deepEqual(nodes, expected);
-      const links = [...html.matchAll(/data-link="([^\"]+)" class="onto-link is-lit/g)].map(m => m[1]).sort();
-      assert.deepEqual(links, [...(step >= 1 ? [`up_${story.d}_${story.o1}`] : []), ...(step >= 2 ? [story.rel] : []), ...(step >= 3 ? [story.rl, story.top] : []), ...(step >= 4 ? [story.al] : [])].sort());
+      const groups = [...html.matchAll(/<g class="onto-geo onto-geo-(desktop|compact)">([\s\S]*?)(?=<g class="onto-geo |<\/svg>)/g)];
+      assert.deepEqual(groups.map(group => group[1]), ["desktop", "compact"]);
+      for (const [, , geometry] of groups) {
+        const links = [...geometry.matchAll(/data-link="([^\"]+)" class="onto-link is-lit/g)].map(m => m[1]).sort();
+        assert.deepEqual(links, [...(step >= 1 ? [`up_${story.d}_${story.o1}`] : []), ...(step >= 2 ? [story.rel] : []), ...(step >= 3 ? [story.rl, story.top] : []), ...(step >= 4 ? [story.al] : [])].sort());
+        const actions = [...geometry.matchAll(/data-link="([^"]+)" class="onto-link is-lit is-action"/g)].map(m => m[1]);
+        assert.deepEqual(actions, step >= 4 ? [story.al] : []);
+      }
       assert.equal((html.match(/class="onto-badge onto-number is-visible"/g) ?? []).length, step);
       const caption = html.split('class="ontocap"')[1].split('class="ontocap-sizer"')[0];
       assert.ok(caption.includes(locale === "fr" ? story.title.replaceAll("'", "&#x27;") : SINGLE_PAGE_EN[story.title]));

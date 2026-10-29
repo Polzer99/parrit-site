@@ -217,7 +217,7 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     const figure = page.locator("svg.onto");
     await expect(figure).toBeVisible();
     await expect(figure).toHaveAttribute("aria-hidden", "true");
-    await expect(figure.locator("[data-plane]")).toHaveCount(3);
+    await expect(figure.locator(".onto-geo:visible [data-plane]")).toHaveCount(3);
     await expect(page.locator(".onto-node")).toHaveCount(33);
     await expect(page.locator(".ontology-hero")).toHaveAttribute("data-step", "4");
     await expect(page.locator(".onto-badge.is-visible")).toHaveCount(4);
@@ -292,7 +292,17 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390, 360]) {
         if (step >= 1) await expect(diagram.locator(`[data-node="${story.d}"]`)).toHaveClass(/is-lit/);
         if (step >= 2) await expect(diagram.locator(`[data-node="${story.o2}"]`)).toHaveClass(/is-lit/);
         if (step >= 3) await expect(diagram.locator(`[data-node="${story.out}"]`)).toHaveClass(/is-result/);
-        if (step >= 4) await expect(diagram.locator(`[data-link="${story.al}"]`)).toHaveClass(/is-action/);
+        for (const group of await diagram.locator(".onto-geo").all()) {
+          const litLinks = [
+            ...(step >= 1 ? [`up_${story.d}_${story.o1}`] : []),
+            ...(step >= 2 ? [story.rel] : []),
+            ...(step >= 3 ? [story.rl, story.top] : []),
+            ...(step >= 4 ? [story.al] : []),
+          ];
+          expect(await group.locator(".onto-link.is-lit").evaluateAll(nodes => nodes.map(node => node.getAttribute("data-link")).sort())).toEqual([...new Set(litLinks)].sort());
+          await expect(group.locator(".onto-link.is-action")).toHaveCount(step >= 4 ? 1 : 0);
+          if (step >= 4) await expect(group.locator(`[data-link="${story.al}"]`)).toHaveClass(/is-action/);
+        }
         await page.clock.runFor(step === 0 && index > 0 ? 900 : step === 4 ? 3600 : 2700);
       }
     }
@@ -617,7 +627,11 @@ for (const locale of ["fr", "en"]) for (const width of [375, 390, 768, 1024, 119
     const caption = (await page.locator(".ontocap-stack").boundingBox())!;
     const quote = (await page.locator(".humby").boundingBox())!;
     await expect(page.locator(".onto-node")).toHaveCount(33);
-    await expect(diagram.locator("[data-plane]")).toHaveCount(3);
+    await expect(diagram.locator(".onto-geo")).toHaveCount(2);
+    const geometry = diagram.locator(`.onto-geo-${width < 1200 ? "compact" : "desktop"}`);
+    await expect(geometry).toBeVisible();
+    await expect(diagram.locator(`.onto-geo-${width < 1200 ? "desktop" : "compact"}`)).toBeHidden();
+    await expect(geometry.locator("[data-plane]")).toHaveCount(3);
     const labels = diagram.locator(".onto-icon, .onto-label, .onto-zone, .onto-layer, .onto-badge");
     for (const label of await labels.all()) {
       if (!await label.isVisible()) continue;
@@ -646,7 +660,7 @@ for (const locale of ["fr", "en"]) for (const width of [375, 390, 768, 1024, 119
     for (const node of await diagram.locator(".onto-icon").all()) {
       expect(await node.evaluate(el => getComputedStyle(el).backgroundColor)).not.toBe(palette.rose);
     }
-    const planeBoxes = await diagram.locator(".onto-surface").evaluateAll(nodes => nodes.map(node => {
+    const planeBoxes = await geometry.locator(".onto-surface").evaluateAll(nodes => nodes.map(node => {
       const box = (node as SVGGraphicsElement).getBBox();
       return { width: box.width, height: box.height };
     }));
@@ -659,7 +673,12 @@ for (const locale of ["fr", "en"]) for (const width of [375, 390, 768, 1024, 119
       expect(box.x + box.width / 2).toBeCloseTo(width / 2, 0);
       for (const label of await diagram.locator(".onto-label, .onto-zone, .onto-layer > span").all()) await expect(label).toBeHidden();
       const actions = (await page.locator(".hero .actions").boundingBox())!;
-      expect(action.width).toBeCloseTo(actions.width, 0);
+      if (width <= 760) expect(action.width).toBeCloseTo(actions.width, 0);
+      else {
+        expect(action.width).toBeLessThan(actions.width * .6);
+        expect(action.x).toBeCloseTo(actions.x, 0);
+        await expect(page.locator(".hero .exec")).toHaveCSS("white-space", "nowrap");
+      }
       if (width === 390) {
         await expect(page.locator(".hero h1")).toHaveCSS("font-size", "38px");
         await expect(page.locator(".hero h1")).toHaveCSS("line-height", "43px");
@@ -695,6 +714,64 @@ for (const locale of ["fr", "en"]) for (const width of [375, 390, 768, 1024, 119
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
   });
 }
+
+for (const locale of ["fr", "en"]) for (const width of [800, 1024]) {
+  test(`hero tablet button stays intrinsic, left aligned and on one line ${locale} ${width}`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 768 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(local(locale === "fr" ? "/fr" : "/"));
+    await page.evaluate(() => document.fonts.ready);
+    const hero = (await page.locator(".hero").boundingBox())!;
+    const phrase = (await page.locator(".hero .sub p").boundingBox())!;
+    const button = page.locator(".hero .exec");
+    const geometry = await button.evaluate(el => {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const style = getComputedStyle(el);
+      const box = el.getBoundingClientRect();
+      return {
+        x: box.x, width: box.width, lines: range.getClientRects().length,
+        contentWidth: range.getBoundingClientRect().width,
+        inset: parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth),
+      };
+    });
+    expect(geometry.width).toBeLessThan(hero.width * .6);
+    expect(geometry.lines).toBe(1);
+    expect(geometry.width).toBeCloseTo(geometry.contentWidth + geometry.inset, 0);
+    expect(geometry.x).toBeCloseTo(phrase.x, 0);
+    await expect(button).toHaveCSS("white-space", "nowrap");
+  });
+}
+
+for (const locale of ["fr", "en"]) test(`hero label backgrounds mask links in every story ${locale}`, async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 800 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const epoch = new Date("2026-10-29T12:00:00Z");
+  await page.clock.install({ time: epoch });
+  await page.goto(local(locale === "fr" ? "/fr" : "/"));
+  await page.evaluate(() => document.fonts.ready);
+  await page.clock.pauseAt(new Date(epoch.getTime() + 10000));
+  const region = page.locator(".ontology-hero");
+  const background = await page.locator(".hero").evaluate(el => getComputedStyle(el).backgroundColor);
+  expect(background).not.toBe("rgba(0, 0, 0, 0)");
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await expect(region).toHaveAttribute("data-step", "0");
+  for (let story = 0; story < HERO_STORIES.length; story++) {
+    await page.clock.runFor(story === 0 ? 10800 : 9000);
+    await expect(region).toHaveAttribute("data-story", String(story));
+    await expect(region).toHaveAttribute("data-step", "4");
+    await expect(region.locator(".onto-label")).toHaveCount(33);
+    await expect(region.locator(".onto-zone")).toHaveCount(9);
+    for (const label of await region.locator(".onto-label, .onto-zone").all()) {
+      await expect(label).toBeVisible();
+      await expect(label).toHaveCSS("background-color", background);
+      await expect(label).toHaveCSS("text-shadow", "none");
+      await expect(label).toHaveCSS("box-shadow", "none");
+      await expect(label).toHaveCSS("border-radius", "0px");
+    }
+    await page.clock.runFor(3600);
+  }
+});
 
 for (const locale of ["fr", "en"]) for (const width of [900, 800, 761]) {
   test(`tablet header groups languages, contact and menu on the right ${locale} ${width}`, async ({ page }) => {

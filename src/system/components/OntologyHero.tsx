@@ -11,8 +11,8 @@ type Point = readonly [number, number];
 const DESKTOP = { cx: 968, w: 330, h: 88, slab: 9, planes: { top: 186, mid: 382, bot: 578 } };
 const COMPACT = { cx: 195, w: 168, h: 46, slab: 5, planes: { top: 74, mid: 196, bot: 318 } };
 const planes = ["top", "mid", "bot"] as const;
-// Both geometries share one SVG and 33 nodes. CSS selects coordinates before
-// hydration; no viewport measurement, duplicate diagram or layout shift.
+// Two static path groups share one SVG and 33 HTML nodes. CSS selects the
+// visible group before hydration, without viewport measurement or CSS d.
 function project([x, y]: Point, compact: boolean): Point {
   return compact ? [x * 820 / 390, y * 630 / 380] : [x - 620, y - 70];
 }
@@ -33,9 +33,6 @@ function location(desktop: Point, compact: Point): CSSProperties {
 function path(points: readonly Point[], closed = false) {
   return `M${points.map(p => p.join(" ")).join(" L")}${closed ? " Z" : ""}`;
 }
-function ResponsivePath({ desktop, compact, className, id }: { desktop: string; compact: string; className: string; id?: string }) {
-  return <path d={desktop} data-link={id} className={className} vectorEffect="non-scaling-stroke" style={{ "--desktop-path": `path("${desktop}")`, "--compact-path": `path("${compact}")` } as CSSProperties}/>;
-}
 function planePaths(plane: Plane, compact: boolean) {
   const { cx, w, h, slab, planes } = compact ? COMPACT : DESKTOP;
   const cy = planes[plane];
@@ -51,9 +48,8 @@ function planePaths(plane: Plane, compact: boolean) {
   }
   return paths.map((points, index) => path(points.map(point => project(point, compact)), index < 3));
 }
-function PlaneSurface({ plane }: { plane: Plane }) {
-  const compact = planePaths(plane, true);
-  return <g data-plane={plane}>{planePaths(plane, false).map((d, i) => <ResponsivePath key={i} desktop={d} compact={compact[i]} className={i < 2 ? `onto-slab side-${i}` : i === 2 ? "onto-surface" : "onto-grid"}/>)}</g>;
+function PlaneSurface({ plane, compact }: { plane: Plane; compact: boolean }) {
+  return <g data-plane={plane}>{planePaths(plane, compact).map((d, i) => <path key={i} d={d} vectorEffect="non-scaling-stroke" className={i < 2 ? `onto-slab side-${i}` : i === 2 ? "onto-surface" : "onto-grid"}/>)}</g>;
 }
 
 export function OntologyHero({ locale, children }: { locale: Locale; children: ReactNode }) {
@@ -89,10 +85,10 @@ export function OntologyHero({ locale, children }: { locale: Locale; children: R
     ...(state.step >= 4 ? [story.act] : []),
   ];
   const litLinks = [state.step >= 1 && `up_${story.d}_${story.o1}`, state.step >= 2 && story.rel, state.step >= 3 && story.rl, state.step >= 3 && story.top, state.step >= 4 && story.al];
-  const links = (pairs: readonly (readonly [NodeId, NodeId])[], prefix: string) => pairs.map(([a, b]) => {
+  const links = (pairs: readonly (readonly [NodeId, NodeId])[], prefix: string, compact: boolean) => pairs.map(([a, b]) => {
     const id = `${prefix}_${a}_${b}`;
     const lit = litLinks.includes(id);
-    return <ResponsivePath key={id} id={id} desktop={path([position(a), position(b)])} compact={path([position(a, true), position(b, true)])} className={`onto-link${lit ? " is-lit" : ""}${lit && id === story.al ? " is-action" : ""}`}/>;
+    return <path key={id} d={path([position(a, compact), position(b, compact)])} data-link={id} className={`onto-link${lit ? " is-lit" : ""}${lit && id === story.al ? " is-action" : ""}`} vectorEffect="non-scaling-stroke"/>;
   });
   const caption = (item: typeof HERO_STORIES[number], sizer = false) => <div className={sizer ? "ontocap-sizer" : "ontocap"} aria-hidden={sizer || undefined} aria-live={sizer ? undefined : "off"} key={item.title}>
     <b className="onto-story-title">{t(item.title)}</b>
@@ -105,9 +101,11 @@ export function OntologyHero({ locale, children }: { locale: Locale; children: R
     {children}
     <div className="onto-diagram" aria-hidden="true">
       <svg className="onto" viewBox="0 0 820 630" preserveAspectRatio="none" aria-hidden="true">
-        <PlaneSurface plane="bot"/>{links(UP, "up")}
-        <PlaneSurface plane="mid"/>{links(REL, "rel")}{links(TOP, "top")}
-        <PlaneSurface plane="top"/>
+        {[false, true].map(compact => <g key={String(compact)} className={`onto-geo onto-geo-${compact ? "compact" : "desktop"}`}>
+          <PlaneSurface plane="bot" compact={compact}/>{links(UP, "up", compact)}
+          <PlaneSurface plane="mid" compact={compact}/>{links(REL, "rel", compact)}{links(TOP, "top", compact)}
+          <PlaneSurface plane="top" compact={compact}/>
+        </g>)}
       </svg>
       {planes.flatMap(plane => NODES[plane].map(([id, label, glyph]) => <div key={id} data-node={id} style={location(position(id), position(id, true))} className={`onto-node${litNodes.includes(id) ? " is-lit" : ""}${id === story.out && state.step >= 3 ? " is-result" : ""}${id === story.act && state.step >= 4 ? " is-action" : ""}`}>
         <span className="onto-icon"><svg viewBox="0 0 18 18" aria-hidden="true"><OntologyGlyph name={glyph}/></svg></span><span className="onto-label">{t(label)}</span>
