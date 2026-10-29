@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
 
-export const alt = "Parrit.ai · Nous allons à la frontière du possible, puis nous le livrons à nos clients.";
+export const alt = "Parrit.ai · Votre expertise est la matière première. Nous la mettons au travail.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const dynamic = "force-dynamic";
@@ -56,8 +56,8 @@ export default async function Image() {
             width: "100%",
           }}
         >
-          <span>Nous allons à la frontière du possible,</span>
-          <span style={{ fontWeight: 600 }}>puis nous le livrons à nos clients.</span>
+          <span>Votre expertise est la matière première.</span>
+          <span style={{ fontWeight: 600 }}>Nous la mettons au travail.</span>
         </div>
         <div
           style={{

@@ -1,3 +1,5 @@
+import { HERO_STORIES } from "../src/system/ontology-hero-data";
+import { SINGLE_PAGE_EN } from "../src/system/single-page-copy";
 import { readingMs } from "../src/system/reading";
 import { mkdir } from "node:fs/promises";
 import { createHash } from "node:crypto";
@@ -57,6 +59,7 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     await expect(page.locator("#contact h2")).not.toHaveText(/\.$/);
     await expect(page.locator("main")).not.toContainText(/Brésil|Brazil|Cameroun|Cameroon|métropole lilloise|Lille area/);
     const smallText = await page.locator("main *, header *, footer *").evaluateAll(nodes => nodes.filter(el => {
+      if (el.closest(".onto-diagram, .onto-number, .onto-ready, .onto-approval")) return false; // Explicit hero type scale, spec 29/10.
       if (!(el instanceof HTMLElement) || !el.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })) return false;
       return el.getBoundingClientRect().height > 0 && [...el.childNodes].some(n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim()) && parseFloat(getComputedStyle(el).fontSize) < 15;
     }).map(el => el.textContent?.slice(0, 80)));
@@ -138,8 +141,9 @@ test("no JavaScript conversations remain visible and legal and 404 stay accessib
   for (const message of await page.locator(".phone .msg").all()) await expect(message).toBeVisible();
   for (const path of ["/fr", "/"]) {
     await page.goto(local(path));
-    await expect(page.locator(".onto .res.on")).toHaveCount(4);
-    for (const result of await page.locator(".onto .rest").all()) await expect(result).toBeVisible();
+    await expect(page.locator(".ontology-hero")).toHaveAttribute("data-step", "4");
+    await expect(page.locator(".ontocap .onto-result")).toBeVisible();
+    await expect(page.locator(".ontocap .onto-approval")).toHaveCSS("opacity", "1");
     await expect(page.locator(".walk .human")).toHaveAttribute("transform", "translate(900 120)");
     await expect(page.locator(".walk")).toHaveClass(/withbot/);
     await expect(page.locator(".use-case")).toHaveCount(12);
@@ -213,16 +217,12 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     const figure = page.locator("svg.onto");
     await expect(figure).toBeVisible();
     await expect(figure).toHaveAttribute("aria-hidden", "true");
-    await expect(figure.locator(".layer")).toHaveCount(3);
-    await expect(figure).toHaveAttribute("viewBox", "0 0 1080 360");
-    await expect(figure.locator(".edge:not(.talk)")).toHaveCount(16);
-    await expect(figure.locator(".talk")).toHaveCount(5);
-    await expect(figure.locator(".node:not(.r)")).toHaveCount(5);
-    await expect(figure.locator(".node.r")).toHaveCount(4);
-    await expect(figure.locator(".ag")).toHaveCount(6);
-    await expect(figure.locator(".eye")).toHaveCount(12);
-    await expect(figure.locator(".res.on")).toHaveCount(4);
-    await expect(figure.locator(".pulse, .token, animateMotion")).toHaveCount(0);
+    await expect(figure.locator("[data-plane]")).toHaveCount(3);
+    await expect(page.locator(".onto-node")).toHaveCount(33);
+    await expect(page.locator(".ontology-hero")).toHaveAttribute("data-step", "4");
+    await expect(page.locator(".onto-badge.is-visible")).toHaveCount(4);
+    await expect(page.locator(".ontocap .onto-result")).toHaveCSS("opacity", "1");
+    await expect(page.locator(".ontocap .onto-approval")).toHaveCSS("opacity", "1");
     await expect(page.locator(".ontocap")).toHaveAttribute("aria-live", "off");
     for (const el of await page.locator(".panel .answer, .doc .ok, .doc .l, .soft .row:last-child span").all()) {
       await expect(el).toBeVisible();
@@ -232,12 +232,13 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     }
     const active = await page.locator(".soft .top").evaluate(el => getComputedStyle(el).color);
     for (const agent of await page.locator(".soft .row:last-child span").all()) await expect(agent).toHaveCSS("background-color", active);
-    // PASSE-4-CAS-D-USAGE-ET-ECRAN.md §7.2 : seul le hero téléphone passe à 22px pour tenir sans défiler.
-    await expect(page.locator(".hero .sub p")).toHaveCSS("font-size", width === 375 ? "22px" : "26px");
-    for (const button of await page.locator(".hero .btn.exec, .founder .btn.exec").all()) {
-      await expect(button).toHaveCSS("font-size", "22px");
-      await expect(button).toHaveCSS("padding", "22px 36px");
-    }
+    // Spec 29/10 supersedes the old 22px mobile phrase / 72px desktop H1.
+    await expect(page.locator(".hero h1")).toHaveCSS("font-size", width === 375 ? "38px" : "46px");
+    await expect(page.locator(".hero h1")).toHaveCSS("line-height", width === 375 ? "43px" : "52px");
+    await expect(page.locator(".hero .sub p")).toHaveCSS("font-size", width === 375 ? "18px" : "19px");
+    await expect(page.locator(".hero .btn.exec")).toHaveCSS("font-size", width === 375 ? "18px" : "19px");
+    await expect(page.locator(".founder .btn.exec")).toHaveCSS("font-size", "22px");
+    await expect(page.locator(".founder .btn.exec")).toHaveCSS("padding", "22px 36px");
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     // Switching the live preference must restore animation, then stop it again.
     await page.emulateMedia({ reducedMotion: "no-preference" });
@@ -253,98 +254,68 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
 }
 
 
-for (const locale of ["fr", "en"]) for (const width of [1440, 390]) {
-  test(`six overlapping stories, four-result feed and live reduced-motion preference ${locale} ${width}`, async ({ page }) => {
+for (const locale of ["fr", "en"]) for (const width of [1440, 390, 360]) {
+  test(`four five-step stories, reduced motion and offscreen cleanup ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
-    const epoch = new Date("2026-10-27T12:00:00Z");
+    const epoch = new Date("2026-10-29T12:00:00Z");
     await page.clock.install({ time: epoch });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
-    const figure = page.locator("svg.onto");
-    const outputs = locale === "fr" ? ["Relance prête", "Commande fournisseur prête", "Trésorerie à jour", "Commande saisie", "Devis à valider", "Rapport de la semaine prêt"] : ["Follow-up ready", "Supplier order ready", "Cash position updated", "Order entered", "Quote to approve", "Weekly report ready"];
-    const captions = locale === "fr" ? ["Un client écrit.", "Un article passe", "Une facture", "Un client envoie", "Un prospect", "Le vendredi"] : ["A client writes.", "An item drops", "An invoice", "A client sends", "A prospect", "On Fridays"];
-    const staticFeed = figure.locator(".static-feed");
-    const liveFeed = figure.locator(".live-feed");
-    await expect(staticFeed.locator(".rest")).toHaveText(outputs.slice(0, 4));
-    await expect(staticFeed.locator(".hot")).toHaveCount(1);
-    await expect(figure.locator(".token, .trail, animateMotion")).toHaveCount(0);
-    await expect(page.locator(".ontocap")).toContainText(captions[0]);
-    await expect(page.locator(".humby")).toHaveCSS("font-size", "16px");
-    await expect(page.locator(".humby")).toContainText("Clive Humby");
-    await figure.scrollIntoViewIfNeeded();
+    const region = page.locator(".ontology-hero");
+    const diagram = page.locator(".onto-diagram");
+    const caption = page.locator(".ontocap");
+    await expect(region).toHaveAttribute("data-story", "0");
+    await expect(region).toHaveAttribute("data-step", "4");
+    await diagram.scrollIntoViewIfNeeded();
     await page.clock.pauseAt(new Date(epoch.getTime() + 10000));
+    const geometry = () => caption.locator(".onto-story-title, li, .onto-result").evaluateAll(nodes => nodes.map(node => {
+      const box = node.getBoundingClientRect();
+      return { top: box.top + scrollY, height: box.height };
+    }));
+    const baseline = await geometry();
     await page.emulateMedia({ reducedMotion: "no-preference" });
-    await expect(page.locator(".ontology-hero")).toHaveAttribute("data-anim", "in");
-    await expect(staticFeed).toBeHidden();
-    await expect(figure.locator(".pulse animateMotion")).toHaveCount(21);
-    await expect(figure.locator(".token")).toHaveCount(1);
-    await page.clock.runFor(100);
-    await expect(figure.locator('[data-node="E-mails"]')).toHaveClass(/lit/);
-    const firstPosition = await figure.locator(".story").getAttribute("transform");
-    const firstOffset = await figure.locator(".trail").evaluate(el => getComputedStyle(el).strokeDashoffset);
-    await page.clock.runFor(700);
-    expect(await figure.locator(".story").getAttribute("transform")).not.toBe(firstPosition);
-    expect(Number.parseFloat(await figure.locator(".trail").evaluate(el => getComputedStyle(el).strokeDashoffset))).toBeLessThan(Number.parseFloat(firstOffset));
-    await page.clock.runFor(1600);
-    await expect(figure.locator(".token")).toHaveCount(2);
-    await expect(figure.locator(".trail")).toHaveCount(2);
-    await expect(page.locator(".ontocap")).toContainText(captions[1]);
-    await expect(figure.locator('[data-agent="Commercial"]')).toHaveClass(/busy/);
-    await page.clock.runFor(2000);
-    for (let i = 0; i < outputs.length; i++) {
-      if (i > 0) await page.clock.runFor(2300);
-      await expect(liveFeed.locator(".res:not(.exiting) .rest")).toHaveText(outputs.slice(Math.max(0, i - 3), i + 1).reverse());
-      await expect(liveFeed.locator(".hot")).toHaveCount(1);
-      await expect(liveFeed.locator(".hot .rest")).toHaveText(outputs[i]);
-      await expect(page.locator(".ontocap")).toContainText(captions[(i + 1) % captions.length]);
-      expect(await figure.locator(".token").count()).toBeLessThanOrEqual(2);
+    await expect(region).toHaveAttribute("data-anim", "in");
+    await expect(region).toHaveAttribute("data-step", "0");
+    for (const [index, story] of HERO_STORIES.entries()) {
+      await expect(region).toHaveAttribute("data-story", String(index));
+      await expect(caption.locator(".onto-story-title")).toHaveText(locale === "fr" ? story.title : SINGLE_PAGE_EN[story.title]);
+      for (let step = 0; step <= 4; step++) {
+        await expect(region).toHaveAttribute("data-step", String(step));
+        const measured = await geometry();
+        for (let row = 0; row < baseline.length; row++) {
+          expect(Math.abs(measured[row].top - baseline[row].top)).toBeLessThanOrEqual(1);
+          expect(Math.abs(measured[row].height - baseline[row].height)).toBeLessThanOrEqual(1);
+        }
+        await expect(diagram.locator(".onto-badge.is-visible")).toHaveCount(step);
+        await expect(caption.locator(".onto-result")).toHaveClass(step >= 3 ? /is-visible/ : /^onto-result$/);
+        await expect(caption.locator(".onto-approval")).toHaveClass(step >= 4 ? /is-visible/ : /^onto-approval$/);
+        if (step >= 1) await expect(diagram.locator(`[data-node="${story.d}"]`)).toHaveClass(/is-lit/);
+        if (step >= 2) await expect(diagram.locator(`[data-node="${story.o2}"]`)).toHaveClass(/is-lit/);
+        if (step >= 3) await expect(diagram.locator(`[data-node="${story.out}"]`)).toHaveClass(/is-result/);
+        if (step >= 4) await expect(diagram.locator(`[data-link="${story.al}"]`)).toHaveClass(/is-action/);
+        await page.clock.runFor(step === 0 && index > 0 ? 900 : step === 4 ? 3600 : 2700);
+      }
     }
-    await page.clock.runFor(500);
-    await expect(liveFeed.locator(".res")).toHaveCount(4);
+    await expect(region).toHaveAttribute("data-story", "0");
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await expect(figure.locator(".ontology-motion, .busy, .lit")).toHaveCount(0);
-    await expect(staticFeed).toBeVisible();
-    await expect(staticFeed.locator(".rest")).toHaveText(outputs.slice(0, 4));
-    await expect(staticFeed.locator(".hot")).toHaveCount(1);
-    await expect(page.locator(".ontocap")).toContainText(captions[0]);
+    await expect(region).toHaveAttribute("data-step", "4");
+    await expect(caption.locator(".onto-result, .onto-approval")).toHaveCount(2);
     await page.clock.runFor(20000);
-    await expect(staticFeed.locator(".rest")).toHaveText(outputs.slice(0, 4));
-    await expect(figure.locator(".token, .trail, animateMotion")).toHaveCount(0);
-    // Restart after cleanup, then leave the viewport while two stories are running.
+    await expect(region).toHaveAttribute("data-story", "0");
+    await expect(region).toHaveAttribute("data-step", "4");
+    expect(await region.evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);
     await page.emulateMedia({ reducedMotion: "no-preference" });
-    // Media-query change delivery is not driven by the mocked clock. Anchor time
-    // to the actual restart before advancing the story timers and animation frames.
-    await expect(page.locator(".ontology-hero")).toHaveAttribute("data-anim", "in");
-    await expect(figure.locator(".token")).toHaveCount(1);
-    await expect(page.locator(".ontocap")).toContainText(captions[0]);
-    // Both stories are in flight at 3000 ms (0–4200 and 2300–6500 ms).
-    await page.clock.runFor(3000);
-    await expect(figure.locator(".token")).toHaveCount(2);
-    await expect(page.locator(".ontocap")).toContainText(captions[1]);
-    const labels = figure.locator(".toklab");
-    await expect(labels).toHaveCount(2);
-    // The moving label alone gets a canard outline, behind its white fill.
-    const canard = await page.locator(".hero").evaluate(el => getComputedStyle(el).backgroundColor);
-    for (const label of await labels.all()) {
-      await expect(label).toHaveCSS("paint-order", /stroke/);
-      await expect(label).toHaveCSS("stroke", canard);
-      await expect(label).toHaveCSS("stroke-linejoin", "round");
-      const strokeWidth = await label.evaluate(el => parseFloat(getComputedStyle(el).strokeWidth));
-      expect(strokeWidth).toBeGreaterThanOrEqual(4);
-      expect(strokeWidth).toBeLessThanOrEqual(6);
-    }
-    // CSS transitions use real time; await the fade while story time stays paused.
-    // Playwright visibility alone includes elements whose opacity is zero.
-    await expect(labels.first()).toHaveCSS("opacity", "0");
-    await expect(labels.last()).toHaveCSS("opacity", "1");
-    expect(await labels.evaluateAll(nodes => nodes
-      .filter(node => Number.parseFloat(getComputedStyle(node).opacity) > 0)
-      .map(node => node.textContent))).toEqual([locale === "fr" ? "Stock bas" : "Low stock"]);
+    await expect(region).toHaveAttribute("data-step", "0");
+    await page.clock.runFor(2700);
+    await expect(region).toHaveAttribute("data-step", "1");
     await page.locator("footer").scrollIntoViewIfNeeded();
-    await page.clock.runFor(100);
-    await expect(figure.locator(".ontology-motion, .busy, .lit")).toHaveCount(0);
+    await expect(region).toHaveAttribute("data-anim", "out");
+    await expect(region).toHaveAttribute("data-step", "4");
     await page.clock.runFor(20000);
-    await expect(figure.locator(".ontology-motion")).toHaveCount(0);
+    await expect(region).toHaveAttribute("data-story", "0");
+    await expect(region).toHaveAttribute("data-step", "4");
+    await diagram.scrollIntoViewIfNeeded();
+    await expect(region).toHaveAttribute("data-step", "0");
   });
 }
 
@@ -558,7 +529,7 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       expect(section.scrollHeight, `${section.id}: content must not be clipped`).toBeLessThanOrEqual(height);
       expect(section.overflowY).not.toMatch(/hidden|clip/);
     }
-    const figures = page.locator(".ontology-hero, .onto, .scenes, .three, .path-walker, .steps, .service-tasks, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid");
+    const figures = page.locator(".onto-diagram, .onto, .scenes, .three, .path-walker, .steps, .service-tasks, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid");
     await expect(figures).toHaveCount(11);
     for (const figure of await figures.all()) {
       const box = await figure.boundingBox();
@@ -588,7 +559,7 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
         const box = (await page.locator(selector).boundingBox())!;
         expect(box.x, `${selector}: same left edge as the header brand`).toBeCloseTo(mark.x, 0);
       }
-      expect(await page.locator(".hero h1").evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(72);
+      expect(await page.locator(".hero h1").evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBe(46);
       const button = page.locator(".hero .exec");
       await expect(button).toHaveCSS("white-space", "nowrap");
       const geometry = await button.evaluate(el => {
@@ -604,13 +575,11 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       });
       expect(geometry.lines).toBe(1);
       expect(geometry.width).toBeCloseTo(geometry.contentWidth + geometry.horizontalInset, 0);
-      // Keep the existing exec padding and line height, including the founder counterpart.
-      for (const property of ["padding-top", "padding-bottom", "padding-left", "padding-right", "line-height"]) {
-        await expect(button).toHaveCSS(property, await page.locator(".founder .exec").evaluate((el, property) => getComputedStyle(el).getPropertyValue(property), property));
-      }
+      // The new hero uses the approved 19px button; contact stays unchanged.
+      await expect(button).toHaveCSS("padding", "18px 30px");
       const phrase = (await page.locator(".hero .sub p").boundingBox())!;
       const action = (await button.boundingBox())!;
-      const figure = (await page.locator(".ontology-hero").boundingBox())!;
+      const figure = (await page.locator(".onto-diagram").boundingBox())!;
       expect(action.y).toBeGreaterThanOrEqual(phrase.y + phrase.height);
       expect(action.x + action.width).toBeLessThanOrEqual(figure.x);
     } else {
@@ -624,7 +593,7 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       const hero = (await page.locator(".hero").boundingBox())!;
       expect(hero.y).toBeGreaterThanOrEqual(header.y + header.height);
       expect(hero.y + hero.height).toBeLessThanOrEqual(height);
-      // §7 permits a fluid H1 >=72px to retain this full-hero viewport contract.
+      // The 29/10 title scale changes; the full-hero viewport limit is unchanged.
       for (const selector of [".hero h1", ".hero .sub p", ".hero .exec", ".onto", ".ontocap", ".humby"]) {
         const box = (await page.locator(selector).boundingBox())!;
         expect(box.y).toBeGreaterThanOrEqual(0);
@@ -635,64 +604,95 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
   });
 }
 
-for (const locale of ["fr", "en"]) for (const [width, height] of [[800, 1100], [1024, 768]]) {
-  test(`tablet hero diagram follows the button at readable full width ${locale} ${width}`, async ({ page }) => {
-    await page.setViewportSize({ width, height });
+for (const locale of ["fr", "en"]) for (const width of [375, 390, 768, 1024, 1199, 1200, 1280, 1440]) {
+  test(`three-plane hero fits without clipped icons or labels ${locale} ${width}`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 800 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
     await page.evaluate(() => document.fonts.ready);
-
-    const button = page.locator(".hero .exec");
-    const action = (await button.boundingBox())!;
-    const phrase = (await page.locator(".hero .sub p").boundingBox())!;
-    const figure = page.locator(".ontology-hero");
-    const svg = page.locator("svg.onto");
-    const diagram = (await svg.boundingBox())!;
-    const content = await page.locator(".hero .wrap").evaluate(el => {
-      const box = el.getBoundingClientRect();
-      const style = getComputedStyle(el);
-      const left = parseFloat(style.paddingLeft);
-      const right = parseFloat(style.paddingRight);
-      return { x: box.x + left, width: box.width - left - right };
-    });
-    expect(action.y).toBeGreaterThanOrEqual(phrase.y + phrase.height);
-    expect(action.x).toBeCloseTo(phrase.x, 0);
-    expect(diagram.y).toBeGreaterThanOrEqual(action.y + action.height);
-    expect(diagram.x).toBeCloseTo(content.x, 0);
-    expect(diagram.width).toBeGreaterThanOrEqual(content.width * .9);
-    expect(diagram.width).toBeLessThanOrEqual(content.width);
-    await expect(svg).toHaveCSS("max-height", "none");
-
-    // Measure rendered glyph size, including the SVG viewBox scale (not CSS alone).
-    for (const selector of [".lab", ".nt"]) {
-      const sizes = await svg.locator(selector).evaluateAll(nodes => nodes.map(node => {
-        const matrix = (node as SVGGraphicsElement).getScreenCTM();
-        if (!matrix) throw new Error("Missing SVG screen transform");
-        return parseFloat(getComputedStyle(node).fontSize) * Math.hypot(matrix.c, matrix.d);
-      }));
-      expect(sizes.length).toBeGreaterThan(0);
-      for (const size of sizes) expect(size, `${selector}: rendered pixels`).toBeGreaterThanOrEqual(14);
-    }
-    const caption = (await page.locator(".ontocap").boundingBox())!;
+    const diagram = page.locator(".onto-diagram");
+    const box = (await diagram.boundingBox())!;
+    const hero = (await page.locator(".hero").boundingBox())!;
+    const action = (await page.locator(".hero .exec").boundingBox())!;
+    const caption = (await page.locator(".ontocap-stack").boundingBox())!;
     const quote = (await page.locator(".humby").boundingBox())!;
-    expect(caption.y).toBeGreaterThanOrEqual(diagram.y + diagram.height);
-    expect(quote.y).toBeGreaterThanOrEqual(caption.y + caption.height);
-    expect(await figure.evaluate(el => el.scrollWidth <= el.clientWidth)).toBe(true);
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
-
-    await expect(button).toHaveCSS("white-space", "nowrap");
-    const geometry = await button.evaluate(el => {
-      const range = document.createRange();
-      range.selectNodeContents(el);
-      const style = getComputedStyle(el);
-      return {
-        lines: range.getClientRects().length,
-        contentWidth: range.getBoundingClientRect().width,
-        inset: parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth),
+    await expect(page.locator(".onto-node")).toHaveCount(33);
+    await expect(diagram.locator("[data-plane]")).toHaveCount(3);
+    const labels = diagram.locator(".onto-icon, .onto-label, .onto-zone, .onto-layer, .onto-badge");
+    for (const label of await labels.all()) {
+      if (!await label.isVisible()) continue;
+      const bounds = (await label.boundingBox())!;
+      expect(bounds.x).toBeGreaterThanOrEqual(hero.x);
+      expect(bounds.x + bounds.width).toBeLessThanOrEqual(hero.x + hero.width);
+      expect(bounds.y).toBeGreaterThanOrEqual(hero.y);
+      expect(bounds.y + bounds.height).toBeLessThanOrEqual(hero.y + hero.height);
+      expect(bounds.x).toBeGreaterThanOrEqual(box.x);
+      expect(bounds.x + bounds.width).toBeLessThanOrEqual(box.x + box.width + 1);
+    }
+    // Both path geometries must actually draw, not merely leave icons in place.
+    const palette = await diagram.evaluate(el => {
+      const color = (token: string) => {
+        const probe = document.createElement("span");
+        probe.style.color = `var(${token})`; el.append(probe);
+        const value = getComputedStyle(probe).color; probe.remove(); return value;
       };
+      return { white: color("--white"), ink: color("--ink"), sage: color("--sky"), rose: color("--rose") };
     });
-    expect(geometry.lines).toBe(1);
-    expect(action.width).toBeCloseTo(geometry.contentWidth + geometry.inset, 0);
+    for (const badge of await page.locator(".onto-number").all()) {
+      await expect(badge).toHaveCSS("background-color", palette.white);
+      await expect(badge).toHaveCSS("color", palette.ink);
+    }
+    await expect(page.locator(".ontocap .onto-approval")).toHaveCSS("background-color", palette.sage);
+    for (const node of await diagram.locator(".onto-icon").all()) {
+      expect(await node.evaluate(el => getComputedStyle(el).backgroundColor)).not.toBe(palette.rose);
+    }
+    const planeBoxes = await diagram.locator(".onto-surface").evaluateAll(nodes => nodes.map(node => {
+      const box = (node as SVGGraphicsElement).getBBox();
+      return { width: box.width, height: box.height };
+    }));
+    for (const plane of planeBoxes) { expect(plane.width).toBeGreaterThan(600); expect(plane.height).toBeGreaterThan(140); }
+    if (width < 1200) {
+      expect(box.width).toBeLessThanOrEqual(560);
+      expect(box.y).toBeGreaterThanOrEqual(action.y + action.height);
+      expect(caption.y).toBeGreaterThanOrEqual(box.y + box.height);
+      expect(quote.y).toBeGreaterThanOrEqual(caption.y + caption.height);
+      expect(box.x + box.width / 2).toBeCloseTo(width / 2, 0);
+      for (const label of await diagram.locator(".onto-label, .onto-zone, .onto-layer > span").all()) await expect(label).toBeHidden();
+      const actions = (await page.locator(".hero .actions").boundingBox())!;
+      expect(action.width).toBeCloseTo(actions.width, 0);
+      if (width === 390) {
+        await expect(page.locator(".hero h1")).toHaveCSS("font-size", "38px");
+        await expect(page.locator(".hero h1")).toHaveCSS("line-height", "43px");
+      }
+    } else {
+      expect(caption.x + caption.width).toBeLessThanOrEqual(box.x);
+      expect(caption.y).toBeGreaterThanOrEqual(action.y + action.height);
+      expect(quote.x).toBeCloseTo(box.x, 0);
+      expect(quote.y).toBeGreaterThanOrEqual(box.y + box.height);
+      for (const label of await diagram.locator(".onto-label, .onto-zone, .onto-layer").all()) {
+        await expect(label).toBeVisible();
+        expect(await label.evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(9);
+      }
+      for (const badge of await diagram.locator(".onto-badge").all()) {
+        const node = diagram.locator(`[data-node="${await badge.getAttribute("data-for")}"]`);
+        const badgeBox = (await badge.boundingBox())!;
+        const icon = (await node.locator(".onto-icon").boundingBox())!;
+        const label = (await node.locator(".onto-label").boundingBox())!;
+        expect(badgeBox.x + badgeBox.width).toBeLessThanOrEqual(icon.x);
+        expect(badgeBox.y + badgeBox.height).toBeLessThanOrEqual(label.y);
+      }
+    }
+    for (const element of await page.locator(".onto-diagram *, .ontocap *").all()) {
+      if (!await element.isVisible()) continue;
+      const style = await element.evaluate(el => {
+        const s = getComputedStyle(el);
+        return { shadow: s.boxShadow, radius: s.borderRadius, font: s.fontFamily };
+      });
+      expect(style.shadow).toBe("none");
+      expect(style.radius).toBe("0px");
+      expect(style.font).not.toMatch(/mono/i);
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
   });
 }
 

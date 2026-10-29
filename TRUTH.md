@@ -22,8 +22,9 @@ Socle : `docs/site-v1/page-unique/PASSE-3-PAGE-RACONTEE.md`,
 maquette validée par Paul le 27/10/2026, archivée dans `passe-3/maquette/`.
 Objectif de cette passe : donner envie de prendre rendez-vous, sans tout dévoiler.
 Elle prime sur le handoff et la maquette précédents pour son périmètre.
-Nous allons à la frontière du possible, puis nous le livrons à nos clients.
-Votre expertise est la matière première. Nous en faisons des systèmes qui en multiplient l'impact.
+Hero amendé le 29/10/2026 : `docs/CODEX-SPEC-2026-10-29-hero-trois-plans.md`.
+Votre expertise est la matière première. Nous la mettons au travail.
+Vos règles, vos données et vos décisions deviennent des systèmes qui en multiplient l'impact.
 Décision actuelle : `docs/site-v1/page-unique/BANDEAU-TECHNOLOGIES.md`
 (27/10 au soir), qui remplace le trajet par le bandeau agnostique.
 Neuf sections : hero, technologies, applications, changements, parcours, services,

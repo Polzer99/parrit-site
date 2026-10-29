@@ -36,12 +36,6 @@
 .single-page .hero{background:var(--canard);color:var(--white);padding:72px 0 56px}
 /* Le contour clair détache le rose du canard, y compris au survol et à l'appui. */
 .single-page .hero .btn.exec{border:2px solid var(--white)}
-.single-page .hero .grid{display:grid;grid-template-columns:1fr;gap:40px}
-.single-page .hero h1{max-width:1060px}
-.single-page .hero .sub{display:flex;gap:48px;align-items:center;flex-wrap:wrap}
-.single-page .hero p{color:var(--on-canard);font-size:var(--t-xl);line-height:1.45;max-width:560px}
-.single-page .hero .actions{margin-top:36px;display:flex;gap:16px}
-.single-page .hero h1 b{display:block}
 
 /* change */
 .single-page .three{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
@@ -101,7 +95,7 @@
 @media (max-width:760px){
   .single-page .wrap{padding:0 20px} .single-page h1{font-size:40px} .single-page h2{font-size:34px} .single-page section{padding:80px 0}
   .single-page .hero{padding:56px 0 56px}
-  .single-page nav{display:none} .single-page .hero .actions, .single-page .founder .actions{flex-direction:column;align-items:stretch} .single-page .btn{text-align:center}
+  .single-page nav{display:none}.single-page .founder .actions{flex-direction:column;align-items:stretch} .single-page .btn{text-align:center}
   .single-page .scenes{grid-template-columns:1fr;gap:56px} .single-page .phone{max-width:280px}
   .single-header .wrap{gap:12px} .single-header .btn{display:none}
 }
@@ -113,7 +107,6 @@
 .single-page h1 {font-weight:500;font-size:var(--d-xl);line-height:1.02;letter-spacing:-.03em;}
 .single-page h2 {font-size:var(--d-s);line-height:1.06;}
 .single-page .btn {letter-spacing:normal;line-height:1.4;min-height:48px;}
-.single-page .hero .actions {margin-top:0;}
 .single-page .msg {opacity:1;transform:none;}
 .single-page [data-motion="ready"] .msg {opacity:0;animation:conversation-message 18s infinite;animation-fill-mode:backwards;animation-delay:var(--message-delay,0s);}
 @keyframes conversation-message {0%{opacity:0;transform:translateY(6px)}3%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:translateY(6px)}}
@@ -158,9 +151,9 @@
   .single-header .wrap{gap:calc(var(--brand-s3) / 2);}
   .single-header .languages{margin-left:auto;}
 }
-@media(max-width:760px){.single-page h1{font-size:40px;}.single-page h2{font-size:34px;}.single-header .wrap,.single-footer .wrap{padding-left:20px;padding-right:20px;}.single-header .mark{font-size:var(--t-s);}.single-header .btn{display:inline-block;font-size:var(--t-s);padding:14px 24px;white-space:normal;text-align:center;}.single-header .languages{font-size:var(--t-s);}.single-page .hero .sub{gap:32px;}.single-page .hero .actions{width:100%;}.single-page .founder .mail{overflow-wrap:anywhere;}.single-page .reservation{margin-top:56px;}.single-page .cal-instrument{min-width:0;}.single-footer .footer-links{gap:16px;font-size:var(--t-s);}}
+@media(max-width:760px){.single-page h1{font-size:40px;}.single-page h2{font-size:34px;}.single-header .wrap,.single-footer .wrap{padding-left:20px;padding-right:20px;}.single-header .mark{font-size:var(--t-s);}.single-header .btn{display:inline-block;font-size:var(--t-s);padding:14px 24px;white-space:normal;text-align:center;}.single-header .languages{font-size:var(--t-s);}.single-page .founder .mail{overflow-wrap:anywhere;}.single-page .reservation{margin-top:56px;}.single-page .cal-instrument{min-width:0;}.single-footer .footer-links{gap:16px;font-size:var(--t-s);}}
 @media (max-width:760px) {
-  .single-page .hero .grid, .single-page .three, .single-page .steps,
+  .single-page .three, .single-page .steps,
   .single-page .services,
   .single-page .founder .grid { grid-template-columns:1fr; }
 }
@@ -172,18 +165,8 @@
 }
 .single-header {height:auto;}
 
-/* Addendum validé : mêmes couches et mouvements que svg.onto dans la maquette. */
-.single-page .hero .btn.exec, .single-page .founder .btn.exec {font-size:var(--t-l);padding:22px 36px;}
-.single-page .onto {display:block;width:100%;height:auto;margin-top:48px;overflow:visible;}
-.single-page .onto .layer {stroke:var(--on-canard);stroke-width:1;opacity:.25;}
-.single-page .onto .lab {color:var(--on-canard);fill:currentColor;font-size:var(--t-s);}
-.single-page .onto .edge {stroke:var(--on-canard);stroke-width:1.2;opacity:.45;fill:none;}
-.single-page .onto .node, .single-page .onto .ag, .single-page .onto .pulse {fill:var(--white);}
-.single-page .onto .node.r {fill:var(--on-canard);}
-.single-page .onto .nt {color:var(--white);fill:currentColor;font-size:var(--t-s);}
-.single-page .onto .eye {fill:var(--canard);}
-.single-page .onto .token {fill:var(--white);}
-.single-page .hero .humby {font-size:var(--t-s);color:var(--on-canard);margin-top:20px;max-width:none;}
+/* Bouton du contact : contrat antérieur conservé. */
+.single-page .founder .btn.exec {font-size:var(--t-l);padding:22px 36px;}
 /* État final par défaut ; amélioration progressive commune aux téléphones. */
 .single-page .soft .row:last-child span {background:var(--canard);color:var(--white);}
 @media (prefers-reduced-motion:no-preference) {
@@ -199,7 +182,6 @@
 @keyframes task-pop {0%,8%{opacity:0;transform:translateY(6px)}14%,85%{opacity:1;transform:none}95%,100%{opacity:0}}
 @keyframes task-write {0%{transform:scaleX(0)}20%,85%{transform:scaleX(1)}95%,100%{transform:scaleX(0)}}
 @keyframes task-lit {0%,100%{background:var(--sky);color:var(--ink)}15%,35%{background:var(--canard);color:var(--white)}}
-@media (prefers-reduced-motion:reduce) {.single-page .onto .pulse {display:none;}}
 
 .single-page .live .status {color:var(--on-canard);}
 
@@ -211,7 +193,7 @@
 .single-page li {line-height:1.55;}
 .single-page .phone .chat {flex-shrink:0;}
 .single-page .phone .bar {flex-shrink:0;}
-.single-page .hero .sub, .single-page .founder .actions {gap:32px;}
+.single-page .founder .actions {gap:32px;}
 .single-page .quick-capture .ri-error {display:block;margin-top:16px;color:var(--accent-on-dark);}
 .single-page .quick-capture form > p {margin-top:var(--s2);}
 @media (max-width:760px) {
@@ -229,28 +211,6 @@
 
 /* Passe 3 : valeurs de maquette adaptées à l'échelle accessible canonique. */
 .single-page .live {padding-top:72px;}
-.single-page .hero :is(.ontocap,.ontocap-sizer) {min-height:28px;margin-top:18px;font-size:var(--t-m);color:var(--white);max-width:none;line-height:1.55;}
-.single-page .hero .humby {margin-top:10px;}
-.single-page .onto .talk {stroke-dasharray:3 4;}
-.single-page .onto .agent.busy .ag {fill:var(--sky);}
-.single-page .onto .trail {fill:none;stroke:var(--white);stroke-width:2.5;opacity:.9;}
-.single-page .onto .node {transform-box:fill-box;transform-origin:center;transition:transform .3s,fill .3s;}
-.single-page .onto .node.lit {transform:scale(1.8);fill:var(--sky);}
-.single-page .onto .agent .ag {transition:fill .3s;}
-.single-page .onto .agent.busy {animation:ontology-hop .45s ease-out 2;}
-@keyframes ontology-hop {50%{translate:0 -6px}}
-.single-page .onto .feed .res {transition:transform .5s ease-out;}
-.single-page .ontology-hero[data-anim="in"] .static-feed {display:none;}
-.single-page .onto .pulse {opacity:.55;}
-.single-page .onto .token {stroke:var(--canard);stroke-width:2;}
-.single-page .onto .toklab {fill:var(--white);font-size:var(--t-s);font-weight:600;opacity:1;transition:opacity .3s;paint-order:stroke;stroke:var(--canard);stroke-width:calc(var(--brand-s1) / 2);stroke-linejoin:round;}
-.single-page .onto .toklab.previous {opacity:0;}
-.single-page .onto .resbox {fill:none;stroke:var(--on-canard);stroke-width:1;}
-.single-page .onto .rest {fill:var(--white);font-size:var(--t-s);font-weight:600;}
-.single-page .onto .res.on .resbox {fill:color-mix(in srgb, var(--white) 8%, var(--canard));}
-/* Exception Paul du 27/10 : seul le premier résultat du fil est rose dans le schéma. */
-.single-page .onto .res.hot .resbox {fill:var(--rose);stroke:var(--rose);}
-.single-page .onto .res.hot .rest {fill:var(--ink);}
 
 /* Silhouettes du parcours sur le registre clair de la maquette. */
 .single-page .walk {display:block;width:100%;height:auto;margin-top:56px;overflow:visible;}
@@ -316,8 +276,6 @@
   .single-page #technologies, .single-page #technologies *,
   .single-page #technologies::before, .single-page #technologies::after,
   .single-page #technologies *::before, .single-page #technologies *::after {animation:none!important;transition:none!important;}
-  .single-page .ontology-motion {display:none;}
-  .single-page .ontology-hero[data-anim="in"] .static-feed {display:inline;}
 }
 
 /* Passe 4: intrinsic content fits a screen; never crop content to pass geometry. */
@@ -325,9 +283,9 @@
 .single-page .mobile-carousel {min-width:0;}
 .single-page .swipe-dots {display:none;}
 /* Toutes les variantes participent au calcul intrinsèque, dès le HTML serveur. */
-.single-page .ontocap-stack, .single-page .offer-stack {display:grid;}
-.single-page .ontocap-stack > *, .single-page .offer-stack > * {grid-area:1 / 1;}
-.single-page .ontocap-sizer, .single-page .offer-sizer {visibility:hidden;}
+.single-page .offer-stack {display:grid;}
+.single-page .offer-stack > * {grid-area:1 / 1;}
+.single-page .offer-sizer {visibility:hidden;}
 /* La liste reste accessible : la face animée est son doublon aria-hidden. */
 .single-page .partner-motion[data-anim="in"] .partner-offers {opacity:0;}
 .single-page .service-tasks {margin-top:28px;}
@@ -372,33 +330,8 @@
 .single-page .founder-details {grid-column:2;}
 .single-page .founder-details ul {margin-top:12px;}
 .single-page .founder-details .actions {margin-top:20px;flex-wrap:wrap;}
-/* Keep labels readable when the SVG scales. Mobile can pan this complete figure. */
-.single-page .onto :is(.lab,.nt,.rest,.toklab) {font-size:22px;}
-@media(min-width:761px){
-  .single-page .hero {padding:16px 0;}
-  .single-page .hero .wrap {display:grid;grid-template-columns:minmax(min-content, .8fr) minmax(0,1.6fr);column-gap:28px;row-gap:12px;align-items:center;}
-  .single-page .hero .grid {display:contents;}
-  /* §7 : 75px garde la seconde phrase sur une ligne dans les 1080px du wrap,
-     et le hero entier en 1440×800 ; plancher ordinateur de 72px. */
-  .single-page .hero h1 {grid-column:1 / -1;max-width:none;font-size:clamp(72px, 6.45vw, 75px);}
-  .single-page .hero .sub {display:flex;flex-direction:column;align-items:flex-start;gap:24px;}
-  .single-page .hero .sub p {max-width:none;}
-  /* §4 : la colonne réserve la largeur du libellé, sans étirer le bouton. */
-  .single-page .hero .btn.exec {width:max-content;white-space:nowrap;flex:none;}
-  .single-page .hero .onto {margin-top:0;max-height:calc(100svh - 460px);}
-  .single-page .hero :is(.ontocap,.ontocap-sizer) {margin-top:12px;font-size:16px;line-height:1.45;}
-  .single-page .hero .humby {grid-column:1 / -1;margin-top:0;}
-}
-/* Tablette : le schéma suit le bouton, à sa largeur et hauteur intrinsèques. */
-@media(min-width:761px) and (max-width:1100px){
-  .single-page .hero .wrap {grid-template-columns:minmax(0,1fr);}
-  .single-page .hero .onto {max-height:none;}
-}
 @media(max-width:760px){
   .single-page .hero {padding-top:24px;}
-  .single-page .hero .grid {gap:24px;}
-  .single-page .hero .sub {gap:20px;}
-  .single-page .hero .sub p {font-size:var(--t-l);}
   .single-page :is(.service-tasks,.services,.steps,.scenes,.three).mobile-carousel {
     display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;align-items:flex-start;
     background:none;border:0;margin-left:-16px;margin-right:-16px;padding:0 16px 4px;scroll-padding-inline:16px;scrollbar-width:none;
@@ -426,8 +359,6 @@
   .single-page .founder-details {grid-column:1 / -1;}
   .single-page .founder-details :is(p,li) {font-size:16px;}
   .single-page .founder-details .actions {align-items:stretch;gap:16px;}
-  .single-page .ontology-hero {overflow-x:auto;}
-  .single-page .onto {min-width:780px;}
 }
 @media(prefers-reduced-motion:reduce){
   .single-page .case-text,.single-page .tag,.single-page .partner-delivery .offer {transition:none;}
@@ -516,4 +447,85 @@
   .single-page :is(#ce-qui-change,#what-changes) .panel {padding:var(--brand-s2);}
   .single-page :is(#ce-qui-change,#what-changes) .soft .row {flex-wrap:nowrap;}
   .single-page :is(#ce-qui-change,#what-changes) .soft .row span {flex-basis:0;padding:var(--brand-s1);}
+}
+
+/* Hero trois plans, 29/10/2026. Geometry from the approved desktop/mobile generators. */
+.single-page .hero {padding:24px 0 32px;}
+.single-page .ontology-hero {display:grid;grid-template-columns:minmax(0,1fr);gap:24px;outline-offset:4px;}
+.single-page .hero-intro, .single-page .hero .sub {display:flex;flex-direction:column;gap:24px;min-width:0;}
+.single-page .hero h1 {font-size:38px;line-height:43px;letter-spacing:-.01em;text-wrap:wrap;}
+.single-page .hero .sub p {font-size:18px;line-height:27px;color:var(--on-canard);max-width:none;}
+.single-page .hero .actions {display:flex;width:100%;}
+.single-page .hero .btn.exec {width:100%;font-size:18px;line-height:24px;padding:18px 16px;white-space:normal;}
+.single-page .onto-diagram {position:relative;width:100%;max-width:560px;aspect-ratio:390 / 380;justify-self:center;container-type:inline-size;}
+.single-page .onto {display:block;width:100%;height:100%;}
+.single-page .onto path {d:var(--compact-path);}
+.single-page .onto-slab {fill:color-mix(in srgb,var(--canard),var(--ink) 65%);}
+.single-page .onto-slab.side-1 {fill:color-mix(in srgb,var(--canard),var(--ink) 80%);}
+.single-page .onto-surface {fill:color-mix(in srgb,var(--canard),var(--ink) 60%);fill-opacity:.8;stroke:var(--on-canard);stroke-opacity:.55;stroke-width:1;}
+.single-page .onto-grid {stroke:var(--on-canard);stroke-opacity:.07;fill:none;}
+.single-page .onto-link {fill:none;stroke:var(--on-canard);stroke-opacity:.22;stroke-width:.8;transition:stroke .35s,stroke-opacity .35s,stroke-width .35s;}
+.single-page .onto-link.is-lit {stroke:var(--white);stroke-opacity:1;stroke-width:2.2;}
+.single-page .onto-link.is-action {stroke-width:3;}
+.single-page :is(.onto-node,.onto-zone,.onto-layer,.onto-badge) {position:absolute;left:var(--compact-x);top:var(--compact-y);}
+.single-page .onto-node {--onto-node-fill:color-mix(in srgb,var(--canard),var(--ink) 45%);--onto-node-ink:var(--on-canard);color:var(--on-canard);transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;transition:color .35s;}
+.single-page .onto-icon {width:4.1cqw;height:4.1cqw;display:flex;align-items:center;justify-content:center;background:var(--onto-node-fill);color:var(--onto-node-ink);border:1px solid currentColor;transition:background-color .35s,color .35s,border-width .35s;}
+.single-page .onto-icon svg {width:75%;height:75%;}
+.single-page .onto-node.is-lit {--onto-node-fill:var(--white);--onto-node-ink:var(--ink);color:var(--white);font-weight:600;}
+.single-page .onto-node.is-result {--onto-node-fill:var(--sky);}
+.single-page .onto-node.is-action .onto-icon {border:2px solid var(--white);}
+.single-page .onto-label, .single-page .onto-zone {display:none;}
+.single-page .onto-layer {font-size:9px;line-height:11px;max-width:calc(100% - 16px);color:var(--white);}
+.single-page .onto-layer b, .single-page .onto-zone, .single-page .onto-ready {font-weight:500;letter-spacing:.08em;}
+.single-page .onto-layer > span {display:none;}
+.single-page .onto-number {display:inline-flex;align-items:center;justify-content:center;flex:none;width:18px;height:18px;background:var(--white);color:var(--ink);font-size:11px;line-height:18px;font-weight:600;}
+.single-page .onto-badge {transform:translate(4px,-20px);opacity:0;transition:opacity .35s;}
+.single-page .onto-badge.is-visible {opacity:1;}
+/* Every complete variant sizes the stack, including result and approval at every step. */
+.single-page .ontocap-stack {display:grid;grid-template-rows:repeat(6,auto);row-gap:8px;min-width:0;}
+.single-page .ontocap-stack > * {grid-area:1 / 1 / 7 / 2;min-width:0;}
+.single-page .ontocap-sizer {visibility:hidden;pointer-events:none;}
+.single-page :is(.ontocap,.ontocap-sizer) {display:grid;grid-template-rows:subgrid;row-gap:8px;font-size:15px;line-height:22px;}
+.single-page .onto-story-title {font-size:17px;line-height:24px;font-weight:600;}
+.single-page :is(.ontocap,.ontocap-sizer) ol {grid-row:2 / 6;list-style:none;display:grid;grid-template-rows:subgrid;}
+.single-page :is(.ontocap,.ontocap-sizer) li {display:flex;gap:10px;align-items:baseline;line-height:22px;}
+/* Reserve semibold metrics even before a step becomes current. */
+.single-page :is(.ontocap,.ontocap-sizer) li.is-current, .single-page .ontocap-sizer li {font-weight:600;}
+.single-page .ontocap li {transition:color .35s;}
+.single-page .ontocap li.is-future {color:color-mix(in srgb,var(--on-canard) 78%,var(--canard));}
+.single-page .onto-result {display:flex;align-items:center;gap:12px;padding:10px 12px;margin-top:8px;background:var(--ink);border:1px solid var(--sky);opacity:0;transition:opacity .35s;}
+.single-page .onto-ready {font-size:10px;line-height:14px;color:var(--on-canard);white-space:nowrap;}
+.single-page .onto-result > b {flex:1;min-width:0;font-size:15px;line-height:22px;font-weight:600;}
+.single-page .onto-approval {flex:none;max-width:40%;font-size:13px;line-height:18px;padding:3px 10px;background:var(--sky);color:var(--ink);font-weight:600;opacity:0;transition:opacity .35s;}
+.single-page .onto-result.is-visible, .single-page .onto-approval.is-visible {opacity:1;}
+.single-page .hero .humby {font-size:16px;line-height:1.45;color:var(--on-canard);max-width:none;}
+@media(min-width:761px) and (max-width:1199px){
+  .single-page .hero h1 {font-size:46px;line-height:52px;}
+}
+@media(min-width:1200px){
+  .single-page .hero {padding:24px 0 16px;}
+  .single-page .hero .wrap {max-width:1440px;padding-left:clamp(40px,calc((100vw - 1080px) / 2),180px);padding-right:16px;}
+  .single-page .ontology-hero {grid-template-columns:clamp(390px,calc(25vw + 70px),430px) minmax(0,1fr);grid-template-rows:auto auto auto;column-gap:24px;row-gap:16px;align-items:start;}
+  .single-page .hero-intro {grid-column:1;grid-row:1;}
+  .single-page .hero h1 {font-size:46px;line-height:52px;}
+  .single-page .hero .sub p {font-size:19px;line-height:28px;}
+  .single-page .hero .btn.exec {width:max-content;max-width:100%;font-size:19px;line-height:24px;padding:18px 30px;white-space:nowrap;}
+  .single-page .onto-diagram {grid-column:2;grid-row:1 / 3;max-width:none;aspect-ratio:820 / 630;}
+  .single-page .onto path {d:var(--desktop-path);}
+  .single-page :is(.onto-node,.onto-zone,.onto-layer,.onto-badge) {left:var(--x);top:var(--y);}
+  .single-page .onto-node {transform:translate(-50%,-12px);}
+  .single-page .onto-icon {width:22px;height:22px;}
+  .single-page .onto-label {display:block;font-size:10.5px;line-height:12px;white-space:nowrap;margin-top:2px;}
+  .single-page .onto-zone {display:block;font-size:9px;line-height:11px;white-space:nowrap;}
+  /* The 9px floor can exceed the original zone width: reserve its full text. */
+  .single-page .zone-0 {left:0;width:var(--x);min-width:max-content;text-align:right;}
+  .single-page .zone-1 {transform:translateX(-50%);}
+  .single-page .onto-layer {width:14.63%;font-size:10px;line-height:13px;}
+  .single-page .onto-layer > span {display:block;color:var(--on-canard);}
+  .single-page .onto-badge {width:22px;height:22px;font-size:12px;transform:translate(-38px,-12px);}
+  .single-page .ontocap-stack {grid-column:1;grid-row:2 / 4;border-top:1px solid color-mix(in srgb,var(--on-canard) 35%,transparent);padding-top:18px;}
+  .single-page .hero .humby {grid-column:2;grid-row:3;}
+}
+@media(prefers-reduced-motion:reduce){
+  .single-page .ontology-hero *, .single-page .ontology-hero *::before, .single-page .ontology-hero *::after {animation:none!important;transition:none!important;}
 }

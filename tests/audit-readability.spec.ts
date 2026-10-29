@@ -57,11 +57,11 @@ for (const width of [375, 390, 1440]) {
         const h3 = [...document.querySelectorAll("main h3")].filter(visible);
         const prose = [...document.querySelectorAll("main p, main li, main dd")].filter(visible);
         return {
-          actions: actions.map(el => ({ prominent: el.matches(".single-page .hero .btn.exec, .single-page .founder .btn.exec"), text: el.textContent, height: el.getBoundingClientRect().height, size: parseFloat(getComputedStyle(el).fontSize), weight: getComputedStyle(el).fontWeight })),
+          actions: actions.map(el => ({ hero: el.matches(".single-page .hero .btn.exec"), prominent: el.matches(".single-page .founder .btn.exec"), text: el.textContent, height: el.getBoundingClientRect().height, size: parseFloat(getComputedStyle(el).fontSize), weight: getComputedStyle(el).fontWeight })),
           targets: targets.map(el => ({ text: el.textContent, height: el.getBoundingClientRect().height })),
           h1: parseFloat(getComputedStyle(document.querySelector("h1")!).fontSize),
           h3: [...new Set(h3.map(el => getComputedStyle(el).fontSize))],
-          smallProse: prose.filter(el => parseFloat(getComputedStyle(el).fontSize) < 16).map(el => el.textContent),
+          smallProse: prose.filter(el => parseFloat(getComputedStyle(el).fontSize) < (el.matches(".ontocap li") ? 15 : 16)).map(el => el.textContent),
           tightProse: prose.filter(el => parseFloat(getComputedStyle(el).lineHeight) / parseFloat(getComputedStyle(el).fontSize) < 1.44).map(el => el.textContent),
           overflow: document.documentElement.scrollWidth > innerWidth,
         };
@@ -69,8 +69,8 @@ for (const width of [375, 390, 1440]) {
       expect(result.actions.length).toBeGreaterThan(0);
       for (const action of result.actions) {
         expect(action.height, action.text ?? "action").toBeGreaterThanOrEqual(48);
-        // The validated addendum sets only these two actions to 22px.
-        expect(action.size).toBe(action.prominent ? 22 : 16);
+        // Hero 29/10: 18/19px; the founder action retains its 22px contract.
+        expect(action.size).toBe(action.hero ? (width < 1200 ? 18 : 19) : action.prominent ? 22 : 16);
         expect(action.weight).toBe("600");
       }
       for (const target of result.targets) expect(target.height, target.text ?? "target").toBeGreaterThanOrEqual(44);
