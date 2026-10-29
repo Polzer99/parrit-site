@@ -90,9 +90,13 @@ export function OntologyHero({ locale, children }: { locale: Locale; children: R
     const lit = litLinks.includes(id);
     return <path key={id} d={path([position(a, compact), position(b, compact)])} data-link={id} className={`onto-link${lit ? " is-lit" : ""}${lit && id === story.al ? " is-action" : ""}`} vectorEffect="non-scaling-stroke"/>;
   });
+  const phrase = (item: typeof HERO_STORIES[number], step: number) => {
+    if (step === 0) return t(item.title);
+    const text = t(item.steps[step - 1]);
+    return `${text.charAt(0).toLocaleUpperCase(locale)}${text.slice(1)}.`;
+  };
   const caption = (item: typeof HERO_STORIES[number], sizer = false) => <div className={sizer ? "ontocap-sizer" : "ontocap"} aria-hidden={sizer || undefined} aria-live={sizer ? undefined : "off"} key={item.title}>
-    <b className="onto-story-title">{t(item.title)}</b>
-    <ol>{item.steps.map((text, i) => <li key={text} className={sizer || state.step > i + 1 ? "is-done" : state.step === i + 1 ? "is-current" : "is-future"}><span className="onto-number" aria-hidden="true">{i + 1}</span><span>{t(text)}</span></li>)}</ol>
+    {sizer ? [0, 1, 2, 3, 4].map(step => <div className="onto-now" key={step}>{phrase(item, step)}</div>) : <div className="onto-now" aria-live="off" key={`${state.story}-${state.step}`}>{phrase(item, state.step)}</div>}
     <div className={`onto-result${sizer || state.step >= 3 ? " is-visible" : ""}`} aria-hidden={!sizer && state.step < 3 || undefined}>
       <span className="onto-ready">{t("PRÊT")}</span><b>{t(item.result)}</b><span className={`onto-approval${sizer || state.step >= 4 ? " is-visible" : ""}`} aria-hidden={!sizer && state.step < 4 || undefined}>{t(item.verb)}</span>
     </div>
@@ -116,9 +120,9 @@ export function OntologyHero({ locale, children }: { locale: Locale; children: R
         return <span key={zone} className={`onto-zone zone-${i}`} style={location(point, point)}>{t(zone)}</span>;
       }))}
       {planes.map(plane => <span key={plane} className="onto-layer" style={location(project([1312, DESKTOP.planes[plane] - 14], false), project([16, COMPACT.planes[plane] - COMPACT.h], true))}><b>{t(LAYERS[plane][0])}</b><span>{t(LAYERS[plane][1])}</span></span>)}
-      {([story.d, story.o2, story.out, story.act] as const).map((id, i) => <span key={i} className={`onto-badge onto-number${state.step >= i + 1 ? " is-visible" : ""}`} data-badge={i + 1} data-for={id} style={location(position(id), position(id, true))}>{i + 1}</span>)}
     </div>
     <div className="ontocap-stack">{caption(story)}{HERO_STORIES.map(item => caption(item, true))}</div>
+    <ol className="sr-only" aria-live="off">{story.steps.map(text => <li key={text}>{t(text)}</li>)}</ol>
     {/* Attribution: https://ico.org.uk/for-the-public/ico-40/data-as-a-commodity/ */}
     <p className="humby">{t("« La donnée est le nouveau pétrole », disait Clive Humby en 2006. Brute, elle ne sert à rien : nous la raffinons.")}</p>
   </div>;

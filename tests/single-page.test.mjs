@@ -179,11 +179,27 @@ for (const locale of ["fr", "en"]) test(`three planes, 33 nodes and four complet
   assert.match(hero, /<svg class="onto"[^>]*aria-hidden="true"/);
   assert.equal((hero.match(/class="ontocap-sizer"/g) ?? []).length, 4);
   assert.match(hero, /class="ontocap" aria-live="off"/);
-  assert.equal((hero.match(/class="onto-badge onto-number is-visible"/g) ?? []).length, 4);
+  assert.doesNotMatch(hero, /onto-badge|onto-number|onto-story-title/);
+  const currentCaption = hero.split('class="ontocap"')[1].split('class="ontocap-sizer"')[0];
+  assert.doesNotMatch(currentCaption, /<ol|<li/);
+  const sentence = text => { const translated = t(text); return translated[0].toLocaleUpperCase(locale) + translated.slice(1) + "."; };
+  assert.ok(visibleText(currentCaption).includes(sentence(HERO_STORIES[0].steps[3])));
+  assert.match(currentCaption, /class="onto-now" aria-live="off"/);
+  const sizers = [...hero.matchAll(/<div class="ontocap-sizer" aria-hidden="true">([\s\S]*?)(?=<div class="ontocap-sizer"|<ol class="sr-only")/g)];
+  assert.equal(sizers.length, 4);
+  for (const [index, sizer] of sizers.entries()) {
+    const phrases = [...sizer[1].matchAll(/<div class="onto-now">([\s\S]*?)<\/div>/g)].map(match => visibleText(match[1]));
+    const story = HERO_STORIES[index];
+    assert.deepEqual(phrases, [t(story.title), ...story.steps.map(sentence)]);
+    for (const text of [t(story.result), t(story.verb), t("PRÊT")]) assert.ok(visibleText(sizer[1]).includes(text));
+  }
+  const accessible = hero.match(/<ol class="sr-only" aria-live="off">([\s\S]*?)<\/ol>/)?.[1];
+  assert.ok(accessible);
+  assert.deepEqual([...accessible.matchAll(/<li>(.*?)<\/li>/g)].map(match => visibleText(match[1])), HERO_STORIES[0].steps.map(t));
   for (const id of ["mails", "client", "commande", "cgv", "rep", "messagerie"]) {
     assert.match(hero, new RegExp(`data-node="${id}"[^>]*class="onto-node is-lit`));
   }
-  const labels = [...Object.values(NODES).flat().map(node => node[1]), ...Object.values(ZONES).flat(), ...Object.values(LAYERS).flat(), ...HERO_STORIES.flatMap(story => [story.title, ...story.steps, story.result, story.verb]), "PRÊT"];
+  const labels = [...Object.values(NODES).flat().map(node => node[1]), ...Object.values(ZONES).flat(), ...Object.values(LAYERS).flat(), ...HERO_STORIES.flatMap(story => [story.title, story.result, story.verb]), "PRÊT"];
   for (const label of labels) {
     assert.ok(SINGLE_PAGE_EN[label], `English missing: ${label}`);
     assert.ok(visibleText(hero).includes(t(label)), label);

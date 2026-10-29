@@ -22,7 +22,11 @@ Socle : `docs/site-v1/page-unique/PASSE-3-PAGE-RACONTEE.md`,
 maquette validée par Paul le 27/10/2026, archivée dans `passe-3/maquette/`.
 Objectif de cette passe : donner envie de prendre rendez-vous, sans tout dévoiler.
 Elle prime sur le handoff et la maquette précédents pour son périmètre.
-Hero amendé le 29/10/2026 : `docs/CODEX-SPEC-2026-10-29-hero-trois-plans.md`.
+Hero amendé le 29/10/2026 : `docs/CODEX-SPEC-2026-10-29-hero-trois-plans.md`,
+puis `docs/CODEX-SPEC-2026-10-29-hero-trois-plans-allege.md` : légende = une
+phrase par étape puis la carte du résultat, sans liste visible ni pastilles.
+Les quatre étapes restent accessibles aux lecteurs d'écran. Fond des libellés
+égal à la couleur effective du plan ; le rose reste au seul bouton.
 Votre expertise est la matière première. Nous la mettons au travail.
 Vos règles, vos données et vos décisions deviennent des systèmes qui en multiplient l'impact.
 Décision actuelle : `docs/site-v1/page-unique/BANDEAU-TECHNOLOGIES.md`

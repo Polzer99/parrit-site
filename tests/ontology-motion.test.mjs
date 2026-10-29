@@ -50,9 +50,16 @@ for (const locale of ["fr", "en"]) test(`four stories light their exact nodes an
         const actions = [...geometry.matchAll(/data-link="([^"]+)" class="onto-link is-lit is-action"/g)].map(m => m[1]);
         assert.deepEqual(actions, step >= 4 ? [story.al] : []);
       }
-      assert.equal((html.match(/class="onto-badge onto-number is-visible"/g) ?? []).length, step);
+      assert.doesNotMatch(html, /onto-badge|onto-number|onto-story-title/);
       const caption = html.split('class="ontocap"')[1].split('class="ontocap-sizer"')[0];
-      assert.ok(caption.includes(locale === "fr" ? story.title.replaceAll("'", "&#x27;") : SINGLE_PAGE_EN[story.title]));
+      const source = step === 0 ? story.title : story.steps[step - 1];
+      const translated = locale === "fr" ? source : SINGLE_PAGE_EN[source];
+      const expectedPhrase = step === 0 ? translated : translated[0].toLocaleUpperCase(locale) + translated.slice(1) + ".";
+      const encoded = renderToStaticMarkup(React.createElement("span", null, expectedPhrase)).slice(6, -7);
+      assert.ok(caption.includes(`<div class="onto-now" aria-live="off">${encoded}</div>`));
+      assert.doesNotMatch(caption, /<ol|<li/);
+      const accessibleSteps = html.match(/<ol class="sr-only" aria-live="off">([\s\S]*?)<\/ol>/)?.[1];
+      assert.equal(accessibleSteps, story.steps.map(text => renderToStaticMarkup(React.createElement("li", null, locale === "fr" ? text : SINGLE_PAGE_EN[text]))).join(""));
       assert.equal(caption.includes('class="onto-result is-visible"'), step >= 3);
       assert.equal(caption.includes('class="onto-approval is-visible"'), step >= 4);
       advance(step === 0 && index > 0 ? 900 : step === 4 ? 3600 : 2700);

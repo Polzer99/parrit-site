@@ -457,18 +457,18 @@
 .single-page .hero .sub p {font-size:18px;line-height:27px;color:var(--on-canard);max-width:none;}
 .single-page .hero .actions {display:flex;width:100%;}
 .single-page .hero .btn.exec {width:100%;font-size:18px;line-height:24px;padding:18px 16px;white-space:normal;}
-.single-page .onto-diagram {position:relative;width:100%;max-width:560px;aspect-ratio:390 / 380;justify-self:center;container-type:inline-size;}
+.single-page .onto-diagram {--onto-plane:color-mix(in srgb,var(--canard),var(--ink) 48%);position:relative;width:100%;max-width:560px;aspect-ratio:390 / 380;justify-self:center;container-type:inline-size;}
 .single-page .onto {display:block;width:100%;height:100%;}
 .single-page .onto-geo-desktop {display:none;}
 .single-page .onto-geo-compact {display:inline;}
 .single-page .onto-slab {fill:color-mix(in srgb,var(--canard),var(--ink) 65%);}
 .single-page .onto-slab.side-1 {fill:color-mix(in srgb,var(--canard),var(--ink) 80%);}
-.single-page .onto-surface {fill:color-mix(in srgb,var(--canard),var(--ink) 60%);fill-opacity:.8;stroke:var(--on-canard);stroke-opacity:.55;stroke-width:1;}
+.single-page .onto-surface {fill:var(--onto-plane);fill-opacity:1;stroke:var(--on-canard);stroke-opacity:.55;stroke-width:1;}
 .single-page .onto-grid {stroke:var(--on-canard);stroke-opacity:.07;fill:none;}
 .single-page .onto-link {fill:none;stroke:var(--on-canard);stroke-opacity:.22;stroke-width:.8;transition:stroke .35s,stroke-opacity .35s,stroke-width .35s;}
 .single-page .onto-link.is-lit {stroke:var(--white);stroke-opacity:1;stroke-width:2.2;}
 .single-page .onto-link.is-action {stroke-width:3;}
-.single-page :is(.onto-node,.onto-zone,.onto-layer,.onto-badge) {position:absolute;left:var(--compact-x);top:var(--compact-y);}
+.single-page :is(.onto-node,.onto-zone,.onto-layer) {position:absolute;left:var(--compact-x);top:var(--compact-y);}
 .single-page .onto-node {--onto-node-fill:color-mix(in srgb,var(--canard),var(--ink) 45%);--onto-node-ink:var(--on-canard);color:var(--on-canard);transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;transition:color .35s;}
 .single-page .onto-icon {width:4.1cqw;height:4.1cqw;display:flex;align-items:center;justify-content:center;background:var(--onto-node-fill);color:var(--onto-node-ink);border:1px solid currentColor;transition:background-color .35s,color .35s,border-width .35s;}
 .single-page .onto-icon svg {width:75%;height:75%;}
@@ -479,22 +479,13 @@
 .single-page .onto-layer {font-size:9px;line-height:11px;max-width:calc(100% - 16px);color:var(--white);}
 .single-page .onto-layer b, .single-page .onto-zone, .single-page .onto-ready {font-weight:500;letter-spacing:.08em;}
 .single-page .onto-layer > span {display:none;}
-.single-page .onto-number {display:inline-flex;align-items:center;justify-content:center;flex:none;width:18px;height:18px;background:var(--white);color:var(--ink);font-size:11px;line-height:18px;font-weight:600;}
-.single-page .onto-badge {transform:translate(4px,-20px);opacity:0;transition:opacity .35s;}
-.single-page .onto-badge.is-visible {opacity:1;}
-/* Every complete variant sizes the stack, including result and approval at every step. */
-.single-page .ontocap-stack {display:grid;grid-template-rows:repeat(6,auto);row-gap:8px;min-width:0;}
-.single-page .ontocap-stack > * {grid-area:1 / 1 / 7 / 2;min-width:0;}
+/* All twenty phrases and four complete cards reserve two rows from SSR. */
+.single-page .ontocap-stack {display:grid;grid-template-rows:repeat(2,auto);row-gap:8px;min-width:0;}
+.single-page .ontocap-stack > * {grid-area:1 / 1 / 3 / 2;min-width:0;}
 .single-page .ontocap-sizer {visibility:hidden;pointer-events:none;}
 .single-page :is(.ontocap,.ontocap-sizer) {display:grid;grid-template-rows:subgrid;row-gap:8px;font-size:15px;line-height:22px;}
-.single-page .onto-story-title {font-size:17px;line-height:24px;font-weight:600;}
-.single-page :is(.ontocap,.ontocap-sizer) ol {grid-row:2 / 6;list-style:none;display:grid;grid-template-rows:subgrid;}
-.single-page :is(.ontocap,.ontocap-sizer) li {display:flex;gap:10px;align-items:baseline;line-height:22px;}
-/* Reserve semibold metrics even before a step becomes current. */
-.single-page :is(.ontocap,.ontocap-sizer) li.is-current, .single-page .ontocap-sizer li {font-weight:600;}
-.single-page .ontocap li {transition:color .35s;}
-.single-page .ontocap li.is-future {color:color-mix(in srgb,var(--on-canard) 78%,var(--canard));}
-.single-page .onto-result {display:flex;align-items:center;gap:12px;padding:10px 12px;margin-top:8px;background:var(--ink);border:1px solid var(--sky);opacity:0;transition:opacity .35s;}
+.single-page .onto-now {grid-area:1 / 1;font-size:18px;line-height:26px;font-weight:600;color:var(--white);}
+.single-page .onto-result {grid-area:2 / 1;display:flex;align-items:center;gap:12px;padding:10px 12px;margin-top:8px;background:var(--ink);border:1px solid var(--sky);opacity:0;transition:opacity .35s;}
 .single-page .onto-ready {font-size:10px;line-height:14px;color:var(--on-canard);white-space:nowrap;}
 .single-page .onto-result > b {flex:1;min-width:0;font-size:15px;line-height:22px;font-weight:600;}
 .single-page .onto-approval {flex:none;max-width:40%;font-size:13px;line-height:18px;padding:3px 10px;background:var(--sky);color:var(--ink);font-weight:600;opacity:0;transition:opacity .35s;}
@@ -515,20 +506,25 @@
   .single-page .onto-diagram {grid-column:2;grid-row:1 / 3;max-width:none;aspect-ratio:820 / 630;}
   .single-page .onto-geo-desktop {display:inline;}
   .single-page .onto-geo-compact {display:none;}
-  .single-page :is(.onto-node,.onto-zone,.onto-layer,.onto-badge) {left:var(--x);top:var(--y);}
+  .single-page :is(.onto-node,.onto-zone,.onto-layer) {left:var(--x);top:var(--y);}
   .single-page .onto-node {transform:translate(-50%,-12px);}
   .single-page .onto-icon {width:22px;height:22px;}
   .single-page .onto-label {display:block;font-size:10.5px;line-height:12px;white-space:nowrap;margin-top:2px;}
   .single-page .onto-zone {display:block;font-size:9px;line-height:11px;white-space:nowrap;}
-  .single-page .onto-label, .single-page .onto-zone {background:var(--canard);padding:0 1px;}
+  .single-page .onto-label, .single-page .onto-zone {padding:0 1px;}
+  .single-page .onto-label {background:var(--onto-plane);}
+  .single-page .onto-zone {background:var(--canard);}
   /* The 9px floor can exceed the original zone width: reserve its full text. */
   .single-page .zone-0 {left:0;width:var(--x);min-width:max-content;text-align:right;}
   .single-page .zone-1 {transform:translateX(-50%);}
   .single-page .onto-layer {width:14.63%;font-size:10px;line-height:13px;}
   .single-page .onto-layer > span {display:block;color:var(--on-canard);}
-  .single-page .onto-badge {width:22px;height:22px;font-size:12px;transform:translate(-38px,-12px);}
   .single-page .ontocap-stack {grid-column:1;grid-row:2 / 4;border-top:1px solid color-mix(in srgb,var(--on-canard) 35%,transparent);padding-top:18px;}
   .single-page .hero .humby {grid-column:2;grid-row:3;}
+}
+@media (prefers-reduced-motion:no-preference) {
+  .single-page .ontocap .onto-now {animation:onto-now-fade .25s ease-out;}
+  @keyframes onto-now-fade {from{opacity:0}to{opacity:1}}
 }
 @media(prefers-reduced-motion:reduce){
   .single-page .ontology-hero *, .single-page .ontology-hero *::before, .single-page .ontology-hero *::after {animation:none!important;transition:none!important;}

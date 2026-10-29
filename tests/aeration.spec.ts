@@ -144,15 +144,13 @@ for (const width of [1440, 390]) {
             // Exact 29/10 hero scale, without changing the rest of the site's floor.
             heroSize: element.closest(".hero h1") ? (innerWidth <= 760 ? 38 : 46)
               : element.closest(".hero .sub p, .hero .exec") ? (innerWidth < 1200 ? 18 : 19)
-              : element.closest(".onto-badge") ? (innerWidth < 1200 ? 11 : 12)
-              : element.closest(".onto-number") ? 11
               : element.closest(".onto-label") ? 10.5
               : element.closest(".onto-zone") ? 9
               : element.closest(".onto-layer") ? (innerWidth < 1200 ? 9 : 10)
               : element.closest(".onto-ready") ? 10
               : element.closest(".onto-approval") ? 13
-              : element.closest(".onto-story-title") ? 17
-              : element.closest(".ontocap li, .onto-result > b") ? 15 : undefined,
+              : element.closest(".onto-now") ? 18
+              : element.closest(".onto-result > b") ? 15 : undefined,
           });
         };
         const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);

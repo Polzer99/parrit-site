@@ -15,11 +15,32 @@ SVG et 33 nœuds HTML, géométrie CSS avant hydratation ; deux colonnes dès
 zone 9 px minimum et largeur intrinsèque pour éviter la découpe à gauche.
 Le résultat est dans la légende ; seul le CTA reste rose. Rotation avec un
 seul timeout (2700/3600/900 ms), arrêt via `useMotionOnView`, état statique
-histoire 1/étape 4. Les six rangées de légende sont réservées en sous-grille
-avec leurs variantes en semibold, dès le SSR. La revue adverse a confirmé
-un retour à la ligne supplémentaire à 360 px EN sans cette réservation.
+histoire 1/étape 4. Amendement allégé du 29/10 : deux rangées en sous-grille,
+une phrase (titre à l'étape 0, étape traduite capitalisée avec point ensuite),
+puis carte. Les vingt phrases et quatre cartes complètes réservent la hauteur
+dès le SSR ; texte 18/26 px en 600, fondu d'opacité 250 ms seulement à l'écran,
+aucun fondu en mouvement réduit. Plus de liste visible ni de pastilles ; liste
+ordonnée courante `sr-only` hors flux. `--onto-plane` partage le mélange
+canard/encre (48 % d'encre) entre surface opaque et fond des libellés.
 
-Validation : npm ci hors réseau via cache local, lint, TypeScript, build
+Amendement : `docs/CODEX-SPEC-2026-10-29-hero-trois-plans-allege.md`, branche
+fournie inchangée, baseline `5d25a54a408818d73718ee872d4292c66939bfac` : lint,
+134/134 tests Node et build Webpack réussis avant modification. Périmètre :
+composant/CSS du hero, tests associés et ces trois documents ; fichiers locaux
+réversibles, sauvegarde Git baseline, aucune donnée métier (0 ligne), aucun
+commit ni push. Boucle : implémentation, revue indépendante, correction et
+batterie demandée ; arrêt si même blocage d'environnement répété.
+Validation allégée : lint, 134/134 tests Node, build Webpack et contrôle marque
+réussis ; revue indépendante sans défaut concret. Les tests Node lisent le
+build compilé : exécution finale après le build (un essai concurrent avait
+rencontré `.next/required-server-files.json` absent pendant sa régénération).
+196 tests Playwright recensés dans les trois specs modifiées ; géométrie,
+fondu et couleurs calculées non validés ici, serveur local refusé par le
+sandbox (`listen EPERM 127.0.0.1:3210`). `tests/stabilite.spec.ts` inchangé,
+aucun seuil assoupli. Context7 limité par quota ; guide local Next consulté.
+
+Validation initiale du hero complet (avant amendement allégé) : npm ci hors
+réseau via cache local, lint, TypeScript, build
 Webpack, 131/131 tests Node, marque/claims et 19/19 Brand OS réussis.
 Les sections après le hero ont un HTML serveur strictement identique à la
 baseline FR/EN. `stabilite.spec.ts` est inchangé (tous seuils conservés).

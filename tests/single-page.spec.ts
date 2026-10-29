@@ -59,7 +59,7 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     await expect(page.locator("#contact h2")).not.toHaveText(/\.$/);
     await expect(page.locator("main")).not.toContainText(/Brésil|Brazil|Cameroun|Cameroon|métropole lilloise|Lille area/);
     const smallText = await page.locator("main *, header *, footer *").evaluateAll(nodes => nodes.filter(el => {
-      if (el.closest(".onto-diagram, .onto-number, .onto-ready, .onto-approval")) return false; // Explicit hero type scale, spec 29/10.
+      if (el.closest(".onto-diagram, .onto-ready, .onto-approval")) return false; // Explicit hero type scale, spec 29/10.
       if (!(el instanceof HTMLElement) || !el.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })) return false;
       return el.getBoundingClientRect().height > 0 && [...el.childNodes].some(n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim()) && parseFloat(getComputedStyle(el).fontSize) < 15;
     }).map(el => el.textContent?.slice(0, 80)));
@@ -220,7 +220,10 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     await expect(figure.locator(".onto-geo:visible [data-plane]")).toHaveCount(3);
     await expect(page.locator(".onto-node")).toHaveCount(33);
     await expect(page.locator(".ontology-hero")).toHaveAttribute("data-step", "4");
-    await expect(page.locator(".onto-badge.is-visible")).toHaveCount(4);
+    await expect(page.locator(".onto-badge, .onto-number, .ontocap ol")).toHaveCount(0);
+    await expect(page.locator(".ontocap .onto-now")).toHaveText(locale === "fr" ? "Vous validez, la réponse part." : "You approve, the reply goes out.");
+    await expect(page.locator(".ontocap .onto-now")).toHaveAttribute("aria-live", "off");
+    await expect(page.locator(".ontocap .onto-now")).toHaveCSS("animation-name", "none");
     await expect(page.locator(".ontocap .onto-result")).toHaveCSS("opacity", "1");
     await expect(page.locator(".ontocap .onto-approval")).toHaveCSS("opacity", "1");
     await expect(page.locator(".ontocap")).toHaveAttribute("aria-live", "off");
@@ -254,7 +257,7 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
 }
 
 
-for (const locale of ["fr", "en"]) for (const width of [1440, 390, 360]) {
+for (const locale of ["fr", "en"]) for (const width of [1440, 1280, 1024, 390, 360, 320]) {
   test(`four five-step stories, reduced motion and offscreen cleanup ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
@@ -268,17 +271,24 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390, 360]) {
     await expect(region).toHaveAttribute("data-step", "4");
     await diagram.scrollIntoViewIfNeeded();
     await page.clock.pauseAt(new Date(epoch.getTime() + 10000));
-    const geometry = () => caption.locator(".onto-story-title, li, .onto-result").evaluateAll(nodes => nodes.map(node => {
+    const geometry = () => page.locator(".ontocap-stack, .ontocap .onto-now, .ontocap .onto-result").evaluateAll(nodes => nodes.map(node => {
       const box = node.getBoundingClientRect();
       return { top: box.top + scrollY, height: box.height };
     }));
+    await page.evaluate(() => document.fonts.ready);
     const baseline = await geometry();
+    await expect(region.locator(".onto-badge, .onto-number, .ontocap ol")).toHaveCount(0);
+    const accessibleSteps = region.locator("ol.sr-only");
+    await expect(accessibleSteps).toHaveCSS("position", "absolute");
+    await expect(accessibleSteps).toHaveCSS("width", "1px");
+    await expect(accessibleSteps).toHaveCSS("height", "1px");
+    await expect(accessibleSteps).toHaveCSS("overflow", "hidden");
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await expect(region).toHaveAttribute("data-anim", "in");
     await expect(region).toHaveAttribute("data-step", "0");
     for (const [index, story] of HERO_STORIES.entries()) {
       await expect(region).toHaveAttribute("data-story", String(index));
-      await expect(caption.locator(".onto-story-title")).toHaveText(locale === "fr" ? story.title : SINGLE_PAGE_EN[story.title]);
+      await expect(accessibleSteps.locator("li")).toHaveText(story.steps.map(text => locale === "fr" ? text : SINGLE_PAGE_EN[text]));
       for (let step = 0; step <= 4; step++) {
         await expect(region).toHaveAttribute("data-step", String(step));
         const measured = await geometry();
@@ -286,7 +296,20 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390, 360]) {
           expect(Math.abs(measured[row].top - baseline[row].top)).toBeLessThanOrEqual(1);
           expect(Math.abs(measured[row].height - baseline[row].height)).toBeLessThanOrEqual(1);
         }
-        await expect(diagram.locator(".onto-badge.is-visible")).toHaveCount(step);
+        const text = step === 0 ? story.title : story.steps[step - 1];
+        const translated = locale === "fr" ? text : SINGLE_PAGE_EN[text];
+        const phrase = step === 0 ? translated : translated[0].toLocaleUpperCase(locale) + translated.slice(1) + ".";
+        await expect(caption.locator(".onto-now")).toHaveText(phrase);
+        await expect(caption.locator(".onto-now")).toHaveCSS("font-size", "18px");
+        await expect(caption.locator(".onto-now")).toHaveCSS("line-height", "26px");
+        await expect(caption.locator(".onto-now")).toHaveCSS("font-weight", "600");
+        const motion = await caption.locator(".onto-now").evaluate(el => {
+          const style = getComputedStyle(el);
+          return { duration: parseFloat(style.animationDuration), transform: style.transform };
+        });
+        expect(motion.duration).toBeGreaterThan(0);
+        expect(motion.duration).toBeLessThanOrEqual(.25);
+        expect(motion.transform).toBe("none");
         await expect(caption.locator(".onto-result")).toHaveClass(step >= 3 ? /is-visible/ : /^onto-result$/);
         await expect(caption.locator(".onto-approval")).toHaveClass(step >= 4 ? /is-visible/ : /^onto-approval$/);
         if (step >= 1) await expect(diagram.locator(`[data-node="${story.d}"]`)).toHaveClass(/is-lit/);
@@ -632,7 +655,7 @@ for (const locale of ["fr", "en"]) for (const width of [375, 390, 768, 1024, 119
     await expect(geometry).toBeVisible();
     await expect(diagram.locator(`.onto-geo-${width < 1200 ? "desktop" : "compact"}`)).toBeHidden();
     await expect(geometry.locator("[data-plane]")).toHaveCount(3);
-    const labels = diagram.locator(".onto-icon, .onto-label, .onto-zone, .onto-layer, .onto-badge");
+    const labels = diagram.locator(".onto-icon, .onto-label, .onto-zone, .onto-layer");
     for (const label of await labels.all()) {
       if (!await label.isVisible()) continue;
       const bounds = (await label.boundingBox())!;
@@ -652,10 +675,7 @@ for (const locale of ["fr", "en"]) for (const width of [375, 390, 768, 1024, 119
       };
       return { white: color("--white"), ink: color("--ink"), sage: color("--sky"), rose: color("--rose") };
     });
-    for (const badge of await page.locator(".onto-number").all()) {
-      await expect(badge).toHaveCSS("background-color", palette.white);
-      await expect(badge).toHaveCSS("color", palette.ink);
-    }
+    await expect(page.locator(".onto-badge, .onto-number, .ontocap ol")).toHaveCount(0);
     await expect(page.locator(".ontocap .onto-approval")).toHaveCSS("background-color", palette.sage);
     for (const node of await diagram.locator(".onto-icon").all()) {
       expect(await node.evaluate(el => getComputedStyle(el).backgroundColor)).not.toBe(palette.rose);
@@ -692,14 +712,7 @@ for (const locale of ["fr", "en"]) for (const width of [375, 390, 768, 1024, 119
         await expect(label).toBeVisible();
         expect(await label.evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(9);
       }
-      for (const badge of await diagram.locator(".onto-badge").all()) {
-        const node = diagram.locator(`[data-node="${await badge.getAttribute("data-for")}"]`);
-        const badgeBox = (await badge.boundingBox())!;
-        const icon = (await node.locator(".onto-icon").boundingBox())!;
-        const label = (await node.locator(".onto-label").boundingBox())!;
-        expect(badgeBox.x + badgeBox.width).toBeLessThanOrEqual(icon.x);
-        expect(badgeBox.y + badgeBox.height).toBeLessThanOrEqual(label.y);
-      }
+
     }
     for (const element of await page.locator(".onto-diagram *, .ontocap *").all()) {
       if (!await element.isVisible()) continue;
@@ -752,8 +765,23 @@ for (const locale of ["fr", "en"]) test(`hero label backgrounds mask links in ev
   await page.evaluate(() => document.fonts.ready);
   await page.clock.pauseAt(new Date(epoch.getTime() + 10000));
   const region = page.locator(".ontology-hero");
-  const background = await page.locator(".hero").evaluate(el => getComputedStyle(el).backgroundColor);
+  const surfaces = region.locator(".onto-geo-desktop .onto-surface");
+  const background = await surfaces.first().evaluate(el => getComputedStyle(el).fill);
+  for (const surface of await surfaces.all()) {
+    await expect(surface).toHaveCSS("fill", background);
+    await expect(surface).toHaveCSS("fill-opacity", "1");
+  }
+  const expectedPlane = await region.locator(".onto-diagram").evaluate(el => {
+    const probe = document.createElement("span");
+    probe.style.color = "color-mix(in srgb,var(--canard),var(--ink) 48%)";
+    el.append(probe);
+    const color = getComputedStyle(probe).color;
+    probe.remove();
+    return color;
+  });
+  expect(background).toBe(expectedPlane);
   expect(background).not.toBe("rgba(0, 0, 0, 0)");
+  const heroBackground = await page.locator(".single-page .hero").evaluate(el => getComputedStyle(el).backgroundColor);
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await expect(region).toHaveAttribute("data-step", "0");
   for (let story = 0; story < HERO_STORIES.length; story++) {
@@ -762,9 +790,15 @@ for (const locale of ["fr", "en"]) test(`hero label backgrounds mask links in ev
     await expect(region).toHaveAttribute("data-step", "4");
     await expect(region.locator(".onto-label")).toHaveCount(33);
     await expect(region.locator(".onto-zone")).toHaveCount(9);
+    for (const label of await region.locator(".onto-label").all()) {
+      await expect(label).toHaveCSS("background-color", background);
+    }
+    for (const zone of await region.locator(".onto-zone").all()) {
+      await expect(zone).toBeVisible();
+      await expect(zone).toHaveCSS("background-color", heroBackground);
+    }
     for (const label of await region.locator(".onto-label, .onto-zone").all()) {
       await expect(label).toBeVisible();
-      await expect(label).toHaveCSS("background-color", background);
       await expect(label).toHaveCSS("text-shadow", "none");
       await expect(label).toHaveCSS("box-shadow", "none");
       await expect(label).toHaveCSS("border-radius", "0px");
