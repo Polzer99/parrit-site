@@ -269,3 +269,28 @@ profil étroit à 800 px à confirmer avec le calendrier réel sur l'hôte.
 quatre tailles, 25 s immobiles puis défilement ; huit contrôles de fontes lentes.
 SDK et iframe Cal servis localement, deny-all inchangé. Textes, `reading.ts`
 et assertions existantes intacts ; géométrie et CLS à rejouer par Claude sur l'hôte.
+
+## Hero trois plans, 29/10/2026
+
+`docs/CODEX-SPEC-2026-10-29-hero-trois-plans.md` remplace les précédents
+contrats du hero, dont `HERO-TABLETTE.md`. Titre expertise/mise au travail,
+trois plans, 33 nœuds et quatre histoires issus des maquettes archivées dans
+`docs/hero-trois-plans/` (sans générateurs Python). À partir de 1200 px :
+légende et carte sous le texte à gauche, schéma dégagé et citation à droite.
+En dessous : bouton pleine largeur, schéma sans libellés de nœuds ni zones,
+plafonné à 560 px, légende puis citation ; H1 mobile 38/43 px.
+Un seul minuteur, étapes 2700 ms, dernière 3600 ms, pause 900 ms ; nettoyage
+hors écran et mouvement réduit restituent l'histoire 1 à l'étape 4.
+Amendement `docs/CODEX-SPEC-2026-10-29-hero-trois-plans-allege.md` : légende
+à deux rangées, une phrase par étape (18/26 px, graisse 600), puis la carte.
+Titre à l'étape 0, étape traduite capitalisée et ponctuée ensuite ; fondu
+250 ms sans déplacement, aucun fondu en mouvement réduit. Les vingt phrases
+et quatre cartes complètes réservent leur hauteur dès le SSR. Plus de liste
+visible ni de pastilles ; les quatre étapes courantes restent dans une liste
+réservée aux lecteurs d'écran, hors mise en page. Fond des libellés et surface
+du plan partagent `--onto-plane`, mélange canard/encre à 48 % d'encre ; les zones
+gardent la couleur de la page, `--canard`.
+Le rose reste au seul bouton ; validation sauge,
+General Sans, aucun rayon ni ombre. Le hero entier tient toujours à 1440×800.
+Les audits typographiques appliquent la nouvelle échelle uniquement au hero ;
+les seuils de stabilité et les contrôles des autres sections restent inchangés.

@@ -136,12 +136,21 @@ for (const width of [1440, 390]) {
           return true;
         };
         const texts: TextBox[] = [];
-        const typography = new Map<Element, { label: string; size: number; passe4Hero: boolean }>();
+        const typography = new Map<Element, { label: string; size: number; heroSize: number | undefined }>();
         const measureType = (element: Element, text: string) => {
           typography.set(element, {
             label: describe(element, text.trim().replace(/\s+/g, " ").slice(0, 40)),
             size: Number.parseFloat(getComputedStyle(element).fontSize),
-            passe4Hero: !!element.closest(".single-page .hero h1"),
+            // Exact 29/10 hero scale, without changing the rest of the site's floor.
+            heroSize: element.closest(".hero h1") ? (innerWidth <= 760 ? 38 : 46)
+              : element.closest(".hero .sub p, .hero .exec") ? (innerWidth < 1200 ? 18 : 19)
+              : element.closest(".onto-label") ? 10.5
+              : element.closest(".onto-zone") ? 9
+              : element.closest(".onto-layer") ? (innerWidth < 1200 ? 9 : 10)
+              : element.closest(".onto-ready") ? 10
+              : element.closest(".onto-approval") ? 13
+              : element.closest(".onto-now") ? 18
+              : element.closest(".onto-result > b") ? 15 : undefined,
           });
         };
         const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
@@ -192,14 +201,11 @@ for (const width of [1440, 390]) {
         const scaleFailures: string[] = [];
         for (const entry of [...typography.values(), ...placeholderType]) {
           const { label, size } = entry;
-          if (!Number.isFinite(size) || size < 16) floorFailures.push(`${size}px: ${label}`);
-          // PASSE-4 §7 replaces only the desktop hero's 88px with >=72px:
-          // its shared wrap and full fit at 1440×800 are checked in single-page.spec.ts.
-          // Keep the 16px floor and every other page's closed scale unchanged.
-          if ("passe4Hero" in entry && entry.passe4Hero && innerWidth > 760) {
-            if (size < 72) scaleFailures.push(`${size}px: ${label}`);
+          if ("heroSize" in entry && entry.heroSize !== undefined) {
+            if (size !== entry.heroSize) scaleFailures.push(`${size}px: ${label}`);
             continue;
           }
+          if (!Number.isFinite(size) || size < 16) floorFailures.push(`${size}px: ${label}`);
           const expected = [...fixedSizes, ...fluidSizes];
           if (!expected.some(value => Math.abs(size - value) <= 0.5)) {
             scaleFailures.push(`${size}px: ${label}`);

@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Hero 07 final</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; width: 1440px; height: 800px; overflow: hidden; background: #006F8A; color: #ffffff; font-family: 'General Sans', system-ui, -apple-system, 'Segoe UI', sans-serif">
+<div style="position: absolute; left: 180px; top: 24px; width: 1080px; display: flex; align-items: center; gap: 24px; font-size: 16px; line-height: 24px">
+<b style="font-size: 18px; letter-spacing: 0.02em">PARRIT.AI</b>
+<span style="flex-grow: 1"></span>
+<span>Applications</span><span>Le parcours</span><span>Services</span><span>L'équipe</span><span>Références</span><span>Contact</span>
+<span style="padding: 12px 24px; border: 1.5px solid #ffffff; font-weight: 600">Parler d'un projet</span>
+</div>
+<div style="position: absolute; left: 180px; top: 112px; width: 430px; display: flex; flex-direction: column; gap: 24px">
+<div style="font-size: 46px; line-height: 52px; font-weight: 500; letter-spacing: -0.01em">Votre expertise est la matière première. <b style="font-weight: 700">Nous la mettons au travail.</b></div>
+<div style="width: 410px; font-size: 19px; line-height: 28px">Vos règles, vos données et vos décisions deviennent des systèmes qui en multiplient l'impact.</div>
+<div style="align-self: flex-start; padding: 18px 30px; background: #F08E85; color: #06262E; font-size: 19px; line-height: 24px; font-weight: 700; border: 2px solid #ffffff">Parlons de votre transformation</div>
+</div>
+<div style="position: absolute; left: 180px; top: 560px; width: 410px; padding-top: 18px; border-top: 1px solid rgba(213,234,239,0.35); display: flex; flex-direction: column; gap: 7px; font-size: 15px; line-height: 21px">
+<b style="font-size: 17px; line-height: 24px; margin-bottom: 2px">{{story.title}}</b>
+<div style="display: flex; gap: 10px; align-items: center; {{c.s0}}"><span style="flex: none; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; background: #ffffff; color: #06262E">1</span><span>{{story.steps.0}}</span></div>
+<div style="display: flex; gap: 10px; align-items: center; {{c.s1}}"><span style="flex: none; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; background: #ffffff; color: #06262E">2</span><span>{{story.steps.1}}</span></div>
+<div style="display: flex; gap: 10px; align-items: center; {{c.s2}}"><span style="flex: none; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; background: #ffffff; color: #06262E">3</span><span>{{story.steps.2}}</span></div>
+<div style="display: flex; gap: 10px; align-items: center; {{c.s3}}"><span style="flex: none; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; background: #ffffff; color: #06262E">4</span><span>{{story.steps.3}}</span></div>
+<div style="margin-top: 8px; display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: #06262E; border: 1px solid #DBE9E1; {{card.style}}">
+<span style="font-size: 10px; color: #D5EAEF; font-family: inherit; letter-spacing: 0.08em; font-weight: 500; white-space: nowrap">PRÊT</span>
+<b style="flex-grow: 1; font-size: 16px">{{card.text}}</b>
+<span style="padding: 3px 12px; background: #DBE9E1; color: #06262E; font-size: 13px; font-weight: 700; {{card.pill}}">{{card.verb}}</span>
+</div>
+</div>
+<svg width="1440" height="800" viewBox="0 0 1440 800" style="position: absolute; left: 0; top: 0; pointer-events: none" aria-hidden="true">
+<polygon points="638,578 968,666 968,675 638,587" fill="#03404F"></polygon>
+<polygon points="968,666 1298,578 1298,587 968,675" fill="#02333F"></polygon>
+<polygon points="968,490 1298,578 968,666 638,578" fill="rgba(4,58,72,0.62)" stroke="rgba(213,234,239,0.55)" stroke-width="1"></polygon>
+<line x1="1009.25" y1="501.0" x2="679.25" y2="589.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="926.75" y1="501.0" x2="1256.75" y2="589.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1050.5" y1="512.0" x2="720.5" y2="600.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="885.5" y1="512.0" x2="1215.5" y2="600.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1091.75" y1="523.0" x2="761.75" y2="611.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="844.25" y1="523.0" x2="1174.25" y2="611.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1133.0" y1="534.0" x2="803.0" y2="622.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="803.0" y1="534.0" x2="1133.0" y2="622.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1174.25" y1="545.0" x2="844.25" y2="633.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="761.75" y1="545.0" x2="1091.75" y2="633.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1215.5" y1="556.0" x2="885.5" y2="644.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="720.5" y1="556.0" x2="1050.5" y2="644.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1256.75" y1="567.0" x2="926.75" y2="655.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="679.25" y1="567.0" x2="1009.25" y2="655.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="836.0" y1="536.2" x2="836.0" y2="382.0" style="{{l.up_mails_client}}"></line>
+<line x1="836.0" y1="536.2" x2="712.2" y2="382.0" style="{{l.up_mails_recl}}"></line>
+<line x1="712.2" y1="578.0" x2="1100.0" y2="423.8" style="{{l.up_cr_action}}"></line>
+<line x1="836.0" y1="578.0" x2="968.0" y2="382.0" style="{{l.up_factures_facture}}"></line>
+<line x1="836.0" y1="578.0" x2="968.0" y2="340.2" style="{{l.up_factures_paiement}}"></line>
+<line x1="836.0" y1="619.8" x2="968.0" y2="423.8" style="{{l.up_contrats_contrat}}"></line>
+<line x1="968.0" y1="536.2" x2="836.0" y2="423.8" style="{{l.up_cgv_commande}}"></line>
+<line x1="968.0" y1="536.2" x2="836.0" y2="340.2" style="{{l.up_cgv_devis}}"></line>
+<line x1="968.0" y1="578.0" x2="968.0" y2="382.0" style="{{l.up_echeances_facture}}"></line>
+<line x1="968.0" y1="578.0" x2="968.0" y2="340.2" style="{{l.up_echeances_paiement}}"></line>
+<line x1="968.0" y1="619.8" x2="968.0" y2="423.8" style="{{l.up_procedures_contrat}}"></line>
+<line x1="968.0" y1="619.8" x2="1100.0" y2="423.8" style="{{l.up_procedures_action}}"></line>
+<line x1="1100.0" y1="536.2" x2="836.0" y2="382.0" style="{{l.up_messagerie_client}}"></line>
+<line x1="1100.0" y1="578.0" x2="836.0" y2="423.8" style="{{l.up_erp_commande}}"></line>
+<line x1="1100.0" y1="578.0" x2="1100.0" y2="340.2" style="{{l.up_erp_fournisseur}}"></line>
+<line x1="1100.0" y1="578.0" x2="1223.8" y2="382.0" style="{{l.up_erp_stock}}"></line>
+<line x1="1223.8" y1="578.0" x2="1100.0" y2="382.0" style="{{l.up_agenda_equipe}}"></line>
+<line x1="1100.0" y1="619.8" x2="968.0" y2="423.8" style="{{l.up_ged_contrat}}"></line>
+<line x1="712.2" y1="578.0" x2="1100.0" y2="382.0" style="{{l.up_cr_equipe}}"></line>
+<polygon points="638,382 968,470 968,479 638,391" fill="#03404F"></polygon>
+<polygon points="968,470 1298,382 1298,391 968,479" fill="#02333F"></polygon>
+<polygon points="968,294 1298,382 968,470 638,382" fill="rgba(4,58,72,0.62)" stroke="rgba(213,234,239,0.55)" stroke-width="1"></polygon>
+<line x1="1009.25" y1="305.0" x2="679.25" y2="393.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="926.75" y1="305.0" x2="1256.75" y2="393.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1050.5" y1="316.0" x2="720.5" y2="404.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="885.5" y1="316.0" x2="1215.5" y2="404.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1091.75" y1="327.0" x2="761.75" y2="415.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="844.25" y1="327.0" x2="1174.25" y2="415.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1133.0" y1="338.0" x2="803.0" y2="426.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="803.0" y1="338.0" x2="1133.0" y2="426.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1174.25" y1="349.0" x2="844.25" y2="437.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="761.75" y1="349.0" x2="1091.75" y2="437.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1215.5" y1="360.0" x2="885.5" y2="448.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="720.5" y1="360.0" x2="1050.5" y2="448.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1256.75" y1="371.0" x2="926.75" y2="459.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="679.25" y1="371.0" x2="1009.25" y2="459.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="836.0" y1="382.0" x2="836.0" y2="340.2" style="{{l.rel_client_devis}}"></line>
+<line x1="836.0" y1="382.0" x2="836.0" y2="423.8" style="{{l.rel_client_commande}}"></line>
+<line x1="836.0" y1="382.0" x2="712.2" y2="382.0" style="{{l.rel_client_recl}}"></line>
+<line x1="836.0" y1="423.8" x2="968.0" y2="382.0" style="{{l.rel_commande_facture}}"></line>
+<line x1="968.0" y1="382.0" x2="968.0" y2="340.2" style="{{l.rel_facture_paiement}}"></line>
+<line x1="836.0" y1="382.0" x2="968.0" y2="382.0" style="{{l.rel_client_facture}}"></line>
+<line x1="968.0" y1="423.8" x2="836.0" y2="382.0" style="{{l.rel_contrat_client}}"></line>
+<line x1="968.0" y1="423.8" x2="1100.0" y2="340.2" style="{{l.rel_contrat_fournisseur}}"></line>
+<line x1="1100.0" y1="340.2" x2="1223.8" y2="382.0" style="{{l.rel_fournisseur_stock}}"></line>
+<line x1="836.0" y1="423.8" x2="1223.8" y2="382.0" style="{{l.rel_commande_stock}}"></line>
+<line x1="1100.0" y1="382.0" x2="1100.0" y2="423.8" style="{{l.rel_equipe_action}}"></line>
+<line x1="1100.0" y1="423.8" x2="836.0" y2="382.0" style="{{l.rel_action_client}}"></line>
+<line x1="1100.0" y1="382.0" x2="968.0" y2="423.8" style="{{l.rel_equipe_contrat}}"></line>
+<line x1="836.0" y1="340.2" x2="836.0" y2="423.8" style="{{l.rel_devis_commande}}"></line>
+<line x1="836.0" y1="382.0" x2="836.0" y2="186.0" style="{{l.top_client_rep}}"></line>
+<line x1="836.0" y1="382.0" x2="836.0" y2="227.8" style="{{l.top_client_ast}}"></line>
+<line x1="1100.0" y1="423.8" x2="836.0" y2="144.2" style="{{l.top_action_syn}}"></line>
+<line x1="968.0" y1="423.8" x2="712.2" y2="186.0" style="{{l.top_contrat_rech}}"></line>
+<line x1="968.0" y1="340.2" x2="968.0" y2="144.2" style="{{l.top_paiement_treso}}"></line>
+<line x1="968.0" y1="382.0" x2="968.0" y2="227.8" style="{{l.top_facture_retards}}"></line>
+<line x1="968.0" y1="423.8" x2="968.0" y2="186.0" style="{{l.top_contrat_ecarts}}"></line>
+<line x1="968.0" y1="382.0" x2="1100.0" y2="144.2" style="{{l.top_facture_relances}}"></line>
+<line x1="1100.0" y1="423.8" x2="1223.8" y2="186.0" style="{{l.top_action_suivi}}"></line>
+<line x1="968.0" y1="382.0" x2="1100.0" y2="186.0" style="{{l.top_facture_saisie}}"></line>
+<line x1="836.0" y1="423.8" x2="1100.0" y2="227.8" style="{{l.top_commande_majerp}}"></line>
+<line x1="1223.8" y1="382.0" x2="1100.0" y2="227.8" style="{{l.top_stock_majerp}}"></line>
+<line x1="712.2" y1="382.0" x2="836.0" y2="186.0" style="{{l.top_recl_rep}}"></line>
+<polygon points="638,186 968,274 968,283 638,195" fill="#03404F"></polygon>
+<polygon points="968,274 1298,186 1298,195 968,283" fill="#02333F"></polygon>
+<polygon points="968,98 1298,186 968,274 638,186" fill="rgba(4,58,72,0.62)" stroke="rgba(213,234,239,0.55)" stroke-width="1"></polygon>
+<line x1="1009.25" y1="109.0" x2="679.25" y2="197.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="926.75" y1="109.0" x2="1256.75" y2="197.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1050.5" y1="120.0" x2="720.5" y2="208.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="885.5" y1="120.0" x2="1215.5" y2="208.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1091.75" y1="131.0" x2="761.75" y2="219.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="844.25" y1="131.0" x2="1174.25" y2="219.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1133.0" y1="142.0" x2="803.0" y2="230.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="803.0" y1="142.0" x2="1133.0" y2="230.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1174.25" y1="153.0" x2="844.25" y2="241.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="761.75" y1="153.0" x2="1091.75" y2="241.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1215.5" y1="164.0" x2="885.5" y2="252.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="720.5" y1="164.0" x2="1050.5" y2="252.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="1256.75" y1="175.0" x2="926.75" y2="263.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+<line x1="679.25" y1="175.0" x2="1009.25" y2="263.0" stroke="rgba(213,234,239,0.07)" stroke-width="1"></line>
+</svg>
+<div style="position: absolute; left: 766.0px; top: 132.2px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.syn}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="3" y="4" width="12" height="11" fill="currentColor"/><rect x="6" y="8" width="2" height="3.5" fill="var(--g)"/><rect x="10" y="8" width="2" height="3.5" fill="var(--g)"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Synthèse de réunion</span></div>
+<div style="position: absolute; left: 642.2px; top: 174.0px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.rech}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="3" y="4" width="12" height="11" fill="currentColor"/><rect x="6" y="8" width="2" height="3.5" fill="var(--g)"/><rect x="10" y="8" width="2" height="3.5" fill="var(--g)"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Recherche documentaire</span></div>
+<div style="position: absolute; left: 766.0px; top: 174.0px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.rep}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="3" y="4" width="12" height="11" fill="currentColor"/><rect x="6" y="8" width="2" height="3.5" fill="var(--g)"/><rect x="10" y="8" width="2" height="3.5" fill="var(--g)"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Réponse client</span></div>
+<div style="position: absolute; left: 766.0px; top: 215.8px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.ast}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="3" y="4" width="12" height="11" fill="currentColor"/><rect x="6" y="8" width="2" height="3.5" fill="var(--g)"/><rect x="10" y="8" width="2" height="3.5" fill="var(--g)"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Assistant e-mails</span></div>
+<div style="position: absolute; left: 898.0px; top: 132.2px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.treso}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 15V9M8 15V5M12 15v-4M15 15H3" stroke="currentColor" stroke-width="1.5"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Trésorerie</span></div>
+<div style="position: absolute; left: 898.0px; top: 174.0px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.ecarts}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 15V9M8 15V5M12 15v-4M15 15H3" stroke="currentColor" stroke-width="1.5"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Écarts de contrat</span></div>
+<div style="position: absolute; left: 898.0px; top: 215.8px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.retards}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 15V9M8 15V5M12 15v-4M15 15H3" stroke="currentColor" stroke-width="1.5"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Retards de paiement</span></div>
+<div style="position: absolute; left: 1030.0px; top: 132.2px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.relances}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="3" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M9 2.5v2.5M9 13v2.5M2.5 9H5M13 9h2.5M4.4 4.4l1.8 1.8M11.8 11.8l1.8 1.8M4.4 13.6l1.8-1.8M11.8 6.2l1.8-1.8" stroke="currentColor" stroke-width="1.3"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Relances</span></div>
+<div style="position: absolute; left: 1153.8px; top: 174.0px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.suivi}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="3" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M9 2.5v2.5M9 13v2.5M2.5 9H5M13 9h2.5M4.4 4.4l1.8 1.8M11.8 11.8l1.8 1.8M4.4 13.6l1.8-1.8M11.8 6.2l1.8-1.8" stroke="currentColor" stroke-width="1.3"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Suivi des actions</span></div>
+<div style="position: absolute; left: 1030.0px; top: 174.0px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.saisie}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="3" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M9 2.5v2.5M9 13v2.5M2.5 9H5M13 9h2.5M4.4 4.4l1.8 1.8M11.8 11.8l1.8 1.8M4.4 13.6l1.8-1.8M11.8 6.2l1.8-1.8" stroke="currentColor" stroke-width="1.3"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Saisie des factures</span></div>
+<div style="position: absolute; left: 1030.0px; top: 215.8px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.majerp}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="3" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M9 2.5v2.5M9 13v2.5M2.5 9H5M13 9h2.5M4.4 4.4l1.8 1.8M11.8 11.8l1.8 1.8M4.4 13.6l1.8-1.8M11.8 6.2l1.8-1.8" stroke="currentColor" stroke-width="1.3"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Mise à jour ERP</span></div>
+<div style="position: absolute; left: 766.0px; top: 328.2px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.devis}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3l5.5 3v6L9 15l-5.5-3V6z M3.5 6L9 9l5.5-3 M9 9v6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Devis</span></div>
+<div style="position: absolute; left: 642.2px; top: 370.0px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.recl}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3l5.5 3v6L9 15l-5.5-3V6z M3.5 6L9 9l5.5-3 M9 9v6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Réclamation</span></div>
+<div style="position: absolute; left: 766.0px; top: 370.0px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.client}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="6.5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4 15c.6-3 2.6-4.5 5-4.5s4.4 1.5 5 4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Client</span></div>
+<div style="position: absolute; left: 766.0px; top: 411.8px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.commande}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3l5.5 3v6L9 15l-5.5-3V6z M3.5 6L9 9l5.5-3 M9 9v6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Commande</span></div>
+<div style="position: absolute; left: 898.0px; top: 328.2px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.paiement}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3l5.5 3v6L9 15l-5.5-3V6z M3.5 6L9 9l5.5-3 M9 9v6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Paiement</span></div>
+<div style="position: absolute; left: 898.0px; top: 370.0px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.facture}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3l5.5 3v6L9 15l-5.5-3V6z M3.5 6L9 9l5.5-3 M9 9v6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Facture</span></div>
+<div style="position: absolute; left: 898.0px; top: 411.8px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.contrat}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3l5.5 3v6L9 15l-5.5-3V6z M3.5 6L9 9l5.5-3 M9 9v6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Contrat</span></div>
+<div style="position: absolute; left: 1030.0px; top: 328.2px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.fournisseur}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="6.5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4 15c.6-3 2.6-4.5 5-4.5s4.4 1.5 5 4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Fournisseur</span></div>
+<div style="position: absolute; left: 1153.8px; top: 370.0px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.stock}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3l5.5 3v6L9 15l-5.5-3V6z M3.5 6L9 9l5.5-3 M9 9v6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Stock</span></div>
+<div style="position: absolute; left: 1030.0px; top: 370.0px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.equipe}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="6.5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4 15c.6-3 2.6-4.5 5-4.5s4.4 1.5 5 4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Équipe</span></div>
+<div style="position: absolute; left: 1030.0px; top: 411.8px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.action}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3l5.5 3v6L9 15l-5.5-3V6z M3.5 6L9 9l5.5-3 M9 9v6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Action</span></div>
+<div style="position: absolute; left: 766.0px; top: 524.2px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.mails}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="3" y="5" width="12" height="9" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M3 5l6 5 6-5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">E-mails</span></div>
+<div style="position: absolute; left: 642.2px; top: 566.0px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.cr}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3h6l3 3v9H5z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M7 9h5M7 12h5" stroke="currentColor" stroke-width="1.1"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Comptes rendus</span></div>
+<div style="position: absolute; left: 766.0px; top: 566.0px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.factures}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3h6l3 3v9H5z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M7 9h5M7 12h5" stroke="currentColor" stroke-width="1.1"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Factures</span></div>
+<div style="position: absolute; left: 766.0px; top: 607.8px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.contrats}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3h6l3 3v9H5z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M7 9h5M7 12h5" stroke="currentColor" stroke-width="1.1"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Contrats</span></div>
+<div style="position: absolute; left: 898.0px; top: 524.2px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.cgv}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 5h10M4 9h10M4 13h6" stroke="currentColor" stroke-width="1.4"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Conditions générales</span></div>
+<div style="position: absolute; left: 898.0px; top: 566.0px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.echeances}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 5h10M4 9h10M4 13h6" stroke="currentColor" stroke-width="1.4"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Échéances</span></div>
+<div style="position: absolute; left: 898.0px; top: 607.8px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.procedures}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 5h10M4 9h10M4 13h6" stroke="currentColor" stroke-width="1.4"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Procédures</span></div>
+<div style="position: absolute; left: 1030.0px; top: 524.2px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.messagerie}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="4" y="4" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="7.5" y="7.5" width="3" height="3" fill="currentColor"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Messagerie</span></div>
+<div style="position: absolute; left: 1153.8px; top: 566.0px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.agenda}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="3.5" y="5" width="11" height="9.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M3.5 8h11M6.5 3v3M11.5 3v3" stroke="currentColor" stroke-width="1.3"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Agenda</span></div>
+<div style="position: absolute; left: 1030.0px; top: 566.0px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.erp}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="4" y="4" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="7.5" y="7.5" width="3" height="3" fill="currentColor"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">ERP</span></div>
+<div style="position: absolute; left: 1030.0px; top: 607.8px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px; {{k.ged}}"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid currentColor; background: var(--b); color: var(--g0)"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="4" y="4" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="7.5" y="7.5" width="3" height="3" fill="currentColor"/></svg></span><span style="font-size: 10.5px; line-height: 12px; white-space: nowrap; text-shadow: 0 0 3px #04394A, 0 0 3px #04394A">Gestion documentaire</span></div>
+<div style="position: absolute; left: 597.75px; top: 137.0px; width: 150px; text-align: right; font-size: 8.5px; line-height: 10px; color: rgba(213,234,239,0.78); font-family: inherit; letter-spacing: 0.08em; font-weight: 500; white-space: nowrap">ASSISTANTS ET RÉDACTION</div>
+<div style="position: absolute; left: 893.0px; top: 82.0px; width: 150px; text-align: center; font-size: 8.5px; line-height: 10px; color: rgba(213,234,239,0.78); font-family: inherit; letter-spacing: 0.08em; font-weight: 500; white-space: nowrap">ANALYSES</div>
+<div style="position: absolute; left: 1188.25px; top: 137.0px; width: 150px; text-align: left; font-size: 8.5px; line-height: 10px; color: rgba(213,234,239,0.78); font-family: inherit; letter-spacing: 0.08em; font-weight: 500; white-space: nowrap">AUTOMATISATIONS ET AGENTS</div>
+<div style="position: absolute; left: 597.75px; top: 333.0px; width: 150px; text-align: right; font-size: 8.5px; line-height: 10px; color: rgba(213,234,239,0.78); font-family: inherit; letter-spacing: 0.08em; font-weight: 500; white-space: nowrap">COMMERCIAL</div>
+<div style="position: absolute; left: 893.0px; top: 278.0px; width: 150px; text-align: center; font-size: 8.5px; line-height: 10px; color: rgba(213,234,239,0.78); font-family: inherit; letter-spacing: 0.08em; font-weight: 500; white-space: nowrap">FINANCE ET JURIDIQUE</div>
+<div style="position: absolute; left: 1188.25px; top: 333.0px; width: 150px; text-align: left; font-size: 8.5px; line-height: 10px; color: rgba(213,234,239,0.78); font-family: inherit; letter-spacing: 0.08em; font-weight: 500; white-space: nowrap">OPÉRATIONS ET ÉQUIPES</div>
+<div style="position: absolute; left: 597.75px; top: 529.0px; width: 150px; text-align: right; font-size: 8.5px; line-height: 10px; color: rgba(213,234,239,0.78); font-family: inherit; letter-spacing: 0.08em; font-weight: 500; white-space: nowrap">SOURCES DE DONNÉES</div>
+<div style="position: absolute; left: 893.0px; top: 474.0px; width: 150px; text-align: center; font-size: 8.5px; line-height: 10px; color: rgba(213,234,239,0.78); font-family: inherit; letter-spacing: 0.08em; font-weight: 500; white-space: nowrap">SOURCES DE LOGIQUE</div>
+<div style="position: absolute; left: 1188.25px; top: 529.0px; width: 150px; text-align: left; font-size: 8.5px; line-height: 10px; color: rgba(213,234,239,0.78); font-family: inherit; letter-spacing: 0.08em; font-weight: 500; white-space: nowrap">SYSTÈMES D'ACTION</div>
+<div style="position: absolute; left: 1312px; top: 172px; width: 120px; font-size: 10px; line-height: 13px; color: #ffffff"><b style="font-family: inherit; letter-spacing: 0.08em; font-weight: 500">ANALYSES · SOLUTIONS</b><br><span style="color: #D5EAEF">ce que vous obtenez</span></div>
+<div style="position: absolute; left: 1312px; top: 368px; width: 120px; font-size: 10px; line-height: 13px; color: #ffffff"><b style="font-family: inherit; letter-spacing: 0.08em; font-weight: 500">ONTOLOGIE</b><br><span style="color: #D5EAEF">votre entreprise en objets reliés</span></div>
+<div style="position: absolute; left: 1312px; top: 564px; width: 120px; font-size: 10px; line-height: 13px; color: #ffffff"><b style="font-family: inherit; letter-spacing: 0.08em; font-weight: 500">SOURCES</b><br><span style="color: #D5EAEF">ce que vous avez déjà</span></div>
+<div style="position: absolute; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: #ffffff; color: #06262E; outline: 2px solid #006F8A; {{b.s0}}">1</div>
+<div style="position: absolute; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: #ffffff; color: #06262E; outline: 2px solid #006F8A; {{b.s1}}">2</div>
+<div style="position: absolute; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: #ffffff; color: #06262E; outline: 2px solid #006F8A; {{b.s2}}">3</div>
+<div style="position: absolute; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: #ffffff; color: #06262E; outline: 2px solid #006F8A; {{b.s3}}">4</div>
+<div style="position: absolute; left: 660px; top: 716px; width: 620px; font-size: 14px; line-height: 21px; color: #D5EAEF">« La donnée est le nouveau pétrole », disait Clive Humby en 2006. Brute, elle ne sert à rien : nous la raffinons.</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"stepMs":{"editor":"int","default":2700,"min":1500,"max":6000,"unit":"ms"},"$preview":{"width":1440,"height":800}}'>
+class Component extends DCLogic {
+constructor(props) { super(props); this.state = { story: 0, step: 0 }; }
+componentDidMount() {
+this.tick = () => {
+const next = this.state.step + 1;
+if (next > 4) this.setState({ story: (this.state.story + 1) % 4, step: 0 });
+else this.setState({ step: next });
+this.timer = setTimeout(this.tick, next > 4 ? 900 : (next === 4 ? 3600 : (this.props.stepMs ?? 2700)));
+};
+this.timer = setTimeout(this.tick, this.props.stepMs ?? 2700);
+}
+componentWillUnmount() { clearTimeout(this.timer); }
+renderVals() {
+const G = {"pos": {"syn": [836.0, 144.2], "rech": [712.2, 186.0], "rep": [836.0, 186.0], "ast": [836.0, 227.8], "treso": [968.0, 144.2], "ecarts": [968.0, 186.0], "retards": [968.0, 227.8], "relances": [1100.0, 144.2], "suivi": [1223.8, 186.0], "saisie": [1100.0, 186.0], "majerp": [1100.0, 227.8], "devis": [836.0, 340.2], "recl": [712.2, 382.0], "client": [836.0, 382.0], "commande": [836.0, 423.8], "paiement": [968.0, 340.2], "facture": [968.0, 382.0], "contrat": [968.0, 423.8], "fournisseur": [1100.0, 340.2], "stock": [1223.8, 382.0], "equipe": [1100.0, 382.0], "action": [1100.0, 423.8], "mails": [836.0, 536.2], "cr": [712.2, 578.0], "factures": [836.0, 578.0], "contrats": [836.0, 619.8], "cgv": [968.0, 536.2], "echeances": [968.0, 578.0], "procedures": [968.0, 619.8], "messagerie": [1100.0, 536.2], "agenda": [1223.8, 578.0], "erp": [1100.0, 578.0], "ged": [1100.0, 619.8]}, "plane": {"syn": "top", "rech": "top", "rep": "top", "ast": "top", "treso": "top", "ecarts": "top", "retards": "top", "relances": "top", "suivi": "top", "saisie": "top", "majerp": "top", "devis": "mid", "recl": "mid", "client": "mid", "commande": "mid", "paiement": "mid", "facture": "mid", "contrat": "mid", "fournisseur": "mid", "stock": "mid", "equipe": "mid", "action": "mid", "mails": "bot", "cr": "bot", "factures": "bot", "contrats": "bot", "cgv": "bot", "echeances": "bot", "procedures": "bot", "messagerie": "bot", "agenda": "bot", "erp": "bot", "ged": "bot"}, "lines": ["up_mails_client", "up_mails_recl", "up_cr_action", "up_factures_facture", "up_factures_paiement", "up_contrats_contrat", "up_cgv_commande", "up_cgv_devis", "up_echeances_facture", "up_echeances_paiement", "up_procedures_contrat", "up_procedures_action", "up_messagerie_client", "up_erp_commande", "up_erp_fournisseur", "up_erp_stock", "up_agenda_equipe", "up_ged_contrat", "up_cr_equipe", "rel_client_devis", "rel_client_commande", "rel_client_recl", "rel_commande_facture", "rel_facture_paiement", "rel_client_facture", "rel_contrat_client", "rel_contrat_fournisseur", "rel_fournisseur_stock", "rel_commande_stock", "rel_equipe_action", "rel_action_client", "rel_equipe_contrat", "rel_devis_commande", "top_client_rep", "top_client_ast", "top_action_syn", "top_contrat_rech", "top_paiement_treso", "top_facture_retards", "top_contrat_ecarts", "top_facture_relances", "top_action_suivi", "top_facture_saisie", "top_commande_majerp", "top_stock_majerp", "top_recl_rep"]};
+const stories = [
+{ title: "Un client attend une réponse", d: "mails", o1: "client", o2: "commande", rel: "rel_client_commande", r: "cgv", rl: "up_cgv_commande", out: "rep", top: "top_client_rep", result: "Réponse prête", act: "messagerie", al: "up_messagerie_client", verb: "Vous validez", side: "right", steps: ["un client écrit", "le système le relie à sa commande", "un agent applique vos conditions", "vous validez, la réponse part"] },
+{ title: "Une facture n'est pas payée", d: "factures", o1: "facture", o2: "client", rel: "rel_client_facture", r: "echeances", rl: "up_echeances_facture", out: "relances", top: "top_facture_relances", result: "Relance prête", act: "messagerie", al: "up_messagerie_client", verb: "Vous validez", side: "left", steps: ["la facture est échue", "le système la relie au client", "un agent applique vos échéances", "vous validez, la relance part"] },
+{ title: "Un contrat arrive", d: "contrats", o1: "contrat", o2: "fournisseur", rel: "rel_contrat_fournisseur", r: "procedures", rl: "up_procedures_contrat", out: "ecarts", top: "top_contrat_ecarts", result: "Écarts signalés", act: "erp", al: "up_erp_fournisseur", verb: "Vous décidez", side: "right", steps: ["le contrat est reçu", "le système le relie au fournisseur", "un agent le compare à vos procédures", "vous décidez, l'ERP est à jour"] },
+{ title: "La réunion se termine", d: "cr", o1: "action", o2: "equipe", rel: "rel_equipe_action", r: "procedures", rl: "up_procedures_action", out: "suivi", top: "top_action_suivi", result: "Qui fait quoi, pour quand", act: "agenda", al: "up_agenda_equipe", verb: "Vous validez", side: "left", steps: ["la réunion se termine", "le système relie actions et équipe", "un agent suit vos procédures", "vous validez, l'agenda est à jour"] }
+];
+const s = stories[this.state.story];
+const step = this.state.step;
+const T = "transition: color .35s, opacity .35s;";
+const idle = "color: rgba(213,234,239,0.78); --b: #0A4F61; --g0: rgba(213,234,239,0.85); --g: #0A4F61; " + T;
+const lit = "color: #ffffff; font-weight: 600; --b: #ffffff; --g0: #06262E; --g: #ffffff; " + T;
+const rose = "color: #ffffff; font-weight: 600; --b: #ffffff; --g0: #06262E; --g: #ffffff; " + T;
+const sauge = "color: #ffffff; font-weight: 600; --b: #DBE9E1; --g0: #06262E; --g: #DBE9E1; " + T;
+const k = {};
+Object.keys(G.pos).forEach(id => { k[id] = idle; });
+if (step >= 1) { k[s.d] = lit; k[s.o1] = lit; }
+if (step >= 2) { k[s.o2] = lit; }
+if (step >= 3) { k[s.r] = lit; k[s.out] = sauge; }
+if (step >= 4) { k[s.act] = rose; }
+const faint = "stroke: rgba(213,234,239,0.22); stroke-width: 0.8; transition: stroke .35s, stroke-width .35s;";
+const bright = "stroke: #ffffff; stroke-width: 2.6; transition: stroke .35s, stroke-width .35s;";
+const pink = "stroke: #ffffff; stroke-width: 2.2; transition: stroke .35s, stroke-width .35s;";
+const l = {};
+G.lines.forEach(id => { l[id] = faint; });
+if (step >= 1) l["up_" + s.d + "_" + s.o1] = bright;
+if (step >= 2) l[s.rel] = bright;
+if (step >= 3) { l[s.rl] = bright; l[s.top] = bright; }
+if (step >= 4) l[s.al] = pink;
+const at = [s.d, s.o2, s.out, s.act];
+const b = {};
+at.forEach((id, i) => { const p = G.pos[id]; b["s" + i] = "left: " + (p[0] - 38) + "px; top: " + (p[1] - 11) + "px; opacity: " + (step >= i + 1 ? 1 : 0) + "; transition: opacity .35s;"; });
+const card = { text: s.result, verb: s.verb, style: "opacity: " + (step >= 3 ? 1 : 0) + "; transition: opacity .35s;", pill: "opacity: " + (step >= 4 ? 1 : 0) + "; transition: opacity .35s;" };
+const cap = (i) => step >= i + 1 ? (step === i + 1 || (i === 3 && step >= 4) ? "color: #ffffff; font-weight: 700;" : "color: #ffffff;") : "color: rgba(213,234,239,0.45);";
+const c = { s0: cap(0), s1: cap(1), s2: cap(2), s3: cap(3) };
+return { story: s, k, l, card, b, c };
+}
+}
+</script>
+</body>
+</html>

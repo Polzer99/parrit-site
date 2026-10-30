@@ -1,3 +1,64 @@
+## Hero trois plans, 29/10/2026
+
+Source : `docs/CODEX-SPEC-2026-10-29-hero-trois-plans.md`, maquette finale et
+quatre autres références copiées sans modification dans `docs/hero-trois-plans/`.
+Branche fournie : `codex/docs-CODEX-SPEC-2026-10-29-hero-trois-plans-md`,
+baseline `c1ae39d5b5150fd9db8597c011a9adeed0eac762` (127/127 tests Node et
+build Webpack réussis dans une copie isolée). La spec non suivie préexistante
+est conservée. Écriture locale réversible uniquement, aucun système client,
+aucune donnée métier ; sauvegarde Git baseline, aucun commit/push/déploiement.
+
+Nouveau titre, phrase, OG ; `ontology-hero-data.ts` reprend nœuds, positions,
+liens et histoires du générateur, `OntologyGlyph.tsx` ses vecteurs. Un seul
+SVG et 33 nœuds HTML, géométrie CSS avant hydratation ; deux colonnes dès
+1200 px, disposition empilée en dessous. Libellés de nœuds 10,5 px ordinateur,
+zone 9 px minimum et largeur intrinsèque pour éviter la découpe à gauche.
+Le résultat est dans la légende ; seul le CTA reste rose. Rotation avec un
+seul timeout (2700/3600/900 ms), arrêt via `useMotionOnView`, état statique
+histoire 1/étape 4. Amendement allégé du 29/10 : deux rangées en sous-grille,
+une phrase (titre à l'étape 0, étape traduite capitalisée avec point ensuite),
+puis carte. Les vingt phrases et quatre cartes complètes réservent la hauteur
+dès le SSR ; texte 18/26 px en 600, fondu d'opacité 250 ms seulement à l'écran,
+aucun fondu en mouvement réduit. Plus de liste visible ni de pastilles ; liste
+ordonnée courante `sr-only` hors flux. `--onto-plane` partage le mélange
+canard/encre (48 % d'encre) entre surface opaque et fond des libellés.
+
+Amendement : `docs/CODEX-SPEC-2026-10-29-hero-trois-plans-allege.md`, branche
+fournie inchangée, baseline `5d25a54a408818d73718ee872d4292c66939bfac` : lint,
+134/134 tests Node et build Webpack réussis avant modification. Périmètre :
+composant/CSS du hero, tests associés et ces trois documents ; fichiers locaux
+réversibles, sauvegarde Git baseline, aucune donnée métier (0 ligne), aucun
+commit ni push. Boucle : implémentation, revue indépendante, correction et
+batterie demandée ; arrêt si même blocage d'environnement répété.
+Validation allégée : lint, 134/134 tests Node, build Webpack et contrôle marque
+réussis ; revue indépendante sans défaut concret. Les tests Node lisent le
+build compilé : exécution finale après le build (un essai concurrent avait
+rencontré `.next/required-server-files.json` absent pendant sa régénération).
+196 tests Playwright recensés dans les trois specs modifiées ; géométrie,
+fondu et couleurs calculées non validés ici, serveur local refusé par le
+sandbox (`listen EPERM 127.0.0.1:3210`). `tests/stabilite.spec.ts` inchangé,
+aucun seuil assoupli. Context7 limité par quota ; guide local Next consulté.
+
+Validation initiale du hero complet (avant amendement allégé) : npm ci hors
+réseau via cache local, lint, TypeScript, build
+Webpack, 131/131 tests Node, marque/claims et 19/19 Brand OS réussis.
+Les sections après le hero ont un HTML serveur strictement identique à la
+baseline FR/EN. `stabilite.spec.ts` est inchangé (tous seuils conservés).
+Les tests du hero couvrent plans/nœuds/histoires, anonymat, toutes les étapes,
+liens et durées, un seul timer, nettoyage/redémarrage, géométrie de chaque
+rangée, couleurs et débordements de 360 à 1440 px. Les audits aération et
+lisibilité appliquent les nouvelles tailles uniquement aux éléments du hero.
+
+Limites de preuve : Context7 refuse les requêtes (quota), documentation locale
+Next 16.3.4 consultée. Turbopack interrompu après 90 s sans progression.
+Serveur local refusé (`listen EPERM 127.0.0.1:3210`) et Chromium arrêté avant
+navigation (`MachPortRendezvous`, permission denied, SIGTRAP). 163 tests
+Playwright single-page/stabilité recensés ; 387 dans la batterie réseau,
+non validés ici. Géométrie rendue, captures 1440/375 et CLS : UNKNOWN, à
+rejouer sur l'hôte. Aucun assouplissement pour masquer cette absence de preuve.
+Boucle bornée : implémentation, revue indépendante, correction, vérification ;
+arrêt des tentatives navigateur après constat du blocage d'environnement.
+
 ## Page stable, 28/10/2026
 
 Correctif suivant, demandé après mesure hôte : General Sans 400/500/600 passe

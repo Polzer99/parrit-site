@@ -20,16 +20,15 @@ export function SinglePage({ locale }: { locale: Locale }) {
 
 
 <section className="hero"><div className="wrap">
-  <div className="grid">
-    <h1>{t("Nous allons à la frontière du possible,")}{" "}<b>{t("puis nous le livrons à nos clients.")}</b></h1>
-    <div className="sub">
-      <p>{t("Votre expertise est la matière première. Nous en faisons des systèmes qui en multiplient l'impact.")}</p>
-      <div className="actions" style={{"marginTop": "0"}}><a className="btn rev-button exec" href="#contact">{t("Parlons de votre transformation")}</a></div>
+  <OntologyHero locale={locale}>
+    <div className="hero-intro">
+      <h1>{t("Votre expertise est la matière première.")}{" "}<b>{t("Nous la mettons au travail.")}</b></h1>
+      <div className="sub">
+        <p>{t("Vos règles, vos données et vos décisions deviennent des systèmes qui en multiplient l'impact.")}</p>
+        <div className="actions"><a className="btn rev-button exec" href="#contact">{t("Parlons de votre transformation")}</a></div>
+      </div>
     </div>
-  </div>
-  <OntologyHero locale={locale}/>
-  {/* Attribution de la citation courte : https://ico.org.uk/for-the-public/ico-40/data-as-a-commodity/ */}
-  <p className="humby">{t("« La donnée est le nouveau pétrole », disait Clive Humby en 2006. Brute, elle ne sert à rien : nous la raffinons.")}</p>
+  </OntologyHero>
 </div></section>
 
 <TechnologyBand locale={locale}/>

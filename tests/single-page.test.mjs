@@ -7,6 +7,36 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
 const anchors = { fr: ["technologies", "en-production", "ce-qui-change", "parcours", "services", "partenaires", "references", "contact"], en: ["technologies", "in-production", "what-changes", "path", "services", "team", "references", "contact"] };
+function heroGeometries(html) {
+  return [...html.matchAll(/<g class="onto-geo onto-geo-(desktop|compact)">([\s\S]*?)(?=<g class="onto-geo |<\/svg>)/g)];
+}
+
+test("hero paths never depend on CSS d or responsive path variables", () => {
+  const css = readFileSync("src/system/single-page.css", "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+  assert.doesNotMatch(css, /(?:^|[;{])\s*d\s*:/i);
+  assert.doesNotMatch(css, /--(?:desktop|compact)-path/);
+});
+
+for (const locale of ["fr", "en"]) test(`both SVG geometries have static path attributes in SSR (${locale})`, async () => {
+  const html = await renderPage(locale);
+  assert.doesNotMatch(html, /--(?:desktop|compact)-path/);
+  const groups = heroGeometries(html);
+  assert.deepEqual(groups.map(group => group[1]), ["desktop", "compact"]);
+  const paths = groups.map(([, , markup]) => {
+    const elements = [...markup.matchAll(/<path\b[^>]*>/g)].map(match => match[0]);
+    assert.ok(elements.length > 0);
+    return elements.map(element => {
+      const d = element.match(/\sd="([^"]+)"/)?.[1];
+      assert.ok(d, "every plane and link has a nonempty d attribute");
+      assert.match(d, /^M[\d. -]+(?: L[\d. -]+)+(?: Z)?$/);
+      return d;
+    });
+  });
+  assert.equal(paths[0].length, paths[1].length);
+  for (let i = 0; i < paths[0].length; i++) assert.notEqual(paths[0][i], paths[1][i]);
+  const linkStates = markup => [...markup.matchAll(/data-link="([^"]+)" class="([^"]+)"/g)].map(match => match.slice(1));
+  assert.deepEqual(linkStates(groups[0][2]), linkStates(groups[1][2]));
+});
 function applications(html, locale) {
   const section = html.match(new RegExp(`<section class="live" id="${locale === "fr" ? "en-production" : "in-production"}">[\\s\\S]*?</section>`))?.[0];
   assert.ok(section, "applications remain present");
@@ -31,7 +61,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.equal((html.match(/<section\b/g) ?? []).length, 9);
   assert.deepEqual([...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]), anchors[locale]);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
-  assert.match(visibleText(html), locale === "fr" ? /Nous allons à la frontière du possible/ : /We go to the frontier of what is possible/);
+  assert.match(visibleText(html), locale === "fr" ? /Votre expertise est la matière première/ : /Your expertise is the raw material/);
   assert.doesNotMatch(html, /\shidden[=> ]|class="k"|v1-index|registry-line/);
   assert.doesNotMatch(visibleText(html), /Votre phrase indique|What you say tells/);
   const partners = html.match(new RegExp(`<section id="${locale === "fr" ? "partenaires" : "team"}">[\\s\\S]*?</section>`))?.[0];
@@ -124,30 +154,63 @@ for (const locale of ["fr", "en"]) test(`revoking every permission hides client 
   } finally { SITE_EVIDENCE.forEach((e, i) => { e.permission_status = permissions[i]; }); }
 });
 
-for (const locale of ["fr", "en"]) test(`six-story ontology with four static results and translated copy (${locale})`, async () => {
+for (const locale of ["fr", "en"]) test(`three planes, 33 nodes and four complete translated stories in static SSR (${locale})`, async () => {
   const html = await renderPage(locale);
-  const figure = html.match(/<svg class="onto"[\s\S]*?<\/svg>/)?.[0];
-  assert.ok(figure);
-  assert.match(figure, /aria-hidden="true"/);
-  assert.match(figure, /viewBox="0 0 1080 360"/);
-  for (const [kind, count] of [["layer", 3], ["edge", 16], ["edge talk", 5], ["node", 5], ["node r", 4], ["ag", 6], ["eye", 12], ["res on", 3], ["res on hot", 1], ["feed static-feed", 1]]) {
-    assert.equal((figure.match(new RegExp(`class="${kind}"`, "g")) ?? []).length, count, kind);
+  const hero = html.match(/<section class="hero">[\s\S]*?<\/section>/)?.[0];
+  assert.ok(hero);
+  const { HERO_STORIES, NODES, ZONES, LAYERS, UP, REL, TOP } = loader(locale)("src/system/ontology-hero-data.ts");
+  const { SINGLE_PAGE_EN } = loader(locale)("src/system/single-page-copy.ts");
+  const t = text => locale === "fr" ? text : SINGLE_PAGE_EN[text];
+  assert.equal(HERO_STORIES.length, 4);
+  assert.equal((hero.match(/data-node=/g) ?? []).length, 33);
+  const geometries = heroGeometries(hero);
+  assert.equal(geometries.length, 2);
+  for (const [, , geometry] of geometries) {
+    assert.deepEqual([...geometry.matchAll(/data-plane="([^"]+)"/g)].map(m => m[1]), ["bot", "mid", "top"]);
+    assert.equal((geometry.match(/data-link=/g) ?? []).length, UP.length + REL.length + TOP.length);
+    assert.ok(geometry.indexOf('data-plane="bot"') < geometry.indexOf('data-link="up_'));
+    assert.ok(geometry.indexOf('data-link="up_') < geometry.indexOf('data-plane="mid"'));
+    assert.ok(geometry.indexOf('data-plane="mid"') < geometry.indexOf('data-link="rel_'));
+    assert.ok(geometry.indexOf('data-link="top_') < geometry.indexOf('data-plane="top"'));
   }
-  const ids = [...figure.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
-  assert.equal(new Set(ids).size, 21);
-  assert.doesNotMatch(figure, /<animate|class="token"|class="trail"|class="ontology-motion"/);
-  assert.equal((figure.match(/width="250" height="50"/g) ?? []).length, 4);
-  assert.match(html, /class="ontocap" aria-live="off"/);
-  const outputs = locale === "fr" ? ["Relance prête", "Commande fournisseur prête", "Trésorerie à jour", "Commande saisie"] : ["Follow-up ready", "Supplier order ready", "Cash position updated", "Order entered"];
-  assert.deepEqual([...figure.matchAll(/class="rest">([\s\S]*?)<\/text>/g)].map(m => visibleText(m[1]).replace(/\s+/g, " ").trim()), outputs);
-  assert.deepEqual([...figure.matchAll(/transform="translate\(820 (\d+)\)" opacity="([^"]+)"/g)].map(m => [Number(m[1]), Number(m[2])]), [[70, 1], [132, 1], [194, 1], [256, 1]]);
-  const caption = html.match(/class="ontocap" aria-live="off">([^<]+)<\/p>/)?.[1];
-  assert.equal(caption, locale === "fr" ? "Un client écrit. L&#x27;agent commercial le reconnaît, l&#x27;agent de relance prépare la réponse." : "A client writes. The sales agent recognizes them; the follow-up agent drafts the reply.");
-  assert.match(html, /class="humby">[^<]*Clive Humby[^<]*2006/);
-  assert.doesNotMatch(figure, /rose|pink|#[\da-f]{3,8}\b|style=/i);
-  assert.doesNotMatch(html, /class="stairs"/);
-  for (const label of locale === "fr" ? ["Vos données", "Clients", "Commandes", "Stocks", "Factures", "Vos règles", "Validation", "Droits", "Échéances", "Vos agents"] : ["Your data", "Customers", "Orders", "Stock", "Invoices", "Your rules", "Approval", "Permissions", "Deadlines", "Your agents"]) assert.ok(visibleText(figure).includes(label), label);
-  assert.ok(visibleText(html).includes(locale === "fr" ? "Votre expertise est la matière première. Nous en faisons des systèmes qui en multiplient l'impact." : "Your expertise is the raw material. We turn it into systems that multiply its impact."));
+  assert.match(hero, /tabindex="0" role="region"/);
+  assert.ok(hero.includes(`aria-label="${locale === "fr" ? "Des sources aux résultats" : "From sources to results"}"`));
+  assert.match(hero, /data-story="0" data-step="4"/);
+  assert.match(hero, /<svg class="onto"[^>]*aria-hidden="true"/);
+  assert.equal((hero.match(/class="ontocap-sizer"/g) ?? []).length, 4);
+  assert.match(hero, /class="ontocap" aria-live="off"/);
+  assert.doesNotMatch(hero, /onto-badge|onto-number|onto-story-title/);
+  const currentCaption = hero.split('class="ontocap"')[1].split('class="ontocap-sizer"')[0];
+  assert.doesNotMatch(currentCaption, /<ol|<li/);
+  const sentence = text => { const translated = t(text); return translated[0].toLocaleUpperCase(locale) + translated.slice(1) + "."; };
+  assert.ok(visibleText(currentCaption).includes(sentence(HERO_STORIES[0].steps[3])));
+  assert.match(currentCaption, /class="onto-now" aria-live="off"/);
+  const sizers = [...hero.matchAll(/<div class="ontocap-sizer" aria-hidden="true">([\s\S]*?)(?=<div class="ontocap-sizer"|<ol class="sr-only")/g)];
+  assert.equal(sizers.length, 4);
+  for (const [index, sizer] of sizers.entries()) {
+    const phrases = [...sizer[1].matchAll(/<div class="onto-now">([\s\S]*?)<\/div>/g)].map(match => visibleText(match[1]));
+    const story = HERO_STORIES[index];
+    assert.deepEqual(phrases, [t(story.title), ...story.steps.map(sentence)]);
+    for (const text of [t(story.result), t(story.verb), t("PRÊT")]) assert.ok(visibleText(sizer[1]).includes(text));
+  }
+  const accessible = hero.match(/<ol class="sr-only" aria-live="off">([\s\S]*?)<\/ol>/)?.[1];
+  assert.ok(accessible);
+  assert.deepEqual([...accessible.matchAll(/<li>(.*?)<\/li>/g)].map(match => visibleText(match[1])), HERO_STORIES[0].steps.map(t));
+  for (const id of ["mails", "client", "commande", "cgv", "rep", "messagerie"]) {
+    assert.match(hero, new RegExp(`data-node="${id}"[^>]*class="onto-node is-lit`));
+  }
+  const labels = [...Object.values(NODES).flat().map(node => node[1]), ...Object.values(ZONES).flat(), ...Object.values(LAYERS).flat(), ...HERO_STORIES.flatMap(story => [story.title, story.result, story.verb]), "PRÊT"];
+  for (const label of labels) {
+    assert.ok(SINGLE_PAGE_EN[label], `English missing: ${label}`);
+    assert.ok(visibleText(hero).includes(t(label)), label);
+  }
+  assert.match(hero, /class="humby">[^<]*Clive Humby[^<]*2006/);
+  assert.doesNotMatch(hero, /<animate|class="token"|class="trail"|toklab|static-feed|ontology-motion/);
+  assert.doesNotMatch(hero, /#[\da-f]{3,8}\b/i);
+});
+
+for (const locale of ["fr", "en"]) test(`public rendered HTML remains anonymous (${locale})`, async () => {
+  assert.doesNotMatch(await renderPage(locale), /toyotomi|hiolle|atlas/i);
 });
 
 for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos and final walker (${locale})`, async () => {

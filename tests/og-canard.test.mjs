@@ -81,7 +81,7 @@ test("OG renders a 200 PNG with canard corners, local fonts and the two-line Fre
     assert.equal(headline.props.children.length, 2);
     assert.equal(headline.props.style.fontWeight, 400);
     assert.equal(headline.props.children[1].props.style.fontWeight, 600);
-    assert.equal(textContent(headline), "Nous allons à la frontière du possible, puis nous le livrons à nos clients.");
+    assert.equal(textContent(headline), "Votre expertise est la matière première. Nous la mettons au travail.");
     assert.equal(route.alt, `Parrit.ai · ${textContent(headline)}`);
     assert.ok(options.fonts.reduce((total, font) => total + font.data.length, 0) < 500_000);
     assert.notEqual(route.runtime, "edge");
