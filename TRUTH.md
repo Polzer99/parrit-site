@@ -27,6 +27,10 @@ puis `docs/CODEX-SPEC-2026-10-29-hero-trois-plans-allege.md` : légende = une
 phrase par étape puis la carte du résultat, sans liste visible ni pastilles.
 Les quatre étapes restent accessibles aux lecteurs d'écran. Fond des libellés
 égal à la couleur effective du plan ; le rose reste au seul bouton.
+Amendement du 30/10/2026 : `docs/CODEX-SPEC-2026-10-30-hero-reclamation-qualite.md`.
+La quatrième histoire est « Une réclamation qualité arrive », en remplacement
+de la fin de réunion, pour que la home parle aussi à l’industrie. Les trois
+autres histoires, les nœuds, les durées et la mise en page sont conservés.
 Votre expertise est la matière première. Nous la mettons au travail.
 Vos règles, vos données et vos décisions deviennent des systèmes qui en multiplient l'impact.
 Décision actuelle : `docs/site-v1/page-unique/BANDEAU-TECHNOLOGIES.md`

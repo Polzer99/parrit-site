@@ -82,6 +82,7 @@ export const REL = [
   ["action", "client"],
   ["equipe", "contrat"],
   ["devis", "commande"],
+  ["recl", "commande"],
 ] as const;
 
 export const UP = [
@@ -104,6 +105,7 @@ export const UP = [
   ["agenda", "equipe"],
   ["ged", "contrat"],
   ["cr", "equipe"],
+  ["procedures", "recl"],
 ] as const;
 
 export const TOP = [
@@ -120,13 +122,14 @@ export const TOP = [
   ["commande", "majerp"],
   ["stock", "majerp"],
   ["recl", "rep"],
+  ["recl", "rech"],
 ] as const;
 
 export const HERO_STORIES = [
 { title: "Un client attend une réponse", d: "mails", o1: "client", o2: "commande", rel: "rel_client_commande", r: "cgv", rl: "up_cgv_commande", out: "rep", top: "top_client_rep", result: "Réponse prête", act: "messagerie", al: "up_messagerie_client", verb: "Vous validez", side: "right", steps: ["un client écrit", "le système le relie à sa commande", "un agent applique vos conditions", "vous validez, la réponse part"] },
 { title: "Une facture n'est pas payée", d: "factures", o1: "facture", o2: "client", rel: "rel_client_facture", r: "echeances", rl: "up_echeances_facture", out: "relances", top: "top_facture_relances", result: "Relance prête", act: "messagerie", al: "up_messagerie_client", verb: "Vous validez", side: "left", steps: ["la facture est échue", "le système la relie au client", "un agent applique vos échéances", "vous validez, la relance part"] },
 { title: "Un contrat arrive", d: "contrats", o1: "contrat", o2: "fournisseur", rel: "rel_contrat_fournisseur", r: "procedures", rl: "up_procedures_contrat", out: "ecarts", top: "top_contrat_ecarts", result: "Écarts signalés", act: "erp", al: "up_erp_fournisseur", verb: "Vous décidez", side: "right", steps: ["le contrat est reçu", "le système le relie au fournisseur", "un agent le compare à vos procédures", "vous décidez, l'ERP est à jour"] },
-{ title: "La réunion se termine", d: "cr", o1: "action", o2: "equipe", rel: "rel_equipe_action", r: "procedures", rl: "up_procedures_action", out: "suivi", top: "top_action_suivi", result: "Qui fait quoi, pour quand", act: "agenda", al: "up_agenda_equipe", verb: "Vous validez", side: "left", steps: ["la réunion se termine", "le système relie actions et équipe", "un agent suit vos procédures", "vous validez, l'agenda est à jour"] }
+{ title: "Une réclamation qualité arrive", d: "mails", o1: "recl", o2: "commande", rel: "rel_recl_commande", r: "procedures", rl: "up_procedures_recl", out: "rech", top: "top_recl_rech", result: "Cause identifiée", act: "erp", al: "up_erp_commande", verb: "Vous décidez", side: "left", steps: ["un client signale un défaut", "le système le relie à sa commande", "un agent applique vos procédures qualité", "vous décidez, l'ERP lance la correction"] }
 ] as const;
 export type Plane = keyof typeof NODES;
 export type NodeId = (typeof NODES)[Plane][number][0];
