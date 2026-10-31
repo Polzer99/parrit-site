@@ -272,6 +272,14 @@ et assertions existantes intacts ; géométrie et CLS à rejouer par Claude sur 
 
 ## Hero trois plans, 29/10/2026
 
+Amendement du 30/10/2026 : `docs/CODEX-SPEC-2026-10-30-hero-reclamation-qualite.md`.
+La quatrième histoire devient « Une réclamation qualité arrive » pour que la
+home parle aussi à l’industrie. Parcours : E-mails, Réclamation, Commande,
+Procédures, Recherche documentaire (« Cause identifiée »), puis ERP après
+« Vous décidez ». Trois liens ajoutés ; les trois autres histoires, tous les
+nœuds (y compris ceux de la réunion), les liens existants, durées et styles
+sont conservés.
+
 `docs/CODEX-SPEC-2026-10-29-hero-trois-plans.md` remplace les précédents
 contrats du hero, dont `HERO-TABLETTE.md`. Titre expertise/mise au travail,
 trois plans, 33 nœuds et quatre histoires issus des maquettes archivées dans

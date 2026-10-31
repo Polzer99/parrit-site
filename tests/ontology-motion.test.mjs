@@ -1,8 +1,12 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import * as React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader } from "./helpers/site-v1-render.mjs";
+
+// Independent acceptance data from the 30/10 spec, not derived from HERO_STORIES.
+const quality = JSON.parse(readFileSync(new URL("./fixtures/hero-quality.json", import.meta.url), "utf8"));
 
 for (const locale of ["fr", "en"]) test(`four stories light their exact nodes and links; one timer, cleanup and restart (${locale})`, context => {
   let state = { story: 0, step: 4 };
@@ -42,11 +46,13 @@ for (const locale of ["fr", "en"]) test(`four stories light their exact nodes an
       const nodes = [...html.matchAll(/data-node="([^\"]+)"[^>]*class="onto-node is-lit/g)].map(m => m[1]).sort();
       const expected = [...(step >= 1 ? [story.d, story.o1] : []), ...(step >= 2 ? [story.o2] : []), ...(step >= 3 ? [story.r, story.out] : []), ...(step >= 4 ? [story.act] : [])].sort();
       assert.deepEqual(nodes, expected);
+      if (index === 3) assert.deepEqual(nodes, quality.nodes.slice(0, step + 1).flat().sort());
       const groups = [...html.matchAll(/<g class="onto-geo onto-geo-(desktop|compact)">([\s\S]*?)(?=<g class="onto-geo |<\/svg>)/g)];
       assert.deepEqual(groups.map(group => group[1]), ["desktop", "compact"]);
       for (const [, , geometry] of groups) {
         const links = [...geometry.matchAll(/data-link="([^\"]+)" class="onto-link is-lit/g)].map(m => m[1]).sort();
         assert.deepEqual(links, [...(step >= 1 ? [`up_${story.d}_${story.o1}`] : []), ...(step >= 2 ? [story.rel] : []), ...(step >= 3 ? [story.rl, story.top] : []), ...(step >= 4 ? [story.al] : [])].sort());
+        if (index === 3) assert.deepEqual(links, quality.links.slice(0, step + 1).flat().sort());
         const actions = [...geometry.matchAll(/data-link="([^"]+)" class="onto-link is-lit is-action"/g)].map(m => m[1]);
         assert.deepEqual(actions, step >= 4 ? [story.al] : []);
       }
@@ -55,6 +61,11 @@ for (const locale of ["fr", "en"]) test(`four stories light their exact nodes an
       const source = step === 0 ? story.title : story.steps[step - 1];
       const translated = locale === "fr" ? source : SINGLE_PAGE_EN[source];
       const expectedPhrase = step === 0 ? translated : translated[0].toLocaleUpperCase(locale) + translated.slice(1) + ".";
+      if (index === 3) {
+        assert.equal(expectedPhrase, quality[locale].phrases[step]);
+        assert.ok(caption.includes(`<b>${quality[locale].result}</b>`));
+        assert.ok(caption.includes(`>${quality[locale].approval}</span>`));
+      }
       const encoded = renderToStaticMarkup(React.createElement("span", null, expectedPhrase)).slice(6, -7);
       assert.ok(caption.includes(`<div class="onto-now" aria-live="off">${encoded}</div>`));
       assert.doesNotMatch(caption, /<ol|<li/);

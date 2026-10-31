@@ -1,0 +1,26 @@
+{
+  "fr": {
+    "phrases": [
+      "Une réclamation qualité arrive",
+      "Un client signale un défaut.",
+      "Le système le relie à sa commande.",
+      "Un agent applique vos procédures qualité.",
+      "Vous décidez, l'ERP lance la correction."
+    ],
+    "result": "Cause identifiée",
+    "approval": "Vous décidez"
+  },
+  "en": {
+    "phrases": [
+      "A quality complaint comes in",
+      "A client reports a defect.",
+      "The system links it to the order.",
+      "An agent applies your quality procedures.",
+      "You decide, the ERP starts the fix."
+    ],
+    "result": "Cause identified",
+    "approval": "You decide"
+  },
+  "nodes": [[], ["mails", "recl"], ["commande"], ["procedures", "rech"], ["erp"]],
+  "links": [[], ["up_mails_recl"], ["rel_recl_commande"], ["up_procedures_recl", "top_recl_rech"], ["up_erp_commande"]]
+}

@@ -1,5 +1,18 @@
 ## Hero trois plans, 29/10/2026
 
+Amendement du 30/10/2026 : `docs/CODEX-SPEC-2026-10-30-hero-reclamation-qualite.md`.
+La quatrième histoire devient « Une réclamation qualité arrive » pour que la
+home parle aussi à l’industrie. Parcours : E-mails, Réclamation, Commande,
+Procédures, Recherche documentaire (« Cause identifiée »), puis ERP après
+« Vous décidez ». Trois liens ajoutés ; les trois autres histoires, tous les
+nœuds (y compris ceux de la réunion), les liens existants, durées et styles
+sont conservés.
+Validation de cet amendement : lint, marque/claims, build Webpack, TypeScript,
+134/134 tests Node et 19/19 Brand OS réussis. Build/tests finaux dans une copie
+temporaire identique, Turbopack ayant laissé un verrou local après interruption.
+Serveur local et Chromium refusés par le sandbox ; géométrie/CLS non validés.
+Détail et reprise : `docs/REPORT-2026-10-30-hero-reclamation-qualite.md`.
+
 Source : `docs/CODEX-SPEC-2026-10-29-hero-trois-plans.md`, maquette finale et
 quatre autres références copiées sans modification dans `docs/hero-trois-plans/`.
 Branche fournie : `codex/docs-CODEX-SPEC-2026-10-29-hero-trois-plans-md`,

@@ -4,6 +4,7 @@ import { readingMs } from "../src/system/reading";
 import { mkdir } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import founderPhotos from "./fixtures/founder-photo.json";
+import quality from "./fixtures/hero-quality.json";
 import { test, expect } from "./network-deny.setup";
 const BASE = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 const local = (path: string) => {
@@ -257,7 +258,7 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
 }
 
 
-for (const locale of ["fr", "en"]) for (const width of [1440, 1280, 1024, 390, 360, 320]) {
+for (const locale of ["fr", "en"] as const) for (const width of [1440, 1280, 1024, 390, 360, 320]) {
   test(`four five-step stories, reduced motion and offscreen cleanup ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
@@ -300,6 +301,13 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 1280, 1024, 390, 3
         const translated = locale === "fr" ? text : SINGLE_PAGE_EN[text];
         const phrase = step === 0 ? translated : translated[0].toLocaleUpperCase(locale) + translated.slice(1) + ".";
         await expect(caption.locator(".onto-now")).toHaveText(phrase);
+        if (index === 3) {
+          await expect(caption.locator(".onto-now")).toHaveText(quality[locale].phrases[step]);
+          await expect(caption.locator(".onto-result b")).toHaveText(quality[locale].result);
+          await expect(caption.locator(".onto-approval")).toHaveText(quality[locale].approval);
+          expect(await diagram.locator(".onto-node.is-lit").evaluateAll(nodes => nodes.map(node => node.getAttribute("data-node")).sort()))
+            .toEqual(quality.nodes.slice(0, step + 1).flat().sort());
+        }
         await expect(caption.locator(".onto-now")).toHaveCSS("font-size", "18px");
         await expect(caption.locator(".onto-now")).toHaveCSS("line-height", "26px");
         await expect(caption.locator(".onto-now")).toHaveCSS("font-weight", "600");
@@ -323,6 +331,10 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 1280, 1024, 390, 3
             ...(step >= 4 ? [story.al] : []),
           ];
           expect(await group.locator(".onto-link.is-lit").evaluateAll(nodes => nodes.map(node => node.getAttribute("data-link")).sort())).toEqual([...new Set(litLinks)].sort());
+          if (index === 3) {
+            expect(await group.locator(".onto-link.is-lit").evaluateAll(nodes => nodes.map(node => node.getAttribute("data-link")).sort()))
+              .toEqual(quality.links.slice(0, step + 1).flat().sort());
+          }
           await expect(group.locator(".onto-link.is-action")).toHaveCount(step >= 4 ? 1 : 0);
           if (step >= 4) await expect(group.locator(`[data-link="${story.al}"]`)).toHaveClass(/is-action/);
         }
