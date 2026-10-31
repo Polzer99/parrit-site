@@ -272,6 +272,8 @@ et assertions existantes intacts ; géométrie et CLS à rejouer par Claude sur 
 
 ## Hero trois plans, 29/10/2026
 
+Les noms des plans ont, comme les zones, le fond de la page (`var(--canard)`), avec `padding:0 2px` (31/10/2026).
+
 Amendement du 30/10/2026 : `docs/CODEX-SPEC-2026-10-30-hero-reclamation-qualite.md`.
 La quatrième histoire devient « Une réclamation qualité arrive » pour que la
 home parle aussi à l’industrie. Parcours : E-mails, Réclamation, Commande,
