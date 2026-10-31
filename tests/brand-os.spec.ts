@@ -11,6 +11,16 @@ if (!["before", "after"].includes(CAPTURE_PHASE)) throw new Error("Invalid BRAND
 
 test.use({ serviceWorkers: "block" });
 
+async function captureWithRetry(capture: () => Promise<unknown>) {
+  try {
+    await capture();
+  } catch (error) {
+    if (!(error instanceof Error) || !error.message.includes("Unable to capture screenshot")) throw error;
+    await new Promise(resolve => setTimeout(resolve, 500));
+    await capture();
+  }
+}
+
 const ROUTES = ["/", "/journal", "/legal", ...["harness-engineering", "ai-sprints", "integration-developpement", "conseil-transformation"].map(slug => `/journal/themes/${slug}`)].flatMap(route => [route, localizedPath(route, "fr")]);
 
 test.beforeEach(async ({ page }) => {
@@ -31,7 +41,7 @@ for (const width of [1440, 390]) {
       const name = `${route.slice(1).replaceAll("/", "-") || "home"}-${width}`;
       const directory = `.codex-handoffs/brand-os-p1/${CAPTURE_PHASE}`;
       await mkdir(directory, { recursive: true });
-      await page.screenshot({ path: `${directory}/${name}.png`, fullPage: true, animations: "disabled" });
+      await captureWithRetry(() => page.screenshot({ path: `${directory}/${name}.png`, fullPage: true, animations: "disabled" }));
       // Capture phase only selects the output folder; it never disables a gate.
       if (width === 390) {
         expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
