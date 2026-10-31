@@ -819,6 +819,23 @@ for (const locale of ["fr", "en"]) test(`hero label backgrounds mask links in ev
   }
 });
 
+for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 800 }]) for (const locale of ["fr", "en"]) {
+  test(`hero plane names mask links with the page background ${locale} ${viewport.width}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(local(locale === "fr" ? "/fr" : "/"));
+    const hero = page.locator(".single-page .hero");
+    const background = await hero.evaluate(el => getComputedStyle(el).backgroundColor);
+    expect(background).not.toBe("rgba(0, 0, 0, 0)");
+    const names = hero.locator(".onto-layer b");
+    await expect(names).toHaveCount(3);
+    for (const name of await names.all()) {
+      await expect(name).toBeVisible();
+      await expect(name).toHaveCSS("background-color", background);
+    }
+  });
+}
+
 for (const locale of ["fr", "en"]) for (const width of [900, 800, 761]) {
   test(`tablet header groups languages, contact and menu on the right ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 1100 });
