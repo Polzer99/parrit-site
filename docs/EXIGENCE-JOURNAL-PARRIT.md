@@ -1,5 +1,12 @@
 # EXIGENCE-JOURNAL-PARRIT — la barre du rail parrit.ai
 
+> v11 · 2026-11-01 (cliquet dimanche : aucune référence possible, aucun
+> article publié sur les deux rails du 26/10 au 01/11, 22 refus de portes,
+> 16 de C-LISIBILITE et 6 de C-JURY ; cinq défauts promus, tous relevés sur
+> plusieurs textes et plusieurs jours : la fin générique, la règle sans
+> justification, l'apport déjà connu, le fait absent de la fiche, le compte
+> qui ne tombe pas juste ; nouvelle règle de méthode après la mesure du
+> 01/11 : un verdict isolé d'une porte ne prouve pas un défaut).
 > v10 · 2026-10-25 (cliquet dimanche : aucune référence possible, aucun
 > article publié sur les deux rails du 19 au 25/10, 22 refus de la porte
 > C-LISIBILITE ; cinq défauts promus ou durcis : le problème du lecteur
@@ -394,6 +401,50 @@ en amont ce que le panel attrapait en aval.
     receives the explicit instruction to list every word a hurried CISO
     or CIO would stop on, and the list is empty before the gate is run.
 
+- **Five defects promoted at the 01/11 ratchet.** Counted on the motives
+  written in the LOG from 26/10 to 01/11, seven runs, no article published
+  on either rail. Each one was seen on at least two texts and two days.
+  - **The ending does a job** (`generic_close`, family of `mech_close`,
+    which was under watch : 27/10 « fin sur une note interne », 28/10 judge
+    Paul « fin générique » and rail paul gate « conseil final générique »,
+    31/10 judge DSI and gate « fin générique », 01/11 panels on both rails
+    « chute » ; seven findings across five articles, by panel, jury and
+    gate). The last paragraph states what the reader now does or decides,
+    with the object the article opened on. If it could close another
+    article of the rail, rewrite it. Cut it if nothing is left.
+  - **A rule says why this value** (`rule_unjustified` : 30/10 judge DSI
+    « rien de vérifiable ni d'outillé », 31/10 gate « critère sans cas
+    d'échec », 01/11 gate « règle sans seuil », 01/11 judge DSI « règle 2/3
+    sans justification » ; four findings across two articles). Any
+    threshold or criterion in the text comes with where the value comes
+    from and one case where it fails. A threshold we picked is written as
+    picked by us, with the reason.
+  - **The contribution is something a CIO does not already know**
+    (`classic_insight` : judge DSI, 28/10 « classique pour un DSI habitué au
+    moindre privilège », 29/10 « reste évident pour un DSI rodé », 31/10
+    « l'apport reste modeste » ; three verdicts across two articles, one
+    reader type, so its stability is unmeasured). Before
+    drafting, write in the entry sheet the one sentence a CIO would not
+    have said without reading us. If that sentence is a known good
+    practice, the article needs a measure or a decision of ours that
+    changes it, or the subject changes.
+  - **Every fact is in the entry sheet before the panel**
+    (`fiche_unsourced` : 26/10 « pendant des semaines », « le plus souvent
+    deux », « faits hors fiche » ; 28/10 « depuis des semaines », « tous
+    les matins » ; 30/10 and 31/10 examples, dates and a send event to
+    source ; 01/11 « 5/5 » and lists unsourced on one rail, dates on the
+    other ; seven findings across five days). Each date, duration,
+    frequency and count has its source written in the sheet before the
+    first panel. A vague duration with no source is cut. This extends the
+    claim sweep required since 05/10 to the small facts, which cost a
+    panel round each.
+  - **Counts add up in the text** (`count_mismatch`, family of
+    `borrowed_number` : 27/10 1+1+3 for 6 servers, caught by DAF and DRH ;
+    28/10 8 tasks against 7 entries, caught by panel and gate, and six
+    elements then eight headings ; three findings across two articles).
+    Before the panel, every number announced is recounted against what the
+    text lists.
+
 ## Tics bannis
 
 - (un seul article publié sur ce rail la semaine du 29/08 — rien de
@@ -507,6 +558,40 @@ en amont ce que le panel attrapait en aval.
   (« Pour conclure » le 23/10, chutes rhétoriques le 21/10) sont au
   registre ; elles ne deviennent des tics bannis ici qu'une fois vues
   dans un texte publié.
+
+- **Aucun tic répété relevé sur la semaine du 26/10 au 01/11** : aucun
+  article publié. Même règle que la semaine précédente, rien ne devient un
+  tic banni sans texte publié.
+
+## Un verdict isolé ne prouve pas un défaut (mesure du 01/11)
+
+Le 01/11, le relecteur C-LISIBILITE a été rejoué cinq fois, cache contourné
+et cache officiel intact, sur deux textes qu'il avait acceptés, empreintes
+vérifiées. Résultat : 1 PASS sur 5 et 0 PASS sur 5. Les listes de phrases
+creuses de ces dix lectures n'ont aucune phrase en commun d'une lecture à
+l'autre (37 et 34 phrases distinctes). La réponse dans les 80 mots et le
+problème concret, eux, sont stables à 10 sur 10. Preuve :
+`~/.parrit/journal-quotidien/drafts/variance-lisibilite-2026-11-01.json`.
+Le 31/10 confirmait ce point en lecture : le jargon reproché à une V7 était
+déjà dans la V5 acceptée. Deux prépublications de 2026, à auteur unique et
+sur d'autres modèles, vont dans le même sens : arXiv 2606.13685 (Yagubyan :
+11 essais pour qu'un vote majoritaire retrouve le verdict de référence sur
+50 essais, avec 95 % de probabilité en moyenne) et arXiv 2603.04417 (Lau :
+forte variabilité même à température 0). La stabilité de C-JURY n'a pas été
+mesurée.
+
+Règles qui en découlent :
+
+- **Promotion au registre** : trois occurrences ne suffisent plus si elles
+  viennent d'une seule porte sur un seul texte. Il faut au moins deux textes
+  et deux jours. Un motif isolé reste au LOG.
+- **`jargon_unglossed` n'est pas durci à nouveau cette semaine**, malgré six
+  jours de retours (26, 28, 29, 30, 31/10 et 01/11) : on ne sait pas séparer
+  ces retours de la variance du relecteur. La règle du 25/10 reste en vigueur.
+- **Rien ne descend et rien ne se contourne.** Un refus reste un refus, le
+  plafond de deux refus par jour et par rail aussi, et rejouer une porte
+  jusqu'à obtenir un PASS reste interdit. Changer le nombre de lectures est
+  une décision de Paul, par spec et pont Codex.
 
 ## Un cliquet ne compte qu'une fois mergé (incident du 23/09)
 
