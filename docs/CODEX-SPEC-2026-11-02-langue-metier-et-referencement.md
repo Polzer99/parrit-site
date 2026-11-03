@@ -4,9 +4,14 @@ Niveau de risque : moyen
 
 Statut : validée par Paul le 03/11/2026 (« Go sur la spec »).
 
-## À faire maintenant : fin de la correction 1, et rien d'autre
+## À faire maintenant : une retouche validée par Paul le 03/11, et rien d'autre
 
-Tout le reste de cette spec est déjà implémenté sur cette branche, y compris les points 2 et 3 ci-dessous et deux des trois textes du point 1 : ne pas y toucher. Il manque un seul texte : « Plus de dix, chacun sa spécialité : lecture de documents, assistants, connexion à vos logiciels. » devient « Plus de dix, chacun sa spécialité : documents, assistants, connexion à vos logiciels. » Il figure dans `src/system/components/SinglePage.tsx` et `src/system/single-page-copy.ts`, que la consigne précédente excluait à tort pour le premier. Modifier ces deux fichiers et ajouter une ligne au rapport `docs/REPORT-2026-11-03-langue-metier-et-referencement.md`. Après ce changement, le bloc passera de 723 à environ 700 px à 1280×720 ; Claude le vérifie sur l'hôte.
+Tout le reste de cette spec est déjà implémenté sur cette branche : ne pas y toucher. Le bloc « Chaque projet a son équipe et sa technologie » mesure encore 723 px pour 720 à 1280×720 en français. Deux textes changent, partout où ils apparaissent (`src/system/single-page-copy.ts`, et `src/system/components/SinglePage.tsx` s'ils y figurent) :
+
+- « Des assistants sur mesure » devient « Assistants sur mesure » ;
+- « Des outils sur mesure » devient « Outils sur mesure ».
+
+L'anglais garde son sens ; le changer seulement si la clé de traduction l'exige. Ne changer ni la taille du texte, ni l'espacement, ni le seuil du test. Ajouter une ligne au rapport `docs/REPORT-2026-11-03-langue-metier-et-referencement.md`. Claude rejoue les 410 tests sur l'hôte.
 
 ## Correction 1, pour mémoire
 

@@ -259,8 +259,8 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "Compare un contrat reçu à vos règles et signale les écarts.": "Compares an incoming contract with your rules and flags the gaps.",
   "Suit les échéances de vos contrats.": "Tracks your contracts' deadlines.",
   "Retrouve une clause dans dix ans d'archives.": "Finds a clause in ten years of archives.",
-  "Des assistants sur mesure": "Custom assistants",
-  "Des outils sur mesure": "Custom tools",
+  "Assistants sur mesure": "Custom assistants",
+  "Outils sur mesure": "Custom tools",
   "Le contrôle de vos assistants": "Control over your assistants",
   "Des automatisations sur mesure": "Custom automations",
   "La connexion à vos logiciels": "Connecting to your software",
@@ -399,8 +399,8 @@ export const SERVICE_CASES = [
 
 export const PARTNER_OFFERS = [
   [
-    "Des assistants sur mesure",
-    "Des outils sur mesure",
+    "Assistants sur mesure",
+    "Outils sur mesure",
     "Le contrôle de vos assistants",
     "La connexion à vos logiciels"
   ],
