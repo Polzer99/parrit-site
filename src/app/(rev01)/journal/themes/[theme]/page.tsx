@@ -7,6 +7,7 @@ import { getAllJournalEntrySummaries } from "@/system/journal";
 import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
 import { SITE_V1_PAGES, type GuideCopy, type SiteV1PageId } from "@/system/site-v1-pages";
 import { INTEGRATION_COPY } from "@/system/integration-copy";
+import { journalThemeJsonLd } from "@/system/jsonld";
 
 const THEMES = {
   "harness-engineering": { page: "harness-engineering", articles: ["ai-agent-security-in-the-enterprise", "permission-layer-for-coding-agents", "agents-that-fabricate-facts", "the-claim-a-green-pipeline-never-makes"] },
@@ -39,7 +40,9 @@ export default async function JournalThemePage({ params }: Props) {
   const copy: GuideCopy = SITE_V1_PAGES[config.page][locale];
   const articleSlugs: readonly string[] = config.articles;
   const entries = getAllJournalEntrySummaries().filter(entry => !entry.noindex && articleSlugs.includes(entry.slug));
+  const canonical = `https://parrit.ai${localizedPath(`/journal/themes/${theme}`, locale)}`;
   return <main className="rev-page journal-theme" data-brand-mode="accessible">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(journalThemeJsonLd(copy, locale, canonical)).replace(/</g, "\\u003c") }}/>
     <header className="journal-theme-hero r2-dark" data-regime="ink"><div className="rev-wrap"><h1>{copy.title}</h1><p>{copy.description}</p></div></header>
     <div className="rev-wrap journal-theme-body"><div>
       {copy.brief && <section><h2>{fr ? "En bref" : "At a glance"}</h2>{copy.brief.map(([term, value]) => <p key={term}><strong>{term} : </strong>{value}</p>)}</section>}

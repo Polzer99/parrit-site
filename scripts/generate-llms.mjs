@@ -22,7 +22,7 @@ const content = `# Parrit.ai
 - Dans l'ordre : présentation, applications concrètes, ce que l'IA change dans votre entreprise, parcours, cas d'usage par service, technologies, équipe, références, fondateur et contact.
 - Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.
 - Paul Larmaraud, fondateur de Parrit.ai, forme les équipes et pilote les projets.
-- Zone d'intervention : Lille, Métropole européenne de Lille, Hauts-de-France et toute la France.
+- Présence : Tourcoing et Paris. Zone d'intervention : toute la France.
 
 ### Thèmes du Journal
 ${themes.map(([slug, fr]) => `- https://parrit.ai/fr/journal/themes/${slug} : ${fr}`).join("\n")}
@@ -45,7 +45,7 @@ ${themes.map(([slug, fr]) => `- https://parrit.ai/fr/journal/themes/${slug} : ${
 - In order: introduction, real-world applications, what AI changes in your company, the path, use cases by department, technologies, team, references, founder and contact.
 - Client replies, follow-ups, quotes, meeting notes: AI prepares them, your teams review and decide.
 - Paul Larmaraud, founder of Parrit.ai, trains teams and leads projects.
-- Service area: Lille, Métropole européenne de Lille, Hauts-de-France and across France.
+- Presence: Tourcoing and Paris. Service area: across France.
 
 ### Journal themes
 ${themes.map(([slug, , en]) => `- https://parrit.ai/journal/themes/${slug}: ${en}`).join("\n")}

@@ -1,6 +1,8 @@
 import { orgRef } from "./auteur.ts";
 import type { Locale } from "./locale";
 import type { JournalEntry } from "./journal";
+import type { GuideCopy } from "./site-v1-pages";
+import { JOURNAL_THEMES_LAST_MODIFIED } from "./journal-themes.ts";
 
 export function organizationJsonLd(locale: Locale = "en") {
   return {
@@ -16,10 +18,40 @@ export function organizationJsonLd(locale: Locale = "en") {
       addressLocality: "Rueil-Malmaison",
       addressCountry: "FR",
     },
-    areaServed: ["Lille", "Métropole européenne de Lille", "Hauts-de-France", "France"],
+    location: ["Tourcoing", "Paris"].map(addressLocality => ({
+      "@type": "Place",
+      address: { "@type": "PostalAddress", addressLocality, addressCountry: "FR" },
+    })),
+    areaServed: ["Tourcoing", "Paris", "Métropole européenne de Lille", "Hauts-de-France", "France"],
     // Aucun profil entreprise vérifié dans le graphe existant.
     sameAs: [],
   };
+}
+
+export function journalThemeJsonLd(copy: Pick<GuideCopy, "title" | "description" | "faq">, locale: Locale, canonical: string) {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: copy.title,
+      description: copy.description,
+      inLanguage: locale,
+      author: orgRef(),
+      publisher: orgRef(),
+      mainEntityOfPage: canonical,
+      dateModified: JOURNAL_THEMES_LAST_MODIFIED,
+    },
+    ...(copy.faq.length > 0 ? [{
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      inLanguage: locale,
+      mainEntity: copy.faq.map(([question, answer]) => ({
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: { "@type": "Answer", text: answer },
+      })),
+    }] : []),
+  ];
 }
 
 export function blogPostingJsonLd(entry: Pick<JournalEntry, "slug" | "title" | "date" | "description">) {

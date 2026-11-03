@@ -1377,8 +1377,10 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390]) {
       : /ontology|linked objects|logic sources|systems of action|technology-agnostic|harness engineering/i);
     expect(text.match(/\bagents?\b/gi)).toHaveLength(1);
     await expect(page.locator("h1")).toContainText(locale === "fr" ? /\bIA\b/ : /\bAI\b/);
-    expect(await page.title()).toMatch(/Lille/);
-    expect(await page.locator('meta[name="description"]').getAttribute("content")).toMatch(locale === "fr" ? /\bIA\b.*Lille/ : /\bAI\b.*Lille/);
+    for (const value of [await page.title(), await page.locator('meta[name="description"]').getAttribute("content")]) {
+      expect(value).toMatch(locale === "fr" ? /\bIA\b.*Tourcoing.*Paris/ : /\bAI\b.*Tourcoing.*Paris/);
+      expect(value).not.toMatch(/Lille/);
+    }
     const definition = page.locator("h2 + .change-definition");
     await expect(definition).toHaveCount(1);
     await expect(definition).toBeVisible();

@@ -1,3 +1,13 @@
+## Visibilité IA, décision de Paul du 03/11/2026
+
+La spec `docs/CODEX-SPEC-2026-11-03-alignement-visibilite-ia.md` remplace les
+mentions de Lille dans les métadonnées de l'accueil par Tourcoing et Paris.
+Le siège légal reste inchangé. `robots.txt` partage un seul groupe `*` ; seuls
+`/os` et `/api` sont interdits. Les thèmes exposent un Article et, si des questions
+sont affichées, une FAQ strictement issue du même contenu localisé. Leur date
+de modification est partagée avec le sitemap dans `src/system/journal-themes.ts`.
+Aucun texte visible, prix, client, profil LinkedIn ou adresse de rue ajouté.
+
 ## Langue métier et référencement, décision de Paul du 02/11/2026
 
 La spec `docs/CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md`,

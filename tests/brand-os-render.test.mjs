@@ -87,6 +87,21 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         }
         const metadata = [...html.matchAll(/<meta\b[^>]*content="([^"]*)"[^>]*>/g)].map((match) => visibleText(match[1])).join(" ");
         const structured = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((match) => match[1]).join(" ");
+        if (route.startsWith("/journal/themes/")) {
+          const graphs = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap(match => JSON.parse(match[1]));
+          const articles = graphs.filter(item => item["@type"] === "Article");
+          assert.equal(articles.length, 1, label);
+          assert.equal(articles[0].inLanguage, locale, label);
+          assert.equal(articles[0].headline, visibleText(html.match(/<h1>([\s\S]*?)<\/h1>/)[1]).trim(), label);
+          assert.equal(articles[0].mainEntityOfPage, `https://parrit.ai${locale === "fr" ? "/fr" : ""}${route}`, label);
+          const faqSection = html.match(/<section><h2>(?:Questions fréquentes|Frequently asked questions)<\/h2>([\s\S]*?)<\/section>/)?.[1] ?? "";
+          const visiblePairs = [...faqSection.matchAll(/<div><h3>([\s\S]*?)<\/h3><p>([\s\S]*?)<\/p><\/div>/g)].map(([, question, answer]) => [visibleText(question).trim(), visibleText(answer).trim()]);
+          const faqs = graphs.filter(item => item["@type"] === "FAQPage");
+          assert.equal(faqs.length, visiblePairs.length ? 1 : 0, label);
+          assert.deepEqual(faqs[0]?.mainEntity.map(item => [item.name, item.acceptedAnswer.text]) ?? [], visiblePairs, label);
+          assert.deepEqual(privateClientNames(structured), [], label);
+          for (const name of PUBLIC_CLIENT_NAMES) assert.ok(!structured.includes(name), `${label}: no client in structured data`);
+        }
         const publicCopy = `${text} ${accessible} ${metadata} ${structured}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
         assert.doesNotMatch(publicCopy, /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de(?! vos opérations\b)|\bHT\b|excl\. VAT/i, `${label}: no public offer`);
         if (route !== "/legal") assert.doesNotMatch(publicCopy, /€/, label);
