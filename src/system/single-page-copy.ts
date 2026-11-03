@@ -151,7 +151,7 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "et sa technologie.": "and its own technology.",
   "Plus de vingt partenaires, entrepreneurs et consultants indépendants, choisis selon le diagnostic.": "More than twenty partners, independent entrepreneurs and consultants, chosen after the diagnosis.",
   "Ingénieurs IA": "AI engineers",
-  "Plus de dix, chacun sa spécialité : lecture de documents, assistants, connexion à vos logiciels.": "More than ten, each with a specialty: reading documents, assistants, connecting to your software.",
+  "Plus de dix, chacun sa spécialité : documents, assistants, connexion à vos logiciels.": "More than ten, each with a specialty: documents, assistants, connecting to your software.",
   "Automatisation et assistants": "Automation and assistants",
   "Des développeurs et des studios : assistants écrits, vocaux et vidéo.": "Developers and studios: written, voice and video assistants.",
   "Transformation et projet": "Transformation",

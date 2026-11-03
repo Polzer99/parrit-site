@@ -4,9 +4,13 @@ Niveau de risque : moyen
 
 Statut : validée par Paul le 03/11/2026 (« Go sur la spec »).
 
-## À faire maintenant : correction 1, et rien d'autre
+## À faire maintenant : fin de la correction 1, et rien d'autre
 
-Le reste de cette spec est déjà implémenté sur cette branche : ne pas le refaire. Claude a joué la batterie en navigateur sur l'hôte : 401 tests passent, 9 échouent. Modifier seulement `src/system/single-page-copy.ts`, `src/system/single-page.css`, `tests/stabilite.spec.ts`, et ajouter le résultat au rapport `docs/REPORT-2026-11-03-langue-metier-et-referencement.md`.
+Tout le reste de cette spec est déjà implémenté sur cette branche, y compris les points 2 et 3 ci-dessous et deux des trois textes du point 1 : ne pas y toucher. Il manque un seul texte : « Plus de dix, chacun sa spécialité : lecture de documents, assistants, connexion à vos logiciels. » devient « Plus de dix, chacun sa spécialité : documents, assistants, connexion à vos logiciels. » Il figure dans `src/system/components/SinglePage.tsx` et `src/system/single-page-copy.ts`, que la consigne précédente excluait à tort pour le premier. Modifier ces deux fichiers et ajouter une ligne au rapport `docs/REPORT-2026-11-03-langue-metier-et-referencement.md`. Après ce changement, le bloc passera de 723 à environ 700 px à 1280×720 ; Claude le vérifie sur l'hôte.
+
+## Correction 1, pour mémoire
+
+Claude a joué la batterie en navigateur sur l'hôte : 401 tests passaient, 9 échouaient.
 
 1. **Le bloc « Chaque projet a son équipe et sa technologie » déborde à 1280×720 en français** : 770 px pour 720 (`un bloc = un écran fr 1280×720`), ce que le banc d'essai 5 interdit. Trois textes français remplacent ceux de la spec, là où ils apparaissent ; l'anglais suit le sens :
    - « Plus de dix, chacun sa spécialité : lecture de documents, assistants, connexion à vos logiciels. » devient « Plus de dix, chacun sa spécialité : documents, assistants, connexion à vos logiciels. »
