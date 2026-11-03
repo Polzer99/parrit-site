@@ -2,7 +2,7 @@
 
 Niveau de risque : moyen
 
-Statut : à relire par Paul. Codex n'est pas lancé.
+Statut : validée par Paul le 03/11/2026 (« Go sur la spec »).
 
 ## Demande de Paul (02/11/2026)
 
