@@ -5,8 +5,8 @@ export const SITE_V1_PAGES = {
   "consulting-transformation": {
     "fr": {
       "name": "Conseil & Transformation",
-      "title": "Comprendre, décider, transformer.",
-      "description": "Partir de vos opérations pour décider des priorités, construire une feuille de route et préparer l'adoption.",
+      "title": "Choisir vos priorités et préparer vos équipes",
+      "description": "Partir du travail de vos équipes pour choisir les priorités, prévoir les étapes et préparer les équipes à utiliser leurs nouveaux outils.",
       "sections": [
         [
           "problems",
@@ -117,8 +117,8 @@ export const SITE_V1_PAGES = {
   "ai-sprints": {
     "fr": {
       "name": "AI Sprints",
-      "title": "Un problème précis, un système testable, une décision fondée sur des preuves.",
-      "description": "Un cycle court sur un périmètre décidé ensemble, avec des critères écrits avant de construire et une décision documentée.",
+      "title": "Un premier résultat en cycle court, avec des critères écrits à l'avance",
+      "description": "Choisir ensemble un problème précis, écrire les critères de réussite avant de construire, puis tester un premier outil en cycle court et expliquer la décision prise.",
       "brief": [
         [
           "Pour qui",
@@ -289,8 +289,8 @@ export const SITE_V1_PAGES = {
   "engineering-integration": {
     "fr": {
       "name": "Engineering & Intégration",
-      "title": "Concevoir, connecter, construire.",
-      "description": "Intégrer ce qui existe, construire ce qui manque et orchestrer un système supervisé adapté à vos opérations.",
+      "title": "Relier vos logiciels et construire ce qui manque",
+      "description": "Relier vos logiciels existants et construire les outils qui manquent, avec des contrôles adaptés au travail de vos équipes.",
       "sections": [
         [
           "custom",
@@ -383,8 +383,8 @@ export const SITE_V1_PAGES = {
   "harness-engineering": {
     "fr": {
       "name": "Harness Engineering",
-      "title": "Le modèle ne suffit pas. Il faut un système fiable autour.",
-      "description": "Concevoir ou corriger le système autour de vos agents : contexte, outils, permissions, vérifications et supervision.",
+      "title": "Encadrer vos assistants IA : règles, droits et contrôles",
+      "description": "Définir ou revoir les informations, les outils et les droits de vos assistants IA, avec des règles, des vérifications et une supervision humaine.",
       "sections": [
         [
           "problem",

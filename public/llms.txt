@@ -1,28 +1,56 @@
 # Parrit.ai
 
-> We turn operational problems into systems that work.
+> Nous formons vos équipes à l'IA et construisons les outils qui leur manquent.
+> We train your teams in AI and build the tools they need.
 
-## The single page
-- https://parrit.ai/ (English)
-- https://parrit.ai/fr (French)
-- Agents in production, what AI changes, the path, departments, how data travels through our systems, the team, references, and founder and contact.
-- Parrit.ai trains your teams, builds with them and puts software made for your company into production.
-- Paul Larmaraud, founder of Parrit.ai. Based in the Lille area, he also works in Paris.
-- Service area: Lille, Métropole européenne de Lille, Hauts-de-France, France.
+## Français
 
-## Journal themes
-- https://parrit.ai/journal/themes/harness-engineering (FR: https://parrit.ai/fr/journal/themes/harness-engineering): Design or correct the system around your agents: context, tools, permissions, checks and supervision.
-- https://parrit.ai/journal/themes/ai-sprints (FR: https://parrit.ai/fr/journal/themes/ai-sprints): A short cycle with an agreed scope, criteria written before building and a documented decision.
-- https://parrit.ai/journal/themes/integration-developpement (FR: https://parrit.ai/fr/journal/themes/integration-developpement): Integrate what exists, build what is missing and orchestrate a supervised system suited to your operations.
-- https://parrit.ai/journal/themes/conseil-transformation (FR: https://parrit.ai/fr/journal/themes/conseil-transformation): Start from your operations to decide priorities, build a roadmap and prepare adoption.
+### La page d'accueil
+- https://parrit.ai/fr
+- Dans l'ordre : présentation, applications concrètes, ce que l'IA change dans votre entreprise, parcours, cas d'usage par service, technologies, équipe, références, fondateur et contact.
+- Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.
+- Paul Larmaraud, fondateur de Parrit.ai, forme les équipes et pilote les projets.
+- Zone d'intervention : Lille, Métropole européenne de Lille, Hauts-de-France et toute la France.
 
-## Journal
-- https://parrit.ai/journal (FR: https://parrit.ai/fr/journal): what held and what broke on AI systems inside companies, dated and on the record.
+### Thèmes du Journal
+- https://parrit.ai/fr/journal/themes/harness-engineering : Encadrer vos assistants IA : règles, droits et contrôles.
+- https://parrit.ai/fr/journal/themes/ai-sprints : Un premier résultat en cycle court, avec des critères écrits à l'avance.
+- https://parrit.ai/fr/journal/themes/integration-developpement : Relier vos logiciels et construire ce qui manque.
+- https://parrit.ai/fr/journal/themes/conseil-transformation : Choisir vos priorités et préparer vos équipes.
+
+### Journal
+- https://parrit.ai/fr/journal : retours datés sur ce qui fonctionne et ce qui échoue dans les outils d'IA en entreprise.
+- L'index est en français ; les articles restent en anglais, à une seule adresse sous https://parrit.ai/journal/.
+
+### Mentions légales
+- https://parrit.ai/fr/legal
+- Siège social : Rueil-Malmaison, France.
+
+### Contact
+- https://parrit.ai/fr#contact : réservation intégrée à la page d'accueil.
+
+## English
+
+### The home page
+- https://parrit.ai/
+- In order: introduction, real-world applications, what AI changes in your company, the path, use cases by department, technologies, team, references, founder and contact.
+- Client replies, follow-ups, quotes, meeting notes: AI prepares them, your teams review and decide.
+- Paul Larmaraud, founder of Parrit.ai, trains teams and leads projects.
+- Service area: Lille, Métropole européenne de Lille, Hauts-de-France and across France.
+
+### Journal themes
+- https://parrit.ai/journal/themes/harness-engineering: Rules, permissions and checks for your AI assistants.
+- https://parrit.ai/journal/themes/ai-sprints: A first result in a short cycle, with criteria written in advance.
+- https://parrit.ai/journal/themes/integration-developpement: Connect your software and build what is missing.
+- https://parrit.ai/journal/themes/conseil-transformation: Choose your priorities and prepare your teams.
+
+### Journal
+- https://parrit.ai/journal: dated accounts of what works and what fails in AI tools inside companies.
 - Articles have a single English URL under https://parrit.ai/journal/.
 
-## Legal notice
-- https://parrit.ai/legal (FR: https://parrit.ai/fr/legal).
+### Legal notice
+- https://parrit.ai/legal
 - Registered office: Rueil-Malmaison, France.
 
-## Contact
-- https://parrit.ai/#contact (FR: https://parrit.ai/fr#contact): booking on the single page.
+### Contact
+- https://parrit.ai/#contact: booking on the home page.

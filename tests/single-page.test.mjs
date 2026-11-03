@@ -6,7 +6,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
-const anchors = { fr: ["technologies", "en-production", "ce-qui-change", "parcours", "services", "partenaires", "references", "contact"], en: ["technologies", "in-production", "what-changes", "path", "services", "team", "references", "contact"] };
+const anchors = { fr: ["en-production", "ce-qui-change", "parcours", "services", "technologies", "partenaires", "references", "contact"], en: ["in-production", "what-changes", "path", "services", "technologies", "team", "references", "contact"] };
 function heroGeometries(html) {
   return [...html.matchAll(/<g class="onto-geo onto-geo-(desktop|compact)">([\s\S]*?)(?=<g class="onto-geo |<\/svg>)/g)];
 }
@@ -61,7 +61,9 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.equal((html.match(/<section\b/g) ?? []).length, 9);
   assert.deepEqual([...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]), anchors[locale]);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
-  assert.match(visibleText(html), locale === "fr" ? /Votre expertise est la matière première/ : /Your expertise is the raw material/);
+  const headline = visibleText(main.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? "");
+  assert.match(headline, locale === "fr" ? /\bIA\b/ : /\bAI\b/);
+  assert.match(headline, locale === "fr" ? /formons.*équipes.*outils/ : /train.*teams.*tools/);
   assert.doesNotMatch(html, /\shidden[=> ]|class="k"|v1-index|registry-line/);
   assert.doesNotMatch(visibleText(html), /Votre phrase indique|What you say tells/);
   const partners = html.match(new RegExp(`<section id="${locale === "fr" ? "partenaires" : "team"}">[\\s\\S]*?</section>`))?.[0];
@@ -204,7 +206,9 @@ for (const locale of ["fr", "en"]) test(`three planes, 33 nodes and four complet
     assert.ok(SINGLE_PAGE_EN[label], `English missing: ${label}`);
     assert.ok(visibleText(hero).includes(t(label)), label);
   }
-  assert.match(hero, /class="humby">[^<]*Clive Humby[^<]*2006/);
+  const explanation = visibleText(hero.match(/class="humby">([^<]+)</)?.[1] ?? "");
+  assert.match(explanation, locale === "fr" ? /e-mails.*contrats.*factures/ : /e-mails.*contracts.*invoices/);
+  assert.doesNotMatch(explanation, /Humby|pétrole|oil|raffin|refine/i);
   assert.doesNotMatch(hero, /<animate|class="token"|class="trail"|toklab|static-feed|ontology-motion/);
   assert.doesNotMatch(hero, /#[\da-f]{3,8}\b/i);
 });

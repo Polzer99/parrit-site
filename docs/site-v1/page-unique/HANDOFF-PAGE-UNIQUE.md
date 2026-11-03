@@ -1,5 +1,23 @@
 # Handoff Codex : parrit.ai devient une page unique (27/10/2026)
 
+## Langue métier et référencement, décision de Paul du 02/11/2026
+
+La spec [`CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md`](../../CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md),
+validée le 03/11, remplace uniquement les anciens contrats de texte et de placement :
+H1 « Nous formons vos équipes à l'IA et construisons les outils qui leur manquent. »,
+CTA « Parler d'un projet » / « Talk about a project » aussi dans le hero,
+schéma « Ce que vous obtenez / Votre entreprise / Ce que vous avez déjà »,
+phrase « Vos e-mails, vos contrats et vos factures contiennent déjà les réponses.
+Nous les rendons utilisables. » à la place de Clive Humby. Les assistants gardent
+le mot « agent IA » une seule fois, dans la définition sous « Ce que l'IA change ».
+Bandeau avant l'équipe : ChatGPT, Claude, Gemini, Mistral, Copilot, Google,
+Microsoft, WhatsApp, Telegram, OVH ; registre complet conservé sans autre affichage.
+Pied commun : quatre thèmes du Journal, Journal, mentions légales et bascule de langue.
+Sections, charte, animations, 48 cas, 23 offres et seuils géométriques conservés.
+Le profil LinkedIn d'entreprise reste non confirmé ; aucun `sameAs` inventé.
+
+Les prescriptions ci-dessous qui portent sur ces points sont historiques ; le reste tient.
+
 ## Décisions de Paul (27/10/2026, nuit)
 
 1. « Je préfère qu'on ait une landing page hyper simple sur une page […] On dirait que c'est des débutants qui travaillent. »
@@ -25,7 +43,7 @@
 
 - Barre du haut : `PARRIT.AI`, cinq liens d'ancre (FR : « Ce que l'IA change », « Le parcours », « Garde-fous », « Références », « Contact » ; EN : « What AI changes », « The path », « Safeguards », « References », « Contact »), sélecteur de langue existant, bouton « Parler d'un projet » / « Talk about a project » vers `#contact`. Plus de menu déroulant, plus d'entrées Conseil, AI Sprints, Engineering, Plus, Journal. Mobile : wordmark, langues et bouton sur une rangée ; les ancres dans un menu simple.
 - Section 8 : photo issue du registre de marque (`person.paul.primary_portrait`, `parrit-canon/brand/assets/photos/paul-centre.png`, empreinte du registre à vérifier ; copier dans `public/` avec son empreinte dans un contrat d'assets, ne jamais retoucher l'image), texte de la maquette, bouton « Parler d'un projet » qui fait défiler vers la **réservation intégrée juste dessous, dans la même section** (composants existants `CalInline` puis `QuickCapture` en repli « Pas de créneau ? Laissez votre e-mail »), et l'adresse e-mail.
-- Pied de page : « © 2026 Parrit.ai », liens « Journal », « Mentions légales », bascule de langue. Aucun autre lien.
+- Pied de page : « © 2026 Parrit.ai », liens vers les quatre thèmes du Journal, « Journal », « Mentions légales », bascule de langue (décision de Paul du 02/11/2026).
 - La bande de grain (`Matiere`) n'est pas dans la maquette validée : la retirer de la page (garder le composant et ses tests si d'autres pages l'utilisent ; sinon supprimer composant, tuiles, générateur et tests du grain, et l'appel au prebuild).
 - Statuts des preuves : petite ligne en casse normale (« Exemple illustratif », « Chez un client »), carré de 8 px (`--brand-accessible-line` ou `--brand-core-canard`), jamais en capitales ni en police machine.
 

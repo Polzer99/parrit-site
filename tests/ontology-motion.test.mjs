@@ -5,7 +5,7 @@ import * as React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader } from "./helpers/site-v1-render.mjs";
 
-// Independent acceptance data from the 30/10 spec, not derived from HERO_STORIES.
+// Independent acceptance data: 30/10 path, wording amended by the 02/11 spec.
 const quality = JSON.parse(readFileSync(new URL("./fixtures/hero-quality.json", import.meta.url), "utf8"));
 
 for (const locale of ["fr", "en"]) test(`four stories light their exact nodes and links; one timer, cleanup and restart (${locale})`, context => {

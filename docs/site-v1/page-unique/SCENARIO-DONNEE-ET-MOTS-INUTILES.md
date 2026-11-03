@@ -1,5 +1,23 @@
 # Scénario « la donnée devient un résultat » + chasse aux mots inutiles (27/10/2026)
 
+## Langue métier et référencement, décision de Paul du 02/11/2026
+
+La spec [`CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md`](../../CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md),
+validée le 03/11, remplace uniquement les anciens contrats de texte et de placement :
+H1 « Nous formons vos équipes à l'IA et construisons les outils qui leur manquent. »,
+CTA « Parler d'un projet » / « Talk about a project » aussi dans le hero,
+schéma « Ce que vous obtenez / Votre entreprise / Ce que vous avez déjà »,
+phrase « Vos e-mails, vos contrats et vos factures contiennent déjà les réponses.
+Nous les rendons utilisables. » à la place de Clive Humby. Les assistants gardent
+le mot « agent IA » une seule fois, dans la définition sous « Ce que l'IA change ».
+Bandeau avant l'équipe : ChatGPT, Claude, Gemini, Mistral, Copilot, Google,
+Microsoft, WhatsApp, Telegram, OVH ; registre complet conservé sans autre affichage.
+Pied commun : quatre thèmes du Journal, Journal, mentions légales et bascule de langue.
+Sections, charte, animations, 48 cas, 23 offres et seuils géométriques conservés.
+Le profil LinkedIn d'entreprise reste non confirmé ; aucun `sameAs` inventé.
+
+Les prescriptions ci-dessous qui portent sur ces points sont historiques ; le reste tient.
+
 Décisions de Paul : animation demandée (« une data qui devient de l'or… ou du pétrole, une petite référence à l'histoire ») ; résultat final en **rose** (exception écrite à « un seul éclat rose par écran », validée par Paul le 27/10) ; « fais un check des mots inutiles ».
 
 Référence visuelle validée : prototype `MAQUETTE-VALIDEE` étendu, film `Parrit-scenario-donnee.mp4` (bloc SVG ci-dessous).
@@ -30,19 +48,19 @@ Code de référence (prototype, à porter en JSX, ids préfixés `onto-` comme l
 ```
 
 Sous le SVG, une ligne visible (classe `humby`, 16 px, couleur `--on-canard`, marge haute 20 px) :
-- FR : « La donnée est le nouveau pétrole », disait Clive Humby en 2006. Brute, elle ne sert à rien : nous la raffinons.
-- EN : “Data is the new oil,” Clive Humby said in 2006. Raw, it is useless: we refine it.
+- FR : Vos e-mails, vos contrats et vos factures contiennent déjà les réponses. Nous les rendons utilisables.
+- EN : Your e-mails, contracts and invoices already hold the answers. We make them usable.
 
-(Source : ICO, « Data is the new oil », discours de Clive Humby, conférence ANA 2006. Seule la phrase courte lui est attribuée ; la suite est la nôtre.)
+(La citation est retirée, décision de Paul du 02/11/2026.)
 
 EN du SVG : « Client e-mail », « Follow-up ready », « Result ».
 
 Contraintes :
 - `prefers-reduced-motion: reduce` : pas de jeton, case rose et texte affichés en permanence (état final statique).
-- À 390 px : si les libellés du SVG deviennent illisibles (< 11 px rendus), suivre le comportement mobile actuel de l'ontologie ; la ligne Humby reste visible.
+- À 390 px : si les libellés du SVG deviennent illisibles (< 11 px rendus), suivre le comportement mobile actuel de l'ontologie ; la phrase sur les documents reste visible.
 - Rayon 0, pas d'ombre, pas de dégradé, pas de police mono.
 - Si un test « un seul rose par écran » échoue, ajouter une exception **nommée et limitée** à `.onto .gold` (commentaire : « exception validée par Paul le 27/10/2026 »), ne pas désactiver le test.
-- Ajouter à `tests/single-page.spec.ts` : la case « Relance prête » / « Follow-up ready » existe, son fond calculé est le rose d'action ; en mouvement réduit elle est visible (opacité 1) ; la ligne Humby est visible FR et EN.
+- Ajouter à `tests/single-page.spec.ts` : la case « Relance prête » / « Follow-up ready » existe, son fond calculé est le rose d'action ; en mouvement réduit elle est visible (opacité 1) ; la phrase sur les documents est visible FR et EN.
 
 ## 2. Mots inutiles (FR, et l'équivalent EN dans `single-page-copy.ts`)
 

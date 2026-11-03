@@ -1,14 +1,16 @@
 import { orgRef } from "./auteur.ts";
+import type { Locale } from "./locale";
 import type { JournalEntry } from "./journal";
 
-export function organizationJsonLd() {
+export function organizationJsonLd(locale: Locale = "en") {
   return {
     "@context": "https://schema.org",
     ...orgRef(),
     alternateName: "PARRIT.AI",
     logo: "https://parrit.ai/icon.png",
-    description:
-      "Parrit.ai supports business transformation and builds the systems that make it possible.",
+    description: locale === "fr"
+      ? "Parrit.ai forme vos équipes à l'IA et construit les outils qui leur manquent."
+      : "Parrit.ai trains your teams in AI and builds the tools they need.",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Rueil-Malmaison",
@@ -41,6 +43,6 @@ export function blogPostingJsonLd(entry: Pick<JournalEntry, "slug" | "title" | "
   };
 }
 
-export function personJsonLd() {
-  return { "@context": "https://schema.org", "@type": "Person", "@id": "https://parrit.ai/#founder", name: "Paul Larmaraud", jobTitle: "Founder", worksFor: orgRef() };
+export function personJsonLd(locale: Locale = "en") {
+  return { "@context": "https://schema.org", "@type": "Person", "@id": "https://parrit.ai/#founder", name: "Paul Larmaraud", jobTitle: locale === "fr" ? "Fondateur" : "Founder", worksFor: orgRef() };
 }

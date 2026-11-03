@@ -36,7 +36,7 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     expect(portraitBox!.width / portraitBox!.height).toBeCloseTo(3 / 4, 2);
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator("main > section")).toHaveCount(9);
-    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["technologies", "en-production", "ce-qui-change", "parcours", "services", "partenaires", "references", "contact"] : ["technologies", "in-production", "what-changes", "path", "services", "team", "references", "contact"]);
+    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["en-production", "ce-qui-change", "parcours", "services", "technologies", "partenaires", "references", "contact"] : ["in-production", "what-changes", "path", "services", "technologies", "team", "references", "contact"]);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     const mono = await page.locator("main *, footer *, header *").evaluateAll(nodes => nodes.filter(node => {
       const style = getComputedStyle(node);
@@ -47,7 +47,7 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     await expect(page.locator(".logo-set[aria-hidden=true]")).toHaveCount(1);
     await expect(page.locator("#services .use-case")).toHaveCount(12);
     await expect(page.locator("#architecture")).toHaveCount(0);
-    await expect(page.locator(".hero + #technologies")).toHaveCount(1);
+    await expect(page.locator("#services + #technologies")).toHaveCount(1);
     const applications = page.locator(locale === "fr" ? "#en-production" : "#in-production");
     await expect(applications.locator(".phone")).toHaveCount(3);
     await expect(applications.locator("h3")).toHaveCount(3);
@@ -1047,15 +1047,15 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await page.emulateMedia({ reducedMotion: "reduce" });
         await page.goto(local(locale === "fr" ? "/fr" : "/"));
         await page.evaluate(() => document.fonts.ready);
-        const band = page.locator(".hero + #technologies");
+        const band = page.locator("#services + #technologies");
         // Round down to keep the section top visible when the hero height includes a subpixel.
         await band.evaluate(el => window.scrollTo(0, Math.floor(el.getBoundingClientRect().top + window.scrollY)));
         await expect(band).toBeInViewport({ ratio: 1 });
         expect((await band.boundingBox())!.height).toBeLessThanOrEqual(height);
         await expect(band.locator(".tech-note")).toHaveCount(0);
         const list = band.locator(".tech-set:not([aria-hidden])");
-        const { TECHNOLOGIES } = await import("../src/system/technologies");
-        expect(await list.locator("li span").allTextContents()).toEqual(TECHNOLOGIES.map(item => item.name));
+        expect(await list.locator("li span").allTextContents()).toEqual(["ChatGPT", "Claude", "Gemini", "Mistral", "Copilot", "Google", "Microsoft", "WhatsApp", "Telegram", "OVH"]);
+        await expect(page.locator(locale === "fr" ? "#technologies + #partenaires" : "#technologies + #team")).toHaveCount(1);
         await expect(band.locator(".tech-set[aria-hidden=true]")).toBeHidden();
         await expect(band.locator(".tech-track")).toHaveCSS("animation-name", "none");
         await expect(band.locator(".tech-track")).toHaveCSS("transform", "none");
@@ -1362,5 +1362,52 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
     expect(geometry.inputRight).toBeLessThanOrEqual(geometry.left + 1);
     expect(geometry.scrollWidth).toBeLessThanOrEqual(geometry.clientWidth + 1);
     expect(geometry.gridRight).toBeLessThanOrEqual(width);
+  });
+}
+
+// Decision by Paul, 02/11/2026: plain language without losing SSR or destinations.
+for (const locale of ["fr", "en"]) for (const width of [1440, 390]) {
+  test(`business language and localized SEO ${locale} ${width}`, async ({ page }) => {
+    await page.setViewportSize({ width, height: width === 1440 ? 800 : 700 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(local(locale === "fr" ? "/fr" : "/"));
+    const text = await page.locator("body").innerText();
+    expect(text).not.toMatch(locale === "fr"
+      ? /ontologie|objets reliés|sources de logique|systèmes d'action|agnostiques|harness|back-office|raffinons|matière première/i
+      : /ontology|linked objects|logic sources|systems of action|technology-agnostic|harness engineering/i);
+    expect(text.match(/\bagents?\b/gi)).toHaveLength(1);
+    await expect(page.locator("h1")).toContainText(locale === "fr" ? /\bIA\b/ : /\bAI\b/);
+    expect(await page.title()).toMatch(/Lille/);
+    expect(await page.locator('meta[name="description"]').getAttribute("content")).toMatch(locale === "fr" ? /\bIA\b.*Lille/ : /\bAI\b.*Lille/);
+    const definition = page.locator("h2 + .change-definition");
+    await expect(definition).toHaveCount(1);
+    await expect(definition).toBeVisible();
+    const definitionHeight = await definition.evaluate(el => ({ client: el.clientHeight, scroll: el.scrollHeight }));
+    expect(definitionHeight.scroll).toBeLessThanOrEqual(definitionHeight.client + 1);
+    const graph = await page.locator('script[type="application/ld+json"]').evaluateAll(nodes => nodes.map(node => JSON.parse(node.textContent ?? "{}") as { "@type": string; description?: string; jobTitle?: string }));
+    expect(graph.find(item => item["@type"] === "Organization")?.description).toMatch(locale === "fr" ? /équipes.*IA/ : /teams.*AI/);
+    expect(graph.find(item => item["@type"] === "Person")?.jobTitle).toBe(locale === "fr" ? "Fondateur" : "Founder");
+  });
+}
+
+for (const path of ["/fr", "/fr/journal", "/journal/agent-ia-entreprise"]) {
+  test(`footer exposes all six destinations on ${path}`, async ({ page }) => {
+    await page.goto(local(path));
+    const prefix = path.startsWith("/fr") ? "/fr" : "";
+    const footer = page.locator("footer");
+    const links = ["harness-engineering", "ai-sprints", "integration-developpement", "conseil-transformation"].map(slug => `${prefix}/journal/themes/${slug}`);
+    links.push(`${prefix}/journal`, `${prefix}/legal`);
+    for (const href of links) await expect(footer.locator(`a[href="${href}"]`)).toBeVisible();
+    await expect(footer.locator("a")).toHaveCount(7); // Six content links plus the existing language switch.
+    for (const width of [1440, 390]) {
+      await page.setViewportSize({ width, height: 800 });
+      expect(await footer.evaluate(el => el.scrollWidth <= el.clientWidth)).toBe(true);
+      for (const link of await footer.locator("a").all()) {
+        const box = await link.boundingBox();
+        expect(box).not.toBeNull();
+        expect(box!.x).toBeGreaterThanOrEqual(0);
+        expect(box!.x + box!.width).toBeLessThanOrEqual(width);
+      }
+    }
   });
 }

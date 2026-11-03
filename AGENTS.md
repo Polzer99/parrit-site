@@ -1,3 +1,19 @@
+## Langue métier et référencement, décision de Paul du 02/11/2026
+
+La spec `docs/CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md`,
+validée le 03/11, remplace uniquement les anciens contrats de texte et de placement :
+H1 « Nous formons vos équipes à l'IA et construisons les outils qui leur manquent. »,
+CTA « Parler d'un projet » / « Talk about a project » aussi dans le hero,
+schéma « Ce que vous obtenez / Votre entreprise / Ce que vous avez déjà »,
+phrase « Vos e-mails, vos contrats et vos factures contiennent déjà les réponses.
+Nous les rendons utilisables. » à la place de Clive Humby. Les assistants gardent
+le mot « agent IA » une seule fois, dans la définition sous « Ce que l'IA change ».
+Bandeau avant l'équipe : ChatGPT, Claude, Gemini, Mistral, Copilot, Google,
+Microsoft, WhatsApp, Telegram, OVH ; registre complet conservé sans autre affichage.
+Pied commun : quatre thèmes du Journal, Journal, mentions légales et bascule de langue.
+Sections, charte, animations, 48 cas, 23 offres et seuils géométriques conservés.
+Le profil LinkedIn d'entreprise reste non confirmé ; aucun `sameAs` inventé.
+
 <!-- BEGIN:nextjs-agent-rules -->
 # This is NOT the Next.js you know
 
@@ -52,7 +68,7 @@ Aucun mode complex ni Inter Tight.
 - **Enveloppe, décision Paul du 27/10/2026** : page unique, maquette et handoff dans
   `docs/site-v1/page-unique/` ; section 0 prime. Barre canard dans le flux,
   six ancres, langues et contact ; menu mobile natif. Pied : copyright,
-  Journal, mentions légales, langue. Aucun surtitre ni registre visible.
+  quatre thèmes du Journal, Journal, mentions légales, langue (décision de Paul du 02/11/2026). Aucun surtitre ni registre visible.
 - **Photo** : portrait choisi par Paul le 27/10/2026 : buste LinkedIn souriant,
   section contact, exports AVIF/WebP 340/680 de `public/brand/founder/` ;
   octets et SHA256 contrôlés par `tests/fixtures/founder-photo.json`, cadrage entier 3:4.
@@ -65,8 +81,7 @@ précédent, ou centré si son titre est centré. Deux actions : `exec` puis `gh
 espacement `var(--brand-s2)`, hauteur et ligne de base communes. Un seul `exec`
 par section ; principal en clôture. Pas de point final, infinitif FR et impératif
 court EN. Vers `/#contact` ou `/fr#contact` : « Parler d'un projet » / « Talk about a project ».
-Exception : bouton principal du hero accueil « Parlons de votre transformation » /
-« Let's talk about your transformation ». L’envoi du formulaire de contact reste à droite du champ.
+Le hero suit aussi ce libellé (décision de Paul du 02/11/2026). L’envoi du formulaire de contact reste à droite du champ.
 Un seul éclat rose par écran (Brand OS) : navigation `ghost`, dans le flux ; boutons principaux du hero et du contact `exec`. Repli e-mail à bouton neutre.
 
 ### Règle de création — non négociable
@@ -130,7 +145,7 @@ Voir aussi la skill `qa-playwright` (batterie responsive + multi-navigateur).
 - Positionnement : page unique validée par Paul le 27/10/2026, `docs/site-v1/page-unique/PASSE-3-PAGE-RACONTEE.md`.
 - Marque : Parrit.ai ; nom et portrait de Paul autorisés dans le contact (27/10), identité du Journal inchangée.
 - Mesure d'audience (05/10/2026) : PostHog retiré du navigateur ; seule mesure active, Cloudflare Web Analytics injectée hors dépôt par Cloudflare et décrite dans `/legal`.
-- CTA (26/10/2026) : « Parler d'un projet » / « Talk about a project », hero « Parlons de votre transformation » / « Let's talk about your transformation » vers `/#contact` ou `/fr#contact`.
+- CTA (26/10/2026) : « Parler d'un projet » / « Talk about a project », hero inclus (décision de Paul du 02/11/2026) vers `/#contact` ou `/fr#contact`.
 - CTA réservation (28/10/2026) : Cal.com utilise `paul-larmaraud/audit` en FR et `paul-larmaraud/ai-strategy-meeting` en EN ; un `calLink` explicite reste prioritaire.
 - Tests (25/10/2026) : contrôler les règles de fond et la structure, pas les libellés. Conserver les contrôles de destination, accessibilité, réseau et géométrie.
 - Collab Codex↔Claude = via **GitHub Issues/PR**, jamais d'auto-merge, **Paul merge**. Codex = codeur, Claude = relecteur (sécu/archi/bugs/dette).
@@ -139,7 +154,7 @@ Voir aussi la skill `qa-playwright` (batterie responsive + multi-navigateur).
 
 La passe 3 (`docs/site-v1/page-unique/PASSE-3-PAGE-RACONTEE.md`) et sa maquette
 archivée dans `passe-3/maquette/` priment sur la maquette précédente pour leur périmètre.
-Ordre actuel (bandeau, 27/10 au soir) : hero, technologies, applications, ce qui change, parcours, services,
+Ordre actuel (décision de Paul du 02/11/2026) : hero, applications, ce qui change, parcours, services, technologies,
 partenaires, références, fondateur/contact avec réservation intégrée.
 Aucune section « Votre phrase ». Aucun prix. Aucun CRM en vedette.
 Les chiffres et outils explicitement présents dans la maquette sont autorisés.
@@ -160,8 +175,8 @@ et avec mouvement réduit. Contrôles dans `tests/single-page.spec.ts`.
 pour les cas d’usage, les offres partenaires, le trajet et la géométrie.
 Maquette source archivée : `docs/site-v1/page-unique/passe-4/passe4.py`.
 Décision Paul du 27/10/2026, soir : `BANDEAU-TECHNOLOGIES.md` remplace la
-règle de confidentialité de la stack. Bandeau agnostique `#technologies` juste
-après le hero : pour chaque besoin, la meilleure technologie. Liste canonique
+règle de confidentialité de la stack. Bandeau `#technologies` juste avant l’équipe (décision de Paul du 02/11/2026) :
+pour chaque besoin, nous choisissons la meilleure technologie. Dix noms affichés ; liste canonique
 dans `src/system/technologies.ts`, logos locaux dans `public/tech/`, aucun
 partenariat sous-entendu. La section architecture est retirée.
 Les mentions de Claude Code comme formation/audit restent autorisées.
@@ -283,7 +298,7 @@ nœuds (y compris ceux de la réunion), les liens existants, durées et styles
 sont conservés.
 
 `docs/CODEX-SPEC-2026-10-29-hero-trois-plans.md` remplace les précédents
-contrats du hero, dont `HERO-TABLETTE.md`. Titre expertise/mise au travail,
+contrats du hero, dont `HERO-TABLETTE.md`. Titre formation IA/outils sur mesure (décision de Paul du 02/11/2026),
 trois plans, 33 nœuds et quatre histoires issus des maquettes archivées dans
 `docs/hero-trois-plans/` (sans générateurs Python). À partir de 1200 px :
 légende et carte sous le texte à gauche, schéma dégagé et citation à droite.

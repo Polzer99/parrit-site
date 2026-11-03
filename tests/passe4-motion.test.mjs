@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import * as React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { visibleText } from "../scripts/brand-os-contracts.mjs";
 import { loader } from "./helpers/site-v1-render.mjs";
 
 function classes(initial = []) {
@@ -29,9 +31,12 @@ const { SERVICE_CASES, PARTNER_OFFERS, SINGLE_PAGE_EN } = loader("fr")("src/syst
 
 for (const locale of ["fr", "en"]) test(`service lifecycle grants full reading time, staggers and cleans up (${locale})`, t => {
   t.mock.timers.enable({ apis: ["setTimeout"] });
-  const translate = text => locale === "fr" ? text : SINGLE_PAGE_EN[text];
-  const cards = SERVICE_CASES.map(([, texts]) => {
-    const cases = texts.map((text, i) => ({ textContent: `${translate(text)} ${translate(i % 2 ? "Nouveau" : "Back-office")}`, classList: classes() }));
+  const { ServiceTasks } = loader(locale)("src/system/components/ServiceTasks.tsx");
+  const html = renderToStaticMarkup(React.createElement(ServiceTasks, { locale }));
+  const renderedCases = [...html.matchAll(/<div class="case(?: visually-hidden)?"[^>]*>([\s\S]*?)<\/div>/g)].map(match => visibleText(match[1]).replace(/\s+/g, " ").trim());
+  assert.equal(renderedCases.length, 48);
+  const cards = SERVICE_CASES.map(([, texts], cardIndex) => {
+    const cases = texts.map((_, i) => ({ textContent: renderedCases[cardIndex * 4 + i], classList: classes() }));
     const dots = cases.map(() => ({ classList: classes() }));
     return { dataset: {}, classList: classes(), cases, dots, querySelectorAll: selector => selector === ".case" ? cases : dots };
   });

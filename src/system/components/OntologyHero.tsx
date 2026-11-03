@@ -124,6 +124,6 @@ export function OntologyHero({ locale, children }: { locale: Locale; children: R
     <div className="ontocap-stack">{caption(story)}{HERO_STORIES.map(item => caption(item, true))}</div>
     <ol className="sr-only" aria-live="off">{story.steps.map(text => <li key={text}>{t(text)}</li>)}</ol>
     {/* Attribution: https://ico.org.uk/for-the-public/ico-40/data-as-a-commodity/ */}
-    <p className="humby">{t("« La donnée est le nouveau pétrole », disait Clive Humby en 2006. Brute, elle ne sert à rien : nous la raffinons.")}</p>
+    <p className="humby">{t("Vos e-mails, vos contrats et vos factures contiennent déjà les réponses. Nous les rendons utilisables.")}</p>
   </div>;
 }

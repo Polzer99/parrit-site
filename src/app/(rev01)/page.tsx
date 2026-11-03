@@ -6,13 +6,13 @@ import { personJsonLd } from "@/system/jsonld";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const title = locale === "fr" ? "Parrit.ai · Agents et logiciels d'IA en production, Lille et Hauts-de-France" : "Parrit.ai · AI agents and software in production";
+  const title = locale === "fr" ? "Parrit.ai · Formation à l'IA et outils sur mesure pour les entreprises, Lille" : "Parrit.ai · AI training and custom tools for businesses, Lille";
   const description = locale === "fr"
-    ? "Parrit.ai transforme vos problèmes opérationnels en systèmes qui fonctionnent : agents, logiciels et formation IA à Lille et en Hauts-de-France."
-    : "Parrit.ai turns operational problems into systems that work: AI agents, business software and team training, from the Lille area to your company.";
+    ? "Nous formons vos équipes à l'IA et construisons des outils sur mesure : réponses aux clients, relances, devis, comptes rendus. Lille, Hauts-de-France et toute la France."
+    : "We train your teams in AI and build custom tools: client replies, follow-ups, quotes and meeting notes. Lille, Hauts-de-France and across France.";
   return { title: { absolute: title }, description, alternates: localizedAlternates("/", locale), openGraph: localizedOpenGraph("/", locale, title, description) };
 }
 export default async function HomePage() {
   const locale = await getLocale();
-  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd()) }}/><SinglePage locale={locale}/></>;
+  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale)) }}/><SinglePage locale={locale}/></>;
 }

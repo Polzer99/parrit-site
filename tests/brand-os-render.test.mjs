@@ -1,6 +1,6 @@
 import { privateClientNames } from "../scripts/lib/public-clients.mjs";
 import { PUBLIC_CLIENT_NAMES } from "../src/system/public-clients.ts";
-import { TECHNOLOGIES } from "../src/system/technologies.ts";
+import { PUBLIC_TECHNOLOGIES } from "../src/system/technologies.ts";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import matter from "gray-matter";
@@ -56,6 +56,15 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       const metadata = [...html.matchAll(/<meta\b[^>]*content="([^"]*)"[^>]*>/g)].map((match) => visibleText(match[1])).join(" ");
       assert.doesNotMatch(`${visibleText(html)} ${structured} ${metadata}`, /maison (?:française indépendante )?de données|data and AI firm|Données et IA/i, `${locale} ${url}: current positioning`);
       assert.deepEqual(privateClientNames(visibleText(html)), [], `${locale} ${url}: private clients`);
+      if (res.statusCode === 200 && html.includes("<footer")) {
+        const footer = html.match(/<footer[\s\S]*?<\/footer>/)?.[0];
+        assert.ok(footer, `${locale} ${url}: shared footer`);
+        const prefix = locale === "fr" ? "/fr" : "";
+        const destinations = ["harness-engineering", "ai-sprints", "integration-developpement", "conseil-transformation"].map(slug => `${prefix}/journal/themes/${slug}`);
+        destinations.push(`${prefix}/journal`, `${prefix}/legal`);
+        for (const href of destinations) assert.ok(footer.includes(`href="${href}"`), `${locale} ${url}: footer ${href}`);
+        assert.equal((footer.match(/<a\b/g) ?? []).length, 7);
+      }
       return { status: res.statusCode, html };
     };
     const metadataTitles = new Set();
@@ -65,7 +74,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         const label = `${locale} ${route}`;
         assert.equal(status, 200, label);
         assert.doesNotMatch(html, /posthog/i, `${label}: browser analytics must stay disabled`);
-        for (const [name, value] of [["og:image", "https://parrit.ai/opengraph-image?v=2026-10-27"], ["og:image:width", "1200"], ["og:image:height", "630"], ["twitter:card", "summary_large_image"], ["twitter:image", "https://parrit.ai/opengraph-image?v=2026-10-27"]]) {
+        for (const [name, value] of [["og:image", "https://parrit.ai/opengraph-image?v=2026-11-02"], ["og:image:width", "1200"], ["og:image:height", "630"], ["twitter:card", "summary_large_image"], ["twitter:image", "https://parrit.ai/opengraph-image?v=2026-11-02"]]) {
           assert.ok(html.includes(`${name}" content="${value}"`), `${label}: ${name}`);
         }
         assert.deepEqual(checkGlyphs(html, label, glyphs, connectors), []);
@@ -123,11 +132,12 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         if (route === "/") {
           assert.match(html, /<section class="hero"/);
           const ids = [...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]);
-          const expected = locale === "fr" ? ["technologies", "en-production", "ce-qui-change", "parcours", "services", "partenaires", "references", "contact"] : ["technologies", "in-production", "what-changes", "path", "services", "team", "references", "contact"];
+          const expected = locale === "fr" ? ["en-production", "ce-qui-change", "parcours", "services", "technologies", "partenaires", "references", "contact"] : ["in-production", "what-changes", "path", "services", "technologies", "team", "references", "contact"];
           // The compiled contact also contains QuickCapture's nested section.
           assert.deepEqual(ids, [...expected, "single-contact"]);
           assert.doesNotMatch(html, /id="architecture"/);
-          assert.match(html, /<section class="hero">[\s\S]*?<\/section><section id="technologies"/);
+          assert.match(html, /<section id="services">[\s\S]*?<\/section><section id="technologies"/);
+          assert.match(html, /<section id="technologies"[\s\S]*?<\/section><section id="(?:partenaires|team)"/);
           const technologyBand = html.match(/<section id="technologies"[\s\S]*?<\/section>/)?.[0];
           assert.ok(technologyBand, `${label}: compiled server renders the band`);
           const technologyLists = [...technologyBand.matchAll(/<ul([^>]*)>([\s\S]*?)<\/ul>/g)];
@@ -135,7 +145,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           assert.doesNotMatch(technologyLists[0][1], /aria-hidden/);
           assert.match(technologyLists[1][1], /aria-hidden="true"/);
           for (const [, , list] of technologyLists) {
-            assert.deepEqual([...list.matchAll(/<span>([^<]+)<\/span>/g)].map(m => m[1]), TECHNOLOGIES.map(item => item.name));
+            assert.deepEqual([...list.matchAll(/<span>([^<]+)<\/span>/g)].map(m => m[1]), PUBLIC_TECHNOLOGIES.map(item => item.name));
           }
           assert.doesNotMatch(text, /Content Factor|usines? de contenu|FormIA|Qualiopi/i);
           const partners = html.match(new RegExp(`<section id="${locale === "fr" ? "partenaires" : "team"}">[\\s\\S]*?</section>`))?.[0];

@@ -46,3 +46,11 @@ export const TECHNOLOGIES: readonly Technology[] = [
   { name: "Phantombuster", logo: null },
   { name: "Lemlist", logo: null },
 ];
+
+// Public selection, decision by Paul on 02/11/2026. Keep the full registry above.
+const PUBLIC_TECHNOLOGY_NAMES = ["ChatGPT", "Claude", "Gemini", "Mistral", "Copilot", "Google", "Microsoft", "WhatsApp", "Telegram", "OVH"] as const;
+export const PUBLIC_TECHNOLOGIES = PUBLIC_TECHNOLOGY_NAMES.map(name => {
+  const technology = TECHNOLOGIES.find(item => item.name === name);
+  if (!technology) throw new Error(`Unknown public technology: ${name}`);
+  return technology;
+});

@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const locale = await getLocale();
   const copy = SITE_V1_PAGES[THEMES[theme].page][locale];
   const path = `/journal/themes/${theme}`;
-  const title = `${copy.name} : ${copy.title} · Parrit.ai`;
+  const title = `${locale === "fr" ? copy.title : `${copy.name} : ${copy.title}`} · Parrit.ai`;
   return { title: { absolute: title }, description: copy.description, alternates: localizedAlternates(path, locale), openGraph: localizedOpenGraph(path, locale, title, copy.description) };
 }
 
