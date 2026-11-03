@@ -154,6 +154,11 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
     expect(calendarRequests, "le calendrier doit encore être différé").toBe(0);
     const sections = page.locator("main > section");
     await expect(sections).toHaveCount(9);
+    const animatedSectionIds = new Set([
+      locale === "fr" ? "en-production" : "in-production",
+      "services",
+      locale === "fr" ? "partenaires" : "team",
+    ]);
     for (let i = 1; i < 9; i++) {
       const destination = await sections.nth(i).evaluate(node => node.getBoundingClientRect().top + scrollY);
       // Défilement progressif : laisse passer les entrées et sorties d'IntersectionObserver.
@@ -163,7 +168,8 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
           await new Promise(resolve => setTimeout(resolve, 120));
         }
       }, destination);
-      if ([2, 5, 6].includes(i)) await page.waitForTimeout(25_000);
+      const sectionId = await sections.nth(i).getAttribute("id");
+      if (sectionId && animatedSectionIds.has(sectionId)) await page.waitForTimeout(25_000);
     }
     await page.evaluate(async () => {
       while (scrollY < document.documentElement.scrollHeight - innerHeight - 1) {

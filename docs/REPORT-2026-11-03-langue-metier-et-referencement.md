@@ -133,6 +133,73 @@ Démarrer ensuite `npx next start -H 127.0.0.1 -p 3210` dans un terminal et lanc
 FR/EN ordinateur/téléphone et lecture du texte par Paul, conformément à la spec.
 Le profil LinkedIn pourra rejoindre `sameAs` après sa confirmation nominative.
 
+## Correction 1 du 03/11/2026 : résultat partiel
+
+Source : amendement « À faire maintenant : correction 1, et rien d'autre »
+de la spec, présent avant cette intervention. Baseline de cette correction :
+`f1bb146125700ed028e8365eaa01a666a7ef3260`.
+Les résultats et mentions de fichiers inchangés ci-dessus décrivent la passe initiale.
+
+Modifications effectuées :
+
+- `src/system/single-page-copy.ts` : « Le contrôle de vos assistants » et
+  « Claude Code pour vos développeurs », dans les offres et leurs traductions
+  anglaises. Les 23 offres sont conservées.
+- `src/system/single-page.css` : ajout exclusif de
+  `-webkit-box-decoration-break:clone` et `box-decoration-break:clone` aux noms
+  des plans. Taille, espacement et autres règles du schéma inchangés.
+- `tests/stabilite.spec.ts` : les huit parcours FR/EN attendent désormais 25 s
+  sur les identifiants `en-production` / `in-production`, `services` et
+  `partenaires` / `team`, sans dépendre de leur position dans la page.
+  Défilement, assertions, délais et seuils existants conservés.
+- Ce rapport : ajout du présent compte rendu, historique conservé.
+
+Pas de nouveau test : les huit parcours de stabilité existants sont corrigés ;
+les contrôles existants couvrent déjà la géométrie, les traductions, le rendu
+serveur des 48 cas et des 23 offres. Aucun test ne fige les nouveaux libellés.
+
+| Vérification | Baseline correction 1 | Candidat partiel |
+|---|---|---|
+| `npm run lint` | Réussi | Réussi |
+| `npm run build -- --webpack` | Réussi | Réussi |
+| `npm test` | 142/142 | 142/142 |
+| `npx tsc --noEmit` | Inclus au build | Réussi séparément |
+| `npm run qa:brand:rev01` | Non rejoué séparément | Réussi |
+| `npm run qa:claims:rev01` | Non rejoué séparément | Réussi |
+| `npm run test:brand-os` | Inclus dans npm test | 19/19 |
+| `npm run qa:network:rev01 -- --list` | Non rejoué | 410 tests recensés |
+| `git diff --check` | Sans objet | Réussi |
+
+Guides locaux Next 16.3.4 et documentation Context7 Playwright 1.61.1 consultés.
+Les dépendances déjà présentes ont été utilisées, sans changement de version.
+
+Blocages :
+
+1. La phrase française « Plus de dix, chacun sa spécialité : lecture de
+   documents, assistants, connexion à vos logiciels. » est écrite directement
+   dans `src/system/components/SinglePage.tsx`. Ce fichier ne figure pas dans
+   les quatre fichiers autorisés par l'amendement. `t()` renvoie directement
+   cette chaîne en français : changer uniquement le dictionnaire anglais ne
+   peut donc corriger le rendu français. Une confirmation a été demandée pour
+   remplacer cette unique chaîne par « Plus de dix, chacun sa spécialité :
+   documents, assistants, connexion à vos logiciels. », puis sa clé et sa
+   traduction anglaise dans le dictionnaire. Cette paire reste inchangée dans
+   l'attente de la réponse ; la correction 1 n'est pas entièrement terminée.
+2. `npx next start -H 127.0.0.1 -p 3210` échoue avec `listen EPERM`.
+   La batterie réseau, tentée avec `--max-failures=1 --workers=1`, échoue au
+   lancement de Chromium (`MachPortRendezvousServer`, permission denied,
+   SIGTRAP) avant navigation : 1 test échoué, 409 non exécutés. La géométrie
+   à 1280×720, la stabilité et le rendu des libellés restent à rejouer par
+   Claude sur l'hôte. Aucun résultat navigateur réel revendiqué.
+
+Revue indépendante en lecture seule : nécessité de la chaîne dans
+`SinglePage.tsx` confirmée, sélection des trois sections et traductions relues.
+Écriture limitée aux quatre fichiers autorisés, locale et réversible ;
+aucune donnée métier (0 ligne), aucun commit, push ou déploiement.
+Sauvegarde : HEAD ci-dessus et diff préexistant dans
+`/private/tmp/parrit-correction1-preexisting.patch`. Les six captures modifiées
+avant intervention et la spec sont préservées, vérifiées par SHA256.
+
 ## Périmètre d'écriture et preuve
 
 TARGET_SYSTEM : ce dépôt local ; ENVIRONMENT : branche de handoff fournie.

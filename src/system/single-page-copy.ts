@@ -261,7 +261,7 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "Retrouve une clause dans dix ans d'archives.": "Finds a clause in ten years of archives.",
   "Des assistants sur mesure": "Custom assistants",
   "Des outils sur mesure": "Custom tools",
-  "Les règles et les contrôles autour des assistants": "Rules and checks around assistants",
+  "Le contrôle de vos assistants": "Control over your assistants",
   "Des automatisations sur mesure": "Custom automations",
   "La connexion à vos logiciels": "Connecting to your software",
   "Des assistants écrits": "Written assistants",
@@ -274,7 +274,7 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "Vos contenus": "Your content",
   "Votre prospection": "Your prospecting",
   "Des ateliers par métier": "Workshops by role",
-  "La formation de vos développeurs à Claude Code": "Claude Code training for your developers",
+  "Claude Code pour vos développeurs": "Claude Code for your developers",
   "L'audit de vos processus": "Process audits",
   "Le diagnostic IA": "AI diagnosis",
   "La relecture de chaque livrable": "A review of every deliverable",
@@ -401,7 +401,7 @@ export const PARTNER_OFFERS = [
   [
     "Des assistants sur mesure",
     "Des outils sur mesure",
-    "Les règles et les contrôles autour des assistants",
+    "Le contrôle de vos assistants",
     "La connexion à vos logiciels"
   ],
   [
@@ -423,7 +423,7 @@ export const PARTNER_OFFERS = [
   [
     "Des formations par métier",
     "Des ateliers par métier",
-    "La formation de vos développeurs à Claude Code"
+    "Claude Code pour vos développeurs"
   ],
   [
     "L'audit de vos processus",

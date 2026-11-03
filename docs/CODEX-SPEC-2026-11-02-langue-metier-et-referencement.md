@@ -4,6 +4,23 @@ Niveau de risque : moyen
 
 Statut : validée par Paul le 03/11/2026 (« Go sur la spec »).
 
+## À faire maintenant : correction 1, et rien d'autre
+
+Le reste de cette spec est déjà implémenté sur cette branche : ne pas le refaire. Claude a joué la batterie en navigateur sur l'hôte : 401 tests passent, 9 échouent. Modifier seulement `src/system/single-page-copy.ts`, `src/system/single-page.css`, `tests/stabilite.spec.ts`, et ajouter le résultat au rapport `docs/REPORT-2026-11-03-langue-metier-et-referencement.md`.
+
+1. **Le bloc « Chaque projet a son équipe et sa technologie » déborde à 1280×720 en français** : 770 px pour 720 (`un bloc = un écran fr 1280×720`), ce que le banc d'essai 5 interdit. Trois textes français remplacent ceux de la spec, là où ils apparaissent ; l'anglais suit le sens :
+   - « Plus de dix, chacun sa spécialité : lecture de documents, assistants, connexion à vos logiciels. » devient « Plus de dix, chacun sa spécialité : documents, assistants, connexion à vos logiciels. »
+   - « Les règles et les contrôles autour des assistants » devient « Le contrôle de vos assistants ».
+   - « La formation de vos développeurs à Claude Code » devient « Claude Code pour vos développeurs ».
+
+   Ne changer ni la taille du texte, ni l'espacement, ni le seuil du test.
+
+2. **`page stable` échoue dans ses 8 cas** : `result.cases.length` vaut 1. Le test attend 25 s sur les sections d'indices 2, 5 et 6. Le bandeau des technologies a changé de place, ces indices ne désignent plus les applications, les services et les partenaires, et les cas ne tournent plus pendant la mesure. Faire attendre le test sur ces trois sections-là, trouvées d'après la section et non d'après un indice figé. Ne changer aucune attente de résultat.
+
+3. **Noms des plans du haut de page sur deux lignes** : « CE QUE VOUS OBTENEZ » et « CE QUE VOUS AVEZ DÉJÀ » ont leur première ligne décalée de 2 px. Ajouter à `.single-page .onto-layer b` `box-decoration-break: clone`, avec le préfixe `-webkit-`. Rien d'autre sur le schéma.
+
+Tous les tests Node doivent passer. Le navigateur reste refusé par le bac à sable : Claude rejouera sur l'hôte, ne rien revendiquer de réel.
+
 ## Demande de Paul (02/11/2026)
 
 Rendre le site plus compréhensible pour les métiers, dans un français courant, en quittant le « langage Palantir ». Le référencement fait partie du chantier.
