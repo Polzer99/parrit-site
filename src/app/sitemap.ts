@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next";
 import { localizedAlternates, localizedPath } from "@/system/locale";
 import { getAllJournalEntrySummaries } from "@/system/journal";
+import { JOURNAL_THEMES_LAST_MODIFIED } from "@/system/journal-themes";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://parrit.ai";
 
 const REV01_PUBLIC_ROUTES = [
-  ...["harness-engineering", "ai-sprints", "integration-developpement", "conseil-transformation"].map(theme => ({ path: `/journal/themes/${theme}`, lastModified: "2026-11-03", changeFrequency: "monthly" as const, priority: 0.8 })),
+  ...["harness-engineering", "ai-sprints", "integration-developpement", "conseil-transformation"].map(theme => ({ path: `/journal/themes/${theme}`, lastModified: JOURNAL_THEMES_LAST_MODIFIED, changeFrequency: "monthly" as const, priority: 0.8 })),
   { path: "", lastModified: "2026-11-03", changeFrequency: "weekly" as const, priority: 1.0 },
   { path: "/legal", lastModified: "2026-09-02", changeFrequency: "yearly" as const, priority: 0.3 },
 ];

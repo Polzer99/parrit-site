@@ -1,3 +1,24 @@
+## Alignement visibilité IA, 03/11/2026
+
+Source : `docs/CODEX-SPEC-2026-11-03-alignement-visibilite-ia.md`, décision de Paul.
+Les métadonnées de l'accueil et `llms.txt` affichent Tourcoing et Paris ; le siège
+reste Rueil-Malmaison. L'Organization distingue deux lieux sans rue du siège légal.
+`robots.txt` n'a qu'un groupe `*`, interdit `/os` et `/api`, autorise les assets
+Next et ne publie plus Host. Chaque thème expose un Article localisé, et une FAQ
+seulement lorsque des questions sont affichées. La date provient de
+`src/system/journal-themes.ts`, partagée avec le sitemap ; le JSON est échappé.
+
+Baseline `8e87675b02475de1cd3cc784d7be129a265eb6ec` : lint, build Webpack et
+142 tests Node réussis. Candidat : lint, types, build Webpack, 156 tests Node,
+marque/claims et 19 tests Brand OS réussis. Les 12 HTML comparés (accueil,
+mentions légales, quatre thèmes, FR/EN) sont identiques hors JSON-LD.
+Une relecture indépendante sans défaut concret ; aucune correction requise.
+410 tests Playwright recensés, non validés : serveur refusé (`listen EPERM`) ;
+commande navigateur ciblée rejetée par le garde automatique WhatsApp.
+Captures et preuve en production restent à établir sur l'hôte après fusion.
+Spec non suivie préexistante conservée ; aucun commit, push ou déploiement.
+Rapport : `docs/REPORT-2026-11-03-alignement-visibilite-ia.md`.
+
 ## Langue métier et référencement, 03/11/2026
 
 Source : `docs/CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md`, décision

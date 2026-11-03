@@ -41,7 +41,9 @@ for (const locale of ["fr", "en"]) test(`home metadata and Organization/Person J
   const metadata = await load("src/app/(rev01)/page.tsx").generateMetadata();
   for (const value of [metadata.title.absolute, metadata.description]) {
     assert.match(value, locale === "fr" ? /\bIA\b/ : /\bAI\b/);
-    assert.match(value, /Lille/);
+    assert.match(value, /Tourcoing/);
+    assert.match(value, /Paris/);
+    assert.doesNotMatch(value, /Lille/);
   }
   assert.equal(metadata.openGraph.title, metadata.title.absolute);
   assert.equal(metadata.openGraph.description, metadata.description);

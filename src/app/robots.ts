@@ -9,19 +9,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/os", "/api", "/_next"],
+        disallow: ["/os", "/api"],
       },
-      { userAgent: "GPTBot", allow: "/" },
-      { userAgent: "ClaudeBot", allow: "/" },
-      { userAgent: "Claude-Web", allow: "/" },
-      { userAgent: "anthropic-ai", allow: "/" },
-      { userAgent: "PerplexityBot", allow: "/" },
-      { userAgent: "Perplexity-User", allow: "/" },
-      { userAgent: "Google-Extended", allow: "/" },
-      { userAgent: "CCBot", allow: "/" },
-      { userAgent: "Bytespider", allow: "/" },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
   };
 }

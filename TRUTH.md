@@ -1,5 +1,7 @@
 # TRUTH.md — Source de vérité commune (site parrit.ai ↔ agent Hermes)
 
+Villes affichées : Tourcoing et Paris, décision de Paul du 03/11/2026. Le siège social légal reste celui des mentions légales.
+
 ## Langue métier et référencement, décision de Paul du 02/11/2026
 
 La spec `docs/CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md`,
