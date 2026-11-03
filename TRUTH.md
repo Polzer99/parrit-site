@@ -1,5 +1,22 @@
 # TRUTH.md — Source de vérité commune (site parrit.ai ↔ agent Hermes)
 
+## Langue métier et référencement, décision de Paul du 02/11/2026
+
+La spec `docs/CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md`,
+validée le 03/11, remplace uniquement les anciens contrats de texte et de placement :
+H1 « Nous formons vos équipes à l'IA et construisons les outils qui leur manquent. »,
+CTA « Parler d'un projet » / « Talk about a project » aussi dans le hero,
+schéma « Ce que vous obtenez / Votre entreprise / Ce que vous avez déjà »,
+phrase « Vos e-mails, vos contrats et vos factures contiennent déjà les réponses.
+Nous les rendons utilisables. » à la place de Clive Humby. Les assistants gardent
+le mot « agent IA » une seule fois, dans la définition sous « Ce que l'IA change ».
+Bandeau avant l'équipe : ChatGPT, Claude, Gemini, Mistral, Copilot, Google,
+Microsoft, WhatsApp, Telegram, OVH ; registre complet conservé sans autre affichage.
+Pied commun : quatre thèmes du Journal, Journal, mentions légales et bascule de langue.
+Sections, charte, animations, 48 cas, 23 offres et seuils géométriques conservés.
+Le profil LinkedIn d'entreprise reste non confirmé ; aucun `sameAs` inventé.
+
+
 > **Ce fichier est le cerveau partagé.** Le site (`AGENTS.md` → ici) ET l'agent d'amélioration continue **Hermes** (`hermes/`) le lisent à chaque fois. Toute amélioration du site doit être *cohérente avec ce document*. Quand la réalité de Parrit change, on met à jour CE fichier d'abord (HITL) — pas le code en premier.
 >
 > Doctrine source (hors-repo, priment en cas de conflit) : `parrit-os/REGLES-DOR.md` · `parrit-os/VISION.md` · `parrit-os/docs/doctrine-communication/DOCTRINE-COMMUNICATION.md`. Doctrine visuelle : Brand OS P1/P3 (D1, 24/09/2026), valeurs générées `src/system/brand-os.tokens.css`, adaptation `src/system/tokens.css`, composants `src/system/`. `BRAND.md` est une archive historique.
@@ -31,11 +48,12 @@ Amendement du 30/10/2026 : `docs/CODEX-SPEC-2026-10-30-hero-reclamation-qualite.
 La quatrième histoire est « Une réclamation qualité arrive », en remplacement
 de la fin de réunion, pour que la home parle aussi à l’industrie. Les trois
 autres histoires, les nœuds, les durées et la mise en page sont conservés.
-Votre expertise est la matière première. Nous la mettons au travail.
-Vos règles, vos données et vos décisions deviennent des systèmes qui en multiplient l'impact.
+Décision de Paul du 02/11/2026 :
+Nous formons vos équipes à l'IA et construisons les outils qui leur manquent.
+Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.
 Décision actuelle : `docs/site-v1/page-unique/BANDEAU-TECHNOLOGIES.md`
 (27/10 au soir), qui remplace le trajet par le bandeau agnostique.
-Neuf sections : hero, technologies, applications, changements, parcours, services,
+Neuf sections : hero, applications, changements, parcours, services, technologies,
 partenaires, références, fondateur et contact.
 Les quatre pages V1 deviennent des thèmes du Journal ; les autres pages de
 présentation redirigent vers les sections. Journal, légal et esquisses conservés.
@@ -73,10 +91,9 @@ Peu de texte : montrer les produits, les réalisations, les capacités et les pr
 Le rendez-vous est une suite possible, pas une métrique à maximiser.
 L'ancien objectif RDV/semaine et cash hebdo est remplacé le 24/10/2026.
 
-**CTA site V1, correctif tour 1** : « Parlons de votre transformation » /
-« Let's talk about your transformation » sur le seul bouton principal du hero accueil ;
-« Parler d'un projet » / « Talk about a project » dans la navigation et les clôtures, vers `/#contact`
-ou `/fr#contact`. Le hero porte la promesse et l’ontologie validées (addendum du 27/10). Le Journal n'a pas de capture d'abonnement.
+**CTA site V1, décision de Paul du 02/11/2026** :
+« Parler d'un projet » / « Talk about a project » dans le hero, la navigation et les clôtures, vers `/#contact`
+ou `/fr#contact`. Le hero porte la promesse et le schéma en langue métier validés le 02/11/2026. Le Journal n'a pas de capture d'abonnement.
 
 ## 3. ICP (à qui on parle)
 
@@ -159,8 +176,8 @@ La permission de publication du client reste obligatoire. MIT reste sans logo.
 pour les cas d’usage, les offres partenaires, le trajet et la géométrie.
 Maquette source archivée : `docs/site-v1/page-unique/passe-4/passe4.py`.
 Décision Paul du 27/10/2026, soir : `BANDEAU-TECHNOLOGIES.md` remplace la
-règle de confidentialité de la stack. Bandeau agnostique `#technologies` juste
-après le hero : pour chaque besoin, la meilleure technologie. Liste canonique
+règle de confidentialité de la stack. Bandeau `#technologies` juste avant l’équipe (décision de Paul du 02/11/2026) :
+pour chaque besoin, nous choisissons la meilleure technologie. Dix noms affichés ; liste canonique
 dans `src/system/technologies.ts`, logos locaux dans `public/tech/`, aucun
 partenariat sous-entendu. La section architecture est retirée.
 Les mentions de Claude Code comme formation/audit restent autorisées.

@@ -1,3 +1,27 @@
+## Langue métier et référencement, 03/11/2026
+
+Source : `docs/CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md`, décision
+validée de Paul. La langue du hero, des assistants, des cas et des offres est
+simplifiée en FR/EN ; une seule occurrence « agent IA » dans la définition.
+Le bandeau de dix technologies précède l’équipe ; les 41 entrées et assets
+restent au registre. Le pied commun donne accès aux quatre thèmes, au Journal,
+aux mentions légales et à la langue. Métadonnées et graphe FR localisés,
+introductions FR des thèmes réécrites, OG au nouveau titre et `llms.txt`
+bilingue régénéré. `sameAs` reste vide faute de confirmation du profil LinkedIn.
+Articles, négociation de langue, cache `no-store`, charte et animations conservés.
+
+Baseline fournie `3cbe36d7f5b4ebe46b0845bbff3041cda1a7bf33` : lint/build Webpack,
+134 tests Node verts ; candidat : lint, TypeScript, build Webpack, 142 tests
+Node, marque/claims et 19 tests Brand OS verts. Huit tests Node et sept tests
+Playwright ajoutés. Revue indépendante : simulation de durée corrigée pour
+utiliser le texte rendu ; aucun autre défaut concret identifié. OG PNG inspectée.
+410 tests Playwright recensés, non validés : serveur refusé (`listen EPERM`)
+et Chromium arrêté avant navigation (`MachPortRendezvous`, SIGTRAP).
+Géométrie, captures et CLS restent UNKNOWN ; aucun seuil assoupli.
+Rapport et commandes de reprise : `docs/REPORT-2026-11-03-langue-metier-et-referencement.md`.
+Écriture locale réversible, 0 ligne métier, spec non suivie préexistante conservée,
+aucun commit/push/déploiement. Les entrées ci-dessous sont historiques sur ces points.
+
 ## Hero trois plans, 29/10/2026
 
 Amendement du 30/10/2026 : `docs/CODEX-SPEC-2026-10-30-hero-reclamation-qualite.md`.

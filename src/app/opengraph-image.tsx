@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
 
-export const alt = "Parrit.ai · Votre expertise est la matière première. Nous la mettons au travail.";
+export const alt = "Parrit.ai · Nous formons vos équipes à l'IA et construisons les outils qui leur manquent.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const dynamic = "force-dynamic";
@@ -40,7 +40,7 @@ export default async function Image() {
             color: token("--brand-derived-on-canard-2"),
           }}
         >
-          <span>PARRIT.AI · AGENTS ET LOGICIELS D&apos;IA</span>
+          <span>PARRIT.AI · FORMATION ET OUTILS D&apos;IA</span>
           <span style={{ display: "flex", color: token("--paper2") }}>
             [P<span style={{ color: token("--accent-on-dark") }}>.</span>]
           </span>
@@ -56,8 +56,8 @@ export default async function Image() {
             width: "100%",
           }}
         >
-          <span>Votre expertise est la matière première.</span>
-          <span style={{ fontWeight: 600 }}>Nous la mettons au travail.</span>
+          <span>Nous formons vos équipes à l&apos;IA</span>
+          <span style={{ fontWeight: 600 }}>et construisons les outils qui leur manquent.</span>
         </div>
         <div
           style={{

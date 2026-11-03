@@ -116,7 +116,7 @@ for (const pathname of ["/", "/fr"]) {
     for (const field of ["og:image", "twitter:image"]) {
       const images = metas.filter((meta) => meta.property === field || meta.name === field);
       expect(images).toHaveLength(1);
-      expect(images[0].content).toBe(`${SITE_URL}/opengraph-image?v=2026-10-27`);
+      expect(images[0].content).toBe(`${SITE_URL}/opengraph-image?v=2026-11-02`);
       const response = await getLocal(request, localUrl(images[0].content));
       try {
         expect(response.status()).toBe(200);

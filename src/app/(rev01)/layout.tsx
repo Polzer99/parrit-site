@@ -15,7 +15,6 @@ import { localizedAlternates } from "@/system/locale";
 /* JSON-LD Organization — graphe d'entités Google/IA : relie parrit.ai à
    l'organisation Parrit.ai. Compléter sameAs quand la page LinkedIn
    entreprise existera. */
-const ORG_JSONLD = JSON.stringify(organizationJsonLd());
 
 // Désactivé le 05/10/2026, décision de Paul, en attente d’une justification
 // d’exemption ou d’un consentement. Conservé sans injection.
@@ -35,7 +34,7 @@ posthog.init('phc_MBE1dFuCrRbroLzBdP7JtrH0O1JlH8F5uNs9cieSHqm', {
 export async function generateMetadata(): Promise<Metadata> {
   return {
   metadataBase: new URL("https://parrit.ai"),
-  twitter: { card: "summary_large_image", images: ["https://parrit.ai/opengraph-image?v=2026-10-27"] },
+  twitter: { card: "summary_large_image", images: ["https://parrit.ai/opengraph-image?v=2026-11-02"] },
   title: {
     default: "Parrit.ai · Consulting, transformation and engineering",
     template: "%s · Parrit.ai",
@@ -59,7 +58,7 @@ export default async function Rev01Layout({ children }: Readonly<{ children: Rea
         <link rel="preload" href="/fonts/rev02/GeneralSans-Semibold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/rev03/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/rev03/ibm-plex-mono-latin-500-normal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ORG_JSONLD }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd(locale)) }} />
       </head>
       <body>
         <AnalyticsInit />

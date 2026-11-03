@@ -3,8 +3,8 @@
     "phrases": [
       "Une réclamation qualité arrive",
       "Un client signale un défaut.",
-      "Le système le relie à sa commande.",
-      "Un agent applique vos procédures qualité.",
+      "L'outil retrouve sa commande.",
+      "Il applique vos procédures qualité.",
       "Vous décidez, l'ERP lance la correction."
     ],
     "result": "Cause identifiée",
@@ -14,8 +14,8 @@
     "phrases": [
       "A quality complaint comes in",
       "A client reports a defect.",
-      "The system links it to the order.",
-      "An agent applies your quality procedures.",
+      "The tool finds the order.",
+      "It applies your quality procedures.",
       "You decide, the ERP starts the fix."
     ],
     "result": "Cause identified",

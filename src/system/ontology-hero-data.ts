@@ -56,15 +56,15 @@ export const NODES = {
 } as const;
 
 export const ZONES = {
-  top: ["ASSISTANTS ET RÉDACTION", "ANALYSES", "AUTOMATISATIONS ET AGENTS"],
+  top: ["ASSISTANTS ET RÉDACTION", "ANALYSES", "TÂCHES AUTOMATISÉES"],
   mid: ["COMMERCIAL", "FINANCE ET JURIDIQUE", "OPÉRATIONS ET ÉQUIPES"],
-  bot: ["SOURCES DE DONNÉES", "SOURCES DE LOGIQUE", "SYSTÈMES D'ACTION"],
+  bot: ["VOS DOCUMENTS", "VOS RÈGLES", "VOS LOGICIELS"],
 } as const;
 
 export const LAYERS = {
-  top: ["ANALYSES · SOLUTIONS", "ce que vous obtenez"],
-  mid: ["ONTOLOGIE", "votre entreprise en objets reliés"],
-  bot: ["SOURCES", "ce que vous avez déjà"],
+  top: ["CE QUE VOUS OBTENEZ", "des réponses et des alertes prêtes à valider"],
+  mid: ["VOTRE ENTREPRISE", "clients, commandes et factures reliés entre eux"],
+  bot: ["CE QUE VOUS AVEZ DÉJÀ", "vos documents, vos règles, vos logiciels"],
 } as const;
 
 export const REL = [
@@ -126,10 +126,10 @@ export const TOP = [
 ] as const;
 
 export const HERO_STORIES = [
-{ title: "Un client attend une réponse", d: "mails", o1: "client", o2: "commande", rel: "rel_client_commande", r: "cgv", rl: "up_cgv_commande", out: "rep", top: "top_client_rep", result: "Réponse prête", act: "messagerie", al: "up_messagerie_client", verb: "Vous validez", side: "right", steps: ["un client écrit", "le système le relie à sa commande", "un agent applique vos conditions", "vous validez, la réponse part"] },
-{ title: "Une facture n'est pas payée", d: "factures", o1: "facture", o2: "client", rel: "rel_client_facture", r: "echeances", rl: "up_echeances_facture", out: "relances", top: "top_facture_relances", result: "Relance prête", act: "messagerie", al: "up_messagerie_client", verb: "Vous validez", side: "left", steps: ["la facture est échue", "le système la relie au client", "un agent applique vos échéances", "vous validez, la relance part"] },
-{ title: "Un contrat arrive", d: "contrats", o1: "contrat", o2: "fournisseur", rel: "rel_contrat_fournisseur", r: "procedures", rl: "up_procedures_contrat", out: "ecarts", top: "top_contrat_ecarts", result: "Écarts signalés", act: "erp", al: "up_erp_fournisseur", verb: "Vous décidez", side: "right", steps: ["le contrat est reçu", "le système le relie au fournisseur", "un agent le compare à vos procédures", "vous décidez, l'ERP est à jour"] },
-{ title: "Une réclamation qualité arrive", d: "mails", o1: "recl", o2: "commande", rel: "rel_recl_commande", r: "procedures", rl: "up_procedures_recl", out: "rech", top: "top_recl_rech", result: "Cause identifiée", act: "erp", al: "up_erp_commande", verb: "Vous décidez", side: "left", steps: ["un client signale un défaut", "le système le relie à sa commande", "un agent applique vos procédures qualité", "vous décidez, l'ERP lance la correction"] }
+{ title: "Un client attend une réponse", d: "mails", o1: "client", o2: "commande", rel: "rel_client_commande", r: "cgv", rl: "up_cgv_commande", out: "rep", top: "top_client_rep", result: "Réponse prête", act: "messagerie", al: "up_messagerie_client", verb: "Vous validez", side: "right", steps: ["un client écrit", "l'outil retrouve sa commande", "il applique vos conditions", "vous validez, la réponse part"] },
+{ title: "Une facture n'est pas payée", d: "factures", o1: "facture", o2: "client", rel: "rel_client_facture", r: "echeances", rl: "up_echeances_facture", out: "relances", top: "top_facture_relances", result: "Relance prête", act: "messagerie", al: "up_messagerie_client", verb: "Vous validez", side: "left", steps: ["la facture est échue", "l'outil retrouve le client", "il applique vos échéances", "vous validez, la relance part"] },
+{ title: "Un contrat arrive", d: "contrats", o1: "contrat", o2: "fournisseur", rel: "rel_contrat_fournisseur", r: "procedures", rl: "up_procedures_contrat", out: "ecarts", top: "top_contrat_ecarts", result: "Écarts signalés", act: "erp", al: "up_erp_fournisseur", verb: "Vous décidez", side: "right", steps: ["le contrat est reçu", "l'outil retrouve le fournisseur", "il le compare à vos procédures", "vous décidez, l'ERP est à jour"] },
+{ title: "Une réclamation qualité arrive", d: "mails", o1: "recl", o2: "commande", rel: "rel_recl_commande", r: "procedures", rl: "up_procedures_recl", out: "rech", top: "top_recl_rech", result: "Cause identifiée", act: "erp", al: "up_erp_commande", verb: "Vous décidez", side: "left", steps: ["un client signale un défaut", "l'outil retrouve sa commande", "il applique vos procédures qualité", "vous décidez, l'ERP lance la correction"] }
 ] as const;
 export type Plane = keyof typeof NODES;
 export type NodeId = (typeof NODES)[Plane][number][0];

@@ -38,6 +38,7 @@
 .single-page .hero .btn.exec{border:2px solid var(--white)}
 
 /* change */
+.single-page .change-definition{margin-top:var(--brand-s2);}
 .single-page .three{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
 .single-page .panel{background:var(--white);padding:28px;min-height:220px;display:flex;flex-direction:column;justify-content:center}
 .single-page .bubble{background:var(--sky);padding:12px 16px;font-size:var(--t-s);max-width:85%}
@@ -478,7 +479,7 @@
 .single-page .onto-label, .single-page .onto-zone {display:none;}
 .single-page .onto-layer {font-size:9px;line-height:11px;max-width:calc(100% - 16px);color:var(--white);}
 .single-page .onto-layer b, .single-page .onto-zone, .single-page .onto-ready {font-weight:500;letter-spacing:.08em;}
-.single-page .onto-layer b {background:var(--canard);padding:0 2px;}
+.single-page .onto-layer b {background:var(--canard);padding:0 2px;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
 .single-page .onto-layer > span {display:none;}
 /* All twenty phrases and four complete cards reserve two rows from SSR. */
 .single-page .ontocap-stack {display:grid;grid-template-rows:repeat(2,auto);row-gap:8px;min-width:0;}

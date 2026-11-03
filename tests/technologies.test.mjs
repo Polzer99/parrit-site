@@ -18,14 +18,16 @@ const approved = [
   ["GitHub", "github"], ["Google", "google"], ["Microsoft", "microsoft"], ["WhatsApp", "whatsapp"],
   ["Telegram", "telegram"], ["Wispr Flow", null], ["Plaud", null], ["Phantombuster", null], ["Lemlist", null],
 ];
+const publicNames = ["ChatGPT", "Claude", "Gemini", "Mistral", "Copilot", "Google", "Microsoft", "WhatsApp", "Telegram", "OVH"];
 const { TECHNOLOGIES } = loader("en")("src/system/technologies.ts");
 test("technology registry preserves the exact approved order, names and logos", () => {
   assert.deepEqual(TECHNOLOGIES.map(({ name, logo }) => [name, logo]), approved);
 });
 
-for (const locale of ["fr", "en"]) test(`technologies immediately follow the hero with complete SSR and one accessible copy (${locale})`, async () => {
+for (const locale of ["fr", "en"]) test(`ten technologies precede the team with complete SSR and one accessible copy (${locale})`, async () => {
   const html = await renderPage(locale);
-  assert.match(html, /<section class="hero">[\s\S]*?<\/section><section id="technologies"/);
+  assert.match(html, /<section id="services">[\s\S]*?<\/section><section id="technologies"/);
+  assert.match(html, /<section id="technologies"[\s\S]*?<\/section><section id="(?:partenaires|team)"/);
   assert.doesNotMatch(html, /id="architecture"|href="[^"]*#architecture|\/tools\//);
   const section = html.match(/<section id="technologies"[\s\S]*?<\/section>/)?.[0];
   assert.ok(section);
@@ -34,18 +36,18 @@ for (const locale of ["fr", "en"]) test(`technologies immediately follow the her
   assert.doesNotMatch(copies[0][1], /aria-hidden/);
   assert.match(copies[1][1], /aria-hidden="true"/);
   for (const [, , list] of copies) {
-    assert.deepEqual([...list.matchAll(/<span>([^<]+)<\/span>/g)].map(m => m[1]), approved.map(([name]) => name));
+    assert.deepEqual([...list.matchAll(/<span>([^<]+)<\/span>/g)].map(m => m[1]), publicNames);
     const entries = [...list.matchAll(/<li>([\s\S]*?)<\/li>/g)].map(m => m[1]);
     entries.forEach((entry, i) => {
       assert.match(entry, /<i[^>]*aria-hidden="true"/);
-      if (approved[i][1]) assert.ok(entry.includes(`mask-image:url(/tech/${approved[i][1]}.svg)`));
+      const logo = approved.find(([name]) => name === publicNames[i])[1];
+      if (logo) assert.ok(entry.includes(`mask-image:url(/tech/${logo}.svg)`));
       else { assert.match(entry, /class="tech-square"/); assert.doesNotMatch(entry, /mask-image/); }
     });
   }
   const text = visibleText(section).replace(/\s+/g, " ").trim();
-  assert.ok(text.includes(locale === "fr"
-    ? "Agnostiques par nature : pour chaque besoin, la meilleure technologie."
-    : "Technology-agnostic by nature: for every need, the best technology."));
+  assert.match(text, locale === "fr" ? /besoin.*choisissons.*technologie/ : /need.*choose.*technology/);
+  assert.doesNotMatch(text, /agnosti|partenariat|partnership/i);
   assert.doesNotMatch(section, /tech-note|Les marques citées|The brands named/);
   assert.doesNotMatch(section, /<script|<img|https?:|#[a-f\d]{3,8}\b/i);
 });

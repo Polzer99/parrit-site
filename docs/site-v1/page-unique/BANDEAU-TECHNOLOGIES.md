@@ -1,5 +1,23 @@
 # Bandeau « Agnostiques par nature » et retrait de l'architecture (Paul, 27/10/2026, soir)
 
+## Langue métier et référencement, décision de Paul du 02/11/2026
+
+La spec [`CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md`](../../CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md),
+validée le 03/11, remplace uniquement les anciens contrats de texte et de placement :
+H1 « Nous formons vos équipes à l'IA et construisons les outils qui leur manquent. »,
+CTA « Parler d'un projet » / « Talk about a project » aussi dans le hero,
+schéma « Ce que vous obtenez / Votre entreprise / Ce que vous avez déjà »,
+phrase « Vos e-mails, vos contrats et vos factures contiennent déjà les réponses.
+Nous les rendons utilisables. » à la place de Clive Humby. Les assistants gardent
+le mot « agent IA » une seule fois, dans la définition sous « Ce que l'IA change ».
+Bandeau avant l'équipe : ChatGPT, Claude, Gemini, Mistral, Copilot, Google,
+Microsoft, WhatsApp, Telegram, OVH ; registre complet conservé sans autre affichage.
+Pied commun : quatre thèmes du Journal, Journal, mentions légales et bascule de langue.
+Sections, charte, animations, 48 cas, 23 offres et seuils géométriques conservés.
+Le profil LinkedIn d'entreprise reste non confirmé ; aucun `sameAs` inventé.
+
+Les prescriptions ci-dessous qui portent sur ces points sont historiques ; le reste tient.
+
 Décision de Paul, maquette vue (film « Parrit-bandeau-technologies ») : « ça me va, le bandeau comme
 ça ». Elle **remplace** la règle de la passe 4 « ne pas dévoiler la stack » : Parrit.ai est agnostique
 par nature et propose à chaque client la meilleure technologie pour son besoin ; on montre donc un
@@ -11,15 +29,15 @@ Maquette (lecture seule) : `/private/tmp/claude-501/-Users-paullarmaraud/b2420e7
 
 ## 1. Le bandeau
 
-- Section `id="technologies"` (FR et EN), **juste après le hero**, fond `--ink`, texte blanc.
-- Une ligne : « Agnostiques par nature : **pour chaque besoin, la meilleure technologie.** » /
-  « Technology-agnostic by nature: **for every need, the best technology.** » (première partie en
+- Section `id="technologies"` (FR et EN), **juste avant l’équipe** (décision de Paul du 02/11/2026), fond `--ink`, texte blanc.
+- Une ligne : « Pour chaque besoin, **nous choisissons la meilleure technologie.** » /
+  « For every need, **we choose the best technology.** » (première partie en
   `--on-ink`, seconde en blanc gras).
 - Dessous, une bande qui défile de droite à gauche (60 s par tour, `linear infinite`, pause au survol,
   seconde copie en `aria-hidden`), chaque élément = logo 26px en `mask-image` fond blanc + nom en
   18px gras. Élément sans logo : petit carré blanc 14px + nom. Aucun dégradé, aucun rose.
 - Mouvement réduit : pas de défilement, une seule copie, éléments qui passent à la ligne.
-- Liste, dans cet ordre (nom affiché · fichier) :
+- Registre complet conservé, sans affichage hors des dix noms de l’amendement (nom · fichier) :
   - Modèles : Claude · claude, ChatGPT · openai, Gemini · gemini, Mistral · mistral, Llama · meta,
     Qwen · qwen, DeepSeek · deepseek, Kimi · kimi, MiniMax · minimax, GLM · zhipu, Grok · grok,
     Hermes · nousresearch, Cohere · cohere, Perplexity · perplexity, Gemma · gemma, Copilot · copilot,
@@ -43,14 +61,14 @@ Maquette (lecture seule) : `/private/tmp/claude-501/-Users-paullarmaraud/b2420e7
 - Supprimer `#architecture` (« Le trajet d'une donnée »), son composant `DataArchitecture.tsx` s'il
   n'est plus utilisé, ses textes et son CSS, et les icônes de `public/tools/` devenues inutiles.
 - `next.config.ts` : `/standard` et `/systems` → 308 vers `/#technologies` et `/fr#technologies`.
-- Ordre des sections : hero, technologies, applications, ce qui change, parcours, services,
+- Ordre des sections : hero, applications, ce qui change, parcours, services, technologies,
   partenaires, références, fondateur et contact. Navigation « Applications » selon l’amendement §4.
 
 ## 3. Documents et tests
 
 - `AGENTS.md` et `TRUTH.md` : remplacer la règle « Ne pas dévoiler la stack interne » de la passe 4 par
   la décision ci-dessus (bandeau agnostique, liste dans `technologies.ts`), et mettre à jour l'ordre.
-- Tests : structure (section `technologies` juste après le hero, tous les noms de la liste présents
+- Tests : structure (section `technologies` juste avant l’équipe, les dix noms publics présents
   dans le HTML serveur, copie de boucle en `aria-hidden`, aucune `#architecture`), redirections,
   mouvement réduit sans animation, « un bloc = un écran » (le bandeau tient aux trois tailles),
   aucune couleur littérale dans les SVG de `public/tech/`, contraste du texte sur `--ink`.
@@ -71,11 +89,11 @@ Maquette (lecture seule) : `/private/tmp/claude-501/-Users-paullarmaraud/b2420e7
      nomme plus personne) ; les noms et logos clients restent dans `#references` avec leurs règles ;
    - navigation : « En production » / « In production » devient « Applications » / « Applications »
      (même ancre).
-2. **Bouton rose du hero** : sur ordinateur, « Parlons de votre transformation » tient sur **une seule
+2. **Bouton rose du hero** : sur ordinateur, « Parler d'un projet » tient sur **une seule
    ligne** (largeur de contenu, `white-space: nowrap`), placé sous la phrase d'accroche et aligné sur son
    bord gauche ; hauteur et rembourrage des boutons `exec` existants, plus de boîte étirée. Sur
    téléphone, comportement actuel (pleine largeur) inchangé. Le hero tient toujours en 1440×800.
-3. Ordre final : hero, technologies, applications, ce qui change, parcours, services, partenaires,
+3. Ordre final : hero, applications, ce qui change, parcours, services, technologies, partenaires,
    références, fondateur et contact. Mettre à jour AGENTS.md, TRUTH.md et les tests de structure en
    conséquence, sans assouplir aucun contrôle (le test « révoquer toutes les permissions masque les
    noms clients » reste vrai : plus aucun nom dans la section applications).

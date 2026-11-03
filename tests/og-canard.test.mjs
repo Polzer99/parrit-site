@@ -7,6 +7,8 @@ import net from "node:net";
 import { test, beforeEach, afterEach, mock } from "node:test";
 import ts from "typescript";
 import sharp from "sharp";
+import { renderPage } from "./helpers/site-v1-render.mjs";
+import { visibleText } from "../scripts/brand-os-contracts.mjs";
 import { generateIcons } from "../scripts/generate-brand-icons.mjs";
 
 let networkAttempts;
@@ -59,7 +61,7 @@ function textContent(element) {
   return element?.props ? textContent(element.props.children) : "";
 }
 
-test("OG renders a 200 PNG with canard corners, local fonts and the two-line French headline", async () => {
+test("OG renders a 200 PNG with canard corners, local fonts and the current French home headline", async () => {
   const originalFetch = globalThis.fetch;
   globalThis.fetch = async () => { throw new Error("Network forbidden during OG rendering"); };
   try {
@@ -81,7 +83,10 @@ test("OG renders a 200 PNG with canard corners, local fonts and the two-line Fre
     assert.equal(headline.props.children.length, 2);
     assert.equal(headline.props.style.fontWeight, 400);
     assert.equal(headline.props.children[1].props.style.fontWeight, 600);
-    assert.equal(textContent(headline), "Votre expertise est la matière première. Nous la mettons au travail.");
+    const home = await renderPage("fr");
+    const homeHeadline = visibleText(home.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? "").replace(/\s+/g, " ").trim();
+    assert.match(homeHeadline, /\bIA\b/);
+    assert.equal(textContent(headline), homeHeadline);
     assert.equal(route.alt, `Parrit.ai · ${textContent(headline)}`);
     assert.ok(options.fonts.reduce((total, font) => total + font.data.length, 0) < 500_000);
     assert.notEqual(route.runtime, "edge");

@@ -1,5 +1,23 @@
 # Passe 3 — page racontée, logos clients, trajet d'une donnée (Paul, 27/10/2026)
 
+## Langue métier et référencement, décision de Paul du 02/11/2026
+
+La spec [`CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md`](../../CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md),
+validée le 03/11, remplace uniquement les anciens contrats de texte et de placement :
+H1 « Nous formons vos équipes à l'IA et construisons les outils qui leur manquent. »,
+CTA « Parler d'un projet » / « Talk about a project » aussi dans le hero,
+schéma « Ce que vous obtenez / Votre entreprise / Ce que vous avez déjà »,
+phrase « Vos e-mails, vos contrats et vos factures contiennent déjà les réponses.
+Nous les rendons utilisables. » à la place de Clive Humby. Les assistants gardent
+le mot « agent IA » une seule fois, dans la définition sous « Ce que l'IA change ».
+Bandeau avant l'équipe : ChatGPT, Claude, Gemini, Mistral, Copilot, Google,
+Microsoft, WhatsApp, Telegram, OVH ; registre complet conservé sans autre affichage.
+Pied commun : quatre thèmes du Journal, Journal, mentions légales et bascule de langue.
+Sections, charte, animations, 48 cas, 23 offres et seuils géométriques conservés.
+Le profil LinkedIn d'entreprise reste non confirmé ; aucun `sameAs` inventé.
+
+Les prescriptions ci-dessous qui portent sur ces points sont historiques ; le reste tient.
+
 Statut : maquette validée par Paul le 27/10/2026 (« ok go »). Elle prime sur
 `MAQUETTE-VALIDEE.html` pour tout ce qu'elle couvre ; le reste de la page ne change pas.
 
@@ -57,7 +75,7 @@ final : les trois résultats affichés, la légende de la première histoire, au
   traversé passe en état `busy` 900 ms, la légende sous le SVG (`p.ontocap`, `aria-live="off"`)
   change à chaque histoire. Durée 4,2 s par trajet, 1,6 s entre deux histoires, 3,2 s avant de
   recommencer. `requestAnimationFrame` et minuteurs nettoyés au démontage.
-- Garder la ligne Clive Humby sous la légende.
+- Sous la légende, la phrase sur les e-mails, contrats et factures remplace Clive Humby (décision de Paul du 02/11/2026).
 - **Réduire le vide entre le hero et « Nos agents travaillent déjà »** : `padding-bottom` du hero
   à 56px et `padding-top` de la section suivante à 72px (valeurs de la maquette). La taille du
   H1 et le style des boutons de la prod ne changent pas.
