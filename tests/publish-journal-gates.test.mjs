@@ -1,14 +1,14 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { spawnSync } from "node:child_process";
-import { copyFileSync, mkdirSync, mkdtempSync, realpathSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { gateNoms, gateRepetition, gateSlug } from "../scripts/journal-gates.mjs";
+import { gateFichesInternes, gateNoms, gateRepetition, gateSlug } from "../scripts/journal-gates.mjs";
 
-test("publisher bloque une faute d'entité avant prooflint et build", (t) => {
+function runPublisher(t, body) {
   const root = mkdtempSync(path.join(tmpdir(), "entity-publisher-"));
   t.after(() => rmSync(root, { recursive: true, force: true }));
   const repo = fileURLToPath(new URL("..", import.meta.url));
@@ -20,24 +20,63 @@ test("publisher bloque une faute d'entité avant prooflint et build", (t) => {
   }
   symlinkSync(realpathSync(path.join(repo, "node_modules")), path.join(root, "node_modules"), "dir");
   writeFileSync(path.join(root, "content/journal/entity-proof.mdx"), [
-    "---", "title: Entity proof", "date: '2026-09-26'", "description: A distinct article", "slug: entity-proof", "---", "Paul Lamaraud.",
+    "---", "title: Entity proof", "date: '2026-09-26'", "description: A distinct article", "slug: entity-proof", "---", body,
   ].join("\n"));
   // Only a dry run in an isolated tree; HOME also isolates prooflint/registry
   // should the ordering regress. No git or external services are available.
   const env = { ...process.env, HOME: path.join(root, "home"), PATH: "" };
   // The publisher launches its own node --test process, not a nested test.
   delete env.NODE_TEST_CONTEXT;
-  const result = spawnSync(process.execPath, ["scripts/publish-journal.mjs", "entity-proof", "--dry-run"], {
+  return spawnSync(process.execPath, ["scripts/publish-journal.mjs", "entity-proof", "--dry-run"], {
     cwd: root,
     env,
     encoding: "utf8",
     timeout: 10_000,
   });
+}
+
+test("publisher bloque une faute d'entité avant prooflint et build", (t) => {
+  const result = runPublisher(t, "Paul Lamaraud.");
   assert.ifError(result.error);
   assert.equal(result.status, 1);
   const output = result.stdout + result.stderr;
   assert.match(output, /content\/journal\/entity-proof\.mdx:7: Lamaraud/);
   assert.doesNotMatch(output, /prooflint a bloqué|build Next|dry-run : gates vertes/);
+});
+
+for (const marque of ["{/*", "*/}", "FICHE D'ENTRÉE", "RAIL parrit"]) {
+  test(`gateFichesInternes refuse la marque isolée ${marque}`, () => {
+    for (const texte of [marque, `Public paragraph.\n\n${marque} · internal note`, `---\ntitle: Example\nnotes: |\n${marque}\n---\nPublic paragraph.`]) {
+      const result = gateFichesInternes(texte);
+      assert.equal(result.ok, false);
+      assert.ok(result.motif.includes(marque));
+    }
+  });
+
+  test(`publisher bloque ${marque} avant prooflint et build`, (t) => {
+    const result = runPublisher(t, `Public paragraph.\n\n${marque} · internal note`);
+    assert.ifError(result.error);
+    assert.equal(result.status, 1);
+    const output = result.stdout + result.stderr;
+    assert.ok(output.includes(`fiche interne interdite : « ${marque} »`));
+    assert.doesNotMatch(output, /prooflint a bloqué|build Next|dry-run : gates vertes/);
+  });
+}
+
+test("gateFichesInternes accepte un article sans fiche et réserve RAIL parrit au début de ligne", () => {
+  for (const texte of ["---\ntitle: A public article\n---\nPublic paragraph.\n\n## Next section\nMore text.", "A mention of RAIL parrit within a sentence."]) {
+    assert.deepEqual(gateFichesInternes(texte), { ok: true });
+  }
+});
+
+test("aucun fichier du Journal ne contient de marque interne", () => {
+  const directory = new URL("../content/journal/", import.meta.url);
+  const files = readdirSync(directory, { recursive: true, withFileTypes: true }).filter(entry => entry.isFile());
+  assert.ok(files.length > 0);
+  for (const file of files) {
+    const filename = path.join(file.parentPath, file.name);
+    assert.doesNotMatch(readFileSync(filename, "utf8"), /\{\/\*|\*\/\}|FICHE D'ENTRÉE|^RAIL parrit/mu, filename);
+  }
 });
 
 test("gateSlug refuse un slug daté", () => {

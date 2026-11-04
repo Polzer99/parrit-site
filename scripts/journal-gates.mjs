@@ -38,6 +38,12 @@ export function gateNoms(texte) {
   return { ok: true };
 }
 
+export function gateFichesInternes(texte) {
+  const marque = texte.match(/\{\/\*|\*\/\}|FICHE D'ENTRÉE|^RAIL parrit/mu)?.[0];
+  if (marque) return { ok: false, motif: `fiche interne interdite : « ${marque} »` };
+  return { ok: true };
+}
+
 export function gateRepetition(title, description, entreesExistantes) {
   const titleTokens = tokens(title);
   const descriptionTokens = tokens(description);

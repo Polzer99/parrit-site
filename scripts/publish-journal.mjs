@@ -3,7 +3,7 @@
 // Usage : node scripts/publish-journal.mjs <slug|/chemin/absolu/article.mdx> [--dry-run]
 //
 // Une entrée ne part en prod que si TOUTES les gates passent :
-//   1. front-matter complet (title, date, description, slug = nom du fichier)
+//   1. aucune fiche interne, front-matter complet (title, date, description, slug = nom du fichier)
 //   2. slug, noms clients et répétition éditoriale
 //   3. pièges MDX connus (indentation = code-block CommonMark, mojibake, tirets cadratins)
 //   3b. orthographe de l’entité dans src/content/public/docs
@@ -27,7 +27,7 @@ import { homedir } from "node:os";
 import path from "node:path";
 import matter from "gray-matter";
 
-import { gateNoms, gateRepetition, gateSlug } from "./journal-gates.mjs";
+import { gateFichesInternes, gateNoms, gateRepetition, gateSlug } from "./journal-gates.mjs";
 
 const REPO = path.resolve(import.meta.dirname, "..");
 const PROOFLINT = path.join(homedir(), "parrit-os/tools/prooflint.py");
@@ -71,8 +71,12 @@ if (externalFile) {
   fail(`introuvable : ${file}`);
 }
 
-// ── gate 1 · front-matter ────────────────────────────────────────────────────
+// ── gate 1 · fiches internes et front-matter ─────────────────────────────────
 const raw = readFileSync(file, "utf8");
+const fichesGate = gateFichesInternes(raw);
+if (!fichesGate.ok) fail(fichesGate.motif);
+console.log("✓ fiches internes : aucune marque");
+
 const { data, content } = matter(raw);
 for (const key of ["title", "date", "description", "slug"]) {
   if (!data[key]) fail(`front-matter : « ${key} » manquant`);
