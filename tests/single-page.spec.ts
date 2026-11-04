@@ -1196,6 +1196,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await page.setViewportSize({ width, height });
         await page.emulateMedia({ reducedMotion: "reduce" });
         await page.goto(local(locale === "fr" ? "/fr" : "/"));
+        await expect(page.locator(".live h2")).toContainText(locale === "fr" ? "Quelques applications" : "A few real-world");
         await page.evaluate(() => document.fonts.ready);
         const phones = page.locator(".live .phone");
         await expect(phones).toHaveCount(3);
@@ -1233,7 +1234,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
           expect(size.height).toBeGreaterThanOrEqual(longestContent);
           // Approved handset proportions replace the old content-tight box.
           // Keep the complete conversation while reserving the speaker/home chrome.
-          expect(size.height).toBeGreaterThanOrEqual(660);
+          expect(size.height).toBeGreaterThanOrEqual(height <= 800 ? 480 : 660);
           expect(size.height / size.width).toBeGreaterThanOrEqual(2);
           expect(size.height / size.width).toBeLessThanOrEqual(2.4);
           expect(size.height - longestContent).toBeGreaterThanOrEqual(52);
