@@ -576,3 +576,31 @@
   .single-page .phone {max-width:320px;min-height:660px;}
   .single-page .scene h3 {margin-top:20px;}
 }
+/* Narrow phones keep the complete French conversation above the home indicator. */
+@media(max-width:360px){
+  .single-page .phone {align-self:stretch;}
+  .single-page .phone .chat {gap:8px;}
+  .single-page .phone .msg {max-width:96%;padding:7px 9px;}
+}
+/* Short viewports keep the handset ratio, readable text and the full section. */
+@media(max-height:800px){
+  .single-page .phone {
+    min-height:0;
+    width:min(100%,calc((100svh - 180px) / 2.08));
+    aspect-ratio:1 / 2.08;
+    align-self:stretch;
+    padding:20px 0 18px;
+  }
+  .single-page .phone .chat {padding:8px;gap:4px;min-height:0;flex-shrink:1;}
+  .single-page .phone .msg {max-width:100%;line-height:1.2;padding:3px 5px;}
+  .single-page .phone .bar {padding:6px 10px;height:56px;min-height:56px;}
+  .single-page .live h2 {font-size:24px;line-height:28px;}
+  .single-page .scenes {margin-top:8px;}
+  .single-page .scene h3 {margin-top:6px;font-size:16px;line-height:20px;}
+  .single-page .live .swipe-dots {margin-top:4px;}
+  .single-page .live .note {margin-top:4px;font-size:16px;line-height:20px;}
+}
+@media(max-height:800px) and (max-width:360px){
+  .single-page .live h2 {font-size:22px;line-height:24px;}
+  .single-page .live .note {margin-top:2px;}
+}
