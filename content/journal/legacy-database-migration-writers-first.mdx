@@ -5,13 +5,7 @@ description: "Before moving a screen off an old database, run it against both an
 slug: "legacy-database-migration-writers-first"
 ---
 
-{/*
-RAIL parrit
-MÉTIER DSI
-FAMILLE BUILD
-SIGNAL aucun crochet daté, matière interne mesurée (registre des sources de vérité, origin/main 550f217 du 08/10/2026 ; journal du garde legacy 13/09 au 04/10)
-URGENCE Normale
-*/}
+
 
 On 11 September we ran our sales screen against our old database and our new one. The old side showed 34 items, the new side 21, and 16 appeared only on the old side. Switching that day would have changed almost half of what the screen showed, without a single error. So a screen switches only when both sides show the same thing, and every script still writing to the old database moves first.
 

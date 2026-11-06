@@ -5,9 +5,7 @@ description: "Our publishing check once needed more than five minutes, and the h
 slug: "hook-timeout-lets-tool-call-through"
 ---
 
-{/*
-RAIL parrit · MÉTIER DSI/RSSI · FAMILLE BUILD · SIGNAL aucun crochet daté (incident interne du 10/10/2026, doc Claude Code hooks lue le 11/10/2026) · URGENCE Normale
-*/}
+
 
 When a Claude Code hook is still running at the end of its timeout, Claude Code cancels it and the tool call goes ahead. The [hook documentation](https://code.claude.com/docs/en/hooks) says it plainly: a timed-out hook "doesn't block the tool call", so "don't count on a stalled hook to act as a gate." A hook that enforces a rule therefore needs a timeout longer than its slowest run, and it needs to block when it fails.
 

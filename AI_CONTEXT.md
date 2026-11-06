@@ -1,3 +1,17 @@
+## Retrait des fiches internes du Journal, 04/11/2026
+
+Source : `docs/CODEX-SPEC-2026-11-04-retrait-fiches-internes.md`.
+Les trois blocs internes ont été retirés des articles concernés ; tous les autres
+octets de ces fichiers sont conservés. `gateFichesInternes` refuse désormais les
+quatre marques prescrites dans le texte brut, avant même le front-matter.
+Le moteur de rendu reste inchangé. Dix tests de publication/corpus ajoutés,
+contrôle des premiers paragraphes dans le rendu serveur compilé existant.
+Baseline : lint, build Webpack, 156 tests Node réussis. Candidat : lint,
+build Webpack, 166 tests Node et conformité marque réussis, sans réseau dans
+les tests de rendu. Navigateur et production non vérifiés ici : reprise par
+Claude sur l'hôte puis après fusion, conformément à la spec. Aucun commit,
+push ou déploiement. Rapport : `docs/REPORT-2026-11-04-retrait-fiches-internes.md`.
+
 ## Alignement visibilité IA, 03/11/2026
 
 Source : `docs/CODEX-SPEC-2026-11-03-alignement-visibilite-ia.md`, décision de Paul.

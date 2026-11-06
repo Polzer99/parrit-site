@@ -193,11 +193,25 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       assert.doesNotMatch(html, /paul-larmaraud\.com/i, route);
       if (route === "/journal/rss.xml") assert.match(html, /<dc:creator>Parrit\.ai<\/dc:creator>/);
     }
+    const cleanedArticles = {
+      "hook-timeout-lets-tool-call-through": "When a Claude Code hook is still running at the end of its timeout, Claude Code cancels it and the tool call goes ahead.",
+      "legacy-database-migration-writers-first": "On 11 September we ran our sales screen against our old database and our new one.",
+      "what-a-pilot-skips-to-look-finished": "In June 2025, Gartner's analysts went looking for agentic AI products that actually deserved the label:",
+    };
     // Every published article also passes the positioning assertion in render().
     for (const file of readdirSync("content/journal").filter((file) => file.endsWith(".mdx"))) {
       const { data } = matter(readFileSync(`content/journal/${file}`, "utf8"));
       const route = `/journal/${data.slug}`;
-      assert.equal((await render(route)).status, 200, route);
+      const { status, html } = await render(route);
+      assert.equal(status, 200, route);
+      assert.doesNotMatch(visibleText(html), /\{\/\*|\*\/\}|FICHE D'ENTRÉE/u, route);
+      if (Object.hasOwn(cleanedArticles, data.slug)) {
+        const body = html.match(/<div class="journal-body"[^>]*>([\s\S]*?)<\/div>/)?.[1];
+        assert.ok(body, `${route}: article body`);
+        const firstParagraph = body.match(/^\s*<p>([\s\S]*?)<\/p>/)?.[1];
+        assert.ok(firstParagraph, `${route}: body starts with a paragraph`);
+        assert.ok(visibleText(firstParagraph).startsWith(cleanedArticles[data.slug]), `${route}: real opening paragraph`);
+      }
     }
     assert.doesNotMatch(readFileSync("public/llms.txt", "utf8"), /maison (?:française indépendante )?de données|data and AI firm|Données et IA/i);
     // The alias keeps English content/canonical, but the French chrome warns readers.
