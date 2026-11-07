@@ -531,3 +531,76 @@
 @media(prefers-reduced-motion:reduce){
   .single-page .ontology-hero *, .single-page .ontology-hero *::before, .single-page .ontology-hero *::after {animation:none!important;transition:none!important;}
 }
+
+/* Applications: a full-height handset, with room to read each exchange. */
+.single-page .phone {
+  position:relative;
+  width:100%;
+  max-width:320px;
+  min-height:660px;
+  aspect-ratio:1 / 2.08;
+  align-self:start;
+  border:8px solid var(--ink);
+  border-radius:42px; /* phone mockup */
+  padding:28px 0 24px;
+  background:var(--off);
+}
+.single-page .phone::before {
+  content:"";
+  position:absolute;
+  top:9px;
+  left:50%;
+  width:64px;
+  height:7px;
+  margin-left:-32px;
+  border-radius:8px; /* phone mockup speaker */
+  background:var(--ink);
+}
+.single-page .phone::after {
+  content:"";
+  position:absolute;
+  bottom:9px;
+  left:50%;
+  width:88px;
+  height:4px;
+  margin-left:-44px;
+  border-radius:4px; /* phone mockup home indicator */
+  background:var(--ink);
+}
+.single-page .phone .bar {padding:12px 14px;gap:10px;line-height:1.35;}
+.single-page .phone .bar i {width:10px;height:10px;flex-shrink:0;align-self:center;}
+.single-page .phone .chat {padding:16px 12px;gap:12px;}
+.single-page .phone .msg {max-width:90%;font-size:16px;line-height:1.4;padding:9px 11px;}
+.single-page .phone .msg.card {max-width:100%;margin-top:4px;}
+@media(max-width:760px){
+  .single-page .phone {max-width:320px;min-height:660px;}
+  .single-page .scene h3 {margin-top:20px;}
+}
+/* Narrow phones keep the complete French conversation above the home indicator. */
+@media(max-width:360px){
+  .single-page .phone {align-self:stretch;}
+  .single-page .phone .chat {gap:8px;}
+  .single-page .phone .msg {max-width:96%;padding:7px 9px;}
+}
+/* Short viewports keep the handset ratio, readable text and the full section. */
+@media(max-height:800px){
+  .single-page .phone {
+    min-height:0;
+    width:min(100%,calc((100svh - 180px) / 2.08));
+    aspect-ratio:1 / 2.08;
+    align-self:stretch;
+    padding:20px 0 18px;
+  }
+  .single-page .phone .chat {padding:8px;gap:4px;min-height:0;flex-shrink:1;}
+  .single-page .phone .msg {max-width:100%;line-height:1.2;padding:3px 5px;}
+  .single-page .phone .bar {padding:6px 10px;height:56px;min-height:56px;}
+  .single-page .live h2 {font-size:24px;line-height:28px;}
+  .single-page .scenes {margin-top:8px;}
+  .single-page .scene h3 {margin-top:6px;font-size:16px;line-height:20px;}
+  .single-page .live .swipe-dots {margin-top:4px;}
+  .single-page .live .note {margin-top:4px;font-size:16px;line-height:20px;}
+}
+@media(max-height:800px) and (max-width:360px){
+  .single-page .live h2 {font-size:22px;line-height:24px;}
+  .single-page .live .note {margin-top:2px;}
+}
