@@ -46,8 +46,9 @@ for (const locale of ["fr", "en"] as const) for (const width of [1440, 375]) {
     const prefix = locale === "fr" ? "/fr" : "";
     const response = await page.goto(local(`${prefix}/rendez-vous?source=journal-test&utm_source=x&utm_content=a%26b&utm_custom=one&utm_custom=two`));
     expect(response?.status()).toBe(200);
-    await expect(page.locator("h1")).toHaveCount(1);
-    await expect(page.locator("h1")).toHaveText(locale === "fr" ? "Entretien stratégique IA, 15 minutes" : "AI strategy call, 15 minutes");
+    // Count only document headings: Cal's shadow DOM contains its own empty h1.
+    await expect.poll(() => page.evaluate(() => document.querySelectorAll("h1").length)).toBe(1);
+    await expect.poll(() => page.evaluate(() => document.querySelector("h1")?.textContent?.trim())).toBe(locale === "fr" ? "Entretien stratégique IA, 15 minutes" : "AI strategy call, 15 minutes");
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex, follow");
     await expect(page.locator('main a[href="mailto:paul.larmaraud@parrit.ai"]')).toBeVisible();
     await expect.poll(() => calendar.length).toBe(1);
@@ -115,7 +116,9 @@ for (const [path, source, locale] of [
     await block.screenshot({ path: testInfo.outputPath(`appel-${locale}-${width}.png`) });
     await button.click();
     await expect(page).toHaveURL(local(href));
-    await expect(page.locator("h1")).toHaveCount(1);
+    // Use the same document-only scope after client-side navigation.
+    await expect.poll(() => page.evaluate(() => document.querySelectorAll("h1").length)).toBe(1);
+    await expect.poll(() => page.evaluate(() => document.querySelector("h1")?.textContent?.trim())).toBe(locale === "fr" ? "Entretien stratégique IA, 15 minutes" : "AI strategy call, 15 minutes");
   });
 }
 
