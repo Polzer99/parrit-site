@@ -1,5 +1,7 @@
 // Texte français : maquette validée. Anglais : handoff §0, §2 et §6.
 export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
+  "Former mes équipes": "Train my teams",
+  "Choisir nos priorités": "Set our priorities",
   "Synthèse de réunion": "Meeting summary",
   "Recherche documentaire": "Document search",
   "Réponse client": "Client reply",

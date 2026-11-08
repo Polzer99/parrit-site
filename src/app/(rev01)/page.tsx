@@ -12,7 +12,13 @@ export async function generateMetadata(): Promise<Metadata> {
     : "We train your teams in AI and build custom tools: client replies, follow-ups, quotes and meeting notes. Tourcoing, Paris and across France.";
   return { title: { absolute: title }, description, alternates: localizedAlternates("/", locale), openGraph: localizedOpenGraph("/", locale, title, description) };
 }
-export default async function HomePage() {
+export default async function HomePage(props: {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const locale = await getLocale();
-  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale)) }}/><SinglePage locale={locale}/></>;
+  const query = new URLSearchParams();
+  for (const [key, value] of Object.entries(await props?.searchParams ?? {})) {
+    for (const item of Array.isArray(value) ? value : value === undefined ? [] : [value]) query.append(key, item);
+  }
+  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale)) }}/><SinglePage locale={locale} contactQuery={query.toString()}/></>;
 }

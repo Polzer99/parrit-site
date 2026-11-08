@@ -1,3 +1,102 @@
+## Boutons par intention, correctif 4 du 08/11/2026
+
+Baseline `81bc5de`, spec amendée préexistante conservée. Seule la formulation
+sous l'envoi du formulaire change, selon la décision de Paul du 08/11/2026 :
+« Premier échange de 15 minutes en visioconférence : vous présentez votre besoin, nous vous indiquons ce qui est réalisable. »
+« A first 15-minute video call: you present your needs, we tell you what is feasible. »
+QuickCapture, fixture, attentes SSR/navigateur et sections boutons de TRUTH/AGENTS
+suivent ces textes exacts. Deux tests FR/EN supplémentaires empêchent le retour
+des formulations initiale et intermédiaire dans les sources publiques.
+Les tests de durée refusent encore le paragraphe initial et une durée erronée
+dans la nouvelle formulation, sans modifier `false-claims-check.mjs`.
+Les correctifs précédents, la géométrie, le deny-all et les styles sont conservés.
+Validation : npm ci, lint/build Webpack avant/après, 187 → 189 tests Node ;
+quatre échecs ciblés avant correction puis 15/15 réussis, également en revue
+indépendante sans défaut identifié. TypeScript, marque/claims et 19 tests Brand OS
+réussis. 457 tests navigateur recensés ; tentative bloquée au lancement
+(serveur EPERM, Chromium SIGTRAP), 456 non exécutés. Captures et CLS non validés.
+Aucun commit, push ni déploiement.
+Résultats et limites de preuve dans `docs/REPORT-2026-11-08-cta-par-intention-et-finitions.md`.
+
+## Boutons par intention, correctif 3 du 08/11/2026
+
+Baseline `6ce1270`, spec amendée préexistante conservée. L'audit de lisibilité
+exige désormais deux liens dans le hero, ordre exec/ghost et destinations
+projet/formation ; aucun seuil typographique, géométrique ou de couleur changé.
+LanguageLink conserve la query dès le SSR et complète le href avec le fragment
+traduit après hydratation, synchronisé sur hashchange/popstate. Le clic normal
+relit l'URL ; les clics modifiés/centraux restent natifs et mémorisent la langue.
+Le test de bascule attend le href complet avant de cliquer. Le serveur ne reçoit
+pas les fragments : conservation avant hydratation non garantie, causalité exacte
+de l'échec hôte à confirmer au navigateur.
+
+Validation : npm ci, lint/build Webpack avant/après ; 185 → 187 tests Node,
+deux nouveaux tests rouges avant correction puis verts. TypeScript, marque/claims
+et 19 tests Brand OS réussis. Trois tests navigateur ajoutés (457 recensés),
+deny-all intact ; revue indépendante sans défaut restant après correction du
+cookie sur clic modifié. Serveur EPERM et Chromium SIGTRAP : captures, géométrie
+et CLS non validés. Aucun commit/push/déploiement. Rapport détaillé dans
+`docs/REPORT-2026-11-08-cta-par-intention-et-finitions.md`.
+
+## Boutons par intention, correctif 2 du 08/11/2026
+
+Amendement local de la spec conservé, baseline `2b60226`. Le bouton secondaire
+du hero hérite de `--t-s` (16 px) ; l'échelle 18/19 px reste limitée au bouton
+principal. Hauteur totale conservée, compensation verticale de 1 px du libellé
+secondaire pour conserver la ligne de base et les bords à moins de 1 px.
+Les liens de langue incluent désormais source/UTM dès le SSR via `useSearchParams`,
+avec Suspense local pour les erreurs statiques. La perte de query avant hydratation
+est reproduite ; le saut 308 configuré conserve déjà source/UTM dans le moteur
+de test Next, donc aucune modification de `next.config.ts`. L'assertion exacte
+de l'échec hôte n'étant pas disponible, sa causalité reste à confirmer sur l'hôte.
+
+Validation : npm ci, lint/build Webpack avant/après, 181 → 185 tests Node ;
+deux tests SSR rouges avant correction, verts ensuite. TypeScript, marque/claims
+et 19 tests Brand OS réussis. Six cas navigateur ajoutés (454 recensés), contrôles
+de police et baseline renforcés ; aucun seuil ni deny-all assoupli. Revue
+indépendante sans défaut restant identifié. Serveur EPERM et Chromium SIGTRAP :
+captures, géométrie et CLS restent non validés. Aucun commit/push/déploiement.
+Détail : `docs/REPORT-2026-11-08-cta-par-intention-et-finitions.md`.
+
+## Boutons par intention et finitions, première passe et correctif 1, 08/11/2026
+
+Source : `docs/CODEX-SPEC-2026-11-08-cta-par-intention-et-finitions.md`, décision de Paul.
+Deux CTA dans le hero, une action formation/priorités/projet par étape. Utilitaire
+`avecSource` corrigé pour les ancres et sources existantes ; href SSR avec UTM,
+historique et défilement sans rechargement sur l'accueil, attribution existante
+QuickCapture conservée. Ligne de contact FR/EN ajoutée sans changement du serveur.
+Correctif après PR #365 : durée de 15 minutes dans les deux langues, conformément
+à la spec amendée. `approvedContactCopy` et son commentaire erroné supprimés ;
+`false-claims-check.mjs` est identique à `f124fae` (main avant la première passe).
+Les tests refusent l’ancien paragraphe à 30 minutes dans QuickCapture et ailleurs.
+Les exemptions des audits `noOffer` restent limitées au paragraphe exact à
+15 minutes ; aucun changement des autres contrats de la première passe.
+Étapes alignées en sous-grille ; références animées en CSS avec pause survol/focus
+et présentation statique centrée en mouvement réduit. Journal : registre partagé
+des thèmes existants, lecture à 200 mots/minute arrondie (minimum 1), grille à deux
+colonnes dès 1100 px. Aucun changement des métadonnées, articles, sitemap ou Cal.com.
+
+Validation du correctif depuis `afd7582` : installation, lint et build Webpack
+réussis avant/après ; 180 → 181 tests Node. Nouvelles attentes : 4 échecs attendus
+avant correction, puis 13/13 tests ciblés réussis, également en revue indépendante.
+TypeScript, marque/claims et 19 tests Brand OS réussis. Aucun défaut en revue.
+448 tests navigateur recensés ; tentative bloquée avant navigation (serveur EPERM,
+Chromium MachPortRendezvous/SIGTRAP). Captures, géométrie et CLS non validés.
+Spec amendée préexistante conservée ; aucun commit, push ni déploiement.
+
+Historique de la première passe (avant correctif de durée), baseline `f124fae` : npm ci, lint, build Webpack et 168 tests Node.
+Candidat : npm ci, lint, build Webpack, TypeScript, 180 tests Node, marque/claims
+et 19 tests Brand OS réussis. Douze tests Node et trente tests Playwright ajoutés.
+Anciens contrats href/durée adaptés à la première version de la spec ; son
+exception au contrôle des durées a été retirée par le correctif ci-dessus.
+Seuils géométriques/stabilité et deny-all inchangés.
+Revue indépendante : perte UTM des clics modifiés corrigée, aucun défaut restant
+identifié. 448 tests navigateur recensés mais non validés : serveur EPERM et
+Chromium MachPortRendezvous/SIGTRAP. Captures, géométrie réelle et CLS UNKNOWN.
+Écritures locales réversibles, zéro donnée métier, spec préexistante conservée.
+Aucun commit, push ni déploiement. Détail et commandes de reprise :
+`docs/REPORT-2026-11-08-cta-par-intention-et-finitions.md`.
+
 ## Headline matière première, correctif du 08/11/2026
 
 Source : `docs/CODEX-SPEC-2026-11-08-headline-matiere-premiere.md`, amendement

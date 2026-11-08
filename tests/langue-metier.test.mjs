@@ -23,7 +23,8 @@ for (const locale of ["fr", "en"]) test(`hero headline and descriptive subtitle 
   assert.equal(html.match(/<h1>(.*?)<\/h1>/s)?.[1], `${normal} <b>${bold}</b>`);
   assert.equal(visibleText(html.match(/class="sub"><p>(.*?)<\/p>/s)?.[1] ?? ""), subtitle);
   const action = html.match(/class="actions"><a[^>]*href="([^"]+)"[^>]*>(.*?)<\/a>/s);
-  assert.equal(action?.[1], "#contact");
+  // Decision of 08/11/2026: the same destination now carries the project intent.
+  assert.equal(action?.[1], `${locale === "fr" ? "/fr" : "/"}?source=intention-projet-hero#contact`);
   assert.equal(visibleText(action?.[2] ?? ""), locale === "fr" ? "Parler d'un projet" : "Talk about a project");
 });
 
@@ -84,7 +85,7 @@ for (const locale of ["fr", "en"]) test(`home metadata and Organization/Person J
 
 for (const locale of ["fr", "en"]) test(`shared footer links to six existing destinations plus the language switch (${locale})`, () => {
   for (const pathname of [locale === "fr" ? "/fr" : "/", locale === "fr" ? "/fr/journal" : "/journal", "/journal/agent-ia-entreprise"]) {
-    const load = loader(locale, { "next/navigation": { usePathname: () => pathname } });
+    const load = loader(locale, { "next/navigation": { usePathname: () => pathname, useSearchParams: () => new URLSearchParams() } });
     const { RevFooter } = load("src/system/components/RevFooter.tsx");
     const html = renderToStaticMarkup(createElement(RevFooter, { locale }));
     const links = [...html.matchAll(/<a href="([^"]+)"/g)].map(match => match[1]);

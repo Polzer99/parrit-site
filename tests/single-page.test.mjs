@@ -51,7 +51,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   // Tour 2 moves the Journal entry to the real footer: retain the link assertion
   // on the complete public surface instead of restoring the removed main link.
   const main = await renderPage(locale);
-  const load = loader(locale, { "next/navigation": { usePathname: () => locale === "fr" ? "/fr" : "/" } });
+  const load = loader(locale, { "next/navigation": { usePathname: () => locale === "fr" ? "/fr" : "/", useSearchParams: () => new URLSearchParams() } });
   const { RevFooter } = load("src/system/components/RevFooter.tsx");
   const footer = renderToStaticMarkup(createElement(RevFooter, { locale }));
   const html = main + footer;

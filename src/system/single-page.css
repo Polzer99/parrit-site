@@ -36,6 +36,7 @@
 .single-page .hero{background:var(--canard);color:var(--white);padding:72px 0 56px}
 /* Le contour clair détache le rose du canard, y compris au survol et à l'appui. */
 .single-page .hero .btn.exec{border:2px solid var(--white)}
+.single-page .hero .btn.ghost:is(:hover,:active){background:var(--ink);color:var(--white)}
 
 /* change */
 .single-page .change-definition{margin-top:var(--brand-s2);}
@@ -53,7 +54,10 @@
 .single-page .three .item h3{margin-top:24px}
 .single-page .three .item p{font-size:var(--t-s);margin-top:8px}
 /* parcours : marcheur et trois étapes alignées, maquette passe 3. */
-.single-page .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;margin-top:24px;padding-top:44px;}
+.single-page .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:40px;row-gap:0;grid-template-rows:repeat(4,auto);margin-top:24px;padding-top:44px;}
+.single-page .step {display:grid;grid-row:span 4;grid-template-rows:subgrid;row-gap:0;border-top:1px solid var(--line);padding-top:var(--brand-s2);}
+.single-page .step:hover, .single-page .step:focus-within {border-color:var(--canard);}
+.single-page .step > .btn {justify-self:start;align-self:end;margin-top:var(--brand-s3);}
 .single-page .step .n{font-size:var(--t-s);color:var(--ink2);}
 .single-page .step h3{font-size:var(--t-l);margin-top:10px;}
 .single-page .step p{font-size:var(--t-m);margin-top:12px;color:var(--ink2);}
@@ -237,12 +241,13 @@
 .single-page .teamcap {display:flex;gap:8px;align-items:center;margin-top:20px;font-size:var(--t-s);color:var(--ink2);}
 .single-page .teamcap i {width:14px;height:14px;border:2px solid var(--canard);flex-shrink:0;}
 
-.single-page .logo-strip {overflow:hidden;margin-top:56px;}
-.single-page .logo-track {display:flex;width:max-content;gap:96px;}
-.single-page .logo-set {display:flex;align-items:stretch;gap:var(--brand-s8);}
+.single-page .logo-strip {--logo-gap:var(--brand-s8);overflow:hidden;margin-top:56px;}
+.single-page .logo-track {display:flex;width:max-content;gap:var(--logo-gap);}
+.single-page .logo-set {display:flex;align-items:stretch;gap:var(--logo-gap);flex-shrink:0;}
 .single-page .client-logo {display:block;flex-shrink:0;background:var(--ink);mask-size:contain;mask-repeat:no-repeat;mask-position:center;max-width:100%;}
 .single-page .logo-set[aria-hidden] {display:none;}
-.single-page .logo-track, .single-page .logo-set {max-width:100%;flex-wrap:wrap;}
+.single-page .logo-track {width:100%;justify-content:center;}
+.single-page .logo-set {max-width:100%;flex-wrap:wrap;justify-content:center;}
 
 .single-page .contact-fallback {padding-top:28px;border-top:1px solid var(--brand-derived-on-ink-line);}
 .single-page .contact-fallback .quick-capture {padding:0;margin:0;}
@@ -250,6 +255,7 @@
 .single-page .contact-fallback .quick-fields input {border-right:0;}
 .single-page .contact-fallback .quick-fields button {padding-inline:var(--brand-s3);}
 .single-page .contact-fallback .quick-copy p {margin-top:8px;}
+.single-page .contact-fallback .contact-expectation {font-size:var(--t-s);color:var(--on-ink);margin-top:var(--brand-s2);}
 .single-page .contact-fallback .quick-copy h3 {font-size:var(--t-l);}
 
 @media (prefers-reduced-motion:no-preference) {
@@ -260,16 +266,16 @@
   .single-page .walk.playing.s2 .b1 {animation-delay:.2s;}.single-page .walk.playing.s2 .b2 {animation-delay:.4s;}.single-page .walk.playing.s2 .b3 {animation-delay:.6s;}
   .single-page .walk.playing.s3 .blk {animation:path-drop .5s ease-out both;}
   .single-page .walk.playing.s3 .k1 {animation-delay:.4s;}.single-page .walk.playing.s3 .k2 {animation-delay:.8s;}.single-page .walk.playing.s3 .k3 {animation-delay:1.2s;}.single-page .walk.playing.s3 .k4 {animation-delay:1.6s;}
-  .single-page [data-anim] .logo-track, .single-page [data-anim] .logo-set {max-width:none;flex-wrap:nowrap;}
-  .single-page [data-anim] .logo-set[aria-hidden] {display:flex;}
-  .single-page [data-anim="in"] .logo-track {animation:logo-scroll 28s linear infinite;}
-  .single-page .logo-strip:hover .logo-track {animation-play-state:paused;}
+  .single-page .logo-track, .single-page .logo-set {max-width:none;flex-wrap:nowrap;}
+  .single-page .logo-track {width:max-content;animation:logo-scroll 28s linear infinite;}
+  .single-page .logo-set[aria-hidden] {display:flex;}
+  .single-page .logo-strip:is(:hover,:focus-within) .logo-track {animation-play-state:paused;}
 }
 @keyframes path-leg {50%{transform:translateY(-5px)}}
 @keyframes path-book {from{transform:scaleX(0)}}
 @keyframes path-grow {from{transform:scaleY(0)}}
 @keyframes path-drop {from{transform:translateY(-30px);opacity:0}}
-@keyframes logo-scroll {to{transform:translateX(calc(-50% - 48px))}}
+@keyframes logo-scroll {to{transform:translateX(calc(-50% - var(--logo-gap) / 2))}}
 @media(max-width:1100px){.single-page .service-tasks {grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:599px){.single-page .service-tasks {grid-template-columns:1fr;}}
 @media(prefers-reduced-motion:reduce){
@@ -353,7 +359,7 @@
   .single-page .phone .chat {gap:4px;padding:6px;}
   .single-page .note {font-size:var(--t-s);line-height:1.45;margin-top:12px;}
   .single-page .logo-strip {margin-top:28px;}
-  .single-page .logo-track,.single-page .logo-set {gap:20px;}
+  .single-page .logo-strip {--logo-gap:var(--brand-s3);}
   .single-page .founder .grid {grid-template-columns:38% minmax(0,1fr);grid-template-rows:auto auto;gap:16px;}
   .single-page .founder picture {grid-row:auto;}
   .single-page .founder h2 {font-size:26px;line-height:1.15;}
@@ -366,9 +372,10 @@
   .single-page .use-case.blink .case-text,.single-page .use-case.blink .tag,.single-page .partner.flip .partner-type {opacity:1;}
   .single-page .partner-delivery {visibility:hidden;}
 }
-/* The static logo band also stays on one row, with native access to every logo. */
-.single-page .logo-strip {overflow-x:auto;}
-.single-page .logo-track,.single-page .logo-set {max-width:none;flex-wrap:nowrap;}
+/* Reduced motion keeps every authorized logo visible, centered, without duplicates. */
+@media(prefers-reduced-motion:reduce){
+  .single-page .logo-strip, .single-page .logo-strip * {animation:none!important;transition:none!important;}
+}
 /* Une conversation complète reste dans le flux, même pendant son animation. */
 .single-page .phone .msg {flex-shrink:0;}
 
@@ -457,8 +464,11 @@
 /* Reserve the font's descenders without changing the approved type scale (08/11/2026). */
 .single-page .hero h1 {font-size:38px;line-height:43px;letter-spacing:-.01em;text-wrap:wrap;padding-bottom:calc(var(--brand-s1) / 2);}
 .single-page .hero .sub p {font-size:18px;line-height:27px;color:var(--on-canard);max-width:none;}
-.single-page .hero .actions {display:flex;width:100%;}
-.single-page .hero .btn.exec {width:100%;font-size:18px;line-height:24px;padding:18px 16px;white-space:normal;}
+.single-page .hero .actions {display:flex;flex-direction:column;gap:var(--brand-s2);width:100%;}
+.single-page .hero .btn {border-width:2px;width:100%;line-height:24px;padding:18px 16px;white-space:normal;}
+.single-page .hero .btn.exec {font-size:18px;}
+/* The smaller label needs a 1px baseline offset; total vertical padding stays 36px. */
+.single-page .hero .btn.ghost {padding-top:calc(18px + var(--brand-s1) / 8);padding-bottom:calc(18px - var(--brand-s1) / 8);}
 .single-page .onto-diagram {--onto-plane:color-mix(in srgb,var(--canard),var(--ink) 48%);position:relative;width:100%;max-width:560px;aspect-ratio:390 / 380;justify-self:center;container-type:inline-size;}
 .single-page .onto {display:block;width:100%;height:100%;}
 .single-page .onto-geo-desktop {display:none;}
@@ -494,18 +504,23 @@
 .single-page .onto-approval {flex:none;max-width:40%;font-size:13px;line-height:18px;padding:3px 10px;background:var(--sky);color:var(--ink);font-weight:600;opacity:0;transition:opacity .35s;}
 .single-page .onto-result.is-visible, .single-page .onto-approval.is-visible {opacity:1;}
 .single-page .hero .humby {font-size:16px;line-height:1.45;color:var(--on-canard);max-width:none;}
+@media(min-width:761px){
+  .single-page .hero .actions {flex-direction:row;align-items:baseline;}
+  .single-page .hero .btn {flex:none;}
+}
 @media(min-width:761px) and (max-width:1199px){
   .single-page .hero h1 {font-size:46px;line-height:52px;}
-  .single-page .hero .btn.exec {width:max-content;max-width:100%;white-space:nowrap;}
+  .single-page .hero .btn {width:max-content;max-width:100%;white-space:nowrap;}
 }
 @media(min-width:1200px){
   .single-page .hero {padding:24px 0 16px;}
   .single-page .hero .wrap {max-width:1440px;padding-left:clamp(40px,calc((100vw - 1080px) / 2),180px);padding-right:16px;}
-  .single-page .ontology-hero {grid-template-columns:clamp(390px,calc(25vw + 70px),430px) minmax(0,1fr);grid-template-rows:auto auto auto;column-gap:24px;row-gap:16px;align-items:start;}
+  .single-page .ontology-hero {grid-template-columns:calc(var(--brand-s8) * 8) minmax(0,1fr);grid-template-rows:auto auto auto;column-gap:24px;row-gap:16px;align-items:start;}
   .single-page .hero-intro {grid-column:1;grid-row:1;}
   .single-page .hero h1 {font-size:46px;line-height:52px;}
   .single-page .hero .sub p {font-size:19px;line-height:28px;}
-  .single-page .hero .btn.exec {width:max-content;max-width:100%;font-size:19px;line-height:24px;padding:18px 30px;white-space:nowrap;}
+  .single-page .hero .btn {width:max-content;max-width:100%;line-height:24px;padding:18px 30px;white-space:nowrap;}
+  .single-page .hero .btn.exec {font-size:19px;}
   .single-page .onto-diagram {grid-column:2;grid-row:1 / 3;max-width:none;aspect-ratio:820 / 630;}
   .single-page .onto-geo-desktop {display:inline;}
   .single-page .onto-geo-compact {display:none;}
@@ -531,4 +546,11 @@
 }
 @media(prefers-reduced-motion:reduce){
   .single-page .ontology-hero *, .single-page .ontology-hero *::before, .single-page .ontology-hero *::after {animation:none!important;transition:none!important;}
+}
+
+/* Shared intrinsic rows keep the three intent links aligned before hydration. */
+@media(max-width:760px){
+  .single-page .steps.mobile-carousel {display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:84%;row-gap:0;}
+  .single-page .steps.mobile-carousel > .step {grid-row:span 4;}
+  .single-page .step > .btn {width:100%;justify-self:stretch;}
 }

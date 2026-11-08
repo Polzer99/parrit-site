@@ -95,9 +95,23 @@ Peu de texte : montrer les produits, les réalisations, les capacités et les pr
 Le rendez-vous est une suite possible, pas une métrique à maximiser.
 L'ancien objectif RDV/semaine et cash hebdo est remplacé le 24/10/2026.
 
-**CTA site V1, décision de Paul du 02/11/2026** :
-« Parler d'un projet » / « Talk about a project » dans le hero, la navigation et les clôtures, vers `/#contact`
-ou `/fr#contact`. Le hero porte la promesse (décision de Paul du 08/11/2026) et le schéma en langue métier validé le 02/11/2026. Le Journal n'a pas de capture d'abonnement.
+**Boutons par intention, décision de Paul du 08/11/2026** :
+Le hero propose « Parler d'un projet » / « Talk about a project » (`exec`), puis
+« Former mes équipes » / « Train my teams » (`ghost`). Les trois étapes donnent
+chacune une seule action : former les équipes, choisir les priorités, parler
+d'un projet. Toutes mènent directement au contact (`/#contact` ou `/fr#contact`),
+avec `source=intention-{formation,priorites,projet}-{hero,parcours}` avant l'ancre.
+Les UTM sont conservés et le clic sur l'accueil ne recharge pas le formulaire.
+Sous l'envoi, formulation exacte du correctif 4, décision de Paul du 08/11/2026 :
+« Premier échange de 15 minutes en visioconférence : vous présentez votre besoin, nous vous indiquons ce qui est réalisable. »
+« A first 15-minute video call: you present your needs, we tell you what is feasible. »
+Aucun nouveau champ ni nouvelle offre.
+La navigation et les clôtures gardent « Parler d'un projet » / « Talk about a
+project ». Le hero porte la promesse et le schéma en langue métier validés.
+Le Journal n'a pas de capture d'abonnement. Son index affiche les thèmes du
+registre, lorsqu'ils existent, et un temps de lecture calculé sur le texte.
+Références : logos autorisés seuls, défilement CSS avec pause au survol/focus,
+présentation statique centrée en mouvement réduit. Charte et seuils inchangés.
 
 ## 3. ICP (à qui on parle)
 

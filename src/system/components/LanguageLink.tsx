@@ -1,15 +1,53 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { Suspense, useSyncExternalStore } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import { LOCALE_COOKIE, localizedPath, type Locale } from "@/system/locale";
 const HASHES: Readonly<Record<string, string>> = { "en-production": "in-production", "ce-qui-change": "what-changes", parcours: "path", partenaires: "team" };
+function localizedHash(fragment: string, locale: Locale) {
+  const hash = fragment.replace(/^#/, "");
+  if (!hash) return "";
+  const translated = locale === "en" ? HASHES[hash] ?? hash : Object.entries(HASHES).find(([, value]) => value === hash)?.[0] ?? hash;
+  return `#${translated}`;
+}
+function subscribeHash(onChange: () => void) {
+  window.addEventListener("hashchange", onChange);
+  window.addEventListener("popstate", onChange);
+  return () => {
+    window.removeEventListener("hashchange", onChange);
+    window.removeEventListener("popstate", onChange);
+  };
+}
+const currentHash = () => window.location.hash;
+// Fragments are browser-only; keep SSR and the first hydration render identical.
+const serverHash = () => "";
 export function LanguageLink({ locale, children }: { locale: Locale; children: React.ReactNode }) {
   const path = usePathname() || "/";
-  return <a href={localizedPath(path, locale)} hrefLang={locale} onClick={event => {
-    event.preventDefault();
+  // Static error pages still render their navigation while URL data is unavailable.
+  return <Suspense fallback={<a href={localizedPath(path, locale)} hrefLang={locale}>{children}</a>}>
+    <QueryLanguageLink path={path} locale={locale}>{children}</QueryLanguageLink>
+  </Suspense>;
+}
+function QueryLanguageLink({ path, locale, children }: { path: string; locale: Locale; children: React.ReactNode }) {
+  const searchParams = useSearchParams();
+  const hash = useSyncExternalStore(subscribeHash, currentHash, serverHash);
+  // Keep attribution in native navigation too, including before hydration.
+  const params = new URLSearchParams(searchParams.toString());
+  params.delete("lang");
+  const query = params.toString();
+  const href = localizedPath(`${path}${query ? `?${query}` : ""}${localizedHash(hash, locale)}`, locale);
+  const rememberChoice = () => {
     document.cookie = `${LOCALE_COOKIE}=${locale}; Path=/; Max-Age=31536000; SameSite=Lax${window.location.protocol === "https:" ? "; Secure" : ""}`;
+  };
+  return <a href={href} hrefLang={locale} onClick={event => {
+    if (event.defaultPrevented || event.button !== 0) return;
+    // Record the choice even for a new tab, before the proxy negotiates its locale.
+    rememberChoice();
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
     const url = new URL(window.location.href); url.pathname = localizedPath(path, locale); url.searchParams.delete("lang");
-    const hash = url.hash.slice(1);
-    url.hash = locale === "en" ? HASHES[hash] ?? hash : Object.entries(HASHES).find(([, value]) => value === hash)?.[0] ?? hash;
+    url.hash = localizedHash(url.hash, locale);
     window.location.assign(`${url.pathname}${url.search}${url.hash}`);
+  }} onAuxClick={event => {
+    if (!event.defaultPrevented && event.button === 1) rememberChoice();
   }}>{children}</a>;
 }

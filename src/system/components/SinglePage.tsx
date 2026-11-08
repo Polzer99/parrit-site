@@ -2,6 +2,7 @@ import type { Locale } from "@/system/locale";
 import { SINGLE_PAGE_EN, PARTNER_OFFERS } from "@/system/single-page-copy";
 import { ParritCalInline } from "./CalInline";
 import { QuickCapture } from "./QuickCapture";
+import { ContactIntentLink } from "./ContactIntentLink";
 import { getSiteEvidence } from "@/lib/registry/preuves";
 import { ClientLogoStrip, ResearchPartner } from "./PublicEvidence";
 import { ServiceGrid } from "./ServiceGrid";
@@ -12,7 +13,7 @@ import { RevealOnView } from "./RevealOnView";
 import { TechnologyBand } from "./TechnologyBand";
 import { MobileCarousel } from "./MobileCarousel";
 import { ServiceTasks } from "./ServiceTasks";
-export function SinglePage({ locale }: { locale: Locale }) {
+export function SinglePage({ locale, contactQuery = "" }: { locale: Locale; contactQuery?: string }) {
  const fr = locale === "fr";
  const clients = ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"].filter(id => getSiteEvidence(id, "home"));
  const t = (text: string) => fr ? text : SINGLE_PAGE_EN[text];
@@ -25,7 +26,10 @@ export function SinglePage({ locale }: { locale: Locale }) {
       <h1>{t("Votre expertise est la matière première.")}{" "}<b>{t("Nous la mettons au travail.")}</b></h1>
       <div className="sub">
         <p>{t("Nous formons vos équipes à l'IA et construisons les outils qui leur manquent.")}</p>
-        <div className="actions"><a className="btn rev-button exec" href="#contact">{t("Parler d'un projet")}</a></div>
+        <div className="actions">
+          <ContactIntentLink locale={locale} query={contactQuery} intent="projet" placement="hero" primary>{t("Parler d'un projet")}</ContactIntentLink>
+          <ContactIntentLink locale={locale} query={contactQuery} intent="formation" placement="hero">{t("Former mes équipes")}</ContactIntentLink>
+        </div>
       </div>
     </div>
   </OntologyHero>
@@ -87,9 +91,9 @@ export function SinglePage({ locale }: { locale: Locale }) {
   <h2>{t("Trois étapes,")}{" "}<b>{t("vous commencez où vous voulez.")}</b></h2>
   <PathWalker/>
   <MobileCarousel className="steps" label={fr ? "Trois étapes" : "Three steps"}>
-    <div className="step"><span className="n">{t("Étape 1")}</span><h3>{t("Apprendre")}</h3><p>{t("Former les équipes, puis créer avec elles un premier assistant.")}</p></div>
-    <div className="step"><span className="n">{t("Étape 2")}</span><h3>{t("Améliorer")}</h3><p>{t("Choisir les priorités, puis livrer des solutions rapides.")}</p></div>
-    <div className="step"><span className="n">{t("Étape 3")}</span><h3>{t("Construire")}</h3><p>{t("Relier vos outils, puis bâtir vos propres logiciels.")}</p></div>
+    <div className="step"><span className="n">{t("Étape 1")}</span><h3>{t("Apprendre")}</h3><p>{t("Former les équipes, puis créer avec elles un premier assistant.")}</p><ContactIntentLink locale={locale} query={contactQuery} intent="formation" placement="parcours">{t("Former mes équipes")}</ContactIntentLink></div>
+    <div className="step"><span className="n">{t("Étape 2")}</span><h3>{t("Améliorer")}</h3><p>{t("Choisir les priorités, puis livrer des solutions rapides.")}</p><ContactIntentLink locale={locale} query={contactQuery} intent="priorites" placement="parcours">{t("Choisir nos priorités")}</ContactIntentLink></div>
+    <div className="step"><span className="n">{t("Étape 3")}</span><h3>{t("Construire")}</h3><p>{t("Relier vos outils, puis bâtir vos propres logiciels.")}</p><ContactIntentLink locale={locale} query={contactQuery} intent="projet" placement="parcours">{t("Parler d'un projet")}</ContactIntentLink></div>
   </MobileCarousel>
   <p className="aussi">{t("Déjà équipés ? Nous vérifions vos outils et leurs règles, installons l'IA sur vos serveurs et contrôlons l'usage qu'en font vos équipes.")}</p>
 </div></section>
@@ -119,7 +123,7 @@ export function SinglePage({ locale }: { locale: Locale }) {
 
 
 
-<section className="founder" id="contact"><div className="wrap"><div className="grid">
+<section className="founder" id="contact" tabIndex={-1}><div className="wrap"><div className="grid">
   <picture>
     <source type="image/avif" srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.avif 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.avif 680w" sizes="(max-width: 760px) calc((100vw - 40px) * .38), (max-width: 1160px) calc((100vw - 144px) / 3), 339px" />
     <source type="image/webp" srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.webp 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.webp 680w" sizes="(max-width: 760px) calc((100vw - 40px) * .38), (max-width: 1160px) calc((100vw - 144px) / 3), 339px" />

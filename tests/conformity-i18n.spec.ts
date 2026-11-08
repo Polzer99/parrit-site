@@ -21,7 +21,9 @@ async function switchHeaderLanguage(
   await expect(async () => {
     const link = page.locator(".cmdbar").getByRole("link", { name: label, exact: true });
     await expect(link).toBeVisible({ timeout: 1_000 });
-    await expect(link).toHaveAttribute("href", new URL(expectedUrl).pathname);
+    const destination = new URL(expectedUrl);
+    // The browser-only fragment reaches href after hydration; wait for the real destination.
+    await expect(link).toHaveAttribute("href", destination.pathname + destination.search + destination.hash);
     await link.click({ timeout: 1_000 });
     await expect(page).toHaveURL(expectedUrl, { timeout: 1_500 });
     expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe(target);
@@ -142,6 +144,34 @@ test("header switches paths, saves choice and preserves query/hash", async ({ pa
   await expect(page.locator('.cmdbar .mobile-menu a.rev-button[href="/fr#contact"]')).toHaveCount(1);
 });
 
+for (const target of ["fr", "en"] as const) {
+  test(`language links follow fragment changes and browser history (${target})`, async ({ page, context }) => {
+    const start = target === "fr" ? "/legal" : "/fr/legal";
+    const destination = target === "fr" ? "/fr/legal" : "/legal";
+    const query = "?source=test&utm_campaign=a%26b&utm_custom=one&utm_custom=two";
+    await page.setExtraHTTPHeaders({ "Accept-Language": "en" });
+    await page.goto(`${BASE_URL}${start}${query}#top`);
+    const header = page.locator(".cmdbar").getByRole("link", { name: target.toUpperCase(), exact: true });
+    const footer = page.locator(`.single-footer a[hreflang="${target}"]`);
+    for (const link of [header, footer]) await expect(link).toHaveAttribute("href", `${destination}${query}#top`);
+    await page.evaluate(() => { window.location.hash = "section%20two"; });
+    for (const link of [header, footer]) await expect(link).toHaveAttribute("href", `${destination}${query}#section%20two`);
+    await page.evaluate(() => window.history.back());
+    await expect(page).toHaveURL(`${BASE_URL}${start}${query}#top`);
+    for (const link of [header, footer]) await expect(link).toHaveAttribute("href", `${destination}${query}#top`);
+    await footer.click();
+    await expect(page).toHaveURL(`${BASE_URL}${destination}${query}#top`);
+    expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe(target);
+    await expect(page.locator("html")).toHaveAttribute("lang", target);
+  });
+}
+
+test("home language switches translate the current fragment in both directions", async ({ page, context }) => {
+  await page.goto(`${BASE_URL}/fr?source=test&utm_source=mail#parcours`);
+  await switchHeaderLanguage(page, context, "en", `${BASE_URL}/?source=test&utm_source=mail#path`);
+  await switchHeaderLanguage(page, context, "fr", `${BASE_URL}/fr?source=test&utm_source=mail#parcours`);
+});
+
 test("French Journal aliases redirect once to the unchanged English article", async ({ page, context }) => {
   const path = "/journal/one-card-one-action";
   await page.setExtraHTTPHeaders({ "Accept-Language": "fr" });
@@ -178,6 +208,26 @@ test("French Journal aliases redirect once to the unchanged English article", as
   await switchHeaderLanguage(page, context, "fr", `${BASE_URL}${path}?source=test`, "en");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator(".journal-header [data-language-note]")).toHaveCount(0);
+});
+
+test.describe("Journal alias and language links without hydration", () => {
+  test.use({ javaScriptEnabled: false });
+  for (const target of ["fr", "en"]) test(`source and UTM survive the 308 and native ${target} link`, async ({ page }) => {
+    const path = "/journal/one-card-one-action";
+    const query = "source=test&utm_source=mail&utm_campaign=a%26b&utm_custom=one&utm_custom=two";
+    const response = await page.goto(`${BASE_URL}/fr${path}?lang=fr&${query}`);
+    const original = response?.request().redirectedFrom();
+    expect(original).toBeTruthy();
+    expect(original!.redirectedFrom()).toBeNull();
+    expect((await original!.response())?.status()).toBe(308);
+    await expect(page).toHaveURL(`${BASE_URL}${path}?lang=fr&${query}`);
+    const link = page.locator(".cmdbar").getByRole("link", { name: target.toUpperCase(), exact: true });
+    await expect(link).toHaveAttribute("href", `${path}?${query}`);
+    await link.click();
+    await expect(page).toHaveURL(`${BASE_URL}${path}?${query}`);
+    await expect(page.locator("html")).toHaveAttribute("lang", "en");
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${SITE}${path}`);
+  });
 });
 
 test("sitemap contains both translated sets and no French articles", async ({ page }) => {

@@ -1,0 +1,475 @@
+# Boutons par intention et finitions — rapport du 08/11/2026
+
+## Correctif 4 : formulation, 08/11/2026
+
+La baseline contient déjà la spec jusqu'au correctif 3. Cette passe applique
+le dernier amendement de Paul et conserve les CTA, styles et comportements
+existants. Aucun commit, push ni déploiement.
+
+### Sources, plan et périmètre
+
+- Dépôt courant explicitement demandé, branche
+  `codex/docs-CODEX-SPEC-2026-11-08-cta-par-intention-et-fi`,
+  baseline `81bc5dea995fb2aeee6be9d9e0b670266df60806`.
+- AI_CONTEXT, AGENTS, CLAUDE, TRUTH, spec complète et Recursive Agent Harness
+  consultés avant modification ; guide local Next 16.3.4 `use-client` consulté.
+  Aucun changement d'API externe ni de dépendance.
+- Seul changement préexistant : amendement « Correctif 4 » de la spec,
+  conservé octet pour octet, SHA256
+  `c1151c2bc9e21af85da83b0d7c96406f51b75c8c88dbcf298cb8d3c4d48b6684`.
+- Plan autorisé par la spec : baseline, tests rouges, remplacement exact,
+  revue indépendante, même batterie, rapport. Une passe ; arrêt des tentatives
+  navigateur après constat des refus système.
+- TARGET_SYSTEM : dépôt local ; ENVIRONMENT : sandbox ; WRITE_SCOPE : texte
+  du composant, fixture, tests, documentation ; REVERSIBLE : oui ; ROLLBACK :
+  retirer uniquement les ajouts de cette passe ; BACKUP : baseline Git et spec
+  préexistante conservée ; EXPECTED_ROWS : zéro donnée métier.
+
+### Fichiers modifiés
+
+| Fichier | Modification |
+|---|---|
+| `src/system/components/QuickCapture.tsx` | Les deux phrases exactes du correctif 4 sous l'envoi. Aucun changement de structure ni de serveur. |
+| `tests/fixtures/contact-expectation.json` | Texte FR/EN canonique utilisé aussi par les audits de contenu existants. |
+| `tests/intentions.test.mjs` | Deux nouveaux tests FR/EN : fixture conforme au correctif et absence du suffixe des anciennes formulations dans les sources publiques et articles. Contrôle SSR du texte intégral et de sa position sous l'envoi. Tests de durée renforcés : ancien paragraphe à 30 minutes, nouvelle phrase avec durée erronée et ajout d'une promesse de réservation à 30 minutes. |
+| `tests/intentions.spec.ts` | Assertion du texte intégral FR/EN, avec/sans JS, aux trois dimensions existantes. Aucun seuil modifié. |
+| `AGENTS.md`, `TRUTH.md`, `AI_CONTEXT.md` | Formulations exactes, décision du 08/11/2026 et état de validation. |
+| Ce rapport | Résultats, portée et limites de preuve. |
+
+Le suffixe commun aux deux formulations abandonnées empêche leur retour avec
+15 ou 30 minutes. Les audits de rendu et de contenu n'exemptent que la nouvelle
+phrase exacte dans son emplacement autorisé. `scripts/false-claims-check.mjs`
+est inchangé : aucune exception ajoutée au contrôle de durée.
+La spec conserve ses anciennes formulations comme historique de décision ;
+son dernier amendement prime. Les anciens comptes rendus ci-dessous sont historiques.
+
+### Résultats exécutés
+
+| Vérification | Baseline | Candidat |
+|---|---|---|
+| `npm ci --silent` | Réussi | Même installation, dépendances inchangées |
+| `npm run lint` | Réussi | Réussi |
+| `npm run build -- --webpack` | Réussi | Réussi |
+| `npm test` | 187/187 | 189/189 |
+| `node --test tests/intentions.test.mjs` avec nouvelles attentes | 4 échecs attendus après mise à jour de la fixture | 15/15, également exécutés indépendamment par le relecteur |
+| `npx tsc --noEmit` | — | Réussi |
+| `npm run qa:brand:rev01` | — | Réussi |
+| `npm run qa:claims:rev01` | — | Réussi |
+| `npm run test:brand-os` | — | 19/19 |
+| `npm run qa:network:rev01 -- --list` | — | 457 tests / 13 fichiers recensés |
+| `CTA_CAPTURE=1 npm run qa:network:rev01 -- --workers=1 --max-failures=1` | — | Échec au lancement de Chromium ; 456 non exécutés |
+| `git diff --check` | — | Réussi |
+
+Revue indépendante : aucun défaut concret identifié. Documentation finalisée
+après cette revue. Les avertissements metadataBase et type de module Node sont
+préexistants et non bloquants. Logs locaux : `/tmp/cta4-install.log`,
+`/tmp/cta4-{baseline,final}-{lint,build,test}.log`,
+`/tmp/cta4-{red,red-render,green,types,brand,claims,brand-os}.log`,
+`/tmp/cta4-{server,playwright-list,playwright-run}.log`.
+
+### Blocages et preuve restante
+
+Le serveur local refuse l'écoute : `listen EPERM 127.0.0.1:3210`. Chromium
+échoue avant navigation (`MachPortRendezvous`, permission refusée, `SIGTRAP`).
+Les captures FR/EN à 1440×800 et 390×844, la géométrie et le CLS ne sont donc
+pas validés. Les seuils et le deny-all réseau restent intacts. Aucune preuve
+en production n'est revendiquée ; aucun déploiement n'était autorisé.
+
+À rejouer sur l'hôte, dans deux terminaux :
+
+```sh
+npm run start -- --hostname 127.0.0.1 -p 3210
+CTA_CAPTURE=1 npm run qa:network:rev01 -- --workers=1
+```
+
+Les captures sont écrites dans `/tmp/cta-intentions-captures` par les tests
+existants. Aucun PNG suivi ni copie de spec dans `tmp/` modifié.
+
+## Correctif 3 après tests hôte, 08/11/2026
+
+La spec complète est déjà implémentée dans la baseline jusqu'au correctif 2.
+Cette passe traite son dernier amendement et vérifie les contrats existants.
+Aucun commit, push ni déploiement. Captures et validation navigateur bloquées.
+
+### Sources et périmètre
+
+- Dépôt et branche explicitement demandés : checkout courant,
+  `codex/docs-CODEX-SPEC-2026-11-08-cta-par-intention-et-fi`,
+  baseline `6ce1270c685998612ba85efafec84e58b96f57b1`.
+- Instructions consultées avant modification : AI_CONTEXT, AGENTS, CLAUDE,
+  TRUTH, spec complète amendée et Recursive Agent Harness.
+- Source du changement de contrat : décision de Paul du 08/11/2026,
+  section « Correctif 3 » de la spec. Seul changement initial du dépôt : cette
+  spec, conservée octet pour octet (SHA256
+  `0cac39417b71ccde64c87291eab8195930ff637b0d83050ad39b0dee68684081`).
+- Documentation : guides Next installés 16.3.4 sur les liens et useSearchParams,
+  Context7 Next 16.2.9 et React 19.2.7. Aucune dépendance modifiée.
+- Plan : baseline, tests de régression, correction ciblée, revue indépendante,
+  correction du cas adverse puis même batterie. Deux passes de correction ;
+  arrêt des tentatives navigateur après confirmation des blocages système.
+- TARGET_SYSTEM : dépôt local ; ENVIRONMENT : sandbox ; WRITE_SCOPE : composant,
+  tests, documentation. REVERSIBLE : oui ; ROLLBACK : retirer uniquement le diff
+  de cette passe ; BACKUP : baseline Git, spec préexistante conservée ;
+  EXPECTED_ROWS : zéro donnée métier. Aucun service client modifié.
+
+### Diagnostic et modifications
+
+**Faits vérifiés dans la baseline :** l'audit de lisibilité attendait un seul
+lien alors que le hero en rend deux. Le gestionnaire de langue préservait déjà
+l'ancre au clic, mais le href rendu n'incluait que le chemin et la query.
+Les deux nouveaux tests FR/EN reproduisent l'absence du fragment dans le href.
+
+**Inférence à confirmer sur l'hôte :** le test pouvait cliquer avant hydratation,
+puis perdre définitivement l'ancre lors de la navigation native. Son retry
+ne restaurait pas l'URL d'origine. Le nouveau href reflète le fragment courant
+après hydratation ; le test attend cette destination complète avant de cliquer.
+Le serveur ne reçoit jamais le fragment : le correctif ne garantit pas sa
+conservation avant toute exécution JavaScript. La query reste présente dès le SSR.
+
+| Fichier | Modification |
+|---|---|
+| `src/system/components/LanguageLink.tsx` | Fragment traduit dans le href après hydratation via useSyncExternalStore ; écoute hashchange/popstate avec nettoyage ; instantané serveur vide. Clic normal recalculé depuis l'URL courante. Clics modifiés/centraux natifs avec cookie de choix pour éviter une renégociation contraire. |
+| `tests/audit-readability.spec.ts` | Exactement deux liens, exec puis ghost, destinations et sources de la spec. Aucun autre seuil changé. |
+| `tests/journal-locale.test.mjs` | Deux tests FR/EN ajoutés : href et clic, pages légales/accueil/article, ancres traduites/inconnues/encodées/absentes, paramètres répétés, clics modifiés/centraux et cookie initialement vide. Contrôles SSR et 308 existants conservés. |
+| `tests/conformity-i18n.spec.ts` | Helper attendant aussi l'ancre ; trois tests ajoutés : fragments changeants et retour arrière pour header/footer dans les deux langues, aller-retour des ancres parcours/path. |
+| `AI_CONTEXT.md`, ce rapport | État courant, résultats et limites de preuve. |
+
+La revue indépendante a trouvé un cas adverse dans la première correction :
+laisser un clic modifié natif sans cookie pouvait provoquer une renégociation
+vers la langue précédente. Le cookie est maintenant posé avant cette navigation,
+avec assertions dédiées. Revue finale : aucun défaut concret restant identifié ;
+10/10 tests ciblés également rejoués par le relecteur.
+
+Les CTA, attribution, texte de contact à 15 minutes, boucle CSS des références,
+alignement des étapes, thèmes/lecture/grille du Journal restent conservés et
+couverts par les tests existants. AGENTS et TRUTH portent déjà la mention
+« décision de Paul du 08/11/2026 » dans leurs sections boutons : aucun doublon
+ajouté. Aucun changement CSS, serveur du formulaire, Cal.com, permissions,
+métadonnées, sitemap, llms.txt, PNG suivis ou copie de spec dans tmp.
+
+### Résultats exécutés
+
+| Vérification | Baseline | Candidat final |
+|---|---|---|
+| `npm ci --silent` | Réussi | Réussi |
+| `npm run lint` | Réussi | Réussi |
+| `npm run build -- --webpack` | Réussi | Réussi |
+| `npm test` | 185/185 | 187/187 |
+| Deux nouvelles régressions de href | Deux échecs attendus | Réussies |
+| `node --test tests/journal-locale.test.mjs` | 8 tests existants réussis | 10/10 |
+| `npx tsc --noEmit` | — | Réussi |
+| `npm run qa:brand:rev01` | — | Réussi |
+| `npm run qa:claims:rev01` | — | Réussi |
+| `npm run test:brand-os` | — | 19/19 |
+| `npm run qa:network:rev01 -- --list` | — | 457 tests / 13 fichiers |
+| `CTA_CAPTURE=1 npm run qa:network:rev01 -- --workers=1 --max-failures=1` | — | Échec au lancement, 456 non exécutés |
+| `git diff --check` | — | Réussi |
+
+Les seuils de géométrie, stabilité et le deny-all réseau restent intacts.
+Avertissements non bloquants : metadataBase au build et type de module Node
+au contrôle des affirmations. Logs locaux : `/tmp/cta3-{baseline,final}-{lint,build,test}.log`,
+`/tmp/cta3-{red,green,types,brand,claims,brand-os}.log`,
+`/tmp/cta3-{server,playwright-list,playwright-run}.log`.
+
+### Blocages et preuve restante
+
+Serveur refusé : `listen EPERM 127.0.0.1:3210`. Chromium arrêté avant navigation :
+`MachPortRendezvous`, `Permission denied`, `SIGTRAP`. Les tests navigateur ne
+sont pas validés. Captures FR/EN à 1440×800 et 390×844 (hero, parcours,
+références, Journal), géométrie et stabilité/CLS : **UNKNOWN**. Aucun contrôle
+affaibli pour contourner ces blocages ; aucune preuve production revendiquée.
+
+Reprise sur l'hôte, dans deux terminaux :
+
+```sh
+npm run start -- --hostname 127.0.0.1 -p 3210
+```
+
+```sh
+CTA_CAPTURE=1 npm run qa:network:rev01
+```
+
+Les captures seront produites dans `/tmp/cta-intentions-captures` ; elles restent
+à inspecter. Les sections suivantes décrivent les exécutions précédentes.
+
+## Correctif 2 après tests hôte, 08/11/2026
+
+Implémentation existante conservée et amendement traité. Aucun commit, push ni
+déploiement. La validation navigateur reste bloquée par le sandbox.
+
+### Sources, périmètre et preuve
+
+- Référence explicitement demandée : dépôt courant, baseline
+  `2b602264911bfb8943995a40887694673e37c84a`.
+- Avant modification : AGENTS, AI_CONTEXT, TRUTH, CLAUDE, spec amendée et doctrine
+  Recursive Agent Harness consultés. Plan : baseline, régression reproduite,
+  corrections ciblées, revue indépendante et même batterie après correction.
+- Documentation : Next installé 16.3.4 (`redirects.md`, `use-search-params.md`),
+  recoupé avec Context7 Next 16.2.9. Aucun changement de dépendance.
+- Seul changement initial : amendement local de la spec. Son SHA256 reste
+  `961a9c323a520b7bfcd7b34e2326f16376f5cedb49754d91d56093865150be80`.
+- Écritures : dépôt local, code/tests/documentation uniquement, réversibles par
+  retrait du diff de cette passe ; baseline Git comme sauvegarde. Zéro ligne métier.
+- Boucle bornée : correction initiale puis ajustement de compilation/alignement ;
+  arrêt des tentatives navigateur dès le blocage système confirmé.
+
+**Fait vérifié :** les règles actuelles de `next.config.ts` produisent un seul
+308 vers l'article anglais avec `source`, `lang` et les UTM conservés dans le
+moteur de test de la version Next installée, sans socket ni requête réseau.
+
+**Défaut reproduit :** la bascule de langue du même parcours avait un `href`
+SSR sans query. Avant hydratation, cliquer ce lien supprimait `source` et les
+UTM ; son gestionnaire JavaScript, lui, les conservait. Les deux nouveaux tests
+SSR FR/EN échouent avant correction puis réussissent. Le lien natif conserve
+désormais les paramètres, y compris valeurs répétées et encodées ; seul `lang`
+est supprimé, conformément au comportement existant de la bascule.
+
+**Limite :** le relevé hôte fourni dans la spec ne donne pas l'assertion exacte
+qui échoue au sein du test. La perte sur la bascule est prouvée ; l'attribution
+de l'échec hôte à cette étape reste à confirmer. La redirection configurée
+n'est pas modifiée sans défaut reproduit.
+
+### Fichiers modifiés et tests
+
+| Fichier | Modification |
+|---|---|
+| `src/system/single-page.css` | Échelle 18/19 px réservée à `exec` ; `ghost` retrouve `--t-s` à 16 px. Rembourrage vertical total inchangé, compensation de 1 px issue du jeton pour le libellé secondaire ; alignement baseline conservé. |
+| `src/system/components/LanguageLink.tsx` | Query conservée dans le lien dès le SSR avec `useSearchParams`. Suspense local avec lien de repli pour les pages d'erreur statiques ; cookie et traduction des ancres au clic conservés. |
+| `tests/journal-locale.test.mjs` | Quatre tests Node ajoutés : saut 308 Next avec query et alias renommé ; liens SSR FR/EN avec paramètres répétés/encodés ; lien disponible pendant le prérendu statique sans query. |
+| `tests/intentions.spec.ts` | Quatre cas ajoutés à 375 px (FR/EN, avec/sans JS), tailles 16 et 18/19 contrôlées ; mesure de la baseline ajoutée aux cas ordinateur. Seuils existants inchangés. |
+| `tests/conformity-i18n.spec.ts` | Deux parcours sans JS : saut 308 puis lien FR/EN avec source/UTM conservés. Le helper de bascule vérifie désormais le href complet avec query, au lieu du seul pathname ; toutes les assertions d'arrivée restent présentes. |
+| `tests/langue-metier.test.mjs`, `tests/single-page.test.mjs` | Mock du nouveau hook de lecture de query, sans modification des assertions. |
+| `AI_CONTEXT.md`, ce rapport | État courant, diagnostic et limites de validation. |
+
+`AGENTS.md` et `TRUTH.md` portent déjà la décision de Paul du 08/11/2026 et
+restent inchangés. La durée de 15 minutes, la fixture et le contrôle des
+affirmations restent inchangés. Serveur du formulaire, attribution des intentions,
+permissions/logos, registre du Journal, Cal.com, métadonnées, sitemap et `llms.txt`
+restent inchangés. Aucun PNG suivi ni copie de spec dans `tmp/` modifiés.
+
+### Résultats exécutés
+
+| Vérification | Baseline | Candidat final |
+|---|---|---|
+| `npm ci --silent` | Réussi | Même installation, dépendances inchangées |
+| `npm run lint` | Réussi | Réussi |
+| `npm run build -- --webpack` | Réussi | Réussi |
+| `npm test` | 181/181 | 185/185 |
+| Régressions SSR FR/EN nouvelles | 2 échecs attendus | Réussies |
+| `npx tsc --noEmit` | — | Réussi |
+| `npm run qa:brand:rev01` | — | Réussi |
+| `npm run qa:claims:rev01` | — | Réussi |
+| `npm run test:brand-os` | — | 19/19 |
+| `npm run qa:network:rev01 -- --list` | — | 454 tests, 13 fichiers |
+| `CTA_CAPTURE=1 npm run qa:network:rev01 -- --workers=1 --max-failures=1` | — | 1 échec de lancement, 453 non exécutés |
+| `git diff --check` | — | Réussi |
+
+La première compilation du candidat a détecté `useSearchParams` sans Suspense
+sur la 404 statique ; le composant a été corrigé puis la batterie rejouée.
+La revue indépendante a identifié le décalage des bords induit par les tailles
+19/16 px malgré une baseline commune. Compensation ajoutée sans changer la
+hauteur totale, puis revue finale favorable. Le calcul des métriques ne remplace
+pas une validation visuelle. Avertissements préexistants : `metadataBase` et
+type de module Node.
+
+Logs locaux : `/tmp/cta-fix2-install.log`, `/tmp/cta-fix2-{baseline,final}-{lint,build,test}.log`,
+`/tmp/cta-fix2-{red,green,types,brand,claims,brand-os}.log`,
+`/tmp/cta-fix2-{server,playwright-list,playwright-run}.log`.
+
+### Blocage et reprise hôte
+
+Serveur : `listen EPERM 127.0.0.1:3210`. Chromium : `MachPortRendezvous`,
+`Permission denied`, `SIGTRAP` avant navigation. Aucun contournement tenté.
+Les 454 tests navigateur ne sont donc pas validés ; les captures FR/EN
+1440×800 et 390×844, la géométrie et la stabilité/CLS restent **UNKNOWN**.
+Aucune preuve production revendiquée, déploiement exclu du mandat.
+
+Claude doit reprendre sur l'hôte, serveur lancé avec
+`npm run start -- --hostname 127.0.0.1 -p 3210`, puis :
+
+```sh
+npm run qa:network:rev01
+CTA_CAPTURE=1 npx playwright test tests/intentions.spec.ts --browser=chromium
+```
+
+Captures hors dépôt sous `/tmp/cta-intentions-captures`, à produire et inspecter.
+Les sections suivantes décrivent les passes précédentes, pas cette exécution.
+
+## Correctif après PR #365, 08/11/2026
+
+Correctif implémenté conformément à la spec amendée. La première passe est
+conservée, avec une durée de **15 minutes** et le contrôle des durées restauré.
+Aucun commit, push ou déploiement effectué.
+
+### Sources et périmètre
+
+- Référence demandée : checkout courant `afd758232cb015bdd172947185252120982f0761`.
+- Source fonctionnelle : section « Correctif après la première passe » de la spec ;
+  la durée provient du relevé Cal.com fourni dans cette décision, sans nouvelle
+  consultation ni modification de Cal.com.
+- Avant modification : lecture de `AI_CONTEXT.md`, `AGENTS.md`, `TRUTH.md`,
+  `CLAUDE.md`, de la spec et de la doctrine Recursive Agent Harness.
+- Guide Next local `use-client.md` consulté ; aucun changement d’API ou de dépendance.
+- Seul changement préexistant : amendement local de la spec, conservé à l’identique.
+- Plan exécuté : baseline, tests de régression, correction ciblée, revue indépendante,
+  même batterie et tentative navigateur. Une itération ; arrêt sur blocage système.
+- Écritures : dépôt local uniquement, réversibles par retrait du diff de cette passe ;
+  sauvegarde des fichiers suivis dans la référence ci-dessus. Zéro ligne métier.
+
+### Fichiers modifiés dans cette passe
+
+| Fichier | Modification |
+|---|---|
+| `src/system/components/QuickCapture.tsx` | Deux phrases FR/EN : 30 → 15 minutes. |
+| `scripts/false-claims-check.mjs` | Suppression de `approvedContactCopy`, de son commentaire erroné et de l’exemption ; fichier identique à `f124fae`, main avant la première passe. |
+| `tests/fixtures/contact-expectation.json` | Paragraphes attendus à 15 minutes, également utilisés par les audits SSR et navigateur existants. |
+| `tests/intentions.test.mjs` | Attentes SSR corrigées ; ancien test d’exemption remplacé par deux tests FR/EN acceptant 15 minutes et rejetant l’ancien paragraphe exact ou un ajout à 30 minutes, dans QuickCapture et ailleurs. |
+| `tests/intentions.spec.ts` | Attente de 15 minutes sous l’envoi, FR/EN avec et sans JavaScript. |
+| `AI_CONTEXT.md`, ce rapport | Correctif documenté ; ancienne exemption explicitement signalée comme supprimée. |
+
+`AGENTS.md` et `TRUTH.md` contiennent déjà la décision de Paul du 08/11/2026
+sur les boutons ; ils sont conservés. Tous les autres fichiers de la première
+passe sont inchangés, notamment CSS, attribution, serveur du formulaire, Cal.com,
+Journal, permissions, deny-all et seuils de géométrie/stabilité.
+Les audits `noOffer` restent limités au paragraphe exact désormais à 15 minutes ;
+ils sont distincts du contrôle `call duration`, restauré sans exemption nouvelle.
+Aucun PNG suivi ni copie de la spec dans `tmp/` modifiés.
+
+### Résultats exécutés
+
+| Vérification | Baseline `afd7582` | Candidat corrigé |
+|---|---|---|
+| `npm ci --silent` | Réussi | Réussi |
+| `npm run lint` | Réussi | Réussi |
+| `npm run build -- --webpack` | Réussi | Réussi |
+| `npm test` | 180/180 | 181/181 |
+| `node --test tests/intentions.test.mjs` avec nouvelles attentes | 9 réussis, 4 échecs attendus avant correction | 13/13 ; également rejoués par la revue indépendante |
+| `npx tsc --noEmit` | — | Réussi |
+| `npm run qa:brand:rev01` | — | Réussi |
+| `npm run qa:claims:rev01` | — | Réussi |
+| `npm run test:brand-os` | — | 19/19 |
+| `npm run qa:network:rev01 -- --list` | — | 448 tests, 13 fichiers |
+| `CTA_CAPTURE=1 npm run qa:network:rev01 -- --workers=1 --max-failures=1` | — | Bloqué au lancement Chromium, 1 échec avant navigation, 447 non exécutés |
+| `git diff --check` | — | Réussi |
+
+La régression est démontrée avant/après : deux échecs SSR détectaient l’ancienne
+durée et deux échecs du contrôle détectaient l’exemption de l’ancien paragraphe.
+Revue indépendante du diff : aucun défaut concret relevé.
+Avertissements préexistants dans les tests : type de module Node et `metadataBase`.
+Logs : `/tmp/cta-correctif-{baseline,final}-*.log`,
+`/tmp/cta-correctif-{red,green}.log`, `/tmp/cta-correctif-playwright-{list,run}.log`.
+
+### Blocages et preuve restante
+
+Serveur : `listen EPERM 127.0.0.1:3210`. Chromium : `MachPortRendezvous`,
+`Permission denied`, `SIGTRAP`. Aucun contournement des restrictions.
+Captures FR/EN 1440×800 et 390×844, géométrie réelle et CLS restent **UNKNOWN**.
+Les commandes de reprise sur l’hôte figurent en fin de rapport. Aucune preuve
+production revendiquée ; déploiement exclu du mandat.
+
+## Historique de la première passe (avant le correctif de durée)
+
+Cette section décrit la passe `afd7582`. L’exception au contrôle des durées et
+la mention d’une approbation de Paul étaient erronées et sont supprimées par
+le correctif décrit en tête de ce rapport.
+
+Implémentation réalisée. Validation statique, serveur compilé et tests Node réussis.
+Validation navigateur et captures non acquises : le sandbox interdit le serveur
+local et le lancement de Chromium. Aucun commit, push ou déploiement.
+
+## Périmètre et sources
+
+- Source fonctionnelle : `docs/CODEX-SPEC-2026-11-08-cta-par-intention-et-finitions.md`, décision de Paul du 08/11/2026.
+- Dépôt / référence : checkout demandé, branche `codex/docs-CODEX-SPEC-2026-11-08-cta-par-intention-et-fi`, baseline `f124fae865cd67d3a2cf3e9a12536f91aa46a867`.
+- Instructions lues avant modification : `AI_CONTEXT.md`, `AGENTS.md`, `TRUTH.md`, doctrine `RECURSIVE-AGENT-HARNESS.md`.
+- Documentation : guides locaux de Next 16.3.4 sur History API et `searchParams` asynchrone ; Context7 Next 16.2.9 pour l'intégration de `pushState` au routeur.
+- État initial : seule la spec était non suivie ; elle est conservée sans modification.
+- Écritures : fichiers locaux du dépôt, réversibles ; zéro ligne métier, aucun service client modifié. Retour arrière limité au diff de cette passe, sans toucher la spec préexistante. Référence Git disponible pour les fichiers suivis.
+- Boucle : baseline, implémentation, revue indépendante, corrections ciblées, mêmes vérifications. Arrêt des tentatives navigateur après constat des restrictions de l'environnement.
+
+## Modifications
+
+| Fichiers | Résultat |
+|---|---|
+| `src/lib/registry/cta.ts` | `avecSource` place la source avant l'ancre, remplace une source précédente et conserve les autres paramètres. |
+| `src/system/components/ContactIntentLink.tsx` (nouveau) | Vrai lien localisé dès le SSR. Clic simple sur l'accueil : historique, défilement et focus du contact sans rechargement ; clic modifié conservé. |
+| `src/app/(rev01)/page.tsx`, `src/system/components/SinglePage.tsx`, `src/system/single-page-copy.ts` | Deux actions dans le hero ; une action par étape. Paramètres d'arrivée transmis aux liens SSR, y compris UTM personnalisés et valeurs multiples. |
+| `src/system/components/QuickCapture.tsx` | Paragraphe FR/EN demandé sous l'envoi, uniquement pour la variante contact. Payload et chemin serveur inchangés. |
+| `src/system/single-page.css` | Boutons du hero alignés, colonne gauche portée à 512 px sur ordinateur pour accueillir les deux largeurs intrinsèques ; boutons empilés sur téléphone. Sous-grille des étapes, filets et survol. Références en boucle CSS de 28 s, raccord adapté au gap, pause survol/focus ; logos centrés et statiques en mouvement réduit. Survol du bouton secondaire adapté au fond sombre. |
+| `src/system/journal-themes.ts`, `src/app/(rev01)/journal/themes/[theme]/page.tsx` | Registre des quatre thèmes et appartenances existantes centralisé, sans modifier leurs articles ni la date partagée du sitemap. |
+| `src/system/journal-reading.ts` (nouveau), `src/system/journal.ts` | Temps estimé depuis le corps de l'article, à 200 mots/minute, arrondi au plus proche, minimum 1 ; marqueurs Markdown et destinations des liens exclus. |
+| `src/app/(rev01)/journal/page.tsx`, `src/app/(rev01)/rev01.css` | Thème(s) réellement associés et temps de lecture localisés ; aucune catégorie inventée. Une seule action par carte ; deux colonnes à partir de 1100 px. |
+| `scripts/false-claims-check.mjs` | Exception introduite lors de cette passe, puis supprimée par le correctif : l’approbation attribuée à Paul était erronée. |
+| `package.json` | Nouvelle suite Playwright ajoutée au gate réseau existant. |
+| `AGENTS.md`, `TRUTH.md`, `AI_CONTEXT.md` | Décision du 08/11 documentée, nouveaux contrats et limites de preuve explicités. |
+
+Les titres, sous-titre, métadonnées, données structurées, articles, sitemap,
+`public/llms.txt`, polices, couleurs canoniques, permissions/logos clients,
+Cal.com et serveur du formulaire sont conservés. Le prébuild régénère
+`llms.txt` à l'identique. Aucun PNG suivi n'a été modifié.
+
+## Tests
+
+- **12 tests Node ajoutés** dans `tests/intentions.test.mjs` : utilitaire source/ancre/UTM, texte de lecture et arrondi, résumés issus du corpus réel, appartenances des thèmes, rendu FR/EN, clic normal/modifié, liens SSR avec paramètres et tests adversariaux du gate de durée.
+- **30 tests Playwright ajoutés** dans `tests/intentions.spec.ts` : cinq intentions FR/EN jusqu'au POST local mocké, document et saisie conservés ; géométrie FR/EN avec/sans JS ; alignement et destinations ; mouvement réduit/pause ; colonnes du Journal à 1099/1100 px ; captures optionnelles aux formats demandés.
+- `tests/fixtures/contact-expectation.json` fixe les deux paragraphes approuvés pour les contrôles.
+- `tests/langue-metier.test.mjs` et `tests/single-page.spec.ts` : l'ancien href `#contact` devient la destination localisée avec source. Aucun seuil de géométrie changé.
+- `tests/brand-os-render.test.mjs` et `tests/anti-slop-copy.spec.ts` : exception exacte et limitée au paragraphe de contact, conservation des interdictions ailleurs, y compris métadonnées et attributs. Le contrôle de liste du Journal accepte sa classe d'index additionnelle sans retirer les assertions sur les articles.
+- `tests/stabilite.spec.ts`, deny-all réseau et assertions géométriques existantes conservés. Le POST local est intercepté afin de ne jamais appeler le service réel en aval.
+
+## Exécution
+
+| Vérification | Baseline | Candidat |
+|---|---|---|
+| `npm ci --silent` | Réussi | Réussi |
+| `npm run lint` | Réussi | Réussi |
+| `npm run build -- --webpack` | Réussi | Réussi |
+| `npm test` | 168/168 | 180/180 |
+| `npx tsc --noEmit` | — | Réussi |
+| `npm run qa:brand:rev01` | — | Réussi |
+| `npm run qa:claims:rev01` | — | Réussi |
+| `npm run test:brand-os` | — | 19/19 |
+| `npm run qa:network:rev01 -- --list` | — | 448 tests recensés, 13 fichiers |
+| `npm run qa:network:rev01 -- --workers=1 --max-failures=1` | — | Arrêt avant navigation : Chromium interdit, 1 échec de lancement, 447 non exécutés |
+| `git diff --check` | — | Réussi |
+
+Une première compilation a signalé un argument de page facultatif incompatible
+avec le type généré Next ; signature corrigée. La première batterie a signalé
+les anciens contrats de destination et de durée, adaptés explicitement à la
+nouvelle décision, ainsi que le sélecteur strict de la liste du Journal.
+
+Revue adverse indépendante : perte d'UTM sur les clics modifiés trouvée puis
+corrigée par les vrais href SSR ; correction retestée. Dernière revue : aucun
+nouveau défaut concret, 22/22 tests ciblés réussis indépendamment. Les exceptions
+des contrôles restent limitées au mandat.
+
+Avertissements préexistants : `metadataBase` pendant le build et type de module
+Node pour certains tests. Ils ne bloquent pas les vérifications réussies.
+Logs locaux : `/tmp/cta-baseline-*.log`, `/tmp/cta-final-*.log`,
+`/tmp/cta-playwright-list.log`, `/tmp/cta-playwright-run.log`.
+
+## Blocage et reprise
+
+Le serveur échoue avec `listen EPERM 127.0.0.1:3210`. Chromium échoue avant toute
+navigation avec `MachPortRendezvous`, `Permission denied` et `SIGTRAP`.
+
+**UNKNOWN** : rendu navigateur, hero entier dans 1440×800, stabilité/CLS,
+alignements réels, contraste calculé et captures. Les seuils ne sont pas
+assouplis. Aucun résultat en production revendiqué ; aucun déploiement autorisé.
+
+Sur l'hôte, après installation/build, démarrer dans un terminal :
+
+```sh
+npm run start -- --hostname 127.0.0.1 -p 3210
+```
+
+Puis dans un autre :
+
+```sh
+npm run qa:network:rev01
+CTA_CAPTURE=1 npx playwright test tests/intentions.spec.ts --browser=chromium
+```
+
+Les captures FR/EN à 1440×800 et 390×844 (hero, parcours, références, Journal)
+sont écrites sous `/tmp/cta-intentions-captures`, hors des PNG suivis. Le dossier
+peut être changé par `CTA_CAPTURE_DIR`. Elles restent à produire et à inspecter.
