@@ -1,0 +1,41 @@
+.booking-call,
+.booking-page {
+  display: grid;
+  justify-items: start;
+  gap: var(--s3);
+  padding-block: var(--s6);
+  font-family: var(--ui);
+}
+
+.booking-call h2,
+.booking-page h1 {
+  margin: 0;
+  font-size: var(--d-s);
+  line-height: 1.15;
+  font-weight: 500;
+}
+
+.booking-call p,
+.booking-page p,
+.booking-email {
+  margin: 0;
+  font-size: var(--t-m);
+  line-height: 1.65;
+}
+
+.booking-email {
+  color: inherit;
+  overflow-wrap: anywhere;
+  text-underline-offset: var(--s1);
+}
+
+.booking-page .cal-stage {
+  width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 599px) {
+  .booking-call .rev-button {
+    width: 100%;
+  }
+}

@@ -50,6 +50,10 @@ for (const locale of ["en", "fr"]) {
           await expect(note).toHaveText(approved);
           offerText = text.replace(approved, "");
         }
+        // Only the approved call block's text is excluded from the old name/duration ban.
+        // Its full content and forbidden claims are checked by booking.spec.ts.
+        const call = page.locator(".booking-call");
+        if (await call.count()) offerText = offerText.replace(await call.innerText(), "");
         let publicCopy = `${offerText}\n${attributes}\n${metadata}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
         // Decision 08/11/2026: only the exact first FAQ answer, in text and JSON-LD.
         if (!route) {

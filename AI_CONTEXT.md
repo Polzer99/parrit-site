@@ -1603,3 +1603,31 @@ confirmés (lint/types/claims/marque, 102 tests Node, 24 tests Brand OS, build
 Webpack 58/58). Code et 21 tests du lot préexistants conservés. Turbopack arrêté
 après 120 s sans progression ; Chromium refusé avant navigation. Aucun nouveau
 point annulé ; diagnostic du timeout mobile et mesures navigateur toujours ouverts.
+
+## Appel de 15 minutes, lot A, 08/11/2026
+
+Spec : `docs/CODEX-SPEC-2026-11-08-appel-15-min-lot-a.md`.
+Routes `/rendez-vous` et `/fr/rendez-vous`, noindex/follow hors sitemap ;
+bloc `BookingCall` partagé après le corps d'article et en clôture de thème.
+`booking.ts` filtre source et transmet `metadata[source]`/`utm_*` via la prop
+optionnelle de CalInline, sans stockage ; SDK installé vérifié. Liens du
+registre et buildRdvHref corrigés avec localizedPath et avecSource.
+Accueil, corpus, publication, sitemap et llms inchangés. Les articles gardent
+leur URL canonique EN ; contexte d'interface FR couvert au rendu serveur.
+Baseline : 166 tests Node, lint/build verts. Final : 175/175 Node, 19/19 Brand OS,
+lint, build Webpack, marque et claims réussis. 16 nouveaux tests navigateur
+inclus dans le gate réseau (426 recensés). Serveur refusé par listen EPERM,
+Chromium par MachPortRendezvous/SIGTRAP : aucune capture ni preuve Cal réelle.
+Une revue indépendante et correction des exemptions du test d'identité ;
+aucun commit/push/déploiement. Reprise et fichiers : `docs/appel-15-min/rapport.md`.
+
+Seconde reprise sur main `4490653`, 08/11/2026 : le paragraphe ci-dessus conserve
+les résultats historiques du lot A. Diff `f124fae86..faee226` réintégré en
+préservant #365/#367, `avecSource`, registre partagé des thèmes, scripts et
+contrôles contact/FAQ de main. HTML SSR de SinglePage identique avant/après
+en FR/EN, avec attribution. Validation actuelle : npm ci, lint, build Webpack,
+types, marque/claims ; 217 → 226 tests Node, 19/19 Brand OS, revue indépendante
+51/51 tests ciblés sans défaut fonctionnel. 513 tests navigateur recensés ;
+serveur EPERM et Chromium SIGTRAP avant navigation, aucune capture ni preuve
+Cal.com réelle. Spec de reprise préexistante intacte ; aucun commit/push/
+déploiement. Détails : `docs/appel-15-min/rapport-reprise-2.md`.

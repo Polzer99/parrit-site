@@ -5,6 +5,7 @@ import { test } from "node:test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import ts from "typescript";
+import { loader } from "./helpers/site-v1-render.mjs";
 
 // Render the actual page without a build or network. The badge is varied to prove
 // that a notice is identified by its purpose, never by its position after h1.
@@ -19,6 +20,7 @@ for (const locale of ["en", "fr"]) {
   for (const certified of [false, true]) {
     test(`language notice is independent of deck and badge (${locale}, certified=${certified})`, async () => {
       const mocks = {
+        "@/system/components/BookingCall": loader(locale)("src/system/components/BookingCall.tsx"),
         "@/lib/server/locale": { getLocale: async () => locale },
         "@/system/auteur": { AUTEUR: { nom: "Parrit.ai", url: "https://parrit.ai" } },
         "@/system/jsonld": { blogPostingJsonLd: () => ({ "@type": "BlogPosting" }) },

@@ -80,7 +80,10 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           assert.ok(html.includes(`${name}" content="${value}"`), `${label}: ${name}`);
         }
         assert.deepEqual(checkGlyphs(html, label, glyphs, connectors), []);
-        const text = visibleText(html);
+        // 08/11: the four-element call is explicitly authorized; its exact contract
+        // is tested separately in booking tests. All older copy keeps the same gates.
+        const withoutCall = html.replace(/<section class="booking-call"[^>]*>[\s\S]*?<\/section>/g, "");
+        const text = visibleText(withoutCall);
         assert.deepEqual(privateClientNames(text), [], label);
         if (route === "/legal") assert.match(text, /Paul Larmaraud/, "legal retains the publication director");
         const accessible = [...html.matchAll(/(?:aria-label|alt)="([^"]*)"/g)].map((match) => visibleText(match[1])).join(" ");
@@ -205,7 +208,12 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
     for (const route of ["/journal/what-is-parrit-ai", "/journal/what-is-a-company-operating-system", "/journal/hook-timeout-lets-tool-call-through", "/journal/rss.xml", "/llms-full.txt"]) {
       const { status, html } = await render(route);
       assert.equal(status, 200, route);
-      assert.doesNotMatch(html, /\bPaul\b|Larmaraud|fondat(eur|rice)|fondée par|founder|founded by|quinze minutes|fifteen minutes/i, route);
+      // Preserve raw metadata, JSON-LD and attributes. Only the approved block
+      // and its Flight serialization are exempt; RSS and llms stay checked raw.
+      const identitySurface = route.endsWith("rss.xml") || route === "/llms-full.txt" ? html : html
+        .replace(/<section class="booking-call"[^>]*>[\s\S]*?<\/section>/g, "")
+        .replace(/<script(?![^>]*type="application\/ld\+json")[^>]*>[\s\S]*?<\/script>/g, "");
+      assert.doesNotMatch(identitySurface, /\bPaul\b|Larmaraud|fondat(eur|rice)|fondée par|founder|founded by|quinze minutes|fifteen minutes/i, route);
       assert.doesNotMatch(html, /paul-larmaraud\.com/i, route);
       if (route === "/journal/rss.xml") assert.match(html, /<dc:creator>Parrit\.ai<\/dc:creator>/);
     }

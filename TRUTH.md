@@ -178,7 +178,7 @@ Parrit livre la chose qui tourne, pas un deck. Chaque commande répond au Standa
 ## 2. Rôle du site (24/10/2026)
 
 Peu de texte : montrer les produits, les réalisations, les capacités et les preuves.
-Le rendez-vous est une suite possible, pas une métrique à maximiser.
+La prise de rendez-vous est l'objectif mesuré, par `source`, sans pression ni promesse (décision de Paul du 08/11/2026).
 L'ancien objectif RDV/semaine et cash hebdo est remplacé le 24/10/2026.
 
 **Boutons par intention, décision de Paul du 08/11/2026** :
