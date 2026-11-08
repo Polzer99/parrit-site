@@ -1,4 +1,5 @@
 import type { Locale } from "./locale";
+import { SINGLE_PAGE_EN } from "./single-page-copy.ts";
 
 // Décision de Paul du 08/11/2026 : texte affiché et FAQPage partagent ces paires.
 export const HOME_LAYERS = {
@@ -51,4 +52,32 @@ export function homeFaqJsonLd(locale: Locale) {
       "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text },
     })),
   };
+}
+
+// One order for the rendered home and its machine-readable description.
+export const HOME_SECTION_ORDER = [
+  "hero", "references", "terrain", "offers", "applications", "path", "services",
+  "technologies", "team", "banner", "questions", "articles", "contact",
+] as const;
+export type HomeSection = typeof HOME_SECTION_ORDER[number];
+
+// Existing heading fragments, including their emphasis, shared without new copy.
+export function homeSectionHeadings(locale: Locale) {
+  const t = (text: string) => locale === "fr" ? text : SINGLE_PAGE_EN[text];
+  const copy = HOME_LAYERS[locale];
+  return {
+    hero: [t("Votre expertise est la matière première."), t("Nous la mettons au travail.")],
+    references: [t("Ils travaillent"), t("avec nous.")],
+    terrain: [locale === "fr" ? "Sur le terrain, avec vos équipes." : "In the field, with your teams."],
+    offers: [copy.offersTitle],
+    applications: [t("Quelques applications"), t("concrètes.")],
+    path: [t("Trois étapes,"), t("vous commencez où vous voulez.")],
+    services: [t("Ce que l'IA prépare"), t("dans chaque service.")],
+    technologies: [t("Pour chaque besoin,"), t("nous choisissons la meilleure technologie.")],
+    team: [t("Chaque projet a son équipe"), t("et sa technologie.")],
+    banner: [locale === "fr" ? "Votre expertise, mise au travail." : "Your expertise, put to work."],
+    questions: [copy.questionsTitle],
+    articles: [copy.articlesTitle],
+    contact: ["Paul Larmaraud,", t("fondateur de Parrit.ai")],
+  } as const satisfies Record<HomeSection, readonly string[]>;
 }

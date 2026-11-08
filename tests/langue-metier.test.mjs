@@ -131,10 +131,15 @@ test("llms.txt is reproducible, bilingual and describes only current sections an
   assert.equal(readFileSync("public/llms.txt", "utf8"), before);
   assert.match(before, /## Français/);
   assert.match(before, /## English/);
-  assert.doesNotMatch(before, /how data travels|architecture|agents in production|ontolog|manufacture|#safeguards/i);
-  for (const [heading, words] of [["Français", ["applications", "parcours", "service", "technologies", "équipe", "références", "contact"]], ["English", ["applications", "path", "department", "technologies", "team", "references", "contact"]]]) {
+  // 08/11: the order now uses the actual headings, and the Journal metadata is
+  // included verbatim. Retired home concepts stay forbidden in the home copy;
+  // a historical article may discuss architecture. Exact order/labels and all
+  // article metadata are checked against their rendered sources in llms-articles.
+  for (const [heading, prefix] of [["Français", "Dans l'ordre :"], ["English", "In order:"]]) {
     const section = before.split(`## ${heading}`)[1].split("\n## ")[0];
-    for (const word of words) assert.ok(section.includes(word), `${heading}: ${word}`);
+    const home = section.split("### FAQ")[0];
+    assert.doesNotMatch(home, /how data travels|architecture|agents in production|ontolog|manufacture|#safeguards/i);
+    assert.ok(home.includes(prefix), heading);
   }
   for (const slug of themes) for (const prefix of ["", "/fr"]) assert.ok(before.includes(`https://parrit.ai${prefix}/journal/themes/${slug}`));
 });

@@ -7,10 +7,24 @@
 
 ### La page d'accueil
 - https://parrit.ai/fr
-- Dans l'ordre : présentation, applications concrètes, ce que l'IA change dans votre entreprise, parcours, cas d'usage par service, technologies, équipe, références, fondateur et contact.
+- Dans l'ordre : Votre expertise est la matière première. Nous la mettons au travail. ; Ils travaillent avec nous. ; Sur le terrain, avec vos équipes. ; Par où commencer ; Quelques applications concrètes. ; Trois étapes, vous commencez où vous voulez. ; Ce que l'IA prépare dans chaque service. ; Pour chaque besoin, nous choisissons la meilleure technologie. ; Chaque projet a son équipe et sa technologie. ; Votre expertise, mise au travail. ; Questions ; Derniers articles ; Paul Larmaraud, fondateur de Parrit.ai
 - Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.
 - Paul Larmaraud, fondateur de Parrit.ai, forme les équipes et pilote les projets.
 - Présence : Tourcoing et Paris. Zone d'intervention : toute la France.
+
+### FAQ
+- Par où commence-t-on ?
+  Par un premier échange de 15 minutes en visioconférence, puis un cadrage écrit, ou un refus motivé si nous ne sommes pas les bons interlocuteurs.
+- Faut-il des équipes techniques ?
+  Non. Nous formons vos équipes sur leurs outils, puis nous construisons des assistants qu'elles relisent et valident.
+- Que deviennent nos données ?
+  L'IA peut être installée sur vos serveurs, et nous contrôlons l'usage qu'en font vos équipes.
+- Quelles technologies utilisez-vous ?
+  Pour chaque besoin, la plus adaptée : ChatGPT, Claude, Gemini, Mistral, Copilot, entre autres, sans dépendre d'un seul fournisseur.
+- Travaillez-vous avec les grands groupes comme avec les PME ?
+  Oui. L'équipe se compose selon le diagnostic, parmi plus de vingt partenaires.
+- Combien cela coûte-t-il ?
+  Le prix se fixe après le cadrage, selon le périmètre. Nous ne publions pas de grille.
 
 ### Thèmes du Journal
 - https://parrit.ai/fr/journal/themes/harness-engineering : Encadrer vos assistants IA : règles, droits et contrôles.
@@ -21,6 +35,39 @@
 ### Journal
 - https://parrit.ai/fr/journal : retours datés sur ce qui fonctionne et ce qui échoue dans les outils d'IA en entreprise.
 - L'index est en français ; les articles restent en anglais, à une seule adresse sous https://parrit.ai/journal/.
+
+### Articles
+- https://parrit.ai/journal/ai-cost-french-vs-english-tokens : Does AI cost more when your team works in French? (2026-10-13). We counted the tokens in the English and French versions of the GDPR and the AI Act with five public tokenizers. French took 29 to 54 percent more on four of them, GPT-5's included. How to correct an AI budget for it, and how to compare model prices for French work.
+- https://parrit.ai/journal/hook-timeout-lets-tool-call-through : A Claude Code hook that runs past its timeout lets the tool call through (2026-10-11). Our publishing check once needed more than five minutes, and the hook that ran it was given 70 seconds. Claude Code cancelled the hook, and an article went live that the check had never read. What we changed, and the table to build for your own hooks.
+- https://parrit.ai/journal/legacy-database-migration-writers-first : Switching our sales screen to the new database would have hidden 16 of its 34 items (2026-10-10). Before moving a screen off an old database, run it against both and sort every difference. Ours showed that most of the gap was a filter that disagreed, and that the real risk was the scripts still writing to the old side. [Relier vos logiciels]
+- https://parrit.ai/journal/malicious-mcp-server-after-install : An MCP server can pass your install review and turn hostile after its third call (2026-10-04). The Deadbugz campaign hid its payload behind a call counter, where a review at install time cannot see it. The control that still works sits on what the agent does next, and we checked ours against the four things the server asked for.
+- https://parrit.ai/journal/ai-act-marking-deadline-systems-you-built : The 2 December AI Act marking deadline may apply to the system you built yourself (2026-09-29). Article 50 asks providers of systems that generate text, images, audio or video to mark those outputs as machine-generated. A company that assembled its own system on a model API may sit in that seat, and the first piece of work is to count the exits its content takes.
+- https://parrit.ai/journal/permission-layer-for-coding-agents : Securing an AI coding agent starts with the shell (2026-09-28). Our first guard on a coding agent watched the file editor. Eight weeks of logs later, 97 percent of what the second version refused had come through shell commands. A rule written in a prompt is a request; a hook that runs before every tool call is a permission. [Encadrer vos assistants IA]
+- https://parrit.ai/journal/mcp-stateless-spec-what-changes-for-your-servers : What MCP's stateless rewrite changes for a company running its own servers (2026-09-25). The 28 July 2026 revision of the Model Context Protocol removes sessions from the protocol and starts a deprecation clock. Nothing forces a change today, and that is the moment to read your own code.
+- https://parrit.ai/journal/what-a-pilot-skips-to-look-finished : What a pilot skips to look finished (2026-09-23). In June 2025, Gartner checked how many self-described agentic AI products could actually plan and execute a task without a human approving every step. Out of thousands claiming to, it counted about 130. The same report expects more than 40% of the projects built around the rest to be canceled by the end of 2027. [Un premier résultat]
+- https://parrit.ai/journal/what-you-rent-can-be-taken-back : What you rent can be taken back (2026-09-18). On 29 July 2026, an AI agent builder told its users the product was ending in a month. Eight weeks earlier, OpenAI had quietly scheduled the same fate for two of its own. Size never bought either set of users more runway. [Choisir vos priorités]
+- https://parrit.ai/journal/the-claim-a-green-pipeline-never-makes : The claim a green pipeline never makes (2026-09-15). A pull request with no code in it. A dashboard as quiet as a slow Sunday. A test suite that stayed green because the thing it was testing never ran. Three of our own systems reported success this month, and none of them had earned the word. [Encadrer vos assistants IA] [Un premier résultat]
+- https://parrit.ai/journal/self-hosting-latency-cost : Before you move a model in-house, measure the wait it will cost (2026-09-10). Sovereignty arguments get decided in the first second in front of a cursor. Running a model on hardware you own rarely fails on quality. It fails on the wait, because a rented endpoint spreads its cost across thousands of simultaneous strangers while your machine serves the handful of people who arrive at nine on Monday.
+- https://parrit.ai/journal/computer-use-what-it-can-undo : Before you let a model click, ask what it can undo (2026-09-08). Computer use ends the argument that software without an API cannot be automated. It leaves a harder problem behind: a logged-in browser session carries a whole person's permissions, and none of them are scoped.
+- https://parrit.ai/journal/multi-provider-redundancy : What does multi-provider redundancy actually protect you from? (2026-09-07). On Thursday 3 September, ChatGPT, Claude and Grok degraded inside the same morning, and four days later nobody outside those companies can say whether the three failures were connected. Not being able to tell is the finding. If you cannot name the layer you share, you have bought two vendors and one failure domain.
+- https://parrit.ai/journal/what-is-a-company-operating-system : What is a company operating system? (2026-09-07). A company operating system reads what happens across a business, frames the decisions that need a human, and executes the actions in the company's own tools. It is built for one company. What we develop is assigned to it in writing, by contract; its data stays its own.
+- https://parrit.ai/journal/what-is-parrit-ai : What we mean when we call ourselves a manufacture (2026-09-07). Parrit.ai is a French manufacture: company operating systems built to order, one client at a time. Rights are assigned in writing, by contract.
+- https://parrit.ai/journal/what-a-rollback-takes-with-it : When you roll back a bad deploy, what else disappears with it? (2026-09-03). A rollback restores a known-good state, and everything that shipped since then goes with it. We lost a published article that way this week. The fix is in the shape of the deploy unit, not in the rollback.
+- https://parrit.ai/journal/frontier-as-fallback : Is a cheaper model good enough for everyday production work? (2026-09-01). For most production tasks, yes. We route the bulk of our own workload to inexpensive open-weight models and treat frontier models as an escalation path, not a default.
+- https://parrit.ai/journal/agents-that-fabricate-facts : Agents that fabricate facts: what a 1,355-row cleanup taught us (2026-08-31). The real risk of production AI is not a chatbot hallucinating in front of a user. It is a process silently writing plausible, false records into a database everything else trusts. [Encadrer vos assistants IA]
+- https://parrit.ai/journal/ai-act-compliance-register : Starting an AI Act compliance register without a compliance team (2026-08-31). The August 2, 2026 milestone is behind us. For a company that automates methodically, the compliance register is not a new project. It is an export of records the system should already be producing.
+- https://parrit.ai/journal/publishing-without-human-review : Letting a system publish without human review (2026-08-29). Machine gates can carry the responsibility of publishing. The condition is that the gates know how to say no, and that the human moves upstream.
+- https://parrit.ai/journal/ai-agent-security-in-the-enterprise : AI agent security in the enterprise: the rules we apply (2026-06-29). Deploying an AI agent means giving it access to your data. The 8 security rules we apply to every deployment, and the questions to ask any provider. [Encadrer vos assistants IA]
+- https://parrit.ai/journal/glm-5-2-sovereignty : GLM-5.2: dependence on American AI is already no longer inevitable (2026-06-18). A Chinese lab publishes an open model that comes close to Claude Opus 4.8 and beats GPT-5.5, six times cheaper, with no geographic restriction. Analysis, numbers, and how to use it.
+- https://parrit.ai/journal/one-card-one-action : One card, one action (2026-06-17). In an internal cockpit, approving a card must not only change a status. It must execute the promised action.
+- https://parrit.ai/journal/the-draft-that-knows-when-to-stay-silent : The draft that knows when to stay silent (2026-06-17). A useful editorial system does not force a daily post. It knows when the raw material does not deserve an article.
+- https://parrit.ai/journal/the-right-place-to-write : The right place to write (2026-06-17). Before automating publication, choose a stable write target. Otherwise the engine becomes a maintenance risk.
+- https://parrit.ai/journal/measuring-sap-adoption-with-ai : Measuring SAP adoption with AI: putting an end to useless training (2026-04-12). Vendors train, no one uses it. An AI evaluation tool measures real SAP proficiency and drives change management. [Choisir vos priorités]
+- https://parrit.ai/journal/automated-crm-for-smes : Automated CRM for SMEs and tradespeople: no more forgotten follow-ups (2026-04-08). A CRM that prepares follow-ups and flags slow seasons; a person approves each message.
+- https://parrit.ai/journal/whatsapp-business-agent : WhatsApp Business agent: automating customer relations without losing the human touch (2026-04-02). WhatsApp is your customers’ favorite channel. An AI agent can respond, qualify and follow up : all while keeping your tone.
+- https://parrit.ai/journal/automated-legal-intelligence-for-lawyers : Automated legal intelligence for lawyers: never miss a legal development again (2026-03-25). How AI monitors case law, appeals courts and legal doctrine to deliver a personalized briefing every Monday morning.
+- https://parrit.ai/journal/automated-invoicing-with-ai : Invoicing with AI: less manual entry, approval kept (2026-03-18). Invoices are prepared and reconciled by the system; a person approves before anything is sent.
+- https://parrit.ai/journal/ai-prospecting-weak-signals : AI prospecting: spotting your next customers through weak signals (2026-03-10). Podcasts, LinkedIn posts, B2B events : AI identifies the decision-makers who need you before they know it themselves.
 
 ### Mentions légales
 - https://parrit.ai/fr/legal
@@ -33,10 +80,24 @@
 
 ### The home page
 - https://parrit.ai/
-- In order: introduction, real-world applications, what AI changes in your company, the path, use cases by department, technologies, team, references, founder and contact.
+- In order: Your expertise is the raw material. We put it to work. ; They work with us. ; In the field, with your teams. ; Where to start ; A few real-world applications. ; Three steps. Start wherever you are. ; What AI prepares in every department. ; For every need, we choose the best technology. ; Every project gets its own team and its own technology. ; Your expertise, put to work. ; Questions ; Latest articles ; Paul Larmaraud, founder of Parrit.ai
 - Client replies, follow-ups, quotes, meeting notes: AI prepares them, your teams review and decide.
 - Paul Larmaraud, founder of Parrit.ai, trains teams and leads projects.
 - Presence: Tourcoing and Paris. Service area: across France.
+
+### FAQ
+- Where do we start?
+  With a first 15-minute video call, then a written scope, or an explanation if we are not the right people to help.
+- Do we need technical teams?
+  No. We train your teams on their tools, then build assistants whose work they review and approve.
+- What happens to our data?
+  AI can be installed on your servers, and we control how your teams use it.
+- Which technologies do you use?
+  The best fit for each need: ChatGPT, Claude, Gemini, Mistral, Copilot, among others, without depending on a single provider.
+- Do you work with large companies as well as SMEs?
+  Yes. The team is put together according to the diagnosis, from more than twenty partners.
+- How much does it cost?
+  The price is set after scoping, according to the project scope. We do not publish a price list.
 
 ### Journal themes
 - https://parrit.ai/journal/themes/harness-engineering: Rules, permissions and checks for your AI assistants.
@@ -47,6 +108,39 @@
 ### Journal
 - https://parrit.ai/journal: dated accounts of what works and what fails in AI tools inside companies.
 - Articles have a single English URL under https://parrit.ai/journal/.
+
+### Articles
+- https://parrit.ai/journal/ai-cost-french-vs-english-tokens : Does AI cost more when your team works in French? (2026-10-13). We counted the tokens in the English and French versions of the GDPR and the AI Act with five public tokenizers. French took 29 to 54 percent more on four of them, GPT-5's included. How to correct an AI budget for it, and how to compare model prices for French work.
+- https://parrit.ai/journal/hook-timeout-lets-tool-call-through : A Claude Code hook that runs past its timeout lets the tool call through (2026-10-11). Our publishing check once needed more than five minutes, and the hook that ran it was given 70 seconds. Claude Code cancelled the hook, and an article went live that the check had never read. What we changed, and the table to build for your own hooks.
+- https://parrit.ai/journal/legacy-database-migration-writers-first : Switching our sales screen to the new database would have hidden 16 of its 34 items (2026-10-10). Before moving a screen off an old database, run it against both and sort every difference. Ours showed that most of the gap was a filter that disagreed, and that the real risk was the scripts still writing to the old side. [Connect your software]
+- https://parrit.ai/journal/malicious-mcp-server-after-install : An MCP server can pass your install review and turn hostile after its third call (2026-10-04). The Deadbugz campaign hid its payload behind a call counter, where a review at install time cannot see it. The control that still works sits on what the agent does next, and we checked ours against the four things the server asked for.
+- https://parrit.ai/journal/ai-act-marking-deadline-systems-you-built : The 2 December AI Act marking deadline may apply to the system you built yourself (2026-09-29). Article 50 asks providers of systems that generate text, images, audio or video to mark those outputs as machine-generated. A company that assembled its own system on a model API may sit in that seat, and the first piece of work is to count the exits its content takes.
+- https://parrit.ai/journal/permission-layer-for-coding-agents : Securing an AI coding agent starts with the shell (2026-09-28). Our first guard on a coding agent watched the file editor. Eight weeks of logs later, 97 percent of what the second version refused had come through shell commands. A rule written in a prompt is a request; a hook that runs before every tool call is a permission. [Rules and checks for AI assistants]
+- https://parrit.ai/journal/mcp-stateless-spec-what-changes-for-your-servers : What MCP's stateless rewrite changes for a company running its own servers (2026-09-25). The 28 July 2026 revision of the Model Context Protocol removes sessions from the protocol and starts a deprecation clock. Nothing forces a change today, and that is the moment to read your own code.
+- https://parrit.ai/journal/what-a-pilot-skips-to-look-finished : What a pilot skips to look finished (2026-09-23). In June 2025, Gartner checked how many self-described agentic AI products could actually plan and execute a task without a human approving every step. Out of thousands claiming to, it counted about 130. The same report expects more than 40% of the projects built around the rest to be canceled by the end of 2027. [A first result]
+- https://parrit.ai/journal/what-you-rent-can-be-taken-back : What you rent can be taken back (2026-09-18). On 29 July 2026, an AI agent builder told its users the product was ending in a month. Eight weeks earlier, OpenAI had quietly scheduled the same fate for two of its own. Size never bought either set of users more runway. [Choose your priorities]
+- https://parrit.ai/journal/the-claim-a-green-pipeline-never-makes : The claim a green pipeline never makes (2026-09-15). A pull request with no code in it. A dashboard as quiet as a slow Sunday. A test suite that stayed green because the thing it was testing never ran. Three of our own systems reported success this month, and none of them had earned the word. [Rules and checks for AI assistants] [A first result]
+- https://parrit.ai/journal/self-hosting-latency-cost : Before you move a model in-house, measure the wait it will cost (2026-09-10). Sovereignty arguments get decided in the first second in front of a cursor. Running a model on hardware you own rarely fails on quality. It fails on the wait, because a rented endpoint spreads its cost across thousands of simultaneous strangers while your machine serves the handful of people who arrive at nine on Monday.
+- https://parrit.ai/journal/computer-use-what-it-can-undo : Before you let a model click, ask what it can undo (2026-09-08). Computer use ends the argument that software without an API cannot be automated. It leaves a harder problem behind: a logged-in browser session carries a whole person's permissions, and none of them are scoped.
+- https://parrit.ai/journal/multi-provider-redundancy : What does multi-provider redundancy actually protect you from? (2026-09-07). On Thursday 3 September, ChatGPT, Claude and Grok degraded inside the same morning, and four days later nobody outside those companies can say whether the three failures were connected. Not being able to tell is the finding. If you cannot name the layer you share, you have bought two vendors and one failure domain.
+- https://parrit.ai/journal/what-is-a-company-operating-system : What is a company operating system? (2026-09-07). A company operating system reads what happens across a business, frames the decisions that need a human, and executes the actions in the company's own tools. It is built for one company. What we develop is assigned to it in writing, by contract; its data stays its own.
+- https://parrit.ai/journal/what-is-parrit-ai : What we mean when we call ourselves a manufacture (2026-09-07). Parrit.ai is a French manufacture: company operating systems built to order, one client at a time. Rights are assigned in writing, by contract.
+- https://parrit.ai/journal/what-a-rollback-takes-with-it : When you roll back a bad deploy, what else disappears with it? (2026-09-03). A rollback restores a known-good state, and everything that shipped since then goes with it. We lost a published article that way this week. The fix is in the shape of the deploy unit, not in the rollback.
+- https://parrit.ai/journal/frontier-as-fallback : Is a cheaper model good enough for everyday production work? (2026-09-01). For most production tasks, yes. We route the bulk of our own workload to inexpensive open-weight models and treat frontier models as an escalation path, not a default.
+- https://parrit.ai/journal/agents-that-fabricate-facts : Agents that fabricate facts: what a 1,355-row cleanup taught us (2026-08-31). The real risk of production AI is not a chatbot hallucinating in front of a user. It is a process silently writing plausible, false records into a database everything else trusts. [Rules and checks for AI assistants]
+- https://parrit.ai/journal/ai-act-compliance-register : Starting an AI Act compliance register without a compliance team (2026-08-31). The August 2, 2026 milestone is behind us. For a company that automates methodically, the compliance register is not a new project. It is an export of records the system should already be producing.
+- https://parrit.ai/journal/publishing-without-human-review : Letting a system publish without human review (2026-08-29). Machine gates can carry the responsibility of publishing. The condition is that the gates know how to say no, and that the human moves upstream.
+- https://parrit.ai/journal/ai-agent-security-in-the-enterprise : AI agent security in the enterprise: the rules we apply (2026-06-29). Deploying an AI agent means giving it access to your data. The 8 security rules we apply to every deployment, and the questions to ask any provider. [Rules and checks for AI assistants]
+- https://parrit.ai/journal/glm-5-2-sovereignty : GLM-5.2: dependence on American AI is already no longer inevitable (2026-06-18). A Chinese lab publishes an open model that comes close to Claude Opus 4.8 and beats GPT-5.5, six times cheaper, with no geographic restriction. Analysis, numbers, and how to use it.
+- https://parrit.ai/journal/one-card-one-action : One card, one action (2026-06-17). In an internal cockpit, approving a card must not only change a status. It must execute the promised action.
+- https://parrit.ai/journal/the-draft-that-knows-when-to-stay-silent : The draft that knows when to stay silent (2026-06-17). A useful editorial system does not force a daily post. It knows when the raw material does not deserve an article.
+- https://parrit.ai/journal/the-right-place-to-write : The right place to write (2026-06-17). Before automating publication, choose a stable write target. Otherwise the engine becomes a maintenance risk.
+- https://parrit.ai/journal/measuring-sap-adoption-with-ai : Measuring SAP adoption with AI: putting an end to useless training (2026-04-12). Vendors train, no one uses it. An AI evaluation tool measures real SAP proficiency and drives change management. [Choose your priorities]
+- https://parrit.ai/journal/automated-crm-for-smes : Automated CRM for SMEs and tradespeople: no more forgotten follow-ups (2026-04-08). A CRM that prepares follow-ups and flags slow seasons; a person approves each message.
+- https://parrit.ai/journal/whatsapp-business-agent : WhatsApp Business agent: automating customer relations without losing the human touch (2026-04-02). WhatsApp is your customers’ favorite channel. An AI agent can respond, qualify and follow up : all while keeping your tone.
+- https://parrit.ai/journal/automated-legal-intelligence-for-lawyers : Automated legal intelligence for lawyers: never miss a legal development again (2026-03-25). How AI monitors case law, appeals courts and legal doctrine to deliver a personalized briefing every Monday morning.
+- https://parrit.ai/journal/automated-invoicing-with-ai : Invoicing with AI: less manual entry, approval kept (2026-03-18). Invoices are prepared and reconciled by the system; a person approves before anything is sent.
+- https://parrit.ai/journal/ai-prospecting-weak-signals : AI prospecting: spotting your next customers through weak signals (2026-03-10). Podcasts, LinkedIn posts, B2B events : AI identifies the decision-makers who need you before they know it themselves.
 
 ### Legal notice
 - https://parrit.ai/legal
