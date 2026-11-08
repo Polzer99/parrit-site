@@ -1,3 +1,139 @@
+# Correctifs 3 et 4, 08/11/2026, nuit
+
+**Blocage Git : `git merge --no-commit --no-ff origin/main` est impossible dans ce bac à sable.**
+Git ne peut pas créer `ORIG_HEAD.lock` dans le répertoire partagé du worktree
+(`Operation not permitted`). Aucun merge ni commit Git n'a été créé.
+La comparaison à trois versions signale des conflits dans **AGENTS.md,
+AI_CONTEXT.md et TRUTH.md**. Les deux apports ont été conservés dans ces fichiers.
+Les autres fichiers de `origin/main` ont été intégrés dans le worktree, sans
+écrire dans l'index. Le merge d'historique reste à faire par le script sur l'hôte.
+Les 31 fichiers `content/journal/fr/*.mdx` et les nouveaux fichiers du Journal
+sont présents mais non suivis par l'index actuel : le script doit les inclure.
+
+## Mandat, sources et conservation
+
+- Checkout : `25d4ddd`. Référence entrante locale : `origin/main` à
+  `fb4b0d97694a85ce4bea145619f2e7580e6a6dba` ; ancêtre commun `5d34aca`.
+  Intégration de PR #370 et de son correctif typographique, avec les changements
+  d'action unique de cette branche. Aucun fetch ni changement de référence.
+- Source décisionnelle : spec locale, sections 6 et 7. Le correctif 4 rétablit
+  explicitement `rdv-contact` : **quatre placements** désormais, avec navigation
+  ghost et trois exec dans main. Cela prime sur l'ancien décompte de trois en
+  fin de spec et l'ancienne interdiction du bouton du portrait. Spec inchangée.
+- Avant écriture : worktree local uniquement, modifications réversibles, zéro
+  donnée métier, aucune production ; patch et empreintes initiaux sauvegardés
+  dans `/tmp/parrit-action-unique-checks/`. Aucun commit, push ou déploiement.
+  Les six PNG déjà modifiés et la spec sont identiques à leurs empreintes initiales.
+- Consignes lues : `AI_CONTEXT.md`, `AGENTS.md`, `TRUTH.md`, spec et harness
+  canonique ; documentation CSS de Next installée consultée. Baseline avant
+  intégration, puis correction et revue indépendante. Deux passes de validation ;
+  pas de répétition du lancement navigateur après confirmation du blocage.
+
+## Modifications
+
+- `src/system/components/AppointmentLink.tsx`, `SinglePage.tsx` : ajout du placement
+  `contact`, bouton du fondateur rétabli avec le libellé unique, `avecSource`, UTM,
+  destination locale `#contact` et styles existants 22 px / 22 × 36 px. Le formulaire
+  et les anciens paramètres d'attribution restent inchangés.
+- `src/system/single-page.css` : réassurance à 16 px du bouton (anciennement 8 px ;
+  la trace hôte mesurait 10 px entre texte et bouton). Annulation explicite des
+  animations/transitions des grands boutons et connecteurs en mouvement réduit,
+  avec priorité sur la règle universelle `1ms !important` de `system.css`.
+  Respiration au repos conservée en mouvement normal, fond uniquement.
+- Équipe : introduction avec classe dédiée ; à 761–1280 px de large et hauteur
+  ≤720 px, marges introduction/grille/légende de 20/20/16 à 12/8/8 px, soit 28 px
+  gagnés. Aucune modification des textes, typographies, cartes, durées ou masquages.
+  Le passage réel de 740 à ≤720 px reste à mesurer sur l'hôte.
+- Journal : `content/journal/fr/`, `journal-translations.ts`, `journal-data.ts`,
+  `locale.ts`, `jsonld.ts`, `next.config.ts`, `proxy.ts`, `sitemap.ts`, routes
+  accueil/Journal/thèmes/articles, `JournalCard.tsx`, `HarnessBadge.tsx` intégrés
+  depuis main. Les 31 éditions françaises, leurs corrections typographiques,
+  canonicals/hreflang, liens FR, langues des articles et neuf redirections noindex
+  sont conservés. Les originaux anglais ne sont pas modifiés.
+- `scripts/generate-llms.mjs` intègre les éditions françaises et garde le wording
+  de cette branche ; `public/llms.txt` régénéré par prebuild, jamais édité à la main.
+- `AGENTS.md`, `TRUTH.md`, `AI_CONTEXT.md` : contrats actualisés, historiques des
+  deux branches conservés. Spec et rapport Journal entrants ajoutés sans modification.
+
+## Tests ajoutés ou adaptés
+
+- `tests/action-unique.test.mjs` : deux nouveaux tests FR/EN rendent ensemble
+  le bouton du contact, ses UTM répétés et les dernières cartes du Journal localisées.
+  Ils étaient rouges avant le retour du bouton, puis verts. Contrat structurel
+  adapté à trois actions dans main et quatre avec la navigation.
+- `tests/intentions.spec.ts` : quatre nouveaux tests FR/EN avec/sans JavaScript à
+  1280×720 contrôlent hauteur, absence de découpe, sept partenaires et 23 offres.
+  Matrice existante renforcée : réassurance ≥12 px, dimensions du bouton contact,
+  distance bandeau/contact ≥ hauteur du viewport, quatre sources exactes ; navigation
+  vers les articles français incluse dans la matrice hors accueil.
+- `tests/conformity-i18n.spec.ts` : le bouton est recherché indépendamment de sa query,
+  puis chemin, ancre, source unique et UTM sont vérifiés après bascule de langue.
+- `tests/brand-os-render.test.mjs`, `intentions.test.mjs`, `parcours-accueil.spec.ts`,
+  `doctrine-visible.spec.ts` : nombre et sources adaptés au contact rétabli ; aucun
+  retrait de contrôle géométrique, de contraste ou de stabilité. Le test SSR UTM
+  conservait initialement le compte de deux : deux échecs corrigés par le nouveau
+  compte et la vérification des trois sources exactes.
+- `tests/single-page.spec.ts` : contrôle du rose canonique étendu au bandeau ; les
+  tests existants du fondateur sont conservés et retrouvent leur cible.
+- Tests Journal de main intégrés, notamment `journal-fr-routes.test.mjs` et
+  `journal-translations.test.mjs`, ainsi que leurs mises à jour de contrats existants.
+
+## Causes des timeouts hôte
+
+Les quatre traces « primary buttons use canonical rose » attendent précisément
+`.founder .btn.exec`, absent avant ce correctif. Ce n'est pas une preuve d'un
+blocage de la respiration : le bouton est rétabli et le test conservé.
+
+Les quatre traces sans JS s'arrêtent sur `mouse.move(0,0)` alors que le bouton
+principal de la souris est pressé sur un lien. Le code Playwright installé
+(`coreBundle.js`, `interceptDragCausedByMove`) active alors l'interception du
+glisser-déposer et attend un `setTimeout` dans la page. Le test effectue désormais
+un clic complet, vérifie la destination attribuée, revient sur l'accueil, puis
+continue les vérifications focus/mouvement réduit. Il ne glisse plus le lien.
+Aucun timeout augmenté, aucune animation requise supprimée. L'explication est
+étayée par le code et les traces ; la disparition effective du timeout nécessite
+un rejeu navigateur sur l'hôte.
+
+## Validation et limites
+
+| Vérification | Baseline | Candidat final |
+|---|---|---|
+| `npm ci --silent` | Réussi | Installation identique conservée |
+| `npm run lint` | Réussi | Réussi |
+| `npm run build -- --webpack` | Réussi | Réussi, llms régénéré |
+| `npm test` | 257/257 | **332/332**, zéro échec ou test ignoré |
+| `npx tsc --noEmit` | Non exécuté séparément | Réussi |
+| `npm run qa:brand:rev01` | Non exécuté séparément | Réussi |
+| `npm run qa:claims:rev01` | Non exécuté séparément | Réussi |
+| `npm run test:brand-os` | Inclus dans npm test | **19/19** |
+| `git diff --check` | Sans objet | Réussi |
+| `npm run qa:network:rev01 -- --list` | 533 cas dans le rapport précédent | **580 cas recensés**, dont 4 ajoutés ici |
+| `npx next start -p 3210` | Non lancé | Refusé : `listen EPERM` |
+| `npm run qa:network:rev01 -- --workers=1 --max-failures=1 --output=/tmp/parrit-action-unique-checks/browser-results` | Traces hôte fournies | Premier lancement Chromium bloqué, 579 cas non exécutés |
+
+Les 75 tests Node supplémentaires comprennent les 73 tests entrants du Journal
+et les deux tests d'intégration ajoutés ici. Les 43 cas navigateur entrants du
+Journal s'ajoutent aux quatre nouveaux cas équipe. Le build n'a pas été relancé
+après les seules corrections finales des tests et du compte rendu ; aucun code
+produit n'a changé depuis le build réussi. Lint et TypeScript ont été rejoués
+sur les tests finaux. Avertissements Node de typage de modules et `metadataBase`
+dans les rendus de test préexistants, sans échec. Logs détaillés :
+`/tmp/parrit-action-unique-checks/`.
+
+La revue indépendante en lecture seule n'a identifié aucun défaut concret.
+Elle confirme la conservation octet par octet des 31 MDX FR, du registre et des
+deux nouvelles suites Journal par rapport à main, ainsi que le mécanisme de drag
+Playwright. Elle ne constitue pas une mesure de rendu.
+
+`PRODUCTION_PROOF` attendu : batterie hôte verte avec/sans JS, FR/EN, hero entier
+à 1440×800, équipe ≤720 px, géométrie/CLS/rose unique et navigation réellement
+mesurés. **Non acquis ici** : serveur `listen EPERM`, Chromium arrêté au lancement
+avec `MachPortRendezvous` / `SIGTRAP`. Aucun seuil n'est assoupli ; aucun espacement
+supplémentaire au-dessus du bouton hero n'est modifié sans mesure de dépassement.
+Aucun résultat de production n'est revendiqué.
+
+---
+
 # Reprise et correctif 2, 08/11/2026, nuit
 
 ## Mandat, sources et plan exécuté

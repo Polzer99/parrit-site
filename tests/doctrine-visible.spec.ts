@@ -24,7 +24,7 @@ for (const path of PUBLIC_ROUTES) {
     for (const action of await actions.all()) {
       await expectPopulated(action);
       const target = new URL((await action.getAttribute("href"))!, `${BASE_URL}${path}`);
-      expect(target.searchParams.get("source")).toMatch(home ? /^rdv-(nav|hero|bandeau)$/ : /^rdv-nav$/);
+      expect(target.searchParams.get("source")).toMatch(home ? /^rdv-(nav|hero|bandeau|contact)$/ : /^rdv-nav$/);
       target.search = "";
       expect(target.href).toBe(`${BASE_URL}${contact}`);
     }

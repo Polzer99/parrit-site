@@ -1,0 +1,37 @@
+---
+title: "Des agents qui fabriquent des faits : ce que nous a appris le nettoyage de 1 355 lignes"
+date: "2026-08-31"
+description: "Le vrai risque de l’IA en production n’est pas un chatbot qui hallucine devant un utilisateur. C’est un processus qui inscrit en silence des données plausibles mais fausses dans une base à laquelle tout le reste fait confiance."
+slug: "agents-that-fabricate-facts"
+translationOf: "agents-that-fabricate-facts"
+---
+
+Tout le monde redoute les hallucinations de l’IA dans une fenêtre de discussion. Ce défaut est gênant, mais visible : quelqu’un lit la réponse, repère l’absurdité, puis repose la question. Le défaut qui devrait vous inquiéter fait moins de bruit. Cette semaine, nous en avons contenu un : 1 355 lignes de base de données affirmaient que notre système avait contacté des personnes qu’il n’avait jamais contactées.
+
+Aucun modèle n’avait halluciné ces lignes. Du code ancien les avait créées. Un composant d’écriture oublié enregistrait des échanges sortants comme effet secondaire d’opérations sans rapport. Du code déterministe, des hypothèses erronées, des faits faux. Pour tous les composants en aval, ces faits étaient impossibles à distinguer des vrais. La logique de relance les lisait. Le reporting aussi. Toute question du type « when did we last talk to this person » (quand avons-nous parlé à cette personne pour la dernière fois) recevait une réponse inventée.
+
+## L’écriture est silencieuse, la lecture vient plus tard
+
+Voilà le risque réel des agents en production. Un chatbot peut inventer une citation devant un utilisateur qui peut la contester. Ici, un processus inscrit des données plausibles, bien formées et fausses dans une base à laquelle tout le reste fait confiance. L’écriture est silencieuse. La lecture arrive des semaines plus tard, dans un autre contexte, par un composant qui n’a aucune raison de douter de ce qu’il trouve. Trois pratiques sont ressorties du nettoyage. Aucune n’a rien d’exotique. Toutes manquaient.
+
+## Bloquer l’écriture en cas de doute
+
+Le correctif livré inverse le comportement par défaut : lorsque le code ne peut pas établir le type d’interaction qu’il traite, il n’écrit rien. Un trou dans les données est visible, mesurable et récupérable. Une ligne inventée n’a aucune de ces propriétés. La plupart des pipelines laissent passer par défaut, parce qu’un manque ressemble à un bug et qu’une ligne ressemble à un progrès. Dans un système dont dépendent d’autres systèmes, ce réflexe est inversé : une donnée manquante est un problème que vous voyez ; une donnée fausse est un problème dont vous héritez.
+
+## Une provenance pour chaque ligne
+
+Le nettoyage n’a été possible que parce que nous pouvions demander à chaque enregistrement d’où il venait. Les lignes inventées avaient une origine reconnaissable. Une ligne incapable de répondre à cette question ne peut être ni auditée, ni rapprochée d’autres données, ni supprimée sans risque. La provenance n’est pas une métadonnée réservée à la conformité. C’est ce qui rend chaque futur nettoyage praticable, au lieu d’en faire un travail d’archéologie.
+
+## Des sondes sur chaque pipeline
+
+Le même audit a révélé un second défaut : un pipeline d’ingestion arrêté depuis deux mois. Aucune erreur, aucune alerte, 201 éléments dans une file d’attente. Le silence avait été pris pour un signe de bonne santé. Un pipeline doit prouver qu’il fonctionne. L’absence de sortie doit déclencher une alarme, car une absence de nouveauté et une panne produisent exactement les mêmes logs. L’intervalle de contrôle compte aussi. Deux mois de panne non détectée, ce sont deux mois de décisions prises sur des données périmées, sans que leurs auteurs le sachent.
+
+## Vérifier avec un second instrument
+
+Un quatrième principe sous-tend les trois autres. Il s’est manifesté la même semaine dans un contexte sans rapport. Un agent de montage vidéo que nous exploitons coupait des mots en deux : il faisait confiance aux horodatages de la transcription qui guidait ses coupes. Le correctif lui impose de retranscrire l’audio assemblé autour de chaque coupe et de refuser le rendu tant qu’il reste une anomalie. Un agent doit vérifier sa production avec un autre instrument que celui qui l’a produite. La transcription ne peut pas auditer la coupe qu’elle a provoquée ; le composant d’écriture ne peut pas auditer la ligne qu’il a écrite. Une vérification ne vaut que si elle vient de l’extérieur de la boucle qui a généré le résultat.
+
+## Les fondations d’abord
+
+La leçon d’organisation est la moins confortable. Chaque fonctionnalité ajoute des lecteurs à vos données, et chacun hérite de leurs mensonges. Livrer des fonctionnalités sur une base qui fabrique des faits ne fait pas que risquer des bugs : cela les multiplie. Chaque consommateur intègre les faux enregistrements à ses propres résultats. Le coût du nettoyage futur augmente à chaque couche. La doctrine que nous en avons tirée est donc directe. D’abord les fondations des données : provenance, idempotence, rapprochement. Ensuite les fonctionnalités. C’est plus lent pendant un trimestre, puis plus rapide à chaque trimestre suivant. L’autre option, c’est ce que nous venons de faire : remonter 1 355 fictions jusqu’à leur source pendant que la feuille de route attendait.
+
+Les agents en production valent cet effort. Les nôtres rédigent des brouillons, déploient des correctifs clients après validation humaine et montent des vidéos pendant la nuit. Mais ils gagnent cette autonomie comme un ingénieur débutant : en prouvant qu’ils s’arrêtent lorsqu’ils ne sont pas sûrs, et que ce qu’ils écrivent peut être vérifié par autre chose qu’eux-mêmes. C’est cette discipline de production que nous construisons chez parrit.ai.

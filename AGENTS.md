@@ -1,3 +1,18 @@
+## Action unique, correctifs 3 et 4, décision de Paul du 08/11/2026, nuit
+
+Les sections 6 et 7 de `docs/CODEX-SPEC-2026-11-08-action-unique-et-wording.md`
+priment sur les mentions antérieures de trois placements : le bouton du fondateur
+est rétabli, même libellé, `exec`, source `rdv-contact`, 22 px et 22 × 36 px.
+Navigation `ghost` conservée ; quatre placements au total, formulaire distinct.
+Écart sous le bouton du hero : 16 px. Transitions et animations des grands boutons
+explicitement nulles en mouvement réduit. À 1280 × 720, les marges internes de
+l'équipe sont réduites, sans changement de texte, taille ou seuil géométrique.
+Le Journal français de PR #370 et son correctif typographique sont intégrés :
+31 éditions FR, liens localisés, métadonnées et llms généré, originaux EN conservés.
+Le merge Git reste à effectuer sur l'hôte : `ORIG_HEAD.lock` interdit dans le
+bac à sable ; intégration des fichiers à trois versions réalisée dans le worktree.
+Preuve navigateur et CLS à rejouer sur hôte autorisé, voir le compte rendu.
+
 ## Correctif 2 de l’action unique, décision de Paul du 08/11/2026, nuit
 
 La section 5 de `docs/CODEX-SPEC-2026-11-08-action-unique-et-wording.md`
@@ -53,6 +68,21 @@ Le Journal ne nomme aucun client. Aucun seuil géométrique ou CLS assoupli.
 la navigation conserve explicitement son style `ghost` et sa taille. Hero et
 bandeau restent `exec`. Les contrôles du rose unique restent intacts.
 
+
+## Journal en français, décision de Paul du 08/11/2026
+
+`docs/CODEX-SPEC-2026-11-08-journal-en-francais.md` remplace le contrat
+« articles uniquement en anglais » pour les 31 entrées indexables. Les éditions
+françaises vivent dans `content/journal/fr/<slug>.mdx`, avec le même slug, la
+même date et `translationOf`. `journal-translations.ts` partage leur registre
+entre lecteur, navigation et redirections ; les tests imposent sa concordance
+avec le corpus. Le corps, les titres, les cartes et les métadonnées suivent la
+langue de l'URL. Canonicals propres, alternates fr/en/x-default réciproques,
+Article/inLanguage et sitemap bilingue. Les neuf noindex gardent leur 308 vers
+l'anglais ; les anciens noms rejoignent leur langue en un saut. RSS et OG restent
+aux adresses anglaises existantes. `llms.txt` est régénéré avec les éditions FR.
+Les certificats existants portent sur les octets de l'original anglais ; le
+libellé français du badge le précise. Originaux anglais et certificats inchangés.
 
 ## Appel de 15 minutes, décision de Paul du 08/11/2026
 

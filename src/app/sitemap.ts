@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { localizedAlternates, localizedPath } from "@/system/locale";
+import { isTranslatedPath, localizedAlternates, localizedPath } from "@/system/locale";
 import { getAllJournalEntrySummaries } from "@/system/journal";
 import { JOURNAL_THEMES_LAST_MODIFIED } from "@/system/journal-themes";
 
@@ -33,12 +33,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: 0.8,
     })),
-    ...entries.filter((entry) => !entry.noindex).map((entry) => ({
-      url: `${SITE_URL}/journal/${entry.slug}`,
-      lastModified: new Date(entry.date),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
+    ...entries.filter((entry) => !entry.noindex).flatMap((entry) => {
+      const path = `/journal/${entry.slug}`;
+      const locales = isTranslatedPath(path) ? ["en", "fr"] as const : ["en"] as const;
+      return locales.map(locale => ({
+        url: `${SITE_URL}${localizedPath(path, locale)}`,
+        alternates: { languages: Object.fromEntries(Object.entries(localizedAlternates(path, locale).languages).map(([lang, url]) => [lang, `${SITE_URL}${url}`])) },
+        lastModified: new Date(entry.date),
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+      }));
+    }),
   ];
 
   return [

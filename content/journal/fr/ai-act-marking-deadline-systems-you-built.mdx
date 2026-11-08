@@ -1,0 +1,47 @@
+---
+title: "L’échéance de marquage du 2 décembre prévue par l’AI Act peut concerner votre système maison"
+date: "2026-09-29"
+description: "L’Article 50 demande aux fournisseurs de systèmes générant du texte, des images, de l’audio ou de la vidéo de marquer ces sorties comme produites par une machine. Une entreprise qui a assemblé son système sur une API de modèle peut avoir ce rôle. Le premier travail consiste à recenser les sorties de ses contenus."
+slug: "ai-act-marking-deadline-systems-you-built"
+translationOf: "ai-act-marking-deadline-systems-you-built"
+---
+
+Chaque matin de semaine, un script de 184 lignes décide si un article arrive dans ce Journal. Il vérifie le frontmatter, le slug, l’absence de noms de clients, la distance avec les contenus déjà publiés, une liste de défauts de formulation, puis la compilation du site. Six contrôles s’exécutent dans un ordre fixe. Si l’un refuse, rien n’est poussé. Le texte publié est rédigé avec un modèle de langage.
+
+Le 2 décembre 2026, un délai de grâce prévu par l’AI Act européen prend fin. Il concerne précisément ce type de système : un logiciel qui produit du texte avec un modèle et le diffuse. Les résumés de l’actualité de l’été ont laissé croire à beaucoup de lecteurs que tout avait été reporté. Pour cette obligation, les textes disent autre chose.
+
+## Ce qui prend fin le 2 décembre
+
+L’Article 50(2) de l’AI Act impose aux « providers of AI systems, including general-purpose AI systems, generating synthetic audio, image, video or text content » (fournisseurs de systèmes d’IA, y compris à usage général, générant des contenus synthétiques audio, image, vidéo ou texte) de garantir que ces sorties sont « marked in a machine-readable format and detectable as artificially generated or manipulated. » (marquées dans un format lisible par machine et détectables comme générées ou manipulées artificiellement). Cette obligation s’applique depuis le 2 août 2026. Le Digital Omnibus, règlement (UE) 2026/1744, en vigueur depuis le 27 juillet 2026, a bien reporté les règles sur les systèmes à haut risque à décembre 2027. Il a laissé l’Article 50 en place. C’est là que la lecture « everything was postponed » (tout a été reporté) se trompe.
+
+Il a ajouté une transition limitée. Selon la FAQ de la Commission européenne, « a limited grace period is envisaged only for AI systems placed on the market before 2 August 2026 and only as regards the marking and detection obligation. » (un délai de grâce limité est prévu uniquement pour les systèmes d’IA mis sur le marché avant cette date et uniquement pour l’obligation de marquage et de détection). Les fournisseurs de ces systèmes doivent s’y conformer à partir du 2 décembre 2026. Un système lancé après le 2 août doit le marquage dès son premier jour.
+
+La Commission énumère aussi ce qui échappe à cette obligation : les courtes chaînes de chiffres ou de lettres, le code source, les sorties échangées uniquement entre machines, les boucles industrielles fermées et les systèmes qui remplissent « an assistive function for standard editing. » (une fonction d’assistance à la révision courante). Un correcteur orthographique reste hors du champ ; un système qui rédige la réponse y entre.
+
+## Pourquoi le fournisseur peut être vous
+
+La plupart des équipes lisent « provider » (fournisseur) et pensent à l’entreprise qui a entraîné le modèle. L’Article 3 le définit plus largement : est fournisseur celui qui « develops an AI system » (développe un système d’IA) et « puts the AI system into service under its own name or trademark, » (le met en service sous son propre nom ou sa propre marque). La mise en service inclut la fourniture « for own use. » (pour son propre usage). Notre lecture : une entreprise qui a branché une API de modèle dans un outil de support, un assistant de devis ou un générateur de rapports, et l’exploite sous son nom, a développé un système d’IA au sens du règlement. Elle peut donc occuper la place de fournisseur pour l’Article 50(2), quel que soit l’entraîneur du modèle sous-jacent. La FAQ de la Commission ne dit pas si un fournisseur en aval peut s’appuyer sur le marquage du fournisseur de modèle. Les orientations que nous avons lues laissent la question ouverte.
+
+Deux autres points restent ouverts ; mieux vaut les dire que les masquer. Le délai de grâce vise les systèmes « placed on the market, » (mis sur le marché). Les textes ne nous ont pas permis de déterminer si un système construit uniquement pour un usage interne bénéficie de la même transition. Et la Cloud Security Alliance, dans sa note de recherche sur cette échéance, décrit le marquage fiable du texte dans un format lisible par machine comme « an open technical question. » (une question technique ouverte). Les métadonnées d’une image peuvent être signées. Un paragraphe collé dans un e-mail ne les emporte pas avec lui.
+
+L’enjeu figure à l’Article 99 : le non-respect des obligations de transparence de l’Article 50 peut coûter jusqu’à 15 millions d’euros ou 3 % du chiffre d’affaires annuel mondial, le montant le plus élevé étant retenu. Pour les petites et moyennes entreprises, le même article retient le plus faible des deux montants.
+
+## Recenser les sorties avant de choisir un marquage
+
+La première recommandation de la Cloud Security Alliance est de cartographier « every pathway through which it emits synthetic content. » (chaque voie par laquelle le système émet du contenu synthétique). C’est un inventaire. Une entreprise peut le faire sans attendre une norme.
+
+Nous l’avons fait sur notre propre moteur éditorial. Résultat : une seule sortie, le script de publication décrit plus haut. Chaque article y passe et rien d’autre n’écrit dans le Journal. La question de savoir si ce moteur nous place sous l’Article 50(2) reste, pour nous, une question juridique ouverte. L’inventaire a en revanche tranché l’ingénierie : si un marquage est nécessaire, ce sera un contrôle supplémentaire dans un fichier que nous possédons, ajouté à la date que nous choisissons. Les pages produites pourront être vérifiées en les récupérant.
+
+C’est là que posséder le pipeline change le calendrier. Une sortie générée qui passe par du code que vous contrôlez peut être marquée par un commit. Une sortie qui passe par un produit hébergé que vous louez sera marquée quand le fournisseur le livrera. Le 2 décembre ne se déplace pas pour suivre sa feuille de route.
+
+## Un inventaire en trois colonnes
+
+Prenez chaque système de votre entreprise qui produit du texte, des images, de l’audio ou de la vidéo avec un modèle, y compris ceux qu’une équipe a assemblés en un après-midi. Pour chacun, notez la date du premier usage, s’il fonctionne sous le nom de votre entreprise et tous les endroits où sa production sort : e-mail, PDF, page web, message dans un outil de discussion, fichier déposé dans un dossier partagé.
+
+La première colonne indique si le délai de grâce pourrait vous concerner. La deuxième indique si la question du statut de fournisseur vous appartient. La troisième liste les endroits où appliquer un marquage ; elle est généralement plus longue que prévu. Apportez le tableau terminé à votre conseil juridique avec la FAQ de la Commission. Le rendez-vous portera sur les deux questions ouvertes, au lieu de servir à découvrir les systèmes que vous exploitez.
+
+Qu’il s’agisse de votre équipe ou d’un fournisseur, la personne qui ajoutera le marquage partira de cette liste de sorties.
+
+## Remonter aux sources
+
+La FAQ de la Commission sur les obligations de transparence de l’Article 50 est disponible sur digital-strategy.ec.europa.eu. Les définitions du fournisseur et de la mise en service figurent à l’Article 3, et les amendes à l’Article 99, consultables sur artificialintelligenceact.eu. Le Digital Omnibus est publié au Journal officiel comme règlement (UE) 2026/1744, sur eur-lex.europa.eu. La note de recherche de la Cloud Security Alliance sur l’échéance de marquage de l’Article 50 se trouve sur labs.cloudsecurityalliance.org.

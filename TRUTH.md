@@ -1,3 +1,18 @@
+## Action unique, correctifs 3 et 4, décision de Paul du 08/11/2026, nuit
+
+Les sections 6 et 7 de `docs/CODEX-SPEC-2026-11-08-action-unique-et-wording.md`
+priment sur les mentions antérieures de trois placements : le bouton du fondateur
+est rétabli, même libellé, `exec`, source `rdv-contact`, 22 px et 22 × 36 px.
+Navigation `ghost` conservée ; quatre placements au total, formulaire distinct.
+Écart sous le bouton du hero : 16 px. Transitions et animations des grands boutons
+explicitement nulles en mouvement réduit. À 1280 × 720, les marges internes de
+l'équipe sont réduites, sans changement de texte, taille ou seuil géométrique.
+Le Journal français de PR #370 et son correctif typographique sont intégrés :
+31 éditions FR, liens localisés, métadonnées et llms généré, originaux EN conservés.
+Le merge Git reste à effectuer sur l'hôte : `ORIG_HEAD.lock` interdit dans le
+bac à sable ; intégration des fichiers à trois versions réalisée dans le worktree.
+Preuve navigateur et CLS à rejouer sur hôte autorisé, voir le compte rendu.
+
 ## Correctif 2 de l’action unique, décision de Paul du 08/11/2026, nuit
 
 La section 5 de `docs/CODEX-SPEC-2026-11-08-action-unique-et-wording.md`
@@ -53,6 +68,21 @@ Le Journal ne nomme aucun client. Aucun seuil géométrique ou CLS assoupli.
 la navigation conserve explicitement son style `ghost` et sa taille. Hero et
 bandeau restent `exec`. Les contrôles du rose unique restent intacts.
 
+
+## Journal en français, décision de Paul du 08/11/2026
+
+`docs/CODEX-SPEC-2026-11-08-journal-en-francais.md` remplace le contrat
+« articles uniquement en anglais » pour les 31 entrées indexables. Les éditions
+françaises vivent dans `content/journal/fr/<slug>.mdx`, avec le même slug, la
+même date et `translationOf`. `journal-translations.ts` partage leur registre
+entre lecteur, navigation et redirections ; les tests imposent sa concordance
+avec le corpus. Le corps, les titres, les cartes et les métadonnées suivent la
+langue de l'URL. Canonicals propres, alternates fr/en/x-default réciproques,
+Article/inLanguage et sitemap bilingue. Les neuf noindex gardent leur 308 vers
+l'anglais ; les anciens noms rejoignent leur langue en un saut. RSS et OG restent
+aux adresses anglaises existantes. `llms.txt` est régénéré avec les éditions FR.
+Les certificats existants portent sur les octets de l'original anglais ; le
+libellé français du badge le précise. Originaux anglais et certificats inchangés.
 
 ## Correctif 3 — décision de Paul du 08/11/2026
 
@@ -268,7 +298,7 @@ Parrit vend des **systèmes sur mesure**. La Manufacture suit trois phases : Exa
 Le site public invite à un premier échange avec Parrit.ai, sans prix ni offre détaillée. Le périmètre et le prix se donnent en rendez-vous puis en propale privée (décision Paul du 12/10/2026).
 
 Surfaces publiques : `/`, `/fr`, Journal et ses quatre thèmes bilingues,
-articles anglais et mentions légales bilingues. Esquisses privées `/sketch/[id]`
+articles bilingues et mentions légales bilingues. Esquisses privées `/sketch/[id]`
 conservées. Anciennes pages : redirections 308 vers leur thème ou section.
 `/system` reste 404 ; le microsite camp reste archivé hors routage.
 
@@ -288,7 +318,7 @@ conservées. Anciennes pages : redirections 308 vers leur thème ou section.
 4. **Polices (04/10/2026)** : General Sans pour le texte et l'interface, IBM Plex Mono pour le registre technique. Toutes deux auto-hébergées ; aucune autre famille.
 5. **Jamais d'appel runtime à `*.vercel.app`** dans une livraison (le site EST sur Vercel — ça vise les ressources chargées au runtime).
 6. **Pas de tiret cadratin**, pas de superlatifs creux.
-7. **i18n** : une langue = une URL (lot GEO/SEO B validé le 07/09/2026). Les URLs nues rendent l’anglais ; `/fr/*` rend le français, avec canonical auto-référent et x-default sur l’anglais. La négociation `Accept-Language` redirige temporairement vers `/fr`, hors bots et hors cookie de choix. La bascule du header pose le cookie et change d’URL. Le copy reste dans les dictionnaires `DICT` par page. L’index du Journal est traduit ; ses articles restent uniquement sur leurs URLs nues en anglais.
+7. **i18n** : une langue = une URL (lot GEO/SEO B validé le 07/09/2026). Les URLs nues rendent l’anglais ; `/fr/*` rend le français, avec canonical auto-référent et x-default sur l’anglais. La négociation `Accept-Language` redirige temporairement vers `/fr`, hors bots et hors cookie de choix. La bascule du header pose le cookie et change d’URL. Le copy reste dans les dictionnaires `DICT` par page. L’index et les 31 articles indexables du Journal sont bilingues (décision du 08/11/2026). Les neuf articles noindex restent en anglais.
 8. **Déploiement** : push `main` → CD Vercel. Jamais de merge prod sans les **3 feux** (review APPROVE + CD/batterie vert + Paul a COMPRIS) — RÈGLES-DOR §22/§25.
 
 9. **Tests (25/10/2026)** : les tests contrôlent les règles de fond et la structure, pas des libellés.

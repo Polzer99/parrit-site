@@ -9,7 +9,7 @@ import { renderLlms } from "../scripts/generate-llms.mjs";
 
 const output = () => readFileSync("public/llms.txt", "utf8");
 const language = (text, locale) => locale === "fr" ? text.split("## Français\n")[1].split("## English\n")[0] : text.split("## English\n")[1];
-const articles = text => [...text.matchAll(/^- (https:\/\/parrit\.ai\/journal\/[^\s/]+) : (.+) \((\d{4}-\d{2}-\d{2})\)\. (.+)$/gm)];
+const articles = text => [...text.matchAll(/^- (https:\/\/parrit\.ai\/(?:fr\/)?journal\/[^\s/]+) : (.+) \((\d{4}-\d{2}-\d{2})\)\. (.+)$/gm)];
 // Inline emphasis adds no text node. Remove its tags before decoding entities;
 // visibleText alone inserts a synthetic space on either side of every tag.
 const text = html => visibleText(html.replace(/<\/?b>/g, "")).trim();
@@ -36,10 +36,11 @@ for (const locale of ["fr", "en"]) {
     assert.equal(faq, pairs.map(([question, answer]) => `- ${question}\n  ${answer}`).join("\n"));
   });
 
-  test(`llms articles equal sitemap and RSS with original metadata and registered themes (${locale})`, async () => {
+  test(`llms articles equal sitemap and RSS with localized metadata and registered themes (${locale})`, async () => {
     const load = loader(locale);
-    const entries = load("src/system/journal.ts").getAllJournalEntrySummaries().filter(entry => !entry.noindex);
-    const sitemap = load("src/app/sitemap.ts").default().map(entry => new URL(entry.url).pathname).filter(url => /^\/journal\/[^/]+$/.test(url));
+    const entries = load("src/system/journal.ts").getAllJournalEntrySummaries(locale).filter(entry => !entry.noindex);
+    const prefix = locale === "fr" ? "/fr" : "";
+    const sitemap = load("src/app/sitemap.ts").default().map(entry => new URL(entry.url).pathname).filter(url => new RegExp(`^${prefix}/journal/[^/]+$`).test(url));
     const rss = await load("src/app/(rev01)/journal/rss.xml/route.ts").GET().text();
     const links = [...rss.matchAll(/<item>[\s\S]*?<link>(.*?)<\/link>/g)].map(match => new URL(match[1]).pathname);
     const listed = articles(language(output(), locale));
@@ -48,15 +49,23 @@ for (const locale of ["fr", "en"]) {
     assert.equal(listed.length, entries.length);
     assert.equal(new Set(listed.map(match => match[1])).size, listed.length);
     assert.deepEqual(listed.map(match => new URL(match[1]).pathname), sitemap);
-    assert.deepEqual(listed.map(match => new URL(match[1]).pathname), links);
+    assert.deepEqual(listed.map(match => new URL(match[1]).pathname), links.map(link => `${prefix}${link}`));
+    assert.ok(links.every(link => link.startsWith("/journal/")), "the existing RSS remains English");
     assert.deepEqual(listed.map(match => match[3]), listed.map(match => match[3]).sort().reverse());
     const { getJournalThemes } = load("src/system/journal-themes.ts");
     for (const [index, entry] of entries.entries()) {
       const suffix = getJournalThemes(entry.slug).map(theme => ` [${theme.label[locale]}]`).join("");
-      assert.equal(listed[index][0], `- https://parrit.ai/journal/${entry.slug} : ${entry.title} (${entry.date}). ${entry.description}${suffix}`);
+      assert.equal(listed[index][0], `- https://parrit.ai${prefix}/journal/${entry.slug} : ${entry.title} (${entry.date}). ${entry.description}${suffix}`);
     }
     for (const client of PUBLIC_CLIENT_NAMES) assert.ok(!listed.map(match => match[0]).join("\n").toLowerCase().includes(client.toLowerCase()), client);
-    if (locale === "fr") assert.match(language(output(), locale), /les articles restent en anglais/);
+    assert.doesNotMatch(language(output(), locale), /les articles restent en anglais/);
+    if (locale === "fr") {
+      const originals = load("src/system/journal.ts").getAllJournalEntrySummaries("en").filter(entry => !entry.noindex);
+      for (const [index, entry] of entries.entries()) {
+        assert.notEqual(entry.title, originals[index].title, entry.slug);
+        assert.notEqual(entry.description, originals[index].description, entry.slug);
+      }
+    }
     const builtSitemap = readFileSync(".next/server/app/sitemap.xml.body", "utf8");
     for (const match of listed) assert.ok(builtSitemap.includes(`<loc>${match[1]}</loc>`), match[1]);
   });

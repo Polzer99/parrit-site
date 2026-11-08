@@ -1,0 +1,35 @@
+---
+title: "Ce qu'un pilote laisse de côté pour paraître terminé"
+date: "2026-09-23"
+description: "En juin 2025, Gartner a vérifié combien de produits se disant agentiques pouvaient réellement planifier et exécuter une tâche sans validation humaine à chaque étape. Parmi les milliers qui le revendiquaient, il en a compté environ 130. Le même rapport prévoit que plus de 40 % des projets construits autour des autres seront annulés avant la fin de 2027."
+slug: "what-a-pilot-skips-to-look-finished"
+translationOf: "what-a-pilot-skips-to-look-finished"
+---
+
+En juin 2025, les analystes de Gartner ont cherché les produits d'IA agentique qui méritaient réellement ce nom : des logiciels capables de planifier une tâche en plusieurs étapes, de l'exécuter et d'adapter leur trajectoire sans qu'une personne valide chaque mouvement. Des milliers de fournisseurs commercialisaient quelque chose sous cette appellation. Environ 130 en étaient réellement capables. Les autres, selon la description de Gartner, étaient des assistants IA, des chatbots et des outils d'automatisation robotisée des processus rebaptisés pour un marché qui voulait le mot "agentic" sur la boîte.
+
+Le même rapport avançait un deuxième chiffre, portant sur la suite. Gartner prévoit que plus de 40 % des projets d'IA agentique en cours dans des entreprises seront annulés avant la fin de 2027. Il cite trois raisons : des coûts qui augmentent, une valeur métier mal définie et des contrôles des risques insuffisants.
+
+## Un pilote est construit pour être approuvé, pas pour fonctionner
+
+Dans la plupart des organisations, le rôle d'un pilote est d'obtenir le feu vert d'un comité de pilotage. Il n'est pas de résister aux systèmes réels de l'entreprise : un ERP avec dix ans de données incohérentes, des règles d'accès écrites par trois services qui ne se coordonnent plus, une file de demandes d'assistance dont la démonstration n'a jamais eu à traiter le volume. L'environnement de démonstration est installé pour ne pas avoir à répondre de tout cela. Il utilise des données choisies pour leur propreté et un processus simplifié parce que le vrai comporte trop d'exceptions pour une réunion de trente minutes.
+
+Il ne s'agit pas de tromperie. Il s'agit d'un autre produit que celui auquel on demandera de traiter la paie ou d'approuver un virement six mois plus tard. La démonstration répond à la question que pose réellement la salle : l'idée fonctionne-t-elle en principe ? Elle n'a jamais été construite pour répondre à la question quotidienne d'un système de production : fonctionne-t-il encore lorsque chaque donnée d'entrée est réelle ?
+
+## Les trois raisons de Gartner renvoient à une même étape manquante
+
+Alignez les trois raisons : elles désignent le même manque. La hausse des coûts signifie généralement que le travail d'intégration n'est chiffré qu'au moment de brancher le pilote aux systèmes dont il allait forcément avoir besoin. C'est alors que l'on découvre le coût des vrais flux de données, de l'authentification existante et de la supervision, rarement inclus dans son périmètre. Une valeur métier mal définie signifie généralement que la réussite du pilote a été mesurée sur un scénario écrit, plutôt que sur un processus réel avec un état de référence auquel se comparer. Six mois plus tard, personne ne peut montrer un chiffre qui ait évolué. Des contrôles des risques insuffisants signifient généralement qu'un système ayant traité correctement dix exemples sélectionnés n'a jamais approché les seuils que dix mille cas réels lui feront atteindre dès sa première semaine de trafic.
+
+Aucune de ces trois raisons n'est un défaut du modèle qui raisonne. Elles décrivent toutes ce qui arrive lorsque l'objet testé a été construit ailleurs que sur le terrain où il devra finalement fonctionner.
+
+## Ce que change une construction sur l'infrastructure du client dès le premier jour
+
+L'alternative ne consiste pas à faire un meilleur pilote. Elle sort de cette catégorie. Lorsque nous construisons un système, il s'authentifie auprès du fournisseur d'identité déjà utilisé par le client, pas avec un compte de service créé pour rendre la démonstration possible. Lorsque c'est possible, il lit la base de données active du client plutôt qu'un export copié dans un environnement distinct. Dès la première semaine, le volume est celui que l'entreprise produit déjà, pas un échantillon dimensionné pour une réunion.
+
+Les premières semaines sont ainsi moins impressionnantes à regarder. Il n'y a pas d'environnement de démonstration distinct à construire, à présenter puis à abandonner discrètement lorsque le vrai travail commence. Il n'y a jamais eu qu'un environnement : celui du client. Cette seule décision empêche les trois raisons de Gartner de réapparaître ensuite. Aucune deuxième phase ne reste à renchérir : le fournisseur d'identité et les données actives étaient le point de départ, pas une intégration ultérieure. Aucun scénario inventé ne reste à servir de mesure de valeur, puisque le seul processus mesurable était celui qui fonctionnait déjà. Il n'y a pas non plus d'écart entre le risque testé et le risque réel du système : c'était le même risque dès le premier jour.
+
+## La question à laquelle une démonstration de pilote ne peut pas répondre
+
+Avant de financer le prochain pilote, posez une question directe à l'équipe qui le propose : sur quoi fonctionne-t-il maintenant, dans cette salle, et que faudrait-il changer pour qu'il fonctionne demain sur les vrais systèmes de l'entreprise ? Si la réponse évoque une deuxième phase, une migration, un nettoyage des données ou un projet d'intégration après la réussite du pilote, la démonstration devant vous n'a jamais été un pilote du système que vous allez exploiter. Elle était le pilote d'une idée à laquelle ce système pourrait un jour ressembler.
+
+Le décompte de Gartner, environ 130 vrais produits agentiques parmi les milliers qui se réclament du terme, sera dépassé d'ici un an. L'écart qu'il a mesuré ne se fermera pas tout seul. Il se ferme un système à la fois, branché sur ce que l'entreprise utilise déjà avant que quiconque puisse applaudir dans la salle.

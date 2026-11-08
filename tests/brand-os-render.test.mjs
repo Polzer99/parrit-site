@@ -148,20 +148,21 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           populatedTags(hero, "p");
         }
         if (route === "/journal") {
-          const journal = route === "/"
-            ? html.match(/<section class="home-s-journal">[\s\S]*?<\/section>/)?.[0]
-            : html.match(/<ol class="journal-list(?: [^"]*)?">[\s\S]*?<\/ol>/)?.[0];
+          const journal = html.match(/<ol class="journal-list(?: [^"]*)?">[\s\S]*?<\/ol>/)?.[0];
           assert.ok(journal, `${label}: Journal entries render`);
-          if (route === "/") {
-            assert.equal((journal.match(/data-language-note=""/g) ?? []).length, locale === "fr" ? 1 : 0);
-          }
-          assert.equal((text.match(/Articles en anglais/g) ?? []).length, locale === "fr" ? 1 : 0, `${label}: one index language note`);
-          const links = [...journal.matchAll(/<a\b[^>]*href="\/journal\/[^"]+"[^>]*>[\s\S]*?<\/a>/g)].map((match) => match[0]);
-          assert.ok(links.length > 0, `${label}: nonempty Journal`);
-          for (const link of links) {
-            assert.match(link, /hrefLang="en"|hreflang="en"/, label);
-            const badge = />EN<\//.test(link);
-            assert.equal(badge, false, `${label}: no repeated language label`);
+          assert.doesNotMatch(text, /Articles en anglais/, `${label}: no obsolete index language note`);
+          const links = [...journal.matchAll(/<a\b[^>]*href="((?:\/fr)?\/journal\/[^"/]+)"[^>]*>[\s\S]*?<\/a>/g)];
+          const originals = readdirSync("content/journal").filter(file => file.endsWith(".mdx"));
+          assert.equal(links.length, originals.length, `${label}: every Journal article keeps one destination`);
+          for (const [link, href] of links) {
+            const slug = href.split("/").at(-1);
+            const { data: original } = matter(readFileSync(`content/journal/${slug}.mdx`, "utf8"));
+            const contentLocale = locale === "fr" && !original.noindex ? "fr" : "en";
+            assert.equal(href, `${contentLocale === "fr" ? "/fr" : ""}/journal/${slug}`, label);
+            assert.match(link, new RegExp(`hrefLang="${contentLocale}"|hreflang="${contentLocale}"`), label);
+            const { data: localized } = matter(readFileSync(`content/journal/${contentLocale === "fr" ? "fr/" : ""}${slug}.mdx`, "utf8"));
+            assert.ok(visibleText(link).includes(localized.title), `${label}: localized title for ${slug}`);
+            assert.equal(/>EN<\//.test(link), false, `${label}: no repeated language label`);
           }
         }
         if (route === "/") {
@@ -204,7 +205,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       const home = await render("/?utm_campaign=server%20%26%20test&utm_custom=kept&source=old", locale);
       assert.equal(home.status, 200);
       const links = [...home.html.matchAll(/<a\b[^>]*href="([^"]*source=rdv-[^"]*)"[^>]*>/g)];
-      assert.equal(links.length, 4, "two responsive nav copies, hero and banner in server HTML");
+      assert.equal(links.length, 5, "two responsive nav copies, hero, banner and contact in server HTML");
       assert.deepEqual(links.map(([, href]) => {
         const url = new URL(href.replaceAll("&amp;", "&"), "http://localhost:3210");
         assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
@@ -213,7 +214,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         assert.equal(url.searchParams.get("utm_custom"), "kept");
         assert.equal(url.searchParams.getAll("source").length, 1);
         return url.searchParams.get("source");
-      }).sort(), ["rdv-bandeau", "rdv-hero", "rdv-nav", "rdv-nav"]);
+      }).sort(), ["rdv-bandeau", "rdv-contact", "rdv-hero", "rdv-nav", "rdv-nav"]);
       for (const route of ["/journal", "/journal/themes/ai-sprints", "/journal/what-is-parrit-ai", "/legal"]) {
         const page = await render(`${route}?utm_custom=offhome&source=old`, locale);
         assert.equal(page.status, 200);
@@ -270,21 +271,31 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       }
     }
     assert.doesNotMatch(readFileSync("public/llms.txt", "utf8"), /maison (?:française indépendante )?de données|data and AI firm|Données et IA/i);
-    // The alias keeps English content/canonical, but the French chrome warns readers.
+    // Each edition renders its own content and canonical, with reciprocal alternates.
     const articleRoute = "/journal/one-card-one-action";
     const english = await render(articleRoute, "en");
     const french = await render(articleRoute, "fr");
     assert.equal(english.status, 200);
     assert.equal(french.status, 200);
-    assert.doesNotMatch(english.html, /data-language-note/);
-    const notes = [...french.html.matchAll(/<p data-language-note="">([^<]+)<\/p>/g)];
-    assert.equal(notes.length, 1);
-    assert.ok(visibleText(notes[0][1]).trim());
-    for (const html of [english.html, french.html]) {
-      assert.match(html, /<p class="journal-deck" lang="en">[^<]+<\/p>/);
-      assert.ok(html.includes(`rel="canonical" href="https://parrit.ai${articleRoute}"`));
+    for (const [locale, { html }] of [["en", english], ["fr", french]]) {
+      const prefix = locale === "fr" ? "/fr" : "";
+      const { data } = matter(readFileSync(`content/journal/${locale === "fr" ? "fr/" : ""}one-card-one-action.mdx`, "utf8"));
+      assert.doesNotMatch(html, /data-language-note/);
+      assert.match(html, new RegExp(`<p class="journal-deck" lang="${locale}">[^<]+</p>`));
+      assert.match(html, new RegExp(`<div class="journal-body" lang="${locale}">`));
+      assert.ok(visibleText(html).includes(data.title));
+      assert.ok(visibleText(html).includes(data.description));
+      assert.ok(html.includes(`rel="canonical" href="https://parrit.ai${prefix}${articleRoute}"`));
+      for (const [language, destination] of [["fr", `/fr${articleRoute}`], ["en", articleRoute], ["x-default", articleRoute]]) {
+        assert.ok(html.includes(`hrefLang="${language}" href="https://parrit.ai${destination}"`), `${locale}: alternate ${language}`);
+      }
+      const articles = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+        .flatMap(match => JSON.parse(match[1])).filter(item => item["@type"] === "Article");
+      assert.equal(articles.length, 1);
+      assert.equal(articles[0].inLanguage, locale);
+      assert.equal(articles[0].headline, data.title);
     }
-    assert.equal(french.html.match(/<div class="journal-body"[^>]*>[\s\S]*?<\/div>/)?.[0],
+    assert.notEqual(french.html.match(/<div class="journal-body"[^>]*>[\s\S]*?<\/div>/)?.[0],
       english.html.match(/<div class="journal-body"[^>]*>[\s\S]*?<\/div>/)?.[0]);
     for (const route of ["/brand-os-missing-page", "/fr/brand-os-missing-page"]) {
       const { status, html } = await render(route);

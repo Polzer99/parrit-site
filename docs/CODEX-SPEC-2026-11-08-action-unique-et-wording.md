@@ -77,6 +77,20 @@ Source : `~/parrit-canon/docs/site-benchmark/personas/ROUND-0-2026-11-08.md` (5 
 - **Titre « Votre expertise est la matière première. Nous la mettons au travail. »** : conservé tel quel.
 - **Aucun prix** : la réponse FAQ sur le coût reste sans chiffre.
 
+## 6. Correctif 3 — intégrer `main` (PR #370 fusionnée)
+
+La PR #370 (Journal en français : `content/journal/fr/`, routes `/fr/journal/<slug>`, `hreflang`, liens FR de la section « Derniers articles », `llms.txt` FR) est fusionnée dans `main` et entre en conflit avec cette branche. Faire `git merge origin/main` dans le worktree et résoudre **en gardant les deux** : tout ce que cette branche apporte (action unique, wording, clients, bouton large) ET tout ce qu'apporte #370 (articles et liens FR). Régénérer `public/llms.txt` par le script, jamais à la main. Relancer toute la batterie Node. Si `git merge` est impossible dans le bac à sable, l'écrire en tête du compte rendu avec la liste des fichiers en conflit.
+
+## 7. Correctif 4 — batterie hôte (513 réussis, 20 échecs, commit 25d4ddd)
+
+Corriger la cause ; ne rien assouplir. Si un test vise un élément volontairement retiré par cette spec, le réécrire pour vérifier la nouvelle règle (et le dire), jamais le supprimer sans remplacement.
+1. `aeration.spec.ts:102` (1440 et 390) : « minimum text/action gap is 12px » sur `/` : un texte touche un bouton (probablement la ligne « Vos équipes gardent la décision… » sous le bouton large, ou le bandeau). Écart ≥ 12 px.
+2. `conformity-i18n.spec.ts:133` : attend `.cmdbar > .wrap > a.rev-button[href="/fr#contact"]` ; le bouton de nav porte désormais `?source=rdv-nav`. Le test doit accepter la `source` (même destination, requête et ancre conservées par la bascule de langue), comme `doctrine-visible` l'a fait.
+3. `intentions.spec.ts:276` « large appointment buttons » (8 échecs) : en mouvement réduit `#bandeau .exec` a une transition de `0.001s` au lieu de `0s` (mettre `none`/`0s`) ; et sans JS, `page.mouse.move(0,0)` dépasse 30 s : trouver ce qui bloque la page sans JS (boucle CSS/animation infinie sur le bouton qui empêche la stabilité ?) et le corriger.
+4. `single-page.spec.ts:198` « primary buttons use canonical rose » (4 échecs, dépassement 30 s sur `locator.evaluate`) : même cause probable que 3 (animation de respiration) ; la couleur au repos doit être exactement le rose canonique, la respiration ne doit jamais empêcher la mesure (la couper en mouvement réduit, et le test la mesure en mouvement réduit).
+5. `single-page.spec.ts:216` (4 échecs) : `.founder .btn.exec` introuvable : le bouton `exec` du fondateur a été retiré. Il fait partie de la section contact : le **rétablir** avec le libellé unique « Prendre rendez-vous » / « Book a call » (`source=rdv-contact`), taille 22 px comme avant ; vérifier qu'il ne partage pas l'écran avec le `exec` du bandeau.
+6. `single-page.spec.ts:480` « un bloc = un écran » EN 1280×720 : `team` mesure 740 px pour ≤ 720 (texte EN des partenaires plus long). Réduire l'espacement interne de cette section à cette taille, sans couper de texte.
+
 ## Tests
 
 FR/EN, ordinateur et téléphone, avec et sans JS : un seul libellé d'action sur tout l'accueil (« Prendre rendez-vous » / « Book a call ») ; exactement 3 boutons d'action hors formulaire (nav, hero, bandeau) ; aucun `ghost` d'action restant ; `source=rdv-*` correctes ; aucune occurrence visible de « formation », « former », « formons », « Parler d'un projet » sur l'accueil ; deux cartes d'offre sans bouton ; 8 logos, tous dans la bande ; hero à 1440×800, « un bloc = un écran », stabilité, Brand OS, deny-all inchangés. Batterie : `npm ci --silent && npm run lint && npm run build -- --webpack && npm test`. Ne pas committer les PNG réécrits sous `.codex-handoffs/brand-os-p1/after/`.

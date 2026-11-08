@@ -58,9 +58,9 @@ test("reading estimate counts article text, rounds minutes and ignores markup an
   assert.equal(journalReadingMinutes("```ts\n" + "code ".repeat(400) + "\n```"), 2);
 });
 
-test("Journal summaries derive reading time from the real article body, without changing its fields", () => {
-  const entries = journal.getAllJournalEntries();
-  const summaries = journal.getAllJournalEntrySummaries();
+for (const locale of ["fr", "en"]) test(`Journal summaries derive reading time from the real article body, without changing its fields (${locale})`, () => {
+  const entries = journal.getAllJournalEntries(locale);
+  const summaries = journal.getAllJournalEntrySummaries(locale);
   assert.equal(summaries.length, entries.length);
   for (const [i, { content, ...entry }] of entries.entries()) {
     assert.deepEqual(summaries[i], { ...entry, readingMinutes: journalReadingMinutes(content) });
@@ -119,15 +119,19 @@ for (const locale of ["fr", "en"]) {
   });
 
   test(`Journal index renders only registered themes and localized reading time (${locale})`, async () => {
-    const entries = journal.getAllJournalEntrySummaries();
+    const entries = journal.getAllJournalEntrySummaries(locale);
     const page = loader(locale, { "@/system/journal": journal })("src/app/(rev01)/journal/page.tsx");
     const html = renderToStaticMarkup(await page.default());
     const rows = [...html.matchAll(/<li>([\s\S]*?)<\/li>/g)];
     assert.equal(rows.length, entries.length);
-    for (const [i, { slug, readingMinutes }] of entries.entries()) {
+    for (const [i, { slug, title, description, noindex, readingMinutes }] of entries.entries()) {
       const row = rows[i][1];
       assert.equal((row.match(/<a /g) ?? []).length, 1);
-      assert.ok(row.includes(`href="/journal/${slug}"`));
+      const contentLocale = locale === "fr" && !noindex ? "fr" : "en";
+      assert.ok(row.includes(`href="${contentLocale === "fr" ? "/fr" : ""}/journal/${slug}"`));
+      assert.ok(row.includes(`hrefLang="${contentLocale}"`));
+      assert.ok(visibleText(row).includes(title));
+      assert.ok(visibleText(row).includes(description));
       assert.ok(row.includes(`${readingMinutes} ${locale === "fr" ? "min de lecture" : "min read"}`));
       const themes = getJournalThemes(slug);
       assert.equal((row.match(/class="journal-entry-theme"/g) ?? []).length, themes.length);
@@ -141,7 +145,8 @@ for (const locale of ["fr", "en"]) test(`incoming UTM survive in SSR links and m
   const page = loader(locale)("src/app/(rev01)/page.tsx");
   const html = renderToStaticMarkup(await page.default({ searchParams: Promise.resolve({ utm_campaign: "campaign & test", utm_custom: "custom", source: "old" }) }));
   const intents = [...html.matchAll(/href="([^"]*source=rdv-[^"]+)"/g)];
-  assert.equal(intents.length, 2); // Décision de Paul du 08/11/2026, nuit : hero et bandeau.
+  assert.equal(intents.length, 3); // Correctif 4, décision de Paul du 08/11/2026 : contact rétabli.
+  assert.deepEqual(intents.map(([, href]) => new URL(href.replaceAll("&amp;", "&"), "https://example.invalid").searchParams.get("source")), ["rdv-hero", "rdv-bandeau", "rdv-contact"]);
   for (const [, href] of intents) {
     const url = new URL(href.replaceAll("&amp;", "&"), "https://example.invalid");
     assert.equal(url.pathname, home);

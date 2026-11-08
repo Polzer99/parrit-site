@@ -1,3 +1,4 @@
+import { FRENCH_JOURNAL_SLUGS } from "../src/system/journal-translations";
 import { expectPopulated } from "./content-structure";
 import { expect, test } from "./network-deny.setup";
 import type { BrowserContext, Page } from "@playwright/test";
@@ -131,17 +132,24 @@ for (const choice of ["en", "fr"]) {
 }
 
 test("header switches paths, saves choice and preserves query/hash", async ({ page, context }) => {
-  await page.goto(`${BASE_URL}/fr/legal?source=test#top`);
-  await switchHeaderLanguage(page, context, "en", `${BASE_URL}/legal?source=test#top`);
-  await expect(page).toHaveURL(`${BASE_URL}/legal?source=test#top`);
+  await page.goto(`${BASE_URL}/fr/legal?source=test&utm_campaign=language#top`);
+  await switchHeaderLanguage(page, context, "en", `${BASE_URL}/legal?source=test&utm_campaign=language#top`);
+  await expect(page).toHaveURL(`${BASE_URL}/legal?source=test&utm_campaign=language#top`);
   expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe("en");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await switchHeaderLanguage(page, context, "fr", `${BASE_URL}/fr/legal?source=test#top`);
-  await expect(page).toHaveURL(`${BASE_URL}/fr/legal?source=test#top`);
+  await switchHeaderLanguage(page, context, "fr", `${BASE_URL}/fr/legal?source=test&utm_campaign=language#top`);
+  await expect(page).toHaveURL(`${BASE_URL}/fr/legal?source=test&utm_campaign=language#top`);
   expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe("fr");
   // §7 keeps one desktop action and moves the phone action into its native menu.
-  await expect(page.locator('.cmdbar > .wrap > a.rev-button[href="/fr#contact"]')).toHaveCount(1);
-  await expect(page.locator('.cmdbar .mobile-menu a.rev-button[href="/fr#contact"]')).toHaveCount(1);
+  for (const selector of [".cmdbar > .wrap > a.rev-button", ".cmdbar .mobile-menu a.rev-button"]) {
+    const action = page.locator(selector);
+    await expect(action).toHaveCount(1);
+    const target = new URL((await action.getAttribute("href"))!, BASE_URL);
+    expect(target.pathname).toBe("/fr");
+    expect(target.hash).toBe("#contact");
+    expect(target.searchParams.getAll("source")).toEqual(["rdv-nav"]);
+    expect(target.searchParams.get("utm_campaign")).toBe("language");
+  }
 });
 
 for (const target of ["fr", "en"] as const) {
@@ -172,65 +180,61 @@ test("home language switches translate the current fragment in both directions",
   await switchHeaderLanguage(page, context, "fr", `${BASE_URL}/fr?source=test&utm_source=mail#parcours`);
 });
 
-test("French Journal aliases redirect once to the unchanged English article", async ({ page, context }) => {
+test("translated Journal articles keep their own language and switch to their equivalent", async ({ page, context }) => {
   const path = "/journal/one-card-one-action";
+  const query = "source=test&utm_source=mail&utm_campaign=a%26b&utm_custom=one&utm_custom=two";
   await page.setExtraHTTPHeaders({ "Accept-Language": "fr" });
-  const direct = await page.goto(`${BASE_URL}${path}`);
+  const direct = await page.goto(`${BASE_URL}${path}?${query}`);
+  expect(direct?.status()).toBe(200);
   expect(direct?.request().redirectedFrom()).toBeNull();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.locator('link[hreflang="fr"]')).toHaveCount(0);
+  await expect(page.locator('link[rel="alternate"][hreflang="fr"]')).toHaveAttribute("href", `${SITE}/fr${path}`);
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${SITE}${path}`);
   await expect(page.locator("[data-language-note]")).toHaveCount(0);
   await expectPopulated(page.locator(".journal-header .journal-deck"));
   const englishTitle = await page.locator("h1").textContent();
   const englishBody = await page.locator(".journal-body").textContent();
-  const frenchAlias = await page.goto(`${BASE_URL}/fr${path}?source=test`);
-  expect(frenchAlias?.status()).toBe(200);
-  const original = frenchAlias!.request().redirectedFrom()!;
-  expect(original).not.toBeNull();
-  expect(original.redirectedFrom()).toBeNull();
-  expect((await original.response())?.status()).toBe(308);
-  await expect(page).toHaveURL(`${BASE_URL}${path}?source=test`);
-  await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.locator(".journal-header [data-language-note]")).toHaveCount(0);
+  const french = await page.goto(`${BASE_URL}/fr${path}?lang=fr&${query}`);
+  expect(french?.status()).toBe(200);
+  expect(french?.request().redirectedFrom()).toBeNull();
+  await expect(page.locator("html")).toHaveAttribute("lang", "fr");
+  await expect(page.locator("h1")).not.toHaveText(englishTitle!);
+  await expect(page.locator(".journal-body")).not.toHaveText(englishBody!);
+  await expect(page.locator(".journal-body")).toHaveAttribute("lang", "fr");
+  await expect(page.locator("[data-language-note]")).toHaveCount(0);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${SITE}/fr${path}`);
+  await switchHeaderLanguage(page, context, "en", `${BASE_URL}${path}?${query}`);
   await expect(page.locator("h1")).toHaveText(englishTitle!);
   await expect(page.locator(".journal-body")).toHaveText(englishBody!);
-  await expect(page.locator(".journal-body")).toHaveAttribute("lang", "en");
-  await expect(page.locator('link[hreflang="fr"]')).toHaveCount(0);
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${SITE}${path}`);
-  const alias = await page.goto(`${BASE_URL}/fr${path}?lang=fr&source=test`);
-  expect((await alias?.request().redirectedFrom()?.response())?.status()).toBe(308);
-  expect(alias?.request().redirectedFrom()?.redirectedFrom()).toBeNull();
-  await expect(page).toHaveURL(`${BASE_URL}${path}?lang=fr&source=test`);
-  await switchHeaderLanguage(page, context, "en", `${BASE_URL}${path}?source=test`);
-  await expect(page).toHaveURL(`${BASE_URL}${path}?source=test`);
+  await switchHeaderLanguage(page, context, "fr", `${BASE_URL}/fr${path}?${query}`);
+  await expect(page.locator(".journal-body")).toHaveAttribute("lang", "fr");
   await expect(page.locator("[data-language-note]")).toHaveCount(0);
-  await switchHeaderLanguage(page, context, "fr", `${BASE_URL}${path}?source=test`, "en");
-  await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.locator(".journal-header [data-language-note]")).toHaveCount(0);
 });
 
-test.describe("Journal alias and language links without hydration", () => {
+test.describe("Journal renamings and language links without hydration", () => {
   test.use({ javaScriptEnabled: false });
-  for (const target of ["fr", "en"]) test(`source and UTM survive the 308 and native ${target} link`, async ({ page }) => {
+  for (const target of ["fr", "en"] as const) test(`source and UTM survive renaming and native ${target} link`, async ({ page }) => {
     const path = "/journal/one-card-one-action";
+    const startPrefix = target === "en" ? "/fr" : "";
+    const targetPrefix = target === "fr" ? "/fr" : "";
     const query = "source=test&utm_source=mail&utm_campaign=a%26b&utm_custom=one&utm_custom=two";
-    const response = await page.goto(`${BASE_URL}/fr${path}?lang=fr&${query}`);
+    const response = await page.goto(`${BASE_URL}${startPrefix}/journal/une-carte-une-action?lang=fr&${query}`);
     const original = response?.request().redirectedFrom();
     expect(original).toBeTruthy();
     expect(original!.redirectedFrom()).toBeNull();
-    expect((await original!.response())?.status()).toBe(308);
-    await expect(page).toHaveURL(`${BASE_URL}${path}?lang=fr&${query}`);
+    expect((await original!.response())?.status()).toBe(startPrefix ? 308 : 301);
+    await expect(page).toHaveURL(`${BASE_URL}${startPrefix}${path}?lang=fr&${query}`);
     const link = page.locator(".cmdbar").getByRole("link", { name: target.toUpperCase(), exact: true });
-    await expect(link).toHaveAttribute("href", `${path}?${query}`);
+    await expect(link).toHaveAttribute("href", `${targetPrefix}${path}?${query}`);
     await link.click();
-    await expect(page).toHaveURL(`${BASE_URL}${path}?${query}`);
-    await expect(page.locator("html")).toHaveAttribute("lang", "en");
-    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${SITE}${path}`);
+    await expect(page).toHaveURL(`${BASE_URL}${targetPrefix}${path}?${query}`);
+    await expect(page.locator("html")).toHaveAttribute("lang", target);
+    await expect(page.locator(".journal-body")).toHaveAttribute("lang", target);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${SITE}${targetPrefix}${path}`);
   });
 });
 
-test("sitemap contains both translated sets and no French articles", async ({ page }) => {
+test("sitemap contains both translated page and article sets", async ({ page }) => {
   const response = await page.goto(`${BASE_URL}/sitemap.xml`);
   expect(response?.status()).toBe(200);
   const xml = await response!.text();
@@ -238,6 +242,16 @@ test("sitemap contains both translated sets and no French articles", async ({ pa
     expect(xml).toContain(`<loc>${SITE}${path || "/"}</loc>`);
     expect(xml).toContain(`<loc>${SITE}/fr${path}</loc>`);
   }
-  expect(xml).not.toMatch(/<loc>[^<]*\/fr\/journal\/(?!themes\/)/);
+  expect(FRENCH_JOURNAL_SLUGS).toHaveLength(31);
+  for (const slug of FRENCH_JOURNAL_SLUGS) {
+    for (const prefix of ["", "/fr"]) {
+      const url = `${SITE}${prefix}/journal/${slug}`;
+      const block = xml.split("<url>").find(candidate => candidate.includes(`<loc>${url}</loc>`));
+      expect(block, url).toBeDefined();
+      for (const [language, alternatePrefix] of [["fr", "/fr"], ["en", ""], ["x-default", ""]]) {
+        expect(block).toContain(`hreflang="${language}" href="${SITE}${alternatePrefix}/journal/${slug}"`);
+      }
+    }
+  }
   expect(xml).not.toContain("?lang=");
 });

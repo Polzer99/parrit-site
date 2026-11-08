@@ -200,7 +200,7 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width, height: 900 });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
-    for (const selector of [".hero .btn.exec", ".founder .btn.exec"]) {
+    for (const selector of [".hero .btn.exec", "#bandeau .btn.exec", ".founder .btn.exec"]) {
       const button = page.locator(selector);
       const rose = await button.evaluate(el => {
         const probe = document.createElement("span");

@@ -1,0 +1,55 @@
+---
+title: "Avant d'héberger un modèle chez vous, mesurez l'attente qu'il imposera"
+date: "2026-09-10"
+description: "Les arguments de souveraineté se départagent dès la première seconde devant un curseur. Un modèle sur votre propre matériel échoue rarement sur la qualité. Il échoue sur l'attente : un service loué répartit son coût entre des milliers d'inconnus simultanés, tandis que votre machine sert les quelques personnes qui arrivent le lundi à neuf heures."
+slug: "self-hosting-latency-cost"
+translationOf: "self-hosting-latency-cost"
+---
+
+Quelqu'un dans l'entreprise saisit une question dans le nouvel outil interne et regarde le curseur clignoter. Ce qui se passe dans la seconde qui suit décide davantage de l'avenir du projet que tous les arguments qui ont permis de le financer. Si l'écran reste vide assez longtemps pour que cela se remarque, cette personne rouvre discrètement l'onglet qu'elle utilisait avant, servi depuis un centre de données sur un autre continent. La migration devient alors une contrainte que toute l'entreprise contourne.
+
+Nous proposons des modèles sur une infrastructure appartenant à nos clients. Nous défendons ce choix publiquement, parce que le système qui fonctionne devrait vous appartenir. Présenté honnêtement, cet argument a un coût. Ce n'est pas la facture du matériel. C'est l'attente.
+
+## Le chiffre qui décide de l'adoption n'apparaît pas dans les benchmarks
+
+Deux mesures décrivent ce que ressent une personne qui utilise un modèle. Le délai avant le premier token est le temps entre l'arrivée de la requête et l'affichage du premier fragment de réponse. La latence entre tokens est l'intervalle entre deux fragments une fois la génération commencée. Ces deux mesures sont standard dans les infrastructures d'inférence : vLLM les documente, et le référentiel de benchmark de NVIDIA les définit de la même façon. Aucune ne figure dans les tableaux de qualité que l'on compare pour choisir un modèle.
+
+Rapprochez-les de ce qu'une personne peut réellement percevoir. Les trois seuils de temps de réponse de Jakob Nielsen, publiés dans *Usability Engineering* en 1993 et toujours repris comme référence par le Nielsen Norman Group, se situent autour d'un dixième de seconde pour une action ressentie comme immédiate, d'une seconde pour un délai perceptible sans perdre le fil, et de dix secondes pour la limite de l'attention soutenue. Au-delà, il faut un indicateur de progression et une possibilité de sortir.
+
+Regardons maintenant l'autre extrémité. La méta-analyse de Marc Brysbaert publiée en 2019 dans le *Journal of Memory and Language*, qui couvre 190 études, situe la lecture silencieuse de textes documentaires en anglais par un adulte à 238 mots par minute. Cela représente environ quatre mots par seconde. Avec l'approximation de tokenisation publiée par OpenAI, cent tokens pour soixante-quinze mots, quatre mots par seconde représentent un peu plus de cinq tokens par seconde.
+
+Ce chiffre mérite qu'on s'y arrête. Un flux dépassant environ cinq tokens par seconde va déjà plus vite que le lecteur. Chaque token supplémentaire par seconde que vous financez devient invisible pour la personne à laquelle il était destiné. Dès que la génération est suffisamment fluide, presque toute la qualité perçue de votre système repose donc sur la première mesure : le silence avant le premier mot. Les équipes optimisent celle qu'elles peuvent mettre dans une diapositive.
+
+## Pourquoi les mêmes poids semblent plus lents sur votre propre machine
+
+Les poids n'ont pas changé. Ce qui a changé, ce sont les autres personnes dans la file d'attente.
+
+Le traitement par lots mérite ici une précision, car ces discussions en présentent souvent l'effet à l'envers. Faire passer plusieurs requêtes ensemble dans l'accélérateur augmente le nombre total de tokens produits par seconde, tout en allongeant l'attente de chaque requête. La littérature sur l'inférence décrit clairement ce compromis : l'article Sarathi-Serve en fait le sujet de son titre. Le traitement par lots continu et le préremplissage par blocs existent dans les moteurs que vous déploieriez pour limiter les effets du traitement par lots sur l'attente individuelle. Ce traitement gagne en débit au prix de la latence.
+
+Ce qui rend le service loué rapide, c'est son échelle et l'ordonnancement qui s'appuie dessus. Un fournisseur mutualise la demande de tous les fuseaux horaires qui le rémunèrent. Le pic pour lequel il dimensionne son infrastructure est donc lissé et immense. Il emploie des personnes dont le seul travail consiste à régler l'ordonnanceur qui décide quel token sera calculé ensuite. Vous dimensionnez une capacité fixe pour votre propre heure la plus chargée. Les personnes qui appuient sur Entrée le lundi à neuf heures attendent les unes derrière les autres sur une machine qui ne peut pas augmenter sa capacité à la demande.
+
+Les prompts longs creusent encore l'écart. Avant de renvoyer quoi que ce soit, le système traite tout ce que vous lui avez envoyé. Les déploiements internes ont tendance à envoyer beaucoup : documents retrouvés, procédure, historique du dossier. Tout ce travail se déroule dans le silence que l'utilisateur constate. Si le modèle doit d'abord être chargé en mémoire parce que la machine faisait autre chose, ce délai s'ajoute à la première requête du matin. Celle-ci vient généralement de votre utilisateur le plus matinal et le plus motivé.
+
+Une meilleure carte ne corrige pas cela comme un défaut. C'est ce qu'implique la possession d'une capacité fixe. Vous payez pour chauffer une pièce, qu'elle soit occupée ou vide, et sa taille dépend de votre pire heure, pas de votre heure moyenne.
+
+## Où utiliser d'abord l'infrastructure qui vous appartient
+
+Notre règle consiste à orienter le travail selon la tâche plutôt que selon le fournisseur. La latence participe à ce choix. Le travail devant lequel une personne attend prend le chemin le plus rapide à notre disposition. Le travail sans personne en attente est celui où une infrastructure détenue en propre convient le mieux. Cette catégorie est plus vaste que les équipes ne l'imaginent : traitement nocturne des documents de la journée, file de classification, extraction qui alimente un rapport lu le lendemain à huit heures. Un traitement par lots sur votre matériel peut prendre le temps nécessaire sans pénaliser l'adoption, car seul un fichier attend son résultat.
+
+Un deuxième cas justifie d'accepter délibérément l'attente : lorsque les données elles-mêmes motivent l'hébergement. Contrats, dossiers médicaux, tout ce qui ne peut pas franchir une frontière. Acceptez le délai, puis concevez l'interface en conséquence. Ne présentez pas un traitement comme une conversation. Dix secondes d'attente dans une fenêtre de chat donnent l'impression d'un chat en panne. Les mêmes dix secondes dans un outil présenté comme un traitement, avec un état visible et la possibilité de l'arrêter, donnent l'impression d'un système au travail. Le troisième seuil de Nielsen est une consigne de conception, et elle est gratuite.
+
+## Trois mesures à prendre cette semaine
+
+Comptez les personnes qui attendront au même moment, et précisez l'heure. Pas le nombre de salariés disposant d'un accès : le nombre de requêtes simultanées au pic. Presque toutes les discussions de dimensionnement auxquelles nous participons raisonnent en effectifs. C'est la mauvaise unité, généralement la plus flatteuse.
+
+Chronométrez ensuite ce que vous payez déjà. Ouvrez l'outil hébergé que vos équipes utilisent, envoyez un prompt réaliste et mesurez le délai avant le premier mot. Faites-le à neuf heures du matin, puis au milieu de l'après-midi. Notez les deux chiffres. Votre déploiement sera jugé à cette aune. Peu de personnes dans l'entreprise abaisseront leurs exigences par sympathie pour votre infrastructure.
+
+Enfin, répartissez le travail selon qu'une personne le regarde s'exécuter ou non. La moitié que personne ne regarde peut passer sur votre propre matériel dès que vous le souhaitez. C'est généralement aussi celle qui traite vos données les plus sensibles. La moitié devant laquelle quelqu'un attend reste où elle est jusqu'à ce que vous atteigniez le délai noté.
+
+Un chronomètre et une heure suffisent pour les trois mesures. Ni bon de commande, ni pilote, ni fournisseur dans la pièce.
+
+## Ce que la propriété apporte réellement
+
+La vitesse n'a jamais justifié de posséder son infrastructure. Dans *GLM-5.2: dependence on American AI is already no longer inevitable*, nous défendions l'idée que ce que vous louez peut vous être retiré. C'est toujours la raison de posséder votre infrastructure. Continuer lorsqu'un fournisseur change ses conditions, maîtriser ce qui sort de vos murs, pouvoir poursuivre sur votre propre décision. Cela mérite un coût, et ce coût se mesure en secondes.
+
+La souveraineté mérite de l'attente. Pas une attente que personne n'a mesurée.

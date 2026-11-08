@@ -59,7 +59,7 @@ test("compiled booking funnel, bilingual interface and all registry destinations
         assert.ok(block.includes(`href="${prefix}/rendez-vous?source=${source}"`));
         assert.doesNotMatch(visibleText(block), /offert|gratuit|€|countdown|compte à rebours/i);
         if (source.startsWith("journal-")) {
-          assert.match(html, /class="journal-body" lang="en"/);
+          assert.match(html, new RegExp(`class="journal-body" lang="${locale}"`));
           assert.ok(html.indexOf('class="journal-body"') < blocks[0].index);
           assert.ok(blocks[0].index < html.indexOf('class="journal-related"'));
         } else {

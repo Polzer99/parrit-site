@@ -143,7 +143,7 @@ technologies: (
 team: (
 <section id={fr ? "partenaires" : "team"}><RevealOnView className="wrap">
   <h2>{headings.team[0]}{" "}<b>{headings.team[1]}</b></h2>
-  <p className="muted" style={{"marginTop": "20px", "maxWidth": "720px"}}>{t("Un seul interlocuteur, responsable de bout en bout. Selon le besoin, il s'entoure de spécialistes parmi plus de vingt partenaires.")}</p>
+  <p className="muted team-intro">{t("Un seul interlocuteur, responsable de bout en bout. Selon le besoin, il s'entoure de spécialistes parmi plus de vingt partenaires.")}</p>
   <ServiceGrid offers={PARTNER_OFFERS.map(offers => offers.map(t))} deliveryLabel={t("Avec eux, nous livrons")} label={fr ? "Partenaires et livrables" : "Partners and deliverables"} items={[[t("Ingénieurs IA"), t("Plus de dix, chacun sa spécialité : documents, assistants, connexion à vos logiciels.")], [t("Automatisation et assistants"), t("Des développeurs et des studios : assistants écrits, vocaux et vidéo.")], [t("Transformation et projet"), t("Conduite du changement et pilotage de projet.")], [t("Marque et marketing"), t("Image de marque, contenus et vente.")], [t("Prise en main"), t("Une quinzaine d'intervenants et un organisme certifié.")], [t("Conseil et qualité"), t("Des cabinets partenaires et des relecteurs de nos livrables.")], [t("Chercheurs du MIT"), t("Des chercheurs du MIT dans notre réseau, pour vos déploiements d'assistants les plus exigeants.")]]} />
   <p className="teamcap"><i aria-hidden="true"/>{t("Une équipe composée pour chaque diagnostic, et ce qu'elle livre")}</p>
 <ResearchPartner/>
@@ -172,7 +172,6 @@ questions: (
 articles: (
 <section id="articles"><div className="wrap">
   <h2>{copy.articlesTitle}</h2>
-  {fr && <p className="journal-language-note">Articles en anglais</p>}
   <MobileCarousel className="journal-list journal-index home-journal-list" label={copy.articlesTitle}>
     {latestEntries.map(entry => <article key={entry.slug}><JournalCard entry={entry} locale={locale} compact/></article>)}
   </MobileCarousel>
@@ -196,7 +195,7 @@ contact: (
       <li>{t("Il conçoit des outils d'IA et les contrôles qui les encadrent.")}</li>
       <li>{t("Il accompagne les équipes dans la prise en main de l'IA et pilote les projets.")}</li>
     </ul>
-    <div className="actions"><a className="mail" href="mailto:paul.larmaraud@parrit.ai">{"paul.larmaraud@parrit.ai"}</a></div>
+    <div className="actions"><AppointmentLink locale={locale} query={contactQuery} placement="contact"/><a className="mail" href="mailto:paul.larmaraud@parrit.ai">{"paul.larmaraud@parrit.ai"}</a></div>
   </div>
 </div><div id="reservation" className="reservation"><ParritCalInline locale={locale}/><div className="contact-fallback"><QuickCapture locale={locale} id="single-contact" variant="contact" /></div></div></div></section>
 

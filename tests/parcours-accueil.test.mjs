@@ -63,7 +63,7 @@ for (const locale of ["fr", "en"]) {
 
   test(`latest articles match date-sorted Journal cards with one final destination (${locale})`, async () => {
     const load = loader(locale, { "server-only": {}, "node:fs": fs, "node:path": path, "gray-matter": matter });
-    const entries = load("src/system/journal.ts").getAllJournalEntrySummaries();
+    const entries = load("src/system/journal.ts").getAllJournalEntrySummaries(locale);
     const html = await renderPage(locale);
     const articles = section(html, "articles");
     const cards = [...articles.matchAll(/<article\b[^>]*>([\s\S]*?)<\/article>/g)];
@@ -72,7 +72,9 @@ for (const locale of ["fr", "en"]) {
     for (const [i, entry] of entries.slice(0, 3).entries()) {
       const card = cards[i][1];
       assert.equal((card.match(/<a /g) ?? []).length, 1);
-      assert.match(card, new RegExp(`href="/journal/${entry.slug}"`));
+      const contentLocale = locale === "fr" && !entry.noindex ? "fr" : "en";
+      assert.match(card, new RegExp(`href="${contentLocale === "fr" ? "/fr" : ""}/journal/${entry.slug}"`));
+      assert.match(card, new RegExp(`hrefLang="${contentLocale}"`));
       assert.ok(visibleText(card).includes(entry.title));
       assert.ok(card.includes(`dateTime="${entry.date}"`));
       assert.ok(card.includes(`${entry.readingMinutes} ${locale === "fr" ? "min de lecture" : "min read"}`));

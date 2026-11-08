@@ -7,7 +7,7 @@ import { localizedPath, type Locale } from "@/system/locale";
 /** Décision de Paul du 08/11/2026, nuit : one action, attributed by placement. */
 export function AppointmentLink({ locale, placement, query = "", children, primary = true }: {
   locale: Locale;
-  placement: "nav" | "hero" | "bandeau";
+  placement: "nav" | "hero" | "bandeau" | "contact";
   query?: string;
   children?: ReactNode;
   primary?: boolean;

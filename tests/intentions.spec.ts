@@ -1,3 +1,4 @@
+import { hasFrenchJournalTranslation } from "../src/system/journal-translations";
 import { test, expect } from "./network-deny.setup";
 import { mkdir } from "node:fs/promises";
 import contactExpectation from "./fixtures/contact-expectation.json";
@@ -21,6 +22,7 @@ const actions = [
   [".single-header > .wrap > a.rev-button", "rdv-nav"],
   [".hero .exec", "rdv-hero"],
   ["#bandeau .exec", "rdv-bandeau"],
+  [".founder .btn.exec", "rdv-contact"],
 ] as const;
 
 for (const locale of ["fr", "en"] as const) {
@@ -135,22 +137,27 @@ for (const locale of ["fr", "en"] as const) {
     expect(await cards.count()).toBeGreaterThan(0);
     for (const card of await cards.all()) {
       await expect(card.locator("a")).toHaveCount(1);
+      const href = await card.locator("a").getAttribute("href");
+      const slug = href!.split("/").at(-1)!;
+      const translated = locale === "fr" && hasFrenchJournalTranslation(slug);
+      await expect(card.locator("a")).toHaveAttribute("href", `${translated ? "/fr" : ""}/journal/${slug}`);
+      await expect(card.locator("a")).toHaveAttribute("hreflang", translated ? "fr" : "en");
       await expect(card.locator(".journal-reading-time")).toHaveText(locale === "fr" ? /^[1-9]\d* min de lecture$/ : /^[1-9]\d* min read$/);
     }
-    await expect(page.locator('a[href="/journal/one-card-one-action"] .journal-entry-theme')).toHaveCount(0);
-    await expect(page.locator('a[href="/journal/the-claim-a-green-pipeline-never-makes"] .journal-entry-theme')).toHaveCount(2);
+    await expect(page.locator(`a[href="${locale === "fr" ? "/fr" : ""}/journal/one-card-one-action"] .journal-entry-theme`)).toHaveCount(0);
+    await expect(page.locator(`a[href="${locale === "fr" ? "/fr" : ""}/journal/the-claim-a-green-pipeline-never-makes"] .journal-entry-theme`)).toHaveCount(2);
     const columns = await page.locator(".journal-index").evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").length);
     expect(columns).toBe(width >= 1100 ? 2 : 1);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
   });
 }
 
-// Décision de Paul du 08/11/2026, nuit : mêmes trois placements en SSR et hydratés.
+// Décision de Paul du 08/11/2026, nuit : quatre placements (contact rétabli au correctif 4) en SSR et hydratés.
 for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [true, false]) {
   test.describe(`single appointment action ${locale} JS=${javaScriptEnabled}`, () => {
     test.use({ javaScriptEnabled });
     for (const [width, height] of [[1440, 800], [390, 700]]) {
-      test(`three placements, two offers and eight contained logos ${width}`, async ({ page }) => {
+      test(`four placements, two offers and eight contained logos ${width}`, async ({ page }) => {
         await page.setViewportSize({ width, height });
         await page.emulateMedia({ reducedMotion: "reduce" });
         const home = locale === "fr" ? "/fr" : "/";
@@ -165,8 +172,14 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         await expect(reassurance).toHaveCSS("font-size", "16px");
         const noteBox = (await reassurance.boundingBox())!;
         const buttonBox = (await page.locator(".hero .actions a").boundingBox())!;
-        expect(noteBox.y).toBeGreaterThanOrEqual(buttonBox.y + buttonBox.height);
+        expect(noteBox.y - buttonBox.y - buttonBox.height).toBeGreaterThanOrEqual(12);
         expect(noteBox.x).toBeCloseTo(buttonBox.x, 0);
+        const contact = page.locator(".founder .btn.exec");
+        await expect(contact).toHaveCSS("font-size", "22px");
+        await expect(contact).toHaveCSS("padding", "22px 36px");
+        const contactBox = (await contact.boundingBox())!;
+        const bannerBox = (await page.locator("#bandeau .exec").boundingBox())!;
+        expect(contactBox.y - bannerBox.y - bannerBox.height, "banner and contact never share this viewport").toBeGreaterThanOrEqual(height);
         const faq = page.locator(".home-faq details");
         await expect(faq).toHaveCount(6);
         for (let index = 0; index < 6; index++) {
@@ -184,7 +197,7 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           : "Drawn from our projects. The data shown is fictitious.");
         if (width <= 900) await page.locator(".mobile-menu summary").click();
         const actions = page.locator('a.rev-button[href*="#contact"]:visible');
-        await expect(actions).toHaveCount(3);
+        await expect(actions).toHaveCount(4);
         const sources: string[] = [];
         for (const action of await actions.all()) {
           await expect(action).toHaveText(label);
@@ -196,7 +209,7 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           expect(target.searchParams.get("utm_campaign")).toBe("appointment");
           expect(target.searchParams.get("utm_custom")).toBe("kept");
         }
-        expect(sources.sort()).toEqual(["rdv-bandeau", "rdv-hero", "rdv-nav"]);
+        expect(sources.sort()).toEqual(["rdv-bandeau", "rdv-contact", "rdv-hero", "rdv-nav"]);
         await expect(page.locator('main a.ghost[href*="#contact"]')).toHaveCount(0);
         await expect(page.locator('main a[href*="intention-"]')).toHaveCount(0);
         await expect(page.locator(".home-offer")).toHaveCount(2);
@@ -248,8 +261,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
       await page.setViewportSize({ width, height: 844 });
       await page.setExtraHTTPHeaders({ "Accept-Language": "en" });
       const prefix = locale === "fr" ? "/fr" : "";
-      // Article URLs are English only; French interface rendering is covered by compiled SSR.
-      for (const route of ["/journal", "/journal/themes/ai-sprints", "/legal", ...(locale === "en" ? ["/journal/what-is-parrit-ai"] : [])]) {
+      // Both editions from PR #370 also share the appointment navigation.
+      for (const route of ["/journal", "/journal/themes/ai-sprints", "/legal", "/journal/what-is-parrit-ai"]) {
         await page.goto(local(`${prefix}${route}?utm_campaign=navigation&source=old`));
         if (width <= 900) await page.locator(".mobile-menu summary").click();
         const action = page.locator(".single-header a.rev-button:visible");
@@ -334,9 +347,14 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         await expect(arrow).toHaveCSS("transform", "matrix(1, 0, 0, 1, 4, 0)");
         await page.mouse.down();
         await expect(button).toHaveCSS("transform", "matrix(1, 0, 0, 1, 0, 1)");
-        // Release away from the action to avoid navigation while inspecting styles.
-        await page.mouse.move(0, 0);
+        // Complete a real click. Moving a pressed anchor invokes Chromium drag
+        // interception, whose timer cannot settle with page JavaScript disabled.
         await page.mouse.up();
+        const home = locale === "fr" ? "/fr" : "/";
+        await expect(page).toHaveURL(local(`${home}?source=rdv-${selector.startsWith(".hero") ? "hero" : "bandeau"}#contact`));
+        await page.goto(local(home));
+        await page.evaluate(() => document.fonts.ready);
+        await page.mouse.move(0, 0);
         await button.focus();
         await expect(button).toBeFocused();
         await expect(button).toHaveCSS("animation-name", "none");
@@ -356,6 +374,34 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
       const heroBox = (await page.locator(".hero").boundingBox())!;
       if (width === 1440) expect(heroBox.y + await page.evaluate(() => scrollY) + heroBox.height).toBeLessThanOrEqual(800);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+    });
+  });
+}
+
+// Correctif 4: the longer partner introduction fits without clipping, also in SSR.
+for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [true, false]) {
+  test.describe(`compact partner section ${locale} JS=${javaScriptEnabled}`, () => {
+    test.use({ javaScriptEnabled });
+    test("complete partner content fits 1280×720", async ({ page }) => {
+      await page.setViewportSize({ width: 1280, height: 720 });
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.goto(local(locale === "fr" ? "/fr" : "/"));
+      await page.evaluate(() => document.fonts.ready);
+      const section = page.locator(locale === "fr" ? "#partenaires" : "#team");
+      const dimensions = await section.locator(":scope > .wrap").evaluate(el => ({
+        height: el.getBoundingClientRect().height, scrollHeight: el.scrollHeight,
+        overflow: getComputedStyle(el).overflowY,
+      }));
+      expect(dimensions.height).toBeLessThanOrEqual(720);
+      expect(dimensions.scrollHeight).toBeLessThanOrEqual(720);
+      expect(dimensions.overflow).not.toMatch(/hidden|clip/);
+      await expect(section.locator(".partner")).toHaveCount(7);
+      await expect(section.locator(".partner-offers li")).toHaveCount(23);
+      for (const paragraph of await section.locator(".team-intro,.partner-type p,.partner-offers li,.teamcap").all()) {
+        await expect(paragraph).toBeVisible();
+        expect(await paragraph.evaluate(el => el.scrollHeight <= el.clientHeight + 1)).toBe(true);
+      }
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(1280);
     });
   });
 }

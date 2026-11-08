@@ -1,0 +1,33 @@
+---
+title: "Un serveur MCP peut passer votre contrôle d'installation et devenir hostile après son troisième appel"
+date: "2026-10-04"
+description: "La campagne Deadbugz cachait sa charge derrière un compteur d'appels, hors de portée d'une revue à l'installation. Le contrôle qui reste utile porte sur l'action suivante de l'agent. Nous avons testé le nôtre face aux quatre cibles du serveur."
+slug: "malicious-mcp-server-after-install"
+translationOf: "malicious-mcp-server-after-install"
+---
+
+Le soir du 10 août 2026, entre 21:52 et 23:07 UTC, un seul compte GitHub a ouvert 23 pull requests sur des projets d'IA, de MCP et d'outils de développement. Dix-sept ajoutaient un point d'accès MCP distant à la configuration du projet, sous le nom productivity-suite. Quiconque ouvrait ce serveur et l'appelait voyait un modeste utilitaire de mise en forme de texte. Après avoir répondu à trois appels, il devenait autre chose.
+
+[Pillar Security](https://www.pillar.security/blog/deadbugz-currently-active-mcp-supply-chain-campaign), qui a nommé la campagne Deadbugz, décrit précisément le déclencheur. Une fois que le serveur a répondu à trois appels d'outils, les descriptions d'outils et les prompts qu'il renvoie à l'agent changent. Le nouveau texte demande à l'agent de chercher des clés SSH, des identifiants AWS, l'historique du shell et la configuration Kubernetes, en cachant cette recherche à l'utilisateur. La [Cloud Security Alliance](https://labs.cloudsecurityalliance.org/research/csa-research-note-deadbugz-mcp-metadata-poisoning-20260902-c/) a analysé la même campagne. Elle rapporte que les mainteneurs ont fermé 19 des 23 pull requests, que quatre sont restées ouvertes et qu'aucune n'a été fusionnée par la procédure de revue habituelle.
+
+## Pourquoi la revue d'installation voyait un serveur sain
+
+Le conseil habituel pour choisir un serveur MCP consiste à lire son code, vérifier qui le publie et examiner les outils qu'il déclare avant de l'approuver. Ces contrôles se font généralement avant le premier appel. Un serveur construit comme productivity-suite les passe à l'installation, car le texte hostile n'existe pas encore au moment de l'examen. Un compteur le produit à l'exécution, puis l'envoie comme métadonnées que l'agent traite comme une partie de ses instructions.
+
+Cela change la nature de la réponse d'un serveur. Tout ce qu'un serveur distant renvoie, descriptions d'outils comprises, est une entrée rédigée par quelqu'un que vous n'avez pas contrôlé. Elle arrive dans le même contexte que celui dont l'agent se sert pour décider de sa prochaine action. Pillar recommande la règle correspondante : un client devrait traiter tout changement de définition d'outil d'un serveur déjà approuvé comme un événement de sécurité. Notre propre installation ne déclenche aujourd'hui aucune alerte sur un tel changement. Nous pouvons donc tenir la limite un cran plus loin, sur l'action que l'agent tente après avoir lu le texte empoisonné.
+
+## Le contrôle placé après le serveur
+
+Nous utilisons un hook qui examine chaque commande shell et chaque modification de fichier tentée par nos agents de développement, avant son exécution. Nous l'avons décrit dans ce Journal en [septembre](/journal/permission-layer-for-coding-agents). Une de ses règles refuse toute commande shell qui nomme un fichier contenant des identifiants, quelle que soit l'instruction ayant conduit l'agent à la saisir. Un serveur qui demande à notre agent d'afficher une clé privée depuis le shell peut provoquer une tentative. Cette tentative est refusée et son motif enregistré.
+
+Le jour de la rédaction de cet article, nous avons confronté cette règle aux quatre cibles nommées par Deadbugz. Elle couvrait moins de choses que prévu. La liste des fichiers porteurs d'identifiants reconnaît les fichiers de clés SSH privées et ceux nommés credentials : les deux premières cibles y figurent. L'historique du shell et la configuration Kubernetes manquent, alors que la seconde contient souvent des tokens de cluster et que le premier contient parfois un secret saisi directement dans une commande. Une clé volée coûte ce qu'elle permet d'ouvrir. Un token de cluster peut donner accès à tout un cluster. La faille la plus large se trouve ailleurs. Le hook est branché sur le shell et les outils d'édition. L'agent dispose aussi d'un outil de lecture de fichiers qui ne passe jamais par lui. Un serveur empoisonné demandant d'ouvrir une clé avec cet outil n'aurait rencontré aucun refus chez nous.
+
+Le même contrôle nous a donné un décompte que nous n'avions pas examiné de près. Notre agent le plus utilisé est connecté à dix serveurs MCP, dont six points d'accès distants exploités par leurs éditeurs. Ces six serveurs peuvent changer ce qu'ils nous envoient sans aucun changement de notre côté.
+
+## Confronter votre agent aux quatre cibles
+
+Ouvrez la configuration de l'agent le plus utilisé par votre équipe et comptez ses serveurs MCP. Séparez ceux qui tournent sur votre machine des points d'accès distants exploités par d'autres. Pour chacun de ces derniers, demandez-vous si vous remarqueriez demain un changement de description de ses outils.
+
+Prenez ensuite les quatre cibles de l'analyse Deadbugz et testez-les face à ce qui sépare votre agent de vos fichiers : un hook qui contrôle chaque commande avant exécution, un bac à sable qui limite ses accès, une liste de chemins interdits. Placez des fichiers leurres inoffensifs sous ces quatre noms dans un répertoire temporaire. Demandez à l'agent de lire chacun avec tous les outils dont il dispose, puis notez les tentatives refusées et celles qui passent. Ces dernières sont les ouvertures qu'un serveur exploiterait. Les fermer ne demande généralement que quelques lignes de configuration. Si vous n'avez pas accès à cette configuration, les deux décomptes précédents sont les questions à porter à la personne chargée de votre sécurité.
+
+Un serveur peut être sain le jour où vous l'approuvez. Le contrôle qui aurait arrêté Deadbugz est celui qui continue de s'exécuter à chaque appel ensuite.

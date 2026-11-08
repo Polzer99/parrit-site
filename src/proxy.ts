@@ -38,7 +38,7 @@ export function proxy(request: NextRequest) {
     return response;
   }
 
-  // Article aliases redirect in next.config before proxy; other French aliases below are unchanged.
+  // Untranslated article aliases redirect in next.config before proxy; other French aliases below are unchanged.
   if (french && !frenchChrome) {
     const url = request.nextUrl.clone();
     url.pathname = bare;

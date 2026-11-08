@@ -1,0 +1,54 @@
+---
+title: "Sécurité des agents IA en entreprise : les règles que nous appliquons"
+date: "2026-06-29"
+description: "Déployer un agent IA, c’est lui donner accès à vos données. Les 8 règles de sécurité que nous appliquons à chaque déploiement, et les questions à poser à tout prestataire."
+slug: "ai-agent-security-in-the-enterprise"
+translationOf: "ai-agent-security-in-the-enterprise"
+---
+
+Un agent IA ne se contente pas de répondre dans un coin. Il lit vos fichiers, agit dans vos logiciels et déclenche des actions. C’est précisément ce qui le rend utile, et ce qui exige un cadre clair. La plupart des incidents ne viennent pas d’un modèle qui déraille, mais d’accès accordés trop largement sans réflexion, d’un secret laissé à découvert ou d’une action automatisée qui aurait dû rester entre les mains d’une personne.
+
+## 1. Vos données restent chez vous
+
+L’agent fonctionne dans votre infrastructure, pas sur une plateforme tierce que nous contrôlons. Vos données ne servent jamais à entraîner un modèle. Lorsqu’un fournisseur de modèle intervient, nous utilisons des accords d’accès qui interdisent l’utilisation de vos données pour l’entraînement.
+
+## 2. Le minimum de droits
+
+Un agent ne reçoit que les accès strictement nécessaires à sa tâche. Par défaut, il lit ; il n’écrit pas. La production, la base clients et les systèmes critiques restent fermés tant que vous n’ouvrez pas vous-même les accès, périmètre par périmètre.
+
+## 3. Des secrets protégés
+
+Les clés et les mots de passe restent côté serveur, hors de portée de l’agent, jamais inscrits en dur dans le code. Chaque accès est limité à ce qu’il doit atteindre. Il peut être révoqué ou renouvelé à tout moment sans rien casser.
+
+## 4. Une validation humaine pour les actions irréversibles
+
+Tout ce qui sort de l’entreprise ou ne peut pas être annulé nécessite une validation humaine : envoyer de l’argent, adresser un e-mail à un client, publier un contenu. L’agent prépare et propose ; une personne appuie sur le bouton. Nous automatisons les tâches fastidieuses, pas la responsabilité des décisions.
+
+## 5. Des garde-fous testés avant la production
+
+Avant de passer en production, un agent traverse une batterie de tests et dispose d’un rollback (retour arrière). Nous vérifions qu’il fait ce qui est attendu, et uniquement cela. Rien n’est mis en ligne sur la seule foi d’une démonstration réussie une fois.
+
+## 6. Un système auditable et réversible
+
+Le code vous appartient, sur une stack ouverte, avec des logs que vos équipes peuvent lire. Vous pouvez l’auditer, le faire relire par un tiers, le reprendre ou l’arrêter. Vous ne dépendez pas d’une boîte noire.
+
+## 7. Le choix du fournisseur et de l’hébergement
+
+Aucun enfermement chez un fournisseur unique. Le système peut basculer vers une autre IA, européenne ou à poids ouverts notamment, sans tout réécrire. Si un fournisseur change ses conditions ou coupe l’accès, vous n’êtes pas bloqué.
+
+## 8. Des données isolées
+
+Lorsque plusieurs personnes ou plusieurs clients partagent le même système, chacun ne voit que ses données. La séparation est imposée dans la base de données, pas seulement dans l’application. Une erreur de code ne peut donc pas exposer ce qui doit rester privé.
+
+## Les questions à poser à votre prestataire
+
+Vous n’avez pas besoin d’être technique pour vérifier qu’un prestataire prend la sécurité au sérieux. Posez-lui ces questions et observez s’il répond précisément ou s’il esquive :
+
+<ul>
+<li>Où fonctionnent les agents, et où sont mes données ?</li>
+<li>Mes données peuvent-elles servir à entraîner un modèle ?</li>
+<li>Quels accès l’agent possède-t-il exactement, et qui les a accordés ?</li>
+<li>Qu’est-ce qui se déclenche automatiquement, et qu’est-ce qui attend une validation humaine ?</li>
+<li>Est-ce que je récupère le code, et puis-je le faire auditer ?</li>
+<li>Que se passe-t-il si je veux changer de fournisseur d’IA ?</li>
+</ul>

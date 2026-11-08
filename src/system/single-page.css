@@ -608,7 +608,7 @@
 .single-page .offers-audience {margin-top:var(--brand-s3);font-size:var(--t-s);color:var(--brand-fg2);}
 
 /* Décision de Paul du 08/11/2026, nuit, correctif 1 : reassurance under the action. */
-.single-page .hero .hero-reassurance {margin-top:var(--brand-s1);font-size:var(--t-s);line-height:1.5;color:var(--on-canard);}
+.single-page .hero .hero-reassurance {margin-top:var(--brand-s2);font-size:var(--t-s);line-height:1.5;color:var(--on-canard);}
 
 /* Grands boutons, décision de Paul du 08/11/2026, nuit, correctif 2.
    Navigation ghost inchangée ; seul le fond du hero respire, jamais son texte. */
@@ -634,5 +634,16 @@
   .single-page :is(.hero,.final-call) .btn.exec,
   .single-page :is(.hero,.final-call) .btn.exec:is(:hover,:focus,:active),
   .single-page :is(.hero,.final-call) .btn.exec .brand-connector,
-  .single-page :is(.hero,.final-call) .btn.exec:is(:hover,:focus) .brand-connector {transition:none;transform:none;}
+  .single-page :is(.hero,.final-call) .btn.exec:is(:hover,:focus) .brand-connector {
+    /* Override system.css's universal 1ms !important fallback. */
+    animation:none !important;transition:none !important;transform:none;
+  }
+}
+
+/* Correctif 4, décision de Paul du 08/11/2026 : keep all partner text at 720px. */
+.single-page .team-intro {margin-top:20px;max-width:720px;}
+@media(min-width:761px) and (max-width:1280px) and (max-height:720px) {
+  .single-page .team-intro {margin-top:calc(var(--brand-s3) / 2);}
+  .single-page :is(#partenaires,#team) .services {margin-top:var(--brand-s1);}
+  .single-page :is(#partenaires,#team) .teamcap {margin-top:var(--brand-s1);}
 }

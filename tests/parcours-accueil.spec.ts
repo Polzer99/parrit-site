@@ -73,7 +73,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         })));
         for (const [index, card] of homeCards.entries()) {
           await expect(articles.nth(index).getByRole("link")).toHaveCount(1);
-          await expect(articles.nth(index).getByRole("link")).toHaveAttribute("hreflang", "en");
+          await expect(articles.nth(index).getByRole("link")).toHaveAttribute("hreflang", locale);
+          expect(card.href).toMatch(new RegExp(`^${locale === "fr" ? "/fr" : ""}/journal/[a-z0-9-]+$`));
           const themes = getJournalThemes(card.href!.split("/").at(-1)!);
           await expect(articles.nth(index).locator(".journal-entry-theme")).toHaveCount(themes.length);
           for (const theme of themes) expect(card.meta).toContain(theme.label[locale]);
@@ -124,5 +125,5 @@ for (const locale of ["fr", "en"] as const) test(`legacy intent attribution reac
   });
   await expect(page.locator("#single-contact")).toHaveAttribute("data-state", "done");
   await expect(page.locator("#single-contact a,#single-contact button")).toHaveCount(0);
-  expect(await page.locator('a.rev-button[href*="source=rdv-"]').evaluateAll(nodes => [...new Set(nodes.map(node => new URL((node as HTMLAnchorElement).href).searchParams.get("source")))].sort())).toEqual(["rdv-bandeau", "rdv-hero", "rdv-nav"]);
+  expect(await page.locator('a.rev-button[href*="source=rdv-"]').evaluateAll(nodes => [...new Set(nodes.map(node => new URL((node as HTMLAnchorElement).href).searchParams.get("source")))].sort())).toEqual(["rdv-bandeau", "rdv-contact", "rdv-hero", "rdv-nav"]);
 });

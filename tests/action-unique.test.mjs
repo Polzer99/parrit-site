@@ -38,17 +38,17 @@ for (const locale of ["fr", "en"]) {
     const html = await renderPage(locale);
     const actions = [...html.matchAll(/<a class="([^"]*rev-button[^"]*)" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
     const booking = actions.filter(([, , href]) => new URL(href, "https://example.invalid").hash === "#contact");
-    assert.equal(booking.length, 2, "hero and banner; header tested separately");
+    assert.equal(booking.length, 3, "hero, banner and restored contact; header tested separately (correctif 4)");
     for (const [i, [, classes, href, label]] of booking.entries()) {
       const url = new URL(href, "https://example.invalid");
       assert.match(classes, /\bexec\b/);
       assert.equal(visibleText(label).trim(), locale === "fr" ? "Prendre rendez-vous" : "Book a call");
-      assert.equal(url.searchParams.get("source"), `rdv-${i === 0 ? "hero" : "bandeau"}`);
+      assert.equal(url.searchParams.get("source"), `rdv-${["hero", "bandeau", "contact"][i]}`);
       assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
-      assert.equal((label.match(/data-connector="VS-CONNECTOR"/g) ?? []).length, 1);
-      assert.match(label, /aria-hidden="true" focusable="false"/);
+      assert.equal((label.match(/data-connector="VS-CONNECTOR"/g) ?? []).length, i < 2 ? 1 : 0);
+      if (i < 2) assert.match(label, /aria-hidden="true" focusable="false"/);
     }
-    assert.equal(actions.length, 3, "only two booking actions and the Journal content link in main");
+    assert.equal(actions.length, 4, "three booking actions and the Journal content link in main");
     assert.doesNotMatch(html, /source=intention-|href="#reservation"/);
     const offers = html.match(/<section id="(?:offres|offers)"[\s\S]*?<\/section>/)[0];
     assert.equal((offers.match(/<article /g) ?? []).length, 2);
@@ -154,5 +154,27 @@ test("three new logo exports keep reviewed bytes, alpha masks and optical source
       alphas.add(data[i + 3]);
     }
     assert.ok(alphas.has(0) && alphas.has(255), "transparent background and solid foreground");
+  }
+});
+
+for (const locale of ["fr", "en"]) test(`contact action preserves attribution and the French Journal integration (${locale})`, () => {
+  const load = loader(locale);
+  const { SinglePage } = load("src/system/components/SinglePage.tsx");
+  const { getAllJournalEntrySummaries } = load("src/system/journal-data.ts");
+  const entries = getAllJournalEntrySummaries(locale).filter(entry => !entry.noindex).slice(0, 3);
+  const html = renderToStaticMarkup(createElement(SinglePage, { locale, contactQuery: "utm_campaign=a%26b&utm_custom=one&utm_custom=two&source=old", latestEntries: entries }));
+  const contact = html.match(/<section class="founder"[\s\S]*?<\/section>/)[0];
+  const href = contact.match(/<a class="btn rev-button exec" href="([^"]+)"/)[1].replaceAll("&amp;", "&");
+  const target = new URL(href, "https://example.invalid");
+  assert.equal(target.pathname, locale === "fr" ? "/fr" : "/");
+  assert.equal(target.hash, "#contact");
+  assert.deepEqual(target.searchParams.getAll("source"), ["rdv-contact"]);
+  assert.deepEqual(target.searchParams.getAll("utm_custom"), ["one", "two"]);
+  assert.equal(target.searchParams.get("utm_campaign"), "a&b");
+  const articles = html.match(/<section id="articles"[\s\S]*?<\/section>/)[0];
+  assert.doesNotMatch(articles, /Articles en anglais/);
+  for (const entry of entries) {
+    assert.ok(articles.includes(`href="${locale === "fr" ? "/fr" : ""}/journal/${entry.slug}"`));
+    assert.ok(visibleText(articles).includes(entry.title));
   }
 });
