@@ -1,0 +1,35 @@
+---
+title: "Un hook Claude Code qui dépasse son délai laisse passer l'appel d'outil"
+date: "2026-10-11"
+description: "Notre contrôle de publication a pris un jour plus de cinq minutes, pour un hook limité à 70 secondes. Claude Code l'a annulé et un article jamais lu par le contrôle a été publié. Ce que nous avons changé, et le tableau à construire pour vos hooks."
+slug: "hook-timeout-lets-tool-call-through"
+translationOf: "hook-timeout-lets-tool-call-through"
+---
+
+Lorsqu'un hook Claude Code tourne encore à l'expiration de son délai, Claude Code l'annule et l'appel d'outil s'exécute. La [documentation des hooks](https://code.claude.com/docs/en/hooks) le dit clairement : un hook dont le délai expire "doesn't block the tool call" (ne bloque pas l'appel d'outil), donc "don't count on a stalled hook to act as a gate." (ne comptez pas sur un hook bloqué pour faire barrage). Un hook chargé de faire respecter une règle doit donc avoir un délai supérieur à son exécution la plus lente et bloquer l'appel lorsqu'il échoue.
+
+Nous l'avons appris sur notre propre chaîne de publication le 10 octobre 2026.
+
+## Ce qui s'est passé le 10 octobre
+
+Les articles de cette page sont rédigés par un agent IA, puis publiés par un script après une série de contrôles. Un hook se place devant ce script. C'est un petit programme que Claude Code exécute avant chaque appel d'outil et qui peut le refuser. Le nôtre demande à une étape de contrôle si l'article peut sortir. Un de ces contrôles confie le brouillon à un lecteur distinct, un modèle de langage. Il refuse l'article si la réponse au titre arrive après les 80 premiers mots ou si un lecteur pressé ne pourrait pas le suivre. Le hook disposait de 70 secondes. Lorsque nous avons lancé ce même contrôle à la main ce matin-là, il a pris plus de cinq minutes ; ce matin, il a pris 26 secondes.
+
+L'historique de notre dépôt montre une publication à 10:22. Le fichier où ce lecteur enregistre chaque verdict ne contient aucune entrée pour cet article avant 10:51, lorsque nous avons lancé le contrôle à la main après coup. Le lecteur a refusé la version publiée, puis une réécriture. La séquence entre ces deux moments est notre déduction à partir des horaires et de la documentation : le hook a dépassé son délai, Claude Code l'a annulé, puis la commande de publication s'est exécutée comme si rien ne s'y était opposé. Au moment où nous écrivons, l'article est en ligne depuis environ 21 heures. Nous ne connaissons pas son nombre de lecteurs. Le coût que nous pouvons établir est donc plus limité : pendant une journée, une règle que nous pensions appliquée ne l'était pas. Le maintien de l'article en ligne relève de Parrit.ai, avec les deux refus sous les yeux.
+
+## Pourquoi la règle d'échec du hook ne s'est pas appliquée
+
+Le hook était écrit pour refuser toute publication lorsqu'il ne pouvait pas prendre de décision. Cette règle se trouve dans son propre code. Elle couvre tous les échecs que ce code peut voir : fichier manquant, erreur de l'étape de contrôle, réponse illisible. Une annulation vient de l'extérieur. Claude Code arrête le processus avant la ligne qui aurait refusé l'appel. Le refus n'a donc jamais lieu. Seul Claude Code peut décider ce que signifie un hook annulé et, par défaut, il laisse passer l'appel.
+
+## Le correctif que nous recommandons
+
+La documentation propose un réglage d'une ligne. Avec `onFailure` réglé sur `"block"`, Claude Code refuse l'appel d'outil lorsque le hook dépasse son délai, plante ou renvoie une réponse illisible. Selon la même page, il faut Claude Code 2.1.295 ou une version ultérieure. La machine qui publie ce Journal utilise la version 2.1.72, lue avec `claude --version` le 11 octobre. Une mise à jour est donc nécessaire pour que ce réglage existe chez nous.
+
+Le correctif que nous recommandons fonctionne sur toutes les versions : garder le hook rapide. Le jugement lent s'exécute en amont, dans une étape distincte, et écrit son verdict dans un fichier associé au texte exact du brouillon. Le hook se contente de lire ce fichier, en bien moins d'une seconde. Il refuse l'appel si aucun verdict n'existe pour le texte à publier. Le contrôle peut durer cinq minutes ou cinq secondes : la réponse du hook n'en dépend plus. Ajoutez `onFailure: "block"` en complément dès que votre version le permet.
+
+En attendant sa mise en place chez nous, l'agent lance lui-même le contrôle, attend le verdict et ne démarre le script de publication qu'après avoir lu "allowed" (autorisé).
+
+## Vérifier vos propres hooks
+
+Ouvrez le fichier de configuration de vos hooks et construisez un tableau à trois colonnes : chaque hook censé refuser une action, son délai maximal et son exécution la plus lente. Sans délai défini, la [valeur par défaut documentée](https://code.claude.com/docs/en/hooks) pour un hook de commande est de 600 secondes. Chronométrez le cas le plus lent que vous pouvez provoquer, avec un réseau lent et un modèle occupé. Notre contrôle a pris plus de cinq minutes un jour et 26 secondes le lendemain. Sans `onFailure: "block"`, chaque hook dont l'exécution la plus lente dépasse son délai laisse passer les appels les jours où il est lent.
+
+Pour chacun, sortez la partie lente du hook et vérifiez votre version avec `claude --version` avant de compter sur `onFailure`. Le tableau vous dira lesquelles de vos règles restent appliquées les mauvais jours.

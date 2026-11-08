@@ -1,0 +1,37 @@
+---
+title: "Laisser un système publier sans relecture humaine"
+date: "2026-08-29"
+description: "Des contrôles automatiques peuvent porter la responsabilité de publier, à condition de savoir refuser et de déplacer l'intervention humaine en amont."
+slug: "publishing-without-human-review"
+translationOf: "publishing-without-human-review"
+---
+
+La plupart des entreprises qui automatisent leur contenu s'arrêtent à la dernière étape. Le système rédige, puis une personne approuve chaque texte avant sa mise en ligne. Cela paraît sûr. C'est aussi la raison pour laquelle le système ne produit jamais d’effets cumulatifs : l'humain devient le goulot d'étranglement, puis assez vite une simple chambre d'enregistrement.
+
+Nous exploitons des moteurs éditoriaux qui publient en production sans que personne ne lise l'article au préalable. Voici ce qui porte réellement cette responsabilité.
+
+## Approuver n'est pas relire
+
+Une personne chargée d'approuver chaque texte lit attentivement les premiers. Puis les textes continuent d'arriver, ils restent corrects et la lecture devient un survol. L'approbation pièce par pièce se dégrade précisément parce qu'elle devient routinière. La sécurité qu'elle apporte est surtout un sentiment.
+
+Le contrôle nécessaire n'est pas une personne qui lit tout. C'est une machine qui sait refuser.
+
+## Des contrôles qui savent dire non
+
+Avant toute publication, le texte doit franchir une chaîne de contrôles bloquants. D'abord, le contrat de format : structure et métadonnées sont validées. Une forme incorrecte entraîne un refus, pas un avertissement. Puis vient la recherche des expressions qui trahissent un texte généré. Ensuite, une recherche des noms de clients et de tiers, délimitée par mots entiers, pour que personne ne se reconnaisse dans ce que nous publions. Puis un contrôle de similarité avec tout ce qui est déjà publié, car un moteur qui se répète vaut moins qu'un moteur qui se tait. Enfin, le site doit compiler.
+
+Après le déploiement, le système interroge la page en production et vérifie que le contenu est réellement présent. Une réponse 200 ne prouve rien. Le titre doit figurer dans la page.
+
+Si un seul contrôle est rouge, rien ne sort. Le résultat utile le plus fréquent du moteur est un refus accompagné d'un motif précis.
+
+## La discrétion est un contrôle, pas une habitude
+
+Deux règles comptent davantage que les autres. Toute matière liée à un rendez-vous client attend sept jours avant de pouvoir alimenter un article, de part et d'autre du rendez-vous. Avant la publication, une question tranche : la personne à l'origine de cette matière pourrait-elle lire le texte et penser "this is me" (c'est moi) ? Si oui, le sujet change ou la situation est généralisée jusqu'à ce que la réponse soit non.
+
+Nous l'avons appris à nos dépens en retirant un article déjà en ligne qui passait tous les autres contrôles. La règle vit désormais dans les contrôles, pas dans la mémoire de quelqu'un.
+
+## La place de l'humain
+
+En amont, et au-dessus. Le propriétaire du système écrit les règles, relève le niveau d'exigence et conserve un créneau de revue hebdomadaire. Tout ce qui a été publié dans la semaine arrive dans un seul e-mail. Une commande suffit à retirer n'importe quel texte. Le niveau de qualité lui-même est versionné et ne va que dans un sens. Chaque semaine, ce qui était acceptable la semaine précédente devient plus difficile à publier.
+
+C'est la posture que nous appliquons à nos propres systèmes et que nous proposons aux clients. Des systèmes agissent seuls à l'intérieur de limites strictes écrites par leur propriétaire. Celui-ci possède les contrôles au lieu de garder la file d'attente. L'autonomie ne supprime pas les personnes. Elle les fait passer du péage à l'écriture des règles.

@@ -1,3 +1,4 @@
+import { hasFrenchJournalTranslation } from "../src/system/journal-translations";
 import { test, expect } from "./network-deny.setup";
 import { mkdir } from "node:fs/promises";
 import contactExpectation from "./fixtures/contact-expectation.json";
@@ -152,10 +153,15 @@ for (const locale of ["fr", "en"] as const) {
     expect(await cards.count()).toBeGreaterThan(0);
     for (const card of await cards.all()) {
       await expect(card.locator("a")).toHaveCount(1);
+      const href = await card.locator("a").getAttribute("href");
+      const slug = href!.split("/").at(-1)!;
+      const translated = locale === "fr" && hasFrenchJournalTranslation(slug);
+      await expect(card.locator("a")).toHaveAttribute("href", `${translated ? "/fr" : ""}/journal/${slug}`);
+      await expect(card.locator("a")).toHaveAttribute("hreflang", translated ? "fr" : "en");
       await expect(card.locator(".journal-reading-time")).toHaveText(locale === "fr" ? /^[1-9]\d* min de lecture$/ : /^[1-9]\d* min read$/);
     }
-    await expect(page.locator('a[href="/journal/one-card-one-action"] .journal-entry-theme')).toHaveCount(0);
-    await expect(page.locator('a[href="/journal/the-claim-a-green-pipeline-never-makes"] .journal-entry-theme')).toHaveCount(2);
+    await expect(page.locator(`a[href="${locale === "fr" ? "/fr" : ""}/journal/one-card-one-action"] .journal-entry-theme`)).toHaveCount(0);
+    await expect(page.locator(`a[href="${locale === "fr" ? "/fr" : ""}/journal/the-claim-a-green-pipeline-never-makes"] .journal-entry-theme`)).toHaveCount(2);
     const columns = await page.locator(".journal-index").evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").length);
     expect(columns).toBe(width >= 1100 ? 2 : 1);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);

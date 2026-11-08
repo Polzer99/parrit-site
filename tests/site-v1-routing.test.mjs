@@ -34,7 +34,7 @@ for (const id of ["conseil-transformation", "ai-sprints", "integration-developpe
   });
 }
 test("old routes resolve directly to themes or single-page anchors with permanent status", async () => {
-  const rules = await compile("next.config.ts", {}).default.redirects();
+  const rules = await compile("next.config.ts", { "./src/system/journal-translations.ts": loader("en")("src/system/journal-translations.ts") }).default.redirects();
   const themes = { "consulting-transformation": "conseil-transformation", "ai-sprints": "ai-sprints", "engineering-integration": "integration-developpement", "harness-engineering": "harness-engineering" };
   for (const [old, theme] of Object.entries(themes)) for (const prefix of ["", "/fr"]) {
     const rule = rules.find(rule => rule.source === `${prefix}/${old}`);

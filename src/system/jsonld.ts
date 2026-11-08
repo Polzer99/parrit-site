@@ -1,5 +1,5 @@
 import { orgRef } from "./auteur.ts";
-import type { Locale } from "./locale";
+import { localizedPath, type Locale } from "./locale.ts";
 import type { JournalEntry } from "./journal";
 import type { GuideCopy } from "./site-v1-pages";
 import { JOURNAL_THEMES_LAST_MODIFIED } from "./journal-themes.ts";
@@ -54,17 +54,17 @@ export function journalThemeJsonLd(copy: Pick<GuideCopy, "title" | "description"
   ];
 }
 
-export function blogPostingJsonLd(entry: Pick<JournalEntry, "slug" | "title" | "date" | "description">) {
-  const canonical = `https://parrit.ai/journal/${entry.slug}`;
+export function blogPostingJsonLd(entry: Pick<JournalEntry, "slug" | "title" | "date" | "description">, locale: Locale = "en") {
+  const canonical = `https://parrit.ai${localizedPath(`/journal/${entry.slug}`, locale)}`;
   return {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
+    "@type": "Article",
     "@id": `${canonical}#article`,
     headline: entry.title,
     datePublished: entry.date,
     dateModified: entry.date,
-    image: `${canonical}/og`,
-    inLanguage: "en",
+    image: `https://parrit.ai/journal/${entry.slug}/og`,
+    inLanguage: locale,
     publisher: {
       ...orgRef(),
       logo: { "@type": "ImageObject", url: "https://parrit.ai/icon.png" },

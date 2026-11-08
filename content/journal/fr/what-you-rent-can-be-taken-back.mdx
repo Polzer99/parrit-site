@@ -1,0 +1,29 @@
+---
+title: "Ce que vous louez peut vous être repris"
+date: "2026-09-18"
+description: "Le 29 juillet 2026, un outil de création d'agents IA annonçait à ses utilisateurs son arrêt dans un mois. Huit semaines plus tôt, OpenAI avait discrètement programmé le même sort pour deux de ses outils. La taille du fournisseur n'a donné davantage de délai à aucun des deux groupes d'utilisateurs."
+slug: "what-you-rent-can-be-taken-back"
+translationOf: "what-you-rent-can-be-taken-back"
+---
+
+Le 29 juillet 2026, l'équipe de Flowise, un outil open source de création d'agents IA acquis par Workday moins d'un an auparavant, a publié un avis d'arrêt à ses utilisateurs. Le développement était gelé immédiatement. Le dépôt passerait en archive publique le 10 août. Le produit lui-même cesserait de fonctionner le 31 août, trente-trois jours après l'avis. Huit semaines plus tôt, le 3 juin, la documentation destinée aux développeurs d'OpenAI fait état d'un avis comparable adressé à d'autres créateurs : Agent Builder et la plateforme Evals, deux de ses propres outils de construction et de test d'agents, étaient annoncés en fin de vie. Cette même documentation prévoit le passage des évaluations existantes en lecture seule le 31 octobre, la fermeture du tableau de bord et de l'API d'Agent Builder le 30 novembre, et celle d'un troisième produit de la même famille, l'Assistants API, plus tôt encore, le 26 août.
+
+Aucun de ces arrêts ne venait d'un fournisseur pris au dépourvu par son marché. L'un est le plus grand laboratoire d'IA du secteur et retire des outils qu'il a lui-même conçus et livrés. L'autre venait d'être racheté avec la solidité financière de Workday derrière lui. La taille n'a donné à aucun des deux groupes d'utilisateurs une seule semaine supplémentaire.
+
+## Le calendrier ne vous a jamais appartenu
+
+Une plateforme sur laquelle vous construisez des agents a sa propre feuille de route. Celle-ci répond à l'entreprise qui la possède, pas aux équipes qui s'en servent. La plupart du temps, cela reste invisible, car rien ne change d'un mois sur l'autre. Cette invisibilité est le risque. Un abonnement ressemble à une fondation stable jusqu'au jour où l'avis arrive. Et il arrive selon le calendrier du fournisseur, pas le vôtre. Workday n'a pas demandé aux utilisateurs de Flowise si un mois leur suffisait. OpenAI n'a pas demandé à ceux d'Agent Builder si leur migration pouvait se terminer avant novembre. Aucune des deux entreprises ne devait cette conversation à qui que ce soit : rien dans l'accord ne l'avait jamais promise.
+
+## Ce qui survit à l'avis, c'est le logiciel livré, pas l'abonnement
+
+Le code de Flowise portait une licence Apache 2.0. Toute personne ayant cloné le dépôt avant le 10 août conservait donc un outil de création d'agents fonctionnel, déployable sur ses propres machines après l'arrêt du produit hébergé. Ceux qui n'avaient utilisé que la version hébergée l'ont perdue à la date prévue, avec tous les processus construits dedans. La différence entre les deux groupes n'avait rien à voir avec les montants payés ni avec leur ancienneté comme clients. Elle tenait à ce qu'ils détenaient : une copie fonctionnelle qu'ils contrôlaient ou un compte sur un serveur qui cessait de répondre. Agent Builder d'OpenAI n'a jamais proposé cette autre possibilité : aucune licence à invoquer, aucun dépôt dont créer une copie, puisque le produit n'a jamais été distribué comme un logiciel livré. Il n'a toujours été qu'un accès.
+
+## Ce que nous remettons au client, c'est le système, pas l'identifiant
+
+C'est autour de cette distinction que nous construisons. Un système que nous livrons est conçu pour fonctionner sur l'infrastructure du client. Le code, la configuration et le guide d'exploitation sont livrés avec lui, pas retenus chez nous. Si nous devenions injoignables, le système est ainsi conçu pour continuer comme la veille. Par construction, le client n'a pas besoin de notre permission pour lire ce que fait le système, le modifier ou le déplacer. C'est plus difficile à construire qu'un tableau de bord hébergé, et plus lent à montrer lors d'un premier rendez-vous : aucun écran de connexion à présenter au bout de trente secondes. Cela signifie aussi que la continuité du client n'a jamais été une ligne de notre feuille de route. Son calendrier ne nous a jamais appartenu.
+
+## Trois questions avant le contrat, pas après
+
+Avant de signer quoi que ce soit qu'un fournisseur appelle une plateforme d'agents, demandez ce qu'il vous resterait concrètement si son avis d'arrêt sortait aujourd'hui. Demandez quelle licence couvre le code du système et si elle vous permet d'en faire fonctionner une copie vous-même. La possibilité d'exporter vos données dans un tableur ne répond pas à cette question. Demandez qui écrirait votre guide de migration si les réponses aux deux premières questions se résumaient à personne et rien. La personne qui l'écrira sera dans l'équipe du fournisseur, avec son calendrier, parce que l'accord ne vous a jamais donné prise sur l'un ou l'autre.
+
+Un agent loué répond encore à vos questions jusqu'au jour où il ne le fait plus. L'avis, lorsqu'il arrive, vous dit exactement quelle part de ce que vous aviez construit vous appartenait réellement.

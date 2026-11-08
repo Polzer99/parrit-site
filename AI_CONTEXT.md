@@ -1,3 +1,51 @@
+## Journal en français, correctif 1 du 08/11/2026
+
+Spec locale amendée préservée, baseline `2e070801e735c1b454ae3bf1ea8fc4f40fd4bae0`.
+Les 31 éditions ont été contrôlées ; 11 corrigées : virgules décimales,
+milliers espacés, espace insécable avant %, « 1,36 token par mot ».
+Valeurs, citations anglaises, modèles, versions, URL et code conservés.
+Comparaison des nombres/prix normalisée par langue ; contrôles explicites des
+extraits de code et versions, 31 tests de typographie et deux tests de garde-fous.
+`llms.txt` régénéré ; aucun changement de routes ni d'originaux anglais.
+Installation, lint, build Webpack et tests avant/après réussis : 278 → 311 tests
+Node. TypeScript, marque/claims et 19 Brand OS réussis. Relecture indépendante
+sans défaut restant. Playwright réservé à Claude sur l'hôte selon la spec ;
+aucune preuve de rendu navigateur ou de production ajoutée. Spec et PNG inchangés.
+Aucun commit, push ou déploiement. Détail et limites :
+`docs/REPORT-2026-11-08-journal-en-francais.md`.
+
+## Journal en français, 08/11/2026
+
+Source : `docs/CODEX-SPEC-2026-11-08-journal-en-francais.md`, baseline locale
+`5d34aca63742d9ed060c76af32a3148fbe57e7ab` (PR llms.txt fusionnée).
+31 éditions françaises dans `content/journal/fr/`, même slug/date, translationOf.
+Registre partagé `journal-translations.ts`, lecture par locale avec validation
+bloquante du frontmatter. Index, accueil, thèmes, articles, canonical, alternates
+fr/en/x-default, Article/inLanguage, sitemap et llms.txt suivent la langue.
+Neuf noindex restent en anglais avec leur 308 ; renommages FR en un seul saut.
+RSS et OG existants conservés. Certificats inchangés, badge FR explicitement
+rattaché à l'original anglais. Tracing des quatre routes bilingues vérifié.
+
+Validation : npm ci, lint sans avertissement, build Webpack et 278 tests Node
+réussis, dont 62 rendus compilés FR/EN sans réseau. 40 tests Node ajoutés
+(39 dans deux nouvelles suites, un calcul de lecture FR), 41 tests navigateur
+ajoutés. Audits marque/claims réussis ; 554 tests Playwright recensés, exécution
+réservée à Claude sur l'hôte selon la spec. Référence ciblée avant code : 17/17,
+rejouée après : 17/17 ; premières tentatives lint/build de référence interrompues
+sans résultat complet. Aucun seuil géométrique ni deny-all assoupli. Les anciens
+contrats imposant des articles anglais ont été remplacés, pas supprimés.
+
+Relectures indépendantes du contenu et du routage effectuées ; nuances de sens
+corrigées. prooflint exécuté sur les 31 fichiers : deux faux positifs strictement
+identifiés ([specific topic], [your name]) appartiennent aux citations anglaises
+obligatoirement conservées. Aucun autre diagnostic bloquant admis par les tests.
+Contradiction de la spec signalée : les seuls tarifs tiers déjà présents dans
+GLM ($4.40/$1.40) sont conservés pour respecter la fidélité aux faits/chiffres ;
+aucun tarif Parrit ni nouveau prix ajouté. Origine anglaise, spec et PNG du handoff
+vérifiés par SHA256 et inchangés. Pas de commit, push ou déploiement. Géométrie,
+interactions navigateur et effet en production restent à vérifier sur l'hôte.
+Avertissements Next metadataBase et Node MODULE_TYPELESS_PACKAGE_JSON préexistants.
+
 ## llms.txt et articles, 08/11/2026
 
 Source : spec locale autorisée `docs/CODEX-SPEC-2026-11-08-llms-txt-articles.md`,

@@ -1,0 +1,59 @@
+---
+title: "Avant de laisser un modèle cliquer, demandez ce qu’il peut annuler"
+date: "2026-09-08"
+description: "Le pilotage d’ordinateur met fin à l’argument du logiciel impossible à automatiser faute d’API. Il laisse une question plus difficile : une session de navigateur connectée porte tous les droits d’une personne, sans périmètre limité."
+slug: "computer-use-what-it-can-undo"
+translationOf: "computer-use-what-it-can-undo"
+---
+
+Sur nos machines, un navigateur fonctionne déjà sans que personne le surveille. Avant la mise en ligne de chacun de nos sites, une batterie de tests l’ouvre dans trois navigateurs et à trois largeurs d’écran, clique sur tous les liens trouvés et signale les défauts. Son code de sortie est le nombre de bugs. Il tourne sans surveillance et ne nous a jamais fait perdre une minute de sommeil. La raison tient peu à ses qualités : il n’a aucun mot de passe. Il ne peut rien acheter, rien envoyer, ni modifier un enregistrement. Il ne peut que regarder.
+
+C’est la raison qui compte le plus. Il faut la dire clairement maintenant, car cette contrainte est sur le point de devenir facultative pour beaucoup d’équipes.
+
+## Ce qui a changé le 3 septembre
+
+OpenAI a lancé GPT-6 Astra le 3 septembre 2026 en plaçant le pilotage d’ordinateur au premier plan. La promesse : le modèle utilise les logiciels comme une personne, passe du navigateur au tableur et aux applications de bureau, mène une tâche en plusieurs étapes d’une fenêtre à l’autre et produit un document terminé. Les articles de Fortune, CNBC et VentureBeat sur le lancement concordaient sur cette description. L’annonce d’OpenAI elle-même commence par là.
+
+La même annonce contient un second fait, moins remarqué. OpenAI a classé le modèle au niveau Critical pour la cybersécurité dans son cadre de préparation aux risques, son échelle interne de dangerosité des capacités. L’entreprise a traduit ce classement en décision : les capacités de sécurité offensive sont exclues de l’accès général à l’API et réservées à des organisations qu’elle a vérifiées. Il faut bien qualifier cette information. C’est le fournisseur qui évalue son produit, pas un audit indépendant. Cela mérite tout de même d’être lu : une entreprise qui a toutes les raisons commerciales de tout livrer a décidé de placer un contrôle d’accès devant une partie du modèle.
+
+## L’excuse qui vient d’expirer
+
+Pendant des années, la réponse honnête à « can you automate this? » (pouvez-vous automatiser cela ?) était parfois non, parce que l’outil n’avait pas d’API. Le portail fournisseur, l’écran d’ERP vieux de vingt ans, l’extranet d’assurance qui demande encore un certificat. On pouvait imiter les clics avec de la RPA et accepter qu’un bouton déplacé casse le scénario, ou laisser le travail à la personne qui s’en chargeait.
+
+Cette réponse tient moins bien ce mois-ci, et tous les vendeurs d’automatisation le savent. Ce qui n’a pas changé, c’est le point qui soutenait vraiment la décision. L’absence d’API n’a jamais été la vraie raison pour laquelle ces processus restaient manuels. Elle représentait commodément un autre fait : personne n’avait déterminé ce qui se passe lorsque l’automatisation se trompe à trois heures du matin un dimanche.
+
+## Une session de navigateur n’est pas un accès limité
+
+C’est le point que nous mettrions sur la première diapositive devant une équipe de sécurité.
+
+Une clé d’API est un objet limité, descriptible. Vous pouvez lui accorder uniquement des droits de lecture, la restreindre à un point d’accès, plafonner sa fréquence d’appel, la renouveler, la révoquer en une seconde et lire un journal attribuant chaque appel à cette clé précise. Quand vous donnez une clé d’API à un système, vous lui accordez une capacité définie et restreinte, que vous pouvez nommer clairement.
+
+Une session de navigateur connectée est l’inverse. Elle porte tous les droits de la personne qui s’est connectée : c’est sa fonction. Si cette personne peut valider une facture, émettre un remboursement, exporter la liste clients ou supprimer une fiche, tout ce qui pilote sa session le peut aussi. Il n’existe généralement aucun moyen d’en céder la moitié. Le modèle de permissions de la plupart des logiciels métier suppose qu’un humain est assis devant l’écran et se sait personnellement responsable de ses clics. Cette hypothèse pèse davantage dans votre sécurité que vos documents ne l’admettent.
+
+La piste d’audit hérite du même défaut. Les actions effectuées dans la session apparaissent sous le nom de son propriétaire humain. Six semaines plus tard, quand quelqu’un demande qui a validé l’opération, l’enregistrement répond : une personne.
+
+## La réversibilité comme condition d’accès
+
+La question à poser sur un agent qui pilote un ordinateur est donc ce que la tâche écrit, et si vous pouvez le remettre en état. La capacité n’est pas le bon axe de décision. Supposons que ces modèles deviennent très bons pour cliquer, puisque les notes de version pointent dans cette direction. La question utile reste entière.
+
+Nous avons payé les deux volets de cette leçon sur nos propres systèmes, puis raconté chacun dans ce Journal. Le 31 août, dans « Agents that fabricate facts: what a 1,355-row cleanup taught us », nous décrivions la découverte de 1 355 lignes dans notre base affirmant que notre système avait contacté des personnes qu’il n’avait jamais contactées. Aucun client n’était concerné et aucun modèle ne les avait produites. Un vestige de notre code l’avait fait en silence, puis tous les composants en aval les avaient lues comme vraies. Trois jours plus tard, nous publiions « When you roll back a bad deploy, what else disappears with it? ». L’article est paru le jour de l’annonce d’Astra par hasard de calendrier, sans rapport avec elle. Nous y décrivions une restauration correcte pour le code, mais aveugle à un article publié dans la même unité de déploiement, qu’elle avait supprimé au passage. Aucun des deux incidents n’avait besoin d’un agent. Tous deux concernaient une écriture invisible et un état auquel personne ne pouvait revenir proprement.
+
+C’est aussi la réponse honnête à la question financière, généralement posée comme une comparaison entre le coût d’automatisation et celui d’un salaire. Le coût d’une mauvaise écriture est rarement l’écriture elle-même. C’est l’enquête : découvrir que la donnée est fausse, établir jusqu’où elle s’est propagée et corriger chaque copie déjà lue par un autre composant. Chez nous, il s’agissait de 1 355 lignes, accumulées assez discrètement et assez longtemps pour que rien ne paraisse inhabituel dans les chiffres quotidiens. Nous n’avons jamais chiffré les heures passées à remonter leur origine. Cet oubli est lui-même la leçon : le coût arrive tard, en bloc, sans ligne de facture. Voilà précisément pourquoi il reste absent de la comparaison qui a justifié le projet.
+
+## Ce que nous faisons
+
+Nous classons les tâches selon le coût de leur annulation plutôt que leur caractère fastidieux. Ce classement comporte deux limites.
+
+Sous la première se trouve tout ce qui se contente de lire : rassembler, vérifier, comparer, surveiller un changement de statut sur un portail. Un modèle qui pilote un navigateur convient bien à ces tâches. Le pire résultat est une phrase fausse, qu’une personne peut contester. Notre batterie de tests se trouve ici. Ces tâches peuvent tourner la nuit.
+
+Au-dessus de la seconde se trouve tout ce qui engage l’entreprise envers quelqu’un à l’extérieur : envoyer, chiffrer, accepter, payer. Une personne appuie sur le bouton, à chaque fois. La machine prépare l’action et rend sa validation peu coûteuse. Nous tenions cette limite avant que tout cela soit possible. Un modèle qui clique bien ne justifie pas de la déplacer.
+
+Le travail à examiner se trouve entre les deux, lorsque l’automatisation écrit dans des systèmes qui nous appartiennent. Un agent de pilotage d’ordinateur peut y agir si trois conditions sont réunies. Il travaille avec son propre compte, doté des droits les plus restreints que le logiciel autorise. Le mot « narrow » (restreint) décrit alors une réalité, au lieu de masquer l’héritage de tout le bureau d’une personne. Chaque action est enregistrée comme la sienne avant son exécution : le journal décrit un plan, pas un souvenir. Enfin, l’état qu’il touche peut être restauré depuis un point connu sans emporter autre chose. Cette propriété tient à la structure du système et ne se greffe pas après coup. Quand nous ne pouvons pas réunir les trois conditions, la tâche reste manuelle. Nous le disons, au lieu de livrer en espérant que tout se passe bien.
+
+## La liste à faire cette semaine
+
+Vous pouvez faire la première moitié de ce travail vous-même, sans rien acheter ni nous parler. Prenez toutes les automatisations déjà actives dans votre entreprise, y compris celles qui précèdent l’intérêt pour les agents. Pour chacune, notez l’identifiant d’accès utilisé. Pas l’outil : l’identifiant. Marquez ensuite chaque ligne dont la réponse est le compte d’une personne, au lieu d’un compte appartenant à l’automatisation.
+
+Ces lignes sont celles à examiner avant d’approuver un pilote de prise en main d’ordinateur. Elles possèdent déjà, depuis des années, la propriété qui rend cet usage risqué. Pour chacune, posez la seconde question : si cette automatisation se trompe ce soir, qui l’apprend et comment remet-on les choses en état ? Une ligne sans réponse ne devrait pas recevoir de capacités supplémentaires.
+
+La liste est souvent plus courte qu’on ne le craint et plus préoccupante qu’on ne l’imagine. La nôtre l’était. Rien ici ne prédit le niveau que ces modèles atteindront. Rien ne devient plus facile en attendant, car l’écart décrit n’est pas technique. Il se situe entre ce qu’un système sait faire et ce que quelqu’un a décidé de l’autoriser à faire. Aucun fournisseur ne peut le combler pour vous. Une capacité arrive à une date de lancement. Une permission se définit par écrit.

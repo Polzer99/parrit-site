@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { HOME_LAYERS, HOME_SECTION_ORDER, homeSectionHeadings } from "../src/system/home-layers.ts";
 import { getAllJournalEntrySummaries } from "../src/system/journal-data.ts";
 import { getJournalThemes } from "../src/system/journal-themes.ts";
+import { localizedPath } from "../src/system/locale.ts";
 import { journalClientNames } from "./lib/public-clients.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -14,7 +15,7 @@ const themes = [
   ["integration-developpement", "Relier vos logiciels et construire ce qui manque.", "Connect your software and build what is missing."],
   ["conseil-transformation", "Choisir vos priorités et préparer vos équipes.", "Choose your priorities and prepare your teams."],
 ];
-export function renderLlms(entries = getAllJournalEntrySummaries()) {
+export function renderLlms(entries = getAllJournalEntrySummaries(), frenchEntries = getAllJournalEntrySummaries("fr")) {
   const order = locale => {
     const headings = homeSectionHeadings(locale);
     return HOME_SECTION_ORDER.map(id => headings[id].join(" ")).join(" ; ");
@@ -22,9 +23,11 @@ export function renderLlms(entries = getAllJournalEntrySummaries()) {
   const faq = locale => HOME_LAYERS[locale].faq.map(([question, answer]) => `- ${question}\n  ${answer}`).join("\n");
   const published = entries.filter(entry => !entry.noindex).sort((left, right) =>
     right.date.localeCompare(left.date) || left.title.localeCompare(right.title, "en"));
-  const articles = locale => published.map(entry => {
+  const frenchBySlug = new Map(frenchEntries.map(entry => [entry.slug, entry]));
+  const articles = locale => published.map(original => {
+    const entry = locale === "fr" ? frenchBySlug.get(original.slug) ?? original : original;
     const themes = getJournalThemes(entry.slug).map(theme => ` [${theme.label[locale]}]`).join("");
-    return `- https://parrit.ai/journal/${entry.slug} : ${entry.title} (${entry.date}). ${entry.description}${themes}`;
+    return `- https://parrit.ai${localizedPath(`/journal/${entry.slug}`, locale)} : ${entry.title} (${entry.date}). ${entry.description}${themes}`;
   }).join("\n");
   const content = `# Parrit.ai
 
@@ -48,7 +51,6 @@ ${themes.map(([slug, fr]) => `- https://parrit.ai/fr/journal/themes/${slug} : ${
 
 ### Journal
 - https://parrit.ai/fr/journal : retours datés sur ce qui fonctionne et ce qui échoue dans les outils d'IA en entreprise.
-- L'index est en français ; les articles restent en anglais, à une seule adresse sous https://parrit.ai/journal/.
 
 ### Articles
 ${articles("fr")}
@@ -77,7 +79,6 @@ ${themes.map(([slug, , en]) => `- https://parrit.ai/journal/themes/${slug}: ${en
 
 ### Journal
 - https://parrit.ai/journal: dated accounts of what works and what fails in AI tools inside companies.
-- Articles have a single English URL under https://parrit.ai/journal/.
 
 ### Articles
 ${articles("en")}

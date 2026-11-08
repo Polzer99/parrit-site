@@ -1,3 +1,5 @@
+import { hasFrenchJournalTranslation } from "./journal-translations.ts";
+
 export const LOCALES = ["fr", "en"] as const;
 
 export type Locale = (typeof LOCALES)[number];
@@ -17,10 +19,15 @@ export function barePathname(pathname: string): string {
   return pathname === "/fr" ? "/" : pathname.startsWith("/fr/") ? pathname.slice(3) : pathname;
 }
 
-// Articles have a single English URL; French aliases redirect before proxy.
+// Article pages are distinct from feeds, themes and OG images.
 // Feeds, OG images and other nested routes are not article pages.
 export function isJournalArticlePath(pathname: string): boolean {
   return /^\/journal\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(pathname);
+}
+
+export function isTranslatedPath(pathname: string): boolean {
+  return TRANSLATED_PATHS.includes(pathname)
+    || (isJournalArticlePath(pathname) && hasFrenchJournalTranslation(pathname.slice("/journal/".length)));
 }
 
 export function localizedPath(href: string, locale: Locale): string {
@@ -28,7 +35,7 @@ export function localizedPath(href: string, locale: Locale): string {
   const pathname = suffixAt < 0 ? href : href.slice(0, suffixAt);
   const suffix = suffixAt < 0 ? "" : href.slice(suffixAt);
   const bare = barePathname(pathname);
-  return `${locale === "fr" && TRANSLATED_PATHS.includes(bare) ? `/fr${bare === "/" ? "" : bare}` : bare}${suffix}`;
+  return `${locale === "fr" && isTranslatedPath(bare) ? `/fr${bare === "/" ? "" : bare}` : bare}${suffix}`;
 }
 
 export function isLocale(value: string | null | undefined): value is Locale {
@@ -62,7 +69,7 @@ export function localizedAlternates(pathname: string, locale: Locale) {
   return {
     canonical: localizedPath(bare, locale),
     languages: {
-      ...(TRANSLATED_PATHS.includes(bare) ? { fr: localizedPath(bare, "fr") } : {}),
+      ...(isTranslatedPath(bare) ? { fr: localizedPath(bare, "fr") } : {}),
       en: bare,
       "x-default": bare,
     },

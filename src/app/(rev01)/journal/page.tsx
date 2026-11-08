@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> { const locale = awa
 export default async function JournalPage() {
   const locale = await getLocale();
   const copy = DICT[locale];
-  const entries = getAllJournalEntrySummaries();
+  const entries = getAllJournalEntrySummaries(locale);
 
   return (
     <main className="rev-page">
@@ -34,7 +34,6 @@ export default async function JournalPage() {
 
           <h1>{copy.heading}</h1>
           <p>{copy.sub}</p>
-          {locale === "fr" && <p>Articles en anglais</p>}
         </header>
 
         <ol className="journal-list journal-index">

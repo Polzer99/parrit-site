@@ -1,7 +1,74 @@
+import { readdirSync, readFileSync } from "node:fs";
+import path from "node:path";
+import matter from "gray-matter";
 import { expectPopulated } from "./content-structure";
 import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
+if (!["localhost", "127.0.0.1"].includes(new URL(BASE_URL).hostname)) throw new Error("Local test origin required");
+const SITE = "https://parrit.ai";
+const DIRECTORY = path.join(process.cwd(), "content", "journal");
+const sourceArticles = readdirSync(DIRECTORY).filter(filename => filename.endsWith(".mdx")).map(filename => {
+  const { data, content } = matter(readFileSync(path.join(DIRECTORY, filename), "utf8"));
+  return { filename, slug: filename.slice(0, -4), noindex: data.noindex === true, content };
+});
+const translatedArticles = sourceArticles.filter(entry => !entry.noindex);
+const untranslatedArticles = sourceArticles.filter(entry => entry.noindex);
+
+test.use({ serviceWorkers: "block" });
+
+test("the route matrix covers all 31 published translations and 9 noindex originals", () => {
+  expect(translatedArticles).toHaveLength(31);
+  expect(untranslatedArticles).toHaveLength(9);
+});
+
+for (const source of translatedArticles) test(`French article and reciprocal metadata: ${source.slug}`, async ({ page }) => {
+  const french = matter(readFileSync(path.join(DIRECTORY, "fr", source.filename), "utf8"));
+  const english = matter(readFileSync(path.join(DIRECTORY, source.filename), "utf8"));
+  await page.setExtraHTTPHeaders({ "Accept-Language": "en" });
+  for (const [locale, entry] of [["fr", french], ["en", english]] as const) {
+    const pathname = `${locale === "fr" ? "/fr" : ""}/journal/${source.slug}`;
+    const response = await page.goto(`${BASE_URL}${pathname}`);
+    expect(response?.status()).toBe(200);
+    expect(response?.request().redirectedFrom()).toBeNull();
+    await expect(page.locator("html")).toHaveAttribute("lang", locale);
+    await expect(page.locator(".journal-body")).toHaveAttribute("lang", locale);
+    await expect(page.locator(".journal-header h1")).toHaveText(String(entry.data.title));
+    await expect(page.locator(".journal-header .journal-deck")).toHaveText(String(entry.data.description));
+    const firstParagraph = entry.content.trim().split(/\n\s*\n/)[0].replace(/\[([^\]]+)\]\([^)]*\)/g, "$1");
+    await expect(page.locator(".journal-body > p").first()).toHaveText(firstParagraph);
+    await expect(page.locator(".journal-header time")).toHaveAttribute("datetime", String(entry.data.date));
+    await expect(page.locator(".journal-header .journal-entry-meta")).toContainText(locale === "fr" ? /[1-9]\d* min de lecture/ : /[1-9]\d* min read/);
+    await expect(page.locator("[data-language-note]")).toHaveCount(0);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${SITE}${pathname}`);
+    for (const [language, prefix] of [["fr", "/fr"], ["en", ""], ["x-default", ""]]) {
+      await expect(page.locator(`link[rel="alternate"][hreflang="${language}"]`)).toHaveAttribute("href", `${SITE}${prefix}/journal/${source.slug}`);
+    }
+    const structuredData: unknown[] = (await page.locator('main script[type="application/ld+json"]').allTextContents()).map(text => JSON.parse(text) as unknown);
+    expect(structuredData).toContainEqual(expect.objectContaining({
+      "@type": "Article", inLanguage: locale, headline: entry.data.title,
+      description: entry.data.description, datePublished: entry.data.date,
+      mainEntityOfPage: `${SITE}${pathname}`,
+    }));
+  }
+  expect(french.data.title).not.toBe(english.data.title);
+  expect(french.content).not.toBe(english.content);
+});
+
+for (const source of untranslatedArticles) test(`noindex French alias keeps one 308: ${source.slug}`, async ({ request }) => {
+  // APIRequestContext bypasses browser routing: origin is guarded above and redirects never auto-follow.
+  const query = "?source=journal-test&utm_source=mail&utm_campaign=a%26b&utm_custom=one&utm_custom=two";
+  const response = await request.get(`${BASE_URL}/fr/journal/${source.slug}${query}`, { maxRedirects: 0 });
+  expect(response.status()).toBe(308);
+  const target = new URL(response.headers()["location"] ?? "", BASE_URL);
+  expect(target.href).toBe(`${BASE_URL}/journal/${source.slug}${query}`);
+  const followed = await request.get(target.href, { maxRedirects: 0 });
+  expect(followed.status()).toBe(200);
+  const html = await followed.text();
+  expect(html).toContain('<html lang="en"');
+  expect(html).toMatch(/<meta name="robots" content="[^"]*noindex/);
+  expect(html).not.toContain('hreflang="fr" href="https://parrit.ai/fr/journal/');
+});
 
 test("first certified article renders its Harness label and serves the linked certificate", async ({ page }) => {
   await page.goto(`${BASE_URL}/journal/malicious-mcp-server-after-install`);
@@ -27,9 +94,11 @@ test("renamed French slugs answer one permanent redirect", async ({ request }) =
   for (const [source, target] of [
     ["/journal/une-carte-une-action", "/journal/one-card-one-action"],
     ["/journal/glm-5-2-souverainete", "/journal/glm-5-2-sovereignty"],
+    ["/fr/journal/une-carte-une-action", "/fr/journal/one-card-one-action"],
+    ["/fr/journal/glm-5-2-souverainete", "/fr/journal/glm-5-2-sovereignty"],
   ]) {
     const response = await request.get(`${BASE_URL}${source}`, { maxRedirects: 0 });
-    expect(response.status()).toBe(301);
+    expect(response.status()).toBe(source.startsWith("/fr/") ? 308 : 301);
     const location = new URL(response.headers()["location"] ?? "", BASE_URL);
     expect(location.href).toBe(`${BASE_URL}${target}`);
 

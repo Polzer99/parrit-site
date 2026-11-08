@@ -1,0 +1,41 @@
+---
+title: "Sécuriser un agent IA de développement commence par le shell"
+date: "2026-09-28"
+description: "Notre premier contrôle surveillait l'éditeur de fichiers. Huit semaines de journaux plus tard, 97 % des refus de la seconde version venaient du shell. Une règle dans un prompt est une demande ; un hook avant chaque appel d'outil est une permission."
+slug: "permission-layer-for-coding-agents"
+translationOf: "permission-layer-for-coding-agents"
+---
+
+Un mercredi soir d'août, un agent travaillant dans l'un de nos dépôts a émis une commande shell pour ouvrir un fichier de configuration. Ce fichier contenait des clés API. Un script exécuté avant chaque appel d'outil a lu la commande, reconnu le fichier dans une liste de porteurs d'identifiants et renvoyé le code de sortie 2. La commande n'a jamais été exécutée. L'agent a reçu une ligne expliquant le refus à la place du fichier.
+
+Ce refus est une ligne dans un journal qui enregistre chaque décision du script depuis le 2 août 2026. Ce journal répond à une question que les ingénieurs posent régulièrement en public, notamment dans un fil Hacker News intitulé "How do you secure AI coding agents?" (Comment sécuriser les agents IA de développement ?) : où faut-il placer le contrôle pour qu'il tienne ?
+
+## La première version surveillait la mauvaise porte
+
+Nous utilisons deux agents de développement aux rôles distincts. L'un écrit le code de production et ouvre une pull request. L'autre relit et fusionne, avec interdiction d'écrire lui-même du code de production. Nous avons d'abord rédigé cette règle comme une instruction dans le contexte permanent de l'agent relecteur. Une instruction ne fonctionne que si l'agent la lit et lui accorde le même poids à chaque appel. Une permission ne peut pas en dépendre.
+
+Nous en avons donc fait un hook. Claude Code exécute un hook PreToolUse avant l'appel d'un outil. Sa [documentation](https://code.claude.com/docs/en/hooks) précise que le code de sortie 2 bloque l'appel, quel que soit le texte affiché par le hook. La première version de notre contrôle ciblait les outils d'édition de fichiers, Write et Edit, car c'est là que nous imaginions le code s'écrire.
+
+Le journal de la seconde version montre où les écritures ont réellement lieu. Sur 40 044 décisions enregistrées entre le 2 août et le 28 septembre 2026, jeux de données de test exclus, le contrôle en a refusé 2 034. Parmi ces refus, 1 976 concernaient des commandes shell et 58 les outils d'édition de fichiers. Ce sont des tentatives : un agent qui réessaie une commande refusée est compté à chaque essai. La déduction est la nôtre : un contrôle limité à l'éditeur aurait laissé passer environ 97 % de ce que celui-ci a arrêté. Un shell peut écrire un fichier, pousser une branche ou afficher un secret sans jamais appeler l'éditeur.
+
+## Sur quoi portaient les refus
+
+La première catégorie concerne les secrets. 624 refus, soit environ trois sur dix, visaient un fichier contenant des identifiants, le plus souvent une lecture suivie de son affichage à l'écran. Un secret affiché entre dans la transcription de l'agent. À partir de là, il faut le renouveler partout où il sert. Chacun de ces refus a évité cette corvée. Viennent ensuite les commandes git dont l'effet ne se lit pas dans la seule ligne de commande : 57 poussées forcées, autant de fusions dans la branche principale et 24 réinitialisations forcées. Chacune réécrit ou supprime de l'historique. Le contrôle les refuse parce qu'il ne peut pas savoir à l'avance ce qu'elles toucheront.
+
+Ce dernier motif est le choix de conception essentiel. La seconde version raisonne sur une liste fermée d'autorisations : les répertoires de documentation et quelques fichiers nommément désignés sont modifiables dans un dépôt relié à l'agent chargé d'écrire. Tout le reste est refusé par défaut, y compris les commandes dont le contrôle ne peut pas déterminer la cible. Une redirection vers un chemin qu'il ne peut pas lire est refusée. Un interpréteur qui écrit un fichier à partir de code fourni directement dans la commande l'est aussi. Le contrôle pose la même question à chaque commande : peut-il nommer la cible ? Quand il ne le peut pas, la réponse est non.
+
+## La place qui reste à l'humain
+
+Le même fil Hacker News soulève une inquiétude évidente : un agent pourrait convaincre son utilisateur de désactiver le hook. Nous conservons une seule dérogation, un indicateur qu'une personne active délibérément et que le journal enregistre à côté de la décision modifiée. En huit semaines, il a servi une fois.
+
+Notre contrôle a des limites que nous préférons exposer plutôt que laisser découvrir. Il gouverne les écritures et les secrets dans nos dépôts. Il ne surveille pas le trafic réseau. Sa propre configuration réside sur la machine, hors des dépôts protégés : un processus doté d'un accès suffisant pourrait donc la modifier. Fermer cette ouverture relève d'une couche située sous l'agent.
+
+Les plateformes avancent dans la même direction de leur côté. Codex d'OpenAI exécute les commandes dans un [bac à sable](https://learn.chatgpt.com/docs/sandboxing) imposé par le système d'exploitation : Seatbelt sur macOS et bubblewrap sur Linux, les mécanismes d'isolation de processus de chaque système. En mode workspace-write, il demande une approbation avant d'écrire hors du projet ou d'accéder au réseau. Un tel bac à sable délimite ce qu'un processus peut toucher. En mode workspace-write, il exclut les fichiers extérieurs au projet, comme ceux qui configurent un hook. Notre hook ajoute ce qu'un éditeur ne peut pas savoir : ce que nous considérons comme de la production dans nos propres dépôts. Nous le possédons jusqu'au fichier qui énumère ses autorisations.
+
+## Commencer par lire votre propre journal
+
+Si un agent de développement travaille déjà dans vos dépôts, ouvrez le relevé des commandes qu'il a exécutées le mois dernier et classez-les par outil. Comptez celles qui sont passées par le shell, puis celles que vos contrôles actuels auraient vues avant leur exécution. Si le second nombre est inférieur au premier, cet écart désigne l'endroit où votre règle reste une instruction.
+
+Choisissez ensuite les commandes que vous voudriez le moins voir un agent exécuter sans surveillance dans votre dépôt principal. Écrivez un hook qui les refuse et enregistre chaque refus avec son motif. Laissez-le tourner deux semaines avant d'élargir son périmètre. Le journal vous dira où l'agent va réellement, rarement là où vous l'imaginiez.
+
+Un agent suit une règle tant qu'il s'en souvient. Un hook s'exécute à chaque appel qui lui correspond.

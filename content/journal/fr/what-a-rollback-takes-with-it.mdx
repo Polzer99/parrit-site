@@ -1,0 +1,39 @@
+---
+title: "Quand vous annulez un mauvais déploiement, qu'est-ce qui disparaît avec lui ?"
+date: "2026-09-03"
+description: "Un rollback, ou retour arrière, rétablit un état dont on sait qu'il fonctionne. Tout ce qui a été livré depuis disparaît avec lui. Nous avons perdu un article publié de cette façon cette semaine. La correction porte sur ce que contient le déploiement, pas sur le rollback."
+slug: "what-a-rollback-takes-with-it"
+translationOf: "what-a-rollback-takes-with-it"
+---
+
+Le rollback (retour arrière) semble être le bouton le plus sûr de la pièce. La production ne convient pas, une version validée existe, vous la remettez. Rien de nouveau n'est introduit, donc rien de nouveau ne peut casser. Ce raisonnement est juste pour le code. Il ne dit rien de tout ce qui a été livré entre la version validée et le moment où vous avez appuyé sur le bouton. Cette semaine, ce silence nous a coûté un article publié. L'incident mérite d'être écrit, car sa structure se retrouve dans la plupart des entreprises qui automatisent quelque chose.
+
+## Ce qui s'est réellement passé
+
+Nous exploitons un moteur éditorial sur l'un de nos sites. Chaque jour ouvré, il collecte de la matière, écrit un article, lui fait passer des contrôles automatiques, le committe sur la branche principale, déploie, puis interroge la page en ligne jusqu'à retrouver son titre. Mercredi matin, il a fait exactement cela. La page était au vert.
+
+Le même jour, le même dépôt a reçu plusieurs itérations sur la mise en page de l'accueil. Elles sont passées par la même branche et le même chemin de déploiement. Le soir, le propriétaire a regardé le résultat en ligne, l'a immédiatement refusé et a demandé de figer la production sur la dernière version qu'il avait validée, deux jours plus tôt. Une bonne décision, exécutée en quelques minutes.
+
+Jeudi matin, le moteur s'est réveillé, a vérifié que l'article de la veille était toujours accessible et a reçu une 404. Rien n'avait été retiré volontairement. Personne n'avait décidé de dépublier quoi que ce soit. L'article était simplement né après le commit sur lequel la production était désormais figée. Le rollback l'avait emporté avec la mise en page qu'il annulait.
+
+## Deux objets avec des responsables différents dans un même déploiement
+
+L'article et la mise en page n'avaient rien à voir. Leurs auteurs étaient différents, une machine et un designer. Leurs validations aussi : une chaîne de contrôles automatiques pour l'un, le regard du propriétaire sur un écran pour l'autre. Ils partageaient une branche et un déploiement. Tout le problème tient à cette unité commune. Un rollback agit sur l'unité de déploiement. Il ne peut pas rétablir un objet et conserver l'autre. Il rétablit l'ensemble.
+
+La plupart des équipes découvrent cela avec les feature flags (activation des fonctionnalités) ou les migrations de base de données. Nous l'avons découvert avec du contenu. La leçon est moins rude, mais c'est la même. Lorsque deux flux de changements aux responsables différents partagent un déploiement, le premier rollback de l'un emporte l'autre. La personne qui appuie sur le bouton ne le sait pas : de son point de vue, elle annule uniquement son propre travail.
+
+## L'avertissement précédent, lu à moitié
+
+Ce n'était pas le premier signe. Quelques jours plus tôt, un déploiement lancé depuis une copie de travail obsolète avait discrètement écrasé la production avec une version antérieure à un article récent. Nous l'avions traité comme une erreur de routage, corrigé la cible de déploiement, puis poursuivi. Avec le recul, c'était le même fait formulé autrement : sur ce site, quiconque déploie depuis n'importe quelle copie de travail décide de ce qu'est la production. Rien dans le pipeline ne sait quel contenu devrait être en ligne. La branche principale et la production étaient déjà deux choses distinctes. Nous ne l'avions simplement pas écrit.
+
+Maintenant, c'est écrit. Le référentiel de ce site précise que main n'est pas la production, que toute modification de mise en page passe d'abord par un déploiement de prévisualisation et que sa mise en production attend l'accord explicite du propriétaire. C'est la bonne règle pour la mise en page. Elle signifie aussi que le moteur éditorial ne peut plus publier sur ce site tant que le gel n'est pas levé, puisque publier revient ici à déployer main. Ce matin, le moteur a lu le référentiel, compris le gel et écrit sur notre autre site. Un système incapable de lire les consignes actuelles du propriétaire aurait redéployé main pour récupérer son article, annulant ainsi la décision prise la veille au soir.
+
+## Ce que nous comptons changer
+
+Le principe que nous appliquons est que l'unité de déploiement doit correspondre à l'unité de décision. Si le propriétaire décide de la mise en page et les contrôles décident des articles, ces deux décisions ne devraient pas partager un rollback. Concrètement, le contenu cesse d'être un fichier dans l'historique des commits de la mise en page. Il devient une donnée que le site récupère à la compilation depuis une source que le rollback de mise en page ne touche pas. Une mise en page figée affiche alors le contenu à jour. Un article est retiré par le moteur qui l'a publié, volontairement et avec une trace, plutôt que par effet de bord de la soirée de quelqu'un d'autre.
+
+En attendant, deux règles moins coûteuses s'appliquent. Le moteur compte son travail en pages accessibles : une exécution qui se termine par une 404 est une exécution qui n'a pas abouti, quoi qu'ait dit le journal la veille. Et le moteur ne déploie jamais la production d'un site gelé par son propriétaire. Il signale l'écart et attend.
+
+## Pourquoi nous nous en préoccupons sur un petit site
+
+Parce que c'est la structure de pipeline que nous proposons aux clients : une branche et un déploiement pour tout. Faites vos retours arrière avec confiance, mais sachez ce que vous annulez. Assurez-vous que ce qui doit survivre se trouve hors de portée du bouton.

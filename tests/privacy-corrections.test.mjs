@@ -20,6 +20,7 @@ function load(file, globals = {}, mocks = {}) {
       if (Object.hasOwn(mocks, id)) return mocks[id];
       if (id.endsWith(".css")) return {};
       if (["@/system/locale", "@/lib/registry/cta"].includes(id)) return load(`src/${id.slice(2)}.ts`, globals, mocks);
+      if (id === "./journal-translations.ts") return load("src/system/journal-translations.ts", globals, mocks);
       if (id.startsWith("@/")) throw new Error(`Missing mock: ${id}`);
       return require(id);
     },
