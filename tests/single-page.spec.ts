@@ -1426,6 +1426,41 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390, 375]) {
   });
 }
 
+test.describe("headline without JavaScript", () => {
+  test.use({ javaScriptEnabled: false });
+  for (const locale of ["fr", "en"]) for (const width of [1440, 390, 375]) {
+    test(`text fits and contact stays above the fold ${locale} ${width}`, async ({ page }) => {
+      const height = width === 1440 ? 800 : 700;
+      await page.setViewportSize({ width, height });
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.goto(local(locale === "fr" ? "/fr" : "/"));
+      await page.evaluate(() => document.fonts.ready);
+      const title = page.locator(".hero h1");
+      await expect(title).toHaveCSS("font-size", width === 1440 ? "46px" : "38px");
+      await expect(title).toHaveCSS("line-height", width === 1440 ? "52px" : "43px");
+      await expect(title).toHaveCSS("font-weight", "500");
+      await expect(title.locator("b")).toHaveCSS("font-weight", "600");
+      for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
+        const element = page.locator(selector);
+        await expect(element).toBeVisible();
+        await expect(element).toBeInViewport({ ratio: 1 });
+        const bounds = await element.evaluate(el => ({
+          scrollHeight: el.scrollHeight, clientHeight: el.clientHeight,
+          scrollWidth: el.scrollWidth, clientWidth: el.clientWidth,
+        }));
+        expect(bounds.scrollHeight, selector).toBeLessThanOrEqual(bounds.clientHeight + 1);
+        expect(bounds.scrollWidth, selector).toBeLessThanOrEqual(bounds.clientWidth + 1);
+      }
+      if (width === 1440) {
+        const hero = (await page.locator(".hero").boundingBox())!;
+        expect(hero.y + hero.height).toBeLessThanOrEqual(height);
+      }
+      expect(await page.evaluate(() => window.scrollY)).toBe(0);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+    });
+  }
+});
+
 for (const path of ["/fr", "/fr/journal", "/journal/agent-ia-entreprise"]) {
   test(`footer exposes all six destinations on ${path}`, async ({ page }) => {
     await page.goto(local(path));

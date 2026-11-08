@@ -43,3 +43,11 @@ Remplacer la ligne du H1 et le bloc du hero par le nouveau texte, avec la mentio
 ## Preuve attendue
 
 Captures FR et EN du haut de page (desktop et mobile) : le H1 tient sur l'écran sans débordement, le sous-titre est lisible, le bouton est visible sans défiler.
+
+## Correctif après la première passe (PR #363, 08/11)
+
+La PR #363 appliquait ce texte, mais 6 tests `tests/single-page.spec.ts:1370` « business language and localized SEO » (fr/en × 1440/390/375) échouaient en CI et sur l'hôte, à la ligne 1400 : `scrollHeight` du H1 dépasse `clientHeight + 1` d'un pixel (210 contre 209, 174 contre 173, 158 contre 157, 131 contre 130). Le nouveau titre passe sur 4 lignes, et ses lettres à jambage ou à accent (« p », « è ») dépassent la boîte d'un pixel.
+
+Corriger dans le CSS du hero (fichier de styles existant de `SinglePage`, via les jetons Brand OS), sans changer la taille de police, la graisse ni le texte, et **sans assouplir aucun seuil de test**. Par exemple, un petit rembourrage bas sur `.hero h1` ou un ajustement de l'interligne, compensé si nécessaire pour que le hero entier tienne toujours à 1440×800. Le contrôle « le hero entier tient à 1440×800 » doit rester vert.
+
+Cette PR remplace #363 : elle reprend tout le texte ci-dessus plus ce correctif.
