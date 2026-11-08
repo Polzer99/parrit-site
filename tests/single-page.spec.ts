@@ -43,8 +43,8 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
       return node.getBoundingClientRect().height > 0 && style.visibility !== "hidden" && /mono/i.test(style.fontFamily) && Array.from(node.childNodes).some(n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim()) && !node.closest(".cmd-wordmark, .wordmark, .cmdbar .mark");
     }).map(node => node.textContent?.slice(0, 60)));
     expect(mono).toEqual([]);
-    await expect(page.locator("#references").getByRole("img")).toHaveCount(5);
-    await expect(page.locator(".logo-set[aria-hidden=true]")).toHaveCount(1);
+    await expect(page.locator("#references").getByRole("img")).toHaveCount(8);
+    await expect(page.locator(".logo-set[aria-hidden=true]")).toHaveCount(0);
     await expect(page.locator("#services .use-case")).toHaveCount(12);
     await expect(page.locator("#architecture")).toHaveCount(0);
     await expect(page.locator("#services + #technologies")).toHaveCount(1);
@@ -95,8 +95,8 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
         return r.bottom > 0 && r.top < innerHeight && r.width > 0 && s.visibility !== "hidden" && s.display !== "none";
       }).length)).toBeLessThanOrEqual(1);
     }
-    await page.locator('#contact a[href="#reservation"]').click();
-    await expect(page).toHaveURL(/#reservation$/);
+    await expect(page.locator('#contact a[href="#reservation"]')).toHaveCount(0);
+    await page.locator("#reservation").scrollIntoViewIfNeeded();
     await expect(page.locator("#reservation")).toBeInViewport();
     await expect(page.locator(".contact-fallback details")).toHaveCount(0);
     await expect(page.locator('#reservation input[type="email"]')).toBeVisible();
@@ -152,7 +152,7 @@ test("no JavaScript conversations remain visible and legal and 404 stay accessib
     await expect(page.locator(".partner-offers li")).toHaveCount(23);
     for (const offer of await page.locator(".partner-offers li").all()) await expect(offer).toBeVisible();
     for (const face of await page.locator(".partner-delivery").all()) await expect(face).toBeHidden();
-    await expect(page.locator("#references").getByRole("img")).toHaveCount(5);
+    await expect(page.locator("#references").getByRole("img")).toHaveCount(8);
     await expect(page.locator(".contact-fallback input[type=email]")).toBeVisible();
     await expect(page.locator(".onto .story animate, .onto .story animateMotion, .onto .token")).toHaveCount(0);
     await expect(page.locator(".humby")).toBeVisible();
@@ -381,7 +381,7 @@ for (const width of [1440, 800, 390]) test(`service columns and animation entry 
   await expect(services).toHaveAttribute("data-anim", "out");
   for (const card of await page.locator(".use-case").all()) await expect(card).toHaveAttribute("data-case", "0");
   await expect(page.locator("#references > .wrap")).toHaveAttribute("data-anim", "in");
-  await expect(page.locator(".logo-track")).toHaveCSS("animation-duration", "28s");
+  await expect(page.locator(".logo-set img").first()).toHaveCSS("animation-duration", "12.8s");
   await page.emulateMedia({ reducedMotion: "reduce" });
   for (const el of await page.locator(".case, .logo-track, .tech-track").all()) await expect(el).toHaveCSS("animation-name", "none");
 });
@@ -834,7 +834,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await expect(link).toBeInViewport({ ratio: 1 });
       }
       const contact = menu.locator(".btn");
-      await expect(contact).toHaveAttribute("href", locale === "fr" ? "/fr#contact" : "/#contact");
+      await expect(contact).toHaveAttribute("href", locale === "fr" ? "/fr?source=rdv-nav#contact" : "/?source=rdv-nav#contact");
       if (javaScriptEnabled) {
         await page.keyboard.press("Escape");
         await expect(menu).not.toHaveAttribute("open", "");
@@ -1183,7 +1183,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
 }
 
 for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
-  test.describe(`reference logos on one line ${locale} JS=${javaScriptEnabled}`, () => {
+  test.describe(`reference logos inside the strip ${locale} JS=${javaScriptEnabled}`, () => {
     test.use({ javaScriptEnabled });
     for (const [width, height] of [[1440, 800], [1280, 720]]) {
       test(`all logos fit inside the strip at ${width}×${height}`, async ({ page }) => {
@@ -1193,7 +1193,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await page.evaluate(() => document.fonts.ready);
         const set = page.locator(".logo-set:not([aria-hidden])");
         await expect(set).toHaveCount(1);
-        await expect(set.getByRole("img")).toHaveCount(5);
+        await expect(set.getByRole("img")).toHaveCount(8);
         const geometry = await set.evaluate(el => {
           const strip = el.closest(".logo-strip")!.getBoundingClientRect();
           return {
@@ -1206,8 +1206,10 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
           };
         });
         expect(geometry.width).toBeLessThanOrEqual(1060);
-        const tops = geometry.logos.map(logo => logo.top);
-        expect(Math.max(...tops) - Math.min(...tops)).toBeLessThanOrEqual(1);
+        // Décision de Paul du 08/11/2026, nuit : deux rangées autorisées.
+        const rowTops: number[] = [];
+        for (const logo of geometry.logos) if (!rowTops.some(top => Math.abs(top - logo.top) <= 1)) rowTops.push(logo.top);
+        expect(rowTops.length).toBeLessThanOrEqual(2);
         for (const logo of geometry.logos) {
           expect(logo.width).toBeGreaterThan(0);
           expect(logo.height).toBeGreaterThan(0);
@@ -1300,11 +1302,11 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390, 375]) {
     await expect(page.locator("h1")).toHaveText(headline);
     await expect(page.locator("h1 b")).toHaveText(locale === "fr" ? "Nous la mettons au travail." : "We put it to work.");
     await expect(page.locator(".hero .sub p")).toHaveText(locale === "fr"
-      ? "Nous formons vos équipes à l'IA et construisons les outils qui leur manquent."
-      : "We train your teams in AI and build the tools they need.");
-    await expect(page.locator(".hero .exec")).toHaveText(locale === "fr" ? "Parler d'un projet" : "Talk about a project");
-    // Decision 08/11: preserve the contact destination and verify its project attribution.
-    await expect(page.locator(".hero .exec")).toHaveAttribute("href", `${locale === "fr" ? "/fr" : "/"}?source=intention-projet-hero#contact`);
+      ? "Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent."
+      : "Your teams take AI in hand. We build the software they are missing.");
+    await expect(page.locator(".hero .exec")).toHaveText(locale === "fr" ? "Prendre rendez-vous" : "Book a call");
+    // Décision de Paul du 08/11/2026, nuit : action unique et attribution rendez-vous.
+    await expect(page.locator(".hero .exec")).toHaveAttribute("href", `${locale === "fr" ? "/fr" : "/"}?source=rdv-hero#contact`);
     for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
       const element = page.locator(selector);
       await expect(element).toBeVisible();

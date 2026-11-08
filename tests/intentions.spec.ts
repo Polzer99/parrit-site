@@ -16,12 +16,11 @@ test.beforeEach(async ({ page }) => {
   // Local POST must also be mocked: it otherwise calls the real downstream service.
   await page.route("**/api/interet", route => route.fulfill({ json: { ok: true } }));
 });
+// Décision de Paul du 08/11/2026, nuit : une action par emplacement.
 const actions = [
-  [".hero .exec", "intention-projet-hero"],
-  [".hero .ghost", "intention-formation-hero"],
-  [".step:nth-child(1) a", "intention-formation-parcours"],
-  [".step:nth-child(2) a", "intention-priorites-parcours"],
-  [".step:nth-child(3) a", "intention-projet-parcours"],
+  [".single-header > .wrap > a.rev-button", "rdv-nav"],
+  [".hero .exec", "rdv-hero"],
+  ["#bandeau .exec", "rdv-bandeau"],
 ] as const;
 
 for (const locale of ["fr", "en"] as const) {
@@ -57,53 +56,37 @@ for (const locale of ["fr", "en"] as const) {
       await page.goto(local(home));
       await page.evaluate(() => document.fonts.ready);
       const buttons = page.locator(".hero .actions a");
-      await expect(buttons).toHaveCount(2);
-      await expect(buttons.nth(0)).toHaveClass(/\bexec\b/);
-      await expect(buttons.nth(1)).toHaveClass(/\bghost\b/);
-      await expect(buttons.nth(1)).toHaveCSS("font-size", "16px");
-      await expect(buttons.nth(0)).toHaveCSS("font-size", width >= 1200 ? "19px" : "18px");
+      await expect(buttons).toHaveCount(1);
+      await expect(buttons.first()).toHaveClass(/\bexec\b/);
+      await expect(buttons.first()).toHaveCSS("font-size", width >= 1200 ? "19px" : "18px");
       for (const [selector, source] of actions) await expect(page.locator(selector)).toHaveAttribute("href", `${home}?source=${source}#contact`);
-      const boxes = await buttons.evaluateAll(nodes => nodes.map(node => { const r = node.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height }; }));
-      expect(Math.abs(boxes[0].height - boxes[1].height)).toBeLessThanOrEqual(1);
+      const box = (await buttons.first().boundingBox())!;
       const group = (await page.locator(".hero .actions").boundingBox())!;
-      const gap = await page.locator(".hero .actions").evaluate(node => parseFloat(getComputedStyle(node).getPropertyValue("--brand-s2")));
+      expect(Math.abs(box.x - group.x)).toBeLessThanOrEqual(1);
+      expect(box.x + box.width).toBeLessThanOrEqual(group.x + group.width + 1);
       if (width === 1440) {
-        expect(Math.abs(boxes[0].y - boxes[1].y)).toBeLessThanOrEqual(1);
-        const baselines = await buttons.evaluateAll(nodes => nodes.map(node => {
-          const marker = document.createElement("span");
-          marker.style.cssText = "display:inline-block;width:0;height:0;padding:0;border:0;vertical-align:baseline";
-          node.append(marker);
-          const baseline = marker.getBoundingClientRect().top;
-          marker.remove();
-          return baseline;
-        }));
-        expect(Math.abs(baselines[0] - baselines[1])).toBeLessThanOrEqual(1);
-        expect(boxes[1].x - boxes[0].x - boxes[0].width).toBeCloseTo(gap, 0);
-        expect(boxes[1].x + boxes[1].width).toBeLessThanOrEqual(group.x + group.width + 1);
         const diagram = (await page.locator(".onto-diagram").boundingBox())!;
-        expect(boxes[1].x + boxes[1].width).toBeLessThanOrEqual(diagram.x);
+        expect(box.x + box.width).toBeLessThanOrEqual(diagram.x);
         const hero = (await page.locator(".hero").boundingBox())!;
         expect(hero.y + hero.height).toBeLessThanOrEqual(800);
       } else {
-        expect(boxes[1].y - boxes[0].y - boxes[0].height).toBeCloseTo(gap, 0);
-        for (const box of boxes) expect(box.width).toBeCloseTo(group.width, 0);
+        expect(box.width).toBeCloseTo(group.width, 0);
       }
       const steps = page.locator(".steps .step");
       await expect(steps).toHaveCount(3);
-      for (const step of await steps.all()) await expect(step.locator("a")).toHaveCount(1);
+      for (const step of await steps.all()) await expect(step.locator("a")).toHaveCount(0);
       const rows = await steps.evaluateAll(nodes => nodes.map(node => ({
         top: node.getBoundingClientRect().top,
         number: node.querySelector(".n")!.getBoundingClientRect().top,
-        action: node.querySelector("a")!.getBoundingClientRect().bottom,
       })));
-      for (const field of ["top", "number", "action"] as const) expect(Math.max(...rows.map(row => row[field])) - Math.min(...rows.map(row => row[field]))).toBeLessThanOrEqual(1);
+      for (const field of ["top", "number"] as const) expect(Math.max(...rows.map(row => row[field])) - Math.min(...rows.map(row => row[field]))).toBeLessThanOrEqual(1);
       const note = page.locator(".contact-expectation");
       await expect(note).toHaveText(contactExpectation[locale]);
       expect((await note.boundingBox())!.y).toBeGreaterThanOrEqual((await page.locator("#single-contact .quick-fields").boundingBox())!.y + (await page.locator("#single-contact .quick-fields").boundingBox())!.height);
       await expect(page.locator(".logo-track")).toHaveCSS("animation-name", "none");
       expect(await page.locator(".logo-strip").evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);
       const logoSet = page.locator(".logo-set:not([aria-hidden])");
-      await expect(logoSet.getByRole("img")).toHaveCount(5);
+      await expect(logoSet.getByRole("img")).toHaveCount(8);
       const centered = await logoSet.evaluate(el => {
         const parent = el.closest(".logo-strip")!.getBoundingClientRect();
         const r = el.getBoundingClientRect();
@@ -129,9 +112,9 @@ for (const locale of ["fr", "en"] as const) {
       await page.emulateMedia({ reducedMotion: "no-preference" });
       await page.goto(local(home));
       const strip = page.locator(".logo-strip");
-      const track = page.locator(".logo-track");
+      const track = page.locator(".logo-set img").first();
       await strip.scrollIntoViewIfNeeded();
-      await expect(track).toHaveCSS("animation-duration", "28s");
+      await expect(track).toHaveCSS("animation-duration", "12.8s");
       await expect(track).toHaveCSS("animation-iteration-count", "infinite");
       await expect(track).toHaveCSS("animation-play-state", "running");
       await strip.hover();
@@ -159,5 +142,74 @@ for (const locale of ["fr", "en"] as const) {
     const columns = await page.locator(".journal-index").evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").length);
     expect(columns).toBe(width >= 1100 ? 2 : 1);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+  });
+}
+
+// Décision de Paul du 08/11/2026, nuit : mêmes trois placements en SSR et hydratés.
+for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [true, false]) {
+  test.describe(`single appointment action ${locale} JS=${javaScriptEnabled}`, () => {
+    test.use({ javaScriptEnabled });
+    for (const [width, height] of [[1440, 800], [390, 700]]) {
+      test(`three placements, two offers and eight contained logos ${width}`, async ({ page }) => {
+        await page.setViewportSize({ width, height });
+        await page.emulateMedia({ reducedMotion: "reduce" });
+        const home = locale === "fr" ? "/fr" : "/";
+        const label = locale === "fr" ? "Prendre rendez-vous" : "Book a call";
+        await page.goto(local(`${home}?source=old&utm_campaign=appointment&utm_custom=kept`));
+        await page.evaluate(() => document.fonts.ready);
+        if (width <= 900) await page.locator(".mobile-menu summary").click();
+        const actions = page.locator('a.rev-button[href*="#contact"]:visible');
+        await expect(actions).toHaveCount(3);
+        const sources: string[] = [];
+        for (const action of await actions.all()) {
+          await expect(action).toHaveText(label);
+          const target = new URL((await action.getAttribute("href"))!, BASE);
+          expect(target.pathname).toBe(home);
+          expect(target.hash).toBe("#contact");
+          expect(target.searchParams.getAll("source")).toHaveLength(1);
+          sources.push(target.searchParams.get("source")!);
+          expect(target.searchParams.get("utm_campaign")).toBe("appointment");
+          expect(target.searchParams.get("utm_custom")).toBe("kept");
+        }
+        expect(sources.sort()).toEqual(["rdv-bandeau", "rdv-hero", "rdv-nav"]);
+        await expect(page.locator('main a.ghost[href*="#contact"]')).toHaveCount(0);
+        await expect(page.locator('main a[href*="intention-"]')).toHaveCount(0);
+        await expect(page.locator(".home-offer")).toHaveCount(2);
+        await expect(page.locator(".home-offer a,.home-offer button,.step a,.field a")).toHaveCount(0);
+        // Article excerpts keep their own editorial vocabulary, outside this amendment.
+        const text = (await page.locator("main > section:not(#articles)").allInnerTexts()).join("\n");
+        expect(text).not.toMatch(/\b(?:formation|former|formons|training|train)\b|parler d['’]un projet|talk about a project|conseil et outils/i);
+        const logos = page.locator("#references [role=img]");
+        await expect(logos).toHaveCount(8);
+        expect(await logos.evaluateAll(nodes => nodes.map(node => node.getAttribute("aria-label")))).toEqual([
+          "Laparra", "Clevery Avocats", "Forexpert", "Joone", "SNCF", "Toyotomi Europe", "Hiolle Technologies", "Carte Noire",
+        ]);
+        const geometry = await page.locator(".logo-strip").evaluate(strip => {
+          const outer = strip.getBoundingClientRect();
+          return { width: outer.width, overflow: strip.scrollWidth - strip.clientWidth,
+            logos: [...strip.querySelectorAll('[role="img"], img')].map(logo => {
+              const box = logo.getBoundingClientRect();
+              return { width: box.width, height: box.height, left: box.left - outer.left,
+                right: outer.right - box.right, top: box.top - outer.top, bottom: outer.bottom - box.bottom };
+            }) };
+        });
+        expect(geometry.width).toBeLessThanOrEqual(1060);
+        expect(geometry.overflow).toBeLessThanOrEqual(1);
+        for (const logo of geometry.logos) {
+          expect(logo.width).toBeGreaterThan(0);
+          expect(logo.height).toBeGreaterThan(0);
+          for (const distance of [logo.left, logo.right, logo.top, logo.bottom]) expect(distance).toBeGreaterThanOrEqual(-1);
+        }
+        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+        if (width === 1440) {
+          const hero = (await page.locator(".hero").boundingBox())!;
+          expect(hero.y + hero.height).toBeLessThanOrEqual(height);
+        }
+        // Native anchors preserve attribution even without hydration.
+        await page.locator(".hero .exec").click();
+        await expect(page).toHaveURL(/source=rdv-hero.*#contact$/);
+        expect(new URL(page.url()).searchParams.get("utm_custom")).toBe("kept");
+      });
+    }
   });
 }

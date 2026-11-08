@@ -18,11 +18,17 @@ for (const path of PUBLIC_ROUTES) {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(`${BASE_URL}${path}`);
     await page.evaluate(() => document.fonts.ready);
-    const actions = page.locator(`a.rev-button[href="${contact}"], main a.rev-button[href="#contact"]`);
+    const home = path === "/" || path === "/fr";
+    const actions = page.locator(home ? 'a.rev-button[href*="source=rdv-"]' : `a.rev-button[href="${contact}"], main a.rev-button[href="#contact"]`);
     expect(await actions.count()).toBeGreaterThan(0);
     for (const action of await actions.all()) {
       await expectPopulated(action);
-      expect(new URL((await action.getAttribute("href"))!, `${BASE_URL}${path}`).href).toBe(`${BASE_URL}${contact}`);
+      const target = new URL((await action.getAttribute("href"))!, `${BASE_URL}${path}`);
+      if (home) {
+        expect(target.searchParams.get("source")).toMatch(/^rdv-(nav|hero|bandeau)$/);
+        target.search = "";
+      }
+      expect(target.href).toBe(`${BASE_URL}${contact}`);
     }
     for (const button of await page.locator(".rev-button:visible").all()) {
       await expect(button).toHaveCSS("font-family", /General Sans/);
@@ -34,10 +40,10 @@ for (const path of PUBLIC_ROUTES) {
     await page.locator(".mobile-menu summary").click();
     const mobile = page.locator(".single-header .mobile-menu .rev-button");
     await expectPopulated(mobile);
-    await expect(mobile).toHaveAttribute("href", contact);
+    await expect(mobile).toHaveAttribute("href", home ? `${path}?source=rdv-nav#contact` : contact);
     await expect(mobile).toHaveCSS("font-family", /General Sans/);
     await expect(mobile).toHaveCSS("text-transform", "none");
-    await expect(page.locator(`.mobile-menu a[href="${contact}"]`)).toBeVisible();
+    await expect(mobile).toBeVisible();
   });
 
   for (const width of [1440, 390]) {
@@ -105,7 +111,6 @@ for (const path of PUBLIC_ROUTES) {
 
 for (const locale of ["fr", "en"] as const) {
   const home = locale === "fr" ? "/fr" : "/";
-  const contact = `${home}#contact`;
   test(`doctrine header accent without JavaScript ${locale}`, async ({ browser }) => {
     const context = await browser.newContext({ javaScriptEnabled: false, serviceWorkers: "block", extraHTTPHeaders: { "Accept-Language": "en" } });
     const blocked: string[] = [];
@@ -140,11 +145,9 @@ for (const locale of ["fr", "en"] as const) {
     await capture.locator('input[type="email"]').fill("doctrine@example.invalid");
     await capture.locator('button[type="submit"]').click();
     await expect(capture).toHaveAttribute("data-state", "done");
-    const booking = capture.getByRole("link");
-    await expectPopulated(booking);
-    await expect(booking).toHaveAttribute("href", contact);
-    await expect(booking).toHaveCSS("font-family", /General Sans/);
-    await expect(booking).toHaveCSS("text-transform", "none");
+    // Décision de Paul du 08/11/2026, nuit : le succès n'ajoute pas une action.
+    await expect(capture.getByRole("link")).toHaveCount(0);
+    await expect(capture.getByRole("button")).toHaveCount(0);
     expect(submissions).toBe(1);
   });
 

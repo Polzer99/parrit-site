@@ -82,13 +82,11 @@ for (const width of [375, 390, 1440]) {
       if (path === "/" || path === "/fr") {
         await expect(page.locator(".ontocap .onto-now")).toHaveCSS("font-size", "18px");
         const actions = page.locator(".hero .actions");
-        // Décision de Paul du 08/11/2026: project first, training second.
+        // Décision de Paul du 08/11/2026, nuit : une seule action.
         const links = actions.locator("a");
-        await expect(links).toHaveCount(2);
+        await expect(links).toHaveCount(1);
         await expect(links.nth(0)).toHaveClass(/\bexec\b/);
-        await expect(links.nth(1)).toHaveClass(/\bghost\b/);
-        await expect(links.nth(0)).toHaveAttribute("href", `${path}?source=intention-projet-hero#contact`);
-        await expect(links.nth(1)).toHaveAttribute("href", `${path}?source=intention-formation-hero#contact`);
+        await expect(links.nth(0)).toHaveAttribute("href", `${path}?source=rdv-hero#contact`);
         const hero = (await page.locator(".hero .wrap").boundingBox())!;
         const box = (await actions.boundingBox())!;
         expect(box.x).toBeGreaterThanOrEqual(hero.x);

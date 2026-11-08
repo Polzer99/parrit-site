@@ -46,9 +46,10 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
     await server.prepare();
     const render = async (url, locale = "en") => {
       const chunks = [];
+      const pathname = new URL(url, "http://localhost:3210").pathname;
       const { req, res } = createRequestResponseMocks({
         url,
-        headers: { host: "localhost:3210", "x-parrit-locale": locale, "x-parrit-pathname": locale === "fr" ? `/fr${url === "/" ? "" : url}` : url },
+        headers: { host: "localhost:3210", "x-parrit-locale": locale, "x-parrit-pathname": locale === "fr" ? `/fr${pathname === "/" ? "" : pathname}` : pathname },
         resWriter: (chunk) => { chunks.push(Buffer.from(chunk)); return true; },
       });
       await server.getRequestHandler()(req, res);
@@ -198,6 +199,21 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       }
     }
     for (const locale of ["en", "fr"]) {
+      // Décision de Paul du 08/11/2026, nuit : real compiled SSR, no mocked
+      // useSearchParams and no browser JS to replace an unattributed fallback.
+      const home = await render("/?utm_campaign=server%20%26%20test&utm_custom=kept&source=old", locale);
+      assert.equal(home.status, 200);
+      const links = [...home.html.matchAll(/<a\b[^>]*href="([^"]*source=rdv-[^"]*)"[^>]*>/g)];
+      assert.equal(links.length, 4, "two responsive nav copies, hero and banner in server HTML");
+      assert.deepEqual(links.map(([, href]) => {
+        const url = new URL(href.replaceAll("&amp;", "&"), "http://localhost:3210");
+        assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
+        assert.equal(url.hash, "#contact");
+        assert.equal(url.searchParams.get("utm_campaign"), "server & test");
+        assert.equal(url.searchParams.get("utm_custom"), "kept");
+        assert.equal(url.searchParams.getAll("source").length, 1);
+        return url.searchParams.get("source");
+      }).sort(), ["rdv-bandeau", "rdv-hero", "rdv-nav", "rdv-nav"]);
       const { status, html } = await render("/journal/malicious-mcp-server-after-install", locale);
       assert.equal(status, 200);
       const badge = html.match(/<aside class="harness-badge"[^>]*>[\s\S]*?<\/aside>/)?.[0];

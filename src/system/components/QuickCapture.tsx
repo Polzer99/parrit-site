@@ -156,7 +156,7 @@ export function QuickCapture({
         <p>{copy.done}</p>
         <div className="quick-capture-next">
           {sketchUrl ? <a className="rev-button ghost" href={sketchUrl}>{copy.watch}</a> : null}
-          <a className="rev-button ghost" href={localizedPath("/#contact", locale)}>{copy.bookExam}</a>
+          {variant !== "contact" ? <a className="rev-button ghost" href={localizedPath("/#contact", locale)}>{copy.bookExam}</a> : null}
         </div>
       </section>
     );

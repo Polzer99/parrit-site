@@ -1,0 +1,47 @@
+[
+  {
+    "file": "public/clients/toyotomi.png",
+    "source": "~/parrit-canon/docs/site-benchmark/logos-clients/toyotomi.png",
+    "sourceSha256": "036df9b3c8c737263892f991dec6f1428631e1cf08c7f9ba6e30bc91cc1ef252",
+    "sha256": "5e158139fcb2e8656e08ed6ad4da087f9929c7abf0cd9b85e1ed837bda197161",
+    "width": 537,
+    "height": 120,
+    "crop": {
+      "left": 0,
+      "top": 0,
+      "width": 1360,
+      "height": 304
+    },
+    "conversion": "alpha preserved, RGB set to black"
+  },
+  {
+    "file": "public/clients/hiolle-technologies.png",
+    "source": "~/parrit-canon/docs/site-benchmark/logos-clients/hiolle-technologies.svg",
+    "sourceSha256": "4f3bcad25410b96aa31f2c94903d8710eada48e5289022ed8a3a99ae779499f0",
+    "sha256": "490f1dfeae98afdbd172f6fca71c9b74852b97218b4558c2274f711399234cd3",
+    "width": 402,
+    "height": 120,
+    "crop": {
+      "left": 0,
+      "top": 0,
+      "width": 747,
+      "height": 223
+    },
+    "conversion": "alpha preserved, RGB set to black"
+  },
+  {
+    "file": "public/clients/carte-noire.png",
+    "source": "~/parrit-canon/docs/site-benchmark/logos-clients/carte-noire.png",
+    "sourceSha256": "08ceef29eba51edf7a8fba06fc925460874306afbf3a0ff33bcaeccd36f70243",
+    "sha256": "f318e6575aed79efefc86d5d79a8644476cb4915606b4aa7599039a958fa91c5",
+    "width": 254,
+    "height": 120,
+    "crop": {
+      "left": 105,
+      "top": 667,
+      "width": 2190,
+      "height": 1036
+    },
+    "conversion": "alpha × luminance, negative lettering"
+  }
+]

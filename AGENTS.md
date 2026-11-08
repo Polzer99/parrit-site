@@ -1,3 +1,34 @@
+## Action unique et transformation, décision de Paul du 08/11/2026, nuit
+
+`docs/CODEX-SPEC-2026-11-08-action-unique-et-wording.md` remplace les anciens
+contrats de texte et d'action de l'accueil, y compris le hero à deux actions.
+Libellé unique « Prendre rendez-vous » / « Book a call », trois placements
+navigation / hero / bandeau, sources `rdv-nav`, `rdv-hero`, `rdv-bandeau` via
+`avecSource`, UTM conservés. Une action au hero ; aucune action au terrain,
+aux offres, au parcours ni dans le portrait du contact. Le formulaire conserve
+son rôle d'envoi et la lecture des anciennes sources ; son succès n'ajoute pas
+un quatrième bouton. Le lien Journal reste un lien de contenu.
+Deux cartes sombres sans bouton : transformation IA et développement de
+logiciels, pour les PME, ETI et grands groupes. H1 inchangé ; sous-titre :
+« Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent. »
+« Your teams take AI in hand. We build the software they are missing. »
+Textes de l'accueil, FAQ, métadonnées et présentation de l'accueil dans llms
+alignés ; articles et mentions légales conservés.
+Toyotomi Europe, Hiolle Technologies et Carte Noire rejoignent les cinq clients
+publiables, sur décision nominative de Paul sans accord écrit des clients.
+Huit masques locaux, provenance et empreintes dans `public/clients/SOURCES.md` ;
+deux rangées ordinateur autorisées dans 1060 px, grille deux colonnes mobile,
+éclairage successif 1,6 s, rampes 300 ms, pause survol/focus, réduit statique.
+Le Journal ne nomme aucun client. Aucun seuil géométrique ou CLS assoupli.
+
+**Arbitrage ouvert, pas une nouvelle décision de Paul :** la spec demande
+navigation et hero `exec` tout en conservant le hero entier barre comprise à
+1440×800 et un seul rose par écran. Ces exigences sont contradictoires.
+Le libellé et la source de navigation sont mis à jour ; son style antérieur
+`ghost` reste provisoirement conservé, en attente de la réponse à la question
+posée à Paul. Les contrôles du rose unique restent intacts. Cette réserve
+empêche de déclarer la spec intégralement conforme.
+
 ## Appel de 15 minutes, décision de Paul du 08/11/2026
 
 La spec `docs/CODEX-SPEC-2026-11-08-appel-15-min-lot-a.md` ajoute

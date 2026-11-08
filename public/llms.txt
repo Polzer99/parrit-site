@@ -1,22 +1,22 @@
 # Parrit.ai
 
-> Nous formons vos équipes à l'IA et construisons les outils qui leur manquent.
-> We train your teams in AI and build the tools they need.
+> Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent.
+> Your teams take AI in hand. We build the software they are missing.
 
 ## Français
 
 ### La page d'accueil
 - https://parrit.ai/fr
-- Dans l'ordre : Votre expertise est la matière première. Nous la mettons au travail. ; Ils travaillent avec nous. ; Sur le terrain, avec vos équipes. ; Par où commencer ; Quelques applications concrètes. ; Trois étapes, vous commencez où vous voulez. ; Ce que l'IA prépare dans chaque service. ; Pour chaque besoin, nous choisissons la meilleure technologie. ; Chaque projet a son équipe et sa technologie. ; Votre expertise, mise au travail. ; Questions ; Derniers articles ; Paul Larmaraud, fondateur de Parrit.ai
+- Dans l'ordre : Votre expertise est la matière première. Nous la mettons au travail. ; Ils travaillent avec nous. ; Sur le terrain, avec vos équipes. ; Deux métiers, une même transformation. ; Quelques applications concrètes. ; Trois étapes, vous commencez où vous voulez. ; Ce que l'IA prépare dans chaque service. ; Pour chaque besoin, nous choisissons la meilleure technologie. ; Chaque projet a son équipe et sa technologie. ; Votre expertise, mise au travail. ; Questions ; Derniers articles ; Paul Larmaraud, fondateur de Parrit.ai
 - Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.
-- Paul Larmaraud, fondateur de Parrit.ai, forme les équipes et pilote les projets.
+- Paul Larmaraud, fondateur de Parrit.ai, accompagne les équipes dans la prise en main de l'IA et pilote les projets.
 - Présence : Tourcoing et Paris. Zone d'intervention : toute la France.
 
 ### FAQ
 - Par où commence-t-on ?
   Par un premier échange de 15 minutes en visioconférence, puis un cadrage écrit, ou un refus motivé si nous ne sommes pas les bons interlocuteurs.
 - Faut-il des équipes techniques ?
-  Non. Nous formons vos équipes sur leurs outils, puis nous construisons des assistants qu'elles relisent et valident.
+  Non. Vos équipes prennent l'IA en main sur leurs outils, puis nous construisons des assistants qu'elles relisent et valident.
 - Que deviennent nos données ?
   L'IA peut être installée sur vos serveurs, et nous contrôlons l'usage qu'en font vos équipes.
 - Quelles technologies utilisez-vous ?
@@ -80,16 +80,16 @@
 
 ### The home page
 - https://parrit.ai/
-- In order: Your expertise is the raw material. We put it to work. ; They work with us. ; In the field, with your teams. ; Where to start ; A few real-world applications. ; Three steps. Start wherever you are. ; What AI prepares in every department. ; For every need, we choose the best technology. ; Every project gets its own team and its own technology. ; Your expertise, put to work. ; Questions ; Latest articles ; Paul Larmaraud, founder of Parrit.ai
+- In order: Your expertise is the raw material. We put it to work. ; They work with us. ; In the field, with your teams. ; Two crafts, one transformation. ; A few real-world applications. ; Three steps. Start wherever you are. ; What AI prepares in every department. ; For every need, we choose the best technology. ; Every project gets its own team and its own technology. ; Your expertise, put to work. ; Questions ; Latest articles ; Paul Larmaraud, founder of Parrit.ai
 - Client replies, follow-ups, quotes, meeting notes: AI prepares them, your teams review and decide.
-- Paul Larmaraud, founder of Parrit.ai, trains teams and leads projects.
+- Paul Larmaraud, founder of Parrit.ai, helps teams adopt AI and leads projects.
 - Presence: Tourcoing and Paris. Service area: across France.
 
 ### FAQ
 - Where do we start?
   With a first 15-minute video call, then a written scope, or an explanation if we are not the right people to help.
 - Do we need technical teams?
-  No. We train your teams on their tools, then build assistants whose work they review and approve.
+  No. Your teams take AI in hand with their own tools, then we build assistants they review and approve.
 - What happens to our data?
   AI can be installed on your servers, and we control how your teams use it.
 - Which technologies do you use?

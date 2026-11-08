@@ -15,7 +15,13 @@ function matchingNames(text, names) {
 }
 
 export function privateClientNames(text) {
-  return matchingNames(text, PRIVATE_CLIENT_NAMES.filter((name) => !allowed(name)));
+  // The 08/11/2026 decision names Toyotomi Europe and Hiolle Technologies,
+  // not every entity sharing their short names. Exclude only exact public names.
+  let privateText = text;
+  for (const name of PUBLIC_CLIENT_NAMES) {
+    privateText = privateText.replace(new RegExp(`(?<![\\p{L}\\p{N}_])${escape(name)}(?![\\p{L}\\p{N}_])`, "giu"), " ");
+  }
+  return matchingNames(privateText, PRIVATE_CLIENT_NAMES.filter((name) => !allowed(name)));
 }
 
 // The Journal never names clients, including those authorized on institutional pages.

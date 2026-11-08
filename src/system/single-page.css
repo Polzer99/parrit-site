@@ -43,10 +43,9 @@
 .single-page .live .change-definition{color:var(--on-canard);font-size:var(--t-s);line-height:1.45;}
 .single-page .home-anchor-alias{display:block;position:absolute;width:0;height:0;}
 /* parcours : marcheur et trois étapes alignées, maquette passe 3. */
-.single-page .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:40px;row-gap:0;grid-template-rows:repeat(4,auto);margin-top:24px;padding-top:44px;}
-.single-page .step {display:grid;grid-row:span 4;grid-template-rows:subgrid;row-gap:0;border-top:1px solid var(--line);padding-top:var(--brand-s2);}
+.single-page .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:40px;row-gap:0;grid-template-rows:repeat(3,auto);margin-top:24px;padding-top:44px;}
+.single-page .step {display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:0;border-top:1px solid var(--line);padding-top:var(--brand-s2);}
 .single-page .step:hover, .single-page .step:focus-within {border-color:var(--canard);}
-.single-page .step > .btn {justify-self:start;align-self:end;margin-top:var(--brand-s3);}
 .single-page .step .n{font-size:var(--t-s);color:var(--ink2);}
 .single-page .step h3{font-size:var(--t-l);margin-top:10px;}
 .single-page .step p{font-size:var(--t-m);margin-top:12px;color:var(--ink2);}
@@ -212,8 +211,8 @@
 .single-page .teamcap {display:flex;gap:8px;align-items:center;margin-top:20px;font-size:var(--t-s);color:var(--ink2);}
 .single-page .teamcap i {width:14px;height:14px;border:2px solid var(--canard);flex-shrink:0;}
 
-/* Keep the enlarged logos on one row within the 1060px reference budget. */
-.single-page .logo-strip {--logo-gap:var(--brand-s3);overflow:hidden;margin-top:56px;}
+/* Décision de Paul du 08/11/2026, nuit : eight logos, two desktop rows, 1060px. */
+.single-page .logo-strip {--logo-gap:var(--brand-s3);max-width:1060px;margin:56px auto 0;}
 .single-page .logo-track {display:flex;width:max-content;gap:var(--logo-gap);}
 .single-page .logo-set {display:flex;align-items:stretch;gap:var(--logo-gap);flex-shrink:0;}
 .single-page .client-logo {display:block;flex-shrink:0;background:var(--ink);mask-size:contain;mask-repeat:no-repeat;mask-position:center;max-width:100%;}
@@ -238,16 +237,11 @@
   .single-page .walk.playing.s2 .b1 {animation-delay:.2s;}.single-page .walk.playing.s2 .b2 {animation-delay:.4s;}.single-page .walk.playing.s2 .b3 {animation-delay:.6s;}
   .single-page .walk.playing.s3 .blk {animation:path-drop .5s ease-out both;}
   .single-page .walk.playing.s3 .k1 {animation-delay:.4s;}.single-page .walk.playing.s3 .k2 {animation-delay:.8s;}.single-page .walk.playing.s3 .k3 {animation-delay:1.2s;}.single-page .walk.playing.s3 .k4 {animation-delay:1.6s;}
-  .single-page .logo-track, .single-page .logo-set {max-width:none;flex-wrap:nowrap;}
-  .single-page .logo-track {width:max-content;animation:logo-scroll 28s linear infinite;}
-  .single-page .logo-set[aria-hidden] {display:flex;}
-  .single-page .logo-strip:is(:hover,:focus-within) .logo-track {animation-play-state:paused;}
 }
 @keyframes path-leg {50%{transform:translateY(-5px)}}
 @keyframes path-book {from{transform:scaleX(0)}}
 @keyframes path-grow {from{transform:scaleY(0)}}
 @keyframes path-drop {from{transform:translateY(-30px);opacity:0}}
-@keyframes logo-scroll {to{transform:translateX(calc(-50% - var(--logo-gap) / 2))}}
 @media(max-width:1100px){.single-page .service-tasks {grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:599px){.single-page .service-tasks {grid-template-columns:1fr;}}
 @media(prefers-reduced-motion:reduce){
@@ -492,18 +486,16 @@
   .single-page .ontology-hero *, .single-page .ontology-hero *::before, .single-page .ontology-hero *::after {animation:none!important;transition:none!important;}
 }
 
-/* Shared intrinsic rows keep the three intent links aligned before hydration. */
+/* Shared intrinsic rows keep the three steps aligned before hydration. */
 @media(max-width:760px){
   .single-page .steps.mobile-carousel {display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:84%;row-gap:0;}
-  .single-page .steps.mobile-carousel > .step {grid-row:span 4;}
-  .single-page .step > .btn {width:100%;justify-self:stretch;}
+  .single-page .steps.mobile-carousel > .step {grid-row:span 3;}
 }
 
 /* Parcours par couches, décision de Paul du 08/11/2026. */
-.single-page .home-offers {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,auto);gap:0 var(--brand-s3);margin-top:var(--brand-s4);}
+.single-page .home-offers {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,auto);gap:0 var(--brand-s3);margin-top:var(--brand-s4);}
 .single-page .home-offer {display:grid;grid-row:span 3;grid-template-rows:subgrid;min-width:0;border-top:1px solid var(--line);padding-top:var(--brand-s2);}
 .single-page .home-offer p {font-size:var(--t-s);color:var(--ink2);margin-top:var(--brand-s2);}
-.single-page .home-offer .btn {align-self:end;justify-self:start;margin-top:var(--brand-s3);}
 .single-page .home-faq {margin-top:var(--brand-s3);}
 .single-page .home-faq details {border-top:1px solid var(--line);}
 .single-page .home-faq details:last-child {border-bottom:1px solid var(--line);}
@@ -520,11 +512,7 @@
   .single-page :is(.home-offers,.home-journal-list).mobile-carousel {display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:var(--brand-s2);align-items:flex-start;scrollbar-width:none;}
   .single-page :is(.home-offers,.home-journal-list).mobile-carousel > * {flex:0 0 84%;min-width:0;align-self:flex-start;scroll-snap-align:start;}
   .single-page .home-offer {display:flex;flex-direction:column;}
-  .single-page .home-offer .btn {align-self:flex-start;}
   .single-page :is(.home-offers,.home-journal-list) + .swipe-dots {display:flex;gap:var(--brand-s1);margin-top:var(--brand-s2);}
-}
-@media(max-width:599px){
-  .single-page .home-offer .btn {width:100%;}
 }
 
 /* Passe 2, décision de Paul du 08/11/2026 : rythme clair/sombre, sans
@@ -558,44 +546,41 @@
 .single-page [data-photo="atelier-outils"] img {object-position:50% 26%;}
 .single-page [data-photo="intervention-dirigeants"] img {object-position:50% 34%;}
 .single-page .session-mosaic figcaption {position:absolute;inset:auto 0 0;padding:var(--brand-s1);background:var(--ink);color:var(--white);font-size:var(--t-s);line-height:1.4;}
-.single-page .field .btn {margin-top:var(--brand-s3);}
 @media(max-width:760px){
   .single-page .session-mosaic.mobile-carousel {grid-template-columns:none;grid-template-rows:1fr;grid-auto-flow:column;grid-auto-columns:100%;height:auto;max-width:none;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;}
   .single-page .session-mosaic figure, .single-page .session-mosaic figure:first-child {grid-row:1;grid-template-rows:clamp(180px,36svh,320px);align-self:start;scroll-snap-align:start;}
   .single-page .session-mosaic + .swipe-dots {display:flex;justify-content:center;gap:var(--brand-s1);margin-top:var(--brand-s2);}
 }
 
-/* Contextual ink palette; all five rows are shared even before hydration. */
+/* Décision de Paul du 08/11/2026, nuit : two crafts, three shared rows, no action. */
 .single-page :is(#offres,#offers) {background:var(--brand-bg);color:var(--brand-fg);--focus-color:var(--brand-fg);}
-.single-page .home-offers {grid-template-rows:repeat(5,auto);row-gap:var(--brand-s1);}
-.single-page .home-offer {grid-row:span 5;row-gap:var(--brand-s1);background:var(--accent-dark-surface);border:1px solid var(--brand-line);padding:var(--brand-s3);}
+.single-page .home-offers {grid-template-rows:repeat(3,auto);row-gap:var(--brand-s1);}
+.single-page .home-offer {grid-row:span 3;row-gap:var(--brand-s1);background:var(--accent-dark-surface);border:1px solid var(--brand-line);padding:var(--brand-s3);}
 .single-page .home-offer .offer-eyebrow {font-size:var(--t-s);line-height:1.4;font-weight:600;color:var(--brand-acc);}
 .single-page .home-offer p {color:var(--brand-fg2);margin-top:0;}
 .single-page .home-offer ul {display:grid;align-content:start;gap:var(--brand-s1);list-style:none;margin-top:var(--brand-s2);}
 .single-page .home-offer li {display:flex;align-items:flex-start;gap:var(--brand-s1);font-size:var(--t-s);line-height:1.45;}
 .single-page .home-offer li svg {flex:none;color:var(--brand-acc);margin-top:2px;}
-.single-page .home-offer .btn {margin-top:var(--brand-s2);}
 .single-page :is(#offres,#offers,.final-call) .btn.ghost {background:transparent;color:var(--brand-fg);border-color:currentColor;}
 .single-page :is(#offres,#offers,.final-call) .btn.ghost:is(:hover,:active) {background:var(--brand-fg);color:var(--brand-bg);}
 .single-page .home-offers + .swipe-dots i {background:var(--brand-fg2);}
 .single-page .home-offers + .swipe-dots i.on {background:var(--brand-fg);}
 @media(max-width:1100px){
-  .single-page .home-offers.mobile-carousel {display:grid;grid-template-columns:none;grid-template-rows:repeat(5,auto);grid-auto-flow:column;grid-auto-columns:100%;row-gap:var(--brand-s1);align-items:stretch;}
-  .single-page .home-offers.mobile-carousel > .home-offer {display:grid;grid-template-rows:subgrid;grid-row:span 5;align-self:stretch;}
-  .single-page .home-offer .btn {align-self:end;}
+  .single-page .home-offers.mobile-carousel {display:grid;grid-template-columns:none;grid-template-rows:repeat(3,auto);grid-auto-flow:column;grid-auto-columns:100%;row-gap:var(--brand-s1);align-items:stretch;}
+  .single-page .home-offers.mobile-carousel > .home-offer {display:grid;grid-template-rows:subgrid;grid-row:span 3;align-self:stretch;}
 }
 
 /* Display source pixels without recolouring; permissions stay server-side.
    Current authorized assets are monochrome (see public/clients/SOURCES.md). */
 .single-page .client-logo {display:flex;align-items:center;justify-content:center;background:none;}
-.single-page .client-logo img {display:block;width:calc(100% - 8px);height:auto;max-height:100%;object-fit:contain;opacity:1;filter:none;}
+.single-page .client-logo img {display:block;width:calc(100% - 8px);max-width:calc(100% / 1.08);height:auto;max-height:100%;object-fit:contain;opacity:1;filter:none;}
 @media(prefers-reduced-motion:no-preference){
   .single-page .client-logo img {opacity:.35;filter:grayscale(1);animation:logo-spotlight var(--logo-cycle) ease-in-out infinite;animation-delay:var(--logo-delay);}
   .single-page .logo-strip:is(:hover,:focus-within) .client-logo img {animation-play-state:paused;}
 }
 @keyframes logo-spotlight {
-  0%,20%,100% {opacity:.35;filter:grayscale(1);transform:scale(1);}
-  3.75%,16.25% {opacity:1;filter:grayscale(0);transform:scale(1.08);}
+  0%,12.5%,100% {opacity:.35;filter:grayscale(1);transform:scale(1);}
+  2.34375%,10.15625% {opacity:1;filter:grayscale(0);transform:scale(1.08);}
 }
 
 .single-page .final-call {background:var(--brand-bg);color:var(--brand-fg);text-align:center;--focus-color:var(--brand-fg);}
@@ -606,7 +591,7 @@
 .single-page .brand-connector {flex:none;}
 @media(max-width:599px){
   .single-page .final-call .actions {flex-direction:column;}
-  .single-page .final-call .btn, .single-page .field .btn {width:100%;}
+  .single-page .final-call .btn {width:100%;}
 }
 
 /* Progressive enhancement: state exists only after JS, never in reduced motion.
@@ -617,3 +602,9 @@
   .single-page > section[data-entrance="entered"] {animation:section-entrance 400ms ease-out;}
 }
 @keyframes section-entrance {from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* All eight authorized logos stay in the band; only their spotlight moves. */
+@media(max-width:760px){
+  .single-page .logo-set {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;justify-items:center;align-items:center;}
+}
+.single-page .offers-audience {margin-top:var(--brand-s3);font-size:var(--t-s);color:var(--brand-fg2);}

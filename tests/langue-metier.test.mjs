@@ -17,15 +17,15 @@ for (const locale of ["fr", "en"]) test(`hero headline and descriptive subtitle 
   const normal = locale === "fr" ? "Votre expertise est la matière première." : "Your expertise is the raw material.";
   const bold = locale === "fr" ? "Nous la mettons au travail." : "We put it to work.";
   const subtitle = locale === "fr"
-    ? "Nous formons vos équipes à l'IA et construisons les outils qui leur manquent."
-    : "We train your teams in AI and build the tools they need.";
+    ? "Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent."
+    : "Your teams take AI in hand. We build the software they are missing.";
   assert.equal((html.match(/<h1>/g) ?? []).length, 1);
   assert.equal(html.match(/<h1>(.*?)<\/h1>/s)?.[1], `${normal} <b>${bold}</b>`);
   assert.equal(visibleText(html.match(/class="sub"><p>(.*?)<\/p>/s)?.[1] ?? ""), subtitle);
   const action = html.match(/class="actions"><a[^>]*href="([^"]+)"[^>]*>(.*?)<\/a>/s);
-  // Decision of 08/11/2026: the same destination now carries the project intent.
-  assert.equal(action?.[1], `${locale === "fr" ? "/fr" : "/"}?source=intention-projet-hero#contact`);
-  assert.equal(visibleText(action?.[2] ?? ""), locale === "fr" ? "Parler d'un projet" : "Talk about a project");
+  // Decision of 08/11/2026: nuit: the same destination now carries rdv-hero.
+  assert.equal(action?.[1], `${locale === "fr" ? "/fr" : "/"}?source=rdv-hero#contact`);
+  assert.equal(visibleText(action?.[2] ?? ""), locale === "fr" ? "Prendre rendez-vous" : "Book a call");
 });
 
 for (const locale of ["fr", "en"]) test(`home copy is understandable, complete in SSR and preserves human approval (${locale})`, async () => {
@@ -77,7 +77,7 @@ for (const locale of ["fr", "en"]) test(`home metadata and Organization/Person J
   assert.ok(founder);
   assert.equal(organization["@context"], "https://schema.org");
   assert.equal(founder.worksFor["@id"], organization["@id"]);
-  assert.match(organization.description, locale === "fr" ? /équipes.*IA.*outils/ : /teams.*AI.*tools/);
+  assert.match(organization.description, locale === "fr" ? /équipes.*IA.*logiciels/ : /teams.*AI.*software/);
   assert.equal(founder.jobTitle, locale === "fr" ? "Fondateur" : "Founder");
   // An unconfirmed company profile must not be invented or replaced by a personal one.
   assert.deepEqual(organization.sameAs, []);

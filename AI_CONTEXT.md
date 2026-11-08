@@ -1,3 +1,19 @@
+## Action unique et wording, 08/11/2026, nuit
+
+Baseline `5d34aca` (PR #369) ; spec non suivie préexistante conservée.
+Trois placements rdv-nav/hero/bandeau, libellé unique ; retrait des actions
+secondaires et du bouton portrait, deux cartes de métiers sans bouton.
+Wording accueil/métadonnées/llms aligné. Huit références autorisées,
+conversions monochromes contrôlées, autorisations datées séparées et Journal
+encore fermé à tous les noms clients. Anciennes sources acceptées par QuickCapture.
+
+Réserve produit : navigation reste ghost provisoirement. Demande d'arbitrage
+ouverte entre trois exec et rose unique avec hero entier à 1440×800. Ne pas
+annoncer conformité intégrale. Aucune règle de rose/géométrie/CLS assouplie.
+Batterie de référence : lint/build Webpack et 238 tests Node réussis.
+Validation finale et limites : `docs/REPORT-2026-11-08-action-unique-et-wording.md`.
+Aucun commit, push ni déploiement ; serveur local EPERM, Chromium SIGTRAP.
+
 ## llms.txt et articles, 08/11/2026
 
 Source : spec locale autorisée `docs/CODEX-SPEC-2026-11-08-llms-txt-articles.md`,

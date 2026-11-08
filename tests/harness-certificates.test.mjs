@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync, unlinkSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createRequire } from "node:module";
@@ -17,6 +17,29 @@ const compiled = ts.transpileModule(readFileSync(component, "utf8"), {
   compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX },
 }).outputText;
 const require = createRequire(component);
+
+test("partner certification exception follows the exact amended copy, only on its two home sources", t => {
+  const root = mkdtempSync(join(tmpdir(), "action-certification-"));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  for (const dir of ["src/system/components", "content/journal", "public", "scripts"]) mkdirSync(join(root, dir), { recursive: true });
+  for (const file of ["public/llms.txt", "site.config.ts", "TRUTH.md"]) writeFileSync(join(root, file), "");
+  const script = new URL("../scripts/false-claims-check.mjs", import.meta.url);
+  const check = () => spawnSync(process.execPath, [script.pathname], { cwd: root, encoding: "utf8", timeout: 10_000 });
+  for (const text of ["Une quinzaine d'intervenants et un organisme certifié.", "Around fifteen practitioners and a certified organization."]) {
+    for (const relative of ["src/system/components/SinglePage.tsx", "src/system/single-page-copy.ts", "src/system/other.ts", "content/journal/fixture.mdx"]) {
+      const file = join(root, relative);
+      const source = value => relative.endsWith(".mdx") ? value : `const copy = ${JSON.stringify(value)};`;
+      writeFileSync(file, source(text));
+      const result = check();
+      assert.equal(result.status, relative.endsWith("SinglePage.tsx") || relative.endsWith("single-page-copy.ts") ? 0 : 1, result.stdout + result.stderr);
+      writeFileSync(file, source(text + " Certified delivery."));
+      const rejected = check();
+      assert.equal(rejected.status, 1, rejected.stderr);
+      assert.match(rejected.stderr, /unsupported certification/);
+      unlinkSync(file);
+    }
+  }
+});
 
 test("first published Harness certificate matches the exact article and canonical public bytes", () => {
   assert.deepEqual(checkCertificate("malicious-mcp-server-after-install"), { valid: true, reason: "" });

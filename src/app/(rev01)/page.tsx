@@ -7,10 +7,10 @@ import { getAllJournalEntrySummaries } from "@/system/journal";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const title = locale === "fr" ? "Parrit.ai · Formation à l'IA et outils sur mesure pour les entreprises, Tourcoing et Paris" : "Parrit.ai · AI training and custom tools for businesses, Tourcoing and Paris";
+  const title = locale === "fr" ? "Parrit.ai · Transformation IA et développement de logiciels pour les entreprises, Tourcoing et Paris" : "Parrit.ai · AI transformation and software development for businesses, Tourcoing and Paris";
   const description = locale === "fr"
-    ? "Nous formons vos équipes à l'IA et construisons des outils sur mesure : réponses aux clients, relances, devis, comptes rendus. Tourcoing, Paris et toute la France."
-    : "We train your teams in AI and build custom tools: client replies, follow-ups, quotes and meeting notes. Tourcoing, Paris and across France.";
+    ? "Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent. Tourcoing, Paris et toute la France."
+    : "Your teams take AI in hand. We build the software they are missing. Tourcoing, Paris and across France.";
   return { title: { absolute: title }, description, alternates: localizedAlternates("/", locale), openGraph: localizedOpenGraph("/", locale, title, description) };
 }
 export default async function HomePage(props: {
