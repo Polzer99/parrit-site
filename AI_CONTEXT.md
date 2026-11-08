@@ -1,3 +1,105 @@
+## Parcours accueil, correctif 3 du 08/11/2026
+
+Source : spec locale amendée, checkout demandé `f7fc163`. Applications uniquement
+à ≤ 760 px : marges définition/scènes de 16 à 8 px chacune (`--brand-s1`), gain
+calculé 16 px pour l'échec Linux à 700,125 px. Textes et tests inchangés.
+Lint, build Webpack, 217 tests Node avant/après, types, marque/claims et
+19 Brand OS réussis. 497 tests navigateur recensés ; serveur EPERM et Chromium
+MachPortRendezvous/SIGTRAP avant navigation. Marge réelle ≥12 px et CLS restent
+à confirmer sur l'hôte/CI Linux. Spec et deux PNG préexistants conservés par
+empreintes ; aucun commit/push/déploiement. Détail :
+`docs/REPORT-2026-11-08-parcours-accueil-couches.md`, correctif 3.
+
+## Parcours accueil, correctif 2 du 08/11/2026
+
+Source : dernier amendement local, checkout demandé `9fdf14f`. Seul changement
+produit : espacement des logos de 64 à 24 px (jeton s3), budget non replié
+1035,74 px, dimensions des images conservées. HTML SSR complet identique FR/EN.
+Journal : trace hôte = index lu avant navigation, pas de troncature mesurée ;
+attente destination/contenu ajoutée, égalité exacte conservée. Mosaïque : lecture
+simultanée piste/cartes pour éliminer l’effet possible du Home natif entre deux
+mesures. Origine exacte du défilement encore à confirmer sur l’hôte ; aucun CSS
+mosaïque/article spéculatif. Seuils et durée des tests intacts.
+
+Validation : npm ci, lint, build Webpack, types, marque/claims, 216→217 tests
+Node et 19 Brand OS réussis.
+Un test de budget rouge puis vert, huit cas navigateur de contenu mobile
+FR/EN avec/sans JS ajoutés. Navigateur bloqué (serveur EPERM, Chromium SIGTRAP) ;
+497 tests recensés, aucune preuve de rendu/CLS acquise ici. Spec et deux PNG
+préexistants vérifiés par empreintes, aucun commit/push/déploiement.
+Rapport : `docs/REPORT-2026-11-08-parcours-accueil-couches.md`, correctif 2.
+
+## Correctif des couches visuelles, 08/11/2026
+
+Source : spec locale amendée, baseline `bb28ce9`, checkout demandé.
+Mosaïque pleine largeur 2:1, cover et positions par photo, fichiers inchangés ;
+logos sources monochromes agrandis ~20 %, repos 0,35/éclairage 1/échelle 1,08,
+cycle 8 s. Bandeau entre équipe et FAQ. Contours services/technologies contextuels,
+bordure de piste Journal retirée (décalage mobile 1 px). Exactement un lien index
+Journal dans main, section articles, plus celui du pied.
+
+Validation : npm ci, lint, build Webpack, types, marque/claims réussis ;
+214→216 tests Node, 19 Brand OS. Deux tests Node et deux parcours navigateur
+ajoutés, contrôles mosaïque/animation/sommets renforcés. Hero/contact/services/
+technologies/parcours : HTML SSR identique FR/EN. Spec et six PNG préexistants
+conservés par empreintes ; aucun commit/push/déploiement.
+
+Limites : serveur EPERM et Chromium MachPortRendezvous/SIGTRAP ; 489 tests
+navigateur recensés, validation rendu/CLS non acquise. Traces hôte : l'échec
+articles est une lecture de l'index avant son chargement ; timeout hero dans
+la boucle de styles, cause non établie. Tests point 7 conservés, aucun correctif
+produit spéculatif. SectionEntrance exclut déjà hero/contact, sans boucle/timer.
+Cadrages calculés préservent visages/mains ; vérifier visuellement sur hôte.
+Rapport : `docs/REPORT-2026-11-08-parcours-accueil-couches.md`, correctif passe 2.
+Les mentions de limites couleur et d'ancien ordre ci-dessous sont historiques.
+
+## Couches visuelles, passe 2 du 08/11/2026
+
+Source : spec locale amendée, baseline `f2f1abafefe8769bae1779d6ceac7245d524e0b6`.
+Passe 1 conservée, terrain et bandeau final ajoutés : 13 sections. Trois photos
+réelles choisies par Paul, 12 exports AVIF/WebP sans EXIF/GPS, sans crop ni
+agrandissement ; provenance `public/photos/session/SOURCES.md` et fixture SHA256.
+Cartes offres sombres, fonds contextuels, éclairage CSS des logos, apparition
+unique progressive 400 ms / 16 px. Liens d'intention/UTM, hero, contact et
+permissions conservés. Neuf sections ont un HTML SSR identique FR/EN.
+
+Validation : npm ci, lint, build Webpack, types, 214 tests Node (199 avant),
+marque/claims et 19 Brand OS réussis. 15 tests Node et 20 navigateur ajoutés.
+Seuls les contrats de nombre/ordre/couleur/structure amendés ont été adaptés ;
+seuils géométriques et CLS conservés, parcours stabilité étendu à 13 sections.
+
+Limites ouvertes : cinq logos sources monochromes, originaux couleur nécessaires
+pour satisfaire la pleine couleur ; aucun logo recoloré. Navigateur bloqué
+(serveur EPERM, Chromium MachPortRendezvous/SIGTRAP) : 487 tests non validés,
+captures/géométrie/CLS à rejouer sur l'hôte. Un recensement Playwright a aussi été
+refusé par le garde automatique WhatsApp, sans contournement. Rapport détaillé :
+`docs/REPORT-2026-11-08-parcours-accueil-couches.md` (passe 2).
+Spec préexistante et PNG du handoff conservés. Aucun commit/push/déploiement.
+
+## Parcours de l’accueil par couches, 08/11/2026
+
+Source : `docs/CODEX-SPEC-2026-11-08-parcours-accueil-couches.md`, décision de Paul.
+Baseline `f335989` (fusion PR #365), spec non suivie préexistante conservée.
+Onze sections : hero, références, offres, applications, parcours, services,
+technologies, équipe, FAQ, derniers articles, contact. Navigation adaptée.
+Définition unique déplacée dans les applications ; doublon « Ce que l’IA change »
+retiré. Trois liens d’offre via ContactIntentLink, attribution SSR/clic conservée.
+FAQ native sans dépendance JS, JSON-LD échappé issu des mêmes six paires FR/EN.
+JournalCard partagé avec l’index, trois dernières entrées chargées côté serveur.
+Anciennes ancres normalisées avec query conservée et alias HTML sans JS.
+
+Validation : npm ci, lint, build Webpack, TypeScript, marque/claims et 19 tests
+Brand OS réussis ; 189 → 199 tests Node. Dix nouveaux tests Node, 26 navigateur.
+Revue indépendante : aucun défaut identifié, 35/35 tests ciblés réussis.
+HTML hero/parcours/services/technologies/équipe/contact identique avant/après
+en FR/EN ; contrats des sections retirées adaptés, aucun seuil assoupli.
+467 tests navigateur recensés ; lancement bloqué par Chromium
+MachPortRendezvous/SIGTRAP et serveur local `listen EPERM`. Captures,
+géométrie réelle, interactions et CLS non validés, à rejouer sur l’hôte.
+Aucun commit, push, déploiement ni PNG du handoff modifié.
+Rapport : `docs/REPORT-2026-11-08-parcours-accueil-couches.md`.
+Les entrées ci-dessous sont historiques pour l’ordre/navigation de l’accueil.
+
 ## Boutons par intention, correctif 4 du 08/11/2026
 
 Baseline `81bc5de`, spec amendée préexistante conservée. Seule la formulation

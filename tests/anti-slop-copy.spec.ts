@@ -1,3 +1,4 @@
+import homeFaqOpening from "./fixtures/home-faq-opening.json";
 import contactExpectation from "./fixtures/contact-expectation.json";
 import { JOURNAL_THEMES } from "./public-routes";
 import { readdirSync } from "node:fs";
@@ -49,7 +50,13 @@ for (const locale of ["en", "fr"]) {
           await expect(note).toHaveText(approved);
           offerText = text.replace(approved, "");
         }
-        const publicCopy = `${offerText}\n${attributes}\n${metadata}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
+        let publicCopy = `${offerText}\n${attributes}\n${metadata}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
+        // Decision 08/11/2026: only the exact first FAQ answer, in text and JSON-LD.
+        if (!route) {
+          const approved = locale === "fr" ? homeFaqOpening.fr : homeFaqOpening.en;
+          await expect(page.locator("#questions details p").first()).toHaveText(approved);
+          publicCopy = publicCopy.replaceAll(approved, "");
+        }
         // Preserve HEAD's editorial noOffer scope: article bodies discuss third-party
         // tools (e.g. free libraries); themes are public pages, never articles.
         if (!article) expect(publicCopy).not.toMatch(noOffer);

@@ -2,13 +2,7 @@
 import { Suspense, useSyncExternalStore } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { LOCALE_COOKIE, localizedPath, type Locale } from "@/system/locale";
-const HASHES: Readonly<Record<string, string>> = { "en-production": "in-production", "ce-qui-change": "what-changes", parcours: "path", partenaires: "team" };
-function localizedHash(fragment: string, locale: Locale) {
-  const hash = fragment.replace(/^#/, "");
-  if (!hash) return "";
-  const translated = locale === "en" ? HASHES[hash] ?? hash : Object.entries(HASHES).find(([, value]) => value === hash)?.[0] ?? hash;
-  return `#${translated}`;
-}
+import { localizedHomeHash as localizedHash } from "@/system/home-anchors";
 function subscribeHash(onChange: () => void) {
   window.addEventListener("hashchange", onChange);
   window.addEventListener("popstate", onChange);

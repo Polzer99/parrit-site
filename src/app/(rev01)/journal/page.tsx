@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { JournalCard } from "@/system/components/JournalCard";
 
 import { getLocale } from "@/lib/server/locale";
-import { getJournalThemes } from "@/system/journal-themes";
 import { getAllJournalEntrySummaries } from "@/system/journal";
 import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 
@@ -41,19 +40,7 @@ export default async function JournalPage() {
         <ol className="journal-list journal-index">
           {entries.map((entry) => (
             <li key={entry.slug}>
-              <Link href={`/journal/${entry.slug}`} hrefLang="en">
-                <div>
-
-
-                  <div className="journal-entry-meta">
-                    {getJournalThemes(entry.slug).map(theme => <span className="journal-entry-theme" key={theme.page}>{theme.label[locale]}</span>)}
-                    <span className="journal-reading-time">{entry.readingMinutes} {locale === "fr" ? "min de lecture" : "min read"}</span>
-                  </div>
-                  <h2 lang="en">{entry.title}</h2>
-                  <p lang="en">{entry.description}</p>
-                </div>
-                <time dateTime={entry.date}>{new Intl.DateTimeFormat(locale === "fr" ? "fr-FR" : "en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(`${entry.date}T00:00:00Z`))}</time>
-              </Link>
+              <JournalCard entry={entry} locale={locale}/>
             </li>
           ))}
         </ol>

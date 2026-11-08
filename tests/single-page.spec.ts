@@ -35,8 +35,8 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     expect(portraitBox).not.toBeNull();
     expect(portraitBox!.width / portraitBox!.height).toBeCloseTo(3 / 4, 2);
     await page.evaluate(() => document.fonts.ready);
-    await expect(page.locator("main > section")).toHaveCount(9);
-    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["en-production", "ce-qui-change", "parcours", "services", "technologies", "partenaires", "references", "contact"] : ["in-production", "what-changes", "path", "services", "technologies", "team", "references", "contact"]);
+    await expect(page.locator("main > section")).toHaveCount(13);
+    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["references", "terrain", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "bandeau", "questions", "articles", "contact"] : ["references", "in-the-field", "offers", "in-production", "path", "services", "technologies", "team", "bandeau", "questions", "articles", "contact"]);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     const mono = await page.locator("main *, footer *, header *").evaluateAll(nodes => nodes.filter(node => {
       const style = getComputedStyle(node);
@@ -228,14 +228,6 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     await expect(page.locator(".ontocap .onto-result")).toHaveCSS("opacity", "1");
     await expect(page.locator(".ontocap .onto-approval")).toHaveCSS("opacity", "1");
     await expect(page.locator(".ontocap")).toHaveAttribute("aria-live", "off");
-    for (const el of await page.locator(".panel .answer, .doc .ok, .doc .l, .soft .row:last-child span").all()) {
-      await expect(el).toBeVisible();
-      await expect(el).toHaveCSS("animation-name", "none");
-      await expect(el).toHaveCSS("transform", "none");
-      await expect(el).toHaveCSS("opacity", await el.evaluate(node => node.matches(".l") ? "0.5" : "1"));
-    }
-    const active = await page.locator(".soft .top").evaluate(el => getComputedStyle(el).color);
-    for (const agent of await page.locator(".soft .row:last-child span").all()) await expect(agent).toHaveCSS("background-color", active);
     // Spec 29/10 supersedes the old 22px mobile phrase / 72px desktop H1.
     await expect(page.locator(".hero h1")).toHaveCSS("font-size", width === 375 ? "38px" : "46px");
     await expect(page.locator(".hero h1")).toHaveCSS("line-height", width === 375 ? "43px" : "52px");
@@ -246,14 +238,15 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     // Switching the live preference must restore animation, then stop it again.
     await page.emulateMedia({ reducedMotion: "no-preference" });
-    await page.locator(locale === "fr" ? "#ce-qui-change h2" : "#what-changes h2").scrollIntoViewIfNeeded();
-    await expect(page.locator(locale === "fr" ? "#ce-qui-change" : "#what-changes")).toHaveAttribute("data-motion", "ready");
-    await expect(page.locator(".panel .answer")).toHaveCSS("animation-duration", "8s");
-    expect(await page.locator(".doc .l").evaluateAll(nodes => nodes.map(el => getComputedStyle(el).animationDelay))).toEqual(["0s", "0.6s", "1.2s"]);
-    expect(await page.locator(".soft .row:last-child span").evaluateAll(nodes => nodes.map(el => getComputedStyle(el).animationDelay))).toEqual(["0s", "1s", "2s"]);
+    const applications = page.locator(".live");
+    await applications.locator("h2").scrollIntoViewIfNeeded();
+    await expect(applications).toHaveAttribute("data-motion", "ready");
+    await expect(applications.locator(".msg").first()).toHaveCSS("animation-duration", "18s");
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await expect(page.locator(".panel .answer")).toHaveCSS("opacity", "1");
-    await expect(page.locator(".panel .answer")).toHaveCSS("animation-name", "none");
+    for (const message of await applications.locator(".msg").all()) {
+      await expect(message).toHaveCSS("opacity", "1");
+      await expect(message).toHaveCSS("animation-name", "none");
+    }
   });
 }
 
@@ -477,85 +470,8 @@ for (const locale of ["fr", "en"]) for (const viewport of [{ width: 390, height:
   });
 }
 
-for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
-  test.describe(`tour 3 change cards ${locale} JS=${javaScriptEnabled}`, () => {
-    test.use({ javaScriptEnabled });
-    for (const [width, height] of [[1440, 800], [1280, 720], [800, 900], [390, 844]]) {
-      test(`aligned illustrations, readable content and nearby dots ${width}×${height}`, async ({ page }) => {
-        await page.setViewportSize({ width, height });
-        await page.emulateMedia({ reducedMotion: "reduce" });
-        await page.goto(local(locale === "fr" ? "/fr" : "/"));
-        await page.evaluate(() => document.fonts.ready);
-        const section = page.locator(locale === "fr" ? "#ce-qui-change" : "#what-changes");
-        const track = section.locator(".three");
-        const cards = track.locator(":scope > .item");
-        await expect(cards).toHaveCount(3);
-        await expect(cards.locator(":scope > .panel")).toHaveCount(3);
-        await expect(cards.locator(":scope > h3")).toHaveCount(3);
-        const geometry = await cards.evaluateAll(nodes => nodes.map(card => ({
-          panelHeight: card.querySelector(".panel")!.getBoundingClientRect().height,
-          titleTop: card.querySelector("h3")!.getBoundingClientRect().top,
-        })));
-        for (const key of ["panelHeight", "titleTop"] as const) {
-          const values = geometry.map(card => card[key]);
-          expect(Math.max(...values) - Math.min(...values), key).toBeLessThanOrEqual(1);
-        }
-        // Equal heights must not come from clipping or shrinking illustration text.
-        for (const panel of await cards.locator(":scope > .panel").all()) {
-          const audit = await panel.evaluate(frame => {
-            const bounds = frame.getBoundingClientRect();
-            const text = [frame, ...frame.querySelectorAll<HTMLElement>("*")].flatMap(el =>
-              [...el.childNodes].filter(node => node.nodeType === Node.TEXT_NODE && node.textContent?.trim()).map(node => {
-                const range = document.createRange();
-                range.selectNodeContents(node);
-                const parent = el.getBoundingClientRect();
-                return {
-                  label: node.textContent,
-                  size: parseFloat(getComputedStyle(el).fontSize),
-                  contained: [...range.getClientRects()].every(rect =>
-                    rect.left >= Math.max(bounds.left, parent.left) - 1 && rect.right <= Math.min(bounds.right, parent.right) + 1 &&
-                    rect.top >= Math.max(bounds.top, parent.top) - 1 && rect.bottom <= Math.min(bounds.bottom, parent.bottom) + 1),
-                };
-              }));
-            return { text, scrollHeight: frame.scrollHeight, clientHeight: frame.clientHeight, overflow: getComputedStyle(frame).overflowY };
-          });
-          expect(audit.text.length).toBeGreaterThan(0);
-          expect(audit.scrollHeight).toBeLessThanOrEqual(audit.clientHeight + 1);
-          expect(audit.overflow).not.toMatch(/hidden|clip/);
-          for (const text of audit.text) {
-            expect(text.size, text.label ?? "text").toBeGreaterThanOrEqual(16);
-            expect(text.contained, text.label ?? "text").toBe(true);
-          }
-        }
-        if (width <= 1100) {
-          const dots = section.locator(".swipe-dots");
-          await expect(dots).toBeVisible();
-          // Round down to keep the cards fully visible when the track top includes a subpixel.
-          await track.evaluate(el => window.scrollTo(0, Math.floor(el.getBoundingClientRect().top + window.scrollY)));
-          for (let index = 0; index < 3; index++) {
-            if (javaScriptEnabled) {
-              await track.focus();
-              await page.keyboard.press(index === 0 ? "Home" : "ArrowRight");
-              await expect(dots.locator("i").nth(index)).toHaveClass("on");
-            } else {
-              // Drive the native scroll without relying on page hydration.
-              await cards.nth(index).evaluate(card => card.scrollIntoView({ block: "nearest", inline: "start", behavior: "instant" }));
-            }
-            await expect(cards.nth(index)).toBeInViewport({ ratio: 1 });
-            const card = (await cards.nth(index).boundingBox())!;
-            const status = (await cards.nth(index).locator(".status").boundingBox())!;
-            const position = (await dots.boundingBox())!;
-            for (const bottom of [card.y + card.height, status.y + status.height]) {
-              const gap = position.y - bottom;
-              expect(gap, `card ${index + 1}: dots below card and visible content`).toBeGreaterThanOrEqual(0);
-              expect(gap, `card ${index + 1}: no empty band before dots`).toBeLessThanOrEqual(48);
-            }
-          }
-        }
-      });
-    }
-  });
-}
+// Décision de Paul du 08/11/2026 : the change illustrations were removed.
+// Their replacement layers are covered in parcours-accueil.spec.ts.
 
 // Blocking contract §5: measure intrinsic content, never a capped/clipped section.
 for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [1280, 720], [390, 700]]) {
@@ -568,14 +484,14 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       const content = section.firstElementChild as HTMLElement;
       return { id: section.id, height: content.getBoundingClientRect().height, scrollHeight: content.scrollHeight, overflowY: getComputedStyle(content).overflowY };
     }));
-    expect(sections).toHaveLength(7);
+    expect(sections).toHaveLength(11);
     for (const section of sections) {
       expect(section.height, `${section.id}: first child's full border box, without margins`).toBeLessThanOrEqual(height);
       expect(section.scrollHeight, `${section.id}: content must not be clipped`).toBeLessThanOrEqual(height);
       expect(section.overflowY).not.toMatch(/hidden|clip/);
     }
-    const figures = page.locator(".onto-diagram, .onto, .scenes, .three, .path-walker, .steps, .service-tasks, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid");
-    await expect(figures).toHaveCount(11);
+    const figures = page.locator(".onto-diagram, .onto, .scenes, .home-offers, .session-mosaic, .home-faq, .home-journal-list, .path-walker, .steps, .service-tasks, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid");
+    await expect(figures).toHaveCount(14);
     for (const figure of await figures.all()) {
       const box = await figure.boundingBox();
       expect(box).not.toBeNull();
@@ -589,10 +505,13 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       }
       if (width === 390) {
         await expect(track).toHaveCSS("scroll-snap-type", "x mandatory");
-        await expect(track).toHaveCSS("align-items", "flex-start");
+        // Décision de Paul du 08/11/2026 : nouvelles grilles intrinsèques ;
+        // leurs sommets et hauteurs restent mesurés, sans seuil assoupli.
+        const intrinsic = await track.evaluate(el => el.matches(".home-offers,.session-mosaic"));
+        if (!intrinsic) await expect(track).toHaveCSS("align-items", "flex-start");
         const top = (await track.boundingBox())!.y;
         for (const card of await track.locator(":scope > *").all()) {
-          await expect(card).toHaveCSS("align-self", "flex-start");
+          if (!intrinsic) await expect(card).toHaveCSS("align-self", "flex-start");
           expect((await card.boundingBox())!.y).toBeCloseTo(top, 0);
         }
         expect(await track.evaluate(el => el.scrollWidth > el.clientWidth)).toBe(true);
@@ -1010,12 +929,12 @@ test("partner offers keep at most two faces active and restore every static offe
   for (const offer of await page.locator(".partner-offers li").all()) await expect(offer).toBeVisible();
 });
 
-for (const locale of ["fr", "en"]) test(`five native carousels retain keyboard scrolling and position dots ${locale}`, async ({ page }) => {
+for (const locale of ["fr", "en"]) test(`seven native carousels retain keyboard scrolling and position dots ${locale}`, async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 700 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(local(locale === "fr" ? "/fr" : "/"));
   const tracks = page.locator(".mobile-carousel");
-  await expect(tracks).toHaveCount(5);
+  await expect(tracks).toHaveCount(7);
   for (const track of await tracks.all()) {
     await track.scrollIntoViewIfNeeded();
     await expect.poll(() => track.evaluate(el => el.scrollLeft)).toBe(0);
@@ -1094,7 +1013,8 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
             }
             throw new Error(`Unsupported technology band color token: ${token}=${value}`);
           };
-          const ink = resolve("--ink"), white = resolve("--white"), onInk = resolve("--on-ink");
+          // Passe 2, décision de Paul du 08/11/2026 : bandeau blanc, contraste AA inchangé.
+          const ink = resolve("--ink"), white = resolve("--white"), ink2 = resolve("--ink2");
           const luminance = (color: string) => {
             const rgb = color.match(/[\d.]+/g)!.slice(0, 3).map(Number).map(n => n / 255);
             const linear = rgb.map(n => n <= .04045 ? n / 12.92 : ((n + .055) / 1.055) ** 2.4);
@@ -1103,18 +1023,18 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
           const text = [...section.querySelectorAll<HTMLElement>(".tech-title, .tech-title b, .tech-set:not([aria-hidden]) li span")];
           const background = luminance(style.backgroundColor);
           return {
-            background: style.backgroundColor, ink,
+            background: style.backgroundColor, white,
             clipped: [...section.querySelectorAll<HTMLElement>(".tech-content, .tech-marquee, .tech-track, .tech-set:not([aria-hidden])")]
               .filter(el => el.scrollHeight > el.clientHeight + 1 || /hidden|clip/.test(getComputedStyle(el).overflowY)).map(el => el.className),
             text: text.map(el => {
               const css = getComputedStyle(el);
               const foreground = luminance(css.color);
-              return { name: el.textContent, size: parseFloat(css.fontSize), ratio: (Math.max(background, foreground) + .05) / (Math.min(background, foreground) + .05), color: css.color, expected: el.matches(".tech-title") ? onInk : white };
+              return { name: el.textContent, size: parseFloat(css.fontSize), ratio: (Math.max(background, foreground) + .05) / (Math.min(background, foreground) + .05), color: css.color, expected: el.matches(".tech-title") ? ink2 : ink };
             }),
             animations: section.getAnimations({ subtree: true }).length,
           };
         });
-        expect(audit.background).toBe(audit.ink);
+        expect(audit.background).toBe(audit.white);
         expect(audit.animations).toBe(0);
         expect(audit.clipped).toEqual([]);
         for (const text of audit.text) {
@@ -1314,8 +1234,9 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
     await expect(page.locator(".scenes")).not.toContainText(calendarDate);
     const journal = locale === "fr" ? "/fr/journal" : "/journal";
     await expect(page.locator(`#references a[href="${journal}"]`)).toHaveCount(0);
-    // The old isolated link was a sibling of #references, so test main as well.
-    await expect(page.locator(`main a[href="${journal}"]`)).toHaveCount(0);
+    // Décision de Paul du 08/11/2026, correctif passe 2 : one index link, only in articles.
+    await expect(page.locator(`main a[href="${journal}"]`)).toHaveCount(1);
+    await expect(page.locator(`#articles a[href="${journal}"]`)).toHaveCount(1);
     await expect(page.locator(`footer a[href="${journal}"]`)).toBeVisible();
 
     if (width >= 1280) {

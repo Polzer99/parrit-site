@@ -1,3 +1,89 @@
+## Correctif 3 — décision de Paul du 08/11/2026
+
+Applications uniquement, à ≤ 760 px : marges au-dessus de la définition et des
+scènes à `--brand-s1` (8 px chacune, gain total 16 px), pour la marge demandée
+sous 700 px à 390×700. Textes, typographie et tests existants conservés.
+
+## Correctif 2 — décision de Paul du 08/11/2026
+
+Les logos conservent leurs dimensions agrandies ; seul leur espacement passe à
+`--brand-s3` pour tenir sur une ligne dans le maximum de 1060 px. Aucun seuil
+assoupli. Les comparaisons de sommets sont simultanées ; la comparaison des
+articles attend le Journal chargé. Aucun changement de contenu, de cadrage ou
+de structure de carrousel entre SSR et hydratation.
+
+## Correctif passe 2 — décision de Paul du 08/11/2026
+
+La spec amendée prime sur la passe 2 ci-dessous. Ordre : hero, références,
+terrain, offres, applications, parcours, services, technologies, équipe,
+bandeau, questions, derniers articles, fondateur/contact. Le bandeau est déplacé
+avant la FAQ pour séparer ses boutons de ceux du contact.
+
+Mosaïque pleine largeur en grille 2:1, hauteur min(540 px, 62svh), images en
+cover avec position par photo et légendes sur aplat encre. Les exports restent
+entiers, sans agrandissement ni métadonnées ; seul le cadrage d'affichage change.
+Logos monochromes sources conservés : repos 0,35, éclairage 1/échelle 1,08,
+rampes 300 ms et cinq créneaux de 1,6 s ; pause survol/focus et mouvement réduit
+statique à opacité 1. La pleine couleur n'est plus attendue de ces masques.
+
+Exactement un lien vers l'index Journal dans main, uniquement dans la section
+des articles, et celui du pied conservé (amendement au contrat night tour 2).
+Contrôles sur fond clair avec couleurs contextuelles ; bordure supérieure de
+la piste Journal retirée pour aligner ses cartes au sommet. Aucun seuil de
+contraste, géométrie, durée de test, stabilité ou CLS assoupli.
+
+## Couches visuelles, passe 2 — décision de Paul du 08/11/2026
+
+La passe 2 de `docs/CODEX-SPEC-2026-11-08-parcours-accueil-couches.md` complète
+la passe 1. Treize sections : hero, références, terrain, offres, applications,
+parcours, services, technologies, équipe, questions, derniers articles, bandeau
+final, fondateur/contact. Navigation de la passe 1 conservée ; `#terrain` /
+`#in-the-field` suivent la bascule de langue.
+
+Vraies photos de session autorisées, décision de Paul du 08/11/2026, provenance
+dans `public/photos/session/SOURCES.md` ; aucune image générée par IA ni photo de
+banque. Exception limitée aux trois photos choisies, remplaçant pour elles
+« aucune photo de remplacement avant AV-3 ». Cadrages entiers, AVIF/WebP 480/960
+(atelier limité à sa source de 800 px), sans EXIF/GPS ni retouche. Portrait du
+contact et certification Qualiopi inchangés.
+
+Références : mêmes permissions et fichiers, pixels sources sans recoloration, éclairage CSS
+successif toutes les 1,6 s, pause survol/focus ; statiques en pleine couleur en
+mouvement réduit. Limite actuelle : les cinq fichiers autorisés sont monochromes ;
+la restitution couleur attend des originaux couleur. Offres : fond encre, surtitres
+et trois coches SVG par carte,
+trois actions ghost alignées en pied. Fonds : références/parcours/technologies/
+équipe/articles blancs, terrain/services sauge, applications/FAQ blanc cassé,
+bandeau final canard. Seuls fonds et couleurs contextuelles changent dans les
+sections existantes ; hero et contact conservés.
+
+Terrain : une action formation (`intention-formation-terrain`). Bandeau final :
+projet exec (`intention-projet-bandeau`, connecteur canon VS-CONNECTOR), puis
+formation ghost (`intention-formation-bandeau`). Attribution/UTM conservés.
+Apparition unique 400 ms / 16 px maximum, ajoutée par JS ; contenu visible sans
+JS et en mouvement réduit. Aucun seuil géométrique, contraste ou CLS assoupli.
+Les anciennes mentions de fonds, photos et absence de surtitres ne s'appliquent
+plus au périmètre explicitement amendé ici.
+
+## Parcours de l’accueil par couches, décision de Paul du 08/11/2026
+
+`docs/CODEX-SPEC-2026-11-08-parcours-accueil-couches.md` remplace les anciens
+contrats d’ordre et de navigation. Onze sections : hero, références, offres,
+applications, parcours, services, technologies, équipe, questions, derniers
+articles, fondateur/contact. Navigation : Applications, Offres, Le parcours,
+Services, Questions, Contact. `#references` reste accessible.
+La section « Ce que l’IA change » est retirée ; sa définition « Un assistant,
+ou agent IA, … » devient la première phrase des applications. Les anciennes
+ancres renvoient aux applications, y compris via la bascule de langue.
+Trois cartes d’entrée FR/EN, une action ghost au contact par carte : sources
+`intention-{formation,grands-groupes,pme}-offres`, UTM conservés. Six accordéons
+natifs et FAQPage issus du même texte localisé. Trois derniers articles triés
+par le Journal, même carte, une destination par article puis lien vers l’index.
+La FAQ autorise exactement la réponse à 15 minutes de cette spec ; aucun prix.
+Hero, parcours, services, technologies, partenaires, permissions clients,
+contact, charte, seuils géométriques et de stabilité restent inchangés.
+Les contrats antérieurs ci-dessous ne s’appliquent plus à la section retirée.
+
 ## Visibilité IA, décision de Paul du 03/11/2026
 
 La spec `docs/CODEX-SPEC-2026-11-03-alignement-visibilite-ia.md` remplace les

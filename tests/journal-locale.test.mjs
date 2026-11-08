@@ -75,8 +75,8 @@ for (const target of ["fr", "en"]) test(`hydrated language destinations preserve
   const previousDocument = globalThis.document;
   try {
     const hashes = target === "fr"
-      ? [["#top", "#top"], ["#path", "#parcours"], ["#in-production", "#en-production"], ["#what-changes", "#ce-qui-change"], ["#team", "#partenaires"]]
-      : [["#top", "#top"], ["#parcours", "#path"], ["#en-production", "#in-production"], ["#ce-qui-change", "#what-changes"], ["#partenaires", "#team"]];
+      ? [["#top", "#top"], ["#path", "#parcours"], ["#in-production", "#en-production"], ["#what-changes", "#en-production"], ["#offers", "#offres"], ["#team", "#partenaires"]]
+      : [["#top", "#top"], ["#parcours", "#path"], ["#en-production", "#in-production"], ["#ce-qui-change", "#in-production"], ["#offres", "#offers"], ["#partenaires", "#team"]];
     for (const pathname of ["/legal", "/fr/legal", "/", "/fr", article]) {
       for (const [hash, expectedHash] of [...hashes, ["", ""], ["#section%20two", "#section%20two"]]) {
         const query = "lang=fr&source=test&utm_campaign=a%26b&utm_custom=one&utm_custom=two";

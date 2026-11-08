@@ -7,8 +7,8 @@ import { localizedPath, type Locale } from "@/system/locale";
 /** Real destinations work before hydration; same-home clicks keep the form alive. */
 export function ContactIntentLink({ locale, intent, placement, query = "", primary = false, children }: {
   locale: Locale;
-  intent: "formation" | "priorites" | "projet";
-  placement: "hero" | "parcours";
+  intent: "formation" | "priorites" | "projet" | "grands-groupes" | "pme";
+  placement: "hero" | "parcours" | "offres" | "terrain" | "bandeau";
   query?: string;
   primary?: boolean;
   children: ReactNode;
