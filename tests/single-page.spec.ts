@@ -36,7 +36,7 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     expect(portraitBox!.width / portraitBox!.height).toBeCloseTo(3 / 4, 2);
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator("main > section")).toHaveCount(13);
-    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["references", "terrain", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "questions", "articles", "bandeau", "contact"] : ["references", "in-the-field", "offers", "in-production", "path", "services", "technologies", "team", "questions", "articles", "bandeau", "contact"]);
+    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["references", "terrain", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "bandeau", "questions", "articles", "contact"] : ["references", "in-the-field", "offers", "in-production", "path", "services", "technologies", "team", "bandeau", "questions", "articles", "contact"]);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     const mono = await page.locator("main *, footer *, header *").evaluateAll(nodes => nodes.filter(node => {
       const style = getComputedStyle(node);
@@ -1234,8 +1234,9 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
     await expect(page.locator(".scenes")).not.toContainText(calendarDate);
     const journal = locale === "fr" ? "/fr/journal" : "/journal";
     await expect(page.locator(`#references a[href="${journal}"]`)).toHaveCount(0);
-    // The old isolated link was a sibling of #references, so test main as well.
-    await expect(page.locator(`main a[href="${journal}"]`)).toHaveCount(0);
+    // Décision de Paul du 08/11/2026, correctif passe 2 : one index link, only in articles.
+    await expect(page.locator(`main a[href="${journal}"]`)).toHaveCount(1);
+    await expect(page.locator(`#articles a[href="${journal}"]`)).toHaveCount(1);
     await expect(page.locator(`footer a[href="${journal}"]`)).toBeVisible();
 
     if (width >= 1280) {

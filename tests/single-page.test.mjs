@@ -6,7 +6,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
-const anchors = { fr: ["references", "terrain", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "questions", "articles", "bandeau", "contact"], en: ["references", "in-the-field", "offers", "in-production", "path", "services", "technologies", "team", "questions", "articles", "bandeau", "contact"] };
+const anchors = { fr: ["references", "terrain", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "bandeau", "questions", "articles", "contact"], en: ["references", "in-the-field", "offers", "in-production", "path", "services", "technologies", "team", "bandeau", "questions", "articles", "contact"] };
 function heroGeometries(html) {
   return [...html.matchAll(/<g class="onto-geo onto-geo-(desktop|compact)">([\s\S]*?)(?=<g class="onto-geo |<\/svg>)/g)];
 }

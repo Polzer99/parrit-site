@@ -45,6 +45,15 @@ for (const locale of ["fr", "en"]) {
   const load = loader(locale);
   const { SinglePage } = load("src/system/components/SinglePage.tsx");
   const html = renderToStaticMarkup(createElement(SinglePage, { locale, contactQuery: "utm_campaign=field&source=old" }));
+  test(`final call separates team from FAQ and Journal has one home index link (${locale})`, () => {
+    const ids = [...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]);
+    assert.equal(ids[ids.indexOf("bandeau") - 1], locale === "fr" ? "partenaires" : "team");
+    assert.equal(ids[ids.indexOf("bandeau") + 1], "questions");
+    const journal = locale === "fr" ? "/fr/journal" : "/journal";
+    assert.equal((html.match(new RegExp(`href="${journal}"`, "g")) ?? []).length, 1);
+    assert.ok(section(html, "articles").includes(`href="${journal}"`));
+  });
+
   test(`field SSR exposes three local responsive pictures, dimensions and captions (${locale})`, () => {
     const field = section(html, locale === "fr" ? "terrain" : "in-the-field");
     const pictures = [...field.matchAll(/<picture>([\s\S]*?)<\/picture>/g)];
@@ -173,6 +182,10 @@ test("entrances reveal once, react to reduced motion, and disconnect on cleanup"
   assert.equal(sections[1].dataset.entrance, "pending");
   instances[0].enter(sections[1]);
   assert.equal(sections[1].dataset.entrance, "entered");
+  assert.equal(instances[0].targets.has(sections[1]), false);
+  const instanceCount = instances.length;
+  instances[0].enter(sections[1]);
+  assert.equal(instances.length, instanceCount, "repeated notification does not create an observer loop");
   assert.equal(instances[0].targets.has(sections[1]), false);
   media.matches = true; listeners.forEach(fn => fn());
   assert.ok(sections.every(s => s.dataset.entrance === undefined));

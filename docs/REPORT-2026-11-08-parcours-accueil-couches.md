@@ -1,3 +1,132 @@
+# Compte rendu — correctif passe 2, 08/11/2026
+
+Correctifs de présentation implémentés ; contrôles Node et statiques réussis.
+Validation complète non acquise : navigateur indisponible dans le sandbox et
+cause du timeout hero non démontrée. Aucun commit, push ni déploiement.
+
+## Sources, périmètre et préservation
+
+FACT : les passes 1 et 2 sont déjà intégrées. SOURCE : checkout demandé,
+`bb28ce9f2018134d884ff34048740e8ff0ade91a`, spec amendée locale et traces hôte
+`test-results/**/error-context.md`, lues le 08/11/2026. Les sept points du
+correctif priment sur les versions précédentes.
+
+La spec et six PNG modifiés à l'entrée ont leurs empreintes sauvegardées dans
+`/private/tmp/couches-fix-preserved.json` ; ils sont conservés sans réécriture.
+Aucun asset photo, fichier logo, jeton vendorisé, donnée métier, serveur de
+capture ni calendrier modifié. Écritures locales réversibles uniquement.
+
+## Modifications par fichier
+
+- `src/system/components/SinglePage.tsx` : bandeau déplacé entre équipe et FAQ ;
+  13 sections conservées, sources d'intention et UTM inchangés.
+- `src/system/components/SessionPhotos.tsx` : identifiant de cadrage par photo,
+  sizes responsive correspondant aux nouvelles cellules ; formats, dimensions
+  explicites, alt FR/EN et fichiers sources inchangés.
+- `src/system/single-page.css` : mosaïque de même largeur que les offres, grille
+  2:1 et hauteur min(540px,62svh), cover avec positions spécifiques, légendes sur
+  aplat encre. Espacement extérieur du terrain adapté au budget d'écran.
+  Contours services/technologies avec jetons contextuels ; retrait de la bordure
+  supérieure héritée de la piste Journal. Les seuils restent inchangés.
+- `src/system/components/PublicEvidence.tsx` et CSS : logos agrandis ~20 %, repos
+  0,35, éclairage 1, échelle 1,08, rampes 300 ms, cycle 8 s ; animation CSS seulement,
+  permissions, pause au survol/focus et mode réduit conservés. Les fichiers
+  monochromes ne sont pas recolorés, comme le demande le correctif.
+- `AGENTS.md`, `TRUTH.md` : décision datée, nouvel ordre, cadrage d'affichage et
+  lien Journal unique dans main. Dans TRUTH, « justificatif Qualiopi » remplace
+  la formulation historique « certification Qualiopi » signalée par claims ;
+  aucun justificatif ni contenu public modifié.
+- `AI_CONTEXT.md`, plan et présent rapport : état, preuves et limites.
+
+Les exports restent entiers et sans métadonnées ; le cover modifie seulement
+le cadrage affiché. Inspection des sources et calcul des cadrages : visages et
+mains conservés aux tailles ciblées. Le bas du corps de l'intervenant est hors
+cadre dans la cellule paysage ; ne pas présenter cette vue comme un portrait
+entier. Le rendu visuel doit être validé sur l'hôte.
+
+## Tests ajoutés et adaptés
+
+- `tests/home-visual-layers.test.mjs` : deux nouveaux tests SSR FR/EN, bandeau
+  entre équipe et FAQ et un seul lien Journal dans main/section articles.
+  Ils échouent avant correction, puis passent. Test observer renforcé : une
+  notification répétée ne réarme pas une section et ne crée aucun observateur.
+- `tests/home-visual-layers.spec.ts` : deux nouveaux parcours FR/EN à 1280×720,
+  attente de l'URL Journal et de ses cartes avant comparaison. Contrôles existants
+  renforcés : pleine largeur, ratio 2:1, hauteur mosaïque, sommets des trois pistes
+  mobiles, horloge commune des logos (au plus un éclairé), repos 0,35/cycle ≤ 8 s,
+  exclusion du hero/contact de l'apparition. Les attentes cover/échelle 1,08
+  remplacent uniquement les contrats explicitement amendés.
+- `tests/parcours-accueil.{test.mjs,spec.ts}`, `tests/single-page.{test.mjs,spec.ts}`,
+  `tests/brand-os-render.test.mjs` : nouvel ordre. Night tour 2 exige exactement
+  un lien Journal dans main et dans articles, avec lien du pied conservé.
+- `tests/aeration.spec.ts`, sa dette gelée vide, `tests/stabilite.spec.ts`, les
+  seuils de géométrie, les timeouts et le deny-all ne sont pas modifiés.
+
+## Diagnostic des échecs hôte
+
+1. Deux exec visibles : le bandeau précédait directement le contact. Son
+   déplacement est la correction prévue ; preuve navigateur à rejouer.
+2. Alignement mobile : trace FR/EN = décalage exact 1 px. La piste Journal héritait
+   `border-top:1px` de journal-list. Bordure retirée de cette seule piste ; les
+   pistes offres et mosaïque n'avaient pas cette bordure. Aucun seuil changé.
+3. Contrastes : services utilisait line sur sky (2,869), technologies présentait
+   un fond blanc sur main blanc cassé sans contour (1,057). Couleurs de contour
+   corrigées ; textes déjà contextuels. Audit calculé navigateur à rejouer.
+4. Articles FR 1280 : Received = trois cartes d'accueil, Expected = index vide.
+   La trace montre ensuite le Journal chargé. Le test lit evaluateAll juste
+   après clic, sans attente du contenu cible : course de navigation, aucune
+   preuve d'article tronqué. Le test d'origine est conservé conformément au
+   point 7 ; le nouveau parcours attend la destination pour vérifier le produit.
+5. Hero EN 1200 : timeout dans la dernière boucle exhaustive de styles, après
+   les contrôles géométriques. SectionEntrance exclut hero/contact, désobserve
+   chaque section après entrée, n'a aucun minuteur et ne crée pas d'observateur
+   en mouvement réduit. Cause exacte UNKNOWN sans trace chronométrée ; aucun
+   changement arbitraire du hero ou de la durée de test.
+
+## Résultats d'exécution
+
+| Vérification | Baseline | Candidat |
+| --- | --- | --- |
+| npm ci --silent | Réussi | Dépendances identiques, installation conservée |
+| npm run lint | Réussi | Réussi |
+| npm run build -- --webpack | Réussi | Réussi |
+| npm test | 214/214 | 216/216 |
+| npx tsc --noEmit | Inclus au build | Réussi |
+| npm run qa:brand:rev01 | — | Réussi |
+| npm run qa:claims:rev01 | — | Réussi |
+| npm run test:brand-os | — | 19/19 |
+| git diff --check | — | Réussi |
+| qa:network:rev01 -- --list | — | 489 tests recensés |
+| next start sur 127.0.0.1:3210 | — | listen EPERM |
+| qa:network:rev01, 1 worker, max-failures 1 | — | Chromium bloqué au lancement |
+
+La tentative navigateur a précédé l'ajout des deux derniers parcours : 1 échec
+infrastructure et 486 non exécutés sur 487. Pas de relance face à ce même blocage ;
+les 489 tests actuels sont recensés, pas validés. Le message fatal est
+`bootstrap_check_in … MachPortRendezvousServer: Permission denied`, SIGTRAP.
+
+Premier passage candidat Node : un contrat d'ordre Brand OS oublié a été adapté,
+et un test lisant llms.txt a rencontré un contenu transitoire pendant la
+régénération concurrente par un autre test. Le fichier final est identique à la
+baseline ; ce test n'a pas été modifié et le rejeu complet réussit 216/216.
+Avertissements préexistants metadataBase et MODULE_TYPELESS_PACKAGE_JSON.
+
+Comparaison SSR avant/après FR/EN : hero, contact, services, technologies et
+parcours identiques octet pour octet. Revue adverse indépendante réalisée :
+causes confirmées, pas d'autre régression concrète identifiée dans le diff.
+Logs : `/private/tmp/couches-fix-{baseline,final}-*.log` et
+`/private/tmp/couches-fix-browser{,-list}.log`.
+
+## Reprise et preuve restante
+
+Sur l'hôte : serveur local après build puis `npm run qa:network:rev01`.
+Confirmer mosaïque/cadrages, alignements, contours, écart exec ≥ 844 px, hero,
+absence de débordement et CLS. L'ancien test Journal peut encore subir sa course
+et le timeout hero nécessite une trace ; ils n'ont pas été masqués.
+PRODUCTION_PROOF : hors mandat, aucune action de déploiement.
+
+---
+
 # Compte rendu — passe 2, couches visuelles, 08/11/2026
 
 **État : passe 2 codée et contrôles locaux réussis ; validation complète non

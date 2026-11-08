@@ -1,3 +1,23 @@
+## Correctif passe 2 — décision de Paul du 08/11/2026
+
+La spec amendée prime sur la passe 2 ci-dessous. Ordre : hero, références,
+terrain, offres, applications, parcours, services, technologies, équipe,
+bandeau, questions, derniers articles, fondateur/contact. Le bandeau est déplacé
+avant la FAQ pour séparer ses boutons de ceux du contact.
+
+Mosaïque pleine largeur en grille 2:1, hauteur min(540 px, 62svh), images en
+cover avec position par photo et légendes sur aplat encre. Les exports restent
+entiers, sans agrandissement ni métadonnées ; seul le cadrage d'affichage change.
+Logos monochromes sources conservés : repos 0,35, éclairage 1/échelle 1,08,
+rampes 300 ms et cinq créneaux de 1,6 s ; pause survol/focus et mouvement réduit
+statique à opacité 1. La pleine couleur n'est plus attendue de ces masques.
+
+Exactement un lien vers l'index Journal dans main, uniquement dans la section
+des articles, et celui du pied conservé (amendement au contrat night tour 2).
+Contrôles sur fond clair avec couleurs contextuelles ; bordure supérieure de
+la piste Journal retirée pour aligner ses cartes au sommet. Aucun seuil de
+contraste, géométrie, durée de test, stabilité ou CLS assoupli.
+
 ## Couches visuelles, passe 2 — décision de Paul du 08/11/2026
 
 La passe 2 de `docs/CODEX-SPEC-2026-11-08-parcours-accueil-couches.md` complète

@@ -129,6 +129,14 @@ export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { 
 <ResearchPartner/>
 </RevealOnView></section>
 
+<section className="final-call" id="bandeau" data-regime="canard"><div className="wrap">
+  <h2>{fr ? "Votre expertise, mise au travail." : "Your expertise, put to work."}</h2>
+  <div className="actions">
+    <ContactIntentLink locale={locale} query={contactQuery} intent="projet" placement="bandeau" primary>{t("Parler d'un projet")}<BrandConnector/></ContactIntentLink>
+    <ContactIntentLink locale={locale} query={contactQuery} intent="formation" placement="bandeau">{t("Former mes équipes")}</ContactIntentLink>
+  </div>
+</div></section>
+
 <section id="questions"><div className="wrap">
   <h2>{copy.questionsTitle}</h2>
   <div className="home-faq">
@@ -144,14 +152,6 @@ export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { 
     {latestEntries.map(entry => <article key={entry.slug}><JournalCard entry={entry} locale={locale} compact/></article>)}
   </MobileCarousel>
   <a className="btn rev-button ghost home-journal-link" href={localizedPath("/journal", locale)}>{copy.journalLink}</a>
-</div></section>
-
-<section className="final-call" id="bandeau" data-regime="canard"><div className="wrap">
-  <h2>{fr ? "Votre expertise, mise au travail." : "Your expertise, put to work."}</h2>
-  <div className="actions">
-    <ContactIntentLink locale={locale} query={contactQuery} intent="projet" placement="bandeau" primary>{t("Parler d'un projet")}<BrandConnector/></ContactIntentLink>
-    <ContactIntentLink locale={locale} query={contactQuery} intent="formation" placement="bandeau">{t("Former mes équipes")}</ContactIntentLink>
-  </div>
 </div></section>
 
 <section className="founder" id="contact" tabIndex={-1}><div className="wrap"><div className="grid">

@@ -1,3 +1,27 @@
+## Correctif des couches visuelles, 08/11/2026
+
+Source : spec locale amendée, baseline `bb28ce9`, checkout demandé.
+Mosaïque pleine largeur 2:1, cover et positions par photo, fichiers inchangés ;
+logos sources monochromes agrandis ~20 %, repos 0,35/éclairage 1/échelle 1,08,
+cycle 8 s. Bandeau entre équipe et FAQ. Contours services/technologies contextuels,
+bordure de piste Journal retirée (décalage mobile 1 px). Exactement un lien index
+Journal dans main, section articles, plus celui du pied.
+
+Validation : npm ci, lint, build Webpack, types, marque/claims réussis ;
+214→216 tests Node, 19 Brand OS. Deux tests Node et deux parcours navigateur
+ajoutés, contrôles mosaïque/animation/sommets renforcés. Hero/contact/services/
+technologies/parcours : HTML SSR identique FR/EN. Spec et six PNG préexistants
+conservés par empreintes ; aucun commit/push/déploiement.
+
+Limites : serveur EPERM et Chromium MachPortRendezvous/SIGTRAP ; 489 tests
+navigateur recensés, validation rendu/CLS non acquise. Traces hôte : l'échec
+articles est une lecture de l'index avant son chargement ; timeout hero dans
+la boucle de styles, cause non établie. Tests point 7 conservés, aucun correctif
+produit spéculatif. SectionEntrance exclut déjà hero/contact, sans boucle/timer.
+Cadrages calculés préservent visages/mains ; vérifier visuellement sur hôte.
+Rapport : `docs/REPORT-2026-11-08-parcours-accueil-couches.md`, correctif passe 2.
+Les mentions de limites couleur et d'ancien ordre ci-dessous sont historiques.
+
 ## Couches visuelles, passe 2 du 08/11/2026
 
 Source : spec locale amendée, baseline `f2f1abafefe8769bae1779d6ceac7245d524e0b6`.

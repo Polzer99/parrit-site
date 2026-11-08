@@ -41,7 +41,7 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           expect(new URL(geometry.source).pathname).toMatch(/^\/photos\/session\/.+\.(avif|webp)$/);
           expect(geometry.natural).toBeGreaterThan(0);
           expect(geometry.declared.map(Number).every(n => n > 0)).toBe(true);
-          expect(geometry.fit).toBe("contain");
+          expect(geometry.fit).toBe("cover");
           expect(geometry.filter).toBe("none");
           expect(geometry.radius).toBe("0px");
           expect(geometry.box.height).toBeLessThanOrEqual(height);
@@ -50,7 +50,15 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         const figures = await field.locator("figure").evaluateAll(nodes => nodes.map(node => {
           const b = node.getBoundingClientRect(); return { x: b.x, y: b.y, bottom: b.bottom, width: b.width, height: b.height };
         }));
+        const mosaic = (await field.locator(".session-mosaic").boundingBox())!;
+        const offerTrack = (await page.locator(".home-offers").boundingBox())!;
+        expect(mosaic.width).toBeCloseTo(offerTrack.width, 0);
+        expect((await field.locator(":scope > .wrap").boundingBox())!.height).toBeLessThanOrEqual(height);
         if (width > 760) {
+          expect(mosaic.height).toBeCloseTo(Math.min(540, height * .62), 0);
+          expect(figures[0].width / figures[1].width).toBeCloseTo(2, 2);
+          expect(figures[0].y).toBeCloseTo(mosaic.y, 0);
+          expect(figures[1].y).toBeCloseTo(mosaic.y, 0);
           expect(figures[0].x).toBeLessThan(figures[1].x);
           expect(Math.abs(figures[1].x - figures[2].x)).toBeLessThanOrEqual(1);
           expect(figures[1].bottom).toBeLessThan(figures[2].y);
@@ -64,6 +72,12 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           if (javaScriptEnabled) {
             await expect(field.locator(".swipe-dots i").nth(1)).toHaveClass("on");
             await expect.poll(() => field.getByRole("region").evaluate(el => el.scrollLeft)).toBeGreaterThan(0);
+          }
+        }
+        if (width <= 760) {
+          for (const track of await page.locator(".home-offers,.session-mosaic,.home-journal-list").all()) {
+            const top = (await track.boundingBox())!.y;
+            for (const card of await track.locator(":scope > *").all()) expect((await card.boundingBox())!.y).toBeCloseTo(top, 0);
           }
         }
         const offers = page.locator(locale === "fr" ? "#offres" : "#offers");
@@ -81,7 +95,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         }));
         for (const key of ["top", "bottom", "text"] as const) expect(Math.max(...bottoms.map(b => b[key])) - Math.min(...bottoms.map(b => b[key]))).toBeLessThanOrEqual(1);
         const final = page.locator("#bandeau");
-        expect(await final.evaluate(el => el.nextElementSibling?.id)).toBe("contact");
+        expect(await final.evaluate(el => el.previousElementSibling?.id)).toBe(locale === "fr" ? "partenaires" : "team");
+        expect(await final.evaluate(el => el.nextElementSibling?.id)).toBe("questions");
         await expect(final.locator("a.exec")).toHaveCount(1);
         await expect(final.locator("a.ghost")).toHaveCount(1);
         await expect(final.locator('a.exec svg[data-connector="VS-CONNECTOR"] path')).toHaveCount(2);
@@ -136,6 +151,7 @@ for (const locale of ["fr", "en"]) {
       await expect(img).toHaveCSS("animation-name", "logo-spotlight");
       const delay = await img.evaluate(el => parseFloat(getComputedStyle(el).animationDelay));
       expect(delay).toBeCloseTo(i * 1.6);
+      expect(await img.evaluate(el => parseFloat(getComputedStyle(el).animationDuration))).toBeLessThanOrEqual(8);
     }
     await strip.hover();
     await expect(page.locator(".logo-track")).toHaveCSS("animation-play-state", "paused");
@@ -145,7 +161,17 @@ for (const locale of ["fr", "en"]) {
     await images.first().evaluate(el => { const animation = el.getAnimations()[0]; animation.pause(); animation.currentTime = 800; });
     await expect(images.first()).toHaveCSS("opacity", "1");
     await expect(images.first()).toHaveCSS("filter", "grayscale(0)");
-    expect(await images.first().evaluate(el => new DOMMatrix(getComputedStyle(el).transform).a)).toBeLessThanOrEqual(1.06);
+    expect(await images.first().evaluate(el => new DOMMatrix(getComputedStyle(el).transform).a)).toBeCloseTo(1.08, 2);
+    // Sample the same animation clock: one highlighted logo, all others at rest.
+    // 300 ms ramps bound each 1.6 s slot; no overlapping spotlight at wraparound.
+    for (const time of [0, 300, 800, 1599, 1900, 3500, 5100, 6700, 7999, 8300]) {
+      const samples = await images.evaluateAll((nodes, time) => nodes.map(el => {
+        const animation = el.getAnimations()[0]; animation.pause(); animation.currentTime = time;
+        return Number(getComputedStyle(el).opacity);
+      }), time);
+      expect(samples.filter(opacity => opacity > .351).length).toBeLessThanOrEqual(1);
+      expect(samples.filter(opacity => Math.abs(opacity - .35) < .001).length).toBeGreaterThanOrEqual(4);
+    }
     await page.emulateMedia({ reducedMotion: "reduce" });
     for (const img of await images.all()) {
       await expect(img).toHaveCSS("animation-name", "none");
@@ -158,6 +184,7 @@ for (const locale of ["fr", "en"]) {
   test(`section entrance runs once and new contact actions retain form data ${locale}`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.goto(local(`${locale === "fr" ? "/fr" : "/"}?utm_custom=keep`));
+    for (const section of await page.locator(".hero, #contact").all()) await expect(section).not.toHaveAttribute("data-entrance");
     const field = page.locator(locale === "fr" ? "#terrain" : "#in-the-field");
     await expect(field).toHaveAttribute("data-entrance", "pending");
     await field.scrollIntoViewIfNeeded();
@@ -180,3 +207,20 @@ for (const locale of ["fr", "en"]) {
     }
   });
 }
+
+// Reproduce the product journey while waiting for the document destination.
+// The original parcours-accueil comparison is kept unchanged per the correction.
+for (const locale of ["fr", "en"]) test(`home Journal link loads the same latest entries ${locale}`, async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const home = locale === "fr" ? "/fr" : "/";
+  const journal = locale === "fr" ? "/fr/journal" : "/journal";
+  await page.goto(local(home));
+  const expected = await page.locator("#articles article a").evaluateAll(nodes => nodes.map(node => node.getAttribute("href")));
+  expect(expected).toHaveLength(3);
+  await page.locator("#articles .home-journal-link").click();
+  await expect(page).toHaveURL(local(journal));
+  await expect(page.locator(".journal-index > li").first()).toBeVisible();
+  const actual = await page.locator(".journal-index > li > a").evaluateAll(nodes => nodes.slice(0, 3).map(node => node.getAttribute("href")));
+  expect(actual).toEqual(expected);
+});

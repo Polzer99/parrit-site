@@ -23,8 +23,8 @@ export function SessionPhotos({ locale, contactQuery }: { locale: Locale; contac
     <MobileCarousel className="session-mosaic" label={title}>
       {photos.map(({ id, width, height, caption, alt }, index) => {
         const base = `/photos/session/${id}`;
-        const sizes = index === 0 ? "(max-width: 760px) calc(100vw - 40px), 480px" : "(max-width: 760px) calc(100vw - 40px), 300px";
-        return <figure key={id}>
+        const sizes = index === 0 ? "(max-width: 760px) calc(100vw - 40px), (max-width: 1160px) calc((100vw - 96px) * 2 / 3), 710px" : "(max-width: 760px) calc(100vw - 40px), (max-width: 1160px) calc((100vw - 96px) / 3), 355px";
+        return <figure key={id} data-photo={id}>
           <picture>
             <source type="image/avif" srcSet={`${base}-480.avif 480w, ${base}-${width}.avif ${width}w`} sizes={sizes}/>
             <source type="image/webp" srcSet={`${base}-480.webp 480w, ${base}-${width}.webp ${width}w`} sizes={sizes}/>

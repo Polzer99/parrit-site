@@ -1,3 +1,31 @@
+# Correctif passe 2 — 08/11/2026
+
+Mandat : implémentation intégrale de la spec amendée demandée par Paul.
+Source de travail explicitement demandée : checkout courant, HEAD `bb28ce9`.
+Les deux passes précédentes sont intégrées ; préserver la spec et les six PNG
+préexistants modifiés (empreintes sauvegardées dans /private/tmp).
+
+1. Capturer npm ci, lint, build Webpack et tests Node avant modification.
+2. Corriger la mosaïque pleine largeur 2:1, cadrages CSS vérifiés sur les trois
+   sources, sans réencoder les assets ; renforcer l'éclairage des logos.
+3. Déplacer le bandeau avant la FAQ ; corriger les couleurs des contrôles et
+   les sommets des pistes mobiles sans changer les seuils.
+4. Investiguer les échecs articles/hero depuis les traces hôte et le code ;
+   corriger les causes prouvées, garder visibles les causes non reproduites.
+5. Ajouter les régressions FR/EN, adapter uniquement les contrats amendés,
+   rejouer la même batterie et marque/claims/Brand OS ; revue indépendante.
+6. Mettre à jour les consignes et le rapport, avec résultats et limites.
+
+Écriture : dépôt local de développement, code/styles/tests/docs uniquement.
+Réversible par diff sur HEAD ; sauvegarde des modifications préexistantes par
+empreintes, aucun système externe ni donnée métier (0 ligne). Aucun commit,
+push ni déploiement. Une implémentation et deux passes correctives maximum ;
+arrêt des relances identiques en cas de blocage d'environnement.
+Preuve attendue : rendu FR/EN avec/sans JS, géométrie/contrastes/CLS, puis
+rejeu Playwright par Claude sur l'hôte comme prévu par la spec.
+
+---
+
 # Plan d’exécution — parcours de l’accueil
 
 ## Passe 2, 08/11/2026
