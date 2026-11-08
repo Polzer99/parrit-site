@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useCallback, useRef, useState, type CSSProperties } from "react";
 import type { Locale } from "@/system/locale";
 import { SINGLE_PAGE_EN } from "@/system/single-page-copy";
 import { HERO_STORIES, NODES, ROWS, ZONES, LAYERS, UP, REL, TOP, type Plane, type NodeId } from "@/system/ontology-hero-data";
@@ -52,7 +52,7 @@ function PlaneSurface({ plane, compact }: { plane: Plane; compact: boolean }) {
   return <g data-plane={plane}>{planePaths(plane, compact).map((d, i) => <path key={i} d={d} vectorEffect="non-scaling-stroke" className={i < 2 ? `onto-slab side-${i}` : i === 2 ? "onto-surface" : "onto-grid"}/>)}</g>;
 }
 
-export function OntologyHero({ locale, children }: { locale: Locale; children: ReactNode }) {
+export function OntologyHero({ locale }: { locale: Locale }) {
   const ref = useRef<HTMLDivElement>(null);
   const [state, setState] = useState({ story: 0, step: 4 });
   const start = useCallback(() => {
@@ -102,7 +102,6 @@ export function OntologyHero({ locale, children }: { locale: Locale; children: R
     </div>
   </div>;
   return <div className="ontology-hero" ref={ref} tabIndex={0} role="region" aria-label={locale === "fr" ? "Des sources aux résultats" : "From sources to results"} data-story={state.story} data-step={state.step}>
-    {children}
     <div className="onto-diagram" aria-hidden="true">
       <svg className="onto" viewBox="0 0 820 630" preserveAspectRatio="none" aria-hidden="true">
         {[false, true].map(compact => <g key={String(compact)} className={`onto-geo onto-geo-${compact ? "compact" : "desktop"}`}>

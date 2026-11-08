@@ -40,7 +40,8 @@ for (const locale of ["fr", "en"]) test(`home copy is understandable, complete i
   assert.ok(definition);
   assert.match(definition, locale === "fr" ? /assistant.*agent IA.*règles.*soumet.*avant/ : /assistant.*AI agent.*rules.*submits.*before/);
   assert.match(html, /<h2>[^<]+<b>[^<]+<\/b><\/h2><p class="muted change-definition">/);
-  const outsideReferences = html.replace(/<section id="references"[\s\S]*?<\/section>/, "");
+  // Hero-conversion permits the same authorized marks in the hero proof.
+  const outsideReferences = html.replace(/<link rel="preload" as="image"[^>]*>/g, "").replace(/<section (?:id="references"|class="hero")[\s\S]*?<\/section>/g, "");
   assert.doesNotMatch(outsideReferences, /Laparra|Clevery|Forexpert|Joone|SNCF/i);
   const { HERO_STORIES, LAYERS, ZONES } = loader(locale)("src/system/ontology-hero-data.ts");
   const { SINGLE_PAGE_EN } = loader(locale)("src/system/single-page-copy.ts");

@@ -1,3 +1,36 @@
+## Hero de conversion, correctif 1 de la spec du 08/11/2026
+
+Le correctif 1 de `docs/CODEX-SPEC-2026-11-08-hero-conversion.md` prime :
+le hero reprend le `.wrap` commun (1160 px, marges internes 40 px sur ordinateur),
+soit les bords de contenu 180/1260 px à 1440. Sa hauteur est intrinsèque, sans
+minimum lié au viewport ; rembourrage vertical 24 px, inférieur au maximum
+`--brand-s8`. La section références peut apparaître au premier écran.
+Logos en flex à écart fixe `--brand-s2`, hauteur optique `--brand-s3` (24 px) ;
+le SVG SNCF est compensé pour ses marges transparentes. Grille 2×2 sous 1100 px.
+Colonnes égales, photo, textes, action, preuve, schéma, animations, permissions
+et fichiers conservés. Aucun seuil de hauteur, alignement, stabilité ou CLS
+assoupli. Tests 1440×900 et alignements externes ajoutés ; rendu réel à confirmer
+sur l'hôte (serveur EPERM, Chromium interdit avant navigation).
+
+## Hero de conversion, décision de Paul du 08/11/2026
+
+`docs/CODEX-SPEC-2026-11-08-hero-conversion.md` prime pour le premier écran :
+deux colonnes égales dès 1100 px, photo réelle `formation-equipes`, un bouton,
+preuve sous le bouton. Surtitre, H1 inchangé, sous-titre, action et preuve sont
+alignés ; la photo partage les bords haut/bas du bloc texte. Navigation ghost,
+attribution `rdv-hero`, UTM et respiration conservés. Logos blancs contrôlés par
+`getSiteEvidence` et `publicationLogo` : Toyotomi Europe, SNCF, Hiolle Technologies,
+Laparra si tous autorisés, sinon les quatre premiers autorisés. Sur téléphone
+et tablette, bouton pleine largeur, logos 2 × 2 puis photo 4:3.
+Le schéma trois plans vit dans sa propre section, après les deux métiers :
+« Comment l'IA travaille avec vos outils. » / « How AI works with your tools. ».
+Ses quatre histoires, légende, carte, citation, minuteur et mouvement réduit
+sont conservés. Quatorze sections ; nouvelle ancre `#fonctionnement` /
+`#how-it-works`, ordre partagé avec llms. « Un bloc = un écran » s'applique au
+schéma ; seuils de hauteur, stabilité, CLS et blocage réseau inchangés.
+Les anciennes mentions de schéma dans le hero et de noms clients uniquement
+dans les références sont remplacées pour ce périmètre. Les autres contrats restent.
+
 ## Action unique, correctifs 3 et 4, décision de Paul du 08/11/2026, nuit
 
 Les sections 6 et 7 de `docs/CODEX-SPEC-2026-11-08-action-unique-et-wording.md`

@@ -67,8 +67,8 @@ for (const locale of ["fr", "en"] as const) {
       expect(Math.abs(box.x - group.x)).toBeLessThanOrEqual(1);
       expect(box.x + box.width).toBeLessThanOrEqual(group.x + group.width + 1);
       if (width === 1440) {
-        const diagram = (await page.locator(".onto-diagram").boundingBox())!;
-        expect(box.x + box.width).toBeLessThanOrEqual(diagram.x);
+        const photo = (await page.locator(".hero-photo").boundingBox())!;
+        expect(box.x + box.width).toBeLessThanOrEqual(photo.x);
         const hero = (await page.locator(".hero").boundingBox())!;
         expect(hero.y + hero.height).toBeLessThanOrEqual(800);
       } else {

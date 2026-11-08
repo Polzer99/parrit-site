@@ -7,7 +7,7 @@
 
 ### La page d'accueil
 - https://parrit.ai/fr
-- Dans l'ordre : Votre expertise est la matière première. Nous la mettons au travail. ; Ils travaillent avec nous. ; Sur le terrain, avec vos équipes. ; Deux métiers, une même transformation. ; Quelques applications concrètes. ; Trois étapes, vous commencez où vous voulez. ; Ce que l'IA prépare dans chaque service. ; Pour chaque besoin, nous choisissons la meilleure technologie. ; Chaque projet a son équipe et sa technologie. ; Votre expertise, mise au travail. ; Questions ; Derniers articles ; Paul Larmaraud, fondateur de Parrit.ai
+- Dans l'ordre : Votre expertise est la matière première. Nous la mettons au travail. ; Ils travaillent avec nous. ; Sur le terrain, avec vos équipes. ; Deux métiers, une même transformation. ; Comment l'IA travaille avec vos outils. ; Quelques applications concrètes. ; Trois étapes, vous commencez où vous voulez. ; Ce que l'IA prépare dans chaque service. ; Pour chaque besoin, nous choisissons la meilleure technologie. ; Chaque projet a son équipe et sa technologie. ; Votre expertise, mise au travail. ; Questions ; Derniers articles ; Paul Larmaraud, fondateur de Parrit.ai
 - Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.
 - Paul Larmaraud, fondateur de Parrit.ai, accompagne les équipes dans la prise en main de l'IA et pilote les projets.
 - Présence : Tourcoing et Paris. Zone d'intervention : toute la France.
@@ -79,7 +79,7 @@
 
 ### The home page
 - https://parrit.ai/
-- In order: Your expertise is the raw material. We put it to work. ; They work with us. ; In the field, with your teams. ; Two crafts, one transformation. ; A few real-world applications. ; Three steps. Start wherever you are. ; What AI prepares in every department. ; For every need, we choose the best technology. ; Every project gets its own team and its own technology. ; Your expertise, put to work. ; Questions ; Latest articles ; Paul Larmaraud, founder of Parrit.ai
+- In order: Your expertise is the raw material. We put it to work. ; They work with us. ; In the field, with your teams. ; Two crafts, one transformation. ; How AI works with your tools. ; A few real-world applications. ; Three steps. Start wherever you are. ; What AI prepares in every department. ; For every need, we choose the best technology. ; Every project gets its own team and its own technology. ; Your expertise, put to work. ; Questions ; Latest articles ; Paul Larmaraud, founder of Parrit.ai
 - Client replies, follow-ups, quotes, meeting notes: AI prepares them, your teams review and decide.
 - Paul Larmaraud, founder of Parrit.ai, helps teams adopt AI and leads projects.
 - Presence: Tourcoing and Paris. Service area: across France.

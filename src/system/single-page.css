@@ -440,7 +440,7 @@
 .single-page .onto-result > b {flex:1;min-width:0;font-size:15px;line-height:22px;font-weight:600;}
 .single-page .onto-approval {flex:none;max-width:40%;font-size:13px;line-height:18px;padding:3px 10px;background:var(--sky);color:var(--ink);font-weight:600;opacity:0;transition:opacity .35s;}
 .single-page .onto-result.is-visible, .single-page .onto-approval.is-visible {opacity:1;}
-.single-page .hero .humby {font-size:16px;line-height:1.45;color:var(--on-canard);max-width:none;}
+.single-page .ai-tools .humby {font-size:16px;line-height:1.45;color:var(--on-canard);max-width:none;}
 @media(min-width:761px){
   .single-page .hero .actions {flex-direction:row;align-items:baseline;}
   .single-page .hero .btn {flex:none;}
@@ -451,8 +451,7 @@
 }
 @media(min-width:1200px){
   .single-page .hero {padding:24px 0 16px;}
-  .single-page .hero .wrap {max-width:1440px;padding-left:clamp(40px,calc((100vw - 1080px) / 2),180px);padding-right:16px;}
-  .single-page .ontology-hero {grid-template-columns:calc(var(--brand-s8) * 8) minmax(0,1fr);grid-template-rows:auto auto auto;column-gap:24px;row-gap:16px;align-items:start;}
+  .single-page .ontology-hero {grid-template-columns:minmax(0,1fr) minmax(0,2fr);grid-template-rows:1fr 1fr;column-gap:var(--brand-s3);row-gap:var(--brand-s2);align-items:center;}
   .single-page .hero-intro {grid-column:1;grid-row:1;}
   .single-page .hero h1 {font-size:46px;line-height:52px;}
   .single-page .hero .sub > p {font-size:19px;line-height:28px;}
@@ -473,8 +472,8 @@
   .single-page .zone-1 {transform:translateX(-50%);}
   .single-page .onto-layer {width:14.63%;font-size:10px;line-height:13px;}
   .single-page .onto-layer > span {display:block;color:var(--on-canard);}
-  .single-page .ontocap-stack {grid-column:1;grid-row:2 / 4;border-top:1px solid color-mix(in srgb,var(--on-canard) 35%,transparent);padding-top:18px;}
-  .single-page .hero .humby {grid-column:2;grid-row:3;}
+  .single-page .ontocap-stack {grid-column:1;grid-row:1;align-self:end;}
+  .single-page .ai-tools .humby {grid-column:1;grid-row:2;align-self:start;}
 }
 @media (prefers-reduced-motion:no-preference) {
   .single-page .ontocap .onto-now {animation:onto-now-fade .25s ease-out;}
@@ -646,4 +645,39 @@
   .single-page .team-intro {margin-top:calc(var(--brand-s3) / 2);}
   .single-page :is(#partenaires,#team) .services {margin-top:var(--brand-s1);}
   .single-page :is(#partenaires,#team) .teamcap {margin-top:var(--brand-s1);}
+}
+
+/* Hero de conversion, 08/11/2026. Intrinsic text sets both column edges;
+   the picture cannot enlarge the row or change its height when it loads. */
+.single-page .hero {padding-block:var(--brand-s3);}
+.single-page .hero .conversion-hero {display:grid;grid-template-columns:minmax(0,1fr);gap:var(--brand-s3);}
+.single-page .hero-intro, .single-page .hero .sub {gap:var(--brand-s2);}
+.single-page .hero .hero-eyebrow {font-size:var(--t-s);line-height:1.5;color:var(--brand-accessible-warm);}
+.single-page .hero-proof {margin-top:var(--brand-s2);display:grid;gap:var(--brand-s1);}
+.single-page .hero .hero-reassurance {margin:0;}
+.single-page .hero .hero-trust-label {font-size:var(--t-s);line-height:1.5;color:var(--on-canard);}
+.single-page .hero-client-logos {display:flex;gap:var(--brand-s2);align-items:center;}
+.single-page .hero-client-logos > span {display:flex;flex:none;align-items:center;justify-content:flex-start;min-width:0;height:var(--brand-s6);}
+.single-page .hero-client-logos img {display:block;max-width:100%;width:auto;height:var(--brand-s3);filter:brightness(0) invert(1);}
+/* SNCF artwork spans y=5.76..18.24 in a 24px SVG (52%); PNGs have no alpha margin. */
+.single-page .hero-client-logos [data-evidence="SNCF"] img {height:calc(var(--brand-s3) / .52);}
+.single-page .hero-photo {position:relative;min-width:0;aspect-ratio:4/3;}
+.single-page .hero-photo picture {position:absolute;inset:0;display:block;}
+.single-page .hero-photo img {display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%;}
+.single-page .hero-photo figcaption {position:absolute;inset:auto 0 0;background:var(--ink);color:var(--white);padding:var(--brand-s1);font-size:var(--t-s);line-height:1.4;}
+@media(max-width:1099px) {
+  .single-page .hero .btn {width:100%;white-space:normal;}
+  .single-page .hero-client-logos {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media(min-width:1100px) {
+  /* Shared .wrap edges and intrinsic height, including on taller viewports. */
+  .single-page .hero .conversion-hero {width:100%;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--brand-s6);align-items:stretch;}
+  .single-page .hero-photo {aspect-ratio:auto;}
+  .single-page .hero .btn {width:max-content;max-width:100%;white-space:nowrap;}
+}
+/* The four-story illustration now has its own screen after the two crafts. */
+.single-page .ai-tools {background:var(--canard);color:var(--white);padding-block:var(--brand-s4);}
+.single-page .ai-tools .ontology-hero {margin-top:var(--brand-s2);gap:var(--brand-s2);}
+@media(max-width:1199px) {
+  .single-page .ai-tools .onto-diagram {max-width:min(560px,42svh);}
 }

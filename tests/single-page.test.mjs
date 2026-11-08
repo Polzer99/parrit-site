@@ -6,7 +6,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
-const anchors = { fr: ["references", "terrain", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "bandeau", "questions", "articles", "contact"], en: ["references", "in-the-field", "offers", "in-production", "path", "services", "technologies", "team", "bandeau", "questions", "articles", "contact"] };
+const anchors = { fr: ["references", "terrain", "offres", "fonctionnement", "en-production", "parcours", "services", "technologies", "partenaires", "bandeau", "questions", "articles", "contact"], en: ["references", "in-the-field", "offers", "how-it-works", "in-production", "path", "services", "technologies", "team", "bandeau", "questions", "articles", "contact"] };
 function heroGeometries(html) {
   return [...html.matchAll(/<g class="onto-geo onto-geo-(desktop|compact)">([\s\S]*?)(?=<g class="onto-geo |<\/svg>)/g)];
 }
@@ -57,7 +57,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   const journalLink = new RegExp(`href="${locale === "fr" ? "/fr" : ""}/journal"`);
   assert.match(main, journalLink);
   assert.match(footer, journalLink);
-  assert.equal((html.match(/<section\b/g) ?? []).length, 13);
+  assert.equal((html.match(/<section\b/g) ?? []).length, 14);
   assert.deepEqual([...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]), anchors[locale]);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
   // Decision of 08/11/2026: the descriptive offer is now the hero subtitle.
@@ -161,7 +161,7 @@ for (const locale of ["fr", "en"]) test(`revoking every permission hides client 
 
 for (const locale of ["fr", "en"]) test(`three planes, 33 nodes and four complete translated stories in static SSR (${locale})`, async () => {
   const html = await renderPage(locale);
-  const hero = html.match(/<section class="hero">[\s\S]*?<\/section>/)?.[0];
+  const hero = html.match(/<section class="ai-tools"[^>]*>[\s\S]*?<\/section>/)?.[0];
   assert.ok(hero);
   const { HERO_STORIES, NODES, ZONES, LAYERS, UP, REL, TOP } = loader(locale)("src/system/ontology-hero-data.ts");
   const { SINGLE_PAGE_EN } = loader(locale)("src/system/single-page-copy.ts");
@@ -217,10 +217,10 @@ for (const locale of ["fr", "en"]) test(`three planes, 33 nodes and four complet
 });
 
 for (const locale of ["fr", "en"]) test(`public rendered HTML remains anonymous (${locale})`, async () => {
-  // Décision de Paul du 08/11/2026, nuit: new names only in the reference band.
+  // Hero-conversion decision: authorized names in hero proof and reference band only.
   const html = await renderPage(locale);
   assert.doesNotMatch(html, /atlas/i);
-  assert.doesNotMatch(html.replace(/<section id="references"[\s\S]*?<\/section>/, ""), /toyotomi|hiolle|carte noire/i);
+  assert.doesNotMatch(html.replace(/<link rel="preload" as="image"[^>]*>/g, "").replace(/<section (?:id="references"|class="hero")[\s\S]*?<\/section>/g, ""), /toyotomi|hiolle|carte noire/i);
 });
 
 for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos and final walker (${locale})`, async () => {
@@ -232,7 +232,7 @@ for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos a
   assert.match(html, /class="human" transform="translate\(900 120\)"/);
   assert.equal((html.match(/class="use-case"/g) ?? []).length, 12);
   assert.doesNotMatch(html, /id="architecture"|class="stage"/);
-  assert.equal((html.match(/role="img"/g) ?? []).length, 8);
+  assert.equal((html.match(/role="img"/g) ?? []).length, 12);
   const strip = html.match(/<section id="references">([\s\S]*?)<\/section>/)?.[1];
   assert.ok(strip);
   assert.equal((strip.match(/role="img"/g) ?? []).length, 8);

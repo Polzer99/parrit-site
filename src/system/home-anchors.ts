@@ -1,7 +1,7 @@
 import type { Locale } from "./locale";
 
 const HASHES: Readonly<Record<string, string>> = {
-  "en-production": "in-production", offres: "offers", parcours: "path", partenaires: "team", terrain: "in-the-field",
+  "en-production": "in-production", offres: "offers", parcours: "path", partenaires: "team", terrain: "in-the-field", fonctionnement: "how-it-works",
 };
 
 export function localizedHomeHash(fragment: string, locale: Locale) {
