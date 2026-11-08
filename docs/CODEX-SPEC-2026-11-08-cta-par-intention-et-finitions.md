@@ -40,8 +40,8 @@ Les cartes des étapes s'alignent : les liens sont sur la même ligne de base da
 ### Contact
 
 Sous le bouton d'envoi du formulaire, une ligne en texte discret (FR / EN) :
-« 30 minutes en visio. Vous décrivez un service ou un irritant, nous vous disons ce qui est faisable, et ce qui ne l'est pas. »
-« 30 minutes by video call. You describe a team or a pain point, we tell you what can be done, and what cannot. »
+« 15 minutes en visio. Vous décrivez un service ou un irritant, nous vous disons ce qui est faisable, et ce qui ne l'est pas. »
+« 15 minutes by video call. You describe a team or a pain point, we tell you what can be done, and what cannot. »
 
 ## 2. Finitions visuelles (Brand OS strict : radius 0, zéro dégradé, zéro ombre, jetons uniquement)
 
@@ -67,3 +67,11 @@ Sous le bouton d'envoi du formulaire, une ligne en texte discret (FR / EN) :
 ## Preuve attendue
 
 Captures FR et EN à 1440×800 et 390×844 : hero, section des étapes, références, index du Journal.
+
+## Correctif après la première passe (PR #365, 08/11)
+
+1. La durée était fausse dans la spec : les rendez-vous Cal.com `paul-larmaraud/audit` et `paul-larmaraud/ai-strategy-meeting` durent **15 minutes** (relevé le 08/11 sur cal.com). La phrase devient :
+   « 15 minutes en visio. Vous décrivez un service ou un irritant, nous vous disons ce qui est faisable, et ce qui ne l'est pas. »
+   « 15 minutes by video call. You describe a team or a pain point, we tell you what can be done, and what cannot. »
+2. **Retirer l'exception ajoutée à `scripts/false-claims-check.mjs`** (`approvedContactCopy`) : le contrôle « call duration » doit rester exactement comme sur `main`. Le commentaire « approved by Paul » était faux. Mettre à jour la fixture `tests/fixtures/contact-expectation.json`, les tests et `AI_CONTEXT.md` en conséquence.
+3. Tout le reste de la PR #365 est conservé à l'identique.

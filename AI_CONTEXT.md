@@ -5,16 +5,31 @@ Deux CTA dans le hero, une action formation/priorités/projet par étape. Utilit
 `avecSource` corrigé pour les ancres et sources existantes ; href SSR avec UTM,
 historique et défilement sans rechargement sur l'accueil, attribution existante
 QuickCapture conservée. Ligne de contact FR/EN ajoutée sans changement du serveur.
+Correctif après PR #365 : durée de 15 minutes dans les deux langues, conformément
+à la spec amendée. `approvedContactCopy` et son commentaire erroné supprimés ;
+`false-claims-check.mjs` est identique à `f124fae` (main avant la première passe).
+Les tests refusent l’ancien paragraphe à 30 minutes dans QuickCapture et ailleurs.
+Les exemptions des audits `noOffer` restent limitées au paragraphe exact à
+15 minutes ; aucun changement des autres contrats de la première passe.
 Étapes alignées en sous-grille ; références animées en CSS avec pause survol/focus
 et présentation statique centrée en mouvement réduit. Journal : registre partagé
 des thèmes existants, lecture à 200 mots/minute arrondie (minimum 1), grille à deux
 colonnes dès 1100 px. Aucun changement des métadonnées, articles, sitemap ou Cal.com.
 
-Baseline locale demandée `f124fae` : npm ci, lint, build Webpack et 168 tests Node.
+Validation du correctif depuis `afd7582` : installation, lint et build Webpack
+réussis avant/après ; 180 → 181 tests Node. Nouvelles attentes : 4 échecs attendus
+avant correction, puis 13/13 tests ciblés réussis, également en revue indépendante.
+TypeScript, marque/claims et 19 tests Brand OS réussis. Aucun défaut en revue.
+448 tests navigateur recensés ; tentative bloquée avant navigation (serveur EPERM,
+Chromium MachPortRendezvous/SIGTRAP). Captures, géométrie et CLS non validés.
+Spec amendée préexistante conservée ; aucun commit, push ni déploiement.
+
+Historique de la première passe (avant correctif de durée), baseline `f124fae` : npm ci, lint, build Webpack et 168 tests Node.
 Candidat : npm ci, lint, build Webpack, TypeScript, 180 tests Node, marque/claims
 et 19 tests Brand OS réussis. Douze tests Node et trente tests Playwright ajoutés.
-Anciens contrats href/durée adaptés à la spec, exception exacte et localisée pour
-le paragraphe de contact ; seuils géométriques/stabilité et deny-all inchangés.
+Anciens contrats href/durée adaptés à la première version de la spec ; son
+exception au contrôle des durées a été retirée par le correctif ci-dessus.
+Seuils géométriques/stabilité et deny-all inchangés.
 Revue indépendante : perte UTM des clics modifiés corrigée, aucun défaut restant
 identifié. 448 tests navigateur recensés mais non validés : serveur EPERM et
 Chromium MachPortRendezvous/SIGTRAP. Captures, géométrie réelle et CLS UNKNOWN.

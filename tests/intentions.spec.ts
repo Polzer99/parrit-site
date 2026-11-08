@@ -86,7 +86,7 @@ for (const locale of ["fr", "en"]) {
       })));
       for (const field of ["top", "number", "action"] as const) expect(Math.max(...rows.map(row => row[field])) - Math.min(...rows.map(row => row[field]))).toBeLessThanOrEqual(1);
       const note = page.locator(".contact-expectation");
-      await expect(note).toContainText(locale === "fr" ? "30 minutes en visio." : "30 minutes by video call.");
+      await expect(note).toContainText(locale === "fr" ? "15 minutes en visio." : "15 minutes by video call.");
       expect((await note.boundingBox())!.y).toBeGreaterThanOrEqual((await page.locator("#single-contact .quick-fields").boundingBox())!.y + (await page.locator("#single-contact .quick-fields").boundingBox())!.height);
       await expect(page.locator(".logo-track")).toHaveCSS("animation-name", "none");
       expect(await page.locator(".logo-strip").evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);

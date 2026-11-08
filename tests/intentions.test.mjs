@@ -70,7 +70,7 @@ for (const locale of ["fr", "en"]) {
     }
     const { QuickCapture } = loader(locale)("src/system/components/QuickCapture.tsx");
     const form = renderToStaticMarkup(createElement(QuickCapture, { locale, variant: "contact" }));
-    assert.match(form, /<button[^>]+>[\s\S]*?<\/button><\/div><p class="contact-expectation">30 minutes/);
+    assert.match(form, /<button[^>]+>[\s\S]*?<\/button><\/div><p class="contact-expectation">15 minutes/);
     assert.doesNotMatch(renderToStaticMarkup(createElement(QuickCapture, { locale })), /contact-expectation/);
   });
 
@@ -135,28 +135,27 @@ for (const locale of ["fr", "en"]) test(`incoming UTM survive in SSR links and m
   }
 });
 
-test("claims gate exempts only the approved contact text in its component", t => {
+for (const locale of ["fr", "en"]) test(`claims gate accepts 15 minutes and rejects stale durations everywhere (${locale})`, t => {
   const root = fs.mkdtempSync(path.join(tmpdir(), "contact-claims-"));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   for (const directory of ["src/system/components", "scripts", "content/journal", "public"]) fs.mkdirSync(path.join(root, directory), { recursive: true });
   for (const file of ["public/llms.txt", "site.config.ts", "TRUTH.md"]) fs.writeFileSync(path.join(root, file), "");
-  const file = path.join(root, "src/system/components/QuickCapture.tsx");
-  const approved = JSON.parse(fs.readFileSync("tests/fixtures/contact-expectation.json", "utf8"));
+  const text = JSON.parse(fs.readFileSync("tests/fixtures/contact-expectation.json", "utf8"))[locale];
+  assert.match(text, /^15 minutes /);
   const check = () => spawnSync(process.execPath, [path.resolve("scripts/false-claims-check.mjs")], { cwd: root, encoding: "utf8", timeout: 10_000 });
-  for (const text of Object.values(approved)) {
+  for (const relativeFile of ["src/system/components/QuickCapture.tsx", "src/system/copy.ts"]) {
+    const file = path.join(root, relativeFile);
     fs.writeFileSync(file, `const note = ${JSON.stringify(text)};`);
     const allowed = check();
     assert.equal(allowed.status, 0, allowed.stderr);
-    fs.writeFileSync(file, `const note = ${JSON.stringify(text + " Free booking in 30 minutes.")};`);
-    const modified = check();
-    assert.equal(modified.status, 1);
-    assert.match(modified.stderr, /call duration/);
-    fs.writeFileSync(file, "");
-    const elsewhere = path.join(root, "src/system/copy.ts");
-    fs.writeFileSync(elsewhere, `const note = ${JSON.stringify(text)};`);
-    const misplaced = check();
-    assert.equal(misplaced.status, 1);
-    assert.match(misplaced.stderr, /call duration/);
-    fs.unlinkSync(elsewhere);
+    // The exact former paragraph must no longer bypass the gate in QuickCapture.
+    for (const stale of [text.replace("15 minutes", "30 minutes"), text + " Free booking in 30 minutes."]) {
+      fs.writeFileSync(file, `const note = ${JSON.stringify(stale)};`);
+      const rejected = check();
+      assert.equal(rejected.status, 1, rejected.stderr);
+      assert.ok(rejected.stderr.includes(relativeFile), rejected.stderr);
+      assert.match(rejected.stderr, /call duration/);
+    }
+    fs.unlinkSync(file);
   }
 });
