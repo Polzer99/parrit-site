@@ -6,7 +6,9 @@ Villes affichées : Tourcoing et Paris, décision de Paul du 03/11/2026. Le siè
 
 La spec `docs/CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md`,
 validée le 03/11, remplace uniquement les anciens contrats de texte et de placement :
-H1 « Nous formons vos équipes à l'IA et construisons les outils qui leur manquent. »,
+H1 « Votre expertise est la matière première. Nous la mettons au travail. »,
+sous-titre « Nous formons vos équipes à l'IA et construisons les outils qui leur manquent. »
+(décision de Paul du 08/11/2026),
 CTA « Parler d'un projet » / « Talk about a project » aussi dans le hero,
 schéma « Ce que vous obtenez / Votre entreprise / Ce que vous avez déjà »,
 phrase « Vos e-mails, vos contrats et vos factures contiennent déjà les réponses.
@@ -50,9 +52,9 @@ Amendement du 30/10/2026 : `docs/CODEX-SPEC-2026-10-30-hero-reclamation-qualite.
 La quatrième histoire est « Une réclamation qualité arrive », en remplacement
 de la fin de réunion, pour que la home parle aussi à l’industrie. Les trois
 autres histoires, les nœuds, les durées et la mise en page sont conservés.
-Décision de Paul du 02/11/2026 :
+Décision de Paul du 08/11/2026 :
+Votre expertise est la matière première. Nous la mettons au travail.
 Nous formons vos équipes à l'IA et construisons les outils qui leur manquent.
-Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.
 Décision actuelle : `docs/site-v1/page-unique/BANDEAU-TECHNOLOGIES.md`
 (27/10 au soir), qui remplace le trajet par le bandeau agnostique.
 Neuf sections : hero, applications, changements, parcours, services, technologies,
@@ -95,7 +97,7 @@ L'ancien objectif RDV/semaine et cash hebdo est remplacé le 24/10/2026.
 
 **CTA site V1, décision de Paul du 02/11/2026** :
 « Parler d'un projet » / « Talk about a project » dans le hero, la navigation et les clôtures, vers `/#contact`
-ou `/fr#contact`. Le hero porte la promesse et le schéma en langue métier validés le 02/11/2026. Le Journal n'a pas de capture d'abonnement.
+ou `/fr#contact`. Le hero porte la promesse (décision de Paul du 08/11/2026) et le schéma en langue métier validé le 02/11/2026. Le Journal n'a pas de capture d'abonnement.
 
 ## 3. ICP (à qui on parle)
 

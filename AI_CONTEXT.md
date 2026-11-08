@@ -15,6 +15,26 @@ Chromium par MachPortRendezvous/SIGTRAP : aucune capture ni preuve Cal réelle.
 Une revue indépendante et correction des exemptions du test d'identité ;
 aucun commit/push/déploiement. Reprise et fichiers : `docs/appel-15-min/rapport.md`.
 
+## Headline matière première, correctif du 08/11/2026
+
+Source : `docs/CODEX-SPEC-2026-11-08-headline-matiere-premiere.md`, amendement
+après PR #363. Les textes FR/EN, l'OG, TRUTH et AGENTS étaient déjà conformes
+dans la baseline `98dde08`. Le H1 réserve désormais 4 px sous les lettres par
+`calc(var(--brand-s1) / 2)` ; tailles, interlignes et graisses sont conservés.
+Six tests navigateur sans JavaScript ajoutés (FR/EN, 1440/390/375) : typographie,
+débordement, titre/sous-titre/bouton visibles sans défiler, hero entier à 1440×800.
+Aucun seuil existant assoupli ; deny-all réseau conservé.
+
+Validation avant/après : lint, build Webpack et 168 tests Node réussis ; npm ci,
+conformité marque et tests Brand OS réussis. Les 418 tests Playwright sont
+recensés, pas exécutés : serveur refusé (`listen EPERM 127.0.0.1:3210`) et
+commande ciblée rejetée par le contrôle automatique WhatsApp. Captures FR/EN et
+géométrie réelle restent UNKNOWN, à vérifier sur l'hôte ; aucune preuve en
+production revendiquée. Avertissement metadataBase préexistant au build.
+Écritures locales réversibles, aucune donnée métier ni service externe ; retour
+arrière limité aux ajouts de cette passe. Amendement local de la spec conservé.
+Aucun commit, push ou déploiement.
+
 ## Retrait des fiches internes du Journal, 04/11/2026
 
 Source : `docs/CODEX-SPEC-2026-11-04-retrait-fiches-internes.md`.
