@@ -85,7 +85,9 @@ test("OG renders a 200 PNG with canard corners, local fonts and the current Fren
     assert.equal(headline.props.children[1].props.style.fontWeight, 600);
     const home = await renderPage("fr");
     const homeHeadline = visibleText(home.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? "").replace(/\s+/g, " ").trim();
-    assert.match(homeHeadline, /\bIA\b/);
+    assert.equal(homeHeadline, "Votre expertise est la matière première. Nous la mettons au travail.");
+    assert.equal(textContent(headline.props.children[0]), "Votre expertise est la matière première.");
+    assert.equal(textContent(headline.props.children[1]), "Nous la mettons au travail.");
     assert.equal(textContent(headline), homeHeadline);
     assert.equal(route.alt, `Parrit.ai · ${textContent(headline)}`);
     assert.ok(options.fonts.reduce((total, font) => total + font.data.length, 0) < 500_000);

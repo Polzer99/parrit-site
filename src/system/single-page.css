@@ -454,7 +454,8 @@
 .single-page .hero {padding:24px 0 32px;}
 .single-page .ontology-hero {display:grid;grid-template-columns:minmax(0,1fr);gap:24px;outline-offset:4px;}
 .single-page .hero-intro, .single-page .hero .sub {display:flex;flex-direction:column;gap:24px;min-width:0;}
-.single-page .hero h1 {font-size:38px;line-height:43px;letter-spacing:-.01em;text-wrap:wrap;}
+/* Reserve the font's descenders without changing the approved type scale (08/11/2026). */
+.single-page .hero h1 {font-size:38px;line-height:43px;letter-spacing:-.01em;text-wrap:wrap;padding-bottom:calc(var(--brand-s1) / 2);}
 .single-page .hero .sub p {font-size:18px;line-height:27px;color:var(--on-canard);max-width:none;}
 .single-page .hero .actions {display:flex;width:100%;}
 .single-page .hero .btn.exec {width:100%;font-size:18px;line-height:24px;padding:18px 16px;white-space:normal;}

@@ -61,9 +61,10 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.equal((html.match(/<section\b/g) ?? []).length, 9);
   assert.deepEqual([...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]), anchors[locale]);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
-  const headline = visibleText(main.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? "");
-  assert.match(headline, locale === "fr" ? /\bIA\b/ : /\bAI\b/);
-  assert.match(headline, locale === "fr" ? /formons.*équipes.*outils/ : /train.*teams.*tools/);
+  // Decision of 08/11/2026: the descriptive offer is now the hero subtitle.
+  const subtitle = visibleText(main.match(/class="sub"><p>([\s\S]*?)<\/p>/)?.[1] ?? "");
+  assert.match(subtitle, locale === "fr" ? /\bIA\b/ : /\bAI\b/);
+  assert.match(subtitle, locale === "fr" ? /formons.*équipes.*outils/ : /train.*teams.*tools/);
   assert.doesNotMatch(html, /\shidden[=> ]|class="k"|v1-index|registry-line/);
   assert.doesNotMatch(visibleText(html), /Votre phrase indique|What you say tells/);
   const partners = html.match(new RegExp(`<section id="${locale === "fr" ? "partenaires" : "team"}">[\\s\\S]*?</section>`))?.[0];

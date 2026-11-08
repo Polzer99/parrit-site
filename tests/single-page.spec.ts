@@ -1366,17 +1366,51 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
 }
 
 // Decision by Paul, 02/11/2026: plain language without losing SSR or destinations.
-for (const locale of ["fr", "en"]) for (const width of [1440, 390]) {
-  test(`business language and localized SEO ${locale} ${width}`, async ({ page }) => {
+for (const locale of ["fr", "en"]) for (const width of [1440, 390, 375]) {
+  test(`business language and localized SEO ${locale} ${width}`, async ({ page }, testInfo) => {
     await page.setViewportSize({ width, height: width === 1440 ? 800 : 700 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
+    await page.evaluate(() => document.fonts.ready);
+    // Decision of 08/11/2026: the offer moves to the subtitle; SEO stays descriptive.
+    const headline = locale === "fr"
+      ? "Votre expertise est la matière première. Nous la mettons au travail."
+      : "Your expertise is the raw material. We put it to work.";
+    await expect(page.locator("h1")).toHaveText(headline);
+    await expect(page.locator("h1 b")).toHaveText(locale === "fr" ? "Nous la mettons au travail." : "We put it to work.");
+    await expect(page.locator(".hero .sub p")).toHaveText(locale === "fr"
+      ? "Nous formons vos équipes à l'IA et construisons les outils qui leur manquent."
+      : "We train your teams in AI and build the tools they need.");
+    await expect(page.locator(".hero .exec")).toHaveText(locale === "fr" ? "Parler d'un projet" : "Talk about a project");
+    await expect(page.locator(".hero .exec")).toHaveAttribute("href", "#contact");
+    for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
+      const element = page.locator(selector);
+      await expect(element).toBeVisible();
+      await expect(element).toBeInViewport({ ratio: 1 });
+      const bounds = await element.evaluate(el => {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const text = range.getBoundingClientRect();
+        const box = el.getBoundingClientRect();
+        return { left: text.left, right: text.right, boxLeft: box.left, boxRight: box.right,
+          scrollHeight: el.scrollHeight, clientHeight: el.clientHeight };
+      });
+      expect(bounds.left).toBeGreaterThanOrEqual(bounds.boxLeft - 1);
+      expect(bounds.right).toBeLessThanOrEqual(bounds.boxRight + 1);
+      expect(bounds.scrollHeight).toBeLessThanOrEqual(bounds.clientHeight + 1);
+    }
+    expect(await page.evaluate(() => window.scrollY)).toBe(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+    const capture = testInfo.outputPath(`headline-${locale}-${width}.png`);
+    await page.screenshot({ path: capture, animations: "disabled" });
+    await testInfo.attach("headline", { path: capture, contentType: "image/png" });
     const text = await page.locator("body").innerText();
-    expect(text).not.toMatch(locale === "fr"
+    // Only the exact H1 checked above is exempt from the old vocabulary rule.
+    expect(text.replace(/\s+/g, " ").replace(headline, "")).not.toMatch(locale === "fr"
       ? /ontologie|objets reliés|sources de logique|systèmes d'action|agnostiques|harness|back-office|raffinons|matière première/i
       : /ontology|linked objects|logic sources|systems of action|technology-agnostic|harness engineering/i);
     expect(text.match(/\bagents?\b/gi)).toHaveLength(1);
-    await expect(page.locator("h1")).toContainText(locale === "fr" ? /\bIA\b/ : /\bAI\b/);
+    await expect(page.locator(".hero .sub p")).toContainText(locale === "fr" ? /\bIA\b/ : /\bAI\b/);
     for (const value of [await page.title(), await page.locator('meta[name="description"]').getAttribute("content")]) {
       expect(value).toMatch(locale === "fr" ? /\bIA\b.*Tourcoing.*Paris/ : /\bAI\b.*Tourcoing.*Paris/);
       expect(value).not.toMatch(/Lille/);
@@ -1391,6 +1425,41 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390]) {
     expect(graph.find(item => item["@type"] === "Person")?.jobTitle).toBe(locale === "fr" ? "Fondateur" : "Founder");
   });
 }
+
+test.describe("headline without JavaScript", () => {
+  test.use({ javaScriptEnabled: false });
+  for (const locale of ["fr", "en"]) for (const width of [1440, 390, 375]) {
+    test(`text fits and contact stays above the fold ${locale} ${width}`, async ({ page }) => {
+      const height = width === 1440 ? 800 : 700;
+      await page.setViewportSize({ width, height });
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.goto(local(locale === "fr" ? "/fr" : "/"));
+      await page.evaluate(() => document.fonts.ready);
+      const title = page.locator(".hero h1");
+      await expect(title).toHaveCSS("font-size", width === 1440 ? "46px" : "38px");
+      await expect(title).toHaveCSS("line-height", width === 1440 ? "52px" : "43px");
+      await expect(title).toHaveCSS("font-weight", "500");
+      await expect(title.locator("b")).toHaveCSS("font-weight", "600");
+      for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
+        const element = page.locator(selector);
+        await expect(element).toBeVisible();
+        await expect(element).toBeInViewport({ ratio: 1 });
+        const bounds = await element.evaluate(el => ({
+          scrollHeight: el.scrollHeight, clientHeight: el.clientHeight,
+          scrollWidth: el.scrollWidth, clientWidth: el.clientWidth,
+        }));
+        expect(bounds.scrollHeight, selector).toBeLessThanOrEqual(bounds.clientHeight + 1);
+        expect(bounds.scrollWidth, selector).toBeLessThanOrEqual(bounds.clientWidth + 1);
+      }
+      if (width === 1440) {
+        const hero = (await page.locator(".hero").boundingBox())!;
+        expect(hero.y + hero.height).toBeLessThanOrEqual(height);
+      }
+      expect(await page.evaluate(() => window.scrollY)).toBe(0);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+    });
+  }
+});
 
 for (const path of ["/fr", "/fr/journal", "/journal/agent-ia-entreprise"]) {
   test(`footer exposes all six destinations on ${path}`, async ({ page }) => {
