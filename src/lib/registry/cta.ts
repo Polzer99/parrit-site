@@ -198,8 +198,14 @@ export function avecSource(cible: string, source: string): string {
   if (cible.startsWith("mailto:") || cible.startsWith("#") || cible === "") {
     return cible;
   }
-  const separateur = cible.includes("?") ? "&" : "?";
-  return `${cible}${separateur}source=${encodeURIComponent(source)}`;
+  const hashIndex = cible.indexOf("#");
+  const pathAndQuery = hashIndex < 0 ? cible : cible.slice(0, hashIndex);
+  const hash = hashIndex < 0 ? "" : cible.slice(hashIndex);
+  const queryIndex = pathAndQuery.indexOf("?");
+  const path = queryIndex < 0 ? pathAndQuery : pathAndQuery.slice(0, queryIndex);
+  const params = new URLSearchParams(queryIndex < 0 ? "" : pathAndQuery.slice(queryIndex + 1));
+  params.set("source", source);
+  return `${path}?${params.toString()}${hash}`;
 }
 
 /** Attributs d'instrumentation, captés par `CtaTracker`. */

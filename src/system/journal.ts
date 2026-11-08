@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import matter from "gray-matter";
+import { journalReadingMinutes } from "./journal-reading";
 
 const JOURNAL_DIRECTORY = path.join(process.cwd(), "content", "journal");
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -18,7 +19,7 @@ export type JournalEntry = {
   content: string;
 };
 
-export type JournalEntrySummary = Omit<JournalEntry, "content">;
+export type JournalEntrySummary = Omit<JournalEntry, "content"> & { readingMinutes: number };
 
 type JournalFrontmatter = Omit<JournalEntry, "content">;
 
@@ -101,12 +102,13 @@ export function getAllJournalEntries(): JournalEntry[] {
 }
 
 export function getAllJournalEntrySummaries(): JournalEntrySummary[] {
-  return getAllJournalEntries().map(({ title, date, description, slug, noindex }) => ({
+  return getAllJournalEntries().map(({ title, date, description, slug, noindex, content }) => ({
     title,
     date,
     description,
     slug,
     noindex,
+    readingMinutes: journalReadingMinutes(content),
   }));
 }
 

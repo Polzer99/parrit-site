@@ -1,3 +1,27 @@
+## Boutons par intention et finitions, 08/11/2026
+
+Source : `docs/CODEX-SPEC-2026-11-08-cta-par-intention-et-finitions.md`, décision de Paul.
+Deux CTA dans le hero, une action formation/priorités/projet par étape. Utilitaire
+`avecSource` corrigé pour les ancres et sources existantes ; href SSR avec UTM,
+historique et défilement sans rechargement sur l'accueil, attribution existante
+QuickCapture conservée. Ligne de contact FR/EN ajoutée sans changement du serveur.
+Étapes alignées en sous-grille ; références animées en CSS avec pause survol/focus
+et présentation statique centrée en mouvement réduit. Journal : registre partagé
+des thèmes existants, lecture à 200 mots/minute arrondie (minimum 1), grille à deux
+colonnes dès 1100 px. Aucun changement des métadonnées, articles, sitemap ou Cal.com.
+
+Baseline locale demandée `f124fae` : npm ci, lint, build Webpack et 168 tests Node.
+Candidat : npm ci, lint, build Webpack, TypeScript, 180 tests Node, marque/claims
+et 19 tests Brand OS réussis. Douze tests Node et trente tests Playwright ajoutés.
+Anciens contrats href/durée adaptés à la spec, exception exacte et localisée pour
+le paragraphe de contact ; seuils géométriques/stabilité et deny-all inchangés.
+Revue indépendante : perte UTM des clics modifiés corrigée, aucun défaut restant
+identifié. 448 tests navigateur recensés mais non validés : serveur EPERM et
+Chromium MachPortRendezvous/SIGTRAP. Captures, géométrie réelle et CLS UNKNOWN.
+Écritures locales réversibles, zéro donnée métier, spec préexistante conservée.
+Aucun commit, push ni déploiement. Détail et commandes de reprise :
+`docs/REPORT-2026-11-08-cta-par-intention-et-finitions.md`.
+
 ## Headline matière première, correctif du 08/11/2026
 
 Source : `docs/CODEX-SPEC-2026-11-08-headline-matiere-premiere.md`, amendement

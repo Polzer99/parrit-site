@@ -9,6 +9,11 @@ const ROOTS = ["src", "scripts", "content/journal"];
 const EXTRA_FILES = ["public/llms.txt", "site.config.ts", "TRUTH.md"];
 const TEXT_EXTENSIONS = new Set([".js", ".jsx", ".mjs", ".ts", ".tsx", ".txt", ".md", ".mdx"]);
 const SELF = "scripts/false-claims-check.mjs";
+// Exact contact copy approved by Paul on 08/11/2026; no other duration claim is exempt.
+const approvedContactCopy = [
+  "30 minutes en visio. Vous décrivez un service ou un irritant, nous vous disons ce qui est faisable, et ce qui ne l'est pas.",
+  "30 minutes by video call. You describe a team or a pain point, we tell you what can be done, and what cannot."
+];
 
 const exactClaims = [
   ["measured", " in", " client", " systems"],
@@ -144,7 +149,10 @@ for (const file of files) {
   lines.forEach((line, index) => {
     for (const { rule, pattern } of forbidden) {
       // The Cal.com slug is historical; the event behind it is now 15 minutes.
-      const checkedLine = rule === "call duration" ? line.replaceAll("paul-larmaraud/30min", "") : line;
+      let checkedLine = rule === "call duration" ? line.replaceAll("paul-larmaraud/30min", "") : line;
+      if (rule === "call duration" && relativePath === "src/system/components/QuickCapture.tsx") {
+        for (const approved of approvedContactCopy) checkedLine = checkedLine.replace(JSON.stringify(approved), '""');
+      }
       const match = checkedLine.match(pattern);
       if (match) report(file, index + 1, rule, match[0]);
     }

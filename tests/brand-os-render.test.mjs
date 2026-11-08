@@ -17,6 +17,7 @@ import { checkGlyphs, visibleText } from "../scripts/brand-os-contracts.mjs";
 // by the installed Next version. Browser tests separately verify proxy/hydration/layout.
 const NextServer = NextServerModule.default;
 const json = (file) => JSON.parse(readFileSync(file, "utf8"));
+const contactExpectation = json("tests/fixtures/contact-expectation.json");
 const glyphs = json("src/system/brand-os.glyphs.json");
 const connectors = json("src/system/brand-os.connectors.json");
 const routes = ["/", "/journal", "/legal", ...["harness-engineering", "ai-sprints", "integration-developpement", "conseil-transformation"].map(slug => `/journal/themes/${slug}`)];
@@ -102,7 +103,15 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           assert.deepEqual(privateClientNames(structured), [], label);
           for (const name of PUBLIC_CLIENT_NAMES) assert.ok(!structured.includes(name), `${label}: no client in structured data`);
         }
-        const publicCopy = `${text} ${accessible} ${metadata} ${structured}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
+        // Decision 08/11: only the exact approved paragraph under the form is exempt.
+        let offerText = text;
+        if (route === "/") {
+          const notes = [...html.matchAll(/<p class="contact-expectation">([\s\S]*?)<\/p>/g)];
+          assert.equal(notes.length, 1);
+          assert.equal(visibleText(notes[0][1]), contactExpectation[locale]);
+          offerText = visibleText(html.replace(notes[0][0], ""));
+        }
+        const publicCopy = `${offerText} ${accessible} ${metadata} ${structured}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
         assert.doesNotMatch(publicCopy, /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de(?! vos opérations\b)|\bHT\b|excl\. VAT/i, `${label}: no public offer`);
         if (route !== "/legal") assert.doesNotMatch(publicCopy, /€/, label);
         if (route !== "/legal" && route !== "/") {
@@ -130,7 +139,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         if (route === "/journal") {
           const journal = route === "/"
             ? html.match(/<section class="home-s-journal">[\s\S]*?<\/section>/)?.[0]
-            : html.match(/<ol class="journal-list">[\s\S]*?<\/ol>/)?.[0];
+            : html.match(/<ol class="journal-list(?: [^"]*)?">[\s\S]*?<\/ol>/)?.[0];
           assert.ok(journal, `${label}: Journal entries render`);
           if (route === "/") {
             assert.equal((journal.match(/data-language-note=""/g) ?? []).length, locale === "fr" ? 1 : 0);

@@ -23,7 +23,8 @@ for (const locale of ["fr", "en"]) test(`hero headline and descriptive subtitle 
   assert.equal(html.match(/<h1>(.*?)<\/h1>/s)?.[1], `${normal} <b>${bold}</b>`);
   assert.equal(visibleText(html.match(/class="sub"><p>(.*?)<\/p>/s)?.[1] ?? ""), subtitle);
   const action = html.match(/class="actions"><a[^>]*href="([^"]+)"[^>]*>(.*?)<\/a>/s);
-  assert.equal(action?.[1], "#contact");
+  // Decision of 08/11/2026: the same destination now carries the project intent.
+  assert.equal(action?.[1], `${locale === "fr" ? "/fr" : "/"}?source=intention-projet-hero#contact`);
   assert.equal(visibleText(action?.[2] ?? ""), locale === "fr" ? "Parler d'un projet" : "Talk about a project");
 });
 

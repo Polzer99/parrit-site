@@ -85,6 +85,26 @@ Aucun mode complex ni Inter Tight.
   section contact, exports AVIF/WebP 340/680 de `public/brand/founder/` ;
   octets et SHA256 contrôlés par `tests/fixtures/founder-photo.json`, cadrage entier 3:4.
 
+### Boutons par intention — décision de Paul du 08/11/2026
+
+`docs/CODEX-SPEC-2026-11-08-cta-par-intention-et-finitions.md` prime sur les
+contrats antérieurs des boutons du hero et des trois étapes. Hero : « Parler
+d'un projet » / « Talk about a project » (`exec`) puis « Former mes équipes » /
+« Train my teams » (`ghost`), même hauteur, écart `var(--brand-s2)`, ligne commune
+sur ordinateur et pleine largeur en colonne sur téléphone. Parcours : une action
+`ghost` par étape, formation / priorités / projet, alignée dès le SSR.
+Tous mènent à `/#contact` ou `/fr#contact`, avec `source=intention-{formation,
+priorites,projet}-{hero,parcours}` avant l'ancre via `avecSource`. Les UTM sont
+conservés dans le HTML serveur et au clic ; sur l'accueil, historique et
+défilement sans rechargement, attribution lue par QuickCapture sans nouveau
+champ ni modification du serveur. Ligne d'explication de l'échange sous l'envoi.
+Références : boucle CSS lente, pause survol/focus, logos statiques centrés en
+mouvement réduit ; permissions inchangées. Journal : thèmes uniquement issus du
+registre partagé `journal-themes.ts`, lecture estimée à 200 mots/minute arrondie
+(minimum 1), deux colonnes dès 1100 px. Tous les seuils géométriques restent
+inchangés, dont le hero entier à 1440×800. Les règles ci-dessous restent
+applicables hors de ces amendements.
+
 ### Boutons publics — tour 1 (26/10/2026)
 
 Largeur de contenu à partir de 600 px ; sous 600 px, tous les boutons d’un même

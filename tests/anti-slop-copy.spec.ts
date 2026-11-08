@@ -1,3 +1,4 @@
+import contactExpectation from "./fixtures/contact-expectation.json";
 import { JOURNAL_THEMES } from "./public-routes";
 import { readdirSync } from "node:fs";
 import { expect, test } from "./network-deny.setup";
@@ -39,7 +40,16 @@ for (const locale of ["en", "fr"]) {
         const attributes = await page.locator("[aria-label], [alt]").evaluateAll((elements) => elements.flatMap((el) => [el.getAttribute("aria-label"), el.getAttribute("alt")]).filter(Boolean).join("\n"));
         for (const pattern of patterns) expect(withoutStatuses(`${text}\n${attributes}`)).not.toMatch(pattern);
         const metadata = await page.locator('title, meta[name="description"], meta[property^="og:"], meta[name^="twitter:"], script[type="application/ld+json"]').evaluateAll((elements) => elements.map((el) => el.getAttribute("content") ?? el.textContent ?? "").join("\n"));
-        const publicCopy = `${text}\n${attributes}\n${metadata}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
+        // Only the approved contact paragraph is exempt; all other copy keeps noOffer.
+        let offerText = text;
+        if (!route) {
+          const note = page.locator("#single-contact .contact-expectation");
+          await expect(note).toHaveCount(1);
+          const approved = locale === "fr" ? contactExpectation.fr : contactExpectation.en;
+          await expect(note).toHaveText(approved);
+          offerText = text.replace(approved, "");
+        }
+        const publicCopy = `${offerText}\n${attributes}\n${metadata}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
         // Preserve HEAD's editorial noOffer scope: article bodies discuss third-party
         // tools (e.g. free libraries); themes are public pages, never articles.
         if (!article) expect(publicCopy).not.toMatch(noOffer);

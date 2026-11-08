@@ -5,16 +5,11 @@ import { notFound } from "next/navigation";
 import { getLocale } from "@/lib/server/locale";
 import { getAllJournalEntrySummaries } from "@/system/journal";
 import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
-import { SITE_V1_PAGES, type GuideCopy, type SiteV1PageId } from "@/system/site-v1-pages";
+import { SITE_V1_PAGES, type GuideCopy } from "@/system/site-v1-pages";
 import { INTEGRATION_COPY } from "@/system/integration-copy";
+import { JOURNAL_THEMES as THEMES } from "@/system/journal-themes";
 import { journalThemeJsonLd } from "@/system/jsonld";
 
-const THEMES = {
-  "harness-engineering": { page: "harness-engineering", articles: ["ai-agent-security-in-the-enterprise", "permission-layer-for-coding-agents", "agents-that-fabricate-facts", "the-claim-a-green-pipeline-never-makes"] },
-  "ai-sprints": { page: "ai-sprints", articles: ["what-a-pilot-skips-to-look-finished", "the-claim-a-green-pipeline-never-makes", "claude-code-pour-non-dev"] },
-  "integration-developpement": { page: "engineering-integration", articles: ["comment-integrer-agent-ia", "mcp-anthropic-explication", "comment-deployer-llm-entreprise", "legacy-database-migration-writers-first"] },
-  "conseil-transformation": { page: "consulting-transformation", articles: ["measuring-sap-adoption-with-ai", "agent-ia-vs-rpa", "claude-code-vs-chatgpt", "what-you-rent-can-be-taken-back"] },
-} as const satisfies Record<string, { page: SiteV1PageId; articles: readonly string[] }>;
 
 type Theme = keyof typeof THEMES;
 type Props = { params: Promise<{ theme: string }> };

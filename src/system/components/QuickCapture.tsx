@@ -184,6 +184,9 @@ export function QuickCapture({
           }} />
           <button className="rev-button ghost" type="submit" disabled={state === "sending"}>{state === "sending" ? copy.sending : copy.button}</button>
         </div>
+        {variant === "contact" ? <p className="contact-expectation">{locale === "fr"
+          ? "30 minutes en visio. Vous décrivez un service ou un irritant, nous vous disons ce qui est faisable, et ce qui ne l'est pas."
+          : "30 minutes by video call. You describe a team or a pain point, we tell you what can be done, and what cannot."}</p> : null}
         {state === "error" ? (
           <span className="ri-error" role="alert">{copy.failure} ({detail}). {copy.direct} paul.larmaraud@parrit.ai</span>
         ) : state === "invalid" ? (

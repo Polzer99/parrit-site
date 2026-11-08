@@ -1382,7 +1382,8 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390, 375]) {
       ? "Nous formons vos équipes à l'IA et construisons les outils qui leur manquent."
       : "We train your teams in AI and build the tools they need.");
     await expect(page.locator(".hero .exec")).toHaveText(locale === "fr" ? "Parler d'un projet" : "Talk about a project");
-    await expect(page.locator(".hero .exec")).toHaveAttribute("href", "#contact");
+    // Decision 08/11: preserve the contact destination and verify its project attribution.
+    await expect(page.locator(".hero .exec")).toHaveAttribute("href", `${locale === "fr" ? "/fr" : "/"}?source=intention-projet-hero#contact`);
     for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
       const element = page.locator(selector);
       await expect(element).toBeVisible();

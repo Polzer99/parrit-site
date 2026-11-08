@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { getLocale } from "@/lib/server/locale";
+import { getJournalThemes } from "@/system/journal-themes";
 import { getAllJournalEntrySummaries } from "@/system/journal";
 import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 
@@ -37,13 +38,17 @@ export default async function JournalPage() {
           {locale === "fr" && <p>Articles en anglais</p>}
         </header>
 
-        <ol className="journal-list">
+        <ol className="journal-list journal-index">
           {entries.map((entry) => (
             <li key={entry.slug}>
               <Link href={`/journal/${entry.slug}`} hrefLang="en">
                 <div>
 
 
+                  <div className="journal-entry-meta">
+                    {getJournalThemes(entry.slug).map(theme => <span className="journal-entry-theme" key={theme.page}>{theme.label[locale]}</span>)}
+                    <span className="journal-reading-time">{entry.readingMinutes} {locale === "fr" ? "min de lecture" : "min read"}</span>
+                  </div>
                   <h2 lang="en">{entry.title}</h2>
                   <p lang="en">{entry.description}</p>
                 </div>
