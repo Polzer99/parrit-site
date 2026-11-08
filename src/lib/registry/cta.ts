@@ -10,6 +10,7 @@
  */
 
 import type { EventName } from "@/lib/analytics";
+import { localizedPath } from "@/system/locale";
 
 export type CtaAction =
   | "ouvrir_formulaire"
@@ -55,18 +56,12 @@ export type CtaId =
   | "presse.kit"
   | "presse.contact";
 
-/**
- * Lien de booking canonique — mémoire `reference_lien_booking_canonique`.
- * Il ne se retape nulle part ailleurs.
- */
-export const BOOKING_URL = "https://calendar.app.google/kkpaNisBa78BuuAj8";
-
 const REGISTRE: Record<CtaId, Cta> = {
   "rdv.paul": {
     id: "rdv.paul",
     libelle: "Réserver un échange",
     action: "prendre_rdv",
-    cible: "/{lang}/rendez-vous",
+    cible: "/rendez-vous",
     funnel: "rendez_vous",
     evenement: "meeting_requested",
     priorite: "principale",
@@ -75,7 +70,7 @@ const REGISTRE: Record<CtaId, Cta> = {
     id: "rdv.systeme",
     libelle: "Parler de ce système",
     action: "prendre_rdv",
-    cible: "/{lang}/rendez-vous",
+    cible: "/rendez-vous",
     funnel: "rendez_vous",
     evenement: "meeting_requested",
     priorite: "principale",
@@ -87,7 +82,7 @@ const REGISTRE: Record<CtaId, Cta> = {
     id: "rdv.offre",
     libelle: "Réserver un échange sur ce sujet",
     action: "prendre_rdv",
-    cible: "/{lang}/rendez-vous",
+    cible: "/rendez-vous",
     funnel: "rendez_vous",
     evenement: "meeting_requested",
     priorite: "principale",
@@ -96,7 +91,7 @@ const REGISTRE: Record<CtaId, Cta> = {
     id: "rdv.auteur",
     libelle: "Réserver un échange",
     action: "prendre_rdv",
-    cible: "/{lang}/rendez-vous",
+    cible: "/rendez-vous",
     funnel: "rendez_vous",
     evenement: "meeting_requested",
     priorite: "principale",
@@ -149,7 +144,7 @@ const REGISTRE: Record<CtaId, Cta> = {
     id: "prototype.demander",
     libelle: "Demander ce système",
     action: "prendre_rdv",
-    cible: "/{lang}/rendez-vous",
+    cible: "/rendez-vous",
     funnel: "prototype",
     evenement: "prototype_requested",
     priorite: "secondaire",
@@ -184,7 +179,7 @@ export function getCta(id: CtaId): Cta {
  */
 export function ctaHref(id: CtaId, lang: string, source: string): string {
   const cta = REGISTRE[id];
-  return avecSource(cta.cible.replace("{lang}", lang), source);
+  return avecSource(localizedPath(cta.cible.replace("{lang}", lang), lang === "fr" ? "fr" : "en"), source);
 }
 
 /**

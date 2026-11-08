@@ -1,3 +1,6 @@
+import { avecSource } from "@/lib/registry/cta";
+import { localizedPath } from "@/system/locale";
+
 /** Attribution de la visite en mémoire ; perdue au rechargement du document. */
 
 const UTM_KEYS = [
@@ -98,9 +101,11 @@ export function getFirstTouchOnly(): Record<string, string> {
  */
 export function buildRdvHref(source: string, lang: string = "fr"): string {
   const utms = getAttribution();
-  const params = new URLSearchParams({ source });
-  (["utm_source", "utm_medium", "utm_campaign"] as const).forEach((k) => {
+  const params = new URLSearchParams();
+  UTM_KEYS.forEach((k) => {
     if (utms[k]) params.set(k, utms[k]);
   });
-  return `/${lang}/rendez-vous?${params.toString()}`;
+  const path = localizedPath("/rendez-vous", lang === "fr" ? "fr" : "en");
+  const query = params.toString();
+  return avecSource(query ? `${path}?${query}` : path, source);
 }
