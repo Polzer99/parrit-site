@@ -1,4 +1,24 @@
-## Boutons par intention et finitions, 08/11/2026
+## Boutons par intention, correctif 2 du 08/11/2026
+
+Amendement local de la spec conservé, baseline `2b60226`. Le bouton secondaire
+du hero hérite de `--t-s` (16 px) ; l'échelle 18/19 px reste limitée au bouton
+principal. Hauteur totale conservée, compensation verticale de 1 px du libellé
+secondaire pour conserver la ligne de base et les bords à moins de 1 px.
+Les liens de langue incluent désormais source/UTM dès le SSR via `useSearchParams`,
+avec Suspense local pour les erreurs statiques. La perte de query avant hydratation
+est reproduite ; le saut 308 configuré conserve déjà source/UTM dans le moteur
+de test Next, donc aucune modification de `next.config.ts`. L'assertion exacte
+de l'échec hôte n'étant pas disponible, sa causalité reste à confirmer sur l'hôte.
+
+Validation : npm ci, lint/build Webpack avant/après, 181 → 185 tests Node ;
+deux tests SSR rouges avant correction, verts ensuite. TypeScript, marque/claims
+et 19 tests Brand OS réussis. Six cas navigateur ajoutés (454 recensés), contrôles
+de police et baseline renforcés ; aucun seuil ni deny-all assoupli. Revue
+indépendante sans défaut restant identifié. Serveur EPERM et Chromium SIGTRAP :
+captures, géométrie et CLS restent non validés. Aucun commit/push/déploiement.
+Détail : `docs/REPORT-2026-11-08-cta-par-intention-et-finitions.md`.
+
+## Boutons par intention et finitions, première passe et correctif 1, 08/11/2026
 
 Source : `docs/CODEX-SPEC-2026-11-08-cta-par-intention-et-finitions.md`, décision de Paul.
 Deux CTA dans le hero, une action formation/priorités/projet par étape. Utilitaire

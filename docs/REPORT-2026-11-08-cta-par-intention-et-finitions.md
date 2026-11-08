@@ -1,5 +1,108 @@
 # Boutons par intention et finitions — rapport du 08/11/2026
 
+## Correctif 2 après tests hôte, 08/11/2026
+
+Implémentation existante conservée et amendement traité. Aucun commit, push ni
+déploiement. La validation navigateur reste bloquée par le sandbox.
+
+### Sources, périmètre et preuve
+
+- Référence explicitement demandée : dépôt courant, baseline
+  `2b602264911bfb8943995a40887694673e37c84a`.
+- Avant modification : AGENTS, AI_CONTEXT, TRUTH, CLAUDE, spec amendée et doctrine
+  Recursive Agent Harness consultés. Plan : baseline, régression reproduite,
+  corrections ciblées, revue indépendante et même batterie après correction.
+- Documentation : Next installé 16.3.4 (`redirects.md`, `use-search-params.md`),
+  recoupé avec Context7 Next 16.2.9. Aucun changement de dépendance.
+- Seul changement initial : amendement local de la spec. Son SHA256 reste
+  `961a9c323a520b7bfcd7b34e2326f16376f5cedb49754d91d56093865150be80`.
+- Écritures : dépôt local, code/tests/documentation uniquement, réversibles par
+  retrait du diff de cette passe ; baseline Git comme sauvegarde. Zéro ligne métier.
+- Boucle bornée : correction initiale puis ajustement de compilation/alignement ;
+  arrêt des tentatives navigateur dès le blocage système confirmé.
+
+**Fait vérifié :** les règles actuelles de `next.config.ts` produisent un seul
+308 vers l'article anglais avec `source`, `lang` et les UTM conservés dans le
+moteur de test de la version Next installée, sans socket ni requête réseau.
+
+**Défaut reproduit :** la bascule de langue du même parcours avait un `href`
+SSR sans query. Avant hydratation, cliquer ce lien supprimait `source` et les
+UTM ; son gestionnaire JavaScript, lui, les conservait. Les deux nouveaux tests
+SSR FR/EN échouent avant correction puis réussissent. Le lien natif conserve
+désormais les paramètres, y compris valeurs répétées et encodées ; seul `lang`
+est supprimé, conformément au comportement existant de la bascule.
+
+**Limite :** le relevé hôte fourni dans la spec ne donne pas l'assertion exacte
+qui échoue au sein du test. La perte sur la bascule est prouvée ; l'attribution
+de l'échec hôte à cette étape reste à confirmer. La redirection configurée
+n'est pas modifiée sans défaut reproduit.
+
+### Fichiers modifiés et tests
+
+| Fichier | Modification |
+|---|---|
+| `src/system/single-page.css` | Échelle 18/19 px réservée à `exec` ; `ghost` retrouve `--t-s` à 16 px. Rembourrage vertical total inchangé, compensation de 1 px issue du jeton pour le libellé secondaire ; alignement baseline conservé. |
+| `src/system/components/LanguageLink.tsx` | Query conservée dans le lien dès le SSR avec `useSearchParams`. Suspense local avec lien de repli pour les pages d'erreur statiques ; cookie et traduction des ancres au clic conservés. |
+| `tests/journal-locale.test.mjs` | Quatre tests Node ajoutés : saut 308 Next avec query et alias renommé ; liens SSR FR/EN avec paramètres répétés/encodés ; lien disponible pendant le prérendu statique sans query. |
+| `tests/intentions.spec.ts` | Quatre cas ajoutés à 375 px (FR/EN, avec/sans JS), tailles 16 et 18/19 contrôlées ; mesure de la baseline ajoutée aux cas ordinateur. Seuils existants inchangés. |
+| `tests/conformity-i18n.spec.ts` | Deux parcours sans JS : saut 308 puis lien FR/EN avec source/UTM conservés. Le helper de bascule vérifie désormais le href complet avec query, au lieu du seul pathname ; toutes les assertions d'arrivée restent présentes. |
+| `tests/langue-metier.test.mjs`, `tests/single-page.test.mjs` | Mock du nouveau hook de lecture de query, sans modification des assertions. |
+| `AI_CONTEXT.md`, ce rapport | État courant, diagnostic et limites de validation. |
+
+`AGENTS.md` et `TRUTH.md` portent déjà la décision de Paul du 08/11/2026 et
+restent inchangés. La durée de 15 minutes, la fixture et le contrôle des
+affirmations restent inchangés. Serveur du formulaire, attribution des intentions,
+permissions/logos, registre du Journal, Cal.com, métadonnées, sitemap et `llms.txt`
+restent inchangés. Aucun PNG suivi ni copie de spec dans `tmp/` modifiés.
+
+### Résultats exécutés
+
+| Vérification | Baseline | Candidat final |
+|---|---|---|
+| `npm ci --silent` | Réussi | Même installation, dépendances inchangées |
+| `npm run lint` | Réussi | Réussi |
+| `npm run build -- --webpack` | Réussi | Réussi |
+| `npm test` | 181/181 | 185/185 |
+| Régressions SSR FR/EN nouvelles | 2 échecs attendus | Réussies |
+| `npx tsc --noEmit` | — | Réussi |
+| `npm run qa:brand:rev01` | — | Réussi |
+| `npm run qa:claims:rev01` | — | Réussi |
+| `npm run test:brand-os` | — | 19/19 |
+| `npm run qa:network:rev01 -- --list` | — | 454 tests, 13 fichiers |
+| `CTA_CAPTURE=1 npm run qa:network:rev01 -- --workers=1 --max-failures=1` | — | 1 échec de lancement, 453 non exécutés |
+| `git diff --check` | — | Réussi |
+
+La première compilation du candidat a détecté `useSearchParams` sans Suspense
+sur la 404 statique ; le composant a été corrigé puis la batterie rejouée.
+La revue indépendante a identifié le décalage des bords induit par les tailles
+19/16 px malgré une baseline commune. Compensation ajoutée sans changer la
+hauteur totale, puis revue finale favorable. Le calcul des métriques ne remplace
+pas une validation visuelle. Avertissements préexistants : `metadataBase` et
+type de module Node.
+
+Logs locaux : `/tmp/cta-fix2-install.log`, `/tmp/cta-fix2-{baseline,final}-{lint,build,test}.log`,
+`/tmp/cta-fix2-{red,green,types,brand,claims,brand-os}.log`,
+`/tmp/cta-fix2-{server,playwright-list,playwright-run}.log`.
+
+### Blocage et reprise hôte
+
+Serveur : `listen EPERM 127.0.0.1:3210`. Chromium : `MachPortRendezvous`,
+`Permission denied`, `SIGTRAP` avant navigation. Aucun contournement tenté.
+Les 454 tests navigateur ne sont donc pas validés ; les captures FR/EN
+1440×800 et 390×844, la géométrie et la stabilité/CLS restent **UNKNOWN**.
+Aucune preuve production revendiquée, déploiement exclu du mandat.
+
+Claude doit reprendre sur l'hôte, serveur lancé avec
+`npm run start -- --hostname 127.0.0.1 -p 3210`, puis :
+
+```sh
+npm run qa:network:rev01
+CTA_CAPTURE=1 npx playwright test tests/intentions.spec.ts --browser=chromium
+```
+
+Captures hors dépôt sous `/tmp/cta-intentions-captures`, à produire et inspecter.
+Les sections suivantes décrivent les passes précédentes, pas cette exécution.
+
 ## Correctif après PR #365, 08/11/2026
 
 Correctif implémenté conformément à la spec amendée. La première passe est

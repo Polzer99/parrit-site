@@ -85,7 +85,7 @@ for (const locale of ["fr", "en"]) test(`home metadata and Organization/Person J
 
 for (const locale of ["fr", "en"]) test(`shared footer links to six existing destinations plus the language switch (${locale})`, () => {
   for (const pathname of [locale === "fr" ? "/fr" : "/", locale === "fr" ? "/fr/journal" : "/journal", "/journal/agent-ia-entreprise"]) {
-    const load = loader(locale, { "next/navigation": { usePathname: () => pathname } });
+    const load = loader(locale, { "next/navigation": { usePathname: () => pathname, useSearchParams: () => new URLSearchParams() } });
     const { RevFooter } = load("src/system/components/RevFooter.tsx");
     const html = renderToStaticMarkup(createElement(RevFooter, { locale }));
     const links = [...html.matchAll(/<a href="([^"]+)"/g)].map(match => match[1]);

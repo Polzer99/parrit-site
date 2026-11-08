@@ -75,3 +75,12 @@ Captures FR et EN à 1440×800 et 390×844 : hero, section des étapes, référe
    « 15 minutes by video call. You describe a team or a pain point, we tell you what can be done, and what cannot. »
 2. **Retirer l'exception ajoutée à `scripts/false-claims-check.mjs`** (`approvedContactCopy`) : le contrôle « call duration » doit rester exactement comme sur `main`. Le commentaire « approved by Paul » était faux. Mettre à jour la fixture `tests/fixtures/contact-expectation.json`, les tests et `AI_CONTEXT.md` en conséquence.
 3. Tout le reste de la PR #365 est conservé à l'identique.
+
+## Correctif 2 après tests navigateur sur l'hôte (PR #365, 08/11)
+
+Sur l'hôte, `npm run qa:network:rev01` : 440 réussis, 8 échoués, tous nouveaux par rapport à `main` :
+
+1. `tests/aeration.spec.ts:102` et `tests/audit-readability.spec.ts:27` (FR/EN, 375, 390, 1440) : le bouton `ghost` du hero « Former mes équipes » / « Train my teams » est rendu en **19 px**, hors de l'échelle typographique (attendu 16). Le bouton `ghost` du hero doit suivre la même règle de taille que les autres boutons publics conformes à l'échelle, **sans ajouter d'exception aux contrôles**. Hauteur et ligne de base communes avec le bouton `exec` conservées.
+2. `tests/conformity-i18n.spec.ts:145` « French Journal aliases redirect once to the unchanged English article » : la redirection perd la chaîne de requête (`?source=test` attendu, absent). Rétablir la conservation de la requête sur ce saut (règle du dépôt : le `source` et les `utm_*` survivent au saut).
+
+Le sandbox ne peut pas rejouer ces tests navigateur : le dire dans le rapport ; Claude les rejouera sur l'hôte.

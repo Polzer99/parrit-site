@@ -50,7 +50,7 @@ for (const locale of ["fr", "en"]) {
 
   for (const javaScriptEnabled of [true, false]) test.describe(`intent layout ${locale} JS=${javaScriptEnabled}`, () => {
     test.use({ javaScriptEnabled });
-    for (const [width, height] of [[1440, 800], [390, 844]]) test(`SSR geometry and captures ${width}`, async ({ page }) => {
+    for (const [width, height] of [[1440, 800], [390, 844], [375, 844]]) test(`SSR geometry and captures ${width}`, async ({ page }) => {
       await page.setViewportSize({ width, height });
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.goto(local(home));
@@ -59,6 +59,8 @@ for (const locale of ["fr", "en"]) {
       await expect(buttons).toHaveCount(2);
       await expect(buttons.nth(0)).toHaveClass(/\bexec\b/);
       await expect(buttons.nth(1)).toHaveClass(/\bghost\b/);
+      await expect(buttons.nth(1)).toHaveCSS("font-size", "16px");
+      await expect(buttons.nth(0)).toHaveCSS("font-size", width >= 1200 ? "19px" : "18px");
       for (const [selector, source] of actions) await expect(page.locator(selector)).toHaveAttribute("href", `${home}?source=${source}#contact`);
       const boxes = await buttons.evaluateAll(nodes => nodes.map(node => { const r = node.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height }; }));
       expect(Math.abs(boxes[0].height - boxes[1].height)).toBeLessThanOrEqual(1);
@@ -66,6 +68,15 @@ for (const locale of ["fr", "en"]) {
       const gap = await page.locator(".hero .actions").evaluate(node => parseFloat(getComputedStyle(node).getPropertyValue("--brand-s2")));
       if (width === 1440) {
         expect(Math.abs(boxes[0].y - boxes[1].y)).toBeLessThanOrEqual(1);
+        const baselines = await buttons.evaluateAll(nodes => nodes.map(node => {
+          const marker = document.createElement("span");
+          marker.style.cssText = "display:inline-block;width:0;height:0;padding:0;border:0;vertical-align:baseline";
+          node.append(marker);
+          const baseline = marker.getBoundingClientRect().top;
+          marker.remove();
+          return baseline;
+        }));
+        expect(Math.abs(baselines[0] - baselines[1])).toBeLessThanOrEqual(1);
         expect(boxes[1].x - boxes[0].x - boxes[0].width).toBeCloseTo(gap, 0);
         expect(boxes[1].x + boxes[1].width).toBeLessThanOrEqual(group.x + group.width + 1);
         const diagram = (await page.locator(".onto-diagram").boundingBox())!;
