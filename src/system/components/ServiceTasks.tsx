@@ -51,7 +51,7 @@ export function ServiceTasks({ locale }: { locale: Locale }) {
     {SERVICE_CASES.map(([title, cases]) => <div className="use-case" key={title} aria-live="off" data-case="0">
       <span className="s">{t(title)}</span>
       {cases.map((text, i) => <div key={text} className={`case${i ? " visually-hidden" : ""}`} aria-hidden={i !== 0}>
-        <p className="case-text">{t(text)}</p>{" "}<span className={`tag ${i % 2 ? "new" : "bo"}`}>{t(i % 2 ? "Nouvelle capacité" : "Tâche reprise")}</span>
+        <p className="case-text">{t(text)}</p>{" "}<span className={`tag ${i % 2 ? "new" : "bo"}`}>{t(i % 2 ? "Nouvelle capacité" : "Préparé, vous validez")}</span>
       </div>)}
       <span className="case-dots" aria-hidden="true">{cases.map((_, i) => <i key={i} className={i === 0 ? "on" : undefined}/>)}</span>
     </div>)}

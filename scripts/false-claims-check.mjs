@@ -134,7 +134,8 @@ for (const file of files) {
       // SCENARIO-DONNEE-ET-MOTS-INUTILES.md §2 (27/10/2026).
       // This does not authorize any other certification or any Journal claim.
       if (["src/system/components/SinglePage.tsx", "src/system/single-page-copy.ts"].includes(relativePath)
-          && ["Une quinzaine de formateurs et un organisme certifié.", "Around fifteen trainers and a certified training organization."].includes(value.text)) continue;
+          // Décision de Paul du 08/11/2026, nuit : vocabulary only, same partner fact.
+          && ["Une quinzaine d'intervenants et un organisme certifié.", "Around fifteen practitioners and a certified organization."].includes(value.text)) continue;
       for (const claim of certificationClaims(value.text, relativePath === "src/system/components/HarnessBadge.tsx")) {
         report(file, value.line, "unsupported certification", claim);
       }

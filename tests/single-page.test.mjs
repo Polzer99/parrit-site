@@ -43,7 +43,7 @@ function applications(html, locale) {
   assert.equal((section.match(/class="phone"/g) ?? []).length, 3);
   assert.equal((section.match(/<h3>/g) ?? []).length, 3);
   assert.match(section, /<h2>[^<]+ <b>[^<]+<\/b><\/h2>/);
-  assert.match(visibleText(section), locale === "fr" ? /données fictives/ : /fictional data/);
+  assert.match(visibleText(section), locale === "fr" ? /Les données affichées sont fictives\./ : /The data shown is fictitious\./);
   assert.doesNotMatch(section, /Laparra|Clevery|Forexpert|Joone|SNCF|data-evidence|class="who"|\/clients\//i);
   return section;
 }
@@ -63,7 +63,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   // Decision of 08/11/2026: the descriptive offer is now the hero subtitle.
   const subtitle = visibleText(main.match(/class="sub"><p>([\s\S]*?)<\/p>/)?.[1] ?? "");
   assert.match(subtitle, locale === "fr" ? /\bIA\b/ : /\bAI\b/);
-  assert.match(subtitle, locale === "fr" ? /formons.*équipes.*outils/ : /train.*teams.*tools/);
+  assert.match(subtitle, locale === "fr" ? /équipes.*IA.*logiciels/ : /teams.*AI.*software/);
   // The Journal can contain the English word "hidden"; check the HTML attribute.
   assert.doesNotMatch(html, /<[^>]+\shidden[=> ]|class="k"|v1-index|registry-line/);
   assert.doesNotMatch(visibleText(html), /Votre phrase indique|What you say tells/);
@@ -72,7 +72,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.equal((partners.match(/class="s"/g) ?? []).length, 7);
   assert.match(visibleText(partners), /MIT/);
   assert.doesNotMatch(partners, /<img|<svg/);
-  assert.match(html, /href="#reservation"/);
+  assert.doesNotMatch(html, /href="#reservation"/);
   const contact = html.slice(html.indexOf('id="contact"'));
   assert.match(contact, /id="reservation"[\s\S]*data-booking-mock[\s\S]*data-capture-mock/);
   const picture = contact.match(/<picture>[\s\S]*?<\/picture>/)?.[0];
@@ -93,7 +93,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.doesNotMatch(references, /class="reflines"|<p/);
   for (const client of ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"]) assert.match(references, new RegExp(`aria-label="${client}[^"]*"`));
   assert.doesNotMatch(text, /Arkel/);
-  assert.match(text, locale === "fr" ? /données fictives/ : /fictional data/);
+  assert.match(text, locale === "fr" ? /Les données affichées sont fictives\./ : /The data shown is fictitious\./);
   for (const [, label] of html.matchAll(/<a class="[^"]*rev-button[^\"]*"[^>]*>(.*?)<\/a>/g)) assert.doesNotMatch(visibleText(label), /\.$/);
 });
 test("previous portrait remains intact in the repository after the founder photo change", () => {
@@ -116,7 +116,9 @@ test("client logos fail closed without permission, file, source and a dated name
     assert.ok(publicationLogo(evidence.logo));
     assert.ok(readFileSync(`public${evidence.logo.fichier}`).length > 0);
     assert.ok(evidence.logo.source);
-    assert.deepEqual(evidence.logo.accord, { qui: "Paul Larmaraud, décision d'affichage sans accord écrit du client", date: "2026-10-27" });
+    assert.deepEqual(evidence.logo.accord, ["Toyotomi Europe", "Hiolle Technologies", "Carte Noire"].includes(evidence.id)
+      ? { qui: "Paul Larmaraud, décision nominative sans accord écrit des clients", date: "2026-11-08" }
+      : { qui: "Paul Larmaraud, décision d'affichage sans accord écrit du client", date: "2026-10-27" });
     assert.doesNotMatch(renderToStaticMarkup(createElement(ClientReference, { id: evidence.id }, "Description")), /<img/);
   }
   const logoEvidence = SITE_EVIDENCE.find(e => e.id === "Laparra");
@@ -150,7 +152,7 @@ for (const locale of ["fr", "en"]) test(`revoking every permission hides client 
     const text = visibleText(html);
     assert.equal(applications(html, locale), before, "all scenes and captions survive permission revocation unchanged");
     assert.doesNotMatch(html, /class="reflines"|data-evidence|\/clients\//);
-    assert.doesNotMatch(html, /Laparra|Clevery|Forexpert|Joone|SNCF/i);
+    assert.doesNotMatch(html, /Laparra|Clevery|Forexpert|Joone|SNCF|Toyotomi|Hiolle|Carte Noire/i);
     assert.doesNotMatch(text, /Our agents are already at work|They work with us|Nos agents travaillent déjà|Ils travaillent avec nous|Laparra|Clevery|Forexpert|Joone|SNCF/);
     assert.doesNotMatch(text, /We build with/);
     assert.doesNotMatch(text, /Les marques citées|The brands named/);
@@ -215,7 +217,10 @@ for (const locale of ["fr", "en"]) test(`three planes, 33 nodes and four complet
 });
 
 for (const locale of ["fr", "en"]) test(`public rendered HTML remains anonymous (${locale})`, async () => {
-  assert.doesNotMatch(await renderPage(locale), /toyotomi|hiolle|atlas/i);
+  // Décision de Paul du 08/11/2026, nuit: new names only in the reference band.
+  const html = await renderPage(locale);
+  assert.doesNotMatch(html, /atlas/i);
+  assert.doesNotMatch(html.replace(/<section id="references"[\s\S]*?<\/section>/, ""), /toyotomi|hiolle|carte noire/i);
 });
 
 for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos and final walker (${locale})`, async () => {
@@ -227,10 +232,10 @@ for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos a
   assert.match(html, /class="human" transform="translate\(900 120\)"/);
   assert.equal((html.match(/class="use-case"/g) ?? []).length, 12);
   assert.doesNotMatch(html, /id="architecture"|class="stage"/);
-  assert.equal((html.match(/role="img"/g) ?? []).length, 10);
-  const strip = html.match(/class="logo-track">([\s\S]*?)<div class="logo-set" aria-hidden="true">/)?.[1];
+  assert.equal((html.match(/role="img"/g) ?? []).length, 8);
+  const strip = html.match(/<section id="references">([\s\S]*?)<\/section>/)?.[1];
   assert.ok(strip);
-  assert.equal((strip.match(/role="img"/g) ?? []).length, 5);
+  assert.equal((strip.match(/role="img"/g) ?? []).length, 8);
   assert.doesNotMatch(html, /mask-image:url\(https?:/);
   const founder = html.match(/<h2>Paul Larmaraud,[\s\S]*?<\/h2>/)?.[0];
   assert.ok(founder);

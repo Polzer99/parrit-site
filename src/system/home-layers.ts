@@ -4,16 +4,16 @@ import { SINGLE_PAGE_EN } from "./single-page-copy.ts";
 // Décision de Paul du 08/11/2026 : texte affiché et FAQPage partagent ces paires.
 export const HOME_LAYERS = {
   fr: {
-    offersTitle: "Par où commencer",
+    offersTitle: "Deux métiers, une même transformation.",
     offers: [
-      { intent: "formation", eyebrow: "Formation", benefits: ["Sur vos outils et vos documents", "Du comité de direction aux équipes métier", "En présentiel ou à distance"], title: "Former vos équipes", description: "Des formations pratiques sur vos outils et vos documents, du comité de direction aux équipes métier.", action: "Former mes équipes" },
-      { intent: "grands-groupes", eyebrow: "Conseil", benefits: ["Choix des cas d’usage et cadrage", "Pilotes avec vos directions métier", "Sécurité et conformité avec votre DSI"], title: "Grands groupes", description: "Cadrage, choix des cas d'usage, pilotes et conformité, avec vos directions métier et votre DSI.", action: "Parler d'un projet" },
-      { intent: "pme", eyebrow: "Conseil et outils", benefits: ["Un service à la fois", "Des outils construits sur mesure", "Vos équipes gardent la décision"], title: "PME et ETI", description: "On part d'un service, on retire ce qui fait perdre du temps, vos équipes gardent la décision.", action: "Parler d'un projet" },
+      { id: "transformation", eyebrow: "Transformation IA", title: "Vos équipes prennent l'IA en main.", benefits: ["Prise en main sur vos outils et vos documents", "Accompagnement au changement, du comité de direction aux équipes métier", "Une gouvernance claire : qui utilise quoi, avec quelles règles"] },
+      { id: "software", eyebrow: "Développement de logiciels", title: "Ce qui manque, nous le construisons.", benefits: ["Des outils sur mesure, reliés à vos logiciels", "Des assistants que vos équipes relisent et valident", "Installés chez vous si vos données l'exigent"] },
     ],
+    offersAudience: "Pour les PME, les ETI et les grands groupes.",
     questionsTitle: "Questions",
     faq: [
       ["Par où commence-t-on ?", "Par un premier échange de 15 minutes en visioconférence, puis un cadrage écrit, ou un refus motivé si nous ne sommes pas les bons interlocuteurs."],
-      ["Faut-il des équipes techniques ?", "Non. Nous formons vos équipes sur leurs outils, puis nous construisons des assistants qu'elles relisent et valident."],
+      ["Faut-il des équipes techniques ?", "Non. Vos équipes prennent l'IA en main sur leurs outils, puis nous construisons des assistants qu'elles relisent et valident."],
       ["Que deviennent nos données ?", "L'IA peut être installée sur vos serveurs, et nous contrôlons l'usage qu'en font vos équipes."],
       ["Quelles technologies utilisez-vous ?", "Pour chaque besoin, la plus adaptée : ChatGPT, Claude, Gemini, Mistral, Copilot, entre autres, sans dépendre d'un seul fournisseur."],
       ["Travaillez-vous avec les grands groupes comme avec les PME ?", "Oui. L'équipe se compose selon le diagnostic, parmi plus de vingt partenaires."],
@@ -23,16 +23,16 @@ export const HOME_LAYERS = {
     journalLink: "Le Journal",
   },
   en: {
-    offersTitle: "Where to start",
+    offersTitle: "Two crafts, one transformation.",
     offers: [
-      { intent: "formation", eyebrow: "Training", benefits: ["On your tools and documents", "From the executive committee to operational teams", "In person or remotely"], title: "Train your teams", description: "Practical training on your tools and documents, from the executive committee to operational teams.", action: "Train my teams" },
-      { intent: "grands-groupes", eyebrow: "Consulting", benefits: ["Use case selection and scoping", "Pilots with your business teams", "Security and compliance with your IT department"], title: "Large companies", description: "Scoping, use case selection, pilots and compliance, with your business teams and IT department.", action: "Talk about a project" },
-      { intent: "pme", eyebrow: "Consulting and tools", benefits: ["One department at a time", "Tools built for your needs", "Your teams keep the decision"], title: "SMEs and mid-sized companies", description: "We start with one department, remove what wastes time, and your teams keep the decision.", action: "Talk about a project" },
+      { id: "transformation", eyebrow: "AI transformation", title: "Your teams take AI in hand.", benefits: ["Hands-on work with your own tools and documents", "Change management, from the executive committee to every team", "Clear governance: who uses what, under which rules"] },
+      { id: "software", eyebrow: "Software development", title: "What is missing, we build.", benefits: ["Custom tools connected to your software", "Assistants your teams review and approve", "Installed on your servers when your data requires it"] },
     ],
+    offersAudience: "For SMEs, mid-sized companies and large groups.",
     questionsTitle: "Questions",
     faq: [
       ["Where do we start?", "With a first 15-minute video call, then a written scope, or an explanation if we are not the right people to help."],
-      ["Do we need technical teams?", "No. We train your teams on their tools, then build assistants whose work they review and approve."],
+      ["Do we need technical teams?", "No. Your teams take AI in hand with their own tools, then we build assistants they review and approve."],
       ["What happens to our data?", "AI can be installed on your servers, and we control how your teams use it."],
       ["Which technologies do you use?", "The best fit for each need: ChatGPT, Claude, Gemini, Mistral, Copilot, among others, without depending on a single provider."],
       ["Do you work with large companies as well as SMEs?", "Yes. The team is put together according to the diagnosis, from more than twenty partners."],

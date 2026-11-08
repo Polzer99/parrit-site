@@ -1,7 +1,6 @@
 import { test, expect } from "./network-deny.setup";
 import { HOME_LAYERS } from "../src/system/home-layers";
 import { getJournalThemes } from "../src/system/journal-themes";
-import type { Locale } from "../src/system/locale";
 
 const BASE = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 const local = (path: string) => {
@@ -34,20 +33,11 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         expect(await page.locator("main > section").evaluateAll(nodes => nodes.map(node => node.id))).toEqual(expected);
         const nav = locale === "fr" ? ["en-production", "offres", "parcours", "services", "questions", "contact"] : ["in-production", "offers", "path", "services", "questions", "contact"];
         for (const selector of [".desktop-nav", ".mobile-menu nav"]) {
-          expect(await page.locator(`${selector} a`).evaluateAll(nodes => nodes.map(node => node.getAttribute("href")))).toEqual(nav.map(id => `${home}#${id}`));
+          expect(await page.locator(`${selector} a`).evaluateAll(nodes => nodes.map(node => node.getAttribute("href")))).toEqual(nav.map(id => `${home}${selector === ".mobile-menu nav" && id === "contact" ? "?utm_campaign=layers&source=rdv-nav" : ""}#${id}`));
         }
         const offers = page.locator(locale === "fr" ? "#offres article" : "#offers article");
-        await expect(offers).toHaveCount(3);
-        for (const [index, intent] of ["formation", "grands-groupes", "pme"].entries()) {
-          const action = offers.nth(index).getByRole("link");
-          await expect(action).toHaveCount(1);
-          await expect(action).toHaveClass(/\bghost\b/);
-          const url = new URL((await action.getAttribute("href"))!, BASE);
-          expect(url.pathname).toBe(home);
-          expect(url.hash).toBe("#contact");
-          expect(url.searchParams.getAll("source")).toEqual([`intention-${intent}-offres`]);
-          expect(url.searchParams.get("utm_campaign")).toBe("layers");
-        }
+        await expect(offers).toHaveCount(2);
+        for (const offer of await offers.all()) await expect(offer.locator("a,button")).toHaveCount(0);
         const faq = page.locator("#questions details");
         await expect(faq).toHaveCount(6);
         const pairs = await faq.evaluateAll(nodes => nodes.map(node => [node.querySelector("summary")!.textContent, node.querySelector("p")!.textContent]));
@@ -56,8 +46,16 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         expect(graph.inLanguage).toBe(locale);
         expect(graph.mainEntity.map((item: { name: string; acceptedAnswer: { text: string } }) => [item.name, item.acceptedAnswer.text])).toEqual(pairs);
         // Native keyboard interaction works even when JavaScript is disabled.
-        for (const detail of await faq.all()) {
+        for (const [index, detail] of (await faq.all()).entries()) {
+          const initiallyOpen = index === 2 || index === 5;
+          await expect(detail).toHaveJSProperty("open", initiallyOpen);
           await detail.locator("summary").focus();
+          if (initiallyOpen) {
+            await expect(detail.locator("p")).toBeVisible();
+            await page.keyboard.press("Space");
+            await expect(detail).not.toHaveAttribute("open", "");
+            await expect(detail.locator("p")).toBeHidden();
+          }
           await page.keyboard.press("Enter");
           await expect(detail).toHaveAttribute("open", "");
           await expect(detail.locator("p")).toBeVisible();
@@ -115,19 +113,17 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
   });
 }
 
-for (const locale of ["fr", "en"] as const satisfies readonly Locale[]) test(`offer clicks preserve the form and attribution ${locale}`, async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: "reduce" });
+// Anciennes sources diffusées : QuickCapture continue de les lire.
+for (const locale of ["fr", "en"] as const) test(`legacy intent attribution reaches capture ${locale}`, async ({ page }) => {
   const home = locale === "fr" ? "/fr" : "/";
-  await page.goto(local(`${home}?utm_custom=keep&source=old`));
-  const email = page.locator("#single-contact input[type=email]");
-  await email.fill("test@example.invalid");
-  const offers = page.locator(locale === "fr" ? "#offres article a" : "#offers article a");
-  for (const [index, intent] of ["formation", "grands-groupes", "pme"].entries()) {
-    await offers.nth(index).click();
-    await expect(email).toHaveValue("test@example.invalid");
-    await expect(page.locator("#contact")).toBeFocused();
-    const url = new URL(page.url());
-    expect(url.searchParams.getAll("source")).toEqual([`intention-${intent}-offres`]);
-    expect(url.searchParams.get("utm_custom")).toBe("keep");
-  }
+  await page.goto(local(`${home}?utm_custom=keep&source=intention-formation-hero#contact`));
+  await page.locator("#single-contact input[type=email]").fill("test@example.invalid");
+  const submission = page.waitForRequest(request => new URL(request.url()).pathname === "/api/interet" && request.method() === "POST");
+  await page.locator('#single-contact button[type="submit"]').click();
+  expect((await submission).postDataJSON()).toMatchObject({
+    attribution: { source: "intention-formation-hero", utm_custom: "keep" },
+  });
+  await expect(page.locator("#single-contact")).toHaveAttribute("data-state", "done");
+  await expect(page.locator("#single-contact a,#single-contact button")).toHaveCount(0);
+  expect(await page.locator('a.rev-button[href*="source=rdv-"]').evaluateAll(nodes => [...new Set(nodes.map(node => new URL((node as HTMLAnchorElement).href).searchParams.get("source")))].sort())).toEqual(["rdv-bandeau", "rdv-contact", "rdv-hero", "rdv-nav"]);
 });

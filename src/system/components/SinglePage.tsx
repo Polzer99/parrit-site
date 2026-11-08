@@ -7,7 +7,8 @@ import { HomeAnchorRedirect } from "./HomeAnchorRedirect";
 import { SINGLE_PAGE_EN, PARTNER_OFFERS } from "@/system/single-page-copy";
 import { ParritCalInline } from "./CalInline";
 import { QuickCapture } from "./QuickCapture";
-import { ContactIntentLink } from "./ContactIntentLink";
+import { AppointmentLink } from "./AppointmentLink";
+import { PUBLIC_CLIENT_NAMES } from "@/system/public-clients";
 import { getSiteEvidence } from "@/lib/registry/preuves";
 import { ClientLogoStrip, ResearchPartner } from "./PublicEvidence";
 import { ServiceGrid } from "./ServiceGrid";
@@ -25,7 +26,7 @@ export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { 
  const copy = HOME_LAYERS[locale];
  const headings = homeSectionHeadings(locale);
  const fr = locale === "fr";
- const clients = ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"].filter(id => getSiteEvidence(id, "home"));
+ const clients = PUBLIC_CLIENT_NAMES.filter(id => getSiteEvidence(id, "home"));
  const t = (text: string) => fr ? text : SINGLE_PAGE_EN[text];
  const sections = {
 hero: (
@@ -34,10 +35,12 @@ hero: (
     <div className="hero-intro">
       <h1>{headings.hero[0]}{" "}<b>{headings.hero[1]}</b></h1>
       <div className="sub">
-        <p>{t("Nous formons vos équipes à l'IA et construisons les outils qui leur manquent.")}</p>
-        <div className="actions">
-          <ContactIntentLink locale={locale} query={contactQuery} intent="projet" placement="hero" primary>{t("Parler d'un projet")}</ContactIntentLink>
-          <ContactIntentLink locale={locale} query={contactQuery} intent="formation" placement="hero">{t("Former mes équipes")}</ContactIntentLink>
+        <p>{t("Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent.")}</p>
+        <div className="hero-appointment">
+          <div className="actions">
+            <AppointmentLink locale={locale} query={contactQuery} placement="hero"><BrandConnector/></AppointmentLink>
+          </div>
+          <p className="hero-reassurance">{t("Vos équipes gardent la décision. Aucune relance automatique.")}</p>
         </div>
       </div>
     </div>
@@ -55,20 +58,20 @@ references: (
 
 ),
 terrain: (
-<SessionPhotos locale={locale} contactQuery={contactQuery}/>
+<SessionPhotos locale={locale}/>
 
 ),
 offers: (
 <section id={fr ? "offres" : "offers"} data-regime="ink"><div className="wrap">
   <h2>{copy.offersTitle}</h2>
   <MobileCarousel className="home-offers" label={copy.offersTitle}>
-    {copy.offers.map(offer => <article className="home-offer" key={offer.intent}>
+    {copy.offers.map(offer => <article className="home-offer" key={offer.id}>
       <span className="offer-eyebrow">{offer.eyebrow}</span>
-      <h3>{offer.title}</h3><p>{offer.description}</p>
+      <h3>{offer.title}</h3>
       <ul>{offer.benefits.map(benefit => <li key={benefit}><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="m3 9 4 4 8-9" fill="none" stroke="currentColor" strokeWidth="2"/></svg><span>{benefit}</span></li>)}</ul>
-      <ContactIntentLink locale={locale} query={contactQuery} intent={offer.intent} placement="offres">{offer.action}</ContactIntentLink>
     </article>)}
   </MobileCarousel>
+  <p className="offers-audience">{copy.offersAudience}</p>
 </div></section>
 
 ),
@@ -95,7 +98,7 @@ applications: (
         <div className="msg m">{t("Merci, je l'appelle dans la journée.")}</div>
         <div className="msg card"><b>{t("Dans son suivi")}</b>{t("Appeler Entreprise C, aujourd'hui, après 5 semaines.")}</div>
       </div></div>
-      <h3>{t("Un organisme de formation prospecte chaque matin à 8 h.")}</h3>
+      <h3>{t("Une entreprise de services prospecte chaque matin à 8 h.")}</h3>
     </div>
     <div className="scene">
       <div className="phone"><div className="bar">{t("Assistant commercial")}{" "}<i></i></div><div className="chat">
@@ -108,7 +111,7 @@ applications: (
       <h3>{t("Un grossiste de Rungis pilote son activité en parlant à son assistant.")}</h3>
     </div>
   </MobileCarousel>
-  <p className="note">{t("Scènes reconstituées sur données fictives, fidèles aux systèmes en service.")}</p>
+  <p className="note">{t("Inspirées de nos missions. Les données affichées sont fictives.")}</p>
 </div></section>
 
 ),
@@ -117,9 +120,9 @@ path: (
   <h2>{headings.path[0]}{" "}<b>{headings.path[1]}</b></h2>
   <PathWalker/>
   <MobileCarousel className="steps" label={fr ? "Trois étapes" : "Three steps"}>
-    <div className="step"><span className="n">{t("Étape 1")}</span><h3>{t("Apprendre")}</h3><p>{t("Former les équipes, puis créer avec elles un premier assistant.")}</p><ContactIntentLink locale={locale} query={contactQuery} intent="formation" placement="parcours">{t("Former mes équipes")}</ContactIntentLink></div>
-    <div className="step"><span className="n">{t("Étape 2")}</span><h3>{t("Améliorer")}</h3><p>{t("Choisir les priorités, puis livrer des solutions rapides.")}</p><ContactIntentLink locale={locale} query={contactQuery} intent="priorites" placement="parcours">{t("Choisir nos priorités")}</ContactIntentLink></div>
-    <div className="step"><span className="n">{t("Étape 3")}</span><h3>{t("Construire")}</h3><p>{t("Relier vos outils, puis bâtir vos propres logiciels.")}</p><ContactIntentLink locale={locale} query={contactQuery} intent="projet" placement="parcours">{t("Parler d'un projet")}</ContactIntentLink></div>
+    <div className="step"><span className="n">{t("Étape 1")}</span><h3>{t("Apprendre")}</h3><p>{t("Prendre l'IA en main, puis créer un premier assistant avec vos équipes.")}</p></div>
+    <div className="step"><span className="n">{t("Étape 2")}</span><h3>{t("Améliorer")}</h3><p>{t("Choisir les priorités, puis livrer des solutions rapides.")}</p></div>
+    <div className="step"><span className="n">{t("Étape 3")}</span><h3>{t("Construire")}</h3><p>{t("Relier vos outils, puis bâtir vos propres logiciels.")}</p></div>
   </MobileCarousel>
   <p className="aussi">{t("Déjà équipés ? Nous vérifions vos outils et leurs règles, installons l'IA sur vos serveurs et contrôlons l'usage qu'en font vos équipes.")}</p>
 </div></section>
@@ -140,8 +143,8 @@ technologies: (
 team: (
 <section id={fr ? "partenaires" : "team"}><RevealOnView className="wrap">
   <h2>{headings.team[0]}{" "}<b>{headings.team[1]}</b></h2>
-  <p className="muted" style={{"marginTop": "20px", "maxWidth": "720px"}}>{t("Plus de vingt partenaires, entrepreneurs et consultants indépendants, choisis selon le diagnostic.")}</p>
-  <ServiceGrid offers={PARTNER_OFFERS.map(offers => offers.map(t))} deliveryLabel={t("Avec eux, nous livrons")} label={fr ? "Partenaires et livrables" : "Partners and deliverables"} items={[[t("Ingénieurs IA"), t("Plus de dix, chacun sa spécialité : documents, assistants, connexion à vos logiciels.")], [t("Automatisation et assistants"), t("Des développeurs et des studios : assistants écrits, vocaux et vidéo.")], [t("Transformation et projet"), t("Conduite du changement et pilotage de projet.")], [t("Marque et marketing"), t("Image de marque, contenus et vente.")], [t("Formation"), t("Une quinzaine de formateurs et un organisme certifié.")], [t("Conseil et qualité"), t("Des cabinets partenaires et des relecteurs de nos livrables.")], [t("Chercheurs du MIT"), t("Des chercheurs du MIT dans notre réseau, pour vos déploiements d'assistants les plus exigeants.")]]} />
+  <p className="muted team-intro">{t("Un seul interlocuteur, responsable de bout en bout. Selon le besoin, il s'entoure de spécialistes parmi plus de vingt partenaires.")}</p>
+  <ServiceGrid offers={PARTNER_OFFERS.map(offers => offers.map(t))} deliveryLabel={t("Avec eux, nous livrons")} label={fr ? "Partenaires et livrables" : "Partners and deliverables"} items={[[t("Ingénieurs IA"), t("Plus de dix, chacun sa spécialité : documents, assistants, connexion à vos logiciels.")], [t("Automatisation et assistants"), t("Des développeurs et des studios : assistants écrits, vocaux et vidéo.")], [t("Transformation et projet"), t("Conduite du changement et pilotage de projet.")], [t("Marque et marketing"), t("Image de marque, contenus et vente.")], [t("Prise en main"), t("Une quinzaine d'intervenants et un organisme certifié.")], [t("Conseil et qualité"), t("Des cabinets partenaires et des relecteurs de nos livrables.")], [t("Chercheurs du MIT"), t("Des chercheurs du MIT dans notre réseau, pour vos déploiements d'assistants les plus exigeants.")]]} />
   <p className="teamcap"><i aria-hidden="true"/>{t("Une équipe composée pour chaque diagnostic, et ce qu'elle livre")}</p>
 <ResearchPartner/>
 </RevealOnView></section>
@@ -151,8 +154,7 @@ banner: (
 <section className="final-call" id="bandeau" data-regime="canard"><div className="wrap">
   <h2>{headings.banner[0]}</h2>
   <div className="actions">
-    <ContactIntentLink locale={locale} query={contactQuery} intent="projet" placement="bandeau" primary>{t("Parler d'un projet")}<BrandConnector/></ContactIntentLink>
-    <ContactIntentLink locale={locale} query={contactQuery} intent="formation" placement="bandeau">{t("Former mes équipes")}</ContactIntentLink>
+    <AppointmentLink locale={locale} query={contactQuery} placement="bandeau"><BrandConnector/></AppointmentLink>
   </div>
 </div></section>
 
@@ -161,7 +163,7 @@ questions: (
 <section id="questions"><div className="wrap">
   <h2>{copy.questionsTitle}</h2>
   <div className="home-faq">
-    {copy.faq.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}
+    {copy.faq.map(([question, answer], index) => <details key={question} open={index === 2 || index === 5}><summary>{question}</summary><p>{answer}</p></details>)}
   </div>
   <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqJsonLd(locale)).replace(/</g, "\\u003c") }}/>
 </div></section>
@@ -191,9 +193,9 @@ contact: (
     <p>{t("Il a créé l'entreprise en 2024, après deux ans chez Lime.")}</p>
     <ul>
       <li>{t("Il conçoit des outils d'IA et les contrôles qui les encadrent.")}</li>
-      <li>{t("Il forme les équipes et pilote les projets.")}</li>
+      <li>{t("Il accompagne les équipes dans la prise en main de l'IA et pilote les projets.")}</li>
     </ul>
-    <div className="actions"><a className="btn rev-button exec" href="#reservation">{t("Parler d'un projet")}</a><a className="mail" href="mailto:paul.larmaraud@parrit.ai">{"paul.larmaraud@parrit.ai"}</a></div>
+    <div className="actions"><AppointmentLink locale={locale} query={contactQuery} placement="contact"/><a className="mail" href="mailto:paul.larmaraud@parrit.ai">{"paul.larmaraud@parrit.ai"}</a></div>
   </div>
 </div><div id="reservation" className="reservation"><ParritCalInline locale={locale}/><div className="contact-fallback"><QuickCapture locale={locale} id="single-contact" variant="contact" /></div></div></div></section>
 

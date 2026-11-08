@@ -87,36 +87,30 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         }
         const offers = page.locator(locale === "fr" ? "#offres" : "#offers");
         const cards = offers.locator("article");
-        await expect(cards).toHaveCount(3);
+        await expect(cards).toHaveCount(2);
         for (const card of await cards.all()) {
           await expect(card.locator("li svg")).toHaveCount(3);
-          await expect(card.getByRole("link")).toHaveCount(1);
-          await expect(card.getByRole("link")).toHaveClass(/ghost/);
+          await expect(card.locator("a,button")).toHaveCount(0);
         }
-        const bottoms = await cards.locator("a").evaluateAll(nodes => nodes.map(node => {
+        const cardRows = await cards.evaluateAll(nodes => nodes.map(node => {
           const rect = node.getBoundingClientRect();
-          const text = document.createRange(); text.selectNodeContents(node);
-          return { top: rect.top, bottom: rect.bottom, text: text.getBoundingClientRect().bottom };
+          return { top: rect.top, bottom: rect.bottom };
         }));
-        for (const key of ["top", "bottom", "text"] as const) expect(Math.max(...bottoms.map(b => b[key])) - Math.min(...bottoms.map(b => b[key]))).toBeLessThanOrEqual(1);
+        for (const key of ["top", "bottom"] as const) expect(Math.max(...cardRows.map(b => b[key])) - Math.min(...cardRows.map(b => b[key]))).toBeLessThanOrEqual(1);
         const final = page.locator("#bandeau");
         expect(await final.evaluate(el => el.previousElementSibling?.id)).toBe(locale === "fr" ? "partenaires" : "team");
         expect(await final.evaluate(el => el.nextElementSibling?.id)).toBe("questions");
         await expect(final.locator("a.exec")).toHaveCount(1);
-        await expect(final.locator("a.ghost")).toHaveCount(1);
+        await expect(final.locator("a.ghost")).toHaveCount(0);
         await expect(final.locator('a.exec svg[data-connector="VS-CONNECTOR"] path')).toHaveCount(2);
-        for (const [link, source] of [[field.locator("a"), "intention-formation-terrain"], [final.locator("a.exec"), "intention-projet-bandeau"], [final.locator("a.ghost"), "intention-formation-bandeau"]] as const) {
+        for (const [link, source] of [[final.locator("a.exec"), "rdv-bandeau"]] as const) {
           const url = new URL((await link.getAttribute("href"))!, BASE);
           expect(url.hash).toBe("#contact");
           expect(url.searchParams.getAll("source")).toEqual([source]);
           expect(url.searchParams.get("utm_custom")).toBe("visual");
         }
-        const actions = await final.locator("a").evaluateAll(nodes => nodes.map(n => {
-          const b = n.getBoundingClientRect(); return { height: b.height, width: b.width, top: b.top };
-        }));
-        expect(Math.abs(actions[0].height - actions[1].height)).toBeLessThanOrEqual(1);
-        if (width >= 600) expect(Math.abs(actions[0].top - actions[1].top)).toBeLessThanOrEqual(1);
-        else expect(Math.abs(actions[0].width - actions[1].width)).toBeLessThanOrEqual(1);
+        await expect(field.locator("a,button")).toHaveCount(0);
+        await expect(final.locator("a")).toHaveCount(1);
 
         const contrasts = await page.locator(".field h2,.field-intro,.session-mosaic figcaption,.field .btn,.home-offer h3,.offer-eyebrow,.home-offer p,.home-offer li span,.home-offer .btn,.live h2,.live .change-definition,.live .scene h3,.live .note,.tech-title,.tech-title b,.final-call h2,.final-call .btn").evaluateAll(nodes => {
           const lum = (color: string) => {
@@ -209,15 +203,15 @@ for (const locale of ["fr", "en"]) {
     const strip = page.locator(".logo-strip");
     await strip.scrollIntoViewIfNeeded();
     const images = page.locator(".logo-set:not([aria-hidden]) img");
-    await expect(images).toHaveCount(5);
+    await expect(images).toHaveCount(8);
     for (const [i, img] of (await images.all()).entries()) {
       await expect(img).toHaveCSS("animation-name", "logo-spotlight");
       const delay = await img.evaluate(el => parseFloat(getComputedStyle(el).animationDelay));
       expect(delay).toBeCloseTo(i * 1.6);
-      expect(await img.evaluate(el => parseFloat(getComputedStyle(el).animationDuration))).toBeLessThanOrEqual(8);
+      expect(await img.evaluate(el => parseFloat(getComputedStyle(el).animationDuration))).toBe(12.8);
     }
     await strip.hover();
-    await expect(page.locator(".logo-track")).toHaveCSS("animation-play-state", "paused");
+    await expect(page.locator(".logo-track")).toHaveCSS("animation-name", "none");
     await expect(images.first()).toHaveCSS("animation-play-state", "paused");
     await page.mouse.move(0, 0); await strip.focus();
     await expect(images.first()).toHaveCSS("animation-play-state", "paused");
@@ -227,13 +221,13 @@ for (const locale of ["fr", "en"]) {
     expect(await images.first().evaluate(el => new DOMMatrix(getComputedStyle(el).transform).a)).toBeCloseTo(1.08, 2);
     // Sample the same animation clock: one highlighted logo, all others at rest.
     // 300 ms ramps bound each 1.6 s slot; no overlapping spotlight at wraparound.
-    for (const time of [0, 300, 800, 1599, 1900, 3500, 5100, 6700, 7999, 8300]) {
+    for (const time of [0, 300, 800, 1599, 1900, 3500, 5100, 6700, 7999, 8300, 9900, 11500, 12799, 13100]) {
       const samples = await images.evaluateAll((nodes, time) => nodes.map(el => {
         const animation = el.getAnimations()[0]; animation.pause(); animation.currentTime = time;
         return Number(getComputedStyle(el).opacity);
       }), time);
       expect(samples.filter(opacity => opacity > .351).length).toBeLessThanOrEqual(1);
-      expect(samples.filter(opacity => Math.abs(opacity - .35) < .001).length).toBeGreaterThanOrEqual(4);
+      expect(samples.filter(opacity => Math.abs(opacity - .35) < .001).length).toBeGreaterThanOrEqual(7);
     }
     await page.emulateMedia({ reducedMotion: "reduce" });
     for (const img of await images.all()) {
@@ -261,7 +255,7 @@ for (const locale of ["fr", "en"]) {
     await expect(page.locator("[data-entrance]")).toHaveCount(0);
     const email = page.locator("#single-contact input[type=email]");
     await email.fill("test@example.invalid");
-    for (const [link, source] of [[field.locator("a"), "intention-formation-terrain"], [page.locator("#bandeau a.exec"), "intention-projet-bandeau"], [page.locator("#bandeau a.ghost"), "intention-formation-bandeau"]] as const) {
+    for (const [link, source] of [[page.locator("#bandeau a.exec"), "rdv-bandeau"]] as const) {
       await link.click();
       await expect(email).toHaveValue("test@example.invalid");
       await expect(page.locator("#contact")).toBeFocused();

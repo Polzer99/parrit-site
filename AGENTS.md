@@ -1,3 +1,74 @@
+## Action unique, correctifs 3 et 4, décision de Paul du 08/11/2026, nuit
+
+Les sections 6 et 7 de `docs/CODEX-SPEC-2026-11-08-action-unique-et-wording.md`
+priment sur les mentions antérieures de trois placements : le bouton du fondateur
+est rétabli, même libellé, `exec`, source `rdv-contact`, 22 px et 22 × 36 px.
+Navigation `ghost` conservée ; quatre placements au total, formulaire distinct.
+Écart sous le bouton du hero : 16 px. Transitions et animations des grands boutons
+explicitement nulles en mouvement réduit. À 1280 × 720, les marges internes de
+l'équipe sont réduites, sans changement de texte, taille ou seuil géométrique.
+Le Journal français de PR #370 et son correctif typographique sont intégrés :
+31 éditions FR, liens localisés, métadonnées et llms généré, originaux EN conservés.
+Le merge Git reste à effectuer sur l'hôte : `ORIG_HEAD.lock` interdit dans le
+bac à sable ; intégration des fichiers à trois versions réalisée dans le worktree.
+Preuve navigateur et CLS à rejouer sur hôte autorisé, voir le compte rendu.
+
+## Correctif 2 de l’action unique, décision de Paul du 08/11/2026, nuit
+
+La section 5 de `docs/CODEX-SPEC-2026-11-08-action-unique-et-wording.md`
+prime : navigation `ghost` de taille inchangée, hero et bandeau `exec` en
+`var(--t-l)`, rembourrage 22 × 36 px, hauteur minimale 64 px, pleine largeur
+sur téléphone. Connecteur VS-CONNECTOR dans les deux boutons, translation 4 px
+au survol/focus ; fond rose clair Brand OS et bordure encre 2 px, transition
+150 ms, appui 1 px. Seul le fond du hero respire (alpha 0,92–1, cycle 3 s),
+arrêt au survol/focus/appui ; mouvement réduit statique. Carte MIT et H1 conservés,
+FAQ coût sans chiffre. Aucun seuil géométrique, contraste ou CLS assoupli.
+La géométrie réelle reste à vérifier sur un hôte autorisant le navigateur.
+
+## Correctif 1 de l'action unique, décision de Paul du 08/11/2026, nuit
+
+La spec amendée conserve les deux métiers et les huit références. Les services
+portent « Préparé, vous validez » / « Prepared, you approve » ; la ligne des
+partenaires précise l'interlocuteur responsable de bout en bout. Les FAQ données
+et prix sont ouvertes dès le HTML serveur, sans changer leurs réponses ni FAQPage.
+La note des applications précise leur origine dans les missions et les données
+fictives. La réassurance « Vos équipes gardent la décision. Aucune relance
+automatique. » est sous le bouton du hero, en texte secondaire FR/EN.
+Le header partagé utilise « Prendre rendez-vous » / « Book a call » avec
+`rdv-nav` et les UTM aussi sur Journal, thèmes et mentions légales ; sa destination
+au contact de l'accueil reste inchangée. Corps éditoriaux et mentions légales intacts.
+La réserve navigation `ghost` est levée par le correctif 2 ci-dessus. La géométrie du hero
+avec la nouvelle ligne reste à vérifier sur un hôte autorisant Chromium ; aucun
+seuil n'est assoupli et aucun repli vers le bandeau n'est affirmé nécessaire sans mesure.
+
+## Action unique et transformation, décision de Paul du 08/11/2026, nuit
+
+`docs/CODEX-SPEC-2026-11-08-action-unique-et-wording.md` remplace les anciens
+contrats de texte et d'action de l'accueil, y compris le hero à deux actions.
+Libellé unique « Prendre rendez-vous » / « Book a call », trois placements
+navigation / hero / bandeau, sources `rdv-nav`, `rdv-hero`, `rdv-bandeau` via
+`avecSource`, UTM conservés. Une action au hero ; aucune action au terrain,
+aux offres, au parcours ni dans le portrait du contact. Le formulaire conserve
+son rôle d'envoi et la lecture des anciennes sources ; son succès n'ajoute pas
+un quatrième bouton. Le lien Journal reste un lien de contenu.
+Deux cartes sombres sans bouton : transformation IA et développement de
+logiciels, pour les PME, ETI et grands groupes. H1 inchangé ; sous-titre :
+« Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent. »
+« Your teams take AI in hand. We build the software they are missing. »
+Textes de l'accueil, FAQ, métadonnées et présentation de l'accueil dans llms
+alignés ; articles et mentions légales conservés.
+Toyotomi Europe, Hiolle Technologies et Carte Noire rejoignent les cinq clients
+publiables, sur décision nominative de Paul sans accord écrit des clients.
+Huit masques locaux, provenance et empreintes dans `public/clients/SOURCES.md` ;
+deux rangées ordinateur autorisées dans 1060 px, grille deux colonnes mobile,
+éclairage successif 1,6 s, rampes 300 ms, pause survol/focus, réduit statique.
+Le Journal ne nomme aucun client. Aucun seuil géométrique ou CLS assoupli.
+
+**Arbitrage levé par le correctif 2, décision de Paul du 08/11/2026, nuit :**
+la navigation conserve explicitement son style `ghost` et sa taille. Hero et
+bandeau restent `exec`. Les contrôles du rose unique restent intacts.
+
+
 ## Journal en français, décision de Paul du 08/11/2026
 
 `docs/CODEX-SPEC-2026-11-08-journal-en-francais.md` remplace le contrat

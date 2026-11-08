@@ -1,12 +1,11 @@
 import { homeSectionHeadings } from "@/system/home-layers";
 import type { Locale } from "@/system/locale";
-import { ContactIntentLink } from "./ContactIntentLink";
 import { MobileCarousel } from "./MobileCarousel";
 
 const photos = [
   { id: "formation-equipes", width: 960, height: 1280,
-    caption: { fr: "Formation des équipes", en: "Team training" },
-    alt: { fr: "Paul Larmaraud forme une équipe réunie autour de tables devant un écran.", en: "Paul Larmaraud trains a team seated around tables in front of a screen." } },
+    caption: { fr: "Prise en main par les équipes", en: "Teams taking AI in hand" },
+    alt: { fr: "Paul Larmaraud accompagne une équipe réunie autour de tables devant un écran.", en: "Paul Larmaraud works with a team seated around tables in front of a screen." } },
   { id: "atelier-outils", width: 800, height: 836,
     caption: { fr: "Atelier sur vos outils", en: "Workshop on your tools" },
     alt: { fr: "Paul Larmaraud présente un schéma d'assistants à l'écran à une équipe munie d'ordinateurs.", en: "Paul Larmaraud presents a diagram of assistants on screen to a team using laptops." } },
@@ -15,12 +14,12 @@ const photos = [
     alt: { fr: "Paul Larmaraud s'adresse au public, un microphone à la main.", en: "Paul Larmaraud speaks to an audience while holding a microphone." } },
 ] as const;
 
-export function SessionPhotos({ locale, contactQuery }: { locale: Locale; contactQuery: string }) {
+export function SessionPhotos({ locale }: { locale: Locale }) {
   const fr = locale === "fr";
   const title = homeSectionHeadings(locale).terrain[0];
   return <section className="field" id={fr ? "terrain" : "in-the-field"}><div className="wrap">
     <h2>{title}</h2>
-    <p className="field-intro">{fr ? "Nous formons et construisons dans vos locaux, sur vos outils." : "We train and build on your premises, with your tools."}</p>
+    <p className="field-intro">{fr ? "Dans vos locaux, sur vos outils, avec vos équipes." : "On your premises, with your tools and your teams."}</p>
     <MobileCarousel className="session-mosaic" label={title}>
       {photos.map(({ id, width, height, caption, alt }, index) => {
         const base = `/photos/session/${id}`;
@@ -35,6 +34,5 @@ export function SessionPhotos({ locale, contactQuery }: { locale: Locale; contac
         </figure>;
       })}
     </MobileCarousel>
-    <ContactIntentLink locale={locale} query={contactQuery} intent="formation" placement="terrain">{fr ? "Former mes équipes" : "Train my teams"}</ContactIntentLink>
   </div></section>;
 }

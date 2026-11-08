@@ -71,24 +71,18 @@ for (const locale of ["fr", "en"]) test(`Journal summaries derive reading time f
 });
 
 for (const locale of ["fr", "en"]) {
-  test(`SSR intent destinations and one action per step (${locale})`, async () => {
+  test(`SSR one booking action and steps without actions (${locale})`, async () => {
     const html = await renderPage(locale);
     const home = locale === "fr" ? "/fr" : "/";
     const hero = html.match(/<section class="hero">([\s\S]*?)<\/section>/)[1];
     const links = [...hero.matchAll(/<a class="([^\"]+)" href="([^\"]+)">/g)];
-    assert.equal(links.length, 2);
-    for (const [i, intent] of ["projet", "formation"].entries()) {
-      assert.match(links[i][1], i === 0 ? /\bexec\b/ : /\bghost\b/);
-      assert.equal(links[i][2], `${home}?source=intention-${intent}-hero#contact`);
-    }
+    // Décision de Paul du 08/11/2026, nuit : one hero action, none in steps.
+    assert.equal(links.length, 1);
+    assert.match(links[0][1], /\bexec\b/);
+    assert.equal(links[0][2], `${home}?source=rdv-hero#contact`);
     const steps = [...html.matchAll(/<div class="step">([\s\S]*?)<\/div>/g)];
     assert.equal(steps.length, 3);
-    for (const [i, intent] of ["formation", "priorites", "projet"].entries()) {
-      const actions = [...steps[i][1].matchAll(/<a class="([^\"]+)" href="([^\"]+)">/g)];
-      assert.equal(actions.length, 1);
-      assert.match(actions[0][1], /\bghost\b/);
-      assert.equal(actions[0][2], `${home}?source=intention-${intent}-parcours#contact`);
-    }
+    for (const [, step] of steps) assert.doesNotMatch(step, /<a\b|<button\b/);
     const { QuickCapture } = loader(locale)("src/system/components/QuickCapture.tsx");
     const form = renderToStaticMarkup(createElement(QuickCapture, { locale, variant: "contact" }));
     const note = form.match(/<button[^>]+>[\s\S]*?<\/button><\/div><p class="contact-expectation">([^<]+)<\/p>/);
@@ -150,8 +144,9 @@ for (const locale of ["fr", "en"]) test(`incoming UTM survive in SSR links and m
   const home = locale === "fr" ? "/fr" : "/";
   const page = loader(locale)("src/app/(rev01)/page.tsx");
   const html = renderToStaticMarkup(await page.default({ searchParams: Promise.resolve({ utm_campaign: "campaign & test", utm_custom: "custom", source: "old" }) }));
-  const intents = [...html.matchAll(/href="([^"]*source=intention-[^"]+)"/g)];
-  assert.equal(intents.length, 11); // Décision de Paul du 08/11/2026 : terrain + deux actions du bandeau.
+  const intents = [...html.matchAll(/href="([^"]*source=rdv-[^"]+)"/g)];
+  assert.equal(intents.length, 3); // Correctif 4, décision de Paul du 08/11/2026 : contact rétabli.
+  assert.deepEqual(intents.map(([, href]) => new URL(href.replaceAll("&amp;", "&"), "https://example.invalid").searchParams.get("source")), ["rdv-hero", "rdv-bandeau", "rdv-contact"]);
   for (const [, href] of intents) {
     const url = new URL(href.replaceAll("&amp;", "&"), "https://example.invalid");
     assert.equal(url.pathname, home);

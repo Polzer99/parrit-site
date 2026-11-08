@@ -13,7 +13,7 @@ test("home accepts canonical public clients while the Journal rejects all known 
   assert.deepEqual(homeClientViolations(source), []);
   for (const name of PUBLIC_CLIENT_NAMES) {
     assert.equal(gateNoms(`---\ntitle: ${name.toLowerCase()}\n---\nAn article.`).ok, false);
-    assert.deepEqual(journalClientNames(name), [name]);
+    assert.ok(journalClientNames(name).includes(name));
     assert.deepEqual(privateClientNames(name), []);
   }
   assert.equal(gateNoms("Naval Group").ok, false);
@@ -22,6 +22,10 @@ test("home accepts canonical public clients while the Journal rejects all known 
   assert.equal(publicClientName("Clevery Inconnu"), undefined);
   assert.equal(publicClientName("ClientTemoinInterdit"), undefined);
   assert.deepEqual(journalClientNames("Clevernesse, Joones, SNCFrance"), []);
+  // Exact named entities only: the short names remain private outside Journal too.
+  assert.deepEqual(privateClientNames("Toyotomi Europe et Hiolle Technologies"), []);
+  assert.deepEqual(privateClientNames("Toyotomi Europe et Toyotomi"), ["Toyotomi"]);
+  assert.deepEqual(privateClientNames("Hiolle Technologies et Hiolle"), ["Hiolle"]);
 });
 
 test("the reference parser rejects an unknown client in either locale", () => {

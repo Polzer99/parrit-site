@@ -11,8 +11,8 @@ const noOffer = /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom qu
 const approvedStatuses = new Set([
   "Démonstration, données fictives.", "Demonstration, fictional data.",
   "Exemple illustratif", "Illustrative example",
-  "Scènes reconstituées sur données fictives, fidèles aux systèmes en service.",
-  "Scenes recreated with fictional data, true to the systems in use.",
+  "Inspirées de nos missions. Les données affichées sont fictives.",
+  "Drawn from our projects. The data shown is fictitious.",
 ]);
 const withoutStatuses = (copy: string) => copy.split("\n").filter(line => !approvedStatuses.has(line.trim())).join("\n");
 const forbidden = [

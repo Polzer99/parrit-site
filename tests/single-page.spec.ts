@@ -43,8 +43,8 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
       return node.getBoundingClientRect().height > 0 && style.visibility !== "hidden" && /mono/i.test(style.fontFamily) && Array.from(node.childNodes).some(n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim()) && !node.closest(".cmd-wordmark, .wordmark, .cmdbar .mark");
     }).map(node => node.textContent?.slice(0, 60)));
     expect(mono).toEqual([]);
-    await expect(page.locator("#references").getByRole("img")).toHaveCount(5);
-    await expect(page.locator(".logo-set[aria-hidden=true]")).toHaveCount(1);
+    await expect(page.locator("#references").getByRole("img")).toHaveCount(8);
+    await expect(page.locator(".logo-set[aria-hidden=true]")).toHaveCount(0);
     await expect(page.locator("#services .use-case")).toHaveCount(12);
     await expect(page.locator("#architecture")).toHaveCount(0);
     await expect(page.locator("#services + #technologies")).toHaveCount(1);
@@ -52,7 +52,7 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     await expect(applications.locator(".phone")).toHaveCount(3);
     await expect(applications.locator("h3")).toHaveCount(3);
     await expect(applications).not.toContainText(/Laparra|Clevery|Forexpert|Joone|SNCF/);
-    await expect(applications.locator(".note")).toContainText(locale === "fr" ? "données fictives" : "fictional data");
+    await expect(applications.locator(".note")).toContainText(locale === "fr" ? "Les données affichées sont fictives." : "The data shown is fictitious.");
     for (const nav of [".desktop-nav", ".mobile-menu nav"]) {
       await expect(page.locator(`${nav} a`).first()).toHaveText("Applications");
       await expect(page.locator(`${nav} a`).first()).toHaveAttribute("href", locale === "fr" ? "/fr#en-production" : "/#in-production");
@@ -95,8 +95,8 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
         return r.bottom > 0 && r.top < innerHeight && r.width > 0 && s.visibility !== "hidden" && s.display !== "none";
       }).length)).toBeLessThanOrEqual(1);
     }
-    await page.locator('#contact a[href="#reservation"]').click();
-    await expect(page).toHaveURL(/#reservation$/);
+    await expect(page.locator('#contact a[href="#reservation"]')).toHaveCount(0);
+    await page.locator("#reservation").scrollIntoViewIfNeeded();
     await expect(page.locator("#reservation")).toBeInViewport();
     await expect(page.locator(".contact-fallback details")).toHaveCount(0);
     await expect(page.locator('#reservation input[type="email"]')).toBeVisible();
@@ -152,7 +152,7 @@ test("no JavaScript conversations remain visible and legal and 404 stay accessib
     await expect(page.locator(".partner-offers li")).toHaveCount(23);
     for (const offer of await page.locator(".partner-offers li").all()) await expect(offer).toBeVisible();
     for (const face of await page.locator(".partner-delivery").all()) await expect(face).toBeHidden();
-    await expect(page.locator("#references").getByRole("img")).toHaveCount(5);
+    await expect(page.locator("#references").getByRole("img")).toHaveCount(8);
     await expect(page.locator(".contact-fallback input[type=email]")).toBeVisible();
     await expect(page.locator(".onto .story animate, .onto .story animateMotion, .onto .token")).toHaveCount(0);
     await expect(page.locator(".humby")).toBeVisible();
@@ -196,9 +196,11 @@ test("retired routes redirect once with their complete source query", async ({ r
 
 for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
   test(`primary buttons use canonical rose ${locale} ${width}`, async ({ page }) => {
+    // Static palette contract; breathing is covered separately in intentions.spec.
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width, height: 900 });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
-    for (const selector of [".hero .btn.exec", ".founder .btn.exec"]) {
+    for (const selector of [".hero .btn.exec", "#bandeau .btn.exec", ".founder .btn.exec"]) {
       const button = page.locator(selector);
       const rose = await button.evaluate(el => {
         const probe = document.createElement("span");
@@ -231,8 +233,8 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     // Spec 29/10 supersedes the old 22px mobile phrase / 72px desktop H1.
     await expect(page.locator(".hero h1")).toHaveCSS("font-size", width === 375 ? "38px" : "46px");
     await expect(page.locator(".hero h1")).toHaveCSS("line-height", width === 375 ? "43px" : "52px");
-    await expect(page.locator(".hero .sub p")).toHaveCSS("font-size", width === 375 ? "18px" : "19px");
-    await expect(page.locator(".hero .btn.exec")).toHaveCSS("font-size", width === 375 ? "18px" : "19px");
+    await expect(page.locator(".hero .sub > p")).toHaveCSS("font-size", width === 375 ? "18px" : "19px");
+    await expect(page.locator(".hero .btn.exec")).toHaveCSS("font-size", "22px");
     await expect(page.locator(".founder .btn.exec")).toHaveCSS("font-size", "22px");
     await expect(page.locator(".founder .btn.exec")).toHaveCSS("padding", "22px 36px");
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -381,7 +383,7 @@ for (const width of [1440, 800, 390]) test(`service columns and animation entry 
   await expect(services).toHaveAttribute("data-anim", "out");
   for (const card of await page.locator(".use-case").all()) await expect(card).toHaveAttribute("data-case", "0");
   await expect(page.locator("#references > .wrap")).toHaveAttribute("data-anim", "in");
-  await expect(page.locator(".logo-track")).toHaveCSS("animation-duration", "28s");
+  await expect(page.locator(".logo-set img").first()).toHaveCSS("animation-duration", "12.8s");
   await page.emulateMedia({ reducedMotion: "reduce" });
   for (const el of await page.locator(".case, .logo-track, .tech-track").all()) await expect(el).toHaveCSS("animation-name", "none");
 });
@@ -519,7 +521,7 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
     }
     if (width === 1440 || width === 1280) {
       const mark = (await page.locator(".single-header .mark").boundingBox())!;
-      for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
+      for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance"]) {
         const box = (await page.locator(selector).boundingBox())!;
         expect(box.x, `${selector}: same left edge as the header brand`).toBeCloseTo(mark.x, 0);
       }
@@ -528,20 +530,20 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       await expect(button).toHaveCSS("white-space", "nowrap");
       const geometry = await button.evaluate(el => {
         const range = document.createRange();
-        range.selectNodeContents(el);
+        range.selectNode(el.firstChild!);
         const style = getComputedStyle(el);
         return {
           lines: range.getClientRects().length,
-          contentWidth: range.getBoundingClientRect().width,
+          contentWidth: range.getBoundingClientRect().width + el.querySelector("svg")!.getBoundingClientRect().width + parseFloat(style.columnGap),
           width: el.getBoundingClientRect().width,
           horizontalInset: parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth),
         };
       });
       expect(geometry.lines).toBe(1);
       expect(geometry.width).toBeCloseTo(geometry.contentWidth + geometry.horizontalInset, 0);
-      // The new hero uses the approved 19px button; contact stays unchanged.
-      await expect(button).toHaveCSS("padding", "18px 30px");
-      const phrase = (await page.locator(".hero .sub p").boundingBox())!;
+      // Correctif 2 : large button and canonical connector; one text line remains.
+      await expect(button).toHaveCSS("padding", "22px 36px");
+      const phrase = (await page.locator(".hero .sub > p").boundingBox())!;
       const action = (await button.boundingBox())!;
       const figure = (await page.locator(".onto-diagram").boundingBox())!;
       expect(action.y).toBeGreaterThanOrEqual(phrase.y + phrase.height);
@@ -558,7 +560,7 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       expect(hero.y).toBeGreaterThanOrEqual(header.y + header.height);
       expect(hero.y + hero.height).toBeLessThanOrEqual(height);
       // The 29/10 title scale changes; the full-hero viewport limit is unchanged.
-      for (const selector of [".hero h1", ".hero .sub p", ".hero .exec", ".onto", ".ontocap", ".humby"]) {
+      for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance", ".onto", ".ontocap", ".humby"]) {
         const box = (await page.locator(selector).boundingBox())!;
         expect(box.y).toBeGreaterThanOrEqual(0);
         expect(box.y + box.height, selector).toBeLessThanOrEqual(height);
@@ -666,16 +668,16 @@ for (const locale of ["fr", "en"]) for (const width of [800, 1024]) {
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
     await page.evaluate(() => document.fonts.ready);
     const hero = (await page.locator(".hero").boundingBox())!;
-    const phrase = (await page.locator(".hero .sub p").boundingBox())!;
+    const phrase = (await page.locator(".hero .sub > p").boundingBox())!;
     const button = page.locator(".hero .exec");
     const geometry = await button.evaluate(el => {
       const range = document.createRange();
-      range.selectNodeContents(el);
+      range.selectNode(el.firstChild!);
       const style = getComputedStyle(el);
       const box = el.getBoundingClientRect();
       return {
         x: box.x, width: box.width, lines: range.getClientRects().length,
-        contentWidth: range.getBoundingClientRect().width,
+        contentWidth: range.getBoundingClientRect().width + el.querySelector("svg")!.getBoundingClientRect().width + parseFloat(style.columnGap),
         inset: parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth),
       };
     });
@@ -816,7 +818,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await expect(control).toBeInViewport({ ratio: 1 });
       }
       await expect(header.locator(":scope > .wrap > .btn")).toBeHidden();
-      for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
+      for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance"]) {
         await expect(page.locator(selector)).toBeVisible();
         await expect(page.locator(selector)).toBeInViewport({ ratio: 1 });
       }
@@ -834,7 +836,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await expect(link).toBeInViewport({ ratio: 1 });
       }
       const contact = menu.locator(".btn");
-      await expect(contact).toHaveAttribute("href", locale === "fr" ? "/fr#contact" : "/#contact");
+      await expect(contact).toHaveAttribute("href", locale === "fr" ? "/fr?source=rdv-nav#contact" : "/?source=rdv-nav#contact");
       if (javaScriptEnabled) {
         await page.keyboard.press("Escape");
         await expect(menu).not.toHaveAttribute("open", "");
@@ -1183,7 +1185,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
 }
 
 for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
-  test.describe(`reference logos on one line ${locale} JS=${javaScriptEnabled}`, () => {
+  test.describe(`reference logos inside the strip ${locale} JS=${javaScriptEnabled}`, () => {
     test.use({ javaScriptEnabled });
     for (const [width, height] of [[1440, 800], [1280, 720]]) {
       test(`all logos fit inside the strip at ${width}×${height}`, async ({ page }) => {
@@ -1193,7 +1195,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await page.evaluate(() => document.fonts.ready);
         const set = page.locator(".logo-set:not([aria-hidden])");
         await expect(set).toHaveCount(1);
-        await expect(set.getByRole("img")).toHaveCount(5);
+        await expect(set.getByRole("img")).toHaveCount(8);
         const geometry = await set.evaluate(el => {
           const strip = el.closest(".logo-strip")!.getBoundingClientRect();
           return {
@@ -1206,8 +1208,10 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
           };
         });
         expect(geometry.width).toBeLessThanOrEqual(1060);
-        const tops = geometry.logos.map(logo => logo.top);
-        expect(Math.max(...tops) - Math.min(...tops)).toBeLessThanOrEqual(1);
+        // Décision de Paul du 08/11/2026, nuit : deux rangées autorisées.
+        const rowTops: number[] = [];
+        for (const logo of geometry.logos) if (!rowTops.some(top => Math.abs(top - logo.top) <= 1)) rowTops.push(logo.top);
+        expect(rowTops.length).toBeLessThanOrEqual(2);
         for (const logo of geometry.logos) {
           expect(logo.width).toBeGreaterThan(0);
           expect(logo.height).toBeGreaterThan(0);
@@ -1299,13 +1303,13 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390, 375]) {
       : "Your expertise is the raw material. We put it to work.";
     await expect(page.locator("h1")).toHaveText(headline);
     await expect(page.locator("h1 b")).toHaveText(locale === "fr" ? "Nous la mettons au travail." : "We put it to work.");
-    await expect(page.locator(".hero .sub p")).toHaveText(locale === "fr"
-      ? "Nous formons vos équipes à l'IA et construisons les outils qui leur manquent."
-      : "We train your teams in AI and build the tools they need.");
-    await expect(page.locator(".hero .exec")).toHaveText(locale === "fr" ? "Parler d'un projet" : "Talk about a project");
-    // Decision 08/11: preserve the contact destination and verify its project attribution.
-    await expect(page.locator(".hero .exec")).toHaveAttribute("href", `${locale === "fr" ? "/fr" : "/"}?source=intention-projet-hero#contact`);
-    for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
+    await expect(page.locator(".hero .sub > p")).toHaveText(locale === "fr"
+      ? "Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent."
+      : "Your teams take AI in hand. We build the software they are missing.");
+    await expect(page.locator(".hero .exec")).toHaveText(locale === "fr" ? "Prendre rendez-vous" : "Book a call");
+    // Décision de Paul du 08/11/2026, nuit : action unique et attribution rendez-vous.
+    await expect(page.locator(".hero .exec")).toHaveAttribute("href", `${locale === "fr" ? "/fr" : "/"}?source=rdv-hero#contact`);
+    for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance"]) {
       const element = page.locator(selector);
       await expect(element).toBeVisible();
       await expect(element).toBeInViewport({ ratio: 1 });
@@ -1332,7 +1336,7 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390, 375]) {
       ? /ontologie|objets reliés|sources de logique|systèmes d'action|agnostiques|harness|back-office|raffinons|matière première/i
       : /ontology|linked objects|logic sources|systems of action|technology-agnostic|harness engineering/i);
     expect(text.match(/\bagents?\b/gi)).toHaveLength(1);
-    await expect(page.locator(".hero .sub p")).toContainText(locale === "fr" ? /\bIA\b/ : /\bAI\b/);
+    await expect(page.locator(".hero .sub > p")).toContainText(locale === "fr" ? /\bIA\b/ : /\bAI\b/);
     for (const value of [await page.title(), await page.locator('meta[name="description"]').getAttribute("content")]) {
       expect(value).toMatch(locale === "fr" ? /\bIA\b.*Tourcoing.*Paris/ : /\bAI\b.*Tourcoing.*Paris/);
       expect(value).not.toMatch(/Lille/);
@@ -1362,7 +1366,7 @@ test.describe("headline without JavaScript", () => {
       await expect(title).toHaveCSS("line-height", width === 1440 ? "52px" : "43px");
       await expect(title).toHaveCSS("font-weight", "500");
       await expect(title.locator("b")).toHaveCSS("font-weight", "600");
-      for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
+      for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance"]) {
         const element = page.locator(selector);
         await expect(element).toBeVisible();
         await expect(element).toBeInViewport({ ratio: 1 });

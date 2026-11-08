@@ -35,28 +35,22 @@ for (const locale of ["fr", "en"]) {
     assert.deepEqual([...nav.matchAll(/href="([^"]+)"/g)].map(m => m[1]), expected.map(id => `${home}#${id}`));
   });
 
-  test(`three offer cards each carry one attributed contact action (${locale})`, async () => {
-    const page = loader(locale)("src/app/(rev01)/page.tsx");
-    const html = renderToStaticMarkup(await page.default({ searchParams: Promise.resolve({ source: "old", utm_campaign: "a & b" }) }));
+  test(`two craft cards, no contact action (${locale})`, async () => {
+    // Décision de Paul du 08/11/2026, nuit : the cards explain the two crafts.
+    const html = await renderPage(locale);
     const offers = section(html, locale === "fr" ? "offres" : "offers");
     const cards = [...offers.matchAll(/<article\b[^>]*>([\s\S]*?)<\/article>/g)];
-    assert.equal(cards.length, 3);
-    for (const [i, intent] of ["formation", "grands-groupes", "pme"].entries()) {
-      const actions = [...cards[i][1].matchAll(/<a class="([^"]+)" href="([^"]+)"/g)];
-      assert.equal(actions.length, 1);
-      assert.match(actions[0][1], /\bghost\b/);
-      const url = new URL(actions[0][2].replaceAll("&amp;", "&"), "https://example.invalid");
-      assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
-      assert.equal(url.hash, "#contact");
-      assert.deepEqual(url.searchParams.getAll("source"), [`intention-${intent}-offres`]);
-      assert.equal(url.searchParams.get("utm_campaign"), "a & b");
+    assert.equal(cards.length, 2);
+    for (const [, card] of cards) {
+      assert.doesNotMatch(card, /<a\b|<button\b/);
+      assert.equal((card.match(/<li>/g) ?? []).length, 3);
     }
   });
 
   test(`six native FAQ answers exactly match their localized structured data (${locale})`, async () => {
     const html = await renderPage(locale);
     const faq = section(html, "questions");
-    const pairs = [...faq.matchAll(/<details><summary>(.*?)<\/summary><p>(.*?)<\/p><\/details>/g)].map(m => m.slice(1).map(visibleText));
+    const pairs = [...faq.matchAll(/<details(?: open="")?><summary>(.*?)<\/summary><p>(.*?)<\/p><\/details>/g)].map(m => m.slice(1).map(visibleText));
     assert.equal(pairs.length, 6);
     const graphs = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].map(m => JSON.parse(m[1])).filter(g => g["@type"] === "FAQPage");
     assert.equal(graphs.length, 1);

@@ -8,7 +8,10 @@ test("permissions fail closed for missing, denied, pending, invalid and out-of-s
   assert.equal(evidencePublishable(evidence, "home"), true);
   for (const permission_status of [undefined, "pending", "denied"]) assert.equal(evidencePublishable({ ...evidence, permission_status }, "home"), false);
   for (const patch of [{ evidence_source: "" }, { permission_owner: "" }, { usage_scope: [] }, { page_ids: [] }, { last_verified: "" }, { last_verified: "0000" }, { expiration_or_review_date: "2027-99-99" }, { expiration_or_review_date: "2027-02-30" }]) assert.equal(evidencePublishable({ ...evidence, ...patch }, "home"), false);
-  assert.ok(SITE_EVIDENCE.every(item => item.approved_assets.length === 0));
+  for (const item of SITE_EVIDENCE) {
+    // Décision de Paul du 08/11/2026, nuit: only the three explicitly named exports.
+    assert.deepEqual(item.approved_assets, ["Toyotomi Europe", "Hiolle Technologies", "Carte Noire"].includes(item.id) ? [item.logo.fichier] : []);
+  }
 });
 test("legacy registry also refuses entries without an explicit grant", () => {
   const registry = load("src/lib/registry/preuves.ts");

@@ -14,20 +14,27 @@ const section = (html, id) => {
   return value;
 };
 
-test("the five reference logos fit the 1060px desktop budget without wrapping", () => {
+test("eight reference logos fit at most two rows in the 1060px desktop budget", () => {
   const { ClientLogoStrip } = loader("fr")("src/system/components/PublicEvidence.tsx");
   const html = renderToStaticMarkup(createElement(ClientLogoStrip));
   const primary = html.split('<div class="logo-set" aria-hidden="true">')[0];
   const widths = [...primary.matchAll(/class="client-logo" style="width:([\d.]+)px;/g)].map(m => Number(m[1]));
-  assert.equal(widths.length, 5);
+  assert.equal(widths.length, 8);
   // Budget the unwrapped SSR widths, not the container clamped to 1080px.
   // The browser suite also verifies one row and containment in the strip.
   const css = readFileSync("src/system/single-page.css", "utf8");
   const gapToken = css.match(/\.single-page \.logo-strip \{--logo-gap:var\((--brand-s\d+)\)/)[1];
   const tokens = readFileSync("src/system/brand-os.tokens.css", "utf8");
   const gap = Number(tokens.match(new RegExp(`${gapToken}:(\\d+)px`))[1]);
-  const width = widths.reduce((total, value) => total + value, 0) + (widths.length - 1) * gap;
-  assert.ok(width <= 1060, `unwrapped reference strip: ${width}px > 1060px`);
+  // Décision de Paul du 08/11/2026, nuit permits two rows, same 1060px bound.
+  let rows = 1, rowWidth = 0;
+  for (const width of widths) {
+    assert.ok(width <= 1060);
+    if (rowWidth && rowWidth + gap + width > 1060) { rows++; rowWidth = width; }
+    else rowWidth += (rowWidth ? gap : 0) + width;
+  }
+  assert.ok(rows <= 2);
+
 });
 
 test("only the twelve selected photo exports are shipped, with traced source hashes", () => {
@@ -93,10 +100,10 @@ for (const locale of ["fr", "en"]) {
     assert.doesNotMatch(html, /data-entrance=/, "SSR is visible before hydration");
   });
 
-  test(`field and final actions preserve attribution; final connector comes from Brand OS (${locale})`, () => {
+  test(`field has no action; final action preserves attribution; final connector comes from Brand OS (${locale})`, () => {
     const field = section(html, locale === "fr" ? "terrain" : "in-the-field");
     const final = section(html, "bandeau");
-    for (const [content, sources] of [[field, ["intention-formation-terrain"]], [final, ["intention-projet-bandeau", "intention-formation-bandeau"]]]) {
+    for (const [content, sources] of [[field, []], [final, ["rdv-bandeau"]]]) {
       const actions = [...content.matchAll(/<a class="([^"]+)" href="([^"]+)"/g)];
       assert.equal(actions.length, sources.length);
       actions.forEach(([, classes, href], i) => {
@@ -115,14 +122,14 @@ for (const locale of ["fr", "en"]) {
     assert.equal((final.match(/<path /g) ?? []).length, 2);
   });
 
-  test(`each offer has three vector checks and one action (${locale})`, () => {
+  test(`each of two offers has three vector checks and no action (${locale})`, () => {
     const offers = section(html, locale === "fr" ? "offres" : "offers");
     const cards = [...offers.matchAll(/<article\b[^>]*>([\s\S]*?)<\/article>/g)];
-    assert.equal(cards.length, 3);
+    assert.equal(cards.length, 2);
     for (const [, card] of cards) {
       assert.equal((card.match(/<li>/g) ?? []).length, 3);
       assert.equal((card.match(/<svg /g) ?? []).length, 3);
-      assert.equal((card.match(/<a /g) ?? []).length, 1);
+      assert.equal((card.match(/<a /g) ?? []).length, 0);
       assert.doesNotMatch(card, /[✓✔]/);
     }
   });
@@ -132,7 +139,7 @@ for (const locale of ["fr", "en"]) {
     const images = [...references.matchAll(/<img src="([^"]+)"/g)].map(m => m[1]);
     const { SITE_EVIDENCE, publicationLogo, getSiteEvidence } = load("src/lib/registry/preuves.ts");
     const allowed = SITE_EVIDENCE.filter(e => getSiteEvidence(e.id, "home")).map(e => publicationLogo(e.logo)).filter(Boolean);
-    assert.equal(images.length, 10);
+    assert.equal(images.length, 8);
     for (const src of images) assert.ok(allowed.includes(src));
     assert.doesNotMatch(references, /mask-image/);
   });

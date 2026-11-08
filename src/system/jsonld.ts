@@ -11,8 +11,8 @@ export function organizationJsonLd(locale: Locale = "en") {
     alternateName: "PARRIT.AI",
     logo: "https://parrit.ai/icon.png",
     description: locale === "fr"
-      ? "Parrit.ai forme vos équipes à l'IA et construit les outils qui leur manquent."
-      : "Parrit.ai trains your teams in AI and builds the tools they need.",
+      ? "Parrit.ai accompagne vos équipes dans la prise en main de l'IA et développe les logiciels qui leur manquent."
+      : "Parrit.ai helps your teams adopt AI and builds the software they are missing.",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Rueil-Malmaison",

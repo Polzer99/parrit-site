@@ -1,8 +1,15 @@
 "use client";
-import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
+import { Suspense, useEffect, useRef } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import { localizedPath, type Locale } from "@/system/locale";
 import { LanguageLink } from "./LanguageLink";
+import { AppointmentLink } from "./AppointmentLink";
+
+function QueryAppointment({ locale }: { locale: Locale }) {
+  const query = useSearchParams().toString();
+  return <AppointmentLink locale={locale} placement="nav" query={query} primary={false}/>;
+}
+
 export function RevHeader({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const header = useRef<HTMLElement>(null);
@@ -20,17 +27,18 @@ export function RevHeader({ locale }: { locale: Locale }) {
   const fr = locale === "fr";
   const nav = fr ? [["en-production", "Applications"], ["offres", "Offres"], ["parcours", "Le parcours"], ["services", "Services"], ["questions", "Questions"], ["contact", "Contact"]] : [["in-production", "Applications"], ["offers", "Offers"], ["path", "The path"], ["services", "Services"], ["questions", "Questions"], ["contact", "Contact"]];
   const links = nav.map(([anchor, label]) => <a key={anchor} href={localizedPath(`/#${anchor}`, locale)}>{label}</a>);
+  const action = <Suspense fallback={<AppointmentLink locale={locale} placement="nav" primary={false}/>}><QueryAppointment locale={locale}/></Suspense>;
   return <header ref={header} className="cmdbar single-header" onClick={event => { if ((event.target as HTMLElement).closest("a")) header.current?.querySelectorAll<HTMLDetailsElement>("details[open]").forEach(menu => { menu.open = false; }); }}>
     <div className="wrap">
       <a className="mark" href={localizedPath("/", locale)}>PARRIT.AI</a>
       <nav className="desktop-nav" aria-label={fr ? "Navigation principale" : "Main navigation"}>{links}</nav>
       <div className="languages" aria-label={fr ? "Langue" : "Language"}><LanguageLink locale="fr">FR</LanguageLink><LanguageLink locale="en">EN</LanguageLink></div>
-      <a className="btn rev-button ghost" href={localizedPath("/#contact", locale)}>{fr ? "Parler d'un projet" : "Talk about a project"}</a>
+      {action}
       <details className="mobile-menu">
         <summary>Menu</summary>
         <nav aria-label={fr ? "Navigation mobile" : "Mobile navigation"}>
           {links.filter(link => link.key !== "contact")}
-          <a className="btn rev-button ghost" href={localizedPath("/#contact", locale)}>{fr ? "Parler d'un projet" : "Talk about a project"}</a>
+          {action}
         </nav>
       </details>
     </div>

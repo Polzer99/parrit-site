@@ -31,8 +31,8 @@ export function renderLlms(entries = getAllJournalEntrySummaries(), frenchEntrie
   }).join("\n");
   const content = `# Parrit.ai
 
-> Nous formons vos équipes à l'IA et construisons les outils qui leur manquent.
-> We train your teams in AI and build the tools they need.
+> Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent.
+> Your teams take AI in hand. We build the software they are missing.
 
 ## Français
 
@@ -40,7 +40,7 @@ export function renderLlms(entries = getAllJournalEntrySummaries(), frenchEntrie
 - https://parrit.ai/fr
 - Dans l'ordre : ${order("fr")}
 - Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.
-- Paul Larmaraud, fondateur de Parrit.ai, forme les équipes et pilote les projets.
+- Paul Larmaraud, fondateur de Parrit.ai, accompagne les équipes dans la prise en main de l'IA et pilote les projets.
 - Présence : Tourcoing et Paris. Zone d'intervention : toute la France.
 
 ### FAQ
@@ -68,7 +68,7 @@ ${articles("fr")}
 - https://parrit.ai/
 - In order: ${order("en")}
 - Client replies, follow-ups, quotes, meeting notes: AI prepares them, your teams review and decide.
-- Paul Larmaraud, founder of Parrit.ai, trains teams and leads projects.
+- Paul Larmaraud, founder of Parrit.ai, helps teams adopt AI and leads projects.
 - Presence: Tourcoing and Paris. Service area: across France.
 
 ### FAQ

@@ -141,9 +141,10 @@ for (const width of [1440, 390]) {
           typography.set(element, {
             label: describe(element, text.trim().replace(/\s+/g, " ").slice(0, 40)),
             size: Number.parseFloat(getComputedStyle(element).fontSize),
-            // Exact 29/10 hero scale, without changing the rest of the site's floor.
+            // Hero scale, with the large CTA approved on 08/11 (correctif 2).
             heroSize: element.closest(".hero h1") ? (innerWidth <= 760 ? 38 : 46)
-              : element.closest(".hero .sub p, .hero .exec") ? (innerWidth < 1200 ? 18 : 19)
+              : element.closest(".hero .exec") ? 22
+              : element.closest(".hero .sub > p") ? (innerWidth < 1200 ? 18 : 19)
               : element.closest(".onto-label") ? 10.5
               : element.closest(".onto-zone") ? 9
               : element.closest(".onto-layer") ? (innerWidth < 1200 ? 9 : 10)

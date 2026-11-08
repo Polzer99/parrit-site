@@ -132,17 +132,24 @@ for (const choice of ["en", "fr"]) {
 }
 
 test("header switches paths, saves choice and preserves query/hash", async ({ page, context }) => {
-  await page.goto(`${BASE_URL}/fr/legal?source=test#top`);
-  await switchHeaderLanguage(page, context, "en", `${BASE_URL}/legal?source=test#top`);
-  await expect(page).toHaveURL(`${BASE_URL}/legal?source=test#top`);
+  await page.goto(`${BASE_URL}/fr/legal?source=test&utm_campaign=language#top`);
+  await switchHeaderLanguage(page, context, "en", `${BASE_URL}/legal?source=test&utm_campaign=language#top`);
+  await expect(page).toHaveURL(`${BASE_URL}/legal?source=test&utm_campaign=language#top`);
   expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe("en");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await switchHeaderLanguage(page, context, "fr", `${BASE_URL}/fr/legal?source=test#top`);
-  await expect(page).toHaveURL(`${BASE_URL}/fr/legal?source=test#top`);
+  await switchHeaderLanguage(page, context, "fr", `${BASE_URL}/fr/legal?source=test&utm_campaign=language#top`);
+  await expect(page).toHaveURL(`${BASE_URL}/fr/legal?source=test&utm_campaign=language#top`);
   expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe("fr");
   // §7 keeps one desktop action and moves the phone action into its native menu.
-  await expect(page.locator('.cmdbar > .wrap > a.rev-button[href="/fr#contact"]')).toHaveCount(1);
-  await expect(page.locator('.cmdbar .mobile-menu a.rev-button[href="/fr#contact"]')).toHaveCount(1);
+  for (const selector of [".cmdbar > .wrap > a.rev-button", ".cmdbar .mobile-menu a.rev-button"]) {
+    const action = page.locator(selector);
+    await expect(action).toHaveCount(1);
+    const target = new URL((await action.getAttribute("href"))!, BASE_URL);
+    expect(target.pathname).toBe("/fr");
+    expect(target.hash).toBe("#contact");
+    expect(target.searchParams.getAll("source")).toEqual(["rdv-nav"]);
+    expect(target.searchParams.get("utm_campaign")).toBe("language");
+  }
 });
 
 for (const target of ["fr", "en"] as const) {

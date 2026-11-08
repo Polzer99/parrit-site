@@ -30,7 +30,7 @@ for (const locale of ["fr", "en"]) {
 
   test(`llms includes exactly the six displayed FAQ pairs, verbatim (${locale})`, async () => {
     const html = await renderPage(locale);
-    const pairs = [...html.matchAll(/<details><summary>(.*?)<\/summary><p>(.*?)<\/p><\/details>/g)].map(match => match.slice(1).map(text));
+    const pairs = [...html.matchAll(/<details(?: open="")?><summary>(.*?)<\/summary><p>(.*?)<\/p><\/details>/g)].map(match => match.slice(1).map(text));
     assert.equal(pairs.length, 6);
     const faq = language(output(), locale).split("### FAQ\n")[1]?.split("\n### ")[0].trim();
     assert.equal(faq, pairs.map(([question, answer]) => `- ${question}\n  ${answer}`).join("\n"));

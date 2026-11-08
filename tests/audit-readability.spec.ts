@@ -57,7 +57,7 @@ for (const width of [375, 390, 1440]) {
         const h3 = [...document.querySelectorAll("main h3")].filter(visible);
         const prose = [...document.querySelectorAll("main p, main li, main dd, .ontocap .onto-now")].filter(el => visible(el) && !el.closest(".sr-only"));
         return {
-          actions: actions.map(el => ({ hero: el.matches(".single-page .hero .btn.exec"), prominent: el.matches(".single-page .founder .btn.exec"), text: el.textContent, height: el.getBoundingClientRect().height, size: parseFloat(getComputedStyle(el).fontSize), weight: getComputedStyle(el).fontWeight })),
+          actions: actions.map(el => ({ prominent: el.matches(".single-page :is(.hero,.final-call,.founder) .btn.exec"), text: el.textContent, height: el.getBoundingClientRect().height, size: parseFloat(getComputedStyle(el).fontSize), weight: getComputedStyle(el).fontWeight })),
           targets: targets.map(el => ({ text: el.textContent, height: el.getBoundingClientRect().height })),
           h1: parseFloat(getComputedStyle(document.querySelector("h1")!).fontSize),
           h3: [...new Set(h3.map(el => getComputedStyle(el).fontSize))],
@@ -69,8 +69,8 @@ for (const width of [375, 390, 1440]) {
       expect(result.actions.length).toBeGreaterThan(0);
       for (const action of result.actions) {
         expect(action.height, action.text ?? "action").toBeGreaterThanOrEqual(48);
-        // Hero 29/10: 18/19px; the founder action retains its 22px contract.
-        expect(action.size).toBe(action.hero ? (width < 1200 ? 18 : 19) : action.prominent ? 22 : 16);
+        // Correctif 2, 08/11 : hero/banner use the founder’s existing large type.
+        expect(action.size).toBe(action.prominent ? 22 : 16);
         expect(action.weight).toBe("600");
       }
       for (const target of result.targets) expect(target.height, target.text ?? "target").toBeGreaterThanOrEqual(44);
@@ -82,13 +82,11 @@ for (const width of [375, 390, 1440]) {
       if (path === "/" || path === "/fr") {
         await expect(page.locator(".ontocap .onto-now")).toHaveCSS("font-size", "18px");
         const actions = page.locator(".hero .actions");
-        // Décision de Paul du 08/11/2026: project first, training second.
+        // Décision de Paul du 08/11/2026, nuit : une seule action.
         const links = actions.locator("a");
-        await expect(links).toHaveCount(2);
+        await expect(links).toHaveCount(1);
         await expect(links.nth(0)).toHaveClass(/\bexec\b/);
-        await expect(links.nth(1)).toHaveClass(/\bghost\b/);
-        await expect(links.nth(0)).toHaveAttribute("href", `${path}?source=intention-projet-hero#contact`);
-        await expect(links.nth(1)).toHaveAttribute("href", `${path}?source=intention-formation-hero#contact`);
+        await expect(links.nth(0)).toHaveAttribute("href", `${path}?source=rdv-hero#contact`);
         const hero = (await page.locator(".hero .wrap").boundingBox())!;
         const box = (await actions.boundingBox())!;
         expect(box.x).toBeGreaterThanOrEqual(hero.x);

@@ -16,6 +16,7 @@ const logoDimensions = [
   // Hauteurs optiques : Forexpert est compact ; le dessin SNCF occupe la moitié du SVG carré.
   ["Laparra", 551, 120, 67], ["Clevery", 367, 120, 67], ["Forexpert", 119, 120, 106],
   ["Joone", 387, 120, 67], ["SNCF", 24, 24, 106],
+  ["Toyotomi Europe", 537, 120, 67], ["Hiolle Technologies", 402, 120, 67], ["Carte Noire", 254, 120, 67],
 ] as const;
 export function ClientLogoStrip() {
   const logos = logoDimensions.flatMap(([id, width, height, displayHeight]) => {
@@ -24,10 +25,9 @@ export function ClientLogoStrip() {
     return file && evidence ? [{ id, name: evidence.display_name, file, width: width / height * displayHeight, height: displayHeight }] : [];
   });
   if (!logos.length) return null;
-  return <div className="logo-strip" tabIndex={0} role="region" aria-label="Clients"><div className="logo-track">{[false, true].map(duplicate =>
-    <div key={String(duplicate)} className="logo-set" aria-hidden={duplicate ? "true" : undefined}>
+  return <div className="logo-strip" tabIndex={0} role="region" aria-label="Clients"><div className="logo-track"><div className="logo-set">
       {logos.map((logo, index) => <span key={logo.id} data-evidence={logo.id} role="img" aria-label={logo.name} className="client-logo" style={{ width: logo.width, minHeight: logo.height }}>
         <img src={logo.file} loading="lazy" alt="" aria-hidden="true" width={logo.width} height={logo.height} style={{ "--logo-cycle": `${logos.length * 1.6}s`, "--logo-delay": `${index * 1.6}s` } as CSSProperties}/>
       </span>) }
-    </div>)}</div></div>;
+    </div></div></div>;
 }
