@@ -1,3 +1,23 @@
+## Boutons par intention, correctif 3 du 08/11/2026
+
+Baseline `6ce1270`, spec amendée préexistante conservée. L'audit de lisibilité
+exige désormais deux liens dans le hero, ordre exec/ghost et destinations
+projet/formation ; aucun seuil typographique, géométrique ou de couleur changé.
+LanguageLink conserve la query dès le SSR et complète le href avec le fragment
+traduit après hydratation, synchronisé sur hashchange/popstate. Le clic normal
+relit l'URL ; les clics modifiés/centraux restent natifs et mémorisent la langue.
+Le test de bascule attend le href complet avant de cliquer. Le serveur ne reçoit
+pas les fragments : conservation avant hydratation non garantie, causalité exacte
+de l'échec hôte à confirmer au navigateur.
+
+Validation : npm ci, lint/build Webpack avant/après ; 185 → 187 tests Node,
+deux nouveaux tests rouges avant correction puis verts. TypeScript, marque/claims
+et 19 tests Brand OS réussis. Trois tests navigateur ajoutés (457 recensés),
+deny-all intact ; revue indépendante sans défaut restant après correction du
+cookie sur clic modifié. Serveur EPERM et Chromium SIGTRAP : captures, géométrie
+et CLS non validés. Aucun commit/push/déploiement. Rapport détaillé dans
+`docs/REPORT-2026-11-08-cta-par-intention-et-finitions.md`.
+
 ## Boutons par intention, correctif 2 du 08/11/2026
 
 Amendement local de la spec conservé, baseline `2b60226`. Le bouton secondaire

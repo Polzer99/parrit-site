@@ -84,3 +84,10 @@ Sur l'hôte, `npm run qa:network:rev01` : 440 réussis, 8 échoués, tous nouvea
 2. `tests/conformity-i18n.spec.ts:145` « French Journal aliases redirect once to the unchanged English article » : la redirection perd la chaîne de requête (`?source=test` attendu, absent). Rétablir la conservation de la requête sur ce saut (règle du dépôt : le `source` et les `utm_*` survivent au saut).
 
 Le sandbox ne peut pas rejouer ces tests navigateur : le dire dans le rapport ; Claude les rejouera sur l'hôte.
+
+## Correctif 3 après tests navigateur sur l'hôte (PR #365, 08/11)
+
+Hôte : 447 réussis, 7 échoués.
+
+1. `tests/audit-readability.spec.ts:27` (FR/EN, 375, 390, 1440) attend **un seul** lien dans `.hero .actions` (`toHaveCount(1)`). C'est l'ancien contrat ; la décision de Paul du 08/11 en met deux. Mettre à jour cette assertion pour exiger exactement **deux** liens, dans l'ordre `exec` puis `ghost`, avec les destinations de la spec. Ne toucher à aucun autre seuil de ce test (tailles, hauteurs, couleurs).
+2. `tests/conformity-i18n.spec.ts:132` « header switches paths, saves choice and preserves query/hash » : attendu `/fr/legal?source=test#top`, reçu `/fr/legal?source=test`. Le changement de langue perd désormais l'ancre ; c'est une régression du correctif 2. Rétablir la conservation de la requête **et** de l'ancre, sans casser le correctif 2 (alias français du Journal qui gardent la requête).

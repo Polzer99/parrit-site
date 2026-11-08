@@ -22,7 +22,8 @@ async function switchHeaderLanguage(
     const link = page.locator(".cmdbar").getByRole("link", { name: label, exact: true });
     await expect(link).toBeVisible({ timeout: 1_000 });
     const destination = new URL(expectedUrl);
-    await expect(link).toHaveAttribute("href", destination.pathname + destination.search);
+    // The browser-only fragment reaches href after hydration; wait for the real destination.
+    await expect(link).toHaveAttribute("href", destination.pathname + destination.search + destination.hash);
     await link.click({ timeout: 1_000 });
     await expect(page).toHaveURL(expectedUrl, { timeout: 1_500 });
     expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe(target);
@@ -141,6 +142,34 @@ test("header switches paths, saves choice and preserves query/hash", async ({ pa
   // §7 keeps one desktop action and moves the phone action into its native menu.
   await expect(page.locator('.cmdbar > .wrap > a.rev-button[href="/fr#contact"]')).toHaveCount(1);
   await expect(page.locator('.cmdbar .mobile-menu a.rev-button[href="/fr#contact"]')).toHaveCount(1);
+});
+
+for (const target of ["fr", "en"] as const) {
+  test(`language links follow fragment changes and browser history (${target})`, async ({ page, context }) => {
+    const start = target === "fr" ? "/legal" : "/fr/legal";
+    const destination = target === "fr" ? "/fr/legal" : "/legal";
+    const query = "?source=test&utm_campaign=a%26b&utm_custom=one&utm_custom=two";
+    await page.setExtraHTTPHeaders({ "Accept-Language": "en" });
+    await page.goto(`${BASE_URL}${start}${query}#top`);
+    const header = page.locator(".cmdbar").getByRole("link", { name: target.toUpperCase(), exact: true });
+    const footer = page.locator(`.single-footer a[hreflang="${target}"]`);
+    for (const link of [header, footer]) await expect(link).toHaveAttribute("href", `${destination}${query}#top`);
+    await page.evaluate(() => { window.location.hash = "section%20two"; });
+    for (const link of [header, footer]) await expect(link).toHaveAttribute("href", `${destination}${query}#section%20two`);
+    await page.evaluate(() => window.history.back());
+    await expect(page).toHaveURL(`${BASE_URL}${start}${query}#top`);
+    for (const link of [header, footer]) await expect(link).toHaveAttribute("href", `${destination}${query}#top`);
+    await footer.click();
+    await expect(page).toHaveURL(`${BASE_URL}${destination}${query}#top`);
+    expect((await context.cookies()).find(({ name }) => name === "parrit_locale")?.value).toBe(target);
+    await expect(page.locator("html")).toHaveAttribute("lang", target);
+  });
+}
+
+test("home language switches translate the current fragment in both directions", async ({ page, context }) => {
+  await page.goto(`${BASE_URL}/fr?source=test&utm_source=mail#parcours`);
+  await switchHeaderLanguage(page, context, "en", `${BASE_URL}/?source=test&utm_source=mail#path`);
+  await switchHeaderLanguage(page, context, "fr", `${BASE_URL}/fr?source=test&utm_source=mail#parcours`);
 });
 
 test("French Journal aliases redirect once to the unchanged English article", async ({ page, context }) => {

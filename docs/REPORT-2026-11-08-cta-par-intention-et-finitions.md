@@ -1,5 +1,112 @@
 # Boutons par intention et finitions — rapport du 08/11/2026
 
+## Correctif 3 après tests hôte, 08/11/2026
+
+La spec complète est déjà implémentée dans la baseline jusqu'au correctif 2.
+Cette passe traite son dernier amendement et vérifie les contrats existants.
+Aucun commit, push ni déploiement. Captures et validation navigateur bloquées.
+
+### Sources et périmètre
+
+- Dépôt et branche explicitement demandés : checkout courant,
+  `codex/docs-CODEX-SPEC-2026-11-08-cta-par-intention-et-fi`,
+  baseline `6ce1270c685998612ba85efafec84e58b96f57b1`.
+- Instructions consultées avant modification : AI_CONTEXT, AGENTS, CLAUDE,
+  TRUTH, spec complète amendée et Recursive Agent Harness.
+- Source du changement de contrat : décision de Paul du 08/11/2026,
+  section « Correctif 3 » de la spec. Seul changement initial du dépôt : cette
+  spec, conservée octet pour octet (SHA256
+  `0cac39417b71ccde64c87291eab8195930ff637b0d83050ad39b0dee68684081`).
+- Documentation : guides Next installés 16.3.4 sur les liens et useSearchParams,
+  Context7 Next 16.2.9 et React 19.2.7. Aucune dépendance modifiée.
+- Plan : baseline, tests de régression, correction ciblée, revue indépendante,
+  correction du cas adverse puis même batterie. Deux passes de correction ;
+  arrêt des tentatives navigateur après confirmation des blocages système.
+- TARGET_SYSTEM : dépôt local ; ENVIRONMENT : sandbox ; WRITE_SCOPE : composant,
+  tests, documentation. REVERSIBLE : oui ; ROLLBACK : retirer uniquement le diff
+  de cette passe ; BACKUP : baseline Git, spec préexistante conservée ;
+  EXPECTED_ROWS : zéro donnée métier. Aucun service client modifié.
+
+### Diagnostic et modifications
+
+**Faits vérifiés dans la baseline :** l'audit de lisibilité attendait un seul
+lien alors que le hero en rend deux. Le gestionnaire de langue préservait déjà
+l'ancre au clic, mais le href rendu n'incluait que le chemin et la query.
+Les deux nouveaux tests FR/EN reproduisent l'absence du fragment dans le href.
+
+**Inférence à confirmer sur l'hôte :** le test pouvait cliquer avant hydratation,
+puis perdre définitivement l'ancre lors de la navigation native. Son retry
+ne restaurait pas l'URL d'origine. Le nouveau href reflète le fragment courant
+après hydratation ; le test attend cette destination complète avant de cliquer.
+Le serveur ne reçoit jamais le fragment : le correctif ne garantit pas sa
+conservation avant toute exécution JavaScript. La query reste présente dès le SSR.
+
+| Fichier | Modification |
+|---|---|
+| `src/system/components/LanguageLink.tsx` | Fragment traduit dans le href après hydratation via useSyncExternalStore ; écoute hashchange/popstate avec nettoyage ; instantané serveur vide. Clic normal recalculé depuis l'URL courante. Clics modifiés/centraux natifs avec cookie de choix pour éviter une renégociation contraire. |
+| `tests/audit-readability.spec.ts` | Exactement deux liens, exec puis ghost, destinations et sources de la spec. Aucun autre seuil changé. |
+| `tests/journal-locale.test.mjs` | Deux tests FR/EN ajoutés : href et clic, pages légales/accueil/article, ancres traduites/inconnues/encodées/absentes, paramètres répétés, clics modifiés/centraux et cookie initialement vide. Contrôles SSR et 308 existants conservés. |
+| `tests/conformity-i18n.spec.ts` | Helper attendant aussi l'ancre ; trois tests ajoutés : fragments changeants et retour arrière pour header/footer dans les deux langues, aller-retour des ancres parcours/path. |
+| `AI_CONTEXT.md`, ce rapport | État courant, résultats et limites de preuve. |
+
+La revue indépendante a trouvé un cas adverse dans la première correction :
+laisser un clic modifié natif sans cookie pouvait provoquer une renégociation
+vers la langue précédente. Le cookie est maintenant posé avant cette navigation,
+avec assertions dédiées. Revue finale : aucun défaut concret restant identifié ;
+10/10 tests ciblés également rejoués par le relecteur.
+
+Les CTA, attribution, texte de contact à 15 minutes, boucle CSS des références,
+alignement des étapes, thèmes/lecture/grille du Journal restent conservés et
+couverts par les tests existants. AGENTS et TRUTH portent déjà la mention
+« décision de Paul du 08/11/2026 » dans leurs sections boutons : aucun doublon
+ajouté. Aucun changement CSS, serveur du formulaire, Cal.com, permissions,
+métadonnées, sitemap, llms.txt, PNG suivis ou copie de spec dans tmp.
+
+### Résultats exécutés
+
+| Vérification | Baseline | Candidat final |
+|---|---|---|
+| `npm ci --silent` | Réussi | Réussi |
+| `npm run lint` | Réussi | Réussi |
+| `npm run build -- --webpack` | Réussi | Réussi |
+| `npm test` | 185/185 | 187/187 |
+| Deux nouvelles régressions de href | Deux échecs attendus | Réussies |
+| `node --test tests/journal-locale.test.mjs` | 8 tests existants réussis | 10/10 |
+| `npx tsc --noEmit` | — | Réussi |
+| `npm run qa:brand:rev01` | — | Réussi |
+| `npm run qa:claims:rev01` | — | Réussi |
+| `npm run test:brand-os` | — | 19/19 |
+| `npm run qa:network:rev01 -- --list` | — | 457 tests / 13 fichiers |
+| `CTA_CAPTURE=1 npm run qa:network:rev01 -- --workers=1 --max-failures=1` | — | Échec au lancement, 456 non exécutés |
+| `git diff --check` | — | Réussi |
+
+Les seuils de géométrie, stabilité et le deny-all réseau restent intacts.
+Avertissements non bloquants : metadataBase au build et type de module Node
+au contrôle des affirmations. Logs locaux : `/tmp/cta3-{baseline,final}-{lint,build,test}.log`,
+`/tmp/cta3-{red,green,types,brand,claims,brand-os}.log`,
+`/tmp/cta3-{server,playwright-list,playwright-run}.log`.
+
+### Blocages et preuve restante
+
+Serveur refusé : `listen EPERM 127.0.0.1:3210`. Chromium arrêté avant navigation :
+`MachPortRendezvous`, `Permission denied`, `SIGTRAP`. Les tests navigateur ne
+sont pas validés. Captures FR/EN à 1440×800 et 390×844 (hero, parcours,
+références, Journal), géométrie et stabilité/CLS : **UNKNOWN**. Aucun contrôle
+affaibli pour contourner ces blocages ; aucune preuve production revendiquée.
+
+Reprise sur l'hôte, dans deux terminaux :
+
+```sh
+npm run start -- --hostname 127.0.0.1 -p 3210
+```
+
+```sh
+CTA_CAPTURE=1 npm run qa:network:rev01
+```
+
+Les captures seront produites dans `/tmp/cta-intentions-captures` ; elles restent
+à inspecter. Les sections suivantes décrivent les exécutions précédentes.
+
 ## Correctif 2 après tests hôte, 08/11/2026
 
 Implémentation existante conservée et amendement traité. Aucun commit, push ni

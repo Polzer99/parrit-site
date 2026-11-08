@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { test } from "node:test";
+import * as React from "react";
 import ts from "typescript";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader } from "./helpers/site-v1-render.mjs";
@@ -67,6 +68,55 @@ test("static error pages retain a language link while query data is unavailable"
     usePathname: () => "/", useSearchParams: () => { throw new Promise(() => {}); },
   } })("src/system/components/LanguageLink.tsx");
   assert.match(renderToStaticMarkup(LanguageLink({ locale: "fr", children: "FR" })), /<a href="\/fr" hrefLang="fr">FR<\/a>/);
+});
+
+for (const target of ["fr", "en"]) test(`hydrated language destinations preserve query and translated hash (${target})`, () => {
+  const previousWindow = globalThis.window;
+  const previousDocument = globalThis.document;
+  try {
+    const hashes = target === "fr"
+      ? [["#top", "#top"], ["#path", "#parcours"], ["#in-production", "#en-production"], ["#what-changes", "#ce-qui-change"], ["#team", "#partenaires"]]
+      : [["#top", "#top"], ["#parcours", "#path"], ["#en-production", "#in-production"], ["#ce-qui-change", "#what-changes"], ["#partenaires", "#team"]];
+    for (const pathname of ["/legal", "/fr/legal", "/", "/fr", article]) {
+      for (const [hash, expectedHash] of [...hashes, ["", ""], ["#section%20two", "#section%20two"]]) {
+        const query = "lang=fr&source=test&utm_campaign=a%26b&utm_custom=one&utm_custom=two";
+        const calls = [];
+        const location = new URL(`${origin}${pathname}?${query}${hash}`);
+        globalThis.window = { location: { href: location.href, protocol: location.protocol, hash: location.hash, assign: value => calls.push(value) } };
+        globalThis.document = { cookie: "" };
+        // Exercise the real client destination and handler without a DOM or network.
+        const { LanguageLink } = loader("en", {
+          react: { ...React, useSyncExternalStore: (_subscribe, getSnapshot) => getSnapshot() },
+          "next/navigation": { usePathname: () => pathname, useSearchParams: () => new URLSearchParams(query) },
+        })("src/system/components/LanguageLink.tsx");
+        const child = LanguageLink({ locale: target, children: target }).props.children;
+        const link = child.type(child.props);
+        const expected = `${locale.localizedPath(pathname, target)}?source=test&utm_campaign=a%26b&utm_custom=one&utm_custom=two${expectedHash}`;
+        assert.equal(link.props.href, expected, "native destination contains the fragment too");
+        let prevented = false;
+        link.props.onClick({ button: 0, preventDefault: () => { prevented = true; } });
+        assert.equal(prevented, true);
+        assert.deepEqual(calls, [expected]);
+        assert.match(document.cookie, new RegExp(`^parrit_locale=${target};`));
+        calls.length = 0;
+        for (const flag of ["ctrlKey", "metaKey", "shiftKey", "altKey"]) {
+          document.cookie = "";
+          link.props.onClick({ button: 0, [flag]: true, preventDefault: () => assert.fail("modified click must stay native") });
+          assert.match(document.cookie, new RegExp(`^parrit_locale=${target};`), "a new tab must not renegotiate the opposite locale");
+        }
+        document.cookie = "";
+        link.props.onClick({ button: 0, defaultPrevented: true, preventDefault: () => assert.fail("cancelled click") });
+        assert.equal(document.cookie, "");
+        link.props.onClick({ button: 1, preventDefault: () => assert.fail("middle click must stay native") });
+        link.props.onAuxClick({ button: 1, preventDefault: () => assert.fail("middle click must stay native") });
+        assert.match(document.cookie, new RegExp(`^parrit_locale=${target};`));
+        assert.deepEqual(calls, []);
+      }
+    }
+  } finally {
+    globalThis.window = previousWindow;
+    globalThis.document = previousDocument;
+  }
 });
 
 test("French article aliases have one configured 308 before the proxy, retaining queries", () => {
