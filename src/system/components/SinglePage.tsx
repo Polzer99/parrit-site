@@ -22,9 +22,9 @@ export function SinglePage({ locale }: { locale: Locale }) {
 <section className="hero"><div className="wrap">
   <OntologyHero locale={locale}>
     <div className="hero-intro">
-      <h1>{t("Nous formons vos équipes à l'IA")}{" "}<b>{t("et construisons les outils qui leur manquent.")}</b></h1>
+      <h1>{t("Votre expertise est la matière première.")}{" "}<b>{t("Nous la mettons au travail.")}</b></h1>
       <div className="sub">
-        <p>{t("Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.")}</p>
+        <p>{t("Nous formons vos équipes à l'IA et construisons les outils qui leur manquent.")}</p>
         <div className="actions"><a className="btn rev-button exec" href="#contact">{t("Parler d'un projet")}</a></div>
       </div>
     </div>

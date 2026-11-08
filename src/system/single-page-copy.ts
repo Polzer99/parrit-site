@@ -74,9 +74,9 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "il applique vos procédures qualité": "it applies your quality procedures",
   "vous décidez, l'ERP lance la correction": "you decide, the ERP starts the fix",
   "Cause identifiée": "Cause identified",
-  "Nous formons vos équipes à l'IA": "We train your teams in AI",
-  "et construisons les outils qui leur manquent.": "and build the tools they need.",
-  "Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.": "Client replies, follow-ups, quotes, meeting notes: AI prepares them, your teams review and decide.",
+  "Votre expertise est la matière première.": "Your expertise is the raw material.",
+  "Nous la mettons au travail.": "We put it to work.",
+  "Nous formons vos équipes à l'IA et construisons les outils qui leur manquent.": "We train your teams in AI and build the tools they need.",
 
   "Vos e-mails, vos contrats et vos factures contiennent déjà les réponses. Nous les rendons utilisables.": "Your e-mails, contracts and invoices already hold the answers. We make them usable.",
   "Quelques applications": "A few",

@@ -12,7 +12,9 @@ Aucun texte visible, prix, client, profil LinkedIn ou adresse de rue ajouté.
 
 La spec `docs/CODEX-SPEC-2026-11-02-langue-metier-et-referencement.md`,
 validée le 03/11, remplace uniquement les anciens contrats de texte et de placement :
-H1 « Nous formons vos équipes à l'IA et construisons les outils qui leur manquent. »,
+H1 « Votre expertise est la matière première. Nous la mettons au travail. »,
+sous-titre « Nous formons vos équipes à l'IA et construisons les outils qui leur manquent. »
+(décision de Paul du 08/11/2026),
 CTA « Parler d'un projet » / « Talk about a project » aussi dans le hero,
 schéma « Ce que vous obtenez / Votre entreprise / Ce que vous avez déjà »,
 phrase « Vos e-mails, vos contrats et vos factures contiennent déjà les réponses.
@@ -308,7 +310,9 @@ nœuds (y compris ceux de la réunion), les liens existants, durées et styles
 sont conservés.
 
 `docs/CODEX-SPEC-2026-10-29-hero-trois-plans.md` remplace les précédents
-contrats du hero, dont `HERO-TABLETTE.md`. Titre formation IA/outils sur mesure (décision de Paul du 02/11/2026),
+contrats du hero, dont `HERO-TABLETTE.md`. Titre « Votre expertise est la matière première.
+Nous la mettons au travail. », sous-titre « Nous formons vos équipes à l'IA et construisons
+les outils qui leur manquent. » (décision de Paul du 08/11/2026),
 trois plans, 33 nœuds et quatre histoires issus des maquettes archivées dans
 `docs/hero-trois-plans/` (sans générateurs Python). À partir de 1200 px :
 légende et carte sous le texte à gauche, schéma dégagé et citation à droite.

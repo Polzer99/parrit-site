@@ -11,10 +11,27 @@ const themes = ["harness-engineering", "ai-sprints", "integration-developpement"
 const forbiddenFr = /ontologie|objets reliés|sources de logique|systèmes d'action|agnostiques|harness|back-office|raffinons|matière première/i;
 const forbiddenEn = /ontology|linked objects|logic sources|systems of action|technology-agnostic|harness engineering/i;
 
+// Exact copy is the product contract for the decision of 08/11/2026.
+for (const locale of ["fr", "en"]) test(`hero headline and descriptive subtitle are localized in SSR (${locale})`, async () => {
+  const html = await renderPage(locale);
+  const normal = locale === "fr" ? "Votre expertise est la matière première." : "Your expertise is the raw material.";
+  const bold = locale === "fr" ? "Nous la mettons au travail." : "We put it to work.";
+  const subtitle = locale === "fr"
+    ? "Nous formons vos équipes à l'IA et construisons les outils qui leur manquent."
+    : "We train your teams in AI and build the tools they need.";
+  assert.equal((html.match(/<h1>/g) ?? []).length, 1);
+  assert.equal(html.match(/<h1>(.*?)<\/h1>/s)?.[1], `${normal} <b>${bold}</b>`);
+  assert.equal(visibleText(html.match(/class="sub"><p>(.*?)<\/p>/s)?.[1] ?? ""), subtitle);
+  const action = html.match(/class="actions"><a[^>]*href="([^"]+)"[^>]*>(.*?)<\/a>/s);
+  assert.equal(action?.[1], "#contact");
+  assert.equal(visibleText(action?.[2] ?? ""), locale === "fr" ? "Parler d'un projet" : "Talk about a project");
+});
+
 for (const locale of ["fr", "en"]) test(`home copy is understandable, complete in SSR and preserves human approval (${locale})`, async () => {
   const html = await renderPage(locale);
   const text = visibleText(html);
-  assert.doesNotMatch(text, locale === "fr" ? forbiddenFr : forbiddenEn);
+  // The new H1 above explicitly permits “matière première”; the rest keeps the plain-language gate.
+  assert.doesNotMatch(visibleText(html.replace(/<h1>.*?<\/h1>/s, "")), locale === "fr" ? forbiddenFr : forbiddenEn);
   assert.equal((text.match(/\bagents?\b/gi) ?? []).length, 1);
   assert.doesNotMatch(text, /—|\d\s*(?:€|\$|EUR|USD)|, pas\b|, not\b/i);
   const definition = html.match(/class="muted change-definition">([^<]+)<\/p>/)?.[1];
