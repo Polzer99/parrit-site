@@ -1,3 +1,26 @@
+## llms.txt et articles, 08/11/2026
+
+Source : spec locale autorisée `docs/CODEX-SPEC-2026-11-08-llms-txt-articles.md`,
+baseline demandée `4490653`. Ordre des 13 sections et titres existants partagés
+via `home-layers.ts`, utilisés par SinglePage et le générateur prebuild.
+FAQ exacte FR/EN ; 31 articles indexables par langue, titres/descriptions anglais
+conservés, dates et thèmes du registre. Noms clients refusés avant écriture.
+`journal.ts` reste la façade server-only ; lecteur partagé dans `journal-data.ts`,
+avec exclusion brouillons/dates futures en UTC et forme publique des objets
+inchangée. Le filtre noindex du sitemap/RSS et du générateur reste appliqué.
+
+Validation : npm ci, lint, build Webpack, types, marque/claims réussis ;
+217 → 229 tests Node, 19 Brand OS. HTML SSR accueil FR/EN strictement identique.
+Revue indépendante finale : 41/41 tests ciblés, aucun défaut restant identifié.
+Deux contrats anciens adaptés à la spec : FAQ exacte à 15 minutes admise dans
+llms ; interdiction des anciens concepts de l'accueil limitée à sa présentation,
+les descriptions originales du Journal étant désormais incluses. Le test
+existant de stabilité des champs Journal est conservé et passe.
+Spec préexistante vérifiée par SHA256, articles et PNG inchangés. Aucun commit,
+push ni déploiement. Navigateur et production non exécutés ; avertissements
+metadataBase préexistant et modules TS sans type package non bloquants.
+Détail : `docs/REPORT-2026-11-08-llms-txt-articles.md`.
+
 ## Parcours accueil, correctif 3 du 08/11/2026
 
 Source : spec locale amendée, checkout demandé `f7fc163`. Applications uniquement

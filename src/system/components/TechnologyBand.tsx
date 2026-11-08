@@ -1,14 +1,14 @@
 import type { Locale } from "@/system/locale";
-import { SINGLE_PAGE_EN } from "@/system/single-page-copy";
+import { homeSectionHeadings } from "@/system/home-layers";
 import { PUBLIC_TECHNOLOGIES } from "@/system/technologies";
 
 /** Complete server-rendered lists; CSS alone controls motion and its static fallback. */
 export function TechnologyBand({ locale }: { locale: Locale }) {
-  const t = (text: string) => locale === "fr" ? text : SINGLE_PAGE_EN[text];
+  const heading = homeSectionHeadings(locale).technologies;
   return <section id="technologies" className="tech" aria-labelledby="technologies-title" tabIndex={0}>
     <div className="tech-content">
       <div className="wrap"><p id="technologies-title" className="tech-title">
-        {t("Pour chaque besoin,")}{" "}<b>{t("nous choisissons la meilleure technologie.")}</b>
+        {heading[0]}{" "}<b>{heading[1]}</b>
       </p></div>
       <div className="tech-marquee"><div className="tech-track">
         {[false, true].map(duplicate => <ul className="tech-set" role="list" key={String(duplicate)} aria-hidden={duplicate || undefined}>

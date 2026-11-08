@@ -1,3 +1,4 @@
+import { homeSectionHeadings } from "@/system/home-layers";
 import type { Locale } from "@/system/locale";
 import { ContactIntentLink } from "./ContactIntentLink";
 import { MobileCarousel } from "./MobileCarousel";
@@ -16,7 +17,7 @@ const photos = [
 
 export function SessionPhotos({ locale, contactQuery }: { locale: Locale; contactQuery: string }) {
   const fr = locale === "fr";
-  const title = fr ? "Sur le terrain, avec vos équipes." : "In the field, with your teams.";
+  const title = homeSectionHeadings(locale).terrain[0];
   return <section className="field" id={fr ? "terrain" : "in-the-field"}><div className="wrap">
     <h2>{title}</h2>
     <p className="field-intro">{fr ? "Nous formons et construisons dans vos locaux, sur vos outils." : "We train and build on your premises, with your tools."}</p>

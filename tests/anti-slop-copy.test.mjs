@@ -6,7 +6,13 @@ import { test } from "node:test";
 const read = (path) => readFileSync(path, "utf8");
 test("generated llms copy has no forbidden dashes or defensive labels and respects the approved Standard claims", () => {
   execFileSync(process.execPath, ["scripts/generate-llms.mjs"]);
-  const text = read("public/llms.txt");
+  // The 08/11 llms spec requires the exact existing FAQ, including its approved
+  // opening at 15 minutes. Only that fixture is exempt from the duration ban.
+  let text = read("public/llms.txt");
+  for (const answer of Object.values(JSON.parse(read("tests/fixtures/home-faq-opening.json")))) {
+    assert.equal(text.split(answer).length - 1, 1);
+    text = text.replace(answer, "");
+  }
   assert.doesNotMatch(text, /[—–€]/);
   assert.match(text, /Paul Larmaraud/);
   assert.doesNotMatch(text, /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de|\bHT\b|excl\. VAT/i);

@@ -1,6 +1,7 @@
+import { Fragment, type ReactNode } from "react";
 import { localizedPath, type Locale } from "@/system/locale";
 import type { JournalEntrySummary } from "@/system/journal";
-import { HOME_LAYERS, homeFaqJsonLd } from "@/system/home-layers";
+import { HOME_LAYERS, HOME_SECTION_ORDER, homeSectionHeadings, homeFaqJsonLd, type HomeSection } from "@/system/home-layers";
 import { JournalCard } from "./JournalCard";
 import { HomeAnchorRedirect } from "./HomeAnchorRedirect";
 import { SINGLE_PAGE_EN, PARTNER_OFFERS } from "@/system/single-page-copy";
@@ -22,16 +23,16 @@ import { BrandConnector } from "./BrandConnector";
 import { ServiceTasks } from "./ServiceTasks";
 export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { locale: Locale; contactQuery?: string; latestEntries?: JournalEntrySummary[] }) {
  const copy = HOME_LAYERS[locale];
+ const headings = homeSectionHeadings(locale);
  const fr = locale === "fr";
  const clients = ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"].filter(id => getSiteEvidence(id, "home"));
  const t = (text: string) => fr ? text : SINGLE_PAGE_EN[text];
- return <main className="single-page" data-brand-mode="accessible"><ConversationMotion/><HomeAnchorRedirect locale={locale}/><SectionEntrance/>
-
-
+ const sections = {
+hero: (
 <section className="hero"><div className="wrap">
   <OntologyHero locale={locale}>
     <div className="hero-intro">
-      <h1>{t("Votre expertise est la matière première.")}{" "}<b>{t("Nous la mettons au travail.")}</b></h1>
+      <h1>{headings.hero[0]}{" "}<b>{headings.hero[1]}</b></h1>
       <div className="sub">
         <p>{t("Nous formons vos équipes à l'IA et construisons les outils qui leur manquent.")}</p>
         <div className="actions">
@@ -44,14 +45,20 @@ export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { 
 </div></section>
 
 
+),
+references: (
 <section id="references"><RevealOnView className="wrap">
-  {clients.length > 0 && <><h2>{t("Ils travaillent")}{" "}<b>{t("avec nous.")}</b></h2>
+  {clients.length > 0 && <><h2>{headings.references[0]}{" "}<b>{headings.references[1]}</b></h2>
   <ClientLogoStrip/>
   </>}
 </RevealOnView></section>
 
+),
+terrain: (
 <SessionPhotos locale={locale} contactQuery={contactQuery}/>
 
+),
+offers: (
 <section id={fr ? "offres" : "offers"} data-regime="ink"><div className="wrap">
   <h2>{copy.offersTitle}</h2>
   <MobileCarousel className="home-offers" label={copy.offersTitle}>
@@ -64,9 +71,11 @@ export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { 
   </MobileCarousel>
 </div></section>
 
+),
+applications: (
 <section className="live" id={fr ? "en-production" : "in-production"}><div className="wrap">
   <span id="ce-qui-change" className="home-anchor-alias" aria-hidden="true"/><span id="what-changes" className="home-anchor-alias" aria-hidden="true"/>
-  <h2>{t("Quelques applications")}{" "}<b>{t("concrètes.")}</b></h2>
+  <h2>{headings.applications[0]}{" "}<b>{headings.applications[1]}</b></h2>
   <p className="muted change-definition">{t("Un assistant, ou agent IA, fait une tâche selon vos règles et vous la soumet avant qu'elle parte.")}</p>
   <MobileCarousel className="scenes" label={fr ? "Applications concrètes" : "Real-world applications"}>
     <div className="scene">
@@ -102,8 +111,10 @@ export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { 
   <p className="note">{t("Scènes reconstituées sur données fictives, fidèles aux systèmes en service.")}</p>
 </div></section>
 
+),
+path: (
 <section className="parcours" id={fr ? "parcours" : "path"}><div className="wrap">
-  <h2>{t("Trois étapes,")}{" "}<b>{t("vous commencez où vous voulez.")}</b></h2>
+  <h2>{headings.path[0]}{" "}<b>{headings.path[1]}</b></h2>
   <PathWalker/>
   <MobileCarousel className="steps" label={fr ? "Trois étapes" : "Three steps"}>
     <div className="step"><span className="n">{t("Étape 1")}</span><h3>{t("Apprendre")}</h3><p>{t("Former les équipes, puis créer avec elles un premier assistant.")}</p><ContactIntentLink locale={locale} query={contactQuery} intent="formation" placement="parcours">{t("Former mes équipes")}</ContactIntentLink></div>
@@ -113,30 +124,40 @@ export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { 
   <p className="aussi">{t("Déjà équipés ? Nous vérifions vos outils et leurs règles, installons l'IA sur vos serveurs et contrôlons l'usage qu'en font vos équipes.")}</p>
 </div></section>
 
+),
+services: (
 <section id="services"><RevealOnView className="wrap">
-  <h2>{t("Ce que l'IA prépare")}{" "}<b>{t("dans chaque service.")}</b></h2>
+  <h2>{headings.services[0]}{" "}<b>{headings.services[1]}</b></h2>
   <ServiceTasks locale={locale}/>
 </RevealOnView></section>
 
 
+),
+technologies: (
 <TechnologyBand locale={locale}/>
 
+),
+team: (
 <section id={fr ? "partenaires" : "team"}><RevealOnView className="wrap">
-  <h2>{t("Chaque projet a son équipe")}{" "}<b>{t("et sa technologie.")}</b></h2>
+  <h2>{headings.team[0]}{" "}<b>{headings.team[1]}</b></h2>
   <p className="muted" style={{"marginTop": "20px", "maxWidth": "720px"}}>{t("Plus de vingt partenaires, entrepreneurs et consultants indépendants, choisis selon le diagnostic.")}</p>
   <ServiceGrid offers={PARTNER_OFFERS.map(offers => offers.map(t))} deliveryLabel={t("Avec eux, nous livrons")} label={fr ? "Partenaires et livrables" : "Partners and deliverables"} items={[[t("Ingénieurs IA"), t("Plus de dix, chacun sa spécialité : documents, assistants, connexion à vos logiciels.")], [t("Automatisation et assistants"), t("Des développeurs et des studios : assistants écrits, vocaux et vidéo.")], [t("Transformation et projet"), t("Conduite du changement et pilotage de projet.")], [t("Marque et marketing"), t("Image de marque, contenus et vente.")], [t("Formation"), t("Une quinzaine de formateurs et un organisme certifié.")], [t("Conseil et qualité"), t("Des cabinets partenaires et des relecteurs de nos livrables.")], [t("Chercheurs du MIT"), t("Des chercheurs du MIT dans notre réseau, pour vos déploiements d'assistants les plus exigeants.")]]} />
   <p className="teamcap"><i aria-hidden="true"/>{t("Une équipe composée pour chaque diagnostic, et ce qu'elle livre")}</p>
 <ResearchPartner/>
 </RevealOnView></section>
 
+),
+banner: (
 <section className="final-call" id="bandeau" data-regime="canard"><div className="wrap">
-  <h2>{fr ? "Votre expertise, mise au travail." : "Your expertise, put to work."}</h2>
+  <h2>{headings.banner[0]}</h2>
   <div className="actions">
     <ContactIntentLink locale={locale} query={contactQuery} intent="projet" placement="bandeau" primary>{t("Parler d'un projet")}<BrandConnector/></ContactIntentLink>
     <ContactIntentLink locale={locale} query={contactQuery} intent="formation" placement="bandeau">{t("Former mes équipes")}</ContactIntentLink>
   </div>
 </div></section>
 
+),
+questions: (
 <section id="questions"><div className="wrap">
   <h2>{copy.questionsTitle}</h2>
   <div className="home-faq">
@@ -145,6 +166,8 @@ export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { 
   <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqJsonLd(locale)).replace(/</g, "\\u003c") }}/>
 </div></section>
 
+),
+articles: (
 <section id="articles"><div className="wrap">
   <h2>{copy.articlesTitle}</h2>
   {fr && <p className="journal-language-note">Articles en anglais</p>}
@@ -154,6 +177,8 @@ export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { 
   <a className="btn rev-button ghost home-journal-link" href={localizedPath("/journal", locale)}>{copy.journalLink}</a>
 </div></section>
 
+),
+contact: (
 <section className="founder" id="contact" tabIndex={-1}><div className="wrap"><div className="grid">
   <picture>
     <source type="image/avif" srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.avif 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.avif 680w" sizes="(max-width: 760px) calc((100vw - 40px) * .38), (max-width: 1160px) calc((100vw - 144px) / 3), 339px" />
@@ -161,7 +186,7 @@ export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { 
     <img src="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.webp" alt="Paul Larmaraud" width="600" height="800" loading="lazy" />
   </picture>
   <div className="founder-identity">
-    <h2>{"Paul Larmaraud, "}<b>{t("fondateur de Parrit.ai")}</b></h2>
+    <h2>{headings.contact[0] + " "}<b>{headings.contact[1]}</b></h2>
   </div>
   <div className="founder-details">
     <p>{t("Il a créé l'entreprise en 2024, après deux ans chez Lime.")}</p>
@@ -173,5 +198,9 @@ export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { 
   </div>
 </div><div id="reservation" className="reservation"><ParritCalInline locale={locale}/><div className="contact-fallback"><QuickCapture locale={locale} id="single-contact" variant="contact" /></div></div></div></section>
 
-</main>;
+),
+ } satisfies Record<HomeSection, ReactNode>;
+ return <main className="single-page" data-brand-mode="accessible"><ConversationMotion/><HomeAnchorRedirect locale={locale}/><SectionEntrance/>
+   {HOME_SECTION_ORDER.map(id => <Fragment key={id}>{sections[id]}</Fragment>)}
+ </main>;
 }
