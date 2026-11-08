@@ -43,7 +43,7 @@ function applications(html, locale) {
   assert.equal((section.match(/class="phone"/g) ?? []).length, 3);
   assert.equal((section.match(/<h3>/g) ?? []).length, 3);
   assert.match(section, /<h2>[^<]+ <b>[^<]+<\/b><\/h2>/);
-  assert.match(visibleText(section), locale === "fr" ? /données fictives/ : /fictional data/);
+  assert.match(visibleText(section), locale === "fr" ? /Les données affichées sont fictives\./ : /The data shown is fictitious\./);
   assert.doesNotMatch(section, /Laparra|Clevery|Forexpert|Joone|SNCF|data-evidence|class="who"|\/clients\//i);
   return section;
 }
@@ -93,7 +93,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.doesNotMatch(references, /class="reflines"|<p/);
   for (const client of ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"]) assert.match(references, new RegExp(`aria-label="${client}[^"]*"`));
   assert.doesNotMatch(text, /Arkel/);
-  assert.match(text, locale === "fr" ? /données fictives/ : /fictional data/);
+  assert.match(text, locale === "fr" ? /Les données affichées sont fictives\./ : /The data shown is fictitious\./);
   for (const [, label] of html.matchAll(/<a class="[^"]*rev-button[^\"]*"[^>]*>(.*?)<\/a>/g)) assert.doesNotMatch(visibleText(label), /\.$/);
 });
 test("previous portrait remains intact in the repository after the founder photo change", () => {

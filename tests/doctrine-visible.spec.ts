@@ -19,15 +19,13 @@ for (const path of PUBLIC_ROUTES) {
     await page.goto(`${BASE_URL}${path}`);
     await page.evaluate(() => document.fonts.ready);
     const home = path === "/" || path === "/fr";
-    const actions = page.locator(home ? 'a.rev-button[href*="source=rdv-"]' : `a.rev-button[href="${contact}"], main a.rev-button[href="#contact"]`);
+    const actions = page.locator('a.rev-button[href*="source=rdv-"]');
     expect(await actions.count()).toBeGreaterThan(0);
     for (const action of await actions.all()) {
       await expectPopulated(action);
       const target = new URL((await action.getAttribute("href"))!, `${BASE_URL}${path}`);
-      if (home) {
-        expect(target.searchParams.get("source")).toMatch(/^rdv-(nav|hero|bandeau)$/);
-        target.search = "";
-      }
+      expect(target.searchParams.get("source")).toMatch(home ? /^rdv-(nav|hero|bandeau)$/ : /^rdv-nav$/);
+      target.search = "";
       expect(target.href).toBe(`${BASE_URL}${contact}`);
     }
     for (const button of await page.locator(".rev-button:visible").all()) {
@@ -40,7 +38,7 @@ for (const path of PUBLIC_ROUTES) {
     await page.locator(".mobile-menu summary").click();
     const mobile = page.locator(".single-header .mobile-menu .rev-button");
     await expectPopulated(mobile);
-    await expect(mobile).toHaveAttribute("href", home ? `${path}?source=rdv-nav#contact` : contact);
+    await expect(mobile).toHaveAttribute("href", contact.replace("#contact", "?source=rdv-nav#contact"));
     await expect(mobile).toHaveCSS("font-family", /General Sans/);
     await expect(mobile).toHaveCSS("text-transform", "none");
     await expect(mobile).toBeVisible();

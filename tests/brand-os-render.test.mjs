@@ -214,6 +214,22 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         assert.equal(url.searchParams.getAll("source").length, 1);
         return url.searchParams.get("source");
       }).sort(), ["rdv-bandeau", "rdv-hero", "rdv-nav", "rdv-nav"]);
+      for (const route of ["/journal", "/journal/themes/ai-sprints", "/journal/what-is-parrit-ai", "/legal"]) {
+        const page = await render(`${route}?utm_custom=offhome&source=old`, locale);
+        assert.equal(page.status, 200);
+        const header = page.html.match(/<header class="cmdbar single-header"[\s\S]*?<\/header>/)?.[0];
+        assert.ok(header, `${locale} ${route}: navigation rendered before JavaScript`);
+        const links = [...header.matchAll(/<a class="[^"]*rev-button[^"]*" href="([^"]+)"[^>]*>([^<]+)<\/a>/g)];
+        assert.equal(links.length, 2);
+        for (const [, href, label] of links) {
+          const url = new URL(href.replaceAll("&amp;", "&"), "http://localhost:3210");
+          assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
+          assert.equal(url.hash, "#contact");
+          assert.deepEqual(url.searchParams.getAll("source"), ["rdv-nav"]);
+          assert.equal(url.searchParams.get("utm_custom"), "offhome");
+          assert.equal(label, locale === "fr" ? "Prendre rendez-vous" : "Book a call");
+        }
+      }
       const { status, html } = await render("/journal/malicious-mcp-server-after-install", locale);
       assert.equal(status, 200);
       const badge = html.match(/<aside class="harness-badge"[^>]*>[\s\S]*?<\/aside>/)?.[0];

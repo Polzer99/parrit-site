@@ -1,3 +1,19 @@
+## Correctif 1 de l'action unique, décision de Paul du 08/11/2026, nuit
+
+La spec amendée conserve les deux métiers et les huit références. Les services
+portent « Préparé, vous validez » / « Prepared, you approve » ; la ligne des
+partenaires précise l'interlocuteur responsable de bout en bout. Les FAQ données
+et prix sont ouvertes dès le HTML serveur, sans changer leurs réponses ni FAQPage.
+La note des applications précise leur origine dans les missions et les données
+fictives. La réassurance « Vos équipes gardent la décision. Aucune relance
+automatique. » est sous le bouton du hero, en texte secondaire FR/EN.
+Le header partagé utilise « Prendre rendez-vous » / « Book a call » avec
+`rdv-nav` et les UTM aussi sur Journal, thèmes et mentions légales ; sa destination
+au contact de l'accueil reste inchangée. Corps éditoriaux et mentions légales intacts.
+La réserve navigation `ghost` ci-dessous demeure ouverte. La géométrie du hero
+avec la nouvelle ligne reste à vérifier sur un hôte autorisant Chromium ; aucun
+seuil n'est assoupli et aucun repli vers le bandeau n'est affirmé nécessaire sans mesure.
+
 ## Action unique et transformation, décision de Paul du 08/11/2026, nuit
 
 `docs/CODEX-SPEC-2026-11-08-action-unique-et-wording.md` remplace les anciens

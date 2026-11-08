@@ -401,7 +401,7 @@
 .single-page .hero-intro, .single-page .hero .sub {display:flex;flex-direction:column;gap:24px;min-width:0;}
 /* Reserve the font's descenders without changing the approved type scale (08/11/2026). */
 .single-page .hero h1 {font-size:38px;line-height:43px;letter-spacing:-.01em;text-wrap:wrap;padding-bottom:calc(var(--brand-s1) / 2);}
-.single-page .hero .sub p {font-size:18px;line-height:27px;color:var(--on-canard);max-width:none;}
+.single-page .hero .sub > p {font-size:18px;line-height:27px;color:var(--on-canard);max-width:none;}
 .single-page .hero .actions {display:flex;flex-direction:column;gap:var(--brand-s2);width:100%;}
 .single-page .hero .btn {border-width:2px;width:100%;line-height:24px;padding:18px 16px;white-space:normal;}
 .single-page .hero .btn.exec {font-size:18px;}
@@ -456,7 +456,7 @@
   .single-page .ontology-hero {grid-template-columns:calc(var(--brand-s8) * 8) minmax(0,1fr);grid-template-rows:auto auto auto;column-gap:24px;row-gap:16px;align-items:start;}
   .single-page .hero-intro {grid-column:1;grid-row:1;}
   .single-page .hero h1 {font-size:46px;line-height:52px;}
-  .single-page .hero .sub p {font-size:19px;line-height:28px;}
+  .single-page .hero .sub > p {font-size:19px;line-height:28px;}
   .single-page .hero .btn {width:max-content;max-width:100%;line-height:24px;padding:18px 30px;white-space:nowrap;}
   .single-page .hero .btn.exec {font-size:19px;}
   .single-page .onto-diagram {grid-column:2;grid-row:1 / 3;max-width:none;aspect-ratio:820 / 630;}
@@ -608,3 +608,6 @@
   .single-page .logo-set {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;justify-items:center;align-items:center;}
 }
 .single-page .offers-audience {margin-top:var(--brand-s3);font-size:var(--t-s);color:var(--brand-fg2);}
+
+/* Décision de Paul du 08/11/2026, nuit, correctif 1 : reassurance under the action. */
+.single-page .hero .hero-reassurance {margin-top:var(--brand-s1);font-size:var(--t-s);line-height:1.5;color:var(--on-canard);}

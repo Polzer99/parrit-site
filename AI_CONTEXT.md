@@ -1,3 +1,17 @@
+## Action unique, correctif 1, 08/11/2026, nuit
+
+Reprise sur `94f7720`, spec locale amendée préexistante conservée. Six corrections
+appliquées : libellés des services, interlocuteur responsable, FAQ données/prix
+ouverte en SSR, réassurance sous le bouton du hero, note des applications,
+libellé et attribution du header hors accueil. Réponses FAQ, FAQPage, articles,
+mentions légales, huit logos et génération llms conservés.
+Baseline : lint/build Webpack et 247 tests Node réussis. Tests additionnels FR/EN
+sur SSR réel, navigation/UTM, états FAQ et géométrie. Résultats actualisés dans
+`docs/REPORT-2026-11-08-action-unique-et-wording.md`.
+Réserves : navigation ghost en attente d'arbitrage inchangé ; serveur local
+EPERM et Chromium MachPortRendezvous/SIGTRAP empêchent les mesures de rendu.
+Aucun commit, push ni déploiement. Aucun seuil géométrique, contraste ou CLS modifié.
+
 ## Action unique et wording, 08/11/2026, nuit
 
 Baseline `5d34aca` (PR #369) ; spec non suivie préexistante conservée.

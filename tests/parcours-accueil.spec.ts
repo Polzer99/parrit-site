@@ -46,8 +46,16 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         expect(graph.inLanguage).toBe(locale);
         expect(graph.mainEntity.map((item: { name: string; acceptedAnswer: { text: string } }) => [item.name, item.acceptedAnswer.text])).toEqual(pairs);
         // Native keyboard interaction works even when JavaScript is disabled.
-        for (const detail of await faq.all()) {
+        for (const [index, detail] of (await faq.all()).entries()) {
+          const initiallyOpen = index === 2 || index === 5;
+          await expect(detail).toHaveJSProperty("open", initiallyOpen);
           await detail.locator("summary").focus();
+          if (initiallyOpen) {
+            await expect(detail.locator("p")).toBeVisible();
+            await page.keyboard.press("Space");
+            await expect(detail).not.toHaveAttribute("open", "");
+            await expect(detail.locator("p")).toBeHidden();
+          }
           await page.keyboard.press("Enter");
           await expect(detail).toHaveAttribute("open", "");
           await expect(detail.locator("p")).toBeVisible();

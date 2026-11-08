@@ -157,6 +157,31 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         const label = locale === "fr" ? "Prendre rendez-vous" : "Book a call";
         await page.goto(local(`${home}?source=old&utm_campaign=appointment&utm_custom=kept`));
         await page.evaluate(() => document.fonts.ready);
+        const reassurance = page.locator(".hero-reassurance");
+        await expect(reassurance).toHaveText(locale === "fr"
+          ? "Vos équipes gardent la décision. Aucune relance automatique."
+          : "Your teams keep the final say. No automated follow-up.");
+        await expect(reassurance).toBeVisible();
+        await expect(reassurance).toHaveCSS("font-size", "16px");
+        const noteBox = (await reassurance.boundingBox())!;
+        const buttonBox = (await page.locator(".hero .actions a").boundingBox())!;
+        expect(noteBox.y).toBeGreaterThanOrEqual(buttonBox.y + buttonBox.height);
+        expect(noteBox.x).toBeCloseTo(buttonBox.x, 0);
+        const faq = page.locator(".home-faq details");
+        await expect(faq).toHaveCount(6);
+        for (let index = 0; index < 6; index++) {
+          await expect(faq.nth(index)).toHaveJSProperty("open", index === 2 || index === 5);
+          if (index === 2 || index === 5) {
+            await expect(faq.nth(index).locator("p")).toBeVisible();
+            await faq.nth(index).locator("summary").click();
+            await expect(faq.nth(index).locator("p")).toBeHidden();
+            await faq.nth(index).locator("summary").click();
+            await expect(faq.nth(index).locator("p")).toBeVisible();
+          }
+        }
+        await expect(page.locator(".live .note")).toHaveText(locale === "fr"
+          ? "Inspirées de nos missions. Les données affichées sont fictives."
+          : "Drawn from our projects. The data shown is fictitious.");
         if (width <= 900) await page.locator(".mobile-menu summary").click();
         const actions = page.locator('a.rev-button[href*="#contact"]:visible');
         await expect(actions).toHaveCount(3);
@@ -202,8 +227,9 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         }
         expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
         if (width === 1440) {
-          const hero = (await page.locator(".hero").boundingBox())!;
-          expect(hero.y + hero.height).toBeLessThanOrEqual(height);
+          // FAQ interaction can scroll the page: measure document coordinates.
+          const heroBottom = await page.locator(".hero").evaluate(el => el.getBoundingClientRect().bottom + window.scrollY);
+          expect(heroBottom).toBeLessThanOrEqual(height);
         }
         // Native anchors preserve attribution even without hydration.
         await page.locator(".hero .exec").click();
@@ -211,5 +237,33 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         expect(new URL(page.url()).searchParams.get("utm_custom")).toBe("kept");
       });
     }
+  });
+}
+
+// Correctif 1 : the shared navigation keeps attribution on every public surface.
+for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [true, false]) {
+  test.describe(`off-home appointment ${locale} JS=${javaScriptEnabled}`, () => {
+    test.use({ javaScriptEnabled });
+    for (const width of [1440, 390]) test(`same label and destination at ${width}`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 844 });
+      await page.setExtraHTTPHeaders({ "Accept-Language": "en" });
+      const prefix = locale === "fr" ? "/fr" : "";
+      // Article URLs are English only; French interface rendering is covered by compiled SSR.
+      for (const route of ["/journal", "/journal/themes/ai-sprints", "/legal", ...(locale === "en" ? ["/journal/what-is-parrit-ai"] : [])]) {
+        await page.goto(local(`${prefix}${route}?utm_campaign=navigation&source=old`));
+        if (width <= 900) await page.locator(".mobile-menu summary").click();
+        const action = page.locator(".single-header a.rev-button:visible");
+        await expect(action).toHaveCount(1);
+        await expect(action).toHaveText(locale === "fr" ? "Prendre rendez-vous" : "Book a call");
+        const target = new URL((await action.getAttribute("href"))!, BASE);
+        expect(target.pathname).toBe(prefix || "/");
+        expect(target.hash).toBe("#contact");
+        expect(target.searchParams.getAll("source")).toEqual(["rdv-nav"]);
+        expect(target.searchParams.get("utm_campaign")).toBe("navigation");
+        await action.click();
+        await expect(page).toHaveURL(target.href);
+        await expect(page.locator("#contact h2")).toBeInViewport();
+      }
+    });
   });
 }

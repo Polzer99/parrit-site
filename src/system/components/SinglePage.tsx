@@ -36,8 +36,11 @@ hero: (
       <h1>{headings.hero[0]}{" "}<b>{headings.hero[1]}</b></h1>
       <div className="sub">
         <p>{t("Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent.")}</p>
-        <div className="actions">
-          <AppointmentLink locale={locale} query={contactQuery} placement="hero"/>
+        <div className="hero-appointment">
+          <div className="actions">
+            <AppointmentLink locale={locale} query={contactQuery} placement="hero"/>
+          </div>
+          <p className="hero-reassurance">{t("Vos équipes gardent la décision. Aucune relance automatique.")}</p>
         </div>
       </div>
     </div>
@@ -108,7 +111,7 @@ applications: (
       <h3>{t("Un grossiste de Rungis pilote son activité en parlant à son assistant.")}</h3>
     </div>
   </MobileCarousel>
-  <p className="note">{t("Scènes reconstituées sur données fictives, fidèles aux systèmes en service.")}</p>
+  <p className="note">{t("Inspirées de nos missions. Les données affichées sont fictives.")}</p>
 </div></section>
 
 ),
@@ -140,7 +143,7 @@ technologies: (
 team: (
 <section id={fr ? "partenaires" : "team"}><RevealOnView className="wrap">
   <h2>{headings.team[0]}{" "}<b>{headings.team[1]}</b></h2>
-  <p className="muted" style={{"marginTop": "20px", "maxWidth": "720px"}}>{t("Plus de vingt partenaires, entrepreneurs et consultants indépendants, choisis selon le diagnostic.")}</p>
+  <p className="muted" style={{"marginTop": "20px", "maxWidth": "720px"}}>{t("Un seul interlocuteur, responsable de bout en bout. Selon le besoin, il s'entoure de spécialistes parmi plus de vingt partenaires.")}</p>
   <ServiceGrid offers={PARTNER_OFFERS.map(offers => offers.map(t))} deliveryLabel={t("Avec eux, nous livrons")} label={fr ? "Partenaires et livrables" : "Partners and deliverables"} items={[[t("Ingénieurs IA"), t("Plus de dix, chacun sa spécialité : documents, assistants, connexion à vos logiciels.")], [t("Automatisation et assistants"), t("Des développeurs et des studios : assistants écrits, vocaux et vidéo.")], [t("Transformation et projet"), t("Conduite du changement et pilotage de projet.")], [t("Marque et marketing"), t("Image de marque, contenus et vente.")], [t("Prise en main"), t("Une quinzaine d'intervenants et un organisme certifié.")], [t("Conseil et qualité"), t("Des cabinets partenaires et des relecteurs de nos livrables.")], [t("Chercheurs du MIT"), t("Des chercheurs du MIT dans notre réseau, pour vos déploiements d'assistants les plus exigeants.")]]} />
   <p className="teamcap"><i aria-hidden="true"/>{t("Une équipe composée pour chaque diagnostic, et ce qu'elle livre")}</p>
 <ResearchPartner/>
@@ -160,7 +163,7 @@ questions: (
 <section id="questions"><div className="wrap">
   <h2>{copy.questionsTitle}</h2>
   <div className="home-faq">
-    {copy.faq.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}
+    {copy.faq.map(([question, answer], index) => <details key={question} open={index === 2 || index === 5}><summary>{question}</summary><p>{answer}</p></details>)}
   </div>
   <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqJsonLd(locale)).replace(/</g, "\\u003c") }}/>
 </div></section>

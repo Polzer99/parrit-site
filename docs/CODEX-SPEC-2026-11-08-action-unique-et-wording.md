@@ -52,6 +52,17 @@ Règle retenue : **une seule action, un seul libellé, partout** ; les autres li
 - Les huit logos entrent dans la bande des références avec l'éclairage tournant existant ; la bande respecte toujours sa largeur maximale (1060 px) : réduire l'espacement ou passer à deux rangées sur ordinateur si nécessaire, sans découpe.
 - Le Journal ne nomme toujours aucun client.
 
+## 4. Correctif 1 — retours des agents de conversion (round 0, 08/11 nuit)
+
+Source : `~/parrit-canon/docs/site-benchmark/personas/ROUND-0-2026-11-08.md` (5 personas, 0/5 rendez-vous). Corrections qui n'exigent aucun fait nouveau :
+
+1. **Libellé « Tâche reprise »** (cartes de services, répété) : lu comme « poste supprimé ». Remplacer partout par **« Préparé, vous validez »** / **« Prepared, you approve »**.
+2. **Ligne des partenaires** « Plus de vingt partenaires, entrepreneurs et consultants indépendants… » : réécrire en **« Un seul interlocuteur, responsable de bout en bout. Selon le besoin, il s'entoure de spécialistes parmi plus de vingt partenaires. »** / « One point of contact, accountable from start to finish. When needed, they bring in specialists from more than twenty partners. » Le reste de la section est inchangé.
+3. **FAQ** : les réponses « Que deviennent nos données ? » et « Combien cela coûte-t-il ? » sont **ouvertes par défaut** (`<details open>`), texte inchangé ; FAQPage inchangé.
+4. **Sous le bouton du hero**, une ligne courte, texte secondaire : **« Vos équipes gardent la décision. Aucune relance automatique. »** / « Your teams keep the final say. No automated follow-up. » Le hero tient toujours à 1440×800 ; si ce n'est pas possible sans assouplir un seuil, mettre cette ligne sous le bouton du bandeau final à la place et le dire dans le compte rendu.
+5. **Note des applications** « Scènes reconstituées sur données fictives » → **« Inspirées de nos missions. Les données affichées sont fictives. »** / « Drawn from our projects. The data shown is fictitious. »
+6. **Hors accueil** (Journal, thèmes, mentions légales) : le bouton de navigation affiche aussi « Prendre rendez-vous » / « Book a call » (aujourd'hui « Parler d'un projet »), même destination, `source=rdv-nav`. Un seul libellé sur tout le site.
+
 ## Tests
 
 FR/EN, ordinateur et téléphone, avec et sans JS : un seul libellé d'action sur tout l'accueil (« Prendre rendez-vous » / « Book a call ») ; exactement 3 boutons d'action hors formulaire (nav, hero, bandeau) ; aucun `ghost` d'action restant ; `source=rdv-*` correctes ; aucune occurrence visible de « formation », « former », « formons », « Parler d'un projet » sur l'accueil ; deux cartes d'offre sans bouton ; 8 logos, tous dans la bande ; hero à 1440×800, « un bloc = un écran », stabilité, Brand OS, deny-all inchangés. Batterie : `npm ci --silent && npm run lint && npm run build -- --webpack && npm test`. Ne pas committer les PNG réécrits sous `.codex-handoffs/brand-os-p1/after/`.

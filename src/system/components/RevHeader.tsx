@@ -12,7 +12,6 @@ function QueryAppointment({ locale }: { locale: Locale }) {
 
 export function RevHeader({ locale }: { locale: Locale }) {
   const pathname = usePathname();
-  const home = pathname === "/" || pathname === "/fr";
   const header = useRef<HTMLElement>(null);
   useEffect(() => {
     const close = () => header.current?.querySelectorAll<HTMLDetailsElement>("details[open]").forEach(menu => { menu.open = false; });
@@ -28,9 +27,7 @@ export function RevHeader({ locale }: { locale: Locale }) {
   const fr = locale === "fr";
   const nav = fr ? [["en-production", "Applications"], ["offres", "Offres"], ["parcours", "Le parcours"], ["services", "Services"], ["questions", "Questions"], ["contact", "Contact"]] : [["in-production", "Applications"], ["offers", "Offers"], ["path", "The path"], ["services", "Services"], ["questions", "Questions"], ["contact", "Contact"]];
   const links = nav.map(([anchor, label]) => <a key={anchor} href={localizedPath(`/#${anchor}`, locale)}>{label}</a>);
-  const action = home
-    ? <Suspense fallback={<AppointmentLink locale={locale} placement="nav" primary={false}/>}><QueryAppointment locale={locale}/></Suspense>
-    : <a className="btn rev-button ghost" href={localizedPath("/#contact", locale)}>{fr ? "Parler d'un projet" : "Talk about a project"}</a>;
+  const action = <Suspense fallback={<AppointmentLink locale={locale} placement="nav" primary={false}/>}><QueryAppointment locale={locale}/></Suspense>;
   return <header ref={header} className="cmdbar single-header" onClick={event => { if ((event.target as HTMLElement).closest("a")) header.current?.querySelectorAll<HTMLDetailsElement>("details[open]").forEach(menu => { menu.open = false; }); }}>
     <div className="wrap">
       <a className="mark" href={localizedPath("/", locale)}>PARRIT.AI</a>

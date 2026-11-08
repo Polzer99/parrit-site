@@ -52,7 +52,7 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     await expect(applications.locator(".phone")).toHaveCount(3);
     await expect(applications.locator("h3")).toHaveCount(3);
     await expect(applications).not.toContainText(/Laparra|Clevery|Forexpert|Joone|SNCF/);
-    await expect(applications.locator(".note")).toContainText(locale === "fr" ? "données fictives" : "fictional data");
+    await expect(applications.locator(".note")).toContainText(locale === "fr" ? "Les données affichées sont fictives." : "The data shown is fictitious.");
     for (const nav of [".desktop-nav", ".mobile-menu nav"]) {
       await expect(page.locator(`${nav} a`).first()).toHaveText("Applications");
       await expect(page.locator(`${nav} a`).first()).toHaveAttribute("href", locale === "fr" ? "/fr#en-production" : "/#in-production");
@@ -231,7 +231,7 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     // Spec 29/10 supersedes the old 22px mobile phrase / 72px desktop H1.
     await expect(page.locator(".hero h1")).toHaveCSS("font-size", width === 375 ? "38px" : "46px");
     await expect(page.locator(".hero h1")).toHaveCSS("line-height", width === 375 ? "43px" : "52px");
-    await expect(page.locator(".hero .sub p")).toHaveCSS("font-size", width === 375 ? "18px" : "19px");
+    await expect(page.locator(".hero .sub > p")).toHaveCSS("font-size", width === 375 ? "18px" : "19px");
     await expect(page.locator(".hero .btn.exec")).toHaveCSS("font-size", width === 375 ? "18px" : "19px");
     await expect(page.locator(".founder .btn.exec")).toHaveCSS("font-size", "22px");
     await expect(page.locator(".founder .btn.exec")).toHaveCSS("padding", "22px 36px");
@@ -519,7 +519,7 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
     }
     if (width === 1440 || width === 1280) {
       const mark = (await page.locator(".single-header .mark").boundingBox())!;
-      for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
+      for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance"]) {
         const box = (await page.locator(selector).boundingBox())!;
         expect(box.x, `${selector}: same left edge as the header brand`).toBeCloseTo(mark.x, 0);
       }
@@ -541,7 +541,7 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       expect(geometry.width).toBeCloseTo(geometry.contentWidth + geometry.horizontalInset, 0);
       // The new hero uses the approved 19px button; contact stays unchanged.
       await expect(button).toHaveCSS("padding", "18px 30px");
-      const phrase = (await page.locator(".hero .sub p").boundingBox())!;
+      const phrase = (await page.locator(".hero .sub > p").boundingBox())!;
       const action = (await button.boundingBox())!;
       const figure = (await page.locator(".onto-diagram").boundingBox())!;
       expect(action.y).toBeGreaterThanOrEqual(phrase.y + phrase.height);
@@ -558,7 +558,7 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       expect(hero.y).toBeGreaterThanOrEqual(header.y + header.height);
       expect(hero.y + hero.height).toBeLessThanOrEqual(height);
       // The 29/10 title scale changes; the full-hero viewport limit is unchanged.
-      for (const selector of [".hero h1", ".hero .sub p", ".hero .exec", ".onto", ".ontocap", ".humby"]) {
+      for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance", ".onto", ".ontocap", ".humby"]) {
         const box = (await page.locator(selector).boundingBox())!;
         expect(box.y).toBeGreaterThanOrEqual(0);
         expect(box.y + box.height, selector).toBeLessThanOrEqual(height);
@@ -666,7 +666,7 @@ for (const locale of ["fr", "en"]) for (const width of [800, 1024]) {
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
     await page.evaluate(() => document.fonts.ready);
     const hero = (await page.locator(".hero").boundingBox())!;
-    const phrase = (await page.locator(".hero .sub p").boundingBox())!;
+    const phrase = (await page.locator(".hero .sub > p").boundingBox())!;
     const button = page.locator(".hero .exec");
     const geometry = await button.evaluate(el => {
       const range = document.createRange();
@@ -816,7 +816,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await expect(control).toBeInViewport({ ratio: 1 });
       }
       await expect(header.locator(":scope > .wrap > .btn")).toBeHidden();
-      for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
+      for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance"]) {
         await expect(page.locator(selector)).toBeVisible();
         await expect(page.locator(selector)).toBeInViewport({ ratio: 1 });
       }
@@ -1301,13 +1301,13 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390, 375]) {
       : "Your expertise is the raw material. We put it to work.";
     await expect(page.locator("h1")).toHaveText(headline);
     await expect(page.locator("h1 b")).toHaveText(locale === "fr" ? "Nous la mettons au travail." : "We put it to work.");
-    await expect(page.locator(".hero .sub p")).toHaveText(locale === "fr"
+    await expect(page.locator(".hero .sub > p")).toHaveText(locale === "fr"
       ? "Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent."
       : "Your teams take AI in hand. We build the software they are missing.");
     await expect(page.locator(".hero .exec")).toHaveText(locale === "fr" ? "Prendre rendez-vous" : "Book a call");
     // Décision de Paul du 08/11/2026, nuit : action unique et attribution rendez-vous.
     await expect(page.locator(".hero .exec")).toHaveAttribute("href", `${locale === "fr" ? "/fr" : "/"}?source=rdv-hero#contact`);
-    for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
+    for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance"]) {
       const element = page.locator(selector);
       await expect(element).toBeVisible();
       await expect(element).toBeInViewport({ ratio: 1 });
@@ -1334,7 +1334,7 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390, 375]) {
       ? /ontologie|objets reliés|sources de logique|systèmes d'action|agnostiques|harness|back-office|raffinons|matière première/i
       : /ontology|linked objects|logic sources|systems of action|technology-agnostic|harness engineering/i);
     expect(text.match(/\bagents?\b/gi)).toHaveLength(1);
-    await expect(page.locator(".hero .sub p")).toContainText(locale === "fr" ? /\bIA\b/ : /\bAI\b/);
+    await expect(page.locator(".hero .sub > p")).toContainText(locale === "fr" ? /\bIA\b/ : /\bAI\b/);
     for (const value of [await page.title(), await page.locator('meta[name="description"]').getAttribute("content")]) {
       expect(value).toMatch(locale === "fr" ? /\bIA\b.*Tourcoing.*Paris/ : /\bAI\b.*Tourcoing.*Paris/);
       expect(value).not.toMatch(/Lille/);
@@ -1364,7 +1364,7 @@ test.describe("headline without JavaScript", () => {
       await expect(title).toHaveCSS("line-height", width === 1440 ? "52px" : "43px");
       await expect(title).toHaveCSS("font-weight", "500");
       await expect(title.locator("b")).toHaveCSS("font-weight", "600");
-      for (const selector of [".hero h1", ".hero .sub p", ".hero .exec"]) {
+      for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance"]) {
         const element = page.locator(selector);
         await expect(element).toBeVisible();
         await expect(element).toBeInViewport({ ratio: 1 });

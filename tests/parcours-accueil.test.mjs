@@ -50,7 +50,7 @@ for (const locale of ["fr", "en"]) {
   test(`six native FAQ answers exactly match their localized structured data (${locale})`, async () => {
     const html = await renderPage(locale);
     const faq = section(html, "questions");
-    const pairs = [...faq.matchAll(/<details><summary>(.*?)<\/summary><p>(.*?)<\/p><\/details>/g)].map(m => m.slice(1).map(visibleText));
+    const pairs = [...faq.matchAll(/<details(?: open="")?><summary>(.*?)<\/summary><p>(.*?)<\/p><\/details>/g)].map(m => m.slice(1).map(visibleText));
     assert.equal(pairs.length, 6);
     const graphs = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].map(m => JSON.parse(m[1])).filter(g => g["@type"] === "FAQPage");
     assert.equal(graphs.length, 1);

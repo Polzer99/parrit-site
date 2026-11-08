@@ -1,3 +1,122 @@
+# Reprise et correctif 1, 08/11/2026, nuit
+
+Les six corrections de la spec amendée sont implémentées. La base déjà présente
+(action unique, deux métiers, huit références) est conservée et contrôlée.
+**Conformité intégrale non déclarée : arbitrage navigation encore ouvert et
+rendu navigateur non vérifiable dans cet environnement.**
+Aucun commit, push ni déploiement dans cette reprise.
+
+## Mandat, sources et conservation
+
+- Dépôt courant demandé par Paul, HEAD `94f7720` ; aucune remise à zéro ni
+  synchronisation destructive. Seule modification préexistante : le correctif 1
+  ajouté par l'utilisateur dans la spec.
+- Instructions lues avant modification : AGENTS.md, état courant AI_CONTEXT.md,
+  TRUTH.md et harnais récursif. Documentation installée Next.js 16.3.4 sur
+  useSearchParams/Suspense ; Context7 16.2.9, dernière version proposée.
+- Écritures limitées au dépôt de développement, réversibles par diff contre HEAD ;
+  aucune donnée métier, 0 ligne, aucun secret. La spec utilisateur reste intacte :
+  SHA256 avant/après `47232b2a6e19478051eaac8ebb4c36f8c10eb50b41a8cb9d32c4178ffcae2542`.
+- Plan : baseline, tests rouges, corrections ciblées, revue indépendante,
+  batterie finale. Deux passes de correction ; pas de nouvelle tentative après
+  le refus du serveur ou de Chromium.
+
+## Fichiers modifiés dans cette reprise
+
+- `src/system/components/ServiceTasks.tsx`, `src/system/single-page-copy.ts` :
+  « Préparé, vous validez » / « Prepared, you approve » sur les 24 variantes
+  concernées ; les 48 cas et leurs durées de lecture restent présents.
+- `src/system/components/SinglePage.tsx`, dictionnaire ci-dessus : interlocuteur
+  responsable de bout en bout ; note des applications demandée ; réassurance
+  sous le bouton du hero. FAQ données et prix ouvertes en SSR ; textes et FAQPage
+  inchangés. Les quatre autres réponses restent fermées par défaut.
+- `src/system/single-page.css` : note secondaire de 16 px, interligne 1,5,
+  espacement Brand OS de 8 px. Le sous-titre conserve sa typographie. La note
+  reste dans le hero : faute de mesure, aucun dépassement n'est affirmé et aucun
+  repli vers le bandeau n'a été effectué. Le test des 800 px reste obligatoire.
+- `src/system/components/RevHeader.tsx` : même AppointmentLink sur toutes les
+  pages ; « Prendre rendez-vous » / « Book a call », `rdv-nav`, destination
+  d'accueil localisée et UTM conservés avant JavaScript. Navigation `ghost`
+  maintenue sous la réserve préexistante, sans prétendre satisfaire « toujours exec ».
+- `AGENTS.md`, `TRUTH.md`, `AI_CONTEXT.md` et le présent rapport : correctif
+  actuel et limites de validation, sans remplacer les décisions historiques.
+
+Le H1, les huit logos, leurs permissions et leurs empreintes sont inchangés.
+Aucun corps d'article ni texte des mentions légales modifié. Le prebuild a
+régénéré `public/llms.txt` sans différence. Aucun PNG de
+`.codex-handoffs/brand-os-p1/after/` modifié.
+
+## Tests ajoutés et adaptés
+
+- `tests/action-unique.test.mjs` : **10 tests Node supplémentaires**. Huit
+  variantes de navigation hors accueil FR/EN, puis deux contrôles SSR des textes,
+  24 tags, FAQ initialement ouverte et égalité du contenu avec FAQPage.
+  Avant correction : 8 réussites et 10 échecs ; après : 18/18.
+- `tests/brand-os-render.test.mjs` : rendu serveur compilé réel pour Journal,
+  thème, article et légal FR/EN avec query ; libellé, destination, source unique
+  et UTM vérifiés, sous blocage réseau intégral. Pas de mock de useSearchParams.
+- `tests/intentions.spec.ts` : **8 nouveaux cas navigateur** FR/EN ×
+  ordinateur/téléphone × JS/sans JS, navigation hors accueil et clic vers contact.
+  Articles testés sur leur URL anglaise canonique ; rendu d'interface française
+  couvert séparément en SSR. Matrice d'accueil existante enrichie : note visible,
+  placement, deux réponses ouvertes/fermables, attribution et géométrie.
+- `tests/parcours-accueil.spec.ts` : état initial des six réponses vérifié puis
+  ouverture/fermeture clavier, avec et sans JS.
+- `tests/{llms-articles,parcours-accueil,single-page}.test.mjs`,
+  `tests/{single-page,aeration,anti-slop-copy,doctrine-visible}.spec.ts` :
+  attentes adaptées uniquement au contrat modifié (attribut open, nouvelle note,
+  sous-titre distinct de la réassurance, source du header).
+  Contrôles géométriques, contraste, durée, CLS et deny-all conservés ; la note
+  rejoint aussi les contrôles de visibilité, débordement et alignement du hero.
+- Revue indépendante : aucun défaut produit supplémentaire identifié. Quatre
+  ajustements de tests détectés et corrigés, dont mesure du bas du hero en
+  coordonnées document après interaction FAQ (pas un faux vert dû au défilement).
+  Validation ciblée indépendante : 40/40.
+
+## Résultats d'exécution de cette reprise
+
+| Contrôle | Résultat |
+|---|---|
+| `npm ci --silent` | réussi |
+| Baseline lint, build Webpack, `npm test` | réussis, 247/247 tests |
+| `npm run lint` final | réussi |
+| `npm run build -- --webpack` final | réussi |
+| `npm test` final | **257/257**, aucun ignoré |
+| `npm run test:brand-os` | **19/19** |
+| `npm run qa:brand:rev01` | réussi |
+| `npm run qa:claims:rev01` | réussi |
+| `npx tsc --noEmit` | réussi |
+| `git diff --check` | réussi |
+
+Une première passe complète a donné 253/257 : quatre attentes exigeaient encore
+les anciennes expressions « données fictives » / « fictional data ». Elles
+ont été remplacées par les nouvelles phrases exactes prescrites au correctif 1,
+sans retirer le contrôle de transparence des données. Rejeu final : 257/257.
+Avertissements préexistants : metadataBase et MODULE_TYPELESS_PACKAGE_JSON.
+
+## Blocages restant à lever
+
+1. **Arbitrage produit** : la spec impose navigation et hero `exec`, hero entier
+   barre comprise à 1440×800, et un seul rose par écran. AGENTS.md reconnaît déjà
+   leur contradiction. Question renouvelée à Paul pendant cette reprise, sans
+   réponse reçue à la clôture. Navigation `ghost` conservée ; aucune exception
+   au rose unique inventée, aucun contrôle retiré.
+2. **Navigateur** : `npm start -- --hostname 127.0.0.1 -p 3210` échoue avec
+   `listen EPERM`. `npm run qa:network:rev01 -- --max-failures=1 --workers=1`
+   recense **525 cas** mais Chromium échoue avant navigation
+   (`MachPortRendezvous`, `Permission denied`, `SIGTRAP`) : 1 lancement en échec,
+   524 cas non exécutés. Ce plafond arrête la batterie, sans changer ses seuils.
+   Géométrie du hero avec sa note, blocs dans un écran, contraste rendu,
+   stabilité/CLS et captures restent **non prouvés**. Rejouer la batterie sur
+   l'hôte autorisé ; si le hero dépasse 800 px, utiliser le repli au bandeau
+   explicitement autorisé par la spec puis rejouer les contrôles.
+3. **PRODUCTION_PROOF** : non exécutée, publication expressément hors mandat.
+
+---
+
+Le compte rendu précédent ci-dessous décrit l'implémentation présente à HEAD
+avant cette reprise ; ses résultats et références sont historiques.
+
 # Compte rendu — action unique et wording, 08/11/2026
 
 ## État de livraison

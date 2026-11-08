@@ -143,7 +143,7 @@ for (const width of [1440, 390]) {
             size: Number.parseFloat(getComputedStyle(element).fontSize),
             // Exact 29/10 hero scale, without changing the rest of the site's floor.
             heroSize: element.closest(".hero h1") ? (innerWidth <= 760 ? 38 : 46)
-              : element.closest(".hero .sub p, .hero .exec") ? (innerWidth < 1200 ? 18 : 19)
+              : element.closest(".hero .sub > p, .hero .exec") ? (innerWidth < 1200 ? 18 : 19)
               : element.closest(".onto-label") ? 10.5
               : element.closest(".onto-zone") ? 9
               : element.closest(".onto-layer") ? (innerWidth < 1200 ? 9 : 10)

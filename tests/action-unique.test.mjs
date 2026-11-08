@@ -11,10 +11,10 @@ import sharp from "sharp";
 // Décision de Paul du 08/11/2026, nuit : the form submits; every other
 // home action books the same call. Content links retain their destinations.
 for (const locale of ["fr", "en"]) {
-  test(`header booking label and attribution are present before JavaScript (${locale})`, () => {
+  for (const route of ["", "/journal", "/journal/themes/ai-sprints", "/journal/what-is-parrit-ai", "/legal"]) test(`header ${route || "/"} booking label and attribution are present before JavaScript (${locale})`, () => {
     const home = locale === "fr" ? "/fr" : "/";
     const query = new URLSearchParams("utm_custom=header&source=old&source=older");
-    const load = loader(locale, { "next/navigation": { usePathname: () => home, useSearchParams: () => query } });
+    const load = loader(locale, { "next/navigation": { usePathname: () => `${home === "/" ? "" : home}${route}` || "/", useSearchParams: () => query } });
     const { RevHeader } = load("src/system/components/RevHeader.tsx");
     const html = renderToStaticMarkup(createElement(RevHeader, { locale }));
     // Desktop and native mobile menu render the same logical action. CSS exposes
@@ -55,6 +55,32 @@ for (const locale of ["fr", "en"]) {
     const { PUBLIC_CLIENT_NAMES } = loader(locale)("src/system/public-clients.ts");
     assert.equal(PUBLIC_CLIENT_NAMES.length, 8);
     for (const name of PUBLIC_CLIENT_NAMES) assert.ok(refs.includes(`data-evidence="${name}"`), name);
+  });
+
+  test(`reassurance, accountability and initially open FAQ survive SSR (${locale})`, async () => {
+    const html = await renderPage(locale);
+    const fr = locale === "fr";
+    const reassurance = fr ? "Vos équipes gardent la décision. Aucune relance automatique." : "Your teams keep the final say. No automated follow-up.";
+    const hero = html.match(/<section class="hero">[\s\S]*?<\/section>/)[0];
+    assert.equal((html.match(/class="hero-reassurance"/g) ?? []).length, 1);
+    assert.ok(visibleText(hero).includes(reassurance));
+    assert.ok(hero.indexOf('source=rdv-hero') < hero.indexOf('class="hero-reassurance"'));
+    const services = html.match(/<section id="services">[\s\S]*?<\/section>/)[0];
+    const tags = [...services.matchAll(/<span class="tag bo">(.*?)<\/span>/g)];
+    assert.equal(tags.length, 24, "all existing prepared tasks retain a human approval label");
+    for (const [, tag] of tags) assert.equal(visibleText(tag), fr ? "Préparé, vous validez" : "Prepared, you approve");
+    assert.doesNotMatch(visibleText(html), /Tâche reprise|Task taken over/);
+    assert.ok(visibleText(html).includes(fr
+      ? "Un seul interlocuteur, responsable de bout en bout. Selon le besoin, il s'entoure de spécialistes parmi plus de vingt partenaires."
+      : "One point of contact, accountable from start to finish. When needed, they bring in specialists from more than twenty partners."));
+    assert.ok(visibleText(html).includes(fr ? "Inspirées de nos missions. Les données affichées sont fictives." : "Drawn from our projects. The data shown is fictitious."));
+    const details = [...html.matchAll(/<details([^>]*)><summary>(.*?)<\/summary><p>(.*?)<\/p><\/details>/g)];
+    assert.equal(details.length, 6);
+    assert.deepEqual(details.filter(([, attributes]) => /\bopen(?:=|\s|$)/.test(attributes)).map(([, , question]) => visibleText(question)), fr
+      ? ["Que deviennent nos données ?", "Combien cela coûte-t-il ?"]
+      : ["What happens to our data?", "How much does it cost?"]);
+    const structured = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].map(([, json]) => JSON.parse(json)).find(item => item["@type"] === "FAQPage");
+    assert.deepEqual(structured.mainEntity.map(item => [item.name, item.acceptedAnswer.text]), details.map(([, , question, answer]) => [visibleText(question), visibleText(answer)]));
   });
 
   test(`booking link keeps UTM, native modified clicks and same-home form state (${locale})`, () => {
