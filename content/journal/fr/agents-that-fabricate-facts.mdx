@@ -1,12 +1,12 @@
 ---
-title: "Des agents qui fabriquent des faits : ce que nous a appris le nettoyage de 1,355 lignes"
+title: "Des agents qui fabriquent des faits : ce que nous a appris le nettoyage de 1 355 lignes"
 date: "2026-08-31"
 description: "Le vrai risque de l’IA en production n’est pas un chatbot qui hallucine devant un utilisateur. C’est un processus qui inscrit en silence des données plausibles mais fausses dans une base à laquelle tout le reste fait confiance."
 slug: "agents-that-fabricate-facts"
 translationOf: "agents-that-fabricate-facts"
 ---
 
-Tout le monde redoute les hallucinations de l’IA dans une fenêtre de discussion. Ce défaut est gênant, mais visible : quelqu’un lit la réponse, repère l’absurdité, puis repose la question. Le défaut qui devrait vous inquiéter fait moins de bruit. Cette semaine, nous en avons contenu un : 1,355 lignes de base de données affirmaient que notre système avait contacté des personnes qu’il n’avait jamais contactées.
+Tout le monde redoute les hallucinations de l’IA dans une fenêtre de discussion. Ce défaut est gênant, mais visible : quelqu’un lit la réponse, repère l’absurdité, puis repose la question. Le défaut qui devrait vous inquiéter fait moins de bruit. Cette semaine, nous en avons contenu un : 1 355 lignes de base de données affirmaient que notre système avait contacté des personnes qu’il n’avait jamais contactées.
 
 Aucun modèle n’avait halluciné ces lignes. Du code ancien les avait créées. Un composant d’écriture oublié enregistrait des échanges sortants comme effet secondaire d’opérations sans rapport. Du code déterministe, des hypothèses erronées, des faits faux. Pour tous les composants en aval, ces faits étaient impossibles à distinguer des vrais. La logique de relance les lisait. Le reporting aussi. Toute question du type « when did we last talk to this person » (quand avons-nous parlé à cette personne pour la dernière fois) recevait une réponse inventée.
 
@@ -32,6 +32,6 @@ Un quatrième principe sous-tend les trois autres. Il s’est manifesté la mêm
 
 ## Les fondations d’abord
 
-La leçon d’organisation est la moins confortable. Chaque fonctionnalité ajoute des lecteurs à vos données, et chacun hérite de leurs mensonges. Livrer des fonctionnalités sur une base qui fabrique des faits ne fait pas que risquer des bugs : cela les multiplie. Chaque consommateur intègre les faux enregistrements à ses propres résultats. Le coût du nettoyage futur augmente à chaque couche. La doctrine que nous en avons tirée est donc directe. D’abord les fondations des données : provenance, idempotence, rapprochement. Ensuite les fonctionnalités. C’est plus lent pendant un trimestre, puis plus rapide à chaque trimestre suivant. L’autre option, c’est ce que nous venons de faire : remonter 1,355 fictions jusqu’à leur source pendant que la feuille de route attendait.
+La leçon d’organisation est la moins confortable. Chaque fonctionnalité ajoute des lecteurs à vos données, et chacun hérite de leurs mensonges. Livrer des fonctionnalités sur une base qui fabrique des faits ne fait pas que risquer des bugs : cela les multiplie. Chaque consommateur intègre les faux enregistrements à ses propres résultats. Le coût du nettoyage futur augmente à chaque couche. La doctrine que nous en avons tirée est donc directe. D’abord les fondations des données : provenance, idempotence, rapprochement. Ensuite les fonctionnalités. C’est plus lent pendant un trimestre, puis plus rapide à chaque trimestre suivant. L’autre option, c’est ce que nous venons de faire : remonter 1 355 fictions jusqu’à leur source pendant que la feuille de route attendait.
 
 Les agents en production valent cet effort. Les nôtres rédigent des brouillons, déploient des correctifs clients après validation humaine et montent des vidéos pendant la nuit. Mais ils gagnent cette autonomie comme un ingénieur débutant : en prouvant qu’ils s’arrêtent lorsqu’ils ne sont pas sûrs, et que ce qu’ils écrivent peut être vérifié par autre chose qu’eux-mêmes. C’est cette discipline de production que nous construisons chez parrit.ai.

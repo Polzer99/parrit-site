@@ -14,11 +14,57 @@ import { loader } from "./helpers/site-v1-render.mjs";
 const directory = "content/journal";
 const source = slug => readFileSync(`${directory}/${slug}.mdx`, "utf8");
 const translated = slug => readFileSync(`${directory}/fr/${slug}.mdx`, "utf8");
-const numbers = text => [...new Set(text.match(/\d+(?:[.,:/-]\d+)*/g) ?? [])].sort();
+// Locale matters: English 1,355 is 1355, French 1,355 is 1.355.
+// Keep compound identifiers (dates, times, versions) intact. Grouping accepts
+// ordinary, nonbreaking and narrow nonbreaking spaces, never newlines.
+const normalizeNumber = (value, locale) => value.replace(/[ \u00a0\u202f]/g, "").replaceAll(",", locale === "fr" ? "." : "");
+const numbers = (text, locale) => [...new Set((text.match(/\d{1,3}(?:[ \u00a0\u202f]\d{3})+(?:[.,]\d+)?|\d+(?:[.,:/-]\d+)*/g) ?? []).map(value => normalizeNumber(value, locale)))].sort();
 const blocks = text => text.match(/^```[^\n]*\n[\s\S]*?^```[^\n]*$/gm) ?? [];
+const inlineCode = text => text.match(/(?<!`)`[^`\n]+`(?!`)/g) ?? [];
+const versions = text => text.match(/\b(?:GPT-|GLM-|STD-|Opus |Apache )\d+(?:\.\d+)+\b|\b\d+(?:\.\d+){2,}\b/g) ?? [];
+const quotations = text => [...text.matchAll(/“([^”\n]+)”|"([^"\n]+)"|«\s*([^»\n]+?)\s*»/g)].map(match => match[1] ?? match[2] ?? match[3]);
+const withoutQuotations = (text, original) => quotations(matter(original).content).reduce((value, quote) => value.replaceAll(quote, " "), text);
+function frenchNumberProse(text, original) {
+  const { data, content } = matter(text);
+  let prose = withoutQuotations(`${data.title}\n${data.description}\n${content}`, original);
+  for (const literal of [...blocks(prose), ...inlineCode(prose), ...versions(prose)]) prose = prose.replaceAll(literal, " ");
+  return prose.replace(/https?:\/\/[^\s)]+/g, " ")
+    // Calendar years and regulation references are identifiers, not quantities.
+    .replace(/\b(?:en|fin(?: de)?|janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre) +\d{4}\b/gi, " ")
+    .replace(/\b\d{4}\/\d+\b/g, " ");
+}
+function assertFrenchNumbers(text, original) {
+  const prose = frenchNumberProse(text, original);
+  assert.doesNotMatch(prose, /\d\.\d/, "decimal comma in French prose");
+  assert.doesNotMatch(prose, /\d[ \t]*%|\d[ \t]+pour cent/i, "nonbreaking space before %");
+  assert.doesNotMatch(prose, /\b\d{4,}\b/, "space-separated thousands in quantities");
+}
 const links = text => [...text.matchAll(/\]\(([^)]+)\)/g)].map(match => match[1]);
 const h2s = text => (text.match(/^## /gm) ?? []).length;
-const prices = text => text.match(/[$€£]\s*\d[\d.,]*|\d[\d.,]*\s*(?:€|\$|£|euros?|dollars?)/gi) ?? [];
+const prices = (text, locale) => (text.match(/[$€£]\s*\d[\d.,]*|\d[\d.,]*\s*(?:€|\$|£|euros?|dollars?)/gi) ?? []).map(value => normalizeNumber(value, locale));
+
+test("numeric fidelity normalizes locale without confusing thousands and decimals", () => {
+  assert.deepEqual(numbers("12.5 1.36 1.17 83,960 99,703 10,000.25", "en"), numbers("12,5 1,36 1,17 83 960 99\u00a0703 10\u202f000,25", "fr"));
+  assert.notDeepEqual(numbers("1,355", "en"), numbers("1,355", "fr"));
+  assert.notDeepEqual(numbers("1.36", "en"), numbers("1,37", "fr"));
+  assert.deepEqual(numbers("2026-10-13 21:52 0.14.0", "en"), numbers("2026-10-13 21:52 0.14.0", "fr"));
+  assert.deepEqual(numbers("10\n000", "fr"), ["000", "10"], "do not join separate lines");
+  assert.deepEqual(prices("$4.40 $1.40", "en"), prices("$4,40 $1,40", "fr"));
+  assert.notDeepEqual(prices("$4.40", "en"), prices("€4,40", "fr"));
+});
+
+test("French numeric typography rejects regressions while preserving literal exceptions", () => {
+  const document = prose => `---\ntitle: "Exemple"\ndescription: "Exemple"\n---\n${prose}`;
+  for (const prose of ["12.5 %", "12,5%", "12,5 %", "12,5 pour cent", "10000 lignes", "1976 lignes"]) {
+    assert.throws(() => assertFrenchNumbers(document(prose), document("Original")), undefined, prose);
+  }
+  for (const prose of ["12,5\u00a0%", "12,5\u202f%", "10 000 lignes", "1\u202f976 lignes", "en 2026", "fin de 2027", "juillet 2027", "2026/1744", "GPT-4.1, Opus 4.8, Apache 2.0, version 0.14.0", "`1.36`", "```js\nconst ratio = 1.36;\n```", "[source](https://example.org/1.36)"]) {
+    assert.doesNotThrow(() => assertFrenchNumbers(document(prose), document("Original")), prose);
+  }
+  const quote = "Agents that fabricate facts: what a 1,355-row cleanup taught us";
+  assert.doesNotThrow(() => assertFrenchNumbers(document(`« ${quote} » : 1 355 lignes.`), document(`“${quote}”`)));
+  assert.throws(() => assertFrenchNumbers(document('"12.5"'), document("Original")), "new quotations cannot hide invalid French numbers");
+});
 
 test("exactly the 31 published, indexable originals have a registered French edition", () => {
   const published = getAllJournalEntries().filter(entry => !entry.noindex).map(entry => entry.slug).sort();
@@ -39,17 +85,23 @@ for (const slug of FRENCH_JOURNAL_SLUGS) {
     assert.equal(fr.data.title.endsWith("?"), en.data.title.endsWith("?"));
     assert.equal(h2s(fr.content), h2s(en.content));
     assert.deepEqual(blocks(fr.content), blocks(en.content), "code blocks are byte-for-byte identical");
+    assert.deepEqual(inlineCode(fr.content), inlineCode(en.content), "inline code is byte-for-byte identical");
+    assert.deepEqual(versions(translated(slug)), versions(source(slug)), "model and version identifiers are unchanged");
     assert.deepEqual(links(fr.content), links(en.content), "same links in the same order");
-    for (const quotation of en.content.matchAll(/“([^”\n]+)”|"([^"\n]+)"/g)) {
-      assert.ok(fr.content.includes(quotation[1] ?? quotation[2]), `verbatim original quotation: ${quotation[0]}`);
+    for (const quotation of quotations(en.content)) {
+      assert.ok(fr.content.includes(quotation), `verbatim original quotation: ${quotation}`);
     }
-    assert.deepEqual(numbers(translated(slug)), numbers(source(slug)), "same numbers, including dates and versions");
-    assert.deepEqual(prices(translated(slug)), prices(source(slug)), "no new prices; only GLM's original third-party model comparison is retained");
+    assert.deepEqual(numbers(withoutQuotations(translated(slug), source(slug)), "fr"), numbers(withoutQuotations(source(slug), source(slug)), "en"), "same numeric values, including dates and versions; verbatim quotations checked above");
+    assert.deepEqual(prices(translated(slug), "fr"), prices(source(slug), "en"), "no new prices; only GLM's original third-party model comparison is retained");
     assert.doesNotMatch(translated(slug), /[—–]|\b(?:de plus|en outre|par ailleurs|il est important de noter|dans un monde où|innovant\w*|puissant\w*|révolutionnaire\w*|en conclusion|pour résumer|en résumé|pour conclure)\b/iu);
     for (const client of PUBLIC_CLIENT_NAMES) assert.ok(!translated(slug).toLowerCase().includes(client.toLowerCase()), client);
     if (/\brollback\b/i.test(fr.content)) assert.match(fr.content.slice(0, fr.content.search(/\brollback\b/i) + 50), /retour arrière/i);
     if (/\b[hH]arnais\b/.test(fr.content)) assert.match(fr.content.slice(0, fr.content.search(/\b[hH]arnais\b/) + 30), /harnais \(harness\)/i);
   });
+}
+
+for (const slug of FRENCH_JOURNAL_SLUGS) {
+  test(`French numeric typography: ${slug}`, () => assertFrenchNumbers(translated(slug), source(slug)));
 }
 
 test("prooflint runs on every French file when installed; inherited quoted placeholders are explicit", () => {

@@ -30,6 +30,10 @@ Les **31 articles publiés** de `content/journal/*.mdx` (les 9 en `noindex: true
 - `llms.txt` (générateur de la PR précédente) : côté français, URL et titres FR ; retirer la phrase « les articles restent en anglais ».
 - Contrôles existants inchangés : Journal sans nom de client, une seule action par carte d'index, `source`/UTM conservés, deny-all réseau, Brand OS.
 
+## Correctif 1 (relecture Claude, 08/11 nuit)
+
+Les décimales sont restées à l'anglaise dans le texte français (« 12.5 pour cent », « 1.36 tokens »). En français : virgule décimale (« 12,5 % », « 1,36 token par mot ») et espace insécable fine ou normale avant `%` selon l'usage du reste du site ; séparateur de milliers par espace (« 10 000 »). **Exceptions** : numéros de version, adresses, blocs et extraits de code, noms de modèles (« GPT-4.1 », « tiktoken 0.14.0 ») restent tels quels. Adapter le test d'égalité des nombres pour comparer les valeurs normalisées (virgule ↔ point, espaces de milliers) au lieu des chaînes. Repasser sur les 31 fichiers.
+
 ## 3. Tests
 
 - 31 fichiers FR, un par article publié, slugs identiques, dates identiques, mêmes nombres de titres H2, de blocs de code (contenu identique octet pour octet), de liens (mêmes URL) et de chiffres (ensemble des nombres identique) que l'original.

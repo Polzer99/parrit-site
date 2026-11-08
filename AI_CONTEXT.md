@@ -1,3 +1,19 @@
+## Journal en français, correctif 1 du 08/11/2026
+
+Spec locale amendée préservée, baseline `2e070801e735c1b454ae3bf1ea8fc4f40fd4bae0`.
+Les 31 éditions ont été contrôlées ; 11 corrigées : virgules décimales,
+milliers espacés, espace insécable avant %, « 1,36 token par mot ».
+Valeurs, citations anglaises, modèles, versions, URL et code conservés.
+Comparaison des nombres/prix normalisée par langue ; contrôles explicites des
+extraits de code et versions, 31 tests de typographie et deux tests de garde-fous.
+`llms.txt` régénéré ; aucun changement de routes ni d'originaux anglais.
+Installation, lint, build Webpack et tests avant/après réussis : 278 → 311 tests
+Node. TypeScript, marque/claims et 19 Brand OS réussis. Relecture indépendante
+sans défaut restant. Playwright réservé à Claude sur l'hôte selon la spec ;
+aucune preuve de rendu navigateur ou de production ajoutée. Spec et PNG inchangés.
+Aucun commit, push ou déploiement. Détail et limites :
+`docs/REPORT-2026-11-08-journal-en-francais.md`.
+
 ## Journal en français, 08/11/2026
 
 Source : `docs/CODEX-SPEC-2026-11-08-journal-en-francais.md`, baseline locale

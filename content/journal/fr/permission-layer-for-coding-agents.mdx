@@ -1,7 +1,7 @@
 ---
 title: "Sécuriser un agent IA de développement commence par le shell"
 date: "2026-09-28"
-description: "Notre premier contrôle surveillait l'éditeur de fichiers. Huit semaines de journaux plus tard, 97 pour cent des refus de la seconde version venaient du shell. Une règle dans un prompt est une demande ; un hook avant chaque appel d'outil est une permission."
+description: "Notre premier contrôle surveillait l'éditeur de fichiers. Huit semaines de journaux plus tard, 97 % des refus de la seconde version venaient du shell. Une règle dans un prompt est une demande ; un hook avant chaque appel d'outil est une permission."
 slug: "permission-layer-for-coding-agents"
 translationOf: "permission-layer-for-coding-agents"
 ---
@@ -16,7 +16,7 @@ Nous utilisons deux agents de développement aux rôles distincts. L'un écrit l
 
 Nous en avons donc fait un hook. Claude Code exécute un hook PreToolUse avant l'appel d'un outil. Sa [documentation](https://code.claude.com/docs/en/hooks) précise que le code de sortie 2 bloque l'appel, quel que soit le texte affiché par le hook. La première version de notre contrôle ciblait les outils d'édition de fichiers, Write et Edit, car c'est là que nous imaginions le code s'écrire.
 
-Le journal de la seconde version montre où les écritures ont réellement lieu. Sur 40,044 décisions enregistrées entre le 2 août et le 28 septembre 2026, jeux de données de test exclus, le contrôle en a refusé 2,034. Parmi ces refus, 1,976 concernaient des commandes shell et 58 les outils d'édition de fichiers. Ce sont des tentatives : un agent qui réessaie une commande refusée est compté à chaque essai. La déduction est la nôtre : un contrôle limité à l'éditeur aurait laissé passer environ 97 pour cent de ce que celui-ci a arrêté. Un shell peut écrire un fichier, pousser une branche ou afficher un secret sans jamais appeler l'éditeur.
+Le journal de la seconde version montre où les écritures ont réellement lieu. Sur 40 044 décisions enregistrées entre le 2 août et le 28 septembre 2026, jeux de données de test exclus, le contrôle en a refusé 2 034. Parmi ces refus, 1 976 concernaient des commandes shell et 58 les outils d'édition de fichiers. Ce sont des tentatives : un agent qui réessaie une commande refusée est compté à chaque essai. La déduction est la nôtre : un contrôle limité à l'éditeur aurait laissé passer environ 97 % de ce que celui-ci a arrêté. Un shell peut écrire un fichier, pousser une branche ou afficher un secret sans jamais appeler l'éditeur.
 
 ## Sur quoi portaient les refus
 
