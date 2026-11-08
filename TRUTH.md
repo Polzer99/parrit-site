@@ -1,3 +1,11 @@
+## Correctif 2 — décision de Paul du 08/11/2026
+
+Les logos conservent leurs dimensions agrandies ; seul leur espacement passe à
+`--brand-s3` pour tenir sur une ligne dans le maximum de 1060 px. Aucun seuil
+assoupli. Les comparaisons de sommets sont simultanées ; la comparaison des
+articles attend le Journal chargé. Aucun changement de contenu, de cadrage ou
+de structure de carrousel entre SSR et hydratation.
+
 ## Correctif passe 2 — décision de Paul du 08/11/2026
 
 La spec amendée prime sur la passe 2 ci-dessous. Ordre : hero, références,

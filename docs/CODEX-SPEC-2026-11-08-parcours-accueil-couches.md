@@ -111,3 +111,10 @@ Batterie Playwright hôte : 467 réussis, **20 échecs**. Captures : la mosaïqu
 7. Investiguer et corriger la cause (pas le test) de : `parcours-accueil.spec.ts:26` FR JS=true 1280×720 (liste d'articles non vide là où `[]` est attendu : probablement un article tronqué ou hors écran) ; `single-page.spec.ts:96` (`≤ 1` reçu 2, à 1440 FR/EN) ; `single-page.spec.ts:572` hero EN 1200 en dépassement de 30 s sur `element.evaluate` (vérifier qu'aucune animation ou observateur ajouté ne bloque la page : `SectionEntrance` ne doit jamais tourner sur le hero ni en boucle).
 
 Rejouer ensuite la batterie Node complète ; je rejoue Playwright sur l'hôte.
+
+# CORRECTIF 2 (hôte, 476 réussis / 13 échecs) — dernier tour
+
+Rendu validé à l'œil (mosaïque 1440 et 390 correcte). Corriger la cause, jamais le seuil :
+1. `single-page.spec.ts:1189` « reference logos on one line » (8 échecs, 1440×800 et 1280×720, JS on/off) : la bande mesure 1080 px pour un maximum de 1060. Réduire l'écart entre logos ou leur taille pour revenir ≤ 1060 tout en gardant le gain de taille maximal possible.
+2. `home-visual-layers.spec.ts:20` JS=false à 390×700 et 375×844 (4 échecs) : sans JS, les éléments de la piste mobile de la mosaïque n'ont pas le même sommet (écarts 29 à 141 px). Le rendu sans JS doit être identique au SSR avec JS : même structure de carrousel natif, cartes alignées en haut, légendes de hauteur réservée.
+3. `parcours-accueil.spec.ts:26` FR JS=true 390×700 : la liste d'articles signalée n'est pas vide (même famille que l'échec 1280×720 corrigé). Trouver ce que mesure ce contrôle (troncature, débordement ou hors écran d'un titre d'article long sur mobile, ex. « Does AI cost more when your team works in French? ») et corriger la mise en page de la carte d'article mobile.

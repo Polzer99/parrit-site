@@ -212,7 +212,8 @@
 .single-page .teamcap {display:flex;gap:8px;align-items:center;margin-top:20px;font-size:var(--t-s);color:var(--ink2);}
 .single-page .teamcap i {width:14px;height:14px;border:2px solid var(--canard);flex-shrink:0;}
 
-.single-page .logo-strip {--logo-gap:var(--brand-s8);overflow:hidden;margin-top:56px;}
+/* Keep the enlarged logos on one row within the 1060px reference budget. */
+.single-page .logo-strip {--logo-gap:var(--brand-s3);overflow:hidden;margin-top:56px;}
 .single-page .logo-track {display:flex;width:max-content;gap:var(--logo-gap);}
 .single-page .logo-set {display:flex;align-items:stretch;gap:var(--logo-gap);flex-shrink:0;}
 .single-page .client-logo {display:block;flex-shrink:0;background:var(--ink);mask-size:contain;mask-repeat:no-repeat;mask-position:center;max-width:100%;}

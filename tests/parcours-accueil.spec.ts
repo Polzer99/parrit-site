@@ -84,6 +84,10 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
         if ([1440, 375].includes(width)) await page.screenshot({ path: testInfo.outputPath(`home-${locale}-${width}.png`), fullPage: true, animations: "disabled" });
         await page.locator("#articles .home-journal-link").click();
+        // evaluateAll does not wait for navigation or matching cards. Read the
+        // destination only once it exists; keep the exact comparison below.
+        await expect(page).toHaveURL(local(locale === "fr" ? "/fr/journal" : "/journal"));
+        await expect(page.locator(".journal-index > li").nth(2)).toBeVisible();
         const indexCards = await page.locator(".journal-index > li").evaluateAll(nodes => nodes.slice(0, 3).map(node => ({
           href: node.querySelector("a")!.getAttribute("href"),
           title: node.querySelector("h2")!.textContent,

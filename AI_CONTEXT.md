@@ -1,3 +1,22 @@
+## Parcours accueil, correctif 2 du 08/11/2026
+
+Source : dernier amendement local, checkout demandé `9fdf14f`. Seul changement
+produit : espacement des logos de 64 à 24 px (jeton s3), budget non replié
+1035,74 px, dimensions des images conservées. HTML SSR complet identique FR/EN.
+Journal : trace hôte = index lu avant navigation, pas de troncature mesurée ;
+attente destination/contenu ajoutée, égalité exacte conservée. Mosaïque : lecture
+simultanée piste/cartes pour éliminer l’effet possible du Home natif entre deux
+mesures. Origine exacte du défilement encore à confirmer sur l’hôte ; aucun CSS
+mosaïque/article spéculatif. Seuils et durée des tests intacts.
+
+Validation : npm ci, lint, build Webpack, types, marque/claims, 216→217 tests
+Node et 19 Brand OS réussis.
+Un test de budget rouge puis vert, huit cas navigateur de contenu mobile
+FR/EN avec/sans JS ajoutés. Navigateur bloqué (serveur EPERM, Chromium SIGTRAP) ;
+497 tests recensés, aucune preuve de rendu/CLS acquise ici. Spec et deux PNG
+préexistants vérifiés par empreintes, aucun commit/push/déploiement.
+Rapport : `docs/REPORT-2026-11-08-parcours-accueil-couches.md`, correctif 2.
+
 ## Correctif des couches visuelles, 08/11/2026
 
 Source : spec locale amendée, baseline `bb28ce9`, checkout demandé.

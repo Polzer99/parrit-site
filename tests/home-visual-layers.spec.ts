@@ -76,8 +76,13 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         }
         if (width <= 760) {
           for (const track of await page.locator(".home-offers,.session-mosaic,.home-journal-list").all()) {
-            const top = (await track.boundingBox())!.y;
-            for (const card of await track.locator(":scope > *").all()) expect((await card.boundingBox())!.y).toBeCloseTo(top, 0);
+            // Native Home can still scroll the document with JS disabled.
+            // Compare all rectangles in one frame, with the same strict threshold.
+            const geometry = await track.evaluate(el => ({
+              top: el.getBoundingClientRect().top,
+              cards: [...el.children].map(card => card.getBoundingClientRect().top),
+            }));
+            for (const top of geometry.cards) expect(top).toBeCloseTo(geometry.top, 0);
           }
         }
         const offers = page.locator(locale === "fr" ? "#offres" : "#offers");
@@ -134,6 +139,64 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         }
         expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
         if ([1440, 375].includes(width)) await page.screenshot({ path: testInfo.outputPath(`visual-layers-${locale}-${width}.png`), fullPage: true, animations: "disabled" });
+      });
+    }
+  });
+}
+
+for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [true, false]) {
+  test.describe(`mobile content ${locale} JS=${javaScriptEnabled}`, () => {
+    test.use({ javaScriptEnabled });
+    for (const [width, height] of [[390, 700], [375, 844]]) {
+      test(`native photos and complete Journal titles ${width}×${height}`, async ({ page }) => {
+        await page.setViewportSize({ width, height });
+        await page.emulateMedia({ reducedMotion: "reduce" });
+        await page.goto(local(locale === "fr" ? "/fr" : "/"));
+        const mosaic = page.locator(".session-mosaic");
+        await expect(mosaic).toHaveAttribute("tabindex", "0");
+        await expect(mosaic).toHaveCSS("scroll-snap-type", "x mandatory");
+        await expect(mosaic.locator(":scope > figure")).toHaveCount(3);
+        for (const figure of await mosaic.locator(":scope > figure").all()) {
+          await figure.scrollIntoViewIfNeeded();
+          await figure.locator("img").evaluate(img => (img as HTMLImageElement).decode());
+          await expect(figure.locator("figcaption")).toBeVisible();
+          const box = await figure.evaluate(el => {
+            const track = el.parentElement!.getBoundingClientRect();
+            const card = el.getBoundingClientRect();
+            const caption = el.querySelector("figcaption")!;
+            const label = caption.getBoundingClientRect();
+            return { top: card.top, trackTop: track.top, height: card.height,
+              labelTop: label.top, labelBottom: label.bottom, bottom: card.bottom,
+              captionFits: caption.scrollWidth <= caption.clientWidth && caption.scrollHeight <= caption.clientHeight };
+          });
+          expect(box.top).toBeCloseTo(box.trackTop, 0);
+          expect(box.height).toBeLessThanOrEqual(height);
+          expect(box.labelTop).toBeGreaterThanOrEqual(box.top);
+          expect(box.labelBottom).toBeLessThanOrEqual(box.bottom);
+          expect(box.captionFits).toBe(true);
+        }
+        const cards = page.locator("#articles article");
+        await expect(cards).toHaveCount(3);
+        for (const card of await cards.all()) {
+          await card.scrollIntoViewIfNeeded();
+          await expect(card.locator("h3")).toBeVisible();
+          const text = await card.evaluate(el => {
+            const box = el.getBoundingClientRect();
+            const heading = el.querySelector("h3")!;
+            const range = document.createRange();
+            range.selectNodeContents(heading);
+            return { title: heading.textContent, height: box.height,
+              lineCount: range.getClientRects().length,
+              clipped: [...el.querySelectorAll("a,h3,.journal-entry-meta,time")].some(node => node.scrollWidth > node.clientWidth + 1 || node.scrollHeight > node.clientHeight + 1),
+              linesFit: [...range.getClientRects()].every(line => line.left >= box.left - 1 && line.right <= box.right + 1 && line.top >= box.top - 1 && line.bottom <= box.bottom + 1),
+              clamp: getComputedStyle(heading).webkitLineClamp };
+          });
+          expect(text.height).toBeLessThanOrEqual(height);
+          expect(text.lineCount).toBeGreaterThan(0);
+          expect(text.clipped, text.title ?? "article").toBe(false);
+          expect(text.linesFit, text.title ?? "article").toBe(true);
+          expect(text.clamp).toBe("none");
+        }
       });
     }
   });

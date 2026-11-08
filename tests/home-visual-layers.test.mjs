@@ -14,6 +14,22 @@ const section = (html, id) => {
   return value;
 };
 
+test("the five reference logos fit the 1060px desktop budget without wrapping", () => {
+  const { ClientLogoStrip } = loader("fr")("src/system/components/PublicEvidence.tsx");
+  const html = renderToStaticMarkup(createElement(ClientLogoStrip));
+  const primary = html.split('<div class="logo-set" aria-hidden="true">')[0];
+  const widths = [...primary.matchAll(/class="client-logo" style="width:([\d.]+)px;/g)].map(m => Number(m[1]));
+  assert.equal(widths.length, 5);
+  // Budget the unwrapped SSR widths, not the container clamped to 1080px.
+  // The browser suite also verifies one row and containment in the strip.
+  const css = readFileSync("src/system/single-page.css", "utf8");
+  const gapToken = css.match(/\.single-page \.logo-strip \{--logo-gap:var\((--brand-s\d+)\)/)[1];
+  const tokens = readFileSync("src/system/brand-os.tokens.css", "utf8");
+  const gap = Number(tokens.match(new RegExp(`${gapToken}:(\\d+)px`))[1]);
+  const width = widths.reduce((total, value) => total + value, 0) + (widths.length - 1) * gap;
+  assert.ok(width <= 1060, `unwrapped reference strip: ${width}px > 1060px`);
+});
+
 test("only the twelve selected photo exports are shipped, with traced source hashes", () => {
   assert.equal(manifest.length, 3);
   const files = manifest.flatMap(p => p.files.map(f => f.file.split("/").at(-1)));

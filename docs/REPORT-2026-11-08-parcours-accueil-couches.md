@@ -1,3 +1,103 @@
+# Compte rendu — correctif 2, 08/11/2026
+
+Dernier amendement traité sur le checkout demandé, HEAD
+`9fdf14f4e0de665666cc257d297bd9cf6f301412`. Les passes précédentes sont conservées.
+Un correctif CSS et deux corrections de mesure des tests ; validation visuelle
+et CLS non acquises dans cet environnement. Aucun commit, push ni déploiement.
+
+## Sources et diagnostic
+
+FACT / SOURCE / SOURCE_FRESHNESS / EVIDENCE : spec locale amendée et
+`test-results/**/error-context.md`, lus le 08/11/2026, sources du dernier tour
+hôte « 476 réussis / 13 échecs ». La production n’a pas été interrogée.
+
+1. Logos : le groupe mesuré est plafonné à 1080 px et se replie. Les cinq
+   largeurs intrinsèques totalisent 939,74 px ; avec quatre écarts de 64 px,
+   la largeur sans repli serait 1195,74 px. Écart ramené au jeton s3 (24 px) :
+   **1035,74 px**, sous 1060, sans réduire les logos. Le test Node de budget
+   reproduit le défaut avant correction, puis passe.
+2. Mosaïque : la structure SSR et les règles CSS sont identiques avec/sans JS.
+   Les légendes restent superposées dans des cellules de hauteur réservée.
+   Après Home/ArrowRight, le test lisait le sommet de la piste, puis celui des
+   cartes dans des appels distincts. Home n’est intercepté qu’après hydratation.
+   Les quatre traces indiquent des écarts entiers (141, 57, 29 et 130 px),
+   compatibles avec un défilement natif entre les mesures. Les rectangles sont
+   désormais lus dans le même appel, en conservant `toBeCloseTo(top, 0)`.
+   L’hypothèse précise de défilement reste à confirmer sur l’hôte ; aucun défaut
+   CSS de mosaïque n’a été établi, aucun changement de cadrage n’a été ajouté.
+3. Articles : l’échec FR 390 correspond à `expect(homeCards).toEqual(indexCards)` :
+   reçu trois objets d’accueil, attendu `[]`. Le snapshot montre ensuite le
+   Journal avec ces trois articles, dont le titre long cité dans la spec.
+   Cette assertion ne mesure ni troncature ni débordement : `evaluateAll` lisait
+   l’index pendant la navigation. Attendre l’URL et la troisième carte corrige
+   la course, sans modifier l’égalité ni le timeout. Aucun défaut de mise en
+   page d’article n’a été prouvé. Les nouveaux tests vérifient réellement la
+   visibilité et les rectangles de texte des titres mobiles.
+
+La consigne « corriger la cause, pas le test » est traitée sans masquer les
+écarts : les points 2/3 concernent ici la mesure du test, et non une cause CSS
+établie. Ces modifications ne suppriment aucune assertion et n’augmentent aucun
+seuil. Les nouveaux contrôles doivent encore être exécutés sur l’hôte.
+
+## Fichiers modifiés dans cette passe
+
+- `src/system/single-page.css` : seul espacement horizontal des références.
+- `tests/home-visual-layers.test.mjs` : un test calculant le budget de la ligne
+  depuis les dimensions SSR réelles et le jeton CSS, maximum 1060 px.
+- `tests/home-visual-layers.spec.ts` : lecture atomique des sommets des trois
+  pistes mobiles ; huit cas FR/EN × JS actif/inactif × 390×700/375×844 pour les
+  photos/légendes et titres complets du Journal (visibilité, lignes non vides,
+  absence de découpe et de dépassement, hauteur ≤ viewport).
+- `tests/parcours-accueil.spec.ts` : attente de destination avant la comparaison
+  exacte des trois cartes. Contrats d’ordre, données et navigation conservés.
+- `AGENTS.md`, `TRUTH.md`, `AI_CONTEXT.md`, plan et présent rapport : décision,
+  causes établies, résultats et limites.
+
+La spec modifiée et les deux PNG préexistants du handoff ont été conservés
+exactement (SHA256 sauvegardés puis comparés). Les HTML SSR complets FR/EN
+sont identiques avant/après. Aucun asset, permission client, token vendorisé,
+texte public, hero, contact, serveur ou calendrier modifié.
+
+## Vérifications
+
+| Contrôle | Baseline | Candidat |
+|---|---|---|
+| `npm ci --silent` | réussi | dépendances inchangées |
+| `npm run lint` | réussi | réussi |
+| `npm run build -- --webpack` | réussi | réussi |
+| `npm test` | 216/216 | 217/217 |
+| Nouveau budget logos | rouge, 1195,74 px | vert, 1035,74 px |
+| Tests Node couches ciblés | 17/18 avec nouveau test | 18/18 |
+| `npm run test:brand-os` | — | 19/19 |
+| `tsc --noEmit` | — | réussi |
+| `qa:brand:rev01` et `qa:claims:rev01` | — | réussis |
+| `git diff --check` | — | réussi |
+| HTML SSR FR/EN et modifications préexistantes | sauvegardés | identiques |
+| Recensement `qa:network:rev01 -- --list` | — | 497 tests / 15 fichiers |
+
+Build : avertissement préexistant `metadataBase` ; aucune erreur.
+La revue adverse indépendante a confirmé le diagnostic Journal et les seuils
+inchangés. Sa recommandation d’exiger des titres/légendes visibles et des lignes
+de texte non vides a été intégrée aux nouveaux tests.
+
+## Blocages et reprise
+
+Le serveur local ne peut pas écouter : `listen EPERM 127.0.0.1:3210`.
+Chromium s’arrête avant toute navigation : `MachPortRendezvous`, permission
+refusée, SIGTRAP. Les essais de baseline et de batterie finale sont bloqués
+avant de tester le produit : batterie finale arrêtée au premier échec de
+lancement, 496 autres tests non exécutés. Aucune capture ni validation géométrique/CLS
+supplémentaire revendiquée. Aucune permission supplémentaire demandée.
+
+Sur l’hôte : démarrer le build local sur 3210, puis exécuter
+`npm run qa:network:rev01`. Contrôler en particulier les quatre cas mosaïque
+sans JS et les titres mobiles. Si l’alignement atomique échoue, corriger la
+mise en page à partir de cette preuve ; aucun seuil ne doit être réduit.
+Les artefacts de cette passe sont dans `/private/tmp/couches-correctif2/`.
+La production est hors mandat ; aucun déploiement n’a été réalisé.
+
+---
+
 # Compte rendu — correctif passe 2, 08/11/2026
 
 Correctifs de présentation implémentés ; contrôles Node et statiques réussis.

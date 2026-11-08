@@ -1,3 +1,31 @@
+# Correctif 2 — 08/11/2026
+
+Mandat : dernier amendement de la spec locale, checkout demandé par Paul,
+HEAD `9fdf14f4e0de665666cc257d297bd9cf6f301412`. Passes précédentes intégrées.
+Plan couvert par la demande d’implémentation ; aucun commit/push/déploiement.
+
+1. Baseline npm ci, lint, build Webpack, 216 tests Node (réussis).
+2. Réduire le seul espacement des logos pour respecter 1060 px sans réduire
+   leurs dimensions ; regression calculée sur le rendu SSR et les jetons.
+3. Mesurer les sommets piste/cartes dans un même instant (seuil conservé).
+   Vérifier structure SSR, légendes et titres complets sur mobile avec/sans JS.
+4. Synchroniser la navigation Journal avant comparaison exacte des cartes :
+   la trace hôte montre une liste cible encore vide, pas un titre tronqué.
+5. Rejouer mêmes contrôles, types, marque/claims/Brand OS et tenter navigateur ;
+   revue adverse indépendante, rapport distinguant preuves et limites.
+
+TARGET_SYSTEM : dépôt local ; ENVIRONMENT : développement.
+WRITE_SCOPE : CSS, tests, documentation ; REVERSIBLE : oui, diff sur HEAD.
+ROLLBACK : retirer seulement les changements de cette passe.
+BACKUP : empreintes des trois fichiers préexistants dans
+`/private/tmp/couches-correctif2/preexisting.json` ; EXPECTED_ROWS : 0.
+Boucle : une implémentation, revue indépendante, deux corrections au maximum.
+Pas de relance répétée des blocages sandbox (serveur EPERM, Chromium SIGTRAP).
+PRODUCTION_PROOF : hors mandat ; preuve finale de géométrie/CLS à rejouer par
+Claude sur l’hôte comme prévu par la spec.
+
+---
+
 # Correctif passe 2 — 08/11/2026
 
 Mandat : implémentation intégrale de la spec amendée demandée par Paul.
