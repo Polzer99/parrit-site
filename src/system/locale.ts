@@ -8,7 +8,7 @@ export const PATHNAME_HEADER = "x-parrit-pathname";
 
 // Only these pages have translated content and participate in language negotiation.
 export const TRANSLATED_PATHS: readonly string[] = [
-  "/", "/journal", "/legal",
+  "/", "/journal", "/legal", "/rendez-vous",
   "/journal/themes/harness-engineering", "/journal/themes/ai-sprints",
   "/journal/themes/integration-developpement", "/journal/themes/conseil-transformation",
 ];

@@ -1,3 +1,20 @@
+## Appel de 15 minutes, lot A, 08/11/2026
+
+Spec : `docs/CODEX-SPEC-2026-11-08-appel-15-min-lot-a.md`.
+Routes `/rendez-vous` et `/fr/rendez-vous`, noindex/follow hors sitemap ;
+bloc `BookingCall` partagé après le corps d'article et en clôture de thème.
+`booking.ts` filtre source et transmet `metadata[source]`/`utm_*` via la prop
+optionnelle de CalInline, sans stockage ; SDK installé vérifié. Liens du
+registre et buildRdvHref corrigés avec localizedPath et avecSource.
+Accueil, corpus, publication, sitemap et llms inchangés. Les articles gardent
+leur URL canonique EN ; contexte d'interface FR couvert au rendu serveur.
+Baseline : 166 tests Node, lint/build verts. Final : 175/175 Node, 19/19 Brand OS,
+lint, build Webpack, marque et claims réussis. 16 nouveaux tests navigateur
+inclus dans le gate réseau (426 recensés). Serveur refusé par listen EPERM,
+Chromium par MachPortRendezvous/SIGTRAP : aucune capture ni preuve Cal réelle.
+Une revue indépendante et correction des exemptions du test d'identité ;
+aucun commit/push/déploiement. Reprise et fichiers : `docs/appel-15-min/rapport.md`.
+
 ## Retrait des fiches internes du Journal, 04/11/2026
 
 Source : `docs/CODEX-SPEC-2026-11-04-retrait-fiches-internes.md`.

@@ -5,17 +5,20 @@ import { useEffect, useRef, useState } from "react";
 
 import { CAL_LINK_COMMISSION, CAL_LINK_COMMISSION_EN, isPlaceholder } from "../../../site.config";
 import type { Locale } from "@/system/locale";
+import type { BookingParameters } from "@/system/booking";
 
 type ParritCalInlineProps = {
   calLink?: string;
   preview?: boolean;
   locale?: Locale;
+  bookingParams?: BookingParameters;
 };
 
 export function ParritCalInline({
   calLink,
   preview = false,
   locale = "en",
+  bookingParams,
 }: ParritCalInlineProps) {
   const resolvedCalLink = calLink ?? (locale === "fr" ? CAL_LINK_COMMISSION : CAL_LINK_COMMISSION_EN);
   const copy = locale === "fr" ? {
@@ -127,7 +130,7 @@ export function ParritCalInline({
                 namespace="commission"
                 calLink={resolvedCalLink}
                 className="cal-embed"
-                config={{ layout: "month_view", theme: "dark" }}
+                config={{ ...bookingParams, layout: "month_view", theme: "dark" }}
               />
             ) : null}
           </div>

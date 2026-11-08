@@ -8,6 +8,7 @@ import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system
 import { SITE_V1_PAGES, type GuideCopy, type SiteV1PageId } from "@/system/site-v1-pages";
 import { INTEGRATION_COPY } from "@/system/integration-copy";
 import { journalThemeJsonLd } from "@/system/jsonld";
+import { BookingCall } from "@/system/components/BookingCall";
 
 const THEMES = {
   "harness-engineering": { page: "harness-engineering", articles: ["ai-agent-security-in-the-enterprise", "permission-layer-for-coding-agents", "agents-that-fabricate-facts", "the-claim-a-green-pipeline-never-makes"] },
@@ -51,7 +52,7 @@ export default async function JournalThemePage({ params }: Props) {
       {theme === "harness-engineering" && <ul>{(fr ? ["Instructions", "Contexte", "Mémoire", "Outils", "Permissions", "Vérifications", "Supervision", "Coûts"] : ["Instructions", "Context", "Memory", "Tools", "Permissions", "Checks", "Supervision", "Costs"]).map(item => <li key={item}>{item}</li>)}</ul>}
       {copy.faq.length > 0 && <section><h2>{fr ? "Questions fréquentes" : "Frequently asked questions"}</h2>{copy.faq.map(([question, answer]) => <div key={question}><h3>{question}</h3><p>{answer}</p></div>)}</section>}
       <section><h2>Journal</h2><ol className="journal-list">{entries.map(entry => <li key={entry.slug}><Link href={`/journal/${entry.slug}`} hrefLang="en"><div lang="en"><h3>{entry.title}</h3><p>{entry.description}</p></div></Link></li>)}</ol></section>
-      <section><Link className="rev-button exec" href={localizedPath("/#contact", locale)}>{fr ? "Parler d'un projet" : "Talk about a project"}</Link></section>
+      <BookingCall locale={locale} source={`theme-${theme}`} />
     </div></div>
   </main>;
 }

@@ -7,6 +7,7 @@ import { getLocale } from "@/lib/server/locale";
 import { AUTEUR } from "@/system/auteur";
 import { blogPostingJsonLd } from "@/system/jsonld";
 import { HarnessBadge } from "@/system/components";
+import { BookingCall } from "@/system/components/BookingCall";
 import { getAllJournalEntrySummaries, getJournalEntry } from "@/system/journal";
 
 type JournalArticlePageProps = {
@@ -95,6 +96,8 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
         <div className="journal-body" lang="en">
           <ReactMarkdown>{entry.content}</ReactMarkdown>
         </div>
+
+        <BookingCall locale={locale} source={`journal-${entry.slug}`} />
 
         {relatedEntries.length > 0 ? (
           <nav className="journal-related" aria-label={relatedLabel}>

@@ -1,3 +1,20 @@
+## Appel de 15 minutes, décision de Paul du 08/11/2026
+
+La spec `docs/CODEX-SPEC-2026-11-08-appel-15-min-lot-a.md` ajoute
+`/rendez-vous` et `/fr/rendez-vous`, noindex/follow, hors sitemap : titre,
+phrase, calendrier Cal.com existant dans la langue de la page et repli e-mail.
+La source filtrée `[a-z0-9-]{1,80}` rejoint `metadata[source]` ; les `utm_*`
+sont transmis au calendrier sans cookie ni stockage. L'accueil conserve son
+calendrier et son comportement sans ces paramètres.
+Un seul bloc partagé en fin d'article (avant « À lire ensuite ») et de thème
+propose l'appel de 15 minutes avec Paul Larmaraud : un H2, une phrase, un
+bouton exec et le repli e-mail, dans la langue de l'interface ; le corps de
+l'article garde `lang="en"`. Sources `journal-<slug>` et `theme-<theme>`.
+Hors de l'accueil, la destination de rendez-vous est `/rendez-vous`, localisée
+par `localizedPath` et attribuée par `avecSource`. Les règles « Parler d'un
+projet » de l'accueil et du hero restent inchangées. Aucun prix, aucune
+pression ni promesse supplémentaire ; FormIA et publication hors périmètre.
+
 ## Visibilité IA, décision de Paul du 03/11/2026
 
 La spec `docs/CODEX-SPEC-2026-11-03-alignement-visibilite-ia.md` remplace les

@@ -39,7 +39,11 @@ for (const locale of ["en", "fr"]) {
         const attributes = await page.locator("[aria-label], [alt]").evaluateAll((elements) => elements.flatMap((el) => [el.getAttribute("aria-label"), el.getAttribute("alt")]).filter(Boolean).join("\n"));
         for (const pattern of patterns) expect(withoutStatuses(`${text}\n${attributes}`)).not.toMatch(pattern);
         const metadata = await page.locator('title, meta[name="description"], meta[property^="og:"], meta[name^="twitter:"], script[type="application/ld+json"]').evaluateAll((elements) => elements.map((el) => el.getAttribute("content") ?? el.textContent ?? "").join("\n"));
-        const publicCopy = `${text}\n${attributes}\n${metadata}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
+        // Only the approved call block's text is excluded from the old name/duration ban.
+        // Its own full content and forbidden claims are checked by booking.spec.ts.
+        const call = page.locator(".booking-call");
+        const copyOutsideCall = await call.count() ? text.replace(await call.innerText(), "") : text;
+        const publicCopy = `${copyOutsideCall}\n${attributes}\n${metadata}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
         // Preserve HEAD's editorial noOffer scope: article bodies discuss third-party
         // tools (e.g. free libraries); themes are public pages, never articles.
         if (!article) expect(publicCopy).not.toMatch(noOffer);
