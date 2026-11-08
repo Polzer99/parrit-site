@@ -352,7 +352,8 @@
 
 
 @media(max-width:760px){
-  .single-page .scenes {margin-top:16px;}
+  /* Correctif 3, 08/11/2026 : gagner 16 px pour les métriques de fontes Linux. */
+  .single-page :is(#en-production,#in-production) :is(.change-definition,.scenes) {margin-top:var(--brand-s1);}
   .single-page .phone .bar {padding:6px 10px;}
   .single-page .phone .chat {padding:4px;}
 }

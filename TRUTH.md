@@ -1,3 +1,9 @@
+## Correctif 3 — décision de Paul du 08/11/2026
+
+Applications uniquement, à ≤ 760 px : marges au-dessus de la définition et des
+scènes à `--brand-s1` (8 px chacune, gain total 16 px), pour la marge demandée
+sous 700 px à 390×700. Textes, typographie et tests existants conservés.
+
 ## Correctif 2 — décision de Paul du 08/11/2026
 
 Les logos conservent leurs dimensions agrandies ; seul leur espacement passe à

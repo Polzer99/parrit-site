@@ -1,3 +1,63 @@
+# Compte rendu — correctif 3, 08/11/2026
+
+Checkout demandé : `f7fc163`. Les passes précédentes sont déjà implémentées.
+Le dernier amendement de la spec, préexistant, décrit un seul échec Linux :
+Applications EN à 390×700, hauteur de 700,125 px pour un maximum de 700 px.
+Les 497 réussites macOS sont rapportées par cette spec, pas mesurées ici.
+
+## Modification et justification
+
+`src/system/single-page.css` : à ≤ 760 px, uniquement dans `#en-production`
+et `#in-production`, les marges au-dessus de la définition et des scènes passent
+de 16 px chacune à `--brand-s1` (8 px). La cascade existante fixait déjà les
+scènes à 16 px, et non aux 28 px donnés en exemple dans la spec. Les deux
+espacements gagnent donc 16 px au total sans changer texte, taille de police,
+interligne, structure, animation ou comportement du carrousel.
+
+À métriques identiques à la mesure Linux rapportée, la hauteur attendue est
+684,125 px, soit 15,875 px de marge : calcul, **pas une mesure navigateur**.
+Les règles au-dessus de 760 px et les autres sections sont conservées.
+`AGENTS.md` et `TRUTH.md` consignent l'amendement ; `AI_CONTEXT.md` pointe
+sur ce résultat et ses limites.
+
+Plan appliqué : baseline → correction CSS locale → mêmes contrôles → revue
+du diff. Une itération produit ; arrêt des tentatives navigateur après le même
+blocage d'environnement. Écritures locales réversibles, zéro donnée métier,
+aucun service externe. Retour arrière limité aux ajouts de cette passe ; diff
+préexistant sauvegardé dans `/private/tmp/parcours-correctif3-preexisting.patch`.
+
+## Tests et résultats
+
+Aucun test ajouté ni modifié : le correctif 3 prescrit « sans changer aucun
+texte ni aucun test ». Les contrôles FR/EN « un bloc = un écran » existants
+restent strictement identiques, ainsi que tous les seuils et le deny-all.
+
+| Contrôle | Baseline | Candidat |
+| --- | --- | --- |
+| `npm ci --silent` | Réussi | Dépendances inchangées |
+| `npm run lint` | Réussi | Réussi |
+| `npm run build -- --webpack` | Réussi | Réussi |
+| `npm test` | 217/217 | 217/217 |
+| `npx tsc --noEmit` | Inclus dans build | Réussi |
+| `npm run qa:brand:rev01` / `qa:claims:rev01` | — | Réussis |
+| `npm run test:brand-os` | — | 19/19 |
+| `npm run qa:network:rev01 -- --list` | — | 497 tests, 15 fichiers |
+| Playwright | Ciblé FR/EN 390×700 : lancement bloqué | Batterie complète, 1 worker, arrêt au premier échec : lancement bloqué, 496 non exécutés |
+
+Serveur Next : `listen EPERM 127.0.0.1:3210`. Chromium :
+`MachPortRendezvous ... Permission denied`, puis `SIGTRAP`, avant navigation.
+Géométrie réelle FR/EN, marge minimale de 12 px et CLS **non validés ici**.
+À rejouer sur l'hôte avec `npm exec next start -- -H 127.0.0.1 -p 3210`, puis
+`npm run qa:network:rev01`. La CI Linux reste nécessaire pour confirmer le
+cas exact décrit par la spec. Aucun contrôle de production ni déploiement.
+Avertissements préexistants : `metadataBase` au build et type de module
+implicite dans le contrôle claims.
+
+Les empreintes de la spec et des deux PNG préexistants sont identiques avant
+et après cette passe. Aucun commit, push ni déploiement.
+
+---
+
 # Compte rendu — correctif 2, 08/11/2026
 
 Dernier amendement traité sur le checkout demandé, HEAD

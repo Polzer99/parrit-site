@@ -1,3 +1,15 @@
+## Parcours accueil, correctif 3 du 08/11/2026
+
+Source : spec locale amendée, checkout demandé `f7fc163`. Applications uniquement
+à ≤ 760 px : marges définition/scènes de 16 à 8 px chacune (`--brand-s1`), gain
+calculé 16 px pour l'échec Linux à 700,125 px. Textes et tests inchangés.
+Lint, build Webpack, 217 tests Node avant/après, types, marque/claims et
+19 Brand OS réussis. 497 tests navigateur recensés ; serveur EPERM et Chromium
+MachPortRendezvous/SIGTRAP avant navigation. Marge réelle ≥12 px et CLS restent
+à confirmer sur l'hôte/CI Linux. Spec et deux PNG préexistants conservés par
+empreintes ; aucun commit/push/déploiement. Détail :
+`docs/REPORT-2026-11-08-parcours-accueil-couches.md`, correctif 3.
+
 ## Parcours accueil, correctif 2 du 08/11/2026
 
 Source : dernier amendement local, checkout demandé `9fdf14f`. Seul changement
