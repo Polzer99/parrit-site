@@ -1,3 +1,19 @@
+## Hero de conversion, 08/11/2026
+
+Spec `docs/CODEX-SPEC-2026-11-08-hero-conversion.md`, baseline `28d7a43`
+(PR #371 fusionnée). Hero en deux colonnes dès 1100 px, photo réelle prioritaire,
+surtitre, un bouton attribué, preuve et quatre logos autorisés. Mobile/tablette :
+bouton plein, logos 2×2 puis photo 4:3. Schéma trois plans déplacé après les deux
+métiers, titre FR/EN et ancres localisées ; 14 sections, llms régénéré.
+Les douze autres sections et le sous-arbre du schéma ont un SSR identique FR/EN.
+Histoires, minuteur, cartes, citation, permissions et assets conservés.
+Validation : lint/build Webpack, 332→343 tests Node, 19 Brand OS, types,
+marque/claims. 24 cas navigateur ajoutés, 604 recensés ; seuils inchangés.
+Serveur EPERM et Chromium MachPortRendezvous/SIGTRAP avant navigation : géométrie,
+cadrage, CLS et effet production non prouvés. Aucun commit/push/déploiement.
+Spec préexistante et PNG inchangés. Détail :
+`docs/REPORT-2026-11-08-hero-conversion.md`.
+
 ## Action unique, correctifs 3 et 4, 08/11/2026, nuit
 
 Baseline `25d4ddd`, origin/main local `fb4b0d9` (Journal FR et correctif typo).

@@ -5,6 +5,7 @@ import { mkdir } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import founderPhotos from "./fixtures/founder-photo.json";
 import quality from "./fixtures/hero-quality.json";
+import { PUBLIC_CLIENT_NAMES } from "../src/system/public-clients";
 import { test, expect } from "./network-deny.setup";
 const BASE = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 const local = (path: string) => {
@@ -12,6 +13,130 @@ const local = (path: string) => {
   expect(["localhost", "127.0.0.1"]).toContain(url.hostname);
   return url.href;
 };
+
+for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [true, false]) {
+  test.describe(`conversion hero ${locale} JS=${javaScriptEnabled}`, () => {
+    test.use({ javaScriptEnabled });
+    for (const reducedMotion of ["reduce", "no-preference"] as const) {
+      for (const [width, height] of [[1440, 800], [1280, 720], [390, 844]]) {
+        test(`compact proof, symmetry and real photo ${width}x${height} motion=${reducedMotion}`, async ({ page }) => {
+          await page.setViewportSize({ width, height });
+          await page.emulateMedia({ reducedMotion });
+          await page.goto(local(locale === "fr" ? "/fr" : "/"));
+          await page.evaluate(() => document.fonts.ready);
+          const hero = page.locator(".hero");
+          await expect(hero.locator(".exec")).toHaveCount(1);
+          await expect(hero.locator(".ontology-hero, .onto-diagram, .ontocap, .humby")).toHaveCount(0);
+          await expect(page.locator(".single-header > .wrap > a.rev-button")).toHaveClass(/\bghost\b/);
+          await expect(hero.locator(".hero-eyebrow")).toHaveText(locale === "fr"
+            ? "Transformation IA · Développement de logiciels" : "AI transformation · Software development");
+          await expect(hero.locator(".hero-trust-label")).toHaveText(locale === "fr" ? "Ils nous font confiance" : "Trusted by");
+          const image = hero.locator(".hero-photo img");
+          await expect(image).toHaveAttribute("fetchpriority", "high");
+          expect(await image.getAttribute("loading")).not.toBe("lazy");
+          const photo = await image.evaluate(async element => {
+            const img = element as HTMLImageElement;
+            await img.decode();
+            return { src: img.currentSrc, loaded: img.complete && img.naturalWidth > 0,
+              width: Number(img.getAttribute("width")), height: Number(img.getAttribute("height")) };
+          });
+          expect(photo.loaded).toBe(true);
+          expect(new URL(photo.src).origin).toBe(new URL(BASE).origin);
+          expect(new URL(photo.src).pathname).toMatch(/^\/photos\/session\/formation-equipes-[^/]+\.(avif|webp)$/);
+          expect(photo.width).toBeGreaterThan(0);
+          expect(photo.height).toBeGreaterThan(0);
+          await expect(image).toHaveCSS("object-fit", "cover");
+          for (const selector of [".hero-photo", ".hero-photo img"]) {
+            await expect(hero.locator(selector)).toHaveCSS("border-radius", "0px");
+            await expect(hero.locator(selector)).toHaveCSS("box-shadow", "none");
+          }
+          const logos = hero.locator(".hero-client-logos [data-evidence]");
+          await expect(logos).toHaveCount(4);
+          const ids = await logos.evaluateAll(nodes => nodes.map(node => node.getAttribute("data-evidence")));
+          const approved = await page.locator("#references [data-evidence]").evaluateAll(nodes => nodes.map(node => node.getAttribute("data-evidence")));
+          for (const id of ids) { expect(approved).toContain(id); expect(PUBLIC_CLIENT_NAMES).toContain(id); }
+          expect(ids).toEqual(["Toyotomi Europe", "SNCF", "Hiolle Technologies", "Laparra"]);
+          for (const logo of await logos.all()) {
+            await expect(logo).toHaveAttribute("role", "img");
+            await expect(logo).toHaveAttribute("aria-label", /\S/);
+            await expect(logo.locator("img")).toHaveCSS("filter", "brightness(0) invert(1)");
+            const source = await logo.locator("img").getAttribute("src");
+            expect(source).toMatch(/^\/clients\/[^/]+\.(png|svg)$/);
+          }
+          const logoLayout = await hero.locator(".hero-client-logos").evaluate(element => ({
+            rows: [...element.children].map(child => child.getBoundingClientRect().top),
+            scrollable: element.scrollWidth > element.clientWidth && /auto|scroll/.test(getComputedStyle(element).overflowX),
+          }));
+          if (width >= 1100) expect(new Set(logoLayout.rows).size).toBe(1);
+          else if (!logoLayout.scrollable) {
+            expect(logoLayout.rows[0]).toBe(logoLayout.rows[1]);
+            expect(logoLayout.rows[2]).toBe(logoLayout.rows[3]);
+            expect(logoLayout.rows[2]).toBeGreaterThan(logoLayout.rows[0]);
+          }
+          const selectors = [".hero-eyebrow", "h1", ".sub > p", ".exec", ".hero-reassurance", ".hero-trust-label", ".hero-client-logos"];
+          const geometry = await hero.evaluate((element, selectors) => {
+            const nodes = selectors.map(selector => element.querySelector(selector)!);
+            const boxes = nodes.map(node => {
+              const box = node.getBoundingClientRect();
+              return { x: box.x, y: box.y, bottom: box.bottom, width: box.width };
+            });
+            const photo = element.querySelector(".hero-photo")!.getBoundingClientRect();
+            const proof = element.querySelector(".hero-proof")!.getBoundingClientRect();
+            const column = element.querySelector(".hero-intro")!.getBoundingClientRect();
+            return { boxes, order: nodes.every((node, index) => index === 0 || !!(nodes[index - 1].compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING)),
+              photo: { x: photo.x, y: photo.y, bottom: photo.bottom, width: photo.width, height: photo.height },
+              proofTop: proof.top, columnWidth: column.width, heroBottom: element.getBoundingClientRect().bottom,
+              maximumProofGap: parseFloat(getComputedStyle(element).getPropertyValue("--brand-s3")),
+              gutter: parseFloat(getComputedStyle(element).getPropertyValue("--brand-s6")),
+            };
+          }, selectors);
+          expect(geometry.order).toBe(true);
+          for (const box of geometry.boxes) expect(Math.abs(box.x - geometry.boxes[0].x)).toBeLessThanOrEqual(1);
+          for (let index = 1; index < geometry.boxes.length; index++) {
+            const gap = geometry.boxes[index].y - geometry.boxes[index - 1].bottom;
+            expect(gap, `${selectors[index - 1]} to ${selectors[index]}`).toBeGreaterThanOrEqual(0);
+            expect(gap, `${selectors[index - 1]} to ${selectors[index]}`).toBeLessThanOrEqual(48);
+          }
+          expect(geometry.proofTop - geometry.boxes[3].bottom).toBeGreaterThanOrEqual(0);
+          expect(geometry.proofTop - geometry.boxes[3].bottom).toBeLessThanOrEqual(geometry.maximumProofGap);
+          const visibleActions = await page.locator(".exec").evaluateAll(nodes => nodes.filter(node => {
+            const rect = node.getBoundingClientRect();
+            return rect.top < innerHeight && rect.bottom > 0 && rect.width > 0 && rect.height > 0;
+          }).length);
+          expect(visibleActions).toBe(1);
+          if (width >= 1100) {
+            expect(Math.abs(geometry.columnWidth - geometry.photo.width)).toBeLessThanOrEqual(1);
+            expect(Math.abs(geometry.photo.x - geometry.boxes[0].x - geometry.columnWidth - geometry.gutter)).toBeLessThanOrEqual(1);
+            expect(Math.abs(geometry.photo.y - geometry.boxes[0].y)).toBeLessThanOrEqual(4);
+            expect(Math.abs(geometry.photo.bottom - geometry.boxes.at(-1)!.bottom)).toBeLessThanOrEqual(4);
+            if (width === 1440) expect(geometry.heroBottom).toBeLessThanOrEqual(height);
+          } else {
+            for (const box of geometry.boxes.slice(0, 4)) {
+              expect(box.y).toBeGreaterThanOrEqual(0);
+              expect(box.bottom).toBeLessThanOrEqual(height);
+            }
+            expect(Math.abs(geometry.boxes[3].width - geometry.columnWidth)).toBeLessThanOrEqual(1);
+            expect(geometry.photo.y).toBeGreaterThanOrEqual(geometry.boxes.at(-1)!.bottom);
+            expect(Math.abs(geometry.photo.width - geometry.columnWidth)).toBeLessThanOrEqual(1);
+            expect(geometry.photo.width / geometry.photo.height).toBeCloseTo(4 / 3, 2);
+          }
+          const section = page.locator(".ai-tools");
+          await expect(section).toHaveAttribute("id", locale === "fr" ? "fonctionnement" : "how-it-works");
+          expect(await section.evaluate(element => element.previousElementSibling?.id)).toBe(locale === "fr" ? "offres" : "offers");
+          await expect(section.locator("h2")).toHaveText(locale === "fr" ? "Comment l'IA travaille avec vos outils." : "How AI works with your tools.");
+          await expect(section.locator(".onto-diagram, .ontocap, .humby")).toHaveCount(3);
+          await expect(section.locator(".ontocap-sizer")).toHaveCount(4);
+          for (const story of HERO_STORIES) await expect(section.locator(".ontocap-stack")).toContainText(locale === "fr" ? story.title : SINGLE_PAGE_EN[story.title]);
+          if (reducedMotion === "reduce") {
+            expect(await hero.evaluate(element => element.getAnimations({ subtree: true }).length)).toBe(0);
+            await expect(section.locator(".ontology-hero")).toHaveAttribute("data-story", "0");
+            await expect(section.locator(".ontology-hero")).toHaveAttribute("data-step", "4");
+          }
+        });
+      }
+    }
+  });
+}
 test.beforeEach(async ({ page }) => {
   // Only the expected Cal loader is mocked; every other external request fails.
   await page.route("**/embed/embed.js", async route => {
@@ -35,8 +160,8 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     expect(portraitBox).not.toBeNull();
     expect(portraitBox!.width / portraitBox!.height).toBeCloseTo(3 / 4, 2);
     await page.evaluate(() => document.fonts.ready);
-    await expect(page.locator("main > section")).toHaveCount(13);
-    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["references", "terrain", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "bandeau", "questions", "articles", "contact"] : ["references", "in-the-field", "offers", "in-production", "path", "services", "technologies", "team", "bandeau", "questions", "articles", "contact"]);
+    await expect(page.locator("main > section")).toHaveCount(14);
+    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["references", "terrain", "offres", "fonctionnement", "en-production", "parcours", "services", "technologies", "partenaires", "bandeau", "questions", "articles", "contact"] : ["references", "in-the-field", "offers", "how-it-works", "in-production", "path", "services", "technologies", "team", "bandeau", "questions", "articles", "contact"]);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     const mono = await page.locator("main *, footer *, header *").evaluateAll(nodes => nodes.filter(node => {
       const style = getComputedStyle(node);
@@ -60,7 +185,7 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     await expect(page.locator("#contact h2")).not.toHaveText(/\.$/);
     await expect(page.locator("main")).not.toContainText(/Brésil|Brazil|Cameroun|Cameroon|métropole lilloise|Lille area/);
     const smallText = await page.locator("main *, header *, footer *").evaluateAll(nodes => nodes.filter(el => {
-      if (el.closest(".onto-diagram, .onto-ready, .onto-approval")) return false; // Explicit hero type scale, spec 29/10.
+      if (el.closest(".onto-diagram, .onto-ready, .onto-approval")) return false; // Diagram type scale (29/10), retained after its move (08/11).
       if (!(el instanceof HTMLElement) || !el.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })) return false;
       return el.getBoundingClientRect().height > 0 && [...el.childNodes].some(n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim()) && parseFloat(getComputedStyle(el).fontSize) < 15;
     }).map(el => el.textContent?.slice(0, 80)));
@@ -265,7 +390,10 @@ for (const locale of ["fr", "en"] as const) for (const width of [1440, 1280, 102
     const caption = page.locator(".ontocap");
     await expect(region).toHaveAttribute("data-story", "0");
     await expect(region).toHaveAttribute("data-step", "4");
+    // The diagram starts below the fold; enter its new section before
+    // enabling motion so the original visibility/timer contract is exercised.
     await diagram.scrollIntoViewIfNeeded();
+    await expect(diagram).toBeInViewport();
     await page.clock.pauseAt(new Date(epoch.getTime() + 10000));
     const geometry = () => page.locator(".ontocap-stack, .ontocap .onto-now, .ontocap .onto-result").evaluateAll(nodes => nodes.map(node => {
       const box = node.getBoundingClientRect();
@@ -486,7 +614,7 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       const content = section.firstElementChild as HTMLElement;
       return { id: section.id, height: content.getBoundingClientRect().height, scrollHeight: content.scrollHeight, overflowY: getComputedStyle(content).overflowY };
     }));
-    expect(sections).toHaveLength(11);
+    expect(sections).toHaveLength(12);
     for (const section of sections) {
       expect(section.height, `${section.id}: first child's full border box, without margins`).toBeLessThanOrEqual(height);
       expect(section.scrollHeight, `${section.id}: content must not be clipped`).toBeLessThanOrEqual(height);
@@ -545,7 +673,7 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       await expect(button).toHaveCSS("padding", "22px 36px");
       const phrase = (await page.locator(".hero .sub > p").boundingBox())!;
       const action = (await button.boundingBox())!;
-      const figure = (await page.locator(".onto-diagram").boundingBox())!;
+      const figure = (await page.locator(".hero-photo").boundingBox())!;
       expect(action.y).toBeGreaterThanOrEqual(phrase.y + phrase.height);
       expect(action.x + action.width).toBeLessThanOrEqual(figure.x);
     } else {
@@ -560,7 +688,7 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       expect(hero.y).toBeGreaterThanOrEqual(header.y + header.height);
       expect(hero.y + hero.height).toBeLessThanOrEqual(height);
       // The 29/10 title scale changes; the full-hero viewport limit is unchanged.
-      for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance", ".onto", ".ontocap", ".humby"]) {
+      for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance", ".hero-client-logos", ".hero-photo"]) {
         const box = (await page.locator(selector).boundingBox())!;
         expect(box.y).toBeGreaterThanOrEqual(0);
         expect(box.y + box.height, selector).toBeLessThanOrEqual(height);
@@ -571,15 +699,15 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
 }
 
 for (const locale of ["fr", "en"]) for (const width of [375, 390, 768, 1024, 1199, 1200, 1280, 1440]) {
-  test(`three-plane hero fits without clipped icons or labels ${locale} ${width}`, async ({ page }) => {
+  test(`three-plane section fits without clipped icons or labels ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 800 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
     await page.evaluate(() => document.fonts.ready);
     const diagram = page.locator(".onto-diagram");
     const box = (await diagram.boundingBox())!;
-    const hero = (await page.locator(".hero").boundingBox())!;
-    const action = (await page.locator(".hero .exec").boundingBox())!;
+    const section = (await page.locator(".ai-tools").boundingBox())!;
+    const heading = (await page.locator(".ai-tools h2").boundingBox())!;
     const caption = (await page.locator(".ontocap-stack").boundingBox())!;
     const quote = (await page.locator(".humby").boundingBox())!;
     await expect(page.locator(".onto-node")).toHaveCount(33);
@@ -592,10 +720,10 @@ for (const locale of ["fr", "en"]) for (const width of [375, 390, 768, 1024, 119
     for (const label of await labels.all()) {
       if (!await label.isVisible()) continue;
       const bounds = (await label.boundingBox())!;
-      expect(bounds.x).toBeGreaterThanOrEqual(hero.x);
-      expect(bounds.x + bounds.width).toBeLessThanOrEqual(hero.x + hero.width);
-      expect(bounds.y).toBeGreaterThanOrEqual(hero.y);
-      expect(bounds.y + bounds.height).toBeLessThanOrEqual(hero.y + hero.height);
+      expect(bounds.x).toBeGreaterThanOrEqual(section.x);
+      expect(bounds.x + bounds.width).toBeLessThanOrEqual(section.x + section.width);
+      expect(bounds.y).toBeGreaterThanOrEqual(section.y);
+      expect(bounds.y + bounds.height).toBeLessThanOrEqual(section.y + section.height);
       expect(bounds.x).toBeGreaterThanOrEqual(box.x);
       expect(bounds.x + bounds.width).toBeLessThanOrEqual(box.x + box.width + 1);
     }
@@ -620,27 +748,20 @@ for (const locale of ["fr", "en"]) for (const width of [375, 390, 768, 1024, 119
     for (const plane of planeBoxes) { expect(plane.width).toBeGreaterThan(600); expect(plane.height).toBeGreaterThan(140); }
     if (width < 1200) {
       expect(box.width).toBeLessThanOrEqual(560);
-      expect(box.y).toBeGreaterThanOrEqual(action.y + action.height);
+      expect(box.y).toBeGreaterThanOrEqual(heading.y + heading.height);
       expect(caption.y).toBeGreaterThanOrEqual(box.y + box.height);
       expect(quote.y).toBeGreaterThanOrEqual(caption.y + caption.height);
       expect(box.x + box.width / 2).toBeCloseTo(width / 2, 0);
       for (const label of await diagram.locator(".onto-label, .onto-zone, .onto-layer > span").all()) await expect(label).toBeHidden();
-      const actions = (await page.locator(".hero .actions").boundingBox())!;
-      if (width <= 760) expect(action.width).toBeCloseTo(actions.width, 0);
-      else {
-        expect(action.width).toBeLessThan(actions.width * .6);
-        expect(action.x).toBeCloseTo(actions.x, 0);
-        await expect(page.locator(".hero .exec")).toHaveCSS("white-space", "nowrap");
-      }
       if (width === 390) {
         await expect(page.locator(".hero h1")).toHaveCSS("font-size", "38px");
         await expect(page.locator(".hero h1")).toHaveCSS("line-height", "43px");
       }
     } else {
       expect(caption.x + caption.width).toBeLessThanOrEqual(box.x);
-      expect(caption.y).toBeGreaterThanOrEqual(action.y + action.height);
-      expect(quote.x).toBeCloseTo(box.x, 0);
-      expect(quote.y).toBeGreaterThanOrEqual(box.y + box.height);
+      expect(caption.y).toBeGreaterThanOrEqual(heading.y + heading.height);
+      expect(quote.x).toBeCloseTo(caption.x, 0);
+      expect(quote.y).toBeGreaterThanOrEqual(caption.y + caption.height);
       for (const label of await diagram.locator(".onto-label, .onto-zone, .onto-layer").all()) {
         await expect(label).toBeVisible();
         expect(await label.evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(9);
@@ -662,12 +783,12 @@ for (const locale of ["fr", "en"]) for (const width of [375, 390, 768, 1024, 119
 }
 
 for (const locale of ["fr", "en"]) for (const width of [800, 1024]) {
-  test(`hero tablet button stays intrinsic, left aligned and on one line ${locale} ${width}`, async ({ page }) => {
+  test(`hero tablet button fills the text column, left aligned and on one line ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 768 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
     await page.evaluate(() => document.fonts.ready);
-    const hero = (await page.locator(".hero").boundingBox())!;
+    const column = (await page.locator(".hero-intro").boundingBox())!;
     const phrase = (await page.locator(".hero .sub > p").boundingBox())!;
     const button = page.locator(".hero .exec");
     const geometry = await button.evaluate(el => {
@@ -681,15 +802,14 @@ for (const locale of ["fr", "en"]) for (const width of [800, 1024]) {
         inset: parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth),
       };
     });
-    expect(geometry.width).toBeLessThan(hero.width * .6);
+    expect(geometry.width).toBeCloseTo(column.width, 0);
     expect(geometry.lines).toBe(1);
-    expect(geometry.width).toBeCloseTo(geometry.contentWidth + geometry.inset, 0);
     expect(geometry.x).toBeCloseTo(phrase.x, 0);
-    await expect(button).toHaveCSS("white-space", "nowrap");
+    await expect(button).toHaveCSS("white-space", "normal");
   });
 }
 
-for (const locale of ["fr", "en"]) test(`hero label backgrounds mask links in every story ${locale}`, async ({ page }) => {
+for (const locale of ["fr", "en"]) test(`diagram label backgrounds mask links in every story ${locale}`, async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 800 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   const epoch = new Date("2026-10-29T12:00:00Z");
@@ -698,6 +818,8 @@ for (const locale of ["fr", "en"]) test(`hero label backgrounds mask links in ev
   await page.evaluate(() => document.fonts.ready);
   await page.clock.pauseAt(new Date(epoch.getTime() + 10000));
   const region = page.locator(".ontology-hero");
+  await region.locator(".onto-diagram").scrollIntoViewIfNeeded();
+  await expect(region.locator(".onto-diagram")).toBeInViewport();
   const surfaces = region.locator(".onto-geo-desktop .onto-surface");
   const background = await surfaces.first().evaluate(el => getComputedStyle(el).fill);
   for (const surface of await surfaces.all()) {
@@ -714,7 +836,7 @@ for (const locale of ["fr", "en"]) test(`hero label backgrounds mask links in ev
   });
   expect(background).toBe(expectedPlane);
   expect(background).not.toBe("rgba(0, 0, 0, 0)");
-  const heroBackground = await page.locator(".single-page .hero").evaluate(el => getComputedStyle(el).backgroundColor);
+  const sectionBackground = await page.locator(".single-page .ai-tools").evaluate(el => getComputedStyle(el).backgroundColor);
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await expect(region).toHaveAttribute("data-step", "0");
   for (let story = 0; story < HERO_STORIES.length; story++) {
@@ -728,7 +850,7 @@ for (const locale of ["fr", "en"]) test(`hero label backgrounds mask links in ev
     }
     for (const zone of await region.locator(".onto-zone").all()) {
       await expect(zone).toBeVisible();
-      await expect(zone).toHaveCSS("background-color", heroBackground);
+      await expect(zone).toHaveCSS("background-color", sectionBackground);
     }
     for (const label of await region.locator(".onto-label, .onto-zone").all()) {
       await expect(label).toBeVisible();
@@ -741,14 +863,14 @@ for (const locale of ["fr", "en"]) test(`hero label backgrounds mask links in ev
 });
 
 for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 800 }]) for (const locale of ["fr", "en"]) {
-  test(`hero plane names mask links with the page background ${locale} ${viewport.width}`, async ({ page }) => {
+  test(`diagram plane names mask links with their section background ${locale} ${viewport.width}`, async ({ page }) => {
     await page.setViewportSize(viewport);
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
-    const hero = page.locator(".single-page .hero");
-    const background = await hero.evaluate(el => getComputedStyle(el).backgroundColor);
+    const section = page.locator(".single-page .ai-tools");
+    const background = await section.evaluate(el => getComputedStyle(el).backgroundColor);
     expect(background).not.toBe("rgba(0, 0, 0, 0)");
-    const names = hero.locator(".onto-layer b");
+    const names = section.locator(".onto-layer b");
     await expect(names).toHaveCount(3);
     for (const name of await names.all()) {
       await expect(name).toBeVisible();

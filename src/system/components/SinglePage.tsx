@@ -10,7 +10,7 @@ import { QuickCapture } from "./QuickCapture";
 import { AppointmentLink } from "./AppointmentLink";
 import { PUBLIC_CLIENT_NAMES } from "@/system/public-clients";
 import { getSiteEvidence } from "@/lib/registry/preuves";
-import { ClientLogoStrip, ResearchPartner } from "./PublicEvidence";
+import { ClientLogoStrip, HeroClientLogos, ResearchPartner } from "./PublicEvidence";
 import { ServiceGrid } from "./ServiceGrid";
 import { ConversationMotion } from "./ConversationMotion";
 import { OntologyHero } from "./OntologyHero";
@@ -18,7 +18,7 @@ import { PathWalker } from "./PathWalker";
 import { RevealOnView } from "./RevealOnView";
 import { TechnologyBand } from "./TechnologyBand";
 import { MobileCarousel } from "./MobileCarousel";
-import { SessionPhotos } from "./SessionPhotos";
+import { HeroSessionPhoto, SessionPhotos } from "./SessionPhotos";
 import { SectionEntrance } from "./SectionEntrance";
 import { BrandConnector } from "./BrandConnector";
 import { ServiceTasks } from "./ServiceTasks";
@@ -30,9 +30,9 @@ export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { 
  const t = (text: string) => fr ? text : SINGLE_PAGE_EN[text];
  const sections = {
 hero: (
-<section className="hero"><div className="wrap">
-  <OntologyHero locale={locale}>
+<section className="hero"><div className="wrap conversion-hero">
     <div className="hero-intro">
+      <p className="hero-eyebrow">{fr ? "Transformation IA · Développement de logiciels" : "AI transformation · Software development"}</p>
       <h1>{headings.hero[0]}{" "}<b>{headings.hero[1]}</b></h1>
       <div className="sub">
         <p>{t("Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent.")}</p>
@@ -40,11 +40,14 @@ hero: (
           <div className="actions">
             <AppointmentLink locale={locale} query={contactQuery} placement="hero"><BrandConnector/></AppointmentLink>
           </div>
-          <p className="hero-reassurance">{t("Vos équipes gardent la décision. Aucune relance automatique.")}</p>
+          <div className="hero-proof">
+            <p className="hero-reassurance">{t("Vos équipes gardent la décision. Aucune relance automatique.")}</p>
+            <HeroClientLogos locale={locale}/>
+          </div>
         </div>
       </div>
     </div>
-  </OntologyHero>
+  <HeroSessionPhoto locale={locale}/>
 </div></section>
 
 
@@ -72,6 +75,13 @@ offers: (
     </article>)}
   </MobileCarousel>
   <p className="offers-audience">{copy.offersAudience}</p>
+</div></section>
+
+),
+tools: (
+<section className="ai-tools" id={fr ? "fonctionnement" : "how-it-works"} data-regime="canard"><div className="wrap">
+  <h2>{headings.tools[0]}</h2>
+  <OntologyHero locale={locale}/>
 </div></section>
 
 ),

@@ -36,3 +36,18 @@ export function SessionPhotos({ locale }: { locale: Locale }) {
     </MobileCarousel>
   </div></section>;
 }
+
+/** The same authorized export as the field mosaic, loaded immediately for LCP. */
+export function HeroSessionPhoto({ locale }: { locale: Locale }) {
+  const { id, width, height, caption, alt } = photos[0];
+  const base = `/photos/session/${id}`;
+  const sizes = "(min-width: 1100px) calc((min(100vw, 1440px) - 128px) / 2), calc(100vw - 40px)";
+  return <figure className="hero-photo" data-photo={id}>
+    <picture>
+      <source type="image/avif" srcSet={`${base}-480.avif 480w, ${base}-${width}.avif ${width}w`} sizes={sizes}/>
+      <source type="image/webp" srcSet={`${base}-480.webp 480w, ${base}-${width}.webp ${width}w`} sizes={sizes}/>
+      <img src={`${base}-${width}.webp`} width={width} height={height} loading="eager" fetchPriority="high" alt={alt[locale]}/>
+    </picture>
+    <figcaption>{caption[locale]}</figcaption>
+  </figure>;
+}

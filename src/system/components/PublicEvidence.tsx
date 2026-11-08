@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import type { Locale } from "@/system/locale";
 import type { CSSProperties } from "react";
 import { getSiteEvidence, publicationLogo, RESEARCH_PARTNER } from "@/lib/registry/preuves";
 export function ClientReference({ id, children }: { id: string; children: React.ReactNode }) {
@@ -30,4 +31,26 @@ export function ClientLogoStrip() {
         <img src={logo.file} loading="lazy" alt="" aria-hidden="true" width={logo.width} height={logo.height} style={{ "--logo-cycle": `${logos.length * 1.6}s`, "--logo-delay": `${index * 1.6}s` } as CSSProperties}/>
       </span>) }
     </div></div></div>;
+}
+
+/** Both naming and logo permission are checked before choosing the proof row. */
+export function HeroClientLogos({ locale }: { locale: Locale }) {
+  const authorized = logoDimensions.flatMap(([id, width, height]) => {
+    const evidence = getSiteEvidence(id, "home");
+    const file = evidence && publicationLogo(evidence.logo);
+    return file && evidence ? [{ id, name: evidence.display_name, file, width, height }] : [];
+  });
+  const preferred = ["Toyotomi Europe", "SNCF", "Hiolle Technologies", "Laparra"];
+  const logos = preferred.every(id => authorized.some(logo => logo.id === id))
+    ? preferred.flatMap(id => authorized.filter(logo => logo.id === id))
+    : authorized.slice(0, 4);
+  if (!logos.length) return null;
+  return <>
+    <p className="hero-trust-label">{locale === "fr" ? "Ils nous font confiance" : "Trusted by"}</p>
+    <div className="hero-client-logos">
+      {logos.map(logo => <span key={logo.id} data-evidence={logo.id} role="img" aria-label={logo.name}>
+        <img src={logo.file} alt="" aria-hidden="true" width={logo.width} height={logo.height}/>
+      </span>)}
+    </div>
+  </>;
 }

@@ -154,7 +154,7 @@ for (const locale of ["fr", "en"] as const) {
       await page.setViewportSize({ width, height: 844 });
       await page.goto(`${BASE_URL}${home}`);
       await page.evaluate(() => document.fonts.ready);
-      await expect(page.locator("main > section")).toHaveCount(13);
+      await expect(page.locator("main > section")).toHaveCount(14);
       for (const heading of await page.locator("main h3").all()) await expect(heading).toHaveCSS("font-size", "22px");
       expect(await page.locator("main").innerText()).not.toMatch(/FormIA|Content Factor|usines? de contenu/i);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
