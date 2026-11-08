@@ -8,7 +8,7 @@ import { localizedPath, type Locale } from "@/system/locale";
 export function ContactIntentLink({ locale, intent, placement, query = "", primary = false, children }: {
   locale: Locale;
   intent: "formation" | "priorites" | "projet" | "grands-groupes" | "pme";
-  placement: "hero" | "parcours" | "offres";
+  placement: "hero" | "parcours" | "offres" | "terrain" | "bandeau";
   query?: string;
   primary?: boolean;
   children: ReactNode;

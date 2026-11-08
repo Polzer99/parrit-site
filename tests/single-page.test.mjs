@@ -6,7 +6,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
-const anchors = { fr: ["references", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "questions", "articles", "contact"], en: ["references", "offers", "in-production", "path", "services", "technologies", "team", "questions", "articles", "contact"] };
+const anchors = { fr: ["references", "terrain", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "questions", "articles", "bandeau", "contact"], en: ["references", "in-the-field", "offers", "in-production", "path", "services", "technologies", "team", "questions", "articles", "bandeau", "contact"] };
 function heroGeometries(html) {
   return [...html.matchAll(/<g class="onto-geo onto-geo-(desktop|compact)">([\s\S]*?)(?=<g class="onto-geo |<\/svg>)/g)];
 }
@@ -57,7 +57,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   const journalLink = new RegExp(`href="${locale === "fr" ? "/fr" : ""}/journal"`);
   assert.match(main, journalLink);
   assert.match(footer, journalLink);
-  assert.equal((html.match(/<section\b/g) ?? []).length, 11);
+  assert.equal((html.match(/<section\b/g) ?? []).length, 13);
   assert.deepEqual([...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]), anchors[locale]);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
   // Decision of 08/11/2026: the descriptive offer is now the hero subtitle.
@@ -254,7 +254,7 @@ for (const locale of ["fr", "en"]) test(`passe 4 complete SSR use cases, offers 
   assert.equal((html.match(/class="use-case"[^>]*aria-live="off" data-case="0"/g) ?? []).length, 12);
   assert.equal((html.match(/class="tag bo"/g) ?? []).length, 24);
   assert.equal((html.match(/class="tag new"/g) ?? []).length, 24);
-  assert.equal((html.match(/class="swipe-dots"/g) ?? []).length, 6);
+  assert.equal((html.match(/class="swipe-dots"/g) ?? []).length, 7);
   assert.doesNotMatch(html, /id="architecture"|class="flowmap|\/tools\//);
   const { SITE_EVIDENCE } = loader(locale)("src/lib/registry/preuves.ts");
   assert.match(SITE_EVIDENCE.find(item => item.id === "Laparra").claim, /pilotage agentique/);

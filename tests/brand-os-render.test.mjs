@@ -163,7 +163,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         if (route === "/") {
           assert.match(html, /<section class="hero"/);
           const ids = [...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]);
-          const expected = locale === "fr" ? ["references", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "questions", "articles", "contact"] : ["references", "offers", "in-production", "path", "services", "technologies", "team", "questions", "articles", "contact"];
+          const expected = locale === "fr" ? ["references", "terrain", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "questions", "articles", "bandeau", "contact"] : ["references", "in-the-field", "offers", "in-production", "path", "services", "technologies", "team", "questions", "articles", "bandeau", "contact"];
           // The compiled contact also contains QuickCapture's nested section.
           assert.deepEqual(ids, [...expected, "single-contact"]);
           assert.doesNotMatch(html, /id="architecture"/);

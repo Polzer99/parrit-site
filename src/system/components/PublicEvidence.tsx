@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import type { CSSProperties } from "react";
 import { getSiteEvidence, publicationLogo, RESEARCH_PARTNER } from "@/lib/registry/preuves";
 export function ClientReference({ id, children }: { id: string; children: React.ReactNode }) {
   const evidence = getSiteEvidence(id, "home");
@@ -25,6 +26,8 @@ export function ClientLogoStrip() {
   if (!logos.length) return null;
   return <div className="logo-strip" tabIndex={0} role="region" aria-label="Clients"><div className="logo-track">{[false, true].map(duplicate =>
     <div key={String(duplicate)} className="logo-set" aria-hidden={duplicate ? "true" : undefined}>
-      {logos.map(logo => <span key={logo.id} data-evidence={logo.id} role="img" aria-label={logo.name} className="client-logo" style={{ maskImage: `url(${logo.file})`, width: logo.width, minHeight: logo.height }}/>) }
+      {logos.map((logo, index) => <span key={logo.id} data-evidence={logo.id} role="img" aria-label={logo.name} className="client-logo" style={{ width: logo.width, minHeight: logo.height }}>
+        <img src={logo.file} loading="lazy" alt="" aria-hidden="true" width={logo.width} height={logo.height} style={{ "--logo-cycle": `${logos.length * 1.6}s`, "--logo-delay": `${index * 1.6}s` } as CSSProperties}/>
+      </span>) }
     </div>)}</div></div>;
 }

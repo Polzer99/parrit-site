@@ -153,13 +153,13 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
     await page.waitForTimeout(25_000);
     expect(calendarRequests, "le calendrier doit encore être différé").toBe(0);
     const sections = page.locator("main > section");
-    await expect(sections).toHaveCount(11);
+    await expect(sections).toHaveCount(13);
     const animatedSectionIds = new Set([
       locale === "fr" ? "en-production" : "in-production",
       "services",
       locale === "fr" ? "partenaires" : "team",
     ]);
-    for (let i = 1; i < 11; i++) {
+    for (let i = 1; i < 13; i++) {
       const destination = await sections.nth(i).evaluate(node => node.getBoundingClientRect().top + scrollY);
       // Défilement progressif : laisse passer les entrées et sorties d'IntersectionObserver.
       await page.evaluate(async destination => {

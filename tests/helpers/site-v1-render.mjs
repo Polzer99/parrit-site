@@ -11,6 +11,7 @@ export function loader(locale, overrides = {}) {
   function load(file) {
     file = path.resolve(file);
     if (cache.has(file)) return cache.get(file);
+    if (file.endsWith(".json")) return JSON.parse(readFileSync(file, "utf8"));
     const compiledModule = { exports: {} }; cache.set(file, compiledModule.exports);
     const code = ts.transpileModule(readFileSync(file, "utf8"), { compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true } }).outputText;
     new Function("require", "module", "exports", code)((id) => {

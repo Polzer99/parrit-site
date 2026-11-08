@@ -16,13 +16,16 @@ import { PathWalker } from "./PathWalker";
 import { RevealOnView } from "./RevealOnView";
 import { TechnologyBand } from "./TechnologyBand";
 import { MobileCarousel } from "./MobileCarousel";
+import { SessionPhotos } from "./SessionPhotos";
+import { SectionEntrance } from "./SectionEntrance";
+import { BrandConnector } from "./BrandConnector";
 import { ServiceTasks } from "./ServiceTasks";
 export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { locale: Locale; contactQuery?: string; latestEntries?: JournalEntrySummary[] }) {
  const copy = HOME_LAYERS[locale];
  const fr = locale === "fr";
  const clients = ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"].filter(id => getSiteEvidence(id, "home"));
  const t = (text: string) => fr ? text : SINGLE_PAGE_EN[text];
- return <main className="single-page" data-brand-mode="accessible"><ConversationMotion/><HomeAnchorRedirect locale={locale}/>
+ return <main className="single-page" data-brand-mode="accessible"><ConversationMotion/><HomeAnchorRedirect locale={locale}/><SectionEntrance/>
 
 
 <section className="hero"><div className="wrap">
@@ -47,11 +50,15 @@ export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { 
   </>}
 </RevealOnView></section>
 
-<section id={fr ? "offres" : "offers"}><div className="wrap">
+<SessionPhotos locale={locale} contactQuery={contactQuery}/>
+
+<section id={fr ? "offres" : "offers"} data-regime="ink"><div className="wrap">
   <h2>{copy.offersTitle}</h2>
   <MobileCarousel className="home-offers" label={copy.offersTitle}>
     {copy.offers.map(offer => <article className="home-offer" key={offer.intent}>
+      <span className="offer-eyebrow">{offer.eyebrow}</span>
       <h3>{offer.title}</h3><p>{offer.description}</p>
+      <ul>{offer.benefits.map(benefit => <li key={benefit}><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="m3 9 4 4 8-9" fill="none" stroke="currentColor" strokeWidth="2"/></svg><span>{benefit}</span></li>)}</ul>
       <ContactIntentLink locale={locale} query={contactQuery} intent={offer.intent} placement="offres">{offer.action}</ContactIntentLink>
     </article>)}
   </MobileCarousel>
@@ -137,6 +144,14 @@ export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { 
     {latestEntries.map(entry => <article key={entry.slug}><JournalCard entry={entry} locale={locale} compact/></article>)}
   </MobileCarousel>
   <a className="btn rev-button ghost home-journal-link" href={localizedPath("/journal", locale)}>{copy.journalLink}</a>
+</div></section>
+
+<section className="final-call" id="bandeau" data-regime="canard"><div className="wrap">
+  <h2>{fr ? "Votre expertise, mise au travail." : "Your expertise, put to work."}</h2>
+  <div className="actions">
+    <ContactIntentLink locale={locale} query={contactQuery} intent="projet" placement="bandeau" primary>{t("Parler d'un projet")}<BrandConnector/></ContactIntentLink>
+    <ContactIntentLink locale={locale} query={contactQuery} intent="formation" placement="bandeau">{t("Former mes équipes")}</ContactIntentLink>
+  </div>
 </div></section>
 
 <section className="founder" id="contact" tabIndex={-1}><div className="wrap"><div className="grid">

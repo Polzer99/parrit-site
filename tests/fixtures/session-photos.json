@@ -1,0 +1,101 @@
+[
+  {
+    "id": "formation-equipes",
+    "source": "Activité de Paul Larmaraud (2).jpeg",
+    "sourceWidth": 1200,
+    "sourceHeight": 1600,
+    "sourceSha256": "1a3f8a67b455bbc6f8131e0e11a8d1ce6fc816a96d2622f6e04469362c23e606",
+    "files": [
+      {
+        "file": "/photos/session/formation-equipes-480.avif",
+        "width": 480,
+        "height": 640,
+        "sha256": "23b51725e37c69dfd963fc3d8ed6cc710f7eb5fa6a9944aa1bfc5ae25d9de8dc"
+      },
+      {
+        "file": "/photos/session/formation-equipes-480.webp",
+        "width": 480,
+        "height": 640,
+        "sha256": "778bb26a9c563dad169b2a5f76d3e66ec8423cb799cd5ba949227a9b17636076"
+      },
+      {
+        "file": "/photos/session/formation-equipes-960.avif",
+        "width": 960,
+        "height": 1280,
+        "sha256": "8e1585d38ced8593abcd2457b4092b8fb8ecb9fe6c1488ac89fedd855ecbab8a"
+      },
+      {
+        "file": "/photos/session/formation-equipes-960.webp",
+        "width": 960,
+        "height": 1280,
+        "sha256": "5cf6bdd03498ac640c52b01f67d7b644f6d31a6316d31cb9c0325a6f27238f05"
+      }
+    ]
+  },
+  {
+    "id": "atelier-outils",
+    "source": "Activité de Paul Larmaraud.jpeg",
+    "sourceWidth": 800,
+    "sourceHeight": 836,
+    "sourceSha256": "c1fd98afe2d5e806eba24e1b060962711c144f2305727209791a6c00ba8e9059",
+    "files": [
+      {
+        "file": "/photos/session/atelier-outils-480.avif",
+        "width": 480,
+        "height": 502,
+        "sha256": "3110a5805d0873d1afe9c7373e4ec27518df9cb0b235d3943ac3210d967bbe43"
+      },
+      {
+        "file": "/photos/session/atelier-outils-480.webp",
+        "width": 480,
+        "height": 502,
+        "sha256": "f2ccc662a8e89ca34cef56f33cfb006b404dc8fa5f892fe8d50c8c5a7c4a0080"
+      },
+      {
+        "file": "/photos/session/atelier-outils-800.avif",
+        "width": 800,
+        "height": 836,
+        "sha256": "0f40baf8f3352652739b6624aad9673dd992c5183366b78abc33b71775c755ee"
+      },
+      {
+        "file": "/photos/session/atelier-outils-800.webp",
+        "width": 800,
+        "height": 836,
+        "sha256": "b4caae1c79cb94133d08efe455c5e7774a14b5f57c82c6e6a54debb51731579d"
+      }
+    ]
+  },
+  {
+    "id": "intervention-dirigeants",
+    "source": "Activité de Paul Larmaraud (1).jpeg",
+    "sourceWidth": 1199,
+    "sourceHeight": 1600,
+    "sourceSha256": "9c1333c9669062c3eecad91e5ac28227e8b6ddf9a294742d1115c3c8b9f81b82",
+    "files": [
+      {
+        "file": "/photos/session/intervention-dirigeants-480.avif",
+        "width": 480,
+        "height": 641,
+        "sha256": "1feb4446f6d32a185f80deeea56086b18deda956e366dd4a37da8658082fa95e"
+      },
+      {
+        "file": "/photos/session/intervention-dirigeants-480.webp",
+        "width": 480,
+        "height": 641,
+        "sha256": "28019ba81aabe8a172f89846af27f56a9f1c29c02b76ed7ab5966ff81679d396"
+      },
+      {
+        "file": "/photos/session/intervention-dirigeants-960.avif",
+        "width": 960,
+        "height": 1281,
+        "sha256": "1f8fc7d3396930d8a05d24ae5bd19366bfad2d536213348292e7955d54bef2e9"
+      },
+      {
+        "file": "/photos/session/intervention-dirigeants-960.webp",
+        "width": 960,
+        "height": 1281,
+        "sha256": "dec5b20e97a892412f45ea79ef557c16275e3618c2ceaaec95d434172f74e0e9"
+      }
+    ]
+  }
+]

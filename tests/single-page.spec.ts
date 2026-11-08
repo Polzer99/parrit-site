@@ -35,8 +35,8 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     expect(portraitBox).not.toBeNull();
     expect(portraitBox!.width / portraitBox!.height).toBeCloseTo(3 / 4, 2);
     await page.evaluate(() => document.fonts.ready);
-    await expect(page.locator("main > section")).toHaveCount(11);
-    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["references", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "questions", "articles", "contact"] : ["references", "offers", "in-production", "path", "services", "technologies", "team", "questions", "articles", "contact"]);
+    await expect(page.locator("main > section")).toHaveCount(13);
+    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["references", "terrain", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "questions", "articles", "bandeau", "contact"] : ["references", "in-the-field", "offers", "in-production", "path", "services", "technologies", "team", "questions", "articles", "bandeau", "contact"]);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     const mono = await page.locator("main *, footer *, header *").evaluateAll(nodes => nodes.filter(node => {
       const style = getComputedStyle(node);
@@ -484,14 +484,14 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       const content = section.firstElementChild as HTMLElement;
       return { id: section.id, height: content.getBoundingClientRect().height, scrollHeight: content.scrollHeight, overflowY: getComputedStyle(content).overflowY };
     }));
-    expect(sections).toHaveLength(9);
+    expect(sections).toHaveLength(11);
     for (const section of sections) {
       expect(section.height, `${section.id}: first child's full border box, without margins`).toBeLessThanOrEqual(height);
       expect(section.scrollHeight, `${section.id}: content must not be clipped`).toBeLessThanOrEqual(height);
       expect(section.overflowY).not.toMatch(/hidden|clip/);
     }
-    const figures = page.locator(".onto-diagram, .onto, .scenes, .home-offers, .home-faq, .home-journal-list, .path-walker, .steps, .service-tasks, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid");
-    await expect(figures).toHaveCount(13);
+    const figures = page.locator(".onto-diagram, .onto, .scenes, .home-offers, .session-mosaic, .home-faq, .home-journal-list, .path-walker, .steps, .service-tasks, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid");
+    await expect(figures).toHaveCount(14);
     for (const figure of await figures.all()) {
       const box = await figure.boundingBox();
       expect(box).not.toBeNull();
@@ -505,10 +505,13 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       }
       if (width === 390) {
         await expect(track).toHaveCSS("scroll-snap-type", "x mandatory");
-        await expect(track).toHaveCSS("align-items", "flex-start");
+        // Décision de Paul du 08/11/2026 : nouvelles grilles intrinsèques ;
+        // leurs sommets et hauteurs restent mesurés, sans seuil assoupli.
+        const intrinsic = await track.evaluate(el => el.matches(".home-offers,.session-mosaic"));
+        if (!intrinsic) await expect(track).toHaveCSS("align-items", "flex-start");
         const top = (await track.boundingBox())!.y;
         for (const card of await track.locator(":scope > *").all()) {
-          await expect(card).toHaveCSS("align-self", "flex-start");
+          if (!intrinsic) await expect(card).toHaveCSS("align-self", "flex-start");
           expect((await card.boundingBox())!.y).toBeCloseTo(top, 0);
         }
         expect(await track.evaluate(el => el.scrollWidth > el.clientWidth)).toBe(true);
@@ -926,12 +929,12 @@ test("partner offers keep at most two faces active and restore every static offe
   for (const offer of await page.locator(".partner-offers li").all()) await expect(offer).toBeVisible();
 });
 
-for (const locale of ["fr", "en"]) test(`six native carousels retain keyboard scrolling and position dots ${locale}`, async ({ page }) => {
+for (const locale of ["fr", "en"]) test(`seven native carousels retain keyboard scrolling and position dots ${locale}`, async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 700 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(local(locale === "fr" ? "/fr" : "/"));
   const tracks = page.locator(".mobile-carousel");
-  await expect(tracks).toHaveCount(6);
+  await expect(tracks).toHaveCount(7);
   for (const track of await tracks.all()) {
     await track.scrollIntoViewIfNeeded();
     await expect.poll(() => track.evaluate(el => el.scrollLeft)).toBe(0);
@@ -1010,7 +1013,8 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
             }
             throw new Error(`Unsupported technology band color token: ${token}=${value}`);
           };
-          const ink = resolve("--ink"), white = resolve("--white"), onInk = resolve("--on-ink");
+          // Passe 2, décision de Paul du 08/11/2026 : bandeau blanc, contraste AA inchangé.
+          const ink = resolve("--ink"), white = resolve("--white"), ink2 = resolve("--ink2");
           const luminance = (color: string) => {
             const rgb = color.match(/[\d.]+/g)!.slice(0, 3).map(Number).map(n => n / 255);
             const linear = rgb.map(n => n <= .04045 ? n / 12.92 : ((n + .055) / 1.055) ** 2.4);
@@ -1019,18 +1023,18 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
           const text = [...section.querySelectorAll<HTMLElement>(".tech-title, .tech-title b, .tech-set:not([aria-hidden]) li span")];
           const background = luminance(style.backgroundColor);
           return {
-            background: style.backgroundColor, ink,
+            background: style.backgroundColor, white,
             clipped: [...section.querySelectorAll<HTMLElement>(".tech-content, .tech-marquee, .tech-track, .tech-set:not([aria-hidden])")]
               .filter(el => el.scrollHeight > el.clientHeight + 1 || /hidden|clip/.test(getComputedStyle(el).overflowY)).map(el => el.className),
             text: text.map(el => {
               const css = getComputedStyle(el);
               const foreground = luminance(css.color);
-              return { name: el.textContent, size: parseFloat(css.fontSize), ratio: (Math.max(background, foreground) + .05) / (Math.min(background, foreground) + .05), color: css.color, expected: el.matches(".tech-title") ? onInk : white };
+              return { name: el.textContent, size: parseFloat(css.fontSize), ratio: (Math.max(background, foreground) + .05) / (Math.min(background, foreground) + .05), color: css.color, expected: el.matches(".tech-title") ? ink2 : ink };
             }),
             animations: section.getAnimations({ subtree: true }).length,
           };
         });
-        expect(audit.background).toBe(audit.ink);
+        expect(audit.background).toBe(audit.white);
         expect(audit.animations).toBe(0);
         expect(audit.clipped).toEqual([]);
         for (const text of audit.text) {

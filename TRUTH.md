@@ -1,3 +1,36 @@
+## Couches visuelles, passe 2 — décision de Paul du 08/11/2026
+
+La passe 2 de `docs/CODEX-SPEC-2026-11-08-parcours-accueil-couches.md` complète
+la passe 1. Treize sections : hero, références, terrain, offres, applications,
+parcours, services, technologies, équipe, questions, derniers articles, bandeau
+final, fondateur/contact. Navigation de la passe 1 conservée ; `#terrain` /
+`#in-the-field` suivent la bascule de langue.
+
+Vraies photos de session autorisées, décision de Paul du 08/11/2026, provenance
+dans `public/photos/session/SOURCES.md` ; aucune image générée par IA ni photo de
+banque. Exception limitée aux trois photos choisies, remplaçant pour elles
+« aucune photo de remplacement avant AV-3 ». Cadrages entiers, AVIF/WebP 480/960
+(atelier limité à sa source de 800 px), sans EXIF/GPS ni retouche. Portrait du
+contact et certification Qualiopi inchangés.
+
+Références : mêmes permissions et fichiers, pixels sources sans recoloration, éclairage CSS
+successif toutes les 1,6 s, pause survol/focus ; statiques en pleine couleur en
+mouvement réduit. Limite actuelle : les cinq fichiers autorisés sont monochromes ;
+la restitution couleur attend des originaux couleur. Offres : fond encre, surtitres
+et trois coches SVG par carte,
+trois actions ghost alignées en pied. Fonds : références/parcours/technologies/
+équipe/articles blancs, terrain/services sauge, applications/FAQ blanc cassé,
+bandeau final canard. Seuls fonds et couleurs contextuelles changent dans les
+sections existantes ; hero et contact conservés.
+
+Terrain : une action formation (`intention-formation-terrain`). Bandeau final :
+projet exec (`intention-projet-bandeau`, connecteur canon VS-CONNECTOR), puis
+formation ghost (`intention-formation-bandeau`). Attribution/UTM conservés.
+Apparition unique 400 ms / 16 px maximum, ajoutée par JS ; contenu visible sans
+JS et en mouvement réduit. Aucun seuil géométrique, contraste ou CLS assoupli.
+Les anciennes mentions de fonds, photos et absence de surtitres ne s'appliquent
+plus au périmètre explicitement amendé ici.
+
 ## Parcours de l’accueil par couches, décision de Paul du 08/11/2026
 
 `docs/CODEX-SPEC-2026-11-08-parcours-accueil-couches.md` remplace les anciens

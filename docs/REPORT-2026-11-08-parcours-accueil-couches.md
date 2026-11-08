@@ -1,3 +1,116 @@
+# Compte rendu — passe 2, couches visuelles, 08/11/2026
+
+**État : passe 2 codée et contrôles locaux réussis ; validation complète non
+acquise.** Deux limites restent : originaux couleur des logos manquants et
+navigateur bloqué dans cet environnement. Aucun commit, push ni déploiement.
+
+## Périmètre et préservation
+
+Source : spec locale amendée par Paul, HEAD initial
+`f2f1abafefe8769bae1779d6ceac7245d524e0b6`. La passe 1 était déjà intégrée.
+Seule la spec était modifiée à l'entrée ; elle est conservée octet pour octet
+(comparaison avec `/private/tmp/couches-passe2-spec-original.md`). Les photos
+sources externes sont restées en lecture seule. Aucun PNG du handoff modifié.
+Écritures locales réversibles, aucune donnée métier ni service client modifié.
+
+## Fichiers et comportement
+
+| Fichiers | Modifications |
+| --- | --- |
+| `src/system/components/SinglePage.tsx` | Insertion du terrain après les références et du bandeau avant le contact ; 13 sections. Listes d'offres avec trois coches SVG. |
+| `components/SessionPhotos.tsx` | Trois photos entières, légendes et alt FR/EN, picture AVIF/WebP, dimensions explicites, chargement différé ; mosaïque ordinateur et carrousel natif mobile. |
+| `public/photos/session/`, `scripts/prepare-session-photos.mjs`, `tests/fixtures/session-photos.json` | 12 exports, provenance et SHA256 ; décodage des trois originaux avant écriture, pixels sans EXIF/GPS/XMP/IPTC/ICC, sans retouche ni crop. Largeurs 480/960 ; atelier limité à 800, largeur source. Environ 672 Kio au total. |
+| `components/PublicEvidence.tsx` | Images sources locales à la place des masques CSS, éclairage successif CSS, permissions inchangées. Aucun minuteur ajouté. |
+| `components/SectionEntrance.tsx` | IntersectionObserver indépendant des animations internes : apparition unique 400 ms, translation 16 px, nettoyage au démontage, changement de préférence pris en compte. SSR visible, aucune classe d'état en mouvement réduit. |
+| `components/BrandConnector.tsx` | Flèche SVG avec tige et tête pleine calculées depuis `brand-os.connectors.json`, pas de glyphe typographique. |
+| `components/ContactIntentLink.tsx`, `home-anchors.ts` | Placements terrain/bandeau et ancre terrain bilingue ; source/UTM et formulaire conservés. |
+| `src/system/home-layers.ts`, `single-page.css` | Surtitres et bénéfices autorisés FR/EN, cartes encre et actions alignées par sous-grille, fonds alternés et couleurs contextuelles. Le cadrage mobile conserve la photo entière dans un espace à 36svh/plafond 320 px. |
+| `AGENTS.md`, `TRUTH.md`, `AI_CONTEXT.md`, plan et présent rapport | Décision datée, exception limitée aux trois vraies photos, nouveaux contrats et limites documentées. |
+| `public/clients/SOURCES.md` | Limite des originaux monochromes documentée ; aucun logo recoloré arbitrairement. |
+| `package.json` | Nouvelle spec navigateur dans `qa:network:rev01`, aucune dépendance ajoutée. |
+
+Les chemins de composants et registres abrégés ci-dessus sont sous `src/system/`.
+Les neuf sections conservées (hero, applications, parcours, services,
+technologies, équipe, questions, articles, contact) ont un HTML SSR strictement
+identique à la baseline en FR et EN. Les couleurs prévues par la passe 2 changent
+par CSS ; hero et contact restent inchangés. Aucun registre de permissions,
+serveur de capture, calendrier, article, métadonnée SEO ni jeton vendorisé modifié.
+
+## Tests ajoutés et adaptés
+
+- `tests/home-visual-layers.test.mjs` : **15 nouveaux tests Node**. Exports et
+  empreintes, en-têtes sans métadonnées, dimensions sans agrandissement/crop,
+  rendu SSR FR/EN des photos/coches/liens, source/UTM, connecteur canon,
+  images autorisées, bascule terrain, contrastes des paires de jetons >= 4,5,
+  cycle de l'observateur et nettoyage/changement de préférence.
+- `tests/home-visual-layers.spec.ts` : **20 nouveaux tests navigateur** FR/EN,
+  avec/sans JS, 1440×800, 1280×720, 390×700 et 375×844. Chargement local des
+  images, mosaïque/carrousel/clavier, contrastes calculés, boutons alignés à 1 px,
+  attribution sans perte du formulaire, pause et filtre des logos, apparition
+  unique. Captures prévues dans les sorties des tests, pas dans le handoff.
+- Contrats existants adaptés dans `parcours-accueil.{test.mjs,spec.ts}`,
+  `single-page.{test.mjs,spec.ts}`, `intentions.test.mjs`, `brand-os-render.test.mjs`,
+  `doctrine-visible.spec.ts`, `stabilite.spec.ts` : 13 sections, 7 carrousels,
+  11 liens d'intention, 14 figures et bandeau technologies clair. Stabilité :
+  seuls le nombre de sections et la boucle de parcours changent (11 vers 13).
+- `tests/helpers/site-v1-render.mjs` sait lire le contrat JSON du connecteur.
+  Aucun seuil de hauteur, contraste, stabilité, CLS ou réseau assoupli.
+
+## Résultats
+
+| Contrôle | Baseline | Candidat |
+| --- | --- | --- |
+| `npm ci --silent` | Réussi | Réussi |
+| `npm run lint` | Réussi | Réussi, sans avertissement nouveau |
+| `npm run build -- --webpack` | Réussi | Réussi |
+| `npm test` | 199/199 | **214/214** |
+| `npx tsc --noEmit` | — | Réussi ; types également vérifiés par le build |
+| `npm run qa:brand:rev01` | — | Réussi |
+| `npm run qa:claims:rev01` | — | Réussi |
+| `npm run test:brand-os` | — | **19/19** |
+| `git diff --check` | — | Réussi |
+| `qa:network:rev01 -- --workers=1 --max-failures=1` | — | Bloqué au lancement Chromium, 1 échec infrastructure / 486 non exécutés |
+
+Avertissements préexistants : `metadataBase` sur certaines sorties Next et
+`MODULE_TYPELESS_PACKAGE_JSON` pour le registre clients. Pas de dépendance ajoutée.
+Logs locaux : `/private/tmp/parrit-couches-{baseline-tests,final-tests,final-brand,browser}.log`.
+
+## Revue et limites
+
+Revue adverse indépendante effectuée en lecture seule. Corrections : décompte
+des figures, compatibilité des assertions d'alignement avec les nouvelles
+grilles, budget de hauteur mobile, preuve réelle du déplacement au clavier.
+La relecture a également identifié les logos monochromes.
+
+**Couleur des logos non satisfaite :** les quatre PNG autorisés sont des masques
+sans pixels colorés et le SVG SNCF est noir. Les copies locales retrouvées sont
+également monochromes. L'animation retire bien le filtre dans le code, mais ne
+peut créer des couleurs absentes. La récupération CLI a échoué en résolution
+DNS. Des sources couleur de ces cinq mêmes marques ont été demandées à Paul ;
+aucune recoloration ni substitution inventée. Les tests CSS de filtre ne sont
+pas présentés comme une preuve de restitution des couleurs.
+
+**Preuve navigateur non acquise :** `next start` échoue avec
+`listen EPERM 127.0.0.1:3210` ; Chromium termine avant navigation avec
+`MachPortRendezvous`, permission denied, `SIGTRAP`. Les 20 nouveaux tests sont
+recensés, pas validés. La batterie complète comprend 487 tests. Captures,
+géométrie réelle, alignement calculé, interactions, contrastes calculés et CLS
+restent à vérifier sur l'hôte. Les contrastes des paires de jetons sont validés
+par Node, ce qui ne remplace pas le contrôle du rendu effectif.
+
+Le contrôle automatique a en outre refusé une commande de recensement Playwright,
+la classant comme simulation de touche WhatsApp. Aucun envoi n'était prévu ; ce
+refus n'a pas été contourné. Production non testée : déploiement hors mandat.
+
+Sur l'hôte : lancer le serveur local sur 3210 après build, puis
+`npm run qa:network:rev01`. Vérifier les captures et tous les seuils avant
+validation. Remplacer les seuls fichiers de logos par des originaux couleur
+sourcés, puis rejouer les permissions, Brand OS et le test d'éclairage.
+
+---
+
+# Historique — passe 1
+
 # Compte rendu — parcours de l’accueil par couches
 
 Spec : `CODEX-SPEC-2026-11-08-parcours-accueil-couches.md`, décision de Paul du

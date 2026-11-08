@@ -1,3 +1,26 @@
+## Couches visuelles, passe 2 du 08/11/2026
+
+Source : spec locale amendée, baseline `f2f1abafefe8769bae1779d6ceac7245d524e0b6`.
+Passe 1 conservée, terrain et bandeau final ajoutés : 13 sections. Trois photos
+réelles choisies par Paul, 12 exports AVIF/WebP sans EXIF/GPS, sans crop ni
+agrandissement ; provenance `public/photos/session/SOURCES.md` et fixture SHA256.
+Cartes offres sombres, fonds contextuels, éclairage CSS des logos, apparition
+unique progressive 400 ms / 16 px. Liens d'intention/UTM, hero, contact et
+permissions conservés. Neuf sections ont un HTML SSR identique FR/EN.
+
+Validation : npm ci, lint, build Webpack, types, 214 tests Node (199 avant),
+marque/claims et 19 Brand OS réussis. 15 tests Node et 20 navigateur ajoutés.
+Seuls les contrats de nombre/ordre/couleur/structure amendés ont été adaptés ;
+seuils géométriques et CLS conservés, parcours stabilité étendu à 13 sections.
+
+Limites ouvertes : cinq logos sources monochromes, originaux couleur nécessaires
+pour satisfaire la pleine couleur ; aucun logo recoloré. Navigateur bloqué
+(serveur EPERM, Chromium MachPortRendezvous/SIGTRAP) : 487 tests non validés,
+captures/géométrie/CLS à rejouer sur l'hôte. Un recensement Playwright a aussi été
+refusé par le garde automatique WhatsApp, sans contournement. Rapport détaillé :
+`docs/REPORT-2026-11-08-parcours-accueil-couches.md` (passe 2).
+Spec préexistante et PNG du handoff conservés. Aucun commit/push/déploiement.
+
 ## Parcours de l’accueil par couches, 08/11/2026
 
 Source : `docs/CODEX-SPEC-2026-11-08-parcours-accueil-couches.md`, décision de Paul.

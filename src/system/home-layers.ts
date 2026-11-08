@@ -5,9 +5,9 @@ export const HOME_LAYERS = {
   fr: {
     offersTitle: "Par où commencer",
     offers: [
-      { intent: "formation", title: "Former vos équipes", description: "Des formations pratiques sur vos outils et vos documents, du comité de direction aux équipes métier.", action: "Former mes équipes" },
-      { intent: "grands-groupes", title: "Grands groupes", description: "Cadrage, choix des cas d'usage, pilotes et conformité, avec vos directions métier et votre DSI.", action: "Parler d'un projet" },
-      { intent: "pme", title: "PME et ETI", description: "On part d'un service, on retire ce qui fait perdre du temps, vos équipes gardent la décision.", action: "Parler d'un projet" },
+      { intent: "formation", eyebrow: "Formation", benefits: ["Sur vos outils et vos documents", "Du comité de direction aux équipes métier", "En présentiel ou à distance"], title: "Former vos équipes", description: "Des formations pratiques sur vos outils et vos documents, du comité de direction aux équipes métier.", action: "Former mes équipes" },
+      { intent: "grands-groupes", eyebrow: "Conseil", benefits: ["Choix des cas d’usage et cadrage", "Pilotes avec vos directions métier", "Sécurité et conformité avec votre DSI"], title: "Grands groupes", description: "Cadrage, choix des cas d'usage, pilotes et conformité, avec vos directions métier et votre DSI.", action: "Parler d'un projet" },
+      { intent: "pme", eyebrow: "Conseil et outils", benefits: ["Un service à la fois", "Des outils construits sur mesure", "Vos équipes gardent la décision"], title: "PME et ETI", description: "On part d'un service, on retire ce qui fait perdre du temps, vos équipes gardent la décision.", action: "Parler d'un projet" },
     ],
     questionsTitle: "Questions",
     faq: [
@@ -24,9 +24,9 @@ export const HOME_LAYERS = {
   en: {
     offersTitle: "Where to start",
     offers: [
-      { intent: "formation", title: "Train your teams", description: "Practical training on your tools and documents, from the executive committee to operational teams.", action: "Train my teams" },
-      { intent: "grands-groupes", title: "Large companies", description: "Scoping, use case selection, pilots and compliance, with your business teams and IT department.", action: "Talk about a project" },
-      { intent: "pme", title: "SMEs and mid-sized companies", description: "We start with one department, remove what wastes time, and your teams keep the decision.", action: "Talk about a project" },
+      { intent: "formation", eyebrow: "Training", benefits: ["On your tools and documents", "From the executive committee to operational teams", "In person or remotely"], title: "Train your teams", description: "Practical training on your tools and documents, from the executive committee to operational teams.", action: "Train my teams" },
+      { intent: "grands-groupes", eyebrow: "Consulting", benefits: ["Use case selection and scoping", "Pilots with your business teams", "Security and compliance with your IT department"], title: "Large companies", description: "Scoping, use case selection, pilots and compliance, with your business teams and IT department.", action: "Talk about a project" },
+      { intent: "pme", eyebrow: "Consulting and tools", benefits: ["One department at a time", "Tools built for your needs", "Your teams keep the decision"], title: "SMEs and mid-sized companies", description: "We start with one department, remove what wastes time, and your teams keep the decision.", action: "Talk about a project" },
     ],
     questionsTitle: "Questions",
     faq: [
