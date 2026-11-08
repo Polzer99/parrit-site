@@ -6,7 +6,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
-const anchors = { fr: ["en-production", "ce-qui-change", "parcours", "services", "technologies", "partenaires", "references", "contact"], en: ["in-production", "what-changes", "path", "services", "technologies", "team", "references", "contact"] };
+const anchors = { fr: ["references", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "questions", "articles", "contact"], en: ["references", "offers", "in-production", "path", "services", "technologies", "team", "questions", "articles", "contact"] };
 function heroGeometries(html) {
   return [...html.matchAll(/<g class="onto-geo onto-geo-(desktop|compact)">([\s\S]*?)(?=<g class="onto-geo |<\/svg>)/g)];
 }
@@ -48,24 +48,24 @@ function applications(html, locale) {
   return section;
 }
 for (const locale of ["fr", "en"]) test(`final single-page sections and booking render without JS (${locale})`, async () => {
-  // Tour 2 moves the Journal entry to the real footer: retain the link assertion
-  // on the complete public surface instead of restoring the removed main link.
+  // Décision de Paul du 08/11/2026 : Journal in the new articles layer and footer.
   const main = await renderPage(locale);
   const load = loader(locale, { "next/navigation": { usePathname: () => locale === "fr" ? "/fr" : "/", useSearchParams: () => new URLSearchParams() } });
   const { RevFooter } = load("src/system/components/RevFooter.tsx");
   const footer = renderToStaticMarkup(createElement(RevFooter, { locale }));
   const html = main + footer;
   const journalLink = new RegExp(`href="${locale === "fr" ? "/fr" : ""}/journal"`);
-  assert.doesNotMatch(main, journalLink);
+  assert.match(main, journalLink);
   assert.match(footer, journalLink);
-  assert.equal((html.match(/<section\b/g) ?? []).length, 9);
+  assert.equal((html.match(/<section\b/g) ?? []).length, 11);
   assert.deepEqual([...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]), anchors[locale]);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
   // Decision of 08/11/2026: the descriptive offer is now the hero subtitle.
   const subtitle = visibleText(main.match(/class="sub"><p>([\s\S]*?)<\/p>/)?.[1] ?? "");
   assert.match(subtitle, locale === "fr" ? /\bIA\b/ : /\bAI\b/);
   assert.match(subtitle, locale === "fr" ? /formons.*équipes.*outils/ : /train.*teams.*tools/);
-  assert.doesNotMatch(html, /\shidden[=> ]|class="k"|v1-index|registry-line/);
+  // The Journal can contain the English word "hidden"; check the HTML attribute.
+  assert.doesNotMatch(html, /<[^>]+\shidden[=> ]|class="k"|v1-index|registry-line/);
   assert.doesNotMatch(visibleText(html), /Votre phrase indique|What you say tells/);
   const partners = html.match(new RegExp(`<section id="${locale === "fr" ? "partenaires" : "team"}">[\\s\\S]*?</section>`))?.[0];
   assert.ok(partners);
@@ -222,7 +222,7 @@ for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos a
   const html = await renderPage(locale);
   const text = visibleText(html);
   assert.doesNotMatch(text, /Brésil|Brazil|Cameroun|Cameroon|métropole lilloise|Lille area|Exemples illustratifs|Illustrative examples/);
-  assert.doesNotMatch(html, /id="confiance"|id="safeguards"|class="local-note"|<details/);
+  assert.doesNotMatch(html, /id="confiance"|id="safeguards"|class="local-note"/);
   assert.match(html, /class="walk s1 s2 s3 withbot" viewBox="0 0 1080 130" aria-hidden="true"/);
   assert.match(html, /class="human" transform="translate\(900 120\)"/);
   assert.equal((html.match(/class="use-case"/g) ?? []).length, 12);
@@ -254,7 +254,7 @@ for (const locale of ["fr", "en"]) test(`passe 4 complete SSR use cases, offers 
   assert.equal((html.match(/class="use-case"[^>]*aria-live="off" data-case="0"/g) ?? []).length, 12);
   assert.equal((html.match(/class="tag bo"/g) ?? []).length, 24);
   assert.equal((html.match(/class="tag new"/g) ?? []).length, 24);
-  assert.equal((html.match(/class="swipe-dots"/g) ?? []).length, 5);
+  assert.equal((html.match(/class="swipe-dots"/g) ?? []).length, 6);
   assert.doesNotMatch(html, /id="architecture"|class="flowmap|\/tools\//);
   const { SITE_EVIDENCE } = loader(locale)("src/lib/registry/preuves.ts");
   assert.match(SITE_EVIDENCE.find(item => item.id === "Laparra").claim, /pilotage agentique/);

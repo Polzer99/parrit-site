@@ -1,3 +1,22 @@
+## Parcours de l’accueil par couches, décision de Paul du 08/11/2026
+
+`docs/CODEX-SPEC-2026-11-08-parcours-accueil-couches.md` remplace les anciens
+contrats d’ordre et de navigation. Onze sections : hero, références, offres,
+applications, parcours, services, technologies, équipe, questions, derniers
+articles, fondateur/contact. Navigation : Applications, Offres, Le parcours,
+Services, Questions, Contact. `#references` reste accessible.
+La section « Ce que l’IA change » est retirée ; sa définition « Un assistant,
+ou agent IA, … » devient la première phrase des applications. Les anciennes
+ancres renvoient aux applications, y compris via la bascule de langue.
+Trois cartes d’entrée FR/EN, une action ghost au contact par carte : sources
+`intention-{formation,grands-groupes,pme}-offres`, UTM conservés. Six accordéons
+natifs et FAQPage issus du même texte localisé. Trois derniers articles triés
+par le Journal, même carte, une destination par article puis lien vers l’index.
+La FAQ autorise exactement la réponse à 15 minutes de cette spec ; aucun prix.
+Hero, parcours, services, technologies, partenaires, permissions clients,
+contact, charte, seuils géométriques et de stabilité restent inchangés.
+Les contrats antérieurs ci-dessous ne s’appliquent plus à la section retirée.
+
 ## Visibilité IA, décision de Paul du 03/11/2026
 
 La spec `docs/CODEX-SPEC-2026-11-03-alignement-visibilite-ia.md` remplace les

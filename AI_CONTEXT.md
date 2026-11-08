@@ -1,3 +1,27 @@
+## Parcours de l’accueil par couches, 08/11/2026
+
+Source : `docs/CODEX-SPEC-2026-11-08-parcours-accueil-couches.md`, décision de Paul.
+Baseline `f335989` (fusion PR #365), spec non suivie préexistante conservée.
+Onze sections : hero, références, offres, applications, parcours, services,
+technologies, équipe, FAQ, derniers articles, contact. Navigation adaptée.
+Définition unique déplacée dans les applications ; doublon « Ce que l’IA change »
+retiré. Trois liens d’offre via ContactIntentLink, attribution SSR/clic conservée.
+FAQ native sans dépendance JS, JSON-LD échappé issu des mêmes six paires FR/EN.
+JournalCard partagé avec l’index, trois dernières entrées chargées côté serveur.
+Anciennes ancres normalisées avec query conservée et alias HTML sans JS.
+
+Validation : npm ci, lint, build Webpack, TypeScript, marque/claims et 19 tests
+Brand OS réussis ; 189 → 199 tests Node. Dix nouveaux tests Node, 26 navigateur.
+Revue indépendante : aucun défaut identifié, 35/35 tests ciblés réussis.
+HTML hero/parcours/services/technologies/équipe/contact identique avant/après
+en FR/EN ; contrats des sections retirées adaptés, aucun seuil assoupli.
+467 tests navigateur recensés ; lancement bloqué par Chromium
+MachPortRendezvous/SIGTRAP et serveur local `listen EPERM`. Captures,
+géométrie réelle, interactions et CLS non validés, à rejouer sur l’hôte.
+Aucun commit, push, déploiement ni PNG du handoff modifié.
+Rapport : `docs/REPORT-2026-11-08-parcours-accueil-couches.md`.
+Les entrées ci-dessous sont historiques pour l’ordre/navigation de l’accueil.
+
 ## Boutons par intention, correctif 4 du 08/11/2026
 
 Baseline `81bc5de`, spec amendée préexistante conservée. Seule la formulation

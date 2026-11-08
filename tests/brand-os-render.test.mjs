@@ -18,6 +18,7 @@ import { checkGlyphs, visibleText } from "../scripts/brand-os-contracts.mjs";
 const NextServer = NextServerModule.default;
 const json = (file) => JSON.parse(readFileSync(file, "utf8"));
 const contactExpectation = json("tests/fixtures/contact-expectation.json");
+const homeFaqOpening = json("tests/fixtures/home-faq-opening.json");
 const glyphs = json("src/system/brand-os.glyphs.json");
 const connectors = json("src/system/brand-os.connectors.json");
 const routes = ["/", "/journal", "/legal", ...["harness-engineering", "ai-sprints", "integration-developpement", "conseil-transformation"].map(slug => `/journal/themes/${slug}`)];
@@ -111,7 +112,13 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           assert.equal(visibleText(notes[0][1]), contactExpectation[locale]);
           offerText = visibleText(html.replace(notes[0][0], ""));
         }
-        const publicCopy = `${offerText} ${accessible} ${metadata} ${structured}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
+        let publicCopy = `${offerText} ${accessible} ${metadata} ${structured}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
+        // Decision 08/11/2026: exact first FAQ answer only, including its JSON-LD copy.
+        if (route === "/") {
+          const faq = html.match(/<section id="questions">[\s\S]*?<\/section>/)?.[0] ?? "";
+          assert.equal(visibleText(faq.match(/<details><summary>.*?<\/summary><p>(.*?)<\/p>/)?.[1] ?? ""), homeFaqOpening[locale]);
+          publicCopy = publicCopy.replaceAll(homeFaqOpening[locale], "");
+        }
         assert.doesNotMatch(publicCopy, /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de(?! vos opérations\b)|\bHT\b|excl\. VAT/i, `${label}: no public offer`);
         if (route !== "/legal") assert.doesNotMatch(publicCopy, /€/, label);
         if (route !== "/legal" && route !== "/") {
@@ -156,7 +163,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         if (route === "/") {
           assert.match(html, /<section class="hero"/);
           const ids = [...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]);
-          const expected = locale === "fr" ? ["en-production", "ce-qui-change", "parcours", "services", "technologies", "partenaires", "references", "contact"] : ["in-production", "what-changes", "path", "services", "technologies", "team", "references", "contact"];
+          const expected = locale === "fr" ? ["references", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "questions", "articles", "contact"] : ["references", "offers", "in-production", "path", "services", "technologies", "team", "questions", "articles", "contact"];
           // The compiled contact also contains QuickCapture's nested section.
           assert.deepEqual(ids, [...expected, "single-contact"]);
           assert.doesNotMatch(html, /id="architecture"/);

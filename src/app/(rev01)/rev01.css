@@ -3438,8 +3438,8 @@ a.k {
 
 /* Journal index, 08/11/2026: article destinations stay the sole card action. */
 .journal-index {display:grid;grid-template-columns:minmax(0,1fr);column-gap:var(--brand-s4);}
-.journal-index > li {min-width:0;}
-.journal-index > li > a {height:100%;grid-template-columns:minmax(0,1fr);align-content:space-between;}
+.journal-index > * {min-width:0;}
+.journal-index > * > a {height:100%;grid-template-columns:minmax(0,1fr);align-content:space-between;}
 .journal-index .journal-entry-meta {display:flex;flex-wrap:wrap;gap:var(--brand-s1) var(--brand-s2);color:var(--g3);font-size:var(--t-s);line-height:1.5;}
 .journal-index .journal-entry-theme {color:var(--ink);}
 @media(min-width:1100px){

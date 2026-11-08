@@ -1,4 +1,8 @@
-import type { Locale } from "@/system/locale";
+import { localizedPath, type Locale } from "@/system/locale";
+import type { JournalEntrySummary } from "@/system/journal";
+import { HOME_LAYERS, homeFaqJsonLd } from "@/system/home-layers";
+import { JournalCard } from "./JournalCard";
+import { HomeAnchorRedirect } from "./HomeAnchorRedirect";
 import { SINGLE_PAGE_EN, PARTNER_OFFERS } from "@/system/single-page-copy";
 import { ParritCalInline } from "./CalInline";
 import { QuickCapture } from "./QuickCapture";
@@ -13,11 +17,12 @@ import { RevealOnView } from "./RevealOnView";
 import { TechnologyBand } from "./TechnologyBand";
 import { MobileCarousel } from "./MobileCarousel";
 import { ServiceTasks } from "./ServiceTasks";
-export function SinglePage({ locale, contactQuery = "" }: { locale: Locale; contactQuery?: string }) {
+export function SinglePage({ locale, contactQuery = "", latestEntries = [] }: { locale: Locale; contactQuery?: string; latestEntries?: JournalEntrySummary[] }) {
+ const copy = HOME_LAYERS[locale];
  const fr = locale === "fr";
  const clients = ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"].filter(id => getSiteEvidence(id, "home"));
  const t = (text: string) => fr ? text : SINGLE_PAGE_EN[text];
- return <main className="single-page" data-brand-mode="accessible"><ConversationMotion/>
+ return <main className="single-page" data-brand-mode="accessible"><ConversationMotion/><HomeAnchorRedirect locale={locale}/>
 
 
 <section className="hero"><div className="wrap">
@@ -36,8 +41,26 @@ export function SinglePage({ locale, contactQuery = "" }: { locale: Locale; cont
 </div></section>
 
 
+<section id="references"><RevealOnView className="wrap">
+  {clients.length > 0 && <><h2>{t("Ils travaillent")}{" "}<b>{t("avec nous.")}</b></h2>
+  <ClientLogoStrip/>
+  </>}
+</RevealOnView></section>
+
+<section id={fr ? "offres" : "offers"}><div className="wrap">
+  <h2>{copy.offersTitle}</h2>
+  <MobileCarousel className="home-offers" label={copy.offersTitle}>
+    {copy.offers.map(offer => <article className="home-offer" key={offer.intent}>
+      <h3>{offer.title}</h3><p>{offer.description}</p>
+      <ContactIntentLink locale={locale} query={contactQuery} intent={offer.intent} placement="offres">{offer.action}</ContactIntentLink>
+    </article>)}
+  </MobileCarousel>
+</div></section>
+
 <section className="live" id={fr ? "en-production" : "in-production"}><div className="wrap">
+  <span id="ce-qui-change" className="home-anchor-alias" aria-hidden="true"/><span id="what-changes" className="home-anchor-alias" aria-hidden="true"/>
   <h2>{t("Quelques applications")}{" "}<b>{t("concrètes.")}</b></h2>
+  <p className="muted change-definition">{t("Un assistant, ou agent IA, fait une tâche selon vos règles et vous la soumet avant qu'elle parte.")}</p>
   <MobileCarousel className="scenes" label={fr ? "Applications concrètes" : "Real-world applications"}>
     <div className="scene">
       <div className="phone"><div className="bar">{t("Assistant du cabinet")}{" "}<i></i></div><div className="chat">
@@ -72,21 +95,6 @@ export function SinglePage({ locale, contactQuery = "" }: { locale: Locale; cont
   <p className="note">{t("Scènes reconstituées sur données fictives, fidèles aux systèmes en service.")}</p>
 </div></section>
 
-<section id={fr ? "ce-qui-change" : "what-changes"}><div className="wrap">
-  <h2>{t("Ce que l'IA change")}{" "}<b>{t("dans votre entreprise.")}</b></h2>
-  <p className="muted change-definition">{t("Un assistant, ou agent IA, fait une tâche selon vos règles et vous la soumet avant qu'elle parte.")}</p>
-  <MobileCarousel className="three" label={fr ? "Ce que l’IA change" : "What AI changes"}>
-    <div className="item"><div className="panel"><div className="bubble">{t("Liste chaque décision et son responsable.")}</div><div className="answer">{t("Voici les trois décisions et leurs responsables.")}</div></div>
-      <h3>{t("Vos équipes savent utiliser l'IA.")}</h3><p className="muted">{t("Une demande claire donne une réponse utile.")}</p><div className="status"><i></i>{t("Exemple illustratif")}</div></div>
-    <div className="item"><div className="panel"><div className="doc"><b>{t("Compte rendu")}</b><div className="l"></div><div className="l"></div><div className="l" style={{"width": "60%"}}></div><span className="ok">{t("Prêt à relire")}</span></div></div>
-      <h3>{t("Un outil prépare vos tâches répétitives.")}</h3><p className="muted">{t("Il rédige le compte rendu, vous le relisez.")}</p><div className="status"><i></i>{t("Exemple illustratif")}</div></div>
-    <div className="item"><div className="panel"><div className="soft"><div className="top">{t("Votre logiciel")}</div><div className="row"><span>{t("Vos informations")}</span><span>{t("Vos règles")}</span></div><div className="row"><span>{"Assistant"}</span><span>{"Assistant"}</span><span>{"Assistant"}</span></div></div></div>
-      <h3>{t("Votre façon de travailler devient un logiciel.")}</h3><p className="muted">{t("Chacun voit les mêmes informations, à jour.")}</p><div className="status client"><i></i>{t("Chez un client")}</div></div>
-  </MobileCarousel>
-</div></section>
-
-
-
 <section className="parcours" id={fr ? "parcours" : "path"}><div className="wrap">
   <h2>{t("Trois étapes,")}{" "}<b>{t("vous commencez où vous voulez.")}</b></h2>
   <PathWalker/>
@@ -114,14 +122,22 @@ export function SinglePage({ locale, contactQuery = "" }: { locale: Locale; cont
 <ResearchPartner/>
 </RevealOnView></section>
 
-<section id="references" style={{"paddingTop": "0"}}><RevealOnView className="wrap">
-  {clients.length > 0 && <><h2>{t("Ils travaillent")}{" "}<b>{t("avec nous.")}</b></h2>
-  <ClientLogoStrip/>
-  </>}
-</RevealOnView></section>
+<section id="questions"><div className="wrap">
+  <h2>{copy.questionsTitle}</h2>
+  <div className="home-faq">
+    {copy.faq.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}
+  </div>
+  <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqJsonLd(locale)).replace(/</g, "\\u003c") }}/>
+</div></section>
 
-
-
+<section id="articles"><div className="wrap">
+  <h2>{copy.articlesTitle}</h2>
+  {fr && <p className="journal-language-note">Articles en anglais</p>}
+  <MobileCarousel className="journal-list journal-index home-journal-list" label={copy.articlesTitle}>
+    {latestEntries.map(entry => <article key={entry.slug}><JournalCard entry={entry} locale={locale} compact/></article>)}
+  </MobileCarousel>
+  <a className="btn rev-button ghost home-journal-link" href={localizedPath("/journal", locale)}>{copy.journalLink}</a>
+</div></section>
 
 <section className="founder" id="contact" tabIndex={-1}><div className="wrap"><div className="grid">
   <picture>

@@ -16,6 +16,8 @@ export function loader(locale, overrides = {}) {
     new Function("require", "module", "exports", code)((id) => {
       if (Object.hasOwn(overrides, id)) return overrides[id];
       if (["react", "react/jsx-runtime"].includes(id)) return native(id);
+      if (["node:fs", "node:path", "gray-matter"].includes(id)) return native(id);
+      if (id === "server-only") return {};
       if (id === "next/link") return function TestLink({ children, ...props }) { return React.createElement("a", props, children); };
       if (id === "@/lib/server/locale") return { getLocale: async () => locale };
       if (id.endsWith(".css")) return {};

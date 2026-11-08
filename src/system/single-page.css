@@ -40,19 +40,8 @@
 
 /* change */
 .single-page .change-definition{margin-top:var(--brand-s2);}
-.single-page .three{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
-.single-page .panel{background:var(--white);padding:28px;min-height:220px;display:flex;flex-direction:column;justify-content:center}
-.single-page .bubble{background:var(--sky);padding:12px 16px;font-size:var(--t-s);max-width:85%}
-.single-page .answer{border:1.5px solid var(--canard);padding:12px 16px;font-size:var(--t-s);margin-top:12px;align-self:flex-end;max-width:85%}
-.single-page .doc{border:1.5px solid var(--ink);padding:18px}
-.single-page .doc .l{height:6px;background:var(--line);margin:10px 0;opacity:.5}
-.single-page .doc .ok{display:inline-block;background:var(--canard);color:var(--white);font-size:var(--t-s);font-weight:600;padding:6px 10px;margin-top:8px}
-.single-page .soft{display:flex;flex-direction:column;gap:10px}
-.single-page .soft .top{border:1.5px solid var(--canard);padding:12px;font-size:var(--t-s);font-weight:600;color:var(--canard)}
-.single-page .soft .row{display:flex;gap:8px}
-.single-page .soft .row span{flex:1;background:var(--sky);padding:10px;font-size:var(--t-s);text-align:center}
-.single-page .three .item h3{margin-top:24px}
-.single-page .three .item p{font-size:var(--t-s);margin-top:8px}
+.single-page .live .change-definition{color:var(--on-canard);font-size:var(--t-s);line-height:1.45;}
+.single-page .home-anchor-alias{display:block;position:absolute;width:0;height:0;}
 /* parcours : marcheur et trois étapes alignées, maquette passe 3. */
 .single-page .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:40px;row-gap:0;grid-template-rows:repeat(4,auto);margin-top:24px;padding-top:44px;}
 .single-page .step {display:grid;grid-row:span 4;grid-template-rows:subgrid;row-gap:0;border-top:1px solid var(--line);padding-top:var(--brand-s2);}
@@ -158,7 +147,7 @@
 }
 @media(max-width:760px){.single-page h1{font-size:40px;}.single-page h2{font-size:34px;}.single-header .wrap,.single-footer .wrap{padding-left:20px;padding-right:20px;}.single-header .mark{font-size:var(--t-s);}.single-header .btn{display:inline-block;font-size:var(--t-s);padding:14px 24px;white-space:normal;text-align:center;}.single-header .languages{font-size:var(--t-s);}.single-page .founder .mail{overflow-wrap:anywhere;}.single-page .reservation{margin-top:56px;}.single-page .cal-instrument{min-width:0;}.single-footer .footer-links{gap:16px;font-size:var(--t-s);}}
 @media (max-width:760px) {
-  .single-page .three, .single-page .steps,
+  .single-page .steps,
   .single-page .services,
   .single-page .founder .grid { grid-template-columns:1fr; }
 }
@@ -172,22 +161,6 @@
 
 /* Bouton du contact : contrat antérieur conservé. */
 .single-page .founder .btn.exec {font-size:var(--t-l);padding:22px 36px;}
-/* État final par défaut ; amélioration progressive commune aux téléphones. */
-.single-page .soft .row:last-child span {background:var(--canard);color:var(--white);}
-@media (prefers-reduced-motion:no-preference) {
-  .single-page [data-motion="ready"] .panel .answer {opacity:0;animation:task-pop 8s infinite 1.2s;}
-  .single-page [data-motion="ready"] .doc .l {transform-origin:left;transform:scaleX(0);animation:task-write 8s infinite;}
-  .single-page [data-motion="ready"] .doc .l:nth-of-type(2) {animation-delay:.6s;}
-  .single-page [data-motion="ready"] .doc .l:nth-of-type(3) {animation-delay:1.2s;}
-  .single-page [data-motion="ready"] .doc .ok {opacity:0;animation:task-pop 8s infinite 2.4s;}
-  .single-page [data-motion="ready"] .soft .row:last-child span {animation:task-lit 6s infinite;animation-fill-mode:backwards;}
-  .single-page [data-motion="ready"] .soft .row:last-child span:nth-child(2) {animation-delay:1s;}
-  .single-page [data-motion="ready"] .soft .row:last-child span:nth-child(3) {animation-delay:2s;}
-}
-@keyframes task-pop {0%,8%{opacity:0;transform:translateY(6px)}14%,85%{opacity:1;transform:none}95%,100%{opacity:0}}
-@keyframes task-write {0%{transform:scaleX(0)}20%,85%{transform:scaleX(1)}95%,100%{transform:scaleX(0)}}
-@keyframes task-lit {0%,100%{background:var(--sky);color:var(--ink)}15%,35%{background:var(--canard);color:var(--white)}}
-
 .single-page .live .status {color:var(--on-canard);}
 
 /* Contrats transverses : cibles tactiles, rythme et espacement texte/action. */
@@ -206,8 +179,6 @@
   .single-header > .wrap > .btn {display:none;}
   .single-header .languages {margin-left:auto;}
   .single-header .mobile-menu nav {max-height:calc(100svh - 64px);}
-  .single-page .soft .row {flex-wrap:wrap;}
-  .single-page .soft .row span {min-width:0;flex-basis:100%;}
 }
 
 /* Le focus programmatique après un clic doit rester visible lui aussi. */
@@ -323,7 +294,7 @@
 .single-page .partner.flip .partner-type {opacity:0;}
 .single-page .partner.blink .offer {opacity:0;}
 .single-page .teamcap {margin-top:16px;}
-.single-page .scenes,.single-page .three {margin-top:28px;gap:24px;}
+.single-page .scenes {margin-top:28px;gap:24px;}
 .single-page .phone {min-height:0;max-width:320px;border-width:8px;font-size:16px;line-height:1.3;padding-bottom:1lh;}
 .single-page .phone .bar {font-size:16px;padding:8px 10px;}
 .single-page .phone .chat {padding:8px;gap:6px;}
@@ -339,7 +310,7 @@
 .single-page .founder-details .actions {margin-top:20px;flex-wrap:wrap;}
 @media(max-width:760px){
   .single-page .hero {padding-top:24px;}
-  .single-page :is(.service-tasks,.services,.steps,.scenes,.three).mobile-carousel {
+  .single-page :is(.service-tasks,.services,.steps,.scenes).mobile-carousel {
     display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;align-items:flex-start;
     background:none;border:0;margin-left:-16px;margin-right:-16px;padding:0 16px 4px;scroll-padding-inline:16px;scrollbar-width:none;
   }
@@ -352,8 +323,7 @@
   .single-page .live .swipe-dots i.on {background:var(--white);}
   .single-page .teamcap {font-size:16px;}
   .single-page .walk {margin-top:28px;}
-  .single-page .three,.single-page .scenes {margin-top:20px;}
-  .single-page .panel {padding:20px;min-height:190px;}
+  .single-page .scenes {margin-top:20px;}
   .single-page .scene h3 {margin-top:10px;}
   .single-page .phone .msg {line-height:1.2;padding:3px 5px;}
   .single-page .phone .chat {gap:4px;padding:6px;}
@@ -427,34 +397,6 @@
 }
 @media(max-width:760px){
   .single-page .phone {line-height:1.2;}
-}
-
-/* Tour 3 : cadres et légendes partagent leurs rangées intrinsèques, sans JS.
-   Aucun cadre plafonné : le contenu le plus haut détermine la première rangée. */
-.single-page :is(#ce-qui-change,#what-changes) .three {
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  grid-template-rows:repeat(4,auto);row-gap:0;
-}
-.single-page :is(#ce-qui-change,#what-changes) .three > .item {
-  display:grid;grid-template-rows:subgrid;grid-row:1 / span 4;min-width:0;
-}
-.single-page :is(#ce-qui-change,#what-changes) .item > :is(h3,p,.status) {align-self:start;}
-@media(max-width:1100px){
-  .single-page :is(#ce-qui-change,#what-changes) .three {
-    grid-template-columns:none;grid-auto-columns:84%;grid-auto-columns:round(down, 84%, 1px);grid-auto-flow:column;
-    overflow-x:auto;scroll-snap-type:x mandatory;column-gap:var(--brand-s2);
-    align-items:flex-start;scrollbar-width:none;
-  }
-  .single-page :is(#ce-qui-change,#what-changes) .three > .item {align-self:flex-start;scroll-snap-align:start;}
-  .single-page :is(#ce-qui-change,#what-changes) .three + .swipe-dots {
-    display:flex;gap:var(--brand-s1);margin-top:var(--brand-s2);
-  }
-}
-@media(max-width:760px){
-  /* Garder les cases en rangées évite d'allonger artificiellement le logiciel. */
-  .single-page :is(#ce-qui-change,#what-changes) .panel {padding:var(--brand-s2);}
-  .single-page :is(#ce-qui-change,#what-changes) .soft .row {flex-wrap:nowrap;}
-  .single-page :is(#ce-qui-change,#what-changes) .soft .row span {flex-basis:0;padding:var(--brand-s1);}
 }
 
 /* Hero trois plans, 29/10/2026. Geometry from the approved desktop/mobile generators. */
@@ -553,4 +495,32 @@
   .single-page .steps.mobile-carousel {display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:84%;row-gap:0;}
   .single-page .steps.mobile-carousel > .step {grid-row:span 4;}
   .single-page .step > .btn {width:100%;justify-self:stretch;}
+}
+
+/* Parcours par couches, décision de Paul du 08/11/2026. */
+.single-page .home-offers {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,auto);gap:0 var(--brand-s3);margin-top:var(--brand-s4);}
+.single-page .home-offer {display:grid;grid-row:span 3;grid-template-rows:subgrid;min-width:0;border-top:1px solid var(--line);padding-top:var(--brand-s2);}
+.single-page .home-offer p {font-size:var(--t-s);color:var(--ink2);margin-top:var(--brand-s2);}
+.single-page .home-offer .btn {align-self:end;justify-self:start;margin-top:var(--brand-s3);}
+.single-page .home-faq {margin-top:var(--brand-s3);}
+.single-page .home-faq details {border-top:1px solid var(--line);}
+.single-page .home-faq details:last-child {border-bottom:1px solid var(--line);}
+.single-page .home-faq summary {cursor:pointer;font-size:var(--t-m);line-height:1.4;font-weight:600;padding-block:var(--brand-s2);min-height:48px;}
+.single-page .home-faq p {font-size:var(--t-s);line-height:1.5;max-width:80ch;padding-bottom:var(--brand-s2);}
+.single-page .journal-language-note {font-size:var(--t-s);margin-top:var(--brand-s2);}
+.single-page .home-journal-list {margin:var(--brand-s3) 0 0;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--brand-s3);}
+.single-page .home-journal-list > article {min-width:0;border-bottom:1px solid var(--line);}
+.single-page .home-journal-list a {padding:var(--brand-s3) 0;}
+.single-page .home-journal-list h3 {margin-top:var(--brand-s1);font-size:var(--t-l);line-height:1.25;font-weight:600;}
+.single-page .home-journal-list time {font-family:var(--ui);font-size:var(--t-s);letter-spacing:normal;text-transform:none;}
+.single-page .home-journal-link {margin-top:var(--brand-s3);}
+@media(max-width:1100px){
+  .single-page :is(.home-offers,.home-journal-list).mobile-carousel {display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:var(--brand-s2);align-items:flex-start;scrollbar-width:none;}
+  .single-page :is(.home-offers,.home-journal-list).mobile-carousel > * {flex:0 0 84%;min-width:0;align-self:flex-start;scroll-snap-align:start;}
+  .single-page .home-offer {display:flex;flex-direction:column;}
+  .single-page .home-offer .btn {align-self:flex-start;}
+  .single-page :is(.home-offers,.home-journal-list) + .swipe-dots {display:flex;gap:var(--brand-s1);margin-top:var(--brand-s2);}
+}
+@media(max-width:599px){
+  .single-page .home-offer .btn {width:100%;}
 }

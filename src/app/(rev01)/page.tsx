@@ -3,6 +3,7 @@ import { getLocale } from "@/lib/server/locale";
 import { SinglePage } from "@/system/components/SinglePage";
 import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 import { personJsonLd } from "@/system/jsonld";
+import { getAllJournalEntrySummaries } from "@/system/journal";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -20,5 +21,5 @@ export default async function HomePage(props: {
   for (const [key, value] of Object.entries(await props?.searchParams ?? {})) {
     for (const item of Array.isArray(value) ? value : value === undefined ? [] : [value]) query.append(key, item);
   }
-  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale)) }}/><SinglePage locale={locale} contactQuery={query.toString()}/></>;
+  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale)) }}/><SinglePage locale={locale} contactQuery={query.toString()} latestEntries={getAllJournalEntrySummaries().slice(0, 3)}/></>;
 }
