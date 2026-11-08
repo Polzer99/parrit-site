@@ -29,6 +29,9 @@ for (const locale of ["fr", "en"]) {
       assert.equal(url.searchParams.get("utm_custom"), "header");
       assert.equal(label, locale === "fr" ? "Prendre rendez-vous" : "Book a call");
     }
+    // Correctif 2 : navigation ghost explicitly approved, with no large connector.
+    assert.equal((html.match(/class="[^"]*rev-button ghost"/g) ?? []).length, 2);
+    assert.doesNotMatch(html, /data-connector=/);
   });
 
   test(`one home action, two crafts, eight authorized references (${locale})`, async () => {
@@ -42,6 +45,8 @@ for (const locale of ["fr", "en"]) {
       assert.equal(visibleText(label).trim(), locale === "fr" ? "Prendre rendez-vous" : "Book a call");
       assert.equal(url.searchParams.get("source"), `rdv-${i === 0 ? "hero" : "bandeau"}`);
       assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
+      assert.equal((label.match(/data-connector="VS-CONNECTOR"/g) ?? []).length, 1);
+      assert.match(label, /aria-hidden="true" focusable="false"/);
     }
     assert.equal(actions.length, 3, "only two booking actions and the Journal content link in main");
     assert.doesNotMatch(html, /source=intention-|href="#reservation"/);
@@ -49,6 +54,8 @@ for (const locale of ["fr", "en"]) {
     assert.equal((offers.match(/<article /g) ?? []).length, 2);
     assert.equal((offers.match(/<li>/g) ?? []).length, 6);
     assert.doesNotMatch(offers, /<a\b|<button\b/);
+    assert.doesNotMatch(visibleText(html), /Former mes équipes|Train my teams|Par où commencer|Where to start/);
+    assert.ok(visibleText(html).includes(locale === "fr" ? "Chercheurs du MIT" : "MIT researchers"));
     assert.ok(visibleText(offers).includes(locale === "fr" ? "Pour les PME, les ETI et les grands groupes." : "For SMEs, mid-sized companies and large groups."));
     assert.doesNotMatch(visibleText(html.replace(/<section id="articles">[\s\S]*?<\/section>/, "")), /\b(?:formations?|former|formons|forme|formateurs?|training|train|trains|trainers)\b|parler d'un projet|talk about a project|conseil et outils|[—–]|afin de/i);
     const refs = html.match(/<section id="references"[\s\S]*?<\/section>/)[0];

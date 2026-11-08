@@ -25,7 +25,8 @@ for (const locale of ["fr", "en"]) test(`hero headline and descriptive subtitle 
   const action = html.match(/class="actions"><a[^>]*href="([^"]+)"[^>]*>(.*?)<\/a>/s);
   // Decision of 08/11/2026: nuit: the same destination now carries rdv-hero.
   assert.equal(action?.[1], `${locale === "fr" ? "/fr" : "/"}?source=rdv-hero#contact`);
-  assert.equal(visibleText(action?.[2] ?? ""), locale === "fr" ? "Prendre rendez-vous" : "Book a call");
+  // Correctif 2 adds a decorative SVG; stripping its tags leaves trailing spaces.
+  assert.equal(visibleText(action?.[2] ?? "").trim(), locale === "fr" ? "Prendre rendez-vous" : "Book a call");
 });
 
 for (const locale of ["fr", "en"]) test(`home copy is understandable, complete in SSR and preserves human approval (${locale})`, async () => {

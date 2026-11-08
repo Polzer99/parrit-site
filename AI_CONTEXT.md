@@ -1,3 +1,19 @@
+## Action unique, correctif 2, 08/11/2026, nuit
+
+Reprise sur `9778c9d`, amendement local de la spec conservé par SHA256.
+Navigation ghost explicitement validée (ancienne réserve résolue). Hero/bandeau
+agrandis à t-l, 22 × 36 px, connecteur canon décoratif dans les deux ; rose clair
+et bordure encre au survol/focus, flèche +4 px, appui +1 px, transition 150 ms.
+Respiration CSS du seul fond du hero, alpha 0,92–1, cycle 3 s ; arrêt aux
+interactions et mouvement réduit statique. Carte MIT, H1 et contenus conservés.
+Baseline/candidat : lint, build Webpack, 257 tests Node ; types, marque, claims
+et 19 Brand OS verts. Huit tests navigateur ajoutés, attentes de taille/structure
+adaptées, aucun seuil assoupli. Revue indépendante sans défaut produit confirmé.
+Serveur EPERM et Chromium MachPortRendezvous/SIGTRAP : 533 cas recensés,
+532 non exécutés. Géométrie/CLS/rendu non validés ; aucun repli spéculatif sur
+l'espacement ou la réassurance. Aucun commit/push/déploiement ni PNG modifié.
+Détail : `docs/REPORT-2026-11-08-action-unique-et-wording.md`, correctif 2.
+
 ## Action unique, correctif 1, 08/11/2026, nuit
 
 Reprise sur `94f7720`, spec locale amendée préexistante conservée. Six corrections

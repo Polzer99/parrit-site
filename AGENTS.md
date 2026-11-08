@@ -1,3 +1,15 @@
+## Correctif 2 de l’action unique, décision de Paul du 08/11/2026, nuit
+
+La section 5 de `docs/CODEX-SPEC-2026-11-08-action-unique-et-wording.md`
+prime : navigation `ghost` de taille inchangée, hero et bandeau `exec` en
+`var(--t-l)`, rembourrage 22 × 36 px, hauteur minimale 64 px, pleine largeur
+sur téléphone. Connecteur VS-CONNECTOR dans les deux boutons, translation 4 px
+au survol/focus ; fond rose clair Brand OS et bordure encre 2 px, transition
+150 ms, appui 1 px. Seul le fond du hero respire (alpha 0,92–1, cycle 3 s),
+arrêt au survol/focus/appui ; mouvement réduit statique. Carte MIT et H1 conservés,
+FAQ coût sans chiffre. Aucun seuil géométrique, contraste ou CLS assoupli.
+La géométrie réelle reste à vérifier sur un hôte autorisant le navigateur.
+
 ## Correctif 1 de l'action unique, décision de Paul du 08/11/2026, nuit
 
 La spec amendée conserve les deux métiers et les huit références. Les services
@@ -10,7 +22,7 @@ automatique. » est sous le bouton du hero, en texte secondaire FR/EN.
 Le header partagé utilise « Prendre rendez-vous » / « Book a call » avec
 `rdv-nav` et les UTM aussi sur Journal, thèmes et mentions légales ; sa destination
 au contact de l'accueil reste inchangée. Corps éditoriaux et mentions légales intacts.
-La réserve navigation `ghost` ci-dessous demeure ouverte. La géométrie du hero
+La réserve navigation `ghost` est levée par le correctif 2 ci-dessus. La géométrie du hero
 avec la nouvelle ligne reste à vérifier sur un hôte autorisant Chromium ; aucun
 seuil n'est assoupli et aucun repli vers le bandeau n'est affirmé nécessaire sans mesure.
 
@@ -37,13 +49,10 @@ deux rangées ordinateur autorisées dans 1060 px, grille deux colonnes mobile,
 éclairage successif 1,6 s, rampes 300 ms, pause survol/focus, réduit statique.
 Le Journal ne nomme aucun client. Aucun seuil géométrique ou CLS assoupli.
 
-**Arbitrage ouvert, pas une nouvelle décision de Paul :** la spec demande
-navigation et hero `exec` tout en conservant le hero entier barre comprise à
-1440×800 et un seul rose par écran. Ces exigences sont contradictoires.
-Le libellé et la source de navigation sont mis à jour ; son style antérieur
-`ghost` reste provisoirement conservé, en attente de la réponse à la question
-posée à Paul. Les contrôles du rose unique restent intacts. Cette réserve
-empêche de déclarer la spec intégralement conforme.
+**Arbitrage levé par le correctif 2, décision de Paul du 08/11/2026, nuit :**
+la navigation conserve explicitement son style `ghost` et sa taille. Hero et
+bandeau restent `exec`. Les contrôles du rose unique restent intacts.
+
 
 ## Appel de 15 minutes, décision de Paul du 08/11/2026
 

@@ -58,7 +58,7 @@ for (const locale of ["fr", "en"] as const) {
       const buttons = page.locator(".hero .actions a");
       await expect(buttons).toHaveCount(1);
       await expect(buttons.first()).toHaveClass(/\bexec\b/);
-      await expect(buttons.first()).toHaveCSS("font-size", width >= 1200 ? "19px" : "18px");
+      await expect(buttons.first()).toHaveCSS("font-size", "22px");
       for (const [selector, source] of actions) await expect(page.locator(selector)).toHaveAttribute("href", `${home}?source=${source}#contact`);
       const box = (await buttons.first().boundingBox())!;
       const group = (await page.locator(".hero .actions").boundingBox())!;
@@ -264,6 +264,98 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         await expect(page).toHaveURL(target.href);
         await expect(page.locator("#contact h2")).toBeInViewport();
       }
+    });
+  });
+}
+
+// Correctif 2, décision de Paul du 08/11/2026, nuit : large CTA, native CSS
+// interaction in both rendering modes, with no new timers or outgoing requests.
+for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [true, false]) {
+  test.describe(`large appointment buttons ${locale} JS=${javaScriptEnabled}`, () => {
+    test.use({ javaScriptEnabled });
+    for (const width of [1440, 375]) test(`size, connector, interaction and reduced motion ${width}`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 800 });
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+      await page.goto(local(locale === "fr" ? "/fr" : "/"));
+      await page.evaluate(() => document.fonts.ready);
+      const hero = page.locator(".hero .exec");
+      await expect(hero).toHaveCSS("animation-duration", "3s");
+      await expect(hero).toHaveCSS("animation-iteration-count", "infinite");
+      const breath = await hero.evaluate(el => {
+        const animation = el.getAnimations().find(a => a instanceof CSSAnimation && a.animationName === "appointment-breathe")!;
+        animation.pause();
+        const sample = (time: number) => {
+          animation.currentTime = time;
+          const style = getComputedStyle(el);
+          return { color: style.backgroundColor, opacity: style.opacity, text: style.color, width: el.getBoundingClientRect().width, height: el.getBoundingClientRect().height };
+        };
+        const frames = (animation.effect as KeyframeEffect).getKeyframes();
+        const samples = [sample(0), sample(1500), sample(3000)];
+        animation.play();
+        return { frames, samples };
+      });
+      expect(breath.samples[0].color).not.toBe(breath.samples[1].color);
+      expect(breath.samples[0]).toEqual(breath.samples[2]);
+      for (const sample of breath.samples) {
+        expect(sample.opacity).toBe("1");
+        expect(sample.text).toBe(breath.samples[0].text);
+        expect(sample.width).toBe(breath.samples[0].width);
+        expect(sample.height).toBe(breath.samples[0].height);
+      }
+      for (const frame of breath.frames) expect(Object.keys(frame).filter(key => !["offset", "computedOffset", "easing", "composite"].includes(key))).toEqual(["backgroundColor"]);
+      await expect(page.locator("#bandeau .exec")).toHaveCSS("animation-name", "none");
+      for (const selector of [".hero .exec", "#bandeau .exec"]) {
+        const button = page.locator(selector);
+        const arrow = button.locator('svg[data-connector="VS-CONNECTOR"]');
+        await expect(button).toHaveCSS("font-size", "22px");
+        await expect(button).toHaveCSS("padding", "22px 36px");
+        await expect(arrow).toHaveCount(1);
+        await expect(arrow).toHaveAttribute("aria-hidden", "true");
+        await expect(arrow).toHaveAttribute("focusable", "false");
+        const box = (await button.boundingBox())!;
+        expect(box.height).toBeGreaterThanOrEqual(64);
+        if (width === 375) expect(box.width).toBeCloseTo((await button.locator("..").boundingBox())!.width, 0);
+        const colors = await button.evaluate(el => {
+          const probe = document.createElement("span");
+          el.append(probe);
+          probe.style.color = "var(--brand-accessible-warm)";
+          const warm = getComputedStyle(probe).color;
+          probe.style.color = "var(--ink)";
+          const ink = getComputedStyle(probe).color;
+          probe.remove();
+          return { warm, ink };
+        });
+        await button.hover();
+        await expect(button).toHaveCSS("animation-name", "none");
+        await expect(button).toHaveCSS("background-color", colors.warm);
+        await expect(button).toHaveCSS("border-top-color", colors.ink);
+        await expect(button).toHaveCSS("border-top-width", "2px");
+        await expect(button).toHaveCSS("transition-duration", "0.15s, 0.15s, 0.15s");
+        await expect(arrow).toHaveCSS("transform", "matrix(1, 0, 0, 1, 4, 0)");
+        await page.mouse.down();
+        await expect(button).toHaveCSS("transform", "matrix(1, 0, 0, 1, 0, 1)");
+        // Release away from the action to avoid navigation while inspecting styles.
+        await page.mouse.move(0, 0);
+        await page.mouse.up();
+        await button.focus();
+        await expect(button).toBeFocused();
+        await expect(button).toHaveCSS("animation-name", "none");
+        await expect(button).toHaveCSS("background-color", colors.warm);
+        await expect(button).toHaveCSS("border-top-color", colors.ink);
+        await expect(arrow).toHaveCSS("transform", "matrix(1, 0, 0, 1, 4, 0)");
+        await page.emulateMedia({ reducedMotion: "reduce" });
+        await expect(button).toHaveCSS("animation-name", "none");
+        await expect(button).toHaveCSS("transition-duration", "0s");
+        await expect(arrow).toHaveCSS("transform", "none");
+        await button.evaluate(el => (el as HTMLElement).blur());
+        await expect(button).toHaveCSS("animation-name", "none");
+        await page.emulateMedia({ reducedMotion: "no-preference" });
+      }
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await expect(page.locator(".single-header .rev-button")).toHaveClass([/\bghost\b/, /\bghost\b/]);
+      const heroBox = (await page.locator(".hero").boundingBox())!;
+      if (width === 1440) expect(heroBox.y + await page.evaluate(() => scrollY) + heroBox.height).toBeLessThanOrEqual(800);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
     });
   });
 }

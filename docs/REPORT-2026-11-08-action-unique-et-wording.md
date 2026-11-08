@@ -1,3 +1,93 @@
+# Reprise et correctif 2, 08/11/2026, nuit
+
+## Mandat, sources et plan exécuté
+
+Checkout demandé : `9778c9d935852912841ac347fada2991406e47b1`.
+Seule modification préexistante : la section 5 de la spec locale. Son empreinte
+SHA256 est conservée et vérifiée ; aucun octet de cette spec n'a été modifié.
+Les sections historiques du rapport ci-dessous décrivent les passes précédentes.
+L'arbitrage navigation est désormais résolu explicitement : `ghost`, même taille.
+
+Plan : baseline installation/lint/build/tests, ajout des contrôles du correctif,
+implémentation limitée aux deux boutons, revue indépendante, même batterie et
+contrôles supplémentaires, documentation des résultats. Écritures locales
+réversibles uniquement ; aucune donnée métier, aucun commit/push/déploiement.
+Limite : trois corrections, arrêt après blocage environnemental confirmé.
+Documentation CSS de Next installée lue avant modification ; aucun nouvel appel
+à une API de framework ni dépendance externe ajouté.
+
+## Modifications de cette passe
+
+- `src/system/components/SinglePage.tsx` : connecteur canon VS-CONNECTOR ajouté
+  au hero, identique à celui déjà présent dans le bandeau. Décoratif, masqué aux
+  technologies d'assistance, libellé et attribution inchangés.
+- `src/system/single-page.css` : hero/bandeau à `var(--t-l)`, 22 × 36 px,
+  hauteur minimale 64 px ; pleine largeur mobile existante conservée. Rose clair
+  `--brand-accessible-warm`, bordure encre 2 px au survol/focus/appui ; transitions
+  150 ms, flèche à +4 px et appui +1 px. Respiration du seul fond du hero,
+  alpha 0,92–1 sur 3 s ; arrêt au survol/focus/appui. Mouvement réduit statique,
+  sans translation ni transition. Navigation et formulaire conservés.
+- `AGENTS.md`, `TRUTH.md`, `AI_CONTEXT.md` : contrat du correctif 2 et arbitrage
+  résolu ; limites de validation navigateur explicites.
+
+MIT, H1, deux métiers, huit logos, textes FR/EN, FAQ sans prix, sources/UTM,
+articles, mentions légales et fichiers générés restent inchangés. Aucun PNG
+sous `.codex-handoffs/brand-os-p1/after/` n'est modifié.
+
+Aucune réduction spéculative de l'espace au-dessus du bouton et aucun déplacement
+de la réassurance : le serveur/navigateur refusé ne permet pas de constater un
+dépassement. La géométrie doit être mesurée avant de conclure sur ces replis.
+
+## Tests ajoutés et adaptés
+
+- `tests/intentions.spec.ts` : huit nouveaux cas FR/EN × JS/sans JS × 1440/375.
+  Dimensions, pleine largeur, connecteurs, survol, focus, appui, transition,
+  cycle de respiration, fond seul animé, texte/dimensions constants, bandeau
+  statique, mouvement réduit, navigation ghost, hero ≤800 px et non-débordement.
+  Fixture deny-all réseau et mocks locaux conservés.
+- `tests/action-unique.test.mjs` : assertions SSR renforcées sur les deux
+  connecteurs décoratifs, navigation ghost, absence des anciens titres/boutons,
+  présence de la carte MIT. Deux échecs FR/EN avant ajout du connecteur, puis
+  18/18 tests ciblés réussis, également en revue indépendante.
+- `tests/audit-readability.spec.ts`, `tests/aeration.spec.ts`,
+  `tests/single-page.spec.ts` : taille exacte 22 px et rembourrage prescrits,
+  mesure d'une ligne de texte distincte du SVG avec largeur/gap inclus.
+  Contrôle de palette opaque en mouvement réduit ; animation contrôlée à part.
+- `tests/langue-metier.test.mjs` : suppression des blancs techniques laissés
+  par le retrait des balises SVG avant comparaison exacte du libellé.
+
+Ces adaptations suivent le nouveau contrat produit. Aucun seuil de contraste,
+géométrie, CLS, durée ou protection réseau n'est assoupli.
+
+## Exécution et limites
+
+Baseline : `npm ci --silent`, lint, build Webpack et **257/257 tests Node** verts.
+Candidat final :
+
+- `npm run lint` : réussi.
+- `npm run build -- --webpack` : réussi (après dernier changement produit).
+- `npm test` : **257/257 réussis** après adaptation des contrôles SVG.
+- `npx tsc --noEmit` : réussi.
+- `npm run qa:brand:rev01`, `npm run qa:claims:rev01` : réussis.
+- `npm run test:brand-os` : **19/19 réussis**.
+- `git diff --check` et SHA256 de la spec préexistante : réussis.
+
+Avertissements préexistants : metadataBase par défaut et détection Node du type
+de modules TypeScript. Logs locaux : `/tmp/parrit-action-unique-check/`.
+
+Revue indépendante statique : aucun défaut produit confirmé ; les attentes
+obsolètes de palette statique et de typographie ont été corrigées. La nouvelle
+flèche avait aussi révélé deux tests de libellé sensibles aux espaces du SVG ;
+leur comparaison exacte est conservée après trim.
+
+- Serveur `npm start -- --hostname 127.0.0.1 -p 3210` : `listen EPERM`.
+- `npm run qa:network:rev01 -- --max-failures=1 --workers=1` : **533 cas**,
+  premier bloqué avant navigation par Chromium (`MachPortRendezvous`, permission
+  denied, `SIGTRAP`), **532 non exécutés**. Aucun assouplissement ni contournement.
+- Rendu, interactions, captures, hero entier à 1440×800, « un bloc = un écran »
+  et CLS : **non validés ici**, à rejouer sur l'hôte autorisé avec la même batterie.
+- `PRODUCTION_PROOF` : hors mandat, aucune publication effectuée.
+
 # Reprise et correctif 1, 08/11/2026, nuit
 
 Les six corrections de la spec amendée sont implémentées. La base déjà présente

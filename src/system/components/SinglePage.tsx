@@ -38,7 +38,7 @@ hero: (
         <p>{t("Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent.")}</p>
         <div className="hero-appointment">
           <div className="actions">
-            <AppointmentLink locale={locale} query={contactQuery} placement="hero"/>
+            <AppointmentLink locale={locale} query={contactQuery} placement="hero"><BrandConnector/></AppointmentLink>
           </div>
           <p className="hero-reassurance">{t("Vos équipes gardent la décision. Aucune relance automatique.")}</p>
         </div>

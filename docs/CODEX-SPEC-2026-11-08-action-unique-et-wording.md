@@ -63,6 +63,20 @@ Source : `~/parrit-canon/docs/site-benchmark/personas/ROUND-0-2026-11-08.md` (5 
 5. **Note des applications** « Scènes reconstituées sur données fictives » → **« Inspirées de nos missions. Les données affichées sont fictives. »** / « Drawn from our projects. The data shown is fictitious. »
 6. **Hors accueil** (Journal, thèmes, mentions légales) : le bouton de navigation affiche aussi « Prendre rendez-vous » / « Book a call » (aujourd'hui « Parler d'un projet »), même destination, `source=rdv-nav`. Un seul libellé sur tout le site.
 
+## 5. Correctif 2 — décisions de Paul (08/11 nuit, après le round 0)
+
+- **MIT conservé** (Paul s'est ravisé : « on peut laisser le MIT researcher, on a le droit ») : aucune modification de la carte « Chercheurs du MIT ».
+- **Plus aucun bouton « Former mes équipes » / « Train my teams »** ni titre « Par où commencer » / « Where to start » nulle part sur l'accueil, FR et EN (vérifier que la section 1 et la table du §2 l'ont bien supprimé, ancre `#offres`/`#offers` conservée).
+- **Le bouton « Prendre rendez-vous » doit donner envie de cliquer** (Paul : « trop petit… il faut que les call to action soient appealing »). Hero et bandeau final :
+  - taille large : texte `var(--t-l)`, rembourrage 22 px × 36 px (comme le bouton `exec` du fondateur), hauteur ≥ 64 px sur ordinateur ; pleine largeur sur téléphone ;
+  - flèche vectorielle du connecteur canon à droite du texte (VS-CONNECTOR), qui avance de 4 px au survol et au focus ;
+  - au survol/focus : fond rose plus clair du Brand OS et contour 2 px encre, transition 150 ms ; état actif enfoncé (translation 1 px) ;
+  - une respiration lente et discrète au repos, hero seulement : l'éclat rose varie d'opacité 0,92 → 1 toutes les 3 s (`background-color` seulement, aucune ombre, aucun dégradé, radius 0), coupée en mouvement réduit et au survol ;
+  - le bouton de navigation reste `ghost`, taille actuelle.
+  - Le hero tient toujours à 1440×800 sans seuil assoupli ; si la taille large le fait dépasser, réduire d'abord l'espace vertical au-dessus du bouton, puis le dire dans le compte rendu.
+- **Titre « Votre expertise est la matière première. Nous la mettons au travail. »** : conservé tel quel.
+- **Aucun prix** : la réponse FAQ sur le coût reste sans chiffre.
+
 ## Tests
 
 FR/EN, ordinateur et téléphone, avec et sans JS : un seul libellé d'action sur tout l'accueil (« Prendre rendez-vous » / « Book a call ») ; exactement 3 boutons d'action hors formulaire (nav, hero, bandeau) ; aucun `ghost` d'action restant ; `source=rdv-*` correctes ; aucune occurrence visible de « formation », « former », « formons », « Parler d'un projet » sur l'accueil ; deux cartes d'offre sans bouton ; 8 logos, tous dans la bande ; hero à 1440×800, « un bloc = un écran », stabilité, Brand OS, deny-all inchangés. Batterie : `npm ci --silent && npm run lint && npm run build -- --webpack && npm test`. Ne pas committer les PNG réécrits sous `.codex-handoffs/brand-os-p1/after/`.

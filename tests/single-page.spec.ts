@@ -196,6 +196,8 @@ test("retired routes redirect once with their complete source query", async ({ r
 
 for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
   test(`primary buttons use canonical rose ${locale} ${width}`, async ({ page }) => {
+    // Static palette contract; breathing is covered separately in intentions.spec.
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width, height: 900 });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
     for (const selector of [".hero .btn.exec", ".founder .btn.exec"]) {
@@ -232,7 +234,7 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     await expect(page.locator(".hero h1")).toHaveCSS("font-size", width === 375 ? "38px" : "46px");
     await expect(page.locator(".hero h1")).toHaveCSS("line-height", width === 375 ? "43px" : "52px");
     await expect(page.locator(".hero .sub > p")).toHaveCSS("font-size", width === 375 ? "18px" : "19px");
-    await expect(page.locator(".hero .btn.exec")).toHaveCSS("font-size", width === 375 ? "18px" : "19px");
+    await expect(page.locator(".hero .btn.exec")).toHaveCSS("font-size", "22px");
     await expect(page.locator(".founder .btn.exec")).toHaveCSS("font-size", "22px");
     await expect(page.locator(".founder .btn.exec")).toHaveCSS("padding", "22px 36px");
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -528,19 +530,19 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       await expect(button).toHaveCSS("white-space", "nowrap");
       const geometry = await button.evaluate(el => {
         const range = document.createRange();
-        range.selectNodeContents(el);
+        range.selectNode(el.firstChild!);
         const style = getComputedStyle(el);
         return {
           lines: range.getClientRects().length,
-          contentWidth: range.getBoundingClientRect().width,
+          contentWidth: range.getBoundingClientRect().width + el.querySelector("svg")!.getBoundingClientRect().width + parseFloat(style.columnGap),
           width: el.getBoundingClientRect().width,
           horizontalInset: parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth),
         };
       });
       expect(geometry.lines).toBe(1);
       expect(geometry.width).toBeCloseTo(geometry.contentWidth + geometry.horizontalInset, 0);
-      // The new hero uses the approved 19px button; contact stays unchanged.
-      await expect(button).toHaveCSS("padding", "18px 30px");
+      // Correctif 2 : large button and canonical connector; one text line remains.
+      await expect(button).toHaveCSS("padding", "22px 36px");
       const phrase = (await page.locator(".hero .sub > p").boundingBox())!;
       const action = (await button.boundingBox())!;
       const figure = (await page.locator(".onto-diagram").boundingBox())!;
@@ -670,12 +672,12 @@ for (const locale of ["fr", "en"]) for (const width of [800, 1024]) {
     const button = page.locator(".hero .exec");
     const geometry = await button.evaluate(el => {
       const range = document.createRange();
-      range.selectNodeContents(el);
+      range.selectNode(el.firstChild!);
       const style = getComputedStyle(el);
       const box = el.getBoundingClientRect();
       return {
         x: box.x, width: box.width, lines: range.getClientRects().length,
-        contentWidth: range.getBoundingClientRect().width,
+        contentWidth: range.getBoundingClientRect().width + el.querySelector("svg")!.getBoundingClientRect().width + parseFloat(style.columnGap),
         inset: parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth),
       };
     });

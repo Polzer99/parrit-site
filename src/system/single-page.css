@@ -404,7 +404,6 @@
 .single-page .hero .sub > p {font-size:18px;line-height:27px;color:var(--on-canard);max-width:none;}
 .single-page .hero .actions {display:flex;flex-direction:column;gap:var(--brand-s2);width:100%;}
 .single-page .hero .btn {border-width:2px;width:100%;line-height:24px;padding:18px 16px;white-space:normal;}
-.single-page .hero .btn.exec {font-size:18px;}
 /* The smaller label needs a 1px baseline offset; total vertical padding stays 36px. */
 .single-page .hero .btn.ghost {padding-top:calc(18px + var(--brand-s1) / 8);padding-bottom:calc(18px - var(--brand-s1) / 8);}
 .single-page .onto-diagram {--onto-plane:color-mix(in srgb,var(--canard),var(--ink) 48%);position:relative;width:100%;max-width:560px;aspect-ratio:390 / 380;justify-self:center;container-type:inline-size;}
@@ -458,7 +457,6 @@
   .single-page .hero h1 {font-size:46px;line-height:52px;}
   .single-page .hero .sub > p {font-size:19px;line-height:28px;}
   .single-page .hero .btn {width:max-content;max-width:100%;line-height:24px;padding:18px 30px;white-space:nowrap;}
-  .single-page .hero .btn.exec {font-size:19px;}
   .single-page .onto-diagram {grid-column:2;grid-row:1 / 3;max-width:none;aspect-ratio:820 / 630;}
   .single-page .onto-geo-desktop {display:inline;}
   .single-page .onto-geo-compact {display:none;}
@@ -611,3 +609,30 @@
 
 /* Décision de Paul du 08/11/2026, nuit, correctif 1 : reassurance under the action. */
 .single-page .hero .hero-reassurance {margin-top:var(--brand-s1);font-size:var(--t-s);line-height:1.5;color:var(--on-canard);}
+
+/* Grands boutons, décision de Paul du 08/11/2026, nuit, correctif 2.
+   Navigation ghost inchangée ; seul le fond du hero respire, jamais son texte. */
+.single-page :is(.hero,.final-call) .btn.exec {
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--brand-s2);
+  font-size:var(--t-l);line-height:1.4;padding:22px 36px;min-height:64px;
+  transition:background-color 150ms,border-color 150ms,transform 150ms;
+}
+.single-page :is(.hero,.final-call) .btn.exec:is(:hover,:focus,:active) {
+  background-color:var(--brand-accessible-warm);border-color:var(--ink);
+}
+.single-page :is(.hero,.final-call) .btn.exec .brand-connector {transition:transform 150ms;}
+.single-page :is(.hero,.final-call) .btn.exec:is(:hover,:focus) .brand-connector {transform:translateX(4px);}
+.single-page :is(.hero,.final-call) .btn.exec:active {transform:translateY(1px);}
+@keyframes appointment-breathe {
+  0%,100% {background-color:color-mix(in srgb,var(--brand-core-rose) 92%,transparent);}
+  50% {background-color:var(--brand-core-rose);}
+}
+@media(prefers-reduced-motion:no-preference) {
+  .single-page .hero .btn.exec:not(:hover):not(:focus):not(:active) {animation:appointment-breathe 3s ease-in-out infinite;}
+}
+@media(prefers-reduced-motion:reduce) {
+  .single-page :is(.hero,.final-call) .btn.exec,
+  .single-page :is(.hero,.final-call) .btn.exec:is(:hover,:focus,:active),
+  .single-page :is(.hero,.final-call) .btn.exec .brand-connector,
+  .single-page :is(.hero,.final-call) .btn.exec:is(:hover,:focus) .brand-connector {transition:none;transform:none;}
+}
