@@ -19,7 +19,12 @@ const entry = { slug: "test-article", title: "Article title", description: "An o
 for (const locale of ["en", "fr"]) {
   for (const certified of [false, true]) {
     test(`language notice is independent of deck and badge (${locale}, certified=${certified})`, async () => {
+      const local = loader(locale);
       const mocks = {
+        "@/system/locale": local("src/system/locale.ts"),
+        "@/system/journal-translations": local("src/system/journal-translations.ts"),
+        "@/system/journal-reading": local("src/system/journal-reading.ts"),
+        "@/system/journal-themes": local("src/system/journal-themes.ts"),
         "@/system/components/BookingCall": loader(locale)("src/system/components/BookingCall.tsx"),
         "@/lib/server/locale": { getLocale: async () => locale },
         "@/system/auteur": { AUTEUR: { nom: "Parrit.ai", url: "https://parrit.ai" } },

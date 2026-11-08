@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import { FRENCH_JOURNAL_SLUGS, hasFrenchJournalTranslation } from "./src/system/journal-translations.ts";
+
+const frenchArticlePath = (slug: string) => `${hasFrenchJournalTranslation(slug) ? "/fr" : ""}/journal/${slug}`;
 
 const RENOMMAGES_JOURNAL: Readonly<Record<string, string>> = {
   "agent-whatsapp-business-entreprise": "whatsapp-business-agent",
@@ -46,7 +49,12 @@ const REDIRECTIONS_JOURNAL = Object.entries(JOURNAL_LEGACY_ROUTES).flatMap(
   ([section, slugs]) =>
     slugs.flatMap((slug) => [
       {
-        source: `/:lang(fr|en|pt-BR|zh-CN)/${section}/${slug}`,
+        source: `/fr/${section}/${slug}`,
+        destination: frenchArticlePath(RENOMMAGES_JOURNAL[slug] ?? slug),
+        statusCode: 301 as const,
+      },
+      {
+        source: `/:lang(en|pt-BR|zh-CN)/${section}/${slug}`,
         destination: `/journal/${RENOMMAGES_JOURNAL[slug] ?? slug}`,
         statusCode: 301 as const,
       },
@@ -84,8 +92,10 @@ const nextConfig: NextConfig = {
   // The OG generators read src/system/tokens.css at runtime; without this
   // the file is absent from the serverless bundle and the route 500s.
   outputFileTracingIncludes: {
-    "/journal/\\[slug\\]": ["./content/journal/*.mdx", "./public/certificates/*.json"],
-    "/journal/themes/\\[theme\\]": ["./content/journal/*.mdx"],
+    "/": ["./content/journal/**/*.mdx"],
+    "/journal": ["./content/journal/**/*.mdx"],
+    "/journal/\\[slug\\]": ["./content/journal/**/*.mdx", "./public/certificates/*.json"],
+    "/journal/themes/\\[theme\\]": ["./content/journal/**/*.mdx"],
     "/llms-full.txt": ["./public/llms.txt", "./content/journal/*.mdx"],
     "/opengraph-image": ["./src/system/brand-os.tokens.css", "./src/system/tokens.css", "./src/og-assets/*"],
     "/journal/\\[slug\\]/og": ["./src/system/brand-os.tokens.css", "./src/system/tokens.css", "./src/og-assets/*"],
@@ -113,8 +123,9 @@ const nextConfig: NextConfig = {
       ...THEME_REDIRECTS,
       ...SECTION_REDIRECTS,
       { source: "/fr/conseil-transformation", destination: "/fr/journal/themes/conseil-transformation", statusCode: 308 },
-      ...Object.entries(RENOMMAGES_JOURNAL).map(([old, current]) => ({ source: `/fr/journal/${old}`, destination: `/journal/${current}`, statusCode: 308 as const })),
-      { source: "/fr/journal/:slug", destination: "/journal/:slug", statusCode: 308 },
+      ...Object.entries(RENOMMAGES_JOURNAL).map(([old, current]) => ({ source: `/fr/journal/${old}`, destination: frenchArticlePath(current), statusCode: 308 as const })),
+      // Exclude complete translated slugs, including when a trailing slash is present.
+      { source: `/fr/journal/:slug((?!${FRENCH_JOURNAL_SLUGS.map(slug => `${slug}(?:/|$)`).join("|")})[^/]+)`, destination: "/journal/:slug", statusCode: 308 },
       { source: "/camp-costa-rica/:path*", destination: "/", permanent: true },
       { source: "/paul", destination: "/", permanent: true },
       { source: "/maxime", destination: "/", permanent: true },

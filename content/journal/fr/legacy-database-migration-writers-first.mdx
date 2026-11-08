@@ -1,0 +1,39 @@
+---
+title: "Basculer notre écran commercial sur la nouvelle base aurait masqué 16 de ses 34 éléments"
+date: "2026-10-10"
+description: "Avant de quitter une ancienne base, faites fonctionner l'écran sur les deux et classez chaque écart. Chez nous, un filtre expliquait l'essentiel de l'écart. Le vrai risque venait des scripts qui écrivaient encore dans l'ancienne base."
+slug: "legacy-database-migration-writers-first"
+translationOf: "legacy-database-migration-writers-first"
+---
+
+Le 11 septembre, nous avons fait fonctionner notre écran commercial sur l'ancienne base puis sur la nouvelle. L'ancienne affichait 34 éléments, la nouvelle 21, et 16 n'apparaissaient que sur l'ancienne. Basculer ce jour-là aurait changé presque la moitié de ce qu'affichait l'écran, sans produire une seule erreur. Un écran ne bascule donc que lorsque les deux côtés montrent la même chose. Chaque script qui écrit encore dans l'ancienne base doit migrer en premier.
+
+Le reste du décompte compte aussi : 18 éléments figuraient des deux côtés, trois correspondaient à des fiches créées uniquement dans la nouvelle base, et l'écran seul ne permettait pas de savoir lesquels des 16 étaient utiles.
+
+## Les scripts qui continuent d'écrire
+
+Une migration est généralement planifiée comme une copie suivie d'une bascule. Le plan suppose que l'ancienne base cesse de changer une fois la copie terminée. Le 13 septembre, nous avons recensé tous les traitements qui écrivaient encore des contacts dans l'ancienne base : il y en avait onze. Des tâches planifiées, des programmes recevant les notifications d'autres outils, de petits scripts de synchronisation. Tant qu'ils tournaient, l'ancienne base apprenait des choses que la nouvelle ignorait. Un écran basculé aurait montré une version de l'entreprise en retard sur celle que nous faisions fonctionner.
+
+Le même inventaire a corrigé un statut que nous avions nous-mêmes écrit. Notre application interne tenait une liste des écrans considérés comme migrés. L'écran des rendez-vous y figurait. La lecture du code a montré qu'il chargeait toujours les rendez-vous depuis l'ancienne table. Nous traitons désormais un statut de migration comme une affirmation et lisons le code qui la justifie.
+
+## Ce que la comparaison a révélé
+
+Nous comparons ce que voit une personne. Deux bases peuvent contenir le même nombre de lignes et diverger sur l'essentiel. La personne qui utilise l'écran chaque jour s'assied avec celle qui gère les scripts. Elles lancent le même écran avec les mêmes filtres sur les deux bases, puis classent chaque écart dans trois groupes : absent de la nouvelle base, présent mais masqué par une règle de filtrage différente, ou donnée parasite que l'ancienne base affichait.
+
+Les 16 éléments de l'écran commercial, ajoutés aux 114 de notre écran de réservation, donnent 130 éléments visibles uniquement dans l'ancienne base. En remontant leur parcours, nous avons trouvé 91 éléments présents dans la nouvelle base mais masqués par un filtre écrit différemment. Les 39 autres étaient des transcriptions d'appels qu'un ancien script avait classées comme prospects. Aucun des 130 ne manquait. Le travail sur ces deux écrans consistait à aligner une définition et à supprimer des données parasites. C'est la comparaison qui nous l'a appris.
+
+Le groupe des données manquantes existe ailleurs. Depuis le 24 août, les enregistrements d'appels de toutes les sources sauf une arrivent uniquement dans l'ancienne base, car les programmes qui les écrivent n'ont pas encore migré. C'est le cas où basculer fait perdre des données. Il reste invisible sur tout écran qui n'affiche pas les appels.
+
+## Où nous en sommes
+
+Nous tenons un registre de 26 domaines de données. Il indique pour chacun quelle base fait autorité. Le 8 octobre, un seul domaine avait basculé : les paiements. Les relevés de la banque y font référence et aucun script n'écrivait dans l'ancienne table ; la comparaison n'avait donc rien révélé. Quatre domaines sont bloqués par une comparaison en échec, huit sont en cours de migration et treize n'ont pas commencé. Lors du dernier inventaire, le 13 septembre, les deux bases recevaient encore des écritures dans quinze des 26 domaines.
+
+Pendant la migration des programmes qui écrivent, un contrôle maintient la limite. Nos agents de développement sont des outils IA qui saisissent des commandes pour nous. Les commandes de base de données qu'ils saisissent en session passent par un petit programme qui refuse les écritures vers l'ancienne base. Entre le 13 septembre et le 4 octobre, il a refusé 59 tentatives. Il lit les commandes saisies en session et ne peut pas voir l'intérieur d'un script lancé par son nom de fichier. Les contrôles automatisés exécutés avant l'acceptation de toute modification de code couvrent ce cas avec leur propre règle.
+
+Nous ferions une chose dans un autre ordre. Le 13 septembre, notre propre contrôle a constaté que l'ancienne base ne répondait plus : quatre lectures de test sur quatre avaient expiré, la dernière sauvegarde datait de la veille, et la sauvegarde continue, qui permet de restaurer à la minute choisie, était désactivée. Les quatre comparaisons en échec ne peuvent pas être relancées avant de restaurer une copie lisible. À la date du registre, cette copie n'existait pas encore, donc les quatre domaines restent où ils sont. Activez la sauvegarde continue avant la première comparaison : une comparaison n'a de valeur que si vous pouvez la refaire.
+
+## Appliquer la méthode à votre migration
+
+Choisissez l'écran dont votre équipe se sert pour décider, celui qui coûterait le plus s'il affichait moins d'informations qu'il ne devrait. Recensez chaque tâche, script et intégration qui écrit dans sa table, sur les deux systèmes, et notez la base ciblée. Faites ensuite fonctionner l'écran sur les deux bases avec les mêmes filtres, aux côtés de la personne qui l'utilise, et classez chaque écart dans les trois groupes.
+
+Un élément manquant désigne un programme qui écrit encore dans l'ancienne base. Un élément filtré désigne une règle à harmoniser. Lorsque le premier groupe est vide et que plus aucun programme ne cible l'ancienne base, l'écran peut basculer. Le suivant figure déjà sur votre liste.

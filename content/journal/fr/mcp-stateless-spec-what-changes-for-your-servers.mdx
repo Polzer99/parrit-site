@@ -1,0 +1,37 @@
+---
+title: "Ce que la réécriture sans état de MCP change pour une entreprise qui exploite ses propres serveurs"
+date: "2026-09-25"
+description: "La révision du 28 juillet 2026 du Model Context Protocol retire les sessions du protocole et lance un calendrier de dépréciation. Rien n'impose de changer aujourd'hui. C'est le moment de lire votre code."
+slug: "mcp-stateless-spec-what-changes-for-your-servers"
+translationOf: "mcp-stateless-spec-what-changes-for-your-servers"
+---
+
+Imaginez un serveur MCP exécuté sur deux réplicas derrière un répartiteur de charge. Un client ouvre une session sur le premier réplica, puis envoie l'appel suivant. Le répartiteur le transmet au second, qui ne connaît pas la session et le refuse. Une solution de contournement est le routage persistant : affecter chaque client au même réplica pendant toute sa session.
+
+La spécification datée du 28 juillet 2026 supprime la cause. L'[annonce du projet](https://blog.modelcontextprotocol.io/posts/2026-07-28/) indique que chaque requête contient désormais sa propre description. N'importe quelle requête peut donc arriver sur n'importe quelle instance derrière un simple répartiteur circulaire. La négociation initialize et l'en-tête Mcp-Session-Id sont retirés. Chaque requête porte la version du protocole, l'identité du client et ses capacités dans son champ `_meta`. Un appel facultatif server/discover permet au client de découvrir ce qu'offre le serveur avant de lui demander quoi que ce soit.
+
+## Ce qui est sorti du transport
+
+L'état n'a pas disparu : le protocole a cessé de le porter. Un serveur qui doit mémoriser quelque chose entre deux appels renvoie désormais un identifiant dans le résultat d'un appel d'outil. Le client le repasse comme argument ordinaire à l'appel suivant. Ce schéma provient des analyses de la publication ; le protocole ne définit pas ce mécanisme. Deux autres changements suivent la même direction. Certaines requêtes que le serveur lançait sur un flux ouvert, comme la demande d'une information manquante, sont remplacées par plusieurs allers-retours. Le serveur répond avec un résultat de type input_required qui liste ses besoins, puis le client réessaie l'appel initial en joignant les réponses. Les requêtes Streamable HTTP portent aussi les en-têtes Mcp-Method et Mcp-Name. Une passerelle peut ainsi router et compter les appels par outil sans ouvrir le corps de la requête.
+
+Ce dernier changement compte davantage qu'il n'y paraît. Router et compter par outil nécessitait auparavant une passerelle capable d'analyser le JSON. Ces opérations peuvent désormais se faire à l'entrée du réseau, à partir des seuls en-têtes. La possibilité d'utiliser un en-tête pour autoriser une action reste une question distincte : le serveur doit toujours vérifier que l'en-tête et le corps concordent.
+
+## L'échéance est lisible
+
+Roots, Sampling et Logging sont dépréciés, avec une prise en charge promise pendant au moins douze mois. L'ancien transport HTTP+SSE est déprécié avec un délai d'un an. Dynamic Client Registration cède la place aux Client ID Metadata Documents dans le parcours d'autorisation. En comptant depuis la publication, Roots, Sampling, Logging et l'ancien transport ne peuvent donc pas disparaître avant fin juillet 2027. Ce calcul est le nôtre, pas celui de la spécification. Nous n'avons trouvé aucune date annoncée pour le changement de Dynamic Client Registration.
+
+Rien dans cette révision ne casse aujourd'hui un serveur en fonctionnement. Ce qui change, c'est l'existence d'une échéance de migration que personne chez vous n'a choisie. Il reste à savoir si elle arrivera sous forme de plan ou d'incident.
+
+## Ce que cela implique pour nous
+
+Nous exploitons des serveurs MCP pour nos propres outils. Cette révision devient donc une tâche dans notre file de travail, pas un titre d'actualité. Comme nous possédons le socle sur lequel ces serveurs tournent, nous décidons quand chacun passe à la nouvelle révision et comment il fonctionne entre-temps. Un client dont les outils d'agents passent par le connecteur hébergé d'un éditeur peut recevoir la révision le jour où cet éditeur la publie, avec ce que sa suite de tests aura couvert.
+
+C'est le cas ordinaire lorsqu'on construit sur un protocole encore assez jeune pour publier une révision de cette ampleur. Une révision coûte peu quand la personne qui exploite le serveur peut lire les différences de code. Elle coûte cher quand elle n'en reçoit que les effets.
+
+Si vos outils d'agents passent par un connecteur hébergé, deux questions à votre éditeur remplacent les recherches ci-dessous : à quelle date le connecteur utilisera-t-il la révision du 28 juillet 2026, et que couvre sa suite de tests pendant la bascule ? Ses réponses seront votre seul plan de migration. Demandez-les par écrit.
+
+## Trois recherches à lancer dans votre code
+
+Cherchez dans le code serveur tout ce qui lit l'en-tête de session ou attend un état défini pendant l'appel initialize. Chaque résultat désigne un endroit où un second réplica échoue si l'état de session n'est pas partagé, et où la nouvelle révision demande un identifiant explicite. Listez les fonctions Roots, Sampling et Logging que vos serveurs ou clients appellent réellement : ce sont celles qui portent une échéance. Vérifiez ensuite le transport utilisé par vos serveurs distants. L'ancien HTTP+SSE a son propre délai d'un an.
+
+Lisez les résultats dans cet ordre : les usages de session d'abord, puisqu'ils échouent dès l'ajout d'un réplica, puis les fonctions dépréciées, puis le transport. Ensemble, ils donnent une première estimation de la migration en nombre de fichiers. Nous ne l'avons pas chiffrée pour vous : son coût dépend de ce que ces recherches révèlent, multiplié par votre propre tarif horaire. La date est déjà au calendrier. Il reste à trouver sur lesquels de vos fichiers elle tombe.

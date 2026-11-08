@@ -1,3 +1,18 @@
+## Journal en français, décision de Paul du 08/11/2026
+
+`docs/CODEX-SPEC-2026-11-08-journal-en-francais.md` remplace le contrat
+« articles uniquement en anglais » pour les 31 entrées indexables. Les éditions
+françaises vivent dans `content/journal/fr/<slug>.mdx`, avec le même slug, la
+même date et `translationOf`. `journal-translations.ts` partage leur registre
+entre lecteur, navigation et redirections ; les tests imposent sa concordance
+avec le corpus. Le corps, les titres, les cartes et les métadonnées suivent la
+langue de l'URL. Canonicals propres, alternates fr/en/x-default réciproques,
+Article/inLanguage et sitemap bilingue. Les neuf noindex gardent leur 308 vers
+l'anglais ; les anciens noms rejoignent leur langue en un saut. RSS et OG restent
+aux adresses anglaises existantes. `llms.txt` est régénéré avec les éditions FR.
+Les certificats existants portent sur les octets de l'original anglais ; le
+libellé français du badge le précise. Originaux anglais et certificats inchangés.
+
 ## Appel de 15 minutes, décision de Paul du 08/11/2026
 
 La spec `docs/CODEX-SPEC-2026-11-08-appel-15-min-lot-a.md` ajoute

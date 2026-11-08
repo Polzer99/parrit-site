@@ -75,7 +75,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         })));
         for (const [index, card] of homeCards.entries()) {
           await expect(articles.nth(index).getByRole("link")).toHaveCount(1);
-          await expect(articles.nth(index).getByRole("link")).toHaveAttribute("hreflang", "en");
+          await expect(articles.nth(index).getByRole("link")).toHaveAttribute("hreflang", locale);
+          expect(card.href).toMatch(new RegExp(`^${locale === "fr" ? "/fr" : ""}/journal/[a-z0-9-]+$`));
           const themes = getJournalThemes(card.href!.split("/").at(-1)!);
           await expect(articles.nth(index).locator(".journal-entry-theme")).toHaveCount(themes.length);
           for (const theme of themes) expect(card.meta).toContain(theme.label[locale]);

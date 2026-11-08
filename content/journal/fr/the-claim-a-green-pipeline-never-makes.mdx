@@ -1,0 +1,37 @@
+---
+title: "Ce qu'un pipeline au vert n'affirme jamais"
+date: "2026-09-15"
+description: "Une pull request sans code. Un tableau de bord aussi calme qu'un dimanche creux. Une suite de tests restée verte parce que ce qu'elle devait tester ne s'est jamais exécuté. Trois de nos systèmes ont annoncé un succès ce mois-ci. Aucun ne méritait ce mot."
+slug: "the-claim-a-green-pipeline-never-makes"
+translationOf: "the-claim-a-green-pipeline-never-makes"
+---
+
+Une pull request est arrivée en attente de revue, avec zéro ligne modifiée. Le modèle chargé du travail avait refusé la tâche et l'avait écrit dans son journal. Rien, dans les étapes suivantes, n'a lu ce journal. La suite de tests s'est exécutée sur le code inchangé. Elle a évidemment réussi, puisqu'elle réussissait déjà la veille et l'avant-veille. Tous les écrans étaient au vert. Il ne manquait que le travail.
+
+Nous construisons des systèmes qui confient des décisions à un modèle, puis exécutent une batterie de contrôles avant de faire confiance au résultat. Cette phrase ressemble à une garantie. Ce mois-ci, elle a produit trois incidents distincts où le contrôle a validé un échec au lieu de le détecter. Chaque fois, vu de l'extérieur, cette validation ressemblait exactement à un système en bonne santé.
+
+## Le vert est une sortie, pas une affirmation
+
+Un voyant d'état répond à une question : la dernière étape s'est-elle terminée sans erreur ? Il ne dit pas si elle a touché ce qu'elle devait toucher. Un test réussit quand le chemin de code qu'il exerce se comporte comme prévu. Il réussit tout aussi facilement quand ce chemin n'a jamais été exercé, parce qu'une valeur de configuration manquait et que tout le bloc a été discrètement ignoré.
+
+C'est ce qui s'est passé lors du deuxième incident. Une variable d'environnement était absente d'une machine et présente sur une autre. La suite exécutée sur la machine où elle manquait a annoncé un succès, rapidement, parce qu'elle n'avait rien à faire. Son résultat est identique, que la fonctionnalité marche ou qu'elle n'ait jamais été testée. Personne n'avait écrit ce que le test devait prouver. Il enregistrait seulement que rien n'avait cassé.
+
+La pull request sans code présente le même échec sous une autre forme. L'intégration continue vérifie qu'un build compile et qu'une suite de tests passe. Elle ne vérifie pas que la pull request contient le changement annoncé. Un agent qui refuse une tâche et un agent qui l'accomplit donnent tous deux au pipeline quelque chose à tester. Si ce quelque chose est du code inchangé, les deux chemins affichent le même vert.
+
+## Un écran vide a deux causes, dont une seule est normale
+
+Le troisième incident se situait un étage plus haut, dans un tableau de bord plutôt que dans un pipeline. Un écran destiné à montrer l'activité du jour n'affichait rien à examiner, alors que la connexion à la base de données était coupée. Un dimanche calme ordinaire, avec une base en parfait état, ce même écran affiche exactement la même chose : rien à examiner.
+
+Une personne qui regarde l'un ou l'autre voit la même image et tire la même conclusion : il n'y a rien à faire. L'une de ces situations est vraie. Dans l'autre, un système qui a cessé de rendre compte passe pour un système qui n'a rien à signaler. Le coût de cette confusion reste invisible sur le moment. Il apparaît plus tard, quand quelqu'un demande pourquoi une semaine d'activité n'est jamais arrivée à destination. La réponse est une connexion morte dont personne n'a été averti, parce que rien à l'écran ne demandait qu'on le soit.
+
+## La correction ne consiste pas à ajouter de la supervision
+
+Ajouter un tableau de bord au-dessus d'un tableau de bord défaillant produit un quatrième écran qui peut, lui aussi, échouer en silence. La correction que nous avons retenue est plus modeste et moins gratifiante. Avant qu'une étape puisse annoncer un résultat, elle doit définir séparément ce que serait une véritable absence de travail et ce que serait une incapacité à observer le travail. Ces deux états reçoivent des libellés différents. Un test qui ne s'est jamais exécuté ne se déclare pas réussi. Il indique l'état observé, ou dit qu'il n'a pu observer aucun état. Ce ne sont pas les mêmes mots.
+
+Cette distinction coûte peu à intégrer à un nouveau contrôle. Elle coûte cher à réintroduire dans un ancien, car il faut retrouver chaque endroit où un voyant vert représentait deux faits distincts, puis les séparer à la main. Nous le faisons pipeline par pipeline, en commençant par ceux auxquels une personne fait assez confiance pour ne plus vérifier derrière.
+
+## Demandez au pipeline ce qu'il afficherait en cas d'échec silencieux
+
+Avant de faire confiance à un résultat vert dans l'un de vos systèmes, choisissez un contrôle. Demandez quelle serait sa sortie si l'élément surveillé cessait de répondre au lieu d'échouer bruyamment. Si la réponse est la même que lors d'une journée normale sans activité, le contrôle ne distingue pas les deux situations. Il lui faut un troisième état avant de pouvoir lui faire de nouveau confiance. Nous avons trouvé nos trois cas ainsi, un contrôle à la fois, après les incidents. Un contrôle qui échoue en silence a rarement été conçu ainsi volontairement. Cela arrive par omission, une branche else manquante à la fois.
+
+Un pipeline qui s'est exécuté sans rien trouver et un pipeline qui ne s'est jamais exécuté sont deux faits différents. Les nôtres les présentaient comme un seul.

@@ -35,7 +35,7 @@ export default async function JournalThemePage({ params }: Props) {
   const config = THEMES[theme];
   const copy: GuideCopy = SITE_V1_PAGES[config.page][locale];
   const articleSlugs: readonly string[] = config.articles;
-  const entries = getAllJournalEntrySummaries().filter(entry => !entry.noindex && articleSlugs.includes(entry.slug));
+  const entries = getAllJournalEntrySummaries(locale).filter(entry => !entry.noindex && articleSlugs.includes(entry.slug));
   const canonical = `https://parrit.ai${localizedPath(`/journal/themes/${theme}`, locale)}`;
   return <main className="rev-page journal-theme" data-brand-mode="accessible">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(journalThemeJsonLd(copy, locale, canonical)).replace(/</g, "\\u003c") }}/>
@@ -46,7 +46,7 @@ export default async function JournalThemePage({ params }: Props) {
       {copy.sections.map(([anchor, title, paragraphs]) => <section key={anchor} id={anchor}><h2>{title}</h2>{paragraphs.map(text => <p key={text}>{text}</p>)}</section>)}
       {theme === "harness-engineering" && <ul>{(fr ? ["Instructions", "Contexte", "Mémoire", "Outils", "Permissions", "Vérifications", "Supervision", "Coûts"] : ["Instructions", "Context", "Memory", "Tools", "Permissions", "Checks", "Supervision", "Costs"]).map(item => <li key={item}>{item}</li>)}</ul>}
       {copy.faq.length > 0 && <section><h2>{fr ? "Questions fréquentes" : "Frequently asked questions"}</h2>{copy.faq.map(([question, answer]) => <div key={question}><h3>{question}</h3><p>{answer}</p></div>)}</section>}
-      <section><h2>Journal</h2><ol className="journal-list">{entries.map(entry => <li key={entry.slug}><Link href={`/journal/${entry.slug}`} hrefLang="en"><div lang="en"><h3>{entry.title}</h3><p>{entry.description}</p></div></Link></li>)}</ol></section>
+      <section><h2>Journal</h2><ol className="journal-list">{entries.map(entry => <li key={entry.slug}><Link href={localizedPath(`/journal/${entry.slug}`, locale)} hrefLang={locale}><div lang={locale}><h3>{entry.title}</h3><p>{entry.description}</p></div></Link></li>)}</ol></section>
       <BookingCall locale={locale} source={`theme-${theme}`} />
     </div></div>
   </main>;

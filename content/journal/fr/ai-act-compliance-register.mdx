@@ -1,0 +1,37 @@
+---
+title: "Créer un registre de conformité à l’AI Act sans équipe dédiée"
+date: "2026-08-31"
+description: "L’échéance du 2 août 2026 est passée. Pour une entreprise qui automatise avec méthode, le registre de conformité n’est pas un nouveau projet. C’est l’export de traces que le système devrait déjà produire."
+slug: "ai-act-compliance-register"
+translationOf: "ai-act-compliance-register"
+---
+
+Depuis le 2 août 2026, les pouvoirs de contrôle du Bureau européen de l’IA et des autorités nationales s’appliquent. La question des dirigeants est presque toujours la même : faut-il recruter une équipe conformité avant de déployer quoi que ce soit d’autre ? Nous répondons non. Pas parce que le règlement serait sans effet, mais parce qu’un registre de conformité recense ce qu’une automatisation bien construite produit déjà. Si votre système ne peut pas le fournir, la lacune se situe dans l’ingénierie, pas dans votre service juridique.
+
+## Ce qui a réellement changé le 2 août
+
+Trois éléments doivent être séparés, car la plupart des résumés les mélangent. D’abord, le cadre de contrôle : le Bureau de l’IA et les autorités nationales compétentes peuvent désormais agir. La préparation laisse place à l’exposition au contrôle. Ensuite, les obligations de transparence de l’Article 50 s’appliquent largement : un système qui interagit avec un humain doit clairement se présenter comme une IA, et les contenus générés ou manipulés doivent être signalés. Enfin, les obligations relatives aux systèmes à haut risque de l’Annexe III, qui couvre notamment l’emploi, le crédit et les infrastructures critiques, atteignent formellement leur échéance à cette date. Mais l’accord Digital Omnibus conclu en mai 2026 les reporterait au 2 décembre 2027, et ce report nécessite encore une adoption formelle. La lecture prudente est donc la suivante : transparence et contrôle s’appliquent aujourd’hui ; le dispositif des systèmes à haut risque arrive avec un délai supplémentaire à utiliser, pas à perdre.
+
+Les sanctions expliquent l’inquiétude : jusqu’à 35 millions d’euros ou 7 pour cent du chiffre d’affaires mondial pour les pratiques interdites ; jusqu’à 15 millions d’euros ou 3 pour cent pour la non-conformité des systèmes à haut risque. Des plafonds supérieurs à ceux du RGPD. Voilà ce qui pousse les entreprises à traiter l’AI Act comme une urgence juridique et à recruter en conséquence.
+
+## Lire les obligations comme une spécification d’ingénierie
+
+Regardez ce que le déployeur d’un système à haut risque doit pouvoir montrer : des procédures de supervision humaine qui existent et sont suivies, des logs de fonctionnement conservés dans le temps, une documentation de ce que fait le système et des données qu’il utilise, et la capacité d’informer les personnes concernées qu’une IA est intervenue. Aucun de ces éléments n’est un document purement juridique. Chacun dépend de la conception du processus. Un juriste peut vous dire si votre cas relève de l’Annexe III. Il ne peut pas recréer après coup les traces de décisions que votre système n’a jamais enregistrées.
+
+Traiter la conformité comme un projet séparé tend ce piège : le projet produit des classeurs qui décrivent un système ne consignant toujours rien. Le registre doit être une requête sur des données existantes. Sinon, c’est une fiction avec un marquage CE sur la couverture.
+
+## Ce que nous enregistrons déjà, et pourquoi cela précède le règlement
+
+Chaque agent que nous déployons écrit ses décisions dans une table de la base de données du client. La sienne, pas la nôtre : posséder le support des données, c’est posséder la piste d’audit. Chaque ligne indique ce que l’agent a fait, quelle règle il a appliquée et ce qu’il a refusé de faire. Les règles vivent dans des fichiers versionnés. Une modification de règle est donc un commit avec une date et un auteur, pas un souvenir. Toute action qui touche le monde extérieur, un e-mail, un prix, un engagement, passe par une validation humaine explicite. L’accord ou le refus devient lui-même un événement du journal.
+
+Nous n’avons rien construit de tout cela pour l’AI Act. Nous l’avons fait parce qu’un système impossible à auditer est impossible à corriger. Nos propres moteurs éditoriaux et opérationnels fonctionnent sans surveillance, ce qui n’est acceptable que si chaque décision laisse une trace. Le registre demandé par le règlement est donc, pour nos déploiements, un export. Les points de supervision humaine sont déjà nommés dans le processus. Les logs sont déjà dans la base du client. Les fichiers de règles constituent la documentation.
+
+## Par où commencer si vous n’avez rien
+
+Commencez par un inventaire. Pour chaque système automatisé, posez une question : peut-il montrer ses décisions du mois dernier, nommer la règle appliquée et désigner la personne qui aurait pu l’arrêter ? Si oui, son registre est un rapport. Si non, vous avez identifié du travail réel, du travail d’ingénierie : ajouter le journal des décisions, extraire les règles du prompt ou du code vers un document versionnable, rendre explicites les points de contrôle humains jusque-là informels. Faites appel au juridique pour la question qui en a réellement besoin : votre cas relève-t-il des systèmes à haut risque de l’Annexe III ?
+
+Le report à décembre 2027, s’il est formellement adopté, n’est pas un sursis pour ne rien faire. Il laisse du temps pour intégrer la traçabilité aux systèmes, plutôt que de constituer un classeur à leur sujet. Les entreprises qui automatisent avec méthode découvriront qu’elles étaient largement conformes avant qu’on le leur demande. Les autres recruteront une équipe conformité pour documenter des systèmes que personne ne sait expliquer.
+
+## Remonter aux sources
+
+Le cadre de contrôle est décrit sur le site de la stratégie numérique de la Commission européenne, digital-strategy.ec.europa.eu, dans la rubrique consacrée à l’application de l’AI Act. Les niveaux de sanctions figurent à l’Article 99 du règlement, consultable sur artificialintelligenceact.eu. Une présentation détaillée de ce que change le 2 août 2026, y compris le report Digital Omnibus encore en attente, se trouve sur aiacto.eu.

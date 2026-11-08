@@ -27,14 +27,14 @@ const origin = "http://localhost:3210";
 const article = "/journal/one-card-one-action";
 const request = (path, headers) => proxy(new NextRequest(`${origin}${path}`, { headers }));
 
-test("Next resolves French Journal aliases in one 308 with source and UTM intact", async () => {
+test("Next keeps translated French URLs and redirects renamed articles in one hop with attribution", async () => {
   const nextConfig = load("../next.config.ts").default;
   for (const slug of ["one-card-one-action", "une-carte-une-action"]) {
     for (const query of ["source=test", "lang=fr&source=test&utm_source=mail&utm_campaign=a%26b&utm_custom=custom"]) {
       const response = await unstable_getResponseFromNextConfig({ url: `${origin}/fr/journal/${slug}?${query}`, nextConfig });
-      assert.equal(response.status, 308);
-      const destination = new URL(response.headers.get("location"));
-      assert.equal(destination.pathname, article);
+      assert.equal(response.status, slug === "one-card-one-action" ? 200 : 308);
+      const destination = new URL(response.headers.get("location") ?? `/fr/journal/${slug}?${query}`, origin);
+      assert.equal(destination.pathname, `/fr${article}`);
       assert.deepEqual([...destination.searchParams], [...new URLSearchParams(query)]);
       const final = await unstable_getResponseFromNextConfig({ url: destination.href, nextConfig });
       assert.equal(final.status, 200);
@@ -119,10 +119,10 @@ for (const target of ["fr", "en"]) test(`hydrated language destinations preserve
   }
 });
 
-test("French article aliases have one configured 308 before the proxy, retaining queries", () => {
+test("Untranslated article aliases retain a configured 308 before the proxy", () => {
   const { redirects } = load("../next.config.ts").default;
   return redirects().then(rules => {
-    const rule = rules.find(item => item.source === "/fr/journal/:slug");
+    const rule = rules.find(item => item.source.startsWith("/fr/journal/:slug("));
     assert.equal(rule.statusCode, 308);
     assert.equal(rule.destination, "/journal/:slug");
     const response = request(`${article}?source=test`);
@@ -148,8 +148,8 @@ test("French feed, OG, private and unrelated aliases keep their original redirec
   }
 });
 
-test("article language switches keep the English canonical and preserve the suffix", () => {
-  assert.equal(locale.localizedPath(`${article}?source=test#body`, "fr"), `${article}?source=test#body`);
+test("article language switches target the equivalent translation and preserve the suffix", () => {
+  assert.equal(locale.localizedPath(`${article}?source=test#body`, "fr"), `/fr${article}?source=test#body`);
   assert.equal(locale.localizedPath(`/fr${article}?source=test#body`, "en"), `${article}?source=test#body`);
   const response = request(`${article}?lang=fr&source=test`);
   assert.equal(response.status, 200);

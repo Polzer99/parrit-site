@@ -170,7 +170,6 @@ questions: (
 articles: (
 <section id="articles"><div className="wrap">
   <h2>{copy.articlesTitle}</h2>
-  {fr && <p className="journal-language-note">Articles en anglais</p>}
   <MobileCarousel className="journal-list journal-index home-journal-list" label={copy.articlesTitle}>
     {latestEntries.map(entry => <article key={entry.slug}><JournalCard entry={entry} locale={locale} compact/></article>)}
   </MobileCarousel>

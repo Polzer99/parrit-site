@@ -1,0 +1,35 @@
+---
+title: "L’IA coûte-t-elle plus cher quand votre équipe travaille en français ?"
+date: "2026-10-13"
+description: "Nous avons compté les tokens des versions anglaise et française du RGPD et de l’AI Act avec cinq tokenizers publics. Le français en demande 29 à 54 pour cent supplémentaires sur quatre d’entre eux, dont celui de GPT-5. Comment ajuster un budget IA et comparer les tarifs des modèles pour travailler en français."
+slug: "ai-cost-french-vs-english-tokens"
+translationOf: "ai-cost-french-vs-english-tokens"
+---
+
+Oui, pour le travail facturé au token, ces fragments de texte de quelques lettres que les services d’IA comptabilisent. Un budget dimensionné sur des essais en anglais devient insuffisant lorsque les vrais documents sont en français. Sur les versions anglaise et française de deux lois européennes, le français demande 29 à 54 pour cent de tokens supplémentaires avec quatre tokenizers publics, dont celui de GPT-5. Multipliez vos estimations fondées sur l’anglais par votre propre ratio français/anglais. Comparez les modèles sur le coût de votre document français pour chacun.
+
+## Ce qu’est un tokenizer, et ce que nous avons compté
+
+Un tokenizer est le programme qui découpe le texte en tokens avant sa lecture par un modèle. Chaque famille de modèles a le sien, et la facture compte ce qu’il produit. Pour comparer les langues équitablement, il fallait des textes disant exactement la même chose dans les deux langues. Le 12 octobre, nous avons donc téléchargé sur EUR-Lex, la base juridique de l’UE, les versions officielles anglaise et française de deux lois européennes : le RGPD, sur les données personnelles, et l’AI Act, sur l’intelligence artificielle.
+
+Nous les avons passées dans cinq tokenizers sur notre propre machine. Deux viennent de `tiktoken`, la bibliothèque de comptage gratuite d’OpenAI, en version 0.14.0. Son propre tableau associe le premier à GPT-5, GPT-4.1 et GPT-4o, le second à l’ancien GPT-4. Les trois autres sont les fichiers publiés avec trois familles de modèles d’autres éditeurs : Mistral Nemo, Qwen3 et DeepSeek-V3.
+
+Sur le RGPD, le français demande 31 pour cent de tokens supplémentaires avec le tokenizer de GPT-5, 29 pour cent avec celui de Mistral Nemo, 49 pour cent avec celui de DeepSeek-V3 et 51 pour cent avec celui de Qwen3. Sur l’AI Act, ces quatre mêmes outils donnent 31, 33, 51 et 54 pour cent. L’ancien tokenizer de GPT-4 donne 56 et 58 pour cent. Nous le traitons à part, car les modèles récents d’OpenAI utilisent l’autre. Pour chaque tokenizer, les deux lois restent à quatre points d’écart au maximum.
+
+Une partie de l’écart vient de la longueur : les deux versions françaises comptent 12.5 pour cent de mots supplémentaires. Le reste vient du découpage des mots français en davantage de fragments. Avec le tokenizer de GPT-5, le RGPD français demande 1.36 tokens par mot, contre 1.17 pour l’anglais.
+
+## Là où le budget change
+
+L’écart concerne les appels que vos systèmes paient au token. C’est le mode de facturation d’un programme qui envoie du texte à un modèle par l’API du fournisseur, le point d’accès utilisé par les programmes à la place d’une fenêtre de discussion. Dimensionnez une tâche sur des essais en anglais, puis donnez-lui des documents français : une estimation de 100 devient 129 à 154, au même tarif par token. Un abonnement par utilisateur est facturé par siège. Nous n’avons pas mesuré si le français épuise plus vite les limites d’un forfait.
+
+Notre comptage porte sur le texte envoyé au modèle, dans deux textes juridiques rédigés dans un même style institutionnel. Les e-mails, comptes rendus de réunion et rapports peuvent donner un autre ratio. La réponse française du modèle passe par le même tokenizer : nous attendons donc un écart similaire en sortie. C’est une hypothèse, non vérifiée. Nous travaillons surtout en français ; voilà pourquoi nous l’avons mesuré.
+
+Le second effet concerne la comparaison des tarifs. Les grilles affichent un prix par million de tokens, mais un million de tokens ne contient pas la même quantité de français selon le modèle. Le RGPD français demande 83,960 tokens avec le tokenizer de GPT-5 et 99,703 avec celui de Qwen3, soit 19 pour cent supplémentaires pour les mêmes pages. Sur les versions anglaises des deux lois, les cinq tokenizers restent à 5 pour cent d’écart au maximum entre eux. Deux modèles au même tarif par token facturent donc différemment le même document français.
+
+Claude manque à notre comptage. Nous n’avons trouvé aucun tokenizer publié par Anthropic pour ses modèles Claude. L’API d’Anthropic propose un service de comptage, accessible avec une clé de compte, qui renvoie une estimation du nombre de tokens d’un texte donné.
+
+## Un document dans les deux langues
+
+Prenez un document que votre entreprise publie déjà en français et en anglais, par exemple des conditions de vente ou une fiche produit. Comptez ses tokens dans chaque langue avec le tokenizer du modèle que vous payez : `tiktoken` pour les modèles OpenAI, le service de comptage d’Anthropic pour Claude et, pour un modèle ouvert dont chacun peut télécharger les fichiers, le tokenizer publié avec lui. Le nombre français divisé par le nombre anglais donne votre ratio, sur votre texte. Si quelqu’un d’autre exploite vos outils d’IA, demandez-lui ces deux comptages.
+
+Multipliez vos estimations au token par ce ratio. Quand deux modèles sont en concurrence pour un travail en français, multipliez le tarif par token de chacun par le nombre de tokens de votre document français sur ce modèle, puis comparez les deux totaux. Sur le RGPD français, le tokenizer de GPT-5 demande 16 pour cent de tokens en moins que celui de Qwen3 pour les mêmes pages.

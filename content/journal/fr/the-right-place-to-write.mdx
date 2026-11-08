@@ -1,0 +1,31 @@
+---
+title: "Le bon endroit où écrire"
+date: "2026-06-17"
+description: "Avant d'automatiser la publication, choisissez une cible d'écriture stable. Sinon, le moteur devient un risque pour la maintenance."
+slug: "the-right-place-to-write"
+translationOf: "the-right-place-to-write"
+---
+
+Avant de relier un moteur éditorial à un site web, une question semble secondaire : où le moteur a-t-il le droit d'écrire ?
+
+La mauvaise réponse est tentante. Le script ouvre le fichier principal du blog, trouve le tableau des articles, insère un bloc au bon endroit, puis espère que la structure ne changera pas. Cela fonctionne une fois. Ensuite, chaque refonte devient un risque.
+
+## Le fichier principal n'est pas une API
+
+Un fichier lu par des humains n'est pas automatiquement un point d'entrée pour une machine. S'il contient les anciens articles, les types, les fonctions de tri et la logique de publication, le modifier automatiquement revient à confondre une page qui fonctionne avec une interface stable.
+
+La règle est simple : le moteur écrit dans un fichier dédié. Le site lit ce fichier et le combine avec les articles existants.
+
+## Ce que la séparation évite
+
+Elle évite les modifications fragiles et les insertions au mauvais endroit. Surtout, elle empêche un outil de publication d'avoir le pouvoir de casser la logique historique du blog.
+
+Le code principal reste du code de lecture. Le fichier généré devient la seule cible d'écriture. Cette frontière est visible dans le dépôt et vérifiable lors de la revue.
+
+## La maintenance comme preuve de sérieux
+
+Ce détail est invisible dans l'article publié. Il devient visible six semaines plus tard, quand la page du blog change sans que personne ait à relire un script d'insertion.
+
+Une automatisation fiable commence souvent par une décision aussi précise : donner à la machine un couloir défini, puis lui interdire le reste.
+
+Le bon système n'est pas celui qui peut écrire partout. C'est celui qui sait exactement où il a le droit d'écrire.

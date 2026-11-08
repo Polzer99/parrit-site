@@ -26,14 +26,14 @@ test("Organization représente la maison sans fondateur", () => {
   assert.equal(org.address.addressLocality, "Rueil-Malmaison");
 });
 
-test("BlogPosting d'un vrai article : graphe lié, URL canonique et champs préservés", () => {
+test("Article d'un vrai article : graphe lié, URL canonique et champs préservés", () => {
   const directory = new URL("../content/journal/", import.meta.url);
   const file = readdirSync(directory).filter((name) => name.endsWith(".mdx")).sort()[0];
   assert.ok(file, "Au moins une entrée réelle doit être présente");
   const { data: entry } = matter(readFileSync(new URL(file, directory), "utf8"));
   const canonical = `https://parrit.ai/journal/${entry.slug}`;
   assert.deepEqual(blogPostingJsonLd(entry), {
-    "@context": "https://schema.org", "@type": "BlogPosting", "@id": `${canonical}#article`,
+    "@context": "https://schema.org", "@type": "Article", "@id": `${canonical}#article`,
     headline: entry.title, datePublished: entry.date, dateModified: entry.date,
     image: `${canonical}/og`, inLanguage: "en", description: entry.description,
     author: orgRef(), publisher: { ...orgRef(), logo: { "@type": "ImageObject", url: "https://parrit.ai/icon.png" } },
