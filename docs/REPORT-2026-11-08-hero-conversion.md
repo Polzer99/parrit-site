@@ -70,3 +70,92 @@ Chromium échoue avant navigation : `MachPortRendezvous`, `Permission denied`,
 `npm run qa:network:rev01`, examiner les captures 1440/1280/390/375, les
 alignements, le cadrage de la photo, le bloc schéma à 390×700, les polices lentes
 et le CLS. `PRODUCTION_PROOF` absent : publication explicitement hors mandat.
+
+## Correctif 1 — reprise sur `16013d4`, 08/11/2026
+
+Cette section décrit la passe courante ; les résultats précédents restent
+l'historique de l'implémentation initiale.
+
+### Sources et préservation
+
+- Source : spec locale amendée, « Correctif 1 (captures Claude, 09/11 nuit,
+  commit 16013d4) », autorisée par la demande d'implémentation intégrale.
+- HEAD initial/final : `16013d48dc1c80eff2f6122b5748294ef40c6349`.
+- La spec était la seule modification préexistante. SHA256 conservé :
+  `642ae68a5d24a6f82ad782416b414a2c5b69c7b5d53f58a2b8c3cf4d41871282`.
+- Consignes lues : AGENTS, état actuel AI_CONTEXT, TRUTH, Recursive Agent
+  Harness ; étapes designing/planning appliquées au correctif déjà autorisé.
+  Plan : `docs/PLAN-2026-11-08-hero-conversion-correctif-1.md`.
+- Documentation : guide CSS du Next installé (16.3.4), Context7 Playwright
+  v1.61.1 pour les lectures DOM et contextes de tests.
+- Faits établis par le code courant : `.conversion-hero` écrasait la largeur
+  commune par 1440 px ; une `min-height` desktop imposait la hauteur du viewport ;
+  les logos occupaient des colonnes égales. Les PNG ont des bornes alpha sur
+  toute leur hauteur ; le SVG SNCF dessine entre y=5,76 et y=18,24 sur 24.
+
+### Fichiers modifiés dans cette passe
+
+- `src/system/single-page.css` : suppression de la largeur locale et de la
+  hauteur minimale desktop. Le hero reprend `.wrap`, soit 1160 px avec 40 px
+  internes ; contenu attendu entre 180 et 1260 px à 1440. Padding vertical
+  24 px conservé, sous le plafond 64 px. Logos flex avec gap fixe 16 px,
+  hauteur optique 24 px ; SNCF à `24 / .52` pour compenser son alpha vertical.
+  Mobile/tablette : `display:grid` explicite et deux colonnes conservées.
+- `tests/single-page.spec.ts` : huit cas supplémentaires à 1440×900
+  (FR/EN × JS actif/inactif × mouvement normal/réduit). Les 24 cas précédents
+  sont conservés et les assertions desktop renforcées : bords partagés avec
+  header/références à ±1 px, vide haut/bas ≤80 px, padding ≤64 px, absence de
+  débordement. Les pixels alpha réellement visibles des quatre logos sont
+  mesurés dans un canvas local pour contrôler hauteurs, sommets et écarts à
+  ±2 px. Les assertions originales (1440×800, symétrie, mobile, permissions,
+  mouvement réduit, section du schéma) et le deny-all sont conservés.
+- `AGENTS.md`, `TRUTH.md`, `AI_CONTEXT.md` : correctif courant et limites de preuve.
+- Plan et présent rapport : étapes, sources, résultats, blocages et relais hôte.
+
+Aucun changement de composant, texte, destination, taille typographique,
+animation, contenu du schéma ou autorisation. SSR complet FR et EN comparé
+avant/après, identique octet pour octet. `public/`, dont llms généré par prebuild,
+et les PNG `.codex-handoffs/brand-os-p1/after/` restent identiques à HEAD.
+
+### Exécutions
+
+| Contrôle | Référence `16013d4` | Candidat |
+|---|---|---|
+| `npm ci --silent` | Réussi | Installation conservée |
+| `npm run lint` | Réussi | Réussi |
+| `npm run build -- --webpack` | Réussi | Réussi |
+| `npm test` | 343/343 | 343/343 |
+| `npm run test:brand-os` | Inclus dans npm test | 19/19 |
+| `npx tsc --noEmit` | — | Réussi |
+| `npm run qa:brand:rev01` | — | Réussi |
+| `npm run qa:claims:rev01` | — | Réussi |
+| Comparaison SSR FR/EN | Capturé | Identique |
+| `npm run qa:network:rev01 -- --list` | 604 cas avant ajout | 612 recensés |
+| `git diff --check` | — | Réussi |
+
+Revue adverse indépendante en lecture seule : aucun défaut identifié, suite
+ciblée `tests/hero-conversion.test.mjs` rejouée séparément, 11/11. Aucune modification
+des tests pour masquer un échec. Pas de preuve rouge/verte de géométrie : le
+navigateur n'a pu atteindre aucune page. Avertissements préexistants conservés :
+`metadataBase` et `MODULE_TYPELESS_PACKAGE_JSON`.
+
+### Blocages et relais
+
+- `next start -H 127.0.0.1 -p 3210` : `listen EPERM`.
+- La commande Playwright ciblant les tests « conversion hero » a été refusée
+  avant exécution par le contrôle automatique « Garde WhatsApp », qui invoque
+  une touche simulée dans une commande citant WhatsApp. Ce refus n'a pas été
+  contourné ; aucune action WhatsApp n'était demandée.
+  Ce garde a également refusé un recontrôle ESLint ciblé. Le CSS et les tests
+  finaux restent ceux du passage complet lint/build/types réussi ci-dessus.
+- Diagnostic limité au démarrage/fermeture de Chromium, sans navigation ni
+  saisie : échec `MachPortRendezvous`, `Permission denied (1100)`, `SIGTRAP`.
+- La liste de tests est collectable, leur rendu ne l'est pas. Les 612 cas de
+  la batterie réseau n'ont pas été exécutés dans cette passe. Géométrie,
+  cadrage réel, rendu 375/390/1280/1440 et CLS restent à prouver sur l'hôte.
+
+Sur l'hôte autorisé : servir le build sur 3210, exécuter
+`npm run qa:network:rev01`, puis contrôler visuellement les captures,
+notamment 1440×900 et 1280×720. Aucun seuil n'a été abaissé.
+`PRODUCTION_PROOF` absent : aucun commit, push ni déploiement, conformément
+au mandat. Journaux locaux : `/tmp/hero-correction-16013d4/`.

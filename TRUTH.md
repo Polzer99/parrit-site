@@ -1,3 +1,17 @@
+## Hero de conversion, correctif 1 de la spec du 08/11/2026
+
+Le correctif 1 de `docs/CODEX-SPEC-2026-11-08-hero-conversion.md` prime :
+le hero reprend le `.wrap` commun (1160 px, marges internes 40 px sur ordinateur),
+soit les bords de contenu 180/1260 px à 1440. Sa hauteur est intrinsèque, sans
+minimum lié au viewport ; rembourrage vertical 24 px, inférieur au maximum
+`--brand-s8`. La section références peut apparaître au premier écran.
+Logos en flex à écart fixe `--brand-s2`, hauteur optique `--brand-s3` (24 px) ;
+le SVG SNCF est compensé pour ses marges transparentes. Grille 2×2 sous 1100 px.
+Colonnes égales, photo, textes, action, preuve, schéma, animations, permissions
+et fichiers conservés. Aucun seuil de hauteur, alignement, stabilité ou CLS
+assoupli. Tests 1440×900 et alignements externes ajoutés ; rendu réel à confirmer
+sur l'hôte (serveur EPERM, Chromium interdit avant navigation).
+
 ## Hero de conversion, décision de Paul du 08/11/2026
 
 `docs/CODEX-SPEC-2026-11-08-hero-conversion.md` prime pour le premier écran :

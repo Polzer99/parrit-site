@@ -1,3 +1,18 @@
+## Hero de conversion, correctif 1, 08/11/2026
+
+Baseline `16013d4`, amendement local de la spec préservé par SHA256.
+Seul changement produit : CSS du hero. Conteneur `.wrap` partagé, hauteur
+intrinsèque, padding 24 px, logos en flex à gap fixe et hauteur optique 24 px
+(SNCF compensé), grille mobile 2×2 conservée. SSR complet FR/EN identique.
+Huit cas navigateur ajoutés (1440×900), 24 existants renforcés : bords header/
+références, vide haut/bas, alpha réel des logos. Aucun seuil assoupli.
+Installation, lint/build Webpack, 343 tests Node avant/après, 19 Brand OS,
+types, audits marque/claims réussis. Revue indépendante : aucun défaut identifié.
+612 cas navigateur recensés ; lancement des tests refusé par garde automatique
+WhatsApp, serveur EPERM et Chromium seul MachPortRendezvous/SIGTRAP. Aucun rendu,
+géométrie ou CLS validé. Aucun commit/push/déploiement ; PNG et assets inchangés.
+Détail : `docs/REPORT-2026-11-08-hero-conversion.md`, section correctif 1.
+
 ## Hero de conversion, 08/11/2026
 
 Spec `docs/CODEX-SPEC-2026-11-08-hero-conversion.md`, baseline `28d7a43`

@@ -18,7 +18,7 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
   test.describe(`conversion hero ${locale} JS=${javaScriptEnabled}`, () => {
     test.use({ javaScriptEnabled });
     for (const reducedMotion of ["reduce", "no-preference"] as const) {
-      for (const [width, height] of [[1440, 800], [1280, 720], [390, 844]]) {
+      for (const [width, height] of [[1440, 800], [1440, 900], [1280, 720], [390, 844]]) {
         test(`compact proof, symmetry and real photo ${width}x${height} motion=${reducedMotion}`, async ({ page }) => {
           await page.setViewportSize({ width, height });
           await page.emulateMedia({ reducedMotion });
@@ -105,6 +105,78 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           }).length);
           expect(visibleActions).toBe(1);
           if (width >= 1100) {
+            // Read all shared edges in one frame, including the site grid outside the hero.
+            const grid = await page.evaluate(() => {
+              const box = (selector: string) => document.querySelector(selector)!.getBoundingClientRect();
+              const hero = document.querySelector(".hero")!;
+              const eyebrow = box(".hero-eyebrow");
+              const photo = box(".hero-photo");
+              const reference = box("#references h2");
+              const styles = getComputedStyle(hero);
+              return {
+                left: eyebrow.left, right: photo.right,
+                markLeft: box(".single-header .mark").left,
+                navRight: box(".single-header > .wrap > .btn").right,
+                referenceLeft: reference.left,
+                above: eyebrow.top - hero.getBoundingClientRect().top,
+                below: hero.getBoundingClientRect().bottom - photo.bottom,
+                paddingTop: parseFloat(styles.paddingTop), paddingBottom: parseFloat(styles.paddingBottom),
+                maximumPadding: parseFloat(styles.getPropertyValue("--brand-s8")),
+                scrollWidth: document.documentElement.scrollWidth,
+              };
+            });
+            expect(Math.abs(grid.left - grid.markLeft)).toBeLessThanOrEqual(1);
+            expect(Math.abs(grid.left - grid.referenceLeft)).toBeLessThanOrEqual(1);
+            expect(Math.abs(grid.right - grid.navRight)).toBeLessThanOrEqual(1);
+            if (width === 1440) {
+              expect(Math.abs(grid.left - 180)).toBeLessThanOrEqual(1);
+              expect(Math.abs(grid.right - 1260)).toBeLessThanOrEqual(1);
+            }
+            for (const space of [grid.above, grid.below]) {
+              expect(space).toBeGreaterThanOrEqual(0);
+              expect(space).toBeLessThanOrEqual(80);
+            }
+            for (const padding of [grid.paddingTop, grid.paddingBottom]) {
+              expect(padding).toBeLessThanOrEqual(grid.maximumPadding);
+            }
+            expect(grid.scrollWidth).toBeLessThanOrEqual(width);
+            // Measure actual opaque artwork, not equal boxes around unequal logos.
+            const artwork = await hero.locator(".hero-client-logos").evaluate(async element => {
+              const images = [...element.querySelectorAll("img")];
+              await Promise.all(images.map(img => img.decode()));
+              return images.map(img => {
+                const rect = img.getBoundingClientRect();
+                const canvas = document.createElement("canvas");
+                canvas.width = Math.ceil(rect.width * 4);
+                canvas.height = Math.ceil(rect.height * 4);
+                const context = canvas.getContext("2d")!;
+                context.drawImage(img, 0, 0, canvas.width, canvas.height);
+                const { data } = context.getImageData(0, 0, canvas.width, canvas.height);
+                let left = canvas.width, top = canvas.height, right = 0, bottom = 0;
+                for (let y = 0; y < canvas.height; y++) for (let x = 0; x < canvas.width; x++) {
+                  if (data[(y * canvas.width + x) * 4 + 3] > 0) {
+                    left = Math.min(left, x); right = Math.max(right, x + 1);
+                    top = Math.min(top, y); bottom = Math.max(bottom, y + 1);
+                  }
+                }
+                return {
+                  left: rect.left + left / canvas.width * rect.width,
+                  right: rect.left + right / canvas.width * rect.width,
+                  top: rect.top + top / canvas.height * rect.height,
+                  height: (bottom - top) / canvas.height * rect.height,
+                };
+              });
+            });
+            expect(Math.abs(artwork[0].left - geometry.boxes[3].x)).toBeLessThanOrEqual(1);
+            const gaps = artwork.slice(1).map((logo, index) => logo.left - artwork[index].right);
+            for (const gap of gaps) expect(gap).toBeGreaterThan(0);
+            expect(Math.max(...gaps) - Math.min(...gaps)).toBeLessThanOrEqual(2);
+            for (const logo of artwork) {
+              expect(logo.height).toBeGreaterThan(0);
+              expect(Math.abs(logo.height - artwork[0].height)).toBeLessThanOrEqual(2);
+              expect(Math.abs(logo.top - artwork[0].top)).toBeLessThanOrEqual(2);
+              expect(logo.right).toBeLessThanOrEqual(geometry.boxes[0].x + geometry.columnWidth + 1);
+            }
             expect(Math.abs(geometry.columnWidth - geometry.photo.width)).toBeLessThanOrEqual(1);
             expect(Math.abs(geometry.photo.x - geometry.boxes[0].x - geometry.columnWidth - geometry.gutter)).toBeLessThanOrEqual(1);
             expect(Math.abs(geometry.photo.y - geometry.boxes[0].y)).toBeLessThanOrEqual(4);

@@ -39,6 +39,13 @@ Ordre : surtitre, H1, sous-titre, bouton pleine largeur, preuve (phrase + logos 
 - Haut de la photo aligné sur le haut du surtitre, bas de la photo aligné sur le bas de la rangée de logos (± 4 px) à 1440×800 et 1280×720.
 - Un seul `exec` rose à l'écran ; la navigation reste `ghost`.
 
+## Correctif 1 (captures Claude, 09/11 nuit, commit 16013d4)
+
+1. **Alignement sur la grille du site** : le hero utilise le même conteneur que la barre et les sections (`.wrap`, bord gauche à 180 px à 1440, bord droit à 1260). Aujourd'hui le texte commence à 40 px et la photo touche presque le bord droit : bord gauche du surtitre = bord gauche du logo PARRIT.AI de la barre (± 1 px), bord droit de la photo = bord droit du bouton de navigation (± 1 px).
+2. **Plus de vide** : la hauteur du hero n'est plus forcée à l'écran. Rembourrage haut et bas `var(--brand-s8)` (64 px) maximum, contenu centré verticalement dans la grille seulement. À 1440×900, il ne doit pas rester plus de 80 px de fond vide au-dessus du surtitre ni sous la photo. La section suivante (références) peut apparaître en bas d'écran : c'est voulu.
+3. **Logos régulièrement espacés** : les 4 logos de preuve ont la même hauteur optique et un espacement identique entre eux (flex avec `gap` fixe, pas de colonnes de largeur égale), alignés à gauche sur le bouton.
+4. Test ajouté : alignements ci-dessus à 1440×900 et 1280×720 ; écarts entre logos égaux à ± 2 px ; vide au-dessus du surtitre ≤ 80 px.
+
 ## Contrats et tests
 
 Mettre à jour `AGENTS.md`/`TRUTH.md` : « Hero de conversion, décision de Paul du 08/11/2026 : deux colonnes, photo réelle, un bouton, preuve sous le bouton ; schéma trois plans dans sa propre section ». Remplacer les tests de géométrie du hero qui supposent le schéma par ceux ci-dessus ; **ne rien assouplir** ailleurs (stabilité, CLS, Brand OS, deny-all, « un bloc = un écran », 1440×800). Tests FR/EN, avec et sans JS, mouvement réduit : ordre des éléments, alignements à 1 px, écart bouton → preuve ≤ `var(--brand-s3)`, aucun vide > 48 px entre deux éléments de la colonne gauche, photo chargée sans lazy, logos autorisés uniquement, schéma présent dans sa nouvelle section avec ses quatre histoires. Batterie : `npm ci --silent && npm run lint && npm run build -- --webpack && npm test`. Ne pas committer les PNG réécrits sous `.codex-handoffs/brand-os-p1/after/`.
