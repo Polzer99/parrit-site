@@ -185,8 +185,8 @@ export function QuickCapture({
           <button className="rev-button ghost" type="submit" disabled={state === "sending"}>{state === "sending" ? copy.sending : copy.button}</button>
         </div>
         {variant === "contact" ? <p className="contact-expectation">{locale === "fr"
-          ? "15 minutes en visio. Vous décrivez un service ou un irritant, nous vous disons ce qui est faisable, et ce qui ne l'est pas."
-          : "15 minutes by video call. You describe a team or a pain point, we tell you what can be done, and what cannot."}</p> : null}
+          ? "Premier échange de 15 minutes en visioconférence : vous présentez votre besoin, nous vous indiquons ce qui est réalisable."
+          : "A first 15-minute video call: you present your needs, we tell you what is feasible."}</p> : null}
         {state === "error" ? (
           <span className="ri-error" role="alert">{copy.failure} ({detail}). {copy.direct} paul.larmaraud@parrit.ai</span>
         ) : state === "invalid" ? (

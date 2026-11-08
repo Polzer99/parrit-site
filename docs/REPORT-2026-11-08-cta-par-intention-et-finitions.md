@@ -1,5 +1,90 @@
 # Boutons par intention et finitions — rapport du 08/11/2026
 
+## Correctif 4 : formulation, 08/11/2026
+
+La baseline contient déjà la spec jusqu'au correctif 3. Cette passe applique
+le dernier amendement de Paul et conserve les CTA, styles et comportements
+existants. Aucun commit, push ni déploiement.
+
+### Sources, plan et périmètre
+
+- Dépôt courant explicitement demandé, branche
+  `codex/docs-CODEX-SPEC-2026-11-08-cta-par-intention-et-fi`,
+  baseline `81bc5dea995fb2aeee6be9d9e0b670266df60806`.
+- AI_CONTEXT, AGENTS, CLAUDE, TRUTH, spec complète et Recursive Agent Harness
+  consultés avant modification ; guide local Next 16.3.4 `use-client` consulté.
+  Aucun changement d'API externe ni de dépendance.
+- Seul changement préexistant : amendement « Correctif 4 » de la spec,
+  conservé octet pour octet, SHA256
+  `c1151c2bc9e21af85da83b0d7c96406f51b75c8c88dbcf298cb8d3c4d48b6684`.
+- Plan autorisé par la spec : baseline, tests rouges, remplacement exact,
+  revue indépendante, même batterie, rapport. Une passe ; arrêt des tentatives
+  navigateur après constat des refus système.
+- TARGET_SYSTEM : dépôt local ; ENVIRONMENT : sandbox ; WRITE_SCOPE : texte
+  du composant, fixture, tests, documentation ; REVERSIBLE : oui ; ROLLBACK :
+  retirer uniquement les ajouts de cette passe ; BACKUP : baseline Git et spec
+  préexistante conservée ; EXPECTED_ROWS : zéro donnée métier.
+
+### Fichiers modifiés
+
+| Fichier | Modification |
+|---|---|
+| `src/system/components/QuickCapture.tsx` | Les deux phrases exactes du correctif 4 sous l'envoi. Aucun changement de structure ni de serveur. |
+| `tests/fixtures/contact-expectation.json` | Texte FR/EN canonique utilisé aussi par les audits de contenu existants. |
+| `tests/intentions.test.mjs` | Deux nouveaux tests FR/EN : fixture conforme au correctif et absence du suffixe des anciennes formulations dans les sources publiques et articles. Contrôle SSR du texte intégral et de sa position sous l'envoi. Tests de durée renforcés : ancien paragraphe à 30 minutes, nouvelle phrase avec durée erronée et ajout d'une promesse de réservation à 30 minutes. |
+| `tests/intentions.spec.ts` | Assertion du texte intégral FR/EN, avec/sans JS, aux trois dimensions existantes. Aucun seuil modifié. |
+| `AGENTS.md`, `TRUTH.md`, `AI_CONTEXT.md` | Formulations exactes, décision du 08/11/2026 et état de validation. |
+| Ce rapport | Résultats, portée et limites de preuve. |
+
+Le suffixe commun aux deux formulations abandonnées empêche leur retour avec
+15 ou 30 minutes. Les audits de rendu et de contenu n'exemptent que la nouvelle
+phrase exacte dans son emplacement autorisé. `scripts/false-claims-check.mjs`
+est inchangé : aucune exception ajoutée au contrôle de durée.
+La spec conserve ses anciennes formulations comme historique de décision ;
+son dernier amendement prime. Les anciens comptes rendus ci-dessous sont historiques.
+
+### Résultats exécutés
+
+| Vérification | Baseline | Candidat |
+|---|---|---|
+| `npm ci --silent` | Réussi | Même installation, dépendances inchangées |
+| `npm run lint` | Réussi | Réussi |
+| `npm run build -- --webpack` | Réussi | Réussi |
+| `npm test` | 187/187 | 189/189 |
+| `node --test tests/intentions.test.mjs` avec nouvelles attentes | 4 échecs attendus après mise à jour de la fixture | 15/15, également exécutés indépendamment par le relecteur |
+| `npx tsc --noEmit` | — | Réussi |
+| `npm run qa:brand:rev01` | — | Réussi |
+| `npm run qa:claims:rev01` | — | Réussi |
+| `npm run test:brand-os` | — | 19/19 |
+| `npm run qa:network:rev01 -- --list` | — | 457 tests / 13 fichiers recensés |
+| `CTA_CAPTURE=1 npm run qa:network:rev01 -- --workers=1 --max-failures=1` | — | Échec au lancement de Chromium ; 456 non exécutés |
+| `git diff --check` | — | Réussi |
+
+Revue indépendante : aucun défaut concret identifié. Documentation finalisée
+après cette revue. Les avertissements metadataBase et type de module Node sont
+préexistants et non bloquants. Logs locaux : `/tmp/cta4-install.log`,
+`/tmp/cta4-{baseline,final}-{lint,build,test}.log`,
+`/tmp/cta4-{red,red-render,green,types,brand,claims,brand-os}.log`,
+`/tmp/cta4-{server,playwright-list,playwright-run}.log`.
+
+### Blocages et preuve restante
+
+Le serveur local refuse l'écoute : `listen EPERM 127.0.0.1:3210`. Chromium
+échoue avant navigation (`MachPortRendezvous`, permission refusée, `SIGTRAP`).
+Les captures FR/EN à 1440×800 et 390×844, la géométrie et le CLS ne sont donc
+pas validés. Les seuils et le deny-all réseau restent intacts. Aucune preuve
+en production n'est revendiquée ; aucun déploiement n'était autorisé.
+
+À rejouer sur l'hôte, dans deux terminaux :
+
+```sh
+npm run start -- --hostname 127.0.0.1 -p 3210
+CTA_CAPTURE=1 npm run qa:network:rev01 -- --workers=1
+```
+
+Les captures sont écrites dans `/tmp/cta-intentions-captures` par les tests
+existants. Aucun PNG suivi ni copie de spec dans `tmp/` modifié.
+
 ## Correctif 3 après tests hôte, 08/11/2026
 
 La spec complète est déjà implémentée dans la baseline jusqu'au correctif 2.

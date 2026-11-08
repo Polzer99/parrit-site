@@ -97,7 +97,9 @@ Tous mènent à `/#contact` ou `/fr#contact`, avec `source=intention-{formation,
 priorites,projet}-{hero,parcours}` avant l'ancre via `avecSource`. Les UTM sont
 conservés dans le HTML serveur et au clic ; sur l'accueil, historique et
 défilement sans rechargement, attribution lue par QuickCapture sans nouveau
-champ ni modification du serveur. Ligne d'explication de l'échange sous l'envoi.
+champ ni modification du serveur. Ligne sous l'envoi, correctif 4, décision de Paul du 08/11/2026 :
+« Premier échange de 15 minutes en visioconférence : vous présentez votre besoin, nous vous indiquons ce qui est réalisable. »
+« A first 15-minute video call: you present your needs, we tell you what is feasible. »
 Références : boucle CSS lente, pause survol/focus, logos statiques centrés en
 mouvement réduit ; permissions inchangées. Journal : thèmes uniquement issus du
 registre partagé `journal-themes.ts`, lecture estimée à 200 mots/minute arrondie

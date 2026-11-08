@@ -8,12 +8,33 @@ import matter from "gray-matter";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
+import { visibleText } from "../scripts/brand-os-contracts.mjs";
 
 const load = loader("en", { "server-only": {}, "node:fs": fs, "node:path": path, "gray-matter": matter });
 const { avecSource } = load("src/lib/registry/cta.ts");
 const { journalReadingMinutes } = load("src/system/journal-reading.ts");
 const { getJournalThemes, JOURNAL_THEMES } = load("src/system/journal-themes.ts");
 const journal = load("src/system/journal.ts");
+const contactExpectation = JSON.parse(fs.readFileSync("tests/fixtures/contact-expectation.json", "utf8"));
+const approvedContact = {
+  fr: "Premier échange de 15 minutes en visioconférence : vous présentez votre besoin, nous vous indiquons ce qui est réalisable.",
+  en: "A first 15-minute video call: you present your needs, we tell you what is feasible.",
+};
+const supersededContact = {
+  fr: "Vous décrivez un service ou un irritant, nous vous disons ce qui est faisable, et ce qui ne l'est pas.",
+  en: "You describe a team or a pain point, we tell you what can be done, and what cannot.",
+};
+
+for (const locale of ["fr", "en"]) test(`contact copy matches correction 4 and rejects both superseded formulations (${locale})`, () => {
+  assert.equal(contactExpectation[locale], approvedContact[locale]);
+  // The shared suffix rejects both the original 30-minute and intermediate 15-minute copy.
+  for (const root of ["src", "content/journal"]) {
+    for (const relative of fs.readdirSync(root, { recursive: true }).filter(file => /\.(?:tsx?|mdx)$/.test(file))) {
+      const file = path.join(root, relative);
+      assert.ok(!fs.readFileSync(file, "utf8").includes(supersededContact[locale]), `${file}: superseded contact copy`);
+    }
+  }
+});
 
 test("avecSource keeps anchors after the query and replaces stale attribution without losing UTM", () => {
   for (const target of ["/#contact", "/fr#contact", "/fr?utm_source=mail&source=old&source=older#contact", "https://example.invalid/path?utm_content=a%26b#part?x"]) {
@@ -70,7 +91,9 @@ for (const locale of ["fr", "en"]) {
     }
     const { QuickCapture } = loader(locale)("src/system/components/QuickCapture.tsx");
     const form = renderToStaticMarkup(createElement(QuickCapture, { locale, variant: "contact" }));
-    assert.match(form, /<button[^>]+>[\s\S]*?<\/button><\/div><p class="contact-expectation">15 minutes/);
+    const note = form.match(/<button[^>]+>[\s\S]*?<\/button><\/div><p class="contact-expectation">([^<]+)<\/p>/);
+    assert.ok(note, "contact explanation follows the submit button");
+    assert.equal(visibleText(note[1]), contactExpectation[locale]);
     assert.doesNotMatch(renderToStaticMarkup(createElement(QuickCapture, { locale })), /contact-expectation/);
   });
 
@@ -140,16 +163,16 @@ for (const locale of ["fr", "en"]) test(`claims gate accepts 15 minutes and reje
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   for (const directory of ["src/system/components", "scripts", "content/journal", "public"]) fs.mkdirSync(path.join(root, directory), { recursive: true });
   for (const file of ["public/llms.txt", "site.config.ts", "TRUTH.md"]) fs.writeFileSync(path.join(root, file), "");
-  const text = JSON.parse(fs.readFileSync("tests/fixtures/contact-expectation.json", "utf8"))[locale];
-  assert.match(text, /^15 minutes /);
+  const text = contactExpectation[locale];
   const check = () => spawnSync(process.execPath, [path.resolve("scripts/false-claims-check.mjs")], { cwd: root, encoding: "utf8", timeout: 10_000 });
   for (const relativeFile of ["src/system/components/QuickCapture.tsx", "src/system/copy.ts"]) {
     const file = path.join(root, relativeFile);
     fs.writeFileSync(file, `const note = ${JSON.stringify(text)};`);
     const allowed = check();
     assert.equal(allowed.status, 0, allowed.stderr);
-    // The exact former paragraph must no longer bypass the gate in QuickCapture.
-    for (const stale of [text.replace("15 minutes", "30 minutes"), text + " Free booking in 30 minutes."]) {
+    // Both the original paragraph and a wrong duration in the current copy must fail.
+    const former = `${locale === "fr" ? "30 minutes en visio." : "30 minutes by video call."} ${supersededContact[locale]}`;
+    for (const stale of [former, text.replace(/15([ -])minute/, "30$1minute"), text + " Free booking in 30 minutes."]) {
       fs.writeFileSync(file, `const note = ${JSON.stringify(stale)};`);
       const rejected = check();
       assert.equal(rejected.status, 1, rejected.stderr);

@@ -1,5 +1,6 @@
 import { test, expect } from "./network-deny.setup";
 import { mkdir } from "node:fs/promises";
+import contactExpectation from "./fixtures/contact-expectation.json";
 
 const BASE = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 const local = (path: string) => {
@@ -23,7 +24,7 @@ const actions = [
   [".step:nth-child(3) a", "intention-projet-parcours"],
 ] as const;
 
-for (const locale of ["fr", "en"]) {
+for (const locale of ["fr", "en"] as const) {
   const home = locale === "fr" ? "/fr" : "/";
   for (const [selector, source] of actions) test(`intent attribution survives click and reaches mocked form ${locale} ${source}`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
@@ -97,7 +98,7 @@ for (const locale of ["fr", "en"]) {
       })));
       for (const field of ["top", "number", "action"] as const) expect(Math.max(...rows.map(row => row[field])) - Math.min(...rows.map(row => row[field]))).toBeLessThanOrEqual(1);
       const note = page.locator(".contact-expectation");
-      await expect(note).toContainText(locale === "fr" ? "15 minutes en visio." : "15 minutes by video call.");
+      await expect(note).toHaveText(contactExpectation[locale]);
       expect((await note.boundingBox())!.y).toBeGreaterThanOrEqual((await page.locator("#single-contact .quick-fields").boundingBox())!.y + (await page.locator("#single-contact .quick-fields").boundingBox())!.height);
       await expect(page.locator(".logo-track")).toHaveCSS("animation-name", "none");
       expect(await page.locator(".logo-strip").evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);

@@ -102,8 +102,10 @@ chacune une seule action : former les équipes, choisir les priorités, parler
 d'un projet. Toutes mènent directement au contact (`/#contact` ou `/fr#contact`),
 avec `source=intention-{formation,priorites,projet}-{hero,parcours}` avant l'ancre.
 Les UTM sont conservés et le clic sur l'accueil ne recharge pas le formulaire.
-Sous l'envoi, le texte validé dans la spec précise la durée de l'échange et
-son objectif : dire ce qui est faisable et ce qui ne l'est pas. Aucun nouveau champ ni nouvelle offre.
+Sous l'envoi, formulation exacte du correctif 4, décision de Paul du 08/11/2026 :
+« Premier échange de 15 minutes en visioconférence : vous présentez votre besoin, nous vous indiquons ce qui est réalisable. »
+« A first 15-minute video call: you present your needs, we tell you what is feasible. »
+Aucun nouveau champ ni nouvelle offre.
 La navigation et les clôtures gardent « Parler d'un projet » / « Talk about a
 project ». Le hero porte la promesse et le schéma en langue métier validés.
 Le Journal n'a pas de capture d'abonnement. Son index affiche les thèmes du

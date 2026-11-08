@@ -1,3 +1,23 @@
+## Boutons par intention, correctif 4 du 08/11/2026
+
+Baseline `81bc5de`, spec amendée préexistante conservée. Seule la formulation
+sous l'envoi du formulaire change, selon la décision de Paul du 08/11/2026 :
+« Premier échange de 15 minutes en visioconférence : vous présentez votre besoin, nous vous indiquons ce qui est réalisable. »
+« A first 15-minute video call: you present your needs, we tell you what is feasible. »
+QuickCapture, fixture, attentes SSR/navigateur et sections boutons de TRUTH/AGENTS
+suivent ces textes exacts. Deux tests FR/EN supplémentaires empêchent le retour
+des formulations initiale et intermédiaire dans les sources publiques.
+Les tests de durée refusent encore le paragraphe initial et une durée erronée
+dans la nouvelle formulation, sans modifier `false-claims-check.mjs`.
+Les correctifs précédents, la géométrie, le deny-all et les styles sont conservés.
+Validation : npm ci, lint/build Webpack avant/après, 187 → 189 tests Node ;
+quatre échecs ciblés avant correction puis 15/15 réussis, également en revue
+indépendante sans défaut identifié. TypeScript, marque/claims et 19 tests Brand OS
+réussis. 457 tests navigateur recensés ; tentative bloquée au lancement
+(serveur EPERM, Chromium SIGTRAP), 456 non exécutés. Captures et CLS non validés.
+Aucun commit, push ni déploiement.
+Résultats et limites de preuve dans `docs/REPORT-2026-11-08-cta-par-intention-et-finitions.md`.
+
 ## Boutons par intention, correctif 3 du 08/11/2026
 
 Baseline `6ce1270`, spec amendée préexistante conservée. L'audit de lisibilité
