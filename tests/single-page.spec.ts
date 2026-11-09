@@ -383,7 +383,7 @@ for (const width of [1440, 800, 390]) test(`service columns and animation entry 
   await expect(services).toHaveAttribute("data-anim", "out");
   for (const card of await page.locator(".use-case").all()) await expect(card).toHaveAttribute("data-case", "0");
   await expect(page.locator("#references > .wrap")).toHaveAttribute("data-anim", "in");
-  await expect(page.locator(".logo-set img").first()).toHaveCSS("animation-duration", "12.8s");
+  await expect(page.locator(".logo-set img").first()).toHaveCSS("animation-duration", "9.6s");
   await page.emulateMedia({ reducedMotion: "reduce" });
   for (const el of await page.locator(".case, .logo-track, .tech-track").all()) await expect(el).toHaveCSS("animation-name", "none");
 });
