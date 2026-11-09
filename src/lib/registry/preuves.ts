@@ -298,7 +298,7 @@ export function evidencePublishable(evidence: PublicationEvidence, page: string)
     && evidence.last_verified <= evidence.expiration_or_review_date;
 }
 
-// Décision de Paul du 08/11/2026, nuit : eight named clients, no written client consent.
+// Décisions de Paul : huit clients nommés le 08/11/2026, puis retrait de Toyotomi Europe et Hiolle Technologies le 09/11/2026 ; six named clients, no written client consent.
 // This decision does not authorize any other asset, client, or the MIT logo.
 const CLIENT_LOGOS: Readonly<Record<string, PublicationLogo>> = {
   Laparra: { autorise: true, fichier: "/clients/laparra.png", source: "https://www.laparra.fr", accord: { qui: "Paul Larmaraud, décision d'affichage sans accord écrit du client", date: "2026-10-27" } },
@@ -306,8 +306,6 @@ const CLIENT_LOGOS: Readonly<Record<string, PublicationLogo>> = {
   Forexpert: { autorise: true, fichier: "/clients/forexpert.png", source: "https://www.forexpert-formation.com", accord: { qui: "Paul Larmaraud, décision d'affichage sans accord écrit du client", date: "2026-10-27" } },
   Joone: { autorise: true, fichier: "/clients/joone.png", source: "https://www.joone.fr", accord: { qui: "Paul Larmaraud, décision d'affichage sans accord écrit du client", date: "2026-10-27" } },
   SNCF: { autorise: true, fichier: "/clients/sncf.svg", source: "simple-icons@15.16.1/icons/sncf.svg", accord: { qui: "Paul Larmaraud, décision d'affichage sans accord écrit du client", date: "2026-10-27" } },
-  "Toyotomi Europe": { autorise: true, fichier: "/clients/toyotomi.png", source: "https://toyotomi.eu, en-tête relevé le 08/11/2026", accord: { qui: "Paul Larmaraud, décision nominative sans accord écrit des clients", date: "2026-11-08" } },
-  "Hiolle Technologies": { autorise: true, fichier: "/clients/hiolle-technologies.png", source: "https://hiolle-technologies.fr, en-tête relevé le 08/11/2026", accord: { qui: "Paul Larmaraud, décision nominative sans accord écrit des clients", date: "2026-11-08" } },
   "Carte Noire": { autorise: true, fichier: "/clients/carte-noire.png", source: "Archive de Paul : ~/parrit-canon/docs/site-benchmark/logos-clients/carte-noire.png", accord: { qui: "Paul Larmaraud, décision nominative sans accord écrit des clients", date: "2026-11-08" } },
 };
 
@@ -327,7 +325,7 @@ export const SITE_EVIDENCE: readonly PublicationEvidence[] = [
   publication("Joone", "Joone", "Un accompagnement des équipes à l'IA", "accompagnement"),
   publication("SNCF", "SNCF", "Un programme de formation", "via partenaire"),
   // Naming permission and logo permission are both scoped to the home page.
-  ...["Toyotomi Europe", "Hiolle Technologies", "Carte Noire"].map(id => ({
+  ...["Carte Noire"].map(id => ({
     ...publication(id, id, "Référence client", "client"),
     evidence_source: "docs/CODEX-SPEC-2026-11-08-action-unique-et-wording.md §3",
     permission_owner: "Paul Larmaraud, décision nominative du 08/11/2026, sans accord écrit des clients",
@@ -370,3 +368,4 @@ export const RESEARCH_PARTNER: { id: string; title: string | null; logo: Publica
   id: "MIT", title: null,
   logo: { autorise: false, fichier: null, source: null, accord: null },
 };
+
