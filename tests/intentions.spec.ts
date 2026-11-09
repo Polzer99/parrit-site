@@ -88,7 +88,7 @@ for (const locale of ["fr", "en"] as const) {
       await expect(page.locator(".logo-track")).toHaveCSS("animation-name", "none");
       expect(await page.locator(".logo-strip").evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);
       const logoSet = page.locator(".logo-set:not([aria-hidden])");
-      await expect(logoSet.getByRole("img")).toHaveCount(8);
+      await expect(logoSet.getByRole("img")).toHaveCount(6);
       const centered = await logoSet.evaluate(el => {
         const parent = el.closest(".logo-strip")!.getBoundingClientRect();
         const r = el.getBoundingClientRect();
