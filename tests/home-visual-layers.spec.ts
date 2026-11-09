@@ -208,7 +208,7 @@ for (const locale of ["fr", "en"]) {
       await expect(img).toHaveCSS("animation-name", "logo-spotlight");
       const delay = await img.evaluate(el => parseFloat(getComputedStyle(el).animationDelay));
       expect(delay).toBeCloseTo(i * 1.6);
-      expect(await img.evaluate(el => parseFloat(getComputedStyle(el).animationDuration))).toBe(12.8);
+      expect(await img.evaluate(el => parseFloat(getComputedStyle(el).animationDuration))).toBe(9.6);
     }
     await strip.hover();
     await expect(page.locator(".logo-track")).toHaveCSS("animation-name", "none");
