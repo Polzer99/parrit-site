@@ -82,6 +82,7 @@ const SECTION_REDIRECTS = [
   ["standard", "technologies", "technologies"], ["systems", "technologies", "technologies"],
   ["dossiers", "references", "references"], ["commission", "contact", "contact"],
   ["contact", "contact", "contact"],
+  ["audit", "reservation", "reservation"],
 ].flatMap(([old, en, fr]) => [
   { source: `/${old}`, destination: `/#${en}`, statusCode: 308 as const },
   { source: `/fr/${old}`, destination: `/fr#${fr}`, statusCode: 308 as const },
