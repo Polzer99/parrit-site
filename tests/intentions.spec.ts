@@ -218,9 +218,9 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         const text = (await page.locator("main > section:not(#articles)").allInnerTexts()).join("\n");
         expect(text).not.toMatch(/\b(?:formation|former|formons|training|train)\b|parler d['’]un projet|talk about a project|conseil et outils/i);
         const logos = page.locator("#references [role=img]");
-        await expect(logos).toHaveCount(8);
+        await expect(logos).toHaveCount(6);
         expect(await logos.evaluateAll(nodes => nodes.map(node => node.getAttribute("aria-label")))).toEqual([
-          "Laparra", "Clevery Avocats", "Forexpert", "Joone", "SNCF", "Toyotomi Europe", "Hiolle Technologies", "Carte Noire",
+          "Laparra", "Clevery Avocats", "Forexpert", "Joone", "SNCF", "Carte Noire",
         ]);
         const geometry = await page.locator(".logo-strip").evaluate(strip => {
           const outer = strip.getBoundingClientRect();
@@ -405,3 +405,4 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
     });
   });
 }
+
