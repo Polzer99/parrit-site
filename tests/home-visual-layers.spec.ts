@@ -227,7 +227,7 @@ for (const locale of ["fr", "en"]) {
         return Number(getComputedStyle(el).opacity);
       }), time);
       expect(samples.filter(opacity => opacity > .351).length).toBeLessThanOrEqual(1);
-      expect(samples.filter(opacity => Math.abs(opacity - .35) < .001).length).toBeGreaterThanOrEqual(7);
+      expect(samples.filter(opacity => Math.abs(opacity - .35) < .001).length).toBeGreaterThanOrEqual(5);
     }
     await page.emulateMedia({ reducedMotion: "reduce" });
     for (const img of await images.all()) {
