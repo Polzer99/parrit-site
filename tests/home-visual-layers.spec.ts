@@ -203,7 +203,7 @@ for (const locale of ["fr", "en"]) {
     const strip = page.locator(".logo-strip");
     await strip.scrollIntoViewIfNeeded();
     const images = page.locator(".logo-set:not([aria-hidden]) img");
-    await expect(images).toHaveCount(8);
+    await expect(images).toHaveCount(6);
     for (const [i, img] of (await images.all()).entries()) {
       await expect(img).toHaveCSS("animation-name", "logo-spotlight");
       const delay = await img.evaluate(el => parseFloat(getComputedStyle(el).animationDelay));
@@ -281,3 +281,4 @@ for (const locale of ["fr", "en"]) test(`home Journal link loads the same latest
   const actual = await page.locator(".journal-index > li > a").evaluateAll(nodes => nodes.slice(0, 3).map(node => node.getAttribute("href")));
   expect(actual).toEqual(expected);
 });
+
