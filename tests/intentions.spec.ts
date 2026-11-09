@@ -116,7 +116,7 @@ for (const locale of ["fr", "en"] as const) {
       const strip = page.locator(".logo-strip");
       const track = page.locator(".logo-set img").first();
       await strip.scrollIntoViewIfNeeded();
-      await expect(track).toHaveCSS("animation-duration", "12.8s");
+      await expect(track).toHaveCSS("animation-duration", "9.6s");
       await expect(track).toHaveCSS("animation-iteration-count", "infinite");
       await expect(track).toHaveCSS("animation-play-state", "running");
       await strip.hover();
