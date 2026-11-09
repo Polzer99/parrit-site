@@ -57,9 +57,9 @@ logiciels, pour les PME, ETI et grands groupes. H1 inchangé ; sous-titre :
 « Your teams take AI in hand. We build the software they are missing. »
 Textes de l'accueil, FAQ, métadonnées et présentation de l'accueil dans llms
 alignés ; articles et mentions légales conservés.
-Toyotomi Europe, Hiolle Technologies et Carte Noire rejoignent les cinq clients
-publiables, sur décision nominative de Paul sans accord écrit des clients.
-Huit masques locaux, provenance et empreintes dans `public/clients/SOURCES.md` ;
+Carte Noire rejoint les cinq clients publiables ; Toyotomi Europe et Hiolle
+Technologies sont retirés du site sur décision de Paul du 09/11/2026.
+Six masques locaux, provenance et empreintes dans `public/clients/SOURCES.md` ;
 deux rangées ordinateur autorisées dans 1060 px, grille deux colonnes mobile,
 éclairage successif 1,6 s, rampes 300 ms, pause survol/focus, réduit statique.
 Le Journal ne nomme aucun client. Aucun seuil géométrique ou CLS assoupli.
@@ -406,3 +406,4 @@ sous le bandeau. Mention de propriété des marques retirée des technologies.
 max(3 000 ms, 1 200 ms + 300 ms par mot), services et offres ; fondus ajoutés
 à cette durée, départs décalés, aucune offre tronquée. Hero et contact intacts
 sur consigne explicite de Paul : le timing du hero est exclu de ce tour.
+
