@@ -43,7 +43,7 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
       return node.getBoundingClientRect().height > 0 && style.visibility !== "hidden" && /mono/i.test(style.fontFamily) && Array.from(node.childNodes).some(n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim()) && !node.closest(".cmd-wordmark, .wordmark, .cmdbar .mark");
     }).map(node => node.textContent?.slice(0, 60)));
     expect(mono).toEqual([]);
-    await expect(page.locator("#references").getByRole("img")).toHaveCount(8);
+    await expect(page.locator("#references").getByRole("img")).toHaveCount(6);
     await expect(page.locator(".logo-set[aria-hidden=true]")).toHaveCount(0);
     await expect(page.locator("#services .use-case")).toHaveCount(12);
     await expect(page.locator("#architecture")).toHaveCount(0);
@@ -152,7 +152,7 @@ test("no JavaScript conversations remain visible and legal and 404 stay accessib
     await expect(page.locator(".partner-offers li")).toHaveCount(23);
     for (const offer of await page.locator(".partner-offers li").all()) await expect(offer).toBeVisible();
     for (const face of await page.locator(".partner-delivery").all()) await expect(face).toBeHidden();
-    await expect(page.locator("#references").getByRole("img")).toHaveCount(8);
+    await expect(page.locator("#references").getByRole("img")).toHaveCount(6);
     await expect(page.locator(".contact-fallback input[type=email]")).toBeVisible();
     await expect(page.locator(".onto .story animate, .onto .story animateMotion, .onto .token")).toHaveCount(0);
     await expect(page.locator(".humby")).toBeVisible();
@@ -1195,7 +1195,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await page.evaluate(() => document.fonts.ready);
         const set = page.locator(".logo-set:not([aria-hidden])");
         await expect(set).toHaveCount(1);
-        await expect(set.getByRole("img")).toHaveCount(8);
+        await expect(set.getByRole("img")).toHaveCount(6);
         const geometry = await set.evaluate(el => {
           const strip = el.closest(".logo-strip")!.getBoundingClientRect();
           return {
@@ -1408,3 +1408,4 @@ for (const path of ["/fr", "/fr/journal", "/journal/agent-ia-entreprise"]) {
     }
   });
 }
+
