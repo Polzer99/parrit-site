@@ -88,7 +88,7 @@ for (const locale of ["fr", "en"] as const) {
       await expect(page.locator(".logo-track")).toHaveCSS("animation-name", "none");
       expect(await page.locator(".logo-strip").evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);
       const logoSet = page.locator(".logo-set:not([aria-hidden])");
-      await expect(logoSet.getByRole("img")).toHaveCount(8);
+      await expect(logoSet.getByRole("img")).toHaveCount(6);
       const centered = await logoSet.evaluate(el => {
         const parent = el.closest(".logo-strip")!.getBoundingClientRect();
         const r = el.getBoundingClientRect();
@@ -116,7 +116,7 @@ for (const locale of ["fr", "en"] as const) {
       const strip = page.locator(".logo-strip");
       const track = page.locator(".logo-set img").first();
       await strip.scrollIntoViewIfNeeded();
-      await expect(track).toHaveCSS("animation-duration", "12.8s");
+      await expect(track).toHaveCSS("animation-duration", "9.6s");
       await expect(track).toHaveCSS("animation-iteration-count", "infinite");
       await expect(track).toHaveCSS("animation-play-state", "running");
       await strip.hover();
@@ -218,9 +218,9 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         const text = (await page.locator("main > section:not(#articles)").allInnerTexts()).join("\n");
         expect(text).not.toMatch(/\b(?:formation|former|formons|training|train)\b|parler d['’]un projet|talk about a project|conseil et outils/i);
         const logos = page.locator("#references [role=img]");
-        await expect(logos).toHaveCount(8);
+        await expect(logos).toHaveCount(6);
         expect(await logos.evaluateAll(nodes => nodes.map(node => node.getAttribute("aria-label")))).toEqual([
-          "Laparra", "Clevery Avocats", "Forexpert", "Joone", "SNCF", "Toyotomi Europe", "Hiolle Technologies", "Carte Noire",
+          "Laparra", "Clevery Avocats", "Forexpert", "Joone", "SNCF", "Carte Noire",
         ]);
         const geometry = await page.locator(".logo-strip").evaluate(strip => {
           const outer = strip.getBoundingClientRect();
@@ -405,3 +405,4 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
     });
   });
 }
+

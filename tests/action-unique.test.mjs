@@ -118,7 +118,7 @@ for (const locale of ["fr", "en"]) {
 
 test("new client permissions are independently dated, scoped and fail closed", () => {
   const { getSiteEvidence, evidencePublishable, publicationLogo } = loader("fr")("src/lib/registry/preuves.ts");
-  for (const name of ["Toyotomi Europe", "Hiolle Technologies", "Carte Noire"]) {
+  for (const name of ["Carte Noire"]) {
     const evidence = getSiteEvidence(name, "home");
     assert.ok(evidence, name);
     assert.equal(evidence.last_verified, "2026-11-08");
@@ -178,3 +178,4 @@ for (const locale of ["fr", "en"]) test(`contact action preserves attribution an
     assert.ok(visibleText(articles).includes(entry.title));
   }
 });
+

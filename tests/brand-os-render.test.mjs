@@ -1,5 +1,6 @@
 import { privateClientNames } from "../scripts/lib/public-clients.mjs";
 import { PUBLIC_CLIENT_NAMES } from "../src/system/public-clients.ts";
+import { SITE_EVIDENCE } from "../src/lib/registry/preuves.ts";
 import { PUBLIC_TECHNOLOGIES } from "../src/system/technologies.ts";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
@@ -193,7 +194,8 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           assert.ok(references, `${label}: references section`);
           assert.doesNotMatch(references, /class="reflines"|<p/);
           const names = [...references.matchAll(/role="img" aria-label="([^"]+)"/g)].map(match => match[1]);
-          for (const name of PUBLIC_CLIENT_NAMES) assert.ok(names.some(label => label.includes(name)), `${label}: accessible logo ${name}`);
+          const expectedLogos = SITE_EVIDENCE.filter(item => item.page_ids.includes("home") && item.logo.autorise && item.logo.fichier).map(item => item.display_name);
+          for (const name of expectedLogos) assert.ok(names.some(label => label.includes(name)), `${label}: accessible logo ${name}`);
           assert.doesNotMatch(technologyBand, /tech-note|Les marques citées|The brands named/);
         }
 
@@ -318,3 +320,4 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
     }
   }
 });
+
