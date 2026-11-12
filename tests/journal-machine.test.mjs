@@ -1,3 +1,4 @@
+import { sourceResponse } from './fixtures/journal-machine/source-response.mjs';
 import assert from 'node:assert/strict';
 import { test, mock } from 'node:test';
 import { mkdtempSync, mkdirSync, readFileSync, existsSync, rmSync, writeFileSync } from 'node:fs';
@@ -38,7 +39,7 @@ function setup(t, { topics = [first], mutate = () => {}, outcome = 'pr', pending
     publish: async payload => { events.push(['publish', payload]); if (outcome instanceof Error) throw outcome; return outcome; },
     persistState: async () => events.push('persist'), alertIfStalled: async () => events.push('alert'), issueOnce: async title => events.push(['issue', title]),
   };
-  return { options: { root, client, runtime, sourceOptions: { fetchImpl: async () => new Response(sourceText), resolve: async () => [{ address: '1.1.1.1' }] }, now: () => new Date('2026-11-12T05:15:00Z') }, calls, events,
+  return { options: { root, client, runtime, sourceOptions: { fetchImpl: async url => sourceResponse(url, sourceText), resolve: async () => [{ address: '1.1.1.1' }] }, now: () => new Date('2026-11-12T05:15:00Z') }, calls, events,
     queue: () => JSON.parse(readFileSync(path.join(root, 'content/plan/sujets.json'), 'utf8')),
     logs: () => readFileSync(path.join(root, 'content/plan/journal-runs.jsonl'), 'utf8').trim().split('\n').map(JSON.parse),
   };
@@ -299,4 +300,18 @@ test('configuration invalide ou reprise échouée ne sauvegarde jamais un état 
     assert.equal(s.calls.length, 0);
     assert.equal(s.logs().length, 1);
   }
+});
+
+test('interruption recherche ne persiste aucun secret dans run ni file', async t => {
+  const s = setup(t, { topics: [first] });
+  const original = s.options.client.complete;
+  let research = 0;
+  s.options.client.complete = async request => {
+    if (request.plugins && ++research === 2) throw new Error('Timeout token=fixture-sensitive-token');
+    return original(request);
+  };
+  await runMachine(s.options);
+  assert.ok(!JSON.stringify(s.logs()).includes('fixture-sensitive-token'));
+  assert.ok(!JSON.stringify(s.queue()).includes('fixture-sensitive-token'));
+  assert.equal(s.logs()[0].tentatives[0].recherche_interrompue.passe, 'presse_editeurs');
 });
