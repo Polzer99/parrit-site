@@ -1,5 +1,6 @@
+import { pathToFileURL } from "node:url";
 import { readFile, readdir } from "node:fs/promises";
-import { extname, join, relative } from "node:path";
+import { extname, join, relative, resolve } from "node:path";
 import { certificationClaims, sourceProse } from "./lib/certification-claims.mjs";
 import { ownershipClaims } from "./lib/ownership-claims.mjs";
 
@@ -80,6 +81,15 @@ const forbidden = [
   },
 ];
 
+// Pure per-article entry point; importing never scans the repository or exits.
+export function falseClaims(text) {
+  return text.split(/\r?\n/).flatMap((line, index) => forbidden.flatMap(({ rule, pattern }) => {
+    const checked = rule === "call duration" ? line.replaceAll("paul-larmaraud/30min", "") : line;
+    return pattern.test(checked) ? [{ rule, line: index + 1 }] : [];
+  }));
+}
+
+async function main() {
 const violations = [];
 
 async function filesUnder(directory) {
@@ -158,3 +168,6 @@ if (violations.length > 0) {
 }
 
 console.log("False-claims check passed.");
+
+}
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) await main();

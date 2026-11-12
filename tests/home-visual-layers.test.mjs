@@ -142,6 +142,9 @@ for (const locale of ["fr", "en"]) {
     // Retrait des deux logos le 09/11 (#373), confirmé par la spec du 12/11.
     assert.equal(images.length, 6);
     assert.deepEqual([...images].sort(), [...allowed].sort(), "every authorized logo appears exactly once");
+    assert.equal(images.length, allowed.length);
+    assert.doesNotMatch(references, /toyotomi|hiolle/i);
+    for (const src of images) assert.ok(allowed.includes(src));
     assert.doesNotMatch(references, /mask-image/);
   });
 }
@@ -227,4 +230,3 @@ test("entrances reveal once, react to reduced motion, and disconnect on cleanup"
   assert.equal(instances.length, count, "no observer is armed in reduced motion");
   stopReduced();
 });
-

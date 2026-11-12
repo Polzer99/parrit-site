@@ -12,6 +12,84 @@ complètes non validés (dépendances absentes). Aucun rendu/CLS ni effet produc
 prouvé. Spec préexistante et llms inchangés ; aucun commit/push/déploiement.
 Détail et reprise : `docs/REPORT-2026-11-12-polissage-ui-skills-design.md`.
 
+## Requêtes Journal tolérantes, 12/11/2026
+
+Spec `docs/CODEX-SPEC-2026-11-12-journal-requetes-tolerantes.md`, base locale 96a992d.
+Préparation normalisée : enveloppe et casse tolérées, champs supplémentaires
+ignorés, chaînes nettoyées/dédoublonnées (600 caractères, trois maximum).
+Passes vides reconstruites depuis le sujet et signalées par `requetes_reconstruites`.
+JSON invalide : une seule relance avec l'erreur, puis reconstruction ; les erreurs
+API et le plafond cumulé de coût restent bloquants. Aucun assouplissement des sources.
+Diagnostic JSONL : `preparation_brute` (800 caractères), `preparation_relance_brute`
+si relance (800 également), requêtes finales et indicateurs pour les trois passes.
+Validation : référence 130 tests machine ; 15 tests ajoutés, 477/477 tests complets,
+installation exacte, lint et build Webpack réussis. Revue indépendante : conflit
+entre enveloppe et passes racines corrigé et testé ; aucun défaut restant identifié.
+Spec préexistante inchangée. Aucun commit, push, déploiement ou appel API réel.
+Preuve en production restant à acquérir : prochain run réel atteignant les trois
+recherches avec diagnostics conservés ; les tests utilisent des réponses simulées.
+
+## Recherche Journal élargie, 12/11/2026
+
+Spec `docs/CODEX-SPEC-2026-11-12-journal-recherche-elargie.md`, base locale 7726aa3.
+Préparation de 2–3 requêtes par passe puis trois appels web Exa (10 résultats),
+institutions / presse-éditeurs / contradiction ; domaines en JSON, repli sans
+engine uniquement sur refus API include_domains. Budget 0,80 USD et portes
+3 sources / 4 faits inchangés. URL sans UTM/fragment, faits vérifiés dans les pages.
+Diagnostics : requêtes transmises à OpenRouter, résultats annotés, rejets et
+compteurs par source, aucun extrait de page enregistré par le nouveau code.
+L'état seul va toujours sur `journal/etat`, sans PR ni écriture main ; reprise
+depuis SHA figé, fraîcheur par fichier, compteurs monotones même si main ajoute
+un sujet plus récemment. Migration en lecture de `journal/etat-machine` si besoin.
+Sauvegarde sans force, refus après restauration échouée ; publication article
+par PR et armement existants conservés. Artefacts du workflow inchangés.
+Validation : installation exacte, lint, build Webpack, 462/462 tests Node,
+dont 130 tests machine (114 avant), dry-run fixtures réussi. Revue indépendante
+sans défaut bloquant après correctifs. Aucune preuve API/production réelle.
+Rapport : `docs/REPORT-2026-11-12-journal-recherche-elargie.md`.
+Aucun commit, push, déploiement, changement d'article ni test hors machine.
+
+## Correctif 1 — calibre presse, 12/11/2026
+
+La spec amendée copiée depuis le dépôt canon prime sur le format initial ci-dessous.
+Chronique FR/EN : titre-thèse 50–90 signes, chapô 300–450, corps 4500–7000,
+3–4 intertitres affirmatifs ; sources datées, signature et une ligne de réservation.
+FAQ exclusivement JSON-LD (2–4 réponses extraites), sans À retenir ni tableau imposé.
+Recherche : ≥3 sources acceptées et ≥4 faits chiffrés vérifiés dans les pages ;
+dates contrôlées, fraîcheur 6/18 mois, lois datées sans limite ; registres de refus.
+Deux passes bilingues GLM-5.2 (0,5 puis 0,2), aucun retry d'écriture, juge trois
+questions, budget cumulé 0,80 USD ; deux sujets/run et plomberie conservés.
+Thèse pressentie facultative, thèse retenue journalisée ; sujets 23/33 écartés,
+16 titres presse seuls et Jaccard ≥0,4 à l'ajout/sélection/sortie.
+Référence 92 tests machine ; candidat 114 tests machine + 4 langue historiques verts.
+Installation exacte réussie cette fois : Next 16.3.4 ; lint/build/types et 19 Brand OS verts.
+Suite complète : six échecs historiques sur les références clients (6 contre 8 attendus,
+logos supprimés). Aucun test historique modifié. Aucun appel LLM réel ou preuve de
+production. Dry-run sans réseau/sous-processus vert ; rendu SSR FR/EN contrôlé.
+Rapport : section Correctif 1 de docs/REPORT-2026-11-12-machine-articles-quotidienne.md.
+Aucun commit/push, article historique, ci.yml ou workflow de publication modifié par C1.
+
+## Machine à articles quotidienne, 12/11/2026
+
+Spec `docs/CODEX-SPEC-2026-11-12-machine-articles-quotidienne.md`, référence locale d7da52b.
+Workflow quotidien Node 22 désarmé : PR contenu seul; `JOURNAL_AUTOPUBLISH=1` seul arme la fusion.
+Générateur OpenRouter injectable, 36 sujets, recherche annotée, FR puis EN,
+portes déterministes et juge binaire, budget 0,50 USD, une réécriture et deux sujets/run.
+Registre additionnel `content/plan/journal-translations.json` partagé client/serveur/config;
+FAQ/sources/auteur/updatedAt optionnels, tableaux restreints, anciens articles inchangés.
+Contrôles dans le job sur les octets figés avant fusion; preuve titre FR+sitemap puis IndexNow.
+Compteurs/logs sur branche état en mode désarmé, main si armé; watchdog indépendant de npm.
+Tests historiques figés à 31 rejoués sans modification sur copie du corpus historique;
+candidat complet contrôlé par build et nouveaux tests de corpus/rendu. Échecs jamais ignorés.
+Réservation découplée du registre d'articles, destinations inchangées et vérifiées.
+Validation locale : 92 nouveaux tests et 137 ciblés verts, lint/marque/claims verts.
+Suite complète : 409/424, mêmes 15 échecs qu'avant (317/332). npm ci bloqué ENOTFOUND;
+dépendances locales de dépannage, Next 16.2.2 contre 16.3.4 verrouillé, Cal.com absent.
+Build/TypeScript bloqués; aucune preuve navigateur/production, aucun appel LLM réel.
+Machine non déclarée opérationnelle tant que la batterie exacte et configuration hôte ne passent pas.
+Rapport : `docs/REPORT-2026-11-12-machine-articles-quotidienne.md`.
+Aucun commit/push/déploiement, ni modification d'article/test historique/ci.yml/hermes.
+
 ## Action unique, correctifs 3 et 4, 08/11/2026, nuit
 
 Baseline `25d4ddd`, origin/main local `fb4b0d9` (Journal FR et correctif typo).

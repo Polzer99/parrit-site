@@ -116,7 +116,7 @@ test("client logos fail closed without permission, file, source and a dated name
     assert.ok(publicationLogo(evidence.logo));
     assert.ok(readFileSync(`public${evidence.logo.fichier}`).length > 0);
     assert.ok(evidence.logo.source);
-    assert.deepEqual(evidence.logo.accord, ["Toyotomi Europe", "Hiolle Technologies", "Carte Noire"].includes(evidence.id)
+    assert.deepEqual(evidence.logo.accord, ["Carte Noire"].includes(evidence.id)
       ? { qui: "Paul Larmaraud, décision nominative sans accord écrit des clients", date: "2026-11-08" }
       : { qui: "Paul Larmaraud, décision d'affichage sans accord écrit du client", date: "2026-10-27" });
     assert.doesNotMatch(renderToStaticMarkup(createElement(ClientReference, { id: evidence.id }, "Description")), /<img/);
@@ -237,6 +237,7 @@ for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos a
   assert.ok(strip);
   assert.equal((strip.match(/role="img"/g) ?? []).length, 6);
   assert.doesNotMatch(html, /Toyotomi Europe|Hiolle Technologies/i);
+  assert.doesNotMatch(strip, /toyotomi|hiolle/i);
   assert.doesNotMatch(html, /mask-image:url\(https?:/);
   const founder = html.match(/<h2>Paul Larmaraud,[\s\S]*?<\/h2>/)?.[0];
   assert.ok(founder);
