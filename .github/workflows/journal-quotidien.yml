@@ -33,6 +33,8 @@ jobs:
         with:
           node-version: "22"
           cache: npm
+      - name: Installer la lecture des sources PDF
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
       - run: npm ci
       # GITHUB_TOKEN may suppress CI events. The runtime runs lint/build/tests on
       # the candidate in this same job and pins base/head before content-only merge.

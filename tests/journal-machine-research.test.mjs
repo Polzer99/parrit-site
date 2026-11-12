@@ -1,3 +1,4 @@
+import { sourceResponse } from './fixtures/journal-machine/source-response.mjs';
 import { test, mock } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -232,14 +233,16 @@ test('chaque rejet est diagnostiqué et les faits ne sont acceptés que dans la 
   const sourceText = readFileSync(new URL('./fixtures/journal-machine/source.txt', import.meta.url), 'utf8');
   const accepted = await verifiedMaterial(sources, { resolve: async () => [{ address: '1.1.1.1' }], fetchImpl: async url => {
     if (url.endsWith('/manquant')) return new Response('', { status: 404 });
-    if (url.endsWith('/sans-fait')) return new Response(baseMeta.published_at + ' aucun fait');
+    if (url.endsWith('/sans-fait')) return sourceResponse(url, 'aucun fait');
+    if (url.endsWith('/vieux')) return new Response('Publié le 2020-01-01. ' + sourceText);
+    if (url.endsWith('/non-date')) return new Response('Aucune date et 12 % des dossiers.');
     if (url.endsWith('/date-inventee')) return new Response('aucune date');
-    return new Response(sourceText);
+    return sourceResponse(url, sourceText);
   } }, diagnostics);
   assert.equal(accepted.length, 3);
   for (const [url, , motif] of cases) assert.ok(diagnostics.sources_ecartees.some(s => s.url === url && s.motif === motif), `${url}: ${motif}`);
   assert.ok(diagnostics.sources_acceptees.every(s => s.faits_chiffres > 0));
   assert.ok(diagnostics.sources_acceptees.reduce((n, s) => n + s.faits_chiffres, 0) >= 4);
   assert.ok(!JSON.stringify(diagnostics).includes('Texte privé'));
-  assert.ok(diagnostics.sources_acceptees.every(s => Object.keys(s).sort().join() === 'faits_chiffres,titre,url'));
+  assert.ok(diagnostics.sources_acceptees.every(s => Object.keys(s).sort().join() === 'editeur,faits_chiffres,methode,published_at,titre,url'));
 });

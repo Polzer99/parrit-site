@@ -128,7 +128,7 @@ export async function runMachine({ root, client, runtime, sourceOptions = {}, mo
       const attempt = { sujet: topic.id, passes: [] };
       run.tentatives.push(attempt);
       let publishing = false;
-      const sourceOptionsForTopic = { ...sourceOptions, local: topic.angle_local };
+      const sourceOptionsForTopic = { ...sourceOptions, local: topic.angle_local, today };
       try {
         let annotations = await researchInPasses({ ask, topic, today, diagnostics: attempt });
         // Fetch once per topic; both passes and gates reuse the same evidence.
@@ -247,7 +247,7 @@ async function main() {
     const data = matter(readFileSync(path.join(source, 'fr.mdx'), 'utf8')).data;
     atomicJSON(path.join(root, 'content/plan/sujets.json'), [{ id: data.slug, requete: data.requete, intention: 'informationnelle', pilier: data.pilier, offre: 'audit', angle_local: false, statut: 'a_faire', slug: null, publie_le: null }]);
     atomicJSON(path.join(root, 'content/plan/journal-translations.json'), []);
-    options = { root, models, client: fixtureClient(source, models), now: () => new Date('2026-11-12T05:15:00Z'), simulation: true, sourceOptions: { fetchImpl: async () => new Response(readFileSync(path.join(source, 'source.txt'), 'utf8')), resolve: async () => [{ address: '1.1.1.1' }] } };
+    options = { root, models, client: fixtureClient(source, models), now: () => new Date('2026-11-12T05:15:00Z'), simulation: true, sourceOptions: { fetchImpl: async url => new Response(`<meta property="article:published_time" content="${data.sources.find(item => item.url === url)?.published_at}"><article>${readFileSync(path.join(source, 'source.txt'), 'utf8')}</article>`), resolve: async () => [{ address: '1.1.1.1' }] } };
   } else {
     if (process.env.GITHUB_ACTIONS !== 'true') throw new Error('exécution réelle réservée au workflow; utiliser --dry-run --fixtures');
     const { createGitHubRuntime } = await import('./journal-machine-github.mjs');
