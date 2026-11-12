@@ -8,7 +8,8 @@ on:
 jobs:
   diagnostic-live-qa:
     name: diagnostic LLM battery
-    runs-on: ubuntu-latest
+    # Ubuntu 24.04 : Playwright ne prend pas en charge Chromium sur Ubuntu 26.04 (ubuntu-latest).
+    runs-on: ubuntu-24.04
     env:
       NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}

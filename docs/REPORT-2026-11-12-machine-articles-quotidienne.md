@@ -185,3 +185,5 @@ Seuls trois fichiers de tests sont adaptés, conformément à l'exception explic
 Les assertions sur l'action unique, les deux métiers et les autres comportements sont conservées. Aucun logo réintroduit, aucun code produit, registre, fixture, article ou workflow modifié. Écritures limitées au worktree local, réversibles ; empreintes de l'état précédent conservées dans `/tmp/journal-c2-before.json`.
 
 Validation : même commande `npm test` avant et après, **440/446 (six échecs reproduits) → 446/446, zéro échec, zéro test ignoré**. Journaux : `/tmp/journal-c2-baseline.log` et `/tmp/journal-c2-result.log`. `git diff --check` réussi. Comparaison des empreintes : seuls ces trois tests, la copie de la spec et ce rapport ont changé pendant cette passe. Aucun commit, push, appel LLM ou publication. Cette preuve concerne la suite locale ; aucune nouvelle preuve de production n'est revendiquée.
+
+Correctif 3 — CI : les quatre workflows sont épinglés sur `ubuntu-24.04`, car Playwright ne prend pas en charge Chromium sur Ubuntu 26.04 (`ubuntu-latest`), cause de l’échec de la PR #375 ; commentaire explicatif ajouté, diff vérifié, CI distante non rejouée, aucun commit.
