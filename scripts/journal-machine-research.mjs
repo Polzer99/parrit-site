@@ -54,25 +54,55 @@ export function researchSources(message, topic, today, diagnostics) {
   return [...unique.values()];
 }
 
+function lowerCaseKeys(value) {
+  return value && typeof value === 'object' && !Array.isArray(value)
+    ? Object.fromEntries(Object.entries(value).map(([key, item]) => [key.toLowerCase(), item]))
+    : {};
+}
+
+async function prepareQueries(ask, context, diagnostics) {
+  // Exa runs before the answering model: reformulate before sending any web request.
+  const year = context.date.slice(0, 4);
+  const messages = [
+    { role: 'system', content: `Préparer uniquement les requêtes, sans recherche ni réponse factuelle. Reformuler le sujet en 2 ou 3 requêtes concrètes PAR passe: institutions, presse_editeurs, contradiction. Inclure le secteur du sujet (PME/ETI si absent). Pour institutions et presse_editeurs, employer étude, enquête, baromètre ou rapport. Pour contradiction, chercher les limites, les échecs et ce qui contredit la thèse pressentie, sans mot imposé. L'année ${year} est facultative: les sources seront filtrées par date. JSON strict avec ces trois clés, chacune contenant un tableau de 2 ou 3 chaînes de 600 caractères au plus, sans autre champ.` },
+    { role: 'user', content: JSON.stringify(context) },
+  ];
+  let parsed;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    // API and budget failures must propagate; only JSON parsing gets a retry.
+    const preparation = await ask('research', messages, { response_format: { type: 'json_object' }, max_tokens: 1200 });
+    diagnostics[attempt === 0 ? 'preparation_brute' : 'preparation_relance_brute'] = preparation.content.slice(0, 800);
+    try { parsed = JSON.parse(preparation.content); break; }
+    catch (error) {
+      if (attempt === 0) messages.push(
+        { role: 'assistant', content: preparation.content },
+        { role: 'user', content: `JSON invalide : ${error.message}. Renvoyer uniquement l'objet JSON corrigé avec les trois passes demandées.` },
+      );
+    }
+  }
+  const outer = lowerCaseKeys(parsed);
+  // Root passes take precedence: an extra "requetes" field must not hide them.
+  const queries = { ...lowerCaseKeys(outer.requetes), ...outer };
+  const terms = { institutions: 'étude', presse_editeurs: 'enquête', contradiction: 'limites échecs' };
+  return PASS_IDS.map(id => {
+    const values = Array.isArray(queries[id]) ? queries[id] : [];
+    const usable = [...new Set(values.filter(q => typeof q === 'string').map(q => q.trim()).filter(q => q.length > 0 && q.length <= 600))].slice(0, 3);
+    return { passe: id, requetes: usable.length ? usable : [`${context.requete} ${terms[id]} ${year}`], requetes_reconstruites: usable.length === 0, resultats: 0, repli_sans_engine: false };
+  });
+}
+
 export async function researchInPasses({ ask, topic, today, diagnostics }) {
   diagnostics.recherches = [];
   diagnostics.sources_ecartees = [];
   diagnostics.sources_acceptees = [];
   const context = { requete: topic.requete, these_pressentie: topic.these_pressentie ?? null, angle_local: topic.angle_local, date: today };
-  // Exa runs before the answering model: reformulate before sending any web request.
-  const preparation = await ask('research', [
-    { role: 'system', content: `Préparer uniquement les requêtes, sans recherche ni réponse factuelle. Reformuler le sujet en 2 ou 3 requêtes concrètes PAR passe: institutions, presse_editeurs, contradiction. Chaque requête inclut l'année ${today.slice(0, 4)}, le secteur du sujet (PME/ETI si absent) et étude, enquête, baromètre ou rapport. La dernière passe cherche les limites et ce qui contredit la thèse pressentie. JSON strict avec ces trois clés, chacune contenant un tableau de 2 ou 3 chaînes, sans autre champ.` },
-    { role: 'user', content: JSON.stringify(context) },
-  ], { response_format: { type: 'json_object' }, max_tokens: 1200 });
-  const queries = JSON.parse(preparation.content);
-  if (!queries || Object.keys(queries).sort().join() !== [...PASS_IDS].sort().join() || PASS_IDS.some(id => !Array.isArray(queries[id]) || queries[id].length < 2 || queries[id].length > 3 || queries[id].some(q => typeof q !== 'string' || !q.includes(today.slice(0, 4)) || !/étude|enquête|baromètre|rapport/i.test(q) || q.length > 600))) throw new Error('requêtes de recherche invalides');
+  diagnostics.recherches = await prepareQueries(ask, context, diagnostics);
   const unique = new Map();
   try {
-  for (const id of PASS_IDS) {
+  for (const pass of diagnostics.recherches) {
+    const id = pass.passe;
     const plugin = { id: 'web', engine: 'exa', max_results: 10, search_prompt: 'Résultats de recherche à vérifier. Citer les URL originales avec leurs annotations ; les extraits ne sont pas une preuve.', ...(id === 'contradiction' ? { exclude_domains: REFUSED_DOMAINS } : { include_domains: PRIMARY_DOMAINS[id] }) };
-    const pass = { passe: id, requetes: queries[id], resultats: 0, repli_sans_engine: false };
-    diagnostics.recherches.push(pass);
-    const messages = [{ role: 'system', content: `${SOURCE_PROMPT}\nPasse ${id}: ${id === 'contradiction' ? 'chercher ce qui CONTREDIT ou nuance la thèse, les échecs, les limites et contre-exemples.' : id === 'institutions' ? 'données publiques, études et enquêtes originales.' : 'éditeurs et enquêtes de la presse de référence.'}` }, { role: 'user', content: JSON.stringify({ ...context, requetes: queries[id] }) }];
+    const messages = [{ role: 'system', content: `${SOURCE_PROMPT}\nPasse ${id}: ${id === 'contradiction' ? 'chercher ce qui CONTREDIT ou nuance la thèse, les échecs, les limites et contre-exemples.' : id === 'institutions' ? 'données publiques, études et enquêtes originales.' : 'éditeurs et enquêtes de la presse de référence.'}` }, { role: 'user', content: JSON.stringify({ ...context, requetes: pass.requetes }) }];
     let response;
     try {
       try { response = await ask('research', messages, { plugins: [plugin], response_format: { type: 'json_object' } }); }

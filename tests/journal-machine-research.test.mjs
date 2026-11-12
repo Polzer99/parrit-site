@@ -17,6 +17,105 @@ const queries = Object.fromEntries(['institutions', 'presse_editeurs', 'contradi
 const topic = { requete: 'Où commencer pour une PME industrielle ?', angle_local: false, these_pressentie: 'Une thèse provisoire' };
 const date = '2026-11-12';
 
+async function preparedResearch(responses) {
+  const calls = [], diagnostics = {};
+  let index = 0;
+  await researchInPasses({ topic, today: date, diagnostics, ask: async (role, messages, extra) => {
+    calls.push({ role, messages: structuredClone(messages), ...extra });
+    if (extra.plugins) return structuredClone(message);
+    assert.ok(index < responses.length, 'aucune relance supplémentaire');
+    return { content: responses[index++] };
+  } });
+  const web = calls.filter(call => call.plugins);
+  assert.equal(web.length, 3);
+  for (const [index, call] of web.entries()) {
+    assert.deepEqual(JSON.parse(call.messages[1].content).requetes, diagnostics.recherches[index].requetes);
+  }
+  return { calls, diagnostics };
+}
+
+test('requêtes sans année ni mot imposé acceptées dans les trois passes', async () => {
+  const value = { institutions: ['PME industrie adoption'], presse_editeurs: ['PME déploiement logiciel'], contradiction: ['IA limites échecs'] };
+  const raw = JSON.stringify(value);
+  const { calls, diagnostics } = await preparedResearch([raw]);
+  assert.equal(calls.length, 4);
+  assert.equal(diagnostics.preparation_brute, raw);
+  assert.deepEqual(diagnostics.recherches.map(pass => pass.requetes), Object.values(value));
+  assert.ok(diagnostics.recherches.every(pass => pass.requetes_reconstruites === false));
+});
+
+test('enveloppe, casse, champs supplémentaires, filtrage, dédoublonnage et plafond', async () => {
+  const boundary = 'x'.repeat(600);
+  const raw = JSON.stringify({ commentaire: 'ignoré', ReQuEtEs: {
+    INSTITUTIONS: ['  PME adoption  ', '', ' \n ', 42, null, {}, 'PME adoption', 'x'.repeat(601), boundary, 'troisième', 'quatrième'],
+    Presse_Editeurs: [], CONTRADICTION: ['limites sans chiffre'], extra: true,
+  } });
+  const { calls, diagnostics } = await preparedResearch([raw]);
+  assert.equal(calls.length, 4);
+  assert.equal(diagnostics.preparation_brute, raw.slice(0, 800));
+  assert.equal(diagnostics.preparation_brute.length, 800);
+  assert.deepEqual(diagnostics.recherches.map(pass => pass.requetes), [
+    ['PME adoption', boundary, 'troisième'], [`${topic.requete} enquête 2026`], ['limites sans chiffre'],
+  ]);
+  assert.deepEqual(diagnostics.recherches.map(pass => pass.requetes_reconstruites), [false, true, false]);
+});
+
+for (const value of [null, [], 'texte', 42, {}, { institutions: [false, '', 'x'.repeat(601)], presse_editeurs: 'pas un tableau' }]) {
+  test(`structure inutilisable reconstruite sans relance : ${JSON.stringify(value).slice(0, 60)}`, async () => {
+    const { calls, diagnostics } = await preparedResearch([JSON.stringify(value)]);
+    assert.equal(calls.length, 4);
+    assert.deepEqual(diagnostics.recherches.map(pass => pass.requetes), ['étude', 'enquête', 'limites échecs'].map(term => [`${topic.requete} ${term} 2026`]));
+    assert.ok(diagnostics.recherches.every(pass => pass.requetes_reconstruites));
+  });
+}
+
+test('un champ requetes supplémentaire ne masque pas les passes racines', async () => {
+  for (const extra of ['commentaire', { institutions: ['autre requête'] }]) {
+    const { calls, diagnostics } = await preparedResearch([JSON.stringify({ ...queries, requetes: extra })]);
+    assert.equal(calls.length, 4);
+    assert.deepEqual(diagnostics.recherches.map(pass => pass.requetes), Object.values(queries));
+    assert.ok(diagnostics.recherches.every(pass => !pass.requetes_reconstruites));
+  }
+});
+
+test('JSON invalide relancé une fois avec son erreur, réponse corrigée utilisée', async () => {
+  const raw = '{ JSON incomplet';
+  let error;
+  try { JSON.parse(raw); } catch (caught) { error = caught.message; }
+  const corrected = JSON.stringify(queries);
+  const { calls, diagnostics } = await preparedResearch([raw, corrected]);
+  assert.equal(calls.length, 5);
+  assert.ok(!calls[1].plugins);
+  assert.ok(calls[1].messages.at(-1).content.includes(error));
+  assert.equal(calls[1].messages.at(-2).content, raw);
+  assert.equal(diagnostics.preparation_brute, raw);
+  assert.equal(diagnostics.preparation_relance_brute, corrected.slice(0, 800));
+  assert.deepEqual(diagnostics.recherches.map(pass => pass.requetes), Object.values(queries));
+});
+
+test('deux JSON invalides reconstruisent les requêtes et lancent la recherche', async () => {
+  const raw = 'invalide '.repeat(150);
+  const { calls, diagnostics } = await preparedResearch([raw, raw]);
+  assert.equal(calls.length, 5);
+  assert.equal(diagnostics.preparation_brute, raw.slice(0, 800));
+  assert.equal(diagnostics.preparation_relance_brute, raw.slice(0, 800));
+  assert.deepEqual(diagnostics.recherches.map(pass => pass.requetes), ['étude', 'enquête', 'limites échecs'].map(term => [`${topic.requete} ${term} 2026`]));
+  assert.ok(diagnostics.recherches.every(pass => pass.requetes_reconstruites));
+});
+
+test('échec API de préparation ou de relance reste bloquant', async () => {
+  for (const failAt of [1, 2]) {
+    let count = 0;
+    const error = new Error('API indisponible');
+    await assert.rejects(researchInPasses({ topic, today: date, diagnostics: {}, ask: async (_role, _messages, extra) => {
+      assert.ok(!extra.plugins);
+      if (++count === failAt) throw error;
+      return { content: '{' };
+    } }), error);
+    assert.equal(count, failAt);
+  }
+});
+
 test('trois passes web après reformulation, filtres JSON et requêtes réellement transmises', async () => {
   const calls = [], diagnostics = {};
   const sources = await researchInPasses({ topic, today: date, diagnostics, ask: async (role, messages, extra) => {
