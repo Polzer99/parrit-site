@@ -34,7 +34,7 @@ for (const locale of ["fr", "en"]) {
     assert.doesNotMatch(html, /data-connector=/);
   });
 
-  test(`one home action, two crafts, eight authorized references (${locale})`, async () => {
+  test(`one home action, two crafts, six authorized references (${locale})`, async () => {
     const html = await renderPage(locale);
     const actions = [...html.matchAll(/<a class="([^"]*rev-button[^"]*)" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
     const booking = actions.filter(([, , href]) => new URL(href, "https://example.invalid").hash === "#contact");
@@ -60,8 +60,11 @@ for (const locale of ["fr", "en"]) {
     assert.doesNotMatch(visibleText(html.replace(/<section id="articles">[\s\S]*?<\/section>/, "")), /\b(?:formations?|former|formons|forme|formateurs?|training|train|trains|trainers)\b|parler d'un projet|talk about a project|conseil et outils|[—–]|afin de/i);
     const refs = html.match(/<section id="references"[\s\S]*?<\/section>/)[0];
     const { PUBLIC_CLIENT_NAMES } = loader(locale)("src/system/public-clients.ts");
-    assert.equal(PUBLIC_CLIENT_NAMES.length, 8);
+    assert.equal(PUBLIC_CLIENT_NAMES.length, 6);
+    assert.doesNotMatch(PUBLIC_CLIENT_NAMES.join("|"), /Toyotomi Europe|Hiolle Technologies/i);
+    assert.equal((refs.match(/data-evidence=/g) ?? []).length, 6);
     for (const name of PUBLIC_CLIENT_NAMES) assert.ok(refs.includes(`data-evidence="${name}"`), name);
+    assert.doesNotMatch(html, /Toyotomi Europe|Hiolle Technologies/i);
   });
 
   test(`reassurance, accountability and initially open FAQ survive SSR (${locale})`, async () => {

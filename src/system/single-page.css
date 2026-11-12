@@ -167,6 +167,7 @@
   display:inline-flex;align-items:center;min-height:44px;
 }
 .single-header .mobile-menu summary {min-height:48px;line-height:48px;font-family:var(--ui);font-size:var(--t-s);font-weight:600;cursor:pointer;}
+.single-header .mobile-menu summary:active {text-decoration:underline;}
 .single-page li {line-height:1.55;}
 .single-page .phone .chat {flex-shrink:0;}
 .single-page .phone .bar {flex-shrink:0;}
@@ -211,7 +212,7 @@
 .single-page .teamcap {display:flex;gap:8px;align-items:center;margin-top:20px;font-size:var(--t-s);color:var(--ink2);}
 .single-page .teamcap i {width:14px;height:14px;border:2px solid var(--canard);flex-shrink:0;}
 
-/* Décision de Paul du 08/11/2026, nuit : eight logos, two desktop rows, 1060px. */
+/* Décision de Paul du 08/11/2026, nuit : six logos, two desktop rows, 1060px. */
 .single-page .logo-strip {--logo-gap:var(--brand-s3);max-width:1060px;margin:56px auto 0;}
 .single-page .logo-track {display:flex;width:max-content;gap:var(--logo-gap);}
 .single-page .logo-set {display:flex;align-items:stretch;gap:var(--logo-gap);flex-shrink:0;}
@@ -498,6 +499,7 @@
 .single-page .home-faq details {border-top:1px solid var(--line);}
 .single-page .home-faq details:last-child {border-bottom:1px solid var(--line);}
 .single-page .home-faq summary {cursor:pointer;font-size:var(--t-m);line-height:1.4;font-weight:600;padding-block:var(--brand-s2);min-height:48px;}
+.single-page .home-faq summary:active {text-decoration:underline;}
 .single-page .home-faq p {font-size:var(--t-s);line-height:1.5;max-width:80ch;padding-bottom:var(--brand-s2);}
 .single-page .journal-language-note {font-size:var(--t-s);margin-top:var(--brand-s2);}
 .single-page .home-journal-list {border-top:0;margin:var(--brand-s3) 0 0;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--brand-s3);}

@@ -1,3 +1,17 @@
+## Polissage UI, 12/11/2026 — validation hôte restante
+
+Spec `docs/CODEX-SPEC-2026-11-12-polissage-ui-skills-design.md`, baseline d7da52b.
+DESIGN.md décrit le code servi, Brand OS reste source ; anciens design systems
+marqués historiques. Six logos sur une ligne ordinateur par réduction de l'espace
+des boîtes, images intactes ; contour permanent technologies retiré, focus conservé ;
+espace du chapeau Journal, appuis natifs et transitions réduites explicités.
+Cal.com 24 h : aucune option d'embed documentée trouvée, intégration inchangée.
+Trois nouveaux tests Node passent, douze cas navigateur ajoutés et quatre renforcés.
+Installation npm bloquée ENOTFOUND puis ENOTCACHED ; lint/build/marque et suites
+complètes non validés (dépendances absentes). Aucun rendu/CLS ni effet production
+prouvé. Spec préexistante et llms inchangés ; aucun commit/push/déploiement.
+Détail et reprise : `docs/REPORT-2026-11-12-polissage-ui-skills-design.md`.
+
 ## Action unique, correctifs 3 et 4, 08/11/2026, nuit
 
 Baseline `25d4ddd`, origin/main local `fb4b0d9` (Journal FR et correctif typo).

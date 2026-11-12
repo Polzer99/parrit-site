@@ -141,3 +141,22 @@ test("machine-translated glossary entry is noindex", async ({ page }) => {
 
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
 });
+
+for (const locale of ["fr", "en"] as const) for (const width of [1440, 390]) {
+  test(`UI polish: deck and reading time have system spacing ${locale} ${width}`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 800 });
+    await page.setExtraHTTPHeaders({ "Accept-Language": "en" });
+    await page.goto(`${BASE_URL}${locale === "fr" ? "/fr" : ""}/journal/${translatedArticles[0].slug}`);
+    await page.evaluate(() => document.fonts.ready);
+    const geometry = await page.locator(".journal-header").evaluate(header => {
+      const deck = header.querySelector(".journal-deck")!.getBoundingClientRect();
+      const meta = header.querySelector(".journal-entry-meta")!;
+      return {
+        gap: meta.getBoundingClientRect().top - deck.bottom,
+        spacing: parseFloat(getComputedStyle(meta).getPropertyValue("--brand-s2")),
+      };
+    });
+    expect(geometry.spacing).toBe(16);
+    expect(Math.abs(geometry.gap - geometry.spacing)).toBeLessThanOrEqual(1);
+  });
+}

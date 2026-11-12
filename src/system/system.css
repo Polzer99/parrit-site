@@ -401,6 +401,10 @@ button {
   outline-offset: 2px;
 }
 
+.hold:not([data-done="true"]):active {
+  transform: translateY(1px);
+}
+
 .decision-card {
   padding: var(--s3);
   border: 1px solid var(--rule-l);
