@@ -1,5 +1,11 @@
 import matter from 'gray-matter';
 import { readFileSync } from 'node:fs';
+import { mkdtemp, writeFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+const execFileAsync = promisify(execFile);
 import { journalMarkdownBlocks } from '../src/system/journal-markdown.ts';
 import { lookup } from 'node:dns/promises';
 import { isIP } from 'node:net';
@@ -64,6 +70,118 @@ export function sourceDatePresent(text, date) {
   const normalizedDate = exactText(text).toLowerCase();
   return new RegExp(`\\b0?${day}(?:er|st|nd|rd|th)? (?:${fr}|${en}) ${year}\\b|\\b${en} 0?${day}(?:st|nd|rd|th)?,? ${year}\\b|\\b0?${day}/0?${month}/${year}\\b`).test(normalizedDate);
 }
+const FR_MONTHS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+const EN_MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+function decodeHTML(value) {
+  const entities = { nbsp: ' ', amp: '&', quot: '"', apos: "'", rsquo: "'", laquo: '«', raquo: '»', eacute: 'é', egrave: 'è', ucirc: 'û' };
+  return String(value).replace(/&(#x[\da-f]+|#\d+|[a-z]+);/gi, (all, name) => {
+    if (name[0] !== '#') return entities[name.toLowerCase()] ?? all;
+    const code = name[1].toLowerCase() === 'x' ? parseInt(name.slice(2), 16) : Number(name.slice(1));
+    return code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : all;
+  });
+}
+function htmlAttributes(tag) {
+  return Object.fromEntries([...tag.matchAll(/([\w:-]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/g)].map(m => [m[1].toLowerCase(), decodeHTML(m[2] ?? m[3] ?? m[4])]));
+}
+export function sourceVisibleText(body) {
+  const text = String(body);
+  return decodeHTML((/<[a-z][^>]*>/i.test(text) ? text.replace(/\s+/g, ' ') : text).replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<(script|style|head|template)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, '')
+    .replace(/<\/?(?:p|div|article|section|header|footer|li|tr|h[1-6]|br|hr)\b[^>]*>/gi, '\n')
+    .replace(/<[^>]+>/g, ' '));
+}
+function validDate(year, month, day, today) {
+  const date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  return /^\d{4}-\d{2}-\d{2}$/.test(date) && date >= '1990-01-01' && date <= today &&
+    Number.isFinite(Date.parse(date)) && new Date(date).toISOString().slice(0, 10) === date ? date : null;
+}
+function parsedDate(value, today) {
+  if (typeof value !== 'string') return null;
+  const text = exactText(decodeHTML(value)).toLowerCase();
+  let m = text.match(/^(?:D:)?(\d{4})[-/]?(\d{2})[-/]?(\d{2})(?=$|[^\d]|\d{6})/i);
+  if (m) return validDate(m[1], m[2], m[3], today);
+  m = text.match(/^(\d{1,2})[/.](\d{1,2})[/.](\d{4})\b/);
+  if (m) return validDate(m[3], m[2], m[1], today);
+  m = text.match(/^(\d{1,2})(?:er|st|nd|rd|th)?\s+([\p{L}]+)\.?\s+(\d{4})\b/u);
+  const monthNumber = name => {
+    for (const list of [FR_MONTHS, EN_MONTHS]) {
+      const i = list.findIndex(month => month === name || (name.length >= 3 && month.startsWith(name)));
+      if (i >= 0) return i + 1;
+    }
+    return 0;
+  };
+  if (m) return validDate(m[3], monthNumber(m[2]), m[1], today);
+  m = text.match(/^([a-z]+)\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(\d{4})\b/);
+  return m ? validDate(m[3], monthNumber(m[1]), m[2], today) : null;
+}
+function firstCompleteDate(text, today) {
+  const candidates = String(text).matchAll(/\b(?:\d{4}[-/]\d{2}[-/]\d{2}|\d{1,2}[/.]\d{1,2}[/.]\d{4}|\d{1,2}(?:er|st|nd|rd|th)?\s+[\p{L}]+\.?\s+\d{4}|[a-z]+\.?\s+\d{1,2}(?:st|nd|rd|th)?,?\s+\d{4})\b/giu);
+  for (const m of candidates) { const date = parsedDate(m[0], today); if (date) return date; }
+  return null;
+}
+
+/** PDF input is { creationDate, pages, text }, decoded by fetchSource via Poppler.
+ * dateModified is evidence of modification only, never a publication fallback.
+ */
+export function extractPublicationDate(input, url, headers = {}, today = new Date().toISOString().slice(0, 10)) {
+  const pdf = input && typeof input === 'object' && !Buffer.isBuffer(input);
+  const html = pdf ? '' : String(input);
+  const clean = html.replace(/<!--[\s\S]*?-->/g, '');
+  const dates = { datePublished: [], dateCreated: [], dateModified: [] };
+  const visit = value => {
+    if (!value || typeof value !== 'object') return;
+    for (const [key, item] of Object.entries(value)) {
+      if (Object.hasOwn(dates, key)) dates[key].push(...(Array.isArray(item) ? item : [item]));
+      if (typeof item === 'object') visit(item);
+    }
+  };
+  for (const match of clean.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)) {
+    if (htmlAttributes(match[1]).type?.toLowerCase() !== 'application/ld+json') continue;
+    try { visit(JSON.parse(match[2])); } catch { /* Bad JSON-LD does not suppress other evidence. */ }
+  }
+  const modified = dates.dateModified.map(value => parsedDate(value, today)).find(Boolean);
+  const result = (published_at, methode) => published_at ? { published_at, methode, ...(modified ? { modified_at: modified } : {}) } : null;
+  for (const key of ['datePublished', 'dateCreated']) {
+    for (const value of dates[key]) { const date = parsedDate(value, today); if (date) return result(date, 'json_ld'); }
+  }
+  const markup = clean.replace(/<(script|style|template)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, '');
+  const metas = [...markup.matchAll(/<meta\b[^>]*>/gi)].map(m => htmlAttributes(m[0]));
+  for (const name of ['article:published_time', 'og:published_time', 'citation_publication_date', 'citation_date', 'dc.date', 'dcterms.issued', 'date', 'pubdate', 'parsely-pub-date', 'sailthru.date']) {
+    for (const meta of metas.filter(m => (m.property || m.name || '').toLowerCase() === name)) {
+      const date = parsedDate(meta.content, today); if (date) return result(date, 'meta');
+    }
+  }
+  const article = markup.match(/<article\b[^>]*>([\s\S]*?)<\/article\s*>/i)?.[1];
+  const header = markup.match(/<header\b[^>]*>([\s\S]*?)<\/header\s*>/i)?.[1];
+  for (const scope of [article, header].filter(Boolean)) {
+    for (const m of scope.matchAll(/<time\b[^>]*>/gi)) {
+      const date = parsedDate(htmlAttributes(m[0]).datetime, today); if (date) return result(date, 'time');
+    }
+  }
+  let pathname = '';
+  try { pathname = new URL(url).pathname; } catch { /* No URL evidence. */ }
+  for (const m of pathname.matchAll(/(?:^|[^\d])(\d{4})[-/]?(\d{2})[-/]?(\d{2})(?!\d)/g)) {
+    const date = validDate(m[1], m[2], m[3], today); if (date) return result(date, 'url');
+  }
+  const visible = exactText(sourceVisibleText(markup));
+  for (const m of visible.matchAll(/\b(?:publié(?:e)?\s+le|mis(?:e)?\s+à\s+jour\s+le|published(?:\s+on)?|updated(?:\s+on)?|publication)\s*:?\s*/giu)) {
+    const date = parsedDate(visible.slice(m.index + m[0].length), today); if (date) return result(date, 'texte');
+  }
+  const contentType = typeof headers.get === 'function' ? headers.get('content-type') : headers['content-type'];
+  if (pdf || /application\/pdf/i.test(contentType || '')) {
+    const date = parsedDate(input.creationDate, today);
+    if (date) return result(date, 'pdf_creation');
+    const firstPages = (input.pages || []).slice(0, 2).join('\n');
+    const fallback = firstCompleteDate(firstPages, today); if (fallback) return result(fallback, 'pdf_texte');
+  }
+  if (/^https:\/\/(?:www\.)?arxiv\.org\/abs\//i.test(url)) {
+    const submission = visible.match(/(?:submitted\s+on|\[v1\])\s+(.{0,100})/i)?.[1];
+    const date = submission && firstCompleteDate(submission, today);
+    if (date) return result(date, 'arxiv');
+  }
+  return null;
+}
+
 export function articleParts(content) {
   const start = content.search(/^## /m);
   return { chapo: start < 0 ? content.trim() : content.slice(0, start).trim(), body: start < 0 ? '' : content.slice(start).trim() };
@@ -187,22 +305,60 @@ export function publicSourceUrl(input, local = false) {
   return url;
 }
 const isPrivate = ip => ip.includes(':') ? !/^[23][0-9a-f]{0,3}:/i.test(ip) : /^(?:0|10|127|169\.254|172\.(?:1[6-9]|2\d|3[01])|192\.168|192\.0|198\.(?:18|19)|22[4-9]|23\d|24\d|25[0-5])\./.test(ip);
-export async function fetchSource(url, { fetchImpl = fetch, resolve = lookup, local = false } = {}) {
+// Race the whole operation, including DNS and body reads; a stalled resolver must
+// not hold a worker beyond the same 15 s deadline as redirects/PDF decoding.
+function withinDeadline(promise, signal) {
+  signal.throwIfAborted();
+  return new Promise((resolve, reject) => {
+    const abort = () => reject(signal.reason);
+    signal.addEventListener('abort', abort, { once: true });
+    promise.then(resolve, reject).finally(() => signal.removeEventListener('abort', abort));
+  });
+}
+async function decodePDF(bytes, signal) {
+  const directory = await mkdtemp(path.join(tmpdir(), 'journal-source-'));
+  try {
+    const file = path.join(directory, 'source.pdf');
+    await writeFile(file, bytes);
+    const run = (command, args) => execFileAsync(command, args, { signal, timeout: 15_000, maxBuffer: 5_000_000, env: { ...process.env, LC_ALL: 'C' } });
+    const { stdout: info } = await run('pdfinfo', ['-rawdates', file]);
+    const { stdout: text } = await run('pdftotext', ['-enc', 'UTF-8', file, '-']);
+    return { creationDate: info.match(/^CreationDate:\s*(.+)$/m)?.[1], pages: text.split('\f'), text };
+  } finally { await rm(directory, { recursive: true, force: true }); }
+}
+export async function fetchSource(url, { fetchImpl = fetch, resolve = lookup, local = false, details = false, today } = {}) {
   let current = publicSourceUrl(url, local);
   const signal = AbortSignal.timeout(15_000);
   for (let redirects = 0; redirects <= 5; redirects++) {
-    const addresses = await resolve(current.hostname, { all: true });
+    const addresses = await withinDeadline(resolve(current.hostname, { all: true }), signal);
     if (!addresses.length || addresses.some(({ address }) => isPrivate(address))) throw new Error('adresse source privée');
-    const response = await fetchImpl(current.href, { method: 'GET', redirect: 'manual', headers: { 'User-Agent': 'ParritJournalBot/1.0' }, signal });
+    const response = await withinDeadline(fetchImpl(current.href, { method: 'GET', redirect: 'manual', headers: { 'User-Agent': 'ParritJournalBot/1.0' }, signal }), signal);
     if ([301, 302, 303, 307, 308].includes(response.status)) {
       current = publicSourceUrl(new URL(response.headers.get('location'), current).href, local);
       continue;
     }
     if (response.status !== 200) throw new Error(`HTTP ${response.status}`);
-    const body = await response.text();
-    if (body.length > 5_000_000) throw new Error('source trop volumineuse');
-    const publishedDates = [...body.matchAll(/<meta\b[^>]*(?:property|name|itemprop)=["'](?:article:published_time|datePublished|pubdate|date)["'][^>]*>/gi), ...body.matchAll(/"datePublished"\s*:\s*"[^"]+"/g)].flatMap(m => m[0].match(/\b\d{4}-\d{2}-\d{2}\b/g) || []);
-    return (publishedDates.length ? publishedDates.join(' ') + ' ' : '') + body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;|&#160;|&#8239;/g, ' ').replace(/&amp;/g, '&').replace(/&quot;|&#34;/g, '"').replace(/&apos;|&#39;|&#8217;|&rsquo;/g, "'").replace(/&laquo;/g, '«').replace(/&raquo;/g, '»').replace(/&#37;/g, '%');
+    if (Number(response.headers.get('content-length')) > 5_000_000) throw new Error('source trop volumineuse');
+    const chunks = []; let size = 0;
+    const reader = response.body?.getReader();
+    if (reader) {
+      try {
+        while (true) {
+          const { value, done } = await withinDeadline(reader.read(), signal);
+          if (done) break;
+          size += value.byteLength;
+          if (size > 5_000_000) throw new Error('source trop volumineuse');
+          chunks.push(value);
+        }
+      } finally { void reader.cancel().catch(() => {}); }
+    }
+    const bytes = Buffer.concat(chunks);
+    const pdf = bytes.subarray(0, 5).toString() === '%PDF-' || /application\/pdf/i.test(response.headers.get('content-type') || '');
+    const body = pdf ? await decodePDF(bytes, signal) : bytes.toString('utf8');
+    signal.throwIfAborted();
+    const text = pdf ? body.text : sourceVisibleText(body);
+    const publication = extractPublicationDate(body, current.href, response.headers, today);
+    return details ? { text, publication, url: current.href } : text;
   }
   throw new Error('trop de redirections');
 }
@@ -216,8 +372,8 @@ export async function gateSources(raw, annotations, options = {}) {
       publicSourceUrl(source.url, options.local);
       if (!citation) throw new Error('source hors recherche');
       if (source.publisher !== citation.author || source.published_at !== citation.published_at || !sourceFresh(citation, options.today || new Date().toISOString().slice(0, 10))) throw new Error('éditeur/date non conformes à la recherche');
-      const text = await fetchSource(source.url, options);
-      if (!sourceDatePresent(text, citation.published_at)) throw new Error('date non vérifiée dans la page source');
+      const { text, publication } = await fetchSource(source.url, { ...options, details: true });
+      if (publication?.published_at !== citation.published_at) throw new Error('date non vérifiée dans la page source');
       texts.push(text); evidence.set(source.url, exactText(text));
     } catch (error) { reasons.push(`${source.url} : ${error.message}`); }
   }

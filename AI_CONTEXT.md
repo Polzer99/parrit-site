@@ -1,3 +1,19 @@
+## Dates des sources Journal, 12/11/2026
+
+Spec `docs/CODEX-SPEC-2026-11-12-journal-dates-sources.md`, base locale fda6604.
+Les annotations autorisées sont candidates sans métadonnées du modèle ; date
+extraite de la page (JSON-LD, meta, time, URL, texte, PDF, arXiv), modification
+séparée, fraîcheur et vérification des nombres conservées. Maximum 24 pages par
+sujet, quatre simultanées, 15 s par page ; Poppler installé dans le workflow
+quotidien pour les PDF. Diagnostic : éditeur/date/méthode/faits et interruption
+avec passe/message borné sans secret. Aucun changement d'armement ou de budget.
+Validation : 145 → 187 tests machine, 519/519 tests complets, npm ci, lint,
+build Webpack, audits marque/claims, 19 Brand OS et dry-run fixtures réussis.
+Revue indépendante : trois défauts corrigés et recontrôlés, aucun blocage restant.
+Aucune preuve en production, aucun appel LLM réel, commit, push ou déploiement.
+Spec préexistante inchangée. Détail :
+`docs/REPORT-2026-11-12-journal-dates-sources.md`.
+
 ## Requêtes Journal tolérantes, 12/11/2026
 
 Spec `docs/CODEX-SPEC-2026-11-12-journal-requetes-tolerantes.md`, base locale 96a992d.

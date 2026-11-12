@@ -1,3 +1,4 @@
+import { sourceResponse } from './fixtures/journal-machine/source-response.mjs';
 import assert from 'node:assert/strict';
 import { test, mock } from 'node:test';
 import { readFileSync } from 'node:fs';
@@ -15,7 +16,7 @@ const en = readFileSync(new URL('./fixtures/journal-machine/en.mdx', import.meta
 const fixtures = JSON.parse(readFileSync(new URL('./fixtures/journal-machine/openrouter.json', import.meta.url), 'utf8'));
 const annotations = researchSources(fixtures.research.choices[0].message, {}, '2026-11-12');
 const sourceText = readFileSync(new URL('./fixtures/journal-machine/source.txt', import.meta.url), 'utf8');
-const sourceOptions = { fetchImpl: async () => new Response(sourceText), resolve: async () => [{ address: '1.1.1.1' }] };
+const sourceOptions = { fetchImpl: async url => sourceResponse(url, sourceText), resolve: async () => [{ address: '1.1.1.1' }] };
 const check = raw => articleGates({ raw, slug: 'premier-outil-ia', annotations, sourceOptions });
 
 test('un article valide passe toutes les portes déterministes et adaptation', async () => {
@@ -62,7 +63,7 @@ test('une annotation ne justifie pas un nombre absent de la page', async () => {
   const raw = fr.replace('Le responsable du processus', 'Avec 87 %, le responsable du processus');
   const cited = annotations.map(a => ({ ...a, content: '87 % des dossiers' }));
   assert.match((await gateSources(raw, cited, sourceOptions)).motif, /87%/);
-  assert.equal((await gateSources(raw, cited, { ...sourceOptions, fetchImpl: async () => new Response(sourceText + ' 87 %') })).ok, true);
+  assert.equal((await gateSources(raw, cited, { ...sourceOptions, fetchImpl: async url => sourceResponse(url, sourceText + ' 87 %') })).ok, true);
   assert.match((await gateSources(raw, cited, { ...sourceOptions, fetchImpl: async () => new Response('', { status: 404 }) })).motif, /HTTP 404/);
 });
 test('les sources non fournies par recherche échouent', async () => {
@@ -98,7 +99,7 @@ test('recherche garde annotations, auteur et fraîcheur, angle local fermé', ()
   assert.equal(researchSources(message, { angle_local: false }, '2026-11-12').length, 3);
   assert.throws(() => researchSources(message, { angle_local: true }, '2026-11-12'), /materiau_insuffisant/);
   const meta = JSON.parse(message.content); meta.sources[0].published_at = '2020-01-01'; message.content = JSON.stringify(meta);
-  assert.throws(() => researchSources(message, {}, '2026-11-12'), /materiau_insuffisant/);
+  assert.equal(researchSources(message, {}, '2026-11-12').length, 3); // Page date is checked after fetching.
 });
 
 test('attaques nombres, unités, annotations et dates ne passent plus', async () => {
@@ -110,12 +111,12 @@ test('attaques nombres, unités, annotations et dates ne passent plus', async ()
   const meta = JSON.parse(response.content); meta.sources[0].content = '99999 personnes'; response.content = JSON.stringify(meta);
   assert.equal(researchSources(response, {}, '2026-11-12')[0].content, annotations[0].content);
   meta.sources[0].published_at = '2026-02-30'; response.content = JSON.stringify(meta);
-  assert.throws(() => researchSources(response, {}, '2026-11-12'), /materiau_insuffisant/);
+  assert.equal(researchSources(response, {}, '2026-11-12').length, 3); // Invalid model dates cannot exclude annotations.
   const results = await check(fr.replaceAll('2026-11-12', '2099-01-01'));
   assert.ok(results.some(r => !r.ok && /future/.test(r.motif)));
 });
 test('petit nombre isolé dans une source peut étayer une quantité avec unité', async () => {
-  const result = await gateSources(fr.replace('Le responsable du processus', 'Avec 4 jours, votre responsable'), annotations, { ...sourceOptions, fetchImpl: async () => new Response(sourceText + ' Durée en jours : 4.') });
+  const result = await gateSources(fr.replace('Le responsable du processus', 'Avec 4 jours, votre responsable'), annotations, { ...sourceOptions, fetchImpl: async url => sourceResponse(url, sourceText + ' Durée en jours : 4.') });
   assert.equal(result.ok, true);
 });
 test('liens référence et tableau ambigu sont refusés avant build', async () => {
@@ -176,7 +177,7 @@ test('C1 citations exactes : espaces/apostrophes seulement, attribution obligato
     assert.equal((await gateSources(raw, annotations, sourceOptions)).ok, ok);
   }
   const attributed = fr + `\n\nSelon CNIL, « ${quote} »`;
-  const options = { ...sourceOptions, fetchImpl: async url => new Response(url.includes('insee') ? sourceText : sourceText.replace(quote, '')) };
+  const options = { ...sourceOptions, fetchImpl: async url => sourceResponse(url, url.includes('insee') ? sourceText : sourceText.replace(quote, '')) };
   assert.equal((await gateSources(attributed, annotations, options)).ok, false);
 });
 test('C1 juge troisième question bloquante et ancienne sortie à deux questions refusée', () => {
@@ -198,7 +199,7 @@ test('C1 revue adverse : une date récente inventée ne rajeunit pas une page an
 });
 test('C1 revue adverse : attribution vérifiée à proximité de la citation', async () => {
   const quote = 'La décision doit rester lisible pour chaque personne chargée du contrôle.';
-  const options = { ...sourceOptions, fetchImpl: async url => new Response(url.includes('insee') ? sourceText : sourceText.replace(quote, '')) };
+  const options = { ...sourceOptions, fetchImpl: async url => sourceResponse(url, url.includes('insee') ? sourceText : sourceText.replace(quote, '')) };
   const raw = fr + `\n\nSelon CNIL, « ${quote} » Insee apporte un autre fait.`;
   assert.equal((await gateSources(raw, annotations, options)).ok, false);
 });
