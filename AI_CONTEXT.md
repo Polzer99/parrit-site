@@ -1,3 +1,23 @@
+## Recherche Journal élargie, 12/11/2026
+
+Spec `docs/CODEX-SPEC-2026-11-12-journal-recherche-elargie.md`, base locale 7726aa3.
+Préparation de 2–3 requêtes par passe puis trois appels web Exa (10 résultats),
+institutions / presse-éditeurs / contradiction ; domaines en JSON, repli sans
+engine uniquement sur refus API include_domains. Budget 0,80 USD et portes
+3 sources / 4 faits inchangés. URL sans UTM/fragment, faits vérifiés dans les pages.
+Diagnostics : requêtes transmises à OpenRouter, résultats annotés, rejets et
+compteurs par source, aucun extrait de page enregistré par le nouveau code.
+L'état seul va toujours sur `journal/etat`, sans PR ni écriture main ; reprise
+depuis SHA figé, fraîcheur par fichier, compteurs monotones même si main ajoute
+un sujet plus récemment. Migration en lecture de `journal/etat-machine` si besoin.
+Sauvegarde sans force, refus après restauration échouée ; publication article
+par PR et armement existants conservés. Artefacts du workflow inchangés.
+Validation : installation exacte, lint, build Webpack, 462/462 tests Node,
+dont 130 tests machine (114 avant), dry-run fixtures réussi. Revue indépendante
+sans défaut bloquant après correctifs. Aucune preuve API/production réelle.
+Rapport : `docs/REPORT-2026-11-12-journal-recherche-elargie.md`.
+Aucun commit, push, déploiement, changement d'article ni test hors machine.
+
 ## Correctif 1 — calibre presse, 12/11/2026
 
 La spec amendée copiée depuis le dépôt canon prime sur le format initial ci-dessous.

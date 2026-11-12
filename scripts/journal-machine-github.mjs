@@ -6,7 +6,7 @@ import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
 
 const execute = promisify(execFile);
-const STATE_BRANCH = 'journal/etat-machine';
+const STATE_BRANCH = 'journal/etat';
 const STATE_FILES = ['content/plan/sujets.json', 'content/plan/journal-runs.jsonl'];
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -59,6 +59,8 @@ export function createGitHubRuntime({ root = process.cwd(), env = process.env, f
   const endpoint = `https://api.github.com/repos/${repository}`;
   let checkedBase;
   let validatedCandidate;
+  let restoredStateRef;
+  let restoreFailed = false;
   async function api(route, method = 'GET', body, allow404 = false) {
     const response = await fetchImpl(endpoint + route, {
       method, headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' },
@@ -187,19 +189,36 @@ export function createGitHubRuntime({ root = process.cwd(), env = process.env, f
     } catch (error) { await issueOnce('Journal : IndexNow en échec', `${slug} : ${error.message}`); }
     return 'publie';
   }
+  async function stateDate(sha, file) {
+    // A code-only commit on main must not invalidate the saved retry counters.
+    const commits = await api(`/commits?sha=${encodeURIComponent(sha)}&path=${encodeURIComponent(file)}&per_page=1`);
+    if (!commits.length) return 0;
+    const date = Date.parse(commits[0]?.commit?.committer?.date);
+    if (!Number.isFinite(date)) throw new Error('Date de commit état invalide');
+    return date;
+  }
   async function restoreState() {
-    const ref = await api(`/git/ref/heads/${STATE_BRANCH}`, 'GET', undefined, true);
-    if (!ref) return;
+    restoreFailed = true; // A failed restore must never be followed by an overwrite in finally.
+    let ref = await api(`/git/ref/heads/${STATE_BRANCH}`, 'GET', undefined, true);
+    restoredStateRef = ref?.object.sha ?? null;
+    // One-way migration: older deployed runs used this branch. Never write it again.
+    if (!ref) ref = await api('/git/ref/heads/journal/etat-machine', 'GET', undefined, true);
+    if (!ref) { restoreFailed = false; return; }
+    const base = await main();
+    const updates = new Map();
     for (const file of STATE_FILES) {
+      const newer = await stateDate(ref.object.sha, file) > await stateDate(base, file);
+      // Counters are monotonic even when main merely adds another topic later.
+      // Only a newer state may supply statuses/reasons or the run log.
+      if (!newer && !file.endsWith('sujets.json')) continue;
       const remote = await api(`/contents/${file}?ref=${ref.object.sha}`, 'GET', undefined, true);
-      if (!remote) continue;
-      if (remote.type !== 'file' || remote.encoding !== 'base64') throw new Error('État distant invalide');
+      if (!remote || remote.type !== 'file' || remote.encoding !== 'base64' || typeof remote.content !== 'string') throw new Error('État distant invalide');
       const content = Buffer.from(remote.content, 'base64').toString('utf8');
-      // Do not overwrite newly added queue entries or a manually published topic on main.
       if (file.endsWith('sujets.json')) {
         const current = JSON.parse(await readFile(path.join(root, file), 'utf8'));
         const saved = JSON.parse(content);
-        const byId = new Map(saved.map((entry) => [entry.id, entry]));
+        if (!Array.isArray(saved) || saved.some(entry => !entry || !slugPattern.test(entry.id ?? '') || !['a_faire', 'ecarte', 'publie'].includes(entry.statut) || (entry.essais != null && (!Number.isSafeInteger(entry.essais) || entry.essais < 0))) || new Set(saved.map(entry => entry.id)).size !== saved.length) throw new Error('Sujets distants invalides');
+        const byId = new Map(saved.map(entry => [entry.id, entry]));
         for (const entry of current) {
           const state = byId.get(entry.id);
           if (!state || entry.statut === 'publie') continue;
@@ -208,33 +227,43 @@ export function createGitHubRuntime({ root = process.cwd(), env = process.env, f
           entry.essais = Math.max(currentAttempts, savedAttempts);
           const advances = savedAttempts > currentAttempts;
           const terminal = ['ecarte', 'publie'].includes(state.statut) && savedAttempts >= currentAttempts;
-          if (advances || terminal) {
-            if (entry.statut === 'a_faire' || state.statut === 'publie') entry.statut = state.statut;
+          if (newer && (advances || terminal) && entry.statut === 'a_faire') {
+            entry.statut = state.statut;
             for (const field of ['motif', 'slug', 'publie_le']) if (state[field] != null) entry[field] = state[field];
           }
         }
-        await writeFile(path.join(root, file), JSON.stringify(current, null, 2) + '\n');
+        updates.set(file, JSON.stringify(current, null, 2) + '\n');
       } else {
-        await mkdir(path.dirname(path.join(root, file)), { recursive: true });
         let current = '';
         try { current = await readFile(path.join(root, file), 'utf8'); } catch (error) { if (error.code !== 'ENOENT') throw error; }
-        await writeFile(path.join(root, file), [...new Set([...current.split('\n'), ...content.split('\n')].filter(Boolean))].join('\n') + '\n');
+        const lines = [...new Set([...current.split('\n'), ...content.split('\n')].filter(Boolean))];
+        for (const line of lines) {
+          const run = JSON.parse(line);
+          if (!run || !Number.isFinite(Date.parse(run.date)) || !['echec', 'pr', 'publie'].includes(run.issue)) throw new Error('Journal distant invalide');
+        }
+        updates.set(file, lines.join('\n') + '\n');
       }
     }
+    // Parse and validate both files before changing either local file.
+    for (const [file, content] of updates) {
+      await mkdir(path.dirname(path.join(root, file)), { recursive: true });
+      await writeFile(path.join(root, file), content);
+    }
+    restoreFailed = false;
   }
   async function persistState() {
+    if (restoreFailed) throw new Error('Restauration état échouée : sauvegarde refusée');
     const base = await main();
-    const head = await createCommit(base, STATE_FILES, `Journal : état du ${now().toISOString().slice(0, 10)}`);
+    const existing = await api(`/git/ref/heads/${STATE_BRANCH}`, 'GET', undefined, true);
+    const previous = existing?.object.sha ?? null;
+    if (restoredStateRef !== undefined && restoredStateRef !== previous) throw new Error('Branche état déplacée depuis la restauration');
+    // State never needs a PR, even in armed mode. Article publication is separate.
+    // Parent the previous state commit so GitHub rejects concurrent non-fast-forward writes.
+    const head = await createCommit(previous || base, STATE_FILES, `Journal : état du ${now().toISOString().slice(0, 10)}`);
     if (await main() !== base) throw new Error('main déplacé pendant la sauvegarde : état non écrasé');
-    if (armed) {
-      await api('/git/refs/heads/main', 'PATCH', { sha: head, force: false });
-    } else {
-      // Rebuild this dedicated state-only branch from current main; no article or source file is replaced.
-      const existing = await api(`/git/ref/heads/${STATE_BRANCH}`, 'GET', undefined, true);
-      if (existing) await api(`/git/refs/heads/${STATE_BRANCH}`, 'PATCH', { sha: head, force: true });
-      else await api('/git/refs', 'POST', { ref: `refs/heads/${STATE_BRANCH}`, sha: head });
-      await openPull(STATE_BRANCH, 'Journal : état de la machine', 'Compteurs et journal des tentatives, y compris les échecs. Branche persistante ; aucun article publié en mode désarmé.');
-    }
+    if (existing) await api(`/git/refs/heads/${STATE_BRANCH}`, 'PATCH', { sha: head, force: false });
+    else await api('/git/refs', 'POST', { ref: `refs/heads/${STATE_BRANCH}`, sha: head });
+    restoredStateRef = head;
   }
   async function alertIfStalled() {
     let text = '';

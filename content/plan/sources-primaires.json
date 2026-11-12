@@ -1,0 +1,16 @@
+{
+  "institutions": [
+    "insee.fr", "bpifrance.fr", "lab.bpifrance.fr", "banque-france.fr",
+    "dares.travail-emploi.gouv.fr", "francenum.gouv.fr", "economie.gouv.fr",
+    "entreprises.gouv.fr", "cnil.fr", "legifrance.gouv.fr", "eur-lex.europa.eu",
+    "digital-strategy.ec.europa.eu", "ec.europa.eu", "ec.europa.eu/eurostat",
+    "oecd.org", "cci.fr", "hautsdefrance.fr", "cpme.fr", "medef.com",
+    "mckinsey.com", "bcg.com", "ey.com", "pwc.fr", "deloitte.com",
+    "gartner.com", "capgemini.com", "stanford.edu", "hai.stanford.edu", "arxiv.org"
+  ],
+  "presse_editeurs": [
+    "anthropic.com", "claude.com", "openai.com", "mistral.ai", "blog.google",
+    "microsoft.com", "lesechos.fr", "lemonde.fr", "usinenouvelle.com",
+    "lemondeinformatique.fr", "latribune.fr", "lefigaro.fr", "ft.com", "reuters.com"
+  ]
+}

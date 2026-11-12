@@ -8,6 +8,7 @@ import https from 'node:https';
 import net from 'node:net';
 import { runMachine, DEFAULT_MODELS, atomicJSON, openRouterClient } from '../scripts/journal-machine.mjs';
 import { addTopic, validateTopics } from '../scripts/journal-sujets.mjs';
+import { createGitHubRuntime } from '../scripts/journal-machine-github.mjs';
 const deny = () => { throw new Error('Network forbidden'); };
 mock.method(globalThis, 'fetch', deny);
 for (const transport of [http, https]) for (const method of ['get', 'request']) mock.method(transport, method, deny);
@@ -24,7 +25,7 @@ function setup(t, { topics = [first], mutate = () => {}, outcome = 'pr', pending
   let writing = 0, current = first;
   const client = { models: async () => Object.values(DEFAULT_MODELS), complete: async request => {
     calls.push(request);
-    const role = request.model === DEFAULT_MODELS.research ? 'research' : request.model === DEFAULT_MODELS.judge ? 'judge' : request.temperature === 0.2 ? 'editing' : 'writing';
+    const role = request.model === DEFAULT_MODELS.research ? (request.plugins ? 'research' : 'queries') : request.model === DEFAULT_MODELS.judge ? 'judge' : request.temperature === 0.2 ? 'editing' : 'writing';
     if (role === 'research') current = topics.find(topic => topic.requete === JSON.parse(request.messages.at(-1).content).requete);
     const response = structuredClone(fixtures[role]);
     if (role === 'writing') writing++;
@@ -44,13 +45,17 @@ function setup(t, { topics = [first], mutate = () => {}, outcome = 'pr', pending
 }
 test('choix premier sujet, deux éditions, annotations, manifeste et log exact', async t => {
   const s = setup(t); const result = await runMachine(s.options);
-  assert.equal(result.issue, 'pr'); assert.equal(result.cout, 0.04); assert.equal(s.calls.length, 4);
-  assert.deepEqual(s.calls[0].plugins, [{ id: 'web', max_results: 8 }]);
-  assert.match(s.calls[1].messages[1].content, /Mesure des délais/);
+  assert.equal(result.issue, 'pr'); assert.ok(Math.abs(result.cout - 0.061) < 1e-10); assert.equal(s.calls.length, 7);
+  assert.equal(s.calls.filter(c => c.plugins).length, 3);
+  assert.ok(s.calls.filter(c => c.plugins).every(c => c.plugins[0].engine === 'exa' && c.plugins[0].max_results === 10));
+  assert.match(s.calls[4].messages[1].content, /Mesure des délais/);
   for (const prefix of ['', 'fr/']) assert.ok(existsSync(path.join(s.options.root, `content/journal/${prefix}${first.id}.mdx`)));
   assert.deepEqual(JSON.parse(readFileSync(path.join(s.options.root, 'content/plan/journal-translations.json'))), [first.id]);
   assert.equal(s.queue()[0].statut, 'a_faire'); assert.equal(s.queue()[0].slug, first.id);
   assert.equal(s.logs().length, 1); assert.equal(s.logs()[0].issue, 'pr');
+  assert.equal(s.logs()[0].tentatives[0].recherches.length, 3);
+  assert.equal(s.logs()[0].tentatives[0].sources_acceptees.length, 3);
+  assert.ok(!JSON.stringify(s.logs()).includes(fixtures.research.choices[0].message.annotations[0].url_citation.content));
   assert.deepEqual(s.events.slice(-2), ['persist', 'alert']);
 });
 test('statut publié seulement après preuve runtime', async t => {
@@ -76,7 +81,7 @@ test('deux échecs reportent, second sujet au maximum, essais conservés', async
   assert.equal(result.issue, 'echec'); assert.equal(result.tentatives.length, 2);
   assert.deepEqual(s.queue().map(topic => topic.essais || 0), [1, 1, 0]);
   assert.ok(s.queue().every(topic => topic.statut === 'a_faire'));
-  assert.equal(s.calls.filter(call => call.model === DEFAULT_MODELS.research).length, 2);
+  assert.equal(s.calls.filter(call => call.plugins).length, 6);
   assert.equal(s.calls.filter(call => call.model === DEFAULT_MODELS.writing).length, 4);
   assert.ok(!existsSync(path.join(s.options.root, `content/journal/${first.id}.mdx`)));
 });
@@ -92,7 +97,7 @@ for (const cost of [0.81, undefined, -1]) test(`coût ${cost} arrête avant écr
 });
 test('plafond cumulatif traverse tous les appels et sujets', async t => {
   const s = setup(t); const result = await runMachine({ ...s.options, budget: 0.025 });
-  assert.equal(result.issue, 'echec'); assert.equal(s.calls.length, 3); assert.equal(result.cout, 0.03);
+  assert.equal(result.issue, 'echec'); assert.equal(s.calls.length, 4); assert.ok(Math.abs(result.cout - 0.031) < 1e-10);
 });
 test('file vide code logique succès sans LLM et issue dédiée', async t => {
   const s = setup(t, { topics: [] }); const result = await runMachine(s.options);
@@ -157,7 +162,7 @@ test('C1 pas de matériau : report avant rédaction, sujet suivant tenté', asyn
   const s = setup(t, { topics: [first, { ...first, id: 'autre-outil', requete: 'Autre angle' }], mutate: (r, role) => { if (role === 'research') r.choices[0].message.annotations = []; } });
   const result = await runMachine(s.options);
   assert.equal(result.issue, 'echec'); assert.equal(result.tentatives.length, 2);
-  assert.equal(s.calls.length, 2); assert.ok(s.queue().every(t => t.motif === 'materiau_insuffisant'));
+  assert.equal(s.calls.length, 8); assert.ok(s.queue().every(t => t.motif === 'materiau_insuffisant'));
 });
 test('C1 titre de presse dans la file écarté avant toute recherche', async t => {
   const s = setup(t, { topics: [{ ...first, titre: 'La spécification est devenue le livrable' }] });
@@ -166,14 +171,14 @@ test('C1 titre de presse dans la file écarté avant toute recherche', async t =
 test('C1 recherche contradictoire et thèse pressentie transmises', async t => {
   const s = setup(t, { topics: [{ ...first, these_pressentie: 'La règle semble suffisante' }] });
   await runMachine(s.options);
-  assert.match(s.calls[0].messages[0].content, /CONTREDIT/);
+  assert.match(s.calls[3].messages[0].content, /CONTREDIT/);
   assert.equal(JSON.parse(s.calls[0].messages[1].content).these_pressentie, 'La règle semble suffisante');
 });
 
-test('C1 plafond par défaut 0,80 accepte 0,54 et compte toutes les passes', async t => {
-  const s = setup(t, { mutate: (r, role) => { if (role === 'research') r.usage.cost = 0.51; } });
+test('C1 plafond par défaut 0,80 accepte 0,541 et compte toutes les passes', async t => {
+  const s = setup(t, { mutate: (r, role) => { if (role === 'research') r.usage.cost = 0.17; } });
   const result = await runMachine(s.options);
-  assert.equal(result.issue, 'pr'); assert.equal(result.cout, 0.54); assert.equal(s.calls.length, 4);
+  assert.equal(result.issue, 'pr'); assert.ok(Math.abs(result.cout - 0.541) < 1e-10); assert.equal(s.calls.length, 7);
 });
 test('C1 thèse finale couverte par la presse écarte immédiatement le sujet', async t => {
   const s = setup(t, { mutate: (r, role) => {
@@ -186,4 +191,70 @@ test('C1 thèse finale couverte par la presse écarte immédiatement le sujet', 
   assert.equal(result.issue, 'echec'); assert.equal(s.queue()[0].statut, 'ecarte');
   assert.equal(s.queue()[0].motif, 'couvert_par_chronique_presse');
   assert.equal(s.calls.filter(c => c.model === DEFAULT_MODELS.writing).length, 2);
+});
+
+test('sans article, deux runs GitHub simulés conservent les essais et ne créent aucune PR', async t => {
+  let state = null, tree, sequence = 0;
+  const commits = new Map();
+  const calls = [];
+  const fetchImpl = async (input, options = {}) => {
+    const url = new URL(input), route = url.pathname.replace('/repos/test/repo', '');
+    const body = options.body ? JSON.parse(options.body) : undefined;
+    calls.push({ route, method: options.method, body });
+    const reply = (data, status = 200) => new Response(JSON.stringify(data), { status });
+    if (route === '/git/ref/heads/main') return reply({ object: { sha: 'base' } });
+    if (route === '/git/ref/heads/journal/etat-machine') return reply({}, 404);
+    if (route === '/git/ref/heads/journal/etat') return state ? reply({ object: { sha: state } }) : reply({}, 404);
+    if (route === '/commits') return reply([{ commit: { committer: { date: url.searchParams.get('sha') === 'base' ? '2026-11-01T00:00:00Z' : '2026-11-12T00:00:00Z' } } }]);
+    if (route.startsWith('/contents/')) {
+      assert.equal(url.searchParams.get('ref'), state);
+      return reply({ type: 'file', encoding: 'base64', content: Buffer.from(commits.get(state).find(f => f.path === route.slice('/contents/'.length)).content).toString('base64') });
+    }
+    if (route.startsWith('/git/commits/')) return reply({ tree: { sha: 'tree' } });
+    if (route === '/git/trees') { tree = body.tree; return reply({ sha: 'tree' }); }
+    if (route === '/git/commits') { const sha = `state-${++sequence}`; commits.set(sha, tree); return reply({ sha }); }
+    if (route === '/git/refs') { assert.equal(body.ref, 'refs/heads/journal/etat'); state = body.sha; return reply({}); }
+    if (route === '/git/refs/heads/journal/etat') { assert.equal(body.force, false); state = body.sha; return reply({}); }
+    if (route === '/pulls' && options.method === 'GET') return reply([]);
+    if (route === '/issues' && options.method === 'GET') return reply([{ title: 'Journal en panne' }]);
+    throw new Error(`Unexpected simulated API: ${options.method} ${input}`);
+  };
+  for (let index = 0; index < 2; index++) {
+    const s = setup(t, { topics: [{ ...first, essais: 1 }], mutate: (r, role) => { if (role === 'research') r.choices[0].message.annotations = []; } });
+    s.options.runtime = createGitHubRuntime({ root: s.options.root, env: { GITHUB_REPOSITORY: 'test/repo', GITHUB_TOKEN: 'fixture', JOURNAL_AUTOPUBLISH: index ? '1' : '' }, fetchImpl, runCommand: deny });
+    const result = await runMachine(s.options);
+    assert.equal(result.issue, 'echec'); assert.equal(result.motif, 'materiau_insuffisant');
+    assert.equal(s.queue()[0].essais, index + 2);
+    assert.equal(s.logs().length, index + 1);
+    if (index) assert.equal(s.queue()[0].statut, 'ecarte');
+  }
+  assert.equal(sequence, 2);
+  assert.ok(!calls.some(call => call.route === '/pulls' && call.method === 'POST'));
+  assert.ok(!calls.some(call => call.route === '/git/refs/heads/main'));
+  for (const files of commits.values()) assert.deepEqual(files.map(f => f.path), ['content/plan/sujets.json', 'content/plan/journal-runs.jsonl']);
+});
+
+test('transport classifie le refus include_domains sans exposer le corps API', async () => {
+  for (const status of [400, 422, 401, 429, 500]) {
+    const client = openRouterClient({ apiKey: 'fixture', fetchImpl: async () => new Response(JSON.stringify({ error: { message: 'include_domains unsupported; private prompt text' } }), { status }) });
+    await assert.rejects(client.complete({}), error => {
+      assert.equal(error.status, status);
+      assert.equal(error.includeDomainsRejected, [400, 422].includes(status));
+      assert.ok(!error.message.includes('private prompt'));
+      return true;
+    });
+  }
+});
+
+test('configuration invalide ou reprise échouée ne sauvegarde jamais un état non restauré', async t => {
+  for (const failure of ['budget', 'restore']) {
+    const s = setup(t);
+    if (failure === 'budget') s.options.budget = NaN;
+    else s.options.runtime.restoreState = async () => { throw new Error('État distant invalide'); };
+    const result = await runMachine(s.options);
+    assert.equal(result.issue, 'echec');
+    assert.ok(!s.events.includes('persist'));
+    assert.equal(s.calls.length, 0);
+    assert.equal(s.logs().length, 1);
+  }
 });
