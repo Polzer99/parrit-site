@@ -58,6 +58,48 @@ test('choix premier sujet, deux éditions, annotations, manifeste et log exact',
   assert.ok(!JSON.stringify(s.logs()).includes(fixtures.research.choices[0].message.annotations[0].url_citation.content));
   assert.deepEqual(s.events.slice(-2), ['persist', 'alert']);
 });
+for (const invalidJSON of [false, true]) test(`préparation tolérante persistée dans journal-runs.jsonl, JSON invalide=${invalidJSON}`, async t => {
+  const raw = invalidJSON ? 'JSON cassé '.repeat(100) : JSON.stringify({ REQUETES: {
+    Institutions: ['PME adoption'], PRESSE_EDITEURS: [], Contradiction: ['IA limites'], extra: true,
+  } });
+  const s = setup(t, { mutate: (response, role) => {
+    if (role === 'queries') response.choices[0].message.content = raw;
+  } });
+  const result = await runMachine(s.options);
+  assert.equal(result.issue, 'pr');
+  assert.equal(result.tentatives.length, 1);
+  assert.equal(s.queue()[0].essais || 0, 0);
+  const preparationCalls = s.calls.filter(call => call.model === DEFAULT_MODELS.research && !call.plugins);
+  assert.equal(preparationCalls.length, invalidJSON ? 2 : 1);
+  assert.ok(Math.abs(result.cout - (invalidJSON ? 0.062 : 0.061)) < 1e-10);
+  const persisted = s.logs()[0].tentatives[0];
+  assert.equal(persisted.preparation_brute, raw.slice(0, 800));
+  if (invalidJSON) assert.equal(persisted.preparation_relance_brute, raw.slice(0, 800));
+  const expected = invalidJSON
+    ? ['étude', 'enquête', 'limites échecs'].map(term => [`${first.requete} ${term} 2026`])
+    : [['PME adoption'], [`${first.requete} enquête 2026`], ['IA limites']];
+  assert.deepEqual(persisted.recherches.map(pass => pass.requetes), expected);
+  assert.deepEqual(persisted.recherches.map(pass => pass.requetes_reconstruites), invalidJSON ? [true, true, true] : [false, true, false]);
+  assert.deepEqual(s.calls.filter(call => call.plugins).map(call => JSON.parse(call.messages.at(-1).content).requetes), expected);
+});
+
+test('la relance JSON est facturée et reste soumise au plafond de coût', async t => {
+  const s = setup(t, { mutate: (response, role) => {
+    if (role === 'queries') {
+      response.choices[0].message.content = '{';
+      response.usage.cost = 0.45;
+    }
+  } });
+  const result = await runMachine(s.options);
+  assert.equal(result.issue, 'echec');
+  assert.match(result.motif, /plafond de coût dépassé/);
+  assert.equal(result.cout, 0.9);
+  assert.equal(s.calls.length, 2);
+  assert.ok(s.calls.every(call => !call.plugins));
+  assert.equal(s.logs()[0].tentatives[0].preparation_brute, '{');
+  assert.ok(!s.events.some(event => Array.isArray(event) && event[0] === 'publish'));
+});
+
 test('statut publié seulement après preuve runtime', async t => {
   const s = setup(t, { outcome: 'publie' }); await runMachine(s.options);
   assert.equal(s.queue()[0].statut, 'publie'); assert.equal(s.queue()[0].publie_le, '2026-11-12T05:15:00.000Z');

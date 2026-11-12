@@ -1,3 +1,20 @@
+## Requêtes Journal tolérantes, 12/11/2026
+
+Spec `docs/CODEX-SPEC-2026-11-12-journal-requetes-tolerantes.md`, base locale 96a992d.
+Préparation normalisée : enveloppe et casse tolérées, champs supplémentaires
+ignorés, chaînes nettoyées/dédoublonnées (600 caractères, trois maximum).
+Passes vides reconstruites depuis le sujet et signalées par `requetes_reconstruites`.
+JSON invalide : une seule relance avec l'erreur, puis reconstruction ; les erreurs
+API et le plafond cumulé de coût restent bloquants. Aucun assouplissement des sources.
+Diagnostic JSONL : `preparation_brute` (800 caractères), `preparation_relance_brute`
+si relance (800 également), requêtes finales et indicateurs pour les trois passes.
+Validation : référence 130 tests machine ; 15 tests ajoutés, 477/477 tests complets,
+installation exacte, lint et build Webpack réussis. Revue indépendante : conflit
+entre enveloppe et passes racines corrigé et testé ; aucun défaut restant identifié.
+Spec préexistante inchangée. Aucun commit, push, déploiement ou appel API réel.
+Preuve en production restant à acquérir : prochain run réel atteignant les trois
+recherches avec diagnostics conservés ; les tests utilisent des réponses simulées.
+
 ## Recherche Journal élargie, 12/11/2026
 
 Spec `docs/CODEX-SPEC-2026-11-12-journal-recherche-elargie.md`, base locale 7726aa3.
