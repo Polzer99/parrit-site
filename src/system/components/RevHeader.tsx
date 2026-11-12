@@ -1,9 +1,10 @@
 "use client";
 import { Suspense, useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { localizedPath, type Locale } from "@/system/locale";
+import { barePathname, localizedPath, type Locale } from "@/system/locale";
 import { LanguageLink } from "./LanguageLink";
 import { AppointmentLink } from "./AppointmentLink";
+import "@/system/header-navigation.css";
 
 function QueryAppointment({ locale }: { locale: Locale }) {
   const query = useSearchParams().toString();
@@ -26,8 +27,14 @@ export function RevHeader({ locale }: { locale: Locale }) {
   }, [pathname]);
   const fr = locale === "fr";
   const nav = fr ? [["en-production", "Applications"], ["offres", "Offres"], ["parcours", "Le parcours"], ["services", "Services"], ["questions", "Questions"], ["contact", "Contact"]] : [["in-production", "Applications"], ["offers", "Offers"], ["path", "The path"], ["services", "Services"], ["questions", "Questions"], ["contact", "Contact"]];
-  const links = nav.map(([anchor, label]) => <a key={anchor} href={localizedPath(`/#${anchor}`, locale)}>{label}</a>);
-  const action = <Suspense fallback={<AppointmentLink locale={locale} placement="nav" primary={false}/>}><QueryAppointment locale={locale}/></Suspense>;
+  const journal = localizedPath("/journal", locale);
+  const links = nav.flatMap(([anchor, label]) => [
+    <a key={anchor} href={localizedPath(`/#${anchor}`, locale)}>{label}</a>,
+    ...(anchor === "questions" ? [<a key="journal" href={journal} aria-current={pathname === journal || pathname?.startsWith(`${journal}/`) ? "page" : undefined}>Journal</a>] : []),
+  ]);
+  // A fragment-only link preserves the current query even before hydration.
+  const bookingPage = barePathname(pathname ?? "/") === "/rendez-vous";
+  const action = bookingPage ? <a className="btn rev-button ghost" href="#reservation">{fr ? "Prendre rendez-vous" : "Book a call"}</a> : <Suspense fallback={<AppointmentLink locale={locale} placement="nav" primary={false}/>}><QueryAppointment locale={locale}/></Suspense>;
   return <header ref={header} className="cmdbar single-header" onClick={event => { if ((event.target as HTMLElement).closest("a")) header.current?.querySelectorAll<HTMLDetailsElement>("details[open]").forEach(menu => { menu.open = false; }); }}>
     <div className="wrap">
       <a className="mark" href={localizedPath("/", locale)}>PARRIT.AI</a>

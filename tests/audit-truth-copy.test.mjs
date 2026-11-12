@@ -4,7 +4,7 @@ import { test } from "node:test";
 
 const read = (file) => readFileSync(file, "utf8");
 const article = (slug) => read(`content/journal/${slug}.mdx`).replace(/\[([^\]]+)\]\([^)]*\)/g, "$1");
-const page = (route = "") => read(`src/app/(rev01)/${route ? `${route}/` : ""}page.tsx`);
+const page = (route = "") => read(`src/system/pages/${route || "home"}.tsx`);
 
 const contracts = [
   ["self-hosting-latency-cost", /propos[^.]*infrastructure[^.]*own/i, /We deploy models on infrastructure/],

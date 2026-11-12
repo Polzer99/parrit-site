@@ -62,7 +62,7 @@ terrain: (
 
 ),
 offers: (
-<section id={fr ? "offres" : "offers"} data-regime="ink"><div className="wrap">
+<section id={fr ? "offres" : "offers"} data-regime="ink"><div className="wrap" id={fr ? undefined : "offres"}>
   <h2>{copy.offersTitle}</h2>
   <MobileCarousel className="home-offers" label={copy.offersTitle}>
     {copy.offers.map(offer => <article className="home-offer" key={offer.id}>

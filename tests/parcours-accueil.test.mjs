@@ -32,7 +32,7 @@ for (const locale of ["fr", "en"]) {
     const header = renderToStaticMarkup(createElement(RevHeader, { locale }));
     const nav = header.match(/<nav class="desktop-nav"[^>]*>([\s\S]*?)<\/nav>/)[1];
     const expected = locale === "fr" ? ["en-production", "offres", "parcours", "services", "questions", "contact"] : ["in-production", "offers", "path", "services", "questions", "contact"];
-    assert.deepEqual([...nav.matchAll(/href="([^"]+)"/g)].map(m => m[1]), expected.map(id => `${home}#${id}`));
+    assert.deepEqual([...nav.matchAll(/href="([^"]+)"/g)].map(m => m[1]), [...expected.slice(0, -1).map(id => `${home}#${id}`), `${locale === "fr" ? "/fr" : ""}/journal`, `${home}#contact`]);
   });
 
   test(`two craft cards, no contact action (${locale})`, async () => {
@@ -63,13 +63,15 @@ for (const locale of ["fr", "en"]) {
 
   test(`latest articles match date-sorted Journal cards with one final destination (${locale})`, async () => {
     const load = loader(locale, { "server-only": {}, "node:fs": fs, "node:path": path, "gray-matter": matter });
+    const frenchSlugs = new Set(fs.readdirSync("content/journal/fr").filter(file => file.endsWith(".mdx")).map(file => file.slice(0, -4)));
     const entries = load("src/system/journal.ts").getAllJournalEntrySummaries(locale);
+    const visibleEntries = entries.filter(entry => locale !== "fr" || frenchSlugs.has(entry.slug));
     const html = await renderPage(locale);
     const articles = section(html, "articles");
     const cards = [...articles.matchAll(/<article\b[^>]*>([\s\S]*?)<\/article>/g)];
     assert.equal(cards.length, 3);
     assert.deepEqual(entries.map(e => e.date), entries.map(e => e.date).sort().reverse());
-    for (const [i, entry] of entries.slice(0, 3).entries()) {
+    for (const [i, entry] of visibleEntries.slice(0, 3).entries()) {
       const card = cards[i][1];
       assert.equal((card.match(/<a /g) ?? []).length, 1);
       const contentLocale = locale === "fr" && !entry.noindex ? "fr" : "en";

@@ -70,11 +70,7 @@ export function blogPostingJsonLd(entry: Pick<JournalEntry, "slug" | "title" | "
       logo: { "@type": "ImageObject", url: "https://parrit.ai/icon.png" },
     },
     description: entry.description,
-    author: entry.author ? {
-      "@type": "Person",
-      ...(entry.author === "Paul Larmaraud" ? { "@id": "https://parrit.ai/#founder" } : {}),
-      name: entry.author,
-    } : orgRef(),
+    author: founderPerson(locale),
     mainEntityOfPage: canonical,
   };
 }
@@ -91,6 +87,10 @@ export function journalFaqJsonLd(entry: Pick<JournalEntry, "faq">, locale: Local
   };
 }
 
+export function founderPerson(locale: Locale = "en") {
+  return { "@type": "Person", "@id": "https://parrit.ai/#paul-larmaraud", name: "Paul Larmaraud", jobTitle: locale === "fr" ? "Fondateur" : "Founder", worksFor: { "@id": orgRef()["@id"] } };
+}
+
 export function personJsonLd(locale: Locale = "en") {
-  return { "@context": "https://schema.org", "@type": "Person", "@id": "https://parrit.ai/#founder", name: "Paul Larmaraud", jobTitle: locale === "fr" ? "Fondateur" : "Founder", worksFor: orgRef() };
+  return { "@context": "https://schema.org", ...founderPerson(locale) };
 }

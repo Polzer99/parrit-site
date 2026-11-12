@@ -29,6 +29,8 @@ test("compiled booking funnel, bilingual interface and all registry destinations
       await server.getRequestHandler()(req, res);
       if (!res.finished) await new Promise(resolve => res.once("finish", resolve));
       assert.equal(res.statusCode, 200, url);
+      assert.equal(res.getHeader("location"), undefined, url);
+      assert.equal(res.getHeader("x-middleware-rewrite"), undefined, url);
       return Buffer.concat(chunks).toString();
     };
     const load = loader("en", { "next/server": nextServer });
@@ -41,8 +43,14 @@ test("compiled booking funnel, bilingual interface and all registry destinations
       const response = proxy(new NextRequest(`http://localhost:3210${publicPath}`, { headers: { "accept-language": "en" } }));
       assert.equal(response.status, 200);
       assert.equal(response.headers.get("x-middleware-request-x-parrit-locale"), locale);
-      if (locale === "fr") assert.equal(response.headers.get("x-middleware-rewrite"), "http://localhost:3210/rendez-vous?source=journal-test&utm_source=x");
-      const booking = await render("/rendez-vous?source=journal-test&utm_source=x", locale);
+      assert.equal(response.headers.get("x-middleware-rewrite"), null);
+      assert.equal(response.headers.get("location"), null);
+      const booking = await render(publicPath, locale);
+      assert.ok(booking.includes(`<html lang="${locale}"`));
+      assert.ok(booking.includes(`rel="canonical" href="https://parrit.ai${prefix}/rendez-vous"`));
+      for (const [language, path] of [["fr", "/fr/rendez-vous"], ["en", "/rendez-vous"], ["x-default", "/rendez-vous"]]) {
+        assert.ok(booking.includes(`hrefLang="${language}" href="https://parrit.ai${path}"`));
+      }
       assert.equal((booking.match(/<h1\b/g) ?? []).length, 1);
       assert.match(booking, locale === "fr" ? /Entretien stratégique IA, 15 minutes/ : /AI strategy call, 15 minutes/);
       assert.match(booking, /name="robots" content="noindex, follow"/);
@@ -50,7 +58,7 @@ test("compiled booking funnel, bilingual interface and all registry destinations
       assert.ok(booking.includes(`href="https://parrit.ai${prefix}/rendez-vous"`));
       assert.match(booking, /metadata\[source\]/);
       for (const [route, source] of [["/journal/malicious-mcp-server-after-install", "journal-malicious-mcp-server-after-install"], ["/journal/themes/ai-sprints", "theme-ai-sprints"]]) {
-        const html = await render(route, locale);
+        const html = await render(`${prefix}${route}`, locale);
         const blocks = [...html.matchAll(/<section class="booking-call"[^>]*>[\s\S]*?<\/section>/g)];
         assert.equal(blocks.length, 1, route);
         const block = blocks[0][0];
@@ -65,13 +73,13 @@ test("compiled booking funnel, bilingual interface and all registry destinations
         } else {
           assert.ok(html.indexOf('class="journal-list"') < blocks[0].index);
         }
-        await render(`/rendez-vous?source=${source}`, locale);
+        await render(`${prefix}/rendez-vous?source=${source}`, locale);
       }
       const { ctaHref } = load("src/lib/registry/cta.ts");
       for (const id of ["rdv.paul", "rdv.systeme", "rdv.offre", "rdv.auteur", "prototype.demander"]) {
         const href = ctaHref(id, locale, "test-registry");
         assert.equal(href, `${prefix}/rendez-vous?source=test-registry`);
-        await render(href.replace(/^\/fr/, ""), locale);
+        await render(href, locale);
       }
     }
     assert.doesNotMatch(await render("/sitemap.xml", "en"), /rendez-vous/);

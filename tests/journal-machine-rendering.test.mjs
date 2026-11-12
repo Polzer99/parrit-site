@@ -100,7 +100,7 @@ for (const locale of ["fr", "en"]) test(`new article renders answer, optional ta
   const data = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
   const article = data.find(item => item["@type"] === "Article");
   assert.equal(article.dateModified, base.updatedAt);
-  assert.deepEqual(article.author, { "@type": "Person", "@id": "https://parrit.ai/#founder", name: base.author });
+  assert.deepEqual(article.author, { "@type": "Person", "@id": "https://parrit.ai/#paul-larmaraud", name: base.author, jobTitle: locale === "fr" ? "Fondateur" : "Founder", worksFor: { "@id": "https://parrit.ai/#organization" } });
   const faq = data.find(item => item["@type"] === "FAQPage");
   assert.equal(faq.inLanguage, locale);
   assert.deepEqual(faq.mainEntity.map(item => ({ q: item.name, a: item.acceptedAnswer.text })), base.faq);
@@ -111,7 +111,14 @@ for (const locale of ["fr", "en"]) test(`new article renders answer, optional ta
   assert.ok(html.includes(locale === "fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai"));
   const booking = `${locale === "fr" ? "/fr" : ""}/rendez-vous?source=journal-${slug}`;
   assert.equal(html.split(`href="${booking}"`).length - 1, 1);
-  assert.ok(html.indexOf('journal-sources-title') < html.indexOf('Paul Larmaraud, '));
+  const signature = html.indexOf('Paul Larmaraud, ');
+  const deck = '<p>Une réponse directe avant tout titre.</p>';
+  assert.ok(html.indexOf(deck) < signature);
+  assert.ok(html.includes(`${deck}<p class="journal-byline">`));
+  assert.ok(signature < html.indexOf('<h2>La règle précède le choix</h2>'));
+  assert.ok(signature < html.indexOf('journal-sources-title'));
+  assert.equal(article.publisher['@type'], 'Organization');
+  assert.equal(article.publisher['@id'], article.author.worksFor['@id']);
   const metadata = await page.generateMetadata(props);
   assert.equal(metadata.openGraph.modifiedTime, base.updatedAt);
   assert.equal(metadata.authors[0].name, base.author);

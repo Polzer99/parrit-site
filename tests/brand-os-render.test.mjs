@@ -49,7 +49,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       const chunks = [];
       const pathname = new URL(url, "http://localhost:3210").pathname;
       const { req, res } = createRequestResponseMocks({
-        url,
+        url: locale === "fr" ? `/fr${pathname === "/" ? "" : pathname}${new URL(url, "http://localhost:3210").search}` : url,
         headers: { host: "localhost:3210", "x-parrit-locale": locale, "x-parrit-pathname": locale === "fr" ? `/fr${pathname === "/" ? "" : pathname}` : pathname },
         resWriter: (chunk) => { chunks.push(Buffer.from(chunk)); return true; },
       });
@@ -153,8 +153,9 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           assert.ok(journal, `${label}: Journal entries render`);
           assert.doesNotMatch(text, /Articles en anglais/, `${label}: no obsolete index language note`);
           const links = [...journal.matchAll(/<a\b[^>]*href="((?:\/fr)?\/journal\/[^"/]+)"[^>]*>[\s\S]*?<\/a>/g)];
-          const originals = readdirSync("content/journal").filter(file => file.endsWith(".mdx"));
-          assert.equal(links.length, originals.length, `${label}: every Journal article keeps one destination`);
+          const editions = readdirSync(locale === "fr" ? "content/journal/fr" : "content/journal").filter(file => file.endsWith(".mdx"));
+          assert.deepEqual(links.map(([, href]) => `${href.split("/").at(-1)}.mdx`).sort(), [...editions].sort());
+          assert.equal(links.length, editions.length, `${label}: every Journal article keeps one destination`);
           for (const [link, href] of links) {
             const slug = href.split("/").at(-1);
             const { data: original } = matter(readFileSync(`content/journal/${slug}.mdx`, "utf8"));
@@ -245,9 +246,30 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       assert.equal(status, 200, route);
       // Preserve raw metadata, JSON-LD and attributes. Only the approved block
       // and its Flight serialization are exempt; RSS and llms stay checked raw.
-      const identitySurface = route.endsWith("rss.xml") || route === "/llms-full.txt" ? html : html
+      let identitySurface = route.endsWith("rss.xml") || route === "/llms-full.txt" ? html : html
         .replace(/<section class="booking-call"[^>]*>[\s\S]*?<\/section>/g, "")
         .replace(/<script(?![^>]*type="application\/ld\+json")[^>]*>[\s\S]*?<\/script>/g, "");
+      if (!route.endsWith("rss.xml") && route !== "/llms-full.txt") {
+        // Correctif 2 §2: only the exact article author and visible signature
+        // replace the former anonymous identity contract; publisher stays checked.
+        const articleScript = [...identitySurface.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+          .find(match => JSON.parse(match[1])["@type"] === "Article");
+        assert.ok(articleScript, route);
+        const article = JSON.parse(articleScript[1]);
+        assert.deepEqual(article.author, { "@type": "Person", "@id": "https://parrit.ai/#paul-larmaraud", name: "Paul Larmaraud", jobTitle: "Founder", worksFor: { "@id": "https://parrit.ai/#organization" } });
+        assert.deepEqual(article.publisher, { "@type": "Organization", "@id": "https://parrit.ai/#organization", name: "Parrit.ai", url: "https://parrit.ai", logo: { "@type": "ImageObject", url: "https://parrit.ai/icon.png" } });
+        const bylines = [...identitySurface.matchAll(/<p class="journal-byline">([\s\S]*?)<\/p>/g)];
+        assert.equal(bylines.length, 1, route);
+        const signature = "Paul Larmaraud, founder of Parrit.ai";
+        assert.ok(bylines[0][1].startsWith(signature), route);
+        const authorLink = '<link rel="author" href="https://parrit.ai/#paul-larmaraud"/>';
+        const authorMeta = '<meta name="author" content="Paul Larmaraud"/>';
+        assert.equal(identitySurface.split(authorLink).length - 1, 1, route);
+        assert.equal(identitySurface.split(authorMeta).length - 1, 1, route);
+        identitySurface = identitySurface.replace(articleScript[0], articleScript[0].replace(JSON.stringify(article.author), "{}"))
+          .replace(bylines[0][0], bylines[0][0].replace(signature, ""))
+          .replace(authorLink, "").replace(authorMeta, "");
+      }
       assert.doesNotMatch(identitySurface, /\bPaul\b|Larmaraud|fondat(eur|rice)|fondée par|founder|founded by|quinze minutes|fifteen minutes/i, route);
       assert.doesNotMatch(html, /paul-larmaraud\.com/i, route);
       if (route === "/journal/rss.xml") assert.match(html, /<dc:creator>Parrit\.ai<\/dc:creator>/);

@@ -36,7 +36,7 @@ test("Article d'un vrai article : graphe lié, URL canonique et champs préserv�
     "@context": "https://schema.org", "@type": "Article", "@id": `${canonical}#article`,
     headline: entry.title, datePublished: entry.date, dateModified: entry.date,
     image: `${canonical}/og`, inLanguage: "en", description: entry.description,
-    author: orgRef(), publisher: { ...orgRef(), logo: { "@type": "ImageObject", url: "https://parrit.ai/icon.png" } },
+    author: { "@type": "Person", "@id": "https://parrit.ai/#paul-larmaraud", name: "Paul Larmaraud", jobTitle: "Founder", worksFor: { "@id": ORG_ID } }, publisher: { ...orgRef(), logo: { "@type": "ImageObject", url: "https://parrit.ai/icon.png" } },
     mainEntityOfPage: canonical,
   });
 });

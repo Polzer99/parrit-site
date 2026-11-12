@@ -1,3 +1,31 @@
+## Passe site cache, sécurité et cohérence, 12/11/2026
+
+Spec `docs/CODEX-SPEC-2026-11-12-passe-site-seo-securite-coherence.md`, base
+`8785098`. Routes FR explicites dans `src/app/(fr)/fr`, EN dans `(rev01)`,
+rendus communs `src/system/pages`. Aucun accès headers/cookies dans le rendu ;
+proxy de négociation 302 conservé. Index/legal statiques, articles/thèmes SSG ;
+accueil dynamique pour conserver attribution SSR, rendez-vous/sketch dynamiques.
+Cinq en-têtes de sécurité, security.txt, formation vers offres en un saut avec
+alias EN, Journal dans les navigations, listes FR traduites uniquement, signature
+et Person partagé `#paul-larmaraud`, dates localisées, lien réservation #reservation.
+
+Validation initiale : référence 519/519 ; premier candidat 527/553.
+Tour correctif 1 : référence reproduite 527/553, candidat **540/553** ; lint et
+build Webpack verts, 96 pages. Repointage des bancs et correction des glyphes ;
+13 anciens contrats laissés bloquants en attente d'autorisation à cette date.
+
+Tour correctif 2 : spec canonique recopiée sur mandat explicite de Paul ; quatre
+contrats alignés uniquement (routes FR directes, auteur Person, listes FR traduites,
+Journal dans la navigation). Référence **540/553**, candidat **552/553 deux fois** ;
+lint, build Webpack (96 pages) et marque verts. Aucun code produit modifié ce tour.
+Blocage supplémentaire révélé : `tests/brand-os-render.test.mjs:233` exige les UTM
+de requête dans le HTML initial des pages statiques, contradiction confirmée par
+rendu compilé et revue indépendante. Assertion conservée, hors des quatre exceptions.
+Exception supplémentaire demandée, non reçue à la clôture ; objectif vert non atteint.
+Rapport exhaustif avant/après : `docs/REPORT-2026-11-12-passe-site.md`, Tour correctif 2.
+Aucun commit/push/déploiement/PNG modifié. Preuve navigateur et production absente.
+Ne pas déclarer le lot prêt à déployer.
+
 ## Dates des sources Journal, 12/11/2026
 
 Spec `docs/CODEX-SPEC-2026-11-12-journal-dates-sources.md`, base locale fda6604.

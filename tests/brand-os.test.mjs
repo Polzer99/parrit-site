@@ -75,7 +75,7 @@ test("both OG routes bundle both CSS inputs and share the resolver", () => {
   }
   const config = read("next.config.ts");
   assert.equal((config.match(/"\.\/src\/system\/brand-os.tokens.css"/g) ?? []).length, 2);
-  const layout = read("src/app/(rev01)/layout.tsx");
+  const layout = read("src/system/pages/layout.tsx");
   assert.ok(layout.indexOf('import "../../system/brand-os.tokens.css"') < layout.indexOf('import "../../system/tokens.css"'));
 });
 

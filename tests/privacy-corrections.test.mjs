@@ -75,7 +75,7 @@ test("track is harmless without a PostHog client", () => {
 });
 for (const locale of ["en", "fr"]) {
   test(`legal page discloses Cloudflare measurement and processor (${locale})`, async () => {
-    const { default: LegalPage } = load("src/app/(rev01)/legal/page.tsx", {}, {
+    const { default: LegalPage } = load("src/system/pages/legal.tsx", {}, {
       "@/lib/server/locale": { getLocale: async () => locale },
       "@/system/components": { K: ({ children }) => children, RegistryLine: () => null },
       "@/system/locale": {},
@@ -93,13 +93,13 @@ for (const locale of ["en", "fr"]) {
     assert.doesNotMatch(html, /ne mesure plus l(?:’|'|&#x27;|&#39;)audience|no longer measures/i);
   });
   test(`actual layout renders no PostHog script (${locale}), retaining JSON-LD`, async () => {
-    const { default: Layout } = load("src/app/(rev01)/layout.tsx", {}, {
+    const { default: Layout } = load("src/system/pages/layout.tsx", {}, {
       "@/lib/server/locale": { getLocale: async () => locale },
       "@/system/components": { AnalyticsInit: () => null, RevHeader: () => null, RevFooter: () => null },
       "@/system/jsonld": { organizationJsonLd: () => ({ "@type": "Organization" }) },
       "@/system/locale": {},
     });
-    const html = renderToStaticMarkup(await Layout({ children: "Page" }));
+    const html = renderToStaticMarkup(await Layout({ children: "Page", locale }));
     assert.doesNotMatch(html, /posthog/i);
     assert.match(html, /application\/ld\+json/);
     assert.match(html, new RegExp(`lang="${locale}"`));

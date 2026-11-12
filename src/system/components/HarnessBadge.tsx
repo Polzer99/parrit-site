@@ -6,7 +6,7 @@ export function HarnessBadge({ slug, locale = "en" }: { slug: string; locale?: "
 
   return (
     <aside className="harness-badge" aria-label="Harness">
-      <strong>{locale === "fr" ? "Vérifié par le contrôle interne" : "Harness Certified ✓"}</strong>
+      <strong>{locale === "fr" ? "Vérifié par le contrôle interne" : "Harness Certified"}</strong>
       <p>
         {locale === "fr"
           ? "Contrôle interne Parrit.ai de l'original anglais, sans accréditation externe. "

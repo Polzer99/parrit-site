@@ -60,11 +60,7 @@ export function proxy(request: NextRequest) {
   // Overwrite inbound hints: a cookie/header cannot change an URL's language.
   requestHeaders.set(PATHNAME_HEADER, pathname);
   requestHeaders.set(LOCALE_HEADER, french && frenchChrome ? "fr" : "en");
-  const url = request.nextUrl.clone();
-  url.pathname = bare;
-  const response = french
-    ? NextResponse.rewrite(url, { request: { headers: requestHeaders } })
-    : NextResponse.next({ request: { headers: requestHeaders } });
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
   if (translated && !french) response.headers.append("Vary", "Accept-Language, Cookie, User-Agent");
   return response;
 }
