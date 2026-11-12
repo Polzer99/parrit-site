@@ -7,7 +7,8 @@ import path from 'node:path';
 import http from 'node:http';
 import https from 'node:https';
 import net from 'node:net';
-import { runMachine, DEFAULT_MODELS, atomicJSON, openRouterClient } from '../scripts/journal-machine.mjs';
+import { EventEmitter } from 'node:events';
+import { runMachine, main, DEFAULT_MODELS, atomicJSON, openRouterClient } from '../scripts/journal-machine.mjs';
 import { addTopic, validateTopics } from '../scripts/journal-sujets.mjs';
 import { createGitHubRuntime } from '../scripts/journal-machine-github.mjs';
 const deny = () => { throw new Error('Network forbidden'); };
@@ -314,4 +315,65 @@ test('interruption recherche ne persiste aucun secret dans run ni file', async t
   assert.ok(!JSON.stringify(s.logs()).includes('fixture-sensitive-token'));
   assert.ok(!JSON.stringify(s.queue()).includes('fixture-sensitive-token'));
   assert.equal(s.logs()[0].tentatives[0].recherche_interrompue.passe, 'presse_editeurs');
+});
+
+test('deux délais OpenRouter reportent le premier sujet et tentent le suivant', async t => {
+  const s = setup(t, { topics: [first, { ...first, id: 'autre-outil', requete: 'Autre angle' }] });
+  const original = s.options.client.complete;
+  let failed = 0; const waits = [];
+  s.options.sleep = async ms => waits.push(ms);
+  s.options.client.complete = async request => {
+    if (request.model === DEFAULT_MODELS.research && JSON.parse(request.messages.at(-1).content).requete === first.requete) {
+      failed++; throw new DOMException('timeout', 'TimeoutError');
+    }
+    return original(request);
+  };
+  const result = await runMachine(s.options);
+  assert.equal(failed, 2); assert.deepEqual(waits, [5000]);
+  assert.equal(result.issue, 'pr');
+  assert.equal(result.tentatives.length, 2);
+  assert.equal(result.tentatives[0].motif, 'openrouter_recherche_delai');
+  assert.equal(s.queue()[0].essais, 1);
+  assert.ok(s.calls.some(call => call.plugins && JSON.parse(call.messages.at(-1).content).requete === 'Autre angle'));
+  assert.equal(s.logs()[0].tentatives[0].motif, 'openrouter_recherche_delai');
+});
+
+test('exception inattendue dans le vrai runMachine : main enregistre crash et sauvegarde', async t => {
+  const s = setup(t);
+  s.options.runtime.pendingTopics = async () => { throw new Error('panne inattendue token=private-value'); };
+  const processImpl = new EventEmitter();
+  const result = await main({ options: s.options, processImpl, output: () => {} });
+  assert.equal(result.issue, 'crash'); assert.equal(result.etape, 'selection');
+  assert.equal(s.logs().length, 1); assert.equal(s.logs()[0].issue, 'crash');
+  assert.ok(s.events.includes('persist')); assert.equal(processImpl.exitCode, 1);
+  assert.ok(!JSON.stringify(s.logs()).includes('private-value'));
+});
+
+test('rejet non traité pendant rédaction : vrai run arrêté avant validation et publication', async t => {
+  const s = setup(t);
+  const processImpl = new EventEmitter(), exits = [];
+  processImpl.exit = code => exits.push(code);
+  const complete = s.options.client.complete;
+  s.options.client.complete = async request => {
+    if (request.model === DEFAULT_MODELS.writing) {
+      processImpl.emit('unhandledRejection', new Error('crash rédaction'));
+    }
+    return complete(request);
+  };
+  const result = await main({ options: s.options, processImpl, output: () => {} });
+  assert.equal(result.issue, 'crash'); assert.equal(result.etape, 'redaction'); assert.equal(result.sujet, first.id);
+  assert.equal(s.logs().length, 1); assert.equal(s.events.filter(event => event === 'persist').length, 1);
+  assert.ok(!s.events.includes('validate'));
+  assert.ok(!s.events.some(event => Array.isArray(event) && event[0] === 'publish'));
+  assert.deepEqual(exits, [1]);
+});
+
+test('crash dans persistState : diagnostic conservé et une seule sauvegarde de secours', async t => {
+  const s = setup(t, { topics: [] }); let saves = 0;
+  s.options.runtime.persistState = async () => { if (++saves === 1) throw new Error('panne sauvegarde'); };
+  const processImpl = new EventEmitter();
+  const result = await main({ options: s.options, processImpl, output: () => {} });
+  assert.equal(result.issue, 'crash'); assert.equal(result.etape, 'persistance');
+  assert.equal(s.logs().filter(run => run.issue === 'crash').length, 1); assert.equal(saves, 2);
+  assert.equal(processImpl.exitCode, 1);
 });

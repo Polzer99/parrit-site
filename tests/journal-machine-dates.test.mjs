@@ -168,18 +168,23 @@ test('dates de publication seules ne comptent pas comme faits chiffrés', async 
   assert.ok(diagnostics.sources_ecartees.every(s => s.motif === 'sans_chiffre'));
 });
 test('délai de 15 secondes transmis à la résolution et à la lecture du corps', async () => {
-  const original = AbortSignal.timeout;
-  const delays = [];
-  const timer = mock.method(AbortSignal, 'timeout', ms => { delays.push(ms); return original.call(AbortSignal, 10); });
-  const keepAlive = setInterval(() => {}, 100);
+  const delays = [], controllers = [];
+  const timer = mock.method(AbortSignal, 'timeout', ms => {
+    delays.push(ms); const controller = new AbortController(); controllers.push(controller); return controller.signal;
+  });
+  const abort = () => controllers.at(-1).abort(new DOMException('timeout', 'TimeoutError'));
   try {
-    await assert.rejects(fetchSource('https://insee.fr/a', { resolve: async () => new Promise(() => {}) }), /timeout/i);
+    await assert.rejects(fetchSource('https://insee.fr/a', { resolve: async () => { abort(); return new Promise(() => {}); } }), /timeout/i);
     let cancelled = false;
-    const body = new ReadableStream({ start(controller) { controller.enqueue(new TextEncoder().encode('<article>')); }, cancel() { cancelled = true; } });
-    await assert.rejects(fetchSource('https://insee.fr/a', { ...options, fetchImpl: async () => new Response(body) }), /timeout/i);
+    await assert.rejects(fetchSource('https://insee.fr/a', { ...options, fetchImpl: async () => ({
+      status: 200, headers: new Headers(), body: { getReader: () => ({
+        read: () => { abort(); return Promise.reject(new DOMException('timeout', 'TimeoutError')); },
+        cancel: async () => { cancelled = true; },
+      }) },
+    }) }), /timeout/i);
     assert.equal(cancelled, true);
-    assert.deepEqual(delays, [15000, 15000]);
-  } finally { clearInterval(keepAlive); timer.mock.restore(); }
+    assert.deepEqual(delays, [15000, 15000, 1000]);
+  } finally { timer.mock.restore(); }
 });
 test('limite de taille vérifiée pendant le flux et redirection datée sur URL finale', async () => {
   await assert.rejects(fetchSource('https://insee.fr/a', { ...options, fetchImpl: async () => new Response('x'.repeat(5_000_001)) }), /volumineuse/);
