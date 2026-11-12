@@ -32,11 +32,12 @@ function plainText(html) {
     .replace(/\s+/g, ' ').trim();
 }
 
-export async function provePublication({ slug, title, fetchImpl = fetch, sleep = delay, attempts = 31, clock = Date.now }) {
+export async function provePublication({ slug, title, fetchImpl = fetch, sleep = delay, attempts = 31, clock = Date.now, signal }) {
   const deadline = clock() + 15 * 60 * 1000;
   const remaining = () => Math.max(1, Math.min(15000, deadline - clock()));
   const url = `https://parrit.ai/fr/journal/${slug}`;
   for (let attempt = 0; attempt < attempts && clock() < deadline; attempt++) {
+    signal?.throwIfAborted();
     try {
       const page = await fetchImpl(url, { signal: AbortSignal.timeout(remaining()), redirect: 'error' });
       if (page.status === 200 && plainText(await page.text()).includes(plainText(title))) {
@@ -61,10 +62,11 @@ export function createGitHubRuntime({ root = process.cwd(), env = process.env, f
   let validatedCandidate;
   let restoredStateRef;
   let restoreFailed = false;
-  async function api(route, method = 'GET', body, allow404 = false) {
+  async function api(route, method = 'GET', body, allow404 = false, signal) {
+    signal?.throwIfAborted();
     const response = await fetchImpl(endpoint + route, {
       method, headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' },
-      ...(body === undefined ? {} : { body: JSON.stringify(body) }), signal: AbortSignal.timeout(30000), redirect: 'error',
+      ...(body === undefined ? {} : { body: JSON.stringify(body) }), signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(30000)]) : AbortSignal.timeout(30000), redirect: 'error',
     });
     if (allow404 && response.status === 404) return null;
     if (!response.ok) throw new Error(`GitHub ${method} ${route}: ${response.status}`);
@@ -80,10 +82,10 @@ export function createGitHubRuntime({ root = process.cwd(), env = process.env, f
     }
   }
   const main = async () => (await api('/git/ref/heads/main')).object.sha;
-  async function issueOnce(title, body) {
+  async function issueOnce(title, body, signal) {
     const existing = (await list('/issues?state=open')).find((issue) => !issue.pull_request && issue.title === title);
     if (existing) return existing;
-    return api('/issues', 'POST', { title, body, assignees: ['Polzer99'] });
+    return api('/issues', 'POST', { title, body, assignees: ['Polzer99'] }, false, signal);
   }
   async function pendingTopics() {
     const pulls = await list('/pulls?state=all&base=main');
@@ -99,19 +101,19 @@ export function createGitHubRuntime({ root = process.cwd(), env = process.env, f
     if (!(await lstat(cursor)).isFile()) throw new Error(`Fichier non régulier : ${relative}`);
     return readFile(cursor, 'utf8');
   }
-  async function createCommit(base, files, message, snapshot) {
+  async function createCommit(base, files, message, snapshot, signal) {
     const baseCommit = await api(`/git/commits/${base}`);
     const tree = [];
     for (const relative of files) tree.push({ path: relative, mode: '100644', type: 'blob', content: snapshot ? snapshot.get(relative) : await regularFile(relative) });
-    const created = await api('/git/trees', 'POST', { base_tree: baseCommit.tree.sha, tree });
-    return (await api('/git/commits', 'POST', { message, tree: created.sha, parents: [base] })).sha;
+    const created = await api('/git/trees', 'POST', { base_tree: baseCommit.tree.sha, tree }, false, signal);
+    return (await api('/git/commits', 'POST', { message, tree: created.sha, parents: [base] }, false, signal)).sha;
   }
-  async function openPull(branch, title, body) {
+  async function openPull(branch, title, body, signal) {
     const existing = (await list('/pulls?state=open&base=main')).find((pull) => pull.head.ref === branch);
-    const pull = existing || await api('/pulls', 'POST', { title, body, head: branch, base: 'main' });
+    const pull = existing || await api('/pulls', 'POST', { title, body, head: branch, base: 'main' }, false, signal);
     // Creating the label is idempotent; the permissions are deliberately limited to issues.
-    if (!await api('/labels/journal', 'GET', undefined, true)) await api('/labels', 'POST', { name: 'journal', color: '0e6655', description: 'Articles et état de la machine Journal' });
-    await api(`/issues/${pull.number}/labels`, 'POST', { labels: ['journal'] });
+    if (!await api('/labels/journal', 'GET', undefined, true)) await api('/labels', 'POST', { name: 'journal', color: '0e6655', description: 'Articles et état de la machine Journal' }, false, signal);
+    await api(`/issues/${pull.number}/labels`, 'POST', { labels: ['journal'] }, false, signal);
     return pull;
   }
   async function verifyCandidate(base, head, pullNumber) {
@@ -150,7 +152,8 @@ export function createGitHubRuntime({ root = process.cwd(), env = process.env, f
     if ((await runCommand('git', ['rev-parse', 'HEAD'])).trim() !== base) throw new Error('Checkout modifié pendant les contrôles');
     validatedCandidate = { slug, base, snapshot };
   }
-  async function publish({ topic, slug, title }) {
+  async function publish({ topic, slug, title, signal }) {
+    signal?.throwIfAborted();
     if (!slugPattern.test(slug) || !slugPattern.test(topic.id)) throw new Error('Slug ou sujet invalide');
     const base = await main();
     const localHead = (await runCommand('git', ['rev-parse', 'HEAD'])).trim();
@@ -159,34 +162,36 @@ export function createGitHubRuntime({ root = process.cwd(), env = process.env, f
     await assertWorkspace(files);
     let reusable = validatedCandidate?.slug === slug && validatedCandidate.base === base;
     for (const file of files) if (await regularFile(file) !== validatedCandidate?.snapshot.get(file)) reusable = false;
+    signal?.throwIfAborted();
     if (!reusable) await validateCandidate({ slug });
     // Commit the already validated snapshot, never a fresh read after the gate.
     const snapshot = validatedCandidate.snapshot;
     await assertWorkspace(files);
     for (const file of files) if (await regularFile(file) !== snapshot.get(file)) throw new Error(`Candidat modifié après les contrôles : ${file}`);
     checkedBase = base;
-    const head = await createCommit(base, files, `Journal : ${title}`, snapshot);
+    const head = await createCommit(base, files, `Journal : ${title}`, snapshot, signal);
     if (await main() !== base) throw new Error('main a changé pendant les contrôles');
-    await api('/git/refs', 'POST', { ref: `refs/heads/journal/${slug}`, sha: head });
-    const pull = await openPull(`journal/${slug}`, `Journal : ${title}`, `<!-- journal-topic:${topic.id} -->\n\nArticle FR/EN ; portes déterministes, lint, build et tests exécutés dans le même job.\nMode : ${armed ? 'armé par JOURNAL_AUTOPUBLISH=1' : 'désarmé, validation humaine'}.`);
+    await api('/git/refs', 'POST', { ref: `refs/heads/journal/${slug}`, sha: head }, false, signal);
+    const pull = await openPull(`journal/${slug}`, `Journal : ${title}`, `<!-- journal-topic:${topic.id} -->\n\nArticle FR/EN ; portes déterministes, lint, build et tests exécutés dans le même job.\nMode : ${armed ? 'armé par JOURNAL_AUTOPUBLISH=1' : 'désarmé, validation humaine'}.`, signal);
     if (!armed) return 'pr';
     await verifyCandidate(checkedBase, head, pull.number);
-    const merged = await api(`/pulls/${pull.number}/merge`, 'PUT', { sha: head, merge_method: 'squash' });
+    const merged = await api(`/pulls/${pull.number}/merge`, 'PUT', { sha: head, merge_method: 'squash' }, false, signal);
     if (!merged.merged) throw new Error('GitHub a refusé la fusion');
-    if (!await provePublication({ slug, title, fetchImpl, sleep })) {
-      await issueOnce('Journal : article fusionné mais absent en ligne', `URL : https://parrit.ai/fr/journal/${slug}\nPR #${pull.number}, commit ${merged.sha}. Titre FR et sitemap non prouvés après 15 minutes.`);
+    if (!await provePublication({ slug, title, fetchImpl, sleep, signal })) {
+      await issueOnce('Journal : article fusionné mais absent en ligne', `URL : https://parrit.ai/fr/journal/${slug}\nPR #${pull.number}, commit ${merged.sha}. Titre FR et sitemap non prouvés après 15 minutes.`, signal);
       throw new Error(`Preuve de mise en ligne absente : ${slug}`);
     }
     // IndexNow failure must not erase a successful production proof or trigger a duplicate article.
     try {
       const key = env.INDEXNOW_KEY;
       if (!/^[a-zA-Z0-9-]{8,128}$/.test(key ?? '') || (await regularFile(`public/${key}.txt`)).trim() !== key) throw new Error('Clé IndexNow absente ou fichier de vérification incohérent');
+      signal?.throwIfAborted();
       const response = await fetchImpl('https://api.indexnow.org/indexnow', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: AbortSignal.timeout(15000), redirect: 'error',
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(15000)]) : AbortSignal.timeout(15000), redirect: 'error',
         body: JSON.stringify({ host: 'parrit.ai', key, keyLocation: `https://parrit.ai/${key}.txt`, urlList: [`https://parrit.ai/fr/journal/${slug}`, `https://parrit.ai/journal/${slug}`] }),
       });
       if (![200, 202].includes(response.status)) throw new Error(`IndexNow HTTP ${response.status}`);
-    } catch (error) { await issueOnce('Journal : IndexNow en échec', `${slug} : ${error.message}`); }
+    } catch (error) { await issueOnce('Journal : IndexNow en échec', `${slug} : ${error.message}`, signal); }
     return 'publie';
   }
   async function stateDate(sha, file) {
@@ -239,7 +244,7 @@ export function createGitHubRuntime({ root = process.cwd(), env = process.env, f
         const lines = [...new Set([...current.split('\n'), ...content.split('\n')].filter(Boolean))];
         for (const line of lines) {
           const run = JSON.parse(line);
-          if (!run || !Number.isFinite(Date.parse(run.date)) || !['echec', 'pr', 'publie'].includes(run.issue)) throw new Error('Journal distant invalide');
+          if (!run || !Number.isFinite(Date.parse(run.date)) || !['echec', 'pr', 'publie', 'crash'].includes(run.issue)) throw new Error('Journal distant invalide');
         }
         updates.set(file, lines.join('\n') + '\n');
       }

@@ -151,6 +151,43 @@ test('failure counters and JSONL persist on state branch without a PR without ma
   assert.ok(!requests.some((call) => call.route === '/pulls' && call.method === 'POST'));
 });
 
+test('un arrêt pendant publication bloque les écritures suivantes, sauvegarde état encore autorisée', async t => {
+  const h = await harness(t, { armed: true });
+  const controller = new AbortController();
+  let writesAfterAbort = 0;
+  const runtime = createGitHubRuntime({ root: h.root, env: { GITHUB_REPOSITORY: 'test/repo', GITHUB_TOKEN: 'x', JOURNAL_AUTOPUBLISH: '1' }, runCommand: h.runCommand,
+    fetchImpl: async (url, options) => {
+      if (controller.signal.aborted && options?.signal?.aborted) writesAfterAbort++;
+      const result = await h.fetchImpl(url, options);
+      if (url.endsWith('/git/trees') && options.method === 'POST') controller.abort(new Error('crash'));
+      return result;
+    },
+  });
+  await assert.rejects(runtime.publish({ ...candidate, signal: controller.signal }), /crash/);
+  assert.equal(writesAfterAbort, 0);
+  assert.ok(!h.requests.some(call => call.route === '/git/commits' || call.route === '/pulls' || call.route?.endsWith('/merge')));
+  await runtime.persistState();
+  assert.ok(h.requests.some(call => call.body?.ref === 'refs/heads/journal/etat'));
+});
+
+test('un diagnostic crash distant se restaure puis se sauvegarde sur journal/etat', async t => {
+  const h = await harness(t);
+  const crash = { date: '2026-11-12T06:00:00Z', issue: 'crash', sujet: slug, etape: 'sources', message: 'timeout' };
+  const runtime = createGitHubRuntime({ root: h.root, env: { GITHUB_REPOSITORY: 'test/repo', GITHUB_TOKEN: 'x' }, fetchImpl: async (url, init) => {
+    if (url.endsWith('/git/ref/heads/journal/etat')) return reply({ object: { sha: 'saved' } });
+    if (url.includes('/commits?')) return reply([{ commit: { committer: { date: url.includes('sha=saved') ? '2026-11-12T06:00:00Z' : '2026-11-10T06:00:00Z' } } }]);
+    if (url.includes('/contents/content/plan/')) return reply({ type: 'file', encoding: 'base64', content: Buffer.from(url.includes('sujets.json') ? JSON.stringify([{ id: slug, statut: 'a_faire', essais: 2 }]) : JSON.stringify(crash) + '\n').toString('base64') });
+    if (url.endsWith('/git/commits/saved')) return reply({ tree: { sha: 'saved-tree' } });
+    if (url.endsWith('/git/refs/heads/journal/etat')) { assert.equal(init.method, 'PATCH'); return reply({}); }
+    return h.fetchImpl(url, init);
+  } });
+  await runtime.restoreState();
+  await runtime.persistState();
+  const persisted = h.requests.find(call => call.route === '/git/trees').body.tree;
+  const lines = persisted.find(file => file.path.endsWith('.jsonl')).content.trim().split('\n').map(JSON.parse);
+  assert.deepEqual(lines.at(-1), crash);
+});
+
 test('even armed runs persist state without any main write or state PR', async t => {
   const h = await harness(t, { armed: true });
   await h.runtime.persistState();

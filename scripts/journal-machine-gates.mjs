@@ -1,4 +1,5 @@
 import matter from 'gray-matter';
+import { withinDeadline } from './journal-machine-io.mjs';
 import { readFileSync } from 'node:fs';
 import { mkdtemp, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -305,60 +306,62 @@ export function publicSourceUrl(input, local = false) {
   return url;
 }
 const isPrivate = ip => ip.includes(':') ? !/^[23][0-9a-f]{0,3}:/i.test(ip) : /^(?:0|10|127|169\.254|172\.(?:1[6-9]|2\d|3[01])|192\.168|192\.0|198\.(?:18|19)|22[4-9]|23\d|24\d|25[0-5])\./.test(ip);
-// Race the whole operation, including DNS and body reads; a stalled resolver must
-// not hold a worker beyond the same 15 s deadline as redirects/PDF decoding.
-function withinDeadline(promise, signal) {
-  signal.throwIfAborted();
-  return new Promise((resolve, reject) => {
-    const abort = () => reject(signal.reason);
-    signal.addEventListener('abort', abort, { once: true });
-    promise.then(resolve, reject).finally(() => signal.removeEventListener('abort', abort));
-  });
-}
-async function decodePDF(bytes, signal) {
+async function decodePDF(bytes, signal, executePDF) {
   const directory = await mkdtemp(path.join(tmpdir(), 'journal-source-'));
   try {
     const file = path.join(directory, 'source.pdf');
     await writeFile(file, bytes);
-    const run = (command, args) => execFileAsync(command, args, { signal, timeout: 15_000, maxBuffer: 5_000_000, env: { ...process.env, LC_ALL: 'C' } });
+    signal.throwIfAborted();
+    const run = (command, args) => withinDeadline(() => executePDF(command, args, { signal, timeout: 15_000, maxBuffer: 5_000_000, env: { ...process.env, LC_ALL: 'C' } }), signal);
     const { stdout: info } = await run('pdfinfo', ['-rawdates', file]);
     const { stdout: text } = await run('pdftotext', ['-enc', 'UTF-8', file, '-']);
     return { creationDate: info.match(/^CreationDate:\s*(.+)$/m)?.[1], pages: text.split('\f'), text };
   } finally { await rm(directory, { recursive: true, force: true }); }
 }
-export async function fetchSource(url, { fetchImpl = fetch, resolve = lookup, local = false, details = false, today } = {}) {
+export async function fetchSource(url, { fetchImpl = fetch, resolve = lookup, local = false, details = false, today, sourceCache, executePDF = execFileAsync } = {}) {
   let current = publicSourceUrl(url, local);
+  const cached = sourceCache?.get(url);
+  if (cached) return details ? cached : cached.text;
   const signal = AbortSignal.timeout(15_000);
   for (let redirects = 0; redirects <= 5; redirects++) {
-    const addresses = await withinDeadline(resolve(current.hostname, { all: true }), signal);
+    const addresses = await withinDeadline(() => resolve(current.hostname, { all: true }), signal);
     if (!addresses.length || addresses.some(({ address }) => isPrivate(address))) throw new Error('adresse source privée');
-    const response = await withinDeadline(fetchImpl(current.href, { method: 'GET', redirect: 'manual', headers: { 'User-Agent': 'ParritJournalBot/1.0' }, signal }), signal);
+    const response = await withinDeadline(() => fetchImpl(current.href, { method: 'GET', redirect: 'manual', headers: { 'User-Agent': 'ParritJournalBot/1.0' }, signal }), signal);
     if ([301, 302, 303, 307, 308].includes(response.status)) {
+      await withinDeadline(() => response.body?.cancel(), signal);
       current = publicSourceUrl(new URL(response.headers.get('location'), current).href, local);
       continue;
     }
-    if (response.status !== 200) throw new Error(`HTTP ${response.status}`);
-    if (Number(response.headers.get('content-length')) > 5_000_000) throw new Error('source trop volumineuse');
+    if (response.status !== 200 || Number(response.headers.get('content-length')) > 5_000_000) {
+      await withinDeadline(() => response.body?.cancel(), signal).catch(() => {});
+      if (response.status !== 200) throw new Error(`HTTP ${response.status}`);
+      throw Object.assign(new Error('source trop volumineuse'), { code: 'SOURCE_TOO_LARGE' });
+    }
     const chunks = []; let size = 0;
     const reader = response.body?.getReader();
     if (reader) {
       try {
         while (true) {
-          const { value, done } = await withinDeadline(reader.read(), signal);
+          const { value, done } = await withinDeadline(() => reader.read(), signal);
           if (done) break;
           size += value.byteLength;
-          if (size > 5_000_000) throw new Error('source trop volumineuse');
+          if (size > 5_000_000) throw Object.assign(new Error('source trop volumineuse'), { code: 'SOURCE_TOO_LARGE' });
           chunks.push(value);
         }
-      } finally { void reader.cancel().catch(() => {}); }
+      } finally {
+        // cancel() is observed even if the deadline has already expired.
+        await withinDeadline(() => reader.cancel(), AbortSignal.timeout(1_000)).catch(() => {});
+      }
     }
     const bytes = Buffer.concat(chunks);
     const pdf = bytes.subarray(0, 5).toString() === '%PDF-' || /application\/pdf/i.test(response.headers.get('content-type') || '');
-    const body = pdf ? await decodePDF(bytes, signal) : bytes.toString('utf8');
+    const body = pdf ? await decodePDF(bytes, signal, executePDF) : bytes.toString('utf8');
     signal.throwIfAborted();
     const text = pdf ? body.text : sourceVisibleText(body);
     const publication = extractPublicationDate(body, current.href, response.headers, today);
-    return details ? { text, publication, url: current.href } : text;
+    const result = { text, publication, url: current.href };
+    sourceCache?.set(url, result);
+    return details ? result : text;
   }
   throw new Error('trop de redirections');
 }
