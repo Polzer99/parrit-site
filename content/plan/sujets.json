@@ -38,7 +38,8 @@
     "slug": null,
     "publie_le": null,
     "these_pressentie": null,
-    "essais": 0
+    "essais": 1,
+    "motif": "réponse OpenRouter vide"
   },
   {
     "id": "quels-processus-d-une-pme-se-pretent-vraiment-a-un-agent-ia-et-lesqu",
@@ -51,7 +52,8 @@
     "slug": null,
     "publie_le": null,
     "these_pressentie": null,
-    "essais": 0
+    "essais": 1,
+    "motif": "réponse OpenRouter vide"
   },
   {
     "id": "combien-de-temps-faut-il-pour-voir-un-premier-resultat-d-un-projet-i",
