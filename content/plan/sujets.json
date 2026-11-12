@@ -9,7 +9,9 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 2,
+    "motif": "requêtes de recherche invalides"
   },
   {
     "id": "audit-ia-d-une-pme-que-regarde-t-on-en-deux-jours",
@@ -21,7 +23,9 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 2,
+    "motif": "requêtes de recherche invalides"
   },
   {
     "id": "comment-choisir-le-premier-cas-d-usage-ia-rentable-dans-une-pme-indu",
@@ -33,7 +37,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "quels-processus-d-une-pme-se-pretent-vraiment-a-un-agent-ia-et-lesqu",
@@ -45,7 +50,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "combien-de-temps-faut-il-pour-voir-un-premier-resultat-d-un-projet-i",
@@ -57,7 +63,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "ia-dans-une-pme-des-hauts-de-france-quels-appuis-regionaux-existent",
@@ -69,7 +76,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "qu-est-ce-qu-un-agent-ia-en-entreprise-concretement",
@@ -81,7 +89,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "agent-ia-ou-rpa-comment-choisir",
@@ -93,7 +102,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "comment-savoir-si-un-agent-ia-a-vraiment-fait-son-travail",
@@ -105,7 +115,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "un-agent-ia-peut-il-inventer-des-faits-et-comment-s-en-proteger",
@@ -117,7 +128,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "quelles-permissions-donner-a-un-agent-ia-dans-un-systeme-d-informati",
@@ -129,7 +141,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "qu-est-ce-que-le-harnais-harness-d-un-agent-ia",
@@ -141,7 +154,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "combien-coute-un-agent-ia-en-production-au-mois",
@@ -153,7 +167,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "faut-il-plusieurs-fournisseurs-de-modeles-ia-pour-ne-pas-dependre-d",
@@ -165,7 +180,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "ia-souveraine-heberger-un-modele-sur-ses-propres-serveurs-pour-qui-e",
@@ -177,7 +193,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "ia-et-service-qualite-traiter-les-reclamations-clients-plus-vite",
@@ -189,7 +206,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "ia-et-administration-des-ventes-adv-ce-qu-on-peut-automatiser",
@@ -201,7 +219,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "ia-et-achats-industriels-comparer-des-offres-fournisseurs",
@@ -213,7 +232,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "ia-et-logistique-prevoir-planifier-repondre-aux-clients",
@@ -225,7 +245,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "ia-et-maintenance-industrielle-ce-qui-marche-aujourd-hui",
@@ -237,7 +258,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "faire-adopter-un-erp-ou-sap-grace-a-un-assistant-ia",
@@ -249,7 +271,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "ia-pour-un-grossiste-ou-un-distributeur-crm-et-commandes",
@@ -261,7 +284,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "developper-un-outil-ia-sur-mesure-ou-acheter-un-saas",
@@ -274,7 +298,8 @@
     "slug": null,
     "publie_le": null,
     "these_pressentie": null,
-    "motif": "couvert_par_chronique_presse"
+    "motif": "couvert_par_chronique_presse",
+    "essais": 0
   },
   {
     "id": "du-prototype-ia-a-l-outil-en-production-ce-qui-change",
@@ -286,7 +311,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "combien-de-temps-pour-construire-un-outil-ia-interne",
@@ -298,7 +324,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "claude-code-pour-une-pme-a-quoi-ca-sert-hors-des-developpeurs",
@@ -310,7 +337,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "former-ses-equipes-aux-agents-ia-par-ou-commencer",
@@ -322,7 +350,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "apprendre-a-construire-un-agent-ia-sans-etre-developpeur",
@@ -334,7 +363,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "former-un-referent-ia-interne-quel-role-quelles-competences",
@@ -346,7 +376,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "ai-act-quelles-obligations-pour-une-pme-qui-utilise-l-ia",
@@ -358,7 +389,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "ai-act-l-obligation-de-former-les-salaries-article-4",
@@ -370,7 +402,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "faut-il-consulter-le-cse-avant-de-deployer-l-ia",
@@ -382,7 +415,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "rediger-une-charte-d-usage-de-l-ia-en-entreprise",
@@ -395,7 +429,8 @@
     "slug": null,
     "publie_le": null,
     "these_pressentie": null,
-    "motif": "couvert_par_chronique_presse"
+    "motif": "couvert_par_chronique_presse",
+    "essais": 0
   },
   {
     "id": "rgpd-et-agents-ia-ce-qu-il-faut-verifier",
@@ -407,7 +442,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "donnees-de-l-entreprise-et-chatgpt-quels-risques-reels",
@@ -419,7 +455,8 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   },
   {
     "id": "mesurer-le-retour-sur-investissement-d-un-projet-ia",
@@ -431,6 +468,7 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 0
   }
 ]
