@@ -6,12 +6,12 @@
     "pilier": "audit-pme",
     "offre": "audit",
     "angle_local": false,
-    "statut": "a_faire",
+    "statut": "ecarte",
     "slug": null,
     "publie_le": null,
     "these_pressentie": null,
-    "essais": 2,
-    "motif": "requêtes de recherche invalides"
+    "essais": 3,
+    "motif": "materiau_insuffisant"
   },
   {
     "id": "audit-ia-d-une-pme-que-regarde-t-on-en-deux-jours",
@@ -20,12 +20,12 @@
     "pilier": "audit-pme",
     "offre": "audit",
     "angle_local": false,
-    "statut": "a_faire",
+    "statut": "ecarte",
     "slug": null,
     "publie_le": null,
     "these_pressentie": null,
-    "essais": 2,
-    "motif": "requêtes de recherche invalides"
+    "essais": 3,
+    "motif": "materiau_insuffisant"
   },
   {
     "id": "comment-choisir-le-premier-cas-d-usage-ia-rentable-dans-une-pme-indu",
