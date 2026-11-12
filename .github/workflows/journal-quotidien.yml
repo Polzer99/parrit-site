@@ -1,0 +1,65 @@
+name: Journal quotidien
+
+on:
+  schedule:
+    - cron: "15 5 * * *"
+  workflow_dispatch:
+    inputs:
+      sujet:
+        description: "Identifiant ou requête d'un sujet de la file (optionnel)"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: journal-quotidien
+  cancel-in-progress: false
+
+jobs:
+  journal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      # GITHUB_TOKEN may suppress CI events. The runtime runs lint/build/tests on
+      # the candidate in this same job and pins base/head before content-only merge.
+      - name: Générer, contrôler et proposer l'article
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+          JOURNAL_AUTOPUBLISH: ${{ vars.JOURNAL_AUTOPUBLISH }}
+          JOURNAL_MODELE_RECHERCHE: ${{ vars.JOURNAL_MODELE_RECHERCHE }}
+          JOURNAL_MODELE_REDACTION: ${{ vars.JOURNAL_MODELE_REDACTION }}
+          JOURNAL_MODELE_JUGE: ${{ vars.JOURNAL_MODELE_JUGE }}
+          JOURNAL_COUT_MAX_USD: ${{ vars.JOURNAL_COUT_MAX_USD }}
+          JOURNAL_SUJET: ${{ inputs.sujet }}
+          INDEXNOW_KEY: ${{ vars.INDEXNOW_KEY }}
+        run: node scripts/journal-machine.mjs
+      # Built-in Node modules only: this still runs after npm ci/startup failure.
+      - name: Vérifier la cadence même après un échec de démarrage
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          JOURNAL_AUTOPUBLISH: ${{ vars.JOURNAL_AUTOPUBLISH }}
+        run: node scripts/journal-machine-github.mjs --watchdog
+      - name: Conserver les diagnostics même si GitHub refuse la sauvegarde
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: journal-etat-${{ github.run_id }}
+          path: |
+            content/plan/sujets.json
+            content/plan/journal-runs.jsonl
+          if-no-files-found: ignore

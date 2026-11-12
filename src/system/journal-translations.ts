@@ -1,3 +1,13 @@
+import generatedSlugs from "../../content/plan/journal-translations.json" with { type: "json" };
+
+// Content-only publication can extend routing without modifying application code.
+// This manifest contains only the new bilingual slugs; legacy editions stay below.
+if (!Array.isArray(generatedSlugs) || generatedSlugs.some(slug =>
+  typeof slug !== "string" || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)
+) || new Set(generatedSlugs).size !== generatedSlugs.length) {
+  throw new Error("Invalid generated Journal translation manifest.");
+}
+
 // Reviewed French editions, sharing the original slug. Keep in sync with content/journal/fr.
 // This small registry is safe to import in client navigation and Next configuration.
 export const FRENCH_JOURNAL_SLUGS: readonly string[] = [
@@ -32,7 +42,12 @@ export const FRENCH_JOURNAL_SLUGS: readonly string[] = [
   "what-is-parrit-ai",
   "what-you-rent-can-be-taken-back",
   "whatsapp-business-agent",
+  ...generatedSlugs,
 ];
+
+if (new Set(FRENCH_JOURNAL_SLUGS).size !== FRENCH_JOURNAL_SLUGS.length) {
+  throw new Error("Generated Journal translation manifest repeats a legacy slug.");
+}
 
 export function hasFrenchJournalTranslation(slug: string): boolean {
   return FRENCH_JOURNAL_SLUGS.includes(slug);

@@ -25,6 +25,7 @@ import {
 } from "node:fs";
 import { homedir } from "node:os";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import matter from "gray-matter";
 
 import { gateFichesInternes, gateNoms, gateRepetition, gateSlug } from "./journal-gates.mjs";
@@ -33,7 +34,18 @@ const REPO = path.resolve(import.meta.dirname, "..");
 const PROOFLINT = path.join(homedir(), "parrit-os/tools/prooflint.py");
 const REGISTRE = path.join(homedir(), "parrit-os/docs/content-factory-parrit/CONTENT-FACTORY-PARRIT.md");
 
-const args = process.argv.slice(2);
+export function journalMdxTraps(content) {
+const traps = [];
+content.split("\n").forEach((line, i) => {
+  if (/^ {4,}\S/.test(line) && !/^\s*[-*\d]/.test(line.trimStart()))
+    traps.push(`ligne ${i + 1} : indentée ≥4 espaces → CommonMark la rend en bloc de code`);
+});
+if (/Ã¢|â/.test(content)) traps.push("mojibake UTF-8 détecté (séquence â…)");
+if (/—/.test(content)) traps.push("tiret cadratin — présent (tell IA, doctrine voix)");
+return traps;
+}
+
+export function publishJournal(args = process.argv.slice(2)) {
 const dryRun = args.includes("--dry-run");
 const slugArg = args.find((a) => !a.startsWith("--"));
 if (!slugArg) {
@@ -110,13 +122,7 @@ if (!repetitionGate.ok) fail(repetitionGate.motif);
 console.log("✓ répétition : aucune collision ≥ 0.6");
 
 // ── gate 3 · pièges MDX gravés (session 15/08) ───────────────────────────────
-const traps = [];
-content.split("\n").forEach((line, i) => {
-  if (/^ {4,}\S/.test(line) && !/^\s*[-*\d]/.test(line.trimStart()))
-    traps.push(`ligne ${i + 1} : indentée ≥4 espaces → CommonMark la rend en bloc de code`);
-});
-if (/Ã¢|â/.test(content)) traps.push("mojibake UTF-8 détecté (séquence â…)");
-if (/—/.test(content)) traps.push("tiret cadratin — présent (tell IA, doctrine voix)");
+const traps = journalMdxTraps(content);
 if (traps.length) fail(`pièges MDX :\n   • ${traps.join("\n   • ")}`);
 console.log("✓ pièges MDX : aucun");
 
@@ -193,3 +199,7 @@ console.log(`✓ en prod : ${url}`);
 const today = new Date().toISOString().slice(0, 10);
 appendFileSync(REGISTRE, `| Journal parrit.ai · ${data.title} | publish-journal.mjs | publié ${today} · ${url} |\n`);
 console.log(`✓ registre Content Factory : ligne ajoutée (${REGISTRE})`);
+
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) publishJournal();
