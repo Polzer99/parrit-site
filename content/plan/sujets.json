@@ -9,7 +9,9 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 1,
+    "motif": "materiau_insuffisant"
   },
   {
     "id": "audit-ia-d-une-pme-que-regarde-t-on-en-deux-jours",
@@ -21,7 +23,9 @@
     "statut": "a_faire",
     "slug": null,
     "publie_le": null,
-    "these_pressentie": null
+    "these_pressentie": null,
+    "essais": 1,
+    "motif": "materiau_insuffisant"
   },
   {
     "id": "comment-choisir-le-premier-cas-d-usage-ia-rentable-dans-une-pme-indu",
