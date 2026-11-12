@@ -96,5 +96,17 @@
     "usage": {
       "cost": 0.01
     }
+  },
+  "queries": {
+    "usage": {
+      "cost": 0.001
+    },
+    "choices": [
+      {
+        "message": {
+          "content": "{\"institutions\": [\"PME industrie 2026 étude institutions\", \"PME industrie 2026 enquête baromètre rapport institutions\"], \"presse_editeurs\": [\"PME industrie 2026 étude presse_editeurs\", \"PME industrie 2026 enquête baromètre rapport presse_editeurs\"], \"contradiction\": [\"PME industrie 2026 étude contradiction\", \"PME industrie 2026 enquête baromètre rapport contradiction\"]}"
+        }
+      }
+    ]
   }
 }

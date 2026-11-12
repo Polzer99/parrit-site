@@ -71,7 +71,7 @@ async function harness(t, { armed = false, change = '', overrideFiles = files, o
     if (route === 'https://api.indexnow.org/indexnow') return reply('', 202);
     if (route.startsWith('/issues?')) return reply([]);
     if (route === '/issues' && method === 'POST') return reply({ number: 5, ...body });
-    if (route === '/git/ref/heads/journal/etat-machine') return reply({}, 404);
+    if (['/git/ref/heads/journal/etat', '/git/ref/heads/journal/etat-machine'].includes(route)) return reply({}, 404);
     if (route === '/git/refs/heads/main' && method === 'PATCH') return reply({});
     throw new Error(`UNEXPECTED NETWORK: ${method} ${url}`);
   };
@@ -140,14 +140,95 @@ test('requires the exact FR URL in sitemap, not an EN URL or a prefix match', as
   assert.equal(await provePublication({ slug, title: candidate.title, attempts: 1, fetchImpl: async (url) => reply(url.endsWith('sitemap.xml') ? `<loc>https://parrit.ai/fr/journal/${slug}-other</loc>` : '<h1>L’IA &amp; vous ?</h1>') }), false);
 });
 
-test('failure counters and JSONL persist as state PR without main write when disarmed', async (t) => {
+test('failure counters and JSONL persist on state branch without a PR without main write when disarmed', async (t) => {
   const { runtime, requests } = await harness(t);
   await runtime.persistState();
   const persisted = requests.find((call) => call.route === '/git/trees' && call.method === 'POST').body.tree;
   assert.deepEqual(persisted.map((entry) => entry.path), ['content/plan/sujets.json', 'content/plan/journal-runs.jsonl']);
   assert.equal(JSON.parse(persisted[0].content)[0].essais, 2);
-  assert.ok(requests.some((call) => call.body?.ref === 'refs/heads/journal/etat-machine'));
+  assert.ok(requests.some((call) => call.body?.ref === 'refs/heads/journal/etat'));
   assert.ok(!requests.some((call) => call.route === '/git/refs/heads/main'));
+  assert.ok(!requests.some((call) => call.route === '/pulls' && call.method === 'POST'));
+});
+
+test('even armed runs persist state without any main write or state PR', async t => {
+  const h = await harness(t, { armed: true });
+  await h.runtime.persistState();
+  assert.ok(h.requests.some(call => call.body?.ref === 'refs/heads/journal/etat'));
+  assert.ok(!h.requests.some(call => call.route === '/git/refs/heads/main' || call.route === '/pulls'));
+});
+
+for (const savedDate of ['2026-11-08T00:00:00Z', '2026-11-10T00:00:00Z']) test(`state older or equal preserves counters only: ${savedDate}`, async t => {
+  const h = await harness(t);
+  let contents = 0;
+  const runtime = createGitHubRuntime({ root: h.root, env: { GITHUB_REPOSITORY: 'test/repo', GITHUB_TOKEN: 'x' }, fetchImpl: async url => {
+    if (url.includes('/git/ref/heads/')) return reply({ object: { sha: url.endsWith('/main') ? 'base' : 'saved' } });
+    if (url.includes('/commits?')) return reply([{ commit: { committer: { date: url.includes('sha=saved') ? savedDate : '2026-11-10T00:00:00Z' } } }]);
+    if (url.includes('/contents/content/plan/sujets.json')) {
+      contents++;
+      return reply({ type: 'file', encoding: 'base64', content: Buffer.from(JSON.stringify([{ id: slug, statut: 'ecarte', essais: 3, motif: 'old reason' }])).toString('base64') });
+    }
+    throw new Error(`Unexpected request: ${url}`);
+  } });
+  await runtime.restoreState();
+  assert.equal(contents, 1);
+  const { readFile } = await import('node:fs/promises');
+  const topics = JSON.parse(await readFile(path.join(h.root, 'content/plan/sujets.json'), 'utf8'));
+  assert.equal(topics[0].essais, 3);
+  assert.equal(topics[0].statut, 'a_faire');
+  assert.equal(topics[0].motif, undefined);
+});
+
+test('existing state branch advances without force and a concurrent update refuses the write', async t => {
+  const h = await harness(t);
+  const requests = [];
+  const runtime = createGitHubRuntime({ root: h.root, env: { GITHUB_REPOSITORY: 'test/repo', GITHUB_TOKEN: 'x' }, fetchImpl: async (url, options) => {
+    const body = options.body ? JSON.parse(options.body) : undefined;
+    requests.push({ url, body });
+    if (url.endsWith('/git/ref/heads/journal/etat')) return reply({ object: { sha: 'saved' } });
+    if (url.endsWith('/git/commits/saved')) return reply({ tree: { sha: 'saved-tree' } });
+    if (url.endsWith('/git/refs/heads/journal/etat')) return reply({}, 422);
+    return h.fetchImpl(url, options);
+  } });
+  await assert.rejects(runtime.persistState(), /422/);
+  assert.deepEqual(requests.find(c => c.url.endsWith('/git/commits') && c.body).body.parents, ['saved']);
+  assert.deepEqual(requests.find(c => c.url.endsWith('/git/refs/heads/journal/etat')).body, { sha: 'candidate', force: false });
+  assert.ok(!h.requests.some(call => call.route === '/pulls' || call.route === '/git/refs/heads/main'));
+});
+
+test('invalid remote JSONL leaves both local files intact and prevents state overwrite', async t => {
+  const h = await harness(t);
+  const { readFile } = await import('node:fs/promises');
+  const original = await readFile(path.join(h.root, 'content/plan/sujets.json'), 'utf8');
+  const runtime = createGitHubRuntime({ root: h.root, env: { GITHUB_REPOSITORY: 'test/repo', GITHUB_TOKEN: 'x' }, fetchImpl: async (url, options) => {
+    assert.equal(options.method, 'GET');
+    if (url.includes('/git/ref/heads/')) return reply({ object: { sha: url.endsWith('/main') ? 'base' : 'saved' } });
+    if (url.includes('/commits?')) return reply([{ commit: { committer: { date: url.includes('sha=saved') ? '2026-11-12T00:00:00Z' : '2026-11-10T00:00:00Z' } } }]);
+    if (url.includes('/contents/')) return reply({ type: 'file', encoding: 'base64', content: Buffer.from(url.includes('sujets.json') ? JSON.stringify([{ id: slug, statut: 'ecarte', essais: 3 }]) : 'invalid json').toString('base64') });
+    throw new Error(`Unexpected request: ${url}`);
+  } });
+  await assert.rejects(runtime.restoreState());
+  assert.equal(await readFile(path.join(h.root, 'content/plan/sujets.json'), 'utf8'), original);
+  await assert.rejects(runtime.persistState(), /Restauration état échouée/);
+});
+
+test('first new run migrates legacy branch counters, then saves only journal/etat without PR', async t => {
+  const h = await harness(t);
+  const runtime = createGitHubRuntime({ root: h.root, env: { GITHUB_REPOSITORY: 'test/repo', GITHUB_TOKEN: 'x' }, fetchImpl: async (url, options) => {
+    if (url.endsWith('/git/ref/heads/journal/etat-machine')) return reply({ object: { sha: 'legacy' } });
+    if (url.includes('/commits?')) return reply([{ commit: { committer: { date: url.includes('sha=legacy') ? '2026-11-12T00:00:00Z' : '2026-11-10T00:00:00Z' } } }]);
+    if (url.includes('/contents/')) {
+      assert.ok(url.endsWith('?ref=legacy'));
+      return reply({ type: 'file', encoding: 'base64', content: Buffer.from(url.includes('sujets.json') ? JSON.stringify([{ id: slug, statut: 'ecarte', essais: 3 }]) : '{"date":"2026-11-12","issue":"echec"}\n').toString('base64') });
+    }
+    return h.fetchImpl(url, options);
+  } });
+  await runtime.restoreState();
+  await runtime.persistState();
+  const persisted = h.requests.find(c => c.route === '/git/trees' && c.method === 'POST').body.tree;
+  assert.equal(JSON.parse(persisted[0].content)[0].essais, 3);
+  assert.ok(h.requests.some(c => c.body?.ref === 'refs/heads/journal/etat'));
+  assert.ok(!h.requests.some(c => c.route === '/pulls' || c.body?.ref === 'refs/heads/journal/etat-machine'));
 });
 
 test('48h stall issue includes failure reasons and is assigned to Paul', async (t) => {
@@ -200,7 +281,9 @@ test('restore persists failed attempts across jobs and retains newly added main 
   await writeFile(path.join(h.root, 'content/plan/sujets.json'), JSON.stringify([{ id: slug, statut: 'a_faire' }, { id: 'new-topic', statut: 'a_faire' }, { id: 'published-topic', statut: 'publie' }]));
   const saved = JSON.stringify([{ id: slug, statut: 'ecarte', essais: 3, motif: 'source non vérifiée' }, { id: 'published-topic', statut: 'a_faire' }]);
   const runtime = createGitHubRuntime({ root: h.root, env: { GITHUB_REPOSITORY: 'test/repo', GITHUB_TOKEN: 'x' }, fetchImpl: async (url) => {
-    if (url.endsWith('/git/ref/heads/journal/etat-machine')) return reply({ object: { sha: 'saved' } });
+    if (url.endsWith('/git/ref/heads/journal/etat')) return reply({ object: { sha: 'saved' } });
+    if (url.endsWith('/git/ref/heads/main')) return reply({ object: { sha: 'base' } });
+    if (url.includes('/commits?')) return reply([{ commit: { committer: { date: url.includes('sha=saved') ? '2026-11-12T06:00:00Z' : '2026-11-10T06:00:00Z' } } }]);
     if (url.includes('/contents/content/plan/')) return reply({ type: 'file', encoding: 'base64', content: Buffer.from(url.includes('sujets.json') ? saved : '{"date":"2026-11-10","issue":"echec"}\n').toString('base64') });
     throw new Error(`UNEXPECTED NETWORK ${url}`);
   } });
@@ -249,7 +332,10 @@ test('old state branch cannot reduce main retry counts or replace current failur
   await writeFile(path.join(h.root, 'content/plan/sujets.json'), JSON.stringify([{ id: slug, statut: 'a_faire', essais: 2, motif: 'current failure' }]));
   const saved = JSON.stringify([{ id: slug, statut: 'a_faire', essais: 1, motif: 'stale failure' }]);
   const runtime = createGitHubRuntime({ root: h.root, env: { GITHUB_REPOSITORY: 'test/repo', GITHUB_TOKEN: 'x', JOURNAL_AUTOPUBLISH: '1' }, fetchImpl: async (url) => {
-    if (url.endsWith('/git/ref/heads/journal/etat-machine')) return reply({ object: { sha: 'saved' } });
+    if (url.endsWith('/git/ref/heads/journal/etat')) return reply({ object: { sha: 'saved' } });
+    if (url.endsWith('/git/ref/heads/main')) return reply({ object: { sha: 'base' } });
+    if (url.includes('/commits?') && url.includes('journal-runs.jsonl')) return reply([]);
+    if (url.includes('/commits?')) return reply([{ commit: { committer: { date: url.includes('sha=saved') ? '2026-11-12T06:00:00Z' : '2026-11-10T06:00:00Z' } } }]);
     if (url.includes('sujets.json')) return reply({ type: 'file', encoding: 'base64', content: Buffer.from(saved).toString('base64') });
     if (url.includes('journal-runs.jsonl')) return reply({}, 404);
     throw new Error(`UNEXPECTED NETWORK ${url}`);
