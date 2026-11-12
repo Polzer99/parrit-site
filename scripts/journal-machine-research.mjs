@@ -1,3 +1,4 @@
+import { sourceFailure } from './journal-machine-io.mjs';
 /** Bounded research; evidence stays in memory, diagnostics contain no page excerpts. */
 import { PRIMARY_DOMAINS, REFUSED_DOMAINS, publicSourceUrl, fetchSource, sourceFresh, exactText, numericFacts } from './journal-machine-gates.mjs';
 
@@ -51,7 +52,7 @@ function parseSources(message, topic, today, diagnostics, unique) {
 }
 
 // Keep useful error text, but never credentials, URL payloads or serialized bodies.
-export function safeResearchError(error) {
+export function safeResearchError(error, limit = 200) {
   let message = String(error?.message || 'recherche échouée');
   for (const [key, value] of Object.entries(process.env)) {
     if (/KEY|TOKEN|SECRET|PASSWORD|CREDENTIAL/i.test(key) && value) message = message.split(value).join('[secret]');
@@ -59,7 +60,7 @@ export function safeResearchError(error) {
   return message.replace(/https?:\/\/\S+/gi, '[url]')
     .replace(/(?:bearer\s+)[^\s,;]+/gi, 'Bearer [secret]')
     .replace(/(?:api[_-]?key|token|secret|password|authorization)["']?\s*[:=]\s*["']?[^\s,;"'}]+/gi, '[secret]')
-    .replace(/\b(?:sk-|sk_)[a-z0-9_-]+/gi, '[secret]').replace(/[\r\n]+/g, ' ').slice(0, 200);
+    .replace(/\b(?:sk-|sk_)[a-z0-9_-]+/gi, '[secret]').replace(/[\r\n]+/g, ' ').slice(0, limit);
 }
 
 export function researchSources(message, topic, today, diagnostics) {
@@ -150,9 +151,10 @@ export async function verifiedMaterial(sources, options = {}, diagnostics) {
   const today = options.today || new Date().toISOString().slice(0, 10);
   for (const source of sources.slice(24)) rejected(diagnostics, source, 'limite_pages');
   const results = [];
-  // Promise.all preserves relevance order even when later pages respond first.
+  // Settle every worker before starting the next batch, preserving relevance order.
   for (let start = 0; start < Math.min(sources.length, 24); start += 4) {
-    results.push(...await Promise.all(sources.slice(start, Math.min(start + 4, 24)).map(async source => {
+    const batch = sources.slice(start, Math.min(start + 4, 24));
+    const settled = await Promise.allSettled(batch.map(async source => {
       try {
         const { text, publication } = await fetchSource(source.url, { ...options, details: true, today });
         if (!publication) return { source, motif: 'sans_date' };
@@ -168,10 +170,10 @@ export async function verifiedMaterial(sources, options = {}, diagnostics) {
         if (!facts.length) return { source, motif: 'sans_chiffre' };
         return { accepted: { ...dated, facts, text } };
       } catch (error) {
-        const http = error.message.match(/^HTTP (\d+)$/);
-        return { source, motif: http ? `http_${http[1]}` : /refusé|registre|privée|non publique/.test(error.message) ? 'domaine_refuse' : 'source_inaccessible' };
+        return { source, motif: sourceFailure(error) };
       }
-    })));
+    }));
+    results.push(...settled.map((result, index) => result.status === 'fulfilled' ? result.value : { source: batch[index], motif: sourceFailure(result.reason) }));
   }
   const accepted = [];
   for (const result of results) {

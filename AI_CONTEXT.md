@@ -1,16 +1,22 @@
-## Polissage UI, 12/11/2026 — validation hôte restante
+## Robustesse des délais Journal, 12/11/2026
 
-Spec `docs/CODEX-SPEC-2026-11-12-polissage-ui-skills-design.md`, baseline d7da52b.
-DESIGN.md décrit le code servi, Brand OS reste source ; anciens design systems
-marqués historiques. Six logos sur une ligne ordinateur par réduction de l'espace
-des boîtes, images intactes ; contour permanent technologies retiré, focus conservé ;
-espace du chapeau Journal, appuis natifs et transitions réduites explicités.
-Cal.com 24 h : aucune option d'embed documentée trouvée, intégration inchangée.
-Trois nouveaux tests Node passent, douze cas navigateur ajoutés et quatre renforcés.
-Installation npm bloquée ENOTFOUND puis ENOTCACHED ; lint/build/marque et suites
-complètes non validés (dépendances absentes). Aucun rendu/CLS ni effet production
-prouvé. Spec préexistante et llms inchangés ; aucun commit/push/déploiement.
-Détail et reprise : `docs/REPORT-2026-11-12-polissage-ui-skills-design.md`.
+Spec `docs/CODEX-SPEC-2026-11-12-journal-robustesse-delais.md`, base 8785098.
+Délais sans promesse orpheline : opération créée après contrôle du signal,
+corps/PDF protégés, 5 Mo maximum, lots de quatre via allSettled ; cache de texte
+consommé remplaçant Response.clone. Motifs délai/taille/réseau distincts.
+OpenRouter : 90/180/60 s recherche/rédaction/juge, une relance après 5 s sur
+délai/429/5xx, puis motif par étape et sujet suivant. Portes/budget inchangés.
+Filet main/unhandledRejection : diagnostic crash expurgé (300 caractères),
+étape/sujet, sauvegarde journal/etat et sortie 1 ; reprise des logs crash acceptée.
+Arrêt propagé aux écritures de publication, sauvegarde de secours indépendante ;
+restauration échouée toujours protégée contre tout écrasement distant.
+Validation : 187 → 217 tests machine ; deux batteries consécutives npm ci,
+lint, build Webpack et 549/549 tests verts. Audits marque/claims et dry-run verts.
+Test à fenêtre 10 ms stabilisé par déclenchement explicite du signal ; vrai
+rejet non traité testé dans un sous-processus Node. Revue indépendante sans
+défaut bloquant après corrections. Spec préexistante inchangée, aucun commit,
+push, déploiement, appel LLM réel ou preuve production. Rapport :
+`docs/REPORT-2026-11-12-journal-robustesse-delais.md`.
 
 ## Dates des sources Journal, 12/11/2026
 
