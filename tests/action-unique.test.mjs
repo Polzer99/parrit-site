@@ -34,7 +34,7 @@ for (const locale of ["fr", "en"]) {
     assert.doesNotMatch(html, /data-connector=/);
   });
 
-  test(`one home action, two crafts, eight authorized references (${locale})`, async () => {
+  test(`one home action, two crafts, six authorized references (${locale})`, async () => {
     const html = await renderPage(locale);
     const actions = [...html.matchAll(/<a class="([^"]*rev-button[^"]*)" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
     const booking = actions.filter(([, , href]) => new URL(href, "https://example.invalid").hash === "#contact");
@@ -60,8 +60,11 @@ for (const locale of ["fr", "en"]) {
     assert.doesNotMatch(visibleText(html.replace(/<section id="articles">[\s\S]*?<\/section>/, "")), /\b(?:formations?|former|formons|forme|formateurs?|training|train|trains|trainers)\b|parler d'un projet|talk about a project|conseil et outils|[—–]|afin de/i);
     const refs = html.match(/<section id="references"[\s\S]*?<\/section>/)[0];
     const { PUBLIC_CLIENT_NAMES } = loader(locale)("src/system/public-clients.ts");
-    assert.equal(PUBLIC_CLIENT_NAMES.length, 8);
-    for (const name of PUBLIC_CLIENT_NAMES) assert.ok(refs.includes(`data-evidence="${name}"`), name);
+    const { getSiteEvidence } = loader(locale)("src/lib/registry/preuves.ts");
+    const homeClients = PUBLIC_CLIENT_NAMES.filter(name => getSiteEvidence(name, "home"));
+    assert.deepEqual(homeClients, ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF", "Carte Noire"]);
+    for (const name of homeClients) assert.ok(refs.includes(`data-evidence="${name}"`), name);
+    assert.doesNotMatch(refs, /toyotomi|hiolle/i);
   });
 
   test(`reassurance, accountability and initially open FAQ survive SSR (${locale})`, async () => {
@@ -132,9 +135,10 @@ test("new client permissions are independently dated, scoped and fail closed", (
   }
 });
 
-test("three new logo exports keep reviewed bytes, alpha masks and optical source height", async () => {
-  const fixtures = JSON.parse(readFileSync("tests/fixtures/new-client-logos.json", "utf8"));
-  assert.equal(fixtures.length, 3);
+test("authorized new logo export keeps reviewed bytes, alpha masks and optical source height", async () => {
+  const fixtures = JSON.parse(readFileSync("tests/fixtures/new-client-logos.json", "utf8"))
+    .filter(asset => asset.file === "public/clients/carte-noire.png");
+  assert.equal(fixtures.length, 1);
   const provenance = readFileSync("public/clients/SOURCES.md", "utf8");
   for (const asset of fixtures) {
     const bytes = readFileSync(asset.file);
@@ -178,4 +182,3 @@ for (const locale of ["fr", "en"]) test(`contact action preserves attribution an
     assert.ok(visibleText(articles).includes(entry.title));
   }
 });
-

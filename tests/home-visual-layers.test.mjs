@@ -139,7 +139,9 @@ for (const locale of ["fr", "en"]) {
     const images = [...references.matchAll(/<img src="([^"]+)"/g)].map(m => m[1]);
     const { SITE_EVIDENCE, publicationLogo, getSiteEvidence } = load("src/lib/registry/preuves.ts");
     const allowed = SITE_EVIDENCE.filter(e => getSiteEvidence(e.id, "home")).map(e => publicationLogo(e.logo)).filter(Boolean);
-    assert.equal(images.length, 8);
+    assert.equal(images.length, 6);
+    assert.equal(images.length, allowed.length);
+    assert.doesNotMatch(references, /toyotomi|hiolle/i);
     for (const src of images) assert.ok(allowed.includes(src));
     assert.doesNotMatch(references, /mask-image/);
   });
@@ -226,4 +228,3 @@ test("entrances reveal once, react to reduced motion, and disconnect on cleanup"
   assert.equal(instances.length, count, "no observer is armed in reduced motion");
   stopReduced();
 });
-

@@ -54,7 +54,7 @@ export function journalThemeJsonLd(copy: Pick<GuideCopy, "title" | "description"
   ];
 }
 
-export function blogPostingJsonLd(entry: Pick<JournalEntry, "slug" | "title" | "date" | "description">, locale: Locale = "en") {
+export function blogPostingJsonLd(entry: Pick<JournalEntry, "slug" | "title" | "date" | "description" | "updatedAt" | "author">, locale: Locale = "en") {
   const canonical = `https://parrit.ai${localizedPath(`/journal/${entry.slug}`, locale)}`;
   return {
     "@context": "https://schema.org",
@@ -62,7 +62,7 @@ export function blogPostingJsonLd(entry: Pick<JournalEntry, "slug" | "title" | "
     "@id": `${canonical}#article`,
     headline: entry.title,
     datePublished: entry.date,
-    dateModified: entry.date,
+    dateModified: entry.updatedAt ?? entry.date,
     image: `https://parrit.ai/journal/${entry.slug}/og`,
     inLanguage: locale,
     publisher: {
@@ -70,8 +70,24 @@ export function blogPostingJsonLd(entry: Pick<JournalEntry, "slug" | "title" | "
       logo: { "@type": "ImageObject", url: "https://parrit.ai/icon.png" },
     },
     description: entry.description,
-    author: orgRef(),
+    author: entry.author ? {
+      "@type": "Person",
+      ...(entry.author === "Paul Larmaraud" ? { "@id": "https://parrit.ai/#founder" } : {}),
+      name: entry.author,
+    } : orgRef(),
     mainEntityOfPage: canonical,
+  };
+}
+
+export function journalFaqJsonLd(entry: Pick<JournalEntry, "faq">, locale: Locale) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: locale,
+    mainEntity: (entry.faq ?? []).map(({ q, a }) => ({
+      "@type": "Question", name: q,
+      acceptedAnswer: { "@type": "Answer", text: a },
+    })),
   };
 }
 

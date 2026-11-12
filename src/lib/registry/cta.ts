@@ -10,7 +10,6 @@
  */
 
 import type { EventName } from "@/lib/analytics";
-import { localizedPath } from "@/system/locale";
 
 export type CtaAction =
   | "ouvrir_formulaire"
@@ -177,9 +176,16 @@ export function getCta(id: CtaId): Cta {
  * Résout la destination d'un CTA : substitue la langue et pose `?source=`.
  * Le `source` n'est JAMAIS facultatif — c'est lui qui rend l'attribution possible.
  */
+// Booking attribution only needs this fixed bilingual route, not the full
+// Journal translation registry (which is also bundled into client navigation).
+export function bookingPath(lang: string): string {
+  return lang === "fr" ? "/fr/rendez-vous" : "/rendez-vous";
+}
+
 export function ctaHref(id: CtaId, lang: string, source: string): string {
   const cta = REGISTRE[id];
-  return avecSource(localizedPath(cta.cible.replace("{lang}", lang), lang === "fr" ? "fr" : "en"), source);
+  const target = cta.cible.replace("{lang}", lang);
+  return avecSource(target === "/rendez-vous" ? bookingPath(lang) : target, source);
 }
 
 /**

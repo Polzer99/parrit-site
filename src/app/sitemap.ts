@@ -39,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       return locales.map(locale => ({
         url: `${SITE_URL}${localizedPath(path, locale)}`,
         alternates: { languages: Object.fromEntries(Object.entries(localizedAlternates(path, locale).languages).map(([lang, url]) => [lang, `${SITE_URL}${url}`])) },
-        lastModified: new Date(entry.date),
+        lastModified: new Date(entry.updatedAt ?? entry.date),
         changeFrequency: "monthly" as const,
         priority: 0.7,
       }));

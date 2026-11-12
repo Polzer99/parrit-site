@@ -1,5 +1,4 @@
-import { avecSource } from "@/lib/registry/cta";
-import { localizedPath } from "@/system/locale";
+import { avecSource, bookingPath } from "@/lib/registry/cta";
 
 /** Attribution de la visite en mémoire ; perdue au rechargement du document. */
 
@@ -105,7 +104,7 @@ export function buildRdvHref(source: string, lang: string = "fr"): string {
   UTM_KEYS.forEach((k) => {
     if (utms[k]) params.set(k, utms[k]);
   });
-  const path = localizedPath("/rendez-vous", lang === "fr" ? "fr" : "en");
+  const path = bookingPath(lang);
   const query = params.toString();
   return avecSource(query ? `${path}?${query}` : path, source);
 }

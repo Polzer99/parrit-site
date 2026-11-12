@@ -17,6 +17,12 @@ export type JournalEntry = {
   slug: string;
   noindex: boolean;
   content: string;
+  updatedAt?: string;
+  pilier?: string;
+  requete?: string;
+  author?: string;
+  sources?: { label: string; url: string; publisher?: string; published_at?: string }[];
+  faq?: { q: string; a: string }[];
 };
 
 export type JournalEntrySummary = Omit<JournalEntry, "content"> & { readingMinutes: number };
@@ -45,7 +51,7 @@ function parseFrontmatter(filename: string, data: Record<string, unknown>): Jour
     }
   }
 
-  const frontmatter = {
+  const frontmatter: JournalFrontmatter = {
     title: requireString(data, "title", filename),
     date: requireString(data, "date", filename),
     description: requireString(data, "description", filename),
@@ -64,6 +70,50 @@ function parseFrontmatter(filename: string, data: Record<string, unknown>): Jour
 
   if (`${frontmatter.slug}.mdx` !== filename) {
     throw new Error(`Journal entry ${filename} must match its frontmatter slug.`);
+  }
+
+  for (const field of ["updatedAt", "pilier", "requete", "author"] as const) {
+    if (data[field] !== undefined) frontmatter[field] = requireString(data, field, filename);
+  }
+  if (frontmatter.updatedAt !== undefined && (
+    !ISO_DATE.test(frontmatter.updatedAt) ||
+    Number.isNaN(Date.parse(frontmatter.updatedAt)) ||
+    new Date(frontmatter.updatedAt).toISOString().slice(0, 10) !== frontmatter.updatedAt ||
+    frontmatter.updatedAt < frontmatter.date
+  )) throw new Error(`Journal entry ${filename} has an invalid updatedAt.`);
+
+  for (const field of ["sources", "faq"] as const) {
+    const value = data[field];
+    if (value === undefined) continue;
+    if (!Array.isArray(value)) throw new Error(`Journal entry ${filename} has invalid ${field}.`);
+    const pairs = value.map((item: unknown) => {
+      const keys = field === "sources" ? ["label", "url"] : ["q", "a"];
+      if (!item || typeof item !== "object" || keys.some(key =>
+        !(key in item) || typeof (item as Record<string, unknown>)[key] !== "string" ||
+        !(item as Record<string, string>)[key].trim()
+      )) throw new Error(`Journal entry ${filename} has invalid ${field}.`);
+      const record = item as Record<string, string>;
+      return keys.map(key => record[key].trim());
+    });
+    if (field === "sources") {
+      frontmatter.sources = pairs.map(([label, url], index) => {
+        let parsed: URL;
+        try { parsed = new URL(url); } catch { throw new Error(`Journal entry ${filename} has an invalid source URL.`); }
+        if (!["https:", "http:"].includes(parsed.protocol) || parsed.username || parsed.password) {
+          throw new Error(`Journal entry ${filename} has an invalid source URL.`);
+        }
+        const item = value[index] as Record<string, unknown>;
+        const details: { publisher?: string; published_at?: string } = {};
+        for (const key of ["publisher", "published_at"] as const) {
+          if (item[key] !== undefined) {
+            if (typeof item[key] !== "string" || !item[key].trim()) throw new Error(`Journal entry ${filename} has invalid source ${key}.`);
+            details[key] = item[key].trim();
+          }
+        }
+        if (details.published_at && (!ISO_DATE.test(details.published_at) || !Number.isFinite(Date.parse(details.published_at)) || new Date(details.published_at).toISOString().slice(0, 10) !== details.published_at)) throw new Error(`Journal entry ${filename} has invalid source date.`);
+        return { label, url, ...details };
+      });
+    } else frontmatter.faq = pairs.map(([q, a]) => ({ q, a }));
   }
 
   return frontmatter;
@@ -100,13 +150,11 @@ function publishedEntry(entry: JournalFile, today: string): JournalEntry | undef
 function localizedEntry(entry: JournalEntry, locale: Locale): JournalEntry {
   if (locale !== "fr" || entry.noindex || !hasFrenchJournalTranslation(entry.slug)) return entry;
   const translated = readJournalFile(`${entry.slug}.mdx`, "fr");
-  if (translated.date !== entry.date || translated.noindex !== entry.noindex || translated.draft) {
+  const { draft, ...localized } = translated;
+  if (translated.date !== entry.date || translated.noindex !== entry.noindex || draft) {
     throw new Error(`Journal translation ${entry.slug} has inconsistent publication metadata.`);
   }
-  return {
-    title: translated.title, description: translated.description, date: translated.date,
-    slug: translated.slug, noindex: translated.noindex, content: translated.content,
-  };
+  return localized;
 }
 
 export function getAllJournalEntries(locale: Locale = "en"): JournalEntry[] {
@@ -131,12 +179,8 @@ export function getAllJournalEntries(locale: Locale = "en"): JournalEntry[] {
 }
 
 export function getAllJournalEntrySummaries(locale: Locale = "en"): JournalEntrySummary[] {
-  return getAllJournalEntries(locale).map(({ title, date, description, slug, noindex, content }) => ({
-    title,
-    date,
-    description,
-    slug,
-    noindex,
+  return getAllJournalEntries(locale).map(({ content, ...summary }) => ({
+    ...summary,
     readingMinutes: journalReadingMinutes(content),
   }));
 }
