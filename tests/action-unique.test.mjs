@@ -60,6 +60,11 @@ for (const locale of ["fr", "en"]) {
     assert.doesNotMatch(visibleText(html.replace(/<section id="articles">[\s\S]*?<\/section>/, "")), /\b(?:formations?|former|formons|forme|formateurs?|training|train|trains|trainers)\b|parler d'un projet|talk about a project|conseil et outils|[—–]|afin de/i);
     const refs = html.match(/<section id="references"[\s\S]*?<\/section>/)[0];
     const { PUBLIC_CLIENT_NAMES } = loader(locale)("src/system/public-clients.ts");
+    assert.equal(PUBLIC_CLIENT_NAMES.length, 6);
+    assert.doesNotMatch(PUBLIC_CLIENT_NAMES.join("|"), /Toyotomi Europe|Hiolle Technologies/i);
+    assert.equal((refs.match(/data-evidence=/g) ?? []).length, 6);
+    for (const name of PUBLIC_CLIENT_NAMES) assert.ok(refs.includes(`data-evidence="${name}"`), name);
+    assert.doesNotMatch(html, /Toyotomi Europe|Hiolle Technologies/i);
     const { getSiteEvidence } = loader(locale)("src/lib/registry/preuves.ts");
     const homeClients = PUBLIC_CLIENT_NAMES.filter(name => getSiteEvidence(name, "home"));
     assert.deepEqual(homeClients, ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF", "Carte Noire"]);

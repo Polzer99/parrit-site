@@ -236,6 +236,7 @@ for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos a
   const strip = html.match(/<section id="references">([\s\S]*?)<\/section>/)?.[1];
   assert.ok(strip);
   assert.equal((strip.match(/role="img"/g) ?? []).length, 6);
+  assert.doesNotMatch(html, /Toyotomi Europe|Hiolle Technologies/i);
   assert.doesNotMatch(strip, /toyotomi|hiolle/i);
   assert.doesNotMatch(html, /mask-image:url\(https?:/);
   const founder = html.match(/<h2>Paul Larmaraud,[\s\S]*?<\/h2>/)?.[0];

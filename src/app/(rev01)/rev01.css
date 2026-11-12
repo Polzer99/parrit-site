@@ -1073,6 +1073,10 @@ h3 {
   line-height: 1.65;
 }
 
+.journal-header .journal-entry-meta {
+  margin-top: var(--brand-s2);
+}
+
 .journal-list {
   margin: 0 0 var(--s8);
   padding: 0;

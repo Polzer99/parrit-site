@@ -1,6 +1,7 @@
 import { test, expect } from "./network-deny.setup";
 
 const BASE = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
+test.use({ serviceWorkers: "block" });
 function local(path: string) {
   const url = new URL(path, BASE);
   expect(["localhost", "127.0.0.1"]).toContain(url.hostname);
@@ -282,3 +283,52 @@ for (const locale of ["fr", "en"]) test(`home Journal link loads the same latest
   expect(actual).toEqual(expected);
 });
 
+// Polissage du 12/11 : focus des technologies et états des contrôles natifs.
+for (const locale of ["fr", "en"] as const) {
+  for (const width of [1440, 390]) {
+    test(`UI polish: technology focus ${locale} ${width}`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 800 });
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.goto(local(locale === "fr" ? "/fr" : "/"));
+      await page.evaluate(() => document.fonts.ready);
+      await expect(page.locator(".logo-set:not([aria-hidden]) .client-logo")).toHaveCount(6);
+      const technologies = page.locator("#technologies");
+      await technologies.scrollIntoViewIfNeeded();
+      await technologies.focus();
+      await expect(technologies).toHaveCSS("outline-style", "solid");
+      await expect(technologies).toHaveCSS("outline-width", "2px");
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+    });
+  }
+
+  test(`UI polish: technology scroll pauses on focus ${locale}`, async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 800 });
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto(local(locale === "fr" ? "/fr" : "/"));
+    const track = page.locator(".tech-track");
+    await expect(track).toHaveCSS("animation-name", "technology-scroll");
+    await page.locator("#technologies").focus();
+    await expect(track).toHaveCSS("animation-play-state", "paused");
+  });
+
+  test(`UI polish: native controls expose their pressed state ${locale}`, async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 800 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(local(locale === "fr" ? "/fr" : "/"));
+    for (const control of [page.locator(".mobile-menu summary"), page.locator(".home-faq summary").first()]) {
+      await control.scrollIntoViewIfNeeded();
+      await control.hover();
+      await page.mouse.down();
+      try {
+        await expect(control).toHaveCSS("text-decoration-line", "underline");
+      } finally {
+        await page.mouse.up();
+      }
+      await control.focus();
+      await page.keyboard.press("Tab");
+      await page.keyboard.press("Shift+Tab");
+      await expect(control).toBeFocused();
+      await expect(control).toHaveCSS("outline-style", "solid");
+    }
+  });
+}
