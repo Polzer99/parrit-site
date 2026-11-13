@@ -5,15 +5,14 @@ import { avecSource } from "@/lib/registry/cta";
 import { localizedPath, type Locale } from "@/system/locale";
 
 /** Décision de Paul du 08/11/2026, nuit : one action, attributed by placement. */
-export function AppointmentLink({ locale, placement, query = "", children, primary = true, attributionSource }: {
+export function AppointmentLink({ locale, placement, query = "", children, primary = true }: {
   locale: Locale;
   placement: "nav" | "hero" | "bandeau" | "contact";
   query?: string;
   children?: ReactNode;
   primary?: boolean;
-  attributionSource?: string;
 }) {
-  const source = attributionSource ?? `rdv-${placement}`;
+  const source = `rdv-${placement}`;
   const href = avecSource(localizedPath(`/${query ? `?${query}` : ""}#contact`, locale), source);
   const navigate = (event: MouseEvent<HTMLAnchorElement>) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;

@@ -12,6 +12,7 @@ import { unstable_getResponseFromNextConfig } from "next/dist/experimental/testi
 import { loader } from "./helpers/site-v1-render.mjs";
 import { getAllJournalEntries } from "../src/system/journal-data.ts";
 import { hasFrenchJournalTranslation } from "../src/system/journal-translations.ts";
+import { orgRef } from "../src/system/auteur.ts";
 import { blogPostingJsonLd, personJsonLd } from "../src/system/jsonld.ts";
 
 const origin = "http://localhost:3210";
@@ -113,13 +114,13 @@ for (const locale of ["en", "fr"]) {
     }
   });
 
-  test(`Article and home share the exact Person identity: ${locale}`, () => {
+  test(`Article keeps Organization and home retains Person identity: ${locale}`, () => {
     const entry = getAllJournalEntries()[0];
     const article = blogPostingJsonLd(entry, locale);
     const { "@context": context, ...person } = personJsonLd(locale);
     assert.equal(context, "https://schema.org");
-    assert.deepEqual(article.author, person);
-    assert.equal(person["@id"], "https://parrit.ai/#paul-larmaraud");
+    assert.deepEqual(article.author, orgRef());
+    assert.equal(person["@id"], "https://parrit.ai/#founder");
     assert.equal(person["@type"], "Person");
     assert.equal(person.name, "Paul Larmaraud");
     assert.equal(person.worksFor["@id"], article.publisher["@id"]);
@@ -127,7 +128,7 @@ for (const locale of ["en", "fr"]) {
 }
 
 for (const locale of ["en", "fr"]) for (const machine of [false, true]) for (const updatedAt of [undefined, "2026-11-01", "2026-11-02"]) {
-  test(`signature follows the deck and only distinct update dates appear: ${locale}, machine=${machine}, updated=${updatedAt}`, async () => {
+  test(`article header has no signature and keeps distinct localized dates: ${locale}, machine=${machine}, updated=${updatedAt}`, async () => {
     const { default: ReactMarkdown } = await import("react-markdown");
     const entry = {
       slug: "one-card-one-action", title: "Titre", date: "2026-11-01", updatedAt,
@@ -141,15 +142,18 @@ for (const locale of ["en", "fr"]) for (const machine of [false, true]) for (con
       "@/system/components": { HarnessBadge: () => null },
     })("src/system/pages/article.tsx");
     const html = renderToStaticMarkup(await page.default({ params: Promise.resolve({ slug: entry.slug }) }));
-    const byline = html.match(/<p class="journal-byline">([\s\S]*?)<\/p>/)?.[1];
-    assert.ok(byline);
-    assert.ok(html.indexOf("Chapeau de test.</p>") < html.indexOf('class="journal-byline"'));
-    assert.ok(html.indexOf('class="journal-byline"') < html.indexOf("<h2>Suite</h2>"));
-    assert.ok(byline.includes(locale === "fr" ? "Publié le " : "Published on "));
-    assert.equal(byline.includes(locale === "fr" ? "Mis à jour le " : "Updated on "), Boolean(updatedAt && updatedAt !== entry.date));
-    assert.equal((byline.match(/<time /g) ?? []).length, updatedAt && updatedAt !== entry.date ? 2 : 1);
+    const header = html.match(/<header class="journal-header">([\s\S]*?)<\/header>/)?.[1];
+    assert.ok(header);
+    assert.doesNotMatch(header, /Paul|Larmaraud|fondateur|founder/i);
+    assert.doesNotMatch(html, /journal-byline/);
+    const metadata = await page.generateMetadata({ params: Promise.resolve({ slug: entry.slug }) });
+    assert.deepEqual(metadata.authors, [{ name: entry.author ?? "Parrit.ai", ...(entry.author ? {} : { url: "https://parrit.ai" }) }]);
+    assert.equal(header.includes(locale === "fr" ? "Mis à jour le " : "Updated on "), Boolean(updatedAt && updatedAt !== entry.date));
+    assert.equal((header.match(/<time /g) ?? []).length, updatedAt && updatedAt !== entry.date ? 2 : 1);
     const dateLabel = new Intl.DateTimeFormat(locale === "fr" ? "fr-FR" : "en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(entry.date));
-    assert.ok(byline.includes(dateLabel));
+    assert.ok(header.includes(dateLabel));
+    if (!machine) assert.match(header, /class="journal-deck"[^>]*>Chapeau de test\.<\/p><div class="journal-entry-meta">/);
+    assert.ok(html.includes("<h2>Suite</h2>"));
     const booking = `${locale === "fr" ? "/fr" : ""}/rendez-vous?source=journal-${entry.slug}`;
     assert.equal(html.split(`href="${booking}"`).length - 1, 1);
   });

@@ -17,7 +17,7 @@ test("all mandatory public routes are prerendered; home, booking and sketch rema
   for (const path of ["/", "/fr", "/rendez-vous", "/fr/rendez-vous", "/sketch/test"]) assert.ok(!Object.hasOwn(manifest.routes, path), path);
 });
 
-test("production renderer returns cacheable URL-localized HTML with identical metadata, Person and related dates", { timeout: 90000 }, async () => {
+test("production renderer returns cacheable URL-localized HTML with identical metadata, Organization and related dates", { timeout: 90000 }, async () => {
   await withCompiledSite(async render => {
     for (const path of staticPaths) {
       const locale = path.startsWith("/fr/") ? "fr" : "en";
@@ -34,10 +34,14 @@ test("production renderer returns cacheable URL-localized HTML with identical me
       const entry = entries.find(entry => entry.slug === slug);
       const data = [...response.html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
       const article = data.find(item => item["@type"] === "Article");
-      assert.equal(article.author["@id"], "https://parrit.ai/#paul-larmaraud");
-      assert.equal(article.author.worksFor["@id"], article.publisher["@id"]);
+      assert.deepEqual(article.author, { "@type": "Organization", "@id": "https://parrit.ai/#organization", name: "Parrit.ai", url: "https://parrit.ai" });
+      assert.equal(article.author["@id"], article.publisher["@id"]);
       assert.equal(article.datePublished, entry.date);
-      assert.ok(response.html.includes(locale === "fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai"));
+      const header = response.html.match(/<header class="journal-header">([\s\S]*?)<\/header>/)?.[1];
+      assert.ok(header);
+      assert.doesNotMatch(header, /Paul|Larmaraud|fondateur|founder|journal-byline/i);
+      assert.ok(response.html.includes('<meta name="author" content="Parrit.ai"/>'));
+      assert.ok(response.html.includes('<link rel="author" href="https://parrit.ai"/>'));
       for (const [language, href] of Object.entries(localizedAlternates(`/journal/${slug}`, locale).languages)) assert.ok(response.html.includes(`hrefLang="${language}" href="https://parrit.ai${href}"`));
       const related = response.html.match(/<nav class="journal-related"[^>]*>([\s\S]*?)<\/nav>/)?.[1] ?? "";
       for (const [, date, label] of related.matchAll(/<time dateTime="([^"]+)">([^<]+)<\/time>/g)) {

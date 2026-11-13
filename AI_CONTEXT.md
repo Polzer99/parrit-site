@@ -1,3 +1,17 @@
+## Passe site, Correctif 4 — 13/11/2026
+
+Signature ajoutée et auteur imposé retirés ; identité Journal Parrit.ai restaurée.
+Contrats machine préexistants restaurés à l'identique de origin/main, pied conservé.
+Dates localisées conservées, chapeau adjacent au temps de lecture, CSS intacte.
+Source du bouton = rdv-nav, UTM hydratés filtrés, sans attributionSource.
+Tests langue statique/JS et sept liens alignés ; aucun seuil abaissé.
+Deux batteries lint/build Webpack (96 pages)/marque/586 tests vertes.
+Aucun Chromium lancé. Quatre intentions sans JS restent incompatibles avec
+le cache (test conservé) ; course d'hydratation header switches à vérifier.
+Revue indépendante effectuée ; aucune preuve navigateur finale ni production.
+Rapport : docs/REPORT-2026-11-12-passe-site.md, section Correctif 4.
+Commit local sans push ; six PNG préexistants préservés et exclus.
+
 ## Passe site, Correctif 3 — 13/11/2026
 
 Merge local origin/main `c2e7ada` terminé par `805ac63`, seul conflit AI_CONTEXT

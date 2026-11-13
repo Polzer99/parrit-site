@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 
 import { getLocale } from "@/lib/server/locale";
 import type { Locale } from "@/system/locale";
+import { AUTEUR } from "@/system/auteur";
 import { blogPostingJsonLd, journalFaqJsonLd } from "@/system/jsonld";
 import { HarnessBadge } from "@/system/components";
 import { BookingCall } from "@/system/components/BookingCall";
@@ -47,7 +48,7 @@ export async function generateMetadata({ params }: JournalArticlePageProps, rout
   };
   return {
     title: entry.title,
-    authors: [{ name: "Paul Larmaraud", url: "https://parrit.ai/#paul-larmaraud" }],
+    authors: [{ name: entry.author ?? AUTEUR.nom, ...(entry.author ? {} : { url: AUTEUR.url }) }],
     description: entry.description,
     alternates: { canonical, languages: Object.fromEntries(Object.entries(alternates.languages).map(([language, url]) => [language, `${SITE_URL}${url}`])) },
     openGraph: {
@@ -90,12 +91,6 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
   const MachineBody = machine?.JournalMachineBody;
   const MachineFooter = machine?.JournalMachineFooter;
 
-  const byline = <p className="journal-byline">
-            {locale === "fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai"}
-            {" · "}{locale === "fr" ? "Publié le " : "Published on "}<time dateTime={entry.date}>{formatDate(entry.date)}</time>
-            {entry.updatedAt && entry.updatedAt !== entry.date ? <> · {locale === "fr" ? "Mis à jour le " : "Updated on "}<time dateTime={entry.updatedAt}>{formatDate(entry.updatedAt)}</time></> : null}
-          </p>;
-
   return (
     <main className="rev-page">
       <script
@@ -108,11 +103,12 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
       }} /> : null}
       <article className="rev-wrap journal-article">
         <header className="journal-header">
+          <p><time dateTime={entry.date}>{formatDate(entry.date)}</time></p>
+          {entry.updatedAt && entry.updatedAt !== entry.date ? <p>{locale === "fr" ? "Mis à jour le " : "Updated on "}<time dateTime={entry.updatedAt}>{formatDate(entry.updatedAt)}</time></p> : null}
           <h1 lang={contentLocale}>{entry.title}</h1>
           <HarnessBadge slug={entry.slug} locale={locale} />
           {locale === "fr" && contentLocale === "en" ? <p data-language-note="">Article en anglais.</p> : null}
           {!MachineBody ? <p className="journal-deck" lang={contentLocale}>{entry.description}</p> : null}
-          {!MachineBody ? byline : null}
           <div className="journal-entry-meta">
             {getJournalThemes(slug).map(theme => <span key={theme.page}>{theme.label[locale]}</span>)}
             <span>{journalReadingMinutes(entry.content)} {locale === "fr" ? "min de lecture" : "min read"}</span>
@@ -120,7 +116,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
         </header>
 
         <div className="journal-body" lang={contentLocale}>
-          {MachineBody ? <MachineBody content={entry.content} afterDeck={byline} /> : <ReactMarkdown>{entry.content}</ReactMarkdown>}
+          {MachineBody ? <MachineBody content={entry.content} /> : <ReactMarkdown>{entry.content}</ReactMarkdown>}
         </div>
 
         {entry.sources?.length ? <section className="journal-body" lang={contentLocale} aria-labelledby="journal-sources-title">

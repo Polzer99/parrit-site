@@ -57,7 +57,7 @@ for (const prefix of ["", "/fr"]) {
         }).toEqual({
           pathname: prefix || "/",
           hash: "#contact",
-          parameters: [["source", "essai"], ["utm_campaign", "c1"], ["utm_custom", "offhome"]],
+          parameters: [["source", "rdv-nav"], ["utm_campaign", "c1"], ["utm_custom", "offhome"]],
         });
       }
     });

@@ -595,3 +595,128 @@ CSS, six clients et tests de #376 ont été vérifiés identiques à origin/main
 Aucun PNG, secret, seuil, dépendance ou autre test modifié par ce correctif.
 Commit de fusion `805ac63`, puis commit local de correctif sur la même branche.
 Aucun push ; ouverture de PR et rejeu hôte laissés à Claude selon le mandat.
+
+## Correctif 4 — contrats navigateur, 13/11/2026
+
+### Mandat et référence
+
+Seule la section finale Correctif 4 de la spec canonique a été exécutée,
+après lecture intégrale de
+`/Users/paullarmaraud/parrit-site/docs/CODEX-SPEC-2026-11-12-passe-site-seo-securite-coherence.md`.
+SHA256 : `89981c1183208dc7e58dbc7161944d354944bd17bfa5cbd944e0c4b839129af5`.
+La copie de spec du worktree est inchangée. Branche courante :
+`codex/docs-CODEX-SPEC-2026-11-12-passe-site-seo-securite`, départ `e404be3` ;
+`origin/main` local = `c2e7adad9c89e4b685a547d3ff0c649b2e5f4fc6`. Aucun fetch/merge.
+
+Source navigateur lue avant modification :
+`/Users/paullarmaraud/codex-work/hote-s-navigateur.log`, 5919 lignes,
+SHA256 `f7030177842204d32be0fa94da9dc20c716d473d2578550313de46b2cae8d68c`.
+Ce journal hôte du 13/11 comporte 535 réussites et 79 échecs : 40 anti-slop,
+4 espacement Journal, 8 intentions, 3 i18n, 20 parcours et 4 menu mobile.
+Les tests correspondants et les versions de main ont été lus avant édition.
+
+Plan autorisé par C4 : retrait des ajouts d'identité, restauration de la source,
+alignement langue/navigation, comparaison Node avant/après, revue indépendante,
+rapport, commit local. Tour unique ; arrêt sur erreur répétée ou contradiction
+du mandat. TARGET_SYSTEM = ce worktree ; ENVIRONMENT = local ; WRITE_SCOPE =
+fichiers concernés et assertions visées par C4, documentation ; REVERSIBLE = oui ;
+ROLLBACK = revert du commit ; BACKUP = HEAD initial et empreintes PNG ;
+EXPECTED_ROWS = aucune donnée métier. Aucun secret édité, aucun appel métier
+externe, aucun push/déploiement. Aucun lancement Chromium ni next start.
+
+### Par cause : changement, preuve et limite
+
+| Cause | Changement | Preuve et limite |
+|---|---|---|
+| Identité, 40 échecs | Signature ajoutée sous le chapeau et injection dans le corps machine retirées. JSON-LD et métadonnées auteur restaurés selon main. | Corpus publié sans champ `author` : Organization pour les 40 EN et 31 FR. Tests compilés verts. |
+| Espacement, 4 échecs | Dates localisées replacées avant le titre ; chapeau directement suivi des thèmes et du temps de lecture. Mise à jour seulement si distincte, dates liées conservées. | CSS #376 inchangée : `--brand-s2` = 16 px. Le journal mesurait un excès de 52,796875 px à 1440 et 81,59375 px à 390. Mesure finale réservée à l'hôte, aucun seuil modifié. |
+| Source, 8 intentions + 1 i18n | `attributionSource` et son état d'hydratation retirés. `avecSource` impose `rdv-nav`. Filtrage statique et UTM répétés conservés, accueil dynamique/réservation inchangés. | Test C3 corrigé. Quatre cas sans JS contradictoires et course i18n non prouvée résolue : réserves ci-dessous. |
+| Langue, 2 échecs | Sans JS : href de base et clic vers la traduction de base. Deux cas JS ajoutés : requête complète, paramètres répétés, clic, langue/canonique. | Statut, saut unique et requête d'arrivée du renommage restent contrôlés. LanguageLink inchangé, comportement déjà présent. |
+| Navigation, 20 parcours + 4 menu | Journal inséré dans les attentes entre Questions et Contact ; compteur mobile 6 → 7. | Géométrie, visibilité, débordement et fermeture conservés. Le log passe les contrôles du panneau avant le compteur ; pas de CSS spéculative. Contrôles de chaque lien à rejouer. |
+
+**Contrat machine antérieur conservé.** Main contient déjà un auteur Person
+conditionnel sur `entry.author`, l'identifiant `#founder`, les métadonnées auteur
+et une signature en pied pour les articles machine. Le retrait se limite aux
+mentions « ajoutées par ce lot » : ces comportements et le test machine sont
+restaurés à l'identique de main. L'identifiant Person de l'accueil retrouve aussi
+son état antérieur. Aucun corps MDX, BookingCall ni pied machine réécrit.
+`DESIGN.md` reflète le retrait de la signature ajoutée ; historique conservé.
+
+### Assertions rétablies et alignées : avant → après
+
+| Fichier / contrat | Avant ce tour | Après ce tour |
+|---|---|---|
+| `entity-graph.test.mjs`, auteur | Person nominative/worksFor | `orgRef()`, fichier identique à main ; publisher inchangé |
+| `brand-os-render.test.mjs`, identité | Signature, Person et métadonnées nominatives exemptées | Bloc identique à main : contrôle d'identité sans ces exemptions ; autres contrats, dont cache C3, conservés |
+| `journal-machine-rendering.test.mjs` | Person `#paul-larmaraud`, worksFor, signature entre chapeau/intertitre | Fichier identique à main : Person conditionnelle `#founder`, signature après les sources, métadonnées préexistantes |
+| `passe-site.test.mjs`, identité | Article et accueil partagent Person | Article publié = Organization ; Person accueil = `#founder` |
+| `passe-site.test.mjs`, 12 cas signature/dates | Signature après chapeau, dates dans sa ligne | En-tête sans signature nominative, absence de journal-byline ; métadonnées selon contrat antérieur ; dates localisées/mise à jour distincte ; chapeau adjacent au temps de lecture, corps conservé |
+| `passe-site-render.test.mjs` | Person/worksFor et signature requises | Organization complète liée au publisher ; absence de signature ajoutée ; meta/lien auteur Parrit.ai ; cache, dates liées, canoniques et alternates conservés |
+| `passe-site.spec.ts`, 8 cas C3 | `source=essai` après hydratation | `source=rdv-nav` ; UTM c1/offhome, exclusion paramètre inconnu et cache inchangés |
+| `conformity-i18n.spec.ts`, sans JS | href et clic avec paramètres de visite | href et clic vers adresse de base ; renommage toujours en un saut avec requête complète à l'arrivée, langue/canonique conservées |
+| `conformity-i18n.spec.ts`, JS | Pas de cas renommage puis lien hydraté spécifique | Deux cas ajoutés : requête complète dont UTM répétés, clic/destination complète dans les deux langues, deny-all conservé |
+| `parcours-accueil.spec.ts`, 20 listes | Six liens, Questions → Contact | Sept liens, Questions → Journal localisé → Contact ; sections et attribution contact identiques |
+| `single-page.spec.ts`, 4 menus | Six liens | Sept liens ; aucune autre assertion modifiée |
+
+Les tests Node d'auteur/signature relèvent de « entity-graph.test.mjs et autres »
+dans C4 §1. Aucun test extérieur à ces contrats modifié. Vérification octet par
+octet avec HEAD initial : `intentions.spec.ts`, `conformity-journal.spec.ts`,
+`anti-slop-copy.spec.ts` inchangés. Seuils, durées et filets réseau inchangés.
+
+### Résultat des commandes
+
+| Commande | Référence / premier candidat | Finale A (suffixe 2) | Finale B (suffixe 3) |
+|---|---|---|---|
+| `npm test` | Référence 586/586, sortie 0 ; premier candidat 584/586, sortie 1 (deux contrats machine auteur pas encore restaurés) | **586/586**, sortie 0 | **586/586**, sortie 0 |
+| `npm run lint` | Premier candidat : sortie 0 | Sortie 0 | Sortie 0 |
+| `npm run build -- --webpack` | Premier candidat : sortie 0 | Sortie 0, 96 pages | Sortie 0, 96 pages |
+| `npm run qa:brand:rev01` | Premier candidat : sortie 0 | Sortie 0 | Sortie 0 |
+
+Deux batteries finales complètes sur le même code, aucune édition entre elles.
+Zéro test Node ignoré, annulé ou todo. Échec intermédiaire conservé dans les logs ;
+correction par restauration de main, puis reprise entière deux fois.
+
+Autres commandes et contrôles :
+
+- `node --test tests/entity-graph.test.mjs tests/passe-site.test.mjs` : 33/33, sortie 0.
+- Même commande avec `tests/journal-machine-rendering.test.mjs` : 49/49, sortie 0 après restauration.
+- `git diff --check` : sortie 0.
+- Comparaison d'octets à main : `jsonld.ts`, `JournalMachineBody.tsx`, `entity-graph.test.mjs`, `journal-machine-rendering.test.mjs` identiques.
+- SHA256 des six PNG préexistants : inchangés par ce tour, exclus du commit.
+- Liste facultative `node node_modules/playwright/cli.js test tests/passe-site.spec.ts tests/conformity-i18n.spec.ts tests/parcours-accueil.spec.ts tests/single-page.spec.ts --browser=chromium --list` : refusée avant exécution par PreToolUse « Garde WhatsApp », invoquant une touche simulée et WhatsApp sans rapport avec cette commande. La tentative de consigner ce refus par une commande shell a également été bloquée ; le rapport est édité avec l'outil de patch. Aucun navigateur lancé, aucun contournement du refus de lancement.
+- `npm run qa:network:rev01` : non exécuté conformément au mandat, rejeu hôte par Claude. Aucun `next start` lancé.
+- `npm ci --silent` : non demandé par C4, non rejoué ; dépendances existantes Next 16.3.4 conservées.
+
+Logs : `/private/tmp/site-c4-baseline-test.log`,
+`/private/tmp/site-c4-targeted.log`, `/private/tmp/site-c4-targeted-2.log`,
+`/private/tmp/site-c4-final-{lint,build,brand,test}-{1,2,3}.log`.
+Codes/durées : `/private/tmp/site-c4-final-results-1.json` et
+`/private/tmp/site-c4-final-results-2-3.json`.
+Modes de rendu inchangés dans les deux builds : Journal index/legal FR/EN ○ ;
+articles (40 EN, 31 FR) et thèmes (4 par langue) ● ; accueil/rendez-vous/sketch ƒ.
+Les tests compilés vérifient encore le cache partageable ; aucune nouvelle preuve
+HTTP réseau. Docs consultées : guide livré Next 16.3.4 `use-search-params.md` et
+Context7 Next 16.3.6 (16.3.4 non proposé), Suspense et prérendu.
+
+### Réserves explicites pour le rejeu hôte
+
+1. **Quatre échecs sans JavaScript restent attendus**, intentions:275, FR/EN ×
+   1440/390 : exigence `utm_campaign=navigation` dans le href initial statique.
+   Le log constate déjà rdv-nav correct, UTM null. Un HTML partagé sans JS ne
+   dépend pas de la visite. C4 interdit de modifier ce test : conservé, aucun
+   rendu dynamique ni paramètre codé en dur pour le verdir. Impossible de promettre
+   qa:network entièrement vert avec ces contrats simultanés.
+2. **Course d'hydratation possible**, conformity-i18n:151, « header switches paths » :
+   UTM null avec rdv-nav déjà correct dans le log. La lecture immédiate du href
+   après changement de langue peut encore atteindre le fallback Suspense. Retrait
+   d'attributionSource et d'un rendu intermédiaire ≠ preuve de résolution. Test
+   conservé ; vérifier séparément sur hôte.
+3. Mesurer panneau mobile entier et chacun des sept liens à 390/800, espace
+   chapeau/lecture à 1440/390, attribution hydratée FR/EN et suite complète.
+   Aucune nouvelle capture, mesure CLS ou preuve production revendiquée.
+
+Revue indépendante en lecture seule par `review_c4` : périmètre et seuils
+validés, retour exact des contrats machine à main approuvé, les deux réserves
+ci-dessus confirmées ; aucun autre défaut concret identifié.
+PRODUCTION_PROOF = non acquise. Livraison par commit local sans push ; les six
+PNG hôte préexistants restent dans le worktree et hors commit.
