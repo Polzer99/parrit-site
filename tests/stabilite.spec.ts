@@ -13,10 +13,11 @@ type Stability = {
   document: Range;
   shifts: number;
   samples: number;
+  targetsStable: boolean;
   captions: string[];
   cases: string[];
   offers: string[];
-  phoneAnimated: boolean;
+  goals: string[];
   stop: () => void;
 };
 declare global {
@@ -115,14 +116,13 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
         target.min = Math.min(target.min, value);
         target.max = Math.max(target.max, value);
       };
-      const targets = Array.from(document.querySelectorAll<HTMLElement>(
-        "main > section, .phone, .use-case, .partner, .ontocap-stack, .cal-embed-stage",
-      ));
+      const targetSelector = "main > section, .goal-results, .goal-schema, .motor-column, .home-measure, .partner, .cal-embed-stage";
+      const targets = Array.from(document.querySelectorAll<HTMLElement>(targetSelector));
       const keys = targets.map((node, i) => `${i}:${node.id || node.className}`);
       const state: Stability = window.pageStability = {
         heights: Object.fromEntries(targets.map((node, i) => [keys[i], range(node.getBoundingClientRect().height)])),
-        document: range(document.documentElement.scrollHeight), shifts: 0, samples: 0,
-        captions: [], cases: [], offers: [], phoneAnimated: false, stop: () => {},
+        document: range(document.documentElement.scrollHeight), shifts: 0, samples: 0, targetsStable: true,
+        captions: [], cases: [], offers: [], goals: [], stop: () => {},
       };
       const observer = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
@@ -136,12 +136,19 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
       };
       let frame = 0;
       const sample = () => {
-        targets.forEach((node, i) => update(state.heights[keys[i]], node.getBoundingClientRect().height));
+        // GoalBooking remounts its calendar when the goal key changes. Measure
+        // the live logical blocks, never detached nodes (whose height is zero).
+        const current = Array.from(document.querySelectorAll<HTMLElement>(targetSelector));
+        if (current.length !== keys.length || current.some((node, i) => `${i}:${node.id || node.className}` !== keys[i])) {
+          state.targetsStable = false;
+        } else {
+          current.forEach((node, i) => update(state.heights[keys[i]], node.getBoundingClientRect().height));
+        }
         update(state.document, document.documentElement.scrollHeight);
-        remember(state.captions, document.querySelector(".ontocap")?.textContent);
-        remember(state.cases, document.querySelector(".use-case")?.getAttribute("data-case"));
+        remember(state.captions, document.querySelector(".goal-results [data-result]:not([hidden])")?.textContent);
+        remember(state.cases, document.querySelector(".goal-path")?.getAttribute("data-path"));
         remember(state.offers, document.querySelector(".partner.flip .offer")?.textContent);
-        state.phoneAnimated ||= !!document.querySelector('.live[data-motion="ready"]');
+        remember(state.goals, (document.querySelector("#objectif") as HTMLSelectElement | null)?.value);
         state.samples++;
         frame = requestAnimationFrame(sample);
       };
@@ -149,17 +156,24 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
       state.stop = () => { cancelAnimationFrame(frame); observer.disconnect(); };
     });
 
+    // Choix interactifs: même seuil de hauteur et CLS, puis observation réelle intacte.
+    const goalIds = await page.locator("#objectif option").evaluateAll(nodes => nodes.map(node => (node as HTMLOptionElement).value));
+    expect(goalIds).toHaveLength(17);
+    for (const id of goalIds) {
+      await page.locator("#objectif").selectOption(id);
+      await page.waitForTimeout(100);
+    }
     // Temps réel : ni horloge accélérée, ni mouvement réduit, ni arrêt des animations.
     await page.waitForTimeout(25_000);
     expect(calendarRequests, "le calendrier doit encore être différé").toBe(0);
     const sections = page.locator("main > section");
-    await expect(sections).toHaveCount(13);
+    await expect(sections).toHaveCount(12);
     const animatedSectionIds = new Set([
       locale === "fr" ? "en-production" : "in-production",
-      "services",
+      locale === "fr" ? "mesures" : "measurements",
       locale === "fr" ? "partenaires" : "team",
     ]);
-    for (let i = 1; i < 13; i++) {
+    for (let i = 1; i < 12; i++) {
       const destination = await sections.nth(i).evaluate(node => node.getBoundingClientRect().top + scrollY);
       // Défilement progressif : laisse passer les entrées et sorties d'IntersectionObserver.
       await page.evaluate(async destination => {
@@ -193,10 +207,11 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
     });
     await testInfo.attach("stabilite.json", { body: JSON.stringify(result, null, 2), contentType: "application/json" });
     expect(result.samples).toBeGreaterThan(100);
+    expect(result.targetsStable, "mêmes blocs présents pendant toute la mesure").toBe(true);
     expect(result.captions.length).toBeGreaterThan(1);
     expect(result.cases.length).toBeGreaterThan(1);
     expect(result.offers.length).toBeGreaterThan(1);
-    expect(result.phoneAnimated).toBe(true);
+    expect(result.goals.length).toBe(17);
     for (const [key, range] of Object.entries(result.heights)) {
       expect(range.max - range.min, key).toBeLessThanOrEqual(1);
     }

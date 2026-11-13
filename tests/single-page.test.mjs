@@ -6,44 +6,30 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
-const anchors = { fr: ["references", "terrain", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "bandeau", "questions", "articles", "contact"], en: ["references", "in-the-field", "offers", "in-production", "path", "services", "technologies", "team", "bandeau", "questions", "articles", "contact"] };
-function heroGeometries(html) {
-  return [...html.matchAll(/<g class="onto-geo onto-geo-(desktop|compact)">([\s\S]*?)(?=<g class="onto-geo |<\/svg>)/g)];
-}
-
+const anchors = { fr: ["haut", "references", "en-production", "mesures", "assistant", "terrain", "offres", "parcours", "technologies", "partenaires", "questions", "contact"], en: ["haut", "references", "in-production", "measurements", "assistant", "in-the-field", "offers", "path", "technologies", "team", "questions", "contact"] };
 test("hero paths never depend on CSS d or responsive path variables", () => {
   const css = readFileSync("src/system/single-page.css", "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
   assert.doesNotMatch(css, /(?:^|[;{])\s*d\s*:/i);
   assert.doesNotMatch(css, /--(?:desktop|compact)-path/);
 });
 
-for (const locale of ["fr", "en"]) test(`both SVG geometries have static path attributes in SSR (${locale})`, async () => {
+for (const locale of ["fr", "en"]) test(`goal SVG has a complete static path in SSR (${locale})`, async () => {
   const html = await renderPage(locale);
   assert.doesNotMatch(html, /--(?:desktop|compact)-path/);
-  const groups = heroGeometries(html);
-  assert.deepEqual(groups.map(group => group[1]), ["desktop", "compact"]);
-  const paths = groups.map(([, , markup]) => {
-    const elements = [...markup.matchAll(/<path\b[^>]*>/g)].map(match => match[0]);
-    assert.ok(elements.length > 0);
-    return elements.map(element => {
-      const d = element.match(/\sd="([^"]+)"/)?.[1];
-      assert.ok(d, "every plane and link has a nonempty d attribute");
-      assert.match(d, /^M[\d. -]+(?: L[\d. -]+)+(?: Z)?$/);
-      return d;
-    });
-  });
-  assert.equal(paths[0].length, paths[1].length);
-  for (let i = 0; i < paths[0].length; i++) assert.notEqual(paths[0][i], paths[1][i]);
-  const linkStates = markup => [...markup.matchAll(/data-link="([^"]+)" class="([^"]+)"/g)].map(match => match.slice(1));
-  assert.deepEqual(linkStates(groups[0][2]), linkStates(groups[1][2]));
+  const diagram = html.match(/<svg[^>]*class="goal-diagram"[\s\S]*?<\/svg>/)?.[0];
+  assert.ok(diagram);
+  assert.equal((diagram.match(/data-node=/g) ?? []).length, 48);
+  assert.equal((diagram.match(/data-active="true"/g) ?? []).length, 3);
+  const path = diagram.match(/<polyline[^>]*points="([^"]+)"/);
+  assert.ok(path);
+  assert.equal(path[1].trim().split(/\s+/).length, 3);
 });
 function applications(html, locale) {
-  const section = html.match(new RegExp(`<section class="live" id="${locale === "fr" ? "en-production" : "in-production"}">[\\s\\S]*?</section>`))?.[0];
-  assert.ok(section, "applications remain present");
-  assert.equal((section.match(/class="phone"/g) ?? []).length, 3);
-  assert.equal((section.match(/<h3>/g) ?? []).length, 3);
-  assert.match(section, /<h2>[^<]+ <b>[^<]+<\/b><\/h2>/);
-  assert.match(visibleText(section), locale === "fr" ? /Les données affichées sont fictives\./ : /The data shown is fictitious\./);
+  const section = html.match(new RegExp(`<section[^>]*id="${locale === "fr" ? "en-production" : "in-production"}"[^>]*>[\\s\\S]*?</section>`))?.[0];
+  assert.ok(section, "three motors remain present");
+  assert.equal((section.match(/class="goal-flow"/g) ?? []).length, 9);
+  assert.equal((section.match(/<h[23]>/g) ?? []).length, 3);
+  assert.match(visibleText(section), locale === "fr" ? /L'assistant prépare\. Vous validez\./ : /The assistant prepares\. You approve\./);
   assert.doesNotMatch(section, /Laparra|Clevery|Forexpert|Joone|SNCF|data-evidence|class="who"|\/clients\//i);
   return section;
 }
@@ -57,15 +43,14 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   const journalLink = new RegExp(`href="${locale === "fr" ? "/fr" : ""}/journal"`);
   assert.match(main, journalLink);
   assert.match(footer, journalLink);
-  assert.equal((html.match(/<section\b/g) ?? []).length, 13);
+  assert.equal((html.match(/<section\b/g) ?? []).length, 12);
   assert.deepEqual([...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]), anchors[locale]);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
-  // Decision of 08/11/2026: the descriptive offer is now the hero subtitle.
-  const subtitle = visibleText(main.match(/class="sub"><p>([\s\S]*?)<\/p>/)?.[1] ?? "");
-  assert.match(subtitle, locale === "fr" ? /\bIA\b/ : /\bAI\b/);
-  assert.match(subtitle, locale === "fr" ? /équipes.*IA.*logiciels/ : /teams.*AI.*software/);
+  assert.equal((main.match(/<option\b/g) ?? []).length, 17);
+  assert.equal((main.match(/data-result=/g) ?? []).length, 17);
+  assert.doesNotMatch(main, /class="sub"|class="hero-reassurance"/);
   // The Journal can contain the English word "hidden"; check the HTML attribute.
-  assert.doesNotMatch(html, /<[^>]+\shidden[=> ]|class="k"|v1-index|registry-line/);
+  assert.doesNotMatch(html, /class="k"|v1-index|registry-line/);
   assert.doesNotMatch(visibleText(html), /Votre phrase indique|What you say tells/);
   const partners = html.match(new RegExp(`<section id="${locale === "fr" ? "partenaires" : "team"}">[\\s\\S]*?</section>`))?.[0];
   assert.ok(partners);
@@ -85,7 +70,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.match(picture, /alt="Paul Larmaraud" width="600" height="800" loading="lazy"/);
   assert.doesNotMatch(contact, /paul-centre\.png/);
   assert.match(html, new RegExp(`href="${locale === "fr" ? "/fr" : ""}/journal"`));
-  assert.equal((html.match(/class="phone"/g) ?? []).length, 3);
+  assert.equal((html.match(/class="phone"/g) ?? []).length, 0);
   applications(html, locale);
   const text = visibleText(html);
   const references = html.match(/<section id="references"[\s\S]*?<\/section>/)?.[0];
@@ -93,7 +78,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.doesNotMatch(references, /class="reflines"|<p/);
   for (const client of ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"]) assert.match(references, new RegExp(`aria-label="${client}[^"]*"`));
   assert.doesNotMatch(text, /Arkel/);
-  assert.match(text, locale === "fr" ? /Les données affichées sont fictives\./ : /The data shown is fictitious\./);
+  assert.match(text, locale === "fr" ? /L'assistant prépare\. Vous validez\./ : /The assistant prepares\. You approve\./);
   for (const [, label] of html.matchAll(/<a class="[^"]*rev-button[^\"]*"[^>]*>(.*?)<\/a>/g)) assert.doesNotMatch(visibleText(label), /\.$/);
 });
 test("previous portrait remains intact in the repository after the founder photo change", () => {
@@ -159,60 +144,17 @@ for (const locale of ["fr", "en"]) test(`revoking every permission hides client 
   } finally { SITE_EVIDENCE.forEach((e, i) => { e.permission_status = permissions[i]; }); }
 });
 
-for (const locale of ["fr", "en"]) test(`three planes, 33 nodes and four complete translated stories in static SSR (${locale})`, async () => {
+for (const locale of ["fr", "en"]) test(`three levels and 17 complete goal results in static SSR (${locale})`, async () => {
   const html = await renderPage(locale);
-  const hero = html.match(/<section class="hero">[\s\S]*?<\/section>/)?.[0];
+  const hero = html.match(/<section class="hero"[^>]*>[\s\S]*?<\/section>/)?.[0];
   assert.ok(hero);
-  const { HERO_STORIES, NODES, ZONES, LAYERS, UP, REL, TOP } = loader(locale)("src/system/ontology-hero-data.ts");
-  const { SINGLE_PAGE_EN } = loader(locale)("src/system/single-page-copy.ts");
-  const t = text => locale === "fr" ? text : SINGLE_PAGE_EN[text];
-  assert.equal(HERO_STORIES.length, 4);
-  assert.equal((hero.match(/data-node=/g) ?? []).length, 33);
-  const geometries = heroGeometries(hero);
-  assert.equal(geometries.length, 2);
-  for (const [, , geometry] of geometries) {
-    assert.deepEqual([...geometry.matchAll(/data-plane="([^"]+)"/g)].map(m => m[1]), ["bot", "mid", "top"]);
-    assert.equal((geometry.match(/data-link=/g) ?? []).length, UP.length + REL.length + TOP.length);
-    assert.ok(geometry.indexOf('data-plane="bot"') < geometry.indexOf('data-link="up_'));
-    assert.ok(geometry.indexOf('data-link="up_') < geometry.indexOf('data-plane="mid"'));
-    assert.ok(geometry.indexOf('data-plane="mid"') < geometry.indexOf('data-link="rel_'));
-    assert.ok(geometry.indexOf('data-link="top_') < geometry.indexOf('data-plane="top"'));
-  }
-  assert.match(hero, /tabindex="0" role="region"/);
-  assert.ok(hero.includes(`aria-label="${locale === "fr" ? "Des sources aux résultats" : "From sources to results"}"`));
-  assert.match(hero, /data-story="0" data-step="4"/);
-  assert.match(hero, /<svg class="onto"[^>]*aria-hidden="true"/);
-  assert.equal((hero.match(/class="ontocap-sizer"/g) ?? []).length, 4);
-  assert.match(hero, /class="ontocap" aria-live="off"/);
-  assert.doesNotMatch(hero, /onto-badge|onto-number|onto-story-title/);
-  const currentCaption = hero.split('class="ontocap"')[1].split('class="ontocap-sizer"')[0];
-  assert.doesNotMatch(currentCaption, /<ol|<li/);
-  const sentence = text => { const translated = t(text); return translated[0].toLocaleUpperCase(locale) + translated.slice(1) + "."; };
-  assert.ok(visibleText(currentCaption).includes(sentence(HERO_STORIES[0].steps[3])));
-  assert.match(currentCaption, /class="onto-now" aria-live="off"/);
-  const sizers = [...hero.matchAll(/<div class="ontocap-sizer" aria-hidden="true">([\s\S]*?)(?=<div class="ontocap-sizer"|<ol class="sr-only")/g)];
-  assert.equal(sizers.length, 4);
-  for (const [index, sizer] of sizers.entries()) {
-    const phrases = [...sizer[1].matchAll(/<div class="onto-now">([\s\S]*?)<\/div>/g)].map(match => visibleText(match[1]));
-    const story = HERO_STORIES[index];
-    assert.deepEqual(phrases, [t(story.title), ...story.steps.map(sentence)]);
-    for (const text of [t(story.result), t(story.verb), t("PRÊT")]) assert.ok(visibleText(sizer[1]).includes(text));
-  }
-  const accessible = hero.match(/<ol class="sr-only" aria-live="off">([\s\S]*?)<\/ol>/)?.[1];
-  assert.ok(accessible);
-  assert.deepEqual([...accessible.matchAll(/<li>(.*?)<\/li>/g)].map(match => visibleText(match[1])), HERO_STORIES[0].steps.map(t));
-  for (const id of ["mails", "client", "commande", "cgv", "rep", "messagerie"]) {
-    assert.match(hero, new RegExp(`data-node="${id}"[^>]*class="onto-node is-lit`));
-  }
-  const labels = [...Object.values(NODES).flat().map(node => node[1]), ...Object.values(ZONES).flat(), ...Object.values(LAYERS).flat(), ...HERO_STORIES.flatMap(story => [story.title, story.result, story.verb]), "PRÊT"];
-  for (const label of labels) {
-    assert.ok(SINGLE_PAGE_EN[label], `English missing: ${label}`);
-    assert.ok(visibleText(hero).includes(t(label)), label);
-  }
-  const explanation = visibleText(hero.match(/class="humby">([^<]+)</)?.[1] ?? "");
-  assert.match(explanation, locale === "fr" ? /e-mails.*contrats.*factures/ : /e-mails.*contracts.*invoices/);
-  assert.doesNotMatch(explanation, /Humby|pétrole|oil|raffin|refine/i);
-  assert.doesNotMatch(hero, /<animate|class="token"|class="trail"|toklab|static-feed|ontology-motion/);
+  assert.equal((hero.match(/data-node=/g) ?? []).length, 48);
+  assert.equal((hero.match(/<optgroup\b/g) ?? []).length, 3);
+  assert.equal((hero.match(/<option\b/g) ?? []).length, 17);
+  assert.equal((hero.match(/data-result=/g) ?? []).length, 17);
+  assert.match(hero, /aria-live="polite"/);
+  assert.match(hero, /<title[^>]*>[^<]+<\/title>/);
+  assert.doesNotMatch(hero, /ontocap|onto-approval|hero-reassurance|class="sub"|class="humby"/);
   assert.doesNotMatch(hero, /#[\da-f]{3,8}\b/i);
 });
 
@@ -230,9 +172,9 @@ for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos a
   assert.doesNotMatch(html, /id="confiance"|id="safeguards"|class="local-note"/);
   assert.match(html, /class="walk s1 s2 s3 withbot" viewBox="0 0 1080 130" aria-hidden="true"/);
   assert.match(html, /class="human" transform="translate\(900 120\)"/);
-  assert.equal((html.match(/class="use-case"/g) ?? []).length, 12);
+  assert.equal((html.match(/class="goal-flow"/g) ?? []).length, 9);
   assert.doesNotMatch(html, /id="architecture"|class="stage"/);
-  assert.equal((html.match(/role="img"/g) ?? []).length, 6);
+  assert.equal((html.match(/role="img"/g) ?? []).length, 7);
   const strip = html.match(/<section id="references">([\s\S]*?)<\/section>/)?.[1];
   assert.ok(strip);
   assert.equal((strip.match(/role="img"/g) ?? []).length, 6);
@@ -250,18 +192,11 @@ for (const locale of ["fr", "en"]) test(`passe 4 complete SSR use cases, offers 
   const t = value => locale === "fr" ? value : SINGLE_PAGE_EN[value];
   assert.equal(SERVICE_CASES.length, 12);
   assert.equal(PARTNER_OFFERS.flat().length, 23);
-  for (const [name, cases] of SERVICE_CASES) {
-    assert.ok(t(name), name);
-    assert.equal(cases.length, 4);
-    for (const value of cases) { assert.ok(t(value), value); assert.ok(visibleText(html).includes(t(value)), value); }
-  }
+  assert.equal((html.match(/data-result=/g) ?? []).length, 17);
+  assert.equal((html.match(/class="goal-flow"/g) ?? []).length, 9);
   for (const offer of PARTNER_OFFERS.flat()) { assert.ok(t(offer), offer); assert.ok(visibleText(html).includes(t(offer)), offer); }
-  assert.equal((html.match(/class="case"/g) ?? []).length, 12);
-  assert.equal((html.match(/class="case visually-hidden"/g) ?? []).length, 36);
-  assert.equal((html.match(/class="use-case"[^>]*aria-live="off" data-case="0"/g) ?? []).length, 12);
-  assert.equal((html.match(/class="tag bo"/g) ?? []).length, 24);
-  assert.equal((html.match(/class="tag new"/g) ?? []).length, 24);
-  assert.equal((html.match(/class="swipe-dots"/g) ?? []).length, 7);
+  assert.doesNotMatch(html, /class="use-case"|class="tag bo"|class="tag new"/);
+  assert.equal((html.match(/class="swipe-dots"/g) ?? []).length, 5);
   assert.doesNotMatch(html, /id="architecture"|class="flowmap|\/tools\//);
   const { SITE_EVIDENCE } = loader(locale)("src/lib/registry/preuves.ts");
   assert.match(SITE_EVIDENCE.find(item => item.id === "Laparra").claim, /pilotage agentique/);

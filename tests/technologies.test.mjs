@@ -26,7 +26,8 @@ test("technology registry preserves the exact approved order, names and logos", 
 
 for (const locale of ["fr", "en"]) test(`ten technologies precede the team with complete SSR and one accessible copy (${locale})`, async () => {
   const html = await renderPage(locale);
-  assert.match(html, /<section id="services">[\s\S]*?<\/section><section id="technologies"/);
+  // 13/11: service grid replaced by the motors, so the preserved path is now adjacent.
+  assert.match(html, /<section class="parcours" id="(?:parcours|path)">[\s\S]*?<\/section><section id="technologies"/);
   assert.match(html, /<section id="technologies"[\s\S]*?<\/section><section id="(?:partenaires|team)"/);
   assert.doesNotMatch(html, /id="architecture"|href="[^"]*#architecture|\/tools\//);
   const section = html.match(/<section id="technologies"[\s\S]*?<\/section>/)?.[0];

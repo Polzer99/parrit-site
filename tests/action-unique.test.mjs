@@ -38,17 +38,17 @@ for (const locale of ["fr", "en"]) {
     const html = await renderPage(locale);
     const actions = [...html.matchAll(/<a class="([^"]*rev-button[^"]*)" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
     const booking = actions.filter(([, , href]) => new URL(href, "https://example.invalid").hash === "#contact");
-    assert.equal(booking.length, 3, "hero, banner and restored contact; header tested separately (correctif 4)");
+    assert.equal(booking.length, 2, "hero and contact; banner replaced by measures and assistant");
     for (const [i, [, classes, href, label]] of booking.entries()) {
       const url = new URL(href, "https://example.invalid");
       assert.match(classes, /\bexec\b/);
       assert.equal(visibleText(label).trim(), locale === "fr" ? "Prendre rendez-vous" : "Book a call");
-      assert.equal(url.searchParams.get("source"), `rdv-${["hero", "bandeau", "contact"][i]}`);
+      assert.equal(url.searchParams.get("source"), ["accueil-rendez-vous", "rdv-contact"][i]);
       assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
-      assert.equal((label.match(/data-connector="VS-CONNECTOR"/g) ?? []).length, i < 2 ? 1 : 0);
-      if (i < 2) assert.match(label, /aria-hidden="true" focusable="false"/);
+      assert.equal((label.match(/data-connector="VS-CONNECTOR"/g) ?? []).length, i === 0 ? 1 : 0);
+      if (i === 0) assert.match(label, /aria-hidden="true" focusable="false"/);
     }
-    assert.equal(actions.length, 4, "three booking actions and the Journal content link in main");
+    assert.equal(actions.length, 3, "two booking actions and the Journal content link in main");
     assert.doesNotMatch(html, /source=intention-|href="#reservation"/);
     const offers = html.match(/<section id="(?:offres|offers)"[\s\S]*?<\/section>/)[0];
     assert.equal((offers.match(/<article /g) ?? []).length, 2);
@@ -57,7 +57,7 @@ for (const locale of ["fr", "en"]) {
     assert.doesNotMatch(visibleText(html), /Former mes équipes|Train my teams|Par où commencer|Where to start/);
     assert.ok(visibleText(html).includes(locale === "fr" ? "Chercheurs du MIT" : "MIT researchers"));
     assert.ok(visibleText(offers).includes(locale === "fr" ? "Pour les PME, les ETI et les grands groupes." : "For SMEs, mid-sized companies and large groups."));
-    assert.doesNotMatch(visibleText(html.replace(/<section id="articles">[\s\S]*?<\/section>/, "")), /\b(?:formations?|former|formons|forme|formateurs?|training|train|trains|trainers)\b|parler d'un projet|talk about a project|conseil et outils|[—–]|afin de/i);
+    assert.doesNotMatch(visibleText(html.replace(/<section[^>]*id="(?:en-production|in-production)"[\s\S]*?<\/section>/, "")), /\b(?:formations?|former|formons|forme|formateurs?|training|train|trains|trainers)\b|parler d'un projet|talk about a project|conseil et outils|[—–]|afin de/i);
     const refs = html.match(/<section id="references"[\s\S]*?<\/section>/)[0];
     const { PUBLIC_CLIENT_NAMES } = loader(locale)("src/system/public-clients.ts");
     assert.equal(PUBLIC_CLIENT_NAMES.length, 6);
@@ -75,20 +75,17 @@ for (const locale of ["fr", "en"]) {
   test(`reassurance, accountability and initially open FAQ survive SSR (${locale})`, async () => {
     const html = await renderPage(locale);
     const fr = locale === "fr";
-    const reassurance = fr ? "Vos équipes gardent la décision. Aucune relance automatique." : "Your teams keep the final say. No automated follow-up.";
-    const hero = html.match(/<section class="hero">[\s\S]*?<\/section>/)[0];
-    assert.equal((html.match(/class="hero-reassurance"/g) ?? []).length, 1);
-    assert.ok(visibleText(hero).includes(reassurance));
-    assert.ok(hero.indexOf('source=rdv-hero') < hero.indexOf('class="hero-reassurance"'));
-    const services = html.match(/<section id="services">[\s\S]*?<\/section>/)[0];
-    const tags = [...services.matchAll(/<span class="tag bo">(.*?)<\/span>/g)];
-    assert.equal(tags.length, 24, "all existing prepared tasks retain a human approval label");
-    for (const [, tag] of tags) assert.equal(visibleText(tag), fr ? "Préparé, vous validez" : "Prepared, you approve");
+    const hero = html.match(/<section class="hero"[^>]*>[\s\S]*?<\/section>/)[0];
+    assert.doesNotMatch(hero, /hero-reassurance|ontocap/);
+    const motors = html.match(/<section[^>]*id="(?:en-production|in-production)"[\s\S]*?<\/section>/)[0];
+    const approval = fr ? "L'assistant prépare. Vous validez." : "The assistant prepares. You approve.";
+    assert.equal(visibleText(motors).split(approval).length - 1, 1);
+    assert.doesNotMatch(html, /class="tag bo"/);
     assert.doesNotMatch(visibleText(html), /Tâche reprise|Task taken over/);
     assert.ok(visibleText(html).includes(fr
       ? "Un seul interlocuteur, responsable de bout en bout. Selon le besoin, il s'entoure de spécialistes parmi plus de vingt partenaires."
       : "One point of contact, accountable from start to finish. When needed, they bring in specialists from more than twenty partners."));
-    assert.ok(visibleText(html).includes(fr ? "Inspirées de nos missions. Les données affichées sont fictives." : "Drawn from our projects. The data shown is fictitious."));
+    assert.equal((html.match(/class="goal-flow"/g) ?? []).length, 9);
     const details = [...html.matchAll(/<details([^>]*)><summary>(.*?)<\/summary><p>(.*?)<\/p><\/details>/g)];
     assert.equal(details.length, 6);
     assert.deepEqual(details.filter(([, attributes]) => /\bopen(?:=|\s|$)/.test(attributes)).map(([, , question]) => visibleText(question)), fr
@@ -180,10 +177,9 @@ for (const locale of ["fr", "en"]) test(`contact action preserves attribution an
   assert.deepEqual(target.searchParams.getAll("source"), ["rdv-contact"]);
   assert.deepEqual(target.searchParams.getAll("utm_custom"), ["one", "two"]);
   assert.equal(target.searchParams.get("utm_campaign"), "a&b");
-  const articles = html.match(/<section id="articles"[\s\S]*?<\/section>/)[0];
-  assert.doesNotMatch(articles, /Articles en anglais/);
-  for (const entry of entries) {
-    assert.ok(articles.includes(`href="${locale === "fr" ? "/fr" : ""}/journal/${entry.slug}"`));
-    assert.ok(visibleText(articles).includes(entry.title));
+  const measures = html.match(/<section[^>]*id="(?:mesures|measurements)"[\s\S]*?<\/section>/)[0];
+  assert.doesNotMatch(measures, /Articles en anglais/);
+  for (const slug of ["ai-cost-french-vs-english-tokens", "agents-that-fabricate-facts"]) {
+    assert.ok(measures.includes(`href="${locale === "fr" ? "/fr" : ""}/journal/${slug}"`));
   }
 });

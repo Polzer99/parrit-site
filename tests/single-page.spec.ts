@@ -1,10 +1,7 @@
-import { HERO_STORIES } from "../src/system/ontology-hero-data";
-import { SINGLE_PAGE_EN } from "../src/system/single-page-copy";
 import { readingMs } from "../src/system/reading";
 import { mkdir } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import founderPhotos from "./fixtures/founder-photo.json";
-import quality from "./fixtures/hero-quality.json";
 import { test, expect } from "./network-deny.setup";
 const BASE = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 const local = (path: string) => {
@@ -35,24 +32,24 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     expect(portraitBox).not.toBeNull();
     expect(portraitBox!.width / portraitBox!.height).toBeCloseTo(3 / 4, 2);
     await page.evaluate(() => document.fonts.ready);
-    await expect(page.locator("main > section")).toHaveCount(13);
-    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["references", "terrain", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "bandeau", "questions", "articles", "contact"] : ["references", "in-the-field", "offers", "in-production", "path", "services", "technologies", "team", "bandeau", "questions", "articles", "contact"]);
+    await expect(page.locator("main > section")).toHaveCount(12);
+    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["haut", "references", "en-production", "mesures", "assistant", "terrain", "offres", "parcours", "technologies", "partenaires", "questions", "contact"] : ["haut", "references", "in-production", "measurements", "assistant", "in-the-field", "offers", "path", "technologies", "team", "questions", "contact"]);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     const mono = await page.locator("main *, footer *, header *").evaluateAll(nodes => nodes.filter(node => {
       const style = getComputedStyle(node);
-      return node.getBoundingClientRect().height > 0 && style.visibility !== "hidden" && /mono/i.test(style.fontFamily) && Array.from(node.childNodes).some(n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim()) && !node.closest(".cmd-wordmark, .wordmark, .cmdbar .mark");
+      return node.getBoundingClientRect().height > 0 && style.visibility !== "hidden" && /mono/i.test(style.fontFamily) && Array.from(node.childNodes).some(n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim()) && !node.closest(".cmd-wordmark, .wordmark, .cmdbar .mark, time, .home-measure strong");
     }).map(node => node.textContent?.slice(0, 60)));
     expect(mono).toEqual([]);
     await expect(page.locator("#references").getByRole("img")).toHaveCount(6);
     await expect(page.locator(".logo-set[aria-hidden=true]")).toHaveCount(0);
-    await expect(page.locator("#services .use-case")).toHaveCount(12);
+    await expect(page.locator(".goal-flow")).toHaveCount(9);
     await expect(page.locator("#architecture")).toHaveCount(0);
-    await expect(page.locator("#services + #technologies")).toHaveCount(1);
+    await expect(page.locator("#parcours + #technologies, #path + #technologies")).toHaveCount(1);
     const applications = page.locator(locale === "fr" ? "#en-production" : "#in-production");
-    await expect(applications.locator(".phone")).toHaveCount(3);
-    await expect(applications.locator("h3")).toHaveCount(3);
+    await expect(applications.locator(".goal-flow")).toHaveCount(9);
+    await expect(applications.locator("h2")).toHaveCount(3);
     await expect(applications).not.toContainText(/Laparra|Clevery|Forexpert|Joone|SNCF/);
-    await expect(applications.locator(".note")).toContainText(locale === "fr" ? "Les données affichées sont fictives." : "The data shown is fictitious.");
+    await expect(applications).toContainText(locale === "fr" ? "L'assistant prépare. Vous validez." : "The assistant prepares. You approve.");
     for (const nav of [".desktop-nav", ".mobile-menu nav"]) {
       await expect(page.locator(`${nav} a`).first()).toHaveText("Applications");
       await expect(page.locator(`${nav} a`).first()).toHaveAttribute("href", locale === "fr" ? "/fr#en-production" : "/#in-production");
@@ -60,7 +57,7 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     await expect(page.locator("#contact h2")).not.toHaveText(/\.$/);
     await expect(page.locator("main")).not.toContainText(/Brésil|Brazil|Cameroun|Cameroon|métropole lilloise|Lille area/);
     const smallText = await page.locator("main *, header *, footer *").evaluateAll(nodes => nodes.filter(el => {
-      if (el.closest(".onto-diagram, .onto-ready, .onto-approval")) return false; // Explicit hero type scale, spec 29/10.
+      if (el.closest(".goal-diagram, .onto-ready, .onto-approval")) return false; // Explicit hero type scale, spec 29/10.
       if (!(el instanceof HTMLElement) || !el.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })) return false;
       return el.getBoundingClientRect().height > 0 && [...el.childNodes].some(n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim()) && parseFloat(getComputedStyle(el).fontSize) < 15;
     }).map(el => el.textContent?.slice(0, 80)));
@@ -139,23 +136,22 @@ test("no JavaScript conversations remain visible and legal and 404 stay accessib
   });
   const page = await context.newPage();
   await page.goto(local("/fr"));
-  for (const message of await page.locator(".phone .msg").all()) await expect(message).toBeVisible();
+  await expect(page.locator(".goal-flow")).toHaveCount(9);
   for (const path of ["/fr", "/"]) {
     await page.goto(local(path));
-    await expect(page.locator(".ontology-hero")).toHaveAttribute("data-step", "4");
-    await expect(page.locator(".ontocap .onto-result")).toBeVisible();
-    await expect(page.locator(".ontocap .onto-approval")).toHaveCSS("opacity", "1");
+    await expect(page.locator(".goal-diagram [data-active=true]")).toHaveCount(3);
+    await expect(page.locator(".goal-results [data-result]:visible")).toHaveCount(1);
     await expect(page.locator(".walk .human")).toHaveAttribute("transform", "translate(900 120)");
     await expect(page.locator(".walk")).toHaveClass(/withbot/);
-    await expect(page.locator(".use-case")).toHaveCount(12);
-    await expect(page.locator(".case:not(.visually-hidden)")).toHaveCount(12);
+    await expect(page.locator("#objectif option")).toHaveCount(17);
+    await expect(page.locator(".goal-results [data-result]")).toHaveCount(17);
     await expect(page.locator(".partner-offers li")).toHaveCount(23);
     for (const offer of await page.locator(".partner-offers li").all()) await expect(offer).toBeVisible();
     for (const face of await page.locator(".partner-delivery").all()) await expect(face).toBeHidden();
     await expect(page.locator("#references").getByRole("img")).toHaveCount(6);
     await expect(page.locator(".contact-fallback input[type=email]")).toBeVisible();
     await expect(page.locator(".onto .story animate, .onto .story animateMotion, .onto .token")).toHaveCount(0);
-    await expect(page.locator(".humby")).toBeVisible();
+    await expect(page.locator(".goal-results")).toBeVisible();
   }
   for (const path of ["/legal", "/fr/legal"]) {
     expect((await page.goto(local(path)))?.status()).toBe(200);
@@ -200,7 +196,7 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width, height: 900 });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
-    for (const selector of [".hero .btn.exec", "#bandeau .btn.exec", ".founder .btn.exec"]) {
+    for (const selector of [".hero .btn.exec", ".founder .btn.exec"]) {
       const button = page.locator(selector);
       const rose = await button.evaluate(el => {
         const probe = document.createElement("span");
@@ -213,149 +209,55 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
       await expect(button).toHaveCSS("background-color", rose);
     }
   });
-  test(`addendum figure, final reduced-motion state and type scale ${locale} ${width}`, async ({ page }) => {
+  test(`goal figure reduced motion and type scale ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
-    const figure = page.locator("svg.onto");
+    const figure = page.locator("svg.goal-diagram");
     await expect(figure).toBeVisible();
-    await expect(figure).toHaveAttribute("aria-hidden", "true");
-    await expect(figure.locator(".onto-geo:visible [data-plane]")).toHaveCount(3);
-    await expect(page.locator(".onto-node")).toHaveCount(33);
-    await expect(page.locator(".ontology-hero")).toHaveAttribute("data-step", "4");
-    await expect(page.locator(".onto-badge, .onto-number, .ontocap ol")).toHaveCount(0);
-    await expect(page.locator(".ontocap .onto-now")).toHaveText(locale === "fr" ? "Vous validez, la réponse part." : "You approve, the reply goes out.");
-    await expect(page.locator(".ontocap .onto-now")).toHaveAttribute("aria-live", "off");
-    await expect(page.locator(".ontocap .onto-now")).toHaveCSS("animation-name", "none");
-    await expect(page.locator(".ontocap .onto-result")).toHaveCSS("opacity", "1");
-    await expect(page.locator(".ontocap .onto-approval")).toHaveCSS("opacity", "1");
-    await expect(page.locator(".ontocap")).toHaveAttribute("aria-live", "off");
-    // Spec 29/10 supersedes the old 22px mobile phrase / 72px desktop H1.
+    await expect(figure).toHaveAttribute("role", "img");
+    await expect(figure.locator(":scope > title")).toHaveCount(1);
+    await expect(figure.locator("[data-node]")).toHaveCount(48);
+    await expect(figure.locator("[data-active=true]")).toHaveCount(3);
+    await expect(page.locator(".goal-results")).toHaveAttribute("aria-live", "polite");
     await expect(page.locator(".hero h1")).toHaveCSS("font-size", width === 375 ? "38px" : "46px");
     await expect(page.locator(".hero h1")).toHaveCSS("line-height", width === 375 ? "43px" : "52px");
-    await expect(page.locator(".hero .sub > p")).toHaveCSS("font-size", width === 375 ? "18px" : "19px");
     await expect(page.locator(".hero .btn.exec")).toHaveCSS("font-size", "22px");
     await expect(page.locator(".founder .btn.exec")).toHaveCSS("font-size", "22px");
     await expect(page.locator(".founder .btn.exec")).toHaveCSS("padding", "22px 36px");
+    expect(await figure.evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    // Switching the live preference must restore animation, then stop it again.
-    await page.emulateMedia({ reducedMotion: "no-preference" });
-    const applications = page.locator(".live");
-    await applications.locator("h2").scrollIntoViewIfNeeded();
-    await expect(applications).toHaveAttribute("data-motion", "ready");
-    await expect(applications.locator(".msg").first()).toHaveCSS("animation-duration", "18s");
-    await page.emulateMedia({ reducedMotion: "reduce" });
-    for (const message of await applications.locator(".msg").all()) {
-      await expect(message).toHaveCSS("opacity", "1");
-      await expect(message).toHaveCSS("animation-name", "none");
-    }
   });
 }
 
-
 for (const locale of ["fr", "en"] as const) for (const width of [1440, 1280, 1024, 390, 360, 320]) {
-  test(`four five-step stories, reduced motion and offscreen cleanup ${locale} ${width}`, async ({ page }) => {
+  test(`17 goal paths stay stable and stop in reduced motion ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
-    const epoch = new Date("2026-10-29T12:00:00Z");
-    await page.clock.install({ time: epoch });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
-    const region = page.locator(".ontology-hero");
-    const diagram = page.locator(".onto-diagram");
-    const caption = page.locator(".ontocap");
-    await expect(region).toHaveAttribute("data-story", "0");
-    await expect(region).toHaveAttribute("data-step", "4");
-    await diagram.scrollIntoViewIfNeeded();
-    await page.clock.pauseAt(new Date(epoch.getTime() + 10000));
-    const geometry = () => page.locator(".ontocap-stack, .ontocap .onto-now, .ontocap .onto-result").evaluateAll(nodes => nodes.map(node => {
-      const box = node.getBoundingClientRect();
-      return { top: box.top + scrollY, height: box.height };
-    }));
     await page.evaluate(() => document.fonts.ready);
+    const geometry = () => page.locator(".goal-results, .goal-diagram, .hero .actions").evaluateAll(nodes => nodes.map(node => {
+      const box = node.getBoundingClientRect(); return { top: box.top + scrollY, height: box.height };
+    }));
     const baseline = await geometry();
-    await expect(region.locator(".onto-badge, .onto-number, .ontocap ol")).toHaveCount(0);
-    const accessibleSteps = region.locator("ol.sr-only");
-    await expect(accessibleSteps).toHaveCSS("position", "absolute");
-    await expect(accessibleSteps).toHaveCSS("width", "1px");
-    await expect(accessibleSteps).toHaveCSS("height", "1px");
-    await expect(accessibleSteps).toHaveCSS("overflow", "hidden");
-    await page.emulateMedia({ reducedMotion: "no-preference" });
-    await expect(region).toHaveAttribute("data-anim", "in");
-    await expect(region).toHaveAttribute("data-step", "0");
-    for (const [index, story] of HERO_STORIES.entries()) {
-      await expect(region).toHaveAttribute("data-story", String(index));
-      await expect(accessibleSteps.locator("li")).toHaveText(story.steps.map(text => locale === "fr" ? text : SINGLE_PAGE_EN[text]));
-      for (let step = 0; step <= 4; step++) {
-        await expect(region).toHaveAttribute("data-step", String(step));
-        const measured = await geometry();
-        for (let row = 0; row < baseline.length; row++) {
-          expect(Math.abs(measured[row].top - baseline[row].top)).toBeLessThanOrEqual(1);
-          expect(Math.abs(measured[row].height - baseline[row].height)).toBeLessThanOrEqual(1);
-        }
-        const text = step === 0 ? story.title : story.steps[step - 1];
-        const translated = locale === "fr" ? text : SINGLE_PAGE_EN[text];
-        const phrase = step === 0 ? translated : translated[0].toLocaleUpperCase(locale) + translated.slice(1) + ".";
-        await expect(caption.locator(".onto-now")).toHaveText(phrase);
-        if (index === 3) {
-          await expect(caption.locator(".onto-now")).toHaveText(quality[locale].phrases[step]);
-          await expect(caption.locator(".onto-result b")).toHaveText(quality[locale].result);
-          await expect(caption.locator(".onto-approval")).toHaveText(quality[locale].approval);
-          expect(await diagram.locator(".onto-node.is-lit").evaluateAll(nodes => nodes.map(node => node.getAttribute("data-node")).sort()))
-            .toEqual(quality.nodes.slice(0, step + 1).flat().sort());
-        }
-        await expect(caption.locator(".onto-now")).toHaveCSS("font-size", "18px");
-        await expect(caption.locator(".onto-now")).toHaveCSS("line-height", "26px");
-        await expect(caption.locator(".onto-now")).toHaveCSS("font-weight", "600");
-        const motion = await caption.locator(".onto-now").evaluate(el => {
-          const style = getComputedStyle(el);
-          return { duration: parseFloat(style.animationDuration), transform: style.transform };
-        });
-        expect(motion.duration).toBeGreaterThan(0);
-        expect(motion.duration).toBeLessThanOrEqual(.25);
-        expect(motion.transform).toBe("none");
-        await expect(caption.locator(".onto-result")).toHaveClass(step >= 3 ? /is-visible/ : /^onto-result$/);
-        await expect(caption.locator(".onto-approval")).toHaveClass(step >= 4 ? /is-visible/ : /^onto-approval$/);
-        if (step >= 1) await expect(diagram.locator(`[data-node="${story.d}"]`)).toHaveClass(/is-lit/);
-        if (step >= 2) await expect(diagram.locator(`[data-node="${story.o2}"]`)).toHaveClass(/is-lit/);
-        if (step >= 3) await expect(diagram.locator(`[data-node="${story.out}"]`)).toHaveClass(/is-result/);
-        for (const group of await diagram.locator(".onto-geo").all()) {
-          const litLinks = [
-            ...(step >= 1 ? [`up_${story.d}_${story.o1}`] : []),
-            ...(step >= 2 ? [story.rel] : []),
-            ...(step >= 3 ? [story.rl, story.top] : []),
-            ...(step >= 4 ? [story.al] : []),
-          ];
-          expect(await group.locator(".onto-link.is-lit").evaluateAll(nodes => nodes.map(node => node.getAttribute("data-link")).sort())).toEqual([...new Set(litLinks)].sort());
-          if (index === 3) {
-            expect(await group.locator(".onto-link.is-lit").evaluateAll(nodes => nodes.map(node => node.getAttribute("data-link")).sort()))
-              .toEqual(quality.links.slice(0, step + 1).flat().sort());
-          }
-          await expect(group.locator(".onto-link.is-action")).toHaveCount(step >= 4 ? 1 : 0);
-          if (step >= 4) await expect(group.locator(`[data-link="${story.al}"]`)).toHaveClass(/is-action/);
-        }
-        await page.clock.runFor(step === 0 && index > 0 ? 900 : step === 4 ? 3600 : 2700);
+    const options = await page.locator("#objectif option").evaluateAll(nodes => nodes.map(node => (node as HTMLOptionElement).value));
+    expect(options).toHaveLength(17);
+    for (const id of options) {
+      await page.locator("#objectif").selectOption(id);
+      await expect(page.locator(`.goal-results [data-result="${id}"]`)).toBeVisible();
+      await expect(page.locator(".goal-results [data-result]:visible")).toHaveCount(1);
+      await expect(page.locator(".goal-diagram [data-active=true]")).toHaveCount(3);
+      const measured = await geometry();
+      for (let row = 0; row < baseline.length; row++) {
+        expect(Math.abs(measured[row].top - baseline[row].top)).toBeLessThanOrEqual(1);
+        expect(Math.abs(measured[row].height - baseline[row].height)).toBeLessThanOrEqual(1);
       }
+      expect(await page.locator(".goal-diagram").evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
     }
-    await expect(region).toHaveAttribute("data-story", "0");
-    await page.emulateMedia({ reducedMotion: "reduce" });
-    await expect(region).toHaveAttribute("data-step", "4");
-    await expect(caption.locator(".onto-result, .onto-approval")).toHaveCount(2);
-    await page.clock.runFor(20000);
-    await expect(region).toHaveAttribute("data-story", "0");
-    await expect(region).toHaveAttribute("data-step", "4");
-    expect(await region.evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);
-    await page.emulateMedia({ reducedMotion: "no-preference" });
-    await expect(region).toHaveAttribute("data-step", "0");
-    await page.clock.runFor(2700);
-    await expect(region).toHaveAttribute("data-step", "1");
-    await page.locator("footer").scrollIntoViewIfNeeded();
-    await expect(region).toHaveAttribute("data-anim", "out");
-    await expect(region).toHaveAttribute("data-step", "4");
-    await page.clock.runFor(20000);
-    await expect(region).toHaveAttribute("data-story", "0");
-    await expect(region).toHaveAttribute("data-step", "4");
-    await diagram.scrollIntoViewIfNeeded();
-    await expect(region).toHaveAttribute("data-step", "0");
+    const before = await page.locator(".goal-diagram polyline[data-path]").getAttribute("points");
+    await page.waitForTimeout(20000);
+    await expect(page.locator(".goal-diagram polyline[data-path]")).toHaveAttribute("points", before!);
   });
 }
 
@@ -368,24 +270,16 @@ test("client masks are local, served successfully and match the approved files",
   }
 });
 
-for (const width of [1440, 800, 390]) test(`service columns and animation entry at ${width}`, async ({ page }) => {
+for (const width of [1440, 800, 390]) test(`motor choices remain available with reduced motion at ${width}`, async ({ page }) => {
   await page.setViewportSize({ width, height: 900 });
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto(local("/fr"));
-  const services = page.locator("#services > .wrap");
-  await expect(services).toHaveAttribute("data-anim", "armed");
-  await page.locator("#services h2").scrollIntoViewIfNeeded();
-  await expect(services).toHaveAttribute("data-anim", "in");
-  const columns = await page.locator(".service-tasks").evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").length);
-  expect(columns).toBe(width > 1100 ? 4 : width > 760 ? 2 : 1);
-  await expect(page.locator(".use-case").nth(1)).toHaveAttribute("data-case", "1");
-  await page.locator("#references h2").scrollIntoViewIfNeeded();
-  await expect(services).toHaveAttribute("data-anim", "out");
-  for (const card of await page.locator(".use-case").all()) await expect(card).toHaveAttribute("data-case", "0");
-  await expect(page.locator("#references > .wrap")).toHaveAttribute("data-anim", "in");
-  await expect(page.locator(".logo-set img").first()).toHaveCSS("animation-duration", "9.6s");
+  const motors = page.locator("#en-production");
+  await motors.scrollIntoViewIfNeeded();
+  await expect(motors.locator(".goal-flow")).toHaveCount(9);
+  for (const line of await motors.locator(".goal-flow").all()) await expect(line).toBeVisible();
   await page.emulateMedia({ reducedMotion: "reduce" });
-  for (const el of await page.locator(".case, .logo-track, .tech-track").all()) await expect(el).toHaveCSS("animation-name", "none");
+  for (const el of await page.locator(".goal-flow, .logo-track, .tech-track").all()) await expect(el).toHaveCSS("animation-name", "none");
 });
 
 test("visible contact variant keeps the capture payload and error recovery", async ({ page }) => {
@@ -486,14 +380,14 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       const content = section.firstElementChild as HTMLElement;
       return { id: section.id, height: content.getBoundingClientRect().height, scrollHeight: content.scrollHeight, overflowY: getComputedStyle(content).overflowY };
     }));
-    expect(sections).toHaveLength(11);
+    expect(sections).toHaveLength(10);
     for (const section of sections) {
       expect(section.height, `${section.id}: first child's full border box, without margins`).toBeLessThanOrEqual(height);
       expect(section.scrollHeight, `${section.id}: content must not be clipped`).toBeLessThanOrEqual(height);
       expect(section.overflowY).not.toMatch(/hidden|clip/);
     }
-    const figures = page.locator(".onto-diagram, .onto, .scenes, .home-offers, .session-mosaic, .home-faq, .home-journal-list, .path-walker, .steps, .service-tasks, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid");
-    await expect(figures).toHaveCount(14);
+    const figures = page.locator(".goal-schema, .motors-grid, .measure-grid, .assistant-links, .home-offers, .session-mosaic, .home-faq, .path-walker, .steps, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid");
+    await expect(figures).toHaveCount(13);
     for (const figure of await figures.all()) {
       const box = await figure.boundingBox();
       expect(box).not.toBeNull();
@@ -521,7 +415,7 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
     }
     if (width === 1440 || width === 1280) {
       const mark = (await page.locator(".single-header .mark").boundingBox())!;
-      for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance"]) {
+      for (const selector of [".hero h1", ".goal-results", ".hero .exec"]) {
         const box = (await page.locator(selector).boundingBox())!;
         expect(box.x, `${selector}: same left edge as the header brand`).toBeCloseTo(mark.x, 0);
       }
@@ -543,9 +437,9 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       expect(geometry.width).toBeCloseTo(geometry.contentWidth + geometry.horizontalInset, 0);
       // Correctif 2 : large button and canonical connector; one text line remains.
       await expect(button).toHaveCSS("padding", "22px 36px");
-      const phrase = (await page.locator(".hero .sub > p").boundingBox())!;
+      const phrase = (await page.locator(".goal-results").boundingBox())!;
       const action = (await button.boundingBox())!;
-      const figure = (await page.locator(".onto-diagram").boundingBox())!;
+      const figure = (await page.locator(".goal-diagram").boundingBox())!;
       expect(action.y).toBeGreaterThanOrEqual(phrase.y + phrase.height);
       expect(action.x + action.width).toBeLessThanOrEqual(figure.x);
     } else {
@@ -560,7 +454,7 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       expect(hero.y).toBeGreaterThanOrEqual(header.y + header.height);
       expect(hero.y + hero.height).toBeLessThanOrEqual(height);
       // The 29/10 title scale changes; the full-hero viewport limit is unchanged.
-      for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance", ".onto", ".ontocap", ".humby"]) {
+      for (const selector of [".hero h1", "#objectif", ".goal-results", ".hero .exec", ".goal-diagram"]) {
         const box = (await page.locator(selector).boundingBox())!;
         expect(box.y).toBeGreaterThanOrEqual(0);
         expect(box.y + box.height, selector).toBeLessThanOrEqual(height);
@@ -571,26 +465,18 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
 }
 
 for (const locale of ["fr", "en"]) for (const width of [375, 390, 768, 1024, 1199, 1200, 1280, 1440]) {
-  test(`three-plane hero fits without clipped icons or labels ${locale} ${width}`, async ({ page }) => {
+  test(`three-level hero fits without clipped active labels ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 800 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
     await page.evaluate(() => document.fonts.ready);
-    const diagram = page.locator(".onto-diagram");
+    const diagram = page.locator(".goal-diagram");
     const box = (await diagram.boundingBox())!;
     const hero = (await page.locator(".hero").boundingBox())!;
-    const action = (await page.locator(".hero .exec").boundingBox())!;
-    const caption = (await page.locator(".ontocap-stack").boundingBox())!;
-    const quote = (await page.locator(".humby").boundingBox())!;
-    await expect(page.locator(".onto-node")).toHaveCount(33);
-    await expect(diagram.locator(".onto-geo")).toHaveCount(2);
-    const geometry = diagram.locator(`.onto-geo-${width < 1200 ? "compact" : "desktop"}`);
-    await expect(geometry).toBeVisible();
-    await expect(diagram.locator(`.onto-geo-${width < 1200 ? "desktop" : "compact"}`)).toBeHidden();
-    await expect(geometry.locator("[data-plane]")).toHaveCount(3);
-    const labels = diagram.locator(".onto-icon, .onto-label, .onto-zone, .onto-layer");
-    for (const label of await labels.all()) {
-      if (!await label.isVisible()) continue;
+    await expect(diagram.locator("[data-node]")).toHaveCount(48);
+    if (width < 1200) expect(box.width).toBeLessThanOrEqual(560);
+    for (const label of await page.locator(".goal-node-label").all()) {
+      await expect(label).toBeVisible();
       const bounds = (await label.boundingBox())!;
       expect(bounds.x).toBeGreaterThanOrEqual(hero.x);
       expect(bounds.x + bounds.width).toBeLessThanOrEqual(hero.x + hero.width);
@@ -598,61 +484,11 @@ for (const locale of ["fr", "en"]) for (const width of [375, 390, 768, 1024, 119
       expect(bounds.y + bounds.height).toBeLessThanOrEqual(hero.y + hero.height);
       expect(bounds.x).toBeGreaterThanOrEqual(box.x);
       expect(bounds.x + bounds.width).toBeLessThanOrEqual(box.x + box.width + 1);
+      expect(await label.evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(9);
     }
-    // Both path geometries must actually draw, not merely leave icons in place.
-    const palette = await diagram.evaluate(el => {
-      const color = (token: string) => {
-        const probe = document.createElement("span");
-        probe.style.color = `var(${token})`; el.append(probe);
-        const value = getComputedStyle(probe).color; probe.remove(); return value;
-      };
-      return { white: color("--white"), ink: color("--ink"), sage: color("--sky"), rose: color("--rose") };
-    });
-    await expect(page.locator(".onto-badge, .onto-number, .ontocap ol")).toHaveCount(0);
-    await expect(page.locator(".ontocap .onto-approval")).toHaveCSS("background-color", palette.sage);
-    for (const node of await diagram.locator(".onto-icon").all()) {
-      expect(await node.evaluate(el => getComputedStyle(el).backgroundColor)).not.toBe(palette.rose);
-    }
-    const planeBoxes = await geometry.locator(".onto-surface").evaluateAll(nodes => nodes.map(node => {
-      const box = (node as SVGGraphicsElement).getBBox();
-      return { width: box.width, height: box.height };
-    }));
-    for (const plane of planeBoxes) { expect(plane.width).toBeGreaterThan(600); expect(plane.height).toBeGreaterThan(140); }
-    if (width < 1200) {
-      expect(box.width).toBeLessThanOrEqual(560);
-      expect(box.y).toBeGreaterThanOrEqual(action.y + action.height);
-      expect(caption.y).toBeGreaterThanOrEqual(box.y + box.height);
-      expect(quote.y).toBeGreaterThanOrEqual(caption.y + caption.height);
-      expect(box.x + box.width / 2).toBeCloseTo(width / 2, 0);
-      for (const label of await diagram.locator(".onto-label, .onto-zone, .onto-layer > span").all()) await expect(label).toBeHidden();
-      const actions = (await page.locator(".hero .actions").boundingBox())!;
-      if (width <= 760) expect(action.width).toBeCloseTo(actions.width, 0);
-      else {
-        expect(action.width).toBeLessThan(actions.width * .6);
-        expect(action.x).toBeCloseTo(actions.x, 0);
-        await expect(page.locator(".hero .exec")).toHaveCSS("white-space", "nowrap");
-      }
-      if (width === 390) {
-        await expect(page.locator(".hero h1")).toHaveCSS("font-size", "38px");
-        await expect(page.locator(".hero h1")).toHaveCSS("line-height", "43px");
-      }
-    } else {
-      expect(caption.x + caption.width).toBeLessThanOrEqual(box.x);
-      expect(caption.y).toBeGreaterThanOrEqual(action.y + action.height);
-      expect(quote.x).toBeCloseTo(box.x, 0);
-      expect(quote.y).toBeGreaterThanOrEqual(box.y + box.height);
-      for (const label of await diagram.locator(".onto-label, .onto-zone, .onto-layer").all()) {
-        await expect(label).toBeVisible();
-        expect(await label.evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(9);
-      }
-
-    }
-    for (const element of await page.locator(".onto-diagram *, .ontocap *").all()) {
+    for (const element of await diagram.locator("*").all()) {
       if (!await element.isVisible()) continue;
-      const style = await element.evaluate(el => {
-        const s = getComputedStyle(el);
-        return { shadow: s.boxShadow, radius: s.borderRadius, font: s.fontFamily };
-      });
+      const style = await element.evaluate(el => { const s = getComputedStyle(el); return { shadow: s.boxShadow, radius: s.borderRadius, font: s.fontFamily }; });
       expect(style.shadow).toBe("none");
       expect(style.radius).toBe("0px");
       expect(style.font).not.toMatch(/mono/i);
@@ -668,7 +504,7 @@ for (const locale of ["fr", "en"]) for (const width of [800, 1024]) {
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
     await page.evaluate(() => document.fonts.ready);
     const hero = (await page.locator(".hero").boundingBox())!;
-    const phrase = (await page.locator(".hero .sub > p").boundingBox())!;
+    const phrase = (await page.locator(".goal-results").boundingBox())!;
     const button = page.locator(".hero .exec");
     const geometry = await button.evaluate(el => {
       const range = document.createRange();
@@ -689,70 +525,22 @@ for (const locale of ["fr", "en"]) for (const width of [800, 1024]) {
   });
 }
 
-for (const locale of ["fr", "en"]) test(`hero label backgrounds mask links in every story ${locale}`, async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 800 });
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  const epoch = new Date("2026-10-29T12:00:00Z");
-  await page.clock.install({ time: epoch });
-  await page.goto(local(locale === "fr" ? "/fr" : "/"));
-  await page.evaluate(() => document.fonts.ready);
-  await page.clock.pauseAt(new Date(epoch.getTime() + 10000));
-  const region = page.locator(".ontology-hero");
-  const surfaces = region.locator(".onto-geo-desktop .onto-surface");
-  const background = await surfaces.first().evaluate(el => getComputedStyle(el).fill);
-  for (const surface of await surfaces.all()) {
-    await expect(surface).toHaveCSS("fill", background);
-    await expect(surface).toHaveCSS("fill-opacity", "1");
-  }
-  const expectedPlane = await region.locator(".onto-diagram").evaluate(el => {
-    const probe = document.createElement("span");
-    probe.style.color = "color-mix(in srgb,var(--canard),var(--ink) 48%)";
-    el.append(probe);
-    const color = getComputedStyle(probe).color;
-    probe.remove();
-    return color;
-  });
-  expect(background).toBe(expectedPlane);
-  expect(background).not.toBe("rgba(0, 0, 0, 0)");
-  const heroBackground = await page.locator(".single-page .hero").evaluate(el => getComputedStyle(el).backgroundColor);
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await expect(region).toHaveAttribute("data-step", "0");
-  for (let story = 0; story < HERO_STORIES.length; story++) {
-    await page.clock.runFor(story === 0 ? 10800 : 9000);
-    await expect(region).toHaveAttribute("data-story", String(story));
-    await expect(region).toHaveAttribute("data-step", "4");
-    await expect(region.locator(".onto-label")).toHaveCount(33);
-    await expect(region.locator(".onto-zone")).toHaveCount(9);
-    for (const label of await region.locator(".onto-label").all()) {
-      await expect(label).toHaveCSS("background-color", background);
-    }
-    for (const zone of await region.locator(".onto-zone").all()) {
-      await expect(zone).toBeVisible();
-      await expect(zone).toHaveCSS("background-color", heroBackground);
-    }
-    for (const label of await region.locator(".onto-label, .onto-zone").all()) {
-      await expect(label).toBeVisible();
-      await expect(label).toHaveCSS("text-shadow", "none");
-      await expect(label).toHaveCSS("box-shadow", "none");
-      await expect(label).toHaveCSS("border-radius", "0px");
-    }
-    await page.clock.runFor(3600);
-  }
-});
-
 for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 800 }]) for (const locale of ["fr", "en"]) {
-  test(`hero plane names mask links with the page background ${locale} ${viewport.width}`, async ({ page }) => {
+  test(`active goal labels mask neighboring nodes ${locale} ${viewport.width}`, async ({ page }) => {
     await page.setViewportSize(viewport);
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
-    const hero = page.locator(".single-page .hero");
-    const background = await hero.evaluate(el => getComputedStyle(el).backgroundColor);
-    expect(background).not.toBe("rgba(0, 0, 0, 0)");
-    const names = hero.locator(".onto-layer b");
-    await expect(names).toHaveCount(3);
-    for (const name of await names.all()) {
-      await expect(name).toBeVisible();
-      await expect(name).toHaveCSS("background-color", background);
+    const options = await page.locator("#objectif option").evaluateAll(nodes => nodes.map(node => (node as HTMLOptionElement).value));
+    for (const id of options) {
+      await page.locator("#objectif").selectOption(id);
+      const labels = page.locator(".goal-node-label");
+      await expect(labels).toHaveCount(3);
+      for (const label of await labels.all()) {
+        const background = label;
+        await expect(background).toBeVisible();
+        expect(await background.evaluate(el => getComputedStyle(el).backgroundColor)).not.toMatch(/^(none|transparent|rgba\(0, 0, 0, 0\))$/);
+        await expect(background).toHaveCSS("opacity", "1");
+      }
     }
   });
 }
@@ -818,7 +606,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await expect(control).toBeInViewport({ ratio: 1 });
       }
       await expect(header.locator(":scope > .wrap > .btn")).toBeHidden();
-      for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance"]) {
+      for (const selector of [".hero h1", ".goal-results", ".hero .exec"]) {
         await expect(page.locator(selector)).toBeVisible();
         await expect(page.locator(selector)).toBeInViewport({ ratio: 1 });
       }
@@ -856,41 +644,18 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
   });
 }
 
-for (const locale of ["fr", "en"]) test(`passe 4 services cycle and restore SSR state ${locale}`, async ({ page }) => {
+for (const locale of ["fr", "en"]) test(`motor links select complete goal results ${locale}`, async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  const epoch = new Date("2026-10-27T12:00:00Z");
-  await page.clock.install({ time: epoch });
   await page.goto(local(locale === "fr" ? "/fr" : "/"));
-  const cards = page.locator(".use-case");
-  await expect(cards).toHaveCount(12);
-  await expect(page.locator(".case")).toHaveCount(48);
-  const first = cards.first();
-  const text = await first.locator(".case-text").allTextContents();
-  await page.locator("#services h2").scrollIntoViewIfNeeded();
-  await page.clock.pauseAt(new Date(epoch.getTime() + 10000));
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await expect(cards.nth(1)).toHaveAttribute("data-case", "1");
-  const cases = await first.locator(".case").allTextContents();
-  const secondCases = await cards.nth(1).locator(".case").allTextContents();
-  const firstDuration = readingMs(cases[0]);
-  const secondDuration = readingMs(secondCases[1]) + 290;
-  await page.clock.runFor(firstDuration - 1);
-  await expect(first).toHaveAttribute("data-case", "0");
-  await page.clock.runFor(1);
-  await expect(first).toHaveClass(/blink/);
-  await page.clock.runFor(120);
-  await expect(first).toHaveAttribute("data-case", "1");
-  await expect(first.locator(".case:not(.visually-hidden) .case-text")).toHaveText(text[1]);
-  // Each neighbor follows its own text length as well as the stagger.
-  if (secondDuration > firstDuration + 120) {
-    await expect(cards.nth(1)).toHaveAttribute("data-case", "1");
-    await page.clock.runFor(secondDuration - firstDuration);
+  const lines = page.locator(".goal-flow");
+  await expect(lines).toHaveCount(9);
+  for (const line of await lines.all()) {
+    const href = new URL((await line.getAttribute("href"))!, BASE);
+    await line.click();
+    const id = href.searchParams.get("objectif")!;
+    await expect(page.locator("#objectif")).toHaveValue(id);
+    await expect(page.locator(`.goal-results [data-result="${id}"]`)).toBeVisible();
   }
-  await expect(cards.nth(1)).toHaveAttribute("data-case", "2");
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  for (const card of await cards.all()) await expect(card).toHaveAttribute("data-case", "0");
-  await page.clock.runFor(20000);
-  for (const card of await cards.all()) await expect(card).toHaveAttribute("data-case", "0");
 });
 
 test("partner offers keep at most two faces active and restore every static offer", async ({ page }) => {
@@ -931,12 +696,12 @@ test("partner offers keep at most two faces active and restore every static offe
   for (const offer of await page.locator(".partner-offers li").all()) await expect(offer).toBeVisible();
 });
 
-for (const locale of ["fr", "en"]) test(`seven native carousels retain keyboard scrolling and position dots ${locale}`, async ({ page }) => {
+for (const locale of ["fr", "en"]) test(`five native carousels retain keyboard scrolling and position dots ${locale}`, async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 700 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(local(locale === "fr" ? "/fr" : "/"));
   const tracks = page.locator(".mobile-carousel");
-  await expect(tracks).toHaveCount(7);
+  await expect(tracks).toHaveCount(5);
   for (const track of await tracks.all()) {
     await track.scrollIntoViewIfNeeded();
     await expect.poll(() => track.evaluate(el => el.scrollLeft)).toBe(0);
@@ -968,7 +733,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await page.emulateMedia({ reducedMotion: "reduce" });
         await page.goto(local(locale === "fr" ? "/fr" : "/"));
         await page.evaluate(() => document.fonts.ready);
-        const band = page.locator("#services + #technologies");
+        const band = page.locator("#parcours + #technologies, #path + #technologies");
         // Round down to keep the section top visible when the hero height includes a subpixel.
         await band.evaluate(el => window.scrollTo(0, Math.floor(el.getBoundingClientRect().top + window.scrollY)));
         await expect(band).toBeInViewport({ ratio: 1 });
@@ -1111,74 +876,35 @@ test("technology masks are served locally with the exact supplied SVG bytes", as
 });
 
 for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
-  test.describe(`equal application phones ${locale} JS=${javaScriptEnabled}`, () => {
+  test.describe(`complete motors ${locale} JS=${javaScriptEnabled}`, () => {
     test.use({ javaScriptEnabled });
     for (const [width, height] of [[1440, 800], [1280, 720], [820, 900], [390, 700], [375, 700], [320, 700]]) {
-      test(`complete messages and identical screens at ${width}×${height}`, async ({ page }) => {
+      test(`complete flows without clipped text at ${width}×${height}`, async ({ page }) => {
         await page.setViewportSize({ width, height });
         await page.emulateMedia({ reducedMotion: "reduce" });
         await page.goto(local(locale === "fr" ? "/fr" : "/"));
         await page.evaluate(() => document.fonts.ready);
-        const phones = page.locator(".live .phone");
-        await expect(phones).toHaveCount(3);
-        const dimensions = await phones.evaluateAll(nodes => nodes.map(phone => {
-          const screen = phone.querySelector<HTMLElement>(".chat")!;
-          const bar = phone.querySelector<HTMLElement>(".bar")!;
-          const rect = phone.getBoundingClientRect();
-          const frame = screen.getBoundingClientRect();
-          const messages = [...screen.querySelectorAll<HTMLElement>(".msg")];
-          const screenStyle = getComputedStyle(screen);
-          const phoneStyle = getComputedStyle(phone);
-          // Intrinsic content only: the flex chat can grow to fill the shared row.
-          // Do not include phone padding here: it is the whitespace under test.
-          const contentHeight = parseFloat(phoneStyle.borderTopWidth) + parseFloat(phoneStyle.borderBottomWidth)
-            + bar.getBoundingClientRect().height + parseFloat(screenStyle.paddingTop) + parseFloat(screenStyle.paddingBottom)
-            + messages.reduce((sum, message) => sum + message.getBoundingClientRect().height, 0)
-            + (messages.length - 1) * parseFloat(screenStyle.rowGap);
-          const textRects = [...phone.querySelectorAll<HTMLElement>(".bar, .msg")].flatMap(node => {
-            const range = document.createRange(); range.selectNodeContents(node);
-            return [...range.getClientRects()].map(box => ({ top: box.top, bottom: box.bottom, left: box.left, right: box.right }));
-          });
-          return {
-            contentHeight, messageLine: parseFloat(getComputedStyle(messages[0]).lineHeight),
-            width: rect.width, height: rect.height, screenHeight: frame.height,
-            clipped: textRects.some(box => box.top < rect.top || box.bottom > rect.bottom || box.left < rect.left || box.right > rect.right),
-            scrollHeight: screen.scrollHeight, clientHeight: screen.clientHeight,
-            top: screen.querySelector(".msg")!.getBoundingClientRect().top - frame.top,
-            padding: parseFloat(getComputedStyle(screen).paddingTop),
-            barHeight: bar.getBoundingClientRect().height,
-            fontSizes: [...phone.querySelectorAll<HTMLElement>(".bar, .msg, .msg b")].map(node => parseFloat(getComputedStyle(node).fontSize)),
-          };
-        }));
-        const longestContent = Math.max(...dimensions.map(size => size.contentHeight));
-        for (const size of dimensions) {
-          expect(size.height).toBeGreaterThanOrEqual(longestContent);
-          expect(size.height).toBeLessThanOrEqual(longestContent + size.messageLine + 1);
-          expect(size.height - longestContent).toBeGreaterThanOrEqual(size.messageLine - 1);
-          expect(size.width).toBeCloseTo(dimensions[0].width, 1);
-          expect(size.height).toBeCloseTo(dimensions[0].height, 1);
-          expect(size.screenHeight).toBeCloseTo(dimensions[0].screenHeight, 1);
-          expect(size.barHeight).toBeCloseTo(dimensions[0].barHeight, 1);
-          expect(size.clipped).toBe(false);
-          expect(size.scrollHeight).toBeLessThanOrEqual(size.clientHeight + 1);
-          expect(size.top).toBeCloseTo(size.padding, 1);
-          expect(Math.min(...size.fontSizes)).toBeGreaterThanOrEqual(16);
-        }
-        const references = page.locator("#references");
-        await expect(references.locator(".reflines, p")).toHaveCount(0);
-        for (const client of ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"]) {
-          await expect(references.getByRole("img", { name: new RegExp(client) })).toHaveCount(1);
-        }
-        if (width <= 1100) {
-          const track = page.locator(".scenes.mobile-carousel");
-          await expect(track).toHaveCSS("scroll-snap-type", "x mandatory");
-          if (javaScriptEnabled) {
-            await track.focus();
-            await page.keyboard.press("End");
-            await expect.poll(() => track.evaluate(el => el.scrollLeft)).toBeGreaterThan(100);
-            await expect(track.locator("xpath=following-sibling::*[1]").locator("i").last()).toHaveClass("on");
+        const motors = page.locator(locale === "fr" ? "#en-production" : "#in-production");
+        await expect(motors.locator(".goal-flow")).toHaveCount(9);
+        const columns = await motors.locator(".motor-column").evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().width));
+        expect(columns).toHaveLength(3);
+        for (const column of columns) expect(column).toBeCloseTo(columns[0], 1);
+        expect((await motors.locator(":scope > .wrap").boundingBox())!.height).toBeLessThanOrEqual(height);
+        for (const flow of await motors.locator(".goal-flow").all()) {
+          await expect(flow).toBeVisible();
+          const size = await flow.evaluate(el => ({ width: el.clientWidth, scrollWidth: el.scrollWidth, height: el.clientHeight, scrollHeight: el.scrollHeight, font: parseFloat(getComputedStyle(el).fontSize) }));
+          expect(size.scrollWidth).toBeLessThanOrEqual(size.width + 1);
+          expect(size.scrollHeight).toBeLessThanOrEqual(size.height + 1);
+          expect(size.font).toBeGreaterThanOrEqual(16);
+          expect(size.height).toBeGreaterThanOrEqual(44);
+          for (const text of await flow.locator("b, .goal-flow-steps > span").all()) {
+            const bounds = await text.evaluate(el => ({ size: parseFloat(getComputedStyle(el).fontSize), width: el.clientWidth, scrollWidth: el.scrollWidth, height: el.clientHeight, scrollHeight: el.scrollHeight }));
+            expect(bounds.size).toBeGreaterThanOrEqual(16);
+            expect(bounds.scrollWidth).toBeLessThanOrEqual(bounds.width + 1);
+            expect(bounds.scrollHeight).toBeLessThanOrEqual(bounds.height + 1);
           }
         }
+        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
       });
     }
   });
@@ -1232,15 +958,20 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
     await page.evaluate(() => document.fonts.ready);
 
-    // Keep relative deadlines; reject calendar dates in either language, including numeric forms.
+    // None of the nine motor lines carries a date or a temporal promise.
     const months = "janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre|january|february|march|april|may|june|july|august|september|october|november|december";
     const calendarDate = new RegExp(`\\b(?:\\d{1,2}(?:er|st|nd|rd|th)?\\s+(?:${months})|(?:${months})\\s+\\d{1,2}|\\d{1,4}[/-]\\d{1,2}[/-]\\d{1,4}|(?:19|20)\\d{2})\\b`, "i");
-    await expect(page.locator(".scenes")).not.toContainText(calendarDate);
+    const flows = page.locator(".goal-flow");
+    await expect(flows).toHaveCount(9);
+    for (const flow of await flows.all()) {
+      await expect(flow).not.toContainText(calendarDate);
+      await expect(flow).not.toContainText(/\b(?:aujourd'hui|demain|hier|matin|soir|today|tomorrow|yesterday|morning|evening|tonight|daily|weekly|monthly|yearly|hourly|quotidien(?:ne)?|hebdomadaire|mensuel(?:le)?|annuel(?:le)?|(?:chaque|tous les|toutes les|every|each)\s+(?:jours?|semaines?|mois|ans?|années?|heures?|day|week|month|year|hour)|\d+\s*(?:h|min(?:utes?)?|heures?|jours?|semaines?|mois|ans?|années?|hours?|days?|weeks?|months?|years?))\b/i);
+    }
     const journal = locale === "fr" ? "/fr/journal" : "/journal";
     await expect(page.locator(`#references a[href="${journal}"]`)).toHaveCount(0);
     // Décision de Paul du 08/11/2026, correctif passe 2 : one index link, only in articles.
     await expect(page.locator(`main a[href="${journal}"]`)).toHaveCount(1);
-    await expect(page.locator(`#articles a[href="${journal}"]`)).toHaveCount(1);
+    await expect(page.locator(`#${locale === "fr" ? "mesures" : "measurements"} a[href="${journal}"]`)).toHaveCount(1);
     await expect(page.locator(`footer a[href="${journal}"]`)).toBeVisible();
 
     if (width >= 1280) {
@@ -1303,13 +1034,12 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390, 375]) {
       : "Your expertise is the raw material. We put it to work.";
     await expect(page.locator("h1")).toHaveText(headline);
     await expect(page.locator("h1 b")).toHaveText(locale === "fr" ? "Nous la mettons au travail." : "We put it to work.");
-    await expect(page.locator(".hero .sub > p")).toHaveText(locale === "fr"
-      ? "Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent."
-      : "Your teams take AI in hand. We build the software they are missing.");
+    await expect(page.locator(".goal-results [data-result]:visible")).toHaveCount(1);
+    await expect(page.locator("#objectif option")).toHaveCount(17);
     await expect(page.locator(".hero .exec")).toHaveText(locale === "fr" ? "Prendre rendez-vous" : "Book a call");
     // Décision de Paul du 08/11/2026, nuit : action unique et attribution rendez-vous.
-    await expect(page.locator(".hero .exec")).toHaveAttribute("href", `${locale === "fr" ? "/fr" : "/"}?source=rdv-hero#contact`);
-    for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance"]) {
+    await expect(page.locator(".hero .exec")).toHaveAttribute("href", `${locale === "fr" ? "/fr" : "/"}?source=accueil-rendez-vous#contact`);
+    for (const selector of [".hero h1", ".goal-results", ".hero .exec"]) {
       const element = page.locator(selector);
       await expect(element).toBeVisible();
       await expect(element).toBeInViewport({ ratio: 1 });
@@ -1335,13 +1065,12 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390, 375]) {
     expect(text.replace(/\s+/g, " ").replace(headline, "")).not.toMatch(locale === "fr"
       ? /ontologie|objets reliés|sources de logique|systèmes d'action|agnostiques|harness|back-office|raffinons|matière première/i
       : /ontology|linked objects|logic sources|systems of action|technology-agnostic|harness engineering/i);
-    expect(text.match(/\bagents?\b/gi)).toHaveLength(1);
-    await expect(page.locator(".hero .sub > p")).toContainText(locale === "fr" ? /\bIA\b/ : /\bAI\b/);
+    await expect(page.locator(".goal-flow")).toHaveCount(9);
     for (const value of [await page.title(), await page.locator('meta[name="description"]').getAttribute("content")]) {
       expect(value).toMatch(locale === "fr" ? /\bIA\b.*Tourcoing.*Paris/ : /\bAI\b.*Tourcoing.*Paris/);
       expect(value).not.toMatch(/Lille/);
     }
-    const definition = page.locator("h2 + .change-definition");
+    const definition = page.locator(locale === "fr" ? "#en-production > .wrap > p" : "#in-production > .wrap > p");
     await expect(definition).toHaveCount(1);
     await expect(definition).toBeVisible();
     const definitionHeight = await definition.evaluate(el => ({ client: el.clientHeight, scroll: el.scrollHeight }));
@@ -1366,7 +1095,7 @@ test.describe("headline without JavaScript", () => {
       await expect(title).toHaveCSS("line-height", width === 1440 ? "52px" : "43px");
       await expect(title).toHaveCSS("font-weight", "500");
       await expect(title.locator("b")).toHaveCSS("font-weight", "600");
-      for (const selector of [".hero h1", ".hero .sub > p", ".hero .exec", ".hero-reassurance"]) {
+      for (const selector of [".hero h1", ".goal-results", ".hero .exec"]) {
         const element = page.locator(selector);
         await expect(element).toBeVisible();
         await expect(element).toBeInViewport({ ratio: 1 });
@@ -1408,4 +1137,3 @@ for (const path of ["/fr", "/fr/journal", "/journal/agent-ia-entreprise"]) {
     }
   });
 }
-

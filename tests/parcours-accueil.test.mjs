@@ -1,16 +1,14 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import fs from "node:fs";
-import path from "node:path";
-import matter from "gray-matter";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
 
 const anchors = {
-  fr: ["references", "terrain", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "bandeau", "questions", "articles", "contact"],
-  en: ["references", "in-the-field", "offers", "in-production", "path", "services", "technologies", "team", "bandeau", "questions", "articles", "contact"],
+  fr: ["haut", "references", "en-production", "mesures", "assistant", "terrain", "offres", "parcours", "technologies", "partenaires", "questions", "contact"],
+  en: ["haut", "references", "in-production", "measurements", "assistant", "in-the-field", "offers", "path", "technologies", "team", "questions", "contact"],
 };
 const section = (html, id) => {
   const result = html.match(new RegExp(`<section\\b[^>]*id="${id}"[^>]*>([\\s\\S]*?)</section>`))?.[1];
@@ -24,8 +22,8 @@ for (const locale of ["fr", "en"]) {
     assert.deepEqual([...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]), anchors[locale]);
     assert.doesNotMatch(html, /<section[^>]*id="(?:ce-qui-change|what-changes)"/);
     const applications = section(html, locale === "fr" ? "en-production" : "in-production");
-    assert.match(applications, /<h2>[\s\S]*?<\/h2><p class="muted change-definition">[^<]+<\/p>/);
-    assert.equal((visibleText(html).match(locale === "fr" ? /agent IA/g : /AI agent/g) ?? []).length, 1);
+    assert.equal((applications.match(/class="goal-flow"/g) ?? []).length, 9);
+    assert.match(visibleText(applications), locale === "fr" ? /L'assistant prépare\. Vous validez\./ : /The assistant prepares\. You approve\./);
     const home = locale === "fr" ? "/fr" : "/";
     const load = loader(locale, { "next/navigation": { usePathname: () => home, useSearchParams: () => new URLSearchParams() } });
     const { RevHeader } = load("src/system/components/RevHeader.tsx");
@@ -61,30 +59,20 @@ for (const locale of ["fr", "en"]) {
     assert.doesNotMatch(visibleText(faq), /\d\s*(?:€|\$|EUR|USD)/);
   });
 
-  test(`latest articles match date-sorted Journal cards with one final destination (${locale})`, async () => {
-    const load = loader(locale, { "server-only": {}, "node:fs": fs, "node:path": path, "gray-matter": matter });
-    const frenchSlugs = new Set(fs.readdirSync("content/journal/fr").filter(file => file.endsWith(".mdx")).map(file => file.slice(0, -4)));
-    const entries = load("src/system/journal.ts").getAllJournalEntrySummaries(locale);
-    const visibleEntries = entries.filter(entry => locale !== "fr" || frenchSlugs.has(entry.slug));
+  test(`measures keep dated localized final Journal destinations (${locale})`, async () => {
     const html = await renderPage(locale);
-    const articles = section(html, "articles");
-    const cards = [...articles.matchAll(/<article\b[^>]*>([\s\S]*?)<\/article>/g)];
-    assert.equal(cards.length, 3);
-    assert.deepEqual(entries.map(e => e.date), entries.map(e => e.date).sort().reverse());
-    for (const [i, entry] of visibleEntries.slice(0, 3).entries()) {
-      const card = cards[i][1];
-      assert.equal((card.match(/<a /g) ?? []).length, 1);
-      const contentLocale = locale === "fr" && !entry.noindex ? "fr" : "en";
-      assert.match(card, new RegExp(`href="${contentLocale === "fr" ? "/fr" : ""}/journal/${entry.slug}"`));
-      assert.match(card, new RegExp(`hrefLang="${contentLocale}"`));
-      assert.ok(visibleText(card).includes(entry.title));
-      assert.ok(card.includes(`dateTime="${entry.date}"`));
-      assert.ok(card.includes(`${entry.readingMinutes} ${locale === "fr" ? "min de lecture" : "min read"}`));
-      const themes = load("src/system/journal-themes.ts").getJournalThemes(entry.slug);
-      for (const theme of themes) assert.ok(visibleText(card).includes(theme.label[locale]));
-      assert.equal((card.match(/class="journal-entry-theme"/g) ?? []).length, themes.length);
+    const measures = section(html, locale === "fr" ? "mesures" : "measurements");
+    const slugs = ["ai-cost-french-vs-english-tokens", "legacy-database-migration-writers-first", "agents-that-fabricate-facts"];
+    for (const slug of slugs) {
+      const href = `${locale === "fr" ? "/fr" : ""}/journal/${slug}`;
+      assert.ok(measures.includes(`href="${href}"`));
+      const article = fs.readFileSync(`content/journal/${locale === "fr" ? "fr/" : ""}${slug}.mdx`, "utf8");
+      const date = article.match(/^date: ["']?([\d-]+)/m)?.[1];
+      assert.ok(date);
+      assert.ok(measures.includes(`dateTime="${date}"`));
     }
-    assert.match(articles, new RegExp(`href="${locale === "fr" ? "/fr" : ""}/journal"`));
+    assert.doesNotMatch(measures, /97\s*%|computer-use-what-it-can-undo/);
+    assert.ok(measures.includes(`href="${locale === "fr" ? "/fr" : ""}/journal"`));
   });
 }
 

@@ -1,3 +1,27 @@
+## Accueil épuré, 13/11/2026
+
+Spec `docs/CODEX-SPEC-2026-11-13-accueil-epure.md`, base e707430 (#383).
+Haut de page : hero à 17 objectifs FR/EN, références, trois moteurs,
+mesures sourcées et liens assistants ; puis terrain, métiers, parcours,
+technologies, équipe, FAQ et contact conservés. Anciennes applications/services,
+bandeau et derniers articles retirés du rendu, composants historiques archivés.
+Sélection partagée via HomeGoalProvider ; GET sans JS, source accueil-ID via
+avecSource, même objectif transmis au calendrier. Source validée prioritaire
+au rechargement ; liens moteurs retirent l'ancienne source. Résultats SSR et
+réserve intrinsèque de hauteur, 48 nœuds ; aucun nouveau stockage ni mesure.
+Deux chiffres seulement : 97 % absent de l'article imposé, exclu selon la spec.
+Règles d'épure dans DESIGN.md ; contraintes et validation détaillées dans
+`docs/REPORT-2026-11-13-accueil-epure.md`. Aucun commit/push/déploiement.
+Deux batteries consécutives vertes : npm ci, lint, claims, build Webpack
+96 pages, 19/19 Brand OS, 722/722 Node, marque ; TypeScript et collecte de
+622 tests navigateur réussis. 47 tests Node et 10 tests navigateur ajoutés.
+Ces batteries tournent sous Node 26.12.1 ; Node 24 demandé par .nvmrc est
+cassé localement (libsimdjson absente), téléchargement temporaire bloqué DNS.
+Le rejeu Node 24 reste à réaliser sur l'hôte/CI.
+« Save time. » remplace la proposition « Free up time. » incompatible avec
+le garde-fou texte existant, conservé sans exception nouvelle.
+Preuve navigateur à rejouer par Claude sur l'hôte, aucune preuve production.
+
 ## Passe site, Correctif 4 — 13/11/2026
 
 Signature ajoutée et auteur imposé retirés ; identité Journal Parrit.ai restaurée.

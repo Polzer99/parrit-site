@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accueil Parrit.ai, prototype 2</title>
+<style>
+@font-face{font-family:"General Sans";font-weight:400;font-style:normal;font-display:swap;src:url(data:font/woff2;base64,__FONT_REGULAR__) format("woff2")}
+@font-face{font-family:"General Sans";font-weight:500;font-style:normal;font-display:swap;src:url(data:font/woff2;base64,__FONT_MEDIUM__) format("woff2")}
+@font-face{font-family:"General Sans";font-weight:600;font-style:normal;font-display:swap;src:url(data:font/woff2;base64,__FONT_SEMIBOLD__) format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:swap;src:url(data:font/woff2;base64,__FONT_MONO__) format("woff2")}
+:root{
+  /* Plan : une seule phrase à compléter (« Je veux … ») recâble le schéma. Croissance d'abord, temps ensuite.
+     Peu de mots, beaucoup d'air. Le mur de logos du site est repris tel quel. Un seul appel : 15 minutes avec Paul. */
+  --canard:#006F8A; --rose:#F08E85; --off:#F7F9F8; --ink:#06262E; --ink2:#496167;
+  --sky:#DBE9E1; --line:#798A8E; --white:#FFFFFF; --on-canard-2:#D5EAEF; --on-ink-2:#A9C2C7; --on-ink-line:#7FA0A7;
+  --sans:"General Sans","Helvetica Neue",Arial,sans-serif; --mono:"IBM Plex Mono",Menlo,monospace;
+  --col:1160px; color-scheme:light;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--off);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:76px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rose);outline-offset:3px}
+::selection{background:var(--rose);color:var(--ink)}
+.wrap{max-width:var(--col);margin:0 auto;padding:0 40px}
+.k{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+h1,h2{font-weight:500;letter-spacing:-.02em;text-wrap:balance}
+h1 b,h2 b{font-weight:600}
+.fl{width:22px;height:12px;flex:none;transition:transform .15s}
+
+.note{background:var(--ink);color:var(--on-ink-2);padding:8px 0}
+.note .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+
+header{background:var(--canard);color:var(--white)}
+header .wrap{display:flex;align-items:center;gap:28px;min-height:72px}
+.brand{font-weight:600;letter-spacing:.02em;text-decoration:none;font-size:18px}
+nav{display:flex;gap:24px}
+nav a{text-decoration:none;color:var(--on-canard-2);font-size:16px}
+nav a:hover{color:var(--white)}
+.spacer{flex:1}
+.view{display:flex;border:1px solid var(--on-canard-2)}
+.view button{font:inherit;font-size:14px;background:transparent;color:var(--on-canard-2);border:0;padding:8px 12px;cursor:pointer}
+.view button[aria-pressed="true"]{background:var(--white);color:var(--ink);font-weight:600}
+
+.btn{font:inherit;font-weight:600;font-size:20px;border:1px solid transparent;cursor:pointer;padding:18px 30px;display:inline-flex;gap:14px;align-items:center;text-decoration:none;min-height:60px;transition:background-color .15s,border-color .15s}
+.btn.rose{background:var(--rose);color:var(--ink)}
+.btn.rose:hover{background:var(--white);border-color:var(--ink)}
+.btn.contour{border-color:var(--ink);color:var(--ink);background:transparent;font-size:17px;padding:13px 22px;min-height:0}
+.btn.contour:hover{background:var(--ink);color:var(--white)}
+.btn:hover .fl{transform:translateX(4px)}
+
+.hero{background:var(--canard);color:var(--white);padding:56px 0 72px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+h1{font-size:clamp(38px,4.2vw,50px);line-height:1.1;margin-bottom:44px}
+.phrase{font-size:clamp(24px,2.5vw,30px);line-height:1.4;color:var(--on-canard-2)}
+.phrase select{font:inherit;font-weight:600;color:var(--white);background-color:transparent;border:0;border-bottom:3px solid var(--rose);padding:0 30px 2px 2px;cursor:pointer;appearance:none;-webkit-appearance:none;border-radius:0;max-width:100%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 8'%3E%3Cpath d='M0 0h14L7 8z' fill='%23F08E85'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center;background-size:14px 8px}
+.phrase select option,.phrase select optgroup{color:var(--ink);background:var(--white);font-size:17px}
+.resultat{margin-top:16px;font-size:18px;color:var(--white);min-height:1.5em}
+.appel{margin-top:40px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.appel span{color:var(--on-canard-2);font-size:17px}
+
+.schema svg{display:block;width:100%;height:auto;max-width:540px;margin:0 auto}
+.schema .plaque{fill:#06262E;fill-opacity:.55;stroke:var(--on-canard-2);stroke-opacity:.55}
+.schema .tranche{fill:#06262E;fill-opacity:.9}
+.schema .fil{stroke:var(--on-canard-2);stroke-opacity:.16;stroke-width:1}
+.schema .noeud{fill:none;stroke:var(--on-canard-2);stroke-opacity:.6;stroke-width:1.2}
+.schema .actif{fill:var(--white);stroke:var(--white)}
+.schema .chemin{fill:none;stroke:var(--rose);stroke-width:3;stroke-linejoin:round;stroke-dasharray:700;stroke-dashoffset:0}
+.schema .chemin.trace{animation:trace .9s ease-out}
+@keyframes trace{from{stroke-dashoffset:700}to{stroke-dashoffset:0}}
+.schema text{font-family:var(--sans);fill:var(--white)}
+.schema .cap{font-family:var(--mono);font-size:11px;letter-spacing:.16em;fill:var(--on-canard-2)}
+.schema .nom{font-size:16px;font-weight:600}
+.schema .fond{fill:var(--ink)}
+
+.logos{background:var(--white);padding:44px 0}
+.logos .wrap{display:grid;gap:28px;justify-items:center}
+.discret{color:var(--ink2);font-size:16px}
+.mur{display:flex;flex-wrap:wrap;gap:28px 40px;align-items:center;justify-content:center}
+.mur img{display:block;height:46px;width:auto}
+.mur img.haut{height:72px}
+
+section{padding:104px 0}
+h2{font-size:clamp(30px,3.4vw,42px);line-height:1.12;margin-bottom:44px}
+
+.moteurs2 .grille{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:48px 56px}
+.moteur h2{margin-bottom:28px;font-size:clamp(26px,2.5vw,32px)}
+.moteur>div{border-bottom:1px solid var(--line)}
+.flux{display:grid;grid-template-columns:minmax(0,1fr);align-items:center;gap:6px;width:100%;font:inherit;color:inherit;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:20px 0;cursor:pointer}
+.flux b{font-weight:600}
+.flux i{font-style:normal;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.flux span{color:var(--ink2);font-size:15px;white-space:nowrap}
+.flux .fin{color:var(--ink);font-weight:500}
+.flux .fl{color:var(--line);width:16px}
+.flux:hover b{color:var(--canard)}
+.principe{margin-top:56px;font-size:22px}
+
+.mesures{background:var(--white)}
+.chiffres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+.chiffres a{text-decoration:none;border-top:1px solid var(--line);padding-top:20px;display:grid;gap:10px;align-content:start}
+.chiffre{font-size:clamp(44px,5vw,64px);font-weight:600;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.chiffres a:hover .chiffre{color:var(--canard)}
+.chiffres p{font-size:17px;color:var(--ink2);max-width:26ch}
+.presse{margin-top:56px;padding-top:28px;border-top:1px solid var(--line);display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.presse p{font-size:20px}
+.presse p b{font-weight:600}
+
+.assistant{background:var(--sky);padding:64px 0}
+.assistant .wrap{display:flex;gap:28px 48px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.assistant h2{margin:0;font-size:clamp(26px,2.8vw,34px)}
+.ia{display:flex;gap:12px;flex-wrap:wrap}
+.ia a{border:1px solid var(--ink);padding:12px 20px;text-decoration:none;font-weight:600;background:var(--off);font-size:17px}
+.ia a:hover{background:var(--ink);color:var(--white)}
+
+.rdv{background:var(--ink);color:var(--white);text-align:center}
+.rdv h2{margin-bottom:16px}
+.rdv p{color:var(--on-ink-2);margin-bottom:36px}
+.rdv .cal{margin:44px auto 0;max-width:560px;border:1px dashed var(--on-ink-line);padding:20px;color:var(--on-ink-2);font-size:15px}
+.rdv .cal b{color:var(--white);font-weight:600}
+
+.machine{display:none;background:var(--ink);color:var(--on-ink-2);padding:56px 0 72px}
+.machine pre{font-family:var(--mono);font-size:14px;line-height:1.7;white-space:pre-wrap;max-width:86ch}
+.machine pre b{color:var(--white);font-weight:500}
+.machine pre i{color:var(--rose);font-style:normal}
+body.vue-machine .humain{display:none}
+body.vue-machine .machine{display:block}
+
+.quai[hidden]{display:none}
+.quai{position:fixed;left:0;right:0;bottom:0;background:var(--ink);color:var(--white);border-top:1px solid var(--on-ink-line);z-index:10}
+.quai .wrap{display:flex;gap:20px;align-items:center;justify-content:space-between;min-height:68px;padding-top:8px;padding-bottom:8px}
+.quai p{font-size:16px;color:var(--on-ink-2)}
+.quai p b{color:var(--white);font-weight:600}
+.quai .btn{font-size:17px;padding:12px 22px;min-height:0}
+
+footer{background:var(--ink);color:var(--on-ink-2);padding:28px 0;font-size:14px;border-top:1px solid var(--on-ink-line)}
+
+@media (max-width:860px){
+  .wrap{padding:0 20px}
+  .hero{padding:40px 0 48px}
+  .hero .wrap,.moteurs2 .grille,.chiffres{grid-template-columns:minmax(0,1fr)}
+  .hero .wrap{gap:36px}
+  h1{margin-bottom:32px}
+  .phrase select{display:block;margin-top:4px;font-size:20px}
+  .hero .btn{width:100%;justify-content:center}
+  .appel{gap:12px;justify-content:center}
+  nav,.quai p{display:none}
+  section{padding:64px 0}
+  h2{margin-bottom:32px}
+  .mur{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 20px;justify-items:center;width:100%}
+  .mur img{height:34px;max-width:100%}
+  .mur img.haut{height:52px}
+  .note span+span{display:none}
+  .view button{font-size:13px;padding:8px 10px;white-space:nowrap}
+  header .wrap{gap:12px}
+  .quai .btn{width:100%;justify-content:center}
+  body{padding-bottom:70px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.schema .chemin.trace{animation:none}.fl{transition:none}.btn:hover .fl{transform:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="fl" viewBox="0 0 22 12"><path d="M0 6h20M15 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol></svg>
+
+<div class="note"><div class="wrap k"><span>Prototype d'accueil 2, 13 novembre 2026</span><span>Rien n'est en ligne</span></div></div>
+
+<header><div class="wrap">
+  <a class="brand" href="#haut">PARRIT.AI</a>
+  <nav aria-label="Navigation"><a href="#moteurs">Applications</a><a href="#mesures">Mesures</a><a href="https://parrit.ai/fr/journal">Journal</a></nav>
+  <span class="spacer"></span>
+  <div class="view" role="group" aria-label="Choisir la vue">
+    <button type="button" id="vue-equipes" aria-pressed="true">Pour vous</button>
+    <button type="button" id="vue-machine" aria-pressed="false">Pour votre IA</button>
+  </div>
+</div></header>
+
+<main id="haut">
+<div class="humain">
+
+<div class="hero"><div class="wrap">
+  <div>
+    <h1>Votre expertise est la matière première. <b>Nous la mettons au travail.</b></h1>
+    <p class="phrase">Je veux <select id="objectif" aria-label="Ce que vous voulez obtenir"></select></p>
+    <p class="resultat" id="resultat" aria-live="polite"></p>
+    <div class="appel"><a class="btn rose" id="cta-haut" href="#rdv">Prendre rendez-vous <svg class="fl" aria-hidden="true"><use href="#fl"/></svg></a><span>15 minutes</span></div>
+  </div>
+  <div class="schema">
+    <svg id="schema" viewBox="0 0 520 590" role="img" aria-labelledby="schema-titre"><title id="schema-titre">De ce que vous avez déjà à ce que vous obtenez</title></svg>
+  </div>
+</div></div>
+
+<div class="logos"><div class="wrap">
+  <p class="discret">Ils travaillent avec nous</p>
+  <div class="mur">
+    <img src="data:image/png;base64,__LOGO_laparra__" alt="Laparra">
+    <img src="data:image/png;base64,__LOGO_clevery__" alt="Clevery">
+    <img class="haut" src="data:image/png;base64,__LOGO_forexpert__" alt="Forexpert">
+    <img src="data:image/png;base64,__LOGO_joone__" alt="Joone">
+    <img class="haut" src="data:image/svg+xml;base64,__LOGO_sncf__" alt="SNCF">
+    <img src="data:image/png;base64,__LOGO_carte-noire__" alt="Carte Noire">
+  </div>
+</div></div>
+
+<section class="moteurs2" id="moteurs"><div class="wrap">
+  <div class="grille">
+    <div class="moteur"><h2>Faire grandir <b>l'activité.</b></h2><div id="flux-croissance"></div></div>
+    <div class="moteur"><h2>Libérer <b>du temps.</b></h2><div id="flux-temps"></div></div>
+    <div class="moteur"><h2>Construire <b>vos outils.</b></h2><div id="flux-construire"></div></div>
+  </div>
+  <p class="principe">L'assistant prépare. <b>Vous validez.</b></p>
+</div></section>
+
+<section class="mesures" id="mesures"><div class="wrap">
+  <h2>Ce que nous avons <b>mesuré.</b></h2>
+  <div class="chiffres">
+    <a href="https://parrit.ai/fr/journal/ai-cost-french-vs-english-tokens"><span class="k">13 oct. 2026</span><span class="chiffre">29 à 54 %</span><p>de coût en plus pour un même texte en français.</p></a>
+    <a href="https://parrit.ai/fr/journal"><span class="k">28 sept. 2026</span><span class="chiffre">97 %</span><p>des actions refusées venaient d'un seul outil.</p></a>
+    <a href="https://parrit.ai/fr/journal/agents-that-fabricate-facts"><span class="k">31 août 2026</span><span class="chiffre">1 355</span><p>lignes fausses retirées d'une base de données.</p></a>
+  </div>
+  <div class="presse">
+    <p>Chroniques de Paul Larmaraud parues dans <b>Le Monde Informatique.</b></p>
+    <a class="btn contour" href="https://parrit.ai/fr/journal">Lire le Journal <svg class="fl" aria-hidden="true"><use href="#fl"/></svg></a>
+  </div>
+</div></section>
+
+<div class="assistant"><div class="wrap">
+  <h2>Ou demandez à <b>votre assistant.</b></h2>
+  <div class="ia" id="ia"></div>
+</div></div>
+
+<section class="rdv" id="rdv"><div class="wrap">
+  <h2>Si vous souhaitez en savoir plus, <b>rencontrons-nous.</b></h2>
+  <p>15 minutes avec Paul Larmaraud.</p>
+  <a class="btn rose" href="https://parrit.ai/fr/rendez-vous">Choisir un créneau <svg class="fl" aria-hidden="true"><use href="#fl"/></svg></a>
+  <div class="cal">Ici, le calendrier du site. Sujet déjà noté pour Paul : <b id="cal-sujet"></b></div>
+</div></section>
+
+</div>
+
+<div class="machine" id="machine"><div class="wrap">
+<pre><i># Parrit.ai, lu par un assistant</i>
+
+<b>Entité</b>        Parrit.ai, société de conseil et de développement de logiciels en IA
+<b>Fondateur</b>     Paul Larmaraud. Il a créé l'entreprise en 2024, après deux ans chez Lime.
+<b>Présence</b>      Tourcoing et Paris. Métropole lilloise, Hauts-de-France, toute la France.
+<b>Pour qui</b>      PME, ETI et grands groupes. Directions générales, directions métiers, DSI.
+
+<b>Croissance</b>    Prise de rendez-vous, contenu publié, relances de devis, appels d'offres, clients réactivés.
+<b>Temps</b>         Commandes, rapprochement des factures, comptes rendus, réponses client, contrats.
+<b>Construire</b>    Flotte d'agents autonomes, logiciel propriétaire, formation des équipes, état des lieux,
+              cadre pour les développeurs, IA installée sur site, prototype.
+<b>Principe</b>      L'assistant prépare, la personne valide. Aucune action ne part sans validation.
+
+<b>Références</b>    Laparra, Clevery, Forexpert, Joone, SNCF, Carte Noire.
+<b>Presse</b>        Chroniques de Paul Larmaraud dans Le Monde Informatique (août 2026).
+<b>Mesures</b>       Publiées avec date et méthode dans le Journal : https://parrit.ai/fr/journal
+
+<b>Premier pas</b>   Entretien de 15 minutes avec Paul Larmaraud : https://parrit.ai/fr/rendez-vous
+<b>Fichier</b>       https://parrit.ai/llms.txt
+
+<i># Les mêmes faits que la page, sans mise en forme.
+# C'est ce qu'un moteur de réponse retient et cite.</i></pre>
+</div></div>
+</main>
+
+<div class="quai" id="quai" hidden><div class="wrap">
+  <p><b>15 minutes avec Paul Larmaraud</b> · sujet : <span id="quai-sujet"></span></p>
+  <a class="btn rose" href="#rdv" id="quai-btn">Choisir un créneau <svg class="fl" aria-hidden="true"><use href="#fl"/></svg></a>
+</div></div>
+
+<footer><div class="wrap">Prototype interne. Sous ces blocs, le site garde ses sections actuelles : offres, parcours, questions, calendrier.</div></footer>
+
+<script>
+const OBJECTIFS = [
+  {g:"c", nom:"plus de rendez-vous", court:"Rendez-vous", pret:"Les bons contacts repérés, le message prêt.", chemin:["Signaux du marché","Prospect","Rendez-vous"], flux:["Signaux","Message prêt","Rendez-vous"]},
+  {g:"c", nom:"du contenu publié", court:"Contenu", pret:"Vos sujets deviennent des articles sourcés.", chemin:["Votre expertise","Sujet","Article publié"], flux:["Expertise","Article sourcé","Publié"]},
+  {g:"c", nom:"des devis relancés", court:"Relances", pret:"Chaque devis sans réponse a sa relance prête.", chemin:["Devis","Client","Relance"], flux:["Devis","Relance prête","Réponse"]},
+  {g:"c", nom:"des appels d'offres repérés", pret:"Les appels d'offres utiles, triés chaque matin.", chemin:["Appels d'offres","Prospect","Dossier de réponse"]},
+  {g:"c", nom:"d'anciens clients réactivés", pret:"Les clients silencieux, avec une raison de les rappeler.", chemin:["Base clients","Client","Relance"]},
+  {g:"t", nom:"des commandes saisies", court:"Commandes", pret:"Les commandes reçues par e-mail, saisies, à relire.", chemin:["E-mails","Commande","Mise à jour ERP"], flux:["E-mail","Commande","ERP à jour"]},
+  {g:"t", nom:"des factures rapprochées", court:"Finance", pret:"Relevés et grand livre rapprochés, écarts signalés.", chemin:["Factures","Paiement","Trésorerie"], flux:["Relevés","Rapprochement","Trésorerie"]},
+  {g:"t", nom:"des comptes rendus prêts", court:"Réunions", pret:"Les décisions de la réunion, et qui s'en charge.", chemin:["Comptes rendus","Action","Suivi des actions"], flux:["Réunion","Compte rendu","Actions"]},
+  {g:"t", nom:"des réponses client prêtes", pret:"Une réponse proposée pour chaque demande.", chemin:["E-mails","Client","Réponse client"]},
+  {g:"t", nom:"des contrats vérifiés", pret:"Chaque contrat comparé à vos conditions.", chemin:["Contrats","Contrat","Écarts de contrat"]},
+  {g:"b", nom:"une flotte d'agents autonomes", court:"Agents", pret:"Des agents qui se répartissent le travail, sous votre contrôle.", chemin:["Vos processus","Processus","Agents autonomes"], flux:["Processus","Agents","Contrôle"]},
+  {g:"b", nom:"un logiciel propriétaire", court:"Logiciel", pret:"Un outil à vous, construit sur votre métier.", chemin:["Votre expertise","Métier","Logiciel propriétaire"], flux:["Votre métier","Logiciel","À vous"]},
+  {g:"b", nom:"des équipes formées à l'IA", court:"Équipes", pret:"Vos équipes prennent l'IA en main, sur leurs propres dossiers.", chemin:["Vos équipes","Équipe","Équipes autonomes"], flux:["Formation","Pratique","Autonomie"]},
+  {g:"b", nom:"savoir par où commencer", pret:"Un état des lieux, puis un plan par priorité.", chemin:["Vos processus","Décision","Feuille de route"]},
+  {g:"b", nom:"des développeurs plus rapides", pret:"Un cadre pour coder avec l'IA sans casser la production.", chemin:["Votre code","Projet","Code fiable"]},
+  {g:"b", nom:"une IA qui reste chez nous", pret:"Installée sur vos serveurs, vos données n'en sortent pas.", chemin:["Vos données","Métier","IA installée chez vous"]},
+  {g:"b", nom:"tester une idée", pret:"Un prototype qui tourne, pour décider sur pièce.", chemin:["Votre expertise","Produit","Prototype"]},
+];
+const PLAQUES = [
+  {cap:"CE QUE VOUS OBTENEZ", cy:112, noeuds:["Rendez-vous","Article publié","Relance","Dossier de réponse","Mise à jour ERP","Trésorerie","Suivi des actions","Réponse client","Écarts de contrat","Agents autonomes","Logiciel propriétaire","Équipes autonomes","Feuille de route","Code fiable","IA installée chez vous","Prototype"]},
+  {cap:"VOTRE ENTREPRISE", cy:292, noeuds:["Prospect","Client","Sujet","Commande","Paiement","Action","Contrat","Équipe","Fournisseur","Processus","Métier","Produit","Stock","Projet","Réclamation","Décision"]},
+  {cap:"CE QUE VOUS AVEZ DÉJÀ", cy:472, noeuds:["Signaux du marché","Votre expertise","Devis","Appels d'offres","Base clients","E-mails","Factures","Comptes rendus","Contrats","Vos logiciels","Vos processus","Vos données","Votre code","Vos équipes","Agenda","Documents"]},
+];
+const CX=260, W=205, H=60, DX=47, DY=14, NS="http://www.w3.org/2000/svg";
+const pos = (p,k) => { const i=k%4, j=Math.floor(k/4); return [CX+(i-j)*DX, PLAQUES[p].cy+(i+j-3)*DY]; };
+const el = (n,a={},t) => { const e=document.createElementNS(NS,n); for(const k in a) e.setAttribute(k,a[k]); if(t) e.textContent=t; return e; };
+const svg = document.getElementById("schema");
+const sel = document.getElementById("objectif");
+const FL = '<svg class="fl" aria-hidden="true"><use href="#fl"/></svg>';
+let courant = 0;
+
+function dessiner(anim){
+  svg.querySelectorAll(":not(title)").forEach(n=>n.remove());
+  const s = OBJECTIFS[courant];
+  for (let k=0;k<16;k++) for (const [a,b,m] of [[2,1,(k*5)%16],[1,0,(k*3+1)%16]]) {
+    const [x1,y1]=pos(a,k),[x2,y2]=pos(b,m); svg.append(el("line",{class:"fil",x1,y1,x2,y2}));
+  }
+  const pts = [];
+  PLAQUES.forEach((p,pi)=>{
+    const poly = d => `${CX-W},${p.cy+d} ${CX},${p.cy-H+d} ${CX+W},${p.cy+d} ${CX},${p.cy+H+d}`;
+    svg.append(el("polygon",{class:"tranche",points:poly(9)}), el("polygon",{class:"plaque",points:poly(0)}));
+    svg.append(el("text",{class:"cap",x:CX-W,y:p.cy-H+2},p.cap));
+    p.noeuds.forEach((nom,k)=>{
+      const [x,y]=pos(pi,k), actif = nom===s.chemin[2-pi], r = actif?8:4;
+      svg.append(el("rect",{class:"noeud"+(actif?" actif":""),x:x-r,y:y-r,width:2*r,height:2*r}));
+      if (actif) pts[2-pi]=[x,y,nom];
+    });
+  });
+  svg.append(el("polyline",{class:"chemin"+(anim?" trace":""),points:pts.map(p=>p[0]+","+p[1]).join(" ")}));
+  pts.forEach(([x,y,nom])=>{ svg.append(el("rect",{class:"noeud actif",x:x-8,y:y-8,width:16,height:16}));
+    const t = el("text",{class:"nom",x,y:y+33,"text-anchor":"middle"},nom); svg.append(t);
+    const b = t.getBBox(); svg.insertBefore(el("rect",{class:"fond",x:b.x-8,y:b.y-3,width:b.width+16,height:b.height+6}), t); });
+}
+
+const jauge = document.createElement("span");
+jauge.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap;font-weight:600";
+document.querySelector(".phrase").append(jauge);
+function afficher(anim){
+  const s = OBJECTIFS[courant];
+  sel.value = courant;
+  jauge.style.fontSize = getComputedStyle(sel).fontSize;
+  jauge.textContent = s.nom; sel.style.width = (jauge.offsetWidth + 38) + "px";
+  document.getElementById("resultat").textContent = s.pret;
+  document.getElementById("quai-sujet").textContent = s.nom;
+  document.getElementById("cal-sujet").textContent = s.nom + ".";
+  dessiner(anim);
+}
+
+for (const [g,label] of [["c","Faire grandir l'activité"],["t","Gagner du temps"],["b","Construire"]]) {
+  const og = document.createElement("optgroup"); og.label = label;
+  OBJECTIFS.forEach((s,i)=>{ if (s.g!==g) return; const o=document.createElement("option"); o.value=i; o.textContent=s.nom; og.append(o); });
+  sel.append(og);
+}
+sel.addEventListener("change",()=>{ courant=+sel.value; afficher(true); });
+
+OBJECTIFS.forEach((s,i)=>{
+  if (!s.flux) return;
+  const b = document.createElement("button"); b.type="button"; b.className="flux";
+  b.innerHTML = `<b>${s.court}</b><i><span>${s.flux[0]}</span>${FL}<span>${s.flux[1]}</span>${FL}<span class="fin">${s.flux[2]}</span></i>`;
+  b.addEventListener("click",()=>{ courant=i; afficher(true); document.getElementById("haut").scrollIntoView(); });
+  document.getElementById({c:"flux-croissance",t:"flux-temps",b:"flux-construire"}[s.g]).append(b);
+});
+
+function vue(machine){
+  document.body.classList.toggle("vue-machine",machine);
+  document.getElementById("vue-machine").setAttribute("aria-pressed",machine);
+  document.getElementById("vue-equipes").setAttribute("aria-pressed",!machine);
+}
+document.getElementById("vue-machine").addEventListener("click",()=>vue(true));
+document.getElementById("vue-equipes").addEventListener("click",()=>vue(false));
+document.getElementById("quai-btn").addEventListener("click",()=>vue(false));
+
+const Q = encodeURIComponent("Que fait Parrit.ai (https://parrit.ai) et pour quel type d'entreprise ? Appuie-toi sur leur site et cite tes sources.");
+[["ChatGPT","https://chatgpt.com/?q="],["Claude","https://claude.ai/new?q="],["Perplexity","https://www.perplexity.ai/search?q="],["Le Chat","https://chat.mistral.ai/chat?q="]]
+  .forEach(([n,u])=>{ const a=document.createElement("a"); a.href=u+Q; a.textContent=n; a.rel="noopener"; document.getElementById("ia").append(a); });
+
+const quai = document.getElementById("quai");
+if ("IntersectionObserver" in window) {
+  const vus = new Set();
+  const obs = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? vus.add(e.target) : vus.delete(e.target)); quai.hidden = vus.size > 0; });
+  obs.observe(document.getElementById("cta-haut")); obs.observe(document.getElementById("rdv"));
+} else quai.hidden = false;
+afficher(false); document.fonts && document.fonts.ready.then(()=>afficher(false));
+</script>
+</body>
+</html>

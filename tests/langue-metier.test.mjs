@@ -16,15 +16,13 @@ for (const locale of ["fr", "en"]) test(`hero headline and descriptive subtitle 
   const html = await renderPage(locale);
   const normal = locale === "fr" ? "Votre expertise est la matière première." : "Your expertise is the raw material.";
   const bold = locale === "fr" ? "Nous la mettons au travail." : "We put it to work.";
-  const subtitle = locale === "fr"
-    ? "Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent."
-    : "Your teams take AI in hand. We build the software they are missing.";
   assert.equal((html.match(/<h1>/g) ?? []).length, 1);
   assert.equal(html.match(/<h1>(.*?)<\/h1>/s)?.[1], `${normal} <b>${bold}</b>`);
-  assert.equal(visibleText(html.match(/class="sub"><p>(.*?)<\/p>/s)?.[1] ?? ""), subtitle);
+  assert.doesNotMatch(html, /class="sub"|class="hero-reassurance"/);
+  assert.equal((html.match(/<option\b/g) ?? []).length, 17);
   const action = html.match(/class="actions"><a[^>]*href="([^"]+)"[^>]*>(.*?)<\/a>/s);
   // Decision of 08/11/2026: nuit: the same destination now carries rdv-hero.
-  assert.equal(action?.[1], `${locale === "fr" ? "/fr" : "/"}?source=rdv-hero#contact`);
+  assert.equal(action?.[1], `${locale === "fr" ? "/fr" : "/"}?source=accueil-rendez-vous#contact`);
   // Correctif 2 adds a decorative SVG; stripping its tags leaves trailing spaces.
   assert.equal(visibleText(action?.[2] ?? "").trim(), locale === "fr" ? "Prendre rendez-vous" : "Book a call");
 });
@@ -34,12 +32,8 @@ for (const locale of ["fr", "en"]) test(`home copy is understandable, complete i
   const text = visibleText(html);
   // The new H1 above explicitly permits “matière première”; the rest keeps the plain-language gate.
   assert.doesNotMatch(visibleText(html.replace(/<h1>.*?<\/h1>/s, "")), locale === "fr" ? forbiddenFr : forbiddenEn);
-  assert.equal((text.match(/\bagents?\b/gi) ?? []).length, 1);
   assert.doesNotMatch(text, /—|\d\s*(?:€|\$|EUR|USD)|, pas\b|, not\b/i);
-  const definition = html.match(/class="muted change-definition">([^<]+)<\/p>/)?.[1];
-  assert.ok(definition);
-  assert.match(definition, locale === "fr" ? /assistant.*agent IA.*règles.*soumet.*avant/ : /assistant.*AI agent.*rules.*submits.*before/);
-  assert.match(html, /<h2>[^<]+<b>[^<]+<\/b><\/h2><p class="muted change-definition">/);
+  assert.ok(text.includes(locale === "fr" ? "L'assistant prépare. Vous validez." : "The assistant prepares. You approve."));
   const outsideReferences = html.replace(/<section id="references"[\s\S]*?<\/section>/, "");
   assert.doesNotMatch(outsideReferences, /Laparra|Clevery|Forexpert|Joone|SNCF/i);
   const { HERO_STORIES, LAYERS, ZONES } = loader(locale)("src/system/ontology-hero-data.ts");
@@ -49,10 +43,8 @@ for (const locale of ["fr", "en"]) test(`home copy is understandable, complete i
     assert.ok(t(value), `Missing translation: ${value}`);
     assert.doesNotMatch(t(value), /\bagents?\b|ontolog|logic sources|sources de logique/i);
   }
-  const tags = [...html.matchAll(/class="tag (?:bo|new)">([^<]+)<\/span>/g)].map(match => match[1]);
-  assert.equal(tags.length, 48);
-  assert.equal(new Set(tags).size, 2);
-  assert.doesNotMatch(tags.join(" "), /back.office|\bNouveau\b|\bNew\b(?! capability)/i);
+  assert.doesNotMatch(html, /class="tag (?:bo|new)"/);
+  assert.equal((html.match(/class="goal-flow"/g) ?? []).length, 9);
 });
 
 for (const locale of ["fr", "en"]) test(`home metadata and Organization/Person JSON-LD follow the requested locale (${locale})`, async () => {

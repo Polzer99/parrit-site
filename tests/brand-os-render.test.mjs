@@ -131,7 +131,9 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           assert.doesNotMatch(html, /<a[^>]*href="[^"]*paul-larmaraud\.com/i, label);
         }
         populatedTags(html, "h1", 1);
-        populatedTags(html, "title", 1);
+        // The new accessible diagram and its nodes have SVG titles. Keep the
+        // one-document-title contract, excluding only SVG namespaces.
+        populatedTags(html.replace(/<svg\b[^>]*>[\s\S]*?<\/svg>/g, ""), "title", 1);
         const title = visibleText(html.match(/<title>([\s\S]*?)<\/title>/)?.[1] ?? "");
         assert.equal(metadataTitles.has(title), false, `${label}: unique title across locales and routes`);
         metadataTitles.add(title);
@@ -170,11 +172,11 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         if (route === "/") {
           assert.match(html, /<section class="hero"/);
           const ids = [...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]);
-          const expected = locale === "fr" ? ["references", "terrain", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "bandeau", "questions", "articles", "contact"] : ["references", "in-the-field", "offers", "in-production", "path", "services", "technologies", "team", "bandeau", "questions", "articles", "contact"];
+          const expected = locale === "fr" ? ["haut", "references", "en-production", "mesures", "assistant", "terrain", "offres", "parcours", "technologies", "partenaires", "questions", "contact"] : ["haut", "references", "in-production", "measurements", "assistant", "in-the-field", "offers", "path", "technologies", "team", "questions", "contact"];
           // The compiled contact also contains QuickCapture's nested section.
           assert.deepEqual(ids, [...expected, "single-contact"]);
           assert.doesNotMatch(html, /id="architecture"/);
-          assert.match(html, /<section id="services">[\s\S]*?<\/section><section id="technologies"/);
+          assert.match(html, /<section[^>]*id="(?:parcours|path)">[\s\S]*?<\/section><section id="technologies"/);
           assert.match(html, /<section id="technologies"[\s\S]*?<\/section><section id="(?:partenaires|team)"/);
           const technologyBand = html.match(/<section id="technologies"[\s\S]*?<\/section>/)?.[0];
           assert.ok(technologyBand, `${label}: compiled server renders the band`);
@@ -207,8 +209,8 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       // useSearchParams and no browser JS to replace an unattributed fallback.
       const home = await render("/?utm_campaign=server%20%26%20test&utm_custom=kept&source=old", locale);
       assert.equal(home.status, 200);
-      const links = [...home.html.matchAll(/<a\b[^>]*href="([^"]*source=rdv-[^"]*)"[^>]*>/g)];
-      assert.equal(links.length, 5, "two responsive nav copies, hero, banner and contact in server HTML");
+      const links = [...home.html.matchAll(/<a\b[^>]*href="([^"]*source=(?:rdv-|accueil-)[^"]*)"[^>]*>/g)];
+      assert.equal(links.length, 4, "two responsive nav copies, hero and contact in server HTML");
       assert.deepEqual(links.map(([, href]) => {
         const url = new URL(href.replaceAll("&amp;", "&"), "http://localhost:3210");
         assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
@@ -217,7 +219,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         assert.equal(url.searchParams.get("utm_custom"), "kept");
         assert.equal(url.searchParams.getAll("source").length, 1);
         return url.searchParams.get("source");
-      }).sort(), ["rdv-bandeau", "rdv-contact", "rdv-hero", "rdv-nav", "rdv-nav"]);
+      }).sort(), ["accueil-rendez-vous", "rdv-contact", "rdv-nav", "rdv-nav"]);
       const bookingQuery = "source=essai&utm_custom=offhome&utm_campaign=c1";
       const booking = await render(`/rendez-vous?${bookingQuery}`, locale);
       assert.equal(booking.status, 200);
