@@ -1,3 +1,5 @@
+> Historique : remplacé pour le site par [DESIGN.md](../../DESIGN.md) et le Brand OS (D1 du 24/09/2026).
+
 # PARRIT DESIGN SYSTEM — source de vérité
 
 **Version :** 1.0.0 · **Statut :** canonique · **Propriétaire :** Paul Larmaraud

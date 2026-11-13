@@ -139,7 +139,9 @@ for (const locale of ["fr", "en"]) {
     const images = [...references.matchAll(/<img src="([^"]+)"/g)].map(m => m[1]);
     const { SITE_EVIDENCE, publicationLogo, getSiteEvidence } = load("src/lib/registry/preuves.ts");
     const allowed = SITE_EVIDENCE.filter(e => getSiteEvidence(e.id, "home")).map(e => publicationLogo(e.logo)).filter(Boolean);
+    // Retrait des deux logos le 09/11 (#373), confirmé par la spec du 12/11.
     assert.equal(images.length, 6);
+    assert.deepEqual([...images].sort(), [...allowed].sort(), "every authorized logo appears exactly once");
     assert.equal(images.length, allowed.length);
     assert.doesNotMatch(references, /toyotomi|hiolle/i);
     for (const src of images) assert.ok(allowed.includes(src));

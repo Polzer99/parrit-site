@@ -27,7 +27,7 @@ La géométrie réelle reste à vérifier sur un hôte autorisant le navigateur.
 
 ## Correctif 1 de l'action unique, décision de Paul du 08/11/2026, nuit
 
-La spec amendée conserve les deux métiers et les huit références. Les services
+La spec amendée conserve les deux métiers et les six références (décision du 09/11/2026 ci-dessous). Les services
 portent « Préparé, vous validez » / « Prepared, you approve » ; la ligne des
 partenaires précise l'interlocuteur responsable de bout en bout. Les FAQ données
 et prix sont ouvertes dès le HTML serveur, sans changer leurs réponses ni FAQPage.
@@ -57,9 +57,8 @@ logiciels, pour les PME, ETI et grands groupes. H1 inchangé ; sous-titre :
 « Your teams take AI in hand. We build the software they are missing. »
 Textes de l'accueil, FAQ, métadonnées et présentation de l'accueil dans llms
 alignés ; articles et mentions légales conservés.
-Toyotomi Europe, Hiolle Technologies et Carte Noire rejoignent les cinq clients
-publiables, sur décision nominative de Paul sans accord écrit des clients.
-Huit masques locaux, provenance et empreintes dans `public/clients/SOURCES.md` ;
+Décision de Paul du 09/11/2026 : retrait de Toyotomi Europe et Hiolle Technologies ; six clients publiables, dont Carte Noire, selon `src/lib/registry/preuves.ts` (décision documentée au-dessus de `CLIENT_LOGOS`).
+Six masques locaux, provenance et empreintes dans `public/clients/SOURCES.md` ;
 deux rangées ordinateur autorisées dans 1060 px, grille deux colonnes mobile,
 éclairage successif 1,6 s, rampes 300 ms, pause survol/focus, réduit statique.
 Le Journal ne nomme aucun client. Aucun seuil géométrique ou CLS assoupli.
@@ -239,6 +238,8 @@ Applies to any code delivered from this repo. "The CI blocks" beats "remember to
 **Avant de toucher au contenu/positionnement/conversion, lire [`TRUTH.md`](./TRUTH.md)** : ce qu'est Parrit, le rôle du site (24/10/2026 : montrer produits, réalisations, capacités et preuves ; rendez-vous possible sans maximisation), l'ICP, les offres, la voix (LE TAMIS), les règles dures, et la définition d'une « amélioration ». C'est le **cerveau partagé** entre le site et l'agent d'amélioration continue **Hermes** (`hermes/`, voir `hermes/LOOP.md`). La source de vérité **visuelle** est la section suivante (Brand OS). En cas de conflit : `REGLES-DOR.md` puis `VISION.md` (hors-repo) priment.
 
 ## Source de vérité visuelle = Brand OS (04/10/2026)
+
+[DESIGN.md](DESIGN.md) résume les règles servies ; le Brand OS reste la source.
 
 Le Brand OS remplace la charte T4/REV 03 (D1 du 24/09, désactivation le 28/09).
 Le prototype REV 03, `BRAND.md`, `docs/design-system/` et `design-source/` sont historiques.

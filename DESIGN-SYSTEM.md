@@ -1,3 +1,5 @@
+> Historique : remplacé pour le site par [DESIGN.md](DESIGN.md) et le Brand OS (D1 du 24/09/2026).
+
 # Parrit.ai Design System
 
 Source de verite DA entreprise, canon valide le 04/07.
