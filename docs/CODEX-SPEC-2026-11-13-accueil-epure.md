@@ -152,3 +152,77 @@ Après le correctif 1 : 717/722 tests Node, cinq échecs dans quatre fichiers de
 3. **Liens vers les assistants (point 11 du correctif 1 annulé)** : la règle « une seule action » (décision de Paul du 08/11/2026, `tests/action-unique.test.mjs`) prime. Revenir à l'état du premier tour : quatre liens de texte, pas de boutons. Le test `action-unique` reste **inchangé** (3 actions dans `main`). C'était une erreur de Claude.
 
 Appliquer ces trois décisions, puis batterie complète dans l'ordre de la CI, verte deux fois (722 tests Node ou plus, tous verts). Rapport complété. Ne pas committer.
+
+## Correctif 3 — calendrier, test de stabilité, liste rognée (13/11/2026, accord de Paul « go »)
+
+Borne : ce tour, puis un correctif au maximum. Mesures faites sur l'hôte (page servie en local, 1440 × 800), pas déduites.
+
+### A. Le calendrier ne se remonte plus au changement d'objectif
+
+Constaté : `GoalBooking` rend `<ParritCalInline key={goal.id} …/>`. À chaque changement d'objectif, le nœud `.cal-embed-stage` est remplacé (mesuré : remplacé dès le premier changement, avant même que le calendrier soit chargé ; une fois chargé, chaque changement recharge l'iframe Cal.com).
+
+Attendu :
+- Retirer la clé. Le composant du calendrier reste monté pendant toute la visite ; aucun changement d'objectif ne remplace `.cal-embed-stage` ni ne recharge l'iframe.
+- Le calendrier prend les paramètres de l'objectif en cours **au moment où il se charge** (il se charge déjà en différé, à l'approche de l'écran) : avant ce moment, les paramètres suivent l'objectif ; après, ils ne changent plus. Limite acceptée et à écrire dans le rapport : un objectif changé après le chargement du calendrier n'atteint pas la réservation. Le bouton du hero continue, lui, de porter `source=accueil-<objectif>` à chaque clic.
+- Ne pas ajouter de mécanisme de rechargement, d'observateur supplémentaire ni d'état de plus : la correction est une suppression.
+
+### B. Le test « page stable » confond changement de classe et remplacement de bloc
+
+Constaté : les 8 échecs de `tests/stabilite.spec.ts` (« mêmes blocs présents pendant toute la mesure ») ne viennent pas du calendrier. La clé d'identité du test est `id || className` ; les blocs `.partner` passent à `partner flip` puis `partner flip blink` pendant leur animation normale (déjà sur `main`), ce qui change la clé. Mesuré : après 26 s sur la section équipe, sans aucune interaction, trois écarts de ce type et aucun bloc remplacé.
+
+Attendu :
+- La clé d'identité devient `id`, ou à défaut le **premier** nom de classe (la classe de base), jamais la liste complète.
+- Le test vérifie en plus ce que la clé ne voit pas : les nœuds eux-mêmes restent les mêmes pendant toute la mesure (comparaison d'identité des éléments, pas seulement de leur nom). C'est ce contrôle qui aurait détecté le défaut A ; il doit échouer si l'on remet `key={goal.id}` (le vérifier une fois, puis retirer la clé, et l'écrire dans le rapport).
+- Les seuils existants (hauteurs à 1 px, `scrollHeight`, décalages de mise en page ≤ 0,01, un seul chargement du calendrier) ne bougent pas.
+
+### C. Texte de la liste rogné à droite
+
+Constaté (capture `docs/accueil-epure/construit-tour2-fold.png`, 1440 px) : dans « Je veux [plus de rendez-vous] », la dernière lettre du choix est coupée par le chevron. Le gabarit `.goal-select-sizer` ne réserve pas la place du chevron, ou n'a pas la même graisse et le même corps que le `select`.
+
+Attendu : le libellé le plus long de chaque langue est entièrement lisible à 1440, 1280, 800, 390 et 320 px, sans retour à la ligne du chevron ni débordement horizontal de la page. Ajouter au test de l'accueil un contrôle par objectif : la largeur du texte du choix est inférieure ou égale à la largeur utile du `select` (hors chevron), pour les 17 objectifs, FR et EN, à 1440 et 390 px.
+
+### D. Hors de ce tour
+
+Aucun texte, aucun ordre de bloc, aucune couleur ne change. Ne pas toucher aux tests hors `tests/stabilite.spec.ts`, `tests/accueil-epure.spec.ts` et `tests/accueil-epure.test.mjs`.
+
+## Correctif 4 — rien ne change de place quand l'objectif change (13/11/2026), dernier tour
+
+Le Correctif 3 est validé sur l'hôte : identité des nœuds stable, liste lisible, calendrier chargé une seule fois. Il a démasqué l'assertion suivante de `tests/stabilite.spec.ts` : « somme des layout-shift hors interaction » vaut 0,0187 à 1440 × 800 et 0,0388 à 390 × 844, pour un seuil de 0,01 (8 échecs, FR et EN, 4 tailles).
+
+Mesuré sur l'hôte, phase par phase (page servie en local, sources des entrées `layout-shift`) : zéro décalage au repos, zéro pendant le défilement de toutes les sections, zéro pendant les animations. Tous les décalages viennent des 17 changements d'objectif, et de deux éléments seulement :
+
+1. `span.goal-node-label` (48 occurrences sur ordinateur, 32 sur téléphone) : les trois étiquettes du schéma changent de `left` et `top` à chaque objectif. Exemple : `[921,569 161x30] → [981,582 135x30]`.
+2. Le chevron `.goal-select::after` (15 occurrences, ordinateur seulement) : la largeur de la liste suit le libellé choisi, donc le chevron et le soulignement se déplacent.
+
+### Attendu
+
+- **Étiquettes du schéma** : aucune étiquette ne change de position par `left`, `top`, `width` ou toute autre propriété de mise en page. Deux façons acceptées, choisir la plus simple pour le code en place : (a) une étiquette par nœud, rendue une fois à sa place définitive (rendu serveur compris), affichée ou masquée selon l'objectif, comme le fait déjà `.goal-results` ; (b) une position de base fixe et un déplacement par `transform`/`translate` uniquement. Dans les deux cas : mêmes textes, mêmes positions visibles qu'aujourd'hui, mêmes bornes latérales (l'étiquette ne sort pas du schéma), `prefers-reduced-motion` respecté, étiquettes toujours `aria-hidden`.
+- **Liste du hero** : la largeur de la liste ne dépend plus du libellé choisi. Le gabarit réserve la largeur du libellé le plus long de la langue (même principe que `.goal-result-sizer`, qui empile tous les textes), dans la limite de la colonne ; sur téléphone, comportement actuel (pleine largeur) conservé. Le chevron et le soulignement ne bougent plus. Le contrôle de largeur du Correctif 3 (texte ≤ largeur utile, 17 objectifs, FR et EN) reste vert.
+- **Seuils inchangés** : `tests/stabilite.spec.ts` n'est pas assoupli ; 0,01 reste le seuil, la sélection des 17 objectifs reste dans la mesure.
+- Ajouter au test de l'accueil un contrôle direct, plus rapide à lire qu'un score : pour les 17 objectifs, la boîte de `#objectif` (x, largeur) et la position du chevron sont identiques à 1 px près, à 1440 et 390 px, FR et EN.
+
+### Hors de ce tour
+
+Aucun texte, aucun ordre de bloc, aucune couleur. Fichiers attendus : `src/system/components/HomeGoals.tsx`, `src/system/single-page.css`, `tests/accueil-epure.spec.ts`, le rapport.
+
+## Correctif 5 — une équipe, pas un fondateur qui fait tout (retour de Paul, 13/11/2026). NON LANCÉ
+
+Paul : « j'aime pas le fait qu'on ait l'impression que le fondateur sait tout faire. L'objectif, c'est qu'on comprenne que je suis pas tout seul et c'est pas moi qui fais tout dans la boîte. Quand on dit qu'ils conçoivent les harnais, les agents, les trucs, ça, on s'en fout. »
+
+Non lancé : Codex a atteint sa limite d'usage le 13/11 (retour annoncé le 19/11), et ces textes sont de la voix publique : Paul les valide avant écriture.
+
+Textes en place sur `main` (bloc contact, `src/system/components/SinglePage.tsx`, et traduction dans `src/system/single-page-copy.ts`) :
+
+- « Il a créé l'entreprise en 2024, après deux ans chez Lime. »
+- « Il conçoit des outils d'IA et les contrôles qui les encadrent. »
+- « Il accompagne les équipes dans la prise en main de l'IA et pilote les projets. »
+
+Et l'introduction du bloc équipe : « Un seul interlocuteur, responsable de bout en bout. Selon le besoin, il s'entoure de spécialistes parmi plus de vingt partenaires. »
+
+Proposition à valider par Paul (FR ; EN à traduire à l'identique) :
+
+- Bloc contact, une seule phrase à la place des trois : « Il a créé Parrit.ai en 2024, après deux ans chez Lime. Il ouvre la discussion ; le travail se fait ensuite en équipe. » Les deux puces « Il conçoit… » et « Il accompagne… » disparaissent.
+- Introduction du bloc équipe : « Une équipe réunie selon votre besoin, parmi plus de vingt partenaires. Un interlocuteur vous suit du début à la fin. »
+- Aucune signature au nom du fondateur sous les articles du Journal (règle du 27/10 maintenue).
+
+Contraintes : règles de `tests/anti-slop-copy.spec.ts` inchangées (le nom du fondateur reste dans la section contact seulement) ; la clé de traduction FR → EN change avec la phrase, les deux fichiers bougent ensemble.

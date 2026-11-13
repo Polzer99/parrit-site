@@ -659,9 +659,11 @@
 .single-page .goal-form {display:flex;flex-wrap:wrap;align-items:center;gap:var(--brand-s1);max-width:100%;}
 .single-page .goal-form label {flex:none;font-size:var(--t-xl);color:var(--on-canard);}
 .single-page .goal-select {position:relative;display:block;min-width:0;width:100%;font-family:var(--ui);font-size:var(--t-l);font-weight:600;line-height:1.5;}
-/* The selected text sizes the native control in SSR too; no font-load measurement. */
-.single-page .goal-select-sizer {display:block;visibility:hidden;white-space:nowrap;overflow:hidden;padding:var(--brand-s1) var(--brand-s4) var(--brand-s1) calc(var(--brand-s1) / 2);border-bottom:3px solid transparent;min-height:44px;}
-.single-page .goal-form select {position:absolute;inset:0;font:inherit;color:var(--white);background:var(--canard);border:0;border-bottom:3px solid var(--rose);border-radius:0;padding:var(--brand-s1) var(--brand-s4) var(--brand-s1) calc(var(--brand-s1) / 2);min-height:44px;min-width:0;max-width:100%;width:100%;cursor:pointer;color-scheme:dark;}
+/* Stack every choice in SSR so the longest label fixes the control width. */
+.single-page .goal-select-sizer {font:inherit;display:grid;visibility:hidden;white-space:nowrap;overflow:hidden;padding:var(--brand-s1) var(--brand-s4) var(--brand-s1) calc(var(--brand-s1) / 2);border-bottom:3px solid transparent;min-height:44px;}
+.single-page .goal-select-sizer > span {grid-area:1/1;}
+.single-page .goal-form select {appearance:none;position:absolute;inset:0;font:inherit;color:var(--white);background:var(--canard);border:0;border-bottom:3px solid var(--rose);border-radius:0;padding:var(--brand-s1) var(--brand-s4) var(--brand-s1) calc(var(--brand-s1) / 2);min-height:44px;min-width:0;max-width:100%;width:100%;cursor:pointer;color-scheme:dark;}
+.single-page .goal-select::after {content:"";position:absolute;pointer-events:none;right:var(--brand-s2);top:50%;width:var(--brand-s1);height:var(--brand-s1);border-right:2px solid var(--white);border-bottom:2px solid var(--white);transform:translateY(-75%) rotate(45deg);}
 .single-page .goal-form :is(option,optgroup) {background:var(--white);color:var(--ink);}
 .single-page .goal-form select:focus-visible {outline:2px solid var(--white);outline-offset:4px;}
 .single-page .goal-results {display:grid;margin-top:var(--brand-s2);color:var(--white);}
@@ -693,7 +695,8 @@
 .single-page .goal-node[data-active="true"] {fill:var(--white);stroke:var(--white);}
 .single-page .goal-path {fill:none;stroke:var(--rose);stroke-width:3;stroke-dasharray:1;stroke-dashoffset:0;}
 .single-page .goal-plane-title {position:absolute;left:calc(55 / 520 * 100%);text-align:left;font-family:var(--ui);font-size:var(--t-s);line-height:1.4;color:var(--on-canard);background:var(--canard);z-index:1;}
-.single-page .goal-node-label {position:absolute;z-index:2;transform:translateX(-50%);background:var(--ink);background-clip:border-box;color:var(--white);font-size:var(--t-s);font-weight:600;line-height:1.4;padding:calc(var(--brand-s1) / 2) var(--brand-s1);white-space:nowrap;}
+.single-page .goal-node-label {visibility:hidden;position:absolute;z-index:2;transform:translateX(-50%);background:var(--ink);background-clip:border-box;color:var(--white);font-size:var(--t-s);font-weight:600;line-height:1.4;padding:calc(var(--brand-s1) / 2) var(--brand-s1);white-space:nowrap;}
+.single-page .goal-node-label[data-active="true"] {visibility:visible;}
 .single-page.home-epure .client-logo img {animation:none;opacity:1;filter:none;transform:none;}
 .single-page.home-epure :is(.home-motors,.home-measures,.home-assistant) {padding-block:var(--brand-s8) var(--brand-s6);}
 .single-page .home-motors {background:var(--off);}

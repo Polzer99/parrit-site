@@ -14,6 +14,7 @@ type Stability = {
   shifts: number;
   samples: number;
   targetsStable: boolean;
+  nodesStable: boolean;
   captions: string[];
   cases: string[];
   offers: string[];
@@ -118,10 +119,10 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
       };
       const targetSelector = "main > section, .goal-results, .goal-schema, .motor-column, .home-measure, .partner, .cal-embed-stage";
       const targets = Array.from(document.querySelectorAll<HTMLElement>(targetSelector));
-      const keys = targets.map((node, i) => `${i}:${node.id || node.className}`);
+      const keys = targets.map((node, i) => `${i}:${node.id || node.classList.item(0)}`);
       const state: Stability = window.pageStability = {
         heights: Object.fromEntries(targets.map((node, i) => [keys[i], range(node.getBoundingClientRect().height)])),
-        document: range(document.documentElement.scrollHeight), shifts: 0, samples: 0, targetsStable: true,
+        document: range(document.documentElement.scrollHeight), shifts: 0, samples: 0, targetsStable: true, nodesStable: true,
         captions: [], cases: [], offers: [], goals: [], stop: () => {},
       };
       const observer = new PerformanceObserver(list => {
@@ -136,10 +137,10 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
       };
       let frame = 0;
       const sample = () => {
-        // GoalBooking remounts its calendar when the goal key changes. Measure
-        // the live logical blocks, never detached nodes (whose height is zero).
+        // Classes d’animation variables ; identité réelle comparée aux nœuds initiaux.
         const current = Array.from(document.querySelectorAll<HTMLElement>(targetSelector));
-        if (current.length !== keys.length || current.some((node, i) => `${i}:${node.id || node.className}` !== keys[i])) {
+        if (current.length !== targets.length || current.some((node, i) => node !== targets[i])) state.nodesStable = false;
+        if (current.length !== keys.length || current.some((node, i) => `${i}:${node.id || node.classList.item(0)}` !== keys[i])) {
           state.targetsStable = false;
         } else {
           current.forEach((node, i) => update(state.heights[keys[i]], node.getBoundingClientRect().height));
@@ -207,6 +208,7 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
     });
     await testInfo.attach("stabilite.json", { body: JSON.stringify(result, null, 2), contentType: "application/json" });
     expect(result.samples).toBeGreaterThan(100);
+    expect(result.nodesStable, "mêmes nœuds DOM pendant toute la mesure").toBe(true);
     expect(result.targetsStable, "mêmes blocs présents pendant toute la mesure").toBe(true);
     expect(result.captions.length).toBeGreaterThan(1);
     expect(result.cases.length).toBeGreaterThan(1);

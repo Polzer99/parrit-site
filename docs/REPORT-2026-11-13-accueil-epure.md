@@ -393,3 +393,68 @@ Relecture finale du delta : six fichiers de code/tests concernés, plus ce rappo
 contrôle SHA256 confirmant que `action-unique.test.mjs` et tous les autres fichiers
 préexistants sont inchangés depuis l'entrée de ce tour. Les deux batteries demandées
 sont vertes ; les limites Node 24 et navigateur décrites ci-dessus restent explicites.
+
+## Correctif 3 — calendrier, identité DOM et liste du hero (13/11/2026)
+
+Source : dernière section « Correctif 3 » de la spécification locale, accord de
+Paul « go », puis consigne de ce tour : lint et tests Node uniquement, sans
+Chromium, Playwright ni build. Borne : ce tour et un correctif au maximum.
+Périmètre : worktree local, deux fichiers produit, les deux tests navigateur
+nommés ci-dessous et ce rapport ; aucune donnée ni écriture distante. Delta
+réversible par retrait des changements de ce tour. Modifications préexistantes
+(spec, captures) conservées ; aucun commit ni push.
+
+### Changements
+
+- **A — `HomeGoals.tsx`** : suppression de `key={goal.id}` sur `ParritCalInline`
+  et du commentaire devenu faux. Aucun état, observateur ou mécanisme ajouté ;
+  `CalInline.tsx` reste inchangé.
+- **B — `tests/stabilite.spec.ts`** : clé logique fondée sur `id` ou la première
+  classe, avec l'index existant. À chaque échantillon, comparaison des éléments
+  courants aux références DOM initiales ; tout remplacement ou changement de
+  nombre rend `nodesStable` faux définitivement. Assertion distincte à la fin.
+  Hauteurs à 1 px, scrollHeight à 1 px, CLS ≤ 0,01, durée d'observation et
+  chargement unique du calendrier inchangés.
+- **C — `single-page.css`** : police explicitement héritée par le gabarit ;
+  flèche native remplacée par un chevron CSS positionné dans la réserve droite
+  existante, sans retour à la ligne et sans interception des clics. Gabarit et
+  select partagent toujours police, graisse et rembourrage. Aucune couleur,
+  aucun texte ni ordre de bloc modifié.
+- **`tests/accueil-epure.spec.ts`** : mesure du texte de chaque option avec la
+  police calculée du select, après chargement des fontes, comparée à sa largeur
+  hors bordures et rembourrage (réserve du chevron comprise). Les 17 objectifs
+  sont contrôlés en FR/EN à 1440 et 390 px ; contrôles de débordement conservés.
+  Le scénario calendrier change l'objectif avant le chargement différé, puis
+  après : paramètres du premier chargement, identité du stage et de l'iframe,
+  une seule requête, attribution actualisée du bouton et rechargement de page
+  sont contrôlés. Aucun test hors du périmètre D n'a été modifié.
+
+### Limite acceptée du calendrier
+
+Les paramètres suivent l'objectif jusqu'au chargement différé du calendrier.
+Après ce chargement, ils restent ceux de ce moment : **un objectif changé après
+le chargement n'atteint pas la réservation**. Le bouton du hero continue de
+porter `source=accueil-<objectif>` à chaque clic. Cette limite est explicitement
+acceptée par la spec ; aucun rechargement forcé n'est ajouté pour la contourner.
+
+### Validation et reprise sur l'hôte
+
+- Référence `npm test` : **722/722**, code 0, aucun échec ni test ignoré.
+- Candidat `npm run lint` : **code 0**.
+- Candidat `npm test` : **722/722**, code 0, aucun échec ni test ignoré.
+- `git diff --check` : **code 0**.
+- Journaux : `/tmp/accueil-correctif3-baseline.log`,
+  `/tmp/accueil-correctif3-lint.log`, `/tmp/accueil-correctif3-test.log`.
+
+**Non exécutés, conformément à la consigne :** build (Turbopack ou Webpack),
+Playwright, Chromium, captures et mesures navigateur. La capture fournie
+`docs/accueil-epure/construit-tour2-fold.png` a été examinée, sans la modifier.
+La lisibilité réelle à 1440, 1280, 800, 390 et 320 px, l'identité DOM, l'absence
+de rechargement de l'iframe et le CLS restent à vérifier sur l'hôte.
+
+Le contrôle négatif demandé par B — remettre temporairement `key={goal.id}`,
+constater l'échec de `nodesStable` dans le test de stabilité, puis retirer la
+clé et rejouer — **n'a pas été exécuté**, puisqu'il nécessite le navigateur
+interdit dans ce tour. Il reste à faire une fois sur l'hôte ; aucune preuve
+négative ni preuve navigateur/production n'est revendiquée ici. La clé est
+absente de l'état livré.

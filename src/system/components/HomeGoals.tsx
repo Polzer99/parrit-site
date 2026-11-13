@@ -57,7 +57,10 @@ export function GoalDiagram({ locale }: { locale: Locale }) {
       <polyline key={goal.id} className="goal-path" data-path={goal.id} points={[...active].reverse().map(item => item.point.join(",")).join(" ")} pathLength="1"/>
     </svg>
     {GOAL_PLANES.map((plane, p) => <span key={p} className="goal-plane-title" style={{ top: `${(centers[p]-94)/590*100}%` }}>{plane.label[locale]}</span>)}
-    {active.map((item, p) => <span key={p} className="goal-node-label" aria-hidden="true" style={{ left: `clamp(32%, ${item.point[0]/520*100}%, 68%)`, top: `${(item.point[1]+18)/590*100}%` }}>{item.label}</span>)}
+    {GOAL_PLANES.map((plane, p) => plane.nodes.map((node, k) => {
+      const [x, y] = position(p, k);
+      return <span key={`${p}-${node.fr}`} className="goal-node-label" aria-hidden="true" data-active={node.fr === goal.path[2-p]} style={{ left: `clamp(32%, ${x/520*100}%, 68%)`, top: `${(y+18)/590*100}%` }}>{goalNodeLabel(node, locale)}</span>;
+    }))}
   </figure>;
 }
 
@@ -70,7 +73,7 @@ export function GoalHero({ locale }: { locale: Locale }) {
       <form className="goal-form" method="get" action={`${localizedPath("/", locale)}#haut`}>
         <label htmlFor="objectif">{locale === "fr" ? "Je veux" : "I want"}</label>
         <span className="goal-select">
-          <span className="goal-select-sizer" aria-hidden="true">{goal.label[locale]}</span>
+          <span className="goal-select-sizer" aria-hidden="true">{HOME_GOALS.map(item => <span key={item.id}>{item.label[locale]}</span>)}</span>
           <select id="objectif" name="objectif" value={goal.id} onChange={event => choose(event.target.value)} aria-describedby="goal-result">
             {GOAL_GROUPS.map(group => <optgroup key={group.id} label={group.label[locale]}>
               {HOME_GOALS.filter(item => item.group === group.id).map(item => <option key={item.id} value={item.id}>{item.label[locale]}</option>)}
@@ -126,6 +129,5 @@ export function GoalBooking({ locale }: { locale: Locale }) {
     bookingQuery[key] = values.length === 1 ? values[0] : values;
   });
   const parameters = bookingParameters(bookingQuery);
-  // embed-react snapshots config on mount; a new goal must also reach an already open calendar.
-  return <ParritCalInline key={goal.id} locale={locale} bookingParams={parameters}/>;
+  return <ParritCalInline locale={locale} bookingParams={parameters}/>;
 }
