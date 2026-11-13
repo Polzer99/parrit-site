@@ -68,3 +68,46 @@ Après le tour correctif 1 (hôte : lint et build verts, 540/553), les 13 échec
 4. **Navigation (§4)** : l'en-tête attend l'entrée « Journal » à sa place ; l'ordre des couches de l'accueil et tous les autres liens restent vérifiés.
 
 Résultat attendu : `npm test` entièrement vert, deux fois de suite. Lister dans le rapport chaque assertion remplacée (avant, après).
+
+---
+
+## Correctif 3 — paramètres de campagne ajoutés après chargement sur les pages statiques (accord de Paul, 13/11/2026 : « ok cache »)
+
+Après le tour correctif 2 : lint, build et marque verts, `npm test` 552/553 (commit local `c814bad`). Le test restant (`tests/brand-os-render.test.mjs`, « compiled EN/FR pages publish images… », ligne 233, `null !== 'offhome'`) exige que le bouton d'en-tête porte `utm_custom` de la visite dans le HTML initial de `/journal`, `/journal/themes/ai-sprints`, `/journal/what-is-parrit-ai`, `/legal`. C'est incompatible avec le §1 (pages servies en cache). Arbitrage de Paul : le cache l'emporte ; les paramètres `source`/`utm_*` sont ajoutés au bouton **après chargement**, côté navigateur (comportement déjà en place dans `RevHeader.tsx`).
+
+Ordre de travail :
+
+1. **Intégrer `main` d'abord.** Dans ce worktree, `git merge origin/main` (la référence est déjà à jour, aucun accès réseau n'est nécessaire ; les PR #376 polissage UI et #381 y sont). Résoudre les conflits en **conservant intégralement** le contenu de #376 (finitions de `rev01.css`, `single-page.css`, `system.css`, six clients, tests `ui-polish`, `design-md-truth`, `public-clients`, `action-unique`) et en y réappliquant les changements de cette spec. Terminer le commit de fusion. `DESIGN.md` et `DESIGN-SYSTEM.md` font désormais foi et sont testés (`tests/design-md-truth.test.mjs`) : si l'entrée « Journal » dans la navigation ou la signature d'article les contredit, mettre ces documents à jour dans le même geste.
+2. **Test aligné** : dans `tests/brand-os-render.test.mjs`, pour les pages statiques (Journal, thèmes, articles, pages légales, EN et FR), l'attente devient : le HTML initial contient le bouton d'en-tête avec son adresse de base (sans paramètre de visite). Pour les pages restées dynamiques (`/`, `/fr`, `/rendez-vous`, `/fr/rendez-vous`), l'attente d'origine (paramètres dans le HTML initial) est **conservée**. Toutes les autres assertions du test restent.
+3. **Test navigateur ajouté** (`tests/passe-site.spec.ts`, avec le filet réseau deny-all du dépôt) : sur les quatre pages ci-dessus, en EN et en FR, avec `?source=essai&utm_custom=offhome&utm_campaign=c1`, après hydratation, l'adresse du bouton d'en-tête contient les trois paramètres. Vérifier aussi qu'un paramètre inconnu (hors `source` et `utm_*`) n'est pas recopié, et que la réponse de ces pages porte un `Cache-Control` public sur `next start`.
+4. **Résultat attendu** : `npm ci --silent`, `npm run lint`, `npm run build -- --webpack`, `npm run qa:brand:rev01`, `npm test` verts, `npm test` deux fois de suite. Compléter `docs/REPORT-2026-11-12-passe-site.md` (assertion remplacée : avant, après ; routes statiques relevées au build ; conflits résolus et comment). Committer le travail sur la branche courante, sans pousser : Claude rejoue la batterie et Playwright sur l'hôte, puis ouvre la PR.
+
+---
+
+## Correctif 4 — tests navigateur rejoués sur l'hôte (13/11/2026), tour unique
+
+Batterie hôte après le correctif 3 : lint, build, marque et `npm test` verts deux fois ; en-têtes de sécurité présents ; Journal, articles et pages légales servis avec `Cache-Control: s-maxage`. Tests navigateur (`npm run qa:network:rev01`) : **535 passés, 79 en échec**. Journal complet : `/Users/paullarmaraud/codex-work/hote-s-navigateur.log` (à lire ; le bac à sable ne peut pas lancer Chromium, Claude rejoue ensuite sur l'hôte). Cinq causes :
+
+1. **Signature et auteur des articles : retirés de ce lot (40 échecs `anti-slop-copy.spec.ts`, 4 échecs `conformity-journal.spec.ts`).** Le §6 de cette spec contredit une décision datée de Paul (27/10/2026, `TRUTH.md` et `AGENTS.md` : nom et portrait du fondateur autorisés dans la section contact seulement, « le Journal conserve son identité Parrit.ai »). Cette décision n'est pas à Claude ni à Codex : la question est posée à Paul. En attendant :
+   - retirer la ligne de signature visible sous le chapeau (et toute mention « Paul », « Larmaraud », « fondateur », « founder » ajoutée par ce lot dans les pages du Journal, texte comme métadonnées) ;
+   - remettre `Article.author` = l'organisation, comme sur `origin/main`, et rétablir à l'identique les assertions de tests correspondantes (`tests/entity-graph.test.mjs` et autres) ;
+   - **conserver** les dates localisées des articles liés (§6, deuxième point) et tout ce qui ne nomme personne ;
+   - l'espace entre chapeau et temps de lecture doit retrouver la valeur vérifiée par `conformity-journal.spec.ts` (« UI polish: deck and reading time have system spacing »), sans toucher à ce test.
+   Le contrat 2 du Correctif 2 (« Auteur des articles ») est annulé.
+2. **Source du bouton d'en-tête hors accueil (8 échecs `intentions.spec.ts`, 1 échec `conformity-i18n.spec.ts` « header switches paths »).** Le contrat existant est le bon et doit être rétabli : hors accueil, le bouton d'en-tête garde `source=rdv-nav` et ses propres `utm_*` de navigation ; les paramètres de la visite ne remplacent jamais `source`. Retirer `attributionSource` de `AppointmentLink`/`RevHeader`. Sur les pages statiques, après chargement, le bouton doit produire exactement la même adresse que celle que le rendu serveur produisait sur `origin/main` pour la même visite ; lire ces deux tests pour le détail attendu et ne pas les modifier. Corriger en conséquence le test ajouté au Correctif 3 dans `tests/passe-site.spec.ts` (il attendait à tort `source=essai`).
+3. **Liens de langue FR/EN sur les pages statiques (2 échecs `conformity-i18n.spec.ts` « source and UTM survive renaming and native … link »).** Sur une page statique, le HTML initial porte le lien de langue sans paramètre de visite ; après chargement, le lien reprend la chaîne de requête de la visite comme avant. Le groupe « without hydration » garde ses assertions pour les redirections de renommage (statut, un seul saut, requête conservée dans l'adresse d'arrivée) ; seule l'attente sur l'attribut `href` du lien de langue d'une page statique sans JavaScript devient « adresse de base », et un cas avec JavaScript vérifie l'adresse complète puis le clic. Les pages dynamiques gardent l'attente d'origine.
+4. **Entrée « Journal » dans la navigation (20 échecs `parcours-accueil.spec.ts`, 4 échecs `single-page.spec.ts` « mobile menu panel… »).** Contrat 4 du Correctif 2, côté navigateur : les listes de liens attendues gagnent `/journal` (EN) ou `/fr/journal` (FR) entre « questions » et « contact » ; le menu mobile compte 7 liens. Toutes les autres assertions de ces tests (géométrie du panneau, visibilité de chaque lien, absence de débordement) restent telles quelles et doivent passer : si le septième lien fait déborder le panneau à 390 px ou à 800 px, corriger la mise en page, pas le seuil.
+5. **Rapport** : compléter `docs/REPORT-2026-11-12-passe-site.md` (ce qui est retiré et pourquoi, assertions rétablies, assertions alignées avant/après).
+
+Résultat attendu : `npm run lint`, `npm run build -- --webpack`, `npm run qa:brand:rev01`, `npm test` verts deux fois ; commit local sans push. Ne modifier aucun autre test, n'abaisser aucun seuil.
+
+---
+
+## Correctif 5 — deux tests navigateur à aligner sur « ok cache » (13/11/2026), limité à ces deux tests
+
+Rejeu hôte après le correctif 4 : lint, build, marque verts, `npm test` 586/586, tests navigateur **611 passés, 5 en échec**. Les cinq ont la même cause, déjà arbitrée par Paul le 13/11 (« ok cache » : sur une page servie en cache, les paramètres de campagne de la visite sont ajoutés au bouton après chargement ; un visiteur sans JavaScript ne les a pas). La consigne « ne pas modifier ces tests » du Correctif 4 était une erreur de Claude pour ces deux cas précis. Aucun code de production n'est à modifier.
+
+1. `tests/intentions.spec.ts`, groupe « off-home appointment … JS=false » (4 cas, ligne 275) : les quatre routes testées sont des pages statiques. Avec JavaScript, l'attente reste `utm_campaign=navigation`. Sans JavaScript, l'attente devient : aucun `utm_campaign` dans l'adresse du bouton (`null`). Toutes les autres assertions du test restent, dans les deux modes : un seul bouton visible, libellé, chemin, ancre `#contact`, `source` égal à `["rdv-nav"]`, clic, arrivée sur le contact.
+2. `tests/conformity-i18n.spec.ts`, « header switches paths, saves choice and preserves query/hash » (ligne 151) : `/fr/legal` est une page statique, le test lit l'attribut `href` avant la fin du chargement. Avant de lire l'adresse, attendre avec une assertion à relance (`toHaveAttribute` avec une expression qui exige `utm_campaign=language`) ; les quatre attentes sur le chemin, l'ancre, `source` et `utm_campaign` restent ensuite inchangées.
+
+Ne toucher à rien d'autre. `npm run lint` et `npm test` verts ; compléter le rapport (deux assertions : avant, après) ; commit local sans push.
