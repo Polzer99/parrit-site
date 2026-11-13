@@ -7,11 +7,12 @@ import matter from 'gray-matter';
 import { ANTI_IA, articleGates, gateAdaptation, gateTopicRepetition } from './journal-machine-gates.mjs';
 import { researchInPasses, verifiedMaterial, safeResearchError } from './journal-machine-research.mjs';
 import { withinDeadline, isTimeout, errorCode } from './journal-machine-io.mjs';
+import { callTrace, responseIssue, parseResponseObject, circuitHistory, runRecord, runSummary, writeSummary, diagnosticReason } from './journal-machine-trace.mjs';
 import { setTimeout as delay } from 'node:timers/promises';
 export { researchSources, verifiedMaterial } from './journal-machine-research.mjs';
 import { validateTopics } from './journal-sujets.mjs';
 
-export const DEFAULT_MODELS = { research: 'deepseek/deepseek-v4-flash', writing: 'z-ai/glm-5.2', judge: 'z-ai/glm-5.3' };
+export const DEFAULT_MODELS = { research: 'deepseek/deepseek-v4-flash', writing: 'z-ai/glm-5.2', judge: 'z-ai/glm-5.3', writingFallback: 'deepseek/deepseek-v4-pro', judgeFallback: 'deepseek/deepseek-v4-pro' };
 export class BudgetExceeded extends Error {}
 class ConfigurationError extends Error {}
 export const OPENROUTER_TIMEOUTS = { research: 90_000, writing: 180_000, judge: 60_000 };
@@ -25,6 +26,7 @@ export async function completeWithRetry(client, request, role, { sleep = delay, 
       return await withinDeadline(() => client.complete(request, { signal: callSignal }), callSignal);
     } catch (error) {
       signal?.throwIfAborted();
+      if (error instanceof BudgetExceeded) throw error;
       const timedOut = isTimeout(error);
       const status = Number.isInteger(error?.status) ? error.status : undefined;
       if (attempt === 0 && (timedOut || status === 429 || (status >= 500 && status <= 599))) {
@@ -96,7 +98,7 @@ export const EDITING_PROMPT = `Secrétariat de rédaction, dernière et seconde 
 const judgeSchema = { type: 'object', additionalProperties: false, properties: Object.fromEntries(['unsupported', 'answers_query', 'proves_thesis'].map(key => [key, { type: 'object', additionalProperties: false, properties: { answer: { type: 'string', enum: ['oui', 'non'] }, quote: { type: 'string' } }, required: ['answer', 'quote'] }])), required: ['unsupported', 'answers_query', 'proves_thesis'] };
 export function validateJudge(message, raw) {
   try {
-    const value = JSON.parse(message);
+    const value = parseResponseObject(message);
     if (Object.keys(value).sort().join() !== 'answers_query,proves_thesis,unsupported') throw new Error('clés inattendues');
     for (const item of [value.unsupported, value.answers_query, value.proves_thesis]) {
       if (!item || Object.keys(item).sort().join() !== 'answer,quote' || !['oui', 'non'].includes(item.answer) || typeof item.quote !== 'string' || (item.quote && !raw.includes(item.quote))) throw new Error('réponse ou citation invalide');
@@ -106,15 +108,16 @@ export function validateJudge(message, raw) {
   } catch (error) { return { gate: 'juge', ok: false, motif: `JSON juge invalide : ${error.message}` }; }
 }
 function editions(message) {
-  const value = JSON.parse(message);
+  const value = parseResponseObject(message);
   if (Object.keys(value).sort().join() !== 'en,fr' || typeof value.fr !== 'string' || typeof value.en !== 'string') throw new Error('éditions FR/EN invalides');
   return { fr: cleanMDX(value.fr), en: cleanMDX(value.en) };
 }
 
-export async function runMachine({ root, client, runtime, sourceOptions = {}, models = DEFAULT_MODELS, budget = 0.8, now = () => new Date(), selected = '', simulation = false, sleep = delay, context = {} }) {
+export async function runMachine({ root, client, runtime, sourceOptions = {}, models = DEFAULT_MODELS, budget = 0.8, now = () => new Date(), selected = '', simulation = false, sleep = delay, context = {}, env = process.env }) {
+  models = { ...DEFAULT_MODELS, ...models };
   const date = now().toISOString();
   const today = date.slice(0, 10);
-  const run = { date, sujet: null, slug: null, these_retenue: null, modeles: models, cout: 0, portes: [], tentatives: [], issue: 'echec', ...(simulation ? { simulation: true } : {}) };
+  const run = { date, sujet: null, slug: null, these_retenue: null, modeles: models, modeles_effectifs: {}, appels: [], cout: 0, portes: [], tentatives: [], issue: 'echec', ...(simulation ? { simulation: true } : {}) };
   const queueFile = path.join(root, 'content/plan/sujets.json');
   let topics;
   let staged;
@@ -130,18 +133,82 @@ export async function runMachine({ root, client, runtime, sourceOptions = {}, mo
     for (const file of staged.files) rmSync(file, { force: true });
     atomicJSON(staged.manifestFile, staged.manifest); staged = undefined;
   };
-  const ask = async (role, messages, extra = {}) => {
-    step(roleNames[role]);
+  let available = [];
+  let authors = new Set();
+  let highestCost = 0;
+  const reserve = role => {
     if (run.cout >= budget) throw new BudgetExceeded('plafond de coût atteint');
-    const response = await completeWithRetry(client, { model: models[role], messages, temperature: role === 'writing' ? 0.5 : 0, max_tokens: role === 'writing' ? 12000 : 4500, ...extra }, role, { sleep, signal: context.signal });
-    step(roleNames[role]);
-    const cost = response.usage?.cost;
-    if (typeof cost !== 'number' || !Number.isFinite(cost) || cost < 0) throw new BudgetExceeded('usage.cost absent ou invalide : publication interdite');
-    run.cout += cost;
-    if (run.cout > budget) throw new BudgetExceeded('plafond de coût dépassé');
-    const message = response.choices?.[0]?.message;
-    if (typeof message?.content !== 'string') throw new Error('réponse OpenRouter vide');
-    return message;
+    // The new ladder reserve applies to writing/editing/judging; research keeps its historical budget checks.
+    if (role !== 'research' && run.cout + highestCost > budget + 1e-12) throw new BudgetExceeded('plafond de coût : réserve insuffisante');
+  };
+  const ask = async (role, messages, extra = {}) => {
+    const etape = role === 'writing' && extra.temperature === 0.2 ? 'secretariat' : roleNames[role];
+    step(etape);
+    const primary = models[role], fallback = models[`${role}Fallback`];
+    const distinct = model => model && available.includes(model) && !authors.has(model);
+    const firstModel = role === 'judge' ? [primary, fallback].find(distinct) : primary;
+    if (!firstModel) throw new Error('juge_identique_au_redacteur');
+    const lastModel = role === 'judge' ? (firstModel === primary ? fallback : primary) : fallback;
+    let lastIssue;
+    for (let echelon = available.includes(primary) ? 1 : 3; echelon <= (role === 'research' ? 1 : 3); echelon++) {
+      reserve(role);
+      const model = echelon === 3 ? (available.includes(primary) ? lastModel : fallback) : firstModel;
+      if (role === 'judge' && !distinct(model)) {
+        throw new Error(`openrouter_${etape}_${lastIssue || 'http_404'}`);
+      }
+      if (!available.includes(model)) throw new ConfigurationError('modèle de repli indisponible');
+      const request = { model, messages, temperature: role === 'writing' ? 0.5 : 0,
+        max_tokens: role === 'writing' ? 12000 : 4500, ...extra,
+        ...(echelon === 2 ? { reasoning: { effort: 'low' } } : {}) };
+      let tentative = 0;
+      const tracedClient = { complete: async (payload, options) => {
+        reserve(role);
+        run.modeles_effectifs[etape] = model;
+        const start = performance.now();
+        let response;
+        try {
+          context.activeCall = withinDeadline(() => client.complete(payload, options), options.signal);
+          response = await context.activeCall;
+        } catch (error) {
+          const issue = echelon === 2 && [400, 422].includes(error?.status) ? 'parametre_refuse'
+            : isTimeout(error) ? 'delai' : `http_${Number.isInteger(error?.status) ? error.status : 0}`;
+          // 000 denotes a transport failure with no HTTP response.
+          run.appels.push(callTrace({ etape, modele: model, tentative: ++tentative, echelon, sujet: run.sujet,
+            issue: issue === 'http_0' ? 'http_000' : issue, duration: performance.now() - start }));
+          throw error;
+        }
+        const issue = responseIssue(response, Boolean(extra.response_format));
+        const trace = callTrace({ etape, modele: model, tentative: ++tentative, echelon, sujet: run.sujet,
+          response, issue, duration: performance.now() - start });
+        run.appels.push(trace);
+        if (trace.cout === null) throw new BudgetExceeded('usage.cost absent ou invalide : publication interdite');
+        run.cout += trace.cout;
+        highestCost = Math.max(highestCost, trace.cout);
+        if (run.cout > budget) throw new BudgetExceeded('plafond de coût dépassé');
+        return response;
+      } };
+      let response;
+      try { response = await completeWithRetry(tracedClient, request, role, { sleep, signal: context.signal }); }
+      catch (error) {
+        if (error instanceof BudgetExceeded || context.stopped) throw error;
+        lastIssue = run.appels.at(-1)?.issue;
+        if (echelon === 2 && lastIssue === 'parametre_refuse') continue;
+        if (role === 'research') throw error; // Preserve include_domains fallback.
+        if (echelon < 3 && /^(delai|http_429|http_5\d{2})$/.test(lastIssue)) {
+          echelon = 2; // Retry exhausted: skip reduced reasoning and use the fallback.
+          continue;
+        }
+        throw new Error(`openrouter_${etape}_${lastIssue}`);
+      }
+      step(etape);
+      lastIssue = responseIssue(response, Boolean(extra.response_format));
+      // Research keeps its tolerant JSON repair/annotation path, but never uses truncation.
+      if (lastIssue === 'ok' || (role === 'research' && lastIssue === 'json_invalide')) {
+        if (role === 'writing') authors.add(model);
+        return response.choices[0].message;
+      }
+    }
+    throw new Error(`openrouter_${etape}_${lastIssue}`);
   };
   try {
     if (!Number.isFinite(budget) || budget <= 0) throw new ConfigurationError('JOURNAL_COUT_MAX_USD invalide');
@@ -149,6 +216,14 @@ export async function runMachine({ root, client, runtime, sourceOptions = {}, mo
     await runtime?.restoreState?.();
     step('selection');
     stateRestored = true; context.stateRestored = true;
+    if (!simulation && env.GITHUB_ACTIONS === 'true' && env.GITHUB_EVENT_NAME === 'schedule') {
+      const failures = circuitHistory(path.join(root, 'content/plan/journal-runs.jsonl'));
+      if (failures.length === 3) {
+        run.issue = 'coupe_circuit'; run.motif = 'trois_echecs_techniques';
+        await runtime?.issueOnce?.('Journal : coupe-circuit, trois échecs de suite', failures.map(runSummary).join('\n'));
+        return run;
+      }
+    }
     topics = validateTopics(JSON.parse(readFileSync(queueFile, 'utf8')));
     context.topics = topics;
     const pending = new Set(await runtime?.pendingTopics?.() || []);
@@ -163,9 +238,14 @@ export async function runMachine({ root, client, runtime, sourceOptions = {}, mo
       return run;
     }
     step('catalogue');
-    const available = await client.models();
+    available = await client.models();
     step('selection');
-    for (const model of Object.values(models)) if (!available.includes(model)) throw new ConfigurationError(`modèle indisponible : ${model}`);
+    if (!available.includes(models.research)) throw new ConfigurationError(`modèle indisponible : ${models.research}`);
+    for (const role of ['writing', 'judge']) {
+      if (![models[role], models[`${role}Fallback`]].some(model => available.includes(model))) {
+        throw new ConfigurationError(`modèles indisponibles : ${roleNames[role]}`);
+      }
+    }
     let attempted = 0;
     for (const topic of candidates) {
       step('selection');
@@ -173,6 +253,7 @@ export async function runMachine({ root, client, runtime, sourceOptions = {}, mo
       if (!repetition.ok) { topic.statut = 'ecarte'; topic.motif = repetition.motif; continue; }
       if (attempted++ >= 2) break;
       run.sujet = topic.id; run.slug = topic.id;
+      authors = new Set(); run.modeles_effectifs = {}; run.these_retenue = null;
       const slug = topic.id;
       const attempt = { sujet: topic.id, passes: [] };
       run.tentatives.push(attempt);
@@ -190,11 +271,11 @@ export async function runMachine({ root, client, runtime, sourceOptions = {}, mo
         const request = { topic, slug, date: today, updatedAt: today, sources: annotations, internalLinks };
         const messages = [{ role: 'system', content: WRITING_SYSTEM }, { role: 'user', content: `${formatPrompt}\n${JSON.stringify(request)}` }];
         const draft = (await ask('writing', messages, { temperature: 0.5, response_format: { type: 'json_object' } })).content;
-        attempt.redaction = { temperature: 0.5, model: models.writing };
+        attempt.redaction = { temperature: 0.5, model: run.modeles_effectifs.redaction };
         // Always perform the secretariat pass, even if the draft already passes gates.
         const final = await ask('writing', [{ role: 'system', content: WRITING_SYSTEM }, { role: 'user', content: `${EDITING_PROMPT}\n${formatPrompt}\n${JSON.stringify({ ...request, draft })}` }], { temperature: 0.2, response_format: { type: 'json_object' } });
         const { fr, en } = editions(final.content);
-        attempt.secretariat = { temperature: 0.2, model: models.writing };
+        attempt.secretariat = { temperature: 0.2, model: run.modeles_effectifs.secretariat };
         attempt.these_retenue = matter(fr).data.title;
         run.these_retenue = attempt.these_retenue;
         step('portes');
@@ -240,7 +321,7 @@ export async function runMachine({ root, client, runtime, sourceOptions = {}, mo
         step('publication');
         if (!['pr', 'publie'].includes(outcome)) throw new Error('publication sans résultat vérifié');
         if (outcome === 'publie') { topic.statut = 'publie'; topic.publie_le = now().toISOString(); }
-        run.issue = outcome;
+        run.issue = outcome; delete run.motif;
         staged = undefined;
         break;
       } catch (error) {
@@ -274,13 +355,14 @@ export async function runMachine({ root, client, runtime, sourceOptions = {}, mo
       step('journalisation');
       if (topics) atomicJSON(queueFile, topics);
       mkdirSync(path.join(root, 'content/plan'), { recursive: true });
-      appendFileSync(path.join(root, 'content/plan/journal-runs.jsonl'), `${JSON.stringify(run)}\n`);
+      appendFileSync(path.join(root, 'content/plan/journal-runs.jsonl'), `${JSON.stringify(runRecord(run))}\n`);
+      writeSummary(run, env.GITHUB_STEP_SUMMARY);
       if (!simulation && runtime && stateRestored) {
         step('persistance');
         context.persistence = runtime.persistState();
         await context.persistence;
         step('alerte');
-        await runtime.alertIfStalled();
+        if (run.issue !== 'coupe_circuit') await runtime.alertIfStalled();
       }
     }
   }
@@ -301,7 +383,7 @@ export function fixtureClient(directory, models = DEFAULT_MODELS) {
 async function cliOptions(args, repo) {
   const dry = args.includes('--dry-run'), fixtures = args.includes('--fixtures');
   if (dry !== fixtures) throw new Error('utiliser --dry-run --fixtures ensemble (aucun réseau ni git)');
-  const models = { research: process.env.JOURNAL_MODELE_RECHERCHE || DEFAULT_MODELS.research, writing: process.env.JOURNAL_MODELE_REDACTION || DEFAULT_MODELS.writing, judge: process.env.JOURNAL_MODELE_JUGE || DEFAULT_MODELS.judge };
+  const models = { research: process.env.JOURNAL_MODELE_RECHERCHE || DEFAULT_MODELS.research, writing: process.env.JOURNAL_MODELE_REDACTION || DEFAULT_MODELS.writing, judge: process.env.JOURNAL_MODELE_JUGE || DEFAULT_MODELS.judge, writingFallback: process.env.JOURNAL_MODELE_REDACTION_REPLI || DEFAULT_MODELS.writingFallback, judgeFallback: process.env.JOURNAL_MODELE_JUGE_REPLI || DEFAULT_MODELS.judgeFallback };
   let options;
   if (fixtures) {
     const root = mkdtempSync(path.join(tmpdir(), 'parrit-journal-dry-run-'));
@@ -333,9 +415,17 @@ export async function main({ args = process.argv.slice(2), options, execute = ru
     processImpl.exitCode = 1;
     // Freeze the diagnostic before cancellation can unwind the active machine.
     const record = { date: new Date().toISOString(), issue: 'crash', sujet: context.run?.sujet ?? null,
-      etape: context.etape, message: safeResearchError(context.crashError, 300) };
+      etape: context.etape, message: diagnosticReason(safeResearchError(context.crashError, 300)),
+      appels: runRecord(context.run || {}).appels, cout: context.run?.cout ?? 0,
+      modeles: runRecord(context.run || {}).modeles,
+      modeles_effectifs: runRecord(context.run || {}).modeles_effectifs, ...(options?.simulation ? { simulation: true } : {}) };
+    record.motif = record.message;
     crashPromise = (async () => {
       const failed = failure => reportError(`Journal crash: ${safeResearchError(failure, 300)}`);
+      // Cancellation settles the bounded call before freezing its last trace.
+      try { await context.activeCall; } catch { /* Its trace is recorded by ask. */ }
+      record.appels = runRecord(context.run || {}).appels;
+      record.cout = context.run?.cout ?? 0;
       // Serialize against a normal save already in flight; never publish here.
       try { await context.persistence; } catch { /* One bounded recovery save below. */ }
       try { context.cleanup?.(); } catch (failure) { failed(failure); }
@@ -346,6 +436,7 @@ export async function main({ args = process.argv.slice(2), options, execute = ru
       try {
         mkdirSync(path.join(root, 'content/plan'), { recursive: true });
         appendFileSync(path.join(root, 'content/plan/journal-runs.jsonl'), `${JSON.stringify(record)}\n`);
+        writeSummary(record, (options?.env || process.env).GITHUB_STEP_SUMMARY);
       } catch (failure) { failed(failure); }
       // A failed restore must never overwrite newer durable state.
       if (!options?.simulation && options?.runtime && context.stateRestored) {
@@ -369,7 +460,7 @@ export async function main({ args = process.argv.slice(2), options, execute = ru
     // Flush the event-loop turn so a late orphan rejection cannot escape cleanup.
     await new Promise(resolve => setImmediate(resolve));
     if (context.stopped) return await crashPromise;
-    output(JSON.stringify({ root: options.root, ...result }, null, 2));
+    output(JSON.stringify({ root: options.root, ...runRecord(result) }, null, 2));
     if (result.issue === 'echec' && !result.motif?.startsWith('file de sujets vide') && result.motif !== 'sujets en attente de PR') processImpl.exitCode = 1;
     return result;
   } catch (error) {

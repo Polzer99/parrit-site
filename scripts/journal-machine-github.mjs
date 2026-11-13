@@ -84,7 +84,10 @@ export function createGitHubRuntime({ root = process.cwd(), env = process.env, f
   const main = async () => (await api('/git/ref/heads/main')).object.sha;
   async function issueOnce(title, body, signal) {
     const existing = (await list('/issues?state=open')).find((issue) => !issue.pull_request && issue.title === title);
-    if (existing) return existing;
+    if (existing) {
+      if (title === 'Journal : coupe-circuit, trois échecs de suite' && existing.body !== body) return api(`/issues/${existing.number}`, 'PATCH', { body }, false, signal);
+      return existing;
+    }
     return api('/issues', 'POST', { title, body, assignees: ['Polzer99'] }, false, signal);
   }
   async function pendingTopics() {
@@ -244,7 +247,7 @@ export function createGitHubRuntime({ root = process.cwd(), env = process.env, f
         const lines = [...new Set([...current.split('\n'), ...content.split('\n')].filter(Boolean))];
         for (const line of lines) {
           const run = JSON.parse(line);
-          if (!run || !Number.isFinite(Date.parse(run.date)) || !['echec', 'pr', 'publie', 'crash'].includes(run.issue)) throw new Error('Journal distant invalide');
+          if (!run || !Number.isFinite(Date.parse(run.date)) || !['echec', 'pr', 'publie', 'crash', 'coupe_circuit'].includes(run.issue)) throw new Error('Journal distant invalide');
         }
         updates.set(file, lines.join('\n') + '\n');
       }
