@@ -5,6 +5,11 @@ on:
     - cron: "15 5 * * *"
   workflow_dispatch:
     inputs:
+      essai_modeles:
+        description: "Tester les réglages des modèles (0,10 USD maximum, sans article)"
+        required: false
+        default: false
+        type: boolean
       sujet:
         description: "Identifiant ou requête d'un sujet de la file (optionnel)"
         required: false
@@ -49,12 +54,16 @@ jobs:
           JOURNAL_MODELE_JUGE_REPLI: ${{ vars.JOURNAL_MODELE_JUGE_REPLI }}
           JOURNAL_MODELE_JUGE: ${{ vars.JOURNAL_MODELE_JUGE }}
           JOURNAL_COUT_MAX_USD: ${{ vars.JOURNAL_COUT_MAX_USD }}
+          JOURNAL_REDACTION_MAX_TOKENS: ${{ vars.JOURNAL_REDACTION_MAX_TOKENS }}
+          JOURNAL_JUGE_MAX_TOKENS: ${{ vars.JOURNAL_JUGE_MAX_TOKENS }}
+          JOURNAL_RAISONNEMENT_REDACTION: ${{ vars.JOURNAL_RAISONNEMENT_REDACTION }}
+          JOURNAL_RAISONNEMENT_JUGE: ${{ vars.JOURNAL_RAISONNEMENT_JUGE }}
           JOURNAL_SUJET: ${{ inputs.sujet }}
           INDEXNOW_KEY: ${{ vars.INDEXNOW_KEY }}
-        run: node scripts/journal-machine.mjs
+        run: node scripts/journal-machine.mjs ${{ inputs.essai_modeles && '--essai-modeles' || '' }}
       # Built-in Node modules only: this still runs after npm ci/startup failure.
       - name: Vérifier la cadence même après un échec de démarrage
-        if: always()
+        if: ${{ always() && inputs.essai_modeles != true }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
           JOURNAL_AUTOPUBLISH: ${{ vars.JOURNAL_AUTOPUBLISH }}
