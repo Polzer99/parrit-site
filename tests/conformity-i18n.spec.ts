@@ -144,6 +144,7 @@ test("header switches paths, saves choice and preserves query/hash", async ({ pa
   for (const selector of [".cmdbar > .wrap > a.rev-button", ".cmdbar .mobile-menu a.rev-button"]) {
     const action = page.locator(selector);
     await expect(action).toHaveCount(1);
+    await expect(action).toHaveAttribute("href", /[?&]utm_campaign=language(?:[&#]|$)/);
     const target = new URL((await action.getAttribute("href"))!, BASE_URL);
     expect(target.pathname).toBe("/fr");
     expect(target.hash).toBe("#contact");

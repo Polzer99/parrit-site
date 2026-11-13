@@ -272,7 +272,7 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         expect(target.pathname).toBe(prefix || "/");
         expect(target.hash).toBe("#contact");
         expect(target.searchParams.getAll("source")).toEqual(["rdv-nav"]);
-        expect(target.searchParams.get("utm_campaign")).toBe("navigation");
+        expect(target.searchParams.get("utm_campaign")).toBe(javaScriptEnabled ? "navigation" : null);
         await action.click();
         await expect(page).toHaveURL(target.href);
         await expect(page.locator("#contact h2")).toBeInViewport();

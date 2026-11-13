@@ -720,3 +720,39 @@ validés, retour exact des contrats machine à main approuvé, les deux réserve
 ci-dessus confirmées ; aucun autre défaut concret identifié.
 PRODUCTION_PROOF = non acquise. Livraison par commit local sans push ; les six
 PNG hôte préexistants restent dans le worktree et hors commit.
+
+## Correctif 5 — alignement des deux tests navigateur, 13/11/2026
+
+Mandat : section finale « Correctif 5 » de la spec canonique, accord « ok cache ».
+Périmètre : deux fichiers de tests navigateur et ce rapport uniquement ; aucun
+code de production, autre test ou seuil modifié. Six PNG préexistants exclus.
+
+### Deux assertions avant / après
+
+1. `tests/intentions.spec.ts`, groupe `off-home appointment`, FR/EN et 1440/390,
+   quatre routes statiques :
+   - Avant : `expect(target.searchParams.get("utm_campaign")).toBe("navigation");`
+   - Après : `expect(target.searchParams.get("utm_campaign")).toBe(javaScriptEnabled ? "navigation" : null);`
+   - Avec JS, attente inchangée ; sans JS, absence de campagne dans le HTML partagé.
+     Bouton unique, libellé, chemin, ancre, source `rdv-nav`, clic et arrivée au
+     contact restent contrôlés à l'identique.
+2. `tests/conformity-i18n.spec.ts`, `header switches paths, saves choice and preserves query/hash` :
+   - Avant : lecture immédiate de `action.getAttribute("href")` après `toHaveCount(1)`.
+   - Après : ajout de `await expect(action).toHaveAttribute("href", /[?&]utm_campaign=language(?:[&#]|$)/);`
+     avant cette même lecture, pour attendre l'hydratation des deux boutons.
+   - Les quatre attentes chemin `/fr`, ancre `#contact`, source `["rdv-nav"]`
+     et campagne `language` restent inchangées.
+
+### Validation
+
+| Commande | Référence avant édition | Après édition |
+|---|---|---|
+| `npm run lint` | Sortie 0 | Sortie 0 |
+| `npm test` | 586/586, sortie 0 | 586/586, sortie 0 |
+
+Aucun test ignoré, annulé ou todo. `git diff --check` vert.
+Logs : `/private/tmp/correctif5-{baseline,final}-{lint,test}.log`.
+Tests navigateur non exécutés ici : le résultat hôte 611 passés / 5 échecs
+est celui rapporté par la spec, pas une nouvelle mesure. Le rejeu navigateur
+sur hôte reste la preuve attendue de résolution des cinq échecs ; aucune preuve
+production revendiquée. Livraison par commit local sans push.
