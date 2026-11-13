@@ -34,12 +34,12 @@
     "pilier": "audit-pme",
     "offre": "audit",
     "angle_local": false,
-    "statut": "a_faire",
+    "statut": "ecarte",
     "slug": null,
     "publie_le": null,
     "these_pressentie": null,
-    "essais": 2,
-    "motif": "openrouter_redaction_tronquee"
+    "essais": 3,
+    "motif": "openrouter_recherche_tronquee"
   },
   {
     "id": "quels-processus-d-une-pme-se-pretent-vraiment-a-un-agent-ia-et-lesqu",
@@ -48,12 +48,12 @@
     "pilier": "audit-pme",
     "offre": "audit",
     "angle_local": false,
-    "statut": "a_faire",
+    "statut": "ecarte",
     "slug": null,
     "publie_le": null,
     "these_pressentie": null,
-    "essais": 2,
-    "motif": "openrouter_redaction_tronquee"
+    "essais": 3,
+    "motif": "interdits-parrit: prix ou montant; structure: frontmatter : title; mdx: ligne 14 : indentée ≥4 espaces → CommonMark la rend en bloc de code; ligne 15 : indentée ≥4 espaces → CommonMark la rend en bloc de code; ligne 16 : indentée ≥4 espaces → CommonMark la rend en bloc de code; ligne 18 : indentée ≥"
   },
   {
     "id": "combien-de-temps-faut-il-pour-voir-un-premier-resultat-d-un-projet-i",
