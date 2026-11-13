@@ -756,3 +756,60 @@ Tests navigateur non exécutés ici : le résultat hôte 611 passés / 5 échecs
 est celui rapporté par la spec, pas une nouvelle mesure. Le rejeu navigateur
 sur hôte reste la preuve attendue de résolution des cinq échecs ; aucune preuve
 production revendiquée. Livraison par commit local sans push.
+
+## Correctif 6 — exception exacte du badge et coche SVG, 13/11/2026
+
+Mandat : section finale Correctif 6 de la spec canonique située dans
+`/Users/paullarmaraud/parrit-site/docs/`. Base locale `e819d2f`.
+Périmètre : `HarnessBadge.tsx`, `scripts/lib/certification-claims.mjs`,
+`tests/harness-certificates.test.mjs` et ce rapport uniquement. Six PNG
+préexistants laissés intacts et exclus du commit. Aucun push.
+Écriture locale réversible par revert du commit ; aucune donnée distante modifiée.
+
+Le texte anglais reste « Harness Certified ». Sa coche est un SVG décoratif
+anglais seulement, aria-hidden, trait currentColor, dimensions 1em et alignement
+vertical -0.125em. Texte français, lien de preuve et validation du certificat
+inchangés. Aucun jeton de couleur ajouté.
+L'exception remplace la substitution de sous-chaîne par une égalité sur la phrase
+entière, après trim, seulement avec allowBadge. L'appelant réserve toujours ce
+paramètre au fichier HarnessBadge.tsx ; les autres exceptions sont inchangées.
+
+Les trois assertions passent de l'ancien libellé avec coche au libellé exact
+sans coche : accepté avec allowBadge, refusé sans, refusé avec « and certified
+delivery ». Un nouveau cas vérifie l'absence du caractère dans le composant,
+le SVG anglais décoratif et son absence en français ; l'ancien libellé est
+également refusé par le contrôle. Référence : contrôle claims en échec (sortie 1,
+HarnessBadge.tsx:9), 8/8 tests ciblés verts. Candidat : 9/9 tests ciblés verts.
+Huit vérifications adverses supplémentaires passent : préfixe, suffixes,
+ancienne coche, seconde affirmation et casse différente restent refusés.
+
+### Étapes demandées, exécutées dans l'ordre
+
+| Commande | Résultat du premier passage |
+|---|---|
+| `npm run lint` | Réussite, sortie 0 |
+| `npm run qa:claims:rev01` | Réussite, sortie 0 |
+| `npm run build` | Turbopack 16.3.4 reste sur « Creating an optimized production build » plus de cinq minutes ; interrompu par Ctrl-C, session sortie 130 |
+| `npm run test:brand-os` | Échec, sortie 1 : 16/19, trois échecs faute de build complet |
+| `npm test` | Échec, sortie 1 : 658/675, 17 échecs dépendant du build incomplet |
+| `npm run qa:brand:rev01` | Réussite, sortie 0 |
+
+Le prébuild (certificats et génération llms) a réussi, sans différence suivie
+sur llms.txt. Le diagnostic Turbopack reste à buildStage=compile ; aucune cause
+précise du blocage n'est établie. Les fichiers compilés manquants comprennent
+`.next/required-server-files.json`. Une tentative SIGTERM a été refusée par le
+bac à sable ; Ctrl-C a ensuite arrêté la session.
+
+### Vérification complémentaire avec Webpack
+
+Sans autre changement de source : `npm run build -- --webpack` réussit (sortie 0),
+puis `npm run test:brand-os` réussit (19/19, sortie 0) et `npm test` réussit
+(675/675, sortie 0). Aucun test ignoré ni seuil modifié. `git diff --check` vert.
+Ces résultats isolent les échecs précédents au build incomplet ; ils ne prouvent
+pas que la commande CI exacte utilisant Turbopack passe. L'objectif « toutes
+vertes » de la batterie exacte reste donc non acquis et exige le rejeu hôte.
+
+Logs : `/private/tmp/correctif6-{baseline-claims,baseline-tests,targeted,lint,claims,build,brand-os,test,brand,webpack,brand-os-webpack,test-webpack}.log`.
+Aucune preuve navigateur ou production ajoutée ; notamment l'alignement optique
+est défini en em et contrôlé dans le markup, sans mesure visuelle navigateur.
+La compilation et les tests après Webpack vérifient les glyphes des pages rendues.

@@ -113,10 +113,18 @@ test("certification wording requires its own sentence disclaimer or exact badge"
   for (const text of ["certifié", "certifiée", "certifiés", "certification", "Certified delivery", "Certified. This is not an accreditation.", "Harness Certified ✓ extra certified"]) assert.ok(certificationClaims(text).length, text);
   assert.deepEqual(certificationClaims("Certified, not an accreditation."), []);
   assert.deepEqual(certificationClaims("Certifié, pas une accréditation."), []);
-  assert.deepEqual(certificationClaims("Harness Certified ✓", true), []);
-  assert.ok(certificationClaims("Harness Certified ✓").length);
-  assert.ok(certificationClaims("Harness Certified ✓ and certified delivery", true).length);
+  assert.deepEqual(certificationClaims("Harness Certified", true), []);
+  assert.ok(certificationClaims("Harness Certified").length);
+  assert.ok(certificationClaims("Harness Certified and certified delivery", true).length);
 });
+
+test("badge replaces the old check character with a decorative English-only SVG", () => fixture(({ certificate, save, render }) => {
+  assert.doesNotMatch(readFileSync(component, "utf8"), /✓/u);
+  assert.ok(certificationClaims("Harness Certified ✓", true).length);
+  save(certificate);
+  assert.match(render("en"), /Harness Certified<\/strong> <svg aria-hidden="true" width="1em" height="1em"[^>]*stroke="currentColor"/);
+  assert.doesNotMatch(render("fr"), /<svg/);
+}));
 
 test("source extraction isolates dictionary entries from comments and unrelated disclaimers", () => {
   const source = `// The client's copy\nconst title = "Certified delivery";\nconst note = "not an accreditation";\n// The client's footer\nconst el = <strong>certifiée</strong>;`;
