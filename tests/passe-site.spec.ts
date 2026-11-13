@@ -30,6 +30,40 @@ const headers = {
   "content-security-policy": "frame-ancestors 'self'",
   "permissions-policy": "camera=(), microphone=(), geolocation=(), browsing-topics=()",
 };
+
+// Correctif 3: actual next start response and hydrated desktop/mobile links.
+// The auto fixture from network-deny.setup rejects every unexpected external request.
+for (const prefix of ["", "/fr"]) {
+  for (const path of ["/journal", "/journal/themes/ai-sprints", "/journal/what-is-parrit-ai", "/legal"]) {
+    test(`cached page hydrates only campaign attribution ${prefix}${path}`, async ({ page }) => {
+      await page.setExtraHTTPHeaders({ "accept-language": "en" });
+      const response = await page.goto(local(`${prefix}${path}?source=essai&utm_custom=offhome&utm_campaign=c1&unknown=excluded`));
+      expect(response?.status()).toBe(200);
+      const cache = response?.headers()["cache-control"] ?? "";
+      // s-maxage is the shared-cache directive used by Next's static responses.
+      expect(cache).toMatch(/(?:^|,)\s*(?:public\b|s-maxage=[1-9]\d*)/i);
+      expect(cache).not.toMatch(/\b(?:private|no-store|no-cache)\b/i);
+      const buttons = page.locator(".single-header a.rev-button");
+      await expect(buttons).toHaveCount(2);
+      for (const button of await buttons.all()) {
+        await expect.poll(async () => {
+          const href = await button.getAttribute("href");
+          const url = new URL(href ?? "", BASE);
+          return {
+            pathname: url.pathname,
+            hash: url.hash,
+            parameters: [...url.searchParams].sort(([a], [b]) => a.localeCompare(b)),
+          };
+        }).toEqual({
+          pathname: prefix || "/",
+          hash: "#contact",
+          parameters: [["source", "essai"], ["utm_campaign", "c1"], ["utm_custom", "offhome"]],
+        });
+      }
+    });
+  }
+}
+
 for (const path of ["/", "/fr", "/journal/one-card-one-action", "/fr/journal/one-card-one-action", "/rendez-vous", "/fr/rendez-vous"]) {
   test(`real document security headers ${path}`, async ({ page }) => {
     await calendar(page);

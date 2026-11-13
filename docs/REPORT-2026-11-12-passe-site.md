@@ -440,3 +440,158 @@ pour masquer ce résultat. La répétition du même blocage met fin à la boucle
 jusqu'à arbitrage. Aucun commit, push ou déploiement. Spec identique au canon,
 code produit, corpus, certificats et PNG inchangés par ce tour, vérifiés contre
 les empreintes avant intervention.
+
+
+## Correctif 3 — cache et attribution après hydratation, 13/11/2026
+
+Mandat : section finale de la spec canonique lue intégralement dans
+`/Users/paullarmaraud/parrit-site/docs/CODEX-SPEC-2026-11-12-passe-site-seo-securite-coherence.md`.
+Uniquement Correctif 3 ; aucun réseau externe, push, déploiement ou accès aux secrets.
+Écritures : worktree local et index Git de la branche courante ; réversibles par
+revert des commits locaux. Aucun système client, aucune ligne métier modifiée.
+La référence Git et les commits constituent le point de restauration.
+Boucle bornée : référence, ajustement, deux batteries complètes ; arrêt si un
+même blocage persiste deux fois. Aucun seuil ni test tiers ajusté pour obtenir le vert.
+
+### Fusion effectuée avant les corrections
+
+- Branche initiale : `c814bada145207b6af1c2ec232cf8afe8477dabe`, worktree propre.
+- `git merge origin/main`, référence locale `c2e7adad9c89e4b685a547d3ff0c649b2e5f4fc6`,
+  sans fetch. PR #376 et #381 intégrées.
+- Seul conflit Git : `AI_CONTEXT.md`, deux introductions au même emplacement.
+  Conservation intégrale du compte rendu passe-site et de celui sur les délais Journal.
+- Commit de fusion terminé : `805ac63043b81121c00f77228ce6262b22ed1992`.
+- Comparaison à `origin/main` : `rev01.css`, `single-page.css`, `system.css`,
+  `public-clients.ts`, `preuves.ts`, tests `ui-polish`, `design-md-truth`,
+  `public-clients`, `action-unique` identiques. Finitions, six clients et tests
+  entrants conservés ; aucun conflit CSS à résoudre.
+- `DESIGN.md` enrichi dans le commit de fusion : Journal après Questions,
+  état actif, signature et dates de l'article, lien vers le rendu partagé FR/EN.
+  `DESIGN-SYSTEM.md` reprend sans modification supplémentaire son bandeau
+  historique ajouté par main, qui renvoie à DESIGN.md et au Brand OS.
+
+Référence après fusion, avant correction : `npm test` **585/586**, seul échec
+`null !== 'offhome'` dans `brand-os-render` ; compilation héritée du tour précédent.
+Journal : `/private/tmp/passe-site-c3-baseline.log`.
+
+### Assertion remplacée et comportement testé
+
+Dans `tests/brand-os-render.test.mjs`, seules les pages statiques concernées
+changent de contrat :
+
+| Avant | Après |
+|---|---|
+| `utm_custom` vaut `offhome` dans le HTML initial, sur les huit URL statiques. | Query initiale exactement `source=rdv-nav` ; aucun paramètre de visite dans le HTML partagé. Chemin localisé, fragment contact, deux liens et libellés toujours vérifiés. |
+
+Les assertions SSR de l'accueil sont inchangées. Ajout d'un contrôle compilé
+FR/EN sur `/rendez-vous` : deux liens natifs `#reservation`, résolution conservant
+`source=essai`, `utm_custom=offhome`, `utm_campaign=c1` sans JavaScript.
+Aucun autre test existant modifié hors intégration de main. Dans
+`tests/passe-site.spec.ts`, seuls huit nouveaux cas sont ajoutés.
+
+L'inspection du code a révélé deux écarts au comportement demandé :
+`avecSource` remplaçait la source de visite par `rdv-nav`, et la query entière
+était recopiée. `RevHeader` filtre désormais `source` et `utm_*` pour Journal,
+articles, thèmes et mentions légales. L'override facultatif `attributionSource`
+d'`AppointmentLink` conserve la source de visite seulement après hydratation,
+via `useSyncExternalStore` ; fallback SSR et autres placements gardent `rdv-*`.
+Accueil et réservation conservent leurs contrats antérieurs.
+
+Les nouveaux cas navigateur visitent `/journal`, `/journal/themes/ai-sprints`,
+`/journal/what-is-parrit-ai`, `/legal`, puis les quatre variantes `/fr`, avec
+`?source=essai&utm_custom=offhome&utm_campaign=c1&unknown=excluded`.
+Ils attendent les trois paramètres exacts sur les deux boutons de navigation,
+le chemin localisé et `#contact`, et l'absence de tout paramètre inconnu.
+Ils lisent le Cache-Control de la réponse réelle : `public` ou `s-maxage`
+positif, sans `private`, `no-store` ni `no-cache`. Aucun en-tête simulé.
+Fixture deny-all du dépôt conservée, localhost/127.0.0.1 uniquement,
+service workers bloqués ; toute sortie inattendue fait échouer le test.
+La spec figure déjà dans `qa:network:rev01` ; package.json inchangé.
+
+Documentation utilisée sans réseau : guides Next installés `use-search-params.md`
+et `testing/playwright.md`, déclarations de types Playwright installées.
+Revue indépendante en lecture seule : conservation PR #376 et contrôle adverse
+du diff, aucun défaut bloquant identifié ; ne constitue pas une preuve navigateur.
+
+### Diagnostic intermédiaire
+
+Une première installation avec un cache temporaire vide a échoué hors réseau.
+Copie du seul cache de paquets local `_cacache` vers `/private/tmp`, puis
+`npm ci --silent` réussi avec `npm_config_offline=true`, audit et notification
+npm désactivés. Aucun fichier de configuration ou secret copié.
+
+Premier candidat : lint/build/marque verts, **578/586** tests. Les huit échecs
+venaient du chargeur de tests existant, qui transpile une itération for-of de
+URLSearchParams sans downlevelIteration. Correction du code en `forEach`,
+sans modifier le chargeur ni les tests. Rejeu ciblé action-unique/passe-site vert.
+Journaux intermédiaires : `/private/tmp/passe-site-c3-{ci,lint,build,brand,test}-1.log`,
+`/private/tmp/passe-site-c3-targeted.log`. Les résultats finaux ci-dessous sont
+ceux des deux batteries reprises intégralement après cette correction.
+
+### Résultats finaux
+
+| Commande | Batterie finale 1 | Batterie finale 2 |
+|---|---|---|
+| `npm ci --silent` (cache local, mode offline) | Vert, sortie 0 | Vert, sortie 0 |
+| `npm run lint` | Vert, sortie 0 | Vert, sortie 0 |
+| `npm run build -- --webpack` | Vert, 96/96 pages, sortie 0 | Vert, 96/96 pages, sortie 0 |
+| `npm run qa:brand:rev01` | Vert, sortie 0 | Vert, sortie 0 |
+| `npm test` | **586/586**, sortie 0 | **586/586**, sortie 0 |
+
+Un troisième `npm test`, immédiatement après celui de la seconde batterie :
+**586/586**, sortie 0. Les deux derniers npm test sont donc consécutifs,
+sans build ni édition entre eux. Zéro test ignoré, annulé ou restant à faire
+sur chacun des trois passages Node finaux.
+
+Journaux : `/private/tmp/passe-site-c3-final-{ci,lint,build,brand,test}-{1,2}.log`,
+`/private/tmp/passe-site-c3-final-test-3.log`. Codes de retour des deux batteries :
+`/private/tmp/passe-site-c3-final-results.json`.
+
+Modes de rendu relevés dans les deux builds finaux :
+
+| Routes | Mode |
+|---|---|
+| `/journal`, `/fr/journal` | ○ statique |
+| `/legal`, `/fr/legal` | ○ statique |
+| `/journal/[slug]`, `/fr/journal/[slug]` | ● SSG (40 EN, 31 FR) |
+| `/journal/themes/[theme]`, `/fr/journal/themes/[theme]` | ● SSG (4 par langue) |
+| `/`, `/fr`, `/rendez-vous`, `/fr/rendez-vous`, `/sketch/[id]` | ƒ dynamique |
+
+Contrôles complémentaires :
+
+| Commande | Résultat |
+|---|---|
+| `git diff --check` | Vert |
+| `node node_modules/playwright/cli.js test tests/passe-site.spec.ts --browser=chromium --list` | Vert : 22 cas recensés, dont 8 nouveaux |
+| `node node_modules/next/dist/bin/next start -p 3210 --hostname 127.0.0.1` | Bloqué par le sandbox : `listen EPERM`, sortie 1 |
+| `node node_modules/playwright/cli.js test tests/passe-site.spec.ts --browser=chromium --grep 'cached page hydrates only campaign attribution' --workers=1 --max-failures=1 --output=/private/tmp/passe-site-c3-playwright` | Bloqué au lancement Chromium : MachPortRendezvous `Permission denied`, SIGTRAP, sortie 1 ; un échec avant navigation, sept cas non exécutés |
+
+Journaux navigateur : `/private/tmp/passe-site-c3-browser-list.log`,
+`/private/tmp/passe-site-c3-next-start.log`, `/private/tmp/passe-site-c3-browser.log`.
+Aucune tentative de contourner les restrictions du sandbox.
+
+**PRODUCTION_PROOF restant à acquérir** : les huit navigations réelles sous
+`next start`, Cache-Control public et attribution hydratée, puis batterie
+Playwright complète sur l'hôte par Claude. Les deux batteries Node vertes,
+la compilation et la revue ne prouvent pas cet effet navigateur. Aucune preuve
+production, Cal.com réel, géométrie ou CLS nouvelle n'est revendiquée.
+
+### Périmètre final et livraison locale
+
+Fichiers propres au correctif, en plus des 33 fichiers entrants de main :
+
+- `AI_CONTEXT.md` : résolution du seul conflit et état final du correctif.
+- `DESIGN.md` : navigation/signature, dans le commit de fusion.
+- `src/system/components/RevHeader.tsx` : attribution filtrée après hydratation.
+- `src/system/components/AppointmentLink.tsx` : source facultative pour cet usage.
+- `tests/brand-os-render.test.mjs` : seule attente existante remplacée ; couverture
+  SSR réservation ajoutée, autres assertions conservées.
+- `tests/passe-site.spec.ts` : huit cas ajoutés, tous les cas existants conservés.
+- `docs/REPORT-2026-11-12-passe-site.md` : présent compte rendu.
+
+Les autres différences par rapport au point de départ proviennent uniquement
+de `git merge origin/main` (liste complète : `git diff --name-only 805ac63^1 805ac63`).
+CSS, six clients et tests de #376 ont été vérifiés identiques à origin/main.
+Aucun PNG, secret, seuil, dépendance ou autre test modifié par ce correctif.
+Commit de fusion `805ac63`, puis commit local de correctif sur la même branche.
+Aucun push ; ouverture de PR et rejeu hôte laissés à Claude selon le mandat.

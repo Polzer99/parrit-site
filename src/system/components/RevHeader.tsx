@@ -1,14 +1,29 @@
 "use client";
-import { Suspense, useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef, useSyncExternalStore } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { barePathname, localizedPath, type Locale } from "@/system/locale";
 import { LanguageLink } from "./LanguageLink";
 import { AppointmentLink } from "./AppointmentLink";
 import "@/system/header-navigation.css";
 
+const subscribeHydration = () => () => {};
+const clientHydrated = () => true;
+const serverHydrated = () => false;
+
 function QueryAppointment({ locale }: { locale: Locale }) {
-  const query = useSearchParams().toString();
-  return <AppointmentLink locale={locale} placement="nav" query={query} primary={false}/>;
+  const params = useSearchParams();
+  const path = barePathname(usePathname() ?? "/");
+  const hydrated = useSyncExternalStore(subscribeHydration, clientHydrated, serverHydrated);
+  const staticPage = path === "/legal" || path === "/journal" || path.startsWith("/journal/");
+  // Cached pages retain the shared SSR fallback; visit attribution is applied
+  // after hydration. Home and booking keep their existing SSR contracts.
+  const campaign = new URLSearchParams();
+  params.forEach((value, key) => {
+    if (key === "source" || key.startsWith("utm_")) campaign.append(key, value);
+  });
+  const query = staticPage ? campaign.toString() : params.toString();
+  const attributionSource = staticPage && hydrated ? campaign.get("source") ?? undefined : undefined;
+  return <AppointmentLink locale={locale} placement="nav" query={query} attributionSource={attributionSource} primary={false}/>;
 }
 
 export function RevHeader({ locale }: { locale: Locale }) {

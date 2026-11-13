@@ -218,6 +218,19 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         assert.equal(url.searchParams.getAll("source").length, 1);
         return url.searchParams.get("source");
       }).sort(), ["rdv-bandeau", "rdv-contact", "rdv-hero", "rdv-nav", "rdv-nav"]);
+      const bookingQuery = "source=essai&utm_custom=offhome&utm_campaign=c1";
+      const booking = await render(`/rendez-vous?${bookingQuery}`, locale);
+      assert.equal(booking.status, 200);
+      const bookingHeader = booking.html.match(/<header class="cmdbar single-header"[\s\S]*?<\/header>/)?.[0];
+      assert.ok(bookingHeader);
+      const bookingLinks = [...bookingHeader.matchAll(/<a class="[^"]*rev-button[^"]*" href="([^"]+)"/g)];
+      assert.equal(bookingLinks.length, 2);
+      for (const [, href] of bookingLinks) {
+        const current = `http://localhost:3210${locale === "fr" ? "/fr" : ""}/rendez-vous?${bookingQuery}`;
+        // A native fragment keeps the current URL's query without JavaScript.
+        assert.equal(href, "#reservation");
+        assert.equal(new URL(href, current).search, `?${bookingQuery}`);
+      }
       for (const route of ["/journal", "/journal/themes/ai-sprints", "/journal/what-is-parrit-ai", "/legal"]) {
         const page = await render(`${route}?utm_custom=offhome&source=old`, locale);
         assert.equal(page.status, 200);
@@ -230,7 +243,9 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
           assert.equal(url.hash, "#contact");
           assert.deepEqual(url.searchParams.getAll("source"), ["rdv-nav"]);
-          assert.equal(url.searchParams.get("utm_custom"), "offhome");
+          // Correctif 3: cached HTML cannot contain visit-specific parameters.
+          // Hydrated attribution is exercised by passe-site.spec.ts.
+          assert.deepEqual([...url.searchParams], [["source", "rdv-nav"]]);
           assert.equal(label, locale === "fr" ? "Prendre rendez-vous" : "Book a call");
         }
       }

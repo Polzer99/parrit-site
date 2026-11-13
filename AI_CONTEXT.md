@@ -1,3 +1,16 @@
+## Passe site, Correctif 3 — 13/11/2026
+
+Merge local origin/main `c2e7ada` terminé par `805ac63`, seul conflit AI_CONTEXT
+résolu en conservant les deux comptes rendus ; PR #376/#381 préservées.
+Accord cache : HTML statique avec lien de base ; source de visite et UTM filtrés
+après hydratation sur Journal/thèmes/articles/legal, dynamiques conservées.
+Seule attente existante remplacée dans brand-os-render, huit cas navigateur ajoutés.
+Deux batteries complètes offline vertes : npm ci, lint, build Webpack 96 pages,
+marque, 586/586 tests ; troisième npm test vert, deux derniers consécutifs.
+Serveur EPERM et Chromium SIGTRAP : preuve cache HTTP/hydratation à rejouer sur
+hôte par Claude. Rapport : docs/REPORT-2026-11-12-passe-site.md, Correctif 3.
+Commits locaux uniquement, aucun push ni secret touché.
+
 ## Passe site cache, sécurité et cohérence, 12/11/2026
 
 Spec `docs/CODEX-SPEC-2026-11-12-passe-site-seo-securite-coherence.md`, base
