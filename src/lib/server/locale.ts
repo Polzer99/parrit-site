@@ -1,31 +1,7 @@
 import "server-only";
+import type { Locale } from "@/system/locale";
 
-import { cookies, headers } from "next/headers";
-
-import {
-  isLocale,
-  isJournalArticlePath,
-  localeFromAcceptLanguage,
-  LOCALE_COOKIE,
-  LOCALE_HEADER,
-  PATHNAME_HEADER,
-  barePathname,
-  TRANSLATED_PATHS,
-  type Locale,
-} from "@/system/locale";
-
+/** Unprefixed routes are English. French route entries pass their locale explicitly. */
 export async function getLocale(): Promise<Locale> {
-  const requestHeaders = await headers();
-  const pathname = requestHeaders.get(PATHNAME_HEADER);
-  if (pathname) {
-    const bare = barePathname(pathname);
-    return pathname !== bare && (TRANSLATED_PATHS.includes(bare) || isJournalArticlePath(bare)) ? "fr" : "en";
-  }
-  const forwardedLocale = requestHeaders.get(LOCALE_HEADER);
-  if (isLocale(forwardedLocale)) return forwardedLocale;
-
-  const cookieLocale = (await cookies()).get(LOCALE_COOKIE)?.value;
-  if (isLocale(cookieLocale)) return cookieLocale;
-
-  return localeFromAcceptLanguage(requestHeaders.get("accept-language"));
+  return "en";
 }

@@ -3,8 +3,8 @@ import ts from "typescript";
 // Sentence-level exception: a disclaimer on a neighbouring sentence is insufficient.
 export function certificationClaims(text, allowBadge = false) {
   const normalized = text.replace(/\r?\n\s*/g, " ");
-  const checked = allowBadge ? normalized.replaceAll("Harness Certified ✓", "Harness check") : normalized;
-  return checked.split(/[.!?](?:\s|$)/u).filter((sentence) =>
+  return normalized.split(/[.!?](?:\s|$)/u).filter((sentence) =>
+    !(allowBadge && sentence.trim() === "Harness Certified") &&
     /(?<![\p{L}\p{N}_])(?:certified|certifications?|certifié[es]*)(?![\p{L}\p{N}_])/iu.test(sentence) &&
     !/\bnot an accreditation\b|\bpas une accréditation\b/iu.test(sentence),
   );

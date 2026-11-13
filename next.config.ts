@@ -83,6 +83,7 @@ const SECTION_REDIRECTS = [
   ["dossiers", "references", "references"], ["commission", "contact", "contact"],
   ["contact", "contact", "contact"],
   ["audit", "reservation", "reservation"],
+  ["formation", "offres", "offres"],
 ].flatMap(([old, en, fr]) => [
   { source: `/${old}`, destination: `/#${en}`, statusCode: 308 as const },
   { source: `/fr/${old}`, destination: `/fr#${fr}`, statusCode: 308 as const },
@@ -97,6 +98,10 @@ const nextConfig: NextConfig = {
     "/journal": ["./content/journal/**/*.mdx"],
     "/journal/\\[slug\\]": ["./content/journal/**/*.mdx", "./public/certificates/*.json"],
     "/journal/themes/\\[theme\\]": ["./content/journal/**/*.mdx"],
+    "/fr": ["./content/journal/**/*.mdx"],
+    "/fr/journal": ["./content/journal/**/*.mdx"],
+    "/fr/journal/\\[slug\\]": ["./content/journal/**/*.mdx", "./public/certificates/*.json"],
+    "/fr/journal/themes/\\[theme\\]": ["./content/journal/**/*.mdx"],
     "/llms-full.txt": ["./public/llms.txt", "./content/journal/*.mdx"],
     "/opengraph-image": ["./src/system/brand-os.tokens.css", "./src/system/tokens.css", "./src/og-assets/*"],
     "/journal/\\[slug\\]/og": ["./src/system/brand-os.tokens.css", "./src/system/tokens.css", "./src/og-assets/*"],
@@ -105,6 +110,16 @@ const nextConfig: NextConfig = {
     // Le kit de polices est versionné par dossier : tout changement de
     // police passe par un nouveau dossier, donc immutable 1 an est sûr.
     return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Content-Security-Policy", value: "frame-ancestors 'self'" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), browsing-topics=()" },
+        ],
+      },
       {
         source: "/fonts/rev02/:file*",
         headers: [

@@ -119,7 +119,8 @@ for (const locale of ["fr", "en"]) {
   });
 
   test(`Journal index renders only registered themes and localized reading time (${locale})`, async () => {
-    const entries = journal.getAllJournalEntrySummaries(locale);
+    const frenchSlugs = new Set(fs.readdirSync("content/journal/fr").filter(file => file.endsWith(".mdx")).map(file => file.slice(0, -4)));
+    const entries = journal.getAllJournalEntrySummaries(locale).filter(entry => locale !== "fr" || frenchSlugs.has(entry.slug));
     const page = loader(locale, { "@/system/journal": journal })("src/app/(rev01)/journal/page.tsx");
     const html = renderToStaticMarkup(await page.default());
     const rows = [...html.matchAll(/<li>([\s\S]*?)<\/li>/g)];

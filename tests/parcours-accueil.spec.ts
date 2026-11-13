@@ -31,9 +31,9 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           ? ["", "references", "terrain", "offres", "en-production", "parcours", "services", "technologies", "partenaires", "bandeau", "questions", "articles", "contact"]
           : ["", "references", "in-the-field", "offers", "in-production", "path", "services", "technologies", "team", "bandeau", "questions", "articles", "contact"];
         expect(await page.locator("main > section").evaluateAll(nodes => nodes.map(node => node.id))).toEqual(expected);
-        const nav = locale === "fr" ? ["en-production", "offres", "parcours", "services", "questions", "contact"] : ["in-production", "offers", "path", "services", "questions", "contact"];
+        const nav = locale === "fr" ? ["en-production", "offres", "parcours", "services", "questions", "journal", "contact"] : ["in-production", "offers", "path", "services", "questions", "journal", "contact"];
         for (const selector of [".desktop-nav", ".mobile-menu nav"]) {
-          expect(await page.locator(`${selector} a`).evaluateAll(nodes => nodes.map(node => node.getAttribute("href")))).toEqual(nav.map(id => `${home}${selector === ".mobile-menu nav" && id === "contact" ? "?utm_campaign=layers&source=rdv-nav" : ""}#${id}`));
+          expect(await page.locator(`${selector} a`).evaluateAll(nodes => nodes.map(node => node.getAttribute("href")))).toEqual(nav.map(id => id === "journal" ? `${locale === "fr" ? "/fr" : ""}/journal` : `${home}${selector === ".mobile-menu nav" && id === "contact" ? "?utm_campaign=layers&source=rdv-nav" : ""}#${id}`));
         }
         const offers = page.locator(locale === "fr" ? "#offres article" : "#offers article");
         await expect(offers).toHaveCount(2);

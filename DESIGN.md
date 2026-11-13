@@ -27,7 +27,7 @@ sur les anciennes déclarations du même fichier. Sources :
 | Familles | `--ui` = General Sans avec repli ajusté, `--ed` = `--ui`, `--mono` = IBM Plex Mono. Fichiers locaux, General Sans 400/500/600 en affichage optional. [tokens.css](src/system/tokens.css), [fonts.css](src/system/fonts.css). |
 | Échelle commune | `--t-k` et `--t-s` : 16 px ; `--t-m` : 18 px ; `--t-l` : 22 px ; `--t-xl` : 26 px. Titres `--d-s`, `--d-m`, `--d-l`, `--d-xl` avec adaptation à 760 px. [tokens.css](src/system/tokens.css). |
 | Accueil | General Sans, titres 500, emphases et boutons 600. H2 utilise `--d-s`, puis 34 px sur téléphone. Hero spécifique : H1 38/43 px, puis 46/52 px dès 761 px ; ne pas lui appliquer l'ancien grand H1 générique. [single-page.css](src/system/single-page.css). |
-| Journal | Chapeau en `--t-m`, interligne 1,65 ; titres et corps suivent les règles Journal, code en `--mono`. Métadonnées séparées du chapeau par `--brand-s2`. [rev01.css](src/app/(rev01)/rev01.css), [article](src/app/(rev01)/journal/[slug]/page.tsx). |
+| Journal | Chapeau en `--t-m`, interligne 1,65 ; titres et corps suivent les règles Journal, code en `--mono`. Métadonnées séparées du chapeau par `--brand-s2`. Identité éditoriale Parrit.ai, sans signature nominative ajoutée ; dates localisées avant le titre, mise à jour si différente (Correctif 4 du 13/11/2026). [rev01.css](src/app/(rev01)/rev01.css), [article partagé FR/EN](src/system/pages/article.tsx). |
 | Boutons | General Sans 600, casse normale, pas d'espacement ajouté entre lettres. Taille commune via `--button-font-size`, `--button-min-height`, `--button-padding` ; surcharges de l'accueil dans [single-page.css](src/system/single-page.css). [tokens.css](src/system/tokens.css), [rev01.css](src/app/(rev01)/rev01.css). |
 
 ## Mise en page
@@ -35,7 +35,7 @@ sur les anciennes déclarations du même fichier. Sources :
 | Élément | Règle servie et source |
 | --- | --- |
 | Espacements | Série `--brand-s1`, `--brand-s2`, `--brand-s3`, `--brand-s4`, `--brand-s6`, `--brand-s8` : 8, 16, 24, 32, 48, 64 px. Série locale `--s1`, `--s2`, `--s3`, `--s4`, `--s6`, `--s8` de mêmes pas. Des dimensions spécifiques existent : ne pas les uniformiser sans spec. [brand-os.tokens.css](src/system/brand-os.tokens.css), [tokens.css](src/system/tokens.css). |
-| Enveloppe accueil | `.wrap` plafonnée à 1160 px, padding horizontal 40 px, puis 20 px à 760 px ; barre de navigation dans le flux, menu natif à 900 px. [single-page.css](src/system/single-page.css), [RevHeader](src/system/components/RevHeader.tsx). |
+| Enveloppe accueil | `.wrap` plafonnée à 1160 px, padding horizontal 40 px, puis 20 px à 760 px ; barre de navigation dans le flux, menu natif à 900 px. Journal après Questions dans les deux menus, avec état actif sur ses pages ; Contact reste dans la navigation ordinateur selon la place disponible. [single-page.css](src/system/single-page.css), [RevHeader](src/system/components/RevHeader.tsx). |
 | Références | Bande de 1060 px maximum. Grille à deux colonnes à 760 px. [PublicEvidence](src/system/components/PublicEvidence.tsx), [single-page.css](src/system/single-page.css). |
 | Filets | Grilles et FAQ : 1 px via `--line` ; contours d'action selon leur contexte . [single-page.css](src/system/single-page.css). |
 | Formes | Aucun dégradé ni ombre ; surfaces carrées. Les rayons des téléphones et de leurs bulles constituent l'exception du site. [single-page.css](src/system/single-page.css), contrats dans [AGENTS.md](AGENTS.md). |

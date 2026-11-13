@@ -69,7 +69,7 @@ for (const locale of ["fr", "en"]) test(`home metadata and Organization/Person J
   assert.equal(metadata.alternates.canonical, locale === "fr" ? "/fr" : "/");
   const layout = loader(locale, {
     "@/system/components": { AnalyticsInit: () => null, RevHeader: () => null, RevFooter: () => null },
-  })("src/app/(rev01)/layout.tsx");
+  })(locale === "fr" ? "src/app/(fr)/fr/layout.tsx" : "src/app/(rev01)/layout.tsx");
   const html = renderToStaticMarkup(await layout.default({ children: createElement("main") })) + await renderPage(locale);
   const graphs = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].map(match => JSON.parse(match[1]));
   const organization = graphs.find(item => item["@type"] === "Organization");

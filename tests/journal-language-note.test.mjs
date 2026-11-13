@@ -10,7 +10,7 @@ import { loader } from "./helpers/site-v1-render.mjs";
 // Render the actual page without a build or network. The badge is varied to prove
 // that a notice is identified by its purpose, never by its position after h1.
 const require = createRequire(import.meta.url);
-const source = readFileSync("src/app/(rev01)/journal/[slug]/page.tsx", "utf8");
+const source = readFileSync("src/system/pages/article.tsx", "utf8");
 const compiled = ts.transpileModule(source, {
   compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX },
 }).outputText;

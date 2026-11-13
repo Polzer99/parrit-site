@@ -1,0 +1,72 @@
+import type { Metadata } from "next";
+
+import "@/system/fonts.css";
+import "../../system/brand-os.tokens.css";
+import "../../system/tokens.css";
+import "@/system/system.css";
+import "@/app/(rev01)/rev01.css";
+import "@/system/single-page.css";
+
+import { AnalyticsInit, RevFooter, RevHeader } from "@/system/components";
+import type { Locale } from "@/system/locale";
+import { organizationJsonLd } from "@/system/jsonld";
+import { localizedAlternates } from "@/system/locale";
+
+/* JSON-LD Organization — graphe d'entités Google/IA : relie parrit.ai à
+   l'organisation Parrit.ai. Compléter sameAs quand la page LinkedIn
+   entreprise existera. */
+
+// Désactivé le 05/10/2026, décision de Paul, en attente d’une justification
+// d’exemption ou d’un consentement. Conservé sans injection.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const POSTHOG_SNIPPET = `
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias register register_once unregister opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group setPersonProperties setPersonPropertiesForFlags resetPersonPropertiesForFlags on onSessionId get_session_id get_session_replay_url get_distinct_id startSessionRecording stopSessionRecording captureException set_config debug init".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init('phc_MBE1dFuCrRbroLzBdP7JtrH0O1JlH8F5uNs9cieSHqm', {
+  api_host: 'https://eu.i.posthog.com',
+  defaults: '2026-01-30',
+  person_profiles: 'identified_only',
+  rageclick: true,
+  capture_dead_clicks: true,
+  session_recording: { maskAllInputs: true }
+});
+`;
+
+export async function generateMetadata(locale: Locale): Promise<Metadata> {
+  return {
+  metadataBase: new URL("https://parrit.ai"),
+  twitter: { card: "summary_large_image", images: ["https://parrit.ai/opengraph-image?v=2026-11-02"] },
+  title: {
+    default: "Parrit.ai · Consulting, transformation and engineering",
+    template: "%s · Parrit.ai",
+  },
+  description:
+    "Parrit.ai supports business transformation and builds the systems that make it possible.",
+  alternates: {
+    ...localizedAlternates("/", locale),
+    types: { "application/rss+xml": [{ url: "/journal/rss.xml", title: "Parrit Journal" }] },
+  },
+  };
+}
+
+export default function Rev01Layout({ children, locale }: Readonly<{ children: React.ReactNode; locale: Locale }>) {
+  return (
+    <html lang={locale}>
+      {/* Shared root document, rendered only by the two app root layouts. */}
+      {/* eslint-disable-next-line @next/next/no-head-element */}
+      <head>
+        <link rel="preload" href="/fonts/rev02/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/rev02/GeneralSans-Medium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/rev02/GeneralSans-Semibold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/rev03/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/rev03/ibm-plex-mono-latin-500-normal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd(locale)) }} />
+      </head>
+      <body>
+        <AnalyticsInit />
+        <RevHeader locale={locale} />
+        {children}
+        <RevFooter locale={locale} />
+      </body>
+    </html>
+  );
+}

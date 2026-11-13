@@ -39,7 +39,10 @@ test("31 translated routes, 9 noindex redirects and every renamed French slug pr
     } else {
       const rewrite = proxy(new nextServer.NextRequest(`${origin}${pathname}?${query}`));
       assert.equal(rewrite.status, 200);
-      assert.equal(rewrite.headers.get("x-middleware-rewrite"), `${origin}/journal/${entry.slug}?${query}`);
+      assert.equal(rewrite.headers.get("x-middleware-rewrite"), null);
+      assert.equal(rewrite.headers.get("location"), null);
+      assert.equal(response.headers.get("location"), null);
+      assert.equal(response.headers.get("x-middleware-rewrite"), null);
       assert.equal(rewrite.headers.get("x-middleware-request-x-parrit-locale"), "fr");
       assert.equal(rewrite.headers.get("x-middleware-request-x-parrit-pathname"), pathname);
     }
@@ -90,16 +93,25 @@ test("compiled bilingual articles render the complete correct edition and recipr
     for (const slug of FRENCH_JOURNAL_SLUGS) for (const locale of ["en", "fr"]) {
       const bare = `/journal/${slug}`;
       const publicPath = localizedPath(bare, locale);
-      const rewritten = proxy(new nextServer.NextRequest(`${origin}${publicPath}`));
+      const query = "source=journal-test&utm_source=mail&utm_custom=a%26b";
+      const request = new nextServer.NextRequest(`${origin}${publicPath}?${query}`);
+      const rewritten = proxy(request);
+      assert.equal(rewritten.status, 200);
+      assert.equal(rewritten.headers.get("x-middleware-rewrite"), null);
+      assert.equal(rewritten.headers.get("location"), null);
+      assert.equal(request.nextUrl.pathname, publicPath);
+      assert.equal(request.nextUrl.search, `?${query}`);
       const chunks = [];
       const { req, res } = createRequestResponseMocks({
-        url: bare,
+        url: `${publicPath}?${query}`,
         headers: { host: "localhost:3210", "x-parrit-pathname": rewritten.headers.get("x-middleware-request-x-parrit-pathname"), "x-parrit-locale": rewritten.headers.get("x-middleware-request-x-parrit-locale") },
         resWriter: chunk => { chunks.push(Buffer.from(chunk)); return true; },
       });
       await server.getRequestHandler()(req, res);
       if (!res.finished) await new Promise(resolve => res.once("finish", resolve));
       assert.equal(res.statusCode, 200, publicPath);
+      assert.equal(res.getHeader("location"), undefined);
+      assert.equal(res.getHeader("x-middleware-rewrite"), undefined);
       const html = Buffer.concat(chunks).toString();
       const entry = getJournalEntry(slug, locale);
       assert.ok(html.includes(`<html lang="${locale}"`), publicPath);

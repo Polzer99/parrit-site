@@ -450,7 +450,7 @@ for (const locale of ["fr", "en"]) for (const viewport of [{ width: 390, height:
     expect(parseFloat(geometry.paddingTop)).toBeGreaterThan(0);
     expect(geometry.scrollWidth).toBe(geometry.clientWidth);
     expect(geometry.scrollHeight).toBe(geometry.clientHeight);
-    await expect(panel.locator("a")).toHaveCount(6);
+    await expect(panel.locator("a")).toHaveCount(7);
     for (const link of await panel.locator("a").all()) {
       await expect(link).toBeVisible();
       await expect(link).toBeInViewport({ ratio: 1 });

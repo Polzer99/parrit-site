@@ -144,6 +144,7 @@ test("header switches paths, saves choice and preserves query/hash", async ({ pa
   for (const selector of [".cmdbar > .wrap > a.rev-button", ".cmdbar .mobile-menu a.rev-button"]) {
     const action = page.locator(selector);
     await expect(action).toHaveCount(1);
+    await expect(action).toHaveAttribute("href", /[?&]utm_campaign=language(?:[&#]|$)/);
     const target = new URL((await action.getAttribute("href"))!, BASE_URL);
     expect(target.pathname).toBe("/fr");
     expect(target.hash).toBe("#contact");
@@ -214,6 +215,30 @@ test("translated Journal articles keep their own language and switch to their eq
 test.describe("Journal renamings and language links without hydration", () => {
   test.use({ javaScriptEnabled: false });
   for (const target of ["fr", "en"] as const) test(`source and UTM survive renaming and native ${target} link`, async ({ page }) => {
+    const path = "/journal/one-card-one-action";
+    const startPrefix = target === "en" ? "/fr" : "";
+    const targetPrefix = target === "fr" ? "/fr" : "";
+    const query = "source=test&utm_source=mail&utm_campaign=a%26b&utm_custom=one&utm_custom=two";
+    const response = await page.goto(`${BASE_URL}${startPrefix}/journal/une-carte-une-action?lang=fr&${query}`);
+    const original = response?.request().redirectedFrom();
+    expect(original).toBeTruthy();
+    expect(original!.redirectedFrom()).toBeNull();
+    expect((await original!.response())?.status()).toBe(startPrefix ? 308 : 301);
+    await expect(page).toHaveURL(`${BASE_URL}${startPrefix}${path}?lang=fr&${query}`);
+    const link = page.locator(".cmdbar").getByRole("link", { name: target.toUpperCase(), exact: true });
+    // Cached HTML has a base language link; the redirect above still preserves the visit.
+    await expect(link).toHaveAttribute("href", `${targetPrefix}${path}`);
+    await link.click();
+    await expect(page).toHaveURL(`${BASE_URL}${targetPrefix}${path}`);
+    await expect(page.locator("html")).toHaveAttribute("lang", target);
+    await expect(page.locator(".journal-body")).toHaveAttribute("lang", target);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${SITE}${targetPrefix}${path}`);
+  });
+});
+
+test.describe("Journal renamings and language links after hydration", () => {
+  test.use({ javaScriptEnabled: true });
+  for (const target of ["fr", "en"] as const) test(`source and UTM survive renaming and hydrated ${target} link`, async ({ page }) => {
     const path = "/journal/one-card-one-action";
     const startPrefix = target === "en" ? "/fr" : "";
     const targetPrefix = target === "fr" ? "/fr" : "";
