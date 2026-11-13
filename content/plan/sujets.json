@@ -66,7 +66,8 @@
     "slug": null,
     "publie_le": null,
     "these_pressentie": null,
-    "essais": 0
+    "essais": 1,
+    "motif": "openrouter_recherche_tronquee"
   },
   {
     "id": "ia-dans-une-pme-des-hauts-de-france-quels-appuis-regionaux-existent",
@@ -79,7 +80,8 @@
     "slug": null,
     "publie_le": null,
     "these_pressentie": null,
-    "essais": 0
+    "essais": 1,
+    "motif": "materiau_insuffisant"
   },
   {
     "id": "qu-est-ce-qu-un-agent-ia-en-entreprise-concretement",
