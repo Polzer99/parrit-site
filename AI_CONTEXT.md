@@ -53,6 +53,25 @@ Rapport exhaustif avant/après : `docs/REPORT-2026-11-12-passe-site.md`, Tour co
 Aucun commit/push/déploiement/PNG modifié. Preuve navigateur et production absente.
 Ne pas déclarer le lot prêt à déployer.
 
+## Rédaction Journal stable, correctif 1, 13/11/2026
+
+Spec canonique lue à `/Users/paullarmaraud/parrit-site/docs/CODEX-SPEC-2026-11-12-journal-redaction-reponse-vide.md`,
+section finale Correctif 1 ; la copie locale est antérieure. Base c2e7ada.
+Diagnostics historiques restaurés dans JSONL ; appels, résumé et issue restent
+expurgés. Repli direct après délai/429/5xx épuisé pour rédaction, secrétariat et
+juge ; JSON partagé tolérant clôtures et texte terminal. Catalogue contrôlé avant
+paiement, principaux absents remplacés par replis disponibles ; motif de conflit
+juge réservé à l'absence de juge disponible distinct. Crashs comptés au coupe-circuit.
+Toutes les assertions de tests/journal-machine.test.mjs sont identiques à origin/main.
+Réserve préventive limitée à l'échelle rédaction/secrétariat/juge ; recherche et
+plafond cumulé historiques conservés. Prompts et portes éditoriales inchangés.
+Référence 260 tests machine ; candidat 305, dont 45 cas ajoutés. Revue adverse
+indépendante terminée après correction du motif de panne du juge distinct.
+Deux batteries lint/build Webpack/640 tests consécutives vertes, codes 0.
+Preuves consignées dans
+`docs/REPORT-2026-11-13-journal-redaction-stable.md`, section Correctif 1.
+Aucun secret, appel LLM réel, armement, commit, push ni déploiement.
+
 ## Robustesse des délais Journal, 12/11/2026
 
 Spec `docs/CODEX-SPEC-2026-11-12-journal-robustesse-delais.md`, base 8785098.
