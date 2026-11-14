@@ -74,12 +74,12 @@ for (const locale of ["fr", "en"]) {
   test(`SSR one booking action and steps without actions (${locale})`, async () => {
     const html = await renderPage(locale);
     const home = locale === "fr" ? "/fr" : "/";
-    const hero = html.match(/<section class="hero">([\s\S]*?)<\/section>/)[1];
+    const hero = html.match(/<section class="hero"[^>]*>([\s\S]*?)<\/section>/)[1];
     const links = [...hero.matchAll(/<a class="([^\"]+)" href="([^\"]+)">/g)];
     // Décision de Paul du 08/11/2026, nuit : one hero action, none in steps.
     assert.equal(links.length, 1);
     assert.match(links[0][1], /\bexec\b/);
-    assert.equal(links[0][2], `${home}?source=rdv-hero#contact`);
+    assert.equal(links[0][2], `${home}?source=accueil-rendez-vous#contact`);
     const steps = [...html.matchAll(/<div class="step">([\s\S]*?)<\/div>/g)];
     assert.equal(steps.length, 3);
     for (const [, step] of steps) assert.doesNotMatch(step, /<a\b|<button\b/);
@@ -145,9 +145,9 @@ for (const locale of ["fr", "en"]) test(`incoming UTM survive in SSR links and m
   const home = locale === "fr" ? "/fr" : "/";
   const page = loader(locale)("src/app/(rev01)/page.tsx");
   const html = renderToStaticMarkup(await page.default({ searchParams: Promise.resolve({ utm_campaign: "campaign & test", utm_custom: "custom", source: "old" }) }));
-  const intents = [...html.matchAll(/href="([^"]*source=rdv-[^"]+)"/g)];
-  assert.equal(intents.length, 3); // Correctif 4, décision de Paul du 08/11/2026 : contact rétabli.
-  assert.deepEqual(intents.map(([, href]) => new URL(href.replaceAll("&amp;", "&"), "https://example.invalid").searchParams.get("source")), ["rdv-hero", "rdv-bandeau", "rdv-contact"]);
+  const intents = [...html.matchAll(/href="([^"]*source=(?:rdv-|accueil-)[^"]+)"/g)];
+  assert.equal(intents.length, 2); // Correctif 4, décision de Paul du 08/11/2026 : contact rétabli.
+  assert.deepEqual(intents.map(([, href]) => new URL(href.replaceAll("&amp;", "&"), "https://example.invalid").searchParams.get("source")), ["accueil-rendez-vous", "rdv-contact"]);
   for (const [, href] of intents) {
     const url = new URL(href.replaceAll("&amp;", "&"), "https://example.invalid");
     assert.equal(url.pathname, home);

@@ -56,8 +56,8 @@ export function homeFaqJsonLd(locale: Locale) {
 
 // One order for the rendered home and its machine-readable description.
 export const HOME_SECTION_ORDER = [
-  "hero", "references", "terrain", "offers", "applications", "path", "services",
-  "technologies", "team", "banner", "questions", "articles", "contact",
+  "hero", "references", "motors", "measures", "assistant", "terrain", "offers", "path",
+  "technologies", "team", "questions", "contact",
 ] as const;
 export type HomeSection = typeof HOME_SECTION_ORDER[number];
 
@@ -70,14 +70,13 @@ export function homeSectionHeadings(locale: Locale) {
     references: [t("Ils travaillent"), t("avec nous.")],
     terrain: [locale === "fr" ? "Sur le terrain, avec vos équipes." : "In the field, with your teams."],
     offers: [copy.offersTitle],
-    applications: [t("Quelques applications"), t("concrètes.")],
+    motors: [locale === "fr" ? "Faire grandir l'activité. Libérer du temps. Construire vos outils." : "Grow the business. Save time. Build your tools."],
+    measures: [locale === "fr" ? "Ce que nous avons mesuré." : "What we measured."],
+    assistant: [locale === "fr" ? "Ou demandez à votre assistant." : "Or ask your assistant."],
     path: [t("Trois étapes,"), t("vous commencez où vous voulez.")],
-    services: [t("Ce que l'IA prépare"), t("dans chaque service.")],
     technologies: [t("Pour chaque besoin,"), t("nous choisissons la meilleure technologie.")],
     team: [t("Chaque projet a son équipe"), t("et sa technologie.")],
-    banner: [locale === "fr" ? "Votre expertise, mise au travail." : "Your expertise, put to work."],
     questions: [copy.questionsTitle],
-    articles: [copy.articlesTitle],
     contact: ["Paul Larmaraud,", t("fondateur de Parrit.ai")],
   } as const satisfies Record<HomeSection, readonly string[]>;
 }

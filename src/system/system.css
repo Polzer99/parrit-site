@@ -724,3 +724,9 @@ button {
     transition-duration: 1ms !important;
   }
 }
+
+/* Épure : surfaces natives et mesure de lecture, sans palette parallèle. */
+:where(input, textarea, [contenteditable="true"]) {caret-color:var(--focus-color);}
+:where(a) {text-underline-offset:.2em;}
+:where(time, [data-measure]) {font-variant-numeric:tabular-nums;}
+:where(h1,h2,h3) {text-wrap:balance;}

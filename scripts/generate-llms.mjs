@@ -40,7 +40,7 @@ export function renderLlms(entries = getAllJournalEntrySummaries(), frenchEntrie
 - https://parrit.ai/fr
 - Dans l'ordre : ${order("fr")}
 - Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.
-- Paul Larmaraud, fondateur de Parrit.ai, accompagne les équipes dans la prise en main de l'IA et pilote les projets.
+- Parrit.ai est une équipe : plus de vingt partenaires, réunis selon le projet (prise en main de l'IA, développement sur mesure, expertise métier, recherche). Paul Larmaraud, fondateur, mène le premier échange.
 - Présence : Tourcoing et Paris. Zone d'intervention : toute la France.
 
 ### FAQ
@@ -68,7 +68,7 @@ ${articles("fr")}
 - https://parrit.ai/
 - In order: ${order("en")}
 - Client replies, follow-ups, quotes, meeting notes: AI prepares them, your teams review and decide.
-- Paul Larmaraud, founder of Parrit.ai, helps teams adopt AI and leads projects.
+- Parrit.ai is a team: more than twenty partners, brought together for each project (AI adoption, custom development, industry expertise, research). Paul Larmaraud, founder, leads the first conversation.
 - Presence: Tourcoing and Paris. Service area: across France.
 
 ### FAQ

@@ -17,11 +17,10 @@ test.beforeEach(async ({ page }) => {
   // Local POST must also be mocked: it otherwise calls the real downstream service.
   await page.route("**/api/interet", route => route.fulfill({ json: { ok: true } }));
 });
-// Décision de Paul du 08/11/2026, nuit : une action par emplacement.
+// Accueil épuré du 13/11 : attribution du choix, navigation et contact conservés.
 const actions = [
   [".single-header > .wrap > a.rev-button", "rdv-nav"],
-  [".hero .exec", "rdv-hero"],
-  ["#bandeau .exec", "rdv-bandeau"],
+  [".hero .exec", "accueil-rendez-vous"],
   [".founder .btn.exec", "rdv-contact"],
 ] as const;
 
@@ -67,7 +66,7 @@ for (const locale of ["fr", "en"] as const) {
       expect(Math.abs(box.x - group.x)).toBeLessThanOrEqual(1);
       expect(box.x + box.width).toBeLessThanOrEqual(group.x + group.width + 1);
       if (width === 1440) {
-        const diagram = (await page.locator(".onto-diagram").boundingBox())!;
+        const diagram = (await page.locator(".goal-diagram").boundingBox())!;
         expect(box.x + box.width).toBeLessThanOrEqual(diagram.x);
         const hero = (await page.locator(".hero").boundingBox())!;
         expect(hero.y + hero.height).toBeLessThanOrEqual(800);
@@ -110,23 +109,19 @@ for (const locale of ["fr", "en"] as const) {
       }
     });
 
-    test("logos loop continuously in CSS, pause on hover/focus and stop on reduced motion", async ({ page }) => {
-      await page.emulateMedia({ reducedMotion: "no-preference" });
+    test("logos stay static so only the goal path authors motion", async ({ page }) => {
       await page.goto(local(home));
       const strip = page.locator(".logo-strip");
-      const track = page.locator(".logo-set img").first();
-      await strip.scrollIntoViewIfNeeded();
-      await expect(track).toHaveCSS("animation-duration", "9.6s");
-      await expect(track).toHaveCSS("animation-iteration-count", "infinite");
-      await expect(track).toHaveCSS("animation-play-state", "running");
-      await strip.hover();
-      await expect(track).toHaveCSS("animation-play-state", "paused");
-      await page.mouse.move(0, 0);
-      await strip.focus();
-      await expect(track).toHaveCSS("animation-play-state", "paused");
-      await page.emulateMedia({ reducedMotion: "reduce" });
-      await expect(track).toHaveCSS("animation-name", "none");
-      expect(await strip.evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);
+      for (const reducedMotion of ["no-preference", "reduce"] as const) {
+        await page.emulateMedia({ reducedMotion });
+        for (const logo of await strip.locator("img").all()) {
+          await expect(logo).toHaveCSS("animation-name", "none");
+          await expect(logo).toHaveCSS("opacity", "1");
+        }
+        await strip.hover();
+        await strip.focus();
+        expect(await strip.evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);
+      }
     });
   });
 
@@ -152,34 +147,32 @@ for (const locale of ["fr", "en"] as const) {
   });
 }
 
-// Décision de Paul du 08/11/2026, nuit : quatre placements (contact rétabli au correctif 4) en SSR et hydratés.
+// Accueil épuré : trois placements, le bandeau intermédiaire est remplacé.
 for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [true, false]) {
   test.describe(`single appointment action ${locale} JS=${javaScriptEnabled}`, () => {
     test.use({ javaScriptEnabled });
     for (const [width, height] of [[1440, 800], [390, 700]]) {
-      test(`four placements, two offers and eight contained logos ${width}`, async ({ page }) => {
+      test(`three placements, two offers and six contained logos ${width}`, async ({ page }) => {
         await page.setViewportSize({ width, height });
         await page.emulateMedia({ reducedMotion: "reduce" });
         const home = locale === "fr" ? "/fr" : "/";
         const label = locale === "fr" ? "Prendre rendez-vous" : "Book a call";
         await page.goto(local(`${home}?source=old&utm_campaign=appointment&utm_custom=kept`));
         await page.evaluate(() => document.fonts.ready);
-        const reassurance = page.locator(".hero-reassurance");
-        await expect(reassurance).toHaveText(locale === "fr"
-          ? "Vos équipes gardent la décision. Aucune relance automatique."
-          : "Your teams keep the final say. No automated follow-up.");
-        await expect(reassurance).toBeVisible();
-        await expect(reassurance).toHaveCSS("font-size", "16px");
-        const noteBox = (await reassurance.boundingBox())!;
+        await expect(page.locator(".hero-reassurance,.hero .intro,.hero .story-card")).toHaveCount(0);
+        const result = page.locator('.goal-results > p[data-result]:not([hidden])');
+        await expect(result).toHaveCount(1);
+        await expect(result).toBeVisible();
+        const resultBox = (await result.boundingBox())!;
         const buttonBox = (await page.locator(".hero .actions a").boundingBox())!;
-        expect(noteBox.y - buttonBox.y - buttonBox.height).toBeGreaterThanOrEqual(12);
-        expect(noteBox.x).toBeCloseTo(buttonBox.x, 0);
+        expect(buttonBox.y - resultBox.y - resultBox.height).toBeGreaterThanOrEqual(12);
+        expect(resultBox.x).toBeCloseTo(buttonBox.x, 0);
         const contact = page.locator(".founder .btn.exec");
         await expect(contact).toHaveCSS("font-size", "22px");
         await expect(contact).toHaveCSS("padding", "22px 36px");
         const contactBox = (await contact.boundingBox())!;
-        const bannerBox = (await page.locator("#bandeau .exec").boundingBox())!;
-        expect(contactBox.y - bannerBox.y - bannerBox.height, "banner and contact never share this viewport").toBeGreaterThanOrEqual(height);
+        expect(contactBox.y - buttonBox.y - buttonBox.height, "hero and contact never share this viewport").toBeGreaterThanOrEqual(height);
+        await expect(page.locator("#bandeau")).toHaveCount(0);
         const faq = page.locator(".home-faq details");
         await expect(faq).toHaveCount(6);
         for (let index = 0; index < 6; index++) {
@@ -192,12 +185,11 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
             await expect(faq.nth(index).locator("p")).toBeVisible();
           }
         }
-        await expect(page.locator(".live .note")).toHaveText(locale === "fr"
-          ? "Inspirées de nos missions. Les données affichées sont fictives."
-          : "Drawn from our projects. The data shown is fictitious.");
+        await expect(page.locator(".motors-principle")).toHaveText(locale === "fr"
+          ? "L'assistant prépare. Vous validez." : "The assistant prepares. You approve.");
         if (width <= 900) await page.locator(".mobile-menu summary").click();
         const actions = page.locator('a.rev-button[href*="#contact"]:visible');
-        await expect(actions).toHaveCount(4);
+        await expect(actions).toHaveCount(3);
         const sources: string[] = [];
         for (const action of await actions.all()) {
           await expect(action).toHaveText(label);
@@ -209,13 +201,13 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           expect(target.searchParams.get("utm_campaign")).toBe("appointment");
           expect(target.searchParams.get("utm_custom")).toBe("kept");
         }
-        expect(sources.sort()).toEqual(["rdv-bandeau", "rdv-contact", "rdv-hero", "rdv-nav"]);
+        expect(sources.sort()).toEqual(["accueil-rendez-vous", "rdv-contact", "rdv-nav"]);
         await expect(page.locator('main a.ghost[href*="#contact"]')).toHaveCount(0);
         await expect(page.locator('main a[href*="intention-"]')).toHaveCount(0);
         await expect(page.locator(".home-offer")).toHaveCount(2);
         await expect(page.locator(".home-offer a,.home-offer button,.step a,.field a")).toHaveCount(0);
-        // Article excerpts keep their own editorial vocabulary, outside this amendment.
-        const text = (await page.locator("main > section:not(#articles)").allInnerTexts()).join("\n");
+        // Newly specified objectives include teams trained in AI; retained sections keep their existing vocabulary.
+        const text = (await page.locator(".home-offer,.steps,.field").allInnerTexts()).join("\n");
         expect(text).not.toMatch(/\b(?:formation|former|formons|training|train)\b|parler d['’]un projet|talk about a project|conseil et outils/i);
         const logos = page.locator("#references [role=img]");
         await expect(logos).toHaveCount(6);
@@ -246,7 +238,7 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         }
         // Native anchors preserve attribution even without hydration.
         await page.locator(".hero .exec").click();
-        await expect(page).toHaveURL(/source=rdv-hero.*#contact$/);
+        await expect(page).toHaveURL(/source=accueil-rendez-vous.*#contact$/);
         expect(new URL(page.url()).searchParams.get("utm_custom")).toBe("kept");
       });
     }
@@ -292,32 +284,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
       await page.goto(local(locale === "fr" ? "/fr" : "/"));
       await page.evaluate(() => document.fonts.ready);
       const hero = page.locator(".hero .exec");
-      await expect(hero).toHaveCSS("animation-duration", "3s");
-      await expect(hero).toHaveCSS("animation-iteration-count", "infinite");
-      const breath = await hero.evaluate(el => {
-        const animation = el.getAnimations().find(a => a instanceof CSSAnimation && a.animationName === "appointment-breathe")!;
-        animation.pause();
-        const sample = (time: number) => {
-          animation.currentTime = time;
-          const style = getComputedStyle(el);
-          return { color: style.backgroundColor, opacity: style.opacity, text: style.color, width: el.getBoundingClientRect().width, height: el.getBoundingClientRect().height };
-        };
-        const frames = (animation.effect as KeyframeEffect).getKeyframes();
-        const samples = [sample(0), sample(1500), sample(3000)];
-        animation.play();
-        return { frames, samples };
-      });
-      expect(breath.samples[0].color).not.toBe(breath.samples[1].color);
-      expect(breath.samples[0]).toEqual(breath.samples[2]);
-      for (const sample of breath.samples) {
-        expect(sample.opacity).toBe("1");
-        expect(sample.text).toBe(breath.samples[0].text);
-        expect(sample.width).toBe(breath.samples[0].width);
-        expect(sample.height).toBe(breath.samples[0].height);
-      }
-      for (const frame of breath.frames) expect(Object.keys(frame).filter(key => !["offset", "computedOffset", "easing", "composite"].includes(key))).toEqual(["backgroundColor"]);
-      await expect(page.locator("#bandeau .exec")).toHaveCSS("animation-name", "none");
-      for (const selector of [".hero .exec", "#bandeau .exec"]) {
+      await expect(hero).toHaveCSS("animation-name", "none");
+      for (const selector of [".hero .exec"]) {
         const button = page.locator(selector);
         const arrow = button.locator('svg[data-connector="VS-CONNECTOR"]');
         await expect(button).toHaveCSS("font-size", "22px");
@@ -351,7 +319,7 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         // interception, whose timer cannot settle with page JavaScript disabled.
         await page.mouse.up();
         const home = locale === "fr" ? "/fr" : "/";
-        await expect(page).toHaveURL(local(`${home}?source=rdv-${selector.startsWith(".hero") ? "hero" : "bandeau"}#contact`));
+        await expect(page).toHaveURL(local(`${home}?source=accueil-rendez-vous#contact`));
         await page.goto(local(home));
         await page.evaluate(() => document.fonts.ready);
         await page.mouse.move(0, 0);

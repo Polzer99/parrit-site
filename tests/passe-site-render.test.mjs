@@ -65,10 +65,10 @@ test("compiled booking anchors and French homepage attribution survive without J
       assert.match(booking.headers["cache-control"], /private|no-store/);
       const home = await render(`${prefix || "/"}?${query}`);
       assert.equal(home.status, 200);
-      for (const placement of ["hero", "bandeau", "contact"]) {
-        assert.ok(home.html.includes(`source=rdv-${placement}&amp;utm_source=x&amp;utm_custom=one&amp;utm_custom=two#contact`));
+      for (const source of ["accueil-rendez-vous", "rdv-contact"]) {
+        assert.ok(home.html.includes(`source=${source}&amp;utm_source=x&amp;utm_custom=one&amp;utm_custom=two#contact`));
       }
-      const section = home.html.match(/<section id="articles"[\s\S]*?<\/section>/)?.[0];
+      const section = home.html.match(/<section[^>]*id="(?:mesures|measurements)"[\s\S]*?<\/section>/)?.[0];
       if (prefix) for (const [, slug] of (section ?? "").matchAll(/href="\/fr\/journal\/([^"]+)"/g)) assert.ok(FRENCH_JOURNAL_SLUGS.includes(slug));
     }
   });

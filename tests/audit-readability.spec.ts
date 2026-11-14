@@ -55,13 +55,13 @@ for (const width of [375, 390, 1440]) {
         const actions = [...document.querySelectorAll(`.rev-button, ${menuToggleSelector}, .fp-cta, .locale-toggle button`)].filter(visible);
         const targets = [...document.querySelectorAll(".desktop-nav a, .mobile-menu a, .single-footer a, .languages a")].filter(visible);
         const h3 = [...document.querySelectorAll("main h3")].filter(visible);
-        const prose = [...document.querySelectorAll("main p, main li, main dd, .ontocap .onto-now")].filter(el => visible(el) && !el.closest(".sr-only"));
+        const prose = [...document.querySelectorAll("main p, main li, main dd, .goal-results [data-result]:not([hidden])")].filter(el => visible(el) && !el.closest(".sr-only"));
         return {
           actions: actions.map(el => ({ prominent: el.matches(".single-page :is(.hero,.final-call,.founder) .btn.exec"), text: el.textContent, height: el.getBoundingClientRect().height, size: parseFloat(getComputedStyle(el).fontSize), weight: getComputedStyle(el).fontWeight })),
           targets: targets.map(el => ({ text: el.textContent, height: el.getBoundingClientRect().height })),
           h1: parseFloat(getComputedStyle(document.querySelector("h1")!).fontSize),
           h3: [...new Set(h3.map(el => getComputedStyle(el).fontSize))],
-          smallProse: prose.filter(el => parseFloat(getComputedStyle(el).fontSize) < (el.matches(".onto-now") ? 18 : 16)).map(el => el.textContent),
+          smallProse: prose.filter(el => parseFloat(getComputedStyle(el).fontSize) < (el.matches("[data-result]") ? 18 : 16)).map(el => el.textContent),
           tightProse: prose.filter(el => parseFloat(getComputedStyle(el).lineHeight) / parseFloat(getComputedStyle(el).fontSize) < 1.44).map(el => el.textContent),
           overflow: document.documentElement.scrollWidth > innerWidth,
         };
@@ -80,13 +80,13 @@ for (const width of [375, 390, 1440]) {
       expect(result.tightProse).toEqual([]);
       expect(result.overflow).toBe(false);
       if (path === "/" || path === "/fr") {
-        await expect(page.locator(".ontocap .onto-now")).toHaveCSS("font-size", "18px");
+        await expect(page.locator(".goal-results [data-result]:not([hidden])")).toHaveCSS("font-size", "18px");
         const actions = page.locator(".hero .actions");
         // Décision de Paul du 08/11/2026, nuit : une seule action.
         const links = actions.locator("a");
         await expect(links).toHaveCount(1);
         await expect(links.nth(0)).toHaveClass(/\bexec\b/);
-        await expect(links.nth(0)).toHaveAttribute("href", `${path}?source=rdv-hero#contact`);
+        await expect(links.nth(0)).toHaveAttribute("href", `${path}?source=accueil-rendez-vous#contact`);
         const hero = (await page.locator(".hero .wrap").boundingBox())!;
         const box = (await actions.boundingBox())!;
         expect(box.x).toBeGreaterThanOrEqual(hero.x);

@@ -78,3 +78,40 @@ sur les anciennes déclarations du même fichier. Sources :
   Sources : [AGENTS.md](AGENTS.md), [brand-os.connectors.json](src/system/brand-os.connectors.json).
 - **À éviter** : prendre les documents historiques DESIGN-SYSTEM.md, BRAND.md ou
   docs/design-system pour le rendu actuel. Source : [AGENTS.md](AGENTS.md).
+
+## Épure
+
+La [spec du 13/11/2026](docs/CODEX-SPEC-2026-11-13-accueil-epure.md)
+prime sur les descriptions historiques ci-dessus pour le haut de l'accueil.
+Les composants concernés sont [HomeGoals](src/system/components/HomeGoals.tsx),
+[HomeEvidence](src/system/components/HomeEvidence.tsx) et leurs règles finales
+ dans [single-page.css](src/system/single-page.css).
+
+1. Une idée une fois : objectifs et résultats remplacent introduction, carte
+   d'approbation et réassurance du hero ; un seul principe sous les moteurs.
+2. Le titre porte seul : aucune petite étiquette au-dessus des nouveaux titres.
+3. L'espace et les filets de 1 px séparent les éléments ; aucun cadre de carte
+   ni carte imbriquée dans les nouveaux blocs.
+4. Une seule action principale visible par écran : bouton du hero puis celui
+   du contact ; le Journal et les assistants sont des liens secondaires.
+5. La chasse fixe est réservée aux dates, mesures et code. Le mode accessible
+   de l'accueil conserve toutefois son alias `--mono` vers General Sans :
+   l'autorisation d'une chasse fixe n'impose pas de remplacer cette police.
+6. Le haut des nouveaux blocs reçoit `--brand-s8`, le bas `--brand-s6` ; l'écart
+   titre/contenu est `--brand-s3` ou `--brand-s4`. Le hero suit `--brand-s6`.
+7. Texte courant plafonné à 70ch et titres équilibrés ; les colonnes et écrans
+   étroits gardent leur largeur disponible. Aucun minimum qui provoque un débordement.
+8. Un seul mouvement d'auteur dans le haut de page : tracé du chemin au choix
+   d'objectif, nul en mouvement réduit. Logos statiques, respiration du bouton
+   et entrées des nouveaux blocs retirées. Sections conservées inchangées.
+9. Sélection via les jetons existants, curseur de saisie via `--focus-color`,
+   soulignement décalé de .2em ; dates et mesures à chiffres tabulaires. Les
+   règles communes sont dans [system.css](src/system/system.css).
+10. Seul [BrandConnector](src/system/components/BrandConnector.tsx) indique
+    l'enchaînement des moteurs et des actions ; aucun caractère flèche.
+
+À 1440 px, les six logos gardent deux rangées : leurs largeurs intrinsèques
+cumulées dépassent déjà 1060 px sans les cinq espaces minimaux de 40 px.
+Sous 1100 px, les moteurs utilisent le carrousel natif du dépôt pour conserver
+un bloc par écran. Les neuf lignes sont toujours rendues par le serveur.
+Les sources de publication et les assets du Brand OS restent inchangés.

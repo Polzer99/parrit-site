@@ -70,11 +70,12 @@ for (const locale of ["fr", "en"]) {
   const html = renderToStaticMarkup(createElement(SinglePage, { locale, contactQuery: "utm_campaign=field&source=old" }));
   test(`final call separates team from FAQ and Journal has one home index link (${locale})`, () => {
     const ids = [...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]);
-    assert.equal(ids[ids.indexOf("bandeau") - 1], locale === "fr" ? "partenaires" : "team");
-    assert.equal(ids[ids.indexOf("bandeau") + 1], "questions");
+    assert.equal(ids[ids.indexOf("questions") - 1], locale === "fr" ? "partenaires" : "team");
+    assert.equal(ids[ids.indexOf("questions") + 1], "contact");
+    assert.ok(!ids.includes("bandeau"));
     const journal = locale === "fr" ? "/fr/journal" : "/journal";
     assert.equal((html.match(new RegExp(`href="${journal}"`, "g")) ?? []).length, 1);
-    assert.ok(section(html, "articles").includes(`href="${journal}"`));
+    assert.ok(section(html, locale === "fr" ? "mesures" : "measurements").includes(`href="${journal}"`));
   });
 
   test(`field SSR exposes three local responsive pictures, dimensions and captions (${locale})`, () => {
@@ -102,8 +103,8 @@ for (const locale of ["fr", "en"]) {
 
   test(`field has no action; final action preserves attribution; final connector comes from Brand OS (${locale})`, () => {
     const field = section(html, locale === "fr" ? "terrain" : "in-the-field");
-    const final = section(html, "bandeau");
-    for (const [content, sources] of [[field, []], [final, ["rdv-bandeau"]]]) {
+    const final = html.match(/<section class="hero"[^>]*>([\s\S]*?)<\/section>/)[1];
+    for (const [content, sources] of [[field, []], [final, ["accueil-rendez-vous"]]]) {
       const actions = [...content.matchAll(/<a class="([^"]+)" href="([^"]+)"/g)];
       assert.equal(actions.length, sources.length);
       actions.forEach(([, classes, href], i) => {
@@ -119,7 +120,8 @@ for (const locale of ["fr", "en"]) {
     assert.match(final, /data-connector="VS-CONNECTOR"/);
     assert.ok(final.includes(`width="${px.min_shaft + px.head_len + px.clearance * 2}"`));
     assert.match(final, new RegExp(`stroke-width="${px.stroke}"`));
-    assert.equal((final.match(/<path /g) ?? []).length, 2);
+    const action = final.match(/<a class="[^"]*exec[^"]*"[\s\S]*?<\/a>/)[0];
+    assert.equal((action.match(/<path /g) ?? []).length, 2);
   });
 
   test(`each of two offers has three vector checks and no action (${locale})`, () => {
@@ -200,7 +202,7 @@ test("entrances reveal once, react to reduced motion, and disconnect on cleanup"
   });
   const sections = [0, 900, 1800].map(top => ({ dataset: {}, getBoundingClientRect: () => ({ top }) }));
   const root = { querySelectorAll: selector => {
-    assert.equal(selector, ":scope > section:not(.hero):not(#contact)");
+    assert.equal(selector, ":scope > section:not(.hero):not(#contact):not(#references):not(.home-motors):not(.home-measures):not(.home-assistant)");
     return sections;
   } };
   const { observeSectionEntrances } = loader("en")("src/system/components/SectionEntrance.tsx");

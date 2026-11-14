@@ -1,3 +1,27 @@
+## Une équipe, décision de Paul des 13 et 14/11/2026
+
+Le site ne présente jamais un fondateur qui fait tout. Section partenaires :
+« Parrit.ai, c'est une équipe. » ouvre le texte ; aucune mention d'un
+interlocuteur unique. Bloc contact : date de création, premier échange avec le
+fondateur, puis travail avec l'équipe adaptée au projet (prise en main de
+l'IA, développement sur mesure, expertise métier, recherche ; le mot
+« formation » reste hors de l'accueil). Aucune liste de ce que le fondateur
+conçoit ou pilote, y compris dans `scripts/generate-llms.mjs`. Cette décision prime sur « la ligne des
+partenaires précise l'interlocuteur responsable de bout en bout » (correctif 1
+de l'action unique) et sur « équipe et contact gardent leurs textes » ci-dessous.
+
+## Accueil épuré, décision du 13/11/2026
+
+`docs/CODEX-SPEC-2026-11-13-accueil-epure.md` prime sur les anciens contrats
+pour les seuls blocs remplacés : hero à 17 objectifs, références, trois moteurs,
+mesures et assistants. Terrain, deux métiers, parcours, technologies, équipe,
+questions et contact gardent leur ordre relatif et leurs textes. Sources hero
+`accueil-<objectif>` via `avecSource`, navigation/contact inchangés. Ancres
+applications/services conservées vers les moteurs. Les seuils de géométrie,
+contraste et stabilité ne changent pas. Un seul mouvement dans le haut : tracé
+du chemin ; logos statiques et bouton sans respiration. Deux mesures publiables,
+le 97 % étant absent de l'article indiqué. Règles d'épure dans DESIGN.md.
+
 ## Action unique, correctifs 3 et 4, décision de Paul du 08/11/2026, nuit
 
 Les sections 6 et 7 de `docs/CODEX-SPEC-2026-11-08-action-unique-et-wording.md`

@@ -19,12 +19,12 @@ for (const path of PUBLIC_ROUTES) {
     await page.goto(`${BASE_URL}${path}`);
     await page.evaluate(() => document.fonts.ready);
     const home = path === "/" || path === "/fr";
-    const actions = page.locator('a.rev-button[href*="source=rdv-"]');
+    const actions = page.locator('a.rev-button[href*="source=rdv-"], a.rev-button[href*="source=accueil-"]');
     expect(await actions.count()).toBeGreaterThan(0);
     for (const action of await actions.all()) {
       await expectPopulated(action);
       const target = new URL((await action.getAttribute("href"))!, `${BASE_URL}${path}`);
-      expect(target.searchParams.get("source")).toMatch(home ? /^rdv-(nav|hero|bandeau|contact)$/ : /^rdv-nav$/);
+      expect(target.searchParams.get("source")).toMatch(home ? /^(?:rdv-(?:nav|contact)|accueil-[a-z0-9-]+)$/ : /^rdv-nav$/);
       target.search = "";
       expect(target.href).toBe(`${BASE_URL}${contact}`);
     }
@@ -154,7 +154,7 @@ for (const locale of ["fr", "en"] as const) {
       await page.setViewportSize({ width, height: 844 });
       await page.goto(`${BASE_URL}${home}`);
       await page.evaluate(() => document.fonts.ready);
-      await expect(page.locator("main > section")).toHaveCount(13);
+      await expect(page.locator("main > section")).toHaveCount(12);
       for (const heading of await page.locator("main h3").all()) await expect(heading).toHaveCSS("font-size", "22px");
       expect(await page.locator("main").innerText()).not.toMatch(/FormIA|Content Factor|usines? de contenu/i);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
