@@ -20,7 +20,9 @@ for (const locale of ["fr", "en"]) {
     assert.equal((html.match(/<option\b/g) ?? []).length, 17);
     assert.equal((html.match(/<optgroup\b/g) ?? []).length, 3);
     assert.equal((html.match(/data-node=/g) ?? []).length, 48);
-    // Three active nodes plus their three labels: every node keeps one label, shown or hidden.
+    // Every node keeps one label, shown or hidden: three active nodes and their three labels, counted apart.
+    assert.equal((html.match(/<rect\b[^>]*\bdata-active="true"/g) ?? []).length, 3);
+    assert.equal((html.match(/class="goal-node-label"[^>]*\bdata-active="true"/g) ?? []).length, 3);
     assert.equal((html.match(/data-active="true"/g) ?? []).length, 6);
     assert.equal((html.match(/class="goal-node-label"/g) ?? []).length, 48);
     assert.equal((html.match(/class="goal-flow"/g) ?? []).length, 9);

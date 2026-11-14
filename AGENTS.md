@@ -1,11 +1,12 @@
 ## Une équipe, décision de Paul des 13 et 14/11/2026
 
 Le site ne présente jamais un fondateur qui fait tout. Section partenaires :
-« Parrit.ai, c'est une équipe. » ouvre le texte ; l'interlocuteur unique reste
-mentionné. Bloc contact : date de création, premier échange avec le fondateur,
-puis travail en équipe (prise en main de l'IA, développement sur mesure,
-expertise métier, recherche ; le mot « formation » reste hors de l'accueil). Aucune liste de ce que le fondateur conçoit ou pilote, y compris
-dans `scripts/generate-llms.mjs`. Cette décision prime sur « la ligne des
+« Parrit.ai, c'est une équipe. » ouvre le texte ; aucune mention d'un
+interlocuteur unique. Bloc contact : date de création, premier échange avec le
+fondateur, puis travail avec l'équipe adaptée au projet (prise en main de
+l'IA, développement sur mesure, expertise métier, recherche ; le mot
+« formation » reste hors de l'accueil). Aucune liste de ce que le fondateur
+conçoit ou pilote, y compris dans `scripts/generate-llms.mjs`. Cette décision prime sur « la ligne des
 partenaires précise l'interlocuteur responsable de bout en bout » (correctif 1
 de l'action unique) et sur « équipe et contact gardent leurs textes » ci-dessous.
 

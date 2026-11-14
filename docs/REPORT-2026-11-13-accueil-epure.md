@@ -474,12 +474,22 @@ Mesure sur l'hôte, 17 changements d'objectif : décalage cumulé **0**
 Décision de Paul des 13 et 14/11, consignée en tête d'`AGENTS.md`.
 
 - Section partenaires : « Parrit.ai, c'est une équipe. Plus de vingt
-  partenaires, et pour chaque projet ceux qu'il vous faut. Vous gardez le même
-  interlocuteur du début à la fin. »
+  partenaires, et pour chaque projet ceux dont vous avez besoin. »
 - Bloc contact : « Il a créé Parrit.ai en 2024, après deux ans chez Lime. » ;
-  « Le premier échange se fait avec lui : vous parlez de vos enjeux. » ;
+  « Le premier échange se fait avec lui : vous lui parlez de votre projet. » ;
   « Prise en main de l'IA, développement sur mesure, expertise métier,
-  recherche : le travail se fait ensuite avec l'équipe qu'il vous faut. »
+  recherche : le travail se fait ensuite avec l'équipe adaptée à votre
+  projet. »
+- Ces phrases remplacent la proposition écrite dans la spec (correctif 5) :
+  la relecture adverse indépendante du 14/11 a fait retirer « le même
+  interlocuteur du début à la fin », qui remettait une personne seule au
+  centre, lever l'ambiguïté de « l'équipe qu'il vous faut », et corriger
+  l'anglais (« industry expertise », « AI adoption »). Le test compte
+  désormais à part les trois nœuds actifs et leurs trois étiquettes.
+- Restes relevés par cette relecture, hors de ce changement et laissés à la
+  décision de Paul : les trois photos de terrain montrent le fondateur seul ;
+  le bloc de fin d'article et la page de rendez-vous disent « avec Paul
+  Larmaraud ».
 - `scripts/generate-llms.mjs` : la ligne sur le fondateur devient la même idée,
   en français et en anglais.
 - Tests alignés : `tests/accueil-epure.test.mjs` (6 attributs actifs, 48

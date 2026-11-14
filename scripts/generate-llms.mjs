@@ -68,7 +68,7 @@ ${articles("fr")}
 - https://parrit.ai/
 - In order: ${order("en")}
 - Client replies, follow-ups, quotes, meeting notes: AI prepares them, your teams review and decide.
-- Parrit.ai is a team: more than twenty partners, brought together for each project (getting started with AI, custom development, trade expertise, research). Paul Larmaraud, founder, leads the first conversation.
+- Parrit.ai is a team: more than twenty partners, brought together for each project (AI adoption, custom development, industry expertise, research). Paul Larmaraud, founder, leads the first conversation.
 - Presence: Tourcoing and Paris. Service area: across France.
 
 ### FAQ
