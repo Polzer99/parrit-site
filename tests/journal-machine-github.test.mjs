@@ -397,10 +397,10 @@ test('standalone watchdog restores durable runs then checks cadence without publ
   assert.deepEqual(calls, ['restore', 'alert']);
 });
 
-test('workflow watchdog runs always after generator and does not depend on npm modules', async () => {
+test('workflow watchdog runs after generator except model trials and does not depend on npm modules', async () => {
   const { readFile } = await import('node:fs/promises');
   const workflow = await readFile(new URL('../.github/workflows/journal-quotidien.yml', import.meta.url), 'utf8');
-  assert.match(workflow, /if: always\(\)[\s\S]*?run: node scripts\/journal-machine-github\.mjs --watchdog/);
+  assert.match(workflow, /if: \$\{\{ always\(\) && inputs\.essai_modeles != true \}\}[\s\S]*?run: node scripts\/journal-machine-github\.mjs --watchdog/);
   assert.ok(workflow.indexOf('run: npm ci') < workflow.indexOf('run: node scripts/journal-machine.mjs'));
   assert.ok(workflow.indexOf('run: node scripts/journal-machine.mjs') < workflow.indexOf('--watchdog'));
   const source = await readFile(new URL('../scripts/journal-machine-github.mjs', import.meta.url), 'utf8');

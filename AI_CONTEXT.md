@@ -20,7 +20,34 @@ cassé localement (libsimdjson absente), téléchargement temporaire bloqué DNS
 Le rejeu Node 24 reste à réaliser sur l'hôte/CI.
 « Save time. » remplace la proposition « Free up time. » incompatible avec
 le garde-fou texte existant, conservé sans exception nouvelle.
-Preuve navigateur à rejouer par Claude sur l'hôte, aucune preuve production.
+Correctifs 3 à 5 (13 et 14/11) : calendrier monté une seule fois, une étiquette
+par nœud affichée ou masquée (48 étiquettes, 3 actives), liste à largeur
+constante, décalages mesurés à 0 sur l'hôte. Textes « une équipe » sur la
+section partenaires, le bloc contact et llms.txt : le fondateur mène le premier
+échange, le travail se fait en équipe. Écrits par Claude, Codex sans crédit
+jusqu'au 19/11 (règle Paul du 14/11), relecture adverse indépendante.
+
+## Budget de raisonnement du Journal, 13/11/2026
+
+Spec `docs/CODEX-SPEC-2026-11-13-journal-budget-raisonnement.md`, base e707430.
+Configuration validée avant paiement : rédaction/secrétariat 32 000 jetons,
+juge 8 000 ; raisonnement par rôle `{max_tokens:4000}` aux échelons 1/3,
+`{effort:"none"}` au deuxième. Traces enrichies en jetons visibles, zéro visible
+classé vide ; alertes rédaction/secrétariat 0,25 USD, juge 0,05 inchangé.
+Mode `--essai-modeles` et entrée workflow dédiée : cinq réglages par modèle
+configuré distinct, aucune recherche/article/mutation des sujets ni runtime
+GitHub. Plafond fixe 0,10 USD, réserve tarifaire avant appel et caps fournisseur,
+refus si tarifs inconnus ; 400/422 tracés sans interrompre. Essai exclu du
+watchdog et du coupe-circuit ; production 0,80 USD, réserve et armement conservés.
+Revue adverse indépendante : défaut du budget à coûts variables corrigé et
+recontrôlé ; tests permanents sur prix, unités et compatibilité du catalogue.
+Référence 305 tests machine ; 60 cas ajoutés. Deux batteries : 735/735 tests Node,
+19/19 Brand OS, lint, audits et build Webpack (96 pages) verts. Turbopack
+interrompu sans progression ; serveur EPERM et Chromium SIGTRAP avant navigation.
+Validation détaillée et limites d'exécution :
+`docs/REPORT-2026-11-13-journal-budget-raisonnement.md`.
+Aucun appel LLM réel, secret consulté, commit, push, déploiement ou armement.
+Preuve réelle à acquérir après fusion : essai puis un passage article selon §4.
 
 ## Passe site, Correctif 4 — 13/11/2026
 

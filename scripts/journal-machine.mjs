@@ -11,10 +11,11 @@ import { callTrace, responseIssue, parseResponseObject, circuitHistory, runRecor
 import { setTimeout as delay } from 'node:timers/promises';
 export { researchSources, verifiedMaterial } from './journal-machine-research.mjs';
 import { validateTopics } from './journal-sujets.mjs';
+import { ConfigurationError, generationSettings } from './journal-machine-config.mjs';
+import { runModelTrial } from './journal-machine-trial.mjs';
 
 export const DEFAULT_MODELS = { research: 'deepseek/deepseek-v4-flash', writing: 'z-ai/glm-5.2', judge: 'z-ai/glm-5.3', writingFallback: 'deepseek/deepseek-v4-pro', judgeFallback: 'deepseek/deepseek-v4-pro' };
 export class BudgetExceeded extends Error {}
-class ConfigurationError extends Error {}
 export const OPENROUTER_TIMEOUTS = { research: 90_000, writing: 180_000, judge: 60_000 };
 const roleNames = { research: 'recherche', writing: 'redaction', judge: 'juge' };
 export async function completeWithRetry(client, request, role, { sleep = delay, signal } = {}) {
@@ -57,12 +58,13 @@ export function atomicJSON(file, data) {
 }
 export function openRouterClient({ apiKey, fetchImpl = fetch }) {
   return {
-    async models() {
+    async models({ withPricing = false } = {}) {
       if (!apiKey) throw new Error('OPENROUTER_API_KEY manquante');
       const signal = AbortSignal.timeout(30_000);
       const response = await withinDeadline(() => fetchImpl('https://openrouter.ai/api/v1/models', { signal }), signal);
       if (!response.ok) throw new Error(`catalogue modèles HTTP ${response.status}`);
-      return (await withinDeadline(() => response.json(), signal)).data.map(model => model.id);
+      const models = (await withinDeadline(() => response.json(), signal)).data;
+      return withPricing ? models.map(({ id, pricing }) => ({ id, pricing })) : models.map(model => model.id);
     },
     async complete(request, { signal = AbortSignal.timeout(OPENROUTER_TIMEOUTS.research) } = {}) {
       if (!apiKey) throw new Error('OPENROUTER_API_KEY manquante');
@@ -136,6 +138,7 @@ export async function runMachine({ root, client, runtime, sourceOptions = {}, mo
   let available = [];
   let authors = new Set();
   let highestCost = 0;
+  let settings;
   const reserve = role => {
     if (run.cout >= budget) throw new BudgetExceeded('plafond de coût atteint');
     // The new ladder reserve applies to writing/editing/judging; research keeps its historical budget checks.
@@ -158,8 +161,8 @@ export async function runMachine({ root, client, runtime, sourceOptions = {}, mo
       }
       if (!available.includes(model)) throw new ConfigurationError('modèle de repli indisponible');
       const request = { model, messages, temperature: role === 'writing' ? 0.5 : 0,
-        max_tokens: role === 'writing' ? 12000 : 4500, ...extra,
-        ...(echelon === 2 ? { reasoning: { effort: 'low' } } : {}) };
+        max_tokens: 4500, ...settings[role], ...extra,
+        ...(echelon === 2 ? { reasoning: { effort: 'none' } } : {}) };
       let tentative = 0;
       const tracedClient = { complete: async (payload, options) => {
         reserve(role);
@@ -211,6 +214,7 @@ export async function runMachine({ root, client, runtime, sourceOptions = {}, mo
     throw new Error(`openrouter_${etape}_${lastIssue}`);
   };
   try {
+    settings = generationSettings(env);
     if (!Number.isFinite(budget) || budget <= 0) throw new ConfigurationError('JOURNAL_COUT_MAX_USD invalide');
     step('restauration');
     await runtime?.restoreState?.();
@@ -382,7 +386,10 @@ export function fixtureClient(directory, models = DEFAULT_MODELS) {
 }
 async function cliOptions(args, repo) {
   const dry = args.includes('--dry-run'), fixtures = args.includes('--fixtures');
+  const trial = args.includes('--essai-modeles');
   if (dry !== fixtures) throw new Error('utiliser --dry-run --fixtures ensemble (aucun réseau ni git)');
+  if (trial && dry) throw new ConfigurationError('--essai-modeles incompatible avec --dry-run --fixtures');
+  generationSettings(process.env);
   const models = { research: process.env.JOURNAL_MODELE_RECHERCHE || DEFAULT_MODELS.research, writing: process.env.JOURNAL_MODELE_REDACTION || DEFAULT_MODELS.writing, judge: process.env.JOURNAL_MODELE_JUGE || DEFAULT_MODELS.judge, writingFallback: process.env.JOURNAL_MODELE_REDACTION_REPLI || DEFAULT_MODELS.writingFallback, judgeFallback: process.env.JOURNAL_MODELE_JUGE_REPLI || DEFAULT_MODELS.judgeFallback };
   let options;
   if (fixtures) {
@@ -393,6 +400,8 @@ async function cliOptions(args, repo) {
     atomicJSON(path.join(root, 'content/plan/sujets.json'), [{ id: data.slug, requete: data.requete, intention: 'informationnelle', pilier: data.pilier, offre: 'audit', angle_local: false, statut: 'a_faire', slug: null, publie_le: null }]);
     atomicJSON(path.join(root, 'content/plan/journal-translations.json'), []);
     options = { root, models, client: fixtureClient(source, models), now: () => new Date('2026-11-12T05:15:00Z'), simulation: true, sourceOptions: { fetchImpl: async url => new Response(`<meta property="article:published_time" content="${data.sources.find(item => item.url === url)?.published_at}"><article>${readFileSync(path.join(source, 'source.txt'), 'utf8')}</article>`), resolve: async () => [{ address: '1.1.1.1' }] } };
+  } else if (trial) {
+    options = { root: repo, models, client: openRouterClient({ apiKey: process.env.OPENROUTER_API_KEY }) };
   } else {
     if (process.env.GITHUB_ACTIONS !== 'true') throw new Error('exécution réelle réservée au workflow; utiliser --dry-run --fixtures');
     const { createGitHubRuntime } = await import('./journal-machine-github.mjs');
@@ -402,7 +411,9 @@ async function cliOptions(args, repo) {
 }
 
 /** The CLI owns fatal errors, including rejections outside the awaited run. */
-export async function main({ args = process.argv.slice(2), options, execute = runMachine, processImpl = process, output = console.log, reportError = console.error } = {}) {
+export async function main({ args = process.argv.slice(2), options, execute, processImpl = process, output = console.log, reportError = console.error } = {}) {
+  const trial = args.includes('--essai-modeles');
+  execute ||= trial ? runModelTrial : runMachine;
   const repo = options?.root || path.resolve(import.meta.dirname, '..');
   const controller = new AbortController();
   const context = { etape: 'initialisation', stateRestored: false, signal: controller.signal };
@@ -418,7 +429,8 @@ export async function main({ args = process.argv.slice(2), options, execute = ru
       etape: context.etape, message: diagnosticReason(safeResearchError(context.crashError, 300)),
       appels: runRecord(context.run || {}).appels, cout: context.run?.cout ?? 0,
       modeles: runRecord(context.run || {}).modeles,
-      modeles_effectifs: runRecord(context.run || {}).modeles_effectifs, ...(options?.simulation ? { simulation: true } : {}) };
+      modeles_effectifs: runRecord(context.run || {}).modeles_effectifs, ...(options?.simulation ? { simulation: true } : {}),
+      ...(trial ? { mode: 'essai_modeles' } : {}) };
     record.motif = record.message;
     crashPromise = (async () => {
       const failed = failure => reportError(`Journal crash: ${safeResearchError(failure, 300)}`);
@@ -456,7 +468,7 @@ export async function main({ args = process.argv.slice(2), options, execute = ru
   processImpl.on('unhandledRejection', onUnhandled);
   try {
     options ||= await cliOptions(args, repo);
-    const result = await execute({ ...options, context });
+    const result = await execute({ models: DEFAULT_MODELS, ...options, context });
     // Flush the event-loop turn so a late orphan rejection cannot escape cleanup.
     await new Promise(resolve => setImmediate(resolve));
     if (context.stopped) return await crashPromise;

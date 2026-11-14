@@ -71,8 +71,8 @@ for (const role of ['writing', 'editing', 'judge']) test(`${role}: length vide, 
   assert.deepEqual(traces.map(call => [call.echelon, call.issue]), [[1, 'tronquee'], [2, 'ok']]);
   assert.equal(traces[0].finish_reason, 'length');
   const requests = s.calls.filter(request => roleOf(request) === role);
-  assert.equal(requests[0].reasoning, undefined);
-  assert.deepEqual(requests[1].reasoning, { effort: 'low' });
+  assert.deepEqual(requests[0].reasoning, { max_tokens: 4000 });
+  assert.deepEqual(requests[1].reasoning, { effort: 'none' });
   assert.equal(requests[0].model, requests[1].model);
   assert.equal(requests[0].max_tokens, requests[1].max_tokens);
 });
@@ -82,7 +82,7 @@ for (const value of [null, undefined, '', ' \n\t']) test(`contenu ${String(value
   assert.equal(run.issue, 'pr');
   assert.equal(run.modeles_effectifs.redaction, DEFAULT_MODELS.writingFallback);
   const requests = s.calls.filter(request => roleOf(request) === 'writing');
-  assert.equal(requests.length, 3); assert.equal(requests[2].reasoning, undefined);
+  assert.equal(requests.length, 3); assert.deepEqual(requests[2].reasoning, { max_tokens: 4000 });
   assert.equal(run.tentatives[0].redaction.model, DEFAULT_MODELS.writingFallback);
   assert.deepEqual(run.appels.filter(call => call.etape === 'redaction').map(call => call.echelon), [1, 2, 3]);
 });
@@ -261,7 +261,7 @@ test('trace exhaustive : diagnostics historiques conservés, appels et résumés
 for (const role of ['writing', 'editing', 'judge']) test(`alerte coût ${role} et champs usage optionnels`, async t => {
   const s = setup(t, { mutate: ({ response, role: active }) => {
     if (active !== role) return;
-    response.usage.cost = role === 'judge' ? 0.06 : 0.2;
+    response.usage.cost = role === 'judge' ? 0.06 : 0.26;
     delete response.usage.completion_tokens_details;
   } });
   const run = await runMachine(s.options); assert.equal(run.issue, 'pr');
@@ -343,7 +343,7 @@ test('les motifs arbitraires ne deviennent pas des noms de portes autorisés', (
 });
 
 for (const role of ['writing', 'editing', 'judge']) {
-  for (const failure of ['delai', 429, 503]) test(`${role}: ${failure} épuisé puis repli direct, sans effort low`, async t => {
+  for (const failure of ['delai', 429, 503]) test(`${role}: ${failure} épuisé puis repli direct, sans effort none`, async t => {
     const s = setup(t, { mutate: ({ role: active, count }) => {
       if (active === role && count <= 2) throw failure === 'delai'
         ? new DOMException('private timeout', 'TimeoutError')
@@ -358,7 +358,7 @@ for (const role of ['writing', 'editing', 'judge']) {
       [1, 2, failure === 'delai' ? 'delai' : `http_${failure}`], [3, 1, 'ok'],
     ]);
     assert.equal(requests.length, 3);
-    assert.ok(requests.every(request => !request.reasoning));
+    assert.ok(requests.every(request => request.reasoning.max_tokens === 4000));
     assert.equal(requests[2].model, role === 'judge' ? DEFAULT_MODELS.judgeFallback : DEFAULT_MODELS.writingFallback);
     assert.equal(run.modeles_effectifs[stage], requests[2].model);
     assert.equal(s.events.filter(event => event.sleep === 5000).length, 1);
