@@ -475,7 +475,9 @@ for (const locale of ["fr", "en"]) for (const width of [375, 390, 768, 1024, 119
     const hero = (await page.locator(".hero").boundingBox())!;
     await expect(diagram.locator("[data-node]")).toHaveCount(48);
     if (width < 1200) expect(box.width).toBeLessThanOrEqual(560);
-    for (const label of await page.locator(".goal-node-label").all()) {
+    const activeLabels = page.locator('.goal-node-label[data-active="true"]');
+    await expect(activeLabels).toHaveCount(3);
+    for (const label of await activeLabels.all()) {
       await expect(label).toBeVisible();
       const bounds = (await label.boundingBox())!;
       expect(bounds.x).toBeGreaterThanOrEqual(hero.x);
@@ -533,7 +535,8 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 800 
     const options = await page.locator("#objectif option").evaluateAll(nodes => nodes.map(node => (node as HTMLOptionElement).value));
     for (const id of options) {
       await page.locator("#objectif").selectOption(id);
-      const labels = page.locator(".goal-node-label");
+      await expect(page.locator(".goal-node-label")).toHaveCount(48);
+      const labels = page.locator('.goal-node-label[data-active="true"]');
       await expect(labels).toHaveCount(3);
       for (const label of await labels.all()) {
         const background = label;

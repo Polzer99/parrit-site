@@ -458,3 +458,34 @@ clé et rejouer — **n'a pas été exécuté**, puisqu'il nécessite le navigat
 interdit dans ce tour. Il reste à faire une fois sur l'hôte ; aucune preuve
 négative ni preuve navigateur/production n'est revendiquée ici. La clé est
 absente de l'état livré.
+
+## Correctif 4 — rien ne bouge au changement d'objectif (13/11/2026)
+
+Écrit par Codex, coupé par sa limite d'usage avant l'alignement des tests.
+Chaque nœud du schéma garde une étiquette, affichée ou masquée par
+`visibility` selon `data-active` (48 étiquettes, 3 actives) ; la liste du hero
+réserve la largeur de son libellé le plus long (`.goal-select-sizer`).
+Mesure sur l'hôte, 17 changements d'objectif : décalage cumulé **0**
+(0,0187 et 0,0388 avant), seuil 0,01 inchangé.
+
+## Correctif 5 — une équipe, pas un fondateur qui fait tout (14/11/2026)
+
+Écrit par Claude : Codex sans crédit jusqu'au 19/11, règle de Paul du 14/11.
+Décision de Paul des 13 et 14/11, consignée en tête d'`AGENTS.md`.
+
+- Section partenaires : « Parrit.ai, c'est une équipe. Plus de vingt
+  partenaires, et pour chaque projet ceux qu'il vous faut. Vous gardez le même
+  interlocuteur du début à la fin. »
+- Bloc contact : « Il a créé Parrit.ai en 2024, après deux ans chez Lime. » ;
+  « Le premier échange se fait avec lui : vous parlez de vos enjeux. » ;
+  « Prise en main de l'IA, développement sur mesure, expertise métier,
+  recherche : le travail se fait ensuite avec l'équipe qu'il vous faut. »
+- `scripts/generate-llms.mjs` : la ligne sur le fondateur devient la même idée,
+  en français et en anglais.
+- Tests alignés : `tests/accueil-epure.test.mjs` (6 attributs actifs, 48
+  étiquettes), `tests/single-page.spec.ts` (étiquettes actives seulement, 48
+  présentes), `tests/action-unique.test.mjs` (nouveau texte des partenaires).
+
+Aucun chiffre nouveau : « plus de vingt partenaires » et « 2024, deux ans chez
+Lime » étaient déjà publiés. Batterie de `ci.yml` rejouée sur l'hôte avant la
+demande de fusion ; résultats dans la description de la PR.

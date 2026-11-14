@@ -20,7 +20,9 @@ for (const locale of ["fr", "en"]) {
     assert.equal((html.match(/<option\b/g) ?? []).length, 17);
     assert.equal((html.match(/<optgroup\b/g) ?? []).length, 3);
     assert.equal((html.match(/data-node=/g) ?? []).length, 48);
-    assert.equal((html.match(/data-active="true"/g) ?? []).length, 3);
+    // Three active nodes plus their three labels: every node keeps one label, shown or hidden.
+    assert.equal((html.match(/data-active="true"/g) ?? []).length, 6);
+    assert.equal((html.match(/class="goal-node-label"/g) ?? []).length, 48);
     assert.equal((html.match(/class="goal-flow"/g) ?? []).length, 9);
     assert.equal((html.match(/class="home-measure"/g) ?? []).length, 3);
     assert.equal((html.match(/target="_blank" rel="noopener"/g) ?? []).length, 4);
