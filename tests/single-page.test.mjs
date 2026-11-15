@@ -26,8 +26,8 @@ for (const locale of ["fr", "en"]) test(`goal SVG has a complete static path in 
 });
 function applications(html, locale) {
   const section = html.match(new RegExp(`<section[^>]*id="${locale === "fr" ? "en-production" : "in-production"}"[^>]*>[\\s\\S]*?</section>`))?.[0];
-  assert.ok(section, "three motors remain present");
-  assert.equal((section.match(/class="goal-flow"/g) ?? []).length, 9);
+  assert.ok(section, "the calculator section remains present (15/11)");
+  assert.equal((section.match(/class="calc-card"/g) ?? []).length, 2);
   assert.equal((section.match(/<h[23]>/g) ?? []).length, 3);
   assert.match(visibleText(section), locale === "fr" ? /L'assistant prépare\. Vous validez\./ : /The assistant prepares\. You approve\./);
   assert.doesNotMatch(section, /Laparra|Clevery|Forexpert|Joone|SNCF|data-evidence|class="who"|\/clients\//i);
@@ -46,7 +46,8 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.equal((html.match(/<section\b/g) ?? []).length, 12);
   assert.deepEqual([...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]), anchors[locale]);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
-  assert.equal((main.match(/<option\b/g) ?? []).length, 17);
+  // 17 objectives in the hero, plus the three tasks of the calculator (15/11).
+  assert.equal((main.match(/<option\b/g) ?? []).length, 20);
   assert.equal((main.match(/data-result=/g) ?? []).length, 17);
   assert.doesNotMatch(main, /class="sub"|class="hero-reassurance"/);
   // The Journal can contain the English word "hidden"; check the HTML attribute.
@@ -172,7 +173,7 @@ for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos a
   assert.doesNotMatch(html, /id="confiance"|id="safeguards"|class="local-note"/);
   assert.match(html, /class="walk s1 s2 s3 withbot" viewBox="0 0 1080 130" aria-hidden="true"/);
   assert.match(html, /class="human" transform="translate\(900 120\)"/);
-  assert.equal((html.match(/class="goal-flow"/g) ?? []).length, 9);
+  assert.equal((html.match(/class="calc-card"/g) ?? []).length, 2);
   assert.doesNotMatch(html, /id="architecture"|class="stage"/);
   assert.equal((html.match(/role="img"/g) ?? []).length, 7);
   const strip = html.match(/<section id="references">([\s\S]*?)<\/section>/)?.[1];
@@ -193,9 +194,10 @@ for (const locale of ["fr", "en"]) test(`passe 4 complete SSR use cases, offers 
   assert.equal(SERVICE_CASES.length, 12);
   assert.equal(PARTNER_OFFERS.flat().length, 23);
   assert.equal((html.match(/data-result=/g) ?? []).length, 17);
-  assert.equal((html.match(/class="goal-flow"/g) ?? []).length, 9);
+  assert.equal((html.match(/class="calc-card"/g) ?? []).length, 2);
   for (const offer of PARTNER_OFFERS.flat()) { assert.ok(t(offer), offer); assert.ok(visibleText(html).includes(t(offer)), offer); }
   assert.doesNotMatch(html, /class="use-case"|class="tag bo"|class="tag new"/);
+  // 15/11 : the calculator keeps the fifth carousel (one card per screen on mobile).
   assert.equal((html.match(/class="swipe-dots"/g) ?? []).length, 5);
   assert.doesNotMatch(html, /id="architecture"|class="flowmap|\/tools\//);
   const { SITE_EVIDENCE } = loader(locale)("src/lib/registry/preuves.ts");

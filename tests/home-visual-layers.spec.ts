@@ -76,7 +76,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           }
         }
         if (width <= 760) {
-          for (const track of await page.locator(".home-offers,.session-mosaic,.motors-grid").all()) {
+          // 15/11 : calculateur, deux cartes en carrousel natif sous 1100 px, comme les autres pistes.
+          for (const track of await page.locator(".home-offers,.session-mosaic,.calc-grid").all()) {
             // Native Home can still scroll the document with JS disabled.
             // Compare all rectangles in one frame, with the same strict threshold.
             const geometry = await track.evaluate(el => ({
@@ -101,23 +102,23 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         const motors = page.locator(".home-motors");
         expect(await motors.evaluate(el => el.previousElementSibling?.id)).toBe("references");
         expect(await motors.evaluate(el => el.nextElementSibling?.id)).toBe(locale === "fr" ? "mesures" : "measurements");
-        await expect(motors.locator("a.goal-flow")).toHaveCount(9);
-        for (const flow of await motors.locator("a.goal-flow").all()) {
-          await expect(flow.locator('svg[data-connector="VS-CONNECTOR"]')).toHaveCount(2);
-          const url = new URL((await flow.getAttribute("href"))!, BASE);
-          expect(url.hash).toBe("#haut");
-          expect(url.searchParams.get("objectif")).toBe(await flow.getAttribute("data-goal"));
-          expect(url.searchParams.get("utm_custom")).toBe("visual");
-        }
+        // 15/11 : calculateur, deux cartes et un lien de rendez-vous attribué.
+        await expect(motors.locator(".calc-card")).toHaveCount(2);
+        await expect(motors.locator(".goal-schema, .calc-grid .btn")).toHaveCount(0);
+        const booking = motors.locator(".calc-footer a.btn.rev-button.exec");
+        await expect(booking).toHaveCount(1);
+        expect(new URL((await booking.getAttribute("href"))!, BASE).searchParams.get("source")).toBe("accueil-calculateur");
         await expect(field.locator("a,button")).toHaveCount(0);
         await expect(page.locator("#bandeau,#articles,.live,.service-tasks")).toHaveCount(0);
-        await expect(page.locator(".home-measure")).toHaveCount(3);
+        // 15/11 : calculateur, plus de mesures datées, seulement le bloc presse.
+        await expect(page.locator(".home-measure")).toHaveCount(0);
+        await expect(page.locator(".home-press")).toBeVisible();
         await expect(page.locator(".assistant-links a")).toHaveCount(4);
         for (const section of await page.locator(".home-motors,.home-measures,.home-assistant").all()) {
           expect((await section.locator(":scope > .wrap").boundingBox())!.height).toBeLessThanOrEqual(height);
         }
 
-        const contrasts = await page.locator(".field h2,.field-intro,.session-mosaic figcaption,.field .btn,.home-offer h3,.offer-eyebrow,.home-offer p,.home-offer li span,.home-offer .btn,.home-motors h2,.goal-flow b,.goal-flow-steps span,.motors-principle,.home-measures h2,.home-measure strong,.home-measure p,.home-measure time,.home-press p,.home-journal-link,.home-assistant h2,.assistant-links a,.tech-title,.tech-title b").evaluateAll(nodes => {
+        const contrasts = await page.locator(".field h2,.field-intro,.session-mosaic figcaption,.field .btn,.home-offer h3,.offer-eyebrow,.home-offer p,.home-offer li span,.home-offer .btn,.home-motors h2,.calc-note,.calc-card h3,.calc-field span,.calc-field input,.calc-field select,.calc-result,.calc-result strong,.calc-footer .btn,.motors-principle,.home-measures h2,.home-press h2,.home-press p,.home-journal-link,.home-assistant h2,.assistant-links a,.tech-title,.tech-title b").evaluateAll(nodes => {
           const lum = (color: string) => {
             const rgb = color.match(/[\d.]+/g)!.slice(0, 3).map(Number).map(n => n / 255).map(n => n <= .04045 ? n / 12.92 : ((n + .055) / 1.055) ** 2.4);
             return rgb[0] * .2126 + rgb[1] * .7152 + rgb[2] * .0722;
@@ -174,19 +175,20 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           expect(box.labelBottom).toBeLessThanOrEqual(box.bottom);
           expect(box.captionFits).toBe(true);
         }
-        const cards = page.locator(".home-measure");
-        await expect(cards).toHaveCount(3);
+        // 15/11 : calculateur, les cartes de mesure deviennent les cartes du calculateur.
+        const cards = page.locator(".calc-card");
+        await expect(cards).toHaveCount(2);
         for (const card of await cards.all()) {
           await card.scrollIntoViewIfNeeded();
-          await expect(card.locator("p")).toBeVisible();
+          await expect(card.locator(".calc-result")).toBeVisible();
           const text = await card.evaluate(el => {
             const box = el.getBoundingClientRect();
-            const heading = el.querySelector("p")!;
+            const heading = el.querySelector(".calc-result")!;
             const range = document.createRange();
             range.selectNodeContents(heading);
             return { title: heading.textContent, height: box.height,
               lineCount: range.getClientRects().length,
-              clipped: [...el.querySelectorAll("strong,p,time")].some(node => node.scrollWidth > node.clientWidth + 1 || node.scrollHeight > node.clientHeight + 1),
+              clipped: [...el.querySelectorAll("strong,p,label,input,select")].some(node => node.scrollWidth > node.clientWidth + 1 || node.scrollHeight > node.clientHeight + 1),
               linesFit: [...range.getClientRects()].every(line => line.left >= box.left - 1 && line.right <= box.right + 1 && line.top >= box.top - 1 && line.bottom <= box.bottom + 1),
               clamp: getComputedStyle(heading).webkitLineClamp };
           });
@@ -248,19 +250,18 @@ for (const locale of ["fr", "en"]) {
   });
 }
 
-// Le lien presse mène au Journal, les mesures pointent sur les articles datés.
-for (const locale of ["fr", "en"]) test(`home evidence links reach the Journal ${locale}`, async ({ page }) => {
+// 15/11 : calculateur. Plus de mesures datées : le bloc presse mène à l'index du Journal.
+for (const locale of ["fr", "en"]) test(`home press block reaches the Journal ${locale}`, async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 720 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   const home = locale === "fr" ? "/fr" : "/";
   const journal = locale === "fr" ? "/fr/journal" : "/journal";
   await page.goto(local(home));
-  const expected = await page.locator(".home-measure").evaluateAll(nodes => nodes.map(node => node.getAttribute("href")));
-  expect(expected).toEqual([`${journal}/ai-cost-french-vs-english-tokens`, `${journal}/legacy-database-migration-writers-first`, `${journal}/agents-that-fabricate-facts`]);
+  await expect(page.locator(".home-measure")).toHaveCount(0);
+  await expect(page.locator(".home-press")).toBeVisible();
   await page.locator(".home-measures .home-journal-link").click();
   await expect(page).toHaveURL(local(journal));
   await expect(page.locator(".journal-index > li").first()).toBeVisible();
-  for (const href of expected) await expect(page.locator(`.journal-index > li > a[href="${href}"]`)).toHaveCount(1);
 });
 
 // Polissage du 12/11 : focus des technologies et états des contrôles natifs.

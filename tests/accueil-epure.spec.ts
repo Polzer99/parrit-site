@@ -126,20 +126,25 @@ for (const locale of ["fr", "en"] as const) {
     expect(await context.cookies()).toEqual([]);
     await page.screenshot({ path: testInfo.outputPath(`accueil-${locale}-${width}.png`), fullPage: true });
   });
-  test(`nine motor links select the matching goal with visible keyboard focus ${locale}`, async ({ page }) => {
+  // 15/11 : calculateur, remplace le test des neuf liens de moteurs.
+  test(`calculator inputs update results and touch targets stay 44px ${locale}`, async ({ page }) => {
     await offlineCalendar(page);
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(local(home));
-    for (const goal of HOME_GOALS.filter(item => item.flow)) {
-      await page.locator(`.goal-flow[data-goal="${goal.id}"]`).click();
-      await expect(page.locator("#objectif")).toHaveValue(goal.id);
-      await expect(page.locator("#objectif")).toBeFocused();
-      await expect(page.locator(".goal-results > p:visible")).toHaveText(goal.result[locale]);
-    }
-    const labels = await page.locator(".goal-flow > b").allTextContents();
-    expect(new Set(labels).size).toBe(labels.length);
+    const growth = page.locator('.calc-card[data-calculator="croissance"]');
+    const time = page.locator('.calc-card[data-calculator="temps"]');
+    const growthResult = growth.locator('[data-calc-result="croissance"]');
+    const timeResult = time.locator('[data-calc-result="temps"]');
+    await expect(growthResult).toHaveText(locale === "fr" ? /^9\s000\s€$/ : "€9,000");
+    await growth.locator(".calc-field input").first().fill("40");
+    await expect(growthResult).toHaveText(locale === "fr" ? /^18\s000\s€$/ : "€18,000");
+    await growth.locator(".calc-field input").first().fill("");
+    await expect(growthResult).toHaveText(locale === "fr" ? /^0\s€$/ : "€0");
+    await expect(timeResult).toHaveText("17 h");
+    await time.locator("select").selectOption("comptes-rendus");
+    await expect(timeResult).toHaveText("11 h");
     expect(await page.locator("main").innerText()).not.toMatch(/[←-⇿⟵-⟿]/u);
-    for (const link of await page.locator(".goal-flow, .assistant-links a").all()) expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+    for (const link of await page.locator(".calc-field input, .calc-field select, .calc-footer .btn, .assistant-links a").all()) expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44);
   });
   test(`calendar snapshots goal at lazy load and preserves nodes until reload ${locale}`, async ({ page }) => {
     const calendar = await offlineCalendar(page);
@@ -171,8 +176,8 @@ for (const locale of ["fr", "en"] as const) {
   test.describe(`GET fallback ${locale}`, () => {
     test.use({ javaScriptEnabled: false });
     test("all seventeen goals remain usable without JavaScript", async ({ page }) => {
-      await page.goto(local(`${home}?source=accueil-agents&utm_source=offline`));
-      await page.locator('.goal-flow[data-goal="logiciel"]').click();
+      // 15/11 : calculateur, plus de lien de moteur ; un objectif passé en GET reste sélectionné sans JS.
+      await page.goto(local(`${home}?utm_source=offline&objectif=logiciel`));
       await expect(page.locator("#objectif")).toHaveValue("logiciel");
       for (const goal of HOME_GOALS) {
         await page.locator("#objectif").selectOption(goal.id);

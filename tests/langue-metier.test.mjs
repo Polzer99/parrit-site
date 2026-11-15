@@ -19,7 +19,7 @@ for (const locale of ["fr", "en"]) test(`hero headline and descriptive subtitle 
   assert.equal((html.match(/<h1>/g) ?? []).length, 1);
   assert.equal(html.match(/<h1>(.*?)<\/h1>/s)?.[1], `${normal} <b>${bold}</b>`);
   assert.doesNotMatch(html, /class="sub"|class="hero-reassurance"/);
-  assert.equal((html.match(/<option\b/g) ?? []).length, 17);
+  assert.equal((html.match(/<select id="objectif"[\s\S]*?<\/select>/)?.[0].match(/<option\b/g) ?? []).length, 17);
   const action = html.match(/class="actions"><a[^>]*href="([^"]+)"[^>]*>(.*?)<\/a>/s);
   // Decision of 08/11/2026: nuit: the same destination now carries rdv-hero.
   assert.equal(action?.[1], `${locale === "fr" ? "/fr" : "/"}?source=accueil-rendez-vous#contact`);
@@ -32,7 +32,11 @@ for (const locale of ["fr", "en"]) test(`home copy is understandable, complete i
   const text = visibleText(html);
   // The new H1 above explicitly permits “matière première”; the rest keeps the plain-language gate.
   assert.doesNotMatch(visibleText(html.replace(/<h1>.*?<\/h1>/s, "")), locale === "fr" ? forbiddenFr : forbiddenEn);
-  assert.doesNotMatch(text, /—|\d\s*(?:€|\$|EUR|USD)|, pas\b|, not\b/i);
+  // No price on the home page. Exemption, décision de Paul du 15/11/2026 : the calculator
+  // shows the visitor's own figures (examples they edit), never a Parrit price.
+  const withoutCalculator = visibleText(html.replace(/<section[^>]*id="(?:en-production|in-production)"[\s\S]*?<\/section>/, ""));
+  assert.doesNotMatch(withoutCalculator, /\d\s*(?:€|\$|EUR|USD)/i);
+  assert.doesNotMatch(text, /—|, pas\b|, not\b/i);
   assert.ok(text.includes(locale === "fr" ? "L'assistant prépare. Vous validez." : "The assistant prepares. You approve."));
   const outsideReferences = html.replace(/<section id="references"[\s\S]*?<\/section>/, "");
   assert.doesNotMatch(outsideReferences, /Laparra|Clevery|Forexpert|Joone|SNCF/i);
@@ -44,7 +48,7 @@ for (const locale of ["fr", "en"]) test(`home copy is understandable, complete i
     assert.doesNotMatch(t(value), /\bagents?\b|ontolog|logic sources|sources de logique/i);
   }
   assert.doesNotMatch(html, /class="tag (?:bo|new)"/);
-  assert.equal((html.match(/class="goal-flow"/g) ?? []).length, 9);
+  assert.equal((html.match(/class="calc-card"/g) ?? []).length, 2);
 });
 
 for (const locale of ["fr", "en"]) test(`home metadata and Organization/Person JSON-LD follow the requested locale (${locale})`, async () => {

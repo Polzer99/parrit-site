@@ -38,17 +38,18 @@ for (const locale of ["fr", "en"]) {
     const html = await renderPage(locale);
     const actions = [...html.matchAll(/<a class="([^"]*rev-button[^"]*)" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
     const booking = actions.filter(([, , href]) => new URL(href, "https://example.invalid").hash === "#contact");
-    assert.equal(booking.length, 2, "hero and contact; banner replaced by measures and assistant");
+    // Décision de Paul du 15/11/2026 : le calculateur se termine par le même bouton, attribué à part.
+    assert.equal(booking.length, 3, "hero, calculator and contact");
     for (const [i, [, classes, href, label]] of booking.entries()) {
       const url = new URL(href, "https://example.invalid");
       assert.match(classes, /\bexec\b/);
       assert.equal(visibleText(label).trim(), locale === "fr" ? "Prendre rendez-vous" : "Book a call");
-      assert.equal(url.searchParams.get("source"), ["accueil-rendez-vous", "rdv-contact"][i]);
+      assert.equal(url.searchParams.get("source"), ["accueil-rendez-vous", "accueil-calculateur", "rdv-contact"][i]);
       assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
-      assert.equal((label.match(/data-connector="VS-CONNECTOR"/g) ?? []).length, i === 0 ? 1 : 0);
-      if (i === 0) assert.match(label, /aria-hidden="true" focusable="false"/);
+      assert.equal((label.match(/data-connector="VS-CONNECTOR"/g) ?? []).length, i < 2 ? 1 : 0);
+      if (i < 2) assert.match(label, /aria-hidden="true" focusable="false"/);
     }
-    assert.equal(actions.length, 3, "two booking actions and the Journal content link in main");
+    assert.equal(actions.length, 4, "three booking actions and the Journal content link in main");
     assert.doesNotMatch(html, /source=intention-|href="#reservation"/);
     const offers = html.match(/<section id="(?:offres|offers)"[\s\S]*?<\/section>/)[0];
     assert.equal((offers.match(/<article /g) ?? []).length, 2);
@@ -85,7 +86,7 @@ for (const locale of ["fr", "en"]) {
     assert.ok(visibleText(html).includes(fr
       ? "Parrit.ai, c'est une équipe. Plus de vingt partenaires, et pour chaque projet ceux dont vous avez besoin."
       : "Parrit.ai is a team. More than twenty partners, and for each project the ones you need."));
-    assert.equal((html.match(/class="goal-flow"/g) ?? []).length, 9);
+    assert.equal((html.match(/class="calc-card"/g) ?? []).length, 2);
     const details = [...html.matchAll(/<details([^>]*)><summary>(.*?)<\/summary><p>(.*?)<\/p><\/details>/g)];
     assert.equal(details.length, 6);
     assert.deepEqual(details.filter(([, attributes]) => /\bopen(?:=|\s|$)/.test(attributes)).map(([, , question]) => visibleText(question)), fr
@@ -179,7 +180,6 @@ for (const locale of ["fr", "en"]) test(`contact action preserves attribution an
   assert.equal(target.searchParams.get("utm_campaign"), "a&b");
   const measures = html.match(/<section[^>]*id="(?:mesures|measurements)"[\s\S]*?<\/section>/)[0];
   assert.doesNotMatch(measures, /Articles en anglais/);
-  for (const slug of ["ai-cost-french-vs-english-tokens", "agents-that-fabricate-facts"]) {
-    assert.ok(measures.includes(`href="${locale === "fr" ? "/fr" : ""}/journal/${slug}"`));
-  }
+  // 15/11 : seule la presse reste, avec le renvoi localisé vers le Journal.
+  assert.ok(measures.includes(`href="${locale === "fr" ? "/fr" : ""}/journal"`));
 });

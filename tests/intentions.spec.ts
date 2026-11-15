@@ -185,11 +185,12 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
             await expect(faq.nth(index).locator("p")).toBeVisible();
           }
         }
-        await expect(page.locator(".motors-principle")).toHaveText(locale === "fr"
+        // 15/11 : calculateur, le principe et le lien de rendez-vous vivent dans .calc-footer.
+        await expect(page.locator(".calc-footer .motors-principle")).toHaveText(locale === "fr"
           ? "L'assistant prépare. Vous validez." : "The assistant prepares. You approve.");
         if (width <= 900) await page.locator(".mobile-menu summary").click();
         const actions = page.locator('a.rev-button[href*="#contact"]:visible');
-        await expect(actions).toHaveCount(3);
+        await expect(actions).toHaveCount(4); // 15/11 : + bouton du calculateur
         const sources: string[] = [];
         for (const action of await actions.all()) {
           await expect(action).toHaveText(label);
@@ -201,7 +202,7 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           expect(target.searchParams.get("utm_campaign")).toBe("appointment");
           expect(target.searchParams.get("utm_custom")).toBe("kept");
         }
-        expect(sources.sort()).toEqual(["accueil-rendez-vous", "rdv-contact", "rdv-nav"]);
+        expect(sources.sort()).toEqual(["accueil-calculateur", "accueil-rendez-vous", "rdv-contact", "rdv-nav"]);
         await expect(page.locator('main a.ghost[href*="#contact"]')).toHaveCount(0);
         await expect(page.locator('main a[href*="intention-"]')).toHaveCount(0);
         await expect(page.locator(".home-offer")).toHaveCount(2);

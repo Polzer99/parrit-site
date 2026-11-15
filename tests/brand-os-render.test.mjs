@@ -115,7 +115,11 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           const notes = [...html.matchAll(/<p class="contact-expectation">([\s\S]*?)<\/p>/g)];
           assert.equal(notes.length, 1);
           assert.equal(visibleText(notes[0][1]), contactExpectation[locale]);
-          offerText = visibleText(html.replace(notes[0][0], ""));
+          // Décision de Paul du 15/11/2026 : the calculator shows the visitor's own figures
+          // (editable examples), never a Parrit price; it alone is exempt from the € check.
+          const calculator = html.match(/<section[^>]*id="(?:en-production|in-production)"[\s\S]*?<\/section>/)?.[0];
+          assert.ok(calculator && /class="calc-card"/.test(calculator), `${label}: calculator present`);
+          offerText = visibleText(html.replace(notes[0][0], "").replace(calculator, ""));
         }
         let publicCopy = `${offerText} ${accessible} ${metadata} ${structured}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
         // Decision 08/11/2026: exact first FAQ answer only, including its JSON-LD copy.
@@ -210,7 +214,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       const home = await render("/?utm_campaign=server%20%26%20test&utm_custom=kept&source=old", locale);
       assert.equal(home.status, 200);
       const links = [...home.html.matchAll(/<a\b[^>]*href="([^"]*source=(?:rdv-|accueil-)[^"]*)"[^>]*>/g)];
-      assert.equal(links.length, 4, "two responsive nav copies, hero and contact in server HTML");
+      assert.equal(links.length, 5, "two responsive nav copies, hero, calculator (15/11) and contact in server HTML");
       assert.deepEqual(links.map(([, href]) => {
         const url = new URL(href.replaceAll("&amp;", "&"), "http://localhost:3210");
         assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
@@ -219,7 +223,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         assert.equal(url.searchParams.get("utm_custom"), "kept");
         assert.equal(url.searchParams.getAll("source").length, 1);
         return url.searchParams.get("source");
-      }).sort(), ["accueil-rendez-vous", "rdv-contact", "rdv-nav", "rdv-nav"]);
+      }).sort(), ["accueil-calculateur", "accueil-rendez-vous", "rdv-contact", "rdv-nav", "rdv-nav"]);
       const bookingQuery = "source=essai&utm_custom=offhome&utm_campaign=c1";
       const booking = await render(`/rendez-vous?${bookingQuery}`, locale);
       assert.equal(booking.status, 200);

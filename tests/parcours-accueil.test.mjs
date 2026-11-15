@@ -22,7 +22,7 @@ for (const locale of ["fr", "en"]) {
     assert.deepEqual([...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]), anchors[locale]);
     assert.doesNotMatch(html, /<section[^>]*id="(?:ce-qui-change|what-changes)"/);
     const applications = section(html, locale === "fr" ? "en-production" : "in-production");
-    assert.equal((applications.match(/class="goal-flow"/g) ?? []).length, 9);
+    assert.equal((applications.match(/class="calc-card"/g) ?? []).length, 2);
     assert.match(visibleText(applications), locale === "fr" ? /L'assistant prépare\. Vous validez\./ : /The assistant prepares\. You approve\./);
     const home = locale === "fr" ? "/fr" : "/";
     const load = loader(locale, { "next/navigation": { usePathname: () => home, useSearchParams: () => new URLSearchParams() } });
@@ -59,19 +59,12 @@ for (const locale of ["fr", "en"]) {
     assert.doesNotMatch(visibleText(faq), /\d\s*(?:€|\$|EUR|USD)/);
   });
 
-  test(`measures keep dated localized final Journal destinations (${locale})`, async () => {
+  test(`press block keeps the localized Journal destination, no internal measure (${locale})`, async () => {
+    // Décision de Paul du 15/11/2026 : les mesures internes quittent l'accueil.
     const html = await renderPage(locale);
     const measures = section(html, locale === "fr" ? "mesures" : "measurements");
-    const slugs = ["ai-cost-french-vs-english-tokens", "legacy-database-migration-writers-first", "agents-that-fabricate-facts"];
-    for (const slug of slugs) {
-      const href = `${locale === "fr" ? "/fr" : ""}/journal/${slug}`;
-      assert.ok(measures.includes(`href="${href}"`));
-      const article = fs.readFileSync(`content/journal/${locale === "fr" ? "fr/" : ""}${slug}.mdx`, "utf8");
-      const date = article.match(/^date: ["']?([\d-]+)/m)?.[1];
-      assert.ok(date);
-      assert.ok(measures.includes(`dateTime="${date}"`));
-    }
-    assert.doesNotMatch(measures, /97\s*%|computer-use-what-it-can-undo/);
+    assert.doesNotMatch(measures, /\/journal\/|dateTime=|97\s*%/);
+    assert.match(visibleText(measures), /Le Monde Informatique/);
     assert.ok(measures.includes(`href="${locale === "fr" ? "/fr" : ""}/journal"`));
   });
 }

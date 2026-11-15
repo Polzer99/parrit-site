@@ -62,25 +62,11 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           await page.keyboard.press("Space");
           await expect(detail).not.toHaveAttribute("open", "");
         }
-        const measures = page.locator(".home-measure");
-        await expect(measures).toHaveCount(3);
-        const homeEvidence = await measures.evaluateAll(nodes => nodes.map(node => ({
-          href: node.getAttribute("href"),
-          date: node.querySelector("time")!.getAttribute("datetime"),
-          value: node.querySelector("strong")!.textContent,
-          caption: node.querySelector("p")!.textContent,
-        })));
-        expect(homeEvidence.map(item => [item.href, item.date])).toEqual([
-          [`${locale === "fr" ? "/fr" : ""}/journal/ai-cost-french-vs-english-tokens`, "2026-10-13"],
-          [`${locale === "fr" ? "/fr" : ""}/journal/legacy-database-migration-writers-first`, "2026-10-10"],
-          [`${locale === "fr" ? "/fr" : ""}/journal/agents-that-fabricate-facts`, "2026-08-31"],
-        ]);
-        for (const item of homeEvidence) {
-          expect(item.value).toMatch(/\d/);
-          expect(item.caption).toMatch(/\S/);
-        }
-        await expect(page.locator(".home-motors .motor-column")).toHaveCount(3);
-        await expect(page.locator(".home-motors .goal-flow")).toHaveCount(9);
+        // 15/11 : calculateur ; les mesures internes quittent l'accueil, la presse reste.
+        await expect(page.locator(".home-measures .home-press")).toBeVisible();
+        await expect(page.locator(".home-measures a[href*='/journal/']")).toHaveCount(0);
+        await expect(page.locator(".home-motors .calc-card")).toHaveCount(2);
+        await expect(page.locator(".home-motors .calc-footer a.exec[href*='source=accueil-calculateur']")).toHaveCount(1);
         const assistants = page.locator(".assistant-links a");
         await expect(assistants).toHaveCount(4);
         for (const link of await assistants.all()) {
@@ -92,11 +78,6 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         await page.locator(".home-measures .home-journal-link").click();
         await expect(page).toHaveURL(local(locale === "fr" ? "/fr/journal" : "/journal"));
         await expect(page.locator(".journal-index > li").first()).toBeVisible();
-        for (const evidence of homeEvidence) {
-          const article = page.locator(`.journal-index > li > a[href="${evidence.href}"]`);
-          await expect(article).toHaveCount(1);
-          await expect(article.locator("time")).toHaveAttribute("datetime", evidence.date!);
-        }
       });
     }
 
@@ -128,5 +109,5 @@ for (const locale of ["fr", "en"] as const) test(`legacy intent attribution reac
   });
   await expect(page.locator("#single-contact")).toHaveAttribute("data-state", "done");
   await expect(page.locator("#single-contact a,#single-contact button")).toHaveCount(0);
-  expect(await page.locator('a.rev-button[href*="#contact"]').evaluateAll(nodes => [...new Set(nodes.map(node => new URL((node as HTMLAnchorElement).href).searchParams.get("source")))].sort())).toEqual(["accueil-rendez-vous", "rdv-contact", "rdv-nav"]);
+  expect(await page.locator('a.rev-button[href*="#contact"]').evaluateAll(nodes => [...new Set(nodes.map(node => new URL((node as HTMLAnchorElement).href).searchParams.get("source")))].sort())).toEqual(["accueil-calculateur", "accueil-rendez-vous", "rdv-contact", "rdv-nav"]); // 15/11 : calculateur
 });

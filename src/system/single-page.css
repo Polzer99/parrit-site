@@ -700,28 +700,27 @@
 .single-page.home-epure .client-logo img {animation:none;opacity:1;filter:none;transform:none;}
 .single-page.home-epure :is(.home-motors,.home-measures,.home-assistant) {padding-block:var(--brand-s8) var(--brand-s6);}
 .single-page .home-motors {background:var(--off);}
-.single-page .motors-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--brand-s4);}
-.single-page .motor-column {min-width:0;}
-.single-page .motor-column h2 {font-size:var(--t-xl);line-height:1.4;margin-bottom:var(--brand-s3);}
-.single-page .goal-flow {display:block;border-top:1px solid var(--line);padding-block:var(--brand-s2);min-height:44px;color:var(--ink);text-decoration:none;}
-.single-page .goal-flow b {display:block;font-size:var(--t-m);font-weight:600;}
-.single-page .goal-flow-steps {display:flex;align-items:center;gap:calc(var(--brand-s1) / 2);margin-top:var(--brand-s1);font-size:var(--t-s);line-height:1.4;}
-.single-page .goal-flow-steps > span {min-width:0;overflow-wrap:anywhere;}
-@media(min-width:1280px){
-  .single-page .motor-column h2, .single-page .goal-flow-steps > span {white-space:nowrap;}
-}
-.single-page .goal-flow:is(:hover,:focus-visible) b {text-decoration:underline;}
-.single-page .goal-flow:focus-visible {outline:2px solid var(--canard);outline-offset:4px;}
-.single-page .motors-principle {margin-top:var(--brand-s4);text-align:left;font-size:var(--t-l);}
+/* Décision de Paul du 15/11/2026 : calculateur sur les chiffres du visiteur. */
+.single-page .home-calculator h2 {font-size:var(--t-xl);line-height:1.4;}
+.single-page .calc-note {margin-top:var(--brand-s1);font-size:var(--t-m);color:var(--ink2);}
+.single-page .calc-footer .motors-principle {font-size:var(--t-l);color:var(--ink);}
+.single-page .calc-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--brand-s6);margin-top:var(--brand-s4);}
+.single-page .calc-card {display:flex;flex-direction:column;min-width:0;border-top:1px solid var(--line);padding-top:var(--brand-s3);}
+.single-page .calc-card h3 {font-size:var(--t-l);font-weight:600;}
+.single-page .calc-process {margin-top:var(--brand-s1);font-size:var(--t-m);color:var(--ink2);}
+.single-page .calc-fields {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--brand-s2);margin-top:var(--brand-s3);}
+.single-page .calc-field {display:flex;flex-direction:column;justify-content:flex-end;gap:var(--brand-s1);min-width:0;font-size:var(--t-s);color:var(--ink2);}
+.single-page .calc-task {margin-top:var(--brand-s1);}
+.single-page .calc-field :is(input,select) {width:100%;min-height:48px;padding:0 var(--brand-s2);border:1px solid var(--ink2);border-radius:0;background:var(--white);color:var(--ink);font:inherit;font-size:var(--t-m);font-variant-numeric:tabular-nums;}
+.single-page .calc-field :is(input,select):focus-visible {outline:2px solid var(--canard);outline-offset:2px;}
+.single-page .calc-result {margin-top:auto;padding-top:var(--brand-s3);font-size:var(--t-m);}
+.single-page .calc-result strong {display:block;font-size:var(--d-s);font-weight:600;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--ink);}
+.single-page .calc-footer {display:flex;justify-content:space-between;align-items:center;gap:var(--brand-s3);margin-top:var(--brand-s4);font-size:var(--t-m);color:var(--ink2);}
+/* Sur fond clair, le rose seul fait 2,2:1 ; la bordure encre porte le contraste de contrôle (3:1). */
+.single-page .calc-footer .btn.exec {display:inline-flex;align-items:center;justify-content:center;gap:var(--brand-s2);border:2px solid var(--ink);}
 .single-page .home-measures {background:var(--white);}
-.single-page .measure-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--brand-s6);margin-top:var(--brand-s4);}
-.single-page .home-measure {display:flex;flex-direction:column;align-items:flex-start;gap:var(--brand-s1);border-top:1px solid var(--line);padding-block:var(--brand-s2);color:var(--ink);text-decoration:none;}
-.single-page .home-measure time {font-family:var(--mono);font-size:var(--t-s);font-variant-numeric:tabular-nums;color:var(--ink2);}
-.single-page .home-measure strong {font-family:var(--mono);font-size:var(--d-s);font-weight:500;line-height:1.25;font-variant-numeric:tabular-nums;}
-.single-page .home-measure p {max-width:70ch;font-size:var(--t-m);}
-.single-page .home-measure:is(:hover,:focus-visible) p {text-decoration:underline;}
-.single-page .home-measure:focus-visible {outline:2px solid var(--canard);outline-offset:4px;}
-.single-page .home-press {display:flex;justify-content:space-between;align-items:center;gap:var(--brand-s3);border-top:1px solid var(--line);margin-top:var(--brand-s4);padding-top:var(--brand-s3);}
+.single-page .home-press h2 {font-size:var(--t-l);line-height:1.4;}
+.single-page .home-press {display:flex;justify-content:space-between;align-items:center;gap:var(--brand-s3);}
 .single-page .home-press .home-journal-link {display:inline-flex;align-items:center;gap:var(--brand-s2);flex:none;margin:0;}
 .single-page .home-assistant {background:var(--sky);}
 .single-page .assistant-links {display:flex;flex-wrap:wrap;gap:var(--brand-s3);margin-top:var(--brand-s3);}
@@ -737,11 +736,12 @@
   .single-page .goal-schema *::before, .single-page .goal-schema *::after {animation:none!important;transition:none!important;}
 }
 @media(max-width:1100px){
-  .single-page .motors-grid.mobile-carousel {display:grid;align-items:flex-start;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:100%;gap:var(--brand-s4);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;}
-  .single-page .motor-column {align-self:flex-start;scroll-snap-align:start;}
-  .single-page .motors-grid + .swipe-dots {display:flex;gap:var(--brand-s1);margin-top:var(--brand-s2);}
-  .single-page .motors-grid + .swipe-dots i {background:var(--line);}
-  .single-page .motors-grid + .swipe-dots i.on {background:var(--canard);}
+  /* One card per screen, swiped natively, like the other home carousels. */
+  .single-page .calc-grid.mobile-carousel {display:grid;align-items:flex-start;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:100%;gap:var(--brand-s4);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;}
+  .single-page .calc-card {scroll-snap-align:start;}
+  .single-page .calc-grid + .swipe-dots {display:flex;gap:var(--brand-s1);margin-top:var(--brand-s2);}
+  .single-page .calc-grid + .swipe-dots i {background:var(--line);}
+  .single-page .calc-grid + .swipe-dots i.on {background:var(--canard);}
 }
 @media(max-width:760px){
   .single-page.home-epure .hero {padding-block:var(--brand-s4);}
@@ -750,12 +750,19 @@
   .single-page .goal-select {font-size:var(--t-m);}
   .single-page .goal-schema {width:100%;max-width:520px;margin-inline:auto;}
   .single-page .goal-hero .btn {width:100%;}
-  .single-page .measure-grid {grid-template-columns:minmax(0,1fr);gap:0;margin-top:var(--brand-s2);}
-  .single-page .home-measure {display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:calc(var(--brand-s1) / 2);padding-block:calc(var(--brand-s1) / 2);}
-  .single-page .home-measure strong {grid-column:1;grid-row:1;font-size:34px;}
-  .single-page .home-measure time {grid-column:2;grid-row:1;}
-  .single-page .home-measure p {grid-column:1 / -1;}
-  .single-page .home-press {flex-direction:column;align-items:flex-start;margin-top:var(--brand-s1);padding-top:var(--brand-s1);gap:var(--brand-s2);}
+  .single-page .calc-fields {grid-template-columns:minmax(0,1fr);gap:var(--brand-s1);}
+  .single-page .calc-fields .calc-field {display:grid;grid-template-columns:minmax(0,1fr) 112px;align-items:center;gap:var(--brand-s2);}
+  .single-page .calc-result strong {font-size:var(--d-s);}
+  /* Un bloc = un écran à 390×700 : espacements verticaux resserrés, textes inchangés. */
+  .single-page .calc-card {padding-top:var(--brand-s2);}
+  .single-page .calc-fields {margin-top:var(--brand-s2);}
+  .single-page .calc-result {padding-top:var(--brand-s2);}
+  .single-page .calc-grid {margin-top:var(--brand-s2);}
+  .single-page .calc-footer {margin-top:var(--brand-s2);gap:var(--brand-s1);}
+  .single-page .home-calculator h2, .single-page .calc-footer .motors-principle {font-size:var(--t-l);}
+  .single-page .calc-footer .motors-principle {font-size:var(--t-m);}
+  .single-page :is(.calc-footer,.home-press) {flex-direction:column;align-items:flex-start;gap:var(--brand-s2);}
+  .single-page .calc-footer .btn {width:100%;}
   .single-page .assistant-links {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--brand-s2);}
 }
 /* Six logos sur une ligne à partir de 1100px : la largeur en ligne sert de
