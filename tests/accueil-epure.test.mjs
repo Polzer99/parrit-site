@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -17,7 +16,8 @@ for (const locale of ["fr", "en"]) {
     assert.equal(HOME_GOALS.length, 17);
     assert.equal(new Set(HOME_GOALS.map(goal => goal.id)).size, 17);
     assert.deepEqual(GOAL_PLANES.map(plane => plane.nodes.length), [16, 16, 16]);
-    assert.equal((html.match(/<option\b/g) ?? []).length, 17);
+    // 17 objectives in the hero, plus the three tasks of the calculator (15/11).
+    assert.equal((html.match(/<option\b/g) ?? []).length, 20);
     assert.equal((html.match(/<optgroup\b/g) ?? []).length, 3);
     assert.equal((html.match(/data-node=/g) ?? []).length, 48);
     // Every node keeps one label, shown or hidden: three active nodes and their three labels, counted apart.
@@ -25,8 +25,10 @@ for (const locale of ["fr", "en"]) {
     assert.equal((html.match(/class="goal-node-label"[^>]*\bdata-active="true"/g) ?? []).length, 3);
     assert.equal((html.match(/data-active="true"/g) ?? []).length, 6);
     assert.equal((html.match(/class="goal-node-label"/g) ?? []).length, 48);
-    assert.equal((html.match(/class="goal-flow"/g) ?? []).length, 9);
-    assert.equal((html.match(/class="home-measure"/g) ?? []).length, 3);
+    // Décision de Paul du 15/11/2026 : calculateur à la place des moteurs et des trois mesures internes.
+    assert.equal((html.match(/class="goal-flow"/g) ?? []).length, 0);
+    assert.equal((html.match(/class="home-measure"/g) ?? []).length, 0);
+    assert.equal((html.match(/class="calc-card"/g) ?? []).length, 2);
     assert.equal((html.match(/target="_blank" rel="noopener"/g) ?? []).length, 4);
     for (const goal of HOME_GOALS) {
       assert.ok(html.includes(escape(goal.label[locale])));
@@ -72,17 +74,22 @@ for (const locale of ["fr", "en"]) {
       assert.equal(calendars.at(-1).bookingParams["metadata[source]"], `accueil-${goal.id}`);
     }
   });
-  test(`motor GET destinations clear stale attribution ${locale}`, () => {
-    const html = render("source=accueil-agents&utm_source=kept");
-    const links = [...html.matchAll(/class="goal-flow"[^>]*data-goal="([^"]+)" href="([^"]+)"/g)];
-    assert.equal(links.length, 9);
-    for (const [, id, href] of links) {
-      const url = new URL(href.replaceAll("&amp;", "&"), "https://parrit.ai");
-      assert.equal(url.searchParams.get("objectif"), id);
-      assert.equal(url.searchParams.has("source"), false);
-      assert.equal(url.searchParams.get("utm_source"), "kept");
-      assert.ok(render(url.search.slice(1)).includes(`value="${id}" selected=""`));
-    }
+  test(`calculator ${locale}: SSR defaults, attributed booking, no promise`, () => {
+    const html = render("utm_source=kept");
+    const section = html.match(/<section[^>]*id="(?:en-production|in-production)"[\s\S]*?<\/section>/)[0];
+    const fr = locale === "fr";
+    const s = "[\\s\\u00a0\\u202f]";
+    assert.match(section, fr ? new RegExp(`9${s}000${s}€`) : /€9,000/, "growth default: 20 × 15 % × 3 000");
+    assert.ok(section.includes(">17 h<"), "time default: 40 × 6 min × 52 / 12 / 60");
+    assert.match(section, fr ? new RegExp(`680${s}€`) : /€680/, "17 h × 40 €/h");
+    assert.equal((section.match(/<label\b/g) ?? []).length, 7);
+    assert.equal((section.match(/aria-live="polite"/g) ?? []).length, 2);
+    assert.doesNotMatch(section, /gagnerez|économis|you will save|\bsave up to\b|[−-]\s?\d+\s?%/i);
+    const href = section.match(/<a class="btn rev-button exec" href="([^"]+)"/)[1].replaceAll("&amp;", "&");
+    const url = new URL(href, "https://parrit.ai");
+    assert.equal(url.searchParams.get("source"), "accueil-calculateur");
+    assert.equal(url.searchParams.get("utm_source"), "kept");
+    assert.equal(url.hash, "#contact");
   });
   test(`assistant prompts ${locale} contain no visitor data and safe new-tab attributes`, () => {
     const html = render("objectif=contrats&utm_source=private&email=secret%40example.invalid");
@@ -102,25 +109,21 @@ for (const locale of ["fr", "en"]) {
   });
 }
 
-test("measure values and dates have primary evidence in the prescribed French article", () => {
-  const load = loader("fr");
-  const { HOME_MEASURES } = load("src/system/components/HomeEvidence.tsx");
-  const numbers = text => (text.match(/\d+(?:[ ,\u00a0\u202f]\d{3})*(?:[.,]\d+)?/g) ?? [])
-    .map(number => number.replace(/[ ,\u00a0\u202f]/g, ""));
-  for (const measure of HOME_MEASURES) {
-    const article = readFileSync(`content/journal/fr/${measure.slug}.mdx`, "utf8");
-    assert.ok(typeof measure.evidence === "string" && measure.evidence.trim().length > 0);
-    assert.ok(article.includes(measure.evidence), `${measure.slug}: evidence must occur verbatim`);
-    const evidenceNumbers = numbers(measure.evidence);
-    for (const locale of ["fr", "en"]) {
-      const displayedNumbers = numbers(measure.value[locale]);
-      assert.ok(displayedNumbers.length > 0);
-      for (const number of displayedNumbers) {
-        assert.ok(evidenceNumbers.includes(number), `${measure.slug}/${locale}: ${number} must occur in evidence`);
-      }
-    }
-    assert.ok(article.includes(`date: "${measure.date}"`));
+test("calculator arithmetic: defaults, rounding and invalid input fall back to zero", () => {
+  const { quotesAtStake, taskCost, inputNumber, TIME_TASKS, QUOTE_DEFAULTS, HOURLY_COST_DEFAULT } = loader("fr")("src/system/home-calculator.ts");
+  assert.equal(quotesAtStake(QUOTE_DEFAULTS.quotes, QUOTE_DEFAULTS.signedShare, QUOTE_DEFAULTS.amount), 9000);
+  assert.deepEqual(taskCost(TIME_TASKS[0].perWeek, TIME_TASKS[0].minutes, HOURLY_COST_DEFAULT), { hours: 17, cost: 680 });
+  assert.deepEqual(taskCost(TIME_TASKS[1].perWeek, TIME_TASKS[1].minutes, HOURLY_COST_DEFAULT), { hours: 7, cost: 280 });
+  assert.deepEqual(taskCost(TIME_TASKS[2].perWeek, TIME_TASKS[2].minutes, HOURLY_COST_DEFAULT), { hours: 11, cost: 440 });
+  for (const bad of ["", "-3", "abc", "Infinity", null, undefined, Number.NaN]) assert.equal(inputNumber(bad), 0);
+  assert.equal(inputNumber("2,5"), 2.5);
+  assert.equal(quotesAtStake(10, 250, 100), 1000, "share is capped at 100 %");
+  assert.deepEqual(taskCost("", "6", "40"), { hours: 0, cost: 0 });
+});
+
+test("the three internal measures stay off the home page (15/11)", () => {
+  for (const locale of ["fr", "en"]) {
+    const html = renderToStaticMarkup(React.createElement(loader(locale)("src/system/components/SinglePage.tsx").SinglePage, { locale, contactQuery: "" }));
+    assert.doesNotMatch(html, /29 (?:\u00e0|to) 54|16 (?:sur|of) 34|1[ ,\u00a0\u202f]355|Ce que nous avons mesur\u00e9|What we measured/);
   }
-  assert.doesNotMatch(readFileSync("content/journal/fr/computer-use-what-it-can-undo.mdx", "utf8"), /97\s*%/);
-  assert.equal(HOME_MEASURES.some(item => item.slug === "computer-use-what-it-can-undo"), false);
 });

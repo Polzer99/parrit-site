@@ -65,6 +65,13 @@ for (const locale of ["en", "fr"]) {
         // tools (e.g. free libraries); themes are public pages, never articles.
         if (!article) expect(publicCopy).not.toMatch(noOffer);
         for (const pattern of patterns) expect(withoutStatuses(metadata)).not.toMatch(pattern);
+        // Décision de Paul du 15/11/2026 : the home calculator shows the visitor's own
+        // figures (editable examples), never a Parrit price; only that section is exempt.
+        if (!route) {
+          const calculator = page.locator(".home-calculator");
+          await expect(calculator.locator(".calc-card")).toHaveCount(2);
+          for (const text of await calculator.locator(".calc-card, .calc-note").allInnerTexts()) publicCopy = publicCopy.replace(text, "");
+        }
         if (route !== "/legal" && !article) expect(publicCopy).not.toContain("€");
         if (route !== "/legal" && route !== "") {
           expect(publicCopy).not.toMatch(/\bPaul\b|Larmaraud|fondat(eur|rice)|fondée par|founder|founded by|quinze minutes|fifteen minutes/i);

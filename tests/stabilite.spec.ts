@@ -117,7 +117,8 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
         target.min = Math.min(target.min, value);
         target.max = Math.max(target.max, value);
       };
-      const targetSelector = "main > section, .goal-results, .goal-schema, .motor-column, .home-measure, .partner, .cal-embed-stage";
+      // 15/11 : calculateur, les cartes du calculateur et le bloc presse remplacent moteurs et mesures.
+      const targetSelector = "main > section, .goal-results, .goal-schema, .calc-card, .home-press, .partner, .cal-embed-stage";
       const targets = Array.from(document.querySelectorAll<HTMLElement>(targetSelector));
       const keys = targets.map((node, i) => `${i}:${node.id || node.classList.item(0)}`);
       const state: Stability = window.pageStability = {
