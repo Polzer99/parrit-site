@@ -916,7 +916,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
 for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
   test.describe(`reference logos inside the strip ${locale} JS=${javaScriptEnabled}`, () => {
     test.use({ javaScriptEnabled });
-    for (const [width, height] of [[1440, 800], [1280, 720]]) {
+    for (const [width, height] of [[1440, 800], [1280, 720], [1100, 800]]) {
       test(`all logos fit inside the strip at ${width}×${height}`, async ({ page }) => {
         await page.setViewportSize({ width, height });
         await page.emulateMedia({ reducedMotion: "reduce" });
@@ -937,10 +937,13 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
           };
         });
         expect(geometry.width).toBeLessThanOrEqual(1060);
-        // Décision de Paul du 08/11/2026, nuit : deux rangées autorisées.
-        const rowTops: number[] = [];
-        for (const logo of geometry.logos) if (!rowTops.some(top => Math.abs(top - logo.top) <= 1)) rowTops.push(logo.top);
-        expect(rowTops.length).toBeLessThanOrEqual(2);
+        // Décision de Paul du 13/11/2026 : une seule ligne en desktop.
+        // Les boîtes sont centrées verticalement : on compare les centres.
+        const centers = geometry.logos.map(logo => (logo.top + logo.bottom) / 2);
+        for (const center of centers) expect(Math.abs(center - centers[0])).toBeLessThanOrEqual(2);
+        const ordered = [...geometry.logos].sort((a, b) => a.left - b.left);
+        for (let i = 1; i < ordered.length; i++) expect(ordered[i].left - ordered[i - 1].right).toBeGreaterThanOrEqual(24 - 0.5);
+        for (const logo of geometry.logos) expect(logo.width).toBeGreaterThanOrEqual(60);
         for (const logo of geometry.logos) {
           expect(logo.width).toBeGreaterThan(0);
           expect(logo.height).toBeGreaterThan(0);
