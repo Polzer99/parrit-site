@@ -81,7 +81,7 @@ for (const locale of ["fr", "en"]) {
     const s = "[\\s\\u00a0\\u202f]";
     assert.match(section, fr ? new RegExp(`9${s}000${s}€`) : /€9,000/, "growth default: 20 × 15 % × 3 000");
     assert.ok(section.includes(">17 h<"), "time default: 40 × 6 min × 52 / 12 / 60");
-    assert.match(section, fr ? new RegExp(`693${s}€`) : /€693/, "17,33 h × 40 €/h");
+    assert.match(section, fr ? new RegExp(`680${s}€`) : /€680/, "17 h × 40 €/h, computed on the displayed hours");
     assert.equal((section.match(/<label\b/g) ?? []).length, 7);
     assert.equal((section.match(/aria-live="polite"/g) ?? []).length, 2);
     assert.doesNotMatch(section, /gagnerez|économis|you will save|\bsave up to\b|[−-]\s?\d+\s?%/i);
@@ -112,18 +112,18 @@ for (const locale of ["fr", "en"]) {
 test("calculator arithmetic: defaults, rounding and invalid input fall back to zero", () => {
   const { quotesAtStake, taskCost, inputNumber, formatHours, formatEuros, TIME_TASKS, QUOTE_DEFAULTS, HOURLY_COST_DEFAULT } = loader("fr")("src/system/home-calculator.ts");
   assert.equal(quotesAtStake(QUOTE_DEFAULTS.quotes, QUOTE_DEFAULTS.signedShare, QUOTE_DEFAULTS.amount), 9000);
-  // Cost on the exact hours (17,33 h × 40 €), hours shown to the hour.
-  assert.deepEqual(taskCost(TIME_TASKS[0].perWeek, TIME_TASKS[0].minutes, HOURLY_COST_DEFAULT), { hours: 17, cost: 693 });
-  assert.deepEqual(taskCost(TIME_TASKS[1].perWeek, TIME_TASKS[1].minutes, HOURLY_COST_DEFAULT), { hours: 7, cost: 289 });
-  assert.deepEqual(taskCost(TIME_TASKS[2].perWeek, TIME_TASKS[2].minutes, HOURLY_COST_DEFAULT), { hours: 11, cost: 433 });
-  // A small real task never reads « 0 h, 0 € ».
-  assert.deepEqual(taskCost(1, 5, 40), { hours: 0.4, cost: 14 });
+  // Cost on the displayed hours: the visitor can check the math (17 h × 40 € = 680 €).
+  assert.deepEqual(taskCost(TIME_TASKS[0].perWeek, TIME_TASKS[0].minutes, HOURLY_COST_DEFAULT), { hours: 17, cost: 680 });
+  assert.deepEqual(taskCost(TIME_TASKS[1].perWeek, TIME_TASKS[1].minutes, HOURLY_COST_DEFAULT), { hours: 7, cost: 280 });
+  assert.deepEqual(taskCost(TIME_TASKS[2].perWeek, TIME_TASKS[2].minutes, HOURLY_COST_DEFAULT), { hours: 11, cost: 440 });
+  // A small real task never reads « 0 h, 0 € » : one decimal under one hour (0,36 h → 0,4 h × 40 € = 16 €).
+  assert.deepEqual(taskCost(1, 5, 40), { hours: 0.4, cost: 16 });
   assert.equal(formatHours(0.4, "fr"), "0,4 h");
   assert.equal(formatHours(17, "en"), "17 h");
   for (const bad of ["", "-3", "abc", "Infinity", null, undefined, Number.NaN]) assert.equal(inputNumber(bad), 0);
   assert.equal(inputNumber("2,5"), 2.5);
-  assert.equal(inputNumber("3 000"), 3000);
-  assert.equal(inputNumber("3 000"), 3000);
+  // Thousands separators: plain space, no-break space (U+00A0), narrow no-break space (U+202F).
+  for (const space of [" ", String.fromCharCode(0xa0), String.fromCharCode(0x202f)]) assert.equal(inputNumber(`3${space}000`), 3000);
   assert.match(formatEuros(1234567, "fr"), /^1[\s  ]234[\s  ]567[\s  ]€$/);
   assert.equal(formatEuros(1234567, "en"), "€1,234,567");
   assert.equal(quotesAtStake(10, 250, 100), 1000, "share is capped at 100 %");

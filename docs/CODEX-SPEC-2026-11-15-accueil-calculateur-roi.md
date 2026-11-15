@@ -45,7 +45,7 @@
 - **« L'assistant prépare. Vous validez. »**: kept under the calculator. The human-approval checks (Paul's decision of 08/11) require it on the home page; « Vos chiffres, votre calcul. » moves under the title.
 - **First task**: « Saisie des commandes » / « Order entry ». The long label overflowed the field at 390 px.
 - **Mobile**: two cards in a native carousel (one card per screen) rather than stacked, for the « one block = one screen » and « five carousels » checks. Each field on one line (label then field).
-- **Calculation**: cost on the exact hours (17,33 h × 40 € ≈ 693 €). Hours to the hour, one decimal below one hour (« 0,4 h » rather than « 0 h »). Thousands spaces are read (« 3 000 »).
+- **Calculation**: cost on the displayed hours, so a visitor who checks finds the result (17 h × 40 € = 680 €; 0,4 h × 40 € = 16 €). Hours to the hour, one decimal below one hour (« 0,4 h » rather than « 0 h »). Thousands spaces are read (« 3 000 »).
 - **« € » exemption**: written in the tests (`langue-metier.test.mjs`, `brand-os-render.test.mjs`, `anti-slop-copy.spec.ts`), limited to the calculator section, rather than in `qa:claims`, which did not block. To narrow later to the figures alone if text is added to the cards.
 - **Press**: the « Le Monde Informatique » line becomes the section title (`h2`) of the compact block.
 - **`flow` of the 17 objectives**: no longer read anywhere (the hero does not use them). Kept in the data for now; to delete in a later pass if no section uses them again.

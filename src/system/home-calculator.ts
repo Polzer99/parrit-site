@@ -26,11 +26,14 @@ export function quotesAtStake(quotes: unknown, signedShare: unknown, amount: unk
   return Math.round(inputNumber(quotes) * Math.min(inputNumber(signedShare), 100) / 100 * inputNumber(amount));
 }
 
-/** Hours per month spent on a task (to the hour, one decimal under one hour) and their cost on the exact hours. */
+/**
+ * Hours per month spent on a task (to the hour, one decimal under one hour) and their cost.
+ * The cost is computed on the displayed hours, so a visitor who checks the math finds it (17 h × 40 € = 680 €).
+ */
 export function taskCost(perWeek: unknown, minutes: unknown, hourlyCost: unknown): { hours: number; cost: number } {
   const exact = inputNumber(perWeek) * inputNumber(minutes) * 52 / 12 / 60;
   const hours = exact >= 1 ? Math.round(exact) : Math.round(exact * 10) / 10;
-  return { hours, cost: Math.round(exact * inputNumber(hourlyCost)) };
+  return { hours, cost: Math.round(hours * inputNumber(hourlyCost)) };
 }
 
 export function formatHours(hours: number, locale: Locale): string {
