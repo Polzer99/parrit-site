@@ -1,8 +1,9 @@
-## Une équipe, décision de Paul des 13 et 14/11/2026
+## Une équipe, décisions de Paul des 13, 14 et 15/11/2026
 
 Le site ne présente jamais un fondateur qui fait tout. Section partenaires :
-« Parrit.ai, c'est une équipe. » ouvre le texte ; aucune mention d'un
-interlocuteur unique. Bloc contact : date de création, premier échange avec le
+l'équipe se montre par ce qu'elle livre et ne s'annonce jamais (Paul, 15/11 :
+la phrase « Parrit.ai, c'est une équipe » est retirée, aucune phrase ne dit ce
+que nous sommes) ; aucune mention d'un interlocuteur unique. Bloc contact : date de création, premier échange avec le
 fondateur, puis travail avec l'équipe adaptée au projet (prise en main de
 l'IA, développement sur mesure, expertise métier, recherche ; le mot
 « formation » reste hors de l'accueil). Aucune liste de ce que le fondateur

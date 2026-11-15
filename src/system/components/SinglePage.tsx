@@ -74,7 +74,7 @@ technologies: (
 team: (
 <section id={fr ? "partenaires" : "team"}><RevealOnView className="wrap">
   <h2>{headings.team[0]}{" "}<b>{headings.team[1]}</b></h2>
-  <p className="muted team-intro">{t("Parrit.ai, c'est une équipe. Plus de vingt partenaires, et pour chaque projet ceux dont vous avez besoin.")}</p>
+  <p className="muted team-intro">{t("Chaque projet réunit, parmi plus de vingt partenaires, ceux dont il a besoin.")}</p>
   <ServiceGrid offers={PARTNER_OFFERS.map(offers => offers.map(t))} deliveryLabel={t("Avec eux, nous livrons")} label={fr ? "Partenaires et livrables" : "Partners and deliverables"} items={[[t("Ingénieurs IA"), t("Plus de dix, chacun sa spécialité : documents, assistants, connexion à vos logiciels.")], [t("Automatisation et assistants"), t("Des développeurs et des studios : assistants écrits, vocaux et vidéo.")], [t("Transformation et projet"), t("Conduite du changement et pilotage de projet.")], [t("Marque et marketing"), t("Image de marque, contenus et vente.")], [t("Prise en main"), t("Une quinzaine d'intervenants et un organisme certifié.")], [t("Conseil et qualité"), t("Des cabinets partenaires et des relecteurs de nos livrables.")], [t("Chercheurs du MIT"), t("Des chercheurs du MIT dans notre réseau, pour vos déploiements d'assistants les plus exigeants.")]]} />
   <p className="teamcap"><i aria-hidden="true"/>{t("Une équipe composée pour chaque diagnostic, et ce qu'elle livre")}</p>
 <ResearchPartner/>
