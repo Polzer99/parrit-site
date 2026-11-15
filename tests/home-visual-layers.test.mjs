@@ -14,27 +14,27 @@ const section = (html, id) => {
   return value;
 };
 
-test("six reference logos fit at most two rows in the 1060px desktop budget", () => {
+test("six reference logos share one row from 1100px, none under 60px", () => {
   const { ClientLogoStrip } = loader("fr")("src/system/components/PublicEvidence.tsx");
   const html = renderToStaticMarkup(createElement(ClientLogoStrip));
   const primary = html.split('<div class="logo-set" aria-hidden="true">')[0];
   const widths = [...primary.matchAll(/class="client-logo" style="width:([\d.]+)px;/g)].map(m => Number(m[1]));
   assert.equal(widths.length, 6);
-  // Budget the unwrapped SSR widths, not the container clamped to 1080px.
-  // The browser suite also verifies one row and containment in the strip.
   const css = readFileSync("src/system/single-page.css", "utf8");
   const gapToken = css.match(/\.single-page \.logo-strip \{--logo-gap:var\((--brand-s\d+)\)/)[1];
   const tokens = readFileSync("src/system/brand-os.tokens.css", "utf8");
   const gap = Number(tokens.match(new RegExp(`${gapToken}:(\\d+)px`))[1]);
-  // Décision de Paul du 08/11/2026, nuit permits two rows, same 1060px bound.
-  let rows = 1, rowWidth = 0;
-  for (const width of widths) {
-    assert.ok(width <= 1060);
-    if (rowWidth && rowWidth + gap + width > 1060) { rows++; rowWidth = width; }
-    else rowWidth += (rowWidth ? gap : 0) + width;
-  }
-  assert.ok(rows <= 2);
-
+  // Décision de Paul du 13/11/2026 : une seule ligne en desktop. Les logos
+  // rétrécissent à proportion de leur largeur SSR, l'écart reste fixe.
+  assert.match(
+    css.replace(/\s+/g, ""),
+    /@media\(min-width:1100px\)\{\.single-page\.logo-set\{flex-wrap:nowrap;\}\.single-page\.client-logo\{flex-shrink:1;min-width:0;\}\}/,
+  );
+  const total = widths.reduce((sum, width) => sum + width, 0);
+  // Cas le plus serré : 1100px de large, 40px de marge de chaque côté.
+  const strip = Math.min(1060, 1100 - 80);
+  const k = Math.min(1, (strip - (widths.length - 1) * gap) / total);
+  assert.ok(Math.min(...widths) * k >= 60, `smallest logo ${Math.min(...widths) * k}px`);
 });
 
 test("only the twelve selected photo exports are shipped, with traced source hashes", () => {

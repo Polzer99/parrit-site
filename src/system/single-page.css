@@ -212,7 +212,7 @@
 .single-page .teamcap {display:flex;gap:8px;align-items:center;margin-top:20px;font-size:var(--t-s);color:var(--ink2);}
 .single-page .teamcap i {width:14px;height:14px;border:2px solid var(--canard);flex-shrink:0;}
 
-/* Décision de Paul du 08/11/2026, nuit : six logos, two desktop rows, 1060px. */
+/* Décision de Paul du 13/11/2026 : six logos sur une ligne en desktop, réduits à proportion (remplace la décision du 08/11). */
 .single-page .logo-strip {--logo-gap:var(--brand-s3);max-width:1060px;margin:56px auto 0;}
 .single-page .logo-track {display:flex;width:max-content;gap:var(--logo-gap);}
 .single-page .logo-set {display:flex;align-items:stretch;gap:var(--logo-gap);flex-shrink:0;}
@@ -757,4 +757,10 @@
   .single-page .home-measure p {grid-column:1 / -1;}
   .single-page .home-press {flex-direction:column;align-items:flex-start;margin-top:var(--brand-s1);padding-top:var(--brand-s1);gap:var(--brand-s2);}
   .single-page .assistant-links {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--brand-s2);}
+}
+/* Six logos sur une ligne à partir de 1100px : la largeur en ligne sert de
+   flex-basis, donc tous rétrécissent à proportion et l'écart reste fixe. */
+@media (min-width:1100px){
+  .single-page .logo-set {flex-wrap:nowrap;}
+  .single-page .client-logo {flex-shrink:1;min-width:0;}
 }
