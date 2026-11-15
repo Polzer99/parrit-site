@@ -152,7 +152,7 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "Elle prépare un projet de contrat à relire.": "It drafts a contract for review.",
   "Chaque projet a son équipe": "Every project gets its own team",
   "et sa technologie.": "and its own technology.",
-  "Parrit.ai, c'est une équipe. Plus de vingt partenaires, et pour chaque projet ceux dont vous avez besoin.": "Parrit.ai is a team. More than twenty partners, and for each project the ones you need.",
+  "Chaque projet réunit, parmi plus de vingt partenaires, ceux dont il a besoin.": "For each project, we bring together the partners it needs, from a network of more than twenty.",
   "Ingénieurs IA": "AI engineers",
   "Plus de dix, chacun sa spécialité : documents, assistants, connexion à vos logiciels.": "More than ten, each with a specialty: documents, assistants, connecting to your software.",
   "Automatisation et assistants": "Automation and assistants",
