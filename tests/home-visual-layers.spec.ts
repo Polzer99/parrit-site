@@ -76,8 +76,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           }
         }
         if (width <= 760) {
-          // 15/11 : calculateur, la grille des moteurs n'est plus un carrousel, les cartes s'empilent.
-          for (const track of await page.locator(".home-offers,.session-mosaic").all()) {
+          // 15/11 : calculateur, deux cartes en carrousel natif sous 1100 px, comme les autres pistes.
+          for (const track of await page.locator(".home-offers,.session-mosaic,.calc-grid").all()) {
             // Native Home can still scroll the document with JS disabled.
             // Compare all rectangles in one frame, with the same strict threshold.
             const geometry = await track.evaluate(el => ({

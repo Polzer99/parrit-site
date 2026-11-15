@@ -660,7 +660,7 @@ for (const locale of ["fr", "en"]) test(`calculator updates its results ${locale
   const timeResult = time.locator('[data-calc-result="temps"]');
   await expect(growthResult).toHaveText(locale === "fr" ? /^9\s000\s€$/ : "€9,000");
   await expect(timeResult).toHaveText("17 h");
-  await expect(time.locator(".calc-result")).toContainText(locale === "fr" ? /soit environ 680\s€\./ : "about €680.");
+  await expect(time.locator(".calc-result")).toContainText(locale === "fr" ? /soit environ 693\s€\./ : "about €693.");
   await growth.locator(".calc-field input").first().fill("40");
   await expect(growthResult).toHaveText(locale === "fr" ? /^18\s000\s€$/ : "€18,000");
   await growth.locator(".calc-field input").first().fill("");

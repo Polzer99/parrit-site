@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import { localizedPath, type Locale } from "@/system/locale";
 import { GOAL_GROUPS, GOAL_PLANES, HOME_GOALS, goalNodeLabel, homeGoal, type HomeGoal } from "@/system/home-goals";
-import { CALCULATOR_COPY, HOURLY_COST_DEFAULT, QUOTE_DEFAULTS, TIME_TASKS, formatEuros, quotesAtStake, taskCost } from "@/system/home-calculator";
+import { CALCULATOR_COPY, HOURLY_COST_DEFAULT, QUOTE_DEFAULTS, TIME_TASKS, formatEuros, formatHours, quotesAtStake, taskCost } from "@/system/home-calculator";
 import { homeSectionHeadings } from "@/system/home-layers";
 import { avecSource } from "@/lib/registry/cta";
 import { bookingParameters, type BookingSearchParams } from "@/system/booking";
@@ -145,7 +145,7 @@ export function GoalMotors({ locale }: { locale: Locale }) {
           <CalculatorField id={`calc-minutes-${locale}`} label={copy.minutes} value={minutes} onChange={setMinutes}/>
           <CalculatorField id={`calc-taux-${locale}`} label={copy.hourlyCost} value={rate} onChange={setRate}/>
         </div>
-        <p className="calc-result" aria-live="polite"><strong data-calc-result="temps">{`${time.hours} h`}</strong> <span>{copy.timeResult(formatEuros(time.cost, locale))}</span></p>
+        <p className="calc-result" aria-live="polite"><strong data-calc-result="temps">{formatHours(time.hours, locale)}</strong> <span>{copy.timeResult(formatEuros(time.cost, locale))}</span></p>
       </div>
     </MobileCarousel>
     <div className="calc-footer"><p className="motors-principle">{locale === "fr" ? "L'assistant prépare. Vous validez." : "The assistant prepares. You approve."}</p>

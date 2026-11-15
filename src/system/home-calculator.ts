@@ -15,9 +15,9 @@ export const TIME_TASKS = [
   { id: "comptes-rendus", label: { fr: "Comptes rendus de réunion", en: "Meeting notes" }, perWeek: 5, minutes: 30 },
 ] as const satisfies readonly { id: string; label: Text; perWeek: number; minutes: number }[];
 
-/** Empty, negative or non-numeric input counts as zero. */
+/** Empty, negative or non-numeric input counts as zero. Thousands spaces (« 3 000 ») are read. */
 export function inputNumber(value: unknown): number {
-  const n = typeof value === "number" ? value : Number(String(value ?? "").replace(",", ".").trim() || 0);
+  const n = typeof value === "number" ? value : Number(String(value ?? "").replace(/[\s  ]/g, "").replace(",", ".") || 0);
   return Number.isFinite(n) && n > 0 ? n : 0;
 }
 
@@ -26,10 +26,15 @@ export function quotesAtStake(quotes: unknown, signedShare: unknown, amount: unk
   return Math.round(inputNumber(quotes) * Math.min(inputNumber(signedShare), 100) / 100 * inputNumber(amount));
 }
 
-/** Hours per month spent on a task, rounded to the hour, and their cost at that rounding. */
+/** Hours per month spent on a task (to the hour, one decimal under one hour) and their cost on the exact hours. */
 export function taskCost(perWeek: unknown, minutes: unknown, hourlyCost: unknown): { hours: number; cost: number } {
-  const hours = Math.round(inputNumber(perWeek) * inputNumber(minutes) * 52 / 12 / 60);
-  return { hours, cost: Math.round(hours * inputNumber(hourlyCost)) };
+  const exact = inputNumber(perWeek) * inputNumber(minutes) * 52 / 12 / 60;
+  const hours = exact >= 1 ? Math.round(exact) : Math.round(exact * 10) / 10;
+  return { hours, cost: Math.round(exact * inputNumber(hourlyCost)) };
+}
+
+export function formatHours(hours: number, locale: Locale): string {
+  return `${new Intl.NumberFormat(locale === "fr" ? "fr-FR" : "en-GB", { maximumFractionDigits: 1 }).format(hours)} h`;
 }
 
 export function formatEuros(value: number, locale: Locale): string {
@@ -38,7 +43,6 @@ export function formatEuros(value: number, locale: Locale): string {
 
 export const CALCULATOR_COPY = {
   fr: {
-    title: "Ce que ces tâches vous coûtent aujourd'hui.",
     growth: "Faire grandir l'activité.", growthProcess: "Devis restés sans relance",
     quotes: "Devis sans relance par mois", signedShare: "Part signée après relance (%)", amount: "Montant moyen d'un devis (€)",
     growthResult: "de devis par mois se jouent sur la relance.",
@@ -47,7 +51,6 @@ export const CALCULATOR_COPY = {
     note: "Vos chiffres, votre calcul.",
   },
   en: {
-    title: "What these tasks cost you today.",
     growth: "Grow the business.", growthProcess: "Quotes left without follow-up",
     quotes: "Quotes without follow-up per month", signedShare: "Share signed after follow-up (%)", amount: "Average quote amount (€)",
     growthResult: "in quotes a month hinge on the follow-up.",
