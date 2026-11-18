@@ -6,11 +6,18 @@ on:
       - main
   pull_request:
 
+# Les minutes de GitHub sont facturées (quota épuisé le 16/11) : un nouveau push sur une PR annule le contrôle devenu obsolète.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   ci:
     name: lint and build
     # Ubuntu 24.04 : Playwright ne prend pas en charge Chromium sur Ubuntu 26.04 (ubuntu-latest).
     runs-on: ubuntu-24.04
+    # Un passage normal dure environ 20 minutes ; sans plafond, un job bloqué tourne six heures.
+    timeout-minutes: 35
     env:
       NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
     steps:
@@ -60,7 +67,8 @@ jobs:
       - name: REV 01 network-deny Playwright gate
         env:
           QA_BASE_URL: http://127.0.0.1:3210
-        run: npm run qa:network:rev01
+        # Un worker par processeur au lieu de la moitié : la porte réseau prenait 17 minutes sur 20.
+        run: npm run qa:network:rev01 -- --workers=100%
 
       - name: REV 01 brand conformity gate
         run: npm run qa:brand:rev01
