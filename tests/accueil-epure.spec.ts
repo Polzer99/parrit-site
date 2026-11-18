@@ -166,6 +166,21 @@ for (const locale of ["fr", "en"] as const) {
     const grid = await box(".calc-grid");
     expect(grid.height - Math.max(growth.height, time.height)).toBeLessThanOrEqual(1);
   });
+  // 18/11 : le chiffre se repose à chaque calcul, sauf si le visiteur réduit les animations.
+  for (const motion of ["no-preference", "reduce"] as const) test(`calculator result replays its tick (${motion}) ${locale}`, async ({ page }) => {
+    await offlineCalendar(page);
+    await page.emulateMedia({ reducedMotion: motion });
+    await page.goto(local(home));
+    const result = page.locator('[data-calc-result="croissance"]');
+    await expect(result).toHaveCSS("animation-name", motion === "reduce" ? "none" : "calc-tick");
+    await result.evaluate(el => el.setAttribute("data-old", ""));
+    await page.locator('.calc-card[data-calculator="croissance"] .calc-field input').first().fill("40");
+    await expect(result).not.toHaveAttribute("data-old");
+    const unchanged = page.locator('[data-calc-result="temps"]');
+    await unchanged.evaluate(el => el.setAttribute("data-old", ""));
+    await page.locator('.calc-card[data-calculator="croissance"] .calc-field input').first().fill("41");
+    await expect(unchanged).toHaveAttribute("data-old", "");
+  });
   test(`calendar snapshots goal at lazy load and preserves nodes until reload ${locale}`, async ({ page }) => {
     const calendar = await offlineCalendar(page);
     await page.emulateMedia({ reducedMotion: "reduce" });
