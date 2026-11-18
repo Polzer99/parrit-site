@@ -135,11 +135,12 @@ export function GoalMotors({ locale }: { locale: Locale }) {
       </div>
       <div className="calc-card" data-calculator="temps">
         <h3>{copy.time}</h3>
-        <label className="calc-field calc-task" htmlFor={`calc-tache-${locale}`}><span>{copy.task}</span>
-          <select id={`calc-tache-${locale}`} value={taskId} onChange={event => chooseTask(event.target.value)}>
+        {/* 18/11 : le menu fait face au sous-titre de l'autre carte ; son nom accessible reste « Tâche ». */}
+        <div className="calc-field calc-task">
+          <select id={`calc-tache-${locale}`} aria-label={copy.task} value={taskId} onChange={event => chooseTask(event.target.value)}>
             {TIME_TASKS.map(task => <option key={task.id} value={task.id}>{task.label[locale]}</option>)}
           </select>
-        </label>
+        </div>
         <div className="calc-fields">
           <CalculatorField id={`calc-volume-${locale}`} label={copy.perWeek} value={perWeek} onChange={setPerWeek}/>
           <CalculatorField id={`calc-minutes-${locale}`} label={copy.minutes} value={minutes} onChange={setMinutes}/>

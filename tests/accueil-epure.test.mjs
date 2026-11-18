@@ -82,7 +82,12 @@ for (const locale of ["fr", "en"]) {
     assert.match(section, fr ? new RegExp(`9${s}000${s}€`) : /€9,000/, "growth default: 20 × 15 % × 3 000");
     assert.ok(section.includes(">17 h<"), "time default: 40 × 6 min × 52 / 12 / 60");
     assert.match(section, fr ? new RegExp(`680${s}€`) : /€680/, "17 h × 40 €/h, computed on the displayed hours");
-    assert.equal((section.match(/<label\b/g) ?? []).length, 7);
+    // 18/11 : six champs dans un <label>, le menu des tâches nommé par aria-label ; sept champs, tous nommés.
+    const controls = section.match(/<(?:input|select)\b[^>]*>/g) ?? [];
+    assert.equal(controls.length, 7);
+    assert.equal((section.match(/<label\b/g) ?? []).length, 6);
+    assert.equal(controls.filter(control => /aria-label="[^"]+"/.test(control)).length, 1);
+    assert.match(section, fr ? /<select[^>]*aria-label="Tâche"/ : /<select[^>]*aria-label="Task"/);
     assert.equal((section.match(/aria-live="polite"/g) ?? []).length, 2);
     assert.doesNotMatch(section, /gagnerez|économis|you will save|\bsave up to\b|[−-]\s?\d+\s?%/i);
     const href = section.match(/<a class="btn rev-button exec" href="([^"]+)"/)[1].replaceAll("&amp;", "&");

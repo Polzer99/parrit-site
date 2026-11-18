@@ -115,11 +115,13 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           const notes = [...html.matchAll(/<p class="contact-expectation">([\s\S]*?)<\/p>/g)];
           assert.equal(notes.length, 1);
           assert.equal(visibleText(notes[0][1]), contactExpectation[locale]);
-          // Décision de Paul du 15/11/2026 : the calculator shows the visitor's own figures
-          // (editable examples), never a Parrit price; it alone is exempt from the € check.
-          const calculator = html.match(/<section[^>]*id="(?:en-production|in-production)"[\s\S]*?<\/section>/)?.[0];
-          assert.ok(calculator && /class="calc-card"/.test(calculator), `${label}: calculator present`);
-          offerText = visibleText(html.replace(notes[0][0], "").replace(calculator, ""));
+          // Décision de Paul du 15/11/2026, resserrée le 18/11 : only the two calculator results
+          // and the two field labels marked « (€) » (the visitor's own figures, never a Parrit price).
+          const results = html.match(/<p class="calc-result"[^>]*>[\s\S]*?<\/p>/g) ?? [];
+          assert.equal(results.length, 2, `${label}: calculator results present`);
+          const euroLabels = html.match(/<span>[^<]*\(€\)<\/span>/g) ?? [];
+          assert.equal(euroLabels.length, 2, `${label}: two € field labels`);
+          offerText = visibleText([...results, ...euroLabels].reduce((page, part) => page.replace(part, ""), html.replace(notes[0][0], "")));
         }
         let publicCopy = `${offerText} ${accessible} ${metadata} ${structured}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
         // Decision 08/11/2026: exact first FAQ answer only, including its JSON-LD copy.

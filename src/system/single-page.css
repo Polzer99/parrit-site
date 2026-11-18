@@ -704,16 +704,18 @@
 .single-page .home-calculator h2 {font-size:var(--t-xl);line-height:1.4;}
 .single-page .calc-note {margin-top:var(--brand-s1);font-size:var(--t-m);color:var(--ink2);}
 .single-page .calc-footer .motors-principle {font-size:var(--t-l);color:var(--ink);}
-.single-page .calc-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--brand-s6);margin-top:var(--brand-s4);}
-.single-page .calc-card {display:flex;flex-direction:column;min-width:0;border-top:1px solid var(--line);padding-top:var(--brand-s3);}
+/* 18/11 : les deux cartes partagent leurs rangées (titre, ligne 2, champs, résultat), comme .scenes :
+   champs et résultats alignés, et le carrousel mobile ne laisse plus de vide sous la carte la plus courte. */
+.single-page .calc-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(4,auto);column-gap:var(--brand-s6);row-gap:0;margin-top:var(--brand-s4);}
+.single-page .calc-card {display:grid;grid-template-rows:subgrid;grid-row:span 4;align-content:start;min-width:0;border-top:1px solid var(--line);padding-top:var(--brand-s3);}
 .single-page .calc-card h3 {font-size:var(--t-l);font-weight:600;}
-.single-page .calc-process {margin-top:var(--brand-s1);font-size:var(--t-m);color:var(--ink2);}
+.single-page .calc-process {display:flex;align-items:center;min-height:48px;margin-top:var(--brand-s1);font-size:var(--t-m);color:var(--ink2);}
 .single-page .calc-fields {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--brand-s2);margin-top:var(--brand-s3);}
 .single-page .calc-field {display:flex;flex-direction:column;justify-content:flex-end;gap:var(--brand-s1);min-width:0;font-size:var(--t-s);color:var(--ink2);}
 .single-page .calc-task {margin-top:var(--brand-s1);}
 .single-page .calc-field :is(input,select) {width:100%;min-height:48px;padding:0 var(--brand-s2);border:1px solid var(--ink2);border-radius:0;background:var(--white);color:var(--ink);font:inherit;font-size:var(--t-m);font-variant-numeric:tabular-nums;}
 .single-page .calc-field :is(input,select):focus-visible {outline:2px solid var(--canard);outline-offset:2px;}
-.single-page .calc-result {margin-top:auto;padding-top:var(--brand-s3);font-size:var(--t-m);}
+.single-page .calc-result {align-self:end;padding-top:var(--brand-s3);font-size:var(--t-m);}
 .single-page .calc-result strong {display:block;font-size:var(--d-s);font-weight:600;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--ink);}
 .single-page .calc-footer {display:flex;justify-content:space-between;align-items:center;gap:var(--brand-s3);margin-top:var(--brand-s4);font-size:var(--t-m);color:var(--ink2);}
 /* Sur fond clair, le rose seul fait 2,2:1 ; la bordure encre porte le contraste de contrôle (3:1). */
@@ -737,7 +739,7 @@
 }
 @media(max-width:1100px){
   /* One card per screen, swiped natively, like the other home carousels. */
-  .single-page .calc-grid.mobile-carousel {display:grid;align-items:flex-start;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:100%;gap:var(--brand-s4);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;}
+  .single-page .calc-grid.mobile-carousel {display:grid;align-items:flex-start;grid-template-columns:none;grid-template-rows:repeat(4,auto);grid-auto-flow:column;grid-auto-columns:100%;column-gap:var(--brand-s4);row-gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;}
   .single-page .calc-card {scroll-snap-align:start;}
   .single-page .calc-grid + .swipe-dots {display:flex;gap:var(--brand-s1);margin-top:var(--brand-s2);}
   .single-page .calc-grid + .swipe-dots i {background:var(--line);}

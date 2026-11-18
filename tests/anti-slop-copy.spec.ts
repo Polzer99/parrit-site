@@ -65,12 +65,14 @@ for (const locale of ["en", "fr"]) {
         // tools (e.g. free libraries); themes are public pages, never articles.
         if (!article) expect(publicCopy).not.toMatch(noOffer);
         for (const pattern of patterns) expect(withoutStatuses(metadata)).not.toMatch(pattern);
-        // Décision de Paul du 15/11/2026 : the home calculator shows the visitor's own
-        // figures (editable examples), never a Parrit price; only that section is exempt.
+        // Décision de Paul du 15/11/2026, resserrée le 18/11 : only the two calculator results and
+        // the two field labels marked « (€) » are exempt (the visitor's own figures, never a Parrit price).
         if (!route) {
           const calculator = page.locator(".home-calculator");
-          await expect(calculator.locator(".calc-card")).toHaveCount(2);
-          for (const text of await calculator.locator(".calc-card, .calc-note").allInnerTexts()) publicCopy = publicCopy.replace(text, "");
+          await expect(calculator.locator(".calc-result")).toHaveCount(2);
+          const euroLabels = calculator.locator(".calc-field > span").filter({ hasText: "(€)" });
+          await expect(euroLabels).toHaveCount(2);
+          for (const text of [...await calculator.locator(".calc-result").allInnerTexts(), ...await euroLabels.allInnerTexts()]) publicCopy = publicCopy.replace(text, "");
         }
         if (route !== "/legal" && !article) expect(publicCopy).not.toContain("€");
         if (route !== "/legal" && route !== "") {

@@ -5,7 +5,6 @@ import { SINGLE_PAGE_EN } from './single-page-copy';
 export type HomeGoal = {
   id: string; group: 'c' | 't' | 'b'; label: Record<Locale, string>; result: Record<Locale, string>;
   path: readonly [string, string, string];
-  flow?: Record<Locale, {label: string; steps: readonly [string, string, string]}>;
 };
 export const HOME_GOALS: readonly HomeGoal[] = [
   {
@@ -23,25 +22,7 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "Signaux du marché",
       "Prospect",
       "Rendez-vous"
-    ],
-    "flow": {
-      "fr": {
-        "label": "Rendez-vous",
-        "steps": [
-          "Signaux",
-          "Message prêt",
-          "Rendez-vous"
-        ]
-      },
-      "en": {
-        "label": "Appointments",
-        "steps": [
-          "Signals",
-          "Message ready",
-          "Meeting"
-        ]
-      }
-    }
+    ]
   },
   {
     "id": "contenu",
@@ -58,25 +39,7 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "Votre expertise",
       "Sujet",
       "Article publié"
-    ],
-    "flow": {
-      "fr": {
-        "label": "Contenu",
-        "steps": [
-          "Expertise",
-          "Article sourcé",
-          "Publié"
-        ]
-      },
-      "en": {
-        "label": "Content",
-        "steps": [
-          "Expertise",
-          "Sourced article",
-          "Published"
-        ]
-      }
-    }
+    ]
   },
   {
     "id": "relances",
@@ -93,25 +56,7 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "Devis",
       "Client",
       "Relance"
-    ],
-    "flow": {
-      "fr": {
-        "label": "Relances",
-        "steps": [
-          "Devis",
-          "Relance prête",
-          "Réponse"
-        ]
-      },
-      "en": {
-        "label": "Follow-ups",
-        "steps": [
-          "Quote",
-          "Follow-up ready",
-          "Reply"
-        ]
-      }
-    }
+    ]
   },
   {
     "id": "appels-offres",
@@ -162,25 +107,7 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "E-mails",
       "Commande",
       "Mise à jour ERP"
-    ],
-    "flow": {
-      "fr": {
-        "label": "Commandes",
-        "steps": [
-          "E-mail",
-          "Commande",
-          "ERP à jour"
-        ]
-      },
-      "en": {
-        "label": "Orders",
-        "steps": [
-          "Email",
-          "Order",
-          "ERP updated"
-        ]
-      }
-    }
+    ]
   },
   {
     "id": "factures",
@@ -197,25 +124,7 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "Factures",
       "Paiement",
       "Trésorerie"
-    ],
-    "flow": {
-      "fr": {
-        "label": "Finance",
-        "steps": [
-          "Relevés",
-          "Rapprochement",
-          "Trésorerie"
-        ]
-      },
-      "en": {
-        "label": "Finance",
-        "steps": [
-          "Statements",
-          "Reconciliation",
-          "Cash flow"
-        ]
-      }
-    }
+    ]
   },
   {
     "id": "comptes-rendus",
@@ -232,25 +141,7 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "Comptes rendus",
       "Action",
       "Suivi des actions"
-    ],
-    "flow": {
-      "fr": {
-        "label": "Réunions",
-        "steps": [
-          "Réunion",
-          "Compte rendu",
-          "Actions"
-        ]
-      },
-      "en": {
-        "label": "Meetings",
-        "steps": [
-          "Meeting",
-          "Notes",
-          "Actions"
-        ]
-      }
-    }
+    ]
   },
   {
     "id": "reponses-client",
@@ -301,25 +192,7 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "Vos processus",
       "Processus",
       "Agents autonomes"
-    ],
-    "flow": {
-      "fr": {
-        "label": "Agents",
-        "steps": [
-          "Processus",
-          "Agents",
-          "Contrôle"
-        ]
-      },
-      "en": {
-        "label": "Agents",
-        "steps": [
-          "Processes",
-          "Agents",
-          "Control"
-        ]
-      }
-    }
+    ]
   },
   {
     "id": "logiciel",
@@ -336,25 +209,7 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "Votre expertise",
       "Métier",
       "Logiciel propriétaire"
-    ],
-    "flow": {
-      "fr": {
-        "label": "Logiciel",
-        "steps": [
-          "Votre métier",
-          "Logiciel",
-          "À vous"
-        ]
-      },
-      "en": {
-        "label": "Software",
-        "steps": [
-          "Your trade",
-          "Software",
-          "Yours"
-        ]
-      }
-    }
+    ]
   },
   {
     "id": "formation",
@@ -371,25 +226,7 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "Vos équipes",
       "Équipe",
       "Équipes autonomes"
-    ],
-    "flow": {
-      "fr": {
-        "label": "Équipes",
-        "steps": [
-          "Formation",
-          "Pratique",
-          "Autonomie"
-        ]
-      },
-      "en": {
-        "label": "Teams",
-        "steps": [
-          "Training",
-          "Practice",
-          "Autonomy"
-        ]
-      }
-    }
+    ]
   },
   {
     "id": "priorites",

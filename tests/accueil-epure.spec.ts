@@ -146,6 +146,26 @@ for (const locale of ["fr", "en"] as const) {
     expect(await page.locator("main").innerText()).not.toMatch(/[←-⇿⟵-⟿]/u);
     for (const link of await page.locator(".calc-field input, .calc-field select, .calc-footer .btn, .assistant-links a").all()) expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44);
   });
+  // 18/11 : les deux cartes partagent leurs rangées ; plus de vide sous la plus courte dans le carrousel.
+  for (const width of [1440, 390]) test(`calculator cards share rows at ${width}px ${locale}`, async ({ page }) => {
+    await offlineCalendar(page);
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto(local(home));
+    const box = (selector: string) => page.locator(selector).boundingBox().then(b => b!);
+    const [growth, time] = [await box('.calc-card[data-calculator="croissance"]'), await box('.calc-card[data-calculator="temps"]')];
+    expect(Math.abs(growth.height - time.height)).toBeLessThanOrEqual(1);
+    const fields = await page.locator(".calc-card > .calc-fields").evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().top - node.parentElement!.getBoundingClientRect().top));
+    const results = await page.locator(".calc-card > .calc-result").evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().bottom - node.parentElement!.getBoundingClientRect().top));
+    expect(Math.abs(fields[0] - fields[1])).toBeLessThanOrEqual(1);
+    // No hidden void inside a card either: the second row is the same height on both sides.
+    const second = await page.locator(".calc-card > :nth-child(2)").evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().height));
+    expect(Math.abs(second[0] - second[1])).toBeLessThanOrEqual(1);
+    await expect(page.locator(".calc-task select")).toHaveAccessibleName(locale === "fr" ? /^Tâche\b/ : /^Task\b/);
+    expect(Math.abs(results[0] - results[1])).toBeLessThanOrEqual(1);
+    // The carousel is as tall as the cards: nothing empty between a card and its dots.
+    const grid = await box(".calc-grid");
+    expect(grid.height - Math.max(growth.height, time.height)).toBeLessThanOrEqual(1);
+  });
   test(`calendar snapshots goal at lazy load and preserves nodes until reload ${locale}`, async ({ page }) => {
     const calendar = await offlineCalendar(page);
     await page.emulateMedia({ reducedMotion: "reduce" });
