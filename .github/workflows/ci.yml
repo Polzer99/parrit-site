@@ -67,8 +67,7 @@ jobs:
       - name: REV 01 network-deny Playwright gate
         env:
           QA_BASE_URL: http://127.0.0.1:3210
-        # Un worker par processeur au lieu de la moitié : la porte réseau prenait 17 minutes sur 20.
-        run: npm run qa:network:rev01 -- --workers=100%
+        run: npm run qa:network:rev01
 
       - name: REV 01 brand conformity gate
         run: npm run qa:brand:rev01
