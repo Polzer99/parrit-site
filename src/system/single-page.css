@@ -707,16 +707,20 @@
 /* 18/11 : les deux cartes partagent leurs rangées (titre, ligne 2, champs, résultat), comme .scenes :
    champs et résultats alignés, et le carrousel mobile ne laisse plus de vide sous la carte la plus courte. */
 .single-page .calc-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(4,auto);column-gap:var(--brand-s6);row-gap:0;margin-top:var(--brand-s4);}
-.single-page .calc-card {display:grid;grid-template-rows:subgrid;grid-row:span 4;align-content:start;min-width:0;border-top:1px solid var(--line);padding-top:var(--brand-s3);}
+.single-page .calc-card {display:grid;grid-template-rows:subgrid;grid-row:span 4;align-content:start;min-width:0;padding:var(--brand-s3) var(--brand-s3) 0;border:1px solid var(--line);border-top:3px solid var(--accent-strong);background:var(--white);overflow:hidden;}
 .single-page .calc-card h3 {font-size:var(--t-l);font-weight:600;}
 .single-page .calc-process {display:flex;align-items:center;min-height:48px;margin-top:var(--brand-s1);font-size:var(--t-m);color:var(--ink2);}
 .single-page .calc-fields {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--brand-s2);margin-top:var(--brand-s3);}
 .single-page .calc-field {display:flex;flex-direction:column;justify-content:flex-end;gap:var(--brand-s1);min-width:0;font-size:var(--t-s);color:var(--ink2);}
 .single-page .calc-task {margin-top:var(--brand-s1);}
-.single-page .calc-field :is(input,select) {width:100%;min-height:48px;padding:0 var(--brand-s2);border:1px solid var(--ink2);border-radius:0;background:var(--white);color:var(--ink);font:inherit;font-size:var(--t-m);font-variant-numeric:tabular-nums;}
+.single-page .calc-field :is(input,select) {width:100%;min-height:48px;padding:0 var(--brand-s2);border:1px solid var(--ink2);border-radius:0;background:var(--white);color:var(--ink);font:inherit;font-size:var(--t-m);font-variant-numeric:tabular-nums;transition:border-color .15s ease;}
+.single-page .calc-field :is(input,select):hover {border-color:var(--ink);}
+.single-page .calc-field :is(input,select):focus {border-color:var(--accent-strong);}
 .single-page .calc-field :is(input,select):focus-visible {outline:2px solid var(--canard);outline-offset:2px;}
-.single-page .calc-result {align-self:end;padding-top:var(--brand-s3);font-size:var(--t-m);}
-.single-page .calc-result strong {display:block;font-size:var(--d-s);font-weight:600;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--ink);}
+.single-page .calc-result {align-self:end;margin:var(--brand-s3) calc(-1 * var(--brand-s3)) 0;padding:var(--brand-s3);background:var(--accent-surface);font-size:var(--t-m);color:var(--ink);}
+.single-page .calc-result strong {display:block;font-size:var(--d-s);font-weight:600;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--accent-text);}
+@media (prefers-reduced-motion:no-preference) {.single-page .calc-result strong {animation:calc-tick .22s ease-out;}}
+@keyframes calc-tick {from {opacity:.35;transform:translateY(4px);}to {opacity:1;transform:none;}}
 .single-page .calc-footer {display:flex;justify-content:space-between;align-items:center;gap:var(--brand-s3);margin-top:var(--brand-s4);font-size:var(--t-m);color:var(--ink2);}
 /* Sur fond clair, le rose seul fait 2,2:1 ; la bordure encre porte le contraste de contrôle (3:1). */
 .single-page .calc-footer .btn.exec {display:inline-flex;align-items:center;justify-content:center;gap:var(--brand-s2);border:2px solid var(--ink);}
@@ -756,9 +760,9 @@
   .single-page .calc-fields .calc-field {display:grid;grid-template-columns:minmax(0,1fr) 112px;align-items:center;gap:var(--brand-s2);}
   .single-page .calc-result strong {font-size:var(--d-s);}
   /* Un bloc = un écran à 390×700 : espacements verticaux resserrés, textes inchangés. */
-  .single-page .calc-card {padding-top:var(--brand-s2);}
+  .single-page .calc-card {padding:var(--brand-s2) var(--brand-s2) 0;}
   .single-page .calc-fields {margin-top:var(--brand-s2);}
-  .single-page .calc-result {padding-top:var(--brand-s2);}
+  .single-page .calc-result {margin:var(--brand-s2) calc(-1 * var(--brand-s2)) 0;padding:var(--brand-s2);}
   .single-page .calc-grid {margin-top:var(--brand-s2);}
   .single-page .calc-footer {margin-top:var(--brand-s2);gap:var(--brand-s1);}
   .single-page .home-calculator h2, .single-page .calc-footer .motors-principle {font-size:var(--t-l);}
@@ -766,6 +770,12 @@
   .single-page :is(.calc-footer,.home-press) {flex-direction:column;align-items:flex-start;gap:var(--brand-s2);}
   .single-page .calc-footer .btn {width:100%;}
   .single-page .assistant-links {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--brand-s2);}
+}
+/* 18/11 : sous 360px, la carte rend sa marge intérieure pour tenir dans un écran. */
+@media (max-width:360px) {
+  .single-page .calc-card {padding:var(--brand-s2) var(--brand-s1) 0;}
+  .single-page .calc-result {margin:var(--brand-s1) calc(-1 * var(--brand-s1)) 0;padding:var(--brand-s1);}
+  .single-page .calc-fields .calc-field {grid-template-columns:minmax(0,1fr) 96px;}
 }
 /* Six logos sur une ligne à partir de 1100px : la largeur en ligne sert de
    flex-basis, donc tous rétrécissent à proportion et l'écart reste fixe. */

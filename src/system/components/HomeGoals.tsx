@@ -131,7 +131,7 @@ export function GoalMotors({ locale }: { locale: Locale }) {
           <CalculatorField id={`calc-part-${locale}`} label={copy.signedShare} value={share} onChange={setShare}/>
           <CalculatorField id={`calc-montant-${locale}`} label={copy.amount} value={amount} onChange={setAmount}/>
         </div>
-        <p className="calc-result" aria-live="polite"><strong data-calc-result="croissance">{formatEuros(stake, locale)}</strong> <span>{copy.growthResult}</span></p>
+        <p className="calc-result" aria-live="polite"><strong key={stake} data-calc-result="croissance">{formatEuros(stake, locale)}</strong> <span>{copy.growthResult}</span></p>
       </div>
       <div className="calc-card" data-calculator="temps">
         <h3>{copy.time}</h3>
@@ -146,7 +146,7 @@ export function GoalMotors({ locale }: { locale: Locale }) {
           <CalculatorField id={`calc-minutes-${locale}`} label={copy.minutes} value={minutes} onChange={setMinutes}/>
           <CalculatorField id={`calc-taux-${locale}`} label={copy.hourlyCost} value={rate} onChange={setRate}/>
         </div>
-        <p className="calc-result" aria-live="polite"><strong data-calc-result="temps">{formatHours(time.hours, locale)}</strong> <span>{copy.timeResult(formatEuros(time.cost, locale))}</span></p>
+        <p className="calc-result" aria-live="polite"><strong key={`${time.hours}-${time.cost}`} data-calc-result="temps">{formatHours(time.hours, locale)}</strong> <span>{copy.timeResult(formatEuros(time.cost, locale))}</span></p>
       </div>
     </MobileCarousel>
     <div className="calc-footer"><p className="motors-principle">{locale === "fr" ? "L'assistant prépare. Vous validez." : "The assistant prepares. You approve."}</p>
