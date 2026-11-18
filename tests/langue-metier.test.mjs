@@ -32,10 +32,12 @@ for (const locale of ["fr", "en"]) test(`home copy is understandable, complete i
   const text = visibleText(html);
   // The new H1 above explicitly permits “matière première”; the rest keeps the plain-language gate.
   assert.doesNotMatch(visibleText(html.replace(/<h1>.*?<\/h1>/s, "")), locale === "fr" ? forbiddenFr : forbiddenEn);
-  // No price on the home page. Exemption, décision de Paul du 15/11/2026 : the calculator
-  // shows the visitor's own figures (examples they edit), never a Parrit price.
-  const withoutCalculator = visibleText(html.replace(/<section[^>]*id="(?:en-production|in-production)"[\s\S]*?<\/section>/, ""));
-  assert.doesNotMatch(withoutCalculator, /\d\s*(?:€|\$|EUR|USD)/i);
+  // No price on the home page. Exemption, décision de Paul du 15/11/2026, resserrée le 18/11 :
+  // only the two calculator results (the visitor's own figures, never a Parrit price).
+  const results = html.match(/<p class="calc-result"[^>]*>[\s\S]*?<\/p>/g) ?? [];
+  assert.equal(results.length, 2);
+  const withoutResults = visibleText(results.reduce((page, result) => page.replace(result, ""), html));
+  assert.doesNotMatch(withoutResults, /\d\s*(?:€|\$|EUR|USD)/i);
   assert.doesNotMatch(text, /—|, pas\b|, not\b/i);
   assert.ok(text.includes(locale === "fr" ? "L'assistant prépare. Vous validez." : "The assistant prepares. You approve."));
   const outsideReferences = html.replace(/<section id="references"[\s\S]*?<\/section>/, "");
