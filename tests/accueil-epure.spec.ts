@@ -174,8 +174,23 @@ for (const locale of ["fr", "en"] as const) {
     const result = page.locator('[data-calc-result="croissance"]');
     await expect(result).toHaveCSS("animation-name", motion === "reduce" ? "none" : "calc-tick");
     await result.evaluate(el => el.setAttribute("data-old", ""));
+    // Capture at insertion: the 220 ms tick may finish before Playwright reads it.
+    await result.evaluate(el => {
+      const parent = el.parentElement!;
+      const observer = new MutationObserver(() => {
+        const next = parent.querySelector('[data-calc-result="croissance"]');
+        if (!next || next === el) return;
+        const ticks = next.getAnimations().filter(a => (a as CSSAnimation).animationName === "calc-tick").length;
+        next.setAttribute("data-tick-count", String(ticks));
+        observer.disconnect();
+      });
+      observer.observe(parent, { childList: true });
+    });
     await page.locator('.calc-card[data-calculator="croissance"] .calc-field input').first().fill("40");
     await expect(result).not.toHaveAttribute("data-old");
+    // The new node must actually run the tick (or run nothing under reduced motion).
+    const ticks = await result.getAttribute("data-tick-count");
+    expect(ticks).toBe(motion === "reduce" ? "0" : "1");
     const unchanged = page.locator('[data-calc-result="temps"]');
     await unchanged.evaluate(el => el.setAttribute("data-old", ""));
     await page.locator('.calc-card[data-calculator="croissance"] .calc-field input').first().fill("41");
