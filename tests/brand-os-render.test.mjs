@@ -335,7 +335,10 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       assert.equal(status, 404, route);
       const heading = visibleText(html.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/)?.[0] ?? "");
       assert.ok(heading.trim());
-      assert.match(html, /<h1[^>]*>[^<]+<br\s*\/?>\s*<span lang="fr">[^<]+<\/span>/);
+      // Décision de Paul du 21/11/2026 : une seule langue par page, plus de titre bilingue.
+      assert.ok(["This page does not exist.", "Cette page n'existe pas."].includes(heading.trim()), heading);
+      assert.doesNotMatch(html, /<h1[^>]*>[\s\S]*?<br/);
+      assert.equal((html.match(/<nav class="not-found-actions"[^>]*>([\s\S]*?)<\/nav>/)?.[1].match(/<a\b/g) ?? []).length, 2);
       assert.match(html, /name="robots" content="noindex/);
       assert.equal((html.match(/class="cmdbar(?: [^"]*)?"/g) ?? []).length, 1);
       assert.match(html, /<footer/);
