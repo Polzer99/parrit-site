@@ -664,7 +664,11 @@
 .single-page .home-measures p {font-size:var(--t-m);line-height:1.6;}
 .single-page .founder-portrait {margin:0;min-width:0;}
 .single-page .founder-portrait figcaption {font-size:var(--t-s);line-height:1.5;margin-top:var(--brand-s1);color:var(--on-ink);}
-.single-footer .footer-groups {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--brand-s6);}
+/* 21/11/2026 : le pied de page suit la règle commune, tout part du bord gauche. Les deux groupes
+   de liens commencent au bord gauche du conteneur ; la mention de droits vient dessous. */
+.single-footer .wrap {flex-direction:column;justify-content:flex-start;align-items:flex-start;gap:var(--stack);}
+.single-footer .wrap > span {order:2;}
+.single-footer .footer-groups {display:grid;grid-template-columns:repeat(2,max-content);gap:var(--brand-s8);}
 .single-footer .footer-group > p {font-size:var(--t-s);margin:0 0 var(--brand-s1);}
 .single-footer .footer-links {display:flex;flex-direction:column;align-items:flex-start;gap:0;}
 .single-footer .footer-links a {display:inline-flex;align-items:center;min-height:44px;}
