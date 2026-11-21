@@ -95,6 +95,9 @@ for (const locale of ["fr", "en"]) {
     const journal = load("src/system/journal.ts").getAllJournalEntrySummaries(locale);
     const { hasFrenchJournalTranslation } = load("src/system/journal-translations.ts");
     const published = journal.filter(entry => !entry.noindex && (locale !== "fr" || hasFrenchJournalTranslation(entry.slug))).length;
+    // Le chiffre ne dépasse jamais le nombre de cartes réellement rendues par la page du Journal.
+    const index = renderToStaticMarkup(await load("src/system/pages/journal.tsx").default(locale));
+    assert.ok(published <= (index.match(/<li\b/g) ?? []).length);
     assert.ok(published > 0);
     assert.equal(press.match(/<strong class="press-count"[^>]*>(\d+)<\/strong>/)?.[1], String(published));
     assert.match(press, locale === "fr" ? /<figcaption>articles publiés dans le Journal\.<\/figcaption>/ : /<figcaption>articles published in the Journal\.<\/figcaption>/);

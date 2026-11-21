@@ -252,9 +252,6 @@
 .single-page .mobile-carousel {min-width:0;}
 .single-page .swipe-dots {display:none;}
 /* Toutes les variantes participent au calcul intrinsèque, dès le HTML serveur. */
-.single-page .offer-stack {display:grid;}
-.single-page .offer-stack > * {grid-area:1 / 1;}
-.single-page .offer-sizer {visibility:hidden;}
 .single-page .service-tasks {margin-top:28px;}
 .single-page .service-tasks > .use-case {position:relative;padding:18px 20px;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);}
 .single-page .use-case > .s {grid-area:1 / 1;}

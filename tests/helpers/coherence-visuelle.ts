@@ -90,6 +90,8 @@ export function releveCoherence(): CoherenceReleve {
   for (const hauteur of barre) boutons.push({ texte: "(barre)", principal: false, grand: false, envoi: false, taille: 16, hauteur, filet: "1px", fond: "rgba(0, 0, 0, 0)", fleches: 0, x: 0, ecart: 0, largeur: 0, largeurConteneur: -1, champDroite: null, champEcart: null });
 
   // Longueur de ligne : chaque mot est rangé sur sa ligne (haut de sa boîte), espaces compris.
+  // Hors mesure : le code et les tableaux (largeur imposée par leur contenu), `.goal-result-sizer`
+  // (copies invisibles qui réservent la hauteur du héros) et `.tech-set` (bande de logos, pas un texte).
   const lignes = q("main p, main li, main dd, main figcaption, main summary")
     .filter(el => !el.closest("pre, table, .goal-result-sizer, .tech-set") && !el.querySelector("p, li"))
     .map(el => {
@@ -121,6 +123,8 @@ export function releveCoherence(): CoherenceReleve {
   const filets: CoherenceReleve["filets"] = { clair: {}, sombre: {} };
   const note = (registre: "clair" | "sombre", couleur: string, nom: string) => { const liste = (filets[registre][couleur] ??= []); if (liste.length < 6 && !liste.includes(nom)) liste.push(nom); };
   for (const el of q("main *, footer *")) {
+    // Hors relevé : les contrôles (liens, boutons, champs et le formulaire qui les porte), dont le filet
+    // est celui du bouton, vérifié plus haut, et les tracés SVG.
     if (el.closest("a, button, input, select, textarea, svg, .goal-form")) continue;
     const c = getComputedStyle(el);
     for (const cote of ["Top", "Right", "Bottom", "Left"] as const) {
@@ -134,7 +138,7 @@ export function releveCoherence(): CoherenceReleve {
   if (pied) note("sombre", getComputedStyle(pied, "::before").borderTopColor, "footer .wrap::before");
 
   // Texte centré ou poussé à droite, par text-align ou par la boîte qui le porte.
-  const textes = q("main :is(h1,h2,h3,p,li,figcaption,summary,dd,dt,label,time,strong,span,a)")
+  const textes = q(":is(main, footer) :is(h1,h2,h3,p,li,figcaption,summary,dd,dt,label,time,strong,span,a)")
     .filter(el => [...el.childNodes].some(n => n.nodeType === Node.TEXT_NODE && (n.textContent ?? "").trim()) && !el.closest("svg, .goal-schema, .rev-button"));
   const nom = (el: Element) => `${el.tagName.toLowerCase()}.${String(el.className).split(" ")[0]} « ${(el.textContent ?? "").trim().slice(0, 30)} »`;
   const centres = new Set<string>();

@@ -45,7 +45,11 @@ for (const { width, height } of COHERENCE_VIEWPORTS) for (const locale of ["fr",
     const releve = await page.evaluate(releveCoherence);
     // Borne basse : une page où le relevé ne lit plus rien ne doit pas passer à vide.
     expect(releve.niveaux.page).toHaveLength(1);
-    if (nom !== "journal" && nom !== "legal") expect(releve.boutons.filter(bouton => bouton.texte !== "(barre)").length).toBeGreaterThan(nom === "rendez-vous" ? -1 : 0);
+    // L'index du Journal, les mentions légales et le rendez-vous n'ont aucun bouton hors de la barre
+    // (le rendez-vous porte le calendrier) : la borne basse sur les boutons ne vaut que pour les autres pages.
+    if (!["journal", "legal", "rendez-vous"].includes(nom)) expect(releve.boutons.filter(bouton => bouton.texte !== "(barre)").length).toBeGreaterThan(0);
+    // Un sélecteur de titres de section cassé ne doit pas faire passer l'accueil ou la page d'offre à vide.
+    if (["accueil", "offre"].includes(nom)) expect(releve.niveaux.section.length).toBeGreaterThan(0);
     if (nom !== "erreur") expect(releve.lignes.length).toBeGreaterThan(0);
     expect(ecartsCoherence(releve, nom, width)).toEqual([]);
   });

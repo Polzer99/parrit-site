@@ -78,5 +78,3 @@ for (const locale of ["fr", "en"]) test(`service lifecycle grants full reading t
   stopAgain();
 });
 
-// 21/11/2026 (soir, décision 2) : le défilement des 23 offres des partenaires est supprimé avec elles ;
-// le test de son cycle de vie (durée de lecture, deux faces au plus, nettoyage) n'a plus d'objet.

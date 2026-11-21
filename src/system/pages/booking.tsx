@@ -25,8 +25,6 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
   const parameters = bookingParameters(await searchParams);
   return <main className="rev-page" lang={locale} data-brand-mode="accessible">
     <div className="rev-wrap booking-page">
-      {/* Ordinateur : le texte à gauche, le calendrier à droite (placement en grille dans booking.css).
-          L'ordre du HTML reste celui du téléphone : titre, phrase, calendrier, puis « Nous écrire ». */}
       <h1>{copy.title}</h1>
       <p>{copy.description}</p>
       <div id="reservation" tabIndex={-1}><ParritCalInline key={JSON.stringify(parameters)} locale={locale} bookingParams={parameters} /></div>

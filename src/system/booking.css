@@ -31,31 +31,24 @@
   text-underline-offset: var(--s1);
 }
 
-/* Page de rendez-vous : le texte à gauche, le calendrier à droite, sur la même ligne. */
+/* Page de rendez-vous : le texte en haut, au bord gauche, puis le calendrier sur toute la largeur.
+   Le calendrier Cal.com passe en disposition étroite, bien plus haute, sous une certaine largeur :
+   il garde donc la largeur du conteneur, celle qui est en ligne et vérifiée (relecture du 21/11/2026). */
 .booking-page {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  grid-template-rows: auto auto auto 1fr;
-  column-gap: var(--stack);
+  grid-template-columns: minmax(0, 1fr);
   row-gap: var(--inner);
-  align-items: start;
   justify-items: start;
   padding-block: var(--section-y);
   font-family: var(--ui);
 }
 
 .booking-page > * {
-  grid-column: 1;
   min-width: 0;
 }
 
 .booking-page > #reservation {
-  grid-column: 2;
-  grid-row: 1 / -1;
   justify-self: stretch;
-}
-
-.booking-page > .booking-email {
   margin-top: var(--inner);
 }
 
@@ -63,18 +56,6 @@
   width: 100%;
   min-width: 0;
   padding-top: 0;
-}
-
-@media (max-width: 900px) {
-  .booking-page {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: none;
-  }
-
-  .booking-page > #reservation {
-    grid-column: 1;
-    grid-row: auto;
-  }
 }
 
 .booking-call .booking-email a {

@@ -71,7 +71,7 @@ export default async function JournalThemePage({ params }: Props, routeLocale?: 
         <Link className="rev-button exec large" href={avecSource(localizedPath("/rendez-vous", locale), `theme-${theme}-haut`)}>{BOOKING_COPY[locale].action}<BrandConnector /></Link>
       </div>
       {/* Le chemin avant la lecture : les quatre noms d'étape, en liste (aucun titre de plus). */}
-      <ol className="theme-path" aria-label={fr ? "Les quatre étapes" : "The four steps"}>{copy.steps.items.map(([name]) => <li key={name}>{name}</li>)}</ol>
+      <ol className="theme-path" aria-hidden="true">{copy.steps.items.map(([name]) => <li key={name}>{name}</li>)}</ol>
     </div></header>
     <div className="rev-wrap journal-theme-body">
       <section id="cases">

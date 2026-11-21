@@ -652,9 +652,6 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
   });
 }
 
-// 21/11/2026 (soir, décision 2) : le défilement des offres des partenaires est supprimé avec les 23 offres ;
-// le test de ses deux faces actives au plus n'a plus d'objet.
-
 for (const locale of ["fr", "en"]) test(`four native carousels retain keyboard scrolling and position dots ${locale}`, async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 700 });
   await page.emulateMedia({ reducedMotion: "reduce" });
