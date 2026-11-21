@@ -43,7 +43,7 @@ export async function generateMetadata(locale: Locale): Promise<Metadata> {
     "Parrit.ai supports business transformation and builds the systems that make it possible.",
   alternates: {
     ...localizedAlternates("/", locale),
-    types: { "application/rss+xml": [{ url: "/journal/rss.xml", title: "Parrit Journal" }] },
+    types: { "application/rss+xml": [{ url: "/journal/rss.xml", title: locale === "fr" ? "Journal de Parrit.ai" : "Parrit Journal" }] },
   },
   };
 }

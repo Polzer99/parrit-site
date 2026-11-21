@@ -13,7 +13,7 @@ import { getAllJournalEntrySummaries, getJournalEntry } from "@/system/journal";
 import { localizedAlternates, localizedPath } from "@/system/locale";
 import { hasFrenchJournalTranslation } from "@/system/journal-translations";
 import { journalReadingMinutes } from "@/system/journal-reading";
-import { getJournalThemes } from "@/system/journal-themes";
+import { JOURNAL_THEMES } from "@/system/journal-themes";
 
 type JournalArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: JournalArticlePageProps, rout
     url: articleImageUrl(`${SITE_URL}/journal/${entry.slug}`),
     width: 1200,
     height: 630,
-    alt: "Parrit.ai Journal article",
+    alt: locale === "fr" ? "Article du Journal de Parrit.ai" : "Parrit.ai Journal article",
   };
   return {
     title: entry.title,
@@ -85,7 +85,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
     ...entries.slice(currentIndex + 1),
     ...entries.slice(0, currentIndex),
   ].filter((candidate) => !candidate.noindex && candidate.slug !== entry.slug).slice(0, 3);
-  const relatedLabel = locale === "fr" ? "À lire ensuite" : "Continue reading";
+  const relatedLabel = locale === "fr" ? "À lire ensuite" : "Read next";
   // Legacy articles keep the exact historical Markdown renderer and markup.
   const machine = entry.pilier ? await import("@/system/components/JournalMachineBody") : null;
   const MachineBody = machine?.JournalMachineBody;
@@ -110,8 +110,8 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
           {locale === "fr" && contentLocale === "en" ? <p data-language-note="">Article en anglais.</p> : null}
           {!MachineBody ? <p className="journal-deck" lang={contentLocale}>{entry.description}</p> : null}
           <div className="journal-entry-meta">
-            {getJournalThemes(slug).map(theme => <span key={theme.page}>{theme.label[locale]}</span>)}
-            <span>{journalReadingMinutes(entry.content)} {locale === "fr" ? "min de lecture" : "min read"}</span>
+            {Object.entries(JOURNAL_THEMES).filter(([, theme]) => (theme.articles as readonly string[]).includes(slug)).map(([themeSlug, theme]) => <Link className="journal-entry-theme" key={themeSlug} href={localizedPath(`/journal/themes/${themeSlug}`, locale)}>{theme.label[locale]}</Link>)}
+            <span className="journal-reading-time">{journalReadingMinutes(entry.content)} {locale === "fr" ? "min de lecture" : "min read"}</span>
           </div>
         </header>
 
@@ -128,6 +128,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
 
         {relatedEntries.length > 0 ? (
           <nav className="journal-related" aria-label={relatedLabel}>
+            <p className="journal-related-label" aria-hidden="true">{relatedLabel}</p>
 
             {relatedEntries.map((related) => (
               <Link key={related.slug} href={localizedPath(`/journal/${related.slug}`, locale)}>

@@ -126,76 +126,7 @@ for (const locale of ["fr", "en"] as const) {
     expect(await context.cookies()).toEqual([]);
     await page.screenshot({ path: testInfo.outputPath(`accueil-${locale}-${width}.png`), fullPage: true });
   });
-  // 15/11 : calculateur, remplace le test des neuf liens de moteurs.
-  test(`calculator inputs update results and touch targets stay 44px ${locale}`, async ({ page }) => {
-    await offlineCalendar(page);
-    await page.emulateMedia({ reducedMotion: "reduce" });
-    await page.goto(local(home));
-    const growth = page.locator('.calc-card[data-calculator="croissance"]');
-    const time = page.locator('.calc-card[data-calculator="temps"]');
-    const growthResult = growth.locator('[data-calc-result="croissance"]');
-    const timeResult = time.locator('[data-calc-result="temps"]');
-    await expect(growthResult).toHaveText(locale === "fr" ? /^9\s000\s€$/ : "€9,000");
-    await growth.locator(".calc-field input").first().fill("40");
-    await expect(growthResult).toHaveText(locale === "fr" ? /^18\s000\s€$/ : "€18,000");
-    await growth.locator(".calc-field input").first().fill("");
-    await expect(growthResult).toHaveText(locale === "fr" ? /^0\s€$/ : "€0");
-    await expect(timeResult).toHaveText("17 h");
-    await time.locator("select").selectOption("comptes-rendus");
-    await expect(timeResult).toHaveText("11 h");
-    expect(await page.locator("main").innerText()).not.toMatch(/[←-⇿⟵-⟿]/u);
-    for (const link of await page.locator(".calc-field input, .calc-field select, .calc-footer .btn, .assistant-links a").all()) expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44);
-  });
-  // 18/11 : les deux cartes partagent leurs rangées ; plus de vide sous la plus courte dans le carrousel.
-  for (const width of [1440, 390]) test(`calculator cards share rows at ${width}px ${locale}`, async ({ page }) => {
-    await offlineCalendar(page);
-    await page.setViewportSize({ width, height: 800 });
-    await page.goto(local(home));
-    const box = (selector: string) => page.locator(selector).boundingBox().then(b => b!);
-    const [growth, time] = [await box('.calc-card[data-calculator="croissance"]'), await box('.calc-card[data-calculator="temps"]')];
-    expect(Math.abs(growth.height - time.height)).toBeLessThanOrEqual(1);
-    const fields = await page.locator(".calc-card > .calc-fields").evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().top - node.parentElement!.getBoundingClientRect().top));
-    const results = await page.locator(".calc-card > .calc-result").evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().bottom - node.parentElement!.getBoundingClientRect().top));
-    expect(Math.abs(fields[0] - fields[1])).toBeLessThanOrEqual(1);
-    // No hidden void inside a card either: the second row is the same height on both sides.
-    const second = await page.locator(".calc-card > :nth-child(2)").evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().height));
-    expect(Math.abs(second[0] - second[1])).toBeLessThanOrEqual(1);
-    await expect(page.locator(".calc-task select")).toHaveAccessibleName(locale === "fr" ? /^Tâche\b/ : /^Task\b/);
-    expect(Math.abs(results[0] - results[1])).toBeLessThanOrEqual(1);
-    // The carousel is as tall as the cards: nothing empty between a card and its dots.
-    const grid = await box(".calc-grid");
-    expect(grid.height - Math.max(growth.height, time.height)).toBeLessThanOrEqual(1);
-  });
-  // 18/11 : le chiffre se repose à chaque calcul, sauf si le visiteur réduit les animations.
-  for (const motion of ["no-preference", "reduce"] as const) test(`calculator result replays its tick (${motion}) ${locale}`, async ({ page }) => {
-    await offlineCalendar(page);
-    await page.emulateMedia({ reducedMotion: motion });
-    await page.goto(local(home));
-    const result = page.locator('[data-calc-result="croissance"]');
-    await expect(result).toHaveCSS("animation-name", motion === "reduce" ? "none" : "calc-tick");
-    await result.evaluate(el => el.setAttribute("data-old", ""));
-    // Capture at insertion: the 220 ms tick may finish before Playwright reads it.
-    await result.evaluate(el => {
-      const parent = el.parentElement!;
-      const observer = new MutationObserver(() => {
-        const next = parent.querySelector('[data-calc-result="croissance"]');
-        if (!next || next === el) return;
-        const ticks = next.getAnimations().filter(a => (a as CSSAnimation).animationName === "calc-tick").length;
-        next.setAttribute("data-tick-count", String(ticks));
-        observer.disconnect();
-      });
-      observer.observe(parent, { childList: true });
-    });
-    await page.locator('.calc-card[data-calculator="croissance"] .calc-field input').first().fill("40");
-    await expect(result).not.toHaveAttribute("data-old");
-    // The new node must actually run the tick (or run nothing under reduced motion).
-    const ticks = await result.getAttribute("data-tick-count");
-    expect(ticks).toBe(motion === "reduce" ? "0" : "1");
-    const unchanged = page.locator('[data-calc-result="temps"]');
-    await unchanged.evaluate(el => el.setAttribute("data-old", ""));
-    await page.locator('.calc-card[data-calculator="croissance"] .calc-field input').first().fill("41");
-    await expect(unchanged).toHaveAttribute("data-old", "");
-  });
+  // 21/11/2026 (soir) : les trois tests du calculateur (saisies, rangées partagées, tic du résultat) sont supprimés avec lui.
   test(`calendar snapshots goal at lazy load and preserves nodes until reload ${locale}`, async ({ page }) => {
     const calendar = await offlineCalendar(page);
     await page.emulateMedia({ reducedMotion: "reduce" });
@@ -226,7 +157,7 @@ for (const locale of ["fr", "en"] as const) {
   test.describe(`GET fallback ${locale}`, () => {
     test.use({ javaScriptEnabled: false });
     test("all seventeen goals remain usable without JavaScript", async ({ page }) => {
-      // 15/11 : calculateur, plus de lien de moteur ; un objectif passé en GET reste sélectionné sans JS.
+      // 15/11 : plus de lien de moteur ; un objectif passé en GET reste sélectionné sans JS.
       await page.goto(local(`${home}?utm_source=offline&objectif=logiciel`));
       await expect(page.locator("#objectif")).toHaveValue("logiciel");
       for (const goal of HOME_GOALS) {

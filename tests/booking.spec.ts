@@ -48,7 +48,7 @@ for (const locale of ["fr", "en"] as const) for (const width of [1440, 375]) {
     expect(response?.status()).toBe(200);
     // Count only document headings: Cal's shadow DOM contains its own empty h1.
     await expect.poll(() => page.evaluate(() => document.querySelectorAll("h1").length)).toBe(1);
-    await expect.poll(() => page.evaluate(() => document.querySelector("h1")?.textContent?.trim())).toBe(locale === "fr" ? "Premier échange de 15 minutes" : "First call, 15 minutes");
+    await expect.poll(() => page.evaluate(() => document.querySelector("h1")?.textContent?.trim())).toBe(locale === "fr" ? "Premier échange de 15 minutes." : "First call, 15 minutes.");
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex, follow");
     await expect(page).toHaveTitle(locale === "fr" ? "Premier échange, 15 minutes · Parrit.ai" : "First call, 15 minutes · Parrit.ai");
     await expect(page.locator('main a[href="mailto:paul.larmaraud@parrit.ai"]')).toBeVisible();
@@ -94,7 +94,7 @@ for (const [path, source, locale] of [
     await expect(block).toHaveCount(1);
     await expect(block).toHaveAttribute("lang", locale);
     await expect(block.locator(":scope > *")).toHaveCount(4);
-    await expect(page.locator(".exec")).toHaveCount(1);
+    await expect(page.locator(".exec")).toHaveCount(source.startsWith("theme-") ? 2 : 1);
     const button = block.locator(".exec");
     const href = `${locale === "fr" ? "/fr" : ""}/rendez-vous?source=${source}`;
     await expect(button).toHaveAttribute("href", href);
@@ -119,7 +119,7 @@ for (const [path, source, locale] of [
     await expect(page).toHaveURL(local(href));
     // Use the same document-only scope after client-side navigation.
     await expect.poll(() => page.evaluate(() => document.querySelectorAll("h1").length)).toBe(1);
-    await expect.poll(() => page.evaluate(() => document.querySelector("h1")?.textContent?.trim())).toBe(locale === "fr" ? "Premier échange de 15 minutes" : "First call, 15 minutes");
+    await expect.poll(() => page.evaluate(() => document.querySelector("h1")?.textContent?.trim())).toBe(locale === "fr" ? "Premier échange de 15 minutes." : "First call, 15 minutes.");
   });
 }
 

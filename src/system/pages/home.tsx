@@ -10,7 +10,7 @@ export async function generateMetadata(routeLocale?: Locale): Promise<Metadata> 
   const title = locale === "fr" ? "Parrit.ai · Transformation IA et développement de logiciels pour les entreprises, Tourcoing et Paris" : "Parrit.ai · AI transformation and software development for businesses, Tourcoing and Paris";
   const description = locale === "fr"
     ? "Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent. Tourcoing, Paris et toute la France."
-    : "Your teams take AI in hand. We build the software they are missing. Tourcoing, Paris and across France.";
+    : "Your teams learn to use AI. We build the software they are missing. Tourcoing, Paris and across France.";
   return { title: { absolute: title }, description, alternates: localizedAlternates("/", locale), openGraph: localizedOpenGraph("/", locale, title, description) };
 }
 export default async function HomePage(props: {

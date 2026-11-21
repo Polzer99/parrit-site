@@ -26,9 +26,10 @@ test("technology registry preserves the exact approved order, names and logos", 
 
 for (const locale of ["fr", "en"]) test(`ten technologies precede the team with complete SSR and one accessible copy (${locale})`, async () => {
   const html = await renderPage(locale);
-  // 13/11: service grid replaced by the motors, so the preserved path is now adjacent.
-  assert.match(html, /<section class="parcours" id="(?:parcours|path)">[\s\S]*?<\/section><section id="technologies"/);
-  assert.match(html, /<section id="technologies"[\s\S]*?<\/section><section id="(?:partenaires|team)"/);
+  // 21/11 (spec alignement §3.1): the technologies now follow the field and precede the press section; the team moved after the offers.
+  assert.match(html, /<section[^>]*id="(?:terrain|in-the-field)"[\s\S]*?<\/section><section id="technologies"/);
+  assert.match(html, /<section id="technologies"[\s\S]*?<\/section><section[^>]*id="(?:mesures|measurements)"/);
+  assert.match(html, /<section id="(?:offres|offers)"[\s\S]*?<\/section><section id="(?:partenaires|team)"[\s\S]*?<\/section><section class="parcours" id="(?:parcours|path)">/);
   assert.doesNotMatch(html, /id="architecture"|href="[^"]*#architecture|\/tools\//);
   const section = html.match(/<section id="technologies"[\s\S]*?<\/section>/)?.[0];
   assert.ok(section);
@@ -47,7 +48,7 @@ for (const locale of ["fr", "en"]) test(`ten technologies precede the team with 
     });
   }
   const text = visibleText(section).replace(/\s+/g, " ").trim();
-  assert.match(text, locale === "fr" ? /Nous choisissons les outils selon votre besoin\./ : /We choose tools according to your needs\./);
+  assert.match(text, locale === "fr" ? /Nous choisissons les outils selon votre besoin\./ : /We choose the tools that fit your needs\./);
   assert.doesNotMatch(text, /agnosti|partenariat|partnership/i);
   assert.doesNotMatch(section, /tech-note|Les marques citées|The brands named/);
   assert.doesNotMatch(section, /<script|<img|https?:|#[a-f\d]{3,8}\b/i);

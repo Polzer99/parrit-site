@@ -220,7 +220,7 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     },
     "result": {
       "fr": "Vos équipes prennent l'IA en main, sur leurs propres dossiers.",
-      "en": "Your teams take AI in hand, on their own files."
+      "en": "Your teams learn to work with AI, on their own files."
     },
     "path": [
       "Vos équipes",
@@ -526,6 +526,6 @@ export function homeGoal(id: string | null | undefined): HomeGoal {
 }
 export const GOAL_GROUPS = [
  {id: 'c', label: {fr: "Faire grandir l'activité", en: 'Grow the business'}, title: {fr: "Faire grandir l'activité.", en: 'Grow the business.'}},
- {id: 't', label: {fr: 'Gagner du temps', en: 'Save time'}, title: {fr: 'Libérer du temps.', en: 'Save time.'}},
+ {id: 't', label: {fr: 'Gagner du temps', en: 'Save time'}, title: {fr: 'Libérer du temps.', en: 'Get time back.'}},
  {id: 'b', label: {fr: 'Construire', en: 'Build'}, title: {fr: 'Construire vos outils.', en: 'Build your tools.'}},
 ] as const;

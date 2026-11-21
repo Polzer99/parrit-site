@@ -65,15 +65,7 @@ for (const locale of ["en", "fr"]) {
         // tools (e.g. free libraries); themes are public pages, never articles.
         if (!article) expect(publicCopy).not.toMatch(noOffer);
         for (const pattern of patterns) expect(withoutStatuses(metadata)).not.toMatch(pattern);
-        // Décision de Paul du 15/11/2026, resserrée le 18/11 : only the two calculator results and
-        // the two field labels marked « (€) » are exempt (the visitor's own figures, never a Parrit price).
-        if (!route) {
-          const calculator = page.locator(".home-calculator");
-          await expect(calculator.locator(".calc-result")).toHaveCount(2);
-          const euroLabels = calculator.locator(".calc-field > span").filter({ hasText: "(€)" });
-          await expect(euroLabels).toHaveCount(2);
-          for (const text of [...await calculator.locator(".calc-result").allInnerTexts(), ...await euroLabels.allInnerTexts()]) publicCopy = publicCopy.replace(text, "");
-        }
+        // 21/11/2026 (soir) : le calculateur et l'exemption de ses deux résultats et de ses libellés « (€) » sont supprimés ; plus aucun « € » toléré hors /legal et articles.
         if (route !== "/legal" && !article) expect(publicCopy).not.toContain("€");
         if (route !== "/legal" && route !== "") {
           expect(publicCopy).not.toMatch(/\bPaul\b|Larmaraud|fondat(eur|rice)|fondée par|founder|founded by|quinze minutes|fifteen minutes/i);

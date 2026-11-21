@@ -19,6 +19,6 @@ export function JournalCard({ entry, locale, compact = false }: {
       <Heading lang={contentLocale}>{entry.title}</Heading>
       {!compact && <p lang={contentLocale}>{entry.description}</p>}
     </div>
-    <time dateTime={entry.date}>{new Intl.DateTimeFormat(locale === "fr" ? "fr-FR" : "en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(`${entry.date}T00:00:00Z`))}</time>
+    <time dateTime={entry.date}>{new Intl.DateTimeFormat(locale === "fr" ? "fr-FR" : "en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(`${entry.date}T00:00:00Z`))}</time>
   </Link>;
 }

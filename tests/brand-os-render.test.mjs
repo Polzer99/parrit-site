@@ -99,10 +99,10 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           const articles = graphs.filter(item => item["@type"] === "Article");
           assert.equal(articles.length, 1, label);
           assert.equal(articles[0].inLanguage, locale, label);
-          assert.equal(articles[0].headline, visibleText(html.match(/<h1>([\s\S]*?)<\/h1>/)[1]).trim(), label);
+          assert.equal(articles[0].headline, visibleText(html.match(/<h1>([\s\S]*?)<\/h1>/)[1]).trim().replace(/\.$/, ""), label);
           assert.equal(articles[0].mainEntityOfPage, `https://parrit.ai${locale === "fr" ? "/fr" : ""}${route}`, label);
-          const faqSection = html.match(/<section><h2>(?:Questions fréquentes|Frequently asked questions)<\/h2>([\s\S]*?)<\/section>/)?.[1] ?? "";
-          const visiblePairs = [...faqSection.matchAll(/<div><h3>([\s\S]*?)<\/h3><p>([\s\S]*?)<\/p><\/div>/g)].map(([, question, answer]) => [visibleText(question).trim(), visibleText(answer).trim()]);
+          const faqSection = html.match(/<section\b[^>]*><h2>(?:Questions fréquentes|Common questions)\.<\/h2>([\s\S]*?)<\/section>/)?.[1] ?? "";
+          const visiblePairs = [...faqSection.matchAll(/<details(?: open="")?><summary>([\s\S]*?)<\/summary><p>([\s\S]*?)<\/p><\/details>/g)].map(([, question, answer]) => [visibleText(question).trim(), visibleText(answer).trim()]);
           const faqs = graphs.filter(item => item["@type"] === "FAQPage");
           assert.equal(faqs.length, visiblePairs.length ? 1 : 0, label);
           assert.deepEqual(faqs[0]?.mainEntity.map(item => [item.name, item.acceptedAnswer.text]) ?? [], visiblePairs, label);
@@ -115,13 +115,9 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           const notes = [...html.matchAll(/<p class="contact-expectation">([\s\S]*?)<\/p>/g)];
           assert.equal(notes.length, 1);
           assert.equal(visibleText(notes[0][1]), contactExpectation[locale]);
-          // Décision de Paul du 15/11/2026, resserrée le 18/11 : only the two calculator results
-          // and the two field labels marked « (€) » (the visitor's own figures, never a Parrit price).
-          const results = html.match(/<p class="calc-result"[^>]*>[\s\S]*?<\/p>/g) ?? [];
-          assert.equal(results.length, 2, `${label}: calculator results present`);
-          const euroLabels = html.match(/<span>[^<]*\(€\)<\/span>/g) ?? [];
-          assert.equal(euroLabels.length, 2, `${label}: two € field labels`);
-          offerText = visibleText([...results, ...euroLabels].reduce((page, part) => page.replace(part, ""), html.replace(notes[0][0], "")));
+          // 21/11/2026 (soir): the calculator and its two price-guard exemptions are gone; only the paragraph above is exempt.
+          assert.doesNotMatch(html, /calc-result|calc-card/, `${label}: no calculator`);
+          offerText = visibleText(html.replace(notes[0][0], ""));
         }
         let publicCopy = `${offerText} ${accessible} ${metadata} ${structured}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
         // Decision 08/11/2026: exact first FAQ answer only, including its JSON-LD copy.
@@ -185,12 +181,13 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         if (route === "/") {
           assert.match(html, /<section class="hero"/);
           const ids = [...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]);
-          const expected = locale === "fr" ? ["haut", "references", "en-production", "mesures", "assistant", "terrain", "offres", "parcours", "technologies", "partenaires", "questions", "contact"] : ["haut", "references", "in-production", "measurements", "assistant", "in-the-field", "offers", "path", "technologies", "team", "questions", "contact"];
+          const expected = locale === "fr" ? ["haut", "references", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"] : ["haut", "references", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"];
           // The compiled contact also contains QuickCapture's nested section.
           assert.deepEqual(ids, [...expected, "single-contact"]);
           assert.doesNotMatch(html, /id="architecture"/);
-          assert.match(html, /<section[^>]*id="(?:parcours|path)">[\s\S]*?<\/section><section id="technologies"/);
-          assert.match(html, /<section id="technologies"[\s\S]*?<\/section><section id="(?:partenaires|team)"/);
+          // 21/11: order amended by the alignment spec (terrain, technologies, then press).
+          assert.match(html, /<section[^>]*id="(?:terrain|in-the-field)"[^>]*>[\s\S]*?<\/section><section id="technologies"/);
+          assert.match(html, /<section id="technologies"[\s\S]*?<\/section><section[^>]*id="(?:mesures|measurements)"/);
           const technologyBand = html.match(/<section id="technologies"[\s\S]*?<\/section>/)?.[0];
           assert.ok(technologyBand, `${label}: compiled server renders the band`);
           const technologyLists = [...technologyBand.matchAll(/<ul([^>]*)>([\s\S]*?)<\/ul>/g)];
@@ -223,16 +220,16 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       const home = await render("/?utm_campaign=server%20%26%20test&utm_custom=kept&source=old", locale);
       assert.equal(home.status, 200);
       const links = [...home.html.matchAll(/<a\b[^>]*href="([^"]*source=(?:rdv-|accueil-)[^"]*)"[^>]*>/g)];
-      assert.equal(links.length, 5, "two responsive nav copies, hero, calculator (15/11) and contact in server HTML");
+      assert.equal(links.length, 4, "two responsive nav copies, hero and contact in server HTML");
       assert.deepEqual(links.map(([, href]) => {
         const url = new URL(href.replaceAll("&amp;", "&"), "http://localhost:3210");
         assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
-        assert.equal(url.hash, "#contact");
+        assert.equal(url.hash, url.searchParams.get("source") === "rdv-contact" ? "#reservation" : "#contact");
         assert.equal(url.searchParams.get("utm_campaign"), "server & test");
         assert.equal(url.searchParams.get("utm_custom"), "kept");
         assert.equal(url.searchParams.getAll("source").length, 1);
         return url.searchParams.get("source");
-      }).sort(), ["accueil-calculateur", "accueil-rendez-vous", "rdv-contact", "rdv-nav", "rdv-nav"]);
+      }).sort(), ["accueil-rendez-vous", "rdv-contact", "rdv-nav", "rdv-nav"]);
       const bookingQuery = "source=essai&utm_custom=offhome&utm_campaign=c1";
       const booking = await render(`/rendez-vous?${bookingQuery}`, locale);
       assert.equal(booking.status, 200);
@@ -256,7 +253,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         for (const [, href, label] of links) {
           const url = new URL(href.replaceAll("&amp;", "&"), "http://localhost:3210");
           assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
-          assert.equal(url.hash, "#contact");
+          assert.equal(url.hash, url.searchParams.get("source") === "rdv-contact" ? "#reservation" : "#contact");
           assert.deepEqual(url.searchParams.getAll("source"), ["rdv-nav"]);
           // Correctif 3: cached HTML cannot contain visit-specific parameters.
           // Hydrated attribution is exercised by passe-site.spec.ts.

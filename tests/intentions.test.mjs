@@ -146,13 +146,13 @@ for (const locale of ["fr", "en"]) test(`incoming UTM survive in SSR links and m
   const page = loader(locale)("src/app/(rev01)/page.tsx");
   const html = renderToStaticMarkup(await page.default({ searchParams: Promise.resolve({ utm_campaign: "campaign & test", utm_custom: "custom", source: "old" }) }));
   const intents = [...html.matchAll(/href="([^"]*source=(?:rdv-|accueil-)[^"]+)"/g)];
-  // Correctif 4, décision de Paul du 08/11/2026 : contact rétabli ; 15/11 : bouton du calculateur.
-  assert.equal(intents.length, 3);
-  assert.deepEqual(intents.map(([, href]) => new URL(href.replaceAll("&amp;", "&"), "https://example.invalid").searchParams.get("source")), ["accueil-rendez-vous", "accueil-calculateur", "rdv-contact"]);
+  // Correctif 4, décision de Paul du 08/11/2026 : contact rétabli ; 21/11 au soir : le calculateur et son bouton sont supprimés.
+  assert.equal(intents.length, 2);
+  assert.deepEqual(intents.map(([, href]) => new URL(href.replaceAll("&amp;", "&"), "https://example.invalid").searchParams.get("source")), ["accueil-rendez-vous", "rdv-contact"]);
   for (const [, href] of intents) {
     const url = new URL(href.replaceAll("&amp;", "&"), "https://example.invalid");
     assert.equal(url.pathname, home);
-    assert.equal(url.hash, "#contact");
+    assert.equal(url.hash, url.searchParams.get("source") === "rdv-contact" ? "#reservation" : "#contact");
     assert.equal(url.searchParams.get("utm_campaign"), "campaign & test");
     assert.equal(url.searchParams.get("utm_custom"), "custom");
     assert.equal(url.searchParams.getAll("source").length, 1);

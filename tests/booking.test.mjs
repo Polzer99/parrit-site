@@ -41,6 +41,8 @@ for (const locale of ["fr", "en"]) {
     assert.ok(html.indexOf("<h1") < html.indexOf("data-calendar"));
     assert.ok(html.indexOf("data-calendar") < html.indexOf("mailto:"));
     assert.match(html, /href="mailto:paul.larmaraud@parrit.ai"/);
+    // Lot D (21/11/2026) : sans JavaScript, un lien direct vers le calendrier de la langue.
+    assert.match(html, locale === "fr" ? /<noscript><p><a [^>]*href="https:\/\/cal\.com\/paul-larmaraud\/audit">Prendre rendez-vous<\/a><\/p><\/noscript>/ : /<noscript><p><a [^>]*href="https:\/\/cal\.com\/paul-larmaraud\/ai-strategy-meeting">Book a call<\/a><\/p><\/noscript>/);
     assert.equal(calendarProps.locale, locale);
     assert.deepEqual(calendarProps.bookingParams, { "metadata[source]": "journal-test", utm_source: "x" });
     const metadata = await page.generateMetadata();
@@ -83,4 +85,10 @@ test("calendar config is unchanged without attribution and adds only passed para
     renderToStaticMarkup(React.createElement(ParritCalInline, { bookingParams }));
     assert.deepEqual(config, { ...bookingParams, layout: "month_view", theme: "dark" });
   }
+});
+
+test("RSS feed title announced by the layout is French on French pages (21/11/2026)", async () => {
+  const { readFileSync } = await import("node:fs");
+  const source = readFileSync("src/system/pages/layout.tsx", "utf8");
+  assert.match(source, /title: locale === "fr" \? "Journal de Parrit\.ai" : "Parrit Journal"/);
 });

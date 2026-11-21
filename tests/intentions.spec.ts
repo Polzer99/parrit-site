@@ -35,9 +35,11 @@ for (const locale of ["fr", "en"] as const) {
     const navigations: string[] = [];
     page.on("request", request => { if (request.isNavigationRequest()) navigations.push(request.url()); });
     await page.locator(selector).click();
-    await expect(page).toHaveURL(new RegExp(`source=${source}#contact$`));
-    await expect(page.locator("#contact")).toBeFocused();
-    await expect(page.locator("#contact h2")).toBeInViewport();
+    // 21/11/2026 (spec alignement §3.5) : le bouton du bloc contact mène à la réservation ; menu et héros restent sur #contact.
+    const target = source === "rdv-contact" ? "reservation" : "contact";
+    await expect(page).toHaveURL(new RegExp(`source=${source}#${target}$`));
+    await expect(page.locator(`#${target}`)).toBeFocused();
+    await expect(page.locator(target === "contact" ? "#contact h2" : "#reservation")).toBeInViewport();
     await expect(input).toHaveValue("visitor@example.invalid");
     expect(await page.locator("html").getAttribute("data-document-sentinel")).toBe("same-document");
     expect(navigations).toEqual([]);
@@ -60,7 +62,7 @@ for (const locale of ["fr", "en"] as const) {
       await expect(buttons).toHaveCount(1);
       await expect(buttons.first()).toHaveClass(/\bexec\b/);
       await expect(buttons.first()).toHaveCSS("font-size", "22px");
-      for (const [selector, source] of actions) await expect(page.locator(selector)).toHaveAttribute("href", `${home}?source=${source}#contact`);
+      for (const [selector, source] of actions) await expect(page.locator(selector)).toHaveAttribute("href", `${home}?source=${source}#${source === "rdv-contact" ? "reservation" : "contact"}`);
       const box = (await buttons.first().boundingBox())!;
       const group = (await page.locator(".hero .actions").boundingBox())!;
       expect(Math.abs(box.x - group.x)).toBeLessThanOrEqual(1);
@@ -185,24 +187,24 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
             await expect(faq.nth(index).locator("p")).toBeVisible();
           }
         }
-        // 15/11 : calculateur, le principe et le lien de rendez-vous vivent dans .calc-footer.
-        await expect(page.locator(".calc-footer .motors-principle")).toHaveText(locale === "fr"
-          ? "L'assistant prépare. Vous validez." : "The assistant prepares. You approve.");
+        // 21/11/2026 (soir) : le calculateur et son pied (principe, bouton) sont supprimés.
+        await expect(page.locator(".calc-footer, .home-calculator")).toHaveCount(0);
         if (width <= 900) await page.locator(".mobile-menu summary").click();
-        const actions = page.locator('a.rev-button[href*="#contact"]:visible');
-        await expect(actions).toHaveCount(4); // 15/11 : + bouton du calculateur
+        // Menu, héros et contact : le bouton du contact porte désormais #reservation.
+        const actions = page.locator('a.rev-button[href*="#contact"]:visible, a.rev-button[href*="#reservation"]:visible');
+        await expect(actions).toHaveCount(3);
         const sources: string[] = [];
         for (const action of await actions.all()) {
           await expect(action).toHaveText(label);
           const target = new URL((await action.getAttribute("href"))!, BASE);
           expect(target.pathname).toBe(home);
-          expect(target.hash).toBe("#contact");
           expect(target.searchParams.getAll("source")).toHaveLength(1);
+          expect(target.hash).toBe(target.searchParams.get("source") === "rdv-contact" ? "#reservation" : "#contact");
           sources.push(target.searchParams.get("source")!);
           expect(target.searchParams.get("utm_campaign")).toBe("appointment");
           expect(target.searchParams.get("utm_custom")).toBe("kept");
         }
-        expect(sources.sort()).toEqual(["accueil-calculateur", "accueil-rendez-vous", "rdv-contact", "rdv-nav"]);
+        expect(sources.sort()).toEqual(["accueil-rendez-vous", "rdv-contact", "rdv-nav"]);
         await expect(page.locator('main a.ghost[href*="#contact"]')).toHaveCount(0);
         await expect(page.locator('main a[href*="intention-"]')).toHaveCount(0);
         await expect(page.locator(".home-offer")).toHaveCount(2);
@@ -366,7 +368,7 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
       expect(dimensions.overflow).not.toMatch(/hidden|clip/);
       await expect(section.locator(".partner")).toHaveCount(7);
       await expect(section.locator(".partner-offers li")).toHaveCount(23);
-      for (const paragraph of await section.locator(".team-intro,.partner-type p,.partner-offers li,.teamcap").all()) {
+      for (const paragraph of await section.locator(".team-intro,.partner-type p,.partner-offers li").all()) {
         await expect(paragraph).toBeVisible();
         expect(await paragraph.evaluate(el => el.scrollHeight <= el.clientHeight + 1)).toBe(true);
       }

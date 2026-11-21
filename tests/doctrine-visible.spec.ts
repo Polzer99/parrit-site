@@ -25,8 +25,10 @@ for (const path of PUBLIC_ROUTES) {
       await expectPopulated(action);
       const target = new URL((await action.getAttribute("href"))!, `${BASE_URL}${path}`);
       expect(target.searchParams.get("source")).toMatch(home ? /^(?:rdv-(?:nav|contact)|accueil-[a-z0-9-]+)$/ : /^rdv-nav$/);
+      const source = target.searchParams.get("source");
       target.search = "";
-      expect(target.href).toBe(`${BASE_URL}${contact}`);
+      // 21/11/2026 (spec alignement §3.5) : seul le bouton du bloc contact mène à la réservation.
+      expect(target.href).toBe(`${BASE_URL}${source === "rdv-contact" ? contact.replace("#contact", "#reservation") : contact}`);
     }
     for (const button of await page.locator(".rev-button:visible").all()) {
       await expect(button).toHaveCSS("font-family", /General Sans/);
@@ -154,7 +156,7 @@ for (const locale of ["fr", "en"] as const) {
       await page.setViewportSize({ width, height: 844 });
       await page.goto(`${BASE_URL}${home}`);
       await page.evaluate(() => document.fonts.ready);
-      await expect(page.locator("main > section")).toHaveCount(12);
+      await expect(page.locator("main > section")).toHaveCount(10);
       for (const heading of await page.locator("main h3").all()) await expect(heading).toHaveCSS("font-size", "22px");
       expect(await page.locator("main").innerText()).not.toMatch(/FormIA|Content Factor|usines? de contenu/i);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);

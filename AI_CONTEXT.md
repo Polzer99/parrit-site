@@ -1,8 +1,29 @@
+## Alignement des pages et partenaires, décision de Paul du 21/11/2026, soir
+
+La spec `docs/CODEX-SPEC-2026-11-21-alignement-pages-partenaires.md` prime sur
+les contrats antérieurs pour l'ordre, le menu, les partenaires, presse,
+le contact, les thèmes, les blocs de rendez-vous et le pied de page.
+Ordre (dix sections) : hero, références, offres, partenaires, parcours, terrain,
+technologies, mesures (presse seule, sections des assistants et du calculateur supprimées), questions, contact.
+Calculateur supprimé, décision de Paul du 21/11/2026 au soir (« le calculateur ressemble à rien, que du texte, aucun élément visuel marketing probant »). Ordre de l'accueil, dix sections : hero, références, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Les ancres historiques `#en-production`, `#in-production`, `#services`, `#ce-qui-change`, `#what-changes` restent atteignables : ce sont des `span` d'ancre en tête de la section des offres. La source `accueil-calculateur` n'a plus d'émetteur. Le bouton bas de page et le bouton haut des pages thèmes ont le style standard des boutons (16 px).
+Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN).
+Contact : « Commencez par une tâche précise. », avec point final ; son bouton
+cible et focalise `#reservation`, avec source `rdv-contact`. Les autres placements
+conservent `#contact`. Paul est nommé une seule fois dans le texte visible de
+l'accueil, en légende du portrait : « Paul Larmaraud mène le premier échange. »
+Partenaires : « Vous travaillez avec les spécialistes dont votre projet a besoin. »
+Introduction : « Nous travaillons avec des ingénieurs, des studios, des consultants, des intervenants, des cabinets de conseil et des chercheurs. Pour chaque projet, nous réunissons ceux dont le métier correspond à votre besoin. »
+Paragraphe contact : « Vous décrivez une tâche qui prend du temps à vos équipes, ou un outil qui vous manque. Nous vous disons ce qui est réalisable. Le travail se fait ensuite avec les ingénieurs, les intervenants et les consultants dont votre projet a besoin. »
+Thèmes : gabarit commun, quatre étapes, livrables et limites, règles, FAQ native,
+Journal si articles, rendez-vous ; sept H2 maximum. Pied en deux groupes, thèmes
+issus de JOURNAL_THEMES. Ancres existantes, permissions clients, charte, réseau,
+contraste, géométrie et stabilité conservés sans abaissement des seuils.
+
 ## Passe de copy, décision de Paul du 21/11/2026
 
 Spec `docs/CODEX-SPEC-2026-11-21-passe-copy-astra.md`, base a1ab61a.
 Textes exacts FR et traductions EN sur accueil, rendez-vous et en-tête Journal.
-Contact : « Vous échangez avec Paul Larmaraud », unique paragraphe d'équipe,
+Contact de cette passe historique remplacé le 21/11/2026 au soir ;
 portrait/actions conservés. FAQ et llms régénérés ; H1, SEO accueil, JSON-LD hors
 FAQ, CSS et articles intacts. AGENTS/TRUTH alignés sur la décision du 21/11.
 Référence 803/803 tests, candidat 807/807 (quatre tests de rendu ajoutés).
@@ -20,7 +41,7 @@ Détail : `docs/REPORT-2026-11-21-passe-copy-astra.md`.
 
 Spec `docs/CODEX-SPEC-2026-11-13-accueil-epure.md`, base e707430 (#383).
 Haut de page : hero à 17 objectifs FR/EN, références, trois moteurs,
-mesures sourcées et liens assistants ; puis terrain, métiers, parcours,
+mesures sourcées (liens assistants supprimés le 21/11/2026) ; puis terrain, métiers, parcours,
 technologies, équipe, FAQ et contact conservés. Anciennes applications/services,
 bandeau et derniers articles retirés du rendu, composants historiques archivés.
 Sélection partagée via HomeGoalProvider ; GET sans JS, source accueil-ID via

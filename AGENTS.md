@@ -1,9 +1,15 @@
+## Cohérence et garde-fous, décision de Paul du 21/11/2026 (soir)
+
+Les specs `docs/CODEX-SPEC-2026-11-21-alignement-pages-partenaires.md` et `docs/CODEX-SPEC-2026-11-21-coherence-et-garde-fous.md` priment sur les contrats antérieurs. Accueil (dix sections) : hero, références, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Calculateur supprimé, décision de Paul du 21/11/2026 au soir (« le calculateur ressemble à rien, que du texte, aucun élément visuel marketing probant »). Ordre de l'accueil, dix sections : hero, références, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Les ancres historiques `#en-production`, `#in-production`, `#services`, `#ce-qui-change`, `#what-changes` restent atteignables : ce sont des `span` d'ancre en tête de la section des offres. La source `accueil-calculateur` n'a plus d'émetteur. Le bouton bas de page et le bouton haut des pages thèmes ont le style standard des boutons (16 px). Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN). Contact : « Commencez par une tâche précise. », le nom de Paul une seule fois, en légende de photo ; la section des assistants est supprimée. Pages thèmes : gabarit commun (quatre étapes, livrables et limites, règles, FAQ native, Journal si articles, rendez-vous), `h1` avec point final, `<title>`, données structurées et liens sans point.
+Ponctuation (texte visible hors articles, FR et EN) : 1. paragraphe, réponse, légende, étape, carte, ligne de liste : point final, même signe pour toute la liste. 2. Titre de trois mots ou plus : point final (ou « ? »). 3. Titre d'un ou deux mots et nom d'étape : pas de point. 4. Bouton, lien, menu, libellé de champ, surtitre, nom d'outil, étiquette de grille : jamais de point. 5. Titre et résumé d'un article du Journal : inchangés.
+Tout texte visible passe `tests/style-site.test.mjs`. Une exception s'écrit dans le test avec sa raison, jamais dans le texte.
+
 ## Une équipe, décision de Paul des 13 et 14/11/2026
 
 Le site ne présente jamais un fondateur qui fait tout. Selon la décision de Paul du 21/11/2026,
-la section partenaires s'ouvre par « Nous faisons appel à des partenaires pour construire vos outils et accompagner vos équipes selon votre projet. » ; aucune mention d'un
-interlocuteur unique. Bloc contact : « Vous échangez avec Paul Larmaraud », sans date de création ni parcours du fondateur, puis le seul paragraphe
-« Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet. »
+la section partenaires s'ouvre par « Nous travaillons avec des ingénieurs, des studios, des consultants, des intervenants, des cabinets de conseil et des chercheurs. Pour chaque projet, nous réunissons ceux dont le métier correspond à votre besoin. » ; aucune mention d'un
+interlocuteur unique. Bloc contact : « Commencez par une tâche précise », sans date de création ni parcours du fondateur, puis le seul paragraphe
+« Vous décrivez une tâche qui prend du temps à vos équipes, ou un outil qui vous manque. Nous vous disons ce qui est réalisable. Le travail se fait ensuite avec les ingénieurs, les intervenants et les consultants dont votre projet a besoin. »
 Le mot « formation » reste hors de l'accueil. La photo, le bouton et l'e-mail restent. Rien de pompeux sur le fondateur. Aucune liste de ce que le fondateur
 conçoit ou pilote, y compris dans `scripts/generate-llms.mjs`. Cette décision prime sur « la ligne des
 partenaires précise l'interlocuteur responsable de bout en bout » (correctif 1
@@ -13,10 +19,10 @@ de l'action unique) et sur « équipe et contact gardent leurs textes » ci-dess
 
 `docs/CODEX-SPEC-2026-11-13-accueil-epure.md` prime sur les anciens contrats
 pour les seuls blocs remplacés : hero à 17 objectifs, références, trois moteurs,
-mesures et assistants. Terrain, deux métiers, parcours, technologies, équipe,
-questions et contact gardent leur ordre relatif et leurs textes. Sources hero
+mesures (la section des assistants est supprimée le 21/11/2026). Terrain, deux métiers, parcours, technologies, équipe,
+questions et contact : ordre et textes amendés le 21/11/2026, soir. Sources hero
 `accueil-<objectif>` via `avecSource`, navigation/contact inchangés. Ancres
-applications/services conservées vers les moteurs. Les seuils de géométrie,
+applications/services conservées (depuis le 21/11/2026 au soir, en tête des offres). Les seuils de géométrie,
 contraste et stabilité ne changent pas. Un seul mouvement dans le haut : tracé
 du chemin ; logos statiques et bouton sans respiration. Deux mesures publiables,
 le 97 % étant absent de l'article indiqué. Règles d'épure dans DESIGN.md.

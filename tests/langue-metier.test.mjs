@@ -32,14 +32,11 @@ for (const locale of ["fr", "en"]) test(`home copy is understandable, complete i
   const text = visibleText(html);
   // The new H1 above explicitly permits “matière première”; the rest keeps the plain-language gate.
   assert.doesNotMatch(visibleText(html.replace(/<h1>.*?<\/h1>/s, "")), locale === "fr" ? forbiddenFr : forbiddenEn);
-  // No price on the home page. Exemption, décision de Paul du 15/11/2026, resserrée le 18/11 :
-  // only the two calculator results (the visitor's own figures, never a Parrit price).
-  const results = html.match(/<p class="calc-result"[^>]*>[\s\S]*?<\/p>/g) ?? [];
-  assert.equal(results.length, 2);
-  const withoutResults = visibleText(results.reduce((page, result) => page.replace(result, ""), html));
-  assert.doesNotMatch(withoutResults, /\d\s*(?:€|\$|EUR|USD)/i);
+  // No price on the home page, no exemption: the calculator was removed on 21/11/2026 (evening).
+  assert.doesNotMatch(text, /\d\s*(?:€|\$|EUR|USD)/i);
   assert.doesNotMatch(text, /—|, pas\b|, not\b/i);
-  assert.ok(text.includes(locale === "fr" ? "L'assistant prépare. Vous validez." : "The assistant prepares. You approve."));
+  // Human approval is now carried by the software offer (the calculator sentence went with the calculator).
+  assert.ok(text.includes(locale === "fr" ? "Des assistants que vos équipes relisent et valident." : "Assistants your teams review and approve."));
   const outsideReferences = html.replace(/<section id="references"[\s\S]*?<\/section>/, "");
   assert.doesNotMatch(outsideReferences, /Laparra|Clevery|Forexpert|Joone|SNCF/i);
   const { HERO_STORIES, LAYERS, ZONES } = loader(locale)("src/system/ontology-hero-data.ts");
@@ -50,7 +47,7 @@ for (const locale of ["fr", "en"]) test(`home copy is understandable, complete i
     assert.doesNotMatch(t(value), /\bagents?\b|ontolog|logic sources|sources de logique/i);
   }
   assert.doesNotMatch(html, /class="tag (?:bo|new)"/);
-  assert.equal((html.match(/class="calc-card"/g) ?? []).length, 2);
+  assert.doesNotMatch(html, /calc-card/);
 });
 
 for (const locale of ["fr", "en"]) test(`home metadata and Organization/Person JSON-LD follow the requested locale (${locale})`, async () => {
@@ -90,7 +87,7 @@ for (const locale of ["fr", "en"]) test(`shared footer links to six existing des
     const links = [...html.matchAll(/<a href="([^"]+)"/g)].map(match => match[1]);
     assert.equal(links.length, 7);
     const prefix = locale === "fr" ? "/fr" : "";
-    assert.deepEqual(links.slice(0, 6), [...themes.map(slug => `${prefix}/journal/themes/${slug}`), `${prefix}/journal`, `${prefix}/legal`]);
+    assert.deepEqual(links.slice(0, 6), [...["conseil-transformation", "ai-sprints", "integration-developpement", "harness-engineering"].map(slug => `${prefix}/journal/themes/${slug}`), `${prefix}/journal`, `${prefix}/legal`]);
     assert.doesNotMatch(visibleText(html), locale === "fr" ? forbiddenFr : forbiddenEn);
   }
 });
@@ -108,7 +105,7 @@ test("French theme introductions use plain language while their addresses and si
     const intro = visibleText(html.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "");
     assert.ok(intro.length > 40);
     assert.doesNotMatch(intro + metadata.title.absolute, /harness|orchestrer|adoption|engineering|système supervisé/i);
-    assert.ok(metadata.title.absolute.includes(visibleText(html.match(/<h1>(.*?)<\/h1>/)?.[1] ?? "")));
+    assert.ok(metadata.title.absolute.includes(visibleText(html.match(/<h1>(.*?)<\/h1>/)?.[1] ?? "").replace(/\.$/, "")));
     assert.equal(metadata.alternates.canonical, `/fr/journal/themes/${theme}`);
   }
   const sitemap = load("src/app/sitemap.ts").default();
@@ -118,7 +115,8 @@ test("French theme introductions use plain language while their addresses and si
       const entry = sitemap.find(item => item.url === `https://parrit.ai${localized}`);
       assert.ok(entry, localized);
       assert.equal(entry.alternates.languages[locale], entry.url);
-      assert.equal(entry.lastModified, "2026-11-03");
+      // 21/11: the themes were rewritten (JOURNAL_THEMES_LAST_MODIFIED) and the home sections changed (sitemap date amended).
+      assert.equal(entry.lastModified, "2026-11-21");
     }
   }
   assert.equal(sitemap.filter(item => new URL(item.url).pathname.startsWith("/fr")).length, 7);

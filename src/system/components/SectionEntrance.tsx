@@ -6,7 +6,7 @@ import { useEffect } from "react";
 export function observeSectionEntrances(root: HTMLElement) {
   if (!("IntersectionObserver" in window)) return () => {};
   const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const sections = Array.from(root.querySelectorAll<HTMLElement>(":scope > section:not(.hero):not(#contact):not(#references):not(.home-motors):not(.home-measures):not(.home-assistant)"));
+  const sections = Array.from(root.querySelectorAll<HTMLElement>(":scope > section:not(.hero):not(#contact):not(#references):not(.home-measures)"));
   const seen = new Set<Element>();
   let observer: IntersectionObserver | undefined;
   const reset = () => sections.forEach(section => delete section.dataset.entrance);

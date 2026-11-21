@@ -2,7 +2,7 @@ import type { Locale } from "./locale";
 import type { SiteV1PageId } from "./site-v1-pages";
 
 // Shared by the themes' Article JSON-LD and their sitemap entries.
-export const JOURNAL_THEMES_LAST_MODIFIED = "2026-11-03";
+export const JOURNAL_THEMES_LAST_MODIFIED = "2026-11-21";
 
 export const JOURNAL_THEMES = {
   "harness-engineering": { label: { fr: "Contrôler vos assistants IA", en: "Control your AI assistants" }, page: "harness-engineering", articles: ["ai-agent-security-in-the-enterprise", "permission-layer-for-coding-agents", "agents-that-fabricate-facts", "the-claim-a-green-pipeline-never-makes"] },

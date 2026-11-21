@@ -7,8 +7,8 @@ import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
 
 const anchors = {
-  fr: ["haut", "references", "en-production", "mesures", "assistant", "terrain", "offres", "parcours", "technologies", "partenaires", "questions", "contact"],
-  en: ["haut", "references", "in-production", "measurements", "assistant", "in-the-field", "offers", "path", "technologies", "team", "questions", "contact"],
+  fr: ["haut", "references", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"],
+  en: ["haut", "references", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"],
 };
 const section = (html, id) => {
   const result = html.match(new RegExp(`<section\\b[^>]*id="${id}"[^>]*>([\\s\\S]*?)</section>`))?.[1];
@@ -21,16 +21,17 @@ for (const locale of ["fr", "en"]) {
     const html = await renderPage(locale);
     assert.deepEqual([...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]), anchors[locale]);
     assert.doesNotMatch(html, /<section[^>]*id="(?:ce-qui-change|what-changes)"/);
-    const applications = section(html, locale === "fr" ? "en-production" : "in-production");
-    assert.equal((applications.match(/class="calc-card"/g) ?? []).length, 2);
-    assert.match(visibleText(applications), locale === "fr" ? /L'assistant prépare\. Vous validez\./ : /The assistant prepares\. You approve\./);
+    // 21/11/2026 (soir): the calculator section is gone; its anchors live at the head of the offers section.
+    assert.doesNotMatch(html, /calc-card/);
+    const offers = section(html, locale === "fr" ? "offres" : "offers");
+    for (const id of ["en-production", "in-production", "services", "ce-qui-change", "what-changes"]) assert.ok(offers.includes(`id="${id}"`), id);
     const home = locale === "fr" ? "/fr" : "/";
     const load = loader(locale, { "next/navigation": { usePathname: () => home, useSearchParams: () => new URLSearchParams() } });
     const { RevHeader } = load("src/system/components/RevHeader.tsx");
     const header = renderToStaticMarkup(createElement(RevHeader, { locale }));
     const nav = header.match(/<nav class="desktop-nav"[^>]*>([\s\S]*?)<\/nav>/)[1];
-    const expected = locale === "fr" ? ["en-production", "offres", "parcours", "services", "questions", "contact"] : ["in-production", "offers", "path", "services", "questions", "contact"];
-    assert.deepEqual([...nav.matchAll(/href="([^"]+)"/g)].map(m => m[1]), [...expected.slice(0, -1).map(id => `${home}#${id}`), `${locale === "fr" ? "/fr" : ""}/journal`, `${home}#contact`]);
+    const expected = locale === "fr" ? ["offres", "partenaires", "parcours", "questions"] : ["offers", "team", "path", "questions"];
+    assert.deepEqual([...nav.matchAll(/href="([^"]+)"/g)].map(m => m[1]), [...expected.map(id => `${home}#${id}`), `${locale === "fr" ? "/fr" : ""}/journal`]);
   });
 
   test(`two craft cards, no contact action (${locale})`, async () => {

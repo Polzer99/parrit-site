@@ -6,7 +6,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
-const anchors = { fr: ["haut", "references", "en-production", "mesures", "assistant", "terrain", "offres", "parcours", "technologies", "partenaires", "questions", "contact"], en: ["haut", "references", "in-production", "measurements", "assistant", "in-the-field", "offers", "path", "technologies", "team", "questions", "contact"] };
+const anchors = { fr: ["haut", "references", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"], en: ["haut", "references", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"] };
 test("hero paths never depend on CSS d or responsive path variables", () => {
   const css = readFileSync("src/system/single-page.css", "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
   assert.doesNotMatch(css, /(?:^|[;{])\s*d\s*:/i);
@@ -24,12 +24,13 @@ for (const locale of ["fr", "en"]) test(`goal SVG has a complete static path in 
   assert.ok(path);
   assert.equal(path[1].trim().split(/\s+/).length, 3);
 });
+// 21/11/2026 (soir): the calculator is removed; the anonymous block that must survive permission revocation is the offers section.
 function applications(html, locale) {
-  const section = html.match(new RegExp(`<section[^>]*id="${locale === "fr" ? "en-production" : "in-production"}"[^>]*>[\\s\\S]*?</section>`))?.[0];
-  assert.ok(section, "the calculator section remains present (15/11)");
-  assert.equal((section.match(/class="calc-card"/g) ?? []).length, 2);
+  const section = html.match(new RegExp(`<section[^>]*id="${locale === "fr" ? "offres" : "offers"}"[^>]*>[\\s\\S]*?</section>`))?.[0];
+  assert.ok(section, "the offers section is present");
+  assert.doesNotMatch(html, /calc-card|home-calculator/);
+  assert.equal((section.match(/<article /g) ?? []).length, 2);
   assert.equal((section.match(/<h[23]>/g) ?? []).length, 3);
-  assert.match(visibleText(section), locale === "fr" ? /L'assistant prépare\. Vous validez\./ : /The assistant prepares\. You approve\./);
   assert.doesNotMatch(section, /Laparra|Clevery|Forexpert|Joone|SNCF|data-evidence|class="who"|\/clients\//i);
   return section;
 }
@@ -43,11 +44,11 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   const journalLink = new RegExp(`href="${locale === "fr" ? "/fr" : ""}/journal"`);
   assert.match(main, journalLink);
   assert.match(footer, journalLink);
-  assert.equal((html.match(/<section\b/g) ?? []).length, 12);
+  assert.equal((html.match(/<section\b/g) ?? []).length, 10);
   assert.deepEqual([...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]), anchors[locale]);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
-  // 17 objectives in the hero, plus the three tasks of the calculator (15/11).
-  assert.equal((main.match(/<option\b/g) ?? []).length, 20);
+  // 17 objectives in the hero, nothing else (calculator removed 21/11/2026, evening).
+  assert.equal((main.match(/<option\b/g) ?? []).length, 17);
   assert.equal((main.match(/data-result=/g) ?? []).length, 17);
   assert.doesNotMatch(main, /class="sub"|class="hero-reassurance"/);
   // The Journal can contain the English word "hidden"; check the HTML attribute.
@@ -79,7 +80,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.doesNotMatch(references, /class="reflines"|<p/);
   for (const client of ["Laparra", "Clevery", "Forexpert", "Joone", "SNCF"]) assert.match(references, new RegExp(`aria-label="${client}[^"]*"`));
   assert.doesNotMatch(text, /Arkel/);
-  assert.match(text, locale === "fr" ? /L'assistant prépare\. Vous validez\./ : /The assistant prepares\. You approve\./);
+  assert.match(text, locale === "fr" ? /Des assistants que vos équipes relisent et valident\./ : /Assistants your teams review and approve\./);
   for (const [, label] of html.matchAll(/<a class="[^"]*rev-button[^\"]*"[^>]*>(.*?)<\/a>/g)) assert.doesNotMatch(visibleText(label), /\.$/);
 });
 test("previous portrait remains intact in the repository after the founder photo change", () => {
@@ -173,7 +174,7 @@ for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos a
   assert.doesNotMatch(html, /id="confiance"|id="safeguards"|class="local-note"/);
   assert.match(html, /class="walk s1 s2 s3 withbot" viewBox="0 0 1080 130" aria-hidden="true"/);
   assert.match(html, /class="human" transform="translate\(900 120\)"/);
-  assert.equal((html.match(/class="calc-card"/g) ?? []).length, 2);
+  assert.doesNotMatch(html, /calc-card/);
   assert.doesNotMatch(html, /id="architecture"|class="stage"/);
   assert.equal((html.match(/role="img"/g) ?? []).length, 7);
   const strip = html.match(/<section id="references">([\s\S]*?)<\/section>/)?.[1];
@@ -185,8 +186,8 @@ for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos a
   const founder = html.match(/<div class="founder-identity">\s*(<h2>[\s\S]*?<\/h2>)/)?.[1];
   assert.ok(founder);
   assert.equal(visibleText(founder).replace(/\s+/g, " ").trim(), locale === "fr"
-    ? "Vous échangez avec Paul Larmaraud"
-    : "You speak with Paul Larmaraud");
+    ? "Commencez par une tâche précise."
+    : "Start with one specific task.");
 });
 
 for (const locale of ["fr", "en"]) test(`passe 4 complete SSR use cases, offers after architecture removal (${locale})`, async () => {
@@ -196,11 +197,11 @@ for (const locale of ["fr", "en"]) test(`passe 4 complete SSR use cases, offers 
   assert.equal(SERVICE_CASES.length, 12);
   assert.equal(PARTNER_OFFERS.flat().length, 23);
   assert.equal((html.match(/data-result=/g) ?? []).length, 17);
-  assert.equal((html.match(/class="calc-card"/g) ?? []).length, 2);
+  assert.doesNotMatch(html, /calc-card/);
   for (const offer of PARTNER_OFFERS.flat()) { assert.ok(t(offer), offer); assert.ok(visibleText(html).includes(t(offer)), offer); }
   assert.doesNotMatch(html, /class="use-case"|class="tag bo"|class="tag new"/);
-  // 15/11 : the calculator keeps the fifth carousel (one card per screen on mobile).
-  assert.equal((html.match(/class="swipe-dots"/g) ?? []).length, 5);
+  // 21/11 (soir): the calculator carousel is gone, four swipe carousels remain.
+  assert.equal((html.match(/class="swipe-dots"/g) ?? []).length, 4);
   assert.doesNotMatch(html, /id="architecture"|class="flowmap|\/tools\//);
   const { SITE_EVIDENCE } = loader(locale)("src/lib/registry/preuves.ts");
   assert.match(SITE_EVIDENCE.find(item => item.id === "Laparra").claim, /pilotage agentique/);

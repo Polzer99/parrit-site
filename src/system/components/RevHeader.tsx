@@ -36,7 +36,7 @@ export function RevHeader({ locale }: { locale: Locale }) {
     return () => { document.removeEventListener("keydown", escape); document.removeEventListener("pointerdown", outside); };
   }, [pathname]);
   const fr = locale === "fr";
-  const nav = fr ? [["en-production", "Applications"], ["offres", "Offres"], ["parcours", "Le parcours"], ["services", "Services"], ["questions", "Questions"], ["contact", "Contact"]] : [["in-production", "Applications"], ["offers", "Offers"], ["path", "The path"], ["services", "Services"], ["questions", "Questions"], ["contact", "Contact"]];
+  const nav = fr ? [["offres", "Offres"], ["partenaires", "Partenaires"], ["parcours", "Le parcours"], ["questions", "Questions"]] : [["offers", "Offers"], ["team", "Partners"], ["path", "The path"], ["questions", "Questions"]];
   const journal = localizedPath("/journal", locale);
   const links = nav.flatMap(([anchor, label]) => [
     <a key={anchor} href={localizedPath(`/#${anchor}`, locale)}>{label}</a>,
@@ -54,7 +54,7 @@ export function RevHeader({ locale }: { locale: Locale }) {
       <details className="mobile-menu">
         <summary>Menu</summary>
         <nav aria-label={fr ? "Navigation mobile" : "Mobile navigation"}>
-          {links.filter(link => link.key !== "contact")}
+          {links}
           {action}
         </nav>
       </details>

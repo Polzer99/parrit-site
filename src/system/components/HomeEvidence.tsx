@@ -2,26 +2,14 @@ import { localizedPath, type Locale } from "@/system/locale";
 import { homeSectionHeadings } from "@/system/home-layers";
 import { BrandConnector } from "./BrandConnector";
 
-// Décision de Paul du 15/11/2026 : les trois mesures internes (tokens, écran
-// commercial, lignes fausses) quittent l'accueil, ce ne sont pas des résultats
-// clients. Seule la presse reste, comme renvoi vers le Journal.
+// Presse seule depuis la décision du 21/11/2026 (coherence-et-garde-fous, B.1) : la section
+// des assistants et l'ancre #assistant n'existent plus. Une colonne : titre, texte, bouton.
 export function HomeMeasures({ locale }: { locale: Locale }) {
-  return <section className="home-measures" id={locale === "fr" ? "mesures" : "measurements"}><div className="wrap">
+  const fr = locale === "fr";
+  return <section className="home-measures" id={fr ? "mesures" : "measurements"}><div className="wrap">
     <div className="home-press"><h2>{homeSectionHeadings(locale).measures[0]}</h2>
-      <a className="btn rev-button ghost home-journal-link" href={localizedPath("/journal", locale)}>{locale === "fr" ? "Lire nos retours de terrain" : "Read our field notes"}<BrandConnector/></a>
+      <p>{fr ? "Le Journal décrit ce qui a fonctionné et ce qui a échoué, avec les dates et les constats. Des chroniques sont parues dans Le Monde Informatique." : "The Journal describes what worked and what failed, with dates and findings. Columns have been published in Le Monde Informatique."}</p>
+      <a className="btn rev-button ghost home-journal-link" href={localizedPath("/journal", locale)}>{fr ? "Lire nos retours de terrain" : "Read our field notes"}<BrandConnector/></a>
     </div>
-  </div></section>;
-}
-
-export function HomeAssistant({ locale }: { locale: Locale }) {
-  const question = encodeURIComponent(locale === "fr"
-    ? "Que fait Parrit.ai (https://parrit.ai) et pour quel type d'entreprise ? Appuie-toi sur leur site et cite tes sources."
-    : "What does Parrit.ai (https://parrit.ai) do, and for what type of business? Use their website and cite your sources.");
-  return <section className="home-assistant" id="assistant"><div className="wrap">
-    <h2>{locale === "fr" ? "Ou demandez à votre assistant." : "Or ask your assistant."}</h2>
-    <div className="assistant-links">{[
-      ["ChatGPT", "https://chatgpt.com/?q="], ["Claude", "https://claude.ai/new?q="],
-      ["Perplexity", "https://www.perplexity.ai/search?q="], ["Le Chat", "https://chat.mistral.ai/chat?q="],
-    ].map(([name, url]) => <a href={`${url}${question}`} target="_blank" rel="noopener" key={name}>{name}</a>)}</div>
   </div></section>;
 }

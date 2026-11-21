@@ -1,8 +1,29 @@
+## Alignement des pages et partenaires, décision de Paul du 21/11/2026, soir
+
+La spec `docs/CODEX-SPEC-2026-11-21-alignement-pages-partenaires.md` prime sur
+les contrats antérieurs pour l'ordre, le menu, les partenaires, presse,
+le contact, les thèmes, les blocs de rendez-vous et le pied de page.
+Ordre (dix sections) : hero, références, offres, partenaires, parcours, terrain,
+technologies, mesures (presse seule, sections des assistants et du calculateur supprimées), questions, contact.
+Calculateur supprimé, décision de Paul du 21/11/2026 au soir (« le calculateur ressemble à rien, que du texte, aucun élément visuel marketing probant »). Ordre de l'accueil, dix sections : hero, références, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Les ancres historiques `#en-production`, `#in-production`, `#services`, `#ce-qui-change`, `#what-changes` restent atteignables : ce sont des `span` d'ancre en tête de la section des offres. La source `accueil-calculateur` n'a plus d'émetteur. Le bouton bas de page et le bouton haut des pages thèmes ont le style standard des boutons (16 px).
+Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN).
+Contact : « Commencez par une tâche précise. », avec point final ; son bouton
+cible et focalise `#reservation`, avec source `rdv-contact`. Les autres placements
+conservent `#contact`. Paul est nommé une seule fois dans le texte visible de
+l'accueil, en légende du portrait : « Paul Larmaraud mène le premier échange. »
+Partenaires : « Vous travaillez avec les spécialistes dont votre projet a besoin. »
+Introduction : « Nous travaillons avec des ingénieurs, des studios, des consultants, des intervenants, des cabinets de conseil et des chercheurs. Pour chaque projet, nous réunissons ceux dont le métier correspond à votre besoin. »
+Paragraphe contact : « Vous décrivez une tâche qui prend du temps à vos équipes, ou un outil qui vous manque. Nous vous disons ce qui est réalisable. Le travail se fait ensuite avec les ingénieurs, les intervenants et les consultants dont votre projet a besoin. »
+Thèmes : gabarit commun, quatre étapes, livrables et limites, règles, FAQ native,
+Journal si articles, rendez-vous ; sept H2 maximum. Pied en deux groupes, thèmes
+issus de JOURNAL_THEMES. Ancres existantes, permissions clients, charte, réseau,
+contraste, géométrie et stabilité conservés sans abaissement des seuils.
+
 ## Passe de copy, décision de Paul du 21/11/2026
 
 La spec `docs/CODEX-SPEC-2026-11-21-passe-copy-astra.md` remplace les seuls textes indiqués, mot pour mot en français et avec leur traduction anglaise.
-Partenaires : « Nous faisons appel à des partenaires pour construire vos outils et accompagner vos équipes selon votre projet. »
-Contact : « Vous échangez avec Paul Larmaraud », puis « Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet. »
+Partenaires : « Nous travaillons avec des ingénieurs, des studios, des consultants, des intervenants, des cabinets de conseil et des chercheurs. Pour chaque projet, nous réunissons ceux dont le métier correspond à votre besoin. »
+Contact : « Commencez par une tâche précise », puis « Vous décrivez une tâche qui prend du temps à vos équipes, ou un outil qui vous manque. Nous vous disons ce qui est réalisable. Le travail se fait ensuite avec les ingénieurs, les intervenants et les consultants dont votre projet a besoin. »
 Aucune date de création ni parcours du fondateur ; photo, rendez-vous et e-mail conservés. Le site présente une équipe. La PR #389 est remplacée par cette décision.
 H1 et métadonnées de l'accueil, charte, sections et animations conservés ; FAQ visible et FAQPage partagent toujours les mêmes paires.
 
@@ -10,10 +31,10 @@ H1 et métadonnées de l'accueil, charte, sections et animations conservés ; FA
 
 `docs/CODEX-SPEC-2026-11-13-accueil-epure.md` prime sur les anciens contrats
 pour les seuls blocs remplacés : hero à 17 objectifs, références, trois moteurs,
-mesures et assistants. Terrain, deux métiers, parcours, technologies, équipe,
-questions et contact gardent leur ordre relatif et leurs textes. Sources hero
+mesures (la section des assistants est supprimée le 21/11/2026). Terrain, deux métiers, parcours, technologies, équipe,
+questions et contact : ordre et textes amendés le 21/11/2026, soir. Sources hero
 `accueil-<objectif>` via `avecSource`, navigation/contact inchangés. Ancres
-applications/services conservées vers les moteurs. Les seuils de géométrie,
+applications/services conservées (depuis le 21/11/2026 au soir, en tête des offres). Les seuils de géométrie,
 contraste et stabilité ne changent pas. Un seul mouvement dans le haut : tracé
 du chemin ; logos statiques et bouton sans respiration. Deux mesures publiables,
 le 97 % étant absent de l'article indiqué. Règles d'épure dans DESIGN.md.

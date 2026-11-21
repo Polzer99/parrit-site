@@ -18,14 +18,12 @@ for (const locale of ["fr", "en"]) {
   test(`llms section order and labels equal the actual rendered home (${locale})`, async () => {
     const html = await renderPage(locale);
     const headings = [...html.matchAll(/<section\b[^>]*>([\s\S]*?)<\/section>/g)].map(([, section]) => {
-      // The replacement motors layer has three parallel headings, no wrapper title.
-      if (section.includes('class="motor-column"')) return [...section.matchAll(/<h2>([\s\S]*?)<\/h2>/g)].map(([, heading]) => text(heading)).join(" ");
       const heading = section.match(/<h[12](?:\s[^>]*)?>([\s\S]*?)<\/h[12]>/)?.[1]
         ?? section.match(/<p id="technologies-title"[^>]*>([\s\S]*?)<\/p>/)?.[1];
       assert.ok(heading, "every section has its existing heading");
       return text(heading);
     });
-    assert.equal(headings.length, 12);
+    assert.equal(headings.length, 10);
     const prefix = locale === "fr" ? "- Dans l'ordre : " : "- In order: ";
     assert.equal(language(output(), locale).split("\n").find(line => line.startsWith(prefix)), prefix + headings.join(" ; "));
   });
