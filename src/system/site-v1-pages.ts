@@ -308,7 +308,7 @@ export const SITE_V1_PAGES = {
           "custom",
           "Vous essayez l’outil sur vos propres tâches",
           [
-            "Vous nous montrez vos fichiers et le résultat attendu. Nous écrivons le périmètre, les validations nécessaires et les tests avant de construire. Le code, les données et la documentation vous appartiennent."
+            "Vous nous montrez vos fichiers et le résultat attendu. Nous écrivons le périmètre, les validations nécessaires et les tests avant de construire."
           ]
         ],
         [
@@ -353,7 +353,7 @@ export const SITE_V1_PAGES = {
           "custom",
           "You try the tool on your own tasks",
           [
-            "You show us your files and the expected result. We write down the scope, required approvals and tests before building. The code, data and documentation belong to you."
+            "You show us your files and the expected result. We write down the scope, required approvals and tests before building."
           ]
         ],
         [

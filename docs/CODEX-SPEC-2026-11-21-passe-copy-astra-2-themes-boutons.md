@@ -10,6 +10,8 @@ Texte « Après » rédigé par gpt-6-astra le 21/11/2026, relu par Claude pour 
 
 ## Règles de construction
 
+Correctif de relecture : la phrase de propriété du bloc Construction sur mesure est retirée (contrôle false-claims).
+
 - S'applique APRÈS `docs/CODEX-SPEC-2026-11-21-passe-copy-astra.md`, sur la même branche.
 - Sources probables : `src/system/journal-themes.ts`, `src/system/site-v1-pages.ts`, `src/system/booking.ts`, `src/system/components/QuickCapture.tsx`, `src/system/components/RevFooter.tsx`, `src/system/components/HomeEvidence.tsx`, `src/system/home-goals.ts`, `src/system/single-page-copy.ts`, la page article.
 - Les URL et slugs des thèmes ne changent PAS (`/journal/themes/ai-sprints`…). Seuls les titres, libellés et textes changent. Le `<title>` de chaque thème suit le nouveau titre.
