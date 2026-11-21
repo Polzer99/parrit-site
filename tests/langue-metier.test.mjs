@@ -108,7 +108,7 @@ test("French theme introductions use plain language while their addresses and si
     const intro = visibleText(html.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "");
     assert.ok(intro.length > 40);
     assert.doesNotMatch(intro + metadata.title.absolute, /harness|orchestrer|adoption|engineering|système supervisé/i);
-    assert.ok(metadata.title.absolute.includes(visibleText(html.match(/<h1>(.*?)<\/h1>/)?.[1] ?? "")));
+    assert.ok(metadata.title.absolute.includes(visibleText(html.match(/<h1>(.*?)<\/h1>/)?.[1] ?? "").replace(/\.$/, "")));
     assert.equal(metadata.alternates.canonical, `/fr/journal/themes/${theme}`);
   }
   const sitemap = load("src/app/sitemap.ts").default();

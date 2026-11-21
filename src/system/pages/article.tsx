@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: JournalArticlePageProps, rout
     url: articleImageUrl(`${SITE_URL}/journal/${entry.slug}`),
     width: 1200,
     height: 630,
-    alt: "Parrit.ai Journal article",
+    alt: locale === "fr" ? "Article du Journal de Parrit.ai" : "Parrit.ai Journal article",
   };
   return {
     title: entry.title,

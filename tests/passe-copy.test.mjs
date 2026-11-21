@@ -13,8 +13,8 @@ for (const locale of ["fr", "en"]) {
     const contact = html.match(/<section class="founder"[\s\S]*?<\/section>/)[0];
     const heading = contact.match(/<h2>([\s\S]*?)<\/h2>/)[1];
     assert.equal(text(heading), locale === "fr"
-      ? "Commencez par une tâche précise"
-      : "Start with one specific task");
+      ? "Commencez par une tâche précise."
+      : "Start with one specific task.");
     const details = contact.match(/<div class="founder-details">([\s\S]*?)<div class="actions">/)[1];
     assert.equal((details.match(/<p>/g) ?? []).length, 1);
     assert.doesNotMatch(details, /<ul|<li/);
@@ -28,7 +28,7 @@ for (const locale of ["fr", "en"]) {
     const technology = html.match(/<p id="technologies-title"[^>]*>([\s\S]*?)<\/p>/)[1];
     assert.equal(text(technology), locale === "fr"
       ? "Nous choisissons les outils selon votre besoin."
-      : "We choose tools according to your needs.");
+      : "We choose the tools that fit your needs.");
   });
 
   test(`Journal introduction and description follow the approved copy (${locale})`, async () => {

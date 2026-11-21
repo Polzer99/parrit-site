@@ -56,7 +56,8 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
       await expect(page.locator(`${nav} a`).first()).toHaveText(locale === "fr" ? "Offres" : "Offers");
       await expect(page.locator(`${nav} a`).first()).toHaveAttribute("href", locale === "fr" ? "/fr#offres" : "/#offers");
     }
-    await expect(page.locator("#contact h2")).not.toHaveText(/\.$/);
+    // 21/11/2026 (spec 2, lot A) : le titre du contact finit par un point.
+    await expect(page.locator("#contact h2")).toHaveText(/\.$/);
     await expect(page.locator("main")).not.toContainText(/Brésil|Brazil|Cameroun|Cameroon|métropole lilloise|Lille area/);
     const smallText = await page.locator("main *, header *, footer *").evaluateAll(nodes => nodes.filter(el => {
       if (el.closest(".goal-diagram, .onto-ready, .onto-approval")) return false; // Explicit hero type scale, spec 29/10.
@@ -389,7 +390,7 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       expect(section.scrollHeight, `${section.id}: content must not be clipped`).toBeLessThanOrEqual(height);
       expect(section.overflowY).not.toMatch(/hidden|clip/);
     }
-    const figures = page.locator(".goal-schema, .calc-grid, .assistant-links, .home-offers, .session-mosaic, .home-faq, .path-walker, .steps, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid");
+    const figures = page.locator(".goal-schema, .calc-grid, .home-offers, .session-mosaic, .home-faq, .path-walker, .steps, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid");
     await expect(figures).toHaveCount(12); // 15/11 : calculateur, la grille des mesures disparaît
     for (const figure of await figures.all()) {
       const box = await figure.boundingBox();
@@ -659,20 +660,20 @@ for (const locale of ["fr", "en"]) test(`calculator updates its results ${locale
   const growthResult = growth.locator('[data-calc-result="croissance"]');
   const timeResult = time.locator('[data-calc-result="temps"]');
   await expect(growthResult).toHaveText(locale === "fr" ? /^9\s000\s€$/ : "€9,000");
-  await expect(timeResult).toHaveText("17 h");
+  await expect(timeResult).toHaveText(locale === "fr" ? "17 h" : "17 hours");
   await expect(time.locator(".calc-result")).toContainText(locale === "fr" ? /soit environ 680\s€\./ : "about €680.");
   await growth.locator(".calc-field input").first().fill("40");
   await expect(growthResult).toHaveText(locale === "fr" ? /^18\s000\s€$/ : "€18,000");
   await growth.locator(".calc-field input").first().fill("");
   await expect(growthResult).toHaveText(locale === "fr" ? /^0\s€$/ : "€0");
   await time.locator("select").selectOption("rapprochement");
-  await expect(timeResult).toHaveText("7 h");
+  await expect(timeResult).toHaveText(locale === "fr" ? "7 h" : "7 hours");
   await time.locator("select").selectOption("comptes-rendus");
-  await expect(timeResult).toHaveText("11 h");
+  await expect(timeResult).toHaveText(locale === "fr" ? "11 h" : "11 hours");
   await time.locator(".calc-field input").first().fill("");
   await expect(timeResult).toHaveText("0 h");
   await time.locator("select").selectOption("rapprochement");
-  await expect(timeResult).toHaveText("7 h");
+  await expect(timeResult).toHaveText(locale === "fr" ? "7 h" : "7 hours");
 });
 
 test("partner offers keep at most two faces active and restore every static offer", async ({ page }) => {

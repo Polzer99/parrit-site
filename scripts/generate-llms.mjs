@@ -62,6 +62,7 @@ ${articles("fr")}
 
 ### Contact
 - https://parrit.ai/fr#contact : réservation intégrée à la page d'accueil.
+- https://parrit.ai/fr/rendez-vous : page de réservation derrière les boutons hors de l'accueil, avec un lien direct vers Cal.com sans JavaScript.
 
 ## English
 
@@ -91,6 +92,7 @@ ${articles("en")}
 
 ### Contact
 - https://parrit.ai/#contact: booking on the home page.
+- https://parrit.ai/rendez-vous: booking page behind the buttons outside the home page, with a direct Cal.com link without JavaScript.
 `;
   const clients = journalClientNames(content);
   if (clients.length) throw new Error(`Client names forbidden in llms.txt: ${clients.join(", ")}`);

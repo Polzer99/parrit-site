@@ -1,13 +1,13 @@
 # Parrit.ai
 
 > Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent.
-> Your teams take AI in hand. We build the software they are missing.
+> Your teams learn to use AI. We build the software they are missing.
 
 ## Français
 
 ### La page d'accueil
 - https://parrit.ai/fr
-- Dans l'ordre : Votre expertise est la matière première. Nous la mettons au travail. ; Ils travaillent avec nous. ; Ce que ces tâches vous coûtent aujourd'hui. ; Vos équipes prennent l'IA en main. Nous construisons vos outils. ; Vous travaillez avec les spécialistes dont votre projet a besoin. ; Trois étapes, vous commencez où vous voulez. ; Sur le terrain, avec vos équipes. ; Nous choisissons les outils selon votre besoin. ; Nous publions ce que nous apprenons sur le terrain. ; Questions ; Commencez par une tâche précise
+- Dans l'ordre : Votre expertise est la matière première. Nous la mettons au travail. ; Ils travaillent avec nous. ; Ce que ces tâches vous coûtent aujourd'hui. ; Vos équipes prennent l'IA en main. Nous construisons vos outils. ; Vous travaillez avec les spécialistes dont votre projet a besoin. ; Trois étapes, vous commencez où vous voulez. ; Sur le terrain, avec vos équipes. ; Nous choisissons les outils selon votre besoin. ; Nous publions ce que nous apprenons sur le terrain. ; Questions ; Commencez par une tâche précise.
 - Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.
 - Nous travaillons avec des ingénieurs, des studios, des consultants, des intervenants, des cabinets de conseil et des chercheurs. Pour chaque projet, nous réunissons ceux dont le métier correspond à votre besoin.
 - Vous décrivez une tâche qui prend du temps à vos équipes, ou un outil qui vous manque. Nous vous disons ce qui est réalisable. Le travail se fait ensuite avec les ingénieurs, les intervenants et les consultants dont votre projet a besoin.
@@ -17,13 +17,13 @@
 - Par où commence-t-on ?
   Nous échangeons pendant 15 minutes en visioconférence, puis nous définissons le travail par écrit. Si nous ne pouvons pas vous aider, nous vous expliquons pourquoi.
 - Faut-il des équipes techniques ?
-  Non. Vos équipes prennent l'IA en main sur leurs outils, puis nous construisons des assistants qu'elles relisent et valident.
+  Non. Vos équipes apprennent sur leurs propres outils. Nous construisons ensuite des assistants qu'elles relisent et valident.
 - Que deviennent nos données ?
   L'IA peut être installée sur vos serveurs, et nous contrôlons l'usage qu'en font vos équipes.
 - Quelles technologies utilisez-vous ?
   Nous choisissons selon votre besoin parmi ChatGPT, Claude, Gemini, Mistral, Copilot et d'autres outils. Nous ne dépendons pas d'un seul fournisseur.
 - Travaillez-vous avec les grands groupes comme avec les PME ?
-  Oui. Nous choisissons les intervenants selon les besoins de votre entreprise.
+  Oui. Nous réunissons les intervenants qu'il faut, pour une PME comme pour un grand groupe.
 - Combien cela coûte-t-il ?
   Le prix se fixe après le cadrage, selon le périmètre. Nous ne publions pas de grille.
 
@@ -75,12 +75,13 @@
 
 ### Contact
 - https://parrit.ai/fr#contact : réservation intégrée à la page d'accueil.
+- https://parrit.ai/fr/rendez-vous : page de réservation derrière les boutons hors de l'accueil, avec un lien direct vers Cal.com sans JavaScript.
 
 ## English
 
 ### The home page
 - https://parrit.ai/
-- In order: Your expertise is the raw material. We put it to work. ; They work with us. ; What these tasks cost you today. ; Your teams learn to use AI. We build your tools. ; You work with the specialists your project needs. ; Three steps. Start wherever you are. ; In the field, with your teams. ; We choose tools according to your needs. ; We publish what we learn in the field. ; Questions ; Start with one specific task
+- In order: Your expertise is the raw material. We put it to work. ; They work with us. ; What these tasks cost you today. ; Your teams learn to use AI. We build your tools. ; You work with the specialists your project needs. ; Three steps. Start wherever you are. ; In the field, with your teams. ; We choose the tools that fit your needs. ; We publish what we learn in the field. ; Questions ; Start with one specific task.
 - Client replies, follow-ups, quotes, meeting notes: AI prepares them, your teams review and decide.
 - We work with engineers, studios, consultants, trainers, consulting firms and researchers. For each project, we bring together those whose expertise matches your need.
 - You describe a task that takes up your teams’ time, or a tool you are missing. We tell you what is feasible. The work then continues with the engineers, trainers and consultants your project needs.
@@ -90,15 +91,15 @@
 - Where do we start?
   We talk for 15 minutes by video, then define the work in writing. If we cannot help you, we explain why.
 - Do we need technical teams?
-  No. Your teams take AI in hand with their own tools, then we build assistants they review and approve.
+  No. Your teams learn on their own tools. We then build assistants they review and approve.
 - What happens to our data?
   AI can be installed on your servers, and we control how your teams use it.
 - Which technologies do you use?
-  We choose from ChatGPT, Claude, Gemini, Mistral, Copilot and other tools according to your needs. We do not depend on a single provider.
+  We choose from ChatGPT, Claude, Gemini, Mistral, Copilot and other tools, depending on what you need. We do not depend on a single provider.
 - Do you work with large companies as well as SMEs?
-  Yes. We choose the people involved according to the needs of your business.
+  Yes. We bring together the right people, for a small company as for a large group.
 - How much does it cost?
-  The price is set after scoping, according to the project scope. We do not publish a price list.
+  The price is set after scoping and depends on the scope. We do not publish a price list.
 
 ### Journal themes
 - https://parrit.ai/journal/themes/harness-engineering: Control your AI assistants.
@@ -148,3 +149,4 @@
 
 ### Contact
 - https://parrit.ai/#contact: booking on the home page.
+- https://parrit.ai/rendez-vous: booking page behind the buttons outside the home page, with a direct Cal.com link without JavaScript.

@@ -115,6 +115,8 @@ for (const locale of ["fr", "en"]) test(`new article renders answer, optional ta
   const metadata = await page.generateMetadata(props);
   assert.equal(metadata.openGraph.modifiedTime, base.updatedAt);
   assert.equal(metadata.authors[0].name, base.author);
+  // Lot D (21/11/2026) : pas d'anglais dans les métadonnées d'une page française.
+  assert.equal(metadata.openGraph.images[0].alt, locale === "fr" ? "Article du Journal de Parrit.ai" : "Parrit.ai Journal article");
 });
 
 test("FAQ strings and table cells cannot inject executable HTML", async () => {

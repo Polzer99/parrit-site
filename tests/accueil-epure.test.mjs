@@ -11,7 +11,7 @@ for (const locale of ["fr", "en"]) {
   const { HOME_GOALS, GOAL_PLANES, homeGoal, goalNodeLabel } = load("src/system/home-goals.ts");
   const { SinglePage } = load("src/system/components/SinglePage.tsx");
   const render = (query = "") => renderToStaticMarkup(React.createElement(SinglePage, { locale, contactQuery: query }));
-  test(`complete initial HTML ${locale}: 17 objectives, results, 48 nodes, flows, measures and assistants`, () => {
+  test(`complete initial HTML ${locale}: 17 objectives, results, 48 nodes, flows, measures and no assistants section`, () => {
     const html = render();
     assert.equal(HOME_GOALS.length, 17);
     assert.equal(new Set(HOME_GOALS.map(goal => goal.id)).size, 17);
@@ -29,7 +29,9 @@ for (const locale of ["fr", "en"]) {
     assert.equal((html.match(/class="goal-flow"/g) ?? []).length, 0);
     assert.equal((html.match(/class="home-measure"/g) ?? []).length, 0);
     assert.equal((html.match(/class="calc-card"/g) ?? []).length, 2);
-    assert.equal((html.match(/target="_blank" rel="noopener"/g) ?? []).length, 4);
+    // Décision de Paul du 21/11/2026 (spec 2, B.1) : la section des assistants est supprimée.
+    assert.equal((html.match(/target="_blank" rel="noopener"/g) ?? []).length, 0);
+    assert.doesNotMatch(html, /id="assistant"|chatgpt\.com|perplexity\.ai|chat\.mistral\.ai/);
     for (const goal of HOME_GOALS) {
       assert.ok(html.includes(escape(goal.label[locale])));
       assert.ok(html.includes(escape(goal.result[locale])));
@@ -80,7 +82,7 @@ for (const locale of ["fr", "en"]) {
     const fr = locale === "fr";
     const s = "[\\s\\u00a0\\u202f]";
     assert.match(section, fr ? new RegExp(`9${s}000${s}€`) : /€9,000/, "growth default: 20 × 15 % × 3 000");
-    assert.ok(section.includes(">17 h<"), "time default: 40 × 6 min × 52 / 12 / 60");
+    assert.ok(section.includes(fr ? ">17 h<" : ">17 hours<"), "time default: 40 × 6 min × 52 / 12 / 60");
     assert.match(section, fr ? new RegExp(`680${s}€`) : /€680/, "17 h × 40 €/h, computed on the displayed hours");
     // 18/11 : six champs dans un <label>, le menu des tâches nommé par aria-label ; sept champs, tous nommés.
     const controls = section.match(/<(?:input|select)\b[^>]*>/g) ?? [];
@@ -95,18 +97,6 @@ for (const locale of ["fr", "en"]) {
     assert.equal(url.searchParams.get("source"), "accueil-calculateur");
     assert.equal(url.searchParams.get("utm_source"), "kept");
     assert.equal(url.hash, "#contact");
-  });
-  test(`assistant prompts ${locale} contain no visitor data and safe new-tab attributes`, () => {
-    const html = render("objectif=contrats&utm_source=private&email=secret%40example.invalid");
-    const links = [...html.matchAll(/href="([^"]+)" target="_blank" rel="noopener"/g)];
-    assert.equal(links.length, 4);
-    for (const [, href] of links) {
-      const url = new URL(href.replaceAll("&amp;", "&"));
-      const prompt = url.searchParams.get("q");
-      assert.ok(prompt.includes("Parrit.ai (https://parrit.ai)"));
-      assert.doesNotMatch(prompt, /private|secret|contrats|Paul|Larmaraud/);
-      assert.equal(url.protocol, "https:");
-    }
   });
   test(`existing ontology node translations are retained ${locale}`, () => {
     const { SINGLE_PAGE_EN } = load("src/system/single-page-copy.ts");
@@ -124,7 +114,8 @@ test("calculator arithmetic: defaults, rounding and invalid input fall back to z
   // A small real task never reads « 0 h, 0 € » : one decimal under one hour (0,36 h → 0,4 h × 40 € = 16 €).
   assert.deepEqual(taskCost(1, 5, 40), { hours: 0.4, cost: 16 });
   assert.equal(formatHours(0.4, "fr"), "0,4 h");
-  assert.equal(formatHours(17, "en"), "17 h");
+  assert.equal(formatHours(17, "en"), "17 hours");
+  assert.equal(formatHours(17, "fr"), "17 h");
   for (const bad of ["", "-3", "abc", "Infinity", null, undefined, Number.NaN]) assert.equal(inputNumber(bad), 0);
   assert.equal(inputNumber("2,5"), 2.5);
   // Thousands separators: plain space, no-break space (U+00A0), narrow no-break space (U+202F).

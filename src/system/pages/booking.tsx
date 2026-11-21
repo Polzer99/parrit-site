@@ -4,6 +4,7 @@ import type { Locale } from "@/system/locale";
 import { BOOKING_COPY, bookingParameters, type BookingSearchParams } from "@/system/booking";
 import { ParritCalInline } from "@/system/components/CalInline";
 import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
+import { CAL_LINK_COMMISSION, CAL_LINK_COMMISSION_EN } from "../../../site.config";
 import "@/system/booking.css";
 
 export async function generateMetadata(routeLocale?: Locale): Promise<Metadata> {
@@ -27,6 +28,7 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
       <h1>{copy.title}</h1>
       <p>{copy.description}</p>
       <div id="reservation" tabIndex={-1}><ParritCalInline key={JSON.stringify(parameters)} locale={locale} bookingParams={parameters} /></div>
+      <noscript><p><a className="booking-direct" href={`https://cal.com/${locale === "fr" ? CAL_LINK_COMMISSION : CAL_LINK_COMMISSION_EN}`}>{copy.action}</a></p></noscript>
       <a className="booking-email" href="mailto:paul.larmaraud@parrit.ai">{copy.email}</a>
     </div>
   </main>;

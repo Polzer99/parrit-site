@@ -51,7 +51,13 @@ function blocs(html) {
     if (!texte) continue;
     const etiquette = dans(node, CLASSES_ETIQUETTES) || sous(node, ["nav", "footer", "label"]);
     if (["h1", "h2", "h3"].includes(node.tag)) sortie.push({ role: "titre", node, texte, etiquette });
-    else if (["p", "dd", "figcaption"].includes(node.tag)) sortie.push({ role: "phrase", node, texte, etiquette });
+    else if (["p", "dd", "figcaption"].includes(node.tag)) {
+      // Un paragraphe qui finit par un lien se juge sur la phrase qui précède : le lien est une étiquette.
+      const enfants = node.children.filter(child => child.tag !== "#text" || child.text.trim());
+      const dernier = enfants.at(-1);
+      const phrase = dernier?.tag === "a" ? enfants.slice(0, -1).map(child => clean(child)).join(" ").trim() : texte;
+      if (phrase) sortie.push({ role: "phrase", node, texte: phrase, etiquette });
+    }
     else if (node.tag === "li" && !node.children.some(child => ["p", "strong", "ul", "ol", "a"].includes(child.tag))) sortie.push({ role: "ligne", node, texte, etiquette });
     else if (node.tag === "summary") sortie.push({ role: "question", node, texte, etiquette });
     else if (["a", "button"].includes(node.tag) && (cls(node).some(c => ["rev-button", "btn", "mail", "booking-email"].includes(c)) || sous(node, ["nav", "footer"]))) sortie.push({ role: "bouton", node, texte, etiquette: true });

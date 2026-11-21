@@ -140,11 +140,11 @@ for (const locale of ["fr", "en"] as const) {
     await expect(growthResult).toHaveText(locale === "fr" ? /^18\s000\s€$/ : "€18,000");
     await growth.locator(".calc-field input").first().fill("");
     await expect(growthResult).toHaveText(locale === "fr" ? /^0\s€$/ : "€0");
-    await expect(timeResult).toHaveText("17 h");
+    await expect(timeResult).toHaveText(locale === "fr" ? "17 h" : "17 hours");
     await time.locator("select").selectOption("comptes-rendus");
-    await expect(timeResult).toHaveText("11 h");
+    await expect(timeResult).toHaveText(locale === "fr" ? "11 h" : "11 hours");
     expect(await page.locator("main").innerText()).not.toMatch(/[←-⇿⟵-⟿]/u);
-    for (const link of await page.locator(".calc-field input, .calc-field select, .calc-footer .btn, .assistant-links a").all()) expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+    for (const link of await page.locator(".calc-field input, .calc-field select, .calc-footer .btn").all()) expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44);
   });
   // 18/11 : les deux cartes partagent leurs rangées ; plus de vide sous la plus courte dans le carrousel.
   for (const width of [1440, 390]) test(`calculator cards share rows at ${width}px ${locale}`, async ({ page }) => {

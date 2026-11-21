@@ -56,7 +56,7 @@ export default async function JournalThemePage({ params }: Props, routeLocale?: 
   return <main className="rev-page journal-theme" data-brand-mode="accessible">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(journalThemeJsonLd(copy, locale, canonical)).replace(/</g, "\\u003c") }}/>
     <header className="journal-theme-hero r2-dark" data-regime="ink"><div className="rev-wrap">
-      <h1>{copy.title}</h1><p>{copy.description}</p>
+      <h1>{copy.title}.</h1><p>{copy.description}</p>
       <Link className="rev-button exec" href={avecSource(localizedPath("/rendez-vous", locale), `theme-${theme}-haut`)}>{BOOKING_COPY[locale].action}<BrandConnector /></Link>
     </div></header>
     <div className="rev-wrap journal-theme-body">
@@ -81,8 +81,8 @@ export default async function JournalThemePage({ params }: Props, routeLocale?: 
         <LegacyAnchors anchors={anchors.rules} />
         <h2>{copy.rules.title}</h2>{copy.rules.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
       </section>
-      <section><h2>{fr ? "Questions fréquentes" : "Frequently asked questions"}</h2><div className="home-faq">{copy.faq.map(([question, answer], index) => <details key={question} open={index === 0}><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
-      {entries.length > 0 && <section><h2>{fr ? "À lire dans le Journal" : "From the Journal"}</h2><ol className="journal-list">{entries.map(entry => <li key={entry.slug}><Link href={localizedPath(`/journal/${entry.slug}`, locale)} hrefLang={locale}><div lang={locale}><strong className="theme-article-title">{entry.title}</strong><p>{entry.description}</p></div></Link></li>)}</ol></section>}
+      <section><h2>{fr ? "Questions fréquentes" : "Common questions"}</h2><div className="home-faq">{copy.faq.map(([question, answer], index) => <details key={question} open={index === 0}><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
+      {entries.length > 0 && <section><h2>{fr ? "À lire dans le Journal." : "From the Journal."}</h2><ol className="journal-list">{entries.map(entry => <li key={entry.slug}><Link href={localizedPath(`/journal/${entry.slug}`, locale)} hrefLang={locale}><div lang={locale}><strong className="theme-article-title">{entry.title}</strong><p>{entry.description}</p></div></Link></li>)}</ol></section>}
       <BookingCall locale={locale} source={`theme-${theme}`} variant={theme} />
     </div>
   </main>;

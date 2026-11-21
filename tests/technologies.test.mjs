@@ -48,7 +48,7 @@ for (const locale of ["fr", "en"]) test(`ten technologies precede the team with 
     });
   }
   const text = visibleText(section).replace(/\s+/g, " ").trim();
-  assert.match(text, locale === "fr" ? /Nous choisissons les outils selon votre besoin\./ : /We choose tools according to your needs\./);
+  assert.match(text, locale === "fr" ? /Nous choisissons les outils selon votre besoin\./ : /We choose the tools that fit your needs\./);
   assert.doesNotMatch(text, /agnosti|partenariat|partnership/i);
   assert.doesNotMatch(section, /tech-note|Les marques citées|The brands named/);
   assert.doesNotMatch(section, /<script|<img|https?:|#[a-f\d]{3,8}\b/i);

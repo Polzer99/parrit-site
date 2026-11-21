@@ -59,7 +59,7 @@ export const CALCULATOR_COPY = {
     growth: "Grow the business.", growthProcess: "Quotes left without follow-up",
     quotes: "Quotes without follow-up per month", signedShare: "Share signed after follow-up (%)", amount: "Average quote amount (€)",
     growthResult: "in quotes a month hinge on the follow-up.",
-    time: "Save time.", task: "Task", perWeek: "Count per week", minutes: "Minutes each", hourlyCost: "Hourly cost (€)",
+    time: "Free up time.", task: "Task", perWeek: "Count per week", minutes: "Minutes each", hourlyCost: "Hourly cost (€)",
     timeResult: (cost: string) => `a month spent on this task, about ${cost}.`,
     note: "Replace these figures with your own.",
   },

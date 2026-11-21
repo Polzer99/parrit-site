@@ -17,7 +17,7 @@ export const SITE_V1_PAGES = {
       "title": "Choisir quoi automatiser",
       "description": "Avant de choisir un outil, nous regardons avec vos équipes le travail qu’elles font réellement. Vous recevez la liste des tâches examinées et les raisons de commencer par certaines.",
       "cases": {
-        "title": "Chaque tâche demande des gestes différents",
+        "title": "Chaque tâche demande des gestes différents.",
         "intro": "Préparer une réponse à un client, traiter une facture fournisseur ou réunir les chiffres d’un rapport financier ne demande pas le même travail. Nous examinons ces tâches avec les personnes qui les réalisent, pour déterminer où un outil peut être utile.",
         "items": [
           "Vous n’avez pas encore choisi d’outil et une tâche vous pose problème.",
@@ -25,7 +25,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "steps": {
-        "title": "Nous observons le travail, nous comparons les tâches, puis nous définissons la première à améliorer",
+        "title": "Nous observons le travail, nous comparons les tâches, puis nous définissons la première à améliorer.",
         "items": [
           [
             "L’observation",
@@ -46,7 +46,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "deliverables": {
-        "title": "Vous recevez un ordre de travail expliqué",
+        "title": "Vous recevez un ordre de travail expliqué.",
         "items": [
           "Les tâches examinées et les raisons de commencer par certaines.",
           "Les outils concernés.",
@@ -59,7 +59,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "rules": {
-        "title": "Vous choisissez qui accède aux données et qui valide les actions",
+        "title": "Vous choisissez qui accède aux données et qui valide les actions.",
         "paragraphs": [
           "Vous désignez les personnes qui accèdent aux données et celles qui valident les actions. Nous écrivons ces règles avant de construire un outil, pour que chacun sache ce qu’il peut consulter et ce qui demande un accord."
         ]
@@ -80,7 +80,7 @@ export const SITE_V1_PAGES = {
       "title": "Choose what to automate",
       "description": "Before choosing a tool, we look with your teams at the work they actually do. You receive the list of tasks examined and the reasons for starting with some of them.",
       "cases": {
-        "title": "Each task calls for different steps",
+        "title": "Each task calls for different steps.",
         "intro": "Preparing a reply to a customer, processing a supplier invoice and gathering the figures for a financial report are not the same work. We examine these tasks with the people who do them, to determine where a tool can help.",
         "items": [
           "You have not chosen a tool yet and one task is causing you trouble.",
@@ -88,7 +88,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "steps": {
-        "title": "We observe the work, compare the tasks, then define the first one to improve",
+        "title": "We observe the work, compare the tasks, then define the first one to improve.",
         "items": [
           [
             "Observation",
@@ -109,7 +109,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "deliverables": {
-        "title": "You receive an order of work, with the reasons",
+        "title": "You receive an order of work, with the reasons.",
         "items": [
           "The tasks examined and the reasons for starting with some of them.",
           "The tools involved.",
@@ -122,7 +122,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "rules": {
-        "title": "You choose who has access to the data and who approves the actions",
+        "title": "You choose who has access to the data and who approves the actions.",
         "paragraphs": [
           "You name the people who have access to the data and those who approve the actions. We write these rules before building a tool, so that everyone knows what they may read and what needs approval."
         ]
@@ -143,18 +143,18 @@ export const SITE_V1_PAGES = {
     "fr": {
       "name": "AI Sprints",
       "title": "Tester votre futur outil",
-      "description": "Avant d’équiper toute une équipe, vous essayez une première version de l’outil sur une tâche réelle. Vous décidez de la suite à partir des résultats des tests.",
+      "description": "Avant d’équiper toute une équipe, vous essayez une première version de l’outil sur une tâche réelle. Les résultats des tests vous servent à décider de la suite.",
       "cases": {
-        "title": "Un essai est utile quand la tâche est précise et que son résultat se vérifie",
+        "title": "Un essai est utile quand la tâche est précise et que son résultat se vérifie.",
         "intro": "Vous avez une tâche qui revient souvent et dont vous savez reconnaître un bon résultat. L’essai porte sur cette tâche, avec vos propres fichiers.",
         "items": [
-          "Préparer une réponse à un client à partir de son dossier.",
+          "Préparer une réponse à un client en lisant son dossier.",
           "Produire un rapport financier à partir de vos fichiers.",
           "Saisir des commandes reçues par courriel, qu’une personne relit ensuite."
         ]
       },
       "steps": {
-        "title": "Le travail se fait en quatre étapes, avec les personnes qui réalisent la tâche",
+        "title": "Le travail se fait en quatre étapes, avec les personnes qui réalisent la tâche.",
         "items": [
           [
             "Le résultat attendu",
@@ -175,7 +175,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "deliverables": {
-        "title": "Vous recevez l’outil testé et le compte rendu des vérifications",
+        "title": "Vous recevez l’outil testé et le compte rendu des vérifications.",
         "items": [
           "La première version de l’outil, essayée par vos équipes.",
           "Les résultats attendus, écrits avant la construction.",
@@ -188,7 +188,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "rules": {
-        "title": "Le périmètre et le calendrier sont écrits avant de construire",
+        "title": "Le périmètre et le calendrier sont écrits avant de construire.",
         "paragraphs": [
           "Nous définissons avec vous la tâche, les fichiers utilisés et le calendrier. Celui-ci dépend de la tâche et des données disponibles.",
           "Vous désignez les personnes qui essaient l’outil et celles qui valident le résultat."
@@ -210,7 +210,7 @@ export const SITE_V1_PAGES = {
       "title": "Test your future tool",
       "description": "Before equipping a whole team, you try a first version of the tool on a real task. You decide what comes next from the test results.",
       "cases": {
-        "title": "A trial is useful when the task is specific and its result can be checked",
+        "title": "A trial is useful when the task is specific and its result can be checked.",
         "intro": "You have a task that comes up often, and you can tell a good result from a poor one. The trial covers that task, with your own files.",
         "items": [
           "Preparing a reply to a customer from their file.",
@@ -219,7 +219,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "steps": {
-        "title": "The work takes four steps, with the people who do the task",
+        "title": "The work takes four steps, with the people who do the task.",
         "items": [
           [
             "The expected result",
@@ -240,7 +240,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "deliverables": {
-        "title": "You receive the tested tool and the record of the checks",
+        "title": "You receive the tested tool and the record of the checks.",
         "items": [
           "The first version of the tool, tried by your teams.",
           "The expected results, written before construction.",
@@ -253,7 +253,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "rules": {
-        "title": "The scope and the schedule are written before we build",
+        "title": "The scope and the schedule are written before we build.",
         "paragraphs": [
           "We define the task, the files used and the schedule with you. The schedule depends on the task and the data available.",
           "You name the people who try the tool and those who approve the result."
@@ -277,7 +277,7 @@ export const SITE_V1_PAGES = {
       "title": "Relier vos logiciels",
       "description": "Quand une même information est saisie dans plusieurs logiciels, nous relions les outils que vous utilisez déjà. Si aucun ne couvre le besoin, nous construisons la fonction qui manque.",
       "cases": {
-        "title": "Nous gardons vos logiciels et nous ajoutons ce qui manque",
+        "title": "Nous gardons vos logiciels et nous ajoutons ce qui manque.",
         "intro": "Le travail commence par les logiciels que vous utilisez déjà. Trois cas se présentent.",
         "items": [
           "Transmettre une information d’un logiciel à un autre, avec les vérifications nécessaires.",
@@ -286,7 +286,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "steps": {
-        "title": "Nous vérifions le parcours de chaque information avant de remplacer un fonctionnement",
+        "title": "Nous vérifions le parcours de chaque information avant de remplacer un fonctionnement.",
         "items": [
           [
             "Le périmètre",
@@ -307,7 +307,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "deliverables": {
-        "title": "Vous recevez les logiciels reliés, les tests et la description du parcours des données",
+        "title": "Vous recevez les logiciels reliés, les tests et la description du parcours des données.",
         "items": [
           "Les logiciels reliés ou l’outil construit, essayés sur vos tâches.",
           "Les résultats des tests et de la comparaison avec l’ancien fonctionnement.",
@@ -319,7 +319,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "rules": {
-        "title": "Vous gardez la main sur les actions de l’assistant",
+        "title": "Vous gardez la main sur les actions de l’assistant.",
         "paragraphs": [
           "Lorsqu’un assistant intervient, nous précisons les fichiers qu’il peut consulter et les actions qu’il peut exécuter. Les actions qui engagent votre entreprise suivent les validations définies avec vous."
         ]
@@ -344,7 +344,7 @@ export const SITE_V1_PAGES = {
       "title": "Connect your software",
       "description": "When the same information is typed into several pieces of software, we connect the tools you already use. If none of them covers the need, we build the missing function.",
       "cases": {
-        "title": "We keep your software and add what is missing",
+        "title": "We keep your software and add what is missing.",
         "intro": "The work starts with the software you already use. There are three cases.",
         "items": [
           "Passing information from one piece of software to another, with the necessary checks.",
@@ -353,7 +353,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "steps": {
-        "title": "We check the path of each piece of information before replacing a process",
+        "title": "We check the path of each piece of information before replacing a process.",
         "items": [
           [
             "The scope",
@@ -374,7 +374,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "deliverables": {
-        "title": "You receive the connected software, the tests and the description of the data path",
+        "title": "You receive the connected software, the tests and the description of the data path.",
         "items": [
           "The connected software or the tool we built, tried on your tasks.",
           "The results of the tests and of the comparison with the previous process.",
@@ -386,7 +386,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "rules": {
-        "title": "You stay in control of the assistant’s actions",
+        "title": "You stay in control of the assistant’s actions.",
         "paragraphs": [
           "When an assistant is involved, we specify the files it may read and the actions it may carry out. Actions that commit your company follow the approvals defined with you."
         ]
@@ -413,7 +413,7 @@ export const SITE_V1_PAGES = {
       "title": "Contrôler vos assistants IA",
       "description": "Avant de laisser un assistant modifier un fichier ou envoyer un message, vous devez pouvoir vérifier son travail. Nous écrivons avec vous ce qu’il peut faire, ce qui lui est interdit et à quel moment il doit demander un accord.",
       "cases": {
-        "title": "Ce travail concerne les assistants qui agissent sur vos fichiers et vos messages",
+        "title": "Ce travail concerne les assistants qui agissent sur vos fichiers et vos messages.",
         "intro": "Un assistant qui modifie un fichier, envoie un message ou lance une commande engage votre entreprise. Nous intervenons dans deux situations.",
         "items": [
           "Vous préparez un assistant. Nous écrivons les contrôles avant de le relier à vos outils.",
@@ -421,7 +421,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "steps": {
-        "title": "Nous écrivons les règles, nous installons les contrôles, puis nous les testons",
+        "title": "Nous écrivons les règles, nous installons les contrôles, puis nous les testons.",
         "items": [
           [
             "Les accès",
@@ -442,7 +442,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "deliverables": {
-        "title": "Vous disposez de règles écrites et de contrôles que vous pouvez vérifier",
+        "title": "Vous disposez de règles écrites et de contrôles que vous pouvez vérifier.",
         "items": [
           "Le diagnostic des erreurs constatées.",
           "Les corrections réalisées et les résultats des tests, avant et après.",
@@ -455,7 +455,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "rules": {
-        "title": "Une personne valide les actions qui engagent votre entreprise",
+        "title": "Une personne valide les actions qui engagent votre entreprise.",
         "paragraphs": [
           "Prenons une réponse à un client. Nous déterminons les documents que l’assistant peut lire, la personne qui relit la réponse et celle qui autorise son envoi.",
           "Nous précisons de la même façon à quel moment l’assistant doit s’arrêter pour demander un accord. Ces règles sont écrites avant de le relier à vos outils."
@@ -477,7 +477,7 @@ export const SITE_V1_PAGES = {
       "title": "Control your AI assistants",
       "description": "Before you let an assistant change a file or send a message, you need to be able to check its work. We write down with you what it may do, what it may not, and when it must ask for approval.",
       "cases": {
-        "title": "This work is for assistants that act on your files and messages",
+        "title": "This work is for assistants that act on your files and messages.",
         "intro": "An assistant that changes a file, sends a message or runs a command commits your company. We step in in two situations.",
         "items": [
           "You are preparing an assistant. We write the controls before connecting it to your tools.",
@@ -485,7 +485,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "steps": {
-        "title": "We write the rules, install the controls, then test them",
+        "title": "We write the rules, install the controls, then test them.",
         "items": [
           [
             "Access",
@@ -506,7 +506,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "deliverables": {
-        "title": "You have written rules and controls you can check",
+        "title": "You have written rules and controls you can check.",
         "items": [
           "The diagnosis of the errors found.",
           "The corrections made and the test results, before and after.",
@@ -519,7 +519,7 @@ export const SITE_V1_PAGES = {
         ]
       },
       "rules": {
-        "title": "A person approves the actions that commit your company",
+        "title": "A person approves the actions that commit your company.",
         "paragraphs": [
           "Take a reply to a customer. We determine the documents the assistant may read, the person who reviews the reply and the person who authorises sending it.",
           "In the same way, we specify when the assistant must stop and ask for approval. These rules are written before it is connected to your tools."

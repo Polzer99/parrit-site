@@ -1,22 +1,8 @@
-## Alignement des pages et partenaires, décision de Paul du 21/11/2026, soir
+## Cohérence et garde-fous, décision de Paul du 21/11/2026 (soir)
 
-La spec `docs/CODEX-SPEC-2026-11-21-alignement-pages-partenaires.md` prime sur
-les contrats antérieurs pour l'ordre, le menu, les partenaires, presse/assistants,
-le contact, les thèmes, les blocs de rendez-vous et le pied de page.
-Ordre : hero, références, moteurs, offres, partenaires, parcours, terrain,
-technologies, mesures (presse et assistant), questions, contact.
-Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN).
-Contact : « Commencez par une tâche précise », sans point final ; son bouton
-cible et focalise `#reservation`, avec source `rdv-contact`. Les autres placements
-conservent `#contact`. Paul est nommé une seule fois dans le texte visible de
-l'accueil, en légende du portrait : « Paul Larmaraud mène le premier échange. »
-Partenaires : « Vous travaillez avec les spécialistes dont votre projet a besoin. »
-Introduction : « Nous travaillons avec des ingénieurs, des studios, des consultants, des intervenants, des cabinets de conseil et des chercheurs. Pour chaque projet, nous réunissons ceux dont le métier correspond à votre besoin. »
-Paragraphe contact : « Vous décrivez une tâche qui prend du temps à vos équipes, ou un outil qui vous manque. Nous vous disons ce qui est réalisable. Le travail se fait ensuite avec les ingénieurs, les intervenants et les consultants dont votre projet a besoin. »
-Thèmes : gabarit commun, quatre étapes, livrables et limites, règles, FAQ native,
-Journal si articles, rendez-vous ; sept H2 maximum. Pied en deux groupes, thèmes
-issus de JOURNAL_THEMES. Ancres existantes, permissions clients, charte, réseau,
-contraste, géométrie et stabilité conservés sans abaissement des seuils.
+Les specs `docs/CODEX-SPEC-2026-11-21-alignement-pages-partenaires.md` et `docs/CODEX-SPEC-2026-11-21-coherence-et-garde-fous.md` priment sur les contrats antérieurs. Accueil : hero, références, calculateurs, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN). Contact : « Commencez par une tâche précise. », le nom de Paul une seule fois, en légende de photo ; la section des assistants est supprimée. Pages thèmes : gabarit commun (quatre étapes, livrables et limites, règles, FAQ native, Journal si articles, rendez-vous), `h1` avec point final, `<title>`, données structurées et liens sans point.
+Ponctuation (texte visible hors articles, FR et EN) : 1. paragraphe, réponse, légende, étape, carte, ligne de liste : point final, même signe pour toute la liste. 2. Titre de trois mots ou plus : point final (ou « ? »). 3. Titre d'un ou deux mots et nom d'étape : pas de point. 4. Bouton, lien, menu, libellé de champ, surtitre, nom d'outil, étiquette de grille : jamais de point. 5. Titre et résumé d'un article du Journal : inchangés.
+Tout texte visible passe `tests/style-site.test.mjs`. Une exception s'écrit dans le test avec sa raison, jamais dans le texte.
 
 ## Une équipe, décision de Paul des 13 et 14/11/2026
 
