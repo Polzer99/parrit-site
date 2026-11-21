@@ -1,4 +1,4 @@
-import { localizedPath } from "../src/system/locale";
+import { localizedPath, LOCALE_COOKIE } from "../src/system/locale";
 import { expectPopulated } from "./content-structure";
 import { createHash } from "node:crypto";
 import founderPhotos from "./fixtures/founder-photo.json";
@@ -62,22 +62,40 @@ for (const width of [1440, 390]) {
   }
 }
 
-for (const width of [375, 1440]) {
+// Décision de Paul du 21/11/2026 : une seule langue par page. La page introuvable suit le choix
+// déjà fait par le visiteur (cookie de langue), sinon la langue de son navigateur.
+const NOT_FOUND = {
+  fr: { title: "Cette page n'existe pas.", hrefs: ["/fr", "/fr/journal"] },
+  en: { title: "This page does not exist.", hrefs: ["/", "/journal"] },
+} as const;
+const NOT_FOUND_VISITORS = [
+  { name: "French browser", browser: "fr-FR", cookie: null, shown: "fr" },
+  { name: "English browser", browser: "en-US", cookie: null, shown: "en" },
+  { name: "language cookie wins over an English browser", browser: "en-US", cookie: "fr", shown: "fr" },
+  { name: "language cookie wins over a French browser", browser: "fr-FR", cookie: "en", shown: "en" },
+] as const;
+
+for (const visitor of NOT_FOUND_VISITORS) test.describe(`Brand OS 404, ${visitor.name}`, () => {
+  test.use({ locale: visitor.browser });
+  for (const width of [375, 1440]) {
   for (const route of ["/brand-os-missing-page", "/fr/brand-os-missing-page"]) {
-    test(`Brand OS bilingual 404 ${route} at ${width}px`, async ({ page }) => {
+    test(`single-language 404 ${route} at ${width}px`, async ({ page }) => {
+      if (visitor.cookie) await page.context().addCookies([{ name: LOCALE_COOKIE, value: visitor.cookie, url: BASE_URL }]);
       await page.setViewportSize({ width, height: 900 });
       const response = await page.goto(`${BASE_URL}${route}`);
       expect(response?.status()).toBe(404);
+      const copy = NOT_FOUND[visitor.shown];
+      const other = NOT_FOUND[visitor.shown === "fr" ? "en" : "fr"];
       const heading = page.locator("h1");
-      await expectPopulated(heading);
-      await expectPopulated(heading.locator('[lang="fr"]'));
-      expect(await heading.evaluate((element) => [...element.childNodes]
-        .filter((node) => node.nodeType === Node.TEXT_NODE)
-        .map((node) => node.textContent ?? "").join("").trim())).not.toBe("");
+      await expect(heading).toHaveText(copy.title);
+      await expect(page.locator("main")).not.toContainText(other.title);
+      await expect(heading.locator("[lang]")).toHaveCount(0);
+      await expect(page.locator("div[lang]").first()).toHaveAttribute("lang", visitor.shown);
       await expect(page.locator('meta[name="robots"][content*="noindex"]').first()).toHaveCount(1);
       await expect(page.locator(".cmdbar")).toBeVisible();
       await expect(page.locator("footer")).toBeVisible();
-      for (const href of ["/", "/fr", "/journal"]) {
+      await expect(page.locator(".not-found-actions a")).toHaveCount(2);
+      for (const href of copy.hrefs) {
         const action = page.locator(`.not-found-actions a[href="${href}"]`);
         await expectPopulated(action);
         await expect(action).toHaveAttribute("href", href);
@@ -90,7 +108,7 @@ for (const width of [375, 1440]) {
         const actions = page.getByRole("navigation").and(page.locator(".not-found-actions"));
         await expect(actions).toHaveAccessibleName(/\S/);
         await expect(actions.locator(".exec")).toHaveCount(1);
-        await expect(actions.locator(".ghost")).toHaveCount(2);
+        await expect(actions.locator(".ghost")).toHaveCount(1);
         const primary = actions.locator(".exec");
         const fill = await primary.evaluate((element) => {
           const probe = document.createElement("span");
@@ -124,6 +142,7 @@ for (const width of [375, 1440]) {
     });
   }
 }
+});
 
 test("all four approved founder photo URLs serve the original bytes", async ({ page }) => {
   for (const [name, expected] of Object.entries(founderPhotos)) {
