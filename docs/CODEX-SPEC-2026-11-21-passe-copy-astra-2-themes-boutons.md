@@ -10,6 +10,8 @@ Texte « Après » rédigé par gpt-6-astra le 21/11/2026, relu par Claude pour 
 
 ## Règles de construction
 
+Correctif CI : le sélecteur garde « Je veux » / « I want to » et sept choix raccourcis pour tenir dans la réserve du chevron.
+
 Correctif de relecture : la phrase de propriété du bloc Construction sur mesure est retirée (contrôle false-claims).
 
 - S'applique APRÈS `docs/CODEX-SPEC-2026-11-21-passe-copy-astra.md`, sur la même branche.
@@ -17,7 +19,7 @@ Correctif de relecture : la phrase de propriété du bloc Construction sur mesur
 - Les URL et slugs des thèmes ne changent PAS (`/journal/themes/ai-sprints`…). Seuls les titres, libellés et textes changent. Le `<title>` de chaque thème suit le nouveau titre.
 - Un `<br><br>` dans une cellule sépare le titre d'un bloc (première partie) de son texte (seconde partie) : garder la structure titre + paragraphe existante du bloc.
 - Les FAQ et données structurées d'un thème suivent le texte visible (même source).
-- Sélecteur « Je veux » : l'introduction devient « Je souhaite » et chaque choix s'affiche en minuscule initiale pour former la phrase (« Je souhaite relancer mes devis »). Les cartes associées à chaque choix gardent les textes de la spec 1.
+- Sélecteur « Je veux » : l'introduction reste « Je veux » / « I want to » et chaque choix s'affiche en minuscule initiale pour former la phrase (« Je veux relancer mes devis »). Les cartes associées à chaque choix gardent les textes de la spec 1.
 - La ligne « Texte d'accompagnement du bouton principal » N'EST PAS appliquée (aucun élément nouveau).
 - Le lien e-mail affiche « Nous écrire » et pointe toujours vers `mailto:paul.larmaraud@parrit.ai`.
 - Les titres et résumés des articles du Journal ne changent pas.
@@ -127,7 +129,7 @@ Correctif de relecture : la phrase de propriété du bloc Construction sur mesur
 |---|---|---|
 | Bouton principal, navigation, haut de page, bandeau et contact | Prendre rendez-vous | Prendre rendez-vous |
 | Texte d’accompagnement du bouton principal | Aucun texte commun fourni | Pendant ces 15 minutes avec Paul Larmaraud, vous présentez une tâche et ce qui vous pose problème. Nous précisons ensemble le résultat attendu et les informations nécessaires pour étudier la suite. |
-| Introduction du sélecteur | Je veux | Je souhaite |
+| Introduction du sélecteur | Je veux | Je veux |
 | Choix du sélecteur | plus de rendez-vous | Préparer ma prospection |
 | Choix du sélecteur | du contenu publié | Préparer mes articles |
 | Choix du sélecteur | des devis relancés | Relancer mes devis |

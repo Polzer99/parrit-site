@@ -72,7 +72,7 @@ export function GoalHero({ locale }: { locale: Locale }) {
     <div className="hero-intro">
       <h1>{heading[0]}{" "}<b>{heading[1]}</b></h1>
       <form className="goal-form" method="get" action={`${localizedPath("/", locale)}#haut`}>
-        <label htmlFor="objectif">{locale === "fr" ? "Je souhaite" : "I would like to"}</label>
+        <label htmlFor="objectif">{locale === "fr" ? "Je veux" : "I want to"}</label>
         <span className="goal-select">
           <span className="goal-select-sizer" aria-hidden="true">{HOME_GOALS.map(item => <span key={item.id}>{item.label[locale]}</span>)}</span>
           <select id="objectif" name="objectif" value={goal.id} onChange={event => choose(event.target.value)} aria-describedby="goal-result">
@@ -82,7 +82,7 @@ export function GoalHero({ locale }: { locale: Locale }) {
           </select>
         </span>
         {Array.from(new URLSearchParams(query)).filter(([key]) => key.startsWith("utm_")).map(([name, value], i) => <input key={i} type="hidden" name={name} value={value}/>)}
-        <noscript><button className="btn rev-button ghost" type="submit">{locale === "fr" ? "Je souhaite" : "I would like to"}<BrandConnector/></button></noscript>
+        <noscript><button className="btn rev-button ghost" type="submit">{locale === "fr" ? "Je veux" : "I want to"}<BrandConnector/></button></noscript>
       </form>
       <div className="goal-results" id="goal-result" aria-live="polite" aria-atomic="true">
         {HOME_GOALS.map(item => <p key={item.id} data-result={item.id} hidden={item.id !== goal.id}>{item.result[locale]}</p>)}

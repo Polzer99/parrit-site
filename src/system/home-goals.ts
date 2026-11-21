@@ -79,7 +79,7 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "clients-reactives",
     "group": "c",
     "label": {
-      "fr": "relancer mes anciens clients",
+      "fr": "relancer d'anciens clients",
       "en": "follow up past clients"
     },
     "result": {
@@ -147,8 +147,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "reponses-client",
     "group": "t",
     "label": {
-      "fr": "préparer mes réponses clients",
-      "en": "prepare my customer replies"
+      "fr": "répondre à mes clients",
+      "en": "answer my customers"
     },
     "result": {
       "fr": "Une réponse proposée pour chaque demande.",
@@ -164,8 +164,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "contrats",
     "group": "t",
     "label": {
-      "fr": "préparer la vérification des contrats",
-      "en": "prepare contract checks"
+      "fr": "vérifier mes contrats",
+      "en": "check my contracts"
     },
     "result": {
       "fr": "Chaque contrat comparé à vos conditions.",
@@ -198,8 +198,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "logiciel",
     "group": "b",
     "label": {
-      "fr": "construire mon outil sur mesure",
-      "en": "build my custom tool"
+      "fr": "construire mon outil",
+      "en": "build my own tool"
     },
     "result": {
       "fr": "Nous construisons votre outil à partir de votre métier.",
@@ -215,8 +215,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "formation",
     "group": "b",
     "label": {
-      "fr": "accompagner la prise en main",
-      "en": "support hands-on adoption"
+      "fr": "prendre l'IA en main",
+      "en": "get hands-on with AI"
     },
     "result": {
       "fr": "Vos équipes prennent l'IA en main, sur leurs propres dossiers.",
@@ -232,8 +232,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "priorites",
     "group": "b",
     "label": {
-      "fr": "choisir une tâche à améliorer",
-      "en": "choose a task to improve"
+      "fr": "choisir par où commencer",
+      "en": "choose where to start"
     },
     "result": {
       "fr": "Nous examinons votre travail et définissons les priorités avec vous.",
@@ -266,8 +266,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "ia-interne",
     "group": "b",
     "label": {
-      "fr": "définir où conserver mes données",
-      "en": "define where to store my data"
+      "fr": "garder l'IA chez nous",
+      "en": "keep AI in-house"
     },
     "result": {
       "fr": "Installée sur vos serveurs, vos données n'en sortent pas.",
