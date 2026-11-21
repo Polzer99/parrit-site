@@ -71,7 +71,7 @@ for (const locale of ["fr", "en"]) for (const theme of themes) {
       mainEntityOfPage: canonical, dateModified: sitemap.lastModified,
     });
     // Read only the visible FAQ section; scripts cannot satisfy these assertions.
-    const faqHtml = html.match(/<section\b[^>]*><h2>(?:Questions fréquentes|Common questions)<\/h2>([\s\S]*?)<\/section>/)?.[1] ?? "";
+    const faqHtml = html.match(/<section\b[^>]*><h2>(?:Questions fréquentes|Common questions)\.<\/h2>([\s\S]*?)<\/section>/)?.[1] ?? "";
     const pairs = [...faqHtml.matchAll(/<details(?: open="")?><summary>([\s\S]*?)<\/summary><p>([\s\S]*?)<\/p><\/details>/g)].map(([, question, answer]) => [text(question), text(answer)]);
     const faqs = graphs.filter(item => item["@type"] === "FAQPage");
     assert.equal(faqs.length, pairs.length ? 1 : 0);

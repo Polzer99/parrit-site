@@ -101,7 +101,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           assert.equal(articles[0].inLanguage, locale, label);
           assert.equal(articles[0].headline, visibleText(html.match(/<h1>([\s\S]*?)<\/h1>/)[1]).trim().replace(/\.$/, ""), label);
           assert.equal(articles[0].mainEntityOfPage, `https://parrit.ai${locale === "fr" ? "/fr" : ""}${route}`, label);
-          const faqSection = html.match(/<section\b[^>]*><h2>(?:Questions fréquentes|Common questions)<\/h2>([\s\S]*?)<\/section>/)?.[1] ?? "";
+          const faqSection = html.match(/<section\b[^>]*><h2>(?:Questions fréquentes|Common questions)\.<\/h2>([\s\S]*?)<\/section>/)?.[1] ?? "";
           const visiblePairs = [...faqSection.matchAll(/<details(?: open="")?><summary>([\s\S]*?)<\/summary><p>([\s\S]*?)<\/p><\/details>/g)].map(([, question, answer]) => [visibleText(question).trim(), visibleText(answer).trim()]);
           const faqs = graphs.filter(item => item["@type"] === "FAQPage");
           assert.equal(faqs.length, visiblePairs.length ? 1 : 0, label);

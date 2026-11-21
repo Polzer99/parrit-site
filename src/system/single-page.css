@@ -780,7 +780,7 @@
 }
 
 /* Alignement du 21/11/2026 : presse seule (assistants retirés), portrait légendé, pied groupé. */
-.single-page .home-measures p {font-size:var(--t-m);line-height:1.6;}
+.single-page .home-measures p {font-size:var(--t-m);line-height:1.6;max-width:720px;}
 .single-page .founder-portrait {margin:0;min-width:0;}
 .single-page .founder-portrait figcaption {font-size:var(--t-s);line-height:1.5;margin-top:var(--brand-s1);color:var(--on-ink);}
 .single-footer .footer-groups {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--brand-s6);}

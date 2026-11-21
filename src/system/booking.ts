@@ -21,7 +21,7 @@ export type BookingCallVariant = "article" | "harness-engineering" | "ai-sprints
 export const BOOKING_CALL_COPY = {
   fr: {
     article: {
-      invitation: "Examinez ce sujet dans votre entreprise",
+      invitation: "Examinez ce sujet dans votre entreprise.",
       description: "Pendant ces 15 minutes, vous décrivez une tâche concernée par le sujet de cet article. Nous précisons ensemble ce que vous souhaitez améliorer et les informations nécessaires pour l’étudier.",
       emailLead: "Vous pouvez aussi nous décrire votre situation par courriel.",
     },
@@ -48,7 +48,7 @@ export const BOOKING_CALL_COPY = {
   },
   en: {
     article: {
-      invitation: "Examine this subject in your company",
+      invitation: "Examine this subject in your company.",
       description: "During these 15 minutes, you describe a task related to the subject of this article. Together, we clarify what you want to improve and the information needed to examine it.",
       emailLead: "You can also describe your situation to us by email.",
     },

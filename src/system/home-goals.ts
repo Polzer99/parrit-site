@@ -526,6 +526,6 @@ export function homeGoal(id: string | null | undefined): HomeGoal {
 }
 export const GOAL_GROUPS = [
  {id: 'c', label: {fr: "Faire grandir l'activité", en: 'Grow the business'}, title: {fr: "Faire grandir l'activité.", en: 'Grow the business.'}},
- {id: 't', label: {fr: 'Gagner du temps', en: 'Save time'}, title: {fr: 'Libérer du temps.', en: 'Free up time.'}},
+ {id: 't', label: {fr: 'Gagner du temps', en: 'Save time'}, title: {fr: 'Libérer du temps.', en: 'Get time back.'}},
  {id: 'b', label: {fr: 'Construire', en: 'Build'}, title: {fr: 'Construire vos outils.', en: 'Build your tools.'}},
 ] as const;

@@ -39,6 +39,8 @@ async function pages(locale) {
   liste.push(["rendez-vous", renderToStaticMarkup(await load("src/system/pages/booking.tsx").default({ searchParams: Promise.resolve({}) }, locale))]);
   liste.push(["journal", renderToStaticMarkup(await load("src/system/pages/journal.tsx").default(locale))]);
   liste.push(["pied", renderToStaticMarkup(load("src/system/components/RevFooter.tsx").RevFooter({ locale }))]);
+  // Le bloc de rendez-vous de fin d'article est du texte du site, pas le corps d'un article.
+  liste.push(["bloc-rendez-vous/article", renderToStaticMarkup(load("src/system/components/BookingCall.tsx").BookingCall({ locale, source: "journal-test" }))]);
   return liste;
 }
 
@@ -77,8 +79,11 @@ for (const locale of ["fr", "en"]) {
         const n = mots(texte).length;
         if (role === "bouton" || etiquette) { if (texte.endsWith(".") && role !== "phrase") fautes.push(`${node.tag} étiquette avec un point : « ${texte} »`); continue; }
         if (role === "question" && !texte.endsWith("?")) fautes.push(`question sans « ? » : « ${texte} »`);
-        if (role === "titre" && n >= 3 && !finit(texte, [".", "?"])) fautes.push(`${node.tag} de ${n} mots sans point final : « ${texte} »`);
-        if (role === "titre" && n < 3 && texte.endsWith(".")) fautes.push(`${node.tag} d'un ou deux mots avec un point : « ${texte} »`);
+        // Tout titre de page ou de section (h1, h2) finit par un point. Un h3 de trois mots ou plus aussi ;
+        // un h3 d'un ou deux mots est un nom d'étape, sans point.
+        const majeur = ["h1", "h2"].includes(node.tag);
+        if (role === "titre" && (majeur || n >= 3) && !finit(texte, [".", "?"])) fautes.push(`${node.tag} sans point final : « ${texte} »`);
+        if (role === "titre" && !majeur && n < 3 && texte.endsWith(".")) fautes.push(`${node.tag} d'un ou deux mots avec un point : « ${texte} »`);
         if (role === "phrase" && n >= 3 && !finit(texte, [".", "?", ":"])) fautes.push(`${node.tag} sans point final : « ${texte} »`);
         if (role === "ligne" && !finit(texte, [".", "?"])) fautes.push(`ligne de liste sans point final : « ${texte} »`);
       }

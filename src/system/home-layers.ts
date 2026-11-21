@@ -10,7 +10,7 @@ export const HOME_LAYERS = {
       { id: "software", eyebrow: "Développement de logiciels", title: "Ce qui manque, nous le construisons.", benefits: ["Des outils sur mesure, reliés à vos logiciels.", "Des assistants que vos équipes relisent et valident.", "Installés chez vous si vos données l'exigent."] },
     ],
     offersAudience: "Pour les PME, les ETI et les grands groupes.",
-    questionsTitle: "Questions",
+    questionsTitle: "Questions.",
     faq: [
       ["Par où commence-t-on ?", "Nous échangeons pendant 15 minutes en visioconférence, puis nous définissons le travail par écrit. Si nous ne pouvons pas vous aider, nous vous expliquons pourquoi."],
       ["Faut-il des équipes techniques ?", "Non. Vos équipes apprennent sur leurs propres outils. Nous construisons ensuite des assistants qu'elles relisent et valident."],
@@ -29,7 +29,7 @@ export const HOME_LAYERS = {
       { id: "software", eyebrow: "Software development", title: "What is missing, we build.", benefits: ["Custom tools connected to your software.", "Assistants your teams review and approve.", "Installed on your servers when your data requires it."] },
     ],
     offersAudience: "For SMEs, mid-sized companies and large groups.",
-    questionsTitle: "Questions",
+    questionsTitle: "Questions.",
     faq: [
       ["Where do we start?", "We talk for 15 minutes by video, then define the work in writing. If we cannot help you, we explain why."],
       ["Do we need technical teams?", "No. Your teams learn on their own tools. We then build assistants they review and approve."],
