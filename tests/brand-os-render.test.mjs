@@ -201,7 +201,10 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           const partners = html.match(new RegExp(`<section id="${locale === "fr" ? "partenaires" : "team"}">[\\s\\S]*?</section>`))?.[0];
           assert.ok(partners, `${label}: partners section`);
           assert.match(visibleText(partners), /\bMIT\b/);
-          assert.doesNotMatch(partners, /<img|<svg/);
+          // 21/11/2026 (soir, décision 2) : un pictogramme par carte, toujours aucune image ni logo.
+          assert.doesNotMatch(partners, /<img/);
+          assert.equal((partners.match(/<svg class="card-glyph"/g) ?? []).length, 7);
+          assert.equal((partners.match(/<svg /g) ?? []).length, 7);
           assert.doesNotMatch(visibleText(html.replace(partners, "")), /\bMIT\b/);
           const references = html.match(/<section id="references"[\s\S]*?<\/section>/)?.[0];
           assert.ok(references, `${label}: references section`);

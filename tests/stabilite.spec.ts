@@ -17,7 +17,6 @@ type Stability = {
   nodesStable: boolean;
   captions: string[];
   cases: string[];
-  offers: string[];
   goals: string[];
   stop: () => void;
 };
@@ -124,7 +123,7 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
       const state: Stability = window.pageStability = {
         heights: Object.fromEntries(targets.map((node, i) => [keys[i], range(node.getBoundingClientRect().height)])),
         document: range(document.documentElement.scrollHeight), shifts: 0, samples: 0, targetsStable: true, nodesStable: true,
-        captions: [], cases: [], offers: [], goals: [], stop: () => {},
+        captions: [], cases: [], goals: [], stop: () => {},
       };
       const observer = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
@@ -149,7 +148,6 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
         update(state.document, document.documentElement.scrollHeight);
         remember(state.captions, document.querySelector(".goal-results [data-result]:not([hidden])")?.textContent);
         remember(state.cases, document.querySelector(".goal-path")?.getAttribute("data-path"));
-        remember(state.offers, document.querySelector(".partner.flip .offer")?.textContent);
         remember(state.goals, (document.querySelector("#objectif") as HTMLSelectElement | null)?.value);
         state.samples++;
         frame = requestAnimationFrame(sample);
@@ -172,7 +170,6 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
     await expect(sections).toHaveCount(10);
     const animatedSectionIds = new Set([
       locale === "fr" ? "mesures" : "measurements",
-      locale === "fr" ? "partenaires" : "team",
     ]);
     for (let i = 1; i < 10; i++) {
       const destination = await sections.nth(i).evaluate(node => node.getBoundingClientRect().top + scrollY);
@@ -212,7 +209,7 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
     expect(result.targetsStable, "mêmes blocs présents pendant toute la mesure").toBe(true);
     expect(result.captions.length).toBeGreaterThan(1);
     expect(result.cases.length).toBeGreaterThan(1);
-    expect(result.offers.length).toBeGreaterThan(1);
+    // 21/11/2026 (soir, décision 2) : plus d'offres défilantes chez les partenaires, donc plus rien à observer ici.
     expect(result.goals.length).toBe(17);
     for (const [key, range] of Object.entries(result.heights)) {
       expect(range.max - range.min, key).toBeLessThanOrEqual(1);

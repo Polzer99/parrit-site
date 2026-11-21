@@ -20,6 +20,9 @@ const THEMES = ["harness-engineering", "ai-sprints", "integration-developpement"
 const CLASSES_ETIQUETTES = new Set([
   "partner-offers", "tech-set", "offer-eyebrow", "goal-plane-title",
   "journal-entry-meta", "footer-links", "footer-group-label", "languages", "partner-type-label",
+  // Colonne d'étapes du héros des pages d'offre (21/11/2026, soir) : les quatre noms d'étape, déjà
+  // écrits sans point dans la section des étapes (règle 3 : un nom d'étape ne prend pas de point).
+  "theme-path",
 ]);
 // Titres et résumés d'articles : texte éditorial, hors de ce contrôle.
 const CLASSES_ARTICLES = new Set(["journal-list", "journal-related", "journal-article", "theme-article-title"]);

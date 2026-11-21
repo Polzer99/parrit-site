@@ -23,7 +23,7 @@ for (const locale of ["fr", "en"]) {
       : "You describe a task that takes up your teams’ time, or a tool you are missing. We tell you what is feasible. The work then continues with the engineers, trainers and consultants your project needs.");
     assert.doesNotMatch(visibleText(contact), /Lime|2024|fondateur|founder/);
     assert.match(contact, /<img[^>]*alt="Paul Larmaraud"/);
-    assert.match(contact, /class="btn rev-button exec" href="[^"]*source=rdv-contact#reservation"/);
+    assert.match(contact, /class="btn rev-button exec large" href="[^"]*source=rdv-contact#reservation"/);
     assert.match(contact, /href="mailto:paul.larmaraud@parrit.ai"/);
     const technology = html.match(/<p id="technologies-title"[^>]*>([\s\S]*?)<\/p>/)[1];
     assert.equal(text(technology), locale === "fr"

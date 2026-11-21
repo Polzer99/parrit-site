@@ -74,6 +74,17 @@
   --hold: 600ms;
 }
 
+/* Système visuel unique, 21/11/2026 (docs/AUDIT-VISUEL-2026-11-21.md, partie 3). */
+:root {
+  --section-y: var(--brand-s8);   /* 64 : au-dessus et au-dessous de chaque section */
+  --stack: var(--brand-s4);       /* 32 : titre → contenu, contenu → contenu, gouttière */
+  --inner: var(--brand-s2);       /* 16 : à l'intérieur d'un composant */
+  --card-pad: var(--brand-s3);    /* 24 */
+  --measure: 52ch;                /* 545 px à 18 px : 75 caractères au plus sur une ligne (mesuré ; 58ch en donnait jusqu'à 84) */
+  --title-max: 820px;
+  --title-tracking: -0.03em;
+}
+
 /* Audit readability contract: five heading steps, shared action geometry. */
 :root {
   --button-min-height: 48px;

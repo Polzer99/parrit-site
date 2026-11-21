@@ -58,7 +58,10 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.ok(partners);
   assert.equal((partners.match(/class="s"/g) ?? []).length, 7);
   assert.match(visibleText(partners), /MIT/);
-  assert.doesNotMatch(partners, /<img|<svg/);
+  // 21/11/2026 (soir, décision 2) : un pictogramme par carte, toujours aucune image ni logo.
+  assert.doesNotMatch(partners, /<img/);
+  assert.equal((partners.match(/<svg class="card-glyph"/g) ?? []).length, 7);
+  assert.equal((partners.match(/<svg /g) ?? []).length, 7);
   assert.doesNotMatch(html, /href="#reservation"/);
   const contact = html.slice(html.indexOf('id="contact"'));
   assert.match(contact, /id="reservation"[\s\S]*data-booking-mock[\s\S]*data-capture-mock/);
@@ -192,13 +195,16 @@ for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos a
 
 for (const locale of ["fr", "en"]) test(`passe 4 complete SSR use cases, offers after architecture removal (${locale})`, async () => {
   const html = await renderPage(locale);
-  const { SERVICE_CASES, PARTNER_OFFERS, SINGLE_PAGE_EN } = loader(locale)("src/system/single-page-copy.ts");
-  const t = value => locale === "fr" ? value : SINGLE_PAGE_EN[value];
-  assert.equal(SERVICE_CASES.length, 12);
-  assert.equal(PARTNER_OFFERS.flat().length, 23);
+  const copy = loader(locale)("src/system/single-page-copy.ts");
+  assert.equal(copy.SERVICE_CASES.length, 12);
+  // 21/11/2026 (soir, décision 2) : les 23 offres des partenaires sortent de la page et du HTML ;
+  // cette décision remplace le contrat du 27/10/2026. Sept cartes : un pictogramme, un titre, une phrase.
+  assert.equal(copy.PARTNER_OFFERS, undefined);
+  assert.doesNotMatch(html, /partner-offers|partner-delivery|offer-sizer/);
+  assert.equal((html.match(/<div class="partner">/g) ?? []).length, 7);
+  assert.doesNotMatch(visibleText(html), /Avec eux, nous livrons|With them, we deliver/);
   assert.equal((html.match(/data-result=/g) ?? []).length, 17);
   assert.doesNotMatch(html, /calc-card/);
-  for (const offer of PARTNER_OFFERS.flat()) { assert.ok(t(offer), offer); assert.ok(visibleText(html).includes(t(offer)), offer); }
   assert.doesNotMatch(html, /class="use-case"|class="tag bo"|class="tag new"/);
   // 21/11 (soir): the calculator carousel is gone, four swipe carousels remain.
   assert.equal((html.match(/class="swipe-dots"/g) ?? []).length, 4);

@@ -90,6 +90,17 @@ for (const locale of ["fr", "en"]) {
     // 21/11 (coherence-et-garde-fous B.1): the assistants block is gone, the press keeps one column.
     assert.doesNotMatch(html, /id="assistant"|assistant-links|chatgpt\.com|claude\.ai\/new|perplexity\.ai|chat\.mistral\.ai/);
     assert.equal((press.match(/<p\b/g) ?? []).length, 1);
+    // 21/11/2026 (soir, décision 5) : le chiffre de la presse est le nombre d'articles publiés et indexables
+    // du Journal dans la langue de la page, lu au registre, jamais écrit en dur.
+    const journal = load("src/system/journal.ts").getAllJournalEntrySummaries(locale);
+    const { hasFrenchJournalTranslation } = load("src/system/journal-translations.ts");
+    const published = journal.filter(entry => !entry.noindex && (locale !== "fr" || hasFrenchJournalTranslation(entry.slug))).length;
+    // Le chiffre ne dépasse jamais le nombre de cartes réellement rendues par la page du Journal.
+    const index = renderToStaticMarkup(await load("src/system/pages/journal.tsx").default(locale));
+    assert.ok(published <= (index.match(/<li\b/g) ?? []).length);
+    assert.ok(published > 0);
+    assert.equal(press.match(/<strong class="press-count"[^>]*>(\d+)<\/strong>/)?.[1], String(published));
+    assert.match(press, locale === "fr" ? /<figcaption>articles publiés dans le Journal\.<\/figcaption>/ : /<figcaption>articles published in the Journal\.<\/figcaption>/);
     assert.equal((press.match(/target="_blank"/g) ?? []).length, 0);
     assert.doesNotMatch(visibleText(html), /Chroniques parues dans Le Monde Informatique\.|Ou demandez à votre assistant\.|interroger votre assistant|ask your assistant/);
   });

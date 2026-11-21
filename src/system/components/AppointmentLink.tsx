@@ -26,5 +26,6 @@ export function AppointmentLink({ locale, placement, query = "", children, prima
     contact.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" });
     contact.focus({ preventScroll: true });
   };
-  return <a className={`btn rev-button ${primary ? "exec" : "ghost"}`} href={href} onClick={navigate}>{locale === "fr" ? "Prendre rendez-vous" : "Book a call"}{children}</a>;
+  // Grande taille au héros et au contact (audit 3.6) ; la barre reste un bouton secondaire.
+  return <a className={`btn rev-button ${primary ? "exec large" : "ghost"}`} href={href} onClick={navigate}>{locale === "fr" ? "Prendre rendez-vous" : "Book a call"}{children}</a>;
 }

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import { isLocale, localizedPath, LOCALE_COOKIE, type Locale } from "@/system/locale";
+import { BrandConnector } from "./BrandConnector";
 import { RevFooter } from "./RevFooter";
 import { RevHeader } from "./RevHeader";
 
@@ -33,7 +34,7 @@ export function NotFoundView() {
           <h1>{copy.title}</h1>
         </header>
         <nav className="not-found-actions" aria-label={copy.label}>
-          <Link className="rev-button exec" href={localizedPath("/", locale)}>{copy.home}</Link>
+          <Link className="rev-button exec" href={localizedPath("/", locale)}>{copy.home}<BrandConnector /></Link>
           <Link className="rev-button ghost" href={localizedPath("/journal", locale)}>{copy.journal}</Link>
         </nav>
       </div>

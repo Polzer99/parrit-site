@@ -1,4 +1,3 @@
-import { readingMs } from "../src/system/reading";
 import { mkdir } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import founderPhotos from "./fixtures/founder-photo.json";
@@ -69,12 +68,17 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     const cards = partners.locator(".services > div");
     await expect(cards).toHaveCount(7);
     await expect(cards.last()).toContainText(/MIT/);
-    await expect(partners.locator("img, svg")).toHaveCount(0);
+    // 21/11/2026 (soir, décision 2) : sept cartes séparées, un pictogramme vectoriel chacune, aucune image ni logo.
+    await expect(partners.locator("img")).toHaveCount(0);
+    await expect(partners.locator("svg")).toHaveCount(7);
+    await expect(partners.locator(".partner > .partner-head > svg.card-glyph")).toHaveCount(7);
+    await expect(partners.locator(".partner-offers, .partner-delivery")).toHaveCount(0);
     const grid = await partners.locator(".services").boundingBox();
     const last = await cards.last().boundingBox();
     expect(grid).not.toBeNull();
     expect(last).not.toBeNull();
-    if (width === 1440) expect(last!.width).toBeCloseTo(grid!.width - 2, 0);
+    // La septième carte ferme la grille : sans le cadre commun d'avant, elle en a toute la largeur.
+    if (width === 1440) expect(last!.width).toBeCloseTo(grid!.width, 0);
     else expect(last!.width).toBeLessThan(grid!.width);
     const rows = await cards.evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().top));
     expect(new Set(rows).size).toBe(width === 1440 ? 3 : 1);
@@ -148,9 +152,10 @@ test("no JavaScript conversations remain visible and legal and 404 stay accessib
     await expect(page.locator(".walk")).toHaveClass(/withbot/);
     await expect(page.locator("#objectif option")).toHaveCount(17);
     await expect(page.locator(".goal-results [data-result]")).toHaveCount(17);
-    await expect(page.locator(".partner-offers li")).toHaveCount(23);
-    for (const offer of await page.locator(".partner-offers li").all()) await expect(offer).toBeVisible();
-    for (const face of await page.locator(".partner-delivery").all()) await expect(face).toBeHidden();
+    // 21/11/2026 (soir, décision 2) : les 23 offres sortent du HTML ; les sept cartes restent lisibles sans JavaScript.
+    await expect(page.locator(".partner-offers li, .partner-delivery")).toHaveCount(0);
+    await expect(page.locator(".partner")).toHaveCount(7);
+    for (const card of await page.locator(".partner p").all()) await expect(card).toBeVisible();
     await expect(page.locator("#references").getByRole("img")).toHaveCount(6);
     await expect(page.locator(".contact-fallback input[type=email]")).toBeVisible();
     await expect(page.locator(".onto .story animate, .onto .story animateMotion, .onto .token")).toHaveCount(0);
@@ -646,44 +651,6 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
     });
   });
 }
-
-test("partner offers keep at most two faces active and restore every static offer", async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 800 });
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  const epoch = new Date("2026-10-27T12:00:00Z");
-  await page.clock.install({ time: epoch });
-  await page.goto(local("/fr"));
-  await page.locator("#partenaires h2").scrollIntoViewIfNeeded();
-  await page.clock.pauseAt(new Date(epoch.getTime() + 10000));
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await expect(page.locator(".partner-motion")).toHaveAttribute("data-anim", "in");
-  const cards = page.locator(".partner");
-  const fronts = await cards.evaluateAll(nodes => nodes.map(card => [...card.querySelectorAll(".partner-type .s, .partner-type p")].map(node => node.textContent).join(" ")));
-  await page.clock.runFor(Math.max(...fronts.map(readingMs)));
-  await expect(cards.first()).toHaveClass(/flip/);
-  const offers = await cards.first().locator("li").allTextContents();
-  await expect(cards.first().locator(".offer")).toHaveText(offers[0]);
-  for (let i = 0; i < offers.length; i++) {
-    const dwell = readingMs(offers[i]) + (i ? 150 : 0);
-    await page.clock.runFor(dwell - 1);
-    await expect(cards.first()).toHaveClass(/flip/);
-    await expect(cards.first()).not.toHaveClass(/blink/);
-    await expect(cards.first().locator(".offer")).toHaveText(offers[i]);
-    await page.clock.runFor(1);
-    if (i + 1 < offers.length) {
-      await expect(cards.first()).toHaveClass(/blink/);
-      await page.clock.runFor(150);
-      await expect(cards.first().locator(".offer")).toHaveText(offers[i + 1]);
-    } else await expect(cards.first()).not.toHaveClass(/flip/);
-  }
-  for (let time = 0; time < 28000; time += 100) {
-    await page.clock.runFor(100);
-    expect(await page.locator(".partner.flip").count()).toBeLessThanOrEqual(2);
-  }
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await expect(page.locator(".partner.flip")).toHaveCount(0);
-  for (const offer of await page.locator(".partner-offers li").all()) await expect(offer).toBeVisible();
-});
 
 for (const locale of ["fr", "en"]) test(`four native carousels retain keyboard scrolling and position dots ${locale}`, async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 700 });

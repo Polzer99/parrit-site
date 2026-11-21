@@ -1,14 +1,22 @@
+## 21/11/2026, soir : système visuel unique
+
+Décision de Paul (« toujours un manque de cohérence et d'alignement », « les CTA sont un coup à droite, un coup à gauche ») : `docs/CODEX-SPEC-2026-11-21-coherence-visuelle.md` et la partie 3 de `docs/AUDIT-VISUEL-2026-11-21.md` priment sur tout contrat visuel antérieur ; le résumé fait foi dans `DESIGN.md`, section « Système visuel unique ».
+Une taille par niveau de titre (page 54 px, section 40 px, carte 22 px en 600 ; exceptions : héros de l'accueil 46 px et intertitre d'article 26 px), rythme 64 / 32 / 16, une carte, un gris de filet par fond, largeur de lecture `--measure`.
+Tout part du bord gauche du conteneur ou de sa colonne de grille : titres, textes, boutons. Rien n'est centré ni poussé à droite. Un bouton principal (rose, filet de 2 px, flèche, grand au héros de l'accueil, au héros des pages d'offre et au contact) et un secondaire en contour ; sur téléphone, pleine largeur partout, hors barre et champ d'envoi. Ceci remplace « bouton haut des pages thèmes en 16 px » et « largeur de contenu à partir de 600 px ».
+Partenaires : sept cartes (pictogramme, titre, phrase) ; les 23 offres et leur défilement sortent du HTML (remplace le contrat du 27/10/2026). Presse : chiffre lu au registre du Journal. Rendez-vous : texte en haut à gauche, calendrier dessous sur toute la largeur, sans bandeau en capitales.
+Garde-fou : `tests/coherence-visuelle.spec.ts` (dans `qa:network:rev01`) ; une exception s'écrit dans `tests/helpers/coherence-visuelle.ts` avec sa raison. Seuils de géométrie, de contraste et de stabilité inchangés.
+
 ## Cohérence et garde-fous, décision de Paul du 21/11/2026 (soir)
 
-Les specs `docs/CODEX-SPEC-2026-11-21-alignement-pages-partenaires.md` et `docs/CODEX-SPEC-2026-11-21-coherence-et-garde-fous.md` priment sur les contrats antérieurs. Accueil (dix sections) : hero, références, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Calculateur supprimé, décision de Paul du 21/11/2026 au soir (« le calculateur ressemble à rien, que du texte, aucun élément visuel marketing probant »). Ordre de l'accueil, dix sections : hero, références, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Les ancres historiques `#en-production`, `#in-production`, `#services`, `#ce-qui-change`, `#what-changes` restent atteignables : ce sont des `span` d'ancre en tête de la section des offres. La source `accueil-calculateur` n'a plus d'émetteur. Le bouton bas de page et le bouton haut des pages thèmes ont le style standard des boutons (16 px). Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN). Contact : « Commencez par une tâche précise. », le nom de Paul une seule fois, en légende de photo ; la section des assistants est supprimée. Pages thèmes : gabarit commun (quatre étapes, livrables et limites, règles, FAQ native, Journal si articles, rendez-vous), `h1` avec point final, `<title>`, données structurées et liens sans point.
-Ponctuation (texte visible hors articles, FR et EN) : 1. paragraphe, réponse, légende, étape, carte, ligne de liste : point final, même signe pour toute la liste. 2. Titre de trois mots ou plus : point final (ou « ? »). 3. Titre d'un ou deux mots et nom d'étape : pas de point. 4. Bouton, lien, menu, libellé de champ, surtitre, nom d'outil, étiquette de grille : jamais de point. 5. Titre et résumé d'un article du Journal : inchangés.
+Les specs `docs/CODEX-SPEC-2026-11-21-alignement-pages-partenaires.md` et `docs/CODEX-SPEC-2026-11-21-coherence-et-garde-fous.md` priment sur les contrats antérieurs. Accueil, dix sections : hero, références, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Calculateur supprimé, décision de Paul du 21/11/2026 au soir (« le calculateur ressemble à rien, que du texte, aucun élément visuel marketing probant »). Les ancres historiques `#en-production`, `#in-production`, `#services`, `#ce-qui-change`, `#what-changes` restent atteignables : ce sont des `span` d'ancre en tête de la section des offres. La source `accueil-calculateur` n'a plus d'émetteur. Le bouton haut des pages thèmes est le grand bouton principal, celui du bas le bouton principal normal (système visuel du 21/11/2026). Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN). Contact : « Commencez par une tâche précise. », le nom de Paul une seule fois, en légende de photo ; la section des assistants est supprimée. Pages thèmes : gabarit commun (quatre étapes, livrables et limites, règles, FAQ native, Journal si articles, rendez-vous), `h1` avec point final, `<title>`, données structurées et liens sans point.
+Ponctuation (texte visible hors articles, FR et EN) : 1. paragraphe, réponse, légende, étape, carte, ligne de liste : point final, même signe pour toute la liste. 2. Tout titre de page ou de section (`h1`, `h2`) : point final (ou « ? »), quelle que soit sa longueur ; titre de carte (`h3`) de trois mots ou plus : point final. 3. Titre de carte d'un ou deux mots et nom d'étape : pas de point. 4. Bouton, lien, menu, libellé de champ, surtitre, nom d'outil, étiquette de grille : jamais de point. 5. Titre et résumé d'un article du Journal : inchangés.
 Tout texte visible passe `tests/style-site.test.mjs`. Une exception s'écrit dans le test avec sa raison, jamais dans le texte.
 
 ## Une équipe, décision de Paul des 13 et 14/11/2026
 
 Le site ne présente jamais un fondateur qui fait tout. Selon la décision de Paul du 21/11/2026,
 la section partenaires s'ouvre par « Nous travaillons avec des ingénieurs, des studios, des consultants, des intervenants, des cabinets de conseil et des chercheurs. Pour chaque projet, nous réunissons ceux dont le métier correspond à votre besoin. » ; aucune mention d'un
-interlocuteur unique. Bloc contact : « Commencez par une tâche précise », sans date de création ni parcours du fondateur, puis le seul paragraphe
+interlocuteur unique. Bloc contact : « Commencez par une tâche précise. », sans date de création ni parcours du fondateur, puis le seul paragraphe
 « Vous décrivez une tâche qui prend du temps à vos équipes, ou un outil qui vous manque. Nous vous disons ce qui est réalisable. Le travail se fait ensuite avec les ingénieurs, les intervenants et les consultants dont votre projet a besoin. »
 Le mot « formation » reste hors de l'accueil. La photo, le bouton et l'e-mail restent. Rien de pompeux sur le fondateur. Aucune liste de ce que le fondateur
 conçoit ou pilote, y compris dans `scripts/generate-llms.mjs`. Cette décision prime sur « la ligne des
@@ -344,7 +352,7 @@ Instrument/RegistryLine, boutons `.rev-button` / `.exec` / `.ghost`) et se véri
 Brand OS et ses contrats (captures 1440/375, contraste et absence de débordement). Un hex dans une
 page est un défaut. Interdit de créer un design system local ou une seconde famille typo.
 La CI bloque : `qa:brand:rev01` (tokens, ombres, radius, PC-10) + `qa:network:rev01`
-(specs de conformité — H1 88px, une ombre max, zéro radius).
+(specs de conformité — échelle de titres du système visuel unique, une ombre max, zéro radius).
 
 ### Règle d'index — arbitrage Paul du 02/08/2026
 
@@ -438,8 +446,8 @@ Un bloc = un écran : en FR/EN et mouvement réduit, à 1440×800, 1280×720 et
 390×700, le premier enfant de chaque section (hors hero/contact) et chaque
 figure doivent tenir dans la hauteur du viewport, sans découpe ni texte masqué.
 Le hero entier, barre comprise, tient à 1440×800 ; le calendrier seul est exempté.
-Cinq carrousels mobiles natifs (celui du trajet est retiré), accessibles au clavier, avec points de position.
-Les 48 cas et les 23 offres restent dans le HTML serveur ; aucun mouvement
+Quatre carrousels mobiles natifs (celui du trajet et celui du calculateur sont retirés), accessibles au clavier, avec points de position.
+Les 23 offres des partenaires sont supprimées le 21/11/2026 (sept cartes d'une phrase) ; aucun mouvement
 en mode réduit et aucun minuteur après démontage. Le registre de preuves conserve
 le pilotage agentique des fruits et légumes pour Laparra ; seuls les logos
 sont désormais affichés dans les références (§5 du tour 1).

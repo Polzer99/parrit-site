@@ -1,5 +1,3 @@
-import type { GlyphName } from "@/system/ontology-hero-data";
-
 // Vector paths from the approved generator, with canonical token colours.
 const glyphs = {
   mail: <><rect x="3" y="5" width="12" height="9" fill="none" stroke="currentColor" strokeWidth="1.3"/><path d="M3 5l6 5 6-5" fill="none" stroke="currentColor" strokeWidth="1.3"/></>,
@@ -13,4 +11,5 @@ const glyphs = {
   chart: <><path d="M4 15V9M8 15V5M12 15v-4M15 15H3" stroke="currentColor" strokeWidth="1.5"/></>,
   bot: <><rect x="3" y="4" width="12" height="11" fill="currentColor"/><rect x="6" y="8" width="2" height="3.5" fill="var(--onto-node-fill)"/><rect x="10" y="8" width="2" height="3.5" fill="var(--onto-node-fill)"/></>,
 };
-export function OntologyGlyph({ name }: { name: GlyphName }) { return glyphs[name]; }
+export type OntologyGlyphName = keyof typeof glyphs;
+export function OntologyGlyph({ name }: { name: OntologyGlyphName }) { return glyphs[name]; }

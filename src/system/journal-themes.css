@@ -1,65 +1,67 @@
+/* Pages d'offre. Système visuel unique du 21/11/2026 (docs/AUDIT-VISUEL-2026-11-21.md, partie 3) :
+   titres dans system.css, boutons dans rev01.css, rythme 64 / 32 / 16, une carte, un gris de filet. */
 .journal-theme { font-family: var(--ui); }
-.journal-theme-hero { padding-block: var(--s8); }
-.journal-theme-hero h1 { max-width: 1000px; font-size: var(--d-xl); line-height: 1.08; font-weight: 500; }
-.journal-theme-hero p { max-width: 720px; margin-top: var(--s3); font-size: var(--t-l); line-height: 1.5; }
-.journal-theme-body { padding-block: var(--s8); }
-.journal-theme-body section + section { margin-top: var(--s8); }
-.journal-theme-body h2 { font-size: var(--d-s); line-height: 1.15; font-weight: 500; margin-bottom: var(--s3); }
-.journal-theme-body p { max-width: 720px; font-size: var(--t-m); line-height: 1.65; margin-block: var(--s2); }
-.journal-theme-body .journal-list { margin-block: var(--s3); }
-.journal-theme-body .theme-article-title { display: block; font-size: var(--t-l); line-height: 1.3; font-weight: 500; }
+
+/* En-tête : le titre à gauche, les quatre étapes numérotées à droite. */
+.journal-theme-hero { padding-block: var(--section-y); }
+.theme-hero-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--section-y); row-gap: var(--stack); align-items: center; }
+.theme-hero-text { min-width: 0; }
+.journal-theme-hero p { max-width: var(--measure); margin: var(--inner) 0 0; font-size: var(--t-l); line-height: 1.5; }
+.journal-theme-hero .rev-button.exec { margin-top: var(--stack); }
+.theme-path { min-width: 0; margin: 0; padding: 0; list-style: none; counter-reset: theme-path; border-bottom: 1px solid var(--rule-d); }
+.journal-theme .theme-path > li { display: grid; grid-template-columns: 3ch minmax(0, 1fr); column-gap: var(--inner); max-width: none; padding-block: var(--inner); border-top: 1px solid var(--rule-d); counter-increment: theme-path; font-size: var(--t-l); line-height: 1.45; font-weight: 600; }
+.theme-path > li::before { content: counter(theme-path, decimal-leading-zero); color: var(--g4-d); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+/* Corps : 64 entre les sections, 32 du titre au contenu. */
+.journal-theme-body { padding-block: var(--section-y); }
+.journal-theme-body section + section { margin-top: var(--section-y); }
+.journal-theme-body h2 { margin-bottom: var(--stack); }
+.journal-theme-body p { max-width: var(--measure); font-size: var(--t-m); line-height: 1.65; margin-block: var(--inner); }
+.journal-theme-body h2 + p { margin-top: 0; }
 .theme-anchor-alias { display: block; height: 0; }
-.theme-list { max-width: 720px; padding-left: var(--s3); font-size: var(--t-m); line-height: 1.65; }
+.theme-list { max-width: var(--measure); margin: 0; padding-left: var(--s3); font-size: var(--t-m); line-height: 1.65; }
 .theme-list li + li { margin-top: var(--s1); }
-.theme-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s4); list-style: none; padding: 0; counter-reset: theme-step; }
-.theme-steps > li { min-width: 0; border-top: 1px solid var(--rule-l); padding-top: var(--s2); counter-increment: theme-step; }
-.theme-steps > li::before { content: counter(theme-step, decimal-leading-zero); display: block; margin-bottom: var(--s2); font-size: var(--t-s); color: var(--g3); }
-.theme-steps strong, .theme-deliverables strong { font-size: var(--t-l); line-height: 1.3; font-weight: 600; }
-.theme-deliverables { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s4); align-items: start; }
+
+/* La carte unique : fond blanc, filet de 1 px, marge de 24. Repère, puis titre, puis texte. */
+.theme-cases > li, .theme-steps > li, .theme-deliverables aside { min-width: 0; padding: var(--card-pad); border: 1px solid var(--brand-accessible-line); background: var(--paper2); }
+.journal-theme :is(.theme-cases > li, .theme-steps p, .theme-deliverables aside p) { font-size: var(--t-s); line-height: 1.5; }
+
+/* Exemples de tâches : des cases côte à côte, un pictogramme chacune. */
+.theme-cases { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: var(--stack); max-width: none; margin-top: var(--stack); padding: 0; list-style: none; }
+.journal-theme .theme-cases > li { display: grid; align-content: start; gap: var(--inner); max-width: none; margin: 0; }
+
+/* Quatre étapes : le numéro est le repère, en 40 px. */
+.theme-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--stack); margin: 0; padding: 0; list-style: none; counter-reset: theme-step; }
+.journal-theme .theme-steps > li { max-width: none; counter-increment: theme-step; }
+.theme-steps > li::before { content: counter(theme-step, decimal-leading-zero); display: block; margin-bottom: var(--inner); font-size: var(--d-s); line-height: 1; font-weight: 500; letter-spacing: var(--title-tracking); color: var(--accent-text); font-variant-numeric: tabular-nums; }
+.theme-steps strong, .theme-deliverables strong { display: block; font-size: var(--t-l); line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; }
+.theme-steps p, .theme-deliverables aside p { margin: var(--s1) 0 0; }
+
+/* Vous recevez : les coches de l'accueil à la place des puces. */
+.theme-deliverables { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--stack); align-items: start; }
 .theme-deliverables > * { min-width: 0; }
-.theme-deliverables aside { padding: var(--s3); border: 1px solid var(--rule-l); background: var(--paper2); }
-.theme-deliverables aside p:last-child { margin-bottom: 0; }
-.journal-theme .home-faq { margin-top: var(--brand-s3); }
-.journal-theme .home-faq details { border-top: 1px solid var(--rule-l); }
-.journal-theme .home-faq details:last-child { border-bottom: 1px solid var(--rule-l); }
-.journal-theme .home-faq summary { cursor: pointer; font-size: var(--t-m); line-height: 1.4; font-weight: 600; padding-block: var(--brand-s2); min-height: 48px; }
+.theme-checks { padding: 0; list-style: none; }
+.journal-theme .theme-checks > li { display: flex; align-items: flex-start; gap: var(--s1); }
+.theme-checks .check-mark { flex: none; margin-top: calc((1lh - 18px) / 2); color: var(--accent-text); }
+
+/* Questions et articles : des lignes, un seul gris de filet. */
+.journal-theme .home-faq { margin-top: 0; }
+.journal-theme .home-faq details { border-top: 1px solid var(--brand-accessible-line); }
+.journal-theme .home-faq details:last-child { border-bottom: 1px solid var(--brand-accessible-line); }
+.journal-theme .home-faq summary { cursor: pointer; font-size: var(--t-m); line-height: 1.4; font-weight: 600; padding-block: var(--inner); min-height: 48px; }
 .journal-theme .home-faq summary:active { text-decoration: underline; }
 .journal-theme .home-faq summary:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 2px; }
-.journal-theme .home-faq p { font-size: var(--t-s); line-height: 1.5; padding-bottom: var(--brand-s2); }
+.journal-theme .home-faq p { max-width: var(--measure); margin: 0; padding-bottom: var(--inner); font-size: var(--t-s); line-height: 1.5; }
+.journal-theme-body .journal-list { margin-block: 0; }
+.journal-theme-body .journal-list a { align-items: baseline; padding: var(--inner) 0; }
+.journal-theme-body .theme-article-title { display: block; font-size: var(--t-l); line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; }
+.journal-theme-body .booking-call { padding-block: 0; }
+.journal-theme-body .booking-call h2 { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .theme-hero-grid { grid-template-columns: minmax(0, 1fr); }
+}
 @media (max-width: 760px) {
   .theme-steps, .theme-deliverables { grid-template-columns: minmax(0, 1fr); }
-  .journal-theme-hero .rev-button.exec { width: 100%; }
-}
-@media (max-width: 599px) {
-  .journal-theme-hero, .journal-theme-body { padding-block: var(--s6); }
-  .journal-theme-body h2 { font-size: 32px; }
-}
-
-/* Action contrastée dans le registre clair des thèmes. */
-.journal-theme .rev-button.exec {
-  --action-fill:var(--brand-core-canard);
-  --action-pressed:var(--brand-core-canard);
-  --action-text:var(--brand-derived-white);
-}
-
-/* Même action que celle du bas de page (21/11/2026) : style standard des boutons, couleur d’action sur le fond sombre de l’en-tête. */
-.journal-theme .journal-theme-hero .rev-button.exec {
-  --action-fill: var(--brand-core-rose);
-  --action-pressed: var(--brand-accessible-warm);
-  --action-text: var(--brand-accessible-ink);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--brand-s2);
-  margin-top: var(--s3);
-  transition: background-color 150ms, border-color 150ms, transform 150ms;
-}
-.journal-theme-hero .rev-button.exec:is(:hover, :focus, :active) { background: var(--action-pressed); border-color: var(--brand-accessible-ink); }
-.journal-theme-hero .rev-button .brand-connector { transition: transform 150ms; }
-.journal-theme-hero .rev-button:is(:hover, :focus) .brand-connector { transform: translateX(4px); }
-@media (prefers-reduced-motion: reduce) {
-  .journal-theme-hero .rev-button.exec,
-  .journal-theme-hero .rev-button.exec:is(:hover, :focus, :active),
-  .journal-theme-hero .rev-button .brand-connector,
-  .journal-theme-hero .rev-button:is(:hover, :focus) .brand-connector { animation: none !important; transition: none !important; transform: none; }
+  .theme-cases { grid-auto-flow: row; }
 }

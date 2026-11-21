@@ -57,7 +57,7 @@ for (const width of [375, 390, 1440]) {
         const h3 = [...document.querySelectorAll("main h3")].filter(visible);
         const prose = [...document.querySelectorAll("main p, main li, main dd, .goal-results [data-result]:not([hidden])")].filter(el => visible(el) && !el.closest(".sr-only"));
         return {
-          actions: actions.map(el => ({ prominent: el.matches(".single-page :is(.hero,.final-call,.founder) .btn.exec"), text: el.textContent, height: el.getBoundingClientRect().height, size: parseFloat(getComputedStyle(el).fontSize), weight: getComputedStyle(el).fontWeight })),
+          actions: actions.map(el => ({ prominent: el.matches(".single-page :is(.hero,.final-call,.founder) .btn.exec, .journal-theme-hero .rev-button.exec"), text: el.textContent, height: el.getBoundingClientRect().height, size: parseFloat(getComputedStyle(el).fontSize), weight: getComputedStyle(el).fontWeight })),
           targets: targets.map(el => ({ text: el.textContent, height: el.getBoundingClientRect().height })),
           h1: parseFloat(getComputedStyle(document.querySelector("h1")!).fontSize),
           h3: [...new Set(h3.map(el => getComputedStyle(el).fontSize))],
@@ -70,6 +70,7 @@ for (const width of [375, 390, 1440]) {
       for (const action of result.actions) {
         expect(action.height, action.text ?? "action").toBeGreaterThanOrEqual(48);
         // Correctif 2, 08/11 : hero/banner use the founder’s existing large type.
+        // 21/11/2026 (soir, décision 10) : le héros des pages d'offre porte aussi le grand bouton ; mêmes seuils.
         expect(action.size).toBe(action.prominent ? 22 : 16);
         expect(action.weight).toBe("600");
       }

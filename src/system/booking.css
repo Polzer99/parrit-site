@@ -1,26 +1,28 @@
-.booking-call,
-.booking-page {
+/* Rendez-vous. Système visuel unique du 21/11/2026 : titres dans system.css, boutons dans rev01.css. */
+.booking-call {
   display: grid;
   justify-items: start;
-  gap: var(--s3);
-  padding-block: var(--s6);
+  gap: var(--inner);
+  padding-block: var(--section-y);
   font-family: var(--ui);
 }
 
-.booking-call h2,
-.booking-page h1 {
-  margin: 0;
-  font-size: var(--d-s);
-  line-height: 1.15;
-  font-weight: 500;
+/* En fin d'article, le bloc est une section : un filet au-dessus, comme les autres lignes de la page. */
+.journal-article > .booking-call {
+  border-top: 1px solid var(--brand-accessible-line);
 }
 
 .booking-call p,
 .booking-page p,
 .booking-email {
+  max-width: var(--measure);
   margin: 0;
   font-size: var(--t-m);
   line-height: 1.65;
+}
+
+.booking-call .rev-button {
+  margin-top: var(--inner);
 }
 
 .booking-email {
@@ -29,15 +31,31 @@
   text-underline-offset: var(--s1);
 }
 
-.booking-page .cal-stage {
-  width: 100%;
+/* Page de rendez-vous : le texte en haut, au bord gauche, puis le calendrier sur toute la largeur.
+   Le calendrier Cal.com passe en disposition étroite, bien plus haute, sous une certaine largeur :
+   il garde donc la largeur du conteneur, celle qui est en ligne et vérifiée (relecture du 21/11/2026). */
+.booking-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--inner);
+  justify-items: start;
+  padding-block: var(--section-y);
+  font-family: var(--ui);
+}
+
+.booking-page > * {
   min-width: 0;
 }
 
-@media (max-width: 599px) {
-  .booking-call .rev-button {
-    width: 100%;
-  }
+.booking-page > #reservation {
+  justify-self: stretch;
+  margin-top: var(--inner);
+}
+
+.booking-page .cal-stage {
+  width: 100%;
+  min-width: 0;
+  padding-top: 0;
 }
 
 .booking-call .booking-email a {
