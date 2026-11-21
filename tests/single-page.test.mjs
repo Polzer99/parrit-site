@@ -6,7 +6,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
-const anchors = { fr: ["haut", "references", "en-production", "mesures", "assistant", "terrain", "offres", "parcours", "technologies", "partenaires", "questions", "contact"], en: ["haut", "references", "in-production", "measurements", "assistant", "in-the-field", "offers", "path", "technologies", "team", "questions", "contact"] };
+const anchors = { fr: ["haut", "references", "en-production", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"], en: ["haut", "references", "in-production", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"] };
 test("hero paths never depend on CSS d or responsive path variables", () => {
   const css = readFileSync("src/system/single-page.css", "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
   assert.doesNotMatch(css, /(?:^|[;{])\s*d\s*:/i);
@@ -43,7 +43,7 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   const journalLink = new RegExp(`href="${locale === "fr" ? "/fr" : ""}/journal"`);
   assert.match(main, journalLink);
   assert.match(footer, journalLink);
-  assert.equal((html.match(/<section\b/g) ?? []).length, 12);
+  assert.equal((html.match(/<section\b/g) ?? []).length, 11);
   assert.deepEqual([...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]), anchors[locale]);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
   // 17 objectives in the hero, plus the three tasks of the calculator (15/11).
@@ -185,8 +185,8 @@ for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos a
   const founder = html.match(/<div class="founder-identity">\s*(<h2>[\s\S]*?<\/h2>)/)?.[1];
   assert.ok(founder);
   assert.equal(visibleText(founder).replace(/\s+/g, " ").trim(), locale === "fr"
-    ? "Vous échangez avec Paul Larmaraud"
-    : "You speak with Paul Larmaraud");
+    ? "Commencez par une tâche précise"
+    : "Start with one specific task");
 });
 
 for (const locale of ["fr", "en"]) test(`passe 4 complete SSR use cases, offers after architecture removal (${locale})`, async () => {

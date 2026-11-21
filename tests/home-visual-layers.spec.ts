@@ -23,7 +23,7 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         await page.emulateMedia({ reducedMotion: "reduce" });
         await page.goto(local(`${locale === "fr" ? "/fr" : "/"}?utm_custom=visual&source=old`));
         const field = page.locator(locale === "fr" ? "#terrain" : "#in-the-field");
-        expect(await field.evaluate(el => el.previousElementSibling?.id)).toBe("assistant");
+        expect(await field.evaluate(el => el.previousElementSibling?.id)).toBe(locale === "fr" ? "parcours" : "path");
         await expect(field.locator("picture")).toHaveCount(3);
         const pictures = field.locator("picture img");
         for (const picture of await pictures.all()) {
@@ -113,8 +113,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         // 15/11 : calculateur, plus de mesures datées, seulement le bloc presse.
         await expect(page.locator(".home-measure")).toHaveCount(0);
         await expect(page.locator(".home-press")).toBeVisible();
-        await expect(page.locator(".assistant-links a")).toHaveCount(4);
-        for (const section of await page.locator(".home-motors,.home-measures,.home-assistant").all()) {
+        await expect(page.locator(".assistant-links a,.home-assistant,#assistant")).toHaveCount(0);
+        for (const section of await page.locator(".home-motors,.home-measures").all()) {
           expect((await section.locator(":scope > .wrap").boundingBox())!.height).toBeLessThanOrEqual(height);
         }
 

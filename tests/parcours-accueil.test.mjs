@@ -7,8 +7,8 @@ import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
 
 const anchors = {
-  fr: ["haut", "references", "en-production", "mesures", "assistant", "terrain", "offres", "parcours", "technologies", "partenaires", "questions", "contact"],
-  en: ["haut", "references", "in-production", "measurements", "assistant", "in-the-field", "offers", "path", "technologies", "team", "questions", "contact"],
+  fr: ["haut", "references", "en-production", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"],
+  en: ["haut", "references", "in-production", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"],
 };
 const section = (html, id) => {
   const result = html.match(new RegExp(`<section\\b[^>]*id="${id}"[^>]*>([\\s\\S]*?)</section>`))?.[1];
@@ -29,8 +29,8 @@ for (const locale of ["fr", "en"]) {
     const { RevHeader } = load("src/system/components/RevHeader.tsx");
     const header = renderToStaticMarkup(createElement(RevHeader, { locale }));
     const nav = header.match(/<nav class="desktop-nav"[^>]*>([\s\S]*?)<\/nav>/)[1];
-    const expected = locale === "fr" ? ["en-production", "offres", "parcours", "services", "questions", "contact"] : ["in-production", "offers", "path", "services", "questions", "contact"];
-    assert.deepEqual([...nav.matchAll(/href="([^"]+)"/g)].map(m => m[1]), [...expected.slice(0, -1).map(id => `${home}#${id}`), `${locale === "fr" ? "/fr" : ""}/journal`, `${home}#contact`]);
+    const expected = locale === "fr" ? ["offres", "partenaires", "parcours", "questions"] : ["offers", "team", "path", "questions"];
+    assert.deepEqual([...nav.matchAll(/href="([^"]+)"/g)].map(m => m[1]), [...expected.map(id => `${home}#${id}`), `${locale === "fr" ? "/fr" : ""}/journal`]);
   });
 
   test(`two craft cards, no contact action (${locale})`, async () => {

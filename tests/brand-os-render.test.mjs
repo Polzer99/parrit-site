@@ -101,8 +101,8 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           assert.equal(articles[0].inLanguage, locale, label);
           assert.equal(articles[0].headline, visibleText(html.match(/<h1>([\s\S]*?)<\/h1>/)[1]).trim(), label);
           assert.equal(articles[0].mainEntityOfPage, `https://parrit.ai${locale === "fr" ? "/fr" : ""}${route}`, label);
-          const faqSection = html.match(/<section><h2>(?:Questions fréquentes|Frequently asked questions)<\/h2>([\s\S]*?)<\/section>/)?.[1] ?? "";
-          const visiblePairs = [...faqSection.matchAll(/<div><h3>([\s\S]*?)<\/h3><p>([\s\S]*?)<\/p><\/div>/g)].map(([, question, answer]) => [visibleText(question).trim(), visibleText(answer).trim()]);
+          const faqSection = html.match(/<section\b[^>]*><h2>(?:Questions fréquentes|Frequently asked questions)<\/h2>([\s\S]*?)<\/section>/)?.[1] ?? "";
+          const visiblePairs = [...faqSection.matchAll(/<details(?: open="")?><summary>([\s\S]*?)<\/summary><p>([\s\S]*?)<\/p><\/details>/g)].map(([, question, answer]) => [visibleText(question).trim(), visibleText(answer).trim()]);
           const faqs = graphs.filter(item => item["@type"] === "FAQPage");
           assert.equal(faqs.length, visiblePairs.length ? 1 : 0, label);
           assert.deepEqual(faqs[0]?.mainEntity.map(item => [item.name, item.acceptedAnswer.text]) ?? [], visiblePairs, label);
@@ -185,12 +185,13 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         if (route === "/") {
           assert.match(html, /<section class="hero"/);
           const ids = [...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]);
-          const expected = locale === "fr" ? ["haut", "references", "en-production", "mesures", "assistant", "terrain", "offres", "parcours", "technologies", "partenaires", "questions", "contact"] : ["haut", "references", "in-production", "measurements", "assistant", "in-the-field", "offers", "path", "technologies", "team", "questions", "contact"];
+          const expected = locale === "fr" ? ["haut", "references", "en-production", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"] : ["haut", "references", "in-production", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"];
           // The compiled contact also contains QuickCapture's nested section.
           assert.deepEqual(ids, [...expected, "single-contact"]);
           assert.doesNotMatch(html, /id="architecture"/);
-          assert.match(html, /<section[^>]*id="(?:parcours|path)">[\s\S]*?<\/section><section id="technologies"/);
-          assert.match(html, /<section id="technologies"[\s\S]*?<\/section><section id="(?:partenaires|team)"/);
+          // 21/11: order amended by the alignment spec (terrain, technologies, then press).
+          assert.match(html, /<section[^>]*id="(?:terrain|in-the-field)"[^>]*>[\s\S]*?<\/section><section id="technologies"/);
+          assert.match(html, /<section id="technologies"[\s\S]*?<\/section><section[^>]*id="(?:mesures|measurements)"/);
           const technologyBand = html.match(/<section id="technologies"[\s\S]*?<\/section>/)?.[0];
           assert.ok(technologyBand, `${label}: compiled server renders the band`);
           const technologyLists = [...technologyBand.matchAll(/<ul([^>]*)>([\s\S]*?)<\/ul>/g)];
@@ -227,7 +228,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       assert.deepEqual(links.map(([, href]) => {
         const url = new URL(href.replaceAll("&amp;", "&"), "http://localhost:3210");
         assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
-        assert.equal(url.hash, "#contact");
+        assert.equal(url.hash, url.searchParams.get("source") === "rdv-contact" ? "#reservation" : "#contact");
         assert.equal(url.searchParams.get("utm_campaign"), "server & test");
         assert.equal(url.searchParams.get("utm_custom"), "kept");
         assert.equal(url.searchParams.getAll("source").length, 1);
@@ -256,7 +257,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         for (const [, href, label] of links) {
           const url = new URL(href.replaceAll("&amp;", "&"), "http://localhost:3210");
           assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
-          assert.equal(url.hash, "#contact");
+          assert.equal(url.hash, url.searchParams.get("source") === "rdv-contact" ? "#reservation" : "#contact");
           assert.deepEqual(url.searchParams.getAll("source"), ["rdv-nav"]);
           // Correctif 3: cached HTML cannot contain visit-specific parameters.
           // Hydrated attribution is exercised by passe-site.spec.ts.

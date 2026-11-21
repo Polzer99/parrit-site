@@ -37,7 +37,7 @@ for (const locale of ["fr", "en"]) {
   test(`one home action, two crafts, six authorized references (${locale})`, async () => {
     const html = await renderPage(locale);
     const actions = [...html.matchAll(/<a class="([^"]*rev-button[^"]*)" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
-    const booking = actions.filter(([, , href]) => new URL(href, "https://example.invalid").hash === "#contact");
+    const booking = actions.filter(([, , href]) => ["#contact", "#reservation"].includes(new URL(href, "https://example.invalid").hash));
     // Décision de Paul du 15/11/2026 : le calculateur se termine par le même bouton, attribué à part.
     assert.equal(booking.length, 3, "hero, calculator and contact");
     for (const [i, [, classes, href, label]] of booking.entries()) {
@@ -46,6 +46,7 @@ for (const locale of ["fr", "en"]) {
       assert.equal(visibleText(label).trim(), locale === "fr" ? "Prendre rendez-vous" : "Book a call");
       assert.equal(url.searchParams.get("source"), ["accueil-rendez-vous", "accueil-calculateur", "rdv-contact"][i]);
       assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
+      assert.equal(url.hash, i === 2 ? "#reservation" : "#contact");
       assert.equal((label.match(/data-connector="VS-CONNECTOR"/g) ?? []).length, i < 2 ? 1 : 0);
       if (i < 2) assert.match(label, /aria-hidden="true" focusable="false"/);
     }
@@ -58,7 +59,7 @@ for (const locale of ["fr", "en"]) {
     assert.doesNotMatch(visibleText(html), /Former mes équipes|Train my teams|Par où commencer|Where to start/);
     assert.ok(visibleText(html).includes(locale === "fr" ? "Chercheurs du MIT" : "MIT researchers"));
     assert.ok(visibleText(offers).includes(locale === "fr" ? "Pour les PME, les ETI et les grands groupes." : "For SMEs, mid-sized companies and large groups."));
-    assert.doesNotMatch(visibleText(html.replace(/<section[^>]*id="(?:en-production|in-production)"[\s\S]*?<\/section>/, "")), /\b(?:formations?|former|formons|forme|formateurs?|training|train|trains|trainers)\b|parler d'un projet|talk about a project|conseil et outils|[—–]|afin de/i);
+    assert.doesNotMatch(visibleText(html.replace(/<section[^>]*id="(?:en-production|in-production)"[\s\S]*?<\/section>/, "")).replace("We work with engineers, studios, consultants, trainers, consulting firms and researchers.", "").replace("The work then continues with the engineers, trainers and consultants your project needs.", ""), /\b(?:formations?|former|formons|forme|formateurs?|training|train|trains|trainers)\b|parler d'un projet|talk about a project|conseil et outils|[—–]|afin de/i);
     const refs = html.match(/<section id="references"[\s\S]*?<\/section>/)[0];
     const { PUBLIC_CLIENT_NAMES } = loader(locale)("src/system/public-clients.ts");
     assert.equal(PUBLIC_CLIENT_NAMES.length, 6);
@@ -84,8 +85,8 @@ for (const locale of ["fr", "en"]) {
     assert.doesNotMatch(html, /class="tag bo"/);
     assert.doesNotMatch(visibleText(html), /Tâche reprise|Task taken over/);
     assert.ok(visibleText(html).includes(fr
-      ? "Nous faisons appel à des partenaires pour construire vos outils et accompagner vos équipes selon votre projet."
-      : "We bring in partners to build your tools and support your teams according to your project."));
+      ? "Nous travaillons avec des ingénieurs, des studios, des consultants, des intervenants, des cabinets de conseil et des chercheurs. Pour chaque projet, nous réunissons ceux dont le métier correspond à votre besoin."
+      : "We work with engineers, studios, consultants, trainers, consulting firms and researchers. For each project, we bring together those whose expertise matches your need."));
     assert.equal((html.match(/class="calc-card"/g) ?? []).length, 2);
     const details = [...html.matchAll(/<details([^>]*)><summary>(.*?)<\/summary><p>(.*?)<\/p><\/details>/g)];
     assert.equal(details.length, 6);
@@ -174,7 +175,7 @@ for (const locale of ["fr", "en"]) test(`contact action preserves attribution an
   const href = contact.match(/<a class="btn rev-button exec" href="([^"]+)"/)[1].replaceAll("&amp;", "&");
   const target = new URL(href, "https://example.invalid");
   assert.equal(target.pathname, locale === "fr" ? "/fr" : "/");
-  assert.equal(target.hash, "#contact");
+  assert.equal(target.hash, "#reservation");
   assert.deepEqual(target.searchParams.getAll("source"), ["rdv-contact"]);
   assert.deepEqual(target.searchParams.getAll("utm_custom"), ["one", "two"]);
   assert.equal(target.searchParams.get("utm_campaign"), "a&b");

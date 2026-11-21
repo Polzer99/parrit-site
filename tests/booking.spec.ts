@@ -94,7 +94,7 @@ for (const [path, source, locale] of [
     await expect(block).toHaveCount(1);
     await expect(block).toHaveAttribute("lang", locale);
     await expect(block.locator(":scope > *")).toHaveCount(4);
-    await expect(page.locator(".exec")).toHaveCount(1);
+    await expect(page.locator(".exec")).toHaveCount(source.startsWith("theme-") ? 2 : 1);
     const button = block.locator(".exec");
     const href = `${locale === "fr" ? "/fr" : ""}/rendez-vous?source=${source}`;
     await expect(button).toHaveAttribute("href", href);

@@ -37,7 +37,9 @@ export function taskCost(perWeek: unknown, minutes: unknown, hourlyCost: unknown
 }
 
 export function formatHours(hours: number, locale: Locale): string {
-  return `${new Intl.NumberFormat(locale === "fr" ? "fr-FR" : "en-GB", { maximumFractionDigits: 1 }).format(hours)} h`;
+  const number = new Intl.NumberFormat(locale === "fr" ? "fr-FR" : "en-GB", { maximumFractionDigits: 1 }).format(hours);
+  // Décision du 21/11/2026 : « hours » en toutes lettres en anglais ; le calcul ne change pas.
+  return locale === "fr" ? `${number} h` : `${number} ${hours === 1 ? "hour" : "hours"}`;
 }
 
 export function formatEuros(value: number, locale: Locale): string {
@@ -51,7 +53,7 @@ export const CALCULATOR_COPY = {
     growthResult: "de devis par mois se jouent sur la relance.",
     time: "Libérer du temps.", task: "Tâche", perWeek: "Nombre par semaine", minutes: "Minutes chacune", hourlyCost: "Coût horaire (€)",
     timeResult: (cost: string) => `par mois passées sur cette tâche, soit environ ${cost}.`,
-    note: "Vos chiffres, votre calcul.",
+    note: "Remplacez ces chiffres par les vôtres.",
   },
   en: {
     growth: "Grow the business.", growthProcess: "Quotes left without follow-up",
@@ -59,6 +61,6 @@ export const CALCULATOR_COPY = {
     growthResult: "in quotes a month hinge on the follow-up.",
     time: "Save time.", task: "Task", perWeek: "Count per week", minutes: "Minutes each", hourlyCost: "Hourly cost (€)",
     timeResult: (cost: string) => `a month spent on this task, about ${cost}.`,
-    note: "Your figures, your math.",
+    note: "Replace these figures with your own.",
   },
 } as const;

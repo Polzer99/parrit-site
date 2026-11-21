@@ -8,13 +8,26 @@ import type { Locale } from "@/system/locale";
 import { getAllJournalEntrySummaries } from "@/system/journal";
 import { localizedAlternates, localizedOpenGraph, localizedPath } from "@/system/locale";
 import { SITE_V1_PAGES, type GuideCopy } from "@/system/site-v1-pages";
-import { INTEGRATION_COPY } from "@/system/integration-copy";
 import { JOURNAL_THEMES as THEMES } from "@/system/journal-themes";
 import { journalThemeJsonLd } from "@/system/jsonld";
 import { BookingCall } from "@/system/components/BookingCall";
+import { BrandConnector } from "@/system/components/BrandConnector";
+import { BOOKING_COPY } from "@/system/booking";
+import { avecSource } from "@/lib/registry/cta";
 
 
 type Theme = keyof typeof THEMES;
+// Keep existing inbound fragment links at the relevant part of the shared plan.
+const LEGACY_ANCHORS = {
+  "ai-sprints": { cases: ["scoping"], steps: ["construction", "evaluation", "decision"], rules: ["limits"] },
+  "harness-engineering": { cases: ["problem", "interventions", "existing"], steps: ["harness", "evaluation"], rules: ["limits"] },
+  "integration-developpement": { cases: ["custom"], steps: ["integrations"], rules: ["harness", "governance"] },
+  "conseil-transformation": { cases: ["problems"], steps: ["work", "method", "first-task"], rules: ["governance"] },
+} as const;
+
+function LegacyAnchors({ anchors }: { anchors: readonly string[] }) {
+  return anchors.map(anchor => <span className="theme-anchor-alias" id={anchor} key={anchor} aria-hidden="true" />);
+}
 type Props = { params: Promise<{ theme: string }> };
 function getTheme(theme: string): Theme {
   if (!Object.hasOwn(THEMES, theme)) notFound();
@@ -36,21 +49,42 @@ export default async function JournalThemePage({ params }: Props, routeLocale?: 
   const fr = locale === "fr";
   const config = THEMES[theme];
   const copy: GuideCopy = SITE_V1_PAGES[config.page][locale];
+  const anchors = LEGACY_ANCHORS[theme];
   const articleSlugs: readonly string[] = config.articles;
   const entries = getAllJournalEntrySummaries(locale).filter(entry => locale !== "fr" || hasFrenchJournalTranslation(entry.slug)).filter(entry => !entry.noindex && articleSlugs.includes(entry.slug));
   const canonical = `https://parrit.ai${localizedPath(`/journal/themes/${theme}`, locale)}`;
   return <main className="rev-page journal-theme" data-brand-mode="accessible">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(journalThemeJsonLd(copy, locale, canonical)).replace(/</g, "\\u003c") }}/>
-    <header className="journal-theme-hero r2-dark" data-regime="ink"><div className="rev-wrap"><h1>{copy.title}</h1><p>{copy.description}</p></div></header>
-    <div className="rev-wrap journal-theme-body"><div>
-      {copy.brief && <section><h2>{copy.briefTitle ?? (fr ? "En bref" : "At a glance")}</h2>{copy.brief.map(([term, value], index) => <p key={`${term}-${index}`}>{term ? <><strong>{term} : </strong>{value}</> : value}</p>)}</section>}
-      {config.page === "engineering-integration" && <section><h2>{fr ? "Vos logiciels échangent les informations nécessaires au travail" : "Your software exchanges the information needed for the work"}</h2>{INTEGRATION_COPY[locale].map(([title, body]) => <div key={title}><h3>{title}</h3><p>{body}</p></div>)}</section>}
-      {copy.sections.map(([anchor, title, paragraphs]) => <section key={anchor} id={anchor}><h2>{title}</h2>{paragraphs.map(text => <p key={text}>{text}</p>)}</section>)}
-      {copy.markers && <ul>{copy.markers.map(item => <li key={item}>{item}</li>)}</ul>}
-      {copy.faq.length > 0 && <section><h2>{fr ? "Questions fréquentes" : "Frequently asked questions"}</h2>{copy.faq.map(([question, answer]) => <div key={question}><h3>{question}</h3><p>{answer}</p></div>)}</section>}
-      <section><h2>Journal</h2><ol className="journal-list">{entries.map(entry => <li key={entry.slug}><Link href={localizedPath(`/journal/${entry.slug}`, locale)} hrefLang={locale}><div lang={locale}><h3>{entry.title}</h3><p>{entry.description}</p></div></Link></li>)}</ol></section>
+    <header className="journal-theme-hero r2-dark" data-regime="ink"><div className="rev-wrap">
+      <h1>{copy.title}</h1><p>{copy.description}</p>
+      <Link className="rev-button exec" href={avecSource(localizedPath("/rendez-vous", locale), `theme-${theme}-haut`)}>{BOOKING_COPY[locale].action}<BrandConnector /></Link>
+    </div></header>
+    <div className="rev-wrap journal-theme-body">
+      <section id="cases">
+        <LegacyAnchors anchors={anchors.cases} />
+        <h2>{copy.cases.title}</h2><p>{copy.cases.intro}</p>
+        <ul className="theme-list">{copy.cases.items.map(item => <li key={item}>{item}</li>)}</ul>
+      </section>
+      <section id="steps">
+        <LegacyAnchors anchors={anchors.steps} />
+        <h2>{copy.steps.title}</h2>
+        <ol className="theme-steps">{copy.steps.items.map(([name, description]) => <li key={name}><strong>{name}</strong><p>{description}</p></li>)}</ol>
+      </section>
+      <section id="deliverables">
+        <h2>{copy.deliverables.title}</h2>
+        <div className="theme-deliverables">
+          <ul className="theme-list">{copy.deliverables.items.map(item => <li key={item}>{item}</li>)}</ul>
+          <aside><strong>{copy.deliverables.note[0]}</strong><p>{copy.deliverables.note[1]}</p></aside>
+        </div>
+      </section>
+      <section id="rules">
+        <LegacyAnchors anchors={anchors.rules} />
+        <h2>{copy.rules.title}</h2>{copy.rules.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+      </section>
+      <section><h2>{fr ? "Questions fréquentes" : "Frequently asked questions"}</h2><div className="home-faq">{copy.faq.map(([question, answer], index) => <details key={question} open={index === 0}><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
+      {entries.length > 0 && <section><h2>{fr ? "À lire dans le Journal" : "From the Journal"}</h2><ol className="journal-list">{entries.map(entry => <li key={entry.slug}><Link href={localizedPath(`/journal/${entry.slug}`, locale)} hrefLang={locale}><div lang={locale}><strong className="theme-article-title">{entry.title}</strong><p>{entry.description}</p></div></Link></li>)}</ol></section>}
       <BookingCall locale={locale} source={`theme-${theme}`} variant={theme} />
-    </div></div>
+    </div>
   </main>;
 }
 

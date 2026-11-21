@@ -14,7 +14,8 @@ test("generated llms copy has no forbidden dashes or defensive labels and respec
     text = text.replace(answer, "");
   }
   assert.doesNotMatch(text, /[—–€]/);
-  assert.match(text, /Paul Larmaraud/);
+  // 21/11 (spec alignement §3.5): the name now appears only in the home portrait caption, never in llms.txt.
+  assert.doesNotMatch(text, /Paul Larmaraud/);
   assert.doesNotMatch(text, /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de|\bHT\b|excl\. VAT/i);
   assert.doesNotMatch(text, /\b(fictif|fictive|fictional|illustrati(f|ve)|illustrées?|non interactive|pas une analyse|not an analysis)\b/i);
   assert.doesNotMatch(text, /PS-0|STD-\d|commissioned, not subscribed|not a workshop|not a sales call/i);

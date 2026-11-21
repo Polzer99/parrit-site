@@ -220,7 +220,7 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     },
     "result": {
       "fr": "Vos équipes prennent l'IA en main, sur leurs propres dossiers.",
-      "en": "Your teams take AI in hand, on their own files."
+      "en": "Your teams learn to work with AI, on their own files."
     },
     "path": [
       "Vos équipes",

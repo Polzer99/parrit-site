@@ -25,7 +25,7 @@ for (const locale of ["fr", "en"]) {
       assert.ok(heading, "every section has its existing heading");
       return text(heading);
     });
-    assert.equal(headings.length, 12);
+    assert.equal(headings.length, 11);
     const prefix = locale === "fr" ? "- Dans l'ordre : " : "- In order: ";
     assert.equal(language(output(), locale).split("\n").find(line => line.startsWith(prefix)), prefix + headings.join(" ; "));
   });

@@ -13,17 +13,17 @@ for (const locale of ["fr", "en"]) {
     const contact = html.match(/<section class="founder"[\s\S]*?<\/section>/)[0];
     const heading = contact.match(/<h2>([\s\S]*?)<\/h2>/)[1];
     assert.equal(text(heading), locale === "fr"
-      ? "Vous échangez avec Paul Larmaraud"
-      : "You speak with Paul Larmaraud");
+      ? "Commencez par une tâche précise"
+      : "Start with one specific task");
     const details = contact.match(/<div class="founder-details">([\s\S]*?)<div class="actions">/)[1];
     assert.equal((details.match(/<p>/g) ?? []).length, 1);
     assert.doesNotMatch(details, /<ul|<li/);
     assert.equal(text(details).trim(), locale === "fr"
-      ? "Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet."
-      : "AI adoption, custom development, industry expertise, research: the work then continues with the team that fits your project.");
+      ? "Vous décrivez une tâche qui prend du temps à vos équipes, ou un outil qui vous manque. Nous vous disons ce qui est réalisable. Le travail se fait ensuite avec les ingénieurs, les intervenants et les consultants dont votre projet a besoin."
+      : "You describe a task that takes up your teams’ time, or a tool you are missing. We tell you what is feasible. The work then continues with the engineers, trainers and consultants your project needs.");
     assert.doesNotMatch(visibleText(contact), /Lime|2024|fondateur|founder/);
     assert.match(contact, /<img[^>]*alt="Paul Larmaraud"/);
-    assert.match(contact, /class="btn rev-button exec" href="[^"]*source=rdv-contact#contact"/);
+    assert.match(contact, /class="btn rev-button exec" href="[^"]*source=rdv-contact#reservation"/);
     assert.match(contact, /href="mailto:paul.larmaraud@parrit.ai"/);
     const technology = html.match(/<p id="technologies-title"[^>]*>([\s\S]*?)<\/p>/)[1];
     assert.equal(text(technology), locale === "fr"

@@ -1,57 +1,69 @@
 import type { Locale } from "./locale";
 
-export type GuideCopy = { name: string; title: string; description: string; briefTitle?: string; brief?: readonly (readonly [string, string])[]; markers?: readonly string[]; sections: readonly (readonly [string, string, readonly string[]])[]; faq: readonly (readonly [string, string])[] };
+export type GuideCopy = {
+  name: string;
+  title: string;
+  description: string;
+  cases: { title: string; intro: string; items: readonly string[] };
+  steps: { title: string; items: readonly (readonly [string, string])[] };
+  deliverables: { title: string; items: readonly string[]; note: readonly [string, string] };
+  rules: { title: string; paragraphs: readonly string[] };
+  faq: readonly (readonly [string, string])[];
+};
 export const SITE_V1_PAGES = {
   "consulting-transformation": {
     "fr": {
       "name": "Conseil & Transformation",
       "title": "Choisir quoi automatiser",
-      "description": "Vous partez du travail que vos équipes font réellement",
-      "sections": [
-        [
-          "problems",
-          "Vous partez du travail que vos équipes font réellement",
+      "description": "Avant de choisir un outil, nous regardons avec vos équipes le travail qu’elles font réellement. Vous recevez la liste des tâches examinées et les raisons de commencer par certaines.",
+      "cases": {
+        "title": "Chaque tâche demande des gestes différents",
+        "intro": "Préparer une réponse à un client, traiter une facture fournisseur ou réunir les chiffres d’un rapport financier ne demande pas le même travail. Nous examinons ces tâches avec les personnes qui les réalisent, pour déterminer où un outil peut être utile.",
+        "items": [
+          "Vous n’avez pas encore choisi d’outil et une tâche vous pose problème.",
+          "Plusieurs services demandent un outil et vous devez décider par lequel commencer."
+        ]
+      },
+      "steps": {
+        "title": "Nous observons le travail, nous comparons les tâches, puis nous définissons la première à améliorer",
+        "items": [
           [
-            "Préparer une réponse client, traiter une facture fournisseur ou réunir les chiffres d’un rapport financier demande des gestes différents. Nous les examinons avec les personnes concernées pour déterminer où un outil peut être utile."
-          ]
-        ],
-        [
-          "work",
-          "Nous comparons les tâches avant de choisir par où commencer",
+            "L’observation",
+            "Vos équipes nous montrent comment elles travaillent. Nous suivons une tâche dans l’ordre, avec ses fichiers, ses échanges et ses vérifications."
+          ],
           [
-            "Nous regardons comment vos équipes travaillent, quels fichiers elles utilisent et ce qu’elles doivent vérifier. Nous comparons ensuite les améliorations possibles, les difficultés de construction et les risques pour votre activité."
-          ]
-        ],
-        [
-          "deliverables",
-          "Vous recevez un ordre de travail expliqué",
+            "Le tri",
+            "Cette observation fait apparaître ce qui se répète et ce qui demande un jugement humain."
+          ],
           [
-            "Le document décrit les tâches examinées et les raisons de commencer par certaines. Il précise les outils concernés, la participation attendue des équipes et les vérifications nécessaires pour mesurer ce qui change."
-          ]
-        ],
-        [
-          "method",
-          "Vos équipes nous montrent comment elles travaillent",
+            "La comparaison",
+            "Nous comparons les améliorations possibles, les difficultés de construction et les risques pour votre activité."
+          ],
           [
-            "Nous suivons une tâche dans l’ordre, avec ses fichiers, ses échanges et ses vérifications. Cette observation permet de repérer ce qui se répète et ce qui demande un jugement humain."
-          ]
-        ],
-        [
-          "first-task",
-          "Nous définissons une première tâche à améliorer",
-          [
+            "La première tâche",
             "Nous précisons le résultat attendu, les données nécessaires et la manière de le vérifier. Si vous décidez de construire, les personnes concernées essaient l’outil et participent à sa prise en main."
           ]
-        ],
-        [
-          "governance",
-          "Accès et responsabilités",
-          [
-            "Vous choisissez qui accède aux données et qui valide les actions. Nous écrivons ces règles avant de construire l’outil.",
-            "Si le travail se poursuit par une construction, le contrat précise les droits sur l’outil, son hébergement et sa maintenance. Il fixe aussi les conditions de reprise du système et de récupération de vos données."
-          ]
         ]
-      ],
+      },
+      "deliverables": {
+        "title": "Vous recevez un ordre de travail expliqué",
+        "items": [
+          "Les tâches examinées et les raisons de commencer par certaines.",
+          "Les outils concernés.",
+          "La participation attendue de vos équipes.",
+          "Les vérifications nécessaires pour mesurer ce qui change."
+        ],
+        "note": [
+          "Si le travail se poursuit par une construction",
+          "Le contrat précise les droits sur l’outil, son hébergement et sa maintenance. Il fixe aussi les conditions de reprise du système et de récupération de vos données."
+        ]
+      },
+      "rules": {
+        "title": "Vous choisissez qui accède aux données et qui valide les actions",
+        "paragraphs": [
+          "Vous désignez les personnes qui accèdent aux données et celles qui valident les actions. Nous écrivons ces règles avant de construire un outil, pour que chacun sache ce qu’il peut consulter et ce qui demande un accord."
+        ]
+      },
       "faq": [
         [
           "Faut-il déjà avoir choisi un outil ?",
@@ -66,60 +78,63 @@ export const SITE_V1_PAGES = {
     "en": {
       "name": "Consulting & Transformation",
       "title": "Choose what to automate",
-      "description": "You start from the work your teams actually do",
-      "sections": [
-        [
-          "problems",
-          "You start from the work your teams actually do",
+      "description": "Before choosing a tool, we look with your teams at the work they actually do. You receive the list of tasks examined and the reasons for starting with some of them.",
+      "cases": {
+        "title": "Each task calls for different steps",
+        "intro": "Preparing a reply to a customer, processing a supplier invoice and gathering the figures for a financial report are not the same work. We examine these tasks with the people who do them, to determine where a tool can help.",
+        "items": [
+          "You have not chosen a tool yet and one task is causing you trouble.",
+          "Several departments are asking for a tool and you have to decide where to start."
+        ]
+      },
+      "steps": {
+        "title": "We observe the work, compare the tasks, then define the first one to improve",
+        "items": [
           [
-            "Preparing a customer reply, processing a supplier invoice or gathering the figures for a financial report all involve different steps. We examine them with the people concerned to determine where a tool may help."
-          ]
-        ],
-        [
-          "work",
-          "We compare tasks before choosing where to start",
+            "Observation",
+            "Your teams show us how they work. We follow one task in order, with its files, its exchanges and its checks."
+          ],
           [
-            "We look at how your teams work, which files they use and what they need to check. We then compare possible improvements, the difficulty of building them and the risks to your operations."
-          ]
-        ],
-        [
-          "deliverables",
-          "You receive an explained order of work",
+            "Sorting",
+            "This observation shows what repeats in the task and what needs human judgement."
+          ],
           [
-            "The document describes the tasks examined and why some should come first. It specifies the tools involved, the participation expected from teams and the checks needed to measure what changes."
-          ]
-        ],
-        [
-          "method",
-          "Your teams show us how they work",
+            "Comparison",
+            "We compare the possible improvements, how hard each would be to build and the risks for your business."
+          ],
           [
-            "We follow a task in order, including its files, exchanges and checks. This observation shows what is repeated and what requires human judgment."
-          ]
-        ],
-        [
-          "first-task",
-          "We define a first task to improve",
-          [
-            "We specify the expected result, the data needed and how to check it. If you decide to build, the people concerned try the tool and take part in learning how to use it."
-          ]
-        ],
-        [
-          "governance",
-          "Access and responsibilities",
-          [
-            "You choose who can access the data and who approves actions. We write these rules before building the tool.",
-            "If the work continues with a build, the contract specifies the rights to the tool, its hosting and its maintenance. It also sets the conditions for taking over the system and recovering your data."
+            "The first task",
+            "We specify the expected result, the data needed and how to check it. If you decide to build, the people concerned try the tool and take part in learning to use it."
           ]
         ]
-      ],
+      },
+      "deliverables": {
+        "title": "You receive an order of work, with the reasons",
+        "items": [
+          "The tasks examined and the reasons for starting with some of them.",
+          "The tools involved.",
+          "What is expected from your teams.",
+          "The checks needed to measure what changes."
+        ],
+        "note": [
+          "If the work continues with construction",
+          "The contract specifies the rights to the tool, its hosting and its maintenance. It also sets the conditions for taking over the system and recovering your data."
+        ]
+      },
+      "rules": {
+        "title": "You choose who has access to the data and who approves the actions",
+        "paragraphs": [
+          "You name the people who have access to the data and those who approve the actions. We write these rules before building a tool, so that everyone knows what they may read and what needs approval."
+        ]
+      },
       "faq": [
         [
-          "Do we need to have chosen a tool?",
-          "You can come with a task that causes a problem. We examine how you work before recommending a tool."
+          "Do you need to have chosen a tool already?",
+          "You can come with a task that is causing you trouble. We examine how you work before recommending a tool."
         ],
         [
           "What does this work require from your teams?",
-          "The people concerned show us their tasks and the documents they use. If a tool is built, they try it and explain what they need to use it in their daily work."
+          "The people concerned show us their tasks and the documents they use. If a tool is built, they try it and say what they need to use it every day."
         ]
       ]
     }
@@ -128,82 +143,61 @@ export const SITE_V1_PAGES = {
     "fr": {
       "name": "AI Sprints",
       "title": "Tester votre futur outil",
-      "description": "Vous essayez l’outil sur une tâche réelle avant de décider de la suite",
-      "briefTitle": "Le travail commence par vos fichiers et un résultat attendu",
-      "brief": [
-        [
-          "",
-          "Vous avez une tâche précise à traiter, comme préparer une réponse client ou produire un rapport financier à partir de vos fichiers."
-        ],
-        [
-          "",
-          "Vous apportez des exemples de la tâche, les données accessibles et ce que vous attendez du résultat."
-        ],
-        [
-          "",
-          "Vous essayez une première version de l’outil. Vous recevez les résultats des tests et la liste des erreurs ou des besoins encore non couverts."
-        ],
-        [
-          "",
-          "Cette première version sert à vérifier le fonctionnement sur les cas retenus. Son utilisation par toutes vos équipes demande une décision et une préparation supplémentaires."
-        ],
-        [
-          "",
-          "Les personnes qui réalisent la tâche essaient l’outil. Nous comparons leurs résultats aux exigences définies avec vous avant la construction."
-        ],
-        [
-          "",
-          "Vous disposez des résultats pour décider de mettre l’outil en service, de le corriger ou d’arrêter le travail."
+      "description": "Avant d’équiper toute une équipe, vous essayez une première version de l’outil sur une tâche réelle. Vous décidez de la suite à partir des résultats des tests.",
+      "cases": {
+        "title": "Un essai est utile quand la tâche est précise et que son résultat se vérifie",
+        "intro": "Vous avez une tâche qui revient souvent et dont vous savez reconnaître un bon résultat. L’essai porte sur cette tâche, avec vos propres fichiers.",
+        "items": [
+          "Préparer une réponse à un client à partir de son dossier.",
+          "Produire un rapport financier à partir de vos fichiers.",
+          "Saisir des commandes reçues par courriel, qu’une personne relit ensuite."
         ]
-      ],
-      "sections": [
-        [
-          "scoping",
-          "Nous écrivons ce que l’outil doit produire",
+      },
+      "steps": {
+        "title": "Le travail se fait en quatre étapes, avec les personnes qui réalisent la tâche",
+        "items": [
           [
-            "Vous nous montrez la tâche et un résultat acceptable. Pour un rapport financier, nous précisons notamment les chiffres à retrouver et les documents auxquels les comparer."
-          ]
-        ],
-        [
-          "construction",
-          "Nous construisons une version que vous pouvez essayer",
+            "Le résultat attendu",
+            "Vous nous montrez la tâche et un résultat que vous jugez correct. Nous écrivons ce que l’outil doit produire. Pour un rapport financier, nous précisons les chiffres à retrouver et les documents auxquels les comparer."
+          ],
           [
-            "L’outil travaille sur les fichiers et les situations retenus avec vous. Vous pouvez examiner ce qu’il produit et signaler ce qui manque."
-          ]
-        ],
-        [
-          "evaluation",
-          "Nous vérifions le résultat avec les personnes concernées",
+            "Une première version",
+            "Nous construisons un outil qui travaille sur les fichiers et les situations retenus avec vous. Vous examinez ce qu’il produit et vous signalez ce qui manque."
+          ],
           [
-            "Nous contrôlons les réponses ou les calculs attendus et consignons les écarts."
-          ]
-        ],
-        [
-          "decision",
-          "Vous décidez de la suite à partir des tests",
+            "Les tests",
+            "Les personnes qui réalisent la tâche essaient l’outil. Nous comparons leurs résultats aux exigences écrites au départ et nous consignons les écarts."
+          ],
           [
-            "Nous vous présentons ce qui fonctionne, les erreurs restantes et le travail nécessaire avant une mise en service."
-          ]
-        ],
-        [
-          "deliverables",
-          "Vous recevez l’outil testé et le compte rendu des vérifications",
-          [
-            "Les documents précisent les résultats attendus, les cas essayés et les écarts constatés. Ils consignent aussi la décision prise avec vous et les éventuelles étapes suivantes."
-          ]
-        ],
-        [
-          "limits",
-          "Le calendrier dépend de la tâche et des données disponibles",
-          [
-            "Nous définissons le périmètre et le calendrier avec vous avant de construire. Les tests de cette première version ne suffisent pas à autoriser tous les usages dans votre entreprise."
+            "La décision",
+            "Nous vous présentons ce qui fonctionne, les erreurs restantes et le travail nécessaire avant une mise en service. Vous décidez de mettre l’outil en service, de le corriger ou d’arrêter."
           ]
         ]
-      ],
+      },
+      "deliverables": {
+        "title": "Vous recevez l’outil testé et le compte rendu des vérifications",
+        "items": [
+          "La première version de l’outil, essayée par vos équipes.",
+          "Les résultats attendus, écrits avant la construction.",
+          "La liste des cas essayés, avec les écarts constatés.",
+          "La décision prise avec vous et les étapes suivantes, s’il y en a."
+        ],
+        "note": [
+          "Ce que l’essai ne prouve pas",
+          "Cette première version vérifie le fonctionnement sur les cas retenus. Elle ne suffit pas à autoriser tous les usages dans votre entreprise. L’étendre à toutes vos équipes demande une décision et une préparation supplémentaires."
+        ]
+      },
+      "rules": {
+        "title": "Le périmètre et le calendrier sont écrits avant de construire",
+        "paragraphs": [
+          "Nous définissons avec vous la tâche, les fichiers utilisés et le calendrier. Celui-ci dépend de la tâche et des données disponibles.",
+          "Vous désignez les personnes qui essaient l’outil et celles qui valident le résultat."
+        ]
+      },
       "faq": [
         [
           "Que devez-vous préparer ?",
-          "Réunissez un exemple de la tâche, les fichiers nécessaires et un résultat que vous jugez correct. Prévoyez la participation des personnes qui utiliseront l’outil pour qu’elles puissent l’essayer."
+          "Réunissez un exemple de la tâche, les fichiers nécessaires et un résultat que vous jugez correct. Prévoyez la participation des personnes qui utiliseront l’outil, pour qu’elles puissent l’essayer."
         ],
         [
           "Quand l’outil peut-il être mis en service ?",
@@ -214,86 +208,65 @@ export const SITE_V1_PAGES = {
     "en": {
       "name": "AI Sprints",
       "title": "Test your future tool",
-      "description": "You try the tool on a real task before deciding what comes next",
-      "briefTitle": "The work starts with your files and an expected result",
-      "brief": [
-        [
-          "",
-          "You have a specific task to handle, such as preparing a customer reply or producing a financial report from your files."
-        ],
-        [
-          "",
-          "You bring examples of the task, the available data and what you expect from the result."
-        ],
-        [
-          "",
-          "You try a first version of the tool. You receive the test results and a list of errors or needs that are not yet covered."
-        ],
-        [
-          "",
-          "This first version checks how the tool works on the selected cases. Using it across all your teams requires a further decision and preparation."
-        ],
-        [
-          "",
-          "The people who carry out the task try the tool. We compare their results with the requirements defined with you before construction."
-        ],
-        [
-          "",
-          "You have the results needed to decide whether to put the tool into service, correct it or stop the work."
+      "description": "Before equipping a whole team, you try a first version of the tool on a real task. You decide what comes next from the test results.",
+      "cases": {
+        "title": "A trial is useful when the task is specific and its result can be checked",
+        "intro": "You have a task that comes up often, and you can tell a good result from a poor one. The trial covers that task, with your own files.",
+        "items": [
+          "Preparing a reply to a customer from their file.",
+          "Producing a financial report from your files.",
+          "Entering orders received by email, which someone then reviews."
         ]
-      ],
-      "sections": [
-        [
-          "scoping",
-          "We write down what the tool must produce",
+      },
+      "steps": {
+        "title": "The work takes four steps, with the people who do the task",
+        "items": [
           [
-            "You show us the task and an acceptable result. For a financial report, we specify which figures must be found and which documents they should be checked against."
-          ]
-        ],
-        [
-          "construction",
-          "We build a version you can try",
+            "The expected result",
+            "You show us the task and a result you consider correct. We write down what the tool must produce. For a financial report, we specify the figures to find and the documents to compare them with."
+          ],
           [
-            "The tool works on the files and situations selected with you. You can examine what it produces and point out what is missing."
-          ]
-        ],
-        [
-          "evaluation",
-          "We check the result with the people concerned",
+            "A first version",
+            "We build a tool that works on the files and situations agreed with you. You examine what it produces and tell us what is missing."
+          ],
           [
-            "We check the expected replies or calculations and record the gaps."
-          ]
-        ],
-        [
-          "decision",
-          "You decide what comes next from the test results",
+            "The tests",
+            "The people who do the task try the tool. We compare their results with the requirements written at the start and record the gaps."
+          ],
           [
-            "We present what works, the remaining errors and the work needed before the tool can be put into service."
-          ]
-        ],
-        [
-          "deliverables",
-          "You receive the tested tool and the verification report",
-          [
-            "The documents specify the expected results, the cases tried and the gaps found. They also record the decision made with you and any next steps."
-          ]
-        ],
-        [
-          "limits",
-          "The schedule depends on the task and the available data",
-          [
-            "We define the scope and schedule with you before building. Testing this first version is not enough to authorize every use across your company."
+            "The decision",
+            "We show you what works, the remaining errors and the work needed before the tool goes into service. You decide to put it into service, correct it or stop."
           ]
         ]
-      ],
+      },
+      "deliverables": {
+        "title": "You receive the tested tool and the record of the checks",
+        "items": [
+          "The first version of the tool, tried by your teams.",
+          "The expected results, written before construction.",
+          "The list of cases tried, with the gaps found.",
+          "The decision made with you and the next steps, if any."
+        ],
+        "note": [
+          "What the trial does not prove",
+          "This first version checks that the tool works on the agreed cases. It is not enough to authorise every use in your company. Extending it to all your teams requires a further decision and further preparation."
+        ]
+      },
+      "rules": {
+        "title": "The scope and the schedule are written before we build",
+        "paragraphs": [
+          "We define the task, the files used and the schedule with you. The schedule depends on the task and the data available.",
+          "You name the people who try the tool and those who approve the result."
+        ]
+      },
       "faq": [
         [
-          "What do you need to prepare?",
-          "Gather an example of the task, the necessary files and a result you consider correct. Plan for the people who will use the tool to take part so they can try it."
+          "What should you prepare?",
+          "Gather an example of the task, the files it needs and a result you consider correct. Plan for the people who will use the tool to take part, so they can try it."
         ],
         [
-          "When can the tool be put into service?",
-          "You make that decision after the tests. Beforehand, we specify the corrections, access and approvals needed to use it."
+          "When can the tool go into service?",
+          "You make that decision after the tests. Beforehand, we specify the corrections, access and approvals its use requires."
         ]
       ]
     }
@@ -302,37 +275,55 @@ export const SITE_V1_PAGES = {
     "fr": {
       "name": "Engineering & Intégration",
       "title": "Relier vos logiciels",
-      "description": "Vos logiciels échangent les informations nécessaires au travail",
-      "sections": [
-        [
-          "custom",
-          "Vous essayez l’outil sur vos propres tâches",
+      "description": "Quand une même information est saisie dans plusieurs logiciels, nous relions les outils que vous utilisez déjà. Si aucun ne couvre le besoin, nous construisons la fonction qui manque.",
+      "cases": {
+        "title": "Nous gardons vos logiciels et nous ajoutons ce qui manque",
+        "intro": "Le travail commence par les logiciels que vous utilisez déjà. Trois cas se présentent.",
+        "items": [
+          "Transmettre une information d’un logiciel à un autre, avec les vérifications nécessaires.",
+          "Construire un outil sur mesure quand vos logiciels ne couvrent pas le besoin, par exemple pour préparer un rapport financier à partir de vos fichiers.",
+          "Remplacer un fonctionnement existant, après avoir comparé les résultats et préparé le retour en arrière."
+        ]
+      },
+      "steps": {
+        "title": "Nous vérifions le parcours de chaque information avant de remplacer un fonctionnement",
+        "items": [
           [
+            "Le périmètre",
             "Vous nous montrez vos fichiers et le résultat attendu. Nous écrivons le périmètre, les validations nécessaires et les tests avant de construire."
-          ]
-        ],
-        [
-          "integrations",
-          "Nous définissons où vos données circulent et où elles sont conservées",
+          ],
           [
-            "Nous identifions les logiciels à relier et les personnes autorisées à consulter les données. Le choix de l’hébergement dépend de ces besoins et des engagements écrits dans le contrat."
-          ]
-        ],
-        [
-          "harness",
-          "Vous gardez la main sur les actions de l’assistant",
+            "Le parcours des données",
+            "Nous identifions les logiciels à relier et les personnes autorisées à consulter les données. Nous définissons où ces données circulent et où elles sont conservées."
+          ],
           [
-            "Lorsqu’un assistant intervient, nous précisons les fichiers qu’il peut consulter et les actions qu’il peut exécuter. Les actions qui engagent votre entreprise suivent les validations définies avec vous."
-          ]
-        ],
-        [
-          "governance",
-          "Le contrat précise ce que vous recevez et comment reprendre la gestion du système",
+            "La construction",
+            "Nous relions vos logiciels ou nous construisons l’outil manquant. Vous l’essayez sur vos propres tâches."
+          ],
           [
-            "Il fixe les droits sur le travail livré, l’hébergement et la maintenance. Il précise aussi les conditions de transfert du système et de récupération de vos données."
+            "La comparaison",
+            "Nous contrôlons ce que chaque logiciel reçoit et ce qu’il transmet. Avant de remplacer un fonctionnement existant, nous comparons les résultats et nous préparons le retour en arrière."
           ]
         ]
-      ],
+      },
+      "deliverables": {
+        "title": "Vous recevez les logiciels reliés, les tests et la description du parcours des données",
+        "items": [
+          "Les logiciels reliés ou l’outil construit, essayés sur vos tâches.",
+          "Les résultats des tests et de la comparaison avec l’ancien fonctionnement.",
+          "La description du parcours des données, avec les logiciels qui les reçoivent et les personnes qui peuvent les consulter."
+        ],
+        "note": [
+          "Ce que fixe le contrat",
+          "Le contrat fixe les droits sur le travail livré, l’hébergement et la maintenance. Il précise aussi les conditions de transfert du système et de récupération de vos données."
+        ]
+      },
+      "rules": {
+        "title": "Vous gardez la main sur les actions de l’assistant",
+        "paragraphs": [
+          "Lorsqu’un assistant intervient, nous précisons les fichiers qu’il peut consulter et les actions qu’il peut exécuter. Les actions qui engagent votre entreprise suivent les validations définies avec vous."
+        ]
+      },
       "faq": [
         [
           "Faut-il remplacer vos logiciels ?",
@@ -341,51 +332,77 @@ export const SITE_V1_PAGES = {
         [
           "Qui valide les actions ?",
           "Vous désignez les personnes responsables. Nous définissons avec elles les actions qui demandent un accord avant leur exécution."
+        ],
+        [
+          "Où les données sont-elles hébergées ?",
+          "Le choix de l’hébergement dépend des logiciels à relier, des personnes autorisées à consulter les données et des engagements écrits dans le contrat."
         ]
       ]
     },
     "en": {
       "name": "Engineering & Integration",
       "title": "Connect your software",
-      "description": "Your software exchanges the information needed for the work",
-      "sections": [
-        [
-          "custom",
-          "You try the tool on your own tasks",
+      "description": "When the same information is typed into several pieces of software, we connect the tools you already use. If none of them covers the need, we build the missing function.",
+      "cases": {
+        "title": "We keep your software and add what is missing",
+        "intro": "The work starts with the software you already use. There are three cases.",
+        "items": [
+          "Passing information from one piece of software to another, with the necessary checks.",
+          "Building a custom tool when your software does not cover the need, for example to prepare a financial report from your files.",
+          "Replacing an existing process, after comparing the results and preparing the way back."
+        ]
+      },
+      "steps": {
+        "title": "We check the path of each piece of information before replacing a process",
+        "items": [
           [
-            "You show us your files and the expected result. We write down the scope, required approvals and tests before building."
-          ]
-        ],
-        [
-          "integrations",
-          "We define where your data flows and where it is stored",
+            "The scope",
+            "You show us your files and the expected result. We write the scope, the approvals needed and the tests before we build."
+          ],
           [
-            "We identify the software to connect and the people authorized to view the data. The hosting choice depends on these needs and on the commitments written into the contract."
-          ]
-        ],
-        [
-          "harness",
-          "You keep control of the assistant’s actions",
+            "The path of the data",
+            "We identify the software to connect and the people allowed to read the data. We define where that data travels and where it is kept."
+          ],
           [
-            "When an assistant is involved, we specify which files it can view and which actions it can perform. Actions that commit your company follow the approvals defined with you."
-          ]
-        ],
-        [
-          "governance",
-          "The contract specifies what you receive and how to take over the system",
+            "Construction",
+            "We connect your software or build the missing tool. You try it on your own tasks."
+          ],
           [
-            "It sets the rights to the delivered work, hosting and maintenance. It also specifies the conditions for transferring the system and recovering your data."
+            "The comparison",
+            "We check what each piece of software receives and what it passes on. Before replacing an existing process, we compare the results and prepare the way back."
           ]
         ]
-      ],
+      },
+      "deliverables": {
+        "title": "You receive the connected software, the tests and the description of the data path",
+        "items": [
+          "The connected software or the tool we built, tried on your tasks.",
+          "The results of the tests and of the comparison with the previous process.",
+          "The description of the data path, with the software that receives the data and the people who may read it."
+        ],
+        "note": [
+          "What the contract sets",
+          "The contract sets the rights to the delivered work, hosting and maintenance. It also specifies the conditions for transferring the system and recovering your data."
+        ]
+      },
+      "rules": {
+        "title": "You stay in control of the assistant’s actions",
+        "paragraphs": [
+          "When an assistant is involved, we specify the files it may read and the actions it may carry out. Actions that commit your company follow the approvals defined with you."
+        ]
+      },
       "faq": [
         [
           "Do you need to replace your software?",
           "We keep the software that meets the need. We first examine whether it can be connected or given the missing function."
         ],
         [
-          "Who approves actions?",
-          "You appoint the people responsible. We define with them which actions require approval before they are carried out."
+          "Who approves the actions?",
+          "You name the people responsible. With them, we define the actions that need approval before they are carried out."
+        ],
+        [
+          "Where is the data hosted?",
+          "The choice of hosting depends on the software to connect, the people allowed to read the data and the commitments written in the contract."
         ]
       ]
     }
@@ -394,138 +411,130 @@ export const SITE_V1_PAGES = {
     "fr": {
       "name": "Harness Engineering",
       "title": "Contrôler vos assistants IA",
-      "description": "Vous décidez de ce que votre assistant peut faire",
-      "sections": [
-        [
-          "problem",
-          "Vous décidez de ce que votre assistant peut faire",
+      "description": "Avant de laisser un assistant modifier un fichier ou envoyer un message, vous devez pouvoir vérifier son travail. Nous écrivons avec vous ce qu’il peut faire, ce qui lui est interdit et à quel moment il doit demander un accord.",
+      "cases": {
+        "title": "Ce travail concerne les assistants qui agissent sur vos fichiers et vos messages",
+        "intro": "Un assistant qui modifie un fichier, envoie un message ou lance une commande engage votre entreprise. Nous intervenons dans deux situations.",
+        "items": [
+          "Vous préparez un assistant. Nous écrivons les contrôles avant de le relier à vos outils.",
+          "Votre assistant est déjà en service et commet des erreurs. Nous reproduisons le problème, puis nous vérifions les corrections sur les mêmes tâches."
+        ]
+      },
+      "steps": {
+        "title": "Nous écrivons les règles, nous installons les contrôles, puis nous les testons",
+        "items": [
           [
-            "Avant de laisser un assistant modifier un fichier ou envoyer un message, vous devez pouvoir vérifier son travail. Nous définissons ses accès, les actions autorisées et les situations dans lesquelles il doit vous demander confirmation."
-          ]
-        ],
-        [
-          "harness",
-          "Nous encadrons chaque action",
+            "Les accès",
+            "Nous précisons les informations que l’assistant peut consulter, ce qu’il peut conserver et les outils qu’il peut utiliser."
+          ],
           [
-            "Nous précisons les informations que l’assistant peut consulter et les outils qu’il peut utiliser. Nous installons des contrôles avant les actions sensibles et conservons une trace de ce qu’il exécute."
-          ]
-        ],
-        [
-          "interventions",
-          "Nous préparons les contrôles avant de connecter vos outils",
+            "Les validations",
+            "Pour chaque tâche, nous déterminons qui relit le travail et qui autorise l’action. Vous gardez la décision sur ce qui engage votre entreprise."
+          ],
           [
-            "Vous choisissez une tâche, comme préparer une réponse client. Nous déterminons les documents nécessaires, qui relit la réponse et qui autorise son envoi."
-          ]
-        ],
-        [
-          "existing",
-          "Nous reprenons les erreurs de votre assistant",
+            "Les contrôles",
+            "Nous installons des contrôles avant les actions sensibles. Ils bloquent ce qui est interdit, et une trace conserve ce que l’assistant a exécuté."
+          ],
           [
-            "Vous nous montrez les tâches qui échouent ou les actions qui vous inquiètent. Nous cherchons à reproduire le problème, puis nous vérifions les corrections sur ces mêmes tâches."
-          ]
-        ],
-        [
-          "evaluation",
-          "Nous comparons les résultats avant et après les corrections",
-          [
-            "Nous écrivons d’abord ce qui doit réussir et ce qui doit être bloqué. Les résultats des tests indiquent les erreurs corrigées et celles qui restent à traiter.",
-            "Vous gardez la décision sur les actions qui engagent votre entreprise. Nous précisons qui valide ces actions et à quel moment l’assistant doit s’arrêter pour demander un accord."
-          ]
-        ],
-        [
-          "deliverables",
-          "Vous disposez de règles et de contrôles vérifiables",
-          [
-            "Selon le travail convenu, nous vous remettons le diagnostic des erreurs, les corrections réalisées et les résultats des tests. Un guide précise les accès autorisés, les validations attendues et la marche à suivre en cas de problème."
-          ]
-        ],
-        [
-          "limits",
-          "Les tests couvrent les situations examinées",
-          [
-            "Un assistant peut encore échouer sur une situation nouvelle. Nous indiquons les cas testés et ceux qui restent à vérifier avant d’élargir son utilisation."
+            "Les tests",
+            "Nous écrivons d’abord ce qui doit réussir et ce qui doit être bloqué. Les résultats indiquent les erreurs corrigées et celles qui restent à traiter."
           ]
         ]
-      ],
-      "markers": [
-        "Vous définissez la tâche.",
-        "L’assistant consulte les informations autorisées.",
-        "Vous précisez ce qu’il peut conserver.",
-        "Vous choisissez les outils accessibles.",
-        "Les contrôles bloquent les actions interdites.",
-        "Les tests vérifient les résultats.",
-        "Une personne valide les actions qui l’exigent.",
-        "Vous suivez les dépenses d’utilisation."
-      ],
-      "faq": []
+      },
+      "deliverables": {
+        "title": "Vous disposez de règles écrites et de contrôles que vous pouvez vérifier",
+        "items": [
+          "Le diagnostic des erreurs constatées.",
+          "Les corrections réalisées et les résultats des tests, avant et après.",
+          "Un guide qui précise les accès autorisés, les validations attendues et la marche à suivre en cas de problème.",
+          "Le suivi des dépenses d’utilisation de l’assistant."
+        ],
+        "note": [
+          "Ce que les tests ne couvrent pas",
+          "Les tests portent sur les situations examinées. Un assistant peut encore échouer sur une situation nouvelle. Nous indiquons les cas testés et ceux qui restent à vérifier avant d’élargir son utilisation."
+        ]
+      },
+      "rules": {
+        "title": "Une personne valide les actions qui engagent votre entreprise",
+        "paragraphs": [
+          "Prenons une réponse à un client. Nous déterminons les documents que l’assistant peut lire, la personne qui relit la réponse et celle qui autorise son envoi.",
+          "Nous précisons de la même façon à quel moment l’assistant doit s’arrêter pour demander un accord. Ces règles sont écrites avant de le relier à vos outils."
+        ]
+      },
+      "faq": [
+        [
+          "Qui décide de ce que l’assistant peut faire ?",
+          "Vous. Nous écrivons avec vous ses accès, les actions autorisées et les situations dans lesquelles il doit demander confirmation."
+        ],
+        [
+          "Par où commencer si l’assistant est déjà en service ?",
+          "Vous nous montrez les tâches qui échouent ou les actions qui vous inquiètent. Nous cherchons à reproduire le problème, puis nous vérifions les corrections sur ces mêmes tâches."
+        ]
+      ]
     },
     "en": {
       "name": "Harness Engineering",
       "title": "Control your AI assistants",
-      "description": "You decide what your assistant is allowed to do",
-      "sections": [
-        [
-          "problem",
-          "You decide what your assistant is allowed to do",
+      "description": "Before you let an assistant change a file or send a message, you need to be able to check its work. We write down with you what it may do, what it may not, and when it must ask for approval.",
+      "cases": {
+        "title": "This work is for assistants that act on your files and messages",
+        "intro": "An assistant that changes a file, sends a message or runs a command commits your company. We step in in two situations.",
+        "items": [
+          "You are preparing an assistant. We write the controls before connecting it to your tools.",
+          "Your assistant is already in service and makes mistakes. We reproduce the problem, then check the corrections on the same tasks."
+        ]
+      },
+      "steps": {
+        "title": "We write the rules, install the controls, then test them",
+        "items": [
           [
-            "Before an assistant modifies a file or sends a message, you need to be able to check its work. We define its access, the actions it is allowed to take and the situations in which it must ask you for confirmation."
-          ]
-        ],
-        [
-          "harness",
-          "We control each action",
+            "Access",
+            "We specify the information the assistant may read, what it may keep and the tools it may use."
+          ],
           [
-            "We specify the information the assistant can view and the tools it can use. We install checks before sensitive actions and keep a record of what it does."
-          ]
-        ],
-        [
-          "interventions",
-          "We prepare the checks before connecting your tools",
+            "Approvals",
+            "For each task, we determine who reviews the work and who authorises the action. You keep the decision on anything that commits your company."
+          ],
           [
-            "You choose a task, such as preparing a customer reply. We determine which documents are needed, who reviews the reply and who authorizes it to be sent."
-          ]
-        ],
-        [
-          "existing",
-          "We work from your assistant’s errors",
+            "Controls",
+            "We install controls before sensitive actions. They block what is forbidden, and a log keeps what the assistant executed."
+          ],
           [
-            "You show us the tasks that fail or the actions that concern you. We try to reproduce the problem, then check the corrections on those same tasks."
-          ]
-        ],
-        [
-          "evaluation",
-          "We compare results before and after the corrections",
-          [
-            "We first write down what must succeed and what must be blocked. The test results show which errors were corrected and which still need work.",
-            "You keep the decision on actions that commit your company. We specify who approves these actions and when the assistant must stop to ask for approval."
-          ]
-        ],
-        [
-          "deliverables",
-          "You have rules and checks that can be verified",
-          [
-            "Depending on the agreed work, we provide the error diagnosis, the corrections made and the test results. A guide specifies the permitted access, expected approvals and what to do if a problem occurs."
-          ]
-        ],
-        [
-          "limits",
-          "The tests cover the situations examined",
-          [
-            "An assistant can still fail in a new situation. We state which cases were tested and which still need to be checked before its use is expanded."
+            "Tests",
+            "We first write down what must succeed and what must be blocked. The results show which errors are corrected and which remain."
           ]
         ]
-      ],
-      "markers": [
-        "You define the task.",
-        "The assistant views the information it is allowed to use.",
-        "You specify what it can retain.",
-        "You choose which tools it can access.",
-        "Checks block forbidden actions.",
-        "Tests verify the results.",
-        "A person approves the actions that require it.",
-        "You track usage costs."
-      ],
-      "faq": []
+      },
+      "deliverables": {
+        "title": "You have written rules and controls you can check",
+        "items": [
+          "The diagnosis of the errors found.",
+          "The corrections made and the test results, before and after.",
+          "A guide that sets out permitted access, expected approvals and what to do when a problem occurs.",
+          "Tracking of what the assistant costs to run."
+        ],
+        "note": [
+          "What the tests do not cover",
+          "The tests cover the situations examined. An assistant can still fail on a new situation. We list the cases tested and those still to be checked before its use is extended."
+        ]
+      },
+      "rules": {
+        "title": "A person approves the actions that commit your company",
+        "paragraphs": [
+          "Take a reply to a customer. We determine the documents the assistant may read, the person who reviews the reply and the person who authorises sending it.",
+          "In the same way, we specify when the assistant must stop and ask for approval. These rules are written before it is connected to your tools."
+        ]
+      },
+      "faq": [
+        [
+          "Who decides what the assistant may do?",
+          "You do. We write down with you its access, the permitted actions and the situations in which it must ask for confirmation."
+        ],
+        [
+          "Where do we start if the assistant is already in service?",
+          "You show us the tasks that fail or the actions that worry you. We try to reproduce the problem, then check the corrections on those same tasks."
+        ]
+      ]
     }
   }
 } as const satisfies Record<string, Record<Locale, GuideCopy>>;

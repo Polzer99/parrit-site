@@ -32,7 +32,7 @@ export function renderLlms(entries = getAllJournalEntrySummaries(), frenchEntrie
   const content = `# Parrit.ai
 
 > Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent.
-> Your teams take AI in hand. We build the software they are missing.
+> Your teams learn to use AI. We build the software they are missing.
 
 ## Français
 
@@ -40,8 +40,8 @@ export function renderLlms(entries = getAllJournalEntrySummaries(), frenchEntrie
 - https://parrit.ai/fr
 - Dans l'ordre : ${order("fr")}
 - Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.
-- Nous faisons appel à des partenaires pour construire vos outils et accompagner vos équipes selon votre projet.
-- Vous échangez avec Paul Larmaraud : prise en main de l'IA, développement sur mesure, expertise métier, recherche. Le travail se fait ensuite avec l'équipe adaptée à votre projet.
+- Nous travaillons avec des ingénieurs, des studios, des consultants, des intervenants, des cabinets de conseil et des chercheurs. Pour chaque projet, nous réunissons ceux dont le métier correspond à votre besoin.
+- Vous décrivez une tâche qui prend du temps à vos équipes, ou un outil qui vous manque. Nous vous disons ce qui est réalisable. Le travail se fait ensuite avec les ingénieurs, les intervenants et les consultants dont votre projet a besoin.
 - Présence : Tourcoing et Paris. Zone d'intervention : toute la France.
 
 ### FAQ
@@ -69,8 +69,8 @@ ${articles("fr")}
 - https://parrit.ai/
 - In order: ${order("en")}
 - Client replies, follow-ups, quotes, meeting notes: AI prepares them, your teams review and decide.
-- We bring in partners to build your tools and support your teams according to your project.
-- You speak with Paul Larmaraud: AI adoption, custom development, industry expertise, research. The work then continues with the team that fits your project.
+- We work with engineers, studios, consultants, trainers, consulting firms and researchers. For each project, we bring together those whose expertise matches your need.
+- You describe a task that takes up your teams’ time, or a tool you are missing. We tell you what is feasible. The work then continues with the engineers, trainers and consultants your project needs.
 - Presence: Tourcoing and Paris. Service area: across France.
 
 ### FAQ

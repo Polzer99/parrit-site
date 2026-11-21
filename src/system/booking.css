@@ -39,3 +39,9 @@
     width: 100%;
   }
 }
+
+.booking-call .booking-email a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: var(--s1);
+}

@@ -33,7 +33,7 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     expect(portraitBox!.width / portraitBox!.height).toBeCloseTo(3 / 4, 2);
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator("main > section")).toHaveCount(12);
-    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["haut", "references", "en-production", "mesures", "assistant", "terrain", "offres", "parcours", "technologies", "partenaires", "questions", "contact"] : ["haut", "references", "in-production", "measurements", "assistant", "in-the-field", "offers", "path", "technologies", "team", "questions", "contact"]);
+    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["haut", "references", "en-production", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"] : ["haut", "references", "in-production", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"]);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     const mono = await page.locator("main *, footer *, header *").evaluateAll(nodes => nodes.filter(node => {
       const style = getComputedStyle(node);
@@ -53,8 +53,8 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     await expect(applications).not.toContainText(/Laparra|Clevery|Forexpert|Joone|SNCF/);
     await expect(applications).toContainText(locale === "fr" ? "L'assistant prépare. Vous validez." : "The assistant prepares. You approve.");
     for (const nav of [".desktop-nav", ".mobile-menu nav"]) {
-      await expect(page.locator(`${nav} a`).first()).toHaveText("Applications");
-      await expect(page.locator(`${nav} a`).first()).toHaveAttribute("href", locale === "fr" ? "/fr#en-production" : "/#in-production");
+      await expect(page.locator(`${nav} a`).first()).toHaveText(locale === "fr" ? "Offres" : "Offers");
+      await expect(page.locator(`${nav} a`).first()).toHaveAttribute("href", locale === "fr" ? "/fr#offres" : "/#offers");
     }
     await expect(page.locator("#contact h2")).not.toHaveText(/\.$/);
     await expect(page.locator("main")).not.toContainText(/Brésil|Brazil|Cameroun|Cameroon|métropole lilloise|Lille area/);
@@ -94,7 +94,7 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
         return r.bottom > 0 && r.top < innerHeight && r.width > 0 && s.visibility !== "hidden" && s.display !== "none";
       }).length)).toBeLessThanOrEqual(1);
     }
-    await expect(page.locator('#contact a[href="#reservation"]')).toHaveCount(0);
+    await expect(page.locator('#contact a[href*="source=rdv-contact"][href$="#reservation"]')).toHaveCount(1);
     await page.locator("#reservation").scrollIntoViewIfNeeded();
     await expect(page.locator("#reservation")).toBeInViewport();
     await expect(page.locator(".contact-fallback details")).toHaveCount(0);

@@ -90,7 +90,7 @@ for (const locale of ["fr", "en"]) test(`shared footer links to six existing des
     const links = [...html.matchAll(/<a href="([^"]+)"/g)].map(match => match[1]);
     assert.equal(links.length, 7);
     const prefix = locale === "fr" ? "/fr" : "";
-    assert.deepEqual(links.slice(0, 6), [...themes.map(slug => `${prefix}/journal/themes/${slug}`), `${prefix}/journal`, `${prefix}/legal`]);
+    assert.deepEqual(links.slice(0, 6), [...["conseil-transformation", "ai-sprints", "integration-developpement", "harness-engineering"].map(slug => `${prefix}/journal/themes/${slug}`), `${prefix}/journal`, `${prefix}/legal`]);
     assert.doesNotMatch(visibleText(html), locale === "fr" ? forbiddenFr : forbiddenEn);
   }
 });
@@ -118,7 +118,8 @@ test("French theme introductions use plain language while their addresses and si
       const entry = sitemap.find(item => item.url === `https://parrit.ai${localized}`);
       assert.ok(entry, localized);
       assert.equal(entry.alternates.languages[locale], entry.url);
-      assert.equal(entry.lastModified, "2026-11-03");
+      // 21/11: the themes were rewritten (JOURNAL_THEMES_LAST_MODIFIED); the home keeps its date.
+      assert.equal(entry.lastModified, path === "/" ? "2026-11-03" : "2026-11-21");
     }
   }
   assert.equal(sitemap.filter(item => new URL(item.url).pathname.startsWith("/fr")).length, 7);

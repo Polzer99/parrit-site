@@ -70,7 +70,9 @@ for (const locale of ["fr", "en"]) {
   const html = renderToStaticMarkup(createElement(SinglePage, { locale, contactQuery: "utm_campaign=field&source=old" }));
   test(`final call separates team from FAQ and Journal has one home index link (${locale})`, () => {
     const ids = [...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]);
-    assert.equal(ids[ids.indexOf("questions") - 1], locale === "fr" ? "partenaires" : "team");
+    // 21/11: the team follows the offers; the press section now precedes the FAQ.
+    assert.equal(ids[ids.indexOf(locale === "fr" ? "offres" : "offers") + 1], locale === "fr" ? "partenaires" : "team");
+    assert.equal(ids[ids.indexOf("questions") - 1], locale === "fr" ? "mesures" : "measurements");
     assert.equal(ids[ids.indexOf("questions") + 1], "contact");
     assert.ok(!ids.includes("bandeau"));
     const journal = locale === "fr" ? "/fr/journal" : "/journal";
@@ -202,7 +204,7 @@ test("entrances reveal once, react to reduced motion, and disconnect on cleanup"
   });
   const sections = [0, 900, 1800].map(top => ({ dataset: {}, getBoundingClientRect: () => ({ top }) }));
   const root = { querySelectorAll: selector => {
-    assert.equal(selector, ":scope > section:not(.hero):not(#contact):not(#references):not(.home-motors):not(.home-measures):not(.home-assistant)");
+    assert.equal(selector, ":scope > section:not(.hero):not(#contact):not(#references):not(.home-motors):not(.home-measures)");
     return sections;
   } };
   const { observeSectionEntrances } = loader("en")("src/system/components/SectionEntrance.tsx");

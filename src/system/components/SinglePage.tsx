@@ -1,6 +1,6 @@
 import type { Locale } from "@/system/locale";
 import { HomeGoalProvider, GoalHero, GoalMotors, GoalBooking } from "./HomeGoals";
-import { HomeMeasures, HomeAssistant } from "./HomeEvidence";
+import { HomeMeasures } from "./HomeEvidence";
 import { Fragment, type ReactNode } from "react";
 import { HOME_LAYERS, HOME_SECTION_ORDER, homeSectionHeadings, homeFaqJsonLd, type HomeSection } from "@/system/home-layers";
 import { SectionEntrance } from "./SectionEntrance";
@@ -27,7 +27,6 @@ export function SinglePage({ locale, contactQuery = "" }: { locale: Locale; cont
 hero: <GoalHero locale={locale}/>,
 motors: <GoalMotors locale={locale}/>,
 measures: <HomeMeasures locale={locale}/>,
-assistant: <HomeAssistant locale={locale}/>,
 references: (
 <section id="references"><RevealOnView className="wrap">
   {clients.length > 0 && <><h2>{headings.references[0]}{" "}<b>{headings.references[1]}</b></h2>
@@ -74,9 +73,8 @@ technologies: (
 team: (
 <section id={fr ? "partenaires" : "team"}><RevealOnView className="wrap">
   <h2>{headings.team[0]}{" "}<b>{headings.team[1]}</b></h2>
-  <p className="muted team-intro">{t("Nous faisons appel à des partenaires pour construire vos outils et accompagner vos équipes selon votre projet.")}</p>
-  <ServiceGrid offers={PARTNER_OFFERS.map(offers => offers.map(t))} deliveryLabel={t("Avec eux, nous livrons")} label={fr ? "Partenaires et livrables" : "Partners and deliverables"} items={[[t("Ingénieurs IA"), t("Les ingénieurs interviennent selon leur spécialité sur les documents, les assistants ou les liens entre logiciels.")], [t("Automatisation et assistants"), t("Des développeurs et des studios créent vos assistants écrits, vocaux et vidéo.")], [t("Transformation et projet"), t("Nous accompagnons vos équipes et suivons le projet.")], [t("Marque et marketing"), t("Nos partenaires travaillent sur votre marque, vos contenus et vos ventes.")], [t("Prise en main"), t("Des intervenants accompagnent vos équipes dans la prise en main de l'IA.")], [t("Conseil et qualité"), t("Des cabinets partenaires relisent les travaux que nous vous remettons.")], [t("Chercheurs du MIT"), t("Des chercheurs du MIT font partie de notre réseau.")]]} />
-  <p className="teamcap"><i aria-hidden="true"/>{t("Nos partenaires interviennent selon les besoins du projet.")}</p>
+  <p className="muted team-intro">{t("Nous travaillons avec des ingénieurs, des studios, des consultants, des intervenants, des cabinets de conseil et des chercheurs. Pour chaque projet, nous réunissons ceux dont le métier correspond à votre besoin.")}</p>
+  <ServiceGrid offers={PARTNER_OFFERS.map(offers => offers.map(t))} deliveryLabel={t("Avec eux, nous livrons")} label={fr ? "Partenaires et livrables" : "Partners and deliverables"} items={[[t("Ingénieurs IA"), t("Des ingénieurs spécialisés travaillent sur vos documents, vos assistants ou les liens entre vos logiciels.")], [t("Automatisation et assistants"), t("Des développeurs et des studios créent vos assistants écrits, vocaux et vidéo.")], [t("Transformation et projet"), t("Des consultants accompagnent vos équipes dans le changement et suivent le projet avec vous.")], [t("Marque et marketing"), t("Nos partenaires travaillent sur votre marque, vos contenus et vos ventes.")], [t("Prise en main"), t("Des intervenants accompagnent vos équipes dans la prise en main de l'IA.")], [t("Conseil et qualité"), t("Des cabinets partenaires relisent les travaux que nous vous remettons.")], [t("Chercheurs du MIT"), t("Des chercheurs du MIT font partie de notre réseau.")]]} />
 <ResearchPartner/>
 </RevealOnView></section>
 
@@ -93,19 +91,19 @@ questions: (
 ),
 contact: (
 <section className="founder" id="contact" tabIndex={-1}><div className="wrap"><div className="grid">
-  <picture>
+  <figure className="founder-portrait"><picture>
     <source type="image/avif" srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.avif 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.avif 680w" sizes="(max-width: 760px) calc((100vw - 40px) * .38), (max-width: 1160px) calc((100vw - 144px) / 3), 339px" />
     <source type="image/webp" srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.webp 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.webp 680w" sizes="(max-width: 760px) calc((100vw - 40px) * .38), (max-width: 1160px) calc((100vw - 144px) / 3), 339px" />
     <img src="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.webp" alt="Paul Larmaraud" width="600" height="800" loading="lazy" />
-  </picture>
+  </picture><figcaption>{fr ? "Paul Larmaraud mène le premier échange." : "Paul Larmaraud leads the first call."}</figcaption></figure>
   <div className="founder-identity">
     <h2>{headings.contact[0] + " "}<b>{headings.contact[1]}</b></h2>
   </div>
   <div className="founder-details">
-    <p>{t("Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet.")}</p>
+    <p>{t("Vous décrivez une tâche qui prend du temps à vos équipes, ou un outil qui vous manque. Nous vous disons ce qui est réalisable. Le travail se fait ensuite avec les ingénieurs, les intervenants et les consultants dont votre projet a besoin.")}</p>
     <div className="actions"><AppointmentLink locale={locale} query={contactQuery} placement="contact"/><a className="mail" href="mailto:paul.larmaraud@parrit.ai">{locale === "fr" ? "Nous écrire" : "Write to us"}</a></div>
   </div>
-</div><div id="reservation" className="reservation"><GoalBooking locale={locale}/><div className="contact-fallback"><QuickCapture locale={locale} id="single-contact" variant="contact" /></div></div></div></section>
+</div><div id="reservation" className="reservation" tabIndex={-1}><GoalBooking locale={locale}/><div className="contact-fallback"><QuickCapture locale={locale} id="single-contact" variant="contact" /></div></div></div></section>
 
 ),
  } satisfies Record<HomeSection, ReactNode>;

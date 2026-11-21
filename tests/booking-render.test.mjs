@@ -64,7 +64,7 @@ test("compiled booking funnel, bilingual interface and all registry destinations
         assert.equal(blocks.length, 1, route);
         const block = blocks[0][0];
         assert.match(block, new RegExp(`lang="${locale}"`));
-        assert.equal((html.match(/class="[^"]*\bexec\b[^"]*"/g) ?? []).length, 1);
+        assert.equal((html.match(/class="[^"]*\bexec\b[^"]*"/g) ?? []).length, source.startsWith("theme-") ? 2 : 1);
         assert.ok(block.includes(`href="${prefix}/rendez-vous?source=${source}"`));
         assert.doesNotMatch(visibleText(block), /offert|gratuit|€|countdown|compte à rebours/i);
         if (source.startsWith("journal-")) {

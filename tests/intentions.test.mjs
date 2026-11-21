@@ -152,7 +152,7 @@ for (const locale of ["fr", "en"]) test(`incoming UTM survive in SSR links and m
   for (const [, href] of intents) {
     const url = new URL(href.replaceAll("&amp;", "&"), "https://example.invalid");
     assert.equal(url.pathname, home);
-    assert.equal(url.hash, "#contact");
+    assert.equal(url.hash, url.searchParams.get("source") === "rdv-contact" ? "#reservation" : "#contact");
     assert.equal(url.searchParams.get("utm_campaign"), "campaign & test");
     assert.equal(url.searchParams.get("utm_custom"), "custom");
     assert.equal(url.searchParams.getAll("source").length, 1);

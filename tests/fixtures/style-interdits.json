@@ -1,0 +1,13 @@
+{
+  "_regle": "Décision de Paul du 21/11/2026. Mots et tournures refusés dans le texte visible des pages publiques hors articles. Une exception s'écrit dans tests/style-site.test.mjs avec sa raison, jamais ici en silence.",
+  "fr": [
+    "innovant", "révolutionnaire", "de pointe", "écosystème", "levier", "booster", "optimiser",
+    "afin de", "par ailleurs", "en outre", "n'hésitez pas", "dans un monde où", "à l'ère de",
+    "sur mesure pour vous", "clé en main", "solution", "solutions"
+  ],
+  "en": [
+    "in hand", "according to", "in function of", "permits to", "allows to", "leverage", "seamless",
+    "cutting-edge", "unlock", "empower", "game-chang", "revolutionary", "world-class", "best-in-class",
+    "delve", "tailored solution", "in today's"
+  ]
+}
