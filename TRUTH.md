@@ -9,8 +9,8 @@ Calculateur supprimé, décision de Paul du 21/11/2026 au soir (« le calculateu
 Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN).
 Contact : « Commencez par une tâche précise. », avec point final ; son bouton
 cible et focalise `#reservation`, avec source `rdv-contact`. Les autres placements
-conservent `#contact`. Paul est nommé une seule fois dans le texte visible de
-l'accueil, en légende du portrait : « Paul Larmaraud mène le premier échange. »
+conservent `#contact`. Décision de Paul du 21/11/2026 (nuit) : Paul n'est plus nommé
+dans le texte visible de l'accueil ni dans aucune invitation au rendez-vous ; le portrait n'a plus de légende.
 Partenaires : « Vous travaillez avec les spécialistes dont votre projet a besoin. »
 Introduction : « Nous travaillons avec des ingénieurs, des studios, des consultants, des intervenants, des cabinets de conseil et des chercheurs. Pour chaque projet, nous réunissons ceux dont le métier correspond à votre besoin. »
 Paragraphe contact : « Vous décrivez une tâche qui prend du temps à vos équipes, ou un outil qui vous manque. Nous vous disons ce qui est réalisable. Le travail se fait ensuite avec les ingénieurs, les intervenants et les consultants dont votre projet a besoin. »

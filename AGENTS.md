@@ -1,3 +1,7 @@
+## 21/11/2026, nuit : le rendez-vous ne porte le nom de personne
+
+Décision de Paul (« enlève les "prenez rendez-vous avec Paul" ») : le nom de Paul disparaît du texte visible de l'accueil (plus de légende sous le portrait) et de toute invitation au rendez-vous, fin d'article comprise. Le calendrier intégré masque le panneau de Cal.com (`hideEventTypeDetails: true` : photo et nom de l'hôte, titre et description de l'événement). Restent : la signature des articles du Journal, le directeur de la publication dans les mentions légales, les textes alternatifs des photos et les données structurées. `tests/style-site.test.mjs` refuse désormais toute mention du nom, accueil compris. Ceci remplace « le nom de Paul une seule fois, en légende de photo ».
+
 ## 21/11/2026, soir : système visuel unique
 
 Décision de Paul (« toujours un manque de cohérence et d'alignement », « les CTA sont un coup à droite, un coup à gauche ») : `docs/CODEX-SPEC-2026-11-21-coherence-visuelle.md` et la partie 3 de `docs/AUDIT-VISUEL-2026-11-21.md` priment sur tout contrat visuel antérieur ; le résumé fait foi dans `DESIGN.md`, section « Système visuel unique ».
@@ -8,7 +12,7 @@ Garde-fou : `tests/coherence-visuelle.spec.ts` (dans `qa:network:rev01`) ; une e
 
 ## Cohérence et garde-fous, décision de Paul du 21/11/2026 (soir)
 
-Les specs `docs/CODEX-SPEC-2026-11-21-alignement-pages-partenaires.md` et `docs/CODEX-SPEC-2026-11-21-coherence-et-garde-fous.md` priment sur les contrats antérieurs. Accueil, dix sections : hero, références, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Calculateur supprimé, décision de Paul du 21/11/2026 au soir (« le calculateur ressemble à rien, que du texte, aucun élément visuel marketing probant »). Les ancres historiques `#en-production`, `#in-production`, `#services`, `#ce-qui-change`, `#what-changes` restent atteignables : ce sont des `span` d'ancre en tête de la section des offres. La source `accueil-calculateur` n'a plus d'émetteur. Le bouton haut des pages thèmes est le grand bouton principal, celui du bas le bouton principal normal (système visuel du 21/11/2026). Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN). Contact : « Commencez par une tâche précise. », le nom de Paul une seule fois, en légende de photo ; la section des assistants est supprimée. Pages thèmes : gabarit commun (quatre étapes, livrables et limites, règles, FAQ native, Journal si articles, rendez-vous), `h1` avec point final, `<title>`, données structurées et liens sans point.
+Les specs `docs/CODEX-SPEC-2026-11-21-alignement-pages-partenaires.md` et `docs/CODEX-SPEC-2026-11-21-coherence-et-garde-fous.md` priment sur les contrats antérieurs. Accueil, dix sections : hero, références, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Calculateur supprimé, décision de Paul du 21/11/2026 au soir (« le calculateur ressemble à rien, que du texte, aucun élément visuel marketing probant »). Les ancres historiques `#en-production`, `#in-production`, `#services`, `#ce-qui-change`, `#what-changes` restent atteignables : ce sont des `span` d'ancre en tête de la section des offres. La source `accueil-calculateur` n'a plus d'émetteur. Le bouton haut des pages thèmes est le grand bouton principal, celui du bas le bouton principal normal (système visuel du 21/11/2026). Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN). Contact : « Commencez par une tâche précise. » ; la section des assistants est supprimée. Pages thèmes : gabarit commun (quatre étapes, livrables et limites, règles, FAQ native, Journal si articles, rendez-vous), `h1` avec point final, `<title>`, données structurées et liens sans point.
 Ponctuation (texte visible hors articles, FR et EN) : 1. paragraphe, réponse, légende, étape, carte, ligne de liste : point final, même signe pour toute la liste. 2. Tout titre de page ou de section (`h1`, `h2`) : point final (ou « ? »), quelle que soit sa longueur ; titre de carte (`h3`) de trois mots ou plus : point final. 3. Titre de carte d'un ou deux mots et nom d'étape : pas de point. 4. Bouton, lien, menu, libellé de champ, surtitre, nom d'outil, étiquette de grille : jamais de point. 5. Titre et résumé d'un article du Journal : inchangés.
 Tout texte visible passe `tests/style-site.test.mjs`. Une exception s'écrit dans le test avec sa raison, jamais dans le texte.
 
@@ -129,7 +133,7 @@ La source filtrée `[a-z0-9-]{1,80}` rejoint `metadata[source]` ; les `utm_*`
 sont transmis au calendrier sans cookie ni stockage. L'accueil conserve son
 calendrier et son comportement sans ces paramètres.
 Un seul bloc partagé en fin d'article (avant « À lire ensuite ») et de thème
-propose l'appel de 15 minutes avec Paul Larmaraud : un H2, une phrase, un
+propose l'appel de 15 minutes, sans nommer personne (décision de Paul du 21/11/2026) : un H2, une phrase, un
 bouton exec et le repli e-mail, dans la langue de l'interface ; le corps de
 l'article garde `lang="en"`. Sources `journal-<slug>` et `theme-<theme>`.
 Hors de l'accueil, la destination de rendez-vous est `/rendez-vous`, localisée

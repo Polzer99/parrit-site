@@ -77,10 +77,11 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
     // Le fixture commun pose le deny-all avant toute navigation. Seules ces
     // deux réponses Cal attendues sont locales ; aucun route.fetch ni proxy.
     const link = locale === "fr" ? CAL_LINK_COMMISSION : CAL_LINK_COMMISSION_EN;
-    // Mesure PAGE-STABLE : 420 + 150 sur ordinateur, 420 + 490 sur mobile.
-    // À 800px la colonne de l'iframe mesure 718px : profil étroit à confirmer
-    // sur l'hôte avec Cal réel. Fixture indépendante, jamais lue depuis le CSS.
-    const calendarHeight = viewport.width <= 800 ? 910 : 570;
+    // Mesures du 21/11/2026 (nuit) sur le vrai calendrier Cal.com, panneau de l'hôte masqué
+    // (hideEventTypeDetails), deux créneaux affichés : 570 px sur ordinateur, 859 px à 800 px de large
+    // (cadre de 718 px, disposition empilée), 546 px à 390 px. Elles remplacent 570 / 910 / 910, mesurées
+    // avec le panneau. Fixture indépendante, jamais lue depuis le CSS.
+    const calendarHeight = viewport.width <= 390 ? 546 : viewport.width <= 800 ? 859 : 570;
     const loader = await readFile("node_modules/@calcom/embed-core/dist/embed/embed.js", "utf8");
     await page.route("**/embed/embed.js", async route => {
       expect(new URL(route.request().url()).hostname).toBe("app.cal.com");
