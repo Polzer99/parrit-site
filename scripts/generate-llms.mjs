@@ -10,10 +10,10 @@ import { journalClientNames } from "./lib/public-clients.mjs";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outputPath = resolve(root, "public/llms.txt");
 const themes = [
-  ["harness-engineering", "Encadrer vos assistants IA : règles, droits et contrôles.", "Rules, permissions and checks for your AI assistants."],
-  ["ai-sprints", "Un premier résultat en cycle court, avec des critères écrits à l'avance.", "A first result in a short cycle, with criteria written in advance."],
-  ["integration-developpement", "Relier vos logiciels et construire ce qui manque.", "Connect your software and build what is missing."],
-  ["conseil-transformation", "Choisir vos priorités et préparer vos équipes.", "Choose your priorities and prepare your teams."],
+  ["harness-engineering", "Contrôler vos assistants IA.", "Control your AI assistants."],
+  ["ai-sprints", "Tester votre futur outil.", "Test your future tool."],
+  ["integration-developpement", "Relier vos logiciels.", "Connect your software."],
+  ["conseil-transformation", "Choisir quoi automatiser.", "Choose what to automate."],
 ];
 export function renderLlms(entries = getAllJournalEntrySummaries(), frenchEntries = getAllJournalEntrySummaries("fr")) {
   const order = locale => {
@@ -40,7 +40,8 @@ export function renderLlms(entries = getAllJournalEntrySummaries(), frenchEntrie
 - https://parrit.ai/fr
 - Dans l'ordre : ${order("fr")}
 - Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.
-- Parrit.ai est une équipe : plus de vingt partenaires, réunis selon le projet (prise en main de l'IA, développement sur mesure, expertise métier, recherche). Paul Larmaraud, fondateur, mène le premier échange.
+- Nous faisons appel à des partenaires pour construire vos outils et accompagner vos équipes selon votre projet.
+- Vous échangez avec Paul Larmaraud : prise en main de l'IA, développement sur mesure, expertise métier, recherche. Le travail se fait ensuite avec l'équipe adaptée à votre projet.
 - Présence : Tourcoing et Paris. Zone d'intervention : toute la France.
 
 ### FAQ
@@ -68,7 +69,8 @@ ${articles("fr")}
 - https://parrit.ai/
 - In order: ${order("en")}
 - Client replies, follow-ups, quotes, meeting notes: AI prepares them, your teams review and decide.
-- Parrit.ai is a team: more than twenty partners, brought together for each project (AI adoption, custom development, industry expertise, research). Paul Larmaraud, founder, leads the first conversation.
+- We bring in partners to build your tools and support your teams according to your project.
+- You speak with Paul Larmaraud: AI adoption, custom development, industry expertise, research. The work then continues with the team that fits your project.
 - Presence: Tourcoing and Paris. Service area: across France.
 
 ### FAQ

@@ -68,8 +68,8 @@ export function QuickCapture({
   const copy = variant === "contact" ? {
     ...DICT[locale],
     label: locale === "fr" ? "Vous préférez écrire ?" : "Prefer to write?",
-    line: locale === "fr" ? "Laissez votre adresse, nous vous répondons nous-mêmes." : "Leave your address and we will reply ourselves.",
-    button: locale === "fr" ? "Être recontacté" : "Contact me",
+    line: locale === "fr" ? "Indiquez votre adresse électronique pour échanger avec nous sur une tâche que vous souhaitez améliorer." : "Enter your email address to discuss a task you would like to improve with us.",
+    button: locale === "fr" ? "Demander un échange" : "Request a conversation",
   } : DICT[locale];
   const [email, setEmail] = useState("");
   const [idee, setIdee] = useState(initialIdee ?? "");
@@ -185,8 +185,8 @@ export function QuickCapture({
           <button className="rev-button ghost" type="submit" disabled={state === "sending"}>{state === "sending" ? copy.sending : copy.button}</button>
         </div>
         {variant === "contact" ? <p className="contact-expectation">{locale === "fr"
-          ? "Premier échange de 15 minutes en visioconférence : vous présentez votre besoin, nous vous indiquons ce qui est réalisable."
-          : "A first 15-minute video call: you present your needs, we tell you what is feasible."}</p> : null}
+          ? "Pendant les 15 minutes en visioconférence, vous présentez votre besoin. Nous vous indiquons ce qui est réalisable."
+          : "During the 15-minute video call, you describe what you need. We tell you what is feasible."}</p> : null}
         {state === "error" ? (
           <span className="ri-error" role="alert">{copy.failure} ({detail}). {copy.direct} paul.larmaraud@parrit.ai</span>
         ) : state === "invalid" ? (

@@ -129,8 +129,15 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           const faq = html.match(/<section id="questions">[\s\S]*?<\/section>/)?.[0] ?? "";
           assert.equal(visibleText(faq.match(/<details><summary>.*?<\/summary><p>(.*?)<\/p>/)?.[1] ?? ""), homeFaqOpening[locale]);
           publicCopy = publicCopy.replaceAll(homeFaqOpening[locale], "");
+          // Décision de Paul du 21/11/2026 : this exact sentence describes the
+          // work, not a starting price. Keep the general offer guard unchanged.
+          if (locale === "fr") {
+            const approvedToolCopy = "Nous construisons votre outil à partir de votre métier.";
+            assert.ok(publicCopy.includes(approvedToolCopy));
+            publicCopy = publicCopy.replaceAll(approvedToolCopy, "");
+          }
         }
-        assert.doesNotMatch(publicCopy, /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de(?! vos opérations\b)|\bHT\b|excl\. VAT/i, `${label}: no public offer`);
+        assert.doesNotMatch(publicCopy, /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de(?!s tests\b| vos (?:opérations|fichiers)\b)|\bHT\b|excl\. VAT/i, `${label}: no public offer`);
         if (route !== "/legal") assert.doesNotMatch(publicCopy, /€/, label);
         if (route !== "/legal" && route !== "/") {
           assert.doesNotMatch(publicCopy, /\bPaul\b|Larmaraud|fondat(eur|rice)|fondée par|founder|founded by|quinze minutes|fifteen minutes/i, label);
@@ -344,4 +351,3 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
     }
   }
 });
-

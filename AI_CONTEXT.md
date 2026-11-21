@@ -1,3 +1,21 @@
+## Passe de copy, décision de Paul du 21/11/2026
+
+Spec `docs/CODEX-SPEC-2026-11-21-passe-copy-astra.md`, base a1ab61a.
+Textes exacts FR et traductions EN sur accueil, rendez-vous et en-tête Journal.
+Contact : « Vous échangez avec Paul Larmaraud », unique paragraphe d'équipe,
+portrait/actions conservés. FAQ et llms régénérés ; H1, SEO accueil, JSON-LD hors
+FAQ, CSS et articles intacts. AGENTS/TRUTH alignés sur la décision du 21/11.
+Référence 803/803 tests, candidat 807/807 (quatre tests de rendu ajoutés).
+Installation exacte, lint, build Webpack 96 pages, audits marque/claims et
+19/19 Brand OS réussis. Audit des 34 remplacements dans le rendu FR sans erreur.
+Node 26.12.1 utilisé : Node 24 local cassé (libsimdjson absente). Serveur EPERM,
+Chromium SIGTRAP avant navigation ; aucune preuve visuelle/CLS. Collecte
+Playwright refusée par le garde automatique, faux positif lié aux messages.
+Une ancienne phrase subsiste dans la signature des articles automatiques,
+hors titre contact ; conservée et signalée, clarification facultative sans réponse.
+Spec préexistante inchangée ; aucun commit/push/déploiement.
+Détail : `docs/REPORT-2026-11-21-passe-copy-astra.md`.
+
 ## Accueil épuré, 13/11/2026
 
 Spec `docs/CODEX-SPEC-2026-11-13-accueil-epure.md`, base e707430 (#383).

@@ -52,7 +52,8 @@ test("compiled booking funnel, bilingual interface and all registry destinations
         assert.ok(booking.includes(`hrefLang="${language}" href="https://parrit.ai${path}"`));
       }
       assert.equal((booking.match(/<h1\b/g) ?? []).length, 1);
-      assert.match(booking, locale === "fr" ? /Entretien stratégique IA, 15 minutes/ : /AI strategy call, 15 minutes/);
+      assert.ok(booking.includes(`<title>${locale === "fr" ? "Premier échange, 15 minutes" : "First call, 15 minutes"} · Parrit.ai</title>`));
+      assert.match(booking, locale === "fr" ? /Premier échange de 15 minutes/ : /First call, 15 minutes/);
       assert.match(booking, /name="robots" content="noindex, follow"/);
       assert.match(booking, /href="mailto:paul.larmaraud@parrit.ai"/);
       assert.ok(booking.includes(`href="https://parrit.ai${prefix}/rendez-vous"`));

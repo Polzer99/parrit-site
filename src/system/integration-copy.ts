@@ -1,13 +1,12 @@
 export const INTEGRATION_COPY = {
   fr: [
-    ["Intégrer l'existant", "vos outils actuels restent en place quand ils font le travail ; nous les relions entre eux et à vos données."],
-    ["Construire le manquant", "un logiciel ou un agent sur mesure quand votre métier a un besoin qu'aucun outil ne couvre."],
-    ["Orchestrer l'ensemble", "un système où chaque étape est tracée, supervisée et réversible."],
+    ["Nous relions les outils que vous utilisez déjà", "Nous examinons les informations à transmettre entre vos logiciels et les vérifications nécessaires."],
+    ["Nous construisons la fonction qui manque à votre travail", "Si vos logiciels ne couvrent pas le besoin, nous définissons avec vous un outil sur mesure. Il peut, par exemple, préparer un rapport financier à partir de vos fichiers."],
+    ["Nous vérifions le parcours des informations", "Nous contrôlons ce que chaque logiciel reçoit et ce qu’il transmet. Avant de remplacer un fonctionnement existant, nous comparons les résultats et préparons le retour en arrière."],
   ],
   en: [
-    ["Integrate what exists", "your current tools stay in place when they do the job; we connect them to each other and to your data."],
-    ["Build what is missing", "custom software or an agent when your business has a need that no tool covers."],
-    ["Orchestrate the whole", "a system where every step is traced, supervised and reversible."],
+    ["We connect the tools you already use", "We examine the information to pass between your software and the checks that are needed."],
+    ["We build the function your work is missing", "If your software does not cover the need, we define a custom tool with you. It could, for example, prepare a financial report from your files."],
+    ["We check how information moves", "We check what each piece of software receives and sends. Before replacing an existing process, we compare the results and prepare a way back."],
   ],
 } as const;
-

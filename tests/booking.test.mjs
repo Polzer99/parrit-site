@@ -37,27 +37,30 @@ for (const locale of ["fr", "en"]) {
     const page = load("src/app/(rev01)/rendez-vous/page.tsx");
     const html = renderToStaticMarkup(await page.default({ searchParams: Promise.resolve({ source: "journal-test", utm_source: "x" }) }));
     assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
-    assert.match(html, locale === "fr" ? /Entretien stratégique IA, 15 minutes/ : /AI strategy call, 15 minutes/);
+    assert.match(html, locale === "fr" ? /Premier échange de 15 minutes/ : /First call, 15 minutes/);
     assert.ok(html.indexOf("<h1") < html.indexOf("data-calendar"));
     assert.ok(html.indexOf("data-calendar") < html.indexOf("mailto:"));
     assert.match(html, /href="mailto:paul.larmaraud@parrit.ai"/);
     assert.equal(calendarProps.locale, locale);
     assert.deepEqual(calendarProps.bookingParams, { "metadata[source]": "journal-test", utm_source: "x" });
     const metadata = await page.generateMetadata();
+    assert.equal(metadata.title, locale === "fr" ? "Premier échange, 15 minutes" : "First call, 15 minutes");
+    assert.equal(metadata.openGraph.title, metadata.title);
     assert.deepEqual(metadata.robots, { index: false, follow: true });
     assert.equal(metadata.alternates.canonical, `${locale === "fr" ? "/fr" : ""}/rendez-vous`);
   });
 
   test(`one four-element call block in interface language (${locale})`, () => {
-    const { BookingCall } = loader(locale)("src/system/components/BookingCall.tsx");
+    const load = loader(locale);
+    const { BookingCall } = load("src/system/components/BookingCall.tsx");
+    const { BOOKING_CALL_COPY } = load("src/system/booking.ts");
     for (const source of ["journal-test", "theme-ai-sprints"]) {
-      const element = BookingCall({ locale, source });
+      const variant = source.startsWith("theme-") ? "ai-sprints" : "article";
+      const element = BookingCall({ locale, source, variant });
       assert.equal(React.Children.count(element.props.children), 4);
       const html = renderToStaticMarkup(element);
       assert.match(html, new RegExp(`lang="${locale}"`));
-      assert.ok(html.includes(locale === "fr"
-        ? "15 minutes avec Paul Larmaraud pour clarifier votre sujet. Vous repartez avec une première piste, et vous décidez de la suite."
-        : "15 minutes with Paul Larmaraud to clarify your topic. You leave with a first lead, and you decide what comes next."));
+      assert.ok(html.includes(BOOKING_CALL_COPY[locale][variant].description));
       assert.equal((html.match(/class="rev-button exec"/g) ?? []).length, 1);
       assert.ok(html.includes(`href="${locale === "fr" ? "/fr" : ""}/rendez-vous?source=${source}"`));
       assert.doesNotMatch(html, /offert|gratuit|€|countdown|compte à rebours/i);

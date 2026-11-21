@@ -11,8 +11,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "rendez-vous",
     "group": "c",
     "label": {
-      "fr": "plus de rendez-vous",
-      "en": "more meetings"
+      "fr": "préparer ma prospection",
+      "en": "prepare my outreach"
     },
     "result": {
       "fr": "Les bons contacts repérés, le message prêt.",
@@ -28,8 +28,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "contenu",
     "group": "c",
     "label": {
-      "fr": "du contenu publié",
-      "en": "content published"
+      "fr": "préparer mes articles",
+      "en": "prepare my articles"
     },
     "result": {
       "fr": "Vos sujets deviennent des articles sourcés.",
@@ -45,8 +45,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "relances",
     "group": "c",
     "label": {
-      "fr": "des devis relancés",
-      "en": "quotes followed up"
+      "fr": "relancer mes devis",
+      "en": "follow up my quotes"
     },
     "result": {
       "fr": "Chaque devis sans réponse a sa relance prête.",
@@ -62,8 +62,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "appels-offres",
     "group": "c",
     "label": {
-      "fr": "des appels d'offres repérés",
-      "en": "tenders spotted"
+      "fr": "repérer les appels d’offres",
+      "en": "spot tenders"
     },
     "result": {
       "fr": "Les appels d'offres utiles, triés chaque matin.",
@@ -79,12 +79,12 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "clients-reactives",
     "group": "c",
     "label": {
-      "fr": "d'anciens clients réactivés",
-      "en": "past clients reactivated"
+      "fr": "relancer d'anciens clients",
+      "en": "follow up past clients"
     },
     "result": {
-      "fr": "Les clients silencieux, avec une raison de les rappeler.",
-      "en": "Quiet clients, with a reason to call them back."
+      "fr": "Vous repérez les clients à rappeler et pour quel motif.",
+      "en": "You identify which clients to call back and why."
     },
     "path": [
       "Base clients",
@@ -96,8 +96,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "commandes",
     "group": "t",
     "label": {
-      "fr": "des commandes saisies",
-      "en": "orders entered"
+      "fr": "saisir mes commandes",
+      "en": "enter my orders"
     },
     "result": {
       "fr": "Les commandes reçues par e-mail, saisies, à relire.",
@@ -113,8 +113,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "factures",
     "group": "t",
     "label": {
-      "fr": "des factures rapprochées",
-      "en": "invoices reconciled"
+      "fr": "rapprocher mes factures",
+      "en": "reconcile my invoices"
     },
     "result": {
       "fr": "Relevés et grand livre rapprochés, écarts signalés.",
@@ -130,12 +130,12 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "comptes-rendus",
     "group": "t",
     "label": {
-      "fr": "des comptes rendus prêts",
-      "en": "meeting notes ready"
+      "fr": "préparer mes comptes rendus",
+      "en": "prepare my meeting notes"
     },
     "result": {
-      "fr": "Les décisions de la réunion, et qui s'en charge.",
-      "en": "The meeting's decisions, and who owns them."
+      "fr": "Vous retrouvez les décisions et les personnes chargées de les appliquer.",
+      "en": "You find the decisions and the people responsible for carrying them out."
     },
     "path": [
       "Comptes rendus",
@@ -147,8 +147,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "reponses-client",
     "group": "t",
     "label": {
-      "fr": "des réponses client prêtes",
-      "en": "customer replies ready"
+      "fr": "répondre à mes clients",
+      "en": "answer my customers"
     },
     "result": {
       "fr": "Une réponse proposée pour chaque demande.",
@@ -164,8 +164,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "contrats",
     "group": "t",
     "label": {
-      "fr": "des contrats vérifiés",
-      "en": "contracts checked"
+      "fr": "vérifier mes contrats",
+      "en": "check my contracts"
     },
     "result": {
       "fr": "Chaque contrat comparé à vos conditions.",
@@ -181,29 +181,29 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "agents",
     "group": "b",
     "label": {
-      "fr": "une flotte d'agents autonomes",
-      "en": "a fleet of autonomous agents"
+      "fr": "automatiser des tâches",
+      "en": "automate tasks"
     },
     "result": {
-      "fr": "Des agents qui se répartissent le travail, sous votre contrôle.",
-      "en": "Agents that share the work, under your control."
+      "fr": "Des assistants se répartissent le travail. Vous gardez le contrôle.",
+      "en": "Assistants share the work. You stay in control."
     },
     "path": [
       "Vos processus",
       "Processus",
-      "Agents autonomes"
+      "Assistants coordonnés"
     ]
   },
   {
     "id": "logiciel",
     "group": "b",
     "label": {
-      "fr": "un logiciel propriétaire",
-      "en": "proprietary software"
+      "fr": "construire mon outil",
+      "en": "build my own tool"
     },
     "result": {
-      "fr": "Un outil à vous, construit sur votre métier.",
-      "en": "A tool of your own, built on your trade."
+      "fr": "Nous construisons votre outil à partir de votre métier.",
+      "en": "We build your tool around the work you do."
     },
     "path": [
       "Votre expertise",
@@ -215,8 +215,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "formation",
     "group": "b",
     "label": {
-      "fr": "des équipes formées à l'IA",
-      "en": "teams trained in AI"
+      "fr": "prendre l'IA en main",
+      "en": "get hands-on with AI"
     },
     "result": {
       "fr": "Vos équipes prennent l'IA en main, sur leurs propres dossiers.",
@@ -232,12 +232,12 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "priorites",
     "group": "b",
     "label": {
-      "fr": "savoir par où commencer",
-      "en": "to know where to start"
+      "fr": "choisir par où commencer",
+      "en": "choose where to start"
     },
     "result": {
-      "fr": "Un état des lieux, puis un plan par priorité.",
-      "en": "An assessment, then a plan by priority."
+      "fr": "Nous examinons votre travail et définissons les priorités avec vous.",
+      "en": "We look at your work and set priorities with you."
     },
     "path": [
       "Vos processus",
@@ -249,25 +249,25 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "developpeurs",
     "group": "b",
     "label": {
-      "fr": "des développeurs plus rapides",
-      "en": "faster developers"
+      "fr": "équiper mes développeurs",
+      "en": "equip my developers"
     },
     "result": {
-      "fr": "Un cadre pour coder avec l'IA sans casser la production.",
-      "en": "A framework to code with AI without breaking production."
+      "fr": "Vos développeurs utilisent l'IA sans perturber les logiciels en service.",
+      "en": "Your developers use AI without disrupting software already in use."
     },
     "path": [
       "Votre code",
       "Projet",
-      "Code fiable"
+      "Code contrôlé"
     ]
   },
   {
     "id": "ia-interne",
     "group": "b",
     "label": {
-      "fr": "une IA qui reste chez nous",
-      "en": "AI that stays in-house"
+      "fr": "garder l'IA chez nous",
+      "en": "keep AI in-house"
     },
     "result": {
       "fr": "Installée sur vos serveurs, vos données n'en sortent pas.",
@@ -283,12 +283,12 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "prototype",
     "group": "b",
     "label": {
-      "fr": "tester une idée",
-      "en": "to test an idea"
+      "fr": "tester un outil concret",
+      "en": "test a concrete tool"
     },
     "result": {
-      "fr": "Un prototype qui tourne, pour décider sur pièce.",
-      "en": "A working prototype, to decide on evidence."
+      "fr": "Vous testez une première version pour décider de la suite.",
+      "en": "You test a first version to decide what comes next."
     },
     "path": [
       "Votre expertise",
@@ -342,8 +342,8 @@ export const GOAL_PLANES = [
         "en": "Contract gaps"
       },
       {
-        "fr": "Agents autonomes",
-        "en": "Autonomous agents"
+        "fr": "Assistants coordonnés",
+        "en": "Coordinated assistants"
       },
       {
         "fr": "Logiciel propriétaire",
@@ -358,8 +358,8 @@ export const GOAL_PLANES = [
         "en": "Roadmap"
       },
       {
-        "fr": "Code fiable",
-        "en": "Reliable code"
+        "fr": "Code contrôlé",
+        "en": "Reviewed code"
       },
       {
         "fr": "IA installée chez vous",

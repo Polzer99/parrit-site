@@ -1,115 +1,125 @@
 import type { Locale } from "./locale";
 
-export type GuideCopy = { name: string; title: string; description: string; brief?: readonly (readonly [string, string])[]; sections: readonly (readonly [string, string, readonly string[]])[]; faq: readonly (readonly [string, string])[] };
+export type GuideCopy = { name: string; title: string; description: string; briefTitle?: string; brief?: readonly (readonly [string, string])[]; markers?: readonly string[]; sections: readonly (readonly [string, string, readonly string[]])[]; faq: readonly (readonly [string, string])[] };
 export const SITE_V1_PAGES = {
   "consulting-transformation": {
     "fr": {
       "name": "Conseil & Transformation",
-      "title": "Choisir vos priorités et préparer vos équipes",
-      "description": "Partir du travail de vos équipes pour choisir les priorités, prévoir les étapes et préparer les équipes à utiliser leurs nouveaux outils.",
+      "title": "Choisir quoi automatiser",
+      "description": "Vous partez du travail que vos équipes font réellement",
       "sections": [
         [
           "problems",
-          "Les problèmes réels",
+          "Vous partez du travail que vos équipes font réellement",
           [
-            "Les tâches qui reviennent, les outils qui ne se parlent pas, les projets IA qui ne dépassent pas la démonstration."
+            "Préparer une réponse client, traiter une facture fournisseur ou réunir les chiffres d’un rapport financier demande des gestes différents. Nous les examinons avec les personnes concernées pour déterminer où un outil peut être utile."
           ]
         ],
         [
           "work",
-          "Ce que nous faisons",
+          "Nous comparons les tâches avant de choisir par où commencer",
           [
-            "Diagnostic des opérations et des outils, cartographie des opportunités, priorisation selon la valeur, le risque et la faisabilité.",
-            "Architecture cible, gouvernance des données et conduite du changement."
+            "Nous regardons comment vos équipes travaillent, quels fichiers elles utilisent et ce qu’elles doivent vérifier. Nous comparons ensuite les améliorations possibles, les difficultés de construction et les risques pour votre activité."
           ]
         ],
         [
           "deliverables",
-          "Les livrables",
+          "Vous recevez un ordre de travail expliqué",
           [
-            "Un état des lieux, une matrice de priorisation, une feuille de route, un plan d'adoption et des indicateurs."
+            "Le document décrit les tâches examinées et les raisons de commencer par certaines. Il précise les outils concernés, la participation attendue des équipes et les vérifications nécessaires pour mesurer ce qui change."
           ]
         ],
         [
           "method",
-          "Notre méthode",
+          "Vos équipes nous montrent comment elles travaillent",
           [
-            "Observer les tâches réelles, les outils et les données. Prioriser selon la valeur, le risque et la faisabilité.",
-            "Transformer les processus et les systèmes, une brique à la fois. Mesurer ce qui a changé avec une méthode décidée au départ."
+            "Nous suivons une tâche dans l’ordre, avec ses fichiers, ses échanges et ses vérifications. Cette observation permet de repérer ce qui se répète et ce qui demande un jugement humain."
+          ]
+        ],
+        [
+          "first-task",
+          "Nous définissons une première tâche à améliorer",
+          [
+            "Nous précisons le résultat attendu, les données nécessaires et la manière de le vérifier. Si vous décidez de construire, les personnes concernées essaient l’outil et participent à sa prise en main."
           ]
         ],
         [
           "governance",
-          "Contraintes et gouvernance",
+          "Accès et responsabilités",
           [
-            "Nous cadrons les accès aux données, les responsabilités et les validations humaines avant de construire.",
-            "La cession des droits sur ce que nous développons, l'hébergement, la réversibilité et la maintenance sont écrits dans le contrat de chaque projet."
+            "Vous choisissez qui accède aux données et qui valide les actions. Nous écrivons ces règles avant de construire l’outil.",
+            "Si le travail se poursuit par une construction, le contrat précise les droits sur l’outil, son hébergement et sa maintenance. Il fixe aussi les conditions de reprise du système et de récupération de vos données."
           ]
         ]
       ],
       "faq": [
         [
           "Faut-il déjà avoir choisi un outil ?",
-          "Nous partons du travail réel pour décider des outils utiles."
+          "Vous pouvez venir avec une tâche qui vous pose problème. Nous examinons votre façon de travailler avant de recommander un outil."
         ],
         [
-          "Comment les équipes participent-elles ?",
-          "Elles décrivent leurs tâches, testent le système et participent au plan d'adoption."
+          "Que demande ce travail à vos équipes ?",
+          "Les personnes concernées nous montrent leurs tâches et les documents qu’elles utilisent. Si un outil est construit, elles l’essaient et précisent ce dont elles ont besoin pour l’utiliser au quotidien."
         ]
       ]
     },
     "en": {
       "name": "Consulting & Transformation",
-      "title": "Understand, decide, transform.",
-      "description": "Start from your operations to decide priorities, build a roadmap and prepare adoption.",
+      "title": "Choose what to automate",
+      "description": "You start from the work your teams actually do",
       "sections": [
         [
           "problems",
-          "Real problems",
+          "You start from the work your teams actually do",
           [
-            "Recurring tasks, tools that do not communicate, AI projects that never move beyond a demonstration."
+            "Preparing a customer reply, processing a supplier invoice or gathering the figures for a financial report all involve different steps. We examine them with the people concerned to determine where a tool may help."
           ]
         ],
         [
           "work",
-          "What we do",
+          "We compare tasks before choosing where to start",
           [
-            "Diagnose operations and tools, map opportunities and prioritize by value, risk and feasibility.",
-            "Target architecture, data governance and change management."
+            "We look at how your teams work, which files they use and what they need to check. We then compare possible improvements, the difficulty of building them and the risks to your operations."
           ]
         ],
         [
           "deliverables",
-          "Deliverables",
+          "You receive an explained order of work",
           [
-            "An assessment, a prioritization matrix, a roadmap, an adoption plan and indicators."
+            "The document describes the tasks examined and why some should come first. It specifies the tools involved, the participation expected from teams and the checks needed to measure what changes."
           ]
         ],
         [
           "method",
-          "Our method",
+          "Your teams show us how they work",
           [
-            "Observe real tasks, tools and data. Prioritize by value, risk and feasibility.",
-            "Transform processes and systems, one building block at a time. Measure what has changed using a method agreed at the outset."
+            "We follow a task in order, including its files, exchanges and checks. This observation shows what is repeated and what requires human judgment."
+          ]
+        ],
+        [
+          "first-task",
+          "We define a first task to improve",
+          [
+            "We specify the expected result, the data needed and how to check it. If you decide to build, the people concerned try the tool and take part in learning how to use it."
           ]
         ],
         [
           "governance",
-          "Constraints and governance",
+          "Access and responsibilities",
           [
-            "We define data access, responsibilities and human approvals before building.",
-            "The assignment of rights to what we build, hosting, reversibility and maintenance are written into each project's contract."
+            "You choose who can access the data and who approves actions. We write these rules before building the tool.",
+            "If the work continues with a build, the contract specifies the rights to the tool, its hosting and its maintenance. It also sets the conditions for taking over the system and recovering your data."
           ]
         ]
       ],
       "faq": [
         [
           "Do we need to have chosen a tool?",
-          "We start from the actual work to decide which tools are useful."
+          "You can come with a task that causes a problem. We examine how you work before recommending a tool."
         ],
         [
-          "How do teams participate?",
-          "They describe their tasks, test the system and take part in the adoption plan."
+          "What does this work require from your teams?",
+          "The people concerned show us their tasks and the documents they use. If a tool is built, they try it and explain what they need to use it in their daily work."
         ]
       ]
     }
@@ -117,171 +127,173 @@ export const SITE_V1_PAGES = {
   "ai-sprints": {
     "fr": {
       "name": "AI Sprints",
-      "title": "Un premier résultat en cycle court, avec des critères écrits à l'avance",
-      "description": "Choisir ensemble un problème précis, écrire les critères de réussite avant de construire, puis tester un premier outil en cycle court et expliquer la décision prise.",
+      "title": "Tester votre futur outil",
+      "description": "Vous essayez l’outil sur une tâche réelle avant de décider de la suite",
+      "briefTitle": "Le travail commence par vos fichiers et un résultat attendu",
       "brief": [
         [
-          "Pour qui",
-          "Les équipes qui veulent tester une réponse à un problème précis."
+          "",
+          "Vous avez une tâche précise à traiter, comme préparer une réponse client ou produire un rapport financier à partir de vos fichiers."
         ],
         [
-          "Point de départ",
-          "Un besoin, des données et un résultat attendu."
+          "",
+          "Vous apportez des exemples de la tâche, les données accessibles et ce que vous attendez du résultat."
         ],
         [
-          "Ce que vous obtenez",
-          "Une brique testable et une évaluation documentée."
+          "",
+          "Vous essayez une première version de l’outil. Vous recevez les résultats des tests et la liste des erreurs ou des besoins encore non couverts."
         ],
         [
-          "Ce qui n'est pas livré",
-          "Un système en production à grande échelle, une promesse de délai fixe."
+          "",
+          "Cette première version sert à vérifier le fonctionnement sur les cas retenus. Son utilisation par toutes vos équipes demande une décision et une préparation supplémentaires."
         ],
         [
-          "Comment on décide",
-          "Avec vos utilisateurs, contre les critères du cadrage."
+          "",
+          "Les personnes qui réalisent la tâche essaient l’outil. Nous comparons leurs résultats aux exigences définies avec vous avant la construction."
         ],
         [
-          "Suite possible",
-          "Passer en production, corriger ou arrêter, et pourquoi."
+          "",
+          "Vous disposez des résultats pour décider de mettre l’outil en service, de le corriger ou d’arrêter le travail."
         ]
       ],
       "sections": [
         [
           "scoping",
-          "Cadrage",
+          "Nous écrivons ce que l’outil doit produire",
           [
-            "Besoin, résultat attendu, données, critères de succès écrits avant de construire."
+            "Vous nous montrez la tâche et un résultat acceptable. Pour un rapport financier, nous précisons notamment les chiffres à retrouver et les documents auxquels les comparer."
           ]
         ],
         [
           "construction",
-          "Construction",
+          "Nous construisons une version que vous pouvez essayer",
           [
-            "Une brique qui tourne sur vos cas réels."
+            "L’outil travaille sur les fichiers et les situations retenus avec vous. Vous pouvez examiner ce qu’il produit et signaler ce qui manque."
           ]
         ],
         [
           "evaluation",
-          "Évaluation",
+          "Nous vérifions le résultat avec les personnes concernées",
           [
-            "Avec vos utilisateurs, contre les critères du cadrage."
+            "Nous contrôlons les réponses ou les calculs attendus et consignons les écarts."
           ]
         ],
         [
           "decision",
-          "Décision",
+          "Vous décidez de la suite à partir des tests",
           [
-            "Passer en production, corriger ou arrêter, et pourquoi."
+            "Nous vous présentons ce qui fonctionne, les erreurs restantes et le travail nécessaire avant une mise en service."
           ]
         ],
         [
           "deliverables",
-          "Les livrables",
+          "Vous recevez l’outil testé et le compte rendu des vérifications",
           [
-            "Un démonstrateur, les critères d'évaluation, une synthèse des écarts, une décision et une suite."
+            "Les documents précisent les résultats attendus, les cas essayés et les écarts constatés. Ils consignent aussi la décision prise avec vous et les éventuelles étapes suivantes."
           ]
         ],
         [
           "limits",
-          "Les limites",
+          "Le calendrier dépend de la tâche et des données disponibles",
           [
-            "La durée dépend du problème et se fixe au cadrage. Le sprint ne livre pas un système en production à grande échelle et ne promet pas de délai fixe."
+            "Nous définissons le périmètre et le calendrier avec vous avant de construire. Les tests de cette première version ne suffisent pas à autoriser tous les usages dans votre entreprise."
           ]
         ]
       ],
       "faq": [
         [
-          "Que faut-il préparer ?",
-          "Le besoin, les cas à tester, les données accessibles et les personnes qui évalueront le résultat."
+          "Que devez-vous préparer ?",
+          "Réunissez un exemple de la tâche, les fichiers nécessaires et un résultat que vous jugez correct. Prévoyez la participation des personnes qui utiliseront l’outil pour qu’elles puissent l’essayer."
         ],
         [
-          "Le passage en production est-il automatique ?",
-          "Il dépend des résultats des tests et de la décision prise avec vous."
+          "Quand l’outil peut-il être mis en service ?",
+          "Vous prenez cette décision après les tests. Nous précisons auparavant les corrections, les accès et les validations nécessaires à son utilisation."
         ]
       ]
     },
     "en": {
       "name": "AI Sprints",
-      "title": "A precise problem, a testable system, a decision based on evidence.",
-      "description": "A short cycle with an agreed scope, criteria written before building and a documented decision.",
+      "title": "Test your future tool",
+      "description": "You try the tool on a real task before deciding what comes next",
+      "briefTitle": "The work starts with your files and an expected result",
       "brief": [
         [
-          "Who it is for",
-          "Teams that want to test an answer to a precise problem."
+          "",
+          "You have a specific task to handle, such as preparing a customer reply or producing a financial report from your files."
         ],
         [
-          "Starting point",
-          "A need, data and an expected outcome."
+          "",
+          "You bring examples of the task, the available data and what you expect from the result."
         ],
         [
-          "What you receive",
-          "A testable building block and a documented evaluation."
+          "",
+          "You try a first version of the tool. You receive the test results and a list of errors or needs that are not yet covered."
         ],
         [
-          "What is not delivered",
-          "A system in production at scale, a promise of a fixed deadline."
+          "",
+          "This first version checks how the tool works on the selected cases. Using it across all your teams requires a further decision and preparation."
         ],
         [
-          "How we decide",
-          "With your users, against the scoping criteria."
+          "",
+          "The people who carry out the task try the tool. We compare their results with the requirements defined with you before construction."
         ],
         [
-          "Possible next step",
-          "Move to production, correct or stop, and why."
+          "",
+          "You have the results needed to decide whether to put the tool into service, correct it or stop the work."
         ]
       ],
       "sections": [
         [
           "scoping",
-          "Scoping",
+          "We write down what the tool must produce",
           [
-            "Need, expected outcome, data and success criteria written before building."
+            "You show us the task and an acceptable result. For a financial report, we specify which figures must be found and which documents they should be checked against."
           ]
         ],
         [
           "construction",
-          "Construction",
+          "We build a version you can try",
           [
-            "A building block that runs on your real cases."
+            "The tool works on the files and situations selected with you. You can examine what it produces and point out what is missing."
           ]
         ],
         [
           "evaluation",
-          "Evaluation",
+          "We check the result with the people concerned",
           [
-            "With your users, against the scoping criteria."
+            "We check the expected replies or calculations and record the gaps."
           ]
         ],
         [
           "decision",
-          "Decision",
+          "You decide what comes next from the test results",
           [
-            "Move to production, correct or stop, and why."
+            "We present what works, the remaining errors and the work needed before the tool can be put into service."
           ]
         ],
         [
           "deliverables",
-          "Deliverables",
+          "You receive the tested tool and the verification report",
           [
-            "A demonstrator, evaluation criteria, a summary of gaps, a decision and next steps."
+            "The documents specify the expected results, the cases tried and the gaps found. They also record the decision made with you and any next steps."
           ]
         ],
         [
           "limits",
-          "Limits",
+          "The schedule depends on the task and the available data",
           [
-            "Duration depends on the problem and is set during scoping. The sprint does not deliver a system in production at scale or promise a fixed deadline."
+            "We define the scope and schedule with you before building. Testing this first version is not enough to authorize every use across your company."
           ]
         ]
       ],
       "faq": [
         [
-          "What should we prepare?",
-          "The need, cases to test, accessible data and the people who will evaluate the outcome."
+          "What do you need to prepare?",
+          "Gather an example of the task, the necessary files and a result you consider correct. Plan for the people who will use the tool to take part so they can try it."
         ],
         [
-          "Is production automatic?",
-          "It depends on test results and the decision made with you."
+          "When can the tool be put into service?",
+          "You make that decision after the tests. Beforehand, we specify the corrections, access and approvals needed to use it."
         ]
       ]
     }
@@ -289,93 +301,91 @@ export const SITE_V1_PAGES = {
   "engineering-integration": {
     "fr": {
       "name": "Engineering & Intégration",
-      "title": "Relier vos logiciels et construire ce qui manque",
-      "description": "Relier vos logiciels existants et construire les outils qui manquent, avec des contrôles adaptés au travail de vos équipes.",
+      "title": "Relier vos logiciels",
+      "description": "Vos logiciels échangent les informations nécessaires au travail",
       "sections": [
         [
           "custom",
-          "Logiciels & agents sur mesure",
+          "Vous essayez l’outil sur vos propres tâches",
           [
-            "Un logiciel ou un agent sur mesure quand votre métier a un besoin qu'aucun outil ne couvre. Nous définissons les outils autorisés, les validations humaines et les tests avant de construire."
+            "Vous nous montrez vos fichiers et le résultat attendu. Nous écrivons le périmètre, les validations nécessaires et les tests avant de construire."
           ]
         ],
         [
           "integrations",
-          "Intégrations & infrastructures privées",
+          "Nous définissons où vos données circulent et où elles sont conservées",
           [
-            "Vos outils actuels restent en place quand ils font le travail. Nous les relions entre eux et à vos données.",
-            "Le choix de l'hébergement dépend des données, des accès et du contrat. Le nom d'un fournisseur ne suffit pas à établir la souveraineté d'une infrastructure."
+            "Nous identifions les logiciels à relier et les personnes autorisées à consulter les données. Le choix de l’hébergement dépend de ces besoins et des engagements écrits dans le contrat."
           ]
         ],
         [
           "harness",
-          "Harness Engineering",
+          "Vous gardez la main sur les actions de l’assistant",
           [
-            "Le contexte, les permissions, les vérifications et la supervision rendent le système contrôlable."
+            "Lorsqu’un assistant intervient, nous précisons les fichiers qu’il peut consulter et les actions qu’il peut exécuter. Les actions qui engagent votre entreprise suivent les validations définies avec vous."
           ]
         ],
         [
           "governance",
-          "Contraintes et gouvernance",
+          "Le contrat précise ce que vous recevez et comment reprendre la gestion du système",
           [
-            "La cession des droits sur ce que nous développons, l'hébergement, la réversibilité et la maintenance sont écrits dans le contrat de chaque projet."
+            "Il fixe les droits sur le travail livré, l’hébergement et la maintenance. Il précise aussi les conditions de transfert du système et de récupération de vos données."
           ]
         ]
       ],
       "faq": [
         [
-          "Faut-il remplacer nos outils ?",
-          "Nous conservons les outils qui répondent au besoin et construisons ce qui manque."
+          "Faut-il remplacer vos logiciels ?",
+          "Nous conservons ceux qui répondent au besoin. Nous examinons d’abord les possibilités de les relier ou de leur ajouter la fonction manquante."
         ],
         [
           "Qui valide les actions ?",
-          "Les responsabilités et les étapes de validation humaine sont définies au cadrage."
+          "Vous désignez les personnes responsables. Nous définissons avec elles les actions qui demandent un accord avant leur exécution."
         ]
       ]
     },
     "en": {
       "name": "Engineering & Integration",
-      "title": "Design, connect, build.",
-      "description": "Integrate what exists, build what is missing and orchestrate a supervised system suited to your operations.",
+      "title": "Connect your software",
+      "description": "Your software exchanges the information needed for the work",
       "sections": [
         [
           "custom",
-          "Custom software & agents",
+          "You try the tool on your own tasks",
           [
-            "Custom software or an agent when your business has a need that no tool covers. We define permitted tools, human approvals and tests before building."
+            "You show us your files and the expected result. We write down the scope, required approvals and tests before building."
           ]
         ],
         [
           "integrations",
-          "Integrations & private infrastructure",
+          "We define where your data flows and where it is stored",
           [
-            "Your current tools stay in place when they do the job. We connect them to each other and to your data.",
-            "Hosting choices depend on data, access and the contract. A provider's name alone does not establish infrastructure sovereignty."
+            "We identify the software to connect and the people authorized to view the data. The hosting choice depends on these needs and on the commitments written into the contract."
           ]
         ],
         [
           "harness",
-          "Harness Engineering",
+          "You keep control of the assistant’s actions",
           [
-            "Context, permissions, checks and supervision make the system controllable."
+            "When an assistant is involved, we specify which files it can view and which actions it can perform. Actions that commit your company follow the approvals defined with you."
           ]
         ],
         [
           "governance",
-          "Constraints and governance",
+          "The contract specifies what you receive and how to take over the system",
           [
-            "The assignment of rights to what we build, hosting, reversibility and maintenance are written into each project's contract."
+            "It sets the rights to the delivered work, hosting and maintenance. It also specifies the conditions for transferring the system and recovering your data."
           ]
         ]
       ],
       "faq": [
         [
-          "Do we need to replace our tools?",
-          "We keep tools that meet the need and build what is missing."
+          "Do you need to replace your software?",
+          "We keep the software that meets the need. We first examine whether it can be connected or given the missing function."
         ],
         [
           "Who approves actions?",
-          "Responsibilities and human approval steps are defined during scoping."
+          "You appoint the people responsible. We define with them which actions require approval before they are carried out."
         ]
       ]
     }
@@ -383,105 +393,137 @@ export const SITE_V1_PAGES = {
   "harness-engineering": {
     "fr": {
       "name": "Harness Engineering",
-      "title": "Encadrer vos assistants IA : règles, droits et contrôles",
-      "description": "Définir ou revoir les informations, les outils et les droits de vos assistants IA, avec des règles, des vérifications et une supervision humaine.",
+      "title": "Contrôler vos assistants IA",
+      "description": "Vous décidez de ce que votre assistant peut faire",
       "sections": [
         [
           "problem",
-          "Performant en démonstration, fragile en production",
+          "Vous décidez de ce que votre assistant peut faire",
           [
-            "Un agent peut réussir une démonstration et échouer sur vos opérations. Le harnais est le système qui organise ce qu'il sait, ce qu'il peut faire et ce qui doit être vérifié."
+            "Avant de laisser un assistant modifier un fichier ou envoyer un message, vous devez pouvoir vérifier son travail. Nous définissons ses accès, les actions autorisées et les situations dans lesquelles il doit vous demander confirmation."
           ]
         ],
         [
           "harness",
-          "Le système autour du modèle",
+          "Nous encadrons chaque action",
           [
-            "Les instructions définissent le travail. Le contexte et la mémoire apportent les informations utiles. Les outils et les permissions bornent les actions. Les vérifications et la supervision contrôlent les décisions. Le suivi des coûts permet de surveiller l'exploitation."
+            "Nous précisons les informations que l’assistant peut consulter et les outils qu’il peut utiliser. Nous installons des contrôles avant les actions sensibles et conservons une trace de ce qu’il exécute."
           ]
         ],
         [
           "interventions",
-          "Deux cas d'intervention",
+          "Nous préparons les contrôles avant de connecter vos outils",
           [
-            "Construire un harnais neuf : partir des tâches, définir les accès et écrire les vérifications avant de brancher les outils.",
-            "Auditer et corriger un système existant : reproduire ses échecs, prioriser les corrections et les tester sur les mêmes tâches."
+            "Vous choisissez une tâche, comme préparer une réponse client. Nous déterminons les documents nécessaires, qui relit la réponse et qui autorise son envoi."
+          ]
+        ],
+        [
+          "existing",
+          "Nous reprenons les erreurs de votre assistant",
+          [
+            "Vous nous montrez les tâches qui échouent ou les actions qui vous inquiètent. Nous cherchons à reproduire le problème, puis nous vérifions les corrections sur ces mêmes tâches."
           ]
         ],
         [
           "evaluation",
-          "Protocole d'évaluation",
+          "Nous comparons les résultats avant et après les corrections",
           [
-            "Nous utilisons les mêmes tâches avant et après les corrections. Les critères sont écrits avant les tests et les résultats sont consignés, y compris les échecs.",
-            "La supervision humaine reste définie pour les actions qui engagent l'entreprise."
+            "Nous écrivons d’abord ce qui doit réussir et ce qui doit être bloqué. Les résultats des tests indiquent les erreurs corrigées et celles qui restent à traiter.",
+            "Vous gardez la décision sur les actions qui engagent votre entreprise. Nous précisons qui valide ces actions et à quel moment l’assistant doit s’arrêter pour demander un accord."
           ]
         ],
         [
           "deliverables",
-          "Les livrables",
+          "Vous disposez de règles et de contrôles vérifiables",
           [
-            "Un audit, une liste de corrections priorisée, un harnais refait, une suite de tests et un guide d'exploitation, selon le périmètre retenu."
+            "Selon le travail convenu, nous vous remettons le diagnostic des erreurs, les corrections réalisées et les résultats des tests. Un guide précise les accès autorisés, les validations attendues et la marche à suivre en cas de problème."
           ]
         ],
         [
           "limits",
-          "Les limites",
+          "Les tests couvrent les situations examinées",
           [
-            "Un test réussi ne prouve pas la fiabilité dans tous les contextes. Les cas non testés restent à évaluer. Aucune mesure de performance n'est publiée ici."
+            "Un assistant peut encore échouer sur une situation nouvelle. Nous indiquons les cas testés et ceux qui restent à vérifier avant d’élargir son utilisation."
           ]
         ]
+      ],
+      "markers": [
+        "Vous définissez la tâche.",
+        "L’assistant consulte les informations autorisées.",
+        "Vous précisez ce qu’il peut conserver.",
+        "Vous choisissez les outils accessibles.",
+        "Les contrôles bloquent les actions interdites.",
+        "Les tests vérifient les résultats.",
+        "Une personne valide les actions qui l’exigent.",
+        "Vous suivez les dépenses d’utilisation."
       ],
       "faq": []
     },
     "en": {
       "name": "Harness Engineering",
-      "title": "The model is not enough. It needs a reliable system around it.",
-      "description": "Design or correct the system around your agents: context, tools, permissions, checks and supervision.",
+      "title": "Control your AI assistants",
+      "description": "You decide what your assistant is allowed to do",
       "sections": [
         [
           "problem",
-          "Strong in a demonstration, fragile in production",
+          "You decide what your assistant is allowed to do",
           [
-            "An agent can succeed in a demonstration and fail in your operations. The harness organizes what it knows, what it can do and what must be checked."
+            "Before an assistant modifies a file or sends a message, you need to be able to check its work. We define its access, the actions it is allowed to take and the situations in which it must ask you for confirmation."
           ]
         ],
         [
           "harness",
-          "The system around the model",
+          "We control each action",
           [
-            "Instructions define the work. Context and memory provide useful information. Tools and permissions bound actions. Checks and supervision control decisions. Cost tracking helps monitor operations."
+            "We specify the information the assistant can view and the tools it can use. We install checks before sensitive actions and keep a record of what it does."
           ]
         ],
         [
           "interventions",
-          "Two types of intervention",
+          "We prepare the checks before connecting your tools",
           [
-            "Build a new harness: start from tasks, define access and write checks before connecting tools.",
-            "Audit and correct an existing system: reproduce its failures, prioritize corrections and test them on the same tasks."
+            "You choose a task, such as preparing a customer reply. We determine which documents are needed, who reviews the reply and who authorizes it to be sent."
+          ]
+        ],
+        [
+          "existing",
+          "We work from your assistant’s errors",
+          [
+            "You show us the tasks that fail or the actions that concern you. We try to reproduce the problem, then check the corrections on those same tasks."
           ]
         ],
         [
           "evaluation",
-          "Evaluation protocol",
+          "We compare results before and after the corrections",
           [
-            "We use the same tasks before and after corrections. Criteria are written before testing and results are recorded, including failures.",
-            "Human supervision remains defined for actions that commit the company."
+            "We first write down what must succeed and what must be blocked. The test results show which errors were corrected and which still need work.",
+            "You keep the decision on actions that commit your company. We specify who approves these actions and when the assistant must stop to ask for approval."
           ]
         ],
         [
           "deliverables",
-          "Deliverables",
+          "You have rules and checks that can be verified",
           [
-            "An audit, a prioritized correction list, a rebuilt harness, a test suite and an operations guide, depending on the agreed scope."
+            "Depending on the agreed work, we provide the error diagnosis, the corrections made and the test results. A guide specifies the permitted access, expected approvals and what to do if a problem occurs."
           ]
         ],
         [
           "limits",
-          "Limits",
+          "The tests cover the situations examined",
           [
-            "A successful test does not prove reliability in every context. Untested cases still need evaluation. No performance measurements are published here."
+            "An assistant can still fail in a new situation. We state which cases were tested and which still need to be checked before its use is expanded."
           ]
         ]
+      ],
+      "markers": [
+        "You define the task.",
+        "The assistant views the information it is allowed to use.",
+        "You specify what it can retain.",
+        "You choose which tools it can access.",
+        "Checks block forbidden actions.",
+        "Tests verify the results.",
+        "A person approves the actions that require it.",
+        "You track usage costs."
       ],
       "faq": []
     }

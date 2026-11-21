@@ -84,8 +84,8 @@ for (const locale of ["fr", "en"]) {
     assert.doesNotMatch(html, /class="tag bo"/);
     assert.doesNotMatch(visibleText(html), /Tâche reprise|Task taken over/);
     assert.ok(visibleText(html).includes(fr
-      ? "Parrit.ai, c'est une équipe. Plus de vingt partenaires, et pour chaque projet ceux dont vous avez besoin."
-      : "Parrit.ai is a team. More than twenty partners, and for each project the ones you need."));
+      ? "Nous faisons appel à des partenaires pour construire vos outils et accompagner vos équipes selon votre projet."
+      : "We bring in partners to build your tools and support your teams according to your project."));
     assert.equal((html.match(/class="calc-card"/g) ?? []).length, 2);
     const details = [...html.matchAll(/<details([^>]*)><summary>(.*?)<\/summary><p>(.*?)<\/p><\/details>/g)];
     assert.equal(details.length, 6);

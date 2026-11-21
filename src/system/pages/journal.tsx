@@ -10,14 +10,14 @@ import { localizedAlternates, localizedOpenGraph } from "@/system/locale";
 const DICT = {
   "en": {
     "title": "Journal",
-    "heading": "This journal is written on the job.",
-    "sub": "What held and what broke on AI systems inside companies, dated and on the record.",
+    "heading": "This journal describes work on AI systems in businesses.",
+    "sub": "The articles describe what worked and what failed, with dates and findings.",
     "entry": "Journal / Entry"
   },
   "fr": {
     "title": "Le Journal",
-    "heading": "Ce journal s'écrit sur les chantiers.",
-    "sub": "Ce qui a tenu et ce qui a cassé sur des systèmes d'IA en entreprise, daté et consigné.",
+    "heading": "Ce journal raconte le travail sur des systèmes d'IA en entreprise.",
+    "sub": "Les articles décrivent ce qui a fonctionné et ce qui a échoué, avec les dates et les constats.",
     "entry": "Journal / Entrée"
   }
 } as const;

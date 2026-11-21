@@ -10,11 +10,11 @@ export async function generateMetadata(routeLocale?: Locale): Promise<Metadata> 
   const locale = routeLocale ?? await getLocale();
   const copy = BOOKING_COPY[locale];
   return {
-    title: copy.title,
+    title: copy.metaTitle,
     description: copy.description,
     robots: { index: false, follow: true },
     alternates: localizedAlternates("/rendez-vous", locale),
-    openGraph: localizedOpenGraph("/rendez-vous", locale, copy.title, copy.description),
+    openGraph: localizedOpenGraph("/rendez-vous", locale, copy.metaTitle, copy.description),
   };
 }
 
