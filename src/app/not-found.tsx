@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { RevFooter, RevHeader } from "@/system/components";
+import { NotFoundView } from "@/system/components/NotFoundView";
 import "../system/fonts.css";
 import "../system/brand-os.tokens.css";
 import "../system/tokens.css";
@@ -15,20 +14,11 @@ export const metadata: Metadata = {
 };
 
 export default function NotFound() {
-  return <div lang="en">
-    <RevHeader locale="en" />
-    <main className="rev-page r2-dark not-found-page">
-      <div className="r2-wrap">
-        <header className="r2-hero">
-          <h1>This page does not exist.<br /><span lang="fr">Cette page n&apos;existe pas.</span></h1>
-        </header>
-        <nav className="not-found-actions" aria-label="Page not found">
-          <Link className="rev-button exec" href="/">Back to the home page</Link>
-          <Link className="rev-button ghost" href="/fr" lang="fr">Revenir à l&apos;accueil</Link>
-          <Link className="rev-button ghost" href="/journal">Read the Journal</Link>
-        </nav>
-      </div>
-    </main>
-    <RevFooter locale="en" />
-  </div>;
+  return <>
+    {/* La page n'a pas le gabarit commun : elle précharge elle-même la police de la marque. */}
+    <link rel="preload" href="/fonts/rev02/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+    <link rel="preload" href="/fonts/rev02/GeneralSans-Medium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+    <link rel="preload" href="/fonts/rev02/GeneralSans-Semibold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+    <NotFoundView />
+  </>;
 }
