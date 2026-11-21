@@ -26,7 +26,7 @@ Précision de Paul reçue en cours de route : « les CTA sont un coup à droite,
 
 Ajout après relecture des captures par Claude : le pied de page rangeait ses deux groupes de liens à droite et la mention de droits à gauche. Les groupes partent maintenant du bord gauche, la mention de droits vient dessous.
 
-Suppressions : les 23 offres des partenaires et leur défilement, le cadre canard, le centrage des photos de terrain, le fond canard du bouton, le titre de 84 px, le bandeau en capitales et le pied « Visio » du calendrier, les extraits d'articles des pages d'offre, le second « Dernière mise à jour », le filet de 2 px des mentions légales, `clamp(56px, 9vh, 112px)`.
+Suppressions : les 23 offres des partenaires et leur défilement, le cadre canard, le centrage des photos de terrain, le fond canard du bouton, le titre de 84 px, le bandeau en capitales et le pied « Visio » du calendrier, les extraits d'articles des pages d'offre, le filet de 2 px des mentions légales, `clamp(56px, 9vh, 112px)`.
 
 ## Corrections après relecture (six relecteurs, aucun bloquant)
 
@@ -35,6 +35,7 @@ Suppressions : les 23 offres des partenaires et leur défilement, le cadre canar
 - Chiffre de la presse : définition de la spec conservée (articles publiés et indexables dans la langue de la page, 31 en français comme en anglais aujourd'hui). La page anglaise du Journal liste aussi neuf articles en `noindex` qui ne sont pas comptés : le chiffre ne dépasse jamais la liste, et un test le vérifie. Rien n'est affiché à zéro, et la légende passe au singulier à un.
 - Page d'offre : la liste d'étapes du bandeau est un rappel visuel, masqué aux lecteurs d'écran, qui lisent la version complète juste après.
 - CSS mort retiré : `.offer-stack`, `.offer-sizer`, `.cal-bar`, `.cal-bar-footer`.
+- Mentions légales : le fichier de la page revient à l'état de la branche principale. Le contrôle qualité classe toute modification de ce fichier en risque élevé ; le retrait du second « Dernière mise à jour » sort donc de ce lot et attend l'accord de Paul. Seule la feuille de style de la page change.
 - Garde-fou : bornes basses explicites sur les boutons et sur les titres de section ; le contrôle « rien de centré » couvre aussi le pied de page ; les exclusions portent leur raison.
 
 ## Captures
