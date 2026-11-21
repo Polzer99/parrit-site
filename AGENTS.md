@@ -2,7 +2,7 @@
 
 Le site ne présente jamais un fondateur qui fait tout. Selon la décision de Paul du 21/11/2026,
 la section partenaires s'ouvre par « Nous faisons appel à des partenaires pour construire vos outils et accompagner vos équipes selon votre projet. » ; aucune mention d'un
-interlocuteur unique. Bloc contact : « Vous échangez avec Paul Larmaraud. », sans date de création ni parcours du fondateur, puis le seul paragraphe
+interlocuteur unique. Bloc contact : « Vous échangez avec Paul Larmaraud », sans date de création ni parcours du fondateur, puis le seul paragraphe
 « Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet. »
 Le mot « formation » reste hors de l'accueil. La photo, le bouton et l'e-mail restent. Rien de pompeux sur le fondateur. Aucune liste de ce que le fondateur
 conçoit ou pilote, y compris dans `scripts/generate-llms.mjs`. Cette décision prime sur « la ligne des

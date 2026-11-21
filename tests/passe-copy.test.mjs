@@ -13,8 +13,8 @@ for (const locale of ["fr", "en"]) {
     const contact = html.match(/<section class="founder"[\s\S]*?<\/section>/)[0];
     const heading = contact.match(/<h2>([\s\S]*?)<\/h2>/)[1];
     assert.equal(text(heading), locale === "fr"
-      ? "Vous échangez avec Paul Larmaraud."
-      : "You speak with Paul Larmaraud.");
+      ? "Vous échangez avec Paul Larmaraud"
+      : "You speak with Paul Larmaraud");
     const details = contact.match(/<div class="founder-details">([\s\S]*?)<div class="actions">/)[1];
     assert.equal((details.match(/<p>/g) ?? []).length, 1);
     assert.doesNotMatch(details, /<ul|<li/);

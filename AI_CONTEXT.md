@@ -2,7 +2,7 @@
 
 Spec `docs/CODEX-SPEC-2026-11-21-passe-copy-astra.md`, base a1ab61a.
 Textes exacts FR et traductions EN sur accueil, rendez-vous et en-tête Journal.
-Contact : « Vous échangez avec Paul Larmaraud. », unique paragraphe d'équipe,
+Contact : « Vous échangez avec Paul Larmaraud », unique paragraphe d'équipe,
 portrait/actions conservés. FAQ et llms régénérés ; H1, SEO accueil, JSON-LD hors
 FAQ, CSS et articles intacts. AGENTS/TRUTH alignés sur la décision du 21/11.
 Référence 803/803 tests, candidat 807/807 (quatre tests de rendu ajoutés).

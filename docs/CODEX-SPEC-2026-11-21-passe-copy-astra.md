@@ -10,12 +10,14 @@ Le texte « Après » ci-dessous a été rédigé par gpt-6-astra (relecture du 
 
 ## Règles de construction
 
+Correctif CI : deux choix du sélecteur raccourcis (réserve du chevron) et titre du contact sans point final (règle des titres).
+
 - On modifie l'existant : mêmes sections, même charte, mêmes composants, mêmes animations. Aucune dépendance.
 - Chaque chaîne française changée garde sa traduction anglaise : remplacer la clé dans `src/system/single-page-copy.ts` (ou le champ `fr` de `home-goals.ts`, `home-layers.ts`, `ontology-hero-data.ts`, `booking.ts`…) et écrire l'anglais courant qui suit le même sens. Pas d'anglais pompeux non plus.
 - Le titre principal ne change pas : « Votre expertise est la matière première. Nous la mettons au travail. »
 - Le `<title>` et la description de l'accueil (`src/system/pages/home.tsx`) ne changent pas (référencement).
 - Les données structurées (`jsonld.ts`) ne changent pas, sauf si une chaîne FAQ partagée avec le texte visible change : elle suit alors le texte (décision du 08/11 : texte affiché et FAQPage partagent les mêmes paires).
-- Une ligne marquée « À supprimer » disparaît du rendu, avec sa clé de traduction. Pour le bloc du fondateur : la photo, le bouton « Prendre rendez-vous » et l'adresse e-mail restent ; le titre devient « Vous échangez avec Paul Larmaraud. » et les trois paragraphes indiqués disparaissent.
+- Une ligne marquée « À supprimer » disparaît du rendu, avec sa clé de traduction. Pour le bloc du fondateur : la photo, le bouton « Prendre rendez-vous » et l'adresse e-mail restent ; le titre devient « Vous échangez avec Paul Larmaraud » et les trois paragraphes indiqués disparaissent.
 - Tests : mettre à jour UNIQUEMENT les assertions qui vérifient une chaîne changée ici (`tests/booking.spec.ts`, `tests/booking.test.mjs`, `tests/booking-render.test.mjs`, `tests/action-unique.test.mjs`, et toute autre qui échoue pour cette seule raison). Ne supprimer aucun test, n'affaiblir aucune doctrine testée (`doctrine-visible`, brand-os, false-claims). Le test de `action-unique` qui vérifie « Chercheurs du MIT » reste valable (l'étiquette est inchangée).
 - `AGENTS.md` et `TRUTH.md` : là où ils citent une phrase remplacée (« Parrit.ai, c'est une équipe. »…), mettre la nouvelle avec la mention « décision de Paul du 21/11/2026 ». `public/llms.txt` (ou son générateur `scripts/generate-llms.mjs`) suit les phrases changées.
 - La PR #389 (phrase des partenaires) est remplacée par celle-ci : ne pas la reprendre.
@@ -50,12 +52,12 @@ Le texte « Après » ci-dessous a été rédigé par gpt-6-astra (relecture du 
 | Par un premier échange de 15 minutes en visioconférence, puis un cadrage écrit, ou un refus motivé si nous ne sommes pas les bons interlocuteurs. | Nous échangeons pendant 15 minutes en visioconférence, puis nous définissons le travail par écrit. Si nous ne pouvons pas vous aider, nous vous expliquons pourquoi. |
 | Pour chaque besoin, la plus adaptée : ChatGPT, Claude, Gemini, Mistral, Copilot, entre autres, sans dépendre d'un seul fournisseur. | Nous choisissons selon votre besoin parmi ChatGPT, Claude, Gemini, Mistral, Copilot et d'autres outils. Nous ne dépendons pas d'un seul fournisseur. |
 | Oui. L'équipe se compose selon le diagnostic, parmi plus de vingt partenaires. | Oui. Nous choisissons les intervenants selon les besoins de votre entreprise. |
-| Paul Larmaraud, fondateur de Parrit.ai | Vous échangez avec Paul Larmaraud. |
+| Paul Larmaraud, fondateur de Parrit.ai | Vous échangez avec Paul Larmaraud |
 | Il a créé Parrit.ai en 2024, après deux ans chez Lime. | À supprimer |
 | Le premier échange se fait avec lui : vous lui parlez de votre projet. | À supprimer |
 | Premier échange de 15 minutes en visioconférence : vous présentez votre besoin, nous vous indiquons ce qui est réalisable. | Pendant les 15 minutes en visioconférence, vous présentez votre besoin. Nous vous indiquons ce qui est réalisable. |
 
-Bloc du fondateur, résultat attendu : le titre « Vous échangez avec Paul Larmaraud. », puis le seul paragraphe « Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet. » (conservé : décision de Paul des 13 et 14/11, le site ne présente jamais un fondateur qui fait tout), puis le bouton et l'e-mail. Dans `AGENTS.md`, la section « Une équipe, décision de Paul des 13 et 14/11/2026 » devient : section partenaires ouverte par la nouvelle phrase des partenaires ; bloc contact sans date de création ni parcours du fondateur (décision de Paul du 21/11/2026 : rien de pompeux sur le fondateur), avec la phrase du travail en équipe. Le reste de la section tient.
+Bloc du fondateur, résultat attendu : le titre « Vous échangez avec Paul Larmaraud », puis le seul paragraphe « Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet. » (conservé : décision de Paul des 13 et 14/11, le site ne présente jamais un fondateur qui fait tout), puis le bouton et l'e-mail. Dans `AGENTS.md`, la section « Une équipe, décision de Paul des 13 et 14/11/2026 » devient : section partenaires ouverte par la nouvelle phrase des partenaires ; bloc contact sans date de création ni parcours du fondateur (décision de Paul du 21/11/2026 : rien de pompeux sur le fondateur), avec la phrase du travail en équipe. Le reste de la section tient.
 
 Note : l'accueil affiche « Paul Larmaraud, » et « fondateur de Parrit.ai » en deux morceaux (`home-layers.ts`, clé `contact`). Le titre remplacé est la ligne entière.
 

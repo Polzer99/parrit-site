@@ -185,8 +185,8 @@ for (const locale of ["fr", "en"]) test(`passe 4 services, technologies, logos a
   const founder = html.match(/<div class="founder-identity">\s*(<h2>[\s\S]*?<\/h2>)/)?.[1];
   assert.ok(founder);
   assert.equal(visibleText(founder).replace(/\s+/g, " ").trim(), locale === "fr"
-    ? "Vous échangez avec Paul Larmaraud."
-    : "You speak with Paul Larmaraud.");
+    ? "Vous échangez avec Paul Larmaraud"
+    : "You speak with Paul Larmaraud");
 });
 
 for (const locale of ["fr", "en"]) test(`passe 4 complete SSR use cases, offers after architecture removal (${locale})`, async () => {

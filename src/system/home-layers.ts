@@ -77,6 +77,6 @@ export function homeSectionHeadings(locale: Locale) {
     technologies: [t("Nous choisissons les outils"), t("selon votre besoin.")],
     team: [t("Chaque projet a son équipe"), t("et sa technologie.")],
     questions: [copy.questionsTitle],
-    contact: [t("Vous échangez avec"), "Paul Larmaraud."],
+    contact: [t("Vous échangez avec"), "Paul Larmaraud"],
   } as const satisfies Record<HomeSection, readonly string[]>;
 }

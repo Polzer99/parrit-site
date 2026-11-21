@@ -2,7 +2,7 @@
 
 La spec `docs/CODEX-SPEC-2026-11-21-passe-copy-astra.md` remplace les seuls textes indiqués, mot pour mot en français et avec leur traduction anglaise.
 Partenaires : « Nous faisons appel à des partenaires pour construire vos outils et accompagner vos équipes selon votre projet. »
-Contact : « Vous échangez avec Paul Larmaraud. », puis « Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet. »
+Contact : « Vous échangez avec Paul Larmaraud », puis « Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet. »
 Aucune date de création ni parcours du fondateur ; photo, rendez-vous et e-mail conservés. Le site présente une équipe. La PR #389 est remplacée par cette décision.
 H1 et métadonnées de l'accueil, charte, sections et animations conservés ; FAQ visible et FAQPage partagent toujours les mêmes paires.
 

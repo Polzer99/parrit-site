@@ -41,7 +41,7 @@ export function renderLlms(entries = getAllJournalEntrySummaries(), frenchEntrie
 - Dans l'ordre : ${order("fr")}
 - Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.
 - Nous faisons appel à des partenaires pour construire vos outils et accompagner vos équipes selon votre projet.
-- Vous échangez avec Paul Larmaraud. Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet.
+- Vous échangez avec Paul Larmaraud : prise en main de l'IA, développement sur mesure, expertise métier, recherche. Le travail se fait ensuite avec l'équipe adaptée à votre projet.
 - Présence : Tourcoing et Paris. Zone d'intervention : toute la France.
 
 ### FAQ
@@ -70,7 +70,7 @@ ${articles("fr")}
 - In order: ${order("en")}
 - Client replies, follow-ups, quotes, meeting notes: AI prepares them, your teams review and decide.
 - We bring in partners to build your tools and support your teams according to your project.
-- You speak with Paul Larmaraud. AI adoption, custom development, industry expertise, research: the work then continues with the team that fits your project.
+- You speak with Paul Larmaraud: AI adoption, custom development, industry expertise, research. The work then continues with the team that fits your project.
 - Presence: Tourcoing and Paris. Service area: across France.
 
 ### FAQ

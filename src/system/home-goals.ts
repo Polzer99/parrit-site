@@ -79,8 +79,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "clients-reactives",
     "group": "c",
     "label": {
-      "fr": "recontacter mes anciens clients",
-      "en": "contact my past clients again"
+      "fr": "relancer mes anciens clients",
+      "en": "follow up past clients"
     },
     "result": {
       "fr": "Vous repérez les clients à rappeler et pour quel motif.",
@@ -181,8 +181,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "agents",
     "group": "b",
     "label": {
-      "fr": "automatiser des tâches sous contrôle",
-      "en": "automate tasks under supervision"
+      "fr": "automatiser des tâches",
+      "en": "automate tasks"
     },
     "result": {
       "fr": "Des assistants se répartissent le travail. Vous gardez le contrôle.",
