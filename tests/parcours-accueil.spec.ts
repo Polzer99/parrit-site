@@ -27,8 +27,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         const home = locale === "fr" ? "/fr" : "/";
         await page.goto(local(`${home}?utm_campaign=layers&source=old`));
         const expected = locale === "fr"
-          ? ["haut", "references", "en-production", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"]
-          : ["haut", "references", "in-production", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"];
+          ? ["haut", "references", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"]
+          : ["haut", "references", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"];
         expect(await page.locator("main > section").evaluateAll(nodes => nodes.map(node => node.id))).toEqual(expected);
         const nav = locale === "fr" ? ["offres", "partenaires", "parcours", "questions", "journal"] : ["offers", "team", "path", "questions", "journal"];
         for (const selector of [".desktop-nav", ".mobile-menu nav"]) {
@@ -65,8 +65,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         // 15/11 : calculateur ; les mesures internes quittent l'accueil, la presse reste.
         await expect(page.locator(".home-measures .home-press")).toBeVisible();
         await expect(page.locator(".home-measures a[href*='/journal/']")).toHaveCount(0);
-        await expect(page.locator(".home-motors .calc-card")).toHaveCount(2);
-        await expect(page.locator(".home-motors .calc-footer a.exec[href*='source=accueil-calculateur']")).toHaveCount(1);
+        // 21/11/2026 (soir) : le calculateur est supprimé.
+        await expect(page.locator(".home-motors, .home-calculator, .calc-card")).toHaveCount(0);
         // 21/11 : la section des assistants est supprimée (coherence-et-garde-fous B.1).
         await expect(page.locator(".assistant-links a, .home-assistant, #assistant")).toHaveCount(0);
         expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
@@ -84,7 +84,9 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
       for (const old of ["ce-qui-change", "what-changes", "services"]) {
         await page.goto(local(`${home}?source=legacy&utm_campaign=keep#${old}`));
         if (javaScriptEnabled && old !== "services") await expect(page).toHaveURL(new RegExp(`#${target}$`));
-        await expect(page.locator(`#${target} h2`).first()).toBeInViewport();
+        // 21/11/2026 (soir) : l'ancre vit en tête de la section des offres ; son titre doit être à l'écran.
+        await expect(page.locator(`#${target}`)).toHaveCount(1);
+        await expect(page.locator(locale === "fr" ? "#offres h2" : "#offers h2").first()).toBeInViewport();
         const url = new URL(page.url());
         expect(url.searchParams.get("source")).toBe("legacy");
         expect(url.searchParams.get("utm_campaign")).toBe("keep");
@@ -105,5 +107,5 @@ for (const locale of ["fr", "en"] as const) test(`legacy intent attribution reac
   });
   await expect(page.locator("#single-contact")).toHaveAttribute("data-state", "done");
   await expect(page.locator("#single-contact a,#single-contact button")).toHaveCount(0);
-  expect(await page.locator('a.rev-button[href*="source="]').evaluateAll(nodes => [...new Set(nodes.map(node => new URL((node as HTMLAnchorElement).href).searchParams.get("source")))].sort())).toEqual(["accueil-calculateur", "accueil-rendez-vous", "rdv-contact", "rdv-nav"]); // 15/11 : calculateur
+  expect(await page.locator('a.rev-button[href*="source="]').evaluateAll(nodes => [...new Set(nodes.map(node => new URL((node as HTMLAnchorElement).href).searchParams.get("source")))].sort())).toEqual(["accueil-rendez-vous", "rdv-contact", "rdv-nav"]); // 21/11 (soir) : calculateur supprimé
 });

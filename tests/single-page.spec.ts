@@ -32,8 +32,8 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     expect(portraitBox).not.toBeNull();
     expect(portraitBox!.width / portraitBox!.height).toBeCloseTo(3 / 4, 2);
     await page.evaluate(() => document.fonts.ready);
-    await expect(page.locator("main > section")).toHaveCount(12);
-    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["haut", "references", "en-production", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"] : ["haut", "references", "in-production", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"]);
+    await expect(page.locator("main > section")).toHaveCount(10);
+    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["haut", "references", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"] : ["haut", "references", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"]);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     const mono = await page.locator("main *, footer *, header *").evaluateAll(nodes => nodes.filter(node => {
       const style = getComputedStyle(node);
@@ -42,16 +42,16 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     expect(mono).toEqual([]);
     await expect(page.locator("#references").getByRole("img")).toHaveCount(6);
     await expect(page.locator(".logo-set[aria-hidden=true]")).toHaveCount(0);
-    // 15/11 : calculateur, plus de neuf liens de moteurs.
-    await expect(page.locator(".calc-card")).toHaveCount(2);
+    // 21/11/2026 (soir) : le calculateur est supprimé ; ses ancres historiques vivent en tête des offres.
+    await expect(page.locator(".calc-card, .home-calculator, .home-motors")).toHaveCount(0);
     await expect(page.locator("#architecture")).toHaveCount(0);
-    await expect(page.locator("#parcours + #technologies, #path + #technologies")).toHaveCount(1);
-    const applications = page.locator(locale === "fr" ? "#en-production" : "#in-production");
-    // 15/11 : calculateur, un seul h2 et deux cartes.
+    await expect(page.locator("#parcours + #technologies, #path + #technologies")).toHaveCount(0);
+    await expect(page.locator("#terrain + #technologies, #in-the-field + #technologies")).toHaveCount(1);
+    const applications = page.locator(locale === "fr" ? "#offres" : "#offers");
     await expect(applications.locator("h2")).toHaveCount(1);
-    await expect(applications.locator(".calc-card h3")).toHaveCount(2);
+    await expect(applications.locator(".home-offer h3")).toHaveCount(2);
     await expect(applications).not.toContainText(/Laparra|Clevery|Forexpert|Joone|SNCF/);
-    await expect(applications).toContainText(locale === "fr" ? "L'assistant prépare. Vous validez." : "The assistant prepares. You approve.");
+    for (const alias of ["en-production", "in-production", "services", "ce-qui-change", "what-changes"]) await expect(applications.locator(`#${alias}`)).toHaveCount(1);
     for (const nav of [".desktop-nav", ".mobile-menu nav"]) {
       await expect(page.locator(`${nav} a`).first()).toHaveText(locale === "fr" ? "Offres" : "Offers");
       await expect(page.locator(`${nav} a`).first()).toHaveAttribute("href", locale === "fr" ? "/fr#offres" : "/#offers");
@@ -139,7 +139,7 @@ test("no JavaScript conversations remain visible and legal and 404 stay accessib
   });
   const page = await context.newPage();
   await page.goto(local("/fr"));
-  await expect(page.locator(".calc-card")).toHaveCount(2); // 15/11 : calculateur
+  await expect(page.locator(".calc-card")).toHaveCount(0); // 21/11 (soir) : calculateur supprimé
   for (const path of ["/fr", "/"]) {
     await page.goto(local(path));
     await expect(page.locator(".goal-diagram [data-active=true]")).toHaveCount(3);
@@ -273,17 +273,12 @@ test("client masks are local, served successfully and match the approved files",
   }
 });
 
-for (const width of [1440, 800, 390]) // 15/11 : calculateur, les champs restent visibles et sans animation.
-test(`calculator fields remain available with reduced motion at ${width}`, async ({ page }) => {
+// 21/11/2026 (soir) : le calculateur est supprimé ; les bandes de logos et de technologies restent immobiles en mouvement réduit.
+for (const width of [1440, 800, 390]) test(`logo and technology tracks stay static with reduced motion at ${width}`, async ({ page }) => {
   await page.setViewportSize({ width, height: 900 });
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.goto(local("/fr"));
-  const motors = page.locator("#en-production");
-  await motors.scrollIntoViewIfNeeded();
-  await expect(motors.locator(".calc-field input, .calc-field select")).toHaveCount(7);
-  for (const field of await motors.locator(".calc-field input, .calc-field select").all()) await expect(field).toBeVisible();
   await page.emulateMedia({ reducedMotion: "reduce" });
-  for (const el of await page.locator(".calc-card, .calc-footer .btn, .logo-track, .tech-track").all()) await expect(el).toHaveCSS("animation-name", "none");
+  await page.goto(local("/fr"));
+  for (const el of await page.locator(".logo-track, .tech-track").all()) await expect(el).toHaveCSS("animation-name", "none");
 });
 
 test("visible contact variant keeps the capture payload and error recovery", async ({ page }) => {
@@ -348,7 +343,7 @@ for (const locale of ["fr", "en"]) for (const viewport of [{ width: 390, height:
     expect(parseFloat(geometry.paddingTop)).toBeGreaterThan(0);
     expect(geometry.scrollWidth).toBe(geometry.clientWidth);
     expect(geometry.scrollHeight).toBe(geometry.clientHeight);
-    await expect(panel.locator("a")).toHaveCount(7);
+    await expect(panel.locator("a")).toHaveCount(6); // 21/11 (alignement) : Offres, Partenaires, Le parcours, Questions, Journal + bouton de rendez-vous
     for (const link of await panel.locator("a").all()) {
       await expect(link).toBeVisible();
       await expect(link).toBeInViewport({ ratio: 1 });
@@ -384,14 +379,15 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       const content = section.firstElementChild as HTMLElement;
       return { id: section.id, height: content.getBoundingClientRect().height, scrollHeight: content.scrollHeight, overflowY: getComputedStyle(content).overflowY };
     }));
-    expect(sections).toHaveLength(10);
+    // 21/11/2026 (soir) : sans calculateur, huit blocs hors héros et contact.
+    expect(sections).toHaveLength(8);
     for (const section of sections) {
       expect(section.height, `${section.id}: first child's full border box, without margins`).toBeLessThanOrEqual(height);
       expect(section.scrollHeight, `${section.id}: content must not be clipped`).toBeLessThanOrEqual(height);
       expect(section.overflowY).not.toMatch(/hidden|clip/);
     }
-    const figures = page.locator(".goal-schema, .calc-grid, .home-offers, .session-mosaic, .home-faq, .path-walker, .steps, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid");
-    await expect(figures).toHaveCount(12); // 15/11 : calculateur, la grille des mesures disparaît
+    const figures = page.locator(".goal-schema, .home-offers, .session-mosaic, .home-faq, .path-walker, .steps, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid");
+    await expect(figures).toHaveCount(10); // 21/11 (soir) : le calculateur disparaît ; dix blocs mesurés (constaté sur le HTML rendu)
     for (const figure of await figures.all()) {
       const box = await figure.boundingBox();
       expect(box).not.toBeNull();
@@ -651,31 +647,6 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
   });
 }
 
-// 15/11 : calculateur, remplace le test des neuf liens de moteurs.
-for (const locale of ["fr", "en"]) test(`calculator updates its results ${locale}`, async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto(local(locale === "fr" ? "/fr" : "/"));
-  const growth = page.locator('.calc-card[data-calculator="croissance"]');
-  const time = page.locator('.calc-card[data-calculator="temps"]');
-  const growthResult = growth.locator('[data-calc-result="croissance"]');
-  const timeResult = time.locator('[data-calc-result="temps"]');
-  await expect(growthResult).toHaveText(locale === "fr" ? /^9\s000\s€$/ : "€9,000");
-  await expect(timeResult).toHaveText(locale === "fr" ? "17 h" : "17 hours");
-  await expect(time.locator(".calc-result")).toContainText(locale === "fr" ? /soit environ 680\s€\./ : "about €680.");
-  await growth.locator(".calc-field input").first().fill("40");
-  await expect(growthResult).toHaveText(locale === "fr" ? /^18\s000\s€$/ : "€18,000");
-  await growth.locator(".calc-field input").first().fill("");
-  await expect(growthResult).toHaveText(locale === "fr" ? /^0\s€$/ : "€0");
-  await time.locator("select").selectOption("rapprochement");
-  await expect(timeResult).toHaveText(locale === "fr" ? "7 h" : "7 hours");
-  await time.locator("select").selectOption("comptes-rendus");
-  await expect(timeResult).toHaveText(locale === "fr" ? "11 h" : "11 hours");
-  await time.locator(".calc-field input").first().fill("");
-  await expect(timeResult).toHaveText("0 h");
-  await time.locator("select").selectOption("rapprochement");
-  await expect(timeResult).toHaveText(locale === "fr" ? "7 h" : "7 hours");
-});
-
 test("partner offers keep at most two faces active and restore every static offer", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 800 });
   await page.emulateMedia({ reducedMotion: "reduce" });
@@ -714,12 +685,12 @@ test("partner offers keep at most two faces active and restore every static offe
   for (const offer of await page.locator(".partner-offers li").all()) await expect(offer).toBeVisible();
 });
 
-for (const locale of ["fr", "en"]) test(`five native carousels retain keyboard scrolling and position dots ${locale}`, async ({ page }) => {
+for (const locale of ["fr", "en"]) test(`four native carousels retain keyboard scrolling and position dots ${locale}`, async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 700 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(local(locale === "fr" ? "/fr" : "/"));
   const tracks = page.locator(".mobile-carousel");
-  await expect(tracks).toHaveCount(5);
+  await expect(tracks).toHaveCount(4); // 21/11 (soir) : le carrousel du calculateur est supprimé
   for (const track of await tracks.all()) {
     await track.scrollIntoViewIfNeeded();
     await expect.poll(() => track.evaluate(el => el.scrollLeft)).toBe(0);
@@ -751,7 +722,8 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await page.emulateMedia({ reducedMotion: "reduce" });
         await page.goto(local(locale === "fr" ? "/fr" : "/"));
         await page.evaluate(() => document.fonts.ready);
-        const band = page.locator("#parcours + #technologies, #path + #technologies");
+        // 21/11 (alignement) : le terrain précède les technologies.
+        const band = page.locator("#terrain + #technologies, #in-the-field + #technologies");
         // Round down to keep the section top visible when the hero height includes a subpixel.
         await band.evaluate(el => window.scrollTo(0, Math.floor(el.getBoundingClientRect().top + window.scrollY)));
         await expect(band).toBeInViewport({ ratio: 1 });
@@ -759,7 +731,7 @@ for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]
         await expect(band.locator(".tech-note")).toHaveCount(0);
         const list = band.locator(".tech-set:not([aria-hidden])");
         expect(await list.locator("li span").allTextContents()).toEqual(["ChatGPT", "Claude", "Gemini", "Mistral", "Copilot", "Google", "Microsoft", "WhatsApp", "Telegram", "OVH"]);
-        await expect(page.locator(locale === "fr" ? "#technologies + #partenaires" : "#technologies + #team")).toHaveCount(1);
+        await expect(page.locator(locale === "fr" ? "#technologies + #mesures" : "#technologies + #measurements")).toHaveCount(1);
         await expect(band.locator(".tech-set[aria-hidden=true]")).toBeHidden();
         await expect(band.locator(".tech-track")).toHaveCSS("animation-name", "none");
         await expect(band.locator(".tech-track")).toHaveCSS("transform", "none");
@@ -894,41 +866,6 @@ test("technology masks are served locally with the exact supplied SVG bytes", as
 });
 
 for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
-  test.describe(`complete motors ${locale} JS=${javaScriptEnabled}`, () => {
-    test.use({ javaScriptEnabled });
-    for (const [width, height] of [[1440, 800], [1280, 720], [820, 900], [390, 700], [375, 700], [320, 700]]) {
-      test(`complete calculator without clipped text at ${width}×${height}`, async ({ page }) => {
-        await page.setViewportSize({ width, height });
-        await page.emulateMedia({ reducedMotion: "reduce" });
-        await page.goto(local(locale === "fr" ? "/fr" : "/"));
-        await page.evaluate(() => document.fonts.ready);
-        const motors = page.locator(locale === "fr" ? "#en-production" : "#in-production");
-        // 15/11 : calculateur, cartes de même largeur, champs et bouton entiers, 44 px minimum.
-        await expect(motors.locator(".calc-card")).toHaveCount(2);
-        const columns = await motors.locator(".calc-card").evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().width));
-        for (const column of columns) expect(column).toBeCloseTo(columns[0], 1);
-        expect((await motors.locator(":scope > .wrap").boundingBox())!.height).toBeLessThanOrEqual(height);
-        for (const flow of await motors.locator(".calc-field input, .calc-field select, .calc-footer .btn").all()) {
-          await expect(flow).toBeVisible();
-          const size = await flow.evaluate(el => ({ width: el.clientWidth, scrollWidth: el.scrollWidth, height: el.clientHeight, scrollHeight: el.scrollHeight, font: parseFloat(getComputedStyle(el).fontSize) }));
-          expect(size.scrollWidth).toBeLessThanOrEqual(size.width + 1);
-          expect(size.scrollHeight).toBeLessThanOrEqual(size.height + 1);
-          expect(size.font).toBeGreaterThanOrEqual(16);
-          expect(size.height).toBeGreaterThanOrEqual(44);
-        }
-        for (const text of await motors.locator(".calc-card h3, .calc-field > span, .calc-result, .calc-note, .motors-principle").all()) {
-          const bounds = await text.evaluate(el => ({ size: parseFloat(getComputedStyle(el).fontSize), width: el.clientWidth, scrollWidth: el.scrollWidth, height: el.clientHeight, scrollHeight: el.scrollHeight }));
-          expect(bounds.size).toBeGreaterThanOrEqual(16);
-          expect(bounds.scrollWidth).toBeLessThanOrEqual(bounds.width + 1);
-          expect(bounds.scrollHeight).toBeLessThanOrEqual(bounds.height + 1);
-        }
-        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
-      });
-    }
-  });
-}
-
-for (const locale of ["fr", "en"]) for (const javaScriptEnabled of [true, false]) {
   test.describe(`reference logos inside the strip ${locale} JS=${javaScriptEnabled}`, () => {
     test.use({ javaScriptEnabled });
     for (const [width, height] of [[1440, 800], [1280, 720], [1100, 800]]) {
@@ -979,16 +916,7 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
     await page.evaluate(() => document.fonts.ready);
 
-    // 15/11 : calculateur. Aucune date dans les cartes ; aucune promesse temporelle dans la note et le pied
-    // (les heures du résultat sont calculées sur les chiffres du visiteur, pas promises).
-    const months = "janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre|january|february|march|april|may|june|july|august|september|october|november|december";
-    const calendarDate = new RegExp(`\\b(?:\\d{1,2}(?:er|st|nd|rd|th)?\\s+(?:${months})|(?:${months})\\s+\\d{1,2}|\\d{1,4}[/-]\\d{1,2}[/-]\\d{1,4}|(?:19|20)\\d{2})\\b`, "i");
-    for (const flow of await page.locator(".calc-card, .calc-note, .calc-footer").all()) {
-      await expect(flow).not.toContainText(calendarDate);
-    }
-    for (const flow of await page.locator(".calc-note, .calc-footer").all()) {
-      await expect(flow).not.toContainText(/\b(?:aujourd'hui|demain|hier|matin|soir|today|tomorrow|yesterday|morning|evening|tonight|daily|weekly|monthly|yearly|hourly|quotidien(?:ne)?|hebdomadaire|mensuel(?:le)?|annuel(?:le)?|(?:chaque|tous les|toutes les|every|each)\s+(?:jours?|semaines?|mois|ans?|années?|heures?|day|week|month|year|hour)|\d+\s*(?:h|min(?:utes?)?|heures?|jours?|semaines?|mois|ans?|années?|hours?|days?|weeks?|months?|years?))\b/i);
-    }
+    // 21/11/2026 (soir) : les contrôles de dates et de promesses temporelles portaient sur la note et le pied du calculateur, supprimés avec lui.
     const journal = locale === "fr" ? "/fr/journal" : "/journal";
     await expect(page.locator(`#references a[href="${journal}"]`)).toHaveCount(0);
     // Décision de Paul du 08/11/2026, correctif passe 2 : one index link, only in articles.
@@ -1087,16 +1015,11 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390, 375]) {
     expect(text.replace(/\s+/g, " ").replace(headline, "")).not.toMatch(locale === "fr"
       ? /ontologie|objets reliés|sources de logique|systèmes d'action|agnostiques|harness|back-office|raffinons|matière première/i
       : /ontology|linked objects|logic sources|systems of action|technology-agnostic|harness engineering/i);
-    await expect(page.locator(".calc-card")).toHaveCount(2); // 15/11 : calculateur
+    await expect(page.locator(".calc-card")).toHaveCount(0); // 21/11 (soir) : calculateur supprimé
     for (const value of [await page.title(), await page.locator('meta[name="description"]').getAttribute("content")]) {
       expect(value).toMatch(locale === "fr" ? /\bIA\b.*Tourcoing.*Paris/ : /\bAI\b.*Tourcoing.*Paris/);
       expect(value).not.toMatch(/Lille/);
     }
-    const definition = page.locator(locale === "fr" ? "#en-production > .wrap > p" : "#in-production > .wrap > p");
-    await expect(definition).toHaveCount(1);
-    await expect(definition).toBeVisible();
-    const definitionHeight = await definition.evaluate(el => ({ client: el.clientHeight, scroll: el.scrollHeight }));
-    expect(definitionHeight.scroll).toBeLessThanOrEqual(definitionHeight.client + 1);
     const graph = await page.locator('script[type="application/ld+json"]').evaluateAll(nodes => nodes.map(node => JSON.parse(node.textContent ?? "{}") as { "@type": string; description?: string; jobTitle?: string }));
     expect(graph.find(item => item["@type"] === "Organization")?.description).toMatch(locale === "fr" ? /équipes.*IA/ : /teams.*AI/);
     expect(graph.find(item => item["@type"] === "Person")?.jobTitle).toBe(locale === "fr" ? "Fondateur" : "Founder");

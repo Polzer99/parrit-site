@@ -18,7 +18,7 @@ const THEMES = ["harness-engineering", "ai-sprints", "integration-developpement"
 
 // Étiquettes : jamais de point final. Ce sont des noms, pas des phrases.
 const CLASSES_ETIQUETTES = new Set([
-  "partner-offers", "tech-set", "offer-eyebrow", "calc-process", "calc-field", "goal-plane-title",
+  "partner-offers", "tech-set", "offer-eyebrow", "goal-plane-title",
   "journal-entry-meta", "footer-links", "footer-group-label", "languages", "partner-type-label",
 ]);
 // Titres et résumés d'articles : texte éditorial, hors de ce contrôle.
@@ -72,6 +72,9 @@ for (const locale of ["fr", "en"]) {
     const page = `${locale}/${nom}`;
     const liste = blocs(html);
     const contenu = liste.filter(bloc => !bloc.etiquette && bloc.role !== "bouton");
+
+    // Borne basse : une page dont l'analyseur ne lit plus rien ne doit pas passer à vide.
+    test(`la page est bien lue (${page})`, () => assert.ok(nom === "pied" ? liste.length > 0 : contenu.length > 0, `${page} : aucun bloc de texte lu`));
 
     test(`ponctuation par rôle (${page})`, () => {
       const fautes = [];

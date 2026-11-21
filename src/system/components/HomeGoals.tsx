@@ -3,13 +3,11 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import { localizedPath, type Locale } from "@/system/locale";
 import { GOAL_GROUPS, GOAL_PLANES, HOME_GOALS, goalNodeLabel, homeGoal, type HomeGoal } from "@/system/home-goals";
-import { CALCULATOR_COPY, HOURLY_COST_DEFAULT, QUOTE_DEFAULTS, TIME_TASKS, formatEuros, formatHours, quotesAtStake, taskCost } from "@/system/home-calculator";
 import { homeSectionHeadings } from "@/system/home-layers";
 import { avecSource } from "@/lib/registry/cta";
 import { bookingParameters, type BookingSearchParams } from "@/system/booking";
 import { AppointmentLink } from "./AppointmentLink";
 import { BrandConnector } from "./BrandConnector";
-import { MobileCarousel } from "./MobileCarousel";
 import { ParritCalInline } from "./CalInline";
 
 const GoalContext = createContext<{ goal: HomeGoal; choose: (id: string) => void; query: string } | null>(null);
@@ -91,67 +89,6 @@ export function GoalHero({ locale }: { locale: Locale }) {
       <div className="actions"><AppointmentLink locale={locale} placement="hero" query={query} source={`accueil-${goal.id}`}><BrandConnector/></AppointmentLink></div>
     </div>
     <GoalDiagram locale={locale}/>
-  </div></section>;
-}
-
-function CalculatorField({ id, label, value, onChange }: { id: string; label: string; value: string; onChange: (value: string) => void }) {
-  return <label className="calc-field" htmlFor={id}><span>{label}</span>
-    <input id={id} type="number" inputMode="decimal" min={0} step="any" value={value} onChange={event => onChange(event.target.value)}/>
-  </label>;
-}
-
-/** Décision de Paul du 15/11/2026 : ce que les tâches coûtent aujourd'hui, avec les chiffres du visiteur. */
-export function GoalMotors({ locale }: { locale: Locale }) {
-  const { query } = useGoal();
-  const copy = CALCULATOR_COPY[locale];
-  const [quotes, setQuotes] = useState(String(QUOTE_DEFAULTS.quotes));
-  const [share, setShare] = useState(String(QUOTE_DEFAULTS.signedShare));
-  const [amount, setAmount] = useState(String(QUOTE_DEFAULTS.amount));
-  const [taskId, setTaskId] = useState<string>(TIME_TASKS[0].id);
-  const [perWeek, setPerWeek] = useState(String(TIME_TASKS[0].perWeek));
-  const [minutes, setMinutes] = useState(String(TIME_TASKS[0].minutes));
-  const [rate, setRate] = useState(String(HOURLY_COST_DEFAULT));
-  const stake = quotesAtStake(quotes, share, amount);
-  const time = taskCost(perWeek, minutes, rate);
-  const chooseTask = (id: string) => {
-    const task = TIME_TASKS.find(item => item.id === id) ?? TIME_TASKS[0];
-    setTaskId(task.id); setPerWeek(String(task.perWeek)); setMinutes(String(task.minutes));
-  };
-  return <section className="home-motors home-calculator" id={locale === "fr" ? "en-production" : "in-production"}><div className="wrap">
-    <span id="services" className="home-anchor-alias" aria-hidden="true"/>
-    <span id="ce-qui-change" className="home-anchor-alias" aria-hidden="true"/><span id="what-changes" className="home-anchor-alias" aria-hidden="true"/>
-    <h2>{homeSectionHeadings(locale).motors[0]}</h2>
-    <p className="calc-note">{copy.note}</p>
-    <MobileCarousel className="calc-grid" label={locale === "fr" ? "Calculateurs" : "Calculators"}>
-      <div className="calc-card" data-calculator="croissance">
-        <h3>{copy.growth}</h3>
-        <p className="calc-process">{copy.growthProcess}</p>
-        <div className="calc-fields">
-          <CalculatorField id={`calc-devis-${locale}`} label={copy.quotes} value={quotes} onChange={setQuotes}/>
-          <CalculatorField id={`calc-part-${locale}`} label={copy.signedShare} value={share} onChange={setShare}/>
-          <CalculatorField id={`calc-montant-${locale}`} label={copy.amount} value={amount} onChange={setAmount}/>
-        </div>
-        <p className="calc-result" aria-live="polite"><strong key={stake} data-calc-result="croissance">{formatEuros(stake, locale)}</strong> <span>{copy.growthResult}</span></p>
-      </div>
-      <div className="calc-card" data-calculator="temps">
-        <h3>{copy.time}</h3>
-        {/* 18/11 : le menu fait face au sous-titre de l'autre carte ; son nom accessible reste « Tâche ». */}
-        <div className="calc-field calc-task">
-          <select id={`calc-tache-${locale}`} aria-label={copy.task} value={taskId} onChange={event => chooseTask(event.target.value)}>
-            {TIME_TASKS.map(task => <option key={task.id} value={task.id}>{task.label[locale]}</option>)}
-          </select>
-        </div>
-        <div className="calc-fields">
-          <CalculatorField id={`calc-volume-${locale}`} label={copy.perWeek} value={perWeek} onChange={setPerWeek}/>
-          <CalculatorField id={`calc-minutes-${locale}`} label={copy.minutes} value={minutes} onChange={setMinutes}/>
-          <CalculatorField id={`calc-taux-${locale}`} label={copy.hourlyCost} value={rate} onChange={setRate}/>
-        </div>
-        <p className="calc-result" aria-live="polite"><strong key={`${time.hours}-${time.cost}`} data-calc-result="temps">{formatHours(time.hours, locale)}</strong> <span>{copy.timeResult(formatEuros(time.cost, locale))}</span></p>
-      </div>
-    </MobileCarousel>
-    <div className="calc-footer"><p className="motors-principle">{locale === "fr" ? "L'assistant prépare. Vous validez." : "The assistant prepares. You approve."}</p>
-      <AppointmentLink locale={locale} placement="bandeau" query={query} source="accueil-calculateur"><BrandConnector/></AppointmentLink>
-    </div>
   </div></section>;
 }
 

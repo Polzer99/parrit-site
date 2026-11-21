@@ -1,5 +1,5 @@
 import type { Locale } from "@/system/locale";
-import { HomeGoalProvider, GoalHero, GoalMotors, GoalBooking } from "./HomeGoals";
+import { HomeGoalProvider, GoalHero, GoalBooking } from "./HomeGoals";
 import { HomeMeasures } from "./HomeEvidence";
 import { Fragment, type ReactNode } from "react";
 import { HOME_LAYERS, HOME_SECTION_ORDER, homeSectionHeadings, homeFaqJsonLd, type HomeSection } from "@/system/home-layers";
@@ -25,7 +25,6 @@ export function SinglePage({ locale, contactQuery = "" }: { locale: Locale; cont
  const t = (text: string) => fr ? text : SINGLE_PAGE_EN[text];
  const sections = {
 hero: <GoalHero locale={locale}/>,
-motors: <GoalMotors locale={locale}/>,
 measures: <HomeMeasures locale={locale}/>,
 references: (
 <section id="references"><RevealOnView className="wrap">
@@ -41,6 +40,8 @@ terrain: (
 ),
 offers: (
 <section id={fr ? "offres" : "offers"} data-regime="ink"><div className="wrap" id={fr ? undefined : "offres"}>
+  {/* Anciennes ancres de la section retirée le 21/11/2026 : elles restent atteignables. */}
+  {["en-production", "in-production", "services", "ce-qui-change", "what-changes"].map(alias => <span key={alias} id={alias} className="home-anchor-alias" aria-hidden="true"/>)}
   <h2>{copy.offersTitle}</h2>
   <MobileCarousel className="home-offers" label={copy.offersTitle}>
     {copy.offers.map(offer => <article className="home-offer" key={offer.id}>

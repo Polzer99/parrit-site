@@ -31,6 +31,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           await expect(picture).toBeVisible();
           await expect(picture).toHaveAttribute("alt", /\S.+/);
           await expect(picture).toHaveAttribute("loading", "lazy");
+          // 21/11/2026 : la section terrain est bien plus bas dans la page, l'image paresseuse n'est pas encore chargée ; on attend son chargement avant decode().
+          await expect.poll(() => picture.evaluate(node => (node as HTMLImageElement).complete && (node as HTMLImageElement).naturalWidth > 0)).toBe(true);
           const geometry = await picture.evaluate(async node => {
             const img = node as HTMLImageElement;
             await img.decode();
@@ -76,8 +78,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           }
         }
         if (width <= 760) {
-          // 15/11 : calculateur, deux cartes en carrousel natif sous 1100 px, comme les autres pistes.
-          for (const track of await page.locator(".home-offers,.session-mosaic,.calc-grid").all()) {
+          // Cartes en carrousel natif sous 1100 px (le calculateur est supprimé depuis le 21/11/2026, soir).
+          for (const track of await page.locator(".home-offers,.session-mosaic").all()) {
             // Native Home can still scroll the document with JS disabled.
             // Compare all rectangles in one frame, with the same strict threshold.
             const geometry = await track.evaluate(el => ({
@@ -99,26 +101,21 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           return { top: rect.top, bottom: rect.bottom };
         }));
         for (const key of ["top", "bottom"] as const) expect(Math.max(...cardRows.map(b => b[key])) - Math.min(...cardRows.map(b => b[key]))).toBeLessThanOrEqual(1);
-        const motors = page.locator(".home-motors");
-        expect(await motors.evaluate(el => el.previousElementSibling?.id)).toBe("references");
-        expect(await motors.evaluate(el => el.nextElementSibling?.id)).toBe(locale === "fr" ? "mesures" : "measurements");
-        // 15/11 : calculateur, deux cartes et un lien de rendez-vous attribué.
-        await expect(motors.locator(".calc-card")).toHaveCount(2);
-        await expect(motors.locator(".goal-schema, .calc-grid .btn")).toHaveCount(0);
-        const booking = motors.locator(".calc-footer a.btn.rev-button.exec");
-        await expect(booking).toHaveCount(1);
-        expect(new URL((await booking.getAttribute("href"))!, BASE).searchParams.get("source")).toBe("accueil-calculateur");
+        // 21/11/2026 (soir) : ordre des blocs sans calculateur : références, offres, partenaires, parcours, terrain, technologies, mesures.
+        expect(await offers.evaluate(el => el.previousElementSibling?.id)).toBe("references");
+        expect(await offers.evaluate(el => el.nextElementSibling?.id)).toBe(locale === "fr" ? "partenaires" : "team");
+        await expect(page.locator(".home-motors,.home-calculator,.calc-card")).toHaveCount(0);
         await expect(field.locator("a,button")).toHaveCount(0);
         await expect(page.locator("#bandeau,#articles,.live,.service-tasks")).toHaveCount(0);
-        // 15/11 : calculateur, plus de mesures datées, seulement le bloc presse.
+        // 15/11 : plus de mesures datées, seulement le bloc presse.
         await expect(page.locator(".home-measure")).toHaveCount(0);
         await expect(page.locator(".home-press")).toBeVisible();
         await expect(page.locator(".assistant-links a,.home-assistant,#assistant")).toHaveCount(0);
-        for (const section of await page.locator(".home-motors,.home-measures").all()) {
+        for (const section of await page.locator(".home-measures").all()) {
           expect((await section.locator(":scope > .wrap").boundingBox())!.height).toBeLessThanOrEqual(height);
         }
 
-        const contrasts = await page.locator(".field h2,.field-intro,.session-mosaic figcaption,.field .btn,.home-offer h3,.offer-eyebrow,.home-offer p,.home-offer li span,.home-offer .btn,.home-motors h2,.calc-note,.calc-card h3,.calc-field span,.calc-field input,.calc-field select,.calc-result,.calc-result strong,.calc-footer .btn,.motors-principle,.home-measures h2,.home-press h2,.home-press p,.home-journal-link,.home-assistant h2,.assistant-links a,.tech-title,.tech-title b").evaluateAll(nodes => {
+        const contrasts = await page.locator(".field h2,.field-intro,.session-mosaic figcaption,.field .btn,.home-offer h3,.offer-eyebrow,.home-offer p,.home-offer li span,.home-offer .btn,.home-measures h2,.home-press h2,.home-press p,.home-journal-link,.home-assistant h2,.assistant-links a,.tech-title,.tech-title b").evaluateAll(nodes => {
           const lum = (color: string) => {
             const rgb = color.match(/[\d.]+/g)!.slice(0, 3).map(Number).map(n => n / 255).map(n => n <= .04045 ? n / 12.92 : ((n + .055) / 1.055) ** 2.4);
             return rgb[0] * .2126 + rgb[1] * .7152 + rgb[2] * .0722;
@@ -158,6 +155,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         await expect(mosaic.locator(":scope > figure")).toHaveCount(3);
         for (const figure of await mosaic.locator(":scope > figure").all()) {
           await figure.scrollIntoViewIfNeeded();
+          // 21/11/2026 : image paresseuse, on attend son chargement avant decode().
+          await expect.poll(() => figure.locator("img").evaluate(img => (img as HTMLImageElement).complete && (img as HTMLImageElement).naturalWidth > 0)).toBe(true);
           await figure.locator("img").evaluate(img => (img as HTMLImageElement).decode());
           await expect(figure.locator("figcaption")).toBeVisible();
           const box = await figure.evaluate(el => {
@@ -175,29 +174,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           expect(box.labelBottom).toBeLessThanOrEqual(box.bottom);
           expect(box.captionFits).toBe(true);
         }
-        // 15/11 : calculateur, les cartes de mesure deviennent les cartes du calculateur.
-        const cards = page.locator(".calc-card");
-        await expect(cards).toHaveCount(2);
-        for (const card of await cards.all()) {
-          await card.scrollIntoViewIfNeeded();
-          await expect(card.locator(".calc-result")).toBeVisible();
-          const text = await card.evaluate(el => {
-            const box = el.getBoundingClientRect();
-            const heading = el.querySelector(".calc-result")!;
-            const range = document.createRange();
-            range.selectNodeContents(heading);
-            return { title: heading.textContent, height: box.height,
-              lineCount: range.getClientRects().length,
-              clipped: [...el.querySelectorAll("strong,p,label,input,select")].some(node => node.scrollWidth > node.clientWidth + 1 || node.scrollHeight > node.clientHeight + 1),
-              linesFit: [...range.getClientRects()].every(line => line.left >= box.left - 1 && line.right <= box.right + 1 && line.top >= box.top - 1 && line.bottom <= box.bottom + 1),
-              clamp: getComputedStyle(heading).webkitLineClamp };
-          });
-          expect(text.height).toBeLessThanOrEqual(height);
-          expect(text.lineCount).toBeGreaterThan(0);
-          expect(text.clipped, text.title ?? "article").toBe(false);
-          expect(text.linesFit, text.title ?? "article").toBe(true);
-          expect(text.clamp).toBe("none");
-        }
+        // 21/11/2026 (soir) : les cartes du calculateur étaient contrôlées ici ; elles sont supprimées avec lui.
+        await expect(page.locator(".calc-card")).toHaveCount(0);
       });
     }
   });

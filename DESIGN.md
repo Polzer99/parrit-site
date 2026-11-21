@@ -88,12 +88,12 @@ Les composants concernés sont [HomeGoals](src/system/components/HomeGoals.tsx),
  dans [single-page.css](src/system/single-page.css).
 
 1. Une idée une fois : objectifs et résultats remplacent introduction, carte
-   d'approbation et réassurance du hero ; un seul principe sous les moteurs.
+   d'approbation et réassurance du hero.
 2. Le titre porte seul : aucune petite étiquette au-dessus des nouveaux titres.
 3. L'espace et les filets de 1 px séparent les éléments ; aucun cadre de carte
    ni carte imbriquée dans les nouveaux blocs.
 4. Une seule action principale visible par écran : bouton du hero puis celui
-   du contact ; le Journal et les assistants sont des liens secondaires.
+   du contact ; le Journal est un lien secondaire.
 5. La chasse fixe est réservée aux dates, mesures et code. Le mode accessible
    de l'accueil conserve toutefois son alias `--mono` vers General Sans :
    l'autorisation d'une chasse fixe n'impose pas de remplacer cette police.
@@ -108,10 +108,12 @@ Les composants concernés sont [HomeGoals](src/system/components/HomeGoals.tsx),
    soulignement décalé de .2em ; dates et mesures à chiffres tabulaires. Les
    règles communes sont dans [system.css](src/system/system.css).
 10. Seul [BrandConnector](src/system/components/BrandConnector.tsx) indique
-    l'enchaînement des moteurs et des actions ; aucun caractère flèche.
+    l'enchaînement des actions ; aucun caractère flèche.
 
 À 1440 px, les six logos gardent deux rangées : leurs largeurs intrinsèques
 cumulées dépassent déjà 1060 px sans les cinq espaces minimaux de 40 px.
-Sous 1100 px, les moteurs utilisent le carrousel natif du dépôt pour conserver
-un bloc par écran. Les neuf lignes sont toujours rendues par le serveur.
+Sous 1100 px, les cartes des offres, du terrain, des étapes et des partenaires
+utilisent le carrousel natif du dépôt pour conserver un bloc par écran.
+Le calculateur de l'accueil est supprimé (décision de Paul du 21/11/2026 au soir) :
+plus de champs de saisie, de cartes de résultat ni de pied de calculateur.
 Les sources de publication et les assets du Brand OS restent inchangés.

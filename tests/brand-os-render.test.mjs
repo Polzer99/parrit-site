@@ -115,13 +115,9 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           const notes = [...html.matchAll(/<p class="contact-expectation">([\s\S]*?)<\/p>/g)];
           assert.equal(notes.length, 1);
           assert.equal(visibleText(notes[0][1]), contactExpectation[locale]);
-          // Décision de Paul du 15/11/2026, resserrée le 18/11 : only the two calculator results
-          // and the two field labels marked « (€) » (the visitor's own figures, never a Parrit price).
-          const results = html.match(/<p class="calc-result"[^>]*>[\s\S]*?<\/p>/g) ?? [];
-          assert.equal(results.length, 2, `${label}: calculator results present`);
-          const euroLabels = html.match(/<span>[^<]*\(€\)<\/span>/g) ?? [];
-          assert.equal(euroLabels.length, 2, `${label}: two € field labels`);
-          offerText = visibleText([...results, ...euroLabels].reduce((page, part) => page.replace(part, ""), html.replace(notes[0][0], "")));
+          // 21/11/2026 (soir): the calculator and its two price-guard exemptions are gone; only the paragraph above is exempt.
+          assert.doesNotMatch(html, /calc-result|calc-card/, `${label}: no calculator`);
+          offerText = visibleText(html.replace(notes[0][0], ""));
         }
         let publicCopy = `${offerText} ${accessible} ${metadata} ${structured}`.replace(/(?:synchronisation (?:qui tourne )?toutes les|sync job (?:that runs|running) every) 15 minutes/g, "");
         // Decision 08/11/2026: exact first FAQ answer only, including its JSON-LD copy.
@@ -185,7 +181,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         if (route === "/") {
           assert.match(html, /<section class="hero"/);
           const ids = [...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]);
-          const expected = locale === "fr" ? ["haut", "references", "en-production", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"] : ["haut", "references", "in-production", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"];
+          const expected = locale === "fr" ? ["haut", "references", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"] : ["haut", "references", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"];
           // The compiled contact also contains QuickCapture's nested section.
           assert.deepEqual(ids, [...expected, "single-contact"]);
           assert.doesNotMatch(html, /id="architecture"/);
@@ -224,7 +220,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       const home = await render("/?utm_campaign=server%20%26%20test&utm_custom=kept&source=old", locale);
       assert.equal(home.status, 200);
       const links = [...home.html.matchAll(/<a\b[^>]*href="([^"]*source=(?:rdv-|accueil-)[^"]*)"[^>]*>/g)];
-      assert.equal(links.length, 5, "two responsive nav copies, hero, calculator (15/11) and contact in server HTML");
+      assert.equal(links.length, 4, "two responsive nav copies, hero and contact in server HTML");
       assert.deepEqual(links.map(([, href]) => {
         const url = new URL(href.replaceAll("&amp;", "&"), "http://localhost:3210");
         assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
@@ -233,7 +229,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         assert.equal(url.searchParams.get("utm_custom"), "kept");
         assert.equal(url.searchParams.getAll("source").length, 1);
         return url.searchParams.get("source");
-      }).sort(), ["accueil-calculateur", "accueil-rendez-vous", "rdv-contact", "rdv-nav", "rdv-nav"]);
+      }).sort(), ["accueil-rendez-vous", "rdv-contact", "rdv-nav", "rdv-nav"]);
       const bookingQuery = "source=essai&utm_custom=offhome&utm_campaign=c1";
       const booking = await render(`/rendez-vous?${bookingQuery}`, locale);
       assert.equal(booking.status, 200);

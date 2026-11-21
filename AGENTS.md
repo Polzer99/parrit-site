@@ -1,6 +1,6 @@
 ## Cohérence et garde-fous, décision de Paul du 21/11/2026 (soir)
 
-Les specs `docs/CODEX-SPEC-2026-11-21-alignement-pages-partenaires.md` et `docs/CODEX-SPEC-2026-11-21-coherence-et-garde-fous.md` priment sur les contrats antérieurs. Accueil : hero, références, calculateurs, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN). Contact : « Commencez par une tâche précise. », le nom de Paul une seule fois, en légende de photo ; la section des assistants est supprimée. Pages thèmes : gabarit commun (quatre étapes, livrables et limites, règles, FAQ native, Journal si articles, rendez-vous), `h1` avec point final, `<title>`, données structurées et liens sans point.
+Les specs `docs/CODEX-SPEC-2026-11-21-alignement-pages-partenaires.md` et `docs/CODEX-SPEC-2026-11-21-coherence-et-garde-fous.md` priment sur les contrats antérieurs. Accueil (dix sections) : hero, références, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Calculateur supprimé, décision de Paul du 21/11/2026 au soir (« le calculateur ressemble à rien, que du texte, aucun élément visuel marketing probant »). Ordre de l'accueil, dix sections : hero, références, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Les ancres historiques `#en-production`, `#in-production`, `#services`, `#ce-qui-change`, `#what-changes` restent atteignables : ce sont des `span` d'ancre en tête de la section des offres. La source `accueil-calculateur` n'a plus d'émetteur. Le bouton bas de page et le bouton haut des pages thèmes ont le style standard des boutons (16 px). Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN). Contact : « Commencez par une tâche précise. », le nom de Paul une seule fois, en légende de photo ; la section des assistants est supprimée. Pages thèmes : gabarit commun (quatre étapes, livrables et limites, règles, FAQ native, Journal si articles, rendez-vous), `h1` avec point final, `<title>`, données structurées et liens sans point.
 Ponctuation (texte visible hors articles, FR et EN) : 1. paragraphe, réponse, légende, étape, carte, ligne de liste : point final, même signe pour toute la liste. 2. Titre de trois mots ou plus : point final (ou « ? »). 3. Titre d'un ou deux mots et nom d'étape : pas de point. 4. Bouton, lien, menu, libellé de champ, surtitre, nom d'outil, étiquette de grille : jamais de point. 5. Titre et résumé d'un article du Journal : inchangés.
 Tout texte visible passe `tests/style-site.test.mjs`. Une exception s'écrit dans le test avec sa raison, jamais dans le texte.
 
@@ -19,10 +19,10 @@ de l'action unique) et sur « équipe et contact gardent leurs textes » ci-dess
 
 `docs/CODEX-SPEC-2026-11-13-accueil-epure.md` prime sur les anciens contrats
 pour les seuls blocs remplacés : hero à 17 objectifs, références, trois moteurs,
-mesures et assistants. Terrain, deux métiers, parcours, technologies, équipe,
+mesures (la section des assistants est supprimée le 21/11/2026). Terrain, deux métiers, parcours, technologies, équipe,
 questions et contact : ordre et textes amendés le 21/11/2026, soir. Sources hero
 `accueil-<objectif>` via `avecSource`, navigation/contact inchangés. Ancres
-applications/services conservées vers les moteurs. Les seuils de géométrie,
+applications/services conservées (depuis le 21/11/2026 au soir, en tête des offres). Les seuils de géométrie,
 contraste et stabilité ne changent pas. Un seul mouvement dans le haut : tracé
 du chemin ; logos statiques et bouton sans respiration. Deux mesures publiables,
 le 97 % étant absent de l'article indiqué. Règles d'épure dans DESIGN.md.

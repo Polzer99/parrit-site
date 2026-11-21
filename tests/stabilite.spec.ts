@@ -117,8 +117,8 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
         target.min = Math.min(target.min, value);
         target.max = Math.max(target.max, value);
       };
-      // 15/11 : calculateur, les cartes du calculateur et le bloc presse remplacent moteurs et mesures.
-      const targetSelector = "main > section, .goal-results, .goal-schema, .calc-card, .home-press, .partner, .cal-embed-stage";
+      // 21/11/2026 (soir) : le calculateur est supprimé ; le bloc presse remplace moteurs et mesures.
+      const targetSelector = "main > section, .goal-results, .goal-schema, .home-press, .partner, .cal-embed-stage";
       const targets = Array.from(document.querySelectorAll<HTMLElement>(targetSelector));
       const keys = targets.map((node, i) => `${i}:${node.id || node.classList.item(0)}`);
       const state: Stability = window.pageStability = {
@@ -169,13 +169,12 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
     await page.waitForTimeout(25_000);
     expect(calendarRequests, "le calendrier doit encore être différé").toBe(0);
     const sections = page.locator("main > section");
-    await expect(sections).toHaveCount(12);
+    await expect(sections).toHaveCount(10);
     const animatedSectionIds = new Set([
-      locale === "fr" ? "en-production" : "in-production",
       locale === "fr" ? "mesures" : "measurements",
       locale === "fr" ? "partenaires" : "team",
     ]);
-    for (let i = 1; i < 12; i++) {
+    for (let i = 1; i < 10; i++) {
       const destination = await sections.nth(i).evaluate(node => node.getBoundingClientRect().top + scrollY);
       // Défilement progressif : laisse passer les entrées et sorties d'IntersectionObserver.
       await page.evaluate(async destination => {

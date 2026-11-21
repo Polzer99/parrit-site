@@ -204,7 +204,7 @@ test("entrances reveal once, react to reduced motion, and disconnect on cleanup"
   });
   const sections = [0, 900, 1800].map(top => ({ dataset: {}, getBoundingClientRect: () => ({ top }) }));
   const root = { querySelectorAll: selector => {
-    assert.equal(selector, ":scope > section:not(.hero):not(#contact):not(#references):not(.home-motors):not(.home-measures)");
+    assert.equal(selector, ":scope > section:not(.hero):not(#contact):not(#references):not(.home-measures)");
     return sections;
   } };
   const { observeSectionEntrances } = loader("en")("src/system/components/SectionEntrance.tsx");

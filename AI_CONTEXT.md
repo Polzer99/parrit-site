@@ -1,12 +1,13 @@
 ## Alignement des pages et partenaires, décision de Paul du 21/11/2026, soir
 
 La spec `docs/CODEX-SPEC-2026-11-21-alignement-pages-partenaires.md` prime sur
-les contrats antérieurs pour l'ordre, le menu, les partenaires, presse/assistants,
+les contrats antérieurs pour l'ordre, le menu, les partenaires, presse,
 le contact, les thèmes, les blocs de rendez-vous et le pied de page.
-Ordre : hero, références, moteurs, offres, partenaires, parcours, terrain,
-technologies, mesures (presse et assistant), questions, contact.
+Ordre (dix sections) : hero, références, offres, partenaires, parcours, terrain,
+technologies, mesures (presse seule, sections des assistants et du calculateur supprimées), questions, contact.
+Calculateur supprimé, décision de Paul du 21/11/2026 au soir (« le calculateur ressemble à rien, que du texte, aucun élément visuel marketing probant »). Ordre de l'accueil, dix sections : hero, références, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Les ancres historiques `#en-production`, `#in-production`, `#services`, `#ce-qui-change`, `#what-changes` restent atteignables : ce sont des `span` d'ancre en tête de la section des offres. La source `accueil-calculateur` n'a plus d'émetteur. Le bouton bas de page et le bouton haut des pages thèmes ont le style standard des boutons (16 px).
 Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN).
-Contact : « Commencez par une tâche précise », sans point final ; son bouton
+Contact : « Commencez par une tâche précise. », avec point final ; son bouton
 cible et focalise `#reservation`, avec source `rdv-contact`. Les autres placements
 conservent `#contact`. Paul est nommé une seule fois dans le texte visible de
 l'accueil, en légende du portrait : « Paul Larmaraud mène le premier échange. »
@@ -40,7 +41,7 @@ Détail : `docs/REPORT-2026-11-21-passe-copy-astra.md`.
 
 Spec `docs/CODEX-SPEC-2026-11-13-accueil-epure.md`, base e707430 (#383).
 Haut de page : hero à 17 objectifs FR/EN, références, trois moteurs,
-mesures sourcées et liens assistants ; puis terrain, métiers, parcours,
+mesures sourcées (liens assistants supprimés le 21/11/2026) ; puis terrain, métiers, parcours,
 technologies, équipe, FAQ et contact conservés. Anciennes applications/services,
 bandeau et derniers articles retirés du rendu, composants historiques archivés.
 Sélection partagée via HomeGoalProvider ; GET sans JS, source accueil-ID via

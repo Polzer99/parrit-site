@@ -56,7 +56,7 @@ export function homeFaqJsonLd(locale: Locale) {
 
 // One order for the rendered home and its machine-readable description.
 export const HOME_SECTION_ORDER = [
-  "hero", "references", "motors", "offers", "team", "path", "terrain",
+  "hero", "references", "offers", "team", "path", "terrain",
   "technologies", "measures", "questions", "contact",
 ] as const;
 export type HomeSection = typeof HOME_SECTION_ORDER[number];
@@ -70,8 +70,7 @@ export function homeSectionHeadings(locale: Locale) {
     references: [t("Ils travaillent"), t("avec nous.")],
     terrain: [locale === "fr" ? "Sur le terrain, avec vos équipes." : "In the field, with your teams."],
     offers: [copy.offersTitle],
-    motors: [locale === "fr" ? "Ce que ces tâches vous coûtent aujourd'hui." : "What these tasks cost you today."],
-    measures: [locale === "fr" ? "Nous publions ce que nous apprenons sur le terrain." : "We publish what we learn in the field."],
+    measures: [locale === "fr" ? "Nous publions ce que nos missions nous apprennent." : "We publish what our projects teach us."],
     path: [t("Trois étapes,"), t("vous commencez où vous voulez.")],
     technologies: [t("Nous choisissons les outils"), t("selon votre besoin.")],
     team: [t("Vous travaillez avec les spécialistes"), t("dont votre projet a besoin.")],

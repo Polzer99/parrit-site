@@ -2,6 +2,8 @@
 
 Niveau de risque : moyen (gabarit des pages thèmes, ordre des sections de l'accueil, menu, pied de page, textes).
 
+> **Amendée par `docs/CODEX-SPEC-2026-11-21-coherence-et-garde-fous.md`** : la section des assistants et l'ancre `#assistant` sont supprimées (et non fusionnées avec la presse), tout titre `h1`/`h2` finit par un point, et le titre du bloc contact s'écrit « Commencez par une tâche précise. ».
+
 ## Demande de Paul (21/11/2026, dictée)
 
 « Il y a des call to action qui vont pas, il y a des textes, des petits slop un peu partout. Il y a trop de "Vous échangez avec Paul Larmaraud". On dirait que je suis tout seul dans la boîte. Il faut vraiment mettre en avant les partenaires. Il faut aussi veiller à ce qu'il n'y ait plus de vides dans le texte. […] Quand on clique sur les liens en bas de la page, il y a des pages où il y a de grands titres, et il y a une phrase de texte, puis un autre grand titre. S'il y a plus de grands titres que de texte, c'est quoi, ce bordel ? […] Il faut que chaque page soit chiadée, travaillée et au standard Parrit.ai. »

@@ -42,7 +42,7 @@
   --action-text:var(--brand-derived-white);
 }
 
-/* Même action principale que le héros, sur le registre sombre de l’en-tête. */
+/* Même action que celle du bas de page (21/11/2026) : style standard des boutons, couleur d’action sur le fond sombre de l’en-tête. */
 .journal-theme .journal-theme-hero .rev-button.exec {
   --action-fill: var(--brand-core-rose);
   --action-pressed: var(--brand-accessible-warm);
@@ -52,11 +52,6 @@
   justify-content: center;
   gap: var(--brand-s2);
   margin-top: var(--s3);
-  font-size: var(--t-l);
-  line-height: 1.4;
-  padding: 22px 36px;
-  min-height: 64px;
-  border: 2px solid var(--brand-derived-white);
   transition: background-color 150ms, border-color 150ms, transform 150ms;
 }
 .journal-theme-hero .rev-button.exec:is(:hover, :focus, :active) { background: var(--action-pressed); border-color: var(--brand-accessible-ink); }
