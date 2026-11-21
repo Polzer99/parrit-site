@@ -6,7 +6,7 @@ import { expect, test } from "./network-deny.setup";
 
 const BASE_URL = process.env.QA_BASE_URL ?? "http://127.0.0.1:3210";
 const routes = ["", "/journal", "/legal", ...JOURNAL_THEMES.map(theme => `/journal/themes/${theme}`)];
-const noOffer = /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de(?! vos opérations\b)|\bHT\b|excl\. VAT/i;
+const noOffer = /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de(?!s tests\b| vos (?:opérations|fichiers)\b)|\bHT\b|excl\. VAT/i;
 // Only whole, verbatim status lines are exempt, never substrings or patterns.
 const approvedStatuses = new Set([
   "Démonstration, données fictives.", "Demonstration, fictional data.",

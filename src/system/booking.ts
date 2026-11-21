@@ -4,20 +4,76 @@ export const BOOKING_COPY = {
   fr: {
     title: "Premier échange de 15 minutes",
     metaTitle: "Premier échange, 15 minutes",
-    invitation: "Si vous souhaitez en savoir plus, rencontrons-nous.",
     description: "Vous échangez avec Paul Larmaraud sur votre besoin pendant 15 minutes. Vous examinez une première piste et décidez de la suite.",
-    action: "Choisir un créneau",
-    email: "Vous préférez écrire ? paul.larmaraud@parrit.ai",
+    action: "Prendre rendez-vous",
+    email: "Nous écrire",
   },
   en: {
     title: "First call, 15 minutes",
     metaTitle: "First call, 15 minutes",
-    invitation: "If you'd like to know more, let's meet.",
     description: "You talk with Paul Larmaraud about your needs for 15 minutes. You explore an initial idea and decide what comes next.",
-    action: "Pick a time",
-    email: "Prefer to write? paul.larmaraud@parrit.ai",
+    action: "Book a call",
+    email: "Write to us",
   },
 } as const satisfies Record<Locale, Record<string, string>>;
+
+export type BookingCallVariant = "article" | "harness-engineering" | "ai-sprints" | "integration-developpement" | "conseil-transformation";
+export const BOOKING_CALL_COPY = {
+  fr: {
+    article: {
+      invitation: "Examinez ce sujet dans votre entreprise",
+      description: "Pendant ces 15 minutes avec Paul Larmaraud, vous décrivez une tâche concernée par le sujet de cet article. Nous précisons ensemble ce que vous souhaitez améliorer et les informations nécessaires pour l’étudier.",
+      emailLead: "Vous pouvez aussi nous décrire votre situation par courriel.",
+    },
+    "harness-engineering": {
+      invitation: "Précisez les actions que vous voulez contrôler",
+      description: "Pendant ces 15 minutes avec Paul Larmaraud, vous décrivez ce que votre assistant fait et ce qui vous inquiète. Nous précisons ensemble les actions à examiner et les éléments nécessaires pour les vérifier.",
+      emailLead: "Vous pouvez aussi nous décrire la tâche et le problème rencontré par courriel.",
+    },
+    "ai-sprints": {
+      invitation: "Décrivez la tâche que vous voulez essayer",
+      description: "Pendant ces 15 minutes avec Paul Larmaraud, vous présentez une tâche et le résultat attendu. Nous précisons ensemble ce qu’un premier essai devrait vérifier et les fichiers nécessaires pour l’étudier.",
+      emailLead: "Vous pouvez aussi nous décrire la tâche et le résultat attendu par courriel.",
+    },
+    "integration-developpement": {
+      invitation: "Précisez les informations que vos logiciels doivent échanger",
+      description: "Pendant ces 15 minutes avec Paul Larmaraud, vous décrivez une tâche qui passe par plusieurs logiciels. Nous précisons ensemble les informations à transmettre et les accès à vérifier pour étudier le raccordement.",
+      emailLead: "Vous pouvez aussi nous décrire la tâche et les logiciels concernés par courriel.",
+    },
+    "conseil-transformation": {
+      invitation: "Choisissez une tâche à examiner",
+      description: "Pendant ces 15 minutes avec Paul Larmaraud, vous décrivez une difficulté dans le travail de votre service. Nous précisons ensemble la tâche à observer et les personnes ou documents nécessaires pour l’étudier.",
+      emailLead: "Vous pouvez aussi nous décrire une difficulté rencontrée par vos équipes par courriel.",
+    },
+  },
+  en: {
+    article: {
+      invitation: "Examine this subject in your company",
+      description: "During these 15 minutes with Paul Larmaraud, you describe a task related to the subject of this article. Together, we clarify what you want to improve and the information needed to examine it.",
+      emailLead: "You can also describe your situation to us by email.",
+    },
+    "harness-engineering": {
+      invitation: "Specify the actions you want to control",
+      description: "During these 15 minutes with Paul Larmaraud, you describe what your assistant does and what concerns you. Together, we clarify the actions to examine and the information needed to check them.",
+      emailLead: "You can also describe the task and the problem you encountered by email.",
+    },
+    "ai-sprints": {
+      invitation: "Describe the task you want to try",
+      description: "During these 15 minutes with Paul Larmaraud, you present a task and the expected result. Together, we clarify what a first trial should check and the files needed to examine it.",
+      emailLead: "You can also describe the task and the expected result to us by email.",
+    },
+    "integration-developpement": {
+      invitation: "Specify the information your software needs to exchange",
+      description: "During these 15 minutes with Paul Larmaraud, you describe a task that passes through several pieces of software. Together, we clarify the information to transfer and the access to check before examining the connection.",
+      emailLead: "You can also describe the task and the software involved to us by email.",
+    },
+    "conseil-transformation": {
+      invitation: "Choose a task to examine",
+      description: "During these 15 minutes with Paul Larmaraud, you describe a difficulty in your department’s work. Together, we clarify the task to observe and the people or documents needed to examine it.",
+      emailLead: "You can also describe a difficulty your teams encounter to us by email.",
+    },
+  },
+} as const satisfies Record<Locale, Record<BookingCallVariant, { invitation: string; description: string; emailLead: string }>>;
 
 export type BookingSearchParams = Record<string, string | string[] | undefined>;
 export type BookingParameters = Partial<Record<"metadata[source]" | `utm_${string}`, string | string[]>>;

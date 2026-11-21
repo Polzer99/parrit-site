@@ -99,7 +99,7 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     await expect(page.locator("#reservation")).toBeInViewport();
     await expect(page.locator(".contact-fallback details")).toHaveCount(0);
     await expect(page.locator('#reservation input[type="email"]')).toBeVisible();
-    await expect(page.locator(".contact-fallback button")).toHaveText(locale === "fr" ? "Être recontacté" : "Contact me");
+    await expect(page.locator(".contact-fallback button")).toHaveText(locale === "fr" ? "Demander un échange" : "Request a conversation");
     await expect(page.locator(".contact-fallback button")).toHaveClass(/ghost/);
     const emailBox = await page.locator('.contact-fallback input[type="email"]').boundingBox();
     const submitBox = await page.locator(".contact-fallback button").boundingBox();
@@ -290,7 +290,7 @@ test("visible contact variant keeps the capture payload and error recovery", asy
   const input = page.locator(".contact-fallback input[type=email]");
   const button = page.locator(".contact-fallback button");
   await expect(input).toBeVisible();
-  await expect(button).toHaveText("Être recontacté");
+  await expect(button).toHaveText("Demander un échange");
   await button.click();
   await expect(page.locator(".contact-fallback [role=alert]")).toBeVisible();
   let payload: Record<string, unknown> = {};

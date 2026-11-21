@@ -51,15 +51,16 @@ for (const locale of ["fr", "en"]) {
   });
 
   test(`one four-element call block in interface language (${locale})`, () => {
-    const { BookingCall } = loader(locale)("src/system/components/BookingCall.tsx");
+    const load = loader(locale);
+    const { BookingCall } = load("src/system/components/BookingCall.tsx");
+    const { BOOKING_CALL_COPY } = load("src/system/booking.ts");
     for (const source of ["journal-test", "theme-ai-sprints"]) {
-      const element = BookingCall({ locale, source });
+      const variant = source.startsWith("theme-") ? "ai-sprints" : "article";
+      const element = BookingCall({ locale, source, variant });
       assert.equal(React.Children.count(element.props.children), 4);
       const html = renderToStaticMarkup(element);
       assert.match(html, new RegExp(`lang="${locale}"`));
-      assert.ok(html.includes(locale === "fr"
-        ? "Vous échangez avec Paul Larmaraud sur votre besoin pendant 15 minutes. Vous examinez une première piste et décidez de la suite."
-        : "You talk with Paul Larmaraud about your needs for 15 minutes. You explore an initial idea and decide what comes next."));
+      assert.ok(html.includes(BOOKING_CALL_COPY[locale][variant].description));
       assert.equal((html.match(/class="rev-button exec"/g) ?? []).length, 1);
       assert.ok(html.includes(`href="${locale === "fr" ? "/fr" : ""}/rendez-vous?source=${source}"`));
       assert.doesNotMatch(html, /offert|gratuit|€|countdown|compte à rebours/i);

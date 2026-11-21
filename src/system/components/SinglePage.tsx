@@ -103,7 +103,7 @@ contact: (
   </div>
   <div className="founder-details">
     <p>{t("Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet.")}</p>
-    <div className="actions"><AppointmentLink locale={locale} query={contactQuery} placement="contact"/><a className="mail" href="mailto:paul.larmaraud@parrit.ai">{"paul.larmaraud@parrit.ai"}</a></div>
+    <div className="actions"><AppointmentLink locale={locale} query={contactQuery} placement="contact"/><a className="mail" href="mailto:paul.larmaraud@parrit.ai">{locale === "fr" ? "Nous écrire" : "Write to us"}</a></div>
   </div>
 </div><div id="reservation" className="reservation"><GoalBooking locale={locale}/><div className="contact-fallback"><QuickCapture locale={locale} id="single-contact" variant="contact" /></div></div></div></section>
 

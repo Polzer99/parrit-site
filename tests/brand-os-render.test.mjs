@@ -137,7 +137,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
             publicCopy = publicCopy.replaceAll(approvedToolCopy, "");
           }
         }
-        assert.doesNotMatch(publicCopy, /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de(?! vos opérations\b)|\bHT\b|excl\. VAT/i, `${label}: no public offer`);
+        assert.doesNotMatch(publicCopy, /offert|gratuit|\bfree\b|forfait|fixed price|sur devis|custom quote|sans engagement|no commitment|pas un abonnement|not subscribed|\b1[05][\s-]?(min|minutes|heures|hours)\b|\b30[\s-]?min|à partir de(?!s tests\b| vos (?:opérations|fichiers)\b)|\bHT\b|excl\. VAT/i, `${label}: no public offer`);
         if (route !== "/legal") assert.doesNotMatch(publicCopy, /€/, label);
         if (route !== "/legal" && route !== "/") {
           assert.doesNotMatch(publicCopy, /\bPaul\b|Larmaraud|fondat(eur|rice)|fondée par|founder|founded by|quinze minutes|fifteen minutes/i, label);
@@ -351,4 +351,3 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
     }
   }
 });
-

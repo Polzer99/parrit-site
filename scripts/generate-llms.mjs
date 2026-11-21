@@ -10,10 +10,10 @@ import { journalClientNames } from "./lib/public-clients.mjs";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outputPath = resolve(root, "public/llms.txt");
 const themes = [
-  ["harness-engineering", "Encadrer vos assistants IA : règles, droits et contrôles.", "Rules, permissions and checks for your AI assistants."],
-  ["ai-sprints", "Un premier résultat en cycle court, avec des critères écrits à l'avance.", "A first result in a short cycle, with criteria written in advance."],
-  ["integration-developpement", "Relier vos logiciels et construire ce qui manque.", "Connect your software and build what is missing."],
-  ["conseil-transformation", "Choisir vos priorités et préparer vos équipes.", "Choose your priorities and prepare your teams."],
+  ["harness-engineering", "Contrôler vos assistants IA.", "Control your AI assistants."],
+  ["ai-sprints", "Tester votre futur outil.", "Test your future tool."],
+  ["integration-developpement", "Relier vos logiciels.", "Connect your software."],
+  ["conseil-transformation", "Choisir quoi automatiser.", "Choose what to automate."],
 ];
 export function renderLlms(entries = getAllJournalEntrySummaries(), frenchEntries = getAllJournalEntrySummaries("fr")) {
   const order = locale => {

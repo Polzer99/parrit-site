@@ -8,7 +8,7 @@ import { BrandConnector } from "./BrandConnector";
 export function HomeMeasures({ locale }: { locale: Locale }) {
   return <section className="home-measures" id={locale === "fr" ? "mesures" : "measurements"}><div className="wrap">
     <div className="home-press"><h2>{homeSectionHeadings(locale).measures[0]}</h2>
-      <a className="btn rev-button ghost home-journal-link" href={localizedPath("/journal", locale)}>{locale === "fr" ? "Lire le Journal" : "Read the Journal"}<BrandConnector/></a>
+      <a className="btn rev-button ghost home-journal-link" href={localizedPath("/journal", locale)}>{locale === "fr" ? "Lire nos retours de terrain" : "Read our field notes"}<BrandConnector/></a>
     </div>
   </div></section>;
 }
