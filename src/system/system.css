@@ -593,9 +593,11 @@ button {
   padding-top: var(--s1);
 }
 
+/* 21/11/2026 (nuit) : sans le panneau de l'hôte, le calendrier de Cal.com mesure 720 à 760 px de large et se
+   centre dans son cadre. Le cadre s'arrête donc à 800 px et part du bord gauche, comme le reste de la page. */
 .cal-instrument {
-  max-width: none;
-  margin: 0 auto;
+  max-width: calc(var(--brand-s1) * 100);
+  margin: 0;
   border: 1px solid var(--rule-d);
   background: var(--carbon);
   color: var(--paper);

@@ -120,9 +120,14 @@
    Réservation minimale : les étapes suivantes peuvent grandir sans être coupées. */
 .single-page .reservation .cal-embed-stage {min-height:calc(var(--brand-s1) * 71.25);}
 .single-page .reservation .cal-embed-stage > .cal-embed {height:auto;}
+/* Mesures du 21/11/2026 (nuit), vrai calendrier sans le panneau de l'hôte, deux créneaux affichés :
+   570 px au-delà de 768 px de cadre, 859 px en disposition empilée large, 546 px sur téléphone.
+   Un jour plus chargé allonge la liste des créneaux : le cadre grandit alors sans rien couper. */
 @container(max-width:768px){
-  /* Même mesure mobile : 420px + 712px = 1132px. */
-  .single-page .reservation .cal-embed-stage {min-height:calc(var(--brand-s1) * 141.5);}
+  .single-page .reservation .cal-embed-stage {min-height:calc(var(--brand-s1) * 107.5);}
+}
+@container(max-width:480px){
+  .single-page .reservation .cal-embed-stage {min-height:calc(var(--brand-s1) * 68.5);}
 }
 .single-page .contact-fallback {margin-top:var(--stack);}
 .single-page .contact-fallback .ghost {color:var(--white);}
@@ -657,7 +662,7 @@
   .single-page .client-logo {flex-shrink:1;min-width:0;}
 }
 
-/* Alignement du 21/11/2026 : presse seule (assistants retirés), portrait légendé, pied groupé. */
+/* Alignement du 21/11/2026 : presse seule (assistants retirés), portrait sans légende, pied groupé. */
 .single-page .home-measures p {font-size:var(--t-m);line-height:1.6;}
 .single-page .founder-portrait {margin:0;min-width:0;}
 /* 21/11/2026 : le pied de page suit la règle commune, tout part du bord gauche. Les deux groupes

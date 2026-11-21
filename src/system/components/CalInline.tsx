@@ -14,6 +14,33 @@ type ParritCalInlineProps = {
   bookingParams?: BookingParameters;
 };
 
+/** Options d'affichage passées à Cal.com. Fonction pure, pour qu'un test les lise sans navigateur. */
+export function calUiOptions(tokenValue: (variable: string) => string) {
+  return {
+    theme: "dark" as const,
+    // Décision de Paul du 21/11/2026 : le rendez-vous ne porte le nom de personne. Le panneau de Cal.com
+    // (photo et nom de l'hôte, titre et description de l'événement) est masqué ; la page dit déjà la durée.
+    hideEventTypeDetails: true,
+    layout: "month_view" as const,
+    styles: { align: "left" as const, branding: { brandColor: tokenValue("var(--accent-on-dark)") } },
+    cssVarsPerTheme: {
+      dark: {
+        "cal-brand": tokenValue("var(--accent-on-dark)"),
+        "cal-bg": tokenValue("var(--ink)"),
+        "cal-bg-emphasis": tokenValue("var(--ink)"),
+        "cal-bg-subtle": tokenValue("var(--ink)"),
+        "cal-bg-muted": tokenValue("var(--ink)"),
+        "cal-text": tokenValue("var(--paper)"),
+        "cal-text-emphasis": tokenValue("var(--paper)"),
+        "cal-text-subtle": tokenValue("var(--g4-d)"),
+        "cal-text-muted": tokenValue("var(--g4-d)"),
+        "cal-border": tokenValue("var(--rule-d)"),
+      },
+      light: { "cal-brand": tokenValue("var(--accent-strong)") },
+    },
+  };
+}
+
 export function ParritCalInline({
   calLink,
   preview = false,
@@ -64,29 +91,7 @@ export function ParritCalInline({
       // Resolve the canonical vars before passing colors through the embed API.
       const styles = getComputedStyle(stageRef.current ?? document.documentElement);
       const tokenValue = (variable: string) => styles.getPropertyValue(variable.slice(4, -1)).trim();
-      cal("ui", {
-        theme: "dark",
-        // Décision de Paul du 21/11/2026 : le rendez-vous ne porte le nom de personne. Le panneau de Cal.com
-        // (photo et nom de l'hôte, titre et description de l'événement) est masqué ; la page dit déjà la durée.
-        hideEventTypeDetails: true,
-        layout: "month_view",
-        styles: { align: "left", branding: { brandColor: tokenValue("var(--accent-on-dark)") } },
-        cssVarsPerTheme: {
-          dark: {
-            "cal-brand": tokenValue("var(--accent-on-dark)"),
-            "cal-bg": tokenValue("var(--ink)"),
-            "cal-bg-emphasis": tokenValue("var(--ink)"),
-            "cal-bg-subtle": tokenValue("var(--ink)"),
-            "cal-bg-muted": tokenValue("var(--ink)"),
-            "cal-text": tokenValue("var(--paper)"),
-            "cal-text-emphasis": tokenValue("var(--paper)"),
-            "cal-text-subtle": tokenValue("var(--g4-d)"),
-            "cal-text-muted": tokenValue("var(--g4-d)"),
-            "cal-border": tokenValue("var(--rule-d)"),
-          },
-          light: { "cal-brand": tokenValue("var(--accent-strong)") },
-        },
-      });
+      cal("ui", calUiOptions(tokenValue));
     }
 
     void configureCalendar();

@@ -83,7 +83,8 @@ for (const locale of ["fr", "en"]) {
     const html = await renderPage(locale);
     // Décision de Paul du 21/11/2026 (nuit) : « enlève les "prenez rendez-vous avec Paul" » ; la légende du portrait part aussi.
     assert.equal((visibleText(html).match(/Paul Larmaraud/g) ?? []).length, 0);
-    assert.doesNotMatch(html, /<figure class="founder-portrait">[\s\S]*?<figcaption/);
+    assert.match(html, /<figure class="founder-portrait">/);
+    assert.doesNotMatch(html, /<figure class="founder-portrait">(?:(?!<\/figure>)[\s\S])*<figcaption/);
     assert.doesNotMatch(html, /<section[^>]*id="assistant"|class="teamcap"/);
     const press = html.match(/<section[^>]*id="(?:mesures|measurements)"[\s\S]*?<\/section>/)?.[0];
     assert.ok(press);

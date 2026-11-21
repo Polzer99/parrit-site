@@ -63,8 +63,14 @@ test("active source files do not expose the legacy booking link", async () => {
 // Décision de Paul du 21/11/2026 (nuit) : le rendez-vous ne porte le nom de personne. Le panneau de Cal.com
 // (photo et nom de l'hôte, titre et description de l'événement) doit rester masqué dans le calendrier intégré.
 test("booking embed hides the host and event details panel", async () => {
-  const { readFile } = await import("node:fs/promises");
   const source = await readFile(new URL("../src/system/components/CalInline.tsx", import.meta.url), "utf8");
-  assert.match(source, /hideEventTypeDetails:\s*true/);
-  assert.doesNotMatch(source, /hideEventTypeDetails:\s*false/);
+  // Les options réellement passées à Cal.com sortent d'une fonction pure : on lit sa valeur, pas son texte.
+  const load = loader("en", { "@calcom/embed-react": { __esModule: true, default: () => null, getCalApi: () => { throw new Error("Cal API forbidden in offline tests"); } } });
+  const options = load("src/system/components/CalInline.tsx").calUiOptions(variable => `valeur de ${variable}`);
+  assert.equal(options.hideEventTypeDetails, true);
+  assert.equal(options.layout, "month_view");
+  assert.equal(options.styles.branding.brandColor, "valeur de var(--accent-on-dark)");
+  // Et c'est bien cette fonction, sans surcharge, que le composant envoie à cal("ui").
+  assert.match(source, /cal\("ui", calUiOptions\(tokenValue\)\);/);
+  assert.equal(source.split("hideEventTypeDetails").length - 1, 1);
 });
