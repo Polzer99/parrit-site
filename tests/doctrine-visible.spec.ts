@@ -24,11 +24,10 @@ for (const path of PUBLIC_ROUTES) {
     for (const action of await actions.all()) {
       await expectPopulated(action);
       const target = new URL((await action.getAttribute("href"))!, `${BASE_URL}${path}`);
-      expect(target.searchParams.get("source")).toMatch(home ? /^(?:rdv-(?:nav|contact)|accueil-[a-z0-9-]+)$/ : /^rdv-nav$/);
-      const source = target.searchParams.get("source");
+      expect(target.searchParams.get("source")).toMatch(home ? /^(?:rdv-(?:nav|parcours)|accueil-[a-z0-9-]+)$/ : /^rdv-nav$/);
       target.search = "";
-      // 21/11/2026 (spec alignement §3.5) : seul le bouton du bloc contact mène à la réservation.
-      expect(target.href).toBe(`${BASE_URL}${source === "rdv-contact" ? contact.replace("#contact", "#reservation") : contact}`);
+      // Repasse de conversion du 21/11/2026 : tous les boutons de rendez-vous mènent au bloc de contact.
+      expect(target.href).toBe(`${BASE_URL}${contact}`);
     }
     for (const button of await page.locator(".rev-button:visible").all()) {
       await expect(button).toHaveCSS("font-family", /General Sans/);

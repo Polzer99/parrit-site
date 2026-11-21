@@ -17,11 +17,12 @@ test.beforeEach(async ({ page }) => {
   // Local POST must also be mocked: it otherwise calls the real downstream service.
   await page.route("**/api/interet", route => route.fulfill({ json: { ok: true } }));
 });
-// Accueil épuré du 13/11 : attribution du choix, navigation et contact conservés.
+// Accueil épuré du 13/11 : attribution du choix et navigation conservées. Repasse de conversion du 21/11/2026 :
+// le bouton du contact part (le calendrier est l'action), un bouton de taille normale arrive à la fin du parcours.
 const actions = [
   [".single-header > .wrap > a.rev-button", "rdv-nav"],
   [".hero .exec", "accueil-rendez-vous"],
-  [".founder .btn.exec", "rdv-contact"],
+  [".parcours .btn.exec", "rdv-parcours"],
 ] as const;
 
 for (const locale of ["fr", "en"] as const) {
@@ -35,11 +36,10 @@ for (const locale of ["fr", "en"] as const) {
     const navigations: string[] = [];
     page.on("request", request => { if (request.isNavigationRequest()) navigations.push(request.url()); });
     await page.locator(selector).click();
-    // 21/11/2026 (spec alignement §3.5) : le bouton du bloc contact mène à la réservation ; menu et héros restent sur #contact.
-    const target = source === "rdv-contact" ? "reservation" : "contact";
-    await expect(page).toHaveURL(new RegExp(`source=${source}#${target}$`));
-    await expect(page.locator(`#${target}`)).toBeFocused();
-    await expect(page.locator(target === "contact" ? "#contact h2" : "#reservation")).toBeInViewport();
+    // Repasse de conversion du 21/11/2026 : les trois emplacements mènent au titre du bloc de contact.
+    await expect(page).toHaveURL(new RegExp(`source=${source}#contact$`));
+    await expect(page.locator("#contact")).toBeFocused();
+    await expect(page.locator("#contact h2")).toBeInViewport();
     await expect(input).toHaveValue("visitor@example.invalid");
     expect(await page.locator("html").getAttribute("data-document-sentinel")).toBe("same-document");
     expect(navigations).toEqual([]);
@@ -62,7 +62,7 @@ for (const locale of ["fr", "en"] as const) {
       await expect(buttons).toHaveCount(1);
       await expect(buttons.first()).toHaveClass(/\bexec\b/);
       await expect(buttons.first()).toHaveCSS("font-size", "22px");
-      for (const [selector, source] of actions) await expect(page.locator(selector)).toHaveAttribute("href", `${home}?source=${source}#${source === "rdv-contact" ? "reservation" : "contact"}`);
+      for (const [selector, source] of actions) await expect(page.locator(selector)).toHaveAttribute("href", `${home}?source=${source}#contact`);
       const box = (await buttons.first().boundingBox())!;
       const group = (await page.locator(".hero .actions").boundingBox())!;
       expect(Math.abs(box.x - group.x)).toBeLessThanOrEqual(1);
@@ -169,11 +169,12 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         const buttonBox = (await page.locator(".hero .actions a").boundingBox())!;
         expect(buttonBox.y - resultBox.y - resultBox.height).toBeGreaterThanOrEqual(12);
         expect(resultBox.x).toBeCloseTo(buttonBox.x, 0);
-        const contact = page.locator(".founder .btn.exec");
-        await expect(contact).toHaveCSS("font-size", "22px");
-        await expect(contact).toHaveCSS("padding", "22px 36px");
-        const contactBox = (await contact.boundingBox())!;
-        expect(contactBox.y - buttonBox.y - buttonBox.height, "hero and contact never share this viewport").toBeGreaterThanOrEqual(height);
+        // Le bouton de mi-page : taille normale, jamais dans le même écran que celui du héros.
+        const midPage = page.locator(".parcours .btn.exec");
+        await expect(midPage).toHaveCSS("font-size", "16px");
+        const midPageBox = (await midPage.boundingBox())!;
+        expect(midPageBox.y - buttonBox.y - buttonBox.height, "hero and path never share this viewport").toBeGreaterThanOrEqual(height);
+        await expect(page.locator(".founder .rev-button.exec, .founder a[href^='mailto:'], .founder img")).toHaveCount(0);
         await expect(page.locator("#bandeau")).toHaveCount(0);
         const faq = page.locator(".home-faq details");
         await expect(faq).toHaveCount(6);
@@ -190,8 +191,9 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         // 21/11/2026 (soir) : le calculateur et son pied (principe, bouton) sont supprimés.
         await expect(page.locator(".calc-footer, .home-calculator")).toHaveCount(0);
         if (width <= 900) await page.locator(".mobile-menu summary").click();
-        // Menu, héros et contact : le bouton du contact porte désormais #reservation.
-        const actions = page.locator('a.rev-button[href*="#contact"]:visible, a.rev-button[href*="#reservation"]:visible');
+        // Menu, héros et parcours : tous mènent à #contact ; plus aucun bouton ne vise #reservation.
+        await expect(page.locator('a.rev-button[href*="#reservation"]')).toHaveCount(0);
+        const actions = page.locator('a.rev-button[href*="#contact"]:visible');
         await expect(actions).toHaveCount(3);
         const sources: string[] = [];
         for (const action of await actions.all()) {
@@ -199,12 +201,12 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
           const target = new URL((await action.getAttribute("href"))!, BASE);
           expect(target.pathname).toBe(home);
           expect(target.searchParams.getAll("source")).toHaveLength(1);
-          expect(target.hash).toBe(target.searchParams.get("source") === "rdv-contact" ? "#reservation" : "#contact");
+          expect(target.hash).toBe("#contact");
           sources.push(target.searchParams.get("source")!);
           expect(target.searchParams.get("utm_campaign")).toBe("appointment");
           expect(target.searchParams.get("utm_custom")).toBe("kept");
         }
-        expect(sources.sort()).toEqual(["accueil-rendez-vous", "rdv-contact", "rdv-nav"]);
+        expect(sources.sort()).toEqual(["accueil-rendez-vous", "rdv-nav", "rdv-parcours"]);
         await expect(page.locator('main a.ghost[href*="#contact"]')).toHaveCount(0);
         await expect(page.locator('main a[href*="intention-"]')).toHaveCount(0);
         await expect(page.locator(".home-offer")).toHaveCount(2);

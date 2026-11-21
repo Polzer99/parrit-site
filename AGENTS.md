@@ -1,3 +1,10 @@
+## 21/11/2026, nuit : repasse de conversion
+
+Décision de Paul (« photos de Paul, pas besoin en bas », « "Nous écrire" n'est pas du tout appealing », « place les choses pour que le cerveau s'y retrouve », « que ça convertisse mieux ») : `docs/CODEX-SPEC-2026-11-21-repasse-conversion.md` prime sur les contrats antérieurs du bloc de contact et des emplacements du bouton.
+Bloc de contact de l'accueil, une colonne au bord gauche : titre, paragraphe, intertitre « Choisissez un créneau. » et calendrier, puis intertitre « Aucun créneau ne vous convient ? », phrase, champ et bouton « Être recontacté ». Ni portrait, ni lien de courriel, ni bouton : le calendrier est l'action. Les fichiers du portrait restent dans `public/brand/founder/`.
+Bouton « Prendre rendez-vous » : barre (`rdv-nav`), héros (`accueil-<objectif>`, grand) et fin du parcours (`rdv-parcours`, taille normale) ; tous mènent à `#contact`. La source `rdv-contact` n'a plus d'émetteur. Ceci amende « aucune action au parcours » (08/11/2026) et « grand au contact ».
+Page de rendez-vous : lien « Décrire votre besoin par courriel ». Bloc de fin d'article et de page d'offre : lien « Ouvrir un courriel ». Le cadre du calendrier s'arrête à 800 px, au bord gauche, sur l'accueil comme sur la page de rendez-vous.
+
 ## 21/11/2026, nuit : le rendez-vous ne porte le nom de personne
 
 Décision de Paul (« enlève les "prenez rendez-vous avec Paul" ») : le nom de Paul disparaît du texte visible de l'accueil (plus de légende sous le portrait) et de toute invitation au rendez-vous, fin d'article comprise. Le calendrier intégré masque le panneau de Cal.com (`hideEventTypeDetails: true` : photo et nom de l'hôte, titre et description de l'événement). Restent : la signature des articles du Journal, le directeur de la publication dans les mentions légales, les textes alternatifs des photos et les données structurées. `tests/style-site.test.mjs` refuse désormais toute mention du nom, accueil compris. Ceci remplace « le nom de Paul une seule fois, en légende de photo ».
@@ -6,8 +13,8 @@ Décision de Paul (« enlève les "prenez rendez-vous avec Paul" ») : le nom de
 
 Décision de Paul (« toujours un manque de cohérence et d'alignement », « les CTA sont un coup à droite, un coup à gauche ») : `docs/CODEX-SPEC-2026-11-21-coherence-visuelle.md` et la partie 3 de `docs/AUDIT-VISUEL-2026-11-21.md` priment sur tout contrat visuel antérieur ; le résumé fait foi dans `DESIGN.md`, section « Système visuel unique ».
 Une taille par niveau de titre (page 54 px, section 40 px, carte 22 px en 600 ; exceptions : héros de l'accueil 46 px et intertitre d'article 26 px), rythme 64 / 32 / 16, une carte, un gris de filet par fond, largeur de lecture `--measure`.
-Tout part du bord gauche du conteneur ou de sa colonne de grille : titres, textes, boutons. Rien n'est centré ni poussé à droite. Un bouton principal (rose, filet de 2 px, flèche, grand au héros de l'accueil, au héros des pages d'offre et au contact) et un secondaire en contour ; sur téléphone, pleine largeur partout, hors barre et champ d'envoi. Ceci remplace « bouton haut des pages thèmes en 16 px » et « largeur de contenu à partir de 600 px ».
-Partenaires : sept cartes (pictogramme, titre, phrase) ; les 23 offres et leur défilement sortent du HTML (remplace le contrat du 27/10/2026). Presse : chiffre lu au registre du Journal. Rendez-vous : texte en haut à gauche, calendrier dessous sur toute la largeur, sans bandeau en capitales.
+Tout part du bord gauche du conteneur ou de sa colonne de grille : titres, textes, boutons. Rien n'est centré ni poussé à droite. Un bouton principal (rose, filet de 2 px, flèche, grand au héros de l'accueil et au héros des pages d'offre, normal ailleurs) et un secondaire en contour ; sur téléphone, pleine largeur partout, hors barre et champ d'envoi. Ceci remplace « bouton haut des pages thèmes en 16 px » et « largeur de contenu à partir de 600 px ».
+Partenaires : sept cartes (pictogramme, titre, phrase) ; les 23 offres et leur défilement sortent du HTML (remplace le contrat du 27/10/2026). Presse : chiffre lu au registre du Journal. Rendez-vous : texte en haut à gauche, calendrier dessous dans un cadre de 800 px, sans bandeau en capitales.
 Garde-fou : `tests/coherence-visuelle.spec.ts` (dans `qa:network:rev01`) ; une exception s'écrit dans `tests/helpers/coherence-visuelle.ts` avec sa raison. Seuils de géométrie, de contraste et de stabilité inchangés.
 
 ## Cohérence et garde-fous, décision de Paul du 21/11/2026 (soir)
@@ -22,7 +29,7 @@ Le site ne présente jamais un fondateur qui fait tout. Selon la décision de Pa
 la section partenaires s'ouvre par « Nous travaillons avec des ingénieurs, des studios, des consultants, des intervenants, des cabinets de conseil et des chercheurs. Pour chaque projet, nous réunissons ceux dont le métier correspond à votre besoin. » ; aucune mention d'un
 interlocuteur unique. Bloc contact : « Commencez par une tâche précise. », sans date de création ni parcours du fondateur, puis le seul paragraphe
 « Vous décrivez une tâche qui prend du temps à vos équipes, ou un outil qui vous manque. Nous vous disons ce qui est réalisable. Le travail se fait ensuite avec les ingénieurs, les intervenants et les consultants dont votre projet a besoin. »
-Le mot « formation » reste hors de l'accueil. La photo, le bouton et l'e-mail restent. Rien de pompeux sur le fondateur. Aucune liste de ce que le fondateur
+Le mot « formation » reste hors de l'accueil. Depuis le 21/11/2026 (nuit), ni photo, ni bouton, ni lien de courriel dans ce bloc : le calendrier puis le formulaire. Rien de pompeux sur le fondateur. Aucune liste de ce que le fondateur
 conçoit ou pilote, y compris dans `scripts/generate-llms.mjs`. Cette décision prime sur « la ligne des
 partenaires précise l'interlocuteur responsable de bout en bout » (correctif 1
 de l'action unique) et sur « équipe et contact gardent leurs textes » ci-dessous.

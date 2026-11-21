@@ -31,9 +31,9 @@
   text-underline-offset: var(--s1);
 }
 
-/* Page de rendez-vous : le texte en haut, au bord gauche, puis le calendrier sur toute la largeur.
-   Le calendrier Cal.com passe en disposition étroite, bien plus haute, sous une certaine largeur :
-   il garde donc la largeur du conteneur, celle qui est en ligne et vérifiée (relecture du 21/11/2026). */
+/* Page de rendez-vous : le texte en haut, au bord gauche, puis le calendrier dans son cadre de 800 px (system.css).
+   Mesuré le 21/11/2026 sur le vrai calendrier, panneau de l'hôte masqué : disposition large (570 px de haut) dans un
+   cadre de 798 px, disposition empilée (859 px) dans un cadre de 718 px, 546 px sur téléphone. */
 .booking-page {
   display: grid;
   grid-template-columns: minmax(0, 1fr);

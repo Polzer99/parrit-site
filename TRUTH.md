@@ -7,10 +7,11 @@ Ordre (dix sections) : hero, références, offres, partenaires, parcours, terrai
 technologies, mesures (presse seule, sections des assistants et du calculateur supprimées), questions, contact.
 Calculateur supprimé, décision de Paul du 21/11/2026 au soir (« le calculateur ressemble à rien, que du texte, aucun élément visuel marketing probant »). Ordre de l'accueil, dix sections : hero, références, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Les ancres historiques `#en-production`, `#in-production`, `#services`, `#ce-qui-change`, `#what-changes` restent atteignables : ce sont des `span` d'ancre en tête de la section des offres. La source `accueil-calculateur` n'a plus d'émetteur. Le bouton bas de page et le bouton haut des pages thèmes ont le style standard des boutons (16 px).
 Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN).
-Contact : « Commencez par une tâche précise. », avec point final ; son bouton
-cible et focalise `#reservation`, avec source `rdv-contact`. Les autres placements
-conservent `#contact`. Décision de Paul du 21/11/2026 (nuit) : Paul n'est plus nommé
-dans le texte visible de l'accueil ni dans aucune invitation au rendez-vous ; le portrait n'a plus de légende.
+Contact : « Commencez par une tâche précise. », avec point final. Repasse de conversion du 21/11/2026 (nuit) :
+le bloc n'a plus ni bouton, ni lien de courriel, ni portrait ; le calendrier (« Choisissez un créneau. ») puis le
+formulaire (« Aucun créneau ne vous convient ? », bouton « Être recontacté »). Le bouton « Prendre rendez-vous » vit
+dans la barre, au héros et à la fin du parcours (`rdv-parcours`) ; tous mènent à `#contact`. Paul n'est plus nommé
+dans le texte visible de l'accueil ni dans aucune invitation au rendez-vous.
 Partenaires : « Vous travaillez avec les spécialistes dont votre projet a besoin. »
 Introduction : « Nous travaillons avec des ingénieurs, des studios, des consultants, des intervenants, des cabinets de conseil et des chercheurs. Pour chaque projet, nous réunissons ceux dont le métier correspond à votre besoin. »
 Paragraphe contact : « Vous décrivez une tâche qui prend du temps à vos équipes, ou un outil qui vous manque. Nous vous disons ce qui est réalisable. Le travail se fait ensuite avec les ingénieurs, les intervenants et les consultants dont votre projet a besoin. »

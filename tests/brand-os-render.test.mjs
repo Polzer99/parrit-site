@@ -223,16 +223,16 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
       const home = await render("/?utm_campaign=server%20%26%20test&utm_custom=kept&source=old", locale);
       assert.equal(home.status, 200);
       const links = [...home.html.matchAll(/<a\b[^>]*href="([^"]*source=(?:rdv-|accueil-)[^"]*)"[^>]*>/g)];
-      assert.equal(links.length, 4, "two responsive nav copies, hero and contact in server HTML");
+      assert.equal(links.length, 4, "two responsive nav copies, hero and path in server HTML");
       assert.deepEqual(links.map(([, href]) => {
         const url = new URL(href.replaceAll("&amp;", "&"), "http://localhost:3210");
         assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
-        assert.equal(url.hash, url.searchParams.get("source") === "rdv-contact" ? "#reservation" : "#contact");
+        assert.equal(url.hash, "#contact");
         assert.equal(url.searchParams.get("utm_campaign"), "server & test");
         assert.equal(url.searchParams.get("utm_custom"), "kept");
         assert.equal(url.searchParams.getAll("source").length, 1);
         return url.searchParams.get("source");
-      }).sort(), ["accueil-rendez-vous", "rdv-contact", "rdv-nav", "rdv-nav"]);
+      }).sort(), ["accueil-rendez-vous", "rdv-nav", "rdv-nav", "rdv-parcours"]);
       const bookingQuery = "source=essai&utm_custom=offhome&utm_campaign=c1";
       const booking = await render(`/rendez-vous?${bookingQuery}`, locale);
       assert.equal(booking.status, 200);
@@ -256,7 +256,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         for (const [, href, label] of links) {
           const url = new URL(href.replaceAll("&amp;", "&"), "http://localhost:3210");
           assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
-          assert.equal(url.hash, url.searchParams.get("source") === "rdv-contact" ? "#reservation" : "#contact");
+          assert.equal(url.hash, "#contact");
           assert.deepEqual(url.searchParams.getAll("source"), ["rdv-nav"]);
           // Correctif 3: cached HTML cannot contain visit-specific parameters.
           // Hydrated attribution is exercised by passe-site.spec.ts.

@@ -69,6 +69,8 @@ path: (
     <div className="step">{stepNumber(t("Étape 3"))}<h3>{t("Construire")}</h3><p>{t("Relier vos outils, puis bâtir vos propres logiciels.")}</p></div>
   </MobileCarousel>
   <p className="aussi">{t("Déjà équipés ? Nous vérifions vos outils et leurs règles, installons l'IA sur vos serveurs et contrôlons l'usage qu'en font vos équipes.")}</p>
+  {/* Repasse de conversion du 21/11/2026 : la page ne laisse plus 5 000 px sans prise de rendez-vous. */}
+  <div className="parcours-action"><AppointmentLink locale={locale} query={contactQuery} placement="parcours"><BrandConnector/></AppointmentLink></div>
 </div></section>
 
 ),
@@ -110,14 +112,8 @@ contact: (
   </div>
   <div className="founder-details">
     <p>{t("Vous décrivez une tâche qui prend du temps à vos équipes, ou un outil qui vous manque. Nous vous disons ce qui est réalisable. Le travail se fait ensuite avec les ingénieurs, les intervenants et les consultants dont votre projet a besoin.")}</p>
-    <div className="actions"><AppointmentLink locale={locale} query={contactQuery} placement="contact"><BrandConnector/></AppointmentLink><a className="mail" href="mailto:paul.larmaraud@parrit.ai">{locale === "fr" ? "Nous écrire" : "Write to us"}</a></div>
   </div>
-  <figure className="founder-portrait"><picture>
-    <source type="image/avif" srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.avif 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.avif 680w" sizes="(max-width: 760px) calc((100vw - 40px) * .38), (max-width: 1160px) calc((100vw - 144px) / 3), 339px" />
-    <source type="image/webp" srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.webp 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.webp 680w" sizes="(max-width: 760px) calc((100vw - 40px) * .38), (max-width: 1160px) calc((100vw - 144px) / 3), 339px" />
-    <img src="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.webp" alt="Paul Larmaraud" width="600" height="800" loading="lazy" />
-  </picture></figure>
-</div><div id="reservation" className="reservation" tabIndex={-1}><GoalBooking locale={locale}/><div className="contact-fallback"><QuickCapture locale={locale} id="single-contact" variant="contact" /></div></div></div></section>
+</div><div id="reservation" className="reservation" tabIndex={-1}><h3 className="reservation-title">{fr ? "Choisissez un créneau." : "Pick a time."}</h3><GoalBooking locale={locale}/><div className="contact-fallback"><QuickCapture locale={locale} id="single-contact" variant="contact" /></div></div></div></section>
 
 ),
  } satisfies Record<HomeSection, ReactNode>;

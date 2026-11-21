@@ -42,6 +42,7 @@
 .single-page .step h3{margin-top:var(--inner);}
 .single-page .step p{font-size:var(--t-s);line-height:1.5;margin-top:var(--brand-s1);color:var(--ink2);}
 .single-page .aussi{margin-top:var(--stack);color:var(--ink2);font-size:var(--t-m);}
+.single-page .parcours-action{margin-top:var(--stack);}
 /* services */
 /* Partenaires : sept cartes, un pictogramme, un titre, une phrase (décision 2 du 21/11/2026, soir). */
 .single-page .services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--stack);margin-top:var(--stack)}
@@ -53,14 +54,11 @@
 .single-page .services p{font-size:var(--t-s);line-height:1.5;color:var(--ink2)}
 /* fondateur */
 .single-page .founder{background:var(--ink);color:var(--white)}
-.single-page .founder .grid{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);column-gap:var(--stack);align-items:start}
-.single-page .founder picture{display:block;min-width:0}
-.single-page .founder img{width:100%;aspect-ratio:3/4;object-fit:contain;display:block}
+/* Repasse de conversion du 21/11/2026 : le bloc de contact est une seule colonne au bord gauche (titre, phrase, calendrier, formulaire). */
+.single-page .founder .grid{display:grid;grid-template-columns:minmax(0,1fr);row-gap:var(--inner);align-items:start}
 .single-page .founder p{color:var(--on-ink)}
 .single-page .founder ul{list-style:none;margin-top:24px}
 .single-page .founder li{font-size:var(--t-m);color:var(--on-ink);padding:10px 0;border-top:1px solid var(--brand-derived-on-ink-line)}
-.single-page .founder .actions{margin-top:var(--stack);display:flex;gap:16px;align-items:center}
-.single-page .founder .mail{color:var(--white);font-size:var(--t-m)}
 /* en production : téléphones */
 .single-page .live{background:var(--canard);color:var(--white)}
 .single-page .scenes{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:64px}
@@ -84,7 +82,7 @@
 @media (max-width:760px){
   .single-page .wrap{padding:0 20px}
   .single-page .hero{padding:56px 0 56px}
-  .single-page nav{display:none}.single-page .founder .actions{flex-direction:column;align-items:stretch} .single-page .btn{text-align:center}
+  .single-page nav{display:none}.single-page .btn{text-align:center}
   .single-page .scenes{grid-template-columns:1fr;gap:56px} .single-page .phone{max-width:280px}
   .single-header .wrap{gap:12px} .single-header .btn{display:none}
 }
@@ -111,7 +109,8 @@
 .single-footer .wrap {gap:24px;flex-wrap:wrap;}
 .single-footer .footer-links {display:flex;flex-wrap:wrap;gap:24px;}
 .single-footer a {margin:0;}
-.single-page .reservation {margin-top:var(--section-y);scroll-margin-top:24px;}
+.single-page .reservation {margin-top:var(--stack);scroll-margin-top:24px;}
+.single-page .reservation-title {margin-bottom:var(--inner);}
 .single-page .reservation * {font-family:var(--ui);}
 .single-page .reservation .cal-instrument {container-type:inline-size;}
 /* La remise à zéro de .single-page efface la marge de l'état de chargement : on la repose. */
@@ -119,7 +118,9 @@
 /* PAGE-STABLE : cadre initial de 420px + delta mesuré de 150px (570px).
    Réservation minimale : les étapes suivantes peuvent grandir sans être coupées. */
 .single-page .reservation .cal-embed-stage {min-height:calc(var(--brand-s1) * 71.25);}
-.single-page .reservation .cal-embed-stage > .cal-embed {height:auto;}
+/* La réserve est portée par la scène : le conteneur du calendrier ne doit pas en imposer une autre (560 px par défaut,
+   soit 12 px de saut au montage sur téléphone, où la scène réserve 548 px). */
+.single-page .reservation .cal-embed-stage > .cal-embed {height:auto;min-height:0;}
 /* Mesures du 21/11/2026 (nuit), vrai calendrier sans le panneau de l'hôte, deux créneaux affichés :
    570 px au-delà de 768 px de cadre, 859 px en disposition empilée large, 546 px sur téléphone.
    Un jour plus chargé allonge la liste des créneaux : le cadre grandit alors sans rien couper. */
@@ -131,7 +132,6 @@
 }
 .single-page .contact-fallback {margin-top:var(--stack);}
 .single-page .contact-fallback .ghost {color:var(--white);}
-.single-page .founder img {height:auto;aspect-ratio:3/4;}
 .single-page :focus-visible,.single-header :focus-visible,.single-footer :focus-visible {outline:2px solid currentColor;outline-offset:4px;}
 @media(max-width:1100px){.single-header nav {gap:12px;font-size:var(--t-s);}.single-header .wrap{gap:12px;}}
 @media(max-width:900px){
@@ -148,8 +148,7 @@
 @media(max-width:760px){.single-header .wrap,.single-footer .wrap{padding-left:20px;padding-right:20px;}.single-header .mark{font-size:var(--t-s);}.single-header .btn{display:inline-flex;white-space:normal;text-align:center;}.single-header .languages{font-size:var(--t-s);}.single-page .founder .mail{overflow-wrap:anywhere;}.single-page .cal-instrument{min-width:0;}.single-footer .footer-links{gap:16px;font-size:var(--t-s);}}
 @media (max-width:760px) {
   .single-page .steps,
-  .single-page .services,
-  .single-page .founder .grid { grid-template-columns:1fr; }
+  .single-page .services { grid-template-columns:1fr; }
 }
 .single-header .wrap, .single-footer .wrap {max-width:1160px;margin-left:auto;margin-right:auto;padding-left:40px;padding-right:40px;}
 .single-header .mark {font-weight:600;font-size:var(--t-m);letter-spacing:.02em;}
@@ -171,7 +170,6 @@
 .single-page li {line-height:1.55;}
 .single-page .phone .chat {flex-shrink:0;}
 .single-page .phone .bar {flex-shrink:0;}
-.single-page .founder .actions {gap:32px;}
 .single-page .quick-capture .ri-error {display:block;margin-top:16px;color:var(--accent-on-dark);}
 .single-page .quick-capture form > p {margin-top:var(--s2);}
 @media (max-width:760px) {
@@ -281,11 +279,7 @@
 .single-page .phone .msg.card b {font-size:16px;}
 .single-page .scene h3 {margin-top:14px;}
 .single-page .note {margin-top:16px;}
-.single-page .founder .grid {grid-template-rows:min-content 1fr;row-gap:var(--inner);align-items:start;}
-.single-page .founder-identity {grid-column:1;grid-row:1;min-width:0;}
-.single-page .founder-details {grid-column:1;grid-row:2;min-width:0;}
-.single-page .founder .founder-portrait {grid-column:2;grid-row:1 / 3;}
-.single-page .founder-details .actions {margin-top:var(--stack);flex-wrap:wrap;}
+.single-page .founder-identity, .single-page .founder-details {min-width:0;}
 @media(max-width:760px){
   .single-page .hero {padding-top:24px;}
   .single-page :is(.service-tasks,.services,.steps,.scenes).mobile-carousel {
@@ -306,12 +300,7 @@
   .single-page .phone .chat {gap:4px;padding:6px;}
   .single-page .note {font-size:var(--t-s);line-height:1.45;margin-top:12px;}
   .single-page .logo-strip {--logo-gap:var(--brand-s3);}
-  .single-page .founder .grid {grid-template-columns:38% minmax(0,1fr);grid-template-rows:auto auto;gap:16px;}
-  .single-page .founder .founder-portrait {grid-column:1;grid-row:1;}
-  .single-page .founder-identity {grid-column:2;grid-row:1;}
-  .single-page .founder-details {grid-column:1 / -1;grid-row:2;}
   .single-page .founder-details :is(p,li) {font-size:16px;}
-  .single-page .founder-details .actions {align-items:stretch;gap:16px;}
 }
 @media(prefers-reduced-motion:reduce){
   .single-page .case-text,.single-page .tag {transition:none;}
@@ -662,9 +651,8 @@
   .single-page .client-logo {flex-shrink:1;min-width:0;}
 }
 
-/* Alignement du 21/11/2026 : presse seule (assistants retirés), portrait sans légende, pied groupé. */
+/* Alignement du 21/11/2026 : presse seule (assistants retirés), contact sans portrait, pied groupé. */
 .single-page .home-measures p {font-size:var(--t-m);line-height:1.6;}
-.single-page .founder-portrait {margin:0;min-width:0;}
 /* 21/11/2026 : le pied de page suit la règle commune, tout part du bord gauche. Les deux groupes
    de liens commencent au bord gauche du conteneur ; la mention de droits vient dessous. */
 .single-footer .wrap {flex-direction:column;justify-content:flex-start;align-items:flex-start;gap:var(--stack);}

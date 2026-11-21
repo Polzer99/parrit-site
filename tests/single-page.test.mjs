@@ -65,14 +65,8 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   assert.doesNotMatch(html, /href="#reservation"/);
   const contact = html.slice(html.indexOf('id="contact"'));
   assert.match(contact, /id="reservation"[\s\S]*data-booking-mock[\s\S]*data-capture-mock/);
-  const picture = contact.match(/<picture>[\s\S]*?<\/picture>/)?.[0];
-  assert.ok(picture);
-  assert.deepEqual([...picture.matchAll(/<source type="([^"]+)"/g)].map(m => m[1]), ["image/avif", "image/webp"]);
-  for (const format of ["avif", "webp"]) {
-    assert.ok(picture.includes(`srcSet="/brand/founder/parrit-ai-founder-linkedin-buste-3x4-340.${format} 340w, /brand/founder/parrit-ai-founder-linkedin-buste-3x4-680.${format} 680w"`));
-  }
-  assert.match(picture, /src="\/brand\/founder\/parrit-ai-founder-linkedin-buste-3x4-680.webp"/);
-  assert.match(picture, /alt="Paul Larmaraud" width="600" height="800" loading="lazy"/);
+  // Repasse de conversion du 21/11/2026 : le bloc de contact n'a plus d'image.
+  assert.doesNotMatch(contact.slice(0, contact.indexOf('</section>')), /<picture|<img/);
   assert.doesNotMatch(contact, /paul-centre\.png/);
   assert.match(html, new RegExp(`href="${locale === "fr" ? "/fr" : ""}/journal"`));
   assert.equal((html.match(/class="phone"/g) ?? []).length, 0);
