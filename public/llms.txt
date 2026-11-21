@@ -7,22 +7,23 @@
 
 ### La page d'accueil
 - https://parrit.ai/fr
-- Dans l'ordre : Votre expertise est la matière première. Nous la mettons au travail. ; Ils travaillent avec nous. ; Ce que ces tâches vous coûtent aujourd'hui. ; Chroniques parues dans Le Monde Informatique. ; Ou demandez à votre assistant. ; Sur le terrain, avec vos équipes. ; Deux métiers, une même transformation. ; Trois étapes, vous commencez où vous voulez. ; Pour chaque besoin, nous choisissons la meilleure technologie. ; Chaque projet a son équipe et sa technologie. ; Questions ; Paul Larmaraud, fondateur de Parrit.ai
+- Dans l'ordre : Votre expertise est la matière première. Nous la mettons au travail. ; Ils travaillent avec nous. ; Ce que ces tâches vous coûtent aujourd'hui. ; Chroniques parues dans Le Monde Informatique. ; Ou demandez à votre assistant. ; Sur le terrain, avec vos équipes. ; Vos équipes prennent l'IA en main. Nous construisons vos outils. ; Trois étapes, vous commencez où vous voulez. ; Nous choisissons les outils selon votre besoin. ; Chaque projet a son équipe et sa technologie. ; Questions ; Vous échangez avec Paul Larmaraud.
 - Réponses aux clients, relances, devis, comptes rendus : l'IA prépare, vos équipes relisent et décident.
-- Parrit.ai est une équipe : plus de vingt partenaires, réunis selon le projet (prise en main de l'IA, développement sur mesure, expertise métier, recherche). Paul Larmaraud, fondateur, mène le premier échange.
+- Nous faisons appel à des partenaires pour construire vos outils et accompagner vos équipes selon votre projet.
+- Vous échangez avec Paul Larmaraud. Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet.
 - Présence : Tourcoing et Paris. Zone d'intervention : toute la France.
 
 ### FAQ
 - Par où commence-t-on ?
-  Par un premier échange de 15 minutes en visioconférence, puis un cadrage écrit, ou un refus motivé si nous ne sommes pas les bons interlocuteurs.
+  Nous échangeons pendant 15 minutes en visioconférence, puis nous définissons le travail par écrit. Si nous ne pouvons pas vous aider, nous vous expliquons pourquoi.
 - Faut-il des équipes techniques ?
   Non. Vos équipes prennent l'IA en main sur leurs outils, puis nous construisons des assistants qu'elles relisent et valident.
 - Que deviennent nos données ?
   L'IA peut être installée sur vos serveurs, et nous contrôlons l'usage qu'en font vos équipes.
 - Quelles technologies utilisez-vous ?
-  Pour chaque besoin, la plus adaptée : ChatGPT, Claude, Gemini, Mistral, Copilot, entre autres, sans dépendre d'un seul fournisseur.
+  Nous choisissons selon votre besoin parmi ChatGPT, Claude, Gemini, Mistral, Copilot et d'autres outils. Nous ne dépendons pas d'un seul fournisseur.
 - Travaillez-vous avec les grands groupes comme avec les PME ?
-  Oui. L'équipe se compose selon le diagnostic, parmi plus de vingt partenaires.
+  Oui. Nous choisissons les intervenants selon les besoins de votre entreprise.
 - Combien cela coûte-t-il ?
   Le prix se fixe après le cadrage, selon le périmètre. Nous ne publions pas de grille.
 
@@ -79,22 +80,23 @@
 
 ### The home page
 - https://parrit.ai/
-- In order: Your expertise is the raw material. We put it to work. ; They work with us. ; What these tasks cost you today. ; Columns published in Le Monde Informatique. ; Or ask your assistant. ; In the field, with your teams. ; Two crafts, one transformation. ; Three steps. Start wherever you are. ; For every need, we choose the best technology. ; Every project gets its own team and its own technology. ; Questions ; Paul Larmaraud, founder of Parrit.ai
+- In order: Your expertise is the raw material. We put it to work. ; They work with us. ; What these tasks cost you today. ; Columns published in Le Monde Informatique. ; Or ask your assistant. ; In the field, with your teams. ; Your teams learn to use AI. We build your tools. ; Three steps. Start wherever you are. ; We choose tools according to your needs. ; Every project gets its own team and its own technology. ; Questions ; You speak with Paul Larmaraud.
 - Client replies, follow-ups, quotes, meeting notes: AI prepares them, your teams review and decide.
-- Parrit.ai is a team: more than twenty partners, brought together for each project (AI adoption, custom development, industry expertise, research). Paul Larmaraud, founder, leads the first conversation.
+- We bring in partners to build your tools and support your teams according to your project.
+- You speak with Paul Larmaraud. AI adoption, custom development, industry expertise, research: the work then continues with the team that fits your project.
 - Presence: Tourcoing and Paris. Service area: across France.
 
 ### FAQ
 - Where do we start?
-  With a first 15-minute video call, then a written scope, or an explanation if we are not the right people to help.
+  We talk for 15 minutes by video, then define the work in writing. If we cannot help you, we explain why.
 - Do we need technical teams?
   No. Your teams take AI in hand with their own tools, then we build assistants they review and approve.
 - What happens to our data?
   AI can be installed on your servers, and we control how your teams use it.
 - Which technologies do you use?
-  The best fit for each need: ChatGPT, Claude, Gemini, Mistral, Copilot, among others, without depending on a single provider.
+  We choose from ChatGPT, Claude, Gemini, Mistral, Copilot and other tools according to your needs. We do not depend on a single provider.
 - Do you work with large companies as well as SMEs?
-  Yes. The team is put together according to the diagnosis, from more than twenty partners.
+  Yes. We choose the people involved according to the needs of your business.
 - How much does it cost?
   The price is set after scoping, according to the project scope. We do not publish a price list.
 

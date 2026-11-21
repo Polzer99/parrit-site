@@ -2,16 +2,18 @@ import type { Locale } from "./locale";
 
 export const BOOKING_COPY = {
   fr: {
-    title: "Entretien stratégique IA, 15 minutes",
+    title: "Premier échange de 15 minutes",
+    metaTitle: "Premier échange, 15 minutes",
     invitation: "Si vous souhaitez en savoir plus, rencontrons-nous.",
-    description: "15 minutes avec Paul Larmaraud pour clarifier votre sujet. Vous repartez avec une première piste, et vous décidez de la suite.",
+    description: "Vous échangez avec Paul Larmaraud sur votre besoin pendant 15 minutes. Vous examinez une première piste et décidez de la suite.",
     action: "Choisir un créneau",
     email: "Vous préférez écrire ? paul.larmaraud@parrit.ai",
   },
   en: {
-    title: "AI strategy call, 15 minutes",
+    title: "First call, 15 minutes",
+    metaTitle: "First call, 15 minutes",
     invitation: "If you'd like to know more, let's meet.",
-    description: "15 minutes with Paul Larmaraud to clarify your topic. You leave with a first lead, and you decide what comes next.",
+    description: "You talk with Paul Larmaraud about your needs for 15 minutes. You explore an initial idea and decide what comes next.",
     action: "Pick a time",
     email: "Prefer to write? paul.larmaraud@parrit.ai",
   },

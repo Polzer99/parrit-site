@@ -60,7 +60,7 @@ path: (
   <PathWalker/>
   <MobileCarousel className="steps" label={fr ? "Trois étapes" : "Three steps"}>
     <div className="step"><span className="n">{t("Étape 1")}</span><h3>{t("Apprendre")}</h3><p>{t("Prendre l'IA en main, puis créer un premier assistant avec vos équipes.")}</p></div>
-    <div className="step"><span className="n">{t("Étape 2")}</span><h3>{t("Améliorer")}</h3><p>{t("Choisir les priorités, puis livrer des solutions rapides.")}</p></div>
+    <div className="step"><span className="n">{t("Étape 2")}</span><h3>{t("Améliorer")}</h3><p>{t("Nous choisissons les priorités avec vous, puis construisons les outils.")}</p></div>
     <div className="step"><span className="n">{t("Étape 3")}</span><h3>{t("Construire")}</h3><p>{t("Relier vos outils, puis bâtir vos propres logiciels.")}</p></div>
   </MobileCarousel>
   <p className="aussi">{t("Déjà équipés ? Nous vérifions vos outils et leurs règles, installons l'IA sur vos serveurs et contrôlons l'usage qu'en font vos équipes.")}</p>
@@ -74,9 +74,9 @@ technologies: (
 team: (
 <section id={fr ? "partenaires" : "team"}><RevealOnView className="wrap">
   <h2>{headings.team[0]}{" "}<b>{headings.team[1]}</b></h2>
-  <p className="muted team-intro">{t("Parrit.ai, c'est une équipe. Plus de vingt partenaires, et pour chaque projet ceux dont vous avez besoin.")}</p>
-  <ServiceGrid offers={PARTNER_OFFERS.map(offers => offers.map(t))} deliveryLabel={t("Avec eux, nous livrons")} label={fr ? "Partenaires et livrables" : "Partners and deliverables"} items={[[t("Ingénieurs IA"), t("Plus de dix, chacun sa spécialité : documents, assistants, connexion à vos logiciels.")], [t("Automatisation et assistants"), t("Des développeurs et des studios : assistants écrits, vocaux et vidéo.")], [t("Transformation et projet"), t("Conduite du changement et pilotage de projet.")], [t("Marque et marketing"), t("Image de marque, contenus et vente.")], [t("Prise en main"), t("Une quinzaine d'intervenants et un organisme certifié.")], [t("Conseil et qualité"), t("Des cabinets partenaires et des relecteurs de nos livrables.")], [t("Chercheurs du MIT"), t("Des chercheurs du MIT dans notre réseau, pour vos déploiements d'assistants les plus exigeants.")]]} />
-  <p className="teamcap"><i aria-hidden="true"/>{t("Une équipe composée pour chaque diagnostic, et ce qu'elle livre")}</p>
+  <p className="muted team-intro">{t("Nous faisons appel à des partenaires pour construire vos outils et accompagner vos équipes selon votre projet.")}</p>
+  <ServiceGrid offers={PARTNER_OFFERS.map(offers => offers.map(t))} deliveryLabel={t("Avec eux, nous livrons")} label={fr ? "Partenaires et livrables" : "Partners and deliverables"} items={[[t("Ingénieurs IA"), t("Les ingénieurs interviennent selon leur spécialité sur les documents, les assistants ou les liens entre logiciels.")], [t("Automatisation et assistants"), t("Des développeurs et des studios créent vos assistants écrits, vocaux et vidéo.")], [t("Transformation et projet"), t("Nous accompagnons vos équipes et suivons le projet.")], [t("Marque et marketing"), t("Nos partenaires travaillent sur votre marque, vos contenus et vos ventes.")], [t("Prise en main"), t("Des intervenants accompagnent vos équipes dans la prise en main de l'IA.")], [t("Conseil et qualité"), t("Des cabinets partenaires relisent les travaux que nous vous remettons.")], [t("Chercheurs du MIT"), t("Des chercheurs du MIT font partie de notre réseau.")]]} />
+  <p className="teamcap"><i aria-hidden="true"/>{t("Nos partenaires interviennent selon les besoins du projet.")}</p>
 <ResearchPartner/>
 </RevealOnView></section>
 
@@ -102,11 +102,7 @@ contact: (
     <h2>{headings.contact[0] + " "}<b>{headings.contact[1]}</b></h2>
   </div>
   <div className="founder-details">
-    <p>{t("Il a créé Parrit.ai en 2024, après deux ans chez Lime.")}</p>
-    <ul>
-      <li>{t("Le premier échange se fait avec lui : vous lui parlez de votre projet.")}</li>
-      <li>{t("Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet.")}</li>
-    </ul>
+    <p>{t("Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet.")}</p>
     <div className="actions"><AppointmentLink locale={locale} query={contactQuery} placement="contact"/><a className="mail" href="mailto:paul.larmaraud@parrit.ai">{"paul.larmaraud@parrit.ai"}</a></div>
   </div>
 </div><div id="reservation" className="reservation"><GoalBooking locale={locale}/><div className="contact-fallback"><QuickCapture locale={locale} id="single-contact" variant="contact" /></div></div></div></section>

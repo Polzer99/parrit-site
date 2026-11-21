@@ -1,11 +1,10 @@
 ## Une équipe, décision de Paul des 13 et 14/11/2026
 
-Le site ne présente jamais un fondateur qui fait tout. Section partenaires :
-« Parrit.ai, c'est une équipe. » ouvre le texte ; aucune mention d'un
-interlocuteur unique. Bloc contact : date de création, premier échange avec le
-fondateur, puis travail avec l'équipe adaptée au projet (prise en main de
-l'IA, développement sur mesure, expertise métier, recherche ; le mot
-« formation » reste hors de l'accueil). Aucune liste de ce que le fondateur
+Le site ne présente jamais un fondateur qui fait tout. Selon la décision de Paul du 21/11/2026,
+la section partenaires s'ouvre par « Nous faisons appel à des partenaires pour construire vos outils et accompagner vos équipes selon votre projet. » ; aucune mention d'un
+interlocuteur unique. Bloc contact : « Vous échangez avec Paul Larmaraud. », sans date de création ni parcours du fondateur, puis le seul paragraphe
+« Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet. »
+Le mot « formation » reste hors de l'accueil. La photo, le bouton et l'e-mail restent. Rien de pompeux sur le fondateur. Aucune liste de ce que le fondateur
 conçoit ou pilote, y compris dans `scripts/generate-llms.mjs`. Cette décision prime sur « la ligne des
 partenaires précise l'interlocuteur responsable de bout en bout » (correctif 1
 de l'action unique) et sur « équipe et contact gardent leurs textes » ci-dessous.
@@ -311,9 +310,9 @@ Tous mènent à `/#contact` ou `/fr#contact`, avec `source=intention-{formation,
 priorites,projet}-{hero,parcours}` avant l'ancre via `avecSource`. Les UTM sont
 conservés dans le HTML serveur et au clic ; sur l'accueil, historique et
 défilement sans rechargement, attribution lue par QuickCapture sans nouveau
-champ ni modification du serveur. Ligne sous l'envoi, correctif 4, décision de Paul du 08/11/2026 :
-« Premier échange de 15 minutes en visioconférence : vous présentez votre besoin, nous vous indiquons ce qui est réalisable. »
-« A first 15-minute video call: you present your needs, we tell you what is feasible. »
+champ ni modification du serveur. Ligne sous l'envoi, décision de Paul du 21/11/2026 :
+« Pendant les 15 minutes en visioconférence, vous présentez votre besoin. Nous vous indiquons ce qui est réalisable. »
+« During the 15-minute video call, you describe what you need. We tell you what is feasible. »
 Références : boucle CSS lente, pause survol/focus, logos statiques centrés en
 mouvement réduit ; permissions inchangées. Journal : thèmes uniquement issus du
 registre partagé `journal-themes.ts`, lecture estimée à 200 mots/minute arrondie
@@ -425,7 +424,7 @@ pour les cas d’usage, les offres partenaires, le trajet et la géométrie.
 Maquette source archivée : `docs/site-v1/page-unique/passe-4/passe4.py`.
 Décision Paul du 27/10/2026, soir : `BANDEAU-TECHNOLOGIES.md` remplace la
 règle de confidentialité de la stack. Bandeau `#technologies` juste avant l’équipe (décision de Paul du 02/11/2026) :
-pour chaque besoin, nous choisissons la meilleure technologie. Dix noms affichés ; liste canonique
+« Nous choisissons les outils selon votre besoin. » (décision de Paul du 21/11/2026). Dix noms affichés ; liste canonique
 dans `src/system/technologies.ts`, logos locaux dans `public/tech/`, aucun
 partenariat sous-entendu. La section architecture est retirée.
 Les mentions de Claude Code comme formation/audit restent autorisées.

@@ -83,8 +83,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "en": "past clients reactivated"
     },
     "result": {
-      "fr": "Les clients silencieux, avec une raison de les rappeler.",
-      "en": "Quiet clients, with a reason to call them back."
+      "fr": "Vous repérez les clients à rappeler et pour quel motif.",
+      "en": "You identify which clients to call back and why."
     },
     "path": [
       "Base clients",
@@ -134,8 +134,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "en": "meeting notes ready"
     },
     "result": {
-      "fr": "Les décisions de la réunion, et qui s'en charge.",
-      "en": "The meeting's decisions, and who owns them."
+      "fr": "Vous retrouvez les décisions et les personnes chargées de les appliquer.",
+      "en": "You find the decisions and the people responsible for carrying them out."
     },
     "path": [
       "Comptes rendus",
@@ -181,17 +181,17 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     "id": "agents",
     "group": "b",
     "label": {
-      "fr": "une flotte d'agents autonomes",
-      "en": "a fleet of autonomous agents"
+      "fr": "des assistants coordonnés",
+      "en": "coordinated assistants"
     },
     "result": {
-      "fr": "Des agents qui se répartissent le travail, sous votre contrôle.",
-      "en": "Agents that share the work, under your control."
+      "fr": "Des assistants se répartissent le travail. Vous gardez le contrôle.",
+      "en": "Assistants share the work. You stay in control."
     },
     "path": [
       "Vos processus",
       "Processus",
-      "Agents autonomes"
+      "Assistants coordonnés"
     ]
   },
   {
@@ -202,8 +202,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "en": "proprietary software"
     },
     "result": {
-      "fr": "Un outil à vous, construit sur votre métier.",
-      "en": "A tool of your own, built on your trade."
+      "fr": "Nous construisons votre outil à partir de votre métier.",
+      "en": "We build your tool around the work you do."
     },
     "path": [
       "Votre expertise",
@@ -236,8 +236,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "en": "to know where to start"
     },
     "result": {
-      "fr": "Un état des lieux, puis un plan par priorité.",
-      "en": "An assessment, then a plan by priority."
+      "fr": "Nous examinons votre travail et définissons les priorités avec vous.",
+      "en": "We look at your work and set priorities with you."
     },
     "path": [
       "Vos processus",
@@ -253,13 +253,13 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "en": "faster developers"
     },
     "result": {
-      "fr": "Un cadre pour coder avec l'IA sans casser la production.",
-      "en": "A framework to code with AI without breaking production."
+      "fr": "Vos développeurs utilisent l'IA sans perturber les logiciels en service.",
+      "en": "Your developers use AI without disrupting software already in use."
     },
     "path": [
       "Votre code",
       "Projet",
-      "Code fiable"
+      "Code contrôlé"
     ]
   },
   {
@@ -287,8 +287,8 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "en": "to test an idea"
     },
     "result": {
-      "fr": "Un prototype qui tourne, pour décider sur pièce.",
-      "en": "A working prototype, to decide on evidence."
+      "fr": "Vous testez une première version pour décider de la suite.",
+      "en": "You test a first version to decide what comes next."
     },
     "path": [
       "Votre expertise",
@@ -342,8 +342,8 @@ export const GOAL_PLANES = [
         "en": "Contract gaps"
       },
       {
-        "fr": "Agents autonomes",
-        "en": "Autonomous agents"
+        "fr": "Assistants coordonnés",
+        "en": "Coordinated assistants"
       },
       {
         "fr": "Logiciel propriétaire",
@@ -358,8 +358,8 @@ export const GOAL_PLANES = [
         "en": "Roadmap"
       },
       {
-        "fr": "Code fiable",
-        "en": "Reliable code"
+        "fr": "Code contrôlé",
+        "en": "Reviewed code"
       },
       {
         "fr": "IA installée chez vous",

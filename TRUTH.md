@@ -1,3 +1,11 @@
+## Passe de copy, décision de Paul du 21/11/2026
+
+La spec `docs/CODEX-SPEC-2026-11-21-passe-copy-astra.md` remplace les seuls textes indiqués, mot pour mot en français et avec leur traduction anglaise.
+Partenaires : « Nous faisons appel à des partenaires pour construire vos outils et accompagner vos équipes selon votre projet. »
+Contact : « Vous échangez avec Paul Larmaraud. », puis « Prise en main de l'IA, développement sur mesure, expertise métier, recherche : le travail se fait ensuite avec l'équipe adaptée à votre projet. »
+Aucune date de création ni parcours du fondateur ; photo, rendez-vous et e-mail conservés. Le site présente une équipe. La PR #389 est remplacée par cette décision.
+H1 et métadonnées de l'accueil, charte, sections et animations conservés ; FAQ visible et FAQPage partagent toujours les mêmes paires.
+
 ## Accueil épuré, décision du 13/11/2026
 
 `docs/CODEX-SPEC-2026-11-13-accueil-epure.md` prime sur les anciens contrats
@@ -286,9 +294,9 @@ chacune une seule action : former les équipes, choisir les priorités, parler
 d'un projet. Toutes mènent directement au contact (`/#contact` ou `/fr#contact`),
 avec `source=intention-{formation,priorites,projet}-{hero,parcours}` avant l'ancre.
 Les UTM sont conservés et le clic sur l'accueil ne recharge pas le formulaire.
-Sous l'envoi, formulation exacte du correctif 4, décision de Paul du 08/11/2026 :
-« Premier échange de 15 minutes en visioconférence : vous présentez votre besoin, nous vous indiquons ce qui est réalisable. »
-« A first 15-minute video call: you present your needs, we tell you what is feasible. »
+Sous l'envoi, formulation exacte, décision de Paul du 21/11/2026 :
+« Pendant les 15 minutes en visioconférence, vous présentez votre besoin. Nous vous indiquons ce qui est réalisable. »
+« During the 15-minute video call, you describe what you need. We tell you what is feasible. »
 Aucun nouveau champ ni nouvelle offre.
 La navigation et les clôtures gardent « Parler d'un projet » / « Talk about a
 project ». Le hero porte la promesse et le schéma en langue métier validés.
@@ -379,7 +387,7 @@ pour les cas d’usage, les offres partenaires, le trajet et la géométrie.
 Maquette source archivée : `docs/site-v1/page-unique/passe-4/passe4.py`.
 Décision Paul du 27/10/2026, soir : `BANDEAU-TECHNOLOGIES.md` remplace la
 règle de confidentialité de la stack. Bandeau `#technologies` juste avant l’équipe (décision de Paul du 02/11/2026) :
-pour chaque besoin, nous choisissons la meilleure technologie. Dix noms affichés ; liste canonique
+« Nous choisissons les outils selon votre besoin. » (décision de Paul du 21/11/2026). Dix noms affichés ; liste canonique
 dans `src/system/technologies.ts`, logos locaux dans `public/tech/`, aucun
 partenariat sous-entendu. La section architecture est retirée.
 Les mentions de Claude Code comme formation/audit restent autorisées.

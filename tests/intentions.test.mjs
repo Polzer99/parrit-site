@@ -17,8 +17,8 @@ const { getJournalThemes, JOURNAL_THEMES } = load("src/system/journal-themes.ts"
 const journal = load("src/system/journal.ts");
 const contactExpectation = JSON.parse(fs.readFileSync("tests/fixtures/contact-expectation.json", "utf8"));
 const approvedContact = {
-  fr: "Premier échange de 15 minutes en visioconférence : vous présentez votre besoin, nous vous indiquons ce qui est réalisable.",
-  en: "A first 15-minute video call: you present your needs, we tell you what is feasible.",
+  fr: "Pendant les 15 minutes en visioconférence, vous présentez votre besoin. Nous vous indiquons ce qui est réalisable.",
+  en: "During the 15-minute video call, you describe what you need. We tell you what is feasible.",
 };
 const supersededContact = {
   fr: "Vous décrivez un service ou un irritant, nous vous disons ce qui est faisable, et ce qui ne l'est pas.",
