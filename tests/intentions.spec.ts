@@ -349,7 +349,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
   });
 }
 
-// Correctif 4: the longer partner introduction fits without clipping, also in SSR.
+// Correctif 4: the partner introduction and the seven cards fit without clipping, also in SSR.
+// 21/11/2026 (soir, décision 2) : les 23 offres sortent de la page ; sept cartes, une phrase chacune.
 for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [true, false]) {
   test.describe(`compact partner section ${locale} JS=${javaScriptEnabled}`, () => {
     test.use({ javaScriptEnabled });
@@ -367,8 +368,9 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
       expect(dimensions.scrollHeight).toBeLessThanOrEqual(720);
       expect(dimensions.overflow).not.toMatch(/hidden|clip/);
       await expect(section.locator(".partner")).toHaveCount(7);
-      await expect(section.locator(".partner-offers li")).toHaveCount(23);
-      for (const paragraph of await section.locator(".team-intro,.partner-type p,.partner-offers li").all()) {
+      await expect(section.locator(".partner-offers li")).toHaveCount(0);
+      await expect(section.locator(".partner p")).toHaveCount(7);
+      for (const paragraph of await section.locator(".team-intro,.partner p").all()) {
         await expect(paragraph).toBeVisible();
         expect(await paragraph.evaluate(el => el.scrollHeight <= el.clientHeight + 1)).toBe(true);
       }

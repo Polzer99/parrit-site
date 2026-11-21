@@ -21,17 +21,7 @@ export function ParritCalInline({
   bookingParams,
 }: ParritCalInlineProps) {
   const resolvedCalLink = calLink ?? (locale === "fr" ? CAL_LINK_COMMISSION : CAL_LINK_COMMISSION_EN);
-  const copy = locale === "fr" ? {
-    title: "Prendre rendez-vous",
-    ready: "Choisissez un créneau",
-    loading: "Chargement des créneaux…",
-    format: "Visio",
-  } : {
-    title: "Book a meeting",
-    ready: "Select a time",
-    loading: "Loading available times…",
-    format: "Video call",
-  };
+  const copy = locale === "fr" ? { loading: "Chargement des créneaux…" } : { loading: "Loading available times…" };
   const placeholder = isPlaceholder(resolvedCalLink);
   /* lazy + état de chargement : l'embed (~1,7 MB) ne se monte qu'à l'approche du
      viewport, et un état visible couvre les secondes où l'iframe est encore noire */
@@ -112,10 +102,6 @@ export function ParritCalInline({
   return (
     <div className="cal-stage" ref={stageRef}>
       <div className="cal-instrument">
-        <div className="cal-bar">
-          <span>{copy.title}</span>
-          {ready ? <span>{copy.ready}</span> : null}
-        </div>
         {preview ? (
           <div className="cal-preview">CAL.COM INLINE INSTRUMENT</div>
         ) : (
@@ -135,9 +121,6 @@ export function ParritCalInline({
             ) : null}
           </div>
         )}
-        <div className="cal-bar cal-bar-footer">
-          <span>{copy.format}</span>
-        </div>
       </div>
     </div>
   );

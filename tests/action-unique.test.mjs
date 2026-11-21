@@ -47,8 +47,10 @@ for (const locale of ["fr", "en"]) {
       assert.equal(url.searchParams.get("source"), ["accueil-rendez-vous", "rdv-contact"][i]);
       assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
       assert.equal(url.hash, i === 1 ? "#reservation" : "#contact");
-      assert.equal((label.match(/data-connector="VS-CONNECTOR"/g) ?? []).length, i < 1 ? 1 : 0);
-      if (i < 1) assert.match(label, /aria-hidden="true" focusable="false"/);
+      // 21/11/2026 (soir, décision 10) : le bouton principal porte toujours la flèche, au héros comme au contact.
+      assert.match(classes, /\blarge\b/);
+      assert.equal((label.match(/data-connector="VS-CONNECTOR"/g) ?? []).length, 1);
+      assert.match(label, /aria-hidden="true" focusable="false"/);
     }
     assert.equal(actions.length, 3, "two booking actions and the Journal content link in main");
     assert.doesNotMatch(html, /source=intention-|href="#reservation"/);
@@ -170,7 +172,7 @@ for (const locale of ["fr", "en"]) test(`contact action preserves attribution an
   const entries = getAllJournalEntrySummaries(locale).filter(entry => !entry.noindex).slice(0, 3);
   const html = renderToStaticMarkup(createElement(SinglePage, { locale, contactQuery: "utm_campaign=a%26b&utm_custom=one&utm_custom=two&source=old", latestEntries: entries }));
   const contact = html.match(/<section class="founder"[\s\S]*?<\/section>/)[0];
-  const href = contact.match(/<a class="btn rev-button exec" href="([^"]+)"/)[1].replaceAll("&amp;", "&");
+  const href = contact.match(/<a class="btn rev-button exec large" href="([^"]+)"/)[1].replaceAll("&amp;", "&");
   const target = new URL(href, "https://example.invalid");
   assert.equal(target.pathname, locale === "fr" ? "/fr" : "/");
   assert.equal(target.hash, "#reservation");

@@ -730,3 +730,36 @@ button {
 :where(a) {text-underline-offset:.2em;}
 :where(time, [data-measure]) {font-variant-numeric:tabular-nums;}
 :where(h1,h2,h3) {text-wrap:balance;}
+
+/* Système visuel unique, 21/11/2026 (docs/AUDIT-VISUEL-2026-11-21.md, 3.2) : une taille par niveau
+   de titre, sur toutes les pages. Deux exceptions nommées : le titre du héros de l'accueil
+   (single-page.css, verrouillé par ses tests) et l'intertitre d'article (.journal-body h2). */
+.rev-page h1 {
+  max-width: var(--title-max);
+  margin: 0;
+  font-family: var(--ui);
+  font-size: var(--d-m);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: var(--title-tracking);
+}
+:is(.rev-page, .single-page) h2 {
+  max-width: var(--title-max);
+  margin: 0;
+  font-family: var(--ui);
+  font-size: var(--d-s);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: var(--title-tracking);
+}
+:is(.rev-page, .single-page) h3 {
+  margin: 0;
+  font-family: var(--ui);
+  font-size: var(--t-l);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+/* Repère d'une carte : pictogramme de 32 px dans la couleur d'accent du contexte. */
+.card-glyph { display: block; flex: none; color: var(--accent-text); --onto-node-fill: var(--paper2); }
+.check-mark { flex: none; }

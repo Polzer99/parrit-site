@@ -261,32 +261,8 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "Compare un contrat reçu à vos règles et signale les écarts.": "Compares an incoming contract with your rules and flags the gaps.",
   "Suit les échéances de vos contrats.": "Tracks your contracts' deadlines.",
   "Retrouve une clause dans dix ans d'archives.": "Finds a clause in ten years of archives.",
-  "Assistants sur mesure": "Custom assistants",
-  "Outils sur mesure": "Custom tools",
-  "Le contrôle de vos assistants": "Control over your assistants",
-  "Des automatisations sur mesure": "Custom automations",
-  "La connexion à vos logiciels": "Connecting to your software",
-  "Des assistants écrits": "Written assistants",
-  "Des assistants vocaux": "Voice assistants",
-  "Des vidéos générées": "Generated videos",
-  "La conduite du changement": "Change management",
-  "Le pilotage de projet": "Project delivery",
-  "Votre feuille de route IA": "Your AI roadmap",
-  "Votre identité de marque": "Your brand identity",
-  "Vos contenus": "Your content",
-  "Votre prospection": "Your prospecting",
-  "Des ateliers par métier": "Workshops by role",
-  "Claude Code pour vos développeurs": "Claude Code for your developers",
-  "L'audit de vos processus": "Process audits",
-  "Le diagnostic IA": "AI diagnosis",
-  "La relecture de chaque livrable": "A review of every deliverable",
-  "Les projets les plus exigeants": "The most demanding projects",
-  "Le choix du bon modèle d'IA": "Choosing the right AI model",
-  "La relecture technique": "Technical review",
   "Préparé, vous validez": "Prepared, you approve",
   "Nouvelle capacité": "New capability",
-  "Avec eux, nous livrons": "With them, we deliver",
-  "Une prise en main par métier": "Hands-on adoption by role",
   "Évalue un nouveau fournisseur avec des sources publiques.": "Assesses a new supplier from public sources.",
   "Propose une réponse à chaque demande.": "Suggests a reply to each request.",
   "Répond la nuit et le week-end, dans votre ton.": "Replies at night and at weekends, in your tone.",
@@ -395,45 +371,5 @@ export const SERVICE_CASES = [
       "Suit les échéances de vos contrats.",
       "Retrouve une clause dans dix ans d'archives."
     ]
-  ]
-] as const;
-
-export const PARTNER_OFFERS = [
-  [
-    "Assistants sur mesure",
-    "Outils sur mesure",
-    "Le contrôle de vos assistants",
-    "La connexion à vos logiciels"
-  ],
-  [
-    "Des automatisations sur mesure",
-    "Des assistants écrits",
-    "Des assistants vocaux",
-    "Des vidéos générées"
-  ],
-  [
-    "La conduite du changement",
-    "Le pilotage de projet",
-    "Votre feuille de route IA"
-  ],
-  [
-    "Votre identité de marque",
-    "Vos contenus",
-    "Votre prospection"
-  ],
-  [
-    "Une prise en main par métier",
-    "Des ateliers par métier",
-    "Claude Code pour vos développeurs"
-  ],
-  [
-    "L'audit de vos processus",
-    "Le diagnostic IA",
-    "La relecture de chaque livrable"
-  ],
-  [
-    "Les projets les plus exigeants",
-    "La relecture technique",
-    "Le choix du bon modèle d'IA"
   ]
 ] as const;

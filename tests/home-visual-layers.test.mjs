@@ -132,7 +132,10 @@ for (const locale of ["fr", "en"]) {
     assert.equal(cards.length, 2);
     for (const [, card] of cards) {
       assert.equal((card.match(/<li>/g) ?? []).length, 3);
-      assert.equal((card.match(/<svg /g) ?? []).length, 3);
+      // 21/11/2026 (soir) : un pictogramme de repère en tête de carte, puis les trois coches.
+      assert.equal((card.match(/<svg class="card-glyph"/g) ?? []).length, 1);
+      assert.equal((card.match(/<svg class="check-mark"/g) ?? []).length, 3);
+      assert.equal((card.match(/<svg /g) ?? []).length, 4);
       assert.equal((card.match(/<a /g) ?? []).length, 0);
       assert.doesNotMatch(card, /[✓✔]/);
     }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { RevFooter, RevHeader } from "@/system/components";
+import { BrandConnector } from "@/system/components/BrandConnector";
 import "../system/fonts.css";
 import "../system/brand-os.tokens.css";
 import "../system/tokens.css";
@@ -23,7 +24,7 @@ export default function NotFound() {
           <h1>This page does not exist.<br /><span lang="fr">Cette page n&apos;existe pas.</span></h1>
         </header>
         <nav className="not-found-actions" aria-label="Page not found">
-          <Link className="rev-button exec" href="/">Back to the home page</Link>
+          <Link className="rev-button exec" href="/">Back to the home page<BrandConnector /></Link>
           <Link className="rev-button ghost" href="/fr" lang="fr">Revenir à l&apos;accueil</Link>
           <Link className="rev-button ghost" href="/journal">Read the Journal</Link>
         </nav>
