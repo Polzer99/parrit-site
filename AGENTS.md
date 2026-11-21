@@ -1,3 +1,11 @@
+## 21/11/2026, soir : système visuel unique
+
+Décision de Paul (« toujours un manque de cohérence et d'alignement », « les CTA sont un coup à droite, un coup à gauche ») : `docs/CODEX-SPEC-2026-11-21-coherence-visuelle.md` et la partie 3 de `docs/AUDIT-VISUEL-2026-11-21.md` priment sur tout contrat visuel antérieur ; le résumé fait foi dans `DESIGN.md`, section « Système visuel unique ».
+Une taille par niveau de titre (page 54 px, section 40 px, carte 22 px en 600 ; exceptions : héros de l'accueil 46 px et intertitre d'article 26 px), rythme 64 / 32 / 16, une carte, un gris de filet par fond, largeur de lecture `--measure`.
+Tout part du bord gauche du conteneur ou de sa colonne de grille : titres, textes, boutons. Rien n'est centré ni poussé à droite. Un bouton principal (rose, filet de 2 px, flèche, grand au héros de l'accueil, au héros des pages d'offre et au contact) et un secondaire en contour ; sur téléphone, pleine largeur partout, hors barre et champ d'envoi. Ceci remplace « bouton haut des pages thèmes en 16 px » et « largeur de contenu à partir de 600 px ».
+Partenaires : sept cartes (pictogramme, titre, phrase) ; les 23 offres et leur défilement sortent du HTML (remplace le contrat du 27/10/2026). Presse : chiffre lu au registre du Journal. Rendez-vous : texte à gauche, calendrier à droite, sans bandeau en capitales.
+Garde-fou : `tests/coherence-visuelle.spec.ts` (dans `qa:network:rev01`) ; une exception s'écrit dans `tests/helpers/coherence-visuelle.ts` avec sa raison. Seuils de géométrie, de contraste et de stabilité inchangés.
+
 ## Cohérence et garde-fous, décision de Paul du 21/11/2026 (soir)
 
 Les specs `docs/CODEX-SPEC-2026-11-21-alignement-pages-partenaires.md` et `docs/CODEX-SPEC-2026-11-21-coherence-et-garde-fous.md` priment sur les contrats antérieurs. Accueil (dix sections) : hero, références, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Calculateur supprimé, décision de Paul du 21/11/2026 au soir (« le calculateur ressemble à rien, que du texte, aucun élément visuel marketing probant »). Ordre de l'accueil, dix sections : hero, références, offres, partenaires, parcours, terrain, technologies, mesures (presse seule), questions, contact. Les ancres historiques `#en-production`, `#in-production`, `#services`, `#ce-qui-change`, `#what-changes` restent atteignables : ce sont des `span` d'ancre en tête de la section des offres. La source `accueil-calculateur` n'a plus d'émetteur. Le bouton bas de page et le bouton haut des pages thèmes ont le style standard des boutons (16 px). Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN). Contact : « Commencez par une tâche précise. », le nom de Paul une seule fois, en légende de photo ; la section des assistants est supprimée. Pages thèmes : gabarit commun (quatre étapes, livrables et limites, règles, FAQ native, Journal si articles, rendez-vous), `h1` avec point final, `<title>`, données structurées et liens sans point.
@@ -344,7 +352,7 @@ Instrument/RegistryLine, boutons `.rev-button` / `.exec` / `.ghost`) et se véri
 Brand OS et ses contrats (captures 1440/375, contraste et absence de débordement). Un hex dans une
 page est un défaut. Interdit de créer un design system local ou une seconde famille typo.
 La CI bloque : `qa:brand:rev01` (tokens, ombres, radius, PC-10) + `qa:network:rev01`
-(specs de conformité — H1 88px, une ombre max, zéro radius).
+(specs de conformité — échelle de titres du système visuel unique, une ombre max, zéro radius).
 
 ### Règle d'index — arbitrage Paul du 02/08/2026
 
