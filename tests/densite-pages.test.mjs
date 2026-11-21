@@ -79,11 +79,11 @@ for (const locale of ["fr", "en"]) {
     const { BOOKING_COPY, BOOKING_CALL_COPY } = load("src/system/booking.ts");
     assert.doesNotMatch(JSON.stringify([BOOKING_COPY[locale], BOOKING_CALL_COPY[locale]]), /Paul Larmaraud/);
   });
-  test(`home names Paul only in the portrait caption and keeps one press section without assistants (${locale})`, async () => {
+  test(`home never names Paul in its visible text and keeps one press section without assistants (${locale})`, async () => {
     const html = await renderPage(locale);
-    assert.equal((visibleText(html).match(/Paul Larmaraud/g) ?? []).length, 1);
-    const caption = html.match(/<figcaption[^>]*>([^<]*Paul Larmaraud[^<]*)<\/figcaption>/)?.[1];
-    assert.equal(caption, locale === "fr" ? "Paul Larmaraud mène le premier échange." : "Paul Larmaraud leads the first call.");
+    // Décision de Paul du 21/11/2026 (nuit) : « enlève les "prenez rendez-vous avec Paul" » ; la légende du portrait part aussi.
+    assert.equal((visibleText(html).match(/Paul Larmaraud/g) ?? []).length, 0);
+    assert.doesNotMatch(html, /<figure class="founder-portrait">[\s\S]*?<figcaption/);
     assert.doesNotMatch(html, /<section[^>]*id="assistant"|class="teamcap"/);
     const press = html.match(/<section[^>]*id="(?:mesures|measurements)"[\s\S]*?<\/section>/)?.[0];
     assert.ok(press);

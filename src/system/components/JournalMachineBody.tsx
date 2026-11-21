@@ -19,6 +19,6 @@ export function JournalMachineBody({ content }: { content: string }) {
 export function JournalMachineFooter({ locale, contentLocale, slug }: { locale: Locale; contentLocale: Locale; slug: string }) {
   return <footer className="journal-body" lang={contentLocale}>
     <p>{contentLocale === "fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai"}</p>
-    <p><Link href={avecSource(localizedPath("/rendez-vous", locale), `journal-${slug}`)}>{contentLocale === "fr" ? "Un échange de 15 minutes avec Paul Larmaraud." : "A 15-minute conversation with Paul Larmaraud."}</Link></p>
+    <p><Link href={avecSource(localizedPath("/rendez-vous", locale), `journal-${slug}`)}>{contentLocale === "fr" ? "Un échange de 15 minutes." : "A 15-minute conversation."}</Link></p>
   </footer>;
 }

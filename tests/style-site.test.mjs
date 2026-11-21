@@ -127,8 +127,8 @@ for (const locale of ["fr", "en"]) {
     test(`le nom, les mots refusés, les signes, une seule langue (${page})`, () => {
       const texte = liste.map(bloc => bloc.texte).join("\n");
       const occurrences = texte.split(NOM).length - 1;
-      // Une seule mention sur l'accueil : la légende de la photo. Aucune ailleurs.
-      assert.ok(occurrences <= (nom === "accueil" ? 1 : 0), `${page} : « ${NOM} » apparaît ${occurrences} fois`);
+      // Décision de Paul du 21/11/2026 (nuit) : le nom n'apparaît plus nulle part, accueil compris.
+      assert.equal(occurrences, 0, `${page} : « ${NOM} » apparaît ${occurrences} fois`);
       for (const interdit of INTERDITS[locale]) {
         const motif = new RegExp(`(?<![\\p{L}])${interdit.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![\\p{L}])`, "iu");
         assert.doesNotMatch(texte, motif, `${page} : mot ou tournure refusé « ${interdit} »`);

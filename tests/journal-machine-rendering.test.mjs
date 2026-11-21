@@ -111,6 +111,9 @@ for (const locale of ["fr", "en"]) test(`new article renders answer, optional ta
   assert.ok(html.includes(locale === "fr" ? "Paul Larmaraud, fondateur de Parrit.ai" : "Paul Larmaraud, founder of Parrit.ai"));
   const booking = `${locale === "fr" ? "/fr" : ""}/rendez-vous?source=journal-${slug}`;
   assert.equal(html.split(`href="${booking}"`).length - 1, 1);
+  // Décision de Paul du 21/11/2026 (nuit) : l'invitation au rendez-vous ne nomme personne ; la signature de l'article reste.
+  assert.ok(html.includes(locale === "fr" ? ">Un échange de 15 minutes.</a>" : ">A 15-minute conversation.</a>"));
+  assert.doesNotMatch(html, /avec Paul Larmaraud|with Paul Larmaraud/);
   assert.ok(html.indexOf('journal-sources-title') < html.indexOf('Paul Larmaraud, '));
   const metadata = await page.generateMetadata(props);
   assert.equal(metadata.openGraph.modifiedTime, base.updatedAt);

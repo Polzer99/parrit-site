@@ -660,7 +660,6 @@
 /* Alignement du 21/11/2026 : presse seule (assistants retirés), portrait légendé, pied groupé. */
 .single-page .home-measures p {font-size:var(--t-m);line-height:1.6;}
 .single-page .founder-portrait {margin:0;min-width:0;}
-.single-page .founder-portrait figcaption {font-size:var(--t-s);line-height:1.5;margin-top:var(--brand-s1);color:var(--on-ink);}
 /* 21/11/2026 : le pied de page suit la règle commune, tout part du bord gauche. Les deux groupes
    de liens commencent au bord gauche du conteneur ; la mention de droits vient dessous. */
 .single-footer .wrap {flex-direction:column;justify-content:flex-start;align-items:flex-start;gap:var(--stack);}

@@ -59,3 +59,12 @@ test("active source files do not expose the legacy booking link", async () => {
     );
   }
 });
+
+// Décision de Paul du 21/11/2026 (nuit) : le rendez-vous ne porte le nom de personne. Le panneau de Cal.com
+// (photo et nom de l'hôte, titre et description de l'événement) doit rester masqué dans le calendrier intégré.
+test("booking embed hides the host and event details panel", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const source = await readFile(new URL("../src/system/components/CalInline.tsx", import.meta.url), "utf8");
+  assert.match(source, /hideEventTypeDetails:\s*true/);
+  assert.doesNotMatch(source, /hideEventTypeDetails:\s*false/);
+});

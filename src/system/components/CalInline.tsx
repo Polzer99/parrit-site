@@ -66,7 +66,9 @@ export function ParritCalInline({
       const tokenValue = (variable: string) => styles.getPropertyValue(variable.slice(4, -1)).trim();
       cal("ui", {
         theme: "dark",
-        hideEventTypeDetails: false,
+        // Décision de Paul du 21/11/2026 : le rendez-vous ne porte le nom de personne. Le panneau de Cal.com
+        // (photo et nom de l'hôte, titre et description de l'événement) est masqué ; la page dit déjà la durée.
+        hideEventTypeDetails: true,
         layout: "month_view",
         styles: { align: "left", branding: { brandColor: tokenValue("var(--accent-on-dark)") } },
         cssVarsPerTheme: {
