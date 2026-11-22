@@ -146,7 +146,10 @@ for (const locale of ["fr", "en"] as const) {
     expect(await frame!.evaluate(node => node === document.querySelector(".cal-embed-stage iframe"))).toBe(true);
     expect(calendar).toHaveLength(1);
     expect(calendar[0].searchParams.get("metadata[source]")).toBe("accueil-contenu");
-    expect(calendar.at(-1)?.searchParams.getAll("utm_custom")).toEqual(["one", "two"]);
+    expect(calendar.at(-1)?.searchParams.has("utm_custom")).toBe(false);
+    expect(calendar.at(-1)?.searchParams.get("utm_source")).toBe("parrit.ai");
+    expect(calendar.at(-1)?.searchParams.get("utm_medium")).toBe("website");
+    expect(calendar.at(-1)?.searchParams.get("utm_content")).toBe("accueil-contenu");
     // Opening exactly the href also models a modified click/new tab.
     await page.goto(local(href));
     await expect(page.locator("#objectif")).toHaveValue("logiciel");
@@ -170,4 +173,4 @@ for (const locale of ["fr", "en"] as const) {
       }
     });
   });
-}
+           }

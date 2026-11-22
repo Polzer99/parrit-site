@@ -57,7 +57,7 @@ for (const locale of ["fr", "en"]) {
     assert.equal(url.searchParams.get("source"), `accueil-${goal.id}`);
     assert.equal(url.hash, "#contact");
     assert.deepEqual(url.searchParams.getAll("utm_custom"), ["one", "two"]);
-    assert.deepEqual(calendars.at(-1).bookingParams, { "metadata[source]": `accueil-${goal.id}`, utm_source: "test", utm_custom: ["one", "two"] });
+    assert.deepEqual(calendars.at(-1).bookingParams, { "metadata[source]": `accueil-${goal.id}`, utm_source: "test", utm_content: `accueil-${goal.id}` });
     assert.match(html, /<form class="goal-form"[^>]*method="get"/);
     assert.match(html, /<noscript><button[^>]*type="submit"/);
     assert.ok(html.includes(`name="objectif"`));

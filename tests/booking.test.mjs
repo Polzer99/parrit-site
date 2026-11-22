@@ -7,7 +7,7 @@ import { loader } from "./helpers/site-v1-render.mjs";
 test("booking attribution rejects invalid/ambiguous source and preserves only UTM parameters", () => {
   const { bookingParameters } = loader("en")("src/system/booking.ts");
   assert.deepEqual(bookingParameters({ source: "journal-test", utm_source: "x", utm_custom: ["a&b", "é"], theme: "light", email: "private" }), {
-    "metadata[source]": "journal-test", utm_source: "x", utm_custom: ["a&b", "é"],
+    "metadata[source]": "journal-test", utm_source: "x", utm_content: "journal-test",
   });
   for (const source of ["<script>", "a".repeat(81), "Upper", "", "test\n", "test\r", "test\u2028", ["one", "two"]]) {
     assert.deepEqual(bookingParameters({ source, utm_source: "x" }), { utm_source: "x" });
@@ -44,7 +44,7 @@ for (const locale of ["fr", "en"]) {
     // Lot D (21/11/2026) : sans JavaScript, un lien direct vers le calendrier de la langue.
     assert.match(html, locale === "fr" ? /<noscript><p><a [^>]*href="https:\/\/cal\.com\/paul-larmaraud\/audit">Prendre rendez-vous<\/a><\/p><\/noscript>/ : /<noscript><p><a [^>]*href="https:\/\/cal\.com\/paul-larmaraud\/ai-strategy-meeting">Book a call<\/a><\/p><\/noscript>/);
     assert.equal(calendarProps.locale, locale);
-    assert.deepEqual(calendarProps.bookingParams, { "metadata[source]": "journal-test", utm_source: "x" });
+    assert.deepEqual(calendarProps.bookingParams, { "metadata[source]": "journal-test", utm_source: "x", utm_content: "journal-test" });
     const metadata = await page.generateMetadata();
     assert.equal(metadata.title, locale === "fr" ? "Premier échange, 15 minutes" : "First call, 15 minutes");
     assert.equal(metadata.openGraph.title, metadata.title);
@@ -91,4 +91,47 @@ test("RSS feed title announced by the layout is French on French pages (21/11/20
   const { readFileSync } = await import("node:fs");
   const source = readFileSync("src/system/pages/layout.tsx", "utf8");
   assert.match(source, /title: locale === "fr" \? "Journal de Parrit\.ai" : "Parrit Journal"/);
+});
+
+test("booking attribution identifies only a valid site CTA when campaign is absent", () => {
+  const { bookingParameters } = loader("en")("src/system/booking.ts");
+  for (const source of ["rdv-nav", "rdv-parcours", "accueil-rendez-vous"]) {
+    assert.deepEqual(bookingParameters({ source }), {
+      "metadata[source]": source, utm_source: "parrit.ai", utm_medium: "website", utm_content: source,
+    });
+  }
+});
+
+test("booking attribution preserves explicit campaign source and content", () => {
+  const { bookingParameters } = loader("en")("src/system/booking.ts");
+  assert.deepEqual(bookingParameters({ source: "rdv-nav", utm_source: "linkedin", utm_medium: "social", utm_campaign: "audit-novembre", utm_content: "post-2", utm_term: "ia" }), {
+    "metadata[source]": "rdv-nav", utm_source: "linkedin", utm_medium: "social", utm_campaign: "audit-novembre", utm_content: "post-2", utm_term: "ia",
+  });
+});
+
+test("booking attribution preserves Unicode campaign labels", () => {
+  const { bookingParameters } = loader("en")("src/system/booking.ts");
+  for (const campaign of ["audit-rentrée", "stratégie IA", "re\u0301seau-novembre"]) {
+    assert.deepEqual(bookingParameters({ utm_source: "linkedin", utm_campaign: campaign }), {
+      utm_source: "linkedin", utm_campaign: campaign,
+    });
+  }
+});
+
+test("booking attribution does not forward personal fields or custom UTM keys", () => {
+  const { bookingParameters } = loader("en")("src/system/booking.ts");
+  assert.deepEqual(bookingParameters({ email: "fixture@example.invalid", name: "Fixture", phone: "0612345678", token: "synthetic", utm_email: "fixture@example.invalid", utm_custom: "secret" }), {});
+});
+
+test("booking attribution drops ambiguous, encoded, address and phone-like UTM values", () => {
+  const { bookingParameters } = loader("en")("src/system/booking.ts");
+  for (const value of [["one", "two"], "fixture@example.invalid", "https://example.invalid/private", "fixture%40example.invalid", "0612345678", "a\n", "a\r", "x".repeat(121), ""]) {
+    assert.deepEqual(bookingParameters({ utm_source: value }), {});
+  }
+});
+
+test("booking attribution does not invent a CTA without a valid source", () => {
+  const { bookingParameters } = loader("en")("src/system/booking.ts");
+  assert.deepEqual(bookingParameters({ utm_source: "linkedin" }), { utm_source: "linkedin" });
+  assert.deepEqual(bookingParameters({ source: ["rdv-nav", "rdv-parcours"] }), {});
 });

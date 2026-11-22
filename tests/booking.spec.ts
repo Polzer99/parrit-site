@@ -57,7 +57,7 @@ for (const locale of ["fr", "en"] as const) for (const width of [1440, 375]) {
     expect(calendar[0].searchParams.get("metadata[source]")).toBe("journal-test");
     expect(calendar[0].searchParams.get("utm_source")).toBe("x");
     expect(calendar[0].searchParams.get("utm_content")).toBe("a&b");
-    expect(calendar[0].searchParams.getAll("utm_custom")).toEqual(["one", "two"]);
+    expect(calendar[0].searchParams.has("utm_custom")).toBe(false);
     expect(calendar[0].searchParams.has("source")).toBe(false);
     expect(await context.cookies()).toEqual([]);
     await expect(page.locator('.cal-embed-stage')).toHaveAttribute("data-ready", "true");
