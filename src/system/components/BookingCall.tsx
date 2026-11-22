@@ -12,6 +12,6 @@ export function BookingCall({ locale, source, variant = "article" }: { locale: L
     <h2 id="booking-call-title">{copy.invitation}</h2>
     <p>{copy.description}</p>
     <Link className="rev-button exec" href={avecSource(localizedPath("/rendez-vous", locale), source)}>{common.action}<BrandConnector /></Link>
-    <p className="booking-email">{copy.emailLead} <a href="mailto:paul.larmaraud@parrit.ai">{common.email}</a></p>
+    <p className="booking-email">{copy.emailLead} <a href="mailto:paul.larmaraud@parrit.ai">{common.emailOpen}</a></p>
   </section>;
 }

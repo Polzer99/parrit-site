@@ -22,14 +22,8 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
-    const portrait = page.locator(".founder picture img");
-    await expect(portrait).toHaveAttribute("alt", "Paul Larmaraud");
-    await expect(portrait).toHaveAttribute("loading", "lazy");
-    await expect(portrait).toHaveCSS("object-fit", "contain");
-    await expect(portrait).toHaveCSS("border-radius", "0px");
-    const portraitBox = await portrait.boundingBox();
-    expect(portraitBox).not.toBeNull();
-    expect(portraitBox!.width / portraitBox!.height).toBeCloseTo(3 / 4, 2);
+    // Repasse de conversion du 21/11/2026 (Paul : « photos de Paul, pas besoin en bas ») : le bloc de contact n'a plus d'image.
+    await expect(page.locator(".founder picture, .founder img")).toHaveCount(0);
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator("main > section")).toHaveCount(10);
     expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["haut", "references", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"] : ["haut", "references", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"]);
@@ -99,12 +93,15 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
         return r.bottom > 0 && r.top < innerHeight && r.width > 0 && s.visibility !== "hidden" && s.display !== "none";
       }).length)).toBeLessThanOrEqual(1);
     }
-    await expect(page.locator('#contact a[href*="source=rdv-contact"][href$="#reservation"]')).toHaveCount(1);
+    // Le calendrier est l'action du bloc de contact : ni bouton, ni lien de courriel. La prise de rendez-vous de mi-page est au parcours.
+    await expect(page.locator('#contact a.rev-button, #contact a[href^="mailto:"]')).toHaveCount(0);
+    await expect(page.locator('.parcours a.rev-button.exec[href*="source=rdv-parcours"][href$="#contact"]')).toHaveCount(1);
+    await expect(page.locator("#reservation h3.reservation-title")).toHaveText(locale === "fr" ? "Choisissez un créneau." : "Pick a time.");
     await page.locator("#reservation").scrollIntoViewIfNeeded();
     await expect(page.locator("#reservation")).toBeInViewport();
     await expect(page.locator(".contact-fallback details")).toHaveCount(0);
     await expect(page.locator('#reservation input[type="email"]')).toBeVisible();
-    await expect(page.locator(".contact-fallback button")).toHaveText(locale === "fr" ? "Demander un échange" : "Request a conversation");
+    await expect(page.locator(".contact-fallback button")).toHaveText(locale === "fr" ? "Être recontacté" : "Request a reply");
     await expect(page.locator(".contact-fallback button")).toHaveClass(/ghost/);
     const emailBox = await page.locator('.contact-fallback input[type="email"]').boundingBox();
     const submitBox = await page.locator(".contact-fallback button").boundingBox();
@@ -204,7 +201,7 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width, height: 900 });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
-    for (const selector of [".hero .btn.exec", ".founder .btn.exec"]) {
+    for (const selector of [".hero .btn.exec", ".parcours .btn.exec"]) {
       const button = page.locator(selector);
       const rose = await button.evaluate(el => {
         const probe = document.createElement("span");
@@ -231,8 +228,9 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
     await expect(page.locator(".hero h1")).toHaveCSS("font-size", width === 375 ? "38px" : "46px");
     await expect(page.locator(".hero h1")).toHaveCSS("line-height", width === 375 ? "43px" : "52px");
     await expect(page.locator(".hero .btn.exec")).toHaveCSS("font-size", "22px");
-    await expect(page.locator(".founder .btn.exec")).toHaveCSS("font-size", "22px");
-    await expect(page.locator(".founder .btn.exec")).toHaveCSS("padding", "22px 36px");
+    // Grand au héros ; taille normale au parcours (une seule définition du bouton principal normal : 16 px).
+    await expect(page.locator(".parcours .btn.exec")).toHaveCSS("font-size", "16px");
+    await expect(page.locator(".founder .btn.exec")).toHaveCount(0);
     expect(await figure.evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   });
@@ -291,7 +289,7 @@ test("visible contact variant keeps the capture payload and error recovery", asy
   const input = page.locator(".contact-fallback input[type=email]");
   const button = page.locator(".contact-fallback button");
   await expect(input).toBeVisible();
-  await expect(button).toHaveText("Demander un échange");
+  await expect(button).toHaveText("Être recontacté");
   await button.click();
   await expect(page.locator(".contact-fallback [role=alert]")).toBeVisible();
   let payload: Record<string, unknown> = {};

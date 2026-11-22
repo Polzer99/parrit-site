@@ -6,14 +6,16 @@ export const BOOKING_COPY = {
     metaTitle: "Premier échange, 15 minutes",
     description: "Vous présentez une tâche ou un projet pendant 15 minutes en visioconférence. Nous vous disons ce qui est réalisable et ce qu’il faudrait examiner ensuite.",
     action: "Prendre rendez-vous",
-    email: "Nous écrire",
+    email: "Décrire votre besoin par courriel",
+    emailOpen: "Ouvrir un courriel",
   },
   en: {
     title: "First call, 15 minutes.",
     metaTitle: "First call, 15 minutes",
     description: "You describe a task or a project in a 15-minute video call. We tell you what is feasible and what should be examined next.",
     action: "Book a call",
-    email: "Write to us",
+    email: "Describe your need by email",
+    emailOpen: "Open an email",
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 

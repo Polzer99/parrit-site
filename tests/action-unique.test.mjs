@@ -38,17 +38,19 @@ for (const locale of ["fr", "en"]) {
     const html = await renderPage(locale);
     const actions = [...html.matchAll(/<a class="([^"]*rev-button[^"]*)" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
     const booking = actions.filter(([, , href]) => ["#contact", "#reservation"].includes(new URL(href, "https://example.invalid").hash));
-    // Décision de Paul du 21/11/2026 au soir : le calculateur est supprimé ; reste le héros et le contact.
-    assert.equal(booking.length, 2, "hero and contact");
+    // Décision de Paul du 21/11/2026 au soir : le calculateur est supprimé. Repasse de conversion du 21/11/2026 (nuit) :
+    // le bouton du contact part (le calendrier est l'action), un bouton arrive à la fin du parcours.
+    assert.equal(booking.length, 2, "hero and path");
     for (const [i, [, classes, href, label]] of booking.entries()) {
       const url = new URL(href, "https://example.invalid");
       assert.match(classes, /\bexec\b/);
       assert.equal(visibleText(label).trim(), locale === "fr" ? "Prendre rendez-vous" : "Book a call");
-      assert.equal(url.searchParams.get("source"), ["accueil-rendez-vous", "rdv-contact"][i]);
+      assert.equal(url.searchParams.get("source"), ["accueil-rendez-vous", "rdv-parcours"][i]);
       assert.equal(url.pathname, locale === "fr" ? "/fr" : "/");
-      assert.equal(url.hash, i === 1 ? "#reservation" : "#contact");
-      // 21/11/2026 (soir, décision 10) : le bouton principal porte toujours la flèche, au héros comme au contact.
-      assert.match(classes, /\blarge\b/);
+      assert.equal(url.hash, "#contact");
+      // Grand au héros, taille normale au parcours.
+      assert.equal(/\blarge\b/.test(classes), i === 0);
+      // 21/11/2026 (soir, décision 10) : le bouton principal porte toujours la flèche, au héros comme au parcours.
       assert.equal((label.match(/data-connector="VS-CONNECTOR"/g) ?? []).length, 1);
       assert.match(label, /aria-hidden="true" focusable="false"/);
     }
@@ -165,18 +167,21 @@ test("authorized new logo export keeps reviewed bytes, alpha masks and optical s
   }
 });
 
-for (const locale of ["fr", "en"]) test(`contact action preserves attribution and the French Journal integration (${locale})`, () => {
+for (const locale of ["fr", "en"]) test(`path action preserves attribution and the French Journal integration (${locale})`, () => {
   const load = loader(locale);
   const { SinglePage } = load("src/system/components/SinglePage.tsx");
   const { getAllJournalEntrySummaries } = load("src/system/journal-data.ts");
   const entries = getAllJournalEntrySummaries(locale).filter(entry => !entry.noindex).slice(0, 3);
   const html = renderToStaticMarkup(createElement(SinglePage, { locale, contactQuery: "utm_campaign=a%26b&utm_custom=one&utm_custom=two&source=old", latestEntries: entries }));
+  // Repasse de conversion du 21/11/2026 : le bloc de contact ne porte plus ni bouton, ni lien de courriel, ni image.
   const contact = html.match(/<section class="founder"[\s\S]*?<\/section>/)[0];
-  const href = contact.match(/<a class="btn rev-button exec large" href="([^"]+)"/)[1].replaceAll("&amp;", "&");
+  assert.doesNotMatch(contact, /rev-button exec|href="mailto:|<img|<picture/);
+  const path = html.match(/<section class="parcours"[\s\S]*?<\/section>/)[0];
+  const href = path.match(/<a class="btn rev-button exec" href="([^"]+)"/)[1].replaceAll("&amp;", "&");
   const target = new URL(href, "https://example.invalid");
   assert.equal(target.pathname, locale === "fr" ? "/fr" : "/");
-  assert.equal(target.hash, "#reservation");
-  assert.deepEqual(target.searchParams.getAll("source"), ["rdv-contact"]);
+  assert.equal(target.hash, "#contact");
+  assert.deepEqual(target.searchParams.getAll("source"), ["rdv-parcours"]);
   assert.deepEqual(target.searchParams.getAll("utm_custom"), ["one", "two"]);
   assert.equal(target.searchParams.get("utm_campaign"), "a&b");
   const measures = html.match(/<section[^>]*id="(?:mesures|measurements)"[\s\S]*?<\/section>/)[0];

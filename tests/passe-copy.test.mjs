@@ -8,23 +8,29 @@ import { visibleText } from "../scripts/brand-os-contracts.mjs";
 // assembled from fragments. The loader forbids unmocked external dependencies.
 const text = html => visibleText(html).replace(/\s+/g, " ").trim();
 for (const locale of ["fr", "en"]) {
-  test(`contact keeps the team paragraph, portrait and actions without a biography (${locale})`, async () => {
+  test(`contact keeps the team paragraph, then the calendar and the form, without portrait or biography (${locale})`, async () => {
     const html = await renderPage(locale);
     const contact = html.match(/<section class="founder"[\s\S]*?<\/section>/)[0];
     const heading = contact.match(/<h2>([\s\S]*?)<\/h2>/)[1];
     assert.equal(text(heading), locale === "fr"
       ? "Commencez par une tâche précise."
       : "Start with one specific task.");
-    const details = contact.match(/<div class="founder-details">([\s\S]*?)<div class="actions">/)[1];
+    const details = contact.match(/<div class="founder-details">([\s\S]*?)<\/div>/)[1];
     assert.equal((details.match(/<p>/g) ?? []).length, 1);
     assert.doesNotMatch(details, /<ul|<li/);
     assert.equal(text(details).trim(), locale === "fr"
       ? "Vous décrivez une tâche qui prend du temps à vos équipes, ou un outil qui vous manque. Nous vous disons ce qui est réalisable. Le travail se fait ensuite avec les ingénieurs, les intervenants et les consultants dont votre projet a besoin."
       : "You describe a task that takes up your teams’ time, or a tool you are missing. We tell you what is feasible. The work then continues with the engineers, trainers and consultants your project needs.");
     assert.doesNotMatch(visibleText(contact), /Lime|2024|fondateur|founder/);
-    assert.match(contact, /<img[^>]*alt="Paul Larmaraud"/);
-    assert.match(contact, /class="btn rev-button exec large" href="[^"]*source=rdv-contact#reservation"/);
-    assert.match(contact, /href="mailto:paul.larmaraud@parrit.ai"/);
+    // Repasse de conversion du 21/11/2026 (Paul : « photos de Paul, pas besoin en bas », « "Nous écrire" n'est pas appealing ») :
+    // ni portrait, ni lien de courriel, ni bouton ; le calendrier puis le formulaire, chacun sous son intertitre.
+    assert.doesNotMatch(contact, /<img|<picture|href="mailto:|rev-button exec/);
+    assert.doesNotMatch(visibleText(contact), /Nous écrire|Write to us/);
+    assert.match(contact, locale === "fr" ? /<h3 class="reservation-title">Choisissez un créneau\.<\/h3>/ : /<h3 class="reservation-title">Pick a time\.<\/h3>/);
+    // L'ordre de lecture : le titre du calendrier, le calendrier, puis le formulaire (le rendu de test remplace
+    // le calendrier et le formulaire par des témoins ; les textes du formulaire sont vérifiés dans intentions.test.mjs).
+    const order = ['class="reservation-title"', "data-booking-mock", 'class="contact-fallback"'].map(mark => contact.indexOf(mark));
+    assert.ok(order.every(index => index >= 0) && order[0] < order[1] && order[1] < order[2], `ordre du bloc de contact : ${order}`);
     const technology = html.match(/<p id="technologies-title"[^>]*>([\s\S]*?)<\/p>/)[1];
     assert.equal(text(technology), locale === "fr"
       ? "Nous choisissons les outils selon votre besoin."

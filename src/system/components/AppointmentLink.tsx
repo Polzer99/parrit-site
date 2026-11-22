@@ -7,14 +7,14 @@ import { localizedPath, type Locale } from "@/system/locale";
 /** Décision de Paul du 08/11/2026, nuit : one action, attributed by placement. */
 export function AppointmentLink({ locale, placement, query = "", children, primary = true, source: goalSource }: {
   locale: Locale;
-  placement: "nav" | "hero" | "contact";
+  placement: "nav" | "hero" | "parcours";
   query?: string;
   source?: `accueil-${string}`;
   children?: ReactNode;
   primary?: boolean;
 }) {
   const source = goalSource ?? `rdv-${placement}`;
-  const target = placement === "contact" ? "reservation" : "contact";
+  const target = "contact";
   const href = avecSource(localizedPath(`/${query ? `?${query}` : ""}#${target}`, locale), source);
   const navigate = (event: MouseEvent<HTMLAnchorElement>) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -26,6 +26,6 @@ export function AppointmentLink({ locale, placement, query = "", children, prima
     contact.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" });
     contact.focus({ preventScroll: true });
   };
-  // Grande taille au héros et au contact (audit 3.6) ; la barre reste un bouton secondaire.
-  return <a className={`btn rev-button ${primary ? "exec large" : "ghost"}`} href={href} onClick={navigate}>{locale === "fr" ? "Prendre rendez-vous" : "Book a call"}{children}</a>;
+  // Grande taille au héros (audit 3.6), taille normale au parcours ; la barre reste un bouton secondaire.
+  return <a className={`btn rev-button ${primary ? (placement === "parcours" ? "exec" : "exec large") : "ghost"}`} href={href} onClick={navigate}>{locale === "fr" ? "Prendre rendez-vous" : "Book a call"}{children}</a>;
 }

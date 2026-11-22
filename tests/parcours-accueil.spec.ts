@@ -107,5 +107,5 @@ for (const locale of ["fr", "en"] as const) test(`legacy intent attribution reac
   });
   await expect(page.locator("#single-contact")).toHaveAttribute("data-state", "done");
   await expect(page.locator("#single-contact a,#single-contact button")).toHaveCount(0);
-  expect(await page.locator('a.rev-button[href*="source="]').evaluateAll(nodes => [...new Set(nodes.map(node => new URL((node as HTMLAnchorElement).href).searchParams.get("source")))].sort())).toEqual(["accueil-rendez-vous", "rdv-contact", "rdv-nav"]); // 21/11 (soir) : calculateur supprimé
+  expect(await page.locator('a.rev-button[href*="source="]').evaluateAll(nodes => [...new Set(nodes.map(node => new URL((node as HTMLAnchorElement).href).searchParams.get("source")))].sort())).toEqual(["accueil-rendez-vous", "rdv-nav", "rdv-parcours"]); // 21/11 (soir) : calculateur supprimé ; nuit : le bouton du contact laisse la place à celui du parcours
 });

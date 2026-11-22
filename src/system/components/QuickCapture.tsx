@@ -67,9 +67,9 @@ export function QuickCapture({
 }) {
   const copy = variant === "contact" ? {
     ...DICT[locale],
-    label: locale === "fr" ? "Vous préférez écrire ?" : "Prefer to write?",
-    line: locale === "fr" ? "Indiquez votre adresse électronique pour échanger avec nous sur une tâche que vous souhaitez améliorer." : "Enter your email address to discuss a task you would like to improve with us.",
-    button: locale === "fr" ? "Demander un échange" : "Request a conversation",
+    label: locale === "fr" ? "Aucun créneau ne vous convient ?" : "No time that suits you?",
+    line: locale === "fr" ? "Laissez votre adresse électronique. Nous vous répondons par courriel." : "Leave your email address. We reply by email.",
+    button: locale === "fr" ? "Être recontacté" : "Request a reply",
   } : DICT[locale];
   const [email, setEmail] = useState("");
   const [idee, setIdee] = useState(initialIdee ?? "");
