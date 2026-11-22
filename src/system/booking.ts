@@ -95,7 +95,7 @@ export function bookingParameters(query: BookingSearchParams): BookingParameters
     const value = query[key];
     if (typeof value !== "string" || value.length < 1 || value.length > 120) continue;
     // Campaign labels only, not URLs, addresses, encoded payloads or phone-like values.
-    if (!/^[a-zA-Z0-9][a-zA-Z0-9_. ~-]*$/.test(value) || /[^a-zA-Z0-9_. ~-]/.test(value)) continue;
+    if (!/^[\p{L}\p{N}][\p{L}\p{M}\p{N}_. ~-]*$/u.test(value) || /[^\p{L}\p{M}\p{N}_. ~-]/u.test(value)) continue;
     if (/^[0-9][0-9 .-]{6,}$/.test(value)) continue;
     parameters[key] = value;
   }
