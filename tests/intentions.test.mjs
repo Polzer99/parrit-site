@@ -88,6 +88,15 @@ for (const locale of ["fr", "en"]) {
     const note = form.match(/<button[^>]+>[\s\S]*?<\/button><\/div><p class="contact-expectation">([^<]+)<\/p>/);
     assert.ok(note, "contact explanation follows the submit button");
     assert.equal(visibleText(note[1]), contactExpectation[locale]);
+    // Repasse de conversion du 21/11/2026 : l'intertitre, la phrase et le bouton du formulaire, sans promesse nouvelle
+    // (le message de confirmation dit déjà que Parrit.ai répond par e-mail).
+    const [formTitle, formLine, formButton] = locale === "fr"
+      ? ["Aucun créneau ne vous convient ?", "Laissez votre adresse électronique. Nous vous répondons par courriel.", "Être recontacté"]
+      : ["No time that suits you?", "Leave your email address. We reply by email.", "Request a reply"];
+    assert.equal(visibleText(form.match(/<h3>([\s\S]*?)<\/h3>/)[1]).trim(), formTitle);
+    assert.ok(visibleText(form).includes(formLine));
+    assert.equal(visibleText(form.match(/<button[^>]*type="submit"[^>]*>([\s\S]*?)<\/button>/)[1]).trim(), formButton);
+    assert.doesNotMatch(visibleText(form), /Vous préférez écrire|Demander un échange|Prefer to write|Request a conversation|proposons un autre moment|suggest another time/);
     assert.doesNotMatch(renderToStaticMarkup(createElement(QuickCapture, { locale })), /contact-expectation/);
   });
 

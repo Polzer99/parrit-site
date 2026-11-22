@@ -21,12 +21,12 @@ S'applique après la PR 400 (le rendez-vous ne porte le nom de personne).
 3. Un portrait sans nom à côté du titre : « c'est qui ? ». Paul n'en veut plus.
 4. « Nous écrire » ne dit ni ce qu'on écrit ni ce qu'on obtient.
 
-## Décisions (Paul a donné carte blanche sur le site)
+## Décisions (Paul, le 21/11/2026 au soir, sur cette opération du site : « Je te donne carte blanche. »)
 
 1. **Bloc de contact de l'accueil**, de haut en bas, tout au bord gauche :
    - le titre « Commencez par une tâche précise. » et son paragraphe, inchangés ;
    - un intertitre « Choisissez un créneau. » / « Pick a time. », puis le calendrier ;
-   - un intertitre « Aucun créneau ne vous convient ? » / « No time that suits you? », la phrase « Laissez votre adresse électronique. Nous vous proposons un autre moment. » / « Leave your email address. We will suggest another time. », le champ et son bouton « Être recontacté » / « Request a reply » (libellé court : sur téléphone, un libellé long ne laisse que 88 px au champ), puis les deux phrases existantes (« Pendant les 15 minutes… » et « Aucune relance automatique. »), inchangées.
+   - un intertitre « Aucun créneau ne vous convient ? » / « No time that suits you? », la phrase « Laissez votre adresse électronique. Nous vous répondons par courriel. » / « Leave your email address. We reply by email. » (aucune promesse nouvelle : le message de confirmation dit déjà « Parrit.ai l'étudie et vous répond par e-mail » ; la première version, « Nous vous proposons un autre moment. », engageait à proposer un créneau et a été retirée à la relecture), le champ et son bouton « Être recontacté » / « Request a reply » (libellé court : sur téléphone, un libellé long ne laisse que 88 px au champ), puis les deux phrases existantes (« Pendant les 15 minutes… » et « Aucune relance automatique. »), inchangées.
    - Sont supprimés du bloc : le portrait, le lien « Nous écrire », le grand bouton « Prendre rendez-vous » (le calendrier est l'action). La source `rdv-contact` n'a plus d'émetteur.
 2. **Une prise de rendez-vous à mi-page** : à la fin de la section « Trois étapes, vous commencez où vous voulez. », sous « Déjà équipés ? … », un bouton principal de taille normale « Prendre rendez-vous » / « Book a call », source `rdv-parcours`, qui mène à `#contact`. Même libellé et même destination que les autres : l'action reste unique, elle a un emplacement de plus. Ceci amende « aucune action au parcours » (08/11/2026).
 3. **Page de rendez-vous** : le lien « Nous écrire » / « Write to us » devient « Décrire votre besoin par courriel » / « Describe your need by email ». **Bloc de fin d'article ou de page d'offre** : après la phrase qui dit déjà « par courriel », le lien devient « Ouvrir un courriel » / « Open an email ».
@@ -49,6 +49,6 @@ S'applique après la PR 400 (le rendez-vous ne porte le nom de personne).
 
 ## Critères d'acceptation
 
-- Sur l'accueil, la distance entre deux prises de rendez-vous ne dépasse pas 3 000 px sur ordinateur.
+- Sur l'accueil, la distance entre deux prises de rendez-vous ne dépasse pas 3 000 px sur ordinateur. Mesuré après changement à 1440 × 800 : bouton du héros à y = 553 px, bouton du parcours à y = 3 199 px (2 646 px), titre du bloc de contact à y = 5 342 px (2 143 px).
 - Le bloc de contact ne contient plus ni image, ni lien `mailto`, ni bouton vers `#reservation`.
 - `npm run lint && npm run build -- --webpack && npm test && npm run qa:claims:rev01 && npm run qa:brand:rev01` verts ; CI verte.

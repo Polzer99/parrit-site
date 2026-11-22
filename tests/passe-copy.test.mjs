@@ -27,6 +27,10 @@ for (const locale of ["fr", "en"]) {
     assert.doesNotMatch(contact, /<img|<picture|href="mailto:|rev-button exec/);
     assert.doesNotMatch(visibleText(contact), /Nous écrire|Write to us/);
     assert.match(contact, locale === "fr" ? /<h3 class="reservation-title">Choisissez un créneau\.<\/h3>/ : /<h3 class="reservation-title">Pick a time\.<\/h3>/);
+    // L'ordre de lecture : le titre du calendrier, le calendrier, puis le formulaire (le rendu de test remplace
+    // le calendrier et le formulaire par des témoins ; les textes du formulaire sont vérifiés dans intentions.test.mjs).
+    const order = ['class="reservation-title"', "data-booking-mock", 'class="contact-fallback"'].map(mark => contact.indexOf(mark));
+    assert.ok(order.every(index => index >= 0) && order[0] < order[1] && order[1] < order[2], `ordre du bloc de contact : ${order}`);
     const technology = html.match(/<p id="technologies-title"[^>]*>([\s\S]*?)<\/p>/)[1];
     assert.equal(text(technology), locale === "fr"
       ? "Nous choisissons les outils selon votre besoin."

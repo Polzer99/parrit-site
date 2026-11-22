@@ -172,6 +172,7 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         // Le bouton de mi-page : taille normale, jamais dans le même écran que celui du héros.
         const midPage = page.locator(".parcours .btn.exec");
         await expect(midPage).toHaveCSS("font-size", "16px");
+        await expect(midPage).toHaveCSS("padding", "13px 23px");
         const midPageBox = (await midPage.boundingBox())!;
         expect(midPageBox.y - buttonBox.y - buttonBox.height, "hero and path never share this viewport").toBeGreaterThanOrEqual(height);
         await expect(page.locator(".founder .rev-button.exec, .founder a[href^='mailto:'], .founder img")).toHaveCount(0);

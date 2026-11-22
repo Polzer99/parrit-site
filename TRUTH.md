@@ -10,7 +10,8 @@ Menu : Offres, Partenaires, Le parcours, Questions, Journal (FR/EN).
 Contact : « Commencez par une tâche précise. », avec point final. Repasse de conversion du 21/11/2026 (nuit) :
 le bloc n'a plus ni bouton, ni lien de courriel, ni portrait ; le calendrier (« Choisissez un créneau. ») puis le
 formulaire (« Aucun créneau ne vous convient ? », bouton « Être recontacté »). Le bouton « Prendre rendez-vous » vit
-dans la barre, au héros et à la fin du parcours (`rdv-parcours`) ; tous mènent à `#contact`. Paul n'est plus nommé
+dans la barre, au héros et à la fin du parcours (`rdv-parcours`) ; tous mènent à `#contact`. Ceci amende
+« aucune action au parcours » (08/11/2026) et la source `rdv-contact`, qui n'a plus d'émetteur. Paul n'est plus nommé
 dans le texte visible de l'accueil ni dans aucune invitation au rendez-vous.
 Partenaires : « Vous travaillez avec les spécialistes dont votre projet a besoin. »
 Introduction : « Nous travaillons avec des ingénieurs, des studios, des consultants, des intervenants, des cabinets de conseil et des chercheurs. Pour chaque projet, nous réunissons ceux dont le métier correspond à votre besoin. »
@@ -44,7 +45,7 @@ le 97 % étant absent de l'article indiqué. Règles d'épure dans DESIGN.md.
 
 Les sections 6 et 7 de `docs/CODEX-SPEC-2026-11-08-action-unique-et-wording.md`
 priment sur les mentions antérieures de trois placements : le bouton du fondateur
-est rétabli, même libellé, `exec`, source `rdv-contact`, 22 px et 22 × 36 px.
+est rétabli, même libellé, `exec`, source `rdv-contact`, 22 px et 22 × 36 px (remplacé le 21/11/2026, nuit : ce bouton est supprimé, voir la repasse de conversion en tête).
 Navigation `ghost` conservée ; quatre placements au total, formulaire distinct.
 Écart sous le bouton du hero : 16 px. Transitions et animations des grands boutons
 explicitement nulles en mouvement réduit. À 1280 × 720, les marges internes de

@@ -56,6 +56,9 @@ test("compiled booking funnel, bilingual interface and all registry destinations
       assert.match(booking, locale === "fr" ? /Premier échange de 15 minutes/ : /First call, 15 minutes/);
       assert.match(booking, /name="robots" content="noindex, follow"/);
       assert.match(booking, /href="mailto:paul.larmaraud@parrit.ai"/);
+      // Repasse de conversion du 21/11/2026 : le lien dit ce qu'on écrit, plus « Nous écrire ».
+      assert.match(booking, locale === "fr" ? /<a class="booking-email" href="mailto:[^"]+">Décrire votre besoin par courriel<\/a>/ : /<a class="booking-email" href="mailto:[^"]+">Describe your need by email<\/a>/);
+      assert.doesNotMatch(booking, />Nous écrire<|>Write to us</);
       assert.ok(booking.includes(`href="https://parrit.ai${prefix}/rendez-vous"`));
       assert.match(booking, /metadata\[source\]/);
       for (const [route, source] of [["/journal/malicious-mcp-server-after-install", "journal-malicious-mcp-server-after-install"], ["/journal/themes/ai-sprints", "theme-ai-sprints"]]) {
@@ -64,6 +67,7 @@ test("compiled booking funnel, bilingual interface and all registry destinations
         assert.equal(blocks.length, 1, route);
         const block = blocks[0][0];
         assert.match(block, new RegExp(`lang="${locale}"`));
+        assert.match(block, locale === "fr" ? /<a href="mailto:[^"]+">Ouvrir un courriel<\/a>/ : /<a href="mailto:[^"]+">Open an email<\/a>/);
         assert.equal((html.match(/class="[^"]*\bexec\b[^"]*"/g) ?? []).length, source.startsWith("theme-") ? 2 : 1);
         assert.ok(block.includes(`href="${prefix}/rendez-vous?source=${source}"`));
         assert.doesNotMatch(visibleText(block), /offert|gratuit|€|countdown|compte à rebours/i);
