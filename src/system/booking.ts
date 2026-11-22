@@ -83,13 +83,30 @@ export type BookingParameters = Partial<Record<"metadata[source]" | `utm_${strin
 /** Cal embed-core serializes config entries into the booking iframe URL. */
 export function bookingParameters(query: BookingSearchParams): BookingParameters {
   const parameters: BookingParameters = {};
-  if (typeof query.source === "string" && query.source.length >= 1 && query.source.length <= 80 && !/[^a-z0-9-]/.test(query.source)) {
-    parameters["metadata[source]"] = query.source;
+  const source = typeof query.source === "string" && query.source.length >= 1 && query.source.length <= 80 && !/[^a-z0-9-]/.test(query.source)
+    ? query.source : undefined;
+  if (source) parameters["metadata[source]"] = source;
+
+  // Cal stores these five standard UTM fields without hidden questions.
+  // Never enable forwardQueryParams: names, emails and arbitrary URL fields
+  // must not be copied into the booking iframe.
+  const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"] as const;
+  for (const key of keys) {
+    const value = query[key];
+    if (typeof value !== "string" || value.length < 1 || value.length > 120) continue;
+    // Campaign labels only, not URLs, addresses, encoded payloads or phone-like values.
+    if (!/^[a-zA-Z0-9][a-zA-Z0-9_. ~-]*$/.test(value) || /[^a-zA-Z0-9_. ~-]/.test(value)) continue;
+    if (/^[0-9][0-9 .-]{6,}$/.test(value)) continue;
+    parameters[key] = value;
   }
-  for (const [key, value] of Object.entries(query)) {
-    if (key.startsWith("utm_") && value !== undefined) {
-      parameters[key as `utm_${string}`] = value;
+  if (source) {
+    // Preserve an explicit campaign source and content. Otherwise identify the
+    // site and its CTA, not a visitor. This is not cross-page visitor tracking.
+    if (!parameters.utm_source) {
+      parameters.utm_source = "parrit.ai";
+      if (!parameters.utm_medium) parameters.utm_medium = "website";
     }
+    if (!parameters.utm_content) parameters.utm_content = source;
   }
   return parameters;
 }
