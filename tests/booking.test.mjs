@@ -109,6 +109,15 @@ test("booking attribution preserves explicit campaign source and content", () =>
   });
 });
 
+test("booking attribution preserves Unicode campaign labels", () => {
+  const { bookingParameters } = loader("en")("src/system/booking.ts");
+  for (const campaign of ["audit-rentrée", "stratégie IA", "re\u0301seau-novembre"]) {
+    assert.deepEqual(bookingParameters({ utm_source: "linkedin", utm_campaign: campaign }), {
+      utm_source: "linkedin", utm_campaign: campaign,
+    });
+  }
+});
+
 test("booking attribution does not forward personal fields or custom UTM keys", () => {
   const { bookingParameters } = loader("en")("src/system/booking.ts");
   assert.deepEqual(bookingParameters({ email: "fixture@example.invalid", name: "Fixture", phone: "0612345678", token: "synthetic", utm_email: "fixture@example.invalid", utm_custom: "secret" }), {});
