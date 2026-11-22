@@ -116,7 +116,10 @@ for (const locale of ["fr", "en"] as const) {
     await expect(frame!.getByRole("main")).toHaveText("Calendrier local");
     const iframeUrl = new URL(frame!.url());
     expect(iframeUrl.searchParams.get("metadata[source]")).toBe("journal-example");
-    expect(iframeUrl.searchParams.getAll("utm_custom")).toEqual(["one", "two"]);
+    expect(iframeUrl.searchParams.getAll("utm_custom")).toEqual([]);
+    expect(iframeUrl.searchParams.get("utm_source")).toBe("mail");
+    expect(iframeUrl.searchParams.get("utm_medium")).toBeNull();
+    expect(iframeUrl.searchParams.get("utm_content")).toBe("journal-example");
   });
 }
 
