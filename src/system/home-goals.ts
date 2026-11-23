@@ -2,6 +2,8 @@ import type { Locale } from './locale';
 import { SINGLE_PAGE_EN } from './single-page-copy';
 
 // Spec du 13/11/2026, ordre croissance, temps, construction. Identifiants stables FR/EN.
+// Décision de Paul du 23/11/2026 : sept besoins au lieu de dix-sept (docs/CODEX-SPEC-2026-11-23-realisation-metier.md).
+// Les trois plans gardent leurs seize nœuds : le schéma décrit l'entreprise, pas cette liste.
 export type HomeGoal = {
   id: string; group: 'c' | 't' | 'b'; label: Record<Locale, string>; result: Record<Locale, string>;
   path: readonly [string, string, string];
@@ -25,23 +27,6 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     ]
   },
   {
-    "id": "contenu",
-    "group": "c",
-    "label": {
-      "fr": "préparer mes articles",
-      "en": "prepare my articles"
-    },
-    "result": {
-      "fr": "Vos sujets deviennent des articles sourcés.",
-      "en": "Your topics become sourced articles."
-    },
-    "path": [
-      "Votre expertise",
-      "Sujet",
-      "Article publié"
-    ]
-  },
-  {
     "id": "relances",
     "group": "c",
     "label": {
@@ -54,40 +39,6 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     },
     "path": [
       "Devis",
-      "Client",
-      "Relance"
-    ]
-  },
-  {
-    "id": "appels-offres",
-    "group": "c",
-    "label": {
-      "fr": "repérer les appels d’offres",
-      "en": "spot tenders"
-    },
-    "result": {
-      "fr": "Les appels d'offres utiles, triés chaque matin.",
-      "en": "Relevant tenders, sorted every morning."
-    },
-    "path": [
-      "Appels d'offres",
-      "Prospect",
-      "Dossier de réponse"
-    ]
-  },
-  {
-    "id": "clients-reactives",
-    "group": "c",
-    "label": {
-      "fr": "relancer d'anciens clients",
-      "en": "follow up past clients"
-    },
-    "result": {
-      "fr": "Vous repérez les clients à rappeler et pour quel motif.",
-      "en": "You identify which clients to call back and why."
-    },
-    "path": [
-      "Base clients",
       "Client",
       "Relance"
     ]
@@ -110,40 +61,6 @@ export const HOME_GOALS: readonly HomeGoal[] = [
     ]
   },
   {
-    "id": "factures",
-    "group": "t",
-    "label": {
-      "fr": "rapprocher mes factures",
-      "en": "reconcile my invoices"
-    },
-    "result": {
-      "fr": "Relevés et grand livre rapprochés, écarts signalés.",
-      "en": "Statements and ledger reconciled, gaps flagged."
-    },
-    "path": [
-      "Factures",
-      "Paiement",
-      "Trésorerie"
-    ]
-  },
-  {
-    "id": "comptes-rendus",
-    "group": "t",
-    "label": {
-      "fr": "préparer mes comptes rendus",
-      "en": "prepare my meeting notes"
-    },
-    "result": {
-      "fr": "Vous retrouvez les décisions et les personnes chargées de les appliquer.",
-      "en": "You find the decisions and the people responsible for carrying them out."
-    },
-    "path": [
-      "Comptes rendus",
-      "Action",
-      "Suivi des actions"
-    ]
-  },
-  {
     "id": "reponses-client",
     "group": "t",
     "label": {
@@ -158,40 +75,6 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "E-mails",
       "Client",
       "Réponse client"
-    ]
-  },
-  {
-    "id": "contrats",
-    "group": "t",
-    "label": {
-      "fr": "vérifier mes contrats",
-      "en": "check my contracts"
-    },
-    "result": {
-      "fr": "Chaque contrat comparé à vos conditions.",
-      "en": "Every contract compared with your terms."
-    },
-    "path": [
-      "Contrats",
-      "Contrat",
-      "Écarts de contrat"
-    ]
-  },
-  {
-    "id": "agents",
-    "group": "b",
-    "label": {
-      "fr": "automatiser des tâches",
-      "en": "automate tasks"
-    },
-    "result": {
-      "fr": "Des assistants se répartissent le travail. Vous gardez le contrôle.",
-      "en": "Assistants share the work. You stay in control."
-    },
-    "path": [
-      "Vos processus",
-      "Processus",
-      "Assistants coordonnés"
     ]
   },
   {
@@ -243,57 +126,6 @@ export const HOME_GOALS: readonly HomeGoal[] = [
       "Vos processus",
       "Décision",
       "Feuille de route"
-    ]
-  },
-  {
-    "id": "developpeurs",
-    "group": "b",
-    "label": {
-      "fr": "équiper mes développeurs",
-      "en": "equip my developers"
-    },
-    "result": {
-      "fr": "Vos développeurs utilisent l'IA sans perturber les logiciels en service.",
-      "en": "Your developers use AI without disrupting software already in use."
-    },
-    "path": [
-      "Votre code",
-      "Projet",
-      "Code contrôlé"
-    ]
-  },
-  {
-    "id": "ia-interne",
-    "group": "b",
-    "label": {
-      "fr": "garder l'IA chez nous",
-      "en": "keep AI in-house"
-    },
-    "result": {
-      "fr": "Installée sur vos serveurs, vos données n'en sortent pas.",
-      "en": "Installed on your servers, your data never leaves."
-    },
-    "path": [
-      "Vos données",
-      "Métier",
-      "IA installée chez vous"
-    ]
-  },
-  {
-    "id": "prototype",
-    "group": "b",
-    "label": {
-      "fr": "tester un outil concret",
-      "en": "test a concrete tool"
-    },
-    "result": {
-      "fr": "Vous testez une première version pour décider de la suite.",
-      "en": "You test a first version to decide what comes next."
-    },
-    "path": [
-      "Votre expertise",
-      "Produit",
-      "Prototype"
     ]
   }
 ];

@@ -4,6 +4,7 @@ import { createContext, useContext, useState, type ReactNode } from "react";
 import { localizedPath, type Locale } from "@/system/locale";
 import { GOAL_GROUPS, GOAL_PLANES, HOME_GOALS, goalNodeLabel, homeGoal, type HomeGoal } from "@/system/home-goals";
 import { homeSectionHeadings } from "@/system/home-layers";
+import { SINGLE_PAGE_EN } from "@/system/single-page-copy";
 import { avecSource } from "@/lib/registry/cta";
 import { bookingParameters, type BookingSearchParams } from "@/system/booking";
 import { AppointmentLink } from "./AppointmentLink";
@@ -66,9 +67,12 @@ export function GoalDiagram({ locale }: { locale: Locale }) {
 export function GoalHero({ locale }: { locale: Locale }) {
   const { goal, choose, query } = useGoal();
   const heading = homeSectionHeadings(locale).hero;
+  const t = (text: string) => locale === "fr" ? text : SINGLE_PAGE_EN[text];
   return <section className="hero" id="haut"><div className="wrap goal-hero">
     <div className="hero-intro">
       <h1>{heading[0]}{" "}<b>{heading[1]}</b></h1>
+      {/* Décision de Paul du 23/11/2026 : le métier est dit sous le titre. */}
+      <p className="hero-metier">{t("Des audits pour choisir où agir. Des logiciels conçus autour de votre métier.")}</p>
       <form className="goal-form" method="get" action={`${localizedPath("/", locale)}#haut`}>
         <label htmlFor="objectif">{locale === "fr" ? "Je veux" : "I want to"}</label>
         <span className="goal-select">
@@ -87,6 +91,7 @@ export function GoalHero({ locale }: { locale: Locale }) {
         <div className="goal-result-sizer" aria-hidden="true">{HOME_GOALS.map(item => <p key={item.id}>{item.result[locale]}</p>)}</div>
       </div>
       <div className="actions"><AppointmentLink locale={locale} placement="hero" query={query} source={`accueil-${goal.id}`}><BrandConnector/></AppointmentLink></div>
+      <p className="hero-note">{t("15 minutes pour présenter votre besoin et parler de ce qui est réalisable.")}</p>
     </div>
     <GoalDiagram locale={locale}/>
   </div></section>;

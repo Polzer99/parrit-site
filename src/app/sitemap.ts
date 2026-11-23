@@ -8,7 +8,7 @@ const SITE_URL =
 
 const REV01_PUBLIC_ROUTES = [
   ...["harness-engineering", "ai-sprints", "integration-developpement", "conseil-transformation"].map(theme => ({ path: `/journal/themes/${theme}`, lastModified: JOURNAL_THEMES_LAST_MODIFIED, changeFrequency: "monthly" as const, priority: 0.8 })),
-  { path: "", lastModified: "2026-11-21", changeFrequency: "weekly" as const, priority: 1.0 },
+  { path: "", lastModified: "2026-11-23", changeFrequency: "weekly" as const, priority: 1.0 },
   { path: "/legal", lastModified: "2026-09-02", changeFrequency: "yearly" as const, priority: 0.3 },
 ];
 

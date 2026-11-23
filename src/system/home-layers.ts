@@ -56,7 +56,7 @@ export function homeFaqJsonLd(locale: Locale) {
 
 // One order for the rendered home and its machine-readable description.
 export const HOME_SECTION_ORDER = [
-  "hero", "references", "offers", "team", "path", "terrain",
+  "hero", "references", "realisation", "offers", "team", "path", "terrain",
   "technologies", "measures", "questions", "contact",
 ] as const;
 export type HomeSection = typeof HOME_SECTION_ORDER[number];
@@ -68,6 +68,8 @@ export function homeSectionHeadings(locale: Locale) {
   return {
     hero: [t("Votre expertise est la matière première."), t("Nous la mettons au travail.")],
     references: [t("Ils travaillent"), t("avec nous.")],
+    // Décision de Paul du 23/11/2026 : une réalisation montrée, avec des phrases déjà en place.
+    realisation: [t("Votre façon de travailler devient un logiciel.")],
     terrain: [locale === "fr" ? "Sur le terrain, avec vos équipes." : "In the field, with your teams."],
     offers: [copy.offersTitle],
     measures: [locale === "fr" ? "Nous publions ce que nos missions nous apprennent." : "We publish what our projects teach us."],

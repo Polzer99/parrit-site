@@ -95,6 +95,8 @@ Une règle par sujet, sur toutes les pages. Mesures et raisons : [audit](docs/AU
 
 ## Épure
 
+Depuis le 23/11/2026 : le héros dit le métier sous le titre et les 15 minutes sous le bouton ; le sélecteur garde sept besoins ; une réalisation suit les logos, avec un écran réel sur données fictives dans un cadre à filet fin, coins droits, sans ombre (`docs/CODEX-SPEC-2026-11-23-realisation-metier.md`).
+
 La [spec du 13/11/2026](docs/CODEX-SPEC-2026-11-13-accueil-epure.md)
 prime sur les descriptions historiques ci-dessus pour le haut de l'accueil.
 Les composants concernés sont [HomeGoals](src/system/components/HomeGoals.tsx),

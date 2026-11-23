@@ -19,7 +19,7 @@ for (const locale of ["fr", "en"]) test(`hero headline and descriptive subtitle 
   assert.equal((html.match(/<h1>/g) ?? []).length, 1);
   assert.equal(html.match(/<h1>(.*?)<\/h1>/s)?.[1], `${normal} <b>${bold}</b>`);
   assert.doesNotMatch(html, /class="sub"|class="hero-reassurance"/);
-  assert.equal((html.match(/<select id="objectif"[\s\S]*?<\/select>/)?.[0].match(/<option\b/g) ?? []).length, 17);
+  assert.equal((html.match(/<select id="objectif"[\s\S]*?<\/select>/)?.[0].match(/<option\b/g) ?? []).length, 7);
   const action = html.match(/class="actions"><a[^>]*href="([^"]+)"[^>]*>(.*?)<\/a>/s);
   // Decision of 08/11/2026: nuit: the same destination now carries rdv-hero.
   assert.equal(action?.[1], `${locale === "fr" ? "/fr" : "/"}?source=accueil-rendez-vous#contact`);
@@ -116,7 +116,8 @@ test("French theme introductions use plain language while their addresses and si
       assert.ok(entry, localized);
       assert.equal(entry.alternates.languages[locale], entry.url);
       // 21/11: the themes were rewritten (JOURNAL_THEMES_LAST_MODIFIED) and the home sections changed (sitemap date amended).
-      assert.equal(entry.lastModified, "2026-11-21");
+      // 23/11: the home gains a section and its selector is shortened; the themes keep their date.
+      assert.equal(entry.lastModified, path === "/" ? "2026-11-23" : "2026-11-21");
     }
   }
   assert.equal(sitemap.filter(item => new URL(item.url).pathname.startsWith("/fr")).length, 7);

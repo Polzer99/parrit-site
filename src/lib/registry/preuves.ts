@@ -318,6 +318,8 @@ const publication = (id: string, display_name: string, claim: string, relationsh
   expiration_or_review_date: "2027-01-26", last_verified: "2026-10-27", page_ids: ["home"],
 });
 
+export const REALISATION_ASSETS = [800, 1600].flatMap(width => ["avif", "webp"].map(format => `/realisations/pilotage-ventes-${width}.${format}`));
+
 export const SITE_EVIDENCE: readonly PublicationEvidence[] = [
   publication("Laparra", "Laparra", "Un outil de pilotage agentique pour les fruits et légumes", "réalisé pour le client"),
   publication("Clevery", "Clevery Avocats", "Un agent pour le cabinet", "réalisé pour le client"),
@@ -333,6 +335,18 @@ export const SITE_EVIDENCE: readonly PublicationEvidence[] = [
     last_verified: "2026-11-08", expiration_or_review_date: "2027-02-06",
   })),
   publication("demo-crm", "Carte de visite et CRM", "Une carte de visite devient une fiche CRM après validation", "démonstration, données fictives"),
+  // Décision de Paul du 23/11/2026 (« On peut montrer la réalisation. ») : un écran réel de l'outil, sur un jeu de
+  // données fictif. Le client n'est pas nommé à cet endroit ; son logo reste dans la bande des clients.
+  {
+    ...publication("realisation-grossiste", "Grossiste du MIN de Rungis", "Un outil de pilotage pour un grossiste en fruits et légumes, montré sur des données fictives", "réalisé pour le client, écran réel sur données fictives"),
+    // Ni nom ni logo : c'est une démonstration sur données fictives, pas une référence nominative.
+    category: "demonstration" as const,
+    evidence_source: "docs/CODEX-SPEC-2026-11-23-realisation-metier.md ; public/realisations/SOURCES.md",
+    permission_owner: "Paul Larmaraud, décision du 23/11/2026",
+    logo: { autorise: false, fichier: null, source: null, accord: null },
+    approved_assets: REALISATION_ASSETS, usage_scope: ["text", "image"],
+    last_verified: "2026-11-23", expiration_or_review_date: "2027-02-21",
+  },
 ];
 
 export function getSiteEvidence(id: string, page: string): PublicationEvidence | undefined {

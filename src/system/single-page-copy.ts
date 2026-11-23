@@ -80,6 +80,11 @@ export const SINGLE_PAGE_EN: Readonly<Record<string, string>> = {
   "Nous la mettons au travail.": "We put it to work.",
   "Vos équipes gardent la décision. Aucune relance automatique.": "Your teams keep the final say. No automated follow-up.",
   "Vos équipes prennent l'IA en main. Nous développons les logiciels qui leur manquent.": "Your teams learn to use AI. We build the software they are missing.",
+  // 23/11/2026. Français : étude « Une direction plus forte pour Parrit.ai », mot pour mot. Anglais PROVISOIRE :
+  // traduction littérale, à faire reprendre par le rédacteur OpenAI à son retour (26/11/2026).
+  "Des audits pour choisir où agir. Des logiciels conçus autour de votre métier.": "Audits to decide where to act. Software built around your business.",
+  "15 minutes pour présenter votre besoin et parler de ce qui est réalisable.": "15 minutes to present your need and discuss what is feasible.",
+  "Les données affichées sont fictives.": "The data shown is fictitious.",
 
   "Vos e-mails, vos contrats et vos factures contiennent déjà les réponses. Nous les rendons utilisables.": "Your e-mails, contracts and invoices already hold the answers. We make them usable.",
   "Quelques applications": "A few",

@@ -1,3 +1,11 @@
+## 23/11/2026 : une réalisation montrée, le métier dit, sept besoins
+
+Décision de Paul (« Ok lançons les réalisations […] On peut montrer la réalisation. Yes, on peut lancer cette PR. ») : `docs/CODEX-SPEC-2026-11-23-realisation-metier.md` prime sur les contrats antérieurs du héros (« hero à 17 objectifs ») et de l'ordre de l'accueil.
+Accueil, onze sections : hero, références, réalisation, offres, partenaires, parcours, terrain, technologies, mesures, questions, contact. La réalisation (`#realisation` / `#case-study`) montre un écran réel de l'outil livré à un grossiste de Rungis, sur un jeu de données fictif ; elle ne nomme aucun client, ne porte ni lien ni bouton, et ne s'affiche que si la preuve `realisation-grossiste` est accordée dans `src/lib/registry/preuves.ts`. Aucun chiffre de gain.
+Héros : sous le titre, « Des audits pour choisir où agir. Des logiciels conçus autour de votre métier. » ; sous le bouton, « 15 minutes pour présenter votre besoin et parler de ce qui est réalisable. » (seule mention des 15 minutes admise hors FAQ, exception écrite dans `tests/brand-os-render.test.mjs`). Le bouton reste le seul bouton du héros.
+Sélecteur : sept besoins (`rendez-vous`, `relances`, `commandes`, `reponses-client`, `logiciel`, `formation`, `priorites`) ; les trois plans du schéma gardent leurs 48 nœuds. Un identifiant retiré retombe sur le premier besoin.
+Aucune phrase française nouvelle : textes de l'étude du 23/11 et phrases déjà présentes dans `single-page-copy.ts`. Provisoire, à faire reprendre par le rédacteur OpenAI : l'anglais des deux lignes du héros et le texte alternatif de l'écran. La carte « Chercheurs du MIT » est inchangée.
+
 ## Alignement des pages et partenaires, décision de Paul du 21/11/2026, soir
 
 La spec `docs/CODEX-SPEC-2026-11-21-alignement-pages-partenaires.md` prime sur
