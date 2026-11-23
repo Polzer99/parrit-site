@@ -159,7 +159,7 @@ for (const locale of ["fr", "en"] as const) {
   });
   test.describe(`GET fallback ${locale}`, () => {
     test.use({ javaScriptEnabled: false });
-    test("all seventeen goals remain usable without JavaScript", async ({ page }) => {
+    test("all seven goals remain usable without JavaScript", async ({ page }) => {
       // 15/11 : plus de lien de moteur ; un objectif passé en GET reste sélectionné sans JS.
       await page.goto(local(`${home}?utm_source=offline&objectif=logiciel`));
       await expect(page.locator("#objectif")).toHaveValue("logiciel");

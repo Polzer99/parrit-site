@@ -573,7 +573,7 @@
 .single-page.home-epure .hero .wrap {max-width:1160px;padding-inline:40px;}
 .single-page .goal-hero {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--brand-s6);align-items:center;}
 .single-page .goal-hero .hero-intro {display:block;min-width:0;}
-.single-page.home-epure .hero h1 {text-wrap:balance;margin-bottom:var(--brand-s4);}
+.single-page.home-epure .hero h1 {text-wrap:balance;margin-bottom:var(--brand-s2);}
 .single-page .goal-form {display:flex;flex-wrap:wrap;align-items:center;gap:var(--brand-s1);max-width:100%;}
 .single-page .goal-form label {flex:none;font-size:var(--t-xl);color:var(--on-canard);}
 .single-page .goal-select {position:relative;display:block;min-width:0;width:100%;font-family:var(--ui);font-size:var(--t-l);font-weight:600;line-height:1.5;}
@@ -663,8 +663,8 @@
 }
 
 /* Décision de Paul du 23/11/2026 (docs/CODEX-SPEC-2026-11-23-realisation-metier.md) : le métier dit sous le
-   titre du héros, la ligne des 15 minutes sous le bouton, et une réalisation montrée entre les logos et les offres. */
-.single-page.home-epure .hero h1:has(+ .hero-metier) {margin-bottom:var(--brand-s2);}
+   titre du héros (l'écart sous le titre passe de 32 à 16 px, la phrase le suit toujours), la ligne des 15 minutes
+   sous le bouton, et une réalisation montrée entre les logos et les offres. */
 .single-page .hero-metier {margin:0 0 var(--brand-s3);font-size:var(--t-m);line-height:1.5;color:var(--white);}
 .single-page .hero-note {margin:var(--brand-s2) 0 0;font-size:var(--t-s);line-height:1.5;color:var(--on-canard);}
 .single-page .realisation {background:var(--sky);color:var(--ink);}
@@ -680,7 +680,7 @@
    petite taille de texte et l'écart au-dessus du bouton passe de 32 à 16 px. */
 @media(max-width:760px){
   .single-page .hero-metier {margin-bottom:var(--brand-s2);font-size:var(--t-s);line-height:1.4;}
-  .single-page .goal-hero .actions:has(+ .hero-note) {margin-top:var(--brand-s2);}
+  .single-page .goal-hero .actions {margin-top:var(--brand-s2);}
 }
 @media(min-width:1101px){
   .single-page .realisation .wrap {grid-template-columns:minmax(0,2fr) minmax(0,3fr);column-gap:var(--brand-s6);}

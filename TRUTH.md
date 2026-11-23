@@ -32,7 +32,7 @@ H1 et métadonnées de l'accueil, charte, sections et animations conservés ; FA
 ## Accueil épuré, décision du 13/11/2026
 
 `docs/CODEX-SPEC-2026-11-13-accueil-epure.md` prime sur les anciens contrats
-pour les seuls blocs remplacés : hero à 17 objectifs, références, trois moteurs,
+pour les seuls blocs remplacés : hero à 17 objectifs (7 depuis le 23/11/2026), références, trois moteurs,
 mesures (la section des assistants est supprimée le 21/11/2026). Terrain, deux métiers, parcours, technologies, équipe,
 questions et contact : ordre et textes amendés le 21/11/2026, soir. Sources hero
 `accueil-<objectif>` via `avecSource`, navigation/contact inchangés. Ancres

@@ -318,7 +318,9 @@ const publication = (id: string, display_name: string, claim: string, relationsh
   expiration_or_review_date: "2027-01-26", last_verified: "2026-10-27", page_ids: ["home"],
 });
 
-export const REALISATION_ASSETS = [800, 1600].flatMap(width => ["avif", "webp"].map(format => `/realisations/pilotage-ventes-${width}.${format}`));
+export const REALISATION_WIDTHS = [800, 1600] as const;
+export const realisationFile = (width: number, format: "avif" | "webp") => `/realisations/pilotage-ventes-${width}.${format}`;
+export const REALISATION_ASSETS = REALISATION_WIDTHS.flatMap(width => (["avif", "webp"] as const).map(format => realisationFile(width, format)));
 
 export const SITE_EVIDENCE: readonly PublicationEvidence[] = [
   publication("Laparra", "Laparra", "Un outil de pilotage agentique pour les fruits et légumes", "réalisé pour le client"),
@@ -335,10 +337,10 @@ export const SITE_EVIDENCE: readonly PublicationEvidence[] = [
     last_verified: "2026-11-08", expiration_or_review_date: "2027-02-06",
   })),
   publication("demo-crm", "Carte de visite et CRM", "Une carte de visite devient une fiche CRM après validation", "démonstration, données fictives"),
-  // Décision de Paul du 23/11/2026 (« On peut montrer la réalisation. ») : un écran réel de l'outil, sur un jeu de
-  // données fictif. Le client n'est pas nommé à cet endroit ; son logo reste dans la bande des clients.
+  // Décision de Paul du 23/11/2026 (« On peut montrer la réalisation. ») : un écran réel du logiciel, sur un jeu de
+  // données fictif. Libellé dicté par Paul le même jour : « logiciel pour le marché du négoce », aucun client nommé.
   {
-    ...publication("realisation-grossiste", "Grossiste du MIN de Rungis", "Un outil de pilotage pour un grossiste en fruits et légumes, montré sur des données fictives", "réalisé pour le client, écran réel sur données fictives"),
+    ...publication("realisation-negoce", "Logiciel pour le marché du négoce", "Un logiciel pour le marché du négoce, montré sur des données fictives", "démonstration, écran réel sur données fictives"),
     // Ni nom ni logo : c'est une démonstration sur données fictives, pas une référence nominative.
     category: "demonstration" as const,
     evidence_source: "docs/CODEX-SPEC-2026-11-23-realisation-metier.md ; public/realisations/SOURCES.md",

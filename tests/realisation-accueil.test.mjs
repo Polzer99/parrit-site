@@ -17,17 +17,17 @@ const TEXTES = {
     id: "realisation", offres: "offres",
     metier: "Des audits pour choisir où agir. Des logiciels conçus autour de votre métier.",
     note: "15 minutes pour présenter votre besoin et parler de ce qui est réalisable.",
-    etiquette: "Chez un client", titre: "Votre façon de travailler devient un logiciel.",
-    phrases: ["Un grossiste de Rungis pilote son activité en parlant à son assistant.", "Chacun voit les mêmes informations, à jour."],
-    legende: "Les données affichées sont fictives.", bouton: "Prendre rendez-vous",
+    etiquette: "Logiciel pour le marché du négoce", titre: "Votre façon de travailler devient un logiciel.",
+    phrases: ["Chacun voit les mêmes informations, à jour."],
+    legende: "Démonstration, données fictives.", bouton: "Prendre rendez-vous",
   },
   en: {
     id: "case-study", offres: "offers",
     metier: "Audits to decide where to act. Software built around your business.",
     note: "15 minutes to present your need and discuss what is feasible.",
-    etiquette: "Client case", titre: "The way you work becomes software.",
-    phrases: ["A Rungis wholesaler runs its business by talking to its assistant.", "Everyone sees the same information, up to date."],
-    legende: "The data shown is fictitious.", bouton: "Book a call",
+    etiquette: "Software for the wholesale trade", titre: "The way you work becomes software.",
+    phrases: ["Everyone sees the same information, up to date."],
+    legende: "Demonstration, fictional data.", bouton: "Book a call",
   },
 };
 const section = (html, id) => html.match(new RegExp(`<section[^>]*\\bid="${id}"[\\s\\S]*?</section>`))?.[0];
@@ -63,12 +63,16 @@ for (const locale of ["fr", "en"]) {
   test(`la réalisation ne nomme aucun client et n'avance aucun chiffre de gain (${locale})`, () => {
     const bloc = section(render(), copy.id);
     assert.doesNotMatch(bloc, /Laparra|Clevery|Forexpert|Joone|SNCF|Carte Noire|Toyotomi|Hiolle|Agrolog|GESLOT/i);
+    // Correction de Paul du 23/11/2026 : « tu ne dis pas un grossiste de Rungis ».
+    assert.doesNotMatch(bloc, /grossiste|Rungis|wholesaler/i);
+    assert.doesNotMatch(readFileSync("public/realisations/SOURCES.md", "utf8"), /grossiste|Rungis|Laparra/i);
     assert.doesNotMatch(bloc, /\/clients\//);
     // Aucun chiffre dans le texte : ni pourcentage, ni montant, ni durée gagnée.
     assert.doesNotMatch(visibleText(bloc), /\d/);
-    const preuve = SITE_EVIDENCE.find(item => item.id === "realisation-grossiste");
+    const preuve = SITE_EVIDENCE.find(item => item.id === "realisation-negoce");
     assert.ok(preuve);
-    assert.doesNotMatch(`${preuve.display_name} ${preuve.claim}`, /Laparra/i);
+    assert.doesNotMatch(`${preuve.id} ${preuve.display_name} ${preuve.claim}`, /Laparra|grossiste|Rungis/i);
+    assert.equal(preuve.category, "demonstration");
     assert.equal(preuve.logo.autorise, false);
     assert.match(preuve.permission_owner, /Paul Larmaraud, décision du 23\/11\/2026/);
     assert.deepEqual([...preuve.usage_scope], ["text", "image"]);
@@ -84,11 +88,13 @@ for (const locale of ["fr", "en"]) {
     assert.match(image, /loading="lazy"/);
     const alt = image.match(/alt="([^"]*)"/)?.[1] ?? "";
     assert.ok(alt.length > 20, "texte alternatif présent");
-    assert.match(alt, locale === "fr" ? /données fictives/ : /fictitious data/);
+    // Le contrôle navigateur des textes publics n'admet « fictives » que dans une ligne d'état approuvée.
+    assert.doesNotMatch(alt, /ficti/i);
+    assert.equal(visibleText(bloc.match(/<figcaption>([\s\S]*?)<\/figcaption>/)[1]).trim(), copy.legende);
     const fichiers = new Set([...bloc.matchAll(/\/realisations\/[a-z0-9.-]+/g)].map(match => match[0]));
     assert.deepEqual([...fichiers].sort(), [...REALISATION_ASSETS].sort());
     assert.equal(REALISATION_ASSETS.length, 4);
-    const preuve = getSiteEvidence("realisation-grossiste", "home");
+    const preuve = getSiteEvidence("realisation-negoce", "home");
     assert.deepEqual([...preuve.approved_assets].sort(), [...REALISATION_ASSETS].sort());
     for (const fichier of REALISATION_ASSETS) {
       assert.ok(existsSync(`public${fichier}`), fichier);
@@ -97,10 +103,15 @@ for (const locale of ["fr", "en"]) {
     }
     assert.match(readFileSync("public/realisations/SOURCES.md", "utf8"), /données fictives/);
     assert.equal((bloc.match(/<figcaption>/g) ?? []).length, 1);
+    // Les deux sources annoncent la largeur d'affichage : sans cela le téléphone télécharge le grand export.
+    const sizes = [...bloc.matchAll(/<source\b[^>]*\bsizes="([^"]+)"/g)].map(match => match[1]);
+    assert.equal(sizes.length, 2);
+    for (const value of sizes) assert.match(value, /^\(max-width: 760px\) calc\(100vw - 40px\), \(max-width: 1100px\) calc\(100vw - 96px\), 620px$/);
+    assert.match(bloc, /^<section[^>]*data-evidence="realisation-negoce"/);
   });
 
   test(`la réalisation disparaît entièrement si sa preuve n'est plus accordée (${locale})`, () => {
-    const preuve = SITE_EVIDENCE.find(item => item.id === "realisation-grossiste");
+    const preuve = SITE_EVIDENCE.find(item => item.id === "realisation-negoce");
     const permission = preuve.permission_status;
     try {
       preuve.permission_status = "denied";

@@ -11,7 +11,7 @@ test("permissions fail closed for missing, denied, pending, invalid and out-of-s
   for (const item of SITE_EVIDENCE) {
     // Décision de Paul du 08/11/2026, nuit: only the three explicitly named exports.
     // Décision de Paul du 23/11/2026 : les quatre exports de l'écran de la réalisation, et eux seuls.
-    if (item.id === "realisation-grossiste") { assert.deepEqual([...item.approved_assets], [800, 1600].flatMap(width => ["avif", "webp"].map(format => `/realisations/pilotage-ventes-${width}.${format}`))); continue; }
+    if (item.id === "realisation-negoce") { assert.deepEqual([...item.approved_assets], ["/realisations/pilotage-ventes-800.avif", "/realisations/pilotage-ventes-800.webp", "/realisations/pilotage-ventes-1600.avif", "/realisations/pilotage-ventes-1600.webp"]); continue; }
     assert.deepEqual(item.approved_assets, ["Toyotomi Europe", "Hiolle Technologies", "Carte Noire"].includes(item.id) ? [item.logo.fichier] : []);
   }
 });

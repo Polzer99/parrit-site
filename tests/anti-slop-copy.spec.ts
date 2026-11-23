@@ -60,6 +60,14 @@ for (const locale of ["en", "fr"]) {
           const approved = locale === "fr" ? homeFaqOpening.fr : homeFaqOpening.en;
           await expect(page.locator("#questions details p").first()).toHaveText(approved);
           publicCopy = publicCopy.replaceAll(approved, "");
+          // Décision de Paul du 23/11/2026 : cette phrase exacte, sous le bouton du héros, une seule fois.
+          // Elle dit à quoi servent les 15 minutes déjà promises par la FAQ ; le reste du texte garde noOffer.
+          const callNote = locale === "fr"
+            ? "15 minutes pour présenter votre besoin et parler de ce qui est réalisable."
+            : "15 minutes to present your need and discuss what is feasible.";
+          await expect(page.locator(".hero .hero-note")).toHaveText(callNote);
+          expect(publicCopy.split(callNote)).toHaveLength(2);
+          publicCopy = publicCopy.replaceAll(callNote, "");
         }
         // Preserve HEAD's editorial noOffer scope: article bodies discuss third-party
         // tools (e.g. free libraries); themes are public pages, never articles.
