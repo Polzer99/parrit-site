@@ -127,6 +127,14 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
           publicCopy = publicCopy.replaceAll(homeFaqOpening[locale], "");
           // Décision de Paul du 21/11/2026 : this exact sentence describes the
           // work, not a starting price. Keep the general offer guard unchanged.
+          // Décision de Paul du 23/11/2026 (docs/CODEX-SPEC-2026-11-23-realisation-metier.md) : cette phrase exacte,
+          // sous le bouton du héros, dit à quoi servent les 15 minutes déjà promises par la FAQ. Elle n'annonce ni prix
+          // ni offre. Le contrôle général des offres reste inchangé pour tout autre texte.
+          const approvedCallNote = locale === "fr"
+            ? "15 minutes pour présenter votre besoin et parler de ce qui est réalisable."
+            : "15 minutes to present your need and discuss what is feasible.";
+          assert.equal(publicCopy.split(approvedCallNote).length, 2, `${label}: the call note appears exactly once`);
+          publicCopy = publicCopy.replaceAll(approvedCallNote, "");
           if (locale === "fr") {
             const approvedToolCopy = "Nous construisons votre outil à partir de votre métier.";
             assert.ok(publicCopy.includes(approvedToolCopy));
@@ -181,7 +189,7 @@ test("compiled EN/FR pages publish images, content structure and supported glyph
         if (route === "/") {
           assert.match(html, /<section class="hero"/);
           const ids = [...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]);
-          const expected = locale === "fr" ? ["haut", "references", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"] : ["haut", "references", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"];
+          const expected = locale === "fr" ? ["haut", "references", "realisation", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"] : ["haut", "references", "case-study", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"];
           // The compiled contact also contains QuickCapture's nested section.
           assert.deepEqual(ids, [...expected, "single-contact"]);
           assert.doesNotMatch(html, /id="architecture"/);

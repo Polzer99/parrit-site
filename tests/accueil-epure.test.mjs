@@ -11,13 +11,13 @@ for (const locale of ["fr", "en"]) {
   const { HOME_GOALS, GOAL_PLANES, homeGoal, goalNodeLabel } = load("src/system/home-goals.ts");
   const { SinglePage } = load("src/system/components/SinglePage.tsx");
   const render = (query = "") => renderToStaticMarkup(React.createElement(SinglePage, { locale, contactQuery: query }));
-  test(`complete initial HTML ${locale}: 17 objectives, results, 48 nodes, flows, measures and no assistants section`, () => {
+  test(`complete initial HTML ${locale}: 7 objectives, results, 48 nodes, flows, measures and no assistants section`, () => {
     const html = render();
-    assert.equal(HOME_GOALS.length, 17);
-    assert.equal(new Set(HOME_GOALS.map(goal => goal.id)).size, 17);
+    assert.equal(HOME_GOALS.length, 7);
+    assert.equal(new Set(HOME_GOALS.map(goal => goal.id)).size, 7);
     assert.deepEqual(GOAL_PLANES.map(plane => plane.nodes.length), [16, 16, 16]);
-    // 17 objectives in the hero, nothing else: the calculator was removed on 21/11/2026 (evening).
-    assert.equal((html.match(/<option\b/g) ?? []).length, 17);
+    // 7 objectives in the hero since 23/11/2026 (Paul: seven needs instead of seventeen), nothing else: the calculator was removed on 21/11/2026 (evening).
+    assert.equal((html.match(/<option\b/g) ?? []).length, 7);
     assert.equal((html.match(/<optgroup\b/g) ?? []).length, 3);
     assert.equal((html.match(/data-node=/g) ?? []).length, 48);
     // Every node keeps one label, shown or hidden: three active nodes and their three labels, counted apart.

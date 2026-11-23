@@ -102,7 +102,9 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         }));
         for (const key of ["top", "bottom"] as const) expect(Math.max(...cardRows.map(b => b[key])) - Math.min(...cardRows.map(b => b[key]))).toBeLessThanOrEqual(1);
         // 21/11/2026 (soir) : ordre des blocs sans calculateur : références, offres, partenaires, parcours, terrain, technologies, mesures.
-        expect(await offers.evaluate(el => el.previousElementSibling?.id)).toBe("references");
+        // 23/11/2026 : la réalisation s'insère entre les références et les offres.
+        expect(await offers.evaluate(el => el.previousElementSibling?.id)).toBe(locale === "fr" ? "realisation" : "case-study");
+        expect(await offers.evaluate(el => el.previousElementSibling?.previousElementSibling?.id)).toBe("references");
         expect(await offers.evaluate(el => el.nextElementSibling?.id)).toBe(locale === "fr" ? "partenaires" : "team");
         await expect(page.locator(".home-motors,.home-calculator,.calc-card")).toHaveCount(0);
         await expect(field.locator("a,button")).toHaveCount(0);

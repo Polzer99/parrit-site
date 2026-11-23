@@ -573,7 +573,7 @@
 .single-page.home-epure .hero .wrap {max-width:1160px;padding-inline:40px;}
 .single-page .goal-hero {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--brand-s6);align-items:center;}
 .single-page .goal-hero .hero-intro {display:block;min-width:0;}
-.single-page.home-epure .hero h1 {text-wrap:balance;margin-bottom:var(--brand-s4);}
+.single-page.home-epure .hero h1 {text-wrap:balance;margin-bottom:var(--brand-s2);}
 .single-page .goal-form {display:flex;flex-wrap:wrap;align-items:center;gap:var(--brand-s1);max-width:100%;}
 .single-page .goal-form label {flex:none;font-size:var(--t-xl);color:var(--on-canard);}
 .single-page .goal-select {position:relative;display:block;min-width:0;width:100%;font-family:var(--ui);font-size:var(--t-l);font-weight:600;line-height:1.5;}
@@ -660,4 +660,30 @@
 .single-footer .footer-links a {display:inline-flex;align-items:center;min-height:44px;}
 @media(max-width:760px){
   .single-footer .footer-groups {grid-template-columns:1fr;gap:var(--brand-s3);}
+}
+
+/* Décision de Paul du 23/11/2026 (docs/CODEX-SPEC-2026-11-23-realisation-metier.md) : le métier dit sous le
+   titre du héros (l'écart sous le titre passe de 32 à 16 px, la phrase le suit toujours), la ligne des 15 minutes
+   sous le bouton, et une réalisation montrée entre les logos et les offres. */
+.single-page .hero-metier {margin:0 0 var(--brand-s3);font-size:var(--t-m);line-height:1.5;color:var(--white);}
+.single-page .hero-note {margin:var(--brand-s2) 0 0;font-size:var(--t-s);line-height:1.5;color:var(--on-canard);}
+.single-page .realisation {background:var(--sky);color:var(--ink);}
+.single-page .realisation .wrap {display:grid;grid-template-columns:minmax(0,1fr);row-gap:var(--inner);align-items:start;}
+.single-page .realisation .offer-eyebrow {font-size:var(--t-s);line-height:1.4;font-weight:600;color:var(--canard);}
+.single-page .realisation-intro {color:var(--ink2);}
+.single-page .realisation-window {margin:var(--inner) 0 0;min-width:0;}
+.single-page .realisation-window picture {display:block;border:1px solid var(--line);background:var(--white);}
+.single-page .realisation-window img {display:block;width:100%;height:auto;}
+.single-page .realisation-window figcaption {margin-top:var(--brand-s1);font-size:var(--t-s);line-height:1.5;color:var(--ink2);}
+/* Sur téléphone, sans JavaScript, le bouton d'envoi du sélecteur ajoute une rangée : le titre, le résultat et le
+   bouton doivent rester entiers dans 700 px de haut (tests/single-page.spec.ts). La phrase de métier prend la
+   petite taille de texte et l'écart au-dessus du bouton passe de 32 à 16 px. */
+@media(max-width:760px){
+  .single-page .hero-metier {margin-bottom:var(--brand-s2);font-size:var(--t-s);}
+  .single-page .goal-hero .actions {margin-top:var(--brand-s2);}
+}
+@media(min-width:1101px){
+  .single-page .realisation .wrap {grid-template-columns:minmax(0,2fr) minmax(0,3fr);column-gap:var(--brand-s6);}
+  .single-page .realisation .wrap > :not(.realisation-window) {grid-column:1;}
+  .single-page .realisation-window {grid-column:2;grid-row:1 / span 4;margin-top:0;}
 }

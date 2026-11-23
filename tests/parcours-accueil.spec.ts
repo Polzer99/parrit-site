@@ -27,8 +27,8 @@ for (const locale of ["fr", "en"] as const) for (const javaScriptEnabled of [tru
         const home = locale === "fr" ? "/fr" : "/";
         await page.goto(local(`${home}?utm_campaign=layers&source=old`));
         const expected = locale === "fr"
-          ? ["haut", "references", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"]
-          : ["haut", "references", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"];
+          ? ["haut", "references", "realisation", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"]
+          : ["haut", "references", "case-study", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"];
         expect(await page.locator("main > section").evaluateAll(nodes => nodes.map(node => node.id))).toEqual(expected);
         const nav = locale === "fr" ? ["offres", "partenaires", "parcours", "questions", "journal"] : ["offers", "team", "path", "questions", "journal"];
         for (const selector of [".desktop-nav", ".mobile-menu nav"]) {

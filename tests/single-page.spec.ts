@@ -25,8 +25,8 @@ for (const width of [1440, 390]) for (const locale of ["fr", "en"]) {
     // Repasse de conversion du 21/11/2026 (Paul : « photos de Paul, pas besoin en bas ») : le bloc de contact n'a plus d'image.
     await expect(page.locator(".founder picture, .founder img")).toHaveCount(0);
     await page.evaluate(() => document.fonts.ready);
-    await expect(page.locator("main > section")).toHaveCount(10);
-    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["haut", "references", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"] : ["haut", "references", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"]);
+    await expect(page.locator("main > section")).toHaveCount(11);
+    expect(await page.locator("main > section[id]").evaluateAll(nodes => nodes.map(n => n.id))).toEqual(locale === "fr" ? ["haut", "references", "realisation", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"] : ["haut", "references", "case-study", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"]);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     const mono = await page.locator("main *, footer *, header *").evaluateAll(nodes => nodes.filter(node => {
       const style = getComputedStyle(node);
@@ -147,8 +147,8 @@ test("no JavaScript conversations remain visible and legal and 404 stay accessib
     await expect(page.locator(".goal-results [data-result]:visible")).toHaveCount(1);
     await expect(page.locator(".walk .human")).toHaveAttribute("transform", "translate(900 120)");
     await expect(page.locator(".walk")).toHaveClass(/withbot/);
-    await expect(page.locator("#objectif option")).toHaveCount(17);
-    await expect(page.locator(".goal-results [data-result]")).toHaveCount(17);
+    await expect(page.locator("#objectif option")).toHaveCount(7);
+    await expect(page.locator(".goal-results [data-result]")).toHaveCount(7);
     // 21/11/2026 (soir, décision 2) : les 23 offres sortent du HTML ; les sept cartes restent lisibles sans JavaScript.
     await expect(page.locator(".partner-offers li, .partner-delivery")).toHaveCount(0);
     await expect(page.locator(".partner")).toHaveCount(7);
@@ -237,7 +237,7 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 375]) {
 }
 
 for (const locale of ["fr", "en"] as const) for (const width of [1440, 1280, 1024, 390, 360, 320]) {
-  test(`17 goal paths stay stable and stop in reduced motion ${locale} ${width}`, async ({ page }) => {
+  test(`7 goal paths stay stable and stop in reduced motion ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(local(locale === "fr" ? "/fr" : "/"));
@@ -247,7 +247,7 @@ for (const locale of ["fr", "en"] as const) for (const width of [1440, 1280, 102
     }));
     const baseline = await geometry();
     const options = await page.locator("#objectif option").evaluateAll(nodes => nodes.map(node => (node as HTMLOptionElement).value));
-    expect(options).toHaveLength(17);
+    expect(options).toHaveLength(7);
     for (const id of options) {
       await page.locator("#objectif").selectOption(id);
       await expect(page.locator(`.goal-results [data-result="${id}"]`)).toBeVisible();
@@ -382,15 +382,15 @@ for (const locale of ["fr", "en"]) for (const [width, height] of [[1440, 800], [
       const content = section.firstElementChild as HTMLElement;
       return { id: section.id, height: content.getBoundingClientRect().height, scrollHeight: content.scrollHeight, overflowY: getComputedStyle(content).overflowY };
     }));
-    // 21/11/2026 (soir) : sans calculateur, huit blocs hors héros et contact.
-    expect(sections).toHaveLength(8);
+    // 21/11/2026 (soir) : sans calculateur, huit blocs hors héros et contact. 23/11/2026 : neuf, avec la réalisation.
+    expect(sections).toHaveLength(9);
     for (const section of sections) {
       expect(section.height, `${section.id}: first child's full border box, without margins`).toBeLessThanOrEqual(height);
       expect(section.scrollHeight, `${section.id}: content must not be clipped`).toBeLessThanOrEqual(height);
       expect(section.overflowY).not.toMatch(/hidden|clip/);
     }
-    const figures = page.locator(".goal-schema, .home-offers, .session-mosaic, .home-faq, .path-walker, .steps, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid");
-    await expect(figures).toHaveCount(10); // 21/11 (soir) : le calculateur disparaît ; dix blocs mesurés (constaté sur le HTML rendu)
+    const figures = page.locator(".goal-schema, .home-offers, .session-mosaic, .home-faq, .path-walker, .steps, .services, .logo-strip, .tech-marquee, .founder > .wrap > .grid, .realisation-window");
+    await expect(figures).toHaveCount(11); // 21/11 (soir) : le calculateur disparaît ; 23/11 : l'écran de la réalisation s'ajoute, onze blocs mesurés
     for (const figure of await figures.all()) {
       const box = await figure.boundingBox();
       expect(box).not.toBeNull();
@@ -950,7 +950,7 @@ for (const locale of ["fr", "en"]) for (const width of [1440, 390, 375]) {
     await expect(page.locator("h1")).toHaveText(headline);
     await expect(page.locator("h1 b")).toHaveText(locale === "fr" ? "Nous la mettons au travail." : "We put it to work.");
     await expect(page.locator(".goal-results [data-result]:visible")).toHaveCount(1);
-    await expect(page.locator("#objectif option")).toHaveCount(17);
+    await expect(page.locator("#objectif option")).toHaveCount(7);
     await expect(page.locator(".hero .exec")).toHaveText(locale === "fr" ? "Prendre rendez-vous" : "Book a call");
     // Décision de Paul du 08/11/2026, nuit : action unique et attribution rendez-vous.
     await expect(page.locator(".hero .exec")).toHaveAttribute("href", `${locale === "fr" ? "/fr" : "/"}?source=accueil-rendez-vous#contact`);

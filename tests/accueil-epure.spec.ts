@@ -31,7 +31,7 @@ async function offlineCalendar(page: Page) {
 }
 for (const locale of ["fr", "en"] as const) {
   const home = locale === "fr" ? "/fr" : "/";
-  for (const width of [390, 1440]) test(`17 goals update result, diagram and attribution without shifting ${locale} ${width}`, async ({ page, context }, testInfo) => {
+  for (const width of [390, 1440]) test(`7 goals update result, diagram and attribution without shifting ${locale} ${width}`, async ({ page, context }, testInfo) => {
     await offlineCalendar(page);
     await page.setViewportSize({ width, height: width === 390 ? 700 : 800 });
     await page.emulateMedia({ reducedMotion: "reduce" });
@@ -39,7 +39,7 @@ for (const locale of ["fr", "en"] as const) {
     await page.goto(local(`${home}?utm_source=check&utm_custom=one&utm_custom=two`));
     await page.evaluate(() => document.fonts.ready);
     const select = page.locator("#objectif");
-    await expect(select.locator("option")).toHaveCount(17);
+    await expect(select.locator("option")).toHaveCount(7);
     // Pseudo-elements have no boundingBox API: resolve the chevron's center
     // from its containing block, border box and computed transform.
     const selectionGeometry = () => select.evaluate(node => {
@@ -130,12 +130,12 @@ for (const locale of ["fr", "en"] as const) {
   test(`calendar snapshots goal at lazy load and preserves nodes until reload ${locale}`, async ({ page }) => {
     const calendar = await offlineCalendar(page);
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await page.goto(local(`${home}?objectif=agents&utm_custom=one&utm_custom=two`));
+    await page.goto(local(`${home}?objectif=formation&utm_custom=one&utm_custom=two`));
     const stage = await page.locator(".cal-embed-stage").elementHandle();
     expect(calendar).toHaveLength(0);
-    await page.locator("#objectif").selectOption("contenu");
+    await page.locator("#objectif").selectOption("relances");
     await page.locator(".hero .exec").click();
-    await expect.poll(() => calendar.at(-1)?.searchParams.get("metadata[source]")).toBe("accueil-contenu");
+    await expect.poll(() => calendar.at(-1)?.searchParams.get("metadata[source]")).toBe("accueil-relances");
     const frame = await page.locator(".cal-embed-stage iframe").elementHandle();
     await page.locator("#objectif").selectOption("logiciel");
     const href = (await page.locator(".hero .exec").getAttribute("href"))!;
@@ -145,11 +145,11 @@ for (const locale of ["fr", "en"] as const) {
     expect(await stage!.evaluate(node => node === document.querySelector(".cal-embed-stage"))).toBe(true);
     expect(await frame!.evaluate(node => node === document.querySelector(".cal-embed-stage iframe"))).toBe(true);
     expect(calendar).toHaveLength(1);
-    expect(calendar[0].searchParams.get("metadata[source]")).toBe("accueil-contenu");
+    expect(calendar[0].searchParams.get("metadata[source]")).toBe("accueil-relances");
     expect(calendar.at(-1)?.searchParams.has("utm_custom")).toBe(false);
     expect(calendar.at(-1)?.searchParams.get("utm_source")).toBe("parrit.ai");
     expect(calendar.at(-1)?.searchParams.get("utm_medium")).toBe("website");
-    expect(calendar.at(-1)?.searchParams.get("utm_content")).toBe("accueil-contenu");
+    expect(calendar.at(-1)?.searchParams.get("utm_content")).toBe("accueil-relances");
     // Opening exactly the href also models a modified click/new tab.
     await page.goto(local(href));
     await expect(page.locator("#objectif")).toHaveValue("logiciel");
@@ -159,7 +159,7 @@ for (const locale of ["fr", "en"] as const) {
   });
   test.describe(`GET fallback ${locale}`, () => {
     test.use({ javaScriptEnabled: false });
-    test("all seventeen goals remain usable without JavaScript", async ({ page }) => {
+    test("all seven goals remain usable without JavaScript", async ({ page }) => {
       // 15/11 : plus de lien de moteur ; un objectif passé en GET reste sélectionné sans JS.
       await page.goto(local(`${home}?utm_source=offline&objectif=logiciel`));
       await expect(page.locator("#objectif")).toHaveValue("logiciel");

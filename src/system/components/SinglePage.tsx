@@ -9,7 +9,7 @@ import { SINGLE_PAGE_EN } from "@/system/single-page-copy";
 import { QuickCapture } from "./QuickCapture";
 import { AppointmentLink } from "./AppointmentLink";
 import { PUBLIC_CLIENT_NAMES } from "@/system/public-clients";
-import { getSiteEvidence } from "@/lib/registry/preuves";
+import { getSiteEvidence, REALISATION_WIDTHS, realisationFile } from "@/lib/registry/preuves";
 import { ClientLogoStrip, ResearchPartner } from "./PublicEvidence";
 import { ServiceGrid } from "./ServiceGrid";
 import { PathWalker } from "./PathWalker";
@@ -19,12 +19,16 @@ import { MobileCarousel } from "./MobileCarousel";
 import { SessionPhotos } from "./SessionPhotos";
 import { BrandConnector } from "./BrandConnector";
 import { CardGlyph, CheckMark } from "./CardGlyph";
+const REALISATION_SIZES = "(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) calc(100vw - 96px), 620px";
+const realisationSrcSet = (format: "avif" | "webp") => REALISATION_WIDTHS.map(width => `${realisationFile(width, format)} ${width}w`).join(", ");
 export function SinglePage({ locale, contactQuery = "" }: { locale: Locale; contactQuery?: string }) {
  const copy = HOME_LAYERS[locale];
  const headings = homeSectionHeadings(locale);
  const fr = locale === "fr";
  const clients = PUBLIC_CLIENT_NAMES.filter(id => getSiteEvidence(id, "home"));
  const t = (text: string) => fr ? text : SINGLE_PAGE_EN[text];
+ // La réalisation ne s'affiche que si sa preuve est accordée au registre (décision de Paul du 23/11/2026).
+ const realisation = getSiteEvidence("realisation-negoce", "home");
  // Le grand numéro est le repère de l'étape ; le mot « Étape » reste lu par les lecteurs d'écran.
  const stepNumber = (label: string) => { const cut = label.lastIndexOf(" "); return <span className="n"><span className="sr-only">{label.slice(0, cut + 1)}</span>{label.slice(cut + 1)}</span>; };
  const sections = {
@@ -38,6 +42,24 @@ references: (
 </RevealOnView></section>
 
 ),
+realisation: realisation ? (
+<section className="realisation" id={fr ? "realisation" : "case-study"} data-evidence={realisation.id}><RevealOnView className="wrap">
+  {/* Libellé dicté par Paul le 23/11/2026 : le produit et son marché, ni le métier ni le lieu d'un client. */}
+  <span className="offer-eyebrow">{t("Logiciel pour le marché du négoce")}</span>
+  <h2>{headings.realisation[0]}</h2>
+  <p className="realisation-intro">{t("Chacun voit les mêmes informations, à jour.")}</p>
+  <figure className="realisation-window">
+    <picture>
+      <source type="image/avif" srcSet={realisationSrcSet("avif")} sizes={REALISATION_SIZES}/>
+      <source type="image/webp" srcSet={realisationSrcSet("webp")} sizes={REALISATION_SIZES}/>
+      {/* PROVISOIRE (23/11/2026) : texte alternatif à faire reprendre par le rédacteur OpenAI à son retour. */}
+      <img src={realisationFile(1600, "webp")} width={1600} height={937} loading="lazy" alt={fr ? "Tableau de bord des ventes du logiciel." : "The software's sales dashboard."}/>
+    </picture>
+    {/* Mention d'état déjà approuvée (tests/anti-slop-copy.spec.ts) : la ligne entière, mot pour mot. */}
+    <figcaption>{fr ? "Démonstration, données fictives." : "Demonstration, fictional data."}</figcaption>
+  </figure>
+</RevealOnView></section>
+) : null,
 terrain: (
 <SessionPhotos locale={locale}/>
 

@@ -7,8 +7,8 @@ import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
 
 const anchors = {
-  fr: ["haut", "references", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"],
-  en: ["haut", "references", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"],
+  fr: ["haut", "references", "realisation", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"],
+  en: ["haut", "references", "case-study", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"],
 };
 const section = (html, id) => {
   const result = html.match(new RegExp(`<section\\b[^>]*id="${id}"[^>]*>([\\s\\S]*?)</section>`))?.[1];

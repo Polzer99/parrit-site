@@ -159,7 +159,7 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
 
     // Choix interactifs: même seuil de hauteur et CLS, puis observation réelle intacte.
     const goalIds = await page.locator("#objectif option").evaluateAll(nodes => nodes.map(node => (node as HTMLOptionElement).value));
-    expect(goalIds).toHaveLength(17);
+    expect(goalIds).toHaveLength(7);
     for (const id of goalIds) {
       await page.locator("#objectif").selectOption(id);
       await page.waitForTimeout(100);
@@ -168,11 +168,11 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
     await page.waitForTimeout(25_000);
     expect(calendarRequests, "le calendrier doit encore être différé").toBe(0);
     const sections = page.locator("main > section");
-    await expect(sections).toHaveCount(10);
+    await expect(sections).toHaveCount(11);
     const animatedSectionIds = new Set([
       locale === "fr" ? "mesures" : "measurements",
     ]);
-    for (let i = 1; i < 10; i++) {
+    for (let i = 1; i < 11; i++) {
       const destination = await sections.nth(i).evaluate(node => node.getBoundingClientRect().top + scrollY);
       // Défilement progressif : laisse passer les entrées et sorties d'IntersectionObserver.
       await page.evaluate(async destination => {
@@ -211,7 +211,7 @@ for (const locale of ["fr", "en"] as const) for (const viewport of viewports) {
     expect(result.captions.length).toBeGreaterThan(1);
     expect(result.cases.length).toBeGreaterThan(1);
     // 21/11/2026 (soir, décision 2) : plus d'offres défilantes chez les partenaires, donc plus rien à observer ici.
-    expect(result.goals.length).toBe(17);
+    expect(result.goals.length).toBe(7);
     for (const [key, range] of Object.entries(result.heights)) {
       expect(range.max - range.min, key).toBeLessThanOrEqual(1);
     }

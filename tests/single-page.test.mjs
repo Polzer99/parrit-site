@@ -6,7 +6,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { loader, renderPage } from "./helpers/site-v1-render.mjs";
 import { visibleText } from "../scripts/brand-os-contracts.mjs";
-const anchors = { fr: ["haut", "references", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"], en: ["haut", "references", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"] };
+const anchors = { fr: ["haut", "references", "realisation", "offres", "partenaires", "parcours", "terrain", "technologies", "mesures", "questions", "contact"], en: ["haut", "references", "case-study", "offers", "team", "path", "in-the-field", "technologies", "measurements", "questions", "contact"] };
 test("hero paths never depend on CSS d or responsive path variables", () => {
   const css = readFileSync("src/system/single-page.css", "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
   assert.doesNotMatch(css, /(?:^|[;{])\s*d\s*:/i);
@@ -44,12 +44,12 @@ for (const locale of ["fr", "en"]) test(`final single-page sections and booking 
   const journalLink = new RegExp(`href="${locale === "fr" ? "/fr" : ""}/journal"`);
   assert.match(main, journalLink);
   assert.match(footer, journalLink);
-  assert.equal((html.match(/<section\b/g) ?? []).length, 10);
+  assert.equal((html.match(/<section\b/g) ?? []).length, 11);
   assert.deepEqual([...html.matchAll(/<section\b[^>]*id="([^"]+)"/g)].map(m => m[1]), anchors[locale]);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
-  // 17 objectives in the hero, nothing else (calculator removed 21/11/2026, evening).
-  assert.equal((main.match(/<option\b/g) ?? []).length, 17);
-  assert.equal((main.match(/data-result=/g) ?? []).length, 17);
+  // 7 objectives in the hero since 23/11/2026, nothing else (calculator removed 21/11/2026, evening).
+  assert.equal((main.match(/<option\b/g) ?? []).length, 7);
+  assert.equal((main.match(/data-result=/g) ?? []).length, 7);
   assert.doesNotMatch(main, /class="sub"|class="hero-reassurance"/);
   // The Journal can contain the English word "hidden"; check the HTML attribute.
   assert.doesNotMatch(html, /class="k"|v1-index|registry-line/);
@@ -143,14 +143,14 @@ for (const locale of ["fr", "en"]) test(`revoking every permission hides client 
   } finally { SITE_EVIDENCE.forEach((e, i) => { e.permission_status = permissions[i]; }); }
 });
 
-for (const locale of ["fr", "en"]) test(`three levels and 17 complete goal results in static SSR (${locale})`, async () => {
+for (const locale of ["fr", "en"]) test(`three levels and 7 complete goal results in static SSR (${locale})`, async () => {
   const html = await renderPage(locale);
   const hero = html.match(/<section class="hero"[^>]*>[\s\S]*?<\/section>/)?.[0];
   assert.ok(hero);
   assert.equal((hero.match(/data-node=/g) ?? []).length, 48);
   assert.equal((hero.match(/<optgroup\b/g) ?? []).length, 3);
-  assert.equal((hero.match(/<option\b/g) ?? []).length, 17);
-  assert.equal((hero.match(/data-result=/g) ?? []).length, 17);
+  assert.equal((hero.match(/<option\b/g) ?? []).length, 7);
+  assert.equal((hero.match(/data-result=/g) ?? []).length, 7);
   assert.match(hero, /aria-live="polite"/);
   assert.match(hero, /<title[^>]*>[^<]+<\/title>/);
   assert.doesNotMatch(hero, /ontocap|onto-approval|hero-reassurance|class="sub"|class="humby"/);
@@ -197,7 +197,7 @@ for (const locale of ["fr", "en"]) test(`passe 4 complete SSR use cases, offers 
   assert.doesNotMatch(html, /partner-offers|partner-delivery|offer-sizer/);
   assert.equal((html.match(/<div class="partner">/g) ?? []).length, 7);
   assert.doesNotMatch(visibleText(html), /Avec eux, nous livrons|With them, we deliver/);
-  assert.equal((html.match(/data-result=/g) ?? []).length, 17);
+  assert.equal((html.match(/data-result=/g) ?? []).length, 7);
   assert.doesNotMatch(html, /calc-card/);
   assert.doesNotMatch(html, /class="use-case"|class="tag bo"|class="tag new"/);
   // 21/11 (soir): the calculator carousel is gone, four swipe carousels remain.
