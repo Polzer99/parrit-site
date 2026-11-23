@@ -25,7 +25,7 @@ const TEXTES = {
     id: "case-study", offres: "offers",
     metier: "Audits to decide where to act. Software built around your business.",
     note: "15 minutes to present your need and discuss what is feasible.",
-    etiquette: "Software for the wholesale trade", titre: "The way you work becomes software.",
+    etiquette: "Software for trading companies", titre: "The way you work becomes software.",
     phrases: ["Everyone sees the same information, up to date."],
     legende: "Demonstration, fictional data.", bouton: "Book a call",
   },
@@ -63,15 +63,15 @@ for (const locale of ["fr", "en"]) {
   test(`la réalisation ne nomme aucun client et n'avance aucun chiffre de gain (${locale})`, () => {
     const bloc = section(render(), copy.id);
     assert.doesNotMatch(bloc, /Laparra|Clevery|Forexpert|Joone|SNCF|Carte Noire|Toyotomi|Hiolle|Agrolog|GESLOT/i);
-    // Correction de Paul du 23/11/2026 : « tu ne dis pas un grossiste de Rungis ».
-    assert.doesNotMatch(bloc, /grossiste|Rungis|wholesaler/i);
-    assert.doesNotMatch(readFileSync("public/realisations/SOURCES.md", "utf8"), /grossiste|Rungis|Laparra/i);
+    // Correction de Paul du 23/11/2026 : la section ne dit ni le métier ni le lieu d'un client.
+    assert.doesNotMatch(bloc, /grossiste|Rungis|wholesale/i);
+    assert.doesNotMatch(readFileSync("public/realisations/SOURCES.md", "utf8"), /grossiste|Rungis|wholesale|Laparra/i);
     assert.doesNotMatch(bloc, /\/clients\//);
     // Aucun chiffre dans le texte : ni pourcentage, ni montant, ni durée gagnée.
     assert.doesNotMatch(visibleText(bloc), /\d/);
     const preuve = SITE_EVIDENCE.find(item => item.id === "realisation-negoce");
     assert.ok(preuve);
-    assert.doesNotMatch(`${preuve.id} ${preuve.display_name} ${preuve.claim}`, /Laparra|grossiste|Rungis/i);
+    assert.doesNotMatch(`${preuve.id} ${preuve.display_name} ${preuve.claim}`, /Laparra|grossiste|Rungis|wholesale/i);
     assert.equal(preuve.category, "demonstration");
     assert.equal(preuve.logo.autorise, false);
     assert.match(preuve.permission_owner, /Paul Larmaraud, décision du 23\/11\/2026/);

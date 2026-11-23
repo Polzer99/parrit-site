@@ -679,7 +679,7 @@
    bouton doivent rester entiers dans 700 px de haut (tests/single-page.spec.ts). La phrase de métier prend la
    petite taille de texte et l'écart au-dessus du bouton passe de 32 à 16 px. */
 @media(max-width:760px){
-  .single-page .hero-metier {margin-bottom:var(--brand-s2);font-size:var(--t-s);line-height:1.4;}
+  .single-page .hero-metier {margin-bottom:var(--brand-s2);font-size:var(--t-s);}
   .single-page .goal-hero .actions {margin-top:var(--brand-s2);}
 }
 @media(min-width:1101px){

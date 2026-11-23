@@ -1,15 +1,15 @@
 # Spec : une réalisation montrée, un métier dit, un sélecteur resserré (23/11/2026)
 
-Décision de Paul du 23/11/2026, après lecture de l'étude « Une direction plus forte pour Parrit.ai » :
+Décision de Paul du 23/11/2026, après lecture d'une étude sur le site :
 « Ok lançons les réalisations […] On peut montrer la réalisation. Yes, on peut lancer cette PR. »
 
-Correction de Paul le même jour, PR ouverte : la section ne dit pas « un grossiste de Rungis ». Elle dit « logiciel pour le marché du négoce ».
+Correction de Paul le même jour, PR ouverte : la section présente le produit et son marché, « logiciel pour le marché du négoce ». Elle ne dit ni le métier ni le lieu d'un client.
 
 Niveau de risque : moyen (code ordinaire de l'accueil, texte public). `src/system/pages/legal.tsx` n'est pas touché.
 
 ## Ce qui change sur l'accueil, et rien d'autre
 
-1. **Une phrase de métier sous le titre du héros.** Classe `hero-metier`, entre le `h1` et le formulaire « Je veux ».
+1. **Une phrase de métier sous le titre du héros.** Classe `hero-metier`, entre le `h1` et le formulaire « Je veux ». L'écart sous le titre passe de 32 à 16 px ; sur téléphone, l'écart au-dessus du bouton aussi, pour que le premier écran tienne.
 2. **Une ligne sur les 15 minutes sous le bouton du héros.** Classe `hero-note`, dans `.hero-intro`, après `.actions`. Elle ne pousse pas le bouton.
 3. **Le sélecteur passe de 17 besoins à 7**, dans les trois mêmes groupes, sans changer un identifiant ni un libellé.
 4. **Une section « réalisation »** entre les logos des clients et les offres : un écran réel du logiciel, sur un jeu de données fictif.
@@ -33,12 +33,12 @@ Le rédacteur imposé pour tout texte public est indisponible jusqu'au 26/11/202
 
 - EN `hero-metier` : « Audits to decide where to act. Software built around your business. »
 - EN `hero-note` : « 15 minutes to present your need and discuss what is feasible. »
-- EN de l'étiquette : « Software for the wholesale trade »
+- EN de l'étiquette : « Software for trading companies »
 - Texte alternatif de l'écran : « Tableau de bord des ventes du logiciel. » / « The software's sales dashboard. »
 
 ## Aucun client nommé dans la section
 
-La section ne nomme aucun client et ne dit ni « grossiste » ni « Rungis ». Aucun chiffre de gain, aucun résultat commercial attribué au logiciel. Les logos des clients restent où ils sont, dans leur bande.
+La section ne nomme aucun client et ne dit ni son métier ni son lieu. Son texte n'avance aucun chiffre de gain et n'attribue aucun résultat commercial au logiciel ; les chiffres visibles dans l'écran sont ceux du jeu de données fictif. Les logos des clients restent où ils sont, dans leur bande. La section se lit comme la démonstration d'un produit, pas comme une référence nominative.
 
 ## L'écran
 
@@ -75,9 +75,10 @@ La phrase exacte de `hero-note` est admise une seule fois sur l'accueil par `tes
 
 ## Tests à mettre à jour ou à ajouter
 
+- Voisinage de la section des offres : `tests/home-visual-layers.spec.ts`.
 - Compte des besoins 17 → 7 : `tests/accueil-epure.test.mjs`, `tests/langue-metier.test.mjs`, `tests/single-page.test.mjs`, et les specs `accueil-epure.spec.ts`, `single-page.spec.ts`, `stabilite.spec.ts`. Les identifiants retirés employés par les specs (`agents`, `contenu`) sont remplacés par des identifiants gardés.
 - Ordre et compte des sections (10 → 11) : `tests/brand-os-render.test.mjs`, `tests/parcours-accueil.test.mjs`, `tests/single-page.test.mjs`, `tests/llms-articles.test.mjs`, les specs `parcours-accueil.spec.ts`, `single-page.spec.ts`, `stabilite.spec.ts`, `doctrine-visible.spec.ts` ; `public/llms.txt` régénéré ; date du plan du site de l'accueil.
-- Nouveau test `tests/realisation-accueil.test.mjs` : la section existe dans les deux langues entre les logos et les offres ; elle ne contient ni lien ni bouton ; elle ne nomme aucun client et ne dit ni « grossiste » ni « Rungis » ; l'image a ses dimensions, son texte alternatif, son attribut `sizes` et ses quatre fichiers sur le disque ; la section disparaît si la preuve n'est plus accordée ; les deux lignes du héros sont présentes et le bouton reste le seul bouton du héros ; les sept identifiants gardés sont exactement ceux de cette spec.
+- Nouveau test `tests/realisation-accueil.test.mjs` : la section existe dans les deux langues entre les logos et les offres ; elle ne contient ni lien ni bouton ; elle ne nomme aucun client et ne dit ni son métier ni son lieu ; l'image a ses dimensions, son texte alternatif, son attribut `sizes` et ses quatre fichiers sur le disque ; la section disparaît si la preuve n'est plus accordée ; les deux lignes du héros sont présentes et le bouton reste le seul bouton du héros ; les sept identifiants gardés sont exactement ceux de cette spec.
 - `AGENTS.md`, `AI_CONTEXT.md`, `DESIGN.md`, `TRUTH.md` : une entrée datée.
 
 ## Contrôles

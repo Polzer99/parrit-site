@@ -44,7 +44,7 @@ references: (
 ),
 realisation: realisation ? (
 <section className="realisation" id={fr ? "realisation" : "case-study"} data-evidence={realisation.id}><RevealOnView className="wrap">
-  {/* Libellé dicté par Paul le 23/11/2026 : on ne dit pas « un grossiste de Rungis ». */}
+  {/* Libellé dicté par Paul le 23/11/2026 : le produit et son marché, ni le métier ni le lieu d'un client. */}
   <span className="offer-eyebrow">{t("Logiciel pour le marché du négoce")}</span>
   <h2>{headings.realisation[0]}</h2>
   <p className="realisation-intro">{t("Chacun voit les mêmes informations, à jour.")}</p>
